@@ -1,0 +1,52 @@
+import { GetStaticProps, GetStaticPaths } from 'next'
+import { getApolloClient } from '../graphql';
+import { PAGE, PAGES } from '../graphql/pages';
+import type { Page } from '../payload-types';
+
+const PageTemplate: React.FC<Page & { preview?: boolean }> = (props) => {
+  const { title } = props;
+
+  console.log(props)
+
+  return (
+    <h1>{title}</h1>
+  )
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const apolloClient = getApolloClient();
+  const slug = params?.slug || 'home'
+
+  const { data } = await apolloClient.query({
+    query: PAGE,
+    variables: {
+      slug,
+    },
+  });
+
+  // TODO: handle 404
+
+  return {
+    props: {
+      page: data.Pages.docs[0],
+      mainMenu: data.MainMenu,
+    },
+  };
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const apolloClient = getApolloClient();
+
+  const { data } = await apolloClient.query({
+    query: PAGES,
+  });
+
+  return {
+    paths: data.Pages.docs.map(({ slug }) => ({
+      params: { slug },
+    })),
+    fallback: 'blocking',
+  };
+}
+
+export default PageTemplate;
