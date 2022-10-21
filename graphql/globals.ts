@@ -1,31 +1,20 @@
 import { gql } from '@apollo/client';
+import { LINK_FIELDS } from './link';
 
 export const MAIN_MENU_FIELDS = gql`
-  fragment MainMenuFields on Menu {
+  fragment MainMenuFields on MainMenu {
     navItems {
-      link {
-        type
-        newTab
-        label
-        url
-        reference {
-          relationTo
-          value {
-            ...on Page {
-              slug
-            }
-            ...on Post {
-              slug
-            }
-            ...on CaseStudy {
-              slug
-            }
-            ...on UseCase {
-              slug
-            }
-          }
-				}
-			}
+      link ${LINK_FIELDS}
 		}
   }
 `;
+
+export const FOOTER_FIELDS = gql`
+  fragment FooterFields on Footer {
+    columns {
+      navItems {
+        link ${LINK_FIELDS}
+      }
+    }  
+  }
+`

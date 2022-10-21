@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { MAIN_MENU_FIELDS } from "./globals";
+import { FOOTER_FIELDS, MAIN_MENU_FIELDS } from "./globals";
 
 export const PAGES = gql`
   query Pages {
@@ -12,15 +12,22 @@ export const PAGES = gql`
 `
 
 export const PAGE = gql`
-  query Page($slug: string ) {
+  query Page($slug: String ) {
     Pages(where: { slug: { equals: $slug}}) {
-      title
+      docs {
+        title
+      }
     }
 
     MainMenu {
       ...MainMenuFields
     }
+
+    Footer {
+      ...FooterFields
+    }
   }
 
   ${MAIN_MENU_FIELDS}
+  ${FOOTER_FIELDS}
 `

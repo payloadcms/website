@@ -1,8 +1,9 @@
-export default function Home() {
-  return (
-    <div>
-      Time to drop a payload
+import { GetStaticProps } from 'next';
+import Page, { getStaticProps as sharedGetStaticProps } from './[slug]';
 
-    </div>
-  )
-}
+export default Page;
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const func = sharedGetStaticProps.bind(this);
+  return func(ctx);
+};
