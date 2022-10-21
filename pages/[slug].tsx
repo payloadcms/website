@@ -15,6 +15,8 @@ const PageTemplate: React.FC<{
     footer,
   } = props;
 
+  console.log(mainMenu)
+
   return (
     <h1>{title}</h1>
   )
