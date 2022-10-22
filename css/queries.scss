@@ -1,0 +1,27 @@
+////////////////////////////
+// MEDIA QUERIES
+/////////////////////////////
+
+@mixin extra-small-break {
+  @media (max-width: var(--breakpoint-xs-width)) {
+    @content;
+  }
+}
+
+@mixin small-break {
+  @media (max-width: var(--breakpoint-s-width)) {
+    @content;
+  }
+}
+
+@mixin mid-break {
+  @media (max-width: var(--breakpoint-m-width)) {
+    @content;
+  }
+}
+
+@mixin large-break {
+  @media (max-width: var(--breakpoint-l-width)) {
+    @content;
+  }
+}

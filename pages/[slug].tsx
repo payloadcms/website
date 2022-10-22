@@ -15,8 +15,6 @@ const PageTemplate: React.FC<{
     footer,
   } = props;
 
-  console.log(mainMenu)
-
   return (
     <h1>{title}</h1>
   )
@@ -33,7 +31,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     },
   });
 
-  // TODO: handle 404
+  if (!data.Pages.docs[0]) {
+    return {
+      notFound: true,
+    }
+  }
 
   return {
     props: {

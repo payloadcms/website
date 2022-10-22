@@ -1,4 +1,6 @@
 import { AppProps } from 'next/app';
+import { ThemeProvider } from '../components/providers/Theme';
+import '../css/app.scss';
 
 const PayloadApp = (appProps: AppProps): React.ReactElement => {
   const {
@@ -6,7 +8,11 @@ const PayloadApp = (appProps: AppProps): React.ReactElement => {
     pageProps,
   } = appProps;
 
-  return <Component {...pageProps} />
+  return (
+    <ThemeProvider>
+      <Component {...pageProps} />
+    </ThemeProvider>
+  )
 }
 
 export default PayloadApp

@@ -1,7 +1,13 @@
-export const LINK_FIELDS = `{
+type Args = {
+  disableLabel?: true
+  disableAppearance?: true
+}
+
+export const LINK_FIELDS = ({ disableAppearance, disableLabel }: Args = {}) => `{
+  ${!disableLabel ? 'label' : ''}
+  ${!disableAppearance ? 'appearance' : ''}
   type
   newTab
-  label
   url
   reference {
     relationTo
