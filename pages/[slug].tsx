@@ -43,6 +43,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         page: data.Pages.docs[0],
         mainMenu: data.MainMenu,
         footer: data.Footer,
+        collection: 'pages',
       },
     };
   } catch (err) {

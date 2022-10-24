@@ -4,8 +4,8 @@
 .adminBar {
   z-index: 10;
   width: 100%;
-  background-color: var(--color-black);
-  color: var(--color-white);
+  background-color: var(--theme-elevation-900);
+  color: var(--theme-elevation-900);
   padding: base(0.25) 0;
   font-size: calc(#{var(--html-font-size)} * 1px);
   display: none;

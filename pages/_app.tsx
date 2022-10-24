@@ -7,9 +7,12 @@ import '../css/app.scss';
 
 const PayloadApp = (
   appProps: AppProps<{
-    collection?: string;
-    id?: string;
+    collection?: string
+    id?: string
     preview?: boolean
+    page: {
+      id: string
+    }
   }>
 ): React.ReactElement => {
   const {
@@ -19,8 +22,10 @@ const PayloadApp = (
 
   const {
     collection,
-    id,
     preview,
+    page: {
+      id: pageID
+    } = {}
   } = pageProps;
 
   const router = useRouter();
@@ -38,7 +43,7 @@ const PayloadApp = (
   return (
     <ThemeProvider>
       <AdminBar 
-        id={id}
+        id={pageID}
         collection={collection}
         preview={preview}
         onPreviewExit={onPreviewExit}

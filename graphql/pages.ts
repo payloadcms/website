@@ -17,6 +17,7 @@ export const PAGE = gql`
   query Page($slug: String ) {
     Pages(where: { slug: { equals: $slug}}) {
       docs {
+        id
         title
         hero {
           type
