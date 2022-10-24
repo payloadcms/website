@@ -1,3 +1,4 @@
+import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { getApolloClient } from '../graphql'
 import { PAGE, PAGES } from '../graphql/pages'
@@ -18,21 +19,21 @@ const PageTemplate: React.FC<{
   return <h1>{title}</h1>
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const {
-    preview,
-    previewData,
-    params,
-  } = context;
-  
-  const {
-    payloadToken
-  } = previewData as {
-    payloadToken: string
-  } || {};
+export const getStaticProps: GetStaticProps = async context => {
+  const { preview, previewData, params } = context
 
-  const apolloClient = getApolloClient();
-  const slug = params?.slug || 'home';
+  const { payloadToken } =
+    (previewData as {
+      payloadToken: string
+    }) || {}
+
+  // IMPORTANT: do not use the shared Apollo client here to avoid cache during preview and ISR
+  const apolloClient = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`,
+    cache: new InMemoryCache(),
+  })
+
+  const slug = params?.slug || 'home'
 
   try {
     const { data } = await apolloClient.query({
@@ -42,12 +43,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
       },
       context: {
         headers: {
-          ...preview ? {
-            Authorization: `JWT ${payloadToken}` // when previewing, send the payload token to bypass draft access control
-          } : {}
-        }
-      }
-    });
+          ...(preview
+            ? {
+                Authorization: `JWT ${payloadToken}`, // when previewing, send the payload token to bypass draft access control
+              }
+            : {}),
+        },
+      },
+    })
 
     if (!data.Pages.docs[0]) {
       return {
