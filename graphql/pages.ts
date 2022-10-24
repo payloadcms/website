@@ -15,7 +15,7 @@ export const PAGES = gql`
 
 export const PAGE = gql`
   query Page($slug: String ) {
-    Pages(where: { slug: { equals: $slug}}) {
+    Pages(where: { slug: { equals: $slug} }, draft: true) {
       docs {
         id
         title

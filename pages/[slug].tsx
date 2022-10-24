@@ -20,7 +20,19 @@ const PageTemplate: React.FC<{
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async (context) => {
+  const {
+    preview,
+    previewData,
+    params,
+  } = context;
+  
+  const {
+    payloadToken
+  } = previewData as {
+    payloadToken: string
+  } || {};
+
   const apolloClient = getApolloClient();
   const slug = params?.slug || 'home';
 
@@ -30,6 +42,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       variables: {
         slug,
       },
+      context: {
+        headers: {
+          ...preview ? {
+            Authorization: `JWT ${payloadToken}` // when previewing, send the payload token to bypass draft access control
+          } : {}
+        }
+      }
     });
 
     if (!data.Pages.docs[0]) {
@@ -43,6 +62,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         page: data.Pages.docs[0],
         mainMenu: data.MainMenu,
         footer: data.Footer,
+        preview: preview || null,
         collection: 'pages',
       },
     };
