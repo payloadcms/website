@@ -1,9 +1,7 @@
-import React, {
-  createContext, useCallback, useContext, useState,
-} from 'react';
-import canUseDOM from '../../../utilities/canUseDOM';
+import React, { createContext, useCallback, useContext, useState } from 'react'
+import canUseDOM from '../../../utilities/canUseDOM'
 
-export type Theme = 'light' | 'dark';
+export type Theme = 'light' | 'dark'
 
 export type ThemeContext = {
   theme: Theme
@@ -15,60 +13,56 @@ const initialContext: ThemeContext = {
   theme: 'light',
   setTheme: () => null,
   autoMode: true,
-};
+}
 
-const Context = createContext(initialContext);
+const Context = createContext(initialContext)
 
-const localStorageKey = 'payload-theme';
+const localStorageKey = 'payload-theme'
 
 const getTheme = () => {
-  let theme: Theme = 'light';
+  let theme: Theme = 'light'
 
   if (canUseDOM) {
-    const themeFromStorage = window.localStorage.getItem(localStorageKey);
+    const themeFromStorage = window.localStorage.getItem(localStorageKey)
 
     if (themeFromStorage === 'light' || themeFromStorage === 'dark') {
-      theme = themeFromStorage;
+      theme = themeFromStorage
     } else {
-      theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+      theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
     }
 
-    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-theme', theme)
   }
 
-  return theme;
-};
+  return theme
+}
 
 export const ThemeProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>(getTheme);
+  const [theme, setThemeState] = useState<Theme>(getTheme)
   const [autoMode, setAutoMode] = useState(() => {
-    const themeFromStorage = canUseDOM ? window.localStorage.getItem(localStorageKey) : undefined;
-    return !themeFromStorage;
-  });
+    const themeFromStorage = canUseDOM ? window.localStorage.getItem(localStorageKey) : undefined
+    return !themeFromStorage
+  })
 
   const setTheme = useCallback((themeToSet: Theme | 'auto') => {
     if (themeToSet === 'light' || themeToSet === 'dark') {
-      setThemeState(themeToSet);
-      setAutoMode(false);
-      window.localStorage.setItem(localStorageKey, themeToSet);
-      document.documentElement.setAttribute('data-theme', themeToSet);
+      setThemeState(themeToSet)
+      setAutoMode(false)
+      window.localStorage.setItem(localStorageKey, themeToSet)
+      document.documentElement.setAttribute('data-theme', themeToSet)
     } else if (themeToSet === 'auto') {
-      const existingThemeFromStorage = window.localStorage.getItem(localStorageKey);
-      if (existingThemeFromStorage) window.localStorage.removeItem(localStorageKey);
-      const themeFromOS = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', themeFromOS);
-      setAutoMode(true);
-      setThemeState(themeFromOS);
+      const existingThemeFromStorage = window.localStorage.getItem(localStorageKey)
+      if (existingThemeFromStorage) window.localStorage.removeItem(localStorageKey)
+      const themeFromOS = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+      document.documentElement.setAttribute('data-theme', themeFromOS)
+      setAutoMode(true)
+      setThemeState(themeFromOS)
     }
-  }, []);
+  }, [])
 
-  return (
-    <Context.Provider value={{ theme, setTheme, autoMode }}>
-      {children}
-    </Context.Provider>
-  );
-};
+  return <Context.Provider value={{ theme, setTheme, autoMode }}>{children}</Context.Provider>
+}
 
-export const useTheme = (): ThemeContext => useContext(Context);
+export const useTheme = (): ThemeContext => useContext(Context)
 
-export default Context;
+export default Context
