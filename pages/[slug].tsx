@@ -1,28 +1,26 @@
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { getApolloClient } from '../graphql';
-import { PAGE, PAGES } from '../graphql/pages';
-import type { Footer, MainMenu, Page } from '../payload-types';
+import { getApolloClient } from '../graphql'
+import { PAGE, PAGES } from '../graphql/pages'
+import type { Footer, MainMenu, Page } from '../payload-types'
 
 const PageTemplate: React.FC<{
   page: Page
   mainMenu: MainMenu
   footer: Footer
   preview?: boolean
-}> = (props) => {
+}> = props => {
   const {
     page: { title },
     mainMenu,
     footer,
-  } = props;
+  } = props
 
-  return (
-    <h1>{title}</h1>
-  )
+  return <h1>{title}</h1>
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const apolloClient = getApolloClient();
-  const slug = params?.slug || 'home';
+  const apolloClient = getApolloClient()
+  const slug = params?.slug || 'home'
 
   try {
     const { data } = await apolloClient.query({
@@ -30,7 +28,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       variables: {
         slug,
       },
-    });
+    })
 
     if (!data.Pages.docs[0]) {
       return {
@@ -44,7 +42,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         mainMenu: data.MainMenu,
         footer: data.Footer,
       },
-    };
+    }
   } catch (err) {
     console.warn(JSON.stringify(err.networkError.result))
 
@@ -55,18 +53,18 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const apolloClient = getApolloClient();
+  const apolloClient = getApolloClient()
 
   const { data } = await apolloClient.query({
     query: PAGES,
-  });
+  })
 
   return {
     paths: data.Pages.docs.map(({ slug }) => ({
       params: { slug },
     })),
     fallback: 'blocking',
-  };
+  }
 }
 
-export default PageTemplate;
+export default PageTemplate
