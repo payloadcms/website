@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { CALL_TO_ACTION, CARD_GRID, CASE_STUDIES_HIGHLIGHT, CONTENT, CONTENT_GRID, FEATURE_HIGHLIGHT, FORM_BLOCK, LINK_GRID, MEDIA_BLOCK, MEDIA_CONTENT, REUSABLE_CONTENT_BLOCK } from "./blocks";
 import { FOOTER, MAIN_MENU } from "./globals";
 import { LINK_FIELDS } from "./link";
 
@@ -28,25 +29,17 @@ export const PAGE = gql`
           }
         }
         layout {
-          ...on CalltoAction {
-            blockType
-            richText
-            feature
-            ctaLinks: links {
-              link ${LINK_FIELDS({ disableAppearance: true })}
-            }
-          }
-          ...on CardGrid {
-            richText
-            cardGridLinks: links {
-              link ${LINK_FIELDS({ disableAppearance: true })}
-            }
-            cards {
-              title
-              description
-              link ${LINK_FIELDS({ disableAppearance: true, disableLabel: true })}
-            }
-          }
+          ${CALL_TO_ACTION}
+          ${CARD_GRID}
+          ${CASE_STUDIES_HIGHLIGHT}
+          ${CONTENT}
+          ${CONTENT_GRID}
+          ${FEATURE_HIGHLIGHT}
+          ${FORM_BLOCK}
+          ${LINK_GRID}
+          ${MEDIA_BLOCK}
+          ${MEDIA_CONTENT}
+          ${REUSABLE_CONTENT_BLOCK}
         }
       }
     }

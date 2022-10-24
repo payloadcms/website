@@ -24,26 +24,34 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const apolloClient = getApolloClient();
   const slug = params?.slug || 'home';
 
-  const { data } = await apolloClient.query({
-    query: PAGE,
-    variables: {
-      slug,
-    },
-  });
+  try {
+    const { data } = await apolloClient.query({
+      query: PAGE,
+      variables: {
+        slug,
+      },
+    });
 
-  if (!data.Pages.docs[0]) {
+    if (!data.Pages.docs[0]) {
+      return {
+        notFound: true,
+      }
+    }
+
+    return {
+      props: {
+        page: data.Pages.docs[0],
+        mainMenu: data.MainMenu,
+        footer: data.Footer,
+      },
+    };
+  } catch (err) {
+    console.warn(JSON.stringify(err.networkError.result))
+
     return {
       notFound: true,
     }
   }
-
-  return {
-    props: {
-      page: data.Pages.docs[0],
-      mainMenu: data.MainMenu,
-      footer: data.Footer,
-    },
-  };
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
