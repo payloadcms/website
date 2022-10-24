@@ -18,9 +18,21 @@ const PageTemplate: React.FC<{
   return <h1>{title}</h1>
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const apolloClient = getApolloClient()
-  const slug = params?.slug || 'home'
+export const getStaticProps: GetStaticProps = async (context) => {
+  const {
+    preview,
+    previewData,
+    params,
+  } = context;
+  
+  const {
+    payloadToken
+  } = previewData as {
+    payloadToken: string
+  } || {};
+
+  const apolloClient = getApolloClient();
+  const slug = params?.slug || 'home';
 
   try {
     const { data } = await apolloClient.query({
@@ -28,7 +40,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       variables: {
         slug,
       },
-    })
+      context: {
+        headers: {
+          ...preview ? {
+            Authorization: `JWT ${payloadToken}` // when previewing, send the payload token to bypass draft access control
+          } : {}
+        }
+      }
+    });
 
     if (!data.Pages.docs[0]) {
       return {
@@ -41,6 +60,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         page: data.Pages.docs[0],
         mainMenu: data.MainMenu,
         footer: data.Footer,
+        preview: preview || null,
+        collection: 'pages',
       },
     }
   } catch (err) {

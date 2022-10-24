@@ -1,0 +1,43 @@
+@use "@scss/queries" as *;
+@use "@scss/vars" as *;
+
+.adminBar {
+  z-index: 10;
+  width: 100%;
+  background-color: var(--theme-elevation-900);
+  color: var(--theme-elevation-900);
+  padding: base(0.25) base(0.5);
+  font-size: calc(#{var(--html-font-size)} * 1px);
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.controls {
+  & > *:not(:last-child) {
+    margin-right: base(0.5) !important;
+  }
+}
+
+.user {
+  margin-right: base(0.5) !important;
+}
+
+.logo {
+  margin-right: base(0.5) !important;
+}
+
+.blockContainer {
+  position: relative;
+}
+
+.hr {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--light-gray);
+  height: 2px;
+}
