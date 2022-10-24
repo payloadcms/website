@@ -1,8 +1,8 @@
-// @import 'fonts';
-@import './vars.scss';
-@import './queries.scss';
-@import './colors.scss';
-@import './type.scss';
+@use './vars.scss' as *;
+@use './queries.scss' as *;
+@use './type.scss' as *;
+@import "./colors.scss";
+// @import "./fonts.scss";
 
 :root {
   --breakpoint-xs-width: 400px;
