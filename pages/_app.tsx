@@ -1,5 +1,8 @@
 import { AppProps } from 'next/app'
+import { Header } from '../components/layout/Header'
 import { ThemeProvider } from '../components/providers/Theme'
+import { GridProvider } from '@faceless-ui/css-grid'
+
 import '../css/app.scss'
 
 const PayloadApp = (appProps: AppProps): React.ReactElement => {
@@ -7,7 +10,34 @@ const PayloadApp = (appProps: AppProps): React.ReactElement => {
 
   return (
     <ThemeProvider>
-      <Component {...pageProps} />
+      <GridProvider
+        breakpoints={{
+          s: 768,
+          m: 1100,
+          l: 1679,
+        }}
+        rowGap={{
+          s: '1rem',
+          m: '1rem',
+          l: '2rem',
+          xl: '4rem',
+        }}
+        colGap={{
+          s: '10px',
+          m: '10px',
+          l: '4rem',
+          xl: '4rem',
+        }}
+        cols={{
+          s: 8,
+          m: 8,
+          l: 12,
+          xl: 12,
+        }}
+      >
+        <Header />
+        <Component {...pageProps} />
+      </GridProvider>
     </ThemeProvider>
   )
 }

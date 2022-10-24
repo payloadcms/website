@@ -1,27 +1,29 @@
+@use './vars.scss' as *;
+
 ////////////////////////////
 // MEDIA QUERIES
 /////////////////////////////
 
 @mixin extra-small-break {
-  @media (max-width: var(--breakpoint-xs-width)) {
+  @media (max-width: $breakpoint-xs-width) {
     @content;
   }
 }
 
 @mixin small-break {
-  @media (max-width: var(--breakpoint-s-width)) {
+  @media (max-width: $breakpoint-s-width) {
     @content;
   }
 }
 
 @mixin mid-break {
-  @media (max-width: var(--breakpoint-m-width)) {
+  @media (max-width: $breakpoint-m-width) {
     @content;
   }
 }
 
 @mixin large-break {
-  @media (max-width: var(--breakpoint-l-width)) {
+  @media (max-width: $breakpoint-l-width) {
     @content;
   }
 }
