@@ -1,12 +1,15 @@
-import { OuterGutter } from '../../elements/OuterGutter'
+import { MainMenu } from '../../../payload-types'
+import { OuterGutter } from '../OuterGutter'
 import { MobileNav } from './MobileNav'
 import { Nav } from './Nav'
 
-export const Header: React.FC = () => {
+export const Header: React.FC<MainMenu> = ({ navItems }) => {
   return (
-    <OuterGutter>
-      <Nav />
-      <MobileNav />
-    </OuterGutter>
+    <header>
+      <OuterGutter>
+        <Nav navItems={navItems} />
+        <MobileNav navItems={navItems} />
+      </OuterGutter>
+    </header>
   )
 }

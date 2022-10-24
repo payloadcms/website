@@ -1,10 +1,11 @@
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { GridWrap } from '../../../elements/GridWrap'
+import { MainMenu } from '../../../../payload-types'
+import { GridWrap } from '../../GridWrap'
 import { FullLogo } from '../../../graphics/FullLogo'
 
 import classes from './styles.module.scss'
 
-export const MobileNav: React.FC = () => {
+export const MobileNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) => {
   return (
     <header className={classes.mobileNav}>
       <GridWrap className={classes.container}>

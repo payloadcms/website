@@ -2,10 +2,17 @@ import { AppProps } from 'next/app'
 import { Header } from '../components/layout/Header'
 import { ThemeProvider } from '../components/providers/Theme'
 import { GridProvider } from '@faceless-ui/css-grid'
+import { Footer, MainMenu } from '../payload-types'
 
 import '../css/app.scss'
 
-const PayloadApp = (appProps: AppProps): React.ReactElement => {
+type AppPropsWithGlobals = AppProps<{
+  mainMenu: MainMenu
+  footer: Footer
+  page: any
+}>
+
+const PayloadApp = (appProps: AppPropsWithGlobals): React.ReactElement => {
   const { Component, pageProps } = appProps
 
   return (
@@ -35,7 +42,7 @@ const PayloadApp = (appProps: AppProps): React.ReactElement => {
           xl: 12,
         }}
       >
-        <Header />
+        <Header {...pageProps.mainMenu} />
         <Component {...pageProps} />
       </GridProvider>
     </ThemeProvider>

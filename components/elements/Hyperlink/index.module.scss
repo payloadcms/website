@@ -1,0 +1,43 @@
+@use "@scss/common" as *;
+
+.hyperlink {
+  color: currentColor;
+  text-decoration: none;
+}
+
+.underlineOnHover {
+  &:hover {
+    text-decoration: underline;
+    & * {
+      text-decoration: underline;
+    }
+  }
+}
+
+.underline {
+  text-decoration: underline;
+  & * {
+    text-decoration: underline;
+  }
+}
+
+.disableCursor {
+  cursor: default;
+}
+
+.dimOnHover {
+  opacity: 1;
+  transition: opacity linear var(--default-trans-time);
+
+  &:hover {
+    opacity: 0.5;
+
+    @include mid-break {
+      opacity: 1;
+    }
+  }
+}
+
+.display-block {
+  display: block;
+}

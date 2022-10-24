@@ -1,10 +1,13 @@
 @use '../../../../css/common.scss' as *;
 
+$container-spacer: base();
+
 .nav {
   display: flex;
-  padding: base() 0;
+  padding: base(1.5) 0;
   display: block;
   visibility: visible;
+  font-size: base(.65);
   
   @include mid-break {
     display: none;
@@ -17,21 +20,25 @@
 }
 
 .logo {
-  width: calc(var(--inner-gutter-h) - 10px);
+  width: calc(var(--inner-gutter-h) - #{$container-spacer});
   position: absolute;
-  left: -10px;
+  left: -#{$container-spacer};
   display: flex;
   justify-content: flex-end;
   transform: translateX(-100%);
-  top: 0;
+  top: -2px;
 
   svg {
     height: auto;
   }
 }
 
-.grid {
-  width: 100%;
+.navItems {
+  display: flex;
+
+  :local(.navItem) {
+    margin-right: base(.75);
+  }
 }
 
 .content {
@@ -41,13 +48,36 @@
   width: 100%;
 }
 
+.github {
+  display: flex;
+  color-scheme: unset;
+  align-items: center;
+
+  :local(.stars) {
+    vertical-align: middle;
+    margin: 0 0 0 base(.5);
+
+    @include mid-break {
+      margin: base() 0 0;
+    }
+  }
+}
 
 .icons {
-  width: calc(var(--inner-gutter-h) - 10px);
+  width: calc(var(--inner-gutter-h) - #{$container-spacer});
   position: absolute;
-  right: -10px;
+  right: -#{$container-spacer};
   display: flex;
   justify-content: flex-start;
   transform: translateX(100%);
   top: 0;
+  align-items: center;
+  
+  svg {
+    margin-right: base(.5);
+    
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }

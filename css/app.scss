@@ -27,9 +27,9 @@
   --z-status: 40;
 
   --outer-gutter-h: 150px;
-  --inner-gutter-h: 100px;
+  --inner-gutter-h: 150px;
   --full-gutter-h: calc(var(--inner-gutter-h) + var(--outer-gutter-h));
-  --content-width: 1300px;
+  --page-max-width: 1920px;
 
   @include large-break {
     --nav-width: #{base(8)};
