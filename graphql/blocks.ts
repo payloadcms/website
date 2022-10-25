@@ -3,47 +3,57 @@ import { LINK_FIELDS } from "./link";
 export const BANNER = `
 ...on Banner {
   blockType
-  type
-  addCheckmark
-  bannerContent: content
+  bannerFields {
+    type
+    addCheckmark
+    content
+  }
 }
 `
 export const BLOG_CONTENT = `
 ...on BlogContent {
   blockType
-  blogContentRichText: richText
+  blogContentFields {
+    richText
+  }
 }
 `
 
 export const CODE_BLOCK = `
 ...on Code {
   blockType
-  language
-  code
+  codeFields {
+    language
+    code
+  }
 }
 `
 
 export const CALL_TO_ACTION = `
 ...on CalltoAction {
   blockType
-  richText
-  feature
-  ctaLinks: links {
-    link ${LINK_FIELDS({ disableAppearance: true })}
+  ctaFields {
+    richText
+    feature
+    links {
+      link ${LINK_FIELDS({ disableAppearance: true })}
+    }
   }
 }
 `
 export const CARD_GRID = `
 ...on CardGrid {
   blockType
-  richText
-  cardGridLinks: links {
-    link ${LINK_FIELDS({ disableAppearance: true })}
-  }
-  cards {
-    title
-    description
-    link ${LINK_FIELDS({ disableAppearance: true, disableLabel: true })}
+  cardGridFields {
+    richText
+    links {
+      link ${LINK_FIELDS({ disableAppearance: true })}
+    }
+    cards {
+      title
+      description
+      link ${LINK_FIELDS({ disableAppearance: true, disableLabel: true })}
+    }
   }
 }
 `
@@ -51,11 +61,13 @@ export const CARD_GRID = `
 export const CASE_STUDIES_HIGHLIGHT = `
 ...on CaseStudiesHighlight {
   blockType
-  richText
-  caseStudies {
-    slug
-    featuredImage {
-      url
+  caseStudiesHighlightFields {
+    richText
+    caseStudies {
+      slug
+      featuredImage {
+        url
+      }
     }
   }
 }
@@ -64,19 +76,23 @@ export const CASE_STUDIES_HIGHLIGHT = `
 export const CONTENT = `
 ...on Content {
   blockType
-  layout
-  columnOne
-  columnTwo
-  columnThree
+  contentFields {
+    layout
+    columnOne
+    columnTwo
+    columnThree
+  }
 }
 `
 
 export const CONTENT_GRID = `
 ...on ContentGrid {
   blockType
-  content {
-    forceDarkBackground
-    content
+  contentGridFields {
+    cells {
+      forceDarkBackground
+      content
+    }
   }
 }
 `
@@ -84,13 +100,15 @@ export const CONTENT_GRID = `
 export const FEATURE_HIGHLIGHT = `
 ...on FeatureHighlight {
   blockType
-  features {
-    type
-    content
-    link ${LINK_FIELDS({ disableAppearance: true })}
-    code
-    media {
-      url
+  featureHighlightFields {
+    features {
+      type
+      content
+      link ${LINK_FIELDS({ disableAppearance: true })}
+      code
+      media {
+        url
+      }
     }
   }
 }
@@ -99,31 +117,33 @@ export const FEATURE_HIGHLIGHT = `
 export const FORM_BLOCK = `
 ...on FormBlock {
   blockType
-  container
-  richText
-  form {
-    title
-    redirect {
-      url
-    }
-    confirmationType
-    confirmationMessage
-    submitButtonLabel
-    fields {
-      ...on Text {
-        name
-        label
-        width
-        defaultValue
-        required
-        blockType
+  formFields {
+    container
+    richText
+    form {
+      title
+      redirect {
+        url
       }
-      ...on Email {
-        name
-        label
-        width
-        required
-        blockType
+      confirmationType
+      confirmationMessage
+      submitButtonLabel
+      fields {
+        ...on Text {
+          name
+          label
+          width
+          defaultValue
+          required
+          blockType
+        }
+        ...on Email {
+          name
+          label
+          width
+          required
+          blockType
+        }
       }
     }
   }
@@ -133,8 +153,10 @@ export const FORM_BLOCK = `
 export const LINK_GRID = `
 ...on LinkGrid {
   blockType
-  linkGridLinks: links {
-    link ${LINK_FIELDS({ disableAppearance: true })}
+  linkGridFields {
+    links {
+      link ${LINK_FIELDS({ disableAppearance: true })}
+    }
   }
 }
 `
@@ -142,23 +164,27 @@ export const LINK_GRID = `
 export const MEDIA_BLOCK = `
 ...on MediaBlock {
   blockType
-  position
-  media {
-    url
+  mediaBlockFields {
+    position
+    media {
+      url
+    }
+    caption
   }
-  caption
 }
 `
 
 export const MEDIA_CONTENT = `
 ...on MediaContent {
   blockType
-  alignment
-  container
-  richText
-  link ${LINK_FIELDS({ disableAppearance: true })}
-  media {
-    url
+  mediaContentFields {
+    alignment
+    container
+    richText
+    link ${LINK_FIELDS({ disableAppearance: true })}
+    media {
+      url
+    }
   }
 }
 `
@@ -166,21 +192,23 @@ export const MEDIA_CONTENT = `
 export const REUSABLE_CONTENT_BLOCK = `
 ...on ReusableContentBlock {
   blockType
-  reusableContent {
-    layout {
-      ${BANNER}
-      ${BLOG_CONTENT}
-      ${CALL_TO_ACTION}
-      ${CARD_GRID}
-      ${CASE_STUDIES_HIGHLIGHT}
-      ${CODE_BLOCK}
-      ${CONTENT}
-      ${CONTENT_GRID}
-      ${FEATURE_HIGHLIGHT}
-      ${FORM_BLOCK}
-      ${LINK_GRID}
-      ${MEDIA_BLOCK}
-      ${MEDIA_CONTENT}
+  reusableContentBlockFields {
+    reusableContent {
+      layout {
+        ${BANNER}
+        ${BLOG_CONTENT}
+        ${CALL_TO_ACTION}
+        ${CARD_GRID}
+        ${CASE_STUDIES_HIGHLIGHT}
+        ${CODE_BLOCK}
+        ${CONTENT}
+        ${CONTENT_GRID}
+        ${FEATURE_HIGHLIGHT}
+        ${FORM_BLOCK}
+        ${LINK_GRID}
+        ${MEDIA_BLOCK}
+        ${MEDIA_CONTENT}
+      }
     }
   }
 }`
