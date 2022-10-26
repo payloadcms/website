@@ -11,17 +11,17 @@
   "dependencies": {
     "@apollo/client": "^3.7.0",
     "graphql": "^16.6.0",
-    "next": "12.3.1",
+    "next": "^13.0.0",
     "payload-admin-bar": "^1.0.5",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "sass": "^1.55.0"
   },
   "devDependencies": {
     "@types/node": "18.11.3",
     "@types/react": "18.0.21",
     "eslint": "8.25.0",
-    "eslint-config-next": "12.3.1",
+    "eslint-config-next": "^13.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.7.1",
