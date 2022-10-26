@@ -2,7 +2,7 @@
 @use './queries.scss' as *;
 @use './type.scss' as *;
 @import "./colors.scss";
-// @import "./fonts.scss";
+@import "./fonts.scss";
 
 :root {
   --base: 24px;
@@ -12,7 +12,7 @@
   --breakpoint-l-width: $breakpoint-l-width;
   --scrollbar-width: 17px;
 
-  --font-body: 'Suisse Intl', system-ui;
+  --font-body: 'Neue Montreal', Helvetica, Arial;
   --font-mono: monospace;
   --font-serif: 'Merriweather', serif;
 

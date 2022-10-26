@@ -21,7 +21,7 @@ const nextConfig = {
       // "payload-admin-bar": path.join(__dirname, "../payload-admin-bar"),
     }
     return configCopy;
-  },
+  }
 }
 
 module.exports = nextConfig
