@@ -1,0 +1,87 @@
+@use '../../../../css/common.scss' as *;
+
+$container-spacer: base();
+
+.nav {
+  display: flex;
+  padding: base(1.5) 0;
+  display: block;
+  visibility: visible;
+  font-size: base(.65);
+
+  :local(a) {
+    text-decoration: none;
+  }
+  
+  @include mid-break {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+.container {
+  position: relative;
+}
+
+.logo {
+  width: calc(var(--inner-gutter-h) - #{$container-spacer});
+  position: absolute;
+  left: -#{$container-spacer};
+  display: flex;
+  justify-content: flex-end;
+  transform: translateX(-100%);
+  top: -2px;
+
+  svg {
+    height: auto;
+  }
+}
+
+.navItems {
+  display: flex;
+
+  :local(.navItem) {
+    margin-right: base(.75);
+  }
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+}
+
+.github {
+  display: flex;
+  color-scheme: unset;
+  align-items: center;
+
+  :local(.stars) {
+    vertical-align: middle;
+    margin: 0 0 0 base(.5);
+
+    @include mid-break {
+      margin: base() 0 0;
+    }
+  }
+}
+
+.icons {
+  width: calc(var(--inner-gutter-h) - #{$container-spacer});
+  position: absolute;
+  right: -#{$container-spacer};
+  display: flex;
+  justify-content: flex-start;
+  transform: translateX(100%);
+  top: 0;
+  align-items: center;
+  
+  > * {
+    margin-right: base(.5);
+    
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

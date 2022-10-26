@@ -51,6 +51,11 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@faceless-ui/css-grid@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@faceless-ui/css-grid/-/css-grid-1.2.0.tgz#53d3301f89151a0022d68e60d2d2794662504be4"
+  integrity sha512-MY+63ItIoY9J+Lnmku9tzgKfSwh1r8QaW0m4OQDEKvtrY7Kv0zQ3AtmOGIWDZoZeLhbmpy2MoTyzLvrSDUdn7g==
+
 "@graphql-typed-document-node/core@^3.1.1":
   version "3.1.1"
   resolved "https://registry.npmjs.org/@graphql-typed-document-node/core/-/core-3.1.1.tgz#076d78ce99822258cf813ecc1e7fa460fa74d052"

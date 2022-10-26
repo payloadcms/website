@@ -5,1678 +5,1678 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
-export interface Config { }
+export interface Config {}
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer".
  */
 export interface Footer {
-  id: string;
+  id: string
   columns: {
     navItems: {
       link: {
-        type?: 'reference' | 'custom';
-        newTab?: boolean;
+        type?: 'reference' | 'custom'
+        newTab?: boolean
         reference:
-        | {
-          value: string | Page;
-          relationTo: 'pages';
-        }
-        | {
-          value: string | Post;
-          relationTo: 'posts';
-        }
-        | {
-          value: string | UseCase;
-          relationTo: 'use-cases';
-        }
-        | {
-          value: string | CaseStudy;
-          relationTo: 'case-studies';
-        };
-        url: string;
-        label: string;
-      };
-      id?: string;
-    }[];
-    id?: string;
-  }[];
+          | {
+              value: string | Page
+              relationTo: 'pages'
+            }
+          | {
+              value: string | Post
+              relationTo: 'posts'
+            }
+          | {
+              value: string | UseCase
+              relationTo: 'use-cases'
+            }
+          | {
+              value: string | CaseStudy
+              relationTo: 'case-studies'
+            }
+        url: string
+        label: string
+      }
+      id?: string
+    }[]
+    id?: string
+  }[]
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
-  id: string;
-  title: string;
+  id: string
+  title: string
   hero: {
-    type: 'default' | 'contentMedia';
+    type: 'default' | 'contentMedia'
     richText: {
-      [k: string]: unknown;
-    }[];
+      [k: string]: unknown
+    }[]
     links: {
       link: {
-        type?: 'reference' | 'custom';
-        newTab?: boolean;
+        type?: 'reference' | 'custom'
+        newTab?: boolean
         reference:
-        | {
-          value: string | Page;
-          relationTo: 'pages';
-        }
-        | {
-          value: string | Post;
-          relationTo: 'posts';
-        }
-        | {
-          value: string | UseCase;
-          relationTo: 'use-cases';
-        }
-        | {
-          value: string | CaseStudy;
-          relationTo: 'case-studies';
-        };
-        url: string;
-        label: string;
-        appearance?: 'default' | 'primary' | 'secondary';
-      };
-      id?: string;
-    }[];
-    media: string | Media;
-  };
+          | {
+              value: string | Page
+              relationTo: 'pages'
+            }
+          | {
+              value: string | Post
+              relationTo: 'posts'
+            }
+          | {
+              value: string | UseCase
+              relationTo: 'use-cases'
+            }
+          | {
+              value: string | CaseStudy
+              relationTo: 'case-studies'
+            }
+        url: string
+        label: string
+        appearance?: 'default' | 'primary' | 'secondary'
+      }
+      id?: string
+    }[]
+    media: string | Media
+  }
   layout: (
     | {
-      ctaFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        feature: 'none' | 'cpa';
-        links: {
+        ctaFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+          feature: 'none' | 'cpa'
+          links: {
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+              label: string
+            }
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'cta'
+      }
+    | {
+        cardGridFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+          links: {
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+              label: string
+            }
+            id?: string
+          }[]
+          cards: {
+            title: string
+            description: string
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+            }
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'cardGrid'
+      }
+    | {
+        caseStudiesHighlightFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+          caseStudies: string | CaseStudy
+        }
+        id?: string
+        blockName?: string
+        blockType: 'caseStudiesHighlight'
+      }
+    | {
+        contentFields: {
+          layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns'
+          columnOne: {
+            [k: string]: unknown
+          }[]
+          columnTwo: {
+            [k: string]: unknown
+          }[]
+          columnThree: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'content'
+      }
+    | {
+        contentGridFields: {
+          cells: {
+            forceDarkBackground?: boolean
+            content: {
+              [k: string]: unknown
+            }[]
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'contentGrid'
+      }
+    | {
+        featureHighlightFields: {
+          features: {
+            type?: 'code' | 'media'
+            content: {
+              [k: string]: unknown
+            }[]
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+              label: string
+            }
+            code: string
+            media: string | Media
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'featureHighlight'
+      }
+    | {
+        formFields: {
+          container?: boolean
+          richText: {
+            [k: string]: unknown
+          }[]
+          form: string | Form
+        }
+        id?: string
+        blockName?: string
+        blockType: 'form'
+      }
+    | {
+        linkGridFields: {
+          links: {
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+              label: string
+            }
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'linkGrid'
+      }
+    | {
+        mediaBlockFields: {
+          position?: 'default' | 'wide'
+          media: string | Media
+          caption?: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'mediaBlock'
+      }
+    | {
+        mediaContentFields: {
+          alignment?: 'contentMedia' | 'mediaContent'
+          container?: boolean
+          richText: {
+            [k: string]: unknown
+          }[]
           link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
+            type?: 'reference' | 'custom'
+            newTab?: boolean
             reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-            label: string;
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'cta';
-    }
-    | {
-      cardGridFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        links: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-            label: string;
-          };
-          id?: string;
-        }[];
-        cards: {
-          title: string;
-          description: string;
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'cardGrid';
-    }
-    | {
-      caseStudiesHighlightFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        caseStudies: string | CaseStudy;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'caseStudiesHighlight';
-    }
-    | {
-      contentFields: {
-        layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
-        columnOne: {
-          [k: string]: unknown;
-        }[];
-        columnTwo: {
-          [k: string]: unknown;
-        }[];
-        columnThree: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'content';
-    }
-    | {
-      contentGridFields: {
-        cells: {
-          forceDarkBackground?: boolean;
-          content: {
-            [k: string]: unknown;
-          }[];
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'contentGrid';
-    }
-    | {
-      featureHighlightFields: {
-        features: {
-          type?: 'code' | 'media';
-          content: {
-            [k: string]: unknown;
-          }[];
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-            label: string;
-          };
-          code: string;
-          media: string | Media;
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'featureHighlight';
-    }
-    | {
-      formFields: {
-        container?: boolean;
-        richText: {
-          [k: string]: unknown;
-        }[];
-        form: string | Form;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'form';
-    }
-    | {
-      linkGridFields: {
-        links: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-            label: string;
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'linkGrid';
-    }
-    | {
-      mediaBlockFields: {
-        position?: 'default' | 'wide';
-        media: string | Media;
-        caption?: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'mediaBlock';
-    }
-    | {
-      mediaContentFields: {
-        alignment?: 'contentMedia' | 'mediaContent';
-        container?: boolean;
-        richText: {
-          [k: string]: unknown;
-        }[];
-        link: {
-          type?: 'reference' | 'custom';
-          newTab?: boolean;
-          reference:
-          | {
-            value: string | Page;
-            relationTo: 'pages';
+              | {
+                  value: string | Page
+                  relationTo: 'pages'
+                }
+              | {
+                  value: string | Post
+                  relationTo: 'posts'
+                }
+              | {
+                  value: string | UseCase
+                  relationTo: 'use-cases'
+                }
+              | {
+                  value: string | CaseStudy
+                  relationTo: 'case-studies'
+                }
+            url: string
+            label: string
           }
-          | {
-            value: string | Post;
-            relationTo: 'posts';
-          }
-          | {
-            value: string | UseCase;
-            relationTo: 'use-cases';
-          }
-          | {
-            value: string | CaseStudy;
-            relationTo: 'case-studies';
-          };
-          url: string;
-          label: string;
-        };
-        media: string | Media;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'mediaContent';
-    }
+          media: string | Media
+        }
+        id?: string
+        blockName?: string
+        blockType: 'mediaContent'
+      }
     | {
-      reusableContentBlockFields: {
-        reusableContent: string | ReusableContent;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'reusableContentBlock';
-    }
+        reusableContentBlockFields: {
+          reusableContent: string | ReusableContent
+        }
+        id?: string
+        blockName?: string
+        blockType: 'reusableContentBlock'
+      }
     | {
-      sliderFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'slider';
-    }
+        sliderFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'slider'
+      }
     | {
-      stepsFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'steps';
-    }
-  )[];
-  slug?: string;
+        stepsFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'steps'
+      }
+  )[]
+  slug?: string
   meta: {
-    title?: string;
-    description?: string;
-    image?: string | Media;
-  };
-  _status?: 'draft' | 'published';
-  createdAt: string;
-  updatedAt: string;
+    title?: string
+    description?: string
+    image?: string | Media
+  }
+  _status?: 'draft' | 'published'
+  createdAt: string
+  updatedAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts".
  */
 export interface Post {
-  id: string;
-  title?: string;
-  image: string | Media;
+  id: string
+  title?: string
+  image: string | Media
   excerpt: {
-    [k: string]: unknown;
-  }[];
+    [k: string]: unknown
+  }[]
   content: (
     | {
-      bannerFields: {
-        type?: 'default' | 'success' | 'warning' | 'error';
-        addCheckmark?: boolean;
-        content: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'banner';
-    }
+        bannerFields: {
+          type?: 'default' | 'success' | 'warning' | 'error'
+          addCheckmark?: boolean
+          content: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'banner'
+      }
     | {
-      blogContentFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'blogContent';
-    }
+        blogContentFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'blogContent'
+      }
     | {
-      codeFields: {
-        language?: 'none' | 'js' | 'ts';
-        code: string;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'code';
-    }
+        codeFields: {
+          language?: 'none' | 'js' | 'ts'
+          code: string
+        }
+        id?: string
+        blockName?: string
+        blockType: 'code'
+      }
     | {
-      mediaBlockFields: {
-        position?: 'default' | 'wide';
-        media: string | Media;
-        caption?: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'mediaBlock';
-    }
-  )[];
-  slug?: string;
-  author: string | User;
+        mediaBlockFields: {
+          position?: 'default' | 'wide'
+          media: string | Media
+          caption?: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'mediaBlock'
+      }
+  )[]
+  slug?: string
+  author: string | User
   meta: {
-    title?: string;
-    description?: string;
-    image?: string | Media;
-  };
-  _status?: 'draft' | 'published';
-  createdAt: string;
-  updatedAt: string;
+    title?: string
+    description?: string
+    image?: string | Media
+  }
+  _status?: 'draft' | 'published'
+  createdAt: string
+  updatedAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
-  alt: string;
-  darkModeFallback?: string | Media;
-  url?: string;
-  filename?: string;
-  mimeType?: string;
-  filesize?: number;
-  width?: number;
-  height?: number;
-  createdAt: string;
-  updatedAt: string;
+  id: string
+  alt: string
+  darkModeFallback?: string | Media
+  url?: string
+  filename?: string
+  mimeType?: string
+  filesize?: number
+  width?: number
+  height?: number
+  createdAt: string
+  updatedAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
-  twitter?: string;
-  photo?: string | Media;
-  roles: ('admin' | 'public')[];
-  email?: string;
-  resetPasswordToken?: string;
-  resetPasswordExpiration?: string;
-  loginAttempts?: number;
-  lockUntil?: string;
-  createdAt: string;
-  updatedAt: string;
+  id: string
+  firstName: string
+  lastName: string
+  twitter?: string
+  photo?: string | Media
+  roles: ('admin' | 'public')[]
+  email?: string
+  resetPasswordToken?: string
+  resetPasswordExpiration?: string
+  loginAttempts?: number
+  lockUntil?: string
+  createdAt: string
+  updatedAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "use-cases".
  */
 export interface UseCase {
-  id: string;
-  title: string;
+  id: string
+  title: string
   introContent: {
-    [k: string]: unknown;
-  }[];
-  heroMedia: string | Media;
+    [k: string]: unknown
+  }[]
+  heroMedia: string | Media
   layout: (
     | {
-      ctaFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        feature: 'none' | 'cpa';
-        links: {
+        ctaFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+          feature: 'none' | 'cpa'
+          links: {
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+              label: string
+            }
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'cta'
+      }
+    | {
+        cardGridFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+          links: {
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+              label: string
+            }
+            id?: string
+          }[]
+          cards: {
+            title: string
+            description: string
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+            }
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'cardGrid'
+      }
+    | {
+        caseStudiesHighlightFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+          caseStudies: string | CaseStudy
+        }
+        id?: string
+        blockName?: string
+        blockType: 'caseStudiesHighlight'
+      }
+    | {
+        contentFields: {
+          layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns'
+          columnOne: {
+            [k: string]: unknown
+          }[]
+          columnTwo: {
+            [k: string]: unknown
+          }[]
+          columnThree: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'content'
+      }
+    | {
+        contentGridFields: {
+          cells: {
+            forceDarkBackground?: boolean
+            content: {
+              [k: string]: unknown
+            }[]
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'contentGrid'
+      }
+    | {
+        featureHighlightFields: {
+          features: {
+            type?: 'code' | 'media'
+            content: {
+              [k: string]: unknown
+            }[]
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+              label: string
+            }
+            code: string
+            media: string | Media
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'featureHighlight'
+      }
+    | {
+        formFields: {
+          container?: boolean
+          richText: {
+            [k: string]: unknown
+          }[]
+          form: string | Form
+        }
+        id?: string
+        blockName?: string
+        blockType: 'form'
+      }
+    | {
+        linkGridFields: {
+          links: {
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+              label: string
+            }
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'linkGrid'
+      }
+    | {
+        mediaBlockFields: {
+          position?: 'default' | 'wide'
+          media: string | Media
+          caption?: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'mediaBlock'
+      }
+    | {
+        mediaContentFields: {
+          alignment?: 'contentMedia' | 'mediaContent'
+          container?: boolean
+          richText: {
+            [k: string]: unknown
+          }[]
           link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
+            type?: 'reference' | 'custom'
+            newTab?: boolean
             reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-            label: string;
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'cta';
-    }
-    | {
-      cardGridFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        links: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-            label: string;
-          };
-          id?: string;
-        }[];
-        cards: {
-          title: string;
-          description: string;
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'cardGrid';
-    }
-    | {
-      caseStudiesHighlightFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        caseStudies: string | CaseStudy;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'caseStudiesHighlight';
-    }
-    | {
-      contentFields: {
-        layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
-        columnOne: {
-          [k: string]: unknown;
-        }[];
-        columnTwo: {
-          [k: string]: unknown;
-        }[];
-        columnThree: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'content';
-    }
-    | {
-      contentGridFields: {
-        cells: {
-          forceDarkBackground?: boolean;
-          content: {
-            [k: string]: unknown;
-          }[];
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'contentGrid';
-    }
-    | {
-      featureHighlightFields: {
-        features: {
-          type?: 'code' | 'media';
-          content: {
-            [k: string]: unknown;
-          }[];
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-            label: string;
-          };
-          code: string;
-          media: string | Media;
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'featureHighlight';
-    }
-    | {
-      formFields: {
-        container?: boolean;
-        richText: {
-          [k: string]: unknown;
-        }[];
-        form: string | Form;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'form';
-    }
-    | {
-      linkGridFields: {
-        links: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-            label: string;
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'linkGrid';
-    }
-    | {
-      mediaBlockFields: {
-        position?: 'default' | 'wide';
-        media: string | Media;
-        caption?: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'mediaBlock';
-    }
-    | {
-      mediaContentFields: {
-        alignment?: 'contentMedia' | 'mediaContent';
-        container?: boolean;
-        richText: {
-          [k: string]: unknown;
-        }[];
-        link: {
-          type?: 'reference' | 'custom';
-          newTab?: boolean;
-          reference:
-          | {
-            value: string | Page;
-            relationTo: 'pages';
+              | {
+                  value: string | Page
+                  relationTo: 'pages'
+                }
+              | {
+                  value: string | Post
+                  relationTo: 'posts'
+                }
+              | {
+                  value: string | UseCase
+                  relationTo: 'use-cases'
+                }
+              | {
+                  value: string | CaseStudy
+                  relationTo: 'case-studies'
+                }
+            url: string
+            label: string
           }
-          | {
-            value: string | Post;
-            relationTo: 'posts';
-          }
-          | {
-            value: string | UseCase;
-            relationTo: 'use-cases';
-          }
-          | {
-            value: string | CaseStudy;
-            relationTo: 'case-studies';
-          };
-          url: string;
-          label: string;
-        };
-        media: string | Media;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'mediaContent';
-    }
+          media: string | Media
+        }
+        id?: string
+        blockName?: string
+        blockType: 'mediaContent'
+      }
     | {
-      reusableContentBlockFields: {
-        reusableContent: string | ReusableContent;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'reusableContentBlock';
-    }
+        reusableContentBlockFields: {
+          reusableContent: string | ReusableContent
+        }
+        id?: string
+        blockName?: string
+        blockType: 'reusableContentBlock'
+      }
     | {
-      sliderFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'slider';
-    }
+        sliderFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'slider'
+      }
     | {
-      stepsFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'steps';
-    }
-  )[];
-  slug?: string;
+        stepsFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'steps'
+      }
+  )[]
+  slug?: string
   meta: {
-    title?: string;
-    description?: string;
-    image?: string | Media;
-  };
-  _status?: 'draft' | 'published';
-  createdAt: string;
-  updatedAt: string;
+    title?: string
+    description?: string
+    image?: string | Media
+  }
+  _status?: 'draft' | 'published'
+  createdAt: string
+  updatedAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "case-studies".
  */
 export interface CaseStudy {
-  id: string;
-  title: string;
+  id: string
+  title: string
   introContent: {
-    [k: string]: unknown;
-  }[];
-  featuredImage: string | Media;
+    [k: string]: unknown
+  }[]
+  featuredImage: string | Media
   layout: (
     | {
-      ctaFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        feature: 'none' | 'cpa';
-        links: {
+        ctaFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+          feature: 'none' | 'cpa'
+          links: {
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+              label: string
+            }
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'cta'
+      }
+    | {
+        cardGridFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+          links: {
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+              label: string
+            }
+            id?: string
+          }[]
+          cards: {
+            title: string
+            description: string
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+            }
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'cardGrid'
+      }
+    | {
+        caseStudiesHighlightFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+          caseStudies: string | CaseStudy
+        }
+        id?: string
+        blockName?: string
+        blockType: 'caseStudiesHighlight'
+      }
+    | {
+        contentFields: {
+          layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns'
+          columnOne: {
+            [k: string]: unknown
+          }[]
+          columnTwo: {
+            [k: string]: unknown
+          }[]
+          columnThree: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'content'
+      }
+    | {
+        contentGridFields: {
+          cells: {
+            forceDarkBackground?: boolean
+            content: {
+              [k: string]: unknown
+            }[]
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'contentGrid'
+      }
+    | {
+        featureHighlightFields: {
+          features: {
+            type?: 'code' | 'media'
+            content: {
+              [k: string]: unknown
+            }[]
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+              label: string
+            }
+            code: string
+            media: string | Media
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'featureHighlight'
+      }
+    | {
+        formFields: {
+          container?: boolean
+          richText: {
+            [k: string]: unknown
+          }[]
+          form: string | Form
+        }
+        id?: string
+        blockName?: string
+        blockType: 'form'
+      }
+    | {
+        linkGridFields: {
+          links: {
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+              label: string
+            }
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'linkGrid'
+      }
+    | {
+        mediaBlockFields: {
+          position?: 'default' | 'wide'
+          media: string | Media
+          caption?: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'mediaBlock'
+      }
+    | {
+        mediaContentFields: {
+          alignment?: 'contentMedia' | 'mediaContent'
+          container?: boolean
+          richText: {
+            [k: string]: unknown
+          }[]
           link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
+            type?: 'reference' | 'custom'
+            newTab?: boolean
             reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-            label: string;
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'cta';
-    }
-    | {
-      cardGridFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        links: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-            label: string;
-          };
-          id?: string;
-        }[];
-        cards: {
-          title: string;
-          description: string;
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'cardGrid';
-    }
-    | {
-      caseStudiesHighlightFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        caseStudies: string | CaseStudy;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'caseStudiesHighlight';
-    }
-    | {
-      contentFields: {
-        layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
-        columnOne: {
-          [k: string]: unknown;
-        }[];
-        columnTwo: {
-          [k: string]: unknown;
-        }[];
-        columnThree: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'content';
-    }
-    | {
-      contentGridFields: {
-        cells: {
-          forceDarkBackground?: boolean;
-          content: {
-            [k: string]: unknown;
-          }[];
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'contentGrid';
-    }
-    | {
-      featureHighlightFields: {
-        features: {
-          type?: 'code' | 'media';
-          content: {
-            [k: string]: unknown;
-          }[];
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-            label: string;
-          };
-          code: string;
-          media: string | Media;
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'featureHighlight';
-    }
-    | {
-      formFields: {
-        container?: boolean;
-        richText: {
-          [k: string]: unknown;
-        }[];
-        form: string | Form;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'form';
-    }
-    | {
-      linkGridFields: {
-        links: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-            label: string;
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'linkGrid';
-    }
-    | {
-      mediaBlockFields: {
-        position?: 'default' | 'wide';
-        media: string | Media;
-        caption?: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'mediaBlock';
-    }
-    | {
-      mediaContentFields: {
-        alignment?: 'contentMedia' | 'mediaContent';
-        container?: boolean;
-        richText: {
-          [k: string]: unknown;
-        }[];
-        link: {
-          type?: 'reference' | 'custom';
-          newTab?: boolean;
-          reference:
-          | {
-            value: string | Page;
-            relationTo: 'pages';
+              | {
+                  value: string | Page
+                  relationTo: 'pages'
+                }
+              | {
+                  value: string | Post
+                  relationTo: 'posts'
+                }
+              | {
+                  value: string | UseCase
+                  relationTo: 'use-cases'
+                }
+              | {
+                  value: string | CaseStudy
+                  relationTo: 'case-studies'
+                }
+            url: string
+            label: string
           }
-          | {
-            value: string | Post;
-            relationTo: 'posts';
-          }
-          | {
-            value: string | UseCase;
-            relationTo: 'use-cases';
-          }
-          | {
-            value: string | CaseStudy;
-            relationTo: 'case-studies';
-          };
-          url: string;
-          label: string;
-        };
-        media: string | Media;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'mediaContent';
-    }
+          media: string | Media
+        }
+        id?: string
+        blockName?: string
+        blockType: 'mediaContent'
+      }
     | {
-      reusableContentBlockFields: {
-        reusableContent: string | ReusableContent;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'reusableContentBlock';
-    }
+        reusableContentBlockFields: {
+          reusableContent: string | ReusableContent
+        }
+        id?: string
+        blockName?: string
+        blockType: 'reusableContentBlock'
+      }
     | {
-      sliderFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'slider';
-    }
+        sliderFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'slider'
+      }
     | {
-      stepsFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'steps';
-    }
-  )[];
-  slug?: string;
+        stepsFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'steps'
+      }
+  )[]
+  slug?: string
   link: {
-    type?: 'reference' | 'custom';
-    newTab?: boolean;
+    type?: 'reference' | 'custom'
+    newTab?: boolean
     reference:
-    | {
-      value: string | Page;
-      relationTo: 'pages';
-    }
-    | {
-      value: string | Post;
-      relationTo: 'posts';
-    }
-    | {
-      value: string | UseCase;
-      relationTo: 'use-cases';
-    }
-    | {
-      value: string | CaseStudy;
-      relationTo: 'case-studies';
-    };
-    url: string;
-  };
+      | {
+          value: string | Page
+          relationTo: 'pages'
+        }
+      | {
+          value: string | Post
+          relationTo: 'posts'
+        }
+      | {
+          value: string | UseCase
+          relationTo: 'use-cases'
+        }
+      | {
+          value: string | CaseStudy
+          relationTo: 'case-studies'
+        }
+    url: string
+  }
   meta: {
-    title?: string;
-    description?: string;
-    image?: string | Media;
-  };
-  _status?: 'draft' | 'published';
-  createdAt: string;
-  updatedAt: string;
+    title?: string
+    description?: string
+    image?: string | Media
+  }
+  _status?: 'draft' | 'published'
+  createdAt: string
+  updatedAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "forms".
  */
 export interface Form {
-  id: string;
-  title: string;
+  id: string
+  title: string
   fields: (
     | {
-      name: string;
-      label?: string;
-      width?: number;
-      defaultValue?: string;
-      required?: boolean;
-      id?: string;
-      blockName?: string;
-      blockType: 'text';
-    }
+        name: string
+        label?: string
+        width?: number
+        defaultValue?: string
+        required?: boolean
+        id?: string
+        blockName?: string
+        blockType: 'text'
+      }
     | {
-      name: string;
-      label?: string;
-      width?: number;
-      defaultValue?: string;
-      required?: boolean;
-      id?: string;
-      blockName?: string;
-      blockType: 'textarea';
-    }
+        name: string
+        label?: string
+        width?: number
+        defaultValue?: string
+        required?: boolean
+        id?: string
+        blockName?: string
+        blockType: 'textarea'
+      }
     | {
-      name: string;
-      label?: string;
-      width?: number;
-      defaultValue?: string;
-      options: {
-        label: string;
-        value: string;
-        id?: string;
-      }[];
-      required?: boolean;
-      id?: string;
-      blockName?: string;
-      blockType: 'select';
-    }
+        name: string
+        label?: string
+        width?: number
+        defaultValue?: string
+        options: {
+          label: string
+          value: string
+          id?: string
+        }[]
+        required?: boolean
+        id?: string
+        blockName?: string
+        blockType: 'select'
+      }
     | {
-      name: string;
-      label?: string;
-      width?: number;
-      required?: boolean;
-      id?: string;
-      blockName?: string;
-      blockType: 'email';
-    }
+        name: string
+        label?: string
+        width?: number
+        required?: boolean
+        id?: string
+        blockName?: string
+        blockType: 'email'
+      }
     | {
-      name: string;
-      label?: string;
-      width?: number;
-      required?: boolean;
-      id?: string;
-      blockName?: string;
-      blockType: 'state';
-    }
+        name: string
+        label?: string
+        width?: number
+        required?: boolean
+        id?: string
+        blockName?: string
+        blockType: 'state'
+      }
     | {
-      name: string;
-      label?: string;
-      width?: number;
-      required?: boolean;
-      id?: string;
-      blockName?: string;
-      blockType: 'country';
-    }
+        name: string
+        label?: string
+        width?: number
+        required?: boolean
+        id?: string
+        blockName?: string
+        blockType: 'country'
+      }
     | {
-      name: string;
-      label?: string;
-      width?: number;
-      defaultValue?: number;
-      required?: boolean;
-      id?: string;
-      blockName?: string;
-      blockType: 'number';
-    }
+        name: string
+        label?: string
+        width?: number
+        defaultValue?: number
+        required?: boolean
+        id?: string
+        blockName?: string
+        blockType: 'number'
+      }
     | {
-      name: string;
-      label?: string;
-      width?: number;
-      required?: boolean;
-      defaultValue?: boolean;
-      id?: string;
-      blockName?: string;
-      blockType: 'checkbox';
-    }
+        name: string
+        label?: string
+        width?: number
+        required?: boolean
+        defaultValue?: boolean
+        id?: string
+        blockName?: string
+        blockType: 'checkbox'
+      }
     | {
-      message?: {
-        [k: string]: unknown;
-      }[];
-      id?: string;
-      blockName?: string;
-      blockType: 'message';
-    }
-  )[];
-  submitButtonLabel?: string;
-  confirmationType?: 'message' | 'redirect';
+        message?: {
+          [k: string]: unknown
+        }[]
+        id?: string
+        blockName?: string
+        blockType: 'message'
+      }
+  )[]
+  submitButtonLabel?: string
+  confirmationType?: 'message' | 'redirect'
   confirmationMessage: {
-    [k: string]: unknown;
-  }[];
+    [k: string]: unknown
+  }[]
   redirect: {
-    url: string;
-  };
+    url: string
+  }
   emails: {
-    emailTo: string;
-    bcc?: string;
-    replyTo?: string;
-    replyToName?: string;
-    emailFrom?: string;
-    emailFromName?: string;
-    subject: string;
+    emailTo: string
+    bcc?: string
+    replyTo?: string
+    replyToName?: string
+    emailFrom?: string
+    emailFromName?: string
+    subject: string
     message?: {
-      [k: string]: unknown;
-    }[];
-    id?: string;
-  }[];
-  createdAt: string;
-  updatedAt: string;
+      [k: string]: unknown
+    }[]
+    id?: string
+  }[]
+  createdAt: string
+  updatedAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "reusable-content".
  */
 export interface ReusableContent {
-  id: string;
-  title: string;
+  id: string
+  title: string
   layout: (
     | {
-      bannerFields: {
-        type?: 'default' | 'success' | 'warning' | 'error';
-        addCheckmark?: boolean;
-        content: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'banner';
-    }
-    | {
-      blogContentFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'blogContent';
-    }
-    | {
-      ctaFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        feature: 'none' | 'cpa';
-        links: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-            label: string;
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'cta';
-    }
-    | {
-      cardGridFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        links: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-            label: string;
-          };
-          id?: string;
-        }[];
-        cards: {
-          title: string;
-          description: string;
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'cardGrid';
-    }
-    | {
-      caseStudiesHighlightFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        caseStudies: string | CaseStudy;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'caseStudiesHighlight';
-    }
-    | {
-      codeFields: {
-        language?: 'none' | 'js' | 'ts';
-        code: string;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'code';
-    }
-    | {
-      contentFields: {
-        layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
-        columnOne: {
-          [k: string]: unknown;
-        }[];
-        columnTwo: {
-          [k: string]: unknown;
-        }[];
-        columnThree: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'content';
-    }
-    | {
-      contentGridFields: {
-        cells: {
-          forceDarkBackground?: boolean;
+        bannerFields: {
+          type?: 'default' | 'success' | 'warning' | 'error'
+          addCheckmark?: boolean
           content: {
-            [k: string]: unknown;
-          }[];
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'contentGrid';
-    }
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'banner'
+      }
     | {
-      featureHighlightFields: {
-        features: {
-          type?: 'code' | 'media';
-          content: {
-            [k: string]: unknown;
-          }[];
+        blogContentFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'blogContent'
+      }
+    | {
+        ctaFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+          feature: 'none' | 'cpa'
+          links: {
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+              label: string
+            }
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'cta'
+      }
+    | {
+        cardGridFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+          links: {
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+              label: string
+            }
+            id?: string
+          }[]
+          cards: {
+            title: string
+            description: string
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+            }
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'cardGrid'
+      }
+    | {
+        caseStudiesHighlightFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+          caseStudies: string | CaseStudy
+        }
+        id?: string
+        blockName?: string
+        blockType: 'caseStudiesHighlight'
+      }
+    | {
+        codeFields: {
+          language?: 'none' | 'js' | 'ts'
+          code: string
+        }
+        id?: string
+        blockName?: string
+        blockType: 'code'
+      }
+    | {
+        contentFields: {
+          layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns'
+          columnOne: {
+            [k: string]: unknown
+          }[]
+          columnTwo: {
+            [k: string]: unknown
+          }[]
+          columnThree: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'content'
+      }
+    | {
+        contentGridFields: {
+          cells: {
+            forceDarkBackground?: boolean
+            content: {
+              [k: string]: unknown
+            }[]
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'contentGrid'
+      }
+    | {
+        featureHighlightFields: {
+          features: {
+            type?: 'code' | 'media'
+            content: {
+              [k: string]: unknown
+            }[]
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+              label: string
+            }
+            code: string
+            media: string | Media
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'featureHighlight'
+      }
+    | {
+        formFields: {
+          container?: boolean
+          richText: {
+            [k: string]: unknown
+          }[]
+          form: string | Form
+        }
+        id?: string
+        blockName?: string
+        blockType: 'form'
+      }
+    | {
+        linkGridFields: {
+          links: {
+            link: {
+              type?: 'reference' | 'custom'
+              newTab?: boolean
+              reference:
+                | {
+                    value: string | Page
+                    relationTo: 'pages'
+                  }
+                | {
+                    value: string | Post
+                    relationTo: 'posts'
+                  }
+                | {
+                    value: string | UseCase
+                    relationTo: 'use-cases'
+                  }
+                | {
+                    value: string | CaseStudy
+                    relationTo: 'case-studies'
+                  }
+              url: string
+              label: string
+            }
+            id?: string
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'linkGrid'
+      }
+    | {
+        mediaBlockFields: {
+          position?: 'default' | 'wide'
+          media: string | Media
+          caption?: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'mediaBlock'
+      }
+    | {
+        mediaContentFields: {
+          alignment?: 'contentMedia' | 'mediaContent'
+          container?: boolean
+          richText: {
+            [k: string]: unknown
+          }[]
           link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
+            type?: 'reference' | 'custom'
+            newTab?: boolean
             reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-            label: string;
-          };
-          code: string;
-          media: string | Media;
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'featureHighlight';
-    }
-    | {
-      formFields: {
-        container?: boolean;
-        richText: {
-          [k: string]: unknown;
-        }[];
-        form: string | Form;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'form';
-    }
-    | {
-      linkGridFields: {
-        links: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            }
-            | {
-              value: string | UseCase;
-              relationTo: 'use-cases';
-            }
-            | {
-              value: string | CaseStudy;
-              relationTo: 'case-studies';
-            };
-            url: string;
-            label: string;
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'linkGrid';
-    }
-    | {
-      mediaBlockFields: {
-        position?: 'default' | 'wide';
-        media: string | Media;
-        caption?: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'mediaBlock';
-    }
-    | {
-      mediaContentFields: {
-        alignment?: 'contentMedia' | 'mediaContent';
-        container?: boolean;
-        richText: {
-          [k: string]: unknown;
-        }[];
-        link: {
-          type?: 'reference' | 'custom';
-          newTab?: boolean;
-          reference:
-          | {
-            value: string | Page;
-            relationTo: 'pages';
+              | {
+                  value: string | Page
+                  relationTo: 'pages'
+                }
+              | {
+                  value: string | Post
+                  relationTo: 'posts'
+                }
+              | {
+                  value: string | UseCase
+                  relationTo: 'use-cases'
+                }
+              | {
+                  value: string | CaseStudy
+                  relationTo: 'case-studies'
+                }
+            url: string
+            label: string
           }
-          | {
-            value: string | Post;
-            relationTo: 'posts';
-          }
-          | {
-            value: string | UseCase;
-            relationTo: 'use-cases';
-          }
-          | {
-            value: string | CaseStudy;
-            relationTo: 'case-studies';
-          };
-          url: string;
-          label: string;
-        };
-        media: string | Media;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'mediaContent';
-    }
+          media: string | Media
+        }
+        id?: string
+        blockName?: string
+        blockType: 'mediaContent'
+      }
     | {
-      sliderFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'slider';
-    }
+        sliderFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'slider'
+      }
     | {
-      stepsFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'steps';
-    }
-  )[];
-  createdAt: string;
-  updatedAt: string;
+        stepsFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'steps'
+      }
+  )[]
+  createdAt: string
+  updatedAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "main-menu".
  */
 export interface MainMenu {
-  id: string;
+  id: string
   navItems: {
     link: {
-      type?: 'reference' | 'custom';
-      newTab?: boolean;
+      type?: 'reference' | 'custom'
+      newTab?: boolean
       reference:
-      | {
-        value: string | Page;
-        relationTo: 'pages';
-      }
-      | {
-        value: string | Post;
-        relationTo: 'posts';
-      }
-      | {
-        value: string | UseCase;
-        relationTo: 'use-cases';
-      }
-      | {
-        value: string | CaseStudy;
-        relationTo: 'case-studies';
-      };
-      url: string;
-      label: string;
-    };
-    id?: string;
-  }[];
+        | {
+            value: string | Page
+            relationTo: 'pages'
+          }
+        | {
+            value: string | Post
+            relationTo: 'posts'
+          }
+        | {
+            value: string | UseCase
+            relationTo: 'use-cases'
+          }
+        | {
+            value: string | CaseStudy
+            relationTo: 'case-studies'
+          }
+      url: string
+      label: string
+    }
+    id?: string
+  }[]
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "form-submissions".
  */
 export interface FormSubmission {
-  id: string;
-  form: string | Form;
+  id: string
+  form: string | Form
   submissionData: {
-    field: string;
-    value: string;
-    id?: string;
-  }[];
-  createdAt: string;
-  updatedAt: string;
+    field: string
+    value: string
+    id?: string
+  }[]
+  createdAt: string
+  updatedAt: string
 }
