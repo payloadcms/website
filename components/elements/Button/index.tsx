@@ -19,7 +19,7 @@ const elements = {
   button: 'button',
 }
 
-export const Button: React.FC<Props> = ({ el = 'button', children, label, newTab, href, appearance, className: classNameFromProps }) => {
+export const Button: React.FC<Props> = ({ el = 'button', children, label, newTab, href, appearance = 'default', className: classNameFromProps }) => {
   const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
   const Element = elements[el]
   const className = [classNameFromProps, classes[`appearance--${appearance}`], classes.button].filter(Boolean).join(' ')
@@ -29,8 +29,6 @@ export const Button: React.FC<Props> = ({ el = 'button', children, label, newTab
     href,
     className,
   }
-
-  if (el !== 'link') delete elementProps.className
 
   const content = (
     <div className={classes.content}>

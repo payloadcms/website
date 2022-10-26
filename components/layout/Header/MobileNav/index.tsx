@@ -1,26 +1,72 @@
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { MainMenu } from '../../../../payload-types'
-import { GridWrap } from '../../GridWrap'
 import { FullLogo } from '../../../graphics/FullLogo'
+import { Gutter } from '../../Gutter'
+import { Modal, ModalToggler } from '@faceless-ui/modal'
+import { SearchIcon } from '../../../graphics/SearchIcon'
+import { MenuIcon } from '../../../graphics/MenuIcon'
+import { Button } from '../../../elements/Button'
+import { CMSLink } from '../../../elements/CMSLink'
 
-import classes from './styles.module.scss'
+import classes from './index.module.scss'
 
-export const MobileNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) => {
+const modalSlug = 'mobile-nav'
+
+type NavItems = Pick<MainMenu, 'navItems'>
+export const MobileNav: React.FC<NavItems> = props => {
   return (
-    <header className={classes.mobileNav}>
-      <GridWrap className={classes.container}>
-        <div className={classes.logo}>
-          <FullLogo />
-        </div>
-        <Grid className={classes.grid}>
-          <Cell className={classes.content}>
-            <div>left header links</div>
+    <div className={classes.mobileNav}>
+      <MenuBar />
+      <MobileMenuModal {...props} />
+    </div>
+  )
+}
 
-            <div>Like what we’re doing? Star us on GitHub!</div>
+const MenuBar: React.FC = () => {
+  return (
+    <div className={classes.menuBar}>
+      <Gutter>
+        <Grid>
+          <Cell className={classes.menuBarContainer}>
+            <div className={classes.logo}>
+              <FullLogo />
+            </div>
+
+            <div className={classes.icons}>
+              <Button className={classes.searchToggler}>
+                <SearchIcon />
+              </Button>
+
+              <ModalToggler slug={modalSlug} className={classes.modalToggler}>
+                <MenuIcon />
+              </ModalToggler>
+            </div>
           </Cell>
         </Grid>
-        <div className={classes.icons}>Icons</div>
-      </GridWrap>
-    </header>
+      </Gutter>
+    </div>
+  )
+}
+
+const MobileMenuModal: React.FC<NavItems> = ({ navItems }) => {
+  return (
+    <Modal slug={modalSlug} className={classes.mobileMenuModal}>
+      <MenuBar />
+
+      <Gutter>
+        <Grid>
+          <Cell>
+            <div className={classes.mobileMenu}>
+              <div className={classes.mobileMenuItems}>
+                {(navItems || []).map((item, index) => {
+                  return <CMSLink className={classes.mobileMenuItem} key={index} {...item.link} />
+                })}
+              </div>
+            </div>
+          </Cell>
+        </Grid>
+      </Gutter>
+      <div className={classes.blur} />
+    </Modal>
   )
 }

@@ -1,21 +1,22 @@
-@use '../../../../css/common.scss' as *;
+@use '@scss/common.scss' as *;
 
 $container-spacer: base();
 
-.nav {
-  display: flex;
+.desktopNav {
+  @include small-break {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+.grid {
   padding: base(1.5) 0;
-  display: block;
   visibility: visible;
   font-size: base(.65);
+  position: relative;
 
   :local(a) {
     text-decoration: none;
-  }
-  
-  @include mid-break {
-    display: none;
-    visibility: hidden;
   }
 }
 
@@ -24,7 +25,7 @@ $container-spacer: base();
 }
 
 .logo {
-  width: calc(var(--inner-gutter-h) - #{$container-spacer});
+  width: calc(var(--gutter-h) - #{$container-spacer});
   position: absolute;
   left: -#{$container-spacer};
   display: flex;
@@ -34,6 +35,14 @@ $container-spacer: base();
 
   svg {
     height: auto;
+  }
+
+  @include large-break {
+    position: relative;
+    left: 0;
+    transform: unset;
+    width: auto;
+    margin-right: base();
   }
 }
 
@@ -50,6 +59,10 @@ $container-spacer: base();
   justify-content: space-between;
   position: relative;
   width: 100%;
+
+  @include large-break {
+    justify-content: unset;
+  }
 }
 
 .github {
@@ -60,15 +73,25 @@ $container-spacer: base();
   :local(.stars) {
     vertical-align: middle;
     margin: 0 0 0 base(.5);
+  }
 
-    @include mid-break {
-      margin: base() 0 0;
+  @include large-break {
+    margin-left: auto;
+
+    :local(.stars) {
+      margin-right: base();
     }
   }
 }
 
+.githubText {
+  @include large-break {
+    display: none;
+  }
+}
+
 .icons {
-  width: calc(var(--inner-gutter-h) - #{$container-spacer});
+  width: calc(var(--gutter-h) - #{$container-spacer});
   position: absolute;
   right: -#{$container-spacer};
   display: flex;
@@ -83,5 +106,12 @@ $container-spacer: base();
     &:last-child {
       margin-right: 0;
     }
+  }
+
+  @include large-break {
+    position: relative;
+    right: 0;
+    transform: unset;
+    width: auto;
   }
 }

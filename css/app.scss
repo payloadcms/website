@@ -5,18 +5,17 @@
 // @import "./fonts.scss";
 
 :root {
+  --base: 24px;
   --breakpoint-xs-width: $breakpoint-xs-width;
   --breakpoint-s-width: $breakpoint-s-width;
   --breakpoint-m-width: $breakpoint-m-width;
   --breakpoint-l-width: $breakpoint-l-width;
   --scrollbar-width: 17px;
-  --nav-width: #{base(9)};
 
   --theme-bg: var(--theme-elevation-0);
   --theme-input-bg: var(--theme-elevation-0);
   --theme-text: var(--theme-elevation-800);
-  --theme-baseline: #{$baseline-px};
-  --theme-baseline-body-size: #{$baseline-body-size};
+
   --font-body: 'Suisse Intl', system-ui;
   --font-mono: monospace;
   --font-serif: 'Merriweather', serif;
@@ -26,22 +25,14 @@
   --z-modal: 30;
   --z-status: 40;
 
-  --outer-gutter-h: 150px;
-  --inner-gutter-h: 150px;
-  --full-gutter-h: calc(var(--inner-gutter-h) + var(--outer-gutter-h));
-  --page-max-width: 1920px;
+  --gutter-h: calc(var(--base) * 12);
 
   @include large-break {
-    --nav-width: #{base(8)};
-    --outer-gutter-h: 25px;
+    --gutter-h: calc(var(--base) * 3);
   }
 
   @include mid-break {
-    --nav-width: 100%;
-  }
-
-  @include small-break {
-    --outer-gutter-h: 25px;
+    --gutter-h: var(--base);
   }
 }
 
