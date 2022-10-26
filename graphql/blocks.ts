@@ -1,4 +1,4 @@
-import { LINK_FIELDS } from "./link";
+import { LINK_FIELDS } from './link'
 
 export const BANNER = `
 ...on Banner {
@@ -54,9 +54,6 @@ export const CASE_STUDIES_HIGHLIGHT = `
   richText
   caseStudies {
     slug
-    featuredImage {
-      url
-    }
   }
 }
 `

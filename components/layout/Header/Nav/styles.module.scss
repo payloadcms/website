@@ -8,6 +8,10 @@ $container-spacer: base();
   display: block;
   visibility: visible;
   font-size: base(.65);
+
+  :local(a) {
+    text-decoration: none;
+  }
   
   @include mid-break {
     display: none;
@@ -73,7 +77,7 @@ $container-spacer: base();
   top: 0;
   align-items: center;
   
-  svg {
+  > * {
     margin-right: base(.5);
     
     &:last-child {

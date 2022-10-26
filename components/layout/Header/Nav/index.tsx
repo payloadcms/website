@@ -2,11 +2,12 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import { MainMenu } from '../../../../payload-types'
 import { GridWrap } from '../../GridWrap'
 import { FullLogo } from '../../../graphics/FullLogo'
-
-import classes from './styles.module.scss'
-import { Hyperlink } from '../../../elements/Hyperlink'
 import { SearchIcon } from '../../../graphics/SearchIcon'
 import { DiscordIcon } from '../../../graphics/DiscordIcon'
+import { CMSLink } from '../../../elements/CMSLink'
+import { Button } from '../../../elements/Button'
+
+import classes from './styles.module.scss'
 
 export const Nav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) => {
   return (
@@ -18,12 +19,8 @@ export const Nav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) => {
         <Grid>
           <Cell className={classes.content}>
             <div className={classes.navItems}>
-              {navItems.map((item, index) => {
-                return (
-                  <Hyperlink className={classes.navItem} key={index} linkFromCMS={item.link}>
-                    {item.link.label}
-                  </Hyperlink>
-                )
+              {(navItems || []).map((item, index) => {
+                return <CMSLink className={classes.navItem} key={index} {...item.link} />
               })}
             </div>
 
@@ -42,9 +39,11 @@ export const Nav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) => {
           </Cell>
         </Grid>
         <div className={classes.icons}>
-          <SearchIcon />
+          <Button el="a" href="https://discord.com" newTab>
+            <DiscordIcon />
+          </Button>
 
-          <DiscordIcon />
+          <SearchIcon />
         </div>
       </GridWrap>
     </div>
