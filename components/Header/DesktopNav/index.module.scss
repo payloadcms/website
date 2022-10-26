@@ -12,7 +12,6 @@ $container-spacer: base();
 .grid {
   padding: base(1.5) 0;
   visibility: visible;
-  font-size: base(.65);
   position: relative;
 
   :local(a) {
@@ -99,10 +98,10 @@ $container-spacer: base();
   transform: translateX(100%);
   top: 0;
   align-items: center;
-  
-  > * {
+
+  >* {
     margin-right: base(.5);
-    
+
     &:last-child {
       margin-right: 0;
     }
