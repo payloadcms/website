@@ -5,10 +5,10 @@
 // @import "./fonts.scss";
 
 :root {
-  --breakpoint-xs-width: 400px;
-  --breakpoint-s-width: 768px;
-  --breakpoint-m-width: 1024px;
-  --breakpoint-l-width: 1440px;
+  --breakpoint-xs-width: $breakpoint-xs-width;
+  --breakpoint-s-width: $breakpoint-s-width;
+  --breakpoint-m-width: $breakpoint-m-width;
+  --breakpoint-l-width: $breakpoint-l-width;
   --scrollbar-width: 17px;
   --nav-width: #{base(9)};
 
@@ -26,20 +26,22 @@
   --z-modal: 30;
   --z-status: 40;
 
-  --gutter-h: #{base(5)};
+  --outer-gutter-h: 150px;
+  --inner-gutter-h: 150px;
+  --full-gutter-h: calc(var(--inner-gutter-h) + var(--outer-gutter-h));
+  --page-max-width: 1920px;
 
   @include large-break {
-    --gutter-h: #{base(3)};
     --nav-width: #{base(8)};
+    --outer-gutter-h: 25px;
   }
 
   @include mid-break {
-    --gutter-h: #{base(2)};
     --nav-width: 100%;
   }
 
   @include small-break {
-    --gutter-h: #{base(.5)};
+    --outer-gutter-h: 25px;
   }
 }
 
