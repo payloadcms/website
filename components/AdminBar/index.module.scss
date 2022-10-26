@@ -6,7 +6,7 @@
   width: 100%;
   background-color: var(--theme-elevation-900);
   color: var(--theme-elevation-900);
-  padding: base(0.25) base(0.5);
+  padding: calc(var(--base) * 0.25) calc(var(--base) * 0.5);
   font-size: calc(#{var(--html-font-size)} * 1px);
   display: none;
 }
@@ -17,16 +17,16 @@
 
 .controls {
   & > *:not(:last-child) {
-    margin-right: base(0.5) !important;
+    margin-right: calc(var(--base) * 0.5) !important;
   }
 }
 
 .user {
-  margin-right: base(0.5) !important;
+  margin-right: calc(var(--base) * 0.5) !important;
 }
 
 .logo {
-  margin-right: base(0.5) !important;
+  margin-right: calc(var(--base) * 0.5) !important;
 }
 
 .blockContainer {

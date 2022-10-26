@@ -1,7 +1,5 @@
 @use '@scss/common.scss' as *;
 
-$container-spacer: base();
-
 .desktopNav {
   @include small-break {
     display: none;
@@ -10,9 +8,9 @@ $container-spacer: base();
 }
 
 .grid {
-  padding: base(1.5) 0;
+  padding: calc(var(--base) * 1.25) 0;
   visibility: visible;
-  font-size: base(.65);
+  font-size: calc(var(--base) * .75);
   position: relative;
 
   :local(a) {
@@ -25,9 +23,9 @@ $container-spacer: base();
 }
 
 .logo {
-  width: calc(var(--gutter-h) - #{$container-spacer});
+  width: calc(var(--gutter-h) - var(--base));
   position: absolute;
-  left: -#{$container-spacer};
+  left: calc(-1 * var(--base));
   display: flex;
   justify-content: flex-end;
   transform: translateX(-100%);
@@ -42,7 +40,7 @@ $container-spacer: base();
     left: 0;
     transform: unset;
     width: auto;
-    margin-right: base();
+    margin-right: var(--base);
   }
 }
 
@@ -50,7 +48,7 @@ $container-spacer: base();
   display: flex;
 
   :local(.navItem) {
-    margin-right: base(.75);
+    margin-right: calc(var(--base) * .75);
   }
 }
 
@@ -72,14 +70,14 @@ $container-spacer: base();
 
   :local(.stars) {
     vertical-align: middle;
-    margin: 0 0 0 base(.5);
+    margin: 0 0 0 calc(var(--base) * .5);
   }
 
   @include large-break {
     margin-left: auto;
 
     :local(.stars) {
-      margin-right: base();
+      margin-right: var(--base);
     }
   }
 }
@@ -91,9 +89,9 @@ $container-spacer: base();
 }
 
 .icons {
-  width: calc(var(--gutter-h) - #{$container-spacer});
+  width: calc(var(--gutter-h) - var(--base));
   position: absolute;
-  right: -#{$container-spacer};
+  right: calc(-1 * var(--base));
   display: flex;
   justify-content: flex-start;
   transform: translateX(100%);
@@ -101,7 +99,7 @@ $container-spacer: base();
   align-items: center;
   
   > * {
-    margin-right: base(.5);
+    margin-right: calc(var(--base) * .5);
     
     &:last-child {
       margin-right: 0;

@@ -11,8 +11,7 @@
 }
 
 .menuBar {
-  padding-top: base(1.5);
-  padding-bottom: base(1.5);
+  padding: calc(var(--base) * 1.25) 0;
 }
 
 .menuBarContainer {
@@ -28,7 +27,7 @@
 .searchToggler {
   all: unset;
   cursor: pointer;
-  margin-right: base();
+  margin-right: calc(var(--base) *  .5);
 }
 
 .modalToggler {

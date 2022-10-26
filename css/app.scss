@@ -112,13 +112,13 @@ h6 {
 }
 
 p {
-  margin: 0 0 $baseline;
+  margin: 0 0 var(--base);
 }
 
 ul,
 ol {
-  padding-left: $baseline;
-  margin: 0 0 $baseline;
+  padding-left: var(--base);
+  margin: 0 0 var(--base);
 }
 
 a {

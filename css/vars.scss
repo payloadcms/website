@@ -1,21 +1,13 @@
 @use 'sass:math';
 
+//////////////////////////////
+// BREAKPOINTS
+//////////////////////////////
+
 $breakpoint-xs-width: 400px;
 $breakpoint-s-width: 768px;
 $breakpoint-m-width: 1024px;
 $breakpoint-l-width: 1440px;
-
-//////////////////////////////
-// BASELINE GRID
-//////////////////////////////
-
-$baseline-px : 25px !default;
-$baseline-body-size : 13px !default;
-$baseline : math.div($baseline-px, $baseline-body-size)+rem;
-
-@function base($multiplier: 1) {
-  @return (math.div($baseline-px, $baseline-body-size) * $multiplier)+rem;
-}
 
 //////////////////////////////
 // SHADOWS
@@ -103,9 +95,9 @@ $baseline : math.div($baseline-px, $baseline-body-size)+rem;
   color: var(--theme-elevation-800);
   border-radius: 0;
   font-size: 1rem;
-  height: base(2);
-  line-height: base(1);
-  padding: base(.5) base(.75);
+  height: calc(var(--base) * 2);
+  line-height: var(--base);
+  padding: calc(var(--base) * 0.5) calc(var(--base) * 0.75);
   -webkit-appearance: none;
 
   &::-webkit-input-placeholder {
