@@ -52,10 +52,6 @@ html {
     background: var(--color-base-900);
     color-scheme: dark;
   }
-
-  @include mid-break {
-    font-size: 12px;
-  }
 }
 
 html,
@@ -66,7 +62,6 @@ body,
 
 body {
   font-family: var(--font-body);
-  font-weight: 400;
   color: var(--theme-text);
   margin: 0;
 }

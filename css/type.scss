@@ -119,16 +119,15 @@
 /////////////////////////////
 
 %body {
-  font-size: 18px;
+  font-size: 21px;
   line-height: 32px;
 
-  @include mid-break {
-    font-size: 15px;
-    line-height: 24px;
+  @include large-break {
+    font-size: 18px;
   }
 
   @include small-break {
-    font-size: 13px;
+    font-size: 16px;
     line-height: 24px;
   }
 }
