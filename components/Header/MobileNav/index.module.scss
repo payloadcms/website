@@ -1,0 +1,56 @@
+@use '@scss/common.scss' as *;
+
+.mobileNav {
+  display: none;
+  visibility: hidden;
+
+  @include small-break {
+    display: block;
+    visibility: visible;
+  }
+}
+
+.menuBar {
+  padding-top: base(1.5);
+  padding-bottom: base(1.5);
+}
+
+.menuBarContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icons {
+  display: flex;
+}
+
+.searchToggler {
+  all: unset;
+  cursor: pointer;
+  margin-right: base();
+}
+
+.modalToggler {
+  all: unset;
+  cursor: pointer;
+}
+
+.mobileMenuModal {
+  all: unset;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(3px);
+
+  .blur {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-base-900);
+    opacity: .8;
+    z-index: -1;
+  }
+}

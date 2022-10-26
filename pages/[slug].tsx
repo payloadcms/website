@@ -1,22 +1,27 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { GetStaticProps, GetStaticPaths } from 'next'
+import React from 'react'
+import { Hero } from '../components/Hero'
 import { getApolloClient } from '../graphql'
 import { PAGE, PAGES } from '../graphql/pages'
-import type { Footer, MainMenu, Page } from '../payload-types'
+import type { Page } from '../payload-types'
+import { RenderBlocks } from '../components/RenderBlocks';
 
 const PageTemplate: React.FC<{
   page: Page
-  mainMenu: MainMenu
-  footer: Footer
   preview?: boolean
 }> = props => {
   const {
-    page: { title },
-    mainMenu,
-    footer,
+    page: { hero, layout },
   } = props
 
-  return <h1>{title}</h1>
+  return (
+    <React.Fragment>
+
+      <Hero {...hero} />
+      <RenderBlocks blocks={layout} />
+    </React.Fragment>
+  )
 }
 
 export const getStaticProps: GetStaticProps = async context => {
@@ -45,8 +50,8 @@ export const getStaticProps: GetStaticProps = async context => {
         headers: {
           ...(preview
             ? {
-                Authorization: `JWT ${payloadToken}`, // when previewing, send the payload token to bypass draft access control
-              }
+              Authorization: `JWT ${payloadToken}`, // when previewing, send the payload token to bypass draft access control
+            }
             : {}),
         },
       },

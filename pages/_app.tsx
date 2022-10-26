@@ -2,9 +2,10 @@ import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { useCallback } from 'react'
 import { AdminBar } from '../components/AdminBar'
-import { Header } from '../components/layout/Header'
-import { ThemeProvider } from '../components/providers/Theme'
+import { Header } from '../components/Header'
+import { ThemePreferenceProvider, ThemeProvider } from '../components/providers/Theme'
 import { GridProvider } from '@faceless-ui/css-grid'
+import { ModalProvider, ModalContainer } from '@faceless-ui/modal'
 import { Footer, MainMenu } from '../payload-types'
 
 import '../css/app.scss'
@@ -38,7 +39,7 @@ const PayloadApp = (
   }, [router])
 
   return (
-    <ThemeProvider>
+    <ThemePreferenceProvider>
       <AdminBar id={pageID} collection={collection} preview={preview} onPreviewExit={onPreviewExit} />
       <GridProvider
         breakpoints={{
@@ -55,8 +56,8 @@ const PayloadApp = (
         colGap={{
           s: '10px',
           m: '10px',
-          l: '4rem',
-          xl: '4rem',
+          l: 'calc(var(--base) * 3)',
+          xl: 'calc(var(--base) * 3)',
         }}
         cols={{
           s: 8,
@@ -65,10 +66,14 @@ const PayloadApp = (
           xl: 12,
         }}
       >
-        <Header {...pageProps.mainMenu} />
-        <Component {...pageProps} />
+        <ModalProvider>
+          <Header {...pageProps.mainMenu} />
+          <Component {...pageProps} />
+
+          <ModalContainer />
+        </ModalProvider>
       </GridProvider>
-    </ThemeProvider>
+    </ThemePreferenceProvider>
   )
 }
 

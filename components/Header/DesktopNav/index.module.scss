@@ -1,0 +1,117 @@
+@use '@scss/common.scss' as *;
+
+$container-spacer: base();
+
+.desktopNav {
+  @include small-break {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+.grid {
+  padding: base(1.5) 0;
+  visibility: visible;
+  font-size: base(.65);
+  position: relative;
+
+  :local(a) {
+    text-decoration: none;
+  }
+}
+
+.container {
+  position: relative;
+}
+
+.logo {
+  width: calc(var(--gutter-h) - #{$container-spacer});
+  position: absolute;
+  left: -#{$container-spacer};
+  display: flex;
+  justify-content: flex-end;
+  transform: translateX(-100%);
+  top: -2px;
+
+  svg {
+    height: auto;
+  }
+
+  @include large-break {
+    position: relative;
+    left: 0;
+    transform: unset;
+    width: auto;
+    margin-right: base();
+  }
+}
+
+.navItems {
+  display: flex;
+
+  :local(.navItem) {
+    margin-right: base(.75);
+  }
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+
+  @include large-break {
+    justify-content: unset;
+  }
+}
+
+.github {
+  display: flex;
+  color-scheme: unset;
+  align-items: center;
+
+  :local(.stars) {
+    vertical-align: middle;
+    margin: 0 0 0 base(.5);
+  }
+
+  @include large-break {
+    margin-left: auto;
+
+    :local(.stars) {
+      margin-right: base();
+    }
+  }
+}
+
+.githubText {
+  @include large-break {
+    display: none;
+  }
+}
+
+.icons {
+  width: calc(var(--gutter-h) - #{$container-spacer});
+  position: absolute;
+  right: -#{$container-spacer};
+  display: flex;
+  justify-content: flex-start;
+  transform: translateX(100%);
+  top: 0;
+  align-items: center;
+  
+  > * {
+    margin-right: base(.5);
+    
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  @include large-break {
+    position: relative;
+    right: 0;
+    transform: unset;
+    width: auto;
+  }
+}
