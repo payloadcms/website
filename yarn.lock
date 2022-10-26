@@ -1641,6 +1641,11 @@ react-is@^16.13.1, react-is@^16.7.0:
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-ticker@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.npmjs.org/react-ticker/-/react-ticker-1.3.2.tgz#5b8e486a7a7c5c4dd4076bdbabb3efaa31932ef7"
+  integrity sha512-9sLgc9gFx/EMNxn2QcwUJAOf3jdEROKRyXZGbWrEbfJG/MTkHwR+WRrVtypv3iFXPpcrKmPD91+vatHq0BgR0Q==
+
 react-transition-group@^4.4.2:
   version "4.4.5"
   resolved "https://registry.npmjs.org/react-transition-group/-/react-transition-group-4.4.5.tgz#e53d4e3f3344da8521489fbef8f2581d42becdd1"
