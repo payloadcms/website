@@ -14,6 +14,10 @@
   left: 0;
 }
 
+.bgImage {
+  pointer-events: none;
+}
+
 .wrap {
   position: relative;
   z-index: 2;
@@ -36,5 +40,20 @@
 
   @include mid-break {
     width: 100%;
+  }
+}
+
+.adjectives {
+  display: flex;
+  pointer-events: none;
+}
+
+.adjective {
+  display: block;
+  font-size: 300px;
+  line-height: 1;
+
+  &:after {
+    content: '—';
   }
 }

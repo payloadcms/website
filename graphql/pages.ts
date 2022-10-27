@@ -28,6 +28,9 @@ export const PAGE = gql`
           media {
             url
           }
+          adjectives {
+            adjective 
+          }
         }
         layout {
           ${CALL_TO_ACTION}
