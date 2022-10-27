@@ -9,9 +9,20 @@ type Props = {
   style?: React.CSSProperties
 }
 
-export const BlockSpacing: React.FC<Props> = ({ top = true, bottom = true, className, children, style }) => {
+export const BlockSpacing: React.FC<Props> = ({
+  top = true,
+  bottom = true,
+  className,
+  children,
+  style
+}) => {
   return (
-    <div className={[className, top && classes.top, bottom && classes.bottom].filter(Boolean).join(' ')} style={style}>
+    <div
+      className={[className, top && classes.top, bottom && classes.bottom]
+        .filter(Boolean)
+        .join(' ')}
+      style={style}
+    >
       {children}
     </div>
   )

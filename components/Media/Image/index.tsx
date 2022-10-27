@@ -1,8 +1,8 @@
 import React from 'react'
-import NextImage, { StaticImageData } from 'next/future/image'
+import NextImage, { StaticImageData } from 'next/image'
 import classes from './index.module.scss'
 import cssVariables from '../../../cssVariables'
-import { Props } from '..'
+import { Props } from '../types'
 
 const { breakpoints } = cssVariables
 
@@ -40,7 +40,9 @@ export const Image: React.FC<Props> = props => {
 
   return (
     <NextImage
-      className={[isLoading && classes.placeholder, classes.image, imgClassName].filter(Boolean).join(' ')}
+      className={[isLoading && classes.placeholder, classes.image, imgClassName]
+        .filter(Boolean)
+        .join(' ')}
       src={src}
       alt={alt}
       onClick={onClick}

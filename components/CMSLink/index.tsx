@@ -30,8 +30,20 @@ type CMSLinkType = {
   className?: string
 }
 
-export const CMSLink: React.FC<CMSLinkType> = ({ type, url, newTab, reference, label, appearance, children, className }) => {
-  const href = type === 'reference' && typeof reference?.value === 'object' && reference.value.slug ? `/${reference.value.slug}` : url
+export const CMSLink: React.FC<CMSLinkType> = ({
+  type,
+  url,
+  newTab,
+  reference,
+  label,
+  appearance,
+  children,
+  className,
+}) => {
+  const href =
+    type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
+      ? `/${reference.value.slug}`
+      : url
 
   if (!href) return null
 

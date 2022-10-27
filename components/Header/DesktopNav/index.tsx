@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { MainMenu } from '../../../payload-types'
 import { FullLogo } from '../../graphics/FullLogo'

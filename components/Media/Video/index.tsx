@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import classes from './index.module.scss'
-import { Media, Props } from '..'
+import { Props } from '../types'
 
 export const Video: React.FC<Props> = props => {
   const { videoClassName, resource, onClick } = props
 
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [showFallback] = useState<boolean>()
+  // const [showFallback] = useState<boolean>()
 
   useEffect(() => {
     const { current: video } = videoRef
@@ -20,7 +20,16 @@ export const Video: React.FC<Props> = props => {
 
   if (resource && typeof resource !== 'string') {
     return (
-      <video playsInline autoPlay muted loop controls={false} className={[classes.video, videoClassName].filter(Boolean).join(' ')} onClick={onClick} ref={videoRef}>
+      <video
+        playsInline
+        autoPlay
+        muted
+        loop
+        controls={false}
+        className={[classes.video, videoClassName].filter(Boolean).join(' ')}
+        onClick={onClick}
+        ref={videoRef}
+      >
         <source src={`${process.env.NEXT_PUBLIC_API_URL}/media/${resource.filename}`} />
       </video>
     )

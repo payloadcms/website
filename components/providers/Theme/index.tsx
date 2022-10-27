@@ -2,23 +2,29 @@ import React, { createContext, useCallback, useContext, useEffect, useState } fr
 import canUseDOM from '../../../utilities/canUseDOM'
 import classes from './index.module.scss'
 
+export type Theme = 'light' | 'dark'
+
 const ThemeContext = createContext<Theme | undefined>(undefined)
 
-export const ThemeProvider: React.FC<{ theme: Theme; children: React.ReactNode }> = ({ theme, children }) => {
+export const ThemeProvider: React.FC<{
+  theme: Theme
+  children: React.ReactNode
+  className?: string
+}> = ({ theme, children, className }) => {
   return (
     <ThemeContext.Provider value={theme}>
-      <div className={classes[`theme--${theme}`]}>{children}</div>
+      <div className={[classes[`theme--${theme}`], className].filter(Boolean).join(' ')}>
+        {children}
+      </div>
     </ThemeContext.Provider>
   )
 }
 
 export const useTheme = (): Theme => useContext(ThemeContext)
 
-export type Theme = 'light' | 'dark'
-
 export type ThemePreferenceContextType = {
   theme: Theme
-  setTheme: (theme: Theme) => void
+  setTheme: (theme: Theme) => void // eslint-disable-line no-unused-vars
   autoMode: boolean
 }
 
@@ -40,7 +46,10 @@ const getTheme = () => {
   if (themeFromStorage === 'light' || themeFromStorage === 'dark') {
     theme = themeFromStorage
   } else {
-    theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    theme =
+      window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light'
   }
 
   document.documentElement.setAttribute('data-theme', theme)
@@ -64,7 +73,10 @@ export const ThemePreferenceProvider: React.FC<{ children?: React.ReactNode }> =
     } else if (themeToSet === 'auto') {
       const existingThemeFromStorage = window.localStorage.getItem(localStorageKey)
       if (existingThemeFromStorage) window.localStorage.removeItem(localStorageKey)
-      const themeFromOS = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+      const themeFromOS =
+        window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light'
       document.documentElement.setAttribute('data-theme', themeFromOS)
       setAutoMode(true)
       setThemeState(themeFromOS)
@@ -82,4 +94,5 @@ export const ThemePreferenceProvider: React.FC<{ children?: React.ReactNode }> =
   )
 }
 
-export const useThemePreference = (): ThemePreferenceContextType => useContext(ThemePreferenceContext)
+export const useThemePreference = (): ThemePreferenceContextType =>
+  useContext(ThemePreferenceContext)

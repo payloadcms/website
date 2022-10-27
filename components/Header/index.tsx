@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { MainMenu } from '../../payload-types'
 import { MobileNav } from './MobileNav'
 import { DesktopNav } from './DesktopNav'

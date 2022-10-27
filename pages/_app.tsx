@@ -1,11 +1,12 @@
+import * as React from 'react'
 import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { useCallback } from 'react'
-import { AdminBar } from '../components/AdminBar'
-import { Header } from '../components/Header'
-import { ThemePreferenceProvider, ThemeProvider } from '../components/providers/Theme'
 import { GridProvider } from '@faceless-ui/css-grid'
 import { ModalProvider, ModalContainer } from '@faceless-ui/modal'
+import { AdminBar } from '../components/AdminBar'
+import { Header } from '../components/Header'
+import { ThemePreferenceProvider } from '../components/providers/Theme'
 import { Footer, MainMenu } from '../payload-types'
 
 import '../css/app.scss'
@@ -40,7 +41,12 @@ const PayloadApp = (
 
   return (
     <ThemePreferenceProvider>
-      <AdminBar id={pageID} collection={collection} preview={preview} onPreviewExit={onPreviewExit} />
+      <AdminBar
+        id={pageID}
+        collection={collection}
+        preview={preview}
+        onPreviewExit={onPreviewExit}
+      />
       <GridProvider
         breakpoints={{
           s: 768,
