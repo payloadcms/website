@@ -1,20 +1,18 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import canUseDOM from '../../../utilities/canUseDOM'
-import classes from './index.module.scss';
+import classes from './index.module.scss'
 
 const ThemeContext = createContext<Theme | undefined>(undefined)
 
-export const ThemeProvider: React.FC<{ theme: Theme, children: React.ReactNode }> = ({ theme, children }) => {
+export const ThemeProvider: React.FC<{ theme: Theme; children: React.ReactNode }> = ({ theme, children }) => {
   return (
     <ThemeContext.Provider value={theme}>
-      <div className={classes[`theme--${theme}`]}>
-        {children}
-      </div>
+      <div className={classes[`theme--${theme}`]}>{children}</div>
     </ThemeContext.Provider>
   )
 }
 
-export const useTheme = (): Theme => useContext(ThemeContext);
+export const useTheme = (): Theme => useContext(ThemeContext)
 
 export type Theme = 'light' | 'dark'
 
@@ -74,14 +72,12 @@ export const ThemePreferenceProvider: React.FC<{ children?: React.ReactNode }> =
   }, [])
 
   useEffect(() => {
-    setThemeState(getTheme());
-  }, []);
+    setThemeState(getTheme())
+  }, [])
 
   return (
     <ThemePreferenceContext.Provider value={{ theme, setTheme, autoMode }}>
-      <ThemeProvider theme={theme}>
-        {children}
-      </ThemeProvider>
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ThemePreferenceContext.Provider>
   )
 }
