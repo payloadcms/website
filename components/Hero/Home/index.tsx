@@ -1,12 +1,12 @@
-import React from 'react';
-import Marquee from 'react-fast-marquee';
-import { Page } from '../../../payload-types';
-import { Gutter } from '../../Gutter';
-import { ThemeProvider } from '../../providers/Theme';
+import React from 'react'
+import Marquee from 'react-fast-marquee'
+import { Page } from '../../../payload-types'
+import { Gutter } from '../../Gutter'
+import { ThemeProvider } from '../../providers/Theme'
 
-import classes from './index.module.scss';
+import classes from './index.module.scss'
 
-export const HomeHero: React.FC<Page['hero']> = (props) => {
+export const HomeHero: React.FC<Page['hero']> = () => {
   return (
     <ThemeProvider theme="dark" className={classes.homeHero}>
       <div className={classes.bg}>

@@ -1,9 +1,15 @@
+@use '@scss/common.scss' as *;
+
 .left--full {
   padding-left: var(--gutter-h);
 }
 
 .left--half {
   padding-left: calc(var(--gutter-h) / 2);
+
+  @include large-break {
+    padding-left: var(--gutter-h);
+  }
 }
 
 .right--full {
@@ -12,4 +18,8 @@
 
 .right--half {
   padding-right: calc(var(--gutter-h) / 2);
+
+  @include large-break {
+    padding-right: var(--gutter-h);
+  }
 }
