@@ -7,22 +7,22 @@ type CMSLinkType = {
   type?: 'reference' | 'custom'
   newTab?: boolean
   reference:
-  | {
-    value: string | Page
-    relationTo: 'pages'
-  }
-  | {
-    value: string | Post
-    relationTo: 'posts'
-  }
-  | {
-    value: string | UseCase
-    relationTo: 'use-cases'
-  }
-  | {
-    value: string | CaseStudy
-    relationTo: 'case-studies'
-  }
+    | {
+        value: string | Page
+        relationTo: 'pages'
+      }
+    | {
+        value: string | Post
+        relationTo: 'posts'
+      }
+    | {
+        value: string | UseCase
+        relationTo: 'use-cases'
+      }
+    | {
+        value: string | CaseStudy
+        relationTo: 'case-studies'
+      }
   url: string
   label: string
   appearance?: 'default' | 'primary' | 'secondary'

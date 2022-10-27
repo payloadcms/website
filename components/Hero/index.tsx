@@ -10,8 +10,8 @@ const heroes = {
   home: HomeHero,
 }
 
-export const Hero: React.FC<Page['hero']> = (props) => {
-  const { type } = props;
-  const HeroToRender = heroes[type];
+export const Hero: React.FC<Page['hero']> = props => {
+  const { type } = props
+  const HeroToRender = heroes[type]
   return <HeroToRender {...props} />
 }

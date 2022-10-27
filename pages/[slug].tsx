@@ -5,7 +5,7 @@ import { Hero } from '../components/Hero'
 import { getApolloClient } from '../graphql'
 import { PAGE, PAGES } from '../graphql/pages'
 import type { Page } from '../payload-types'
-import { RenderBlocks } from '../components/RenderBlocks';
+import { RenderBlocks } from '../components/RenderBlocks'
 
 const PageTemplate: React.FC<{
   page: Page
@@ -49,8 +49,8 @@ export const getStaticProps: GetStaticProps = async context => {
         headers: {
           ...(preview
             ? {
-              Authorization: `JWT ${payloadToken}`, // when previewing, send the payload token to bypass draft access control
-            }
+                Authorization: `JWT ${payloadToken}`, // when previewing, send the payload token to bypass draft access control
+              }
             : {}),
         },
       },

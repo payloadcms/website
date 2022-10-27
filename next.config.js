@@ -1,17 +1,14 @@
 /** @type {import('next').NextConfig} */
-const path = require('path');
+const path = require('path')
 
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: [
-      'localhost',
-      process.env.NEXT_PUBLIC_CMS_URL
-    ],
+    domains: ['localhost', process.env.NEXT_PUBLIC_CMS_URL],
   },
-  webpack: (config) => {
-    const configCopy = { ...config };
+  webpack: config => {
+    const configCopy = { ...config }
     configCopy.resolve.alias = {
       ...config.resolve.alias,
       '@scss': path.resolve(__dirname, './css/'),
@@ -20,8 +17,8 @@ const nextConfig = {
       // modify their paths according to your local directory
       // "payload-admin-bar": path.join(__dirname, "../payload-admin-bar"),
     }
-    return configCopy;
-  }
+    return configCopy
+  },
 }
 
 module.exports = nextConfig
