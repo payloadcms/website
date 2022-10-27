@@ -1,19 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-const preview = (req: NextApiRequest, res: NextApiResponse) => {
+const preview = (req: NextApiRequest, res: NextApiResponse): void => {
   const {
     cookies: { 'payload-token': payloadToken },
     query: { url },
   } = req
 
   if (!url) {
-    return res.status(404).json({
+    res.status(404).json({
       message: 'No URL provided',
     })
   }
 
   if (!payloadToken) {
-    return res.status(403).json({
+    res.status(403).json({
       message: 'You are not allowed to preview this page',
     })
   }

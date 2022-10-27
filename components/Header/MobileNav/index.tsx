@@ -1,8 +1,9 @@
+import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import { Modal, ModalToggler } from '@faceless-ui/modal'
 import { MainMenu } from '../../../payload-types'
 import { FullLogo } from '../../graphics/FullLogo'
 import { Gutter } from '../../Gutter'
-import { Modal, ModalToggler } from '@faceless-ui/modal'
 import { SearchIcon } from '../../graphics/SearchIcon'
 import { MenuIcon } from '../../graphics/MenuIcon'
 import { Button } from '../../Button'
@@ -13,14 +14,6 @@ import classes from './index.module.scss'
 const modalSlug = 'mobile-nav'
 
 type NavItems = Pick<MainMenu, 'navItems'>
-export const MobileNav: React.FC<NavItems> = props => {
-  return (
-    <div className={classes.mobileNav}>
-      <MenuBar />
-      <MobileMenuModal {...props} />
-    </div>
-  )
-}
 
 const MenuBar: React.FC = () => {
   return (
@@ -68,5 +61,14 @@ const MobileMenuModal: React.FC<NavItems> = ({ navItems }) => {
       </Gutter>
       <div className={classes.blur} />
     </Modal>
+  )
+}
+
+export const MobileNav: React.FC<NavItems> = props => {
+  return (
+    <div className={classes.mobileNav}>
+      <MenuBar />
+      <MobileMenuModal {...props} />
+    </div>
   )
 }
