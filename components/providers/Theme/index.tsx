@@ -6,13 +6,16 @@ export type Theme = 'light' | 'dark'
 
 const ThemeContext = createContext<Theme | undefined>(undefined)
 
-export const ThemeProvider: React.FC<{ theme: Theme; children: React.ReactNode }> = ({
-  theme,
-  children,
-}) => {
+export const ThemeProvider: React.FC<{
+  theme: Theme
+  children: React.ReactNode
+  className?: string
+}> = ({ theme, children, className }) => {
   return (
     <ThemeContext.Provider value={theme}>
-      <div className={classes[`theme--${theme}`]}>{children}</div>
+      <div className={[classes[`theme--${theme}`], className].filter(Boolean).join(' ')}>
+        {children}
+      </div>
     </ThemeContext.Provider>
   )
 }
