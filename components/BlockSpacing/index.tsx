@@ -6,6 +6,7 @@ type Props = {
   bottom?: boolean
   children: React.ReactNode
   className?: string
+  style?: React.CSSProperties
 }
 
 export const BlockSpacing: React.FC<Props> = ({
@@ -13,12 +14,14 @@ export const BlockSpacing: React.FC<Props> = ({
   bottom = true,
   className,
   children,
+  style
 }) => {
   return (
     <div
       className={[className, top && classes.top, bottom && classes.bottom]
         .filter(Boolean)
         .join(' ')}
+      style={style}
     >
       {children}
     </div>
