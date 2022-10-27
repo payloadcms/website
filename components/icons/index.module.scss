@@ -1,0 +1,33 @@
+@use "@scss/common" as *;
+
+.icon {
+  width: calc(var(--base) * 0.5);
+  height: calc(var(--base) * 0.5);
+  overflow: visible;
+  transition: transform var(--default-trans-time) linear;
+  will-change: transform;
+}
+
+.stroke {
+  stroke-width: 1px;
+  fill: none;
+  stroke: currentColor;
+}
+
+.small {
+  width: calc(var(--base) * 0.25);
+  height: calc(var(--base) * 0.25);
+}
+
+.large {
+  height: var(--base);
+  width: var(--base);
+}
+
+.bold {
+  &:local() {
+    .stroke {
+      stroke-width: 2px;
+    }
+  }
+}

@@ -1,29 +1,55 @@
 @use '@scss/type.scss' as *;
 
+.button {
+  all: unset;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: inline-flex;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.appearance {
+  &--default {
+    display: flex;
+    border-top: 1px solid var(--theme-elevation-900);
+    padding-top: calc(var(--base) * 0.75);
+  }
+
+  &--primary {
+    border: 1px solid var(--theme-elevation-900);
+    padding: calc(var(--base) * 0.75) var(--base);
+    background-color: var(--theme-elevation-900);
+    color: var(--theme-elevation-0);
+  }
+
+  &--secondary {
+    border: 1px solid var(--theme-elevation-900);
+    padding: calc(var(--base) * 0.75) var(--base);
+  }
+}
+
 .content {
   display: flex;
-
-  svg {
-    margin-right: calc(var(--base) / 2);
-    width: var(--base);
-    height: var(--base);
-  }
+  align-items: center;
+  width: 100%;
 }
 
 .label {
   @extend %label;
+  flex-grow: 1;
+  flex-shrink: 1;
   display: flex;
   align-items: center;
 }
 
-.button {
-  text-decoration: none;
-  display: inline-flex;
-  padding: 12px 18px;
-  margin-bottom: var(--base);
+.icon {
+  flex-shrink: 0;
 }
 
-.appearance--default {
-  padding: 0;
-  margin-left: -8px;
+.spacer {
+  width: calc(var(--base) / 2);
+  flex-shrink: 0;
 }
