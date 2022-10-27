@@ -1,0 +1,72 @@
+.banner {
+  padding: var(--base);
+  display: flex;
+  align-items: center;
+
+  &.default {
+    background: var(--color-base-800);
+    color: var(--color-base-0);
+  }
+}
+
+.theme--light {
+  &.success {
+    background-color: var(--theme-success-450);
+    
+    :local(.icon path) {
+      stroke: var(--theme-success-450);
+    }
+  }
+  &.warning {
+    background-color: var(--theme-warning-450);
+    
+    :local(.icon path) {
+      stroke: var(--theme-warning-450);
+    }
+  }
+  &.error {
+    background-color: var(--theme-error-450);
+    
+    :local(.icon path) {
+      stroke: var(--theme-error-450);
+    }
+  }
+}
+
+.theme--dark {
+  &.success {
+    color: var(--color-success-500);
+    background: var(--theme-success-100);
+
+    :local(.icon path) {
+      stroke: var(--theme-success-100);
+    }
+  }
+  &.warning {
+    color: var(--color-warning-500);
+    background: var(--theme-warning-100);
+
+    :local(.icon path) {
+      stroke: var(--theme-warning-100);
+    }
+  }
+  &.error {
+    color: var(--color-error-500);
+    background: var(--theme-error-100);
+    
+    :local(.icon path) {
+      stroke: var(--theme-error-100);
+    }
+  }
+}
+
+.icon {
+  background-color: currentColor;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-right: var(--base);
+
+  path {
+    stroke: var(--color-base-800);
+  }
+}

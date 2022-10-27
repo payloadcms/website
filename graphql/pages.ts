@@ -1,7 +1,19 @@
-import { gql } from "@apollo/client";
-import { CALL_TO_ACTION, CARD_GRID, CASE_STUDIES_HIGHLIGHT, CONTENT, CONTENT_GRID, FEATURE_HIGHLIGHT, FORM_BLOCK, LINK_GRID, MEDIA_BLOCK, MEDIA_CONTENT, REUSABLE_CONTENT_BLOCK } from "./blocks";
-import { FOOTER, MAIN_MENU } from "./globals";
-import { LINK_FIELDS } from "./link";
+import { gql } from '@apollo/client'
+import {
+  CALL_TO_ACTION,
+  CARD_GRID,
+  CASE_STUDIES_HIGHLIGHT,
+  CONTENT,
+  CONTENT_GRID,
+  FEATURE_HIGHLIGHT,
+  FORM_BLOCK,
+  LINK_GRID,
+  MEDIA_BLOCK,
+  MEDIA_CONTENT,
+  REUSABLE_CONTENT_BLOCK,
+} from './blocks'
+import { FOOTER, MAIN_MENU } from './globals'
+import { LINK_FIELDS } from './link'
 
 export const PAGES = gql`
   query Pages {
