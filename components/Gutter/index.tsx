@@ -10,14 +10,12 @@ type Props = {
 }
 export const Gutter: React.FC<Props> = ({ children, className, left = 'full', right = 'full' }) => {
   return (
-    <div className={className}>
-      <div
-        className={[classes[`left--${left}`], classes[`right--${right}`], className]
-          .filter(Boolean)
-          .join(' ')}
-      >
-        {children}
-      </div>
+    <div
+      className={[classes[`left--${left}`], classes[`right--${right}`], className]
+        .filter(Boolean)
+        .join(' ')}
+    >
+      {children}
     </div>
   )
 }

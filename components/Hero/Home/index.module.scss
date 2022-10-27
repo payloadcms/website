@@ -1,3 +1,5 @@
+@use '@scss/common.scss' as *;
+
 .homeHero {
   background: var(--theme-bg);
   position: relative;
@@ -12,7 +14,27 @@
   left: 0;
 }
 
-.content {
+.wrap {
   position: relative;
   z-index: 2;
+}
+
+.content {
+  display: flex;
+  min-height: 60vh;
+  align-items: flex-end;
+
+  @include mid-break {
+    padding-top: calc(var(--base) * 3);
+    display: block;
+    min-height: initial;
+  }
+}
+
+.richText {
+  width: 75%;
+
+  @include mid-break {
+    width: 100%;
+  }
 }
