@@ -50,10 +50,22 @@
 
 .adjective {
   display: block;
-  font-size: 300px;
+  font-size: 288px;
   line-height: 1;
 
   &:after {
     content: '—';
+  }
+
+  @include large-break {
+    font-size: 240px;
+  }
+
+  @include mid-break {
+    font-size: 168px;
+  }
+
+  @include small-break {
+    font-size: 96px;
   }
 }

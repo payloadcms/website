@@ -18,6 +18,10 @@
   font-size: 108px;
   line-height: 1;
 
+  @include large-break {
+    font-size: 84px;
+  }
+
   @include mid-break {
     font-size: 70px;
   }
