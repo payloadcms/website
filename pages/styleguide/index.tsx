@@ -33,8 +33,13 @@ const Styleguide: React.FC = () => {
       <Gutter>
         <h1>Styleguide</h1>
         <div>
+          <Link href="/styleguide/icons">Icons</Link>
+        </div>
+        <br />
+        <div>
           <Link href="/styleguide/buttons">Buttons</Link>
         </div>
+        <br />
         <div>
           <Link href="/styleguide/typography">Typography</Link>
         </div>

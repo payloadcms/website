@@ -40,16 +40,18 @@ const Typography: React.FC = () => {
           <TypographyContent />
         </Gutter>
       </BlockSpacing>
-      <BlockSpacing
-        style={{
-          backgroundColor: 'var(--color-base-900)',
-          padding: `calc(var(--base) * 2) 0`,
-        }}
-      >
+      <BlockSpacing>
         <ThemeProvider theme={theme === 'dark' ? 'light' : 'dark'}>
-          <Gutter>
-            <TypographyContent />
-          </Gutter>
+          <div 
+            style={{
+              backgroundColor: 'var(--theme-elevation-0)',
+              padding: `calc(var(--base) * 2) 0`,
+            }}
+          >
+            <Gutter>
+              <TypographyContent />
+            </Gutter>
+          </div>
         </ThemeProvider>
       </BlockSpacing>
     </Fragment>

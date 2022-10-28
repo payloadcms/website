@@ -75,7 +75,6 @@ const PayloadApp = (
         <ModalProvider transTime={0} zIndex="var(--z-modal)">
           <Header {...pageProps.mainMenu} />
           <Component {...pageProps} />
-
           <ModalContainer />
         </ModalProvider>
       </GridProvider>
