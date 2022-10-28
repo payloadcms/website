@@ -6,6 +6,7 @@ import { ThemeProvider, useTheme } from '../../components/providers/Theme'
 import { BlockSpacing } from '../../components/BlockSpacing'
 import { StyleguideBreadcrumbs } from '.'
 import { ArrowIcon } from '../../components/icons/ArrowIcon'
+import { SearchIcon } from '../../components/icons/SearchIcon'
 
 const IconsContent: React.FC = () => {
   return (
@@ -15,6 +16,8 @@ const IconsContent: React.FC = () => {
       </p>
       <div>
         <ArrowIcon />
+        &nbsp;&nbsp;
+        <SearchIcon />
       </div>
       <br />
       <p>
@@ -22,6 +25,8 @@ const IconsContent: React.FC = () => {
       </p>
       <div>
         <ArrowIcon bold />
+        &nbsp;&nbsp;
+        <SearchIcon bold />
       </div>
       <br />
       <p>
@@ -29,6 +34,8 @@ const IconsContent: React.FC = () => {
       </p>
       <div>
         <ArrowIcon size="large" />
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <SearchIcon size="large" />
       </div>
       <br />
       <p>
@@ -36,6 +43,8 @@ const IconsContent: React.FC = () => {
       </p>
       <div>
         <ArrowIcon bold size="large" />
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <SearchIcon bold size="large" />
       </div>
     </Fragment>
   )

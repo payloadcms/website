@@ -1,7 +1,9 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { ArrowIcon } from '../icons/ArrowIcon'
 import classes from './index.module.scss'
+
+const animationDuration = 500;
 
 export type Props = {
   appearance?: 'default' | 'primary' | 'secondary'
@@ -15,39 +17,19 @@ export type Props = {
   fullWidth?: boolean
 }
 
-const elements: {
-  [key: string]: React.ElementType
-} = {
-  a: 'a',
-  button: 'button',
-}
-
 const icons = {
   'arrow': ArrowIcon,
 }
 
-export const Button: React.FC<Props> = ({
-  el = 'button',
-  label,
-  newTab,
-  href,
-  appearance = 'default',
-  className: classNameFromProps,
-  icon,
-  fullWidth,
-}) => {
-  const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
-
-  const className = [
-    classNameFromProps, 
-    classes.button,
-    classes[`appearance--${appearance}`],
-    fullWidth && classes['full-width'],
-  ].filter(Boolean).join(' ')
+const ButtonContent: React.FC<Props> = (props) => {
+  const {
+    icon,
+    label
+  } = props;
 
   const Icon = icon ? icons[icon] : null
 
-  const content = (
+  return (
     <div className={classes.content}>
       {label && (
         <span className={classes.label}>
@@ -63,6 +45,61 @@ export const Button: React.FC<Props> = ({
       )}
     </div>
   )
+}
+
+const elements: {
+  [key: string]: React.ElementType
+} = {
+  a: 'a',
+  button: 'button',
+}
+
+export const Button: React.FC<Props> = (props) => {
+  const {
+    el = 'button',
+    newTab,
+    href,
+    appearance = 'default',
+    className: classNameFromProps,
+    fullWidth,
+  } = props;
+
+  const [isHovered, setIsHovered] = React.useState(false)
+  const [isAnimatingOut, setIsAnimatingOut] = React.useState(false)
+
+  const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
+
+  const className = [
+    classNameFromProps, 
+    classes.button,
+    classes[`appearance--${appearance}`],
+    isHovered && classes[`appearance--${appearance}--hovered`],
+    isAnimatingOut &&classes[`appearance--${appearance}-animating-out`],
+    fullWidth && classes['full-width'],
+  ].filter(Boolean).join(' ')
+
+  const handleMouseEnter = useCallback(() => {
+    setIsHovered(true)
+  },  [])
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHovered(false)
+    setIsAnimatingOut(true);
+
+    let timerID: NodeJS.Timeout;
+
+    if (timerID) clearTimeout(timerID)
+    
+     timerID = setTimeout(() => {
+      setIsAnimatingOut(false);
+    }, animationDuration)
+
+    return () => {
+      if (timerID) {
+        clearTimeout(timerID);
+      }
+    }
+  }, []);
 
   if (el === 'link') {
     return (
@@ -73,9 +110,11 @@ export const Button: React.FC<Props> = ({
       >
         <a
           className={className}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
           {...newTabProps}
         >
-          {content}
+          <ButtonContent {...props} />
         </a>
       </Link>
     )
@@ -87,9 +126,11 @@ export const Button: React.FC<Props> = ({
     return (
       <Element
         className={className}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         {...newTabProps}
       >
-        {content}
+        <ButtonContent {...props} />
       </Element>
     )
   }
