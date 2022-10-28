@@ -1,4 +1,5 @@
 import { LINK_FIELDS } from './link'
+import { MEDIA_FIELDS } from './media'
 
 export const BANNER = `
 ...on Banner {
@@ -106,9 +107,7 @@ export const FEATURE_HIGHLIGHT = `
       content
       link ${LINK_FIELDS({ disableAppearance: true })}
       code
-      media {
-        url
-      }
+      media ${MEDIA_FIELDS}
     }
   }
 }
@@ -166,9 +165,7 @@ export const MEDIA_BLOCK = `
   blockType
   mediaBlockFields {
     position
-    media {
-      url
-    }
+    media ${MEDIA_FIELDS}
     caption
   }
 }
@@ -182,9 +179,7 @@ export const MEDIA_CONTENT = `
     container
     richText
     link ${LINK_FIELDS({ disableAppearance: true })}
-    media {
-      url
-    }
+    media ${MEDIA_FIELDS}
   }
 }
 `
