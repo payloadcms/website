@@ -3,7 +3,7 @@ import { join } from 'path'
 import matter from 'gray-matter'
 import rawMDX from '@mdx-js/mdx'
 import visit from 'unist-util-visit'
-import mdastToString from 'mdast-util-to-string'
+import { toString as mdastToString } from 'mdast-util-to-string'
 import slugify from '../utilities/slugify'
 
 const compiler = rawMDX.createMdxAstCompiler({ remarkPlugins: [] })
@@ -116,7 +116,8 @@ export function getDocPaths(): DocPath[] {
       paths.push({
         doc: filename.replace('.mdx', ''),
         topic: topic.toLowerCase(),
-      }),)
+      }),
+    )
   })
 
   return paths
