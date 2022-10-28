@@ -6,7 +6,7 @@ import { Gutter } from '../../Gutter'
 import { HeaderObserver } from '../../HeaderObserver'
 import { Media } from '../../Media'
 import { ThemeProvider } from '../../providers/Theme'
-import RichText from '../../RichText'
+import { RichText } from '../../RichText'
 
 import classes from './index.module.scss'
 

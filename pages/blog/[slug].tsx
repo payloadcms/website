@@ -6,7 +6,7 @@ import { getApolloClient } from '../../graphql'
 import type { Post } from '../../payload-types'
 import { RenderBlocks } from '../../components/RenderBlocks'
 import { POST, POSTS } from '../../graphql/posts'
-import RichText from '../../components/RichText'
+import { RichText } from '../../components/RichText'
 import { Gutter } from '../../components/Gutter'
 import { Media } from '../../components/Media'
 import { Label } from '../../components/Label'
@@ -115,9 +115,9 @@ export const getStaticProps: GetStaticProps = async context => {
         headers: {
           ...(preview
             ? {
-                // when previewing, send the payload token to bypass draft access control
-                Authorization: `JWT ${payloadToken}`,
-              }
+              // when previewing, send the payload token to bypass draft access control
+              Authorization: `JWT ${payloadToken}`,
+            }
             : {}),
         },
       },

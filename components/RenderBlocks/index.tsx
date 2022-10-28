@@ -7,6 +7,7 @@ import { BlogContent } from '../blocks/BlogContent'
 import { MediaBlock } from '../blocks/MediaBlock'
 import { CodeBlock } from '../blocks/CodeBlock'
 import { HeaderObserver } from '../HeaderObserver'
+import { ContentBlock } from '../blocks/Content'
 
 type ReusableContentBlock = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 
@@ -15,6 +16,7 @@ const blockComponents = {
   blogContent: BlogContent,
   mediaBlock: MediaBlock,
   code: CodeBlock,
+  content: ContentBlock,
 }
 
 export const RenderBlocks: React.FC<{
