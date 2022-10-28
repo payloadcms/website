@@ -49,8 +49,8 @@ export const getStaticProps: GetStaticProps = async context => {
         headers: {
           ...(preview
             ? {
-              Authorization: `JWT ${payloadToken}`, // when previewing, send the payload token to bypass draft access control
-            }
+                Authorization: `JWT ${payloadToken}`, // when previewing, send the payload token to bypass draft access control
+              }
             : {}),
         },
       },

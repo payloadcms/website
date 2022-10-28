@@ -1,6 +1,6 @@
-import { Button } from '../../components/Button'
 import NextHead from 'next/head'
 import { Fragment } from 'react'
+import { Button } from '../../components/Button'
 import { Gutter } from '../../components/Gutter'
 import { ThemeProvider, useTheme } from '../../components/providers/Theme'
 import { BlockSpacing } from '../../components/BlockSpacing'
@@ -11,36 +11,28 @@ import { SearchIcon } from '../../components/icons/SearchIcon'
 const IconsContent: React.FC = () => {
   return (
     <Fragment>
-      <p>
-        Icons
-      </p>
+      <p>Icons</p>
       <div>
         <ArrowIcon />
         &nbsp;&nbsp;
         <SearchIcon />
       </div>
       <br />
-      <p>
-        Icons - bold
-      </p>
+      <p>Icons - bold</p>
       <div>
         <ArrowIcon bold />
         &nbsp;&nbsp;
         <SearchIcon bold />
       </div>
       <br />
-      <p>
-        Icons - Large
-      </p>
+      <p>Icons - Large</p>
       <div>
         <ArrowIcon size="large" />
         &nbsp;&nbsp;&nbsp;&nbsp;
         <SearchIcon size="large" />
       </div>
       <br />
-      <p>
-        Icons - Large Bold
-      </p>
+      <p>Icons - Large Bold</p>
       <div>
         <ArrowIcon bold size="large" />
         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -69,7 +61,7 @@ const Icons: React.FC = () => {
       </BlockSpacing>
       <BlockSpacing>
         <ThemeProvider theme={theme === 'dark' ? 'light' : 'dark'}>
-          <div 
+          <div
             style={{
               backgroundColor: 'var(--theme-elevation-0)',
               padding: `calc(var(--base) * 2) 0`,

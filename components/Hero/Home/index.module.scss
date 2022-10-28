@@ -37,9 +37,13 @@
 
 .content {
   display: flex;
-  min-height: 60vh;
+  min-height: 75vh;
   align-items: flex-end;
   justify-content: space-between;
+
+  @include large-break {
+    min-height: 70vh;
+  }
 
   @include mid-break {
     padding-top: calc(var(--base) * 6);

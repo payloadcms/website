@@ -1,0 +1,17 @@
+@use '@scss/common.scss' as *;
+
+.wrap {
+  padding-top: var(--page-padding-top);
+}
+
+.grid {
+  margin: 0 calc(var(--gutter-h) / 2);
+}
+
+.nav {
+
+}
+
+.title {
+  @include h2;
+}

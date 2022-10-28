@@ -14,7 +14,7 @@ export const BlockSpacing: React.FC<Props> = ({
   bottom = true,
   className,
   children,
-  style
+  style,
 }) => {
   return (
     <div

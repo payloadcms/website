@@ -5,7 +5,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['localhost', process.env.NEXT_PUBLIC_CMS_URL],
+    domains: ['localhost', process.env.NEXT_PUBLIC_CMS_URL, 'cms.payloadcms.com'],
   },
   webpack: config => {
     const configCopy = { ...config }
@@ -18,6 +18,15 @@ const nextConfig = {
       // "payload-admin-bar": path.join(__dirname, "../payload-admin-bar"),
     }
     return configCopy
+  },
+  redirects() {
+    return [
+      {
+        source: '/docs',
+        destination: '/docs/getting-started/what-is-payload',
+        permanent: true,
+      },
+    ]
   },
 }
 

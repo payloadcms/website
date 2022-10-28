@@ -22,68 +22,68 @@ export const HomeHero: React.FC<Page['hero']> = ({
   return (
     <ThemeProvider theme="dark" className={classes.homeHero}>
       <HeaderObserver color="light">
-        <div className={classes.bg}>
-          <Marquee gradient={false}>
-            <img
-              className={classes.bgImage}
-              style={{ height: '100vh' }}
-              src="/images/home-bg.png"
-              alt="Screenshots of Payload"
-            />
-          </Marquee>
-        </div>
-        <div className={classes.wrap}>
-          <Gutter left="half" right="half">
-            <div className={classes.content}>
-              <RichText className={classes.richText} content={richText} />
-              <div className={classes.sidebar}>
-                {Array.isArray(actions) && (
-                  <ul className={classes.actions}>
-                    {actions.map(({ link }, i) => {
-                      return (
-                        <li key={i}>
-                          <Button
-                            appearance="default"
-                            icon="arrow"
-                            reference={link.reference}
-                            label={link.label}
-                            fullWidth
-                          />
-                        </li>
-                      )
-                    })}
-                  </ul>
-                )}
-                {Array.isArray(buttons) && (
-                  <ul className={classes.buttons}>
-                    {buttons.map(({ link }, i) => {
-                      return (
-                        <li key={i}>
-                          <Button {...link} />
-                        </li>
-                      )
-                    })}
-                  </ul>
-                )}
-              </div>
+      <div className={classes.bg}>
+        <Marquee gradient={false}>
+          <img
+            className={classes.bgImage}
+            style={{ height: '100vh' }}
+            src="/images/home-bg.png"
+            alt="Screenshots of Payload"
+          />
+        </Marquee>
+      </div>
+      <div className={classes.wrap}>
+        <Gutter left="half" right="half">
+          <div className={classes.content}>
+            <RichText className={classes.richText} content={richText} />
+            <div className={classes.sidebar}>
+              {Array.isArray(actions) && (
+                <ul className={classes.actions}>
+                  {actions.map(({ link }, i) => {
+                    return (
+                      <li key={i}>
+                        <Button
+                          appearance="default"
+                          icon="arrow"
+                          reference={link.reference}
+                          label={link.label}
+                          fullWidth
+                        />
+                      </li>
+                    )
+                  })}
+                </ul>
+              )}
+              {Array.isArray(buttons) && (
+                <ul className={classes.buttons}>
+                  {buttons.map(({ link }, i) => {
+                    return (
+                      <li key={i}>
+                        <Button {...link} />
+                      </li>
+                    )
+                  })}
+                </ul>
+              )}
             </div>
-            <hr />
+          </div>
+          <hr />
+        </Gutter>
+        {Array.isArray(adjectives) && (
+          <Marquee gradient={false} speed={70} className={classes.adjectives}>
+            {adjectives.map(({ adjective }, i) => (
+              <span key={i} className={classes.adjective}>
+                {adjective}
+              </span>
+            ))}
+          </Marquee>
+        )}
+        {typeof media === 'object' && (
+          <Gutter className={`${classes.mediaGutter} ${classes[`mediaGutter--${theme}`]}`}>
+            <Media resource={media} className={classes.media} />
           </Gutter>
-          {Array.isArray(adjectives) && (
-            <Marquee gradient={false} speed={70} className={classes.adjectives}>
-              {adjectives.map(({ adjective }, i) => (
-                <span key={i} className={classes.adjective}>
-                  {adjective}
-                </span>
-              ))}
-            </Marquee>
-          )}
-          {typeof media === 'object' && (
-            <Gutter className={`${classes.mediaGutter} ${classes[`mediaGutter--${theme}`]}`}>
-              <Media resource={media} className={classes.media} />
-            </Gutter>
-          )}
-        </div>
+        )}
+      </div>
       </HeaderObserver>
     </ThemeProvider>
   )
