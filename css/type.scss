@@ -6,9 +6,13 @@
 
 @mixin h1 {
   margin: 50px 0;
-  font-size: 108px;
+  font-size: 132px;
   line-height: 1;
   font-weight: normal;
+
+  @include extra-large-break {
+    font-size: 108px;
+  }
 
   @include large-break {
     font-size: 84px;
@@ -27,9 +31,17 @@
 
 @mixin h2 {
   margin: 32px 0;
-  font-size: 72px;
+  font-size: 96px;
   line-height: 1;
   font-weight: normal;
+  
+  @include extra-large-break {
+    font-size: 72px;
+  }
+
+  @include large-break {
+    font-size: 60px;
+  }
 
   @include mid-break {
     margin: 36px 0;
@@ -45,9 +57,14 @@
 
 @mixin h3 {
   margin: 28px 0;
-  font-size: 48px;
-  line-height: 56px;
+  font-size: 60px;
+  line-height: 72px;
   font-weight: normal;
+
+  @include large-break {
+    font-size: 48px;
+    line-height: 56px;
+  }
 
   @include mid-break {
     font-size: 40px;
