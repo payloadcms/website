@@ -5,6 +5,7 @@ import { BlockSpacing } from '../BlockSpacing'
 import { BannerBlock } from '../blocks/Banner'
 import { BlogContent } from '../blocks/BlogContent'
 import { Media } from '../blocks/Media'
+import { CodeBlock } from '../blocks/CodeBlock'
 
 type ReusableContentBlock = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 
@@ -12,6 +13,7 @@ const blockComponents = {
   banner: BannerBlock,
   blogContent: BlogContent,
   mediaBlock: Media,
+  code: CodeBlock,
 }
 
 export const RenderBlocks: React.FC<{
