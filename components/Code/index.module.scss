@@ -1,0 +1,128 @@
+@use '@scss/common.scss' as *;
+
+.code {
+  padding: calc(var(--base) * 1.5);
+  font-size: calc(var(--base) * .65);
+  line-height: var(--base);
+  background-color: var(--color-base-950);
+  color: #ffffff;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  overflow: auto;
+
+  :global {
+    .token.comment,
+    .token.prolog,
+    .token.doctype,
+    .token.cdata,
+    .token.punctuation {
+      color: var(--color-base-500);
+    }
+
+    .token.plain,
+    .token.atrule,
+    .token.attr-value,
+    .token.keyword {
+      color: var(--color-success-500);
+    }
+
+    .token.tag,
+    .token.boolean,
+    .token.number,
+    .token.constant,
+    .token.symbol,
+    .token.deleted {
+      color: var(--color-error-500);
+    }
+
+    .token.attr-name,
+    .token.char,
+    .token.builtin,
+    .token.inserted {
+      color: white;
+    }
+
+    .token.operator,
+    .token.entity,
+    .token.url,
+    .language-css .token.string,
+    .style .token.string {
+      color: var(--color-base-500);
+    }
+
+
+    .token.selector,
+    .token-property,
+    .token.function {
+      color: var(--color-warning-500);
+    }
+
+    .token.regex,
+    .token.important,
+    .token.variable,
+    .token.string,
+    .token.class-name {
+      color: var(--color-blue);
+    }
+
+    .token.important,
+    .token.bold {
+      font-weight: bold;
+    }
+
+    .token.italic {
+      font-style: italic;
+    }
+
+    .token.entity {
+      cursor: help;
+    }
+
+    .token-line:not(:last-child) {
+      height: initial;
+      min-height: 1rem;
+    }
+
+    .highlight-line {
+      position: relative;
+
+      > * {
+        position: relative;
+        z-index: 2;
+      }
+
+      &:before {
+        content: ' ';
+        z-index: 1;
+        background-color: var(--color-base-800);
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    }
+  }
+
+  @include mid-break {
+    padding: var(--base);
+
+    :global {
+      .highlight-line {
+        &:before {
+          right: calc(var(--gutter-h) * -1);
+          left: calc(var(--gutter-h) * -1);
+        }
+      }
+    }
+  }
+}
