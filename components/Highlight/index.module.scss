@@ -1,0 +1,168 @@
+@use "@scss/common" as *;
+
+.highlightWrapper {
+  text-decoration: none;
+}
+
+.highlightNode {
+  position: relative;
+  display: inline-flex;
+  will-change: color;
+
+  &::before {
+    pointer-events: none;
+    will-change: height; // animating 'height' ftl, transform: translate3d requires overflow: hidden but there is no good way to achieve horizontal padding without visible overflow
+    content: "";
+    position: absolute;
+    width: calc(100% + 0.33em);
+    height: 0;
+    left: 50%;
+    bottom: 0;
+    transform: translate3d(-50%, 0, 0);
+    background-color: black;
+    transition: height linear var(--default-trans-time);
+  }
+}
+
+.doHighlight {
+  &::before {
+    height: 50%;
+  }
+}
+
+.label {
+  position: relative;
+  z-index: 1;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.textColor {
+  &--white {
+    color: var(--color-white);
+  }
+  &--red {
+    color: var(--color-red);
+  }
+  &--dark-red {
+    color: var(--color-dark-red);
+  }
+  &--blue {
+    color: var(--color-blue);
+  }
+  &--dark-blue {
+    color: var(--color-dark-blue);
+  }
+  &--green {
+    color: var(--color-green);
+  }
+  &--dark-green {
+    color: var(--color-dark-green);
+  }
+  &--purple {
+    color: var(--color-purple);
+  }
+  &--dark-purple {
+    color: var(--color-dark-purple);
+  }
+}
+
+.backgroundColor {
+  &--red {
+    &::before {
+      background-color: var(--color-red);
+    }
+  }
+  &--light-red {
+    &::before {
+      background-color: var(--color-light-red);
+    }
+  }
+  &--dark-red {
+    &::before {
+      background-color: var(--color-dark-red);
+    }
+  }
+
+  &--darker-red {
+    &::before {
+      background-color: var(--color-darker-red);
+    }
+  }
+  &--blue {
+    &::before {
+      background-color: var(--color-blue);
+    }
+  }
+  &--light-blue {
+    &::before {
+      background-color: var(--color-light-blue);
+    }
+  }
+  &--dark-blue {
+    &::before {
+      background-color: var(--color-dark-blue);
+    }
+  }
+
+  &--darker-blue {
+    &::before {
+      background-color: var(--color-darker-blue);
+    }
+  }
+  &--green {
+    &::before {
+      background-color: var(--color-green);
+    }
+  }
+  &--light-green {
+    &::before {
+      background-color: var(--color-light-green);
+    }
+  }
+  &--dark-green {
+    &::before {
+      background-color: var(--color-dark-green);
+    }
+  }
+
+  &--darker-green {
+    &::before {
+      background-color: var(--color-darker-green);
+    }
+  }
+  &--purple {
+    &::before {
+      background-color: var(--color-purple);
+    }
+  }
+  &--light-purple {
+    &::before {
+      background-color: var(--color-light-purple);
+    }
+  }
+  &--dark-purple {
+    &::before {
+      background-color: var(--color-dark-purple);
+    }
+  }
+
+  &--darker-purple {
+    &::before {
+      background-color: var(--color-darker-purple);
+    }
+  }
+  &--transparent {
+    &::before {
+      background-color: transparent;
+    }
+  }
+}
+
+.iconWrapper {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+}

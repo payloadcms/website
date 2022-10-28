@@ -5,56 +5,52 @@ import { Gutter } from '../../components/Gutter'
 import { ThemeProvider, useTheme } from '../../components/providers/Theme'
 import { BlockSpacing } from '../../components/BlockSpacing'
 import { StyleguideBreadcrumbs } from '.'
+import { ArrowIcon } from '../../components/icons/ArrowIcon'
+import { SearchIcon } from '../../components/icons/SearchIcon'
 
-const ButtonContent: React.FC = () => {
+const IconsContent: React.FC = () => {
   return (
     <Fragment>
       <p>
-        Default
+        Icons
       </p>
       <div>
-        <Button label="Learn more" />
+        <ArrowIcon />
+        &nbsp;&nbsp;
+        <SearchIcon />
       </div>
       <br />
       <p>
-        Default with icon
+        Icons - bold
       </p>
       <div>
-        <Button label="Learn more"  icon="arrow" />
+        <ArrowIcon bold />
+        &nbsp;&nbsp;
+        <SearchIcon bold />
       </div>
       <br />
       <p>
-        Primary
+        Icons - Large
       </p>
       <div>
-        <Button appearance="primary" label="Create new project" />
+        <ArrowIcon size="large" />
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <SearchIcon size="large" />
       </div>
       <br />
       <p>
-        Primary with icon
+        Icons - Large Bold
       </p>
       <div>
-        <Button appearance="primary" label="Create new project"  icon="arrow" />
-      </div>
-      <br />
-      <p>
-        Secondary
-      </p>
-      <div>
-        <Button appearance="secondary" label="Read the docs" />
-      </div>
-      <br />
-      <p>
-        Secondary with icon
-      </p>
-      <div>
-        <Button appearance="secondary" label="Read the docs" icon="arrow" />
+        <ArrowIcon bold size="large" />
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <SearchIcon bold size="large" />
       </div>
     </Fragment>
   )
 }
 
-const Buttons: React.FC = () => {
+const Icons: React.FC = () => {
   const theme = useTheme()
 
   return (
@@ -62,13 +58,13 @@ const Buttons: React.FC = () => {
       <NextHead>
         <meta key="robots" name="robots" content="noindex,follow" />
         <meta key="googlebot" name="googlebot" content="noindex,follow" />
-        <title>Buttons</title>
+        <title>Icons</title>
       </NextHead>
       <BlockSpacing>
         <Gutter>
-          <StyleguideBreadcrumbs pageTitle="Buttons" pageSlug="buttons" />
-          <h1>Buttons</h1>
-          <ButtonContent />
+          <StyleguideBreadcrumbs pageTitle="Icons" pageSlug="icons" />
+          <h1>Icons</h1>
+          <IconsContent />
         </Gutter>
       </BlockSpacing>
       <BlockSpacing>
@@ -80,7 +76,7 @@ const Buttons: React.FC = () => {
             }}
           >
             <Gutter>
-              <ButtonContent />
+              <IconsContent />
             </Gutter>
           </div>
         </ThemeProvider>
@@ -89,4 +85,4 @@ const Buttons: React.FC = () => {
   )
 }
 
-export default Buttons
+export default Icons

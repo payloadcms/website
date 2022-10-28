@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import Link from 'next/link'
 import { MainMenu } from '../../../payload-types'
 import { FullLogo } from '../../graphics/FullLogo'
 import { SearchIcon } from '../../graphics/SearchIcon'
@@ -14,9 +15,9 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
     <Gutter className={classes.desktopNav}>
       <Grid className={classes.grid}>
         <Cell className={classes.content}>
-          <div className={classes.logo}>
+          <Link href="/" className={classes.logo}>
             <FullLogo />
-          </div>
+          </Link>
 
           <div className={classes.navItems}>
             {(navItems || []).map((item, index) => {

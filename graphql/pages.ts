@@ -14,6 +14,7 @@ import {
 } from './blocks'
 import { FOOTER, MAIN_MENU } from './globals'
 import { LINK_FIELDS } from './link'
+import { MEDIA_FIELDS } from './media'
 
 export const PAGES = gql`
   query Pages {
@@ -37,9 +38,13 @@ export const PAGE = gql`
           links {
             link ${LINK_FIELDS()}
           }
-          media {
-            url
+          actions {
+            link ${LINK_FIELDS({ disableAppearance: true })}
           }
+          buttons {
+            link ${LINK_FIELDS()}
+          }
+          media ${MEDIA_FIELDS}
           adjectives {
             adjective 
           }
