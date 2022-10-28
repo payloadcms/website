@@ -4,7 +4,7 @@
   position: fixed;
   width: 100%;
   z-index: var(--z-nav);
-  padding: calc(var(--base)) 0;
+  padding: calc(var(--base) * 1.5) 0;
   
   &:after {
     content: '';
@@ -18,6 +18,10 @@
     z-index: -1;
     opacity: 1;
     transition: opacity 50ms ease-out;
+  }
+
+  @include large-break {
+    padding: var(--base) 0;
   }
 
   @include mid-break {
