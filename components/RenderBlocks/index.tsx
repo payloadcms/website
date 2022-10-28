@@ -4,7 +4,7 @@ import { toKebabCase } from '../../utilities/to-kebab-case'
 import { BlockSpacing } from '../BlockSpacing'
 import { BannerBlock } from '../blocks/Banner'
 import { BlogContent } from '../blocks/BlogContent'
-import { Media } from '../blocks/Media'
+import { MediaBlock } from '../blocks/MediaBlock'
 import { CodeBlock } from '../blocks/CodeBlock'
 
 type ReusableContentBlock = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
@@ -12,7 +12,7 @@ type ReusableContentBlock = Extract<Page['layout'][0], { blockType: 'reusableCon
 const blockComponents = {
   banner: BannerBlock,
   blogContent: BlogContent,
-  mediaBlock: Media,
+  mediaBlock: MediaBlock,
   code: CodeBlock,
 }
 

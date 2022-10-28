@@ -4,4 +4,6 @@ export const MEDIA_FIELDS = `{
   filename
   filesize
   url
+  width
+  height
 }`
