@@ -51,7 +51,7 @@ const PayloadApp = (
         breakpoints={{
           s: 768,
           m: 1100,
-          l: 1679,
+          l: 1600,
         }}
         rowGap={{
           s: '1rem',

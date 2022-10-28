@@ -30,7 +30,7 @@ export const Video: React.FC<Props> = props => {
         onClick={onClick}
         ref={videoRef}
       >
-        <source src={`${process.env.NEXT_PUBLIC_API_URL}/media/${resource.filename}`} />
+        <source src={`${process.env.NEXT_PUBLIC_CMS_URL}/media/${resource.filename}`} />
       </video>
     )
   }
