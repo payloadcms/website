@@ -19,6 +19,7 @@
 
 .logo {
   width: calc(var(--gutter-h) - var(--base));
+  height: 100%;
   position: absolute;
   left: calc(-1 * var(--base));
   display: flex;
