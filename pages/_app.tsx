@@ -10,7 +10,6 @@ import { ThemePreferenceProvider } from '../components/providers/Theme'
 import { Footer, MainMenu } from '../payload-types'
 
 import '../css/app.scss'
-import { MouseInfoProvider } from '@faceless-ui/mouse-info'
 
 const PayloadApp = (
   appProps: AppProps<{
@@ -61,8 +60,8 @@ const PayloadApp = (
           xl: '4rem',
         }}
         colGap={{
-          s: '10px',
-          m: '10px',
+          s: 'var(--base)',
+          m: 'calc(var(--base) * 2)',
           l: 'calc(var(--base) * 3)',
           xl: 'calc(var(--base) * 3)',
         }}
@@ -73,13 +72,10 @@ const PayloadApp = (
           xl: 12,
         }}
       >
-        <ModalProvider>
-          <MouseInfoProvider>
-            <Header {...pageProps.mainMenu} />
-            <Component {...pageProps} />
-
-            <ModalContainer />
-          </MouseInfoProvider>
+        <ModalProvider transTime={0} zIndex="var(--z-modal)">
+          <Header {...pageProps.mainMenu} />
+          <Component {...pageProps} />
+          <ModalContainer />
         </ModalProvider>
       </GridProvider>
     </ThemePreferenceProvider>

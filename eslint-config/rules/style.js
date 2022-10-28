@@ -15,7 +15,6 @@ module.exports = {
     'no-await-in-loop': 'off',
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     // 'no-floating-promises': true,
-    // do not allow process.env access in files
     'space-infix-ops': 'off',
     '@typescript-eslint/space-infix-ops': 'warn',
   },

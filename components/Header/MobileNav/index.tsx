@@ -11,41 +11,13 @@ import { CMSLink } from '../../CMSLink'
 
 import classes from './index.module.scss'
 
-const modalSlug = 'mobile-nav'
+export const modalSlug = 'mobile-nav'
 
 type NavItems = Pick<MainMenu, 'navItems'>
-
-const MenuBar: React.FC = () => {
-  return (
-    <div className={classes.menuBar}>
-      <Gutter>
-        <Grid>
-          <Cell className={classes.menuBarContainer}>
-            <div className={classes.logo}>
-              <FullLogo />
-            </div>
-
-            <div className={classes.icons}>
-              <Button className={classes.searchToggler}>
-                <SearchIcon />
-              </Button>
-
-              <ModalToggler slug={modalSlug} className={classes.modalToggler}>
-                <MenuIcon />
-              </ModalToggler>
-            </div>
-          </Cell>
-        </Grid>
-      </Gutter>
-    </div>
-  )
-}
 
 const MobileMenuModal: React.FC<NavItems> = ({ navItems }) => {
   return (
     <Modal slug={modalSlug} className={classes.mobileMenuModal}>
-      <MenuBar />
-
       <Gutter>
         <Grid>
           <Cell>
@@ -59,7 +31,7 @@ const MobileMenuModal: React.FC<NavItems> = ({ navItems }) => {
           </Cell>
         </Grid>
       </Gutter>
-      <div className={classes.blur} />
+      <div className={classes.modalBlur} />
     </Modal>
   )
 }
@@ -67,7 +39,28 @@ const MobileMenuModal: React.FC<NavItems> = ({ navItems }) => {
 export const MobileNav: React.FC<NavItems> = props => {
   return (
     <div className={classes.mobileNav}>
-      <MenuBar />
+      <div className={classes.menuBar}>
+        <Gutter>
+          <Grid>
+            <Cell className={classes.menuBarContainer}>
+              <div className={classes.logo}>
+                <FullLogo />
+              </div>
+
+              <div className={classes.icons}>
+                <Button className={classes.searchToggler}>
+                  <SearchIcon />
+                </Button>
+
+                <ModalToggler slug={modalSlug} className={classes.modalToggler}>
+                  <MenuIcon />
+                </ModalToggler>
+              </div>
+            </Cell>
+          </Grid>
+        </Gutter>
+      </div>
+
       <MobileMenuModal {...props} />
     </div>
   )

@@ -8,11 +8,6 @@
 }
 
 .grid {
-  padding: calc(var(--base) * 1.25) 0;
-  visibility: visible;
-  font-size: calc(var(--base) * .75);
-  position: relative;
-
   :local(a) {
     text-decoration: none;
   }
@@ -24,6 +19,7 @@
 
 .logo {
   width: calc(var(--gutter-h) - var(--base));
+  height: 100%;
   position: absolute;
   left: calc(-1 * var(--base));
   display: flex;
@@ -65,7 +61,7 @@
 
 .github {
   display: flex;
-  color-scheme: unset;
+  color-scheme: none;
   align-items: center;
 
   :local(.stars) {
@@ -100,6 +96,7 @@
   
   > * {
     margin-right: calc(var(--base) * .5);
+    line-height: 1;
     
     &:last-child {
       margin-right: 0;
