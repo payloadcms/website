@@ -43,10 +43,6 @@ const Styleguide: React.FC = () => {
         <div>
           <Link href="/styleguide/typography">Typography</Link>
         </div>
-        <br />
-        <div>
-          <Link href="/styleguide/highlight">Highlight</Link>
-        </div>
       </Gutter>
     </Fragment>
   )
