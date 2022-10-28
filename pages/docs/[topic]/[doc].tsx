@@ -1,7 +1,10 @@
 import React from 'react'
 import { GetStaticPaths } from 'next'
 import { useRouter } from 'next/router'
+import { Cell, Grid } from '@faceless-ui/css-grid'
 import { getDocPaths, getDoc, getTopics, Doc, Topic } from '../../../docs'
+import { Gutter } from '../../../components/Gutter'
+import classes from './index.module.scss'
 
 type Params = {
   topic: string
@@ -23,7 +26,16 @@ const Docs: React.FC<Props> = props => {
     query: { doc: slug, topic },
   } = useRouter()
 
-  return <h1>Docs</h1>
+  return (
+    <Gutter left="half" right="half" className={classes.wrap}>
+      <nav className={classes.nav}></nav>
+      <Grid className={classes.grid}>
+        <Cell start={2} cols={8}>
+          <h1 className={classes.title}>{doc.data.title}</h1>
+        </Cell>
+      </Grid>
+    </Gutter>
+  )
 }
 
 export async function getStaticProps({ params }: { params: Params }): Promise<StaticPropsResult> {

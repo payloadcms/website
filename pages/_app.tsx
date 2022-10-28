@@ -4,10 +4,12 @@ import { useRouter } from 'next/router'
 import { useCallback } from 'react'
 import { GridProvider } from '@faceless-ui/css-grid'
 import { ModalProvider, ModalContainer } from '@faceless-ui/modal'
+import { WindowInfoProvider } from '@faceless-ui/window-info'
 import { AdminBar } from '../components/AdminBar'
 import { Header } from '../components/Header'
 import { ThemePreferenceProvider } from '../components/providers/Theme'
 import { Footer, MainMenu } from '../payload-types'
+import HeaderThemeProvider from '../components/providers/HeaderTheme'
 
 import '../css/app.scss'
 
@@ -40,45 +42,55 @@ const PayloadApp = (
   }, [router])
 
   return (
-    <ThemePreferenceProvider>
-      <AdminBar
-        id={pageID}
-        collection={collection}
-        preview={preview}
-        onPreviewExit={onPreviewExit}
-      />
-      <GridProvider
-        breakpoints={{
-          s: 768,
-          m: 1100,
-          l: 1600,
-        }}
-        rowGap={{
-          s: '1rem',
-          m: '1rem',
-          l: '2rem',
-          xl: '4rem',
-        }}
-        colGap={{
-          s: 'var(--base)',
-          m: 'calc(var(--base) * 2)',
-          l: 'calc(var(--base) * 3)',
-          xl: 'calc(var(--base) * 3)',
-        }}
-        cols={{
-          s: 8,
-          m: 8,
-          l: 12,
-          xl: 12,
-        }}
-      >
-        <ModalProvider transTime={0} zIndex="var(--z-modal)">
-          <Header {...pageProps.mainMenu} />
-          <Component {...pageProps} />
-          <ModalContainer />
-        </ModalProvider>
-      </GridProvider>
-    </ThemePreferenceProvider>
+    <WindowInfoProvider
+      breakpoints={{
+        s: '(max-width: 768px)',
+        m: '(max-width: 1100px)',
+        l: '(max-width: 1600px)',
+      }}
+    >
+      <ThemePreferenceProvider>
+        <AdminBar
+          id={pageID}
+          collection={collection}
+          preview={preview}
+          onPreviewExit={onPreviewExit}
+        />
+        <GridProvider
+          breakpoints={{
+            s: 768,
+            m: 1100,
+            l: 1600,
+          }}
+          rowGap={{
+            s: '1rem',
+            m: '1rem',
+            l: '2rem',
+            xl: '4rem',
+          }}
+          colGap={{
+            s: 'var(--base)',
+            m: 'calc(var(--base) * 2)',
+            l: 'calc(var(--base) * 3)',
+            xl: 'calc(var(--base) * 3)',
+          }}
+          cols={{
+            s: 8,
+            m: 8,
+            l: 12,
+            xl: 12,
+          }}
+        >
+          <ModalProvider transTime={0} zIndex="var(--z-modal)">
+            <HeaderThemeProvider>
+              <Header {...pageProps.mainMenu} />
+              <Component {...pageProps} />
+              <ModalContainer />
+            </HeaderThemeProvider>
+          </ModalProvider>
+        </GridProvider>
+      </ThemePreferenceProvider>
+    </WindowInfoProvider>
   )
 }
 

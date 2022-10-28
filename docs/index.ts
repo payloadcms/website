@@ -3,7 +3,7 @@ import { join } from 'path'
 import matter from 'gray-matter'
 import rawMDX from '@mdx-js/mdx'
 import visit from 'unist-util-visit'
-import mdastToString from 'mdast-util-to-string'
+import { toString as mdastToString } from 'mdast-util-to-string'
 import slugify from '../utilities/slugify'
 
 const compiler = rawMDX.createMdxAstCompiler({ remarkPlugins: [] })

@@ -1,9 +1,12 @@
 @use '@scss/common.scss' as *;
 
 .homeHero {
-  background: var(--theme-bg);
-  position: relative;
   margin-bottom: var(--block-spacing);
+}
+
+.wrap {
+  position: relative;
+  background: var(--theme-bg);
 }
 
 .bg {
@@ -30,7 +33,7 @@
   pointer-events: none;
 }
 
-.wrap {
+.contentWrap {
   position: relative;
   z-index: 2;
 }
@@ -147,6 +150,10 @@
   }
 }
 
+.padForMedia {
+  padding-top: 28.125%; // half of 16x9 ratio
+}
+
 .mediaGutter {
   position: relative;
 
@@ -162,20 +169,9 @@
   }
 }
 
-.mediaGutter--light {
-  &:before {
-    background: var(--color-base-0);
-  }
-}
-
-.mediaGutter--dark {
-  &:before {
-    background: var(--color-base-900);
-  }
-}
-
 .media {
   @include shadow-lg;
   position: relative;
   z-index: 2;
+  margin-top: -28.125%; // half of 16x9 ratio
 }
