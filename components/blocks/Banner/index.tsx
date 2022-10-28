@@ -1,5 +1,5 @@
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import React from 'react'
+import { Cell, Grid } from '@faceless-ui/css-grid'
 import { ReusableContent } from '../../../payload-types'
 import { Gutter } from '../../Gutter'
 import { Banner, Props as BannerProps } from '../../Banner'
@@ -16,7 +16,7 @@ export const BannerBlock: React.FC<Props> = ({ bannerFields }) => {
   return (
     <Gutter>
       <Grid>
-        <Cell>
+        <Cell start={3} cols={8} startM={2} colsM={6} startS={1} colsS={8}>
           <Banner {...bannerProps} />
         </Cell>
       </Grid>

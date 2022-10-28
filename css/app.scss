@@ -13,6 +13,7 @@
 
   --scrollbar-width: 17px;
   --header-height: 90px;
+  --page-padding-top: calc(var(--header-height) + var(--base));
 
   --font-body: 'Neue Montreal', Helvetica, Arial;
   --font-mono: monospace;
@@ -34,6 +35,7 @@
   @include mid-break {
     --gutter-h: var(--base);
     --block-spacing: calc(var(--base) * 2);
+    --header-height: 66px;
   }
 }
 
@@ -130,6 +132,11 @@ a {
     opacity: .7;
     outline: none;
   }
+}
+
+time {
+  @include label;
+  margin: 0;
 }
 
 svg {

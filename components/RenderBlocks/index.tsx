@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { Page, ReusableContent } from '../../payload-types'
-import { toKebabCase } from '../../utilities/toKebabCase'
+import { toKebabCase } from '../../utilities/to-kebab-case'
 import { BlockSpacing } from '../BlockSpacing'
 import { BannerBlock } from '../blocks/Banner'
 import { BlogContent } from '../blocks/BlogContent'

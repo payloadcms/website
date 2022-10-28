@@ -21,13 +21,26 @@ export const POST = gql`
         image {
           alt
           url
+          height
+          width
+          filename
+          mimeType
         }
         excerpt
         author {
           firstName
           lastName
           email
+          photo {
+            alt
+            url
+            height
+            width
+            filename
+            mimeType
+          }
         }
+        createdAt
         layout {
           ${BLOG_CONTENT}
           ${BANNER}
