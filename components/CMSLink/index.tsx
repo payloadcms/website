@@ -3,26 +3,27 @@ import React from 'react'
 import { CaseStudy, Page, Post, UseCase } from '../../payload-types'
 import { Button } from '../Button'
 
+export type Reference = {
+  value: string | Page
+  relationTo: 'pages'
+}
+| {
+  value: string | Post
+  relationTo: 'posts'
+}
+| {
+  value: string | UseCase
+  relationTo: 'use-cases'
+}
+| {
+  value: string | CaseStudy
+  relationTo: 'case-studies'
+}
+
 type CMSLinkType = {
   type?: 'reference' | 'custom'
   newTab?: boolean
-  reference:
-    | {
-        value: string | Page
-        relationTo: 'pages'
-      }
-    | {
-        value: string | Post
-        relationTo: 'posts'
-      }
-    | {
-        value: string | UseCase
-        relationTo: 'use-cases'
-      }
-    | {
-        value: string | CaseStudy
-        relationTo: 'case-studies'
-      }
+  reference: Reference
   url: string
   label: string
   appearance?: 'default' | 'primary' | 'secondary'
@@ -76,5 +77,11 @@ export const CMSLink: React.FC<CMSLinkType> = ({
     label,
   }
 
-  return <Button className={className} {...buttonProps} el="link" />
+  return (
+    <Button 
+      {...buttonProps}
+      className={className} 
+      el="link"
+    />
+  )
 }
