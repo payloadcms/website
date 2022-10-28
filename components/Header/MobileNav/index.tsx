@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Modal, ModalToggler } from '@faceless-ui/modal'
+import Link from 'next/link'
 import { MainMenu } from '../../../payload-types'
 import { FullLogo } from '../../graphics/FullLogo'
 import { Gutter } from '../../Gutter'
@@ -43,9 +44,9 @@ export const MobileNav: React.FC<NavItems> = props => {
         <Gutter>
           <Grid>
             <Cell className={classes.menuBarContainer}>
-              <div className={classes.logo}>
+              <Link href="/" className={classes.logo}>
                 <FullLogo />
-              </div>
+              </Link>
 
               <div className={classes.icons}>
                 <Button className={classes.searchToggler}>

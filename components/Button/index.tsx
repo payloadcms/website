@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React, { useCallback } from 'react'
+import { Reference } from '../CMSLink';
 import { ArrowIcon } from '../icons/ArrowIcon'
 import classes from './index.module.scss'
 
@@ -13,8 +14,10 @@ export type Props = {
   newTab?: boolean
   className?: string
   label?: string
+  labelStyle?: 'mono' | 'regular'
   icon?: string
   fullWidth?: boolean
+  reference?: Reference
 }
 
 const icons = {
@@ -32,9 +35,15 @@ const ButtonContent: React.FC<Props> = (props) => {
   return (
     <div className={classes.content}>
       {label && (
-        <span className={classes.label}>
+        <div
+          className={[
+            classes.label,
+            !icon && classes['label-centered'],
+            classes[`label-${props.labelStyle}`]
+          ].filter(Boolean).join(' ')}
+        >
           {label}
-        </span>
+        </div>
       )}
       {Icon && label && (
         // NOTE: this is so that the icon and label can be reversed but keep spacing without messy css
@@ -58,11 +67,17 @@ export const Button: React.FC<Props> = (props) => {
   const {
     el = 'button',
     newTab,
-    href,
+    href: hrefFromProps,
     appearance = 'default',
     className: classNameFromProps,
     fullWidth,
+    reference
   } = props;
+
+  let href = hrefFromProps
+  if (reference && typeof reference?.value === 'object' && reference.value.slug) {
+    href = `/${reference.value.slug}`
+  }
 
   const [isHovered, setIsHovered] = React.useState(false)
   const [isAnimatingOut, setIsAnimatingOut] = React.useState(false)

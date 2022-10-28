@@ -2,9 +2,7 @@ import React from 'react'
 import Marquee from 'react-fast-marquee'
 import { Page } from '../../../payload-types'
 import { Button } from '../../Button'
-import { CMSLink } from '../../CMSLink'
 import { Gutter } from '../../Gutter'
-import { ArrowIcon } from '../../icons/ArrowIcon'
 import { Media } from '../../Media'
 import { ThemeProvider, useTheme } from '../../providers/Theme'
 import RichText from '../../RichText'
@@ -31,9 +29,13 @@ export const HomeHero: React.FC<Page['hero']> = ({ richText, adjectives, actions
                   {actions.map(({ link }, i) => {
                     return (
                       <li key={i}>
-                        <CMSLink {...link}>
-                          <ArrowIcon />
-                        </CMSLink>
+                        <Button 
+                          appearance="default"
+                          icon="arrow"
+                          reference={link.reference}
+                          label={link.label}
+                          fullWidth
+                        />
                       </li>
                     )
                   })}

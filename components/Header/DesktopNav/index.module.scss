@@ -18,12 +18,12 @@
 }
 
 .logo {
-  width: calc(var(--gutter-h) - var(--base));
+  width: calc(var(--gutter-h) / 2 - var(--base));
   height: 100%;
   position: absolute;
   left: calc(-1 * var(--base));
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   transform: translateX(-100%);
   top: -2px;
 
@@ -85,11 +85,11 @@
 }
 
 .icons {
-  width: calc(var(--gutter-h) - var(--base));
+  width: calc(var(--gutter-h) / 2 - var(--base));
   position: absolute;
   right: calc(-1 * var(--base));
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
   transform: translateX(100%);
   top: 0;
   align-items: center;
