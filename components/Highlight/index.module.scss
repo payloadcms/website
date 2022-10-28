@@ -14,18 +14,19 @@
     will-change: width; // animating 'height' ftl, transform: translate3d requires overflow: hidden but there is no good way to achieve horizontal padding without visible overflow
     content: "";
     position: absolute;
-    height: 50%;
-    width: 0;
+    width: calc(100% + 0.33em);
+    height: 0;
     bottom: 0;
-    left: calc(-.33em / 2);
-    background-color: var(--theme-success-300);
-    transition: width linear 1000ms;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+    background-color: var(--theme-success-400);
+    transition: height cubic-bezier(0.4, 0, 0.2, 1) 500ms;
   }
 }
 
 .doHighlight {
   &::before {
-    width: calc(100% + 0.33em);
+    height: 50%;
   }
 }
 

@@ -18,7 +18,7 @@ export const Highlight: React.FC<{
 
   const { hasIntersected } = useIntersection({
     ref,
-    rootMargin: '50px',
+    rootMargin: '-75px',
   })
 
   const theme = useTheme()
