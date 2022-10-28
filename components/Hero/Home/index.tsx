@@ -3,12 +3,15 @@ import Marquee from 'react-fast-marquee'
 import { Page } from '../../../payload-types'
 import { Button } from '../../Button'
 import { Gutter } from '../../Gutter'
-import { ThemeProvider } from '../../providers/Theme'
+import { Media } from '../../Media'
+import { ThemeProvider, useTheme } from '../../providers/Theme'
 import RichText from '../../RichText'
 
 import classes from './index.module.scss'
 
-export const HomeHero: React.FC<Page['hero']> = ({ richText, adjectives, actions, buttons }) => {
+export const HomeHero: React.FC<Page['hero']> = ({ richText, adjectives, actions, buttons, media }) => {
+  const theme = useTheme();
+
   return (
     <ThemeProvider theme="dark" className={classes.homeHero}>
       <div className={classes.bg}>
@@ -59,6 +62,11 @@ export const HomeHero: React.FC<Page['hero']> = ({ richText, adjectives, actions
               <span key={i} className={classes.adjective}>{adjective}</span>
             ))}
           </Marquee>
+        )}
+        {typeof media === 'object' && (
+          <Gutter className={`${classes.mediaGutter} ${classes[`mediaGutter--${theme}`]}`}>
+            <Media resource={media} className={classes.media} />
+          </Gutter>
         )}
       </div>
     </ThemeProvider>

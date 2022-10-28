@@ -3,6 +3,7 @@
 .homeHero {
   background: var(--theme-bg);
   position: relative;
+  margin-bottom: var(--block-spacing);
 }
 
 .bg {
@@ -12,6 +13,17 @@
   right: 0;
   bottom: 0;
   left: 0;
+
+  &:after {
+    content: ' ';
+    position: absolute;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(20,20,20,.9) 0%, rgba(50,50,50,0.5) 100%);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
 }
 
 .bgImage {
@@ -38,10 +50,12 @@
 
 .richText {
   width: 70%;
+  padding-right: calc(var(--base) * 3);
 
   @include mid-break {
     width: 100%;
-    margin-bottom: var(--base)
+    margin-bottom: var(--base);
+    padding-right: 0;
   }
 }
 
@@ -103,6 +117,7 @@
 .adjectives {
   display: flex;
   pointer-events: none;
+  margin-bottom: var(--block-spacing);
 }
 
 .adjective {
@@ -126,4 +141,37 @@
   @include small-break {
     font-size: 96px;
   }
+}
+
+.mediaGutter {
+  position: relative;
+
+  &:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.mediaGutter--light {
+  &:before {
+    background: var(--color-base-0);
+  }
+}
+
+.mediaGutter--dark {
+  &:before {
+    background: var(--color-base-900);
+  }
+}
+
+.media {
+  @include shadow-lg;
+  position: relative;
+  z-index: 2;
 }
