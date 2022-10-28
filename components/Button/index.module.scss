@@ -98,6 +98,7 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .label {
+  width: 100%;
   flex-grow: 1;
   flex-shrink: 1;
   display: flex;
@@ -106,6 +107,11 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
 
 .label-mono {
   @include label;
+}
+
+.label-centered {
+  justify-content: center;
+  text-align: center;
 }
 
 .icon {

@@ -35,14 +35,15 @@ const ButtonContent: React.FC<Props> = (props) => {
   return (
     <div className={classes.content}>
       {label && (
-        <span
+        <div
           className={[
             classes.label,
+            !icon && classes['label-centered'],
             classes[`label-${props.labelStyle}`]
           ].filter(Boolean).join(' ')}
         >
           {label}
-        </span>
+        </div>
       )}
       {Icon && label && (
         // NOTE: this is so that the icon and label can be reversed but keep spacing without messy css
