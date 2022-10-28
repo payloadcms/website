@@ -10,6 +10,7 @@ import { ThemePreferenceProvider } from '../components/providers/Theme'
 import { Footer, MainMenu } from '../payload-types'
 
 import '../css/app.scss'
+import { MouseInfoProvider } from '@faceless-ui/mouse-info'
 
 const PayloadApp = (
   appProps: AppProps<{
@@ -73,10 +74,12 @@ const PayloadApp = (
         }}
       >
         <ModalProvider>
-          <Header {...pageProps.mainMenu} />
-          <Component {...pageProps} />
+          <MouseInfoProvider>
+            <Header {...pageProps.mainMenu} />
+            <Component {...pageProps} />
 
-          <ModalContainer />
+            <ModalContainer />
+          </MouseInfoProvider>
         </ModalProvider>
       </GridProvider>
     </ThemePreferenceProvider>

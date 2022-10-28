@@ -73,6 +73,7 @@ export const Button: React.FC<Props> = (props) => {
     classNameFromProps, 
     classes.button,
     classes[`appearance--${appearance}`],
+    isHovered && classes[`is--hovered`],
     isHovered && classes[`appearance--${appearance}--hovered`],
     isAnimatingOut &&classes[`appearance--${appearance}-animating-out`],
     fullWidth && classes['full-width'],
