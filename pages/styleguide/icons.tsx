@@ -1,6 +1,5 @@
 import NextHead from 'next/head'
-import { Fragment } from 'react'
-import { Button } from '../../components/Button'
+import React, { Fragment } from 'react'
 import { Gutter } from '../../components/Gutter'
 import { ThemeProvider, useTheme } from '../../components/providers/Theme'
 import { BlockSpacing } from '../../components/BlockSpacing'
@@ -52,7 +51,7 @@ const Icons: React.FC = () => {
         <meta key="googlebot" name="googlebot" content="noindex,follow" />
         <title>Icons</title>
       </NextHead>
-      <BlockSpacing>
+      <BlockSpacing style={{ marginTop: 'calc(var(--header-height) + var(--base)' }}>
         <Gutter>
           <StyleguideBreadcrumbs pageTitle="Icons" pageSlug="icons" />
           <h1>Icons</h1>
