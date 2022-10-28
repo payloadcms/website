@@ -1,5 +1,5 @@
 import NextHead from 'next/head'
-import { Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { Gutter } from '../../components/Gutter'
 import { ThemeProvider, useTheme } from '../../components/providers/Theme'
 import { BlockSpacing } from '../../components/BlockSpacing'
@@ -46,7 +46,7 @@ const Typography: React.FC = () => {
         <meta key="googlebot" name="googlebot" content="noindex,follow" />
         <title>Typography</title>
       </NextHead>
-      <BlockSpacing>
+      <BlockSpacing style={{ marginTop: 'calc(var(--header-height) + var(--base)' }}>
         <Gutter>
           <StyleguideBreadcrumbs pageTitle="Typography" pageSlug="typography" />
           <TypographyContent />

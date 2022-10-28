@@ -1,0 +1,49 @@
+@use "@scss/common" as *;
+
+.highlightWrapper {
+  text-decoration: none;
+}
+
+.highlightNode {
+  position: relative;
+  display: inline-flex;
+  will-change: color;
+
+  &::before {
+    pointer-events: none;
+    will-change: width; // animating 'height' ftl, transform: translate3d requires overflow: hidden but there is no good way to achieve horizontal padding without visible overflow
+    content: "";
+    position: absolute;
+    height: 50%;
+    width: 0;
+    bottom: 0;
+    left: calc(-.33em / 2);
+    background-color: var(--theme-success-300);
+    transition: width linear 1000ms;
+  }
+}
+
+.doHighlight {
+  &::before {
+    width: calc(100% + 0.33em);
+  }
+}
+
+.label {
+  position: relative;
+  z-index: 1;
+}
+
+.darkMode {
+  &:local() {
+    .label {
+      color: var(--theme-success-600);
+    }
+
+    .highlightNode {
+      &::before {
+        background-color: var(--theme-success-100);
+      }
+    }
+  }
+}
