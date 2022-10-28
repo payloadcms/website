@@ -3,21 +3,6 @@
 .mobileNav {
   display: none;
   visibility: hidden;
-  position: fixed;
-  width: 100%;
-  backdrop-filter: blur(8px);
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--theme-bg);
-    opacity: 0.75;
-    z-index: -1;
-  }
 
   @include small-break {
     display: block;
@@ -28,15 +13,6 @@
 .logo {
   position: relative;
   top: -2px;
-}
-
-.menuBar {
-  padding: calc(var(--base) * .75) 0;
-  opacity: 0;
-
-  &.show {
-    opacity: 1;
-  }
 }
 
 .menuBarContainer {
@@ -60,27 +36,29 @@
   cursor: pointer;
 }
 
+.modalBlur {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-base-900);
+  opacity: .8;
+  z-index: -1;
+}
+
 .mobileMenuModal {
   all: unset;
   width: 100%;
   height: 100%;
-  backdrop-filter: blur(3px);
+  padding-top: var(--header-height);
+  backdrop-filter: blur(5px);
+  display: none;
+  visibility: hidden;
 
-  .blur {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--color-base-900);
-    opacity: .8;
-    z-index: -1;
-  }
-}
-
-.modalMenu {
-  &:after {
-    display: none;
+  @include small-break {
+    display: block;
+    visibility: visible;
   }
 }

@@ -1,23 +1,6 @@
 @use '@scss/common.scss' as *;
 
 .desktopNav {
-  position: fixed;
-  width: 100%;
-  backdrop-filter: blur(8px);
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--theme-bg);
-    backdrop-filter: blur(10px);
-    opacity: 0.75;
-    z-index: -1;
-  }
-
   @include small-break {
     display: none;
     visibility: hidden;
@@ -25,11 +8,6 @@
 }
 
 .grid {
-  padding: calc(var(--base) * 1.25) 0;
-  visibility: visible;
-  font-size: calc(var(--base) * .75);
-  position: relative;
-
   :local(a) {
     text-decoration: none;
   }

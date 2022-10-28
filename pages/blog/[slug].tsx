@@ -9,11 +9,11 @@ import { POST, POSTS } from '../../graphql/posts'
 import RichText from '../../components/RichText'
 import { Gutter } from '../../components/Gutter'
 import { Media } from '../../components/Media'
-
-import classes from './[slug].module.scss'
 import { Label } from '../../components/Label'
 import { formatDateTime } from '../../utilities/format-date-time'
 import { CalendarIcon } from '../../components/graphics/CalendarIcon'
+
+import classes from './[slug].module.scss'
 
 const BlogPostTemplate: React.FC<{
   post: Post

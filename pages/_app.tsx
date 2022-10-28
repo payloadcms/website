@@ -72,7 +72,7 @@ const PayloadApp = (
           xl: 12,
         }}
       >
-        <ModalProvider transTime={0}>
+        <ModalProvider transTime={0} zIndex="var(--z-modal)">
           <Header {...pageProps.mainMenu} />
           <Component {...pageProps} />
 

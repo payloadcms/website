@@ -12,7 +12,7 @@
   --breakpoint-l-width: $breakpoint-l-width;
 
   --scrollbar-width: 17px;
-  --header-height: 90px;
+  --header-height: 80px;
   --page-padding-top: calc(var(--header-height) + var(--base));
 
   --font-body: 'Neue Montreal', Helvetica, Arial;
@@ -20,9 +20,9 @@
   --font-serif: 'Merriweather', serif;
 
   --z-popup: 10;
-  --z-nav: 20;
-  --z-modal: 30;
-  --z-status: 40;
+  --z-modal: 20;
+  --z-status: 30;
+  --z-nav: 40;
 
   --gutter-h: calc(var(--base) * 12);
   --block-spacing: calc(var(--base) * 3);
