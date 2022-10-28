@@ -37,6 +37,12 @@ export const PAGE = gql`
           links {
             link ${LINK_FIELDS()}
           }
+          actions {
+            link ${LINK_FIELDS({ disableAppearance: true })}
+          }
+          buttons {
+            link ${LINK_FIELDS()}
+          }
           media {
             url
           }

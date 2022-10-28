@@ -1,14 +1,16 @@
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import React from 'react'
 import Marquee from 'react-fast-marquee'
 import { Page } from '../../../payload-types'
+import { Button } from '../../Button'
+import { CMSLink } from '../../CMSLink'
 import { Gutter } from '../../Gutter'
+import { ArrowIcon } from '../../icons/ArrowIcon'
 import { ThemeProvider } from '../../providers/Theme'
 import RichText from '../../RichText'
 
 import classes from './index.module.scss'
 
-export const HomeHero: React.FC<Page['hero']> = ({ richText, adjectives }) => {
+export const HomeHero: React.FC<Page['hero']> = ({ richText, adjectives, actions, buttons }) => {
   return (
     <ThemeProvider theme="dark" className={classes.homeHero}>
       <div className={classes.bg}>
@@ -20,8 +22,34 @@ export const HomeHero: React.FC<Page['hero']> = ({ richText, adjectives }) => {
         <Gutter left="half" right="half">
           <div className={classes.content}>
             <RichText className={classes.richText} content={richText} />
+            <div className={classes.sidebar}>
+              {Array.isArray(actions) && (
+                <ul className={classes.actions}>
+                  {actions.map(({ link }, i) => {
+                    return (
+                      <li key={i}>
+                        <CMSLink {...link}>
+                          <ArrowIcon />
+                        </CMSLink>
+                      </li>
+                    )
+                  })}
+                </ul>
+              )}
+              {Array.isArray(buttons) && (
+                <ul className={classes.buttons}>
+                  {buttons.map(({ link }, i) => {
+                    return (
+                      <li key={i}>
+                        <Button {...link} />
+                      </li>
+                    )
+                  })}
+                </ul>
+              )}
+            </div>
           </div>
-          <hr className={classes.hr} />
+          <hr />
         </Gutter>
         {Array.isArray(adjectives) && (
           <Marquee gradient={false} speed={70} className={classes.adjectives}>
