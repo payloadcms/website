@@ -3,7 +3,20 @@
 .desktopNav {
   position: fixed;
   width: 100%;
-  height: var(--header-height);
+  backdrop-filter: blur(8px);
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--theme-bg);
+    backdrop-filter: blur(10px);
+    opacity: 0.75;
+    z-index: -1;
+  }
 
   @include small-break {
     display: none;

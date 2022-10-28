@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { Modal, ModalToggler } from '@faceless-ui/modal'
+import { Modal, ModalToggler, useModal } from '@faceless-ui/modal'
 import { MainMenu } from '../../../payload-types'
 import { FullLogo } from '../../graphics/FullLogo'
 import { Gutter } from '../../Gutter'
@@ -15,9 +15,9 @@ const modalSlug = 'mobile-nav'
 
 type NavItems = Pick<MainMenu, 'navItems'>
 
-const MenuBar: React.FC = () => {
+const MenuBar: React.FC<{ show?: boolean }> = ({ show }) => {
   return (
-    <div className={classes.menuBar}>
+    <div className={[classes.menuBar, show && classes.show].filter(Boolean).join(' ')}>
       <Gutter>
         <Grid>
           <Cell className={classes.menuBarContainer}>
@@ -42,9 +42,12 @@ const MenuBar: React.FC = () => {
 }
 
 const MobileMenuModal: React.FC<NavItems> = ({ navItems }) => {
+  const { isModalOpen } = useModal()
+  const isOpen = isModalOpen(modalSlug)
+
   return (
     <Modal slug={modalSlug} className={classes.mobileMenuModal}>
-      <MenuBar />
+      <MenuBar show={isOpen} />
 
       <Gutter>
         <Grid>
@@ -65,9 +68,12 @@ const MobileMenuModal: React.FC<NavItems> = ({ navItems }) => {
 }
 
 export const MobileNav: React.FC<NavItems> = props => {
+  const { isModalOpen } = useModal()
+  const isOpen = isModalOpen(modalSlug)
+
   return (
     <div className={classes.mobileNav}>
-      <MenuBar />
+      <MenuBar show={!isOpen} />
       <MobileMenuModal {...props} />
     </div>
   )
