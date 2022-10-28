@@ -9,14 +9,25 @@ import RichText from '../../RichText'
 
 import classes from './index.module.scss'
 
-export const HomeHero: React.FC<Page['hero']> = ({ richText, adjectives, actions, buttons, media }) => {
-  const theme = useTheme();
+export const HomeHero: React.FC<Page['hero']> = ({
+  richText,
+  adjectives,
+  actions,
+  buttons,
+  media,
+}) => {
+  const theme = useTheme()
 
   return (
     <ThemeProvider theme="dark" className={classes.homeHero}>
       <div className={classes.bg}>
         <Marquee gradient={false}>
-          <img className={classes.bgImage} style={{ height: '100vh' }} src="/images/home-bg.png" alt="Screenshots of Payload" />
+          <img
+            className={classes.bgImage}
+            style={{ height: '100vh' }}
+            src="/images/home-bg.png"
+            alt="Screenshots of Payload"
+          />
         </Marquee>
       </div>
       <div className={classes.wrap}>
@@ -29,7 +40,7 @@ export const HomeHero: React.FC<Page['hero']> = ({ richText, adjectives, actions
                   {actions.map(({ link }, i) => {
                     return (
                       <li key={i}>
-                        <Button 
+                        <Button
                           appearance="default"
                           icon="arrow"
                           reference={link.reference}
@@ -59,7 +70,9 @@ export const HomeHero: React.FC<Page['hero']> = ({ richText, adjectives, actions
         {Array.isArray(adjectives) && (
           <Marquee gradient={false} speed={70} className={classes.adjectives}>
             {adjectives.map(({ adjective }, i) => (
-              <span key={i} className={classes.adjective}>{adjective}</span>
+              <span key={i} className={classes.adjective}>
+                {adjective}
+              </span>
             ))}
           </Marquee>
         )}

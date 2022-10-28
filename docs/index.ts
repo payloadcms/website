@@ -116,8 +116,7 @@ export function getDocPaths(): DocPath[] {
       paths.push({
         doc: filename.replace('.mdx', ''),
         topic: topic.toLowerCase(),
-      }),
-    )
+      }),)
   })
 
   return paths

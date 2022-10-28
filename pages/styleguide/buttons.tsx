@@ -1,6 +1,6 @@
-import { Button } from '../../components/Button'
 import NextHead from 'next/head'
 import { Fragment } from 'react'
+import { Button } from '../../components/Button'
 import { Gutter } from '../../components/Gutter'
 import { ThemeProvider, useTheme } from '../../components/providers/Theme'
 import { BlockSpacing } from '../../components/BlockSpacing'
@@ -9,44 +9,32 @@ import { StyleguideBreadcrumbs } from '.'
 const ButtonContent: React.FC = () => {
   return (
     <Fragment>
-      <p>
-        Default
-      </p>
+      <p>Default</p>
       <div>
         <Button label="Learn more" />
       </div>
       <br />
-      <p>
-        Default with icon
-      </p>
+      <p>Default with icon</p>
       <div>
-        <Button label="Learn more"  icon="arrow" />
+        <Button label="Learn more" icon="arrow" />
       </div>
       <br />
-      <p>
-        Primary
-      </p>
+      <p>Primary</p>
       <div>
         <Button appearance="primary" label="Create new project" />
       </div>
       <br />
-      <p>
-        Primary with icon
-      </p>
+      <p>Primary with icon</p>
       <div>
-        <Button appearance="primary" label="Create new project"  icon="arrow" />
+        <Button appearance="primary" label="Create new project" icon="arrow" />
       </div>
       <br />
-      <p>
-        Secondary
-      </p>
+      <p>Secondary</p>
       <div>
         <Button appearance="secondary" label="Read the docs" />
       </div>
       <br />
-      <p>
-        Secondary with icon
-      </p>
+      <p>Secondary with icon</p>
       <div>
         <Button appearance="secondary" label="Read the docs" icon="arrow" />
       </div>
@@ -73,7 +61,7 @@ const Buttons: React.FC = () => {
       </BlockSpacing>
       <BlockSpacing>
         <ThemeProvider theme={theme === 'dark' ? 'light' : 'dark'}>
-          <div 
+          <div
             style={{
               backgroundColor: 'var(--theme-elevation-0)',
               padding: `calc(var(--base) * 2) 0`,
