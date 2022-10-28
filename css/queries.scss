@@ -27,3 +27,9 @@
     @content;
   }
 }
+
+@mixin extra-large-break {
+  @media (max-width: $breakpoint-xl-width) {
+    @content;
+  }
+}

@@ -19,6 +19,15 @@ const nextConfig = {
     }
     return configCopy
   },
+  redirects() {
+    return [
+      {
+        source: '/docs',
+        destination: '/docs/getting-started/what-is-payload',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig
