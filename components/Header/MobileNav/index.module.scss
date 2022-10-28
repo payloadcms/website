@@ -3,11 +3,18 @@
 .mobileNav {
   display: none;
   visibility: hidden;
+  position: fixed;
+  width: 100%;
 
   @include small-break {
     display: block;
     visibility: visible;
   }
+}
+
+.logo {
+  position: relative;
+  top: -2px;
 }
 
 .menuBar {

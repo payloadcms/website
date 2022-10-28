@@ -1,6 +1,10 @@
 @use '@scss/common.scss' as *;
 
 .desktopNav {
+  position: fixed;
+  width: 100%;
+  height: var(--header-height);
+
   @include small-break {
     display: none;
     visibility: hidden;
@@ -100,6 +104,7 @@
   
   > * {
     margin-right: calc(var(--base) * .5);
+    line-height: 1;
     
     &:last-child {
       margin-right: 0;
