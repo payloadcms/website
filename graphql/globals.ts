@@ -1,4 +1,4 @@
-import { LINK_FIELDS } from './link';
+import { LINK_FIELDS } from './link'
 
 export const MAIN_MENU = `
   MainMenu {
@@ -6,7 +6,7 @@ export const MAIN_MENU = `
       link ${LINK_FIELDS({ disableAppearance: true })}
 		}
   }
-`;
+`
 
 export const FOOTER = `
   Footer {

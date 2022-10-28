@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
-import canUseDOM from '../../../utilities/canUseDOM'
+import canUseDOM from '../../../utilities/can-use-dom'
 import classes from './index.module.scss'
 
 export type Theme = 'light' | 'dark'

@@ -60,8 +60,8 @@ const PayloadApp = (
           xl: '4rem',
         }}
         colGap={{
-          s: '10px',
-          m: '10px',
+          s: 'var(--base)',
+          m: 'calc(var(--base) * 2)',
           l: 'calc(var(--base) * 3)',
           xl: 'calc(var(--base) * 3)',
         }}
@@ -72,7 +72,7 @@ const PayloadApp = (
           xl: 12,
         }}
       >
-        <ModalProvider>
+        <ModalProvider transTime={0}>
           <Header {...pageProps.mainMenu} />
           <Component {...pageProps} />
 

@@ -1,6 +1,23 @@
 @use '@scss/common.scss' as *;
 
 .desktopNav {
+  position: fixed;
+  width: 100%;
+  backdrop-filter: blur(8px);
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--theme-bg);
+    backdrop-filter: blur(10px);
+    opacity: 0.75;
+    z-index: -1;
+  }
+
   @include small-break {
     display: none;
     visibility: hidden;
@@ -65,7 +82,7 @@
 
 .github {
   display: flex;
-  color-scheme: unset;
+  color-scheme: none;
   align-items: center;
 
   :local(.stars) {
@@ -100,6 +117,7 @@
   
   > * {
     margin-right: calc(var(--base) * .5);
+    line-height: 1;
     
     &:last-child {
       margin-right: 0;

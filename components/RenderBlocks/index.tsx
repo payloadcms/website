@@ -1,15 +1,15 @@
 import React, { Fragment } from 'react'
 import { Page, ReusableContent } from '../../payload-types'
-import { toKebabCase } from '../../utilities/toKebabCase'
+import { toKebabCase } from '../../utilities/to-kebab-case'
 import { BlockSpacing } from '../BlockSpacing'
-import { Banner } from '../blocks/Banner'
+import { BannerBlock } from '../blocks/Banner'
 import { BlogContent } from '../blocks/BlogContent'
 import { Media } from '../blocks/Media'
 
 type ReusableContentBlock = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 
 const blockComponents = {
-  banner: Banner,
+  banner: BannerBlock,
   blogContent: BlogContent,
   mediaBlock: Media,
 }
