@@ -12,6 +12,7 @@
     "@apollo/client": "^3.7.0",
     "@faceless-ui/css-grid": "^1.2.0",
     "@faceless-ui/modal": "^2.0.1",
+    "@faceless-ui/window-info": "^2.1.1",
     "escape-html": "^1.0.3",
     "graphql": "^16.6.0",
     "next": "^13.0.0",

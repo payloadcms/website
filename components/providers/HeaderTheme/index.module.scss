@@ -1,0 +1,29 @@
+@use '../../scss/common.scss' as *;
+
+.colorTheme {
+  background: inherit;
+}
+
+.midnight,
+.black {
+  :global {
+    h1, h2, h3, h4, h5, h6 {
+      color: $color-tan;
+    }
+
+    p, li {
+      color: darken(white, 20%)
+    }
+  }
+}
+
+.tan {
+  :global {
+    h1, h2, h3, h4, h5, h6, p, li {
+      color: $color-midnight;
+    }
+    p, li {
+      color: $color-midnight;
+    }
+  }
+}

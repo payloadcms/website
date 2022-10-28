@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import React, { useCallback } from 'react'
-import { Reference } from '../CMSLink';
+import { Reference } from '../CMSLink'
 import { ArrowIcon } from '../icons/ArrowIcon'
 import classes from './index.module.scss'
 
-const animationDuration = 500;
+const animationDuration = 500
 
 export type Props = {
   appearance?: 'default' | 'primary' | 'secondary'
@@ -21,14 +21,11 @@ export type Props = {
 }
 
 const icons = {
-  'arrow': ArrowIcon,
+  arrow: ArrowIcon,
 }
 
-const ButtonContent: React.FC<Props> = (props) => {
-  const {
-    icon,
-    label
-  } = props;
+const ButtonContent: React.FC<Props> = props => {
+  const { icon, label } = props
 
   const Icon = icon ? icons[icon] : null
 
@@ -39,8 +36,10 @@ const ButtonContent: React.FC<Props> = (props) => {
           className={[
             classes.label,
             !icon && classes['label-centered'],
-            classes[`label-${props.labelStyle}`]
-          ].filter(Boolean).join(' ')}
+            classes[`label-${props.labelStyle}`],
+          ]
+            .filter(Boolean)
+            .join(' ')}
         >
           {label}
         </div>
@@ -49,9 +48,7 @@ const ButtonContent: React.FC<Props> = (props) => {
         // NOTE: this is so that the icon and label can be reversed but keep spacing without messy css
         <span className={classes.spacer} />
       )}
-      {Icon && (
-        <Icon className={classes.icon} />
-      )}
+      {Icon && <Icon className={classes.icon} />}
     </div>
   )
 }
@@ -63,7 +60,7 @@ const elements: {
   button: 'button',
 }
 
-export const Button: React.FC<Props> = (props) => {
+export const Button: React.FC<Props> = props => {
   const {
     el = 'button',
     newTab,
@@ -71,8 +68,8 @@ export const Button: React.FC<Props> = (props) => {
     appearance = 'default',
     className: classNameFromProps,
     fullWidth,
-    reference
-  } = props;
+    reference,
+  } = props
 
   let href = hrefFromProps
   if (reference && typeof reference?.value === 'object' && reference.value.slug) {
@@ -85,45 +82,43 @@ export const Button: React.FC<Props> = (props) => {
   const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
 
   const className = [
-    classNameFromProps, 
+    classNameFromProps,
     classes.button,
     classes[`appearance--${appearance}`],
     isHovered && classes[`is--hovered`],
     isHovered && classes[`appearance--${appearance}--hovered`],
-    isAnimatingOut &&classes[`appearance--${appearance}-animating-out`],
+    isAnimatingOut && classes[`appearance--${appearance}-animating-out`],
     fullWidth && classes['full-width'],
-  ].filter(Boolean).join(' ')
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   const handleMouseEnter = useCallback(() => {
     setIsHovered(true)
-  },  [])
+  }, [])
 
   const handleMouseLeave = useCallback(() => {
     setIsHovered(false)
-    setIsAnimatingOut(true);
+    setIsAnimatingOut(true)
 
-    let timerID: NodeJS.Timeout;
+    let timerID: NodeJS.Timeout
 
     if (timerID) clearTimeout(timerID)
-    
-     timerID = setTimeout(() => {
-      setIsAnimatingOut(false);
+
+    timerID = setTimeout(() => {
+      setIsAnimatingOut(false)
     }, animationDuration)
 
     return () => {
       if (timerID) {
-        clearTimeout(timerID);
+        clearTimeout(timerID)
       }
     }
-  }, []);
+  }, [])
 
   if (el === 'link') {
     return (
-      <Link
-        href={href}
-        legacyBehavior
-        passHref
-      >
+      <Link href={href} legacyBehavior passHref>
         <a
           className={className}
           onMouseEnter={handleMouseEnter}

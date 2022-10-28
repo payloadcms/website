@@ -6,6 +6,7 @@ import { BannerBlock } from '../blocks/Banner'
 import { BlogContent } from '../blocks/BlogContent'
 import { MediaBlock } from '../blocks/MediaBlock'
 import { CodeBlock } from '../blocks/CodeBlock'
+import { HeaderObserver } from '../HeaderObserver'
 
 type ReusableContentBlock = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 
@@ -25,24 +26,26 @@ export const RenderBlocks: React.FC<{
 
   if (hasBlocks) {
     return (
-      <Fragment>
-        {blocks.map((block, index) => {
-          const { blockName, blockType } = block
+      <HeaderObserver color="dark">
+        <Fragment>
+          {blocks.map((block, index) => {
+            const { blockName, blockType } = block
 
-          if (blockType && blockType in blockComponents) {
-            const Block = blockComponents[blockType]
+            if (blockType && blockType in blockComponents) {
+              const Block = blockComponents[blockType]
 
-            if (Block) {
-              return (
-                <BlockSpacing key={index}>
-                  <Block id={toKebabCase(blockName)} {...block} />
-                </BlockSpacing>
-              )
+              if (Block) {
+                return (
+                  <BlockSpacing key={index}>
+                    <Block id={toKebabCase(blockName)} {...block} />
+                  </BlockSpacing>
+                )
+              }
             }
-          }
-          return null
-        })}
-      </Fragment>
+            return null
+          })}
+        </Fragment>
+      </HeaderObserver>
     )
   }
 
