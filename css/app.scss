@@ -46,7 +46,7 @@
 }
 
 html {
-  @extend %body;
+  @include body;
   background: var(--theme-bg);
   -webkit-font-smoothing: antialiased;
 
@@ -85,27 +85,27 @@ img {
 }
 
 h1 {
-  @extend %h1;
+  @include h1;
 }
 
 h2 {
-  @extend %h2;
+  @include h2;
 }
 
 h3 {
-  @extend %h3;
+  @include h3;
 }
 
 h4 {
-  @extend %h4;
+  @include h4;
 }
 
 h5 {
-  @extend %h5;
+  @include h5;
 }
 
 h6 {
-  @extend %h6;
+  @include h6;
 }
 
 p {
