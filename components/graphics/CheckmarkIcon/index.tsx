@@ -16,16 +16,16 @@ export const CheckmarkIcon: React.FC<Props> = ({ className }) => {
       <path
         d="M10.6092 16.0192L17.6477 8.98076"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="square"
-        stroke-linejoin="bevel"
+        strokeWidth="2"
+        strokeLinecap="square"
+        strokeLinejoin="bevel"
       />
       <path
         d="M7.35229 12.7623L10.6092 16.0192"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="square"
-        stroke-linejoin="bevel"
+        strokeWidth="2"
+        strokeLinecap="square"
+        strokeLinejoin="bevel"
       />
     </svg>
   )

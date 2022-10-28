@@ -4,14 +4,14 @@ import { toKebabCase } from '../../utilities/to-kebab-case'
 import { BlockSpacing } from '../BlockSpacing'
 import { BannerBlock } from '../blocks/Banner'
 import { BlogContent } from '../blocks/BlogContent'
-import { Media } from '../blocks/Media'
+import { MediaBlock } from '../blocks/MediaBlock'
 
 type ReusableContentBlock = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 
 const blockComponents = {
   banner: BannerBlock,
   blogContent: BlogContent,
-  mediaBlock: Media,
+  mediaBlock: MediaBlock,
 }
 
 export const RenderBlocks: React.FC<{

@@ -168,6 +168,11 @@ export const MEDIA_BLOCK = `
     position
     media {
       url
+      alt
+      filename
+      mimeType
+      width
+      height
     }
     caption
   }
