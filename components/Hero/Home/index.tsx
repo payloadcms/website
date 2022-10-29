@@ -5,7 +5,7 @@ import { Button } from '../../Button'
 import { Gutter } from '../../Gutter'
 import { HeaderObserver } from '../../HeaderObserver'
 import { Media } from '../../Media'
-import { ThemeProvider } from '../../providers/Theme'
+import { ThemeProvider, useTheme } from '../../providers/Theme'
 import { RichText } from '../../RichText'
 
 import classes from './index.module.scss'
@@ -17,6 +17,8 @@ export const HomeHero: React.FC<Page['hero']> = ({
   buttons,
   media,
 }) => {
+  const theme = useTheme()
+
   return (
     <div className={classes.homeHero}>
       <ThemeProvider theme="dark" className={classes.wrap}>
@@ -89,7 +91,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
         <Gutter className={classes.mediaGutter}>
           <Media resource={media} className={classes.media} />
           <div className={classes.voidSpaceBelowMedia}>
-            <HeaderObserver color="light" />
+            <HeaderObserver color={theme} />
           </div>
         </Gutter>
       )}
