@@ -2,7 +2,7 @@ import * as React from 'react'
 import { ReusableContent } from '../../payload-types'
 import { CheckmarkIcon } from '../graphics/CheckmarkIcon'
 import { useTheme } from '../providers/Theme'
-import RichText from '../RichText'
+import { RichText } from '../RichText'
 
 import classes from './index.module.scss'
 

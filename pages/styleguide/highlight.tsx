@@ -1,48 +1,46 @@
 import NextHead from 'next/head'
 import React, { Fragment } from 'react'
-import { Button } from '../../components/Button'
 import { Gutter } from '../../components/Gutter'
 import { ThemeProvider, useTheme } from '../../components/providers/Theme'
 import { BlockSpacing } from '../../components/BlockSpacing'
 import { StyleguideBreadcrumbs } from '.'
+import { RichText } from '../../components/RichText'
 
-const ButtonContent: React.FC = () => {
+const richText = [
+  {
+    type: 'h1',
+    children: [
+      {
+        text: 'App frameworks give you a backend, but lack CMS-grade UI. ',
+      },
+      {
+        text: 'Payload gives you both.',
+        underline: true,
+      },
+      {
+        text: ' Extend everything, build anything.',
+      },
+    ],
+  },
+  {
+    type: 'p',
+    children: [
+      {
+        text: 'Payload is much more than a CMS—it’s just as much a CMS as it is an application framework. Its extensibility allows it to power everything from enterprise websites to native apps. It’ll never hold you back.',
+      },
+    ],
+  },
+]
+
+const HighlightContent: React.FC = () => {
   return (
     <Fragment>
-      <p>Default</p>
-      <div>
-        <Button label="Learn more" />
-      </div>
-      <br />
-      <p>Default with icon</p>
-      <div>
-        <Button label="Learn more" icon="arrow" />
-      </div>
-      <br />
-      <p>Primary</p>
-      <div>
-        <Button appearance="primary" label="Create new project" />
-      </div>
-      <br />
-      <p>Primary with icon</p>
-      <div>
-        <Button appearance="primary" label="Create new project" icon="arrow" />
-      </div>
-      <br />
-      <p>Secondary</p>
-      <div>
-        <Button appearance="secondary" label="Read the docs" />
-      </div>
-      <br />
-      <p>Secondary with icon</p>
-      <div>
-        <Button appearance="secondary" label="Read the docs" icon="arrow" />
-      </div>
+      <RichText content={richText} />
     </Fragment>
   )
 }
 
-const Buttons: React.FC = () => {
+const Highlight: React.FC = () => {
   const theme = useTheme()
 
   return (
@@ -50,13 +48,13 @@ const Buttons: React.FC = () => {
       <NextHead>
         <meta key="robots" name="robots" content="noindex,follow" />
         <meta key="googlebot" name="googlebot" content="noindex,follow" />
-        <title>Buttons</title>
+        <title>Highlight</title>
       </NextHead>
       <BlockSpacing style={{ marginTop: 'calc(var(--header-height) + var(--base)' }}>
         <Gutter>
-          <StyleguideBreadcrumbs pageTitle="Buttons" pageSlug="buttons" />
-          <h1>Buttons</h1>
-          <ButtonContent />
+          <StyleguideBreadcrumbs pageTitle="Highlight" pageSlug="highlight" />
+          <h1>Highlight</h1>
+          <HighlightContent />
         </Gutter>
       </BlockSpacing>
       <BlockSpacing>
@@ -68,7 +66,7 @@ const Buttons: React.FC = () => {
             }}
           >
             <Gutter>
-              <ButtonContent />
+              <HighlightContent />
             </Gutter>
           </div>
         </ThemeProvider>
@@ -77,4 +75,4 @@ const Buttons: React.FC = () => {
   )
 }
 
-export default Buttons
+export default Highlight

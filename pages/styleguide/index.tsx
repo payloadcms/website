@@ -1,5 +1,5 @@
 import NextHead from 'next/head'
-import { Fragment } from 'react'
+import React, { Fragment } from 'react'
 import Link from 'next/link'
 import { Gutter } from '../../components/Gutter'
 
@@ -30,7 +30,7 @@ const Styleguide: React.FC = () => {
         <meta key="googlebot" name="googlebot" content="noindex,follow" />
         <title>Styleguide</title>
       </NextHead>
-      <Gutter>
+      <Gutter style={{ marginTop: 'calc(var(--header-height) + var(--base)' }}>
         <h1>Styleguide</h1>
         <div>
           <Link href="/styleguide/icons">Icons</Link>
@@ -42,6 +42,10 @@ const Styleguide: React.FC = () => {
         <br />
         <div>
           <Link href="/styleguide/typography">Typography</Link>
+        </div>
+        <br />
+        <div>
+          <Link href="/styleguide/highlight">Highlight</Link>
         </div>
       </Gutter>
     </Fragment>

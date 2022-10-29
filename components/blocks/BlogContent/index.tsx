@@ -2,7 +2,7 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import React from 'react'
 import { ReusableContent } from '../../../payload-types'
 import { Gutter } from '../../Gutter'
-import RichText from '../../RichText'
+import { RichText } from '../../RichText'
 
 type Props = Extract<ReusableContent['layout'][0], { blockType: 'blogContent' }>
 
