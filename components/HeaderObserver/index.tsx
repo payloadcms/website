@@ -8,7 +8,7 @@ type Props = {
   color: 'light' | 'dark'
   className?: string
   zIndex?: number
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 export const HeaderObserver: React.FC<Props> = ({ color, children, className, zIndex }) => {
   const ref = React.useRef<HTMLDivElement>(null)
@@ -32,7 +32,8 @@ export const HeaderObserver: React.FC<Props> = ({ color, children, className, zI
           })
         },
         {
-          rootMargin: `0px 0px ${headerHeight - height}px 0px`,
+          // intersection point is ONLY the top 1/2 of the header
+          rootMargin: `0px 0px ${Math.floor(headerHeight / 2) - height}px 0px`,
           threshold: 0,
         },
       )
@@ -59,7 +60,7 @@ export const HeaderObserver: React.FC<Props> = ({ color, children, className, zI
         .join(' ')}
       style={{ zIndex }}
     >
-      {children}
+      {children && children}
 
       <div className={classes.observerContainer}>
         <div ref={ref} className={classes.stickyObserver} />

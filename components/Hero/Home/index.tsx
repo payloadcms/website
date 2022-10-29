@@ -86,8 +86,11 @@ export const HomeHero: React.FC<Page['hero']> = ({
         </HeaderObserver>
       </ThemeProvider>
       {typeof media === 'object' && (
-        <Gutter>
+        <Gutter className={classes.mediaGutter}>
           <Media resource={media} className={classes.media} />
+          <div className={classes.voidSpaceBelowMedia}>
+            <HeaderObserver color="light" />
+          </div>
         </Gutter>
       )}
     </div>
