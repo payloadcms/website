@@ -7,6 +7,7 @@ import { BlogContent } from '../blocks/BlogContent'
 import { MediaBlock } from '../blocks/MediaBlock'
 import { CodeBlock } from '../blocks/CodeBlock'
 import { HeaderObserver } from '../HeaderObserver'
+import { useTheme } from '../providers/Theme'
 
 type ReusableContentBlock = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 
@@ -21,12 +22,13 @@ export const RenderBlocks: React.FC<{
   blocks: (ReusableContent['layout'][0] | ReusableContentBlock)[]
 }> = props => {
   const { blocks } = props
+  const theme = useTheme()
 
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
 
   if (hasBlocks) {
     return (
-      <HeaderObserver color="dark">
+      <HeaderObserver color={theme}>
         <Fragment>
           {blocks.map((block, index) => {
             const { blockName, blockType } = block
