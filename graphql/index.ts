@@ -1,20 +1,36 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import type { MainMenu, Page } from '../payload-types'
+import { MAIN_MENU } from './globals'
+import { PAGE } from './pages'
 
-let CLIENT: ApolloClient<unknown>
+export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu }> => {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: MAIN_MENU,
+    }),
+  }).then(res => res.json())
 
-// By re-using the client if `NODE_ENV === 'production'`,
-// we'll leverage Apollo caching
-// to reduce the calls made to commonly needed assets
-// like MainMenu, Footer, etc. 
-
-export function getApolloClient() {
-  if (!CLIENT || process.env.NODE_ENV !== 'production') {
-    CLIENT = new ApolloClient({
-      ssrMode: true,
-      uri: `${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`,
-      cache: new InMemoryCache(),
-    });
+  return {
+    mainMenu: data.MainMenu,
   }
+}
 
-  return CLIENT;
+export const fetchPage = async (slug: string): Promise<Page> => {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: PAGE,
+      variables: {
+        slug,
+      },
+    }),
+  }).then(res => res.json())
+
+  return data.Pages.docs[0]
 }

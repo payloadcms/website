@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from 'react'
 import { useModal } from '@faceless-ui/modal'
 import { MainMenu } from '../../payload-types'

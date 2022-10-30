@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useRef } from 'react'
 import classes from './index.module.scss'
 import { Props } from '../types'

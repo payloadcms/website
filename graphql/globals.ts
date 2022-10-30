@@ -1,10 +1,12 @@
 import { LINK_FIELDS } from './link'
 
 export const MAIN_MENU = `
-  MainMenu {
-    navItems {
-      link ${LINK_FIELDS({ disableAppearance: true })}
-		}
+  query MainMenu {
+    MainMenu {
+      navItems {
+        link ${LINK_FIELDS({ disableAppearance: true })}
+      }
+    }
   }
 `
 

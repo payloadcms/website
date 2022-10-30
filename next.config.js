@@ -7,6 +7,9 @@ const nextConfig = {
   images: {
     domains: ['localhost', process.env.NEXT_PUBLIC_CMS_URL, 'cms.payloadcms.com'],
   },
+  experimental: {
+    appDir: true,
+  },
   webpack: config => {
     const configCopy = { ...config }
     configCopy.resolve.alias = {
