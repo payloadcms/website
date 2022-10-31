@@ -5,3 +5,7 @@ export interface ThemePreferenceContextType {
   setTheme: (theme: Theme) => void // eslint-disable-line no-unused-vars
   autoMode: boolean
 }
+
+export function themeIsValid(string: string): string is Theme {
+  return ['light', 'dark'].includes(string)
+}
