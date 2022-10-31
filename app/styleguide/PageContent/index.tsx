@@ -12,7 +12,7 @@ export const StyleguidePageContent: React.FC<{
     <div style={{ paddingTop: 'calc(var(--header-height) + var(--base)' }}>
       <BlockSpacing top={false}>
         <Gutter>
-          <StyleguideBreadcrumbs pageTitle="Highlight" pageSlug="highlight" />
+          <StyleguideBreadcrumbs pageTitle={title} />
           <h1>{title || 'Page Title'}</h1>
           {children}
         </Gutter>

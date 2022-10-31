@@ -5,7 +5,7 @@ import { StyleguidePageContent } from '../PageContent'
 const Typography: React.FC = () => {
   return (
     <App>
-      <StyleguidePageContent title="Icons">
+      <StyleguidePageContent title="Typography">
         <div>
           <h1>Typography</h1>
           <h1>H1: Lorem ipsum dolor sit amet officia deserunt.</h1>

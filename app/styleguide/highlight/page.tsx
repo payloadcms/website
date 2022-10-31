@@ -6,7 +6,7 @@ import { StyleguidePageContent } from '../PageContent'
 const Highlight: React.FC = () => {
   return (
     <App>
-      <StyleguidePageContent title="Highlights">
+      <StyleguidePageContent title="Highlight">
         <RichText
           content={[
             {

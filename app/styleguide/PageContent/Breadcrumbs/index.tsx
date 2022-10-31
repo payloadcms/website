@@ -3,8 +3,7 @@ import React from 'react'
 
 export const StyleguideBreadcrumbs: React.FC<{
   pageTitle: string
-  pageSlug: string
-}> = ({ pageTitle, pageSlug }) => {
+}> = ({ pageTitle }) => {
   return (
     <div
       style={{
@@ -15,7 +14,7 @@ export const StyleguideBreadcrumbs: React.FC<{
     >
       <Link href="/styleguide">Styleguide</Link>
       &nbsp;{'>'}&nbsp;
-      <Link href={`/styleguide/${pageSlug}`}>{pageTitle}</Link>
+      <span>{pageTitle}</span>
     </div>
   )
 }

@@ -6,7 +6,7 @@ import { StyleguidePageContent } from '../PageContent'
 const Buttons: React.FC = () => {
   return (
     <App>
-      <StyleguidePageContent title="buttons">
+      <StyleguidePageContent title="Buttons">
         <div>
           <p>Default</p>
           <div>
