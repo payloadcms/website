@@ -1,0 +1,5 @@
+@use '@scss/common.scss' as *;
+
+.title {
+  @include h2;
+}

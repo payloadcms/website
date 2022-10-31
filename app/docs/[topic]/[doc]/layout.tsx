@@ -1,13 +1,16 @@
 import React from 'react'
-import { getTopics } from './data'
+import { getTopics } from './api'
+import { App } from '../../../App'
+import { DocsTemplate } from './DocsTemplate'
 
-const DocsLayout = async ({ children }) => {
+const Layout = async ({ children }) => {
   const topics = await getTopics()
 
-  console.log(topics)
-
-  // Render topics here
-  return <div>{children}</div>
+  return (
+    <App>
+      <DocsTemplate topics={topics}>{children}</DocsTemplate>
+    </App>
+  )
 }
 
-export default DocsLayout
+export default Layout

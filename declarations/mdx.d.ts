@@ -1,13 +1,13 @@
-declare module '@mdx-js/mdx' {
+// declare module '@mdx-js/mdx' {
 
-  type Compiler = {
-    parse: (content: string) => any
-  }
+//   type Compiler = {
+//     parse: (content: string) => any
+//   }
 
-  type MDX = {
-    createMdxAstCompiler: (options: any) => Compiler
-  }
+//   type MDX = {
+//     createMdxAstCompiler: (options: any) => Compiler
+//   }
 
-  const content: MDX;
-  export default content;
-}
+//   const content: MDX;
+//   export default content;
+// }
