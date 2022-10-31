@@ -1,25 +1,29 @@
 import React from 'react'
+import { headers, cookies } from 'next/headers'
 import { fetchGlobals } from '../graphql'
 import { Providers } from '../components/providers'
 import { Header } from '../components/Header'
+import { themeCookieName } from '../components/providers/Theme/shared'
+import { Theme } from '../components/providers/Theme/types'
 
 import '../css/app.scss'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { mainMenu } = await fetchGlobals()
+  let theme = cookies().get(themeCookieName)?.value as Theme
 
-  // 1. Get cookies from headers to determine if there is a color scheme set
-  // 2. If no theme from cookies, retrieve user agent and determine what color scheme is preferred
-  // 3. Set theme on html with result
-  // 4. Pass the resulting color scheme to the Providers component and use it to instantiate state
+  if (!theme) {
+    const themeFromHeader = headers().get('Sec-CH-Prefers-Color-Scheme')
+    if (themeFromHeader) theme = themeFromHeader as Theme
+  }
 
   return (
-    <html lang="en">
+    <html lang="en" data-theme={theme}>
       <head>
         <title>Next.js</title>
       </head>
       <body>
-        <Providers>
+        <Providers theme={theme}>
           <Header {...mainMenu} />
           {children}
         </Providers>
