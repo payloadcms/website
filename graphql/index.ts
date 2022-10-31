@@ -1,21 +1,22 @@
-import type { MainMenu, Page, Post } from '../payload-types'
-import { MAIN_MENU } from './globals'
+import type { Footer, MainMenu, Page, Post } from '../payload-types'
+import { GLOBALS } from './globals'
 import { PAGE } from './pages'
 import { POST, POSTS } from './posts'
 
-export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu }> => {
+export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu; footer: Footer }> => {
   const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      query: MAIN_MENU,
+      query: GLOBALS,
     }),
   }).then(res => res.json())
 
   return {
     mainMenu: data.MainMenu,
+    footer: data.Footer,
   }
 }
 

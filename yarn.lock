@@ -224,6 +224,14 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@faceless-ui/collapsibles@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.npmjs.org/@faceless-ui/collapsibles/-/collapsibles-1.1.5.tgz#153c4e55e4bd1f1eeaaf80b4232c0cf7d31f196c"
+  integrity sha512-ozym6tdYV/jakldJzph9gPUX3JEBXsyexyVJUrXqrLOYuj5UW5lZpJ8yztvVT83tHFAF2PRug0UVmFybKfo1Wg==
+  dependencies:
+    react-animate-height "^3.0.4"
+    react-transition-group "^4.4.2"
+
 "@faceless-ui/css-grid@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@faceless-ui/css-grid/-/css-grid-1.2.0.tgz#53d3301f89151a0022d68e60d2d2794662504be4"
@@ -807,6 +815,11 @@ character-reference-invalid@^1.0.0:
     readdirp "~3.6.0"
   optionalDependencies:
     fsevents "~2.3.2"
+
+classnames@^2.3.1:
+  version "2.3.2"
+  resolved "https://registry.npmjs.org/classnames/-/classnames-2.3.2.tgz#351d813bf0137fcc6a76a16b88208d2560a0d924"
+  integrity sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==
 
 client-only@0.0.1:
   version "0.0.1"
@@ -2204,6 +2217,13 @@ queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
+
+react-animate-height@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.npmjs.org/react-animate-height/-/react-animate-height-3.0.4.tgz#80c9cc25e8569709ad1c626b968dbe5108d0ce46"
+  integrity sha512-k+mBS8yCzpFp+7BdrHsL5bXd6CO/2bYO2SvRGKfxK+Ss3nzplAJLlgnd6Zhcxe/avdpy/CgcziicFj7pIHgG5g==
+  dependencies:
+    classnames "^2.3.1"
 
 react-dom@^18.2.0:
   version "18.2.0"

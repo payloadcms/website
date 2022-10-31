@@ -2,12 +2,24 @@
 
 .wrap {
   padding-top: var(--page-padding-top);
+  position: relative;
 }
 
-.grid {
-  margin: 0 calc(var(--gutter-h) / 2);
+.stickyWrap {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: calc(var(--gutter-h) / 2 * -1);
+  bottom: 0;
+  left: calc(var(--gutter-h) / 2 * -1);
 }
 
 .nav {
+  position: sticky;
+  top: var(--page-padding-top);
+}
 
+.grid {
+  position: relative;
+  z-index: 2;
 }
