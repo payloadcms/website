@@ -4,9 +4,9 @@ import React from 'react'
 import { GridProvider } from '@faceless-ui/css-grid'
 import { ModalContainer, ModalProvider } from '@faceless-ui/modal'
 import { WindowInfoProvider } from '@faceless-ui/window-info'
-import { AdminBar } from '../../../components/AdminBar'
-import HeaderThemeProvider from '../../../components/providers/HeaderTheme'
-import { ThemePreferenceProvider } from '../../../components/providers/Theme'
+import { AdminBar } from '../AdminBar'
+import HeaderThemeProvider from './HeaderTheme'
+import { ThemePreferenceProvider } from './Theme'
 
 type Props = {
   id: string
