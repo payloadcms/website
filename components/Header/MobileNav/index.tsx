@@ -7,7 +7,6 @@ import { FullLogo } from '../../graphics/FullLogo'
 import { Gutter } from '../../Gutter'
 import { SearchIcon } from '../../graphics/SearchIcon'
 import { MenuIcon } from '../../graphics/MenuIcon'
-import { Button } from '../../Button'
 import { CMSLink } from '../../CMSLink'
 
 import classes from './index.module.scss'
@@ -49,9 +48,9 @@ export const MobileNav: React.FC<NavItems> = props => {
               </Link>
 
               <div className={classes.icons}>
-                <Button className={classes.searchToggler}>
+                <button type="button" className={classes.searchToggler}>
                   <SearchIcon />
-                </Button>
+                </button>
 
                 <ModalToggler slug={modalSlug} className={classes.modalToggler}>
                   <MenuIcon />

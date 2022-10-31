@@ -1,8 +1,7 @@
-import { gql } from '@apollo/client'
 import { BANNER, BLOG_CONTENT, CODE_BLOCK, MEDIA_BLOCK } from './blocks'
 import { FOOTER, MAIN_MENU } from './globals'
 
-export const POSTS = gql`
+export const POSTS = `
   query Posts {
     Posts(limit: 300) {
       docs {
@@ -12,7 +11,7 @@ export const POSTS = gql`
   }
 `
 
-export const POST = gql`
+export const POST = `
   query Post($slug: String ) {
     Posts(where: { slug: { equals: $slug} }, draft: true) {
       docs {
