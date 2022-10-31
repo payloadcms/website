@@ -8,7 +8,6 @@ const nextConfig = {
     domains: ['localhost', process.env.NEXT_PUBLIC_CMS_URL, 'cms.payloadcms.com'],
   },
   experimental: {
-    runtime: 'experimental-edge',
     appDir: true,
   },
   webpack: config => {
