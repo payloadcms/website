@@ -1,0 +1,5 @@
+@use '@scss/common' as *;
+
+.archive {
+  padding-top: var(--page-padding-top); // space for header
+}

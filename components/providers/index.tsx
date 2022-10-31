@@ -4,18 +4,10 @@ import React from 'react'
 import { GridProvider } from '@faceless-ui/css-grid'
 import { ModalContainer, ModalProvider } from '@faceless-ui/modal'
 import { WindowInfoProvider } from '@faceless-ui/window-info'
-import { AdminBar } from '../AdminBar'
 import HeaderThemeProvider from './HeaderTheme'
 import { ThemePreferenceProvider } from './Theme'
 
-type Props = {
-  id: string
-  collection: string
-  preview: boolean
-  children: React.ReactNode
-}
-
-export const Providers: React.FC<Props> = ({ children, id, collection, preview }) => {
+export const Providers: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <WindowInfoProvider
       breakpoints={{
@@ -52,7 +44,6 @@ export const Providers: React.FC<Props> = ({ children, id, collection, preview }
         >
           <ModalProvider transTime={0} zIndex="var(--z-modal)">
             <HeaderThemeProvider>
-              <AdminBar id={id} collection={collection} preview={preview} />
               {children}
               <ModalContainer />
             </HeaderThemeProvider>

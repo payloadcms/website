@@ -465,7 +465,7 @@ export interface Post {
   excerpt: {
     [k: string]: unknown
   }[]
-  layout: (
+  content: (
     | {
         bannerFields: {
           type?: 'default' | 'success' | 'warning' | 'error'
