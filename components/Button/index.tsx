@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import React, { useCallback } from 'react'
 // eslint-disable-next-line import/no-cycle

@@ -1,11 +1,12 @@
 import { BANNER, BLOG_CONTENT, CODE_BLOCK, MEDIA_BLOCK } from './blocks'
-import { FOOTER, MAIN_MENU } from './globals'
 
 export const POSTS = `
   query Posts {
     Posts(limit: 300) {
       docs {
-        slug
+        id
+        title
+        createdAt
       }
     }
   }
@@ -40,7 +41,7 @@ export const POST = `
           }
         }
         createdAt
-        layout {
+        content {
           ${BLOG_CONTENT}
           ${BANNER}
           ${CODE_BLOCK}
@@ -48,8 +49,5 @@ export const POST = `
         }
       }
     }
-
-    ${MAIN_MENU}
-    ${FOOTER}
   }
 `
