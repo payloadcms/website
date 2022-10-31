@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React, { useCallback } from 'react'
+// eslint-disable-next-line import/no-cycle
 import { Reference } from '../CMSLink'
 import { ArrowIcon } from '../icons/ArrowIcon'
 import classes from './index.module.scss'
@@ -101,7 +102,7 @@ export const Button: React.FC<Props> = props => {
     setIsHovered(false)
     setIsAnimatingOut(true)
 
-    let timerID: NodeJS.Timeout
+    let timerID: NodeJS.Timeout // eslint-disable-line
 
     if (timerID) clearTimeout(timerID)
 
