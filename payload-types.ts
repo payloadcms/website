@@ -425,8 +425,17 @@ export interface Page {
       }
     | {
         sliderFields: {
-          richText: {
-            [k: string]: unknown
+          sliderType: 'quoteSlider' | 'imageSlider'
+          imageSlides: {
+            image: string | Media
+            id?: string
+          }[]
+          quoteSlides: {
+            richText: {
+              [k: string]: unknown
+            }[]
+            quoteDate: string
+            id?: string
           }[]
         }
         id?: string
@@ -853,8 +862,17 @@ export interface UseCase {
       }
     | {
         sliderFields: {
-          richText: {
-            [k: string]: unknown
+          sliderType: 'quoteSlider' | 'imageSlider'
+          imageSlides: {
+            image: string | Media
+            id?: string
+          }[]
+          quoteSlides: {
+            richText: {
+              [k: string]: unknown
+            }[]
+            quoteDate: string
+            id?: string
           }[]
         }
         id?: string
@@ -1178,8 +1196,17 @@ export interface CaseStudy {
       }
     | {
         sliderFields: {
-          richText: {
-            [k: string]: unknown
+          sliderType: 'quoteSlider' | 'imageSlider'
+          imageSlides: {
+            image: string | Media
+            id?: string
+          }[]
+          quoteSlides: {
+            richText: {
+              [k: string]: unknown
+            }[]
+            quoteDate: string
+            id?: string
           }[]
         }
         id?: string
@@ -1667,8 +1694,17 @@ export interface ReusableContent {
       }
     | {
         sliderFields: {
-          richText: {
-            [k: string]: unknown
+          sliderType: 'quoteSlider' | 'imageSlider'
+          imageSlides: {
+            image: string | Media
+            id?: string
+          }[]
+          quoteSlides: {
+            richText: {
+              [k: string]: unknown
+            }[]
+            quoteDate: string
+            id?: string
           }[]
         }
         id?: string

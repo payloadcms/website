@@ -3,14 +3,9 @@ import { getDoc } from './api'
 import { DocTemplate } from './DocTemplate'
 
 const Doc = async ({ params }) => {
-  const { topic, doc } = params
-
-  const {
-    content,
-    data: { title },
-  } = await getDoc({ topic, doc })
-
-  return <DocTemplate title={title} content={content} />
+  const { topic, doc: docSlug } = params
+  const doc = await getDoc({ topic, doc: docSlug })
+  return <DocTemplate doc={doc} />
 }
 
 export default Doc

@@ -1,0 +1,63 @@
+@use "@scss/common" as *;
+
+.toc {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  a {
+    text-decoration: none;
+  }
+  
+}
+
+.tocTitle {
+  @include label;
+  border-top: 1px solid var(--theme-elevation-200);
+  padding-top: var(--base);
+  margin-bottom: var(--base);
+}
+
+.heading {
+  transition: all 400ms;
+  position: relative;
+  line-height: calc(var(--base) * .875);
+  margin-bottom: calc(var(--base) * .75);
+
+  &:before {
+    content: ' ';
+    position: absolute;
+    right: calc(100% + var(--base));
+    top: calc(var(--base) * .45);
+    height: 1px;
+    background-color: var(--theme-elevation-200);
+    width: calc(var(--base) * .5);;
+    opacity: 0;
+    transition: all 400ms;
+  }
+
+  &:hover {
+    transform: translate3d(calc(var(--base) * .25), 0, 0);
+  }
+}
+
+.heading-2 {
+  composes: heading;
+}
+
+.heading-3 {
+  composes: heading;
+}
+
+.active {
+  transform: translate3d(calc(var(--base) * .5), 0, 0);
+
+  &:before {
+    opacity: 1;
+    right: calc(100% + var(--base) * .5);
+  }
+
+  &:hover {
+    transform: translate3d(calc(var(--base) * .5), 0, 0);
+  }
+}

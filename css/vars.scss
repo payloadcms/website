@@ -143,3 +143,13 @@ $breakpoint-xl-width: 1920px;
   font-size: var(--font-body-size);
   font-family: var(--font-body);
 }
+
+@mixin color-links {
+  a {
+    color: var(--theme-blue-500);
+
+    &:visited {
+      color: var(--theme-purple-500);
+    }
+  }
+}

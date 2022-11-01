@@ -1,6 +1,6 @@
 import React from 'react'
 import { RenderBlogPost } from './renderBlogPost'
-import { fetchBlogPost } from '../../../graphql'
+import { fetchBlogPost } from '../../../../graphql'
 
 const Page = async ({ params }) => {
   const { slug } = params

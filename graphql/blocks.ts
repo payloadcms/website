@@ -184,6 +184,21 @@ export const MEDIA_CONTENT = `
 }
 `
 
+export const SLIDER = `
+...on Slider {
+  blockType
+  sliderFields {
+    sliderType
+    imageSlides {
+      image ${MEDIA_FIELDS}
+    }
+    quoteSlides {
+      richText
+      quoteDate
+    }
+  }
+}`
+
 export const REUSABLE_CONTENT_BLOCK = `
 ...on ReusableContentBlock {
   blockType
