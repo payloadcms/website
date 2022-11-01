@@ -31,9 +31,9 @@ const headers: { Accept: string; Authorization?: string } = {
   Accept: 'application/vnd.github.v3+json.html',
 }
 
-// if (process.env.GITHUB_ACCESS_TOKEN) {
-//   headers.Authorization = `token ${process.env.GITHUB_ACCESS_TOKEN}`
-// }
+if (process.env.GITHUB_ACCESS_TOKEN) {
+  headers.Authorization = `token ${process.env.GITHUB_ACCESS_TOKEN}`
+}
 
 export async function getTopics(): Promise<Topic[]> {
   const topics: Topic[] = await Promise.all(
@@ -46,8 +46,6 @@ export async function getTopics(): Promise<Topic[]> {
           headers,
         },
       ).then(res => res.json())
-
-      console.log(docs)
 
       const docSlugs = docs.map(({ name }) => name)
 
