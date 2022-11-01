@@ -4,3 +4,7 @@
   @include h2;
   margin-top: 0 !important;
 }
+
+.doc {
+  @include color-links;
+}

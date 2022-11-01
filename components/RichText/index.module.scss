@@ -1,4 +1,8 @@
+@use "@scss/common" as *;
+
 .richText {
+  @include color-links;
+  
   :first-child {
     margin-top: 0;
   }
