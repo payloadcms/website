@@ -4,7 +4,6 @@ import { RenderBlogArchive } from './renderBlogArchive'
 
 const Page = async () => {
   const blogPosts = await fetchBlogPosts()
-
   return <RenderBlogArchive posts={blogPosts} />
 }
 

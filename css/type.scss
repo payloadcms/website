@@ -31,7 +31,7 @@
 
 @mixin h2 {
   margin: 32px 0;
-  font-size: 96px;
+  font-size: 84px;
   line-height: 1;
   font-weight: normal;
   
@@ -137,15 +137,10 @@
 /////////////////////////////
 
 @mixin body {
-  font-size: 21px;
+  font-size: var(--font-body-size);
   line-height: 32px;
 
-  @include extra-large-break {
-    font-size: 18px;
-  }
-
   @include small-break {
-    font-size: 16px;
     line-height: 24px;
   }
 }

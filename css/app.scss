@@ -19,6 +19,8 @@
   --font-mono: monospace;
   --font-serif: 'Merriweather', serif;
 
+  --font-body-size: 21px;
+
   --z-popup: 10;
   --z-modal: 20;
   --z-status: 30;
@@ -27,8 +29,12 @@
   --gutter-h: calc(var(--base) * 12);
   --block-spacing: calc(var(--base) * 3);
 
+  @include extra-large-break {
+    --font-body-size: 18px;
+  }
+
   @include large-break {
-    --gutter-h: calc(var(--base) * 3);
+    --gutter-h: calc(var(--base) * 1.5);
     --block-spacing: calc(var(--base) * 2.5);
     --header-height: 80px;
   }
@@ -37,6 +43,10 @@
     --gutter-h: var(--base);
     --block-spacing: calc(var(--base) * 2);
     --header-height: 66px;
+  }
+
+  @include small-break {
+    --font-body-size: 16px;
   }
 }
 

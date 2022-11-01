@@ -1,4 +1,5 @@
 import matter from 'gray-matter'
+import { serialize } from 'next-mdx-remote/serialize'
 import slugify from '../../../../utilities/slugify'
 import type { Doc, DocPath, Heading, Topic } from './types'
 
@@ -104,7 +105,7 @@ export async function getDoc({ topic, doc }: DocPath): Promise<Doc> {
   const nextTopic = topics[parentTopicIndex + 1]
 
   const docToReturn: Doc = {
-    content: parsedDoc.content,
+    content: await serialize(parsedDoc.content),
     data: {
       title: parsedDoc.data.title,
       label: parsedDoc.data.label,

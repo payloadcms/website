@@ -5,7 +5,7 @@ export interface Heading {
 }
 
 export interface Doc {
-  content: string
+  content: any
   data: {
     order: number
     title: string

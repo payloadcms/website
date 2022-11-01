@@ -7,7 +7,7 @@
 $breakpoint-xs-width: 400px;
 $breakpoint-s-width: 768px;
 $breakpoint-m-width: 1024px;
-$breakpoint-l-width: 1600px;
+$breakpoint-l-width: 1680px;
 $breakpoint-xl-width: 1920px;
 
 //////////////////////////////
@@ -131,4 +131,14 @@ $breakpoint-xl-width: 1920px;
       border-color: var(--theme-elevation-150);
     }
   }
+}
+
+@mixin btnReset {
+  border: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  color: currentColor;  
+  font-size: var(--font-body-size);
 }

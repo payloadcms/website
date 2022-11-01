@@ -1,0 +1,40 @@
+@use "@scss/common" as *;
+
+.blogImage {
+  max-width: unset !important;
+  margin: calc(var(--base) * 2.5) auto;
+
+  >div {
+    vertical-align: middle;
+  }
+
+  img {
+    max-width: 100%;
+    margin: auto;
+    display: block;
+  }
+
+  @include large-break {
+    margin: calc(var(--base) * 2) auto;
+  }
+
+  @include small-break {
+    margin: calc(var(--base) * 1.5) auto;
+  }
+}
+
+.caption {
+  text-align: center;
+  font-style: italic;
+  padding: calc(var(--base) * .75) 0 0;
+  max-width: calc(var(--base) * 25);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.shadow {
+  img {
+    box-shadow: 0 0 150px rgba(0, 0, 0, .125);
+  }
+}
