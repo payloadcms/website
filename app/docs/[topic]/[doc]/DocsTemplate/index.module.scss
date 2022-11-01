@@ -13,6 +13,7 @@
   overflow: auto;
   width: 15%;
   margin-right: 7%;
+  flex-shrink: 0;
   padding-bottom: calc(var(--base) * 2);
 
   &::-webkit-scrollbar {
@@ -35,10 +36,15 @@
     width: 20%;
     margin-right: 2%;
   }
+
+  @include mid-break {
+    width: 25%;
+    margin-right: 2%;
+  }
 }
 
 .content {
-  width: 78%;
+  flex-grow: 1;
 }
 
 .topic {
