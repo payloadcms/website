@@ -14,6 +14,7 @@ const nextConfig = {
     configCopy.resolve.alias = {
       ...config.resolve.alias,
       '@scss': path.resolve(__dirname, './css/'),
+      '@forms': path.resolve(__dirname, './components/forms'),
       // IMPORTANT: the next lines are for development only
       // keep them commented out unless actively developing local react modules
       // modify their paths according to your local directory

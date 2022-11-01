@@ -1,0 +1,9 @@
+.label {
+  display: block;
+  margin-bottom: calc(var(--base) * 0.25);
+}
+
+.required {
+  color: var(--color-failure-500);
+  margin: 0 calc(var(--base) * 0.25);
+}
