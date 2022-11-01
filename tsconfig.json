@@ -22,7 +22,24 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@components/*": [
+        "./components/*"
+      ],
+      "@forms/*": [
+        "./components/forms/*"
+      ],
+      "@blocks/*": [
+        "./components/blocks/*"
+      ],
+      "@scss/*": [
+        "./css/*"
+      ],
+      "@root/*": [
+        "./*"
+      ]
+    }
   },
   "include": [
     "next-env.d.ts",
