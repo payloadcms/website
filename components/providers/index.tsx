@@ -17,7 +17,7 @@ export const Providers: React.FC<{ children: React.ReactNode; theme: Theme }> = 
       breakpoints={{
         s: '(max-width: 768px)',
         m: '(max-width: 1100px)',
-        l: '(max-width: 1600px)',
+        l: '(max-width: 1680px)',
       }}
     >
       <ThemePreferenceProvider theme={theme}>
@@ -25,7 +25,7 @@ export const Providers: React.FC<{ children: React.ReactNode; theme: Theme }> = 
           breakpoints={{
             s: 768,
             m: 1100,
-            l: 1600,
+            l: 1680,
           }}
           rowGap={{
             s: '1rem',

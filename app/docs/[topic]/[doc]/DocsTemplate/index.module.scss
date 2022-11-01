@@ -26,7 +26,7 @@
 .navWrap {
   max-height: calc(100vh - var(--page-padding-top));
   overflow: auto;
-  width: calc(var(--base) * 9);
+  width: calc(var(--base) * 11);
   padding-bottom: calc(var(--base) * 2);
 
   &::-webkit-scrollbar {
@@ -43,6 +43,14 @@
     &::-webkit-scrollbar-thumb {
       background-color: var(--theme-elevation-100);
     }
+  }
+
+  @include extra-large-break {
+    width: calc(var(--base) * 10);
+  }
+
+  @include large-break {
+    width: calc(var(--base) * 9);
   }
 }
 

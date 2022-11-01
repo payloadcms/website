@@ -93,7 +93,7 @@ export const DocsTemplate: React.FC<Props> = ({
             </nav>
           </div>
           <Grid className={classes.grid}>
-            <Cell start={3} startM={1} cols={7} className={classes.content}>
+            <Cell start={3} startL={4} startM={1} cols={8} colsL={6} className={classes.content}>
               {children}
             </Cell>
             <Cell cols={2} start={11} colsL={3} startL={10}>
