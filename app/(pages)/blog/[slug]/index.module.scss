@@ -1,9 +1,5 @@
 @use '@scss/common' as *;
 
-.blogPost {
-  padding-top: var(--page-padding-top); // space for header
-}
-
 .pageType {
   margin-top: calc(var(--base) * 2);
 
