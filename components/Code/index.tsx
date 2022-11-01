@@ -41,7 +41,8 @@ const highlightLine = (lineArray: { content: string }[], lineProps: { className:
   return shouldExclude
 }
 
-const Code: React.FC<Props> = ({ children, className }) => {
+const Code: React.FC<Props> = props => {
+  const { children, className } = props
   const classNames = [classes.code, className && className].filter(Boolean).join(' ')
 
   return (

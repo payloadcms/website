@@ -22,6 +22,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en" data-theme={theme}>
       <head>
         <title>Payload CMS</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap"
+          rel="stylesheet"
+        ></link>
       </head>
       <body>
         <Providers theme={themeIsValid(theme) ? theme : 'light'}>

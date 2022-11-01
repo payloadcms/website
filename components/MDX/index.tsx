@@ -1,6 +1,4 @@
 import React, { useCallback, useState } from 'react'
-import { MDXProvider as Provider } from '@mdx-js/react'
-import components from './components'
 import Context from './context'
 import { IContext, AddHeading, Heading } from './types'
 
@@ -25,9 +23,7 @@ export const MDXProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   return (
     <div>
-      <Provider components={components}>
-        <Context.Provider value={context}>{children}</Context.Provider>
-      </Provider>
+      <Context.Provider value={context}>{children}</Context.Provider>
     </div>
   )
 }

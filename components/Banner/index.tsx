@@ -7,7 +7,7 @@ import { RichText } from '../RichText'
 import classes from './index.module.scss'
 
 export type Props = {
-  type: Extract<ReusableContent['layout'][0], { blockType: 'banner' }>['bannerFields']['type']
+  type?: Extract<ReusableContent['layout'][0], { blockType: 'banner' }>['bannerFields']['type']
   content?: Extract<
     ReusableContent['layout'][0],
     { blockType: 'banner' }
@@ -21,7 +21,13 @@ const Icons = {
   checkmark: CheckmarkIcon,
 }
 
-export const Banner: React.FC<Props> = ({ content, children, icon, type, checkmark }) => {
+export const Banner: React.FC<Props> = ({
+  content,
+  children,
+  icon,
+  type = 'default',
+  checkmark,
+}) => {
   const theme = useTheme()
 
   let Icon = icon && Icons[icon]
