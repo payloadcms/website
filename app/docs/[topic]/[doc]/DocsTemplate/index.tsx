@@ -15,11 +15,13 @@ type Props = {
   openTopics: string[]
   children: React.ReactNode
   doc: string
+  topic: string
 }
 
 export const DocsTemplate: React.FC<Props> = ({
   topics,
   doc: docSlug,
+  topic: topicSlug,
   openTopics: openTopicsFromCookie,
   children,
 }) => {
@@ -62,18 +64,22 @@ export const DocsTemplate: React.FC<Props> = ({
                 </button>
                 <AnimateHeight height={isActive ? 'auto' : 0} duration={200}>
                   <ul className={classes.docs}>
-                    {topic.docs.map((doc: DocMeta) => (
-                      <li key={doc.slug}>
-                        <Link
-                          href={`/docs/${topic.slug.toLowerCase()}/${doc.slug}`}
-                          className={[classes.doc, docSlug === doc.slug && classes['doc--active']]
-                            .filter(Boolean)
-                            .join(' ')}
-                        >
-                          {doc.label}
-                        </Link>
-                      </li>
-                    ))}
+                    {topic.docs.map((doc: DocMeta) => {
+                      const isDocActive = docSlug === doc.slug && topicSlug === topic.slug
+
+                      return (
+                        <li key={doc.slug}>
+                          <Link
+                            href={`/docs/${topic.slug.toLowerCase()}/${doc.slug}`}
+                            className={[classes.doc, isDocActive && classes['doc--active']]
+                              .filter(Boolean)
+                              .join(' ')}
+                          >
+                            {doc.label}
+                          </Link>
+                        </li>
+                      )
+                    })}
                   </ul>
                 </AnimateHeight>
               </React.Fragment>
@@ -81,7 +87,6 @@ export const DocsTemplate: React.FC<Props> = ({
           })}
         </nav>
         <div className={classes.content}>{children}</div>
-        <aside className={classes.aside}>Hello</aside>
       </Gutter>
     </MDXProvider>
   )

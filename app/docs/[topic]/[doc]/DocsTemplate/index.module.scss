@@ -32,27 +32,13 @@
   }
 
   @include large-break {
-    width: 22%;
-    margin-right: 3%;
+    width: 20%;
+    margin-right: 2%;
   }
 }
 
 .content {
-  width: 53%;
-  max-width: 800px;
-}
-
-.aside {
-  position: sticky;
-  top: var(--page-padding-top);
-  max-height: calc(100vh - var(--page-padding-top));
-  margin-left: 10%;
-  width: 20%;
-
-  @include large-break {
-    width: 20%;
-    margin-left: 5%;
-  }
+  width: 78%;
 }
 
 .topic {

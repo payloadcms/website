@@ -8,7 +8,11 @@ const Layout = async ({ params, children }) => {
   const topics = await getTopics()
   const openTopics = JSON.parse(cookies().get(openTopicsCookieName)?.value || '[]')
 
-  return <DocsTemplate {...{ topics, openTopics, doc: params.doc }}>{children}</DocsTemplate>
+  return (
+    <DocsTemplate {...{ topics, openTopics, doc: params.doc, topic: params.topic }}>
+      {children}
+    </DocsTemplate>
+  )
 }
 
 export default Layout

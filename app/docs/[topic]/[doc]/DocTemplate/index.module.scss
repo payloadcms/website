@@ -1,10 +1,56 @@
 @use '@scss/common.scss' as *;
 
+.doc {
+  display: flex;
+}
+
 .title {
   @include h2;
   margin-top: 0 !important;
 }
 
-.doc {
+.content {
   @include color-links;
+  width: 70%;
+  max-width: 800px;
+  margin-right: auto;
+}
+
+.aside {
+  position: sticky;
+  top: var(--page-padding-top);
+  max-height: calc(100vh - var(--page-padding-top));
+  margin-left: 5%;
+  width: 25%;
+}
+
+.next {
+  display: block;
+  padding: var(--base);
+  background: var(--theme-purple-100);
+  border-bottom: 1px solid var(--theme-purple-500);
+  margin-top: calc(var(--base) * 2);
+  color: var(--theme-purple-500);
+  text-decoration: none;
+
+  h4 {
+    margin: 0;
+  }
+
+  &:hover {
+    background: var(--theme-purple-200);
+  }
+
+  &:active, &:focus {
+    background: var(--theme-purple-250);
+  }
+}
+
+.nextLabel {
+  display: flex;
+  align-items: center;
+
+  svg {
+    margin-left: calc(var(--base) * .5);
+  }
 }
