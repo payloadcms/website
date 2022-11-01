@@ -1,5 +1,9 @@
 @use "@scss/common" as *;
 
+.wrap {
+  overflow: hidden;
+}
+
 .toc {
   list-style: none;
   padding: 0;
