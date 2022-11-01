@@ -1,0 +1,31 @@
+@use "@scss/common" as *;
+@use "../shared.scss";
+
+.wrap {
+  position: relative;
+}
+
+.phone {
+  margin-bottom: base(1);
+
+  input {
+    @include shared.formInput;
+    margin-bottom: 0;
+
+    @include mid-break {
+      margin-bottom: 0;
+    }
+
+    &::placeholder {
+      color: var(--color-dark-gray);
+    }
+  }
+}
+
+.noMarginBottom {
+  &:local() {
+    .input {
+      margin-bottom: 0;
+    }
+  }
+}

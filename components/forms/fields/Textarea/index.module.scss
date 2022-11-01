@@ -1,0 +1,23 @@
+@use "@scss/common" as *;
+@use "../shared.scss";
+
+.wrap {
+  position: relative;
+}
+
+.textarea {
+  @include shared.formInput;
+  height: unset;
+
+  &.error {
+    background-color: var(--theme-failure-500);
+  }
+}
+
+.noMarginBottom {
+  &:local() {
+    .textarea {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+@use "@scss/common" as *;
+@use "../shared.scss";
+
+.wrap {
+  position: relative;
+}
+
+.input {
+  @include shared.formInput;
+
+  &.error {
+    background-color: lighten($color-red, 20%);
+  }
+}
+
+.noMarginBottom {
+  &:local() {
+    .input {
+      margin-bottom: 0;
+    }
+  }
+}

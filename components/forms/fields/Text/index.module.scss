@@ -1,0 +1,13 @@
+@use "../shared.scss";
+
+.wrap {
+  position: relative;
+}
+
+.input {
+  @include shared.formInput;
+
+  &.error {
+    background-color: var(--theme-failure-500);
+  }
+}
