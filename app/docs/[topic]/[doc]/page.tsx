@@ -1,6 +1,7 @@
 import React from 'react'
 import { getDoc } from './api'
 import classes from './index.module.scss'
+import { DocTemplate } from './DocTemplate'
 
 const Doc = async ({ params }) => {
   const { topic, doc } = params
@@ -13,7 +14,7 @@ const Doc = async ({ params }) => {
   return (
     <div>
       <h1 className={classes.title}>{title}</h1>
-      {content}
+      <DocTemplate content={content} />
     </div>
   )
 }

@@ -1,11 +1,22 @@
 .banner {
   padding: var(--base);
+  margin-bottom: var(--base);
   display: flex;
   align-items: center;
 
   &.default {
     background: var(--color-base-800);
     color: var(--color-base-200);
+  }
+}
+
+.children {
+  *:first-child {
+    margin-top: 0;
+  }
+
+  *:last-child {
+    margin-bottom: 0;
   }
 }
 

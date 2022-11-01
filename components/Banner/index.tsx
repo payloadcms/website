@@ -8,7 +8,12 @@ import classes from './index.module.scss'
 
 export type Props = {
   type: Extract<ReusableContent['layout'][0], { blockType: 'banner' }>['bannerFields']['type']
-  content: Extract<ReusableContent['layout'][0], { blockType: 'banner' }>['bannerFields']['content']
+  content?: Extract<
+    ReusableContent['layout'][0],
+    { blockType: 'banner' }
+  >['bannerFields']['content']
+  children?: React.ReactNode
+  checkmark?: boolean
   icon?: 'checkmark'
 }
 
@@ -16,10 +21,11 @@ const Icons = {
   checkmark: CheckmarkIcon,
 }
 
-export const Banner: React.FC<Props> = ({ content, icon, type }) => {
+export const Banner: React.FC<Props> = ({ content, children, icon, type, checkmark }) => {
   const theme = useTheme()
 
-  const Icon = icon && Icons[icon]
+  let Icon = icon && Icons[icon]
+  if (!Icon && checkmark) Icon = Icons.checkmark
 
   return (
     <div
@@ -29,7 +35,8 @@ export const Banner: React.FC<Props> = ({ content, icon, type }) => {
     >
       {Icon && <Icon className={classes.icon} />}
 
-      <RichText content={content} />
+      {content && <RichText content={content} />}
+      {children && <div className={classes.children}>{children}</div>}
     </div>
   )
 }
