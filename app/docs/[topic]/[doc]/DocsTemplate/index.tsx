@@ -14,10 +14,12 @@ type Props = {
   topics: Topic[]
   openTopics: string[]
   children: React.ReactNode
+  doc: string
 }
 
 export const DocsTemplate: React.FC<Props> = ({
   topics,
+  doc: docSlug,
   openTopics: openTopicsFromCookie,
   children,
 }) => {
@@ -32,9 +34,12 @@ export const DocsTemplate: React.FC<Props> = ({
               {topics.map(topic => {
                 const isActive = openTopics.includes(topic.slug)
                 return (
-                  <div className={classes.topic} key={topic.slug}>
+                  <React.Fragment key={topic.slug}>
                     <button
                       type="button"
+                      className={[classes.topic, isActive && classes['topic--open']]
+                        .filter(Boolean)
+                        .join(' ')}
                       onClick={() => {
                         const newState = [...openTopics]
 
@@ -47,11 +52,8 @@ export const DocsTemplate: React.FC<Props> = ({
                         setOpenTopics(newState)
                         document.cookie = `${openTopicsCookieName}=${JSON.stringify(
                           newState,
-                        )};expires=Fri, 31 Dec 9999 23:59:59 GMT`
+                        )};expires=Fri, 31 Dec 9999 23:59:59 GMT;path=/`
                       }}
-                      className={[classes.toggle, isActive && classes.activeToggle]
-                        .filter(Boolean)
-                        .join(' ')}
                     >
                       <ChevronIcon
                         className={[classes.toggleChevron, isActive && classes.activeToggleChevron]
@@ -63,11 +65,15 @@ export const DocsTemplate: React.FC<Props> = ({
                     <AnimateHeight height={isActive ? 'auto' : 0} duration={200}>
                       <ul className={classes.docs}>
                         {topic.docs.map((doc: DocMeta) => (
-                          <li key={doc.slug} className={classes.docWrap}>
+                          <li key={doc.slug}>
                             <Link
-                              href="/docs/[topic]/[doc]"
-                              as={`/docs/${topic.slug.toLowerCase()}/${doc.slug}`}
-                              className={classes.doc}
+                              href={`/docs/${topic.slug.toLowerCase()}/${doc.slug}`}
+                              className={[
+                                classes.doc,
+                                docSlug === doc.slug && classes['doc--active'],
+                              ]
+                                .filter(Boolean)
+                                .join(' ')}
                             >
                               {doc.label}
                             </Link>
@@ -75,17 +81,17 @@ export const DocsTemplate: React.FC<Props> = ({
                         ))}
                       </ul>
                     </AnimateHeight>
-                  </div>
+                  </React.Fragment>
                 )
               })}
             </div>
           </nav>
         </div>
         <Grid className={classes.grid}>
-          <Cell start={2} startL={3} startM={1} cols={8} colsL={7} className={classes.content}>
+          <Cell start={3} startM={1} cols={7} className={classes.content}>
             {children}
           </Cell>
-          <Cell cols={3}>
+          <Cell cols={2} start={11} colsL={3} startL={10}>
             <aside className={classes.aside}>Hello</aside>
           </Cell>
         </Grid>

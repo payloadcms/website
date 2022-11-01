@@ -8,7 +8,7 @@
 .stickyWrap {
   position: absolute;
   z-index: 1;
-  top: 0;
+  top: var(--page-padding-top);
   right: calc(var(--gutter-h) / 2 * -1);
   bottom: 0;
   left: calc(var(--gutter-h) / 2 * -1);
@@ -27,6 +27,7 @@
   max-height: calc(100vh - var(--page-padding-top));
   overflow: auto;
   width: calc(var(--base) * 9);
+  padding-bottom: calc(var(--base) * 2);
 
   &::-webkit-scrollbar {
     background-color: transparent;
@@ -42,6 +43,78 @@
     &::-webkit-scrollbar-thumb {
       background-color: var(--theme-elevation-100);
     }
+  }
+}
+
+.topic {
+  @include btnReset;
+  font-size: calc(var(--font-body-size) * .925);
+  color: var(--theme-elevation-500);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+  margin-bottom: calc(var(--base) * .375);
+
+  svg {
+    transition: transform 200ms ease-out;
+    margin-right: calc(var(--base) * .5);
+  }
+
+  &--open {
+    color: var(--theme-text);
+    font-weight: bold;
+
+    svg {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.docs {
+  list-style: none;
+  color: var(--theme-elevation-500);
+  position: relative;
+
+  &:before {
+    content: ' ';
+    display: block;
+    width: 1px;
+    background: var(--theme-elevation-100);
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 12px;
+  }
+}
+
+.doc {
+  font-size: calc(var(--font-body-size) * .925);
+  line-height: 1.375;
+  padding-left: calc(var(--base) * 1.75);
+  text-decoration: none;
+  display: inline-flex;
+  position: relative;
+
+  &:hover {
+    color: var(--theme-text);
+  }
+
+  &:before {
+    content: ' ';
+    background: currentColor;
+    border-radius: 2px;
+    width: 4px;
+    height: 4px;
+    display: block;
+    position: absolute;
+    top: 12px;
+    left: 18px;
+  }
+
+  &--active {
+    font-weight: bold;
+    color: var(--theme-text);
   }
 }
 

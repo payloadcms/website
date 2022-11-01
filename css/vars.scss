@@ -132,3 +132,13 @@ $breakpoint-xl-width: 1920px;
     }
   }
 }
+
+@mixin btnReset {
+  border: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  color: currentColor;  
+  font-size: var(--font-body-size);
+}
