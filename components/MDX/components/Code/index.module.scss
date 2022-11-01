@@ -1,0 +1,11 @@
+@use "@scss/common" as *;
+
+.code {
+  margin: 0 0 var(--base);
+
+  @include mid-break {
+    margin-left: calc(var(--gutter-h) * -1);
+    margin-right: calc(var(--gutter-h) * -1);
+    border-radius: 0;
+  }
+}

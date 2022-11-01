@@ -15,8 +15,8 @@
   --header-height: 104px;
   --page-padding-top: calc(var(--header-height) + var(--base));
 
+  --font-mono: 'Roboto Mono', monospace;
   --font-body: 'Neue Montreal', Helvetica, Arial;
-  --font-mono: monospace;
   --font-serif: 'Merriweather', serif;
 
   --font-body-size: 21px;
@@ -152,6 +152,14 @@ time {
 
 svg {
   vertical-align: middle;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: calc(var(--font-body-size) * .75);
+  background: var(--theme-elevation-100);
+  border-radius: 4px;
+  padding: 0 5px;
 }
 
 hr {

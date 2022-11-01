@@ -1,4 +1,5 @@
 import matter from 'gray-matter'
+import remarkGfm from 'remark-gfm'
 import { serialize } from 'next-mdx-remote/serialize'
 import slugify from '../../../../utilities/slugify'
 import type { Doc, DocPath, Heading, Topic } from './types'
@@ -105,7 +106,11 @@ export async function getDoc({ topic, doc }: DocPath): Promise<Doc> {
   const nextTopic = topics[parentTopicIndex + 1]
 
   const docToReturn: Doc = {
-    content: await serialize(parsedDoc.content),
+    content: await serialize(parsedDoc.content, {
+      mdxOptions: {
+        remarkPlugins: [remarkGfm],
+      },
+    }),
     data: {
       title: parsedDoc.data.title,
       label: parsedDoc.data.label,
