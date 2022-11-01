@@ -24,19 +24,6 @@ const nextConfig = {
     }
     return configCopy
   },
-  headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'Accept-CH',
-            value: 'Sec-CH-Prefers-Color-Scheme',
-          },
-        ],
-      },
-    ]
-  },
   redirects() {
     return [
       {
