@@ -43,6 +43,7 @@ export async function getTopics(): Promise<Topic[]> {
       const docs: Array<{ name: string }> = await fetch(
         `${githubAPIURL}/contents/docs/${topicSlug}`,
         {
+          cache: 'force-cache',
           headers,
         },
       ).then(res => res.json())
@@ -51,7 +52,9 @@ export async function getTopics(): Promise<Topic[]> {
 
       const parsedDocs = await Promise.all(
         docSlugs.map(async docSlug => {
-          const docRes = await fetch(`${githubRawContentURL}/docs/${topicSlug}/${docSlug}`)
+          const docRes = await fetch(`${githubRawContentURL}/docs/${topicSlug}/${docSlug}`, {
+            cache: 'force-cache',
+          })
           const rawDoc = await docRes.text()
           const parsedDoc = matter(rawDoc)
 
@@ -92,7 +95,9 @@ export async function getHeadings(source): Promise<Heading[]> {
 export async function getDoc({ topic, doc }: DocPath): Promise<Doc> {
   const topics = await getTopics()
 
-  const docRes = await fetch(`${githubRawContentURL}/docs/${topic}/${doc}.mdx`)
+  const docRes = await fetch(`${githubRawContentURL}/docs/${topic}/${doc}.mdx`, {
+    cache: 'force-cache',
+  })
   const rawDoc = await docRes.text()
 
   const parsedDoc = matter(rawDoc)
