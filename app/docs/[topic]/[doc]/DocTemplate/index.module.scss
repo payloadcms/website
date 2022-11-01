@@ -2,6 +2,7 @@
 
 .doc {
   display: flex;
+  width: 100%;
 
   @include mid-break {
     display: block;
@@ -14,9 +15,9 @@
 }
 
 .content {
-  width: 70%;
-  max-width: 900px;
   margin-right: auto;
+  min-width: 0;
+  max-width: 900px;
 
   @include mid-break {
     width: 100%;
@@ -45,12 +46,13 @@
 
 .aside {
   position: sticky;
+  flex-shrink: 0;
   top: var(--page-padding-top);
   max-height: calc(100vh - var(--page-padding-top));
   overflow-y: auto;
-  padding-bottom: calc(var(--base) * 2);
-  margin-left: 5%;
-  width: 25%;
+  padding: 0 0 calc(var(--base) * 2);
+  margin-left: 7%;
+  width: calc(var(--base) * 12);
 
   &::-webkit-scrollbar {
     background-color: transparent;
@@ -68,6 +70,9 @@
     }
   }
 
+  @include large-break {
+    width: calc(var(--base) * 10);
+  }
 
   @include mid-break {
     display: none;

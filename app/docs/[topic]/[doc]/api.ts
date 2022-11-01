@@ -65,7 +65,7 @@ export async function getTopics(): Promise<Topic[]> {
       )
 
       const topic = {
-        slug: topicSlug,
+        slug: unsanitizedTopicSlug,
         docs: parsedDocs.sort((a, b) => a.order - b.order),
       }
 
