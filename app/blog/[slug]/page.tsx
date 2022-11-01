@@ -1,5 +1,5 @@
 import React from 'react'
-import { RenderBlogPost } from './renderPage'
+import { RenderBlogPost } from './renderBlogPost'
 import { fetchBlogPost } from '../../../graphql'
 
 const Page = async ({ params }) => {
