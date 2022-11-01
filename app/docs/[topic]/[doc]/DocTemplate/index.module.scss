@@ -25,6 +25,22 @@
 
 .mdx {
   @include color-links;
+
+  h2 {
+    @include h3;
+  }
+
+  h3 {
+    @include h4;
+  }
+
+  h4 {
+    @include h5;
+  }
+
+  h5 {
+    @include h6;
+  }
 }
 
 .aside {
