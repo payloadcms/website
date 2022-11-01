@@ -3,30 +3,16 @@
 .wrap {
   padding-top: var(--page-padding-top);
   position: relative;
-}
-
-.stickyWrap {
-  position: absolute;
-  z-index: 1;
-  top: var(--page-padding-top);
-  right: calc(var(--gutter-h) / 2 * -1);
-  bottom: 0;
-  left: calc(var(--gutter-h) / 2 * -1);
-
-  @include large-break {
-    left: 0;
-  }
+  display: flex;
 }
 
 .nav {
   position: sticky;
   top: var(--page-padding-top);
-}
-
-.navWrap {
   max-height: calc(100vh - var(--page-padding-top));
   overflow: auto;
-  width: calc(var(--base) * 11);
+  width: 15%;
+  margin-right: 7%;
   padding-bottom: calc(var(--base) * 2);
 
   &::-webkit-scrollbar {
@@ -45,12 +31,27 @@
     }
   }
 
-  @include extra-large-break {
-    width: calc(var(--base) * 10);
+  @include large-break {
+    width: 22%;
+    margin-right: 3%;
   }
+}
+
+.content {
+  width: 53%;
+  max-width: 800px;
+}
+
+.aside {
+  position: sticky;
+  top: var(--page-padding-top);
+  max-height: calc(100vh - var(--page-padding-top));
+  margin-left: 10%;
+  width: 20%;
 
   @include large-break {
-    width: calc(var(--base) * 9);
+    width: 20%;
+    margin-left: 5%;
   }
 }
 
@@ -63,6 +64,10 @@
   align-items: center;
   text-transform: capitalize;
   margin-bottom: calc(var(--base) * .375);
+
+  &:hover {
+    color: var(--theme-text);
+  }
 
   svg {
     transition: transform 200ms ease-out;
@@ -124,14 +129,4 @@
     font-weight: bold;
     color: var(--theme-text);
   }
-}
-
-.grid {
-  position: relative;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.content {
-  pointer-events: all;
 }
