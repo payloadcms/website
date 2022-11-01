@@ -1,7 +1,8 @@
 'use client'
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useId, useState } from 'react'
 import ReactSelect from 'react-select'
+import { useTheme } from '@components/providers/Theme'
 import { Validate } from '../../types'
 import { useField } from '../../useField'
 import Label from '../../Label'
@@ -54,6 +55,8 @@ export const Select: React.FC<{
     initialValue: initialValueFromProps, // allow external control
   } = props
 
+  const id = useId()
+
   const fieldFromContext = useField({
     path,
     validate: required ? validate : undefined,
@@ -87,13 +90,23 @@ export const Select: React.FC<{
 
   const selectedValue = options?.find(option => option.value === internalState) || null
 
+  const theme = useTheme()
+
   return (
     <div
-      className={[className, classes.select, showError && classes.error].filter(Boolean).join(' ')}
+      className={[
+        className,
+        classes.select,
+        showError && classes.error,
+        theme && classes[`theme-${theme}`],
+      ]
+        .filter(Boolean)
+        .join(' ')}
     >
       <Error showError={showError} message={errorMessage} />
       <Label htmlFor={path} label={label} required={required} />
       <ReactSelect
+        instanceId={id}
         onChange={handleChange}
         value={selectedValue}
         options={options}
