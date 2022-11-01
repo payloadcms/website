@@ -12,6 +12,10 @@
   right: calc(var(--gutter-h) / 2 * -1);
   bottom: 0;
   left: calc(var(--gutter-h) / 2 * -1);
+
+  @include large-break {
+    left: 0;
+  }
 }
 
 .nav {
@@ -19,7 +23,34 @@
   top: var(--page-padding-top);
 }
 
+.navWrap {
+  max-height: calc(100vh - var(--page-padding-top));
+  overflow: auto;
+  width: calc(var(--base) * 9);
+
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 3px;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--theme-elevation-100);
+    }
+  }
+}
+
 .grid {
   position: relative;
   z-index: 2;
+  pointer-events: none;
+}
+
+.content {
+  pointer-events: all;
 }
