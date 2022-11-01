@@ -2,14 +2,14 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { RenderBlocks } from '../../../components/RenderBlocks'
-import { RichText } from '../../../components/RichText'
-import { Gutter } from '../../../components/Gutter'
-import { Media } from '../../../components/Media'
-import { Label } from '../../../components/Label'
-import { formatDateTime } from '../../../utilities/format-date-time'
-import { CalendarIcon } from '../../../components/graphics/CalendarIcon'
-import { Post } from '../../../payload-types'
+import { RenderBlocks } from '../../../../components/RenderBlocks'
+import { RichText } from '../../../../components/RichText'
+import { Gutter } from '../../../../components/Gutter'
+import { Media } from '../../../../components/Media'
+import { Label } from '../../../../components/Label'
+import { formatDateTime } from '../../../../utilities/format-date-time'
+import { CalendarIcon } from '../../../../components/graphics/CalendarIcon'
+import { Post } from '../../../../payload-types'
 
 import classes from './index.module.scss'
 
@@ -17,7 +17,7 @@ export const RenderBlogPost: React.FC<Post> = props => {
   const { title, author, createdAt, image, excerpt, content } = props
 
   return (
-    <div className={classes.blogPost}>
+    <React.Fragment>
       <Gutter className={classes.pageType}>
         <Label>Blog Post</Label>
       </Gutter>
@@ -72,7 +72,7 @@ export const RenderBlogPost: React.FC<Post> = props => {
       </Gutter>
 
       <RenderBlocks blocks={content} />
-    </div>
+    </React.Fragment>
   )
 }
 
