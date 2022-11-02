@@ -1,87 +1,60 @@
-import React, { useCallback } from 'react';
-import useFieldType from '../../useFormField';
-import Error from '../../Error';
-import Label from '../../Label';
-import { Validate } from '../../types';
+'use client'
 
-import classes from './index.module.scss';
+import React from 'react'
+import Error from '../../Error'
+import Label from '../../Label'
+import { Validate } from '../../types'
+import { FieldProps } from '../types'
+import { useField } from '../useField'
 
-const defaultValidate: Validate = (val) => {
-  const stringVal = val as string;
-  const isValid = stringVal && stringVal.length > 0;
+import classes from './index.module.scss'
+
+const defaultValidate: Validate = val => {
+  const stringVal = val as string
+  const isValid = stringVal && stringVal.length > 0
 
   if (isValid) {
-    return true;
+    return true
   }
 
-  return 'Please enter a value.';
-};
+  return 'Please enter a value.'
+}
 
-export const NumberInput: React.FC<{
-  path: string
-  required?: boolean
-  validate?: Validate
-  label?: string
-  placeholder?: string
-  type?: 'text' | 'hidden'
-  onChange?: (value: number) => void // eslint-disable-line no-unused-vars
-  marginBottom?: boolean
-}> = (props) => {
+export const NumberInput: React.FC<FieldProps<number>> = props => {
   const {
     path,
     required = false,
     validate = defaultValidate,
     label,
     placeholder,
-    onChange,
-    marginBottom
-  } = props;
+    onChange: onChangeFromProps,
+    className,
+    initialValue,
+  } = props
 
-  const fieldType = useFieldType({
+  const { onChange, value, showError, errorMessage } = useField<number>({
+    initialValue,
+    onChange: onChangeFromProps,
     path,
-    validate: required ? validate : undefined,
-  });
-
-  const {
-    value,
-    showError,
-    setValue,
-    errorMessage,
-  } = fieldType;
-
-  const handleChange = useCallback((e) => {
-    setValue(e.target.value);
-    if (typeof onChange === 'function') onChange(e.target.value)
-  }, [
-    onChange,
-    setValue
-  ])
+    validate,
+    required,
+  })
 
   return (
-    <div
-      className={[
-        classes.wrap,
-        marginBottom === false && classes.noMarginBottom
-      ].filter(Boolean).join(' ')}
-    >
-      <Error
-        showError={showError}
-        message={errorMessage}
-      />
-      <Label
-        htmlFor={path}
-        label={label}
-        required={required}
-      />
+    <div className={[classes.wrap, className].filter(Boolean).join(' ')}>
+      <Error showError={showError} message={errorMessage} />
+      <Label htmlFor={path} label={label} required={required} />
       <input
         className={classes.input}
-        value={value as string || ''}
-        onChange={handleChange}
+        value={value || ''}
+        onChange={e => {
+          onChange(Number(e.target.value))
+        }}
         placeholder={placeholder}
         type="number"
         id={path}
         name={path}
       />
     </div>
-  );
-};
+  )
+}

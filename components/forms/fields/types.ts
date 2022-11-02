@@ -7,6 +7,6 @@ export interface FieldProps<T> {
   label?: string
   placeholder?: string
   onChange?: (value: T) => void // eslint-disable-line no-unused-vars
-  initialValue?: string
+  initialValue?: T
   className?: string
 }

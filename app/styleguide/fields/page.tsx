@@ -3,6 +3,7 @@ import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import { Textarea } from '@forms/fields/Textarea'
 import { Phone } from '@components/forms/fields/Phone'
+import { NumberInput } from '@components/forms/fields/Number'
 import { StyleguidePageContent } from '../PageContent'
 
 const Forms: React.FC = () => {
@@ -50,6 +51,8 @@ const Forms: React.FC = () => {
       <Textarea label="Textarea Field" />
       <br />
       <Phone label="Phone Field" />
+      <br />
+      <NumberInput label="Number Field" />
     </StyleguidePageContent>
   )
 }

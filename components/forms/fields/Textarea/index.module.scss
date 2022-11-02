@@ -13,11 +13,3 @@
     background-color: var(--theme-failure-500);
   }
 }
-
-.noMarginBottom {
-  &:local() {
-    .textarea {
-      margin-bottom: 0;
-    }
-  }
-}
