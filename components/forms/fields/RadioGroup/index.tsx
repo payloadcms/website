@@ -1,10 +1,12 @@
-import React from 'react'
-import { useFormField } from '../../useFormField'
+'use client'
+
+import React, { useId } from 'react'
 import Error from '../../Error'
 import Label from '../../Label'
 import { Validate } from '../../types'
-import { SetValue } from '../../useFormField/types'
 import classes from './index.module.scss'
+import { FieldProps } from '../types'
+import { useField } from '../useField'
 
 export type Option = {
   label: string | React.ReactElement
@@ -19,60 +21,57 @@ const defaultValidate: Validate = val => {
   return 'Please make a selection.'
 }
 
-const RadioGroup: React.FC<{
-  path: string
-  required?: boolean
-  validate?: Validate
-  label?: string
-  options: Option[]
-  onChange?: (value: string, setValue: SetValue) => void // eslint-disable-line no-unused-vars
-  value?: string
-  layout?: 'vertical' | 'horizontal'
-}> = props => {
+const RadioGroup: React.FC<
+  FieldProps<string> & {
+    options: Option[]
+    layout?: 'vertical' | 'horizontal'
+  }
+> = props => {
   const {
     path,
     required = false,
     validate = defaultValidate,
     label,
     options,
-    onChange,
-    value: valueFromProps,
+    onChange: onChangeFromProps,
+    initialValue,
   } = props
 
-  const fieldType = useFormField<string>({
+  const id = useId()
+
+  const { onChange, value, showError, errorMessage } = useField<string>({
+    initialValue,
+    onChange: onChangeFromProps,
     path,
-    validate: required ? validate : undefined,
+    validate,
+    required,
   })
-
-  const { value, showError, setValue, errorMessage } = fieldType
-
-  const valueToRender = valueFromProps || value
 
   return (
     <div className={classes.wrap}>
       <Error showError={showError} message={errorMessage} />
       <Label htmlFor={path} label={label} required={required} />
-      <ul className={[classes.group].join(' ')}>
-        {options.map(option => {
-          const isSelected = String(option.value) === String(valueToRender)
-          const id = `${path}-${option.value}`
+      <ul className={classes.ul}>
+        {options.map((option, index) => {
+          const isSelected = String(option.value) === String(value)
+          const optionId = `${id}-${index}`
 
           return (
-            <li key={id}>
-              <label htmlFor={id} className={classes.radioWrap}>
+            <li key={index} className={classes.li}>
+              <label htmlFor={optionId} className={classes.radioWrap}>
                 <input
-                  id={id}
+                  id={optionId}
                   type="radio"
                   checked={isSelected}
-                  onChange={
-                    onChange
-                      ? () => onChange(option.value, setValue)
-                      : () => {
-                          setValue(option.value)
-                        }
-                  }
+                  onChange={() => {
+                    onChange(option.value)
+                  }}
                 />
-                <span className={isSelected ? classes.selected : classes.unselected} />
+                <span
+                  className={[classes.radio, isSelected && classes.selected]
+                    .filter(Boolean)
+                    .join(' ')}
+                />
                 <span className={classes.label}>{option.label}</span>
               </label>
             </li>

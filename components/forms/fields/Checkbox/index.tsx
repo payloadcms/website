@@ -1,63 +1,50 @@
-import React, { useCallback } from 'react';
-import useFieldType from '../../useFormField';
-import Error from '../../Error';
-import { Check } from '../../../icons/Check';
+'use client'
 
-import classes from './index.module.scss';
+import React from 'react'
+import { Check } from '@components/icons/Check'
+import Error from '../../Error'
+import { useField } from '../useField'
+import { FieldProps } from '../types'
+import classes from './index.module.scss'
 
 const defaultValidate = (value: boolean, options = {} as any) => {
-  if ((value && typeof value !== 'boolean')
-    || (options.required && typeof value !== 'boolean')) {
-    return 'This field can only be equal to true or false.';
+  if ((value && typeof value !== 'boolean') || (options.required && typeof value !== 'boolean')) {
+    return 'This field can only be equal to true or false.'
   }
 
-  return true;
-};
+  return true
+}
 
-export const Checkbox: React.FC<{
-  path: string
-  required?: boolean
-  label?: string
-  marginBottom?: boolean
-}> = (props) => {
+export const Checkbox: React.FC<FieldProps<boolean>> = props => {
   const {
     path,
     required,
     label,
-    marginBottom
-  } = props;
+    onChange: onChangeFromProps,
+    initialValue,
+    validate = defaultValidate,
+    className,
+  } = props
 
-  const memoizedValidate = useCallback((value) => {
-    const validationResult = defaultValidate(value, { required });
-    return validationResult;
-  }, [required]);
-
-  const {
-    value,
-    showError,
-    errorMessage,
-    setValue,
-  } = useFieldType({
+  const { onChange, value, showError, errorMessage } = useField<boolean>({
+    initialValue,
+    onChange: onChangeFromProps,
     path,
-    validate: memoizedValidate,
-  });
+    validate,
+    required,
+  })
 
   return (
     <div
-      className={[
-        classes.checkbox,
-        showError && classes.error,
-        value && classes.checked,
-        marginBottom === false && classes.noMarginBottom
-      ].filter(Boolean).join(' ')}
+      className={[className, classes.checkbox, showError && classes.error, value && classes.checked]
+        .filter(Boolean)
+        .join(' ')}
     >
       <div className={classes.errorWrap}>
-        <Error
-          showError={showError}
-          message={errorMessage}
-        />
+        <Error showError={showError} message={errorMessage} />
       </div>
       <input
+        className={classes.htmlInput}
         type="checkbox"
         name={path}
         id={path}
@@ -66,20 +53,16 @@ export const Checkbox: React.FC<{
       />
       <button
         type="button"
+        className={classes.button}
         onClick={() => {
-          setValue(!value);
+          onChange(!value)
         }}
       >
         <span className={classes.input}>
-          <Check
-            size="large"
-            bold
-          />
+          <Check className={classes.icon} size="large" bold />
         </span>
-        <span className={classes.label}>
-          {label}
-        </span>
+        <span className={classes.label}>{label}</span>
       </button>
     </div>
-  );
-};
+  )
+}
