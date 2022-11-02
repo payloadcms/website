@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { themeLocalStorageKey } from './shared'
-import { Theme, ThemePreferenceContextType } from './types'
+import { Theme, themeIsValid, ThemePreferenceContextType } from './types'
 import classes from './index.module.scss'
 
 const ThemeContext = createContext<Theme | undefined>(undefined)
@@ -12,7 +12,11 @@ export const ThemeProvider: React.FC<{
 }> = ({ theme, children, className }) => {
   return (
     <ThemeContext.Provider value={theme}>
-      <div className={[classes[`theme--${theme}`], className].filter(Boolean).join(' ')}>
+      <div
+        className={[theme ? classes[`theme--${theme}`] : classes.loading, className]
+          .filter(Boolean)
+          .join(' ')}
+      >
         {children}
       </div>
     </ThemeContext.Provider>
@@ -38,7 +42,23 @@ export const ThemePreferenceProvider: React.FC<{ children?: React.ReactNode }> =
   }, [])
 
   useEffect(() => {
-    setThemeState(document.documentElement.getAttribute('data-theme') as Theme)
+    let themeToSet: Theme = 'light'
+    const preference = window.localStorage.getItem(themeLocalStorageKey)
+
+    if (themeIsValid(preference)) {
+      themeToSet = preference
+    } else {
+      const mediaQuery = '(prefers-color-scheme: dark)'
+      const mql = window.matchMedia(mediaQuery)
+      const hasImplicitPreference = typeof mql.matches === 'boolean'
+
+      if (hasImplicitPreference) {
+        themeToSet = mql.matches ? 'dark' : 'light'
+      }
+    }
+
+    document.documentElement.setAttribute('data-theme', themeToSet)
+    setThemeState(themeToSet)
   }, [])
 
   return (

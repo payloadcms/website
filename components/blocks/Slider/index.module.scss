@@ -1,0 +1,27 @@
+.controlsWrap {
+  margin-left: var(--gutter-h);
+}
+
+.sliderNav {
+  margin: var(--base) 0;
+}
+
+.navButton {
+  all: unset;
+}
+
+.prevButton {
+  margin-right: var(--base);
+}
+
+.sliderTrack {
+
+}
+
+.slide {
+  margin-right: calc(var(--base) * 3);
+}
+
+.slideIndex--0 {
+  margin-left: var(--gutter-h);
+}

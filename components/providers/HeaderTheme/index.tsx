@@ -15,11 +15,10 @@ export const HeaderThemeContext = createContext<Type>({
 export const useHeaderTheme = (): Type => useContext(HeaderThemeContext)
 
 const HeaderThemeProvider: React.FC<{
-  initialColor?: Colors
   children: React.ReactNode
   debug?: boolean
-}> = ({ children, initialColor, debug }) => {
-  const [headerColor, setHeaderColor] = React.useState<Colors>(initialColor)
+}> = ({ children, debug }) => {
+  const [headerColor, setHeaderColor] = React.useState<Colors>()
 
   return (
     <HeaderThemeContext.Provider

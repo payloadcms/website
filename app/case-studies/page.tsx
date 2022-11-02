@@ -1,5 +1,5 @@
 import React from 'react'
-import { fetchCaseStudies } from '../../../graphql'
+import { fetchCaseStudies } from '../../graphql'
 import { RenderCaseStudyArchive } from './renderCaseStudyArchive'
 
 const Page = async () => {

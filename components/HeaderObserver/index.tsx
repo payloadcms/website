@@ -12,19 +12,18 @@ type Props = {
 }
 export const HeaderObserver: React.FC<Props> = ({ color, children, className, zIndex }) => {
   const ref = React.useRef<HTMLDivElement>(null)
-  const { height } = useWindowInfo()
+  const { height: windowHeight } = useWindowInfo()
   const { setHeaderColor, debug } = useHeaderTheme()
   const [isIntersecting, setIsIntersecting] = React.useState(false)
 
   React.useEffect(() => {
-    if (ref?.current && height && color) {
+    if (ref?.current && windowHeight && color) {
       const headerHeight = parseInt(
         getComputedStyle(document.documentElement).getPropertyValue('--header-height'),
         10,
       )
 
       const el = ref.current
-
       const observer = new IntersectionObserver(
         entries => {
           entries.forEach(entry => {
@@ -32,8 +31,10 @@ export const HeaderObserver: React.FC<Props> = ({ color, children, className, zI
           })
         },
         {
-          // intersection point is ONLY the top 1/2 of the header
-          rootMargin: `0px 0px ${Math.floor(headerHeight / 2) - height}px 0px`,
+          // intersection area is top of the screen from 0px to 50% of the header height
+          // when the sticky element which is offset from the top by 50% of the header height
+          // is intersecting the intersection area
+          rootMargin: `0px 0px -${windowHeight - Math.ceil(headerHeight / 2)}px 0px`,
           threshold: 0,
         },
       )
@@ -45,7 +46,7 @@ export const HeaderObserver: React.FC<Props> = ({ color, children, className, zI
     }
 
     return () => null
-  }, [setIsIntersecting, height, color])
+  }, [setIsIntersecting, windowHeight, color])
 
   React.useEffect(() => {
     if (isIntersecting) {
@@ -63,6 +64,11 @@ export const HeaderObserver: React.FC<Props> = ({ color, children, className, zI
       {children && children}
 
       <div className={classes.observerContainer}>
+        {/*
+          the sticky div is 0px tall, and leaves
+          the headers height of space between it
+          and its header observer siblings
+        */}
         <div ref={ref} className={classes.stickyObserver} />
       </div>
     </div>

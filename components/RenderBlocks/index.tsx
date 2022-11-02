@@ -12,6 +12,7 @@ import { CodeBlock } from '../blocks/CodeBlock'
 import { HeaderObserver } from '../HeaderObserver'
 import { useTheme } from '../providers/Theme'
 import { ContentBlock } from '../blocks/Content'
+import { Slider } from '../blocks/Slider'
 
 type ReusableContentBlock = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 
@@ -22,6 +23,7 @@ const blockComponents = {
   code: CodeBlock,
   content: ContentBlock,
   form: FormBlock,
+  slider: Slider,
 }
 
 export const RenderBlocks: React.FC<{

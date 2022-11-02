@@ -6,13 +6,11 @@ export interface Heading {
 
 export interface Doc {
   content: any
-  data: {
-    order: number
-    title: string
-    label: string
-    desc: string
-    keywords: string
-  }
+  order: number
+  title: string
+  label: string
+  desc: string
+  keywords: string
   headings: Heading[]
 }
 

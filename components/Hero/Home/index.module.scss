@@ -1,6 +1,8 @@
 @use '@scss/common.scss' as *;
 
 .homeHero {
+  position: relative;
+  top: calc(-1 * var(--page-padding-top));
   margin-bottom: var(--block-spacing);
 }
 

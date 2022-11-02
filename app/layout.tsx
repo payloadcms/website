@@ -1,18 +1,20 @@
 import React from 'react'
+import { InitialHeaderObserver } from '@components/HeaderObserver/InitialHeaderObserver'
 import { robotoMono, neueMontrealRegular, neueMontrealBold, neueMontrealItalic } from './fonts'
 import { fetchGlobals } from '../graphql'
 import { Providers } from '../components/providers'
 import { Header } from '../components/Header'
-import { setInitialTheme } from '../components/providers/Theme/shared'
 import { Footer } from '../components/Footer'
 
 import '../css/app.scss'
+
+import classes from './layout.module.scss'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { mainMenu, footer } = await fetchGlobals()
 
   return (
-    <html lang="en">
+    <html lang="en" data-theme="light">
       <head>
         <title>Payload CMS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,7 +25,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap"
           rel="stylesheet"
         ></link>
-        <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
       </head>
       <body
         className={[
@@ -35,9 +36,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       >
         <Providers>
           <Header {...mainMenu} />
-          {children}
-          <Footer {...footer} />
-          <div id="docsearch" />
+          <InitialHeaderObserver />
+          <div className={classes.layout}>
+            {children}
+            <Footer {...footer} />
+            <div id="docsearch" />
+          </div>
         </Providers>
       </body>
     </html>
