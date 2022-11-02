@@ -1,3 +1,5 @@
+'use client'
+
 import { RichText } from '@components/RichText'
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
@@ -13,9 +15,9 @@ import classes from './index.module.scss'
 import { Page } from '../../../payload-types'
 import { Width } from './Width'
 
-type Props = Extract<Page['layout'][0], { blockType: 'form' }>
+export type FormBlockProps = Extract<Page['layout'][0], { blockType: 'form' }>
 
-export const FormBlock: React.FC<Props> = props => {
+export const FormBlock: React.FC<FormBlockProps> = props => {
   const { formFields: { richText, form } = {} } = props
 
   if (!form || typeof form === 'string') return null

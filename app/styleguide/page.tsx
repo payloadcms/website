@@ -4,9 +4,10 @@ import { Gutter } from '../../components/Gutter'
 
 const Styleguide: React.FC = () => {
   return (
-    <div style={{ paddingTop: 'calc(var(--header-height) + var(--base)' }}>
+    <div>
       <Gutter>
         <h1>Styleguide</h1>
+        <h4>Elements</h4>
         <div>
           <Link href="/styleguide/icons">Icons</Link>
         </div>
@@ -29,6 +30,11 @@ const Styleguide: React.FC = () => {
         <br />
         <div>
           <Link href="/styleguide/forms">Forms</Link>
+        </div>
+        <br />
+        <h4>Blocks</h4>
+        <div>
+          <Link href="/styleguide/blocks/form-block">Form Block</Link>
         </div>
       </Gutter>
     </div>
