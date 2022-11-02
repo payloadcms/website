@@ -1,9 +1,28 @@
+@use '@scss/common' as *;
+
+.slider {
+  position: relative;
+  --pixel-extension: calc(var(--base) * 8);
+
+  @include mid-break {
+    --pixel-extension: calc(var(--base) * 4);
+  }
+}
+
+.withPixelBackground {
+  margin: calc(var(--pixel-extension) / 2 + var(--block-spacing)) 0;
+}
+
 .controlsWrap {
-  margin-left: var(--gutter-h);
+  margin-right: calc(-1 * var(--gutter-h));
 }
 
 .sliderNav {
-  margin: var(--base) 0;
+  margin: calc(var(--base) * 1.5) 0;
+
+  @include mid-break {
+    margin: calc(var(--base) * .75) 0;
+  }
 }
 
 .navButton {
@@ -14,14 +33,50 @@
   margin-right: var(--base);
 }
 
-.sliderTrack {
-
-}
-
 .slide {
   margin-right: calc(var(--base) * 3);
+
+  &:first-child {
+    margin-left: var(--gutter-h);
+  }
+
+  @include mid-break {
+    margin-right: var(--base);
+  }
 }
 
-.slideIndex--0 {
-  margin-left: var(--gutter-h);
+.pixelContainer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: calc(100% + var(--pixel-extension));
+  top: calc(-1 * var(--pixel-extension) / 2);
+  z-index: -1;
+  * {
+    height: 100%;
+  }
+}
+
+.pixelCell {
+  position: relative;
+  height: 100%;
+  width: calc(100% + var(--gutter-h));
+}
+
+.slideType--imageSlider {
+  min-width: 600px;
+  max-width: 800px;
+
+  @include mid-break {
+    min-width: 300px;
+  }
+}
+
+.slideType--quoteSlider {
+  min-width: 600px;
+  max-width: 600px;
+
+  @include mid-break {
+    min-width: 300px;
+  }
 }
