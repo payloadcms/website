@@ -1,5 +1,5 @@
 import React from 'react'
-import { getDoc } from './api'
+import { getDoc, getTopics } from './api'
 import { DocTemplate } from './DocTemplate'
 
 const Doc = async ({ params }) => {
@@ -9,3 +9,18 @@ const Doc = async ({ params }) => {
 }
 
 export default Doc
+
+export async function generateStaticParams() {
+  const topics = await getTopics()
+
+  const result = topics.reduce((params, topic) => {
+    return params.concat(
+      topic.docs.map(doc => ({
+        topic: topic.slug.toLowerCase(),
+        doc: doc.slug,
+      })),
+    )
+  }, [])
+
+  return result
+}
