@@ -1,0 +1,46 @@
+@use "@scss/common" as *;
+@use "../shared.scss";
+
+.wrap {
+  position: relative;
+
+  :global {
+    .PhoneInputCountry {
+      top: 50%;
+      left: var(--base);
+      transform: translate3d(0, calc(-50% - 1px), 0);
+      position: absolute;
+    }
+
+    .PhoneInputCountryIcon {
+      width: var(--base);
+      height: var(--base);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+.phone {
+  position: relative;
+  
+  input {
+    @include shared.formInput;
+    padding-left: calc(var(--base) * 3);
+
+    &::placeholder {
+      color: var(--color-dark-gray);
+    }
+  }
+}
+
+.countrySelect {
+  all: unset;
+  width: var(--base);
+  height: var(--base);
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+}

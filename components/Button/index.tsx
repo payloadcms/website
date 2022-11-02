@@ -22,6 +22,7 @@ export type Props = {
   icon?: string
   fullWidth?: boolean
   reference?: Reference
+  htmlButtonType?: 'button' | 'submit'
 }
 
 const icons = {
@@ -74,6 +75,7 @@ export const Button: React.FC<Props> = props => {
     className: classNameFromProps,
     fullWidth,
     reference,
+    htmlButtonType = 'button',
   } = props
 
   let href = hrefFromProps
@@ -141,6 +143,7 @@ export const Button: React.FC<Props> = props => {
   if (Element) {
     return (
       <Element
+        type={htmlButtonType}
         className={className}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

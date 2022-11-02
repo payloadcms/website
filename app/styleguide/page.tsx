@@ -22,6 +22,14 @@ const Styleguide: React.FC = () => {
         <div>
           <Link href="/styleguide/highlight">Highlight</Link>
         </div>
+        <br />
+        <div>
+          <Link href="/styleguide/fields">Fields</Link>
+        </div>
+        <br />
+        <div>
+          <Link href="/styleguide/forms">Forms</Link>
+        </div>
       </Gutter>
     </div>
   )

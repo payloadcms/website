@@ -1,0 +1,42 @@
+@use "@scss/common" as *;
+
+@mixin formInput() {
+  all: unset;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  font-family: var(--font-body);
+  width: 100%;
+  border: 1px solid var(--theme-elevation-150);
+  background: var(--theme-input-bg);
+  color: var(--theme-elevation-800);
+  font-size: 1rem;
+  height: calc(var(--base) * 3);
+  line-height: var(--base);
+  padding:  var(--base);
+
+  &::-moz-placeholder,
+  &::-webkit-input-placeholder {
+    color: var(--theme-elevation-400);
+    font-weight: normal;
+    font-size: 1rem;
+  }
+
+  &:hover {
+    border-color: var(--theme-elevation-250);
+  }
+
+  &:focus,
+  &:active {
+    border-color: var(--theme-elevation-400);
+    outline: 0;
+  }
+
+  &:disabled {
+    background: var(--theme-elevation-200);
+    color: var(--theme-elevation-450);
+
+    &:hover {
+      border-color: var(--theme-elevation-150);
+    }
+  }
+}
