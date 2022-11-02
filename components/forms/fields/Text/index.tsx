@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from 'react'
 import { useField } from '../../useField'
+import { Field } from '../../useField/types'
 import Error from '../../Error'
 import Label from '../../Label'
 import { Validate } from '../../types'
@@ -47,9 +48,15 @@ export const Text: React.FC<{
     validate: required ? validate : undefined,
   })
 
-  const { value: valueFromContext, showError, setValue, errorMessage } = fieldFromContext
+  const {
+    value: valueFromContext,
+    showError,
+    setValue,
+    errorMessage,
+  }: Field<string> = fieldFromContext
 
   const valueFromContextOrProps = valueFromContext || initialValueFromProps
+
   const [internalState, setInternalState] = useState<string>(
     valueFromContext || initialValueFromProps,
   ) // not debounced

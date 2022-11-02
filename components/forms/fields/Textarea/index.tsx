@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useCallback, useEffect, useState } from 'react'
+import { Field } from '@components/forms/useField/types'
 import { useField } from '../../useField'
 import Error from '../../Error'
 import Label from '../../Label'
@@ -48,7 +49,12 @@ export const Textarea: React.FC<{
     validate: required ? validate : undefined,
   })
 
-  const { value: valueFromContext, showError, setValue, errorMessage } = fieldFromContext
+  const {
+    value: valueFromContext,
+    showError,
+    setValue,
+    errorMessage,
+  }: Field<string> = fieldFromContext
 
   const valueFromContextOrProps = valueFromContext || initialValueFromProps
   const [internalState, setInternalState] = useState<string>(
