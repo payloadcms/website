@@ -1,4 +1,5 @@
 import React from 'react'
+import { InitialHeaderObserver } from '@components/HeaderObserver/InitialHeaderObserver'
 import { robotoMono, neueMontrealRegular, neueMontrealBold, neueMontrealItalic } from './fonts'
 import { fetchGlobals } from '../graphql'
 import { Providers } from '../components/providers'
@@ -6,6 +7,8 @@ import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
 
 import '../css/app.scss'
+
+import classes from './layout.module.scss'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { mainMenu, footer } = await fetchGlobals()
@@ -33,9 +36,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       >
         <Providers>
           <Header {...mainMenu} />
-          {children}
-          <Footer {...footer} />
-          <div id="docsearch" />
+          <InitialHeaderObserver />
+          <div className={classes.layout}>
+            {children}
+            <Footer {...footer} />
+            <div id="docsearch" />
+          </div>
         </Providers>
       </body>
     </html>

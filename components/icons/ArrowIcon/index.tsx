@@ -3,12 +3,11 @@ import classes from '../index.module.scss'
 
 export const ArrowIcon: React.FC<{
   rotation?: number
-  color?: string
   size?: 'small' | 'large'
   className?: string
   bold?: boolean
 }> = props => {
-  const { color, rotation, size, className, bold } = props
+  const { rotation, size, className, bold } = props
 
   return (
     <svg
@@ -16,13 +15,7 @@ export const ArrowIcon: React.FC<{
       height="100%"
       viewBox="0 0 13 13"
       xmlns="http://www.w3.org/2000/svg"
-      className={[
-        className,
-        classes.icon,
-        color && classes[color],
-        size && classes[size],
-        bold && classes.bold,
-      ]
+      className={[className, classes.icon, size && classes[size], bold && classes.bold]
         .filter(Boolean)
         .join(' ')}
       style={{

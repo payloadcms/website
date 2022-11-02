@@ -15,6 +15,7 @@
     "@faceless-ui/collapsibles": "^1.1.5",
     "@faceless-ui/css-grid": "^1.2.0",
     "@faceless-ui/modal": "^2.0.1",
+    "@faceless-ui/slider": "^1.1.17",
     "@faceless-ui/window-info": "^2.1.1",
     "@next/font": "^13.0.1",
     "dotenv": "^16.0.3",

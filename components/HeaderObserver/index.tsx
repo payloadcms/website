@@ -27,7 +27,6 @@ export const HeaderObserver: React.FC<Props> = ({ color, children, className, zI
       const observer = new IntersectionObserver(
         entries => {
           entries.forEach(entry => {
-            console.log(entry.isIntersecting, entry.target)
             setIsIntersecting(entry.isIntersecting)
           })
         },

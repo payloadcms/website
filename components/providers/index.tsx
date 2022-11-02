@@ -6,6 +6,7 @@ import { ModalContainer, ModalProvider } from '@faceless-ui/modal'
 import { WindowInfoProvider } from '@faceless-ui/window-info'
 import HeaderThemeProvider from './HeaderTheme'
 import { ThemePreferenceProvider } from './Theme'
+import { ComputedCSSValuesProvider } from './ComputedCSSValues'
 
 export const Providers: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
@@ -42,12 +43,14 @@ export const Providers: React.FC<{ children: React.ReactNode }> = ({ children })
             xl: 12,
           }}
         >
-          <ModalProvider transTime={0} zIndex="var(--z-modal)">
-            <HeaderThemeProvider>
-              {children}
-              <ModalContainer />
-            </HeaderThemeProvider>
-          </ModalProvider>
+          <ComputedCSSValuesProvider>
+            <ModalProvider transTime={0} zIndex="var(--z-modal)">
+              <HeaderThemeProvider>
+                {children}
+                <ModalContainer />
+              </HeaderThemeProvider>
+            </ModalProvider>
+          </ComputedCSSValuesProvider>
         </GridProvider>
       </ThemePreferenceProvider>
     </WindowInfoProvider>

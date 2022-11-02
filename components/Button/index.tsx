@@ -148,6 +148,7 @@ export const Button: React.FC<Props> = props => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         {...newTabProps}
+        href={href}
       >
         <ButtonContent {...props} />
       </Element>

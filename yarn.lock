@@ -343,6 +343,13 @@
     qs "^6.9.1"
     react-transition-group "^4.4.2"
 
+"@faceless-ui/slider@^1.1.17":
+  version "1.1.17"
+  resolved "https://registry.yarnpkg.com/@faceless-ui/slider/-/slider-1.1.17.tgz#8599c4b11515aae25ca712e5bccced2a773f49f9"
+  integrity sha512-urKNiZxwHcPQr3nc/Bg/aRKB9gDmTH0LoO0CQfeDBJM2k9ZISOlWwRhU2K05hVQo7Sh+2xXUfTGqbKRK0I/Yiw==
+  dependencies:
+    smoothscroll-polyfill "^0.4.4"
+
 "@faceless-ui/window-info@^2.1.1":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@faceless-ui/window-info/-/window-info-2.1.1.tgz#ed1474a60ab794295bca4c29e295b1e11a584d22"
@@ -3484,6 +3491,11 @@ slate@^0.84.0:
     immer "^9.0.6"
     is-plain-object "^5.0.0"
     tiny-warning "^1.0.3"
+
+smoothscroll-polyfill@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/smoothscroll-polyfill/-/smoothscroll-polyfill-0.4.4.tgz#3a259131dc6930e6ca80003e1cb03b603b69abf8"
+  integrity sha512-TK5ZA9U5RqCwMpfoMq/l1mrH0JAR7y7KRvOBx0n2869aLxch+gT9GhN3yUfjiw+d/DiF1mKo14+hd62JyMmoBg==
 
 "source-map-js@>=0.6.2 <2.0.0", source-map-js@^1.0.2:
   version "1.0.2"
