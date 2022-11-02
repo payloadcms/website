@@ -8,7 +8,7 @@ const Page = async ({ params }) => {
 
   return (
     <React.Fragment>
-      <Hero {...page.hero} />
+      <Hero page={page} />
       <RenderBlocks blocks={page.layout} />
     </React.Fragment>
   )

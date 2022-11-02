@@ -101,7 +101,7 @@ export const CMSForm: React.FC<{
         <FormComponent onSubmit={onSubmit}>
           <div className={classes.fieldWrap}>
             {form &&
-              form.fields.map((field, index) => {
+              form.fields?.map((field, index) => {
                 const Field: React.FC<any> = fields?.[field.blockType]
                 if (Field) {
                   return (
