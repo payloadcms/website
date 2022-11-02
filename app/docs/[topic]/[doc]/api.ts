@@ -1,11 +1,11 @@
 import matter from 'gray-matter'
 import remarkGfm from 'remark-gfm'
 import { serialize } from 'next-mdx-remote/serialize'
+import { decodeBase64 } from '@root/utilities/decode-base-64'
 import slugify from '../../../../utilities/slugify'
 import type { Doc, DocPath, Heading, Topic } from './types'
 
-const githubAPIURL = 'https://api.github.com/repos/payloadcms/payload'
-const githubRawContentURL = 'https://raw.githubusercontent.com/payloadcms/payload/master'
+const githubAPI = 'https://api.github.com/repos/payloadcms/payload'
 
 export const topicOrder = [
   'Getting-Started',
@@ -40,25 +40,24 @@ export async function getTopics(): Promise<Topic[]> {
     topicOrder.map(async unsanitizedTopicSlug => {
       const topicSlug = unsanitizedTopicSlug.toLowerCase()
 
-      const docs: Array<{ name: string }> = await fetch(
-        `${githubAPIURL}/contents/docs/${topicSlug}`,
-        {
-          headers,
-        },
-      ).then(res => res.json())
+      const docs: Array<{ name: string }> = await fetch(`${githubAPI}/contents/docs/${topicSlug}`, {
+        headers,
+      }).then(res => res.json())
 
-      const docSlugs = docs.map(({ name }) => name)
+      const docFilenames = docs.map(({ name }) => name)
 
       const parsedDocs = await Promise.all(
-        docSlugs.map(async docSlug => {
-          const docRes = await fetch(`${githubRawContentURL}/docs/${topicSlug}/${docSlug}`)
-          const rawDoc = await docRes.text()
-          const parsedDoc = matter(rawDoc)
+        docFilenames.map(async docFilename => {
+          const json = await fetch(`${githubAPI}/contents/docs/${topicSlug}/${docFilename}`, {
+            headers,
+          }).then(res => res.json())
+
+          const parsedDoc = matter(decodeBase64(json.content))
 
           return {
             title: parsedDoc.data.title,
             label: parsedDoc.data.label,
-            slug: docSlug.replace('.mdx', ''),
+            slug: docFilename.replace('.mdx', ''),
             order: parsedDoc.data.order || 9999,
           }
         }),
@@ -91,10 +90,11 @@ export async function getHeadings(source): Promise<Heading[]> {
 export async function getDoc({ topic, doc }: DocPath): Promise<Doc> {
   const topics = await getTopics()
 
-  const docRes = await fetch(`${githubRawContentURL}/docs/${topic}/${doc}.mdx`)
-  const rawDoc = await docRes.text()
+  const json = await fetch(`${githubAPI}/contents/docs/${topic}/${doc}.mdx`, {
+    headers,
+  }).then(res => res.json())
 
-  const parsedDoc = matter(rawDoc)
+  const parsedDoc = matter(decodeBase64(json.content))
 
   const parentTopicIndex = topics.findIndex(
     ({ slug: topicSlug }) => topicSlug.toLowerCase() === topic,
