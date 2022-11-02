@@ -121,6 +121,7 @@ export const FORM_BLOCK = `
     container
     richText
     form {
+      id
       title
       redirect {
         url

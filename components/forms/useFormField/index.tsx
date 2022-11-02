@@ -6,7 +6,13 @@ import useDebounce from '../../../utilities/use-debounce'
 import { Value, Action } from '../types'
 import { FormField, SetValue } from './types'
 
-export const useFormField = <T extends any>(options): FormField<T> => {
+// this hook:
+// 1. reports that the form has been modified
+// 2. debounces its value and sends it to the form context
+// 3. runs field-level validation
+// 4. returns form state and field-level errors
+
+export const useFormField = <T extends Value>(options): FormField<T> => {
   const { path, validate } = options
 
   const formContext = useForm()
@@ -23,7 +29,7 @@ export const useFormField = <T extends any>(options): FormField<T> => {
 
   const initialValue = field?.initialValue
 
-  const [internalValue, setInternalValue] = useState<Value | any | null>()
+  const [internalValue, setInternalValue] = useState<Value>()
 
   // Debounce internal values to update form state only every 60ms
   const debouncedValue = useDebounce(internalValue, 120)
@@ -62,9 +68,7 @@ export const useFormField = <T extends any>(options): FormField<T> => {
     [path, dispatchFields, validate, initialValue],
   )
 
-  // Method to return from `useFieldType`, used to
-  // update internal field values from field component(s)
-  // as fast as they arrive. NOTE - this method is NOT debounced
+  // NOTE: 'internalValue' is NOT debounced
   const setValue = useCallback<SetValue>(
     val => {
       if (!modified) {

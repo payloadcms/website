@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { Gutter } from '../../../../components/Gutter'
 import { ThemeProvider, useTheme } from '../../../../components/providers/Theme'
 
 export const RenderDarkMode: React.FC<{
@@ -19,7 +18,7 @@ export const RenderDarkMode: React.FC<{
           padding: `calc(var(--base) * 2) 0`,
         }}
       >
-        <Gutter>{children}</Gutter>
+        {children}
       </div>
     </ThemeProvider>
   )

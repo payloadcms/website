@@ -1,3 +1,4 @@
+import { Gutter } from '@components/Gutter'
 import React from 'react'
 import { ArrowIcon } from '../../../components/icons/ArrowIcon'
 import { SearchIcon } from '../../../components/icons/SearchIcon'
@@ -6,7 +7,7 @@ import { StyleguidePageContent } from '../PageContent'
 const Highlight: React.FC = () => {
   return (
     <StyleguidePageContent title="Icons">
-      <div>
+      <Gutter>
         <p>Icons</p>
         <div>
           <ArrowIcon />
@@ -34,7 +35,7 @@ const Highlight: React.FC = () => {
           &nbsp;&nbsp;&nbsp;&nbsp;
           <SearchIcon bold size="large" />
         </div>
-      </div>
+      </Gutter>
     </StyleguidePageContent>
   )
 }

@@ -8,7 +8,7 @@ const Submit: React.FC<{
   label?: string
   processing?: boolean
 }> = props => {
-  const { label = 'Submit', processing: processingFromProps } = props
+  const { label, processing: processingFromProps } = props
 
   const processing = useFormProcessing()
 
@@ -19,7 +19,7 @@ const Submit: React.FC<{
       htmlButtonType="submit"
       appearance="primary"
       icon={!isProcessing ? 'arrow' : undefined}
-      label={isProcessing ? 'Processing...' : label}
+      label={isProcessing ? 'Processing...' : label || 'Submit'}
     />
   )
 }

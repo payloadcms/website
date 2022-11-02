@@ -9,12 +9,20 @@ type Props = {
   className?: string
   zIndex?: number
   children?: React.ReactNode
+  watch?: boolean
 }
-export const HeaderObserver: React.FC<Props> = ({ color, children, className, zIndex }) => {
+export const HeaderObserver: React.FC<Props> = ({
+  color,
+  children,
+  className,
+  zIndex,
+  watch = true,
+}) => {
   const ref = React.useRef<HTMLDivElement>(null)
   const { height: windowHeight } = useWindowInfo()
   const { setHeaderColor, debug } = useHeaderTheme()
   const [isIntersecting, setIsIntersecting] = React.useState(false)
+  const hasRun = React.useRef(false)
 
   React.useEffect(() => {
     if (ref?.current && windowHeight && color) {
@@ -50,9 +58,12 @@ export const HeaderObserver: React.FC<Props> = ({ color, children, className, zI
 
   React.useEffect(() => {
     if (isIntersecting) {
-      setHeaderColor(color)
+      if (!hasRun.current || watch) {
+        setHeaderColor(color)
+        hasRun.current = true
+      }
     }
-  }, [isIntersecting])
+  }, [isIntersecting, watch])
 
   return (
     <div

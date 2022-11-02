@@ -1,10 +1,11 @@
+import { Gutter } from '@components/Gutter'
 import React from 'react'
 import { StyleguidePageContent } from '../PageContent'
 
 const Typography: React.FC = () => {
   return (
     <StyleguidePageContent title="Typography">
-      <div>
+      <Gutter>
         <h1>Typography</h1>
         <h1>H1: Lorem ipsum dolor sit amet officia deserunt.</h1>
         <h2>H2: Lorem ipsum dolor sit amet in culpa qui officia deserunt consectetur.</h2>
@@ -29,7 +30,7 @@ const Typography: React.FC = () => {
           Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem
           ipsum dolor sit amet in culpa qui officia deserunt consectetur adipiscing elit.
         </p>
-      </div>
+      </Gutter>
     </StyleguidePageContent>
   )
 }
