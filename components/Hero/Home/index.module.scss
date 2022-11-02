@@ -31,6 +31,14 @@
 
 .bgImage {
   pointer-events: none;
+  height: 100vh;
+  width: 191.22vh;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    object-fit: cover;
+  }
 }
 
 .contentWrap {

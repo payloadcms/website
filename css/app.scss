@@ -3,6 +3,7 @@
 @use './type.scss' as *;
 @import "./colors.scss";
 @import "./fonts.scss";
+@import './docsearch.scss';
 
 :root {
   --base: 24px;
@@ -156,7 +157,7 @@ svg {
 
 code {
   font-family: var(--font-mono);
-  font-size: calc(var(--font-body-size) * .75);
+  font-size: calc(var(--font-body-size) * .825);
   background: var(--theme-elevation-100);
   border-radius: 4px;
   padding: 0 5px;

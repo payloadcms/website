@@ -5,6 +5,7 @@ import React, { useCallback } from 'react'
 // eslint-disable-next-line import/no-cycle
 import { Reference } from '../CMSLink'
 import { ArrowIcon } from '../icons/ArrowIcon'
+import { SearchIcon } from '../icons/SearchIcon'
 import classes from './index.module.scss'
 
 const animationDuration = 500
@@ -26,6 +27,7 @@ export type Props = {
 
 const icons = {
   arrow: ArrowIcon,
+  search: SearchIcon,
 }
 
 const ButtonContent: React.FC<Props> = props => {

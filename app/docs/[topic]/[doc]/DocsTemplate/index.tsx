@@ -3,12 +3,14 @@
 import React, { useState } from 'react'
 import AnimateHeight from 'react-animate-height'
 import Link from 'next/link'
+import { MenuIcon } from '@components/graphics/MenuIcon'
+import { CloseIcon } from '@components/graphics/CloseIcon'
 import { Gutter } from '../../../../../components/Gutter'
 import { DocMeta, Topic } from '../types'
 import { ChevronIcon } from '../../../../../components/graphics/ChevronIcon'
-import classes from './index.module.scss'
 import { openTopicsCookieName } from '../shared'
 import { MDXProvider } from '../../../../../components/MDX'
+import classes from './index.module.scss'
 
 type Props = {
   topics: Topic[]
@@ -26,11 +28,12 @@ export const DocsTemplate: React.FC<Props> = ({
   children,
 }) => {
   const [openTopics, setOpenTopics] = useState(openTopicsFromCookie)
+  const [navOpen, setNavOpen] = useState(false)
 
   return (
     <MDXProvider>
       <Gutter left="half" right="half" className={classes.wrap}>
-        <nav className={classes.nav}>
+        <nav className={[classes.nav, navOpen && classes.navOpen].filter(Boolean).join(' ')}>
           {topics.map(topic => {
             const isActive = openTopics.includes(topic.slug)
             return (
@@ -87,6 +90,15 @@ export const DocsTemplate: React.FC<Props> = ({
           })}
         </nav>
         <div className={classes.content}>{children}</div>
+        <button
+          type="button"
+          onClick={() => setNavOpen(open => !open)}
+          className={classes.mobileNavButton}
+        >
+          Documentation
+          {!navOpen && <MenuIcon />}
+          {navOpen && <CloseIcon />}
+        </button>
       </Gutter>
     </MDXProvider>
   )

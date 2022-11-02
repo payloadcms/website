@@ -22,6 +22,7 @@ export const CASE_STUDIES = `
         id
         title
         createdAt
+        slug
       }
     }
   }

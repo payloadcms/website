@@ -4,6 +4,10 @@
   padding-top: var(--page-padding-top);
   position: relative;
   display: flex;
+
+  @include mid-break {
+    padding-bottom: calc(var(--base) * 4);
+  }
 }
 
 .nav {
@@ -11,8 +15,9 @@
   top: var(--page-padding-top);
   max-height: calc(100vh - var(--page-padding-top));
   overflow: auto;
-  width: 15%;
+  width: calc(var(--base) * 9);
   margin-right: 7%;
+  flex-shrink: 0;
   padding-bottom: calc(var(--base) * 2);
 
   &::-webkit-scrollbar {
@@ -31,14 +36,64 @@
     }
   }
 
+  @include extra-large-break {
+    margin-right: 3%;
+  }
+
   @include large-break {
-    width: 20%;
     margin-right: 2%;
+  }
+
+  @include mid-break {
+    width: 25%;
+    margin-right: 2%;
+  }
+
+  @include mid-break {
+    display: none;
+    position: fixed;
+    z-index: calc(var(--z-nav) + 1);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: var(--theme-bg);
+    width: auto;
+    padding: var(--gutter-h) var(--gutter-h) calc(var(--base) * 5);
+    overflow: auto;
+    max-height: initial;
+    margin-right: 0;
+  }
+}
+
+.navOpen {
+  display: block;
+}
+
+.mobileNavButton {
+  @include btnReset;
+  display: none;
+  position: fixed;
+  height: calc(var(--base) * 3);
+  z-index: calc(var(--z-nav) + 2);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--theme-elevation-900);
+  color: var(--theme-elevation-50);
+  padding: 0 var(--gutter-h);
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+
+  @include mid-break {
+    display: flex;
   }
 }
 
 .content {
-  width: 78%;
+  min-width: 0;
+  flex-grow: 1;
 }
 
 .topic {
@@ -48,7 +103,6 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  text-transform: capitalize;
   margin-bottom: calc(var(--base) * .375);
 
   &:hover {
@@ -67,6 +121,11 @@
     svg {
       transform: rotate(90deg);
     }
+  }
+
+  @include mid-break {
+    font-size: var(--base);
+    margin-bottom: calc(var(--base) * .5);
   }
 }
 
@@ -114,5 +173,10 @@
   &--active {
     font-weight: bold;
     color: var(--theme-text);
+  }
+
+  @include mid-break {
+    font-size: var(--base);
+    margin-bottom: calc(var(--base) * .25);
   }
 }

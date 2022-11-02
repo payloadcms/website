@@ -43,7 +43,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   children,
   className,
 }) => {
-  const href =
+  let href =
     type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
       ? `/${reference.value.slug}`
       : url
@@ -51,18 +51,22 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   if (!href) return null
 
   if (!appearance) {
-    const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
+    const hrefIsLocal = ['tel:', 'mailto:', '/'].some(prefix => href.startsWith(prefix))
 
-    if (type === 'custom') {
-      return (
-        <a href={url} {...newTabProps} className={className}>
-          {label && label}
-          {children && children}
-        </a>
-      )
+    if (!hrefIsLocal) {
+      try {
+        const objectURL = new URL(href)
+        if (objectURL.origin === process.env.NEXT_PUBLIC_APP_URL) {
+          href = objectURL.href.replace(process.env.NEXT_PUBLIC_APP_URL, '')
+        }
+      } catch (e) {
+        console.error(`Failed to format url: ${href}`, e)
+      }
     }
 
-    if (href) {
+    const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
+
+    if (href.indexOf('/') === 0) {
       return (
         <Link href={href} {...newTabProps} className={className}>
           {label && label}
@@ -70,6 +74,13 @@ export const CMSLink: React.FC<CMSLinkType> = ({
         </Link>
       )
     }
+
+    return (
+      <a href={url} {...newTabProps} className={className}>
+        {label && label}
+        {children && children}
+      </a>
+    )
   }
 
   const buttonProps = {

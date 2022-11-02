@@ -7,6 +7,7 @@ export const POSTS = `
         id
         title
         createdAt
+        slug
       }
     }
   }

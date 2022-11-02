@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@docsearch/js": "3",
     "@faceless-ui/collapsibles": "^1.1.5",
     "@faceless-ui/css-grid": "^1.2.0",
     "@faceless-ui/modal": "^2.0.1",

@@ -1,7 +1,5 @@
-import React, { createContext, useCallback, useContext, useState } from 'react'
-import canUseDOM from '../../../utilities/can-use-dom'
-import { getCookie } from '../../../utilities/get-cookie'
-import { themeCookieName } from './shared'
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import { themeLocalStorageKey } from './shared'
 import { Theme, ThemePreferenceContextType } from './types'
 import classes from './index.module.scss'
 
@@ -24,49 +22,27 @@ export const ThemeProvider: React.FC<{
 export const useTheme = (): Theme => useContext(ThemeContext)
 
 const initialContext: ThemePreferenceContextType = {
-  theme: 'light',
+  theme: undefined,
   setTheme: () => null,
-  autoMode: true,
 }
 
 const ThemePreferenceContext = createContext(initialContext)
 
-export const ThemePreferenceProvider: React.FC<{ children?: React.ReactNode; theme: Theme }> = ({
-  children,
-  theme: initialTheme,
-}) => {
-  const [theme, setThemeState] = useState(initialTheme)
-  const [autoMode, setAutoMode] = useState(() => {
-    const themeFromCookie = canUseDOM ? getCookie(themeCookieName) : undefined
-    return !themeFromCookie
-  })
+export const ThemePreferenceProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
+  const [theme, setThemeState] = useState<Theme>()
 
-  const setTheme = useCallback((themeToSet: Theme | 'auto') => {
-    if (themeToSet === 'light' || themeToSet === 'dark') {
-      setThemeState(themeToSet)
-      setAutoMode(false)
-      document.cookie = `${themeCookieName}=${themeToSet}`
-      document.documentElement.setAttribute('data-theme', themeToSet)
-    } else if (themeToSet === 'auto') {
-      const existingThemeFromCookie = getCookie(themeCookieName)
+  const setTheme = useCallback((themeToSet: Theme) => {
+    setThemeState(themeToSet)
+    window.localStorage.setItem(themeLocalStorageKey, themeToSet)
+    document.documentElement.setAttribute('data-theme', themeToSet)
+  }, [])
 
-      if (existingThemeFromCookie) {
-        document.cookie = `${themeCookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`
-      }
-
-      const themeFromOS =
-        window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-          ? 'dark'
-          : 'light'
-
-      document.documentElement.setAttribute('data-theme', themeFromOS)
-      setAutoMode(true)
-      setThemeState(themeFromOS)
-    }
+  useEffect(() => {
+    setThemeState(document.documentElement.getAttribute('data-theme') as Theme)
   }, [])
 
   return (
-    <ThemePreferenceContext.Provider value={{ theme, setTheme, autoMode }}>
+    <ThemePreferenceContext.Provider value={{ theme, setTheme }}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ThemePreferenceContext.Provider>
   )

@@ -6,6 +6,12 @@
   background: var(--theme-elevation-100);
   color: var(--theme-text);
   border-bottom: 1px solid var(--theme-elevation-800);
+
+  a,
+  a:hover,
+  a:active {
+    color: currentColor !important
+  }
 }
 
 .children {

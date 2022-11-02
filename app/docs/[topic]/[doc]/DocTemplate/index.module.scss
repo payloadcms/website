@@ -2,6 +2,11 @@
 
 .doc {
   display: flex;
+  width: 100%;
+
+  @include mid-break {
+    display: block;
+  }
 }
 
 .title {
@@ -10,32 +15,86 @@
 }
 
 .content {
-  @include color-links;
-  width: 70%;
-  max-width: 800px;
   margin-right: auto;
+  min-width: 0;
+  max-width: 900px;
+
+  @include mid-break {
+    width: 100%;
+  }
+}
+
+.mdx {
+  @include color-links;
+
+  h2 {
+    @include h3;
+  }
+
+  h3 {
+    @include h4;
+  }
+
+  h4 {
+    @include h5;
+  }
+
+  h5 {
+    @include h6;
+  }
 }
 
 .aside {
   position: sticky;
+  flex-shrink: 0;
   top: var(--page-padding-top);
   max-height: calc(100vh - var(--page-padding-top));
-  margin-left: 5%;
-  width: 25%;
+  overflow-y: auto;
+  padding: 0 0 calc(var(--base) * 2);
+  margin-left: 7%;
+  width: calc(var(--base) * 12);
+
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 3px;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--theme-elevation-100);
+    }
+  }
+
+  @include large-break {
+    width: calc(var(--base) * 10);
+  }
+
+  @include mid-break {
+    display: none;
+  }
 }
 
 .next {
   display: block;
   padding: var(--base);
-  background: var(--theme-purple-100);
-  border-bottom: 1px solid var(--theme-purple-500);
   margin-top: calc(var(--base) * 2);
-  color: var(--theme-purple-500);
   text-decoration: none;
 
   h4 {
     margin: 0;
   }
+}
+
+.next--dark {
+  composes: next;
+  background: var(--theme-purple-100);
+  border-bottom: 1px solid var(--theme-purple-500);
+  color: var(--theme-purple-500);
 
   &:hover {
     background: var(--theme-purple-200);
@@ -46,6 +105,21 @@
   }
 }
 
+.next--light {
+  composes: next;
+  background: var(--theme-purple-500);
+  border-bottom: 1px solid var(--theme-purple-800);
+  color: var(--theme-text);
+
+  &:hover {
+    background: var(--theme-purple-400);
+  }
+
+  &:active, &:focus {
+    background: var(--theme-purple-450);
+  }
+}
+
 .nextLabel {
   display: flex;
   align-items: center;
@@ -53,4 +127,9 @@
   svg {
     margin-left: calc(var(--base) * .5);
   }
+}
+
+.search {
+  width: 100% !important;
+  margin-top: var(--base) !important;
 }

@@ -1,5 +1,9 @@
 @use '@scss/type.scss' as *;
 
+.loading {
+  display: none;
+}
+
 .theme--light {
   --theme-success-50: var(--color-success-50);
   --theme-success-100: var(--color-success-100);
@@ -125,7 +129,7 @@
 
   --theme-bg: var(--theme-elevation-0);
   --theme-input-bg: var(--theme-elevation-0);
-  --theme-text: var(--theme-elevation-800);
+  --theme-text: var(--theme-elevation-700);
 
   color-scheme: light;
   color: var(--theme-text);
@@ -255,7 +259,7 @@
   --theme-purple-950: var(--color-purple-50);
 
   --theme-bg: var(--theme-elevation-0);
-  --theme-text: var(--theme-elevation-1000);
+  --theme-text: var(--theme-elevation-900);
   --theme-input-bg: var(--theme-elevation-50);
 
   color-scheme: dark;

@@ -13,13 +13,14 @@ export interface Doc {
     desc: string
     keywords: string
   }
-  next?: {
-    slug: string
-    title: string
-    label: string
-    topic: string
-  }
   headings: Heading[]
+}
+
+export interface NextDoc {
+  slug: string
+  title: string
+  label: string
+  topic: string
 }
 
 export interface DocPath {

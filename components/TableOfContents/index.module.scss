@@ -3,7 +3,7 @@
 .toc {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 calc(var(--base) * 2);
 
   a {
     text-decoration: none;
@@ -23,6 +23,7 @@
   position: relative;
   line-height: calc(var(--base) * .875);
   margin-bottom: calc(var(--base) * .75);
+  margin-right: var(--base);
 
   &:before {
     content: ' ';
@@ -30,7 +31,7 @@
     right: calc(100% + var(--base));
     top: calc(var(--base) * .45);
     height: 1px;
-    background-color: var(--theme-elevation-200);
+    background-color: var(--theme-text);
     width: calc(var(--base) * .5);;
     opacity: 0;
     transition: all 400ms;
@@ -50,7 +51,7 @@
 }
 
 .active {
-  transform: translate3d(calc(var(--base) * .5), 0, 0);
+  transform: translate3d(var(--base), 0, 0);
 
   &:before {
     opacity: 1;

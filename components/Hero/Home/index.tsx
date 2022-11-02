@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import React from 'react'
 import Marquee from 'react-fast-marquee'
 import { Page } from '../../../payload-types'
@@ -27,12 +28,15 @@ export const HomeHero: React.FC<Page['hero']> = ({
         <HeaderObserver color="dark">
           <div className={classes.bg}>
             <Marquee gradient={false}>
-              <img
-                className={classes.bgImage}
-                style={{ height: '100vh' }}
-                src="/images/home-bg.png"
-                alt="Screenshots of Payload"
-              />
+              <div className={classes.bgImage}>
+                <Image
+                  priority
+                  src="/images/home-bg.png"
+                  fill
+                  alt="Screenshots of Payload"
+                  sizes="191vh"
+                />
+              </div>
             </Marquee>
           </div>
           <div className={classes.contentWrap}>
