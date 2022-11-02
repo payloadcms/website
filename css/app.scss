@@ -2,7 +2,6 @@
 @use './queries.scss' as *;
 @use './type.scss' as *;
 @import "./colors.scss";
-@import "./fonts.scss";
 @import './docsearch.scss';
 
 :root {
@@ -15,10 +14,6 @@
   --scrollbar-width: 17px;
   --header-height: 104px;
   --page-padding-top: calc(var(--header-height) + var(--base));
-
-  --font-mono: 'Roboto Mono', monospace;
-  --font-body: 'Neue Montreal', Helvetica, Arial;
-  --font-serif: 'Merriweather', serif;
 
   --font-body-size: 21px;
 
@@ -153,6 +148,14 @@ time {
 
 svg {
   vertical-align: middle;
+}
+
+strong {
+  font-family: var(--font-body-bold);
+}
+
+em {
+  font-family: var(--font-body-italic);
 }
 
 code {

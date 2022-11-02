@@ -1,6 +1,6 @@
 export const themeLocalStorageKey = 'payload-theme'
 
-export const setInitialTheme = `
+export const setInitialTheme = `(function() {
   function getInitialTheme() {
     const preference = window.localStorage.getItem('${themeLocalStorageKey}')
 
@@ -21,4 +21,5 @@ export const setInitialTheme = `
 
   const theme = getInitialTheme()
   document.documentElement.setAttribute('data-theme', theme)
+})()
 `
