@@ -8,7 +8,6 @@ const nextConfig = {
   },
   experimental: {
     appDir: true,
-    runtime: 'experimental-edge',
   },
   webpack: config => {
     const configCopy = { ...config }
