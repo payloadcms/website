@@ -18,7 +18,7 @@ const Submit: React.FC<{
     <Button
       type="submit"
       appearance="primary"
-      arrow={!isProcessing}
+      icon={!isProcessing ? 'arrow' : undefined}
       label={isProcessing ? 'Processing...' : label}
     />
   )
