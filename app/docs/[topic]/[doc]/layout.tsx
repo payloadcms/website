@@ -6,9 +6,7 @@ const Layout = async ({ params, children }) => {
   const topics = await getTopics()
 
   return (
-    <DocsTemplate {...{ topics, openTopics: [], doc: params.doc, topic: params.topic }}>
-      {children}
-    </DocsTemplate>
+    <DocsTemplate {...{ topics, doc: params.doc, topic: params.topic }}>{children}</DocsTemplate>
   )
 }
 

@@ -1,1 +1,1 @@
-export const openTopicsCookieName = 'docs-open-topics'
+export const openTopicsLocalStorageKey = 'docs-open-topics'

@@ -66,6 +66,10 @@
   }
 }
 
+.navHidden {
+  opacity: 0;
+}
+
 .navOpen {
   display: block;
 }
@@ -116,7 +120,7 @@
 
   &--open {
     color: var(--theme-text);
-    font-weight: bold;
+    font-family: var(--font-body-bold);
 
     svg {
       transform: rotate(90deg);
@@ -171,7 +175,7 @@
   }
 
   &--active {
-    font-weight: bold;
+    font-family: var(--font-body-bold);
     color: var(--theme-text);
   }
 

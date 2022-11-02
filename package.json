@@ -5,6 +5,7 @@
   "scripts": {
     "fetchDocs": "node scripts/fetch-docs.mjs",
     "dev": "next dev",
+    "nodocs:build": "next build",
     "build": "yarn fetchDocs && next build",
     "start": "next start",
     "lint": "next lint"
