@@ -1,0 +1,60 @@
+@use '@scss/common.scss' as *;
+
+.content {
+  max-width: 1200px;
+
+}
+
+.wrap {
+  overflow: hidden;
+  margin-top: var(--block-spacing);
+}
+
+.inner {
+  width: 150vw;
+  margin-left: -25vw;
+}
+
+.row {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.imageWrap {
+  width: 33.33%;
+  padding: var(--base);
+}
+
+.image {
+  transition: all 200ms ease-out;
+  padding-top: 56.25%;
+  position: relative;
+  height: 100%;
+  opacity: .3;
+
+  &:hover {
+    @include shadow-lg;
+    opacity: 1;
+    transform: translate3d(0, calc(var(--base) * -1), 0);
+
+    .button {
+      opacity: 1;
+      transform: translate3d(-50%, -50%, 0);
+    }
+  }
+}
+
+.button {
+  opacity: 0;
+  transition: all 200ms ease-out;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, calc(-50% + var(--base) * .5), 0);
+  
+  &:hover {
+    @include shadow-lg;
+  }
+}

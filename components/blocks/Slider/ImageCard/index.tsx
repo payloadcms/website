@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Page } from '../../../../payload-types'
 import { Media } from '../../../Media'
 
-import classes from './index.module.scss'
+// import classes from './index.module.scss'
 
 type Props = Extract<Page['layout'][0], { blockType: 'slider' }>['sliderFields']['imageSlides'][0]
 

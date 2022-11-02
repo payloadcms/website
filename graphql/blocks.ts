@@ -67,6 +67,7 @@ export const CASE_STUDIES_HIGHLIGHT = `
     caseStudies {
       slug
       featuredImage {
+        alt
         url
       }
     }
