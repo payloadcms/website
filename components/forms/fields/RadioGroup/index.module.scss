@@ -1,0 +1,71 @@
+@use "@scss/common" as *;
+@use "../shared.scss";
+
+.wrap {
+  position: relative;
+}
+
+.ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+}
+
+.li {
+  &:not(:last-child) {
+    margin-right: var(--base);
+  }
+}
+
+.radioWrap {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  :global {
+    input[type=radio] {
+      display: none;
+    }
+  }
+}
+
+.radio {
+  @include formInput;
+  width: var(--base);
+  height: var(--base);
+  position: relative;
+  padding: 0;
+  display: inline-block;
+  border-radius: 100%;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(var(--base) / 2);
+    height: calc(var(--base) / 2);
+    border-radius: 100%;
+    background-color: var(--theme-elevation-800);
+    transition: width 0.2s ease, height 0.2s ease;
+    opacity: 0;
+  }
+
+  &:hover {
+    &::before {
+      opacity: 0.2;
+    }
+  }
+}
+
+.selected {
+  &::before {
+    opacity: 1 !important;
+  }
+}
+
+.label {
+  margin-left: calc(var(--base) / 2);
+}

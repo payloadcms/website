@@ -1,0 +1,62 @@
+@use "@scss/common" as *;
+@use "../shared.scss";
+
+.checkbox {
+  position: relative;
+}
+
+.button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  // font-family: $fontBody;
+  font-size: 1rem;
+
+  &:focus,
+  &:active {
+    outline: none;
+  }
+
+  &:hover {
+    :local() {
+      .icon {
+        opacity: 0.2;
+      }
+    }
+  }
+}
+
+.htmlInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.errorWrap {
+  position: relative;
+}
+
+.input {
+  @include shared.formInput;
+  padding: 0;
+  line-height: 0;
+  position: relative;
+  width: var(--base);
+  height: var(--base);
+  margin-right: calc(var(--base) / 2);
+  margin-bottom: 0;
+}
+
+.icon {
+  opacity: 0;
+}
+
+.checked {
+  :local() {
+    .icon {
+      opacity: 1 !important;
+    }
+  }
+}
