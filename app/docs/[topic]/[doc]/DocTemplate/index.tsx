@@ -18,11 +18,7 @@ type Props = {
 }
 
 export const DocTemplate: React.FC<Props> = ({ doc, next }) => {
-  const {
-    content,
-    headings,
-    data: { title },
-  } = doc
+  const { content, headings, title } = doc
 
   const theme = useTheme()
 
