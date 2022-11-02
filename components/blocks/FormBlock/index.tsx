@@ -21,7 +21,6 @@ export const FormBlock: React.FC<Props> = props => {
   if (!form || typeof form === 'string') return null
 
   const { id: formID, submitButtonLabel, confirmationType, redirect, confirmationMessage } = form
-
   const [isLoading, setIsLoading] = React.useState(false)
 
   const [hasSubmitted, setHasSubmitted] = React.useState<boolean>()
@@ -133,7 +132,11 @@ export const FormBlock: React.FC<Props> = props => {
                           if (Field) {
                             return (
                               <Width key={index} width={'width' in field ? field.width : 100}>
-                                <Field form={form} {...field} />
+                                <Field
+                                  path={'name' in field ? field.name : undefined}
+                                  form={form}
+                                  {...field}
+                                />
                               </Width>
                             )
                           }

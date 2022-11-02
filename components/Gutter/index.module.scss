@@ -25,7 +25,7 @@
 }
 
 .disableMobile {
-  @include large-break {
+  @include mid-break {
     padding-left: 0;
     padding-right: 0;
   }

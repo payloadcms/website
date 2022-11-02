@@ -69,11 +69,11 @@ const Form: React.FC<{
 
       if (typeof onSubmit === 'function') {
         await onSubmit(reduceFieldsToValues(fields, false), reduceFieldsToValues(fields, true))
-        setHasSubmitted(false)
-        setIsProcessing(false)
-        setIsModified(false)
       }
 
+      setHasSubmitted(false)
+      setIsProcessing(false)
+      setIsModified(false)
       return false
     },
     [fields, onSubmit, isProcessing],

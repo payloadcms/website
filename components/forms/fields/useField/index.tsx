@@ -1,4 +1,4 @@
-import { Validate } from '@components/forms/types'
+import { Validate, Value } from '@components/forms/types'
 import { useFormField } from '@components/forms/useFormField'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -6,9 +6,9 @@ import { useCallback, useEffect, useState } from 'react'
 // 1. allow the field to update its own value without debounce
 // 2. conditionally report the updated value to the form
 // 3. allow the field be controlled externally either through props or form context
-// the approach is largely the same across all fields, so this hook standardizes it
+// 4. standardize repetitive logic across all fields
 
-export const useField = <T extends any>(props: {
+export const useField = <T extends Value>(props: {
   path?: string
   initialValue?: T
   onChange?: (value: T) => void // eslint-disable-line no-unused-vars
@@ -27,7 +27,12 @@ export const useField = <T extends any>(props: {
     validate: required ? validate : undefined,
   })
 
-  const { value: valueFromContext, showError, setValue, errorMessage } = fieldFromContext
+  const {
+    value: valueFromContext,
+    showError,
+    setValue: setContextValue,
+    errorMessage,
+  } = fieldFromContext
 
   const valueFromContextOrProps = valueFromContext || initialValue
 
@@ -42,15 +47,15 @@ export const useField = <T extends any>(props: {
     (incomingValue: T) => {
       setInternalState(incomingValue)
 
-      if (typeof setValue === 'function') {
-        setValue(incomingValue)
+      if (typeof setContextValue === 'function') {
+        setContextValue(incomingValue)
       }
 
       if (typeof onChangeFromProps === 'function') {
         onChangeFromProps(incomingValue)
       }
     },
-    [onChangeFromProps, setValue],
+    [onChangeFromProps, setContextValue],
   )
 
   return {
