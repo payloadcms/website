@@ -23,3 +23,10 @@
     padding-right: var(--gutter-h);
   }
 }
+
+.disableMobile {
+  @include mid-break {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

@@ -1,8 +1,9 @@
 import type React from 'react'
+import type { Option } from './fields/RadioGroup'
 
 export type Validate = undefined | ((value: unknown, options?: unknown) => boolean | string)
 
-export type Value = unknown
+export type Value = string | number | boolean | string[] | Option | Option[]
 
 export interface Property {
   [key: string]: Value

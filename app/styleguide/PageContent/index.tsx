@@ -9,13 +9,13 @@ export const StyleguidePageContent: React.FC<{
   children: React.ReactNode
 }> = ({ title, children }) => {
   return (
-    <div style={{ paddingTop: 'calc(var(--header-height) + var(--base)' }}>
+    <div>
       <BlockSpacing top={false}>
         <Gutter>
           <StyleguideBreadcrumbs pageTitle={title} />
           <h1>{title || 'Page Title'}</h1>
-          {children}
         </Gutter>
+        {children}
       </BlockSpacing>
       <BlockSpacing>
         <RenderDarkMode>{children}</RenderDarkMode>

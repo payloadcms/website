@@ -1,6 +1,7 @@
 'use client'
 
 import React, { Fragment } from 'react'
+import { FormBlock } from '@components/blocks/FormBlock'
 import { Page, ReusableContent } from '../../payload-types'
 import { toKebabCase } from '../../utilities/to-kebab-case'
 import { BlockSpacing } from '../BlockSpacing'
@@ -21,6 +22,7 @@ const blockComponents = {
   mediaBlock: MediaBlock,
   code: CodeBlock,
   content: ContentBlock,
+  form: FormBlock,
   slider: Slider,
 }
 

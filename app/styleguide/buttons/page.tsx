@@ -1,3 +1,4 @@
+import { Gutter } from '@components/Gutter'
 import React from 'react'
 import { Button } from '../../../components/Button'
 import { StyleguidePageContent } from '../PageContent'
@@ -5,7 +6,7 @@ import { StyleguidePageContent } from '../PageContent'
 const Buttons: React.FC = () => {
   return (
     <StyleguidePageContent title="Buttons">
-      <div>
+      <Gutter>
         <p>Default</p>
         <div>
           <Button label="Learn more" />
@@ -35,7 +36,7 @@ const Buttons: React.FC = () => {
         <div>
           <Button appearance="secondary" label="Read the docs" icon="arrow" />
         </div>
-      </div>
+      </Gutter>
     </StyleguidePageContent>
   )
 }
