@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useState } from 'react'
+import React, { useState } from 'react'
 import AnimateHeight from 'react-animate-height'
 import Link from 'next/link'
 import { MenuIcon } from '@components/graphics/MenuIcon'
@@ -20,10 +20,6 @@ type Props = {
   topic: string
 }
 
-const TopicsContext = createContext<Topic[]>([])
-
-export const useTopics = () => useContext(TopicsContext)
-
 export const DocsTemplate: React.FC<Props> = ({
   topics,
   doc: docSlug,
@@ -36,76 +32,74 @@ export const DocsTemplate: React.FC<Props> = ({
 
   return (
     <MDXProvider>
-      <TopicsContext.Provider value={topics}>
-        <Gutter left="half" right="half" className={classes.wrap}>
-          <nav className={[classes.nav, navOpen && classes.navOpen].filter(Boolean).join(' ')}>
-            {topics.map(topic => {
-              const isActive = openTopics.includes(topic.slug)
-              return (
-                <React.Fragment key={topic.slug}>
-                  <button
-                    type="button"
-                    className={[classes.topic, isActive && classes['topic--open']]
+      <Gutter left="half" right="half" className={classes.wrap}>
+        <nav className={[classes.nav, navOpen && classes.navOpen].filter(Boolean).join(' ')}>
+          {topics.map(topic => {
+            const isActive = openTopics.includes(topic.slug)
+            return (
+              <React.Fragment key={topic.slug}>
+                <button
+                  type="button"
+                  className={[classes.topic, isActive && classes['topic--open']]
+                    .filter(Boolean)
+                    .join(' ')}
+                  onClick={() => {
+                    const newState = [...openTopics]
+
+                    if (!newState.includes(topic.slug)) {
+                      newState.push(topic.slug)
+                    } else {
+                      newState.splice(newState.indexOf(topic.slug), 1)
+                    }
+
+                    setOpenTopics(newState)
+                    document.cookie = `${openTopicsCookieName}=${JSON.stringify(
+                      newState,
+                    )};expires=Fri, 31 Dec 9999 23:59:59 GMT;path=/`
+                  }}
+                >
+                  <ChevronIcon
+                    className={[classes.toggleChevron, isActive && classes.activeToggleChevron]
                       .filter(Boolean)
                       .join(' ')}
-                    onClick={() => {
-                      const newState = [...openTopics]
+                  />
+                  {topic.slug.replace('-', ' ')}
+                </button>
+                <AnimateHeight height={isActive ? 'auto' : 0} duration={200}>
+                  <ul className={classes.docs}>
+                    {topic.docs.map((doc: DocMeta) => {
+                      const isDocActive = docSlug === doc.slug && topicSlug === topic.slug
 
-                      if (!newState.includes(topic.slug)) {
-                        newState.push(topic.slug)
-                      } else {
-                        newState.splice(newState.indexOf(topic.slug), 1)
-                      }
-
-                      setOpenTopics(newState)
-                      document.cookie = `${openTopicsCookieName}=${JSON.stringify(
-                        newState,
-                      )};expires=Fri, 31 Dec 9999 23:59:59 GMT;path=/`
-                    }}
-                  >
-                    <ChevronIcon
-                      className={[classes.toggleChevron, isActive && classes.activeToggleChevron]
-                        .filter(Boolean)
-                        .join(' ')}
-                    />
-                    {topic.slug.replace('-', ' ')}
-                  </button>
-                  <AnimateHeight height={isActive ? 'auto' : 0} duration={200}>
-                    <ul className={classes.docs}>
-                      {topic.docs.map((doc: DocMeta) => {
-                        const isDocActive = docSlug === doc.slug && topicSlug === topic.slug
-
-                        return (
-                          <li key={doc.slug}>
-                            <Link
-                              href={`/docs/${topic.slug.toLowerCase()}/${doc.slug}`}
-                              className={[classes.doc, isDocActive && classes['doc--active']]
-                                .filter(Boolean)
-                                .join(' ')}
-                            >
-                              {doc.label}
-                            </Link>
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  </AnimateHeight>
-                </React.Fragment>
-              )
-            })}
-          </nav>
-          <div className={classes.content}>{children}</div>
-          <button
-            type="button"
-            onClick={() => setNavOpen(open => !open)}
-            className={classes.mobileNavButton}
-          >
-            Documentation
-            {!navOpen && <MenuIcon />}
-            {navOpen && <CloseIcon />}
-          </button>
-        </Gutter>
-      </TopicsContext.Provider>
+                      return (
+                        <li key={doc.slug}>
+                          <Link
+                            href={`/docs/${topic.slug.toLowerCase()}/${doc.slug}`}
+                            className={[classes.doc, isDocActive && classes['doc--active']]
+                              .filter(Boolean)
+                              .join(' ')}
+                          >
+                            {doc.label}
+                          </Link>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </AnimateHeight>
+              </React.Fragment>
+            )
+          })}
+        </nav>
+        <div className={classes.content}>{children}</div>
+        <button
+          type="button"
+          onClick={() => setNavOpen(open => !open)}
+          className={classes.mobileNavButton}
+        >
+          Documentation
+          {!navOpen && <MenuIcon />}
+          {navOpen && <CloseIcon />}
+        </button>
+      </Gutter>
     </MDXProvider>
   )
 }
