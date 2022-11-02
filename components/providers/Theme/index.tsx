@@ -42,19 +42,19 @@ export const ThemePreferenceProvider: React.FC<{ children?: React.ReactNode }> =
   }, [])
 
   useEffect(() => {
-    let themeToSet: Theme = 'dark'
+    let themeToSet: Theme = 'light'
     const preference = window.localStorage.getItem(themeLocalStorageKey)
 
     if (themeIsValid(preference)) {
       themeToSet = preference
-    }
+    } else {
+      const mediaQuery = '(prefers-color-scheme: dark)'
+      const mql = window.matchMedia(mediaQuery)
+      const hasImplicitPreference = typeof mql.matches === 'boolean'
 
-    const mediaQuery = '(prefers-color-scheme: dark)'
-    const mql = window.matchMedia(mediaQuery)
-    const hasImplicitPreference = typeof mql.matches === 'boolean'
-
-    if (hasImplicitPreference) {
-      themeToSet = mql.matches ? 'dark' : 'light'
+      if (hasImplicitPreference) {
+        themeToSet = mql.matches ? 'dark' : 'light'
+      }
     }
 
     document.documentElement.setAttribute('data-theme', themeToSet)
