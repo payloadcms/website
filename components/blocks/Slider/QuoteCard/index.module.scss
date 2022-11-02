@@ -1,0 +1,24 @@
+@use '@scss/common' as *;
+
+.quoteCard {
+  padding: calc(var(--base) * 2) calc(var(--base) * 2);
+  background-color: var(--theme-bg);
+
+  @include mid-break {
+    padding: calc(var(--base));
+  }
+}
+
+.icon {
+  margin-bottom: var(--base);
+
+  @include mid-break {
+    max-width: 25px;
+    margin-bottom: calc(var(--base) / 2);
+  }
+}
+
+.date {
+  display: block;
+  margin-top: calc(var(--base) * 2);
+}

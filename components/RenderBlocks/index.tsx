@@ -13,12 +13,14 @@ import { HeaderObserver } from '../HeaderObserver'
 import { useTheme } from '../providers/Theme'
 import { ContentBlock } from '../blocks/Content'
 import { Slider } from '../blocks/Slider'
+import { CaseStudiesHighlightBlock } from '../blocks/CaseStudiesHighlight'
 
 type ReusableContentBlock = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 
 const blockComponents = {
   banner: BannerBlock,
   blogContent: BlogContent,
+  caseStudiesHighlight: CaseStudiesHighlightBlock,
   mediaBlock: MediaBlock,
   code: CodeBlock,
   content: ContentBlock,

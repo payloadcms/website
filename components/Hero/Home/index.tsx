@@ -52,6 +52,7 @@ export const HomeHero: React.FC<
                               icon="arrow"
                               reference={link.reference}
                               label={link.label}
+                              labelStyle="regular"
                               fullWidth
                             />
                           </li>

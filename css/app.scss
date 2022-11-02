@@ -23,7 +23,7 @@
   --z-nav: 40;
 
   --gutter-h: calc(var(--base) * 12);
-  --block-spacing: calc(var(--base) * 3);
+  --block-spacing: calc(var(--base) * 5);
 
   @include extra-large-break {
     --font-body-size: 18px;
@@ -31,7 +31,7 @@
 
   @include large-break {
     --gutter-h: calc(var(--base) * 1.5);
-    --block-spacing: calc(var(--base) * 2.5);
+    --block-spacing: calc(var(--base) * 3);
     --header-height: 80px;
   }
 
