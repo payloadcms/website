@@ -2,16 +2,21 @@ import React from 'react'
 import { fetchGlobals } from '../graphql'
 import { Providers } from '../components/providers'
 import { Header } from '../components/Header'
-// import { themeCookieName } from '../components/providers/Theme/shared'
+import { setInitialTheme } from '../components/providers/Theme/shared'
 import { Footer } from '../components/Footer'
 
 import '../css/app.scss'
+
+const getInitialTheme = `(function() {
+  ${setInitialTheme}
+})()
+`
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { mainMenu, footer } = await fetchGlobals()
 
   return (
-    <html lang="en" data-theme="dark">
+    <html lang="en">
       <head>
         <title>Payload CMS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,9 +27,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap"
           rel="stylesheet"
         ></link>
+        <script dangerouslySetInnerHTML={{ __html: getInitialTheme }} />
       </head>
       <body>
-        <Providers theme={'dark'}>
+        <Providers>
           <Header {...mainMenu} />
           {children}
           <Footer {...footer} />

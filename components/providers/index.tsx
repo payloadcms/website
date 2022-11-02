@@ -6,12 +6,8 @@ import { ModalContainer, ModalProvider } from '@faceless-ui/modal'
 import { WindowInfoProvider } from '@faceless-ui/window-info'
 import HeaderThemeProvider from './HeaderTheme'
 import { ThemePreferenceProvider } from './Theme'
-import { Theme } from './Theme/types'
 
-export const Providers: React.FC<{ children: React.ReactNode; theme: Theme }> = ({
-  children,
-  theme,
-}) => {
+export const Providers: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <WindowInfoProvider
       breakpoints={{
@@ -20,7 +16,7 @@ export const Providers: React.FC<{ children: React.ReactNode; theme: Theme }> = 
         l: '(max-width: 1680px)',
       }}
     >
-      <ThemePreferenceProvider theme={theme}>
+      <ThemePreferenceProvider>
         <GridProvider
           breakpoints={{
             s: 768,
