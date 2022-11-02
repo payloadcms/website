@@ -88,21 +88,11 @@ export async function getHeadings(source): Promise<Heading[]> {
 }
 
 export async function getDoc({ topic, doc }: DocPath): Promise<Doc> {
-  const topics = await getTopics()
-
   const json = await fetch(`${githubAPI}/contents/docs/${topic}/${doc}.mdx`, {
     headers,
   }).then(res => res.json())
 
   const parsedDoc = matter(decodeBase64(json.content))
-
-  const parentTopicIndex = topics.findIndex(
-    ({ slug: topicSlug }) => topicSlug.toLowerCase() === topic,
-  )
-
-  const parentTopic = topics[parentTopicIndex]
-
-  const nextTopic = topics[parentTopicIndex + 1]
 
   const docToReturn: Doc = {
     content: await serialize(parsedDoc.content, {
@@ -118,26 +108,6 @@ export async function getDoc({ topic, doc }: DocPath): Promise<Doc> {
       keywords: parsedDoc.data.keywords || '',
     },
     headings: await getHeadings(parsedDoc.content),
-  }
-
-  if (parentTopic) {
-    const docIndex = parentTopic?.docs.findIndex(({ slug: docSlug }) => docSlug === doc)
-
-    if (parentTopic?.docs?.[docIndex + 1]) {
-      docToReturn.next = {
-        slug: parentTopic.docs[docIndex + 1].slug.replace('.mdx', ''),
-        title: parentTopic.docs[docIndex + 1].title,
-        label: parentTopic.docs[docIndex + 1].label,
-        topic: parentTopic.slug,
-      }
-    } else if (nextTopic?.docs?.[0]) {
-      docToReturn.next = {
-        slug: nextTopic.docs[0].slug.replace('.mdx', ''),
-        title: nextTopic.docs[0].title,
-        label: nextTopic.docs[0].label,
-        topic: nextTopic.slug,
-      }
-    }
   }
 
   return docToReturn

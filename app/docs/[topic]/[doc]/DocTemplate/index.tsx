@@ -4,7 +4,7 @@ import React from 'react'
 import { MDXRemote } from 'next-mdx-remote'
 import Link from 'next/link'
 import components from '../../../../../components/MDX/components'
-import { Doc } from '../types'
+import { Doc, NextDoc } from '../types'
 import TableOfContents from '../../../../../components/TableOfContents'
 import classes from './index.module.scss'
 import { JumplistProvider } from '../../../../../components/Jumplist'
@@ -14,9 +14,10 @@ import { Button } from '../../../../../components/Button'
 
 type Props = {
   doc: Doc
+  next?: NextDoc
 }
 
-export const DocTemplate: React.FC<Props> = ({ doc }) => {
+export const DocTemplate: React.FC<Props> = ({ doc, next }) => {
   const {
     content,
     headings,
@@ -33,15 +34,15 @@ export const DocTemplate: React.FC<Props> = ({ doc }) => {
           <div className={classes.mdx}>
             <MDXRemote {...content} components={components} />
           </div>
-          {doc.next && (
+          {next && (
             <Link
               className={classes[`next--${theme}`]}
-              href={`/docs/${doc.next.topic.toLowerCase()}/${doc.next.slug}`}
+              href={`/docs/${next.topic.toLowerCase()}/${next.slug}`}
             >
               <div className={classes.nextLabel}>
                 Next <ArrowIcon />
               </div>
-              <h4>{doc.next.title}</h4>
+              <h4>{next.title}</h4>
             </Link>
           )}
         </div>
