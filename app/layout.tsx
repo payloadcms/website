@@ -12,7 +12,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { mainMenu, footer } = await fetchGlobals()
 
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark">
       <head>
         <title>Payload CMS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />

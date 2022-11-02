@@ -21,7 +21,7 @@ export const neueMontrealBold = localFont({
 })
 
 export const neueMontrealItalic = localFont({
-  src: '../fonts/PPNeueMontreal-Bold.woff2',
+  src: '../fonts/PPNeueMontreal-Italic.woff2',
   variable: '--font-body-italic',
   style: 'italic',
 })
