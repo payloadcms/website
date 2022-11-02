@@ -17,6 +17,11 @@ const Buttons: React.FC = () => {
           <Button label="Learn more" icon="arrow" />
         </div>
         <br />
+        <p>Default with regular label</p>
+        <div>
+          <Button label="Learn more" icon="arrow" labelStyle="regular" />
+        </div>
+        <br />
         <p>Primary</p>
         <div>
           <Button appearance="primary" label="Create new project" />

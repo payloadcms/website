@@ -54,6 +54,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
                               icon="arrow"
                               reference={link.reference}
                               label={link.label}
+                              labelStyle="regular"
                               fullWidth
                             />
                           </li>

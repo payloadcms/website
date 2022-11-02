@@ -31,7 +31,7 @@ const icons = {
 }
 
 const ButtonContent: React.FC<Props> = props => {
-  const { icon, label } = props
+  const { icon, label, labelStyle = 'mono' } = props
 
   const Icon = icon ? icons[icon] : null
 
@@ -42,7 +42,7 @@ const ButtonContent: React.FC<Props> = props => {
           className={[
             classes.label,
             !icon && classes['label-centered'],
-            classes[`label-${props.labelStyle}`],
+            classes[`label-${labelStyle}`],
           ]
             .filter(Boolean)
             .join(' ')}
