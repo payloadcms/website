@@ -78,13 +78,12 @@ export async function getTopics(): Promise<Topic[]> {
 
 export async function getHeadings(source): Promise<Heading[]> {
   const headingLines = source.split('\n').filter(line => {
-    return line.match(/^###*\s/)
+    return line.match(/^#{1,3}\s.+/gm)
   })
 
   return headingLines.map(raw => {
     const text = raw.replace(/^###*\s/, '')
     const level = raw.slice(0, 3) === '###' ? 3 : 2
-
     return { text, level, id: slugify(text) }
   })
 }

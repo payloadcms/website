@@ -3,6 +3,7 @@
 @use './type.scss' as *;
 @import "./colors.scss";
 @import "./fonts.scss";
+@import './docsearch.scss';
 
 :root {
   --base: 24px;

@@ -60,7 +60,7 @@ export const DocTemplate: React.FC<Props> = ({ doc }) => {
             className={classes.search}
             appearance="default"
             el="button"
-            label="Press / to search"
+            label="Press ⌘K to search"
             labelStyle="mono"
             icon="search"
           />
