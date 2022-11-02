@@ -13,4 +13,7 @@ module.exports = {
     browser: true,
     node: true,
   },
+  globals: {
+    NodeJS: true,
+  },
 }
