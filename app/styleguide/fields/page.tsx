@@ -2,6 +2,7 @@ import React from 'react'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import { Textarea } from '@forms/fields/Textarea'
+import { Phone } from '@components/forms/fields/Phone'
 import { StyleguidePageContent } from '../PageContent'
 
 const Forms: React.FC = () => {
@@ -47,6 +48,8 @@ const Forms: React.FC = () => {
       />
       <br />
       <Textarea label="Textarea Field" />
+      <br />
+      <Phone label="Phone Field" />
     </StyleguidePageContent>
   )
 }
