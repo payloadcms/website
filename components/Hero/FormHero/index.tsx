@@ -3,22 +3,23 @@
 import { RichText } from '@components/RichText'
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { BlockSpacing } from '@components/BlockSpacing'
 import { Gutter } from '@components/Gutter'
 import { ThemeProvider, useTheme } from '@components/providers/Theme'
 import { CMSForm } from '@components/CMSForm'
+import { Page } from '@root/payload-types'
 import classes from './index.module.scss'
-import { Page } from '../../../payload-types'
 
-export type FormBlockProps = Extract<Page['layout'][0], { blockType: 'form' }>
-
-export const FormBlock: React.FC<FormBlockProps> = props => {
-  const { formFields: { richText, form } = {} } = props
+export const FormHero: React.FC<
+  Page['hero'] & {
+    pageTitle: string
+  }
+> = props => {
+  const { pageTitle, richText, form } = props
 
   const theme = useTheme()
 
   return (
-    <BlockSpacing className={classes.formBlock}>
+    <div className={classes.formHero}>
       <ThemeProvider theme={theme === 'dark' ? 'light' : 'dark'}>
         <div className={classes.bgWrapper}>
           <Gutter left="half" right="half" disableMobile className={classes.bgGutter}>
@@ -37,7 +38,8 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
         <Gutter className={classes.gutter}>
           <Grid>
             <Cell cols={5} startL={2} colsM={8} startM={1} className={classes.richTextCell}>
-              {richText && <RichText content={richText} />}
+              {pageTitle && <div className={classes.leader}>{pageTitle}</div>}
+              {richText && <RichText className={classes.richText} content={richText} />}
             </Cell>
             <Cell cols={6} start={8} colsL={4} colsM={8} startM={1} className={classes.formCell}>
               <div className={classes.formCellContent}>
@@ -47,6 +49,6 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
           </Grid>
         </Gutter>
       </ThemeProvider>
-    </BlockSpacing>
+    </div>
   )
 }

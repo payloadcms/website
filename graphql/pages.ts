@@ -11,6 +11,7 @@ import {
   MEDIA_CONTENT,
   REUSABLE_CONTENT_BLOCK,
 } from './blocks'
+import { FORM_FIELDS } from './form'
 import { LINK_FIELDS } from './link'
 import { MEDIA_FIELDS } from './media'
 
@@ -46,6 +47,7 @@ export const PAGE = `
           adjectives {
             adjective 
           }
+          form ${FORM_FIELDS}
         }
         layout {
           ${CALL_TO_ACTION}
