@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import useFieldType from '../../useField';
+import useFieldType from '../../useFormField';
 import Error from '../../Error';
 import { Check } from '../../../icons/Check';
 

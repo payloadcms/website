@@ -1,8 +1,7 @@
 'use client'
 
 import React, { useCallback, useEffect, useState } from 'react'
-import { useField } from '../../useField'
-import { Field } from '../../useField/types'
+import { useFormField } from '../../useFormField'
 import Error from '../../Error'
 import Label from '../../Label'
 import { Validate } from '../../types'
@@ -43,17 +42,12 @@ export const Text: React.FC<{
     className,
   } = props
 
-  const fieldFromContext = useField({
+  const fieldFromContext = useFormField<string>({
     path,
     validate: required ? validate : undefined,
   })
 
-  const {
-    value: valueFromContext,
-    showError,
-    setValue,
-    errorMessage,
-  }: Field<string> = fieldFromContext
+  const { value: valueFromContext, showError, setValue, errorMessage } = fieldFromContext
 
   const valueFromContextOrProps = valueFromContext || initialValueFromProps
 

@@ -4,9 +4,9 @@ import { useCallback, useEffect, useState } from 'react'
 import { useFormProcessing, useFormSubmitted, useFormModified, useForm } from '../Form/context'
 import useDebounce from '../../../utilities/use-debounce'
 import { Value, Action } from '../types'
-import { Options, Field, SetValue } from './types'
+import { FormField, SetValue } from './types'
 
-export const useField = (options: Options): Field => {
+export const useFormField = <T extends any>(options): FormField<T> => {
   const { path, validate } = options
 
   const formContext = useForm()

@@ -7,7 +7,7 @@ export interface Options {
 
 export type SetValue = (e: Value) => void
 
-export interface Field<FieldValue> {
+export interface FormField<FieldValue> {
   showError: boolean
   errorMessage?: string
   value: FieldValue

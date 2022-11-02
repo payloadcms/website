@@ -3,9 +3,8 @@
 import React, { useCallback, useEffect, useId, useRef, useState } from 'react'
 import ReactSelect from 'react-select'
 import { useTheme } from '@components/providers/Theme'
-import { Field } from '@components/forms/useField/types'
 import { Validate } from '../../types'
-import { useField } from '../../useField'
+import { useFormField } from '../../useFormField'
 import Label from '../../Label'
 import Error from '../../Error'
 import classes from './index.module.scss'
@@ -61,17 +60,12 @@ export const Select: React.FC<{
   const id = useId()
   const ref = useRef<any>(null)
 
-  const fieldFromContext = useField({
+  const fieldFromContext = useFormField<string | string[]>({
     path,
     validate: required ? validate : undefined,
   })
 
-  const {
-    value: valueFromContext,
-    showError,
-    setValue,
-    errorMessage,
-  }: Field<string | string[]> = fieldFromContext
+  const { value: valueFromContext, showError, setValue, errorMessage } = fieldFromContext
 
   const valueFromContextOrProps = valueFromContext || initialValueFromProps
 
