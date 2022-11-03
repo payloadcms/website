@@ -1,0 +1,15 @@
+.mediaContent {
+  padding: var(--block-spacing) 0;
+}
+
+.background {
+  width: calc(100% + var(--gutter-h));
+  margin-left: calc(var(--gutter-h) / 2);
+  background-color: var(--color-base-1000);
+}
+
+.theme--dark {
+  .background {
+    background-color: var(--color-base-800);
+  }
+}

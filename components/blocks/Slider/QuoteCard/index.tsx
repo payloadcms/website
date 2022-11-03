@@ -12,7 +12,7 @@ export const QuoteCard: React.FC<Props> = ({ richText, quoteDate }) => {
   return (
     <ThemeProvider theme="dark" className={classes.quoteCard}>
       <QuoteIcon className={classes.icon} />
-      <RichText content={richText} />
+      <RichText className={classes.richText} content={richText} />
       <time className={classes.date} dateTime={quoteDate}>
         {formatDateTime(quoteDate)}
       </time>

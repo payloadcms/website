@@ -25,8 +25,7 @@
 
 .poweredByPayload {
   position: sticky;
-  top: calc(var(--base) * 6);
-  margin-bottom: calc(var(--base) * -3);
+  bottom: calc(var(--base) * 2);
   z-index: 1;
   width: 100%;
   pointer-events: none;
@@ -39,8 +38,10 @@
   @include shadow-lg;
   background: var(--theme-bg);
   padding: calc(var(--base) * 1.5) calc(var(--base) * 2.5);
+  margin-top: var(--base);
   display: flex;
   align-items: center;
+  border-bottom: 4px solid;
 
   svg {
     margin-right: calc(var(--base) * .75);

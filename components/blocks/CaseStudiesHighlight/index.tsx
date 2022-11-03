@@ -41,12 +41,6 @@ export const CaseStudiesHighlightBlock: React.FC<Props> = ({
         <RichText className={classes.content} content={richText} />
       </Gutter>
       <div className={classes.relative}>
-        <div className={classes.poweredByPayload}>
-          <div className={classes.poweredByPayloadInner}>
-            <PayloadIcon />
-            Powered by Payload
-          </div>
-        </div>
         <div className={classes.wrap}>
           <div
             className={classes.inner}
@@ -94,6 +88,12 @@ export const CaseStudiesHighlightBlock: React.FC<Props> = ({
                 )
               })}
             </ThemeProvider>
+          </div>
+        </div>
+        <div className={classes.poweredByPayload}>
+          <div className={classes.poweredByPayloadInner}>
+            <PayloadIcon />
+            Powered by Payload
           </div>
         </div>
       </div>

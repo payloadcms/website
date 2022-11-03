@@ -3,6 +3,9 @@
 .quoteCard {
   padding: calc(var(--base) * 2) calc(var(--base) * 2);
   background-color: var(--theme-bg);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
   @include mid-break {
     padding: calc(var(--base));
@@ -16,6 +19,10 @@
     max-width: 25px;
     margin-bottom: calc(var(--base) / 2);
   }
+}
+
+.richText {
+  margin-bottom: auto;
 }
 
 .date {
