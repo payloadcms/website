@@ -57,6 +57,10 @@
     min-height: 70vh;
   }
 
+  @include extra-large-break {
+    min-height: 72vh;
+  }
+
   @include mid-break {
     padding-top: calc(var(--base) * 6);
     min-height: initial;
