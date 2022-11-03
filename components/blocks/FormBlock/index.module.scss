@@ -56,6 +56,13 @@
   position: relative;
 }
 
+// .formCellContent {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   height: 100%;
+// }
+
 .bgWrapper {
   width: 100%;
   height: 100%;
@@ -72,7 +79,7 @@
 .bg1 {
   width: 100%;
   height: 100%;
-  background-color: var(--theme-bg);
+  background-color: var(--color-base-950);
 }
 
 .bg2Wrapper {
@@ -106,5 +113,5 @@
   top: 0;
   width: calc(100% + var(--gutter-h));
   height: 100%;
-  background-color: var(--theme-elevation-50);
+  background-color: var(--color-base-900);
 }

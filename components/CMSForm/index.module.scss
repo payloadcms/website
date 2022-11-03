@@ -11,7 +11,7 @@
 .formCell {
   position: relative;
   & > *:not(:last-child) {
-    margin-bottom: var(--base);
+    margin-bottom: calc(var(--base) * 2);
   }
 }
 
@@ -25,14 +25,14 @@
   width: calc(100% + var(--base));
 
   &:not(:last-child) {
-    margin-bottom: var(--base);
+    margin-bottom: calc(var(--base) * 2);
   }
 
   > * {
     width: 100%;
 
     &:not(:last-child) {
-      margin-bottom: calc(var(--base) / 2);
+      margin-bottom: calc(var(--base) * 2);
     }
   }
 }

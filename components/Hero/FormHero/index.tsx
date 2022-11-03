@@ -7,6 +7,8 @@ import { Gutter } from '@components/Gutter'
 import { ThemeProvider, useTheme } from '@components/providers/Theme'
 import { CMSForm } from '@components/CMSForm'
 import { Page } from '@root/payload-types'
+import { PixelBackground } from '@components/PixelBackground'
+import { CheckmarkIcon } from '@components/graphics/CheckmarkIcon'
 import classes from './index.module.scss'
 
 export const FormHero: React.FC<
@@ -23,7 +25,9 @@ export const FormHero: React.FC<
       <ThemeProvider theme={theme === 'dark' ? 'light' : 'dark'}>
         <div className={classes.bgWrapper}>
           <Gutter left="half" right="half" disableMobile className={classes.bgGutter}>
-            <div className={classes.bg1} />
+            <div className={classes.bg1}>
+              <PixelBackground className={classes.pixelBG} />
+            </div>
           </Gutter>
         </div>
         <div className={classes.bg2Wrapper}>
@@ -39,7 +43,24 @@ export const FormHero: React.FC<
           <Grid>
             <Cell cols={5} startL={2} colsM={8} startM={1} className={classes.richTextCell}>
               {pageTitle && <div className={classes.leader}>{pageTitle}</div>}
-              {richText && <RichText className={classes.richText} content={richText} />}
+              {richText && (
+                <RichText
+                  className={classes.richText}
+                  content={richText}
+                  customRenderers={{
+                    li: ({ node: { children }, Serialize, index }) => {
+                      return (
+                        <li key={`list-item-${index}`} className={classes.li}>
+                          <div className={classes.bullet}>
+                            <CheckmarkIcon />
+                          </div>
+                          <Serialize content={children} />
+                        </li>
+                      )
+                    },
+                  }}
+                />
+              )}
             </Cell>
             <Cell cols={6} start={8} colsL={4} colsM={8} startM={1} className={classes.formCell}>
               <div className={classes.formCellContent}>
