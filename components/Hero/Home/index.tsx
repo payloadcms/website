@@ -38,7 +38,7 @@ export const HomeHero: React.FC<
             </Marquee>
           </div>
           <div className={classes.contentWrap}>
-            <Gutter left="half" right="half">
+            <Gutter>
               <div className={classes.content}>
                 <RichText className={classes.richText} content={richText} />
                 <div className={classes.sidebar}>

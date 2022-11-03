@@ -66,7 +66,7 @@ const BlogPostTemplate: React.FC<{
         </Grid>
       </Gutter>
 
-      <Gutter left="half" right="half" className={classes.mediaGutter}>
+      <Gutter className={classes.mediaGutter}>
         {typeof image !== 'string' && <Media resource={image} />}
       </Gutter>
 
@@ -115,9 +115,9 @@ export const getStaticProps: GetStaticProps = async context => {
         headers: {
           ...(preview
             ? {
-              // when previewing, send the payload token to bypass draft access control
-              Authorization: `JWT ${payloadToken}`,
-            }
+                // when previewing, send the payload token to bypass draft access control
+                Authorization: `JWT ${payloadToken}`,
+              }
             : {}),
         },
       },

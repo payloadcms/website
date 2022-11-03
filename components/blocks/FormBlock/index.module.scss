@@ -80,6 +80,8 @@
   width: 100%;
   height: 100%;
   background-color: var(--color-base-950);
+  margin-left: calc(var(--gutter-h) / -2);
+  margin-right: calc(var(--gutter-h) / -2);
 }
 
 .bg2Wrapper {
