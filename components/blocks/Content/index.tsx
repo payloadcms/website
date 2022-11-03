@@ -37,10 +37,10 @@ const Columns: React.FC<Props> = ({ contentFields }) => {
 
       return (
         <React.Fragment>
-          <Cell cols={col1Cols} colsM={4}>
+          <Cell cols={col1Cols} colsM={8}>
             <RichText content={columnOne} />
           </Cell>
-          <Cell cols={col2Cols} colsM={4}>
+          <Cell cols={col2Cols} colsM={8}>
             <RichText content={columnTwo} />
           </Cell>
         </React.Fragment>
@@ -50,13 +50,13 @@ const Columns: React.FC<Props> = ({ contentFields }) => {
     case 'threeColumns': {
       return (
         <React.Fragment>
-          <Cell cols={4} colsM={4}>
+          <Cell cols={4} colsM={8}>
             <RichText content={columnOne} />
           </Cell>
-          <Cell cols={4} colsM={4}>
+          <Cell cols={4} colsM={8}>
             <RichText content={columnTwo} />
           </Cell>
-          <Cell cols={4} colsM={4}>
+          <Cell cols={4} colsM={8}>
             <RichText content={columnThree} />
           </Cell>
         </React.Fragment>

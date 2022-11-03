@@ -31,7 +31,7 @@
     height: auto;
   }
 
-  @include large-break {
+  @include extra-large-break {
     position: relative;
     left: 0;
     transform: unset;
@@ -54,7 +54,7 @@
   position: relative;
   width: 100%;
 
-  @include large-break {
+  @include extra-large-break {
     justify-content: unset;
   }
 }
@@ -69,7 +69,7 @@
     margin: 0 0 0 calc(var(--base) * .5);
   }
 
-  @include large-break {
+  @include extra-large-break {
     margin-left: auto;
 
     :local(.stars) {
@@ -103,7 +103,7 @@
     }
   }
 
-  @include large-break {
+  @include extra-large-break {
     position: relative;
     right: 0;
     transform: unset;

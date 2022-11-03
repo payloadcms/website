@@ -122,7 +122,7 @@ const fetchDocs = async () => {
 
   const data = JSON.stringify(topics, null, 2)
 
-  const docsFilename = path.resolve(__dirname, './app/docs/[topic]/[doc]/docs.json')
+  const docsFilename = path.resolve(__dirname, './app/docs/docs.json')
 
   fs.writeFile(docsFilename, data, err => {
     if (err) {
