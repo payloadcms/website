@@ -43,7 +43,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
 
   return (
     <MDXProvider>
-      <Gutter left="half" right="half" className={classes.wrap}>
+      <Gutter className={classes.wrap}>
         <nav
           className={[
             classes.nav,

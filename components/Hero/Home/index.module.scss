@@ -52,6 +52,8 @@
   min-height: 65vh;
   align-items: flex-end;
   justify-content: space-between;
+  margin-left: calc(var(--gutter-h) / -2);
+  margin-right: calc(var(--gutter-h) / -2);
 
   @include extra-large-break {
     min-height: 70vh;

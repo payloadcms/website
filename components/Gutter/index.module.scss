@@ -1,38 +1,11 @@
 @use '@scss/common.scss' as *;
 
-.left--full {
-  padding-left: var(--gutter-h);
-
-  @include extra-large-break {
-    padding-left: calc(var(--gutter-h) / 2);  
-  }
-
-  @include large-break {
-    padding-left: var(--gutter-h);
-  }
-}
-
-.left--half {
-  padding-left: calc(var(--gutter-h) / 2);
-}
-
-.right--full {
+.gutter {
   padding-right: var(--gutter-h);
-
-  @include extra-large-break {
-    padding-right: calc(var(--gutter-h) / 2);  
-  }
-
-  @include large-break {
-    padding-left: var(--gutter-h);
-  }
+  padding-left: var(--gutter-h);
 }
 
-.right--half {
-  padding-right: calc(var(--gutter-h) / 2);
-}
-
-.disableMobile {
+.gutter.disableMobile {
   @include mid-break {
     padding-left: 0;
     padding-right: 0;
