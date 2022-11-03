@@ -48,7 +48,14 @@ export const CMSLink: React.FC<CMSLinkType> = ({
       ? `/${reference.value.slug}`
       : url
 
-  if (!href) return null
+  if (!href) {
+    return (
+      <span className={className}>
+        {label}
+        {children}
+      </span>
+    )
+  }
 
   if (!appearance) {
     const hrefIsLocal = ['tel:', 'mailto:', '/'].some(prefix => href.startsWith(prefix))

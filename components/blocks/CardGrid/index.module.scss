@@ -1,0 +1,40 @@
+@use "@scss/common" as *;
+
+.cardGrid {
+    position: relative;  
+}
+
+.richText {
+    margin-bottom: calc(var(--base) * 3);
+    @include mid-break {
+        margin-bottom: var(--base);
+    }
+}
+
+.bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% + var(--gutter-h));
+    height: 100%;
+    margin-left: calc(var(--gutter-h) / -2);
+
+    @include mid-break {
+        margin-left: calc(var(--gutter-h) * -1);
+        width: calc(100% + (var(--gutter-h) * 2));
+    }
+}
+
+.cards {
+    position: relative;
+    padding: calc(var(--base) * 4) 0;
+
+    @include mid-break {
+        padding: calc(var(--base) * 2) 0;
+    }
+}
+
+.card {
+    height: 100%;
+    position: relative;
+}

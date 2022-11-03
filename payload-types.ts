@@ -216,7 +216,8 @@ export interface Page {
           }[]
           cards: {
             title: string
-            description: string
+            description?: string
+            enableLink?: boolean
             link: {
               type?: 'reference' | 'custom'
               newTab?: boolean
@@ -669,7 +670,8 @@ export interface UseCase {
           }[]
           cards: {
             title: string
-            description: string
+            description?: string
+            enableLink?: boolean
             link: {
               type?: 'reference' | 'custom'
               newTab?: boolean
@@ -1008,7 +1010,8 @@ export interface CaseStudy {
           }[]
           cards: {
             title: string
-            description: string
+            description?: string
+            enableLink?: boolean
             link: {
               type?: 'reference' | 'custom'
               newTab?: boolean
@@ -1510,7 +1513,8 @@ export interface ReusableContent {
           }[]
           cards: {
             title: string
-            description: string
+            description?: string
+            enableLink?: boolean
             link: {
               type?: 'reference' | 'custom'
               newTab?: boolean
