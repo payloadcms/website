@@ -7,6 +7,7 @@ import { BlockSpacing } from '@components/BlockSpacing'
 import { Gutter } from '@components/Gutter'
 import { ThemeProvider, useTheme } from '@components/providers/Theme'
 import { CMSForm } from '@components/CMSForm'
+import { PixelBackground } from '@components/PixelBackground'
 import classes from './index.module.scss'
 import { Page } from '../../../payload-types'
 
@@ -22,7 +23,11 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
       <ThemeProvider theme={theme === 'dark' ? 'light' : 'dark'}>
         <div className={classes.bgWrapper}>
           <Gutter disableMobile className={classes.bgGutter}>
-            <div className={classes.bg1} />
+            <div className={classes.bg1}>
+              <div className={classes.pixelBG}>
+                <PixelBackground />
+              </div>
+            </div>
           </Gutter>
         </div>
         <div className={classes.bg2Wrapper}>

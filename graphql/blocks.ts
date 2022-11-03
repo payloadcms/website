@@ -1,3 +1,4 @@
+import { FORM_FIELDS } from './form'
 import { LINK_FIELDS } from './link'
 import { MEDIA_FIELDS } from './media'
 
@@ -120,33 +121,7 @@ export const FORM_BLOCK = `
   formFields {
     container
     richText
-    form {
-      id
-      title
-      redirect {
-        url
-      }
-      confirmationType
-      confirmationMessage
-      submitButtonLabel
-      fields {
-        ...on Text {
-          name
-          label
-          width
-          defaultValue
-          required
-          blockType
-        }
-        ...on Email {
-          name
-          label
-          width
-          required
-          blockType
-        }
-      }
-    }
+    form ${FORM_FIELDS}
   }
 }
 `

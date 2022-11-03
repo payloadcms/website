@@ -26,7 +26,9 @@ export const FormHero: React.FC<
         <div className={classes.bgWrapper}>
           <Gutter disableMobile className={classes.bgGutter}>
             <div className={classes.bg1}>
-              <PixelBackground className={classes.pixelBG} />
+              <div className={classes.pixelBG}>
+                <PixelBackground />
+              </div>
             </div>
           </Gutter>
         </div>

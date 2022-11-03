@@ -18,7 +18,15 @@ export const CMSForm: React.FC<{
 
   if (!form || typeof form === 'string') return null
 
-  const { id: formID, submitButtonLabel, confirmationType, redirect, confirmationMessage } = form
+  const {
+    id: formID,
+    submitButtonLabel,
+    confirmationType,
+    redirect,
+    confirmationMessage,
+    leader,
+  } = form
+
   const [isLoading, setIsLoading] = React.useState(false)
 
   const [hasSubmitted, setHasSubmitted] = React.useState<boolean>()
@@ -91,34 +99,37 @@ export const CMSForm: React.FC<{
   )
 
   return (
-    <div className={classes.formCellContent}>
+    <div className={classes.cmsForm}>
       {!isLoading && hasSubmitted && confirmationType === 'message' && (
         <RichText content={confirmationMessage} />
       )}
       {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
       {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
       {!hasSubmitted && (
-        <FormComponent onSubmit={onSubmit}>
-          <div className={classes.fieldWrap}>
-            {form &&
-              form.fields?.map((field, index) => {
-                const Field: React.FC<any> = fields?.[field.blockType]
-                if (Field) {
-                  return (
-                    <Width key={index} width={'width' in field ? field.width : 100}>
-                      <Field
-                        path={'name' in field ? field.name : undefined}
-                        form={form}
-                        {...field}
-                      />
-                    </Width>
-                  )
-                }
-                return null
-              })}
-          </div>
-          <Submit processing={isLoading} label={submitButtonLabel} />
-        </FormComponent>
+        <React.Fragment>
+          {leader && <RichText className={classes.leader} content={leader} />}
+          <FormComponent onSubmit={onSubmit}>
+            <div className={classes.fieldWrap}>
+              {form &&
+                form.fields?.map((field, index) => {
+                  const Field: React.FC<any> = fields?.[field.blockType]
+                  if (Field) {
+                    return (
+                      <Width key={index} width={'width' in field ? field.width : 100}>
+                        <Field
+                          path={'name' in field ? field.name : undefined}
+                          form={form}
+                          {...field}
+                        />
+                      </Width>
+                    )
+                  }
+                  return null
+                })}
+            </div>
+            <Submit processing={isLoading} label={submitButtonLabel} />
+          </FormComponent>
+        </React.Fragment>
       )}
     </div>
   )

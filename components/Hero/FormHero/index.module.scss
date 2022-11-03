@@ -13,6 +13,10 @@
   & > *:not(:last-child) {
     margin-bottom: var(--base);
   }
+
+  @include mid-break {
+    margin-top: var(--base);
+  }
 }
 
 .leader {
@@ -35,12 +39,16 @@
 
   &:not(:last-child) {
     margin-bottom: var(--base);
+
+    @include mid-break {
+      margin-bottom: calc(var(--base) / 2);
+    }
   }
 }
 
 .bullet {
   position: relative;
-  // top: 2px;
+  // top: 1px;
   color: var(--color-success-500);
   border: 1px solid currentColor;
   border-radius: 100%;
@@ -51,27 +59,9 @@
   margin-right: var(--base);
   align-items: center;
   justify-content: center;
-}
 
-.fieldWrap {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: calc(var(--base) / -2);
-  margin-right: calc(var(--base) / -2);
-  width: calc(100% + var(--base));
-
-  &:not(:last-child) {
-    margin-bottom: var(--base);
-  }
-
-  > * {
-    width: 100%;
-
-    &:not(:last-child) {
-      margin-bottom: calc(var(--base) / 2);
-    }
+  @include mid-break {
+    top: 4px;
   }
 }
 
@@ -121,16 +111,18 @@
   background-color: var(--color-base-950);
   margin-left: calc(var(--gutter-h) / -2);
   margin-right: calc(var(--gutter-h) / -2);
-}
-
-.pixelBG {
-  width: calc(var(--base) * 16);
-  right: 0;
-  left: auto;
 
   @include mid-break {
     margin: 0;
   }
+}
+
+.pixelBG {
+  position: absolute;
+  height: 100%;
+  width: calc(var(--base) * 16);
+  right: 0;
+  left: auto;
 }
 
 .bg2Wrapper {
@@ -165,8 +157,4 @@
   width: calc(100% + var(--gutter-h));
   height: 100%;
   background-color: var(--color-base-900);
-
-  @include mid-break {
-    display: none;
-  }
 }

@@ -13,27 +13,9 @@
   & > *:not(:last-child) {
     margin-bottom: var(--base);
   }
-}
 
-.fieldWrap {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: calc(var(--base) / -2);
-  margin-right: calc(var(--base) / -2);
-  width: calc(100% + var(--base));
-
-  &:not(:last-child) {
-    margin-bottom: var(--base);
-  }
-
-  > * {
-    width: 100%;
-
-    &:not(:last-child) {
-      margin-bottom: calc(var(--base) / 2);
-    }
+  @include mid-break {
+    margin-top: var(--base);
   }
 }
 
@@ -77,11 +59,24 @@
 }
 
 .bg1 {
+  position: relative;
   width: 100%;
   height: 100%;
   background-color: var(--color-base-950);
   margin-left: calc(var(--gutter-h) / -2);
   margin-right: calc(var(--gutter-h) / -2);
+
+  @include mid-break {
+    margin: 0;
+  }
+}
+
+.pixelBG {
+  position: absolute;
+  height: 100%;
+  width: calc(var(--base) * 16);
+  right: 0;
+  left: auto;
 }
 
 .bg2Wrapper {

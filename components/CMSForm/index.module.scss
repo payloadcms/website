@@ -1,17 +1,15 @@
 @use "@scss/common" as *;
 
-.formBlock {
+.cmsForm {
   position: relative;
 }
 
-.formWrap {
-  position: relative;
-}
+.leader {
+  @include label;
+  margin-bottom: calc(var(--base) * 2);
 
-.formCell {
-  position: relative;
-  & > *:not(:last-child) {
-    margin-bottom: calc(var(--base) * 2);
+  @include mid-break {
+    margin-bottom: var(--base);
   }
 }
 
@@ -35,76 +33,16 @@
       margin-bottom: calc(var(--base) * 2);
     }
   }
-}
-
-.gutter {
-  position: relative;
-  padding-top: calc(var(--base) * 8);
-  padding-bottom: calc(var(--base) * 8);
 
   @include mid-break {
-    padding-top: calc(var(--base) * 4);
-    padding-bottom: calc(var(--base) * 4);
+    &:not(:last-child) {
+      margin-bottom: var(--base);
+    }
+    
+    > * {
+      &:not(:last-child) {
+        margin-bottom: var(--base);
+      }
+    }
   }
-}
-
-.richTextCell {
-  position: relative;
-}
-
-.formCellWrapper {
-  position: relative;
-}
-
-.bgWrapper {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.bgGutter {
-  width: 100%;
-  height: 100%;
-}
-
-.bg1 {
-  width: 100%;
-  height: 100%;
-  background-color: var(--theme-bg);
-}
-
-.bg2Wrapper {
-  width: 100%;
-  height: calc(100% - (var(--base) * 8));
-  top: calc(var(--base) * 4);
-  position: absolute;
-  left: 0;
-
-  @include mid-break {
-    height: calc(100% - (var(--base) * 4));
-    top: calc(var(--base) * 2);
-  }
-}
-
-.bg2Grid {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.bg2Cell {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.bg2 {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: calc(100% + var(--gutter-h));
-  height: 100%;
-  background-color: var(--theme-elevation-50);
 }
