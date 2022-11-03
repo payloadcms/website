@@ -17,13 +17,15 @@ type Node = {
 }
 
 export type CustomRenderers = {
-  [key: string]: (node: Node) => JSX.Element // eslint-disable-line
+  [key: string]: (args: { node: Node, Serialize: SerializeFunction, index }) => JSX.Element // eslint-disable-line
 }
 
-export const Serialize: React.FC<{
+type SerializeFunction = React.FC<{
   content: Node[]
   customRenderers?: CustomRenderers
-}> = ({ content, customRenderers }) => {
+}>
+
+export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
   return (
     <Fragment>
       {content.map((node, i) => {
@@ -71,88 +73,88 @@ export const Serialize: React.FC<{
           customRenderers[node.type] &&
           typeof customRenderers[node.type] === 'function'
         ) {
-          return customRenderers[node.type](node)
+          return customRenderers[node.type]({ node, Serialize, index: i })
         }
 
         switch (node.type) {
           case 'h1':
             return (
               <h1 key={i}>
-                <Serialize content={node.children} />
+                <Serialize content={node.children} customRenderers={customRenderers} />
               </h1>
             )
           case 'h2':
             return (
               <h2 key={i}>
-                <Serialize content={node.children} />
+                <Serialize content={node.children} customRenderers={customRenderers} />
               </h2>
             )
           case 'h3':
             return (
               <h3 key={i}>
-                <Serialize content={node.children} />
+                <Serialize content={node.children} customRenderers={customRenderers} />
               </h3>
             )
           case 'h4':
             return (
               <h4 key={i}>
-                <Serialize content={node.children} />
+                <Serialize content={node.children} customRenderers={customRenderers} />
               </h4>
             )
           case 'h5':
             return (
               <h5 key={i}>
-                <Serialize content={node.children} />
+                <Serialize content={node.children} customRenderers={customRenderers} />
               </h5>
             )
           case 'h6':
             return (
               <h6 key={i}>
-                <Serialize content={node.children} />
+                <Serialize content={node.children} customRenderers={customRenderers} />
               </h6>
             )
           case 'quote':
             return (
               <blockquote key={i}>
-                <Serialize content={node.children} />
+                <Serialize content={node.children} customRenderers={customRenderers} />
               </blockquote>
             )
           case 'ul':
             return (
               <ul key={i}>
-                <Serialize content={node.children} />
+                <Serialize content={node.children} customRenderers={customRenderers} />
               </ul>
             )
           case 'ol':
             return (
               <ol key={i}>
-                <Serialize content={node.children} />
+                <Serialize content={node.children} customRenderers={customRenderers} />
               </ol>
             )
           case 'li':
             return (
               <li key={i}>
-                <Serialize content={node.children} />
+                <Serialize content={node.children} customRenderers={customRenderers} />
               </li>
             )
           case 'link':
             return (
               <a href={escapeHTML(node.url)} key={i}>
-                <Serialize content={node.children} />
+                <Serialize content={node.children} customRenderers={customRenderers} />
               </a>
             )
 
           case 'label':
             return (
               <Label key={i}>
-                <Serialize content={node.children} />
+                <Serialize content={node.children} customRenderers={customRenderers} />
               </Label>
             )
 
           case 'large-body': {
             return (
               <LargeBody key={i}>
-                <Serialize content={node.children} />
+                <Serialize content={node.children} customRenderers={customRenderers} />
               </LargeBody>
             )
           }
@@ -160,7 +162,7 @@ export const Serialize: React.FC<{
           default:
             return (
               <p key={i}>
-                <Serialize content={node.children} />
+                <Serialize content={node.children} customRenderers={customRenderers} />
               </p>
             )
         }
