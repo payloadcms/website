@@ -10,6 +10,7 @@ import {
   MEDIA_BLOCK,
   MEDIA_CONTENT,
   REUSABLE_CONTENT_BLOCK,
+  SLIDER,
 } from './blocks'
 import { FORM_FIELDS } from './form'
 import { LINK_FIELDS } from './link'
@@ -61,6 +62,7 @@ export const PAGE = `
           ${MEDIA_BLOCK}
           ${MEDIA_CONTENT}
           ${REUSABLE_CONTENT_BLOCK}
+          ${SLIDER}
         }
       }
     }

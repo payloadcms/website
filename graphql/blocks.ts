@@ -220,6 +220,7 @@ export const REUSABLE_CONTENT_BLOCK = `
         ${LINK_GRID}
         ${MEDIA_BLOCK}
         ${MEDIA_CONTENT}
+        ${SLIDER}
       }
     }
   }
