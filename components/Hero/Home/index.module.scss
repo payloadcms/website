@@ -49,11 +49,11 @@
 
 .content {
   display: flex;
-  min-height: 75vh;
+  min-height: 65vh;
   align-items: flex-end;
   justify-content: space-between;
 
-  @include large-break {
+  @include extra-large-break {
     min-height: 70vh;
   }
 

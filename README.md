@@ -1,34 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Payload CMS Website
 
-## Getting Started
+This is the repository for Payload's official website. We're building it completely in public.
 
-First, run the development server:
+<img src="https://stage.payloadcms.com/images/og-image.jpg" alt="Payload headless CMS website" />
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+This site showcases lots of cool stuff like how to use Payload's GraphQL API to its fullest extent, how to build a super dynamic light / dark mode into a Next site without any first-load flickering, how to render remotely stored docs from MDX to NextJS pages, and much more.  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech stack:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- Payload (obviously)
+- TypeScript
+- Next 13 and its new `/app` folder
+- SCSS Modules
+- GraphQL
+- MDX for docs
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+#### The CMS
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Payload is leveraged for everything that the site does, outside of its documentation which is all stored as Markdown in the Payload repo itself. It's also completely open-source and [can be found here](https://github.com/payloadcms/website-cms). 
 
-## Learn More
+Both this repo and the CMS repo can be used as great examples to learn how to build Payload projects at scale.
 
-To learn more about Next.js, take a look at the following resources:
+#### Payload Cloud
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Soon, we'll be launching Payload Cloud, which will be a one-click GitHub integration that handles production deployment for your Payload apps. The entire frontend of Payload Cloud will also be built in public and included within this repo, which is going to be awesome.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Running the project locally
 
-## Deploy on Vercel
+To get started with this repo locally, follow the steps below:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Clone the repo
+- `yarn`
+- Run `cp .env.example .env` to create an `.env`
+- Fill out the values within your new `.env`, corresponding to your own environment
+- Run `yarn dev`
+- Bam
