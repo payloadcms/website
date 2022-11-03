@@ -16,12 +16,14 @@ type Node = {
   [key: string]: unknown
 }
 
+export type CustomRenderers = {
+  [key: string]: (node: Node) => JSX.Element // eslint-disable-line
+}
+
 export const Serialize: React.FC<{
   content: Node[]
-  // customRenderers?: {
-  //   [key: string]: (node: Node) => JSX.Element // eslint-disable-line
-  // }
-}> = ({ content }) => {
+  customRenderers?: CustomRenderers
+}> = ({ content, customRenderers }) => {
   return (
     <Fragment>
       {content.map((node, i) => {
@@ -62,6 +64,14 @@ export const Serialize: React.FC<{
 
         if (!node) {
           return null
+        }
+
+        if (
+          customRenderers &&
+          customRenderers[node.type] &&
+          typeof customRenderers[node.type] === 'function'
+        ) {
+          return customRenderers[node.type](node)
         }
 
         switch (node.type) {
