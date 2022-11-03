@@ -3,21 +3,21 @@
 import React from 'react'
 import { MDXRemote } from 'next-mdx-remote'
 import Link from 'next/link'
-import components from '../../../../../components/MDX/components'
-import { Doc, NextDoc } from '../types'
-import TableOfContents from '../../../../../components/TableOfContents'
+import components from '../../../../components/MDX/components'
+import { Doc, NextDoc } from '../../types'
+import TableOfContents from '../../../../components/TableOfContents'
+import { JumplistProvider } from '../../../../components/Jumplist'
+import { ArrowIcon } from '../../../../components/icons/ArrowIcon'
+import { useTheme } from '../../../../components/providers/Theme'
+import { Button } from '../../../../components/Button'
 import classes from './index.module.scss'
-import { JumplistProvider } from '../../../../../components/Jumplist'
-import { ArrowIcon } from '../../../../../components/icons/ArrowIcon'
-import { useTheme } from '../../../../../components/providers/Theme'
-import { Button } from '../../../../../components/Button'
 
 type Props = {
   doc: Doc
   next?: NextDoc
 }
 
-export const DocTemplate: React.FC<Props> = ({ doc, next }) => {
+export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
   const { content, headings, title } = doc
 
   const theme = useTheme()

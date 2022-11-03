@@ -59,7 +59,7 @@ export const RenderBlogPost: React.FC<Post> = props => {
         </Grid>
       </Gutter>
 
-      <Gutter left="half" right="half" className={classes.mediaGutter}>
+      <Gutter className={classes.mediaGutter}>
         {typeof image !== 'string' && <Media resource={image} />}
       </Gutter>
 

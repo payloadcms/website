@@ -4,6 +4,7 @@ import { RichText } from '@components/RichText'
 import Image from 'next/image'
 import { Button } from '@components/Button'
 import { ThemeProvider } from '@components/providers/Theme'
+import { PayloadIcon } from '@components/graphics/Icon'
 import { CaseStudy, ReusableContent } from '../../../payload-types'
 import { Gutter } from '../../Gutter'
 import classes from './index.module.scss'
@@ -39,7 +40,13 @@ export const CaseStudiesHighlightBlock: React.FC<Props> = ({
       <Gutter>
         <RichText className={classes.content} content={richText} />
       </Gutter>
-      <ThemeProvider theme="dark">
+      <div className={classes.relative}>
+        <div className={classes.poweredByPayload}>
+          <div className={classes.poweredByPayloadInner}>
+            <PayloadIcon />
+            Powered by Payload
+          </div>
+        </div>
         <div className={classes.wrap}>
           <div
             className={classes.inner}
@@ -47,43 +54,49 @@ export const CaseStudiesHighlightBlock: React.FC<Props> = ({
               transform: `translate3d(${(xPercentage - 50) * -0.1}%, 0, 0)`,
             }}
           >
-            {caseStudyRows.map((row, i) => {
-              return (
-                <ul key={i} className={classes.row}>
-                  {row.map(caseStudy => {
-                    const { slug, featuredImage } = caseStudy
+            <ThemeProvider theme="dark">
+              {caseStudyRows.map((row, i) => {
+                return (
+                  <ul key={i} className={classes.row}>
+                    {row.map(caseStudy => {
+                      const { slug, featuredImage } = caseStudy
 
-                    let url
-                    let alt
+                      let url
+                      let alt
 
-                    if (typeof featuredImage === 'object') {
-                      url = featuredImage.url
-                      alt = featuredImage.alt
-                    }
+                      if (typeof featuredImage === 'object') {
+                        url = featuredImage.url
+                        alt = featuredImage.alt
+                      }
 
-                    return (
-                      <li key={slug} className={classes.imageWrap}>
-                        <div className={classes.image}>
-                          <Image src={`${process.env.NEXT_PUBLIC_CMS_URL}${url}`} fill alt={alt} />
-                          <div className={classes.button}>
-                            <Button
-                              href={`/case-studies/${slug}`}
-                              el="link"
-                              label="Read case study"
-                              labelStyle="mono"
-                              appearance="primary"
+                      return (
+                        <li key={slug} className={classes.imageWrap}>
+                          <div className={classes.image}>
+                            <Image
+                              src={`${process.env.NEXT_PUBLIC_CMS_URL}${url}`}
+                              fill
+                              alt={alt}
                             />
+                            <div className={classes.button}>
+                              <Button
+                                href={`/case-studies/${slug}`}
+                                el="link"
+                                label="Read case study"
+                                labelStyle="mono"
+                                appearance="primary"
+                              />
+                            </div>
                           </div>
-                        </div>
-                      </li>
-                    )
-                  })}
-                </ul>
-              )
-            })}
+                        </li>
+                      )
+                    })}
+                  </ul>
+                )
+              })}
+            </ThemeProvider>
           </div>
         </div>
-      </ThemeProvider>
+      </div>
     </React.Fragment>
   )
 }

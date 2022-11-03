@@ -22,7 +22,7 @@ export const FormHero: React.FC<
     <div className={classes.formHero}>
       <ThemeProvider theme={theme === 'dark' ? 'light' : 'dark'}>
         <div className={classes.bgWrapper}>
-          <Gutter left="half" right="half" disableMobile className={classes.bgGutter}>
+          <Gutter disableMobile className={classes.bgGutter}>
             <div className={classes.bg1} />
           </Gutter>
         </div>

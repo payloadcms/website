@@ -1,6 +1,9 @@
 @use '@scss/common.scss' as *;
 
 .desktopNav {
+  // margin-left: calc(var(--gutter-h) / -2);
+  // margin-right: calc(var(--gutter-h) / -2);
+
   @include small-break {
     display: none;
     visibility: hidden;
@@ -31,7 +34,8 @@
     height: auto;
   }
 
-  @include extra-large-break {
+  @include large-break {
+    margin-left: calc(-1 * var(--gutter-h) / 2);
     position: relative;
     left: 0;
     transform: unset;
@@ -54,7 +58,7 @@
   position: relative;
   width: 100%;
 
-  @include extra-large-break {
+  @include large-break {
     justify-content: unset;
   }
 }
@@ -69,7 +73,7 @@
     margin: 0 0 0 calc(var(--base) * .5);
   }
 
-  @include extra-large-break {
+  @include large-break {
     margin-left: auto;
 
     :local(.stars) {
@@ -103,7 +107,8 @@
     }
   }
 
-  @include extra-large-break {
+  @include large-break {
+    margin-right: calc(-1 * var(--gutter-h) / 2);
     position: relative;
     right: 0;
     transform: unset;

@@ -21,7 +21,7 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
     <BlockSpacing className={classes.formBlock}>
       <ThemeProvider theme={theme === 'dark' ? 'light' : 'dark'}>
         <div className={classes.bgWrapper}>
-          <Gutter left="half" right="half" disableMobile className={classes.bgGutter}>
+          <Gutter disableMobile className={classes.bgGutter}>
             <div className={classes.bg1} />
           </Gutter>
         </div>

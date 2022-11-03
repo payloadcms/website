@@ -49,12 +49,18 @@
 
 .content {
   display: flex;
-  min-height: 75vh;
+  min-height: 65vh;
   align-items: flex-end;
   justify-content: space-between;
+  margin-left: calc(var(--gutter-h) / -2);
+  margin-right: calc(var(--gutter-h) / -2);
 
-  @include large-break {
+  @include extra-large-break {
     min-height: 70vh;
+  }
+
+  @include extra-large-break {
+    min-height: 72vh;
   }
 
   @include mid-break {
