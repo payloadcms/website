@@ -1,7 +1,7 @@
 import React from 'react'
-import { getDoc, getTopics } from './api'
-import { DocTemplate } from './DocTemplate'
-import { NextDoc } from './types'
+import { getDoc, getTopics } from '../../api'
+import { RenderDoc } from './render'
+import { NextDoc } from '../../types'
 
 const Doc = async ({ params }) => {
   const { topic, doc: docSlug } = params
@@ -36,7 +36,7 @@ const Doc = async ({ params }) => {
     }
   }
 
-  return <DocTemplate doc={doc} next={next} />
+  return <RenderDoc doc={doc} next={next} />
 }
 
 export default Doc

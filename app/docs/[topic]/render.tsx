@@ -1,30 +1,26 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import { useSelectedLayoutSegment } from 'next/navigation'
 import AnimateHeight from 'react-animate-height'
 import Link from 'next/link'
 import { MenuIcon } from '@components/graphics/MenuIcon'
 import { CloseIcon } from '@components/graphics/CloseIcon'
-import { Gutter } from '../../../../../components/Gutter'
+import { Gutter } from '../../../components/Gutter'
 import { DocMeta, Topic } from '../types'
-import { ChevronIcon } from '../../../../../components/graphics/ChevronIcon'
+import { ChevronIcon } from '../../../components/graphics/ChevronIcon'
 import { openTopicsLocalStorageKey } from '../shared'
-import { MDXProvider } from '../../../../../components/MDX'
+import { MDXProvider } from '../../../components/MDX'
 import classes from './index.module.scss'
 
 type Props = {
   topics: Topic[]
-  children: React.ReactNode
-  doc: string
   topic: string
+  children: React.ReactNode
 }
 
-export const DocsTemplate: React.FC<Props> = ({
-  topics,
-  doc: docParam,
-  topic: topicParam,
-  children,
-}) => {
+export const RenderTopic: React.FC<Props> = ({ topics, topic: topicParam, children }) => {
+  const docParam = useSelectedLayoutSegment()
   const [currentTopicIsOpen, setCurrentTopicIsOpen] = useState(true)
   const [openTopicPreferences, setOpenTopicPreferences] = useState<string[]>()
   const [init, setInit] = useState(false)
