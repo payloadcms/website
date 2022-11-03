@@ -45,6 +45,12 @@
 .contentWrap {
   position: relative;
   z-index: 2;
+
+  hr {
+    margin-left: calc(-1 * var(--gutter-h) / 2);
+    margin-right: calc(-1 * var(--gutter-h) / 2);
+    width: calc(100% + var(--gutter-h));
+  }
 }
 
 .content {
