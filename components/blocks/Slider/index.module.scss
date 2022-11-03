@@ -39,7 +39,12 @@
 }
 
 .sliderTrack {
-  padding-bottom: var(--base);
+  padding-bottom: calc(var(--base) * 2);
+
+  @include mid-break {
+    padding-bottom: var(--base);
+  }
+
   &::-webkit-scrollbar-track {
     margin-left: var(--gutter-h);
   }
@@ -47,6 +52,7 @@
   &::-webkit-scrollbar {
     background-color: transparent;
     height: 4px;
+    cursor: pointer;
   }
 
   &::-webkit-scrollbar-thumb {
