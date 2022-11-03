@@ -7,7 +7,11 @@
 
 .wrap {
   overflow: hidden;
-  margin-top: var(--block-spacing);
+  padding-top: var(--block-spacing);
+
+  @include mid-break {
+    padding-top: var(--base);
+  }
 }
 
 .inner {
@@ -20,11 +24,64 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  position: relative;
+
+  &:nth-child(odd) {
+    right: 20vh;
+  }
+
+  &:nth-child(even) {
+    left: 20vh;
+  }
+  
+  @include large-break {
+    flex-wrap: wrap;
+
+    &:nth-child(odd) {
+      right: 15vh;
+    }
+  
+    &:nth-child(even) {
+      left: 15vh;
+    }
+  }
+
+  @include mid-break {
+    flex-wrap: wrap;
+
+    &:nth-child(odd) {
+      right: 5vh;
+    }
+  
+    &:nth-child(even) {
+      left: 5vh;
+    }
+
+    &:first-child {
+      li:first-child {
+        display: none;
+      }
+    }
+
+    &:last-child {
+      li:last-child {
+        display: none;
+      }
+    }
+  }
 }
 
 .imageWrap {
   width: 33.33%;
   padding: var(--base);
+
+  @include large-break {
+    padding: calc(var(--base) * .5);
+  }
+
+  @include mid-break {
+    width: 50%;
+  }
 }
 
 .image {
@@ -42,6 +99,16 @@
     .button {
       opacity: 1;
       transform: translate3d(-50%, -50%, 0);
+    }
+  }
+
+  @include mid-break {
+    opacity: 1;
+    transition: none;
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
     }
   }
 }

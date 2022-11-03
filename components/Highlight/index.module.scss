@@ -19,7 +19,7 @@
     bottom: 0;
     left: 50%;
     transform: translate3d(-50%, 0, 0);
-    background-color: var(--theme-success-400);
+    background-color: var(--theme-success-500);
     transition: height cubic-bezier(0.4, 0, 0.2, 1) 500ms;
   }
 }
@@ -38,7 +38,7 @@
 .darkMode {
   &:local() {
     .label {
-      color: var(--theme-success-600);
+      color: var(--theme-success-500);
     }
 
     .highlightNode {
