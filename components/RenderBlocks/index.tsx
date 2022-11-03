@@ -2,6 +2,7 @@
 
 import React, { Fragment } from 'react'
 import { FormBlock } from '@components/blocks/FormBlock'
+import { MediaContent } from '@components/blocks/MediaContent'
 import { Page, ReusableContent } from '../../payload-types'
 import { toKebabCase } from '../../utilities/to-kebab-case'
 import { BlockSpacing } from '../BlockSpacing'
@@ -26,6 +27,7 @@ const blockComponents = {
   content: ContentBlock,
   form: FormBlock,
   slider: Slider,
+  mediaContent: MediaContent,
 }
 
 export const RenderBlocks: React.FC<{

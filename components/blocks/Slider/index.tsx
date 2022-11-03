@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SliderProvider, SliderProgress, SliderNav, SliderTrack, Slide } from '@faceless-ui/slider'
+import { SliderProvider, SliderNav, SliderTrack, Slide } from '@faceless-ui/slider'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Gutter } from '@components/Gutter'
 import { Page } from '../../../payload-types'
@@ -37,19 +37,6 @@ export const SliderBlock: React.FC<Props> = ({ sliderFields }) => {
       <Gutter>
         <Grid>
           <Cell className={classes.controlsWrap}>
-            <SliderProgress
-              style={{
-                height: '1px',
-                backgroundColor: 'var(--theme-elevation-200)',
-              }}
-              indicator={{
-                style: {
-                  height: '2px',
-                  backgroundColor: 'var(--theme-elevation-500)',
-                },
-              }}
-            />
-
             <SliderNav
               className={classes.sliderNav}
               prevButtonProps={{
@@ -65,21 +52,24 @@ export const SliderBlock: React.FC<Props> = ({ sliderFields }) => {
         </Grid>
       </Gutter>
 
-      <SliderTrack>
-        {slides.map((slide, index) => {
-          return (
-            <Slide
-              key={index}
-              index={index}
-              className={[classes.slide, classes[`slideType--${sliderType}`]]
-                .filter(Boolean)
-                .join(' ')}
-            >
-              <CardToRender {...slide} />
-            </Slide>
-          )
-        })}
-      </SliderTrack>
+      <div className={classes.trackWrap}>
+        <SliderTrack className={classes.sliderTrack}>
+          {slides.map((slide, index) => {
+            return (
+              <Slide
+                key={index}
+                index={index}
+                className={[classes.slide, classes[`slideType--${sliderType}`]]
+                  .filter(Boolean)
+                  .join(' ')}
+              >
+                <CardToRender {...slide} />
+              </Slide>
+            )
+          })}
+        </SliderTrack>
+        <div className={classes.progressBarBackground} />
+      </div>
 
       {withPixelBackground && (
         <Gutter className={classes.pixelContainer}>

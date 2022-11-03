@@ -2,15 +2,19 @@
 
 .slider {
   position: relative;
-  --pixel-extension: calc(var(--base) * 8);
+  --pixel-extension-top: calc(var(--base) * 2.5);
+  --pixel-extension-bottom: calc(var(--base) * 5);
+  --pixel-extension-total: calc(var(--pixel-extension-top) + var(--pixel-extension-bottom));
 
   @include mid-break {
-    --pixel-extension: calc(var(--base) * 4);
+    --pixel-extension-top: calc(var(--base));
+    --pixel-extension-bottom: calc(var(--base) * 2);
   }
 }
 
 .withPixelBackground {
-  margin: calc(var(--pixel-extension) / 2 + var(--block-spacing)) 0;
+  margin-top: calc(var(--pixel-extension-top) + var(--block-spacing) / 2);
+  margin-bottom: calc(var(--pixel-extension-bottom)  + var(--block-spacing) / 2);
 }
 
 .controlsWrap {
@@ -18,10 +22,10 @@
 }
 
 .sliderNav {
-  margin: calc(var(--base) * 1.5) 0;
+  margin-bottom: calc(var(--base) * 1.5);
 
   @include mid-break {
-    margin: calc(var(--base) * .75) 0;
+    margin-bottom: calc(var(--base) * .75);
   }
 }
 
@@ -32,6 +36,38 @@
 
 .prevButton {
   margin-right: var(--base);
+}
+
+.sliderTrack {
+  padding-bottom: var(--base);
+  &::-webkit-scrollbar-track {
+    margin-left: var(--gutter-h);
+  }
+
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--theme-text);
+    border-radius: 0px;
+    cursor: pointer;
+  }
+}
+
+.trackWrap {
+  position: relative;
+}
+
+.progressBarBackground {
+  position: absolute;
+  height: 2px;
+  background: var(--theme-elevation-100);
+  left: var(--gutter-h);
+  bottom: 2px;
+  width: calc(100% - var(--gutter-h));
+  z-index: -1;
 }
 
 .slide {
@@ -50,8 +86,8 @@
   position: absolute;
   left: 0;
   right: 0;
-  height: calc(100% + var(--pixel-extension));
-  top: calc(-1 * var(--pixel-extension) / 2);
+  height: calc(100% + var(--pixel-extension-total));
+  top: calc(-1 * var(--pixel-extension-top));
   z-index: -1;
   * {
     height: 100%;
