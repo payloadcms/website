@@ -36,6 +36,10 @@ const Styleguide: React.FC = () => {
         <div>
           <Link href="/styleguide/blocks/form-block">Form Block</Link>
         </div>
+        <br />
+        <div>
+          <Link href="/styleguide/blocks/card-grid">Card Grid</Link>
+        </div>
       </Gutter>
     </div>
   )

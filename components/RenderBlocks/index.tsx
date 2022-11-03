@@ -2,6 +2,7 @@
 
 import React, { Fragment } from 'react'
 import { FormBlock } from '@components/blocks/FormBlock'
+import { CardGrid } from '@components/blocks/CardGrid'
 import { Page, ReusableContent } from '../../payload-types'
 import { toKebabCase } from '../../utilities/to-kebab-case'
 import { BlockSpacing } from '../BlockSpacing'
@@ -26,6 +27,7 @@ const blockComponents = {
   content: ContentBlock,
   form: FormBlock,
   slider: Slider,
+  cardGrid: CardGrid,
 }
 
 export const RenderBlocks: React.FC<{

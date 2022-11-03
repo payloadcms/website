@@ -54,6 +54,7 @@ export const CARD_GRID = `
     cards {
       title
       description
+      enableLink
       link ${LINK_FIELDS({ disableAppearance: true, disableLabel: true })}
     }
   }
