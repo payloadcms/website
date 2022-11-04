@@ -15,11 +15,13 @@ export const MediaBlock: React.FC<Props> = ({ mediaBlockFields }) => {
   if (typeof media === 'string') return null
 
   return (
-    <Gutter
-      left={position === 'default' ? 'full' : 'half'}
-      right={position === 'default' ? 'full' : 'half'}
-    >
-      <Media resource={media} />
+    <Gutter>
+      <Media
+        resource={media}
+        className={[classes.mediaResource, classes[`position--${position}`]]
+          .filter(Boolean)
+          .join(' ')}
+      />
 
       {caption && (
         <Grid>
