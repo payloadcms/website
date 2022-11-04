@@ -7,40 +7,38 @@
   --pixel-extension-total: calc(var(--pixel-extension-top) + var(--pixel-extension-bottom));
 
   @include mid-break {
-    --pixel-extension-top: calc(var(--base));
-    --pixel-extension-bottom: calc(var(--base) * 2);
+    --pixel-extension-top: calc(var(--base)* 2);
+    --pixel-extension-bottom: calc(var(--base) * 2.25);
   }
 }
 
 .withPixelBackground {
   margin-top: calc(var(--pixel-extension-top) + var(--block-spacing));
   margin-bottom: calc(var(--pixel-extension-bottom)  + var(--block-spacing));
-
-  @include mid-break {
-    margin-top: calc(var(--pixel-extension-top) + var(--block-spacing) / 2);
-    margin-bottom: calc(var(--pixel-extension-bottom)  + var(--block-spacing) / 2);
-  }
-}
-
-.controlsWrap {
-  margin-right: calc(-1 * var(--gutter-h));
 }
 
 .sliderNav {
   margin-bottom: calc(var(--base) * 1.5);
+  margin-left: 4px;
 
   @include mid-break {
-    margin-bottom: calc(var(--base) * .75);
+    display: none;
   }
 }
 
 .navButton {
   all: unset;
   cursor: pointer;
+  width:calc(var(--base) * 1);
+
+  svg {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .prevButton {
-  margin-right: var(--base);
+  margin-right: calc(var(--base) * 1.5);
 }
 
 .sliderTrack {
@@ -72,13 +70,27 @@
 }
 
 .progressBarBackground {
-  position: absolute;
-  height: 2px;
-  background: var(--theme-elevation-100);
-  left: var(--gutter-h);
-  bottom: 2px;
-  width: calc(100% - var(--gutter-h));
-  z-index: -1;
+  &:before {
+    content: '';
+    position: absolute;
+    left: var(--gutter-h);
+    width: calc(100% - var(--gutter-h));
+    bottom: 1px;
+    height: 3px;
+    background: var(--theme-elevation-100);
+    z-index: -1;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: var(--gutter-h);
+    width: calc(100% - var(--gutter-h));
+    background-color: var(--theme-bg);
+    height: 12px;
+    bottom: -4px;
+    z-index: -2;
+  }
 }
 
 .slide {
@@ -99,7 +111,7 @@
   right: 0;
   height: calc(100% + var(--pixel-extension-total));
   top: calc(-1 * var(--pixel-extension-top));
-  z-index: -1;
+  z-index: -3;
   * {
     height: 100%;
   }
@@ -122,7 +134,7 @@
 
 .slideType--quoteSlider {
   min-width: 600px;
-  max-width: 600px;
+  max-width: 650px;
 
   @include mid-break {
     min-width: 300px;
