@@ -1425,28 +1425,6 @@ export interface ReusableContent {
   title: string
   layout: (
     | {
-        bannerFields: {
-          type?: 'default' | 'success' | 'warning' | 'error'
-          addCheckmark?: boolean
-          content: {
-            [k: string]: unknown
-          }[]
-        }
-        id?: string
-        blockName?: string
-        blockType: 'banner'
-      }
-    | {
-        blogContentFields: {
-          richText: {
-            [k: string]: unknown
-          }[]
-        }
-        id?: string
-        blockName?: string
-        blockType: 'blogContent'
-      }
-    | {
         ctaFields: {
           richText: {
             [k: string]: unknown
@@ -1548,6 +1526,17 @@ export interface ReusableContent {
         blockType: 'cardGrid'
       }
     | {
+        caseStudyCardFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+          caseStudies: string[] | CaseStudy[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'caseStudyCards'
+      }
+    | {
         caseStudiesHighlightFields: {
           richText: {
             [k: string]: unknown
@@ -1557,15 +1546,6 @@ export interface ReusableContent {
         id?: string
         blockName?: string
         blockType: 'caseStudiesHighlight'
-      }
-    | {
-        codeFields: {
-          language?: 'none' | 'js' | 'ts'
-          code: string
-        }
-        id?: string
-        blockName?: string
-        blockType: 'code'
       }
     | {
         contentFields: {
@@ -1601,6 +1581,18 @@ export interface ReusableContent {
         id?: string
         blockName?: string
         blockType: 'contentGrid'
+      }
+    | {
+        bannerFields: {
+          type?: 'default' | 'success' | 'warning' | 'error'
+          addCheckmark?: boolean
+          content: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'banner'
       }
     | {
         featureHighlightFields: {
@@ -1640,6 +1632,25 @@ export interface ReusableContent {
         id?: string
         blockName?: string
         blockType: 'featureHighlight'
+      }
+    | {
+        blogContentFields: {
+          richText: {
+            [k: string]: unknown
+          }[]
+        }
+        id?: string
+        blockName?: string
+        blockType: 'blogContent'
+      }
+    | {
+        codeFields: {
+          language?: 'none' | 'js' | 'ts'
+          code: string
+        }
+        id?: string
+        blockName?: string
+        blockType: 'code'
       }
     | {
         formFields: {
