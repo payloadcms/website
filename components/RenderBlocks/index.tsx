@@ -2,6 +2,7 @@
 
 import React, { Fragment } from 'react'
 import { FormBlock } from '@components/blocks/FormBlock'
+import { CardGrid } from '@components/blocks/CardGrid'
 import { MediaContent } from '@components/blocks/MediaContent'
 import { CardGrid } from '@components/blocks/CardGrid'
 import { Page, ReusableContent } from '../../payload-types'
@@ -28,6 +29,7 @@ const blockComponents = {
   content: ContentBlock,
   form: FormBlock,
   slider: Slider,
+  cardGrid: CardGrid,
   mediaContent: MediaContent,
   cardGrid: CardGrid,
 }
