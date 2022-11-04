@@ -50,9 +50,11 @@ export const RenderBlocks: React.FC<{
             if (blockType && blockType in blockComponents) {
               const Block = blockComponents[blockType]
 
+              const hasSpacing = !['banner', 'blogContent', 'code'].includes(blockType)
+
               if (Block) {
                 return (
-                  <BlockSpacing key={index}>
+                  <BlockSpacing key={index} top={hasSpacing} bottom={hasSpacing}>
                     <Block id={toKebabCase(blockName)} {...block} />
                   </BlockSpacing>
                 )

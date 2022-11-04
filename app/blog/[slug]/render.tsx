@@ -66,7 +66,7 @@ export const RenderBlogPost: React.FC<Post> = props => {
       <Gutter>
         <Grid>
           <Cell start={2} cols={10} startM={1} colsM={8} startL={2} colsL={10}>
-            <RichText content={excerpt} />
+            <RichText content={excerpt} className={classes.excerpt} />
           </Cell>
         </Grid>
       </Gutter>
