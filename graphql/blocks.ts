@@ -31,6 +31,19 @@ export const CODE_BLOCK = `
 }
 `
 
+export const CODE_FEATURE = `
+...on CodeFeature {
+  blockType
+  codeFeatureFields {
+    richText
+    link ${LINK_FIELDS()}
+    language
+    label
+    code
+  }
+}
+`
+
 export const CALL_TO_ACTION = `
 ...on CalltoAction {
   blockType
@@ -101,21 +114,6 @@ export const CONTENT_GRID = `
 }
 `
 
-export const FEATURE_HIGHLIGHT = `
-...on FeatureHighlight {
-  blockType
-  featureHighlightFields {
-    features {
-      type
-      content
-      link ${LINK_FIELDS({ disableAppearance: true })}
-      code
-      media ${MEDIA_FIELDS}
-    }
-  }
-}
-`
-
 export const FORM_BLOCK = `
 ...on FormBlock {
   blockType
@@ -123,6 +121,23 @@ export const FORM_BLOCK = `
     container
     richText
     form ${FORM_FIELDS}
+  }
+}
+`
+
+export const HOVER_HIGHLIGHTS = `
+...on HoverHighlightsBlock {
+  blockType
+  hoverHighlightsFields {
+    richText
+    addRowNumbers
+    highlights {
+      title
+      description
+      media ${MEDIA_FIELDS}
+      enableLink
+      link ${LINK_FIELDS({ disableAppearance: true, disableLabel: true })}
+    }
   }
 }
 `
@@ -177,6 +192,38 @@ export const SLIDER = `
   }
 }`
 
+export const STICKY_HIGHLIGHTS = `
+...on StickyHighlightsBlock {
+  blockType
+  stickyHighlightsFields {
+    highlights {
+      richText
+      enableLink
+      link ${LINK_FIELDS({ disableAppearance: true })}
+      type
+      code
+      media ${MEDIA_FIELDS}
+    }
+  }
+}
+`
+
+export const STEPS = `
+...on StepsBlock {
+  blockType
+  stepsFields {
+    steps {
+      layout {
+        ${CODE_FEATURE}
+        ${CONTENT}
+        ${HOVER_HIGHLIGHTS}
+        ${STICKY_HIGHLIGHTS}
+      }
+    }
+  }
+}
+`
+
 export const REUSABLE_CONTENT_BLOCK = `
 ...on ReusableContentBlock {
   blockType
@@ -189,14 +236,17 @@ export const REUSABLE_CONTENT_BLOCK = `
         ${CARD_GRID}
         ${CASE_STUDIES_HIGHLIGHT}
         ${CODE_BLOCK}
+        ${CODE_FEATURE}
         ${CONTENT}
         ${CONTENT_GRID}
-        ${FEATURE_HIGHLIGHT}
         ${FORM_BLOCK}
+        ${HOVER_HIGHLIGHTS}
         ${LINK_GRID}
         ${MEDIA_BLOCK}
         ${MEDIA_CONTENT}
         ${SLIDER}
+        ${STEPS}
+        ${STICKY_HIGHLIGHTS}
       }
     }
   }

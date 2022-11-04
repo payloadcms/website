@@ -47,26 +47,33 @@
   z-index: 2;
 
   hr {
+    margin-top: calc(var(--base) * 5);
+    margin-bottom: calc(var(--base) * 5);
     margin-left: calc(-1 * var(--gutter-h) / 2);
     margin-right: calc(-1 * var(--gutter-h) / 2);
     width: calc(100% + var(--gutter-h));
+
+    @include large-break {
+      margin-top: var(--block-spacing);
+      margin-bottom: var(--block-spacing);
+      width: initial;
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 }
 
 .content {
   display: flex;
-  min-height: 65vh;
+  min-height: 72vh;
   align-items: flex-end;
   justify-content: space-between;
   margin-left: calc(var(--gutter-h) / -2);
   margin-right: calc(var(--gutter-h) / -2);
 
-  @include extra-large-break {
-    min-height: 70vh;
-  }
-
-  @include extra-large-break {
-    min-height: 72vh;
+  @include large-break {
+    margin-left: 0;
+    margin-right: 0;
   }
 
   @include mid-break {

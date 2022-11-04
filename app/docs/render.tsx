@@ -9,9 +9,10 @@ import { CloseIcon } from '@components/graphics/CloseIcon'
 import { Gutter } from '../../components/Gutter'
 import { DocMeta, Topic } from './types'
 import { ChevronIcon } from '../../components/graphics/ChevronIcon'
-import { openTopicsLocalStorageKey } from './shared'
 import { MDXProvider } from '../../components/MDX'
 import classes from './index.module.scss'
+
+const openTopicsLocalStorageKey = 'docs-open-topics'
 
 type Props = {
   topics: Topic[]

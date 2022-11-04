@@ -2,15 +2,18 @@ import {
   CALL_TO_ACTION,
   CARD_GRID,
   CASE_STUDIES_HIGHLIGHT,
+  CODE_FEATURE,
   CONTENT,
   CONTENT_GRID,
-  FEATURE_HIGHLIGHT,
   FORM_BLOCK,
+  HOVER_HIGHLIGHTS,
   LINK_GRID,
   MEDIA_BLOCK,
   MEDIA_CONTENT,
   REUSABLE_CONTENT_BLOCK,
   SLIDER,
+  STEPS,
+  STICKY_HIGHLIGHTS,
 } from './blocks'
 import { FORM_FIELDS } from './form'
 import { LINK_FIELDS } from './link'
@@ -54,15 +57,18 @@ export const PAGE = `
           ${CALL_TO_ACTION}
           ${CARD_GRID}
           ${CASE_STUDIES_HIGHLIGHT}
+          ${CODE_FEATURE}
           ${CONTENT}
           ${CONTENT_GRID}
-          ${FEATURE_HIGHLIGHT}
           ${FORM_BLOCK}
+          ${HOVER_HIGHLIGHTS}
           ${LINK_GRID}
           ${MEDIA_BLOCK}
           ${MEDIA_CONTENT}
           ${REUSABLE_CONTENT_BLOCK}
           ${SLIDER}
+          ${STEPS}
+          ${STICKY_HIGHLIGHTS}
         }
       }
     }

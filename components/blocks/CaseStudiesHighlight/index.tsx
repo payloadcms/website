@@ -40,61 +40,55 @@ export const CaseStudiesHighlightBlock: React.FC<Props> = ({
       <Gutter>
         <RichText className={classes.content} content={richText} />
       </Gutter>
-      <div className={classes.relative}>
-        <div className={classes.wrap}>
-          <div
-            className={classes.inner}
-            style={{
-              transform: `translate3d(${(xPercentage - 50) * -0.1}%, 0, 0)`,
-            }}
-          >
-            <ThemeProvider theme="dark">
-              {caseStudyRows.map((row, i) => {
-                return (
-                  <ul key={i} className={classes.row}>
-                    {row.map(caseStudy => {
-                      const { slug, featuredImage } = caseStudy
-
-                      let url
-                      let alt
-
-                      if (typeof featuredImage === 'object') {
-                        url = featuredImage.url
-                        alt = featuredImage.alt
-                      }
-
-                      return (
-                        <li key={slug} className={classes.imageWrap}>
-                          <div className={classes.image}>
-                            <Image
-                              src={`${process.env.NEXT_PUBLIC_CMS_URL}${url}`}
-                              fill
-                              alt={alt}
-                            />
-                            <div className={classes.button}>
-                              <Button
-                                href={`/case-studies/${slug}`}
-                                el="link"
-                                label="Read case study"
-                                labelStyle="mono"
-                                appearance="primary"
-                              />
-                            </div>
-                          </div>
-                        </li>
-                      )
-                    })}
-                  </ul>
-                )
-              })}
-            </ThemeProvider>
-          </div>
-        </div>
+      <div className={classes.wrap}>
         <div className={classes.poweredByPayload}>
           <div className={classes.poweredByPayloadInner}>
             <PayloadIcon />
             Powered by Payload
           </div>
+        </div>
+        <div
+          className={classes.inner}
+          style={{
+            transform: `translate3d(${(xPercentage - 50) * -0.1}%, 0, 0)`,
+          }}
+        >
+          <ThemeProvider theme="dark">
+            {caseStudyRows.map((row, i) => {
+              return (
+                <ul key={i} className={classes.row}>
+                  {row.map(caseStudy => {
+                    const { slug, featuredImage } = caseStudy
+
+                    let url
+                    let alt
+
+                    if (typeof featuredImage === 'object') {
+                      url = featuredImage.url
+                      alt = featuredImage.alt
+                    }
+
+                    return (
+                      <li key={slug} className={classes.imageWrap}>
+                        <div className={classes.image}>
+                          <Image src={`${process.env.NEXT_PUBLIC_CMS_URL}${url}`} fill alt={alt} />
+                          <div className={classes.button}>
+                            <Button
+                              href={`/case-studies/${slug}`}
+                              el="link"
+                              label="Read case study"
+                              labelStyle="mono"
+                              appearance="primary"
+                            />
+                          </div>
+                        </div>
+                      </li>
+                    )
+                  })}
+                </ul>
+              )
+            })}
+          </ThemeProvider>
         </div>
       </div>
     </React.Fragment>
