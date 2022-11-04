@@ -7,7 +7,7 @@ import { RichText } from '../../../components/RichText'
 import { Gutter } from '../../../components/Gutter'
 import { Media } from '../../../components/Media'
 import { Label } from '../../../components/Label'
-import { formatDateTime } from '../../../utilities/format-date-time'
+import { formatDate } from '../../../utilities/format-date-time'
 import { CalendarIcon } from '../../../components/graphics/CalendarIcon'
 import { Post } from '../../../payload-types'
 
@@ -51,7 +51,7 @@ export const RenderBlogPost: React.FC<Post> = props => {
 
             {createdAt && (
               <div className={classes.dateSlot}>
-                <time dateTime={createdAt}>{formatDateTime(createdAt)}</time>
+                <time dateTime={createdAt}>{formatDate({ date: createdAt })}</time>
                 <CalendarIcon />
               </div>
             )}
