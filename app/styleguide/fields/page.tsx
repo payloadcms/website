@@ -11,7 +11,7 @@ import { StyleguidePageContent } from '../PageContent'
 
 const Forms: React.FC = () => {
   return (
-    <StyleguidePageContent title="Fields">
+    <StyleguidePageContent title="Fields" darkModePadding darkModeMargins>
       <Gutter>
         <Text placeholder="John" label="Text Field" />
         <br />

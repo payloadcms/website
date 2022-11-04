@@ -23,7 +23,7 @@
   width: calc(100% + var(--base));
 
   &:not(:last-child) {
-    margin-bottom: calc(var(--base) * 2);
+    margin-bottom: calc(var(--base) * 3);
   }
 
   > * {
@@ -36,12 +36,24 @@
 
   @include mid-break {
     &:not(:last-child) {
-      margin-bottom: var(--base);
+      margin-bottom: calc(var(--base) * 2);
     }
     
     > * {
       &:not(:last-child) {
         margin-bottom: var(--base);
+      }
+    }
+  }
+
+  @include small-break {
+    &:not(:last-child) {
+      margin-bottom: var(--base);
+    }
+    
+    > * {
+      &:not(:last-child) {
+        margin-bottom: calc(var(--base) / 2);
       }
     }
   }

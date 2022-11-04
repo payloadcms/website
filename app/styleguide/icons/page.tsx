@@ -6,7 +6,7 @@ import { StyleguidePageContent } from '../PageContent'
 
 const Highlight: React.FC = () => {
   return (
-    <StyleguidePageContent title="Icons">
+    <StyleguidePageContent title="Icons" darkModePadding darkModeMargins>
       <Gutter>
         <p>Icons</p>
         <div>

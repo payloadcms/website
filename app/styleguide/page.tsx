@@ -40,6 +40,11 @@ const Styleguide: React.FC = () => {
         <div>
           <Link href="/styleguide/blocks/card-grid">Card Grid</Link>
         </div>
+        <br />
+        <h4>Heros</h4>
+        <div>
+          <Link href="/styleguide/heros/form-hero">Form Hero</Link>
+        </div>
       </Gutter>
     </div>
   )

@@ -4,25 +4,23 @@ import { RichText } from '@components/RichText'
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Gutter } from '@components/Gutter'
-import { ThemeProvider, useTheme } from '@components/providers/Theme'
+import { ThemeProvider } from '@components/providers/Theme'
 import { CMSForm } from '@components/CMSForm'
 import { Page } from '@root/payload-types'
 import { PixelBackground } from '@components/PixelBackground'
 import { CheckmarkIcon } from '@components/graphics/CheckmarkIcon'
 import classes from './index.module.scss'
 
-export const FormHero: React.FC<
-  Page['hero'] & {
-    pageTitle: string
-  }
-> = props => {
+export type FormHeroProps = Page['hero'] & {
+  pageTitle: string
+}
+
+export const FormHero: React.FC<FormHeroProps> = props => {
   const { pageTitle, richText, form } = props
 
-  const theme = useTheme()
-
   return (
-    <div className={classes.formHero}>
-      <ThemeProvider theme={theme === 'dark' ? 'light' : 'dark'}>
+    <ThemeProvider theme="dark">
+      <div className={classes.formHero}>
         <div className={classes.bgWrapper}>
           <Gutter disableMobile className={classes.bgGutter}>
             <div className={classes.bg1}>
@@ -71,7 +69,7 @@ export const FormHero: React.FC<
             </Cell>
           </Grid>
         </Gutter>
-      </ThemeProvider>
-    </div>
+      </div>
+    </ThemeProvider>
   )
 }

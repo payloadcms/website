@@ -5,7 +5,7 @@ import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { BlockSpacing } from '@components/BlockSpacing'
 import { Gutter } from '@components/Gutter'
-import { ThemeProvider, useTheme } from '@components/providers/Theme'
+import { ThemeProvider } from '@components/providers/Theme'
 import { CMSForm } from '@components/CMSForm'
 import { PixelBackground } from '@components/PixelBackground'
 import classes from './index.module.scss'
@@ -16,11 +16,9 @@ export type FormBlockProps = Extract<Page['layout'][0], { blockType: 'form' }>
 export const FormBlock: React.FC<FormBlockProps> = props => {
   const { formFields: { richText, form } = {} } = props
 
-  const theme = useTheme()
-
   return (
     <BlockSpacing className={classes.formBlock}>
-      <ThemeProvider theme={theme === 'dark' ? 'light' : 'dark'}>
+      <ThemeProvider theme="dark">
         <div className={classes.bgWrapper}>
           <Gutter disableMobile className={classes.bgGutter}>
             <div className={classes.bg1}>

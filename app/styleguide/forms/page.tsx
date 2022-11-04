@@ -10,7 +10,7 @@ import { StyleguidePageContent } from '../PageContent'
 
 const Forms: React.FC = () => {
   return (
-    <StyleguidePageContent title="Forms">
+    <StyleguidePageContent title="Forms" darkModePadding darkModeMargins>
       <Gutter>
         <Form
           onSubmit={args => {

@@ -5,7 +5,7 @@ import { StyleguidePageContent } from '../PageContent'
 
 const Highlight: React.FC = () => {
   return (
-    <StyleguidePageContent title="Highlight">
+    <StyleguidePageContent title="Highlight" darkModePadding darkModeMargins>
       <Gutter>
         <RichText
           content={[

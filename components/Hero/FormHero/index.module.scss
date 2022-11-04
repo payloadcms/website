@@ -2,6 +2,8 @@
 
 .formHero {
   position: relative;
+  margin-top: calc(var(--base) * -2);
+  color: var(--color-base-0);
 }
 
 .formWrap {
@@ -67,10 +69,15 @@
 
 .gutter {
   position: relative;
-  padding-top: calc(var(--base) * 8);
-  padding-bottom: calc(var(--base) * 8);
+  padding-top: calc(var(--base) * 12);
+  padding-bottom: calc(var(--base) * 12);
 
   @include mid-break {
+    padding-top: calc(var(--base) * 8);
+    padding-bottom: calc(var(--base) * 8);
+  }
+
+  @include small-break {
     padding-top: calc(var(--base) * 4);
     padding-bottom: calc(var(--base) * 4);
   }
@@ -110,10 +117,11 @@
   height: 100%;
   background-color: var(--color-base-950);
   margin-left: calc(var(--gutter-h) / -2);
-  margin-right: calc(var(--gutter-h) / -2);
+  width: calc(100% + var(--gutter-h));
 
   @include mid-break {
     margin: 0;
+    width: 100%;
   }
 }
 
@@ -123,16 +131,25 @@
   width: calc(var(--base) * 16);
   right: 0;
   left: auto;
+  
+  @include mid-break {
+    width: calc(var(--base) * 10);
+  }
 }
 
 .bg2Wrapper {
   width: 100%;
-  height: calc(100% - (var(--base) * 8));
+  height: calc(100% - (var(--base) * 12));
   top: calc(var(--base) * 4);
   position: absolute;
   left: 0;
 
   @include mid-break {
+    height: calc(100% - (var(--base) * 8));
+    top: calc(var(--base) * 4);
+  }
+
+  @include small-break {
     height: calc(100% - (var(--base) * 4));
     top: calc(var(--base) * 2);
   }

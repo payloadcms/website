@@ -5,8 +5,10 @@ import { ThemeProvider, useTheme } from '../../../../components/providers/Theme'
 
 export const RenderDarkMode: React.FC<{
   children: React.ReactNode
+  enablePadding?: boolean
+  enableMargins?: boolean
 }> = props => {
-  const { children } = props
+  const { children, enablePadding, enableMargins } = props
 
   const theme = useTheme()
 
@@ -14,8 +16,9 @@ export const RenderDarkMode: React.FC<{
     <ThemeProvider theme={theme === 'dark' ? 'light' : 'dark'}>
       <div
         style={{
-          backgroundColor: 'var(--theme-elevation-0)',
-          padding: `calc(var(--base) * 2) 0`,
+          backgroundColor: 'var(--theme-bg)',
+          padding: enablePadding ? 'var(--block-spacing) 0' : 0,
+          margin: enableMargins ? 'var(--block-spacing) 0' : 0,
         }}
       >
         {children}

@@ -5,7 +5,7 @@ import { StyleguidePageContent } from '../PageContent'
 
 const Buttons: React.FC = () => {
   return (
-    <StyleguidePageContent title="Buttons">
+    <StyleguidePageContent title="Buttons" darkModePadding darkModeMargins>
       <Gutter>
         <p>Default</p>
         <div>
