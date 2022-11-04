@@ -1,15 +1,68 @@
-.mediaContent {
-  padding: var(--block-spacing) 0;
+@use '@scss/common' as *;
+
+.withContainer {
+  position: relative;
+  padding-top: var(--block-spacing);
+  padding-bottom: var(--block-spacing);
+  margin-top: calc(var(--block-spacing) * 2);
+  margin-bottom: calc(var(--block-spacing) * 2);
+  isolation: isolate;
+
+  @include mid-break {
+    padding-top: calc(var(--block-spacing) * .75);
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }
 
 .background {
-  width: calc(100% + var(--gutter-h));
+  width: calc(100% - var(--gutter-h));
   margin-left: calc(var(--gutter-h) / 2);
-  background-color: var(--color-base-1000);
+  background-color: var(--theme-bg);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+
+  @include mid-break {
+    margin: 0;
+    width: 100%;
+  }
 }
 
-.theme--dark {
-  .background {
-    background-color: var(--color-base-800);
+.media {
+  @include mid-break {
+    grid-row: 1;
+    img, video {
+      max-width: min(600px, 100%);
+    }
+  }
+}
+.media.right {
+  margin-right: calc(-1 * var(--gutter-h));
+  img,video {
+    margin-left: auto;
+  }
+}
+.media.left {
+  margin-left: calc(-1 * var(--gutter-h));
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @include mid-break {
+    margin-top: var(--base);
+  }
+}
+
+.buttonLink {
+  margin-top: calc(var(--base) * 2);
+  width: 300px;
+
+  @include mid-break {
+    width: 100%;
   }
 }
