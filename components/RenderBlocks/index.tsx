@@ -4,7 +4,6 @@ import React, { Fragment } from 'react'
 import { FormBlock } from '@components/blocks/FormBlock'
 import { CardGrid } from '@components/blocks/CardGrid'
 import { MediaContent } from '@components/blocks/MediaContent'
-import { CardGrid } from '@components/blocks/CardGrid'
 import { Page, ReusableContent } from '../../payload-types'
 import { toKebabCase } from '../../utilities/to-kebab-case'
 import { BlockSpacing } from '../BlockSpacing'
@@ -31,7 +30,6 @@ const blockComponents = {
   slider: Slider,
   cardGrid: CardGrid,
   mediaContent: MediaContent,
-  cardGrid: CardGrid,
 }
 
 export const RenderBlocks: React.FC<{
