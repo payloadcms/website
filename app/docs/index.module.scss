@@ -3,8 +3,6 @@
 .wrap {
   position: relative;
   display: flex;
-  margin-left: calc(var(--gutter-h) / -2);
-  margin-right: calc(var(--gutter-h) / -2);
 
   @include mid-break {
     padding-bottom: calc(var(--base) * 4);
