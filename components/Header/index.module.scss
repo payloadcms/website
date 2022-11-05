@@ -15,7 +15,8 @@
     width: 100%;
     height: 100%;
     background: var(--theme-bg);
-    opacity: 0.85; // jarrod pls
+    opacity: 0.85;
+    z-index: -1;
   }
   
   &:after {

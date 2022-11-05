@@ -36,7 +36,7 @@ export const SliderBlock: React.FC<Props> = ({ sliderFields }) => {
     >
       <Gutter>
         <Grid>
-          <Cell className={classes.controlsWrap}>
+          <Cell>
             <SliderNav
               className={classes.sliderNav}
               prevButtonProps={{
@@ -86,14 +86,9 @@ export const SliderBlock: React.FC<Props> = ({ sliderFields }) => {
 
 export const Slider: React.FC<Props> = props => {
   const { gutterH } = useComputedCSSValues()
-  const { sliderFields } = props
 
   return (
-    <SliderProvider
-      slidesToShow={sliderFields?.sliderType === 'quoteSlider' ? 2.5 : 1.5}
-      alignLastSlide="trackLeft"
-      scrollOffset={gutterH}
-    >
+    <SliderProvider slidesToShow={1.5} scrollOffset={gutterH}>
       <SliderBlock {...props} />
     </SliderProvider>
   )

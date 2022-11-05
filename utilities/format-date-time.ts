@@ -28,35 +28,32 @@ export const monthNamesAbbr = [
   'Dec',
 ]
 
-export const formatDateTime = (timestamp?: string): string | undefined => {
-  const now = new Date()
+const formatOptions: { [key: string]: Intl.DateTimeFormatOptions } = {
+  longDateStamp: {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  },
+  shortDateStamp: {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  },
+}
 
-  let date = now
-  if (timestamp) {
-    const dateFromTimestamp = new Date(timestamp.replace('T', ' ').replace(/-/g, '/'))
-    // could return 'Invalid Date'
-    // see https://stackoverflow.com/questions/1353684/detecting-an-invalid-date-date-instance-in-javascript
-    if (
-      Object.prototype.toString.call(dateFromTimestamp) === '[object Date]' &&
-      !Number.isNaN(dateFromTimestamp.getTime())
-    ) {
-      date = dateFromTimestamp
-    } else return timestamp
+interface Args {
+  date: string | Date
+  format?: 'longDateStamp' | 'shortDateStamp'
+}
+export function formatDate(args: Args): string {
+  const { date, format = 'longDateStamp' } = args
+
+  try {
+    const dateObj = new Date(date)
+    const options = formatOptions[format]
+    return new Intl.DateTimeFormat('en-US', options).format(dateObj)
+  } catch (e: unknown) {
+    console.error('Error formatting date', e)
+    return String(date)
   }
-
-  const months = date.getMonth()
-  const days = date.getDate()
-  // const hours = date.getHours();
-  // const minutes = date.getMinutes();
-  // const seconds = date.getSeconds();
-
-  // const MM = (months + 1 < 10) ? `0${months + 1}` : months + 1;
-  const monthName = monthNames[months]
-  const DD = days < 10 ? `0${days}` : days
-  const YYYY = date.getFullYear()
-  // const AMPM = hours < 12 ? 'AM' : 'PM';
-  // const HH = hours > 12 ? hours - 12 : hours;
-  // const MinMin = (minutes < 10) ? `0${minutes}` : minutes;
-  // const SS = (seconds < 10) ? `0${seconds}` : seconds;
-  return `${monthName} ${DD}, ${YYYY}`
 }
