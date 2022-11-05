@@ -36,6 +36,7 @@ export const CODE_FEATURE = `
   blockType
   codeFeatureFields {
     richText
+    enableLink
     link ${LINK_FIELDS()}
     language
     label

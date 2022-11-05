@@ -74,6 +74,11 @@ async function getHeadings(source) {
 }
 
 const fetchDocs = async () => {
+  if (!process.env.GITHUB_ACCESS_TOKEN) {
+    console.log('No GitHub access token found - skipping docs retrieval')
+    process.exit(0)
+  }
+
   const topics = await Promise.all(
     topicOrder.map(async unsanitizedTopicSlug => {
       const topicSlug = unsanitizedTopicSlug.toLowerCase()
