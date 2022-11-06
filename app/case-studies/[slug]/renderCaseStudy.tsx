@@ -30,7 +30,7 @@ export const RenderCaseStudy: React.FC<CaseStudy> = props => {
             },
           ]}
         />
-        <Grid className={classes.introContent}>
+        <Grid>
           <Cell cols={9}>
             <RichText content={introContent} />
           </Cell>
