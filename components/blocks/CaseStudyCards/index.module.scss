@@ -1,0 +1,47 @@
+@use '@scss/common' as *;
+
+
+.card {
+  border: 1px solid var(--theme-text);
+  display: flex;
+
+  @include small-break {
+    flex-direction: column;
+  }
+}
+
+.content {
+  padding: calc(var(--base) * 4) calc(var(--base) * 3);
+  display: flex;
+  align-items: center;
+  width: auto;
+  flex-shrink: 0;
+  flex: 1;
+
+  @include large-break {
+    padding: calc(var(--base) * 3) calc(var(--base) * 1.5);
+  }
+
+  @include small-break {
+    padding: calc(var(--base) * 1.5) var(--base);
+  }
+
+  * {
+    margin-top: 0;
+  }
+}
+
+.media {
+  position: relative;
+  width: 50%;
+  flex-shrink: 0;
+  min-height: 150px;
+
+  img {
+    object-fit: cover;
+  }
+
+  @include small-break {
+    width: 100%;
+  }
+}

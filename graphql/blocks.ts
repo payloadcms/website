@@ -92,6 +92,21 @@ export const CASE_STUDIES_HIGHLIGHT = `
 }
 `
 
+export const CASE_STUDY_CARDS = `
+...on CaseStudyCards {
+  blockType
+  caseStudyCardFields {
+    cards {
+      richText
+      caseStudy {
+        slug
+        featuredImage ${MEDIA_FIELDS}
+      }
+    }
+  }
+}
+`
+
 export const CONTENT = `
 ...on Content {
   blockType
@@ -173,6 +188,7 @@ export const MEDIA_CONTENT = `
     alignment
     container
     richText
+    enableLink
     link ${LINK_FIELDS({ disableAppearance: true })}
     media ${MEDIA_FIELDS}
   }
