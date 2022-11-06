@@ -3,6 +3,11 @@
 .wrap {
   position: relative;
   display: flex;
+  padding: 0 calc(var(--gutter-h) / 2);
+
+  @include large-break {
+    padding: 0 var(--gutter-h);
+  }
 
   @include mid-break {
     padding-bottom: calc(var(--base) * 4);

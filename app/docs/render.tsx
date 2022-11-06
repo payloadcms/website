@@ -6,7 +6,6 @@ import AnimateHeight from 'react-animate-height'
 import Link from 'next/link'
 import { MenuIcon } from '@components/graphics/MenuIcon'
 import { CloseIcon } from '@components/graphics/CloseIcon'
-import { Gutter } from '../../components/Gutter'
 import { DocMeta, Topic } from './types'
 import { ChevronIcon } from '../../components/graphics/ChevronIcon'
 import { MDXProvider } from '../../components/MDX'
@@ -44,7 +43,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
 
   return (
     <MDXProvider>
-      <Gutter className={classes.wrap}>
+      <div className={classes.wrap}>
         <nav
           className={[
             classes.nav,
@@ -138,7 +137,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
           {!navOpen && <MenuIcon />}
           {navOpen && <CloseIcon />}
         </button>
-      </Gutter>
+      </div>
     </MDXProvider>
   )
 }

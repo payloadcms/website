@@ -36,10 +36,6 @@
   font-weight: normal;
   
   @include extra-large-break {
-    font-size: 72px;
-  }
-
-  @include large-break {
     font-size: 60px;
   }
 

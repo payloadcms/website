@@ -15,6 +15,14 @@
   margin: 0;
 }
 
+.heading {
+  margin-top: 0;
+}
+
+.richText {
+  margin-bottom: calc(var(--base) * 1.5);
+}
+
 .code {
   position: relative;
 
@@ -28,6 +36,16 @@
     right: calc(var(--gutter-h) * -1);
     bottom: calc(var(--base) * -1);
     left: calc(var(--base) * -1);
+  }
+
+  @include mid-break {
+    margin: calc(var(--block-spacing) + var(--base)) 0 var(--block-spacing);
+
+    &:before {
+      top: 0;
+      left: 0;
+      bottom: 0;
+    }
   }
 }
 

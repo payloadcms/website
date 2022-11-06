@@ -12,17 +12,22 @@ import classes from './index.module.scss'
 type Props = Extract<Page['layout'][0], { blockType: 'codeFeature' }>
 
 export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
-  const { richText, enableLink, link, code, label } = codeFeatureFields
+  const { heading, richText, enableLink, link, code, label } = codeFeatureFields
 
   return (
     <div className={classes.codeFeature}>
       <Gutter>
         <Grid className={classes.grid}>
-          <Cell cols={6}>
-            <RichText content={richText} />
-            {enableLink && <CMSLink {...link} />}
+          <Cell cols={6} colsM={8}>
+            <h2 className={classes.heading}>{heading}</h2>
+            <Grid>
+              <Cell cols={4} start={2} colsM={8} startM={1}>
+                <RichText content={richText} className={classes.richText} />
+                {enableLink && <CMSLink {...link} />}
+              </Cell>
+            </Grid>
           </Cell>
-          <Cell cols={6} className={classes.code}>
+          <Cell cols={6} colsM={8} className={classes.code}>
             <PixelBackground className={classes.pixels} />
             {label && (
               <div className={classes.labelWrap}>

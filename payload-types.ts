@@ -271,6 +271,7 @@ export interface Page {
     }
     | {
       codeFeatureFields: {
+        heading: string;
         richText: {
           [k: string]: unknown;
         }[];
@@ -509,6 +510,7 @@ export interface Page {
           layout: (
             | {
               codeFeatureFields: {
+                heading: string;
                 richText: {
                   [k: string]: unknown;
                 }[];
@@ -934,6 +936,7 @@ export interface UseCase {
     }
     | {
       codeFeatureFields: {
+        heading: string;
         richText: {
           [k: string]: unknown;
         }[];
@@ -1172,6 +1175,7 @@ export interface UseCase {
           layout: (
             | {
               codeFeatureFields: {
+                heading: string;
                 richText: {
                   [k: string]: unknown;
                 }[];
@@ -1494,6 +1498,7 @@ export interface CaseStudy {
     }
     | {
       codeFeatureFields: {
+        heading: string;
         richText: {
           [k: string]: unknown;
         }[];
@@ -1732,6 +1737,7 @@ export interface CaseStudy {
           layout: (
             | {
               codeFeatureFields: {
+                heading: string;
                 richText: {
                   [k: string]: unknown;
                 }[];
@@ -2240,6 +2246,7 @@ export interface ReusableContent {
     }
     | {
       codeFeatureFields: {
+        heading: string;
         richText: {
           [k: string]: unknown;
         }[];
@@ -2470,6 +2477,7 @@ export interface ReusableContent {
           layout: (
             | {
               codeFeatureFields: {
+                heading: string;
                 richText: {
                   [k: string]: unknown;
                 }[];

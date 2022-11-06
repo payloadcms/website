@@ -2,25 +2,29 @@ import Link from 'next/link'
 import React from 'react'
 import { CaseStudy, Page, Post, UseCase } from '../../payload-types'
 // eslint-disable-next-line import/no-cycle
-import { Button } from '../Button'
+import { Button, Props as ButtonProps } from '../Button'
 
-export type Reference =
-  | {
-      value: string | Page
-      relationTo: 'pages'
-    }
-  | {
-      value: string | Post
-      relationTo: 'posts'
-    }
-  | {
-      value: string | UseCase
-      relationTo: 'use-cases'
-    }
-  | {
-      value: string | CaseStudy
-      relationTo: 'case-studies'
-    }
+type PageReference = {
+  value: string | Page
+  relationTo: 'pages'
+}
+
+type UseCaseReference = {
+  value: string | UseCase
+  relationTo: 'use-cases'
+}
+
+type PostsReference = {
+  value: string | Post
+  relationTo: 'posts'
+}
+
+type CaseStudyReference = {
+  value: string | CaseStudy
+  relationTo: 'case-studies'
+}
+
+export type Reference = PageReference | UseCaseReference | PostsReference | CaseStudyReference
 
 type CMSLinkType = {
   type?: 'reference' | 'custom'
@@ -90,11 +94,16 @@ export const CMSLink: React.FC<CMSLinkType> = ({
     )
   }
 
-  const buttonProps = {
+  const buttonProps: ButtonProps = {
     newTab,
     href,
     appearance,
     label,
+    fullWidth: false,
+  }
+
+  if (appearance === 'default') {
+    buttonProps.icon = 'arrow'
   }
 
   return <Button {...buttonProps} className={className} el="link" />

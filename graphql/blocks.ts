@@ -35,6 +35,7 @@ export const CODE_FEATURE = `
 ...on CodeFeature {
   blockType
   codeFeatureFields {
+    heading
     richText
     enableLink
     link ${LINK_FIELDS()}
