@@ -2,6 +2,7 @@ import {
   CALL_TO_ACTION,
   CARD_GRID,
   CASE_STUDIES_HIGHLIGHT,
+  CASE_STUDY_CARDS,
   CODE_FEATURE,
   CONTENT,
   CONTENT_GRID,
@@ -59,6 +60,7 @@ export const PAGE = `
           ${CALL_TO_ACTION}
           ${CARD_GRID}
           ${CASE_STUDIES_HIGHLIGHT}
+          ${CASE_STUDY_CARDS}
           ${CODE_FEATURE}
           ${CONTENT}
           ${CONTENT_GRID}

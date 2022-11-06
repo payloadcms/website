@@ -1,6 +1,7 @@
 'use client'
 
 import React, { Fragment } from 'react'
+import { CaseStudyCards } from '@components/blocks/CaseStudyCards'
 import { FormBlock } from '../blocks/FormBlock'
 import { CardGrid } from '../blocks/CardGrid'
 import { MediaContent } from '../blocks/MediaContent'
@@ -27,6 +28,7 @@ const blockComponents = {
   banner: BannerBlock,
   blogContent: BlogContent,
   caseStudiesHighlight: CaseStudiesHighlightBlock,
+  caseStudyCards: CaseStudyCards,
   mediaBlock: MediaBlock,
   code: CodeBlock,
   content: ContentBlock,
