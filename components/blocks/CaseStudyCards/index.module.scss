@@ -41,10 +41,6 @@
     object-fit: cover;
   }
 
-  @include large-break {
-    // width: 40%;
-  }
-
   @include small-break {
     width: 100%;
   }
