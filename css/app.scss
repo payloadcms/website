@@ -27,14 +27,13 @@
 
   @include extra-large-break {
     --gutter-h: calc(var(--base) * 14);
-    --block-spacing: calc(var(--base) * 5);
     --font-body-size: 18px;
     --base: 20px;
   }
 
   @include large-break {
     --gutter-h: calc(var(--base) * 4);
-    --block-spacing: calc(var(--base) * 4);
+    --block-spacing: calc(var(--base) * 6);
     --header-height: 80px;
   }
 

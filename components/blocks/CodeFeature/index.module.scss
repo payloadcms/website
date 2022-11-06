@@ -1,0 +1,41 @@
+@use '@scss/common' as *;
+
+.grid {
+  align-items: center;
+}
+
+.labelWrap {
+  padding: var(--base) var(--base) 0;
+}
+
+.label {
+  padding-bottom: var(--base);
+  border-bottom: 1px solid var(--color-base-700);
+  color: white;
+  margin: 0;
+}
+
+.code {
+  position: relative;
+
+  &:before {
+    content: ' ';
+    background: var(--color-base-950);
+    display: block;
+    position: absolute;
+    z-index: -1;
+    top: calc(var(--base) * -1);
+    right: calc(var(--gutter-h) * -1);
+    bottom: calc(var(--base) * -1);
+    left: calc(var(--base) * -1);
+  }
+}
+
+.pixels {
+  z-index: -2;
+  top: calc(var(--block-spacing) * -1) !important;
+  bottom: calc(var(--block-spacing) * -1);
+  left: var(--block-spacing) !important;
+  right: 0;
+  height: auto !important;
+}

@@ -1,9 +1,11 @@
 'use client'
 
 import React, { Fragment } from 'react'
-import { FormBlock } from '@components/blocks/FormBlock'
-import { CardGrid } from '@components/blocks/CardGrid'
-import { MediaContent } from '@components/blocks/MediaContent'
+import { FormBlock } from '../blocks/FormBlock'
+import { CardGrid } from '../blocks/CardGrid'
+import { MediaContent } from '../blocks/MediaContent'
+import { HoverHighlights } from '../blocks/HoverHighlights'
+import { CodeFeature } from '../blocks/CodeFeature'
 import { Page, ReusableContent } from '../../payload-types'
 import { toKebabCase } from '../../utilities/to-kebab-case'
 import { BlockSpacing } from '../BlockSpacing'
@@ -16,6 +18,8 @@ import { useTheme } from '../providers/Theme'
 import { ContentBlock } from '../blocks/Content'
 import { Slider } from '../blocks/Slider'
 import { CaseStudiesHighlightBlock } from '../blocks/CaseStudiesHighlight'
+import { Steps } from '../blocks/Steps'
+import { StickyHighlights } from '../blocks/StickyHighlights'
 
 type ReusableContentBlock = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 
@@ -30,12 +34,19 @@ const blockComponents = {
   slider: Slider,
   cardGrid: CardGrid,
   mediaContent: MediaContent,
+  steps: Steps,
+  stickyHighlights: StickyHighlights,
+  hoverHighlights: HoverHighlights,
+  codeFeature: CodeFeature,
 }
 
-export const RenderBlocks: React.FC<{
+type Props = {
   blocks: (ReusableContent['layout'][0] | ReusableContentBlock)[]
-}> = props => {
-  const { blocks } = props
+  disableOuterSpacing?: true
+}
+
+export const RenderBlocks: React.FC<Props> = props => {
+  const { blocks, disableOuterSpacing } = props
   const theme = useTheme()
 
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
@@ -52,9 +63,17 @@ export const RenderBlocks: React.FC<{
 
               const hasSpacing = !['banner', 'blogContent', 'code'].includes(blockType)
 
+              let topSpacing = hasSpacing
+              let bottomSpacing = hasSpacing
+
+              if (disableOuterSpacing && hasSpacing) {
+                if (index === 0) topSpacing = false
+                if (index === blocks.length - 1) bottomSpacing = false
+              }
+
               if (Block) {
                 return (
-                  <BlockSpacing key={index} top={hasSpacing} bottom={hasSpacing}>
+                  <BlockSpacing key={index} top={topSpacing} bottom={bottomSpacing}>
                     <Block id={toKebabCase(blockName)} {...block} />
                   </BlockSpacing>
                 )
