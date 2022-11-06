@@ -123,8 +123,8 @@ export const CONTENT_GRID = `
 ...on ContentGrid {
   blockType
   contentGridFields {
+    forceDarkBackground
     cells {
-      forceDarkBackground
       content
     }
   }
@@ -253,6 +253,7 @@ export const REUSABLE_CONTENT_BLOCK = `
         ${CALL_TO_ACTION}
         ${CARD_GRID}
         ${CASE_STUDIES_HIGHLIGHT}
+        ${CASE_STUDY_CARDS}
         ${CODE_BLOCK}
         ${CODE_FEATURE}
         ${CONTENT}
