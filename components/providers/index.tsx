@@ -25,7 +25,7 @@ export const Providers: React.FC<{ children: React.ReactNode }> = ({ children })
             <GridProvider
               breakpoints={{
                 s: 768,
-                m: 1100,
+                m: 1024,
                 l: 1680,
               }}
               rowGap={{

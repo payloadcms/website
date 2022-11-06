@@ -7,6 +7,7 @@ import Code from '@components/Code'
 import { Media } from '@components/Media'
 import { CMSLink } from '@components/CMSLink'
 import { PixelBackground } from '@components/PixelBackground'
+import { Gutter } from '@components/Gutter'
 import classes from './index.module.scss'
 
 type Props = Extract<
@@ -90,22 +91,24 @@ export const StickyHighlight: React.FC<Props> = React.memo(
             {enableLink && <CMSLink {...link} appearance="default" />}
           </Cell>
         </Grid>
-        <CSSTransition in={visible} timeout={750} classNames="codeMedia">
-          <Grid className={classes.codeMediaPosition}>
-            <Cell cols={6} start={7} colsM={8} startM={1}>
-              <div className={codeMediaClasses} ref={codeMediaWrapRef}>
-                <div ref={codeMediaInnerRef}>
-                  {type === 'code' && (
-                    <div className={classes.code}>
-                      <PixelBackground className={classes.pixels} />
-                      <Code>{code}</Code>
-                    </div>
-                  )}
-                  {type === 'media' && typeof media === 'object' && <Media resource={media} />}
+        <CSSTransition in={visible} timeout={750} classNames="animate">
+          <Gutter className={classes.codeMediaPosition}>
+            {type === 'code' && <PixelBackground className={classes.pixels} />}
+            <Grid>
+              <Cell cols={6} start={7} colsM={8} startM={1} className={classes.bg}>
+                <div className={codeMediaClasses} ref={codeMediaWrapRef}>
+                  <div className={classes.codeMediaInner} ref={codeMediaInnerRef}>
+                    {type === 'code' && (
+                      <div className={classes.code}>
+                        <Code>{code}</Code>
+                      </div>
+                    )}
+                    {type === 'media' && typeof media === 'object' && <Media resource={media} />}
+                  </div>
                 </div>
-              </div>
-            </Cell>
-          </Grid>
+              </Cell>
+            </Grid>
+          </Gutter>
         </CSSTransition>
       </div>
     )

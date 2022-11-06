@@ -56,4 +56,9 @@
   left: var(--block-spacing) !important;
   right: 0;
   height: auto !important;
+
+  @include mid-break {
+    right: calc(var(--gutter-h) * -1);
+    width: calc(50vw - var(--block-spacing)) !important;
+  }
 }

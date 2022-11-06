@@ -123,8 +123,8 @@ export const CONTENT_GRID = `
 ...on ContentGrid {
   blockType
   contentGridFields {
+    forceDarkBackground
     cells {
-      forceDarkBackground
       content
     }
   }
