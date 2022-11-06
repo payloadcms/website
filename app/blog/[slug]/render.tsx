@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import Breadcrumbs from '@components/Breadcrumbs'
 import { RenderBlocks } from '../../../components/RenderBlocks'
 import { RichText } from '../../../components/RichText'
 import { Gutter } from '../../../components/Gutter'
@@ -19,7 +20,13 @@ export const RenderBlogPost: React.FC<Post> = props => {
   return (
     <React.Fragment>
       <Gutter className={classes.pageType}>
-        <Label>Blog Post</Label>
+        <Breadcrumbs
+          items={[
+            {
+              label: 'Blog Post',
+            },
+          ]}
+        />
       </Gutter>
 
       <Gutter className={classes.blogHeader}>
