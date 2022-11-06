@@ -249,10 +249,13 @@ export interface Page {
       }
     | {
         caseStudyCardFields: {
-          richText: {
-            [k: string]: unknown
+          cards: {
+            richText: {
+              [k: string]: unknown
+            }[]
+            caseStudy: string | CaseStudy
+            id?: string
           }[]
-          caseStudies: string[] | CaseStudy[]
         }
         id?: string
         blockName?: string
@@ -2230,10 +2233,13 @@ export interface ReusableContent {
       }
     | {
         caseStudyCardFields: {
-          richText: {
-            [k: string]: unknown
+          cards: {
+            richText: {
+              [k: string]: unknown
+            }[]
+            caseStudy: string | CaseStudy
+            id?: string
           }[]
-          caseStudies: string[] | CaseStudy[]
         }
         id?: string
         blockName?: string
