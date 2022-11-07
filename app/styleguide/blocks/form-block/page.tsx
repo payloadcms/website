@@ -61,11 +61,19 @@ const data: FormBlockProps = {
     },
   },
 }
+const dataWithContainer: FormBlockProps = {
+  ...data,
+  formFields: {
+    ...data.formFields,
+    container: true,
+  },
+}
 
 const FormBlockPage: React.FC = () => {
   return (
     <StyleguidePageContent title="Form Block">
       <FormBlock {...data} />
+      <FormBlock {...dataWithContainer} />
     </StyleguidePageContent>
   )
 }
