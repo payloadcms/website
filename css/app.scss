@@ -26,7 +26,6 @@
   --block-spacing: calc(var(--base) * 7);
 
   @include extra-large-break {
-    --gutter-h: calc(var(--base) * 14);
     --font-body-size: 18px;
     --base: 20px;
   }
@@ -124,6 +123,10 @@ h6 {
 
 p {
   margin: 0 0 var(--base);
+
+  @include small-break {
+    margin: 0 0 calc(var(--base) / 2);
+  }
 }
 
 ul,

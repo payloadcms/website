@@ -1,5 +1,9 @@
 @use '@scss/common' as *;
 
+.codeFeature {
+  position: relative;
+}
+
 .grid {
   align-items: center;
 }
@@ -49,11 +53,37 @@
   }
 }
 
-.pixels {
-  z-index: -2;
-  top: calc(var(--block-spacing) * -1) !important;
-  bottom: calc(var(--block-spacing) * -1);
-  left: var(--block-spacing) !important;
+.pixelGrid {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
   right: 0;
-  height: auto !important;
+
+  &.desktop {
+    padding: 0 var(--gutter-h);
+    opacity: 1;
+    @include mid-break {
+      opacity: 0;
+    }
+  }
+
+  &.mobile {
+    opacity: 0;
+    @include mid-break {
+      opacity: 1;
+    }
+  }
+}
+
+.pixelCell {
+  position: relative;
+  height: 100%;
+  z-index: -2;
+}
+
+.pixels {
+  top: calc(var(--block-spacing) * -1) !important;
+  height:calc(100% + (var(--block-spacing) * 2));
+  width: calc(100% + var(--gutter-h));
 }

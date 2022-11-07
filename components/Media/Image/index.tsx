@@ -26,6 +26,10 @@ export const Image: React.FC<Props> = props => {
   let alt = altFromProps
   let src: StaticImageData | string = srcFromProps
 
+  const hasDarkModeFallback =
+    typeof resource.darkModeFallback === 'object' &&
+    typeof resource.darkModeFallback.filename === 'string'
+
   if (!src && resource && typeof resource !== 'string') {
     width = resource.width
     height = resource.height
@@ -38,25 +42,53 @@ export const Image: React.FC<Props> = props => {
     .map(([, value]) => `(max-width: ${value}px) ${value}px`)
     .join(', ')
 
+  const baseClasses = [
+    isLoading && classes.placeholder,
+    classes.image,
+    imgClassName,
+    hasDarkModeFallback && classes.hasDarkModeFallback,
+  ]
+    .filter(Boolean)
+    .join(' ')
+
   return (
-    <NextImage
-      className={[isLoading && classes.placeholder, classes.image, imgClassName]
-        .filter(Boolean)
-        .join(' ')}
-      src={src}
-      alt={alt}
-      onClick={onClick}
-      onLoad={() => {
-        setIsLoading(false)
-        if (typeof onLoadFromProps === 'function') {
-          onLoadFromProps()
-        }
-      }}
-      fill={fill}
-      width={!fill ? width : undefined}
-      height={!fill ? height : undefined}
-      sizes={sizes}
-      priority={priority}
-    />
+    <React.Fragment>
+      <NextImage
+        className={`${baseClasses} ${classes.themeLight}`}
+        src={src}
+        alt={alt}
+        onClick={onClick}
+        onLoad={() => {
+          setIsLoading(false)
+          if (typeof onLoadFromProps === 'function') {
+            onLoadFromProps()
+          }
+        }}
+        fill={fill}
+        width={!fill ? width : undefined}
+        height={!fill ? height : undefined}
+        sizes={sizes}
+        priority={priority}
+      />
+      {typeof resource.darkModeFallback === 'object' && (
+        <NextImage
+          className={`${baseClasses} ${classes.themeDark}`}
+          src={`${process.env.NEXT_PUBLIC_CMS_URL}/media/${resource.darkModeFallback.filename}`}
+          alt={alt}
+          onClick={onClick}
+          onLoad={() => {
+            setIsLoading(false)
+            if (typeof onLoadFromProps === 'function') {
+              onLoadFromProps()
+            }
+          }}
+          fill={fill}
+          width={!fill ? width : undefined}
+          height={!fill ? height : undefined}
+          sizes={sizes}
+          priority={priority}
+        />
+      )}
+    </React.Fragment>
   )
 }

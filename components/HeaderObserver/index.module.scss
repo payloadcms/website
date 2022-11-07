@@ -12,6 +12,10 @@
   left: 0;
 }
 
+.pullContainerUp {
+  top: calc(var(--page-padding-top) * -1);
+}
+
 .stickyObserver {
   width: 100%;
   position: sticky;

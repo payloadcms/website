@@ -13,7 +13,7 @@ const Columns: React.FC<Props> = ({ contentFields }) => {
   switch (layout) {
     case 'oneColumn': {
       return (
-        <Cell cols={9} colsM={4}>
+        <Cell cols={9} colsM={8}>
           <RichText content={columnOne} />
         </Cell>
       )

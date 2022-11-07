@@ -3,6 +3,9 @@
 .content {
   max-width: 1200px;
 
+  h2 {
+    @include h1;
+  }
 }
 
 .wrap {

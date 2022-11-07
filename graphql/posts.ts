@@ -1,4 +1,4 @@
-import { BANNER, BLOG_CONTENT, CODE_BLOCK, MEDIA_BLOCK } from './blocks'
+import { BANNER, BLOG_CONTENT, BLOG_MARKDOWN, CODE_BLOCK, MEDIA_BLOCK } from './blocks'
 
 export const POSTS = `
   query Posts {
@@ -44,6 +44,7 @@ export const POST = `
         createdAt
         content {
           ${BLOG_CONTENT}
+          ${BLOG_MARKDOWN}
           ${BANNER}
           ${CODE_BLOCK}
           ${MEDIA_BLOCK}

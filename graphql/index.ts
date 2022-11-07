@@ -22,7 +22,7 @@ export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu; footer: Foot
 }
 
 export const fetchPage = async (slug: string): Promise<Page> => {
-  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+  const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -34,6 +34,11 @@ export const fetchPage = async (slug: string): Promise<Page> => {
       },
     }),
   }).then(res => res.json())
+
+  if (errors) {
+    console.error(JSON.stringify(errors))
+    throw new Error()
+  }
 
   return data.Pages.docs[0]
 }

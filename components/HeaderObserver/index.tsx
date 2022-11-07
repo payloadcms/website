@@ -9,20 +9,19 @@ type Props = {
   className?: string
   zIndex?: number
   children?: React.ReactNode
-  watch?: boolean
+  pullUp?: boolean
 }
 export const HeaderObserver: React.FC<Props> = ({
   color,
   children,
   className,
   zIndex,
-  watch = true,
+  pullUp = true,
 }) => {
   const ref = React.useRef<HTMLDivElement>(null)
   const { height: windowHeight } = useWindowInfo()
   const { setHeaderColor, debug } = useHeaderTheme()
   const [isIntersecting, setIsIntersecting] = React.useState(false)
-  const hasRun = React.useRef(false)
 
   React.useEffect(() => {
     if (ref?.current && windowHeight && color) {
@@ -58,12 +57,9 @@ export const HeaderObserver: React.FC<Props> = ({
 
   React.useEffect(() => {
     if (isIntersecting) {
-      if (!hasRun.current || watch) {
-        setHeaderColor(color)
-        hasRun.current = true
-      }
+      setHeaderColor(color)
     }
-  }, [isIntersecting, watch])
+  }, [isIntersecting, color])
 
   return (
     <div
@@ -74,7 +70,11 @@ export const HeaderObserver: React.FC<Props> = ({
     >
       {children && children}
 
-      <div className={classes.observerContainer}>
+      <div
+        className={[classes.observerContainer, pullUp && classes.pullContainerUp]
+          .filter(Boolean)
+          .join(' ')}
+      >
         {/*
           the sticky div is 0px tall, and leaves
           the headers height of space between it

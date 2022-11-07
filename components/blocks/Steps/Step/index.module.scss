@@ -28,6 +28,8 @@
   }
 
   &:last-child {
+    padding-bottom: 0;
+    
     &:before {
       content: none;
     }

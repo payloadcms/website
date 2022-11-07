@@ -35,6 +35,7 @@ type CMSLinkType = {
   label?: string
   appearance?: 'default' | 'primary' | 'secondary'
   children?: React.ReactNode
+  fullWidth?: boolean
   className?: string
   onMouseEnter?: () => void
   onMouseLeave?: () => void
@@ -74,6 +75,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   className,
   onMouseEnter,
   onMouseLeave,
+  fullWidth = false,
 }) => {
   let href = generateHref({ type, url, reference })
 
@@ -136,9 +138,9 @@ export const CMSLink: React.FC<CMSLinkType> = ({
     href,
     appearance,
     label,
-    fullWidth: false,
     onMouseEnter,
     onMouseLeave,
+    fullWidth,
   }
 
   if (appearance === 'default') {

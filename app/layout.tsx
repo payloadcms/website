@@ -1,5 +1,4 @@
 import React from 'react'
-import { InitialHeaderObserver } from '@components/HeaderObserver/InitialHeaderObserver'
 import { robotoMono, neueMontrealRegular, neueMontrealBold, neueMontrealItalic } from './fonts'
 import { fetchGlobals } from '../graphql'
 import { Providers } from '../components/providers'
@@ -36,7 +35,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       >
         <Providers>
           <Header {...mainMenu} />
-          <InitialHeaderObserver />
           <div className={classes.layout}>
             {children}
             <Footer {...footer} />

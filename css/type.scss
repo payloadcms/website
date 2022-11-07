@@ -164,7 +164,7 @@
   letter-spacing: 2px;
   text-transform: uppercase;
 
-  @include mid-break {
+  @include large-break {
     font-size: 13px;
     letter-spacing: 2.75px;
   }
