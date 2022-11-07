@@ -50,7 +50,7 @@ const generateHref = (args: GenerateSlugType): string => {
     return url
   }
 
-  if (typeof reference.value !== 'string') {
+  if (reference?.value && typeof reference.value !== 'string') {
     if (reference.relationTo === 'pages') {
       return `/${reference.value.slug}`
     }
@@ -58,7 +58,6 @@ const generateHref = (args: GenerateSlugType): string => {
     return `/${reference.relationTo}/${reference.value.slug}`
   }
 
-  console.error('Unable to create link, reference with shallow depth', reference)
   return ''
 }
 
