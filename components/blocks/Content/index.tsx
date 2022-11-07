@@ -70,8 +70,13 @@ const Columns: React.FC<Props> = ({ contentFields }) => {
 }
 
 export const ContentBlock: React.FC<Props> = props => {
+  const {
+    contentFields: { useLeadingHeader, leadingHeader },
+  } = props
+
   return (
     <Gutter className={classes.mediaBlock}>
+      {useLeadingHeader && <RichText className={classes.leadingHeader} content={leadingHeader} />}
       <Grid>
         <Columns {...props} />
       </Grid>
