@@ -1,5 +1,3 @@
-'use client'
-
 import { BlockSpacing } from '@components/BlockSpacing'
 import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'

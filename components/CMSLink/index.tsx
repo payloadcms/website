@@ -37,6 +37,8 @@ type CMSLinkType = {
   children?: React.ReactNode
   fullWidth?: boolean
   className?: string
+  onMouseEnter?: () => void
+  onMouseLeave?: () => void
 }
 
 type GenerateSlugType = {
@@ -71,13 +73,15 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   appearance,
   children,
   className,
+  onMouseEnter,
+  onMouseLeave,
   fullWidth = false,
 }) => {
   let href = generateHref({ type, url, reference })
 
   if (!href) {
     return (
-      <span className={className}>
+      <span className={className} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
         {label}
         {children}
       </span>
@@ -102,7 +106,13 @@ export const CMSLink: React.FC<CMSLinkType> = ({
 
     if (href.indexOf('/') === 0) {
       return (
-        <Link href={href} {...newTabProps} className={className}>
+        <Link
+          href={href}
+          {...newTabProps}
+          className={className}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        >
           {label && label}
           {children && children}
         </Link>
@@ -110,7 +120,13 @@ export const CMSLink: React.FC<CMSLinkType> = ({
     }
 
     return (
-      <a href={url} {...newTabProps} className={className}>
+      <a
+        href={url}
+        {...newTabProps}
+        className={className}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
         {label && label}
         {children && children}
       </a>
@@ -122,6 +138,8 @@ export const CMSLink: React.FC<CMSLinkType> = ({
     href,
     appearance,
     label,
+    onMouseEnter,
+    onMouseLeave,
     fullWidth,
   }
 
