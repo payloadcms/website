@@ -124,6 +124,10 @@ h6 {
 
 p {
   margin: 0 0 var(--base);
+
+  @include small-break {
+    margin: 0 0 calc(var(--base) / 2);
+  }
 }
 
 ul,

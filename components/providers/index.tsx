@@ -37,7 +37,7 @@ export const Providers: React.FC<{ children: React.ReactNode }> = ({ children })
               colGap={{
                 s: 'var(--base)',
                 m: 'calc(var(--base) * 2)',
-                l: 'calc(var(--base) * 3)',
+                l: 'calc(var(--base) * 2)',
                 xl: 'calc(var(--base) * 3)',
               }}
               cols={{
