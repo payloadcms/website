@@ -10,11 +10,16 @@ import { Page } from '../../../payload-types'
 import classes from './index.module.scss'
 
 export const DefaultHero: React.FC<
-  Page['hero'] & {
+  Pick<Page['hero'], 'pageLabel' | 'richText' | 'sidebarContent'> & {
     pageTitle: string
   }
 > = ({ pageLabel, richText, sidebarContent }) => {
-  const withoutSidebar = sidebarContent.length === 1 && !sidebarContent[0].text
+  const withoutSidebar =
+    !sidebarContent ||
+    (sidebarContent.length === 1 &&
+      Array.isArray(sidebarContent[0].children) &&
+      sidebarContent[0].children?.length === 1 &&
+      !sidebarContent[0].children[0].text)
 
   return (
     <Gutter>
@@ -28,7 +33,7 @@ export const DefaultHero: React.FC<
         />
 
         <Grid>
-          <Cell cols={8} colsL={withoutSidebar ? 10 : 5} colsM={withoutSidebar ? 7 : 5} colsS={8}>
+          <Cell cols={withoutSidebar ? 10 : 8} colsM={withoutSidebar ? 7 : 5} colsS={8}>
             <RichText className={classes.richText} content={richText} />
           </Cell>
 
