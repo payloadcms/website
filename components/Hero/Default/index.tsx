@@ -12,9 +12,7 @@ import { Page } from '../../../payload-types'
 import classes from './index.module.scss'
 
 export const DefaultHero: React.FC<
-  Pick<Page['hero'], 'pageLabel' | 'richText' | 'sidebarContent'> & {
-    pageTitle: string
-  }
+  Pick<Page['hero'], 'pageLabel' | 'richText' | 'sidebarContent'>
 > = ({ pageLabel, richText, sidebarContent }) => {
   const theme = useTheme()
   const withoutSidebar =
