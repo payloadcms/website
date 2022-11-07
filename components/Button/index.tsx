@@ -23,6 +23,8 @@ export type Props = {
   fullWidth?: boolean
   reference?: Reference
   htmlButtonType?: 'button' | 'submit'
+  onMouseEnter?: () => void
+  onMouseLeave?: () => void
 }
 
 const icons = {
@@ -76,6 +78,8 @@ export const Button: React.FC<Props> = props => {
     fullWidth,
     reference,
     htmlButtonType = 'button',
+    onMouseEnter,
+    onMouseLeave,
   } = props
 
   let href = hrefFromProps
@@ -102,7 +106,10 @@ export const Button: React.FC<Props> = props => {
 
   const handleMouseEnter = useCallback(() => {
     setIsHovered(true)
-  }, [])
+    if (typeof onMouseEnter === 'function') {
+      onMouseEnter()
+    }
+  }, [onMouseEnter])
 
   const handleMouseLeave = useCallback(() => {
     setIsHovered(false)
@@ -116,12 +123,16 @@ export const Button: React.FC<Props> = props => {
       setIsAnimatingOut(false)
     }, animationDuration)
 
+    if (typeof onMouseLeave === 'function') {
+      onMouseLeave()
+    }
+
     return () => {
       if (timerID) {
         clearTimeout(timerID)
       }
     }
-  }, [])
+  }, [onMouseLeave])
 
   if (el === 'link') {
     return (

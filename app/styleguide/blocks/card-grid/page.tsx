@@ -1,3 +1,5 @@
+'use client'
+
 import { CardGrid, CardGridProps } from '@components/blocks/CardGrid'
 import React from 'react'
 import { StyleguidePageContent } from '../../PageContent'
