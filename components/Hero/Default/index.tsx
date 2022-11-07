@@ -14,6 +14,8 @@ export const DefaultHero: React.FC<
     pageTitle: string
   }
 > = ({ pageLabel, richText, sidebarContent }) => {
+  const withoutSidebar = sidebarContent.length === 1 && !sidebarContent[0].text
+
   return (
     <Gutter>
       <div className={classes.defaultHero}>
@@ -26,12 +28,15 @@ export const DefaultHero: React.FC<
         />
 
         <Grid>
-          <Cell cols={8} colsM={5} colsS={8}>
+          <Cell cols={8} colsL={withoutSidebar ? 10 : 5} colsM={withoutSidebar ? 7 : 5} colsS={8}>
             <RichText className={classes.richText} content={richText} />
           </Cell>
-          <Cell start={10} cols={4} startM={6} colsS={12} startS={1}>
-            <RichText content={sidebarContent} />
-          </Cell>
+
+          {sidebarContent && (
+            <Cell start={10} cols={4} startM={6} colsS={12} startS={1}>
+              <RichText content={sidebarContent} />
+            </Cell>
+          )}
         </Grid>
       </div>
     </Gutter>

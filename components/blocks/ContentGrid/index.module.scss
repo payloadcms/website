@@ -4,13 +4,15 @@
   position: relative;
   padding-top: var(--block-spacing);
   padding-bottom: var(--block-spacing);
+
+  @include large-break {
+    padding-top: calc(var(--block-spacing) / 2);
+    padding-bottom: calc(var(--block-spacing) / 2);
+  }
 }
 
 .bg {
-  --bg-extension: calc(var(--block-spacing) * 1.5);
   position: absolute;
-  top: calc(var(--bg-extension) / -2);
-  height: calc(100% + var(--bg-extension));
   top: 0;
   height: 100%;
   background-color: var(--theme-bg);
