@@ -18,7 +18,7 @@ export const Providers: React.FC<{ children: React.ReactNode }> = ({ children })
           breakpoints={{
             s: '(max-width: 768px)',
             m: '(max-width: 1100px)',
-            l: '(max-width: 1680px)',
+            l: '(max-width: 1600px)',
           }}
         >
           <ThemePreferenceProvider>
