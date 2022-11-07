@@ -20,12 +20,14 @@ import { Slider } from '../blocks/Slider'
 import { CaseStudiesHighlightBlock } from '../blocks/CaseStudiesHighlight'
 import { Steps } from '../blocks/Steps'
 import { StickyHighlights } from '../blocks/StickyHighlights'
+import { BlogMarkdown } from '../blocks/BlogMarkdown'
 
 type ReusableContentBlock = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 
 const blockComponents = {
   banner: BannerBlock,
   blogContent: BlogContent,
+  blogMarkdown: BlogMarkdown,
   caseStudiesHighlight: CaseStudiesHighlightBlock,
   caseStudyCards: CaseStudyCards,
   mediaBlock: MediaBlock,
@@ -61,7 +63,9 @@ export const RenderBlocks: React.FC<Props> = props => {
           if (blockType && blockType in blockComponents) {
             const Block = blockComponents[blockType]
 
-            const hasSpacing = !['banner', 'blogContent', 'code'].includes(blockType)
+            const hasSpacing = !['banner', 'blogContent', 'blogMarkdown', 'code'].includes(
+              blockType,
+            )
 
             let topSpacing = hasSpacing
             let bottomSpacing = hasSpacing

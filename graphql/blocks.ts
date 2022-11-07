@@ -21,6 +21,15 @@ export const BLOG_CONTENT = `
 }
 `
 
+export const BLOG_MARKDOWN = `
+...on Markdown {
+  blockType
+  blogMarkdownFields {
+    markdown
+  }
+}
+`
+
 export const CODE_BLOCK = `
 ...on Code {
   blockType
@@ -252,6 +261,7 @@ export const REUSABLE_CONTENT_BLOCK = `
       layout {
         ${BANNER}
         ${BLOG_CONTENT}
+        ${BLOG_MARKDOWN}
         ${CALL_TO_ACTION}
         ${CARD_GRID}
         ${CASE_STUDIES_HIGHLIGHT}
