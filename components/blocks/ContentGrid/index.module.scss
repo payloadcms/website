@@ -1,0 +1,74 @@
+@use '@scss/common' as  *;
+
+.bgExtension {
+  position: relative;
+  padding-top: var(--block-spacing);
+  padding-bottom: var(--block-spacing);
+
+  @include large-break {
+    padding-top: calc(var(--block-spacing) / 2);
+    padding-bottom: calc(var(--block-spacing) / 2);
+  }
+
+  @include small-break {
+    padding-top: var(--block-spacing);
+    padding-bottom: var(--block-spacing);
+  }
+}
+
+.bg {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background-color: var(--theme-bg);
+  margin-left: calc(var(--gutter-h) / -2);
+  width: calc(100% - var(--gutter-h));
+  z-index: -1;
+}
+
+.cell {
+  margin-top: var(--base);
+  margin-bottom: var(--base);
+
+  @include small-break {
+    margin-top: 0;
+  }
+}
+
+.richText {
+  a {
+    color: var(--theme-success-600);
+
+    &:hover {
+      color: var(--theme-success-400);
+    }
+
+    &:visited {
+      color: var(--theme-success-700);
+
+      &:hover {
+        color: var(--theme-success-500);
+      }
+    }
+  }
+}
+
+.theme--light {
+  .richText {
+    a {
+      color: var(--theme-base-600);
+
+      &:hover {
+        color: var(--theme-base-400);
+      }
+
+      &:visited {
+        color: var(--theme-base-700);
+
+        &:hover {
+          color: var(--theme-base-500);
+        }
+      }
+    }
+  }
+}

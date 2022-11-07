@@ -111,6 +111,8 @@ export const CONTENT = `
 ...on Content {
   blockType
   contentFields {
+    useLeadingHeader
+    leadingHeader
     layout
     columnOne
     columnTwo
@@ -253,6 +255,7 @@ export const REUSABLE_CONTENT_BLOCK = `
         ${CALL_TO_ACTION}
         ${CARD_GRID}
         ${CASE_STUDIES_HIGHLIGHT}
+        ${CASE_STUDY_CARDS}
         ${CODE_BLOCK}
         ${CODE_FEATURE}
         ${CONTENT}

@@ -2,6 +2,7 @@
 
 import React, { Fragment } from 'react'
 import { CaseStudyCards } from '@components/blocks/CaseStudyCards'
+import { ContentGrid } from '@components/blocks/ContentGrid'
 import { FormBlock } from '../blocks/FormBlock'
 import { CardGrid } from '../blocks/CardGrid'
 import { MediaContent } from '../blocks/MediaContent'
@@ -32,6 +33,7 @@ const blockComponents = {
   mediaBlock: MediaBlock,
   code: CodeBlock,
   content: ContentBlock,
+  contentGrid: ContentGrid,
   form: FormBlock,
   slider: Slider,
   cardGrid: CardGrid,

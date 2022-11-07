@@ -32,7 +32,7 @@ export const CardGrid: React.FC<CardGridProps> = props => {
               {cards.map((card, index) => {
                 const { title, description, link } = card
                 return (
-                  <Cell key={index} cols={3} colsM={4} colsS={8}>
+                  <Cell key={index} cols={3} colsL={4} colsM={4} colsS={8}>
                     <Card
                       leader={(index + 1).toString().padStart(2, '0')}
                       className={classes.card}

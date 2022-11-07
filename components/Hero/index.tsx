@@ -17,7 +17,6 @@ export const Hero: React.FC<{
 }> = props => {
   const {
     page: {
-      title,
       hero,
       hero: { type },
     },
@@ -26,7 +25,8 @@ export const Hero: React.FC<{
   const HeroToRender = heroes[type]
 
   if (HeroToRender) {
-    return <HeroToRender pageTitle={title} {...hero} />
+    return <HeroToRender {...hero} />
   }
+
   return null
 }

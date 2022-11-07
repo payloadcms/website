@@ -11,31 +11,22 @@ type Props = {
   link: any
 }
 
-export const HoverContent: React.FC<Props> = props => {
-  const { title, description } = props
-
-  return (
-    <div className={classes.hoverContent}>
-      <div aria-hidden="true" className={classes.hoverTitle}>
-        {title}
-      </div>
-      {description && <p className={classes.description}>{description}</p>}
-      <div className={classes.hoverSpacer} />
-      <ArrowIcon />
-    </div>
-  )
-}
-
 export const Card: React.FC<Props> = props => {
-  const { title, className, leader } = props
+  const { title, className, leader, description } = props
 
   return (
     <div className={[className, classes.card].filter(Boolean).join(' ')}>
       <CMSLink className={classes.link} {...props.link}>
+        <div className={classes.bg} />
         {leader && <span className={classes.leader}>{leader}</span>}
         <div className={classes.spacer} />
-        <h3 className={classes.title}>{title}</h3>
-        <HoverContent {...props} />
+        <div className={classes.content}>
+          <div className={classes.titleWrapper}>
+            <h3 className={classes.title}>{title}</h3>
+            {description && <div className={classes.description}>{description}</div>}
+          </div>
+        </div>
+        <ArrowIcon className={classes.arrow} />
       </CMSLink>
     </div>
   )
