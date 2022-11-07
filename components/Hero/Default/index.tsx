@@ -2,6 +2,8 @@
 
 import Breadcrumbs from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
+import { HeaderObserver } from '@components/HeaderObserver'
+import { useTheme } from '@components/providers/Theme'
 import { RichText } from '@components/RichText'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import React from 'react'
@@ -14,6 +16,7 @@ export const DefaultHero: React.FC<
     pageTitle: string
   }
 > = ({ pageLabel, richText, sidebarContent }) => {
+  const theme = useTheme()
   const withoutSidebar =
     !sidebarContent ||
     (sidebarContent.length === 1 &&
@@ -22,28 +25,30 @@ export const DefaultHero: React.FC<
       !sidebarContent[0].children[0].text)
 
   return (
-    <Gutter>
-      <div className={classes.defaultHero}>
-        <Breadcrumbs
-          items={[
-            {
-              label: pageLabel,
-            },
-          ]}
-        />
+    <HeaderObserver color={theme}>
+      <Gutter>
+        <div className={classes.defaultHero}>
+          <Breadcrumbs
+            items={[
+              {
+                label: pageLabel,
+              },
+            ]}
+          />
 
-        <Grid>
-          <Cell cols={withoutSidebar ? 10 : 8} colsM={withoutSidebar ? 7 : 5} colsS={8}>
-            <RichText className={classes.richText} content={richText} />
-          </Cell>
-
-          {sidebarContent && (
-            <Cell start={10} cols={4} startM={6} colsS={12} startS={1}>
-              <RichText content={sidebarContent} />
+          <Grid>
+            <Cell cols={withoutSidebar ? 10 : 8} colsM={withoutSidebar ? 7 : 5} colsS={8}>
+              <RichText className={classes.richText} content={richText} />
             </Cell>
-          )}
-        </Grid>
-      </div>
-    </Gutter>
+
+            {sidebarContent && (
+              <Cell start={10} cols={4} startM={6} colsS={12} startS={1}>
+                <RichText content={sidebarContent} />
+              </Cell>
+            )}
+          </Grid>
+        </div>
+      </Gutter>
+    </HeaderObserver>
   )
 }

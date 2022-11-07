@@ -35,6 +35,7 @@ type CMSLinkType = {
   label?: string
   appearance?: 'default' | 'primary' | 'secondary'
   children?: React.ReactNode
+  fullWidth?: boolean
   className?: string
 }
 
@@ -70,6 +71,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   appearance,
   children,
   className,
+  fullWidth = false,
 }) => {
   let href = generateHref({ type, url, reference })
 
@@ -120,7 +122,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
     href,
     appearance,
     label,
-    fullWidth: false,
+    fullWidth,
   }
 
   if (appearance === 'default') {

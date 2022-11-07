@@ -1,10 +1,10 @@
 'use client'
 
+import { CMSLink } from '@components/CMSLink'
 import Image from 'next/image'
 import React from 'react'
 import Marquee from 'react-fast-marquee'
 import { Page } from '../../../payload-types'
-import { Button } from '../../Button'
 import { Gutter } from '../../Gutter'
 import { HeaderObserver } from '../../HeaderObserver'
 import { Media } from '../../Media'
@@ -49,14 +49,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
                       {actions.map(({ link }, i) => {
                         return (
                           <li key={i}>
-                            <Button
-                              appearance="default"
-                              icon="arrow"
-                              reference={link.reference}
-                              label={link.label}
-                              labelStyle="regular"
-                              fullWidth
-                            />
+                            <CMSLink {...link} appearance="default" fullWidth />
                           </li>
                         )
                       })}
@@ -67,7 +60,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
                       {buttons.map(({ link }, i) => {
                         return (
                           <li key={i}>
-                            <Button {...link} />
+                            <CMSLink {...link} />
                           </li>
                         )
                       })}

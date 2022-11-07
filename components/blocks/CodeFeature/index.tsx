@@ -28,13 +28,18 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
             </Grid>
           </Cell>
           <Cell cols={6} colsM={8} className={classes.code}>
-            <PixelBackground className={classes.pixels} />
             {label && (
               <div className={classes.labelWrap}>
                 <Label className={classes.label}>{label}</Label>
               </div>
             )}
             <Code>{code}</Code>
+          </Cell>
+        </Grid>
+
+        <Grid className={classes.pixelGrid}>
+          <Cell className={classes.pixelCell} cols={5} start={8}>
+            <PixelBackground className={classes.pixels} />
           </Cell>
         </Grid>
       </Gutter>

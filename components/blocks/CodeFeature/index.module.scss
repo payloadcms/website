@@ -1,5 +1,9 @@
 @use '@scss/common' as *;
 
+.codeFeature {
+  position: relative;
+}
+
 .grid {
   align-items: center;
 }
@@ -49,16 +53,23 @@
   }
 }
 
-.pixels {
-  z-index: -2;
-  top: calc(var(--block-spacing) * -1) !important;
-  bottom: calc(var(--block-spacing) * -1);
-  left: var(--block-spacing) !important;
+.pixelGrid {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
   right: 0;
-  height: auto !important;
+  padding: 0 var(--gutter-h);
+}
 
-  @include mid-break {
-    right: calc(var(--gutter-h) * -1);
-    width: calc(50vw - var(--block-spacing)) !important;
-  }
+.pixelCell {
+  position: relative;
+  height: 100%;
+  z-index: -2;
+}
+
+.pixels {
+  top: calc(var(--block-spacing) * -1) !important;
+  height:calc(100% + (var(--block-spacing) * 2));
+  width: calc(100% + var(--gutter-h));
 }
