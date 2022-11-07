@@ -7,21 +7,40 @@
     position: relative;
     overflow: hidden;
 
+    @include mid-break {
+        color: var(--color-base-0);
+    }
+
     &:hover {
+        color: var(--color-base-0);
+
         &:local() {
-            .hoverContent {
+            .content {
+                top: 0;
+                transform: translate3d(0, 0, 0);
+            }
+
+            .description {
+                opacity: 1;
+            }
+            
+            .arrow {
+                opacity: 1;
+            }
+
+            .bg {
                 transform: translate3d(0, 0, 0);
                 opacity: 1;
-                @include mid-break {
-                    transform: translate3d(0, var(--base), 0);
-                    opacity: 0;
-                }
+            }
+        
+            .leader {
+                opacity: 0;
             }
         }
     }
 }
 
-.hoverContent {
+.bg {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -31,38 +50,40 @@
     transform: translate3d(0, var(--base), 0);
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     opacity: 0;
-    color: var(--color-base-0);
-    padding: calc(var(--base) * 2);
-    display: flex;
-    flex-direction: column;
 
     @include mid-break {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+.content {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    transform: translate3d(0, -100%, 0);
+    will-change: opacity, transform;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    padding: calc(var(--base) * 2);
+
+    @include mid-break {
+        top: 0;
+        transform: translate3d(0, 0, 0);
         padding: var(--base);
     }
 }
 
-.hoverTitle {
-    @include h6;
-    margin: 0;
-    margin-bottom: var(--base);
+.leader {
+    position: relative;
+    @include label;
 
     @include mid-break {
-        margin-bottom: calc(var(--base) / 2);
+        opacity: 0;
     }
-}
-
-.description {
-    margin: 0;
-}
-
-.hoverSpacer {
-    flex-grow: 1;
-    flex-shrink: 0;
-    margin-top: auto;
-}
-
-.leader {
-    @include label;
 }
 
 .spacer {
@@ -83,9 +104,34 @@
     }
 }
 
+.description {
+    margin-top: calc(var(--base) / 2);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    will-change: opacity;
+    position: absolute;
+    top: 100%;
+
+    @include mid-break {
+        opacity: 1;
+    }
+}
+
+.titleWrapper {
+    position: relative;
+}
+
 .title {
     @include h6;
-    margin: 0;
-    margin-top: auto;
-    position: relative;
+    margin: 0 !important;
+}
+
+.arrow {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    will-change: opacity;
+
+    @include mid-break {
+        opacity: 1;
+    }
 }

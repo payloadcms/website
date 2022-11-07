@@ -13,11 +13,13 @@ import { RichText } from '../../RichText'
 
 import classes from './index.module.scss'
 
-export const HomeHero: React.FC<
-  Page['hero'] & {
-    pageTitle: string
-  }
-> = ({ richText, adjectives, actions, buttons, media }) => {
+export const HomeHero: React.FC<Page['hero']> = ({
+  richText,
+  adjectives,
+  actions,
+  buttons,
+  media,
+}) => {
   const theme = useTheme()
 
   return (

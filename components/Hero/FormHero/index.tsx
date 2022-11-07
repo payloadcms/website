@@ -11,12 +11,10 @@ import { PixelBackground } from '@components/PixelBackground'
 import { CheckmarkIcon } from '@components/graphics/CheckmarkIcon'
 import classes from './index.module.scss'
 
-export type FormHeroProps = Page['hero'] & {
-  pageTitle: string
-}
+export type FormHeroProps = Page['hero']
 
 export const FormHero: React.FC<FormHeroProps> = props => {
-  const { pageTitle, richText, form } = props
+  const { richText, form } = props
 
   return (
     <ThemeProvider theme="dark">
@@ -42,7 +40,6 @@ export const FormHero: React.FC<FormHeroProps> = props => {
         <Gutter className={classes.gutter}>
           <Grid>
             <Cell cols={5} startL={2} colsM={8} startM={1} className={classes.richTextCell}>
-              {pageTitle && <div className={classes.leader}>{pageTitle}</div>}
               {richText && (
                 <RichText
                   className={classes.richText}

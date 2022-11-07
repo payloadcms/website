@@ -9,11 +9,7 @@ import { Page } from '../../../payload-types'
 
 import classes from './index.module.scss'
 
-export const DefaultHero: React.FC<
-  Page['hero'] & {
-    pageTitle: string
-  }
-> = ({ pageLabel, richText, sidebarContent }) => {
+export const DefaultHero: React.FC<Page['hero']> = ({ pageLabel, richText, sidebarContent }) => {
   return (
     <Gutter>
       <div className={classes.defaultHero}>
