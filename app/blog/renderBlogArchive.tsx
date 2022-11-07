@@ -17,7 +17,6 @@ export const RenderBlogArchive = ({ posts }) => {
   return (
     <HeaderObserver color={theme} className={classes.pullHeader} pullUp>
       <DefaultHero
-        pageTitle="Blog Posts"
         pageLabel="Blog Posts"
         richText={[
           {

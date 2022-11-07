@@ -5,9 +5,7 @@ import classes from './index.module.scss'
 
 type Props = Extract<Page['layout'][0], { blockType: 'hoverHighlights' }>
 
-export const HoverHighlights: React.FC<Props> = ({ hoverHighlightsFields }) => {
-  const { richText, addRowNumbers, highlights } = hoverHighlightsFields
-
+export const HoverHighlights: React.FC<Props> = () => {
   return (
     <div className={classes.hoverHighlights}>
       <Gutter>hover highlights</Gutter>

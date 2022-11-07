@@ -59,7 +59,21 @@
   width: 100%;
   top: 0;
   right: 0;
-  padding: 0 var(--gutter-h);
+
+  &.desktop {
+    padding: 0 var(--gutter-h);
+    opacity: 1;
+    @include mid-break {
+      opacity: 0;
+    }
+  }
+
+  &.mobile {
+    opacity: 0;
+    @include mid-break {
+      opacity: 1;
+    }
+  }
 }
 
 .pixelCell {
