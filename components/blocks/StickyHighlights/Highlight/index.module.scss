@@ -170,3 +170,7 @@
     right: calc(var(--gutter-h) * -1);
   }
 }
+
+.media {
+  width: calc(100% + var(--gutter-h));
+}
