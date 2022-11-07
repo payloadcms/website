@@ -4,7 +4,7 @@
 // HEADINGS
 /////////////////////////////
 
-@mixin h1 {
+@mixin jumbo {
   margin: 50px 0;
   font-size: 132px;
   line-height: 1;
@@ -20,6 +20,31 @@
 
   @include mid-break {
     font-size: 70px;
+  }
+
+  @include small-break {
+    margin: 24px 0;
+    font-size: 36px;
+    line-height: 42px;
+  }
+}
+
+@mixin h1 {
+  margin: 50px 0;
+  font-size: 96px;
+  line-height: 1;
+  font-weight: normal;
+
+  @include extra-large-break {
+    font-size: 80px;
+  }
+
+  @include large-break {
+    font-size: 60px;
+  }
+
+  @include mid-break {
+    font-size: 50px;
   }
 
   @include small-break {

@@ -19,6 +19,7 @@ import {
 import { FORM_FIELDS } from './form'
 import { LINK_FIELDS } from './link'
 import { MEDIA_FIELDS } from './media'
+import { META_FIELDS } from './meta'
 
 export const PAGES = `
   query Pages {
@@ -74,6 +75,7 @@ export const PAGE = `
           ${STEPS}
           ${STICKY_HIGHLIGHTS}
         }
+        meta ${META_FIELDS}
       }
     }
   }

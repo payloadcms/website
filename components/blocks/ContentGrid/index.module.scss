@@ -2,13 +2,8 @@
 
 .bgExtension {
   position: relative;
-  padding-top: var(--block-spacing);
-  padding-bottom: var(--block-spacing);
-
-  @include large-break {
-    padding-top: calc(var(--block-spacing) / 2);
-    padding-bottom: calc(var(--block-spacing) / 2);
-  }
+  padding-top: calc(var(--block-spacing) * .75);
+  padding-bottom: calc(var(--block-spacing) * .75);
 
   @include small-break {
     padding-top: var(--block-spacing);

@@ -49,7 +49,7 @@ export const Providers: React.FC<{ children: React.ReactNode }> = ({ children })
             >
               <ComputedCSSValuesProvider>
                 <ModalProvider transTime={0} zIndex="var(--z-modal)">
-                  <HeaderThemeProvider>
+                  <HeaderThemeProvider debug>
                     {children}
                     <ModalContainer />
                   </HeaderThemeProvider>

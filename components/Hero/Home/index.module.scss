@@ -87,6 +87,10 @@
   width: 70%;
   padding-right: calc(var(--base) * 3);
 
+  h1 {
+    @include jumbo;
+  }
+
   @include mid-break {
     width: 100%;
     margin-bottom: var(--base);

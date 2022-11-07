@@ -1,4 +1,5 @@
 import { BANNER, BLOG_CONTENT, BLOG_MARKDOWN, CODE_BLOCK, MEDIA_BLOCK } from './blocks'
+import { META_FIELDS } from './meta'
 
 export const POSTS = `
   query Posts {
@@ -49,6 +50,7 @@ export const POST = `
           ${CODE_BLOCK}
           ${MEDIA_BLOCK}
         }
+        meta ${META_FIELDS}
       }
     }
   }

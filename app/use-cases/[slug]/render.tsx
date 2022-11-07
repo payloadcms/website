@@ -4,17 +4,16 @@ import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Gutter } from '../../../components/Gutter'
 
-import { CaseStudy } from '../../../payload-types'
+import { UseCase } from '../../../payload-types'
 import Breadcrumbs from '../../../components/Breadcrumbs'
 import { RichText } from '../../../components/RichText'
-import { Button } from '../../../components/Button'
 import { Media } from '../../../components/Media'
 import { RenderBlocks } from '../../../components/RenderBlocks'
 
 import classes from './index.module.scss'
 
-export const RenderCaseStudy: React.FC<CaseStudy> = props => {
-  const { title, featuredImage, introContent, layout, link } = props
+export const RenderUseCase: React.FC<UseCase> = props => {
+  const { title, heroMedia, introContent, layout } = props
 
   return (
     <React.Fragment>
@@ -22,8 +21,8 @@ export const RenderCaseStudy: React.FC<CaseStudy> = props => {
         <Breadcrumbs
           items={[
             {
-              label: 'Case Studies',
-              href: `/case-studies`,
+              label: 'Use Cases',
+              href: `/use-cases`,
             },
             {
               label: title,
@@ -36,23 +35,13 @@ export const RenderCaseStudy: React.FC<CaseStudy> = props => {
           </Cell>
 
           <Cell start={10} cols={3}>
-            <Button
-              appearance="default"
-              el="a"
-              href={link.url}
-              newTab
-              label="Visit Site"
-              labelStyle="mono"
-              icon="arrow"
-            />
+            {typeof heroMedia !== 'string' && (
+              <div className={classes.featuredMediaWrap}>
+                <Media resource={heroMedia} />
+              </div>
+            )}
           </Cell>
         </Grid>
-
-        {typeof featuredImage !== 'string' && (
-          <div className={classes.featuredMediaWrap}>
-            <Media resource={featuredImage} />
-          </div>
-        )}
       </Gutter>
 
       <RenderBlocks blocks={layout} />
@@ -60,4 +49,4 @@ export const RenderCaseStudy: React.FC<CaseStudy> = props => {
   )
 }
 
-export default RenderCaseStudy
+export default RenderUseCase

@@ -39,7 +39,7 @@ export const DefaultHero: React.FC<
               <RichText className={classes.richText} content={richText} />
             </Cell>
 
-            {sidebarContent && (
+            {!withoutSidebar && (
               <Cell start={10} cols={4} startM={6} colsS={12} startS={1}>
                 <RichText content={sidebarContent} />
               </Cell>
