@@ -27,6 +27,7 @@ export const Image: React.FC<Props> = props => {
   let src: StaticImageData | string = srcFromProps
 
   const hasDarkModeFallback =
+    resource.darkModeFallback &&
     typeof resource.darkModeFallback === 'object' &&
     typeof resource.darkModeFallback.filename === 'string'
 
@@ -70,7 +71,7 @@ export const Image: React.FC<Props> = props => {
         sizes={sizes}
         priority={priority}
       />
-      {typeof resource.darkModeFallback === 'object' && (
+      {resource.darkModeFallback && typeof resource.darkModeFallback === 'object' && (
         <NextImage
           className={`${baseClasses} ${classes.themeDark}`}
           src={`${process.env.NEXT_PUBLIC_CMS_URL}/media/${resource.darkModeFallback.filename}`}
