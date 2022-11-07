@@ -1,3 +1,15 @@
 .placeholder {
   background-color: var(--color-base-50);
 }
+
+[data-theme=dark] {
+  .hasDarkModeFallback.themeLight {
+    display: none;
+  }
+}
+
+[data-theme=light] {
+  .themeDark {
+    display: none;
+  }
+}
