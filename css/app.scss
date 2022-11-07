@@ -134,6 +134,8 @@ ol {
 
 a {
   color: currentColor;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
 
   &:focus {
     opacity: .8;
