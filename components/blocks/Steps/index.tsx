@@ -11,7 +11,7 @@ export const Steps: React.FC<Props> = ({ stepsFields }) => {
   return (
     <ul className={classes.steps}>
       {steps.map((step, i) => {
-        return <Step i={i} {...step} />
+        return <Step key={i} i={i} {...step} />
       })}
     </ul>
   )
