@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import escapeHTML from 'escape-html'
 import { Text } from 'slate'
+import { CMSLink, Reference } from '@components/CMSLink'
 import { Label } from '../../Label'
 import { LargeBody } from '../../LargeBody'
 import { Highlight } from '../../Highlight'
@@ -17,7 +18,7 @@ type Node = {
 }
 
 export type CustomRenderers = {
-  [key: string]: (args: { node: Node, Serialize: SerializeFunction, index }) => JSX.Element // eslint-disable-line
+  [key: string]: (args: { node: Node; Serialize: SerializeFunction; index }) => JSX.Element // eslint-disable-line
 }
 
 type SerializeFunction = React.FC<{
@@ -139,9 +140,14 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
             )
           case 'link':
             return (
-              <a href={escapeHTML(node.url)} key={i}>
+              <CMSLink
+                key={i}
+                type={node.linkType === 'internal' ? 'reference' : 'custom'}
+                url={node.url}
+                reference={node.doc as Reference}
+              >
                 <Serialize content={node.children} customRenderers={customRenderers} />
-              </a>
+              </CMSLink>
             )
 
           case 'label':

@@ -24,17 +24,42 @@ type CaseStudyReference = {
   relationTo: 'case-studies'
 }
 
+export type LinkType = 'reference' | 'custom'
 export type Reference = PageReference | UseCaseReference | PostsReference | CaseStudyReference
 
 type CMSLinkType = {
-  type?: 'reference' | 'custom'
+  type?: LinkType
   newTab?: boolean
   reference: Reference
   url: string
-  label: string
+  label?: string
   appearance?: 'default' | 'primary' | 'secondary'
   children?: React.ReactNode
   className?: string
+}
+
+type GenerateSlugType = {
+  type: LinkType
+  url?: string
+  reference?: Reference
+}
+const generateHref = (args: GenerateSlugType): string => {
+  const { reference, url, type } = args
+
+  if (type === 'custom') {
+    return url
+  }
+
+  if (typeof reference.value !== 'string') {
+    if (reference.relationTo === 'pages') {
+      return `/${reference.value.slug}`
+    }
+
+    return `/${reference.relationTo}/${reference.value.slug}`
+  }
+
+  console.error('Unable to create link, reference with shallow depth', reference)
+  return ''
 }
 
 export const CMSLink: React.FC<CMSLinkType> = ({
@@ -47,10 +72,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   children,
   className,
 }) => {
-  let href =
-    type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
-      ? `/${reference.value.slug}`
-      : url
+  let href = generateHref({ type, url, reference })
 
   if (!href) {
     return (
