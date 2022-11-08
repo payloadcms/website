@@ -12,12 +12,15 @@
 
 .formCell {
   position: relative;
+  padding: calc(var(--base) * 4) 0;
+
   & > *:not(:last-child) {
     margin-bottom: var(--base);
   }
 
   @include mid-break {
     margin-top: var(--base);
+    padding: 0;
   }
 }
 
@@ -69,15 +72,10 @@
 
 .gutter {
   position: relative;
-  padding-top: calc(var(--base) * 12);
-  padding-bottom: calc(var(--base) * 12);
+  padding-top: calc(var(--base) * 8);
+  padding-bottom: calc(var(--base) * 8);
 
   @include mid-break {
-    padding-top: calc(var(--base) * 8);
-    padding-bottom: calc(var(--base) * 8);
-  }
-
-  @include small-break {
     padding-top: calc(var(--base) * 4);
     padding-bottom: calc(var(--base) * 4);
   }
@@ -139,17 +137,12 @@
 
 .bg2Wrapper {
   width: 100%;
-  height: calc(100% - (var(--base) * 12));
-  top: calc(var(--base) * 4);
+  height: calc(100% - (var(--base) * 16));
+  top: calc(var(--base) * 8);
   position: absolute;
   left: 0;
 
   @include mid-break {
-    height: calc(100% - (var(--base) * 8));
-    top: calc(var(--base) * 4);
-  }
-
-  @include small-break {
     height: calc(100% - (var(--base) * 4));
     top: calc(var(--base) * 2);
   }
