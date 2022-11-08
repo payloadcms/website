@@ -34,6 +34,10 @@ const Styleguide: React.FC = () => {
         <br />
         <h4>Blocks</h4>
         <div>
+          <Link href="/styleguide/blocks/banner-block">Banner Block</Link>
+        </div>
+        <br />
+        <div>
           <Link href="/styleguide/blocks/form-block">Form Block</Link>
         </div>
         <br />
@@ -42,7 +46,15 @@ const Styleguide: React.FC = () => {
         </div>
         <br />
         <div>
+          <Link href="/styleguide/blocks/content-grid">Content Grid</Link>
+        </div>
+        <br />
+        <div>
           <Link href="/styleguide/blocks/hover-highlights">Hover Highlights</Link>
+        </div>
+        <br />
+        <div>
+          <Link href="/styleguide/blocks/media-content">Media Content</Link>
         </div>
         <br />
         <h4>Heros</h4>

@@ -4,9 +4,9 @@ import { ReusableContent } from '../../../payload-types'
 import { Gutter } from '../../Gutter'
 import { Banner, Props as BannerProps } from '../../Banner'
 
-type Props = Extract<ReusableContent['layout'][0], { blockType: 'banner' }>
+export type BannerBlockProps = Extract<ReusableContent['layout'][0], { blockType: 'banner' }>
 
-export const BannerBlock: React.FC<Props> = ({ bannerFields }) => {
+export const BannerBlock: React.FC<BannerBlockProps> = ({ bannerFields }) => {
   const bannerProps: BannerProps = {
     type: bannerFields.type,
     content: bannerFields.content,

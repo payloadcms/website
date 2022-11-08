@@ -5,7 +5,7 @@ export default function Head() {
     <Fragment>
       <meta key="robots" name="robots" content="noindex,follow" />
       <meta key="googlebot" name="googlebot" content="noindex,follow" />
-      <title>Banner Block</title>
+      <title>Content Grid Block</title>
     </Fragment>
   )
 }
