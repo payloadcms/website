@@ -183,7 +183,7 @@
 }
 
 @mixin label {
-  font-family: 'Roboto Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 14px;
   line-height: 24px;
   letter-spacing: 2px;

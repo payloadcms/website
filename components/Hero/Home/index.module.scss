@@ -153,6 +153,28 @@
   }
 }
 
+.cpa {
+  background: var(--color-base-900);
+  padding: var(--base);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  p {
+    @include label;
+    text-transform: initial;
+    letter-spacing: 0 !important;
+    margin: 0;
+    color: var(--color-success-500);
+
+    &:before {
+      content: '$';
+      margin-right: calc(var(--base) * .75);
+      color: white;
+    }
+  }
+}
+
 .adjectives {
   display: flex;
   pointer-events: none;
