@@ -1,3 +1,5 @@
+/* eslint-disable function-paren-newline */
+
 'use client'
 
 import React, { Fragment } from 'react'
@@ -13,7 +15,8 @@ const blockComponents = {
   blogContent: dynamic(() => import('../blocks/BlogContent').then(mod => mod.BlogContent)),
   blogMarkdown: dynamic(() => import('../blocks/BlogMarkdown').then(mod => mod.BlogMarkdown)),
   caseStudiesHighlight: dynamic(() =>
-    import('../blocks/CaseStudiesHighlight').then(mod => mod.CaseStudiesHighlightBlock)),
+    import('../blocks/CaseStudiesHighlight').then(mod => mod.CaseStudiesHighlightBlock),
+  ),
   caseStudyCards: dynamic(() => import('../blocks/CaseStudyCards').then(mod => mod.CaseStudyCards)),
   mediaBlock: dynamic(() => import('../blocks/MediaBlock').then(mod => mod.MediaBlock)),
   code: dynamic(() => import('../blocks/CodeBlock').then(mod => mod.CodeBlock)),
@@ -28,7 +31,8 @@ const blockComponents = {
     import('../blocks/StickyHighlights').then(mod => mod.StickyHighlights),
   ),
   hoverHighlights: dynamic(() =>
-    import('../blocks/HoverHighlights').then(mod => mod.HoverHighlights),),
+    import('../blocks/HoverHighlights').then(mod => mod.HoverHighlights),
+  ),
   codeFeature: dynamic(() => import('../blocks/CodeFeature').then(mod => mod.CodeFeature)),
 }
 
