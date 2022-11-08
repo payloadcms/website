@@ -4,7 +4,7 @@ import { RichText } from '@components/RichText'
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Gutter } from '@components/Gutter'
-import { ThemeProvider } from '@components/providers/Theme'
+import { ThemeProvider, useTheme } from '@components/providers/Theme'
 import { CMSForm } from '@components/CMSForm'
 import { Page } from '@root/payload-types'
 import { PixelBackground } from '@components/PixelBackground'
@@ -16,9 +16,10 @@ export type FormHeroProps = Page['hero']
 
 export const FormHero: React.FC<FormHeroProps> = props => {
   const { richText, form } = props
+  const theme = useTheme()
 
   return (
-    <HeaderObserver color="light" pullUp>
+    <HeaderObserver color={theme} pullUp>
       <ThemeProvider theme="dark">
         <div className={classes.formHero}>
           <div className={classes.bgWrapper}>
