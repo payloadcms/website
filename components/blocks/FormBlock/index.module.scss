@@ -16,10 +16,6 @@
   }
 
   @include mid-break {
-    margin-top: var(--base);
-  }
-
-  @include small-break {
     margin-top: calc(var(--base) / 2);
   }
 }
@@ -30,11 +26,6 @@
   padding-bottom: calc(var(--base) * 12);
 
   @include mid-break {
-    padding-top: calc(var(--base) * 8);
-    padding-bottom: calc(var(--base) * 8);
-  }
-
-  @include small-break {
     padding-top: calc(var(--base) * 4);
     padding-bottom: calc(var(--base) * 4);
   }
@@ -70,10 +61,10 @@
 
 .bg1 {
   position: relative;
-  width: 100%;
   height: 100%;
   margin-left: calc(var(--gutter-h) / -2);
   margin-right: calc(var(--gutter-h) / -2);
+  width: calc(100% + var(--gutter-h));
 
   &.containerize {
     background-color: var(--color-base-950);
@@ -105,11 +96,6 @@
   left: 0;
 
   @include mid-break {
-    height: calc(100% - (var(--base) * 8));
-    top: calc(var(--base) * 4);
-  }
-
-  @include small-break {
     height: calc(100% - (var(--base) * 4));
     top: calc(var(--base) * 2);
   }

@@ -4,6 +4,18 @@
 .card {
   border: 1px solid var(--theme-text);
   display: flex;
+  text-decoration: none;
+
+  &:hover {
+    .media {
+      img {
+        transform: scale(1.05) rotate(-1deg);
+      }
+      &:after {
+        opacity: .5;
+      }
+    }
+  }
 
   @include small-break {
     flex-direction: column;
@@ -36,12 +48,29 @@
   width: 50%;
   flex-shrink: 0;
   min-height: 150px;
+  overflow: hidden;
+
+  &:after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: var(--theme-elevation-700);
+    opacity: 0;
+    mix-blend-mode: hard-light;
+    transition: opacity .25s ease;
+  }
 
   img {
     object-fit: cover;
+    transition: 300ms ease transform;
   }
 
   @include small-break {
     width: 100%;
+
+    &:after {
+      display: none;
+    }
   }
 }

@@ -1,9 +1,13 @@
 @use '@scss/common' as  *;
 
 .bgExtension {
+  --container-extension: calc(var(--base) * 5);
   position: relative;
-  padding-top: calc(var(--block-spacing) * .75);
-  padding-bottom: calc(var(--block-spacing) * .75);
+  padding-top: var(--container-extension);
+  padding-bottom: var(--container-extension);
+  margin-top: var(--block-spacing);
+  margin-bottom: var(--block-spacing);
+  isolation: isolate;
 
   @include small-break {
     padding-top: var(--block-spacing);
@@ -11,11 +15,11 @@
   }
 }
 
-.bg {
+.darkBg {
   position: absolute;
   top: 0;
   height: 100%;
-  background-color: var(--theme-bg);
+  background-color: var(--color-base-950);
   margin-left: calc(var(--gutter-h) / -2);
   width: calc(100% - var(--gutter-h));
   z-index: -1;
@@ -48,20 +52,22 @@
   }
 }
 
-.theme--light {
-  .richText {
-    a {
-      color: var(--theme-base-600);
-
-      &:hover {
-        color: var(--theme-base-400);
-      }
-
-      &:visited {
-        color: var(--theme-base-700);
+:global([data-theme="light"]) {
+  .cellsWithCurrentTheme {
+    .richText {
+      a {
+        color: var(--theme-base-600);
 
         &:hover {
-          color: var(--theme-base-500);
+          color: var(--theme-base-400);
+        }
+
+        &:visited {
+          color: var(--theme-base-700);
+
+          &:hover {
+            color: var(--theme-base-500);
+          }
         }
       }
     }
