@@ -1,7 +1,7 @@
 'use client'
 
 import { CMSLink } from '@components/CMSLink'
-import CopyToClipboard from '@components/CopyToClipboard'
+import CreatePayloadApp from '@components/CreatePayloadApp'
 import Image from 'next/image'
 import React from 'react'
 import Marquee from 'react-fast-marquee'
@@ -56,13 +56,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
                       })}
                     </ul>
                   )}
-                  <div className={classes.cpa}>
-                    <p>npx create-payload-app</p>
-                    <CopyToClipboard
-                      className={classes.copyButton}
-                      value="npx create-payload-app"
-                    />
-                  </div>
+                  <CreatePayloadApp />
                   {/* Not going to render buttons until Payload Cloud */}
                   {/* {Array.isArray(buttons) && (
                     <ul className={classes.buttons}>
