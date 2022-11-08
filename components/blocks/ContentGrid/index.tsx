@@ -1,19 +1,20 @@
 import * as React from 'react'
 import { Gutter } from '@components/Gutter'
-import { ThemeProvider, useTheme } from '@components/providers/Theme'
+import { ThemeProvider } from '@components/providers/Theme'
 import { RichText } from '@components/RichText'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
-type Props = Extract<Page['layout'][0], { blockType: 'contentGrid' }>
+export type ContentGridProps = Extract<Page['layout'][0], { blockType: 'contentGrid' }>
 
-type CellsProps = Props['contentGridFields'] & {
+type CellsProps = ContentGridProps['contentGridFields'] & {
   className?: string
+  darkBackground?: boolean
 }
 
-const Cells = ({ cells, className }: CellsProps) => {
+const Cells: React.FC<CellsProps> = ({ cells, className, darkBackground }) => {
   return (
     <Gutter className={[classes.contentGrid, className && className].filter(Boolean).join(' ')}>
       <Grid>
@@ -26,24 +27,23 @@ const Cells = ({ cells, className }: CellsProps) => {
         })}
       </Grid>
 
-      <div className={classes.bg} />
+      {darkBackground && <div className={classes.darkBg} />}
     </Gutter>
   )
 }
 
-export const ContentGrid: React.FC<Props> = props => {
+export const ContentGrid: React.FC<ContentGridProps> = props => {
   const { contentGridFields } = props
-  const currentTheme = useTheme()
 
   if (contentGridFields.forceDarkBackground) {
     return (
       <ThemeProvider theme="dark">
-        <div className={currentTheme !== 'dark' && classes.bgExtension}>
-          <Cells cells={contentGridFields.cells} />
+        <div className={classes.bgExtension}>
+          <Cells cells={contentGridFields.cells} darkBackground />
         </div>
       </ThemeProvider>
     )
   }
 
-  return <Cells className={classes[`theme--${currentTheme}`]} cells={contentGridFields.cells} />
+  return <Cells className={classes.cellsWithCurrentTheme} cells={contentGridFields.cells} />
 }

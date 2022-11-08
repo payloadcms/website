@@ -3,6 +3,7 @@ import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
 import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
+import { CMSLink } from '@components/CMSLink'
 
 import classes from './index.module.scss'
 
@@ -16,7 +17,11 @@ export const CaseStudyCards: React.FC<Props> = props => {
       <Gutter>
         {caseStudyCardFields.cards.map((card, i) => {
           return (
-            <div className={classes.card} key={i}>
+            <CMSLink
+              url={`/case-studies/${typeof card.caseStudy !== 'string' ? card.caseStudy.slug : ''}`}
+              key={i}
+              className={classes.card}
+            >
               <div className={classes.content}>
                 <RichText content={card.richText} />
               </div>
@@ -26,7 +31,7 @@ export const CaseStudyCards: React.FC<Props> = props => {
                     <Media resource={card.caseStudy.featuredImage} fill />
                   )}
               </div>
-            </div>
+            </CMSLink>
           )
         })}
       </Gutter>

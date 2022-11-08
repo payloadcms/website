@@ -3,9 +3,6 @@
   margin: calc(var(--base) * 1.5) 0;
   display: flex;
   align-items: center;
-  background: var(--theme-elevation-100);
-  color: var(--theme-text);
-  border-bottom: 1px solid var(--theme-elevation-800);
 
   a,
   a:hover,
@@ -24,26 +21,35 @@
   }
 }
 
-.theme--light {
-  &.success {
+:global([data-theme="light"]) {
+  .default, .info {
+    color: var(--theme-text);
+    background: var(--theme-elevation-100);
+    border-bottom: 1px solid var(--theme-elevation-500);
+  }
+
+  .success {
+    color: var(--color-success-850);
     background-color: var(--theme-success-450);
-    border-bottom: 1px solid var(--color-success-500);
+    border-bottom: 1px solid var(--color-success-550);
     
     :local(.icon path) {
       stroke: var(--theme-success-450);
     }
   }
-  &.warning {
+  .warning {
+    color: var(--color-warning-850);
     background-color: var(--theme-warning-450);
-    border-bottom: 1px solid var(--color-warning-500);
+    border-bottom: 1px solid var(--color-warning-550);
     
     :local(.icon path) {
       stroke: var(--theme-warning-450);
     }
   }
-  &.error {
+  .error {
+    color: var(--color-error-850);
     background-color: var(--theme-error-450);
-    border-bottom: 1px solid var(--color-error-500);
+    border-bottom: 1px solid var(--color-error-700);
     
     :local(.icon path) {
       stroke: var(--theme-error-450);
@@ -51,8 +57,14 @@
   }
 }
 
-.theme--dark {
-  &.success {
+:global([data-theme="dark"]) {
+  .default, .info {
+    background: var(--theme-elevation-100);
+    color: var(--theme-text);
+    border-bottom: 1px solid var(--theme-elevation-600);
+  }
+
+  .success {
     color: var(--color-success-500);
     background: var(--theme-success-100);
     border-bottom: 1px solid var(--color-success-500);
@@ -61,7 +73,7 @@
       stroke: var(--theme-success-100);
     }
   }
-  &.warning {
+  .warning {
     color: var(--color-warning-500);
     background: var(--theme-warning-100);
     border-bottom: 1px solid var(--color-warning-500);
@@ -70,7 +82,7 @@
       stroke: var(--theme-warning-100);
     }
   }
-  &.error {
+  .error {
     color: var(--color-error-500);
     background: var(--theme-error-100);
     border-bottom: 1px solid var(--color-error-500);

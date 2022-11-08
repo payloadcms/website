@@ -9,8 +9,8 @@ import { Media } from '@components/Media'
 import { Button } from '@components/Button'
 import classes from './index.module.scss'
 
-type Props = Extract<Page['layout'][0], { blockType: 'mediaContent' }>
-export const MediaContentBlock: React.FC<Props> = ({ mediaContentFields }) => {
+export type MediaContentProps = Extract<Page['layout'][0], { blockType: 'mediaContent' }>
+export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFields }) => {
   const { link, media, richText, alignment, enableLink } = mediaContentFields
 
   return (
@@ -30,7 +30,6 @@ export const MediaContentBlock: React.FC<Props> = ({ mediaContentFields }) => {
             <Cell
               start={8}
               cols={5}
-              colsL={4}
               startM={1}
               colsM={12}
               className={[classes.content, classes.right].filter(Boolean).join(' ')}
@@ -48,7 +47,6 @@ export const MediaContentBlock: React.FC<Props> = ({ mediaContentFields }) => {
             <Cell
               start={1}
               cols={5}
-              colsL={4}
               colsM={12}
               className={[classes.content, classes.left].filter(Boolean).join(' ')}
             >
@@ -73,7 +71,7 @@ export const MediaContentBlock: React.FC<Props> = ({ mediaContentFields }) => {
   )
 }
 
-export const MediaContent: React.FC<Props> = props => {
+export const MediaContent: React.FC<MediaContentProps> = props => {
   const { container } = props.mediaContentFields
 
   if (container) {
