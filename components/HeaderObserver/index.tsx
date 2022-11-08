@@ -16,7 +16,7 @@ export const HeaderObserver: React.FC<Props> = ({
   children,
   className,
   zIndex,
-  pullUp = true,
+  pullUp = false,
 }) => {
   const ref = React.useRef<HTMLDivElement>(null)
   const { height: windowHeight } = useWindowInfo()
