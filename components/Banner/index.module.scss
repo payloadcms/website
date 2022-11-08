@@ -22,7 +22,7 @@
 }
 
 :global([data-theme="light"]) {
-  .default {
+  .default, .info {
     color: var(--theme-text);
     background: var(--theme-elevation-100);
     border-bottom: 1px solid var(--theme-elevation-500);
@@ -58,7 +58,7 @@
 }
 
 :global([data-theme="dark"]) {
-  .default {
+  .default, .info {
     background: var(--theme-elevation-100);
     color: var(--theme-text);
     border-bottom: 1px solid var(--theme-elevation-600);
