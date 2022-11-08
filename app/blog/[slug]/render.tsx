@@ -3,6 +3,8 @@
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import Breadcrumbs from '@components/Breadcrumbs'
+import { HeaderObserver } from '@components/HeaderObserver'
+import { useTheme } from '@components/providers/Theme'
 import { RenderBlocks } from '../../../components/RenderBlocks'
 import { RichText } from '../../../components/RichText'
 import { Gutter } from '../../../components/Gutter'
@@ -17,8 +19,10 @@ import classes from './index.module.scss'
 export const RenderBlogPost: React.FC<Post> = props => {
   const { title, author, publishedOn, image, excerpt, content } = props
 
+  const theme = useTheme()
+
   return (
-    <React.Fragment>
+    <HeaderObserver color={theme} pullUp>
       <Gutter className={classes.pageType}>
         <Breadcrumbs
           items={[
@@ -79,7 +83,7 @@ export const RenderBlogPost: React.FC<Post> = props => {
       </Gutter>
 
       <RenderBlocks blocks={content} />
-    </React.Fragment>
+    </HeaderObserver>
   )
 }
 
