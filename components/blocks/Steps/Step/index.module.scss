@@ -12,7 +12,7 @@
     top: calc(var(--base) * 2);
     left: calc(var(--gutter-h) - var(--step-indicator-pos) - 5px);
     bottom: var(--base);
-    transition: transform 500ms ease-out;
+    transition: transform 1500ms ease-out;
     transform-origin: center top;
     transform: scaleY(0);
     background: currentColor;
@@ -29,6 +29,12 @@
 
   &:last-child {
     padding-bottom: 0;
+
+    .label {
+      &:before {
+        background: var(--color-success-500);
+      }
+    }
     
     &:before {
       content: none;
