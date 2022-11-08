@@ -14,7 +14,7 @@ import { RenderBlocks } from '../../../components/RenderBlocks'
 import classes from './index.module.scss'
 
 export const RenderCaseStudy: React.FC<CaseStudy> = props => {
-  const { title, featuredImage, introContent, layout, link } = props
+  const { title, featuredImage, introContent, layout, url } = props
 
   return (
     <React.Fragment>
@@ -39,7 +39,7 @@ export const RenderCaseStudy: React.FC<CaseStudy> = props => {
             <Button
               appearance="default"
               el="a"
-              href={link.url}
+              href={url}
               newTab
               label="Visit Site"
               labelStyle="mono"
