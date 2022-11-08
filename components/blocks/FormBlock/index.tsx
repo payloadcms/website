@@ -50,10 +50,10 @@ const Content: React.FC<FormBlockProps> = props => {
       </div>
       <Gutter className={classes.gutter}>
         <Grid>
-          <Cell cols={5} startL={2} colsM={8} startM={1} className={classes.richTextCell}>
+          <Cell cols={6} colsM={8} startM={1} className={classes.richTextCell}>
             {richText && <RichText content={richText} />}
           </Cell>
-          <Cell cols={6} start={8} colsL={4} colsM={8} startM={1} className={classes.formCell}>
+          <Cell cols={6} start={8} colsM={8} startM={1} className={classes.formCell}>
             <div className={classes.formCellContent}>
               <CMSForm form={form} />
             </div>

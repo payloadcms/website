@@ -23,29 +23,29 @@ export const CardGrid: React.FC<CardGridProps> = props => {
     <BlockSpacing className={classes.cardGrid}>
       <Gutter>
         <hr className={classes.hr} />
-        <Grid className={classes.intro}>
-          {richText && (
+        {richText && (
+          <Grid className={classes.intro}>
             <Cell cols={8} colsM={8}>
               <RichText className={classes.richText} content={richText} />
             </Cell>
-          )}
-          {hasLinks && (
-            <Cell cols={3} colsL={4} start={10} startL={9} startM={1} colsM={8}>
-              {links.map(({ link }, index) => {
-                return (
-                  <Button
-                    reference={link.reference}
-                    key={index}
-                    appearance="default"
-                    icon="arrow"
-                    label={link.label}
-                    fullWidth
-                  />
-                )
-              })}
-            </Cell>
-          )}
-        </Grid>
+            {hasLinks && (
+              <Cell cols={3} colsL={4} start={10} startL={9} startM={1} colsM={8}>
+                {links.map(({ link }, index) => {
+                  return (
+                    <Button
+                      reference={link.reference}
+                      key={index}
+                      appearance="default"
+                      icon="arrow"
+                      label={link.label}
+                      fullWidth
+                    />
+                  )
+                })}
+              </Cell>
+            )}
+          </Grid>
+        )}
         {hasCards && (
           <div className={classes.cards}>
             <div className={classes.bg}>
