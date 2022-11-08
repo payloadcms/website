@@ -1,14 +1,13 @@
 'use client'
 
+import { LineBlip } from '@components/LineBlip'
 import Link from 'next/link'
-import React, { useCallback } from 'react'
+import React, { useState } from 'react'
 // eslint-disable-next-line import/no-cycle
 import { Reference } from '../CMSLink'
 import { ArrowIcon } from '../icons/ArrowIcon'
 import { SearchIcon } from '../icons/SearchIcon'
 import classes from './index.module.scss'
-
-const animationDuration = 500
 
 export type Props = {
   appearance?: 'default' | 'primary' | 'secondary'
@@ -78,17 +77,14 @@ export const Button: React.FC<Props> = props => {
     fullWidth,
     reference,
     htmlButtonType = 'button',
-    onMouseEnter,
-    onMouseLeave,
   } = props
+
+  const [isHovered, setIsHovered] = useState(false)
 
   let href = hrefFromProps
   if (reference && typeof reference?.value === 'object' && reference.value.slug) {
     href = `/${reference.value.slug}`
   }
-
-  const [isHovered, setIsHovered] = React.useState(false)
-  const [isAnimatingOut, setIsAnimatingOut] = React.useState(false)
 
   const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
 
@@ -96,53 +92,25 @@ export const Button: React.FC<Props> = props => {
     classNameFromProps,
     classes.button,
     classes[`appearance--${appearance}`],
-    isHovered && classes[`is--hovered`],
-    isHovered && classes[`appearance--${appearance}--hovered`],
-    isAnimatingOut && classes[`appearance--${appearance}-animating-out`],
     fullWidth && classes['full-width'],
   ]
     .filter(Boolean)
     .join(' ')
-
-  const handleMouseEnter = useCallback(() => {
-    setIsHovered(true)
-    if (typeof onMouseEnter === 'function') {
-      onMouseEnter()
-    }
-  }, [onMouseEnter])
-
-  const handleMouseLeave = useCallback(() => {
-    setIsHovered(false)
-    setIsAnimatingOut(true)
-
-    let timerID: NodeJS.Timeout // eslint-disable-line
-
-    if (timerID) clearTimeout(timerID)
-
-    timerID = setTimeout(() => {
-      setIsAnimatingOut(false)
-    }, animationDuration)
-
-    if (typeof onMouseLeave === 'function') {
-      onMouseLeave()
-    }
-
-    return () => {
-      if (timerID) {
-        clearTimeout(timerID)
-      }
-    }
-  }, [onMouseLeave])
 
   if (el === 'link') {
     return (
       <Link href={href} legacyBehavior passHref>
         <a
           className={className}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
           {...newTabProps}
+          onMouseEnter={() => {
+            setIsHovered(true)
+          }}
+          onMouseLeave={() => {
+            setIsHovered(false)
+          }}
         >
+          {appearance === 'default' && <LineBlip active={isHovered} />}
           <ButtonContent {...props} />
         </a>
       </Link>
@@ -156,11 +124,16 @@ export const Button: React.FC<Props> = props => {
       <Element
         type={htmlButtonType}
         className={className}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
         {...newTabProps}
         href={href}
+        onMouseEnter={() => {
+          setIsHovered(true)
+        }}
+        onMouseLeave={() => {
+          setIsHovered(false)
+        }}
       >
+        {appearance === 'default' && <LineBlip active={isHovered} />}
         <ButtonContent {...props} />
       </Element>
     )

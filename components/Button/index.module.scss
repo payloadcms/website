@@ -1,8 +1,6 @@
 @use '@scss/common.scss' as *;
 
-$lineAnimationDuration: 500;
 $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
-$defaultBackgroundPosition: calc(50% - var(--base)) 0;
 
 .button {
   all: unset;
@@ -18,39 +16,9 @@ $defaultBackgroundPosition: calc(50% - var(--base)) 0;
 
 .appearance {
   &--default {
-    --lineColor: var(--theme-elevation-500);
     display: inline-flex;
     min-width: calc(var(--base) * 12);
     padding-top: calc(var(--base) * 0.75);
-    background-image: linear-gradient(90deg, var(--lineColor) 0%, var(--lineColor) 33.33%, transparent 33.33%, transparent calc(33.33% + var(--base)), var(--lineColor) calc(33.33% + var(--base)), var(--lineColor) 100%);
-    background-position: $defaultBackgroundPosition;
-    background-repeat: no-repeat;
-    background-size: calc(300% + var(--base)) 1px;
-
-    &--hovered {
-      --lineColor: currentColor;
-      background-position: 0% 0;
-
-      @include mid-break {
-        background-position: $defaultBackgroundPosition;
-        --lineColor: var(--theme-elevation-500);
-      }
-    }
-
-    &--animating-out,
-    &--hovered {
-      transition: background-position #{$lineAnimationDuration}ms $transCurve;
-      @include mid-break {
-        background-position: $defaultBackgroundPosition;
-      }
-    }
-      
-    &--animating-out {
-      background-position: 50% 0;
-      @include mid-break {
-        background-position: $defaultBackgroundPosition;
-      }
-    }
   }
 
   &--primary {

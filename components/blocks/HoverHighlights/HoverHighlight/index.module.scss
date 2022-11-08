@@ -29,6 +29,7 @@
 
 .hr {
     margin: 0;
+    background-size: calc(300% + var(--base)) 1px;
 }
 
 .description {
