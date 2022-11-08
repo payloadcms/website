@@ -27,7 +27,7 @@ type CaseStudyReference = {
 export type LinkType = 'reference' | 'custom'
 export type Reference = PageReference | UseCaseReference | PostsReference | CaseStudyReference
 
-type CMSLinkType = {
+export type CMSLinkType = {
   type?: LinkType
   newTab?: boolean
   reference: Reference

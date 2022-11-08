@@ -1,4 +1,5 @@
 import { BANNER, BLOG_CONTENT, BLOG_MARKDOWN, CODE_BLOCK, MEDIA_BLOCK } from './blocks'
+import { MEDIA_FIELDS } from './media'
 import { META_FIELDS } from './meta'
 
 export const POSTS = `
@@ -7,6 +8,8 @@ export const POSTS = `
       docs {
         id
         title
+        image ${MEDIA_FIELDS}
+        meta ${META_FIELDS}
         createdAt
         slug
       }
