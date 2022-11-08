@@ -77,7 +77,6 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   onMouseLeave,
   fullWidth = false,
 }) => {
-  console.log(url)
   let href = generateHref({ type, url, reference })
 
   if (!href) {
