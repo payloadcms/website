@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { DocSearch } from '@docsearch/react'
 import Link from 'next/link'
 import { MainMenu } from '../../../payload-types'
 import { FullLogo } from '../../graphics/FullLogo'
 import { DiscordIcon } from '../../graphics/DiscordIcon'
 import { CMSLink } from '../../CMSLink'
 import { Gutter } from '../../Gutter'
+import { DocSearch } from '../Docsearch'
 
 import classes from './index.module.scss'
 
@@ -42,11 +42,7 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
             <a href="https://discord.com" target="_blank" rel="noreferrer">
               <DiscordIcon />
             </a>
-            <DocSearch
-              appId="BH4D9OD16A"
-              indexName="payloadcms"
-              apiKey={process.env.NEXT_PUBLIC_ALGOLIA_DOCSEARCH_KEY}
-            />
+            <DocSearch />
           </div>
         </Cell>
       </Grid>
