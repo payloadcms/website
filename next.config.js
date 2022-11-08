@@ -4,7 +4,7 @@ const path = require('path')
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    minimumCacheTTL: 600,
+    minimumCacheTTL: 6000,
     domains: ['localhost', process.env.NEXT_PUBLIC_CMS_URL, 'cms.payloadcms.com'],
   },
   experimental: {
