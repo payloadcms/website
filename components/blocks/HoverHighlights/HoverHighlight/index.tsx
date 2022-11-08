@@ -63,13 +63,17 @@ export const HoverHighlight: React.FC<
       </CMSLink>
       {typeof media === 'object' && xPercentage && yPercentage && (
         <div
-          className={[classes.media, isHovered && classes.mediaHovered].filter(Boolean).join(' ')}
+          className={[classes.mediaWrapper, isHovered && classes.wrapperHovered]
+            .filter(Boolean)
+            .join(' ')}
           style={{
             left: `${xPercentage}%`,
             top: `${yPercentage}%`,
           }}
         >
-          <Media resource={media} />
+          <div className={classes.revealBox}>
+            <Media resource={media} className={classes.media} />
+          </div>
         </div>
       )}
     </Fragment>
