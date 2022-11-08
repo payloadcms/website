@@ -55,6 +55,7 @@
 
 .pixelGrid {
   position: absolute;
+  pointer-events: none;
   height: 100%;
   width: 100%;
   top: 0;

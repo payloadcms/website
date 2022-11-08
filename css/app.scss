@@ -12,7 +12,7 @@
   --breakpoint-l-width: $breakpoint-l-width;
 
   --scrollbar-width: 17px;
-  --header-height: 104px;
+  --header-height: 92px;
   --page-padding-top: calc(var(--header-height) + var(--base) * 2);
 
   --font-body-size: 21px;
@@ -32,14 +32,14 @@
 
   @include large-break {
     --gutter-h: calc(var(--base) * 4);
-    --block-spacing: calc(var(--base) * 6);
+    --block-spacing: calc(var(--base) * 5);
     --header-height: 80px;
   }
 
   @include mid-break {
     --gutter-h: calc(var(--base) * 2);
     --header-height: 66px;
-    --block-spacing: calc(var(--base) * 4);
+    --block-spacing: calc(var(--base) * 3.5);
     --page-padding-top: calc(var(--header-height) + var(--base) * 1.5);
   }
 

@@ -6,6 +6,7 @@ import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@components/providers/Theme'
 import { RichText } from '@components/RichText'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import { usePathname } from 'next/navigation'
 import React from 'react'
 import { Page } from '../../../payload-types'
 
@@ -21,9 +22,11 @@ export const DefaultHero: React.FC<
       Array.isArray(sidebarContent[0].children) &&
       sidebarContent[0].children?.length === 1 &&
       !sidebarContent[0].children[0].text)
+  const slug = usePathname()
+  const pullUpObserver = !['/', '/home'].includes(slug)
 
   return (
-    <HeaderObserver color={theme}>
+    <HeaderObserver color={theme} pullUp={pullUpObserver}>
       <Gutter>
         <div className={classes.defaultHero}>
           <Breadcrumbs
@@ -39,7 +42,7 @@ export const DefaultHero: React.FC<
               <RichText className={classes.richText} content={richText} />
             </Cell>
 
-            {sidebarContent && (
+            {!withoutSidebar && (
               <Cell start={10} cols={4} startM={6} colsS={12} startS={1}>
                 <RichText content={sidebarContent} />
               </Cell>

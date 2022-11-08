@@ -6,17 +6,7 @@
 }
 
 .richText {
-  @include mid-break {
-    h1 {
-      @include h2;
-    }
-  }
-
   @include small-break {
     margin-bottom: var(--base);
-
-    h1 {
-      @include h1;
-    }
   }
 }

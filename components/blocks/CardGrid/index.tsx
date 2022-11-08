@@ -32,6 +32,7 @@ export const CardGrid: React.FC<CardGridProps> = props => {
                 return (
                   <Cell key={index} cols={3} colsL={4} colsM={4} colsS={8}>
                     <Card
+                      cardType="square"
                       leader={(index + 1).toString().padStart(2, '0')}
                       className={classes.card}
                       title={title}

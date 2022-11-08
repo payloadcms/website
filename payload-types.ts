@@ -776,6 +776,7 @@ export interface Post {
   )[];
   slug?: string;
   author: string | User;
+  publishedOn: string;
   meta: {
     title?: string;
     description?: string;
@@ -1936,28 +1937,7 @@ export interface CaseStudy {
     }
   )[];
   slug?: string;
-  link: {
-    type?: 'reference' | 'custom';
-    newTab?: boolean;
-    reference:
-    | {
-      value: string | Page;
-      relationTo: 'pages';
-    }
-    | {
-      value: string | Post;
-      relationTo: 'posts';
-    }
-    | {
-      value: string | UseCase;
-      relationTo: 'use-cases';
-    }
-    | {
-      value: string | CaseStudy;
-      relationTo: 'case-studies';
-    };
-    url: string;
-  };
+  url?: string;
   meta: {
     title?: string;
     description?: string;

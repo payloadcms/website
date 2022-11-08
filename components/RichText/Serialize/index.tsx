@@ -5,6 +5,7 @@ import { CMSLink, Reference } from '@components/CMSLink'
 import { Label } from '../../Label'
 import { LargeBody } from '../../LargeBody'
 import { Highlight } from '../../Highlight'
+import { Video } from '../Video'
 
 type Node = {
   type: string
@@ -163,6 +164,16 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </LargeBody>
             )
+          }
+
+          case 'video': {
+            const { source, id: videoID } = node
+
+            if (source === 'vimeo' || source === 'youtube') {
+              return <Video key={i} platform={source} id={videoID as string} />
+            }
+
+            return null
           }
 
           default:

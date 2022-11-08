@@ -2,20 +2,17 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import Link from 'next/link'
-import { HeaderObserver } from '@components/HeaderObserver'
-import { useTheme } from '@components/providers/Theme'
 import { DefaultHero } from '@components/Hero/Default'
 import { BlockSpacing } from '@components/BlockSpacing'
+import { Card } from '@components/Card'
+import { Post } from '@root/payload-types'
 import { Gutter } from '../../components/Gutter'
 
 import classes from './index.module.scss'
 
-export const RenderBlogArchive = ({ posts }) => {
-  const theme = useTheme()
-
+export const RenderBlogArchive: React.FC<{ posts: Post[] }> = ({ posts }) => {
   return (
-    <HeaderObserver color={theme} className={classes.pullHeader} pullUp>
+    <React.Fragment>
       <DefaultHero
         pageLabel="Blog Posts"
         richText={[
@@ -23,35 +20,35 @@ export const RenderBlogArchive = ({ posts }) => {
             type: 'h2',
             children: [
               {
-                text: 'Read the latest Payload news.',
+                text: 'Keep tabs on Payload.',
               },
             ],
           },
-        ]}
-        sidebarContent={[
           {
-            children: [
-              {
-                text: 'Here, you’ll find news about feature releases, happenings in the industry, and Payload announcements in general.',
-              },
-            ],
+            text: 'Here, you’ll find news about feature releases, happenings in the industry, and Payload announcements in general.',
           },
         ]}
       />
       <Gutter>
         <BlockSpacing>
           <Grid>
-            {(posts || []).map(blogPost => (
-              <Cell key={blogPost.id} cols={6} className={classes.blogPost}>
-                <Link href={`/blog/${blogPost.slug}`}>
-                  <h5>{blogPost.title}</h5>
-                </Link>
-              </Cell>
-            ))}
+            {(posts || []).map(blogPost => {
+              return (
+                <Cell key={blogPost.id} cols={4} colsS={8} className={classes.blogPost}>
+                  <Card
+                    cardType="blog"
+                    title={blogPost.title}
+                    description={blogPost?.meta?.description}
+                    href={`/blog/${blogPost.slug}`}
+                    media={blogPost.image}
+                  />
+                </Cell>
+              )
+            })}
           </Grid>
         </BlockSpacing>
       </Gutter>
-    </HeaderObserver>
+    </React.Fragment>
   )
 }
 

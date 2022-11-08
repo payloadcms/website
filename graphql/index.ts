@@ -1,8 +1,9 @@
-import type { CaseStudy, Footer, MainMenu, Page, Post } from '../payload-types'
+import type { CaseStudy, Footer, MainMenu, Page, Post, UseCase } from '../payload-types'
 import { CASE_STUDIES, CASE_STUDY } from './case-studies'
 import { GLOBALS } from './globals'
 import { PAGE } from './pages'
 import { POST, POSTS } from './posts'
+import { USE_CASE } from './use-cases'
 
 export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu; footer: Footer }> => {
   const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
@@ -106,4 +107,21 @@ export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
   }).then(res => res.json())
 
   return data.CaseStudies.docs[0]
+}
+
+export const fetchUseCase = async (slug: string): Promise<UseCase> => {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: USE_CASE,
+      variables: {
+        slug,
+      },
+    }),
+  }).then(res => res.json())
+
+  return data.UseCases.docs[0]
 }

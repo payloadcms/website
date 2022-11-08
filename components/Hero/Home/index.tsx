@@ -1,6 +1,7 @@
 'use client'
 
 import { CMSLink } from '@components/CMSLink'
+import CopyToClipboard from '@components/CopyToClipboard'
 import Image from 'next/image'
 import React from 'react'
 import Marquee from 'react-fast-marquee'
@@ -17,7 +18,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
   richText,
   adjectives,
   actions,
-  buttons,
+  // buttons,
   media,
 }) => {
   const theme = useTheme()
@@ -34,7 +35,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
                   src="/images/home-bg.png"
                   fill
                   alt="Screenshots of Payload"
-                  sizes="191vh"
+                  sizes="191vh" // aspect ratio of png, translates to 100vh
                 />
               </div>
             </Marquee>
@@ -55,7 +56,15 @@ export const HomeHero: React.FC<Page['hero']> = ({
                       })}
                     </ul>
                   )}
-                  {Array.isArray(buttons) && (
+                  <div className={classes.cpa}>
+                    <p>npx create-payload-app</p>
+                    <CopyToClipboard
+                      className={classes.copyButton}
+                      value="npx create-payload-app"
+                    />
+                  </div>
+                  {/* Not going to render buttons until Payload Cloud */}
+                  {/* {Array.isArray(buttons) && (
                     <ul className={classes.buttons}>
                       {buttons.map(({ link }, i) => {
                         return (
@@ -65,7 +74,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
                         )
                       })}
                     </ul>
-                  )}
+                  )} */}
                 </div>
               </div>
               <hr />

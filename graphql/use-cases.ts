@@ -15,12 +15,13 @@ import {
   STEPS,
   STICKY_HIGHLIGHTS,
 } from './blocks'
+import { LINK_FIELDS } from './link'
 import { MEDIA_FIELDS } from './media'
 import { META_FIELDS } from './meta'
 
-export const CASE_STUDIES = `
-  query CaseStudies {
-    CaseStudies(limit: 300) {
+export const USE_CASES = `
+  query UseCases {
+    UseCases(limit: 300) {
       docs {
         id
         title
@@ -31,16 +32,16 @@ export const CASE_STUDIES = `
   }
 `
 
-export const CASE_STUDY = `
-  query CaseStudy($slug: String ) {
-    CaseStudies(where: { slug: { equals: $slug} }, draft: true) {
+export const USE_CASE = `
+  query UseCase($slug: String ) {
+    UseCases(where: { slug: { equals: $slug} }, draft: true) {
       docs {
         id
         title
         introContent
         featuredImage ${MEDIA_FIELDS}
         slug
-        url
+        link ${LINK_FIELDS({ disableLabel: true, disableAppearance: true })}
         layout {
           ${CALL_TO_ACTION}
           ${CARD_GRID}

@@ -18,7 +18,7 @@ export type Props = {
   className?: string
   label?: string
   labelStyle?: 'mono' | 'regular'
-  icon?: string
+  icon?: 'arrow' | 'search'
   fullWidth?: boolean
   reference?: Reference
   htmlButtonType?: 'button' | 'submit'
