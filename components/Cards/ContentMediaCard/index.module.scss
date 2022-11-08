@@ -5,13 +5,15 @@
 }
 
 .title {
+  display: block;
   @include h6;
 
   @include mid-break {
     @include h3;
   }
-}
+  text-decoration: none;
 
-.link {
-  margin-top: calc(var(--base) * .75);
+  &:hover {
+    text-decoration: underline;
+  }
 }

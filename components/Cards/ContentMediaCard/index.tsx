@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Button } from '@components/Button'
 import { Media } from '@components/Media'
+import { CMSLink } from '@components/CMSLink'
 import { BlogCardProps } from '../types'
 
 import classes from './index.module.scss'
@@ -10,12 +10,17 @@ export const ContentMediaCard: React.FC<BlogCardProps> = props => {
 
   return (
     <div className={[classes.blogCard, className && className].filter(Boolean).join(' ')}>
-      {typeof media !== 'string' && <Media resource={media} />}
+      {typeof media !== 'string' && (
+        <CMSLink url={href}>
+          <Media resource={media} />
+        </CMSLink>
+      )}
 
-      <p className={classes.title}>{title}</p>
+      <CMSLink url={href} className={classes.title}>
+        {title}
+      </CMSLink>
+
       <p>{description}</p>
-
-      <Button className={classes.link} href={href} label="Read More" icon="arrow" fullWidth />
     </div>
   )
 }

@@ -4,8 +4,8 @@ import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { DefaultHero } from '@components/Hero/Default'
 import { BlockSpacing } from '@components/BlockSpacing'
-import { Card } from '@components/Card'
 import { Post } from '@root/payload-types'
+import { ContentMediaCard } from '@components/Cards/ContentMediaCard'
 import { Gutter } from '../../components/Gutter'
 
 import classes from './index.module.scss'
@@ -35,8 +35,7 @@ export const RenderBlogArchive: React.FC<{ posts: Post[] }> = ({ posts }) => {
             {(posts || []).map(blogPost => {
               return (
                 <Cell key={blogPost.id} cols={4} colsS={8} className={classes.blogPost}>
-                  <Card
-                    cardType="blog"
+                  <ContentMediaCard
                     title={blogPost.title}
                     description={blogPost?.meta?.description}
                     href={`/blog/${blogPost.slug}`}

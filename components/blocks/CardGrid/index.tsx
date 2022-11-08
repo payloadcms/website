@@ -3,9 +3,9 @@ import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import React from 'react'
+import { SquareCard } from '@components/Cards/SquareCard'
 import { Page } from '../../../payload-types'
 import { Gutter } from '../../Gutter'
-import { Card } from '../../Card'
 import classes from './index.module.scss'
 
 export type CardGridProps = Extract<Page['layout'][0], { blockType: 'cardGrid' }>
@@ -31,8 +31,7 @@ export const CardGrid: React.FC<CardGridProps> = props => {
                 const { title, description, link } = card
                 return (
                   <Cell key={index} cols={3} colsL={4} colsM={4} colsS={8}>
-                    <Card
-                      cardType="square"
+                    <SquareCard
                       leader={(index + 1).toString().padStart(2, '0')}
                       className={classes.card}
                       title={title}
