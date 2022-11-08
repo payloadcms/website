@@ -5,7 +5,7 @@ const Block = dynamic(() => import('./Block'), {
   suspense: true,
 })
 
-export default function PhoneInput(props) {
+export function BlogMarkdown(props) {
   return (
     <React.Suspense>
       <Block {...props} />

@@ -5,7 +5,7 @@ const Input = dynamic(() => import('./Input'), {
   suspense: true,
 })
 
-export default function PhoneInput(props) {
+export function Phone(props) {
   return (
     <React.Suspense>
       <Input {...props} />
