@@ -44,6 +44,10 @@
     @include label;
 }
 
+.blipCell {
+    position: relative;
+}
+
 .content  {
     position: relative;
     padding: calc(var(--base) * 4) 0;

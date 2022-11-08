@@ -6,6 +6,7 @@ import { CMSLink } from '@components/CMSLink'
 import { Media } from '@components/Media'
 import { Page } from '@root/payload-types'
 import { useMouseInfo } from '@faceless-ui/mouse-info'
+import { LineBlip } from '@components/LineBlip'
 import classes from './index.module.scss'
 
 type HoverHighlightProps = Extract<Page['layout'][0], { blockType: 'hoverHighlights' }>
@@ -17,7 +18,7 @@ export const HoverHighlight: React.FC<
     isLast?: boolean
   }
 > = props => {
-  const { index, addRowNumbers, description, title, isLast, link, media } = props
+  const { index, addRowNumbers, description, title, link, media } = props
 
   const [isHovered, setIsHovered] = React.useState<boolean | null>(null)
 
@@ -35,6 +36,17 @@ export const HoverHighlight: React.FC<
           setIsHovered(false)
         }}
       >
+        <Grid>
+          <Cell
+            cols={addRowNumbers ? 12 : 11}
+            start={addRowNumbers ? 2 : undefined}
+            colsM={8}
+            startM={1}
+            className={classes.blipCell}
+          >
+            <LineBlip active={isHovered} gapSize="large" />
+          </Cell>
+        </Grid>
         <Grid className={classes.highlight}>
           {addRowNumbers && (
             <Cell cols={1} className={classes.rowNumber}>
@@ -49,18 +61,6 @@ export const HoverHighlight: React.FC<
           </Cell>
         </Grid>
       </CMSLink>
-      {isLast && (
-        <Grid>
-          <Cell
-            cols={addRowNumbers ? 12 : 11}
-            start={addRowNumbers ? 2 : undefined}
-            colsM={8}
-            startM={1}
-          >
-            <hr className={classes.hr} />
-          </Cell>
-        </Grid>
-      )}
       {isHovered && typeof media === 'object' && (
         <div
           className={classes.media}

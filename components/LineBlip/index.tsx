@@ -9,7 +9,8 @@ export const LineBlip: React.FC<{
   className?: string
   active?: Boolean
   align?: 'top' | 'bottom'
-}> = ({ className, active, align = 'top' }) => {
+  gapSize?: 'small' | 'large'
+}> = ({ className, active, align = 'top', gapSize }) => {
   const [isHovered, setIsHovered] = useState(active)
   const [isAnimatingOut, setIsAnimatingOut] = useState<boolean>(false)
 
@@ -45,6 +46,7 @@ export const LineBlip: React.FC<{
         isAnimatingOut && classes.animatingOut,
         isHovered && classes.isHovered,
         align && classes[align],
+        gapSize && classes[`gap-${gapSize}`],
       ]
         .filter(Boolean)
         .join(' ')}

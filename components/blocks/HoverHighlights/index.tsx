@@ -27,16 +27,6 @@ export const HoverHighlights: React.FC<HoverHighlightProps> = props => {
         <div className={classes.pixelBG}>
           <PixelBackground />
         </div>
-        <Grid>
-          <Cell
-            cols={addRowNumbers ? 12 : 11}
-            start={addRowNumbers ? 2 : undefined}
-            colsM={8}
-            startM={1}
-          >
-            <hr className={classes.hr} />
-          </Cell>
-        </Grid>
         {hasHighlights &&
           highlights.map((highlight, index) => {
             return (
