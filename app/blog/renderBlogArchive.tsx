@@ -24,18 +24,12 @@ export const RenderBlogArchive: React.FC<{ posts: Post[] }> = ({ posts }) => {
             type: 'h2',
             children: [
               {
-                text: 'Read the latest Payload news.',
+                text: 'Keep tabs on Payload.',
               },
             ],
           },
-        ]}
-        sidebarContent={[
           {
-            children: [
-              {
-                text: 'Here, you’ll find news about feature releases, happenings in the industry, and Payload announcements in general.',
-              },
-            ],
+            text: 'Here, you’ll find news about feature releases, happenings in the industry, and Payload announcements in general.',
           },
         ]}
       />
