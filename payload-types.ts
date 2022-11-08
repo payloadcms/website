@@ -776,6 +776,7 @@ export interface Post {
   )[];
   slug?: string;
   author: string | User;
+  publishedOn: string;
   meta: {
     title?: string;
     description?: string;

@@ -43,6 +43,7 @@ export const POST = `
           }
         }
         createdAt
+        publishedOn
         content {
           ${BLOG_CONTENT}
           ${BLOG_MARKDOWN}

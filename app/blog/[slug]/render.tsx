@@ -15,7 +15,7 @@ import { Post } from '../../../payload-types'
 import classes from './index.module.scss'
 
 export const RenderBlogPost: React.FC<Post> = props => {
-  const { title, author, createdAt, image, excerpt, content } = props
+  const { title, author, publishedOn, image, excerpt, content } = props
 
   return (
     <React.Fragment>
@@ -56,9 +56,9 @@ export const RenderBlogPost: React.FC<Post> = props => {
               </div>
             )}
 
-            {createdAt && (
+            {publishedOn && (
               <div className={classes.dateSlot}>
-                <time dateTime={createdAt}>{formatDate({ date: createdAt })}</time>
+                <time dateTime={publishedOn}>{formatDate({ date: publishedOn })}</time>
                 <CalendarIcon />
               </div>
             )}
