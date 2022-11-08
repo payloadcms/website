@@ -15,7 +15,6 @@ import {
   STEPS,
   STICKY_HIGHLIGHTS,
 } from './blocks'
-import { LINK_FIELDS } from './link'
 import { MEDIA_FIELDS } from './media'
 import { META_FIELDS } from './meta'
 
@@ -41,7 +40,7 @@ export const CASE_STUDY = `
         introContent
         featuredImage ${MEDIA_FIELDS}
         slug
-        link ${LINK_FIELDS({ disableLabel: true, disableAppearance: true })}
+        url
         layout {
           ${CALL_TO_ACTION}
           ${CARD_GRID}
