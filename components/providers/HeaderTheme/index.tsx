@@ -8,7 +8,7 @@ type Type = {
   debug?: boolean
 }
 export const HeaderThemeContext = createContext<Type>({
-  headerColor: 'light',
+  headerColor: undefined,
   setHeaderColor: undefined,
   debug: false,
 })
