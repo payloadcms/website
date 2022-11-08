@@ -1,5 +1,7 @@
 @use '@scss/common' as *;
 
+$transTime: 300ms;
+
 .hoverHighlights {
     position: relative;
 }
@@ -69,23 +71,50 @@
     right: 0;
 }
 
-.media {
+.mediaWrapper {
     position: fixed;
-    max-width: 400px;
+    max-width: 500px;
     width: 100%;
-    height: auto;
+    aspect-ratio: 16 / 9;
     pointer-events: none;
     transform: translate3d(150px, -50%, 0);
     opacity: 0;
-    transition: transform 0.3s ease-in-out;
 
     @include mid-break {
         display: none;
     }
 }
 
-.mediaHovered {
-    transform: translate3d(150px, calc(-50% - calc(var(--base) * 2)), 0);
+.wrapperHovered {
     opacity: 1;
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; // only transition opacity on mouse in
+    transition: opacity $transTime ease-in-out;
+
+    &:local() {
+        .revealBox {
+            transform: scale(1);
+        }
+
+        .media {
+            transform: scale(1);
+        }
+    }
+}
+
+.revealBox {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transform: scale(0.8);
+    overflow: hidden;
+    transition: transform $transTime ease-in-out;
+}
+
+.media {
+    width: 100%;
+    height: 100%;
+    transform: scale(1.2);
+    object-fit: cover;
+    transition: transform $transTime ease-in-out;
 }
