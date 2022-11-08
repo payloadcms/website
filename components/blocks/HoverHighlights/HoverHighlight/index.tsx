@@ -61,9 +61,9 @@ export const HoverHighlight: React.FC<
           </Cell>
         </Grid>
       </CMSLink>
-      {isHovered && typeof media === 'object' && (
+      {typeof media === 'object' && xPercentage && yPercentage && (
         <div
-          className={classes.media}
+          className={[classes.media, isHovered && classes.mediaHovered].filter(Boolean).join(' ')}
           style={{
             left: `${xPercentage}%`,
             top: `${yPercentage}%`,

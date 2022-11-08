@@ -9,7 +9,7 @@
 }
 
 .highlight {
-    padding: calc(var(--base) * 4) 0;
+    padding: calc(var(--base) * 3) 0;
     opacity: 0.5;
     transition: opacity 0.3s ease-in-out;
     width: 100%;
@@ -20,6 +20,7 @@
 
     @include mid-break {
         padding: calc(var(--base) * 2) 0;
+        opacity: 1;
     }
 }
 
@@ -42,6 +43,7 @@
 
 .rowNumber {
     @include label;
+    text-align: center;
 }
 
 .blipCell {
@@ -73,4 +75,17 @@
     width: 100%;
     height: auto;
     pointer-events: none;
+    transform: translate3d(150px, -50%, 0);
+    opacity: 0;
+    transition: transform 0.3s ease-in-out;
+
+    @include mid-break {
+        display: none;
+    }
+}
+
+.mediaHovered {
+    transform: translate3d(150px, calc(-50% - calc(var(--base) * 2)), 0);
+    opacity: 1;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; // only transition opacity on mouse in
 }
