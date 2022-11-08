@@ -4,7 +4,7 @@ import { META_FIELDS } from './meta'
 
 export const POSTS = `
   query Posts {
-    Posts(limit: 300) {
+    Posts(limit: 300 sort: "-publishedOn") {
       docs {
         id
         title
