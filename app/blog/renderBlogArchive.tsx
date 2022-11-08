@@ -2,8 +2,6 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { HeaderObserver } from '@components/HeaderObserver'
-import { useTheme } from '@components/providers/Theme'
 import { DefaultHero } from '@components/Hero/Default'
 import { BlockSpacing } from '@components/BlockSpacing'
 import { Card } from '@components/Card'
@@ -13,10 +11,8 @@ import { Gutter } from '../../components/Gutter'
 import classes from './index.module.scss'
 
 export const RenderBlogArchive: React.FC<{ posts: Post[] }> = ({ posts }) => {
-  const theme = useTheme()
-
   return (
-    <HeaderObserver color={theme} className={classes.pullHeader} pullUp>
+    <React.Fragment>
       <DefaultHero
         pageLabel="Blog Posts"
         richText={[
@@ -52,7 +48,7 @@ export const RenderBlogArchive: React.FC<{ posts: Post[] }> = ({ posts }) => {
           </Grid>
         </BlockSpacing>
       </Gutter>
-    </HeaderObserver>
+    </React.Fragment>
   )
 }
 
