@@ -11,7 +11,7 @@ export const Image: React.FC<Props> = props => {
     imgClassName,
     onClick,
     onLoad: onLoadFromProps,
-    // size,
+    sizes: sizesFromProps,
     resource,
     priority,
     fill,
@@ -39,9 +39,11 @@ export const Image: React.FC<Props> = props => {
   }
 
   // NOTE: this is used by the browser to determine which image to download at different screen sizes
-  const sizes = Object.entries(breakpoints)
-    .map(([, value]) => `(max-width: ${value}px) ${value}px`)
-    .join(', ')
+  const sizes =
+    sizesFromProps ||
+    Object.entries(breakpoints)
+      .map(([, value]) => `(max-width: ${value}px) ${value}px`)
+      .join(', ')
 
   const baseClasses = [
     isLoading && classes.placeholder,

@@ -30,8 +30,8 @@ export type Reference = PageReference | UseCaseReference | PostsReference | Case
 export type CMSLinkType = {
   type?: LinkType
   newTab?: boolean
-  reference: Reference
-  url: string
+  reference?: Reference
+  url?: string
   label?: string
   appearance?: 'default' | 'primary' | 'secondary'
   children?: React.ReactNode
@@ -49,7 +49,7 @@ type GenerateSlugType = {
 const generateHref = (args: GenerateSlugType): string => {
   const { reference, url, type } = args
 
-  if (type === 'custom') {
+  if (type === 'custom' || url) {
     return url
   }
 
@@ -77,6 +77,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   onMouseLeave,
   fullWidth = false,
 }) => {
+  console.log(url)
   let href = generateHref({ type, url, reference })
 
   if (!href) {
