@@ -135,6 +135,8 @@ export const CONTENT_GRID = `
   blockType
   contentGridFields {
     forceDarkBackground
+    useLeadingHeader
+    leadingHeader
     cells {
       content
     }

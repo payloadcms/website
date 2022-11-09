@@ -3,7 +3,6 @@
 import React from 'react'
 import { CMSLink } from '@components/CMSLink'
 import { Text } from '@forms/fields/Text'
-import Form from '@forms/Form'
 import { validateEmail } from '@forms/validations'
 import { Gutter } from '@components/Gutter'
 import { ArrowIcon } from '@icons/ArrowIcon'
@@ -86,7 +85,7 @@ export const Footer: React.FC<FooterType> = props => {
               <p className={`${classes.colHeader} ${classes.thirdColumn}`}>Stay connected</p>
 
               <div>
-                <Form
+                <form
                   method="POST"
                   action="https://payloadcms.us18.list-manage.com/subscribe/post?u=f43c9eb62d4ce02e552a1fa9f&amp;id=e11798f237"
                   onSubmit={() => analyticsEvent('newsletter')}
@@ -111,7 +110,7 @@ export const Footer: React.FC<FooterType> = props => {
                       OK
                     </button>
                   </div>
-                </Form>
+                </form>
               </div>
             </Cell>
           </Grid>

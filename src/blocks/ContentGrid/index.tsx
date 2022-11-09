@@ -14,9 +14,17 @@ type CellsProps = ContentGridProps['contentGridFields'] & {
   darkBackground?: boolean
 }
 
-const Cells: React.FC<CellsProps> = ({ cells, className, darkBackground }) => {
+const Cells: React.FC<CellsProps> = ({
+  cells,
+  className,
+  darkBackground,
+  useLeadingHeader,
+  leadingHeader,
+}) => {
   return (
     <Gutter className={[classes.contentGrid, className && className].filter(Boolean).join(' ')}>
+      {useLeadingHeader && <RichText className={classes.leadingHeader} content={leadingHeader} />}
+
       <Grid>
         {cells.map((cell, i) => {
           return (
@@ -26,7 +34,6 @@ const Cells: React.FC<CellsProps> = ({ cells, className, darkBackground }) => {
           )
         })}
       </Grid>
-
       {darkBackground && <div className={classes.darkBg} />}
     </Gutter>
   )
@@ -39,11 +46,11 @@ export const ContentGrid: React.FC<ContentGridProps> = props => {
     return (
       <ThemeProvider theme="dark">
         <div className={classes.bgExtension}>
-          <Cells cells={contentGridFields.cells} darkBackground />
+          <Cells {...contentGridFields} darkBackground />
         </div>
       </ThemeProvider>
     )
   }
 
-  return <Cells className={classes.cellsWithCurrentTheme} cells={contentGridFields.cells} />
+  return <Cells className={classes.cellsWithCurrentTheme} {...contentGridFields} />
 }
