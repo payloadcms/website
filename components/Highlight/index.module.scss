@@ -4,6 +4,11 @@
   text-decoration: none;
 }
 
+.label {
+  transition: color cubic-bezier(0.4, 0, 0.2, 1) 500ms;
+  transition-delay: 250ms;
+}
+
 .highlightNode {
   position: relative;
   display: inline-flex;
@@ -19,8 +24,9 @@
     bottom: 0;
     left: 50%;
     transform: translate3d(-50%, 0, 0);
-    background-color: var(--theme-success-500);
+    background-color: var(--theme-success-400);
     transition: height cubic-bezier(0.4, 0, 0.2, 1) 500ms;
+    transition-delay: 500ms;
   }
 }
 
@@ -38,12 +44,18 @@
 .darkMode {
   &:local() {
     .label {
-      color: var(--theme-success-500);
+      color: var(--theme-text);
     }
 
     .highlightNode {
       &::before {
         background-color: var(--theme-success-100);
+      }
+    }
+
+    .doHighlight {
+      .label {
+        color: var(--theme-success-600);
       }
     }
   }
