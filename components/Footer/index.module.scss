@@ -1,0 +1,94 @@
+@use '@scss/common' as *;
+
+.footer {
+  margin: calc(var(--base) * 4) 0;
+}
+
+.colHeader {
+  margin-bottom: calc(var(--base) * 4.5);
+  height: 35px;
+  display: inline-flex;
+  align-items: flex-end;
+
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 2);
+  }
+}
+
+.link {
+  display: block;
+  margin-bottom: calc(var(--base) * .15);
+  text-decoration: none;
+  width: 50%;
+
+  @include mid-break {
+    width: 100%;
+  }
+}
+
+.col2Items {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 225px;
+
+  @include mid-break {
+    max-height: unset;
+  }
+}
+
+.subscribeAction {
+  display: flex;
+  margin-top: var(--base);
+}
+
+.subscribeDesc {
+  color: var(--theme-elevation-500);
+}
+
+.inputWrap {
+  position: relative;
+}
+
+.inputArrow {
+  position: absolute;
+  right: var(--base);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  color: var(--theme-text);
+}
+
+.ok {
+  cursor: pointer;
+  height: calc(var(--base) * 3);
+  width: calc(var(--base) * 3);
+  border-radius: 50%;
+  border: 1px solid var(--theme-text);
+  background-color: var(--theme-bg);
+  position: relative;
+  isolation: isolate;
+  flex-shrink: 0;
+  margin-left: var(--base);
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    left: 0;
+    top: 0;
+    background-color: var(--theme-success-200);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 300ms ease;
+    pointer-events: none;
+  }
+
+  &:hover {
+    &:after {
+      opacity: 1;
+    }
+  }
+}
