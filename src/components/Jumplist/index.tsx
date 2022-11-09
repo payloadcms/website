@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext, createContext, useReducer, useRef } from 'react'
 import { Props, NodeProps, Reducer, IContext } from './types'
+import classes from './index.module.scss'
 
 const Context = createContext<IContext>({
   dispatch: () => null,
@@ -72,7 +73,7 @@ export const JumplistNode: React.FC<NodeProps> = ({ children, id }) => {
   }, [dispatch, id, setLastActive])
 
   return (
-    <div ref={ref} id={id}>
+    <div ref={ref} id={id} className={classes.node}>
       {children}
     </div>
   )
