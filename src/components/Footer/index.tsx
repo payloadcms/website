@@ -1,13 +1,12 @@
 'use client'
 
-import { Button } from '@components/Button'
 import { CMSLink } from '@components/CMSLink'
-import { Text } from '@components/forms/fields/Text'
-import Form from '@components/forms/Form'
-import { validateEmail } from '@components/forms/validations'
+import { Text } from '@forms/fields/Text'
+import Form from '@forms/Form'
+import { validateEmail } from '@forms/validations'
 import { Gutter } from '@components/Gutter'
-import { ArrowIcon } from '@components/icons/ArrowIcon'
-import { Logo } from '@components/icons/Logo'
+import { ArrowIcon } from '@icons/ArrowIcon'
+import { PayloadIcon } from '@root/graphics/PayloadIcon'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { analyticsEvent } from '@root/utilities/analytics'
 import React from 'react'
@@ -26,7 +25,7 @@ export const Footer: React.FC<FooterType> = props => {
           <Grid>
             <Cell cols={3} colsM={4}>
               <div className={classes.colHeader}>
-                <Logo />
+                <PayloadIcon />
               </div>
 
               <div>

@@ -9,6 +9,10 @@
   margin-bottom: var(--block-spacing);
   isolation: isolate;
 
+  @include large-break {
+    --container-extension: calc(var(--base) * 3);
+  }
+
   @include small-break {
     padding-top: var(--block-spacing);
     padding-bottom: var(--block-spacing);
@@ -34,7 +38,7 @@
   }
 }
 
-.richText {
+.contentGrid .richText {
   a {
     color: var(--theme-success-600);
 

@@ -28,10 +28,10 @@
         "./src/components/*"
       ],
       "@forms/*": [
-        "./src/components/forms/*"
+        "./src/forms/*"
       ],
       "@blocks/*": [
-        "./src/components/blocks/*"
+        "./src/blocks/*"
       ],
       "@scss/*": [
         "./src/css/*"
@@ -39,23 +39,23 @@
       "@root/*": [
         "./src/*"
       ],
-      "@providers": [
-        "./src/providers",
+      "@providers/*": [
+        "./src/providers/*",
       ],
-      "@icons": [
-        "./src/icons",
+      "@icons/*": [
+        "./src/icons/*",
       ],
-      "@utilities": [
-        "./src/utilities",
+      "@utilities/*": [
+        "./src/utilities/*",
       ],
       "@types": [
         "./payload-types.ts",
       ],
-      "@graphics": [
-        "./src/graphics",
+      "@graphics/*": [
+        "./src/graphics/*",
       ],
-      "@graphql": [
-        "./src/graphql",
+      "@graphql/*": [
+        "./src/graphql/*",
       ],
     }
   },
