@@ -94,29 +94,29 @@
   composes: next;
   background: var(--theme-purple-100);
   border-bottom: 1px solid var(--theme-purple-500);
-  color: var(--theme-purple-500);
+  color: var(--theme-purple-800);
 
   &:hover {
-    background: var(--theme-purple-200);
+    background: var(--theme-purple-150);
   }
 
   &:active, &:focus {
-    background: var(--theme-purple-250);
+    background: var(--theme-purple-200);
   }
 }
 
 .next--light {
   composes: next;
-  background: var(--theme-purple-500);
-  border-bottom: 1px solid var(--theme-purple-800);
-  color: var(--theme-text);
+  background: var(--theme-purple-200);
+  border-bottom: 1px solid var(--theme-purple-600);
+  color: var(--theme-purple-800);
 
   &:hover {
-    background: var(--theme-purple-400);
+    background: var(--theme-purple-250);
   }
 
   &:active, &:focus {
-    background: var(--theme-purple-450);
+    background: var(--theme-purple-300);
   }
 }
 
