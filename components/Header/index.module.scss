@@ -41,9 +41,3 @@
     padding: calc(var(--base) * .75) 0;
   }
 }
-
-.header.mobileNavOpen {
-  &:after {
-    opacity: 0;
-  }
-}

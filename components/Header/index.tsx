@@ -14,7 +14,7 @@ export const Header: React.FC<MainMenu> = ({ navItems }) => {
   const { isModalOpen } = useModal()
   const isMobileNavOpen = isModalOpen(mobileNavModalSlug)
   const { headerColor } = useHeaderTheme()
-
+  console.log(headerColor)
   return (
     <ThemeProvider theme={headerColor}>
       <header
