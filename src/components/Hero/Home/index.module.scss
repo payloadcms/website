@@ -122,6 +122,10 @@
   & > *:not(:last-child) {
     margin-bottom: var(--base);
   }
+
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 1.5);
+  }
 }
 
 .buttons {

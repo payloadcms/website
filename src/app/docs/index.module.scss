@@ -4,13 +4,16 @@
   position: relative;
   display: flex;
   padding: 0 calc(var(--gutter-h) / 2);
+  border-bottom: 1px solid var(--theme-elevation-100);
+  padding-bottom: var(--block-spacing);
 
   @include large-break {
-    padding: 0 var(--gutter-h);
+    padding: 0 var(--gutter-h) var(--block-spacing);
   }
 
   @include mid-break {
-    padding-bottom: calc(var(--base) * 4);
+    padding-bottom: 0;
+    border-bottom: none;
   }
 }
 
