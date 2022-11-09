@@ -25,20 +25,38 @@
     ],
     "paths": {
       "@components/*": [
-        "./components/*"
+        "./src/components/*"
       ],
       "@forms/*": [
-        "./components/forms/*"
+        "./src/components/forms/*"
       ],
       "@blocks/*": [
-        "./components/blocks/*"
+        "./src/components/blocks/*"
       ],
       "@scss/*": [
-        "./css/*"
+        "./src/css/*"
       ],
       "@root/*": [
-        "./*"
-      ]
+        "./src/*"
+      ],
+      "@providers": [
+        "./src/providers",
+      ],
+      "@icons": [
+        "./src/icons",
+      ],
+      "@utilities": [
+        "./src/utilities",
+      ],
+      "@types": [
+        "./payload-types.ts",
+      ],
+      "@graphics": [
+        "./src/graphics",
+      ],
+      "@graphql": [
+        "./src/graphql",
+      ],
     }
   },
   "include": [
