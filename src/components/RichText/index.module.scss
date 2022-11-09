@@ -15,3 +15,28 @@
     white-space: pre-wrap;
   }
 }
+
+[data-theme=dark] {
+  .richText {
+    h1 a,
+    h2 a,
+    h3 a,
+    h4 a,
+    h5 a,
+    h6 a {
+      color: var(--theme-success-600);
+  
+      &:hover {
+        color: var(--theme-success-400);
+      }
+  
+      &:visited {
+        color: var(--theme-success-700);
+  
+        &:hover {
+          color: var(--theme-success-500);
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,4 @@
 .leadingHeader {
-    margin-bottom: var(--base);
+    margin-bottom: calc(var(--base) * 2);
+    max-width: 900px;
 }
