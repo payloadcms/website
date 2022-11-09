@@ -6,6 +6,7 @@ import { Label } from '../../Label'
 import { LargeBody } from '../../LargeBody'
 import { Highlight } from '../../Highlight'
 import { Video } from '../Video'
+import RichTextUpload from '../Upload'
 
 type Node = {
   type: string
@@ -150,6 +151,10 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </CMSLink>
             )
+
+          case 'upload': {
+            return <RichTextUpload key={i} node={node} />
+          }
 
           case 'label':
             return (
