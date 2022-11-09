@@ -4,9 +4,9 @@ import { RichText } from '@components/RichText'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import React from 'react'
 import { SquareCard } from '@components/cards/SquareCard'
-import { Button } from '@components/Button'
 import { Page } from '@root/payload-types'
 import { Gutter } from '@components/Gutter'
+import { CMSLink } from '@components/CMSLink'
 import classes from './index.module.scss'
 
 export type CardGridProps = Extract<Page['layout'][0], { blockType: 'cardGrid' }>
@@ -32,13 +32,14 @@ export const CardGrid: React.FC<CardGridProps> = props => {
               <Cell cols={3} colsL={4} start={10} startL={9} startM={1} colsM={8}>
                 {links.map(({ link }, index) => {
                   return (
-                    <Button
-                      reference={link.reference}
+                    <CMSLink
+                      {...link}
                       key={index}
                       appearance="default"
-                      icon="arrow"
-                      label={link.label}
                       fullWidth
+                      buttonProps={{
+                        icon: 'arrow',
+                      }}
                     />
                   )
                 })}
