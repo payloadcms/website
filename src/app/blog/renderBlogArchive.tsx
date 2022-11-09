@@ -5,8 +5,8 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import { DefaultHero } from '@components/Hero/Default'
 import { BlockSpacing } from '@components/BlockSpacing'
 import { Post } from '@root/payload-types'
-import { ContentMediaCard } from '@components/Cards/ContentMediaCard'
-import { Gutter } from '../../components/Gutter'
+import { ContentMediaCard } from '@components/cards/ContentMediaCard'
+import { Gutter } from '@components/Gutter'
 
 import classes from './index.module.scss'
 
