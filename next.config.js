@@ -12,7 +12,6 @@ const nextConfig = withBundleAnalyzer({
   },
   experimental: {
     appDir: true,
-    runtime: 'experimental-edge',
   },
   webpack: config => {
     const configCopy = { ...config }
