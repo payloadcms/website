@@ -1,7 +1,7 @@
 @use '@scss/common' as *;
 
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
   width: 100%;
   z-index: var(--z-nav);
