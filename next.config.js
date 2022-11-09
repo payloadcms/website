@@ -17,10 +17,16 @@ const nextConfig = withBundleAnalyzer({
     const configCopy = { ...config }
     configCopy.resolve.alias = {
       ...config.resolve.alias,
-      '@scss': path.resolve(__dirname, './css/'),
-      '@components': path.resolve(__dirname, './components'),
-      '@forms': path.resolve(__dirname, './components/forms'),
-      '@blocks': path.resolve(__dirname, './components/blocks'),
+      '@scss': path.resolve(__dirname, './src/css/'),
+      '@components': path.resolve(__dirname, './src/components'),
+      '@forms': path.resolve(__dirname, './src/forms'),
+      '@blocks': path.resolve(__dirname, './src/blocks'),
+      '@providers': path.resolve(__dirname, './src/providers'),
+      '@icons': path.resolve(__dirname, './src/icons'),
+      '@utilities': path.resolve(__dirname, './src/utilities'),
+      '@types': path.resolve(__dirname, './payload-types.ts'),
+      '@graphics': path.resolve(__dirname, './src/graphics'),
+      '@graphql': path.resolve(__dirname, './src/graphql'),
       // IMPORTANT: the next lines are for development only
       // keep them commented out unless actively developing local react modules
       // modify their paths according to your local directory
