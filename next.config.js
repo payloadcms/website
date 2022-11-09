@@ -42,6 +42,12 @@ const nextConfig = withBundleAnalyzer({
         destination: '/docs/getting-started/what-is-payload',
         permanent: true,
       },
+      {
+        source: '/roadmap',
+        destination:
+          'https://github.com/payloadcms/payload/discussions?discussions_q=label%3Aplanned',
+        permanent: true,
+      },
     ]
   },
 })
