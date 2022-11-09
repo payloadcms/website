@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ReusableContent } from '@types'
+import { ReusableContent } from '@root/payload-types'
 import { CheckmarkIcon } from '@graphics/CheckmarkIcon'
 import { RichText } from '../RichText'
 

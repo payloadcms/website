@@ -8,7 +8,7 @@ import { Gutter } from '@components/Gutter'
 import { ThemeProvider, useTheme } from '@providers/Theme'
 import { CMSForm } from '@components/CMSForm'
 import { PixelBackground } from '@components/PixelBackground'
-import { Page } from '@types'
+import { Page } from '@root/payload-types'
 import classes from './index.module.scss'
 
 export type FormBlockProps = Extract<Page['layout'][0], { blockType: 'form' }>

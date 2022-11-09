@@ -10,7 +10,7 @@ import { PayloadIcon } from '@root/graphics/PayloadIcon'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { analyticsEvent } from '@root/utilities/analytics'
 import React from 'react'
-import { Footer as FooterType } from '@types'
+import { Footer as FooterType } from '@root/payload-types'
 
 import classes from './index.module.scss'
 

@@ -5,7 +5,7 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import React from 'react'
 import { SquareCard } from '@components/cards/SquareCard'
 import { Button } from '@components/Button'
-import { Page } from '@types'
+import { Page } from '@root/payload-types'
 import { Gutter } from '@components/Gutter'
 import classes from './index.module.scss'
 

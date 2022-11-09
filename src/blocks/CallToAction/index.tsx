@@ -8,7 +8,7 @@ import { PixelBackground } from '@components/PixelBackground'
 import { ArrowIcon } from '@icons/ArrowIcon'
 import { RichText } from '@components/RichText'
 import { Gutter } from '@components/Gutter'
-import { Page } from '@types'
+import { Page } from '@root/payload-types'
 import classes from './index.module.scss'
 
 export type CallToActionProps = Extract<Page['layout'][0], { blockType: 'cta' }>

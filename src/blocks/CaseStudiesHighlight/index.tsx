@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { Button } from '@components/Button'
 import { ThemeProvider } from '@providers/Theme'
 import { Gutter } from '@components/Gutter'
-import { CaseStudy, ReusableContent } from '@types'
+import { CaseStudy, ReusableContent } from '@root/payload-types'
 import { PayloadIcon } from '@graphics/PayloadIcon'
 import classes from './index.module.scss'
 

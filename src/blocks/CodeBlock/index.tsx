@@ -2,7 +2,7 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import React from 'react'
 import Code from '@components/Code'
 import { Gutter } from '@components/Gutter'
-import { ReusableContent } from '@types'
+import { ReusableContent } from '@root/payload-types'
 
 type Props = Extract<ReusableContent['layout'][0], { blockType: 'code' }>
 

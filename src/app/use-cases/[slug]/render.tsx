@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { UseCase } from '@types'
+import { UseCase } from '@root/payload-types'
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '../../../components/Gutter'
 
