@@ -3,10 +3,10 @@ import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
 import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
-import { CMSLink } from '@components/CMSLink'
 
 import { PixelBackground } from '@components/PixelBackground'
 import { BlockSpacing } from '@components/BlockSpacing'
+import Link from 'next/link'
 import classes from './index.module.scss'
 
 type Props = Extract<Page['layout'][0], { blockType: 'caseStudyCards' }>
@@ -24,23 +24,26 @@ export const CaseStudyCards: React.FC<Props> = props => {
                 <PixelBackground />
               </div>
               {caseStudyCardFields.cards.map((card, i) => {
-                return (
-                  <CMSLink
-                    url={`/case-studies/${
-                      typeof card.caseStudy !== 'string' ? card.caseStudy.slug : ''
-                    }`}
-                    key={i}
-                    className={classes.card}
-                  >
-                    <RichText className={classes.content} content={card.richText} />
-                    <div className={classes.media}>
-                      {typeof card.caseStudy !== 'string' &&
-                        typeof card.caseStudy.featuredImage !== 'string' && (
-                          <Media resource={card.caseStudy.featuredImage} fill />
-                        )}
-                    </div>
-                  </CMSLink>
-                )
+                if (typeof card.caseStudy === 'object') {
+                  return (
+                    <Link
+                      href={`/case-studies/${card.caseStudy.slug}`}
+                      key={i}
+                      className={classes.card}
+                    >
+                      <React.Fragment>
+                        <RichText className={classes.content} content={card.richText} />
+                        <div className={classes.media}>
+                          {typeof card.caseStudy.featuredImage !== 'string' && (
+                            <Media resource={card.caseStudy.featuredImage} fill />
+                          )}
+                        </div>
+                      </React.Fragment>
+                    </Link>
+                  )
+                }
+
+                return null
               })}
             </div>
           )}
