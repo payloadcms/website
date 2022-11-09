@@ -39,6 +39,7 @@ export type CMSLinkType = {
   className?: string
   onMouseEnter?: () => void
   onMouseLeave?: () => void
+  buttonProps?: ButtonProps
 }
 
 type GenerateSlugType = {
