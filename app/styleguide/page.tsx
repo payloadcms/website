@@ -57,6 +57,10 @@ const Styleguide: React.FC = () => {
           <Link href="/styleguide/blocks/media-content">Media Content</Link>
         </div>
         <br />
+        <div>
+          <Link href="/styleguide/blocks/call-to-action">Call To Action</Link>
+        </div>
+        <br />
         <h4>Heros</h4>
         <div>
           <Link href="/styleguide/heros/form-hero">Form Hero</Link>
