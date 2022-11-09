@@ -20,6 +20,7 @@ export type Props = {
   labelStyle?: 'mono' | 'regular'
   icon?: 'arrow' | 'search'
   fullWidth?: boolean
+  mobileFullWidth?: boolean
   reference?: Reference
   htmlButtonType?: 'button' | 'submit'
   onMouseEnter?: () => void
@@ -76,6 +77,7 @@ export const Button: React.FC<Props> = props => {
     className: classNameFromProps,
     onClick,
     fullWidth,
+    mobileFullWidth,
     reference,
     htmlButtonType = 'button',
   } = props
@@ -94,6 +96,7 @@ export const Button: React.FC<Props> = props => {
     classes.button,
     classes[`appearance--${appearance}`],
     fullWidth && classes['full-width'],
+    mobileFullWidth && classes['mobile-full-width'],
   ]
     .filter(Boolean)
     .join(' ')
