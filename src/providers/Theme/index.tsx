@@ -36,9 +36,13 @@ export const ThemePreferenceProvider: React.FC<{ children?: React.ReactNode }> =
   const [theme, setThemeState] = useState<Theme>()
 
   const setTheme = useCallback((themeToSet: Theme) => {
-    setThemeState(themeToSet)
-    window.localStorage.setItem(themeLocalStorageKey, themeToSet)
-    document.documentElement.setAttribute('data-theme', themeToSet)
+    if (themeToSet === null) {
+      window.localStorage.setItem(themeLocalStorageKey, themeToSet)
+    } else {
+      setThemeState(themeToSet)
+      window.localStorage.setItem(themeLocalStorageKey, themeToSet)
+      document.documentElement.setAttribute('data-theme', themeToSet)
+    }
   }, [])
 
   useEffect(() => {
