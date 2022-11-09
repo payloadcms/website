@@ -67,7 +67,7 @@
     margin: 0;
     transform: translate3d(0, -100%, 0);
     will-change: opacity, transform;
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     padding: calc(var(--base) * 2);
 
     @include mid-break {
@@ -131,7 +131,39 @@
     transition: opacity 0.3s ease-in-out;
     will-change: opacity;
 
+    path {
+        stroke: var(--color-success-500);
+    }
+
     @include mid-break {
         opacity: 1;
     }
+}
+
+.noLink {
+    color: var(--color-base-0);
+
+        &:local() {
+            .content {
+                top: 0;
+                transform: translate3d(0, 0, 0);
+            }
+
+            .description {
+                opacity: 1;
+            }
+            
+            .arrow {
+                opacity: 1;
+            }
+
+            .bg {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+        
+            .leader {
+                opacity: 0;
+            }
+        }
 }
