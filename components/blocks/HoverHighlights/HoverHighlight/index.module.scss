@@ -79,6 +79,7 @@ $transTime: 300ms;
     pointer-events: none;
     transform: translate3d(150px, -50%, 0);
     opacity: 0;
+    z-index: 1;
 
     @include mid-break {
         display: none;
@@ -95,7 +96,7 @@ $transTime: 300ms;
         }
 
         .media {
-            transform: scale(1);
+            transform: scale(1.01);
         }
     }
 }

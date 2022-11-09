@@ -1,0 +1,79 @@
+@use '@scss/common.scss' as *;
+
+.callToAction {
+    position: relative;
+    color: var(--color-base-0);
+}
+
+.bgWrapper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.bgGutter {
+    width: 100%;
+    height: 100%;
+}
+
+.bg1 {
+    position: relative;
+    height: 100%;
+    margin-left: calc(var(--gutter-h) / -2);
+    margin-right: calc(var(--gutter-h) / -2);
+    width: calc(100% + var(--gutter-h));
+    background-color: var(--color-base-950);
+
+    @include mid-break {
+        margin: 0;
+        width: 100%;
+    }
+}
+
+.content {
+    position: relative;
+    padding: calc(var(--base) * 4) 0;
+}
+
+.cpa {
+    margin-bottom: calc(var(--base) * 2);
+    justify-content: flex-start;
+}
+
+.links {
+    position: relative;
+    padding: calc(var(--base) * 3) 0 0 calc(var(--base) * 3);
+}
+
+.button {
+    background-color: var(--theme-elevation-900);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.pixelBG {
+    width: calc(100% + var(--gutter-h) / 2);
+    height: calc(100% + var(--base) * 4);
+
+    @include mid-break {
+        width: calc(100% + var(--gutter-h));
+    }
+}
+
+.button {
+    @include label;
+    position: relative;
+    background-color: var(--theme-elevation-900);
+    padding: calc(var(--base) * 2);
+    text-decoration: none;
+}
+
+.buttonIcon {
+    margin-left: var(--base);
+    flex-shrink: 0;
+    top: 2px;
+    position: relative;
+}
