@@ -3,7 +3,7 @@ import { SliderProvider, SliderNav, SliderTrack, Slide } from '@faceless-ui/slid
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Gutter } from '@components/Gutter'
 import { PixelBackground } from '@components/PixelBackground'
-import { Page } from '@types'
+import { Page } from '@root/payload-types'
 import { ArrowIcon } from '../../icons/ArrowIcon'
 import { ImageCard } from './ImageCard'
 import { QuoteCard } from './QuoteCard'

@@ -8,7 +8,7 @@ import { RichText } from '@components/RichText'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { usePathname } from 'next/navigation'
 import React from 'react'
-import { Page } from '@types'
+import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
 

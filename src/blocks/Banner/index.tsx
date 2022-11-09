@@ -2,7 +2,7 @@ import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Gutter } from '@components/Gutter'
 import { Banner, Props as BannerProps } from '@components/Banner'
-import { ReusableContent } from '@types'
+import { ReusableContent } from '@root/payload-types'
 
 export type BannerBlockProps = Extract<ReusableContent['layout'][0], { blockType: 'banner' }>
 

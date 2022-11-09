@@ -12,7 +12,6 @@ const nextConfig = withBundleAnalyzer({
   },
   experimental: {
     appDir: true,
-    runtime: 'experimental-edge',
   },
   webpack: config => {
     const configCopy = { ...config }
@@ -40,6 +39,12 @@ const nextConfig = withBundleAnalyzer({
       {
         source: '/docs',
         destination: '/docs/getting-started/what-is-payload',
+        permanent: true,
+      },
+      {
+        source: '/roadmap',
+        destination:
+          'https://github.com/payloadcms/payload/discussions?discussions_q=label%3Aplanned',
         permanent: true,
       },
     ]

@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid, Cell } from '@faceless-ui/css-grid'
 import { RichText } from '@components/RichText'
 import { Gutter } from '@components/Gutter'
-import { Page } from '@types'
+import { Page } from '@root/payload-types'
 import classes from './index.module.scss'
 
 type Props = Extract<Page['layout'][0], { blockType: 'content' }>

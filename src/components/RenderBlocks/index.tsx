@@ -21,7 +21,7 @@ import { Steps } from '@blocks/Steps'
 import { StickyHighlights } from '@blocks/StickyHighlights'
 import { BlogMarkdown } from '@blocks/BlogMarkdown'
 import { toKebabCase } from '@utilities/to-kebab-case'
-import { Page, ReusableContent } from '@types'
+import { Page, ReusableContent } from '@root/payload-types'
 
 type ReusableContentBlock = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 

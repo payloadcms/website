@@ -28,10 +28,10 @@
         "./src/components/*"
       ],
       "@forms/*": [
-        "./src/components/forms/*"
+        "./src/forms/*"
       ],
       "@blocks/*": [
-        "./src/components/blocks/*"
+        "./src/blocks/*"
       ],
       "@scss/*": [
         "./src/css/*"
@@ -42,20 +42,26 @@
       "@providers": [
         "./src/providers",
       ],
-      "@icons": [
-        "./src/icons",
+      "@providers/*": [
+        "./src/providers/*",
       ],
-      "@utilities": [
-        "./src/utilities",
+      "@icons/*": [
+        "./src/icons/*",
+      ],
+      "@utilities/*": [
+        "./src/utilities/*",
       ],
       "@types": [
-        "./payload-types.ts",
+        "./src/payload-types.ts",
       ],
-      "@graphics": [
-        "./src/graphics",
+      "@graphics/*": [
+        "./src/graphics/*",
       ],
       "@graphql": [
         "./src/graphql",
+      ],
+      "@graphql/*": [
+        "./src/graphql/*",
       ],
     }
   },

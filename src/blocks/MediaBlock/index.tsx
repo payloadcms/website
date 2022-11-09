@@ -3,7 +3,7 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
 import { RichText } from '@components/RichText'
-import { ReusableContent } from '@types'
+import { ReusableContent } from '@root/payload-types'
 
 import classes from './index.module.scss'
 

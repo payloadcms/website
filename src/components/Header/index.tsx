@@ -4,7 +4,7 @@ import * as React from 'react'
 import { useModal } from '@faceless-ui/modal'
 import { useHeaderTheme } from '@providers/HeaderTheme'
 import { ThemeProvider } from '@providers/Theme'
-import { MainMenu } from '@types'
+import { MainMenu } from '@root/payload-types'
 import { MobileNav, modalSlug as mobileNavModalSlug } from './MobileNav'
 import { DesktopNav } from './DesktopNav'
 
