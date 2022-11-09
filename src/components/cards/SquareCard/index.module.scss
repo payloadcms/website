@@ -125,8 +125,12 @@
 }
 
 .title {
-    @include h6;
+    @include h5;
     margin: 0 !important;
+
+    @include large-break {
+      @include h6;
+    }
 
     @include mid-break {
         font-size: small;

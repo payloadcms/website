@@ -11,12 +11,17 @@
   margin-top: calc(var(--base) * 4);
   margin-bottom: calc(var(--base) * 4);
   width: calc(100% + (var(--gutter-h) / 2) * 3);
-  margin-left: calc(-1 * (var(--gutter-h) / 2));
+  margin-left: calc(var(--gutter-h) * -.5);
+
+  img {
+    width: 100%;
+  }
 
   @include large-break {
+    margin-top: calc(var(--base) * 2);
+    margin-bottom: calc(var(--base) * 2);
     margin-left: 0;
-    margin-right: 0;
-    width: 100%;
+    width: calc(100% + var(--gutter-h));
   }
 }
 

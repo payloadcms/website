@@ -27,11 +27,24 @@
   margin-left: calc(var(--gutter-h) / -2);
   width: calc(100% - var(--gutter-h));
   z-index: -1;
+
+  @include large-break {
+    margin-left: calc(var(--gutter-h) * -1);
+    width: 100%;
+  }
 }
 
 .leadingHeader {
   margin-bottom: calc(var(--base) * 2);
-  max-width: 900px;
+  max-width: 1400px;
+
+  @include extra-large-break {
+    max-width: 1200px;
+  }
+
+  @include large-break {
+    max-width: 900px;
+  }
 }
 
 .cell {

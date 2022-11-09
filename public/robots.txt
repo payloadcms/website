@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://payloadcms.com
+
+# Sitemaps
+Sitemap: https://payloadcms.com/sitemap.xml

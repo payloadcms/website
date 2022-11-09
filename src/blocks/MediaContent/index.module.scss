@@ -32,10 +32,13 @@
 }
 
 .media {
+  img, video {
+    width: 100%;
+  }
+
   @include mid-break {
     grid-row: 1;
     img, video {
-      width: 100%;
       max-width: initial;
     }
   }

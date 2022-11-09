@@ -17,9 +17,14 @@ import { Label } from '../../../components/Label'
 import classes from './index.module.scss'
 
 export const RenderBlogPost: React.FC<Post> = props => {
-  const { title, author, publishedOn, image, excerpt, content } = props
+  const { title, author, publishedOn, image, excerpt, content, meta } = props
 
   const theme = useTheme()
+
+  // Need this until Next #42414 is fixed
+  React.useEffect(() => {
+    document.title = meta?.title || title
+  })
 
   return (
     <HeaderObserver color={theme} pullUp>
