@@ -1,6 +1,6 @@
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import React from 'react'
-import { ReusableContent } from '@types'
+import { ReusableContent } from '@root/payload-types'
 import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
 

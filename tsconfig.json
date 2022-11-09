@@ -39,6 +39,9 @@
       "@root/*": [
         "./src/*"
       ],
+      "@providers": [
+        "./src/providers",
+      ],
       "@providers/*": [
         "./src/providers/*",
       ],
@@ -49,10 +52,13 @@
         "./src/utilities/*",
       ],
       "@types": [
-        "./payload-types.ts",
+        "./src/payload-types.ts",
       ],
       "@graphics/*": [
         "./src/graphics/*",
+      ],
+      "@graphql": [
+        "./src/graphql",
       ],
       "@graphql/*": [
         "./src/graphql/*",

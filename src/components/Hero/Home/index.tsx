@@ -9,7 +9,7 @@ import { ThemeProvider, useTheme } from '@providers/Theme'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
 import { RichText } from '@components/RichText'
-import { Page } from '@types'
+import { Page } from '@root/payload-types'
 import { HeaderObserver } from '../../HeaderObserver'
 
 import classes from './index.module.scss'

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { CaseStudy, Page, Post, UseCase } from '@types'
+import { CaseStudy, Page, Post, UseCase } from '@root/payload-types'
 // eslint-disable-next-line import/no-cycle
 import { Button, Props as ButtonProps } from '../Button'
 
@@ -39,6 +39,7 @@ export type CMSLinkType = {
   className?: string
   onMouseEnter?: () => void
   onMouseLeave?: () => void
+  buttonProps?: ButtonProps
 }
 
 type GenerateSlugType = {

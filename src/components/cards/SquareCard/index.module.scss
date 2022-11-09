@@ -143,27 +143,44 @@
 .noLink {
     color: var(--color-base-0);
 
+    &:local() {
+        .content {
+            top: 0;
+            transform: translate3d(0, calc(var(--base) * 2), 0); // leave room for the leader
+        }
+
+        .description {
+            opacity: 1;
+        }
+
+        .bg {
+            transform: translate3d(0, 0, 0);
+            opacity: 1;
+        }
+    
+        .leader {
+            opacity: 1;
+        }
+
+        .arrow {
+            opacity: 0;
+        }
+    }
+
+
+    &:hover {
         &:local() {
             .content {
-                top: 0;
-                transform: translate3d(0, 0, 0);
+                transform: translate3d(0, calc(var(--base) * 2), 0); // leave room for the leader
             }
 
-            .description {
-                opacity: 1;
-            }
-            
-            .arrow {
-                opacity: 1;
-            }
-
-            .bg {
-                transform: translate3d(0, 0, 0);
-                opacity: 1;
-            }
-        
             .leader {
+                opacity: 1;
+            }
+
+            .arrow {
                 opacity: 0;
             }
         }
+    }
 }
