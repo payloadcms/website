@@ -146,6 +146,8 @@ $breakpoint-xl-width: 1920px;
 
 @mixin color-links {
   a {
+    text-decoration: none;
+    border-bottom: 1px dotted currentColor;
     color: var(--theme-blue-600);
 
     &:hover {
