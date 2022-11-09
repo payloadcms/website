@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { Modal, ModalToggler } from '@faceless-ui/modal'
+import { Modal, useModal } from '@faceless-ui/modal'
 import Link from 'next/link'
+import { useHeaderTheme } from '@components/providers/HeaderTheme'
 import { MainMenu } from '../../../payload-types'
 import { FullLogo } from '../../graphics/FullLogo'
 import { Gutter } from '../../Gutter'
@@ -15,6 +16,16 @@ export const modalSlug = 'mobile-nav'
 
 type NavItems = Pick<MainMenu, 'navItems'>
 
+const MobileNavItems = ({ navItems }: NavItems) => {
+  return (
+    <ul className={classes.mobileMenuItems}>
+      {(navItems || []).map((item, index) => {
+        return <CMSLink className={classes.mobileMenuItem} key={index} {...item.link} />
+      })}
+    </ul>
+  )
+}
+
 const MobileMenuModal: React.FC<NavItems> = ({ navItems }) => {
   return (
     <Modal slug={modalSlug} className={classes.mobileMenuModal}>
@@ -22,11 +33,7 @@ const MobileMenuModal: React.FC<NavItems> = ({ navItems }) => {
         <Grid>
           <Cell>
             <div className={classes.mobileMenu}>
-              <div className={classes.mobileMenuItems}>
-                {(navItems || []).map((item, index) => {
-                  return <CMSLink className={classes.mobileMenuItem} key={index} {...item.link} />
-                })}
-              </div>
+              <MobileNavItems navItems={navItems} />
             </div>
           </Cell>
         </Grid>
@@ -37,6 +44,22 @@ const MobileMenuModal: React.FC<NavItems> = ({ navItems }) => {
 }
 
 export const MobileNav: React.FC<NavItems> = props => {
+  const { isModalOpen, openModal, closeModal } = useModal()
+  const { headerColor, setHeaderColor } = useHeaderTheme()
+  const headerColorRef = React.useRef(null)
+
+  function toggleModal() {
+    if (isModalOpen(modalSlug)) {
+      closeModal(modalSlug)
+      setHeaderColor(headerColorRef.current)
+      // headerColorRef.current = headerColor
+    } else {
+      headerColorRef.current = headerColor
+      setHeaderColor('dark')
+      openModal(modalSlug)
+    }
+  }
+
   return (
     <div className={classes.mobileNav}>
       <div className={classes.menuBar}>
@@ -52,9 +75,9 @@ export const MobileNav: React.FC<NavItems> = props => {
                   <SearchIcon />
                 </button>
 
-                <ModalToggler slug={modalSlug} className={classes.modalToggler}>
+                <button type="button" className={classes.modalToggler} onClick={toggleModal}>
                   <MenuIcon />
-                </ModalToggler>
+                </button>
               </div>
             </Cell>
           </Grid>

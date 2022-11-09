@@ -46,6 +46,10 @@ $transTime: 300ms;
 .rowNumber {
     @include label;
     text-align: center;
+
+    @include mid-break {
+        text-align: left;
+    }
 }
 
 .blipCell {
