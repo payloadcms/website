@@ -61,21 +61,25 @@ export const HoverHighlight: React.FC<
           </Cell>
         </Grid>
       </CMSLink>
-      {typeof media === 'object' && xPercentage && yPercentage && (
-        <div
-          className={[classes.mediaWrapper, isHovered && classes.wrapperHovered]
-            .filter(Boolean)
-            .join(' ')}
-          style={{
-            left: `${xPercentage}%`,
-            top: `${yPercentage}%`,
-          }}
-        >
-          <div className={classes.revealBox}>
-            <Media resource={media} className={classes.media} />
+      {typeof media === 'object' &&
+        xPercentage !== undefined &&
+        xPercentage > 0 &&
+        yPercentage !== undefined &&
+        yPercentage > 0 && (
+          <div
+            className={[classes.mediaWrapper, isHovered && classes.wrapperHovered]
+              .filter(Boolean)
+              .join(' ')}
+            style={{
+              left: `${xPercentage}%`,
+              top: `${yPercentage}%`,
+            }}
+          >
+            <div className={classes.revealBox}>
+              <Media resource={media} className={classes.media} />
+            </div>
           </div>
-        </div>
-      )}
+        )}
     </Fragment>
   )
 }
