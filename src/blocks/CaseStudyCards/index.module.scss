@@ -1,10 +1,24 @@
 @use '@scss/common' as *;
 
+.caseStudyCards {
+  position: relative;
+}
+
+.cards {
+  position: relative;
+  padding: calc(var(--base) * 4) 0;
+}
 
 .card {
+  position: relative;
   border: 1px solid var(--theme-text);
   display: flex;
   text-decoration: none;
+  background-color: var(--theme-bg);
+
+  &:not(:last-child) {
+    margin-bottom: calc(var(--base) * 2);
+  }
 
   &:hover {
     .media {
@@ -24,8 +38,6 @@
 
 .content {
   padding: calc(var(--base) * 4) calc(var(--base) * 3);
-  display: flex;
-  align-items: center;
   width: auto;
   flex-shrink: 0;
   flex: 1;
@@ -72,5 +84,19 @@
     &:after {
       display: none;
     }
+  }
+}
+
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% + var(--gutter-h));
+  height: 100%;
+  margin-left: calc(var(--gutter-h) / -2);
+
+  @include mid-break {
+      margin-left: calc(var(--gutter-h) * -1);
+      width: calc(100% + (var(--gutter-h) * 2));
   }
 }
