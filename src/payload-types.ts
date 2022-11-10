@@ -445,6 +445,10 @@ export interface Page {
     }
     | {
       sliderFields: {
+        useLeadingHeader?: boolean;
+        leadingHeader: {
+          [k: string]: unknown;
+        }[];
         sliderType: 'quoteSlider' | 'imageSlider';
         imageSlides: {
           image: string | Media;
@@ -1082,6 +1086,10 @@ export interface CaseStudy {
     }
     | {
       sliderFields: {
+        useLeadingHeader?: boolean;
+        leadingHeader: {
+          [k: string]: unknown;
+        }[];
         sliderType: 'quoteSlider' | 'imageSlider';
         imageSlides: {
           image: string | Media;
@@ -1768,6 +1776,10 @@ export interface ReusableContent {
     }
     | {
       sliderFields: {
+        useLeadingHeader?: boolean;
+        leadingHeader: {
+          [k: string]: unknown;
+        }[];
         sliderType: 'quoteSlider' | 'imageSlider';
         imageSlides: {
           image: string | Media;

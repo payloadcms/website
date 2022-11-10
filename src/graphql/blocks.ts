@@ -210,6 +210,8 @@ export const SLIDER = `
 ...on Slider {
   blockType
   sliderFields {
+    useLeadingHeader
+    leadingHeader
     sliderType
     imageSlides {
       image ${MEDIA_FIELDS}
