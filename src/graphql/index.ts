@@ -1,8 +1,8 @@
 import type { CaseStudy, Footer, MainMenu, Page, Post, UseCase } from '../payload-types'
 import { CASE_STUDIES, CASE_STUDY } from './case-studies'
 import { GLOBALS } from './globals'
-import { PAGE } from './pages'
-import { POST, POSTS } from './posts'
+import { PAGE, PAGES } from './pages'
+import { POST, POSTS, POST_SLUGS } from './posts'
 import { USE_CASE } from './use-cases'
 
 export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu; footer: Footer }> => {
@@ -42,6 +42,44 @@ export const fetchPage = async (slug: string): Promise<Page> => {
   }
 
   return data.Pages.docs[0]
+}
+
+export const fetchPages = async (): Promise<Array<{ slug: string }>> => {
+  const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: PAGES,
+    }),
+  }).then(res => res.json())
+
+  if (errors) {
+    console.error(JSON.stringify(errors))
+    throw new Error()
+  }
+
+  return data.Pages.docs
+}
+
+export const fetchPosts = async (): Promise<Array<{ slug: string }>> => {
+  const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: POST_SLUGS,
+    }),
+  }).then(res => res.json())
+
+  if (errors) {
+    console.error(JSON.stringify(errors))
+    throw new Error()
+  }
+
+  return data.Posts.docs
 }
 
 export const fetchBlogPosts = async (): Promise<Post[]> => {
