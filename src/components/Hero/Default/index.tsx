@@ -13,10 +13,10 @@ import { Page } from '@root/payload-types'
 import classes from './index.module.scss'
 
 export const DefaultHero: React.FC<
-  Pick<Page['hero'], 'pageLabel' | 'richText' | 'sidebarContent'> & {
+  Pick<Page['hero'], 'richText' | 'sidebarContent'> & {
     breadcrumbs?: Page['breadcrumbs']
   }
-> = ({ pageLabel, richText, sidebarContent, breadcrumbs }) => {
+> = ({ richText, sidebarContent, breadcrumbs }) => {
   const theme = useTheme()
   const withoutSidebar =
     !sidebarContent ||
@@ -31,15 +31,7 @@ export const DefaultHero: React.FC<
     <HeaderObserver color={theme} pullUp={pullUpObserver}>
       <Gutter>
         <div className={classes.defaultHero}>
-          <Breadcrumbs
-            items={
-              breadcrumbs || [
-                {
-                  label: pageLabel,
-                },
-              ]
-            }
-          />
+          <Breadcrumbs items={breadcrumbs} />
 
           <Grid>
             <Cell cols={withoutSidebar ? 10 : 8} colsM={withoutSidebar ? 7 : 5} colsS={8}>

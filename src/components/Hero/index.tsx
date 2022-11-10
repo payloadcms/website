@@ -4,6 +4,7 @@ import { ContentMediaHero } from './ContentMedia'
 import { DefaultHero } from './Default'
 import { FormHero } from './FormHero'
 import { HomeHero } from './Home'
+import classes from './index.module.scss'
 
 const heroes = {
   default: DefaultHero,
@@ -26,7 +27,11 @@ export const Hero: React.FC<{
   const HeroToRender = heroes[type]
 
   if (HeroToRender) {
-    return <HeroToRender {...hero} breadcrumbs={breadcrumbs} />
+    return (
+      <div className={classes.hero}>
+        <HeroToRender {...hero} breadcrumbs={breadcrumbs} />
+      </div>
+    )
   }
 
   return null
