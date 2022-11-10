@@ -17,7 +17,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <head>
         <link rel="icon" href="/favicon.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+        {/* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" /> */}
       </head>
       <body
         className={[
