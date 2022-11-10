@@ -1,17 +1,12 @@
 import Link from 'next/link'
 import React from 'react'
-import { CaseStudy, Page, Post, UseCase } from '@root/payload-types'
+import { CaseStudy, Page, Post } from '@root/payload-types'
 // eslint-disable-next-line import/no-cycle
 import { Button, Props as ButtonProps } from '../Button'
 
 type PageReference = {
   value: string | Page
   relationTo: 'pages'
-}
-
-type UseCaseReference = {
-  value: string | UseCase
-  relationTo: 'use-cases'
 }
 
 type PostsReference = {
@@ -25,7 +20,7 @@ type CaseStudyReference = {
 }
 
 export type LinkType = 'reference' | 'custom'
-export type Reference = PageReference | UseCaseReference | PostsReference | CaseStudyReference
+export type Reference = PageReference | PostsReference | CaseStudyReference
 
 export type CMSLinkType = {
   type?: LinkType

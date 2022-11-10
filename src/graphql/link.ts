@@ -21,9 +21,6 @@ export const LINK_FIELDS = ({ disableAppearance, disableLabel }: Args = {}): str
       ...on CaseStudy {
         slug
       }
-      ...on UseCase {
-        slug
-      }
     }
   }
 }`
