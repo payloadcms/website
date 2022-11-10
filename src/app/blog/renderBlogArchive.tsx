@@ -14,7 +14,6 @@ export const RenderBlogArchive: React.FC<{ posts: Post[] }> = ({ posts }) => {
   return (
     <React.Fragment>
       <DefaultHero
-        pageLabel="Blog Posts"
         richText={[
           {
             type: 'h2',
