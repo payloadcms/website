@@ -34,6 +34,7 @@
 .modalToggler {
   all: unset;
   cursor: pointer;
+  margin-left: calc(var(--base) *  .5);
 }
 
 .modalBlur {
