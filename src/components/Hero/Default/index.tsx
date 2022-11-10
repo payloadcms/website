@@ -13,8 +13,10 @@ import { Page } from '@root/payload-types'
 import classes from './index.module.scss'
 
 export const DefaultHero: React.FC<
-  Pick<Page['hero'], 'pageLabel' | 'richText' | 'sidebarContent'>
-> = ({ pageLabel, richText, sidebarContent }) => {
+  Pick<Page['hero'], 'pageLabel' | 'richText' | 'sidebarContent'> & {
+    breadcrumbs?: Page['breadcrumbs']
+  }
+> = ({ pageLabel, richText, sidebarContent, breadcrumbs }) => {
   const theme = useTheme()
   const withoutSidebar =
     !sidebarContent ||
@@ -30,11 +32,13 @@ export const DefaultHero: React.FC<
       <Gutter>
         <div className={classes.defaultHero}>
           <Breadcrumbs
-            items={[
-              {
-                label: pageLabel,
-              },
-            ]}
+            items={
+              breadcrumbs || [
+                {
+                  label: pageLabel,
+                },
+              ]
+            }
           />
 
           <Grid>

@@ -23,7 +23,7 @@ export const RenderCaseStudy: React.FC<CaseStudy> = props => {
           items={[
             {
               label: 'Case Studies',
-              href: `/case-studies`,
+              url: `/case-studies`,
             },
             {
               label: title,
