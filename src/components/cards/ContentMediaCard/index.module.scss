@@ -17,3 +17,7 @@
     text-decoration: underline;
   }
 }
+
+.media {
+  @include shadow-lg;
+}
