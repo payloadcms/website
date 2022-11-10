@@ -18,7 +18,7 @@ export const RenderCaseStudy: React.FC<CaseStudy> = props => {
 
   return (
     <React.Fragment>
-      <Gutter>
+      <Gutter className={classes.hero}>
         <Breadcrumbs
           items={[
             {

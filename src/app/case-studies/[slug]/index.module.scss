@@ -1,5 +1,12 @@
 @use '@scss/common' as *;
 
+.hero {
+  // dumb
+  margin-top: calc(var(--base) * -8);
+  // dumb
+  padding-top: calc(var(--base) * 8);
+}
+
 .featuredMediaWrap {
   margin-top: calc(var(--base) * 4);
   margin-bottom: calc(var(--base) * 4);
