@@ -23,8 +23,9 @@ import { BlogMarkdown } from '@blocks/BlogMarkdown'
 import { toKebabCase } from '@utilities/to-kebab-case'
 import { Page, ReusableContent } from '@root/payload-types'
 import { LinkGrid } from '@blocks/LinkGrid'
+import { ReusableContentBlock } from '@blocks/ReusableContent'
 
-type ReusableContentBlock = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
+type ReusableContentBlockType = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 
 const blockComponents = {
   banner: BannerBlock,
@@ -46,10 +47,11 @@ const blockComponents = {
   codeFeature: CodeFeature,
   cta: CallToAction,
   linkGrid: LinkGrid,
+  reusableContentBlock: ReusableContentBlock,
 }
 
 type Props = {
-  blocks: (ReusableContent['layout'][0] | ReusableContentBlock)[]
+  blocks: (ReusableContent['layout'][0] | ReusableContentBlockType)[]
   disableOuterSpacing?: true
 }
 

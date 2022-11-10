@@ -144,20 +144,29 @@ $breakpoint-xl-width: 1920px;
   font-family: var(--font-body);
 }
 
+@mixin mouseHover {
+  @media (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
 @mixin color-links {
   a {
     text-decoration: none;
     border-bottom: 1px dotted currentColor;
     color: var(--color-blue-600);
 
-    &:hover {
+    @include mouseHover {
       color: var(--color-blue-400);
     }
+
 
     &:visited {
       color: var(--color-purple-600);
 
-      &:hover {
+      @include mouseHover {
         color: var(--color-purple-500);
       }
     }

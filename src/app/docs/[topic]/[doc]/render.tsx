@@ -19,8 +19,18 @@ type Props = {
 
 export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
   const { content, headings, title } = doc
+  const [OS, setOS] = React.useState('⌘')
 
   const theme = useTheme()
+
+  React.useEffect(() => {
+    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0
+    setOS(isMac ? '⌘' : 'CTRL')
+  }, [])
+
+  const openSearch = React.useCallback(() => {
+    document.querySelector<HTMLButtonElement>('.DocSearch-Button').click()
+  }, [])
 
   return (
     <JumplistProvider>
@@ -55,9 +65,10 @@ export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
           />
           <Button
             className={classes.search}
+            onClick={openSearch}
             appearance="default"
             el="button"
-            label="Press ⌘K to search"
+            label={`Press ${OS}+K to search`}
             labelStyle="mono"
             icon="search"
           />

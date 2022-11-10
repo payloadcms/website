@@ -5,6 +5,7 @@ import { useModal } from '@faceless-ui/modal'
 import { useHeaderTheme } from '@providers/HeaderTheme'
 import { ThemeProvider } from '@providers/Theme'
 import { MainMenu } from '@root/payload-types'
+import { useScrollInfo } from '@faceless-ui/scroll-info'
 import { MobileNav, modalSlug as mobileNavModalSlug } from './MobileNav'
 import { DesktopNav } from './DesktopNav'
 
@@ -14,11 +15,18 @@ export const Header: React.FC<MainMenu> = ({ navItems }) => {
   const { isModalOpen } = useModal()
   const isMobileNavOpen = isModalOpen(mobileNavModalSlug)
   const { headerColor } = useHeaderTheme()
+  const { y } = useScrollInfo()
+
+  const hideBackground = y < 30
 
   return (
     <ThemeProvider theme={headerColor}>
       <header
-        className={[classes.header, isMobileNavOpen && classes.mobileNavOpen]
+        className={[
+          classes.header,
+          hideBackground && classes.hideBackground,
+          isMobileNavOpen && classes.mobileNavOpen,
+        ]
           .filter(Boolean)
           .join(' ')}
       >

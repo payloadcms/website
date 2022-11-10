@@ -18,6 +18,7 @@
     background: var(--theme-bg);
     opacity: 0.85;
     z-index: -1;
+    transition: opacity 500ms ease-out;
   }
   
   &:after {
@@ -31,7 +32,7 @@
     backdrop-filter: blur(5px);
     z-index: -1;
     opacity: 1;
-    transition: opacity 50ms ease-out;
+    transition: opacity 500ms ease-out;
   }
 
   @include large-break {
@@ -40,5 +41,15 @@
 
   @include mid-break {
     padding: calc(var(--base) * .75) 0;
+  }
+}
+
+.header.hideBackground {
+  &:before {
+    opacity: 0;
+  }
+
+  &:after {
+    opacity: 0;
   }
 }
