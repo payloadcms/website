@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
-import { themeLocalStorageKey } from './shared'
+import { defaultTheme, getImplicitPreference, themeLocalStorageKey } from './shared'
 import { Theme, themeIsValid, ThemePreferenceContextType } from './types'
 import classes from './index.module.scss'
 
@@ -36,24 +36,29 @@ export const ThemePreferenceProvider: React.FC<{ children?: React.ReactNode }> =
   const [theme, setThemeState] = useState<Theme>()
 
   const setTheme = useCallback((themeToSet: Theme) => {
-    setThemeState(themeToSet)
-    window.localStorage.setItem(themeLocalStorageKey, themeToSet)
-    document.documentElement.setAttribute('data-theme', themeToSet)
+    if (themeToSet === null) {
+      window.localStorage.removeItem(themeLocalStorageKey)
+      const implicitPreference = getImplicitPreference()
+      document.documentElement.setAttribute('data-theme', implicitPreference)
+      setThemeState(implicitPreference)
+    } else {
+      setThemeState(themeToSet)
+      window.localStorage.setItem(themeLocalStorageKey, themeToSet)
+      document.documentElement.setAttribute('data-theme', themeToSet)
+    }
   }, [])
 
   useEffect(() => {
-    let themeToSet: Theme = 'light'
+    let themeToSet: Theme = defaultTheme
     const preference = window.localStorage.getItem(themeLocalStorageKey)
 
     if (themeIsValid(preference)) {
       themeToSet = preference
     } else {
-      const mediaQuery = '(prefers-color-scheme: dark)'
-      const mql = window.matchMedia(mediaQuery)
-      const hasImplicitPreference = typeof mql.matches === 'boolean'
+      const implicitPreference = getImplicitPreference()
 
-      if (hasImplicitPreference) {
-        themeToSet = mql.matches ? 'dark' : 'light'
+      if (implicitPreference) {
+        themeToSet = implicitPreference
       }
     }
 

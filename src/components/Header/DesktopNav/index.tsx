@@ -39,7 +39,7 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
           </div>
 
           <div className={classes.icons}>
-            <a href="https://discord.com" target="_blank" rel="noreferrer">
+            <a href="https://discord.com/invite/r6sCXqVk3v" target="_blank" rel="noreferrer">
               <DiscordIcon />
             </a>
             <DocSearch />
