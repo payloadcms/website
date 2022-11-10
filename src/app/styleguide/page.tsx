@@ -61,6 +61,10 @@ const Styleguide: React.FC = () => {
           <Link href="/styleguide/blocks/call-to-action">Call To Action</Link>
         </div>
         <br />
+        <div>
+          <Link href="/styleguide/blocks/link-grid">Link Grid</Link>
+        </div>
+        <br />
         <h4>Heros</h4>
         <div>
           <Link href="/styleguide/heros/form-hero">Form Hero</Link>

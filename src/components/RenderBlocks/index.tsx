@@ -22,6 +22,7 @@ import { StickyHighlights } from '@blocks/StickyHighlights'
 import { BlogMarkdown } from '@blocks/BlogMarkdown'
 import { toKebabCase } from '@utilities/to-kebab-case'
 import { Page, ReusableContent } from '@root/payload-types'
+import { LinkGrid } from '@blocks/LinkGrid'
 
 type ReusableContentBlock = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 
@@ -44,6 +45,7 @@ const blockComponents = {
   hoverHighlights: HoverHighlights,
   codeFeature: CodeFeature,
   cta: CallToAction,
+  linkGrid: LinkGrid,
 }
 
 type Props = {
