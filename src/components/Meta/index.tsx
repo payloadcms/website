@@ -33,7 +33,6 @@ const Meta: React.FC<MetaType> = ({
       <meta property="og:site_name" content="BioLogos" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta property="og:type" content="website" />
-      <link rel="shortcut icon" href="/favicon.png" type="image/png" />
     </Fragment>
   )
 }

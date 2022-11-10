@@ -31,8 +31,7 @@ export const DefaultHero: React.FC<
     <HeaderObserver color={theme} pullUp={pullUpObserver}>
       <Gutter>
         <div className={classes.defaultHero}>
-          <Breadcrumbs items={breadcrumbs} />
-
+          {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
           <Grid>
             <Cell cols={withoutSidebar ? 10 : 8} colsM={withoutSidebar ? 7 : 5} colsS={8}>
               <RichText className={classes.richText} content={richText} />
