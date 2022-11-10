@@ -95,10 +95,10 @@
   align-items: flex-end;
 }
 
-.socialLinks {
-  svg {
-    margin-right: var(--base);
-  }
+.socialIconLink {
+  display: inline-flex;
+  border-radius: 50%;
+  margin-right: var(--base);
 }
 
 .copyright {

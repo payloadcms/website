@@ -111,10 +111,38 @@ export const Footer: React.FC<FooterType> = props => {
           <Grid className={classes.footerMeta}>
             <Cell cols={3}>
               <div className={classes.socialLinks}>
-                <InstagramIcon />
-                <YoutubeIcon />
-                <TwitterIcon />
-                <FacebookIcon />
+                <a
+                  href="https://www.instagram.com/payloadcms/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={classes.socialIconLink}
+                >
+                  <InstagramIcon />
+                </a>
+                <a
+                  href="https://www.youtube.com/channel/UCyrx4Wpd4SBIpqUKlkb6N1Q"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={classes.socialIconLink}
+                >
+                  <YoutubeIcon />
+                </a>
+                <a
+                  href="https://twitter.com/payloadcms"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={classes.socialIconLink}
+                >
+                  <TwitterIcon />
+                </a>
+                <a
+                  href="https://www.facebook.com/payloadcms/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={classes.socialIconLink}
+                >
+                  <FacebookIcon />
+                </a>
               </div>
             </Cell>
 
