@@ -6,7 +6,7 @@ import { Label } from '../../Label'
 import { LargeBody } from '../../LargeBody'
 import { Highlight } from '../../Highlight'
 import { Video } from '../Video'
-import RichTextUpload from '../Upload'
+import { RichTextUpload } from '../Upload'
 
 type Node = {
   type: string

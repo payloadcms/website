@@ -47,7 +47,6 @@ export interface Page {
   title: string;
   hero: {
     type: 'default' | 'contentMedia' | 'form' | 'home';
-    pageLabel?: string;
     richText?: {
       [k: string]: unknown;
     }[];

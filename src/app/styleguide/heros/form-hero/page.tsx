@@ -117,6 +117,12 @@ const FormBlockPage: React.FC = () => {
     <StyleguidePageContent title="Form Hero" renderHeader={false} darkModePadding darkModeMargins>
       <Hero
         page={{
+          breadcrumbs: [
+            {
+              label: 'hello',
+              url: 'get out',
+            },
+          ],
           id: '',
           title: '',
           slug: '',
