@@ -19,6 +19,7 @@
 }
 
 .mediaGutter {
+  @include shadow-lg;
   margin-bottom: calc(var(--base) * 4);
   margin-left: calc(var(--gutter-h) / 2);
   margin-right: calc(var(--gutter-h) / 2);
