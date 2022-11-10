@@ -3,8 +3,8 @@ import { Hero } from '../../components/Hero'
 import { RenderBlocks } from '../../components/RenderBlocks'
 import { fetchPage, fetchPages } from '../../graphql'
 
-const Page = async ({ params }) => {
-  const page = await fetchPage(params.slug || 'home')
+const Page = async ({ params: { slug } }) => {
+  const page = await fetchPage(slug)
 
   return (
     <React.Fragment>
@@ -19,7 +19,7 @@ export default Page
 export async function generateStaticParams() {
   const pages = await fetchPages()
 
-  return pages.map(({ slug }) => ({
-    slug,
+  return pages.map(({ breadcrumbs }) => ({
+    slug: breadcrumbs[breadcrumbs.length - 1].url.split('/'),
   }))
 }

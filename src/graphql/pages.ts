@@ -26,6 +26,10 @@ export const PAGES = `
     Pages(limit: 300) {
       docs {
         slug
+        breadcrumbs {
+          url
+          label
+        }
       }
     }
   }
@@ -76,6 +80,10 @@ export const PAGE = `
           ${STICKY_HIGHLIGHTS}
         }
         meta ${META_FIELDS}
+        breadcrumbs {
+          url
+          label
+        }
       }
     }
   }
