@@ -15,6 +15,12 @@
   }
 }
 
+.colHeader.thirdColumn {
+  @include mid-break {
+    margin-top: calc(var(--base) * 2);
+  }
+}
+
 .footer .link {
   display: block;
   margin-bottom: calc(var(--base) * .15);
@@ -93,6 +99,15 @@
 .footerMeta {
   margin-top: calc(var(--base) * 4);
   align-items: flex-end;
+
+  @include mid-break {
+    margin-top: calc(var(--base) * 2);
+  }
+}
+
+.socialLinks {
+  display: flex;
+  align-items: center;
 }
 
 .socialIconLink {
@@ -105,6 +120,12 @@
   font-size: calc(var(--font-body-size) * 0.925);
   color: var(--theme-elevation-500);
   margin: 0;
+}
+
+.themeCell {
+  @include mid-break {
+    grid-row: 3;
+  }
 }
 
 .selectContainer {

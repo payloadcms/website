@@ -23,7 +23,7 @@ import { useThemePreference } from '@root/providers/Theme'
 
 import { Theme } from '@root/providers/Theme/types'
 import { ChevronUpDownIcon } from '@root/icons/ChevronUpDownIcon'
-import { getImplicitPreference } from '@root/providers/Theme/shared'
+import { getImplicitPreference, themeLocalStorageKey } from '@root/providers/Theme/shared'
 import { useHeaderTheme } from '@root/providers/HeaderTheme'
 import classes from './index.module.scss'
 
@@ -32,6 +32,7 @@ export const Footer: React.FC<FooterType> = props => {
   const [itemsUnderLogo, documentationItems] = columns ?? []
   const { setTheme, theme } = useThemePreference()
   const { setHeaderColor } = useHeaderTheme()
+  const selectRef = React.useRef<HTMLSelectElement>(null)
 
   const onThemeChange = (themeToSet: Theme & 'auto') => {
     if (themeToSet === 'auto') {
@@ -43,6 +44,13 @@ export const Footer: React.FC<FooterType> = props => {
       setHeaderColor(themeToSet)
     }
   }
+
+  React.useEffect(() => {
+    const preference = window.localStorage.getItem(themeLocalStorageKey)
+    if (selectRef.current) {
+      selectRef.current.value = preference ?? 'auto'
+    }
+  }, [])
 
   if (Array.isArray(itemsUnderLogo.navItems) && Array.isArray(documentationItems.navItems)) {
     return (
@@ -74,8 +82,8 @@ export const Footer: React.FC<FooterType> = props => {
               </div>
             </Cell>
 
-            <Cell cols={5} colsM={6}>
-              <p className={classes.colHeader}>Stay connected</p>
+            <Cell cols={5} colsM={6} colsS={8}>
+              <p className={`${classes.colHeader} ${classes.thirdColumn}`}>Stay connected</p>
 
               <div>
                 <Form
@@ -109,7 +117,7 @@ export const Footer: React.FC<FooterType> = props => {
           </Grid>
 
           <Grid className={classes.footerMeta}>
-            <Cell cols={3}>
+            <Cell cols={3} colsM={5}>
               <div className={classes.socialLinks}>
                 <a
                   href="https://www.instagram.com/payloadcms/"
@@ -146,11 +154,11 @@ export const Footer: React.FC<FooterType> = props => {
               </div>
             </Cell>
 
-            <Cell cols={4}>
+            <Cell cols={4} colsM={8}>
               <p className={classes.copyright}>Copyright 2022 Payload CMS, Inc.</p>
             </Cell>
 
-            <Cell cols={5} colsM={8}>
+            <Cell cols={5} colsM={8} className={classes.themeCell}>
               <div className={classes.selectContainer}>
                 <label htmlFor="theme">
                   <div className={`${classes.switcherIcon} ${classes.themeIcon}`}>
@@ -162,6 +170,7 @@ export const Footer: React.FC<FooterType> = props => {
                   <select
                     id="theme"
                     onChange={e => onThemeChange(e.target.value as Theme & 'auto')}
+                    ref={selectRef}
                   >
                     <option value="auto">Auto</option>
                     <option value="light">Light</option>

@@ -52,7 +52,6 @@ export const MobileNav: React.FC<NavItems> = props => {
     if (isModalOpen(modalSlug)) {
       closeModal(modalSlug)
       setHeaderColor(headerColorRef.current)
-      // headerColorRef.current = headerColor
     } else {
       headerColorRef.current = headerColor
       setHeaderColor('dark')
