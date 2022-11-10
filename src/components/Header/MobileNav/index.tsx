@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useHeaderTheme } from '@providers/HeaderTheme'
 import { Gutter } from '@components/Gutter'
 import { MainMenu } from '@root/payload-types'
+import { usePathname } from 'next/navigation'
 import { FullLogo } from '../../../graphics/FullLogo'
 import { SearchIcon } from '../../../graphics/SearchIcon'
 import { MenuIcon } from '../../../graphics/MenuIcon'
@@ -44,15 +45,20 @@ const MobileMenuModal: React.FC<NavItems> = ({ navItems }) => {
 }
 
 export const MobileNav: React.FC<NavItems> = props => {
-  const { isModalOpen, openModal, closeModal } = useModal()
+  const { isModalOpen, openModal, closeModal, closeAllModals } = useModal()
   const { headerColor, setHeaderColor } = useHeaderTheme()
   const headerColorRef = React.useRef(null)
+
+  const pathname = usePathname()
+
+  React.useEffect(() => {
+    closeAllModals()
+  }, [pathname])
 
   function toggleModal() {
     if (isModalOpen(modalSlug)) {
       closeModal(modalSlug)
       setHeaderColor(headerColorRef.current)
-      // headerColorRef.current = headerColor
     } else {
       headerColorRef.current = headerColor
       setHeaderColor('dark')
