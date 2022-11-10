@@ -6,7 +6,7 @@ import { useHeaderTheme } from '@providers/HeaderTheme'
 import { Gutter } from '@components/Gutter'
 import { MainMenu } from '@root/payload-types'
 import { FullLogo } from '../../../graphics/FullLogo'
-import { SearchIcon } from '../../../graphics/SearchIcon'
+import { DocSearch } from '../Docsearch'
 import { MenuIcon } from '../../../graphics/MenuIcon'
 import { CMSLink } from '../../CMSLink'
 
@@ -70,9 +70,7 @@ export const MobileNav: React.FC<NavItems> = props => {
               </Link>
 
               <div className={classes.icons}>
-                <button type="button" className={classes.searchToggler}>
-                  <SearchIcon />
-                </button>
+                <DocSearch />
 
                 <button type="button" className={classes.modalToggler} onClick={toggleModal}>
                   <MenuIcon />
