@@ -23,15 +23,25 @@ import { useThemePreference } from '@root/providers/Theme'
 
 import { Theme } from '@root/providers/Theme/types'
 import { ChevronUpDownIcon } from '@root/icons/ChevronUpDownIcon'
+import { getImplicitPreference } from '@root/providers/Theme/shared'
+import { useHeaderTheme } from '@root/providers/HeaderTheme'
 import classes from './index.module.scss'
 
 export const Footer: React.FC<FooterType> = props => {
   const { columns } = props
   const [itemsUnderLogo, documentationItems] = columns ?? []
   const { setTheme, theme } = useThemePreference()
+  const { setHeaderColor } = useHeaderTheme()
 
   const onThemeChange = (themeToSet: Theme & 'auto') => {
-    setTheme(themeToSet === 'auto' ? null : themeToSet)
+    if (themeToSet === 'auto') {
+      const implicitPreference = getImplicitPreference()
+      setHeaderColor(implicitPreference ?? 'light')
+      setTheme(null)
+    } else {
+      setTheme(themeToSet)
+      setHeaderColor(themeToSet)
+    }
   }
 
   if (Array.isArray(itemsUnderLogo.navItems) && Array.isArray(documentationItems.navItems)) {
