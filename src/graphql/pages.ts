@@ -43,7 +43,6 @@ export const PAGE = `
         title
         hero {
           type
-          pageLabel
           richText
           sidebarContent
           links {
