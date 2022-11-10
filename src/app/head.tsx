@@ -10,7 +10,7 @@ export default async ({ params }) => {
       title={meta?.title}
       description={meta?.description}
       image={meta?.image}
-      slug={`/${slug.join('/')}`}
+      slug={`/${slug ? slug.join('/') : ''}`}
     />
   )
 }
