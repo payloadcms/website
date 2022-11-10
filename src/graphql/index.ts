@@ -21,7 +21,10 @@ export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu; footer: Foot
   }
 }
 
-export const fetchPage = async (slug: string): Promise<Page> => {
+export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page> => {
+  const slugSegments = incomingSlugSegments || ['home']
+  const slug = slugSegments[slugSegments.length - 1]
+
   const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
     method: 'POST',
     headers: {
@@ -40,10 +43,23 @@ export const fetchPage = async (slug: string): Promise<Page> => {
     throw new Error()
   }
 
-  return data.Pages.docs[0]
+  const pagePath = `/${slugSegments.join('/')}`
+
+  const page = data.Pages.docs.find(({ breadcrumbs }: Page) => {
+    const { url } = breadcrumbs[breadcrumbs.length - 1]
+    return url === pagePath
+  })
+
+  if (page) {
+    return page
+  }
+
+  throw new Error()
 }
 
-export const fetchPages = async (): Promise<Array<{ slug: string }>> => {
+export const fetchPages = async (): Promise<
+  Array<{ breadcrumbs: Page['breadcrumbs']; slug: string }>
+> => {
   const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
     method: 'POST',
     headers: {

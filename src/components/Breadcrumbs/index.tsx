@@ -4,8 +4,8 @@ import classes from './index.module.scss'
 
 type Props = {
   items: Array<{
-    label: string
-    href?: string
+    label?: string
+    url?: string
   }>
 }
 
@@ -15,11 +15,11 @@ export const Breadcrumbs: React.FC<Props> = ({ items }) => {
       {items.map((item, index) => {
         const isLast = index === items.length - 1
 
-        if (item?.href && typeof item.href === 'string') {
+        if (item?.url && typeof item.url === 'string' && !isLast) {
           return (
             <React.Fragment key={index}>
               <label>
-                <Link href={item.href}>{item.label}</Link>
+                <Link href={item.url}>{item.label}</Link>
               </label>
 
               {!isLast && (

@@ -15,7 +15,7 @@ export const ContentMediaCard: React.FC<BlogCardProps> = props => {
           <Media
             resource={media}
             className={classes.media}
-            sizes="(max-width: 768px) 100vw, 33vw"
+            sizes="(max-width: 768px) 100vw, 20vw"
           />
         </CMSLink>
       )}

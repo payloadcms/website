@@ -18,6 +18,7 @@ export const Hero: React.FC<{
   const {
     page: {
       hero,
+      breadcrumbs,
       hero: { type },
     },
   } = props
@@ -25,7 +26,7 @@ export const Hero: React.FC<{
   const HeroToRender = heroes[type]
 
   if (HeroToRender) {
-    return <HeroToRender {...hero} />
+    return <HeroToRender {...hero} breadcrumbs={breadcrumbs} />
   }
 
   return null
