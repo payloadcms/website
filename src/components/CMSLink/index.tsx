@@ -51,7 +51,8 @@ const generateHref = (args: GenerateSlugType): string => {
 
   if (reference?.value && typeof reference.value !== 'string') {
     if (reference.relationTo === 'pages') {
-      return `/${reference.value.slug}`
+      const { breadcrumbs } = reference.value
+      return breadcrumbs[breadcrumbs.length - 1].url
     }
 
     return `/${reference.relationTo}/${reference.value.slug}`
