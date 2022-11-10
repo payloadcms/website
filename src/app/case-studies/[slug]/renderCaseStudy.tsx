@@ -35,7 +35,7 @@ export const RenderCaseStudy: React.FC<CaseStudy> = props => {
             <RichText content={introContent} />
           </Cell>
 
-          <Cell start={10} cols={3}>
+          <Cell start={10} cols={3} startS={1} colsS={8} className={classes.visitSiteLink}>
             <Button
               appearance="default"
               el="a"
@@ -44,6 +44,7 @@ export const RenderCaseStudy: React.FC<CaseStudy> = props => {
               label="Visit Site"
               labelStyle="mono"
               icon="arrow"
+              fullWidth
             />
           </Cell>
         </Grid>

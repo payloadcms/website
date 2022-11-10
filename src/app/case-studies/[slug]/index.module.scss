@@ -12,3 +12,9 @@
     width: 100%;
   }
 }
+
+.visitSiteLink {
+  @include mid-break {
+    margin-top: var(--base);
+  }
+}
