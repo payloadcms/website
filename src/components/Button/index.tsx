@@ -74,6 +74,7 @@ export const Button: React.FC<Props> = props => {
     href: hrefFromProps,
     appearance = 'default',
     className: classNameFromProps,
+    onClick,
     fullWidth,
     reference,
     htmlButtonType = 'button',
@@ -126,6 +127,7 @@ export const Button: React.FC<Props> = props => {
         className={className}
         {...newTabProps}
         href={href}
+        onClick={onClick}
         onMouseEnter={() => {
           setIsHovered(true)
         }}
