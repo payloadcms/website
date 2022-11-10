@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { useSelectedLayoutSegments } from 'next/navigation'
+import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
 import AnimateHeight from 'react-animate-height'
 import Link from 'next/link'
 import { MenuIcon } from '@graphics/MenuIcon'
@@ -27,6 +27,11 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
   const [init, setInit] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
   const theme = useTheme()
+  const pathname = usePathname()
+
+  useEffect(() => {
+    if (navOpen) setNavOpen(false)
+  }, [pathname])
 
   useEffect(() => {
     const preference = window.localStorage.getItem(openTopicsLocalStorageKey)
