@@ -19,6 +19,8 @@
   hyphens: none;
   overflow: auto;
 
+  @include dark-custom-scrollbar;
+
   :global {
     .token.comment,
     .token.prolog,

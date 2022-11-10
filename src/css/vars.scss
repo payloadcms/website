@@ -172,3 +172,17 @@ $breakpoint-xl-width: 1920px;
     }
   }
 }
+
+@mixin dark-custom-scrollbar {
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    height: 8px;
+    cursor: pointer;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-base-800);
+    border-radius: 0px;
+    cursor: pointer;
+  }
+}
