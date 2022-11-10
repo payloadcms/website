@@ -1,7 +1,7 @@
 import React from 'react'
 import { Hero } from '../../components/Hero'
 import { RenderBlocks } from '../../components/RenderBlocks'
-import { fetchPage } from '../../graphql'
+import { fetchPage, fetchPages } from '../../graphql'
 
 const Page = async ({ params }) => {
   const page = await fetchPage(params.slug || 'home')
@@ -15,3 +15,11 @@ const Page = async ({ params }) => {
 }
 
 export default Page
+
+export async function generateStaticParams() {
+  const pages = await fetchPages()
+
+  return pages.map(({ slug }) => ({
+    slug,
+  }))
+}

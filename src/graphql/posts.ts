@@ -17,6 +17,16 @@ export const POSTS = `
   }
 `
 
+export const POST_SLUGS = `
+  query Posts {
+    Posts(limit: 300) {
+      docs {
+        slug
+      }
+    }
+  }
+`
+
 export const POST = `
   query Post($slug: String ) {
     Posts(where: { slug: { equals: $slug} }, draft: true) {

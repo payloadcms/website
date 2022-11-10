@@ -1,12 +1,20 @@
 import React from 'react'
 import { RenderBlogPost } from './render'
-import { fetchBlogPost } from '../../../graphql'
+import { fetchBlogPost, fetchPosts } from '../../../graphql'
 
-const Page = async ({ params }) => {
+const Post = async ({ params }) => {
   const { slug } = params
   const blogPost = await fetchBlogPost(slug)
 
   return <RenderBlogPost {...blogPost} />
 }
 
-export default Page
+export default Post
+
+export async function generateStaticParams() {
+  const posts = await fetchPosts()
+
+  return posts.map(({ slug }) => ({
+    slug,
+  }))
+}
