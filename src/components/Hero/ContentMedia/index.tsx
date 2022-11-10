@@ -29,7 +29,7 @@ export const ContentMediaHero: React.FC<
           {typeof media === 'object' && (
             <Cell cols={5} start={8} colsM={8} startM={1}>
               <div className={classes.media}>
-                <Media resource={media} />
+                <Media resource={media} sizes="(max-width: 768px) 100vw, 33vw" />
               </div>
             </Cell>
           )}
