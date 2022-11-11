@@ -52,7 +52,7 @@ export const Footer: React.FC<FooterType> = props => {
     }
   }, [])
 
-  if (Array.isArray(itemsUnderLogo.navItems) && Array.isArray(documentationItems.navItems)) {
+  if (Array.isArray(itemsUnderLogo?.navItems) && Array.isArray(documentationItems?.navItems)) {
     return (
       <footer className={classes.footer}>
         <Gutter>
@@ -72,7 +72,7 @@ export const Footer: React.FC<FooterType> = props => {
             <Cell cols={4} colsM={4}>
               <p className={classes.colHeader}>Documentation</p>
               <div className={classes.col2Items}>
-                {itemsUnderLogo.navItems.map(({ link }, index) => {
+                {documentationItems?.navItems.map(({ link }, index) => {
                   return (
                     <React.Fragment key={index}>
                       <CMSLink className={classes.link} {...link} />
