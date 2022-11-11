@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment } from 'react'
+import React, { CSSProperties, Fragment } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { CMSLink } from '@components/CMSLink'
 import { Media } from '@components/Media'
@@ -19,10 +19,20 @@ export const HoverHighlight: React.FC<
   }
 > = props => {
   const { index, addRowNumbers, description, title, link, media } = props
-
+  const [init, setInit] = React.useState(false)
   const [isHovered, setIsHovered] = React.useState<boolean | null>(null)
-
   const { xPercentage, yPercentage } = useMouseInfo()
+
+  React.useEffect(() => {
+    setInit(true)
+  }, [])
+
+  const mediaStyle: CSSProperties = {}
+
+  if (init && yPercentage > 0 && xPercentage > 0) {
+    mediaStyle.left = `${xPercentage}%`
+    mediaStyle.top = `${yPercentage}%`
+  }
 
   return (
     <Fragment>
@@ -61,25 +71,18 @@ export const HoverHighlight: React.FC<
           </Cell>
         </Grid>
       </CMSLink>
-      {typeof media === 'object' &&
-        xPercentage !== undefined &&
-        xPercentage > 0 &&
-        yPercentage !== undefined &&
-        yPercentage > 0 && (
-          <div
-            className={[classes.mediaWrapper, isHovered && classes.wrapperHovered]
-              .filter(Boolean)
-              .join(' ')}
-            style={{
-              left: `${xPercentage}%`,
-              top: `${yPercentage}%`,
-            }}
-          >
-            <div className={classes.revealBox}>
-              <Media resource={media} className={classes.media} />
-            </div>
+      {typeof media === 'object' && (
+        <div
+          className={[classes.mediaWrapper, isHovered && classes.wrapperHovered]
+            .filter(Boolean)
+            .join(' ')}
+          style={mediaStyle}
+        >
+          <div className={classes.revealBox}>
+            <Media resource={media} className={classes.media} />
           </div>
-        )}
+        </div>
+      )}
     </Fragment>
   )
 }
