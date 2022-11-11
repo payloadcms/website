@@ -1,0 +1,45 @@
+@use '@scss/common.scss' as *;
+
+$curve: cubic-bezier(.165, .84, .44, 1);
+
+.lineDraw {
+  position: relative;
+  background-color: var(--theme-elevation-250);
+  height: 1px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  &.bottom {
+    top: unset;
+    bottom: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--theme-elevation-950);
+    transform-origin: bottom right;
+    transition: transform 500ms ease-out;
+  }
+  
+  &.isHovered {
+    &::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+
+    @include mid-break {
+      &::after {
+        transform: scaleX(0);
+        transform-origin: bottom right;
+      }
+    }
+  }
+}

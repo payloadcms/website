@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import { Page } from '@root/payload-types'
 import { Gutter } from '@components/Gutter'
 import { CMSLink } from '@components/CMSLink'
-import { LineBlip } from '@components/LineBlip'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { LineDraw } from '@components/LineDraw'
 import classes from './index.module.scss'
 
 export type LinkGridProps = Extract<Page['layout'][0], { blockType: 'linkGrid' }>
@@ -18,7 +18,7 @@ const Link: React.FC<LinkGridProps['linkGridFields']['links'][0]['link']> = prop
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <LineBlip active={isHovered} />
+      <LineDraw active={isHovered} />
       <CMSLink {...props} className={classes.link}>
         <ArrowIcon className={classes.icon} size="large" />
       </CMSLink>
