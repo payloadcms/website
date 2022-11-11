@@ -46,7 +46,7 @@ type GenerateSlugType = {
 const generateHref = (args: GenerateSlugType): string => {
   const { reference, url, type } = args
 
-  if (type === 'custom' && url) {
+  if (type === 'custom') {
     return url
   }
 
@@ -57,6 +57,10 @@ const generateHref = (args: GenerateSlugType): string => {
     }
 
     return `/${reference.relationTo}/${reference.value.slug}`
+  }
+
+  if (url) {
+    return url
   }
 
   return ''

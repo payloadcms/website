@@ -11,7 +11,7 @@ export const ContentMediaCard: React.FC<BlogCardProps> = props => {
   return (
     <div className={[classes.blogCard, className && className].filter(Boolean).join(' ')}>
       {typeof media !== 'string' && (
-        <CMSLink url={href}>
+        <CMSLink type="custom" url={href}>
           <Media
             resource={media}
             className={classes.media}
@@ -20,7 +20,7 @@ export const ContentMediaCard: React.FC<BlogCardProps> = props => {
         </CMSLink>
       )}
 
-      <CMSLink url={href} className={classes.title}>
+      <CMSLink type="custom" url={href} className={classes.title}>
         {title}
       </CMSLink>
 
