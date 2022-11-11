@@ -133,6 +133,27 @@
 
   color-scheme: light;
   color: var(--theme-text);
+
+  h1 a,
+  h2 a,
+  h3 a,
+  h4 a,
+  h5 a,
+  h6 a {
+    color: var(--theme-elevation-750);
+
+    &:hover {
+      color: var(--theme-elevation-800);
+    }
+
+    &:visited {
+      color: var(--theme-elevation-750);
+
+      &:hover {
+        color: var(--theme-elevation-800);
+      }
+    }
+  }
 }
 
 .theme--dark {
@@ -264,4 +285,25 @@
 
   color-scheme: dark;
   color: var(--theme-text);
+
+  h1 a,
+  h2 a,
+  h3 a,
+  h4 a,
+  h5 a,
+  h6 a {
+    color: var(--theme-success-600);
+
+    &:hover {
+      color: var(--theme-success-400);
+    }
+
+    &:visited {
+      color: var(--theme-success-700);
+
+      &:hover {
+        color: var(--theme-success-500);
+      }
+    }
+  }
 }
