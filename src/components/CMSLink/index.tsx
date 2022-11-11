@@ -46,7 +46,7 @@ type GenerateSlugType = {
 const generateHref = (args: GenerateSlugType): string => {
   const { reference, url, type } = args
 
-  if (type === 'custom' || url) {
+  if (type === 'custom' || type === undefined) {
     return url
   }
 
