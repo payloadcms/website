@@ -29,8 +29,17 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     transition: transform 500ms ease-out;
   }
   
-  &.isHovered::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
+  &.isHovered {
+    &::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+
+    @include mid-break {
+      &::after {
+        transform: scaleX(0);
+        transform-origin: bottom right;
+      }
+    }
   }
 }
