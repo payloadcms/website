@@ -3,14 +3,18 @@ import { fetchCaseStudy } from '@graphql'
 
 export default async ({ params }) => {
   const { slug } = params
-  const { meta } = await fetchCaseStudy(slug)
+  const caseStudy = await fetchCaseStudy(slug)
 
-  return (
-    <Meta
-      title={meta?.title}
-      description={meta?.description}
-      image={meta?.image}
-      slug={`/case-studies/${slug}`}
-    />
-  )
+  if (caseStudy) {
+    const { meta } = caseStudy
+    return (
+      <Meta
+        title={meta?.title}
+        description={meta?.description}
+        image={meta?.image}
+        slug={`/case-studies/${slug}`}
+      />
+    )
+  }
+  return null
 }

@@ -49,13 +49,13 @@
 
     .highlightNode {
       &::before {
-        background-color: var(--theme-success-100);
+        background-color: var(--color-success-900);
       }
     }
 
     .doHighlight {
       .label {
-        color: var(--theme-success-600);
+        color: var(--color-success-400);
       }
     }
   }

@@ -54,7 +54,7 @@ export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page> 
     return page
   }
 
-  throw new Error()
+  return null
 }
 
 export const fetchPages = async (): Promise<

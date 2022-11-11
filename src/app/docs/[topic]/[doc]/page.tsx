@@ -1,4 +1,5 @@
 import React from 'react'
+import { notFound } from 'next/navigation'
 import { getDoc, getTopics } from '../../api'
 import { RenderDoc } from './render'
 import { NextDoc } from '../../types'
@@ -35,6 +36,8 @@ const Doc = async ({ params }) => {
       }
     }
   }
+
+  if (!doc) notFound()
 
   return <RenderDoc doc={doc} next={next} />
 }
