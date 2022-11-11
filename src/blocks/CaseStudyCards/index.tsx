@@ -31,12 +31,14 @@ export const CaseStudyCards: React.FC<Props> = props => {
                       key={i}
                       className={classes.card}
                     >
-                      <RichText className={classes.content} content={card.richText} />
-                      <div className={classes.media}>
-                        {typeof card.caseStudy.featuredImage !== 'string' && (
-                          <Media resource={card.caseStudy.featuredImage} fill />
-                        )}
-                      </div>
+                      <React.Fragment>
+                        <RichText className={classes.content} content={card.richText} />
+                        <div className={classes.media}>
+                          {typeof card.caseStudy.featuredImage !== 'string' && (
+                            <Media resource={card.caseStudy.featuredImage} fill />
+                          )}
+                        </div>
+                      </React.Fragment>
                     </Link>
                   )
                 }
