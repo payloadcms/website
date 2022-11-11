@@ -49,7 +49,12 @@ export function formatDate(args: Args): string {
   const { date, format = 'longDateStamp' } = args
 
   try {
-    const dateObj = new Date(date)
+    const dateObj = new Date(
+      new Date(date).toLocaleString('en-US', {
+        timeZone: 'America/Detroit',
+      }),
+    )
+
     const options = formatOptions[format]
     return new Intl.DateTimeFormat('en-US', options).format(dateObj)
   } catch (e: unknown) {
