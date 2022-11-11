@@ -96,7 +96,7 @@ export const StickyHighlight: React.FC<Props> = React.memo(
         <Grid className={classes.minHeight}>
           <Cell cols={5} colsM={8}>
             <RichText content={richText} className={classes.richText} />
-            {enableLink && <CMSLink {...link} appearance="default" />}
+            {enableLink && <CMSLink {...link} appearance="default" mobileFullWidth />}
           </Cell>
         </Grid>
         <CSSTransition in={visible} timeout={750} classNames="animate">
