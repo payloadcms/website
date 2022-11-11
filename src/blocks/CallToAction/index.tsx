@@ -39,7 +39,7 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
           <Cell cols={5} start={8} colsM={8} startM={1}>
             {feature === 'cpa' && (
               <Fragment>
-                <Label>From command line</Label>
+                <Label>Get started in one line</Label>
                 <CreatePayloadApp background={false} className={classes.cpa} />
               </Fragment>
             )}
