@@ -1,15 +1,13 @@
 @use '@scss/common.scss' as *;
 
-$transCurve: cubic-bezier(0.4, 0, 0.2, 1);
+$curve: cubic-bezier(.165,.84,.44,1);
 
 .lineBlip {
-  --duration: 500ms;
   --lineColor: var(--theme-elevation-500);
-  --gapSize: var(--base);
-  --backgroundPosition: calc(50% - var(--gapSize)) 0;
+  --gapSize: calc(var(--base) * 1.5);
 
   background-image: linear-gradient(90deg, var(--lineColor) 0%, var(--lineColor) 33.33%, transparent 33.33%, transparent calc(33.33% + var(--gapSize)), var(--lineColor) calc(33.33% + var(--gapSize)), var(--lineColor) 100%);
-  background-position: var(--backgroundPosition);
+  background-position: calc(50% - var(--gapSize)) 0;
   background-repeat: no-repeat;
   background-size: calc(300% + var(--gapSize)) 100%;
   height: 1px;
@@ -17,39 +15,30 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   position: absolute;
   left: 0;
   top: 0;
-}
 
-.gap-large {
-  --gapSize: calc(var(--base) * 4);
-  --duration: 750ms;
-}
+  &.gap-large {
+    --gapSize: calc(var(--base) * 4);
+  }
 
-.bottom {
-  top: unset;
-  bottom: 0;
-}
+  &.bottom {
+    top: unset;
+    bottom: 0;
+  }
 
-.isHovered {
-  --lineColor: currentColor;
-  background-position: 0% 0;
+  &.isAnimating {
+    --lineColor: currentColor;
+    background-position: 0% 0;
+    transition: background-position var(--duration) $curve;
 
-  @include mid-break {
-    background-position: var(--backgroundPosition);
+    @include mid-break {
+      background-position: calc(50% - var(--gapSize)) 0;
+      --lineColor: var(--theme-elevation-500);
+    }
+  }
+
+  &.animatingOut {
+    transition: none;
+    background-position: calc(50% - var(--gapSize)) 0;
     --lineColor: var(--theme-elevation-500);
-  }
-}
-
-.animatedOut,
-.isHovered {
-  transition: background-position var(--duration) $transCurve;
-  @include mid-break {
-    background-position: var(--backgroundPosition);
-  }
-}
-  
-.animatedOut {
-  background-position: 50% 0;
-  @include mid-break {
-    background-position: var(--backgroundPosition);
   }
 }

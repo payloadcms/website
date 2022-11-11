@@ -6,7 +6,7 @@ import { CMSLink } from '@components/CMSLink'
 import { Media } from '@components/Media'
 import { Page } from '@root/payload-types'
 import { useMouseInfo } from '@faceless-ui/mouse-info'
-import { LineBlip } from '@components/LineBlip'
+import { LineDraw } from '@components/LineDraw'
 import classes from './index.module.scss'
 
 type HoverHighlightProps = Extract<Page['layout'][0], { blockType: 'hoverHighlights' }>
@@ -44,7 +44,7 @@ export const HoverHighlight: React.FC<
             startM={1}
             className={classes.blipCell}
           >
-            <LineBlip active={isHovered} gapSize="large" />
+            <LineDraw active={isHovered} />
           </Cell>
         </Grid>
         <Grid className={classes.highlight}>

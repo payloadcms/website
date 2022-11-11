@@ -1,55 +1,85 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import classes from './index.module.scss'
-
-const animationDuration = 500
 
 export const LineBlip: React.FC<{
   className?: string
   active?: Boolean
   align?: 'top' | 'bottom'
-  gapSize?: 'small' | 'large'
-}> = ({ className, active, align = 'top', gapSize }) => {
-  const [isHovered, setIsHovered] = useState(active)
+  blipGapSize?: 'small' | 'large'
+}> = ({ className, active: isHovered, align = 'top', blipGapSize }) => {
+  const [isAnimating, setIsAnimating] = useState(isHovered)
+  const [isAnimatingIn, setIsAnimatingIn] = useState<boolean>(false)
   const [isAnimatingOut, setIsAnimatingOut] = useState<boolean>(false)
+  const ref = useRef(null)
+
+  let animationDuration = 750
+
+  if (blipGapSize === 'large') {
+    animationDuration = 1000
+  }
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
-    if (active) {
-      setIsHovered(true)
-      setIsAnimatingOut(true)
-    } else {
-      setIsHovered(false)
-      setIsAnimatingOut(true)
-      let timerID: NodeJS.Timeout // eslint-disable-line
+    let outTimer: NodeJS.Timeout // eslint-disable-line
+    let inTimer: NodeJS.Timeout // eslint-disable-line
 
-      if (timerID) clearTimeout(timerID)
+    if (isHovered) {
+      ref.current.style.animationDuration = 0
+      setIsAnimating(true)
+      setIsAnimatingIn(true)
 
-      timerID = setTimeout(() => {
-        setIsAnimatingOut(false)
+      if (inTimer) clearTimeout(inTimer)
+
+      inTimer = setTimeout(() => {
+        setIsAnimating(false)
+        setIsAnimatingIn(false)
       }, animationDuration)
 
-      return () => {
-        if (timerID) {
-          clearTimeout(timerID)
-        }
+      setIsAnimatingOut(false)
+    } else {
+      setIsAnimating(true)
+      setIsAnimatingIn(false)
+      setIsAnimatingOut(true)
+
+      if (outTimer) clearTimeout(outTimer)
+
+      outTimer = setTimeout(() => {
+        setIsAnimating(false)
+        setIsAnimatingOut(false)
+      }, animationDuration)
+    }
+    return () => {
+      if (inTimer) {
+        clearTimeout(inTimer)
+      }
+
+      if (outTimer) {
+        clearTimeout(outTimer)
       }
     }
-  }, [active])
+  }, [isHovered])
 
   return (
     <div
+      ref={ref}
       className={[
         classes.lineBlip,
         className,
-        isAnimatingOut && classes.animatingOut,
         isHovered && classes.isHovered,
+        isAnimatingIn && classes.isAnimatingIn,
+        isAnimatingOut && classes.animatingOut,
+        isAnimating && classes.isAnimating,
         align && classes[align],
-        gapSize && classes[`gap-${gapSize}`],
+        blipGapSize && classes[`gap-${blipGapSize}`],
       ]
         .filter(Boolean)
         .join(' ')}
+      style={{
+        // @ts-ignore-line
+        '--duration': `${animationDuration}ms`,
+      }}
     />
   )
 }
