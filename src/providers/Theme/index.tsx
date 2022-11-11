@@ -10,7 +10,6 @@ export const ThemeProvider: React.FC<{
   children: React.ReactNode
   className?: string
 }> = ({ theme, children, className }) => {
-  console.log({ theme })
   return (
     <ThemeContext.Provider value={theme}>
       <div
