@@ -121,6 +121,8 @@
 
   @include mid-break {
     padding: var(--base);
+    font-size: calc(var(--base) * .5);
+    line-height: calc(var(--base) * .625);
 
     :global {
       .highlight-line {

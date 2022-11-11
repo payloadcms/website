@@ -109,7 +109,8 @@ export const StickyHighlight: React.FC<Props> = React.memo(
                     <div className={codeMediaClasses} ref={codeMediaWrapRef}>
                       <div className={classes.codeMediaInner} ref={codeMediaInnerRef}>
                         <div className={classes.code}>
-                          <Code>{code}</Code>
+                          <Code>{`${code}
+                          `}</Code>
                         </div>
                       </div>
                     </div>

@@ -13,7 +13,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { mainMenu, footer } = await fetchGlobals()
 
   return (
-    <html lang="en" data-theme="light">
+    <html lang="en">
       <head>
         <link rel="icon" href="/images/favicon.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
