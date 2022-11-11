@@ -34,7 +34,8 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
                   <Label className={classes.label}>{label}</Label>
                 </div>
               )}
-              <Code>{code}</Code>
+              <Code>{`${code}
+              `}</Code>
             </div>
 
             <Grid className={[classes.mobile, classes.pixelGrid].filter(Boolean).join(' ')}>

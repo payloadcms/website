@@ -4,7 +4,7 @@ import { Image } from './Image'
 import { Props } from './types'
 
 export const Media: React.FC<Props> = props => {
-  const { className, resource, htmlElement = 'div' } = props
+  const { className, resource, htmlElement = null } = props
 
   const isVideo = typeof resource !== 'string' && resource?.mimeType?.includes('video')
   const Tag = (htmlElement as ElementType) || Fragment

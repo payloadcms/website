@@ -4,6 +4,7 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Gutter } from '@components/Gutter'
 import { PixelBackground } from '@components/PixelBackground'
 import { Page } from '@root/payload-types'
+import { RichText } from '@components/RichText'
 import { ArrowIcon } from '../../icons/ArrowIcon'
 import { ImageCard } from './ImageCard'
 import { QuoteCard } from './QuoteCard'
@@ -19,7 +20,7 @@ const cardTypes = {
 type Props = Extract<Page['layout'][0], { blockType: 'slider' }>
 
 export const SliderBlock: React.FC<Props> = ({ sliderFields }) => {
-  const { sliderType } = sliderFields
+  const { sliderType, useLeadingHeader, leadingHeader } = sliderFields
 
   const slides = sliderType === 'imageSlider' ? sliderFields.imageSlides : sliderFields.quoteSlides
 
@@ -35,21 +36,18 @@ export const SliderBlock: React.FC<Props> = ({ sliderFields }) => {
         .join(' ')}
     >
       <Gutter>
-        <Grid>
-          <Cell>
-            <SliderNav
-              className={classes.sliderNav}
-              prevButtonProps={{
-                className: [classes.navButton, classes.prevButton].filter(Boolean).join(' '),
-                children: <ArrowIcon rotation={225} />,
-              }}
-              nextButtonProps={{
-                className: classes.navButton,
-                children: <ArrowIcon rotation={45} />,
-              }}
-            />
-          </Cell>
-        </Grid>
+        {useLeadingHeader && <RichText content={leadingHeader} className={classes.leadingHeader} />}
+        <SliderNav
+          className={classes.sliderNav}
+          prevButtonProps={{
+            className: [classes.navButton, classes.prevButton].filter(Boolean).join(' '),
+            children: <ArrowIcon rotation={225} />,
+          }}
+          nextButtonProps={{
+            className: classes.navButton,
+            children: <ArrowIcon rotation={45} />,
+          }}
+        />
       </Gutter>
 
       <div className={classes.trackWrap}>
