@@ -43,7 +43,7 @@
   }
 
   @include mid-break {
-    margin: calc(var(--block-spacing) + var(--base)) 0 var(--block-spacing);
+    margin-top: var(--base);
 
     &:before {
       top: 0;
