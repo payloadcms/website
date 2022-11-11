@@ -7,6 +7,8 @@ import { StyleguidePageContent } from '../../PageContent'
 const data: ContentGridProps = {
   blockType: 'contentGrid',
   contentGridFields: {
+    useLeadingHeader: false,
+    leadingHeader: undefined,
     cells: [
       {
         content: [
