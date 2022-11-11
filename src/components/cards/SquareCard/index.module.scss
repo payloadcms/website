@@ -116,6 +116,7 @@
         opacity: 1;
         font-size: small;
         line-height: 1.25;
+        margin-top: calc(var(--base) / 4);
     }
 }
 
@@ -126,6 +127,12 @@
 .title {
     @include h6;
     margin: 0 !important;
+
+    @include mid-break {
+        font-size: small;
+        line-height: 1.25;
+        font-weight: bold;
+    }
 }
 
 .arrow {
@@ -149,6 +156,10 @@
         .content {
             top: 0;
             transform: translate3d(0, calc(var(--base) * 2), 0); // leave room for the leader
+
+            @include mid-break {
+                transform: translate3d(0, var(--base), 0); // leave room for the leader
+            }
         }
 
         .description {
