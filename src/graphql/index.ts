@@ -136,9 +136,6 @@ export const fetchCaseStudies = async (): Promise<CaseStudy[]> => {
     },
     body: JSON.stringify({
       query: CASE_STUDIES,
-      variables: {
-        slug: 'case-studies',
-      },
     }),
   }).then(res => res.json())
 

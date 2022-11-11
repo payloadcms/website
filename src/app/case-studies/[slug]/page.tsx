@@ -1,5 +1,5 @@
 import React from 'react'
-import { fetchCaseStudy } from '../../../graphql'
+import { fetchCaseStudies, fetchCaseStudy } from '../../../graphql'
 import { RenderCaseStudy } from './renderCaseStudy'
 
 const CaseStudy = async ({ params }) => {
@@ -10,3 +10,11 @@ const CaseStudy = async ({ params }) => {
 }
 
 export default CaseStudy
+
+export async function generateStaticParams() {
+  const caseStudies = await fetchCaseStudies()
+
+  return caseStudies.map(({ slug }) => ({
+    slug,
+  }))
+}
