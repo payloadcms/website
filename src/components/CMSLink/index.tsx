@@ -46,11 +46,11 @@ type GenerateSlugType = {
 const generateHref = (args: GenerateSlugType): string => {
   const { reference, url, type } = args
 
-  if (type === 'custom' || url) {
+  if ((type === 'custom' || type === undefined) && url) {
     return url
   }
 
-  if (reference?.value && typeof reference.value !== 'string') {
+  if (type === 'reference' && reference?.value && typeof reference.value !== 'string') {
     if (reference.relationTo === 'pages') {
       const { breadcrumbs } = reference.value
       return breadcrumbs[breadcrumbs.length - 1].url

@@ -35,9 +35,10 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
               className={[classes.content, classes.right].filter(Boolean).join(' ')}
             >
               <RichText content={richText} />
-
               {enableLink && link && (
-                <Button {...link} className={classes.buttonLink} labelStyle="mono" icon="arrow" />
+                <div className={classes.button}>
+                  <Button {...link} labelStyle="mono" icon="arrow" />
+                </div>
               )}
             </Cell>
           </React.Fragment>
@@ -52,7 +53,9 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
             >
               <RichText content={richText} />
               {enableLink && link && (
-                <Button {...link} className={classes.buttonLink} labelStyle="mono" icon="arrow" />
+                <div className={classes.button}>
+                  <Button {...link} labelStyle="mono" icon="arrow" />
+                </div>
               )}
             </Cell>
             <Cell

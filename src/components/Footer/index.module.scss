@@ -40,9 +40,8 @@
 
 .col2Items {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
-  max-height: 225px;
 
   @include mid-break {
     max-height: unset;
@@ -143,7 +142,7 @@
     display: flex;
     align-items: center;
   }
-  
+
   select {
     all: unset;
     border: 1px solid var(--theme-elevation-300);

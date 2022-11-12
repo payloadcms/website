@@ -144,6 +144,11 @@
     &:hover {
       transform: none;
       box-shadow: none;
+
+      .button {
+        opacity: 0;
+        transform: translate3d(-50%, calc(-50% + var(--base) * .5), 0);
+      }
     }
   }
 }
