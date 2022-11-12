@@ -11,8 +11,9 @@ export const Highlight: React.FC<{
   highlightOnHover?: boolean
   highlight?: boolean
   reverseIcon?: boolean
+  forceDark?: boolean
 }> = props => {
-  const { bold, className, text, inlineIcon: InlineIcon, reverseIcon } = props
+  const { bold, className, text, inlineIcon: InlineIcon, reverseIcon, forceDark = false } = props
 
   const ref = useRef(null)
 
@@ -30,7 +31,11 @@ export const Highlight: React.FC<{
       return (
         <span
           ref={ref}
-          className={[classes.highlightWrapper, className, theme === 'dark' && classes.darkMode]
+          className={[
+            classes.highlightWrapper,
+            className,
+            (theme === 'dark' || forceDark) && classes.darkMode,
+          ]
             .filter(Boolean)
             .join(' ')}
         >

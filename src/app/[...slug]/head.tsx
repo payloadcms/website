@@ -4,14 +4,18 @@ import { fetchPage } from '@graphql'
 
 export default async props => {
   const { slug } = props.params
-  const { meta } = await fetchPage(slug)
+  const page = await fetchPage(slug)
 
-  return (
-    <Meta
-      title={meta?.title}
-      description={meta?.description}
-      image={meta?.image}
-      slug={`/${slug ? slug.join('/') : ''}`}
-    />
-  )
+  if (page) {
+    const { meta } = page
+    return (
+      <Meta
+        title={meta?.title}
+        description={meta?.description}
+        image={meta?.image}
+        slug={`/${slug ? slug?.join('/') : ''}`}
+      />
+    )
+  }
+  return null
 }

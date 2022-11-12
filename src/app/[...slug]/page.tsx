@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import React from 'react'
 import { Hero } from '../../components/Hero'
 import { RenderBlocks } from '../../components/RenderBlocks'
@@ -5,6 +6,8 @@ import { fetchPage, fetchPages } from '../../graphql'
 
 const Page = async ({ params: { slug } }) => {
   const page = await fetchPage(slug)
+
+  if (!page) return notFound()
 
   return (
     <React.Fragment>
