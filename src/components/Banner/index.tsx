@@ -31,7 +31,7 @@ export const Banner: React.FC<Props> = ({
   if (!Icon && checkmark) Icon = Icons.checkmark
 
   return (
-    <div className={[classes.banner, classes[type]].filter(Boolean).join(' ')}>
+    <div className={[classes.banner, 'banner', classes[type]].filter(Boolean).join(' ')}>
       {Icon && <Icon className={classes.icon} />}
 
       {content && <RichText content={content} />}
