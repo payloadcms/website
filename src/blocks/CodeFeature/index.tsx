@@ -15,11 +15,18 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
   const { heading, richText, enableLink, link, code, label, disableBlockSpacing } =
     codeFeatureFields
 
-  const Spacer = disableBlockSpacing ? React.Fragment : 'div'
+  let Spacer: React.ComponentType | 'div' = React.Fragment
+
+  const spacerProps: { className?: string } = {}
+
+  if (!disableBlockSpacing) {
+    Spacer = 'div'
+    spacerProps.className = classes.blockSpacing
+  }
 
   return (
     <div className={classes.codeFeature}>
-      <Spacer className={disableBlockSpacing ? undefined : classes.blockSpacing}>
+      <Spacer {...spacerProps}>
         <Gutter>
           <Grid className={classes.grid}>
             <Cell cols={6} colsM={8}>

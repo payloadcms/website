@@ -8,7 +8,7 @@ export default async ({ params }) => {
   if (doc)
     return (
       <Meta
-        title={`${doc.title} | Documentation`}
+        title={`${doc.title} | Documentation | Payload CMS`}
         description={doc.desc}
         slug={`/docs/${topic}/${docSlug}`}
       />

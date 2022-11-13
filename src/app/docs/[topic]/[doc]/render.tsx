@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { MDXRemote } from 'next-mdx-remote'
 import Link from 'next/link'
 import components from '@components/MDX/components'
@@ -31,6 +31,11 @@ export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
   const openSearch = React.useCallback(() => {
     document.querySelector<HTMLButtonElement>('.DocSearch-Button').click()
   }, [])
+
+  // Need this until Next #42414 is fixed
+  useEffect(() => {
+    document.title = `${title} | Documentation | Payload CMS`
+  })
 
   return (
     <JumplistProvider>

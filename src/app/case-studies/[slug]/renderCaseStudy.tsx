@@ -14,7 +14,12 @@ import { RenderBlocks } from '../../../components/RenderBlocks'
 import classes from './index.module.scss'
 
 export const RenderCaseStudy: React.FC<CaseStudy> = props => {
-  const { title, featuredImage, introContent, layout, url } = props
+  const { title, featuredImage, introContent, layout, url, meta } = props
+
+  // Need this until Next #42414 is fixed
+  React.useEffect(() => {
+    document.title = meta?.title || title
+  })
 
   return (
     <React.Fragment>
