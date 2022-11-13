@@ -44,6 +44,7 @@ export const CODE_FEATURE = `
 ...on CodeFeature {
   blockType
   codeFeatureFields {
+    disableBlockSpacing
     heading
     richText
     enableLink

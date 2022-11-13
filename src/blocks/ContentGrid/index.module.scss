@@ -27,6 +27,11 @@
   margin-left: calc(var(--gutter-h) / -2);
   width: calc(100% - var(--gutter-h));
   z-index: -1;
+
+  @include large-break {
+    margin-left: calc(var(--gutter-h) * -1);
+    width: 100%;
+  }
 }
 
 .leadingHeader {

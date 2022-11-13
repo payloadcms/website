@@ -1,3 +1,5 @@
+@use '@scss/common' as *;
+
 .position--wide {
   margin-left: calc(var(--gutter-h) / -2);
   width: calc(100% + var(--gutter-h));
@@ -8,4 +10,8 @@
   justify-content: center;
   margin: calc(var(--base) * .75) calc(var(--base) * 1.5);
   margin-bottom: 0;
+}
+
+.mediaResource {
+  @include shadow-lg;
 }

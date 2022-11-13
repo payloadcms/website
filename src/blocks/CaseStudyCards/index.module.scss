@@ -7,6 +7,10 @@
 .cards {
   position: relative;
   padding: calc(var(--base) * 4) 0;
+
+  @include mid-break {
+    padding: calc(var(--base) * 2) 0;
+  }
 }
 
 .card {
@@ -96,7 +100,7 @@
   margin-left: calc(var(--gutter-h) / -2);
 
   @include mid-break {
-      margin-left: calc(var(--gutter-h) * -1);
-      width: calc(100% + (var(--gutter-h) * 2));
+    margin-left: calc(var(--gutter-h) * -1);
+    width: calc(100% + (var(--gutter-h) * 2));
   }
 }

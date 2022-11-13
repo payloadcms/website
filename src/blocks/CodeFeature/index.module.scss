@@ -4,6 +4,11 @@
   position: relative;
 }
 
+.blockSpacing {
+  padding-top: var(--block-spacing);
+  padding-bottom: var(--block-spacing);
+}
+
 .grid {
   align-items: center;
 }
@@ -73,6 +78,20 @@
     opacity: 0;
     @include mid-break {
       opacity: 1;
+    }
+  }
+}
+
+.blockSpacing {
+  .pixelGrid {
+    top: var(--block-spacing);
+    bottom: var(--block-spacing);
+    height: initial;
+
+    &.mobile {
+      height: 100%;
+      top: 0;
+      bottom: 0;
     }
   }
 }
