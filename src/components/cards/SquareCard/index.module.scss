@@ -128,7 +128,7 @@
     @include h5;
     margin: 0 !important;
 
-    @include large-break {
+    @include extra-large-break {
       @include h6;
     }
 
