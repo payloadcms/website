@@ -24,7 +24,9 @@ const Meta: React.FC<MetaType> = ({
   const title = titleFromProps || defaults.title
   const description = descriptionFromProps || defaults.description
   const image =
-    typeof imageFromProps !== 'string' && imageFromProps?.url ? imageFromProps.url : defaults.image
+    typeof imageFromProps !== 'string' && imageFromProps?.url
+      ? `${process.env.NEXT_PUBLIC_SITE_URL}${imageFromProps.url}`
+      : defaults.image
 
   return (
     <Fragment>

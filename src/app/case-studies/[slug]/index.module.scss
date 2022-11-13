@@ -7,6 +7,12 @@
   padding-top: calc(var(--base) * 8);
 }
 
+.introContent {
+  h1 {
+    @include h2;
+  }
+}
+
 .featuredMediaWrap {
   margin-top: calc(var(--base) * 4);
   margin-bottom: calc(var(--base) * 4);

@@ -37,7 +37,7 @@ export const RenderCaseStudy: React.FC<CaseStudy> = props => {
         />
         <Grid>
           <Cell cols={9}>
-            <RichText content={introContent} />
+            <RichText content={introContent} className={classes.introContent} />
           </Cell>
 
           <Cell start={10} cols={3} startS={1} colsS={8} className={classes.visitSiteLink}>
