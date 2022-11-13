@@ -2,7 +2,7 @@
 
 This is the repository for Payload's official website. We're building it completely in public.
 
-<img src="https://stage.payloadcms.com/images/og-image.jpg" alt="Payload headless CMS website" />
+<img src="https://payloadcms.com/images/og-image.jpg" alt="Payload headless CMS website" />
 
 This site showcases lots of cool stuff like how to use Payload's GraphQL API to its fullest extent, how to build a super dynamic light / dark mode into a Next site without any first-load flickering, how to render remotely stored docs from MDX to NextJS pages, and much more.  
 
