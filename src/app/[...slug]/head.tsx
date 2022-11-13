@@ -9,12 +9,14 @@ export default async props => {
   if (page) {
     const { meta } = page
     return (
-      <Meta
-        title={meta?.title}
-        description={meta?.description}
-        image={meta?.image}
-        slug={`/${slug ? slug?.join('/') : ''}`}
-      />
+      <React.Fragment>
+        <Meta
+          title={meta?.title}
+          description={meta?.description}
+          image={meta?.image}
+          slug={`/${slug ? slug?.join('/') : ''}`}
+        />
+      </React.Fragment>
     )
   }
   return null
