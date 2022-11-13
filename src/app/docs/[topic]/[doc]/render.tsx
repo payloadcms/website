@@ -40,7 +40,7 @@ export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
   return (
     <JumplistProvider>
       <div className={classes.doc}>
-        <div className={classes.content}>
+        <div className={classes.content} id="doc">
           <h1 className={classes.title}>{title}</h1>
           <div className={classes.mdx}>
             <MDXRemote {...content} components={components} />
