@@ -3,10 +3,6 @@
 .doc {
   display: flex;
   width: 100%;
-  // dumb
-  margin-top: calc(var(--base) * -8);
-  // dumb
-  padding-top: calc(var(--base) * 8);
 
   @include mid-break {
     display: block;
@@ -15,7 +11,10 @@
 
 .title {
   @include h2;
-  margin-top: 0 !important;
+  // dumb
+  margin-top: calc(var(--base) * -8);
+  // dumb
+  padding-top: calc(var(--base) * 8);
 }
 
 .content {

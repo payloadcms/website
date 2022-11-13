@@ -9,6 +9,7 @@ import { JumplistProvider } from '@components/Jumplist'
 import { ArrowIcon } from '@icons/ArrowIcon'
 import { useTheme } from '@providers/Theme'
 import { Button } from '@components/Button'
+import slugify from '@root/utilities/slugify'
 import { Doc, NextDoc } from '../../types'
 import classes from './index.module.scss'
 
@@ -41,7 +42,9 @@ export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
     <JumplistProvider>
       <div className={classes.doc}>
         <div className={classes.content} id="doc">
-          <h1 className={classes.title}>{title}</h1>
+          <h1 id={slugify(title)} className={classes.title}>
+            {title}
+          </h1>
           <div className={classes.mdx}>
             <MDXRemote {...content} components={components} />
           </div>
