@@ -56,6 +56,10 @@ const generateHref = (args: GenerateSlugType): string => {
       return breadcrumbs[breadcrumbs.length - 1].url
     }
 
+    if (reference.relationTo === 'posts') {
+      return `/blog/${reference.value.slug}`
+    }
+
     return `/${reference.relationTo}/${reference.value.slug}`
   }
 
