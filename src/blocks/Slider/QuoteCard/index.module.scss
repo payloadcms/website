@@ -1,11 +1,17 @@
 @use '@scss/common' as *;
 
 .quoteCard {
-  padding: calc(var(--base) * 2) calc(var(--base) * 2);
+  @include large-body;
+  padding: calc(var(--base) * 4);
   background-color: var(--color-base-950);
   display: flex;
   flex-direction: column;
   height: 100%;
+
+  @include extra-large-break {
+    @include body;
+    padding: calc(var(--base) * 2.25);
+  }
 
   @include mid-break {
     padding: calc(var(--base));
@@ -27,6 +33,11 @@
 }
 
 .date {
+  @include body;
   display: block;
   margin-top: calc(var(--base) * 2);
+
+  @include extra-large-break {
+    font-size: initial;
+  }
 }

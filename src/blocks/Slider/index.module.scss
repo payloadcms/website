@@ -139,8 +139,12 @@
 
 .slideType--quoteSlider {
   min-width: 600px;
-  max-width: 650px;
-
+  max-width: 900px;
+  
+  @include extra-large-break {
+    max-width: 625px;
+  }
+  
   @include mid-break {
     min-width: 300px;
   }
