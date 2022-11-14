@@ -12,7 +12,7 @@ export default async ({ params }) => {
         title={meta?.title}
         description={meta?.description}
         image={meta?.image}
-        slug={`/case-studies/${slug}`}
+        slug={`case-studies/${slug}`}
       />
     )
   }

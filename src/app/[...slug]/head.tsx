@@ -14,7 +14,7 @@ export default async props => {
           title={meta?.title}
           description={meta?.description}
           image={meta?.image}
-          slug={`/${slug ? slug?.join('/') : ''}`}
+          slug={`${slug ? slug?.join('/') : ''}`}
         />
       </React.Fragment>
     )

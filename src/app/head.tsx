@@ -9,7 +9,7 @@ export default async () => {
     const { meta } = page
     return (
       <React.Fragment>
-        <Meta title={meta?.title} description={meta?.description} image={meta?.image} slug="/" />
+        <Meta title={meta?.title} description={meta?.description} image={meta?.image} slug="" />
       </React.Fragment>
     )
   }

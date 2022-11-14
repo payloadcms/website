@@ -10,7 +10,7 @@ export default async ({ params }) => {
       <Meta
         title={`${doc.title} | Documentation | Payload CMS`}
         description={doc.desc}
-        slug={`/docs/${topic}/${docSlug}`}
+        slug={`docs/${topic}/${docSlug}`}
       />
     )
   return null
