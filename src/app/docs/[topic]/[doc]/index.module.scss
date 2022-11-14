@@ -16,9 +16,9 @@
 .title {
   @include h2;
   // dumb
-  margin-top: calc(var(--base) * -8);
+  margin-top: calc(var(--base) * -8) !important;
   // dumb
-  padding-top: calc(var(--base) * 8);
+  padding-top: calc(var(--base) * 8) !important;
 }
 
 .content {
