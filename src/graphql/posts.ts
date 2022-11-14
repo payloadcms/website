@@ -33,14 +33,7 @@ export const POST = `
       docs {
         id
         title
-        image {
-          alt
-          url
-          height
-          width
-          filename
-          mimeType
-        }
+        image ${MEDIA_FIELDS}
         excerpt
         author {
           firstName
