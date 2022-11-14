@@ -5,7 +5,7 @@ import { PAGE, PAGES } from './pages'
 import { POST, POSTS, POST_SLUGS } from './posts'
 
 const next = {
-  revalidate: 600,
+  // revalidate: 600,
 }
 
 export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu; footer: Footer }> => {
