@@ -21,7 +21,7 @@ const RenderPage: React.FC = () => {
               Thank you for subscribing. You will now receive regular Payload updates to your email.
             </LargeBody>
             <br />
-            <Button href="/" label="Back Home" appearance="secondary" />
+            <Button href="/" el="link" label="Back Home" appearance="secondary" />
           </Cell>
         </Grid>
       </Gutter>
