@@ -4,12 +4,17 @@ import { GLOBALS } from './globals'
 import { PAGE, PAGES } from './pages'
 import { POST, POSTS, POST_SLUGS } from './posts'
 
+const next = {
+  revalidate: 600,
+}
+
 export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu; footer: Footer }> => {
   const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
+    next,
     body: JSON.stringify({
       query: GLOBALS,
     }),
@@ -30,6 +35,7 @@ export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page> 
     headers: {
       'Content-Type': 'application/json',
     },
+    next,
     body: JSON.stringify({
       query: PAGE,
       variables: {
@@ -65,6 +71,7 @@ export const fetchPages = async (): Promise<
     headers: {
       'Content-Type': 'application/json',
     },
+    next,
     body: JSON.stringify({
       query: PAGES,
     }),
@@ -84,6 +91,7 @@ export const fetchPosts = async (): Promise<Array<{ slug: string }>> => {
     headers: {
       'Content-Type': 'application/json',
     },
+    next,
     body: JSON.stringify({
       query: POST_SLUGS,
     }),
@@ -103,6 +111,7 @@ export const fetchBlogPosts = async (): Promise<Post[]> => {
     headers: {
       'Content-Type': 'application/json',
     },
+    next,
     body: JSON.stringify({
       query: POSTS,
     }),
@@ -117,6 +126,7 @@ export const fetchBlogPost = async (slug: string): Promise<Post> => {
     headers: {
       'Content-Type': 'application/json',
     },
+    next,
     body: JSON.stringify({
       query: POST,
       variables: {
@@ -134,6 +144,7 @@ export const fetchCaseStudies = async (): Promise<CaseStudy[]> => {
     headers: {
       'Content-Type': 'application/json',
     },
+    next,
     body: JSON.stringify({
       query: CASE_STUDIES,
     }),
@@ -148,6 +159,7 @@ export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
     headers: {
       'Content-Type': 'application/json',
     },
+    next,
     body: JSON.stringify({
       query: CASE_STUDY,
       variables: {
