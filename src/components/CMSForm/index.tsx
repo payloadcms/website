@@ -2,7 +2,7 @@
 
 import { RichText } from '@components/RichText'
 import * as React from 'react'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 import Submit from '@forms/Submit'
 import FormComponent from '@forms/Form'
 import { Data } from '@forms/types'
@@ -33,7 +33,7 @@ export const CMSForm: React.FC<{
 
   const [error, setError] = React.useState<{ status?: string; message: string } | undefined>()
 
-  const router = useRouter()
+  // const router = useRouter()
 
   const onSubmit = React.useCallback(
     (data: Data) => {
@@ -82,7 +82,7 @@ export const CMSForm: React.FC<{
           setHasSubmitted(true)
 
           if (confirmationType === 'redirect' && redirect) {
-            if (redirect.url) router.push(redirect.url)
+            // if (redirect.url) router.push(redirect.url)
           }
         } catch (err) {
           console.warn(err)
@@ -95,7 +95,7 @@ export const CMSForm: React.FC<{
 
       submitForm()
     },
-    [router, formID, redirect, confirmationType],
+    [formID, redirect, confirmationType],
   )
 
   return (
