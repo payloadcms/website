@@ -37,7 +37,7 @@ const Meta: React.FC<MetaType> = ({
       <meta name="description" content={description} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
-      <meta property="og:url" content={`https://cms.payloadcms.com/${slug}`} />
+      <meta property="og:url" content={`https://payloadcms.com/${slug}`} />
       <meta property="og:site_name" content="Payload CMS" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta property="og:type" content="website" />
