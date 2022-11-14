@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { useMouseInfo } from '@faceless-ui/mouse-info'
 import { RichText } from '@components/RichText'
 import Image from 'next/image'
-import { Button } from '@components/Button'
 import { ThemeProvider } from '@providers/Theme'
 import { Gutter } from '@components/Gutter'
 import { CaseStudy, ReusableContent } from '@root/payload-types'
 import { PayloadIcon } from '@graphics/PayloadIcon'
+import Link from 'next/link'
 import classes from './index.module.scss'
 
 type Props = Extract<ReusableContent['layout'][0], { blockType: 'caseStudiesHighlight' }>
@@ -70,18 +70,9 @@ export const CaseStudiesHighlightBlock: React.FC<Props> = ({
 
                     return (
                       <li key={slug} className={classes.imageWrap}>
-                        <div className={classes.image}>
+                        <Link href={`/case-studies/${slug}`} className={classes.image}>
                           <Image src={`${process.env.NEXT_PUBLIC_CMS_URL}${url}`} fill alt={alt} />
-                          <div className={classes.button}>
-                            <Button
-                              href={`/case-studies/${slug}`}
-                              el="link"
-                              label="Read case study"
-                              labelStyle="mono"
-                              appearance="primary"
-                            />
-                          </div>
-                        </div>
+                        </Link>
                       </li>
                     )
                   })}

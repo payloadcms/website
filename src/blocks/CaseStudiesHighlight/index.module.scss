@@ -120,6 +120,7 @@
 }
 
 .image {
+  display: block;
   transition: all 200ms ease-out;
   padding-top: 56.25%;
   position: relative;
@@ -130,11 +131,6 @@
     @include shadow-lg;
     opacity: 1;
     transform: translate3d(0, calc(var(--base) * -1), 0);
-
-    .button {
-      opacity: 1;
-      transform: translate3d(-50%, -50%, 0);
-    }
   }
 
   @include mid-break {
@@ -144,24 +140,6 @@
     &:hover {
       transform: none;
       box-shadow: none;
-
-      .button {
-        opacity: 0;
-        transform: translate3d(-50%, calc(-50% + var(--base) * .5), 0);
-      }
     }
-  }
-}
-
-.button {
-  opacity: 0;
-  transition: all 200ms ease-out;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate3d(-50%, calc(-50% + var(--base) * .5), 0);
-  
-  &:hover {
-    @include shadow-lg;
   }
 }
