@@ -7,10 +7,12 @@ import { BlockSpacing } from '@components/BlockSpacing'
 import { Post } from '@root/payload-types'
 import { ContentMediaCard } from '@components/cards/ContentMediaCard'
 import { Gutter } from '@components/Gutter'
+import { formatDate } from '@utilities/format-date-time'
 
 import classes from './index.module.scss'
 
 export const RenderBlogArchive: React.FC<{ posts: Post[] }> = ({ posts }) => {
+  const currentDate = formatDate({ date: new Date() })
   return (
     <React.Fragment>
       <DefaultHero
@@ -32,16 +34,22 @@ export const RenderBlogArchive: React.FC<{ posts: Post[] }> = ({ posts }) => {
         <BlockSpacing>
           <Grid>
             {(posts || []).map(blogPost => {
-              return (
-                <Cell key={blogPost.id} cols={4} colsS={8} className={classes.blogPost}>
-                  <ContentMediaCard
-                    title={blogPost.title}
-                    description={blogPost?.meta?.description}
-                    href={`/blog/${blogPost.slug}`}
-                    media={blogPost.image}
-                  />
-                </Cell>
-              )
+              const { publishedOn } = blogPost
+              const publishedDate = formatDate({ date: publishedOn })
+
+              if (publishedDate <= currentDate) {
+                return (
+                  <Cell key={blogPost.id} cols={4} colsS={8} className={classes.blogPost}>
+                    <ContentMediaCard
+                      title={blogPost.title}
+                      description={blogPost?.meta?.description}
+                      href={`/blog/${blogPost.slug}`}
+                      media={blogPost.image}
+                    />
+                  </Cell>
+                )
+              }
+              return null
             })}
           </Grid>
         </BlockSpacing>

@@ -11,6 +11,7 @@ export const POSTS = `
         image ${MEDIA_FIELDS}
         meta ${META_FIELDS}
         createdAt
+        publishedOn
         slug
       }
     }
