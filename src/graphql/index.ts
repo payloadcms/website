@@ -106,6 +106,7 @@ export const fetchPosts = async (): Promise<Array<{ slug: string }>> => {
 }
 
 export const fetchBlogPosts = async (): Promise<Post[]> => {
+  const currentDate = new Date()
   const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
     method: 'POST',
     headers: {
@@ -114,6 +115,9 @@ export const fetchBlogPosts = async (): Promise<Post[]> => {
     next,
     body: JSON.stringify({
       query: POSTS,
+      variables: {
+        publishedOn: currentDate,
+      },
     }),
   }).then(res => res.json())
 
