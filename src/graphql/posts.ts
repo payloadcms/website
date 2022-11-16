@@ -3,14 +3,15 @@ import { MEDIA_FIELDS } from './media'
 import { META_FIELDS } from './meta'
 
 export const POSTS = `
-  query Posts {
-    Posts(limit: 300 sort: "-publishedOn") {
+  query Posts($publishedOn: DateTime) {
+    Posts(where: { publishedOn: { less_than_equal: $publishedOn} }, limit: 300 sort: "-publishedOn") {
       docs {
         id
         title
         image ${MEDIA_FIELDS}
         meta ${META_FIELDS}
         createdAt
+        publishedOn
         slug
       }
     }
