@@ -32,7 +32,7 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
               src="https://ghbtns.com/github-btn.html?user=payloadcms&repo=payload&type=star&count=true"
               frameBorder="0"
               scrolling="0"
-              width="100"
+              width="108"
               height="20"
               title="GitHub Stars"
             />
