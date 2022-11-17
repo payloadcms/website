@@ -22,7 +22,7 @@ export const BLOG_CONTENT = `
 `
 
 export const BLOG_MARKDOWN = `
-...on Markdown {
+...on BlogMarkdown {
   blockType
   blogMarkdownFields {
     markdown
@@ -57,7 +57,7 @@ export const CODE_FEATURE = `
 `
 
 export const CALL_TO_ACTION = `
-...on CalltoAction {
+...on Cta {
   blockType
   ctaFields {
     richText
@@ -157,7 +157,7 @@ export const FORM_BLOCK = `
 `
 
 export const HOVER_HIGHLIGHTS = `
-...on HoverHighlightsBlock {
+...on HoverHighlights {
   blockType
   hoverHighlightsFields {
     richText
@@ -227,7 +227,7 @@ export const SLIDER = `
 }`
 
 export const STICKY_HIGHLIGHTS = `
-...on StickyHighlightsBlock {
+...on StickyHighlights {
   blockType
   stickyHighlightsFields {
     highlights {
@@ -243,7 +243,7 @@ export const STICKY_HIGHLIGHTS = `
 `
 
 export const STEPS = `
-...on StepsBlock {
+...on Steps {
   blockType
   stepsFields {
     steps {
