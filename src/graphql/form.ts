@@ -29,7 +29,7 @@ export const FORM_FIELDS = `{
    title
    fields {
         ...on Text ${FORM_FIELD('text')}
-        ...on TextArea ${FORM_FIELD('textarea')}
+        ...on Textarea ${FORM_FIELD('textarea')}
         ...on Country ${FORM_FIELD('country')}
         ...on State ${FORM_FIELD('state')}
         ...on Email ${FORM_FIELD('email')}
