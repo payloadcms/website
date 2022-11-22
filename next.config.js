@@ -43,8 +43,7 @@ const nextConfig = withBundleAnalyzer({
       },
       {
         source: '/roadmap',
-        destination:
-          'https://github.com/payloadcms/payload/discussions?discussions_q=label%3Aplanned',
+        destination: 'https://github.com/payloadcms/payload/discussions/categories/roadmap',
         permanent: true,
       },
     ]
