@@ -32,6 +32,7 @@ export const PageTransition: React.FC<{
         if (scrollToHashTimer) clearTimeout(scrollToHashTimer)
       }
     }
+    return null
   }, [])
 
   useEffect(() => {
