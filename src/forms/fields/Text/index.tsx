@@ -22,7 +22,7 @@ const defaultValidate: Validate = val => {
 
 export const Text: React.FC<
   FieldProps<string> & {
-    type?: 'text' | 'hidden'
+    type?: 'text' | 'password' | 'hidden'
   }
 > = props => {
   const {
