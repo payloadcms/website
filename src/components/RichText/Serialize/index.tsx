@@ -53,7 +53,7 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
             //     {text}
             //   </span>
             // )
-            text = <Highlight {...node} />
+            text = <Highlight key={i} {...node} />
           }
 
           if (node.strikethrough) {
