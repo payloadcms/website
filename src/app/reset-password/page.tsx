@@ -7,15 +7,15 @@ import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { Data } from '@forms/types'
 import { useAuth } from '@root/providers/Auth'
+import { useHeaderTheme } from '@root/providers/HeaderTheme'
+import { getImplicitPreference } from '@root/providers/Theme/shared'
 import Link from 'next/link'
 import React, { useCallback, useEffect } from 'react'
-import { getImplicitPreference } from '@root/providers/Theme/shared'
-import { useHeaderTheme } from '@root/providers/HeaderTheme'
 
 import classes from './index.module.scss'
 
-const Login: React.FC = () => {
-  const { user, logout, login } = useAuth()
+const ResetPassword: React.FC = () => {
+  const { user, logout, resetPassword } = useAuth()
   const { setHeaderColor } = useHeaderTheme()
 
   useEffect(() => {
@@ -23,15 +23,13 @@ const Login: React.FC = () => {
     setHeaderColor(implicitPreference ?? 'light')
   }, [])
 
-  const handleSubmit = useCallback(
-    async (data: Data) => {
-      await login({
-        email: data.email as string,
-        password: data.password as string,
-      })
-    },
-    [login],
-  )
+  const handleSubmit = useCallback(async (data: Data) => {
+    await resetPassword({
+      password: data.password as string,
+      passwordConfirm: data.passwordConfirm as string,
+      token: data.token as string,
+    })
+  }, [])
 
   if (user) {
     return (
@@ -44,20 +42,20 @@ const Login: React.FC = () => {
 
   return (
     <Gutter>
-      <h1>Log in</h1>
+      <h1>Reset Password</h1>
       <div className={classes.leader}>
-        {`Don't have an account? `}
-        <Link href="/create-account">Register for free</Link>
+        {`Already have an account? `}
+        <Link href="/login">Log in here</Link>
         {'.'}
       </div>
       <Form onSubmit={handleSubmit} className={classes.form}>
-        <Text path="email" label="Email" required />
-        <Text path="password" label="Password" type="password" required />
-        <Submit label="Log in" className={classes.submit} />
+        <Text path="password" type="password" label="New Password" required />
+        <Text path="passwordConfirm" type="password" label="Confirm Password" required />
+        <input type="hidden" name="token" value="TOKEN_HERE" />
+        <Submit label="Reset Password" className={classes.submit} />
       </Form>
-      <Link href="/recover-password">Forgot your password?</Link>
     </Gutter>
   )
 }
 
-export default Login
+export default ResetPassword

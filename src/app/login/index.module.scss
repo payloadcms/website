@@ -1,0 +1,13 @@
+@use '@scss/common' as *;
+
+.form {
+    margin-bottom: var(--base);
+
+    & > *:not(:last-child) {
+        margin-bottom: var(--base);
+    }
+}
+
+.leader {
+    margin-bottom: var(--base);
+}

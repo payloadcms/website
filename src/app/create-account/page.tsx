@@ -7,15 +7,14 @@ import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { Data } from '@forms/types'
 import { useAuth } from '@root/providers/Auth'
+import { useHeaderTheme } from '@root/providers/HeaderTheme'
+import { getImplicitPreference } from '@root/providers/Theme/shared'
 import Link from 'next/link'
 import React, { useCallback, useEffect } from 'react'
-import { getImplicitPreference } from '@root/providers/Theme/shared'
-import { useHeaderTheme } from '@root/providers/HeaderTheme'
 
 import classes from './index.module.scss'
 
-const Login: React.FC = () => {
-  const { user, logout, login } = useAuth()
+const CreateAccount: React.FC = () => {
   const { setHeaderColor } = useHeaderTheme()
 
   useEffect(() => {
@@ -23,11 +22,14 @@ const Login: React.FC = () => {
     setHeaderColor(implicitPreference ?? 'light')
   }, [])
 
+  const { user, logout, login, create } = useAuth()
+
   const handleSubmit = useCallback(
     async (data: Data) => {
-      await login({
+      await create({
         email: data.email as string,
         password: data.password as string,
+        passwordConfirm: data.passwordConfirm as string,
       })
     },
     [login],
@@ -44,20 +46,20 @@ const Login: React.FC = () => {
 
   return (
     <Gutter>
-      <h1>Log in</h1>
+      <h1>Create an account</h1>
       <div className={classes.leader}>
-        {`Don't have an account? `}
-        <Link href="/create-account">Register for free</Link>
+        {`Already have an account? `}
+        <Link href="/login">Log in now</Link>
         {'.'}
       </div>
       <Form onSubmit={handleSubmit} className={classes.form}>
-        <Text path="email" label="Email" required />
+        <Text path="email" label="Email" />
         <Text path="password" label="Password" type="password" required />
-        <Submit label="Log in" className={classes.submit} />
+        <Text path="passwordConfirm" label="Confirm Password" type="password" required />
+        <Submit label="Create Account" className={classes.submit} />
       </Form>
-      <Link href="/recover-password">Forgot your password?</Link>
     </Gutter>
   )
 }
 
-export default Login
+export default CreateAccount

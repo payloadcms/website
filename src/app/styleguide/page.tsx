@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
+import { useHeaderTheme } from '@root/providers/HeaderTheme'
+import { getImplicitPreference } from '@root/providers/Theme/shared'
 import { Gutter } from '../../components/Gutter'
 
 const Styleguide: React.FC = () => {
+  const { setHeaderColor } = useHeaderTheme()
+
+  useEffect(() => {
+    const implicitPreference = getImplicitPreference()
+    setHeaderColor(implicitPreference ?? 'light')
+  }, [])
+
   return (
     <div>
       <Gutter>
