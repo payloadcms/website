@@ -7,8 +7,9 @@ import { useFormProcessing } from '../Form/context'
 const Submit: React.FC<{
   label?: string
   processing?: boolean
+  className?: string
 }> = props => {
-  const { label, processing: processingFromProps } = props
+  const { label, processing: processingFromProps, className } = props
 
   const processing = useFormProcessing()
 
@@ -20,6 +21,7 @@ const Submit: React.FC<{
       appearance="primary"
       icon={!isProcessing ? 'arrow' : undefined}
       label={isProcessing ? 'Processing...' : label || 'Submit'}
+      className={className}
     />
   )
 }
