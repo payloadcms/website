@@ -51,7 +51,7 @@ export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page> 
 
   const pagePath = `/${slugSegments.join('/')}`
 
-  const page = data.Pages.docs.find(({ breadcrumbs }: Page) => {
+  const page = data.Pages?.docs.find(({ breadcrumbs }: Page) => {
     const { url } = breadcrumbs[breadcrumbs.length - 1]
     return url === pagePath
   })
