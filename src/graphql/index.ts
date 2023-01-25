@@ -102,7 +102,7 @@ export const fetchPosts = async (): Promise<Array<{ slug: string }>> => {
     throw new Error()
   }
 
-  return data.Posts.docs
+  return data?.Posts?.docs
 }
 
 export const fetchBlogPosts = async (): Promise<Post[]> => {
@@ -121,7 +121,7 @@ export const fetchBlogPosts = async (): Promise<Post[]> => {
     }),
   }).then(res => res.json())
 
-  return data.Posts.docs
+  return data?.Posts?.docs
 }
 
 export const fetchBlogPost = async (slug: string): Promise<Post> => {
@@ -139,7 +139,7 @@ export const fetchBlogPost = async (slug: string): Promise<Post> => {
     }),
   }).then(res => res.json())
 
-  return data.Posts.docs[0]
+  return data?.Posts?.docs[0]
 }
 
 export const fetchCaseStudies = async (): Promise<CaseStudy[]> => {
@@ -154,7 +154,7 @@ export const fetchCaseStudies = async (): Promise<CaseStudy[]> => {
     }),
   }).then(res => res.json())
 
-  return data.CaseStudies.docs
+  return data?.CaseStudies?.docs
 }
 
 export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
@@ -172,5 +172,5 @@ export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
     }),
   }).then(res => res.json())
 
-  return data.CaseStudies.docs[0]
+  return data?.CaseStudies?.docs[0]
 }
