@@ -10,6 +10,7 @@ import HeaderThemeProvider from './HeaderTheme'
 import { ThemePreferenceProvider } from './Theme'
 import { ComputedCSSValuesProvider } from './ComputedCSSValues'
 import { AuthProvider } from './Auth'
+import { PageTransition } from './PageTransition'
 
 export const Providers: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
@@ -51,10 +52,12 @@ export const Providers: React.FC<{ children: React.ReactNode }> = ({ children })
               >
                 <ComputedCSSValuesProvider>
                   <ModalProvider transTime={0} zIndex="var(--z-modal)">
-                    <HeaderThemeProvider>
-                      {children}
-                      <ModalContainer />
-                    </HeaderThemeProvider>
+                    <PageTransition>
+                      <HeaderThemeProvider>
+                        {children}
+                        <ModalContainer />
+                      </HeaderThemeProvider>
+                    </PageTransition>
                   </ModalProvider>
                 </ComputedCSSValuesProvider>
               </GridProvider>
