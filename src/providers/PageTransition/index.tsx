@@ -25,7 +25,7 @@ export const PageTransition: React.FC<{
         const hashWithoutMark = hash.substring(1)
         const element = document.getElementById(hashWithoutMark)
         element?.scrollIntoView()
-      }, pageTransTime)
+      }, pageTransTime * 2)
 
       return () => {
         if (scrollToTopTimer) clearTimeout(scrollToTopTimer)
