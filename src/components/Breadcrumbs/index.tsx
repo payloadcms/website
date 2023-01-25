@@ -21,7 +21,6 @@ export const Breadcrumbs: React.FC<Props> = ({ items }) => {
               <label>
                 <Link href={item.url}>{item.label}</Link>
               </label>
-
               {!isLast && (
                 <label>
                   <span>&nbsp;&#47;&nbsp;</span>
