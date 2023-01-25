@@ -8,8 +8,6 @@ import { Post } from '@root/payload-types'
 import { ContentMediaCard } from '@components/cards/ContentMediaCard'
 import { Gutter } from '@components/Gutter'
 
-import classes from './index.module.scss'
-
 export const RenderBlogArchive: React.FC<{ posts: Post[] }> = ({ posts }) => {
   return (
     <React.Fragment>
@@ -33,7 +31,7 @@ export const RenderBlogArchive: React.FC<{ posts: Post[] }> = ({ posts }) => {
           <Grid>
             {(posts || []).map(blogPost => {
               return (
-                <Cell key={blogPost.id} cols={4} colsS={8} className={classes.blogPost}>
+                <Cell key={blogPost.id} cols={4} colsS={8}>
                   <ContentMediaCard
                     title={blogPost.title}
                     description={blogPost?.meta?.description}
