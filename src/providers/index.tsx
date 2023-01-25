@@ -9,56 +9,62 @@ import { WindowInfoProvider } from '@faceless-ui/window-info'
 import HeaderThemeProvider from './HeaderTheme'
 import { ThemePreferenceProvider } from './Theme'
 import { ComputedCSSValuesProvider } from './ComputedCSSValues'
+import { AuthProvider } from './Auth'
+import { PageTransition } from './PageTransition'
 
 export const Providers: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <ScrollInfoProvider>
-      <MouseInfoProvider>
-        <WindowInfoProvider
-          breakpoints={{
-            s: '(max-width: 768px)',
-            m: '(max-width: 1100px)',
-            l: '(max-width: 1600px)',
-          }}
-        >
-          <ThemePreferenceProvider>
-            <GridProvider
-              breakpoints={{
-                s: 768,
-                m: 1024,
-                l: 1680,
-              }}
-              rowGap={{
-                s: '1rem',
-                m: '1rem',
-                l: '2rem',
-                xl: '4rem',
-              }}
-              colGap={{
-                s: 'var(--base)',
-                m: 'calc(var(--base) * 2)',
-                l: 'calc(var(--base) * 2)',
-                xl: 'calc(var(--base) * 3)',
-              }}
-              cols={{
-                s: 8,
-                m: 8,
-                l: 12,
-                xl: 12,
-              }}
-            >
-              <ComputedCSSValuesProvider>
-                <ModalProvider transTime={0} zIndex="var(--z-modal)">
-                  <HeaderThemeProvider>
-                    {children}
-                    <ModalContainer />
-                  </HeaderThemeProvider>
-                </ModalProvider>
-              </ComputedCSSValuesProvider>
-            </GridProvider>
-          </ThemePreferenceProvider>
-        </WindowInfoProvider>
-      </MouseInfoProvider>
-    </ScrollInfoProvider>
+    <AuthProvider>
+      <ScrollInfoProvider>
+        <MouseInfoProvider>
+          <WindowInfoProvider
+            breakpoints={{
+              s: '(max-width: 768px)',
+              m: '(max-width: 1100px)',
+              l: '(max-width: 1600px)',
+            }}
+          >
+            <ThemePreferenceProvider>
+              <GridProvider
+                breakpoints={{
+                  s: 768,
+                  m: 1024,
+                  l: 1680,
+                }}
+                rowGap={{
+                  s: '1rem',
+                  m: '1rem',
+                  l: '2rem',
+                  xl: '4rem',
+                }}
+                colGap={{
+                  s: 'var(--base)',
+                  m: 'calc(var(--base) * 2)',
+                  l: 'calc(var(--base) * 2)',
+                  xl: 'calc(var(--base) * 3)',
+                }}
+                cols={{
+                  s: 8,
+                  m: 8,
+                  l: 12,
+                  xl: 12,
+                }}
+              >
+                <ComputedCSSValuesProvider>
+                  <ModalProvider transTime={0} zIndex="var(--z-modal)">
+                    <PageTransition>
+                      <HeaderThemeProvider>
+                        {children}
+                        <ModalContainer />
+                      </HeaderThemeProvider>
+                    </PageTransition>
+                  </ModalProvider>
+                </ComputedCSSValuesProvider>
+              </GridProvider>
+            </ThemePreferenceProvider>
+          </WindowInfoProvider>
+        </MouseInfoProvider>
+      </ScrollInfoProvider>
+    </AuthProvider>
   )
 }

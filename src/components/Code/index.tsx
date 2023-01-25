@@ -54,9 +54,9 @@ const Code: React.FC<Props> = props => {
             const shouldExclude = highlightLine(line, lineProps)
             return !shouldExclude ? (
               <div {...lineProps} key={i}>
-                {line.map((token, lineKey) => {
-                  const { key, ...tokenProps } = getTokenProps({ token, key: lineKey })
-                  return <span key={key} {...tokenProps} />
+                {line.map((token, index) => {
+                  const { key, ...rest } = getTokenProps({ token, key: index })
+                  return <span key={key} {...rest} />
                 })}
               </div>
             ) : null
