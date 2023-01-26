@@ -2,6 +2,7 @@
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
+import { Heading } from '@components/Heading'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
@@ -42,7 +43,7 @@ const ResetPassword: React.FC = () => {
 
   return (
     <Gutter>
-      <h1>Reset Password</h1>
+      <Heading marginTop={false}>Reset password</Heading>
       <div className={classes.leader}>
         {`Already have an account? `}
         <Link href="/login">Log in here</Link>

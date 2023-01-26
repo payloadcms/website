@@ -63,7 +63,7 @@ const ProjectFromImport: React.FC = () => {
           <div className={classes.footer}>
             <p>
               {`Don't have a project yet? `}
-              <Link href="/new/create">Create one</Link>
+              <Link href="/new/create">Create a new one</Link>
               {` from one of our templates.`}
             </p>
             <p>

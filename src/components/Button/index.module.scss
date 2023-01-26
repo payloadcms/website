@@ -32,6 +32,11 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
     padding: calc(var(--base) * 0.75) var(--base);
     color: var(--theme-elevation-0);
     background-color: var(--theme-elevation-900);
+
+    &:local(.size--small) {
+      padding: calc(var(--base) * 0.25) calc(var(--base) * 0.5);
+    }
+
     // background-image: linear-gradient(90deg, var(--theme-success-500) 0%, var(--theme-success-900) 50%, var(--theme-elevation-900) 50%, var(--theme-elevation-900) 100%);
     // background-position: 100% 100%;
     // background-repeat: no-repeat;

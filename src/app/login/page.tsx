@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
@@ -8,15 +7,18 @@ import Submit from '@forms/Submit'
 import { Data } from '@forms/types'
 import { useAuth } from '@root/providers/Auth'
 import Link from 'next/link'
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { getImplicitPreference } from '@root/providers/Theme/shared'
 import { useHeaderTheme } from '@root/providers/HeaderTheme'
+import { redirect } from 'next/navigation'
 
+import { Heading } from '@components/Heading'
 import classes from './index.module.scss'
 
 const Login: React.FC = () => {
-  const { user, logout, login } = useAuth()
+  const { user, login } = useAuth()
   const { setHeaderColor } = useHeaderTheme()
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const implicitPreference = getImplicitPreference()
@@ -25,26 +27,38 @@ const Login: React.FC = () => {
 
   const handleSubmit = useCallback(
     async (data: Data) => {
-      await login({
+      const loadingTimer = setTimeout(() => {
+        setLoading(true)
+      }, 1000)
+
+      const loggedInUser = await login({
         email: data.email as string,
         password: data.password as string,
       })
+
+      clearTimeout(loadingTimer)
+
+      if (loggedInUser) {
+        redirect('/dashboard')
+      }
     },
     [login],
   )
 
-  if (user) {
+  if (user) redirect('/dashboard')
+
+  if (user === undefined) return null
+
+  if (loading)
     return (
       <Gutter>
-        <h1>You are already logged in.</h1>
-        <Button label="Log out" onClick={logout} appearance="primary" />
+        <div>Logging in...</div>
       </Gutter>
     )
-  }
 
   return (
     <Gutter>
-      <h1>Log in</h1>
+      <Heading marginTop={false}>Log in</Heading>
       <div className={classes.leader}>
         {`Don't have an account? `}
         <Link href="/create-account">Register for free</Link>

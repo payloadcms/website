@@ -64,8 +64,8 @@ const ProjectFromTemplate: React.FC = () => {
           <div className={classes.footer}>
             <p>
               {`Have an existing project? `}
-              <Link href="/new/import">Import it</Link>
-              {` now.`}
+              <Link href="/new/import">Import that</Link>
+              {` instead.`}
             </p>
             <p>
               {`Don't see your Git provider available? More Git providers are on their way. `}

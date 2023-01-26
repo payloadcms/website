@@ -2,6 +2,7 @@
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
+import { Heading } from '@components/Heading'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
@@ -46,14 +47,14 @@ const CreateAccount: React.FC = () => {
 
   return (
     <Gutter>
-      <h1>Create an account</h1>
+      <Heading marginTop={false}>Create an account</Heading>
       <div className={classes.leader}>
         {`Already have an account? `}
         <Link href="/login">Log in now</Link>
         {'.'}
       </div>
       <Form onSubmit={handleSubmit} className={classes.form}>
-        <Text path="email" label="Email" />
+        <Text path="email" label="Email" required />
         <Text path="password" label="Password" type="password" required />
         <Text path="passwordConfirm" label="Confirm Password" type="password" required />
         <Submit label="Create Account" className={classes.submit} />

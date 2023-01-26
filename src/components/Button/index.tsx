@@ -25,6 +25,7 @@ export type Props = {
   htmlButtonType?: 'button' | 'submit'
   onMouseEnter?: () => void
   onMouseLeave?: () => void
+  size?: 'small' | 'default'
 }
 
 const icons = {
@@ -80,6 +81,7 @@ export const Button: React.FC<Props> = props => {
     mobileFullWidth,
     reference,
     htmlButtonType = 'button',
+    size,
   } = props
 
   const [isHovered, setIsHovered] = useState(false)
@@ -97,6 +99,7 @@ export const Button: React.FC<Props> = props => {
     classes[`appearance--${appearance}`],
     fullWidth && classes['full-width'],
     mobileFullWidth && classes['mobile-full-width'],
+    size && classes[`size--${size}`],
   ]
     .filter(Boolean)
     .join(' ')

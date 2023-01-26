@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { useHeaderTheme } from '@root/providers/HeaderTheme'
 import { getImplicitPreference } from '@root/providers/Theme/shared'
+import { Heading } from '@components/Heading'
 import { Gutter } from '../../components/Gutter'
 
 const Styleguide: React.FC = () => {
@@ -15,7 +16,7 @@ const Styleguide: React.FC = () => {
   return (
     <div>
       <Gutter>
-        <h1>Styleguide</h1>
+        <Heading marginTop={false}>Styleguide</Heading>
         <h4>Elements</h4>
         <div>
           <Link href="/styleguide/icons">Icons</Link>

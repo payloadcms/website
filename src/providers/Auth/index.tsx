@@ -12,7 +12,7 @@ type ForgotPassword = (args: { email: string }) => Promise<void> // eslint-disab
 
 type Create = (args: { email: string; password: string; passwordConfirm: string }) => Promise<void> // eslint-disable-line no-unused-vars
 
-type Login = (args: { email: string; password: string }) => Promise<void> // eslint-disable-line no-unused-vars
+type Login = (args: { email: string; password: string }) => Promise<User> // eslint-disable-line no-unused-vars
 
 type Logout = () => Promise<void>
 
@@ -87,9 +87,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const { data, errors } = await res.json()
         if (errors) throw new Error(errors[0].message)
         setUser(data?.loginUser?.user)
-      } else {
-        throw new Error('Invalid login')
+        return data?.loginUser?.user
       }
+
+      throw new Error('Invalid login')
     } catch (e) {
       throw new Error('An error occurred while attempting to login.')
     }
