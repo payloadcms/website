@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Media } from '@components/Media'
 import Link from 'next/link'
+import { Heading } from '@components/Heading'
 import { DefaultCardProps } from '../types'
 
 import classes from './index.module.scss'
@@ -14,7 +15,9 @@ export const DefaultCard: React.FC<DefaultCardProps> = props => {
       className={[classes.defaultCard, className && className].filter(Boolean).join(' ')}
     >
       {leader && <span className={classes.leader}>{leader}</span>}
-      <h2 className={classes.title}>{title}</h2>
+      <Heading element="h2" as="h5">
+        {title}
+      </Heading>
       <p className={classes.description}>{description}</p>
       {typeof media !== 'string' && (
         <Link href={href}>

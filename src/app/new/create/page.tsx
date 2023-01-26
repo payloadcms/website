@@ -10,6 +10,7 @@ import Link from 'next/link'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Checkbox } from '@forms/fields/Checkbox'
+import { Heading } from '@components/Heading'
 import classes from './index.module.scss'
 
 const ProjectFromTemplate: React.FC = () => {
@@ -46,7 +47,7 @@ const ProjectFromTemplate: React.FC = () => {
               url: '/new',
             },
             {
-              label: 'From template',
+              label: 'Template',
             },
           ]}
         />
@@ -55,13 +56,22 @@ const ProjectFromTemplate: React.FC = () => {
       {!hasAuthorizedGithub ? (
         <Fragment>
           <button className={classes.ghLink} onClick={authorizeGithub} type="button">
-            <h6 className={classes.ghTitle}>Continue with GitHub</h6>
+            <Heading element="h2" as="h6" margin={false} className={classes.ghTitle}>
+              Continue with GitHub
+            </Heading>
             <ArrowIcon size="large" />
           </button>
           <div className={classes.footer}>
-            {`More Git providers are on their way. Don't see your Git provider available? `}
-            <Link href="/contact">Send us a message</Link>
-            {` and we'll see what we can do to expedite it.`}
+            <p>
+              {`Have an existing project? `}
+              <Link href="/new/import">Import it</Link>
+              {` now.`}
+            </p>
+            <p>
+              {`Don't see your Git provider available? More Git providers are on their way. `}
+              <Link href="/contact">Send us a message</Link>
+              {` and we'll see what we can do to expedite it.`}
+            </p>
           </div>
         </Fragment>
       ) : (

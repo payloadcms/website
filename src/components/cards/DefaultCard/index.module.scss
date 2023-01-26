@@ -7,15 +7,6 @@
   text-decoration: none;
 }
 
-.title {
-  display: block;
-  @include h5;
-
-  @include mid-break {
-    @include h3;
-  }
-}
-
 .description {
   margin-bottom: calc(var(--base) * 2);
 }

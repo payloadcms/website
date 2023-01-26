@@ -9,6 +9,7 @@ import { useHeaderTheme } from '@root/providers/HeaderTheme'
 import Link from 'next/link'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { Breadcrumbs } from '@components/Breadcrumbs'
+import { Heading } from '@components/Heading'
 import classes from './index.module.scss'
 
 const ProjectFromImport: React.FC = () => {
@@ -45,7 +46,7 @@ const ProjectFromImport: React.FC = () => {
               url: '/new',
             },
             {
-              label: 'New from import',
+              label: 'Import',
             },
           ]}
         />
@@ -54,13 +55,22 @@ const ProjectFromImport: React.FC = () => {
       {!hasAuthorizedGithub ? (
         <Fragment>
           <button className={classes.ghLink} onClick={authorizeGithub} type="button">
-            <h6 className={classes.ghTitle}>Continue with GitHub</h6>
+            <Heading element="h2" as="h6" margin={false} className={classes.ghTitle}>
+              Continue with GitHub
+            </Heading>
             <ArrowIcon size="large" />
           </button>
           <div className={classes.footer}>
-            {`More Git providers are on their way. Don't see your Git provider available? `}
-            <Link href="/contact">Send us a message</Link>
-            {` and we'll see what we can do to expedite it.`}
+            <p>
+              {`Don't have a project yet? `}
+              <Link href="/new/create">Create one</Link>
+              {` from one of our templates.`}
+            </p>
+            <p>
+              {`Don't see your Git provider available? More Git providers are on their way. `}
+              <Link href="/contact">Send us a message</Link>
+              {` and we'll see what we can do to expedite it.`}
+            </p>
           </div>
         </Fragment>
       ) : (
@@ -70,9 +80,16 @@ const ProjectFromImport: React.FC = () => {
           </div>
           <div>Search</div>
           <div>
-            {`Don't see your organization? `}
-            <Link href="/">Adjust your GitHub app permissions.</Link>
-            {'.'}
+            <p>
+              {`Have an existing project? `}
+              <Link href="/new/import">Import it</Link>
+              {` now.`}
+            </p>
+            <p>
+              {`Don't see your organization? `}
+              <Link href="/">Adjust your GitHub app permissions.</Link>
+              {'.'}
+            </p>
           </div>
           <div>
             <p>Repositories</p>

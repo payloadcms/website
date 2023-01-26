@@ -9,6 +9,7 @@ import { useHeaderTheme } from '@root/providers/HeaderTheme'
 import { PixelBackground } from '@components/PixelBackground'
 import { DefaultCard } from '@components/cards/DefaultCard'
 
+import { Heading } from '@components/Heading'
 import classes from './index.module.scss'
 
 const NewProject: React.FC = () => {
@@ -33,7 +34,9 @@ const NewProject: React.FC = () => {
     <Gutter>
       <div className={classes.header}>
         <div className={classes.headerContent}>
-          <h1 className={classes.title}>New projects</h1>
+          <Heading element="h1" marginTop={false}>
+            New project
+          </Heading>
           <p className={classes.description}>
             Create a project from a template, or import an existing Git codebase.
           </p>
@@ -53,21 +56,21 @@ const NewProject: React.FC = () => {
           <DefaultCard
             className={classes.card}
             leader={(1).toString().padStart(2, '0')}
-            href="/new/template?template=blank"
+            href="/new/create?template=blank"
             title="Blank CMS"
             description="An empty CMS, perfect for starting a new project from scratch."
           />
           <DefaultCard
             className={classes.card}
             leader={(2).toString().padStart(2, '0')}
-            href="/new/template?template=website"
+            href="/new/create?template=website"
             title="Website"
             description="The perfect starting point for a CMS to manage a website—large or small."
           />
           <DefaultCard
             className={classes.card}
             leader={(3).toString().padStart(2, '0')}
-            href="/new/template?template=ecommerce"
+            href="/new/create?template=ecommerce"
             title="E-Commerce"
             description="A full e-commerce backend, integrated with Stripe and ready to sell."
           />
