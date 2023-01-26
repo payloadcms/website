@@ -1,0 +1,65 @@
+@use '@scss/common.scss' as *;
+
+.userInitial {
+  @include small;
+  font-weight: bold;
+  line-height: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: var(--theme-elevation-50);
+  color: var(--theme-elevation-900);
+  padding: var(--base);
+  width: 250px;
+  margin-top: calc(var(--base) / 2);
+
+  & > * {
+    margin: 0;
+
+    &:not(:last-child) {
+      margin-bottom: calc(var(--base) / 2);
+    }
+  }
+}
+
+.dropdownLabel {
+  @include small;
+  color: var(--theme-elevation-300);
+  margin-bottom: calc(var(--base) / 2);
+}
+
+.profileLink {
+  display: flex;
+}
+
+.profileAvatar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--base) * 1.5);
+  height: calc(var(--base) * 1.5);
+  border-radius: 100%;
+  background-color: var(--theme-elevation-900);
+  color: var(--theme-elevation-50);
+  font-weight: 500;
+  text-transform: uppercase;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-right: calc(var(--base) / 2);
+  text-overflow: ellipsis;
+}
+
+.profileName {
+  margin: 0;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -13,6 +13,15 @@
   }
 }
 
+.authNav {
+  display: flex;
+  align-items: center;
+
+  & > *:not(:last-child) {
+    margin-right: calc(var(--base) * 1);
+  }
+}
+
 .container {
   position: relative;
 }
@@ -42,6 +51,8 @@
 
 .navItems {
   display: flex;
+  flex-grow: 1;
+  white-space: nowrap;
 
   :local(.navItem) {
     margin-right: calc(var(--base) * .75);
@@ -64,22 +75,19 @@
   display: flex;
   color-scheme: none;
   align-items: center;
+  margin-right: var(--base);
+
+  @include large-break {
+    margin-right: 0;
+  }
 
   :local(.stars) {
     vertical-align: middle;
-    margin: 0 0 0 calc(var(--base) * .5);
-  }
-
-  @include large-break {
-    margin-left: auto;
-
-    :local(.stars) {
-      margin-right: var(--base);
-    }
   }
 }
 
 .githubText {
+  margin-right: var(--base);
   @include large-break {
     display: none;
   }
@@ -94,10 +102,12 @@
   transform: translateX(100%);
   top: 0;
   align-items: center;
+  margin-left: var(--base);
   
   > * {
-    margin-right: calc(var(--base) * .5);
+    margin-right: var(--base);
     line-height: 1;
+    flex-shrink: 0;
     
     &:last-child {
       margin-right: 0;

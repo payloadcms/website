@@ -124,6 +124,10 @@ p {
   }
 }
 
+small {
+  @include small;
+}
+
 ul,
 ol {
   padding-left: var(--base);

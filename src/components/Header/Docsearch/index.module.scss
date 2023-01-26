@@ -1,0 +1,9 @@
+@use '@scss/common.scss' as *;
+
+.docSearch {
+  position: relative;
+  :global(.DocSearch-Button) {
+    margin: 0;
+    padding: 0;
+  }
+}
