@@ -1,45 +1,54 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+'use client'
 
-export const pageTransTime = 400
+import canUseDom from '@root/utilities/can-use-dom'
+import { usePathname } from 'next/navigation'
+import React, { useEffect, useReducer, useRef, useState } from 'react'
 
 export const PageTransition: React.FC<{
   children: React.ReactNode
 }> = props => {
   const { children } = props
-  const hasInitialized = useRef(false) // don't scroll to top on first render
   const nodeRef = useRef(null)
+  const pathname = usePathname()
+  const hasInitialized = useRef(false)
 
-  const handleTransition = useCallback(() => {
-    document.documentElement.style.scrollBehavior = 'auto' // instantly scroll
+  // this is used to force a re-render when the hash changes to avoid race conditions
+  // by ensuring the DOM is updated before we running `getElementById` and `scrollIntoView`
+  const [transitionTicker, dispatchTransitionTicker] = useReducer((state: number) => state + 1, 0)
 
-    const scrollToTopTimer = setTimeout(() => {
-      window.scrollTo(0, 0)
-      document.documentElement.style.removeProperty('scroll-behavior')
-    }, pageTransTime)
+  const [hash, setHash] = useState<string>(() => {
+    if (!canUseDom) return ''
+    return window.location.hash
+  })
 
-    const { hash } = window?.location
-    let scrollToHashTimer: NodeJS.Timeout
-
-    if (hash) {
-      scrollToHashTimer = setTimeout(() => {
-        const hashWithoutMark = hash.substring(1)
-        const element = document.getElementById(hashWithoutMark)
-        element?.scrollIntoView()
-      }, pageTransTime * 2)
-
-      return () => {
-        if (scrollToTopTimer) clearTimeout(scrollToTopTimer)
-        if (scrollToHashTimer) clearTimeout(scrollToHashTimer)
-      }
+  useEffect(() => {
+    const fn = () => {
+      setHash(window.location.hash)
     }
-    return null
+
+    window.addEventListener('hashchange', fn)
+
+    return () => window.removeEventListener('hashchange', fn)
   }, [])
 
   useEffect(() => {
+    if (hash) {
+      const hashWithoutMark = hash.substring(1)
+      const element = document.getElementById(hashWithoutMark)
+      element?.scrollIntoView()
+    }
+  }, [hash, transitionTicker])
+
+  useEffect(() => {
     if (hasInitialized.current) {
-      handleTransition() // on every route change
-    } else hasInitialized.current = true
-  }, [handleTransition])
+      window.scrollTo(0, 0)
+    }
+    hasInitialized.current = true
+  }, [pathname, hasInitialized])
+
+  useEffect(() => {
+    if (hash) dispatchTransitionTicker()
+  }, [hash])
 
   return <div ref={nodeRef}>{children}</div>
 }
