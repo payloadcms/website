@@ -30,7 +30,7 @@ const tabRoutes = [
   },
   {
     label: 'Settings',
-    path: 'settings',
+    path: 'settings/build-settings',
   },
 ]
 
