@@ -1,8 +1,32 @@
-.settingsLayout {
-  margin-top: calc(var(--base) * 4);
-}
-
 .sidebarNav {
   display: flex;
   flex-direction: column;
+}
+
+.sidebarNavItem {
+  margin: 0;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+:global([data-theme="dark"]) {
+  .sidebarNavItem {
+    color: var(--color-base-650);
+
+    &.active {
+      color: var(--color-base-100);
+    }
+  }
+}
+
+:global([data-theme="light"]) {
+  .sidebarNavItem {
+    color: var(--color-base-350);
+
+    &.active {
+      color: var(--color-base-900);
+    }
+  }
 }

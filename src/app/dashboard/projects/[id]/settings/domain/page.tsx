@@ -1,9 +1,13 @@
 import * as React from 'react'
 
+import { Heading } from '@components/Heading'
+
 const ProjectDomainPage = async () => {
   return (
     <div>
-      <h2>Domain</h2>
+      <Heading element="h2" as="h4" marginTop={false}>
+        Domain
+      </Heading>
     </div>
   )
 }

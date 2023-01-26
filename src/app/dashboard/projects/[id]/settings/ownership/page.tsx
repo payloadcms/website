@@ -1,9 +1,13 @@
 import * as React from 'react'
 
+import { Heading } from '@components/Heading'
+
 const ProjectOwnershipPage = async () => {
   return (
     <div>
-      <h3>Ownership</h3>
+      <Heading element="h2" as="h4" marginTop={false}>
+        Ownership
+      </Heading>
     </div>
   )
 }

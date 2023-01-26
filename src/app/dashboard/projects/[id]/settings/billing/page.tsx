@@ -1,9 +1,13 @@
 import * as React from 'react'
 
+import { Heading } from '@components/Heading'
+
 const ProjectBillingPage = async () => {
   return (
     <div>
-      <h2>Billing</h2>
+      <Heading element="h2" as="h4" marginTop={false}>
+        Billing
+      </Heading>
     </div>
   )
 }

@@ -1,11 +1,5 @@
-import * as React from 'react'
+import { redirect } from 'next/navigation'
 
-const BuildSettingsPage = async () => {
-  return (
-    <div>
-      <h2>Build Settings</h2>
-    </div>
-  )
+export default async function OverviewRedirect({ params }) {
+  redirect(`/dashboard/projects/${params.id}/settings/build-settings`)
 }
-
-export default BuildSettingsPage

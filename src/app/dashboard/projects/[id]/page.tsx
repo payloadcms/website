@@ -1,7 +1,5 @@
-import * as React from 'react'
+import { redirect } from 'next/navigation'
 
-const ProjectPage = async () => {
-  return <div>Overview</div>
+export default async function OverviewRedirect({ params }) {
+  redirect(`/dashboard/projects/${params.id}/overview`)
 }
-
-export default ProjectPage
