@@ -1,12 +1,18 @@
 .headerObserver {
   position: relative;
   height: 100%;
+
+  >:first-child {
+    // first child cannot have top margin, otherwise the intersection observer will not work
+    // instead use `padding-top` or set `margin-top` on an inner element
+    margin-top: 0 !important;
+  }
 }
 
 .observerContainer {
   pointer-events: none;
   position: absolute;
-  top:0;
+  top: 0;
   right: 0;
   bottom: 0;
   left: 0;

@@ -1,0 +1,27 @@
+@use '@scss/common.scss' as *;
+
+.sidebarNav {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarNavItem {
+  margin: 0;
+  color: var(--theme-elevation-300);
+
+  &.active {
+
+    a,
+    a:hover {
+      color: var(--theme-text);
+    }
+  }
+
+  a {
+    &:hover {
+      color: var(--theme-text);
+    }
+
+    @include underline-on-focus;
+  }
+}
