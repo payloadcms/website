@@ -139,7 +139,7 @@ $breakpoint-xl-width: 1920px;
   box-shadow: none;
   border-radius: 0;
   padding: 0;
-  color: currentColor;  
+  color: currentColor;
   font-size: var(--font-body-size);
   font-family: var(--font-body);
 }
@@ -184,5 +184,13 @@ $breakpoint-xl-width: 1920px;
     background-color: var(--color-base-800);
     border-radius: 0px;
     cursor: pointer;
+  }
+}
+
+@mixin underline-on-focus {
+  text-decoration: none;
+
+  &:focus {
+    text-decoration: underline;
   }
 }

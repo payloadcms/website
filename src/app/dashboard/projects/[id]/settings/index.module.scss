@@ -1,3 +1,5 @@
+@use '@scss/common.scss' as *;
+
 .sidebarNav {
   display: flex;
   flex-direction: column;
@@ -5,28 +7,21 @@
 
 .sidebarNavItem {
   margin: 0;
+  color: var(--theme-elevation-300);
+
+  &.active {
+
+    a,
+    a:hover {
+      color: var(--theme-text);
+    }
+  }
 
   a {
-    text-decoration: none;
-  }
-}
-
-:global([data-theme="dark"]) {
-  .sidebarNavItem {
-    color: var(--color-base-650);
-
-    &.active {
-      color: var(--color-base-100);
+    &:hover {
+      color: var(--theme-text);
     }
-  }
-}
 
-:global([data-theme="light"]) {
-  .sidebarNavItem {
-    color: var(--color-base-350);
-
-    &.active {
-      color: var(--color-base-900);
-    }
+    @include underline-on-focus;
   }
 }

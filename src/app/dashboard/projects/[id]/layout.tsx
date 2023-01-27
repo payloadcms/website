@@ -46,7 +46,7 @@ const ProjectLayout = ({ children, params }: ProjectLayoutType) => {
 
   return (
     <HeaderObserver color={theme} pullUp>
-      <Gutter className={classes.tabsGutter}>
+      <Gutter className={classes.tabContainer}>
         <Breadcrumbs
           items={[
             {
@@ -60,7 +60,7 @@ const ProjectLayout = ({ children, params }: ProjectLayoutType) => {
           ]}
         />
 
-        <div className={classes.tabsContainer}>
+        <div className={classes.tabs}>
           {tabRoutes.map(route => {
             const routePath = `/dashboard/projects/${params.id}/${route.path}`
             const isActive = pathname.startsWith(routePath)
