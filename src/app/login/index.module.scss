@@ -11,3 +11,16 @@
 .leader {
     margin-bottom: var(--base);
 }
+
+.changeLoginMethod {
+    margin-top: var(--base);
+    display: block;
+    background-color: transparent;
+    border: 0;
+    outline: none;
+    font-size: inherit;
+    line-height: inherit;
+    text-align: left;
+    padding: 0;
+    cursor: pointer;
+}

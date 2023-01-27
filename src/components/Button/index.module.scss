@@ -122,6 +122,8 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   transition-timing-function: $transCurve;
   flex-shrink: 0;
   transform: translate3d(0, 0, 0);
+  width: var(--base);
+  height: var(--base);
 }
 
 .spacer {

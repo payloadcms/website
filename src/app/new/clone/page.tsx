@@ -2,26 +2,30 @@
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
-import { useAuth } from '@root/providers/Auth'
 import React, { Fragment, useCallback, useEffect } from 'react'
 import { getImplicitPreference } from '@root/providers/Theme/shared'
 import { useHeaderTheme } from '@root/providers/HeaderTheme'
 import Link from 'next/link'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { Breadcrumbs } from '@components/Breadcrumbs'
+import { Checkbox } from '@forms/fields/Checkbox'
 import { Heading } from '@components/Heading'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { Text } from '@forms/fields/Text'
 import { Select } from '@forms/fields/Select'
+import { useSearchParams } from 'next/navigation'
 import classes from './index.module.scss'
+import templatesJSON from '../templates/templates.json'
 
-const ProjectFromImport: React.FC = () => {
-  const { user } = useAuth()
+const ProjectFromTemplate: React.FC = () => {
+  const params = useSearchParams()
   const { setHeaderColor } = useHeaderTheme()
   const [hasAuthorizedGithub, setHasAuthorizedGithub] = React.useState(false)
-  const [repos, setRepos] = React.useState([])
+
+  const [initialTemplate, setInitialTemplate] = React.useState(() => {
+    return params.get('template') || 'blank'
+  })
 
   useEffect(() => {
     const implicitPreference = getImplicitPreference()
@@ -29,29 +33,9 @@ const ProjectFromImport: React.FC = () => {
   }, [])
 
   const authorizeGithub = useCallback(() => {
-    const makeReq = async () => {
-      // todo: make this a real request
-      setHasAuthorizedGithub(true)
-    }
-
-    makeReq()
+    // TODO: Implement GitHub authorization
+    setHasAuthorizedGithub(true)
   }, [])
-
-  useEffect(() => {
-    const getRepos = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/repositories`, {
-        method: 'GET',
-        credentials: 'include',
-      })
-
-      if (res.ok) {
-        const body = await res.json()
-        setRepos(body)
-      }
-    }
-
-    if (hasAuthorizedGithub && user) getRepos()
-  }, [hasAuthorizedGithub, user])
 
   useAuthRedirect()
 
@@ -65,11 +49,11 @@ const ProjectFromImport: React.FC = () => {
               url: '/new',
             },
             {
-              label: 'Import',
+              label: 'Template',
             },
           ]}
         />
-        <h1>Import a codebase</h1>
+        <h1>Create new from template</h1>
       </div>
       {!hasAuthorizedGithub ? (
         <Fragment>
@@ -82,9 +66,9 @@ const ProjectFromImport: React.FC = () => {
           </button>
           <div className={classes.footer}>
             <p>
-              {`Don't have a project yet? `}
-              <Link href="/new/clone">Create a new one</Link>
-              {` from one of our templates.`}
+              {`Have an existing project? `}
+              <Link href="/new/import">Import that</Link>
+              {` instead.`}
             </p>
             <p>
               {`Don't see your Git provider available? More Git providers are on their way. `}
@@ -97,51 +81,62 @@ const ProjectFromImport: React.FC = () => {
         <Grid>
           <Cell cols={4} colsM={8} className={classes.sidebar}>
             <div>
-              <p className={classes.label}>GitHub Organization</p>
+              <p className={classes.label}>Selected template</p>
               <Select
-                initialValue=""
-                options={[
-                  {
-                    label: 'None',
-                    value: '',
-                  },
-                ]}
+                isMulti={false}
+                initialValue={initialTemplate}
+                onChange={incomingOption => {
+                  if (Array.isArray(incomingOption)) return
+                  setInitialTemplate(incomingOption?.value)
+                }}
+                options={templatesJSON.map(template => ({
+                  label: template.label,
+                  value: template.name,
+                }))}
               />
             </div>
             <div>
-              <p className={classes.label}>Search</p>
-              <Text placeholder="Enter search term" />
-            </div>
-            <div>
               <p>
-                {`Don't see your repository? `}
-                <Link href="/">Adjust your GitHub app permissions</Link>
-                {'.'}
+                {templatesJSON.find(template => template.name === initialTemplate)?.description}
               </p>
             </div>
           </Cell>
           <Cell cols={8} colsM={8}>
-            {repos.length > 0 ? (
-              <div className={classes.repos}>
-                {repos?.map(repo => {
-                  const { name } = repo
-                  return (
-                    <div key={repo.id} className={classes.repo}>
-                      <h6 className={classes.repoName}>{name}</h6>
-                      <Button label="Import" appearance="primary" size="small" />
-                    </div>
-                  )
-                })}
-              </div>
-            ) : (
-              <div className={classes.noRepos}>
-                <p>
-                  {`You don't have any repositories in your organization. `}
-                  <Link href="/new/clone">Create a new one</Link>
-                  {` from one of our templates.`}
-                </p>
-              </div>
-            )}
+            <Grid className={classes.projectInfo}>
+              <Cell cols={4}>
+                <p className={classes.label}>Git Scope</p>
+                <Select
+                  initialValue=""
+                  options={[
+                    {
+                      label: 'None',
+                      value: '',
+                    },
+                  ]}
+                />
+              </Cell>
+              <Cell cols={4}>
+                <p className={classes.label}>Repository Name</p>
+                <Select
+                  initialValue=""
+                  options={[
+                    {
+                      label: 'None',
+                      value: '',
+                    },
+                  ]}
+                />
+              </Cell>
+            </Grid>
+            <div>
+              {`Don't see your organization? `}
+              <Link href="/">Adjust your GitHub app permissions</Link>
+              {'.'}
+            </div>
+            <div className={classes.createPrivate}>
+              <Checkbox label="Create private Git repository" />
+            </div>
+            <Button label="configure project" appearance="primary" icon="arrow" />
           </Cell>
         </Grid>
       )}
@@ -149,4 +144,4 @@ const ProjectFromImport: React.FC = () => {
   )
 }
 
-export default ProjectFromImport
+export default ProjectFromTemplate

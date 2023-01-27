@@ -56,21 +56,21 @@ const NewProject: React.FC = () => {
           <DefaultCard
             className={classes.card}
             leader={(1).toString().padStart(2, '0')}
-            href="/new/create?template=blank"
+            href="/new/clone?template=blank"
             title="Blank CMS"
             description="An empty CMS, perfect for starting a new project from scratch."
           />
           <DefaultCard
             className={classes.card}
             leader={(2).toString().padStart(2, '0')}
-            href="/new/create?template=website"
+            href="/new/clone?template=website"
             title="Website"
             description="The perfect starting point for a CMS to manage a website—large or small."
           />
           <DefaultCard
             className={classes.card}
             leader={(3).toString().padStart(2, '0')}
-            href="/new/create?template=ecommerce"
+            href="/new/clone?template=ecommerce"
             title="E-Commerce"
             description="A full e-commerce backend, integrated with Stripe and ready to sell."
           />

@@ -20,13 +20,7 @@ export const DefaultCard: React.FC<DefaultCardProps> = props => {
       </Heading>
       <p className={classes.description}>{description}</p>
       {typeof media !== 'string' && (
-        <Link href={href}>
-          <Media
-            resource={media}
-            className={classes.media}
-            sizes="(max-width: 768px) 100vw, 20vw"
-          />
-        </Link>
+        <Media resource={media} className={classes.media} sizes="(max-width: 768px) 100vw, 20vw" />
       )}
     </Link>
   )

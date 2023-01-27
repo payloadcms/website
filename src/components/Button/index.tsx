@@ -4,6 +4,7 @@ import { LineBlip } from '@components/LineBlip'
 import Link from 'next/link'
 import React, { useState } from 'react'
 // eslint-disable-next-line import/no-cycle
+import { GitHubIcon } from '@root/graphics/GitHub'
 import { Reference } from '../CMSLink'
 import { ArrowIcon } from '../../icons/ArrowIcon'
 import { SearchIcon } from '../../icons/SearchIcon'
@@ -18,7 +19,7 @@ export type Props = {
   className?: string
   label?: string
   labelStyle?: 'mono' | 'regular'
-  icon?: 'arrow' | 'search'
+  icon?: 'arrow' | 'search' | 'github'
   fullWidth?: boolean
   mobileFullWidth?: boolean
   reference?: Reference
@@ -31,6 +32,7 @@ export type Props = {
 const icons = {
   arrow: ArrowIcon,
   search: SearchIcon,
+  github: GitHubIcon,
 }
 
 const ButtonContent: React.FC<Props> = props => {
