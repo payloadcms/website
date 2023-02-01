@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "fetchDocs": "node scripts/fetch-docs.mjs",
+    "fetchDiscordThreads": "node scripts/fetch-discord-threads.mjs",
     "dev": "next dev",
     "nodocs:build": "next build",
     "build": "yarn fetchDocs && next build",
@@ -51,10 +52,13 @@
     "unist-util-visit": "^2.0.3"
   },
   "devDependencies": {
+    "@types/cli-progress": "^3.11.0",
     "@types/node": "18.11.3",
     "@types/react": "18.0.21",
     "@typescript-eslint/eslint-plugin": "5.12.1",
     "@typescript-eslint/parser": "5.12.1",
+    "cli-progress": "^3.11.2",
+    "discord.js": "^14.7.1",
     "eslint": "8.25.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.5.0",
