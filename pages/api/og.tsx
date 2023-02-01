@@ -5,12 +5,23 @@ export const config = {
   runtime: 'experimental-edge',
 }
 
-export default function handler(req: NextRequest) {
+const neueMontrealFont = fetch(
+  new URL('public/fonts/PPNeueMontreal-Regular.woff', import.meta.url),
+).then(res => res.arrayBuffer())
+
+const robotoFont = fetch(new URL('public/fonts/RobotoMono-Regular.woff', import.meta.url)).then(
+  res => res.arrayBuffer(),
+)
+
+export default async function handler(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
+    const neueMontreal = await neueMontrealFont
+    const roboto = await robotoFont
 
     const hasTitle = searchParams.has('title')
     const title = hasTitle ? searchParams.get('title')?.slice(0, 100) : ''
+    const titlePerWord = title.trim().split(' ')
     const hasTopic = searchParams.has('topic')
     const topic = hasTopic ? searchParams.get('topic')?.slice(0, 100).replace('-', ' ') : ''
 
@@ -22,37 +33,100 @@ export default function handler(req: NextRequest) {
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: '#fff',
+            justifyContent: 'space-between',
+            backgroundColor: '#000',
+            color: '#fff',
+            padding: '100px',
+            fontFamily: 'NeueMontreal',
           }}
         >
-          <svg width="100" height="100" viewBox="0 0 260 260" fill="#0F0F0F">
-            <path d="M120.59 8.5824L231.788 75.6142V202.829L148.039 251.418V124.203L36.7866 57.2249L120.59 8.5824Z" />
-            <path d="M112.123 244.353V145.073L28.2114 193.769L112.123 244.353Z" />
-          </svg>
           <div
             style={{
+              display: 'flex',
+              flexDirection: 'column',
               textTransform: 'capitalize',
-              marginTop: 50,
+              fontSize: 50,
             }}
           >
             {topic && topic}
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                fontSize: 90,
+                lineHeight: 1,
+                marginTop: '10px,',
+              }}
+            >
+              {titlePerWord.map((word, i) => {
+                return (
+                  <span
+                    key={i}
+                    style={{
+                      display: 'flex',
+                      position: 'relative',
+                      color: '#B6FFE0',
+                      paddingRight: '15px',
+                    }}
+                  >
+                    <span
+                      style={{
+                        position: 'absolute',
+                        content: ' ',
+                        top: 55,
+                        bottom: 0,
+                        left: -15,
+                        right: 0,
+                        backgroundColor: '#1B2622',
+                      }}
+                    />
+                    {word}
+                  </span>
+                )
+              })}
+            </div>
           </div>
           <div
             style={{
-              marginTop: 25,
-              fontSize: 32,
-              textTransform: 'capitalize',
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'flex-end',
             }}
           >
-            {title && title}
+            <img
+              src={`${process.env.NEXT_PUBLIC_SITE_URL}/images/fullLogo.png`}
+              alt="Payload CMS"
+              width="300"
+              height="70"
+            />
+            <div
+              style={{
+                textTransform: 'uppercase',
+                letterSpacing: '4px',
+                fontSize: 20,
+                fontFamily: 'Roboto',
+              }}
+            >
+              Documentation
+            </div>
           </div>
         </div>
       ),
       {
-        width: 800,
+        width: 1200,
         height: 630,
+        fonts: [
+          {
+            name: 'NeueMontreal',
+            data: neueMontreal,
+          },
+          {
+            name: 'Roboto',
+            data: roboto,
+          },
+        ],
       },
     )
   } catch (e: any) {
