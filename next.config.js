@@ -8,7 +8,7 @@ const nextConfig = withBundleAnalyzer({
   reactStrictMode: true,
   images: {
     minimumCacheTTL: 6000,
-    domains: ['localhost', process.env.NEXT_PUBLIC_CMS_URL, 'cms.payloadcms.com'],
+    domains: ['localhost', 'cms.payloadcms.com', 'stage.cms.payloadcms.com'],
   },
   experimental: {
     appDir: true,
@@ -43,11 +43,26 @@ const nextConfig = withBundleAnalyzer({
       },
       {
         source: '/roadmap',
-        destination:
-          'https://github.com/payloadcms/payload/discussions?discussions_q=label%3Aplanned',
+        destination: 'https://github.com/payloadcms/payload/discussions/categories/roadmap',
         permanent: true,
       },
     ]
+  },
+  async headers() {
+    const headers = []
+
+    if (!process.env.NEXT_PUBLIC_IS_LIVE) {
+      headers.push({
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex',
+          },
+        ],
+        source: '/:path*',
+      })
+    }
+    return headers
   },
 })
 
