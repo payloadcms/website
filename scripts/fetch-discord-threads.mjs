@@ -15,13 +15,25 @@ dotenv.config({
   path: path.resolve(__dirname, '../.env'),
 })
 
+const { DISCORD_TOKEN, DISCORD_SCRAPE_CHANNEL_ID } = process.env
+if (!DISCORD_TOKEN) {
+  throw new Error('DISCORD_TOKEN is required')
+}
+if (!DISCORD_SCRAPE_CHANNEL_ID) {
+  throw new Error('DISCORD_SCRAPE_CHANNEL_ID is required')
+}
+
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent] })
 
 client.once(Events.ClientReady, async c => {
   console.log(`Ready! Logged in as ${c.user.tag}`)
 
   // Get the community help channel
-  const communityHelpChannel = client.channels.cache.get(process.env.DISCORD_SCRAPE_CHANNEL_ID)
+  const communityHelpChannel = client.channels.cache.get(DISCORD_SCRAPE_CHANNEL_ID)
+  if (!communityHelpChannel) {
+    console.log(`No channel found with id ${DISCORD_SCRAPE_CHANNEL_ID}`)
+    return
+  }
 
   if (communityHelpChannel.type !== ChannelType.GuildForum) {
     console.log('Not a GuildForum')
