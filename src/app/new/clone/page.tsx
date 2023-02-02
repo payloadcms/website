@@ -11,7 +11,6 @@ import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Checkbox } from '@forms/fields/Checkbox'
 import { Heading } from '@components/Heading'
 import { GitHubIcon } from '@root/graphics/GitHub'
-import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Select } from '@forms/fields/Select'
 import { useSearchParams } from 'next/navigation'
@@ -36,8 +35,6 @@ const ProjectFromTemplate: React.FC = () => {
     // TODO: Implement GitHub authorization
     setHasAuthorizedGithub(true)
   }, [])
-
-  useAuthRedirect()
 
   return (
     <Gutter>

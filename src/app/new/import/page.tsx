@@ -11,7 +11,6 @@ import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Heading } from '@components/Heading'
 import { GitHubIcon } from '@root/graphics/GitHub'
-import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import { Select } from '@forms/fields/Select'
@@ -52,8 +51,6 @@ const ProjectFromImport: React.FC = () => {
 
     if (hasAuthorizedGithub && user) getRepos()
   }, [hasAuthorizedGithub, user])
-
-  useAuthRedirect()
 
   return (
     <Gutter>

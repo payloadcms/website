@@ -19,7 +19,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <Gutter>
-      <Heading marginTop={false}>Dashboard</Heading>
+      <Heading marginTop={false}>Your Projects</Heading>
       <p>{`Email: ${user?.email}`}</p>
       <Button appearance="primary" label="New project" href="/new" el="link" />
       <br />
