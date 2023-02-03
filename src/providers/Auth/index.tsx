@@ -29,6 +29,8 @@ type AuthContext = {
 
 const Context = createContext({} as AuthContext)
 
+const CLOUD_CONNECTION_ERROR = 'An error occurred while attempting to connect to Cloud CMS.'
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>()
 
@@ -60,11 +62,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         throw new Error('Invalid login')
       }
     } catch (e) {
-      throw new Error('An error occurred while attempting to login.')
+      throw new Error(CLOUD_CONNECTION_ERROR)
     }
   }, [])
 
   const login = useCallback<Login>(async args => {
+    console.log(process.env.NEXT_PUBLIC_CLOUD_CMS_URL)
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
         method: 'POST',
@@ -93,7 +96,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       throw new Error('Invalid login')
     } catch (e) {
-      throw new Error('An error occurred while attempting to login.')
+      throw new Error(CLOUD_CONNECTION_ERROR)
     }
   }, [])
 
@@ -118,7 +121,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         throw new Error('An error occurred while attempting to logout.')
       }
     } catch (e) {
-      throw new Error('An error occurred while attempting to logout.')
+      throw new Error(CLOUD_CONNECTION_ERROR)
     }
   }, [])
 
@@ -151,7 +154,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       } catch (e) {
         setUser(null)
-        throw new Error('An error occurred while fetching your account.')
+        throw new Error(CLOUD_CONNECTION_ERROR)
       }
     }
 
@@ -186,7 +189,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         throw new Error('Invalid login')
       }
     } catch (e) {
-      throw new Error('An error occurred while attempting to login.')
+      throw new Error(CLOUD_CONNECTION_ERROR)
     }
   }, [])
 
@@ -218,7 +221,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         throw new Error('Invalid login')
       }
     } catch (e) {
-      throw new Error('An error occurred while attempting to login.')
+      throw new Error(CLOUD_CONNECTION_ERROR)
     }
   }, [])
 
