@@ -29,7 +29,7 @@ export const DefaultHero: React.FC<
   const pullUpObserver = !['/', '/home'].includes(slug)
 
   return (
-    <HeaderObserver color={theme} pullUp={pullUpObserver}>
+    <HeaderObserver color={theme} isFirstObserverOnPage={pullUpObserver}>
       <Gutter>
         <div className={classes.defaultHero}>
           {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}

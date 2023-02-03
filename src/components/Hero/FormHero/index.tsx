@@ -21,7 +21,7 @@ export const FormHero: React.FC<FormHeroProps> = props => {
   const theme = useTheme()
 
   return (
-    <HeaderObserver color={theme} pullUp>
+    <HeaderObserver color={theme} isFirstObserverOnPage>
       <ThemeProvider theme="dark">
         <div className={classes.formHero}>
           <div className={classes.bgWrapper}>

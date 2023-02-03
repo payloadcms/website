@@ -9,14 +9,14 @@ type Props = {
   className?: string
   zIndex?: number
   children?: React.ReactNode
-  pullUp?: boolean
+  isFirstObserverOnPage?: boolean
 }
 export const HeaderObserver: React.FC<Props> = ({
   color,
   children,
   className,
   zIndex,
-  pullUp = false,
+  isFirstObserverOnPage = false,
 }) => {
   const ref = React.useRef<HTMLDivElement>(null)
   const { height: windowHeight } = useWindowInfo()
@@ -71,7 +71,7 @@ export const HeaderObserver: React.FC<Props> = ({
       {children && children}
 
       <div
-        className={[classes.observerContainer, pullUp && classes.pullContainerUp]
+        className={[classes.observerContainer, isFirstObserverOnPage && classes.pullContainerUp]
           .filter(Boolean)
           .join(' ')}
       >

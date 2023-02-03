@@ -22,7 +22,7 @@ export const ContentMediaHero: React.FC<
   const theme = useTheme()
 
   return (
-    <HeaderObserver color={theme} pullUp>
+    <HeaderObserver color={theme} isFirstObserverOnPage>
       <Gutter>
         <Grid className={classes.grid}>
           <Cell cols={7} colsM={8}>
