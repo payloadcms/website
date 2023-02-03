@@ -1,6 +1,7 @@
 import React from 'react'
-import { Page } from '@root/payload-types'
+
 import { RenderBlocks } from '@components/RenderBlocks'
+import { Page } from '@root/payload-types'
 
 export type Props = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 

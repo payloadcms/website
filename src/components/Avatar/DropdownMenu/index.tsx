@@ -1,7 +1,8 @@
+import * as React from 'react'
+import Link from 'next/link'
+
 import { useAuth } from '@root/providers/Auth'
 import useClickAway from '@root/utilities/use-click-away'
-import Link from 'next/link'
-import * as React from 'react'
 
 import classes from './index.module.scss'
 

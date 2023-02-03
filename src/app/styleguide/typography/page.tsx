@@ -1,5 +1,6 @@
-import { Gutter } from '@components/Gutter'
 import React from 'react'
+
+import { Gutter } from '@components/Gutter'
 import { StyleguidePageContent } from '../PageContent'
 
 const Typography: React.FC = () => {

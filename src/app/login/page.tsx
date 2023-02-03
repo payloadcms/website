@@ -1,20 +1,21 @@
 'use client'
 
-import { Gutter } from '@components/Gutter'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { Data } from '@forms/types'
-import { useAuth } from '@root/providers/Auth'
 import Link from 'next/link'
-import React, { Fragment, useCallback, useEffect, useState } from 'react'
-import { getImplicitPreference } from '@root/providers/Theme/shared'
-import { useHeaderTheme } from '@root/providers/HeaderTheme'
 import { redirect } from 'next/navigation'
 
-import { Heading } from '@components/Heading'
 import { Button } from '@components/Button'
+import { Gutter } from '@components/Gutter'
+import { Heading } from '@components/Heading'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { useAuth } from '@root/providers/Auth'
+import { useHeaderTheme } from '@root/providers/HeaderTheme'
+import { getImplicitPreference } from '@root/providers/Theme/shared'
+
 import classes from './index.module.scss'
 
 const Login: React.FC = () => {

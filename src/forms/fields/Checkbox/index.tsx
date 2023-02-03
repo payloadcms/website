@@ -2,9 +2,11 @@
 
 import React from 'react'
 import { Check } from '@icons/Check'
+
 import Error from '../../Error'
-import { useField } from '../useField'
 import { FieldProps } from '../types'
+import { useField } from '../useField'
+
 import classes from './index.module.scss'
 
 const defaultValidate = (value: boolean, options = {} as any) => {

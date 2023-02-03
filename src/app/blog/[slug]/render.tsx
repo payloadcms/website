@@ -2,17 +2,18 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { Breadcrumbs } from '@components/Breadcrumbs'
-import { HeaderObserver } from '@components/HeaderObserver'
+import { CalendarIcon } from '@graphics/CalendarIcon'
 import { useTheme } from '@providers/Theme'
 import { formatDate } from '@utilities/format-date-time'
-import { CalendarIcon } from '@graphics/CalendarIcon'
+
+import { Breadcrumbs } from '@components/Breadcrumbs'
+import { HeaderObserver } from '@components/HeaderObserver'
 import { Post } from '@root/payload-types'
+import { Gutter } from '../../../components/Gutter'
+import { Label } from '../../../components/Label'
+import { Media } from '../../../components/Media'
 import { RenderBlocks } from '../../../components/RenderBlocks'
 import { RichText } from '../../../components/RichText'
-import { Gutter } from '../../../components/Gutter'
-import { Media } from '../../../components/Media'
-import { Label } from '../../../components/Label'
 
 import classes from './index.module.scss'
 

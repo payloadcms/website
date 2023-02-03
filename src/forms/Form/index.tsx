@@ -1,19 +1,18 @@
 'use client'
 
-import React, { useEffect, useRef, useState, useCallback, useReducer, ChangeEvent } from 'react'
+import React, { ChangeEvent, useCallback, useEffect, useReducer, useRef, useState } from 'react'
+
+import { Data, Field, IFormContext, InitialState, OnSubmit } from '../types'
+import {
+  FieldContext,
+  FormContext,
+  FormSubmittedContext,
+  ModifiedContext,
+  ProcessingContext,
+} from './context'
+import initialContext from './initialContext'
 import reduceFieldsToValues from './reduceFieldsToValues'
 import reducer from './reducer'
-import initialContext from './initialContext'
-
-import {
-  FormSubmittedContext,
-  ProcessingContext,
-  ModifiedContext,
-  FormContext,
-  FieldContext,
-} from './context'
-
-import { IFormContext, Field, OnSubmit, InitialState, Data } from '../types'
 
 const defaultInitialState = {}
 

@@ -1,9 +1,10 @@
-import { useAuth } from '@root/providers/Auth'
-import useClickAway from '@root/utilities/use-click-away'
 import * as React from 'react'
 
-import classes from './index.module.scss'
+import { useAuth } from '@root/providers/Auth'
+import useClickAway from '@root/utilities/use-click-away'
 import { DropdownMenu } from './DropdownMenu'
+
+import classes from './index.module.scss'
 
 export const Avatar: React.FC = () => {
   const { user } = useAuth()

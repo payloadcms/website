@@ -2,14 +2,14 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { CaseStudy } from '@root/payload-types'
-import { Breadcrumbs } from '@components/Breadcrumbs'
-import { Gutter } from '../../../components/Gutter'
 
-import { RichText } from '../../../components/RichText'
+import { Breadcrumbs } from '@components/Breadcrumbs'
+import { CaseStudy } from '@root/payload-types'
 import { Button } from '../../../components/Button'
+import { Gutter } from '../../../components/Gutter'
 import { Media } from '../../../components/Media'
 import { RenderBlocks } from '../../../components/RenderBlocks'
+import { RichText } from '../../../components/RichText'
 
 import classes from './index.module.scss'
 

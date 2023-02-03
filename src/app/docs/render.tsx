@@ -1,16 +1,18 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
 import AnimateHeight from 'react-animate-height'
-import Link from 'next/link'
-import { MenuIcon } from '@graphics/MenuIcon'
-import { CloseIcon } from '@graphics/CloseIcon'
-import { HeaderObserver } from '@components/HeaderObserver'
-import { useTheme } from '@providers/Theme'
 import { ChevronIcon } from '@graphics/ChevronIcon'
-import { DocMeta, Topic } from './types'
+import { CloseIcon } from '@graphics/CloseIcon'
+import { MenuIcon } from '@graphics/MenuIcon'
+import { useTheme } from '@providers/Theme'
+import Link from 'next/link'
+import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
+
+import { HeaderObserver } from '@components/HeaderObserver'
 import { MDXProvider } from '../../components/MDX'
+import { DocMeta, Topic } from './types'
+
 import classes from './index.module.scss'
 
 const openTopicsLocalStorageKey = 'docs-open-topics'

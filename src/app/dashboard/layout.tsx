@@ -1,9 +1,9 @@
 'use client'
 
 import * as React from 'react'
+import { useTheme } from '@providers/Theme'
 
 import { HeaderObserver } from '@components/HeaderObserver'
-import { useTheme } from '@providers/Theme'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 
 const AllProjectsLayout = ({ children }) => {

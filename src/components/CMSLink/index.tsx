@@ -1,5 +1,6 @@
-import Link from 'next/link'
 import React from 'react'
+import Link from 'next/link'
+
 import { CaseStudy, Page, Post } from '@root/payload-types'
 // eslint-disable-next-line import/no-cycle
 import { Button, Props as ButtonProps } from '../Button'

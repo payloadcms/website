@@ -2,7 +2,7 @@ import type { CaseStudy, Footer, MainMenu, Page, Post } from '../payload-types'
 import { CASE_STUDIES, CASE_STUDY } from './case-studies'
 import { GLOBALS } from './globals'
 import { PAGE, PAGES } from './pages'
-import { POST, POSTS, POST_SLUGS } from './posts'
+import { POST, POST_SLUGS, POSTS } from './posts'
 
 const next = {
   revalidate: 600,

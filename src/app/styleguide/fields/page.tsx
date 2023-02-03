@@ -1,11 +1,12 @@
 import React from 'react'
+import { Checkbox } from '@forms/fields/Checkbox'
+import { NumberInput } from '@forms/fields/Number'
+import { Phone } from '@forms/fields/Phone'
+import RadioGroup from '@forms/fields/RadioGroup'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import { Textarea } from '@forms/fields/Textarea'
-import { Phone } from '@forms/fields/Phone'
-import { NumberInput } from '@forms/fields/Number'
-import { Checkbox } from '@forms/fields/Checkbox'
-import RadioGroup from '@forms/fields/RadioGroup'
+
 import { Gutter } from '@components/Gutter'
 import { StyleguidePageContent } from '../PageContent'
 

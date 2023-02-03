@@ -1,8 +1,9 @@
 'use client'
 
 import { createContext, useContext } from 'react'
-import initialContext from './initialContext'
+
 import type { IFormContext } from '../types'
+import initialContext from './initialContext'
 
 const FormContext = createContext(initialContext)
 const FieldContext = createContext(initialContext)
@@ -17,14 +18,14 @@ const useFormProcessing = (): boolean => useContext(ProcessingContext)
 const useFormModified = (): boolean => useContext(ModifiedContext)
 
 export {
-  FormContext,
   FieldContext,
+  FormContext,
   FormSubmittedContext,
-  ProcessingContext,
   ModifiedContext,
+  ProcessingContext,
   useForm,
   useFormFields,
-  useFormSubmitted,
-  useFormProcessing,
   useFormModified,
+  useFormProcessing,
+  useFormSubmitted,
 }

@@ -1,5 +1,5 @@
-import type { Doc, DocPath, Topic } from './types'
 import content from './docs.json'
+import type { Doc, DocPath, Topic } from './types'
 
 export async function getTopics(): Promise<Topic[]> {
   return content.map(topic => ({

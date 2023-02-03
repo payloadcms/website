@@ -1,7 +1,8 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
-import { RenderBlogPost } from './render'
+
 import { fetchBlogPost, fetchPosts } from '../../../graphql'
+import { RenderBlogPost } from './render'
 
 const Post = async ({ params }) => {
   const { slug } = params

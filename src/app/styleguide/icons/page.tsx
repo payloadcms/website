@@ -1,7 +1,8 @@
-import { Gutter } from '@components/Gutter'
 import React from 'react'
 import { ArrowIcon } from '@icons/ArrowIcon'
 import { SearchIcon } from '@icons/SearchIcon'
+
+import { Gutter } from '@components/Gutter'
 import { StyleguidePageContent } from '../PageContent'
 
 const Highlight: React.FC = () => {

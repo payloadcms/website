@@ -1,15 +1,16 @@
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Modal, useModal } from '@faceless-ui/modal'
-import Link from 'next/link'
 import { useHeaderTheme } from '@providers/HeaderTheme'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
 import { Gutter } from '@components/Gutter'
 import { MainMenu } from '@root/payload-types'
-import { usePathname } from 'next/navigation'
 import { FullLogo } from '../../../graphics/FullLogo'
-import { DocSearch } from '../Docsearch'
 import { MenuIcon } from '../../../graphics/MenuIcon'
 import { CMSLink } from '../../CMSLink'
+import { DocSearch } from '../Docsearch'
 
 import classes from './index.module.scss'
 

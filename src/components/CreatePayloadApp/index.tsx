@@ -1,5 +1,7 @@
-import CopyToClipboard from '@components/CopyToClipboard'
 import React from 'react'
+
+import CopyToClipboard from '@components/CopyToClipboard'
+
 import classes from './index.module.scss'
 
 export type Props = {

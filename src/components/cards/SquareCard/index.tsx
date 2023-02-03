@@ -1,6 +1,7 @@
 import React from 'react'
-import { CMSLink } from '@components/CMSLink'
 import { ArrowIcon } from '@icons/ArrowIcon'
+
+import { CMSLink } from '@components/CMSLink'
 import { SquareCardProps } from '../types'
 
 import classes from './index.module.scss'

@@ -3,10 +3,12 @@
 import React, { useCallback, useEffect, useId, useRef, useState } from 'react'
 import ReactSelect from 'react-select'
 import { useTheme } from '@providers/Theme'
+
+import Error from '../../Error'
+import Label from '../../Label'
 import { Validate } from '../../types'
 import { useFormField } from '../../useFormField'
-import Label from '../../Label'
-import Error from '../../Error'
+
 import classes from './index.module.scss'
 
 type Option = {

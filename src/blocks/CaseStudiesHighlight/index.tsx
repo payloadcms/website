@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { useMouseInfo } from '@faceless-ui/mouse-info'
-import { RichText } from '@components/RichText'
-import Image from 'next/image'
-import { ThemeProvider } from '@providers/Theme'
-import { Gutter } from '@components/Gutter'
-import { CaseStudy, ReusableContent } from '@root/payload-types'
 import { PayloadIcon } from '@graphics/PayloadIcon'
+import { ThemeProvider } from '@providers/Theme'
+import Image from 'next/image'
 import Link from 'next/link'
+
+import { Gutter } from '@components/Gutter'
+import { RichText } from '@components/RichText'
+import { CaseStudy, ReusableContent } from '@root/payload-types'
+
 import classes from './index.module.scss'
 
 type Props = Extract<ReusableContent['layout'][0], { blockType: 'caseStudiesHighlight' }>

@@ -1,12 +1,12 @@
 'use client'
 
 import * as React from 'react'
-
-import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@providers/Theme'
-import { Gutter } from '@components/Gutter'
 import { usePathname } from 'next/navigation'
+
 import { Breadcrumbs } from '@components/Breadcrumbs'
+import { Gutter } from '@components/Gutter'
+import { HeaderObserver } from '@components/HeaderObserver'
 import { Heading } from '@components/Heading'
 
 import classes from './index.module.scss'

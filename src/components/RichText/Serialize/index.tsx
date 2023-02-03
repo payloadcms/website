@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react'
 import escapeHTML from 'escape-html'
 import { Text } from 'slate'
+
 import { CMSLink, Reference } from '@components/CMSLink'
+import { Highlight } from '../../Highlight'
 import { Label } from '../../Label'
 import { LargeBody } from '../../LargeBody'
-import { Highlight } from '../../Highlight'
-import { Video } from '../Video'
 import { RichTextUpload } from '../Upload'
+import { Video } from '../Video'
 
 type Node = {
   type: string

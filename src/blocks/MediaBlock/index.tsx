@@ -1,5 +1,6 @@
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
 import { RichText } from '@components/RichText'

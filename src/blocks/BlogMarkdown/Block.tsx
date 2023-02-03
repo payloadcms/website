@@ -1,10 +1,11 @@
-import { Gutter } from '@components/Gutter'
-import Table from '@components/MDX/components/Table'
-import { Cell, Grid } from '@faceless-ui/css-grid'
-import { ReusableContent } from '@root/payload-types'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
+import { Cell, Grid } from '@faceless-ui/css-grid'
 import remarkGFM from 'remark-gfm'
+
+import { Gutter } from '@components/Gutter'
+import Table from '@components/MDX/components/Table'
+import { ReusableContent } from '@root/payload-types'
 
 const components = {
   table: Table as any,

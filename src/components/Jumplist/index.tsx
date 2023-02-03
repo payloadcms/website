@@ -1,5 +1,7 @@
-import React, { useEffect, useState, useContext, createContext, useReducer, useRef } from 'react'
-import { Props, NodeProps, Reducer, IContext } from './types'
+import React, { createContext, useContext, useEffect, useReducer, useRef, useState } from 'react'
+
+import { IContext, NodeProps, Props, Reducer } from './types'
+
 import classes from './index.module.scss'
 
 const Context = createContext<IContext>({

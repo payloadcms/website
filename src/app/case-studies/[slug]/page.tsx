@@ -1,5 +1,6 @@
-import { notFound } from 'next/navigation'
 import React from 'react'
+import { notFound } from 'next/navigation'
+
 import { fetchCaseStudies, fetchCaseStudy } from '../../../graphql'
 import { RenderCaseStudy } from './renderCaseStudy'
 

@@ -2,8 +2,9 @@
 
 import * as React from 'react'
 import { usePathname } from 'next/navigation'
-import { analyticsEvent } from '@root/utilities/analytics'
 import Script from 'next/script'
+
+import { analyticsEvent } from '@root/utilities/analytics'
 
 const gaMeasurementID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
@@ -11,11 +12,13 @@ export const GoogleAnalytics: React.FC = () => {
   const pathname = usePathname()
 
   React.useEffect(() => {
-    analyticsEvent('page_view', {
-      page_title: document.title,
-      page_location: window.location.href,
-      page_path: pathname,
-    })
+    if (window?.location?.href) {
+      analyticsEvent('page_view', {
+        page_title: document.title,
+        page_location: window.location.href,
+        page_path: pathname,
+      })
+    }
   }, [pathname])
 
   return (
