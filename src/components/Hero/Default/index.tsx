@@ -26,10 +26,10 @@ export const DefaultHero: React.FC<
       sidebarContent[0].children?.length === 1 &&
       !sidebarContent[0].children[0].text)
   const slug = usePathname()
-  const pullUpObserver = !['/', '/home'].includes(slug)
+  const isHomePage = ['/', '/home'].includes(slug)
 
   return (
-    <HeaderObserver color={theme} isFirstObserverOnPage={pullUpObserver}>
+    <HeaderObserver color={theme} isFirstObserverOnPage={!isHomePage}>
       <Gutter>
         <div className={classes.defaultHero}>
           {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
