@@ -1,15 +1,17 @@
 'use client'
 
-import { RichText } from '@components/RichText'
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { Gutter } from '@components/Gutter'
 import { ThemeProvider, useTheme } from '@providers/Theme'
+
 import { CMSForm } from '@components/CMSForm'
-import { Page } from '@root/payload-types'
-import { PixelBackground } from '@components/PixelBackground'
+import { Gutter } from '@components/Gutter'
 import { HeaderObserver } from '@components/HeaderObserver'
+import { PixelBackground } from '@components/PixelBackground'
+import { RichText } from '@components/RichText'
+import { Page } from '@root/payload-types'
 import { CheckmarkIcon } from '../../../graphics/CheckmarkIcon'
+
 import classes from './index.module.scss'
 
 export type FormHeroProps = Page['hero']

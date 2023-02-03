@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Props } from './types'
 
 import classes from './index.module.scss'

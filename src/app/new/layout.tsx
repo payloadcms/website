@@ -1,14 +1,14 @@
 'use client'
 
 import * as React from 'react'
-
-import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@providers/Theme'
-import { useAuth } from '@root/providers/Auth'
-import { Gutter } from '@components/Gutter'
-import { Label } from '@components/Label'
-import { Heading } from '@components/Heading'
 import { usePathname, useRouter } from 'next/navigation'
+
+import { Gutter } from '@components/Gutter'
+import { HeaderObserver } from '@components/HeaderObserver'
+import { Heading } from '@components/Heading'
+import { Label } from '@components/Label'
+import { useAuth } from '@root/providers/Auth'
 
 const NewButNoUser = () => {
   const router = useRouter()

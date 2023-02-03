@@ -1,16 +1,17 @@
 'use client'
 
 import React from 'react'
-import { ScrollInfoProvider } from '@faceless-ui/scroll-info'
-import { MouseInfoProvider } from '@faceless-ui/mouse-info'
 import { GridProvider } from '@faceless-ui/css-grid'
 import { ModalContainer, ModalProvider } from '@faceless-ui/modal'
+import { MouseInfoProvider } from '@faceless-ui/mouse-info'
+import { ScrollInfoProvider } from '@faceless-ui/scroll-info'
 import { WindowInfoProvider } from '@faceless-ui/window-info'
-import HeaderThemeProvider from './HeaderTheme'
-import { ThemePreferenceProvider } from './Theme'
-import { ComputedCSSValuesProvider } from './ComputedCSSValues'
+
 import { AuthProvider } from './Auth'
+import { ComputedCSSValuesProvider } from './ComputedCSSValues'
+import HeaderThemeProvider from './HeaderTheme'
 import { PageTransition } from './PageTransition'
+import { ThemePreferenceProvider } from './Theme'
 
 export const Providers: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (

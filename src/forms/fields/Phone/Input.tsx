@@ -1,15 +1,16 @@
 'use client'
 
-import PhoneInput from 'react-phone-number-input'
 import React from 'react'
+import PhoneInput from 'react-phone-number-input'
+
 import Error from '../../Error'
 import Label from '../../Label'
 import { Validate } from '../../types'
+import { FieldProps } from '../types'
 // import 'react-phone-number-input/style.css'
 import { useField } from '../useField'
 
 import classes from './index.module.scss'
-import { FieldProps } from '../types'
 
 const defaultValidate: Validate = val => {
   const stringVal = val as string

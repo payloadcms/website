@@ -1,5 +1,6 @@
-import { notFound } from 'next/navigation'
 import React from 'react'
+import { notFound } from 'next/navigation'
+
 import { Hero } from '../../components/Hero'
 import { RenderBlocks } from '../../components/RenderBlocks'
 import { fetchPage, fetchPages } from '../../graphql'

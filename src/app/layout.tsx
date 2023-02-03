@@ -1,9 +1,10 @@
 import React from 'react'
-import { Providers } from '@providers'
 import { fetchGlobals } from '@graphql'
-import { robotoMono, neueMontrealRegular, neueMontrealBold, neueMontrealItalic } from './fonts'
-import { Header } from '../components/Header'
+import { Providers } from '@providers'
+
 import { Footer } from '../components/Footer'
+import { Header } from '../components/Header'
+import { neueMontrealBold, neueMontrealItalic, neueMontrealRegular, robotoMono } from './fonts'
 
 import '../css/app.scss'
 

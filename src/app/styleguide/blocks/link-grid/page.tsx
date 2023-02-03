@@ -1,7 +1,8 @@
 'use client'
 
-import { LinkGrid, LinkGridProps } from '@blocks/LinkGrid'
 import React from 'react'
+import { LinkGrid, LinkGridProps } from '@blocks/LinkGrid'
+
 import { StyleguidePageContent } from '../../PageContent'
 
 const data: LinkGridProps = {

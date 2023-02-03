@@ -1,13 +1,14 @@
 'use client'
 
 import React from 'react'
+
 import Error from '../../Error'
 import Label from '../../Label'
 import { Validate } from '../../types'
+import { FieldProps } from '../types'
+import { useField } from '../useField'
 
 import classes from './index.module.scss'
-import { useField } from '../useField'
-import { FieldProps } from '../types'
 
 const defaultValidate: Validate = val => {
   const stringVal = val as string

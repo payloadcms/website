@@ -1,8 +1,9 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
+
 import { getDoc, getTopics } from '../../api'
-import { RenderDoc } from './render'
 import { NextDoc } from '../../types'
+import { RenderDoc } from './render'
 
 const Doc = async ({ params }) => {
   const { topic, doc: docSlug } = params

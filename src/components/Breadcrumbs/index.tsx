@@ -1,5 +1,6 @@
-import Link from 'next/link'
 import * as React from 'react'
+import Link from 'next/link'
+
 import classes from './index.module.scss'
 
 type Props = {

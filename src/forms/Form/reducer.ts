@@ -1,4 +1,4 @@
-import type { Field, Fields, Action } from '../types'
+import type { Action, Field, Fields } from '../types'
 
 // no declaration file for flatley, and no @types either, so require instead of import
 // eslint-disable-next-line

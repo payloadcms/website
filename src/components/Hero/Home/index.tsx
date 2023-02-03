@@ -1,11 +1,12 @@
 'use client'
 
-import { CMSLink } from '@components/CMSLink'
-import CreatePayloadApp from '@components/CreatePayloadApp'
-import Image from 'next/image'
 import React from 'react'
 import Marquee from 'react-fast-marquee'
 import { ThemeProvider, useTheme } from '@providers/Theme'
+import Image from 'next/image'
+
+import { CMSLink } from '@components/CMSLink'
+import CreatePayloadApp from '@components/CreatePayloadApp'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
 import { RichText } from '@components/RichText'

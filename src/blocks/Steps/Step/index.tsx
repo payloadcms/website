@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Page } from '@root/payload-types'
-import { RenderBlocks } from '@components/RenderBlocks'
-import { Label } from '@components/Label'
-import { Gutter } from '@components/Gutter'
 import useIntersection from '@utilities/useIntersection'
+
+import { Gutter } from '@components/Gutter'
+import { Label } from '@components/Label'
+import { RenderBlocks } from '@components/RenderBlocks'
+import { Page } from '@root/payload-types'
+
 import classes from './index.module.scss'
 
 type Props = Extract<Page['layout'][0], { blockType: 'steps' }>['stepsFields']['steps'][0] & {

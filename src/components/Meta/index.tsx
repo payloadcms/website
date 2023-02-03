@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
-import { Media } from '@root/payload-types'
+
 import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics'
+import { Media } from '@root/payload-types'
 
 export type MetaType = {
   image?: Media | string

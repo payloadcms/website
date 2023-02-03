@@ -1,15 +1,17 @@
 'use client'
 
+import React from 'react'
+import { Cell, Grid } from '@faceless-ui/css-grid'
+import { useTheme } from '@providers/Theme'
+
 import { Breadcrumbs } from '@components/Breadcrumbs'
+import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
 import { HeaderObserver } from '@components/HeaderObserver'
-import { useTheme } from '@providers/Theme'
-import { RichText } from '@components/RichText'
-import { Cell, Grid } from '@faceless-ui/css-grid'
-import React from 'react'
-import { Page } from '@root/payload-types'
 import { Media } from '@components/Media'
-import { CMSLink } from '@components/CMSLink'
+import { RichText } from '@components/RichText'
+import { Page } from '@root/payload-types'
+
 import classes from './index.module.scss'
 
 export const ContentMediaHero: React.FC<

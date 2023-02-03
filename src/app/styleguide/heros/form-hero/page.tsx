@@ -1,6 +1,7 @@
+import React from 'react'
+
 import { Hero } from '@components/Hero'
 import { Page } from '@root/payload-types'
-import React from 'react'
 import { StyleguidePageContent } from '../../PageContent'
 
 const hero: Page['hero'] = {

@@ -1,17 +1,18 @@
 'use client'
 
-import { Button } from '@components/Button'
-import { Gutter } from '@components/Gutter'
-import { Heading } from '@components/Heading'
+import React, { useCallback, useEffect } from 'react'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { Data } from '@forms/types'
+import Link from 'next/link'
+
+import { Button } from '@components/Button'
+import { Gutter } from '@components/Gutter'
+import { Heading } from '@components/Heading'
 import { useAuth } from '@root/providers/Auth'
 import { useHeaderTheme } from '@root/providers/HeaderTheme'
 import { getImplicitPreference } from '@root/providers/Theme/shared'
-import Link from 'next/link'
-import React, { useCallback, useEffect } from 'react'
 
 import classes from './index.module.scss'
 

@@ -2,8 +2,9 @@
 
 import React from 'react'
 
-import classes from './index.module.scss'
 import { CustomRenderers, Serialize } from './Serialize'
+
+import classes from './index.module.scss'
 
 export const RichText: React.FC<{
   className?: string

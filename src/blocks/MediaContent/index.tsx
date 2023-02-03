@@ -1,12 +1,13 @@
 import * as React from 'react'
-import { Gutter } from '@components/Gutter'
-import { ThemeProvider } from '@providers/Theme'
-import { Page } from '@root/payload-types'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import { ThemeProvider } from '@providers/Theme'
 
-import { RichText } from '@components/RichText'
-import { Media } from '@components/Media'
 import { Button } from '@components/Button'
+import { Gutter } from '@components/Gutter'
+import { Media } from '@components/Media'
+import { RichText } from '@components/RichText'
+import { Page } from '@root/payload-types'
+
 import classes from './index.module.scss'
 
 export type MediaContentProps = Extract<Page['layout'][0], { blockType: 'mediaContent' }>

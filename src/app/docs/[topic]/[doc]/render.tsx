@@ -1,16 +1,18 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import { MDXRemote } from 'next-mdx-remote'
-import Link from 'next/link'
-import components from '@components/MDX/components'
-import TableOfContents from '@components/TableOfContents'
-import { JumplistProvider } from '@components/Jumplist'
 import { ArrowIcon } from '@icons/ArrowIcon'
 import { useTheme } from '@providers/Theme'
+import Link from 'next/link'
+import { MDXRemote } from 'next-mdx-remote'
+
 import { Button } from '@components/Button'
+import { JumplistProvider } from '@components/Jumplist'
+import components from '@components/MDX/components'
+import TableOfContents from '@components/TableOfContents'
 import slugify from '@root/utilities/slugify'
 import { Doc, NextDoc } from '../../types'
+
 import classes from './index.module.scss'
 
 type Props = {

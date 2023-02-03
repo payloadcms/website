@@ -1,6 +1,7 @@
 import React from 'react'
-import Meta from '@components/Meta'
 import { fetchPage } from '@graphql'
+
+import Meta from '@components/Meta'
 
 export default async props => {
   const { slug } = props.params

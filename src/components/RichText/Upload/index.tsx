@@ -1,7 +1,8 @@
 import React from 'react'
-import { Media } from '@components/Media'
 import { Media as MediaType } from '@types'
+
 import { CMSLink, CMSLinkType } from '@components/CMSLink'
+import { Media } from '@components/Media'
 
 export type RichTextUploadNodeType = {
   fields: {

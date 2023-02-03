@@ -1,11 +1,10 @@
 'use client'
 
 import * as React from 'react'
-
-import Link from 'next/link'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+
 import classes from './index.module.scss'
 
 const sidebarNavRoutes = [

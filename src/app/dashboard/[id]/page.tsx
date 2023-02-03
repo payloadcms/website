@@ -1,12 +1,13 @@
 'use client'
 
+import React, { useEffect } from 'react'
+
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { useAuth } from '@root/providers/Auth'
 import { useHeaderTheme } from '@root/providers/HeaderTheme'
 import { getImplicitPreference } from '@root/providers/Theme/shared'
-import React, { useEffect } from 'react'
 
 const Dashboard: React.FC = () => {
   const { setHeaderColor } = useHeaderTheme()

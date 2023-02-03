@@ -1,5 +1,6 @@
 import React from 'react'
 import { DocSearch } from '@docsearch/react'
+
 import classes from './index.module.scss'
 
 function Component() {

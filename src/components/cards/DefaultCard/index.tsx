@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { Media } from '@components/Media'
 import Link from 'next/link'
+
 import { Heading } from '@components/Heading'
+import { Media } from '@components/Media'
 import { DefaultCardProps } from '../types'
 
 import classes from './index.module.scss'

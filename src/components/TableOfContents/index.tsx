@@ -1,6 +1,8 @@
 import React from 'react'
-import { Jumplist } from '../Jumplist'
+
 import { Heading } from '../../app/docs/types'
+import { Jumplist } from '../Jumplist'
+
 import classes from './index.module.scss'
 
 export type Props = {

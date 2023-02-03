@@ -2,11 +2,13 @@
 
 import React, { CSSProperties, Fragment } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import { useMouseInfo } from '@faceless-ui/mouse-info'
+
 import { CMSLink } from '@components/CMSLink'
+import { LineDraw } from '@components/LineDraw'
 import { Media } from '@components/Media'
 import { Page } from '@root/payload-types'
-import { useMouseInfo } from '@faceless-ui/mouse-info'
-import { LineDraw } from '@components/LineDraw'
+
 import classes from './index.module.scss'
 
 type HoverHighlightProps = Extract<Page['layout'][0], { blockType: 'hoverHighlights' }>

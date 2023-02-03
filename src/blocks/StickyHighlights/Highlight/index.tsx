@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
-import { Page } from '@root/payload-types'
-import { RichText } from '@components/RichText'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import Code from '@components/Code'
-import { Media } from '@components/Media'
+
 import { CMSLink } from '@components/CMSLink'
-import { PixelBackground } from '@components/PixelBackground'
+import Code from '@components/Code'
 import { Gutter } from '@components/Gutter'
+import { Media } from '@components/Media'
+import { PixelBackground } from '@components/PixelBackground'
+import { RichText } from '@components/RichText'
+import { Page } from '@root/payload-types'
+
 import classes from './index.module.scss'
 
 type Props = Extract<

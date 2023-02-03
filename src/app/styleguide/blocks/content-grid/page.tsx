@@ -1,7 +1,8 @@
 'use client'
 
-import { ContentGrid, ContentGridProps } from '@blocks/ContentGrid'
 import React from 'react'
+import { ContentGrid, ContentGridProps } from '@blocks/ContentGrid'
+
 import { StyleguidePageContent } from '../../PageContent'
 
 const data: ContentGridProps = {

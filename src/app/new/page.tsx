@@ -1,15 +1,16 @@
 'use client'
 
-import { Button } from '@components/Button'
-import { Gutter } from '@components/Gutter'
-import { useAuth } from '@root/providers/Auth'
 import React, { useEffect } from 'react'
-import { getImplicitPreference } from '@root/providers/Theme/shared'
-import { useHeaderTheme } from '@root/providers/HeaderTheme'
-import { PixelBackground } from '@components/PixelBackground'
-import { DefaultCard } from '@components/cards/DefaultCard'
 
+import { Button } from '@components/Button'
+import { DefaultCard } from '@components/cards/DefaultCard'
+import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
+import { PixelBackground } from '@components/PixelBackground'
+import { useAuth } from '@root/providers/Auth'
+import { useHeaderTheme } from '@root/providers/HeaderTheme'
+import { getImplicitPreference } from '@root/providers/Theme/shared'
+
 import classes from './index.module.scss'
 
 const NewProject: React.FC = () => {

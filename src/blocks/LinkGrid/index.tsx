@@ -1,10 +1,12 @@
-import { BlockSpacing } from '@components/BlockSpacing'
 import React, { useState } from 'react'
-import { Page } from '@root/payload-types'
-import { Gutter } from '@components/Gutter'
+
+import { BlockSpacing } from '@components/BlockSpacing'
 import { CMSLink } from '@components/CMSLink'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { Gutter } from '@components/Gutter'
 import { LineDraw } from '@components/LineDraw'
+import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { Page } from '@root/payload-types'
+
 import classes from './index.module.scss'
 
 export type LinkGridProps = Extract<Page['layout'][0], { blockType: 'linkGrid' }>

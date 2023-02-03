@@ -1,12 +1,13 @@
 'use client'
 
-import { Gutter } from '@components/Gutter'
-import { useAuth } from '@root/providers/Auth'
 import React, { useEffect, useState } from 'react'
-import { getImplicitPreference } from '@root/providers/Theme/shared'
-import { useHeaderTheme } from '@root/providers/HeaderTheme'
 import Link from 'next/link'
+
+import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
+import { useAuth } from '@root/providers/Auth'
+import { useHeaderTheme } from '@root/providers/HeaderTheme'
+import { getImplicitPreference } from '@root/providers/Theme/shared'
 
 const Logout: React.FC = () => {
   const { user, logout } = useAuth()

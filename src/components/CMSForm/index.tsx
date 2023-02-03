@@ -1,15 +1,17 @@
 'use client'
 
-import { RichText } from '@components/RichText'
 import * as React from 'react'
-import { useRouter } from 'next/navigation'
-import Submit from '@forms/Submit'
 import FormComponent from '@forms/Form'
+import Submit from '@forms/Submit'
 import { Data } from '@forms/types'
+import { useRouter } from 'next/navigation'
+
+import { RichText } from '@components/RichText'
 import { Form } from '@root/payload-types'
 import { fields } from './fields'
-import classes from './index.module.scss'
 import { Width } from './Width'
+
+import classes from './index.module.scss'
 
 export const CMSForm: React.FC<{
   form: string | Form

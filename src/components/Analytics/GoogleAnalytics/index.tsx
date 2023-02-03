@@ -2,8 +2,9 @@
 
 import * as React from 'react'
 import { usePathname } from 'next/navigation'
-import { analyticsEvent } from '@root/utilities/analytics'
 import Script from 'next/script'
+
+import { analyticsEvent } from '@root/utilities/analytics'
 
 const gaMeasurementID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 

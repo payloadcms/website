@@ -1,21 +1,23 @@
 'use client'
 
+import React, { Fragment, useCallback, useEffect } from 'react'
+import { Cell, Grid } from '@faceless-ui/css-grid'
+import { Checkbox } from '@forms/fields/Checkbox'
+import { Select } from '@forms/fields/Select'
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
+
+import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
-import React, { Fragment, useCallback, useEffect } from 'react'
-import { getImplicitPreference } from '@root/providers/Theme/shared'
-import { useHeaderTheme } from '@root/providers/HeaderTheme'
-import Link from 'next/link'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { Breadcrumbs } from '@components/Breadcrumbs'
-import { Checkbox } from '@forms/fields/Checkbox'
 import { Heading } from '@components/Heading'
 import { GitHubIcon } from '@root/graphics/GitHub'
-import { Cell, Grid } from '@faceless-ui/css-grid'
-import { Select } from '@forms/fields/Select'
-import { useSearchParams } from 'next/navigation'
-import classes from './index.module.scss'
+import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { useHeaderTheme } from '@root/providers/HeaderTheme'
+import { getImplicitPreference } from '@root/providers/Theme/shared'
 import templatesJSON from '../templates/templates.json'
+
+import classes from './index.module.scss'
 
 const ProjectFromTemplate: React.FC = () => {
   const params = useSearchParams()

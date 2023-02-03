@@ -1,13 +1,15 @@
 'use client'
 
-import { LineBlip } from '@components/LineBlip'
-import Link from 'next/link'
 import React, { useState } from 'react'
+import Link from 'next/link'
+
+import { LineBlip } from '@components/LineBlip'
 // eslint-disable-next-line import/no-cycle
 import { GitHubIcon } from '@root/graphics/GitHub'
-import { Reference } from '../CMSLink'
 import { ArrowIcon } from '../../icons/ArrowIcon'
 import { SearchIcon } from '../../icons/SearchIcon'
+import { Reference } from '../CMSLink'
+
 import classes from './index.module.scss'
 
 export type Props = {

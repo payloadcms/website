@@ -1,5 +1,7 @@
 'use client'
 
+import React, { useEffect } from 'react'
+
 import { Button } from '@components/Button'
 import { DefaultCard } from '@components/cards/DefaultCard'
 import { Gutter } from '@components/Gutter'
@@ -7,7 +9,6 @@ import { Heading } from '@components/Heading'
 import { PixelBackground } from '@components/PixelBackground'
 import { useHeaderTheme } from '@root/providers/HeaderTheme'
 import { getImplicitPreference } from '@root/providers/Theme/shared'
-import React, { useEffect } from 'react'
 import templatesJSON from './templates.json'
 
 import classes from './index.module.scss'

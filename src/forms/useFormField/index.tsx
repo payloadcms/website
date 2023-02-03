@@ -2,8 +2,9 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import useDebounce from '@utilities/use-debounce'
-import { useFormProcessing, useFormSubmitted, useFormModified, useForm } from '../Form/context'
-import { Value, Action } from '../types'
+
+import { useForm, useFormModified, useFormProcessing, useFormSubmitted } from '../Form/context'
+import { Action, Value } from '../types'
 import { FormField, SetValue } from './types'
 
 // this hook:

@@ -2,11 +2,12 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { DefaultHero } from '@components/Hero/Default'
+
 import { BlockSpacing } from '@components/BlockSpacing'
-import { Post } from '@root/payload-types'
 import { ContentMediaCard } from '@components/cards/ContentMediaCard'
 import { Gutter } from '@components/Gutter'
+import { DefaultHero } from '@components/Hero/Default'
+import { Post } from '@root/payload-types'
 
 export const RenderBlogArchive: React.FC<{ posts: Post[] }> = ({ posts }) => {
   return (

@@ -1,8 +1,9 @@
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import React from 'react'
-import { ReusableContent } from '@root/payload-types'
+import { Cell, Grid } from '@faceless-ui/css-grid'
+
 import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
+import { ReusableContent } from '@root/payload-types'
 
 type Props = Extract<ReusableContent['layout'][0], { blockType: 'blogContent' }>
 
