@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSelectedLayoutSegment } from 'next/navigation'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
@@ -12,23 +12,23 @@ import classes from './index.module.scss'
 const tabRoutes = [
   {
     label: 'Overview',
-    path: 'overview',
+    pathSegment: 'overview',
   },
   {
     label: 'Logs',
-    path: 'logs',
+    pathSegment: 'logs',
   },
   {
     label: 'Database',
-    path: 'database',
+    pathSegment: 'database',
   },
   {
     label: 'File Storage',
-    path: 'file-storage',
+    pathSegment: 'file-storage',
   },
   {
     label: 'Settings',
-    path: 'settings/build-settings',
+    pathSegment: 'settings/build-settings',
   },
 ]
 
@@ -40,6 +40,9 @@ type ProjectLayoutType = {
 }
 const ProjectLayout = ({ children, params }: ProjectLayoutType) => {
   const pathname = usePathname()
+  const segment = useSelectedLayoutSegment()
+
+  const pathWithoutSegment = pathname.replace(`/${segment}`, '')
 
   return (
     <React.Fragment>
@@ -52,14 +55,14 @@ const ProjectLayout = ({ children, params }: ProjectLayoutType) => {
             },
             {
               label: params.id,
-              url: `/dashboard/projects/${params.id}`,
+              url: `/dashboard/${params.id}`,
             },
           ]}
         />
 
         <div className={classes.tabs}>
           {tabRoutes.map(route => {
-            const routePath = `/dashboard/projects/${params.id}/${route.path}`
+            const routePath = `${pathWithoutSegment}/${route.pathSegment}`
             const isActive = pathname.startsWith(routePath)
 
             return (

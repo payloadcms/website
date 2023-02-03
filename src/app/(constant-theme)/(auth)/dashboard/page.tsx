@@ -6,12 +6,9 @@ import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { useAuth } from '@root/providers/Auth'
-import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth()
-
-  useAuthRedirect()
 
   return (
     <Gutter>
