@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment, useCallback, useEffect } from 'react'
+import React, { Fragment, useCallback } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
 import { Select } from '@forms/fields/Select'
@@ -13,25 +13,17 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { useHeaderTheme } from '@root/providers/HeaderTheme'
-import { getImplicitPreference } from '@root/providers/Theme/shared'
 import templatesJSON from '../templates/templates.json'
 
 import classes from './index.module.scss'
 
 const ProjectFromTemplate: React.FC = () => {
   const params = useSearchParams()
-  const { setHeaderColor } = useHeaderTheme()
   const [hasAuthorizedGithub, setHasAuthorizedGithub] = React.useState(false)
 
   const [initialTemplate, setInitialTemplate] = React.useState(() => {
     return params.get('template') || 'blank'
   })
-
-  useEffect(() => {
-    const implicitPreference = getImplicitPreference()
-    setHeaderColor(implicitPreference ?? 'light')
-  }, [])
 
   const authorizeGithub = useCallback(() => {
     // TODO: Implement GitHub authorization

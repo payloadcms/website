@@ -13,21 +13,13 @@ import { Heading } from '@components/Heading'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { useAuth } from '@root/providers/Auth'
-import { useHeaderTheme } from '@root/providers/HeaderTheme'
-import { getImplicitPreference } from '@root/providers/Theme/shared'
 
 import classes from './index.module.scss'
 
 const ProjectFromImport: React.FC = () => {
   const { user } = useAuth()
-  const { setHeaderColor } = useHeaderTheme()
   const [hasAuthorizedGithub, setHasAuthorizedGithub] = React.useState(false)
   const [repos, setRepos] = React.useState([])
-
-  useEffect(() => {
-    const implicitPreference = getImplicitPreference()
-    setHeaderColor(implicitPreference ?? 'light')
-  }, [])
 
   const authorizeGithub = useCallback(() => {
     const makeReq = async () => {

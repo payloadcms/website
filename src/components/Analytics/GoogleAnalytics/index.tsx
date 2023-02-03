@@ -12,11 +12,13 @@ export const GoogleAnalytics: React.FC = () => {
   const pathname = usePathname()
 
   React.useEffect(() => {
-    analyticsEvent('page_view', {
-      page_title: document.title,
-      page_location: window.location.href,
-      page_path: pathname,
-    })
+    if (window?.location?.href) {
+      analyticsEvent('page_view', {
+        page_title: document.title,
+        page_location: window.location.href,
+        page_path: pathname,
+      })
+    }
   }, [pathname])
 
   return (

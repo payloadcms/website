@@ -1,26 +1,17 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { Button } from '@components/Button'
 import { DefaultCard } from '@components/cards/DefaultCard'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { PixelBackground } from '@components/PixelBackground'
-import { useHeaderTheme } from '@root/providers/HeaderTheme'
-import { getImplicitPreference } from '@root/providers/Theme/shared'
 import templatesJSON from './templates.json'
 
 import classes from './index.module.scss'
 
 const Templates: React.FC = () => {
-  const { setHeaderColor } = useHeaderTheme()
-
-  useEffect(() => {
-    const implicitPreference = getImplicitPreference()
-    setHeaderColor(implicitPreference ?? 'light')
-  }, [])
-
   return (
     <Gutter>
       <Heading marginTop={false}>Select a template</Heading>
