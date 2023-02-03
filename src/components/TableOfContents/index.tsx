@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Heading } from '../../app/(constantTheme)/(public)/docs/types'
+import type { Heading } from '../../app/(constant-theme)/(public)/docs/types'
 import { Jumplist } from '../Jumplist'
 
 import classes from './index.module.scss'
