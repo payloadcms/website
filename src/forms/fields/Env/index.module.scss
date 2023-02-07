@@ -4,6 +4,21 @@
   position: relative;
 }
 
+.labelBar {
+  display: flex;
+  align-items: center;
+}
+
+.labelBarActions {
+  display: flex;
+  margin-left: auto;
+
+  svg {
+    height: 24px;
+    width: auto;
+  }
+}
+
 .input {
   @include shared.formInput;
 
@@ -15,7 +30,8 @@
 .inputContainer {
   position: relative;
 
-  &:hover {
+  &:hover,
+  &:focus-within {
     .revealButton {
       opacity: 1;
     }
@@ -48,5 +64,31 @@
 
   label {
     pointer-events: none;
+  }
+}
+
+.iconTooltip {
+  opacity: 0;
+  transition: 300ms ease opacity;
+  transition-delay: 200ms;
+  pointer-events: none;
+}
+
+.asyncCopyButton,
+.toggleVisibility {
+  all: unset;
+  display: flex;
+  position: relative;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 1px solid;
+  }
+
+  &.isFocused,
+  &.copied {
+    .iconTooltip {
+      opacity: 1;
+    }
   }
 }

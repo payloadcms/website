@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import { EnvInput } from '@forms/fields/Env'
 import { Text } from '@forms/fields/Text'
 
 import { Button } from '@components/Button'
@@ -23,7 +24,10 @@ const ProjectEnvPage = () => {
             <Text label="Name" />
           </Cell>
           <Cell start={5} cols={4}>
-            <Text label="Value" />
+            <EnvInput
+              endpoint={`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/me`}
+              label="Value"
+            />
           </Cell>
         </Grid>
       </div>
