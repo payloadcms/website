@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { usePathname, useSelectedLayoutSegment } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
@@ -40,9 +40,6 @@ type ProjectLayoutType = {
 }
 const ProjectLayout = ({ children, params }: ProjectLayoutType) => {
   const pathname = usePathname()
-  const segment = useSelectedLayoutSegment()
-
-  const pathWithoutSegment = pathname.replace(`/${segment}`, '')
 
   return (
     <React.Fragment>
@@ -62,7 +59,7 @@ const ProjectLayout = ({ children, params }: ProjectLayoutType) => {
 
         <div className={classes.tabs}>
           {tabRoutes.map(route => {
-            const routePath = `${pathWithoutSegment}/${route.pathSegment}`
+            const routePath = `/dashboard/${params.id}/${route.pathSegment}`
             const isActive = pathname.startsWith(routePath)
 
             return (
