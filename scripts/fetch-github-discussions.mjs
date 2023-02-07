@@ -43,7 +43,7 @@ const fetchGithubDiscussions = async () => {
     }),
   }).then(res => res.json())
 
-  const data = JSON.stringify(discussions)
+  const data = JSON.stringify(discussions, null, 2)
 
   const filePath = path.resolve(__dirname, './discussions.json')
 

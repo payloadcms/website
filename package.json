@@ -5,6 +5,7 @@
   "scripts": {
     "fetchDocs": "node scripts/fetch-docs.mjs",
     "fetchDiscordThreads": "node scripts/fetch-discord-threads.mjs",
+    "fetchDocsGit": "node scripts/fetch-github-discussions.mjs",
     "dev": "next dev",
     "nodocs:build": "next build",
     "build": "yarn fetchDocs && next build",
