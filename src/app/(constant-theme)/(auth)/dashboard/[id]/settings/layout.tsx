@@ -10,27 +10,27 @@ import classes from './index.module.scss'
 const sidebarNavRoutes = [
   {
     label: 'Build Settings',
-    path: 'build-settings',
+    pathSegment: 'build-settings',
   },
   {
     label: 'Environment Variables',
-    path: 'environment-variables',
+    pathSegment: 'environment-variables',
   },
   {
     label: 'Domain',
-    path: 'domain',
+    pathSegment: 'domain',
   },
   {
     label: 'Ownership',
-    path: 'ownership',
+    pathSegment: 'ownership',
   },
   {
     label: 'Plan',
-    path: 'plan',
+    pathSegment: 'plan',
   },
   {
     label: 'Billing',
-    path: 'billing',
+    pathSegment: 'billing',
   },
 ]
 
@@ -48,7 +48,7 @@ const ProjectSettingsLayout = ({ children, params }: ProjectSettingsLayoutType) 
       <Cell cols={4} start={1}>
         <div className={classes.sidebarNav}>
           {sidebarNavRoutes.map(route => {
-            const routePath = `/dashboard/projects/${params.id}/settings/${route.path}`
+            const routePath = `/dashboard/${params.id}/settings/${route.pathSegment}`
             const isActive = pathname.startsWith(routePath)
 
             return (
