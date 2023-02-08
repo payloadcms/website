@@ -2,12 +2,25 @@
 
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import { EnvInput } from '@forms/fields/Env'
 import { Text } from '@forms/fields/Text'
 
 import { Button } from '@components/Button'
 import { Heading } from '@components/Heading'
 
 const ProjectEnvPage = () => {
+  const fetchEnv = async () => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/me`, {
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    const json = await response.json()
+
+    return json.data.id
+  }
+
   return (
     <div>
       <div>
@@ -23,7 +36,7 @@ const ProjectEnvPage = () => {
             <Text label="Name" />
           </Cell>
           <Cell start={5} cols={4}>
-            <Text label="Value" />
+            <EnvInput fetchEnv={fetchEnv} label="Value" />
           </Cell>
         </Grid>
       </div>

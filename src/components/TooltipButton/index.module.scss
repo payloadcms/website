@@ -1,0 +1,22 @@
+.tooltipButton {
+  all: unset;
+  display: flex;
+  position: relative;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 1px solid;
+  }
+
+  .tip {
+    opacity: 0;
+    transition: 300ms ease opacity;
+    pointer-events: none;
+  }
+
+  &.show {
+    .tip {
+      opacity: 1;
+    }
+  }
+}
