@@ -50,8 +50,23 @@ const fetchGithubDiscussions = async () => {
             totalCount,
             nodes {
               title
+              bodyHTML
               url
               id
+              createdAt
+              author {
+                login
+              }
+              comments(first: 10) {
+                edges {
+                  node {
+                    author {
+                      login
+                    }
+                    body
+                  }
+                }
+              }
             }
           }
         }
@@ -66,12 +81,22 @@ const fetchGithubDiscussions = async () => {
   } else {
     const formattedDiscussions = discussions.data.repository.discussions.nodes.map(discussion => {
       const slug = slugify(discussion.title)
+      const comments = discussion.comments.edges.map(edge => {
+        return {
+          author: edge.node.author.login,
+          body: edge.node.body,
+        }
+      })
 
       return {
-        title: discussion.title,
-        url: discussion.url,
         slug,
+        title: discussion.title,
+        body: discussion.bodyHTML,
+        url: discussion.url,
         id: discussion.id,
+        createdAt: discussion.createdAt,
+        author: discussion.author.login,
+        comments,
       }
     })
 
