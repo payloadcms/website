@@ -19,76 +19,17 @@
   }
 }
 
+.isVisible {
+  .input {
+    pointer-events: all;
+  }
+}
+
 .input {
   @include shared.formInput;
+  pointer-events: none;
 
   &.error {
     background-color: var(--theme-failure-500);
-  }
-}
-
-.inputContainer {
-  position: relative;
-
-  &:hover,
-  &:focus-within {
-    .revealButton {
-      opacity: 1;
-    }
-  }
-}
-
-.revealButton {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  cursor: pointer;
-  isolation: isolate;
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out;
-
-  &:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: .95;
-    background-color: var(--theme-elevation-0);
-    z-index: -1;
-  }
-
-  label {
-    pointer-events: none;
-  }
-}
-
-.iconTooltip {
-  opacity: 0;
-  transition: 300ms ease opacity;
-  transition-delay: 200ms;
-  pointer-events: none;
-}
-
-.asyncCopyButton,
-.toggleVisibility {
-  all: unset;
-  display: flex;
-  position: relative;
-  cursor: pointer;
-
-  &:focus-visible {
-    outline: 1px solid;
-  }
-
-  &.isFocused,
-  &.copied {
-    .iconTooltip {
-      opacity: 1;
-    }
   }
 }
