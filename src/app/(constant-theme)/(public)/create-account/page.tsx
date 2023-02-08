@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
@@ -16,14 +16,30 @@ import classes from './index.module.scss'
 
 const CreateAccount: React.FC = () => {
   const { user, logout, login, create } = useAuth()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = useCallback(
     async (data: Data) => {
-      await create({
-        email: data.email as string,
-        password: data.password as string,
-        passwordConfirm: data.passwordConfirm as string,
-      })
+      const loadingTimer = setTimeout(() => {
+        setLoading(true)
+      }, 1000)
+
+      try {
+        await create({
+          email: data.email as string,
+          password: data.password as string,
+          passwordConfirm: data.passwordConfirm as string,
+        })
+
+        clearTimeout(loadingTimer)
+        setLoading(false)
+      } catch (err) {
+        console.error(err)
+        clearTimeout(loadingTimer)
+        setLoading(false)
+        setError(err.message)
+      }
     },
     [login],
   )
@@ -45,6 +61,8 @@ const CreateAccount: React.FC = () => {
         <Link href="/login">Log in now</Link>
         {'.'}
       </div>
+      {error && <div className={classes.error}>{error}</div>}
+      {loading && <div className={classes.loading}>Loading...</div>}
       <Form onSubmit={handleSubmit} className={classes.form}>
         <Text path="email" label="Email" required />
         <Text path="password" label="Password" type="password" required />

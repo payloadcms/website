@@ -44,11 +44,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         },
         body: JSON.stringify({
           query: `mutation {
-              createUser(email: "${args.email}", password: "${args.password}", confirmPassword: "${args.passwordConfirm}") { ) {
-                user {
-                  email
-                }
-                exp
+              createUser(data: { email: "${args.email}", password: "${args.password}" }) {
+                email
               }
             }`,
         }),
@@ -67,7 +64,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [])
 
   const login = useCallback<Login>(async args => {
-    console.log(process.env.NEXT_PUBLIC_CLOUD_CMS_URL)
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
         method: 'POST',

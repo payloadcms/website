@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment, useCallback, useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
@@ -21,30 +21,27 @@ const ProjectFromImport: React.FC = () => {
   const [hasAuthorizedGithub, setHasAuthorizedGithub] = React.useState(false)
   const [repos, setRepos] = React.useState([])
 
-  const authorizeGithub = useCallback(() => {
-    const makeReq = async () => {
-      // todo: make this a real request
-      setHasAuthorizedGithub(true)
-    }
-
-    makeReq()
-  }, [])
-
   useEffect(() => {
-    const getRepos = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/repositories`, {
-        method: 'GET',
-        credentials: 'include',
-      })
+    const params = new URLSearchParams(window.location.search)
+    const code = params.get('code')
 
-      if (res.ok) {
-        const body = await res.json()
-        setRepos(body)
+    if (code) {
+      const getRepos = async () => {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/repositories`, {
+          method: 'GET',
+          credentials: 'include',
+        })
+
+        if (res.ok) {
+          const body = await res.json()
+          setRepos(body)
+          setHasAuthorizedGithub(true)
+        }
       }
-    }
 
-    if (hasAuthorizedGithub && user) getRepos()
-  }, [hasAuthorizedGithub, user])
+      if (hasAuthorizedGithub && user) getRepos()
+    }
+  }, [user])
 
   return (
     <Gutter>
@@ -64,13 +61,17 @@ const ProjectFromImport: React.FC = () => {
       </div>
       {!hasAuthorizedGithub ? (
         <Fragment>
-          <button className={classes.ghLink} onClick={authorizeGithub} type="button">
+          <a
+            className={classes.ghLink}
+            href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI}&state=import`}
+            type="button"
+          >
             <GitHubIcon className={classes.ghIcon} />
             <Heading element="h2" as="h6" margin={false} className={classes.ghTitle}>
               Continue with GitHub
             </Heading>
             <ArrowIcon size="large" />
-          </button>
+          </a>
           <div className={classes.footer}>
             <p>
               {`Don't have a project yet? `}

@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
@@ -20,8 +21,11 @@ export const LandingNoUser = () => {
       <Label>New</Label>
       <h1>Let's build something awesome.</h1>
       <p>
-        You need to be logged in to create a new project. If you don't have an account, you can
-        create one for free.
+        {`You need to `}
+        <Link href="/login?redirect=%2Fnew">log in</Link>
+        {` to create a new project. If you don't have an account, you can `}
+        <Link href="/create-account">create one</Link>
+        {` for free.`}
       </p>
 
       <div>
