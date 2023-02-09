@@ -13,7 +13,6 @@ import classes from './layout.module.scss'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { mainMenu, footer } = await fetchGlobals()
-  console.log({ mainMenu })
 
   return (
     <html lang="en">
