@@ -28,8 +28,7 @@ export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu; footer: Foot
 
 export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page> => {
   const slugSegments = incomingSlugSegments || ['home']
-  const slug = slugSegments[slugSegments.length - 1]
-
+  const slug = slugSegments.at(-1)
   const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
     method: 'POST',
     headers: {

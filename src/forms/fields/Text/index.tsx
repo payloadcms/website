@@ -1,9 +1,10 @@
 'use client'
 
 import React from 'react'
+import Label from '@forms/Label'
 
+import { CopyToClipboard } from '@components/CopyToClipboard'
 import Error from '../../Error'
-import Label from '../../Label'
 import { Validate } from '../../types'
 import { FieldProps } from '../types'
 import { useField } from '../useField'
@@ -24,6 +25,7 @@ const defaultValidate: Validate = val => {
 export const Text: React.FC<
   FieldProps<string> & {
     type?: 'text' | 'password' | 'hidden'
+    copy?: boolean
   }
 > = props => {
   const {
@@ -36,6 +38,7 @@ export const Text: React.FC<
     onChange: onChangeFromProps,
     initialValue,
     className,
+    copy,
   } = props
 
   const { onChange, value, showError, errorMessage } = useField<string>({
@@ -49,7 +52,13 @@ export const Text: React.FC<
   return (
     <div className={[className, classes.wrap].filter(Boolean).join(' ')}>
       <Error showError={showError} message={errorMessage} />
-      <Label htmlFor={path} label={label} required={required} />
+      <Label
+        htmlFor={path}
+        label={label}
+        required={required}
+        actionsSlot={copy && <CopyToClipboard value={value} />}
+      />
+
       <input
         className={classes.input}
         value={value || ''}

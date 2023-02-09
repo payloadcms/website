@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { EnvInput } from '@forms/fields/Env'
+import { Secret } from '@forms/fields/Secret'
 import { Text } from '@forms/fields/Text'
 
 import { Button } from '@components/Button'
@@ -18,7 +18,7 @@ const ProjectEnvPage = () => {
     })
     const json = await response.json()
 
-    return json.data.id
+    return json.user.id
   }
 
   return (
@@ -36,7 +36,8 @@ const ProjectEnvPage = () => {
             <Text label="Name" />
           </Cell>
           <Cell start={5} cols={4}>
-            <EnvInput fetchEnv={fetchEnv} label="Value" />
+            <Secret loadSecret={fetchEnv} label="Value" />
+            <Text label="Text" copy />
           </Cell>
         </Grid>
       </div>

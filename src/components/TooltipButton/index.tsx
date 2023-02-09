@@ -10,18 +10,18 @@ type TooltipButtonProps = {
   children: React.ReactNode
   className?: string
 } & (
-    | {
+  | {
       isVisible?: never
       setIsVisible?: never
     }
-    | {
+  | {
       /**
        * If this is set, the button will not manage its own state
        */
       isVisible: boolean
       setIsVisible: (isActive: boolean) => void
     }
-  )
+)
 export const TooltipButton: React.FC<TooltipButtonProps> = ({
   children,
   className,

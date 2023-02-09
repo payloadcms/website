@@ -7,3 +7,18 @@
   color: var(--color-failure-500);
   margin: 0 calc(var(--base) * 0.25);
 }
+
+.labelWithActions {
+  display: flex;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  margin-left: auto;
+
+  svg {
+    height: 24px;
+    width: auto;
+  }
+}
