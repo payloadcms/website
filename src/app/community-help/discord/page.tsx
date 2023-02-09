@@ -12,11 +12,7 @@ const Page = async () => {
         {threads.map((thread, i) => {
           return (
             <li key={i}>
-              <a
-                href={`${process.env.NEXT_PUBLIC_SITE_URL}/community-help/discord/${thread.info.id}`}
-              >
-                {thread.info.name}
-              </a>
+              <a href={`/community-help/discord/${thread.info.id}`}>{thread.info.name}</a>
             </li>
           )
         })}

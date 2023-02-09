@@ -12,23 +12,6 @@ dotenv.config({
   path: path.resolve(__dirname, '../.env'),
 })
 
-function slugify(string) {
-  const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
-  const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
-  const p = new RegExp(a.split('').join('|'), 'g')
-
-  return string
-    .toString()
-    .toLowerCase()
-    .replace(/\s+/g, '-') // Replace spaces with -
-    .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
-    .replace(/&/g, '-and-') // Replace & with 'and'
-    .replace(/[^\w\-]+/g, '') // Remove all non-word characters
-    .replace(/\-\-+/g, '-') // Replace multiple - with single -
-    .replace(/^-+/, '') // Trim - from start of text
-    .replace(/-+$/, '') // Trim - from end of text
-}
-
 const headers = {
   Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
 }
@@ -52,12 +35,17 @@ const fetchGithubDiscussions = async () => {
               title
               bodyHTML
               url
-              id
+              number
               createdAt
+              upvoteCount,
+
               author {
                 login
+                avatarUrl
+                url
               }
               comments(first: 10) {
+                totalCount,
                 edges {
                   node {
                     author {
@@ -80,7 +68,6 @@ const fetchGithubDiscussions = async () => {
     process.exit(1)
   } else {
     const formattedDiscussions = discussions.data.repository.discussions.nodes.map(discussion => {
-      const slug = slugify(discussion.title)
       const comments = discussion.comments.edges.map(edge => {
         return {
           author: edge.node.author.login,
@@ -89,13 +76,18 @@ const fetchGithubDiscussions = async () => {
       })
 
       return {
-        slug,
         title: discussion.title,
         body: discussion.bodyHTML,
         url: discussion.url,
-        id: discussion.id,
+        id: String(discussion.number),
         createdAt: discussion.createdAt,
-        author: discussion.author.login,
+        upvotes: discussion.upvoteCount,
+        commentTotal: discussion.comments.totalCount,
+        author: {
+          name: discussion.author.login,
+          avatar: discussion.author.avatarUrl,
+          url: discussion.author.url,
+        },
         comments,
       }
     })

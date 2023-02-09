@@ -7,8 +7,8 @@ export async function getAllDiscussions(): Promise<any> {
   return discussions.map(discussion => ({ ...discussion }))
 }
 
-export async function getDiscussion(slug: string): Promise<any> {
-  const matchedDiscussion = discussions.find(discussion => discussion.slug.toLowerCase() === slug)
+export async function getDiscussion(id: string): Promise<any> {
+  const matchedDiscussion = discussions.find(discussion => discussion.id === id)
 
   return matchedDiscussion
 }

@@ -12,11 +12,7 @@ const Page = async () => {
         {discussions.map((discussion, i) => {
           return (
             <li key={i}>
-              <a
-                href={`${process.env.NEXT_PUBLIC_SITE_URL}/community-help/github/${discussion.slug}`}
-              >
-                {discussion.title}
-              </a>
+              <a href={`/community-help/github/${discussion.id}`}>{discussion.title}</a>
             </li>
           )
         })}

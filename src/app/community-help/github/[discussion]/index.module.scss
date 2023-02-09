@@ -1,0 +1,62 @@
+@use '@scss/common' as *;
+
+.title {
+  @include h2;
+  margin-top: 0;
+
+  @include large-break {
+    @include h3;
+  }
+}
+
+.details {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--base) 0;
+
+  @include mid-break {
+    padding: calc(var(--base) * .5) 0;
+  }
+}
+
+.author {
+  display: flex;
+  flex-direction: row;
+
+  & img {
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-right: var(--base);
+  }
+}
+
+.authorDate {
+  display: flex;
+  flex-direction: row;
+}
+
+.date {
+  @include body;
+  color: var(--color-base-400);
+  margin-left: calc(var(--base) * .25);
+  text-decoration: none;
+}
+
+.commentWrap {
+  padding: 0;
+  list-style: none;
+}
+
+.comment {
+  border: 1px solid var(--color-base-800);
+  padding: var(--base);
+  line-height: 1.2;
+  margin: 0 0 var(--base) 0;
+}
+
+.author {
+  margin-bottom: var(--base);
+}

@@ -42,7 +42,7 @@ client.once(Events.ClientReady, async c => {
 
   const fetchedThreads = await communityHelpChannel.threads.fetchActive()
   const { threads } = fetchedThreads
-  console.log(threads)
+
   const allThreads = threads.map(async info => {
     return info
   })
