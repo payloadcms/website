@@ -42,7 +42,7 @@ client.once(Events.ClientReady, async c => {
 
   const fetchedThreads = await communityHelpChannel.threads.fetchActive()
   const { threads } = fetchedThreads
-
+  console.log(threads)
   const allThreads = threads.map(async info => {
     return info
   })
@@ -61,6 +61,7 @@ client.once(Events.ClientReady, async c => {
     return {
       info: {
         name: info.name,
+        id: info.id,
         createdAt: info.createdTimestamp,
       },
       messages: messages.reverse().map(m => {
@@ -71,7 +72,10 @@ client.once(Events.ClientReady, async c => {
   })
   console.log('\n\n')
 
-  fs.writeFileSync('threads.json', JSON.stringify(formattedThreads, null, 2))
+  fs.writeFileSync(
+    './src/app/community-help/discord/threads.json',
+    JSON.stringify(formattedThreads, null, 2),
+  )
   console.log(`threads.json written`)
   process.exit(0)
 })

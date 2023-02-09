@@ -46,7 +46,7 @@ const fetchGithubDiscussions = async () => {
       query: `
       query {
         repository(owner:"payloadcms", name:"payload") {
-          discussions(first: 10) {
+          discussions(first: 100) {
             totalCount,
             nodes {
               title
