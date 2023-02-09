@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { ThemeProvider, useTheme } from '@providers/Theme'
+import { ThemeProvider } from '@providers/Theme'
 
 import { CMSForm } from '@components/CMSForm'
 import { Gutter } from '@components/Gutter'
@@ -18,10 +18,11 @@ export type FormHeroProps = Page['hero']
 
 export const FormHero: React.FC<FormHeroProps> = props => {
   const { richText, form } = props
-  const theme = useTheme()
+
+  if (typeof form === 'string') return null
 
   return (
-    <HeaderObserver color={theme} isFirstObserverOnPage>
+    <HeaderObserver>
       <ThemeProvider theme="dark">
         <div className={classes.formHero}>
           <div className={classes.bgWrapper}>

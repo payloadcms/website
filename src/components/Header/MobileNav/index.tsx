@@ -54,7 +54,7 @@ export const MobileNav: React.FC<NavItems> = props => {
 
   React.useEffect(() => {
     closeAllModals()
-  }, [pathname])
+  }, [pathname, closeAllModals])
 
   function toggleModal() {
     if (isModalOpen(modalSlug)) {

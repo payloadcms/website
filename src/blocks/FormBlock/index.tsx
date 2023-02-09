@@ -20,6 +20,8 @@ const Content: React.FC<FormBlockProps> = props => {
 
   const theme = useTheme()
 
+  if (typeof form === 'string') return null
+
   return (
     <BlockSpacing className={classes.formBlock}>
       <div className={classes.bgWrapper}>

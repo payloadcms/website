@@ -2,6 +2,7 @@ import React from 'react'
 import { fetchGlobals } from '@graphql'
 import { Providers } from '@providers'
 
+import { HeaderObserver } from '@components/HeaderObserver'
 import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
 import { neueMontrealBold, neueMontrealItalic, neueMontrealRegular, robotoMono } from './fonts'
@@ -12,6 +13,7 @@ import classes from './layout.module.scss'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { mainMenu, footer } = await fetchGlobals()
+  console.log({ mainMenu })
 
   return (
     <html lang="en">
@@ -31,7 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Providers>
           <Header {...mainMenu} />
           <div className={classes.layout}>
-            {children}
+            <HeaderObserver>{children}</HeaderObserver>
             <Footer {...footer} />
             <div id="docsearch" />
           </div>

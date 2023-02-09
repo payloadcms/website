@@ -19,7 +19,7 @@ type TooltipButtonProps = {
        * If this is set, the button will not manage its own state
        */
       isVisible: boolean
-      setIsVisible: (isActive: boolean) => void
+      setIsVisible: (isActive: boolean) => void // eslint-disable-line no-unused-vars
     }
 )
 export const TooltipButton: React.FC<TooltipButtonProps> = ({

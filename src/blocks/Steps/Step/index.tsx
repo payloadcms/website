@@ -20,7 +20,7 @@ export const Step: React.FC<Props> = ({ layout, i }) => {
 
   useEffect(() => {
     if (isIntersecting && !hasAnimated) setHasAnimated(true)
-  }, [isIntersecting])
+  }, [isIntersecting, hasAnimated])
 
   return (
     <li

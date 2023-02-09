@@ -14,11 +14,19 @@ import { Width } from './Width'
 import classes from './index.module.scss'
 
 export const CMSForm: React.FC<{
-  form: string | Form
+  form: Form
 }> = props => {
-  const { form } = props
-
-  if (!form || typeof form === 'string') return null
+  const {
+    form = {
+      id: undefined,
+      submitButtonLabel: '',
+      confirmationType: '',
+      redirect: '',
+      confirmationMessage: '',
+      leader: '',
+      fields: [],
+    },
+  } = props
 
   const {
     id: formID,
@@ -100,6 +108,8 @@ export const CMSForm: React.FC<{
     [router, formID, redirect, confirmationType],
   )
 
+  if (!form?.id) return null
+
   return (
     <div className={classes.cmsForm}>
       {!isLoading && hasSubmitted && confirmationType === 'message' && (
@@ -112,22 +122,21 @@ export const CMSForm: React.FC<{
           {leader && <RichText className={classes.leader} content={leader} />}
           <FormComponent onSubmit={onSubmit}>
             <div className={classes.fieldWrap}>
-              {form &&
-                form.fields?.map((field, index) => {
-                  const Field: React.FC<any> = fields?.[field.blockType]
-                  if (Field) {
-                    return (
-                      <Width key={index} width={'width' in field ? field.width : 100}>
-                        <Field
-                          path={'name' in field ? field.name : undefined}
-                          form={form}
-                          {...field}
-                        />
-                      </Width>
-                    )
-                  }
-                  return null
-                })}
+              {form.fields?.map((field, index) => {
+                const Field: React.FC<any> = fields?.[field.blockType]
+                if (Field) {
+                  return (
+                    <Width key={index} width={'width' in field ? field.width : 100}>
+                      <Field
+                        path={'name' in field ? field.name : undefined}
+                        form={form}
+                        {...field}
+                      />
+                    </Width>
+                  )
+                }
+                return null
+              })}
             </div>
             <Submit processing={isLoading} label={submitButtonLabel} />
           </FormComponent>

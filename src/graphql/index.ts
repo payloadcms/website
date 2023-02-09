@@ -9,7 +9,7 @@ const next = {
 }
 
 export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu; footer: Footer }> => {
-  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?globals`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -29,19 +29,22 @@ export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu; footer: Foot
 export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page> => {
   const slugSegments = incomingSlugSegments || ['home']
   const slug = slugSegments.at(-1)
-  const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    next,
-    body: JSON.stringify({
-      query: PAGE,
-      variables: {
-        slug,
+  const { data, errors } = await fetch(
+    `${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?page=${slug}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    }),
-  }).then(res => res.json())
+      next,
+      body: JSON.stringify({
+        query: PAGE,
+        variables: {
+          slug,
+        },
+      }),
+    },
+  ).then(res => res.json())
 
   if (errors) {
     console.error(JSON.stringify(errors))
@@ -65,7 +68,7 @@ export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page> 
 export const fetchPages = async (): Promise<
   Array<{ breadcrumbs: Page['breadcrumbs']; slug: string }>
 > => {
-  const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+  const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?pages`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -85,7 +88,7 @@ export const fetchPages = async (): Promise<
 }
 
 export const fetchPosts = async (): Promise<Array<{ slug: string }>> => {
-  const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+  const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?posts`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -106,7 +109,7 @@ export const fetchPosts = async (): Promise<Array<{ slug: string }>> => {
 
 export const fetchBlogPosts = async (): Promise<Post[]> => {
   const currentDate = new Date()
-  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?blogPosts`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -124,7 +127,7 @@ export const fetchBlogPosts = async (): Promise<Post[]> => {
 }
 
 export const fetchBlogPost = async (slug: string): Promise<Post> => {
-  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?post=${slug}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -142,7 +145,7 @@ export const fetchBlogPost = async (slug: string): Promise<Post> => {
 }
 
 export const fetchCaseStudies = async (): Promise<CaseStudy[]> => {
-  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?case-studies`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -157,19 +160,22 @@ export const fetchCaseStudies = async (): Promise<CaseStudy[]> => {
 }
 
 export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
-  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    next,
-    body: JSON.stringify({
-      query: CASE_STUDY,
-      variables: {
-        slug,
+  const { data } = await fetch(
+    `${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?case-study=${slug}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    }),
-  }).then(res => res.json())
+      next,
+      body: JSON.stringify({
+        query: CASE_STUDY,
+        variables: {
+          slug,
+        },
+      }),
+    },
+  ).then(res => res.json())
 
   return data?.CaseStudies?.docs[0]
 }

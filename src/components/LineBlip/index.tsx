@@ -60,7 +60,7 @@ export const LineBlip: React.FC<{
         clearTimeout(outTimer)
       }
     }
-  }, [isHovered])
+  }, [isHovered, animationDuration])
 
   return (
     <div

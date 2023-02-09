@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { useTheme } from '@providers/Theme'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { CMSLink } from '@components/CMSLink'
@@ -19,10 +18,8 @@ export const ContentMediaHero: React.FC<
     breadcrumbs?: Page['breadcrumbs']
   }
 > = ({ richText, media, breadcrumbs, links }) => {
-  const theme = useTheme()
-
   return (
-    <HeaderObserver color={theme} isFirstObserverOnPage>
+    <HeaderObserver>
       <Gutter>
         <Grid className={classes.grid}>
           <Cell cols={7} colsM={8}>

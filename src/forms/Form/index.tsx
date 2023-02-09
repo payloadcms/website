@@ -75,7 +75,7 @@ const Form: React.FC<{
       setIsModified(false)
       return false
     },
-    [fields, onSubmit, isProcessing],
+    [onSubmit, fields, setHasSubmitted, setIsProcessing, setIsModified],
   )
 
   const getFields = useCallback(() => contextRef.current.fields, [contextRef])

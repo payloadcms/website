@@ -108,7 +108,7 @@ export const Select: React.FC<{
 
       setInternalState(newValue)
     }
-  }, [valueFromContextOrProps, internalState])
+  }, [valueFromContextOrProps, internalState, options])
 
   const handleChange = useCallback(
     (incomingSelection: Option | Option[]) => {

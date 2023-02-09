@@ -41,7 +41,7 @@ const ProjectFromImport: React.FC = () => {
 
       if (hasAuthorizedGithub && user) getRepos()
     }
-  }, [user])
+  }, [user, hasAuthorizedGithub])
 
   return (
     <Gutter>
