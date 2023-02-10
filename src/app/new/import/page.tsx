@@ -63,7 +63,7 @@ const ProjectFromImport: React.FC = () => {
         <Fragment>
           <a
             className={classes.ghLink}
-            href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI}&state=import`}
+            href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI)}&state=${encodeURIComponent('/new/import')}`}
             type="button"
           >
             <GitHubIcon className={classes.ghIcon} />

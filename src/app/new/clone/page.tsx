@@ -48,13 +48,17 @@ const ProjectFromTemplate: React.FC = () => {
       </div>
       {!hasAuthorizedGithub ? (
         <Fragment>
-          <button className={classes.ghLink} onClick={authorizeGithub} type="button">
+          <a
+            className={classes.ghLink}
+            href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI)}&state=${encodeURIComponent('/new/clone')}`}
+            type="button"
+          >
             <GitHubIcon className={classes.ghIcon} />
             <Heading element="h2" as="h6" margin={false} className={classes.ghTitle}>
               Continue with GitHub
             </Heading>
             <ArrowIcon size="large" />
-          </button>
+          </a>
           <div className={classes.footer}>
             <p>
               {`Have an existing project? `}
