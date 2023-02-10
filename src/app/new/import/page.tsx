@@ -5,6 +5,7 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Button } from '@components/Button'
@@ -17,31 +18,50 @@ import { useAuth } from '@root/providers/Auth'
 import classes from './index.module.scss'
 
 const ProjectFromImport: React.FC = () => {
+  const params = useSearchParams()
   const { user } = useAuth()
   const [hasAuthorizedGithub, setHasAuthorizedGithub] = React.useState(false)
+  const [error, setError] = React.useState('')
   const [repos, setRepos] = React.useState([])
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
     const code = params.get('code')
 
-    if (code) {
-      const getRepos = async () => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/repositories`, {
+    const exchangeCode = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/gh?code=${code}`, {
           method: 'GET',
           credentials: 'include',
         })
 
-        if (res.ok) {
-          const body = await res.json()
-          setRepos(body)
-          setHasAuthorizedGithub(true)
-        }
-      }
+        const body = await res.json()
 
-      if (hasAuthorizedGithub && user) getRepos()
+        if (res.ok) {
+          setHasAuthorizedGithub(true)
+
+          const reposRes = await fetch(
+            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/repositories`,
+            {
+              method: 'GET',
+              credentials: 'include',
+            },
+          )
+
+          if (reposRes.ok) {
+            const newRepos = await reposRes.json()
+            setRepos(newRepos)
+          }
+        } else {
+          setError(`Unable to authorize GitHub: ${body.error}`)
+        }
+      } catch (err) {
+        console.error(err)
+        setError(err.message)
+      }
     }
-  }, [user, hasAuthorizedGithub])
+
+    if (user && code) exchangeCode()
+  }, [user, params])
 
   return (
     <Gutter>
@@ -59,11 +79,16 @@ const ProjectFromImport: React.FC = () => {
         />
         <h1>Import a codebase</h1>
       </div>
+      {error && <p>{error}</p>}
       {!hasAuthorizedGithub ? (
         <Fragment>
           <a
             className={classes.ghLink}
-            href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI)}&state=${encodeURIComponent('/new/import')}`}
+            href={`https://github.com/login/oauth/authorize?client_id=${
+              process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
+            }&redirect_uri=${encodeURIComponent(
+              process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
+            )}&state=${encodeURIComponent('/new/import')}`}
             type="button"
           >
             <GitHubIcon className={classes.ghIcon} />

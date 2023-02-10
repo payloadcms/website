@@ -1,11 +1,12 @@
 'use client'
 
-import React, { Fragment, useCallback } from 'react'
+import React, { Fragment, useCallback, useEffect, useRef } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
 import { Select } from '@forms/fields/Select'
+import { Text } from '@forms/fields/Text'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
+import { redirect, useSearchParams } from 'next/navigation'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Button } from '@components/Button'
@@ -13,22 +14,87 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
-import templatesJSON from '../templates/templates.json'
+import { useAuth } from '@root/providers/Auth'
+import { useGlobals } from '@root/providers/Globals'
 
 import classes from './index.module.scss'
 
 const ProjectFromTemplate: React.FC = () => {
   const params = useSearchParams()
-  const [hasAuthorizedGithub, setHasAuthorizedGithub] = React.useState(false)
+  const { templates } = useGlobals()
 
-  const [initialTemplate, setInitialTemplate] = React.useState(() => {
+  const { user } = useAuth()
+  const [error, setError] = React.useState('')
+  const hasRequestedGithub = useRef(false)
+  const [hasAuthorizedGithub, setHasAuthorizedGithub] = React.useState(false)
+  const [name, setName] = React.useState('my-project')
+
+  const [template, setTemplate] = React.useState(() => {
     return params.get('template') || 'blank'
   })
 
-  const authorizeGithub = useCallback(() => {
-    // TODO: Implement GitHub authorization
-    setHasAuthorizedGithub(true)
-  }, [])
+  useEffect(() => {
+    // todo: push to query params
+  }, [template])
+
+  useEffect(() => {
+    const code = params.get('code')
+
+    if (user && code && !hasRequestedGithub.current) {
+      hasRequestedGithub.current = true
+
+      const exchangeCode = async () => {
+        try {
+          const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/gh?code=${code}`, {
+            method: 'GET',
+            credentials: 'include',
+          })
+
+          const body = await res.json()
+
+          if (res.ok) {
+            setHasAuthorizedGithub(true)
+
+            // do more async stuff
+          } else {
+            setError(`Unable to authorize GitHub: ${body.error}`)
+          }
+        } catch (err) {
+          console.error(err)
+          setError(err.message)
+        }
+      }
+
+      exchangeCode()
+    }
+  }, [user, params])
+
+  const handleSubmit = useCallback(async () => {
+    try {
+      const projectReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          owner: 'TEAM_ID', // TODO get this from the URL
+          template,
+        }),
+      })
+
+      const projectRes = await projectReq.json()
+
+      if (projectReq.ok) {
+        redirect(`/projects/${projectRes.id}`)
+      } else {
+        setError(projectRes.error)
+      }
+    } catch (err) {
+      console.error(err)
+      setError(err.message)
+    }
+  }, [template])
 
   return (
     <Gutter>
@@ -46,11 +112,16 @@ const ProjectFromTemplate: React.FC = () => {
         />
         <h1>Create new from template</h1>
       </div>
+      {error && <p>{error}</p>}
       {!hasAuthorizedGithub ? (
         <Fragment>
           <a
             className={classes.ghLink}
-            href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI)}&state=${encodeURIComponent('/new/clone')}`}
+            href={`https://github.com/login/oauth/authorize?client_id=${
+              process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
+            }&redirect_uri=${encodeURIComponent(
+              process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
+            )}&state=${encodeURIComponent('/new/clone')}`}
             type="button"
           >
             <GitHubIcon className={classes.ghIcon} />
@@ -79,21 +150,19 @@ const ProjectFromTemplate: React.FC = () => {
               <p className={classes.label}>Selected template</p>
               <Select
                 isMulti={false}
-                initialValue={initialTemplate}
+                initialValue={template}
                 onChange={incomingOption => {
                   if (Array.isArray(incomingOption)) return
-                  setInitialTemplate(incomingOption?.value)
+                  setTemplate(incomingOption?.value)
                 }}
-                options={templatesJSON.map(template => ({
-                  label: template.label,
-                  value: template.name,
+                options={templates.map(temp => ({
+                  label: temp.name,
+                  value: temp.id,
                 }))}
               />
             </div>
             <div>
-              <p>
-                {templatesJSON.find(template => template.name === initialTemplate)?.description}
-              </p>
+              <p>{templates.find(temp => temp.name === template)?.description}</p>
             </div>
           </Cell>
           <Cell cols={8} colsM={8}>
@@ -112,26 +181,29 @@ const ProjectFromTemplate: React.FC = () => {
               </Cell>
               <Cell cols={4}>
                 <p className={classes.label}>Repository Name</p>
-                <Select
-                  initialValue=""
-                  options={[
-                    {
-                      label: 'None',
-                      value: '',
-                    },
-                  ]}
-                />
+                <Text initialValue={name} onChange={setName} />
               </Cell>
             </Grid>
             <div>
               {`Don't see your organization? `}
-              <Link href="/">Adjust your GitHub app permissions</Link>
+              <a
+                href="https://docs.github.com/en/developers/apps/managing-github-apps/editing-a-github-apps-permissions"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Adjust your GitHub app permissions
+              </a>
               {'.'}
             </div>
             <div className={classes.createPrivate}>
               <Checkbox label="Create private Git repository" />
             </div>
-            <Button label="configure project" appearance="primary" icon="arrow" />
+            <Button
+              label="Configure project"
+              appearance="primary"
+              icon="arrow"
+              onClick={handleSubmit}
+            />
           </Cell>
         </Grid>
       )}
