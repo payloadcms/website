@@ -12,7 +12,7 @@ import '../css/app.scss'
 import classes from './layout.module.scss'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { mainMenu, footer } = await fetchGlobals()
+  const { mainMenu, footer, templates } = await fetchGlobals()
 
   return (
     <html lang="en">
@@ -29,7 +29,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           neueMontrealItalic.variable,
         ].join(' ')}
       >
-        <Providers>
+        <Providers templates={templates}>
           <Header {...mainMenu} />
           <div className={classes.layout}>
             <HeaderObserver>{children}</HeaderObserver>
