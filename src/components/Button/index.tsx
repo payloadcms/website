@@ -29,6 +29,7 @@ export type Props = {
   onMouseEnter?: () => void
   onMouseLeave?: () => void
   size?: 'small' | 'default'
+  disabled?: boolean
 }
 
 const icons = {
@@ -86,6 +87,7 @@ export const Button: React.FC<Props> = props => {
     reference,
     htmlButtonType = 'button',
     size,
+    disabled,
   } = props
 
   const [isHovered, setIsHovered] = useState(false)
@@ -144,6 +146,7 @@ export const Button: React.FC<Props> = props => {
         onMouseLeave={() => {
           setIsHovered(false)
         }}
+        disabled={disabled}
       >
         {appearance === 'default' && <LineBlip active={isHovered} />}
         <ButtonContent {...props} />

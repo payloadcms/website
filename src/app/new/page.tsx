@@ -8,11 +8,13 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { PixelBackground } from '@components/PixelBackground'
 import { useAuth } from '@root/providers/Auth'
+import { useGlobals } from '@root/providers/Globals'
 
 import classes from './index.module.scss'
 
 const NewProject: React.FC = () => {
   const { user } = useAuth()
+  const { templates } = useGlobals()
 
   if (!user) {
     return (
@@ -46,27 +48,16 @@ const NewProject: React.FC = () => {
           <PixelBackground />
         </div>
         <div className={classes.templates}>
-          <DefaultCard
-            className={classes.card}
-            leader={(1).toString().padStart(2, '0')}
-            href="/new/clone?template=blank"
-            title="Blank CMS"
-            description="An empty CMS, perfect for starting a new project from scratch."
-          />
-          <DefaultCard
-            className={classes.card}
-            leader={(2).toString().padStart(2, '0')}
-            href="/new/clone?template=website"
-            title="Website"
-            description="The perfect starting point for a CMS to manage a website—large or small."
-          />
-          <DefaultCard
-            className={classes.card}
-            leader={(3).toString().padStart(2, '0')}
-            href="/new/clone?template=ecommerce"
-            title="E-Commerce"
-            description="A full e-commerce backend, integrated with Stripe and ready to sell."
-          />
+          {templates.map((template, index) => (
+            <DefaultCard
+              key={template.slug}
+              className={classes.card}
+              leader={(index + 1).toString().padStart(2, '0')}
+              href={`/new/clone?template=${template.slug}`}
+              title={template.name}
+              description={template.description}
+            />
+          ))}
         </div>
       </div>
       <div className={classes.callToAction}>

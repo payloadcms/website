@@ -1,11 +1,11 @@
 'use client'
 
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useCallback, useEffect, useRef } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Button } from '@components/Button'
@@ -17,51 +17,96 @@ import { useAuth } from '@root/providers/Auth'
 
 import classes from './index.module.scss'
 
+type Repo = {
+  id: string
+  name: string
+}
+
 const ProjectFromImport: React.FC = () => {
   const params = useSearchParams()
   const { user } = useAuth()
+  const hasRequestedGithub = useRef(false)
+  const [isLoading, setIsLoading] = React.useState(false)
   const [hasAuthorizedGithub, setHasAuthorizedGithub] = React.useState(false)
   const [error, setError] = React.useState('')
   const [repos, setRepos] = React.useState([])
+  const router = useRouter()
 
   useEffect(() => {
     const code = params.get('code')
 
-    const exchangeCode = async () => {
+    if (code && user && !hasRequestedGithub.current) {
+      hasRequestedGithub.current = true
+
+      const exchangeCode = async () => {
+        try {
+          const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/gh?code=${code}`, {
+            method: 'GET',
+            credentials: 'include',
+          })
+
+          const body = await res.json()
+
+          if (res.ok) {
+            setHasAuthorizedGithub(true)
+
+            const reposRes = await fetch(
+              `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/repositories`,
+              {
+                method: 'GET',
+                credentials: 'include',
+              },
+            )
+
+            if (reposRes.ok) {
+              const newRepos = await reposRes.json()
+              setRepos(newRepos)
+            }
+          } else {
+            setError(`Unable to authorize GitHub: ${body.error}`)
+          }
+        } catch (err) {
+          console.error(err)
+          setError(err.message)
+        }
+      }
+
+      exchangeCode()
+    }
+  }, [user, params])
+
+  const initiateProject = useCallback(
+    async (repo: Repo) => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/gh?code=${code}`, {
-          method: 'GET',
+        const projectReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects`, {
+          method: 'POST',
           credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: 'New Project',
+            repositoryName: repo.name,
+            // owner: 'TEAM_ID', // TODO get this from the URL
+          }),
         })
 
-        const body = await res.json()
+        const { doc: project, error: projectErr } = await projectReq.json()
 
-        if (res.ok) {
-          setHasAuthorizedGithub(true)
-
-          const reposRes = await fetch(
-            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/repositories`,
-            {
-              method: 'GET',
-              credentials: 'include',
-            },
-          )
-
-          if (reposRes.ok) {
-            const newRepos = await reposRes.json()
-            setRepos(newRepos)
-          }
+        if (projectReq.ok) {
+          router.push(`/dashboard/projects/${project.slug}`)
         } else {
-          setError(`Unable to authorize GitHub: ${body.error}`)
+          setError(projectErr)
+          setIsLoading(false)
         }
       } catch (err) {
         console.error(err)
         setError(err.message)
+        setIsLoading(false)
       }
-    }
-
-    if (user && code) exchangeCode()
-  }, [user, params])
+    },
+    [router],
+  )
 
   return (
     <Gutter>
@@ -88,7 +133,7 @@ const ProjectFromImport: React.FC = () => {
               process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
             }&redirect_uri=${encodeURIComponent(
               process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
-            )}&state=${encodeURIComponent('/new/import')}`}
+            )}&state=${encodeURIComponent(`/new/import`)}`}
             type="button"
           >
             <GitHubIcon className={classes.ghIcon} />
@@ -132,7 +177,13 @@ const ProjectFromImport: React.FC = () => {
             <div>
               <p>
                 {`Don't see your repository? `}
-                <Link href="/">Adjust your GitHub app permissions</Link>
+                <a
+                  href="https://docs.github.com/en/developers/apps/managing-github-apps/editing-a-github-apps-permissions"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Adjust your GitHub app permissions
+                </a>
                 {'.'}
               </p>
             </div>
@@ -145,7 +196,15 @@ const ProjectFromImport: React.FC = () => {
                   return (
                     <div key={repo.id} className={classes.repo}>
                       <h6 className={classes.repoName}>{name}</h6>
-                      <Button label="Import" appearance="primary" size="small" />
+                      <Button
+                        label="Import"
+                        appearance="primary"
+                        size="small"
+                        onClick={() => {
+                          if (!isLoading) initiateProject(repo)
+                        }}
+                        disabled={isLoading}
+                      />
                     </div>
                   )
                 })}

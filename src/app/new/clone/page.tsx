@@ -6,7 +6,7 @@ import { Checkbox } from '@forms/fields/Checkbox'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import Link from 'next/link'
-import { redirect, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Button } from '@components/Button'
@@ -22,12 +22,13 @@ import classes from './index.module.scss'
 const ProjectFromTemplate: React.FC = () => {
   const params = useSearchParams()
   const { templates } = useGlobals()
-
+  const [isLoading, setIsLoading] = React.useState(false)
   const { user } = useAuth()
   const [error, setError] = React.useState('')
   const hasRequestedGithub = useRef(false)
   const [hasAuthorizedGithub, setHasAuthorizedGithub] = React.useState(false)
   const [name, setName] = React.useState('my-project')
+  const router = useRouter()
 
   const [template, setTemplate] = React.useState(() => {
     return params.get('template') || 'blank'
@@ -69,7 +70,10 @@ const ProjectFromTemplate: React.FC = () => {
     }
   }, [user, params])
 
-  const handleSubmit = useCallback(async () => {
+  const initiateProject = useCallback(async () => {
+    setIsLoading(true)
+    const matchedTemplate = templates.find(temp => temp.slug === template)
+
     try {
       const projectReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects`, {
         method: 'POST',
@@ -78,23 +82,28 @@ const ProjectFromTemplate: React.FC = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          owner: 'TEAM_ID', // TODO get this from the URL
-          template,
+          name: `New Project From ${matchedTemplate?.name} Template`,
+          repositoryName: name,
+          // owner: 'TEAM_ID', // TODO get this from the URL
+          template: matchedTemplate?.id,
         }),
       })
 
-      const projectRes = await projectReq.json()
+      const { doc: project, error: projectErr } = await projectReq.json()
 
       if (projectReq.ok) {
-        redirect(`/projects/${projectRes.id}`)
+        // TODO: make this route real
+        router.push(`/dashboard/projects/${project.slug}`)
       } else {
-        setError(projectRes.error)
+        setError(projectErr)
+        setIsLoading(false)
       }
     } catch (err) {
       console.error(err)
       setError(err.message)
+      setIsLoading(false)
     }
-  }, [template])
+  }, [template, name, templates, router])
 
   return (
     <Gutter>
@@ -121,7 +130,7 @@ const ProjectFromTemplate: React.FC = () => {
               process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
             }&redirect_uri=${encodeURIComponent(
               process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
-            )}&state=${encodeURIComponent('/new/clone')}`}
+            )}&state=${encodeURIComponent(`/new/clone?template=${template}`)}`}
             type="button"
           >
             <GitHubIcon className={classes.ghIcon} />
@@ -157,7 +166,7 @@ const ProjectFromTemplate: React.FC = () => {
                 }}
                 options={templates.map(temp => ({
                   label: temp.name,
-                  value: temp.id,
+                  value: temp.slug,
                 }))}
               />
             </div>
@@ -181,7 +190,7 @@ const ProjectFromTemplate: React.FC = () => {
               </Cell>
               <Cell cols={4}>
                 <p className={classes.label}>Repository Name</p>
-                <Text initialValue={name} onChange={setName} />
+                <Text initialValue={name} onChange={setName} required />
               </Cell>
             </Grid>
             <div>
@@ -199,10 +208,11 @@ const ProjectFromTemplate: React.FC = () => {
               <Checkbox label="Create private Git repository" />
             </div>
             <Button
-              label="Configure project"
+              label={isLoading ? 'Creating...' : 'Create Project'}
               appearance="primary"
               icon="arrow"
-              onClick={handleSubmit}
+              onClick={initiateProject}
+              disabled={isLoading}
             />
           </Cell>
         </Grid>
