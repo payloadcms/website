@@ -10,9 +10,11 @@ import { useAuth } from '@root/providers/Auth'
 const Dashboard: React.FC = () => {
   const { user } = useAuth()
 
+  // TODO: redirect to team page (personal team), that screen should be responsible for showing "create new" / "existing projects"
+
   return (
     <Gutter>
-      <Heading marginTop={false}>Your Projects</Heading>
+      <Heading marginTop={false}>Dashboard</Heading>
       <p>{`Email: ${user?.email}`}</p>
       <Button appearance="primary" label="New project" href="/new" el="link" />
       <br />

@@ -2,12 +2,13 @@ import React from 'react'
 import { notFound } from 'next/navigation'
 
 import Meta from '@components/Meta'
-import { Hero } from '../../components/Hero'
-import { RenderBlocks } from '../../components/RenderBlocks'
-import { fetchPage, fetchPages } from '../../graphql'
+import { Hero } from '../../../components/Hero'
+import { RenderBlocks } from '../../../components/RenderBlocks'
+import { fetchPage, fetchPages } from '../../../graphql'
 
 const Page = async ({ params: { slug } }) => {
   const page = await fetchPage(slug)
+  console.log({ slug })
 
   if (!page) return notFound()
 

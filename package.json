@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "fetchDocs": "node scripts/fetch-docs.mjs",
-    "dev": "next dev -H local.payloadcms.com -p 3000",
+    "dev": "next dev -p 3000",
     "nodocs:build": "next build",
     "build": "yarn fetchDocs && next build",
     "postbuild": "next-sitemap",
     "analyze": "ANALYZE=true next build",
+    "caddy": "caddy run --config Caddyfile",
     "start": "next start",
     "lint": "next lint"
   },
