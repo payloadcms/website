@@ -12,6 +12,7 @@ export interface Config {
     teams: Team;
     projects: Project;
     templates: Template;
+    'api-keys': ApiKey;
   };
   globals: {};
 }
@@ -19,11 +20,13 @@ export interface User {
   id: string;
   githubID?: string;
   ghAppInstallationID?: string;
+  defaultTeam?: string | Team;
   teams: {
-    team?: string | Team;
+    team: string | Team;
     roles?: ('owner' | 'admin' | 'user')[];
     invitedOn?: string;
     acceptedOn?: string;
+    default?: boolean;
     id?: string;
   }[];
   projects: {
@@ -37,6 +40,8 @@ export interface User {
   email?: string;
   resetPasswordToken?: string;
   resetPasswordExpiration?: string;
+  _verified?: boolean;
+  _verificationToken?: string;
   loginAttempts?: number;
   lockUntil?: string;
   createdAt: string;
@@ -69,11 +74,12 @@ export interface Plan {
 }
 export interface Project {
   id: string;
-  name?: string;
+  name: string;
   deletedOn?: string;
-  owner: string | Team;
+  owner?: string | Team;
   template?: string | Template;
   source?: 'github';
+  repositoryName?: string;
   repositoryURL?: string;
   repositoryID?: string;
   deploymentBranch?: string;
@@ -91,6 +97,7 @@ export interface Project {
     user?: string;
   };
   skipSync?: boolean;
+  _status?: 'draft' | 'published';
   createdAt: string;
   updatedAt: string;
 }
@@ -102,4 +109,19 @@ export interface Template {
   repositoryURL?: string;
   createdAt: string;
   updatedAt: string;
+}
+export interface ApiKey {
+  id: string;
+  name?: string;
+  enableAPIKey?: boolean;
+  apiKey?: string;
+  apiKeyIndex?: string;
+  email?: string;
+  resetPasswordToken?: string;
+  resetPasswordExpiration?: string;
+  loginAttempts?: number;
+  lockUntil?: string;
+  createdAt: string;
+  updatedAt: string;
+  password?: string;
 }
