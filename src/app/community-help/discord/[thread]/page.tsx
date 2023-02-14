@@ -1,7 +1,7 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
-import { Gutter } from '@components/Gutter'
-import { getAllThreads, getThread } from '../../api'
+import { getThread, getAllThreads } from '../../api'
+import { RenderThread } from './render'
 
 const Thread = async ({ params }) => {
   const { thread: id } = params
@@ -9,22 +9,7 @@ const Thread = async ({ params }) => {
 
   if (!thread) return notFound()
 
-  return (
-    <Gutter>
-      <a href={`${process.env.NEXT_PUBLIC_SITE_URL}/community-help/discord`}>Back</a>
-      <h3>{thread.info.name}</h3>
-      {thread.messages &&
-        thread.messages.map((message, i) => {
-          return (
-            <div key={i}>
-              <div>{message.content}</div>
-              <h6>{message.author}</h6>
-            </div>
-          )
-        })}
-      <h5>{/* <a href={thread.info.url}>View on Discord</a> */}</h5>
-    </Gutter>
-  )
+  return <RenderThread {...thread} />
 }
 
 export default Thread

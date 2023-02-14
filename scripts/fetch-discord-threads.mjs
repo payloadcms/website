@@ -65,9 +65,16 @@ client.once(Events.ClientReady, async c => {
         createdAt: info.createdTimestamp,
       },
       messages: messages.reverse().map(m => {
-        const { cleanContent, author } = m
-        return { content: cleanContent, author: author.username }
+        const { createdTimestamp, cleanContent, author } = m
+        return {
+          content: cleanContent,
+          authorID: author.id,
+          authorName: author.username,
+          authorAvatar: author.avatar,
+          createdAtDate: createdTimestamp,
+        }
       }),
+      messageCount: info.messageCount,
     }
   })
   console.log('\n\n')

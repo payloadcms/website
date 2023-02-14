@@ -1,0 +1,71 @@
+@use '@scss/common' as *;
+
+.title {
+  @include h2;
+  margin-top: 0;
+
+  @include large-break {
+    @include h3;
+  }
+}
+
+.authorInfo {
+  display: flex;
+  padding: var(--base) 0 calc(var(--base) * 3) 0;
+
+  @include mid-break {
+    padding: calc(var(--base) * .5) 0;
+  }
+}
+
+.author {
+  display: flex;
+  align-items: center;
+
+  & img {
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-right: calc(var(--base) * 0.5);
+  }
+}
+
+.authorDate {
+  display: flex;
+  flex-direction: row;
+  margin-right: calc(var(--base) * 1.5);
+}
+
+.date {
+  @include body;
+  color: var(--color-base-400);
+  margin-left: calc(var(--base) * 0.5);
+  text-decoration: none;
+}
+
+.stats {
+  margin-right: calc(var(--base) * 0.5);
+}
+
+.messageWrap {
+  margin-top: calc(var(--base) * 5);
+  padding: 0;
+  list-style: none;
+}
+
+.message {
+  border: 1px solid var(--color-base-650);
+  padding: var(--base);
+  line-height: 1.2;
+  margin: 0 0 calc(var(--base) * 1.5) 0;
+}
+
+.details {
+  display: flex;
+  padding: 0 0 var(--base) 0;
+
+  @include mid-break {
+    padding: calc(var(--base) * .5) 0;
+  }
+}

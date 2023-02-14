@@ -7,7 +7,7 @@ const Page = async () => {
 
   return (
     <Gutter>
-      <h1>Discord</h1>
+      <h1>Discord Threads</h1>
       <ul>
         {threads.map((thread, i) => {
           return (
