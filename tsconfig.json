@@ -63,6 +63,9 @@
       "@graphql/*": [
         "./src/graphql/*",
       ],
+      "@rsc-api/*": [
+        "./src/app/rsc-api/*",
+      ],
     }
   },
   "include": [

@@ -7,99 +7,129 @@
 
 export interface Config {
   collections: {
-    users: User;
-    plans: Plan;
-    teams: Team;
-    projects: Project;
-    templates: Template;
-  };
-  globals: {};
+    users: User
+    plans: Plan
+    teams: Team
+    projects: Project
+    templates: Template
+    'api-keys': ApiKey
+  }
+  globals: {}
 }
 export interface User {
-  id: string;
-  githubID?: string;
-  ghAppInstallationID?: string;
-  teams: {
-    team?: string | Team;
-    roles?: ('owner' | 'admin' | 'user')[];
-    invitedOn?: string;
-    acceptedOn?: string;
-    id?: string;
-  }[];
-  projects: {
-    project?: string | Project;
-    roles?: ('owner' | 'admin' | 'user')[];
-    invitedOn?: string;
-    acceptedOn?: string;
-    id?: string;
-  }[];
-  roles?: ('admin' | 'user')[];
-  email?: string;
-  resetPasswordToken?: string;
-  resetPasswordExpiration?: string;
-  loginAttempts?: number;
-  lockUntil?: string;
-  createdAt: string;
-  updatedAt: string;
-  password?: string;
+  id: string
+  githubID?: string
+  ghAppInstallationID?: string
+  defaultTeam?: string | Team
+  teams: Array<{
+    team: string | Team
+    roles?: Array<'owner' | 'admin' | 'user'>
+    invitedOn?: string
+    acceptedOn?: string
+    default?: boolean
+    id?: string
+  }>
+  projects: Array<{
+    project?: string | Project
+    roles?: Array<'owner' | 'admin' | 'user'>
+    invitedOn?: string
+    acceptedOn?: string
+    id?: string
+  }>
+  roles?: Array<'admin' | 'user'>
+  email?: string
+  resetPasswordToken?: string
+  resetPasswordExpiration?: string
+  _verified?: boolean
+  _verificationToken?: string
+  loginAttempts?: number
+  lockUntil?: string
+  createdAt: string
+  updatedAt: string
+  password?: string
 }
 export interface Team {
-  id: string;
-  name?: string;
-  stripeCustomerID?: string;
-  subscriptions: {
-    stripeSubscriptionID?: string;
-    stripeProductID?: string;
-    plan?: string | Plan;
-    status?: 'active' | 'canceled' | 'incomplete' | 'incomplete_expired' | 'past_due' | 'trialing' | 'unpaid';
-    id?: string;
-  }[];
-  skipSync?: boolean;
-  createdAt: string;
-  updatedAt: string;
+  id: string
+  name?: string
+  stripeCustomerID?: string
+  subscriptions: Array<{
+    stripeSubscriptionID?: string
+    stripeProductID?: string
+    plan?: string | Plan
+    status?:
+      | 'active'
+      | 'canceled'
+      | 'incomplete'
+      | 'incomplete_expired'
+      | 'past_due'
+      | 'trialing'
+      | 'unpaid'
+    id?: string
+  }>
+  skipSync?: boolean
+  createdAt: string
+  updatedAt: string
 }
 export interface Plan {
-  id: string;
-  name?: string;
-  slug?: string;
-  stripeProductID?: string;
-  priceJSON?: string;
-  createdAt: string;
-  updatedAt: string;
+  id: string
+  name?: string
+  slug?: string
+  stripeProductID?: string
+  priceJSON?: string
+  createdAt: string
+  updatedAt: string
 }
 export interface Project {
-  id: string;
-  name?: string;
-  deletedOn?: string;
-  owner: string | Team;
-  template?: string | Template;
-  source?: 'github';
-  repositoryURL?: string;
-  repositoryID?: string;
-  deploymentBranch?: string;
-  rootDirectory?: string;
-  outputDirectory?: string;
-  buildScript?: string;
-  installScript?: string;
-  runScript?: string;
-  environmentVariables: {
-    name?: string;
-    value?: string;
-    id?: string;
-  }[];
+  id: string
+  name: string
+  deletedOn?: string
+  owner?: string | Team
+  template?: string | Template
+  source?: 'github'
+  repositoryName?: string
+  repositoryURL?: string
+  repositoryID?: string
+  deploymentBranch?: string
+  rootDirectory?: string
+  outputDirectory?: string
+  buildScript?: string
+  installScript?: string
+  runScript?: string
+  environmentVariables: Array<{
+    name?: string
+    value?: string
+    id?: string
+  }>
   aws: {
-    user?: string;
-  };
-  skipSync?: boolean;
-  createdAt: string;
-  updatedAt: string;
+    user?: string
+  }
+  skipSync?: boolean
+  _status?: 'draft' | 'published'
+  createdAt: string
+  updatedAt: string
 }
 export interface Template {
-  id: string;
-  name?: string;
-  slug?: string;
-  description?: string;
-  repositoryURL?: string;
-  createdAt: string;
-  updatedAt: string;
+  id: string
+  name?: string
+  slug?: string
+  description?: string
+  repositoryURL?: string
+  createdAt: string
+  updatedAt: string
+}
+export interface ApiKey {
+  id: string
+  name?: string
+  roles: Array<'owner' | 'admin' | 'user'>
+  enableAPIKey?: boolean
+  apiKey?: string
+  apiKeyIndex?: string
+  email?: string
+  resetPasswordToken?: string
+  resetPasswordExpiration?: string
+  loginAttempts?: number
+  lockUntil?: string
+  createdAt: string
+  updatedAt: string
+  password?: string
 }

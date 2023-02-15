@@ -8,7 +8,6 @@ import { fetchPage, fetchPages } from '../../../graphql'
 
 const Page = async ({ params: { slug } }) => {
   const page = await fetchPage(slug)
-  console.log({ slug })
 
   if (!page) return notFound()
 

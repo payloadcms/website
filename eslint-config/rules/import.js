@@ -39,7 +39,7 @@ module.exports = {
           // Things that start with a letter (or digit or underscore), or `@` followed by a letter.
           ['^react', '^@?\\w'],
           // Absolute imports and Relative imports, not scss
-          ['^(@components|@root|@utils|@scss|@hooks)(/.*|$)', '^\\.((?!.scss).)*$'],
+          ['^(@components|@rsc-ap|@root|@utils|@scss|@hooks)(/.*|$)', '^\\.((?!.scss).)*$'],
           // All other imports
           ['^[^.]'],
         ],

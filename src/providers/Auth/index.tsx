@@ -1,6 +1,6 @@
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useContext, useState } from 'react'
 
-import { User } from '../../payload-types'
+import { User } from '../../payload-cloud-types'
 
 // eslint-disable-next-line no-unused-vars
 type ResetPassword = (args: {
@@ -31,8 +31,11 @@ const Context = createContext({} as AuthContext)
 
 const CLOUD_CONNECTION_ERROR = 'An error occurred while attempting to connect to Cloud CMS.'
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>()
+export const AuthProvider: React.FC<{ children: React.ReactNode; meUser: User }> = ({
+  children,
+  meUser,
+}) => {
+  const [user, setUser] = useState<User | null>(meUser || undefined)
 
   const create = useCallback<Create>(async args => {
     try {
@@ -121,41 +124,41 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [])
 
-  useEffect(() => {
-    const fetchMe = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            query: `query {
-              meUser {
-                user {
-                  email
-                }
-                exp
-              }
-            }`,
-          }),
-        })
+  // useEffect(() => {
+  //   const fetchMe = async () => {
+  //     try {
+  //       const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
+  //         method: 'POST',
+  //         credentials: 'include',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({
+  //           query: `query {
+  //             meUser {
+  //               user {
+  //                 email
+  //               }
+  //               exp
+  //             }
+  //           }`,
+  //         }),
+  //       })
 
-        if (res.ok) {
-          const { data } = await res.json()
-          setUser(data?.meUser?.user || null)
-        } else {
-          throw new Error('An error occurred while fetching your account.')
-        }
-      } catch (e) {
-        setUser(null)
-        throw new Error(CLOUD_CONNECTION_ERROR)
-      }
-    }
+  //       if (res.ok) {
+  //         const { data } = await res.json()
+  //         setUser(data?.meUser?.user || null)
+  //       } else {
+  //         throw new Error('An error occurred while fetching your account.')
+  //       }
+  //     } catch (e) {
+  //       setUser(null)
+  //       throw new Error(CLOUD_CONNECTION_ERROR)
+  //     }
+  //   }
 
-    fetchMe()
-  }, [])
+  //   fetchMe()
+  // }, [])
 
   const forgotPassword = useCallback<ForgotPassword>(async args => {
     try {
