@@ -5,7 +5,10 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@providers/Theme'
-import { Gutter } from '../../../../components/Gutter'
+import { CommentsIcon } from '@root/graphics/CommentsIcon'
+import { ArrowIcon } from '@root/icons/ArrowIcon'
+import AuthorTag from '@components/AuthorTag'
+import { Gutter } from '@components/Gutter'
 
 import classes from './index.module.scss'
 
@@ -20,18 +23,19 @@ export type DiscussionProps = {
   id: string
   author: Author
   body: string
-  createdAt: string
+  createdAt: Date
   url: string
   commentTotal: number
   upvotes: number
   comments: {
     author: Author
     body: string
+    createdAt: Date
   }[]
 }
 
 export const RenderDiscussion: React.FC<DiscussionProps> = props => {
-  const { title, id, author, body, url, comments, commentTotal, upvotes } = props
+  const { title, id, author, body, createdAt, url, comments, commentTotal, upvotes } = props
 
   const theme = useTheme()
 
@@ -48,9 +52,6 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
               label: 'GitHub',
               url: '/community-help/github',
             },
-            {
-              label: id,
-            },
           ]}
         />
       </Gutter>
@@ -61,17 +62,18 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
             <h1 className={classes.title}>{title}</h1>
 
             <div className={classes.details}>
-              <div className={classes.authorDate}>
-                <a className={classes.author}>
-                  <img src={author.avatar} />
-                  <span>{author.name}</span>
-                </a>
-                <a href={url} className={classes.date}>
-                  [time] in Github
-                </a>
+              <AuthorTag
+                author={author.name}
+                image={author.avatar}
+                date={createdAt}
+                url={url}
+                platform="Github"
+              />
+              <div className={classes.upvotes}>
+                <ArrowIcon rotation={-45} /> {upvotes}
               </div>
-              <div className={classes.stats}>
-                {upvotes} upvotes - {commentTotal} comments
+              <div className={classes.comments}>
+                <CommentsIcon /> {commentTotal}
               </div>
             </div>
 
@@ -82,7 +84,14 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
                 {comments.map((comment, i) => {
                   return (
                     <li key={i} className={classes.comment}>
-                      <div className={classes.author}>{comment.author.name}</div>
+                      <div className={classes.commentAuthor}>
+                        <AuthorTag
+                          author={comment.author.name}
+                          image={comment.author.avatar}
+                          date={comment.createdAt}
+                          url={comment.author.url}
+                        />
+                      </div>
                       <div dangerouslySetInnerHTML={{ __html: comment.body }} />
                     </li>
                   )

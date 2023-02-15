@@ -50,8 +50,11 @@ const fetchGithubDiscussions = async () => {
                   node {
                     author {
                       login
+                      avatarUrl
+                      url
                     }
                     body
+                    createdAt
                   }
                 }
               }
@@ -70,8 +73,13 @@ const fetchGithubDiscussions = async () => {
     const formattedDiscussions = discussions.data.repository.discussions.nodes.map(discussion => {
       const comments = discussion.comments.edges.map(edge => {
         return {
-          author: edge.node.author.login,
+          author: {
+            name: edge.node.author.login,
+            avatar: edge.node.author.avatarUrl,
+            url: edge.node.author.url,
+          },
           body: edge.node.body,
+          createdAt: edge.node.createdAt,
         }
       })
 

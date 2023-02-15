@@ -12,7 +12,6 @@
 .details {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
   padding: var(--base) 0;
 
   @include mid-break {
@@ -20,29 +19,26 @@
   }
 }
 
-.author {
+.upvotes,
+.comments {
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  color: var(--color-base-300);
+}
 
-  & img {
-    width: 32px;
-    height: 32px;
-    border-radius: 100%;
-    overflow: hidden;
-    margin-right: var(--base);
+.upvotes {
+  padding: 0 var(--base);
+
+  & svg {
+    margin-right: calc(var(--base) * .45);
   }
 }
 
-.authorDate {
-  display: flex;
-  flex-direction: row;
-}
-
-.date {
-  @include body;
-  color: var(--color-base-400);
-  margin-left: calc(var(--base) * .25);
-  text-decoration: none;
+.comments {
+  & svg {
+    width: calc(var(--base) * .75);
+    margin-right: calc(var(--base) * .5);
+  }
 }
 
 .commentWrap {
@@ -52,11 +48,7 @@
 
 .comment {
   border: 1px solid var(--color-base-800);
-  padding: var(--base);
+  padding: calc(var(--base) * 2);
   line-height: 1.2;
   margin: 0 0 var(--base) 0;
-}
-
-.author {
-  margin-bottom: var(--base);
 }

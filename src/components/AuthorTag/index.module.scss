@@ -1,0 +1,36 @@
+@use '@scss/common' as *;
+
+.authorTag,
+.author {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.authorTag {
+  margin-bottom: var(--base);
+}
+
+.author {
+  font-weight: 900;
+  text-decoration: none;
+
+  & img {
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-right: calc(var(--base) * .5);
+  }
+}
+
+.date,
+.platform {
+  color: var(--color-base-600);
+  font-weight: normal;
+  font-size: calc(var(--base) * 0.85);
+}
+
+.date {
+  margin: 0 calc(var(--base) * .25);
+}
