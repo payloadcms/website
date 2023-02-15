@@ -53,10 +53,23 @@ const fetchGithubDiscussions = async () => {
                       avatarUrl
                       url
                     }
-                    body
+                    bodyHTML
                     createdAt
                   }
                 }
+              }
+              answer {
+                author {
+                  login
+                  avatarUrl
+                  url
+                }
+                bodyHTML
+                createdAt
+              }
+              answerChosenAt
+              answerChosenBy {
+                login
               }
             }
           }
@@ -78,10 +91,22 @@ const fetchGithubDiscussions = async () => {
             avatar: edge.node.author.avatarUrl,
             url: edge.node.author.url,
           },
-          body: edge.node.body,
+          body: edge.node.bodyHTML,
           createdAt: edge.node.createdAt,
         }
       })
+
+      const answer = {
+        author: {
+          name: discussion.answer?.author?.login,
+          avatar: discussion.answer?.author?.avatarUrl,
+          url: discussion.answer?.author?.url,
+        },
+        body: discussion.answer?.bodyHTML,
+        createdAt: discussion.answer?.createdAt,
+        chosenAt: discussion.answerChosenAt,
+        chosenBy: discussion.answerChosenBy?.login,
+      }
 
       return {
         title: discussion.title,
@@ -97,6 +122,7 @@ const fetchGithubDiscussions = async () => {
           url: discussion.author.url,
         },
         comments,
+        answer: discussion.answer ? answer : null,
       }
     })
 

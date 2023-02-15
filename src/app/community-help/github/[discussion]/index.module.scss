@@ -19,6 +19,10 @@
   }
 }
 
+.discussionBody {
+  margin-bottom: calc(var(--base) * 2.5);
+}
+
 .upvotes,
 .comments {
   display: flex;
@@ -49,6 +53,47 @@
 .comment {
   border: 1px solid var(--color-base-800);
   padding: calc(var(--base) * 2);
-  line-height: 1.2;
+  line-height: 1.5;
   margin: 0 0 var(--base) 0;
+}
+
+.answer {
+  background-color: var(--color-success-900);
+}
+
+.answerLabel {
+  color: var(--color-success-400);
+
+  margin-bottom: var(--base);
+
+  & label {
+    margin: 0 calc(var(--base) * 0.5);
+  }
+}
+
+.selectedBy {
+  font-size: calc(var(--base) * 0.65);
+}
+
+.answerBody {
+  color: var(--color-success-400);
+  overflow: hidden;
+
+  & span {
+    white-space: break-spaces !important;
+  }
+
+  & a {
+    color: var(--color-base-100);
+  }
+}
+
+.checkmark {
+  border: 1px solid var(--color-success-400);
+  border-radius: 100%;
+
+  & path {
+    stroke: var(--color-success-400);
+    stroke-width: 1px;
+  }
 }
