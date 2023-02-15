@@ -16,8 +16,8 @@
   text-decoration: none;
 
   & img {
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
     border-radius: 100%;
     overflow: hidden;
     margin-right: calc(var(--base) * .5);
@@ -26,7 +26,7 @@
 
 .date,
 .platform {
-  color: var(--color-base-600);
+  color: var(--color-base-400);
   font-weight: normal;
 }
 

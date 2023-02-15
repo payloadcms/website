@@ -22,7 +22,7 @@ function getRelativeDate(incomingDate: Date): string {
     return `last week`
   }
 
-  if (diffInWeeks > 1 && diffInWeeks < 4) {
+  if (diffInWeeks > 1 && diffInWeeks <= 4) {
     return `${diffInWeeks} weeks ago`
   }
 
@@ -30,7 +30,7 @@ function getRelativeDate(incomingDate: Date): string {
     return `last month`
   }
 
-  if (diffInMonths > 1 && diffInMonths < 12) {
+  if (diffInMonths > 1 && diffInMonths <= 12) {
     return `${diffInMonths} months ago`
   }
 
@@ -42,7 +42,7 @@ function getRelativeDate(incomingDate: Date): string {
     return `${diffInYears} years ago`
   }
 
-  return `on ${date}`
+  return `on ${date.toLocaleDateString()}`
 }
 
 export default getRelativeDate
