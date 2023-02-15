@@ -11,7 +11,7 @@
 
 .authorInfo {
   display: flex;
-  padding: var(--base) 0 calc(var(--base) * 3) 0;
+  padding: var(--base) 0 calc(var(--base) * 2.5) 0;
 
   @include mid-break {
     padding: calc(var(--base) * .5) 0;
@@ -44,12 +44,29 @@
   text-decoration: none;
 }
 
-.stats {
-  margin-right: calc(var(--base) * 0.5);
+.content {
+  pre {
+    code {
+      display: flex;
+      overflow: auto;
+    }
+  }
+  a {
+    color: var(--color-blue-600);
+  }
+}
+
+.comments {
+  margin-left: calc(var(--base) * 1.25);
+  color: var(--color-base-300);
+  & svg {
+    width: calc(var(--base) * 0.85);
+    margin-right: calc(var(--base) * 0.25);
+  }
 }
 
 .messageWrap {
-  margin-top: calc(var(--base) * 5);
+  margin-top: calc(var(--base) * 4);
   padding: 0;
   list-style: none;
 }

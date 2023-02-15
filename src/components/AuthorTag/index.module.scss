@@ -28,9 +28,8 @@
 .platform {
   color: var(--color-base-600);
   font-weight: normal;
-  font-size: calc(var(--base) * 0.85);
 }
 
 .date {
-  margin: 0 calc(var(--base) * .25);
+  margin: 0 calc(var(--base) * 0.25) 0 calc(var(--base) * 0.5);
 }

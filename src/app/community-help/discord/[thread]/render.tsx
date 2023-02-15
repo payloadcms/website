@@ -6,9 +6,10 @@ import { Breadcrumbs } from '@components/Breadcrumbs'
 import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@providers/Theme'
 import { Gutter } from '@components/Gutter'
-import { formatDate } from '@utilities/format-date-time'
-
 import { CommentsIcon } from '@root/graphics/CommentsIcon'
+import AuthorTag from '@components/AuthorTag'
+import { getSpecificDateTime } from '@root/utilities/get-specific-date-time'
+
 import classes from './index.module.scss'
 
 export type ThreadProps = {
@@ -32,7 +33,6 @@ export const RenderThread: React.FC<ThreadProps> = props => {
 
   const author = messages[0].authorName
   const authorAvatarImg = `https://cdn.discordapp.com/avatars/${messages[0].authorID}/${messages[0].authorAvatar}.png?size=256`
-  const createdAtDate = formatDate({ date: info.createdAt, format: 'shortDateStamp' })
   const originalMessage = messages[0].content
 
   const allMessagesExceptOriginal = messages.slice(1)
@@ -52,9 +52,6 @@ export const RenderThread: React.FC<ThreadProps> = props => {
               label: 'Discord',
               url: '/community-help/discord',
             },
-            {
-              label: info.id,
-            },
           ]}
         />
       </Gutter>
@@ -63,27 +60,26 @@ export const RenderThread: React.FC<ThreadProps> = props => {
           <Cell start={1} cols={9} colsL={8} colsM={5} colsS={12}>
             <h1 className={classes.title}>{info.name}</h1>
             <div className={classes.authorInfo}>
-              <div className={classes.authorDate}>
-                <a className={classes.author}>
-                  <img src={authorAvatarImg} />
-                  <span>{author}</span>
-                </a>
-                <div className={classes.date}>{createdAtDate} in Discord</div>
-              </div>
-              <div className={classes.stats}>{messageCount}</div>
-              <div className={classes.commentsIcon}>
-                <CommentsIcon />
+              <AuthorTag
+                author={author}
+                image={authorAvatarImg}
+                date={info.createdAt}
+                url=""
+                platform="Discord"
+              />
+              <div className={classes.comments}>
+                <CommentsIcon /> {messageCount}
               </div>
             </div>
-            <div dangerouslySetInnerHTML={{ __html: originalMessage }} />
+            <div
+              className={classes.content}
+              dangerouslySetInnerHTML={{ __html: originalMessage }}
+            />
             <ul className={classes.messageWrap}>
               {messages &&
                 allMessagesExceptOriginal.map((message, i) => {
                   const avatarImg = `https://cdn.discordapp.com/avatars/${message.authorID}/${message.authorAvatar}.png?size=256`
-                  const messageDate = formatDate({
-                    date: message.createdAtDate,
-                    format: 'shortDateStamp',
-                  })
+                  const messageDate = getSpecificDateTime(message.createdAtDate)
                   return (
                     <li className={classes.message} key={i}>
                       <div className={classes.details}>
@@ -95,7 +91,10 @@ export const RenderThread: React.FC<ThreadProps> = props => {
                           <div className={classes.date}>{messageDate}</div>
                         </div>
                       </div>
-                      <div dangerouslySetInnerHTML={{ __html: message.content }} />
+                      <div
+                        className={classes.content}
+                        dangerouslySetInnerHTML={{ __html: message.content }}
+                      />
                     </li>
                   )
                 })}
