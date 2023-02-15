@@ -35,7 +35,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode; meUser: User }>
   children,
   meUser,
 }) => {
-  const [user, setUser] = useState<User | null>(meUser || undefined)
+  const [user, setUser] = useState<User | null>(meUser || null)
 
   const create = useCallback<Create>(async args => {
     try {

@@ -1,9 +1,10 @@
-'use client'
+import { fetchMe } from '@rsc-api/cloud'
+import { redirect } from 'next/navigation'
 
-import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
+const AuthLayout = async ({ children }) => {
+  const me = await fetchMe()
 
-const AuthLayout = ({ children }) => {
-  useAuthRedirect()
+  if (!me) return redirect('/login')
 
   return children
 }

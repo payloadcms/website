@@ -63,8 +63,6 @@ const Login: React.FC = () => {
 
   if (user) redirect('/dashboard')
 
-  if (user === undefined) return null
-
   if (loading)
     return (
       <Gutter>
