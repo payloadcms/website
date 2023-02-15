@@ -28,7 +28,7 @@ const Templates: React.FC = () => {
             <DefaultCard
               className={classes.card}
               leader={(index + 1).toString().padStart(2, '0')}
-              href={`/new/clone?template=${template.name}`}
+              href={`/new/clone/${template.name}`}
               title={template.name}
               description=""
             />

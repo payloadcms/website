@@ -47,6 +47,24 @@ export const fetchGlobals = async (): Promise<{
   }
 }
 
+export const fetchTemplates = async (): Promise<Template[]> => {
+  const { data: templatesData } = await fetch(
+    `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next,
+      body: JSON.stringify({
+        query: TEMPLATES,
+      }),
+    },
+  ).then(res => res.json())
+
+  return templatesData.Templates.docs
+}
+
 export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page> => {
   const slugSegments = incomingSlugSegments || ['home']
   const slug = slugSegments.at(-1)
