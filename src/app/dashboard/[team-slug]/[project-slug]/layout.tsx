@@ -14,7 +14,11 @@ type ProjectLayoutType = {
 }
 
 export default ({ children }: ProjectLayoutType) => {
-  const { project } = useRouteData()
+  const { project, setProject } = useRouteData()
+
+  React.useEffect(() => {
+    return () => setProject(undefined)
+  }, [setProject])
 
   if (project === undefined) return null
 

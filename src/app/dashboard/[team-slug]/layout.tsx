@@ -10,7 +10,11 @@ type ProjectLayoutType = {
 }
 
 export default ({ children }: ProjectLayoutType) => {
-  const { team } = useRouteData()
+  const { team, setTeam } = useRouteData()
+
+  React.useEffect(() => {
+    return () => setTeam(undefined)
+  }, [setTeam])
 
   if (team === undefined) return null
 
