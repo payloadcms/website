@@ -30,7 +30,7 @@ const tabRoutes = [
 ]
 
 export const RouteTabs: React.FC = () => {
-  const [, teamSlug, projectSlug, tabSlug] = usePathnameSegments()
+  const [home, teamSlug, projectSlug, tabSlug] = usePathnameSegments()
 
   return (
     <div className={classes.tabs}>
@@ -41,7 +41,7 @@ export const RouteTabs: React.FC = () => {
           <Heading
             key={route.label}
             className={[classes.tab, isActive && classes.active].filter(Boolean).join(' ')}
-            href={`/dashboard/${teamSlug}/${projectSlug}${
+            href={`/${home}/${teamSlug}/${projectSlug}${
               route?.pathSegment ? `/${route.pathSegment}` : ''
             }`}
             element="h4"

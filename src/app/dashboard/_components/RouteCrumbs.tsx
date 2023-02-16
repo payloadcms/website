@@ -21,13 +21,13 @@ export const RouteCrumbs: React.FC = () => {
       label: team.name,
       url: `/dashboard/${team.slug}`,
     })
-  }
 
-  if (project) {
-    crumbs.push({
-      label: project.name,
-      url: `/dashboard/${team.slug}/${project.slug}`,
-    })
+    if (project) {
+      crumbs.push({
+        label: project.name,
+        url: `/dashboard/${team.slug}/${project.slug}`,
+      })
+    }
   }
 
   return (
