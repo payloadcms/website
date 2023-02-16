@@ -7,7 +7,7 @@ import { MouseInfoProvider } from '@faceless-ui/mouse-info'
 import { ScrollInfoProvider } from '@faceless-ui/scroll-info'
 import { WindowInfoProvider } from '@faceless-ui/window-info'
 
-import { Template, User } from '@root/payload-cloud-types'
+import { Template } from '@root/payload-cloud-types'
 import { AuthProvider } from './Auth'
 import { ComputedCSSValuesProvider } from './ComputedCSSValues'
 import { GlobalsProvider } from './Globals'
@@ -18,11 +18,10 @@ import { ThemePreferenceProvider } from './Theme'
 export const Providers: React.FC<{
   children: React.ReactNode
   templates: Template[]
-  meUser: User
-}> = ({ children, templates, meUser }) => {
+}> = ({ children, templates }) => {
   return (
     <GlobalsProvider templates={templates}>
-      <AuthProvider meUser={meUser}>
+      <AuthProvider>
         <ScrollInfoProvider>
           <MouseInfoProvider>
             <WindowInfoProvider

@@ -51,6 +51,7 @@ export interface User {
 export interface Team {
   id: string
   name?: string
+  slug?: string
   stripeCustomerID?: string
   subscriptions: Array<{
     stripeSubscriptionID?: string
@@ -82,6 +83,7 @@ export interface Plan {
 export interface Project {
   id: string
   name: string
+  slug?: string
   deletedOn?: string
   owner?: string | Team
   template?: string | Template

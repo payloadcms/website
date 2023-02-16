@@ -1,12 +1,19 @@
-import { fetchMe } from '@rsc-api/cloud'
-import { redirect } from 'next/navigation'
+'use client'
 
-const AuthLayout = async ({ children }) => {
-  const me = await fetchMe()
+import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
+import { RouteCrumbs } from './_components/RouteCrumbs'
+import { RouteDataProvider } from './context'
 
-  if (!me) return redirect('/login')
+const AuthLayout = ({ children }) => {
+  useAuthRedirect()
 
-  return children
+  return (
+    <RouteDataProvider>
+      <RouteCrumbs />
+
+      {children}
+    </RouteDataProvider>
+  )
 }
 
 export default AuthLayout

@@ -61,6 +61,8 @@ const Login: React.FC = () => {
     [login],
   )
 
+  if (user === undefined) return null
+
   if (user) redirect('/dashboard')
 
   if (loading)

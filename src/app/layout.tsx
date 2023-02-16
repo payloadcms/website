@@ -1,7 +1,6 @@
 import React from 'react'
 import { fetchGlobals } from '@graphql'
 import { Providers } from '@providers'
-import { fetchMe } from '@rsc-api/cloud'
 
 import { HeaderObserver } from '@components/HeaderObserver'
 import { Footer } from '../components/Footer'
@@ -14,7 +13,6 @@ import classes from './layout.module.scss'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { mainMenu, footer, templates } = await fetchGlobals()
-  const me = await fetchMe()
 
   return (
     <html lang="en">
@@ -31,7 +29,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           neueMontrealItalic.variable,
         ].join(' ')}
       >
-        <Providers templates={templates} meUser={me}>
+        <Providers templates={templates}>
           <Header {...mainMenu} />
           <div className={classes.layout}>
             <HeaderObserver>{children}</HeaderObserver>

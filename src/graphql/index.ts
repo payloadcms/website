@@ -1,9 +1,11 @@
-import type { Template } from '@root/payload-cloud-types'
+import type { Project, Team, Template } from '@root/payload-cloud-types'
 import type { CaseStudy, Footer, MainMenu, Page, Post } from '../payload-types'
 import { CASE_STUDIES, CASE_STUDY } from './case-studies'
 import { GLOBALS } from './globals'
 import { PAGE, PAGES } from './pages'
 import { POST, POST_SLUGS, POSTS } from './posts'
+import { PROJECTS } from './project'
+import { TEAMS } from './team'
 import { TEMPLATES } from './templates'
 
 const next = {
@@ -217,4 +219,55 @@ export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
   ).then(res => res.json())
 
   return data?.CaseStudies?.docs[0]
+}
+
+export const fetchTeam = async (slug: string): Promise<Team> => {
+  const { data } = await fetch(
+    `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql?teams=${slug}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      next,
+      body: JSON.stringify({
+        query: TEAMS,
+        variables: {
+          slug: slug.toLowerCase(),
+        },
+      }),
+    },
+  ).then(res => res.json())
+
+  return data?.Teams?.docs[0]
+}
+
+export const fetchTeamProject = async ({
+  teamID,
+  projectSlug,
+}: {
+  teamID: string
+  projectSlug: string
+}): Promise<Project> => {
+  const { data } = await fetch(
+    `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql?teams=${teamID}&project=${projectSlug}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      next,
+      body: JSON.stringify({
+        query: PROJECTS,
+        variables: {
+          teamID,
+          projectSlug: projectSlug.toLowerCase(),
+        },
+      }),
+    },
+  ).then(res => res.json())
+
+  return data?.Projects?.docs[0]
 }
