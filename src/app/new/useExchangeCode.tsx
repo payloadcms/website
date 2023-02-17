@@ -21,10 +21,13 @@ export const useExchangeCode = (): {
 
       const exchangeCode = async () => {
         try {
-          const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/gh?code=${code}`, {
-            method: 'GET',
-            credentials: 'include',
-          })
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/exchange-code?code=${code}`,
+            {
+              method: 'GET',
+              credentials: 'include',
+            },
+          )
 
           const body = await res.json()
 
@@ -53,10 +56,13 @@ export const useExchangeCode = (): {
 
       const exchangeCode = async () => {
         try {
-          const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/gh?code=${code}`, {
-            method: 'GET',
-            credentials: 'include',
-          })
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/exchange-code?code=${code}`,
+            {
+              method: 'GET',
+              credentials: 'include',
+            },
+          )
 
           const body = await res.json()
 
