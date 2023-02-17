@@ -8,7 +8,9 @@ import { LandingNoUser } from './LandingNoUser'
 const AllProjectsLayout = ({ children }) => {
   const { user } = useAuth()
 
-  if (!user) return <LandingNoUser />
+  if (user === undefined) return null
+
+  if (user === null) return <LandingNoUser />
 
   return <>{children}</>
 }

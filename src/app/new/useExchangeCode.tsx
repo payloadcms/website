@@ -5,13 +5,13 @@ import { useAuth } from '@root/providers/Auth'
 
 export const useExchangeCode = (): {
   error: string
-  hasAuthorizedGithub: boolean
+  hasExchangedCode: boolean
 } => {
   const params = useSearchParams()
   const { user } = useAuth()
   const hasRequestedGithub = useRef(false)
   const [error, setError] = React.useState('')
-  const [hasAuthorizedGithub, setHasAuthorizedGithub] = React.useState(false)
+  const [hasExchangedCode, setHasExchangedCode] = React.useState(false)
 
   useEffect(() => {
     const code = params.get('code')
@@ -32,7 +32,7 @@ export const useExchangeCode = (): {
           const body = await res.json()
 
           if (res.ok) {
-            setHasAuthorizedGithub(true)
+            setHasExchangedCode(true)
 
             // do more async stuff
           } else {
@@ -67,7 +67,7 @@ export const useExchangeCode = (): {
           const body = await res.json()
 
           if (res.ok) {
-            setHasAuthorizedGithub(true)
+            setHasExchangedCode(true)
 
             // do more async stuff
           } else {
@@ -83,5 +83,5 @@ export const useExchangeCode = (): {
     }
   }, [user, params])
 
-  return { error, hasAuthorizedGithub }
+  return { error, hasExchangedCode }
 }

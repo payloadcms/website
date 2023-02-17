@@ -21,12 +21,18 @@ const ProjectFromImport: React.FC = () => {
   const hasInitializedRepos = React.useRef(false)
   const [repos, setRepos] = React.useState<Repo[]>()
 
-  const { error: exchangeError } = useExchangeCode()
+  const { error: exchangeError, hasExchangedCode } = useExchangeCode()
 
   useEffect(() => {
     let timeout: NodeJS.Timeout
 
-    if (user && !hasInitializedRepos.current) {
+    // run this when the user initially logs in and also when they exchange the code
+    // this is because the initial response may be a 401 if the user has not authorized
+    // in this scenario we want to show the `Authorize` component
+    // this component will redirect them to GitHub then back to this page with a `code` param
+    // the `useExchangeCode` hook will then exchange the code for an access token
+    // once the access token is received we can fetch the user's repos once again
+    if (user && (!hasInitializedRepos.current || hasExchangedCode)) {
       hasInitializedRepos.current = true
 
       timeout = setTimeout(() => {
@@ -46,6 +52,7 @@ const ProjectFromImport: React.FC = () => {
 
         if (reposReq.ok) {
           setRepos(res.data)
+          setError(undefined)
         } else {
           setError(res.error)
         }
@@ -59,7 +66,7 @@ const ProjectFromImport: React.FC = () => {
     return () => {
       clearTimeout(timeout)
     }
-  }, [user])
+  }, [user, hasExchangedCode])
 
   return (
     <Fragment>
