@@ -1,9 +1,17 @@
 import React, { useEffect } from 'react'
 
 import { useAuth } from '@root/providers/Auth'
-import { Install } from './types'
 
-export const useInstalls = (): {
+export interface Install {
+  id: string
+  account: {
+    id: string
+    login: string
+  }
+  html_url: string
+}
+
+export const useGetInstalls = (): {
   error: string | undefined
   loading: boolean
   installs: Install[]

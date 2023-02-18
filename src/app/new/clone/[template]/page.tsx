@@ -15,8 +15,8 @@ import { Heading } from '@components/Heading'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { useGlobals } from '@root/providers/Globals'
-import { useCreateDraftProject } from '../../useCreateDraftProject'
-import { useExchangeCode } from '../../useExchangeCode'
+import { useCreateDraftProject } from '../../../../utilities/use-create-draft-project'
+import { useExchangeCode } from '../../../../utilities/use-exchange-code'
 
 import classes from './index.module.scss'
 

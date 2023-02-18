@@ -1,20 +1,17 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { Select } from '@forms/fields/Select'
-import { Text } from '@forms/fields/Text'
 import Link from 'next/link'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
-import { useCreateDraftProject } from '../useCreateDraftProject'
-import { Install } from './types'
-import { useInstalls } from './useInstalls'
-import { useRepos } from './useRepos'
+import { ScopeSelector } from '@components/ScopeSelector'
+import { Install } from '@root/utilities/use-get-installs'
+import { useCreateDraftProject } from '../../../utilities/use-create-draft-project'
+import { useGetRepos } from '../../../utilities/use-get-repos'
 
 import classes from './index.module.scss'
 
-export const CreateProjectFromImport: React.FC = () => {
-  const hasInitializedSelection = React.useRef(false)
+export const ImportProject: React.FC = () => {
   const [selectedInstall, setSelectedInstall] = React.useState<Install | undefined>(undefined)
 
   const {
@@ -25,22 +22,13 @@ export const CreateProjectFromImport: React.FC = () => {
     projectName: 'New project from import',
   })
 
-  const { error: installsError, loading: installsLoading, installs } = useInstalls()
-
   const {
     error: reposError,
     loading: reposLoading,
     repos,
-  } = useRepos({
+  } = useGetRepos({
     selectedInstall,
   })
-
-  useEffect(() => {
-    if (installs.length && !hasInitializedSelection.current) {
-      hasInitializedSelection.current = true
-      setSelectedInstall(installs[0])
-    }
-  }, [installs])
 
   return (
     <Gutter>
@@ -49,41 +37,16 @@ export const CreateProjectFromImport: React.FC = () => {
         <Cell cols={4} colsM={8} className={classes.sidebar}>
           <div>
             <p className={classes.label}>GitHub Scope</p>
-            {installsError && <p>{installsError}</p>}
-            {!installsLoading && (
-              <Select
-                initialValue={installs[0]?.account?.login}
-                onChange={option => {
-                  if (Array.isArray(option)) return
-                  setSelectedInstall(
-                    installs.find(install => install.account.login === option.value),
-                  )
-                }}
-                options={[
-                  {
-                    label: 'None',
-                    value: '',
-                  },
-                  ...(installs?.map(install => ({
-                    label: install.account.login,
-                    value: install.account.login,
-                  })) || []),
-                ]}
-              />
-            )}
+            <ScopeSelector onChange={setSelectedInstall} />
           </div>
-          <div>
+          {/* <div>
             <p className={classes.label}>Search</p>
             <Text placeholder="Enter search term" />
-          </div>
+          </div> */}
           <div>
             <p>
               {`Don't see your repository? `}
-              <a
-                href="https://docs.github.com/en/developers/apps/managing-github-apps/editing-a-github-apps-permissions"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
+              <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
                 Adjust your GitHub app permissions
               </a>
               {'.'}

@@ -48,6 +48,9 @@
       "@icons/*": [
         "./src/icons/*",
       ],
+      "@utilities": [
+        "./src/utilities",
+      ],
       "@utilities/*": [
         "./src/utilities/*",
       ],

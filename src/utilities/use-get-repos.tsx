@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react'
 
 import { useAuth } from '@root/providers/Auth'
-import { Install, Repo } from './types'
+import { Install } from './use-get-installs'
 
-export const useRepos = (props: {
+export interface Repo {
+  id: string
+  name: string
+}
+export const useGetRepos = (props: {
   selectedInstall: Install | undefined
 }): {
   error: string | undefined

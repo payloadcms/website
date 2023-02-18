@@ -4,10 +4,10 @@ import React, { Fragment } from 'react'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
-import { useExchangeCode } from '../useExchangeCode'
-import { Authorize } from './Authorize'
-import { CreateProjectFromImport } from './CreateProject'
-import { useCheckToken } from './useCheckToken'
+import { useCheckToken } from '../../../utilities/use-check-token'
+import { useExchangeCode } from '../../../utilities/use-exchange-code'
+import { Authorize } from '../Authorize'
+import { ImportProject } from './ImportProject'
 
 import classes from './index.module.scss'
 
@@ -39,7 +39,7 @@ const ProjectFromImport: React.FC = () => {
         {exchangeError && <p>{exchangeError}</p>}
       </Gutter>
       {!loading && (error || !tokenIsValid) && <Authorize />}
-      {!loading && !error && tokenIsValid && <CreateProjectFromImport />}
+      {!loading && !error && tokenIsValid && <ImportProject />}
     </Fragment>
   )
 }
