@@ -9,7 +9,6 @@ import { useAuth } from '@root/providers/Auth'
 import { useExchangeCode } from '../useExchangeCode'
 import { Authorize } from './Authorize'
 import { CreateProjectFromImport } from './CreateProject'
-import { Repo } from './types'
 
 import classes from './index.module.scss'
 
@@ -19,7 +18,7 @@ const ProjectFromImport: React.FC = () => {
   const [loading, setLoading] = React.useState(true)
   const [error, setError] = React.useState('')
   const hasInitializedRepos = React.useRef(false)
-  const [repos, setRepos] = React.useState<Repo[]>()
+  const [isTokenValid, setIsTokenValid] = React.useState<{}>()
 
   const { error: exchangeError, hasExchangedCode } = useExchangeCode()
 
@@ -39,19 +38,22 @@ const ProjectFromImport: React.FC = () => {
         setLoading(true)
       }, 250)
 
-      const getRepos = async () => {
-        const reposReq = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/repositories`,
-          {
-            method: 'GET',
-            credentials: 'include',
+      const checkToken = async () => {
+        const reposReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        )
+          body: JSON.stringify({
+            route: `GET /user`,
+          }),
+        })
 
         const res = await reposReq.json()
 
         if (reposReq.ok) {
-          setRepos(res.data)
+          setIsTokenValid(true)
           setError(undefined)
         } else {
           setError(res.error)
@@ -61,7 +63,7 @@ const ProjectFromImport: React.FC = () => {
         setLoading(false)
       }
 
-      getRepos()
+      checkToken()
     }
     return () => {
       clearTimeout(timeout)
@@ -89,8 +91,8 @@ const ProjectFromImport: React.FC = () => {
         {error && <p>{error}</p>}
         {exchangeError && <p>{exchangeError}</p>}
       </Gutter>
-      {!loading && error && <Authorize />}
-      {!loading && !error && <CreateProjectFromImport initialRepos={repos} />}
+      {!loading && (error || !isTokenValid) && <Authorize />}
+      {!loading && !error && isTokenValid && <CreateProjectFromImport />}
     </Fragment>
   )
 }

@@ -27,7 +27,7 @@ const ProjectFromTemplate: React.FC<{
   const [name, setName] = React.useState('my-project')
   const matchedTemplate = templates.find(t => t.slug === templateParam)
 
-  const { error: exchangeError, hasAuthorizedGithub } = useExchangeCode()
+  const { error: exchangeError, hasExchangedCode } = useExchangeCode()
 
   const { initiateProject, error, isLoading } = useCreateDraftProject({
     projectName: `New Project from ${matchedTemplate?.name} template`,
@@ -56,7 +56,7 @@ const ProjectFromTemplate: React.FC<{
       </div>
       {error && <p>{error}</p>}
       {exchangeError && <p>{exchangeError}</p>}
-      {!hasAuthorizedGithub ? (
+      {!hasExchangedCode ? (
         <Fragment>
           <a
             className={classes.ghLink}

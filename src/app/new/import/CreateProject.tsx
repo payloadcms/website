@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
@@ -7,14 +7,16 @@ import Link from 'next/link'
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { useCreateDraftProject } from '../useCreateDraftProject'
-import { Repo } from './types'
+import { Install } from './types'
+import { useInstalls } from './useInstalls'
+import { useRepos } from './useRepos'
 
 import classes from './index.module.scss'
 
-export const CreateProjectFromImport: React.FC<{
-  initialRepos: Repo[]
-}> = props => {
-  const { initialRepos: repos } = props
+export const CreateProjectFromImport: React.FC = () => {
+  const hasInitializedSelection = React.useRef(false)
+  const [selectedInstall, setSelectedInstall] = React.useState<Install | undefined>(undefined)
+
   const {
     initiateProject,
     error: createError,
@@ -23,22 +25,52 @@ export const CreateProjectFromImport: React.FC<{
     projectName: 'New project from import',
   })
 
+  const { error: installsError, loading: installsLoading, installs } = useInstalls()
+
+  const {
+    error: reposError,
+    loading: reposLoading,
+    repos,
+  } = useRepos({
+    selectedInstall,
+  })
+
+  useEffect(() => {
+    if (installs.length && !hasInitializedSelection.current) {
+      hasInitializedSelection.current = true
+      setSelectedInstall(installs[0])
+    }
+  }, [installs])
+
   return (
     <Gutter>
       {createError && <p>{createError}</p>}
       <Grid>
         <Cell cols={4} colsM={8} className={classes.sidebar}>
           <div>
-            <p className={classes.label}>GitHub Organization</p>
-            <Select
-              initialValue=""
-              options={[
-                {
-                  label: 'None',
-                  value: '',
-                },
-              ]}
-            />
+            <p className={classes.label}>GitHub Scope</p>
+            {installsError && <p>{installsError}</p>}
+            {!installsLoading && (
+              <Select
+                initialValue={installs[0]?.account?.login}
+                onChange={option => {
+                  if (Array.isArray(option)) return
+                  setSelectedInstall(
+                    installs.find(install => install.account.login === option.value),
+                  )
+                }}
+                options={[
+                  {
+                    label: 'None',
+                    value: '',
+                  },
+                  ...(installs?.map(install => ({
+                    label: install.account.login,
+                    value: install.account.login,
+                  })) || []),
+                ]}
+              />
+            )}
           </div>
           <div>
             <p className={classes.label}>Search</p>
@@ -59,7 +91,8 @@ export const CreateProjectFromImport: React.FC<{
           </div>
         </Cell>
         <Cell cols={8} colsM={8}>
-          {repos?.length > 0 ? (
+          {reposError && <p>{reposError}</p>}
+          {!reposLoading && repos?.length > 0 ? (
             <div className={classes.repos}>
               {repos?.map(repo => {
                 const { name } = repo
