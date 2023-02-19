@@ -4,7 +4,7 @@ import React from 'react'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
-import { useRouteData } from '../context'
+import { useRouteData } from '../../context'
 
 export const RouteCrumbs: React.FC = () => {
   const { team, project } = useRouteData()

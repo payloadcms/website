@@ -5,7 +5,7 @@ import * as React from 'react'
 import { Heading } from '@components/Heading'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
 
-import classes from './RouteTabs.module.scss'
+import classes from './index.module.scss'
 
 const tabRoutes = [
   {

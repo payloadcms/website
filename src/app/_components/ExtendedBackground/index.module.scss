@@ -1,0 +1,20 @@
+.container {
+  position: relative;
+
+  .extendedBackground {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    left: calc(-1 * var(--extension));
+    width: calc(100% + var(--extension) * 2);
+
+    &.size--s {
+      --extension: calc(var(--gutter-h) * 0.25);
+    }
+    &.size--l {
+      --extension: calc(var(--gutter-h) * 0.5);
+    }
+  }
+}

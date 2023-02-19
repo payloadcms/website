@@ -30,7 +30,7 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   &--primary {
     border: 1px solid var(--theme-elevation-900);
     padding: calc(var(--base) * 0.75) var(--base);
-    color: var(--theme-elevation-0);
+    color: var(--theme-bg);
     background-color: var(--theme-elevation-900);
 
     &:local(.size--small) {

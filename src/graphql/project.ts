@@ -1,6 +1,6 @@
 export const PROJECTS = `
   query Project($teamID: String $projectSlug: String) {
-    Projects(where: { slug: { equals: $projectSlug }, owner: { equals: $teamID } }) {
+    Projects(where: { slug: { equals: $projectSlug }, team: { equals: $teamID } }) {
       docs {
         id
         name

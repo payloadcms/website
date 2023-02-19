@@ -91,7 +91,7 @@ $breakpoint-xl-width: 1920px;
   @include inputShadow;
   font-family: var(--font-body);
   width: 100%;
-  border: 1px solid var(--theme-elevation-150);
+  border: 1px solid var(--theme-elevation-250);
   background: var(--theme-input-bg);
   color: var(--theme-elevation-800);
   border-radius: 0;
@@ -128,7 +128,7 @@ $breakpoint-xl-width: 1920px;
     color: var(--theme-elevation-450);
 
     &:hover {
-      border-color: var(--theme-elevation-150);
+      border-color: var(--theme-elevation-250);
     }
   }
 }
