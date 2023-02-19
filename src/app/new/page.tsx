@@ -37,7 +37,7 @@ const NewProject: React.FC = () => {
           <Button
             label="Import existing codebase"
             href="/new/import"
-            appearance="default"
+            appearance="primary"
             el="link"
           />
         </div>

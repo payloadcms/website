@@ -9,26 +9,24 @@ export interface Repo {
 }
 export const useGetRepos = (props: {
   selectedInstall: Install | undefined
+  delay?: number
 }): {
   error: string | undefined
   loading: boolean
   repos: Repo[]
 } => {
-  const { selectedInstall } = props
+  const { selectedInstall, delay = 250 } = props
   const [error, setError] = React.useState<string | undefined>()
   const [loading, setLoading] = React.useState(true)
   const [repos, setRepos] = React.useState<Repo[]>([])
   const { user } = useAuth()
 
   useEffect(() => {
+    setLoading(true)
     let timeout: NodeJS.Timeout
 
     if (user && selectedInstall) {
       const getRepos = async () => {
-        timeout = setTimeout(() => {
-          setLoading(true)
-        }, 250)
-
         const reposReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
           method: 'POST',
           credentials: 'include',
@@ -43,19 +41,23 @@ export const useGetRepos = (props: {
         const res = await reposReq.json()
 
         if (reposReq.ok) {
-          setRepos(res.data?.repositories)
+          timeout = setTimeout(() => {
+            setRepos(res.data?.repositories)
+            setLoading(false)
+          }, delay)
           setError(undefined)
         } else {
           setError(res.error)
+          setLoading(false)
         }
-
-        clearTimeout(timeout)
-        setLoading(false)
       }
 
       getRepos()
     }
-  }, [user, selectedInstall])
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [user, selectedInstall, delay])
 
   return {
     repos,

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import Link from 'next/link'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
+import { LoadingShimmer } from '@components/LoadingShimmer'
 import { ScopeSelector } from '@components/ScopeSelector'
 import { Install } from '@root/utilities/use-get-installs'
 import { useCreateDraftProject } from '../../../utilities/use-create-draft-project'
@@ -24,7 +24,7 @@ export const ImportProject: React.FC = () => {
 
   const {
     error: reposError,
-    loading: reposLoading,
+    loading,
     repos,
   } = useGetRepos({
     selectedInstall,
@@ -55,7 +55,8 @@ export const ImportProject: React.FC = () => {
         </Cell>
         <Cell cols={8} colsM={8}>
           {reposError && <p>{reposError}</p>}
-          {!reposLoading && repos?.length > 0 ? (
+          {loading && <LoadingShimmer number={3} />}
+          {!loading && repos?.length > 0 && (
             <div className={classes.repos}>
               {repos?.map(repo => {
                 const { name } = repo
@@ -75,13 +76,24 @@ export const ImportProject: React.FC = () => {
                 )
               })}
             </div>
-          ) : (
+          )}
+          {!loading && repos?.length === 0 && (
             <div className={classes.noRepos}>
+              <h6>No repositories found</h6>
               <p>
-                {`You don't have any repositories in your organization. `}
-                <Link href="/new/clone">Create a new one</Link>
-                {` from one of our templates.`}
+                {`This can happen when Payload doesn't have access to the repositories in an account. Configure the Payload app on GitHub, and give it access to the repository you want to link.`}
               </p>
+              <Button
+                label="Configure Payload on GitHub"
+                className={classes.addAccountButton}
+                href={`https://github.com/apps/payload-cms/installations/new?client_id=${
+                  process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
+                }&redirect_uri=${encodeURIComponent(
+                  process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
+                )}&state=${encodeURIComponent(`/new/import`)}`}
+                appearance="primary"
+                el="a"
+              />
             </div>
           )}
         </Cell>

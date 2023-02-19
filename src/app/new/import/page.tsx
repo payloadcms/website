@@ -4,6 +4,8 @@ import React, { Fragment } from 'react'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
+import { LoadingShimmer } from '@components/LoadingShimmer'
+import useDebounce from '@root/utilities/use-debounce'
 import { useCheckToken } from '../../../utilities/use-check-token'
 import { useExchangeCode } from '../../../utilities/use-exchange-code'
 import { Authorize } from '../Authorize'
@@ -13,9 +15,16 @@ import classes from './index.module.scss'
 
 const ProjectFromImport: React.FC = () => {
   const { error: exchangeError, hasExchangedCode } = useExchangeCode()
-  const { tokenIsValid, loading, error } = useCheckToken({
+
+  const {
+    tokenIsValid,
+    loading: tokenLoading,
+    error,
+  } = useCheckToken({
     hasExchangedCode,
   })
+
+  const loading = useDebounce(tokenLoading, 1000)
 
   return (
     <Fragment>
@@ -34,8 +43,7 @@ const ProjectFromImport: React.FC = () => {
           />
           <h1>Import a codebase</h1>
         </div>
-        {loading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
+        {loading && <LoadingShimmer number={3} />}
         {exchangeError && <p>{exchangeError}</p>}
       </Gutter>
       {!loading && (error || !tokenIsValid) && <Authorize />}

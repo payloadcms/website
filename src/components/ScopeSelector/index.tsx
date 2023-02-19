@@ -2,7 +2,9 @@ import React, { Fragment, useEffect } from 'react'
 import { components } from 'react-select'
 import { Select } from '@forms/fields/Select'
 
+import { LoadingShimmer } from '@components/LoadingShimmer'
 import { GitHubIcon } from '@root/graphics/GitHub'
+import useDebounce from '@root/utilities/use-debounce'
 import { Install, useGetInstalls } from '@root/utilities/use-get-installs'
 
 import classes from './index.module.scss'
@@ -18,11 +20,23 @@ const SelectMenuButton = props => {
         }&redirect_uri=${encodeURIComponent(
           process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
         )}&state=${encodeURIComponent(`/new/import`)}`}
-        type="button"
       >
         Add GitHub Account
       </a>
     </components.MenuList>
+  )
+}
+
+const SingleValue = props => {
+  return (
+    <components.SingleValue {...props}>
+      <div className={classes.option}>
+        <div className={classes.githubIcon}>
+          <GitHubIcon />
+        </div>
+        <div className={classes.optionLabel}>{props.children}</div>
+      </div>
+    </components.SingleValue>
   )
 }
 
@@ -55,6 +69,8 @@ export const ScopeSelector: React.FC<{
     }
   }, [installs])
 
+  const loading = useDebounce(installsLoading, 1000)
+
   useEffect(() => {
     if (typeof onChange === 'function') {
       onChange(selectedInstall)
@@ -64,7 +80,8 @@ export const ScopeSelector: React.FC<{
   return (
     <Fragment>
       {installsError && <p>{installsError}</p>}
-      {!installsLoading && (
+      {loading && <LoadingShimmer number={1} />}
+      {!loading && (
         <Select
           initialValue={installs[0]?.account?.login}
           onChange={option => {
@@ -72,14 +89,24 @@ export const ScopeSelector: React.FC<{
             setSelectedInstall(installs.find(install => install.account.login === option.value))
           }}
           options={[
-            ...(installs?.map(install => ({
-              label: install.account.login,
-              value: install.account.login,
-            })) || []),
+            ...(installs && installs.length > 0
+              ? [
+                  ...installs.map(install => ({
+                    label: install.account.login,
+                    value: install.account.login,
+                  })),
+                ]
+              : [
+                  {
+                    label: 'No GitHub accounts found',
+                    value: 'no-accounts',
+                  },
+                ]),
           ]}
           components={{
             MenuList: SelectMenuButton,
             Option,
+            SingleValue,
           }}
         />
       )}

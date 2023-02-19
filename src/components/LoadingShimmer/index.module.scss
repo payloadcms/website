@@ -1,0 +1,27 @@
+@use '@scss/common' as *;
+
+@keyframes shimmer {
+    0% {
+        background-color: var(--theme-elevation-200);
+    }   
+    50% {
+        background-color: var(--theme-elevation-100);
+    }
+    100% {
+        background-color: var(--theme-elevation-200);
+    }
+}    
+
+.loading {
+    & > *:not(:last-child) {
+        margin-bottom: var(--base);
+    }
+}
+
+.shimmer {
+    width: 100%;
+    height: calc(var(--base) * 3);
+    background-color: var(--theme-elevation-500);
+    border-radius: 1px;
+    animation: shimmer 1s infinite;
+}

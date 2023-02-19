@@ -3,7 +3,6 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import Link from 'next/link'
 
 import { Avatar } from '@components/Avatar'
-import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { MainMenu } from '@root/payload-types'
 import { useAuth } from '@root/providers/Auth'
@@ -50,7 +49,7 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
           )}
           {user && (
             <div className={classes.authNav}>
-              <Button label="New project" appearance="primary" href="/new" size="small" el="link" />
+              <Link href="/new">New project</Link>
               <Avatar />
               <DocSearch />
             </div>

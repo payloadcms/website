@@ -13,7 +13,7 @@ export const useCheckToken = (props: {
   const hasMadeRequest = useRef(false)
 
   const { user } = useAuth()
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [error, setError] = React.useState('')
   const [tokenIsValid, setIsTokenValid] = useState(false)
 
