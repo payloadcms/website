@@ -49,6 +49,7 @@ export const Select: React.FC<{
   components?: {
     [key: string]: React.FC<any>
   }
+  selectProps?: any
 }> = props => {
   const {
     path,
@@ -61,6 +62,7 @@ export const Select: React.FC<{
     initialValue: initialValueFromProps, // allow external control
     isMulti,
     components,
+    selectProps,
   } = props
 
   const id = useId()
@@ -154,6 +156,8 @@ export const Select: React.FC<{
         className={classes.reactSelect}
         classNamePrefix="rs"
         components={components}
+        // @ts-expect-error
+        selectProps={selectProps}
       />
     </div>
   )

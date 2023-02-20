@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Link from 'next/link'
 
 import { Gutter } from '@components/Gutter'
@@ -9,19 +9,16 @@ import { usePopup } from '@root/utilities/use-popup'
 
 import classes from './Authorize.module.scss'
 
+const href = `https://github.com/login/oauth/authorize?client_id=${
+  process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
+}&redirect_uri=${encodeURIComponent(
+  process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
+)}&state=${encodeURIComponent(`/new/import`)}`
+
 export const Authorize: React.FC<{
   onAuthorize: (code: string) => void // eslint-disable-line no-unused-vars
 }> = props => {
   const { onAuthorize } = props
-
-  const [href] = useState(
-    `https://github.com/login/oauth/authorize?client_id=${
-      process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
-    }&redirect_uri=${encodeURIComponent(
-      process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
-    )}&state=${encodeURIComponent(`/new/import`)}`,
-  )
-
   const { openPopup } = usePopup({
     href,
     eventType: 'github-oauth',
