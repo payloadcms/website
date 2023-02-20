@@ -5,7 +5,6 @@ import { Secret } from '@forms/fields/Secret'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 
-import { Button } from '@components/Button'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 
 import classes from './index.module.scss'

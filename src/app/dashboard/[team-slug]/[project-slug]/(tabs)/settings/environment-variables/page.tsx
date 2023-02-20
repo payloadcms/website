@@ -37,7 +37,6 @@ export default () => {
           </Cell>
           <Cell start={5} cols={4}>
             <Secret loadSecret={fetchEnv} label="Value" />
-            <Text label="Text" copy />
           </Cell>
         </Grid>
       </div>

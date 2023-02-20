@@ -44,7 +44,7 @@ export const RouteTabs: React.FC = () => {
             href={`/${home}/${teamSlug}/${projectSlug}${
               route?.pathSegment ? `/${route.pathSegment}` : ''
             }`}
-            element="h4"
+            element="h5"
           >
             {route.label}
           </Heading>

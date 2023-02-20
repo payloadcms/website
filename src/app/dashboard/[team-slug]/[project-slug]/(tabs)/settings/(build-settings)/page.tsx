@@ -1,6 +1,11 @@
 import * as React from 'react'
+import { Text } from '@forms/fields/Text'
+import Form from '@forms/Form'
+import Submit from '@forms/Submit'
 
 import { Heading } from '@components/Heading'
+
+import classes from './index.module.scss'
 
 export default async () => {
   return (
@@ -9,13 +14,31 @@ export default async () => {
         Build Settings
       </Heading>
 
-      <p>Project name</p>
+      <Form className={classes.form}>
+        <Text label="Project name" placeholder="Enter a name for your project" path="projectName" />
 
-      <p>Install command</p>
+        <Text
+          label="Install Command"
+          placeholder="Enter the command to install your project dependencies"
+          path="installCommand"
+        />
 
-      <p>Build command</p>
+        <Text
+          label="Build Command"
+          placeholder="Enter the command to build your project"
+          path="buildCommand"
+        />
 
-      <p>Branch to deploy</p>
+        <Text
+          label="Branch to deploy"
+          placeholder="Enter the branch to deploy"
+          path="branchToDeploy"
+        />
+
+        <div>
+          <Submit label="Update" />
+        </div>
+      </Form>
     </div>
   )
 }
