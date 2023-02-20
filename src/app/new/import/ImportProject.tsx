@@ -17,14 +17,14 @@ export const ImportProject: React.FC = () => {
   const {
     initiateProject,
     error: createError,
-    isLoading,
+    isSubmitting,
   } = useCreateDraftProject({
     projectName: 'New project from import',
   })
 
   const {
     error: reposError,
-    loading,
+    loading: loadingRepos,
     repos,
   } = useGetRepos({
     selectedInstall,
@@ -55,8 +55,8 @@ export const ImportProject: React.FC = () => {
         </Cell>
         <Cell cols={8} colsM={8}>
           {reposError && <p>{reposError}</p>}
-          {loading && <LoadingShimmer number={3} />}
-          {!loading && repos?.length > 0 && (
+          {loadingRepos && <LoadingShimmer number={3} />}
+          {!loadingRepos && repos?.length > 0 && (
             <div className={classes.repos}>
               {repos?.map(repo => {
                 const { name } = repo
@@ -68,16 +68,16 @@ export const ImportProject: React.FC = () => {
                       appearance="primary"
                       size="small"
                       onClick={() => {
-                        if (!isLoading) initiateProject(repo.name)
+                        if (!isSubmitting) initiateProject(repo.name)
                       }}
-                      disabled={isLoading}
+                      disabled={isSubmitting}
                     />
                   </div>
                 )
               })}
             </div>
           )}
-          {!loading && repos?.length === 0 && (
+          {!loadingRepos && repos?.length === 0 && (
             <div className={classes.noRepos}>
               <h6>No repositories found</h6>
               <p>

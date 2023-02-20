@@ -46,7 +46,13 @@ const ProjectFromImport: React.FC = () => {
         {loading && <LoadingShimmer number={3} />}
         {exchangeError && <p>{exchangeError}</p>}
       </Gutter>
-      {!loading && (error || !tokenIsValid) && <Authorize onAuthorize={exchangeCode} />}
+      {!loading && (error || !tokenIsValid) && (
+        <Authorize
+          onAuthorize={({ code }) => {
+            exchangeCode(code)
+          }}
+        />
+      )}
       {!loading && !error && tokenIsValid && <ImportProject />}
     </Fragment>
   )
