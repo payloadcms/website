@@ -5,8 +5,11 @@ import { Client, Events, GatewayIntentBits, ChannelType } from 'discord.js'
 import fs from 'fs'
 import dotenv from 'dotenv'
 import { Bar } from 'cli-progress'
+import DiscordMarkdown from 'discord-markdown'
 
 import { fileURLToPath } from 'url'
+
+const { toHTML } = DiscordMarkdown
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -67,7 +70,7 @@ client.once(Events.ClientReady, async c => {
       messages: messages.reverse().map(m => {
         const { createdTimestamp, cleanContent, author } = m
         return {
-          content: cleanContent,
+          content: toHTML(cleanContent),
           authorID: author.id,
           authorName: author.username,
           authorAvatar: author.avatar,
