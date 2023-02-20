@@ -8,7 +8,7 @@ import classes from './index.module.scss'
 export default async () => {
   return (
     <div>
-      <Heading element="h1" as="h3" marginTop={false}>
+      <Heading element="h5" marginTop={false}>
         Latest build logs
       </Heading>
 

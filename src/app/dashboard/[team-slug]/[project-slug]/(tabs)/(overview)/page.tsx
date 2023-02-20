@@ -70,7 +70,7 @@ export default () => {
         }
       />
 
-      <Heading element="h3" className={classes.loadingHeader}>
+      <Heading element="h5" className={classes.consoleHeading}>
         Latest build logs
       </Heading>
 

@@ -9,11 +9,16 @@ export const ExtendedBackground: React.FC<{
   className?: string
 }> = ({ lowerChildren, upperChildren, pixels, className }) => {
   return (
-    <div className={[classes.container, className].filter(Boolean).join(' ')}>
+    <div
+      className={[classes.container, pixels && classes.withPixels, className]
+        .filter(Boolean)
+        .join(' ')}
+    >
       <div className={classes.backgroundContainer}>
         {upperChildren}
 
         <div
+          data-component="top-background"
           className={[classes.extendedBackground, classes.upperBackground]
             .filter(Boolean)
             .join(' ')}
@@ -25,6 +30,7 @@ export const ExtendedBackground: React.FC<{
           {lowerChildren}
 
           <div
+            data-component="bottom-background"
             className={[classes.extendedBackground, classes.lowerBackground]
               .filter(Boolean)
               .join(' ')}
@@ -33,7 +39,10 @@ export const ExtendedBackground: React.FC<{
       )}
 
       {pixels && (
-        <div className={[classes.extendedBackground, classes.pixels].filter(Boolean).join(' ')} />
+        <div
+          data-component="pixels"
+          className={[classes.extendedBackground, classes.pixels].filter(Boolean).join(' ')}
+        />
       )}
     </div>
   )

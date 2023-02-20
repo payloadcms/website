@@ -1,4 +1,33 @@
 .dbActions {
   display: flex;
-  gap: var(--base)
+  gap: var(--base);
+}
+
+.backupHeader {
+  padding-top: calc(var(--base) * 2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.backupCount {
+  margin: 0;
+}
+
+.backupsList {
+  .backup:nth-child(even) {
+    [data-component="top-background"] {
+      background-color: transparent
+    }
+  }
+}
+
+.backupActions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.actionsContainer {
+  display: flex;
+  gap: var(--base);
 }

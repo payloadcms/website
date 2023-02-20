@@ -3,7 +3,10 @@
 .container {
   position: relative;
   --pixel-extension: calc(var(--base) * 2.5);
-  margin-bottom: var(--pixel-extension);
+  
+  &.withPixels {
+    margin-bottom: var(--pixel-extension);
+  }
 
   .backgroundContainer {
     position: relative;

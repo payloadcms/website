@@ -1,11 +1,63 @@
+'use client'
+
 import * as React from 'react'
+import { Secret } from '@forms/fields/Secret'
+import Form from '@forms/Form'
+import Submit from '@forms/Submit'
 
-export default async () => {
-  // fetch env vars from project
-  // const test = await fetch(
-  //   `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/63e5688f6b11118ab57942b3/env`,
-  // )
-  // const val = await test.json()
+import { Button } from '@components/Button'
+import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 
-  return <div>File storage</div>
+import classes from './index.module.scss'
+
+export default () => {
+  return (
+    <div>
+      <ExtendedBackground
+        pixels
+        upperChildren={
+          <Form className={classes.form}>
+            <Secret
+              label="S3 Endpoint"
+              path="s3Endpoint"
+              className={classes.secretInput}
+              loadSecret={() => Promise.resolve('some-secret')}
+            />
+
+            <Secret
+              label="S3 Access Key"
+              path="s3AccessKey"
+              className={classes.secretInput}
+              loadSecret={() => Promise.resolve('s3-access-key')}
+            />
+
+            <Secret
+              label="S3 Secret Access"
+              path="s3SecretAccess"
+              className={classes.secretInput}
+              loadSecret={() => Promise.resolve('some-secret')}
+            />
+
+            <Secret
+              label="S3 Bucket"
+              path="s3Bucket"
+              className={classes.secretInput}
+              loadSecret={() => Promise.resolve('some-secret')}
+            />
+
+            <Secret
+              label="S3 Region"
+              path="s3Region"
+              className={classes.secretInput}
+              loadSecret={() => Promise.resolve('some-secret')}
+            />
+
+            <div>
+              <Submit label="Update" />
+            </div>
+          </Form>
+        }
+      />
+    </div>
+  )
 }
