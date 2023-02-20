@@ -15,10 +15,12 @@ export const useGetInstalls = (): {
   error: string | undefined
   loading: boolean
   installs: Install[]
+  reloadInstalls: () => void
 } => {
   const [error, setError] = React.useState<string | undefined>()
   const [loading, setLoading] = React.useState(true)
   const [installs, setInstalls] = React.useState<Install[]>([])
+  const [loadTicker, dispatchLoadTicker] = React.useReducer((state: number) => state + 1, 0)
   const { user } = useAuth()
 
   useEffect(() => {
@@ -56,11 +58,12 @@ export const useGetInstalls = (): {
 
       getInstalls()
     }
-  }, [user])
+  }, [user, loadTicker])
 
   return {
     installs,
     error,
     loading,
+    reloadInstalls: dispatchLoadTicker,
   }
 }

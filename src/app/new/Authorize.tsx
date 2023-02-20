@@ -5,21 +5,29 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { usePopup } from '@root/utilities/use-popup'
 
 import classes from './Authorize.module.scss'
 
-export const Authorize: React.FC = () => {
+const href = `https://github.com/login/oauth/authorize?client_id=${
+  process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
+}&redirect_uri=${encodeURIComponent(
+  process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
+)}&state=${encodeURIComponent(`/new/import`)}`
+
+export const Authorize: React.FC<{
+  onAuthorize: (code: string) => void // eslint-disable-line no-unused-vars
+}> = props => {
+  const { onAuthorize } = props
+  const { openPopup } = usePopup({
+    href,
+    eventType: 'github-oauth',
+    onMessage: ({ code }) => onAuthorize(code),
+  })
+
   return (
     <Gutter>
-      <a
-        className={classes.ghLink}
-        href={`https://github.com/login/oauth/authorize?client_id=${
-          process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
-        }&redirect_uri=${encodeURIComponent(
-          process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
-        )}&state=${encodeURIComponent(`/new/import`)}`}
-        type="button"
-      >
+      <a className={classes.ghLink} href={href} type="button" onClick={openPopup}>
         <GitHubIcon className={classes.ghIcon} />
         <Heading element="h2" as="h6" margin={false} className={classes.ghTitle}>
           Continue with GitHub

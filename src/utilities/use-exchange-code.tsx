@@ -1,87 +1,52 @@
-import React, { useEffect, useRef } from 'react'
-import { useSearchParams } from 'next/navigation'
+import React, { useCallback, useRef } from 'react'
 
 import { useAuth } from '@root/providers/Auth'
 
 export const useExchangeCode = (): {
   error: string
   hasExchangedCode: boolean
+  exchangeCode: (code?: string) => void // eslint-disable-line no-unused-vars
 } => {
-  const params = useSearchParams()
   const { user } = useAuth()
   const hasRequestedGithub = useRef(false)
   const [error, setError] = React.useState('')
   const [hasExchangedCode, setHasExchangedCode] = React.useState(false)
 
-  useEffect(() => {
-    const code = params.get('code')
+  const exchangeCode = useCallback(
+    (code: string) => {
+      if (user && code && !hasRequestedGithub.current) {
+        hasRequestedGithub.current = true
 
-    if (user && code && !hasRequestedGithub.current) {
-      hasRequestedGithub.current = true
+        const doExchange = async () => {
+          try {
+            const res = await fetch(
+              `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/exchange-code?code=${code}`,
+              {
+                method: 'GET',
+                credentials: 'include',
+              },
+            )
 
-      const exchangeCode = async () => {
-        try {
-          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/exchange-code?code=${code}`,
-            {
-              method: 'GET',
-              credentials: 'include',
-            },
-          )
+            const body = await res.json()
 
-          const body = await res.json()
+            if (res.ok) {
+              setHasExchangedCode(true)
 
-          if (res.ok) {
-            setHasExchangedCode(true)
-
-            // do more async stuff
-          } else {
-            setError(`Unable to authorize GitHub: ${body.error}`)
+              // do more async stuff
+            } else {
+              setError(`Unable to authorize GitHub: ${body.error}`)
+            }
+          } catch (err) {
+            console.error(err)
+            setError(err.message)
           }
-        } catch (err) {
-          console.error(err)
-          setError(err.message)
         }
+
+        doExchange()
       }
+    },
+    [user],
+  )
 
-      exchangeCode()
-    }
-  }, [user, params])
-
-  useEffect(() => {
-    const code = params.get('code')
-
-    if (user && code && !hasRequestedGithub.current) {
-      hasRequestedGithub.current = true
-
-      const exchangeCode = async () => {
-        try {
-          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/exchange-code?code=${code}`,
-            {
-              method: 'GET',
-              credentials: 'include',
-            },
-          )
-
-          const body = await res.json()
-
-          if (res.ok) {
-            setHasExchangedCode(true)
-
-            // do more async stuff
-          } else {
-            setError(`Unable to authorize GitHub: ${body.error}`)
-          }
-        } catch (err) {
-          console.error(err)
-          setError(err.message)
-        }
-      }
-
-      exchangeCode()
-    }
-  }, [user, params])
-
-  return { error, hasExchangedCode }
+  return { error, hasExchangedCode, exchangeCode }
 }

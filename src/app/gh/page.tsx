@@ -1,4 +1,8 @@
-import { redirect } from 'next/navigation'
+'use client'
+
+import { useEffect } from 'react'
+
+import { PopupMessage } from '@root/utilities/use-popup'
 
 export default ({
   searchParams: {
@@ -6,9 +10,16 @@ export default ({
     code,
   },
 }) => {
-  const url = new URL(state, process.env.NEXT_PUBLIC_SITE_URL)
-  url.searchParams.delete('state')
-  url.searchParams.append('code', code)
+  useEffect(() => {
+    if (window.opener == null) window.close()
+    const message: PopupMessage = {
+      type: 'github-oauth',
+      payload: { code, state },
+    }
 
-  redirect(url.href)
+    window.opener.postMessage(message)
+    window.close()
+  }, [code, state])
+
+  return null
 }

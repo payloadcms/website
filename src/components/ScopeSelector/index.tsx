@@ -6,21 +6,25 @@ import { LoadingShimmer } from '@components/LoadingShimmer'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import useDebounce from '@root/utilities/use-debounce'
 import { Install, useGetInstalls } from '@root/utilities/use-get-installs'
+import { usePopup } from '@root/utilities/use-popup'
 
 import classes from './index.module.scss'
 
+const href = `https://github.com/apps/payload-cms/installations/new?client_id=${
+  process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
+}&redirect_uri=${encodeURIComponent(
+  process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
+)}&state=${encodeURIComponent(`/new/import`)}`
+
 const SelectMenuButton = props => {
+  const {
+    selectProps: { selectProps },
+  } = props
+
   return (
     <components.MenuList {...props}>
       {props.children}
-      <a
-        className={classes.addAccountButton}
-        href={`https://github.com/apps/payload-cms/installations/new?client_id=${
-          process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
-        }&redirect_uri=${encodeURIComponent(
-          process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
-        )}&state=${encodeURIComponent(`/new/import`)}`}
-      >
+      <a className={classes.addAccountButton} href={href} onClick={selectProps?.openPopup}>
         Add GitHub Account
       </a>
     </components.MenuList>
@@ -60,7 +64,18 @@ export const ScopeSelector: React.FC<{
   const hasInitializedSelection = React.useRef(false)
   const [selectedInstall, setSelectedInstall] = React.useState<Install | undefined>(undefined)
 
-  const { error: installsError, loading: installsLoading, installs } = useGetInstalls()
+  const {
+    error: installsError,
+    loading: installsLoading,
+    installs,
+    reloadInstalls,
+  } = useGetInstalls()
+
+  const { openPopup } = usePopup({
+    href,
+    eventType: 'github-oauth',
+    onMessage: reloadInstalls,
+  })
 
   useEffect(() => {
     if (installs.length && !hasInitializedSelection.current) {
@@ -103,6 +118,9 @@ export const ScopeSelector: React.FC<{
                   },
                 ]),
           ]}
+          selectProps={{
+            openPopup,
+          }}
           components={{
             MenuList: SelectMenuButton,
             Option,
