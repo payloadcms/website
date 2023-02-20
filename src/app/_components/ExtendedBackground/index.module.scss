@@ -1,5 +1,14 @@
+@use '@scss/common.scss' as *;
+
 .container {
   position: relative;
+  --pixel-extension: calc(var(--base) * 2.5);
+  margin-bottom: var(--pixel-extension);
+
+  .backgroundContainer {
+    position: relative;
+    padding: calc(var(--base) * 1.5) 0;
+  }
 
   .extendedBackground {
     position: absolute;
@@ -7,14 +16,39 @@
     width: 100%;
     height: 100%;
     z-index: -1;
-    left: calc(-1 * var(--extension));
-    width: calc(100% + var(--extension) * 2);
+    left: calc(-1 * var(--bg-extension) / 2);
+    width: calc(100% + var(--bg-extension));
+    
+    &.upperBackground,
+    &.lowerBackground {
+      --bg-extension: calc(var(--gutter-h) * 0.5);
 
-    &.size--s {
-      --extension: calc(var(--gutter-h) * 0.25);
+      @include large-break {
+        --bg-extension: calc(var(--gutter-h) * .75);
+      }
     }
-    &.size--l {
-      --extension: calc(var(--gutter-h) * 0.5);
+
+    &.upperBackground {
+      background-color: var(--theme-elevation-50);
+    }
+    &.lowerBackground {
+      background-color: var(--theme-bg);
+      border: 1px solid var(--theme-elevation-50);
+      border-top: 0;
+    }
+    &.pixels {
+      --bg-extension: calc(var(--gutter-h) * 1);
+      z-index: -2;
+      top: unset;
+      height: calc(100% - var(--base) * 1.5);
+      bottom: calc(-1 * var(--pixel-extension));
+      background-image: url('/images/dot.png');
+      background-repeat: repeat;
+      background-position: center;
+
+      @include large-break {
+        --bg-extension: calc(var(--gutter-h) * 1.5);
+      }
     }
   }
 }

@@ -1,34 +1,13 @@
 @use '@scss/common.scss' as *;
 
-.background {
-  padding: calc(var(--base) * 2) 0;
-
-  [data-component="extension"] {
-    background-color: var(--theme-elevation-50);
-  }
-}
-
-.lowerBackground {
-  padding: calc(var(--base)) 0;
+.reTriggerBackground {
   display: flex;
-  gap: calc(var(--base) * 2);
+  gap: calc(var(--base) * 1.5);
+  align-items: center;
 
-  > [data-component="extension"] {
-    background-color: var(--theme-bg);
-    border: 1px solid var(--theme-elevation-50);
-    border-top: 0;
-  }
-}
-
-
-.pixels {
-  > [data-component="extension"] {
-    z-index: -2;
-    height: 200%;
-    top: 50%;
-    transform: translateY(-50%);
-    background-image: url('/images/dot.png');
-    background-repeat: repeat;
+  @include mid-break {
+    gap: var(--base);
+    flex-direction: column-reverse;
   }
 }
 
@@ -53,4 +32,40 @@
       margin-right: calc(var(--base) * 0.5);
     }
   }
+}
+
+.detail {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.statusDetail {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * 0.5);
+
+  .statusIndicator {
+    border-radius: 100%;
+    width: 10px;
+    height: 10px;
+    position: relative;
+    
+    &.status--offline {
+      background-color: var(--theme-error-500);
+    }
+
+    &.status--online {
+      background-color: var(--theme-success-500);
+    }
+  }  
+}
+
+.loadingHeader {
+  padding-top: calc(var(--base) * 3);
+}
+
+.console {
+  background-color: unset;
 }

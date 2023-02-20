@@ -15,8 +15,8 @@ type Props = {
   href?: string
   className?: string
 }
-export const HeadingElement: React.FC<Partial<Props>> = props => {
-  const { element: Element = 'h1', children, id, className, margin } = props
+const HeadingElement: React.FC<Partial<Props>> = props => {
+  const { element: Element = 'h1', children, id, className = [], margin } = props
 
   return (
     <Element
@@ -33,7 +33,6 @@ export const Heading: React.FC<Props> = props => {
 
   const classList = [
     className,
-    classes.heading,
     as && classes[as],
     margin === false && classes.noMargin,
     marginTop === false && classes.noMarginTop,
