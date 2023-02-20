@@ -50,6 +50,7 @@ export const Select: React.FC<{
     [key: string]: React.FC<any>
   }
   selectProps?: any
+  value?: string | string[]
 }> = props => {
   const {
     path,
@@ -63,6 +64,7 @@ export const Select: React.FC<{
     isMulti,
     components,
     selectProps,
+    value: valueFromProps, // allow external control
   } = props
 
   const id = useId()
@@ -75,8 +77,6 @@ export const Select: React.FC<{
 
   const { value: valueFromContext, showError, setValue, errorMessage } = fieldFromContext
 
-  const valueFromContextOrProps = valueFromContext || initialValueFromProps
-
   const [internalState, setInternalState] = useState<Option | Option[]>(() => {
     const initialValue = valueFromContext || initialValueFromProps
     if (Array.isArray(initialValue)) {
@@ -86,35 +86,53 @@ export const Select: React.FC<{
     return options?.find(item => item.value === initialValue) || null
   })
 
+  const setFormattedValue = useCallback(
+    (incomingSelection: string | string[]) => {
+      let isDifferent = false
+      let differences
+
+      if (Array.isArray(incomingSelection) && Array.isArray(internalState)) {
+        const internalValues = internalState.map(item => item.value)
+        differences = incomingSelection.filter(x => internalValues.includes(x))
+        isDifferent = differences.length > 0
+      }
+
+      if (typeof incomingSelection === 'string' && typeof internalState === 'string') {
+        isDifferent = incomingSelection !== internalState
+      }
+
+      if (
+        typeof incomingSelection === 'string' &&
+        typeof internalState === 'object' &&
+        'value' in internalState
+      ) {
+        isDifferent = incomingSelection !== internalState.value
+      }
+
+      if (incomingSelection !== undefined && isDifferent) {
+        let newValue = null
+
+        if (Array.isArray(incomingSelection)) {
+          newValue = options?.filter(item => incomingSelection.find(x => x === item.value)) || []
+        }
+
+        if (typeof incomingSelection === 'string') {
+          newValue = options?.find(item => item.value === incomingSelection) || null
+        }
+
+        setInternalState(newValue)
+      }
+    },
+    [internalState, options],
+  )
+
   useEffect(() => {
-    let isDifferent = false
-    let differences
+    setFormattedValue(valueFromContext)
+  }, [valueFromContext, setFormattedValue])
 
-    if (Array.isArray(valueFromContextOrProps) && Array.isArray(internalState)) {
-      const internalValues = internalState.map(item => item.value)
-      differences = valueFromContextOrProps.filter(x => internalValues.includes(x))
-      isDifferent = differences.length > 0
-    }
-
-    if (typeof valueFromContextOrProps === 'string' && typeof internalState === 'string') {
-      isDifferent = valueFromContextOrProps !== internalState
-    }
-
-    if (valueFromContextOrProps !== undefined && isDifferent) {
-      let newValue = null
-
-      if (Array.isArray(valueFromContextOrProps)) {
-        newValue =
-          options?.filter(item => valueFromContextOrProps.find(x => x === item.value)) || []
-      }
-
-      if (typeof valueFromContextOrProps === 'string') {
-        newValue = options?.find(item => item.value === valueFromContextOrProps) || null
-      }
-
-      setInternalState(newValue)
-    }
-  }, [valueFromContextOrProps, internalState, options])
+  useEffect(() => {
+    setFormattedValue(valueFromProps)
+  }, [valueFromProps, setFormattedValue])
 
   const handleChange = useCallback(
     (incomingSelection: Option | Option[]) => {
