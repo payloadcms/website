@@ -92,11 +92,11 @@ export default () => {
 
       <ExtendedBackground
         upperChildren={
-          <code className={classes.console}>
+          <div className={classes.console}>
             {exampleLog.map((line, i) => (
-              <p key={i}>{line}</p>
+              <code key={i}>{line}</code>
             ))}
-          </code>
+          </div>
         }
       />
     </React.Fragment>

@@ -66,5 +66,8 @@
 }
 
 .console {
-  background-color: unset;
+  code {
+    background-color: unset;
+    display: block;
+  }
 }

@@ -48,11 +48,11 @@ export default async () => {
       <ExtendedBackground
         pixels
         upperChildren={
-          <code className={classes.console}>
+          <div className={classes.console}>
             {exampleLog.map((line, i) => (
-              <div key={i}>{line}</div>
+              <code key={i}>{line}</code>
             ))}
-          </code>
+          </div>
         }
       />
     </div>
