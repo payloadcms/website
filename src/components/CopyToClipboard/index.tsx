@@ -2,7 +2,8 @@ import * as React from 'react'
 
 import { TooltipButton } from '@components/TooltipButton'
 import Copy from '@root/icons/Copy'
-import useCopyToClipboard from '@root/utilities/use-copy-to-clipboard'
+
+import classes from './index.module.scss'
 
 type CopyToClipboardProps = {
   value: (() => Promise<string>) | string
@@ -11,13 +12,19 @@ type CopyToClipboardProps = {
 export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ value, className }) => {
   const [copied, setCopied] = React.useState(false)
   const [showTooltip, setShowTooltip] = React.useState(false)
-  const [, copyTextFn] = useCopyToClipboard()
+  const ref = React.useRef<any>(null)
 
   const copy = React.useCallback(async () => {
-    const valueToCopy = typeof value === 'string' ? value : await value()
-    copyTextFn(valueToCopy)
-    setCopied(true)
-  }, [value, copyTextFn])
+    if (ref && ref.current) {
+      const copyValue = typeof value === 'string' ? value : await value()
+      ref.current.value = copyValue
+      ref.current.select()
+      ref.current.setSelectionRange(0, copyValue.length + 1)
+      document.execCommand('copy')
+
+      setCopied(true)
+    }
+  }, [value])
 
   React.useEffect(() => {
     if (copied && !showTooltip) {
@@ -36,6 +43,8 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ value, classNa
       className={className}
     >
       <Copy />
+
+      <textarea className={classes.copyTextarea} tabIndex={-1} readOnly ref={ref} />
     </TooltipButton>
   )
 }
