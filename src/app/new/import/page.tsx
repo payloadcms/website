@@ -14,7 +14,7 @@ import { ImportProject } from './ImportProject'
 import classes from './index.module.scss'
 
 const ProjectFromImport: React.FC = () => {
-  const { error: exchangeError, hasExchangedCode } = useExchangeCode()
+  const { error: exchangeError, hasExchangedCode, exchangeCode } = useExchangeCode()
 
   const {
     tokenIsValid,
@@ -46,7 +46,7 @@ const ProjectFromImport: React.FC = () => {
         {loading && <LoadingShimmer number={3} />}
         {exchangeError && <p>{exchangeError}</p>}
       </Gutter>
-      {!loading && (error || !tokenIsValid) && <Authorize />}
+      {!loading && (error || !tokenIsValid) && <Authorize onAuthorize={exchangeCode} />}
       {!loading && !error && tokenIsValid && <ImportProject />}
     </Fragment>
   )

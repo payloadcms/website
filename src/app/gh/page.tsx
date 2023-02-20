@@ -1,4 +1,6 @@
-import { redirect } from 'next/navigation'
+'use client'
+
+import { useEffect } from 'react'
 
 export default ({
   searchParams: {
@@ -6,9 +8,11 @@ export default ({
     code,
   },
 }) => {
-  const url = new URL(state, process.env.NEXT_PUBLIC_SITE_URL)
-  url.searchParams.delete('state')
-  url.searchParams.append('code', code)
+  useEffect(() => {
+    if (window.opener == null) window.close()
+    window.opener.postMessage(code)
+    window.close()
+  }, [code, state])
 
-  redirect(url.href)
+  return null
 }
