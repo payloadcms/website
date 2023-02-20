@@ -13,6 +13,18 @@ import { useRouteData } from '../../../../context'
 
 import classes from './page.module.scss'
 
+const exampleLog = [
+  'Cloning your repo at https://xxx.com',
+  'Cloned successfully.',
+  'Running install command `yarn`.',
+  'Install complete.',
+  'Running build command `yarn build`.',
+  'Build complete.',
+  'Starting Node process...',
+  'Successfully started.',
+  'Build is live!',
+]
+
 export default () => {
   const { project } = useRouteData()
   const [status, setStatus] = React.useState('offline')
@@ -77,9 +89,9 @@ export default () => {
       <ExtendedBackground
         upperChildren={
           <code className={classes.console}>
-            Cloning your repo at https://xxx.com Cloned successfully. Running install command
-            `yarn`. Install complete. Running build command `yarn build`. Build complete. Starting
-            Node process... Successfully started. Build is live!
+            {exampleLog.map((line, i) => (
+              <p key={i}>{line}</p>
+            ))}
           </code>
         }
       />
