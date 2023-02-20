@@ -2,6 +2,8 @@
 
 import { useEffect } from 'react'
 
+import { PopupMessage } from '@root/utilities/use-popup'
+
 export default ({
   searchParams: {
     state, // the redirect URL, 'state' is the catch-all query param by the GitHub App API
@@ -10,7 +12,12 @@ export default ({
 }) => {
   useEffect(() => {
     if (window.opener == null) window.close()
-    window.opener.postMessage(code)
+    const message: PopupMessage = {
+      type: 'github-oauth',
+      payload: { code, state },
+    }
+
+    window.opener.postMessage(message)
     window.close()
   }, [code, state])
 

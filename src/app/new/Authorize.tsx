@@ -1,15 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { usePopup } from '@root/utilities/use-popup'
 
 import classes from './Authorize.module.scss'
 
 export const Authorize: React.FC<{
-  onAuthorize: (code?: string) => void // eslint-disable-line no-unused-vars
+  onAuthorize: (code: string) => void // eslint-disable-line no-unused-vars
 }> = props => {
   const { onAuthorize } = props
 
@@ -21,68 +22,15 @@ export const Authorize: React.FC<{
     )}&state=${encodeURIComponent(`/new/import`)}`,
   )
 
-  useEffect(() => {
-    const receiveMessage = (event: MessageEvent) => {
-      if (event.origin !== window.location.origin) {
-        console.warn(`Message received by ${event.origin}; IGNORED.`)
-        return
-      }
-
-      const code = event.data
-
-      if (typeof onAuthorize === 'function') {
-        onAuthorize(code)
-      }
-    }
-
-    window.addEventListener('message', receiveMessage, false)
-
-    return () => {
-      window.removeEventListener('message', receiveMessage)
-    }
-  }, [onAuthorize])
-
-  const handleClick = useCallback(
-    e => {
-      e.preventDefault()
-
-      const features = {
-        popup: 'yes',
-        width: 600,
-        height: 700,
-        top: 'auto',
-        left: 'auto',
-        toolbar: 'no',
-        menubar: 'no',
-      }
-
-      const popupOptions = Object.entries(features)
-        .reduce((str, [key, value]) => {
-          let strCopy = str
-          if (value === 'auto') {
-            if (key === 'top') {
-              const v = Math.round(window.innerHeight / 2 - features.height / 2)
-              strCopy += `top=${v},`
-            } else if (key === 'left') {
-              const v = Math.round(window.innerWidth / 2 - features.width / 2)
-              strCopy += `left=${v},`
-            }
-            return strCopy
-          }
-
-          strCopy += `${key}=${value},`
-          return strCopy
-        }, '')
-        .slice(0, -1) // remove last ',' (comma)
-
-      window.open(href, '_blank', popupOptions)
-    },
-    [href],
-  )
+  const { openPopup } = usePopup({
+    href,
+    eventType: 'github-oauth',
+    onMessage: ({ code }) => onAuthorize(code),
+  })
 
   return (
     <Gutter>
-      <a className={classes.ghLink} href={href} type="button" onClick={handleClick}>
+      <a className={classes.ghLink} href={href} type="button" onClick={openPopup}>
         <GitHubIcon className={classes.ghIcon} />
         <Heading element="h2" as="h6" margin={false} className={classes.ghTitle}>
           Continue with GitHub
