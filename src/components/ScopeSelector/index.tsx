@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from 'react'
 import { components } from 'react-select'
 import { Select } from '@forms/fields/Select'
+import { v4 as uuid } from 'uuid'
 
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { GitHubIcon } from '@root/graphics/GitHub'
@@ -10,11 +11,11 @@ import { usePopup } from '@root/utilities/use-popup'
 
 import classes from './index.module.scss'
 
-const href = `https://github.com/apps/payload-cms/installations/new?client_id=${
-  process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
-}&redirect_uri=${encodeURIComponent(
-  process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
-)}&state=${encodeURIComponent(`/new/import`)}`
+// generate an id to use for the state
+// this will be validated after the the redirect back
+const id = uuid()
+
+const href = `https://github.com/apps/payload-cms/installations/new?state=${id}`
 
 const SelectMenuButton = props => {
   const {
@@ -69,12 +70,20 @@ export const ScopeSelector: React.FC<{
     loading: installsLoading,
     installs,
     reloadInstalls,
-  } = useGetInstalls()
+  } = useGetInstalls({
+    onLoad: installations => {
+      setSelectedInstall(installations[0]) // use first because it's the most recent
+    },
+  })
 
   const { openPopup } = usePopup({
     href,
     eventType: 'github-oauth',
-    onMessage: reloadInstalls,
+    onMessage: searchParams => {
+      if (searchParams.state === id) {
+        reloadInstalls()
+      }
+    },
   })
 
   useEffect(() => {
@@ -98,6 +107,7 @@ export const ScopeSelector: React.FC<{
       {loading && <LoadingShimmer number={1} />}
       {!loading && (
         <Select
+          value={selectedInstall?.account?.login}
           initialValue={installs[0]?.account?.login}
           onChange={option => {
             if (Array.isArray(option)) return

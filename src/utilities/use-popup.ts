@@ -2,13 +2,13 @@ import { useCallback, useEffect } from 'react'
 
 export interface PopupMessage {
   type: string
-  payload: any // eslint-disable-line @typescript-eslint/no-explicit-any
+  searchParams: any // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 export const usePopup = (props: {
   href: string
   eventType?: string
-  onMessage?: (data: any) => void // eslint-disable-line no-unused-vars
+  onMessage?: (searchParams: any) => void // eslint-disable-line no-unused-vars
 }): {
   openPopup: (e: React.MouseEvent<HTMLAnchorElement>) => void
 } => {
@@ -22,7 +22,7 @@ export const usePopup = (props: {
       }
 
       if (typeof onMessage === 'function' && event.data?.type === eventType) {
-        onMessage(event.data?.payload)
+        onMessage(event.data?.searchParams)
       }
     }
 

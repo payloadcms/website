@@ -22,7 +22,7 @@ export const Authorize: React.FC<{
   const { openPopup } = usePopup({
     href,
     eventType: 'github-oauth',
-    onMessage: ({ code }) => onAuthorize(code),
+    onMessage: ({ searchParams: { code } }) => onAuthorize(code),
   })
 
   return (
