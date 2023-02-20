@@ -26,6 +26,10 @@
       @include large-break {
         --bg-extension: calc(var(--gutter-h) * .75);
       }
+
+      @include mid-break {
+        --bg-extension: calc(var(--gutter-h) * 1);
+      }
     }
 
     &.upperBackground {
@@ -48,6 +52,10 @@
 
       @include large-break {
         --bg-extension: calc(var(--gutter-h) * 1.5);
+      }
+
+      @include mid-break {
+        --bg-extension: calc(var(--gutter-h) * 2);
       }
     }
   }
