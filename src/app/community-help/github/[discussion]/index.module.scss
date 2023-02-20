@@ -1,5 +1,21 @@
 @use '@scss/common' as *;
 
+.wrap {
+  display: flex;
+
+  @include mid-break {
+    flex-direction: column-reverse;
+  }
+}
+
+.content {
+  margin-right: calc(var(--base) * 2);
+
+  @include mid-break {
+    margin: unset;
+  }
+}
+
 .title {
   @include h2;
   margin-top: 0;
@@ -75,13 +91,17 @@
   font-size: calc(var(--base) * 0.65);
 }
 
-.answerBody {
-  color: var(--color-success-400);
+.answerBody,
+.commentBody {
   overflow: hidden;
 
   & span {
     white-space: break-spaces !important;
   }
+}
+
+.answerBody {
+  color: var(--color-success-400);
 
   & a {
     color: var(--color-base-100);
