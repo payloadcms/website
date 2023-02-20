@@ -3,12 +3,7 @@
 .authorTag,
 .author {
   display: flex;
-  flex-direction: row;
   align-items: center;
-}
-
-.authorTag {
-  margin-bottom: var(--base);
 }
 
 .author {

@@ -68,9 +68,10 @@ client.once(Events.ClientReady, async c => {
         createdAt: info.createdTimestamp,
       },
       messages: messages.reverse().map(m => {
-        const { createdTimestamp, cleanContent, author } = m
+        const { createdTimestamp, cleanContent, author, attachments } = m
         return {
           content: toHTML(cleanContent),
+          fileAttachments: attachments,
           authorID: author.id,
           authorName: author.username,
           authorAvatar: author.avatar,

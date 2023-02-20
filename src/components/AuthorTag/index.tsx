@@ -10,9 +10,10 @@ export type Props = {
   image: string
   platform?: 'Github' | 'Discord'
   url?: string
+  comment?: boolean
 }
 
-const AuthorTag: React.FC<Props> = ({ author, className, date, image, platform, url }) => {
+const AuthorTag: React.FC<Props> = ({ author, className, date, image, platform, url, comment }) => {
   return (
     <div className={[classes.authorTag, className].filter(Boolean).join(' ')}>
       <a className={classes.author} href={url}>
@@ -25,7 +26,7 @@ const AuthorTag: React.FC<Props> = ({ author, className, date, image, platform, 
       {date && platform === 'Discord' && (
         <span className={classes.date}>{getSpecificDateTime(date)}</span>
       )}
-      {platform && <span className={classes.platform}>in {platform}</span>}
+      {platform && !comment && <span className={classes.platform}>in {platform}</span>}
     </div>
   )
 }
