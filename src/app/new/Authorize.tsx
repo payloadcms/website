@@ -16,13 +16,13 @@ const href = `https://github.com/login/oauth/authorize?client_id=${
 )}&state=${encodeURIComponent(`/new/import`)}`
 
 export const Authorize: React.FC<{
-  onAuthorize: (code: string) => void // eslint-disable-line no-unused-vars
+  onAuthorize: (searchParams: any) => void // eslint-disable-line no-unused-vars
 }> = props => {
   const { onAuthorize } = props
   const { openPopup } = usePopup({
     href,
     eventType: 'github-oauth',
-    onMessage: ({ searchParams: { code } }) => onAuthorize(code),
+    onMessage: onAuthorize,
   })
 
   return (

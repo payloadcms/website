@@ -9,16 +9,16 @@ export const useCreateDraftProject = ({
   templateID?: string
 }): {
   initiateProject: (repoName?: string) => void // eslint-disable-line no-unused-vars
-  isLoading: boolean
+  isSubmitting: boolean
   error: string
 } => {
   const [error, setError] = React.useState('')
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [isSubmitting, setIsSubmitting] = React.useState(false)
   const router = useRouter()
 
   const initiateProject = useCallback(
     async (repoName: string) => {
-      setIsLoading(true)
+      setIsSubmitting(true)
 
       try {
         const projectReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects`, {
@@ -42,12 +42,12 @@ export const useCreateDraftProject = ({
           router.push(`/dashboard/projects/${project.slug}`)
         } else {
           setError(projectErr)
-          setIsLoading(false)
+          setIsSubmitting(false)
         }
       } catch (err) {
         console.error(err)
         setError(err.message)
-        setIsLoading(false)
+        setIsSubmitting(false)
       }
     },
     [router, projectName, templateID],
@@ -55,7 +55,7 @@ export const useCreateDraftProject = ({
 
   return {
     initiateProject,
-    isLoading,
+    isSubmitting,
     error,
   }
 }
