@@ -27,6 +27,24 @@ type AuthContext = {
   forgotPassword: ForgotPassword
 }
 
+const USER = `
+  id
+  email
+  defaultTeam {
+    id
+    name
+    slug
+  }
+  teams {
+    team {
+      id
+      name
+      slug
+    }
+    roles
+  }
+`
+
 const Context = createContext({} as AuthContext)
 
 const CLOUD_CONNECTION_ERROR = 'An error occurred while attempting to connect to Cloud CMS.'
@@ -35,6 +53,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(undefined)
 
   const create = useCallback<Create>(async args => {
+    console.log(args)
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
         method: 'POST',
@@ -75,7 +94,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           query: `mutation {
               loginUser(email: "${args.email}", password: "${args.password}") {
                 user {
-                  email
+                  ${USER}
                 }
                 exp
               }
@@ -106,8 +125,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         },
         body: JSON.stringify({
           query: `mutation {
-              logoutUser
-            }`,
+            logoutUser
+          }`,
         }),
       })
 
@@ -134,7 +153,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             query: `query {
               meUser {
                 user {
-                  email
+                  ${USER}
                 }
                 exp
               }
@@ -169,7 +188,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           query: `mutation {
               forgotPasswordUser(email: "${args.email}") {
                 user {
-                  email
+                  ${USER}
                 }
                 exp
               }
@@ -201,7 +220,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           query: `mutation {
               resetPasswordUser(password: "${args.password}", passwordConfirm: "${args.passwordConfirm}", token: "${args.token}") {
                 user {
-                  email
+                  ${USER}
                 }
                 exp
               }

@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react'
 
 import { Project } from '@root/payload-cloud-types'
+import { useAuth } from '@root/providers/Auth'
 
 export const useCreateDraftProject = ({
   projectName,
@@ -15,11 +16,13 @@ export const useCreateDraftProject = ({
   isSubmitting: boolean
   error: string
 } => {
+  const { user } = useAuth()
   const [error, setError] = React.useState('')
   const [isSubmitting, setIsSubmitting] = React.useState(false)
 
   const initiateProject = useCallback(
     async (repoName: string) => {
+      setError('')
       setIsSubmitting(true)
 
       try {
@@ -32,19 +35,19 @@ export const useCreateDraftProject = ({
           body: JSON.stringify({
             name: projectName,
             repositoryName: repoName,
-            // owner: 'TEAM_ID', // TODO get this from the URL
+            team: typeof user.defaultTeam === 'string' ? user.defaultTeam : user.defaultTeam.id,
             template: templateID,
           }),
         })
 
-        const { doc: project, error: projectErr } = await projectReq.json()
+        const { doc: project, errors: projectErrs } = await projectReq.json()
 
         if (projectReq.ok) {
           if (typeof onSubmit === 'function') {
             onSubmit(project)
           }
         } else {
-          setError(projectErr)
+          setError(`Error creating project: ${projectErrs[0].message}`)
           setIsSubmitting(false)
         }
       } catch (err) {
@@ -53,7 +56,7 @@ export const useCreateDraftProject = ({
         setIsSubmitting(false)
       }
     },
-    [projectName, templateID, onSubmit],
+    [projectName, templateID, onSubmit, user],
   )
 
   return {

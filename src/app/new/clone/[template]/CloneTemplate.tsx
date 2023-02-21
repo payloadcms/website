@@ -1,9 +1,11 @@
+'use client'
+
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
 import { Text } from '@forms/fields/Text'
 import Label from '@forms/Label'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
@@ -21,6 +23,7 @@ export const CloneTemplate: React.FC<{
   const { template } = props
   const [name, setName] = React.useState('my-project')
   const [selectedInstall, setSelectedInstall] = React.useState<Install | undefined>(undefined)
+  const router = useRouter()
 
   const {
     initiateProject,
@@ -28,8 +31,8 @@ export const CloneTemplate: React.FC<{
     isSubmitting,
   } = useCreateDraftProject({
     projectName: name,
-    onSubmit: () => {
-      redirect(`/new/clone/configure`)
+    onSubmit: ({ id: draftProjectID }) => {
+      router.push(`/new/configure/${draftProjectID}`)
     },
   })
 
