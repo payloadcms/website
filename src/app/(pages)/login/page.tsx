@@ -8,7 +8,6 @@ import { Data } from '@forms/types'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
-// import { useGitHubAuthCallback } from '@components/GitHubAuth/useGitHubAuthCallback'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { useAuth } from '@root/providers/Auth'
@@ -19,15 +18,13 @@ const Login: React.FC = () => {
   const { user, login } = useAuth()
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
-
-  // const { loading: loadingGH, error: errorGH, code } = useGitHubAuthCallback()
+  const [redirectTo, setRedirectTo] = useState('/dashboard')
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
-    const state = params.get('state')
-    const code = params.get('code')
-    if (state === 'import') {
-      redirect(`/new/import?code=${code}`)
+    const redirectParam = params.get('redirect')
+    if (redirectParam) {
+      setRedirectTo(redirectParam)
     }
   }, [])
 
@@ -45,9 +42,8 @@ const Login: React.FC = () => {
 
         clearTimeout(loadingTimer)
 
-        if (loggedInUser) {
-          redirect('/dashboard')
-        } else {
+        if (!loggedInUser) {
+          clearTimeout(loadingTimer)
           setLoading(false)
           setError('Invalid email or password')
         }
@@ -63,19 +59,15 @@ const Login: React.FC = () => {
 
   if (user === undefined) return null
 
-  if (user) redirect('/dashboard')
+  if (user) redirect(redirectTo)
 
-  if (loading)
-    return (
-      <Gutter>
-        <div>Logging in...</div>
-      </Gutter>
-    )
+  const message = new URLSearchParams(window.location.search).get('message')
 
   return (
     <Gutter>
       <Heading marginTop={false}>Log in</Heading>
       {error && <div className={classes.error}>{error}</div>}
+      {message && <div className={classes.message}>{message}</div>}
       <Fragment>
         <div className={classes.leader}>
           {`Don't have an account? `}
@@ -85,7 +77,7 @@ const Login: React.FC = () => {
         <Form onSubmit={handleSubmit} className={classes.form}>
           <Text path="email" label="Email" required />
           <Text path="password" label="Password" type="password" required />
-          <Submit label="Log in" className={classes.submit} />
+          <Submit label="Log in" className={classes.submit} processing={loading} />
         </Form>
         <Link href="/recover-password">Forgot your password?</Link>
       </Fragment>

@@ -1,5 +1,3 @@
-'use client'
-
 import React, { Fragment } from 'react'
 import { TemplatesBlock } from '@blocks/TemplatesBlock'
 import Link from 'next/link'
@@ -7,22 +5,10 @@ import Link from 'next/link'
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
-import { useAuth } from '@root/providers/Auth'
 
 import classes from './index.module.scss'
 
 const NewProject: React.FC = () => {
-  const { user } = useAuth()
-
-  if (!user) {
-    return (
-      <Gutter>
-        <h1>Create an account to get started.</h1>
-        <Button label="Log in" href="/login" appearance="primary" />
-      </Gutter>
-    )
-  }
-
   return (
     <Fragment>
       <Gutter>

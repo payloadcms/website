@@ -1,12 +1,15 @@
 import React, { useCallback } from 'react'
-import { useRouter } from 'next/navigation'
+
+import { Project } from '@root/payload-cloud-types'
 
 export const useCreateDraftProject = ({
   projectName,
   templateID,
+  onSubmit,
 }: {
   projectName: string
   templateID?: string
+  onSubmit?: (project: Project) => void // eslint-disable-line no-unused-vars
 }): {
   initiateProject: (repoName?: string) => void // eslint-disable-line no-unused-vars
   isSubmitting: boolean
@@ -14,7 +17,6 @@ export const useCreateDraftProject = ({
 } => {
   const [error, setError] = React.useState('')
   const [isSubmitting, setIsSubmitting] = React.useState(false)
-  const router = useRouter()
 
   const initiateProject = useCallback(
     async (repoName: string) => {
@@ -38,8 +40,9 @@ export const useCreateDraftProject = ({
         const { doc: project, error: projectErr } = await projectReq.json()
 
         if (projectReq.ok) {
-          // TODO: make this route real
-          router.push(`/dashboard/projects/${project.slug}`)
+          if (typeof onSubmit === 'function') {
+            onSubmit(project)
+          }
         } else {
           setError(projectErr)
           setIsSubmitting(false)
@@ -50,7 +53,7 @@ export const useCreateDraftProject = ({
         setIsSubmitting(false)
       }
     },
-    [router, projectName, templateID],
+    [projectName, templateID, onSubmit],
   )
 
   return {

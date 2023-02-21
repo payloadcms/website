@@ -3,6 +3,7 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
 import { Text } from '@forms/fields/Text'
 import Label from '@forms/Label'
+import { redirect } from 'next/navigation'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
@@ -27,6 +28,9 @@ export const CloneTemplate: React.FC<{
     isSubmitting,
   } = useCreateDraftProject({
     projectName: name,
+    onSubmit: () => {
+      redirect(`/new/clone/configure`)
+    },
   })
 
   return (
