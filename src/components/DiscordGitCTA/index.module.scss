@@ -4,6 +4,7 @@
   position: sticky;
   min-width: 400px;
   height: fit-content;
+  top: var(--page-padding-top);
 }
 
 .cta {
@@ -50,7 +51,7 @@
 
   .cta {
     width: fit-content;
-    padding: 0;
+    padding: var(--base) 0 0 0;
     border: none;
 
     &:first-child {

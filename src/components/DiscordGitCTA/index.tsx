@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import GitHubButton from 'react-github-btn'
 import { useTheme } from '@providers/Theme'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
@@ -33,9 +32,9 @@ const DiscordGitCTA: React.FC = () => {
             Star
           </GitHubButton>
         </div>
-        <Link href={gitURL} className={classes.arrow}>
+        <a href={gitURL} aria-label="Visit Payload CMS on GitHub" className={classes.arrow}>
           <ArrowIcon />
-        </Link>
+        </a>
       </div>
 
       <div className={classes.cta}>
@@ -44,14 +43,21 @@ const DiscordGitCTA: React.FC = () => {
           <br />
           Payload Community
         </div>
-        <img
-          alt="Discord"
-          className={classes.discordButton}
-          src="https://img.shields.io/discord/967097582721572934?label=Discord&color=5865F2&style=flat-square"
-        />
-        <Link href={discordURL} className={classes.arrow}>
+
+        <a href={discordURL} aria-label="Connect with the Payload Community on Discord">
+          <img
+            alt="Discord"
+            className={classes.discordButton}
+            src="https://img.shields.io/discord/967097582721572934?label=Discord&color=5865F2&style=flat-square"
+          />
+        </a>
+        <a
+          href={discordURL}
+          aria-label="Visit the Payload CMS server on Discord"
+          className={classes.arrow}
+        >
           <ArrowIcon />
-        </Link>
+        </a>
       </div>
     </div>
   )

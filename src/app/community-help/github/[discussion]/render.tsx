@@ -72,10 +72,12 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
               platform="Github"
             />
             <div className={classes.upvotes}>
-              <ArrowIcon rotation={-45} /> {upvotes}
-            </div>
-            <div className={classes.commentsCount}>
-              <CommentsIcon /> {commentTotal}
+              <span>
+                <ArrowIcon rotation={-45} /> {upvotes}
+              </span>
+              <span>
+                <CommentsIcon /> {commentTotal}
+              </span>
             </div>
           </div>
 

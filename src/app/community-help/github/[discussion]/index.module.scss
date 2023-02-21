@@ -7,40 +7,30 @@
 
 .wrap {
   display: flex;
-  overflow: hidden;
-
-  @include mid-break {
-    flex-direction: column-reverse;
-  }
 }
 
 .content {
   margin-right: calc(var(--base) * 8);
-  flex-shrink: 1;
-
-  @include mid-break {
-    margin: unset;
-  }
 }
 
 .details {
   display: flex;
 }
 
-.upvotes,
-.commentsCount {
+.upvotes {
   display: flex;
   align-items: center;
   color: var(--color-base-300);
+  margin-left: auto;
 
   & svg {
     width: calc(var(--base) * .75);
     margin-right: calc(var(--base) * .35);
   }
-}
 
-.upvotes {
-  padding: 0 var(--base);
+  & span:first-child {
+    padding-right: var(--base);
+  }
 }
 
 .comments {
@@ -58,11 +48,17 @@
 
 .hasReplies {
   margin: 0;
+
+
+  .body {
+    margin-bottom: var(--base);
+  }
 }
 
 .reply {
   border-top: none;
   margin: 0;
+  background-color: var(--color-base-850);
 
   &:last-child {
     margin-bottom: var(--base);
@@ -72,6 +68,7 @@
 .replyCount {
   font-size: calc(var(--base) * 0.85);
   color: var(--color-base-500);
+  padding-top: var(--base);
 }
 
 .answer {
@@ -114,6 +111,12 @@
 .body {
   margin-top: var(--base);
 
+  &>* {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
   & span,
   & pre {
     white-space: break-spaces !important;
@@ -141,5 +144,23 @@
 
   & h6 {
     font-size: calc(var(--base) * 1.15);
+  }
+}
+
+@include mid-break {
+  .wrap {
+    flex-direction: column-reverse;
+  }
+
+  .content {
+    margin: 0;
+  }
+
+  .details {
+    flex-wrap: wrap;
+  }
+
+  .comment {
+    padding: var(--base);
   }
 }
