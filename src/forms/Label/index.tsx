@@ -23,7 +23,6 @@ const Label: React.FC<Props> = props => {
       return (
         <div className={classes.labelWithActions}>
           <LabelOnly {...props} />
-
           <div className={classes.actions}>{actionsSlot}</div>
         </div>
       )

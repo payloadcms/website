@@ -1,5 +1,7 @@
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import Label from '@forms/Label'
+import { useRouter } from 'next/navigation'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
@@ -13,6 +15,7 @@ import classes from './index.module.scss'
 
 export const ImportProject: React.FC = () => {
   const [selectedInstall, setSelectedInstall] = React.useState<Install | undefined>(undefined)
+  const router = useRouter()
 
   const {
     initiateProject,
@@ -20,6 +23,9 @@ export const ImportProject: React.FC = () => {
     isSubmitting,
   } = useCreateDraftProject({
     projectName: 'New project from import',
+    onSubmit: ({ id: draftProjectID }) => {
+      router.push(`/new/configure/${draftProjectID}`)
+    },
   })
 
   const {
@@ -32,11 +38,11 @@ export const ImportProject: React.FC = () => {
 
   return (
     <Gutter>
-      {createError && <p>{createError}</p>}
+      {createError && <p className={classes.error}>{createError}</p>}
       <Grid>
         <Cell cols={4} colsM={8} className={classes.sidebar}>
           <div>
-            <p className={classes.label}>GitHub Scope</p>
+            <Label label="GitHub Scope" required htmlFor="" />
             <ScopeSelector onChange={setSelectedInstall} />
           </div>
           {/* <div>
@@ -56,7 +62,7 @@ export const ImportProject: React.FC = () => {
         <Cell cols={8} colsM={8}>
           {reposError && <p>{reposError}</p>}
           {loadingRepos && <LoadingShimmer number={3} />}
-          {!loadingRepos && repos?.length > 0 && (
+          {!loadingRepos && !isSubmitting && repos?.length > 0 && (
             <div className={classes.repos}>
               {repos?.map(repo => {
                 const { name } = repo

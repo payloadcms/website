@@ -12,9 +12,9 @@
     }
 }
 
-.label {
-    @include label;
-    color: var(--theme-elevation-500);
+.error {
+    margin-top: var(--base);
+    color: var(--theme-error-500);
 }
 
 .repos {

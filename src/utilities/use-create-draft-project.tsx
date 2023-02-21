@@ -1,23 +1,28 @@
 import React, { useCallback } from 'react'
-import { useRouter } from 'next/navigation'
+
+import { Project } from '@root/payload-cloud-types'
+import { useAuth } from '@root/providers/Auth'
 
 export const useCreateDraftProject = ({
   projectName,
   templateID,
+  onSubmit,
 }: {
   projectName: string
   templateID?: string
+  onSubmit?: (project: Project) => void // eslint-disable-line no-unused-vars
 }): {
   initiateProject: (repoName?: string) => void // eslint-disable-line no-unused-vars
   isSubmitting: boolean
   error: string
 } => {
+  const { user } = useAuth()
   const [error, setError] = React.useState('')
   const [isSubmitting, setIsSubmitting] = React.useState(false)
-  const router = useRouter()
 
   const initiateProject = useCallback(
     async (repoName: string) => {
+      setError('')
       setIsSubmitting(true)
 
       try {
@@ -30,18 +35,19 @@ export const useCreateDraftProject = ({
           body: JSON.stringify({
             name: projectName,
             repositoryName: repoName,
-            // owner: 'TEAM_ID', // TODO get this from the URL
+            team: typeof user.defaultTeam === 'string' ? user.defaultTeam : user.defaultTeam.id,
             template: templateID,
           }),
         })
 
-        const { doc: project, error: projectErr } = await projectReq.json()
+        const { doc: project, errors: projectErrs } = await projectReq.json()
 
         if (projectReq.ok) {
-          // TODO: make this route real
-          router.push(`/dashboard/projects/${project.slug}`)
+          if (typeof onSubmit === 'function') {
+            onSubmit(project)
+          }
         } else {
-          setError(projectErr)
+          setError(`Error creating project: ${projectErrs[0].message}`)
           setIsSubmitting(false)
         }
       } catch (err) {
@@ -50,7 +56,7 @@ export const useCreateDraftProject = ({
         setIsSubmitting(false)
       }
     },
-    [router, projectName, templateID],
+    [projectName, templateID, onSubmit, user],
   )
 
   return {

@@ -26,13 +26,21 @@
 .templates {
     position: relative;
     display: flex;
-    width: 100%;
     width: calc(100% + (var(--base) * 2));
     left: calc(var(--base) * -1);
     padding: calc(var(--base) * 2) 0;
+
+    @include mid-break {
+        flex-wrap: wrap;
+    }
 }
 
 .card {
     width: 33.33%;
     margin: calc(var(--base) * 1);
+
+    @include mid-break {
+        width: 100%;
+        margin: calc(var(--base) * 0.5);
+    }
 }

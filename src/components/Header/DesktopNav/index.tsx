@@ -27,33 +27,25 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
               return <CMSLink className={classes.navItem} key={index} {...item.link} />
             })}
           </div>
-          {!user && (
-            <React.Fragment>
-              <div className={classes.github}>
-                <div className={classes.githubText}>Like what we’re doing? Star us on GitHub!</div>
-                <iframe
-                  className={classes.stars}
-                  src="https://ghbtns.com/github-btn.html?user=payloadcms&repo=payload&type=star&count=true"
-                  frameBorder="0"
-                  scrolling="0"
-                  width="108"
-                  height="20"
-                  title="GitHub Stars"
-                />
-              </div>
-              <div className={classes.icons}>
-                <Link href="/login">Log in</Link>
-                <DocSearch />
-              </div>
-            </React.Fragment>
-          )}
-          {user && (
-            <div className={classes.authNav}>
+          <React.Fragment>
+            <div className={classes.github}>
+              <div className={classes.githubText}>Like what we’re doing? Star us on GitHub!</div>
+              <iframe
+                className={classes.stars}
+                src="https://ghbtns.com/github-btn.html?user=payloadcms&repo=payload&type=star&count=true"
+                frameBorder="0"
+                scrolling="0"
+                width="108"
+                height="20"
+                title="GitHub Stars"
+              />
+            </div>
+            <div className={classes.icons}>
               <Link href="/new">New project</Link>
-              <Avatar />
+              {user && <Avatar />}
               <DocSearch />
             </div>
-          )}
+          </React.Fragment>
         </Cell>
       </Grid>
     </Gutter>
