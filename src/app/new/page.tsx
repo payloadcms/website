@@ -2,6 +2,7 @@
 
 import React, { Fragment } from 'react'
 import { TemplatesBlock } from '@blocks/TemplatesBlock'
+import Link from 'next/link'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
@@ -47,8 +48,11 @@ const NewProject: React.FC = () => {
         <div className={classes.callToAction}>
           <h6>Payload Cloud is the best way to deploy a Payload project.</h6>
           <p>
-            Get a quick-start with one of our pre-built templates, or deploy your own existing
-            Payload codebase.
+            {`Get a quick-start with one of our `}
+            <Link href="/new/templates">pre-built templates</Link>
+            {`, or deploy your own `}
+            <Link href="/new/clone">existing</Link>
+            {` Payload codebase.`}
           </p>
         </div>
       </Gutter>

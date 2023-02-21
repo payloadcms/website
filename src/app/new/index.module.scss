@@ -4,6 +4,10 @@
     width: 100%;
     display: flex;
     align-items: flex-end;
+
+    @include mid-break {
+        flex-wrap: wrap;
+    }
 }
 
 .description {
@@ -12,10 +16,23 @@
 
 .headerContent {
     flex-grow: 1;
+    
+    @include mid-break {
+        margin-bottom: var(--base);
+    }
 }
 
 .callToAction {
     @include shadow;
-    background-color: var(--theme-bg);
-    padding: calc(var(--base) * 2) 0;
+    background-color: var(--theme-elevation-150);
+    padding: calc(var(--base) * 2);
+    position: relative;
+    width: calc(100% + var(--gutter-h));
+    left: calc(var(--gutter-h) * -0.5);
+
+    @include mid-break {
+        padding: calc(var(--base) * 1.5);
+        width: calc(100% + (var(--gutter-h) * 2));
+        left: calc(var(--gutter-h) * -1);
+    }
 }

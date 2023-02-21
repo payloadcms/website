@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { TemplatesBlock } from '@blocks/TemplatesBlock'
+import Link from 'next/link'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
@@ -23,6 +24,11 @@ const ProjectFromTemplate: React.FC = () => {
             ]}
           />
           <h1>Create new from template</h1>
+          <p className={classes.description}>
+            {`Not seeing what you're looking for? `}
+            <Link href="/new/templates">See all of our templates</Link>
+            {'.'}
+          </p>
         </div>
       </Gutter>
       <TemplatesBlock />
