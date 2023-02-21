@@ -3,9 +3,8 @@
 .reTriggerBackground {
   display: flex;
   gap: calc(var(--base) * 1.5);
-  align-items: center;
 
-  @include mid-break {
+  @include small-break {
     gap: var(--base);
     flex-direction: column-reverse;
   }
@@ -67,5 +66,8 @@
 }
 
 .console {
-  background-color: unset;
+  code {
+    background-color: unset;
+    display: block;
+  }
 }

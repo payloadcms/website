@@ -40,7 +40,7 @@ export default () => {
               <p className={classes.detail}>alijweaefa.cloud.payloadcms.com</p>
             </Cell>
 
-            <Cell start={5} cols={3} startS={1} colsM={8}>
+            <Cell start={5} cols={3} startM={1} colsM={8}>
               <Label>Deployed At</Label>
               <p className={classes.detail}>January 24nd, 2023 4:20pm</p>
             </Cell>
@@ -59,26 +59,30 @@ export default () => {
           </Grid>
         }
         lowerChildren={
-          <div className={classes.reTriggerBackground}>
-            <Button
-              onClick={() => {
-                console.log('redeploy')
-              }}
-              label="Trigger Redeploy"
-              appearance="secondary"
-            />
+          <Grid>
+            <Cell className={classes.reTriggerBackground} start={1}>
+              <div>
+                <Button
+                  onClick={() => {
+                    console.log('redeploy')
+                  }}
+                  label="Trigger Redeploy"
+                  appearance="secondary"
+                />
+              </div>
 
-            <div className={classes.deployDetails}>
-              <div className={classes.iconAndLabel}>
-                <BranchIcon />
-                <p>main</p>
+              <div className={classes.deployDetails}>
+                <div className={classes.iconAndLabel}>
+                  <BranchIcon />
+                  <p>main</p>
+                </div>
+                <div className={classes.iconAndLabel}>
+                  <CommitIcon />
+                  <p>32rf343: some message</p>
+                </div>
               </div>
-              <div className={classes.iconAndLabel}>
-                <CommitIcon />
-                <p>32rf343: some message</p>
-              </div>
-            </div>
-          </div>
+            </Cell>
+          </Grid>
         }
       />
 
@@ -88,11 +92,11 @@ export default () => {
 
       <ExtendedBackground
         upperChildren={
-          <code className={classes.console}>
+          <div className={classes.console}>
             {exampleLog.map((line, i) => (
-              <p key={i}>{line}</p>
+              <code key={i}>{line}</code>
             ))}
-          </code>
+          </div>
         }
       />
     </React.Fragment>
