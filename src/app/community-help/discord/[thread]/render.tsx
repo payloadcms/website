@@ -1,19 +1,19 @@
 'use client'
 
 import React from 'react'
-import { Breadcrumbs } from '@components/Breadcrumbs'
 import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@providers/Theme'
 import { Gutter } from '@components/Gutter'
-import { CommentsIcon } from '@root/graphics/CommentsIcon'
 import AuthorTag from '@components/AuthorTag'
 import DiscordGitCTA from '@components/DiscordGitCTA'
+import OpenPost from '@components/OpenPost'
+import Link from 'next/link'
+import { CommentsIcon } from '@root/graphics/CommentsIcon'
+import { DownloadIcon } from '@root/graphics/DownloadIcon'
 
 import classes from './index.module.scss'
 
-// TODO: implement images into message content
 // TODO: add all CTAS
-// TODO: add in URLs to AuthorTag comp
 // TODO: style for mobile
 
 export type Attachments = {
@@ -33,6 +33,7 @@ export type ThreadProps = {
   info: {
     name: string
     id: string
+    guildId: string
     createdAt: Date
   }
   messageCount: number
@@ -59,53 +60,52 @@ export const RenderThread: React.FC<ThreadProps> = props => {
 
   const allMessagesExceptOriginal = messages.slice(1)
 
+  const postUrl = `https://discord.com/channels/${info.guildId}/${info.id}`
+
   const theme = useTheme()
 
   return (
     <HeaderObserver color={theme} pullUp>
-      <Gutter>
-        <Breadcrumbs
-          items={[
-            {
-              label: 'Community Help',
-              url: '/community-help',
-            },
-            {
-              label: 'Discord',
-              url: '/community-help/discord',
-            },
-          ]}
-        />
+      <Gutter className={classes.breadcrumbWrap}>
+        <Link className={classes.breadcrumb} href="/community-help">
+          Community Help
+        </Link>
       </Gutter>
       <Gutter className={classes.threadWrap}>
         <div className={classes.thread}>
-          <h1 className={classes.title}>{info.name}</h1>
-          <div className={classes.originalAuthorInfo}>
+          <h3 className={classes.title}>{info.name}</h3>
+          <div className={classes.authorDetails}>
             <AuthorTag
               author={author}
               image={authorAvatarImg}
               date={info.createdAt}
-              url=""
               platform="Discord"
             />
             <div className={classes.comments}>
               <CommentsIcon /> {messageCount}
             </div>
           </div>
+
           <div className={classes.content} dangerouslySetInnerHTML={{ __html: originalMessage }} />
+
           <ul className={classes.messageWrap}>
             {messages &&
               allMessagesExceptOriginal.map((message, i) => {
                 const selectedAvatar = `https://cdn.discordapp.com/avatars/${message.authorID}/${message.authorAvatar}.png?size=256`
                 const defaultAvatar = 'https://cdn.discordapp.com/embed/avatars/0.png'
                 const avatarImg = message.authorAvatar ? selectedAvatar : defaultAvatar
+
+                const hasFileAttachments =
+                  message.fileAttachments &&
+                  Array.isArray(message.fileAttachments) &&
+                  message.fileAttachments.length > 0
+
                 return (
                   <li className={classes.message} key={i}>
                     <AuthorTag
                       author={message.authorName}
                       image={avatarImg}
                       date={message.createdAtDate}
-                      url=""
                       platform="Discord"
                       comment
                     />
@@ -113,11 +113,31 @@ export const RenderThread: React.FC<ThreadProps> = props => {
                       className={classes.content}
                       dangerouslySetInnerHTML={{ __html: message.content }}
                     />
+                    {hasFileAttachments && (
+                      <div className={classes.attachmentWrap}>
+                        {message.fileAttachments.map((fileAttachment, x) => {
+                          return (
+                            <a
+                              key={x}
+                              className={classes.attachment}
+                              href={fileAttachment?.url}
+                              target="_blank"
+                            >
+                              <div className={classes.attachmentName}>{fileAttachment.name}</div>
+                              <DownloadIcon />
+                            </a>
+                          )
+                        })}
+                      </div>
+                    )}
                   </li>
                 )
               })}
           </ul>
+
+          <OpenPost url={postUrl} platform="Discord" />
         </div>
+
         <DiscordGitCTA />
       </Gutter>
     </HeaderObserver>

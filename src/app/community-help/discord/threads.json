@@ -3,6 +3,7 @@
     "info": {
       "name": "Replace relationship field `Edit` view to include image media within the drop down selection UI",
       "id": "1069998451263283271",
+      "guildId": "967097582721572934",
       "createdAt": 1675177910391
     },
     "messages": [
@@ -227,6 +228,7 @@
     "info": {
       "name": "Fill in default values on Doc creation",
       "id": "1072092158531739668",
+      "guildId": "967097582721572934",
       "createdAt": 1675677089103
     },
     "messages": [
@@ -261,6 +263,7 @@
     "info": {
       "name": "Handling graphql requests that include items the user can no longer access",
       "id": "1073220719506362428",
+      "guildId": "967097582721572934",
       "createdAt": 1675946159007
     },
     "messages": [
@@ -295,6 +298,7 @@
     "info": {
       "name": "looking to preview a page in the demo version is that possible?",
       "id": "1075261284192374784",
+      "guildId": "967097582721572934",
       "createdAt": 1676432667540
     },
     "messages": [
@@ -321,6 +325,7 @@
     "info": {
       "name": "Regex validation or custom validation",
       "id": "1068781663842205737",
+      "guildId": "967097582721572934",
       "createdAt": 1674887805663
     },
     "messages": [
@@ -355,6 +360,7 @@
     "info": {
       "name": "stripe example for subscription?",
       "id": "1074791954522583171",
+      "guildId": "967097582721572934",
       "createdAt": 1676320770627
     },
     "messages": [
@@ -421,6 +427,7 @@
     "info": {
       "name": "Deployment to Azure or Simple NGINX web host",
       "id": "1072970073851056181",
+      "guildId": "967097582721572934",
       "createdAt": 1675886400426
     },
     "messages": [
@@ -471,6 +478,7 @@
     "info": {
       "name": "GraphQL sorting based on numeric value",
       "id": "1065656685978468404",
+      "guildId": "967097582721572934",
       "createdAt": 1674142752881
     },
     "messages": [
@@ -564,6 +572,7 @@
     "info": {
       "name": "Remove \"field width\" in form builder plugin",
       "id": "1076205863762677822",
+      "guildId": "967097582721572934",
       "createdAt": 1676657872859
     },
     "messages": [
@@ -590,6 +599,7 @@
     "info": {
       "name": "GraphQL Playground loads but reports 500, no server logs.",
       "id": "1070272506105188442",
+      "guildId": "967097582721572934",
       "createdAt": 1675243250157
     },
     "messages": [
@@ -662,6 +672,7 @@
     "info": {
       "name": "Production deployment throws TypeError: Router.use() requires a middleware function",
       "id": "1070942828009627698",
+      "guildId": "967097582721572934",
       "createdAt": 1675403067353
     },
     "messages": [
@@ -720,6 +731,7 @@
     "info": {
       "name": "disable rest api and only use graphql",
       "id": "1069705268453187604",
+      "guildId": "967097582721572934",
       "createdAt": 1675108010162
     },
     "messages": [
@@ -778,6 +790,7 @@
     "info": {
       "name": "Hey there!",
       "id": "1075271142845194364",
+      "guildId": "967097582721572934",
       "createdAt": 1676435018026
     },
     "messages": [
@@ -820,6 +833,7 @@
     "info": {
       "name": "Is it safe to run two instances of Payload connected to the same database?",
       "id": "1068007652724047912",
+      "guildId": "967097582721572934",
       "createdAt": 1674703267032
     },
     "messages": [
@@ -1012,8 +1026,28 @@
   },
   {
     "info": {
+      "name": "Filesize error on upload",
+      "id": "1077535089828835358",
+      "guildId": "967097582721572934",
+      "createdAt": 1676974785049
+    },
+    "messages": [
+      {
+        "content": "how can i display the file size limit after admin uploads , currently it just shows me a error &quot;There was a problem uploading the file",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676974785049
+      }
+    ],
+    "messageCount": 0
+  },
+  {
+    "info": {
       "name": "Please Help me ./install.sh: line 3: node-waf: not found",
       "id": "1067821757697900626",
+      "guildId": "967097582721572934",
       "createdAt": 1674658946204
     },
     "messages": [
@@ -1070,6 +1104,7 @@
     "info": {
       "name": "Specify the name or path of upload",
       "id": "1077236038898044998",
+      "guildId": "967097582721572934",
       "createdAt": 1676903485751
     },
     "messages": [
@@ -1088,14 +1123,23 @@
         "authorName": "dribbens",
         "authorAvatar": "f5c79aff07b9e2b1df382d61c45cb9da",
         "createdAtDate": 1676913455813
+      },
+      {
+        "content": "Thank, this solution might work, but if i create hook on <strong>productMediaCollection</strong> then i cant have an access to  information about product from which i created a media 😦<br>so i cant provide a product title or something like that into hook<br><br>So i media collection hook dont knows from where it was edited last time or something like that",
+        "fileAttachments": [],
+        "authorID": "215833081158959105",
+        "authorName": "Daniq",
+        "authorAvatar": "f25eb1ea60f9c5b561fe3bc6ab380049",
+        "createdAtDate": 1676939180548
       }
     ],
-    "messageCount": 1
+    "messageCount": 2
   },
   {
     "info": {
       "name": "Is it possible to modify an image upload before uploading? (generating and adding QR to image)",
       "id": "1070287657034338314",
+      "guildId": "967097582721572934",
       "createdAt": 1675246862420
     },
     "messages": [
@@ -1250,6 +1294,7 @@
     "info": {
       "name": "How to run on local network? (I'm testing)",
       "id": "1072738989188063304",
+      "guildId": "967097582721572934",
       "createdAt": 1675831305549
     },
     "messages": [
@@ -1276,6 +1321,7 @@
     "info": {
       "name": "AWS DocumentDB SSH",
       "id": "1068507155621220352",
+      "guildId": "967097582721572934",
       "createdAt": 1674822357803
     },
     "messages": [
@@ -1302,6 +1348,7 @@
     "info": {
       "name": "Is it possible to query a 3 nested collection?",
       "id": "1076804860969754695",
+      "guildId": "967097582721572934",
       "createdAt": 1676800684922
     },
     "messages": [
@@ -1320,14 +1367,242 @@
         "authorName": "jacobsfletch",
         "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
         "createdAtDate": 1676901594479
+      },
+      {
+        "content": "Hello Jacob, thanks for responding. I am using your sample work name &quot;website-cms&quot; and I also found the same issue with your code.<br><br>This is the repo code:<br><a href=\"https://github.com/payloadcms/website-cms/blob/main/src/collections/Posts.ts\">https://github.com/payloadcms/website-cms/blob/main/src/collections/Posts.ts</a><br><br>Can you create a Post record and create a query for &quot;author.photo.alt&quot;? Because in my end, even if I puth depth in the query, it still shows nothing.<br><br><a href=\"http://localhost:9000/api/posts?where[author.photo.alt][equals]=test&amp;depth=3\">http://localhost:9000/api/posts?where[author.photo.alt][equals]=test&amp;depth=3</a><br><br>I&#x27;m suspecting that it is not allowed to query the 2nd nested collection, which in your code, the photo inside author which is under post.<br><br>That is the exact issue i&#x27;m facing in my own payloadcms app.",
+        "fileAttachments": [],
+        "authorID": "950202910095081473",
+        "authorName": "johnmadrigal_",
+        "authorAvatar": "b7ed475cf3de264fee113ff334d70ccb",
+        "createdAtDate": 1676931372619
+      },
+      {
+        "content": "Thanks for the description! Very helpful. That query <em>should</em> look like this: <code>https://cms.payloadcms.com/api/posts?where[author.photo.alt][equals]=Write%20for%20the%20Community%20Blog%20Image</code> but it appears to be broken at the moment 😢",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1676934708249
+      },
+      {
+        "content": "Go ahead and pull an issue in our repo if you&#x27;d like. We&#x27;ll get this patched up.",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1676934881417
+      },
+      {
+        "content": "Okay thanks, but is this working before? or we really don&#x27;t have feature like this?",
+        "fileAttachments": [],
+        "authorID": "950202910095081473",
+        "authorName": "johnmadrigal_",
+        "authorAvatar": "b7ed475cf3de264fee113ff334d70ccb",
+        "createdAtDate": 1676958469738
+      },
+      {
+        "content": "This was working before so once we fix the issue we&#x27;ll also write tests to prevent future regression.",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1676990423459
       }
     ],
-    "messageCount": 1
+    "messageCount": 6
+  },
+  {
+    "info": {
+      "name": "build /admin/styles.css",
+      "id": "1077593873221685369",
+      "guildId": "967097582721572934",
+      "createdAt": 1676988800102
+    },
+    "messages": [
+      {
+        "content": "how do I build the styles? I&#x27;m running build and serve and /admin/styles.css is not building!",
+        "fileAttachments": [],
+        "authorID": "864214921620357150",
+        "authorName": "ashermyers",
+        "authorAvatar": "2b9f48b9778d15aab581b59fa35712b2",
+        "createdAtDate": 1676988800102
+      },
+      {
+        "content": "@ashermyers Is there any relevant information here? <a href=\"https://payloadcms.com/docs/admin/customizing-css#customizing-css-and-scss\">https://payloadcms.com/docs/admin/customizing-css#customizing-css-and-scss</a>",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1676988997585
+      },
+      {
+        "content": "Have you defined a path for custom admin styles?",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1676989006909
+      },
+      {
+        "content": "I&#x27;m not trying to add custom styles, the existing admin/styles.css is not loading, I&#x27;m getting a 404 error<br>(Cannot GET /admin/styles.css)",
+        "fileAttachments": [],
+        "authorID": "864214921620357150",
+        "authorName": "ashermyers",
+        "authorAvatar": "2b9f48b9778d15aab581b59fa35712b2",
+        "createdAtDate": 1676989100567
+      },
+      {
+        "content": "Hmmm",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1676989159883
+      },
+      {
+        "content": "I&#x27;m running:<br>yarn copyfiles &amp;&amp; yarn build:payload &amp;&amp; yarn build:server<br>and <br>cross-env PAYLOAD_CONFIG_PATH=dist/payload.config.js NODE_ENV=production node dist/server.js",
+        "fileAttachments": [],
+        "authorID": "864214921620357150",
+        "authorName": "ashermyers",
+        "authorAvatar": "2b9f48b9778d15aab581b59fa35712b2",
+        "createdAtDate": 1676989190498
+      },
+      {
+        "content": "Can we see your config",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1676989198865
+      },
+      {
+        "content": "<pre><code class=\"hljs\">import { buildConfig } from &#x27;payload/config&#x27;;\nimport path from &#x27;path&#x27;;\n// import Examples from &#x27;./collections/Examples&#x27;;\nimport Users from &#x27;./collections/Users&#x27;;\n\nexport default buildConfig({\n  serverURL: &#x27;https://subdomain.example.org&#x27;,\n  admin: {\n    user: Users.slug,\n  },\n  collections: [\n    Users,\n    // Add Collections here\n    // Examples,\n  ],\n  typescript: {\n    outputFile: path.resolve(__dirname, &#x27;payload-types.ts&#x27;),\n  },\n  graphQL: {\n    schemaOutputFile: path.resolve(__dirname, &#x27;generated-schema.graphql&#x27;),\n  },\n});</code></pre>",
+        "fileAttachments": [],
+        "authorID": "864214921620357150",
+        "authorName": "ashermyers",
+        "authorAvatar": "2b9f48b9778d15aab581b59fa35712b2",
+        "createdAtDate": 1676989237835
+      },
+      {
+        "content": "Also, this may be unrelated, but I&#x27;ve seen two suggestions regarding clearing the npm/yarn cache",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1676989238110
+      },
+      {
+        "content": "Seems odd that I&#x27;d see two suggestions regarding 404&#x27;s on styles",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1676989253048
+      },
+      {
+        "content": "nothing looks weird there",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1676989280353
+      },
+      {
+        "content": "I don&#x27;t know if its something I&#x27;m doing since i&#x27;m just using the npx command and adding my mongodb config",
+        "fileAttachments": [],
+        "authorID": "864214921620357150",
+        "authorName": "ashermyers",
+        "authorAvatar": "2b9f48b9778d15aab581b59fa35712b2",
+        "createdAtDate": 1676989285771
+      },
+      {
+        "content": "are any other assets returning a 404 status",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1676989360167
+      },
+      {
+        "content": "or is it this one stylesheet from what you can tell",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1676989369034
+      },
+      {
+        "content": "No, just this one stylesheet",
+        "fileAttachments": [],
+        "authorID": "864214921620357150",
+        "authorName": "ashermyers",
+        "authorAvatar": "2b9f48b9778d15aab581b59fa35712b2",
+        "createdAtDate": 1676989446918
+      },
+      {
+        "content": "is the file in the out dist?",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1676989555280
+      },
+      {
+        "content": "or not created",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1676989561509
+      },
+      {
+        "content": "gimme a sec. lemme check",
+        "fileAttachments": [],
+        "authorID": "864214921620357150",
+        "authorName": "ashermyers",
+        "authorAvatar": "2b9f48b9778d15aab581b59fa35712b2",
+        "createdAtDate": 1676989570465
+      },
+      {
+        "content": "testing something rn",
+        "fileAttachments": [],
+        "authorID": "864214921620357150",
+        "authorName": "ashermyers",
+        "authorAvatar": "2b9f48b9778d15aab581b59fa35712b2",
+        "createdAtDate": 1676989744451
+      },
+      {
+        "content": "ok no rush",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1676989793753
+      },
+      {
+        "content": "im stuck at work all day",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1676989801289
+      },
+      {
+        "content": "got it working by building the css on another machine and copying it over. Weird...",
+        "fileAttachments": [],
+        "authorID": "864214921620357150",
+        "authorName": "ashermyers",
+        "authorAvatar": "2b9f48b9778d15aab581b59fa35712b2",
+        "createdAtDate": 1676991401861
+      }
+    ],
+    "messageCount": 21
   },
   {
     "info": {
       "name": "How to deploy free?",
       "id": "1066984578104954950",
+      "guildId": "967097582721572934",
       "createdAt": 1674459347035
     },
     "messages": [
@@ -1498,6 +1773,7 @@
     "info": {
       "name": "Adjusting the GraphQL API",
       "id": "1067369434311823440",
+      "guildId": "967097582721572934",
       "createdAt": 1674551103905
     },
     "messages": [
@@ -1524,6 +1800,7 @@
     "info": {
       "name": "How to include upload drawer in custom field",
       "id": "1074535080149647410",
+      "guildId": "967097582721572934",
       "createdAt": 1676259527004
     },
     "messages": [
@@ -1572,6 +1849,7 @@
     "info": {
       "name": "Exposing group and block types when generating types",
       "id": "1075432369823158312",
+      "guildId": "967097582721572934",
       "createdAt": 1676473457533
     },
     "messages": [
@@ -1590,6 +1868,7 @@
     "info": {
       "name": "Buttons on custom UI Component trigger default Save button",
       "id": "1066826023976575036",
+      "guildId": "967097582721572934",
       "createdAt": 1674421544785
     },
     "messages": [
@@ -1662,6 +1941,7 @@
     "info": {
       "name": "Hooks advice for an Orders collections",
       "id": "1076916607860875264",
+      "guildId": "967097582721572934",
       "createdAt": 1676827327457
     },
     "messages": [
@@ -1792,14 +2072,31 @@
         "authorName": "jakehopking",
         "authorAvatar": "be04dbc0304e7d0f1e98613aff048199",
         "createdAtDate": 1676916957394
+      },
+      {
+        "content": "The SEO plugin has some pretty good examples of this that I often share, check it out: <a href=\"https://github.com/payloadcms/plugin-seo/blob/main/src/fields/MetaTitle.tsx\">https://github.com/payloadcms/plugin-seo/blob/main/src/fields/MetaTitle.tsx</a>. @Jesse Sivonen is right in that you create a field, assign your custom component to it, and use hooks within that component to interact with Payload state. <br><br><blockquote>There doesn&#x27;t seem to be a component library exported from Payload<br></blockquote><br>Exactly, our Payload component library is not very well exported, this is a roadmap item we plan on tackling relatively soon, here are the details: <a href=\"https://github.com/payloadcms/payload/discussions/293\">https://github.com/payloadcms/payload/discussions/293</a>.<br><br><blockquote>This feels like a lot of work, whereas the hook method is straightforward. I think i&#x27;ll sleep on this!<br></blockquote><br>This is 100% accurate. An <code>afterChange</code> hook is the best option here. This is where Payload shines.<br><br>Here&#x27;s a demo hook based on your description. You could also place this hook on your <em>field</em> directly instead of the collection itself. BUT you&#x27;ll need to add a second field to check the previous value against (here&#x27;s an example: <a href=\"https://github.com/payloadcms/payload/discussions/1996#discussioncomment-4885826\">https://github.com/payloadcms/payload/discussions/1996#discussioncomment-4885826</a>)<br><br><pre><code class=\"hljs ts\">{\n    <span class=\"hljs-attr\">slug</span>: <span class=\"hljs-string\">&#x27;YOUR_COLLECTION&#x27;</span>,\n    <span class=\"hljs-attr\">hooks</span>: {\n        <span class=\"hljs-attr\">afterChange</span>: [\n            <span class=\"hljs-keyword\">async</span> ({ doc }) =&gt; {\n                <span class=\"hljs-keyword\">const</span> { orderStatus } = doc;\n                \n                <span class=\"hljs-keyword\">if</span> (orderStatus === <span class=\"hljs-string\">&#x27;order_ready_to_dispatch&#x27;</span>) {\n                    <span class=\"hljs-comment\">// Do something async, like update stock, etc</span>\n                }\n\n                <span class=\"hljs-keyword\">if</span> (orderStatus === <span class=\"hljs-string\">&#x27;order_shipped&#x27;</span>) {\n                    <span class=\"hljs-comment\">// Do something async, like send emails, etc</span>\n                }\n            }\n        ]\n    },\n    <span class=\"hljs-attr\">fields</span>: [\n        {\n            <span class=\"hljs-attr\">name</span>: <span class=\"hljs-string\">&#x27;orderStatus&#x27;</span>,\n            <span class=\"hljs-attr\">type</span>: <span class=\"hljs-string\">&#x27;select&#x27;</span>,\n            <span class=\"hljs-attr\">options</span>: [\n                { <span class=\"hljs-attr\">label</span>: <span class=\"hljs-string\">&#x27;Ready To Ship&#x27;</span>, <span class=\"hljs-attr\">value</span>: <span class=\"hljs-string\">&#x27;order_ready_to_dispatch&#x27;</span> },\n                { <span class=\"hljs-attr\">label</span>: <span class=\"hljs-string\">&#x27;Shipped&#x27;</span>, <span class=\"hljs-attr\">value</span>: <span class=\"hljs-string\">&#x27;order_shipped&#x27;</span> },\n            ]\n        }\n    ]\n}</code></pre><br>Hope this is helpful!",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1676935804950
+      },
+      {
+        "content": "@jacobsfletch Thanks a lot for your help here, really great!",
+        "fileAttachments": [],
+        "authorID": "357456032454410240",
+        "authorName": "jakehopking",
+        "authorAvatar": "be04dbc0304e7d0f1e98613aff048199",
+        "createdAtDate": 1676940614336
       }
     ],
-    "messageCount": 15
+    "messageCount": 17
   },
   {
     "info": {
       "name": "Place custom fields in collection meta?",
       "id": "1072178378788057169",
+      "guildId": "967097582721572934",
       "createdAt": 1675697645614
     },
     "messages": [
@@ -1842,6 +2139,7 @@
     "info": {
       "name": "Disable post request for other domains except frontend domain",
       "id": "1068406640635805706",
+      "guildId": "967097582721572934",
       "createdAt": 1674798393163
     },
     "messages": [
@@ -1972,6 +2270,7 @@
     "info": {
       "name": "Trying to implement a custom SlateJS element following the custom-website-series.",
       "id": "1063517008911667260",
+      "guildId": "967097582721572934",
       "createdAt": 1673632614115
     },
     "messages": [
@@ -2052,6 +2351,7 @@
     "info": {
       "name": "hooks on { Select } from 'payload/components/forms'",
       "id": "1073633812036198471",
+      "guildId": "967097582721572934",
       "createdAt": 1676044647941
     },
     "messages": [
@@ -2094,6 +2394,7 @@
     "info": {
       "name": "Select Field Limiting Records",
       "id": "1070373063700533389",
+      "guildId": "967097582721572934",
       "createdAt": 1675267224956
     },
     "messages": [
@@ -2166,6 +2467,7 @@
     "info": {
       "name": "Using a React library custom component - ES Module not supported",
       "id": "1073208167246331944",
+      "guildId": "967097582721572934",
       "createdAt": 1675943166315
     },
     "messages": [
@@ -2264,6 +2566,7 @@
     "info": {
       "name": "Can't create a new record in admin panel -- getting 403",
       "id": "1069075409293029416",
+      "guildId": "967097582721572934",
       "createdAt": 1674957840036
     },
     "messages": [
@@ -2314,6 +2617,7 @@
     "info": {
       "name": "Change admin url",
       "id": "1069354467687927859",
+      "guildId": "967097582721572934",
       "createdAt": 1675024372742
     },
     "messages": [
@@ -2386,6 +2690,7 @@
     "info": {
       "name": "Prettier/Editor settings for contributing to source code",
       "id": "1069147833795608586",
+      "guildId": "967097582721572934",
       "createdAt": 1674975107383
     },
     "messages": [
@@ -2447,6 +2752,7 @@
     "info": {
       "name": "Cannot read properties of undefined (reading 'thumbnail')",
       "id": "1073556897413746698",
+      "guildId": "967097582721572934",
       "createdAt": 1676026310066
     },
     "messages": [
@@ -2505,6 +2811,7 @@
     "info": {
       "name": "Azure Deployment",
       "id": "1067987094212980786",
+      "guildId": "967097582721572934",
       "createdAt": 1674698365501
     },
     "messages": [
@@ -2563,6 +2870,7 @@
     "info": {
       "name": "How to save media files in different folders?",
       "id": "1068408761204617277",
+      "guildId": "967097582721572934",
       "createdAt": 1674798898746
     },
     "messages": [
@@ -2605,6 +2913,7 @@
     "info": {
       "name": "Is there a way to count documents without retrieving them ?",
       "id": "1068229167700770856",
+      "guildId": "967097582721572934",
       "createdAt": 1674756080318
     },
     "messages": [
@@ -2671,6 +2980,7 @@
     "info": {
       "name": "Cors issue when deploying to Ubuntu 20.04 VPS",
       "id": "1074094192575389836",
+      "guildId": "967097582721572934",
       "createdAt": 1676154411215
     },
     "messages": [
@@ -2737,6 +3047,7 @@
     "info": {
       "name": "RichText - Any way to add left-center-right alignment buttons?",
       "id": "1064332447967363112",
+      "guildId": "967097582721572934",
       "createdAt": 1673827029936
     },
     "messages": [
@@ -2787,6 +3098,7 @@
     "info": {
       "name": "Why querying on the 2nd level not working?",
       "id": "1075352738696798250",
+      "guildId": "967097582721572934",
       "createdAt": 1676454471993
     },
     "messages": [
@@ -2835,6 +3147,7 @@
     "info": {
       "name": "Interesting case for type inference",
       "id": "1071471648051572816",
+      "guildId": "967097582721572934",
       "createdAt": 1675529147876
     },
     "messages": [
@@ -2885,6 +3198,7 @@
     "info": {
       "name": "Collection objects not showing",
       "id": "1073117141609496586",
+      "guildId": "967097582721572934",
       "createdAt": 1675921464112
     },
     "messages": [
@@ -2959,6 +3273,7 @@
     "info": {
       "name": "Is Payload CMS suitable for building a social app?",
       "id": "1067407373754454086",
+      "guildId": "967097582721572934",
       "createdAt": 1674560149373
     },
     "messages": [
@@ -2993,6 +3308,7 @@
     "info": {
       "name": "How to customize dark / light mode branding",
       "id": "1075154495564173404",
+      "guildId": "967097582721572934",
       "createdAt": 1676407207147
     },
     "messages": [
@@ -3043,6 +3359,7 @@
     "info": {
       "name": "Relationship with Form Plugin",
       "id": "1075641164629295115",
+      "guildId": "967097582721572934",
       "createdAt": 1676523238094
     },
     "messages": [
@@ -3107,6 +3424,7 @@
     "info": {
       "name": "MongoDB refuses connection after first install of PayloadCMS",
       "id": "1069018549701587045",
+      "guildId": "967097582721572934",
       "createdAt": 1674944283653
     },
     "messages": [
@@ -3165,6 +3483,7 @@
     "info": {
       "name": "How to access relationship field full item data?",
       "id": "1074901824785625149",
+      "guildId": "967097582721572934",
       "createdAt": 1676346965739
     },
     "messages": [
@@ -3191,14 +3510,63 @@
         "authorName": "jmikrut",
         "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
         "createdAtDate": 1676926425089
+      },
+      {
+        "content": "Hi @jmikrut, thanks for the extra info on this. Would it be possible to get an example of how you think this might work? I&#x27;m struggling to wrap my head around how to achieve this (maybe I&#x27;m thinking about it in a more complicated way than needs be, or maybe I just need more coffee 😆 )",
+        "fileAttachments": [],
+        "authorID": "93699784942034944",
+        "authorName": "itsjxck",
+        "authorAvatar": "2d16b59cd6bd3e7c108384738acef863",
+        "createdAtDate": 1676975580946
+      },
+      {
+        "content": "Hey @itsjxck checkout this demo of virtual fields, specifically look at the <code>nextEvent</code> field in the <code>Locations</code> collection - you would want to add something similar to this <a href=\"https://github.com/payloadcms/payload/tree/master/examples/virtual-fields\">https://github.com/payloadcms/payload/tree/master/examples/virtual-fields</a>",
+        "fileAttachments": [],
+        "authorID": "854377910689202256",
+        "authorName": "jesschow",
+        "authorAvatar": "cd84347e723519ad6fe9dafb1530dbc5",
+        "createdAtDate": 1676977828525
+      },
+      {
+        "content": "Thanks for the examples @jesschow, much appreciated! Unfortunately this didn&#x27;t seem to work for me as I needed the editor to dynamically update with this value during edit, and the hooks didn&#x27;t seem to run while actively editing the document. I did get a solution working, although it may not be the cleanest, by using a custom UI component:<br><pre><code class=\"hljs tsx\"><span class=\"hljs-keyword\">import</span> <span class=\"hljs-title class_\">React</span>, { useEffect } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&quot;react&quot;</span>;\n<span class=\"hljs-keyword\">import</span> { useField } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&quot;payload/components/forms&quot;</span>;\n<span class=\"hljs-keyword\">import</span> { <span class=\"hljs-title class_\">RelationshipField</span>, <span class=\"hljs-title class_\">UIField</span> } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&quot;payload/types&quot;</span>;\n<span class=\"hljs-keyword\">import</span> { useDocumentInfo } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&quot;payload/components/utilities&quot;</span>;\n\n<span class=\"hljs-keyword\">const</span> <span class=\"hljs-title class_\">RelationExpansion</span>: <span class=\"hljs-title class_\">React</span>.<span class=\"hljs-property\">FC</span>&lt;<span class=\"hljs-title class_\">UIField</span>&gt; = <span class=\"hljs-function\">(<span class=\"hljs-params\">{ name }</span>) =&gt;</span> {\n  <span class=\"hljs-keyword\">const</span> refFieldName = name.<span class=\"hljs-title function_\">replace</span>(<span class=\"hljs-string\">&quot;_&quot;</span>, <span class=\"hljs-string\">&quot;&quot;</span>);\n\n  <span class=\"hljs-keyword\">const</span> {\n    <span class=\"hljs-attr\">collection</span>: { fields },\n  } = <span class=\"hljs-title function_\">useDocumentInfo</span>();\n\n  <span class=\"hljs-keyword\">const</span> relationField = fields.<span class=\"hljs-title function_\">find</span>(\n    <span class=\"hljs-function\">(<span class=\"hljs-params\">field</span>) =&gt;</span> field.<span class=\"hljs-property\">type</span> === <span class=\"hljs-string\">&quot;relationship&quot;</span> &amp;&amp; field.<span class=\"hljs-property\">name</span> === refFieldName\n  ) <span class=\"hljs-keyword\">as</span> <span class=\"hljs-title class_\">RelationshipField</span>;\n\n  <span class=\"hljs-keyword\">const</span> { <span class=\"hljs-attr\">value</span>: self, <span class=\"hljs-attr\">setValue</span>: setSelf } = <span class=\"hljs-title function_\">useField</span>({ <span class=\"hljs-attr\">path</span>: name });\n  <span class=\"hljs-keyword\">const</span> { <span class=\"hljs-attr\">value</span>: ref } = useField&lt;<span class=\"hljs-built_in\">string</span>&gt;({\n    <span class=\"hljs-attr\">path</span>: refFieldName,\n  });\n\n  <span class=\"hljs-title function_\">useEffect</span>(<span class=\"hljs-function\">() =&gt;</span> {\n    <span class=\"hljs-keyword\">if</span> (!ref) <span class=\"hljs-keyword\">return</span>;\n\n    <span class=\"hljs-keyword\">const</span> <span class=\"hljs-title function_\">getRelation</span> = <span class=\"hljs-keyword\">async</span> (<span class=\"hljs-params\"></span>) =&gt; {\n      <span class=\"hljs-keyword\">try</span> {\n        <span class=\"hljs-keyword\">const</span> relationFetch = <span class=\"hljs-keyword\">await</span> <span class=\"hljs-title function_\">fetch</span>(\n          <span class=\"hljs-string\">`/api/<span class=\"hljs-subst\">${relationField.relationTo}</span>/<span class=\"hljs-subst\">${ref}</span>`</span>\n        );\n\n        <span class=\"hljs-keyword\">const</span> relation = <span class=\"hljs-keyword\">await</span> relationFetch.<span class=\"hljs-title function_\">json</span>();\n\n        <span class=\"hljs-title function_\">setSelf</span>(relation);\n      } <span class=\"hljs-keyword\">catch</span> (error) {\n        <span class=\"hljs-variable language_\">console</span>.<span class=\"hljs-title function_\">log</span>(error);\n      }\n    };\n\n    <span class=\"hljs-title function_\">getRelation</span>();\n  }, [ref]);\n\n  <span class=\"hljs-keyword\">return</span> (\n    <span class=\"language-xml\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">code</span> <span class=\"hljs-attr\">style</span>=<span class=\"hljs-string\">{{</span> <span class=\"hljs-attr\">display:</span> &quot;<span class=\"hljs-attr\">none</span>&quot; }}&gt;</span>\n      {JSON.stringify({ relationField, ref, self })}\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">code</span>&gt;</span></span>\n  );\n};\n\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">default</span> <span class=\"hljs-title class_\">RelationExpansion</span>;</code></pre>",
+        "fileAttachments": [],
+        "authorID": "93699784942034944",
+        "authorName": "itsjxck",
+        "authorAvatar": "2d16b59cd6bd3e7c108384738acef863",
+        "createdAtDate": 1676979445751
+      },
+      {
+        "content": "In my collection I can use this to expand the relation, using an underscore to prefix the name of the field i want to expand:<br><pre><code class=\"hljs ts\">    {\n      <span class=\"hljs-attr\">name</span>: <span class=\"hljs-string\">&quot;type&quot;</span>,\n      <span class=\"hljs-attr\">type</span>: <span class=\"hljs-string\">&quot;relationship&quot;</span>,\n      <span class=\"hljs-attr\">relationTo</span>: <span class=\"hljs-title class_\">ItemTypes</span>.<span class=\"hljs-property\">slug</span>,\n      <span class=\"hljs-attr\">hasMany</span>: <span class=\"hljs-literal\">false</span>,\n      <span class=\"hljs-attr\">required</span>: <span class=\"hljs-literal\">true</span>,\n    },\n    {\n      <span class=\"hljs-attr\">name</span>: <span class=\"hljs-string\">&quot;_type&quot;</span>,\n      <span class=\"hljs-attr\">type</span>: <span class=\"hljs-string\">&quot;ui&quot;</span>,\n      <span class=\"hljs-attr\">admin</span>: {\n        <span class=\"hljs-attr\">components</span>: {\n          <span class=\"hljs-title class_\">Field</span>: <span class=\"hljs-title class_\">RelationExpansion</span>,\n        },\n      },\n    },</code></pre>",
+        "fileAttachments": [],
+        "authorID": "93699784942034944",
+        "authorName": "itsjxck",
+        "authorAvatar": "2d16b59cd6bd3e7c108384738acef863",
+        "createdAtDate": 1676979533541
+      },
+      {
+        "content": "@KasparTr assuming you have a similar usecase to myself, this might also work for you; you can then use this field in conditionals:<br><pre><code class=\"hljs ts\"><span class=\"hljs-attr\">admin</span>: {\n  <span class=\"hljs-attr\">condition</span>: <span class=\"hljs-function\">(<span class=\"hljs-params\">data</span>) =&gt;</span> data.<span class=\"hljs-property\">_type</span>?.&lt;field_on_relation&gt;,\n},</code></pre>",
+        "fileAttachments": [],
+        "authorID": "93699784942034944",
+        "authorName": "itsjxck",
+        "authorAvatar": "2d16b59cd6bd3e7c108384738acef863",
+        "createdAtDate": 1676979702115
+      },
+      {
+        "content": "@itsjxck love it, the custom component looks great 🙌",
+        "fileAttachments": [],
+        "authorID": "854377910689202256",
+        "authorName": "jesschow",
+        "authorAvatar": "cd84347e723519ad6fe9dafb1530dbc5",
+        "createdAtDate": 1676980014276
       }
     ],
-    "messageCount": 2
+    "messageCount": 8
   },
   {
     "info": {
       "name": "How can I make collection Items Header sticky",
       "id": "1067121210367955104",
+      "guildId": "967097582721572934",
       "createdAt": 1674491922705
     },
     "messages": [
@@ -3233,6 +3601,7 @@
     "info": {
       "name": "\"required\" and \"validate\" both prevent \"beforeValidate\"",
       "id": "1071412742273105950",
+      "guildId": "967097582721572934",
       "createdAt": 1675515103644
     },
     "messages": [
@@ -3297,8 +3666,28 @@
   },
   {
     "info": {
+      "name": "Is it possible to catch errors with Sentry?",
+      "id": "1077585986873204747",
+      "guildId": "967097582721572934",
+      "createdAt": 1676986919850
+    },
+    "messages": [
+      {
+        "content": "<a href=\"https://sentry.io\">https://sentry.io</a>",
+        "fileAttachments": [],
+        "authorID": "476523795251855360",
+        "authorName": "thgh",
+        "authorAvatar": "7a6dc70a50b1fe0de52c0e1a358e8fa5",
+        "createdAtDate": 1676986919850
+      }
+    ],
+    "messageCount": 0
+  },
+  {
+    "info": {
       "name": "i18n descriptions",
       "id": "1068190345130672169",
+      "guildId": "967097582721572934",
       "createdAt": 1674746824296
     },
     "messages": [
@@ -3397,6 +3786,7 @@
     "info": {
       "name": "Add elements to collection page",
       "id": "1067277020159037470",
+      "guildId": "967097582721572934",
       "createdAt": 1674529070654
     },
     "messages": [
@@ -3469,6 +3859,7 @@
     "info": {
       "name": "Errors when attempting `payload` access",
       "id": "1042513404390285392",
+      "guildId": "967097582721572934",
       "createdAt": 1668624964569
     },
     "messages": [
@@ -3599,6 +3990,7 @@
     "info": {
       "name": "Set value of Rich text with Hook - Slate crash",
       "id": "1066829401918013480",
+      "guildId": "967097582721572934",
       "createdAt": 1674422350149
     },
     "messages": [
@@ -3649,6 +4041,7 @@
     "info": {
       "name": "RenderFields component: Provide Values",
       "id": "1063242604650709083",
+      "guildId": "967097582721572934",
       "createdAt": 1673567191041
     },
     "messages": [
@@ -3751,6 +4144,7 @@
     "info": {
       "name": "Custom Graphql query: configuration",
       "id": "1072462099671957504",
+      "guildId": "967097582721572934",
       "createdAt": 1675765289944
     },
     "messages": [
@@ -3777,6 +4171,7 @@
     "info": {
       "name": "duplicate page not working",
       "id": "1052475381531299890",
+      "guildId": "967097582721572934",
       "createdAt": 1671000085004
     },
     "messages": [
@@ -4220,14 +4615,39 @@
         "authorName": "bhavikak",
         "authorAvatar": null,
         "createdAtDate": 1676905488939
+      },
+      {
+        "content": "This is also the case for me. It persists in draft saves but doesn&#x27;t trigger a change",
+        "fileAttachments": [],
+        "authorID": "536888652257558538",
+        "authorName": "remy",
+        "authorAvatar": "a51bf6d5acf69d04ce856822b79a13ab",
+        "createdAtDate": 1676975430863
+      },
+      {
+        "content": "And just to clarify, you are both using <code>useField</code>?",
+        "fileAttachments": [],
+        "authorID": "281120856527077378",
+        "authorName": "Jarrod",
+        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
+        "createdAtDate": 1676982248356
+      },
+      {
+        "content": "I haven&#x27;t updated mine from <code>useFormField</code> but i&#x27;m happy to follow along for @bhavikak &#x27;s issue.",
+        "fileAttachments": [],
+        "authorID": "536888652257558538",
+        "authorName": "remy",
+        "authorAvatar": "a51bf6d5acf69d04ce856822b79a13ab",
+        "createdAtDate": 1676988823900
       }
     ],
-    "messageCount": 42
+    "messageCount": 45
   },
   {
     "info": {
       "name": "Commit payload generated types?",
       "id": "1070292519310594088",
+      "guildId": "967097582721572934",
       "createdAt": 1675248021677
     },
     "messages": [
@@ -4262,6 +4682,7 @@
     "info": {
       "name": "Any way to access same relationship from both sides?",
       "id": "1069986904122081311",
+      "guildId": "967097582721572934",
       "createdAt": 1675175157338
     },
     "messages": [
@@ -4336,6 +4757,7 @@
     "info": {
       "name": "Relationship field returning just id",
       "id": "1066899804199858287",
+      "guildId": "967097582721572934",
       "createdAt": 1674439135361
     },
     "messages": [
@@ -4414,6 +4836,7 @@
     "info": {
       "name": "Payload to simplify data management in a business management solution",
       "id": "1072174352210083850",
+      "guildId": "967097582721572934",
       "createdAt": 1675696685603
     },
     "messages": [
@@ -4448,6 +4871,7 @@
     "info": {
       "name": "Custom Field Components Not Working",
       "id": "1075578163884720208",
+      "guildId": "967097582721572934",
       "createdAt": 1676508217546
     },
     "messages": [
@@ -4472,8 +4896,167 @@
   },
   {
     "info": {
+      "name": "GraphQL sometimes replacing hyphens and commas with underscores",
+      "id": "1077614359649468562",
+      "guildId": "967097582721572934",
+      "createdAt": 1676993684447
+    },
+    "messages": [
+      {
+        "content": "Hello fellas, would anyone know why the value of something in gql has hyphens and commas replaced with underscores? This does not occur when accessing data with REST",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1077614359649468562/1077614360089866311/image.png",
+            "name": "image.png",
+            "id": "1077614360089866311",
+            "size": 6102,
+            "url": "https://cdn.discordapp.com/attachments/1077614359649468562/1077614360089866311/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1077614359649468562/1077614360089866311/image.png",
+            "height": 71,
+            "width": 562,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          },
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1077614359649468562/1077614360375083048/image.png",
+            "name": "image.png",
+            "id": "1077614360375083048",
+            "size": 4875,
+            "url": "https://cdn.discordapp.com/attachments/1077614359649468562/1077614360375083048/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1077614359649468562/1077614360375083048/image.png",
+            "height": 22,
+            "width": 889,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "225910068078444544",
+        "authorName": "sesons",
+        "authorAvatar": "513f60e24dd5d968544cf645c8cc3cf7",
+        "createdAtDate": 1676993684447
+      },
+      {
+        "content": "This is because GraphQL doesn&#x27;t allow dashes",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1676993764878
+      },
+      {
+        "content": "nothing Payload can do there unfortunately. To keep parity, I would avoid using dashes in field names",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1676993783417
+      },
+      {
+        "content": "use camelCase instead",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1676993787855
+      },
+      {
+        "content": "or undrescores, either way",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1676993794580
+      },
+      {
+        "content": "so just to clarify, is that just for strings that are prefixed with a hyphen? i.e. i just can&#x27;t start a value with a -",
+        "fileAttachments": [],
+        "authorID": "225910068078444544",
+        "authorName": "sesons",
+        "authorAvatar": "513f60e24dd5d968544cf645c8cc3cf7",
+        "createdAtDate": 1676993840424
+      },
+      {
+        "content": "any hyphen at all, anywhere",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1676993857533
+      },
+      {
+        "content": "doesn&#x27;t need to be prefixed",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1676993860366
+      },
+      {
+        "content": "<code>my-field</code> will be turned into <code>my_field</code>",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1676993869842
+      },
+      {
+        "content": "sorry to clarify this is for the value of a field, not a field name in itself",
+        "fileAttachments": [],
+        "authorID": "225910068078444544",
+        "authorName": "sesons",
+        "authorAvatar": "513f60e24dd5d968544cf645c8cc3cf7",
+        "createdAtDate": 1676993885881
+      },
+      {
+        "content": "like a select field for example?",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1676993893514
+      },
+      {
+        "content": "yep, same thing applies there as well. select values / radio values are <code>enum</code>s in graphql",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1676993904800
+      },
+      {
+        "content": "and enums can&#x27;t have dashes either",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1676993911221
+      },
+      {
+        "content": "ah ok makes sense",
+        "fileAttachments": [],
+        "authorID": "225910068078444544",
+        "authorName": "sesons",
+        "authorAvatar": "513f60e24dd5d968544cf645c8cc3cf7",
+        "createdAtDate": 1676993924144
+      },
+      {
+        "content": "thank you",
+        "fileAttachments": [],
+        "authorID": "225910068078444544",
+        "authorName": "sesons",
+        "authorAvatar": "513f60e24dd5d968544cf645c8cc3cf7",
+        "createdAtDate": 1676993926803
+      }
+    ],
+    "messageCount": 14
+  },
+  {
+    "info": {
       "name": "Why is my generated type for my media collection possibly 'string'?",
       "id": "1073557500751773696",
+      "guildId": "967097582721572934",
       "createdAt": 1676026453913
     },
     "messages": [
@@ -4508,6 +5091,7 @@
     "info": {
       "name": "What is `Record<string, string>` used for on the `group` field on a collection?",
       "id": "1072900095663689880",
+      "guildId": "967097582721572934",
       "createdAt": 1675869716326
     },
     "messages": [
@@ -4558,6 +5142,7 @@
     "info": {
       "name": "Relationship field data disappeared after new seed",
       "id": "1067136328711557300",
+      "guildId": "967097582721572934",
       "createdAt": 1674495527199
     },
     "messages": [
@@ -4822,6 +5407,7 @@
     "info": {
       "name": "Autosave draft is not working on empty array of object",
       "id": "1046293227088642050",
+      "guildId": "967097582721572934",
       "createdAt": 1669526144526
     },
     "messages": [
@@ -4918,6 +5504,7 @@
     "info": {
       "name": "Is there a way to conditionally set the hidden property on a field?",
       "id": "1070970660093956116",
+      "guildId": "967097582721572934",
       "createdAt": 1675409703039
     },
     "messages": [
@@ -4952,6 +5539,7 @@
     "info": {
       "name": "trying to build the docker that is delivered from 'npx create-payload-app' but getting errors",
       "id": "1070810091592368128",
+      "guildId": "967097582721572934",
       "createdAt": 1675371420525
     },
     "messages": [
@@ -4994,6 +5582,7 @@
     "info": {
       "name": "How to specify the size of image that can be uploaded?",
       "id": "1069607514955579452",
+      "guildId": "967097582721572934",
       "createdAt": 1675084703912
     },
     "messages": [
@@ -5036,6 +5625,7 @@
     "info": {
       "name": "How off autoindex mongoDB?",
       "id": "1068011407553073212",
+      "guildId": "967097582721572934",
       "createdAt": 1674704162253
     },
     "messages": [
@@ -5116,6 +5706,7 @@
     "info": {
       "name": "Add site settings page for each user",
       "id": "1068817991363477544",
+      "guildId": "967097582721572934",
       "createdAt": 1674896466819
     },
     "messages": [
@@ -5150,6 +5741,7 @@
     "info": {
       "name": "Does Payload support deleting multiple documents at once in List view?",
       "id": "1074703344897114195",
+      "guildId": "967097582721572934",
       "createdAt": 1676299644446
     },
     "messages": [
@@ -5176,6 +5768,7 @@
     "info": {
       "name": "TypeError When viewing Versions",
       "id": "1076253386342674474",
+      "guildId": "967097582721572934",
       "createdAt": 1676669203125
     },
     "messages": [
@@ -5387,14 +5980,23 @@
         "authorName": "dribbens",
         "authorAvatar": "f5c79aff07b9e2b1df382d61c45cb9da",
         "createdAtDate": 1676930144736
+      },
+      {
+        "content": "Cool, thanks for looking into this! It&#x27;s not super urgent, just thought I&#x27;d report!",
+        "fileAttachments": [],
+        "authorID": "408784184765710337",
+        "authorName": "TheDunco",
+        "authorAvatar": "a1e249435ab12de7c11d8eba3011e259",
+        "createdAtDate": 1676992051873
       }
     ],
-    "messageCount": 20
+    "messageCount": 21
   },
   {
     "info": {
       "name": "Reverse proxy with Caddy",
       "id": "1071785036686299207",
+      "guildId": "967097582721572934",
       "createdAt": 1675603865549
     },
     "messages": [
@@ -5461,6 +6063,7 @@
     "info": {
       "name": "MongoDB database is different than Payload",
       "id": "1069047585416949830",
+      "guildId": "967097582721572934",
       "createdAt": 1674951206307
     },
     "messages": [
@@ -5631,6 +6234,7 @@
     "info": {
       "name": "Does PayloadCMS provide front-end for pages?",
       "id": "1066925288572858479",
+      "guildId": "967097582721572934",
       "createdAt": 1674445211309
     },
     "messages": [
@@ -5697,6 +6301,7 @@
     "info": {
       "name": "Fresh installation stuck on \"loading\"",
       "id": "1077313223134556311",
+      "guildId": "967097582721572934",
       "createdAt": 1676921887907
     },
     "messages": [
@@ -5745,6 +6350,7 @@
     "info": {
       "name": "Are Layouts in the Demo the Block field?",
       "id": "1075911141680758864",
+      "guildId": "967097582721572934",
       "createdAt": 1676587605639
     },
     "messages": [
@@ -5863,6 +6469,7 @@
     "info": {
       "name": "Conditional Tab?",
       "id": "1068132580819480667",
+      "guildId": "967097582721572934",
       "createdAt": 1674733052211
     },
     "messages": [
@@ -5889,6 +6496,7 @@
     "info": {
       "name": "PAYLOAD_PUBLIC env var returning undefined",
       "id": "1076162643800359063",
+      "guildId": "967097582721572934",
       "createdAt": 1676647568417
     },
     "messages": [
@@ -5979,6 +6587,7 @@
     "info": {
       "name": "Autosave Local API",
       "id": "1068315385134325822",
+      "guildId": "967097582721572934",
       "createdAt": 1674776636156
     },
     "messages": [
@@ -6043,6 +6652,7 @@
     "info": {
       "name": "Is is possible to have an optional unique field?",
       "id": "1071899413536055387",
+      "guildId": "967097582721572934",
       "createdAt": 1675631135115
     },
     "messages": [
@@ -6101,6 +6711,7 @@
     "info": {
       "name": "Clone database to downstream environments",
       "id": "1072306934604120074",
+      "guildId": "967097582721572934",
       "createdAt": 1675728295709
     },
     "messages": [
@@ -6159,6 +6770,7 @@
     "info": {
       "name": "Problem with custom auth strategy",
       "id": "1041405431387533442",
+      "guildId": "967097582721572934",
       "createdAt": 1668360803220
     },
     "messages": [
@@ -6469,6 +7081,7 @@
     "info": {
       "name": "Can We collaborate with Paylaod CMS?",
       "id": "1075256043220783194",
+      "guildId": "967097582721572934",
       "createdAt": 1676431417995
     },
     "messages": [
@@ -6503,6 +7116,7 @@
     "info": {
       "name": "Replacing useMemo with useState?",
       "id": "1067085240062984254",
+      "guildId": "967097582721572934",
       "createdAt": 1674483346716
     },
     "messages": [
@@ -6561,6 +7175,7 @@
     "info": {
       "name": "supporting other databases",
       "id": "1073859030503653387",
+      "guildId": "967097582721572934",
       "createdAt": 1676098344208
     },
     "messages": [
@@ -6595,6 +7210,7 @@
     "info": {
       "name": "How to build a custom rich-text element with multiple options?",
       "id": "1075704321238368296",
+      "guildId": "967097582721572934",
       "createdAt": 1676538295803
     },
     "messages": [
@@ -6637,6 +7253,7 @@
     "info": {
       "name": "How to edit the list view of an upload collection?",
       "id": "1071841509399351337",
+      "guildId": "967097582721572934",
       "createdAt": 1675617329693
     },
     "messages": [
@@ -6733,6 +7350,7 @@
     "info": {
       "name": "payload build missing ENV and styles",
       "id": "1063030217788108860",
+      "guildId": "967097582721572934",
       "createdAt": 1673516554067
     },
     "messages": [
@@ -6767,6 +7385,7 @@
     "info": {
       "name": "Upload field with MongoDB GridFS instead of file system",
       "id": "1067728066949947422",
+      "guildId": "967097582721572934",
       "createdAt": 1674636608589
     },
     "messages": [
@@ -6801,6 +7420,7 @@
     "info": {
       "name": "Google Cloud Run deployment",
       "id": "1073249306838052864",
+      "guildId": "967097582721572934",
       "createdAt": 1675952974758
     },
     "messages": [
@@ -6851,6 +7471,7 @@
     "info": {
       "name": "Populating fields using depth is not working.",
       "id": "1067413120005455942",
+      "guildId": "967097582721572934",
       "createdAt": 1674561519386
     },
     "messages": [
@@ -7010,6 +7631,7 @@
     "info": {
       "name": "How to pass data to field level access control?",
       "id": "1073532264400551957",
+      "guildId": "967097582721572934",
       "createdAt": 1676020437098
     },
     "messages": [
@@ -7036,6 +7658,7 @@
     "info": {
       "name": "WordPress to Payload?",
       "id": "1062908841664200725",
+      "guildId": "967097582721572934",
       "createdAt": 1673487615744
     },
     "messages": [
@@ -7062,6 +7685,7 @@
     "info": {
       "name": "some help with integrating Logto to a payload / next setup.",
       "id": "1072561667197640735",
+      "guildId": "967097582721572934",
       "createdAt": 1675789028692
     },
     "messages": [
@@ -7104,6 +7728,7 @@
     "info": {
       "name": "Payload hook doesn't have permission to read from collection",
       "id": "1075498716204646512",
+      "guildId": "967097582721572934",
       "createdAt": 1676489275743
     },
     "messages": [
@@ -7258,6 +7883,7 @@
     "info": {
       "name": "Narrowing relationship field type from generated payload types (Typescript)",
       "id": "1069455509612146709",
+      "guildId": "967097582721572934",
       "createdAt": 1675048463014
     },
     "messages": [
@@ -7330,6 +7956,7 @@
     "info": {
       "name": "Plugin stripe - error has occurred in the Stripe plugin REST handler",
       "id": "1075712043400843334",
+      "guildId": "967097582721572934",
       "createdAt": 1676540136910
     },
     "messages": [
@@ -7372,6 +7999,7 @@
     "info": {
       "name": "Does payload have the functionality to limit an image size within the upload field?",
       "id": "1074464680296337478",
+      "guildId": "967097582721572934",
       "createdAt": 1676242742371
     },
     "messages": [
@@ -7406,6 +8034,7 @@
     "info": {
       "name": "Add custom component to the collection list view",
       "id": "1075680408869539892",
+      "guildId": "967097582721572934",
       "createdAt": 1676532594650
     },
     "messages": [
@@ -7424,14 +8053,23 @@
         "authorName": "jesschow",
         "authorAvatar": "cd84347e723519ad6fe9dafb1530dbc5",
         "createdAtDate": 1676570317110
+      },
+      {
+        "content": "This helps a ton!!!!!<br>Thank you",
+        "fileAttachments": [],
+        "authorID": "608406543058206813",
+        "authorName": "Dan Sivewright",
+        "authorAvatar": "c89e53e5b469f9abc20e3cfab7b2de16",
+        "createdAtDate": 1676970509579
       }
     ],
-    "messageCount": 1
+    "messageCount": 2
   },
   {
     "info": {
       "name": "Two-way relationship between fields",
       "id": "1076239186484535366",
+      "guildId": "967097582721572934",
       "createdAt": 1676665817615
     },
     "messages": [
@@ -7466,6 +8104,7 @@
     "info": {
       "name": "Dockerfile from documentation causing errors",
       "id": "1065265656649490462",
+      "guildId": "967097582721572934",
       "createdAt": 1674049524224
     },
     "messages": [
@@ -7744,6 +8383,7 @@
     "info": {
       "name": "Schema update",
       "id": "1070743406164320377",
+      "guildId": "967097582721572934",
       "createdAt": 1675355521480
     },
     "messages": [
@@ -7808,6 +8448,7 @@
     "info": {
       "name": "RichText left and rght indent",
       "id": "1072155619718602782",
+      "guildId": "967097582721572934",
       "createdAt": 1675692219429
     },
     "messages": [
@@ -7850,6 +8491,7 @@
     "info": {
       "name": "Item not appearing in table, but accessible manually via URL",
       "id": "1072418401487687790",
+      "guildId": "967097582721572934",
       "createdAt": 1675754871485
     },
     "messages": [
@@ -7951,6 +8593,7 @@
     "info": {
       "name": "Image data not exposed when API called from NextJS getStaticProps",
       "id": "1075007526342496306",
+      "guildId": "967097582721572934",
       "createdAt": 1676372166954
     },
     "messages": [
@@ -7985,6 +8628,7 @@
     "info": {
       "name": "Collection access to allow guest posts",
       "id": "1067475337144979557",
+      "guildId": "967097582721572934",
       "createdAt": 1674576353108
     },
     "messages": [
@@ -8081,6 +8725,7 @@
     "info": {
       "name": "`versions.retainDeleted` was removed?",
       "id": "1072872293333749830",
+      "guildId": "967097582721572934",
       "createdAt": 1675863087734
     },
     "messages": [
@@ -8107,6 +8752,7 @@
     "info": {
       "name": "Slate - some text leaves have type: \"p\", some do not",
       "id": "1072510637713920080",
+      "guildId": "967097582721572934",
       "createdAt": 1675776862315
     },
     "messages": [
@@ -8173,6 +8819,7 @@
     "info": {
       "name": "Is it possible to hide a collection but allow a related collection to access its API?",
       "id": "1070272024775249950",
+      "guildId": "967097582721572934",
       "createdAt": 1675243135399
     },
     "messages": [
@@ -8199,6 +8846,7 @@
     "info": {
       "name": "How to get post by slug",
       "id": "1073789240325971999",
+      "guildId": "967097582721572934",
       "createdAt": 1676081704933
     },
     "messages": [
@@ -8263,6 +8911,7 @@
     "info": {
       "name": "Richtext - add support for button",
       "id": "1073185833319923783",
+      "guildId": "967097582721572934",
       "createdAt": 1675937841492
     },
     "messages": [
@@ -8303,6 +8952,7 @@
     "info": {
       "name": "Form Builder: Create Other Field for Select/Custom Type",
       "id": "1075186230981038191",
+      "guildId": "967097582721572934",
       "createdAt": 1676414773460
     },
     "messages": [
@@ -8361,6 +9011,7 @@
     "info": {
       "name": "Can I implement `useAPIKey` without requiring email and password?",
       "id": "1073652992139599872",
+      "guildId": "967097582721572934",
       "createdAt": 1676049220834
     },
     "messages": [
@@ -8387,6 +9038,7 @@
     "info": {
       "name": "Error traversing fields when using nested groups",
       "id": "1064603114633703465",
+      "guildId": "967097582721572934",
       "createdAt": 1673891561898
     },
     "messages": [
@@ -8437,6 +9089,7 @@
     "info": {
       "name": "How to add confirm box before user hit save or update? Also how to extend current model with type ui",
       "id": "1069161193404645396",
+      "guildId": "967097582721572934",
       "createdAt": 1674978292562
     },
     "messages": [
@@ -8579,6 +9232,7 @@
     "info": {
       "name": "question around Auth",
       "id": "1072614213962444807",
+      "guildId": "967097582721572934",
       "createdAt": 1675801556817
     },
     "messages": [
@@ -8621,6 +9275,7 @@
     "info": {
       "name": "Custom button to create new entry in collection",
       "id": "1070006922926891169",
+      "guildId": "967097582721572934",
       "createdAt": 1675179930193
     },
     "messages": [
@@ -8655,329 +9310,10 @@
     "info": {
       "name": "deploy to GCP",
       "id": "1075750048924708865",
+      "guildId": "967097582721572934",
       "createdAt": 1676549198133
     },
     "messages": [
-      {
-        "content": "Has anyone deployed their paylodcms to gcp app engine ? I need guidance in deploying there and it would be a bonus if you use cloud build for your ci/cd",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676549198133
-      },
-      {
-        "content": "There are a few here in Discord that I know are using Cloud Run. I haven&#x27;t seen App Engine mentioned though. Do you have a specific question?",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1676555123019
-      },
-      {
-        "content": "Yes ..so my current process I set my env in cloud build that pulls from my GitHub so I just guidance in the entire process of using cloud Run as I know docker is used",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676569418883
-      },
-      {
-        "content": "And Also is there a cloud run config used and how does it look ?",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676569456468
-      },
-      {
-        "content": "I don&#x27;t believe anyone on the team has any expertise there. I know @Mark | Omniux does GCP, maybe he can give you some pointers",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1676573459868
-      },
-      {
-        "content": "alright id appreciate any pointers in that regard",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676575735380
-      },
-      {
-        "content": "Hey @eloahsam, we use Google cloud build to create our docker image  and then deploy our Payload instance to Google Cloud Run. It&#x27;s the cheapest and most efficient way to host Payload on GCloud 🙂",
-        "fileAttachments": [],
-        "authorID": "191776538205618177",
-        "authorName": "Mark | Omniux",
-        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
-        "createdAtDate": 1676575886148
-      },
-      {
-        "content": "When im back at my desk in 30 mins, i&#x27;ll send over a copy of the cloud build yaml and docker file",
-        "fileAttachments": [],
-        "authorID": "191776538205618177",
-        "authorName": "Mark | Omniux",
-        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
-        "createdAtDate": 1676575935462
-      },
-      {
-        "content": "I’d appreciate that @Mark | Omniux <br><br>I’ve never worked with docker I’d like to know how you update the repo and commit so that it update the cloud project",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676586646073
-      },
-      {
-        "content": "In Gcloud you can set triggers on Cloud Build to listen for pushes or PRs on certain branches. Once a commit goes into my &#x27;staging&#x27; branch, we trigger the cloudbuild script and then the docker image gets built and a container gets spun up in Cloud Run",
-        "fileAttachments": [],
-        "authorID": "191776538205618177",
-        "authorName": "Mark | Omniux",
-        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
-        "createdAtDate": 1676614165215
-      },
-      {
-        "content": "Here&#x27;s the cloudbuild file, it sits at the base of the project, alongside the package.json file;<br><br><pre><code class=\"hljs yaml\"><span class=\"hljs-attr\">steps:</span>\n<span class=\"hljs-bullet\">-</span> <span class=\"hljs-attr\">name:</span> <span class=\"hljs-string\">&#x27;gcr.io/cloud-builders/docker&#x27;</span>\n  <span class=\"hljs-attr\">dir:</span> <span class=\"hljs-string\">&#x27;./cms&#x27;</span>\n  <span class=\"hljs-attr\">args:</span> [\n    <span class=\"hljs-string\">&#x27;build&#x27;</span>,\n    <span class=\"hljs-string\">&#x27;-t&#x27;</span>,\n    <span class=\"hljs-string\">&#x27;us-docker.pkg.dev/$PROJECT_ID/us.gcr.io/omniux-cms:$SHORT_SHA&#x27;</span>,\n    <span class=\"hljs-string\">&#x27;-f&#x27;</span>,\n    <span class=\"hljs-string\">&#x27;./Dockerfile&#x27;</span>,\n    <span class=\"hljs-string\">&#x27;.&#x27;</span>\n    ]\n\n<span class=\"hljs-bullet\">-</span> <span class=\"hljs-attr\">name:</span> <span class=\"hljs-string\">&#x27;gcr.io/cloud-builders/docker&#x27;</span>\n  <span class=\"hljs-attr\">args:</span> [\n    <span class=\"hljs-string\">&#x27;push&#x27;</span>,\n    <span class=\"hljs-string\">&#x27;us-docker.pkg.dev/$PROJECT_ID/us.gcr.io/omniux-cms:$SHORT_SHA&#x27;</span>\n    ]\n\n<span class=\"hljs-comment\"># Deploy container image to Cloud Run</span>\n<span class=\"hljs-bullet\">-</span> <span class=\"hljs-attr\">name:</span> <span class=\"hljs-string\">&#x27;gcr.io/cloud-builders/gcloud&#x27;</span>\n  <span class=\"hljs-attr\">entrypoint:</span> <span class=\"hljs-string\">gcloud</span>\n  <span class=\"hljs-attr\">args:</span>\n  <span class=\"hljs-bullet\">-</span> <span class=\"hljs-string\">run</span>\n  <span class=\"hljs-bullet\">-</span> <span class=\"hljs-string\">deploy</span>\n  <span class=\"hljs-bullet\">-</span> <span class=\"hljs-string\">staging-omniux-cms</span>\n  <span class=\"hljs-bullet\">-</span> <span class=\"hljs-string\">--region=us-central1</span>\n  <span class=\"hljs-bullet\">-</span> <span class=\"hljs-string\">--platform=managed</span>\n  <span class=\"hljs-bullet\">-</span> <span class=\"hljs-string\">--image=us-docker.pkg.dev/$PROJECT_ID/us.gcr.io/omniux-cms:$SHORT_SHA</span>\n  <span class=\"hljs-attr\">env:</span>\n  <span class=\"hljs-bullet\">-</span> <span class=\"hljs-string\">&#x27;MONGODB_URI=yourmongodbstring&#x27;</span>\n  <span class=\"hljs-bullet\">-</span> <span class=\"hljs-string\">&#x27;PAYLOAD_PUBLIC_WEBSITE_URL=https://yourwebsitehere.com&#x27;</span>\n  <span class=\"hljs-bullet\">-</span> <span class=\"hljs-string\">&#x27;PAYLOAD_PUBLIC_CMS_URL=https://cms.yourwebsitehere.com&#x27;</span>\n  <span class=\"hljs-bullet\">-</span> <span class=\"hljs-string\">&#x27;PAYLOAD_PUBLIC_GCS_BUCKET=bucketNameGoesHere&#x27;</span>\n  <span class=\"hljs-bullet\">-</span> <span class=\"hljs-string\">&#x27;PAYLOAD_PUBLIC_GCS_ENDPOINT=https://storage.googleapis.com/&#x27;</span>\n  <span class=\"hljs-bullet\">-</span> <span class=\"hljs-string\">&#x27;PAYLOAD_PUBLIC_GCS_PROJECT_ID=projectIdGoesHere&#x27;</span>\n\n\n<span class=\"hljs-attr\">timeout:</span> <span class=\"hljs-string\">1800s</span></code></pre>",
-        "fileAttachments": [],
-        "authorID": "191776538205618177",
-        "authorName": "Mark | Omniux",
-        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
-        "createdAtDate": 1676621827162
-      },
-      {
-        "content": "Our Docker file sits at the same level. You said earlier you&#x27;ve never worked with docker, so this will seem a bit overwhelming. It&#x27;s important that you take some time to learn what docker is and why it&#x27;s used. Ultimately, docker allows us to &#x27;containerise&#x27; our applications meaning the application runs in a self-contained instance of Linux. It drastically simplifies web server configuration (once you understand it) and allows you to scale up and down your web architecture based solely on demand. It makes running a website a hell of a lot cheaper and gives us the added flexibility to move Payload to anywhere we want. So this docker instance will run on AWS, Azure, Digital Ocean, etc...<br><br><pre><code class=\"hljs Docker\"><span class=\"hljs-keyword\">FROM</span> node:<span class=\"hljs-number\">18.8</span>-alpine as base\n\n<span class=\"hljs-keyword\">FROM</span> base as builder\n\n<span class=\"hljs-keyword\">WORKDIR</span><span class=\"language-bash\"> /home/node/app</span>\n<span class=\"hljs-keyword\">COPY</span><span class=\"language-bash\"> ./package*.json ./</span>\n\n<span class=\"hljs-keyword\">COPY</span><span class=\"language-bash\"> . .</span>\n<span class=\"hljs-keyword\">RUN</span><span class=\"language-bash\"> yarn install</span>\n<span class=\"hljs-keyword\">RUN</span><span class=\"language-bash\"> yarn build</span>\n\n<span class=\"hljs-keyword\">FROM</span> base as runtime\n\n<span class=\"hljs-keyword\">ENV</span> NODE_ENV=production\n<span class=\"hljs-keyword\">ENV</span> PAYLOAD_CONFIG_PATH=dist/payload.config.js\n\n\n<span class=\"hljs-keyword\">WORKDIR</span><span class=\"language-bash\"> /home/node/app</span>\n<span class=\"hljs-keyword\">COPY</span><span class=\"language-bash\"> package*.json  ./</span>\n\n<span class=\"hljs-keyword\">RUN</span><span class=\"language-bash\"> yarn install --production</span>\n<span class=\"hljs-keyword\">COPY</span><span class=\"language-bash\"> --from=builder /home/node/app/dist ./dist</span>\n<span class=\"hljs-keyword\">COPY</span><span class=\"language-bash\"> --from=builder /home/node/app/build ./build</span>\n\n<span class=\"hljs-keyword\">EXPOSE</span> <span class=\"hljs-number\">3000</span>\n\n<span class=\"hljs-keyword\">CMD</span><span class=\"language-bash\"> [<span class=\"hljs-string\">&quot;node&quot;</span>, <span class=\"hljs-string\">&quot;dist/server.js&quot;</span>]</span></code></pre>",
-        "fileAttachments": [],
-        "authorID": "191776538205618177",
-        "authorName": "Mark | Omniux",
-        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
-        "createdAtDate": 1676622154423
-      },
-      {
-        "content": "Wee breakdown for you regarding the cloudbuild.yaml file;<br><br>Firstly, you will need to configure a service account with permissions in order to perform all the necessary steps: <a href=\"https://cloud.google.com/build/docs/securing-builds/configure-access-to-resources\">https://cloud.google.com/build/docs/securing-builds/configure-access-to-resources</a><br><br>This file is designed to work with Google Cloud build. The process is broken down into 3 steps.<br><br>- First Step, the CloudBuild file looks for the docker file in my git repository. The cloud build file uses an absolute URI, so I have to include a dir: tag pointing to the location of my DockerFile, it lives in a folder called <code>cms</code>. Then in my build args, I tell it to build the dockerfile, giving the docker file a tag, and then pointing the yaml to the Dockerfile situated at ./Dockerfile (this is the file, not a directory)<br><br>- Second Step, after building the docker image, it needs to be hosted in a container registry (Like Google Container Registry). This is necessary because when we deploy the docker instance we need to pass in a location for where the image is stored so it can pull down the latest. I recommend configuring your security so that this image is not publicly available. You may also wish to remove vulnerability scanning if you already have vulnerability scanning enabled on your Github repo with a service like Snyk.<br><br>- Third Step, this is where you may run into the most issues as it can be tricky. After deploy, I specify which service I wish to target, I have called this <code>staging-omniux-cms</code> as this is my staging environment. We hand deploy changes to prod. I then specify the region, the platform type, as well as the location of the image for Docker to spin up. Finally, I have included Environment Variables which I can change in the UI if I wish. Once your service is running, you will be given a url to access it. There is an option to manage custom domains for your service, so you can change this to anything you like and it will persist between deployments.",
-        "fileAttachments": [],
-        "authorID": "191776538205618177",
-        "authorName": "Mark | Omniux",
-        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
-        "createdAtDate": 1676623218856
-      },
-      {
-        "content": "So where would you be coming your container changes as with my current projects I commit to different GitHub branches and when I commit to my dev or to main the trigger updates the on live environments",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676629410218
-      },
-      {
-        "content": "Ohh so similar to the app.yaml and cloudbuild.yaml",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676629438739
-      },
-      {
-        "content": "Yeah I’ve heard about what docker does and I have some theory but no practical experience with it, that’s why I’ve been using app engine cause it offers the paas so my bill is based on how much requests and came in etc",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676629599872
-      },
-      {
-        "content": "And I specify max nodes and compute power etc",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676629635124
-      },
-      {
-        "content": "I see that you have a website Url and cms url so I’m guessing your front and backend are in one image …did you set your urls after gcp created them for you ?",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676629753719
-      },
-      {
-        "content": "my CMS and Frontend are seperate, my frontend runs on vercel. But I need to pass the frontend url as an environment variable so I can configure things like CORS in Payload",
-        "fileAttachments": [],
-        "authorID": "191776538205618177",
-        "authorName": "Mark | Omniux",
-        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
-        "createdAtDate": 1676631417173
-      },
-      {
-        "content": "Cloud run does this too. But rather than running a dedicated instance, it spins up and down depending on a per-request basis",
-        "fileAttachments": [],
-        "authorID": "191776538205618177",
-        "authorName": "Mark | Omniux",
-        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
-        "createdAtDate": 1676631456125
-      },
-      {
-        "content": "You would create 2 seperate build yamls for your environments, in the Google Build UI you can set a build to run on a trigger <a href=\"https://cloud.google.com/build/docs/automating-builds/create-manage-triggers\">https://cloud.google.com/build/docs/automating-builds/create-manage-triggers</a>",
-        "fileAttachments": [],
-        "authorID": "191776538205618177",
-        "authorName": "Mark | Omniux",
-        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
-        "createdAtDate": 1676631525024
-      },
-      {
-        "content": "ohh alright now i understand why you have the website url in  there",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676652281663
-      },
-      {
-        "content": "does cloud run also scale to zero like app engine standard ?",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676652300514
-      },
-      {
-        "content": "It does, you can set a minimum and maximum number of container instances running. These containers will be spun up based on demand, so if you get say 50 requests in a second, 2 or 3 more containers will get spun up. Then after a bit of idling time, the additional containers will then be spun down, billing you for your usage. Cloud Run has a free budget allocation, so you can get a lot out of the base tier before payng-per-use",
-        "fileAttachments": [],
-        "authorID": "191776538205618177",
-        "authorName": "Mark | Omniux",
-        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
-        "createdAtDate": 1676652878392
-      },
-      {
-        "content": "alright seems like cloud run is basically app engine for containers , ill try it out and try deploy tomorrow and this may sway maybe to move my other project from app engine to cloud run",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676653347953
-      },
-      {
-        "content": "lastly, so with code i just commit to gihub , with docker images where do you commit to ?",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676653450161
-      },
-      {
-        "content": "what do you mean?",
-        "fileAttachments": [],
-        "authorID": "191776538205618177",
-        "authorName": "Mark | Omniux",
-        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
-        "createdAtDate": 1676653645807
-      },
-      {
-        "content": "is there somewhere i can host an image similar to how i host my repo on github , like with cloudbuild and app engine it pulls from github, with cloudbuild and cloud run where does it pull from ?",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676653750682
-      },
-      {
-        "content": "and i see on a few articles a extra nginx file is needed",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676653782248
-      },
-      {
-        "content": "nah you shouldn&#x27;t need any NGRX",
-        "fileAttachments": [],
-        "authorID": "191776538205618177",
-        "authorName": "Mark | Omniux",
-        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
-        "createdAtDate": 1676653804756
-      },
-      {
-        "content": "and the docker image is stored on Google Container Registry which is linked to a Google Cloud Bucket",
-        "fileAttachments": [],
-        "authorID": "191776538205618177",
-        "authorName": "Mark | Omniux",
-        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
-        "createdAtDate": 1676653865088
-      },
-      {
-        "content": "ohh perfect thats what i was looking for",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676653965573
-      },
-      {
-        "content": "ill let you know how it goes tomorrow after succeeding",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676653998711
-      },
-      {
-        "content": "I’ve just deployed to cloud run it was much easier than app engine I used the continuous deployment from GitHub <br><br>I’m now having trouble with environment variables so I don’t want to commit them to any branch and I tried setting environment variables on the cloud run service and I tried on cloud build but the project never detects them and lastly I tried with secret manager",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676754461252
-      },
-      {
-        "content": "it should definitely pick them up from GCloud run. That being said, I have noticed a lot of issues around Env variables in the past wee while",
-        "fileAttachments": [],
-        "authorID": "191776538205618177",
-        "authorName": "Mark | Omniux",
-        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
-        "createdAtDate": 1676754512539
-      },
-      {
-        "content": "By any chance are you using dotenv in the payload.config.json AND server.ts files?",
-        "fileAttachments": [],
-        "authorID": "191776538205618177",
-        "authorName": "Mark | Omniux",
-        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
-        "createdAtDate": 1676754701791
-      },
-      {
-        "content": "I found that using it in both places seems to mess with payload&#x27;s env variables and breaks it. If you just have it initialised in your server.ts then it should be ok",
-        "fileAttachments": [],
-        "authorID": "191776538205618177",
-        "authorName": "Mark | Omniux",
-        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
-        "createdAtDate": 1676754764602
-      },
-      {
-        "content": "I only used dotenv in server.ts",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676789187745
-      },
-      {
-        "content": "Currently it doesn’t pick them is as I only specify the environment variable in the cloud run service UI <br><br>Should I also specify them in the docker like this ? <br><br>ARGS MONGODB_URI<br>ENV MONGODB_URI=$MONGODB_URI<br><br>? Will it read them from my cloud run ui and include them when it builds the image ?",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676789377356
-      },
-      {
-        "content": "Or must I just set the default value then with UI change value",
-        "fileAttachments": [],
-        "authorID": "877297218967724072",
-        "authorName": "eloahsam",
-        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
-        "createdAtDate": 1676791991681
-      },
       {
         "content": "this worked like a charm and set the serve url your server URL aswell else it will stay in that loading state",
         "fileAttachments": [],
@@ -9025,14 +9361,367 @@
         "authorName": "eloahsam",
         "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
         "createdAtDate": 1676916634528
+      },
+      {
+        "content": "How did you store images on your cloud run ?",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676966585443
+      },
+      {
+        "content": "Oh you mean like jpeg and pngs?",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676966604451
+      },
+      {
+        "content": "You have to store them in a storage bucket like Google Cloud bucket. Storage on Cloud Run is emphereal, you have to have a permenant location",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676966683667
+      },
+      {
+        "content": "<a href=\"https://payloadcms.com/docs/production/deployment#file-storage\">https://payloadcms.com/docs/production/deployment#file-storage</a>",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676966719290
+      },
+      {
+        "content": "You can use one of the cloud storage plugins or you can roll your own - <a href=\"https://github.com/payloadcms/plugin-cloud-storage\">https://github.com/payloadcms/plugin-cloud-storage</a>",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676966772128
+      },
+      {
+        "content": "It&#x27;s basically a wrapper for AWS, GCloud or Azure storage. So you can use the regular node libraries instead and invoke them via a collection hook",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676966850344
+      },
+      {
+        "content": "I tried using gcp storage but my pictures were private for some reason even when I made them public",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676966889253
+      },
+      {
+        "content": "You likely didn&#x27;t enable the correct permissions for your bucket, there are 2 ways to get your image.<br><br>You can either make the bucket completely public and use the cloud storage url passed directly from payload into your front end app. Or you can proxy the connection, use a service account to keep the bucket private and only allow access via payload, then have payload request the files on your behalf and then proxy them via a url like <a href=\"https://cms.yourwebsite.com/api/media/myimage.jpeg\">https://cms.yourwebsite.com/api/media/myimage.jpeg</a>",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676967279806
+      },
+      {
+        "content": "The benefits of using a cloud storage container are numerous. You can share your bucket across multiple instances of your Cloud Run service, you can setup a load balancer and cache your images via a CDN for faster delivery, and you can easily view and manage your media directly from GCloud&#x27;s Cloud Bucket Object Explorer",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676967368369
+      },
+      {
+        "content": "so i want the images to be publicly viewable as its a experience booking web platform",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676967512072
+      },
+      {
+        "content": "I would also highlight that you&#x27;re now in a very grey zone in terms of how you wish to execute the use of your Cloud Storage solution. The two examples I mentioned will require a bit of research into how GCloud handles permissions, as well as potential issues surrounding CORS and proxying. You&#x27;ll be best learning about how to best use the Google Cloud Plugin and then identifying a way to proxy your connection",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676967515994
+      },
+      {
+        "content": "They will be publically visible, but you&#x27;ll need to either make the whole bucket public (which I don&#x27;t recommend) or proxy the image URL",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676967659444
+      },
+      {
+        "content": "You could proxy with an afterRead hook. Request the resource using the cloud storage api url, then take the response in payload and attach it to a new request",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676967787746
+      },
+      {
+        "content": "<a href=\"https://stackoverflow.com/questions/20351637/how-to-create-a-simple-http-proxy-in-node-js\">https://stackoverflow.com/questions/20351637/how-to-create-a-simple-http-proxy-in-node-js</a>",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676967833929
+      },
+      {
+        "content": "thank you and i noticed a small bug , maybe its due to cold starts but when i go to my payload url sometimes it shows &quot;Cannot get /admin/&quot; then i refresh then it works or sometimes i have to refresh my page twice",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676968151319
+      },
+      {
+        "content": "what is the usual cost of having atleast 1 instance running ?",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676968224767
+      },
+      {
+        "content": "There&#x27;s a free limit up to about 1 million invocations. You wont need to run payload 100% of the time, so you don&#x27;t require any minimum instances. You&#x27;ll likely never pay for it",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676968281041
+      },
+      {
+        "content": "As long as your nextjs revalidation time is more than 1 second, you&#x27;ll struggle to trigger 1 million payload requests a month 😄",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676968318838
+      },
+      {
+        "content": "wait what ?😂   so you suggest i should keep the minimum instance at 0 ?",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676968386772
+      },
+      {
+        "content": "Yeah",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676968415408
+      },
+      {
+        "content": "in the frontend i using React cause my client brought me a template and asked i connect it to a backend cms",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676968420402
+      },
+      {
+        "content": "If possible, see about adding Nextjs to it because it will work a lot better in the long run if they wish to make changes and new content",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676968489894
+      },
+      {
+        "content": "You don&#x27;t have to. But it&#x27;s a recommendation if you&#x27;re already using React",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676968562158
+      },
+      {
+        "content": "With Nextjs, you won&#x27;t need to run Payload 24/7 because Nextjs will statically regenerate content whenever the cache is invalidated after say 60 seconds. So in the background the page will be recompiled and then displayed without any delay for the user. It will bring down your costs and massively improve page loading times",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676968650121
+      },
+      {
+        "content": "yeah im a Nextjs fanatic but with this project it runs on so many legacy dependencies😢  it would take a huge amount of effort to convert it",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676968740391
+      },
+      {
+        "content": "Damn that sucks, in that case you&#x27;ll have to run Payload 24/7 with 1 dedicated instance. But don&#x27;t worry. It&#x27;ll cost you about $3 a month",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676968799853
+      },
+      {
+        "content": "Looks like Google just upped it to 2 million requests per month, so you&#x27;ll be fine 😄",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676968848721
+      },
+      {
+        "content": "yeah it sucks honestly",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676968877151
+      },
+      {
+        "content": "atleast",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676968897245
+      },
+      {
+        "content": "Free use, then they&#x27;ll charge you per million requests",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676969005698
+      },
+      {
+        "content": "i doubt it&#x27;s even reached 100k or 10k requests",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676969089065
+      },
+      {
+        "content": "man you made me fall inlove with cloud run im going to switch over my other 6 project over from app engine to cloud run",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676969148301
+      },
+      {
+        "content": "Its definetly the best way to host on Google Cloud, much cheaper and more efficient than dedicated servers",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676971206430
+      },
+      {
+        "content": "so ive only added this in plugins: [<br>    cloudStorage({<br>      collections: {<br>        media: {<br>          adapter: gcsAdapter({<br>            options: {},<br>            bucket: process.env.bucketUrl,<br>          }),<br>        },<br>      },<br>    }),<br>  ],",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676973196453
+      },
+      {
+        "content": "as soon as i upload i only asee a broken link",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676973218515
+      },
+      {
+        "content": "@Mark | Omniux am i suppose to append my storage bucket link to the filename ?",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676973247171
+      },
+      {
+        "content": "No the plugin will handle that for you, it will create a url where the file is held. I notice you are missing your service account details as well, you&#x27;ll need to provide authentication",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676973304472
+      },
+      {
+        "content": "my service account details are in another location on my pc",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676973447705
+      },
+      {
+        "content": "and in cloud storage i gave &quot;allUsers&quot; &quot;Storage Legacy Bucket Reader&quot; permission  but in the thumbnail and media collections it show broken image link",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676973634725
+      },
+      {
+        "content": "when i look for the image url via url it starts with <a href=\"http://localhost:3000/media/\">http://localhost:3000/media/</a> rather than my bucket url",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676974163832
+      },
+      {
+        "content": "should i change anything in my media collection ?   slug: &quot;media&quot;,<br>  access: {<br>    read: () =&gt; true,<br>    delete: isAdmin,<br>  },<br>  fields: [],<br>  upload: {<br>    staticURL: &quot;/media&quot;,<br>    imageSizes: [<br>      {<br>        name: &quot;thumbnail&quot;,<br>        width: 400,<br>        height: 300,<br>        position: &quot;centre&quot;,<br>      },<br>    ],<br>    adminThumbnail: &quot;thumbnail&quot;,<br>    mimeTypes: [&quot;image/*&quot;],<br>  },",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676974639552
+      },
+      {
+        "content": "I changed the “all users” permission To cloud storage view from storage legacy viewer",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1676981062525
+      },
+      {
+        "content": "for your thumb nail, try this;<br><br><code>adminThumbnail: ({ doc }: { doc: { sizes: { thumbnail: { url: string } } } }) =&gt; doc.sizes.thumbnail.url</code>",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676983411445
+      },
+      {
+        "content": "That is if you choose to use a thumbnail size. This is what I do for my collection;<br><br><pre><code class=\"hljs typescript\">        <span class=\"hljs-attr\">upload</span>: {\n        <span class=\"hljs-attr\">formatOptions</span>: {\n            <span class=\"hljs-attr\">format</span>: <span class=\"hljs-string\">&#x27;webp&#x27;</span>,\n            <span class=\"hljs-attr\">options</span>: {\n                <span class=\"hljs-attr\">quality</span>: <span class=\"hljs-number\">80</span>,\n                <span class=\"hljs-attr\">force</span>: <span class=\"hljs-literal\">true</span>,\n                <span class=\"hljs-attr\">alphaQuality</span>: <span class=\"hljs-number\">100</span>,\n            },\n        },\n        <span class=\"hljs-attr\">adminThumbnail</span>: <span class=\"hljs-function\">(<span class=\"hljs-params\">{ doc }: { doc: { sizes: { thumbnail: { url: <span class=\"hljs-built_in\">string</span> } } } }</span>) =&gt;</span> doc.<span class=\"hljs-property\">sizes</span>.<span class=\"hljs-property\">thumbnail</span>.<span class=\"hljs-property\">url</span>,\n        <span class=\"hljs-attr\">imageSizes</span>: [\n            {\n                <span class=\"hljs-attr\">formatOptions</span>: {\n                    <span class=\"hljs-attr\">format</span>: <span class=\"hljs-string\">&#x27;webp&#x27;</span>,\n                    <span class=\"hljs-attr\">options</span>: {\n                        <span class=\"hljs-attr\">quality</span>: <span class=\"hljs-number\">80</span>,\n                        <span class=\"hljs-attr\">force</span>: <span class=\"hljs-literal\">true</span>,\n                        <span class=\"hljs-attr\">alphaQuality</span>: <span class=\"hljs-number\">100</span>,\n                    },\n                },\n                <span class=\"hljs-attr\">name</span>: <span class=\"hljs-string\">&#x27;thumbnail&#x27;</span>,\n                <span class=\"hljs-attr\">width</span>: <span class=\"hljs-number\">175</span>,\n                <span class=\"hljs-attr\">height</span>: <span class=\"hljs-number\">125</span>\n            },\n            {\n                <span class=\"hljs-attr\">formatOptions</span>: {\n                    <span class=\"hljs-attr\">format</span>: <span class=\"hljs-string\">&#x27;webp&#x27;</span>,\n                    <span class=\"hljs-attr\">options</span>: {\n                        <span class=\"hljs-attr\">quality</span>: <span class=\"hljs-number\">80</span>,\n                        <span class=\"hljs-attr\">force</span>: <span class=\"hljs-literal\">true</span>,\n                        <span class=\"hljs-attr\">alphaQuality</span>: <span class=\"hljs-number\">100</span>,\n                    },\n                },\n                <span class=\"hljs-attr\">name</span>: <span class=\"hljs-string\">&#x27;square&#x27;</span>,\n                <span class=\"hljs-attr\">width</span>: <span class=\"hljs-number\">600</span>,\n                <span class=\"hljs-attr\">height</span>: <span class=\"hljs-number\">400</span>\n            },\n            {\n                <span class=\"hljs-attr\">formatOptions</span>: {\n                    <span class=\"hljs-attr\">format</span>: <span class=\"hljs-string\">&#x27;webp&#x27;</span>,\n                    <span class=\"hljs-attr\">options</span>: {\n                        <span class=\"hljs-attr\">quality</span>: <span class=\"hljs-number\">80</span>,\n                        <span class=\"hljs-attr\">force</span>: <span class=\"hljs-literal\">true</span>,\n                        <span class=\"hljs-attr\">alphaQuality</span>: <span class=\"hljs-number\">100</span>,\n                    },\n                },\n                <span class=\"hljs-attr\">name</span>: <span class=\"hljs-string\">&#x27;wide&#x27;</span>,\n                <span class=\"hljs-attr\">width</span>: <span class=\"hljs-number\">1280</span>,\n                <span class=\"hljs-attr\">height</span>: <span class=\"hljs-number\">500</span>\n            },\n        ]\n    },</code></pre>",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676983485667
       }
     ],
-    "messageCount": 45
+    "messageCount": 89
   },
   {
     "info": {
       "name": "Errors when trying to add custom elements to richText",
       "id": "1067096914513895446",
+      "guildId": "967097582721572934",
       "createdAt": 1674486130122
     },
     "messages": [
@@ -9569,6 +10258,7 @@
     "info": {
       "name": "can I build this with payload?",
       "id": "1075619687318159430",
+      "guildId": "967097582721572934",
       "createdAt": 1676518117504
     },
     "messages": [
@@ -9622,6 +10312,7 @@
     "info": {
       "name": "useAsTitle using a relationship",
       "id": "1069862620871532614",
+      "guildId": "967097582721572934",
       "createdAt": 1675145525902
     },
     "messages": [
@@ -9735,6 +10426,7 @@
     "info": {
       "name": "Wildcard Express Routes Blocking Admin",
       "id": "1070825108136022116",
+      "guildId": "967097582721572934",
       "createdAt": 1675375000748
     },
     "messages": [
@@ -9785,6 +10477,7 @@
     "info": {
       "name": "Is there a repo or tutorial on using google login with payload?",
       "id": "1072097651010588742",
+      "guildId": "967097582721572934",
       "createdAt": 1675678398612
     },
     "messages": [
@@ -9811,6 +10504,7 @@
     "info": {
       "name": "Importing / migrating data?",
       "id": "1071967121149534298",
+      "guildId": "967097582721572934",
       "createdAt": 1675647277868
     },
     "messages": [
@@ -9885,6 +10579,7 @@
     "info": {
       "name": "Condition doesn't seem to work in type Block fields",
       "id": "1067370667235889212",
+      "guildId": "967097582721572934",
       "createdAt": 1674551397857
     },
     "messages": [
@@ -9911,6 +10606,7 @@
     "info": {
       "name": "How to remove uniqueness from a field relationship?",
       "id": "1067938750539235349",
+      "guildId": "967097582721572934",
       "createdAt": 1674686839471
     },
     "messages": [
@@ -9964,6 +10660,7 @@
     "info": {
       "name": "Nuxt 3 + Payload CMS",
       "id": "1055146765113905284",
+      "guildId": "967097582721572934",
       "createdAt": 1671636992482
     },
     "messages": [
@@ -10028,6 +10725,7 @@
     "info": {
       "name": "Disable inline creation feature",
       "id": "1074253173415493713",
+      "guildId": "967097582721572934",
       "createdAt": 1676192315201
     },
     "messages": [
@@ -10070,6 +10768,7 @@
     "info": {
       "name": "Is it possible to set the value of a field based on a selection in another field?",
       "id": "1068560027599765534",
+      "guildId": "967097582721572934",
       "createdAt": 1674834963465
     },
     "messages": [
@@ -10136,6 +10835,7 @@
     "info": {
       "name": "Is it possible to extend the default field components (upload, text fields)?",
       "id": "1070285562453426196",
+      "guildId": "967097582721572934",
       "createdAt": 1675246363033
     },
     "messages": [
@@ -10170,6 +10870,7 @@
     "info": {
       "name": "Is it possible to override scss vars?",
       "id": "1075154570147270787",
+      "guildId": "967097582721572934",
       "createdAt": 1676407224929
     },
     "messages": [
@@ -10204,6 +10905,7 @@
     "info": {
       "name": "Type Generation Questions",
       "id": "1067535433191407717",
+      "guildId": "967097582721572934",
       "createdAt": 1674590681122
     },
     "messages": [
@@ -10238,6 +10940,7 @@
     "info": {
       "name": "Why does the afterRead hook run multiple times for just one page load?",
       "id": "1070703179420930171",
+      "guildId": "967097582721572934",
       "createdAt": 1675345930677
     },
     "messages": [
@@ -10256,6 +10959,7 @@
     "info": {
       "name": "Namespaced tabs generated types as optional",
       "id": "1063046303979933698",
+      "guildId": "967097582721572934",
       "createdAt": 1673520389314
     },
     "messages": [
@@ -10322,6 +11026,7 @@
     "info": {
       "name": "Serverless deployment (Google Cloud)",
       "id": "1072139981432303716",
+      "guildId": "967097582721572934",
       "createdAt": 1675688490971
     },
     "messages": [
@@ -10744,6 +11449,7 @@
     "info": {
       "name": "Populate richText internal link with REST API",
       "id": "1076278103489396767",
+      "guildId": "967097582721572934",
       "createdAt": 1676675096152
     },
     "messages": [
@@ -10802,6 +11508,7 @@
     "info": {
       "name": "Missing Payload Config",
       "id": "1071062090334339122",
+      "guildId": "967097582721572934",
       "createdAt": 1675431501707
     },
     "messages": [
@@ -10836,6 +11543,7 @@
     "info": {
       "name": "Uploads resized format",
       "id": "1065797253249380454",
+      "guildId": "967097582721572934",
       "createdAt": 1674176266730
     },
     "messages": [
@@ -10894,6 +11602,7 @@
     "info": {
       "name": "Hide options from select",
       "id": "1074911821569458176",
+      "guildId": "967097582721572934",
       "createdAt": 1676349349158
     },
     "messages": [
@@ -10912,6 +11621,7 @@
     "info": {
       "name": "RTE Text Alignment findings & assistance",
       "id": "1070320542537760858",
+      "guildId": "967097582721572934",
       "createdAt": 1675254702935
     },
     "messages": [
@@ -10962,6 +11672,7 @@
     "info": {
       "name": "Localised description not showing",
       "id": "1071060757833339062",
+      "guildId": "967097582721572934",
       "createdAt": 1675431184014
     },
     "messages": [
@@ -11026,8 +11737,100 @@
   },
   {
     "info": {
+      "name": "afterDelete hook error",
+      "id": "1077545186357415967",
+      "guildId": "967097582721572934",
+      "createdAt": 1676977192249
+    },
+    "messages": [
+      {
+        "content": "Hi - I&#x27;m having a problem running this hook.<br><br><br>Here&#x27;s the complete hook:<br><br><pre><code class=\"hljs ts\"><span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">const</span> <span class=\"hljs-attr\">orderAfterDelete</span>: <span class=\"hljs-title class_\">AfterDeleteHook</span> = <span class=\"hljs-keyword\">async</span> ({\n  req,\n  id,\n  doc,\n}: {\n  <span class=\"hljs-attr\">req</span>: <span class=\"hljs-title class_\">PayloadRequest</span>;\n  <span class=\"hljs-attr\">id</span>: <span class=\"hljs-built_in\">string</span>;\n  <span class=\"hljs-attr\">doc</span>: <span class=\"hljs-title class_\">Omit</span>&lt;<span class=\"hljs-title class_\">OrderType</span>, <span class=\"hljs-string\">&#x27;customerRelationship&#x27;</span>&gt; &amp; {\n    <span class=\"hljs-attr\">customerRelationship</span>: <span class=\"hljs-built_in\">string</span>;\n  };\n}) =&gt; {\n  <span class=\"hljs-keyword\">const</span> { payload } = req;\n  <span class=\"hljs-keyword\">const</span> <span class=\"hljs-attr\">customerOrders</span>: <span class=\"hljs-title class_\">CustomerType</span>[<span class=\"hljs-string\">&#x27;orders&#x27;</span>] = <span class=\"hljs-keyword\">await</span> payload\n    .<span class=\"hljs-title function_\">findByID</span>({\n      <span class=\"hljs-attr\">collection</span>: <span class=\"hljs-string\">&#x27;customers&#x27;</span>,\n      <span class=\"hljs-attr\">id</span>: doc.<span class=\"hljs-property\">customerRelationship</span>,\n    })\n    .<span class=\"hljs-title function_\">then</span>(<span class=\"hljs-function\">(<span class=\"hljs-params\">customer</span>) =&gt;</span> customer.<span class=\"hljs-property\">orders</span>)\n    .<span class=\"hljs-title function_\">catch</span>(<span class=\"hljs-function\">(<span class=\"hljs-params\">error</span>) =&gt;</span> {\n      payload.<span class=\"hljs-property\">logger</span>.<span class=\"hljs-title function_\">error</span>(<span class=\"hljs-string\">`orderAfterDelete: <span class=\"hljs-subst\">${error.message}</span>`</span>);\n      <span class=\"hljs-keyword\">return</span> <span class=\"hljs-literal\">null</span>;\n    })\n\n  <span class=\"hljs-keyword\">if</span> (customerOrders.<span class=\"hljs-property\">length</span> === <span class=\"hljs-number\">0</span>) {\n    payload.<span class=\"hljs-property\">logger</span>.<span class=\"hljs-title function_\">info</span>(<span class=\"hljs-string\">`orderAfterDelete: Customer has no orders`</span>);\n  } <span class=\"hljs-keyword\">else</span> {\n    <span class=\"hljs-comment\">// Remove order from customer</span>\n    <span class=\"hljs-keyword\">await</span> payload.<span class=\"hljs-title function_\">update</span>({\n      <span class=\"hljs-attr\">collection</span>: <span class=\"hljs-string\">&#x27;customers&#x27;</span>,\n      <span class=\"hljs-attr\">id</span>: doc?.<span class=\"hljs-property\">customerRelationship</span>,\n      <span class=\"hljs-attr\">data</span>: {\n        <span class=\"hljs-attr\">orders</span>: customerOrders\n          .<span class=\"hljs-title function_\">filter</span>(<span class=\"hljs-function\">(<span class=\"hljs-params\">order</span>) =&gt;</span> order?.<span class=\"hljs-property\">id</span> !== id)\n          .<span class=\"hljs-title function_\">map</span>(<span class=\"hljs-function\">(<span class=\"hljs-params\">order</span>) =&gt;</span> order?.<span class=\"hljs-property\">id</span>),\n      },\n    });\n    payload.<span class=\"hljs-property\">logger</span>.<span class=\"hljs-title function_\">info</span>(<span class=\"hljs-string\">`orderAfterDelete: Removed order from customer`</span>);\n  }\n\n  <span class=\"hljs-variable language_\">console</span>.<span class=\"hljs-title function_\">log</span>({ id, doc, customerOrders });\n  payload.<span class=\"hljs-property\">logger</span>.<span class=\"hljs-title function_\">info</span>(<span class=\"hljs-string\">`orderAfterDelete: finished`</span>);\n};</code></pre>",
+        "fileAttachments": [],
+        "authorID": "357456032454410240",
+        "authorName": "jakehopking",
+        "authorAvatar": "be04dbc0304e7d0f1e98613aff048199",
+        "createdAtDate": 1676977192249
+      },
+      {
+        "content": "I get this error in my console when trying to delete the record from the admin ui:<br><br><pre><code class=\"hljs shell\">[10:50:03] ERROR (payload): NotFound: The requested resource was not found.\n    at new ExtendableError (/Users/jake/Development/personal/elkli-and-hart/node_modules/payload/src/errors/APIError.ts:26:11)\n    at new APIError (/Users/jake/Development/personal/elkli-and-hart/node_modules/payload/src/errors/APIError.ts:43:5)\n    at new NotFound (/Users/jake/Development/personal/elkli-and-hart/node_modules/payload/src/errors/NotFound.ts:7:5)\n    at findByID (/Users/jake/Development/personal/elkli-and-hart/node_modules/payload/src/collections/operations/findByID.ts:113:13)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runNextTicks (node:internal/process/task_queues:64:3)\n    at processImmediate (node:internal/timers:442:9)\n    at async findByIDHandler (/Users/jake/Development/personal/elkli-and-hart/node_modules/payload/src/collections/requestHandlers/findByID.ts:13:17)</code></pre>",
+        "fileAttachments": [],
+        "authorID": "357456032454410240",
+        "authorName": "jakehopking",
+        "authorAvatar": "be04dbc0304e7d0f1e98613aff048199",
+        "createdAtDate": 1676977233457
+      },
+      {
+        "content": "When I run this logic inside my test env (the <code>getServerSideProps</code> which I use as a playground for sanity checking) it successfully run and removes the order from the customer.",
+        "fileAttachments": [],
+        "authorID": "357456032454410240",
+        "authorName": "jakehopking",
+        "authorAvatar": "be04dbc0304e7d0f1e98613aff048199",
+        "createdAtDate": 1676977298641
+      },
+      {
+        "content": "Please can you help shine a light on what I&#x27;m doing wrong?",
+        "fileAttachments": [],
+        "authorID": "357456032454410240",
+        "authorName": "jakehopking",
+        "authorAvatar": "be04dbc0304e7d0f1e98613aff048199",
+        "createdAtDate": 1676977314631
+      },
+      {
+        "content": "Logging the <code>id</code> and <code>doc</code> inside the afterDelete hook I get this... so all the data I need is there:<br><br><pre><code class=\"hljs js\">{\n  <span class=\"hljs-attr\">id</span>: <span class=\"hljs-string\">&#x27;63f4a1e2c0a1587558cb5afc&#x27;</span>,\n  <span class=\"hljs-attr\">doc</span>: {\n    <span class=\"hljs-attr\">id</span>: <span class=\"hljs-string\">&#x27;63f4a1e2c0a1587558cb5afc&#x27;</span>,\n    <span class=\"hljs-attr\">customer</span>: {\n      <span class=\"hljs-attr\">email</span>: <span class=\"hljs-string\">&#x27;jake@hopking.io&#x27;</span>,\n      <span class=\"hljs-attr\">name</span>: <span class=\"hljs-string\">&#x27;Jake Hopking&#x27;</span>,\n      <span class=\"hljs-attr\">address</span>: [<span class=\"hljs-title class_\">Object</span>]\n    },\n    <span class=\"hljs-attr\">customerRelationship</span>: <span class=\"hljs-string\">&#x27;63ed08df3b7466e4b53c3676&#x27;</span>,\n    <span class=\"hljs-attr\">dates</span>: {\n      <span class=\"hljs-attr\">created</span>: <span class=\"hljs-string\">&#x27;2023-02-21T00:47:13.007Z&#x27;</span>,\n      <span class=\"hljs-attr\">paid</span>: <span class=\"hljs-string\">&#x27;2023-02-21T00:47:16.896Z&#x27;</span>\n    },\n    <span class=\"hljs-attr\">payment</span>: {\n      <span class=\"hljs-attr\">currency</span>: <span class=\"hljs-string\">&#x27;gbp&#x27;</span>,\n      <span class=\"hljs-attr\">paymentMethod</span>: <span class=\"hljs-string\">&#x27;card&#x27;</span>,\n      <span class=\"hljs-attr\">priceTotal</span>: <span class=\"hljs-number\">12000</span>,\n      <span class=\"hljs-attr\">priceVat</span>: <span class=\"hljs-number\">2000</span>,\n      <span class=\"hljs-attr\">status</span>: <span class=\"hljs-string\">&#x27;payment_success&#x27;</span>,\n      <span class=\"hljs-attr\">vatRate</span>: <span class=\"hljs-number\">20</span>\n    },\n    <span class=\"hljs-attr\">products</span>: [ [<span class=\"hljs-title class_\">Object</span>] ],\n    <span class=\"hljs-attr\">status</span>: <span class=\"hljs-string\">&#x27;order_paid&#x27;</span>,\n    <span class=\"hljs-attr\">stripe</span>: { <span class=\"hljs-attr\">payment_intent</span>: [<span class=\"hljs-title class_\">Object</span>] },\n    <span class=\"hljs-attr\">statusValidation</span>: {\n      <span class=\"hljs-attr\">hasOrderReadyToDispatchCompleted</span>: <span class=\"hljs-literal\">false</span>,\n      <span class=\"hljs-attr\">hasOrderShippedCompleted</span>: <span class=\"hljs-literal\">false</span>\n    },\n    <span class=\"hljs-attr\">createdAt</span>: <span class=\"hljs-string\">&#x27;2023-02-21T10:50:10.332Z&#x27;</span>,\n    <span class=\"hljs-attr\">updatedAt</span>: <span class=\"hljs-string\">&#x27;2023-02-21T10:50:10.332Z&#x27;</span>\n  }\n}</code></pre>",
+        "fileAttachments": [],
+        "authorID": "357456032454410240",
+        "authorName": "jakehopking",
+        "authorAvatar": "be04dbc0304e7d0f1e98613aff048199",
+        "createdAtDate": 1676977672498
+      },
+      {
+        "content": "Also, logging the <code>customerOrders</code> - I can see that the customer has been found from the <code>doc.customerRelationship</code><br><br><pre><code class=\"hljs js\"><span class=\"hljs-attr\">customerOrders</span>: [\n    {\n      <span class=\"hljs-attr\">id</span>: <span class=\"hljs-string\">&#x27;63eaaeba288a86128622d103&#x27;</span>,\n      <span class=\"hljs-attr\">customer</span>: [<span class=\"hljs-title class_\">Object</span>],\n      <span class=\"hljs-attr\">dates</span>: [<span class=\"hljs-title class_\">Object</span>],\n      <span class=\"hljs-attr\">payment</span>: [<span class=\"hljs-title class_\">Object</span>],\n      <span class=\"hljs-attr\">products</span>: [<span class=\"hljs-title class_\">Array</span>],\n      <span class=\"hljs-attr\">status</span>: <span class=\"hljs-string\">&#x27;order_paid&#x27;</span>,\n      <span class=\"hljs-attr\">stripe</span>: [<span class=\"hljs-title class_\">Object</span>],\n      <span class=\"hljs-attr\">createdAt</span>: <span class=\"hljs-string\">&#x27;2023-02-13T21:42:18.727Z&#x27;</span>,\n      <span class=\"hljs-attr\">updatedAt</span>: <span class=\"hljs-string\">&#x27;2023-02-19T16:58:23.603Z&#x27;</span>,\n      <span class=\"hljs-attr\">tracking</span>: [<span class=\"hljs-title class_\">Object</span>],\n      <span class=\"hljs-attr\">customerRelationship</span>: [<span class=\"hljs-title class_\">Object</span>],\n      <span class=\"hljs-attr\">statusValidation</span>: {}\n    },\n    {\n      <span class=\"hljs-attr\">id</span>: <span class=\"hljs-string\">&#x27;63f41257628f2726b98d35e3&#x27;</span>,\n      <span class=\"hljs-attr\">customer</span>: [<span class=\"hljs-title class_\">Object</span>],\n      <span class=\"hljs-attr\">customerRelationship</span>: [<span class=\"hljs-title class_\">Object</span>],\n      <span class=\"hljs-attr\">dates</span>: [<span class=\"hljs-title class_\">Object</span>],\n      <span class=\"hljs-attr\">payment</span>: [<span class=\"hljs-title class_\">Object</span>],\n      <span class=\"hljs-attr\">products</span>: [<span class=\"hljs-title class_\">Array</span>],\n      <span class=\"hljs-attr\">status</span>: <span class=\"hljs-string\">&#x27;order_paid&#x27;</span>,\n      <span class=\"hljs-attr\">stripe</span>: [<span class=\"hljs-title class_\">Object</span>],\n      <span class=\"hljs-attr\">statusValidation</span>: [<span class=\"hljs-title class_\">Object</span>],\n      <span class=\"hljs-attr\">createdAt</span>: <span class=\"hljs-string\">&#x27;2023-02-21T00:37:43.269Z&#x27;</span>,\n      <span class=\"hljs-attr\">updatedAt</span>: <span class=\"hljs-string\">&#x27;2023-02-21T00:47:16.900Z&#x27;</span>,\n      <span class=\"hljs-attr\">tracking</span>: {}\n    },\n    <span class=\"hljs-string\">&#x27;63f4a7d151729824a8a93b3e&#x27;</span>\n  ]</code></pre>",
+        "fileAttachments": [],
+        "authorID": "357456032454410240",
+        "authorName": "jakehopking",
+        "authorAvatar": "be04dbc0304e7d0f1e98613aff048199",
+        "createdAtDate": 1676978024108
+      },
+      {
+        "content": "actually - now i see that the order id is all that remains... (two full objects, and a string.... which makes sense because this runs <strong>after</strong> delete). So maybe I need to filter based on type before mapping the ids back in?",
+        "fileAttachments": [],
+        "authorID": "357456032454410240",
+        "authorName": "jakehopking",
+        "authorAvatar": "be04dbc0304e7d0f1e98613aff048199",
+        "createdAtDate": 1676978299304
+      },
+      {
+        "content": "-<br><br>Tried this and it works....<br><br><pre><code class=\"hljs ts\"><span class=\"hljs-keyword\">await</span> payload.<span class=\"hljs-title function_\">update</span>({\n  <span class=\"hljs-attr\">collection</span>: <span class=\"hljs-string\">&#x27;customers&#x27;</span>,\n  <span class=\"hljs-attr\">id</span>: doc?.<span class=\"hljs-property\">customerRelationship</span>,\n  <span class=\"hljs-attr\">data</span>: {\n    <span class=\"hljs-attr\">orders</span>: customerOrders\n      .<span class=\"hljs-title function_\">filter</span>(<span class=\"hljs-function\">(<span class=\"hljs-params\">order</span>) =&gt;</span> <span class=\"hljs-keyword\">typeof</span> order !== <span class=\"hljs-string\">&#x27;string&#x27;</span> &amp;&amp; order?.<span class=\"hljs-property\">id</span> !== id)\n      .<span class=\"hljs-title function_\">map</span>(<span class=\"hljs-function\">(<span class=\"hljs-params\">order</span>) =&gt;</span> order?.<span class=\"hljs-property\">id</span>),\n  },\n});</code></pre>",
+        "fileAttachments": [],
+        "authorID": "357456032454410240",
+        "authorName": "jakehopking",
+        "authorAvatar": "be04dbc0304e7d0f1e98613aff048199",
+        "createdAtDate": 1676978526060
+      },
+      {
+        "content": "-<br><br>Is there a better way of doing this?",
+        "fileAttachments": [],
+        "authorID": "357456032454410240",
+        "authorName": "jakehopking",
+        "authorAvatar": "be04dbc0304e7d0f1e98613aff048199",
+        "createdAtDate": 1676978600304
+      },
+      {
+        "content": "Could be a nice feature to add to collections.... option of automatically removing the stale id from an array of defined collections (which share this relationship) upon record deletion",
+        "fileAttachments": [],
+        "authorID": "357456032454410240",
+        "authorName": "jakehopking",
+        "authorAvatar": "be04dbc0304e7d0f1e98613aff048199",
+        "createdAtDate": 1676980046424
+      }
+    ],
+    "messageCount": 9
+  },
+  {
+    "info": {
       "name": "How to set up authentication with Okta via OAuth 2.0?",
       "id": "1047565167761833985",
+      "guildId": "967097582721572934",
       "createdAt": 1669829398814
     },
     "messages": [
@@ -11062,6 +11865,7 @@
     "info": {
       "name": "Client side authentication",
       "id": "1069375959515541665",
+      "guildId": "967097582721572934",
       "createdAt": 1675029496793
     },
     "messages": [
@@ -11096,6 +11900,7 @@
     "info": {
       "name": "Issue with preview",
       "id": "1063306442234404885",
+      "guildId": "967097582721572934",
       "createdAt": 1673582411107
     },
     "messages": [
@@ -11194,6 +11999,7 @@
     "info": {
       "name": "Collection not being shown in admin panel",
       "id": "1075062125875175586",
+      "guildId": "967097582721572934",
       "createdAt": 1676385184497
     },
     "messages": [
@@ -11338,6 +12144,7 @@
     "info": {
       "name": "How to see which user modified what?",
       "id": "1068850602324541500",
+      "guildId": "967097582721572934",
       "createdAt": 1674904241878
     },
     "messages": [
@@ -11380,6 +12187,7 @@
     "info": {
       "name": "CUstom SCSS file not working",
       "id": "1047441931426345062",
+      "guildId": "967097582721572934",
       "createdAt": 1669800016982
     },
     "messages": [
@@ -11818,6 +12626,7 @@
     "info": {
       "name": "How to add justify, left, center and right to text inside RichText?",
       "id": "1075209037647446137",
+      "guildId": "967097582721572934",
       "createdAt": 1676420210993
     },
     "messages": [
@@ -11844,6 +12653,7 @@
     "info": {
       "name": "Message Queue",
       "id": "1060981012626161784",
+      "guildId": "967097582721572934",
       "createdAt": 1673027985484
     },
     "messages": [
@@ -11870,6 +12680,7 @@
     "info": {
       "name": "Does Payload re-export its React?",
       "id": "1075800466933424189",
+      "guildId": "967097582721572934",
       "createdAt": 1676561218723
     },
     "messages": [
@@ -11928,6 +12739,7 @@
     "info": {
       "name": "Where does admin/collections/pages get page list from?",
       "id": "1075255773178900570",
+      "guildId": "967097582721572934",
       "createdAt": 1676431353612
     },
     "messages": [
@@ -11968,6 +12780,7 @@
     "info": {
       "name": "New User! How exactly do I rename my media files upon upload?",
       "id": "1073494188647264297",
+      "guildId": "967097582721572934",
       "createdAt": 1676011359131
     },
     "messages": [
@@ -11994,6 +12807,7 @@
     "info": {
       "name": "Can you explain the benefits of so much granularity of data?",
       "id": "1075956342537330718",
+      "guildId": "967097582721572934",
       "createdAt": 1676598382363
     },
     "messages": [
@@ -12162,6 +12976,7 @@
     "info": {
       "name": "Setting up magic link with payload auth",
       "id": "1073356002101035108",
+      "guildId": "967097582721572934",
       "createdAt": 1675978412891
     },
     "messages": [
@@ -12228,6 +13043,7 @@
     "info": {
       "name": "email fromName isn't appearing",
       "id": "1074033677790617712",
+      "guildId": "967097582721572934",
       "createdAt": 1676139983366
     },
     "messages": [
@@ -12408,6 +13224,7 @@
     "info": {
       "name": "Issues with applying hook output to a field with type select",
       "id": "1072241616917643454",
+      "guildId": "967097582721572934",
       "createdAt": 1675712722759
     },
     "messages": [
@@ -12666,6 +13483,7 @@
     "info": {
       "name": "Does anyone know if the Payload API can return multiple items in one request?",
       "id": "1075519296349945876",
+      "guildId": "967097582721572934",
       "createdAt": 1676494182432
     },
     "messages": [
@@ -12796,6 +13614,7 @@
     "info": {
       "name": "The payload template setup for javascript fails to run",
       "id": "1071421186086551673",
+      "guildId": "967097582721572934",
       "createdAt": 1675517116806
     },
     "messages": [
@@ -12854,6 +13673,7 @@
     "info": {
       "name": "How to add divider line to blocks?",
       "id": "1068004369917816913",
+      "guildId": "967097582721572934",
       "createdAt": 1674702484350
     },
     "messages": [
@@ -12880,6 +13700,7 @@
     "info": {
       "name": "Can't modify anything in production",
       "id": "1070156169693380608",
+      "guildId": "967097582721572934",
       "createdAt": 1675215513395
     },
     "messages": [
@@ -13058,6 +13879,7 @@
     "info": {
       "name": "How do you handle nested taxonomies?",
       "id": "1075415421567643701",
+      "guildId": "967097582721572934",
       "createdAt": 1676469416754
     },
     "messages": [
@@ -13076,6 +13898,7 @@
     "info": {
       "name": "Rate limiting for an individual collection or endpoint",
       "id": "1067938776497790986",
+      "guildId": "967097582721572934",
       "createdAt": 1674686845660
     },
     "messages": [
@@ -13102,6 +13925,7 @@
     "info": {
       "name": "Import localized data from getText files (aka po and pot files)",
       "id": "1060720888649097306",
+      "guildId": "967097582721572934",
       "createdAt": 1672965967095
     },
     "messages": [
@@ -13192,6 +14016,7 @@
     "info": {
       "name": "Trying to create a production build with Payload CMS Error",
       "id": "1077011979790725190",
+      "guildId": "967097582721572934",
       "createdAt": 1676850065897
     },
     "messages": [
@@ -13202,14 +14027,23 @@
         "authorName": "callistusa",
         "authorAvatar": "e550c9b615e55b4da767d9e356b0a3ff",
         "createdAtDate": 1676850065897
+      },
+      {
+        "content": "I haven&#x27;t been able to reproduce your issue.<br>If you have some reproduction steps I&#x27;d like to try them to see what is going.<br>Assuming you don&#x27;t need GraphQL at all, you can set <code>graphQL.disable: true</code> in your Payload config which should prevent this from happening if you just want to be unblocked.",
+        "fileAttachments": [],
+        "authorID": "969226489549713438",
+        "authorName": "dribbens",
+        "authorAvatar": "f5c79aff07b9e2b1df382d61c45cb9da",
+        "createdAtDate": 1676950010949
       }
     ],
-    "messageCount": 0
+    "messageCount": 1
   },
   {
     "info": {
       "name": "v1.6.4 - failing to build in production mode - multiple version of GraphQL",
       "id": "1072507736241229864",
+      "guildId": "967097582721572934",
       "createdAt": 1675776170550
     },
     "messages": [
@@ -13268,6 +14102,7 @@
     "info": {
       "name": "Media Upload Error...Help me!",
       "id": "1069484127365124096",
+      "guildId": "967097582721572934",
       "createdAt": 1675055286018
     },
     "messages": [
@@ -13308,6 +14143,7 @@
     "info": {
       "name": "CORS Error on sign up",
       "id": "1064833308757872671",
+      "guildId": "967097582721572934",
       "createdAt": 1673946444454
     },
     "messages": [
@@ -13348,6 +14184,7 @@
     "info": {
       "name": "How to access latest content versions with GraphQL?",
       "id": "1068710804070875237",
+      "guildId": "967097582721572934",
       "createdAt": 1674870911377
     },
     "messages": [
@@ -13374,6 +14211,7 @@
     "info": {
       "name": "Deploy to deno Deploy",
       "id": "1055562444770131968",
+      "guildId": "967097582721572934",
       "createdAt": 1671736098235
     },
     "messages": [
@@ -13408,6 +14246,7 @@
     "info": {
       "name": "How to generate JWT token for a user without calling .login(email, password)?",
       "id": "1071806386037604352",
+      "guildId": "967097582721572934",
       "createdAt": 1675608955631
     },
     "messages": [
@@ -13458,6 +14297,7 @@
     "info": {
       "name": "Error: Unexpected end of form",
       "id": "1073654127420256367",
+      "guildId": "967097582721572934",
       "createdAt": 1676049491506
     },
     "messages": [
@@ -13522,6 +14362,7 @@
     "info": {
       "name": "nx monorepo Uncaught Error: Invalid hook call.",
       "id": "1067843381440557207",
+      "guildId": "967097582721572934",
       "createdAt": 1674664101706
     },
     "messages": [
@@ -13548,6 +14389,7 @@
     "info": {
       "name": "How to get current user data",
       "id": "1070810433080004668",
+      "guildId": "967097582721572934",
       "createdAt": 1675371501942
     },
     "messages": [
@@ -13590,6 +14432,7 @@
     "info": {
       "name": "How to use relative urls in css, e.g. background-image: url(/example.jpg)",
       "id": "1070293286507511828",
+      "guildId": "967097582721572934",
       "createdAt": 1675248204591
     },
     "messages": [
@@ -13632,6 +14475,7 @@
     "info": {
       "name": "Pass .env variable to collections config preview URL",
       "id": "1070753504471294012",
+      "guildId": "967097582721572934",
       "createdAt": 1675357929104
     },
     "messages": [
@@ -13714,6 +14558,7 @@
     "info": {
       "name": "Remove element type for richTexy",
       "id": "1069848433868951613",
+      "guildId": "967097582721572934",
       "createdAt": 1675142143457
     },
     "messages": [
@@ -13746,8 +14591,36 @@
   },
   {
     "info": {
+      "name": "How to do dot notation on graphql where?",
+      "id": "1077554723336499260",
+      "guildId": "967097582721572934",
+      "createdAt": 1676979466042
+    },
+    "messages": [
+      {
+        "content": "Is it possible to create a gql query with where clause same as the where on REST like post.image.alt on <a href=\"https://localhost:9000/api/posts?where[post.image.alt][equals]=test%20image\">https://localhost:9000/api/posts?where[post.image.alt][equals]=test%20image</a>",
+        "fileAttachments": [],
+        "authorID": "950202910095081473",
+        "authorName": "johnmadrigal_",
+        "authorAvatar": "b7ed475cf3de264fee113ff334d70ccb",
+        "createdAtDate": 1676979466042
+      },
+      {
+        "content": "Not currently, but it’s on our roadmap. The REST endpoints can do this (once the open issue is resolved).<br><br>Roadmap item: <a href=\"https://github.com/payloadcms/payload/discussions/761\">https://github.com/payloadcms/payload/discussions/761</a>",
+        "fileAttachments": [],
+        "authorID": "281120856527077378",
+        "authorName": "Jarrod",
+        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
+        "createdAtDate": 1676983215457
+      }
+    ],
+    "messageCount": 1
+  },
+  {
+    "info": {
       "name": "Upgraded from 1.2.4 to 1.5.9 and now build fails on Railway",
       "id": "1066260457968640150",
+      "guildId": "967097582721572934",
       "createdAt": 1674286703341
     },
     "messages": [
@@ -13798,6 +14671,7 @@
     "info": {
       "name": "How to set expiration limit for forgotpassword token ?",
       "id": "1077161947851669544",
+      "guildId": "967097582721572934",
       "createdAt": 1676885821069
     },
     "messages": [
@@ -13848,6 +14722,7 @@
     "info": {
       "name": "Set PAYLOAD_PUBLIC_ env vars at runtime?",
       "id": "1070982210523500584",
+      "guildId": "967097582721572934",
       "createdAt": 1675412456876
     },
     "messages": [
@@ -13882,6 +14757,7 @@
     "info": {
       "name": "How to change order of collection items.",
       "id": "1064487552142290954",
+      "guildId": "967097582721572934",
       "createdAt": 1673864009653
     },
     "messages": [
@@ -13964,6 +14840,7 @@
     "info": {
       "name": "I think PrettyPrint is deprecated",
       "id": "1070626220322066442",
+      "guildId": "967097582721572934",
       "createdAt": 1675327582198
     },
     "messages": [
@@ -13990,6 +14867,7 @@
     "info": {
       "name": "Using a custom domain to point to cloud run instance hosting payload server not allowing auth",
       "id": "1072062939051339838",
+      "guildId": "967097582721572934",
       "createdAt": 1675670122636
     },
     "messages": [
@@ -14216,6 +15094,7 @@
     "info": {
       "name": "Is Payload mature enough for large projects?",
       "id": "1066153350153900092",
+      "guildId": "967097582721572934",
       "createdAt": 1674261166848
     },
     "messages": [
@@ -14250,6 +15129,7 @@
     "info": {
       "name": "Field hook for creating slug",
       "id": "1070026227273973820",
+      "guildId": "967097582721572934",
       "createdAt": 1675184532708
     },
     "messages": [
@@ -14468,6 +15348,7 @@
     "info": {
       "name": "How do I upload in-memory files via the the local API?",
       "id": "1076195533598769182",
+      "guildId": "967097582721572934",
       "createdAt": 1676655409956
     },
     "messages": [
@@ -14502,6 +15383,7 @@
     "info": {
       "name": "Switching between s3 and local media files",
       "id": "1076569813092155504",
+      "guildId": "967097582721572934",
       "createdAt": 1676744645141
     },
     "messages": [
@@ -14520,6 +15402,7 @@
     "info": {
       "name": "Same nested block in a block",
       "id": "1072464714782748752",
+      "guildId": "967097582721572934",
       "createdAt": 1675765913435
     },
     "messages": [
@@ -14560,6 +15443,7 @@
     "info": {
       "name": "How to set aliases for server-only modules used inside my hooks (Webpack errors)",
       "id": "1070447034231967844",
+      "guildId": "967097582721572934",
       "createdAt": 1675284860905
     },
     "messages": [
@@ -14602,6 +15486,7 @@
     "info": {
       "name": "Field tags?",
       "id": "1077252662237605949",
+      "guildId": "967097582721572934",
       "createdAt": 1676907449064
     },
     "messages": [
@@ -14650,6 +15535,7 @@
     "info": {
       "name": "Conditionally hide preview button?",
       "id": "1070901022245011486",
+      "guildId": "967097582721572934",
       "createdAt": 1675393100082
     },
     "messages": [
@@ -14676,6 +15562,7 @@
     "info": {
       "name": "Why does payload generate:types not include collection arrays?",
       "id": "1075948267789090896",
+      "guildId": "967097582721572934",
       "createdAt": 1676596457193
     },
     "messages": [
@@ -14694,6 +15581,7 @@
     "info": {
       "name": "Images showing as strings and not the image information",
       "id": "1077087054187483156",
+      "guildId": "967097582721572934",
       "createdAt": 1676867965028
     },
     "messages": [
@@ -14752,6 +15640,7 @@
     "info": {
       "name": "Fetching items by slug (or other unique text field)",
       "id": "1036263494649122908",
+      "guildId": "967097582721572934",
       "createdAt": 1667134869969
     },
     "messages": [
@@ -14802,6 +15691,7 @@
     "info": {
       "name": "Webpack error when updating document in collection with payload.update",
       "id": "1075501371039682663",
+      "guildId": "967097582721572934",
       "createdAt": 1676489908705
     },
     "messages": [
@@ -14908,14 +15798,23 @@
         "authorName": "jmikrut",
         "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
         "createdAtDate": 1676924332093
+      },
+      {
+        "content": "Yup totally makes sense. My brain definently stopped working with this one haha. Thanks!",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1676934203528
       }
     ],
-    "messageCount": 12
+    "messageCount": 13
   },
   {
     "info": {
       "name": "replace Search Bar in Admin Panel",
       "id": "1069405238831894619",
+      "guildId": "967097582721572934",
       "createdAt": 1675036477526
     },
     "messages": [
@@ -14974,6 +15873,7 @@
     "info": {
       "name": "Relations and Drafts",
       "id": "1068787015434383390",
+      "guildId": "967097582721572934",
       "createdAt": 1674889081582
     },
     "messages": [
@@ -15224,6 +16124,7 @@
     "info": {
       "name": "field hooks originalDoc properties log correctly, but return undefined when used",
       "id": "1062043861230293082",
+      "guildId": "967097582721572934",
       "createdAt": 1673281388338
     },
     "messages": [
@@ -15266,6 +16167,7 @@
     "info": {
       "name": "Search doesn't work for large collections",
       "id": "1068093957499793418",
+      "guildId": "967097582721572934",
       "createdAt": 1674723843694
     },
     "messages": [
@@ -15586,6 +16488,7 @@
     "info": {
       "name": "Replacing an uploaded image's buffer in a beforeValidate/Change hook",
       "id": "1070461370501447680",
+      "guildId": "967097582721572934",
       "createdAt": 1675288278938
     },
     "messages": [
@@ -15644,6 +16547,7 @@
     "info": {
       "name": "Image resizing not preserving aspect ratio",
       "id": "1073823694817857656",
+      "guildId": "967097582721572934",
       "createdAt": 1676089919524
     },
     "messages": [
@@ -15702,6 +16606,7 @@
     "info": {
       "name": "Can we have a \"slug\" field?",
       "id": "1069324183928049814",
+      "guildId": "967097582721572934",
       "createdAt": 1675017152531
     },
     "messages": [
@@ -15760,6 +16665,7 @@
     "info": {
       "name": "Can you set an max on hasMany?",
       "id": "1067069439721361458",
+      "guildId": "967097582721572934",
       "createdAt": 1674479579621
     },
     "messages": [
@@ -15794,6 +16700,7 @@
     "info": {
       "name": "Help with richText",
       "id": "1068394736425119766",
+      "guildId": "967097582721572934",
       "createdAt": 1674795554978
     },
     "messages": [
@@ -15868,6 +16775,7 @@
     "info": {
       "name": "plugin-form-builder implementation",
       "id": "1075986888076300371",
+      "guildId": "967097582721572934",
       "createdAt": 1676605664987
     },
     "messages": [
@@ -15924,6 +16832,7 @@
     "info": {
       "name": "Admin panel ignores 'labels' in Blocks",
       "id": "1067781610767929435",
+      "guildId": "967097582721572934",
       "createdAt": 1674649374430
     },
     "messages": [
@@ -16162,6 +17071,7 @@
     "info": {
       "name": "passing information in admin panel",
       "id": "1064868303056679002",
+      "guildId": "967097582721572934",
       "createdAt": 1673954787745
     },
     "messages": [
@@ -16220,6 +17130,7 @@
     "info": {
       "name": "Do not trigger afterRead hook after payload.update",
       "id": "1070692529797877791",
+      "guildId": "967097582721572934",
       "createdAt": 1675343391609
     },
     "messages": [
@@ -16262,6 +17173,7 @@
     "info": {
       "name": "Update document field while its creating (afterChange hook, \"create\" operation)",
       "id": "1075912550430027847",
+      "guildId": "967097582721572934",
       "createdAt": 1676587941511
     },
     "messages": [
@@ -16304,6 +17216,7 @@
     "info": {
       "name": "How is gonna Payload work out for me vs. Sanity?",
       "id": "1075567629491773550",
+      "guildId": "967097582721572934",
       "createdAt": 1676505705951
     },
     "messages": [
@@ -16354,6 +17267,7 @@
     "info": {
       "name": "Hide collection from admin panel sidebar but not not from relationship field?",
       "id": "1068706036883669022",
+      "guildId": "967097582721572934",
       "createdAt": 1674869774791
     },
     "messages": [
@@ -16404,6 +17318,7 @@
     "info": {
       "name": "How to change the nav bar?",
       "id": "1070433148107751556",
+      "guildId": "967097582721572934",
       "createdAt": 1675281550195
     },
     "messages": [
@@ -16452,6 +17367,7 @@
     "info": {
       "name": "what would be the cheapest way to deploy a Payload CMS?",
       "id": "1066710456535883886",
+      "guildId": "967097582721572934",
       "createdAt": 1674393991360
     },
     "messages": [
@@ -16540,6 +17456,7 @@
     "info": {
       "name": "Populate relationship field on click",
       "id": "1064065679952723991",
+      "guildId": "967097582721572934",
       "createdAt": 1673763427485
     },
     "messages": [
@@ -16582,6 +17499,7 @@
     "info": {
       "name": "Import posts from Wordpress",
       "id": "1068171728028700802",
+      "guildId": "967097582721572934",
       "createdAt": 1674742385633
     },
     "messages": [
@@ -16632,6 +17550,7 @@
     "info": {
       "name": "Can I make the User create page public / allowed without logging in?",
       "id": "1070050520754040893",
+      "guildId": "967097582721572934",
       "createdAt": 1675190324725
     },
     "messages": [
@@ -16978,6 +17897,7 @@
     "info": {
       "name": "MongooseError: Operation `users.countDocuments()` buffering timed out after 10000ms",
       "id": "1070732000006262794",
+      "guildId": "967097582721572934",
       "createdAt": 1675352802040
     },
     "messages": [
@@ -17060,6 +17980,7 @@
     "info": {
       "name": "How to trigger field hooks?",
       "id": "1074905454985093252",
+      "guildId": "967097582721572934",
       "createdAt": 1676347831246
     },
     "messages": [
@@ -17102,6 +18023,7 @@
     "info": {
       "name": "Best way to handle many-to-many relationship?",
       "id": "1034836636686626897",
+      "guildId": "967097582721572934",
       "createdAt": 1666794680521
     },
     "messages": [
@@ -17176,6 +18098,7 @@
     "info": {
       "name": "Relation Field Typing",
       "id": "1072683238008573952",
+      "guildId": "967097582721572934",
       "createdAt": 1675818013432
     },
     "messages": [
@@ -17248,6 +18171,7 @@
     "info": {
       "name": "Custom ID's are immutable?",
       "id": "1067443807072821259",
+      "guildId": "967097582721572934",
       "createdAt": 1674568835753
     },
     "messages": [
@@ -17490,6 +18414,7 @@
     "info": {
       "name": "Defining the order of collection table columns in admin list view",
       "id": "1074310327585492994",
+      "guildId": "967097582721572934",
       "createdAt": 1676205941817
     },
     "messages": [
@@ -17548,6 +18473,7 @@
     "info": {
       "name": "Upload collection bug",
       "id": "1071853173238665277",
+      "guildId": "967097582721572934",
       "createdAt": 1675620110569
     },
     "messages": [
@@ -17641,6 +18567,7 @@
     "info": {
       "name": "Generating Types Error with Azure",
       "id": "1067549631904493638",
+      "guildId": "967097582721572934",
       "createdAt": 1674594066359
     },
     "messages": [
@@ -17747,6 +18674,7 @@
     "info": {
       "name": "Prevent users from accessing admin panel",
       "id": "1075047937555574904",
+      "guildId": "967097582721572934",
       "createdAt": 1676381801738
     },
     "messages": [
@@ -17893,6 +18821,7 @@
     "info": {
       "name": "Add rules in webpack config",
       "id": "1073014021135024219",
+      "guildId": "967097582721572934",
       "createdAt": 1675896878275
     },
     "messages": [
@@ -17951,6 +18880,7 @@
     "info": {
       "name": "Has anyone integrated Next, Turborepo, and Payload?",
       "id": "1074072939412070470",
+      "guildId": "967097582721572934",
       "createdAt": 1676149344066
     },
     "messages": [
@@ -18009,6 +18939,7 @@
     "info": {
       "name": "Only receive the ID when accessing a FormBlock using the form-builder plugin",
       "id": "1072563834587459615",
+      "guildId": "967097582721572934",
       "createdAt": 1675789545438
     },
     "messages": [
@@ -18135,6 +19066,7 @@
     "info": {
       "name": "Why does relationship return null in a custom GraphQL query?",
       "id": "1075724798019260466",
+      "guildId": "967097582721572934",
       "createdAt": 1676543177848
     },
     "messages": [
@@ -18313,6 +19245,7 @@
     "info": {
       "name": "HTML to RichText (Slate.js)",
       "id": "1073291611892613230",
+      "guildId": "967097582721572934",
       "createdAt": 1675963061069
     },
     "messages": [
@@ -18379,6 +19312,7 @@
     "info": {
       "name": "Type broblem in Custom Graphql query",
       "id": "1062719495946387486",
+      "guildId": "967097582721572934",
       "createdAt": 1673442472207
     },
     "messages": [
@@ -18485,6 +19419,7 @@
     "info": {
       "name": "Removing collection from admin panel, while still retaining read access",
       "id": "1069966094498005052",
+      "guildId": "967097582721572934",
       "createdAt": 1675170195937
     },
     "messages": [
@@ -18535,6 +19470,7 @@
     "info": {
       "name": "Edit relationTo-item when relationship disabled/readonly.",
       "id": "1069083859938971648",
+      "guildId": "967097582721572934",
       "createdAt": 1674959854827
     },
     "messages": [
@@ -18575,6 +19511,7 @@
     "info": {
       "name": "webpack < 5 used to include polyfills",
       "id": "1069381194162131005",
+      "guildId": "967097582721572934",
       "createdAt": 1675030744830
     },
     "messages": [
@@ -18601,6 +19538,7 @@
     "info": {
       "name": "Unable to duplicate collection item when title field is marked as unique",
       "id": "1066774522423951494",
+      "guildId": "967097582721572934",
       "createdAt": 1674409265858
     },
     "messages": [
@@ -18678,6 +19616,7 @@
     "info": {
       "name": "How to show an error if image is not the right size?",
       "id": "1069866712624795658",
+      "guildId": "967097582721572934",
       "createdAt": 1675146501452
     },
     "messages": [
@@ -18720,6 +19659,7 @@
     "info": {
       "name": "Conditionally render fields based on a field value in a relationship",
       "id": "1077299720411689020",
+      "guildId": "967097582721572934",
       "createdAt": 1676918668607
     },
     "messages": [
@@ -18754,6 +19694,7 @@
     "info": {
       "name": "Preview example with app directory",
       "id": "1075079909053059203",
+      "guildId": "967097582721572934",
       "createdAt": 1676389424337
     },
     "messages": [
@@ -18860,6 +19801,7 @@
     "info": {
       "name": "Unique constraint doesn't seem to work for email field",
       "id": "1067952769291526154",
+      "guildId": "967097582721572934",
       "createdAt": 1674690181802
     },
     "messages": [
@@ -18886,6 +19828,7 @@
     "info": {
       "name": "FilterOptions for Array contains Array",
       "id": "1075322184697925702",
+      "guildId": "967097582721572934",
       "createdAt": 1676447187352
     },
     "messages": [
@@ -18928,6 +19871,7 @@
     "info": {
       "name": "Anyone has a good pointer on how to enable social logins ?",
       "id": "1071086861235277904",
+      "guildId": "967097582721572934",
       "createdAt": 1675437407550
     },
     "messages": [
@@ -18954,6 +19898,7 @@
     "info": {
       "name": "How hard is it to use an existing MongoDB database (That existed pre Payload) for PayloadCMS?",
       "id": "1055845443566829658",
+      "guildId": "967097582721572934",
       "createdAt": 1671803570406
     },
     "messages": [
@@ -18980,6 +19925,7 @@
     "info": {
       "name": "Errors validating your Payload config",
       "id": "1067495824751345765",
+      "guildId": "967097582721572934",
       "createdAt": 1674581237734
     },
     "messages": [
@@ -19022,6 +19968,7 @@
     "info": {
       "name": "Generated type for upload field",
       "id": "1069454415444070560",
+      "guildId": "967097582721572934",
       "createdAt": 1675048202144
     },
     "messages": [
@@ -19094,6 +20041,7 @@
     "info": {
       "name": "Error using payload generate graphQLSchema",
       "id": "1069809115544694805",
+      "guildId": "967097582721572934",
       "createdAt": 1675132769238
     },
     "messages": [
@@ -19168,6 +20116,7 @@
     "info": {
       "name": "NextJS Error when using payload in same express server.",
       "id": "1068480390362308658",
+      "guildId": "967097582721572934",
       "createdAt": 1674815976468
     },
     "messages": [
@@ -19218,6 +20167,7 @@
     "info": {
       "name": "Migrate from KeystoneJS v4 (Keystone Classic)",
       "id": "1070191210834182194",
+      "guildId": "967097582721572934",
       "createdAt": 1675223867854
     },
     "messages": [
@@ -19340,6 +20290,7 @@
     "info": {
       "name": "How to setup row of image inside rich text?",
       "id": "1075195583108755556",
+      "guildId": "967097582721572934",
       "createdAt": 1676417003181
     },
     "messages": [
@@ -19356,8 +20307,28 @@
   },
   {
     "info": {
+      "name": "After fresh install (npx create-payload-app), npm run dev is not working",
+      "id": "1077548706536099911",
+      "guildId": "967097582721572934",
+      "createdAt": 1676978031525
+    },
+    "messages": [
+      {
+        "content": "I have done a fresh install on my mac (verson 10.15.7) with node version 18. when i run npm run dev, it throw this error  <pre><code class=\"hljs\">[nodemon] 2.0.20\n[nodemon] to restart at any time, enter `rs`\n[nodemon] watching path(s): *.*\n[nodemon] watching extensions: ts\n[nodemon] starting `ts-node src/server.ts`\ndyld: lazy symbol binding failed: Symbol not found: _pthread_jit_write_protect_supported_np\n  Referenced from: /Users/mac/work/RnD/CMS/payload/coddle-cms/node_modules/payload/node_modules/sharp/build/Release/../.././vendor/8.13.3/darwin-x64/lib/libvips-cpp.42.dylib\n  Expected in: /usr/lib/libSystem.B.dylib\n\ndyld: Symbol not found: _pthread_jit_write_protect_supported_np\n  Referenced from: /Users/mac/work/RnD/CMS/payload/coddle-cms/node_modules/payload/node_modules/sharp/build/Release/../.././vendor/8.13.3/darwin-x64/lib/libvips-cpp.42.dylib\n  Expected in: /usr/lib/libSystem.B.dylib\n\n[nodemon] app crashed - waiting for file changes before starting...</code></pre>",
+        "fileAttachments": [],
+        "authorID": "273835182979678221",
+        "authorName": "Villain Behind Glasses",
+        "authorAvatar": "7ab84e77693b708d385126f23ed19cf1",
+        "createdAtDate": 1676978031525
+      }
+    ],
+    "messageCount": 0
+  },
+  {
+    "info": {
       "name": "How to create a REST API query for an array from a collection?",
       "id": "1073500182462877706",
+      "guildId": "967097582721572934",
       "createdAt": 1676012788168
     },
     "messages": [
@@ -19430,6 +20401,7 @@
     "info": {
       "name": "Is it supposed to be possible to change the webpack config in a plugin?",
       "id": "1037343828497154078",
+      "guildId": "967097582721572934",
       "createdAt": 1667392441630
     },
     "messages": [
@@ -19528,6 +20500,7 @@
     "info": {
       "name": "problem with dispatchField - ADD_ROW doesn't show up and cause error when saving",
       "id": "1060874983452200990",
+      "guildId": "967097582721572934",
       "createdAt": 1673002706159
     },
     "messages": [
@@ -19632,6 +20605,7 @@
     "info": {
       "name": "Access control to unpublish",
       "id": "1070403097052057660",
+      "guildId": "967097582721572934",
       "createdAt": 1675274385465
     },
     "messages": [
@@ -19658,6 +20632,7 @@
     "info": {
       "name": "Is it possible to hide collections from the sidebar",
       "id": "1075865165519659108",
+      "guildId": "967097582721572934",
       "createdAt": 1676576644068
     },
     "messages": [
@@ -19684,6 +20659,7 @@
     "info": {
       "name": "API Key issue",
       "id": "1069735518562168912",
+      "guildId": "967097582721572934",
       "createdAt": 1675115222350
     },
     "messages": [
@@ -19756,6 +20732,7 @@
     "info": {
       "name": "deploying on Digital Ocean",
       "id": "1077251950132871319",
+      "guildId": "967097582721572934",
       "createdAt": 1676907279285
     },
     "messages": [
@@ -19782,14 +20759,23 @@
         "authorName": "zubricks",
         "authorAvatar": "44115fecb609a69a5ef35b4d8ac908f6",
         "createdAtDate": 1676927247714
+      },
+      {
+        "content": "Thanks for the information Ty!",
+        "fileAttachments": [],
+        "authorID": "850995577848070156",
+        "authorName": "acandael",
+        "authorAvatar": "e44cdbf7977857cdfe2b09724e7cd3bb",
+        "createdAtDate": 1676959965788
       }
     ],
-    "messageCount": 2
+    "messageCount": 3
   },
   {
     "info": {
       "name": "How to query a a value inside hasMany?",
       "id": "1072878122225119302",
+      "guildId": "967097582721572934",
       "createdAt": 1675864477450
     },
     "messages": [
@@ -19824,6 +20810,7 @@
     "info": {
       "name": "Admin 'error' after proxy config",
       "id": "1075421217349177474",
+      "guildId": "967097582721572934",
       "createdAt": 1676470798576
     },
     "messages": [
@@ -19866,6 +20853,7 @@
     "info": {
       "name": "Get draft document with Rest API call",
       "id": "1057641996468092968",
+      "guildId": "967097582721572934",
       "createdAt": 1672231901996
     },
     "messages": [
@@ -19924,6 +20912,7 @@
     "info": {
       "name": "Tabs nested inside block return incorrect siblingData",
       "id": "1057482225471463467",
+      "guildId": "967097582721572934",
       "createdAt": 1672193809622
     },
     "messages": [
@@ -19958,6 +20947,7 @@
     "info": {
       "name": "can we create child dashboards of main payloadcms dashboards ?",
       "id": "1068224433480802446",
+      "guildId": "967097582721572934",
       "createdAt": 1674754951592
     },
     "messages": [
@@ -20072,6 +21062,7 @@
     "info": {
       "name": "Reverse lookup",
       "id": "1068532832865112135",
+      "guildId": "967097582721572934",
       "createdAt": 1674828479735
     },
     "messages": [
@@ -20154,6 +21145,7 @@
     "info": {
       "name": "Payload.collection is {} after Init when I try to seed",
       "id": "1070712231353917510",
+      "guildId": "967097582721572934",
       "createdAt": 1675348088826
     },
     "messages": [
@@ -20244,6 +21236,7 @@
     "info": {
       "name": "Payload good as a Wiki?",
       "id": "1064565542490472448",
+      "guildId": "967097582721572934",
       "createdAt": 1673882604001
     },
     "messages": [
@@ -20326,6 +21319,7 @@
     "info": {
       "name": "Get Light/Dark Mode Preference for custom Component",
       "id": "1076906094791762012",
+      "guildId": "967097582721572934",
       "createdAt": 1676824820946
     },
     "messages": [
@@ -20392,6 +21386,7 @@
     "info": {
       "name": "How to implement \"Content Staging\" feature?",
       "id": "1068897239285645322",
+      "guildId": "967097582721572934",
       "createdAt": 1674915360996
     },
     "messages": [
@@ -20434,6 +21429,7 @@
     "info": {
       "name": "How to visualy improve in what language your content is edited",
       "id": "1072189880362344519",
+      "guildId": "967097582721572934",
       "createdAt": 1675700387803
     },
     "messages": [
@@ -20468,6 +21464,7 @@
     "info": {
       "name": "How to deploy PayloadCMS to vercel?",
       "id": "1073493609468407808",
+      "guildId": "967097582721572934",
       "createdAt": 1676011221044
     },
     "messages": [
@@ -20524,6 +21521,7 @@
     "info": {
       "name": "How to nest block into same block",
       "id": "1076633551853846578",
+      "guildId": "967097582721572934",
       "createdAt": 1676759841646
     },
     "messages": [
@@ -20550,6 +21548,7 @@
     "info": {
       "name": "Access Globals within beforeDelete Hook",
       "id": "1076104536600629249",
+      "guildId": "967097582721572934",
       "createdAt": 1676633714581
     },
     "messages": [
@@ -20576,6 +21575,7 @@
     "info": {
       "name": "Sorting on multiple fields?",
       "id": "1074130763131400232",
+      "guildId": "967097582721572934",
       "createdAt": 1676163130315
     },
     "messages": [
@@ -20610,6 +21610,7 @@
     "info": {
       "name": "How to set a default value for the rich text component?",
       "id": "1065813702512750602",
+      "guildId": "967097582721572934",
       "createdAt": 1674180188540
     },
     "messages": [
@@ -20770,6 +21771,7 @@
     "info": {
       "name": "Getting Payload Sass Error",
       "id": "1067481961108607027",
+      "guildId": "967097582721572934",
       "createdAt": 1674577932384
     },
     "messages": [
@@ -20858,6 +21860,7 @@
     "info": {
       "name": "no docs in Vercel",
       "id": "1076044223691894835",
+      "guildId": "967097582721572934",
       "createdAt": 1676619334863
     },
     "messages": [
@@ -21013,6 +22016,7 @@
     "info": {
       "name": "Random bug where pages in a collection disappear (but still in database)",
       "id": "1072789027842953236",
+      "guildId": "967097582721572934",
       "createdAt": 1675843235694
     },
     "messages": [
@@ -21074,6 +22078,7 @@
     "info": {
       "name": "In the RichText field - why check for default value before setting value?",
       "id": "1063188118997586021",
+      "guildId": "967097582721572934",
       "createdAt": 1673554200649
     },
     "messages": [
@@ -21132,6 +22137,7 @@
     "info": {
       "name": "Rewriting base path to dynamically to section admin and API endpoints for different tenants",
       "id": "1076473260876767232",
+      "guildId": "967097582721572934",
       "createdAt": 1676721625299
     },
     "messages": [
@@ -21166,6 +22172,7 @@
     "info": {
       "name": "How to call REST endpoint with multiple filters",
       "id": "1073580622066487377",
+      "guildId": "967097582721572934",
       "createdAt": 1676031966464
     },
     "messages": [
@@ -21200,6 +22207,7 @@
     "info": {
       "name": "SEO plugin",
       "id": "1068306616455282779",
+      "guildId": "967097582721572934",
       "createdAt": 1674774545540
     },
     "messages": [
@@ -21226,6 +22234,7 @@
     "info": {
       "name": "Your serverURL cannot have a path.",
       "id": "1072281303887646800",
+      "guildId": "967097582721572934",
       "createdAt": 1675722184870
     },
     "messages": [
@@ -21252,6 +22261,7 @@
     "info": {
       "name": "How to translate validation error messages",
       "id": "1077231699190095872",
+      "guildId": "967097582721572934",
       "createdAt": 1676902451084
     },
     "messages": [
@@ -21286,6 +22296,7 @@
     "info": {
       "name": "Union type fragments",
       "id": "1076192345751572480",
+      "guildId": "967097582721572934",
       "createdAt": 1676654649914
     },
     "messages": [
@@ -21296,14 +22307,23 @@
         "authorName": "rhythmic.visions",
         "authorAvatar": "1d59c2bc78c3d055cea10bd049ce51dd",
         "createdAtDate": 1676654649914
+      },
+      {
+        "content": "I can&#x27;t think of a way you could do this without some changes.<br><br>In what you described, we are doing this for graphQL blocks I believe, but it can&#x27;t be copied for groups as they aren&#x27;t re-used in a meaningful way. Suppose the Payload GraphQL schema generation tried to make types for every group it would be a mess of unnecessarily granular types. When names are the same as another group you&#x27;d either end up with a union of identical schemas repeated when fields are the same, or we&#x27;d need some way of comparing that the field names and types are in fact the same and iterating on the schema name.<br>This sounds quite messy to do well. The only way I can think to have it work would be to add a config option for the graphQL name to groups and named tabs which would make it both—<br>A) Provide a nice way for devs to name their composable schemas parts only when needed, and<br>B) Add intention so devs can either make it work or fall on their own sword if they mess it up with a duplicate name that actually has different fields.<br><br>It is an interesting question. If you think there is a path forward on how this might work, you could create a Github discussion to try and gain traction. If there is a will to build it from the community, that would help, but as it stands this isn&#x27;t going to be prioritized by our team.",
+        "fileAttachments": [],
+        "authorID": "969226489549713438",
+        "authorName": "dribbens",
+        "authorAvatar": "f5c79aff07b9e2b1df382d61c45cb9da",
+        "createdAtDate": 1676952490203
       }
     ],
-    "messageCount": 0
+    "messageCount": 1
   },
   {
     "info": {
       "name": "Issues upgrading to v1.6.11 and getting this error? any idea what might be the issue?",
       "id": "1075897263982919720",
+      "guildId": "967097582721572934",
       "createdAt": 1676584296938
     },
     "messages": [
@@ -21554,6 +22574,7 @@
     "info": {
       "name": "Image resize doesn't work",
       "id": "1066036423712587957",
+      "guildId": "967097582721572934",
       "createdAt": 1674233289412
     },
     "messages": [
@@ -21836,6 +22857,7 @@
     "info": {
       "name": "How do I define a field that can be added but not edited and not visible when editing?",
       "id": "1069301116363341834",
+      "guildId": "967097582721572934",
       "createdAt": 1675011652795
     },
     "messages": [
@@ -21918,6 +22940,7 @@
     "info": {
       "name": "Draft posts until approved for publish?",
       "id": "1066494351817048084",
+      "guildId": "967097582721572934",
       "createdAt": 1674342467980
     },
     "messages": [
@@ -21968,6 +22991,7 @@
     "info": {
       "name": "Node ESM Trouble from unknown origins",
       "id": "1071523101290004521",
+      "guildId": "967097582721572934",
       "createdAt": 1675541415284
     },
     "messages": [
@@ -22420,6 +23444,7 @@
     "info": {
       "name": "Custom GraphQL query nested field returns null",
       "id": "1053525957329305600",
+      "guildId": "967097582721572934",
       "createdAt": 1671250561793
     },
     "messages": [
@@ -22454,6 +23479,7 @@
     "info": {
       "name": "How to handle local api authentication error?",
       "id": "1073211161480274000",
+      "guildId": "967097582721572934",
       "createdAt": 1675943880196
     },
     "messages": [
@@ -22512,6 +23538,7 @@
     "info": {
       "name": "Can we add a custom document _status option other than Draft/Published/Changed?",
       "id": "1069000193317556235",
+      "guildId": "967097582721572934",
       "createdAt": 1674939907150
     },
     "messages": [
@@ -22578,6 +23605,7 @@
     "info": {
       "name": "ecosystem.config.js",
       "id": "1070933675077812326",
+      "guildId": "967097582721572934",
       "createdAt": 1675400885124
     },
     "messages": [
@@ -22636,6 +23664,7 @@
     "info": {
       "name": "Clean structure for managing complex permissions?",
       "id": "1066293456605028363",
+      "guildId": "967097582721572934",
       "createdAt": 1674294570829
     },
     "messages": [
@@ -22724,6 +23753,7 @@
     "info": {
       "name": "Download - export from a collection",
       "id": "1062197981966782554",
+      "guildId": "967097582721572934",
       "createdAt": 1673318133585
     },
     "messages": [
@@ -22750,6 +23780,7 @@
     "info": {
       "name": "Media List Component Thumbnail",
       "id": "1042138554903580732",
+      "guildId": "967097582721572934",
       "createdAt": 1668535593487
     },
     "messages": [
@@ -22816,6 +23847,7 @@
     "info": {
       "name": "Amazon S3 for images",
       "id": "1075762051072405576",
+      "guildId": "967097582721572934",
       "createdAt": 1676552059668
     },
     "messages": [
@@ -22930,6 +23962,7 @@
     "info": {
       "name": "Check which part of the Where query a document was matched against.",
       "id": "1070206874420510760",
+      "guildId": "967097582721572934",
       "createdAt": 1675227602344
     },
     "messages": [
@@ -22980,6 +24013,7 @@
     "info": {
       "name": "Directory structure for Next.js app and PayloadCMS?",
       "id": "1071441392129282188",
+      "guildId": "967097582721572934",
       "createdAt": 1675521934302
     },
     "messages": [
@@ -23030,6 +24064,7 @@
     "info": {
       "name": "payload.update help with arrays and hasMany relationship fields",
       "id": "1075390011182157886",
+      "guildId": "967097582721572934",
       "createdAt": 1676463358446
     },
     "messages": [
@@ -23142,6 +24177,7 @@
     "info": {
       "name": "Why do FilterOptionsProps pass in a Partial user?",
       "id": "1075408795502653622",
+      "guildId": "967097582721572934",
       "createdAt": 1676467836977
     },
     "messages": [
@@ -23160,6 +24196,7 @@
     "info": {
       "name": "How to run a REPL or one-off script?",
       "id": "1077196324912513084",
+      "guildId": "967097582721572934",
       "createdAt": 1676894017199
     },
     "messages": [
@@ -23194,6 +24231,7 @@
     "info": {
       "name": "Suddenly not getting PAYLOAD_PUBLIC_* in process.env in client bundle",
       "id": "1069706320418181180",
+      "guildId": "967097582721572934",
       "createdAt": 1675108260970
     },
     "messages": [
@@ -23340,6 +24378,7 @@
     "info": {
       "name": "Issues with deployment",
       "id": "1052327558659715144",
+      "guildId": "967097582721572934",
       "createdAt": 1670964841285
     },
     "messages": [
@@ -23374,6 +24413,7 @@
     "info": {
       "name": "Can you trigger DOM to redraw in field level hooks?",
       "id": "1074895941557039184",
+      "guildId": "967097582721572934",
       "createdAt": 1676345563068
     },
     "messages": [
@@ -23392,6 +24432,7 @@
     "info": {
       "name": "Admin account returns undefined",
       "id": "1044275014347784252",
+      "guildId": "967097582721572934",
       "createdAt": 1669044965112
     },
     "messages": [
@@ -23506,6 +24547,7 @@
     "info": {
       "name": "Hide the dashboard account section for certain roles.",
       "id": "1066973751956230174",
+      "guildId": "967097582721572934",
       "createdAt": 1674456765880
     },
     "messages": [
@@ -23554,6 +24596,7 @@
     "info": {
       "name": "Tagging",
       "id": "1035533037091426405",
+      "guildId": "967097582721572934",
       "createdAt": 1666960715316
     },
     "messages": [
@@ -23650,6 +24693,7 @@
     "info": {
       "name": "Experiencing crashes when MongoDB connection drops (Atlas)",
       "id": "1070485342945300631",
+      "guildId": "967097582721572934",
       "createdAt": 1675293994414
     },
     "messages": [
@@ -23834,6 +24878,7 @@
     "info": {
       "name": "Is there a way to specify max depth of returned links in the rich text editor?",
       "id": "1076469797220532294",
+      "guildId": "967097582721572934",
       "createdAt": 1676720799499
     },
     "messages": [
@@ -23884,6 +24929,7 @@
     "info": {
       "name": "Live preview with NextJS",
       "id": "1059443765951074314",
+      "guildId": "967097582721572934",
       "createdAt": 1672661477316
     },
     "messages": [
@@ -24022,6 +25068,7 @@
     "info": {
       "name": "Error [ERR_REQUIRE_ESM]: require() of ES Module when trying to implement Lit Element",
       "id": "1075705278307258389",
+      "guildId": "967097582721572934",
       "createdAt": 1676538523986
     },
     "messages": [
@@ -24040,6 +25087,7 @@
     "info": {
       "name": "How to enable bulk edit in collection list",
       "id": "1055804770339786793",
+      "guildId": "967097582721572934",
       "createdAt": 1671793873153
     },
     "messages": [
@@ -24090,6 +25138,7 @@
     "info": {
       "name": "Is it possible to use Payloads' email and password validator on the frontend, like Next.js?",
       "id": "1070961204899614750",
+      "guildId": "967097582721572934",
       "createdAt": 1675407448745
     },
     "messages": [
@@ -24156,6 +25205,7 @@
     "info": {
       "name": "Local API: How to provide data for all locales?",
       "id": "1075780856825794580",
+      "guildId": "967097582721572934",
       "createdAt": 1676556543309
     },
     "messages": [
@@ -24166,14 +25216,23 @@
         "authorName": "fewbar",
         "authorAvatar": null,
         "createdAtDate": 1676556543309
+      },
+      {
+        "content": "This isn&#x27;t currenlty possible with the existing APIs.<br>For now you have to create in one locale and then perform a separate update for each locale.<br>At some point this will need to be built into Payload.",
+        "fileAttachments": [],
+        "authorID": "969226489549713438",
+        "authorName": "dribbens",
+        "authorAvatar": "f5c79aff07b9e2b1df382d61c45cb9da",
+        "createdAtDate": 1676952913095
       }
     ],
-    "messageCount": 0
+    "messageCount": 1
   },
   {
     "info": {
       "name": "onInput Hook",
       "id": "1068870646827847721",
+      "guildId": "967097582721572934",
       "createdAt": 1674909020860
     },
     "messages": [
@@ -24216,6 +25275,7 @@
     "info": {
       "name": "'SelectInput' JSX type error",
       "id": "1074531834060357653",
+      "guildId": "967097582721572934",
       "createdAt": 1676258753076
     },
     "messages": [
@@ -24256,6 +25316,7 @@
     "info": {
       "name": "Conditionally render field options",
       "id": "1072527167122047016",
+      "guildId": "967097582721572934",
       "createdAt": 1675780803233
     },
     "messages": [
@@ -24282,6 +25343,7 @@
     "info": {
       "name": "File permissions for Digital Ocean Spaces + CDN",
       "id": "1068952437727166485",
+      "guildId": "967097582721572934",
       "createdAt": 1674928521330
     },
     "messages": [
@@ -24308,6 +25370,7 @@
     "info": {
       "name": "Variable \\\"$postID\\\" of type \\\"String\\\" used in position expecting type \\\"JSON\\\"",
       "id": "1066565603487404085",
+      "guildId": "967097582721572934",
       "createdAt": 1674359455702
     },
     "messages": [
@@ -24358,6 +25421,7 @@
     "info": {
       "name": "not assignable to type 'FieldHook<any, any, any>[]",
       "id": "1071384975066275890",
+      "guildId": "967097582721572934",
       "createdAt": 1675508483426
     },
     "messages": [
@@ -24392,6 +25456,7 @@
     "info": {
       "name": "The following field is invalid",
       "id": "1070498252933308456",
+      "guildId": "967097582721572934",
       "createdAt": 1675297072395
     },
     "messages": [
@@ -24426,6 +25491,7 @@
     "info": {
       "name": "Clean install, app does not run",
       "id": "1069639304307023923",
+      "guildId": "967097582721572934",
       "createdAt": 1675092283084
     },
     "messages": [
@@ -24556,6 +25622,7 @@
     "info": {
       "name": "Has anyone built a dropzone upload component?",
       "id": "1076548831384191007",
+      "guildId": "967097582721572934",
       "createdAt": 1676739642712
     },
     "messages": [
@@ -24574,6 +25641,7 @@
     "info": {
       "name": "Extending Payload Schema from outside",
       "id": "1067896834330202213",
+      "guildId": "967097582721572934",
       "createdAt": 1674676845868
     },
     "messages": [

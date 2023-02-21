@@ -65,6 +65,7 @@ client.once(Events.ClientReady, async c => {
       info: {
         name: info.name,
         id: info.id,
+        guildId: info.guildId,
         createdAt: info.createdTimestamp,
       },
       messages: messages.reverse().map(m => {

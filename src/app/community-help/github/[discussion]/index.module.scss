@@ -147,6 +147,12 @@
   }
 }
 
+@include large-break {
+  .content {
+    margin-right: calc(var(--base) * 4);
+  }
+}
+
 @include mid-break {
   .wrap {
     flex-direction: column-reverse;

@@ -16,10 +16,17 @@ export type Props = {
 const AuthorTag: React.FC<Props> = ({ author, className, date, image, platform, url, comment }) => {
   return (
     <div className={[classes.authorTag, className].filter(Boolean).join(' ')}>
-      <a className={classes.author} href={url}>
-        <img src={image} />
-        <span>{author}</span>
-      </a>
+      {url ? (
+        <a className={classes.author} href={url}>
+          <img src={image} />
+          <span>{author}</span>
+        </a>
+      ) : (
+        <div className={classes.author}>
+          <img src={image} />
+          <span>{author}</span>
+        </div>
+      )}
       {date && (!platform || platform === 'Github') && (
         <span className={classes.date}>&nbsp;{getRelativeDate(date)}</span>
       )}

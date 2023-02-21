@@ -1,5 +1,14 @@
 @use '@scss/common' as *;
 
+.breadcrumbWrap {
+  margin: calc(var(--base) * 2) 0 var(--base) 0;
+}
+
+.breadcrumb {
+  @include label;
+  text-decoration: none;
+}
+
 .threadWrap {
   display: flex;
 
@@ -9,23 +18,22 @@
 }
 
 .thread {
-  margin-right: calc(var(--base) * 2);
+  margin-right: calc(var(--base) * 8);
+
+  @include large-break {
+    margin-right: calc(var(--base) * 4);
+  }
 
   @include mid-break {
-    margin: unset;
+    margin: 0;
   }
 }
 
 .title {
-  @include h2;
   margin-top: 0;
-
-  @include large-break {
-    @include h3;
-  }
 }
 
-.originalAuthorInfo {
+.authorDetails {
   display: flex;
   align-items: center;
   padding: var(--base) 0 calc(var(--base) * 2.5) 0;
@@ -38,6 +46,8 @@
 .content {
   margin-top: calc(var(--base) * 1.25);
   pre {
+    white-space: break-spaces !important;
+
     code {
       display: flex;
       overflow: auto;
@@ -45,6 +55,24 @@
   }
   a {
     color: var(--color-blue-600);
+
+    @include large-break {
+      display: inline-block;
+      max-width: 300px;
+      word-wrap: break-word;
+    }
+
+    @include mid-break {
+      display: block;
+      max-width: unset;
+      word-wrap: unset;
+    }
+
+    @include small-break {
+      display: inline-block;
+      word-wrap: break-word;
+      max-width: 250px;
+    }
   }
 }
 
@@ -60,8 +88,8 @@
 
 .messageWrap {
   margin-top: calc(var(--base) * 4);
-  padding: 0;
   list-style: none;
+  padding: 0;
 }
 
 .message {
@@ -69,4 +97,63 @@
   padding: calc(var(--base) * 1.75);
   line-height: 1.2;
   margin: 0 0 calc(var(--base) * 1.75) 0;
+}
+
+.attachmentWrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  margin-top: var(--base);
+
+  @include large-break {
+    grid-template-columns: 1fr;
+  }
+}
+
+.attachment {
+  @include shadow-lg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--base);
+  background-color: var(--color-base-1000);
+  border: 1px solid var(--color-base-650);
+  font-size: calc(var(--base) * 0.75);
+
+  & svg {
+    width: calc(var(--base) * 2);
+    margin-left: calc(var(--base) * 0.5);
+  }
+
+  &:nth-child(even) {
+    margin-left: var(--base);
+  }
+
+  &:nth-child(2n+3) {
+    margin-top: var(--base);
+  }
+
+  &:hover {
+    background-color: var(--color-base-850);
+  }
+
+  @include large-break {
+    & svg {
+      width: unset
+    }
+
+    &:not(:first-child) {
+      margin-top: var(--base);
+      margin-left: 0;
+    }
+  }
+
+  @include small-break {
+    padding: calc(var(--base) * 1);
+    font-size: calc(var(--base) * 0.75);
+  }
+}
+
+.attachmentName {
+  width: 100%;
 }
