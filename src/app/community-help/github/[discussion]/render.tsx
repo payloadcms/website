@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { Breadcrumbs } from '@components/Breadcrumbs'
 import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@providers/Theme'
 import { CommentsIcon } from '@root/graphics/CommentsIcon'
@@ -11,6 +10,9 @@ import { Gutter } from '@components/Gutter'
 import { CheckmarkIcon } from '@root/graphics/CheckmarkIcon'
 import getRelativeDate from '@root/utilities/get-relative-date'
 import DiscordGitCTA from '@components/DiscordGitCTA'
+import Link from 'next/link'
+import OpenPost from '@components/OpenPost'
+
 import classes from './index.module.scss'
 
 export type Author = {
@@ -23,6 +25,7 @@ export type Comment = {
   author: Author
   body: string
   createdAt: Date
+  replies?: Comment[]
 }
 
 export type DiscussionProps = {
@@ -52,23 +55,14 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
   return (
     <HeaderObserver color={theme} pullUp>
       <Gutter>
-        <Breadcrumbs
-          items={[
-            {
-              label: 'Community Help',
-              url: '/community-help',
-            },
-            {
-              label: 'GitHub',
-              url: '/community-help/github',
-            },
-          ]}
-        />
+        <Link className={classes.breadcrumb} href="/community-help">
+          Community Help
+        </Link>
       </Gutter>
 
       <Gutter className={classes.wrap}>
         <div className={classes.content}>
-          <h1 className={classes.title}>{title}</h1>
+          <h3>{title}</h3>
           <div className={classes.details}>
             <AuthorTag
               author={author.name}
@@ -77,22 +71,18 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
               url={url}
               platform="Github"
             />
-            {upvotes && (
-              <div className={classes.upvotes}>
-                <ArrowIcon rotation={-45} /> {upvotes}
-              </div>
-            )}
-            {comments && (
-              <div className={classes.comments}>
-                <CommentsIcon /> {commentTotal}
-              </div>
-            )}
+            <div className={classes.upvotes}>
+              <ArrowIcon rotation={-45} /> {upvotes}
+            </div>
+            <div className={classes.commentsCount}>
+              <CommentsIcon /> {commentTotal}
+            </div>
           </div>
 
           <div className={classes.discussionBody} dangerouslySetInnerHTML={{ __html: body }} />
 
-          <ul className={classes.commentWrap}>
-            {answer && (
+          <ul className={classes.comments}>
+            {answer.body && (
               <li className={[classes.comment, classes.answer].join(' ')}>
                 <div className={classes.answerLabel}>
                   <CheckmarkIcon className={classes.checkmark} />
@@ -114,24 +104,54 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
                 />
               </li>
             )}
-            {comments.map((comment, i) => {
+            {comments.map((comment, index) => {
+              const totalReplies = comment.replies ? comment.replies.length : false
               if (answer && comment.body === answer.body) return null
               return (
-                <li key={i} className={classes.comment}>
-                  <AuthorTag
-                    author={comment.author.name}
-                    image={comment.author.avatar}
-                    date={comment.createdAt}
-                    url={comment.author.url}
-                  />
+                <li key={index} className={classes.commentWrap}>
                   <div
-                    className={classes.commentBody}
-                    dangerouslySetInnerHTML={{ __html: comment.body }}
-                  />
+                    className={[classes.comment, totalReplies && classes.hasReplies]
+                      .filter(Boolean)
+                      .join(' ')}
+                  >
+                    <AuthorTag
+                      author={comment.author.name}
+                      image={comment.author.avatar}
+                      date={comment.createdAt}
+                      url={comment.author.url}
+                    />
+                    <div
+                      className={classes.commentBody}
+                      dangerouslySetInnerHTML={{ __html: comment.body }}
+                    />
+                    {totalReplies && (
+                      <span className={classes.replyCount}>{totalReplies} replies</span>
+                    )}
+                  </div>
+
+                  {totalReplies &&
+                    comment.replies.map((reply, replyIndex) => {
+                      return (
+                        <div key={replyIndex} className={classes.reply}>
+                          <AuthorTag
+                            author={reply.author.name}
+                            image={reply.author.avatar}
+                            date={reply.createdAt}
+                            url={reply.author.url}
+                          />
+                          <div
+                            className={classes.commentBody}
+                            dangerouslySetInnerHTML={{ __html: reply.body }}
+                          />
+                        </div>
+                      )
+                    })}
                 </li>
               )
             })}
           </ul>
+
+          <OpenPost url={url} platform="GitHub" />
         </div>
 
         <DiscordGitCTA />

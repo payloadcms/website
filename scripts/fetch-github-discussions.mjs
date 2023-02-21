@@ -44,7 +44,7 @@ const fetchGithubDiscussions = async () => {
                 avatarUrl
                 url
               }
-              comments(first: 10) {
+              comments(first: 100) {
                 totalCount,
                 edges {
                   node {
@@ -55,6 +55,19 @@ const fetchGithubDiscussions = async () => {
                     }
                     bodyHTML
                     createdAt
+                    replies(first: 100) {
+                      edges {
+                        node {
+                          author {
+                            login
+                            avatarUrl
+                            url
+                          }
+                          bodyHTML
+                          createdAt
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -84,28 +97,46 @@ const fetchGithubDiscussions = async () => {
     process.exit(1)
   } else {
     const formattedDiscussions = discussions.data.repository.discussions.nodes.map(discussion => {
+      const { answer, answerChosenAt, answerChosenBy } = discussion
       const comments = discussion.comments.edges.map(edge => {
+        const comment = edge.node
+
+        const replies = comment.replies.edges.map(replyEdge => {
+          const reply = replyEdge.node
+
+          return {
+            author: {
+              name: reply.author.login,
+              avatar: reply.author.avatarUrl,
+              url: reply.author.url,
+            },
+            body: reply.bodyHTML,
+            createdAt: reply.createdAt,
+          }
+        })
+
         return {
           author: {
-            name: edge.node.author.login,
-            avatar: edge.node.author.avatarUrl,
-            url: edge.node.author.url,
+            name: comment.author.login,
+            avatar: comment.author.avatarUrl,
+            url: comment.author.url,
           },
-          body: edge.node.bodyHTML,
-          createdAt: edge.node.createdAt,
+          body: comment.bodyHTML,
+          createdAt: comment.createdAt,
+          replies: replies?.length ? replies : null,
         }
       })
 
-      const answer = {
+      const formattedAnswer = {
         author: {
-          name: discussion.answer?.author?.login,
-          avatar: discussion.answer?.author?.avatarUrl,
-          url: discussion.answer?.author?.url,
+          name: answer?.author?.login,
+          avatar: answer?.author?.avatarUrl,
+          url: answer?.author?.url,
         },
-        body: discussion.answer?.bodyHTML,
-        createdAt: discussion.answer?.createdAt,
-        chosenAt: discussion.answerChosenAt,
-        chosenBy: discussion.answerChosenBy?.login,
+        body: answer?.bodyHTML,
+        createdAt: answer?.createdAt,
+        chosenAt: answerChosenAt,
+        chosenBy: answerChosenBy?.login,
       }
 
       return {
@@ -122,7 +153,7 @@ const fetchGithubDiscussions = async () => {
           url: discussion.author.url,
         },
         comments,
-        answer: discussion.answer ? answer : null,
+        answer: formattedAnswer,
       }
     })
 

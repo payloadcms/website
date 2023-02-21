@@ -21,12 +21,12 @@ const AuthorTag: React.FC<Props> = ({ author, className, date, image, platform, 
         <span>{author}</span>
       </a>
       {date && (!platform || platform === 'Github') && (
-        <span className={classes.date}>{getRelativeDate(date)}</span>
+        <span className={classes.date}>&nbsp;{getRelativeDate(date)}</span>
       )}
       {date && platform === 'Discord' && (
-        <span className={classes.date}>{getSpecificDateTime(date)}</span>
+        <span className={classes.date}>&nbsp;{getSpecificDateTime(date)}</span>
       )}
-      {platform && !comment && <span className={classes.platform}>in {platform}</span>}
+      {platform && !comment && <span className={classes.platform}>&nbsp;in {platform}</span>}
     </div>
   )
 }

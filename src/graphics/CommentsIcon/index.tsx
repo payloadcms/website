@@ -17,7 +17,7 @@ export const CommentsIcon: React.FC<Props> = ({ className }) => {
       <path
         d="M1 0.571426H21.5714V18.8571L15.4 14.9784H1V0.571426Z"
         stroke="#B0B0B0"
-        stroke-width="1.14286"
+        strokeWidth="1.14286"
       />
     </svg>
   )

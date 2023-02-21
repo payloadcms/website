@@ -11,11 +11,11 @@
   text-decoration: none;
 
   & img {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     border-radius: 100%;
     overflow: hidden;
-    margin-right: calc(var(--base) * .5);
+    margin-right: calc(var(--base) * 0.35);
   }
 }
 
@@ -25,6 +25,11 @@
   font-weight: normal;
 }
 
-.date {
-  margin: 0 calc(var(--base) * 0.25) 0 calc(var(--base) * 0.5);
+@include mid-break {
+  .author {
+    & img {
+      width: 30px;
+      height: 30px;
+    }
+  }
 }
