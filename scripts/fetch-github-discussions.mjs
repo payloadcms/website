@@ -44,7 +44,7 @@ const fetchGithubDiscussions = async () => {
                 avatarUrl
                 url
               }
-              comments(first: 100) {
+              comments(first: 20) {
                 totalCount,
                 edges {
                   node {
@@ -55,7 +55,7 @@ const fetchGithubDiscussions = async () => {
                     }
                     bodyHTML
                     createdAt
-                    replies(first: 100) {
+                    replies(first: 20) {
                       edges {
                         node {
                           author {

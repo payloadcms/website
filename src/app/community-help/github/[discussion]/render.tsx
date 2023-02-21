@@ -79,7 +79,7 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
             </div>
           </div>
 
-          <div className={classes.discussionBody} dangerouslySetInnerHTML={{ __html: body }} />
+          <div className={classes.body} dangerouslySetInnerHTML={{ __html: body }} />
 
           <ul className={classes.comments}>
             {answer.body && (
@@ -99,7 +99,7 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
                   url={answer.author.url}
                 />
                 <div
-                  className={classes.answerBody}
+                  className={[classes.body, classes.answerBody].join(' ')}
                   dangerouslySetInnerHTML={{ __html: answer.body }}
                 />
               </li>
@@ -121,11 +121,13 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
                       url={comment.author.url}
                     />
                     <div
-                      className={classes.commentBody}
+                      className={classes.body}
                       dangerouslySetInnerHTML={{ __html: comment.body }}
                     />
                     {totalReplies && (
-                      <span className={classes.replyCount}>{totalReplies} replies</span>
+                      <span className={classes.replyCount}>
+                        {totalReplies} repl{totalReplies > 1 ? 'ies' : 'y'}
+                      </span>
                     )}
                   </div>
 
@@ -140,7 +142,7 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
                             url={reply.author.url}
                           />
                           <div
-                            className={classes.commentBody}
+                            className={classes.body}
                             dangerouslySetInnerHTML={{ __html: reply.body }}
                           />
                         </div>
