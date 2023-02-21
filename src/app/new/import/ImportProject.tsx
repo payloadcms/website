@@ -1,5 +1,6 @@
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import Label from '@forms/Label'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
@@ -36,7 +37,7 @@ export const ImportProject: React.FC = () => {
       <Grid>
         <Cell cols={4} colsM={8} className={classes.sidebar}>
           <div>
-            <p className={classes.label}>GitHub Scope</p>
+            <Label label="GitHub Scope" required htmlFor="" />
             <ScopeSelector onChange={setSelectedInstall} />
           </div>
           {/* <div>

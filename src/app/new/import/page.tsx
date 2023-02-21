@@ -24,7 +24,7 @@ const ProjectFromImport: React.FC = () => {
     hasExchangedCode,
   })
 
-  const loading = useDebounce(tokenLoading, 1000)
+  const loading = useDebounce(tokenLoading, 250)
 
   return (
     <Fragment>

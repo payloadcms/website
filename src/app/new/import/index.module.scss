@@ -12,11 +12,6 @@
     }
 }
 
-.label {
-    @include label;
-    color: var(--theme-elevation-500);
-}
-
 .repos {
     border: 0.5px solid var(--theme-elevation-500);
     border-left: 0;

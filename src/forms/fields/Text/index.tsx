@@ -58,7 +58,6 @@ export const Text: React.FC<
         required={required}
         actionsSlot={copy && <CopyToClipboard value={value} />}
       />
-
       <input
         className={classes.input}
         value={value || ''}

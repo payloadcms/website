@@ -93,7 +93,7 @@ export const ScopeSelector: React.FC<{
     }
   }, [installs])
 
-  const loading = useDebounce(installsLoading, 1000)
+  const loading = useDebounce(installsLoading, 250)
 
   useEffect(() => {
     if (typeof onChange === 'function') {
