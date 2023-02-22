@@ -84,12 +84,21 @@ export const CMSForm: React.FC<{
           if (confirmationType === 'redirect' && redirect) {
             const { url } = redirect
 
-            const redirectUrl = new URL(url)
+            try {
+              if (url) {
+                const redirectUrl = new URL(url)
 
-            if (url && redirectUrl.origin === process.env.NEXT_PUBLIC_APP_URL) {
-              router.push(redirectUrl.href)
+                if (url && redirectUrl.origin === process.env.NEXT_PUBLIC_APP_URL) {
+                  router.push(redirectUrl.href)
+                }
+                window.location.assign(url)
+              }
+            } catch (err) {
+              console.warn(err)
+              setError({
+                message: 'Somethign went wrong. Did not redirect.',
+              })
             }
-            window.location.assign(url)
           }
         } catch (err) {
           console.warn(err)
