@@ -1,11 +1,28 @@
 @use '@scss/common' as *;
 
-.wrapper {
+.container {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 0;
+}
+
+.ctaWrap {
   position: sticky;
-  width: 400px;
-  min-width: 400px;
+  width: 430px;
+  min-width: 430px;
   height: fit-content;
   top: var(--page-padding-top);
+  margin-right: calc(var(--gutter-h) * 0.5);
+}
+
+.bg {
+  top: calc(var(--base) * -3);
+  right: calc(var(--gutter-h) * -1);
+  left: calc(var(--gutter-h) * 0.5);
+  height: 65%;
+  position: absolute;
+  z-index: -1;
 }
 
 .cta {
@@ -13,19 +30,24 @@
   display: flex;
   flex-direction: column;
   text-decoration: none;
-  padding: calc(var(--base) * 2);
+  padding: calc(var(--base) * 1.75);
   background-color: var(--color-base-1000);
   border-bottom: 1px solid var(--color-base-100);
-
-  .message {
-    font-size: calc(var(--base) * 1.45);
-    margin: 0;
-    line-height: 1.2;
-  }
 
   &:first-child {
     margin-bottom: calc(var(--base) * 2.5);
   }
+}
+
+.message {
+  font-size: calc(var(--base) * 1.25);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.arrow {
+  width: 16px;
+  height: 16px;
 }
 
 .gitButton,
@@ -63,17 +85,37 @@
   }
 }
 
+@include extra-large-break {
+  .ctaWrap {
+    width: 350px;
+    min-width: 350px;
+  }
+}
+
+@include large-break {
+  .ctaWrap {
+    margin-right: var(--gutter-h);
+  }
+
+  .bg {
+    left: var(--gutter-h);
+  }
+}
+
 @include mid-break {
-  .wrapper {
-    position: unset;
-    order: 0;
-    min-width: unset;
+  .bg {
+    display: none;
+  }
+
+  .ctaWrap {
     display: flex;
+    height: 100%;
+    justify-content: flex-end;
   }
 
   .cta {
     width: fit-content;
-    padding: var(--base) 0 0 0;
+    padding: 0;
     border: none;
     background-color: transparent;
 
@@ -94,13 +136,23 @@
   .discordButton {
     margin: 0;
     max-width: unset;
-
-    & svg {
-      display: none;
-    }
   }
 
   .enterpriseCTA {
     display: none;
+  }
+}
+
+@include small-break {
+  .container {
+    left: var(--gutter-h);
+  }
+
+  .ctaWrap {
+    justify-content: flex-start;
+  }
+
+  .container {
+    top: calc(var(--base) * -1.5);
   }
 }

@@ -9,9 +9,20 @@
   display: flex;
 }
 
-.content {
+.thread {
   margin-right: calc(var(--base) * 8);
-  flex-grow: 1;
+
+  @include large-break {
+    margin-right: calc(var(--base) * 4);
+  }
+
+  @include mid-break {
+    margin: 0;
+  }
+
+  @include small-break {
+    margin-top: var(--base);
+  }
 }
 
 .details {
@@ -149,16 +160,9 @@
   }
 }
 
-@include large-break {
-  .content {
-    margin-right: calc(var(--base) * 4);
-  }
-}
-
 @include mid-break {
-  .wrap {
-    flex-direction: column-reverse;
-    overflow: hidden;
+  .contentWrap {
+    order: 2;
   }
 
   .content {

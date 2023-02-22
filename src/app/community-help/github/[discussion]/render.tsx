@@ -12,6 +12,7 @@ import getRelativeDate from '@root/utilities/get-relative-date'
 import DiscordGitCTA from '@components/DiscordGitCTA'
 import Link from 'next/link'
 import OpenPost from '@components/OpenPost'
+import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import classes from './index.module.scss'
 
@@ -55,111 +56,108 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
   return (
     <HeaderObserver color={theme} pullUp>
       <Gutter>
-        <Link className={classes.breadcrumb} href="/community-help">
-          Community Help
-        </Link>
-      </Gutter>
-
-      <Gutter className={classes.wrap}>
-        <div className={classes.content}>
-          <h3>{title}</h3>
-          <div className={classes.details}>
-            <AuthorTag
-              author={author.name}
-              image={author.avatar}
-              date={createdAt}
-              url={url}
-              platform="Github"
-            />
-            <div className={classes.upvotes}>
-              <span>
-                <ArrowIcon rotation={-45} /> {upvotes}
-              </span>
-              <span>
-                <CommentsIcon /> {commentTotal}
-              </span>
+        <Grid>
+          <Cell cols={10} colsL={8} className={classes.thread}>
+            <Link className={classes.breadcrumb} href="/community-help">
+              Community Help
+            </Link>
+            <h3>{title}</h3>
+            <div className={classes.details}>
+              <AuthorTag
+                author={author.name}
+                image={author.avatar}
+                date={createdAt}
+                url={url}
+                platform="Github"
+              />
+              <div className={classes.upvotes}>
+                <span>
+                  <ArrowIcon rotation={-45} /> {upvotes}
+                </span>
+                <span>
+                  <CommentsIcon /> {commentTotal}
+                </span>
+              </div>
             </div>
-          </div>
 
-          <div className={classes.body} dangerouslySetInnerHTML={{ __html: body }} />
+            <div className={classes.body} dangerouslySetInnerHTML={{ __html: body }} />
 
-          <ul className={classes.comments}>
-            {answer.body && (
-              <li className={[classes.comment, classes.answer].join(' ')}>
-                <div className={classes.answerLabel}>
-                  <CheckmarkIcon className={classes.checkmark} />
-                  <label>Answer</label>
-                  <span className={classes.selectedBy}>
-                    {`selected by ${answer.chosenBy} `}
-                    {getRelativeDate(answer.chosenAt)}
-                  </span>
-                </div>
-                <AuthorTag
-                  author={answer.author.name}
-                  image={answer.author.avatar}
-                  date={answer.createdAt}
-                  url={answer.author.url}
-                />
-                <div
-                  className={[classes.body, classes.answerBody].join(' ')}
-                  dangerouslySetInnerHTML={{ __html: answer.body }}
-                />
-              </li>
-            )}
-            {comments.map((comment, index) => {
-              const totalReplies = comment.replies ? comment.replies.length : false
-              if (answer && comment.body === answer.body) return null
-              return (
-                <li key={index} className={classes.commentWrap}>
-                  <div
-                    className={[classes.comment, totalReplies && classes.hasReplies]
-                      .filter(Boolean)
-                      .join(' ')}
-                  >
-                    <AuthorTag
-                      author={comment.author.name}
-                      image={comment.author.avatar}
-                      date={comment.createdAt}
-                      url={comment.author.url}
-                    />
-                    <div
-                      className={classes.body}
-                      dangerouslySetInnerHTML={{ __html: comment.body }}
-                    />
-                    {totalReplies && (
-                      <span className={classes.replyCount}>
-                        {totalReplies} repl{totalReplies > 1 ? 'ies' : 'y'}
-                      </span>
-                    )}
+            <ul className={classes.comments}>
+              {answer.body && (
+                <li className={[classes.comment, classes.answer].join(' ')}>
+                  <div className={classes.answerLabel}>
+                    <CheckmarkIcon className={classes.checkmark} />
+                    <label>Answer</label>
+                    <span className={classes.selectedBy}>
+                      {`selected by ${answer.chosenBy} `}
+                      {getRelativeDate(answer.chosenAt)}
+                    </span>
                   </div>
-
-                  {totalReplies &&
-                    comment.replies.map((reply, replyIndex) => {
-                      return (
-                        <div key={replyIndex} className={classes.reply}>
-                          <AuthorTag
-                            author={reply.author.name}
-                            image={reply.author.avatar}
-                            date={reply.createdAt}
-                            url={reply.author.url}
-                          />
-                          <div
-                            className={classes.body}
-                            dangerouslySetInnerHTML={{ __html: reply.body }}
-                          />
-                        </div>
-                      )
-                    })}
+                  <AuthorTag
+                    author={answer.author.name}
+                    image={answer.author.avatar}
+                    date={answer.createdAt}
+                    url={answer.author.url}
+                  />
+                  <div
+                    className={[classes.body, classes.answerBody].join(' ')}
+                    dangerouslySetInnerHTML={{ __html: answer.body }}
+                  />
                 </li>
-              )
-            })}
-          </ul>
+              )}
+              {comments.map((comment, index) => {
+                const totalReplies = comment.replies ? comment.replies.length : false
+                if (answer && comment.body === answer.body) return null
+                return (
+                  <li key={index} className={classes.commentWrap}>
+                    <div
+                      className={[classes.comment, totalReplies && classes.hasReplies]
+                        .filter(Boolean)
+                        .join(' ')}
+                    >
+                      <AuthorTag
+                        author={comment.author.name}
+                        image={comment.author.avatar}
+                        date={comment.createdAt}
+                        url={comment.author.url}
+                      />
+                      <div
+                        className={classes.body}
+                        dangerouslySetInnerHTML={{ __html: comment.body }}
+                      />
+                      {totalReplies && (
+                        <span className={classes.replyCount}>
+                          {totalReplies} repl{totalReplies > 1 ? 'ies' : 'y'}
+                        </span>
+                      )}
+                    </div>
 
-          <OpenPost url={url} platform="GitHub" />
-        </div>
-
-        <DiscordGitCTA />
+                    {totalReplies &&
+                      comment.replies.map((reply, replyIndex) => {
+                        return (
+                          <div key={replyIndex} className={classes.reply}>
+                            <AuthorTag
+                              author={reply.author.name}
+                              image={reply.author.avatar}
+                              date={reply.createdAt}
+                              url={reply.author.url}
+                            />
+                            <div
+                              className={classes.body}
+                              dangerouslySetInnerHTML={{ __html: reply.body }}
+                            />
+                          </div>
+                        )
+                      })}
+                  </li>
+                )
+              })}
+            </ul>
+            <OpenPost url={url} platform="GitHub" />
+          </Cell>
+        </Grid>
       </Gutter>
+      <DiscordGitCTA />
     </HeaderObserver>
   )
 }

@@ -1,31 +1,27 @@
 @use '@scss/common' as *;
 
 .breadcrumbWrap {
-  margin: calc(var(--base) * 2) 0 var(--base) 0;
+  margin: 0 0 var(--base) 0;
 }
 
 .breadcrumb {
   @include label;
   text-decoration: none;
-}
 
-.threadWrap {
-  display: flex;
-
-  @include mid-break {
-    flex-direction: column-reverse;
+  @include small-break {
+    line-height: calc(var(--base) * 3);
   }
 }
 
 .thread {
-  margin-right: calc(var(--base) * 8);
+  padding-right: calc(var(--base) * 10);
 
   @include large-break {
-    margin-right: calc(var(--base) * 4);
+    padding-right: calc(var(--base) * 8);
   }
 
   @include mid-break {
-    margin: 0;
+    padding: 0;
   }
 }
 
@@ -45,6 +41,7 @@
 
 .content {
   margin-top: calc(var(--base) * 1.25);
+
   pre {
     white-space: break-spaces !important;
 
@@ -53,6 +50,7 @@
       overflow: auto;
     }
   }
+
   a {
     color: var(--color-blue-600);
 
@@ -80,6 +78,7 @@
   height: 100%;
   margin-left: calc(var(--base) * 1.25);
   color: var(--color-base-300);
+
   & svg {
     width: var(--base);
     margin-right: calc(var(--base) * 0.25);
