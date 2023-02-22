@@ -3,11 +3,13 @@ import Link from 'next/link'
 
 import classes from './index.module.scss'
 
-type Props = {
-  items: Array<{
-    label?: string
-    url?: string
-  }>
+export type Breadcrumb = {
+  label?: string
+  url?: string
+}
+
+export type Props = {
+  items: Array<Breadcrumb>
 }
 
 export const Breadcrumbs: React.FC<Props> = ({ items }) => {

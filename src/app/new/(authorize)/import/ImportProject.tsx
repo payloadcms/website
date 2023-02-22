@@ -8,8 +8,8 @@ import { Gutter } from '@components/Gutter'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { ScopeSelector } from '@components/ScopeSelector'
 import { Install } from '@root/utilities/use-get-installs'
-import { useCreateDraftProject } from '../../../utilities/use-create-draft-project'
-import { useGetRepos } from '../../../utilities/use-get-repos'
+import { useCreateDraftProject } from '../../../../utilities/use-create-draft-project'
+import { useGetRepos } from '../../../../utilities/use-get-repos'
 
 import classes from './index.module.scss'
 
@@ -23,8 +23,9 @@ export const ImportProject: React.FC = () => {
     isSubmitting,
   } = useCreateDraftProject({
     projectName: 'New project from import',
+    installID: selectedInstall?.id,
     onSubmit: ({ id: draftProjectID }) => {
-      router.push(`/new/configure/${draftProjectID}`)
+      router.push(`/new/import/configure/${draftProjectID}`)
     },
   })
 
