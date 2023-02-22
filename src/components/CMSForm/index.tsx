@@ -82,7 +82,14 @@ export const CMSForm: React.FC<{
           setHasSubmitted(true)
 
           if (confirmationType === 'redirect' && redirect) {
-            if (redirect.url) router.push(redirect.url)
+            const { url } = redirect
+
+            const redirectUrl = new URL(url)
+
+            if (url && redirectUrl.origin === process.env.NEXT_PUBLIC_APP_URL) {
+              router.push(redirectUrl.href)
+            }
+            window.location.assign(url)
           }
         } catch (err) {
           console.warn(err)
