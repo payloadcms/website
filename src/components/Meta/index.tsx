@@ -1,6 +1,4 @@
 import React, { Fragment } from 'react'
-
-import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics'
 import { Media } from '@root/payload-types'
 
 export type MetaType = {
@@ -32,7 +30,6 @@ const Meta: React.FC<MetaType> = ({
 
   return (
     <Fragment>
-      <GoogleAnalytics />
       <title>{title}</title>
       <meta property="og:title" content={title} />
       <meta name="description" content={description} />
