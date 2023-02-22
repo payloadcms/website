@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import GitHubButton from 'react-github-btn'
 import { useTheme } from '@providers/Theme'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
@@ -31,33 +32,37 @@ const DiscordGitCTA: React.FC = () => {
           >
             Star
           </GitHubButton>
+
+          <a href={gitURL} aria-label="Visit Payload CMS on GitHub">
+            <ArrowIcon size="large" />
+          </a>
         </div>
-        <a href={gitURL} aria-label="Visit Payload CMS on GitHub" className={classes.arrow}>
-          <ArrowIcon />
-        </a>
       </div>
 
       <div className={classes.cta}>
-        <div className={classes.message}>
-          Connect with the
-          <br />
-          Payload Community
-        </div>
-
-        <a href={discordURL} aria-label="Connect with the Payload Community on Discord">
-          <img
-            alt="Discord"
-            className={classes.discordButton}
-            src="https://img.shields.io/discord/967097582721572934?label=Discord&color=5865F2&style=flat-square"
-          />
-        </a>
+        <div className={classes.message}>Connect with the Payload Community on Discord</div>
         <a
           href={discordURL}
-          aria-label="Visit the Payload CMS server on Discord"
-          className={classes.arrow}
+          className={classes.discordButton}
+          aria-label="Connect with the Payload Community on Discord"
         >
-          <ArrowIcon />
+          <img
+            alt="Discord"
+            src="https://img.shields.io/discord/967097582721572934?label=Discord&color=5865F2&style=flat-square"
+          />
+
+          <ArrowIcon size="large" />
         </a>
+      </div>
+
+      <div className={classes.enterpriseCTA}>
+        <strong>Can&apos;t find what you&apos;re looking for?</strong>
+        <br />
+        Get help straight from the Payload team with an Enterprise License.
+        <Link className={classes.button} href="/for-enterprise">
+          Learn More
+          <ArrowIcon />
+        </Link>
       </div>
     </div>
   )

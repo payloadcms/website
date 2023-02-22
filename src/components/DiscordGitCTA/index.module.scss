@@ -2,6 +2,7 @@
 
 .wrapper {
   position: sticky;
+  width: 400px;
   min-width: 400px;
   height: fit-content;
   top: var(--page-padding-top);
@@ -27,18 +28,39 @@
   }
 }
 
-.arrow {
-  margin-top: var(--base)
-}
-
-.gitButton {
-  margin: var(--base) 0;
-}
-
+.gitButton,
 .discordButton {
-  margin: var(--base) 0;
-  border-radius: 5px;
-  max-width: calc(var(--base) * 7);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: var(--base) 0 0 0;
+
+  & a {
+    line-height: 1;
+  }
+
+  & img {
+    border-radius: 5px;
+    height: 25px;
+  }
+}
+
+.enterpriseCTA {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  margin-top: calc(var(--base) * 2.5);
+
+  .button {
+    @include label;
+    text-decoration: none;
+    margin-top: var(--base);
+    color: var(--color-blue-650);
+
+    & svg {
+      margin-left: var(--base);
+    }
+  }
 }
 
 @include mid-break {
@@ -53,6 +75,7 @@
     width: fit-content;
     padding: var(--base) 0 0 0;
     border: none;
+    background-color: transparent;
 
     &:first-child {
       margin: 0 var(--base) 0 0;
@@ -70,7 +93,14 @@
   .gitButton,
   .discordButton {
     margin: 0;
-    height: 25px;
     max-width: unset;
+
+    & svg {
+      display: none;
+    }
+  }
+
+  .enterpriseCTA {
+    display: none;
   }
 }
