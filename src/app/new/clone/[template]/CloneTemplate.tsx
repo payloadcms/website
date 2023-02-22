@@ -27,7 +27,7 @@ export const CloneTemplate: React.FC<{
   const router = useRouter()
 
   const {
-    initiateProject,
+    submitDraftProject,
     error: createError,
     isSubmitting,
   } = useCreateDraftProject({
@@ -42,57 +42,64 @@ export const CloneTemplate: React.FC<{
 
   return (
     <Gutter>
-      {createError && <p>{createError}</p>}
-      <Grid>
-        <Cell cols={4} colsM={8} className={classes.sidebar}>
-          <div>
-            <Label label="Selected Template" htmlFor="" />
-            <div className={classes.template}>
-              <div className={classes.templateIcon}>
-                <PayloadIcon />
+      {createError && <p className={classes.error}>{createError}</p>}
+      {isSubmitting && <p className={classes.submitting}>Creating project...</p>}
+      {!isSubmitting && (
+        <Grid>
+          <Cell cols={4} colsM={8} className={classes.sidebar}>
+            <div>
+              <Label label="Selected Template" htmlFor="" />
+              <div className={classes.template}>
+                <div className={classes.templateIcon}>
+                  <PayloadIcon />
+                </div>
+                <p className={classes.templateName}>{template?.name}</p>
               </div>
-              <p className={classes.templateName}>{template?.name}</p>
             </div>
-          </div>
-          <p>{template?.description}</p>
-        </Cell>
-        <Cell cols={8} colsM={8}>
-          <Grid className={classes.projectInfo}>
-            <Cell cols={4}>
-              <Label label="GitHub Scope" required htmlFor="" />
-              <ScopeSelector onChange={setSelectedInstall} />
-            </Cell>
-            <Cell cols={4}>
-              <Text label="Repository Name" initialValue={name} onChange={setName} required />
-            </Cell>
-          </Grid>
-          <div>
-            <p>
-              {`Don't see your organization? `}
-              <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
-                Adjust your GitHub app permissions
-              </a>
-              {'.'}
-            </p>
-          </div>
-          <div className={classes.createPrivate}>
-            <Checkbox
-              label="Create private Git repository"
-              initialValue={makePrivate}
-              onChange={setMakePrivate}
+            <p>{template?.description}</p>
+          </Cell>
+          <Cell cols={8} colsM={8}>
+            <Grid className={classes.projectInfo}>
+              <Cell cols={4}>
+                <Label label="GitHub Scope" required htmlFor="" />
+                <ScopeSelector onChange={setSelectedInstall} />
+              </Cell>
+              <Cell cols={4}>
+                <Text label="Repository Name" initialValue={name} onChange={setName} required />
+              </Cell>
+            </Grid>
+            <div>
+              <p>
+                {`Don't see your organization? `}
+                <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
+                  Adjust your GitHub app permissions
+                </a>
+                {'.'}
+              </p>
+            </div>
+            <div className={classes.createPrivate}>
+              <Checkbox
+                label="Create private Git repository"
+                initialValue={makePrivate}
+                onChange={setMakePrivate}
+              />
+            </div>
+            <Button
+              label={isSubmitting ? 'Creating...' : 'Create Project'}
+              appearance="primary"
+              icon="arrow"
+              onClick={() => {
+                submitDraftProject({
+                  repo: {
+                    name,
+                  },
+                })
+              }}
+              disabled={isSubmitting}
             />
-          </div>
-          <Button
-            label={isSubmitting ? 'Creating...' : 'Create Project'}
-            appearance="primary"
-            icon="arrow"
-            onClick={() => {
-              initiateProject(name)
-            }}
-            disabled={isSubmitting}
-          />
-        </Cell>
-      </Grid>
+          </Cell>
+        </Grid>
+      )}
     </Gutter>
   )
 }

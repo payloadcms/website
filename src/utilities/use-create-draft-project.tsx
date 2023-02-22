@@ -17,7 +17,7 @@ export const useCreateDraftProject = ({
   templateID?: string // only applies to `clone` flow
   makePrivate?: boolean // only applies to `clone` flow
 }): {
-  initiateProject: (args?: { repo: Repo }) => void // eslint-disable-line no-unused-vars
+  submitDraftProject: (args?: { repo: Repo }) => void // eslint-disable-line no-unused-vars
   isSubmitting: boolean
   error: string
 } => {
@@ -25,8 +25,9 @@ export const useCreateDraftProject = ({
   const [error, setError] = React.useState('')
   const [isSubmitting, setIsSubmitting] = React.useState(false)
 
-  const initiateProject = useCallback(
-    async ({ repo }) => {
+  const submitDraftProject = useCallback(
+    async ({ repo }: { repo: Repo }) => {
+      window.scrollTo(0, 0)
       setError('')
       setIsSubmitting(true)
 
@@ -41,8 +42,8 @@ export const useCreateDraftProject = ({
             name: projectName,
             installID,
             team: typeof user.defaultTeam === 'string' ? user.defaultTeam : user.defaultTeam.id,
-            repositoryID: repo.id, // only applies to the `import` flow
-            repositoryName: repo.name, // only applies to the `clone` flow
+            repositoryID: repo?.id, // only applies to the `import` flow
+            repositoryName: repo?.name, // only applies to the `clone` flow
             template: templateID,
             makePrivate,
           }),
@@ -68,7 +69,7 @@ export const useCreateDraftProject = ({
   )
 
   return {
-    initiateProject,
+    submitDraftProject,
     isSubmitting,
     error,
   }

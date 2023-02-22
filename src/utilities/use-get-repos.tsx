@@ -4,8 +4,8 @@ import { useAuth } from '@root/providers/Auth'
 import { Install } from './use-get-installs'
 
 export interface Repo {
-  id: string
   name: string
+  id?: string // applies only to the `import` flow
 }
 export const useGetRepos = (props: {
   selectedInstall: Install | undefined

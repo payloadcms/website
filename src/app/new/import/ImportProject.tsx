@@ -18,7 +18,7 @@ export const ImportProject: React.FC = () => {
   const router = useRouter()
 
   const {
-    initiateProject,
+    submitDraftProject,
     error: createError,
     isSubmitting,
   } = useCreateDraftProject({
@@ -40,71 +40,74 @@ export const ImportProject: React.FC = () => {
   return (
     <Gutter>
       {createError && <p className={classes.error}>{createError}</p>}
-      <Grid>
-        <Cell cols={4} colsM={8} className={classes.sidebar}>
-          <div>
-            <Label label="GitHub Scope" required htmlFor="" />
-            <ScopeSelector onChange={setSelectedInstall} />
-          </div>
-          {/* <div>
+      {isSubmitting && <p className={classes.submitting}>Creating project...</p>}
+      {!isSubmitting && (
+        <Grid>
+          <Cell cols={4} colsM={8} className={classes.sidebar}>
+            <div>
+              <Label label="GitHub Scope" required htmlFor="" />
+              <ScopeSelector onChange={setSelectedInstall} />
+            </div>
+            {/* <div>
             <p className={classes.label}>Search</p>
             <Text placeholder="Enter search term" />
           </div> */}
-          <div>
-            <p>
-              {`Don't see your repository? `}
-              <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
-                Adjust your GitHub app permissions
-              </a>
-              {'.'}
-            </p>
-          </div>
-        </Cell>
-        <Cell cols={8} colsM={8}>
-          {reposError && <p>{reposError}</p>}
-          {loadingRepos && <LoadingShimmer number={3} />}
-          {!loadingRepos && !isSubmitting && repos?.length > 0 && (
-            <div className={classes.repos}>
-              {repos?.map(repo => {
-                const { name } = repo
-                return (
-                  <div key={repo.id} className={classes.repo}>
-                    <h6 className={classes.repoName}>{name}</h6>
-                    <Button
-                      label="Import"
-                      appearance="primary"
-                      size="small"
-                      onClick={() => {
-                        if (!isSubmitting) initiateProject({ repo })
-                      }}
-                      disabled={isSubmitting}
-                    />
-                  </div>
-                )
-              })}
-            </div>
-          )}
-          {!loadingRepos && repos?.length === 0 && (
-            <div className={classes.noRepos}>
-              <h6>No repositories found</h6>
+            <div>
               <p>
-                {`This can happen when Payload doesn't have access to the repositories in an account. Configure the Payload app on GitHub, and give it access to the repository you want to link.`}
+                {`Don't see your repository? `}
+                <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
+                  Adjust your GitHub app permissions
+                </a>
+                {'.'}
               </p>
-              <Button
-                label="Configure Payload on GitHub"
-                className={classes.addAccountButton}
-                href={`https://github.com/apps/payload-cms/installations/new?client_id=${
-                  process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
-                }&redirect_uri=${encodeURIComponent(
-                  process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
-                )}&state=${encodeURIComponent(`/new/import`)}`}
-                appearance="primary"
-                el="a"
-              />
             </div>
-          )}
-        </Cell>
-      </Grid>
+          </Cell>
+          <Cell cols={8} colsM={8}>
+            {reposError && <p>{reposError}</p>}
+            {loadingRepos && <LoadingShimmer number={3} />}
+            {!loadingRepos && repos?.length > 0 && (
+              <div className={classes.repos}>
+                {repos?.map(repo => {
+                  const { name } = repo
+                  return (
+                    <div key={repo.id} className={classes.repo}>
+                      <h6 className={classes.repoName}>{name}</h6>
+                      <Button
+                        label="Import"
+                        appearance="primary"
+                        size="small"
+                        onClick={() => {
+                          submitDraftProject({ repo })
+                        }}
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+            {!loadingRepos && repos?.length === 0 && (
+              <div className={classes.noRepos}>
+                <h6>No repositories found</h6>
+                <p>
+                  {`This can happen when Payload doesn't have access to the repositories in an account. Configure the Payload app on GitHub, and give it access to the repository you want to link.`}
+                </p>
+                <Button
+                  label="Configure Payload on GitHub"
+                  className={classes.addAccountButton}
+                  href={`https://github.com/apps/payload-cms/installations/new?client_id=${
+                    process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
+                  }&redirect_uri=${encodeURIComponent(
+                    process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
+                  )}&state=${encodeURIComponent(`/new/import`)}`}
+                  appearance="primary"
+                  el="a"
+                />
+              </div>
+            )}
+          </Cell>
+        </Grid>
+      )}
     </Gutter>
   )
 }
