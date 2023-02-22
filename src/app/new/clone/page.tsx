@@ -27,6 +27,8 @@ const ProjectFromTemplate: React.FC = () => {
           <p className={classes.description}>
             {`Not seeing what you're looking for? `}
             <Link href="/new/templates">See all of our templates</Link>
+            {' or '}
+            <Link href="/new/import">import an existing project</Link>
             {'.'}
           </p>
         </div>

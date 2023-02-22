@@ -23,6 +23,7 @@ export const ImportProject: React.FC = () => {
     isSubmitting,
   } = useCreateDraftProject({
     projectName: 'New project from import',
+    installID: selectedInstall?.id,
     onSubmit: ({ id: draftProjectID }) => {
       router.push(`/new/configure/${draftProjectID}`)
     },
@@ -74,7 +75,7 @@ export const ImportProject: React.FC = () => {
                       appearance="primary"
                       size="small"
                       onClick={() => {
-                        if (!isSubmitting) initiateProject(repo.name)
+                        if (!isSubmitting) initiateProject({ repo })
                       }}
                       disabled={isSubmitting}
                     />

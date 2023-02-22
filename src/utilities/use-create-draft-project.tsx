@@ -2,17 +2,22 @@ import React, { useCallback } from 'react'
 
 import { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
+import { Repo } from './use-get-repos'
 
 export const useCreateDraftProject = ({
   projectName,
+  installID,
   templateID,
+  makePrivate,
   onSubmit,
 }: {
   projectName: string
-  templateID?: string
+  installID: string
   onSubmit?: (project: Project) => void // eslint-disable-line no-unused-vars
+  templateID?: string // only applies to `clone` flow
+  makePrivate?: boolean // only applies to `clone` flow
 }): {
-  initiateProject: (repoName?: string) => void // eslint-disable-line no-unused-vars
+  initiateProject: (args?: { repo: Repo }) => void // eslint-disable-line no-unused-vars
   isSubmitting: boolean
   error: string
 } => {
@@ -21,7 +26,7 @@ export const useCreateDraftProject = ({
   const [isSubmitting, setIsSubmitting] = React.useState(false)
 
   const initiateProject = useCallback(
-    async (repoName: string) => {
+    async ({ repo }) => {
       setError('')
       setIsSubmitting(true)
 
@@ -34,9 +39,12 @@ export const useCreateDraftProject = ({
           },
           body: JSON.stringify({
             name: projectName,
-            repositoryName: repoName,
+            installID,
             team: typeof user.defaultTeam === 'string' ? user.defaultTeam : user.defaultTeam.id,
+            repositoryID: repo.id, // only applies to the `import` flow
+            repositoryName: repo.name, // only applies to the `clone` flow
             template: templateID,
+            makePrivate,
           }),
         })
 
@@ -56,7 +64,7 @@ export const useCreateDraftProject = ({
         setIsSubmitting(false)
       }
     },
-    [projectName, templateID, onSubmit, user],
+    [projectName, templateID, onSubmit, user, installID, makePrivate],
   )
 
   return {

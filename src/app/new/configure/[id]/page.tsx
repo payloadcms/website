@@ -1,35 +1,12 @@
-import React, { Fragment } from 'react'
+import React from 'react'
+import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 
-import { Breadcrumbs } from '@components/Breadcrumbs'
-import { Gutter } from '@components/Gutter'
+import ConfigureDraftProject from '@root/app/new/Configure'
 
-import classes from './index.module.scss'
-
-const ConfigureFromImport: React.FC = () => {
-  return (
-    <Fragment>
-      <Gutter>
-        <div className={classes.header}>
-          <Breadcrumbs
-            items={[
-              {
-                label: 'New',
-                url: '/new',
-              },
-              {
-                label: 'Import',
-                url: '/new/import',
-              },
-              {
-                label: 'Configure',
-              },
-            ]}
-          />
-          <h1>Configure your project</h1>
-        </div>
-      </Gutter>
-    </Fragment>
-  )
+const ConfigureDraftFromImport: React.FC<{
+  params: Params
+}> = ({ params: { id: draftProjectID } }) => {
+  return <ConfigureDraftProject draftProjectID={draftProjectID} />
 }
 
-export default ConfigureFromImport
+export default ConfigureDraftFromImport
