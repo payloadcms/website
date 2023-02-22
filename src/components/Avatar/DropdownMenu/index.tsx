@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 import { useAuth } from '@root/providers/Auth'
 import useClickAway from '@root/utilities/use-click-away'
@@ -11,6 +12,7 @@ export const DropdownMenu: React.FC<{
   onChange: (isOpen: boolean) => void // eslint-disable-line no-unused-vars
 }> = ({ isOpen: isOpenFromProps, onChange }) => {
   const { user } = useAuth()
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = React.useState(isOpenFromProps)
 
   React.useEffect(() => {
@@ -29,11 +31,15 @@ export const DropdownMenu: React.FC<{
     setIsOpen(false)
   }, [])
 
+  React.useEffect(() => {
+    setIsOpen(false)
+  }, [pathname])
+
   useClickAway(ref, handleClickAway)
 
   if (isOpen) {
     return (
-      <div className={classes.dropdown}>
+      <div className={classes.dropdown} ref={ref}>
         <div>
           <p className={classes.dropdownLabel}>Personal account</p>
           <Link href="/dashboard" className={classes.profileLink}>

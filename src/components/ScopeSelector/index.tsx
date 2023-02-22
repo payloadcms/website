@@ -115,6 +115,7 @@ export const ScopeSelector: React.FC<{
       {loading && <LoadingShimmer number={1} />}
       {!loading && (
         <Select
+          label="GitHub Scope"
           value={selectedInstall?.account?.login}
           initialValue={installs?.[0]?.account?.login}
           onChange={option => {

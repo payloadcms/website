@@ -61,7 +61,6 @@ export const CloneTemplate: React.FC<{
           <Cell cols={8} colsM={8}>
             <Grid className={classes.projectInfo}>
               <Cell cols={4}>
-                <Label label="GitHub Scope" required htmlFor="" />
                 <ScopeSelector onChange={setSelectedInstall} />
               </Cell>
               <Cell cols={4}>

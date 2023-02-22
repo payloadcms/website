@@ -39,7 +39,7 @@ export const usePopup = (props: {
 
       const features = {
         popup: 'yes',
-        width: 600,
+        width: 800,
         height: 700,
         top: 'auto',
         left: 'auto',

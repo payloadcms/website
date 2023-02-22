@@ -180,7 +180,6 @@ const ConfigureDraftProject: React.FC<{
               {loading && <LoadingShimmer number={1} />}
               {!loading && (
                 <Fragment>
-                  <Label label="GitHub Scope" htmlFor="" />
                   <ScopeSelector
                     onChange={install => {
                       setSelectedInstall(install?.id)

@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 
 import { User } from '../../payload-cloud-types'
 
@@ -51,9 +51,9 @@ const CLOUD_CONNECTION_ERROR = 'An error occurred while attempting to connect to
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(undefined)
+  const fetchedMe = useRef(false)
 
   const create = useCallback<Create>(async args => {
-    console.log(args)
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
         method: 'POST',
@@ -141,6 +141,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [])
 
   useEffect(() => {
+    if (fetchedMe.current) return
+    fetchedMe.current = true
+
     const fetchMe = async () => {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
