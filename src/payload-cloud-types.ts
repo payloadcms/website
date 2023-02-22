@@ -84,13 +84,11 @@ export interface Project {
   slug?: string;
   deletedOn?: string;
   team: string | Team;
-  source?: 'github';
   template?: string | Template;
+  source?: 'github';
   repositoryName?: string;
-  makePrivate?: string;
   repositoryURL?: string;
   repositoryID?: string;
-  installID?: string;
   deploymentBranch?: string;
   rootDirectory?: string;
   outputDirectory?: string;

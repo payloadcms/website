@@ -5,12 +5,10 @@ import { useAuth } from '@root/providers/Auth'
 
 export const useCreateDraftProject = ({
   projectName,
-  installID,
   templateID,
   onSubmit,
 }: {
   projectName: string
-  installID: string
   templateID?: string
   onSubmit?: (project: Project) => void // eslint-disable-line no-unused-vars
 }): {
@@ -39,7 +37,6 @@ export const useCreateDraftProject = ({
             repositoryName: repoName,
             team: typeof user.defaultTeam === 'string' ? user.defaultTeam : user.defaultTeam.id,
             template: templateID,
-            installID,
           }),
         })
 
@@ -59,7 +56,7 @@ export const useCreateDraftProject = ({
         setIsSubmitting(false)
       }
     },
-    [projectName, templateID, onSubmit, user, installID],
+    [projectName, templateID, onSubmit, user],
   )
 
   return {

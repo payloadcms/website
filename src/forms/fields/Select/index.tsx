@@ -79,9 +79,8 @@ export const Select: React.FC<{
 
   const [internalState, setInternalState] = useState<Option | Option[]>(() => {
     const initialValue = valueFromContext || initialValueFromProps
-
     if (Array.isArray(initialValue)) {
-      return options?.filter(item => initialValue.some(item.value)) || []
+      return options?.filter(item => item.value === initialValue) || []
     }
 
     return options?.find(item => item.value === initialValue) || null
@@ -92,29 +91,22 @@ export const Select: React.FC<{
       let isDifferent = false
       let differences
 
-      if (incomingSelection && !internalState) {
-        isDifferent = true
+      if (Array.isArray(incomingSelection) && Array.isArray(internalState)) {
+        const internalValues = internalState.map(item => item.value)
+        differences = incomingSelection.filter(x => internalValues.includes(x))
+        isDifferent = differences.length > 0
       }
 
-      if (incomingSelection && internalState) {
-        if (Array.isArray(incomingSelection) && Array.isArray(internalState)) {
-          const internalValues = internalState.map(item => item.value)
-          differences = incomingSelection.filter(x => internalValues.includes(x))
-          isDifferent = differences.length > 0
-        }
+      if (typeof incomingSelection === 'string' && typeof internalState === 'string') {
+        isDifferent = incomingSelection !== internalState
+      }
 
-        if (typeof incomingSelection === 'string' && typeof internalState === 'string') {
-          isDifferent = incomingSelection !== internalState
-        }
-
-        if (
-          typeof incomingSelection === 'string' &&
-          typeof internalState === 'object' &&
-          internalState !== null &&
-          'value' in internalState
-        ) {
-          isDifferent = incomingSelection !== internalState.value
-        }
+      if (
+        typeof incomingSelection === 'string' &&
+        typeof internalState === 'object' &&
+        'value' in internalState
+      ) {
+        isDifferent = incomingSelection !== internalState.value
       }
 
       if (incomingSelection !== undefined && isDifferent) {

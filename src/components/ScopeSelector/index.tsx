@@ -59,12 +59,11 @@ const Option = props => {
 }
 
 export const ScopeSelector: React.FC<{
-  value?: string
-  onChange?: (value: Install) => void // eslint-disable-line no-unused-vars
+  onChange: (value: Install) => void // eslint-disable-line no-unused-vars
 }> = props => {
-  const { onChange, value: valueFromProps } = props
+  const { onChange } = props
   const hasInitializedSelection = React.useRef(false)
-  const [selectedInstall, setSelectedInstall] = React.useState<Install | undefined>()
+  const [selectedInstall, setSelectedInstall] = React.useState<Install | undefined>(undefined)
 
   const {
     error: installsError,
@@ -77,13 +76,6 @@ export const ScopeSelector: React.FC<{
     },
   })
 
-  useEffect(() => {
-    if (valueFromProps === selectedInstall?.id && installs?.length) {
-      const newSelection = installs.find(install => install.id === valueFromProps)
-      setSelectedInstall(newSelection)
-    }
-  }, [valueFromProps, installs, selectedInstall])
-
   const { openPopup } = usePopup({
     href,
     eventType: 'github-oauth',
@@ -95,7 +87,7 @@ export const ScopeSelector: React.FC<{
   })
 
   useEffect(() => {
-    if (installs?.length && !hasInitializedSelection.current) {
+    if (installs.length && !hasInitializedSelection.current) {
       hasInitializedSelection.current = true
       setSelectedInstall(installs[0])
     }
@@ -116,7 +108,7 @@ export const ScopeSelector: React.FC<{
       {!loading && (
         <Select
           value={selectedInstall?.account?.login}
-          initialValue={installs?.[0]?.account?.login}
+          initialValue={installs[0]?.account?.login}
           onChange={option => {
             if (Array.isArray(option)) return
             setSelectedInstall(installs.find(install => install.account.login === option.value))

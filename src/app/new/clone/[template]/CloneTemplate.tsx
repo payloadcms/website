@@ -21,7 +21,6 @@ export const CloneTemplate: React.FC<{
   template: Template
 }> = props => {
   const { template } = props
-  const [makePrivate, setMakePrivate] = React.useState(false)
   const [name, setName] = React.useState('my-project')
   const [selectedInstall, setSelectedInstall] = React.useState<Install | undefined>(undefined)
   const router = useRouter()
@@ -32,9 +31,8 @@ export const CloneTemplate: React.FC<{
     isSubmitting,
   } = useCreateDraftProject({
     projectName: name,
-    installID: selectedInstall?.id,
     onSubmit: ({ id: draftProjectID }) => {
-      router.push(`/new/clone/configure/${draftProjectID}`)
+      router.push(`/new/configure/${draftProjectID}`)
     },
   })
 
@@ -74,11 +72,7 @@ export const CloneTemplate: React.FC<{
             </p>
           </div>
           <div className={classes.createPrivate}>
-            <Checkbox
-              label="Create private Git repository"
-              initialValue={makePrivate}
-              onChange={setMakePrivate}
-            />
+            <Checkbox label="Create private Git repository" />
           </div>
           <Button
             label={isSubmitting ? 'Creating...' : 'Create Project'}
