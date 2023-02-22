@@ -1,6 +1,8 @@
 import React from 'react'
 import { Providers } from '@providers'
 import { fetchGlobals } from '@graphql'
+import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics'
+import { GoogleTagManager } from '@components/Analytics/GoogleTagManager'
 import { robotoMono, neueMontrealRegular, neueMontrealBold, neueMontrealItalic } from './fonts'
 import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
@@ -27,6 +29,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           neueMontrealItalic.variable,
         ].join(' ')}
       >
+        <GoogleAnalytics />
+        <GoogleTagManager />
         <Providers>
           <Header {...mainMenu} />
           <div className={classes.layout}>
