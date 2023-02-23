@@ -96,7 +96,7 @@ export const CMSForm: React.FC<{
             } catch (err) {
               console.warn(err)
               setError({
-                message: 'Somethign went wrong. Did not redirect.',
+                message: 'Something went wrong. Did not redirect.',
               })
             }
           }
