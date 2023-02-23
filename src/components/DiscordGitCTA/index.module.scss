@@ -37,6 +37,11 @@
   &:first-child {
     margin-bottom: calc(var(--base) * 2.5);
   }
+
+  &:hover {
+    color: var(--theme-success-600);
+    background-color: var(--color-base-900);
+  }
 }
 
 .message {
@@ -114,6 +119,7 @@
   }
 
   .ctaWrap {
+    position: unset;
     display: flex;
     justify-content: flex-end;
   }
