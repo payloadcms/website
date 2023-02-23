@@ -19,12 +19,12 @@ const AuthorTag: React.FC<Props> = ({ author, className, date, image, platform, 
       {url ? (
         <a className={classes.author} href={url}>
           <img src={image} />
-          <span>{author}</span>
+          <strong>{author}</strong>
         </a>
       ) : (
         <div className={classes.author}>
           <img src={image} />
-          <span>{author}</span>
+          <strong>{author}</strong>
         </div>
       )}
       {date && (!platform || platform === 'Github') && (

@@ -114,7 +114,7 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
                         url={answer.author.url}
                       />
                       <div
-                        className={[classes.body, classes.answerBody].join(' ')}
+                        className={classes.body}
                         dangerouslySetInnerHTML={{ __html: answer.body }}
                       />
                     </li>

@@ -7,8 +7,8 @@
 }
 
 .author {
-  font-weight: 900;
   text-decoration: none;
+  color: var(--theme-elevation-900);
 
   & img {
     width: 45px;
@@ -21,7 +21,7 @@
 
 .date,
 .platform {
-  color: var(--color-base-400);
+  color: var(--theme-elevation-500);
   font-weight: normal;
 }
 

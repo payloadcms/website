@@ -5,11 +5,8 @@
   text-decoration: none;
 }
 
-.wrap {
-  display: flex;
-}
-
 .thread {
+  max-width: 1200px;
   margin-right: calc(var(--base) * 8);
 
   @include mid-break {
@@ -32,8 +29,8 @@
 .upvotes {
   display: flex;
   align-items: center;
-  color: var(--color-base-300);
-  margin-left: auto;
+  color: var(--theme-elevation-400);
+  margin-left: var(--base);
 
   & svg {
     width: calc(var(--base) * .75);
@@ -84,49 +81,37 @@
 }
 
 .answer {
-  background-color: var(--color-success-900);
-}
-
-.answerAuthor {
-  & a {
-    color: var(--color-base-100);
-  }
+  background-color: var(--theme-success-100);
+  color: var(--color-success-500);
 }
 
 .answerLabel {
-  color: var(--color-success-400);
   margin-bottom: var(--base);
 
   & label {
     margin: 0 calc(var(--base) * 0.35) 0 calc(var(--base) * 0.5);
   }
-}
 
-.selectedBy {
-  font-size: calc(var(--base) * 0.65);
-}
+  .checkmark {
+    border: 1px solid var(--color-success-400);
+    border-radius: 100%;
 
-.answerBody {
-  color: var(--color-success-400);
-
-  & a {
-    color: var(--color-base-100);
+    & path {
+      stroke: var(--color-success-400);
+      stroke-width: 1px;
+    }
   }
-}
 
-.checkmark {
-  border: 1px solid var(--color-success-400);
-  border-radius: 100%;
-
-  & path {
-    stroke: var(--color-success-400);
-    stroke-width: 1px;
+  .selectedBy {
+    font-size: calc(var(--base) * 0.65);
   }
 }
 
 .discussionBody {
   margin-bottom: var(--base);
 }
+
+
 
 // Overwrites html body styles
 
@@ -188,12 +173,29 @@
     font-size: calc(var(--base) * 1.15);
   }
 
-  .box {
-    background-color: red;
-    border-color: var(--theme-elevation-900);
-    border-radius: 5px;
-    border-style: solid;
-    border-width: 1px;
+  & a {
+    color: var(--color-blue-600);
+  }
+}
+
+
+// Light mode
+
+:global([data-theme="light"]) {
+  .answer {
+    background-color: var(--theme-success-450);
+    color: var(--theme-elevation-900);
+    border-color: var(--theme-success-550);
+  }
+
+  .answerLabel {
+    .checkmark {
+      border: 1px solid var(--theme-elevation-900);
+
+      & path {
+        stroke: var(--theme-elevation-900);
+      }
+    }
   }
 }
 
