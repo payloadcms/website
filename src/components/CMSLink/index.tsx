@@ -4,6 +4,10 @@ import { CaseStudy, Page, Post } from '@root/payload-types'
 // eslint-disable-next-line import/no-cycle
 import { Button, Props as ButtonProps } from '../Button'
 
+const relationSlugs = {
+  case_studies: 'case-studies',
+}
+
 type PageReference = {
   value: string | Page
   relationTo: 'pages'
@@ -16,7 +20,7 @@ type PostsReference = {
 
 type CaseStudyReference = {
   value: string | CaseStudy
-  relationTo: 'case-studies'
+  relationTo: (typeof relationSlugs)['case_studies']
 }
 
 export type LinkType = 'reference' | 'custom'
@@ -58,6 +62,10 @@ const generateHref = (args: GenerateSlugType): string => {
 
     if (reference.relationTo === 'posts') {
       return `/blog/${reference.value.slug}`
+    }
+
+    if (reference.relationTo === 'case_studies') {
+      return `/case-studies/${reference.value.slug}`
     }
 
     return `/${reference.relationTo}/${reference.value.slug}`
