@@ -110,6 +110,7 @@ export const PlanSelector: React.FC<{
                   value={plan}
                   price={price}
                   onChange={setSelectedPlan}
+                  label={name}
                 />
               )
             })}

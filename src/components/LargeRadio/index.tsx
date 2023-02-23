@@ -12,8 +12,9 @@ export const LargeRadio: React.FC<{
   disabled?: boolean
   onChange?: (value?: any) => void // eslint-disable-line no-unused-vars
   price?: string
+  label: string
 }> = props => {
-  const { checked, name, disabled, onChange, value, price, id } = props
+  const { checked, name, disabled, onChange, value, price, id, label } = props
 
   return (
     <Fragment key={value}>
@@ -41,7 +42,7 @@ export const LargeRadio: React.FC<{
           />
         </div>
         <div className={classes.content}>
-          <h6 className={classes.name}>{name}</h6>
+          <h6 className={classes.name}>{label}</h6>
           {price && <p className={classes.price}>{price}</p>}
         </div>
       </label>

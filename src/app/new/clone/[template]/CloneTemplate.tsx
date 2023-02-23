@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
+import { LoadingShimmer } from '@components/LoadingShimmer'
 import { ScopeSelector } from '@components/ScopeSelector'
 import { PayloadIcon } from '@root/graphics/PayloadIcon'
 import { Template } from '@root/payload-cloud-types'
@@ -43,7 +44,7 @@ export const CloneTemplate: React.FC<{
   return (
     <Gutter>
       {createError && <p className={classes.error}>{createError}</p>}
-      {isSubmitting && <p className={classes.submitting}>Creating project...</p>}
+      {isSubmitting && <LoadingShimmer number={3} />}
       {!isSubmitting && (
         <Grid>
           <Cell cols={4} colsM={8} className={classes.sidebarCell}>

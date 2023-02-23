@@ -1,13 +1,13 @@
 import React from 'react'
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 
-import ConfigureDraftProject from '@root/app/new/Configure'
+import Checkout from '@root/app/new/Checkout'
 
 const ConfigureDraftFromTemplate: React.FC<{
   params: Params
 }> = ({ params: { id: draftProjectID } }) => {
   return (
-    <ConfigureDraftProject
+    <Checkout
       draftProjectID={draftProjectID}
       breadcrumb={{ label: 'Template', url: '/new/clone' }}
     />

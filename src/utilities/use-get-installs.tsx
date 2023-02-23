@@ -50,7 +50,7 @@ export const useGetInstalls = (props: {
   const { user } = useAuth()
 
   const loadInstalls = useCallback(async (): Promise<Install[]> => {
-    const reposReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
+    const installsReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -61,9 +61,9 @@ export const useGetInstalls = (props: {
       }),
     })
 
-    const res = await reposReq.json()
+    const res = await installsReq.json()
 
-    if (!reposReq.ok) {
+    if (!installsReq.ok) {
       setError(res.error)
     }
 

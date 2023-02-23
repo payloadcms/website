@@ -21,11 +21,11 @@ export const Breadcrumbs: React.FC<Props> = ({ items }) => {
         if (item?.url && typeof item.url === 'string' && !isLast) {
           return (
             <React.Fragment key={index}>
-              <label>
+              <label className={classes.label}>
                 <Link href={item.url}>{item.label}</Link>
               </label>
               {!isLast && (
-                <label>
+                <label className={classes.label}>
                   <span>&nbsp;&#47;&nbsp;</span>
                 </label>
               )}
@@ -34,7 +34,7 @@ export const Breadcrumbs: React.FC<Props> = ({ items }) => {
         }
 
         return (
-          <label key={index}>
+          <label key={index} className={classes.label}>
             {item.label}
             {!isLast && <span>&nbsp;&sol;&nbsp;</span>}
           </label>

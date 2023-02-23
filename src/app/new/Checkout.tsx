@@ -4,38 +4,55 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Label from '@forms/Label'
+import {
+  CardElement as StripeCardElement,
+  Elements,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
 import { Button } from '@components/Button'
+import { CreditCardSelector } from '@components/CreditCardSelector'
 import { Gutter } from '@components/Gutter'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { PlanSelector } from '@components/PlanSelector'
 import { ScopeSelector } from '@components/ScopeSelector'
 import { TeamSelector } from '@components/TeamSelector'
-import { Plan, Project } from '@root/payload-cloud-types'
+import { Plan, Project, Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import useDebounce from '@root/utilities/use-debounce'
 import { Install } from '@root/utilities/use-get-installs'
 
-import classes from './Configure.module.scss'
+import classes from './Checkout.module.scss'
 
-const ConfigureDraftProject: React.FC<{
+type Props = {
   draftProjectID: string
   breadcrumb?: Breadcrumb
-}> = ({ draftProjectID, breadcrumb }) => {
+}
+
+const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
+const Stripe = loadStripe(apiKey)
+
+const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) => {
   const { user } = useAuth()
   const router = useRouter()
-  const [selectedTeam, setSelectedTeam] = React.useState<string | ''>()
+  const [selectedTeam, setSelectedTeam] = React.useState<Team>()
   const [selectedInstall, setSelectedInstall] = React.useState<Install>()
   const [selectedPlan, setSelectedPlan] = React.useState<Plan>()
   const [isLoading, setIsLoading] = React.useState<boolean>(true)
   const [project, setProject] = React.useState<Project | null>(null)
   const requestedProject = React.useRef(false)
+  const [stripeClientSecret, setStripeClientSecret] = React.useState<string | null>()
+  const stripe = useStripe()
+
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false)
-  const [submissionError, setSubmissionError] = React.useState<string | null>(null)
+  const [error, setError] = React.useState<string | null>(null)
+  const elements = useElements()
   const [isOrgScope, setIsOrgScope] = useState(
     () => selectedInstall?.target_type === 'Organization',
   )
@@ -63,14 +80,14 @@ const ConfigureDraftProject: React.FC<{
             if (res._status !== 'draft') {
               router.push(`/dashboard/${res.team?.team?.slug}/${res.slug}`)
             } else {
-              setSelectedTeam(res.team?.id)
+              setSelectedTeam(res.team)
               setSelectedPlan(res.plan?.id)
               setProject(res)
               setIsLoading(false)
             }
           }
-        } catch (error) {
-          console.error(error)
+        } catch (err: unknown) {
+          console.error(err)
           setIsLoading(false)
         }
       }
@@ -79,13 +96,31 @@ const ConfigureDraftProject: React.FC<{
     }
   }, [draftProjectID, router])
 
+  const processPayment = useCallback(async () => {
+    const payload = await stripe.confirmCardPayment(stripeClientSecret, {
+      payment_method: {
+        card: elements.getElement(StripeCardElement),
+      },
+    })
+
+    if (payload.error) {
+      throw new Error(payload.error.message)
+    }
+
+    return true
+  }, [stripeClientSecret, elements, stripe])
+
   const handleSubmit = useCallback(async () => {
     window.scrollTo(0, 0)
 
     setIsSubmitting(true)
-    setSubmissionError(null)
+    setError(null)
 
     try {
+      // process the payment
+      await processPayment()
+
+      // publish the project
       const req = await fetch(
         `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${draftProjectID}`,
         {
@@ -106,21 +141,22 @@ const ConfigureDraftProject: React.FC<{
       const res: Project = await req.json()
 
       if (req.ok) {
-        const team = user.teams.find(({ id }) => id === selectedTeam)?.team
+        const team = user.teams.find(({ id }) => id === selectedTeam.id)?.team
         if (typeof team === 'object') {
           router.push(`/dashboard/${team?.slug}/${res.slug}`)
         }
       } else {
         setIsSubmitting(false)
         // @ts-expect-error
-        setSubmissionError(res.errors[0].message)
+        setError(res.errors[0].message)
       }
-    } catch (error) {
-      console.error(error)
-      setSubmissionError(error.message)
+    } catch (err: unknown) {
+      console.error(err)
+      const message = err instanceof Error ? err.message : 'Unknown error'
+      setError(message)
       setIsSubmitting(false)
     }
-  }, [user, draftProjectID, router, selectedInstall, selectedPlan, selectedTeam])
+  }, [user, draftProjectID, router, selectedInstall, selectedPlan, selectedTeam, processPayment])
 
   useEffect(() => {
     setIsOrgScope(selectedInstall?.target_type === 'Organization')
@@ -149,7 +185,7 @@ const ConfigureDraftProject: React.FC<{
             ]}
           />
           <h1>Configure your project</h1>
-          {submissionError && <p className={classes.error}>{submissionError}</p>}
+          {error && <p className={classes.error}>{error}</p>}
           {isSubmitting && <p className={classes.submitting}>Submitting...</p>}
         </div>
         {!isSubmitting && (
@@ -229,6 +265,11 @@ const ConfigureDraftProject: React.FC<{
                     </div>
                     <div>
                       <h5>Payment Info</h5>
+                      <CreditCardSelector
+                        onClientSecret={setStripeClientSecret}
+                        selectedPlan={selectedPlan}
+                        team={selectedTeam}
+                      />
                     </div>
                     <Button
                       appearance="primary"
@@ -248,4 +289,12 @@ const ConfigureDraftProject: React.FC<{
   )
 }
 
-export default ConfigureDraftProject
+const Checkout: React.FC<Props> = props => {
+  return (
+    <Elements stripe={Stripe}>
+      <ConfigureDraftProject {...props} />
+    </Elements>
+  )
+}
+
+export default Checkout

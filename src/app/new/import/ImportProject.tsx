@@ -41,7 +41,7 @@ export const ImportProject: React.FC = () => {
   return (
     <Gutter>
       {createError && <p className={classes.error}>{createError}</p>}
-      {isSubmitting && <p className={classes.submitting}>Creating project...</p>}
+      {isSubmitting && <LoadingShimmer number={3} />}
       {!isSubmitting && (
         <Grid>
           <Cell cols={4} colsM={8} className={classes.sidebarCell}>
