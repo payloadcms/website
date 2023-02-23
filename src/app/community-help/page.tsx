@@ -19,9 +19,6 @@ const Page = async () => {
             )
           return null
         })}
-        <li>
-          <a href={`/community-help/github`}>See all discussions</a>
-        </li>
       </ul>
 
       <h1>Discord</h1>
@@ -35,9 +32,6 @@ const Page = async () => {
             )
           return null
         })}
-        <li>
-          <a href={`/community-help/discord`}>See all discord threads</a>
-        </li>
       </ul>
     </Gutter>
   )

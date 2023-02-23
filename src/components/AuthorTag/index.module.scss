@@ -44,14 +44,3 @@
     justify-content: unset;
   }
 }
-
-@include small-break {
-  .authorTag {
-    flex-direction: column;
-    align-items: unset;
-  }
-
-  .date {
-    margin-top: calc(var(--base) * 0.5);
-  }
-}

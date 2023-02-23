@@ -40,6 +40,7 @@
 }
 
 .message {
+  color: var(--color-base-100);
   font-size: calc(var(--base) * 1.25);
   margin: 0;
   line-height: 1.2;
@@ -48,6 +49,7 @@
 .arrow {
   width: 16px;
   height: 16px;
+  color: var(--color-base-100);
 }
 
 .gitButton,
@@ -107,9 +109,12 @@
     display: none;
   }
 
+  .container {
+    height: unset;
+  }
+
   .ctaWrap {
     display: flex;
-    height: 100%;
     justify-content: flex-end;
   }
 

@@ -1,5 +1,467 @@
 [
   {
+    "title": "Pass `req` to all local API operations?",
+    "body": "<p dir=\"auto\">As described in the documentation about the local API for <a href=\"https://payloadcms.com/docs/local-api/overview#auth-operations\" rel=\"nofollow\">\"Auth Operations\"</a> it is possible to pass a <code class=\"notranslate\">req</code> express object into the local API call, that will be forwarded to all hooks. The documentation about the CRUD operations is missing this option, but for some of the operations it is also possible to pass in a <code class=\"notranslate\">req</code> object.</p>\n<p dir=\"auto\">The \"create\" operation offers to pass in a <code class=\"notranslate\">req</code> object:</p>\n<div class=\"highlight highlight-source-ts notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"    await payload.create({\n      collection: 'users',\n      data: {\n        ...\n      },\n      req: customReq // passing custom req to all hooks is working ✅\n    })\"><pre class=\"notranslate\">    <span class=\"pl-k\">await</span> <span class=\"pl-s1\">payload</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">create</span><span class=\"pl-kos\">(</span><span class=\"pl-kos\">{</span>\n      <span class=\"pl-c1\">collection</span>: <span class=\"pl-s\">'users'</span><span class=\"pl-kos\">,</span>\n      <span class=\"pl-c1\">data</span>: <span class=\"pl-kos\">{</span>\n        ...\n      <span class=\"pl-kos\">}</span><span class=\"pl-kos\">,</span>\n      <span class=\"pl-c1\">req</span>: <span class=\"pl-s1\">customReq</span> <span class=\"pl-c\">// passing custom req to all hooks is working ✅</span>\n    <span class=\"pl-kos\">}</span><span class=\"pl-kos\">)</span></pre></div>\n<p dir=\"auto\">Unluckily this is only possible for \"create\", \"find\", \"findVersionByID\" or \"findById\", but not for \"delete\", \"findVersions\", \"restoreVersion\" or \"update\", e.g.:</p>\n<div class=\"highlight highlight-source-ts notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"    await payload.update({\n      collection: 'users',\n      id: ...\n      data: {\n        ...\n      },\n      req: customReq // NOT ALLOWED and non functional ❌\n    })\"><pre class=\"notranslate\">    <span class=\"pl-k\">await</span> <span class=\"pl-s1\">payload</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">update</span><span class=\"pl-kos\">(</span><span class=\"pl-kos\">{</span>\n      <span class=\"pl-c1\">collection</span>: <span class=\"pl-s\">'users'</span><span class=\"pl-kos\">,</span>\n      <span class=\"pl-c1\">id</span>: ...\n      <span class=\"pl-s1\">data</span>: <span class=\"pl-kos\">{</span>\n        ...\n      <span class=\"pl-kos\">}</span><span class=\"pl-kos\">,</span>\n      <span class=\"pl-c1\">req</span>: <span class=\"pl-s1\">customReq</span> <span class=\"pl-c\">// NOT ALLOWED and non functional ❌</span>\n    <span class=\"pl-kos\">}</span><span class=\"pl-kos\">)</span></pre></div>\n<p dir=\"auto\">Looking at the source, for e.g. <a href=\"https://github.com/payloadcms/payload/blob/master/src/collections/operations/local/delete.ts#L11-L19\">\"update\"</a> there is no <code class=\"notranslate\">req</code> property like in <a href=\"https://github.com/payloadcms/payload/blob/master/src/collections/operations/local/create.ts#L27\">\"create\"</a>.</p>\n<p dir=\"auto\">Is this intended, that only read operations are allowed to pass in a <code class=\"notranslate\">req</code> object, or is this possible a misalignment that can be fixed to allow all operations to pass a <code class=\"notranslate\">req</code> object?</p>",
+    "url": "https://github.com/payloadcms/payload/discussions/2168",
+    "id": "2168",
+    "createdAt": "2023-02-23T08:02:32Z",
+    "upvotes": 1,
+    "commentTotal": 0,
+    "author": {
+      "name": "fabianbru",
+      "avatar": "https://avatars.githubusercontent.com/u/12710816?u=4d4277076620acda5fdb0cd903c35fd3755c57e0&v=4",
+      "url": "https://github.com/fabianbru"
+    },
+    "comments": [],
+    "answer": {
+      "author": {},
+      "chosenAt": null
+    }
+  },
+  {
+    "title": "Automatically regenerate media sizes",
+    "body": "<p dir=\"auto\">This is a commonly asked topic and it just came up in Discord today, so I figured I would share a quick script that the team and I use for our Payload projects when we need something like WP's \"Regenerate Thumbnails\" plugin. Basically if you update your <code class=\"notranslate\">imageSizes</code> and want to automatically re-run the image transformations for each one of your uploads, this can be super handy.</p>\n<div class=\"highlight highlight-source-js notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"const payload = require('payload');\nconst path = require('path');\n\nrequire('dotenv').config();\n\nconst { PAYLOAD_SECRET_KEY, MONGO_URL } = process.env;\n\npayload.init({\n  secret: PAYLOAD_SECRET_KEY,\n  mongoURL: MONGO_URL,\n  local: true,\n});\n\nconst regenerateMediaSizes = async () =&gt; {\n  try {\n    const media = await payload.find({\n      collection: 'media',\n      depth: 0,\n      limit: 300,\n    });\n    await Promise.all(media.docs.map(async (mediaDoc) =&gt; {\n      try {\n        const staticDir = path.resolve(__dirname, '../media');\n\n        await payload.update({\n          collection: 'media',\n          id: mediaDoc.id,\n          data: mediaDoc,\n          filePath: `${staticDir}/${mediaDoc.filename}`,\n          overwriteExistingFiles: true,\n        });\n\n        console.log(`Media ${mediaDoc.alt || mediaDoc.id} regenerated successfully`);\n      } catch (err) {\n        console.error(`Media ${mediaDoc.alt || mediaDoc.id} failed to regenerate`);\n        console.error(err);\n      }\n    }));\n  } catch (err) {\n    console.log('Unable to find documents with payload');\n    console.error(err);\n    process.exit(0);\n  }\n\n  console.log('Media size regeneration completed!');\n  process.exit(0);\n};\n\nregenerateMediaSizes();\"><pre class=\"notranslate\"><span class=\"pl-k\">const</span> <span class=\"pl-s1\">payload</span> <span class=\"pl-c1\">=</span> <span class=\"pl-en\">require</span><span class=\"pl-kos\">(</span><span class=\"pl-s\">'payload'</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n<span class=\"pl-k\">const</span> <span class=\"pl-s1\">path</span> <span class=\"pl-c1\">=</span> <span class=\"pl-en\">require</span><span class=\"pl-kos\">(</span><span class=\"pl-s\">'path'</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n\n<span class=\"pl-en\">require</span><span class=\"pl-kos\">(</span><span class=\"pl-s\">'dotenv'</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">config</span><span class=\"pl-kos\">(</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n\n<span class=\"pl-k\">const</span> <span class=\"pl-kos\">{</span> <span class=\"pl-c1\">PAYLOAD_SECRET_KEY</span><span class=\"pl-kos\">,</span> <span class=\"pl-c1\">MONGO_URL</span> <span class=\"pl-kos\">}</span> <span class=\"pl-c1\">=</span> <span class=\"pl-s1\">process</span><span class=\"pl-kos\">.</span><span class=\"pl-c1\">env</span><span class=\"pl-kos\">;</span>\n\n<span class=\"pl-s1\">payload</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">init</span><span class=\"pl-kos\">(</span><span class=\"pl-kos\">{</span>\n  <span class=\"pl-c1\">secret</span>: <span class=\"pl-c1\">PAYLOAD_SECRET_KEY</span><span class=\"pl-kos\">,</span>\n  <span class=\"pl-c1\">mongoURL</span>: <span class=\"pl-c1\">MONGO_URL</span><span class=\"pl-kos\">,</span>\n  <span class=\"pl-c1\">local</span>: <span class=\"pl-c1\">true</span><span class=\"pl-kos\">,</span>\n<span class=\"pl-kos\">}</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n\n<span class=\"pl-k\">const</span> <span class=\"pl-en\">regenerateMediaSizes</span> <span class=\"pl-c1\">=</span> <span class=\"pl-k\">async</span> <span class=\"pl-kos\">(</span><span class=\"pl-kos\">)</span> <span class=\"pl-c1\">=&gt;</span> <span class=\"pl-kos\">{</span>\n  <span class=\"pl-k\">try</span> <span class=\"pl-kos\">{</span>\n    <span class=\"pl-k\">const</span> <span class=\"pl-s1\">media</span> <span class=\"pl-c1\">=</span> <span class=\"pl-k\">await</span> <span class=\"pl-s1\">payload</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">find</span><span class=\"pl-kos\">(</span><span class=\"pl-kos\">{</span>\n      <span class=\"pl-c1\">collection</span>: <span class=\"pl-s\">'media'</span><span class=\"pl-kos\">,</span>\n      <span class=\"pl-c1\">depth</span>: <span class=\"pl-c1\">0</span><span class=\"pl-kos\">,</span>\n      <span class=\"pl-c1\">limit</span>: <span class=\"pl-c1\">300</span><span class=\"pl-kos\">,</span>\n    <span class=\"pl-kos\">}</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n    <span class=\"pl-k\">await</span> <span class=\"pl-v\">Promise</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">all</span><span class=\"pl-kos\">(</span><span class=\"pl-s1\">media</span><span class=\"pl-kos\">.</span><span class=\"pl-c1\">docs</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">map</span><span class=\"pl-kos\">(</span><span class=\"pl-k\">async</span> <span class=\"pl-kos\">(</span><span class=\"pl-s1\">mediaDoc</span><span class=\"pl-kos\">)</span> <span class=\"pl-c1\">=&gt;</span> <span class=\"pl-kos\">{</span>\n      <span class=\"pl-k\">try</span> <span class=\"pl-kos\">{</span>\n        <span class=\"pl-k\">const</span> <span class=\"pl-s1\">staticDir</span> <span class=\"pl-c1\">=</span> <span class=\"pl-s1\">path</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">resolve</span><span class=\"pl-kos\">(</span><span class=\"pl-s1\">__dirname</span><span class=\"pl-kos\">,</span> <span class=\"pl-s\">'../media'</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n\n        <span class=\"pl-k\">await</span> <span class=\"pl-s1\">payload</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">update</span><span class=\"pl-kos\">(</span><span class=\"pl-kos\">{</span>\n          <span class=\"pl-c1\">collection</span>: <span class=\"pl-s\">'media'</span><span class=\"pl-kos\">,</span>\n          <span class=\"pl-c1\">id</span>: <span class=\"pl-s1\">mediaDoc</span><span class=\"pl-kos\">.</span><span class=\"pl-c1\">id</span><span class=\"pl-kos\">,</span>\n          <span class=\"pl-c1\">data</span>: <span class=\"pl-s1\">mediaDoc</span><span class=\"pl-kos\">,</span>\n          <span class=\"pl-c1\">filePath</span>: <span class=\"pl-s\">`<span class=\"pl-s1\"><span class=\"pl-kos\">${</span><span class=\"pl-s1\">staticDir</span><span class=\"pl-kos\">}</span></span>/<span class=\"pl-s1\"><span class=\"pl-kos\">${</span><span class=\"pl-s1\">mediaDoc</span><span class=\"pl-kos\">.</span><span class=\"pl-c1\">filename</span><span class=\"pl-kos\">}</span></span>`</span><span class=\"pl-kos\">,</span>\n          <span class=\"pl-c1\">overwriteExistingFiles</span>: <span class=\"pl-c1\">true</span><span class=\"pl-kos\">,</span>\n        <span class=\"pl-kos\">}</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n\n        <span class=\"pl-smi\">console</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">log</span><span class=\"pl-kos\">(</span><span class=\"pl-s\">`Media <span class=\"pl-s1\"><span class=\"pl-kos\">${</span><span class=\"pl-s1\">mediaDoc</span><span class=\"pl-kos\">.</span><span class=\"pl-c1\">alt</span> <span class=\"pl-c1\">||</span> <span class=\"pl-s1\">mediaDoc</span><span class=\"pl-kos\">.</span><span class=\"pl-c1\">id</span><span class=\"pl-kos\">}</span></span> regenerated successfully`</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n      <span class=\"pl-kos\">}</span> <span class=\"pl-k\">catch</span> <span class=\"pl-kos\">(</span><span class=\"pl-s1\">err</span><span class=\"pl-kos\">)</span> <span class=\"pl-kos\">{</span>\n        <span class=\"pl-smi\">console</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">error</span><span class=\"pl-kos\">(</span><span class=\"pl-s\">`Media <span class=\"pl-s1\"><span class=\"pl-kos\">${</span><span class=\"pl-s1\">mediaDoc</span><span class=\"pl-kos\">.</span><span class=\"pl-c1\">alt</span> <span class=\"pl-c1\">||</span> <span class=\"pl-s1\">mediaDoc</span><span class=\"pl-kos\">.</span><span class=\"pl-c1\">id</span><span class=\"pl-kos\">}</span></span> failed to regenerate`</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n        <span class=\"pl-smi\">console</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">error</span><span class=\"pl-kos\">(</span><span class=\"pl-s1\">err</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n      <span class=\"pl-kos\">}</span>\n    <span class=\"pl-kos\">}</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n  <span class=\"pl-kos\">}</span> <span class=\"pl-k\">catch</span> <span class=\"pl-kos\">(</span><span class=\"pl-s1\">err</span><span class=\"pl-kos\">)</span> <span class=\"pl-kos\">{</span>\n    <span class=\"pl-smi\">console</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">log</span><span class=\"pl-kos\">(</span><span class=\"pl-s\">'Unable to find documents with payload'</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n    <span class=\"pl-smi\">console</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">error</span><span class=\"pl-kos\">(</span><span class=\"pl-s1\">err</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n    <span class=\"pl-s1\">process</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">exit</span><span class=\"pl-kos\">(</span><span class=\"pl-c1\">0</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n  <span class=\"pl-kos\">}</span>\n\n  <span class=\"pl-smi\">console</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">log</span><span class=\"pl-kos\">(</span><span class=\"pl-s\">'Media size regeneration completed!'</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n  <span class=\"pl-s1\">process</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">exit</span><span class=\"pl-kos\">(</span><span class=\"pl-c1\">0</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n<span class=\"pl-kos\">}</span><span class=\"pl-kos\">;</span>\n\n<span class=\"pl-en\">regenerateMediaSizes</span><span class=\"pl-kos\">(</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span></pre></div>\n<p dir=\"auto\">If you save this file as <code class=\"notranslate\">regenerateMediaSizes.js</code>, then all you need to do to run it is <code class=\"notranslate\">node ./regenerateMediaSizes.js</code> and boom.</p>\n<p dir=\"auto\">Related: <a aria-label=\"Discussion #434\" class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"3864145\" data-permission-text=\"Title is private\" data-url=\"https://github.com/payloadcms/payload/discussions/434\" data-hovercard-type=\"discussion\" data-hovercard-url=\"/payloadcms/payload/discussions/434/hovercard\" href=\"https://github.com/payloadcms/payload/discussions/434\">#434</a></p>",
+    "url": "https://github.com/payloadcms/payload/discussions/1834",
+    "id": "1834",
+    "createdAt": "2023-01-09T19:32:34Z",
+    "upvotes": 5,
+    "commentTotal": 3,
+    "author": {
+      "name": "jmikrut",
+      "avatar": "https://avatars.githubusercontent.com/u/6651896?u=6e09e00f94f77c5857f92ec3a135d65386002623&v=4",
+      "url": "https://github.com/jmikrut"
+    },
+    "comments": [
+      {
+        "author": {
+          "name": "fabioquarantini",
+          "avatar": "https://avatars.githubusercontent.com/u/425733?v=4",
+          "url": "https://github.com/fabioquarantini"
+        },
+        "body": "<p dir=\"auto\">How to delete old unused thumbnails?</p>",
+        "createdAt": "2023-02-08T10:54:30Z",
+        "replies": null
+      },
+      {
+        "author": {
+          "name": "ChristopherNowlan",
+          "avatar": "https://avatars.githubusercontent.com/u/12365706?u=bfc7e970179dda53bca635087442765a127e08a4&v=4",
+          "url": "https://github.com/ChristopherNowlan"
+        },
+        "body": "<p dir=\"auto\">I had to move payload init function into the regenerateMediaSizes async function. Because my config file was within the src directory I had to update the command to be <code class=\"notranslate\">cross-env PAYLOAD_CONFIG_PATH=dist/payload.config.js node ./regenerateMediaSizes.js</code></p>\n<div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"const payload = require('payload');\nconst path = require('path');\n\nrequire('dotenv').config();\n\nconst { PAYLOAD_SECRET_KEY, MONGO_URL } = process.env;\n\nconst regenerateMediaSizes = async () =&gt; {\n  try {\n\n  await payload.init({\n        secret: PAYLOAD_SECRET_KEY,\n        mongoURL: MONGODB_URL,\n        local: true,\n    });\n\n    const media = await payload.find({\n      collection: 'media',\n      depth: 0,\n      limit: 300,\n    });\n\n    await Promise.all(media.docs.map(async (mediaDoc) =&gt; {\n      try {\n        const staticDir = path.resolve(__dirname, '../media');\n\n        await payload.update({\n          collection: 'media',\n          id: mediaDoc.id,\n          data: mediaDoc,\n          filePath: `${staticDir}/${mediaDoc.filename}`,\n          overwriteExistingFiles: true,\n        });\n\n        console.log(`Media ${mediaDoc.alt || mediaDoc.id} regenerated successfully`);\n      } catch (err) {\n        console.error(`Media ${mediaDoc.alt || mediaDoc.id} failed to regenerate`);\n        console.error(err);\n      }\n    }));\n  } catch (err) {\n    console.log('Unable to find documents with payload');\n    console.error(err);\n    process.exit(0);\n  }\n\n  console.log('Media size regeneration completed!');\n  process.exit(0);\n};\n\nregenerateMediaSizes();\"><pre class=\"notranslate\"><code class=\"notranslate\">const payload = require('payload');\nconst path = require('path');\n\nrequire('dotenv').config();\n\nconst { PAYLOAD_SECRET_KEY, MONGO_URL } = process.env;\n\nconst regenerateMediaSizes = async () =&gt; {\n  try {\n\n  await payload.init({\n        secret: PAYLOAD_SECRET_KEY,\n        mongoURL: MONGODB_URL,\n        local: true,\n    });\n\n    const media = await payload.find({\n      collection: 'media',\n      depth: 0,\n      limit: 300,\n    });\n\n    await Promise.all(media.docs.map(async (mediaDoc) =&gt; {\n      try {\n        const staticDir = path.resolve(__dirname, '../media');\n\n        await payload.update({\n          collection: 'media',\n          id: mediaDoc.id,\n          data: mediaDoc,\n          filePath: `${staticDir}/${mediaDoc.filename}`,\n          overwriteExistingFiles: true,\n        });\n\n        console.log(`Media ${mediaDoc.alt || mediaDoc.id} regenerated successfully`);\n      } catch (err) {\n        console.error(`Media ${mediaDoc.alt || mediaDoc.id} failed to regenerate`);\n        console.error(err);\n      }\n    }));\n  } catch (err) {\n    console.log('Unable to find documents with payload');\n    console.error(err);\n    process.exit(0);\n  }\n\n  console.log('Media size regeneration completed!');\n  process.exit(0);\n};\n\nregenerateMediaSizes();\n</code></pre></div>",
+        "createdAt": "2023-02-16T00:33:55Z",
+        "replies": null
+      },
+      {
+        "author": {
+          "name": "andriasang",
+          "avatar": "https://avatars.githubusercontent.com/u/1675838?u=cffdf8406911e832c6e88b302b46d5e426936aaa&v=4",
+          "url": "https://github.com/andriasang"
+        },
+        "body": "<p dir=\"auto\"><a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/jmikrut/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/jmikrut\">@jmikrut</a> : Is this script compatible with the <a href=\"https://github.com/payloadcms/plugin-cloud-storage\">cloud storage plugin</a>?  I removed the \"filePath\" section of the update call and it seems that every image in my collection is being iterated over but the sizes area is just  empty objects:</p>\n<p dir=\"auto\">sizes: { w400: {}, w768: {}, w1024: {} },</p>",
+        "createdAt": "2023-02-23T03:20:12Z",
+        "replies": null
+      }
+    ],
+    "answer": {
+      "author": {},
+      "chosenAt": null
+    }
+  },
+  {
+    "title": "Add field option for \"unique or null\"",
+    "body": "<p dir=\"auto\">Sometimes a piece of data can be optional, but if it is filled in, it must be unique.</p>\n<p dir=\"auto\">Unique and required</p>\n<div class=\"highlight highlight-source-ts notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"{\n  unique: true,\n  required: true\n}\"><pre class=\"notranslate\"><span class=\"pl-kos\">{</span>\n  <span class=\"pl-c1\">unique</span>: <span class=\"pl-c1\">true</span><span class=\"pl-kos\">,</span>\n  <span class=\"pl-c1\">required</span>: <span class=\"pl-c1\">true</span>\n<span class=\"pl-kos\">}</span></pre></div>\n<p dir=\"auto\">Unique and not required: null can exist once</p>\n<div class=\"highlight highlight-source-ts notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"{\n  unique: true,\n  required: false\n}\"><pre class=\"notranslate\"><span class=\"pl-kos\">{</span>\n  <span class=\"pl-c1\">unique</span>: <span class=\"pl-c1\">true</span><span class=\"pl-kos\">,</span>\n  <span class=\"pl-c1\">required</span>: <span class=\"pl-c1\">false</span>\n<span class=\"pl-kos\">}</span></pre></div>\n<p dir=\"auto\">Unique or null: null can exist multiple times</p>\n<div class=\"highlight highlight-source-ts notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"{\n  uniqueOrNull: true,\n  required: false\n}\"><pre class=\"notranslate\"><span class=\"pl-kos\">{</span>\n  <span class=\"pl-c1\">uniqueOrNull</span>: <span class=\"pl-c1\">true</span><span class=\"pl-kos\">,</span>\n  <span class=\"pl-c1\">required</span>: <span class=\"pl-c1\">false</span>\n<span class=\"pl-kos\">}</span></pre></div>",
+    "url": "https://github.com/payloadcms/payload/discussions/2072",
+    "id": "2072",
+    "createdAt": "2023-02-13T08:15:13Z",
+    "upvotes": 5,
+    "commentTotal": 2,
+    "author": {
+      "name": "thgh",
+      "avatar": "https://avatars.githubusercontent.com/u/1109982?u=6cd0299e82d500b4ba200c5ebd1d3134896cb307&v=4",
+      "url": "https://github.com/thgh"
+    },
+    "comments": [
+      {
+        "author": {
+          "name": "hades200082",
+          "avatar": "https://avatars.githubusercontent.com/u/1023581?v=4",
+          "url": "https://github.com/hades200082"
+        },
+        "body": "<p dir=\"auto\">I'm not sure what use-cases exist for the \"null can exist once\" option.</p>\n<p dir=\"auto\">It would seem to me that if unique is true and required is false it should imply \"unique or null\".</p>",
+        "createdAt": "2023-02-13T08:59:08Z",
+        "replies": [
+          {
+            "author": {
+              "name": "thgh",
+              "avatar": "https://avatars.githubusercontent.com/u/1109982?u=6cd0299e82d500b4ba200c5ebd1d3134896cb307&v=4",
+              "url": "https://github.com/thgh"
+            },
+            "body": "<p dir=\"auto\">Got the same gut feeling, but did actually encounter a usecase for \"null can exist once\" so I would not make it impossible. Also, it is the default behaviour for unique in postgres.</p>",
+            "createdAt": "2023-02-13T13:46:16Z"
+          },
+          {
+            "author": {
+              "name": "DanRibbens",
+              "avatar": "https://avatars.githubusercontent.com/u/6434612?u=5f70b3b4db315fb8f3619002d95a752759fb8231&v=4",
+              "url": "https://github.com/DanRibbens"
+            },
+            "body": "<p dir=\"auto\">This is valid, I agree!</p>\n<p dir=\"auto\">In Mongo we add the <code class=\"notranslate\">sparse</code> option to the index as in the case of localized fields. I noticed the other day that we have no way of allowing <code class=\"notranslate\">sparse</code> in the config which is exactly what we need for this requirement.</p>",
+            "createdAt": "2023-02-13T16:54:55Z"
+          },
+          {
+            "author": {
+              "name": "thgh",
+              "avatar": "https://avatars.githubusercontent.com/u/1109982?u=6cd0299e82d500b4ba200c5ebd1d3134896cb307&v=4",
+              "url": "https://github.com/thgh"
+            },
+            "body": "<p dir=\"auto\">About localized: it seems that if I enable/disable localized, the sparse index stays whatever it was when the field was added. Is this intended behaviour? It caused a bug in a production deployment, did not expect it.</p>",
+            "createdAt": "2023-02-22T13:19:41Z"
+          },
+          {
+            "author": {
+              "name": "DanRibbens",
+              "avatar": "https://avatars.githubusercontent.com/u/6434612?u=5f70b3b4db315fb8f3619002d95a752759fb8231&v=4",
+              "url": "https://github.com/DanRibbens"
+            },
+            "body": "<p dir=\"auto\">Sorry this caused an issue for you <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/thgh/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/thgh\">@thgh</a>. It has always worked this way. Payload will not remove or change existing indexes from changing the config. As you found out, you have to manually remove them to be re-created automatically when Payload starts again.</p>",
+            "createdAt": "2023-02-22T20:18:47Z"
+          }
+        ]
+      },
+      {
+        "author": {
+          "name": "hades200082",
+          "avatar": "https://avatars.githubusercontent.com/u/1023581?v=4",
+          "url": "https://github.com/hades200082"
+        },
+        "body": "<p dir=\"auto\">Instead of</p>\n<div class=\"highlight highlight-source-js notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"{\n  uniqueOrNull: true,\n  required: false\n}\"><pre class=\"notranslate\"><span class=\"pl-kos\">{</span>\n  <span class=\"pl-c1\">uniqueOrNull</span>: <span class=\"pl-c1\">true</span><span class=\"pl-kos\">,</span>\n  <span class=\"pl-c1\">required</span>: <span class=\"pl-c1\">false</span>\n<span class=\"pl-kos\">}</span></pre></div>\n<p dir=\"auto\">Might be better to have <code class=\"notranslate\">unique</code> typed as <code class=\"notranslate\">boolean | { allowNulls: boolean }</code> and used like this:</p>\n<div class=\"highlight highlight-source-js notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"{\n  unique: {\n    allowNulls: true\n  },\n  required: false\n}\"><pre class=\"notranslate\"><span class=\"pl-kos\">{</span>\n  <span class=\"pl-c1\">unique</span>: <span class=\"pl-kos\">{</span>\n    <span class=\"pl-c1\">allowNulls</span>: <span class=\"pl-c1\">true</span>\n  <span class=\"pl-kos\">}</span><span class=\"pl-kos\">,</span>\n  <span class=\"pl-c1\">required</span>: <span class=\"pl-c1\">false</span>\n<span class=\"pl-kos\">}</span></pre></div>\n<p dir=\"auto\">This retains backwards compatibility with current versions, but adds the new feature without needing a new property.</p>\n<p dir=\"auto\">A later major version <em>could</em> remove the backwards compact and switch it to <code class=\"notranslate\">false | { allowNulls: boolean }</code>, the implication bing that if an object is passed then unique is true, and the allowNulls must then be set explicitly.</p>",
+        "createdAt": "2023-02-21T08:20:29Z",
+        "replies": null
+      }
+    ],
+    "answer": {
+      "author": {},
+      "chosenAt": null
+    }
+  },
+  {
+    "title": "Cannot customize rich text link base fields",
+    "body": "<p dir=\"auto\">From what I can tell, there isn't a way to customize the fields that the link modal that displays in rich text fields. The custom fields and the native fields are isolated from each other.</p>\n<p dir=\"auto\"></p><div class=\"Box Box--condensed my-2\">\n  <div class=\"Box-header f6\">\n    <p class=\"mb-0 text-bold\">\n      <a href=\"https://github.com/payloadcms/payload/blob/baf5b10d23306e3c6bd5ad43c6e0b9b48cf7c334/src/admin/components/forms/field-types/RichText/elements/link/LinkDrawer/baseFields.ts#L16\">payload/src/admin/components/forms/field-types/RichText/elements/link/LinkDrawer/baseFields.ts</a>\n    </p>\n    <p class=\"mb-0 color-fg-muted\">\n         Line 16\n      in\n      <a data-pjax=\"true\" class=\"commit-tease-sha\" href=\"/payloadcms/payload/commit/baf5b10d23306e3c6bd5ad43c6e0b9b48cf7c334\">baf5b10</a>\n    </p>\n  </div>\n  <div itemprop=\"text\" class=\"Box-body p-0 blob-wrapper blob-wrapper-embedded data\">\n    <table class=\"highlight tab-size mb-0 js-file-line-container\" data-tab-size=\"8\" data-paste-markdown-skip=\"\">\n\n        <tbody><tr class=\"border-0\">\n          <td id=\"L16\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"16\"></td>\n          <td id=\"LC16\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\"> <span class=\"pl-k\">export</span> <span class=\"pl-k\">const</span> <span class=\"pl-en\">getBaseFields</span> <span class=\"pl-c1\">=</span> <span class=\"pl-kos\">(</span><span class=\"pl-s1\">config</span>: <span class=\"pl-smi\">Config</span><span class=\"pl-kos\">)</span>: <span class=\"pl-smi\">Field</span><span class=\"pl-kos\">[</span><span class=\"pl-kos\">]</span> <span class=\"pl-c1\">=&gt;</span> <span class=\"pl-kos\">[</span> </td>\n        </tr>\n    </tbody></table>\n  </div>\n</div>\n<p></p>\n<p dir=\"auto\"></p><div class=\"Box Box--condensed my-2\">\n  <div class=\"Box-header f6\">\n    <p class=\"mb-0 text-bold\">\n      <a href=\"https://github.com/payloadcms/payload/blob/25c5b784e119c638d0c9d25fee4309df02244861/src/admin/components/forms/field-types/RichText/elements/link/Button/index.tsx#L71-L89\">payload/src/admin/components/forms/field-types/RichText/elements/link/Button/index.tsx</a>\n    </p>\n    <p class=\"mb-0 color-fg-muted\">\n        Lines 71 to 89\n      in\n      <a data-pjax=\"true\" class=\"commit-tease-sha\" href=\"/payloadcms/payload/commit/25c5b784e119c638d0c9d25fee4309df02244861\">25c5b78</a>\n    </p>\n  </div>\n  <div itemprop=\"text\" class=\"Box-body p-0 blob-wrapper blob-wrapper-embedded data\">\n    <table class=\"highlight tab-size mb-0 js-file-line-container\" data-tab-size=\"8\" data-paste-markdown-skip=\"\">\n\n        <tbody><tr class=\"border-0\">\n          <td id=\"L71\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"71\"></td>\n          <td id=\"LC71\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\"> <span class=\"pl-k\">const</span> <span class=\"pl-s1\">fields</span>: <span class=\"pl-smi\">Field</span><span class=\"pl-kos\">[</span><span class=\"pl-kos\">]</span> <span class=\"pl-c1\">=</span> <span class=\"pl-kos\">[</span> </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L72\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"72\"></td>\n          <td id=\"LC72\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\">   ...<span class=\"pl-en\">getBaseFields</span><span class=\"pl-kos\">(</span><span class=\"pl-s1\">config</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">,</span> </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L73\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"73\"></td>\n          <td id=\"LC73\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\"> <span class=\"pl-kos\">]</span><span class=\"pl-kos\">;</span> </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L74\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"74\"></td>\n          <td id=\"LC74\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\">  </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L75\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"75\"></td>\n          <td id=\"LC75\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\"> <span class=\"pl-k\">if</span> <span class=\"pl-kos\">(</span><span class=\"pl-s1\">customFieldSchema</span><span class=\"pl-kos\">)</span> <span class=\"pl-kos\">{</span> </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L76\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"76\"></td>\n          <td id=\"LC76\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\">   <span class=\"pl-s1\">fields</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">push</span><span class=\"pl-kos\">(</span><span class=\"pl-kos\">{</span> </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L77\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"77\"></td>\n          <td id=\"LC77\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\">     <span class=\"pl-c1\">name</span>: <span class=\"pl-s\">'fields'</span><span class=\"pl-kos\">,</span> </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L78\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"78\"></td>\n          <td id=\"LC78\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\">     <span class=\"pl-c1\">type</span>: <span class=\"pl-s\">'group'</span><span class=\"pl-kos\">,</span> </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L79\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"79\"></td>\n          <td id=\"LC79\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\">     <span class=\"pl-c1\">admin</span>: <span class=\"pl-kos\">{</span> </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L80\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"80\"></td>\n          <td id=\"LC80\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\">       <span class=\"pl-c1\">style</span>: <span class=\"pl-kos\">{</span> </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L81\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"81\"></td>\n          <td id=\"LC81\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\">         <span class=\"pl-c1\">margin</span>: <span class=\"pl-c1\">0</span><span class=\"pl-kos\">,</span> </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L82\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"82\"></td>\n          <td id=\"LC82\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\">         <span class=\"pl-c1\">padding</span>: <span class=\"pl-c1\">0</span><span class=\"pl-kos\">,</span> </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L83\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"83\"></td>\n          <td id=\"LC83\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\">         <span class=\"pl-c1\">borderTop</span>: <span class=\"pl-c1\">0</span><span class=\"pl-kos\">,</span> </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L84\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"84\"></td>\n          <td id=\"LC84\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\">         <span class=\"pl-c1\">borderBottom</span>: <span class=\"pl-c1\">0</span><span class=\"pl-kos\">,</span> </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L85\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"85\"></td>\n          <td id=\"LC85\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\">       <span class=\"pl-kos\">}</span><span class=\"pl-kos\">,</span> </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L86\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"86\"></td>\n          <td id=\"LC86\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\">     <span class=\"pl-kos\">}</span><span class=\"pl-kos\">,</span> </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L87\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"87\"></td>\n          <td id=\"LC87\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\">     <span class=\"pl-c1\">fields</span>: <span class=\"pl-s1\">customFieldSchema</span><span class=\"pl-kos\">,</span> </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L88\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"88\"></td>\n          <td id=\"LC88\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\">   <span class=\"pl-kos\">}</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span> </td>\n        </tr>\n\n        <tr class=\"border-0\">\n          <td id=\"L89\" class=\"blob-num border-0 px-3 py-0 color-bg-default\" data-line-number=\"89\"></td>\n          <td id=\"LC89\" class=\"blob-code border-0 px-3 py-0 color-bg-default blob-code-inner js-file-line\"> <span class=\"pl-kos\">}</span> </td>\n        </tr>\n    </tbody></table>\n  </div>\n</div>\n<p></p>\n<p dir=\"auto\">This means users can't:</p>\n<ul dir=\"auto\">\n<li>Create custom validation for the URL field (e.g. disallowing links to certain domains)</li>\n<li>Change the collections that the are referenced in the internal link option <a aria-label=\"Discussion #2095\" class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4859249\" data-permission-text=\"Title is private\" data-url=\"https://github.com/payloadcms/payload/discussions/2095\" data-hovercard-type=\"discussion\" data-hovercard-url=\"/payloadcms/payload/discussions/2095/hovercard\" href=\"https://github.com/payloadcms/payload/discussions/2095\">#2095</a> (e.g. removing collections that do not have URLs like <code class=\"notranslate\">Users</code>)</li>\n<li>Minimize the amount of data that is returned by the internal link option (per answer from the Payload team in <a aria-label=\"Discussion #1960\" class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4798143\" data-permission-text=\"Title is private\" data-url=\"https://github.com/payloadcms/payload/discussions/1960\" data-hovercard-type=\"discussion\" data-hovercard-url=\"/payloadcms/payload/discussions/1960/hovercard\" href=\"https://github.com/payloadcms/payload/discussions/1960\">#1960</a>)</li>\n<li>Remove the option for either internal links or custom URLs</li>\n<li>Remove the open in new tab checkbox</li>\n</ul>",
+    "url": "https://github.com/payloadcms/payload/discussions/2167",
+    "id": "2167",
+    "createdAt": "2023-02-22T18:00:22Z",
+    "upvotes": 1,
+    "commentTotal": 1,
+    "author": {
+      "name": "evelynhathaway",
+      "avatar": "https://avatars.githubusercontent.com/u/38994283?u=87cba3ad2e2b4ac6fe1b26ca72f0eac8788cb645&v=4",
+      "url": "https://github.com/evelynhathaway"
+    },
+    "comments": [
+      {
+        "author": {
+          "name": "jmikrut",
+          "avatar": "https://avatars.githubusercontent.com/u/6651896?u=6e09e00f94f77c5857f92ec3a135d65386002623&v=4",
+          "url": "https://github.com/jmikrut"
+        },
+        "body": "<p dir=\"auto\">Hey <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/evelynhathaway/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/evelynhathaway\">@evelynhathaway</a> — this is a great call. It should also be pretty easy to accomplish.</p>\n<p dir=\"auto\">I think what we need to do is expose a property on the richText field as follows:</p>\n<div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"field.admin.link.overrideDefaultFields = (defaultFields) =&gt; newFields\"><pre class=\"notranslate\"><code class=\"notranslate\">field.admin.link.overrideDefaultFields = (defaultFields) =&gt; newFields\n</code></pre></div>\n<p dir=\"auto\">Basically, it'd be a function that would accept default fields and allow Payload devs to return them modified to suit their purpose.</p>\n<p dir=\"auto\">I don't think that this would be a good way to filter down the data returned still though... That might need to be done with an additional function - say something like:</p>\n<div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"field.reduceRelationshipData = ({ doc, slug }) =&gt; doc\"><pre class=\"notranslate\"><code class=\"notranslate\">field.reduceRelationshipData = ({ doc, slug }) =&gt; doc\n</code></pre></div>\n<p dir=\"auto\">This function could be shared and reused with any relationship populated by the rich text field. It could also automatically type the <code class=\"notranslate\">doc</code> arg via the collection <code class=\"notranslate\">slug</code> argument, like we do within our local API methods. It would also type the returned <code class=\"notranslate\">doc</code> as a <code class=\"notranslate\">Partial</code>.</p>\n<p dir=\"auto\">We'd run this function each time we populate an <code class=\"notranslate\">upload</code> or <code class=\"notranslate\">relationship</code> field within rich text.</p>\n<p dir=\"auto\">What do you think? This is a great feature. Not necessarily a bug or an issue, so I will move this to discussions, but I think this should be built ASAP.</p>\n<p dir=\"auto\">Speaking of moving this to a discussion, I will add this to the roadmap as Priority 2 (to be released within next quarter or sooner). But in the meantime we would happily accept a PR for this. If you're up for it, I am happy to help provide more info on how this would need to be accomplished.</p>\n<p dir=\"auto\"><g-emoji class=\"g-emoji\" alias=\"+1\" fallback-src=\"https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png\">👍</g-emoji></p>",
+        "createdAt": "2023-02-22T18:28:54Z",
+        "replies": null
+      }
+    ],
+    "answer": {
+      "author": {},
+      "chosenAt": null
+    }
+  },
+  {
+    "title": "How to use internal links in Rich Text without overloading the client with data?",
+    "body": "<p dir=\"auto\">Hello!</p>\n<p dir=\"auto\">I want to use the functionality of internal links to other documents in the project. This is very handy so that I don't lose links when the document slug changes or the URL structure changes, for example. But along with the required fields of the target page (urlSlug, title), I even get the whole Rich-text document on the client ... how can I bypass this to get only the required fields?</p>\n<p dir=\"auto\"><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://user-images.githubusercontent.com/614922/215115243-9714fd06-d331-4b07-a8b7-56df68eb7a88.png\"><img src=\"https://user-images.githubusercontent.com/614922/215115243-9714fd06-d331-4b07-a8b7-56df68eb7a88.png\" alt=\"image\" style=\"max-width: 100%;\"></a></p>\n<p dir=\"auto\">how can I exclude text field from getting it? I use GraphQL to get data from server.</p>\n<p dir=\"auto\">Should I filter it on the server? Is it the only solution?</p>\n<p dir=\"auto\">Thank you in advance!</p>",
+    "url": "https://github.com/payloadcms/payload/discussions/1960",
+    "id": "1960",
+    "createdAt": "2023-01-27T14:56:33Z",
+    "upvotes": 1,
+    "commentTotal": 1,
+    "author": {
+      "name": "Kikky",
+      "avatar": "https://avatars.githubusercontent.com/u/614922?v=4",
+      "url": "https://github.com/Kikky"
+    },
+    "comments": [
+      {
+        "author": {
+          "name": "Kikky",
+          "avatar": "https://avatars.githubusercontent.com/u/614922?v=4",
+          "url": "https://github.com/Kikky"
+        },
+        "body": "<p dir=\"auto\">As I understand, I need to sepcify correct value for maxDepth property of the relationship field in link native element? How can I do it? Or I have to override somehow native link element?</p>",
+        "createdAt": "2023-01-28T07:24:04Z",
+        "replies": [
+          {
+            "author": {
+              "name": "JessChowdhury",
+              "avatar": "https://avatars.githubusercontent.com/u/67977755?u=08788f09f2505f810283c828fbff42eed6e8c37d&v=4",
+              "url": "https://github.com/JessChowdhury"
+            },
+            "body": "<p dir=\"auto\">Hi <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/Kikky/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/Kikky\">@Kikky</a> - yes you'll want to set a maxDepth on the relationship field which looks like this:</p>\n<div class=\"highlight highlight-source-shell notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"{\n  name: 'link',\n  type: 'relationship',\n  relationTo: ['posts', 'pages'],\n  maxDepth: 1,\n}\"><pre class=\"notranslate\">{\n  name: <span class=\"pl-s\"><span class=\"pl-pds\">'</span>link<span class=\"pl-pds\">'</span></span>,\n  type: <span class=\"pl-s\"><span class=\"pl-pds\">'</span>relationship<span class=\"pl-pds\">'</span></span>,\n  relationTo: [<span class=\"pl-s\"><span class=\"pl-pds\">'</span>posts<span class=\"pl-pds\">'</span></span>, <span class=\"pl-s\"><span class=\"pl-pds\">'</span>pages<span class=\"pl-pds\">'</span></span>],\n  maxDepth: 1,\n}</pre></div>\n<p dir=\"auto\">You may want to reduce it further to <code class=\"notranslate\">maxDepth: 0</code>, try updating these and comparing your returned data.</p>",
+            "createdAt": "2023-02-01T17:13:50Z"
+          },
+          {
+            "author": {
+              "name": "evelynhathaway",
+              "avatar": "https://avatars.githubusercontent.com/u/38994283?u=87cba3ad2e2b4ac6fe1b26ca72f0eac8788cb645&v=4",
+              "url": "https://github.com/evelynhathaway"
+            },
+            "body": "<p dir=\"auto\">I don't think this solution is possible. I created <a aria-label=\"Issue #2166\" class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"1595554186\" data-permission-text=\"Title is private\" data-url=\"https://github.com/payloadcms/payload/issues/2166\" data-hovercard-type=\"issue\" data-hovercard-url=\"/payloadcms/payload/issues/2166/hovercard\" href=\"https://github.com/payloadcms/payload/issues/2166\">#2166</a> to track the capability that would solve the author's request.</p>",
+            "createdAt": "2023-02-22T18:06:53Z"
+          }
+        ]
+      }
+    ],
+    "answer": {
+      "author": {
+        "name": "Kikky",
+        "avatar": "https://avatars.githubusercontent.com/u/614922?v=4",
+        "url": "https://github.com/Kikky"
+      },
+      "body": "<p dir=\"auto\">As I understand, I need to sepcify correct value for maxDepth property of the relationship field in link native element? How can I do it? Or I have to override somehow native link element?</p>",
+      "createdAt": "2023-01-28T07:24:04Z",
+      "chosenAt": "2023-02-09T16:31:46Z",
+      "chosenBy": "zubricks"
+    }
+  },
+  {
+    "title": "Storybook for admin components",
+    "body": "<p dir=\"auto\">Looking to add custom admin react components, but wanted to leverage the build in styles already created by payload. Is there a storybook or doc site that would show all available components?</p>\n<p dir=\"auto\">Example:</p>\n<div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"&lt;button className=&quot;btn btn--size-medium btn--style-primary btn--has-tooltip&quot;&gt;\n      Text\n&lt;/button&gt;\"><pre class=\"notranslate\"><code class=\"notranslate\">&lt;button className=\"btn btn--size-medium btn--style-primary btn--has-tooltip\"&gt;\n      Text\n&lt;/button&gt;\n</code></pre></div>",
+    "url": "https://github.com/payloadcms/payload/discussions/2165",
+    "id": "2165",
+    "createdAt": "2023-02-22T17:56:50Z",
+    "upvotes": 1,
+    "commentTotal": 0,
+    "author": {
+      "name": "msoyka",
+      "avatar": "https://avatars.githubusercontent.com/u/16545161?u=935924df8801901fb3de97e35690a104856bbcbc&v=4",
+      "url": "https://github.com/msoyka"
+    },
+    "comments": [],
+    "answer": {
+      "author": {},
+      "chosenAt": null
+    }
+  },
+  {
+    "title": "Can't connect Media Upload to another Collection",
+    "body": "<p dir=\"auto\">I have two collections. One is Product and another one is Media. As the name suggests, I want to link the Media collection with the Product collection through a relationship field in the Product collection. Even though it runs perfectly and appears on the UI but whenever I want to create a new document of Products collection I am getting an error saying - <code class=\"notranslate\">The following field value is invalid: filename</code>. I am using <code class=\"notranslate\">@payloadcms/plugin-cloud-storage/azure</code> for uploading media on azure which is working as expected.</p>\n<p dir=\"auto\">Product Collection:</p>\n<div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"const Products = {\n    slug: 'products',\n    admin: {\n      useAsTitle: 'name',\n    },\n    fields: [\n      {\n        name: 'name',\n        type: 'text',\n      },\n      {\n        name: 'price',\n        type: 'number',\n      },\n      {\n          name: 'image',\n          type: 'relationship',\n          relationTo: 'media',\n      }\n    ],\n  }\n  \n  export default Products;\"><pre class=\"notranslate\"><code class=\"notranslate\">const Products = {\n    slug: 'products',\n    admin: {\n      useAsTitle: 'name',\n    },\n    fields: [\n      {\n        name: 'name',\n        type: 'text',\n      },\n      {\n        name: 'price',\n        type: 'number',\n      },\n      {\n          name: 'image',\n          type: 'relationship',\n          relationTo: 'media',\n      }\n    ],\n  }\n  \n  export default Products;\n</code></pre></div>\n<p dir=\"auto\">Media collection:</p>\n<div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"const Media = {\n    slug: 'media',\n    upload: true,\n    fields: [\n        {\n            name: 'image',\n            type: 'upload',\n            relationTo: 'products',\n        }\n    ],\n}\n\nexport default Media;\"><pre class=\"notranslate\"><code class=\"notranslate\">const Media = {\n    slug: 'media',\n    upload: true,\n    fields: [\n        {\n            name: 'image',\n            type: 'upload',\n            relationTo: 'products',\n        }\n    ],\n}\n\nexport default Media;\n</code></pre></div>\n<p dir=\"auto\">This is my buildConfig -</p>\n<div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"export default buildConfig({\n  serverURL: 'http://localhost:3000',\n  admin: {\n    user: Users.slug,\n  },\n  collections: [\n    Users,\n    Products,\n    Media\n  ],\n  plugins: [\n    cloudStorage({\n      collections: {\n        media: {\n          adapter: azureAdapter,\n          disablePayloadAccessControl: true\n        },\n      },\n    })\n  ],\n});\"><pre class=\"notranslate\"><code class=\"notranslate\">export default buildConfig({\n  serverURL: 'http://localhost:3000',\n  admin: {\n    user: Users.slug,\n  },\n  collections: [\n    Users,\n    Products,\n    Media\n  ],\n  plugins: [\n    cloudStorage({\n      collections: {\n        media: {\n          adapter: azureAdapter,\n          disablePayloadAccessControl: true\n        },\n      },\n    })\n  ],\n});\n</code></pre></div>\n<p dir=\"auto\">The issue:<br>\n<a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://user-images.githubusercontent.com/24480497/185422663-c293c39c-a3ff-4746-9fb6-be906619015b.png\"><img src=\"https://user-images.githubusercontent.com/24480497/185422663-c293c39c-a3ff-4746-9fb6-be906619015b.png\" alt=\"image\" style=\"max-width: 100%;\"></a></p>\n<p dir=\"auto\">Any help would be appreciated!</p>",
+    "url": "https://github.com/payloadcms/payload/discussions/962",
+    "id": "962",
+    "createdAt": "2022-08-18T14:38:48Z",
+    "upvotes": 2,
+    "commentTotal": 3,
+    "author": {
+      "name": "afifaniks",
+      "avatar": "https://avatars.githubusercontent.com/u/24480497?u=d1b0d406637cfd2b30d6edb88f22034bb47cf6a7&v=4",
+      "url": "https://github.com/afifaniks"
+    },
+    "comments": [
+      {
+        "author": {
+          "name": "sowmyapeta",
+          "avatar": "https://avatars.githubusercontent.com/u/11541541?v=4",
+          "url": "https://github.com/sowmyapeta"
+        },
+        "body": "<p dir=\"auto\">Image type in Products should be 'upload' and not 'relationship'<br>\n{<br>\nname: 'image',<br>\ntype: 'upload',<br>\nrelationTo: 'media',<br>\n},</p>\n<p dir=\"auto\">Fields in media should be any fields which you want to describe about the image uploaded.<br>\nfields: [<br>\n{<br>\nname: 'alt',<br>\nlabel: 'Alt Text',<br>\ntype: 'text',<br>\n},<br>\n],</p>",
+        "createdAt": "2022-08-18T15:19:19Z",
+        "replies": [
+          {
+            "author": {
+              "name": "afifaniks",
+              "avatar": "https://avatars.githubusercontent.com/u/24480497?u=d1b0d406637cfd2b30d6edb88f22034bb47cf6a7&v=4",
+              "url": "https://github.com/afifaniks"
+            },
+            "body": "<p dir=\"auto\"><a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/sowmyapeta/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/sowmyapeta\">@sowmyapeta</a> Thank you! However, even with that, I'm still getting the same error!</p>",
+            "createdAt": "2022-08-18T15:37:45Z"
+          }
+        ]
+      },
+      {
+        "author": {
+          "name": "afifaniks",
+          "avatar": "https://avatars.githubusercontent.com/u/24480497?u=d1b0d406637cfd2b30d6edb88f22034bb47cf6a7&v=4",
+          "url": "https://github.com/afifaniks"
+        },
+        "body": "<p dir=\"auto\">It looks like, the issue was due to my MongoDB cluster. I deleted the collection from my db cluster and the problem was fixed!</p>",
+        "createdAt": "2022-08-18T17:06:09Z",
+        "replies": null
+      },
+      {
+        "author": {
+          "name": "marpstar",
+          "avatar": "https://avatars.githubusercontent.com/u/1839701?u=f24a97131bb9852bf676530c12abf6d6c7a7166d&v=4",
+          "url": "https://github.com/marpstar"
+        },
+        "body": "<p dir=\"auto\">I just wanted to offer a solution to this error message. I encountered this error message when switching from   using</p>\n<div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"{\n  name: &quot;media&quot;,\n  type: &quot;relationship&quot;,\n  relationTo: &quot;media&quot;,\n  hasMany: true,\n},\"><pre class=\"notranslate\"><code class=\"notranslate\">{\n  name: \"media\",\n  type: \"relationship\",\n  relationTo: \"media\",\n  hasMany: true,\n},\n</code></pre></div>\n<p dir=\"auto\">to</p>\n<div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"{\n  name: &quot;images&quot;,\n  type: &quot;array&quot;,\n  fields: [\n    {\n      name: &quot;image&quot;,\n      type: &quot;upload&quot;,\n      relationTo: &quot;media&quot;\n    },\n  ],\n},\"><pre class=\"notranslate\"><code class=\"notranslate\">{\n  name: \"images\",\n  type: \"array\",\n  fields: [\n    {\n      name: \"image\",\n      type: \"upload\",\n      relationTo: \"media\"\n    },\n  ],\n},\n</code></pre></div>\n<p dir=\"auto\">The first of which created an index on my collection for the filename of the <code class=\"notranslate\">media</code> field. I had to use Mongo Compass to find that index and drop it. Once I did, everything started working fine again.</p>",
+        "createdAt": "2023-02-22T16:13:34Z",
+        "replies": null
+      }
+    ],
+    "answer": {
+      "author": {
+        "name": "afifaniks",
+        "avatar": "https://avatars.githubusercontent.com/u/24480497?u=d1b0d406637cfd2b30d6edb88f22034bb47cf6a7&v=4",
+        "url": "https://github.com/afifaniks"
+      },
+      "body": "<p dir=\"auto\">It looks like, the issue was due to my MongoDB cluster. I deleted the collection from my db cluster and the problem was fixed!</p>",
+      "createdAt": "2022-08-18T17:06:09Z",
+      "chosenAt": "2022-08-18T17:06:42Z",
+      "chosenBy": "afifaniks"
+    }
+  },
+  {
+    "title": "Payload admin dashboard sorting does not work after version 1.3.0 to 1.6.11 upgrade",
+    "body": "<p dir=\"auto\">I have recently upgraded Payloadcms from version 1.3.0 to 1.6.11 and read and followed the changelog carefully.<br>\nI have fixed most of my issues. The only thing I could not fix is that the Payload admin dashboard functionality does not seem to be working for me. When I try to sort a collection by title or date, it does not work. If I downgrade to v 1.3.0, it works fine. Am I missing any config tweaks in the migration process? I would be grateful for your help.</p>",
+    "url": "https://github.com/payloadcms/payload/discussions/2121",
+    "id": "2121",
+    "createdAt": "2023-02-17T14:49:59Z",
+    "upvotes": 1,
+    "commentTotal": 1,
+    "author": {
+      "name": "dberhane",
+      "avatar": "https://avatars.githubusercontent.com/u/645060?v=4",
+      "url": "https://github.com/dberhane"
+    },
+    "comments": [
+      {
+        "author": {
+          "name": "JessChowdhury",
+          "avatar": "https://avatars.githubusercontent.com/u/67977755?u=08788f09f2505f810283c828fbff42eed6e8c37d&v=4",
+          "url": "https://github.com/JessChowdhury"
+        },
+        "body": "<p dir=\"auto\">Hi <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/dberhane/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dberhane\">@dberhane</a> - what is the behavior you're seeing when you try to sort? does it break the page or do nothing? and if you get an error in your console or terminal, could you please share it.</p>",
+        "createdAt": "2023-02-20T17:04:53Z",
+        "replies": [
+          {
+            "author": {
+              "name": "dberhane",
+              "avatar": "https://avatars.githubusercontent.com/u/645060?v=4",
+              "url": "https://github.com/dberhane"
+            },
+            "body": "<p dir=\"auto\">Thank <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/JessChowdhury/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/JessChowdhury\">@JessChowdhury</a> for your response.</p>\n<p dir=\"auto\">When I click on the up and down arrows, it does not break the page, and there is no error message on the browser Console as well.</p>\n<p dir=\"auto\">The only thing I see is XHR POST &amp; GET requests.</p>\n<p dir=\"auto\">For example, when I click on the \"Title\" up or down arrow, I see the following XHR calls:</p>\n<p dir=\"auto\">POST: <a href=\"https://xx.mydomain/api/_preferences/articlemetadata-list\" rel=\"nofollow\">https://xx.mydomain/api/_preferences/articlemetadata-list</a><br>\nGET: <a href=\"https://xx.mydomain/api/articlemetadata?locale=en&amp;depth=0&amp;draft=true&amp;sort=title\" rel=\"nofollow\">https://xx.mydomain/api/articlemetadata?locale=en&amp;depth=0&amp;draft=true&amp;sort=title</a></p>",
+            "createdAt": "2023-02-20T17:30:16Z"
+          },
+          {
+            "author": {
+              "name": "dberhane",
+              "avatar": "https://avatars.githubusercontent.com/u/645060?v=4",
+              "url": "https://github.com/dberhane"
+            },
+            "body": "<p dir=\"auto\">Thank you very much <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/JessChowdhury/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/JessChowdhury\">@JessChowdhury</a> for asking the right question. I was able to troubleshoot the problem by looking at my response to you above and doing some debugging. The XHR GET request above has query param (draft=true) that was the cause of the issue.  I had to review and fix the collection definition that allowed me to resolve the admin sorting issue.</p>",
+            "createdAt": "2023-02-20T17:41:21Z"
+          },
+          {
+            "author": {
+              "name": "JessChowdhury",
+              "avatar": "https://avatars.githubusercontent.com/u/67977755?u=08788f09f2505f810283c828fbff42eed6e8c37d&v=4",
+              "url": "https://github.com/JessChowdhury"
+            },
+            "body": "<p dir=\"auto\"><g-emoji class=\"g-emoji\" alias=\"boom\" fallback-src=\"https://github.githubassets.com/images/icons/emoji/unicode/1f4a5.png\">💥</g-emoji>  Nice catch <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/dberhane/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dberhane\">@dberhane</a>!</p>",
+            "createdAt": "2023-02-20T18:22:34Z"
+          },
+          {
+            "author": {
+              "name": "lilnotes",
+              "avatar": "https://avatars.githubusercontent.com/u/95216987?v=4",
+              "url": "https://github.com/lilnotes"
+            },
+            "body": "<p dir=\"auto\">hey, guys<br>\nI got the same issue and</p>\n<div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"if(args.args.draft===true) {\n          args.args.draft=undefined\n}\"><pre class=\"notranslate\"><code class=\"notranslate\">if(args.args.draft===true) {\n          args.args.draft=undefined\n}\n</code></pre></div>\n<p dir=\"auto\">in beforeOperationHook fixed it for me, but are you going to fix it inside PayloadCMS?</p>",
+            "createdAt": "2023-02-22T15:37:08Z"
+          },
+          {
+            "author": {
+              "name": "jmikrut",
+              "avatar": "https://avatars.githubusercontent.com/u/6651896?u=6e09e00f94f77c5857f92ec3a135d65386002623&v=4",
+              "url": "https://github.com/jmikrut"
+            },
+            "body": "<p dir=\"auto\">Hey <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/lilnotes/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/lilnotes\">@lilnotes</a> — I just pushed a fix for this. Expect a release shortly and then you will be all set.</p>\n<p dir=\"auto\">Thank you!</p>",
+            "createdAt": "2023-02-22T16:09:23Z"
+          }
+        ]
+      }
+    ],
+    "answer": {
+      "author": {},
+      "chosenAt": null
+    }
+  },
+  {
+    "title": "Add a way to hide or restrict access to fields when creating the first user",
+    "body": "<p dir=\"auto\">I'm developing a multi-tenancy plugin for Payload CMS and I'd like to hide the tenant field from the setup form. Read more about the issue here: <a aria-label=\"Issue #1\" class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"1595331618\" data-permission-text=\"Title is private\" data-url=\"https://github.com/joas8211/payload-tenancy/issues/1\" data-hovercard-type=\"issue\" data-hovercard-url=\"/joas8211/payload-tenancy/issues/1/hovercard\" href=\"https://github.com/joas8211/payload-tenancy/issues/1\">joas8211/payload-tenancy#1</a></p>\n<p dir=\"auto\">Currently the form for creating the first user renders all fields in the collection + couble of hardcoded fields. It doesn't check field access, probably because it would fail anyway in most cases.</p>\n<p dir=\"auto\">I can think of a few of possible solutions for this:</p>\n<ol dir=\"auto\">\n<li>Add a <code class=\"notranslate\">field.admin.setup</code> boolean flag for the field to indicate if it's wanted to be shown at setup.</li>\n<li>Make <code class=\"notranslate\">field.admin.hidden</code> flag a function for conditional rendering.</li>\n<li>Improve default field access rights and check them at setup form and in the API endpoint it's using.</li>\n</ol>",
+    "url": "https://github.com/payloadcms/payload/discussions/2164",
+    "id": "2164",
+    "createdAt": "2023-02-22T15:50:10Z",
+    "upvotes": 1,
+    "commentTotal": 0,
+    "author": {
+      "name": "joas8211",
+      "avatar": "https://avatars.githubusercontent.com/u/6217024?u=facd6a5fc6470076a7bcfa4a4fc19211ae02e375&v=4",
+      "url": "https://github.com/joas8211"
+    },
+    "comments": [],
+    "answer": {
+      "author": {},
+      "chosenAt": null
+    }
+  },
+  {
+    "title": "Regenerate image sizes",
+    "body": "<p dir=\"auto\">Love payload CMS - gets me up and running really quickly.</p>\n<p dir=\"auto\">I have just started using the image sizes config for media and needed to add an additional size part way through development. It would be awesome if there was a way to regen my image sizes after upload!</p>",
+    "url": "https://github.com/payloadcms/payload/discussions/2161",
+    "id": "2161",
+    "createdAt": "2023-02-22T13:37:37Z",
+    "upvotes": 1,
+    "commentTotal": 1,
+    "author": {
+      "name": "robcipolla",
+      "avatar": "https://avatars.githubusercontent.com/u/40277784?u=065168712e2dd718a06e38e57a63477d566dc120&v=4",
+      "url": "https://github.com/robcipolla"
+    },
+    "comments": [
+      {
+        "author": {
+          "name": "robcipolla",
+          "avatar": "https://avatars.githubusercontent.com/u/40277784?u=065168712e2dd718a06e38e57a63477d566dc120&v=4",
+          "url": "https://github.com/robcipolla"
+        },
+        "body": "<p dir=\"auto\">Just seen that <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/jmikrut/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/jmikrut\">@jmikrut</a> has already posted a snippet for this here: <a aria-label=\"Discussion #1834\" class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4740607\" data-permission-text=\"Title is private\" data-url=\"https://github.com/payloadcms/payload/discussions/1834\" data-hovercard-type=\"discussion\" data-hovercard-url=\"/payloadcms/payload/discussions/1834/hovercard\" href=\"https://github.com/payloadcms/payload/discussions/1834\">#1834</a></p>",
+        "createdAt": "2023-02-22T13:40:55Z",
+        "replies": null
+      }
+    ],
+    "answer": {
+      "author": {},
+      "chosenAt": null
+    }
+  },
+  {
+    "title": "Override Payload cms token",
+    "body": "<p dir=\"auto\">How to override payload token with my token .</p>",
+    "url": "https://github.com/payloadcms/payload/discussions/2159",
+    "id": "2159",
+    "createdAt": "2023-02-22T07:43:48Z",
+    "upvotes": 1,
+    "commentTotal": 0,
+    "author": {
+      "name": "zeeshan-algo",
+      "avatar": "https://avatars.githubusercontent.com/u/115087247?v=4",
+      "url": "https://github.com/zeeshan-algo"
+    },
+    "comments": [],
+    "answer": {
+      "author": {},
+      "chosenAt": null
+    }
+  },
+  {
     "title": "Maintenance Mode",
     "body": "<p dir=\"auto\">When needing to make a database migration, it would be great to add a message to the Payload UI saying \"no operations can be made during maintenance\". It would be nice to have this be programmatically set.</p>",
     "url": "https://github.com/payloadcms/payload/discussions/2157",
@@ -73,7 +535,7 @@
     "url": "https://github.com/payloadcms/payload/discussions/2154",
     "id": "2154",
     "createdAt": "2023-02-21T13:33:25Z",
-    "upvotes": 1,
+    "upvotes": 3,
     "commentTotal": 0,
     "author": {
       "name": "johannesschaffer",
@@ -150,123 +612,6 @@
       "createdAt": "2023-02-20T17:11:58Z",
       "chosenAt": "2023-02-21T11:27:00Z",
       "chosenBy": "franckmartin"
-    }
-  },
-  {
-    "title": "Add field option for \"unique or null\"",
-    "body": "<p dir=\"auto\">Sometimes a piece of data can be optional, but if it is filled in, it must be unique.</p>\n<p dir=\"auto\">Unique and required</p>\n<div class=\"highlight highlight-source-ts notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"{\n  unique: true,\n  required: true\n}\"><pre class=\"notranslate\"><span class=\"pl-kos\">{</span>\n  <span class=\"pl-c1\">unique</span>: <span class=\"pl-c1\">true</span><span class=\"pl-kos\">,</span>\n  <span class=\"pl-c1\">required</span>: <span class=\"pl-c1\">true</span>\n<span class=\"pl-kos\">}</span></pre></div>\n<p dir=\"auto\">Unique and not required: null can exist once</p>\n<div class=\"highlight highlight-source-ts notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"{\n  unique: true,\n  required: false\n}\"><pre class=\"notranslate\"><span class=\"pl-kos\">{</span>\n  <span class=\"pl-c1\">unique</span>: <span class=\"pl-c1\">true</span><span class=\"pl-kos\">,</span>\n  <span class=\"pl-c1\">required</span>: <span class=\"pl-c1\">false</span>\n<span class=\"pl-kos\">}</span></pre></div>\n<p dir=\"auto\">Unique or null: null can exist multiple times</p>\n<div class=\"highlight highlight-source-ts notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"{\n  uniqueOrNull: true,\n  required: false\n}\"><pre class=\"notranslate\"><span class=\"pl-kos\">{</span>\n  <span class=\"pl-c1\">uniqueOrNull</span>: <span class=\"pl-c1\">true</span><span class=\"pl-kos\">,</span>\n  <span class=\"pl-c1\">required</span>: <span class=\"pl-c1\">false</span>\n<span class=\"pl-kos\">}</span></pre></div>",
-    "url": "https://github.com/payloadcms/payload/discussions/2072",
-    "id": "2072",
-    "createdAt": "2023-02-13T08:15:13Z",
-    "upvotes": 5,
-    "commentTotal": 2,
-    "author": {
-      "name": "thgh",
-      "avatar": "https://avatars.githubusercontent.com/u/1109982?u=6cd0299e82d500b4ba200c5ebd1d3134896cb307&v=4",
-      "url": "https://github.com/thgh"
-    },
-    "comments": [
-      {
-        "author": {
-          "name": "hades200082",
-          "avatar": "https://avatars.githubusercontent.com/u/1023581?v=4",
-          "url": "https://github.com/hades200082"
-        },
-        "body": "<p dir=\"auto\">I'm not sure what use-cases exist for the \"null can exist once\" option.</p>\n<p dir=\"auto\">It would seem to me that if unique is true and required is false it should imply \"unique or null\".</p>",
-        "createdAt": "2023-02-13T08:59:08Z",
-        "replies": [
-          {
-            "author": {
-              "name": "thgh",
-              "avatar": "https://avatars.githubusercontent.com/u/1109982?u=6cd0299e82d500b4ba200c5ebd1d3134896cb307&v=4",
-              "url": "https://github.com/thgh"
-            },
-            "body": "<p dir=\"auto\">Got the same gut feeling, but did actually encounter a usecase for \"null can exist once\" so I would not make it impossible. Also, it is the default behaviour for unique in postgres.</p>",
-            "createdAt": "2023-02-13T13:46:16Z"
-          },
-          {
-            "author": {
-              "name": "DanRibbens",
-              "avatar": "https://avatars.githubusercontent.com/u/6434612?u=5f70b3b4db315fb8f3619002d95a752759fb8231&v=4",
-              "url": "https://github.com/DanRibbens"
-            },
-            "body": "<p dir=\"auto\">This is valid, I agree!</p>\n<p dir=\"auto\">In Mongo we add the <code class=\"notranslate\">sparse</code> option to the index as in the case of localized fields. I noticed the other day that we have no way of allowing <code class=\"notranslate\">sparse</code> in the config which is exactly what we need for this requirement.</p>",
-            "createdAt": "2023-02-13T16:54:55Z"
-          }
-        ]
-      },
-      {
-        "author": {
-          "name": "hades200082",
-          "avatar": "https://avatars.githubusercontent.com/u/1023581?v=4",
-          "url": "https://github.com/hades200082"
-        },
-        "body": "<p dir=\"auto\">Instead of</p>\n<div class=\"highlight highlight-source-js notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"{\n  uniqueOrNull: true,\n  required: false\n}\"><pre class=\"notranslate\"><span class=\"pl-kos\">{</span>\n  <span class=\"pl-c1\">uniqueOrNull</span>: <span class=\"pl-c1\">true</span><span class=\"pl-kos\">,</span>\n  <span class=\"pl-c1\">required</span>: <span class=\"pl-c1\">false</span>\n<span class=\"pl-kos\">}</span></pre></div>\n<p dir=\"auto\">Might be better to have <code class=\"notranslate\">unique</code> typed as <code class=\"notranslate\">boolean | { allowNulls: boolean }</code> and used like this:</p>\n<div class=\"highlight highlight-source-js notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"{\n  unique: {\n    allowNulls: true\n  },\n  required: false\n}\"><pre class=\"notranslate\"><span class=\"pl-kos\">{</span>\n  <span class=\"pl-c1\">unique</span>: <span class=\"pl-kos\">{</span>\n    <span class=\"pl-c1\">allowNulls</span>: <span class=\"pl-c1\">true</span>\n  <span class=\"pl-kos\">}</span><span class=\"pl-kos\">,</span>\n  <span class=\"pl-c1\">required</span>: <span class=\"pl-c1\">false</span>\n<span class=\"pl-kos\">}</span></pre></div>\n<p dir=\"auto\">This retains backwards compatibility with current versions, but adds the new feature without needing a new property.</p>\n<p dir=\"auto\">A later major version <em>could</em> remove the backwards compact and switch it to <code class=\"notranslate\">false | { allowNulls: boolean }</code>, the implication bing that if an object is passed then unique is true, and the allowNulls must then be set explicitly.</p>",
-        "createdAt": "2023-02-21T08:20:29Z",
-        "replies": null
-      }
-    ],
-    "answer": {
-      "author": {},
-      "chosenAt": null
-    }
-  },
-  {
-    "title": "Payload admin dashboard sorting does not work after version 1.3.0 to 1.6.11 upgrade",
-    "body": "<p dir=\"auto\">I have recently upgraded Payloadcms from version 1.3.0 to 1.6.11 and read and followed the changelog carefully.<br>\nI have fixed most of my issues. The only thing I could not fix is that the Payload admin dashboard functionality does not seem to be working for me. When I try to sort a collection by title or date, it does not work. If I downgrade to v 1.3.0, it works fine. Am I missing any config tweaks in the migration process? I would be grateful for your help.</p>",
-    "url": "https://github.com/payloadcms/payload/discussions/2121",
-    "id": "2121",
-    "createdAt": "2023-02-17T14:49:59Z",
-    "upvotes": 1,
-    "commentTotal": 1,
-    "author": {
-      "name": "dberhane",
-      "avatar": "https://avatars.githubusercontent.com/u/645060?v=4",
-      "url": "https://github.com/dberhane"
-    },
-    "comments": [
-      {
-        "author": {
-          "name": "JessChowdhury",
-          "avatar": "https://avatars.githubusercontent.com/u/67977755?u=08788f09f2505f810283c828fbff42eed6e8c37d&v=4",
-          "url": "https://github.com/JessChowdhury"
-        },
-        "body": "<p dir=\"auto\">Hi <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/dberhane/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dberhane\">@dberhane</a> - what is the behavior you're seeing when you try to sort? does it break the page or do nothing? and if you get an error in your console or terminal, could you please share it.</p>",
-        "createdAt": "2023-02-20T17:04:53Z",
-        "replies": [
-          {
-            "author": {
-              "name": "dberhane",
-              "avatar": "https://avatars.githubusercontent.com/u/645060?v=4",
-              "url": "https://github.com/dberhane"
-            },
-            "body": "<p dir=\"auto\">Thank <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/JessChowdhury/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/JessChowdhury\">@JessChowdhury</a> for your response.</p>\n<p dir=\"auto\">When I click on the up and down arrows, it does not break the page, and there is no error message on the browser Console as well.</p>\n<p dir=\"auto\">The only thing I see is XHR POST &amp; GET requests.</p>\n<p dir=\"auto\">For example, when I click on the \"Title\" up or down arrow, I see the following XHR calls:</p>\n<p dir=\"auto\">POST: <a href=\"https://xx.mydomain/api/_preferences/articlemetadata-list\" rel=\"nofollow\">https://xx.mydomain/api/_preferences/articlemetadata-list</a><br>\nGET: <a href=\"https://xx.mydomain/api/articlemetadata?locale=en&amp;depth=0&amp;draft=true&amp;sort=title\" rel=\"nofollow\">https://xx.mydomain/api/articlemetadata?locale=en&amp;depth=0&amp;draft=true&amp;sort=title</a></p>",
-            "createdAt": "2023-02-20T17:30:16Z"
-          },
-          {
-            "author": {
-              "name": "dberhane",
-              "avatar": "https://avatars.githubusercontent.com/u/645060?v=4",
-              "url": "https://github.com/dberhane"
-            },
-            "body": "<p dir=\"auto\">Thank you very much <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/JessChowdhury/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/JessChowdhury\">@JessChowdhury</a> for asking the right question. I was able to troubleshoot the problem by looking at my response to you above and doing some debugging. The XHR GET request above has query param (draft=true) that was the cause of the issue.  I had to review and fix the collection definition that allowed me to resolve the admin sorting issue.</p>",
-            "createdAt": "2023-02-20T17:41:21Z"
-          },
-          {
-            "author": {
-              "name": "JessChowdhury",
-              "avatar": "https://avatars.githubusercontent.com/u/67977755?u=08788f09f2505f810283c828fbff42eed6e8c37d&v=4",
-              "url": "https://github.com/JessChowdhury"
-            },
-            "body": "<p dir=\"auto\"><g-emoji class=\"g-emoji\" alias=\"boom\" fallback-src=\"https://github.githubassets.com/images/icons/emoji/unicode/1f4a5.png\">💥</g-emoji>  Nice catch <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/dberhane/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/dberhane\">@dberhane</a>!</p>",
-            "createdAt": "2023-02-20T18:22:34Z"
-          }
-        ]
-      }
-    ],
-    "answer": {
-      "author": {},
-      "chosenAt": null
     }
   },
   {
@@ -549,7 +894,7 @@
     "url": "https://github.com/payloadcms/payload/discussions/1149",
     "id": "1149",
     "createdAt": "2022-09-20T18:51:33Z",
-    "upvotes": 16,
+    "upvotes": 17,
     "commentTotal": 4,
     "author": {
       "name": "Rar9",
@@ -656,7 +1001,7 @@
     "url": "https://github.com/payloadcms/payload/discussions/1961",
     "id": "1961",
     "createdAt": "2023-01-27T17:15:08Z",
-    "upvotes": 5,
+    "upvotes": 6,
     "commentTotal": 1,
     "author": {
       "name": "m90khan",
@@ -1089,46 +1434,6 @@
             "createdAt": "2023-02-16T08:05:01Z"
           }
         ]
-      }
-    ],
-    "answer": {
-      "author": {},
-      "chosenAt": null
-    }
-  },
-  {
-    "title": "Automatically regenerate media sizes",
-    "body": "<p dir=\"auto\">This is a commonly asked topic and it just came up in Discord today, so I figured I would share a quick script that the team and I use for our Payload projects when we need something like WP's \"Regenerate Thumbnails\" plugin. Basically if you update your <code class=\"notranslate\">imageSizes</code> and want to automatically re-run the image transformations for each one of your uploads, this can be super handy.</p>\n<div class=\"highlight highlight-source-js notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"const payload = require('payload');\nconst path = require('path');\n\nrequire('dotenv').config();\n\nconst { PAYLOAD_SECRET_KEY, MONGO_URL } = process.env;\n\npayload.init({\n  secret: PAYLOAD_SECRET_KEY,\n  mongoURL: MONGO_URL,\n  local: true,\n});\n\nconst regenerateMediaSizes = async () =&gt; {\n  try {\n    const media = await payload.find({\n      collection: 'media',\n      depth: 0,\n      limit: 300,\n    });\n    await Promise.all(media.docs.map(async (mediaDoc) =&gt; {\n      try {\n        const staticDir = path.resolve(__dirname, '../media');\n\n        await payload.update({\n          collection: 'media',\n          id: mediaDoc.id,\n          data: mediaDoc,\n          filePath: `${staticDir}/${mediaDoc.filename}`,\n          overwriteExistingFiles: true,\n        });\n\n        console.log(`Media ${mediaDoc.alt || mediaDoc.id} regenerated successfully`);\n      } catch (err) {\n        console.error(`Media ${mediaDoc.alt || mediaDoc.id} failed to regenerate`);\n        console.error(err);\n      }\n    }));\n  } catch (err) {\n    console.log('Unable to find documents with payload');\n    console.error(err);\n    process.exit(0);\n  }\n\n  console.log('Media size regeneration completed!');\n  process.exit(0);\n};\n\nregenerateMediaSizes();\"><pre class=\"notranslate\"><span class=\"pl-k\">const</span> <span class=\"pl-s1\">payload</span> <span class=\"pl-c1\">=</span> <span class=\"pl-en\">require</span><span class=\"pl-kos\">(</span><span class=\"pl-s\">'payload'</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n<span class=\"pl-k\">const</span> <span class=\"pl-s1\">path</span> <span class=\"pl-c1\">=</span> <span class=\"pl-en\">require</span><span class=\"pl-kos\">(</span><span class=\"pl-s\">'path'</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n\n<span class=\"pl-en\">require</span><span class=\"pl-kos\">(</span><span class=\"pl-s\">'dotenv'</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">config</span><span class=\"pl-kos\">(</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n\n<span class=\"pl-k\">const</span> <span class=\"pl-kos\">{</span> <span class=\"pl-c1\">PAYLOAD_SECRET_KEY</span><span class=\"pl-kos\">,</span> <span class=\"pl-c1\">MONGO_URL</span> <span class=\"pl-kos\">}</span> <span class=\"pl-c1\">=</span> <span class=\"pl-s1\">process</span><span class=\"pl-kos\">.</span><span class=\"pl-c1\">env</span><span class=\"pl-kos\">;</span>\n\n<span class=\"pl-s1\">payload</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">init</span><span class=\"pl-kos\">(</span><span class=\"pl-kos\">{</span>\n  <span class=\"pl-c1\">secret</span>: <span class=\"pl-c1\">PAYLOAD_SECRET_KEY</span><span class=\"pl-kos\">,</span>\n  <span class=\"pl-c1\">mongoURL</span>: <span class=\"pl-c1\">MONGO_URL</span><span class=\"pl-kos\">,</span>\n  <span class=\"pl-c1\">local</span>: <span class=\"pl-c1\">true</span><span class=\"pl-kos\">,</span>\n<span class=\"pl-kos\">}</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n\n<span class=\"pl-k\">const</span> <span class=\"pl-en\">regenerateMediaSizes</span> <span class=\"pl-c1\">=</span> <span class=\"pl-k\">async</span> <span class=\"pl-kos\">(</span><span class=\"pl-kos\">)</span> <span class=\"pl-c1\">=&gt;</span> <span class=\"pl-kos\">{</span>\n  <span class=\"pl-k\">try</span> <span class=\"pl-kos\">{</span>\n    <span class=\"pl-k\">const</span> <span class=\"pl-s1\">media</span> <span class=\"pl-c1\">=</span> <span class=\"pl-k\">await</span> <span class=\"pl-s1\">payload</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">find</span><span class=\"pl-kos\">(</span><span class=\"pl-kos\">{</span>\n      <span class=\"pl-c1\">collection</span>: <span class=\"pl-s\">'media'</span><span class=\"pl-kos\">,</span>\n      <span class=\"pl-c1\">depth</span>: <span class=\"pl-c1\">0</span><span class=\"pl-kos\">,</span>\n      <span class=\"pl-c1\">limit</span>: <span class=\"pl-c1\">300</span><span class=\"pl-kos\">,</span>\n    <span class=\"pl-kos\">}</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n    <span class=\"pl-k\">await</span> <span class=\"pl-v\">Promise</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">all</span><span class=\"pl-kos\">(</span><span class=\"pl-s1\">media</span><span class=\"pl-kos\">.</span><span class=\"pl-c1\">docs</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">map</span><span class=\"pl-kos\">(</span><span class=\"pl-k\">async</span> <span class=\"pl-kos\">(</span><span class=\"pl-s1\">mediaDoc</span><span class=\"pl-kos\">)</span> <span class=\"pl-c1\">=&gt;</span> <span class=\"pl-kos\">{</span>\n      <span class=\"pl-k\">try</span> <span class=\"pl-kos\">{</span>\n        <span class=\"pl-k\">const</span> <span class=\"pl-s1\">staticDir</span> <span class=\"pl-c1\">=</span> <span class=\"pl-s1\">path</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">resolve</span><span class=\"pl-kos\">(</span><span class=\"pl-s1\">__dirname</span><span class=\"pl-kos\">,</span> <span class=\"pl-s\">'../media'</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n\n        <span class=\"pl-k\">await</span> <span class=\"pl-s1\">payload</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">update</span><span class=\"pl-kos\">(</span><span class=\"pl-kos\">{</span>\n          <span class=\"pl-c1\">collection</span>: <span class=\"pl-s\">'media'</span><span class=\"pl-kos\">,</span>\n          <span class=\"pl-c1\">id</span>: <span class=\"pl-s1\">mediaDoc</span><span class=\"pl-kos\">.</span><span class=\"pl-c1\">id</span><span class=\"pl-kos\">,</span>\n          <span class=\"pl-c1\">data</span>: <span class=\"pl-s1\">mediaDoc</span><span class=\"pl-kos\">,</span>\n          <span class=\"pl-c1\">filePath</span>: <span class=\"pl-s\">`<span class=\"pl-s1\"><span class=\"pl-kos\">${</span><span class=\"pl-s1\">staticDir</span><span class=\"pl-kos\">}</span></span>/<span class=\"pl-s1\"><span class=\"pl-kos\">${</span><span class=\"pl-s1\">mediaDoc</span><span class=\"pl-kos\">.</span><span class=\"pl-c1\">filename</span><span class=\"pl-kos\">}</span></span>`</span><span class=\"pl-kos\">,</span>\n          <span class=\"pl-c1\">overwriteExistingFiles</span>: <span class=\"pl-c1\">true</span><span class=\"pl-kos\">,</span>\n        <span class=\"pl-kos\">}</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n\n        <span class=\"pl-smi\">console</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">log</span><span class=\"pl-kos\">(</span><span class=\"pl-s\">`Media <span class=\"pl-s1\"><span class=\"pl-kos\">${</span><span class=\"pl-s1\">mediaDoc</span><span class=\"pl-kos\">.</span><span class=\"pl-c1\">alt</span> <span class=\"pl-c1\">||</span> <span class=\"pl-s1\">mediaDoc</span><span class=\"pl-kos\">.</span><span class=\"pl-c1\">id</span><span class=\"pl-kos\">}</span></span> regenerated successfully`</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n      <span class=\"pl-kos\">}</span> <span class=\"pl-k\">catch</span> <span class=\"pl-kos\">(</span><span class=\"pl-s1\">err</span><span class=\"pl-kos\">)</span> <span class=\"pl-kos\">{</span>\n        <span class=\"pl-smi\">console</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">error</span><span class=\"pl-kos\">(</span><span class=\"pl-s\">`Media <span class=\"pl-s1\"><span class=\"pl-kos\">${</span><span class=\"pl-s1\">mediaDoc</span><span class=\"pl-kos\">.</span><span class=\"pl-c1\">alt</span> <span class=\"pl-c1\">||</span> <span class=\"pl-s1\">mediaDoc</span><span class=\"pl-kos\">.</span><span class=\"pl-c1\">id</span><span class=\"pl-kos\">}</span></span> failed to regenerate`</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n        <span class=\"pl-smi\">console</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">error</span><span class=\"pl-kos\">(</span><span class=\"pl-s1\">err</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n      <span class=\"pl-kos\">}</span>\n    <span class=\"pl-kos\">}</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n  <span class=\"pl-kos\">}</span> <span class=\"pl-k\">catch</span> <span class=\"pl-kos\">(</span><span class=\"pl-s1\">err</span><span class=\"pl-kos\">)</span> <span class=\"pl-kos\">{</span>\n    <span class=\"pl-smi\">console</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">log</span><span class=\"pl-kos\">(</span><span class=\"pl-s\">'Unable to find documents with payload'</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n    <span class=\"pl-smi\">console</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">error</span><span class=\"pl-kos\">(</span><span class=\"pl-s1\">err</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n    <span class=\"pl-s1\">process</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">exit</span><span class=\"pl-kos\">(</span><span class=\"pl-c1\">0</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n  <span class=\"pl-kos\">}</span>\n\n  <span class=\"pl-smi\">console</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">log</span><span class=\"pl-kos\">(</span><span class=\"pl-s\">'Media size regeneration completed!'</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n  <span class=\"pl-s1\">process</span><span class=\"pl-kos\">.</span><span class=\"pl-en\">exit</span><span class=\"pl-kos\">(</span><span class=\"pl-c1\">0</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span>\n<span class=\"pl-kos\">}</span><span class=\"pl-kos\">;</span>\n\n<span class=\"pl-en\">regenerateMediaSizes</span><span class=\"pl-kos\">(</span><span class=\"pl-kos\">)</span><span class=\"pl-kos\">;</span></pre></div>\n<p dir=\"auto\">If you save this file as <code class=\"notranslate\">regenerateMediaSizes.js</code>, then all you need to do to run it is <code class=\"notranslate\">node ./regenerateMediaSizes.js</code> and boom.</p>\n<p dir=\"auto\">Related: <a aria-label=\"Discussion #434\" class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"3864145\" data-permission-text=\"Title is private\" data-url=\"https://github.com/payloadcms/payload/discussions/434\" data-hovercard-type=\"discussion\" data-hovercard-url=\"/payloadcms/payload/discussions/434/hovercard\" href=\"https://github.com/payloadcms/payload/discussions/434\">#434</a></p>",
-    "url": "https://github.com/payloadcms/payload/discussions/1834",
-    "id": "1834",
-    "createdAt": "2023-01-09T19:32:34Z",
-    "upvotes": 5,
-    "commentTotal": 2,
-    "author": {
-      "name": "jmikrut",
-      "avatar": "https://avatars.githubusercontent.com/u/6651896?u=6e09e00f94f77c5857f92ec3a135d65386002623&v=4",
-      "url": "https://github.com/jmikrut"
-    },
-    "comments": [
-      {
-        "author": {
-          "name": "fabioquarantini",
-          "avatar": "https://avatars.githubusercontent.com/u/425733?v=4",
-          "url": "https://github.com/fabioquarantini"
-        },
-        "body": "<p dir=\"auto\">How to delete old unused thumbnails?</p>",
-        "createdAt": "2023-02-08T10:54:30Z",
-        "replies": null
-      },
-      {
-        "author": {
-          "name": "ChristopherNowlan",
-          "avatar": "https://avatars.githubusercontent.com/u/12365706?u=bfc7e970179dda53bca635087442765a127e08a4&v=4",
-          "url": "https://github.com/ChristopherNowlan"
-        },
-        "body": "<p dir=\"auto\">I had to move payload init function into the regenerateMediaSizes async function. Because my config file was within the src directory I had to update the command to be <code class=\"notranslate\">cross-env PAYLOAD_CONFIG_PATH=dist/payload.config.js node ./regenerateMediaSizes.js</code></p>\n<div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"const payload = require('payload');\nconst path = require('path');\n\nrequire('dotenv').config();\n\nconst { PAYLOAD_SECRET_KEY, MONGO_URL } = process.env;\n\nconst regenerateMediaSizes = async () =&gt; {\n  try {\n\n  await payload.init({\n        secret: PAYLOAD_SECRET_KEY,\n        mongoURL: MONGODB_URL,\n        local: true,\n    });\n\n    const media = await payload.find({\n      collection: 'media',\n      depth: 0,\n      limit: 300,\n    });\n\n    await Promise.all(media.docs.map(async (mediaDoc) =&gt; {\n      try {\n        const staticDir = path.resolve(__dirname, '../media');\n\n        await payload.update({\n          collection: 'media',\n          id: mediaDoc.id,\n          data: mediaDoc,\n          filePath: `${staticDir}/${mediaDoc.filename}`,\n          overwriteExistingFiles: true,\n        });\n\n        console.log(`Media ${mediaDoc.alt || mediaDoc.id} regenerated successfully`);\n      } catch (err) {\n        console.error(`Media ${mediaDoc.alt || mediaDoc.id} failed to regenerate`);\n        console.error(err);\n      }\n    }));\n  } catch (err) {\n    console.log('Unable to find documents with payload');\n    console.error(err);\n    process.exit(0);\n  }\n\n  console.log('Media size regeneration completed!');\n  process.exit(0);\n};\n\nregenerateMediaSizes();\"><pre class=\"notranslate\"><code class=\"notranslate\">const payload = require('payload');\nconst path = require('path');\n\nrequire('dotenv').config();\n\nconst { PAYLOAD_SECRET_KEY, MONGO_URL } = process.env;\n\nconst regenerateMediaSizes = async () =&gt; {\n  try {\n\n  await payload.init({\n        secret: PAYLOAD_SECRET_KEY,\n        mongoURL: MONGODB_URL,\n        local: true,\n    });\n\n    const media = await payload.find({\n      collection: 'media',\n      depth: 0,\n      limit: 300,\n    });\n\n    await Promise.all(media.docs.map(async (mediaDoc) =&gt; {\n      try {\n        const staticDir = path.resolve(__dirname, '../media');\n\n        await payload.update({\n          collection: 'media',\n          id: mediaDoc.id,\n          data: mediaDoc,\n          filePath: `${staticDir}/${mediaDoc.filename}`,\n          overwriteExistingFiles: true,\n        });\n\n        console.log(`Media ${mediaDoc.alt || mediaDoc.id} regenerated successfully`);\n      } catch (err) {\n        console.error(`Media ${mediaDoc.alt || mediaDoc.id} failed to regenerate`);\n        console.error(err);\n      }\n    }));\n  } catch (err) {\n    console.log('Unable to find documents with payload');\n    console.error(err);\n    process.exit(0);\n  }\n\n  console.log('Media size regeneration completed!');\n  process.exit(0);\n};\n\nregenerateMediaSizes();\n</code></pre></div>",
-        "createdAt": "2023-02-16T00:33:55Z",
-        "replies": null
       }
     ],
     "answer": {
@@ -1835,7 +2140,7 @@
     "url": "https://github.com/payloadcms/payload/discussions/1382",
     "id": "1382",
     "createdAt": "2022-11-12T18:28:36Z",
-    "upvotes": 18,
+    "upvotes": 19,
     "commentTotal": 5,
     "author": {
       "name": "jmikrut",
@@ -1886,7 +2191,7 @@
       {
         "author": {
           "name": "AlessioGr",
-          "avatar": "https://avatars.githubusercontent.com/u/70709113?u=03ca6b33bde0c2cc7e57a9bf66f341ef6d5381c5&v=4",
+          "avatar": "https://avatars.githubusercontent.com/u/70709113?u=c8f621e4aa855b20be00afaeaba6976f0a1b5e7c&v=4",
           "url": "https://github.com/AlessioGr"
         },
         "body": "<p dir=\"auto\">What do you think about making the list view work kinda like a spreadsheet, so you can edit all fields all at once? Would be such a huge time-saver</p>",
@@ -1904,7 +2209,7 @@
           {
             "author": {
               "name": "AlessioGr",
-              "avatar": "https://avatars.githubusercontent.com/u/70709113?u=03ca6b33bde0c2cc7e57a9bf66f341ef6d5381c5&v=4",
+              "avatar": "https://avatars.githubusercontent.com/u/70709113?u=c8f621e4aa855b20be00afaeaba6976f0a1b5e7c&v=4",
               "url": "https://github.com/AlessioGr"
             },
             "body": "<blockquote>\n<p dir=\"auto\">This is pretty much what we're envisioning, give or take. We'll be working on UX and opening an RFC for thoughts shortly!</p>\n</blockquote>\n<p dir=\"auto\">Awesome! You think you'd wanna take it to a level, where it could replace tools like <a href=\"https://www.smartsheet.com/\" rel=\"nofollow\">Smartsheet</a>?<br>\nFor example, I currently have this in Smartsheet which is supposed to track Freelancer progress on content:<br>\n<a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://user-images.githubusercontent.com/70709113/204654102-1f342702-79db-421f-9c4b-b08ce0a0453f.png\"><img src=\"https://user-images.githubusercontent.com/70709113/204654102-1f342702-79db-421f-9c4b-b08ce0a0453f.png\" alt=\"image\" style=\"max-width: 100%;\"></a></p>\n<p dir=\"auto\">Having something like that in Payload would be insanely helpful. As I could then just use it just like data, I could easily use that data to build frontends for freelancers &amp; dashboards for myself, or reference to it from other places from payload.</p>\n<p dir=\"auto\">Or would you like to keep it more simple in payload? What do you think?</p>",
@@ -1922,7 +2227,7 @@
           {
             "author": {
               "name": "AlessioGr",
-              "avatar": "https://avatars.githubusercontent.com/u/70709113?u=03ca6b33bde0c2cc7e57a9bf66f341ef6d5381c5&v=4",
+              "avatar": "https://avatars.githubusercontent.com/u/70709113?u=c8f621e4aa855b20be00afaeaba6976f0a1b5e7c&v=4",
               "url": "https://github.com/AlessioGr"
             },
             "body": "<blockquote>\n<p dir=\"auto\">It's a good question. I think there are really two things that need to be combined here to make a solid set of features:</p>\n<ol dir=\"auto\">\n<li>changing a value across  <em><strong>multiple documents at once</strong></em></li>\n<li>allowing for easier inline editing within the List view</li>\n</ol>\n<p dir=\"auto\">This spreadsheet-style view is a solution for 2, but not necessarily for 1. Know what I mean?</p>\n</blockquote>\n<p dir=\"auto\">Hmm what would a solution for 1. look like? I was imagining the same kind of spreadsheet, where you are able to select multiple cells and change their values at once.</p>",
@@ -1940,7 +2245,7 @@
           {
             "author": {
               "name": "AlessioGr",
-              "avatar": "https://avatars.githubusercontent.com/u/70709113?u=03ca6b33bde0c2cc7e57a9bf66f341ef6d5381c5&v=4",
+              "avatar": "https://avatars.githubusercontent.com/u/70709113?u=c8f621e4aa855b20be00afaeaba6976f0a1b5e7c&v=4",
               "url": "https://github.com/AlessioGr"
             },
             "body": "<blockquote>\n<p dir=\"auto\">Generally a solution for 1 would be to select the \"rows\" from the table that you want to edit via checkbox or similar, and then a little \"drawer\" slides out, where you could choose which fields you want to edit. Then the drawer would have a way to edit the value for only the fields that you select to edit. You'd enter one value and then that one value would be applied to all selected documents.</p>\n<p dir=\"auto\">I think the difference would be that in 1, you are setting the same value across many documents, but in 2, you are free to type in a different value for each selected document.</p>\n</blockquote>\n<p dir=\"auto\">Ahh I see! I think 2 would actually have the best UX for stuff like text or number fields, if you want to edit multiple at once. But then 1. would be great for more complicated fields, e.g. Upload fields or Relationships.</p>\n<p dir=\"auto\">I think you can modify a lot of fields with 2. if done well, as long as it's text content, e.g. Dropdowns. And for more complicated fields: what if, once the complicated fields are selected (like a spreadsheet), a little button pops-up which then opens the edit drawer? So, instead of using the drawer to choose the fields, you choose the fields naturally by selecting them in the spreadsheet. Would also save more time, I think that's a nice way to combine it.</p>\n<p dir=\"auto\">If that's done well, this could really be HUGE. E.g. a bigger company I'm working for part-time is using Google Sheets for things which should actually be data in a database. But no, they use sheets for data (account managers access and update it) which is a pain to parse and use somewhere else if you need its data.<br>\nPayload having that functionality would be a killer feature</p>\n<p dir=\"auto\">Now replacing a generalist app like Google Sheets would probably be too much (for now?), but any sheet which is actually defined data (so anything which has a defined set of columns) would be great for payload to handle</p>",
@@ -3719,7 +4024,7 @@
     "url": "https://github.com/payloadcms/payload/discussions/1180",
     "id": "1180",
     "createdAt": "2022-09-27T15:13:42Z",
-    "upvotes": 6,
+    "upvotes": 7,
     "commentTotal": 3,
     "author": {
       "name": "bigmistqke",
@@ -4314,53 +4619,6 @@
     "answer": {
       "author": {},
       "chosenAt": null
-    }
-  },
-  {
-    "title": "How to use internal links in Rich Text without overloading the client with data?",
-    "body": "<p dir=\"auto\">Hello!</p>\n<p dir=\"auto\">I want to use the functionality of internal links to other documents in the project. This is very handy so that I don't lose links when the document slug changes or the URL structure changes, for example. But along with the required fields of the target page (urlSlug, title), I even get the whole Rich-text document on the client ... how can I bypass this to get only the required fields?</p>\n<p dir=\"auto\"><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://user-images.githubusercontent.com/614922/215115243-9714fd06-d331-4b07-a8b7-56df68eb7a88.png\"><img src=\"https://user-images.githubusercontent.com/614922/215115243-9714fd06-d331-4b07-a8b7-56df68eb7a88.png\" alt=\"image\" style=\"max-width: 100%;\"></a></p>\n<p dir=\"auto\">how can I exclude text field from getting it? I use GraphQL to get data from server.</p>\n<p dir=\"auto\">Should I filter it on the server? Is it the only solution?</p>\n<p dir=\"auto\">Thank you in advance!</p>",
-    "url": "https://github.com/payloadcms/payload/discussions/1960",
-    "id": "1960",
-    "createdAt": "2023-01-27T14:56:33Z",
-    "upvotes": 1,
-    "commentTotal": 1,
-    "author": {
-      "name": "Kikky",
-      "avatar": "https://avatars.githubusercontent.com/u/614922?v=4",
-      "url": "https://github.com/Kikky"
-    },
-    "comments": [
-      {
-        "author": {
-          "name": "Kikky",
-          "avatar": "https://avatars.githubusercontent.com/u/614922?v=4",
-          "url": "https://github.com/Kikky"
-        },
-        "body": "<p dir=\"auto\">As I understand, I need to sepcify correct value for maxDepth property of the relationship field in link native element? How can I do it? Or I have to override somehow native link element?</p>",
-        "createdAt": "2023-01-28T07:24:04Z",
-        "replies": [
-          {
-            "author": {
-              "name": "JessChowdhury",
-              "avatar": "https://avatars.githubusercontent.com/u/67977755?u=08788f09f2505f810283c828fbff42eed6e8c37d&v=4",
-              "url": "https://github.com/JessChowdhury"
-            },
-            "body": "<p dir=\"auto\">Hi <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/Kikky/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/Kikky\">@Kikky</a> - yes you'll want to set a maxDepth on the relationship field which looks like this:</p>\n<div class=\"highlight highlight-source-shell notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"{\n  name: 'link',\n  type: 'relationship',\n  relationTo: ['posts', 'pages'],\n  maxDepth: 1,\n}\"><pre class=\"notranslate\">{\n  name: <span class=\"pl-s\"><span class=\"pl-pds\">'</span>link<span class=\"pl-pds\">'</span></span>,\n  type: <span class=\"pl-s\"><span class=\"pl-pds\">'</span>relationship<span class=\"pl-pds\">'</span></span>,\n  relationTo: [<span class=\"pl-s\"><span class=\"pl-pds\">'</span>posts<span class=\"pl-pds\">'</span></span>, <span class=\"pl-s\"><span class=\"pl-pds\">'</span>pages<span class=\"pl-pds\">'</span></span>],\n  maxDepth: 1,\n}</pre></div>\n<p dir=\"auto\">You may want to reduce it further to <code class=\"notranslate\">maxDepth: 0</code>, try updating these and comparing your returned data.</p>",
-            "createdAt": "2023-02-01T17:13:50Z"
-          }
-        ]
-      }
-    ],
-    "answer": {
-      "author": {
-        "name": "Kikky",
-        "avatar": "https://avatars.githubusercontent.com/u/614922?v=4",
-        "url": "https://github.com/Kikky"
-      },
-      "body": "<p dir=\"auto\">As I understand, I need to sepcify correct value for maxDepth property of the relationship field in link native element? How can I do it? Or I have to override somehow native link element?</p>",
-      "createdAt": "2023-01-28T07:24:04Z",
-      "chosenAt": "2023-02-09T16:31:46Z",
-      "chosenBy": "zubricks"
     }
   },
   {
@@ -4989,275 +5247,6 @@
         "body": "<p dir=\"auto\">I agree Payload should have a complete concept for soft deleting collections. This is going to have an API aspect as well as the admin UI which you're aluding to it seems.</p>\n<p dir=\"auto\">You could use <code class=\"notranslate\">deleted</code> checkbox  or <code class=\"notranslate\">deletedAt</code> date field in your collection in your project or as a plugin. It would be much better to have this as a built-in feature that is easy to enable and use out of the box.</p>",
         "createdAt": "2023-01-30T21:19:15Z",
         "replies": null
-      }
-    ],
-    "answer": {
-      "author": {},
-      "chosenAt": null
-    }
-  },
-  {
-    "title": "filterOptions doesn't work with async function",
-    "body": "<h1 dir=\"auto\">Bug Report</h1>\n<p dir=\"auto\">In relationship, filterOptions doesn't use the returned value of the async function.</p>\n<h2 dir=\"auto\">Steps to Reproduce</h2>\n<div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"{\n            name: 'variations',\n            type: 'relationship',\n            relationTo: 'product-variations',\n            hasMany: true,\n            unique: true,\n            filterOptions: async () =&gt; ({\n                myfield: {equals: 'value1'}\n            }),\n}\"><pre class=\"notranslate\"><code class=\"notranslate\">{\n            name: 'variations',\n            type: 'relationship',\n            relationTo: 'product-variations',\n            hasMany: true,\n            unique: true,\n            filterOptions: async () =&gt; ({\n                myfield: {equals: 'value1'}\n            }),\n}\n</code></pre></div>\n<h2 dir=\"auto\">Other Details</h2>\n<p dir=\"auto\">Using payload version 1.5.6</p>",
-    "url": "https://github.com/payloadcms/payload/discussions/1975",
-    "id": "1975",
-    "createdAt": "2023-01-12T08:45:40Z",
-    "upvotes": 1,
-    "commentTotal": 1,
-    "author": {
-      "name": "gubarez",
-      "avatar": "https://avatars.githubusercontent.com/u/925134?v=4",
-      "url": "https://github.com/gubarez"
-    },
-    "comments": [
-      {
-        "author": {
-          "name": "JarrodMFlesch",
-          "avatar": "https://avatars.githubusercontent.com/u/30633324?u=13d4ca1d1d86b5ce4a1ff5eef12b3016b20b2283&v=4",
-          "url": "https://github.com/JarrodMFlesch"
-        },
-        "body": "<p dir=\"auto\"><a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/gubarez/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/gubarez\">@gubarez</a> this is currently not supported. You can see the <a href=\"https://github.com/payloadcms/payload/blob/master/src/fields/config/types.ts#L57\">type for filterOptions</a> does not return a promise and therefore does not support async.</p>\n<p dir=\"auto\"><a href=\"https://github.com/payloadcms/payload/blob/master/src/admin/components/forms/field-types/getFilterOptionsQuery.ts#L10\">This</a> file would need to be updated, and where <code class=\"notranslate\">getFilterOptionsQuery</code> is called to support async/await. If you want to throw together a PR for this support let me know!</p>\n<p dir=\"auto\">For now I will convert this into a discussion <g-emoji class=\"g-emoji\" alias=\"slightly_smiling_face\" fallback-src=\"https://github.githubassets.com/images/icons/emoji/unicode/1f642.png\">🙂</g-emoji></p>",
-        "createdAt": "2023-01-30T17:57:19Z",
-        "replies": null
-      }
-    ],
-    "answer": {
-      "author": {},
-      "chosenAt": null
-    }
-  },
-  {
-    "title": "url path is not encoded when deep quering",
-    "body": "<h1 dir=\"auto\">Bug Report</h1>\n<p dir=\"auto\">The url path is not encoded when deep quering. Somewhere there should be an encodeURI when building the url path.</p>\n<h2 dir=\"auto\">Steps to Reproduce</h2>\n<p dir=\"auto\">`<br>\nconst doc = await payload.findByID({<br>\ncollection,<br>\nid: doc.id,<br>\ndepth: 1,<br>\nshowHiddenFields: true<br>\n})</p>\n<p dir=\"auto\">doc.image.url == \"<a href=\"http://localhost:3000/media/test\" rel=\"nofollow\">http://localhost:3000/media/test</a> image.jpg\" //true</p>\n<p dir=\"auto\">`</p>\n<h2 dir=\"auto\">Other Details</h2>\n<p dir=\"auto\">Version 1.5.9</p>",
-    "url": "https://github.com/payloadcms/payload/discussions/1972",
-    "id": "1972",
-    "createdAt": "2023-01-24T14:31:10Z",
-    "upvotes": 1,
-    "commentTotal": 1,
-    "author": {
-      "name": "gubarez",
-      "avatar": "https://avatars.githubusercontent.com/u/925134?v=4",
-      "url": "https://github.com/gubarez"
-    },
-    "comments": [
-      {
-        "author": {
-          "name": "jmikrut",
-          "avatar": "https://avatars.githubusercontent.com/u/6651896?u=6e09e00f94f77c5857f92ec3a135d65386002623&v=4",
-          "url": "https://github.com/jmikrut"
-        },
-        "body": "<p dir=\"auto\">Hey <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/gubarez/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/gubarez\">@gubarez</a> — we are not currently encoding URLs to media but we certainly could. We will slate this into our workload and get them encoded for you. That is a good call.</p>\n<p dir=\"auto\">Is this preventing you from having something functional? AFAIK you could URL-encode in your frontend where necessary but I actually have never had to do that manually so I'm curious as to what you ran into.</p>\n<p dir=\"auto\">I will convert this to a feature request and add it to our roadmap. Should be able to get to it fairly quickly!</p>",
-        "createdAt": "2023-01-30T15:19:31Z",
-        "replies": null
-      }
-    ],
-    "answer": {
-      "author": {},
-      "chosenAt": null
-    }
-  },
-  {
-    "title": "How add Google / Facebook login with payloadCMS?",
-    "body": "<p dir=\"auto\">Hi, Can you you tell me an idea to add Google login button to <code class=\"notranslate\">login page</code> of payload CMS?<br>\nI am planning let end user login to dashboard.<br>\nIs there any way to do that?</p>",
-    "url": "https://github.com/payloadcms/payload/discussions/1969",
-    "id": "1969",
-    "createdAt": "2023-01-30T10:10:07Z",
-    "upvotes": 1,
-    "commentTotal": 1,
-    "author": {
-      "name": "IRediTOTO",
-      "avatar": "https://avatars.githubusercontent.com/u/15695252?u=1db36b69ca11c742388f9de00dad6e489916e95e&v=4",
-      "url": "https://github.com/IRediTOTO"
-    },
-    "comments": [
-      {
-        "author": {
-          "name": "jacobsfletch",
-          "avatar": "https://avatars.githubusercontent.com/u/15735305?u=66f38c58ddbb2f01cee44ef09a602cd8ffe4cd5d&v=4",
-          "url": "https://github.com/jacobsfletch"
-        },
-        "body": "<p dir=\"auto\">Hey <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/IRediTOTO/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/IRediTOTO\">@IRediTOTO</a> check out this comment: <a aria-label=\"Discussion #1555\" class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4615883\" data-permission-text=\"Title is private\" data-url=\"https://github.com/payloadcms/payload/discussions/1555\" data-hovercard-type=\"discussion\" data-hovercard-url=\"/payloadcms/payload/discussions/1555/hovercard?comment_id=4276115\" href=\"https://github.com/payloadcms/payload/discussions/1555#discussioncomment-4276115\">#1555 (comment)</a></p>",
-        "createdAt": "2023-01-30T15:07:08Z",
-        "replies": null
-      }
-    ],
-    "answer": {
-      "author": {
-        "name": "jacobsfletch",
-        "avatar": "https://avatars.githubusercontent.com/u/15735305?u=66f38c58ddbb2f01cee44ef09a602cd8ffe4cd5d&v=4",
-        "url": "https://github.com/jacobsfletch"
-      },
-      "body": "<p dir=\"auto\">Hey <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/IRediTOTO/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/IRediTOTO\">@IRediTOTO</a> check out this comment: <a aria-label=\"Discussion #1555\" class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4615883\" data-permission-text=\"Title is private\" data-url=\"https://github.com/payloadcms/payload/discussions/1555\" data-hovercard-type=\"discussion\" data-hovercard-url=\"/payloadcms/payload/discussions/1555/hovercard?comment_id=4276115\" href=\"https://github.com/payloadcms/payload/discussions/1555#discussioncomment-4276115\">#1555 (comment)</a></p>",
-      "createdAt": "2023-01-30T15:07:08Z",
-      "chosenAt": "2023-01-30T22:09:04Z",
-      "chosenBy": "zubricks"
-    }
-  },
-  {
-    "title": "Make more video on Youtube",
-    "body": "<p dir=\"auto\">Hi, I very like PayloadCMS, hope you can do more videos about tips, trick with payload CMS.</p>",
-    "url": "https://github.com/payloadcms/payload/discussions/1967",
-    "id": "1967",
-    "createdAt": "2023-01-30T09:48:50Z",
-    "upvotes": 4,
-    "commentTotal": 0,
-    "author": {
-      "name": "IRediTOTO",
-      "avatar": "https://avatars.githubusercontent.com/u/15695252?u=1db36b69ca11c742388f9de00dad6e489916e95e&v=4",
-      "url": "https://github.com/IRediTOTO"
-    },
-    "comments": [],
-    "answer": {
-      "author": {},
-      "chosenAt": null
-    }
-  },
-  {
-    "title": "Collection Group Access Control",
-    "body": "<p dir=\"auto\">We already have collection and field level access control which is extremely powerful and granular, however I believe that having a wider hierarchy of access control priority can greatly improve developer experience, as when developing a complex implementation of role based access control in payload, the number of access control functions you need to define can quickly grow out of hand. This issue is similar to the one that I lay out in my <a href=\"https://github.com/payloadcms/payload/discussions/1840\" data-hovercard-type=\"discussion\" data-hovercard-url=\"/payloadcms/payload/discussions/1840/hovercard\">conditional tabs</a> feature request, as the number of access control functions grows quite rapidly as you add user roles to the application, and having to manage a large number of access controls can get quite tedious.</p>\n<p dir=\"auto\">Adding an additional level of access control at the group level would allow for faster development, and decrease the time spent on setting up user permissions in payload, as developers could set rough access control at the group level and refine it further at the collection and field level. It would also allow for easier cleanup of the admin interface, allowing entire collection groups to be omitted from the admin interface with a single access control setup. I propose implementing a simple CollectionsGroupConfig that allows us to set access control rules on all collections contained within that group as below:</p>\n<div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"import { CollectionConfig } from 'payload/types';\nimport { isAdmin } from '../access/isAdmin';\n\nexport const TestConfig1: CollectionConfig = {\n  slug: 'testconfig1',\n  admin:{\n    group: 'testGroup'\n  },\n  access: {\n    create: isEmployee,\n    read: isAdminOrSelf,\n    update: isAdminOrSelf,\n  },\n  fields: [\n    {\n      type:'text',\n      name:'test',\n    },\n  ],\n};\n\nexport const TestConfig2: CollectionConfig = {\n  slug: 'testconfig2',\n  admin:{\n    group: 'testGroup'\n  },\n  access: {\n    create: isCustomer,\n    update: isAdminOrSelf,\n  },\n  fields: [\n    {\n      type:'text',\n      name:'test',\n    },\n  ],\n};\n\nexport const TestConfig2: CollectionConfig = {\n  slug: 'testconfig2',\n  admin:{\n    group: 'testGroup'\n  },\n  fields: [\n    {\n      type:'text',\n      name:'test',\n    },\n  ],\n};\n\nexport const TestGroup: GroupConfig = {\n  slug:'testGroup',\n  access: {\n    create: isAdminEmployeePartnerOrCustomer,\n    read: isAdminEmployeePartnerOrCustomer,\n    update: isAdminEmployeePartnerOrCustomer,\n    delete: () =&gt; false,\n  },\n}\"><pre class=\"notranslate\"><code class=\"notranslate\">import { CollectionConfig } from 'payload/types';\nimport { isAdmin } from '../access/isAdmin';\n\nexport const TestConfig1: CollectionConfig = {\n  slug: 'testconfig1',\n  admin:{\n    group: 'testGroup'\n  },\n  access: {\n    create: isEmployee,\n    read: isAdminOrSelf,\n    update: isAdminOrSelf,\n  },\n  fields: [\n    {\n      type:'text',\n      name:'test',\n    },\n  ],\n};\n\nexport const TestConfig2: CollectionConfig = {\n  slug: 'testconfig2',\n  admin:{\n    group: 'testGroup'\n  },\n  access: {\n    create: isCustomer,\n    update: isAdminOrSelf,\n  },\n  fields: [\n    {\n      type:'text',\n      name:'test',\n    },\n  ],\n};\n\nexport const TestConfig2: CollectionConfig = {\n  slug: 'testconfig2',\n  admin:{\n    group: 'testGroup'\n  },\n  fields: [\n    {\n      type:'text',\n      name:'test',\n    },\n  ],\n};\n\nexport const TestGroup: GroupConfig = {\n  slug:'testGroup',\n  access: {\n    create: isAdminEmployeePartnerOrCustomer,\n    read: isAdminEmployeePartnerOrCustomer,\n    update: isAdminEmployeePartnerOrCustomer,\n    delete: () =&gt; false,\n  },\n}\n</code></pre></div>\n<p dir=\"auto\">I may have a backwards thought process while developing, however, I tend to think big picture first. I know what kinds of data I need; such as Business Management, Partner Management, Shop Products, Application Forms, etc, then the groups of users that need to access those groups of data, then I define the data that is within those groups, and finally what pieces of data each user would need access to. This feature request follows that top down philosophy.</p>",
-    "url": "https://github.com/payloadcms/payload/discussions/1966",
-    "id": "1966",
-    "createdAt": "2023-01-30T09:03:20Z",
-    "upvotes": 1,
-    "commentTotal": 0,
-    "author": {
-      "name": "ToneseekerMusical",
-      "avatar": "https://avatars.githubusercontent.com/u/105748910?v=4",
-      "url": "https://github.com/ToneseekerMusical"
-    },
-    "comments": [],
-    "answer": {
-      "author": {},
-      "chosenAt": null
-    }
-  },
-  {
-    "title": "Token based authentication",
-    "body": "<p dir=\"auto\">Good afternoon,<br>\nI've started trying out payload in order to test its functionality with a view to replacing strapi. My only question is when using token authentication, why choose to require the Authorization header to be prefixed with \"JWT\" instead of the more conventional \"Bearer\"?</p>",
-    "url": "https://github.com/payloadcms/payload/discussions/17",
-    "id": "17",
-    "createdAt": "2021-01-18T18:33:19Z",
-    "upvotes": 3,
-    "commentTotal": 1,
-    "author": {
-      "name": "alexander-chi",
-      "avatar": "https://avatars.githubusercontent.com/u/27694723?u=afec65ce1162c69f7f9c4fff3f4ae190f164fc05&v=4",
-      "url": "https://github.com/alexander-chi"
-    },
-    "comments": [
-      {
-        "author": {
-          "name": "DanRibbens",
-          "avatar": "https://avatars.githubusercontent.com/u/6434612?u=5f70b3b4db315fb8f3619002d95a752759fb8231&v=4",
-          "url": "https://github.com/DanRibbens"
-        },
-        "body": "<p dir=\"auto\">Hey <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/alexander-chi/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/alexander-chi\">@alexander-chi</a>,<br>\nWe had the <code class=\"notranslate\">JWT</code> as part of the <code class=\"notranslate\">authorization</code> header to differentiate from other auth schemes. Now that I'm reviewing it based on your feedback, it may be something we consider changing. You may be interested in reading our documentation about api keys if you haven't already: <a href=\"https://payloadcms.com/docs/authentication/config#api-keys\" rel=\"nofollow\">https://payloadcms.com/docs/authentication/config#api-keys</a></p>\n<p dir=\"auto\">Thanks for your interest in Payload and let us know if you have more questions!</p>",
-        "createdAt": "2021-01-18T19:29:10Z",
-        "replies": [
-          {
-            "author": {
-              "name": "DanRibbens",
-              "avatar": "https://avatars.githubusercontent.com/u/6434612?u=5f70b3b4db315fb8f3619002d95a752759fb8231&v=4",
-              "url": "https://github.com/DanRibbens"
-            },
-            "body": "<p dir=\"auto\">Hows it going <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/alexander-chi/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/alexander-chi\">@alexander-chi</a>?<br>\nLet us know if we can help with anything.</p>",
-            "createdAt": "2021-01-26T18:10:40Z"
-          },
-          {
-            "author": {
-              "name": "alexander-chi",
-              "avatar": "https://avatars.githubusercontent.com/u/27694723?u=afec65ce1162c69f7f9c4fff3f4ae190f164fc05&v=4",
-              "url": "https://github.com/alexander-chi"
-            },
-            "body": "<p dir=\"auto\">Hi there! thanks for your quick response and sorry for my slow reply. Our team is getting on fine thank you. We have been able to implement Payload in a test project and it's working really well for us. The discussion I raised does not affect the functionality of the project, I just raised the question out of curiosity.</p>\n<p dir=\"auto\">Thanks again,</p>\n<p dir=\"auto\">Alex</p>",
-            "createdAt": "2021-02-16T10:07:17Z"
-          },
-          {
-            "author": {
-              "name": "gycsabesz",
-              "avatar": "https://avatars.githubusercontent.com/u/37148821?v=4",
-              "url": "https://github.com/gycsabesz"
-            },
-            "body": "<p dir=\"auto\">Hi <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/DanRibbens/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/DanRibbens\">@DanRibbens</a>, I'm a new Playload CMS user and I was trying to figure out how to use REST API with authorization token (i.e.: without cookies).</p>\n<p dir=\"auto\"><strong>I think it is missing from the documentation that you need to use <code class=\"notranslate\">JWT &lt;TOKEN&gt;</code> as <code class=\"notranslate\">Authorization</code> header.</strong></p>\n<p dir=\"auto\"><em>Obviously, what I tried first is the traditional Bearer prefix. Then I went through on several pages of PayloadCMS doc, but no luck. Luckily I found this discussion, which resolved my issue <g-emoji class=\"g-emoji\" alias=\"smile\" fallback-src=\"https://github.githubassets.com/images/icons/emoji/unicode/1f604.png\">😄</g-emoji></em></p>",
-            "createdAt": "2023-01-27T17:18:15Z"
-          },
-          {
-            "author": {
-              "name": "DavidOliver",
-              "avatar": "https://avatars.githubusercontent.com/u/192853?v=4",
-              "url": "https://github.com/DavidOliver"
-            },
-            "body": "<p dir=\"auto\"><a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/gycsabesz/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/gycsabesz\">@gycsabesz</a>, it's at the bottom of <a href=\"https://payloadcms.com/docs/authentication/overview\" rel=\"nofollow\">https://payloadcms.com/docs/authentication/overview</a> :)</p>",
-            "createdAt": "2023-01-28T09:21:35Z"
-          },
-          {
-            "author": {
-              "name": "gycsabesz",
-              "avatar": "https://avatars.githubusercontent.com/u/37148821?v=4",
-              "url": "https://github.com/gycsabesz"
-            },
-            "body": "<p dir=\"auto\">That's true, I didn't notice that one. :-/</p>",
-            "createdAt": "2023-01-29T18:39:37Z"
-          }
-        ]
-      }
-    ],
-    "answer": {
-      "author": {},
-      "chosenAt": null
-    }
-  },
-  {
-    "title": "Detect webpack configuration changes and rm -rf node_modules/.cache",
-    "body": "<p dir=\"auto\">Sounds possible and would improve DX quite a bit.</p>",
-    "url": "https://github.com/payloadcms/payload/discussions/1408",
-    "id": "1408",
-    "createdAt": "2022-11-14T19:26:56Z",
-    "upvotes": 1,
-    "commentTotal": 1,
-    "author": {
-      "name": "thgh",
-      "avatar": "https://avatars.githubusercontent.com/u/1109982?u=6cd0299e82d500b4ba200c5ebd1d3134896cb307&v=4",
-      "url": "https://github.com/thgh"
-    },
-    "comments": [
-      {
-        "author": {
-          "name": "jmikrut",
-          "avatar": "https://avatars.githubusercontent.com/u/6651896?u=6e09e00f94f77c5857f92ec3a135d65386002623&v=4",
-          "url": "https://github.com/jmikrut"
-        },
-        "body": "<p dir=\"auto\">Totally. Actually we are about to dive into <em><strong>why</strong></em> Webpack is not picking up these changes in the first place. Might be a simple bug. And / or might be solved by ditching Webpack altogether <g-emoji class=\"g-emoji\" alias=\"smiling_imp\" fallback-src=\"https://github.githubassets.com/images/icons/emoji/unicode/1f608.png\">😈</g-emoji></p>\n<p dir=\"auto\">But in any case I think this needs to be resolved ASAP. We're on it.</p>",
-        "createdAt": "2022-11-14T19:27:43Z",
-        "replies": [
-          {
-            "author": {
-              "name": "thgh",
-              "avatar": "https://avatars.githubusercontent.com/u/1109982?u=6cd0299e82d500b4ba200c5ebd1d3134896cb307&v=4",
-              "url": "https://github.com/thgh"
-            },
-            "body": "<p dir=\"auto\">Do you lean towards esbuild / Vite / plain esmodules / turbopack?</p>",
-            "createdAt": "2022-11-17T15:02:43Z"
-          },
-          {
-            "author": {
-              "name": "yorrd",
-              "avatar": "https://avatars.githubusercontent.com/u/1191486?u=20faecbd28b26bd2d54f15b70f09fc87ec3ac9a3&v=4",
-              "url": "https://github.com/yorrd"
-            },
-            "body": "<p dir=\"auto\">let's do esbuild &lt;3 would solve all our payload-cms integration troubles</p>",
-            "createdAt": "2022-11-20T14:01:57Z"
-          },
-          {
-            "author": {
-              "name": "onionhammer",
-              "avatar": "https://avatars.githubusercontent.com/u/969938?u=b3d41dce8274660bea888d2f2524cff5dd2bcba2&v=4",
-              "url": "https://github.com/onionhammer"
-            },
-            "body": "<p dir=\"auto\">Please ditch webpack &lt;3</p>",
-            "createdAt": "2023-01-28T17:41:39Z"
-          }
-        ]
       }
     ],
     "answer": {

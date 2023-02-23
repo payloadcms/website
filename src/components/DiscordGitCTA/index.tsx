@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
 import GitHubButton from 'react-github-btn'
-import { useTheme } from '@providers/Theme'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { PixelBackground } from '@components/PixelBackground'
 
@@ -12,8 +11,6 @@ const gitURL = 'https://github.com/payloadcms'
 const discordURL = 'https://discord.gg/FSn5QRdsbC'
 
 const DiscordGitCTA: React.FC = () => {
-  const theme = useTheme()
-
   return (
     <div className={classes.container}>
       <div className={classes.ctaWrap}>
@@ -26,7 +23,7 @@ const DiscordGitCTA: React.FC = () => {
           <div className={classes.gitButton}>
             <GitHubButton
               href="https://github.com/payloadcms/payload"
-              data-color-scheme={theme}
+              data-color-scheme="dark"
               data-icon="octicon-star"
               data-size="large"
               data-show-count="true"
