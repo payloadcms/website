@@ -44,22 +44,24 @@ export const ImportProject: React.FC = () => {
       {isSubmitting && <p className={classes.submitting}>Creating project...</p>}
       {!isSubmitting && (
         <Grid>
-          <Cell cols={4} colsM={8} className={classes.sidebar}>
-            <div>
-              <ScopeSelector onChange={setSelectedInstall} />
-            </div>
-            {/* <div>
+          <Cell cols={4} colsM={8} className={classes.sidebarCell}>
+            <div className={classes.sidebar}>
+              <div>
+                <ScopeSelector onChange={setSelectedInstall} />
+              </div>
+              {/* <div>
             <p className={classes.label}>Search</p>
             <Text placeholder="Enter search term" />
           </div> */}
-            <div>
-              <p>
-                {`Don't see your repository? `}
-                <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
-                  Adjust your GitHub app permissions
-                </a>
-                {'.'}
-              </p>
+              <div>
+                <p>
+                  {`Don't see your repository? `}
+                  <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
+                    Adjust your GitHub app permissions
+                  </a>
+                  {'.'}
+                </p>
+              </div>
             </div>
           </Cell>
           <Cell cols={8} colsM={8}>

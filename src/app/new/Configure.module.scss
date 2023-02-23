@@ -24,7 +24,7 @@
 
 .sidebar {
     position: sticky;
-    top: calc(var(--base) *5);
+    top: calc(var(--base) * 5);
 
     @include mid-break {
         position: static;

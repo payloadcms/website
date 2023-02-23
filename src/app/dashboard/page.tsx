@@ -9,48 +9,20 @@ import { Gutter } from '@components/Gutter'
 import { LineDraw } from '@components/LineDraw'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { TeamSelector } from '@components/TeamSelector'
-import { Project, Team } from '@root/payload-cloud-types'
-import useDebounce from '@root/utilities/use-debounce'
+import { Team } from '@root/payload-cloud-types'
+import { useGetProjects } from '@root/utilities/use-get-projects'
 
 import classes from './index.module.scss'
 
 export default () => {
   const [selectedTeam, setSelectedTeam] = React.useState<Team>()
-  const [isLoading, setIsLoading] = React.useState(true)
-  const [error, setError] = React.useState('')
-  const [projects, setProjects] = React.useState<Project[] | null>()
+
   const [hoverIndex, setHoverIndex] = React.useState<number | null>(null)
 
-  React.useEffect(() => {
-    setIsLoading(true)
-
-    try {
-      const fetchProjects = async () => {
-        const projReq = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects?where[team][equals]=${selectedTeam.id}`,
-          {
-            credentials: 'include',
-          },
-        )
-
-        const projRes = await projReq.json()
-
-        if (projReq.ok) {
-          setProjects(projRes.docs)
-          setIsLoading(false)
-        } else {
-          setError(projRes.message)
-          setIsLoading(false)
-        }
-      }
-
-      fetchProjects()
-    } catch (err) {
-      setError(err.message)
-    }
-  }, [selectedTeam])
-
-  const loading = useDebounce(isLoading, 250)
+  const { loading, error, projects } = useGetProjects({
+    selectedTeam,
+    delay: 250,
+  })
 
   return (
     <Gutter>
@@ -60,10 +32,11 @@ export default () => {
       </div>
       {error && <p className={classes.error}>{error}</p>}
       <Grid>
-        <Cell cols={3} colsM={8}>
-          <TeamSelector onChange={setSelectedTeam} />
-          <br />
-          <Link href="/logout">Logout</Link>
+        <Cell cols={3} colsM={8} className={classes.sidebarCell}>
+          <div className={classes.sidebar}>
+            <TeamSelector onChange={setSelectedTeam} />
+            <Link href="/logout">Logout</Link>
+          </div>
         </Cell>
         <Cell cols={9} colsM={8}>
           {loading && <LoadingShimmer number={3} />}

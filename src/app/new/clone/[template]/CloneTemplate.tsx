@@ -15,7 +15,7 @@ import { Template } from '@root/payload-cloud-types'
 import { useCreateDraftProject } from '@root/utilities/use-create-draft-project'
 import { Install } from '@root/utilities/use-get-installs'
 
-import classes from './index.module.scss'
+import classes from './CloneTemplate.module.scss'
 
 export const CloneTemplate: React.FC<{
   template: Template
@@ -46,17 +46,19 @@ export const CloneTemplate: React.FC<{
       {isSubmitting && <p className={classes.submitting}>Creating project...</p>}
       {!isSubmitting && (
         <Grid>
-          <Cell cols={4} colsM={8} className={classes.sidebar}>
-            <div>
-              <Label label="Selected Template" htmlFor="" />
-              <div className={classes.template}>
-                <div className={classes.templateIcon}>
-                  <PayloadIcon />
+          <Cell cols={4} colsM={8} className={classes.sidebarCell}>
+            <div className={classes.sidebar}>
+              <div>
+                <Label label="Selected Template" htmlFor="" />
+                <div className={classes.template}>
+                  <div className={classes.templateIcon}>
+                    <PayloadIcon />
+                  </div>
+                  <p className={classes.templateName}>{template?.name}</p>
                 </div>
-                <p className={classes.templateName}>{template?.name}</p>
               </div>
+              <p>{template?.description}</p>
             </div>
-            <p>{template?.description}</p>
           </Cell>
           <Cell cols={8} colsM={8}>
             <Grid className={classes.projectInfo}>
