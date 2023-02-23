@@ -22,17 +22,16 @@ export const useField = <T extends Value>(props: {
 } => {
   const { path, onChange: onChangeFromProps, validate, required, initialValue } = props
 
-  const fieldFromContext = useFormField<T>({
-    path,
-    validate: required ? validate : undefined,
-  })
-
   const {
     value: valueFromContext,
     showError,
     setValue: setContextValue,
     errorMessage,
-  } = fieldFromContext
+  } = useFormField<T>({
+    path,
+    validate: required ? validate : undefined,
+    initialValue,
+  })
 
   const valueFromContextOrProps = valueFromContext || initialValue
 

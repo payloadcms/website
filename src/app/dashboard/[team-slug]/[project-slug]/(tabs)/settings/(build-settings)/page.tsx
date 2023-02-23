@@ -1,38 +1,79 @@
+'use client'
+
 import * as React from 'react'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 
 import { Heading } from '@components/Heading'
+import { useRouteData } from '@root/app/dashboard/context'
+import { Project } from '@root/payload-cloud-types'
 
 import classes from './index.module.scss'
 
-export default async () => {
+export default () => {
+  const { project } = useRouteData()
+
+  const onSubmit = React.useCallback(
+    async (_, unflattenedValues: Partial<Project>) => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project.id}`,
+          {
+            method: 'PATCH',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(unflattenedValues),
+          },
+        )
+
+        if (res.status === 200) {
+          // TODO: success message
+        } else {
+          // TODO: error message
+        }
+      } catch (e) {
+        // TODO: error message
+      }
+    },
+    [project.id],
+  )
+
   return (
     <div>
       <Heading element="h2" as="h4" marginTop={false}>
         Build Settings
       </Heading>
 
-      <Form className={classes.form}>
-        <Text label="Project name" placeholder="Enter a name for your project" path="projectName" />
+      <Form className={classes.form} onSubmit={onSubmit}>
+        <Text
+          label="Project name"
+          placeholder="Enter a name for your project"
+          path="name"
+          initialValue={project.name}
+        />
 
         <Text
           label="Install Command"
           placeholder="Enter the command to install your project dependencies"
-          path="installCommand"
+          path="installScript"
+          initialValue={project.installScript}
         />
 
         <Text
           label="Build Command"
           placeholder="Enter the command to build your project"
-          path="buildCommand"
+          path="buildScript"
+          initialValue={project.buildScript}
         />
 
         <Text
           label="Branch to deploy"
           placeholder="Enter the branch to deploy"
-          path="branchToDeploy"
+          path="deploymentBranch"
+          initialValue={project.deploymentBranch}
         />
 
         <div>

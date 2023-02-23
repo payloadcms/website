@@ -11,7 +11,7 @@ import {
   ProcessingContext,
 } from './context'
 import initialContext from './initialContext'
-import reduceFieldsToValues from './reduceFieldsToValues'
+import { reduceFieldsToValues } from './reduceFieldsToValues'
 import reducer from './reducer'
 
 const defaultInitialState = {}

@@ -3,8 +3,14 @@ export const PROJECTS = `
     Projects(where: { slug: { equals: $projectSlug }, team: { equals: $teamID } }) {
       docs {
         id
-        name
         slug
+        name
+        installScript
+        buildScript
+        deploymentBranch
+        environmentVariables {
+          name
+        }
       }
     }
   }
