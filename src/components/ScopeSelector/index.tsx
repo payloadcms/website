@@ -8,7 +8,7 @@ import { LoadingShimmer } from '@components/LoadingShimmer'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import useDebounce from '@root/utilities/use-debounce'
 import { Install, useGetInstalls } from '@root/utilities/use-get-installs'
-import { usePopup } from '@root/utilities/use-popup'
+import { usePopupWindow } from '@root/utilities/use-popup-window'
 
 import classes from './index.module.scss'
 
@@ -26,7 +26,7 @@ const SelectMenuButton = props => {
   return (
     <components.MenuList {...props}>
       {props.children}
-      <a className={classes.addAccountButton} href={href} onClick={selectProps?.openPopup}>
+      <a className={classes.addAccountButton} href={href} onClick={selectProps?.openPopupWindow}>
         Add GitHub Account
       </a>
     </components.MenuList>
@@ -85,7 +85,7 @@ export const ScopeSelector: React.FC<{
     }
   }, [valueFromProps, installs, selectedInstall])
 
-  const { openPopup } = usePopup({
+  const { openPopupWindow } = usePopupWindow({
     href,
     eventType: 'github-oauth',
     onMessage: searchParams => {
@@ -144,7 +144,7 @@ export const ScopeSelector: React.FC<{
                 ]),
           ]}
           selectProps={{
-            openPopup,
+            openPopupWindow,
           }}
           components={{
             MenuList: SelectMenuButton,

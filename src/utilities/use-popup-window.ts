@@ -5,12 +5,12 @@ export interface PopupMessage {
   searchParams: any // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
-export const usePopup = (props: {
+export const usePopupWindow = (props: {
   href: string
   eventType?: string
   onMessage?: (searchParams: any) => void // eslint-disable-line no-unused-vars
 }): {
-  openPopup: (e: React.MouseEvent<HTMLAnchorElement>) => void
+  openPopupWindow: (e: React.MouseEvent<HTMLAnchorElement>) => void
 } => {
   const { href, onMessage, eventType } = props
 
@@ -33,7 +33,7 @@ export const usePopup = (props: {
     }
   }, [onMessage, eventType])
 
-  const openPopup = useCallback(
+  const openPopupWindow = useCallback(
     e => {
       e.preventDefault()
 
@@ -72,6 +72,6 @@ export const usePopup = (props: {
   )
 
   return {
-    openPopup,
+    openPopupWindow,
   }
 }

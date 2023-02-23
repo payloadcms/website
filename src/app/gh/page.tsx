@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 
-import { PopupMessage } from '@root/utilities/use-popup'
+import { PopupMessage } from '@root/utilities/use-popup-window'
 
 export default ({ searchParams }) => {
   useEffect(() => {

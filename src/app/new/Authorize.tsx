@@ -5,7 +5,7 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { usePopup } from '@root/utilities/use-popup'
+import { usePopupWindow } from '@root/utilities/use-popup-window'
 
 import classes from './Authorize.module.scss'
 
@@ -19,7 +19,7 @@ export const Authorize: React.FC<{
   onAuthorize: (searchParams: any) => void // eslint-disable-line no-unused-vars
 }> = props => {
   const { onAuthorize } = props
-  const { openPopup } = usePopup({
+  const { openPopupWindow } = usePopupWindow({
     href,
     eventType: 'github-oauth',
     onMessage: onAuthorize,
@@ -27,7 +27,7 @@ export const Authorize: React.FC<{
 
   return (
     <Gutter>
-      <a className={classes.ghLink} href={href} type="button" onClick={openPopup}>
+      <a className={classes.ghLink} href={href} type="button" onClick={openPopupWindow}>
         <GitHubIcon className={classes.ghIcon} />
         <Heading element="h2" as="h6" margin={false} className={classes.ghTitle}>
           Continue with GitHub

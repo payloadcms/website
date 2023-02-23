@@ -16,7 +16,11 @@ const SelectMenuButton = props => {
   return (
     <components.MenuList {...props}>
       {props.children}
-      <Link className={classes.addTeamButton} href="/new/team" onClick={selectProps?.openPopup}>
+      <Link
+        className={classes.addTeamButton}
+        href="/new/team"
+        onClick={selectProps?.openPopupWindow}
+      >
         Create new team
       </Link>
     </components.MenuList>
