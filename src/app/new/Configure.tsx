@@ -1,8 +1,7 @@
 'use client'
 
-import React, { Fragment, useCallback, useEffect } from 'react'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import Label from '@forms/Label'
 import Link from 'next/link'
@@ -12,10 +11,14 @@ import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { LoadingShimmer } from '@components/LoadingShimmer'
+import { PlanSelector } from '@components/PlanSelector'
 import { ScopeSelector } from '@components/ScopeSelector'
+import { TeamSelector } from '@components/TeamSelector'
 import { Plan, Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
+import { priceFromJSON } from '@root/utilities/price-from-json'
 import useDebounce from '@root/utilities/use-debounce'
+import { Install } from '@root/utilities/use-get-installs'
 
 import classes from './Configure.module.scss'
 
@@ -26,16 +29,16 @@ const ConfigureDraftProject: React.FC<{
   const { user } = useAuth()
   const router = useRouter()
   const [selectedTeam, setSelectedTeam] = React.useState<string | ''>()
-  const [selectedInstall, setSelectedInstall] = React.useState<string | ''>()
-  const [selectedPlan, setSelectedPlan] = React.useState<string | ''>()
+  const [selectedInstall, setSelectedInstall] = React.useState<Install>()
+  const [selectedPlan, setSelectedPlan] = React.useState<Plan>()
   const [isLoading, setIsLoading] = React.useState<boolean>(true)
-  const [loadingPlans, setLoadingPlans] = React.useState<boolean>(true)
   const [project, setProject] = React.useState<Project | null>(null)
-  const [plans, setPlans] = React.useState<Plan[]>([])
   const requestedProject = React.useRef(false)
-  const requestedPlans = React.useRef(false)
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false)
   const [submissionError, setSubmissionError] = React.useState<string | null>(null)
+  const [isOrgScope, setIsOrgScope] = useState(
+    () => selectedInstall?.target_type === 'Organization',
+  )
 
   useEffect(() => {
     if (!requestedProject.current) {
@@ -75,33 +78,6 @@ const ConfigureDraftProject: React.FC<{
       fetchProject()
     }
   }, [draftProjectID, router])
-
-  useEffect(() => {
-    if (!requestedPlans.current) {
-      requestedPlans.current = true
-      setLoadingPlans(true)
-
-      const fetchPlans = async () => {
-        try {
-          const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/plans`, {
-            credentials: 'include',
-          })
-
-          const res = await req.json()
-
-          if (req.ok) {
-            setPlans(res.docs)
-            setLoadingPlans(false)
-          }
-        } catch (error) {
-          console.error(error)
-          setLoadingPlans(false)
-        }
-      }
-
-      fetchPlans()
-    }
-  }, [])
 
   const handleSubmit = useCallback(async () => {
     window.scrollTo(0, 0)
@@ -146,13 +122,15 @@ const ConfigureDraftProject: React.FC<{
     }
   }, [user, draftProjectID, router, selectedInstall, selectedPlan, selectedTeam])
 
+  useEffect(() => {
+    setIsOrgScope(selectedInstall?.target_type === 'Organization')
+  }, [selectedInstall])
+
   const loading = useDebounce(isLoading, 500)
 
   if (!loading && !project) {
     return <Gutter>This project does not exist.</Gutter>
   }
-
-  const fullPlan = plans.find(plan => plan.id === selectedPlan)
 
   return (
     <Fragment>
@@ -176,23 +154,25 @@ const ConfigureDraftProject: React.FC<{
         </div>
         {!isSubmitting && (
           <Grid>
-            <Cell cols={3} colsM={8}>
-              {loading && <LoadingShimmer number={1} />}
-              {!loading && (
-                <Fragment>
-                  <ScopeSelector
-                    onChange={install => {
-                      setSelectedInstall(install?.id)
-                    }}
-                    value={selectedInstall}
-                  />
-                  <br />
-                  <div>
-                    <Label label="Total cost" htmlFor="" />
-                    <div>{fullPlan?.priceJSON}</div>
-                  </div>
-                </Fragment>
-              )}
+            <Cell cols={3} colsM={8} className={classes.sidebarCell}>
+              <div className={classes.sidebar}>
+                {loading && <LoadingShimmer number={1} />}
+                {!loading && (
+                  <Fragment>
+                    <ScopeSelector
+                      onChange={install => {
+                        setSelectedInstall(install)
+                      }}
+                      value={selectedInstall?.id}
+                    />
+                    <br />
+                    <div>
+                      <Label label="Total cost" htmlFor="" />
+                      <p>{priceFromJSON(selectedPlan?.priceJSON)}</p>
+                    </div>
+                  </Fragment>
+                )}
+              </div>
             </Cell>
             <Cell cols={9} colsM={8}>
               {loading && <LoadingShimmer number={3} />}
@@ -204,58 +184,29 @@ const ConfigureDraftProject: React.FC<{
                         <h5 className={classes.sectionTitle}>Select your plan</h5>
                       </div>
                       <div className={classes.plans}>
-                        {loadingPlans && <p>Loading plans...</p>}
-                        {!loadingPlans && (
-                          <Select
-                            value={selectedPlan || plans.find(plan => plan.slug === 'free')?.id}
-                            isMulti={false}
-                            onChange={option => {
-                              if (Array.isArray(option)) return
-                              setSelectedPlan(option.value)
-                            }}
-                            label="Plan"
-                            path="plan"
-                            options={plans.map(plan => ({
-                              label: plan.name,
-                              value: plan.id,
-                            }))}
-                          />
-                        )}
+                        <PlanSelector
+                          value={selectedPlan?.id}
+                          onChange={setSelectedPlan}
+                          isOrgScope={isOrgScope}
+                        />
                       </div>
-                      {/* <p>
-                  Because your repo is connected to a GitHub organization, you are not eligible for
-                  the free tier.
-                </p> */}
                     </div>
                     <div>
                       <div className={classes.sectionHeader}>
                         <h5 className={classes.sectionTitle}>Ownership</h5>
                         <Link href="">Learn more</Link>
                       </div>
-                      <Select
-                        value={selectedTeam}
-                        isMulti={false}
-                        onChange={option => {
-                          if (Array.isArray(option)) return
-                          setSelectedTeam(option.value)
-                        }}
-                        label="Owner"
-                        path="team"
-                        options={user?.teams?.map(({ team }) => ({
-                          label: typeof team === 'string' ? team : team.name,
-                          value: typeof team === 'string' ? team : team.id,
-                        }))}
-                      />
+                      <TeamSelector />
                     </div>
                     <div className={classes.buildSettings}>
                       <div className={classes.sectionHeader}>
                         <h5 className={classes.sectionTitle}>Build Settings</h5>
                         <Link href="">Learn more</Link>
                       </div>
-                      <Text label="Project name" path="name" />
-                      <Text label="Install Command" path="installCommand" />
-                      <Text label="Build Command" path="buildCommand" />
-                      <Text label="Branch to deploy" path="branch" />
+                      <Text label="Project name" path="name" initialValue={project?.name} />
+                      <Text label="Install Command" path="installCommand" initialValue="yarn" />
+                      <Text label="Build Command" path="buildCommand" initialValue="yarn build" />
+                      <Text label="Branch to deploy" path="branch" initialValue="main" />
                     </div>
                     <div>
                       <div className={classes.sectionHeader}>

@@ -1,0 +1,73 @@
+@use '@scss/common' as *;
+
+.largeRadio {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: var(--base) var(--base);
+    border: 1px solid var(--theme-elevation-200);
+    background-color: var(--theme-elevation-100);
+    text-align: left;
+    font-size: inherit;
+    line-height: inherit;
+    text-transform: none;
+    letter-spacing: normal;
+
+    &:hover {
+        border-color: var(--theme-success-300);
+    }
+}
+
+.disabled {
+    color: var(--theme-elevation-300);
+    
+    &:hover {
+        border-color: var(--theme-elevation-200);
+    }
+}
+
+.checked {
+    border-color: var(--theme-success-500);
+
+    &:hover {
+        border-color: var(--theme-success-500);
+    }
+
+    &:local() {
+        .checkmark {
+            border-color: var(--theme-success-500);
+        }
+    }
+}
+
+.checkmark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(var(--base) * 1.5);
+    height: calc(var(--base) * 1.5);
+    border-radius: 100%;
+    border: 1px solid var(--theme-elevation-200);
+    margin-right: var(--base);
+}
+
+.radio {
+    display: none;
+}
+
+.content {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.name {
+    flex-grow: 1;
+    margin: 0;
+}
+
+.price {
+    @include label;
+    color: var(--theme-success-500);
+    margin: 0;
+}

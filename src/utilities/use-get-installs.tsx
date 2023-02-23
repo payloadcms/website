@@ -9,6 +9,7 @@ export interface Install {
     login: string
   }
   html_url: string
+  target_type: 'User' | 'Organization'
 }
 
 type Add = {

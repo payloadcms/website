@@ -1,0 +1,31 @@
+export const priceFromJSON = (priceJSON = '{}', showFree = true): string => {
+  let price = ''
+
+  try {
+    const parsed = JSON.parse(priceJSON)?.data?.[0]
+
+    const priceValue = parsed?.unit_amount
+    const priceType = parsed?.type
+
+    if (!priceValue && !showFree) {
+      return price
+    }
+
+    price = (priceValue > 0 ? priceValue / 100 : 0).toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD', // TODO: use `parsed.currency`
+    })
+
+    if (priceType === 'recurring') {
+      price += ` / ${
+        parsed.recurring.interval_count > 1
+          ? `${parsed.recurring.interval_count} ${parsed.recurring.interval}`
+          : parsed.recurring.interval
+      }`
+    }
+  } catch (e: unknown) {
+    console.error(`Cannot parse priceJSON`) // eslint-disable-line no-console
+  }
+
+  return price
+}

@@ -17,6 +17,21 @@
     }
 }
 
+.sidebarCell {
+    position: relative;
+    height: 100%;
+}
+
+.sidebar {
+    position: sticky;
+    top: calc(var(--base) *5);
+
+    @include mid-break {
+        position: static;
+        top: unset;
+    }
+}
+
 .buildSettings {
     > * {
         margin-bottom: var(--base);

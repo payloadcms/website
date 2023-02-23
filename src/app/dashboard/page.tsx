@@ -99,7 +99,7 @@ export default () => {
                         </h6>
                         <Button
                           appearance="primary"
-                          label="Open project"
+                          label={_status === 'draft' ? 'Configure' : 'Open'}
                           size="small"
                           href={
                             _status === 'draft'

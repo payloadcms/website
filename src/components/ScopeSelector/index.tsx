@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from 'react'
 import { components } from 'react-select'
 import { Select } from '@forms/fields/Select'
+import Label from '@forms/Label'
 import { v4 as uuid } from 'uuid'
 
 import { LoadingShimmer } from '@components/LoadingShimmer'
@@ -112,7 +113,12 @@ export const ScopeSelector: React.FC<{
   return (
     <Fragment>
       {installsError && <p>{installsError}</p>}
-      {loading && <LoadingShimmer number={1} />}
+      {loading && (
+        <Fragment>
+          <Label label="GitHub Scope" htmlFor="github-scope" />
+          <LoadingShimmer />
+        </Fragment>
+      )}
       {!loading && (
         <Select
           label="GitHub Scope"
