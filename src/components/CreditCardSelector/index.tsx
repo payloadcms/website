@@ -8,13 +8,16 @@ import classes from './index.module.scss'
 
 export const CreditCardSelector: React.FC<{
   team: Team
-  value?: string
+  initialValue?: string
   onChange?: (value: string) => void // eslint-disable-line no-unused-vars
 }> = props => {
-  const { onChange, value: valueFromProps, team } = props
+  const { onChange, initialValue, team } = props
   const [error, setError] = React.useState<string | undefined>()
   const [cards, setCards] = React.useState([])
   const hasMadeRequest = React.useRef(false)
+  // const prevValueFromProps = React.useRef(valueFromProps)
+  const [internalState, setInternalState] = React.useState(initialValue)
+  const [showNewCard, setShowNewCard] = React.useState(false)
 
   useEffect(() => {
     if (hasMadeRequest.current) return
@@ -42,7 +45,10 @@ export const CreditCardSelector: React.FC<{
         const res = await req.json()
 
         if (req.ok) {
-          setCards(res?.data?.data || [])
+          const newCards = res?.data?.data || []
+          setCards(newCards)
+          setShowNewCard(newCards.length === 0)
+          setInternalState(newCards?.[0]?.id || 'new-card')
         } else {
           setError(res.message)
         }
@@ -54,22 +60,52 @@ export const CreditCardSelector: React.FC<{
     fetchPaymentMethods()
   }, [team])
 
+  // allow external control of internal state
+  // useEffect(() => {
+  //   if (valueFromProps !== prevValueFromProps.current) setInternalState(valueFromProps)
+  // }, [valueFromProps, internalState])
+
+  useEffect(() => {
+    if (typeof onChange === 'function') onChange(internalState)
+  }, [onChange, internalState])
+
   return (
-    <div>
+    <div className={classes.creditCardSelector}>
       {error && <p className={classes.error}>{error}</p>}
       {cards?.length === 0 && <p>No cards on file</p>}
       {cards?.map(card => (
         <LargeRadio
           key={card.id}
           value={card.id}
-          checked={valueFromProps === card.id}
-          onChange={onChange}
-          label={card.card.brand}
+          checked={internalState === card.id}
+          onChange={setInternalState}
+          label={`${card.card.brand} ending in ${card.card.last4}`}
           name="card"
           id={card.id}
         />
       ))}
-      <CreditCardElement />
+      <div>
+        {showNewCard && (
+          <LargeRadio
+            value="new-card"
+            checked={internalState === 'new-card'}
+            onChange={setInternalState}
+            label={<CreditCardElement />}
+            name="card"
+            id="new-card"
+          />
+        )}
+        <button
+          className={classes.addNew}
+          onClick={() => {
+            setShowNewCard(!showNewCard)
+            setInternalState(showNewCard ? cards?.[0]?.id || 'new-card' : 'new-card')
+          }}
+          type="button"
+        >
+          {showNewCard ? 'Cancel new' : 'Add new card'}
+        </button>
+      </div>
     </div>
   )
 }

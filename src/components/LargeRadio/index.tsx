@@ -12,7 +12,7 @@ export const LargeRadio: React.FC<{
   disabled?: boolean
   onChange?: (value?: any) => void // eslint-disable-line no-unused-vars
   price?: string
-  label: string
+  label: string | React.ReactNode
 }> = props => {
   const { checked, name, disabled, onChange, value, price, id, label } = props
 
