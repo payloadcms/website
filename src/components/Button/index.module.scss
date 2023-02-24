@@ -8,6 +8,14 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   box-sizing: border-box;
   display: inline-flex;
   position: relative;
+  padding: var(--button-padding);
+
+  --button-padding: calc(var(--base) * 0.5) var(--base);
+
+  &:local(.size--small) {
+    --button-padding: calc(var(--base) * 0.25) calc(var(--base) * 0.5);
+  }
+
 }
 
 .full-width {
@@ -24,18 +32,14 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   &--default {
     display: inline-flex;
     min-width: calc(var(--base) * 12);
+    padding: unset;
     padding-top: calc(var(--base) * 0.75);
   }
 
   &--primary {
     border: 1px solid var(--theme-elevation-900);
-    padding: calc(var(--base) * 0.75) var(--base);
     color: var(--theme-bg);
-    background-color: var(--theme-elevation-900);
-
-    &:local(.size--small) {
-      padding: calc(var(--base) * 0.25) calc(var(--base) * 0.5);
-    }
+    background-color: var(--theme-elevation-950);
 
     // background-image: linear-gradient(90deg, var(--theme-success-500) 0%, var(--theme-success-900) 50%, var(--theme-elevation-900) 50%, var(--theme-elevation-900) 100%);
     // background-position: 100% 100%;
@@ -59,7 +63,6 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   &--secondary {
     border: 1px solid;
     border-color: var(--theme-elevation-500);
-    padding: calc(var(--base) * 0.75) var(--base);
 
     &--hovered {
       border-color: var(--theme-elevation-900);
@@ -67,6 +70,12 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
         border-color: var(--theme-elevation-500);
       }
     }
+  }
+
+  &--error {
+    color: var(--color-error-500);
+    background: var(--theme-error-100);
+    border: 1px solid var(--color-error-500);
   }
 }
 

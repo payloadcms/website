@@ -12,8 +12,8 @@ import { Reference } from '../CMSLink'
 
 import classes from './index.module.scss'
 
-export type Props = {
-  appearance?: 'default' | 'primary' | 'secondary'
+export type ButtonProps = {
+  appearance?: 'default' | 'primary' | 'secondary' | 'error'
   el?: 'button' | 'link' | 'a'
   onClick?: () => void
   href?: string
@@ -38,7 +38,7 @@ const icons = {
   github: GitHubIcon,
 }
 
-const ButtonContent: React.FC<Props> = props => {
+const ButtonContent: React.FC<ButtonProps> = props => {
   const { icon, label, labelStyle = 'mono' } = props
 
   const Icon = icon ? icons[icon] : null
@@ -74,7 +74,7 @@ const elements: {
   button: 'button',
 }
 
-export const Button: React.FC<Props> = props => {
+export const Button: React.FC<ButtonProps> = props => {
   const {
     el = 'button',
     newTab,
