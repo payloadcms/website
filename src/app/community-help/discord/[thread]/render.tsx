@@ -69,13 +69,13 @@ export const RenderThread: React.FC<ThreadProps> = props => {
     <HeaderObserver color={theme} pullUp>
       <Gutter>
         <Grid>
-          <Cell cols={10} colsL={9}>
+          <Cell cols={10} colsL={9} className={classes.thread}>
             <div className={classes.breadcrumbWrap}>
               <Link className={classes.breadcrumb} href="/community-help">
                 Community Help
               </Link>
             </div>
-            <div className={classes.thread}>
+            <div>
               <h3 className={classes.title}>{info.name}</h3>
               <div className={classes.authorDetails}>
                 <AuthorTag

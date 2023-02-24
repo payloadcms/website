@@ -1,5 +1,18 @@
 @use '@scss/common' as *;
 
+.thread {
+  max-width: 1200px;
+  margin-right: calc(var(--base) * 8);
+
+  @include mid-break {
+    margin: 0;
+  }
+
+  @include small-break {
+    margin-top: var(--base);
+  }
+}
+
 .breadcrumbWrap {
   margin: 0 0 var(--base) 0;
 }
@@ -10,18 +23,6 @@
 
   @include small-break {
     line-height: calc(var(--base) * 3);
-  }
-}
-
-.thread {
-  padding-right: calc(var(--base) * 10);
-
-  @include large-break {
-    padding-right: calc(var(--base) * 8);
-  }
-
-  @include mid-break {
-    padding: 0;
   }
 }
 
@@ -42,11 +43,30 @@
 .content {
   margin-top: calc(var(--base) * 1.25);
 
+  code {
+    font-size: calc(var(--base) * .65);
+    line-height: var(--base);
+    background-color: var(--color-base-950);
+    color: #ffffff;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
   pre {
     white-space: break-spaces !important;
 
     code {
       display: flex;
+      padding: calc(var(--base) * 1.5);
       overflow: auto;
     }
   }
@@ -80,7 +100,7 @@
   color: var(--color-base-300);
 
   & svg {
-    width: var(--base);
+    width: calc(var(--base) * 0.75);
     margin-right: calc(var(--base) * 0.25);
   }
 }
