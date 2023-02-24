@@ -74,7 +74,7 @@ export const ScopeSelector: React.FC<{
     reloadInstalls,
   } = useGetInstalls({
     onLoad: installations => {
-      setSelectedInstall(installations[0]) // use first because it's the most recent
+      setSelectedInstall(installations[installations.length - 1]) // latest install
     },
   })
 
@@ -98,7 +98,7 @@ export const ScopeSelector: React.FC<{
   useEffect(() => {
     if (installs?.length && !hasInitializedSelection.current) {
       hasInitializedSelection.current = true
-      setSelectedInstall(installs[0])
+      setSelectedInstall(installs[installs.length - 1])
     }
   }, [installs])
 

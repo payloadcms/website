@@ -64,7 +64,7 @@ export const CloneTemplate: React.FC<{
           <Cell cols={8} colsM={8}>
             <Grid className={classes.projectInfo}>
               <Cell cols={4}>
-                <ScopeSelector onChange={setSelectedInstall} />
+                <ScopeSelector value={selectedInstall?.id} onChange={setSelectedInstall} />
               </Cell>
               <Cell cols={4}>
                 <Text
