@@ -82,7 +82,9 @@
 
 .answer {
   background-color: var(--theme-success-100);
+
   color: var(--color-success-500);
+
 }
 
 .answerLabel {
@@ -111,12 +113,16 @@
   margin-bottom: var(--base);
 }
 
-
-
 // Overwrites html body styles
 
 .body {
   margin-top: var(--base);
+
+  & div {
+    & p {
+      margin-bottom: 0;
+    }
+  }
 
   &>* {
     &:last-child {
@@ -126,25 +132,26 @@
 
   & span,
   & pre {
-    white-space: break-spaces !important;
+    white-space: break-spaces;
     line-break: anywhere;
   }
 
 
   & code,
   & pre {
-    background-color: var(--theme-elevation-50);
-    color: var(--theme-elevation-900);
-    font-size: calc(var(--font-body-size) * 0.825);
+    background-color: var(--color-base-950);
+    font-family: var(--font-mono);
+    font-size: calc(var(--font-body-size) * .825);
     line-height: var(--base);
-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   }
 
   & pre {
     padding: calc(var(--base) * 1.5);
+    color: var(--color-base-50);
   }
 
   & p>code {
+    background-color: var(--theme-elevation-50);
     padding: calc(var(--base) * 0.15);
   }
 
@@ -176,15 +183,18 @@
   & a {
     color: var(--color-blue-600);
   }
+
+  & blockquote {
+    margin-left: 0;
+    padding-left: var(--base);
+    border-left: 2px solid var(--theme-elevation-300);
+  }
 }
 
-
-// Light mode
 
 :global([data-theme="light"]) {
   .answer {
     background-color: var(--theme-success-450);
-    color: var(--theme-elevation-900);
     border-color: var(--theme-success-550);
   }
 
