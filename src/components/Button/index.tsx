@@ -4,7 +4,7 @@ import { LineBlip } from '@components/LineBlip'
 import Link from 'next/link'
 import React, { useState } from 'react'
 // eslint-disable-next-line import/no-cycle
-import { Reference } from '../CMSLink'
+import { LinkType, Reference } from '../CMSLink'
 import { ArrowIcon } from '../../icons/ArrowIcon'
 import { SearchIcon } from '../../icons/SearchIcon'
 import classes from './index.module.scss'
@@ -21,6 +21,7 @@ export type Props = {
   icon?: 'arrow' | 'search'
   fullWidth?: boolean
   mobileFullWidth?: boolean
+  type?: LinkType
   reference?: Reference
   htmlButtonType?: 'button' | 'submit'
   onMouseEnter?: () => void
@@ -30,6 +31,38 @@ export type Props = {
 const icons = {
   arrow: ArrowIcon,
   search: SearchIcon,
+}
+
+type GenerateSlugType = {
+  type: LinkType
+  url?: string
+  reference?: Reference
+}
+const generateHref = (args: GenerateSlugType): string => {
+  const { reference, url, type } = args
+
+  if ((type === 'custom' || type === undefined) && url) {
+    return url
+  }
+
+  if (type === 'reference' && reference?.value && typeof reference.value !== 'string') {
+    if (reference.relationTo === 'pages') {
+      const { breadcrumbs } = reference.value
+      return breadcrumbs[breadcrumbs.length - 1].url
+    }
+
+    if (reference.relationTo === 'posts') {
+      return `/blog/${reference.value.slug}`
+    }
+
+    if (reference.relationTo === 'case_studies') {
+      return `/case-studies/${reference.value.slug}`
+    }
+
+    return `/${reference.relationTo}/${reference.value.slug}`
+  }
+
+  return ''
 }
 
 const ButtonContent: React.FC<Props> = props => {
@@ -71,23 +104,20 @@ const elements: {
 export const Button: React.FC<Props> = props => {
   const {
     el = 'button',
+    type,
+    reference,
     newTab,
-    href: hrefFromProps,
     appearance = 'default',
     className: classNameFromProps,
     onClick,
     fullWidth,
     mobileFullWidth,
-    reference,
     htmlButtonType = 'button',
   } = props
 
-  const [isHovered, setIsHovered] = useState(false)
+  const href = generateHref({ type, reference })
 
-  let href = hrefFromProps
-  if (reference && typeof reference?.value === 'object' && reference.value.slug) {
-    href = `/${reference.value.slug}`
-  }
+  const [isHovered, setIsHovered] = useState(false)
 
   const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
 
