@@ -23,7 +23,6 @@ export const ImportProject: React.FC = () => {
     error: createError,
     isSubmitting,
   } = useCreateDraftProject({
-    projectName: 'New project from import',
     installID: selectedInstall?.id,
     onSubmit: ({ id: draftProjectID }) => {
       router.push(`/new/configure/${draftProjectID}`)

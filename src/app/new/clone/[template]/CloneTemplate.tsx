@@ -32,7 +32,7 @@ export const CloneTemplate: React.FC<{
     error: createError,
     isSubmitting,
   } = useCreateDraftProject({
-    projectName: `New ${template.name} project`,
+    projectName: template.name,
     installID: selectedInstall?.id,
     templateID: template.id,
     makePrivate,
@@ -67,7 +67,12 @@ export const CloneTemplate: React.FC<{
                 <ScopeSelector onChange={setSelectedInstall} />
               </Cell>
               <Cell cols={4}>
-                <Text label="Repository Name" initialValue={name} onChange={setName} required />
+                <Text
+                  label="Repository Name"
+                  initialValue={template.slug}
+                  onChange={setName}
+                  required
+                />
               </Cell>
             </Grid>
             <div>

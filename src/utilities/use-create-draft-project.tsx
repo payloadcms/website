@@ -11,7 +11,7 @@ export const useCreateDraftProject = ({
   makePrivate,
   onSubmit,
 }: {
-  projectName: string
+  projectName?: string
   installID: string
   onSubmit?: (project: Project) => void // eslint-disable-line no-unused-vars
   templateID?: string // only applies to `clone` flow
@@ -39,7 +39,7 @@ export const useCreateDraftProject = ({
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            name: projectName,
+            name: projectName || repo?.name || 'Untitled Project',
             installID,
             team: typeof user.defaultTeam === 'string' ? user.defaultTeam : user.defaultTeam.id,
             repositoryID: repo?.id, // only applies to the `import` flow

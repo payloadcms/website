@@ -2,16 +2,16 @@ import React, { useEffect } from 'react'
 
 import { CreditCardElement } from '@components/CreditCardElement'
 import { LargeRadio } from '@components/LargeRadio'
-import { Plan, Team } from '@root/payload-cloud-types'
+import { Team } from '@root/payload-cloud-types'
+
+import classes from './index.module.scss'
 
 export const CreditCardSelector: React.FC<{
   team: Team
   value?: string
   onChange?: (value: string) => void // eslint-disable-line no-unused-vars
-  onClientSecret?: (clientSecret: string) => void // eslint-disable-line no-unused-vars
-  selectedPlan?: Plan
 }> = props => {
-  const { onChange, value: valueFromProps, team, onClientSecret, selectedPlan } = props
+  const { onChange, value: valueFromProps, team } = props
   const [error, setError] = React.useState<string | undefined>()
   const [cards, setCards] = React.useState([])
   const hasMadeRequest = React.useRef(false)
@@ -46,8 +46,6 @@ export const CreditCardSelector: React.FC<{
         } else {
           setError(res.message)
         }
-
-        // setCards(paymentMethods)
       } catch (err: any) {
         setError(err.message)
       }
@@ -58,8 +56,8 @@ export const CreditCardSelector: React.FC<{
 
   return (
     <div>
-      {error && <div>{error}</div>}
-      {cards?.length === 0 && <div>No cards on file</div>}
+      {error && <p className={classes.error}>{error}</p>}
+      {cards?.length === 0 && <p>No cards on file</p>}
       {cards?.map(card => (
         <LargeRadio
           key={card.id}
@@ -71,7 +69,7 @@ export const CreditCardSelector: React.FC<{
           id={card.id}
         />
       ))}
-      <CreditCardElement onClientSecret={onClientSecret} selectedPlan={selectedPlan} />
+      <CreditCardElement />
     </div>
   )
 }

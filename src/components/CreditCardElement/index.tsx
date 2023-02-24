@@ -1,48 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { CardElement as StripeCardElement } from '@stripe/react-stripe-js'
 
-import { Plan } from '@root/payload-cloud-types'
+import classes from './index.module.scss'
 
-export const CreditCardElement: React.FC<{
-  selectedPlan: Plan
-  onClientSecret: (clientSecret: string) => void // eslint-disable-line no-unused-vars
-}> = props => {
-  const { selectedPlan, onClientSecret } = props
+export const CreditCardElement: React.FC = () => {
   const [error, setError] = useState(null)
   const [disabled, setDisabled] = useState(true)
-  const [clientSecret, setClientSecret] = useState('')
-  const hasMadeRequest = React.useRef(false)
-
-  useEffect(() => {
-    if (hasMadeRequest.current) return
-    hasMadeRequest.current = true
-
-    if (selectedPlan) {
-      const makePaymentIntent = async () => {
-        const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/payment-intent`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            plan: selectedPlan?.id,
-          }),
-        })
-
-        const res = await req.json()
-
-        setClientSecret(res.clientSecret)
-      }
-
-      makePaymentIntent()
-    }
-  }, [selectedPlan])
-
-  useEffect(() => {
-    if (typeof onClientSecret === 'function') {
-      onClientSecret(clientSecret)
-    }
-  }, [onClientSecret, clientSecret])
 
   const handleChange = async event => {
     // Listen for changes in the CardElement
@@ -74,7 +37,7 @@ export const CreditCardElement: React.FC<{
 
   return (
     <div>
-      {error && <div>{error}</div>}
+      {error && <p className={classes.error}>{error}</p>}
       <StripeCardElement
         id="card-element"
         options={cardStyle}
