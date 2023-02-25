@@ -154,7 +154,7 @@ export const Footer: React.FC<FooterType> = props => {
             </Cell>
 
             <Cell cols={4} colsM={8}>
-              <p className={classes.copyright}>Copyright 2022 Payload CMS, Inc.</p>
+              <p className={classes.copyright}>{`Copyright ${new Date().getFullYear()} Payload CMS, Inc.`}</p>
             </Cell>
 
             <Cell cols={5} colsM={8} className={classes.themeCell}>
