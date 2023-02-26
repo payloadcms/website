@@ -118,9 +118,10 @@ export const Button: React.FC<Props> = props => {
     fullWidth,
     mobileFullWidth,
     htmlButtonType = 'button',
+    href: hrefFromProps,
   } = props
 
-  const href = generateHref({ type, reference })
+  const href = hrefFromProps || generateHref({ type, reference })
 
   const [isHovered, setIsHovered] = useState(false)
 
