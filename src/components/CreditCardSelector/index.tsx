@@ -73,18 +73,18 @@ export const CreditCardSelector: React.FC<{
     <div className={classes.creditCardSelector}>
       {error && <p className={classes.error}>{error}</p>}
       {cards?.length === 0 && <p>No cards on file</p>}
-      {cards?.map(card => (
-        <LargeRadio
-          key={card.id}
-          value={card.id}
-          checked={internalState === card.id}
-          onChange={setInternalState}
-          label={`${card.card.brand} ending in ${card.card.last4}`}
-          name="card"
-          id={card.id}
-        />
-      ))}
-      <div>
+      <div className={classes.cards}>
+        {cards?.map(card => (
+          <LargeRadio
+            key={card.id}
+            value={card.id}
+            checked={internalState === card.id}
+            onChange={setInternalState}
+            label={`${card.card.brand} ending in ${card.card.last4}`}
+            name="card"
+            id={card.id}
+          />
+        ))}
         {showNewCard && (
           <LargeRadio
             value="new-card"
@@ -95,17 +95,17 @@ export const CreditCardSelector: React.FC<{
             id="new-card"
           />
         )}
-        <button
-          className={classes.addNew}
-          onClick={() => {
-            setShowNewCard(!showNewCard)
-            setInternalState(showNewCard ? cards?.[0]?.id || 'new-card' : 'new-card')
-          }}
-          type="button"
-        >
-          {showNewCard ? 'Cancel new' : 'Add new card'}
-        </button>
       </div>
+      <button
+        className={classes.addNew}
+        onClick={() => {
+          setShowNewCard(!showNewCard)
+          setInternalState(showNewCard ? cards?.[0]?.id || 'new-card' : 'new-card')
+        }}
+        type="button"
+      >
+        {showNewCard ? 'Cancel new card' : 'Add new card'}
+      </button>
     </div>
   )
 }

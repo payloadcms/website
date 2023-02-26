@@ -44,8 +44,8 @@ export const useGetRepos = (props: {
           timeout = setTimeout(() => {
             setRepos(res.data?.repositories)
             setLoading(false)
+            setError(undefined)
           }, delay)
-          setError(undefined)
         } else {
           setError(res.error)
           setLoading(false)
@@ -53,6 +53,9 @@ export const useGetRepos = (props: {
       }
 
       getRepos()
+    } else {
+      setLoading(false)
+      setError('No git scope found')
     }
     return () => {
       clearTimeout(timeout)

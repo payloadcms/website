@@ -8,7 +8,7 @@ export interface PopupMessage {
 export const usePopupWindow = (props: {
   href: string
   eventType?: string
-  onMessage?: (searchParams: any) => void // eslint-disable-line no-unused-vars
+  onMessage?: (searchParams: any) => Promise<void> // eslint-disable-line no-unused-vars
 }): {
   openPopupWindow: (e: React.MouseEvent<HTMLAnchorElement>) => void
 } => {

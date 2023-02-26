@@ -62,8 +62,9 @@ const Option = props => {
 export const ScopeSelector: React.FC<{
   value?: string
   onChange?: (value: Install) => void // eslint-disable-line no-unused-vars
+  onLoading?: (loading: boolean) => void // eslint-disable-line no-unused-vars
 }> = props => {
-  const { onChange, value: valueFromProps } = props
+  const { onChange, value: valueFromProps, onLoading } = props
   const hasInitializedSelection = React.useRef(false)
   const [selectedInstall, setSelectedInstall] = React.useState<Install | undefined>()
 
@@ -72,11 +73,13 @@ export const ScopeSelector: React.FC<{
     loading: installsLoading,
     installs,
     reloadInstalls,
-  } = useGetInstalls({
-    onLoad: installations => {
-      setSelectedInstall(installations[installations.length - 1]) // latest install
-    },
-  })
+  } = useGetInstalls()
+
+  useEffect(() => {
+    if (typeof onLoading === 'function') {
+      onLoading(installsLoading)
+    }
+  }, [installsLoading, onLoading])
 
   useEffect(() => {
     if (valueFromProps === selectedInstall?.id && installs?.length) {
@@ -88,9 +91,10 @@ export const ScopeSelector: React.FC<{
   const { openPopupWindow } = usePopupWindow({
     href,
     eventType: 'github-oauth',
-    onMessage: searchParams => {
+    onMessage: async searchParams => {
       if (searchParams.state === id) {
-        reloadInstalls()
+        await reloadInstalls()
+        setSelectedInstall(searchParams.installation_id)
       }
     },
   })

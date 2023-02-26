@@ -29,11 +29,7 @@ export const ImportProject: React.FC = () => {
     },
   })
 
-  const {
-    error: reposError,
-    loading: loadingRepos,
-    repos,
-  } = useGetRepos({
+  const { loading: loadingRepos, repos } = useGetRepos({
     selectedInstall,
   })
 
@@ -64,7 +60,6 @@ export const ImportProject: React.FC = () => {
             </div>
           </Cell>
           <Cell cols={8} colsM={8}>
-            {reposError && <p>{reposError}</p>}
             {loadingRepos && <LoadingShimmer number={3} />}
             {!loadingRepos && repos?.length > 0 && (
               <div className={classes.repos}>
@@ -98,19 +93,8 @@ export const ImportProject: React.FC = () => {
               <div className={classes.noRepos}>
                 <h6>No repositories found</h6>
                 <p>
-                  {`This can happen when Payload doesn't have access to the repositories in an account. Configure the Payload app on GitHub, and give it access to the repository you want to link.`}
+                  {`This can happen when Payload doesn't have access to the repositories in an account. Click "Add GitHub Account" from the dropdown to configure the Payload app and provide access to your repositories.`}
                 </p>
-                <Button
-                  label="Configure Payload on GitHub"
-                  className={classes.addAccountButton}
-                  href={`https://github.com/apps/payload-cms/installations/new?client_id=${
-                    process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
-                  }&redirect_uri=${encodeURIComponent(
-                    process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
-                  )}&state=${encodeURIComponent(`/new/import`)}`}
-                  appearance="primary"
-                  el="a"
-                />
               </div>
             )}
           </Cell>
