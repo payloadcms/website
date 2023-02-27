@@ -1,4 +1,4 @@
-import type { CaseStudy, Footer, MainMenu, Page, Post } from '../payload-types'
+import type { Announcement, CaseStudy, Footer, MainMenu, Page, Post } from '../payload-types'
 import { CASE_STUDIES, CASE_STUDY } from './case-studies'
 import { GLOBALS } from './globals'
 import { PAGE, PAGES } from './pages'
@@ -8,7 +8,11 @@ const next = {
   revalidate: 600,
 }
 
-export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu; footer: Footer }> => {
+export const fetchGlobals = async (): Promise<{
+  announcement: Announcement
+  mainMenu: MainMenu
+  footer: Footer
+}> => {
   const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?globals`, {
     method: 'POST',
     headers: {
@@ -21,6 +25,7 @@ export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu; footer: Foot
   }).then(res => res.json())
 
   return {
+    announcement: data.Announcement,
     mainMenu: data.MainMenu,
     footer: data.Footer,
   }
