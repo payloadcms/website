@@ -11,12 +11,16 @@ export const GoogleAnalytics: React.FC = () => {
   const pathname = usePathname()
 
   React.useEffect(() => {
+    if (!gaMeasurementID) return
+
     analyticsEvent('page_view', {
       page_title: document.title,
       page_location: window.location.href,
       page_path: pathname,
     })
   }, [pathname])
+
+  if (!gaMeasurementID) return null
 
   return (
     <React.Fragment>
