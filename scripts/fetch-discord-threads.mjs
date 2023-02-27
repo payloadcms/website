@@ -28,6 +28,12 @@ if (!DISCORD_SCRAPE_CHANNEL_ID) {
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent] })
 
+const tagMap = {
+  answered: '1034538089546264577',
+  unanswered: '1043188477002526750',
+  stale: '1052600637898096710',
+}
+
 client.once(Events.ClientReady, async c => {
   console.log(`Ready! Logged in as ${c.user.tag}`)
 
@@ -58,8 +64,13 @@ client.once(Events.ClientReady, async c => {
 
   const formattedThreads = await mapAsync(allThreads, async t => {
     const info = await t
-    const messages = await info.messages.fetch()
+
     progress.increment()
+
+    // Filter out all threads that are not marked as unanswered
+    if (info.appliedTags.includes(tagMap.unanswered)) return null
+
+    const messages = await info.messages.fetch()
 
     return {
       info: {
@@ -84,10 +95,7 @@ client.once(Events.ClientReady, async c => {
   })
   console.log('\n\n')
 
-  fs.writeFileSync(
-    './src/app/community-help/discord/threads.json',
-    JSON.stringify(formattedThreads, null, 2),
-  )
+  fs.writeFileSync('threads.json', JSON.stringify(formattedThreads.filter(Boolean), null, 2))
   console.log(`threads.json written`)
   process.exit(0)
 })
