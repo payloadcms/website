@@ -67,7 +67,6 @@
 
   :local(.stars) {
     vertical-align: middle;
-    margin: 0 0 0 calc(var(--base) * .5);
   }
 
   @include large-break {
@@ -80,9 +79,30 @@
 }
 
 .githubText {
+  margin-right: calc(var(--base) * .5);
   @include large-break {
     display: none;
   }
+}
+
+.starsWrap {
+  position: relative;
+}
+
+.payload {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 54px;
+  height: 100%;
+}
+
+.stargazers {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 54px;
+  height: 100%;
 }
 
 .icons {

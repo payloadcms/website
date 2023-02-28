@@ -27,15 +27,27 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
 
           <div className={classes.github}>
             <div className={classes.githubText}>Like what we’re doing? Star us on GitHub!</div>
-            <iframe
-              className={classes.stars}
-              src="https://ghbtns.com/github-btn.html?user=payloadcms&repo=payload&type=star&count=true"
-              frameBorder="0"
-              scrolling="0"
-              width="108"
-              height="20"
-              title="GitHub Stars"
-            />
+            <div className={classes.starsWrap}>
+              <a
+                id="github-payload"
+                href="https://github.com/payloadcms/payload"
+                className={classes.payload}
+              ></a>
+              <a
+                id="github-stargazers"
+                href="https://github.com/payloadcms/payload/stargazers"
+                className={classes.stargazers}
+              ></a>
+              <iframe
+                className={classes.stars}
+                src="https://ghbtns.com/github-btn.html?user=payloadcms&repo=payload&type=star&count=true"
+                frameBorder="0"
+                scrolling="0"
+                width="108"
+                height="20"
+                title="GitHub Stars"
+              />
+            </div>
           </div>
 
           <div className={classes.icons}>
