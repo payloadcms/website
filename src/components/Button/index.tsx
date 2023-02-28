@@ -6,11 +6,12 @@ import Link from 'next/link'
 import { LineBlip } from '@components/LineBlip'
 // eslint-disable-next-line import/no-cycle
 import { GitHubIcon } from '@root/graphics/GitHub'
+import { LinkType, Reference } from '../CMSLink'
 import { ArrowIcon } from '../../icons/ArrowIcon'
 import { SearchIcon } from '../../icons/SearchIcon'
-import { Reference } from '../CMSLink'
 
 import classes from './index.module.scss'
+import { Page } from '../../payload-types'
 
 export type Props = {
   appearance?: 'default' | 'primary' | 'secondary'
@@ -24,6 +25,7 @@ export type Props = {
   icon?: 'arrow' | 'search' | 'github'
   fullWidth?: boolean
   mobileFullWidth?: boolean
+  type?: LinkType
   reference?: Reference
   htmlButtonType?: 'button' | 'submit'
   onMouseEnter?: () => void
@@ -36,6 +38,42 @@ const icons = {
   arrow: ArrowIcon,
   search: SearchIcon,
   github: GitHubIcon,
+}
+
+type GenerateSlugType = {
+  type: LinkType
+  url?: string
+  reference?: Reference
+}
+const generateHref = (args: GenerateSlugType): string => {
+  const { reference, url, type } = args
+
+  if ((type === 'custom' || type === undefined) && url) {
+    return url
+  }
+
+  if (type === 'reference' && reference?.value && typeof reference.value !== 'string') {
+    if (reference.relationTo === 'pages') {
+      const value = reference.value as Page
+      const breadcrumbs = value?.breadcrumbs
+      const hasBreadcrumbs = breadcrumbs && Array.isArray(breadcrumbs) && breadcrumbs.length > 0
+      if (hasBreadcrumbs) {
+        return breadcrumbs[breadcrumbs.length - 1]?.url as string
+      }
+    }
+
+    if (reference.relationTo === 'posts') {
+      return `/blog/${reference.value.slug}`
+    }
+
+    if (reference.relationTo === 'case_studies') {
+      return `/case-studies/${reference.value.slug}`
+    }
+
+    return `/${reference.relationTo}/${reference.value.slug}`
+  }
+
+  return ''
 }
 
 const ButtonContent: React.FC<Props> = props => {
@@ -77,25 +115,23 @@ const elements: {
 export const Button: React.FC<Props> = props => {
   const {
     el = 'button',
+    type,
+    reference,
     newTab,
-    href: hrefFromProps,
     appearance = 'default',
     className: classNameFromProps,
     onClick,
     fullWidth,
     mobileFullWidth,
-    reference,
     htmlButtonType = 'button',
     size,
     disabled,
+    href: hrefFromProps,
   } = props
 
-  const [isHovered, setIsHovered] = useState(false)
+  const href = hrefFromProps || generateHref({ type, reference })
 
-  let href = hrefFromProps
-  if (reference && typeof reference?.value === 'object' && reference.value.slug) {
-    href = `/${reference.value.slug}`
-  }
+  const [isHovered, setIsHovered] = useState(false)
 
   const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
 

@@ -27,9 +27,22 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
               return <CMSLink className={classes.navItem} key={index} {...item.link} />
             })}
           </div>
+<<<<<<< HEAD
           <React.Fragment>
             <div className={classes.github}>
               <div className={classes.githubText}>Like what we’re doing? Star us on GitHub!</div>
+=======
+
+          <div className={classes.github}>
+            <div className={classes.githubText}>Like what we’re doing? Star us on GitHub!</div>
+            <div className={classes.starsWrap}>
+              <a
+                id="github-star-count"
+                href="https://github.com/payloadcms/payload"
+                className={classes.payload}
+                target="_blank"
+              ></a>
+>>>>>>> main
               <iframe
                 className={classes.stars}
                 src="https://ghbtns.com/github-btn.html?user=payloadcms&repo=payload&type=star&count=true"
@@ -40,12 +53,23 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
                 title="GitHub Stars"
               />
             </div>
+<<<<<<< HEAD
             <div className={classes.icons}>
               <Link href="/new">New project</Link>
               {user && <Avatar />}
               <DocSearch />
             </div>
           </React.Fragment>
+=======
+          </div>
+
+          <div className={classes.icons}>
+            <a href="https://discord.com/invite/r6sCXqVk3v" target="_blank" rel="noreferrer">
+              <DiscordIcon />
+            </a>
+            <DocSearch />
+          </div>
+>>>>>>> main
         </Cell>
       </Grid>
     </Gutter>
