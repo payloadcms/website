@@ -151,8 +151,9 @@
   }
 
   & p>code {
-    background-color: var(--theme-elevation-50);
+    background-color: var(--theme-elevation-100);
     padding: calc(var(--base) * 0.15);
+    color: var(--theme-elevation-900);
   }
 
 
@@ -196,6 +197,7 @@
   .answer {
     background-color: var(--theme-success-450);
     border-color: var(--theme-success-550);
+    color: black;
   }
 
   .answerLabel {

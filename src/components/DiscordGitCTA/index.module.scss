@@ -3,16 +3,16 @@
 .container {
   position: absolute;
   height: 100%;
-  top: 0;
   right: 0;
-  top: calc(var(--gutter-h) * -0.25);
+  top: 0;
 }
 
 .ctaWrap {
   position: sticky;
   width: 430px;
   min-width: 430px;
-  margin: calc(var(--gutter-h) * 0.5) calc(var(--gutter-h) * 0.5) 0 0;
+  margin: calc(var(--gutter-h) * 0.25) calc(var(--gutter-h) * 0.5) 0 0;
+  top: calc(var(--gutter-h) * 0.5);
 }
 
 .bg {
@@ -123,12 +123,11 @@
 
 @include large-break {
   .ctaWrap {
-    margin-right: var(--gutter-h);
+    top: calc(var(--gutter-h) * 1.5);
   }
 
   .bg {
-    top: calc(var(--gutter-h) * -1);
-    left: var(--gutter-h);
+    height: 65%;
   }
 }
 
@@ -145,6 +144,7 @@
     position: unset;
     display: flex;
     justify-content: flex-end;
+    margin: 0 var(--gutter-h) 0 0;
   }
 
   .cta {

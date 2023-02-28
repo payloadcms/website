@@ -1,4 +1,4 @@
-import discussions from './github/discussions.json'
+import discussions from '../../../discussions.json'
 import threads from '../../../threads.json'
 
 // TODO: Update types

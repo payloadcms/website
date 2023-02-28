@@ -29,8 +29,11 @@ const fetchGithubDiscussions = async () => {
       query: `
       query {
         repository(owner:"payloadcms", name:"payload") {
-          discussions(first: 100) {
-            totalCount,
+          discussions(first: 100, categoryId: "MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMzY4NTUw") {
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
             nodes {
               title
               bodyHTML
@@ -38,13 +41,16 @@ const fetchGithubDiscussions = async () => {
               number
               createdAt
               upvoteCount,
-
+              category {
+                isAnswerable
+                id
+              }
               author {
                 login
                 avatarUrl
                 url
               }
-              comments(first: 20) {
+              comments(first: 30) {
                 totalCount,
                 edges {
                   node {
@@ -55,7 +61,7 @@ const fetchGithubDiscussions = async () => {
                     }
                     bodyHTML
                     createdAt
-                    replies(first: 20) {
+                    replies(first: 30) {
                       edges {
                         node {
                           author {
@@ -97,69 +103,74 @@ const fetchGithubDiscussions = async () => {
     process.exit(1)
   } else {
     const formattedDiscussions = discussions.data.repository.discussions.nodes.map(discussion => {
-      const { answer, answerChosenAt, answerChosenBy } = discussion
-      const comments = discussion.comments.edges.map(edge => {
-        const comment = edge.node
+      const { answer, answerChosenAt, answerChosenBy, category } = discussion
 
-        const replies = comment.replies.edges.map(replyEdge => {
-          const reply = replyEdge.node
+      if (answer !== null && category.isAnswerable) {
+        const formattedAnswer = {
+          author: {
+            name: answer.author?.login,
+            avatar: answer.author?.avatarUrl,
+            url: answer.author?.url,
+          },
+          body: answer.bodyHTML,
+          createdAt: answer.createdAt,
+          chosenAt: answerChosenAt,
+          chosenBy: answerChosenBy?.login,
+        }
+        const comments = discussion.comments.edges.map(edge => {
+          const comment = edge.node
+
+          const replies = comment.replies.edges.map(replyEdge => {
+            const reply = replyEdge.node
+
+            return {
+              author: {
+                name: reply.author.login,
+                avatar: reply.author.avatarUrl,
+                url: reply.author.url,
+              },
+              body: reply.bodyHTML,
+              createdAt: reply.createdAt,
+            }
+          })
 
           return {
             author: {
-              name: reply.author.login,
-              avatar: reply.author.avatarUrl,
-              url: reply.author.url,
+              name: comment.author.login,
+              avatar: comment.author.avatarUrl,
+              url: comment.author.url,
             },
-            body: reply.bodyHTML,
-            createdAt: reply.createdAt,
+            body: comment.bodyHTML,
+            createdAt: comment.createdAt,
+            replies: replies?.length ? replies : null,
           }
         })
 
         return {
+          title: discussion.title,
+          body: discussion.bodyHTML,
+          url: discussion.url,
+          id: String(discussion.number),
+          createdAt: discussion.createdAt,
+          upvotes: discussion.upvoteCount,
+          commentTotal: discussion.comments.totalCount,
           author: {
-            name: comment.author.login,
-            avatar: comment.author.avatarUrl,
-            url: comment.author.url,
+            name: discussion.author?.login,
+            avatar: discussion.author?.avatarUrl,
+            url: discussion.author?.url,
           },
-          body: comment.bodyHTML,
-          createdAt: comment.createdAt,
-          replies: replies?.length ? replies : null,
+          comments,
+          answer: formattedAnswer,
         }
-      })
-
-      const formattedAnswer = {
-        author: {
-          name: answer?.author?.login,
-          avatar: answer?.author?.avatarUrl,
-          url: answer?.author?.url,
-        },
-        body: answer?.bodyHTML,
-        createdAt: answer?.createdAt,
-        chosenAt: answerChosenAt,
-        chosenBy: answerChosenBy?.login,
       }
-
-      return {
-        title: discussion.title,
-        body: discussion.bodyHTML,
-        url: discussion.url,
-        id: String(discussion.number),
-        createdAt: discussion.createdAt,
-        upvotes: discussion.upvoteCount,
-        commentTotal: discussion.comments.totalCount,
-        author: {
-          name: discussion.author.login,
-          avatar: discussion.author.avatarUrl,
-          url: discussion.author.url,
-        },
-        comments,
-        answer: formattedAnswer,
-      }
+      return null
     })
 
-    const data = JSON.stringify(formattedDiscussions, null, 2)
+    const filteredDiscussions = formattedDiscussions.filter(discussion => discussion !== null)
 
-    const filePath = path.resolve(__dirname, './src/app/community-help/github/discussions.json')
+    const data = JSON.stringify(filteredDiscussions, null, 2)
+
+    const filePath = path.resolve(__dirname, './discussions.json')
 
     fs.writeFile(filePath, data, err => {
       if (err) {
