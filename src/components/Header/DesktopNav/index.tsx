@@ -32,11 +32,7 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
                 id="github-payload"
                 href="https://github.com/payloadcms/payload"
                 className={classes.payload}
-              ></a>
-              <a
-                id="github-stargazers"
-                href="https://github.com/payloadcms/payload/stargazers"
-                className={classes.stargazers}
+                target="_blank"
               ></a>
               <iframe
                 className={classes.stars}
