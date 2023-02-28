@@ -22,165 +22,189 @@ const fetchGithubDiscussions = async () => {
     process.exit(0)
   }
 
-  const discussions = await fetch('https://api.github.com/graphql', {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      query: `
-      query {
-        repository(owner:"payloadcms", name:"payload") {
-          discussions(first: 100, categoryId: "MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMzY4NTUw") {
-            pageInfo {
-              hasNextPage
-              endCursor
+  const discussionData = []
+
+  const createQuery = (cursor = null, hasNextPage) => {
+    const queryLine =
+      cursor && hasNextPage
+        ? `(first: 100, categoryId: "MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMzY4NTUw", after: "${cursor}")`
+        : `(first: 100, categoryId: "MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMzY4NTUw")`
+
+    return `query {
+      repository(owner:"payloadcms", name:"payload") {
+        discussions${queryLine} {
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+          nodes {
+            title
+            bodyHTML
+            url
+            number
+            createdAt
+            upvoteCount,
+            category {
+              isAnswerable
+              id
             }
-            nodes {
-              title
-              bodyHTML
+            author {
+              login
+              avatarUrl
               url
-              number
-              createdAt
-              upvoteCount,
-              category {
-                isAnswerable
-                id
-              }
-              author {
-                login
-                avatarUrl
-                url
-              }
-              comments(first: 30) {
-                totalCount,
-                edges {
-                  node {
-                    author {
-                      login
-                      avatarUrl
-                      url
-                    }
-                    bodyHTML
-                    createdAt
-                    replies(first: 30) {
-                      edges {
-                        node {
-                          author {
-                            login
-                            avatarUrl
-                            url
-                          }
-                          bodyHTML
-                          createdAt
+            }
+            comments(first: 30) {
+              totalCount,
+              edges {
+                node {
+                  author {
+                    login
+                    avatarUrl
+                    url
+                  }
+                  bodyHTML
+                  createdAt
+                  replies(first: 30) {
+                    edges {
+                      node {
+                        author {
+                          login
+                          avatarUrl
+                          url
                         }
+                        bodyHTML
+                        createdAt
                       }
                     }
                   }
                 }
               }
-              answer {
-                author {
-                  login
-                  avatarUrl
-                  url
-                }
-                bodyHTML
-                createdAt
-              }
-              answerChosenAt
-              answerChosenBy {
+            }
+            answer {
+              author {
                 login
+                avatarUrl
+                url
               }
+              bodyHTML
+              createdAt
+            }
+            answerChosenAt
+            answerChosenBy {
+              login
             }
           }
         }
       }
-      `,
+    }`
+  }
+
+  const initialReq = await fetch('https://api.github.com/graphql', {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      query: createQuery(),
     }),
   }).then(res => res.json())
 
-  if (discussions.errors) {
-    console.log(`Error: ${discussions.errors.map(error => error.message).join(', ')}`)
-    process.exit(1)
-  } else {
-    const formattedDiscussions = discussions.data.repository.discussions.nodes.map(discussion => {
-      const { answer, answerChosenAt, answerChosenBy, category } = discussion
+  discussionData.push(...initialReq.data.repository.discussions.nodes)
+  let hasNextPage = initialReq.data.repository.discussions.pageInfo.hasNextPage
+  let cursor = initialReq.data.repository.discussions.pageInfo.endCursor
 
-      if (answer !== null && category.isAnswerable) {
-        const formattedAnswer = {
-          author: {
-            name: answer.author?.login,
-            avatar: answer.author?.avatarUrl,
-            url: answer.author?.url,
-          },
-          body: answer.bodyHTML,
-          createdAt: answer.createdAt,
-          chosenAt: answerChosenAt,
-          chosenBy: answerChosenBy?.login,
-        }
-        const comments = discussion.comments.edges.map(edge => {
-          const comment = edge.node
+  while (hasNextPage) {
+    const nextReq = await fetch('https://api.github.com/graphql', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        query: createQuery(cursor, hasNextPage),
+      }),
+    }).then(res => res.json())
 
-          const replies = comment.replies.edges.map(replyEdge => {
-            const reply = replyEdge.node
+    discussionData.push(...nextReq.data.repository.discussions.nodes)
 
-            return {
-              author: {
-                name: reply.author.login,
-                avatar: reply.author.avatarUrl,
-                url: reply.author.url,
-              },
-              body: reply.bodyHTML,
-              createdAt: reply.createdAt,
-            }
-          })
+    hasNextPage = nextReq.data.repository.discussions.pageInfo.hasNextPage
+    cursor = nextReq.data.repository.discussions.pageInfo.endCursor
+  }
+
+  console.log(`Retrieved ${discussionData.length} discussions from GitHub`)
+  const formattedDiscussions = discussionData.map(discussion => {
+    const { answer, answerChosenAt, answerChosenBy, category } = discussion
+
+    if (answer !== null && category.isAnswerable) {
+      const formattedAnswer = {
+        author: {
+          name: answer.author?.login,
+          avatar: answer.author?.avatarUrl,
+          url: answer.author?.url,
+        },
+        body: answer.bodyHTML,
+        createdAt: answer.createdAt,
+        chosenAt: answerChosenAt,
+        chosenBy: answerChosenBy?.login,
+      }
+      const comments = discussion.comments.edges.map(edge => {
+        const comment = edge.node
+
+        const replies = comment.replies.edges.map(replyEdge => {
+          const reply = replyEdge.node
 
           return {
             author: {
-              name: comment.author.login,
-              avatar: comment.author.avatarUrl,
-              url: comment.author.url,
+              name: reply.author.login,
+              avatar: reply.author.avatarUrl,
+              url: reply.author.url,
             },
-            body: comment.bodyHTML,
-            createdAt: comment.createdAt,
-            replies: replies?.length ? replies : null,
+            body: reply.bodyHTML,
+            createdAt: reply.createdAt,
           }
         })
 
         return {
-          title: discussion.title,
-          body: discussion.bodyHTML,
-          url: discussion.url,
-          id: String(discussion.number),
-          createdAt: discussion.createdAt,
-          upvotes: discussion.upvoteCount,
-          commentTotal: discussion.comments.totalCount,
           author: {
-            name: discussion.author?.login,
-            avatar: discussion.author?.avatarUrl,
-            url: discussion.author?.url,
+            name: comment.author.login,
+            avatar: comment.author.avatarUrl,
+            url: comment.author.url,
           },
-          comments,
-          answer: formattedAnswer,
+          body: comment.bodyHTML,
+          createdAt: comment.createdAt,
+          replies: replies?.length ? replies : null,
         }
+      })
+
+      return {
+        title: discussion.title,
+        body: discussion.bodyHTML,
+        url: discussion.url,
+        id: String(discussion.number),
+        createdAt: discussion.createdAt,
+        upvotes: discussion.upvoteCount,
+        commentTotal: discussion.comments.totalCount,
+        author: {
+          name: discussion.author?.login,
+          avatar: discussion.author?.avatarUrl,
+          url: discussion.author?.url,
+        },
+        comments,
+        answer: formattedAnswer,
       }
-      return null
-    })
+    }
+    return null
+  })
 
-    const filteredDiscussions = formattedDiscussions.filter(discussion => discussion !== null)
+  const filteredDiscussions = formattedDiscussions.filter(discussion => discussion !== null)
 
-    const data = JSON.stringify(filteredDiscussions, null, 2)
+  const data = JSON.stringify(filteredDiscussions, null, 2)
 
-    const filePath = path.resolve(__dirname, './discussions.json')
+  const filePath = path.resolve(__dirname, './discussions.json')
 
-    fs.writeFile(filePath, data, err => {
-      if (err) {
-        console.error(err)
-      } else {
-        console.log(`GitHub discussions successfully output to ${filePath}`)
-      }
-      process.exit(0)
-    })
-  }
+  fs.writeFile(filePath, data, err => {
+    if (err) {
+      console.error(err)
+    } else {
+      console.log(`GitHub discussions successfully output to ${filePath}`)
+    }
+    process.exit(0)
+  })
 }
 
 fetchGithubDiscussions()

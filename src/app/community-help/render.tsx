@@ -5,13 +5,15 @@ import { Gutter } from '@components/Gutter'
 import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@root/providers/Theme'
 import React from 'react'
+import { ThreadProps } from './discord/[thread]/render'
+import { DiscussionProps } from './github/[discussion]/render'
 
 import classes from './index.module.scss'
 
-export const RenderCommunityHelp: React.FC<{ discussions: any; threads: any }> = ({
-  discussions,
-  threads,
-}) => {
+export const RenderCommunityHelp: React.FC<{
+  discussions: DiscussionProps[]
+  threads: ThreadProps[]
+}> = ({ discussions, threads }) => {
   const theme = useTheme()
 
   return (
@@ -23,6 +25,7 @@ export const RenderCommunityHelp: React.FC<{ discussions: any; threads: any }> =
         <div className={classes.wrap}>
           <div>
             <h2>GitHub</h2>
+            <h6>Total: {discussions.length}</h6>
             <ul>
               {discussions.map((discussion, i) => {
                 return (
@@ -32,7 +35,6 @@ export const RenderCommunityHelp: React.FC<{ discussions: any; threads: any }> =
                       aria-label={discussion.title}
                     >
                       {discussion.title}
-                      {i}
                     </a>
                   </li>
                 )
@@ -41,6 +43,7 @@ export const RenderCommunityHelp: React.FC<{ discussions: any; threads: any }> =
           </div>
           <div>
             <h2>Discord</h2>
+            <h6>Total: {threads.length}</h6>
             <ul>
               {threads.map((thread, i) => {
                 return (
