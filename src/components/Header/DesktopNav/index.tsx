@@ -29,7 +29,7 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
             <div className={classes.githubText}>Like what we’re doing? Star us on GitHub!</div>
             <div className={classes.starsWrap}>
               <a
-                id="github-payload"
+                id="github-star-count"
                 href="https://github.com/payloadcms/payload"
                 className={classes.payload}
                 target="_blank"
