@@ -1,6 +1,6 @@
 import React from 'react'
 import { Providers } from '@providers'
-import { fetchGlobals } from '@graphql'
+import { fetchAnnouncements, fetchGlobals } from '@graphql'
 import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics'
 import { GoogleTagManager } from '@components/Analytics/GoogleTagManager'
 import { Announcement } from '@components/Announcement'
@@ -13,7 +13,8 @@ import '../css/app.scss'
 import classes from './layout.module.scss'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { announcement, mainMenu, footer } = await fetchGlobals()
+  const { mainMenu, footer } = await fetchGlobals()
+  const { announcements } = await fetchAnnouncements()
 
   return (
     <html lang="en">
@@ -39,7 +40,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <Footer {...footer} />
             <div id="docsearch" />
           </div>
-          <Announcement {...announcement} />
+          <Announcement {...announcements[0]} />
         </Providers>
       </body>
     </html>

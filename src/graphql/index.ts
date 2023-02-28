@@ -1,4 +1,5 @@
 import type { Announcement, CaseStudy, Footer, MainMenu, Page, Post } from '../payload-types'
+import { ANNOUNCEMENT_FIELDS } from './announcement'
 import { CASE_STUDIES, CASE_STUDY } from './case-studies'
 import { GLOBALS } from './globals'
 import { PAGE, PAGES } from './pages'
@@ -9,7 +10,6 @@ const next = {
 }
 
 export const fetchGlobals = async (): Promise<{
-  announcement: Announcement
   mainMenu: MainMenu
   footer: Footer
 }> => {
@@ -25,9 +25,26 @@ export const fetchGlobals = async (): Promise<{
   }).then(res => res.json())
 
   return {
-    announcement: data.Announcement,
-    mainMenu: data.MainMenu,
-    footer: data.Footer,
+    mainMenu: data?.MainMenu,
+    footer: data?.Footer,
+  }
+}
+
+export const fetchAnnouncements = async (): Promise<{
+  announcements: Announcement
+}> => {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?announcements`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    next,
+    body: JSON.stringify({
+      query: ANNOUNCEMENT_FIELDS,
+    }),
+  }).then(res => res.json())
+  return {
+    announcements: data.Announcements.docs,
   }
 }
 

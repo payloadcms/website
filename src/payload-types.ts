@@ -2013,11 +2013,12 @@ export interface ReusableContent {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "main-menu".
+ * via the `definition` "announcement".
  */
 export interface Announcement {
   id: string
-  message: string
+  name: string
+  content: string
 }
 
 /**
