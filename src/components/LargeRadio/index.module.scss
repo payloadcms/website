@@ -6,7 +6,7 @@
     align-items: center;
     padding: var(--base) var(--base);
     border: 1px solid var(--theme-elevation-200);
-    background-color: var(--theme-elevation-100);
+    background-color: transparent;
     text-align: left;
     font-size: inherit;
     line-height: inherit;
@@ -70,4 +70,38 @@
     @include label;
     color: var(--theme-success-500);
     margin: 0;
+}
+
+:global([data-theme="light"]) {
+    .largeRadio {
+        border-color: var(--theme-elevation-200);
+
+        &:hover {
+            border-color: var(--theme-success-600);
+        }
+    }
+
+    .checked {
+        border-color: var(--theme-success-600);
+        
+        &:local() {
+            .checkmark {
+                border-color: var(--theme-success-700);
+            }
+        }
+    }
+
+    .disabled {
+        &:hover {
+            border-color: var(--theme-elevation-200);
+        }
+    }
+
+    .checkmark {
+        border-color: var(--theme-elevation-200);
+    }
+
+    .price {
+        color: var(--theme-success-700);
+    }
 }

@@ -46,7 +46,7 @@ export const ImportProject: React.FC = () => {
           <Cell cols={4} colsM={8} className={classes.sidebarCell}>
             <div className={classes.sidebar}>
               <div>
-                <ScopeSelector onChange={setSelectedInstall} />
+                <ScopeSelector value={selectedInstall?.id} onChange={setSelectedInstall} />
               </div>
               {/* <div>
             <p className={classes.label}>Search</p>

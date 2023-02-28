@@ -50,8 +50,12 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
   const [project, setProject] = React.useState<Project | null>(null)
   const requestedProject = React.useRef(false)
   const stripe = useStripe()
-  const [stripeClientSecret] = usePaymentIntent({
+  const [paymentMethod, setPaymentMethod] = React.useState<string | null>(null)
+
+  const { clientSecret: stripeClientSecret, error: paymentIntentError } = usePaymentIntent({
     plan: selectedPlan,
+    team: selectedTeam,
+    paymentMethod,
   })
 
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false)
@@ -105,7 +109,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
     }
 
     const payload = await stripe.confirmCardPayment(stripeClientSecret, {
-      payment_method: {
+      payment_method: paymentMethod || {
         card: elements.getElement(StripeCardElement),
       },
     })
@@ -113,7 +117,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
     if (payload.error) {
       throw new Error(payload.error.message)
     }
-  }, [stripeClientSecret, elements, stripe, selectedPlan])
+  }, [stripeClientSecret, elements, stripe, selectedPlan, paymentMethod])
 
   const handleSubmit = useCallback(async () => {
     window.scrollTo(0, 0)
@@ -201,7 +205,8 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
           />
           <h1>Configure your project</h1>
           {error && <p className={classes.error}>{error}</p>}
-          {isSubmitting && <p className={classes.submitting}>Submitting...</p>}
+          {paymentIntentError && <p className={classes.error}>{paymentIntentError}</p>}
+          {isSubmitting && <p className={classes.submitting}>Submitting, one moment...</p>}
         </div>
         <Grid>
           <Cell cols={3} colsM={8} className={classes.sidebarCell}>
@@ -282,7 +287,11 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
                   {selectedPlan?.slug !== 'free' && (
                     <div>
                       <h5>Payment Info</h5>
-                      <CreditCardSelector team={selectedTeam} />
+                      <CreditCardSelector
+                        initialValue={paymentMethod}
+                        team={selectedTeam}
+                        onChange={setPaymentMethod}
+                      />
                     </div>
                   )}
                   <Button

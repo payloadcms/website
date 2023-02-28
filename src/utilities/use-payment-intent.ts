@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
-import type { Plan } from '@root/payload-cloud-types'
+import type { Plan, Team } from '@root/payload-cloud-types'
 
-export const usePaymentIntent = (props: { plan: Plan }): [clientSecret: string] => {
+export const usePaymentIntent = (props: {
+  plan: Plan
+  team: Team
+  paymentMethod?: string
+}): { clientSecret: string; error: string } => {
+  const { plan, team, paymentMethod } = props
+
   const [clientSecret, setClientSecret] = useState<string>('')
-  const { plan } = props
+  const [error, setError] = useState<'' | null>(null)
   const lastRequestedPlan = React.useRef(plan)
 
   useEffect(() => {
@@ -22,17 +28,23 @@ export const usePaymentIntent = (props: { plan: Plan }): [clientSecret: string] 
           },
           body: JSON.stringify({
             plan: plan?.id,
+            team: team?.id,
+            paymentMethod,
           }),
         })
 
         const res = await req.json()
 
-        setClientSecret(res.client_secret)
+        if (req.ok) {
+          setClientSecret(res.client_secret)
+        } else {
+          setError(res.error)
+        }
       }
 
       makePaymentIntent()
     }
-  }, [plan])
+  }, [plan, team, paymentMethod])
 
-  return [clientSecret]
+  return { clientSecret, error }
 }
