@@ -69,6 +69,8 @@
     margin-left: auto;
     padding-left: calc(var(--base) * 0.5);
     cursor: pointer;
+    display: flex;
+    align-items: center;
 
     & svg {
       width: calc(var(--base) * 0.9);
