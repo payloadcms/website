@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { Cell, Grid } from '@faceless-ui/css-grid'
 import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@providers/Theme'
 import { Gutter } from '@components/Gutter'
@@ -8,9 +9,8 @@ import AuthorTag from '@components/AuthorTag'
 import DiscordGitCTA from '@components/DiscordGitCTA'
 import OpenPost from '@components/OpenPost'
 import Link from 'next/link'
-import { CommentsIcon } from '@root/graphics/CommentsIcon'
-import { DownloadIcon } from '@root/graphics/DownloadIcon'
-import { Cell, Grid } from '@faceless-ui/css-grid'
+
+import { FileAttachment } from '../../../../components/FileAttachment'
 
 import classes from './index.module.scss'
 
@@ -76,17 +76,17 @@ export const RenderThread: React.FC<ThreadProps> = props => {
               </Link>
             </div>
             <div>
-              <h3 className={classes.title}>{info.name}</h3>
+              <a className={classes.title} href={postUrl} rel="noopener noreferrer" target="_blank">
+                <h3>{info.name}</h3>
+              </a>
               <div className={classes.authorDetails}>
                 <AuthorTag
                   author={author}
                   image={authorAvatarImg}
                   date={info.createdAt}
                   platform="Discord"
+                  messageCount={messageCount}
                 />
-                <div className={classes.comments}>
-                  <CommentsIcon /> {messageCount}
-                </div>
               </div>
 
               <div
@@ -123,17 +123,11 @@ export const RenderThread: React.FC<ThreadProps> = props => {
                           <div className={classes.attachmentWrap}>
                             {message.fileAttachments.map((fileAttachment, x) => {
                               return (
-                                <a
+                                <FileAttachment
                                   key={x}
-                                  className={classes.attachment}
-                                  href={fileAttachment?.url}
-                                  target="_blank"
-                                >
-                                  <div className={classes.attachmentName}>
-                                    {fileAttachment.name}
-                                  </div>
-                                  <DownloadIcon />
-                                </a>
+                                  url={fileAttachment?.url}
+                                  name={fileAttachment.name}
+                                />
                               )
                             })}
                           </div>

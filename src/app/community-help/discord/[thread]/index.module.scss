@@ -28,25 +28,26 @@
 
 .title {
   margin-top: 0;
+  text-decoration: none;
 }
 
 .authorDetails {
   display: flex;
   align-items: center;
-  padding: var(--base) 0 calc(var(--base) * 2.5) 0;
+  padding: var(--base) 0 var(--base) 0;
 
   @include mid-break {
-    padding: calc(var(--base) * .5) 0;
+    padding: calc(var(--base) * 0.5) 0;
   }
 }
 
 .content {
   margin-top: calc(var(--base) * 1.25);
 
-  code {
+  & code {
     font-size: calc(var(--base) * .65);
     line-height: var(--base);
-    background-color: var(--color-base-950);
+    background-color: var(--theme-elevation-50);
     color: #ffffff;
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     white-space: pre;
@@ -59,63 +60,58 @@
     -moz-hyphens: none;
     -ms-hyphens: none;
     hyphens: none;
+    padding: calc(var(--base) * 0.15);
   }
 
-  pre {
+  & pre {
     white-space: break-spaces !important;
 
-    code {
+    & code {
       display: flex;
       padding: calc(var(--base) * 1.5);
       overflow: auto;
+      background-color: var(--color-base-950);
+
+      @include mid-break {
+        padding: var(--base);
+      }
     }
   }
 
-  a {
+  & a {
+    float: left;
+    clear: left;
+    width: 100%;
     color: var(--color-blue-600);
-
-    @include large-break {
-      display: inline-block;
-      max-width: 300px;
-      word-wrap: break-word;
-    }
-
-    @include mid-break {
-      display: block;
-      max-width: unset;
-      word-wrap: unset;
-    }
-
-    @include small-break {
-      display: inline-block;
-      word-wrap: break-word;
-      max-width: 250px;
-    }
+    word-wrap: break-word;
   }
-}
 
-.comments {
-  height: 100%;
-  margin-left: calc(var(--base) * 1.25);
-  color: var(--color-base-300);
-
-  & svg {
-    width: calc(var(--base) * 0.75);
-    margin-right: calc(var(--base) * 0.25);
+  & blockquote {
+    margin-left: 0;
+    padding-left: var(--base);
+    border-left: 2px solid var(--theme-elevation-300);
   }
 }
 
 .messageWrap {
-  margin-top: calc(var(--base) * 4);
+  margin-top: calc(var(--base) * 3);
   list-style: none;
   padding: 0;
 }
 
 .message {
   border: 1px solid var(--color-base-650);
-  padding: calc(var(--base) * 1.75);
-  line-height: 1.2;
+  padding: calc(var(--base) * 2);
+  line-height: 1.5;
   margin: 0 0 calc(var(--base) * 1.75) 0;
+
+  @include mid-break {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: var(--base);
+  }
+
 }
 
 .attachmentWrap {
@@ -129,50 +125,18 @@
   }
 }
 
-.attachment {
-  @include shadow-lg;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--base);
-  background-color: var(--color-base-1000);
-  border: 1px solid var(--color-base-650);
-  font-size: calc(var(--base) * 0.75);
-
-  & svg {
-    width: calc(var(--base) * 2);
-    margin-left: calc(var(--base) * 0.5);
-  }
-
-  &:nth-child(even) {
-    margin-left: var(--base);
-  }
-
-  &:nth-child(2n+3) {
-    margin-top: var(--base);
-  }
-
-  &:hover {
-    background-color: var(--color-base-850);
-  }
-
-  @include large-break {
-    & svg {
-      width: unset
+:global([data-theme="light"]) {
+  .content {
+    & code {
+      background-color: var(--theme-elevation-100);
+      color: var(--color-base-750);
     }
 
-    &:not(:first-child) {
-      margin-top: var(--base);
-      margin-left: 0;
+    & pre {
+      & code {
+        background-color: var(--color-base-950);
+        color: var(--color-base-0);
+      }
     }
   }
-
-  @include small-break {
-    padding: calc(var(--base) * 1);
-    font-size: calc(var(--base) * 0.75);
-  }
-}
-
-.attachmentName {
-  width: 100%;
 }
