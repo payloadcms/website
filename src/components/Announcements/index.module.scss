@@ -1,13 +1,17 @@
 @use '@scss/common' as *;
 
-.announcement {
+.announcementWrap {
   position: fixed;
-  display: flex;
   bottom: 0;
   width: 100%;
+  z-index: var(--z-nav);
+}
+
+.announcement {
+  position: relative;
+  display: flex;
   padding: calc(var(--base) * 0.5) calc(var(--gutter-h) / 2);
   transition: color 300ms ease;
-  z-index: var(--z-nav);
   border-bottom: 1px solid var(--theme-success-500);
   color: var(--theme-success-500);
 

@@ -3,7 +3,7 @@ import { Providers } from '@providers'
 import { fetchAnnouncements, fetchGlobals } from '@graphql'
 import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics'
 import { GoogleTagManager } from '@components/Analytics/GoogleTagManager'
-import { Announcement } from '@components/Announcement'
+import { Announcements } from '@components/Announcements'
 import { robotoMono, neueMontrealRegular, neueMontrealBold, neueMontrealItalic } from './fonts'
 import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
@@ -40,7 +40,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <Footer {...footer} />
             <div id="docsearch" />
           </div>
-          <Announcement {...announcements[0]} />
+          <Announcements announcements={announcements} />
         </Providers>
       </body>
     </html>

@@ -1,6 +1,6 @@
 export const ANNOUNCEMENT_FIELDS = `
   query Announcements {
-    Announcements(limit: 1) {
+    Announcements(limit: 20) {
       docs {
         name
         content

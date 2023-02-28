@@ -31,7 +31,7 @@ export const fetchGlobals = async (): Promise<{
 }
 
 export const fetchAnnouncements = async (): Promise<{
-  announcements: Announcement
+  announcements: Announcement[]
 }> => {
   const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?announcements`, {
     method: 'POST',
@@ -43,6 +43,7 @@ export const fetchAnnouncements = async (): Promise<{
       query: ANNOUNCEMENT_FIELDS,
     }),
   }).then(res => res.json())
+
   return {
     announcements: data.Announcements.docs,
   }
