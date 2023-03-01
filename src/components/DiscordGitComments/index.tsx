@@ -2,24 +2,29 @@ import React from 'react'
 import AuthorTag from '@components/AuthorTag'
 import { CheckmarkIcon } from '@root/graphics/CheckmarkIcon'
 import getRelativeDate from '@root/utilities/get-relative-date'
-
 import { FileAttachment } from '@components/FileAttachment'
 import { DiscordGitBody } from '@components/DiscordGitBody'
 import { Answer, Comment } from '@root/app/community-help/github/[discussion]/render'
 import { Messages } from '@root/app/community-help/discord/[thread]/render'
+
 import classes from './index.module.scss'
 
 export type CommentProps = {
   answer?: Answer
   comments?: Comment[] | Messages[]
-  platform?: string
+  platform?: 'Github' | 'Discord'
 }
 
 export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, platform }) => {
+  const answerReplies = answer?.replies ? answer?.replies?.length : false
   return (
     <ul className={classes.comments}>
       {answer && answer?.body && (
-        <li className={[classes.comment, classes.answer].join(' ')}>
+        <li
+          className={[classes.comment, classes.answer, answerReplies && classes.hasReplies]
+            .filter(Boolean)
+            .join(' ')}
+        >
           <div className={classes.answerLabel}>
             <CheckmarkIcon className={classes.checkmark} />
             <label>Answer</label>
@@ -36,8 +41,29 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
             url={answer.author.url}
           />
           <DiscordGitBody body={answer?.body} />
+          {answerReplies && (
+            <div className={classes.replyCount}>
+              {answerReplies} repl{answerReplies > 1 ? 'ies' : 'y'}
+            </div>
+          )}
         </li>
       )}
+
+      {answerReplies &&
+        answer.replies.map((reply, replyIndex) => {
+          return (
+            <li key={replyIndex} className={classes.reply}>
+              <AuthorTag
+                author={reply.author.name}
+                image={reply.author.avatar}
+                date={reply.createdAt}
+                url={reply.author.url}
+              />
+              <DiscordGitBody body={reply.body} />
+            </li>
+          )
+        })}
+
       {comments &&
         comments.map((comment, index) => {
           const totalReplies = comment?.replies ? comment?.replies?.length : false
@@ -84,9 +110,9 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
                 )}
 
                 {totalReplies && (
-                  <span className={classes.replyCount}>
+                  <div className={classes.replyCount}>
                     {totalReplies} repl{totalReplies > 1 ? 'ies' : 'y'}
-                  </span>
+                  </div>
                 )}
               </div>
 

@@ -88,6 +88,19 @@ const fetchGithubDiscussions = async () => {
               }
               bodyHTML
               createdAt
+              replies(first: 30) {
+                edges {
+                  node {
+                    author {
+                      login
+                      avatarUrl
+                      url
+                    }
+                    bodyHTML
+                    createdAt
+                  }
+                }
+              }
             }
             answerChosenAt
             answerChosenBy {
@@ -131,6 +144,20 @@ const fetchGithubDiscussions = async () => {
     const { answer, answerChosenAt, answerChosenBy, category } = discussion
 
     if (answer !== null && category.isAnswerable) {
+      const answerReplies = answer?.replies.edges.map(replyEdge => {
+        const reply = replyEdge.node
+
+        return {
+          author: {
+            name: reply.author.login,
+            avatar: reply.author.avatarUrl,
+            url: reply.author.url,
+          },
+          body: reply.bodyHTML,
+          createdAt: reply.createdAt,
+        }
+      })
+
       const formattedAnswer = {
         author: {
           name: answer.author?.login,
@@ -141,6 +168,7 @@ const fetchGithubDiscussions = async () => {
         createdAt: answer.createdAt,
         chosenAt: answerChosenAt,
         chosenBy: answerChosenBy?.login,
+        replies: answerReplies?.length > 0 ? answerReplies : null,
       }
       const comments = discussion.comments.edges.map(edge => {
         const comment = edge.node

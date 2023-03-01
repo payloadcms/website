@@ -18,18 +18,19 @@ export type Author = {
   url: string
   avatar: string
 }
+export type Comment = {
+  author: Author
+  body: string
+  createdAt: Date
+  replies?: Comment[]
+}
+
 export type Answer = {
   author: Author
   body: string
   createdAt: Date
   chosenBy: Author
   chosenAt: Date
-}
-
-export type Comment = {
-  author: Author
-  body: string
-  createdAt: Date
   replies?: Comment[]
 }
 
