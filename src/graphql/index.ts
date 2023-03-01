@@ -45,7 +45,7 @@ export const fetchAnnouncements = async (): Promise<{
   }).then(res => res.json())
 
   return {
-    announcements: data.Announcements.docs,
+    announcements: data?.Announcements?.docs || [],
   }
 }
 
