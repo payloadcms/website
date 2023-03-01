@@ -1,6 +1,6 @@
 @use '@scss/common' as *;
 
-.thread {
+.post {
   max-width: 1200px;
   margin-right: calc(var(--base) * 8);
 
@@ -13,34 +13,6 @@
   }
 }
 
-.breadcrumbWrap {
-  margin: 0 0 var(--base) 0;
-}
-
-.breadcrumb {
-  @include label;
-  text-decoration: none;
-
-  @include small-break {
-    line-height: calc(var(--base) * 3);
-  }
-}
-
-.title {
-  margin-top: 0;
-  text-decoration: none;
-}
-
-.authorDetails {
-  display: flex;
-  align-items: center;
-  padding: var(--base) 0 var(--base) 0;
-
-  @include mid-break {
-    padding: calc(var(--base) * 0.5) 0;
-  }
-}
-
 .content {
   margin-top: calc(var(--base) * 1.25);
 
@@ -50,7 +22,7 @@
     background-color: var(--theme-elevation-50);
     color: #ffffff;
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-    white-space: pre;
+    white-space: break-spaces;
     word-spacing: normal;
     word-break: normal;
     -moz-tab-size: 4;
@@ -61,6 +33,14 @@
     -ms-hyphens: none;
     hyphens: none;
     padding: calc(var(--base) * 0.15);
+
+    @include small-break {
+      word-break: break-all;
+    }
+  }
+
+  :global(.ts) {
+    display: block;
   }
 
   & pre {
@@ -71,6 +51,7 @@
       padding: calc(var(--base) * 1.5);
       overflow: auto;
       background-color: var(--color-base-950);
+      word-break: normal;
 
       @include mid-break {
         padding: var(--base);
@@ -79,9 +60,6 @@
   }
 
   & a {
-    float: left;
-    clear: left;
-    width: 100%;
     color: var(--color-blue-600);
     word-wrap: break-word;
   }
@@ -90,6 +68,12 @@
     margin-left: 0;
     padding-left: var(--base);
     border-left: 2px solid var(--theme-elevation-300);
+  }
+
+  & strong {
+    @include small-break {
+      word-wrap: break-word;
+    }
   }
 }
 

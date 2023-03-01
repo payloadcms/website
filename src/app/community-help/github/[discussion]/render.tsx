@@ -3,17 +3,15 @@
 import React from 'react'
 import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@providers/Theme'
-import { CommentsIcon } from '@root/graphics/CommentsIcon'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
 import AuthorTag from '@components/AuthorTag'
 import { Gutter } from '@components/Gutter'
 import { CheckmarkIcon } from '@root/graphics/CheckmarkIcon'
 import getRelativeDate from '@root/utilities/get-relative-date'
 import DiscordGitCTA from '@components/DiscordGitCTA'
-import Link from 'next/link'
 import OpenPost from '@components/OpenPost'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import Meta from '@components/Meta'
+import { DiscordGitIntro } from '@components/DiscordGitIntro'
 
 import classes from './index.module.scss'
 
@@ -64,30 +62,18 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
       <HeaderObserver color={theme} pullUp>
         <Gutter>
           <Grid>
-            <Cell cols={10} colsL={9} className={classes.thread}>
-              <Link className={classes.breadcrumb} href="/community-help">
-                Community Help
-              </Link>
-              <a className={classes.title} href={url} rel="noopener noreferrer" target="_blank">
-                <h3>{title}</h3>
-              </a>
-              <div className={classes.details}>
-                <AuthorTag
-                  author={author.name}
-                  image={author.avatar}
-                  date={createdAt}
-                  url={author.url}
-                  platform="Github"
-                />
-                <div className={classes.upvotes}>
-                  <span>
-                    <ArrowIcon rotation={-45} /> {upvotes}
-                  </span>
-                  <span>
-                    <CommentsIcon /> {commentTotal}
-                  </span>
-                </div>
-              </div>
+            <Cell cols={10} colsL={9} className={classes.post}>
+              <DiscordGitIntro
+                postUrl={url}
+                postName={title}
+                author={author.name}
+                image={author.avatar}
+                date={createdAt}
+                url={author.url}
+                platform="Github"
+                messageCount={commentTotal}
+                upvotes={upvotes}
+              />
 
               <div
                 className={[classes.body, classes.discussionBody].join(' ')}

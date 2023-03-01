@@ -1,6 +1,7 @@
 import React from 'react'
 import getRelativeDate from '@root/utilities/get-relative-date'
 import { getSpecificDateTime } from '@root/utilities/get-specific-date-time'
+import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { CommentsIcon } from '@root/graphics/CommentsIcon'
 
 import classes from './index.module.scss'
@@ -14,6 +15,7 @@ export type Props = {
   url?: string
   comment?: boolean
   messageCount?: number
+  upvotes?: number
 }
 
 const AuthorTag: React.FC<Props> = ({
@@ -25,6 +27,7 @@ const AuthorTag: React.FC<Props> = ({
   url,
   comment,
   messageCount,
+  upvotes,
 }) => {
   return (
     <div className={[classes.authorTag, className].filter(Boolean).join(' ')}>
@@ -46,6 +49,16 @@ const AuthorTag: React.FC<Props> = ({
         <span className={classes.date}>&nbsp;{getSpecificDateTime(date)}</span>
       )}
       {platform && !comment && <span className={classes.platform}>&nbsp;in {platform}</span>}
+      {platform === 'Github' && messageCount && upvotes && (
+        <div className={classes.upvotes}>
+          <span>
+            <ArrowIcon rotation={-45} /> {upvotes}
+          </span>
+          <span>
+            <CommentsIcon /> {messageCount}
+          </span>
+        </div>
+      )}
       {platform === 'Discord' && messageCount && (
         <div className={classes.comments}>
           <CommentsIcon /> <span>{messageCount}</span>

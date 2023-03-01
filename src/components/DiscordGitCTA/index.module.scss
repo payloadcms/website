@@ -182,6 +182,9 @@
 
   .ctaWrap {
     justify-content: flex-start;
+    width: 100%;
+    min-width: unset;
+    margin: 0;
   }
 
   .container {

@@ -29,6 +29,22 @@
   margin-left: calc(var(--base) * 0.25);
 }
 
+.upvotes {
+  display: flex;
+  align-items: center;
+  color: var(--theme-elevation-500);
+  margin-left: var(--base);
+
+  & svg {
+    width: calc(var(--base) * .75);
+    margin-right: calc(var(--base) * .35);
+  }
+
+  & span:first-child {
+    padding-right: var(--base);
+  }
+}
+
 .comments {
   height: 100%;
   margin-left: calc(var(--base) * 1.25);
@@ -45,7 +61,7 @@
 }
 
 :global([data-theme="light"]) {
-  .comments {
+  .upvotes, .comments {
     & svg {
       & path {
         stroke: var(--theme-elevation-500);
@@ -56,7 +72,7 @@
 
 @include large-break {
   .authorTag {
-    justify-content: space-between;
+    flex-wrap: wrap;
   }
 }
 
@@ -75,8 +91,12 @@
 }
 
 @include small-break {
-  .authorTag {
-    flex-wrap: wrap;
+  .upvotes {
+    margin-left: calc(var(--base) * 0.5);
+
+    & span:first-child {
+      padding-right: calc(var(--base) * 0.5);
+    }
   }
 
   .comments {

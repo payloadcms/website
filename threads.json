@@ -226,6 +226,41 @@
   },
   {
     "info": {
+      "name": "Fill in default values on Doc creation",
+      "id": "1072092158531739668",
+      "guildId": "967097582721572934",
+      "createdAt": 1675677089103
+    },
+    "messages": [
+      {
+        "content": "I have a collection of registrations. Within a registration I have a relationship field linking to the collection &quot;Participants&quot;. Now, If I get a registration, and the participant has not been created yet, I&#x27;d like to click on the plus button and have the values from the registration already filled into the appropriate fields. Is this possible to implement?",
+        "fileAttachments": [],
+        "authorID": "900030932617162793",
+        "authorName": "Sandro Wegmann",
+        "authorAvatar": "51018814dbca15d823817ac63e505824",
+        "createdAtDate": 1675677089103
+      },
+      {
+        "content": "Could you instead use an afterChange hook to create the participant when a registration gets filled out?",
+        "fileAttachments": [],
+        "authorID": "281120856527077378",
+        "authorName": "Jarrod",
+        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
+        "createdAtDate": 1675686677228
+      },
+      {
+        "content": "Hmm that&#x27;s not an option unfortunately, because the application data does not 100% match the required data format for a participants. Also, there should be room for adjustments before creating the participant doc",
+        "fileAttachments": [],
+        "authorID": "900030932617162793",
+        "authorName": "Sandro Wegmann",
+        "authorAvatar": "51018814dbca15d823817ac63e505824",
+        "createdAtDate": 1675710485332
+      }
+    ],
+    "messageCount": 2
+  },
+  {
+    "info": {
       "name": "looking to preview a page in the demo version is that possible?",
       "id": "1075261284192374784",
       "guildId": "967097582721572934",
@@ -945,9 +980,17 @@
         "authorName": "jacobsfletch",
         "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
         "createdAtDate": 1676990423459
+      },
+      {
+        "content": "Update: this was fixed with <a href=\"https://github.com/payloadcms/payload/pull/2199\">https://github.com/payloadcms/payload/pull/2199</a>",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677596338031
       }
     ],
-    "messageCount": 6
+    "messageCount": 7
   },
   {
     "info": {
@@ -1184,6 +1227,182 @@
       }
     ],
     "messageCount": 2
+  },
+  {
+    "info": {
+      "name": "Exposing group and block types when generating types",
+      "id": "1075432369823158312",
+      "guildId": "967097582721572934",
+      "createdAt": 1676473457533
+    },
+    "messages": [
+      {
+        "content": "I want to write some generic mappings that maps from payload&#x27;s types to props for my frontend React components. Blocks and groups aren&#x27;t exposed at the top level, so I&#x27;m having to manually pick them out by unpacking arrays and extracting specific blocks. <br><br>Is it possible to expose these when generating types? Or is there a simpler way for me to define these types based on the generated typings?",
+        "fileAttachments": [],
+        "authorID": "173581681058512897",
+        "authorName": "sam",
+        "authorAvatar": "f3ed485bad5511cfa5aa45293fc08a85",
+        "createdAtDate": 1676473457533
+      },
+      {
+        "content": "Hey @sam , have you seen how this is done in our website repo? This might be a pattern you would benefit from. <a href=\"https://github.com/payloadcms/website/blob/main/src/components/RenderBlocks/index.tsx\">https://github.com/payloadcms/website/blob/main/src/components/RenderBlocks/index.tsx</a>",
+        "fileAttachments": [],
+        "authorID": "967118574445547650",
+        "authorName": "denolfe",
+        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
+        "createdAtDate": 1677594308032
+      }
+    ],
+    "messageCount": 1
+  },
+  {
+    "info": {
+      "name": "Allow the user to have \"update\" rights only to the articles he has created",
+      "id": "1079668069829451786",
+      "guildId": "967097582721572934",
+      "createdAt": 1677483327110
+    },
+    "messages": [
+      {
+        "content": "Hello everyone! I&#x27;d like to allow the user to have &quot;update&quot; rights only to the articles he has created. I have a simple function that checks if the user pseudonym is equal to the article field but seems I&#x27;m doing something wrong because the pseudonym field is undefined.",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1079668069829451786/1079668069988847676/image.png",
+            "name": "image.png",
+            "id": "1079668069988847676",
+            "size": 19699,
+            "url": "https://cdn.discordapp.com/attachments/1079668069829451786/1079668069988847676/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1079668069829451786/1079668069988847676/image.png",
+            "height": 231,
+            "width": 641,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          },
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1079668069829451786/1079668070307610705/image.png",
+            "name": "image.png",
+            "id": "1079668070307610705",
+            "size": 9435,
+            "url": "https://cdn.discordapp.com/attachments/1079668069829451786/1079668070307610705/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1079668069829451786/1079668070307610705/image.png",
+            "height": 138,
+            "width": 361,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "187948379920138240",
+        "authorName": "mihanc",
+        "authorAvatar": "d8380c176b4dc4be88b5f9cf6e32dd41",
+        "createdAtDate": 1677483327110
+      },
+      {
+        "content": "Perhaps it&#x27;s possible to somehow pass an article object to this function?",
+        "fileAttachments": [],
+        "authorID": "187948379920138240",
+        "authorName": "mihanc",
+        "authorAvatar": "d8380c176b4dc4be88b5f9cf6e32dd41",
+        "createdAtDate": 1677483477472
+      },
+      {
+        "content": "Okay. Seems it doesn&#x27;t work because the article author is an object",
+        "fileAttachments": [],
+        "authorID": "187948379920138240",
+        "authorName": "mihanc",
+        "authorAvatar": "d8380c176b4dc4be88b5f9cf6e32dd41",
+        "createdAtDate": 1677484339868
+      },
+      {
+        "content": "I&#x27;ve updated the code but it gives the same result",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1079668069829451786/1079672390939852830/image.png",
+            "name": "image.png",
+            "id": "1079672390939852830",
+            "size": 20200,
+            "url": "https://cdn.discordapp.com/attachments/1079668069829451786/1079672390939852830/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1079668069829451786/1079672390939852830/image.png",
+            "height": 300,
+            "width": 576,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "187948379920138240",
+        "authorName": "mihanc",
+        "authorAvatar": "d8380c176b4dc4be88b5f9cf6e32dd41",
+        "createdAtDate": 1677484357409
+      },
+      {
+        "content": "You should take at look here <a href=\"https://github.com/payloadcms/website-cms/blob/main/src/access/isAdminOrSelf.ts\">https://github.com/payloadcms/website-cms/blob/main/src/access/isAdminOrSelf.ts</a>",
+        "fileAttachments": [],
+        "authorID": "122444319054495746",
+        "authorName": "SKRY",
+        "authorAvatar": "5b54bd085cab964c72bce21dcfe04638",
+        "createdAtDate": 1677491701784
+      },
+      {
+        "content": "This part is not working in my case because I have an object and need to compare a key.",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1079668069829451786/1079738856418574356/image.png",
+            "name": "image.png",
+            "id": "1079738856418574356",
+            "size": 5675,
+            "url": "https://cdn.discordapp.com/attachments/1079668069829451786/1079738856418574356/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1079668069829451786/1079738856418574356/image.png",
+            "height": 161,
+            "width": 541,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          },
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1079668069829451786/1079738856863178772/image.png",
+            "name": "image.png",
+            "id": "1079738856863178772",
+            "size": 19207,
+            "url": "https://cdn.discordapp.com/attachments/1079668069829451786/1079738856863178772/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1079668069829451786/1079738856863178772/image.png",
+            "height": 218,
+            "width": 644,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "187948379920138240",
+        "authorName": "mihanc",
+        "authorAvatar": "d8380c176b4dc4be88b5f9cf6e32dd41",
+        "createdAtDate": 1677500204120
+      },
+      {
+        "content": "hi @mihanc - you can access the full doc using <code>data</code>, take a look at this example:",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1079668069829451786/1079899930136682646/Screen_Shot_2023-02-27_at_10.54.27_PM.png",
+            "name": "Screen_Shot_2023-02-27_at_10.54.27_PM.png",
+            "id": "1079899930136682646",
+            "size": 407681,
+            "url": "https://cdn.discordapp.com/attachments/1079668069829451786/1079899930136682646/Screen_Shot_2023-02-27_at_10.54.27_PM.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1079668069829451786/1079899930136682646/Screen_Shot_2023-02-27_at_10.54.27_PM.png",
+            "height": 1660,
+            "width": 2688,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "854377910689202256",
+        "authorName": "jesschow",
+        "authorAvatar": "cd84347e723519ad6fe9dafb1530dbc5",
+        "createdAtDate": 1677538606887
+      }
+    ],
+    "messageCount": 6
   },
   {
     "info": {
@@ -1762,57 +1981,6 @@
   },
   {
     "info": {
-      "name": "Can't create a new record in admin panel -- getting 403",
-      "id": "1069075409293029416",
-      "guildId": "967097582721572934",
-      "createdAt": 1674957840036
-    },
-    "messages": [
-      {
-        "content": "Payload noob here. Created my first collection and first user - trying to create a record in the collection but getting a 403 response from the server <br><pre><code class=\"hljs\">{&quot;errors&quot;:[{&quot;message&quot;:&quot;You are not allowed to perform this action.&quot;}]}</code></pre><br>Am I missing something? Do I have to explicitly set access controls or user roles before I can edit something from the admin panel?",
-        "fileAttachments": [],
-        "authorID": "395022086000869386",
-        "authorName": "austinyb",
-        "authorAvatar": "b01ffe3f58659c2f2766d93012c39a77",
-        "createdAtDate": 1674957840036
-      },
-      {
-        "content": "On this page: <a href=\"https://payloadcms.com/blog/build-your-own-rbac\">https://payloadcms.com/blog/build-your-own-rbac</a> it says &quot;Note: Access functions default to requiring a logged-in user. This is why <code>create</code> does not need to be defined for this example, since we want any logged in user to be able to create an order.&quot;",
-        "fileAttachments": [],
-        "authorID": "395022086000869386",
-        "authorName": "austinyb",
-        "authorAvatar": "b01ffe3f58659c2f2766d93012c39a77",
-        "createdAtDate": 1674958408718
-      },
-      {
-        "content": "This leads me to believe I should be able to create the resource without defining access controls, but this isn&#x27;t the case",
-        "fileAttachments": [],
-        "authorID": "395022086000869386",
-        "authorName": "austinyb",
-        "authorAvatar": "b01ffe3f58659c2f2766d93012c39a77",
-        "createdAtDate": 1674958426102
-      },
-      {
-        "content": "From looking at server logs, i&#x27;m getting an error <br><pre><code class=\"hljs\">UnauthorizedError: Unauthorized, you must be logged in to make this request.\nat new ExtendableError (/app/node_modules/payload/src/errors/APIError.ts:26:11)\n...</code></pre>",
-        "fileAttachments": [],
-        "authorID": "395022086000869386",
-        "authorName": "austinyb",
-        "authorAvatar": "b01ffe3f58659c2f2766d93012c39a77",
-        "createdAtDate": 1674958718468
-      },
-      {
-        "content": "Solved <a href=\"https://discord.com/channels/967097582721572934/1047200612699357184\">https://discord.com/channels/967097582721572934/1047200612699357184</a>",
-        "fileAttachments": [],
-        "authorID": "395022086000869386",
-        "authorName": "austinyb",
-        "authorAvatar": "b01ffe3f58659c2f2766d93012c39a77",
-        "createdAtDate": 1674959200070
-      }
-    ],
-    "messageCount": 4
-  },
-  {
-    "info": {
       "name": "Change admin url",
       "id": "1069354467687927859",
       "guildId": "967097582721572934",
@@ -2302,65 +2470,6 @@
   },
   {
     "info": {
-      "name": "MongoDB refuses connection after first install of PayloadCMS",
-      "id": "1069018549701587045",
-      "guildId": "967097582721572934",
-      "createdAt": 1674944283653
-    },
-    "messages": [
-      {
-        "content": "Hello everyone,<br>I am having a problem understanding how to setup the configuration, since I have installed MongoDB as a Service and is running OK, but when entering <code>yarn dev</code> the app crashes and i get the error that, the MongoDB connection is refused. I have a DB setup at mongodb://localhost/wesnoth<br>Can anyone  direct me here ,please?",
-        "fileAttachments": [],
-        "authorID": "537385969230413846",
-        "authorName": "Arskeliss",
-        "authorAvatar": "0f72f4c0d2fd2e561a9063bc21e64f73",
-        "createdAtDate": 1674944283653
-      },
-      {
-        "content": "I mean the Payload app crashes and gives me error of connection refused.",
-        "fileAttachments": [],
-        "authorID": "537385969230413846",
-        "authorName": "Arskeliss",
-        "authorAvatar": "0f72f4c0d2fd2e561a9063bc21e64f73",
-        "createdAtDate": 1674944324880
-      },
-      {
-        "content": "I think I initially ran into an issue where I used <code>localhost</code>, so the server was trying to connect over IPv6, but mongo was only listening on IPv4. Try changing <code>localhost</code> to <code>127.0.0.1</code> and see if that helps?",
-        "fileAttachments": [],
-        "authorID": "518202427711815713",
-        "authorName": "oliverevans96",
-        "authorAvatar": "5f4e02d6f6839ea9cee9ff1948a8e844",
-        "createdAtDate": 1674948748459
-      },
-      {
-        "content": "That was the solution to my problem. I didn&#x27;t even realize what the error message contain, it was trying to write the address in v6 now that you mention it, so yeah, that did the trick. THank so much for your help.",
-        "fileAttachments": [],
-        "authorID": "537385969230413846",
-        "authorName": "Arskeliss",
-        "authorAvatar": "0f72f4c0d2fd2e561a9063bc21e64f73",
-        "createdAtDate": 1674971567663
-      },
-      {
-        "content": "Awesome, glad it worked! Maybe this should be considered a payload bug?",
-        "fileAttachments": [],
-        "authorID": "518202427711815713",
-        "authorName": "oliverevans96",
-        "authorAvatar": "5f4e02d6f6839ea9cee9ff1948a8e844",
-        "createdAtDate": 1674972916165
-      },
-      {
-        "content": "I don&#x27;t know , maybe? SHould I open an issue on github?",
-        "fileAttachments": [],
-        "authorID": "537385969230413846",
-        "authorName": "Arskeliss",
-        "authorAvatar": "0f72f4c0d2fd2e561a9063bc21e64f73",
-        "createdAtDate": 1674974366395
-      }
-    ],
-    "messageCount": 5
-  },
-  {
-    "info": {
       "name": "How to access relationship field full item data?",
       "id": "1074901824785625149",
       "guildId": "967097582721572934",
@@ -2600,6 +2709,108 @@
       }
     ],
     "messageCount": 7
+  },
+  {
+    "info": {
+      "name": "How unstable is next-payload?",
+      "id": "1079890412417859666",
+      "guildId": "967097582721572934",
+      "createdAt": 1677536337714
+    },
+    "messages": [
+      {
+        "content": "It&#x27;s currently at version 0.0.9, which seems like a long way off from 1.0 ... but I&#x27;d really like to use it. At the same time though, I don&#x27;t want to start totally bricking sites if I use it. I was wondering if I could get a feel from the team on just how unstable it is in its current state?",
+        "fileAttachments": [],
+        "authorID": "1055071772585771178",
+        "authorName": "samtietjen",
+        "authorAvatar": "8d328d0fcc83a5942412477c296516f4",
+        "createdAtDate": 1677536337714
+      },
+      {
+        "content": "The plan is for this to hit 1.0 in the next few weeks. No <em>huge</em> changes are planned, but no guarantees. I think the disclaimer at the top of the README is accurate in that you should expect breaking changes or bugs.",
+        "fileAttachments": [],
+        "authorID": "967118574445547650",
+        "authorName": "denolfe",
+        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
+        "createdAtDate": 1677591735902
+      },
+      {
+        "content": "Ah okay, thank you @denolfe !",
+        "fileAttachments": [],
+        "authorID": "1055071772585771178",
+        "authorName": "samtietjen",
+        "authorAvatar": "8d328d0fcc83a5942412477c296516f4",
+        "createdAtDate": 1677593976466
+      }
+    ],
+    "messageCount": 2
+  },
+  {
+    "info": {
+      "name": "\"required\" and \"validate\" both prevent \"beforeValidate\"",
+      "id": "1071412742273105950",
+      "guildId": "967097582721572934",
+      "createdAt": 1675515103644
+    },
+    "messages": [
+      {
+        "content": "If I have a field with a <code>beforeValidate</code> hook, when I set <code>required: true</code> or a custom <code>validate</code> function, failure to validate either (when editing in the admin area) means that the validation fails in the browser and so the <code>beforeValidate</code> hook is never fired.<br><br>With the <code>validate</code> function I can sort-of get around this by checking if the <code>payload</code> argument is undefined, but this is an odd behaviour anyway as logic would suggest that if there is a <code>beforeValidate</code> hook then it should fire before <code>required</code> or <code>validate</code> are checked.",
+        "fileAttachments": [],
+        "authorID": "365498720726286349",
+        "authorName": "Kyr",
+        "authorAvatar": "80448b45efe7253a0cc090c246e96c09",
+        "createdAtDate": 1675515103644
+      },
+      {
+        "content": "this is all expected actually",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1675519043686
+      },
+      {
+        "content": "beforeValidate only runs on the server, but your validate function runs both on the client AND the server",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1675519052809
+      },
+      {
+        "content": "all hooks on fields and collections run in the server only",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1675519084392
+      },
+      {
+        "content": "BUT",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1675519088462
+      },
+      {
+        "content": "we are going to begin exposing more client-side hooks over time and those will all be keyed to <code>admin.hooks</code>",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1675519106319
+      },
+      {
+        "content": "Ok, so is it possible to have a field that is both required and set using beforeValidate based on a selection in other fields?",
+        "fileAttachments": [],
+        "authorID": "365498720726286349",
+        "authorName": "Kyr",
+        "authorAvatar": "80448b45efe7253a0cc090c246e96c09",
+        "createdAtDate": 1675521917503
+      }
+    ],
+    "messageCount": 6
   },
   {
     "info": {
@@ -3083,38 +3294,6 @@
     },
     "messages": [
       {
-        "content": "could you make a minimally reproducible example to share? If this is a bug that would allow us to fix it more promptly. You can start from <code>categoryName</code> and work backwards when throwing together a new collection with a similar shape, but define all of your fields in one file so others can just paste it into their environment to test it once you can reproduce it with minimal fields 👍",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1671110816785
-      },
-      {
-        "content": "all of fields are defined in a same file @Jarrod",
-        "fileAttachments": [],
-        "authorID": "1041992215632805888",
-        "authorName": "Shubham27",
-        "authorAvatar": null,
-        "createdAtDate": 1671170627217
-      },
-      {
-        "content": "You are importing quite a bit of code that lives outside of this file @Shubham27",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1671192078005
-      },
-      {
-        "content": "It seems to be coming from your <code>beforeValidate</code> hook but like Jarrod said we need the relevant files to properly dig into this - we are unable to hit that fetch request without your index.php and likely other files.",
-        "fileAttachments": [],
-        "authorID": "854377910689202256",
-        "authorName": "jesschow",
-        "authorAvatar": "cd84347e723519ad6fe9dafb1530dbc5",
-        "createdAtDate": 1671217671009
-      },
-      {
         "content": "do you want data from api response of this index.php  api call ?",
         "fileAttachments": [],
         "authorID": "1041992215632805888",
@@ -3564,9 +3743,41 @@
         "authorName": "bhavikak",
         "authorAvatar": null,
         "createdAtDate": 1677217132310
+      },
+      {
+        "content": "hello @Jarrod",
+        "fileAttachments": [],
+        "authorID": "1043125033519820902",
+        "authorName": "bhavikak",
+        "authorAvatar": null,
+        "createdAtDate": 1677584096503
+      },
+      {
+        "content": "i&#x27;m waiting for your respone.",
+        "fileAttachments": [],
+        "authorID": "1043125033519820902",
+        "authorName": "bhavikak",
+        "authorAvatar": null,
+        "createdAtDate": 1677584137556
+      },
+      {
+        "content": "I think Jarrod wants you to convert to <code>useField</code> first",
+        "fileAttachments": [],
+        "authorID": "536888652257558538",
+        "authorName": "remy",
+        "authorAvatar": "a51bf6d5acf69d04ce856822b79a13ab",
+        "createdAtDate": 1677594599233
+      },
+      {
+        "content": "When I get to reimplementing this, I&#x27;ll create a new thread, as we&#x27;re quite far from the original issue.",
+        "fileAttachments": [],
+        "authorID": "536888652257558538",
+        "authorName": "remy",
+        "authorAvatar": "a51bf6d5acf69d04ce856822b79a13ab",
+        "createdAtDate": 1677594661732
       }
     ],
-    "messageCount": 50
+    "messageCount": 54
   },
   {
     "info": {
@@ -4228,9 +4439,17 @@
         "authorName": "dribbens",
         "authorAvatar": "f5c79aff07b9e2b1df382d61c45cb9da",
         "createdAtDate": 1677534383227
+      },
+      {
+        "content": "thanks Dan",
+        "fileAttachments": [],
+        "authorID": "225910068078444544",
+        "authorName": "sesons",
+        "authorAvatar": "513f60e24dd5d968544cf645c8cc3cf7",
+        "createdAtDate": 1677562705986
       }
     ],
-    "messageCount": 3
+    "messageCount": 4
   },
   {
     "info": {
@@ -5867,9 +6086,33 @@
         "authorName": "TheFrontend",
         "authorAvatar": "e593cd0d22028c3aebc85d6eb624b3bf",
         "createdAtDate": 1677533201570
+      },
+      {
+        "content": "@7wonders do you have any suggestions what else might be the problem if I can&#x27;t access the admin panel? I made sure the URLs are set in the google console. (and once I open any api route in the browser it redirects me to the google sign-up form)",
+        "fileAttachments": [],
+        "authorID": "1041438496285532170",
+        "authorName": "TheFrontend",
+        "authorAvatar": "e593cd0d22028c3aebc85d6eb624b3bf",
+        "createdAtDate": 1677579109906
+      },
+      {
+        "content": "Really sorry, I havent been very active the last couple of months. I will see if I can check the plugins out this week and get some updating done.",
+        "fileAttachments": [],
+        "authorID": "274881403454226434",
+        "authorName": "7wonders",
+        "authorAvatar": "cdc0ebbc3f0f149be0e841f1a76cf27e",
+        "createdAtDate": 1677608938926
+      },
+      {
+        "content": "But remember that its completely open source so you are welcome to submit pull requests with fixes 🙂",
+        "fileAttachments": [],
+        "authorID": "274881403454226434",
+        "authorName": "7wonders",
+        "authorAvatar": "cdc0ebbc3f0f149be0e841f1a76cf27e",
+        "createdAtDate": 1677608996487
       }
     ],
-    "messageCount": 27
+    "messageCount": 30
   },
   {
     "info": {
@@ -6588,6 +6831,49 @@
   },
   {
     "info": {
+      "name": "Plugin stripe - error has occurred in the Stripe plugin REST handler",
+      "id": "1075712043400843334",
+      "guildId": "967097582721572934",
+      "createdAt": 1676540136910
+    },
+    "messages": [
+      {
+        "content": "HI @jacobsfletch , I&#x27;m using your super stripe plugin for payload (thanks for the deployment) and unfortunately I&#x27;m having an error that I can&#x27;t understand very well<br><br>When I do a request via postman on my url  &quot;localhost:3000/api/stripe/rest&quot;, I have this error:<br><pre><code class=\"hljs\">{\n    &quot;message&quot;: &quot;An error has occurred in the Stripe plugin REST handler: &#x27;TypeError: Cannot read properties of undefined (reading &#x27;bind&#x27;)&#x27;&quot;\n}</code></pre><br><br>with this config: <br><br><pre><code class=\"hljs\"> plugins: [\n    stripePlugin({\n      stripeSecretKey: process.env.PRIVATE_STRIPE,\n      logs: true,\n      sync: [\n        {\n          collection: &quot;customers&quot;,\n          stripeResourceType: &quot;customers&quot;,\n          stripeResourceTypeSingular: &quot;customer&quot;,\n          fields: [\n            {\n              fieldPath: &quot;email&quot;, // my unique field in my collection\n              stripeProperty: &quot;email&quot;, \n            },\n          ],\n        },\n      ],\n    }),\n  ],</code></pre> <br><br>Thanks in advance for you help and thank again for the implementation of this plugin !",
+        "fileAttachments": [],
+        "authorID": "986156968152555540",
+        "authorName": "NF01",
+        "authorAvatar": "a8f64e6e32015ae37f7d21a0a04bd885",
+        "createdAtDate": 1676540136910
+      },
+      {
+        "content": "Hmm that error is likely thrown by this line: <a href=\"https://github.com/payloadcms/plugin-stripe/blob/13ed91f0406341cd534e3c15555fe3f3224a7b61/src/utilities/stripeProxy.ts#L23\">https://github.com/payloadcms/plugin-stripe/blob/13ed91f0406341cd534e3c15555fe3f3224a7b61/src/utilities/stripeProxy.ts#L23</a> because the supplied <code>stripeMethod</code> is not valid",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1676556250357
+      },
+      {
+        "content": "Can you send the body of the request you are sending through Postman?",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1676556968265
+      },
+      {
+        "content": "sorry to respond  late but I&#x27;m in a big rush in my project, I will send you this as soon as I can",
+        "fileAttachments": [],
+        "authorID": "986156968152555540",
+        "authorName": "NF01",
+        "authorAvatar": "a8f64e6e32015ae37f7d21a0a04bd885",
+        "createdAtDate": 1676647125137
+      }
+    ],
+    "messageCount": 3
+  },
+  {
+    "info": {
       "name": "Custom endpoint's access",
       "id": "1078763589227249705",
       "guildId": "967097582721572934",
@@ -6655,6 +6941,81 @@
       }
     ],
     "messageCount": 2
+  },
+  {
+    "info": {
+      "name": "How can you get the types for the resolver arguments in GraphQL?",
+      "id": "1065869193062400011",
+      "guildId": "967097582721572934",
+      "createdAt": 1674193418518
+    },
+    "messages": [
+      {
+        "content": "I&#x27;m writing my own graphql queries and mutations, however I couldn&#x27;t figure out how I can get types on this kind of resolver function, all arguments including <code>context</code> is untyped:<br><br><pre><code class=\"hljs ts\"><span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">const</span> <span class=\"hljs-title function_\">CustomResolver</span> = <span class=\"hljs-keyword\">async</span> (<span class=\"hljs-params\">obj, args, context, info</span>) =&gt; {\n  <span class=\"hljs-variable language_\">console</span>.<span class=\"hljs-title function_\">log</span>(<span class=\"hljs-string\">&#x27;id received:&#x27;</span>, args)\n  <span class=\"hljs-variable language_\">console</span>.<span class=\"hljs-title function_\">log</span>(<span class=\"hljs-string\">&#x27;context&#x27;</span>, context)\n  <span class=\"hljs-keyword\">return</span> {\n    <span class=\"hljs-attr\">result</span>: <span class=\"hljs-string\">&#x27;PASS&#x27;</span>,\n  }\n}</code></pre>",
+        "fileAttachments": [],
+        "authorID": "858693520012476436",
+        "authorName": "noheadphones",
+        "authorAvatar": "db21160ec6d6b123e83a8b6768467352",
+        "createdAtDate": 1674193418518
+      },
+      {
+        "content": "I&#x27;ve done a payload import and typed the destructured context like this, not sure if there&#x27;s a cleaner approach though<br><br><pre><code class=\"hljs ts\">{ payload }: { <span class=\"hljs-attr\">payload</span>: <span class=\"hljs-keyword\">typeof</span> <span class=\"hljs-title class_\">ImportedPayload</span> }</code></pre>",
+        "fileAttachments": [],
+        "authorID": "858693520012476436",
+        "authorName": "noheadphones",
+        "authorAvatar": "db21160ec6d6b123e83a8b6768467352",
+        "createdAtDate": 1674193674273
+      },
+      {
+        "content": "@noheadphones would you mind sharing the code of your custom resolver?",
+        "fileAttachments": [],
+        "authorID": "1041438496285532170",
+        "authorName": "TheFrontend",
+        "authorAvatar": "e593cd0d22028c3aebc85d6eb624b3bf",
+        "createdAtDate": 1677596116892
+      },
+      {
+        "content": "What exactly are you looking to do? I may be able to provide a better example",
+        "fileAttachments": [],
+        "authorID": "858693520012476436",
+        "authorName": "noheadphones",
+        "authorAvatar": "db21160ec6d6b123e83a8b6768467352",
+        "createdAtDate": 1677596247640
+      },
+      {
+        "content": "Basically I&#x27;m just trying to learn how the response object should be formatted or how you enabled types here.",
+        "fileAttachments": [],
+        "authorID": "1041438496285532170",
+        "authorName": "TheFrontend",
+        "authorAvatar": "e593cd0d22028c3aebc85d6eb624b3bf",
+        "createdAtDate": 1677596484450
+      },
+      {
+        "content": "Sure, here&#x27;s an example of a custom query (mutation is pretty much similar)<br><br>payload config, something like this<br><pre><code class=\"hljs ts\"><span class=\"hljs-title class_\">CheckQuizAnswers</span>: <span class=\"hljs-title class_\">CheckQuizAnswers</span>(<span class=\"hljs-title class_\">GraphQL</span>, payload),</code></pre><br>This is what the function actually is:<br><pre><code class=\"hljs ts\"><span class=\"hljs-keyword\">import</span> { <span class=\"hljs-title class_\">CheckQuizAnswersResolver</span> } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&#x27;../resolvers/CheckQuizAnswersResolver&#x27;</span>\n<span class=\"hljs-keyword\">import</span> { <span class=\"hljs-keyword\">default</span> <span class=\"hljs-keyword\">as</span> <span class=\"hljs-title class_\">ImportedGraphQL</span> } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&#x27;graphql&#x27;</span>\n<span class=\"hljs-keyword\">import</span> { <span class=\"hljs-title class_\">Payload</span> } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&#x27;payload&#x27;</span>\n\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">const</span> <span class=\"hljs-title function_\">CheckQuizAnswers</span> = (<span class=\"hljs-params\">GraphQL: <span class=\"hljs-keyword\">typeof</span> ImportedGraphQL, payload: Payload</span>) =&gt; {\n  <span class=\"hljs-keyword\">return</span> {\n    <span class=\"hljs-attr\">args</span>: {\n      <span class=\"hljs-attr\">answers</span>: {\n        <span class=\"hljs-attr\">type</span>: <span class=\"hljs-keyword\">new</span> <span class=\"hljs-title class_\">GraphQL</span>.<span class=\"hljs-title class_\">GraphQLNonNull</span>(<span class=\"hljs-keyword\">new</span> <span class=\"hljs-title class_\">GraphQL</span>.<span class=\"hljs-title class_\">GraphQLList</span>(<span class=\"hljs-title class_\">GraphQL</span>.<span class=\"hljs-property\">GraphQLString</span>)),\n      },\n    },\n    <span class=\"hljs-attr\">resolve</span>: <span class=\"hljs-title class_\">CheckQuizAnswersResolver</span>,\n    <span class=\"hljs-attr\">type</span>: <span class=\"hljs-keyword\">new</span> <span class=\"hljs-title class_\">GraphQL</span>.<span class=\"hljs-title class_\">GraphQLObjectType</span>({\n      <span class=\"hljs-attr\">name</span>: <span class=\"hljs-string\">&#x27;result&#x27;</span>,\n      <span class=\"hljs-attr\">fields</span>: {\n        <span class=\"hljs-attr\">result</span>: {\n          <span class=\"hljs-attr\">type</span>: <span class=\"hljs-title class_\">GraphQL</span>.<span class=\"hljs-property\">GraphQLString</span>,\n        },\n      },\n    }),\n  }\n}</code></pre><br>And then your resolver <code>CheckQuizAnswersResolver</code> is what actually handles the logic, in this function ^^^ type is a return type of a valid GraphQL object, so in this case it&#x27;s something custom, if I want to return a payload collection though I set the <code>type</code> to <code>payload.collections[&#x27;articles&#x27;].graphQL?.type</code> for example. The args then is what arguments you might have for your query or mutation, each arg will need a <code>type</code> as well: my type here is complex as its a mandatory (nonnull) array (list) of strings<br><br>Finally my resolver function looks a bit like this<br><br><pre><code class=\"hljs ts\"><span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">const</span> <span class=\"hljs-title function_\">CheckQuizAnswersResolver</span> = <span class=\"hljs-keyword\">async</span> (<span class=\"hljs-params\">obj, args: ResolverArgs, context, info</span>) =&gt; {\n  <span class=\"hljs-comment\">// do some logic here</span>\n  <span class=\"hljs-keyword\">return</span> {\n    <span class=\"hljs-attr\">result</span>: result ? <span class=\"hljs-string\">&#x27;PASS&#x27;</span> : <span class=\"hljs-string\">&#x27;FAIL&#x27;</span>,\n  }\n}</code></pre><br>note that I&#x27;ve manually typed my ResolverArgs, so its a custom type every time, there&#x27;s no inference right now as far as I can tell, its possible to do it though",
+        "fileAttachments": [],
+        "authorID": "858693520012476436",
+        "authorName": "noheadphones",
+        "authorAvatar": "db21160ec6d6b123e83a8b6768467352",
+        "createdAtDate": 1677597780148
+      },
+      {
+        "content": "Hopefully that makes sense @TheFrontend",
+        "fileAttachments": [],
+        "authorID": "858693520012476436",
+        "authorName": "noheadphones",
+        "authorAvatar": "db21160ec6d6b123e83a8b6768467352",
+        "createdAtDate": 1677597785350
+      },
+      {
+        "content": "Awesome, thanks!",
+        "fileAttachments": [],
+        "authorID": "1041438496285532170",
+        "authorName": "TheFrontend",
+        "authorAvatar": "e593cd0d22028c3aebc85d6eb624b3bf",
+        "createdAtDate": 1677598102493
+      }
+    ],
+    "messageCount": 7
   },
   {
     "info": {
@@ -7279,6 +7640,49 @@
   },
   {
     "info": {
+      "name": "Can we only allow one instance of a block to be selected?",
+      "id": "1079604132991729694",
+      "guildId": "967097582721572934",
+      "createdAt": 1677468083380
+    },
+    "messages": [
+      {
+        "content": "I have for example a footer block which if specified on a page, it will show the footer on the website. <br>Is there a way to stop the CMS user from adding multiple footer blocks to the page? <br><br>I know I can set min and max rows to 1, however there are also other blocks that they could add other than the footer, so we can&#x27;t use these fields.",
+        "fileAttachments": [],
+        "authorID": "178109250806087680",
+        "authorName": "MRL",
+        "authorAvatar": "74be7e022f4a3a9d4929d90ffdf10258",
+        "createdAtDate": 1677468083380
+      },
+      {
+        "content": "Have you thought about using Footers as a Global Type instead? Then in the page collection you could create a toggle that opts in to show or hide the footer",
+        "fileAttachments": [],
+        "authorID": "191776538205618177",
+        "authorName": "Mark | Omniux",
+        "authorAvatar": "1fea66dea70c9d5e50593c3d16d1bfaf",
+        "createdAtDate": 1677482395588
+      },
+      {
+        "content": "I haven’t, no. But will look into it.",
+        "fileAttachments": [],
+        "authorID": "178109250806087680",
+        "authorName": "MRL",
+        "authorAvatar": "74be7e022f4a3a9d4929d90ffdf10258",
+        "createdAtDate": 1677517471000
+      },
+      {
+        "content": "Yep, a global is the way to go here. Fetch the global data on the front end and render the footer with it. If you only want it on certain pages you could add a checkbox to your pages and check to see if the page should render the footer - this will take some extra legwork on your frontend side to do but totally possible.",
+        "fileAttachments": [],
+        "authorID": "281120856527077378",
+        "authorName": "Jarrod",
+        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
+        "createdAtDate": 1677587931181
+      }
+    ],
+    "messageCount": 3
+  },
+  {
+    "info": {
       "name": "Struggling with authentication",
       "id": "1040025457896206436",
       "guildId": "967097582721572934",
@@ -7894,6 +8298,95 @@
   },
   {
     "info": {
+      "name": "Selecting one element in Select field changes the image shown in the media field?",
+      "id": "1079486959166181386",
+      "guildId": "967097582721572934",
+      "createdAt": 1677440146963
+    },
+    "messages": [
+      {
+        "content": "Is it possible somehow, maybe with filters or relationship between select type and media type to connect them in a way that when I select one element from the dropdown list, then in the media field the image changes.<br><br>E.g. i select the word &#x27;Cat&#x27; in the Select field then in the media field I get an image of a cat, that is already uploaded",
+        "fileAttachments": [],
+        "authorID": "537385969230413846",
+        "authorName": "Arskeliss",
+        "authorAvatar": "0f72f4c0d2fd2e561a9063bc21e64f73",
+        "createdAtDate": 1677440146963
+      },
+      {
+        "content": "you can probably use field hooks",
+        "fileAttachments": [],
+        "authorID": "944284724824801302",
+        "authorName": "generator101",
+        "authorAvatar": null,
+        "createdAtDate": 1677453596755
+      },
+      {
+        "content": "<a href=\"https://payloadcms.com/docs/hooks/fields\">https://payloadcms.com/docs/hooks/fields</a>",
+        "fileAttachments": [],
+        "authorID": "944284724824801302",
+        "authorName": "generator101",
+        "authorAvatar": null,
+        "createdAtDate": 1677453597569
+      },
+      {
+        "content": "I&#x27;ll give it a try,thanks",
+        "fileAttachments": [],
+        "authorID": "537385969230413846",
+        "authorName": "Arskeliss",
+        "authorAvatar": "0f72f4c0d2fd2e561a9063bc21e64f73",
+        "createdAtDate": 1677481695171
+      },
+      {
+        "content": "I cant really get hold of the concept of using hooks.<br>Is it possible to read data from one field inside of a hook of another field?",
+        "fileAttachments": [],
+        "authorID": "537385969230413846",
+        "authorName": "Arskeliss",
+        "authorAvatar": "0f72f4c0d2fd2e561a9063bc21e64f73",
+        "createdAtDate": 1677529707089
+      },
+      {
+        "content": "Yes you can access the full document data from a hook, here is a list of the properties you can use: <a href=\"https://payloadcms.com/docs/hooks/fields#arguments-and-return-values\">https://payloadcms.com/docs/hooks/fields#arguments-and-return-values</a><br><br>Here is one way you can achieve this (screenshot), using a relationship field and hook that returns a different media based on the select field and the tags on the media item. I&#x27;ve used an <code>afterRead</code> hook here but you could use a different hook. Also the relationship field won&#x27;t display the image, but you could add a custom component to this field that renders the image.",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1079486959166181386/1079885090919821342/Screen_Shot_2023-02-27_at_9.52.10_PM.png",
+            "name": "Screen_Shot_2023-02-27_at_9.52.10_PM.png",
+            "id": "1079885090919821342",
+            "size": 473563,
+            "url": "https://cdn.discordapp.com/attachments/1079486959166181386/1079885090919821342/Screen_Shot_2023-02-27_at_9.52.10_PM.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1079486959166181386/1079885090919821342/Screen_Shot_2023-02-27_at_9.52.10_PM.png",
+            "height": 1958,
+            "width": 2918,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "854377910689202256",
+        "authorName": "jesschow",
+        "authorAvatar": "cd84347e723519ad6fe9dafb1530dbc5",
+        "createdAtDate": 1677535068917
+      },
+      {
+        "content": "Thank you @jesschow, i will try it out soon, i&#x27;m sure that it will work this way. Thank you enormously. <br><br>Also, sorry about being such a noob, I still have to understand Payload, to put the puzzle pieces together. <br><br>Looks like a great opportunity as well to exercise writing custom components. Sweet. 🙌🙌🙌<br><br> By the way, can I use  something like Next&#x27;s Image component to render the image inside Payload?",
+        "fileAttachments": [],
+        "authorID": "537385969230413846",
+        "authorName": "Arskeliss",
+        "authorAvatar": "0f72f4c0d2fd2e561a9063bc21e64f73",
+        "createdAtDate": 1677570404715
+      },
+      {
+        "content": "It&#x27;s working as expected, I changed the hook to afterChange and it changes the Media right after I hit the Save button. Neat. Thank you so much",
+        "fileAttachments": [],
+        "authorID": "537385969230413846",
+        "authorName": "Arskeliss",
+        "authorAvatar": "0f72f4c0d2fd2e561a9063bc21e64f73",
+        "createdAtDate": 1677581900737
+      }
+    ],
+    "messageCount": 7
+  },
+  {
+    "info": {
       "name": "How to add confirm box before user hit save or update? Also how to extend current model with type ui",
       "id": "1069161193404645396",
       "guildId": "967097582721572934",
@@ -8112,6 +8605,60 @@
       }
     ],
     "messageCount": 2
+  },
+  {
+    "info": {
+      "name": "can I build this with payload?",
+      "id": "1075619687318159430",
+      "guildId": "967097582721572934",
+      "createdAt": 1676518117504
+    },
+    "messages": [
+      {
+        "content": "I want to know if this flow can be built with Payload or if someone has suggestions on how to create this. <br><br>I have some collections: users, activities, and visits [image with example in comment]. Right now I can create visits for those activities in Front, the visit is a collection with a relationship between users and activities. <br><br>For some visits we need some extra info from the user, I was thinking of creating a collection called forms that has the block field to be able to create different forms and add a relationship to the form in activities. Then in Front, pull those fields and create the form.<br><br>I don&#x27;t know the right way to save this data.<br><br>Can I add these new and random fields directly to a collection?  (maybe the user or another like the visit collection)",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1075619687318159430/1075619687511105608/collections.png",
+            "name": "collections.png",
+            "id": "1075619687511105608",
+            "size": 35732,
+            "url": "https://cdn.discordapp.com/attachments/1075619687318159430/1075619687511105608/collections.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1075619687318159430/1075619687511105608/collections.png",
+            "height": 873,
+            "width": 1996,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          },
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1075619687318159430/1075619687737593886/flow.png",
+            "name": "flow.png",
+            "id": "1075619687737593886",
+            "size": 51492,
+            "url": "https://cdn.discordapp.com/attachments/1075619687318159430/1075619687737593886/flow.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1075619687318159430/1075619687737593886/flow.png",
+            "height": 1516,
+            "width": 1198,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "706208036439588934",
+        "authorName": "akacronos",
+        "authorAvatar": "6f1f79489add6cb4d6f26a7df670a8ec",
+        "createdAtDate": 1676518117504
+      },
+      {
+        "content": "I think this can be done with the form plugin.",
+        "fileAttachments": [],
+        "authorID": "706208036439588934",
+        "authorName": "akacronos",
+        "authorAvatar": "6f1f79489add6cb4d6f26a7df670a8ec",
+        "createdAtDate": 1676668816320
+      }
+    ],
+    "messageCount": 1
   },
   {
     "info": {
@@ -8454,6 +9001,41 @@
         "authorName": "minanaro_3776",
         "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
         "createdAtDate": 1675262934355
+      }
+    ],
+    "messageCount": 2
+  },
+  {
+    "info": {
+      "name": "cyclic.sh deployment",
+      "id": "1078874025280950272",
+      "guildId": "967097582721572934",
+      "createdAt": 1677294012137
+    },
+    "messages": [
+      {
+        "content": "has anyone deployed payload cms to cyclic.sh? I have been trying for couple of hours without any luck",
+        "fileAttachments": [],
+        "authorID": "944284724824801302",
+        "authorName": "generator101",
+        "authorAvatar": null,
+        "createdAtDate": 1677294012137
+      },
+      {
+        "content": "This is the first I&#x27;ve heard of this platform. Could you provide more detail on what you&#x27;re running into? We may be able to help.",
+        "fileAttachments": [],
+        "authorID": "967118574445547650",
+        "authorName": "denolfe",
+        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
+        "createdAtDate": 1677591893034
+      },
+      {
+        "content": "yeah, I recently heard about this when I was trying to test different platforms for running payload cms. I cant remember what was the issue I faced, but I decided not to deploy the cms to this platform so we can close this issue.",
+        "fileAttachments": [],
+        "authorID": "944284724824801302",
+        "authorName": "generator101",
+        "authorAvatar": null,
+        "createdAtDate": 1677600665068
       }
     ],
     "messageCount": 2
@@ -9121,6 +9703,33 @@
   },
   {
     "info": {
+      "name": "Hide options from select",
+      "id": "1074911821569458176",
+      "guildId": "967097582721572934",
+      "createdAt": 1676349349158
+    },
+    "messages": [
+      {
+        "content": "is there any way to hide certain &quot;options&quot; from &quot;select &quot; field depending on the user&#x27;s rol?<br><br>for example, i&#x27;d like to display less options for a normal user.",
+        "fileAttachments": [],
+        "authorID": "629766588492677131",
+        "authorName": "LuisLopezlg",
+        "authorAvatar": "34c04cc9816e77b82120e46fcb360d69",
+        "createdAtDate": 1676349349158
+      },
+      {
+        "content": "This is not possible currently. We have some similar functionality for relationships with a <code>filterOptions</code> function, so this is something we might be able to do in the future.<br><br>Feel free to submit a feature request, so we can discuss/prioritize with everyone.<br><br><a href=\"https://github.com/payloadcms/payload/discussions\">https://github.com/payloadcms/payload/discussions</a>",
+        "fileAttachments": [],
+        "authorID": "967118574445547650",
+        "authorName": "denolfe",
+        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
+        "createdAtDate": 1677597863095
+      }
+    ],
+    "messageCount": 1
+  },
+  {
+    "info": {
       "name": "RTE Text Alignment findings & assistance",
       "id": "1070320542537760858",
       "guildId": "967097582721572934",
@@ -9598,49 +10207,6 @@
       }
     ],
     "messageCount": 14
-  },
-  {
-    "info": {
-      "name": "How to see which user modified what?",
-      "id": "1068850602324541500",
-      "guildId": "967097582721572934",
-      "createdAt": 1674904241878
-    },
-    "messages": [
-      {
-        "content": "Is there a way? how would i go about it? any idea/suggestion?<br>Customer asked for that...",
-        "fileAttachments": [],
-        "authorID": "927463750720692285",
-        "authorName": "toybreaker",
-        "authorAvatar": "bb13ee4b3b6da124af3550b67ac71323",
-        "createdAtDate": 1674904241878
-      },
-      {
-        "content": "You can combine a custom field with a beforeChangeHook to handle that. Something like this:<br><br><pre><code class=\"hljs\">// lastModifiedByField.ts\n\nimport { Field } from &quot;payload/types&quot;;\n\nconst lastModifiedByField: Field = {\n  name: &#x27;lastModifiedBy&#x27;,\n  type: &#x27;text&#x27;, // If you prefer, use &#x27;relationship&#x27; and link to a user collection\n  admin: {\n    readOnly: true, // Ensure readonly\n    hidden: true, // Ensure it is not shown in the admin panel\n  },\n  access: {\n    read: () =&gt; true, // anyone can read\n    create: () =&gt; false, // since we are going to set this value in the hook, we disable creation\n    update: () =&gt; false, // since we are going to set this value in the hook, we disable updates\n  }\n}\n\nexport default lastModifiedByField;</code></pre><br><br><pre><code class=\"hljs\">// addLastModifiedByHook.ts\n\nimport { CollectionBeforeChangeHook } from &quot;payload/types&quot;;\n\nconst addLastModifiedByHook: CollectionBeforeChangeHook = async (args) =&gt; {\n  const user = args.req.user\n  const data = args.data\n  \n  if(!user) \n    return data\n  \n  // The returning result is the final object that will be persisted\n  return {\n    ...data, // data is the original document to be persisted\n    lastModifiedBy: user.id // our customization goes here\n  }\n}\n\nexport default addLastModifiedByHook;</code></pre>",
-        "fileAttachments": [],
-        "authorID": "265602604174802945",
-        "authorName": "erik.tartaglia",
-        "authorAvatar": "d3ba0d3ee7b3072bcd35272fe7ff1104",
-        "createdAtDate": 1674912474417
-      },
-      {
-        "content": "Then you have to add them to your collection configuration:<br><br><pre><code class=\"hljs\">// myCollection.ts\n\nimport { CollectionConfig } from &quot;payload/types&quot;;\n// import  hook + field\n\nconst MyCollection: CollectionConfig = {\n  slug: &#x27;my-collection&#x27;,\n  hooks: {\n    beforeChange: [addLastModifiedByHook]\n  },\n  fields: [\n    lastModifiedByField,\n    // ... other fields\n  ]\n}</code></pre>",
-        "fileAttachments": [],
-        "authorID": "265602604174802945",
-        "authorName": "erik.tartaglia",
-        "authorAvatar": "d3ba0d3ee7b3072bcd35272fe7ff1104",
-        "createdAtDate": 1674912849863
-      },
-      {
-        "content": "they also have this example for <code>lastModifiedBy</code> <a href=\"https://payloadcms.com/docs/plugins/overview#simple-example\">https://payloadcms.com/docs/plugins/overview#simple-example</a>",
-        "fileAttachments": [],
-        "authorID": "1044822902572318781",
-        "authorName": "fewbar",
-        "authorAvatar": null,
-        "createdAtDate": 1675021426990
-      }
-    ],
-    "messageCount": 3
   },
   {
     "info": {
@@ -12154,9 +12720,60 @@
         "authorName": "thisisnotchris",
         "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
         "createdAtDate": 1676899975233
+      },
+      {
+        "content": "OKay thanks",
+        "fileAttachments": [],
+        "authorID": "943144613689065502",
+        "authorName": "Veera26",
+        "authorAvatar": null,
+        "createdAtDate": 1677565982020
+      },
+      {
+        "content": "I will look into it",
+        "fileAttachments": [],
+        "authorID": "943144613689065502",
+        "authorName": "Veera26",
+        "authorAvatar": null,
+        "createdAtDate": 1677565987648
       }
     ],
-    "messageCount": 4
+    "messageCount": 6
+  },
+  {
+    "info": {
+      "name": "Cell component with first column \"WrapElement\" link",
+      "id": "1080099407044808715",
+      "guildId": "967097582721572934",
+      "createdAt": 1677586165916
+    },
+    "messages": [
+      {
+        "content": "Hello,<br>I created a cell component link in the doc (<a href=\"https://payloadcms.com/docs/admin/components#cell-component\">https://payloadcms.com/docs/admin/components#cell-component</a>)<br>When the cell is in the first position the &quot;WrapElement&quot; (<a href=\"https://github.com/payloadcms/payload/blob/master/src/admin/components/views/collections/List/Cell/index.tsx\">https://github.com/payloadcms/payload/blob/master/src/admin/components/views/collections/List/Cell/index.tsx</a>) with the link to the document is not added.<br>Is this a bug or is there something to be implemented?<br><br>Thank you",
+        "fileAttachments": [],
+        "authorID": "340889215304728577",
+        "authorName": "febba",
+        "authorAvatar": null,
+        "createdAtDate": 1677586165916
+      },
+      {
+        "content": "You will need to implement your own wrap element component. You have everything you need to do that since the link prop is passed to your custom component. You are looking at the default cell component in that file, but you are rendering a custom cell component",
+        "fileAttachments": [],
+        "authorID": "281120856527077378",
+        "authorName": "Jarrod",
+        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
+        "createdAtDate": 1677588543888
+      },
+      {
+        "content": "Ok thank you",
+        "fileAttachments": [],
+        "authorID": "340889215304728577",
+        "authorName": "febba",
+        "authorAvatar": null,
+        "createdAtDate": 1677594303864
+      }
+    ],
+    "messageCount": 2
   },
   {
     "info": {
@@ -12762,6 +13379,73 @@
       }
     ],
     "messageCount": 2
+  },
+  {
+    "info": {
+      "name": "Switching between s3 and local media files",
+      "id": "1076569813092155504",
+      "guildId": "967097582721572934",
+      "createdAt": 1676744645141
+    },
+    "messages": [
+      {
+        "content": "hey 👋  I am currently using plugin-cloud-storage and searched for an answer in docs, issues and here, but can&#x27;t find a solution to switch on using local media files when I am working on my local machine. Did anyone solved this?",
+        "fileAttachments": [],
+        "authorID": "386056031102304256",
+        "authorName": "dragos.nedelcu",
+        "authorAvatar": "c3cb755639223adfcf37dddacb9b0d64",
+        "createdAtDate": 1676744645141
+      },
+      {
+        "content": "The easiest way to do this would be to have an environment variables that is referenced inside your payload config, then conditionally use the plugin. Something similar can be seen here: <a href=\"https://github.com/payloadcms/plugin-cloud-storage/blob/master/dev/src/payload.config.ts\">https://github.com/payloadcms/plugin-cloud-storage/blob/master/dev/src/payload.config.ts</a>",
+        "fileAttachments": [],
+        "authorID": "967118574445547650",
+        "authorName": "denolfe",
+        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
+        "createdAtDate": 1677594592485
+      },
+      {
+        "content": "tried that, unfortunately it doesn&#x27;t work 😦 ended up using minio to replicate s3 on my local machine. It works okay like that.",
+        "fileAttachments": [],
+        "authorID": "386056031102304256",
+        "authorName": "dragos.nedelcu",
+        "authorAvatar": "c3cb755639223adfcf37dddacb9b0d64",
+        "createdAtDate": 1677595106434
+      },
+      {
+        "content": "Interesting, I don&#x27;t see any reason why that wouldn&#x27;t work. Glad you were able to find a solution 👍",
+        "fileAttachments": [],
+        "authorID": "967118574445547650",
+        "authorName": "denolfe",
+        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
+        "createdAtDate": 1677597291068
+      },
+      {
+        "content": "We managed to have S3 on production and local files on dev simply with this; basically it’ll send an empty object on dev so the plugin doesn’t throw an error<br><br><pre><code class=\"hljs\">cloudStorage({\n    collections: process.env.NODE_ENV !== &#x27;development&#x27; &amp;&amp; {\n        media: {\n            adapter,\n        },\n    },\n}),</code></pre>",
+        "fileAttachments": [],
+        "authorID": "157199103921618944",
+        "authorName": "Migu",
+        "authorAvatar": "7c40c98d2393a326cea0da98f91966d2",
+        "createdAtDate": 1677601815755
+      },
+      {
+        "content": "yep",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677601902762
+      },
+      {
+        "content": "@Migu that is the move",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677601906579
+      }
+    ],
+    "messageCount": 6
   },
   {
     "info": {
@@ -13882,6 +14566,33 @@
   },
   {
     "info": {
+      "name": "Payload CMS Account Language",
+      "id": "1078257015517892669",
+      "guildId": "967097582721572934",
+      "createdAt": 1677146905546
+    },
+    "messages": [
+      {
+        "content": "Can you only include the languages supported by your project? Selecting Chinese when my custom fields still need to be translated in the CMS; feels counterintuitive.",
+        "fileAttachments": [],
+        "authorID": "1054787039339495474",
+        "authorName": "Martin R",
+        "authorAvatar": "0053f8652dc08a03c69a03708d98f339",
+        "createdAtDate": 1677146905546
+      },
+      {
+        "content": "The internationalization of the admin panel and the localization of documents are separate by design. Is this what you&#x27;re referring to?",
+        "fileAttachments": [],
+        "authorID": "967118574445547650",
+        "authorName": "denolfe",
+        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
+        "createdAtDate": 1677512498456
+      }
+    ],
+    "messageCount": 1
+  },
+  {
+    "info": {
       "name": "passing information in admin panel",
       "id": "1064868303056679002",
       "guildId": "967097582721572934",
@@ -14266,9 +14977,65 @@
         "authorName": "denolfe",
         "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
         "createdAtDate": 1675106252140
+      },
+      {
+        "content": "<pre><code class=\"hljs\">const payload = require(&#x27;payload&#x27;);\nconst path = require(&#x27;path&#x27;);\nconst slateSerializers = require(&#x27;slate-serializers&#x27;)\n\nconst { htmlToSlate, payloadHtmlToSlateConfig } = slateSerializers\nrequire(&#x27;dotenv&#x27;).config();\n\nconst {PAYLOAD_SECRET, MONGODB_URI} = process.env;\n\n\nconst authorId = &#x27;&#x27; // Payload Author ID\nconst websiteUrl = &#x27;&#x27; // WordPress website url \n\nconst transformWordPressData = ( data ) =&gt; {\n    return {\n        title: data.title.rendered,\n        slug: data.slug,\n        excerpt: data.excerpt.rendered,\n        updatedAt: data.modified, // might actually be  data.modified_gmt\n        publishedOn: data.date, // might actually be  data.date_gmt,\n        _status: data.status === &#x27;publish&#x27; ? &#x27;published&#x27; : &#x27;draft&#x27;,\n        author: authorId,\n        layout: [\n            {\n                blockType: &#x27;content&#x27;,\n                contentFields: {\n                    richText: htmlToSlate(data.content.rendered, payloadHtmlToSlateConfig)\n                }\n            }\n        ]\n    }\n}</code></pre>",
+        "fileAttachments": [],
+        "authorID": "1009647354758054068",
+        "authorName": "christopher.nowlan",
+        "authorAvatar": "dd3e3473c973fa3dd493e55c12b1bf78",
+        "createdAtDate": 1677561984708
+      },
+      {
+        "content": "<pre><code class=\"hljs\">// This function ensures that there is at least one corresponding version for any document\n// within each of your draft-enabled collections.\nconst importFromWordPress = async () =&gt; {\n\n    const baseUrl = `${websiteUrl}/wp-json/wp/v2/posts?per_page=100`\n    const defaultOptions = {\n        method: &#x27;GET&#x27;,\n        headers: {\n            &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,\n        }\n    }\n\n    try {\n\n        await payload.init({\n            secret: PAYLOAD_SECRET,\n            mongoURL: MONGODB_URI,\n            local: true,\n        });\n\n        const wpPosts = []\n\n        const getTotalPagesReq = await fetch(baseUrl, defaultOptions)\n        // Get&#x27;s the total number of post pages \n        const getTotalPagesRes = getTotalPagesReq.headers.get(&#x27;x-WP-TotalPages&#x27;)\n\n\n        for (let i = 0; i &lt; getTotalPagesRes; i++) {\n           const wpPostReq = await fetch( `${baseUrl}&amp;page=${i+1}`, defaultOptions)\n           const wpPostRes = await wpPostReq.json()\n           wpPosts.push(wpPostRes)\n        }\n\n\n        for (const wpPost of wpPosts.flat()) {\n\n            await payload.create({\n                collection: &#x27;news&#x27;,\n                // data to be saved\n                data: transformWordPressData(wpPost),\n            })\n        }\n\n\n    } catch (err) {\n        console.log(&#x27;Unable to import posts into payload from WordPress&#x27;);\n        console.error(err);\n        process.exit(0);\n    }\n\n    console.log(&#x27;WordPress import completed!&#x27;);\n    process.exit(0);\n};\n\nimportFromWordPress();</code></pre>",
+        "fileAttachments": [],
+        "authorID": "1009647354758054068",
+        "authorName": "christopher.nowlan",
+        "authorAvatar": "dd3e3473c973fa3dd493e55c12b1bf78",
+        "createdAtDate": 1677561989249
+      },
+      {
+        "content": "@stfn above is a simple example of using WordPress rest api to import post content into Payload",
+        "fileAttachments": [],
+        "authorID": "1009647354758054068",
+        "authorName": "christopher.nowlan",
+        "authorAvatar": "dd3e3473c973fa3dd493e55c12b1bf78",
+        "createdAtDate": 1677562136388
+      },
+      {
+        "content": "I then have a simple package.json script I run - <code>&quot;import&quot;: &quot;PAYLOAD_CONFIG_PATH=dist/payload.config.js node ./importFromWordPress.js&quot;</code>",
+        "fileAttachments": [],
+        "authorID": "1009647354758054068",
+        "authorName": "christopher.nowlan",
+        "authorAvatar": "dd3e3473c973fa3dd493e55c12b1bf78",
+        "createdAtDate": 1677562198329
+      },
+      {
+        "content": "@denolfe above is a pretty crud example on how to import from WordPress to Payload using the WordPress Rest API",
+        "fileAttachments": [],
+        "authorID": "1009647354758054068",
+        "authorName": "christopher.nowlan",
+        "authorAvatar": "dd3e3473c973fa3dd493e55c12b1bf78",
+        "createdAtDate": 1677562705094
+      },
+      {
+        "content": "Woow thank you, it works! And have you found a solution also for convert Gutemberg blocks?",
+        "fileAttachments": [],
+        "authorID": "928376918804430868",
+        "authorName": "stfn",
+        "authorAvatar": null,
+        "createdAtDate": 1677575095136
+      },
+      {
+        "content": "This is awesome, thanks for sharing! 🙏",
+        "fileAttachments": [],
+        "authorID": "967118574445547650",
+        "authorName": "denolfe",
+        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
+        "createdAtDate": 1677591164967
       }
     ],
-    "messageCount": 4
+    "messageCount": 11
   },
   {
     "info": {
@@ -14949,6 +15716,60 @@
       }
     ],
     "messageCount": 5
+  },
+  {
+    "info": {
+      "name": "Format the doc response from hooks, only for the API request.",
+      "id": "1078326363884363897",
+      "guildId": "967097582721572934",
+      "createdAt": 1677163439485
+    },
+    "messages": [
+      {
+        "content": "Hello, I have a question about the capability to format the <code>doc</code> response in <code>afterRead</code> hook, only on the API request, not when I load the admin. Is there a way to do this? <br><pre><code class=\"hljs ts\"><span class=\"hljs-attr\">hooks</span>: {\n  <span class=\"hljs-attr\">afterRead</span>: [\n    <span class=\"hljs-function\">(<span class=\"hljs-params\">{ doc }</span>) =&gt;</span> {\n      doc.<span class=\"hljs-property\">title</span> = doc.<span class=\"hljs-property\">title</span> + <span class=\"hljs-string\">&quot;foo&quot;</span>\n      <span class=\"hljs-keyword\">return</span> doc\n    }\n  ],\n},</code></pre><code>In this example, I need to format the</code>title<code>only on the api call response. For sur I can create a</code>customTitle` object key on doc but it&#x27;s seems to be strange to keep and return unformatted data on the api response. Maybe it&#x27;s a paradigm problem?",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1078326363884363897/1078326364110860330/Capture_decran_2023-02-23_a_15.38.34.png",
+            "name": "Capture_decran_2023-02-23_a_15.38.34.png",
+            "id": "1078326364110860330",
+            "size": 7267,
+            "url": "https://cdn.discordapp.com/attachments/1078326363884363897/1078326364110860330/Capture_decran_2023-02-23_a_15.38.34.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1078326363884363897/1078326364110860330/Capture_decran_2023-02-23_a_15.38.34.png",
+            "height": 208,
+            "width": 145,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          },
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1078326363884363897/1078326364354134077/Capture_decran_2023-02-23_a_15.39.56.png",
+            "name": "Capture_decran_2023-02-23_a_15.39.56.png",
+            "id": "1078326364354134077",
+            "size": 13985,
+            "url": "https://cdn.discordapp.com/attachments/1078326363884363897/1078326364354134077/Capture_decran_2023-02-23_a_15.39.56.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1078326363884363897/1078326364354134077/Capture_decran_2023-02-23_a_15.39.56.png",
+            "height": 102,
+            "width": 360,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "783679384434901012",
+        "authorName": "Willy Brownhair",
+        "authorAvatar": "85a20ab2579ed3b510b52a674348fcea",
+        "createdAtDate": 1677163439485
+      },
+      {
+        "content": "I found a workaround using query param to check &quot;when&quot; the api is called.<br><br><pre><code class=\"hljs ts\"><span class=\"hljs-attr\">hooks</span>: {\n    <span class=\"hljs-attr\">afterRead</span>: [\n      <span class=\"hljs-function\">(<span class=\"hljs-params\">{ doc, req }</span>) =&gt;</span> {\n\n        <span class=\"hljs-comment\">// if &quot;?api&quot; doesn&#x27;t exist on request URL, return non formatted doc</span>\n        <span class=\"hljs-keyword\">if</span> (req.<span class=\"hljs-property\">query</span>.<span class=\"hljs-property\">api</span> == <span class=\"hljs-literal\">null</span>)\n          <span class=\"hljs-keyword\">return</span> doc\n\n        <span class=\"hljs-comment\">// with &quot;?api&quot; on api request, we want to get formatted doc</span>\n        <span class=\"hljs-comment\">//ex: http://localhost:3000/api/posts/63f727b53a255a9683223236?api</span>\n        <span class=\"hljs-comment\">// format...</span>\n\n       doc.<span class=\"hljs-property\">title</span> = doc.<span class=\"hljs-property\">title</span> + <span class=\"hljs-string\">&quot;foo&quot;</span>\n       <span class=\"hljs-variable language_\">console</span>.<span class=\"hljs-title function_\">log</span>(<span class=\"hljs-string\">&quot;doc.title&quot;</span>,doc.<span class=\"hljs-property\">title</span>)\n       <span class=\"hljs-keyword\">return</span> doc\n      }\n    ],\n  },</code></pre>",
+        "fileAttachments": [],
+        "authorID": "783679384434901012",
+        "authorName": "Willy Brownhair",
+        "authorAvatar": "85a20ab2579ed3b510b52a674348fcea",
+        "createdAtDate": 1677508301748
+      }
+    ],
+    "messageCount": 1
   },
   {
     "info": {
@@ -16266,6 +17087,41 @@
   },
   {
     "info": {
+      "name": "Localized blocks?",
+      "id": "1080200454018977902",
+      "guildId": "967097582721572934",
+      "createdAt": 1677610257392
+    },
+    "messages": [
+      {
+        "content": "I&#x27;m exploring localization and I have an upcoming project that would ideally utilize localized sets of blocks. For instance, a page my contain one set of blocks for English and then another set of blocks for Spanish. <br><br>Is this supported or is it possible to support?",
+        "fileAttachments": [],
+        "authorID": "214419801039175682",
+        "authorName": "Jakey",
+        "authorAvatar": "235bf3c8f56d52de5dc4772e5aa2d2bb",
+        "createdAtDate": 1677610257392
+      },
+      {
+        "content": "I&#x27;m being silly, was trying to put the localize property on a tab definition",
+        "fileAttachments": [],
+        "authorID": "214419801039175682",
+        "authorName": "Jakey",
+        "authorAvatar": "235bf3c8f56d52de5dc4772e5aa2d2bb",
+        "createdAtDate": 1677610798560
+      },
+      {
+        "content": "my exact use-case does completely work. even allows you to fallback to the default language.",
+        "fileAttachments": [],
+        "authorID": "214419801039175682",
+        "authorName": "Jakey",
+        "authorAvatar": "235bf3c8f56d52de5dc4772e5aa2d2bb",
+        "createdAtDate": 1677610798919
+      }
+    ],
+    "messageCount": 2
+  },
+  {
+    "info": {
       "name": "Preview example with app directory",
       "id": "1075079909053059203",
       "guildId": "967097582721572934",
@@ -16778,9 +17634,25 @@
         "authorName": "Jesse Sivonen",
         "authorAvatar": null,
         "createdAtDate": 1677412354359
+      },
+      {
+        "content": "@patrikkozak thank you.",
+        "fileAttachments": [],
+        "authorID": "273835182979678221",
+        "authorName": "Villain Behind Glasses",
+        "authorAvatar": "7ab84e77693b708d385126f23ed19cf1",
+        "createdAtDate": 1677566824422
+      },
+      {
+        "content": "@Jesse Sivonen i will try it with the docker",
+        "fileAttachments": [],
+        "authorID": "273835182979678221",
+        "authorName": "Villain Behind Glasses",
+        "authorAvatar": "7ab84e77693b708d385126f23ed19cf1",
+        "createdAtDate": 1677566859424
       }
     ],
-    "messageCount": 2
+    "messageCount": 4
   },
   {
     "info": {
@@ -17623,6 +18495,162 @@
       }
     ],
     "messageCount": 2
+  },
+  {
+    "info": {
+      "name": "no docs in Vercel",
+      "id": "1076044223691894835",
+      "guildId": "967097582721572934",
+      "createdAt": 1676619334863
+    },
+    "messages": [
+      {
+        "content": "I don&#x27;t know why, but in vercel I don&#x27;t get docs from a query but in localhost I do.<br>And i have another similar collection, and similar queries and I get docs in local and the domain. Does anyone have an idea of why?",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1076044223691894835/1076044223868063774/Screenshot_2023-02-17_at_1.32.12_a.m..png",
+            "name": "Screenshot_2023-02-17_at_1.32.12_a.m..png",
+            "id": "1076044223868063774",
+            "size": 25193,
+            "url": "https://cdn.discordapp.com/attachments/1076044223691894835/1076044223868063774/Screenshot_2023-02-17_at_1.32.12_a.m..png",
+            "proxyURL": "https://media.discordapp.net/attachments/1076044223691894835/1076044223868063774/Screenshot_2023-02-17_at_1.32.12_a.m..png",
+            "height": 230,
+            "width": 776,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          },
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1076044223691894835/1076044224102932510/Screenshot_2023-02-17_at_1.32.51_a.m..png",
+            "name": "Screenshot_2023-02-17_at_1.32.51_a.m..png",
+            "id": "1076044224102932510",
+            "size": 30569,
+            "url": "https://cdn.discordapp.com/attachments/1076044223691894835/1076044224102932510/Screenshot_2023-02-17_at_1.32.51_a.m..png",
+            "proxyURL": "https://media.discordapp.net/attachments/1076044223691894835/1076044224102932510/Screenshot_2023-02-17_at_1.32.51_a.m..png",
+            "height": 202,
+            "width": 777,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "706208036439588934",
+        "authorName": "akacronos",
+        "authorAvatar": "6f1f79489add6cb4d6f26a7df670a8ec",
+        "createdAtDate": 1676619334863
+      },
+      {
+        "content": "This is the query, I get docs in local, but not in vercel<br><pre><code class=\"hljs\">const { data } = await axios.get(&#x27;/communityMembers&#x27;, {\n    params: {\n      where: {\n        and: [\n          {\n            community: {\n              equals: {\n                value: communityId,\n                relationTo: &#x27;community&#x27;,\n              },\n            },\n          },\n          {\n            member: {\n              equals: userId,\n            },\n          },\n        ],\n      },\n    },\n  });</code></pre>",
+        "fileAttachments": [],
+        "authorID": "706208036439588934",
+        "authorName": "akacronos",
+        "authorAvatar": "6f1f79489add6cb4d6f26a7df670a8ec",
+        "createdAtDate": 1676619537885
+      },
+      {
+        "content": "In other collection I use this other query and works in vercel and local:<br><pre><code class=\"hljs\">const { data } = await axios.get(&#x27;/visits&#x27;, {\n    params: {\n      where: {\n        and: [\n          {\n            activity: {\n              equals: {\n                value: activityId,\n                relationTo: &#x27;activities&#x27;,\n              },\n            },\n          },\n          {\n            attendee: {\n              equals: userId,\n            },\n          },\n        ],\n      },\n    },\n  });</code></pre>",
+        "fileAttachments": [],
+        "authorID": "706208036439588934",
+        "authorName": "akacronos",
+        "authorAvatar": "6f1f79489add6cb4d6f26a7df670a8ec",
+        "createdAtDate": 1676619585732
+      },
+      {
+        "content": "I deploy the project in digital ocean and the query for <code>communityMembers</code> works fine 🫠. I really have no idea of why is not working in Vercel",
+        "fileAttachments": [],
+        "authorID": "706208036439588934",
+        "authorName": "akacronos",
+        "authorAvatar": "6f1f79489add6cb4d6f26a7df670a8ec",
+        "createdAtDate": 1676620065552
+      },
+      {
+        "content": "do you get a response at all?  does your axios fn throw an error?",
+        "fileAttachments": [],
+        "authorID": "281120856527077378",
+        "authorName": "Jarrod",
+        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
+        "createdAtDate": 1676640963805
+      },
+      {
+        "content": "yes, but without docs :/",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1076044223691894835/1076247598651941034/Screenshot_2023-02-17_at_3.02.49_p.m..png",
+            "name": "Screenshot_2023-02-17_at_3.02.49_p.m..png",
+            "id": "1076247598651941034",
+            "size": 87946,
+            "url": "https://cdn.discordapp.com/attachments/1076044223691894835/1076247598651941034/Screenshot_2023-02-17_at_3.02.49_p.m..png",
+            "proxyURL": "https://media.discordapp.net/attachments/1076044223691894835/1076247598651941034/Screenshot_2023-02-17_at_3.02.49_p.m..png",
+            "height": 274,
+            "width": 1946,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          },
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1076044223691894835/1076247599012646952/Screenshot_2023-02-17_at_3.03.08_p.m..png",
+            "name": "Screenshot_2023-02-17_at_3.03.08_p.m..png",
+            "id": "1076247599012646952",
+            "size": 65723,
+            "url": "https://cdn.discordapp.com/attachments/1076044223691894835/1076247599012646952/Screenshot_2023-02-17_at_3.03.08_p.m..png",
+            "proxyURL": "https://media.discordapp.net/attachments/1076044223691894835/1076247599012646952/Screenshot_2023-02-17_at_3.03.08_p.m..png",
+            "height": 374,
+            "width": 1382,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "706208036439588934",
+        "authorName": "akacronos",
+        "authorAvatar": "6f1f79489add6cb4d6f26a7df670a8ec",
+        "createdAtDate": 1676667823369
+      },
+      {
+        "content": "I have a similar request in another page that works",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1076044223691894835/1076248078941683722/Screenshot_2023-02-17_at_3.04.46_p.m..png",
+            "name": "Screenshot_2023-02-17_at_3.04.46_p.m..png",
+            "id": "1076248078941683722",
+            "size": 93575,
+            "url": "https://cdn.discordapp.com/attachments/1076044223691894835/1076248078941683722/Screenshot_2023-02-17_at_3.04.46_p.m..png",
+            "proxyURL": "https://media.discordapp.net/attachments/1076044223691894835/1076248078941683722/Screenshot_2023-02-17_at_3.04.46_p.m..png",
+            "height": 322,
+            "width": 1996,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          },
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1076044223691894835/1076248079147225180/Screenshot_2023-02-17_at_3.04.53_p.m..png",
+            "name": "Screenshot_2023-02-17_at_3.04.53_p.m..png",
+            "id": "1076248079147225180",
+            "size": 78515,
+            "url": "https://cdn.discordapp.com/attachments/1076044223691894835/1076248079147225180/Screenshot_2023-02-17_at_3.04.53_p.m..png",
+            "proxyURL": "https://media.discordapp.net/attachments/1076044223691894835/1076248079147225180/Screenshot_2023-02-17_at_3.04.53_p.m..png",
+            "height": 378,
+            "width": 1268,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "706208036439588934",
+        "authorName": "akacronos",
+        "authorAvatar": "6f1f79489add6cb4d6f26a7df670a8ec",
+        "createdAtDate": 1676667937843
+      },
+      {
+        "content": "The weird things:<br>- Works in other similar collection / req<br>- Works in local but not in vercel<br>- Works in digitalocean app but not in vercel 🫠",
+        "fileAttachments": [],
+        "authorID": "706208036439588934",
+        "authorName": "akacronos",
+        "authorAvatar": "6f1f79489add6cb4d6f26a7df670a8ec",
+        "createdAtDate": 1676668958049
+      }
+    ],
+    "messageCount": 7
   },
   {
     "info": {
@@ -20531,6 +21559,33 @@
   },
   {
     "info": {
+      "name": "Error [ERR_REQUIRE_ESM]: require() of ES Module when trying to implement Lit Element",
+      "id": "1075705278307258389",
+      "guildId": "967097582721572934",
+      "createdAt": 1676538523986
+    },
+    "messages": [
+      {
+        "content": "Hey there, I want to use Lit on React for <code>ui</code> field on payload. I use <code>@lit-labs/react</code> to do it.<br><br>always got <br><pre><code class=\"hljs\">Error [ERR_REQUIRE_ESM]: require() of ES Module /path/payload/node_modules/lit-element/index.js from /path/payload/src/lit-components/test/my-element.js not supported.\nInstead change the require of index.js in /path/payload/src/lit-components/test/my-element.js to a dynamic import() which is available in all CommonJS modules.</code></pre><br><br>Is there any way to implement Lit with Payload?<br>Has someone done this (Lit+React) in payload before?",
+        "fileAttachments": [],
+        "authorID": "946373741175267329",
+        "authorName": "rrums",
+        "authorAvatar": "6a019fb818dd1274398027f152b5294b",
+        "createdAtDate": 1676538523986
+      },
+      {
+        "content": "That package appears to be ESM-only, so this won&#x27;t be possible currently unless you introduce some sort of bundling to get a cjs output. This is an node-wide ecosystem problem at the moment.",
+        "fileAttachments": [],
+        "authorID": "967118574445547650",
+        "authorName": "denolfe",
+        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
+        "createdAtDate": 1677592204112
+      }
+    ],
+    "messageCount": 1
+  },
+  {
+    "info": {
       "name": "Is it possible to use Payloads' email and password validator on the frontend, like Next.js?",
       "id": "1070961204899614750",
       "guildId": "967097582721572934",
@@ -21147,6 +22202,25 @@
       }
     ],
     "messageCount": 14
+  },
+  {
+    "info": {
+      "name": "Has anyone built a dropzone upload component?",
+      "id": "1076548831384191007",
+      "guildId": "967097582721572934",
+      "createdAt": 1676739642712
+    },
+    "messages": [
+      {
+        "content": "The nested modal confuses some users and a simple dropzone would suffice for this usecase.",
+        "fileAttachments": [],
+        "authorID": "476523795251855360",
+        "authorName": "thgh",
+        "authorAvatar": "7a6dc70a50b1fe0de52c0e1a358e8fa5",
+        "createdAtDate": 1676739642712
+      }
+    ],
+    "messageCount": 0
   },
   {
     "info": {

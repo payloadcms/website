@@ -8,14 +8,10 @@ import { Gutter } from '@components/Gutter'
 import AuthorTag from '@components/AuthorTag'
 import DiscordGitCTA from '@components/DiscordGitCTA'
 import OpenPost from '@components/OpenPost'
-import Link from 'next/link'
-
-import { FileAttachment } from '../../../../components/FileAttachment'
+import { DiscordGitIntro } from '@components/DiscordGitIntro'
+import { FileAttachment } from '@components/FileAttachment'
 
 import classes from './index.module.scss'
-
-// TODO: add all CTAS
-// TODO: style for mobile
 
 export type Attachments = {
   attachment: string
@@ -69,76 +65,66 @@ export const RenderThread: React.FC<ThreadProps> = props => {
     <HeaderObserver color={theme} pullUp>
       <Gutter>
         <Grid>
-          <Cell cols={10} colsL={9} className={classes.thread}>
-            <div className={classes.breadcrumbWrap}>
-              <Link className={classes.breadcrumb} href="/community-help">
-                Community Help
-              </Link>
-            </div>
-            <div>
-              <a className={classes.title} href={postUrl} rel="noopener noreferrer" target="_blank">
-                <h3>{info.name}</h3>
-              </a>
-              <div className={classes.authorDetails}>
-                <AuthorTag
-                  author={author}
-                  image={authorAvatarImg}
-                  date={info.createdAt}
-                  platform="Discord"
-                  messageCount={messageCount}
-                />
-              </div>
+          <Cell cols={10} colsL={9} className={classes.post}>
+            <DiscordGitIntro
+              postUrl={postUrl}
+              postName={info.name}
+              author={author}
+              image={authorAvatarImg}
+              date={info.createdAt}
+              platform="Discord"
+              messageCount={messageCount}
+            />
 
-              <div
-                className={classes.content}
-                dangerouslySetInnerHTML={{ __html: originalMessage }}
-              />
+            <div
+              className={classes.content}
+              dangerouslySetInnerHTML={{ __html: originalMessage }}
+            />
 
-              <ul className={classes.messageWrap}>
-                {messages &&
-                  allMessagesExceptOriginal.map((message, i) => {
-                    const selectedAvatar = `https://cdn.discordapp.com/avatars/${message.authorID}/${message.authorAvatar}.png?size=256`
-                    const defaultAvatar = 'https://cdn.discordapp.com/embed/avatars/0.png'
-                    const avatarImg = message.authorAvatar ? selectedAvatar : defaultAvatar
+            <ul className={classes.messageWrap}>
+              {messages &&
+                allMessagesExceptOriginal.map((message, i) => {
+                  const selectedAvatar = `https://cdn.discordapp.com/avatars/${message.authorID}/${message.authorAvatar}.png?size=256`
+                  const defaultAvatar = 'https://cdn.discordapp.com/embed/avatars/0.png'
+                  const avatarImg = message.authorAvatar ? selectedAvatar : defaultAvatar
 
-                    const hasFileAttachments =
-                      message.fileAttachments &&
-                      Array.isArray(message.fileAttachments) &&
-                      message.fileAttachments.length > 0
+                  const hasFileAttachments =
+                    message.fileAttachments &&
+                    Array.isArray(message.fileAttachments) &&
+                    message.fileAttachments.length > 0
 
-                    return (
-                      <li className={classes.message} key={i}>
-                        <AuthorTag
-                          author={message.authorName}
-                          image={avatarImg}
-                          date={message.createdAtDate}
-                          platform="Discord"
-                          comment
-                        />
-                        <div
-                          className={classes.content}
-                          dangerouslySetInnerHTML={{ __html: message.content }}
-                        />
-                        {hasFileAttachments && (
-                          <div className={classes.attachmentWrap}>
-                            {message.fileAttachments.map((fileAttachment, x) => {
-                              return (
-                                <FileAttachment
-                                  key={x}
-                                  url={fileAttachment?.url}
-                                  name={fileAttachment.name}
-                                />
-                              )
-                            })}
-                          </div>
-                        )}
-                      </li>
-                    )
-                  })}
-              </ul>
+                  return (
+                    <li className={classes.message} key={i}>
+                      <AuthorTag
+                        author={message.authorName}
+                        image={avatarImg}
+                        date={message.createdAtDate}
+                        platform="Discord"
+                        comment
+                      />
+                      <div
+                        className={classes.content}
+                        dangerouslySetInnerHTML={{ __html: message.content }}
+                      />
+                      {hasFileAttachments && (
+                        <div className={classes.attachmentWrap}>
+                          {message.fileAttachments.map((fileAttachment, x) => {
+                            return (
+                              <FileAttachment
+                                key={x}
+                                url={fileAttachment?.url}
+                                name={fileAttachment.name}
+                              />
+                            )
+                          })}
+                        </div>
+                      )}
+                    </li>
+                  )
+                })}
+            </ul>
 
-              <OpenPost url={postUrl} platform="Discord" />
-            </div>
+            <OpenPost url={postUrl} platform="Discord" />
           </Cell>
         </Grid>
       </Gutter>
