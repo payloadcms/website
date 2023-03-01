@@ -1,0 +1,28 @@
+@use '@scss/common' as *;
+
+.accordionFormContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+}
+
+.row {
+  [data-accordion-header] {
+    border-top: 1px solid var(--theme-elevation-200);
+  }
+  
+  &:first-child {
+    [data-accordion-header] {
+      border-top: none;
+    }
+  }
+}
+
+.actionFooter {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--base);
+  border-top: 1px solid var(--theme-elevation-200);
+  padding-top: calc(var(--base) * 1);
+}

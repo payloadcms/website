@@ -1,0 +1,47 @@
+@use '@scss/common' as *;
+
+.formContent {
+  gap: var(--base);
+  display: flex;
+  flex-direction: column;
+}
+
+.newItemRow {
+  display: flex;
+  gap: var(--base);
+
+  .trashButton {
+    all: unset;
+    margin-bottom: 12px;
+    align-self: flex-end;
+    display: flex;
+    padding: 2px 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    color: var(--color-error-500);
+
+    &:hover,
+    &:focus {
+      background-color: var(--theme-error-100);
+    }
+  }
+}
+
+.newVariableInputs {
+  width: 100%;
+  display: flex;
+  gap: inherit;
+}
+
+.newEnvInput {
+  width: 100%;
+  align-self: flex-end;
+}
+
+.actionFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--base);
+  border-top: 1px solid var(--theme-elevation-200);
+  padding-top: calc(var(--base) * 1);
+}

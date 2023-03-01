@@ -1,0 +1,43 @@
+@use '@scss/common' as *;
+
+.header {
+  --spacer: 1rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: calc(var(--spacer) * .75) var(--spacer);
+  background-color: var(--theme-elevation-100);
+
+  .labelContent {
+    @include label;
+    margin: 0;
+    display: flex;
+    gap: var(--base);
+    align-items: center;
+    color: var(--theme-elevation-500);
+
+    * {
+      margin: 0;
+    }
+  }
+
+  .toggler {
+    all: unset;
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px 5px;
+    border-radius: 3px;
+  
+    &:hover,
+    &:focus {
+      background-color: var(--theme-elevation-200);
+    }
+  }
+}
+
+.collapsibleContent {
+  padding: var(--spacer);
+  background-color: var(--theme-elevation-50);
+}
