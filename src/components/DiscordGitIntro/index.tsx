@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import AuthorTag from '@components/AuthorTag'
 import Link from 'next/link'
-
+import { DiscordGitBody } from '@components/DiscordGitBody'
 import classes from './index.module.scss'
 
 export type Props = {
@@ -15,6 +15,7 @@ export type Props = {
   platform?: 'Github' | 'Discord'
   messageCount?: number
   upvotes?: number
+  content?: string
 }
 
 export const DiscordGitIntro: React.FC<Props> = ({
@@ -27,6 +28,7 @@ export const DiscordGitIntro: React.FC<Props> = ({
   platform,
   messageCount,
   upvotes,
+  content,
 }) => {
   return (
     <Fragment>
@@ -49,6 +51,7 @@ export const DiscordGitIntro: React.FC<Props> = ({
           upvotes={upvotes}
         />
       </div>
+      <DiscordGitBody body={content} />
     </Fragment>
   )
 }
