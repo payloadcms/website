@@ -4,7 +4,7 @@
     color: var(--theme-error-500);
 }
 
-.creditCardSelector {
+.cards {
     > *:not(:last-child) {
         margin-bottom: var(--base);
     }

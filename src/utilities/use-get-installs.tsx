@@ -3,7 +3,7 @@ import React, { useCallback, useEffect } from 'react'
 import { useAuth } from '@root/providers/Auth'
 
 export interface Install {
-  id: string
+  id: number
   account: {
     id: string
     login: string
@@ -35,15 +35,12 @@ const installReducer = (state: Install[], action: Action) => {
   }
 }
 
-export const useGetInstalls = (props: {
-  onLoad?: (install: Install[]) => void // eslint-disable-line no-unused-vars
-}): {
+export const useGetInstalls = (): {
   error: string | undefined
   loading: boolean
   installs: Install[]
   reloadInstalls: () => void
 } => {
-  const { onLoad } = props
   const [error, setError] = React.useState<string | undefined>()
   const [loading, setLoading] = React.useState(true)
   const [installs, dispatchInstalls] = React.useReducer(installReducer, [])
@@ -74,35 +71,29 @@ export const useGetInstalls = (props: {
     let timeout: NodeJS.Timeout
 
     if (user) {
-      timeout = setTimeout(() => {
-        setLoading(true)
-      }, 250)
       const getInstalls = async () => {
         timeout = setTimeout(() => {
           setLoading(true)
         }, 250)
 
         const installations = await loadInstalls()
-        dispatchInstalls({ type: 'set', payload: installations })
         clearTimeout(timeout)
+        dispatchInstalls({ type: 'set', payload: installations })
         setLoading(false)
       }
 
       getInstalls()
     }
+
+    return () => {
+      clearTimeout(timeout)
+    }
   }, [user, loadInstalls])
 
-  const reloadInstalls = useCallback(() => {
-    const getInstalls = async () => {
-      const installations = await loadInstalls()
-      dispatchInstalls({ type: 'set', payload: installations })
-      if (typeof onLoad === 'function') {
-        onLoad(installations)
-      }
-    }
-
-    getInstalls()
-  }, [loadInstalls, onLoad])
+  const reloadInstalls = useCallback(async () => {
+    const installations = await loadInstalls()
+    dispatchInstalls({ type: 'set', payload: installations })
+  }, [loadInstalls])
 
   return {
     installs,

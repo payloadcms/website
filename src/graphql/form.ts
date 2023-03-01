@@ -44,5 +44,8 @@ export const FORM_FIELDS = `{
    }
    confirmationType
    confirmationMessage
+   redirect {
+    url
+   }
    leader
 }`

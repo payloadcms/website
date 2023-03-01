@@ -44,6 +44,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
   const { user } = useAuth()
   const router = useRouter()
   const [selectedTeam, setSelectedTeam] = React.useState<Team>()
+  const [installsLoading, setInstallsLoading] = React.useState<boolean>(true)
   const [selectedInstall, setSelectedInstall] = React.useState<Install>()
   const [selectedPlan, setSelectedPlan] = React.useState<Plan>()
   const [isLoading, setIsLoading] = React.useState<boolean>(true)
@@ -220,6 +221,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
                       setSelectedInstall(install)
                     }}
                     value={selectedInstall?.id}
+                    onLoading={setInstallsLoading}
                   />
                   <br />
                   <div>
@@ -231,7 +233,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
             </div>
           </Cell>
           <Cell cols={9} colsM={8}>
-            {loading ? (
+            {loading || installsLoading ? (
               <LoadingShimmer number={3} />
             ) : (
               <Fragment>

@@ -38,7 +38,7 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
               <RichText content={richText} />
               {enableLink && link && (
                 <div className={classes.button}>
-                  <Button {...link} labelStyle="mono" icon="arrow" />
+                  <Button {...link} labelStyle="mono" icon="arrow" el="link" />
                 </div>
               )}
             </Cell>
@@ -55,7 +55,7 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
               <RichText content={richText} />
               {enableLink && link && (
                 <div className={classes.button}>
-                  <Button {...link} labelStyle="mono" icon="arrow" />
+                  <Button {...link} labelStyle="mono" icon="arrow" el="link" />
                 </div>
               )}
             </Cell>

@@ -6,8 +6,9 @@ import { ModalContainer, ModalProvider } from '@faceless-ui/modal'
 import { MouseInfoProvider } from '@faceless-ui/mouse-info'
 import { ScrollInfoProvider } from '@faceless-ui/scroll-info'
 import { WindowInfoProvider } from '@faceless-ui/window-info'
-
+import { CookiesProvider } from 'react-cookie'
 import { Template } from '@root/payload-cloud-types'
+
 import { AuthProvider } from './Auth'
 import { ComputedCSSValuesProvider } from './ComputedCSSValues'
 import { GlobalsProvider } from './Globals'
@@ -20,6 +21,7 @@ export const Providers: React.FC<{
   templates: Template[]
 }> = ({ children, templates }) => {
   return (
+  <CookiesProvider>
     <GlobalsProvider templates={templates}>
       <AuthProvider>
         <ScrollInfoProvider>
@@ -74,5 +76,6 @@ export const Providers: React.FC<{
         </ScrollInfoProvider>
       </AuthProvider>
     </GlobalsProvider>
+    </CookiesProvider>
   )
 }

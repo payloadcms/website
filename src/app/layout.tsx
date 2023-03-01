@@ -1,7 +1,8 @@
 import React from 'react'
-import { fetchGlobals } from '@graphql'
+import { fetchAnnouncements, fetchGlobals } from '@graphql'
 import { Providers } from '@providers'
 
+import { Announcements } from '@components/Announcements'
 import { HeaderObserver } from '@components/HeaderObserver'
 import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
@@ -13,6 +14,7 @@ import classes from './layout.module.scss'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { mainMenu, footer, templates } = await fetchGlobals()
+  const { announcements } = await fetchAnnouncements()
 
   return (
     <html lang="en">
@@ -36,6 +38,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <Footer {...footer} />
             <div id="docsearch" />
           </div>
+          <Announcements announcements={announcements} />
         </Providers>
       </body>
     </html>
