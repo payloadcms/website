@@ -14,6 +14,8 @@ import { useGetRepos } from '../../../utilities/use-get-repos'
 import classes from './index.module.scss'
 
 export const ImportProject: React.FC = () => {
+  const [loadingInstalls, setLoadingInstalls] = React.useState<boolean>(true)
+  const [installs, setInstalls] = React.useState<Install[]>()
   const [selectedInstall, setSelectedInstall] = React.useState<Install | undefined>(undefined)
   const router = useRouter()
   const [hoverIndex, setHoverIndex] = React.useState<number | undefined>(undefined)
@@ -41,9 +43,12 @@ export const ImportProject: React.FC = () => {
         <Grid>
           <Cell cols={4} colsM={8} className={classes.sidebarCell}>
             <div className={classes.sidebar}>
-              <div>
-                <ScopeSelector value={selectedInstall?.id} onChange={setSelectedInstall} />
-              </div>
+              <ScopeSelector
+                value={selectedInstall?.id}
+                onChange={setSelectedInstall}
+                onInstalls={setInstalls}
+                onLoading={setLoadingInstalls}
+              />
               {/* <div>
             <p className={classes.label}>Search</p>
             <Text placeholder="Enter search term" />
@@ -60,11 +65,13 @@ export const ImportProject: React.FC = () => {
             </div>
           </Cell>
           <Cell cols={8} colsM={8}>
-            {loadingRepos && <LoadingShimmer number={3} />}
-            {!loadingRepos && repos?.length > 0 && (
+            {((loadingRepos && installs?.length > 0) || loadingInstalls) && (
+              <LoadingShimmer number={3} />
+            )}
+            {!loadingInstalls && !loadingRepos && repos?.length > 0 && (
               <div className={classes.repos}>
                 {repos?.map((repo, index) => {
-                  const { name } = repo
+                  const { name, description } = repo
                   const isHovered = hoverIndex === index
                   return (
                     <div
@@ -73,7 +80,10 @@ export const ImportProject: React.FC = () => {
                       onMouseEnter={() => setHoverIndex(index)}
                       onMouseLeave={() => setHoverIndex(undefined)}
                     >
-                      <h6 className={classes.repoName}>{name}</h6>
+                      <div className={classes.repoContent}>
+                        <h6 className={classes.repoName}>{name}</h6>
+                        {description && <p className={classes.repoDescription}>{description}</p>}
+                      </div>
                       <Button
                         label="Import"
                         appearance="primary"
@@ -89,11 +99,23 @@ export const ImportProject: React.FC = () => {
                 })}
               </div>
             )}
-            {!loadingRepos && repos?.length === 0 && (
+            {!loadingInstalls && installs?.length > 0 && !loadingRepos && repos?.length === 0 && (
               <div className={classes.noRepos}>
                 <h6>No repositories found</h6>
                 <p>
-                  {`This can happen when Payload doesn't have access to the repositories in an account. Click "Add GitHub Account" from the dropdown to configure the Payload app and provide access to your repositories.`}
+                  {`No repositories were found in the account "${selectedInstall?.account.login}". Create a new repository or `}
+                  <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
+                    adjust your GitHub app permissions
+                  </a>
+                  {'.'}
+                </p>
+              </div>
+            )}
+            {!loadingInstalls && installs?.length === 0 && (
+              <div className={classes.noRepos}>
+                <h6>No installations found</h6>
+                <p>
+                  {`No installations were found under this profile. Click "Add GitHub Account" from the dropdown to install the Payload app and provide access to your repositories.`}
                 </p>
               </div>
             )}

@@ -3,7 +3,7 @@ import React, { useCallback, useEffect } from 'react'
 import { useAuth } from '@root/providers/Auth'
 
 export interface Install {
-  id: string
+  id: number
   account: {
     id: string
     login: string
@@ -71,21 +71,22 @@ export const useGetInstalls = (): {
     let timeout: NodeJS.Timeout
 
     if (user) {
-      timeout = setTimeout(() => {
-        setLoading(true)
-      }, 250)
       const getInstalls = async () => {
         timeout = setTimeout(() => {
           setLoading(true)
         }, 250)
 
         const installations = await loadInstalls()
-        dispatchInstalls({ type: 'set', payload: installations })
         clearTimeout(timeout)
+        dispatchInstalls({ type: 'set', payload: installations })
         setLoading(false)
       }
 
       getInstalls()
+    }
+
+    return () => {
+      clearTimeout(timeout)
     }
   }, [user, loadInstalls])
 

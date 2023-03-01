@@ -12,7 +12,7 @@ export const useCreateDraftProject = ({
   onSubmit,
 }: {
   projectName?: string
-  installID: string
+  installID: number
   onSubmit?: (project: Project) => void // eslint-disable-line no-unused-vars
   templateID?: string // only applies to `clone` flow
   makePrivate?: boolean // only applies to `clone` flow

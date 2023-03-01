@@ -60,12 +60,14 @@ const Option = props => {
 }
 
 export const ScopeSelector: React.FC<{
-  value?: string
+  value?: Install['id']
   onChange?: (value: Install) => void // eslint-disable-line no-unused-vars
   onLoading?: (loading: boolean) => void // eslint-disable-line no-unused-vars
+  onInstalls?: (installs: Install[]) => void // eslint-disable-line no-unused-vars
 }> = props => {
-  const { onChange, value: valueFromProps, onLoading } = props
+  const { onChange, value: valueFromProps, onLoading, onInstalls } = props
   const hasInitializedSelection = React.useRef(false)
+  const selectAfterLoad = React.useRef<Install['id']>()
   const [selectedInstall, setSelectedInstall] = React.useState<Install | undefined>()
 
   const {
@@ -91,10 +93,10 @@ export const ScopeSelector: React.FC<{
   const { openPopupWindow } = usePopupWindow({
     href,
     eventType: 'github-oauth',
-    onMessage: async searchParams => {
+    onMessage: async (searchParams: { state: string; installation_id: string }) => {
       if (searchParams.state === id) {
-        await reloadInstalls()
-        setSelectedInstall(searchParams.installation_id)
+        selectAfterLoad.current = parseInt(searchParams.installation_id, 10)
+        reloadInstalls()
       }
     },
   })
@@ -113,6 +115,18 @@ export const ScopeSelector: React.FC<{
       onChange(selectedInstall)
     }
   }, [onChange, selectedInstall])
+
+  useEffect(() => {
+    if (selectAfterLoad.current) {
+      const newSelection = installs.find(install => install.id === selectAfterLoad.current)
+      setSelectedInstall(newSelection)
+      selectAfterLoad.current = undefined
+    }
+
+    if (typeof onInstalls === 'function') {
+      onInstalls(installs)
+    }
+  }, [onInstalls, installs])
 
   return (
     <Fragment>
