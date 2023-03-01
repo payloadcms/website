@@ -5,12 +5,10 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@providers/Theme'
 import { Gutter } from '@components/Gutter'
-import AuthorTag from '@components/AuthorTag'
 import DiscordGitCTA from '@components/DiscordGitCTA'
 import OpenPost from '@components/OpenPost'
 import { DiscordGitIntro } from '@components/DiscordGitIntro'
-import { FileAttachment } from '@components/FileAttachment'
-
+import { DiscordGitComments } from '@components/DiscordGitComments'
 import classes from './index.module.scss'
 
 export type Attachments = {
@@ -26,6 +24,15 @@ export type Attachments = {
   ephemeral: boolean
 }[]
 
+export type Messages = {
+  content: string
+  fileAttachments: Attachments
+  authorID: string
+  authorName: string
+  authorAvatar: string
+  createdAtDate: Date
+}
+
 export type ThreadProps = {
   info: {
     name: string
@@ -34,14 +41,7 @@ export type ThreadProps = {
     createdAt: Date
   }
   messageCount: number
-  messages: {
-    content: string
-    fileAttachments: Attachments
-    authorID: string
-    authorName: string
-    authorAvatar: string
-    createdAtDate: Date
-  }[]
+  messages: Messages[]
 }
 
 export const RenderThread: React.FC<ThreadProps> = props => {
@@ -74,56 +74,9 @@ export const RenderThread: React.FC<ThreadProps> = props => {
               date={info.createdAt}
               platform="Discord"
               messageCount={messageCount}
+              content={originalMessage}
             />
-
-            <div
-              className={classes.content}
-              dangerouslySetInnerHTML={{ __html: originalMessage }}
-            />
-
-            <ul className={classes.messageWrap}>
-              {messages &&
-                allMessagesExceptOriginal.map((message, i) => {
-                  const selectedAvatar = `https://cdn.discordapp.com/avatars/${message.authorID}/${message.authorAvatar}.png?size=256`
-                  const defaultAvatar = 'https://cdn.discordapp.com/embed/avatars/0.png'
-                  const avatarImg = message.authorAvatar ? selectedAvatar : defaultAvatar
-
-                  const hasFileAttachments =
-                    message.fileAttachments &&
-                    Array.isArray(message.fileAttachments) &&
-                    message.fileAttachments.length > 0
-
-                  return (
-                    <li className={classes.message} key={i}>
-                      <AuthorTag
-                        author={message.authorName}
-                        image={avatarImg}
-                        date={message.createdAtDate}
-                        platform="Discord"
-                        comment
-                      />
-                      <div
-                        className={classes.content}
-                        dangerouslySetInnerHTML={{ __html: message.content }}
-                      />
-                      {hasFileAttachments && (
-                        <div className={classes.attachmentWrap}>
-                          {message.fileAttachments.map((fileAttachment, x) => {
-                            return (
-                              <FileAttachment
-                                key={x}
-                                url={fileAttachment?.url}
-                                name={fileAttachment.name}
-                              />
-                            )
-                          })}
-                        </div>
-                      )}
-                    </li>
-                  )
-                })}
-            </ul>
-
+            <DiscordGitComments comments={allMessagesExceptOriginal} platform="Discord" />
             <OpenPost url={postUrl} platform="Discord" />
           </Cell>
         </Grid>
