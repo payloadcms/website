@@ -18,7 +18,7 @@ export const DownloadIcon: React.FC<Props> = ({ className }) => {
       <path
         d="M16 9.95575L12.0132 13.8804M12.0132 13.8804L8 10M12.0132 13.8804L12 6.13275"
         stroke="currentColor"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
       />
     </svg>
   )

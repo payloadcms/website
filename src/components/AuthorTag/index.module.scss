@@ -19,6 +19,10 @@
   }
 }
 
+.teamTag {
+  text-decoration: none;
+}
+
 .date,
 .platform {
   color: var(--theme-elevation-500);
@@ -61,7 +65,9 @@
 }
 
 :global([data-theme="light"]) {
-  .upvotes, .comments {
+
+  .upvotes,
+  .comments {
     & svg {
       & path {
         stroke: var(--theme-elevation-500);

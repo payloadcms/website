@@ -90,6 +90,11 @@
 .body {
   margin-top: var(--base);
 
+  & p {
+    margin: 0 0 calc(var(--base)*0.5) 0;
+    line-height: 1.35;
+  }
+
   & div {
     & p {
       margin-bottom: 0;
@@ -103,9 +108,14 @@
   }
 
   & span,
-  & pre {
+  & pre,
+  & code {
     white-space: break-spaces;
     line-break: anywhere;
+  }
+
+  & hr {
+    margin: var(--base) 0;
   }
 
 
@@ -119,15 +129,12 @@
 
   & pre {
     padding: calc(var(--base) * 1.5);
-    color: var(--color-base-50);
   }
 
   & p>code {
-    background-color: var(--theme-elevation-100);
     padding: calc(var(--base) * 0.15);
     color: var(--theme-elevation-900);
   }
-
 
   & h1 {
     @include h3;
@@ -180,6 +187,14 @@
       & path {
         stroke: var(--theme-elevation-900);
       }
+    }
+  }
+
+  .body {
+
+    & pre,
+    & code {
+      background-color: var(--theme-elevation-100);
     }
   }
 }

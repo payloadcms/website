@@ -3,7 +3,7 @@ import getRelativeDate from '@root/utilities/get-relative-date'
 import { getSpecificDateTime } from '@root/utilities/get-specific-date-time'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { CommentsIcon } from '@root/graphics/CommentsIcon'
-
+import { getTeamTwitter } from '@root/utilities/get-team-twitter'
 import classes from './index.module.scss'
 
 export type Props = {
@@ -29,41 +29,37 @@ const AuthorTag: React.FC<Props> = ({
   messageCount,
   upvotes,
 }) => {
+  const teamMember = getTeamTwitter(author)
+
   return (
     <div className={[classes.authorTag, className].filter(Boolean).join(' ')}>
-      {url ? (
-        <a className={classes.author} href={url}>
-          <img src={image} />
-          <strong>{author}</strong>
+      <a className={classes.author} href={url || ''}>
+        <img src={image} />
+        <strong>{author}</strong>
+      </a>
+      {teamMember && (
+        <a href={`https://twitter.com/${teamMember}`} className={classes.teamTag}>
+          <label>&nbsp;TEAM</label>
         </a>
-      ) : (
-        <div className={classes.author}>
-          <img src={image} />
-          <strong>{author}</strong>
-        </div>
       )}
-      {date && (!platform || platform === 'Github') && (
-        <span className={classes.date}>&nbsp;{getRelativeDate(date)}</span>
-      )}
-      {date && platform === 'Discord' && (
-        <span className={classes.date}>&nbsp;{getSpecificDateTime(date)}</span>
+      {date && (
+        <span className={classes.date}>
+          {platform === 'Discord' ? getSpecificDateTime(date) : getRelativeDate(date)}
+        </span>
       )}
       {platform && !comment && <span className={classes.platform}>&nbsp;in {platform}</span>}
-      {platform === 'Github' && messageCount && upvotes && (
-        <div className={classes.upvotes}>
+      <div className={classes.upvotes}>
+        {upvotes && (
           <span>
             <ArrowIcon rotation={-45} /> {upvotes}
           </span>
+        )}
+        {messageCount && messageCount > 0 && (
           <span>
             <CommentsIcon /> {messageCount}
           </span>
-        </div>
-      )}
-      {platform === 'Discord' && messageCount && (
-        <div className={classes.comments}>
-          <CommentsIcon /> <span>{messageCount}</span>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }
