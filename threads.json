@@ -892,33 +892,6 @@
   },
   {
     "info": {
-      "name": "AWS DocumentDB SSH",
-      "id": "1068507155621220352",
-      "guildId": "967097582721572934",
-      "createdAt": 1674822357803
-    },
-    "messages": [
-      {
-        "content": "In order to connect to an AWS DocumentDB during development, you need to SSH into an EC2 instance as DocumentDB connections are only allowed on the same VPC. Is there a way to set up an SSH tunnel with Payload?",
-        "fileAttachments": [],
-        "authorID": "831425870270693376",
-        "authorName": "JonnyF",
-        "authorAvatar": null,
-        "createdAtDate": 1674822357803
-      },
-      {
-        "content": "For anyone else needing to answer this:<br><br>- You first need to set up an EC2 instance on AWS to provide your SSH Tunnel. Make sure this is one the same VPC as your AWS DocumentDB and correct security group settings applied<br><br>- You then need to set up SSH port forwarding on your local machine with the following:<br><pre><code class=\"hljs\">ssh -i ssh.pem -L localhost:&lt;LOCAL_PORT&gt;:&lt;AWS_DOCUMENT_DB_CONNECTION_STRING&gt; -p 22 &lt;SSH_USERNAME&gt;@&lt;SSH_INSTANCE_DNS&gt;</code></pre><br><br>- The pem file will be your own private key generated from AWS<br><br>- You then need to update your MongoDB connection string. Its important to include <code>directConnection</code> otherwise it will error:<br><pre><code class=\"hljs\">mongodb://localhost:27000?directConnection=true</code></pre><br><br>- Include your auth for AWS DocumentDB in the Payload <code>mongoOptions</code>:<br><pre><code class=\"hljs typescript\">payload.<span class=\"hljs-title function_\">init</span>({\n  <span class=\"hljs-attr\">secret</span>: process.<span class=\"hljs-property\">env</span>.<span class=\"hljs-property\">PAYLOAD_SECRET</span>,\n  <span class=\"hljs-attr\">mongoURL</span>: isProduction\n    ? process.<span class=\"hljs-property\">env</span>.<span class=\"hljs-property\">MONGODB_URI_PROD</span>\n    : process.<span class=\"hljs-property\">env</span>.<span class=\"hljs-property\">MONGODB_URI_DEV</span>,\n  <span class=\"hljs-attr\">mongoOptions</span>: {\n    <span class=\"hljs-attr\">user</span>: process.<span class=\"hljs-property\">env</span>.<span class=\"hljs-property\">MONGODB_USER</span>,\n    <span class=\"hljs-attr\">pass</span>: process.<span class=\"hljs-property\">env</span>.<span class=\"hljs-property\">MONGODB_PASSWORD</span>,\n    <span class=\"hljs-attr\">retryWrites</span>: <span class=\"hljs-literal\">false</span>, <span class=\"hljs-comment\">// AWS DocumentDB doesn&#x27;t support retryWrites</span>\n  }\n  ...\n  })</code></pre>",
-        "fileAttachments": [],
-        "authorID": "831425870270693376",
-        "authorName": "JonnyF",
-        "authorAvatar": null,
-        "createdAtDate": 1675087637437
-      }
-    ],
-    "messageCount": 1
-  },
-  {
-    "info": {
       "name": "Is it possible to query a 3 nested collection?",
       "id": "1076804860969754695",
       "guildId": "967097582721572934",
@@ -1400,9 +1373,68 @@
         "authorName": "jesschow",
         "authorAvatar": "cd84347e723519ad6fe9dafb1530dbc5",
         "createdAtDate": 1677538606887
+      },
+      {
+        "content": "Why the data can be undefined?",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1079668069829451786/1080459313690185799/image.png",
+            "name": "image.png",
+            "id": "1080459313690185799",
+            "size": 12334,
+            "url": "https://cdn.discordapp.com/attachments/1079668069829451786/1080459313690185799/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1079668069829451786/1080459313690185799/image.png",
+            "height": 103,
+            "width": 593,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          },
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1079668069829451786/1080459314059288576/image.png",
+            "name": "image.png",
+            "id": "1080459314059288576",
+            "size": 12006,
+            "url": "https://cdn.discordapp.com/attachments/1079668069829451786/1080459314059288576/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1079668069829451786/1080459314059288576/image.png",
+            "height": 114,
+            "width": 594,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "187948379920138240",
+        "authorName": "mihanc",
+        "authorAvatar": "d8380c176b4dc4be88b5f9cf6e32dd41",
+        "createdAtDate": 1677671974416
+      },
+      {
+        "content": "The afterRead hook runs when you save the doc - so if you hit save and check your console.log again you should see the data",
+        "fileAttachments": [],
+        "authorID": "854377910689202256",
+        "authorName": "jesschow",
+        "authorAvatar": "cd84347e723519ad6fe9dafb1530dbc5",
+        "createdAtDate": 1677678775285
+      },
+      {
+        "content": "Is there any way to access the data before the afterRead hook? I&#x27;d like to disable Save button if the user is not the author of this article.",
+        "fileAttachments": [],
+        "authorID": "187948379920138240",
+        "authorName": "mihanc",
+        "authorAvatar": "d8380c176b4dc4be88b5f9cf6e32dd41",
+        "createdAtDate": 1677679037616
+      },
+      {
+        "content": "My apologies, you&#x27;re not using a hook I was mixing this up with another similar thread. However, I would suggest adding a collection hook then you can access the document data before saving with beforeValidate or beforeChange <a href=\"https://payloadcms.com/docs/hooks/collections\">https://payloadcms.com/docs/hooks/collections</a>",
+        "fileAttachments": [],
+        "authorID": "854377910689202256",
+        "authorName": "jesschow",
+        "authorAvatar": "cd84347e723519ad6fe9dafb1530dbc5",
+        "createdAtDate": 1677679750564
       }
     ],
-    "messageCount": 6
+    "messageCount": 10
   },
   {
     "info": {
@@ -1753,7 +1785,7 @@
         ],
         "authorID": "1041438496285532170",
         "authorName": "TheFrontend",
-        "authorAvatar": "e593cd0d22028c3aebc85d6eb624b3bf",
+        "authorAvatar": "bcb7fbbe04c97de177f47c68e9fbaf6d",
         "createdAtDate": 1677243576959
       },
       {
@@ -1761,7 +1793,7 @@
         "fileAttachments": [],
         "authorID": "1041438496285532170",
         "authorName": "TheFrontend",
-        "authorAvatar": "e593cd0d22028c3aebc85d6eb624b3bf",
+        "authorAvatar": "bcb7fbbe04c97de177f47c68e9fbaf6d",
         "createdAtDate": 1677247528425
       },
       {
@@ -1801,7 +1833,7 @@
         "fileAttachments": [],
         "authorID": "1041438496285532170",
         "authorName": "TheFrontend",
-        "authorAvatar": "e593cd0d22028c3aebc85d6eb624b3bf",
+        "authorAvatar": "bcb7fbbe04c97de177f47c68e9fbaf6d",
         "createdAtDate": 1677253219223
       }
     ],
@@ -1978,79 +2010,6 @@
       }
     ],
     "messageCount": 10
-  },
-  {
-    "info": {
-      "name": "Change admin url",
-      "id": "1069354467687927859",
-      "guildId": "967097582721572934",
-      "createdAt": 1675024372742
-    },
-    "messages": [
-      {
-        "content": "Is it possible to change the admin url?<br>Default right now is <code>/admin</code>, what if I want to change it to <code>/login</code> or <code>/custom-admin-login</code>?",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675024372742
-      },
-      {
-        "content": "check the <code>routes</code> key in payload config. <a href=\"https://payloadcms.com/docs/configuration/overview\">https://payloadcms.com/docs/configuration/overview</a>",
-        "fileAttachments": [
-          {
-            "attachment": "https://cdn.discordapp.com/attachments/1069354467687927859/1069456077403471974/image.png",
-            "name": "image.png",
-            "id": "1069456077403471974",
-            "size": 32110,
-            "url": "https://cdn.discordapp.com/attachments/1069354467687927859/1069456077403471974/image.png",
-            "proxyURL": "https://media.discordapp.net/attachments/1069354467687927859/1069456077403471974/image.png",
-            "height": 246,
-            "width": 1132,
-            "contentType": "image/png",
-            "description": null,
-            "ephemeral": false
-          }
-        ],
-        "authorID": "275258786388639744",
-        "authorName": "bombnp",
-        "authorAvatar": "4731ab4f51c57c8d12c2188742bcae83",
-        "createdAtDate": 1675048598374
-      },
-      {
-        "content": "great, thanks, I missed that in the doc",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675094876768
-      },
-      {
-        "content": "<pre><code class=\"hljs\">routes: {\n   admin: &#x27;/custom-admin-login&#x27;,\n},</code></pre>",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675094895498
-      },
-      {
-        "content": "here is what I added in <code>payload.config.ts</code> in case someone else comes across this question",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675094911686
-      },
-      {
-        "content": "Thanks mate, this helps me as well. Cheers",
-        "fileAttachments": [],
-        "authorID": "537385969230413846",
-        "authorName": "Arskeliss",
-        "authorAvatar": "0f72f4c0d2fd2e561a9063bc21e64f73",
-        "createdAtDate": 1675098691100
-      }
-    ],
-    "messageCount": 5
   },
   {
     "info": {
@@ -3294,14 +3253,6 @@
     },
     "messages": [
       {
-        "content": "do you want data from api response of this index.php  api call ?",
-        "fileAttachments": [],
-        "authorID": "1041992215632805888",
-        "authorName": "Shubham27",
-        "authorAvatar": null,
-        "createdAtDate": 1671434577027
-      },
-      {
         "content": "[<br>        {<br>            id: &quot;67&quot;,<br>            category_code: &quot;eLearning&quot;,<br>            title: &quot;eLearning&quot;,<br>            slug: &quot;portfolio/oneclick-portfolio&quot;,<br>            description: &quot;eLearning&quot;,<br>            portfolio_type: &quot;1&quot;,<br>            portfolio_file_path: &quot;ddssdvddfdfgvfgefg&quot;,<br>            file_name: &quot;&quot;,<br>            status: &quot;1&quot;,<br>            created_by: &quot;Demo User 2&quot;<br>        },<br>]",
         "fileAttachments": [],
         "authorID": "1041992215632805888",
@@ -3775,9 +3726,17 @@
         "authorName": "remy",
         "authorAvatar": "a51bf6d5acf69d04ce856822b79a13ab",
         "createdAtDate": 1677594661732
+      },
+      {
+        "content": "hii @remy i tried it but it&#x27;s not store value into the colliction api",
+        "fileAttachments": [],
+        "authorID": "1043125033519820902",
+        "authorName": "bhavikak",
+        "authorAvatar": null,
+        "createdAtDate": 1677654822669
       }
     ],
-    "messageCount": 54
+    "messageCount": 55
   },
   {
     "info": {
@@ -3853,6 +3812,41 @@
         "authorName": "oliverevans96",
         "authorAvatar": "5f4e02d6f6839ea9cee9ff1948a8e844",
         "createdAtDate": 1675273618682
+      }
+    ],
+    "messageCount": 2
+  },
+  {
+    "info": {
+      "name": "export list to csv, xlsx",
+      "id": "1080406659987406908",
+      "guildId": "967097582721572934",
+      "createdAt": 1677659420726
+    },
+    "messages": [
+      {
+        "content": "Hello, Is there any option to export collection list to external file?",
+        "fileAttachments": [],
+        "authorID": "803037652894482442",
+        "authorName": "kosmo",
+        "authorAvatar": "f054fc1ce7516d4903c0712698fc5eb1",
+        "createdAtDate": 1677659420726
+      },
+      {
+        "content": "Built this yesterday:<br><pre><code class=\"hljs ts\"><span class=\"hljs-keyword\">import</span> { stringify } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&#x27;csv-stringify/sync&#x27;</span>\n<span class=\"hljs-keyword\">import</span> archiver <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&#x27;archiver&#x27;</span>\n\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">const</span> <span class=\"hljs-attr\">downloadEndpoint</span>: <span class=\"hljs-title class_\">Endpoint</span> = {\n  <span class=\"hljs-attr\">path</span>: <span class=\"hljs-string\">&#x27;/download-zip&#x27;</span>,\n  <span class=\"hljs-attr\">method</span>: <span class=\"hljs-string\">&#x27;get&#x27;</span>,\n  <span class=\"hljs-keyword\">async</span> <span class=\"hljs-title function_\">handler</span>(<span class=\"hljs-params\">req, res, next</span>) {\n    <span class=\"hljs-comment\">// Only admins allowed</span>\n    <span class=\"hljs-keyword\">if</span> (!<span class=\"hljs-title function_\">isAdmin</span>(req.<span class=\"hljs-property\">user</span>)) <span class=\"hljs-keyword\">return</span> <span class=\"hljs-title function_\">next</span>()\n\n    <span class=\"hljs-keyword\">const</span> result = <span class=\"hljs-keyword\">await</span> req.<span class=\"hljs-property\">payload</span>.<span class=\"hljs-title function_\">find</span>({\n      <span class=\"hljs-attr\">collection</span>: <span class=\"hljs-string\">&#x27;widgets&#x27;</span>,\n      where, <span class=\"hljs-comment\">// derived from query params</span>\n      <span class=\"hljs-attr\">limit</span>: <span class=\"hljs-number\">1000</span>, <span class=\"hljs-comment\">// sanity check</span>\n    })\n\n    <span class=\"hljs-keyword\">const</span> archive = <span class=\"hljs-title function_\">archiver</span>(<span class=\"hljs-string\">&#x27;zip&#x27;</span>, { <span class=\"hljs-attr\">zlib</span>: { <span class=\"hljs-attr\">level</span>: <span class=\"hljs-number\">9</span> } })\n    archive.<span class=\"hljs-title function_\">pipe</span>(res)\n    res.<span class=\"hljs-title function_\">setHeader</span>(<span class=\"hljs-string\">&#x27;Content-Type&#x27;</span>, <span class=\"hljs-string\">&#x27;application/zip&#x27;</span>)\n    res.<span class=\"hljs-title function_\">setHeader</span>(<span class=\"hljs-string\">&#x27;Content-Disposition&#x27;</span>, <span class=\"hljs-string\">&#x27;attachment; filename=widgets.zip&#x27;</span>)\n\n    <span class=\"hljs-keyword\">const</span> csv = <span class=\"hljs-title function_\">stringify</span>(result.<span class=\"hljs-property\">docs</span>, { <span class=\"hljs-attr\">header</span>: <span class=\"hljs-literal\">true</span> })\n    archive.<span class=\"hljs-title function_\">append</span>(csv, { <span class=\"hljs-attr\">name</span>: <span class=\"hljs-string\">&#x27;test.csv&#x27;</span> })\n    archive.<span class=\"hljs-title function_\">finalize</span>()\n  },\n}</code></pre>",
+        "fileAttachments": [],
+        "authorID": "476523795251855360",
+        "authorName": "thgh",
+        "authorAvatar": "7a6dc70a50b1fe0de52c0e1a358e8fa5",
+        "createdAtDate": 1677666353601
+      },
+      {
+        "content": "Thanks for answer! 💚 ,<br>Do you have some extra configuration for archiver? When I&#x27;m trying use it, I have a lot of errors",
+        "fileAttachments": [],
+        "authorID": "803037652894482442",
+        "authorName": "kosmo",
+        "authorAvatar": "f054fc1ce7516d4903c0712698fc5eb1",
+        "createdAtDate": 1677677892317
       }
     ],
     "messageCount": 2
@@ -4571,41 +4565,6 @@
       }
     ],
     "messageCount": 3
-  },
-  {
-    "info": {
-      "name": "Add site settings page for each user",
-      "id": "1068817991363477544",
-      "guildId": "967097582721572934",
-      "createdAt": 1674896466819
-    },
-    "messages": [
-      {
-        "content": "I have created a new role as site-admin. who can access pages and other data related to his site only.<br>What i want to achieve is, as a site admin, he should have a menu named as site setting and when he click he can access settings for the site only.<br><br>Concept is like a singleton but as a admin user, i can see list of all sites and all settings.<br><br>For Admin, he can see list of site settings, But for site-admin, a page where he can see only his site settings data. Can read and update only",
-        "fileAttachments": [],
-        "authorID": "1064858820163145768",
-        "authorName": "princephpdev",
-        "authorAvatar": null,
-        "createdAtDate": 1674896466819
-      },
-      {
-        "content": "You should use a collection with a <code>users</code> relationship field on it. This way you can assign a user to each site and ensure only those users and super-admins can update it. Your super-admin could be defined using a <code>roles</code> field on the user.",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675050981585
-      },
-      {
-        "content": "This way you can check <code>req.user</code> from an <code>access.update</code> hook to ensure it matches the documents assigned users or has the super-admin role.",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675051048683
-      }
-    ],
-    "messageCount": 2
   },
   {
     "info": {
@@ -5584,9 +5543,17 @@
         "authorName": "arielarial",
         "authorAvatar": "50c7590d9709bd9e02848d28172b0bd9",
         "createdAtDate": 1677522865206
+      },
+      {
+        "content": "Recently used this, based on how it&#x27;s done in Payload internally:<br><pre><code class=\"hljs ts\"><span class=\"hljs-keyword\">const</span> { serverURL, <span class=\"hljs-attr\">routes</span>: { api } } = <span class=\"hljs-title function_\">useConfig</span>()\n<span class=\"hljs-title function_\">fetch</span>(\n  <span class=\"hljs-string\">`<span class=\"hljs-subst\">${serverURL}</span><span class=\"hljs-subst\">${api}</span>/<span class=\"hljs-subst\">${props.relationTo}</span>`</span>,\n  { <span class=\"hljs-attr\">method</span>: <span class=\"hljs-string\">&#x27;POST&#x27;</span>, body }\n).<span class=\"hljs-title function_\">then</span>(<span class=\"hljs-function\">(<span class=\"hljs-params\">r</span>) =&gt;</span> r.<span class=\"hljs-title function_\">json</span>())</code></pre>",
+        "fileAttachments": [],
+        "authorID": "476523795251855360",
+        "authorName": "thgh",
+        "authorAvatar": "7a6dc70a50b1fe0de52c0e1a358e8fa5",
+        "createdAtDate": 1677664833020
       }
     ],
-    "messageCount": 39
+    "messageCount": 40
   },
   {
     "info": {
@@ -6084,7 +6051,7 @@
         "fileAttachments": [],
         "authorID": "1041438496285532170",
         "authorName": "TheFrontend",
-        "authorAvatar": "e593cd0d22028c3aebc85d6eb624b3bf",
+        "authorAvatar": "bcb7fbbe04c97de177f47c68e9fbaf6d",
         "createdAtDate": 1677533201570
       },
       {
@@ -6092,7 +6059,7 @@
         "fileAttachments": [],
         "authorID": "1041438496285532170",
         "authorName": "TheFrontend",
-        "authorAvatar": "e593cd0d22028c3aebc85d6eb624b3bf",
+        "authorAvatar": "bcb7fbbe04c97de177f47c68e9fbaf6d",
         "createdAtDate": 1677579109906
       },
       {
@@ -6420,41 +6387,6 @@
   },
   {
     "info": {
-      "name": "Upload field with MongoDB GridFS instead of file system",
-      "id": "1067728066949947422",
-      "guildId": "967097582721572934",
-      "createdAt": 1674636608589
-    },
-    "messages": [
-      {
-        "content": "Hi guys! Is there a way to configure the upload field to use MongoDB GridFS instead of the file system?",
-        "fileAttachments": [],
-        "authorID": "1039531494894473286",
-        "authorName": "gubarez",
-        "authorAvatar": null,
-        "createdAtDate": 1674636608589
-      },
-      {
-        "content": "This isn&#x27;t something that we support currently. I&#x27;m not familiar with GridFS at all. That being said, we do have a cloud-storage plugin that implements S3 and other providers as a file store for Payload.<br><br>You likely could add an adapter (the plugin supports custom adapters being passed in) or use this as a model to create a plugin to achieve your needs.<br><br><a href=\"https://github.com/payloadcms/plugin-cloud-storage/\">https://github.com/payloadcms/plugin-cloud-storage/</a>",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674750597936
-      },
-      {
-        "content": "Thanks! I was aware of the plugin, indeed this could be used with some modifications.",
-        "fileAttachments": [],
-        "authorID": "1039531494894473286",
-        "authorName": "gubarez",
-        "authorAvatar": null,
-        "createdAtDate": 1675088362502
-      }
-    ],
-    "messageCount": 2
-  },
-  {
-    "info": {
       "name": "Google Cloud Run deployment",
       "id": "1073249306838052864",
       "guildId": "967097582721572934",
@@ -6554,9 +6486,17 @@
         "authorName": "dribbens",
         "authorAvatar": "f5c79aff07b9e2b1df382d61c45cb9da",
         "createdAtDate": 1675443541674
+      },
+      {
+        "content": "Cool. I&#x27;ll take a look at that. Thanks for the info @dribbens",
+        "fileAttachments": [],
+        "authorID": "436035265614839808",
+        "authorName": "dplgngr",
+        "authorAvatar": "c121ac319ebc2f4850268e8fcde127e9",
+        "createdAtDate": 1677682357096
       }
     ],
-    "messageCount": 1
+    "messageCount": 2
   },
   {
     "info": {
@@ -6758,79 +6698,6 @@
   },
   {
     "info": {
-      "name": "Narrowing relationship field type from generated payload types (Typescript)",
-      "id": "1069455509612146709",
-      "guildId": "967097582721572934",
-      "createdAt": 1675048463014
-    },
-    "messages": [
-      {
-        "content": "This is mostly a Typescript question.<br><br>Say, I have 2 collections, <code>Problems</code> and <code>ProblemLists</code>, where problem list contains a relationship field with problems (hasMany = true). In the generated types, the field type is &quot;string[] | Problem[]&quot; which is understandable, given how Payload query works. However, in our use case, we always populate this relationship field in our query (with depth &gt; 1), so the field is never &quot;string[]&quot;.<br><br>Is there a clean way to use the payload generated type, but has the relationship field not a union type of &quot;string[] | Problem[]&quot;?",
-        "fileAttachments": [
-          {
-            "attachment": "https://cdn.discordapp.com/attachments/1069455509612146709/1069455509754744842/image.png",
-            "name": "image.png",
-            "id": "1069455509754744842",
-            "size": 137326,
-            "url": "https://cdn.discordapp.com/attachments/1069455509612146709/1069455509754744842/image.png",
-            "proxyURL": "https://media.discordapp.net/attachments/1069455509612146709/1069455509754744842/image.png",
-            "height": 1132,
-            "width": 948,
-            "contentType": "image/png",
-            "description": null,
-            "ephemeral": false
-          }
-        ],
-        "authorID": "275258786388639744",
-        "authorName": "bombnp",
-        "authorAvatar": "4731ab4f51c57c8d12c2188742bcae83",
-        "createdAtDate": 1675048463014
-      },
-      {
-        "content": "Are you using the Local API? Payload types are about to be significantly improved by no longer using generics for local API methods, but instead typing the return value based on your config and args. This has been a well-known pain-point in our type generation that we are committed to improving.",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675051563749
-      },
-      {
-        "content": "i&#x27;m querying from our frontend (Axios in Next.js), but we&#x27;re using the generated types from payload to keep types in sync.",
-        "fileAttachments": [],
-        "authorID": "275258786388639744",
-        "authorName": "bombnp",
-        "authorAvatar": "4731ab4f51c57c8d12c2188742bcae83",
-        "createdAtDate": 1675061653730
-      },
-      {
-        "content": "I don&#x27;t think we have a great pattern around this yet. You could use inference types for now but I realize that&#x27;s not long-term solution.",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675082718957
-      },
-      {
-        "content": "Thanks for the response @jacobsfletch. Is there a timeline planned for these type changes? (not rushing, just wonder if there&#x27;s a timeline for it)",
-        "fileAttachments": [],
-        "authorID": "275258786388639744",
-        "authorName": "bombnp",
-        "authorAvatar": "4731ab4f51c57c8d12c2188742bcae83",
-        "createdAtDate": 1675088801554
-      },
-      {
-        "content": "No timeline on this yet. One difficult part of this is access control, where <code>depth</code> is not the only determining factor around whether you&#x27;d receive an id or an object in your relationships.",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675091418109
-      }
-    ],
-    "messageCount": 5
-  },
-  {
-    "info": {
       "name": "Plugin stripe - error has occurred in the Stripe plugin REST handler",
       "id": "1075712043400843334",
       "guildId": "967097582721572934",
@@ -6971,7 +6838,7 @@
         "fileAttachments": [],
         "authorID": "1041438496285532170",
         "authorName": "TheFrontend",
-        "authorAvatar": "e593cd0d22028c3aebc85d6eb624b3bf",
+        "authorAvatar": "bcb7fbbe04c97de177f47c68e9fbaf6d",
         "createdAtDate": 1677596116892
       },
       {
@@ -6987,7 +6854,7 @@
         "fileAttachments": [],
         "authorID": "1041438496285532170",
         "authorName": "TheFrontend",
-        "authorAvatar": "e593cd0d22028c3aebc85d6eb624b3bf",
+        "authorAvatar": "bcb7fbbe04c97de177f47c68e9fbaf6d",
         "createdAtDate": 1677596484450
       },
       {
@@ -7011,7 +6878,7 @@
         "fileAttachments": [],
         "authorID": "1041438496285532170",
         "authorName": "TheFrontend",
-        "authorAvatar": "e593cd0d22028c3aebc85d6eb624b3bf",
+        "authorAvatar": "bcb7fbbe04c97de177f47c68e9fbaf6d",
         "createdAtDate": 1677598102493
       }
     ],
@@ -9071,9 +8938,17 @@
         "authorName": "Arskeliss",
         "authorAvatar": "0f72f4c0d2fd2e561a9063bc21e64f73",
         "createdAtDate": 1677513512535
+      },
+      {
+        "content": "thank you Elliot, I discovered a bug while playing with it, I added an issue on github, looking forward to this release",
+        "fileAttachments": [],
+        "authorID": "391293587922485252",
+        "authorName": "Hyra10",
+        "authorAvatar": "930bc5beaa28b294cc7c1af61014f3f4",
+        "createdAtDate": 1677642616226
       }
     ],
-    "messageCount": 2
+    "messageCount": 3
   },
   {
     "info": {
@@ -9845,41 +9720,6 @@
       }
     ],
     "messageCount": 6
-  },
-  {
-    "info": {
-      "name": "Client side authentication",
-      "id": "1069375959515541665",
-      "guildId": "967097582721572934",
-      "createdAt": 1675029496793
-    },
-    "messages": [
-      {
-        "content": "I want users to signup from the website and then login. I just want payload to validate the email and password and then send a response with a jwt token or something. Is this possible?",
-        "fileAttachments": [],
-        "authorID": "941688759034970132",
-        "authorName": "bigDaddy",
-        "authorAvatar": "f59cf5ca783ae53f37e8a99cfbcc9a18",
-        "createdAtDate": 1675029496793
-      },
-      {
-        "content": "On every Auth-enabled Collection (like users), you have access to endpoints like login, which takes in an email and a password, and sends back a JWT<br><br><a href=\"https://payloadcms.com/docs/authentication/operations#authentication-operations\">https://payloadcms.com/docs/authentication/operations#authentication-operations</a>",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1675030462696
-      },
-      {
-        "content": "I don&#x27;t know if there&#x27;s a way to do it in one call, but I currently create the user first and then if that responses with an OK, I use the same credentials to login the user and then redirect to the app",
-        "fileAttachments": [],
-        "authorID": "1028003433090924695",
-        "authorName": "blupandaman",
-        "authorAvatar": "8d2d614fe5f612d9850c22759c6b046a",
-        "createdAtDate": 1675041956879
-      }
-    ],
-    "messageCount": 2
   },
   {
     "info": {
@@ -11057,9 +10897,25 @@
         "authorName": "tomsvogel",
         "authorAvatar": "033a54556e448758a1bb8eb77e9d9105",
         "createdAtDate": 1677528801430
+      },
+      {
+        "content": "Hey @damnstaychill thanks for the repo! i needed to check a few Times what my mistake was.... thanks for your help.",
+        "fileAttachments": [],
+        "authorID": "770657092800741377",
+        "authorName": "tomsvogel",
+        "authorAvatar": "033a54556e448758a1bb8eb77e9d9105",
+        "createdAtDate": 1677663926607
+      },
+      {
+        "content": "Glad it helped! 🚀  let&#x27;s keep building cool shit",
+        "fileAttachments": [],
+        "authorID": "473343795782615060",
+        "authorName": "damnstaychill",
+        "authorAvatar": "ea1c1ee0f361e2eeb5f35b7ce5253c52",
+        "createdAtDate": 1677686300023
       }
     ],
-    "messageCount": 13
+    "messageCount": 15
   },
   {
     "info": {
@@ -12287,47 +12143,6 @@
   },
   {
     "info": {
-      "name": "Media Upload Error...Help me!",
-      "id": "1069484127365124096",
-      "guildId": "967097582721572934",
-      "createdAt": 1675055286018
-    },
-    "messages": [
-      {
-        "content": "I upload Media...  But I Cant get it...<br><br><br>const Media = {<br>  slug: &quot;media&quot;,<br>  admin: {<br>    useAsTitle: &quot;title&quot;,<br>  },<br>  access: {<br>    read: () =&gt; true,<br>  },<br>  fields: [<br>    {<br>      name: &quot;alt&quot;,<br>      type: &quot;text&quot;,<br>    },<br>  ],<br>  upload: {<br>    staticURL: &quot;/media&quot;,<br>    staticDir: &quot;media&quot;,<br>    mimeTypes: [&quot;image/*&quot;],<br>  },<br>};<br>export default Media; <br><br>this is my media.js<br>plz!",
-        "fileAttachments": [
-          {
-            "attachment": "https://cdn.discordapp.com/attachments/1069484127365124096/1069484127545466940/2023-01-30_1.58.27.png",
-            "name": "2023-01-30_1.58.27.png",
-            "id": "1069484127545466940",
-            "size": 78499,
-            "url": "https://cdn.discordapp.com/attachments/1069484127365124096/1069484127545466940/2023-01-30_1.58.27.png",
-            "proxyURL": "https://media.discordapp.net/attachments/1069484127365124096/1069484127545466940/2023-01-30_1.58.27.png",
-            "height": 845,
-            "width": 1084,
-            "contentType": "image/png",
-            "description": null,
-            "ephemeral": false
-          }
-        ],
-        "authorID": "996606499663118336",
-        "authorName": "dapsipli",
-        "authorAvatar": null,
-        "createdAtDate": 1675055286018
-      },
-      {
-        "content": "<code>import { CollectionConfig } from &#x27;payload/types&#x27;;\n\nexport const Media: CollectionConfig = {\n  slug: &#x27;media&#x27;,\n  \n  fields: [\n    {\n      name: &#x27;alt&#x27;,\n      type: &#x27;text&#x27;,\n    },\n  ],\n  upload: {\n    staticURL: &#x27;/media&#x27;,\n    staticDir: &#x27;media&#x27;,\n    \n    imageSizes: [\n      {\n        name: &#x27;thumbnail&#x27;,\n        width: 400,\n        height: 300,\n        position: &#x27;centre&#x27;,\n      },\n      {\n        name: &#x27;card&#x27;,\n        width: 768,\n        height: 1024,\n        position: &#x27;centre&#x27;,\n      },\n      {\n        name: &#x27;tablet&#x27;,\n        width: 1024,\n        height: null,\n        position: &#x27;centre&#x27;,\n      },\n    ],\n    adminThumbnail: &#x27;thumbnail&#x27;,\n    mimeTypes: [&#x27;image/*&#x27;],\n  },\n};</code>",
-        "fileAttachments": [],
-        "authorID": "1054787039339495474",
-        "authorName": "Martin R",
-        "authorAvatar": "0053f8652dc08a03c69a03708d98f339",
-        "createdAtDate": 1675063573046
-      }
-    ],
-    "messageCount": 1
-  },
-  {
-    "info": {
       "name": "How to generate JWT token for a user without calling .login(email, password)?",
       "id": "1071806386037604352",
       "guildId": "967097582721572934",
@@ -13449,6 +13264,97 @@
   },
   {
     "info": {
+      "name": "Conditional verification email",
+      "id": "1080479762524422225",
+      "guildId": "967097582721572934",
+      "createdAt": 1677676849729
+    },
+    "messages": [
+      {
+        "content": "Is there a way to conditionally send verification emails upon account creation? <br>I&#x27;m currently creating a plugin for Google Authentication and I&#x27;d like to not send verification emails if a user signs up with Google. As the default Email / Password auth is still active, verification emails should be send here.<br><br>Also, it looks like I can not create a new already verified account. It takes two steps: create an account and then update _verified: true.<br><br>As I can see I can only pass &#x27;true&#x27; or &#x27;generateEmailHTML&#x27; for ´´´verify´´´ option in a collection config.",
+        "fileAttachments": [],
+        "authorID": "1041438496285532170",
+        "authorName": "TheFrontend",
+        "authorAvatar": "bcb7fbbe04c97de177f47c68e9fbaf6d",
+        "createdAtDate": 1677676849729
+      },
+      {
+        "content": "@TheFrontend You cant alter the _verified prop once they auth with Google?",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677677030452
+      },
+      {
+        "content": "I can, but not before the email is sent.<br><br><pre><code class=\"hljs\"> const registered = await payload.create({\n          collection: &#x27;users&#x27;,\n          showHiddenFields: true,\n          data: {\n            email: user.email,\n            name: user?.name,\n            password: pw,\n            oauth: pw,\n            loginMethod: &#x27;google&#x27;,\n          },\n        })</code></pre><br>          <br>Now the email is sent, before I can update the _verified. I can login directly but the email is still sent.<br><br><pre><code class=\"hljs\">await payload.update({\n              id: registered.id,\n              collection: &#x27;users&#x27;,\n              data: {\n                  _verified: true,\n              },\n          });</code></pre>",
+        "fileAttachments": [],
+        "authorID": "1041438496285532170",
+        "authorName": "TheFrontend",
+        "authorAvatar": "bcb7fbbe04c97de177f47c68e9fbaf6d",
+        "createdAtDate": 1677677226044
+      },
+      {
+        "content": "@TheFrontend Unless there is a better way..",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677678935121
+      },
+      {
+        "content": "How about disabling email",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677678940879
+      },
+      {
+        "content": "And then manually calling <pre><code class=\"hljs\">payload.sendEmail(message)</code></pre>",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677678946849
+      },
+      {
+        "content": "on creation of a user with the type you want",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677678956731
+      },
+      {
+        "content": "We&#x27;ve done something similar in the past by using a <code>beforeOperation</code> hook that contains the conditional logic for setting <code>disableVerificationEmail</code>. Let me post a snippet",
+        "fileAttachments": [],
+        "authorID": "967118574445547650",
+        "authorName": "denolfe",
+        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
+        "createdAtDate": 1677680594648
+      },
+      {
+        "content": "This used a previous Payload version, but still should be good.<br><br><pre><code class=\"hljs\">import type { CollectionBeforeOperationHook } from &#x27;payload/types&#x27;;\n\nconst skipVerificationEmail: CollectionBeforeOperationHook = ({ args, operation }) =&gt; {\n  if (operation === &#x27;create&#x27; &amp;&amp; args.req.query &amp;&amp; typeof args.req.query.checkout !== &#x27;undefined&#x27;) {\n    return {\n      ...args,\n      disableVerificationEmail: true,\n    };\n  }\n\n  return args;\n};</code></pre>",
+        "fileAttachments": [],
+        "authorID": "967118574445547650",
+        "authorName": "denolfe",
+        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
+        "createdAtDate": 1677680721497
+      },
+      {
+        "content": "Just change up the conditional. You <em>should</em> have access to the user off of req",
+        "fileAttachments": [],
+        "authorID": "967118574445547650",
+        "authorName": "denolfe",
+        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
+        "createdAtDate": 1677680751937
+      }
+    ],
+    "messageCount": 9
+  },
+  {
+    "info": {
       "name": "Same nested block in a block",
       "id": "1072464714782748752",
       "guildId": "967097582721572934",
@@ -13901,327 +13807,6 @@
   },
   {
     "info": {
-      "name": "Search doesn't work for large collections",
-      "id": "1068093957499793418",
-      "guildId": "967097582721572934",
-      "createdAt": 1674723843694
-    },
-    "messages": [
-      {
-        "content": "I have a large collection with around 100k documents. If I try to perform a search in the payload admin panel, nothing happens. The filters however seem to work perfectly fine.<br><br>Is this a performance issue because of the type of search that is performed?",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1674723843694
-      },
-      {
-        "content": "If you open your network tab, can you provide some details about the request?",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1674734100539
-      },
-      {
-        "content": "Hey Jarrod,<br>well after analyzing it a bit more, turns out the search is just super slow. It takes an average of 10 seconds for a query. In addition to that, old queries aren&#x27;t cancelled so if I type in a longer search String that triggers 3-4 search requests, it takes 50 seconds.<br><br>It&#x27;s probably because of the regex search, any way to increase the speed? I&#x27;ve already set the index to true.<br><br>Also, it just seems to search the main attribute, and ignores ID and other attributes?",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1674838096212
-      },
-      {
-        "content": "I would imagine there are definitely improvements to be made here",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1674838165418
-      },
-      {
-        "content": "This feedback is awesome. Thank you for investigating it further!",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1674838173189
-      },
-      {
-        "content": "We can:<br>- further investigate the sloweness<br>- provide visual feedback when querying<br>- cancel old requests",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1674838287466
-      },
-      {
-        "content": "You&#x27;re welcome 🙂 <br>Any suggestions how to sort out this performance issue asap?Search is a key thing for this project, if it takes that long I can&#x27;t use payload.<br><br>I&#x27;d be happy to build a workaround and contribute it or turn it into a plugin, I just don&#x27;t have any experience contributing to open source yet.",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1674838416043
-      },
-      {
-        "content": "I am curious, did you set the index after booting up payload on your live db?",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1674838460047
-      },
-      {
-        "content": "or did you have it set in the config, before ever booting up payload on live?",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1674838473434
-      },
-      {
-        "content": "Good question, I probably added it at some point",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1674838495549
-      },
-      {
-        "content": "Does that make a difference?",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1674838542554
-      },
-      {
-        "content": "I don&#x27;t think payload touches your indexes after initial creation of a field. Can you verify there is an index in the db for the field you are searching on?",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1674838577015
-      },
-      {
-        "content": "(its size should be fairly large since you have 100k+ docs)",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1674838618746
-      },
-      {
-        "content": "",
-        "fileAttachments": [
-          {
-            "attachment": "https://cdn.discordapp.com/attachments/1068093957499793418/1068576136809947266/image.png",
-            "name": "image.png",
-            "id": "1068576136809947266",
-            "size": 119557,
-            "url": "https://cdn.discordapp.com/attachments/1068093957499793418/1068576136809947266/image.png",
-            "proxyURL": "https://media.discordapp.net/attachments/1068093957499793418/1068576136809947266/image.png",
-            "height": 718,
-            "width": 1192,
-            "contentType": "image/png",
-            "description": null,
-            "ephemeral": false
-          }
-        ],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1674838804252
-      },
-      {
-        "content": "That should be it right? I&#x27;m generally confused when it comes to indexes and mongodb Atlas, I&#x27;ve had multiple issues with normal indexes on Atlas in the past. And I should have mentioned I&#x27;m using atlas haha",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1674838890472
-      },
-      {
-        "content": "is name the field that is being searched on?",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1674838893079
-      },
-      {
-        "content": "Yeah",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1674838909209
-      },
-      {
-        "content": "Interesting, I can likely throw together a test and compare with your findings",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1674839096899
-      },
-      {
-        "content": "Could it be the large text index that messes things up? I migrated the database with that index",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1674839099895
-      },
-      {
-        "content": "I have not used an index like that larger one you have",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1674839137968
-      },
-      {
-        "content": "Okay yeah I dropped it and it doesn&#x27;t make any difference",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1674839332359
-      },
-      {
-        "content": "Any way to implement atlas search? That would be pretty awesome",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1674839372694
-      },
-      {
-        "content": "So locally, loading up 100_000 docs, searching on an indexed field takes about 1.2s (with no latency, obviously)",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1674840958262
-      },
-      {
-        "content": "I do wonder about that other index you have",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1674840997800
-      },
-      {
-        "content": "its quite large",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1674841002728
-      },
-      {
-        "content": "Just a thought to input here... would it be worth using something like <a href=\"https://www.npmjs.com/package/node-lucene\">https://www.npmjs.com/package/node-lucene</a> in the Payload admin to power the searches there? Might be faster than querying Mongo.",
-        "fileAttachments": [],
-        "authorID": "365498720726286349",
-        "authorName": "Kyr",
-        "authorAvatar": "80448b45efe7253a0cc090c246e96c09",
-        "createdAtDate": 1674860668658
-      },
-      {
-        "content": "That would be super dope, I always prefer independent solutions rather that relying on atlas search or sth. The package looks pretty abandoned though.<br>Edit: Maybe implementing sth like flexsearch would be an option? <a href=\"https://github.com/nextapps-de/flexsearch\">https://github.com/nextapps-de/flexsearch</a><br><br>@Jarrod I don&#x27;t have tons of experience but if I&#x27;ve learned one thing, it&#x27;s that the UX of an app is heavily determined by the quality of the search. So apart from performance issues, I think it should be discussed how to improve the search functionality in general. As of right now, it feels like it&#x27;s built for small collections in a CMS where you just want faster access. As soon as you have an app with larger collections, where you need to search through whole docs, do fuzzy matching etc. Payload isn&#x27;t quite optimal atm",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1674904466431
-      },
-      {
-        "content": "Yeah, I picked lucene as it&#x27;s a pretty widely known search indexing standard that uses a file-based index, but anything that could operate independently within Express/Payload would work for this.<br><br>If it&#x27;s an abstract implementation it could open the door to allowing plugins to override the implementation to use 3rd party search services too, like Azure cognitive Search, ElasticSearch, Algolia, etc. but I don&#x27;t think these should be dependencies to use Payload.<br><br>It could also open the door to being able to specify search endpoints for collections or even a global search endpoint on Payload&#x27;s API further down the line.",
-        "fileAttachments": [],
-        "authorID": "365498720726286349",
-        "authorName": "Kyr",
-        "authorAvatar": "80448b45efe7253a0cc090c246e96c09",
-        "createdAtDate": 1674907112750
-      },
-      {
-        "content": "So true, a global search endpoint would be crazy!<br><br>I&#x27;ve checked the forum for some discussions around search, and the current direction seems to be using regex for searching one or multiple fields (which is indeed possible), and as soon as you have more complex requirements integrate algolia etc.<br><br>I totally get the point, however I hate to rely on third party services for search, I&#x27;d really love to have a plugin for payload",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1674907375780
-      },
-      {
-        "content": "It should be fairly simple to make a plugin that can add hooks to collections &amp; globals to index them as they are added/updated.<br><br>The trickier parts would be:<br><br>- Verifying/rebuilding the index on a schedule<br>- Adding new API end points to Payload",
-        "fileAttachments": [],
-        "authorID": "365498720726286349",
-        "authorName": "Kyr",
-        "authorAvatar": "80448b45efe7253a0cc090c246e96c09",
-        "createdAtDate": 1674907941173
-      },
-      {
-        "content": "Also... <a href=\"https://github.com/payloadcms/plugin-search\">https://github.com/payloadcms/plugin-search</a>",
-        "fileAttachments": [],
-        "authorID": "365498720726286349",
-        "authorName": "Kyr",
-        "authorAvatar": "80448b45efe7253a0cc090c246e96c09",
-        "createdAtDate": 1674908026995
-      },
-      {
-        "content": "none of this touches on the in-admin searches though",
-        "fileAttachments": [],
-        "authorID": "365498720726286349",
-        "authorName": "Kyr",
-        "authorAvatar": "80448b45efe7253a0cc090c246e96c09",
-        "createdAtDate": 1674908051836
-      },
-      {
-        "content": "Oh, I didn&#x27;t know about that plugin!<br><br>If there&#x27;s a &quot;payload way&quot; to tackle the search, that&#x27;s obviously even better than a third party library. I wonder if it&#x27;s the way to go though if the end goal is a search with fuzzy matching etc. Isn&#x27;t that plugin just another collection that just contains the relevant data for the search?",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1674908695613
-      },
-      {
-        "content": "Yeah, but might be a good one to look at and expand upon",
-        "fileAttachments": [],
-        "authorID": "365498720726286349",
-        "authorName": "Kyr",
-        "authorAvatar": "80448b45efe7253a0cc090c246e96c09",
-        "createdAtDate": 1674918210000
-      },
-      {
-        "content": "Flexsearch is super sweet and would cover a lot of use-cases, it would be awesome if there was a plugin for it!<br><br>For those of us clustering, the in-memory index is unfortunately not an option, but I&#x27;ve used Meilisearch in the past with good results (<a href=\"https://github.com/meilisearch/meilisearch\">https://github.com/meilisearch/meilisearch</a>). It&#x27;s also a very cool open-source project with a really straightforward JS/TS API client (<a href=\"https://github.com/meilisearch/meilisearch-js\">https://github.com/meilisearch/meilisearch-js</a>) and it is extremely simple to self-host and scale.",
-        "fileAttachments": [],
-        "authorID": "1033006865661050921",
-        "authorName": "\\ ឵឵឵",
-        "authorAvatar": null,
-        "createdAtDate": 1674946759304
-      },
-      {
-        "content": "You&#x27;re right about the in-admin searching and filtering; it would be fantastic if there were hooks to override this functionality. It would be great if it could be supported to have the search functionality return either a list of document ids or a list of complete documents, and to have a toggle for whether or not Payload needs to apply access control logic to the list or if it has already been considered.",
-        "fileAttachments": [],
-        "authorID": "1033006865661050921",
-        "authorName": "\\ ឵឵឵",
-        "authorAvatar": null,
-        "createdAtDate": 1674947610181
-      },
-      {
-        "content": "I love this discussion! I think this all needs to be on radar. I&#x27;ve opened a discussion on github that makes Payload&#x27;s built-in search more extensible for the UI and detailed some other ideas from this thread. Putting it on github adds visibility for enhancements that will eventually make it to our roadmap. <a href=\"https://github.com/payloadcms/payload/discussions/1974\">https://github.com/payloadcms/payload/discussions/1974</a><br>We would also be interested in partnering with anyone willing to work on this in an open-source contributing capacity or financially through with an enterprise support agreement.",
-        "fileAttachments": [],
-        "authorID": "969226489549713438",
-        "authorName": "dribbens",
-        "authorAvatar": "f5c79aff07b9e2b1df382d61c45cb9da",
-        "createdAtDate": 1675095490940
-      }
-    ],
-    "messageCount": 36
-  },
-  {
-    "info": {
       "name": "Replacing an uploaded image's buffer in a beforeValidate/Change hook",
       "id": "1070461370501447680",
       "guildId": "967097582721572934",
@@ -14590,65 +14175,6 @@
       }
     ],
     "messageCount": 1
-  },
-  {
-    "info": {
-      "name": "passing information in admin panel",
-      "id": "1064868303056679002",
-      "guildId": "967097582721572934",
-      "createdAt": 1673954787745
-    },
-    "messages": [
-      {
-        "content": "Hi,<br>i have following situation:<br>I have a parent child relationship of two collections. A Project and a Customer. Every Project has a Customer.  This is modeled as a relationship field in Project. It should be possible to create a new Project from the Customer list view which fills in the Customer relationship field automatically. How would this be possible? Somehow I would need to pass the Customer id to the edit Component of the Project collection.<br>What would be best practice for that?",
-        "fileAttachments": [],
-        "authorID": "306429157179392002",
-        "authorName": "60pfennig",
-        "authorAvatar": "91e7dc342f3cfef23552bf5a68018bbe",
-        "createdAtDate": 1673954787745
-      },
-      {
-        "content": "Hey @60pfennig , this is possible, but it would take a bit of customization with a UI field and some custom components.<br><br>Here is how I would go about this:",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674247170506
-      },
-      {
-        "content": "- Create a <code>type: &#x27;ui&#x27;</code> field on your customers collection<br>- This collection would then have a custom Cell and Field component<br><br>Within these components, you would be able to do a fetch against the /projects endpoint to create a new project (as draft) with the right customer id, which can be fetched from the url params.<br><br>Maybe @dribbens has some other ideas.",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674247573956
-      },
-      {
-        "content": "Here is a custom field component example here: <br><br><a href=\"https://github.com/payloadcms/public-demo/blob/master/src/collections/Categories.ts#L36\">https://github.com/payloadcms/public-demo/blob/master/src/collections/Categories.ts#L36</a><br><a href=\"https://github.com/payloadcms/public-demo/blob/master/src/components/CategorySummary/index.tsx#L14\">https://github.com/payloadcms/public-demo/blob/master/src/components/CategorySummary/index.tsx#L14</a>",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674247658174
-      },
-      {
-        "content": "I&#x27;ve done something like this before using a custom component that links to the admin UI for creating a relationship. For example:<br><pre><code class=\"hljs ts\"><span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">const</span> <span class=\"hljs-title class_\">CreateProjectLink</span>: <span class=\"hljs-title class_\">React</span>.<span class=\"hljs-property\">FC</span> = <span class=\"hljs-function\">(<span class=\"hljs-params\">{rowData}</span>) =&gt;</span> {\n\n  <span class=\"hljs-keyword\">return</span> (\n    <span class=\"language-xml\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">a</span> <span class=\"hljs-attr\">href</span>=<span class=\"hljs-string\">{</span>`/<span class=\"hljs-attr\">admin</span>/<span class=\"hljs-attr\">collections</span>/<span class=\"hljs-attr\">projects</span>/<span class=\"hljs-attr\">create</span>?<span class=\"hljs-attr\">customer</span>=<span class=\"hljs-string\">${rowData.id}</span>`}&gt;</span>\n      Create\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">a</span>&gt;</span></span>\n  );\n};</code></pre><br>This would get used in the custom UI field:<br><pre><code class=\"hljs ts\"><span class=\"hljs-keyword\">const</span> <span class=\"hljs-title class_\">CreateProject</span>: <span class=\"hljs-title class_\">Field</span> = {\n  <span class=\"hljs-attr\">type</span>: <span class=\"hljs-string\">&#x27;ui&#x27;</span>,\n  <span class=\"hljs-attr\">name</span>: <span class=\"hljs-string\">&#x27;createProject&#x27;</span>,\n  <span class=\"hljs-attr\">admin</span>: {\n    <span class=\"hljs-attr\">components</span>: {\n      <span class=\"hljs-title class_\">Field</span>: <span class=\"hljs-function\">() =&gt;</span> <span class=\"hljs-literal\">null</span>,\n      <span class=\"hljs-title class_\">Cell</span>: <span class=\"hljs-title class_\">CreateProjectLink</span>,\n    },\n  },\n};</code></pre><br>Then you need to have your relationship field pick up the value from the URL:<br><pre><code class=\"hljs ts\">{\n          <span class=\"hljs-attr\">name</span>: <span class=\"hljs-string\">&#x27;customer&#x27;</span>,\n          <span class=\"hljs-attr\">type</span>: <span class=\"hljs-string\">&#x27;relationship&#x27;</span>,\n          <span class=\"hljs-attr\">relationTo</span>: <span class=\"hljs-string\">&#x27;customers&#x27;</span>,\n          <span class=\"hljs-attr\">required</span>: <span class=\"hljs-literal\">true</span>,\n          <span class=\"hljs-attr\">defaultValue</span>: (): <span class=\"hljs-built_in\">string</span> | <span class=\"hljs-function\"><span class=\"hljs-params\">null</span> =&gt;</span> {\n            <span class=\"hljs-keyword\">if</span> (<span class=\"hljs-keyword\">typeof</span> <span class=\"hljs-variable language_\">window</span> !== <span class=\"hljs-string\">&#x27;undefined&#x27;</span>) {\n              <span class=\"hljs-keyword\">return</span> queryString.<span class=\"hljs-title function_\">parse</span>(<span class=\"hljs-variable language_\">window</span>.<span class=\"hljs-property\">location</span>.<span class=\"hljs-property\">search</span>).<span class=\"hljs-property\">customer</span> <span class=\"hljs-keyword\">as</span> <span class=\"hljs-built_in\">string</span>;\n            }\n            <span class=\"hljs-keyword\">return</span> <span class=\"hljs-literal\">null</span>;\n          },\n        },</code></pre><br>I hope this helps!",
-        "fileAttachments": [],
-        "authorID": "969226489549713438",
-        "authorName": "dribbens",
-        "authorAvatar": "f5c79aff07b9e2b1df382d61c45cb9da",
-        "createdAtDate": 1674248178169
-      },
-      {
-        "content": "perfect thank you very much!",
-        "fileAttachments": [],
-        "authorID": "306429157179392002",
-        "authorName": "60pfennig",
-        "authorAvatar": "91e7dc342f3cfef23552bf5a68018bbe",
-        "createdAtDate": 1675105195260
-      }
-    ],
-    "messageCount": 5
   },
   {
     "info": {
@@ -15033,9 +14559,49 @@
         "authorName": "denolfe",
         "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
         "createdAtDate": 1677591164967
+      },
+      {
+        "content": "At the moment It just works with the WordPress content. Eventually I will look at importing media. @stfn do you have an example api endpoint using Gutenberg?",
+        "fileAttachments": [],
+        "authorID": "1009647354758054068",
+        "authorName": "christopher.nowlan",
+        "authorAvatar": "dd3e3473c973fa3dd493e55c12b1bf78",
+        "createdAtDate": 1677628861438
+      },
+      {
+        "content": "If you have access to the theme or able to add plugins you could write a custom rest api endpoint with all the data you need to import into Payload. If you use ACF flexible content it would probably be pretty easy to match flexible content blocks with Payload blocks",
+        "fileAttachments": [],
+        "authorID": "1009647354758054068",
+        "authorName": "christopher.nowlan",
+        "authorAvatar": "dd3e3473c973fa3dd493e55c12b1bf78",
+        "createdAtDate": 1677629206697
+      },
+      {
+        "content": "I think it would be tricker to import data from a WordPress website that is using a Page builder",
+        "fileAttachments": [],
+        "authorID": "1009647354758054068",
+        "authorName": "christopher.nowlan",
+        "authorAvatar": "dd3e3473c973fa3dd493e55c12b1bf78",
+        "createdAtDate": 1677629360098
+      },
+      {
+        "content": "@denolfe I noticed that there is a filePath property in the local API - <a href=\"https://payloadcms.com/docs/local-api/overview\">https://payloadcms.com/docs/local-api/overview</a>. How do I specify which field I want to add that media too",
+        "fileAttachments": [],
+        "authorID": "1009647354758054068",
+        "authorName": "christopher.nowlan",
+        "authorAvatar": "dd3e3473c973fa3dd493e55c12b1bf78",
+        "createdAtDate": 1677632796231
+      },
+      {
+        "content": "That is specifically for if you have <code>upload</code> enabled for the collection. Payload will handle storing it accordingly.",
+        "fileAttachments": [],
+        "authorID": "967118574445547650",
+        "authorName": "denolfe",
+        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
+        "createdAtDate": 1677679717901
       }
     ],
-    "messageCount": 11
+    "messageCount": 16
   },
   {
     "info": {
@@ -15864,6 +15430,33 @@
       }
     ],
     "messageCount": 6
+  },
+  {
+    "info": {
+      "name": "Compound indexes",
+      "id": "1080470661971066891",
+      "guildId": "967097582721572934",
+      "createdAt": 1677674679988
+    },
+    "messages": [
+      {
+        "content": "Is there a way to describe compound index for collection?<br><br>Use case: <br>Collection has two fields <code>title</code> and <code>value</code><br>Collection should have only unique pairs of title and value<br>Like:<br>title        | value<br>------------|--------------<br>email     | google<br>------------|--------------<br>email     | yahoo",
+        "fileAttachments": [],
+        "authorID": "351983077423185921",
+        "authorName": "Ysione",
+        "authorAvatar": "f612bad72951735200e85f09988732ec",
+        "createdAtDate": 1677674679988
+      },
+      {
+        "content": "Not out of the box currently. An option would be to make an additional field that is readOnly, then write a beforeValidate hook that populates it with the 2 values concatenated.",
+        "fileAttachments": [],
+        "authorID": "967118574445547650",
+        "authorName": "denolfe",
+        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
+        "createdAtDate": 1677686049605
+      }
+    ],
+    "messageCount": 1
   },
   {
     "info": {
@@ -16938,47 +16531,6 @@
       }
     ],
     "messageCount": 4
-  },
-  {
-    "info": {
-      "name": "Edit relationTo-item when relationship disabled/readonly.",
-      "id": "1069083859938971648",
-      "guildId": "967097582721572934",
-      "createdAt": 1674959854827
-    },
-    "messages": [
-      {
-        "content": "I&#x27;ve seen a post somewhere about this already, but can&#x27;t find it anymore.<br>The issue is that I cannot edit the item linked even though the button is shown and the item itself is not readonly.<br>Is this issue tracked? Will it be fixed?<br>Thanks 😊",
-        "fileAttachments": [
-          {
-            "attachment": "https://cdn.discordapp.com/attachments/1069083859938971648/1069083860266143864/image.png",
-            "name": "image.png",
-            "id": "1069083860266143864",
-            "size": 2980,
-            "url": "https://cdn.discordapp.com/attachments/1069083859938971648/1069083860266143864/image.png",
-            "proxyURL": "https://media.discordapp.net/attachments/1069083859938971648/1069083860266143864/image.png",
-            "height": 104,
-            "width": 214,
-            "contentType": "image/png",
-            "description": null,
-            "ephemeral": false
-          }
-        ],
-        "authorID": "1044822902572318781",
-        "authorName": "fewbar",
-        "authorAvatar": null,
-        "createdAtDate": 1674959854827
-      },
-      {
-        "content": "Yes 👍 this is on our radar–we plan to allow document drawers to be able to be opened from read-only relationships.",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675049437046
-      }
-    ],
-    "messageCount": 1
   },
   {
     "info": {
@@ -18301,49 +17853,6 @@
   },
   {
     "info": {
-      "name": "How to implement \"Content Staging\" feature?",
-      "id": "1068897239285645322",
-      "guildId": "967097582721572934",
-      "createdAt": 1674915360996
-    },
-    "messages": [
-      {
-        "content": "Hi! We are migrating from a feature-rich SaaS CMS and I&#x27;m trying to match a feature called Content Staging. Essentially it creates a new version of a page that content editors can work on long term (for large overhaul changes), while the original page can still be worked on (edited and republished) normally. Content-staged pages are shown in a separate section in the UI, and can be worked on independently of the original version. Then when the long term edits are complete and approved, the editor can publish the &quot;content staged&quot; page, which effectively overwrites whatever version the page is currently in. As a bonus, it also allows for batch releases, where you can select multiple content-staged pages and publish them together.",
-        "fileAttachments": [],
-        "authorID": "869429674596524062",
-        "authorName": "Douggie O",
-        "authorAvatar": null,
-        "createdAtDate": 1674915360996
-      },
-      {
-        "content": "Payload drafts aren’t quite as robust as you’re describing but I could see this being supported long-term. Basically, we’d allow previous versions to be worked on without forcing them to be restored first. A temporary workaround could be to maintain a duplicate draft page, and work on <em>that</em>.",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675050102208
-      },
-      {
-        "content": "Related discussion: <a href=\"https://discord.com/channels/967097582721572934/1069000193317556235\">https://discord.com/channels/967097582721572934/1069000193317556235</a>",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675050310635
-      },
-      {
-        "content": "@jacobsfletch  thanks, that&#x27;s great to hear! Yes, it seems it would be working on a draft without restoring, and probably also giving it a tag of some sort (e.g. <code>staging</code>). Then being able to access that version through graphql similar to how drafts are accessed now... maybe instead of a boolean it would look something like this: <code>{Pages(draft:&quot;staging&quot;) {...}}</code> Ideally there would also be some sort of UI geared toward managing/publishing these as well. <br><br>I&#x27;ve just started looking at Payload last week so still exploring the possibility of using a duplicate document to achieve this in some way.<br><br>Happy to discuss with the team to clarify the use case, if you&#x27;re looking for input.",
-        "fileAttachments": [],
-        "authorID": "869429674596524062",
-        "authorName": "Douggie O",
-        "authorAvatar": null,
-        "createdAtDate": 1675085164918
-      }
-    ],
-    "messageCount": 3
-  },
-  {
-    "info": {
       "name": "How to visualy improve in what language your content is edited",
       "id": "1072189880362344519",
       "guildId": "967097582721572934",
@@ -19477,89 +18986,6 @@
   },
   {
     "info": {
-      "name": "How do I define a field that can be added but not edited and not visible when editing?",
-      "id": "1069301116363341834",
-      "guildId": "967097582721572934",
-      "createdAt": 1675011652795
-    },
-    "messages": [
-      {
-        "content": "I have a collection of AWS keys (AccessKeyId/SecretAccessKey pairs). When I add a key, the fields for these two properties should be visible and enabled. When editing, these two fields must not be visible to the user, and should be neither visible nor editable. They should also be removed from any http API call, but present for local API calls. Other fields in this collection should be editable<br><br>I tried a few things, but I can&#x27;t get it to work exactly as I want it to work. I&#x27;d love some help and directions in this matter<br><br>Thanks",
-        "fileAttachments": [],
-        "authorID": "1004634747105972225",
-        "authorName": "tantalum",
-        "authorAvatar": "68d2f32d5429362e6bcf185ec5a749c7",
-        "createdAtDate": 1675011652795
-      },
-      {
-        "content": "have you used disabled and readonly?",
-        "fileAttachments": [],
-        "authorID": "1044822902572318781",
-        "authorName": "fewbar",
-        "authorAvatar": null,
-        "createdAtDate": 1675021150582
-      },
-      {
-        "content": "Can disabled and readonly be conditional? Didn&#x27;t see a hint to that. Fields need to be:<br>1. When creating - Required &amp; Editable<br>2. When editing &amp; in http API (but not local API) - Completely invisible/non-existent<br>3. The fact they&#x27;re missing from updates should not fail the update, and should keep the previous values",
-        "fileAttachments": [],
-        "authorID": "1004634747105972225",
-        "authorName": "tantalum",
-        "authorAvatar": "68d2f32d5429362e6bcf185ec5a749c7",
-        "createdAtDate": 1675028869098
-      },
-      {
-        "content": "You could create another separate field just for creation, then in the beforeValidate hook copy/move its value over to the actual keys field if the operation is &quot;create&quot;.<br>Then set access to that separate field to false on edit, and hide it as well (with custom components or so?).<br>Would that be an option?<br>Even though very complicated. Maybe the payload team can help...",
-        "fileAttachments": [],
-        "authorID": "1044822902572318781",
-        "authorName": "fewbar",
-        "authorAvatar": null,
-        "createdAtDate": 1675044345579
-      },
-      {
-        "content": "That&#x27;s actually a clean and elegant solution, and it fits my use case very well. Didn&#x27;t think of that,  Thank you 🙂",
-        "fileAttachments": [],
-        "authorID": "1004634747105972225",
-        "authorName": "tantalum",
-        "authorAvatar": "68d2f32d5429362e6bcf185ec5a749c7",
-        "createdAtDate": 1675057787682
-      },
-      {
-        "content": "wait, I think read can be conditional the way you need it: <a href=\"https://payloadcms.com/docs/access-control/fields#read\">https://payloadcms.com/docs/access-control/fields#read</a>",
-        "fileAttachments": [],
-        "authorID": "1044822902572318781",
-        "authorName": "fewbar",
-        "authorAvatar": null,
-        "createdAtDate": 1675063294889
-      },
-      {
-        "content": "<blockquote>Returns a boolean which allows or denies the ability to read a field&#x27;s value. If false, the entire property is omitted from the resulting document.</blockquote>",
-        "fileAttachments": [],
-        "authorID": "1044822902572318781",
-        "authorName": "fewbar",
-        "authorAvatar": null,
-        "createdAtDate": 1675063320883
-      },
-      {
-        "content": "Regrattably this is not exactly what I need, when a field is omitted due to Access being false, the submitted form does not include it, and therefore validation fails because it&#x27;s mandatory. But your previous answer took me places, I have begun implementing it, and it looks and behaves perfectly. Thanks again :)\\",
-        "fileAttachments": [],
-        "authorID": "1004634747105972225",
-        "authorName": "tantalum",
-        "authorAvatar": "68d2f32d5429362e6bcf185ec5a749c7",
-        "createdAtDate": 1675090435027
-      },
-      {
-        "content": "You&#x27;re welcome! Don&#x27;t forget to mark as answered : )",
-        "fileAttachments": [],
-        "authorID": "1044822902572318781",
-        "authorName": "fewbar",
-        "authorAvatar": null,
-        "createdAtDate": 1675091154558
-      }
-    ],
-    "messageCount": 8
-  },
-  {
-    "info": {
       "name": "Node ESM Trouble from unknown origins",
       "id": "1071523101290004521",
       "guildId": "967097582721572934",
@@ -20072,70 +19498,148 @@
   },
   {
     "info": {
-      "name": "Can we add a custom document _status option other than Draft/Published/Changed?",
-      "id": "1069000193317556235",
+      "name": "hide id field",
+      "id": "1048430878898004048",
       "guildId": "967097582721572934",
-      "createdAt": 1674939907150
+      "createdAt": 1670035800433
     },
     "messages": [
       {
-        "content": "The documentation states &quot;a document can be shown with one of three &#x27;statuses&#x27;: <em>Draft</em>, <em>Published</em> or <em>Changed</em>.&quot; Is it possible to add another custom status to this?  E.g. <em>Staged</em>. <br><br>I&#x27;m trying to find a way to stage long-term changes (e.g. complete content overhaul) to a page while keeping in tact the normal editing functionality for quick edits (e.g. fix typo).",
-        "fileAttachments": [],
-        "authorID": "869429674596524062",
-        "authorName": "Douggie O",
-        "authorAvatar": null,
-        "createdAtDate": 1674939907150
+        "content": "Hi all 👋  <br><br>I&#x27;m having trouble hiding the id of a collection. I assumed I could do it like this, but I get caught in a loop where it can&#x27;t log me in properly. <br><br><pre><code class=\"hljs\">{\n  name: &#x27;id&#x27;,\n  type: &#x27;text&#x27;,\n  hidden: true,\n},</code></pre><br><br>I can identify at least two potential issues... the <code>type</code> is not correct, and/or <code>hidden</code> isn&#x27;t doing what I think it is. <br><br>The <code>hidden</code> config is defined as <code>Restrict this field&#x27;s visibility from all APIs entirely. Will still be saved to the database, but will not appear in any API or the Admin panel.</code><br><br>does <code>hidden: true</code> mean that the id is not included in the user object when it is fetched from the database? If this is the case, how do I include the id in the document but hide it from the toggle columns options? (pictured)<br><br>Any guidance is appreciated. Thank you",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1048430878898004048/1048430879074160670/image.png",
+            "name": "image.png",
+            "id": "1048430879074160670",
+            "size": 33651,
+            "url": "https://cdn.discordapp.com/attachments/1048430878898004048/1048430879074160670/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1048430878898004048/1048430879074160670/image.png",
+            "height": 363,
+            "width": 1271,
+            "contentType": "image/png",
+            "description": "Toggle Columns",
+            "ephemeral": false
+          }
+        ],
+        "authorID": "1047669407708610661",
+        "authorName": "browniedev",
+        "authorAvatar": "bc09a78c8bd507dffa53e59033933c80",
+        "createdAtDate": 1670035800433
       },
       {
-        "content": "This is not possible, currently. It seems rather niche as well. Adding an additional checkbox or select to handle the additional state might be a possible workaround.",
+        "content": "hey @browniedev — well, the <code>id</code> <em><strong>will</strong></em> be included when fetched from the database—using <code>hidden: true</code> will simply hide it from being returned from any of Payload&#x27;s APIs",
         "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674940826983
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1670266742418
       },
       {
-        "content": "I’d second this request. Having additional statuses could be used to form a workflow. <br><br>I.e. editor creates content but can’t publish it. They move it to a status for review. <br><br>Content admin the checks content and approves it, moving it to a status for staging. <br><br>A deployment of the site that can pull staged content then is checked to ensure it displays correctly before it’s finally published. <br><br>This is a pretty common use case in larger content teams and the reason why most enterprise cms include some sort of content workflow.",
+        "content": "we should be able to build in controls to &quot;deactivate&quot; fields from being used as columns, I&#x27;d say that is the right way to go here",
         "fileAttachments": [],
-        "authorID": "365498720726286349",
-        "authorName": "Kyr",
-        "authorAvatar": "80448b45efe7253a0cc090c246e96c09",
-        "createdAtDate": 1674983047629
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1670266778456
       },
       {
-        "content": "Eg <a href=\"https://kontent.ai/learn/tutorials/manage-kontent-ai/roles-and-workflow/manage-workflows/\">https://kontent.ai/learn/tutorials/manage-kontent-ai/roles-and-workflow/manage-workflows/</a>",
+        "content": "because hiding an <code>id</code> will have unknown side-effects in the admin UI, etc",
         "fileAttachments": [],
-        "authorID": "365498720726286349",
-        "authorName": "Kyr",
-        "authorAvatar": "80448b45efe7253a0cc090c246e96c09",
-        "createdAtDate": 1674983126311
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1670266786966
       },
       {
-        "content": "Thanks for confirming!  I don&#x27;t agree that it&#x27;s niche—though it doesn&#x27;t seem to be a common feature in the open-source CMS world, it&#x27;s a feature of most major SaaS CMS that enables teams to customize workflows to fit their needs. <br><br>I&#x27;m trying to wrap my head around the checkbox workaround, but I think there are a few problems. It would require the content editor to keep going back and restoring versions to switch between editing the live and staging versions. Would it always retain the &quot;staging&quot; draft? Also not sure if there be a reliable way to preview that page from our web app?",
+        "content": "we would happily accept a PR for this as well btw",
         "fileAttachments": [],
-        "authorID": "869429674596524062",
-        "authorName": "Douggie O",
-        "authorAvatar": null,
-        "createdAtDate": 1675004445317
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1670266796468
       },
       {
-        "content": "Related discussion: <a href=\"https://discord.com/channels/967097582721572934/1068897239285645322\">https://discord.com/channels/967097582721572934/1068897239285645322</a>",
+        "content": "maybe a new property on a field config like <code>admin.disableColumn</code> or similar",
         "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675050371204
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1670266804585
       },
       {
-        "content": "I see what you mean. There is definitely room for some sort of &quot;workflow&quot; plugin to make this type of flow easier.",
+        "content": "and then simply check for that property when we expose what columns are available to use in the List view",
         "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675091238674
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1670266813888
+      },
+      {
+        "content": "could be a good first contribution if you&#x27;re up for it 😈",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1670266832363
+      },
+      {
+        "content": "Yes!! When I get home today, I&#x27;ll follow up on this 💯",
+        "fileAttachments": [],
+        "authorID": "1047669407708610661",
+        "authorName": "browniedev",
+        "authorAvatar": "bc09a78c8bd507dffa53e59033933c80",
+        "createdAtDate": 1670269571711
+      },
+      {
+        "content": "<a href=\"https://github.com/payloadcms/payload/discussions/1219\">https://github.com/payloadcms/payload/discussions/1219</a>",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1670269699758
+      },
+      {
+        "content": "this might be helpful if you end up deciding to PR",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1670269709984
+      },
+      {
+        "content": "I&#x27;m open to the idea of making a contribution, do you have any documentation on the process of contributing?",
+        "fileAttachments": [],
+        "authorID": "1047669407708610661",
+        "authorName": "browniedev",
+        "authorAvatar": "bc09a78c8bd507dffa53e59033933c80",
+        "createdAtDate": 1670269826349
+      },
+      {
+        "content": "<a href=\"https://github.com/payloadcms/payload/blob/master/contributing.md\">https://github.com/payloadcms/payload/blob/master/contributing.md</a>",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1670271087848
+      },
+      {
+        "content": "this plus the Discussion above should be helpful",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1670271093626
+      },
+      {
+        "content": "@browniedev have you tried to implement this? Would be nice to have!",
+        "fileAttachments": [],
+        "authorID": "1041438496285532170",
+        "authorName": "TheFrontend",
+        "authorAvatar": "bcb7fbbe04c97de177f47c68e9fbaf6d",
+        "createdAtDate": 1677674407997
       }
     ],
-    "messageCount": 6
+    "messageCount": 14
   },
   {
     "info": {
@@ -20775,156 +20279,6 @@
       }
     ],
     "messageCount": 16
-  },
-  {
-    "info": {
-      "name": "Issues with deployment",
-      "id": "1052327558659715144",
-      "guildId": "967097582721572934",
-      "createdAt": 1670964841285
-    },
-    "messages": [
-      {
-        "content": "Hi there! We have a Next.js frontend hosted on Vercel and a Payload CMS admin hosted on Render. As of recently, we&#x27;ve been having issues with deploying anything (&quot;Error occurred prerendering page...&quot;). <br><br>Nothing has been changed in the code that would affect this sudden issue, so I&#x27;m trying to rule out possibilities right now. <br><br>Could this be an issue with Payload CMS? Maybe a recent update?",
-        "fileAttachments": [],
-        "authorID": "688751754510467189",
-        "authorName": "room_n",
-        "authorAvatar": "294e6b033ee19eb566e8f955ac109e31",
-        "createdAtDate": 1670964841285
-      },
-      {
-        "content": "I think you need more context to know what is the root cause of the issue here. What happens if you build locally while pointing to your CMS hosted on Render?",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1670965573064
-      },
-      {
-        "content": "Did you solve it? I faced the same problem.",
-        "fileAttachments": [],
-        "authorID": "996606499663118336",
-        "authorName": "dapsipli",
-        "authorAvatar": null,
-        "createdAtDate": 1675053690553
-      }
-    ],
-    "messageCount": 2
-  },
-  {
-    "info": {
-      "name": "Admin account returns undefined",
-      "id": "1044275014347784252",
-      "guildId": "967097582721572934",
-      "createdAt": 1669044965112
-    },
-    "messages": [
-      {
-        "content": "I managed to successfully set up Payload with AWS Lambda and MongoDB Atlas, but only one thing seems to be broken - when I click on my profile, my API URL is <code>undefined</code> and in general the data for my account is not loaded. There are two requests in the Network tab of DevTools and one of them is HTTP 400, while the other is 200 and contains my user data with the correct ID and everything. What could be the problem?",
-        "fileAttachments": [
-          {
-            "attachment": "https://cdn.discordapp.com/attachments/1044275014347784252/1044275014591057970/image.png",
-            "name": "image.png",
-            "id": "1044275014591057970",
-            "size": 65625,
-            "url": "https://cdn.discordapp.com/attachments/1044275014347784252/1044275014591057970/image.png",
-            "proxyURL": "https://media.discordapp.net/attachments/1044275014347784252/1044275014591057970/image.png",
-            "height": 897,
-            "width": 1429,
-            "contentType": "image/png",
-            "description": null,
-            "ephemeral": false
-          },
-          {
-            "attachment": "https://cdn.discordapp.com/attachments/1044275014347784252/1044275014922424450/image.png",
-            "name": "image.png",
-            "id": "1044275014922424450",
-            "size": 69893,
-            "url": "https://cdn.discordapp.com/attachments/1044275014347784252/1044275014922424450/image.png",
-            "proxyURL": "https://media.discordapp.net/attachments/1044275014347784252/1044275014922424450/image.png",
-            "height": 678,
-            "width": 875,
-            "contentType": "image/png",
-            "description": null,
-            "ephemeral": false
-          },
-          {
-            "attachment": "https://cdn.discordapp.com/attachments/1044275014347784252/1044275015329251418/image.png",
-            "name": "image.png",
-            "id": "1044275015329251418",
-            "size": 78342,
-            "url": "https://cdn.discordapp.com/attachments/1044275014347784252/1044275015329251418/image.png",
-            "proxyURL": "https://media.discordapp.net/attachments/1044275014347784252/1044275015329251418/image.png",
-            "height": 833,
-            "width": 877,
-            "contentType": "image/png",
-            "description": null,
-            "ephemeral": false
-          }
-        ],
-        "authorID": "583713322700898304",
-        "authorName": "dodov",
-        "authorAvatar": "963cac7b9d70846918bedd06cc4cc389",
-        "createdAtDate": 1669044965112
-      },
-      {
-        "content": "Oh, I think I&#x27;ve found it. The 400 request is:<br><pre><code class=\"hljs\">/api/users/62fb90287bed9b334e530765?depth=0?locale=en</code></pre><br>There are two question marks, which means that only <code>?locale=en</code> is the actual query string, while <code>?depth=0</code> remains as part of the path. Then, <code>62fb90287bed9b334e530765?depth=0</code> is an invalid ID and the request fails.<br><br>Looks like it&#x27;s an issue with Payload? I think the request URL was formed by Payload code. @Jarrod should I open an issue on GitHub?",
-        "fileAttachments": [],
-        "authorID": "583713322700898304",
-        "authorName": "dodov",
-        "authorAvatar": "963cac7b9d70846918bedd06cc4cc389",
-        "createdAtDate": 1669045299000
-      },
-      {
-        "content": "@dodov Yes, please open an issue! A minimal payload config for reproduction would be amazing to include as well.",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1669046627343
-      },
-      {
-        "content": "I went ahead and opened an issue: <a href=\"https://github.com/payloadcms/payload/issues/1472\">https://github.com/payloadcms/payload/issues/1472</a><br><br>I&#x27;ll try to make a reproduction config, sure!",
-        "fileAttachments": [],
-        "authorID": "583713322700898304",
-        "authorName": "dodov",
-        "authorAvatar": "963cac7b9d70846918bedd06cc4cc389",
-        "createdAtDate": 1669046920375
-      },
-      {
-        "content": "I&#x27;ve added some more context in the issue. The short answer is - the problem appears even on the live demo site of Payload.",
-        "fileAttachments": [],
-        "authorID": "583713322700898304",
-        "authorName": "dodov",
-        "authorAvatar": "963cac7b9d70846918bedd06cc4cc389",
-        "createdAtDate": 1669048678030
-      },
-      {
-        "content": "Nice, that is perfect.",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1669048828229
-      },
-      {
-        "content": "Thank you!",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1669048831763
-      },
-      {
-        "content": "Hey @dodov how&#x27;s ur experience so far running Payload CMS in Lambda? I&#x27;m exploring this option right now, but I &#x27;m having some issues with Dockerfile.<br><br>Maybe you could help? I send you PM",
-        "fileAttachments": [],
-        "authorID": "278945317771018240",
-        "authorName": "kasmobir",
-        "authorAvatar": "99b1da29576e5ebb0709705b82eeb8fc",
-        "createdAtDate": 1675074159668
-      }
-    ],
-    "messageCount": 7
   },
   {
     "info": {
@@ -21923,6 +21277,57 @@
       }
     ],
     "messageCount": 3
+  },
+  {
+    "info": {
+      "name": "[Possible bug] How to clean a field using the dispatch from useFormFields?",
+      "id": "1080189737421246536",
+      "guildId": "967097582721572934",
+      "createdAt": 1677607702356
+    },
+    "messages": [
+      {
+        "content": "Hi there! I am using useFormFields to get the dispatch method for an UPDATE action. Sometimes I need to clean a field, so I dispatchName(undefined). That clears the form correctly, but when I click &#x27;Save Draft&#x27; the old value reappears and is saved in Mongo. Any insights on what&#x27;s going on?<br><br>  const dispatchName = useFormFields(<br>    ([_, dispatch]) =&gt;<br>      (value: string) =&gt;<br>        dispatch({<br>          type: &#x27;UPDATE&#x27;,<br>          path: NamePath,<br>          value: value<br>        })<br>  )<br><br>dispatchName(undefined)",
+        "fileAttachments": [],
+        "authorID": "435590980838621194",
+        "authorName": "Cerize",
+        "authorAvatar": null,
+        "createdAtDate": 1677607702356
+      },
+      {
+        "content": "P.S: it seems to work better with dispatching &#x27;null&#x27;",
+        "fileAttachments": [],
+        "authorID": "435590980838621194",
+        "authorName": "Cerize",
+        "authorAvatar": null,
+        "createdAtDate": 1677608070028
+      },
+      {
+        "content": "@jmikrut Do you know if have anyone seen this before?",
+        "fileAttachments": [],
+        "authorID": "435590980838621194",
+        "authorName": "Cerize",
+        "authorAvatar": null,
+        "createdAtDate": 1677610741531
+      },
+      {
+        "content": "yeah you will need to send <code>null</code> to clear a field",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677616854511
+      },
+      {
+        "content": "thanks @jmikrut  for confirming!",
+        "fileAttachments": [],
+        "authorID": "435590980838621194",
+        "authorName": "Cerize",
+        "authorAvatar": null,
+        "createdAtDate": 1677620603961
+      }
+    ],
+    "messageCount": 4
   },
   {
     "info": {

@@ -69,7 +69,6 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
                 author={author.name}
                 image={author.avatar}
                 date={createdAt}
-                url={author.url}
                 platform="Github"
                 messageCount={commentTotal}
                 upvotes={upvotes}

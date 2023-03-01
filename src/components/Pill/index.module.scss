@@ -6,7 +6,7 @@
   background-color: var(--theme-success-100);
   color: var(--color-success-500);
   border-radius: 19px;
-  padding: calc(var(--base) * 0.15) calc(var(--base) * 0.5);
+  padding: calc(var(--base) * 0.3) calc(var(--base) * 0.5);
   margin-right: calc(var(--base) * 0.4);
 
   @include small-break {
@@ -16,14 +16,14 @@
 
 .text {
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 12px;
   letter-spacing: 0.1em;
+  line-height: 1;
 }
 
 :global([data-theme="light"]) {
   .pill {
     background-color: var(--theme-success-450);
-    border-color: var(--theme-success-550);
     color: black;
   }
 }

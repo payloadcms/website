@@ -38,7 +38,7 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
             author={answer.author.name}
             image={answer.author.avatar}
             date={answer.createdAt}
-            url={answer.author.url}
+            isAnswer
           />
           <DiscordGitBody body={answer?.body} />
           {answerReplies && (
@@ -57,7 +57,6 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
                 author={reply.author.name}
                 image={reply.author.avatar}
                 date={reply.createdAt}
-                url={reply.author.url}
               />
               <DiscordGitBody body={reply.body} />
             </li>
@@ -89,7 +88,6 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
                   author={comment.author?.name || comment.authorName}
                   image={comment.author?.avatar || avatarImg}
                   date={comment?.createdAt || comment.createdAtDate}
-                  url={comment?.author?.url || ''}
                   platform={platform}
                   comment
                 />
@@ -124,7 +122,6 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
                         author={reply.author.name}
                         image={reply.author.avatar}
                         date={reply.createdAt}
-                        url={reply.author.url}
                       />
                       <DiscordGitBody body={reply.body} />
                     </div>

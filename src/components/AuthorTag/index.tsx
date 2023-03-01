@@ -6,6 +6,7 @@ import { CommentsIcon } from '@root/graphics/CommentsIcon'
 import { getTeamTwitter } from '@root/utilities/get-team-twitter'
 import { TwitterIconV2 } from '@root/graphics/TwitterIconV2'
 import { Pill } from '@components/Pill'
+
 import classes from './index.module.scss'
 
 export type Props = {
@@ -14,11 +15,10 @@ export type Props = {
   date?: Date
   image: string
   platform?: 'Github' | 'Discord'
-  url?: string
   comment?: boolean
   messageCount?: number
   upvotes?: number
-  isAnswered?: boolean
+  isAnswer?: boolean
 }
 
 const AuthorTag: React.FC<Props> = ({
@@ -27,11 +27,10 @@ const AuthorTag: React.FC<Props> = ({
   date,
   image,
   platform,
-  url,
   comment,
   messageCount,
   upvotes,
-  isAnswered,
+  isAnswer,
 }) => {
   const teamMember = getTeamTwitter(author)
 
@@ -51,7 +50,7 @@ const AuthorTag: React.FC<Props> = ({
             </div>
           </a>
           <Pill
-            className={[isAnswered && classes.isAnswered].filter(Boolean).join(' ')}
+            className={[isAnswer && classes.isAnswer].filter(Boolean).join(' ')}
             text="Payload Team"
           />
         </div>

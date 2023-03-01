@@ -37,7 +37,7 @@
 
   & code,
   & pre {
-    background-color: var(--color-base-950);
+    background-color: var(--theme-elevation-100);
     font-family: var(--font-mono);
     font-size: calc(var(--font-body-size) * .825);
     line-height: var(--base);
@@ -48,14 +48,19 @@
     -moz-hyphens: none;
     -ms-hyphens: none;
     hyphens: none;
+    padding: calc(var(--base) * 0.15);
   }
 
   & pre {
+    background-color: var(--color-base-950);
     padding: calc(var(--base) * 1.5);
+
+    code {
+      background: none;
+    }
   }
 
   & p>code {
-    padding: calc(var(--base) * 0.15);
     color: var(--theme-elevation-900);
   }
 
@@ -101,13 +106,12 @@
   }
 }
 
-
 :global([data-theme="light"]) {
   .body {
-
-    & pre,
-    & code {
-      background-color: var(--theme-elevation-100);
+    & pre {
+      & code {
+        color: var(--theme-elevation-100);
+      }
     }
   }
 }

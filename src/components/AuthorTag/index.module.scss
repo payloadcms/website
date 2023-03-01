@@ -31,10 +31,11 @@
 }
 
 .twitterIcon {
-  margin: 0 calc(var(--base) * 0.5) 0 calc(var(--base) * 0.5);
+  display: flex;
+  margin: 0 calc(var(--base) * 0.35) 0 calc(var(--base) * 0.35);
 }
 
-.isAnswered {
+.isAnswer {
   color: var(--theme-success-100);
   background-color: var(--color-success-500);
 }
@@ -77,6 +78,10 @@
 }
 
 :global([data-theme="light"]) {
+  .isAnswer {
+    background-color: var(--color-success-900);
+    color: var(--color-success-500);
+  }
 
   .upvotes,
   .comments {
