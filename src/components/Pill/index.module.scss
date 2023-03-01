@@ -1,0 +1,29 @@
+@use '@scss/common' as *;
+
+.pill {
+  display: flex;
+  align-items: center;
+  background-color: var(--theme-success-100);
+  color: var(--color-success-500);
+  border-radius: 19px;
+  padding: calc(var(--base) * 0.15) calc(var(--base) * 0.5);
+  margin-right: calc(var(--base) * 0.4);
+
+  @include small-break {
+    max-height: 28px;
+  }
+}
+
+.text {
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+}
+
+:global([data-theme="light"]) {
+  .pill {
+    background-color: var(--theme-success-450);
+    border-color: var(--theme-success-550);
+    color: black;
+  }
+}

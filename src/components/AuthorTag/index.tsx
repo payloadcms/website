@@ -4,6 +4,8 @@ import { getSpecificDateTime } from '@root/utilities/get-specific-date-time'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { CommentsIcon } from '@root/graphics/CommentsIcon'
 import { getTeamTwitter } from '@root/utilities/get-team-twitter'
+import { TwitterIconV2 } from '@root/graphics/TwitterIconV2'
+import { Pill } from '@components/Pill'
 import classes from './index.module.scss'
 
 export type Props = {
@@ -16,6 +18,7 @@ export type Props = {
   comment?: boolean
   messageCount?: number
   upvotes?: number
+  isAnswered?: boolean
 }
 
 const AuthorTag: React.FC<Props> = ({
@@ -28,19 +31,35 @@ const AuthorTag: React.FC<Props> = ({
   comment,
   messageCount,
   upvotes,
+  isAnswered,
 }) => {
   const teamMember = getTeamTwitter(author)
 
   return (
     <div className={[classes.authorTag, className].filter(Boolean).join(' ')}>
-      <a className={classes.author} href={url || ''}>
-        <img src={image} />
-        <strong>{author}</strong>
-      </a>
-      {teamMember && (
-        <a href={`https://twitter.com/${teamMember}`} className={classes.teamTag}>
-          <label>&nbsp;TEAM</label>
-        </a>
+      {teamMember ? (
+        <div
+          className={[classes.author, teamMember && classes.teamMember].filter(Boolean).join(' ')}
+        >
+          <a className={classes.authorLink} href={`https://twitter.com/${teamMember}`}>
+            <img src={image} />
+            <strong>{author}</strong>
+            <div className={classes.teamTag}>
+              <span className={classes.twitterIcon}>
+                <TwitterIconV2 />
+              </span>
+            </div>
+          </a>
+          <Pill
+            className={[isAnswered && classes.isAnswered].filter(Boolean).join(' ')}
+            text="Payload Team"
+          />
+        </div>
+      ) : (
+        <div className={classes.author}>
+          <img src={image} />
+          <strong>{author}</strong>
+        </div>
       )}
       {date && (
         <span className={classes.date}>

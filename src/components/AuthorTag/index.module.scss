@@ -1,14 +1,15 @@
 @use '@scss/common' as *;
 
 .authorTag,
-.author {
+.author,
+.authorLink {
   display: flex;
   align-items: center;
 }
 
 .author {
-  text-decoration: none;
   color: var(--theme-elevation-900);
+  margin-right: calc(var(--base) * 0.25);
 
   & img {
     width: 45px;
@@ -19,18 +20,29 @@
   }
 }
 
-.teamTag {
+.authorLink {
   text-decoration: none;
+}
+
+.teamTag {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.twitterIcon {
+  margin: 0 calc(var(--base) * 0.5) 0 calc(var(--base) * 0.5);
+}
+
+.isAnswered {
+  color: var(--theme-success-100);
+  background-color: var(--color-success-500);
 }
 
 .date,
 .platform {
   color: var(--theme-elevation-500);
   font-weight: normal;
-}
-
-.date {
-  margin-left: calc(var(--base) * 0.25);
 }
 
 .upvotes {
@@ -97,6 +109,18 @@
 }
 
 @include small-break {
+  .authorTag {
+    line-height: 2;
+  }
+
+  .author {
+    flex-wrap: wrap;
+  }
+
+  .teamMember {
+    line-height: 2.5;
+  }
+
   .upvotes {
     margin-left: calc(var(--base) * 0.5);
 
