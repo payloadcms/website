@@ -86,14 +86,23 @@ export const RevealEnv: React.FC<Props> = ({ index, name, arrayItemID }) => {
   const { refreshProject, project } = useRouteData()
   const projectID = project.id
 
-  const onSubmit = React.useCallback(
-    async ({ unflattenedData }) => {
-      const value = unflattenedData[`environmentVariables.${index}.value`]
+  const updateEnv = React.useCallback(
+    async ({ data }) => {
+      const value = data[`environmentVariables.${index}.value`]
+      const newName = data[`environmentVariables.${index}.name`]
+
+      // TODO: alert user based on status code & message
+
       if (typeof value === 'string') {
-        await setEnv({ envName: name, projectID, envValue: value, arrayItemID })
+        try {
+          await setEnv({ envName: newName, projectID, envValue: value, arrayItemID })
+          refreshProject()
+        } catch (e) {
+          console.error(e)
+        }
       }
     },
-    [name, projectID, arrayItemID, index],
+    [projectID, arrayItemID, index, refreshProject],
   )
 
   const deleteEnv = React.useCallback(async () => {
@@ -109,9 +118,10 @@ export const RevealEnv: React.FC<Props> = ({ index, name, arrayItemID }) => {
         },
       )
 
+      // TODO: alert user based on status code & message
+
       if (req.status === 200) {
         refreshProject()
-        // TODO: alert user that it was deleted
       }
     } catch (e) {
       console.error(e)
@@ -137,7 +147,7 @@ export const RevealEnv: React.FC<Props> = ({ index, name, arrayItemID }) => {
         />
 
         <Accordion.Content>
-          <Form className={classes.accordionFormContent} onSubmit={onSubmit}>
+          <Form className={classes.accordionFormContent} onSubmit={updateEnv}>
             <Text
               required
               label="Name"
