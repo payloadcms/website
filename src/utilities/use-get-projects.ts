@@ -53,9 +53,10 @@ export const useGetProjects = (props: {
     }
   }, [user, selectedTeam, delay])
 
-  return {
-    projects,
-    error,
-    loading,
-  }
+  const memoizedState = React.useMemo(
+    () => ({ error, loading, projects }),
+    [error, loading, projects],
+  )
+
+  return memoizedState
 }

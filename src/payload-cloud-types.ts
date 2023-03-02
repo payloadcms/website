@@ -79,7 +79,7 @@ export interface Plan {
 }
 export interface Project {
   id: string;
-  status?: 'draft' | 'active';
+  status?: 'draft' | 'published';
   name: string;
   slug?: string;
   deletedOn?: string;

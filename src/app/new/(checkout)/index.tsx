@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Label from '@forms/Label'
@@ -14,15 +14,15 @@ import { Button } from '@components/Button'
 import { CreditCardSelector } from '@components/CreditCardSelector'
 import { Gutter } from '@components/Gutter'
 import { LoadingShimmer } from '@components/LoadingShimmer'
-import { PlanSelector } from '@components/PlanSelector'
-import { ScopeSelector } from '@components/ScopeSelector'
+import { usePlanSelector } from '@components/PlanSelector'
+import { useScopeSelector } from '@components/ScopeSelector'
 import { TeamSelector } from '@components/TeamSelector'
-import { Plan, Project, Team } from '@root/payload-cloud-types'
+import { Plan, Team } from '@root/payload-cloud-types'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import useDebounce from '@root/utilities/use-debounce'
-import { Install } from '@root/utilities/use-get-installs'
 import { usePaymentIntent } from '@root/utilities/use-payment-intent'
+import { projectReducer } from './reducer'
 import { useDeploy } from './useDeploy'
 
 import classes from './index.module.scss'
@@ -37,30 +37,37 @@ const Stripe = loadStripe(apiKey)
 
 const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) => {
   const router = useRouter()
-  const [selectedTeam, setSelectedTeam] = React.useState<Team>()
-  const [installsLoading, setInstallsLoading] = React.useState<boolean>(true)
-  const [selectedInstall, setSelectedInstall] = React.useState<Install>()
-  const [selectedPlan, setSelectedPlan] = React.useState<Plan>()
   const [isLoading, setIsLoading] = React.useState<boolean>(true)
-  const [project, setProject] = React.useState<Project | null>(null)
+  const [project, dispatchProject] = React.useReducer(projectReducer, null)
   const requestedProject = React.useRef(false)
   const [paymentMethod, setPaymentMethod] = React.useState<string | null>(null)
-
-  const { clientSecret: stripeClientSecret, error: paymentIntentError } = usePaymentIntent({
-    plan: selectedPlan,
-    team: selectedTeam,
-    paymentMethod,
-  })
+  const [ScopeSelector, { value: selectedInstall, loading: installsLoading }] = useScopeSelector()
 
   const [isOrgScope, setIsOrgScope] = useState(
     () => selectedInstall?.target_type === 'Organization',
   )
 
+  const handleChange = useCallback(incomingPlan => {
+    dispatchProject({
+      type: 'SET_PLAN',
+      payload: incomingPlan,
+    })
+  }, [])
+
+  const [PlanSelector] = usePlanSelector({
+    isOrgScope,
+    onChange: handleChange,
+  })
+
+  const { clientSecret: stripeClientSecret, error: paymentIntentError } = usePaymentIntent({
+    plan: project?.plan as Plan,
+    team: project?.team as Team,
+    paymentMethod,
+  })
+
   useEffect(() => {
     if (requestedProject.current) return
     requestedProject.current = true
-
-    setIsLoading(true)
 
     const fetchProject = async () => {
       try {
@@ -76,12 +83,17 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
 
         if (req.ok) {
           // eslint-disable-next-line no-underscore-dangle
-          if (res._status !== 'draft') {
+          if (res.status === 'published') {
             router.push(`/dashboard/${res?.team?.slug}/${res.slug}`)
           } else {
-            setSelectedTeam(res.team as Team)
-            setSelectedPlan(res.plan as Plan)
-            setProject(res)
+            dispatchProject({
+              type: 'SET',
+              payload: {
+                ...res,
+                team: res.team as Team,
+                plan: res.plan as Plan,
+              },
+            })
             setIsLoading(false)
           }
         }
@@ -95,11 +107,11 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
   }, [draftProjectID, router])
 
   const { isDeploying, errorDeploying, deploy } = useDeploy({
-    project,
+    project: {
+      ...project,
+      installID: selectedInstall?.id.toString(),
+    },
     stripeClientSecret,
-    plan: selectedPlan,
-    team: selectedTeam,
-    install: selectedInstall,
     paymentMethod,
   })
 
@@ -137,21 +149,19 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
         <Grid>
           <Cell cols={3} colsM={8} className={classes.sidebarCell}>
             <div className={classes.sidebar}>
-              {loading ? (
+              {loading || installsLoading ? (
                 <LoadingShimmer number={1} />
               ) : (
                 <Fragment>
-                  <ScopeSelector
-                    onChange={install => {
-                      setSelectedInstall(install)
-                    }}
-                    value={selectedInstall?.id}
-                    onLoading={setInstallsLoading}
-                  />
+                  <ScopeSelector />
                   <br />
                   <div>
                     <Label label="Total cost" htmlFor="" />
-                    <p>{priceFromJSON(selectedPlan?.priceJSON)}</p>
+                    <p>
+                      {priceFromJSON(
+                        typeof project.plan !== 'string' ? project?.plan?.priceJSON : '',
+                      )}
+                    </p>
                   </div>
                 </Fragment>
               )}
@@ -168,11 +178,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
                       <h5 className={classes.sectionTitle}>Select your plan</h5>
                     </div>
                     <div className={classes.plans}>
-                      <PlanSelector
-                        value={selectedPlan?.id}
-                        onChange={setSelectedPlan}
-                        isOrgScope={isOrgScope}
-                      />
+                      <PlanSelector />
                     </div>
                   </div>
                   <div>
@@ -211,12 +217,12 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
                       Add another
                     </button>
                   </div>
-                  {selectedPlan?.slug !== 'free' && (
+                  {typeof project?.plan !== 'string' && project?.plan?.slug !== 'free' && (
                     <div>
                       <h5>Payment Info</h5>
                       <CreditCardSelector
                         initialValue={paymentMethod}
-                        team={selectedTeam}
+                        team={project?.team as Team}
                         onChange={setPaymentMethod}
                       />
                     </div>

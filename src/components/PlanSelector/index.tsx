@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import Label from '@forms/Label'
 
 import { LargeRadio } from '@components/LargeRadio'
@@ -6,68 +6,52 @@ import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Plan } from '@root/payload-cloud-types'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import useDebounce from '@root/utilities/use-debounce'
+import { UseGetPlans, useGetPlans } from '../../utilities/use-get-plans'
 
 import classes from './index.module.scss'
 
-export const PlanSelector: React.FC<{
+type PlanSelectorProps = {
   value?: string
   onChange?: (value: Plan) => void // eslint-disable-line no-unused-vars
   isOrgScope?: boolean
-}> = props => {
-  const { onChange, value: valueFromProps, isOrgScope } = props
+  plans: Plan[]
+  loading: boolean
+  error: string | undefined
+  initialSelection?: Plan
+}
+
+export const PlanSelector: React.FC<PlanSelectorProps> = props => {
+  const {
+    onChange,
+    value: valueFromProps,
+    isOrgScope,
+    loading,
+    error,
+    plans,
+    initialSelection,
+  } = props
   const hasInitializedSelection = React.useRef(false)
-  const hasMadeRequest = React.useRef(false)
-  const [selectedPlan, setSelectedPlan] = React.useState<Plan | undefined>()
-  const [error, setError] = React.useState<string | undefined>()
-  const [isLoading, setIsLoading] = React.useState(false)
-  const [plans, setPlans] = React.useState<Plan[]>([])
+  const [selectedPlan, setSelectedPlan] = React.useState<Plan | null>(initialSelection)
 
+  // initialize with the `free` plan
   useEffect(() => {
-    if (hasMadeRequest.current) return
-    hasMadeRequest.current = true
-
-    const fetchPlans = async () => {
-      try {
-        setIsLoading(true)
-
-        const plansReq = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/plans?where[slug][not_equals]=enterprise`,
-          {
-            credentials: 'include',
-          },
-        )
-
-        const json = await plansReq.json()
-
-        if (plansReq.ok) {
-          setPlans(json.docs)
-          setIsLoading(false)
-        } else {
-          throw new Error(json.message)
-        }
-      } catch (err: any) {
-        setError(err.message)
-        setIsLoading(false)
-      }
+    if (plans?.length && !initialSelection && !hasInitializedSelection.current) {
+      hasInitializedSelection.current = true
+      setSelectedPlan(plans.find(plan => plan.slug === 'free'))
     }
-    fetchPlans()
-  }, [])
+  }, [plans, initialSelection])
 
   useEffect(() => {
-    if (valueFromProps === selectedPlan?.id && plans?.length) {
+    if (
+      hasInitializedSelection &&
+      valueFromProps !== undefined &&
+      valueFromProps !== selectedPlan?.id &&
+      plans?.length
+    ) {
       const newSelection = plans.find(plan => plan.id === valueFromProps)
       setSelectedPlan(newSelection)
     }
   }, [valueFromProps, plans, selectedPlan])
-
-  useEffect(() => {
-    if (plans?.length && !hasInitializedSelection.current) {
-      hasInitializedSelection.current = true
-      setSelectedPlan(selectedPlan || plans.find(plan => plan.slug === 'free'))
-    }
-  }, [plans, selectedPlan])
-
-  const loading = useDebounce(isLoading, 250)
 
   useEffect(() => {
     if (typeof onChange === 'function') {
@@ -118,4 +102,51 @@ export const PlanSelector: React.FC<{
       )}
     </Fragment>
   )
+}
+
+export const usePlanSelector = (args: {
+  isOrgScope: boolean
+  onChange?: (value: Plan) => void // eslint-disable-line no-unused-vars
+}): [
+  React.FC,
+  ReturnType<UseGetPlans> & {
+    value: Plan | undefined
+  },
+] => {
+  const { isOrgScope, onChange } = args
+
+  const [value, setValue] = useState<Plan | undefined>()
+  const plansData = useGetPlans()
+  const debouncedLoading = useDebounce(plansData.isLoading, 250)
+
+  const MemoizedPlanSelector = useMemo(
+    () => () => {
+      const { error, plans } = plansData
+
+      return (
+        <PlanSelector
+          loading={debouncedLoading}
+          error={error}
+          plans={plans}
+          onChange={setValue}
+          isOrgScope={isOrgScope}
+        />
+      )
+    },
+    [debouncedLoading, isOrgScope, plansData],
+  )
+
+  useEffect(() => {
+    if (typeof onChange === 'function') {
+      onChange(value)
+    }
+  }, [onChange, value])
+
+  return [
+    MemoizedPlanSelector,
+    {
+      ...plansData,
+      value,
+    },
+  ]
 }

@@ -63,9 +63,7 @@ export const useGetRepos = (props: {
     }
   }, [user, selectedInstall, delay])
 
-  return {
-    repos,
-    error,
-    loading,
-  }
+  const memoizedState = React.useMemo(() => ({ repos, error, loading }), [repos, error, loading])
+
+  return memoizedState
 }

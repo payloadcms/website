@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 
 import { useAuth } from '@root/providers/Auth'
 
@@ -35,14 +35,16 @@ const installReducer = (state: Install[], action: Action) => {
   }
 }
 
-export const useGetInstalls = (): {
+export type UseGetInstalls = () => {
   error: string | undefined
   loading: boolean
   installs: Install[]
-  reloadInstalls: () => void
-} => {
+  reload: () => void
+}
+
+export const useGetInstalls: UseGetInstalls = () => {
   const [error, setError] = React.useState<string | undefined>()
-  const [loading, setLoading] = React.useState(true)
+  const [installsLoading, setInstallsLoading] = React.useState(true)
   const [installs, dispatchInstalls] = React.useReducer(installReducer, [])
   const { user } = useAuth()
 
@@ -73,13 +75,13 @@ export const useGetInstalls = (): {
     if (user) {
       const getInstalls = async () => {
         timeout = setTimeout(() => {
-          setLoading(true)
+          setInstallsLoading(true)
         }, 250)
 
         const installations = await loadInstalls()
         clearTimeout(timeout)
         dispatchInstalls({ type: 'set', payload: installations })
-        setLoading(false)
+        setInstallsLoading(false)
       }
 
       getInstalls()
@@ -90,15 +92,15 @@ export const useGetInstalls = (): {
     }
   }, [user, loadInstalls])
 
-  const reloadInstalls = useCallback(async () => {
+  const reload = useCallback(async () => {
     const installations = await loadInstalls()
     dispatchInstalls({ type: 'set', payload: installations })
   }, [loadInstalls])
 
-  return {
-    installs,
-    error,
-    loading,
-    reloadInstalls,
-  }
+  const memoizedState = useMemo(
+    () => ({ installs, error, loading: installsLoading, reload }),
+    [installs, error, installsLoading, reload],
+  )
+
+  return memoizedState
 }
