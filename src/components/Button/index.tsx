@@ -4,17 +4,18 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 
 import { LineBlip } from '@components/LineBlip'
-// eslint-disable-next-line import/no-cycle
 import { GitHubIcon } from '@root/graphics/GitHub'
+import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { PlusIcon } from '@root/icons/PlusIcon'
+import { SearchIcon } from '@root/icons/SearchIcon'
+import { Page } from '../../payload-types'
+// eslint-disable-next-line import/no-cycle
 import { LinkType, Reference } from '../CMSLink'
-import { ArrowIcon } from '../../icons/ArrowIcon'
-import { SearchIcon } from '../../icons/SearchIcon'
 
 import classes from './index.module.scss'
-import { Page } from '../../payload-types'
 
 export type ButtonProps = {
-  appearance?: 'default' | 'primary' | 'secondary' | 'error'
+  appearance?: 'default' | 'text' | 'primary' | 'secondary' | 'danger'
   el?: 'button' | 'link' | 'a'
   onClick?: () => void
   href?: string
@@ -22,7 +23,7 @@ export type ButtonProps = {
   className?: string
   label?: string
   labelStyle?: 'mono' | 'regular'
-  icon?: 'arrow' | 'search' | 'github'
+  icon?: 'arrow' | 'search' | 'github' | 'plus'
   fullWidth?: boolean
   mobileFullWidth?: boolean
   type?: LinkType
@@ -38,6 +39,7 @@ const icons = {
   arrow: ArrowIcon,
   search: SearchIcon,
   github: GitHubIcon,
+  plus: PlusIcon,
 }
 
 type GenerateSlugType = {
@@ -96,11 +98,9 @@ const ButtonContent: React.FC<ButtonProps> = props => {
           {label}
         </div>
       )}
-      {Icon && label && (
-        // NOTE: this is so that the icon and label can be reversed but keep spacing without messy css
-        <span className={classes.spacer} />
+      {Icon && (
+        <Icon className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')} />
       )}
-      {Icon && <Icon className={classes.icon} />}
     </div>
   )
 }
@@ -142,6 +142,7 @@ export const Button: React.FC<ButtonProps> = props => {
     fullWidth && classes['full-width'],
     mobileFullWidth && classes['mobile-full-width'],
     size && classes[`size--${size}`],
+    isHovered && classes.isHovered,
   ]
     .filter(Boolean)
     .join(' ')

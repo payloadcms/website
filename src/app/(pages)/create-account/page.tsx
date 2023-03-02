@@ -4,7 +4,6 @@ import React, { useCallback, useState } from 'react'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
-import { Data } from '@forms/types'
 import Link from 'next/link'
 
 import { Button } from '@components/Button'
@@ -20,7 +19,7 @@ const CreateAccount: React.FC = () => {
   const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = useCallback(
-    async (data: Data) => {
+    async ({ data }) => {
       const loadingTimer = setTimeout(() => {
         setLoading(true)
       }, 1000)

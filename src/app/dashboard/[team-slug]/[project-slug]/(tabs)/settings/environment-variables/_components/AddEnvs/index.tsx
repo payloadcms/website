@@ -1,9 +1,12 @@
+'use client'
+
 import * as React from 'react'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 
 import { Button } from '@components/Button'
+import { useRouteData } from '@root/app/dashboard/context'
 import { TrashIcon } from '@root/icons/TrashIcon'
 
 import classes from './index.module.scss'
@@ -12,11 +15,16 @@ const generateUUID = () => {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
 
-type Props = {
-  projectID: string
-}
-export const AddEnvs: React.FC<Props> = ({ projectID }) => {
+export const AddEnvs: React.FC = () => {
+  const { project, refreshProject } = useRouteData()
   const [tempEnvUUIDs, setTempUUIDs] = React.useState([generateUUID()])
+
+  const existingEnvKeys = (project.environmentVariables || []).map(({ name }) => name)
+  const projectID = project.id
+
+  const resetTempEnvs = React.useCallback(() => {
+    setTempUUIDs([generateUUID()])
+  }, [])
 
   const addTempEnv = () => {
     setTempUUIDs(curr => [...curr, generateUUID()])
@@ -24,16 +32,32 @@ export const AddEnvs: React.FC<Props> = ({ projectID }) => {
 
   const removeTempEnv = React.useCallback(
     index => {
-      const newEnvs = [...tempEnvUUIDs]
-      newEnvs.splice(index, 1)
-      setTempUUIDs(newEnvs)
+      if (tempEnvUUIDs.length === 1) {
+        resetTempEnvs()
+      } else {
+        const newEnvs = [...tempEnvUUIDs]
+        newEnvs.splice(index, 1)
+        setTempUUIDs(newEnvs)
+      }
     },
-    [tempEnvUUIDs],
+    [tempEnvUUIDs, resetTempEnvs],
   )
 
   const onSubmit = React.useCallback(
-    async (_, unflattenedValues) => {
-      if (unflattenedValues?.newEnvs?.length > 0) {
+    async ({ unflattenedData }) => {
+      if (unflattenedData?.newEnvs?.length > 0) {
+        const sanitizedEnvs = unflattenedData.newEnvs.reduce((env, _, acc) => {
+          const envName = env.name?.trim()
+          if (envName && !acc.includes(envName)) {
+            acc.push({
+              name: envName,
+              value: env.value,
+            })
+          }
+
+          return acc
+        }, [])
+
         try {
           const req = await fetch(
             `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/env`,
@@ -43,26 +67,24 @@ export const AddEnvs: React.FC<Props> = ({ projectID }) => {
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({ envs: unflattenedValues.newEnvs }),
+              body: JSON.stringify({ envs: sanitizedEnvs }),
             },
           )
 
           if (req.status === 200) {
-            const res = await req.json()
-
-            console.log({ res })
+            resetTempEnvs()
+            refreshProject()
           }
+
+          return
         } catch (e) {
           console.error(e)
         }
-
-        return null
       }
 
-      // no envs to add
-      return null
+      resetTempEnvs()
     },
-    [projectID],
+    [projectID, resetTempEnvs, refreshProject],
   )
 
   return (
@@ -76,6 +98,21 @@ export const AddEnvs: React.FC<Props> = ({ projectID }) => {
                 label="Name"
                 className={classes.newEnvInput}
                 path={`newEnvs.${index}.name`}
+                validate={(value: string) => {
+                  if (!value) {
+                    return 'Name is required'
+                  }
+
+                  if (!/^\w+$/.test(value)) {
+                    return 'Only alphanumeric characters and underscores are allowed'
+                  }
+
+                  if (existingEnvKeys?.includes(value)) {
+                    return 'This key is already in use'
+                  }
+
+                  return true
+                }}
               />
 
               <Text
@@ -83,9 +120,15 @@ export const AddEnvs: React.FC<Props> = ({ projectID }) => {
                 label="Value"
                 className={classes.newEnvInput}
                 path={`newEnvs.${index}.value`}
-              />
+                validate={(value: string) => {
+                  const valueToValidate = value?.trim()
+                  if (!valueToValidate) {
+                    return 'Value is required'
+                  }
 
-              {/* <Hidden path={`newEnvs.${index}.id`} value={id} /> */}
+                  return true
+                }}
+              />
             </div>
 
             <button
@@ -98,9 +141,19 @@ export const AddEnvs: React.FC<Props> = ({ projectID }) => {
           </div>
         )
       })}
+      <div className={classes.addAnotherButtonWrap}>
+        <Button
+          label="Add another"
+          size="small"
+          appearance="text"
+          onClick={addTempEnv}
+          icon="plus"
+          fullWidth={false}
+          className={classes.addAnotherButton}
+        />
+      </div>
 
       <div className={classes.actionFooter}>
-        <Button label="Add new" size="small" appearance="primary" onClick={addTempEnv} />
         <Submit icon={false} label="Save" appearance="secondary" size="small" />
       </div>
     </Form>

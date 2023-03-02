@@ -1,10 +1,12 @@
 import * as React from 'react'
 import { Collapsible } from '@faceless-ui/collapsibles'
 import { Text } from '@forms/fields/Text'
+import { Textarea } from '@forms/fields/Textarea'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 
 import { Button } from '@components/Button'
+import { useRouteData } from '@root/app/dashboard/context'
 import { Accordion } from '../Accordion'
 
 import classes from './index.module.scss'
@@ -77,11 +79,44 @@ const setEnv = async ({
 type Props = {
   index: number
   name: string
-  projectID: string
   arrayItemID: string
 }
-export const EnvReveal: React.FC<Props> = ({ index, name, projectID, arrayItemID }) => {
+export const RevealEnv: React.FC<Props> = ({ index, name, arrayItemID }) => {
   const [fetchedEnvValue, setFetchedEnvValue] = React.useState<string>(undefined)
+  const { refreshProject, project } = useRouteData()
+  const projectID = project.id
+
+  const onSubmit = React.useCallback(
+    async ({ unflattenedData }) => {
+      const value = unflattenedData[`environmentVariables.${index}.value`]
+      if (typeof value === 'string') {
+        await setEnv({ envName: name, projectID, envValue: value, arrayItemID })
+      }
+    },
+    [name, projectID, arrayItemID, index],
+  )
+
+  const deleteEnv = React.useCallback(async () => {
+    try {
+      const req = await fetch(
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/env?name=${name}`,
+        {
+          method: 'DELETE',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      )
+
+      if (req.status === 200) {
+        refreshProject()
+        // TODO: alert user that it was deleted
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }, [projectID, refreshProject, name])
 
   return (
     <Collapsible>
@@ -102,15 +137,7 @@ export const EnvReveal: React.FC<Props> = ({ index, name, projectID, arrayItemID
         />
 
         <Accordion.Content>
-          <Form
-            className={classes.accordionFormContent}
-            onSubmit={async unflattenedValues => {
-              const value = unflattenedValues[`environmentVariables.${index}.value`]
-              if (typeof value === 'string') {
-                await setEnv({ envName: name, projectID, envValue: value, arrayItemID })
-              }
-            }}
-          >
+          <Form className={classes.accordionFormContent} onSubmit={onSubmit}>
             <Text
               required
               label="Name"
@@ -118,7 +145,7 @@ export const EnvReveal: React.FC<Props> = ({ index, name, projectID, arrayItemID
               initialValue={name}
             />
 
-            <Text
+            <Textarea
               required
               label="Value"
               path={`environmentVariables.${index}.value`}
@@ -127,7 +154,7 @@ export const EnvReveal: React.FC<Props> = ({ index, name, projectID, arrayItemID
             />
 
             <div className={classes.actionFooter}>
-              <Button label="delete" appearance="error" size="small" />
+              <Button label="delete" appearance="danger" size="small" onClick={deleteEnv} />
               <Submit label="save" icon={false} appearance="secondary" size="small" />
             </div>
           </Form>

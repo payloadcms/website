@@ -4,7 +4,6 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
-import { Data } from '@forms/types'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
@@ -29,7 +28,7 @@ const Login: React.FC = () => {
   }, [])
 
   const handleSubmit = useCallback(
-    async (data: Data) => {
+    async ({ data }) => {
       const loadingTimer = setTimeout(() => {
         setLoading(true)
       }, 1000)
@@ -75,7 +74,7 @@ const Login: React.FC = () => {
           {'.'}
         </div>
         <Form onSubmit={handleSubmit} className={classes.form}>
-          <Text path="email" label="Email" required />
+          <Text path="email" label="Email" required elementAttributes={{ autoComplete: 'on' }} />
           <Text path="password" label="Password" type="password" required />
           <Submit label="Log in" className={classes.submit} processing={loading} />
         </Form>

@@ -8,7 +8,7 @@ import { Heading } from '@components/Heading'
 import { useRouteData } from '@root/app/dashboard/context'
 import { Accordion } from './_components/Accordion'
 import { AddEnvs } from './_components/AddEnvs'
-import { EnvReveal } from './_components/EnvReveal'
+import { RevealEnv } from './_components/RevealEnv'
 
 import classes from './index.module.scss'
 
@@ -17,7 +17,7 @@ export default () => {
 
   return (
     <div className={classes.envVariables}>
-      <div>
+      <div className={classes.sectionHeader}>
         <Heading element="h2" as="h4" marginTop={false}>
           Environment Variables
         </Heading>
@@ -25,12 +25,15 @@ export default () => {
       </div>
 
       <CollapsibleGroup transTime={250} transCurve="ease">
-        <Collapsible>
+        <Collapsible openOnInit>
           <div className={`${classes.collapsibleGroup} ${classes.addNewEnvs}`}>
-            <Accordion.Header label="New variables"></Accordion.Header>
-
+            <Accordion.Header
+              label="New variables"
+              icon="chevron"
+              className={classes.accordionHeader}
+            />
             <Accordion.Content>
-              <AddEnvs projectID={project.id} />
+              <AddEnvs />
             </Accordion.Content>
           </div>
         </Collapsible>
@@ -40,22 +43,7 @@ export default () => {
       <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
         <div className={classes.collapsibleGroup}>
           {(project.environmentVariables || []).map(({ name, id }, i) => (
-            <React.Fragment key="1">
-              <EnvReveal
-                // key={id || i}
-                index={i}
-                name={name}
-                projectID={project.id}
-                arrayItemID={id}
-              />
-              <EnvReveal
-                // key={id || i}
-                index={i}
-                name={name}
-                projectID={project.id}
-                arrayItemID={id}
-              />
-            </React.Fragment>
+            <RevealEnv key={id || i} index={i} name={name} arrayItemID={id} />
           ))}
         </div>
       </CollapsibleGroup>

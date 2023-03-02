@@ -1,19 +1,21 @@
 import * as React from 'react'
 import { CollapsibleContent, CollapsibleToggler } from '@faceless-ui/collapsibles'
 
+import { ChevronIcon } from '@root/graphics/ChevronIcon'
 import { EyeIcon } from '@root/icons/EyeIcon'
 
 import classes from './index.module.scss'
 
 const Icons = {
   eye: EyeIcon,
+  chevron: ChevronIcon,
 }
 
 type Props = {
   label: React.ReactNode
   onToggle?: () => void
   className?: string
-  icon?: 'eye'
+  icon?: 'eye' | 'chevron'
 }
 const Header: React.FC<Props> = ({ label, onToggle, className, icon = 'eye' }) => {
   const IconToRender = Icons[icon]
@@ -25,7 +27,7 @@ const Header: React.FC<Props> = ({ label, onToggle, className, icon = 'eye' }) =
       </div>
 
       <CollapsibleToggler
-        className={classes.toggler}
+        className={[classes.toggler, classes[`icon--${icon}`]].filter(Boolean).join(' ')}
         onClick={onToggle}
         data-accordion-header-toggle
       >

@@ -42,7 +42,7 @@ export default ({ children }: ProjectSettingsLayoutType) => {
 
   return (
     <Grid>
-      <Cell cols={4} start={1}>
+      <Cell cols={3} start={1}>
         <div className={classes.sidebarNav}>
           {sidebarNavRoutes.map(route => {
             const isActive = settingSlug === route?.pathSegment
@@ -67,7 +67,7 @@ export default ({ children }: ProjectSettingsLayoutType) => {
         </div>
       </Cell>
 
-      <Cell start={5} cols={8}>
+      <Cell start={4} cols={9}>
         {children}
       </Cell>
     </Grid>

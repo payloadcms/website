@@ -7,7 +7,6 @@ import Submit from '@forms/Submit'
 
 import { Heading } from '@components/Heading'
 import { useRouteData } from '@root/app/dashboard/context'
-import { Project } from '@root/payload-cloud-types'
 
 import classes from './index.module.scss'
 
@@ -15,7 +14,7 @@ export default () => {
   const { project } = useRouteData()
 
   const onSubmit = React.useCallback(
-    async (_, unflattenedValues: Partial<Project>) => {
+    async ({ unflattenedData }) => {
       try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project.id}`,
@@ -25,7 +24,7 @@ export default () => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(unflattenedValues),
+            body: JSON.stringify(unflattenedData),
           },
         )
 

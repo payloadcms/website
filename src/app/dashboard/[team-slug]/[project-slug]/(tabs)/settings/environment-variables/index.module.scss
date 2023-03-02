@@ -2,6 +2,15 @@
 
 .envVariables {
   --spacer: 1rem;
+  max-width: 1000px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: calc(var(--spacer) * 1.5);
 }
 
 .addNewEnvs {
@@ -16,4 +25,10 @@
 
 .collapsibleGroup {
   border: 1px solid var(--theme-elevation-200);
+}
+
+.accordionHeader {
+  [data-accordion-header-content] {
+    color: var(--theme-blue-450);
+  }
 }
