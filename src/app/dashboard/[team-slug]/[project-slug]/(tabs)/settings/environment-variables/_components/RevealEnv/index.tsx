@@ -1,11 +1,14 @@
 import * as React from 'react'
 import { Collapsible } from '@faceless-ui/collapsibles'
+import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text'
 import { Textarea } from '@forms/fields/Textarea'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 
 import { Button } from '@components/Button'
+import { Heading } from '@components/Heading'
+import { ModalWindow } from '@components/ModalWindow'
 import { useRouteData } from '@root/app/dashboard/context'
 import { Accordion } from '../Accordion'
 
@@ -84,7 +87,9 @@ type Props = {
 export const RevealEnv: React.FC<Props> = ({ index, name, arrayItemID }) => {
   const [fetchedEnvValue, setFetchedEnvValue] = React.useState<string>(undefined)
   const { refreshProject, project } = useRouteData()
+  const { closeModal, openModal } = useModal()
   const projectID = project.id
+  const modalSlug = `delete-env-${index}`
 
   const updateEnv = React.useCallback(
     async ({ data }) => {
@@ -125,8 +130,10 @@ export const RevealEnv: React.FC<Props> = ({ index, name, arrayItemID }) => {
       }
     } catch (e) {
       console.error(e)
+    } finally {
+      closeModal(modalSlug)
     }
-  }, [projectID, refreshProject, name])
+  }, [projectID, refreshProject, name, closeModal, modalSlug])
 
   return (
     <Collapsible>
@@ -164,10 +171,36 @@ export const RevealEnv: React.FC<Props> = ({ index, name, arrayItemID }) => {
             />
 
             <div className={classes.actionFooter}>
-              <Button label="delete" appearance="danger" size="small" onClick={deleteEnv} />
+              <Button
+                label="delete"
+                appearance="danger"
+                size="small"
+                onClick={() => openModal(modalSlug)}
+              />
               <Submit label="update" icon={false} appearance="secondary" size="small" />
             </div>
           </Form>
+
+          <ModalWindow slug={modalSlug}>
+            <div className={classes.modalContent}>
+              <Heading marginTop={false} as="h5">
+                Are you sure you want to delete this environment variable?
+              </Heading>
+              <p>
+                This action cannot be undone. This will permanently delete the environment variable
+                from your project.
+              </p>
+
+              <div className={classes.modalActions}>
+                <Button
+                  label="cancel"
+                  appearance="secondary"
+                  onClick={() => closeModal(modalSlug)}
+                />
+                <Button label="delete" appearance="danger" onClick={deleteEnv} />
+              </div>
+            </div>
+          </ModalWindow>
         </Accordion.Content>
       </div>
     </Collapsible>
