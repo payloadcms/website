@@ -26,6 +26,7 @@ export const Text: React.FC<
   FieldProps<string> & {
     type?: 'text' | 'password' | 'hidden'
     copy?: boolean
+    elementAttributes?: React.InputHTMLAttributes<HTMLInputElement>
   }
 > = props => {
   const {
@@ -39,6 +40,11 @@ export const Text: React.FC<
     initialValue,
     className,
     copy,
+    elementAttributes = {
+      autoComplete: 'off',
+      autoCorrect: 'off',
+      autoCapitalize: 'none',
+    },
   } = props
 
   const { onChange, value, showError, errorMessage } = useField<string>({
@@ -50,7 +56,11 @@ export const Text: React.FC<
   })
 
   return (
-    <div className={[className, classes.wrap].filter(Boolean).join(' ')}>
+    <div
+      className={[className, classes.wrap, showError && classes.showError]
+        .filter(Boolean)
+        .join(' ')}
+    >
       <Error showError={showError} message={errorMessage} />
       <Label
         htmlFor={path}
@@ -59,6 +69,7 @@ export const Text: React.FC<
         actionsSlot={copy && <CopyToClipboard value={value} />}
       />
       <input
+        {...elementAttributes}
         className={classes.input}
         value={value || ''}
         onChange={e => {

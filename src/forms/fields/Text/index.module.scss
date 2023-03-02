@@ -6,8 +6,10 @@
 
 .input {
   @include shared.formInput;
+}
 
-  &.error {
-    background-color: var(--theme-failure-500);
+.showError {
+  .input {
+    border-left: 1px solid var(--theme-error-500);
   }
 }

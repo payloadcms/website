@@ -4,7 +4,6 @@ import React, { useCallback } from 'react'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
-import { Data } from '@forms/types'
 import Link from 'next/link'
 
 import { Button } from '@components/Button'
@@ -18,7 +17,7 @@ const RecoverPassword: React.FC = () => {
   const { user, logout, login } = useAuth()
 
   const handleSubmit = useCallback(
-    async (data: Data) => {
+    async ({ data }) => {
       await login({
         email: data.email as string,
         password: data.password as string,

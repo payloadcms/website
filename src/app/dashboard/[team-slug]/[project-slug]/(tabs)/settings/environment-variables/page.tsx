@@ -1,49 +1,52 @@
 'use client'
 
 import * as React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
-import { Secret } from '@forms/fields/Secret'
-import { Text } from '@forms/fields/Text'
+import { Collapsible, CollapsibleGroup } from '@faceless-ui/collapsibles'
 
 import { Button } from '@components/Button'
 import { Heading } from '@components/Heading'
+import { useRouteData } from '@root/app/dashboard/context'
+import { Accordion } from './_components/Accordion'
+import { AddEnvs } from './_components/AddEnvs'
+import { RevealEnv } from './_components/RevealEnv'
+
+import classes from './index.module.scss'
 
 export default () => {
-  const fetchEnv = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/me`, {
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    const json = await response.json()
-
-    return json.user.id
-  }
+  const { project } = useRouteData()
 
   return (
-    <div>
-      <div>
+    <div className={classes.envVariables}>
+      <div className={classes.sectionHeader}>
         <Heading element="h2" as="h4" marginTop={false}>
           Environment Variables
         </Heading>
         <Button label="learn more" icon="arrow" el="link" href="/" />
       </div>
 
-      <div>
-        <Grid>
-          <Cell cols={4}>
-            <Text label="Name" />
-          </Cell>
-          <Cell start={5} cols={4}>
-            <Secret loadSecret={fetchEnv} label="Value" />
-          </Cell>
-        </Grid>
-      </div>
+      <CollapsibleGroup transTime={250} transCurve="ease">
+        <Collapsible openOnInit>
+          <div className={`${classes.collapsibleGroup} ${classes.addNewEnvs}`}>
+            <Accordion.Header
+              label="New variables"
+              icon="chevron"
+              className={classes.accordionHeader}
+            />
+            <Accordion.Content>
+              <AddEnvs />
+            </Accordion.Content>
+          </div>
+        </Collapsible>
+      </CollapsibleGroup>
 
-      <div>Add Another</div>
-
-      <div>Update</div>
+      <h6>Existing Variables</h6>
+      <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
+        <div className={classes.collapsibleGroup}>
+          {(project.environmentVariables || []).map(({ name, id }, i) => (
+            <RevealEnv key={id || i} index={i} name={name} arrayItemID={id} />
+          ))}
+        </div>
+      </CollapsibleGroup>
     </div>
   )
 }

@@ -4,7 +4,6 @@ import React, { useCallback, useEffect } from 'react'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
-import { Data } from '@forms/types'
 import Link from 'next/link'
 
 import { Button } from '@components/Button'
@@ -26,7 +25,7 @@ const ResetPassword: React.FC = () => {
   }, [setHeaderColor])
 
   const handleSubmit = useCallback(
-    async (data: Data) => {
+    async ({ data }) => {
       await resetPassword({
         password: data.password as string,
         passwordConfirm: data.passwordConfirm as string,

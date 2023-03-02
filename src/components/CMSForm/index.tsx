@@ -3,7 +3,6 @@
 import * as React from 'react'
 import FormComponent from '@forms/Form'
 import Submit from '@forms/Submit'
-import { Data } from '@forms/types'
 import { useRouter } from 'next/navigation'
 
 import { RichText } from '@components/RichText'
@@ -46,7 +45,7 @@ export const CMSForm: React.FC<{
   const router = useRouter()
 
   const onSubmit = React.useCallback(
-    (data: Data) => {
+    ({ data }) => {
       let loadingTimerID: NodeJS.Timer
 
       const submitForm = async () => {

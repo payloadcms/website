@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { CaseStudy, Page, Post } from '@root/payload-types'
 // eslint-disable-next-line import/no-cycle
-import { Button, Props as ButtonProps } from '../Button'
+import { Button, ButtonProps as ButtonProps } from '../Button'
 
 const relationSlugs = {
   case_studies: 'case-studies',
