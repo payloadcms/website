@@ -181,7 +181,7 @@ export const RevealEnv: React.FC<Props> = ({ index, envKey, arrayItemID }) => {
             </div>
           </Form>
 
-          {/* <ModalWindow slug={modalSlug}>
+          <ModalWindow slug={modalSlug}>
             <div className={classes.modalContent}>
               <Heading marginTop={false} as="h5">
                 Are you sure you want to delete this environment variable?
@@ -200,7 +200,7 @@ export const RevealEnv: React.FC<Props> = ({ index, envKey, arrayItemID }) => {
                 <Button label="delete" appearance="danger" onClick={deleteEnv} />
               </div>
             </div>
-          </ModalWindow> */}
+          </ModalWindow>
         </Accordion.Content>
       </div>
     </Collapsible>
