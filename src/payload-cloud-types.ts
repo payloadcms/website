@@ -106,7 +106,7 @@ export interface Project {
   installScript?: string
   runScript?: string
   environmentVariables: Array<{
-    name?: string
+    key?: string
     value?: string
     id?: string
   }>

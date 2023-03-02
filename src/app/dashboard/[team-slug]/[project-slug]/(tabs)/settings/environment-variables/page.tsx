@@ -42,8 +42,8 @@ export default () => {
       <h6>Existing Variables</h6>
       <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
         <div className={classes.collapsibleGroup}>
-          {(project.environmentVariables || []).map(({ name, id }, i) => (
-            <RevealEnv key={id || i} index={i} name={name} arrayItemID={id} />
+          {(project.environmentVariables || []).map(({ key, id }, i) => (
+            <RevealEnv key={id || i} index={i} envKey={key} arrayItemID={id} />
           ))}
         </div>
       </CollapsibleGroup>

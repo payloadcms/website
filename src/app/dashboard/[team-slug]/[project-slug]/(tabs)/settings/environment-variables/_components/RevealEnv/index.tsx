@@ -15,13 +15,13 @@ import { Accordion } from '../Accordion'
 import classes from './index.module.scss'
 
 type FetchEnvArgs = {
-  envName: string
+  envKey: string
   projectID: string
 }
-const fetchEnv = async ({ envName, projectID }: FetchEnvArgs): Promise<string> => {
+const fetchEnv = async ({ envKey, projectID }: FetchEnvArgs): Promise<string> => {
   try {
     const req = await fetch(
-      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/env?name=${envName}`,
+      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/env?key=${envKey}`,
       {
         credentials: 'include',
         headers: {
@@ -43,13 +43,13 @@ const fetchEnv = async ({ envName, projectID }: FetchEnvArgs): Promise<string> =
 }
 
 type SetEnvArgs = {
-  envName: string
+  envKey: string
   projectID: string
   envValue: string
   arrayItemID: string
 }
 const setEnv = async ({
-  envName,
+  envKey,
   envValue,
   projectID,
   arrayItemID,
@@ -63,7 +63,7 @@ const setEnv = async ({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ arrayItemID, name: envName, value: envValue }),
+        body: JSON.stringify({ arrayItemID, key: envKey, value: envValue }),
       },
     )
 
@@ -81,10 +81,10 @@ const setEnv = async ({
 
 type Props = {
   index: number
-  name: string
+  envKey: string
   arrayItemID: string
 }
-export const RevealEnv: React.FC<Props> = ({ index, name, arrayItemID }) => {
+export const RevealEnv: React.FC<Props> = ({ index, envKey, arrayItemID }) => {
   const [fetchedEnvValue, setFetchedEnvValue] = React.useState<string>(undefined)
   const { refreshProject, project } = useRouteData()
   const { closeModal, openModal } = useModal()
@@ -93,14 +93,14 @@ export const RevealEnv: React.FC<Props> = ({ index, name, arrayItemID }) => {
 
   const updateEnv = React.useCallback(
     async ({ data }) => {
-      const value = data[`environmentVariables.${index}.value`]
-      const newName = data[`environmentVariables.${index}.name`]
+      const newEnvValue = data[`environmentVariables.${index}.value`]
+      const newEnvKey = data[`environmentVariables.${index}.key`]
 
       // TODO: alert user based on status code & message
 
-      if (typeof value === 'string') {
+      if (typeof newEnvValue === 'string') {
         try {
-          await setEnv({ envName: newName, projectID, envValue: value, arrayItemID })
+          await setEnv({ envKey: newEnvKey, projectID, envValue: newEnvValue, arrayItemID })
           refreshProject()
         } catch (e) {
           console.error(e)
@@ -113,7 +113,7 @@ export const RevealEnv: React.FC<Props> = ({ index, name, arrayItemID }) => {
   const deleteEnv = React.useCallback(async () => {
     try {
       const req = await fetch(
-        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/env?name=${name}`,
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/env?key=${envKey}`,
         {
           method: 'DELETE',
           credentials: 'include',
@@ -133,7 +133,7 @@ export const RevealEnv: React.FC<Props> = ({ index, name, arrayItemID }) => {
     } finally {
       closeModal(modalSlug)
     }
-  }, [projectID, refreshProject, name, closeModal, modalSlug])
+  }, [projectID, refreshProject, envKey, closeModal, modalSlug])
 
   return (
     <Collapsible>
@@ -141,13 +141,13 @@ export const RevealEnv: React.FC<Props> = ({ index, name, arrayItemID }) => {
         <Accordion.Header
           onToggle={async () => {
             if (!fetchedEnvValue) {
-              const envValue = await fetchEnv({ envName: name, projectID })
+              const envValue = await fetchEnv({ envKey, projectID })
               if (envValue) setFetchedEnvValue(envValue)
             }
           }}
           label={
             <>
-              <p>{name}</p>
+              <p>{envKey}</p>
               <div>••••••••••••</div>
             </>
           }
@@ -157,9 +157,9 @@ export const RevealEnv: React.FC<Props> = ({ index, name, arrayItemID }) => {
           <Form className={classes.accordionFormContent} onSubmit={updateEnv}>
             <Text
               required
-              label="Name"
-              path={`environmentVariables.${index}.name`}
-              initialValue={name}
+              label="Key"
+              path={`environmentVariables.${index}.key`}
+              initialValue={envKey}
             />
 
             <Textarea
@@ -181,7 +181,7 @@ export const RevealEnv: React.FC<Props> = ({ index, name, arrayItemID }) => {
             </div>
           </Form>
 
-          <ModalWindow slug={modalSlug}>
+          {/* <ModalWindow slug={modalSlug}>
             <div className={classes.modalContent}>
               <Heading marginTop={false} as="h5">
                 Are you sure you want to delete this environment variable?
@@ -200,7 +200,7 @@ export const RevealEnv: React.FC<Props> = ({ index, name, arrayItemID }) => {
                 <Button label="delete" appearance="danger" onClick={deleteEnv} />
               </div>
             </div>
-          </ModalWindow>
+          </ModalWindow> */}
         </Accordion.Content>
       </div>
     </Collapsible>

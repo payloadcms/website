@@ -19,7 +19,7 @@ export const AddEnvs: React.FC = () => {
   const { project, refreshProject } = useRouteData()
   const [tempEnvUUIDs, setTempUUIDs] = React.useState([generateUUID()])
 
-  const existingEnvKeys = (project.environmentVariables || []).map(({ name }) => name)
+  const existingEnvKeys = (project.environmentVariables || []).map(({ key }) => key)
   const projectID = project.id
 
   const resetTempEnvs = React.useCallback(() => {
@@ -47,10 +47,10 @@ export const AddEnvs: React.FC = () => {
     async ({ unflattenedData }) => {
       if (unflattenedData?.newEnvs?.length > 0) {
         const sanitizedEnvs = unflattenedData.newEnvs.reduce((env, _, acc) => {
-          const envName = env.name?.trim()
-          if (envName && !acc.includes(envName)) {
+          const envKey = env.key?.trim()
+          if (envKey && !acc.includes(envKey)) {
             acc.push({
-              name: envName,
+              key: envKey,
               value: env.value,
             })
           }
@@ -95,12 +95,12 @@ export const AddEnvs: React.FC = () => {
             <div className={classes.newVariableInputs}>
               <Text
                 required
-                label="Name"
+                label="Key"
                 className={classes.newEnvInput}
-                path={`newEnvs.${index}.name`}
+                path={`newEnvs.${index}.key`}
                 validate={(value: string) => {
                   if (!value) {
-                    return 'Name is required'
+                    return 'Key is required'
                   }
 
                   if (!/^\w+$/.test(value)) {
