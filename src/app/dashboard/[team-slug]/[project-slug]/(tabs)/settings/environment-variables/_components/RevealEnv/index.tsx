@@ -155,7 +155,7 @@ export const RevealEnv: React.FC<Props> = ({ index, name, arrayItemID }) => {
 
             <div className={classes.actionFooter}>
               <Button label="delete" appearance="danger" size="small" onClick={deleteEnv} />
-              <Submit label="save" icon={false} appearance="secondary" size="small" />
+              <Submit label="update" icon={false} appearance="secondary" size="small" />
             </div>
           </Form>
         </Accordion.Content>
