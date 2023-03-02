@@ -1,15 +1,10 @@
 'use client'
 
-import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Label from '@forms/Label'
-import {
-  CardElement as StripeCardElement,
-  Elements,
-  useElements,
-  useStripe,
-} from '@stripe/react-stripe-js'
+import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -23,14 +18,14 @@ import { PlanSelector } from '@components/PlanSelector'
 import { ScopeSelector } from '@components/ScopeSelector'
 import { TeamSelector } from '@components/TeamSelector'
 import { Plan, Project, Team } from '@root/payload-cloud-types'
-import { useAuth } from '@root/providers/Auth'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import useDebounce from '@root/utilities/use-debounce'
 import { Install } from '@root/utilities/use-get-installs'
 import { usePaymentIntent } from '@root/utilities/use-payment-intent'
+import { useDeploy } from './useDeploy'
 
-import classes from './Checkout.module.scss'
+import classes from './index.module.scss'
 
 type Props = {
   draftProjectID: string
@@ -41,7 +36,6 @@ const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
 const Stripe = loadStripe(apiKey)
 
 const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) => {
-  const { user } = useAuth()
   const router = useRouter()
   const [selectedTeam, setSelectedTeam] = React.useState<Team>()
   const [installsLoading, setInstallsLoading] = React.useState<boolean>(true)
@@ -50,7 +44,6 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
   const [isLoading, setIsLoading] = React.useState<boolean>(true)
   const [project, setProject] = React.useState<Project | null>(null)
   const requestedProject = React.useRef(false)
-  const stripe = useStripe()
   const [paymentMethod, setPaymentMethod] = React.useState<string | null>(null)
 
   const { clientSecret: stripeClientSecret, error: paymentIntentError } = usePaymentIntent({
@@ -59,9 +52,6 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
     paymentMethod,
   })
 
-  const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false)
-  const [error, setError] = React.useState<string | null>(null)
-  const elements = useElements()
   const [isOrgScope, setIsOrgScope] = useState(
     () => selectedInstall?.target_type === 'Organization',
   )
@@ -104,79 +94,14 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
     fetchProject()
   }, [draftProjectID, router])
 
-  const processPayment = useCallback(async (): Promise<void> => {
-    if (selectedPlan.slug === 'free' && !stripeClientSecret) {
-      return
-    }
-
-    const payload = await stripe.confirmCardPayment(stripeClientSecret, {
-      payment_method: paymentMethod || {
-        card: elements.getElement(StripeCardElement),
-      },
-    })
-
-    if (payload.error) {
-      throw new Error(payload.error.message)
-    }
-  }, [stripeClientSecret, elements, stripe, selectedPlan, paymentMethod])
-
-  const handleSubmit = useCallback(async () => {
-    window.scrollTo(0, 0)
-
-    setIsSubmitting(true)
-    setError(null)
-
-    try {
-      // process the payment
-      await processPayment()
-
-      // publish the project
-      const req = await fetch(
-        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${draftProjectID}`,
-        {
-          credentials: 'include',
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            _status: 'published',
-            team: selectedTeam?.id,
-            plan: selectedPlan?.id,
-            installID: selectedInstall?.id,
-          }),
-        },
-      )
-
-      const res: {
-        doc: Project
-        message: string
-        errors: { message: string }[]
-      } = await req.json()
-
-      if (req.ok) {
-        const teamID = typeof selectedTeam === 'string' ? selectedTeam : selectedTeam?.id
-        const matchedTeam = user.teams.find(({ team }) => {
-          return typeof team === 'string' ? team === teamID : team?.id === teamID
-        })?.team
-
-        const redirectURL =
-          typeof matchedTeam === 'object'
-            ? `/dashboard/${matchedTeam?.slug}/${res.doc.slug}`
-            : '/dashboard'
-
-        router.push(redirectURL)
-      } else {
-        setIsSubmitting(false)
-        setError(res.errors[0].message)
-      }
-    } catch (err: unknown) {
-      console.error(err)
-      const message = err instanceof Error ? err.message : 'Unknown error'
-      setError(message)
-      setIsSubmitting(false)
-    }
-  }, [user, draftProjectID, router, selectedInstall, selectedPlan, selectedTeam, processPayment])
+  const { isDeploying, errorDeploying, deploy } = useDeploy({
+    project,
+    stripeClientSecret,
+    plan: selectedPlan,
+    team: selectedTeam,
+    install: selectedInstall,
+    paymentMethod,
+  })
 
   useEffect(() => {
     setIsOrgScope(selectedInstall?.target_type === 'Organization')
@@ -205,9 +130,9 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
             ]}
           />
           <h1>Configure your project</h1>
-          {error && <p className={classes.error}>{error}</p>}
+          {errorDeploying && <p className={classes.error}>{errorDeploying}</p>}
           {paymentIntentError && <p className={classes.error}>{paymentIntentError}</p>}
-          {isSubmitting && <p className={classes.submitting}>Submitting, one moment...</p>}
+          {isDeploying && <p className={classes.submitting}>Submitting, one moment...</p>}
         </div>
         <Grid>
           <Cell cols={3} colsM={8} className={classes.sidebarCell}>
@@ -300,8 +225,8 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
                     appearance="primary"
                     label="Deploy now"
                     icon="arrow"
-                    onClick={handleSubmit}
-                    disabled={isSubmitting}
+                    onClick={deploy}
+                    disabled={isDeploying}
                   />
                 </div>
               </Fragment>

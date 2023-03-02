@@ -1,7 +1,7 @@
 import React from 'react'
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 
-import Checkout from '@root/app/new/Checkout'
+import Checkout from '@root/app/new/(checkout)'
 
 const ConfigureDraftFromTemplate: React.FC<{
   params: Params
