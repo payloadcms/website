@@ -1,0 +1,68 @@
+@use '@scss/common' as *;
+
+.formContent {
+  gap: var(--base);
+  display: flex;
+  flex-direction: column;
+}
+
+.newItemRow {
+  display: flex;
+  gap: var(--base);
+  align-items: center;
+
+  .trashButton {
+    all: unset;
+    position: relative;
+    top: 10px;
+    display: flex;
+    padding: 2px 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    color: var(--color-error-550);
+
+    &:hover,
+    &:focus {
+      background-color: var(--theme-error-100);
+    }
+  }
+}
+
+.newVariableInputs {
+  width: 100%;
+  display: flex;
+  gap: inherit;
+  flex-wrap: wrap;
+}
+
+.newEnvInput {
+  width: 100%;
+  align-self: flex-end;
+  flex: 1;
+
+  @include small-break {
+    flex: unset;
+  }
+}
+
+.actionFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--base);
+  border-top: 1px solid var(--theme-elevation-200);
+  padding-top: calc(var(--base) * 1);
+}
+
+.addAnotherButtonWrap {
+  display: inline-flex;
+}
+
+.addAnotherButton {
+  margin-top: calc(var(--base) * 0.75);
+  padding: 0;
+  color: var(--theme-elevation-850);
+
+  > div {
+    flex-direction: row-reverse;
+  }
+}

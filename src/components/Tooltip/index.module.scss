@@ -12,7 +12,7 @@
   line-height: calc(var(--base) * .75);
   font-weight: normal;
   white-space: nowrap;
-  background-color: var(--theme-elevation-100);
+  background-color: var(--theme-elevation-150);
 }
 
 .caret {
@@ -23,5 +23,5 @@
   height: 0;
   width: 0;
   border: 10px solid transparent;
-  border-top-color: var(--theme-elevation-100);
+  border-top-color: var(--theme-elevation-150);
 }

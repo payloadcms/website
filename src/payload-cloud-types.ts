@@ -99,7 +99,7 @@ export interface Project {
   installScript?: string;
   runScript?: string;
   environmentVariables: {
-    name?: string;
+    key?: string;
     value?: string;
     id?: string;
   }[];

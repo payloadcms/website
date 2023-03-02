@@ -22,7 +22,7 @@ export const FormHero: React.FC<FormHeroProps> = props => {
   if (typeof form === 'string') return null
 
   return (
-    <HeaderObserver>
+    <HeaderObserver pullUp>
       <ThemeProvider theme="dark">
         <div className={classes.formHero}>
           <div className={classes.bgWrapper}>

@@ -11,6 +11,8 @@ type ContextType = {
   setTeam: (team: Team) => void // eslint-disable-line no-unused-vars
   project: Project | undefined
   setProject: (project: Project) => void // eslint-disable-line no-unused-vars
+  refreshTeam: () => void
+  refreshProject: () => void
 }
 
 export const Context = React.createContext<ContextType>({
@@ -18,6 +20,8 @@ export const Context = React.createContext<ContextType>({
   setTeam: undefined,
   project: undefined,
   setProject: undefined,
+  refreshTeam: undefined,
+  refreshProject: undefined,
 })
 
 export const useRouteData = () => React.useContext(Context)
@@ -30,27 +34,27 @@ export const RouteDataProvider: React.FC<{
   const [team, setTeam] = React.useState<Team>()
   const [project, setProject] = React.useState<Project>()
 
-  React.useEffect(() => {
-    const queryTeamBySlug = async () => {
+  const refreshProject = React.useCallback(async () => {
+    if (team?.id && projectSlug) {
+      const foundProject = await fetchTeamProject({ teamID: team.id, projectSlug })
+      setProject(foundProject || null)
+    }
+  }, [team?.id, projectSlug])
+
+  const refreshTeam = React.useCallback(async () => {
+    if (teamSlug) {
       const foundTeam = await fetchTeam(teamSlug)
       setTeam(foundTeam || null)
-    }
-
-    if (teamSlug) {
-      queryTeamBySlug()
     }
   }, [teamSlug])
 
   React.useEffect(() => {
-    const queryTeamProject = async () => {
-      const foundProject = await fetchTeamProject({ teamID: team.id, projectSlug })
-      setProject(foundProject || null)
-    }
+    refreshTeam()
+  }, [refreshTeam])
 
-    if (projectSlug && team?.id) {
-      queryTeamProject()
-    }
-  }, [projectSlug, team?.id])
+  React.useEffect(() => {
+    refreshProject()
+  }, [refreshProject])
 
   return (
     <Context.Provider
@@ -59,6 +63,8 @@ export const RouteDataProvider: React.FC<{
         setTeam,
         project,
         setProject,
+        refreshTeam,
+        refreshProject,
       }}
     >
       {children}

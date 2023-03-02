@@ -67,7 +67,10 @@ const Form: React.FC<{
       }
 
       if (typeof onSubmit === 'function') {
-        await onSubmit(reduceFieldsToValues(fields, false), reduceFieldsToValues(fields, true))
+        await onSubmit({
+          data: reduceFieldsToValues(fields, false),
+          unflattenedData: reduceFieldsToValues(fields, true),
+        })
       }
 
       setHasSubmitted(false)

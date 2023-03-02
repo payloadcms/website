@@ -2,6 +2,7 @@
 
 import React from 'react'
 
+import { CopyToClipboard } from '@components/CopyToClipboard'
 import Error from '../../Error'
 import Label from '../../Label'
 import { Validate } from '../../types'
@@ -24,6 +25,8 @@ const defaultValidate: Validate = val => {
 export const Textarea: React.FC<
   FieldProps<string> & {
     rows?: number
+    copy?: boolean
+    elementAttributes?: React.InputHTMLAttributes<HTMLTextAreaElement>
   }
 > = props => {
   const {
@@ -36,6 +39,12 @@ export const Textarea: React.FC<
     rows = 3,
     initialValue,
     className,
+    copy,
+    elementAttributes = {
+      autoComplete: 'off',
+      autoCorrect: 'off',
+      autoCapitalize: 'none',
+    },
   } = props
 
   const { onChange, value, showError, errorMessage } = useField<string>({
@@ -49,8 +58,14 @@ export const Textarea: React.FC<
   return (
     <div className={[className, classes.wrap].filter(Boolean).join(' ')}>
       <Error showError={showError} message={errorMessage} />
-      <Label htmlFor={path} label={label} required={required} />
+      <Label
+        htmlFor={path}
+        label={label}
+        required={required}
+        actionsSlot={copy && <CopyToClipboard value={value} />}
+      />
       <textarea
+        {...elementAttributes}
         rows={rows}
         className={classes.textarea}
         value={value || ''}

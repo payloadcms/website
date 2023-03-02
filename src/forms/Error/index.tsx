@@ -8,7 +8,7 @@ const Error: React.FC<Props> = props => {
   const { showError, message } = props
 
   if (showError) {
-    return <div className={classes.error}>{message}</div>
+    return <p className={classes.error}>{message}</p>
   }
 
   return null

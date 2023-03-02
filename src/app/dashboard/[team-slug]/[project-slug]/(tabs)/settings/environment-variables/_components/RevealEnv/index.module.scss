@@ -1,0 +1,41 @@
+@use '@scss/common' as *;
+
+.accordionFormContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+}
+
+.row {
+  [data-accordion-header] {
+    border-top: 1px solid var(--theme-elevation-200);
+  }
+  
+  &:first-child {
+    [data-accordion-header] {
+      border-top: none;
+    }
+  }
+
+  textarea {
+    max-height: 150px;
+  }
+}
+
+.actionFooter {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--base);
+  border-top: 1px solid var(--theme-elevation-200);
+  padding-top: calc(var(--base) * 1);
+}
+
+.modalActions {
+  display: flex;
+  gap: var(--base);
+  justify-content: flex-end;
+  width: 100%;
+  padding-top: calc(var(--base) * 1.5);
+  border-top: 1px solid var(--theme-elevation-200);
+}

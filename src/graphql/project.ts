@@ -9,7 +9,9 @@ export const PROJECTS = `
         buildScript
         deploymentBranch
         environmentVariables {
+          id
           name
+          value
         }
       }
     }
