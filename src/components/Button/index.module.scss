@@ -88,7 +88,7 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
     }
   }
 
-  &--error {
+  &--danger {
     color: var(--color-error-500);
     background: var(--theme-error-100);
     border: 1px solid var(--color-error-500);
