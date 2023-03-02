@@ -12,12 +12,14 @@ type ContextType = {
   project: Project | undefined
   setProject: (project: Project) => void // eslint-disable-line no-unused-vars
 }
+
 export const Context = React.createContext<ContextType>({
   team: undefined,
   setTeam: undefined,
   project: undefined,
   setProject: undefined,
 })
+
 export const useRouteData = () => React.useContext(Context)
 
 export const RouteDataProvider: React.FC<{

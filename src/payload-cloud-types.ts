@@ -8,10 +8,10 @@
 export interface Config {
   collections: {
     users: User;
-    plans: Plan;
     teams: Team;
     projects: Project;
     deployments: Deployment;
+    plans: Plan;
     templates: Template;
     'api-keys': ApiKey;
   };
@@ -55,7 +55,7 @@ export interface User {
 export interface Team {
   id: string;
   name?: string;
-  slug: string;
+  slug?: string;
   stripeCustomerID?: string;
   subscriptions: {
     stripeSubscriptionID?: string;
@@ -79,10 +79,11 @@ export interface Plan {
 }
 export interface Project {
   id: string;
+  status?: 'draft' | 'active';
   name: string;
-  slug: string;
+  slug?: string;
   deletedOn?: string;
-  plan: string | Plan;
+  plan?: string | Plan;
   team: string | Team;
   source?: 'github';
   repositoryName?: string;
@@ -106,7 +107,6 @@ export interface Project {
     user?: string;
   };
   skipSync?: boolean;
-  _status?: 'draft' | 'published';
   createdAt: string;
   updatedAt: string;
 }

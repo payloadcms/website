@@ -43,7 +43,7 @@ export const useCreateDraftProject = ({
             installID,
             team: typeof user.defaultTeam === 'string' ? user.defaultTeam : user.defaultTeam.id,
             repositoryID: repo?.id, // only applies to the `import` flow
-            repositoryName: repo?.name, // only applies to the `clone` flow
+            repositoryName: repo?.name,
             template: templateID,
             makePrivate,
           }),

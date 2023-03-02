@@ -5,7 +5,6 @@ import { Install } from './use-get-installs'
 
 export interface Repo {
   name: string
-  full_name: string
   id?: string // applies only to the `import` flow
   description?: string
 }
