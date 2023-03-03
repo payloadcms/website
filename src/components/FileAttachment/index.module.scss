@@ -1,0 +1,72 @@
+@use '@scss/common' as *;
+
+.attachment {
+  @include shadow-lg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--base);
+  background-color: var(--color-base-1000);
+  border: 1px solid var(--color-base-650);
+  font-size: calc(var(--base) * 0.75);
+  text-decoration: none;
+
+  & svg {
+    width: calc(var(--base) * 2);
+    margin-left: calc(var(--base) * 0.5);
+  }
+
+  &:nth-child(even) {
+    margin-left: var(--base);
+  }
+
+  &:nth-child(2n+3) {
+    margin-top: var(--base);
+  }
+
+  &:hover {
+    background-color: var(--color-base-850);
+  }
+
+  @include large-break {
+    & svg {
+      width: unset
+    }
+
+    &:not(:first-child) {
+      margin-top: var(--base);
+      margin-left: 0;
+    }
+  }
+
+  @include small-break {
+    padding: calc(var(--base) * 1);
+    font-size: calc(var(--base) * 0.75);
+  }
+}
+
+.attachmentName {
+  width: 100%;
+}
+
+.downloadIcon {
+  & path {
+    stroke: white;
+  }
+}
+
+:global([data-theme="light"]) {
+  .attachment {
+    background-color: var(--theme-elevation-200);
+
+    &:hover {
+      background-color: var(--theme-elevation-300);
+    }
+  }
+
+  .downloadIcon {
+    & path {
+      stroke: var(--color-base-750);
+    }
+  }
+}
