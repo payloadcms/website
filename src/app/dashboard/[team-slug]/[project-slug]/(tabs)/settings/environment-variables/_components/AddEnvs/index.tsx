@@ -8,6 +8,7 @@ import Submit from '@forms/Submit'
 import { Button } from '@components/Button'
 import { useRouteData } from '@root/app/dashboard/context'
 import { TrashIcon } from '@root/icons/TrashIcon'
+import { validateKey, validateValue } from '../validations'
 
 import classes from './index.module.scss'
 
@@ -43,10 +44,10 @@ export const AddEnvs: React.FC = () => {
     [tempEnvUUIDs, resetTempEnvs],
   )
 
-  const onSubmit = React.useCallback(
+  const saveEnvs = React.useCallback(
     async ({ unflattenedData }) => {
       if (unflattenedData?.newEnvs?.length > 0) {
-        const sanitizedEnvs = unflattenedData.newEnvs.reduce((env, _, acc) => {
+        const sanitizedEnvs = unflattenedData.newEnvs.reduce((acc, env) => {
           const envKey = env.key?.trim()
           if (envKey && !acc.includes(envKey)) {
             acc.push({
@@ -88,7 +89,7 @@ export const AddEnvs: React.FC = () => {
   )
 
   return (
-    <Form className={classes.formContent} onSubmit={onSubmit}>
+    <Form className={classes.formContent} onSubmit={saveEnvs}>
       {tempEnvUUIDs.map((id, index) => {
         return (
           <div className={classes.newItemRow} key={id}>
@@ -98,21 +99,7 @@ export const AddEnvs: React.FC = () => {
                 label="Key"
                 className={classes.newEnvInput}
                 path={`newEnvs.${index}.key`}
-                validate={(value: string) => {
-                  if (!value) {
-                    return 'Key is required'
-                  }
-
-                  if (!/^\w+$/.test(value)) {
-                    return 'Only alphanumeric characters and underscores are allowed'
-                  }
-
-                  if (existingEnvKeys?.includes(value)) {
-                    return 'This key is already in use'
-                  }
-
-                  return true
-                }}
+                validate={(key: string) => validateKey(key, existingEnvKeys)}
               />
 
               <Text
@@ -120,14 +107,7 @@ export const AddEnvs: React.FC = () => {
                 label="Value"
                 className={classes.newEnvInput}
                 path={`newEnvs.${index}.value`}
-                validate={(value: string) => {
-                  const valueToValidate = value?.trim()
-                  if (!valueToValidate) {
-                    return 'Value is required'
-                  }
-
-                  return true
-                }}
+                validate={validateValue}
               />
             </div>
 

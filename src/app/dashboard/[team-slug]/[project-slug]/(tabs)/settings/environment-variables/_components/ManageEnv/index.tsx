@@ -11,6 +11,7 @@ import { Heading } from '@components/Heading'
 import { ModalWindow } from '@components/ModalWindow'
 import { useRouteData } from '@root/app/dashboard/context'
 import { Accordion } from '../Accordion'
+import { validateKey, validateValue } from '../validations'
 
 import classes from './index.module.scss'
 
@@ -84,12 +85,18 @@ type Props = {
   envKey: string
   arrayItemID: string
 }
-export const RevealEnv: React.FC<Props> = ({ index, envKey, arrayItemID }) => {
+export const ManageEnv: React.FC<Props> = ({ index, envKey, arrayItemID }) => {
   const [fetchedEnvValue, setFetchedEnvValue] = React.useState<string>(undefined)
   const { refreshProject, project } = useRouteData()
   const { closeModal, openModal } = useModal()
   const projectID = project.id
   const modalSlug = `delete-env-${index}`
+  const existingEnvKeys = (project.environmentVariables || []).reduce((acc, { key }) => {
+    if (key !== envKey) {
+      acc.push(key)
+    }
+    return acc
+  }, [])
 
   const updateEnv = React.useCallback(
     async ({ data }) => {
@@ -137,29 +144,28 @@ export const RevealEnv: React.FC<Props> = ({ index, envKey, arrayItemID }) => {
 
   return (
     <Collapsible>
-      <div className={classes.row}>
-        <Accordion.Header
-          onToggle={async () => {
-            if (!fetchedEnvValue) {
-              const envValue = await fetchEnv({ envKey, projectID })
-              if (envValue) setFetchedEnvValue(envValue)
-            }
-          }}
-          label={
-            <>
-              <p>{envKey}</p>
-              <div>••••••••••••</div>
-            </>
+      <Accordion
+        onToggle={async () => {
+          if (!fetchedEnvValue) {
+            const envValue = await fetchEnv({ envKey, projectID })
+            if (envValue) setFetchedEnvValue(envValue)
           }
-        />
-
-        <Accordion.Content>
+        }}
+        label={
+          <>
+            <p>{envKey}</p>
+            <div>••••••••••••</div>
+          </>
+        }
+      >
+        <>
           <Form className={classes.accordionFormContent} onSubmit={updateEnv}>
             <Text
               required
               label="Key"
               path={`environmentVariables.${index}.key`}
               initialValue={envKey}
+              validate={(key: string) => validateKey(key, existingEnvKeys)}
             />
 
             <Textarea
@@ -168,6 +174,7 @@ export const RevealEnv: React.FC<Props> = ({ index, envKey, arrayItemID }) => {
               path={`environmentVariables.${index}.value`}
               initialValue={fetchedEnvValue}
               copy
+              validate={validateValue}
             />
 
             <div className={classes.actionFooter}>
@@ -201,8 +208,8 @@ export const RevealEnv: React.FC<Props> = ({ index, envKey, arrayItemID }) => {
               </div>
             </div>
           </ModalWindow>
-        </Accordion.Content>
-      </div>
+        </>
+      </Accordion>
     </Collapsible>
   )
 }
