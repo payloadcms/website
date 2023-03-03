@@ -5,16 +5,37 @@ import { Gutter } from '@components/Gutter'
 import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@root/providers/Theme'
 import React from 'react'
+import { DocSearch } from '@docsearch/react'
+import {
+  Configure,
+  useCurrentRefinements,
+  useHits,
+  usePagination,
+} from 'react-instantsearch-hooks-web'
 import { ThreadProps } from './discord/[thread]/render'
 import { DiscussionProps } from './github/[discussion]/render'
 
 import classes from './index.module.scss'
+import { ArchiveSearchBar } from './ArchiveFilterBar'
+import { AlgoliaProvider } from './AlgoliaProvider'
 
-export const RenderCommunityHelp: React.FC<{
+export type CommunityHelpType = {
   discussions: DiscussionProps[]
   threads: ThreadProps[]
-}> = ({ discussions, threads }) => {
+}
+
+export const CommunityHelp: React.FC<
+  CommunityHelpType & {
+    indexName: string
+  }
+> = ({ discussions, threads }) => {
   const theme = useTheme()
+
+  const { hits }: { hits: Array<any> } = useHits()
+
+  console.log(hits)
+
+  const hasResults = hits && Array.isArray(hits) && hits.length > 0
 
   return (
     <HeaderObserver color={theme} pullUp>
@@ -22,7 +43,21 @@ export const RenderCommunityHelp: React.FC<{
         <Banner type="error">
           This page is currently under construction &mdash; community help archive coming soon.
         </Banner>
-        <div className={classes.wrap}>
+        {/* <DocSearch
+          appId="9MJY7K9GOW"
+          indexName="payloadcms"
+          apiKey={process.env.NEXT_PUBLIC_ALGOLIA_DOCSEARCH_KEY}
+        /> */}
+        <ArchiveSearchBar />
+        {hasResults && (
+          <ul>
+            {hits.map((hit, i) => {
+              return <li key={i}>{hit.anchor}</li>
+            })}
+          </ul>
+        )}
+
+        {/* <div className={classes.wrap}>
           <div>
             <h2>GitHub</h2>
             <h6>Total: {discussions.length}</h6>
@@ -59,8 +94,18 @@ export const RenderCommunityHelp: React.FC<{
               })}
             </ul>
           </div>
-        </div>
+        </div> */}
       </Gutter>
     </HeaderObserver>
+  )
+}
+
+export const RenderCommunityHelp = (props: CommunityHelpType) => {
+  const indexName = 'payloadcms'
+
+  return (
+    <AlgoliaProvider indexName={indexName}>
+      <CommunityHelp {...props} indexName={indexName} />
+    </AlgoliaProvider>
   )
 }
