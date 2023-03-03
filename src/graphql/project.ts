@@ -10,7 +10,7 @@ export const PROJECTS = `
         deploymentBranch
         environmentVariables {
           id
-          name
+          key
           value
         }
       }
