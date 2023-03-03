@@ -30,7 +30,7 @@ export const Announcements: React.FC<{ announcements: Announcement[] }> = ({ ann
               <button
                 onClick={() => {
                   setCloseAnnouncement(true)
-                  setCookie('dismissAnnouncement', 'true', { maxAge: 86400 }) // Expires after 24 hours
+                  setCookie('dismissAnnouncement', true, { maxAge: 34560000 }) // 400 days (max allowed by cookie)
                 }}
                 className={classes.close}
               >
