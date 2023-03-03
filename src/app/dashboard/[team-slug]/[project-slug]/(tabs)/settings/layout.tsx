@@ -17,8 +17,8 @@ const sidebarNavRoutes = [
     pathSegment: 'environment-variables',
   },
   {
-    label: 'Domain',
-    pathSegment: 'domain',
+    label: 'Domains',
+    pathSegment: 'domains',
   },
   {
     label: 'Ownership',

@@ -2,10 +2,21 @@
 
 .container {
   position: relative;
-  --pixel-extension: calc(var(--base) * 2.5);
+  --bg-extension: calc(var(--gutter-h) * .25);
+  --pixel-bg-extension: calc(var(--bg-extension) * 2);
+  --pixel-extension: calc(var(--bg-extension) * .5);
+
+  @include large-break {
+    --bg-extension: calc(var(--gutter-h) * .5);
+  }
+
+  @include mid-break {
+    --bg-extension: calc(var(--gutter-h) * 1);
+    --pixel-extension: var(--bg-extension);
+  }
   
   &.withPixels {
-    margin-bottom: var(--pixel-extension);
+   padding-bottom: var(--pixel-extension);
   }
 
   .backgroundContainer {
@@ -21,45 +32,27 @@
     z-index: -1;
     left: calc(-1 * var(--bg-extension) / 2);
     width: calc(100% + var(--bg-extension));
-    
-    &.upperBackground,
-    &.lowerBackground {
-      --bg-extension: calc(var(--gutter-h) * 0.5);
-
-      @include large-break {
-        --bg-extension: calc(var(--gutter-h) * .75);
-      }
-
-      @include mid-break {
-        --bg-extension: calc(var(--gutter-h) * 1);
-      }
-    }
 
     &.upperBackground {
       background-color: var(--theme-elevation-50);
+      border: 1px solid var(--theme-elevation-200);
     }
     &.lowerBackground {
       background-color: var(--theme-bg);
-      border: 1px solid var(--theme-elevation-50);
-      border-top: 0;
+      border: 1px solid var(--theme-elevation-200);
+      border-top: 1px solid var(--theme-elevation-150);
+      top: -1px;
     }
     &.pixels {
-      --bg-extension: calc(var(--gutter-h) * 1);
       z-index: -2;
       top: unset;
-      height: calc(100% - var(--base) * 1.5);
-      bottom: calc(-1 * var(--pixel-extension));
+      max-height: calc(100% - var(--pixel-extension) * 1.5);
+      bottom: 0;
       background-image: url('/images/dot.png');
       background-repeat: repeat;
       background-position: center;
-
-      @include large-break {
-        --bg-extension: calc(var(--gutter-h) * 1.5);
-      }
-
-      @include mid-break {
-        --bg-extension: calc(var(--gutter-h) * 2);
-      }
+      left: calc(-1 * var(--pixel-bg-extension) / 2);
+      width: calc(100% + var(--pixel-bg-extension));
     }
   }
 }
