@@ -261,6 +261,97 @@
   },
   {
     "info": {
+      "name": "Request new options for Select component on scroll",
+      "id": "1080469637667495947",
+      "guildId": "967097582721572934",
+      "createdAt": 1677674435775
+    },
+    "messages": [
+      {
+        "content": "Hi @jmikrut<br>Does anyone know how request more options for Select input from payload/components/forms?<br>I&#x27;m trying to put a select input on custom page, and pass as options entries from collection, and I want options to load dynamically as user scrolls down <br>In relationship field payload loads new options when scrolled to the end of select, but I can&#x27;t find a prop for request function or callback when end is reached",
+        "fileAttachments": [],
+        "authorID": "351983077423185921",
+        "authorName": "Ysione",
+        "authorAvatar": "f612bad72951735200e85f09988732ec",
+        "createdAtDate": 1677674435775
+      },
+      {
+        "content": "hey there! ok so first thing you want to make sure of is that you don&#x27;t use the <code>type: &#x27;select&#x27;</code> field, because with that field, the options are created as an &quot;enum&quot; in GraphQL, db, etc. Meaning you need to know the options when you start the server, and they can&#x27;t change. Instead, you should use a <code>type: &#x27;text&#x27;</code> field, which will not be an <code>enum</code> and will accept any value at the database level. From there, you could just create a custom React component for your field that renders our internally used <code>select</code> field UI",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677682123602
+      },
+      {
+        "content": "and if you re-use our built-in select field, that is just built on top of <code>react-select</code>, which has methods that you can pass to fire callbacks based on when the user scrolls to the bottom of the available options. You can look at our current <code>relationship</code> component to see how we wire it up. It&#x27;s fairly complex, but it can be done!",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677682160910
+      },
+      {
+        "content": "According to types for select component Payload doesn&#x27;t have loadOptions prop as react-select does, is there a quick way to have react-select look an behave like payload select? I&#x27;m trying to keep everything in one style<br><pre><code class=\"hljs ts\"><span class=\"hljs-keyword\">type</span> <span class=\"hljs-title class_\">SelectInputProps</span> = <span class=\"hljs-title class_\">Omit</span>&lt;<span class=\"hljs-title class_\">SelectField</span>, <span class=\"hljs-string\">&#x27;type&#x27;</span> | <span class=\"hljs-string\">&#x27;value&#x27;</span> | <span class=\"hljs-string\">&#x27;options&#x27;</span>&gt; &amp; {\n    showError?: <span class=\"hljs-built_in\">boolean</span>;\n    errorMessage?: <span class=\"hljs-built_in\">string</span>;\n    readOnly?: <span class=\"hljs-built_in\">boolean</span>;\n    <span class=\"hljs-attr\">path</span>: <span class=\"hljs-built_in\">string</span>;\n    required?: <span class=\"hljs-built_in\">boolean</span>;\n    value?: <span class=\"hljs-built_in\">string</span> | <span class=\"hljs-built_in\">string</span>[];\n    description?: <span class=\"hljs-title class_\">Description</span>;\n    onChange?: <span class=\"hljs-function\">(<span class=\"hljs-params\">value: Option</span>) =&gt;</span> <span class=\"hljs-built_in\">void</span>;\n    style?: <span class=\"hljs-title class_\">React</span>.<span class=\"hljs-property\">CSSProperties</span>;\n    className?: <span class=\"hljs-built_in\">string</span>;\n    width?: <span class=\"hljs-built_in\">string</span>;\n    hasMany?: <span class=\"hljs-built_in\">boolean</span>;\n    isSortable?: <span class=\"hljs-built_in\">boolean</span>;\n    options?: <span class=\"hljs-title class_\">OptionObject</span>[];\n    isClearable?: <span class=\"hljs-built_in\">boolean</span>;\n}</code></pre>",
+        "fileAttachments": [],
+        "authorID": "351983077423185921",
+        "authorName": "Ysione",
+        "authorAvatar": "f612bad72951735200e85f09988732ec",
+        "createdAtDate": 1677754547344
+      },
+      {
+        "content": "just render our built-in ReactSelect wrapper",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677781131308
+      },
+      {
+        "content": "<a href=\"https://github.com/payloadcms/payload/blob/master/src/admin/components/elements/ReactSelect/index.tsx\">https://github.com/payloadcms/payload/blob/master/src/admin/components/elements/ReactSelect/index.tsx</a>",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677781169292
+      },
+      {
+        "content": "you will probably have to import this from <code>payload/dist</code> but it should work",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677781194011
+      },
+      {
+        "content": "and if it does not have the prop you need exposed, feel free to PR to Payload to make sure that we pass what you need through to the underlying <code>react-select</code> library",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677781221667
+      },
+      {
+        "content": "Import from <code>payload/dist</code> works, and it has the prop - onMenuScrollToBottom<br>Thank you for your time and help",
+        "fileAttachments": [],
+        "authorID": "351983077423185921",
+        "authorName": "Ysione",
+        "authorAvatar": "f612bad72951735200e85f09988732ec",
+        "createdAtDate": 1677826166319
+      },
+      {
+        "content": "beautiful! you are very welcome!",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677852014561
+      }
+    ],
+    "messageCount": 9
+  },
+  {
+    "info": {
       "name": "looking to preview a page in the demo version is that possible?",
       "id": "1075261284192374784",
       "guildId": "967097582721572934",
@@ -567,65 +658,6 @@
         "authorName": "Martin R",
         "authorAvatar": "0053f8652dc08a03c69a03708d98f339",
         "createdAtDate": 1675588363664
-      }
-    ],
-    "messageCount": 5
-  },
-  {
-    "info": {
-      "name": "disable rest api and only use graphql",
-      "id": "1069705268453187604",
-      "guildId": "967097582721572934",
-      "createdAt": 1675108010162
-    },
-    "messages": [
-      {
-        "content": "Is it possible to disable rest api and just use graphql? I only use graphql and dont need the rest api and for security I want to disable it.",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675108010162
-      },
-      {
-        "content": "Not currently, but I&#x27;d support adding the toggle!",
-        "fileAttachments": [],
-        "authorID": "1033006865661050921",
-        "authorName": "\\ ឵឵឵",
-        "authorAvatar": null,
-        "createdAtDate": 1675108692501
-      },
-      {
-        "content": "The entire admin UI uses the REST API, so turning this off is not really an option.",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675113238519
-      },
-      {
-        "content": "@denolfe  So if we disable admin, will it disable the rest api? I know there is an option to disable admin in production",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675120244545
-      },
-      {
-        "content": "No, that option simply disables the serving of the admin panel itself - no affect on REST API",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675127359796
-      },
-      {
-        "content": "Feel free to submit a feature request, so we can discuss/prioritize with everyone.<br><br><a href=\"https://github.com/payloadcms/payload/discussions\">https://github.com/payloadcms/payload/discussions</a>",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675127373522
       }
     ],
     "messageCount": 5
@@ -1835,9 +1867,17 @@
         "authorName": "TheFrontend",
         "authorAvatar": "bcb7fbbe04c97de177f47c68e9fbaf6d",
         "createdAtDate": 1677253219223
+      },
+      {
+        "content": "I wanted to follow up on this real quick, because I&#x27;ve wasted countless hours on those cookie issues during my years in web dev.<br><br><strong>If you are using axios or sth similar, you need to set  withCredentials&quot;: true (or credentials: &#x27;include&#x27; in node fetch ). NOT ONLY ON THE REQUEST USING THE AUTH COOKIE, BUT ALSO ON THE REQUEST WHERE YOU WANT TO RETRIEVE THE AUTH COOKIE (e.g. login request). Otherwise, you&#x27;ll see the set-Cookie header in the response, but no cookie will be set</strong>",
+        "fileAttachments": [],
+        "authorID": "900030932617162793",
+        "authorName": "Sandro Wegmann",
+        "authorAvatar": "51018814dbca15d823817ac63e505824",
+        "createdAtDate": 1677780771739
       }
     ],
-    "messageCount": 6
+    "messageCount": 7
   },
   {
     "info": {
@@ -2013,68 +2053,6 @@
   },
   {
     "info": {
-      "name": "Prettier/Editor settings for contributing to source code",
-      "id": "1069147833795608586",
-      "guildId": "967097582721572934",
-      "createdAt": 1674975107383
-    },
-    "messages": [
-      {
-        "content": "Is there a default configuration I should be using to contribute to the source code? <br><br>I edited one of the files to play around and when saving I&#x27;ve been getting lots of these changes in the file.<br><br>So I don&#x27;t know if there&#x27;s a bit of documentation on this that I missed or we could add either .vscode/settings.json or a prettier config? I can also do it per workspace on my end of course",
-        "fileAttachments": [
-          {
-            "attachment": "https://cdn.discordapp.com/attachments/1069147833795608586/1069147833929834596/image.png",
-            "name": "image.png",
-            "id": "1069147833929834596",
-            "size": 51223,
-            "url": "https://cdn.discordapp.com/attachments/1069147833795608586/1069147833929834596/image.png",
-            "proxyURL": "https://media.discordapp.net/attachments/1069147833795608586/1069147833929834596/image.png",
-            "height": 283,
-            "width": 665,
-            "contentType": "image/png",
-            "description": null,
-            "ephemeral": false
-          },
-          {
-            "attachment": "https://cdn.discordapp.com/attachments/1069147833795608586/1069147834152136734/image.png",
-            "name": "image.png",
-            "id": "1069147834152136734",
-            "size": 28776,
-            "url": "https://cdn.discordapp.com/attachments/1069147833795608586/1069147834152136734/image.png",
-            "proxyURL": "https://media.discordapp.net/attachments/1069147833795608586/1069147834152136734/image.png",
-            "height": 171,
-            "width": 552,
-            "contentType": "image/png",
-            "description": null,
-            "ephemeral": false
-          }
-        ],
-        "authorID": "858693520012476436",
-        "authorName": "noheadphones",
-        "authorAvatar": "db21160ec6d6b123e83a8b6768467352",
-        "createdAtDate": 1674975107383
-      },
-      {
-        "content": "Payload core uses .eslint formatting rules, are you using prettier to format?",
-        "fileAttachments": [],
-        "authorID": "618601682460344334",
-        "authorName": "Kalon-Robson",
-        "authorAvatar": "416a5969efb8ca3e0c40f9b37f5e2bf6",
-        "createdAtDate": 1675192455839
-      },
-      {
-        "content": "Yeah, I disabled format on save and changed format to changes only...maybe my vscode was bugged previously as it shouldn&#x27;t have used &quot; over &#x27;...anyway its magically resolved no after restarting vscode 🌈 <br><br>Cheers",
-        "fileAttachments": [],
-        "authorID": "858693520012476436",
-        "authorName": "noheadphones",
-        "authorAvatar": "db21160ec6d6b123e83a8b6768467352",
-        "createdAtDate": 1675226075316
-      }
-    ],
-    "messageCount": 2
-  },
-  {
-    "info": {
       "name": "Cannot read properties of undefined (reading 'thumbnail')",
       "id": "1073556897413746698",
       "guildId": "967097582721572934",
@@ -2128,65 +2106,6 @@
         "authorName": "gruja",
         "authorAvatar": null,
         "createdAtDate": 1676283546897
-      }
-    ],
-    "messageCount": 5
-  },
-  {
-    "info": {
-      "name": "Azure Deployment",
-      "id": "1067987094212980786",
-      "guildId": "967097582721572934",
-      "createdAt": 1674698365501
-    },
-    "messages": [
-      {
-        "content": "Hi all,<br><br>Is it even possible to deploy payload cms to Azure App Service? We have been trying to achieve this following documentation and some nodejs deployment to azure tutorials but we haven&#x27;t been able to success so far. Any help will be appreciated.",
-        "fileAttachments": [],
-        "authorID": "286736082928664576",
-        "authorName": "emmanuel",
-        "authorAvatar": "793f0d53664a9bcc276e085f9737dab9",
-        "createdAtDate": 1674698365501
-      },
-      {
-        "content": "Since Payload is just a node.js app, if the platform supports it, there shouldn&#x27;t be any issue.",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674750104327
-      },
-      {
-        "content": "We have clients on Azure, not sure if they&#x27;re using Azure App Service or not though",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674750135583
-      },
-      {
-        "content": "thanks for the answer, at first we were trying to deploy it in Azure App Service (windows), because the company has some available slots for testing purposes, we were not able to make it work, so we did switch to Linux and worked; also we did with docker and also work in case someone (who is not a devops expert) is facing the same issue.",
-        "fileAttachments": [],
-        "authorID": "286736082928664576",
-        "authorName": "emmanuel",
-        "authorAvatar": "793f0d53664a9bcc276e085f9737dab9",
-        "createdAtDate": 1675126926027
-      },
-      {
-        "content": "You should be able to use this Dockerfile or similar <a href=\"https://payloadcms.com/docs/production/deployment#docker\">https://payloadcms.com/docs/production/deployment#docker</a>",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675127612909
-      },
-      {
-        "content": "yes, I used that one as base, I just needed to modify it a bit as I added some environment variables. Thank you!",
-        "fileAttachments": [],
-        "authorID": "286736082928664576",
-        "authorName": "emmanuel",
-        "authorAvatar": "793f0d53664a9bcc276e085f9737dab9",
-        "createdAtDate": 1675201667364
       }
     ],
     "messageCount": 5
@@ -3847,9 +3766,33 @@
         "authorName": "kosmo",
         "authorAvatar": "f054fc1ce7516d4903c0712698fc5eb1",
         "createdAtDate": 1677677892317
+      },
+      {
+        "content": "If it&#x27;s a webpack error, you should add archiver to payloadconfig.admin.webpack.resolve.alias so ot doesn&#x27;t try to bundle it. Otherwise not other config",
+        "fileAttachments": [],
+        "authorID": "476523795251855360",
+        "authorName": "thgh",
+        "authorAvatar": "7a6dc70a50b1fe0de52c0e1a358e8fa5",
+        "createdAtDate": 1677709884330
+      },
+      {
+        "content": "You could consider to skip the zipping and return the csv straight away",
+        "fileAttachments": [],
+        "authorID": "476523795251855360",
+        "authorName": "thgh",
+        "authorAvatar": "7a6dc70a50b1fe0de52c0e1a358e8fa5",
+        "createdAtDate": 1677709939679
+      },
+      {
+        "content": "thank you so much! Im going to try it",
+        "fileAttachments": [],
+        "authorID": "803037652894482442",
+        "authorName": "kosmo",
+        "authorAvatar": "f054fc1ce7516d4903c0712698fc5eb1",
+        "createdAtDate": 1677710437718
       }
     ],
-    "messageCount": 2
+    "messageCount": 5
   },
   {
     "info": {
@@ -4248,6 +4191,231 @@
   },
   {
     "info": {
+      "name": "Stuck on another 404 Issue on prod",
+      "id": "1080558274572718200",
+      "guildId": "967097582721572934",
+      "createdAt": 1677695568460
+    },
+    "messages": [
+      {
+        "content": "Hello all, trying to resolve an issue on prod where I cant access my payload Admin  / API and I get a 404.<br><br>I replaced my domain with mywebsite.com in the following as an example:<br><br>in my payload config, serverURL: &quot;<a href=\"https://mywesbite.com\">https://mywesbite.com</a>&quot;<br><br>Nginx:<br><br><pre><code class=\"hljs nginx\">    <span class=\"hljs-section\">server</span> {\n        <span class=\"hljs-attribute\">server_name</span> mywebsite.com;\n        <span class=\"hljs-attribute\">root</span> /var/www/mywebsite.com;\n        <span class=\"hljs-comment\">#index index.html index.htm index.nginx-debian.html;</span>\n        <span class=\"hljs-attribute\">index</span> index.html;\n\n        <span class=\"hljs-section\">location</span> /payload/ {\n            <span class=\"hljs-attribute\">proxy_set_header</span> X-Forwarded-For <span class=\"hljs-variable\">$proxy_add_x_forwarded_for</span>;\n            <span class=\"hljs-attribute\">proxy_set_header</span> Host <span class=\"hljs-variable\">$host</span>;\n            <span class=\"hljs-attribute\">proxy_pass</span> http://127.0.0.1:3000;\n            <span class=\"hljs-attribute\">proxy_http_version</span> <span class=\"hljs-number\">1</span>.<span class=\"hljs-number\">1</span>;\n            <span class=\"hljs-attribute\">proxy_set_header</span> Upgrade <span class=\"hljs-variable\">$http_upgrade</span>;\n            <span class=\"hljs-attribute\">proxy_set_header</span> Connection <span class=\"hljs-string\">&quot;upgrade&quot;</span>;\n        }\n\n        <span class=\"hljs-section\">location</span> /safsapi/ {\n            <span class=\"hljs-attribute\">rewrite</span><span class=\"hljs-regexp\"> ^/safsapi/(.*)$</span> /<span class=\"hljs-variable\">$1</span> <span class=\"hljs-literal\">break</span>;\n            <span class=\"hljs-attribute\">proxy_set_header</span> X-Forwarded-For <span class=\"hljs-variable\">$proxy_add_x_forwarded_for</span>;\n            <span class=\"hljs-attribute\">proxy_set_header</span> Host <span class=\"hljs-variable\">$host</span>;\n            <span class=\"hljs-attribute\">proxy_pass</span> http://127.0.0.1:5000;\n            <span class=\"hljs-attribute\">proxy_http_version</span> <span class=\"hljs-number\">1</span>.<span class=\"hljs-number\">1</span>;\n            <span class=\"hljs-attribute\">proxy_set_header</span> Upgrade <span class=\"hljs-variable\">$http_upgrade</span>;\n            <span class=\"hljs-attribute\">proxy_set_header</span> Connection <span class=\"hljs-string\">&quot;upgrade&quot;</span>;\n        }\n\n        <span class=\"hljs-section\">location</span> / {\n            <span class=\"hljs-attribute\">root</span> /var/www/mywebsite.com/client/dist/safs;\n            <span class=\"hljs-comment\">#root /client/dist/safs;</span>\n            <span class=\"hljs-attribute\">try_files</span> <span class=\"hljs-variable\">$uri</span> <span class=\"hljs-variable\">$uri</span>/ /index.html;\n            <span class=\"hljs-comment\">#index  index.html index.htm;</span>\n            <span class=\"hljs-attribute\">index</span>  index.html;\n        }\n    }</code></pre>",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677695568460
+      },
+      {
+        "content": "Previously I had no issues hitting /payload and /safsapi routes",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677695586555
+      },
+      {
+        "content": "Not sure if I accidently changed something while moving to prod",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677695627857
+      },
+      {
+        "content": "but everything looks the same",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677695632180
+      },
+      {
+        "content": "Update:",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677763449728
+      },
+      {
+        "content": "If I add an express route in payload to hit &quot;/payload&quot;, I actually hit express and get a &quot;Cannot get /payload&quot;",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677763477125
+      },
+      {
+        "content": "But still getting 404&#x27;s on payload api routes",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677763496036
+      },
+      {
+        "content": "@zubricks Anything look weird there?",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677763519603
+      },
+      {
+        "content": "Let me take a look through this config quick and see if anything looks off",
+        "fileAttachments": [],
+        "authorID": "364562745447940099",
+        "authorName": "zubricks",
+        "authorAvatar": "44115fecb609a69a5ef35b4d8ac908f6",
+        "createdAtDate": 1677763625385
+      },
+      {
+        "content": "With that proxy setup",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677764611284
+      },
+      {
+        "content": "I tried setting my routes",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677764615084
+      },
+      {
+        "content": "<pre><code class=\"hljs\">  routes: {\n    api: &#x27;/payload/api&#x27;,\n    admin: &#x27;/payload/admin&#x27;,\n    graphQL: &#x27;/payload/graphql&#x27;,\n    graphQLPlayground: &#x27;/payload/graphql-playground&#x27;\n  }</code></pre>",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677764618745
+      },
+      {
+        "content": "",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1080558274572718200/1080848525321060353/image.png",
+            "name": "image.png",
+            "id": "1080848525321060353",
+            "size": 21318,
+            "url": "https://cdn.discordapp.com/attachments/1080558274572718200/1080848525321060353/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1080558274572718200/1080848525321060353/image.png",
+            "height": 516,
+            "width": 977,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677764769674
+      },
+      {
+        "content": "SOLUTION",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677764982780
+      },
+      {
+        "content": "TY to the amazing @noheadphones",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677764988463
+      },
+      {
+        "content": "if you have a reverse proxy",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677764996424
+      },
+      {
+        "content": "<pre><code class=\"hljs\">        location /payload/ {\n            proxy_buffering off;\n            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n            proxy_set_header Host $host;\n            proxy_pass http://127.0.0.1:3000;\n            proxy_http_version 1.1;\n            proxy_set_header Upgrade $http_upgrade;\n            proxy_set_header Connection &quot;upgrade&quot;;\n        }</code></pre>",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677765001370
+      },
+      {
+        "content": "<pre><code class=\"hljs\">proxy_buffering off;</code></pre>",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677765008529
+      },
+      {
+        "content": "must be set to off",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677765011751
+      },
+      {
+        "content": "(not sure why exactly, but noheadphones is genius)",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677765022840
+      },
+      {
+        "content": "interesting...good work!",
+        "fileAttachments": [],
+        "authorID": "364562745447940099",
+        "authorName": "zubricks",
+        "authorAvatar": "44115fecb609a69a5ef35b4d8ac908f6",
+        "createdAtDate": 1677765043453
+      },
+      {
+        "content": "Also",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677765063433
+      },
+      {
+        "content": "In my situation, if this helps anyone",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677765069839
+      },
+      {
+        "content": "I needed to add the following to my payload config",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677765080635
+      },
+      {
+        "content": "<pre><code class=\"hljs\">  routes: {\n    api: &#x27;/payload/api&#x27;,\n    admin: &#x27;/payload/admin&#x27;,\n    graphQL: &#x27;/payload/graphql&#x27;,\n    graphQLPlayground: &#x27;/payload/graphql-playground&#x27;\n  }</code></pre>",
+        "fileAttachments": [],
+        "authorID": "1049775120559898725",
+        "authorName": "thisisnotchris",
+        "authorAvatar": "b4da2105650b067c9b3765334ea4c43a",
+        "createdAtDate": 1677765083904
+      }
+    ],
+    "messageCount": 24
+  },
+  {
+    "info": {
       "name": "What is `Record<string, string>` used for on the `group` field on a collection?",
       "id": "1072900095663689880",
       "guildId": "967097582721572934",
@@ -4296,103 +4464,6 @@
       }
     ],
     "messageCount": 4
-  },
-  {
-    "info": {
-      "name": "Autosave draft is not working on empty array of object",
-      "id": "1046293227088642050",
-      "guildId": "967097582721572934",
-      "createdAt": 1669526144526
-    },
-    "messages": [
-      {
-        "content": "When I try to create the post with empty array of object in the collection, autosave draft is not working properly, it throws<br><pre><code class=\"hljs\">[05:09:28] ERROR (payload): _shows_versions validation failed: version.people.crew: Parameter &quot;obj&quot; to Document() must be an object, got 0, version.people.cast: Parameter &quot;obj&quot; to Document() must be an object, got 0, version.external.streaming: Parameter &quot;obj&quot; to Document() must be an object, got 0, version.external.sources: Parameter &quot;obj&quot; to Document() must be an object, got 0</code></pre><br><pre><code class=\"hljs\">[05:09:28] ERROR (payload): TypeError: Cannot read properties of undefined (reading &#x27;version&#x27;)</code></pre><br>Is it a bug or something? But it will work when I add at least one object on every array in the collection.",
-        "fileAttachments": [],
-        "authorID": "434737607742586880",
-        "authorName": "iamPrompt",
-        "authorAvatar": "f772fda196645994bd7821f5dc341293",
-        "createdAtDate": 1669526144526
-      },
-      {
-        "content": "are those array fields required?",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1671036953931
-      },
-      {
-        "content": "The fields are not required.",
-        "fileAttachments": [],
-        "authorID": "434737607742586880",
-        "authorName": "iamPrompt",
-        "authorAvatar": "f772fda196645994bd7821f5dc341293",
-        "createdAtDate": 1671041110936
-      },
-      {
-        "content": "There is another issue about this topic. I have been use the dispatchFields from useAllFormFields hook to create the object in an array. I can successfully dispatch to the document but cannot save it throws<br><pre><code class=\"hljs\">shows validation failed: external.streaming: Cast to embedded failed for value &quot;1&quot; (type number) at path &quot;streaming&quot; because of &quot;ObjectParameterError&quot;, external.sources: Cast to embedded failed for value &quot;2&quot; (type number) at path &quot;sources&quot; because of &quot;ObjectParameterError&quot;</code></pre>",
-        "fileAttachments": [],
-        "authorID": "434737607742586880",
-        "authorName": "iamPrompt",
-        "authorAvatar": "f772fda196645994bd7821f5dc341293",
-        "createdAtDate": 1671041379386
-      },
-      {
-        "content": "The config of these two groups of array is following",
-        "fileAttachments": [
-          {
-            "attachment": "https://cdn.discordapp.com/attachments/1046293227088642050/1052648975091642448/image.png",
-            "name": "image.png",
-            "id": "1052648975091642448",
-            "size": 75390,
-            "url": "https://cdn.discordapp.com/attachments/1046293227088642050/1052648975091642448/image.png",
-            "proxyURL": "https://media.discordapp.net/attachments/1046293227088642050/1052648975091642448/image.png",
-            "height": 1259,
-            "width": 462,
-            "contentType": "image/png",
-            "description": null,
-            "ephemeral": false
-          }
-        ],
-        "authorID": "434737607742586880",
-        "authorName": "iamPrompt",
-        "authorAvatar": "f772fda196645994bd7821f5dc341293",
-        "createdAtDate": 1671041472999
-      },
-      {
-        "content": "Hi @iamPrompt do you still need help with this issue?",
-        "fileAttachments": [],
-        "authorID": "854377910689202256",
-        "authorName": "jesschow",
-        "authorAvatar": "cd84347e723519ad6fe9dafb1530dbc5",
-        "createdAtDate": 1674755345915
-      },
-      {
-        "content": "of course, that would be great",
-        "fileAttachments": [],
-        "authorID": "434737607742586880",
-        "authorName": "iamPrompt",
-        "authorAvatar": "f772fda196645994bd7821f5dc341293",
-        "createdAtDate": 1674760716673
-      },
-      {
-        "content": "for more detail of the issue <a href=\"https://discord.com/channels/967097582721572934/1060874983452200990/1060874983452200990\">https://discord.com/channels/967097582721572934/1060874983452200990/1060874983452200990</a>",
-        "fileAttachments": [],
-        "authorID": "434737607742586880",
-        "authorName": "iamPrompt",
-        "authorAvatar": "f772fda196645994bd7821f5dc341293",
-        "createdAtDate": 1674760857171
-      },
-      {
-        "content": "okay great lets continue in that thread ^",
-        "fileAttachments": [],
-        "authorID": "854377910689202256",
-        "authorName": "jesschow",
-        "authorAvatar": "cd84347e723519ad6fe9dafb1530dbc5",
-        "createdAtDate": 1675158091215
-      }
-    ],
-    "messageCount": 8
   },
   {
     "info": {
@@ -4565,6 +4636,750 @@
       }
     ],
     "messageCount": 3
+  },
+  {
+    "info": {
+      "name": "CORS error after deployment even after setting permissions",
+      "id": "1077768715334070392",
+      "guildId": "967097582721572934",
+      "createdAt": 1677030485710
+    },
+    "messages": [
+      {
+        "content": "I&#x27;m trying to access my endpoint from a next.js app deployed on vercel, and I keep getting a cors error, even after setting cors=&quot;*&quot; in payload.config and trying to whitelist my domain on csrf.<br><br>From the browser and from the curl command it works fine, so It really looks like a cross-origin error.<br><br>I used Railway to deploy my payloadCMS backend.<br><br>The error is on the image. Any help is appreciated.",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1077768715334070392/1077768715485057155/image.png",
+            "name": "image.png",
+            "id": "1077768715485057155",
+            "size": 98577,
+            "url": "https://cdn.discordapp.com/attachments/1077768715334070392/1077768715485057155/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1077768715334070392/1077768715485057155/image.png",
+            "height": 701,
+            "width": 946,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "970669344189218836",
+        "authorName": "Lucas Delbel",
+        "authorAvatar": "5472ce6d1c38f9b5bc36975fd6d15987",
+        "createdAtDate": 1677030485710
+      },
+      {
+        "content": "What&#x27;s in your console?",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677031525787
+      },
+      {
+        "content": "you&#x27;re showing the issues tab, but can you show the console tab?",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677031534353
+      },
+      {
+        "content": "and, you should check your Railway server logs",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677031547024
+      },
+      {
+        "content": "instead of saying cors=* you should just whitelist all domains that you&#x27;ll be accessing from. Because you can&#x27;t have cors=* and still allow cookie auth at the same time",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677031573446
+      },
+      {
+        "content": "In my console is this",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1077768715334070392/1077777823940493433/image.png",
+            "name": "image.png",
+            "id": "1077777823940493433",
+            "size": 233632,
+            "url": "https://cdn.discordapp.com/attachments/1077768715334070392/1077777823940493433/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1077768715334070392/1077777823940493433/image.png",
+            "height": 719,
+            "width": 935,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "970669344189218836",
+        "authorName": "Lucas Delbel",
+        "authorAvatar": "5472ce6d1c38f9b5bc36975fd6d15987",
+        "createdAtDate": 1677032657424
+      },
+      {
+        "content": "ahh good ol&#x27; axios",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677033006988
+      },
+      {
+        "content": "i can&#x27;t find anything noteworthy from all of that info",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677033013763
+      },
+      {
+        "content": "haha",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677033014155
+      },
+      {
+        "content": "scrolling down, is there more?",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677033026342
+      },
+      {
+        "content": "This is all, unfortunately",
+        "fileAttachments": [],
+        "authorID": "970669344189218836",
+        "authorName": "Lucas Delbel",
+        "authorAvatar": "5472ce6d1c38f9b5bc36975fd6d15987",
+        "createdAtDate": 1677033127560
+      },
+      {
+        "content": "Can&#x27;t find anything noteworthy as well.. And I&#x27;m still looking for the server logs on Railway",
+        "fileAttachments": [],
+        "authorID": "970669344189218836",
+        "authorName": "Lucas Delbel",
+        "authorAvatar": "5472ce6d1c38f9b5bc36975fd6d15987",
+        "createdAtDate": 1677033169184
+      },
+      {
+        "content": "first time using it",
+        "fileAttachments": [],
+        "authorID": "970669344189218836",
+        "authorName": "Lucas Delbel",
+        "authorAvatar": "5472ce6d1c38f9b5bc36975fd6d15987",
+        "createdAtDate": 1677033171714
+      },
+      {
+        "content": "Even changing CORS to specific domains and removing csrf it keeps bringing the same error",
+        "fileAttachments": [],
+        "authorID": "970669344189218836",
+        "authorName": "Lucas Delbel",
+        "authorAvatar": "5472ce6d1c38f9b5bc36975fd6d15987",
+        "createdAtDate": 1677033685380
+      },
+      {
+        "content": "Man, I was relying on the cors property on payload config",
+        "fileAttachments": [],
+        "authorID": "970669344189218836",
+        "authorName": "Lucas Delbel",
+        "authorAvatar": "5472ce6d1c38f9b5bc36975fd6d15987",
+        "createdAtDate": 1677034480974
+      },
+      {
+        "content": "and it was not working",
+        "fileAttachments": [],
+        "authorID": "970669344189218836",
+        "authorName": "Lucas Delbel",
+        "authorAvatar": "5472ce6d1c38f9b5bc36975fd6d15987",
+        "createdAtDate": 1677034485687
+      },
+      {
+        "content": "just as a desperate act before giving up and going to bed, I added the express middleware for cors handling",
+        "fileAttachments": [],
+        "authorID": "970669344189218836",
+        "authorName": "Lucas Delbel",
+        "authorAvatar": "5472ce6d1c38f9b5bc36975fd6d15987",
+        "createdAtDate": 1677034510072
+      },
+      {
+        "content": "and it worked",
+        "fileAttachments": [],
+        "authorID": "970669344189218836",
+        "authorName": "Lucas Delbel",
+        "authorAvatar": "5472ce6d1c38f9b5bc36975fd6d15987",
+        "createdAtDate": 1677034511669
+      },
+      {
+        "content": "i also have a problem with allowing cors=&quot;*&quot; as well (useful for staging API with PR deployments for frontend), even with express middleware <code>cors</code>.<br><br>How did you get it to work? @Lucas Delbel",
+        "fileAttachments": [],
+        "authorID": "275258786388639744",
+        "authorName": "bombnp",
+        "authorAvatar": "4731ab4f51c57c8d12c2188742bcae83",
+        "createdAtDate": 1677035291295
+      },
+      {
+        "content": "hey @bombnp , I&#x27;m still not sure what actually worked, I&#x27;ll check tomorrow.<br><br>But what I did was simply adding the middleware and the options for cors",
+        "fileAttachments": [],
+        "authorID": "970669344189218836",
+        "authorName": "Lucas Delbel",
+        "authorAvatar": "5472ce6d1c38f9b5bc36975fd6d15987",
+        "createdAtDate": 1677035861242
+      },
+      {
+        "content": "",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1077768715334070392/1077791271344672870/image.png",
+            "name": "image.png",
+            "id": "1077791271344672870",
+            "size": 62407,
+            "url": "https://cdn.discordapp.com/attachments/1077768715334070392/1077791271344672870/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1077768715334070392/1077791271344672870/image.png",
+            "height": 297,
+            "width": 404,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "970669344189218836",
+        "authorName": "Lucas Delbel",
+        "authorAvatar": "5472ce6d1c38f9b5bc36975fd6d15987",
+        "createdAtDate": 1677035863533
+      },
+      {
+        "content": "and I kept the cors configuration on payload.config",
+        "fileAttachments": [],
+        "authorID": "970669344189218836",
+        "authorName": "Lucas Delbel",
+        "authorAvatar": "5472ce6d1c38f9b5bc36975fd6d15987",
+        "createdAtDate": 1677035874894
+      },
+      {
+        "content": "ahh, mine didn&#x27;t have <code>app.options(&#x27;*&#x27;, cors())</code>. Maybe that&#x27;s why?",
+        "fileAttachments": [],
+        "authorID": "275258786388639744",
+        "authorName": "bombnp",
+        "authorAvatar": "4731ab4f51c57c8d12c2188742bcae83",
+        "createdAtDate": 1677035930853
+      },
+      {
+        "content": "guess i&#x27;ll try out later",
+        "fileAttachments": [],
+        "authorID": "275258786388639744",
+        "authorName": "bombnp",
+        "authorAvatar": "4731ab4f51c57c8d12c2188742bcae83",
+        "createdAtDate": 1677035937601
+      },
+      {
+        "content": "Maybe, that&#x27;s what I was going to check",
+        "fileAttachments": [],
+        "authorID": "970669344189218836",
+        "authorName": "Lucas Delbel",
+        "authorAvatar": "5472ce6d1c38f9b5bc36975fd6d15987",
+        "createdAtDate": 1677035944993
+      },
+      {
+        "content": "is it safe to use cors middleware and payloads auth?",
+        "fileAttachments": [],
+        "authorID": "1054787039339495474",
+        "authorName": "Martin R",
+        "authorAvatar": "0053f8652dc08a03c69a03708d98f339",
+        "createdAtDate": 1677047093685
+      },
+      {
+        "content": "depending on what you&#x27;re looking to do with cors middleware",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677072889152
+      },
+      {
+        "content": "<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors/CORSNotSupportingCredentials\">https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors/CORSNotSupportingCredentials</a>",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677072908384
+      },
+      {
+        "content": "this is not a Payload thing, it&#x27;s just an internet thing",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677072913807
+      },
+      {
+        "content": "so, if i want to use PR deployments (like Netlify&#x27;s), which deploys a version of my website when I make a PR with different origins, and I want to connect it to my backend. How should I set the cors? I always get cors error since it&#x27;s different origin and the origin from PR deployments are always different.",
+        "fileAttachments": [],
+        "authorID": "275258786388639744",
+        "authorName": "bombnp",
+        "authorAvatar": "4731ab4f51c57c8d12c2188742bcae83",
+        "createdAtDate": 1677149567849
+      },
+      {
+        "content": "Or maybe it&#x27;s not possible?",
+        "fileAttachments": [],
+        "authorID": "275258786388639744",
+        "authorName": "bombnp",
+        "authorAvatar": "4731ab4f51c57c8d12c2188742bcae83",
+        "createdAtDate": 1677149575065
+      },
+      {
+        "content": "Is it possible to create a new middleware? Then look up domains from a cache and write an alternative to the cors build-in payload middleware.<br>Can the idea be to look up CORS? Using origin and check that tokens belong to the same origin. Implement the separation between accounts to avoid exploitation of others&#x27; accounts.<br><br>unset config.cors and add<br>middleware:<br><pre><code class=\"hljs\">res.header(&#x27;Access-Control-Allow-Methods&#x27;, &#x27;PUT, PATCH, POST, GET, DELETE, OPTIONS&#x27;);\nres.header(&#x27;Access-Control-Allow-Headers&#x27;, &#x27;Origin, X-Requested-With, Content-Type, Accept, Authorization, Content-Encoding, x-apollo-tracing&#x27;);\n\n\nif (corsTokenBelongsToOrigin(req.headers.origin, token) ) {\n  res.header(&quot;Access-Control-Allow-Credentials&quot;, &quot;true&quot;);\n  res.setHeader(&quot;Access-Control-Allow-Origin&quot;, req.headers.origin);\n}</code></pre>",
+        "fileAttachments": [],
+        "authorID": "1054787039339495474",
+        "authorName": "Martin R",
+        "authorAvatar": "0053f8652dc08a03c69a03708d98f339",
+        "createdAtDate": 1677155496803
+      },
+      {
+        "content": "Are you using the Payload API from a server render? else you can just add your public domain to cors and csrf?",
+        "fileAttachments": [],
+        "authorID": "1054787039339495474",
+        "authorName": "Martin R",
+        "authorAvatar": "0053f8652dc08a03c69a03708d98f339",
+        "createdAtDate": 1677162169196
+      },
+      {
+        "content": "you mean payload local api? then no. My website frontend (nextjs) and payload are deployed separately on different domain (for now). I&#x27;m thinking about merging them into single express app though.",
+        "fileAttachments": [],
+        "authorID": "275258786388639744",
+        "authorName": "bombnp",
+        "authorAvatar": "4731ab4f51c57c8d12c2188742bcae83",
+        "createdAtDate": 1677164065157
+      },
+      {
+        "content": "Do you have a domain for your Nextjs app? If so, add that domain to your payload config cors, not the domain of the local container.",
+        "fileAttachments": [],
+        "authorID": "1054787039339495474",
+        "authorName": "Martin R",
+        "authorAvatar": "0053f8652dc08a03c69a03708d98f339",
+        "createdAtDate": 1677243694458
+      }
+    ],
+    "messageCount": 34
+  },
+  {
+    "info": {
+      "name": "Issues viewing a large collection (Over 8500 documents) with production mongo",
+      "id": "1080527767839457300",
+      "guildId": "967097582721572934",
+      "createdAt": 1677688295088
+    },
+    "messages": [
+      {
+        "content": "I have a collection with over 8500 documents and I&#x27;m getting an error in the payload client when trying to view the list of documents from our production mongo that says:<br><br><code>MongoServerError: PlanExecutor error during aggregation :: caused by :: Sort exceeded memory limit of 33554432 bytes, but did not opt in to external sorting.</code><br><br>I&#x27;ve tried setting <code>indexSortableFields</code> to true on the payload.config. Does anyone have any ideas on what can be done here? We are on an M5 cluster tier with MongoDB.",
+        "fileAttachments": [],
+        "authorID": "234785106026299393",
+        "authorName": "David",
+        "authorAvatar": null,
+        "createdAtDate": 1677688295088
+      },
+      {
+        "content": "ok when you say <code>payload client</code>, do you mean the List view in the admin UI?",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677691292770
+      },
+      {
+        "content": "we need to enable the aggregation property <code>allowDiskUse</code>",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677691372748
+      },
+      {
+        "content": "I also assume that this is on a collection with versions enabled",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677691383802
+      },
+      {
+        "content": "what is happening is that we need to sort a large set of documents, and you have too many which is causing memory issues",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677691404769
+      },
+      {
+        "content": "i would suggest setting your versions / drafts config property <code>maxPerDoc</code> to a low number",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677691443349
+      },
+      {
+        "content": "Yes, I meant the list view in the admin UI.<br><br>And yes, this is also on a collection with versions enabled. We only have 1 version for each doc at the moment but I&#x27;ll try lowering the amount in the config to see if that helps.",
+        "fileAttachments": [],
+        "authorID": "234785106026299393",
+        "authorName": "David",
+        "authorAvatar": null,
+        "createdAtDate": 1677692257153
+      },
+      {
+        "content": "Is the property of <code>allowDiskUse</code> something we can enable on our end or would this require a payload update?",
+        "fileAttachments": [],
+        "authorID": "234785106026299393",
+        "authorName": "David",
+        "authorAvatar": null,
+        "createdAtDate": 1677692677585
+      },
+      {
+        "content": "Also with some further testing if I set maxPerDoc to 1 it still has the issue.<br><br>If I disable versions for this collection the documents do render in the list UI however.",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1080527767839457300/1080546512267907152/image.png",
+            "name": "image.png",
+            "id": "1080546512267907152",
+            "size": 91795,
+            "url": "https://cdn.discordapp.com/attachments/1080527767839457300/1080546512267907152/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1080527767839457300/1080546512267907152/image.png",
+            "height": 1256,
+            "width": 3072,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "234785106026299393",
+        "authorName": "David",
+        "authorAvatar": null,
+        "createdAtDate": 1677692764155
+      },
+      {
+        "content": "allowDiskUse needs to be set by Payload but you could directly edit your <code>node_modules/payload/dist</code> to see if that will fix your issue (i am pretty confident it will)",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677693247573
+      },
+      {
+        "content": "file to be changed is here:",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677693303594
+      },
+      {
+        "content": "<a href=\"https://github.com/payloadcms/payload/blob/master/src/versions/drafts/queryDrafts.ts#L54\">https://github.com/payloadcms/payload/blob/master/src/versions/drafts/queryDrafts.ts#L54</a>",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677693304021
+      },
+      {
+        "content": "and here is a screenshot of me editing the <code>/dist</code> version:",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677693312731
+      },
+      {
+        "content": "",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1080527767839457300/1080548868703408218/Screen_Shot_2023-03-01_at_12.54.44_PM.png",
+            "name": "Screen_Shot_2023-03-01_at_12.54.44_PM.png",
+            "id": "1080548868703408218",
+            "size": 56072,
+            "url": "https://cdn.discordapp.com/attachments/1080527767839457300/1080548868703408218/Screen_Shot_2023-03-01_at_12.54.44_PM.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1080527767839457300/1080548868703408218/Screen_Shot_2023-03-01_at_12.54.44_PM.png",
+            "height": 343,
+            "width": 425,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677693325977
+      },
+      {
+        "content": "clearly i am feeling like a 🤠 right now",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677693331036
+      },
+      {
+        "content": "Hmm i&#x27;ve just tried editing the file and restarting my local server but still having the same issue:",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1080527767839457300/1080550988001312849/image.png",
+            "name": "image.png",
+            "id": "1080550988001312849",
+            "size": 131218,
+            "url": "https://cdn.discordapp.com/attachments/1080527767839457300/1080550988001312849/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1080527767839457300/1080550988001312849/image.png",
+            "height": 524,
+            "width": 1374,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "234785106026299393",
+        "authorName": "David",
+        "authorAvatar": null,
+        "createdAtDate": 1677693831259
+      },
+      {
+        "content": "hmm, that seems strange",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677694405741
+      },
+      {
+        "content": "same exact error?",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677694407366
+      },
+      {
+        "content": "<a href=\"https://www.mongodb.com/docs/atlas/reference/free-shared-limitations/?_ga=2.176267877.1329169847.1677683154-860992573.1647438381#operational-limitations\">https://www.mongodb.com/docs/atlas/reference/free-shared-limitations/?_ga=2.176267877.1329169847.1677683154-860992573.1647438381#operational-limitations</a>",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677694502730
+      },
+      {
+        "content": "looks like M5 clusters don&#x27;t support allowDiskUse, which is very good to know",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677694545362
+      },
+      {
+        "content": "maybe we can figure out a smarter way around this",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677694552340
+      },
+      {
+        "content": "Oh",
+        "fileAttachments": [],
+        "authorID": "234785106026299393",
+        "authorName": "David",
+        "authorAvatar": null,
+        "createdAtDate": 1677694555122
+      },
+      {
+        "content": "ah i see:",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1080527767839457300/1080554615780679680/image.png",
+            "name": "image.png",
+            "id": "1080554615780679680",
+            "size": 26288,
+            "url": "https://cdn.discordapp.com/attachments/1080527767839457300/1080554615780679680/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1080527767839457300/1080554615780679680/image.png",
+            "height": 90,
+            "width": 1588,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "234785106026299393",
+        "authorName": "David",
+        "authorAvatar": null,
+        "createdAtDate": 1677694696192
+      },
+      {
+        "content": "I&#x27;m going to try bumping to M10 in the interim but this interesting and also good to know!",
+        "fileAttachments": [],
+        "authorID": "234785106026299393",
+        "authorName": "David",
+        "authorAvatar": null,
+        "createdAtDate": 1677694977443
+      },
+      {
+        "content": "ok - keep me posted",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677695020892
+      },
+      {
+        "content": "i am not sure about how to get around this otherwise",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677695030928
+      },
+      {
+        "content": "one other thing to note, <code>allowDiskUse</code> seems to be <code>true</code> by default on Mongo 6.0+",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677695150416
+      },
+      {
+        "content": "so you might not need to hijack your <code>node_modules</code> like a maniac (me) if you are using 6.0+",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677695173983
+      },
+      {
+        "content": "We&#x27;re on Mongo 5.0 at the moment. Will confirm in a couple minutes.",
+        "fileAttachments": [],
+        "authorID": "234785106026299393",
+        "authorName": "David",
+        "authorAvatar": null,
+        "createdAtDate": 1677695664410
+      },
+      {
+        "content": "@jmikrut <br>Okay! I can confirm upgrading to an m10 cluster works!",
+        "fileAttachments": [],
+        "authorID": "234785106026299393",
+        "authorName": "David",
+        "authorAvatar": null,
+        "createdAtDate": 1677695771382
+      },
+      {
+        "content": "beautiful - did you still have your node_modules fix?",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677695788037
+      },
+      {
+        "content": "or should we set this in code? PS - would be a great PR for you to make if you&#x27;re up for it 👼",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677695800106
+      },
+      {
+        "content": "Just deleting the change to my node_modules...",
+        "fileAttachments": [],
+        "authorID": "234785106026299393",
+        "authorName": "David",
+        "authorAvatar": null,
+        "createdAtDate": 1677695884775
+      },
+      {
+        "content": "It actually seems to work just fine",
+        "fileAttachments": [],
+        "authorID": "234785106026299393",
+        "authorName": "David",
+        "authorAvatar": null,
+        "createdAtDate": 1677695900456
+      },
+      {
+        "content": "ok awesome",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677695916369
+      },
+      {
+        "content": "sucky that the database has gotta be more expensive - i will keep this on the radar to see if it&#x27;s possible to do this in a better way",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677695935655
+      },
+      {
+        "content": "Awesome thanks for the support! Yeah this will work fine for us in the interim but would be great for others if a similar issue didn&#x27;t require the higher dedicated server.",
+        "fileAttachments": [],
+        "authorID": "234785106026299393",
+        "authorName": "David",
+        "authorAvatar": null,
+        "createdAtDate": 1677696024543
+      },
+      {
+        "content": "Sure I could. Would it make sense to hard code allowDiskUse in the query or have this as an optional parameter somewhere? I guess if the m10 cluster seems to solve it at mongo 5.0 though maybe not quite necessary yet?",
+        "fileAttachments": [],
+        "authorID": "234785106026299393",
+        "authorName": "David",
+        "authorAvatar": null,
+        "createdAtDate": 1677696288911
+      },
+      {
+        "content": "hard code makes sense",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677696865135
+      },
+      {
+        "content": "i think it&#x27;s only leveraged if it&#x27;s necessary",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677696868792
+      },
+      {
+        "content": "automatically",
+        "fileAttachments": [],
+        "authorID": "364124941832159242",
+        "authorName": "jmikrut",
+        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
+        "createdAtDate": 1677696869969
+      },
+      {
+        "content": "<a href=\"https://github.com/payloadcms/payload/pull/2216\">https://github.com/payloadcms/payload/pull/2216</a>",
+        "fileAttachments": [],
+        "authorID": "234785106026299393",
+        "authorName": "David",
+        "authorAvatar": null,
+        "createdAtDate": 1677701421543
+      },
+      {
+        "content": "PR is here. Feel free to update wording in the note in docs.",
+        "fileAttachments": [],
+        "authorID": "234785106026299393",
+        "authorName": "David",
+        "authorAvatar": null,
+        "createdAtDate": 1677701439392
+      }
+    ],
+    "messageCount": 42
   },
   {
     "info": {
@@ -4914,174 +5729,46 @@
   },
   {
     "info": {
-      "name": "MongoDB database is different than Payload",
-      "id": "1069047585416949830",
+      "name": "How to add custom heading for group of fields?",
+      "id": "1080933685198606468",
       "guildId": "967097582721572934",
-      "createdAt": 1674951206307
+      "createdAt": 1677785073328
     },
     "messages": [
       {
-        "content": "So the data in the collection is not accurate, I have 2 records showing up in the dashboard but when I login to mongodb I can see 25 records in that collection. <br><br>I encountered this issue multiple times, the data is not synced properly. <br><br>Sometimes I have to change Show per page to 100 for the page to reload and show the correct data.<br><br>Is there a reason why this is happening?",
+        "content": "I am trying to add a custom heading for group of fields, is there an option to do that? So I want to create a heading called &quot;Information&quot; and under it, have Username, password and etc. Another heading called &quot;Contact Info&quot; and have the email, phone and etc. Right now all the fields show right after each other, but I want to group them.",
         "fileAttachments": [],
         "authorID": "944284724824801302",
         "authorName": "generator101",
         "authorAvatar": null,
-        "createdAtDate": 1674951206307
+        "createdAtDate": 1677785073328
       },
       {
-        "content": "Can you provide more information here? What version are you on? Are there any custom hooks on your collection?",
+        "content": "Hey there!<br>I believe what you are looking for is the Group Field. It required a name and fields attribute and will take the name property as the heading and also as the name of the object it&#x27;s fields will be put in. This is also the structure it will have when you query the field.<br><br>You can find a link to the documentation below. If you have any further questions, don&#x27;t hesitate to contact me and I&#x27;ll do my best to help you :)<br><br><a href=\"https://payloadcms.com/docs/fields/group\">https://payloadcms.com/docs/fields/group</a>",
         "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675049769627
+        "authorID": "252520518945603585",
+        "authorName": "MichaelBOOM",
+        "authorAvatar": "c332a63449b4311dc59675b9bd6a45d1",
+        "createdAtDate": 1677785793008
       },
       {
-        "content": "@jacobsfletch thanks",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675057578988
-      },
-      {
-        "content": "I think the issue might be here",
+        "content": "yes, this is it",
         "fileAttachments": [],
         "authorID": "944284724824801302",
         "authorName": "generator101",
         "authorAvatar": null,
-        "createdAtDate": 1675057585068
+        "createdAtDate": 1677787448445
       },
       {
-        "content": "access: {<br>        read: ({ req }) =&gt; {<br>            if (req.user) return true<br>            return {<br>                _status: {<br>                    equals: &#x27;published&#x27;,<br>                },<br>            }<br>        },",
+        "content": "thank you",
         "fileAttachments": [],
         "authorID": "944284724824801302",
         "authorName": "generator101",
         "authorAvatar": null,
-        "createdAtDate": 1675057607710
-      },
-      {
-        "content": "I am on latest version",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675057623455
-      },
-      {
-        "content": "I added this access so draft posts are not showing up for api",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675057649562
-      },
-      {
-        "content": "But when logging to dashboard i dont see the draft posts anymore",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675057682301
-      },
-      {
-        "content": "Unless i click on view x amount and they show up",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675057706334
-      },
-      {
-        "content": "<blockquote>Unless i click on view x amount and they show up <br></blockquote>That is unexpected, your read access hook looks fine to me. Can open up your browser&#x27;s network tab and look for the requests being made when you navigate that page?",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675082425874
-      },
-      {
-        "content": "so there is one particular request <code>/api/posts?locale=en&amp;depth=0&amp;draft=true</code> that looks interesting",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675086587647
-      },
-      {
-        "content": "and it only has 2 records",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675086607693
-      },
-      {
-        "content": "if I remove <code>&amp;draft=true</code>",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675086634348
-      },
-      {
-        "content": "I can see all posts returned",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675086647024
-      },
-      {
-        "content": "This sounds like the same issue that you&#x27;re facing: <a href=\"https://github.com/payloadcms/payload/issues/1963\">https://github.com/payloadcms/payload/issues/1963</a>",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675091564535
-      },
-      {
-        "content": "@jacobsfletch oh yes, does look like the same issue I am facing, I also have version enabled",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675092033158
-      },
-      {
-        "content": "Ok this is currently fixed in our canary release which is expected to be merged tomorrow or so",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675092180902
-      },
-      {
-        "content": "@jacobsfletch is this going to be released soon?",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675215218979
-      },
-      {
-        "content": "We&#x27;re on track for tomorrow AM",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675215380910
-      },
-      {
-        "content": "awesome, thank you",
-        "fileAttachments": [],
-        "authorID": "944284724824801302",
-        "authorName": "generator101",
-        "authorAvatar": null,
-        "createdAtDate": 1675215457822
+        "createdAtDate": 1677787450160
       }
     ],
-    "messageCount": 19
+    "messageCount": 3
   },
   {
     "info": {
@@ -5551,9 +6238,17 @@
         "authorName": "thgh",
         "authorAvatar": "7a6dc70a50b1fe0de52c0e1a358e8fa5",
         "createdAtDate": 1677664833020
+      },
+      {
+        "content": "Thank you so much, @thgh ! I&#x27;m gonna try this, but it seems to be exactly what I need",
+        "fileAttachments": [],
+        "authorID": "736673642158620680",
+        "authorName": "arielarial",
+        "authorAvatar": "50c7590d9709bd9e02848d28172b0bd9",
+        "createdAtDate": 1677707330824
       }
     ],
-    "messageCount": 40
+    "messageCount": 41
   },
   {
     "info": {
@@ -6953,285 +7648,6 @@
       }
     ],
     "messageCount": 2
-  },
-  {
-    "info": {
-      "name": "Dockerfile from documentation causing errors",
-      "id": "1065265656649490462",
-      "guildId": "967097582721572934",
-      "createdAt": 1674049524224
-    },
-    "messages": [
-      {
-        "content": "Hey everyone,<br><br>I&#x27;m using the Dockerfile from the documentation (<a href=\"https://payloadcms.com/docs/production/deployment#docker\">https://payloadcms.com/docs/production/deployment#docker</a>) and it&#x27;s causing errors on Northflank, see attached. Docker isn&#x27;t really my strong point so any advice would be great!",
-        "fileAttachments": [
-          {
-            "attachment": "https://cdn.discordapp.com/attachments/1065265656649490462/1065265656947294208/image.png",
-            "name": "image.png",
-            "id": "1065265656947294208",
-            "size": 118641,
-            "url": "https://cdn.discordapp.com/attachments/1065265656649490462/1065265656947294208/image.png",
-            "proxyURL": "https://media.discordapp.net/attachments/1065265656649490462/1065265656947294208/image.png",
-            "height": 624,
-            "width": 1564,
-            "contentType": "image/png",
-            "description": null,
-            "ephemeral": false
-          }
-        ],
-        "authorID": "183581008677961728",
-        "authorName": "Tom",
-        "authorAvatar": "5515b9b4577d71235cbd54d5c61ff4dd",
-        "createdAtDate": 1674049524224
-      },
-      {
-        "content": "I think I understand it, it&#x27;s because it&#x27;s doing <code>CMD [&quot;node&quot;, &quot;dist/server.js&quot;]</code> and not <code>CMD [&quot;yarn&quot;, &quot;run&quot;, &quot;serve&quot;]</code> which sets the <code>PAYLOAD_CONFIG_PATH</code> in the script.<br><br>I&#x27;m curious to why it is setup this way? Is it for more control over dev vs production? In my use-case I&#x27;m deploying my codebase so the config stays in the same location so it may just be a case of not relevant to me.",
-        "fileAttachments": [],
-        "authorID": "183581008677961728",
-        "authorName": "Tom",
-        "authorAvatar": "5515b9b4577d71235cbd54d5c61ff4dd",
-        "createdAtDate": 1674050132726
-      },
-      {
-        "content": "Actually that doesn&#x27;t completely work either, I&#x27;m going to go back to using the Dockerfile provided by Northflank for now, but this may need looking at in the documentation.",
-        "fileAttachments": [
-          {
-            "attachment": "https://cdn.discordapp.com/attachments/1065265656649490462/1065270842990268416/image.png",
-            "name": "image.png",
-            "id": "1065270842990268416",
-            "size": 220409,
-            "url": "https://cdn.discordapp.com/attachments/1065265656649490462/1065270842990268416/image.png",
-            "proxyURL": "https://media.discordapp.net/attachments/1065265656649490462/1065270842990268416/image.png",
-            "height": 683,
-            "width": 1103,
-            "contentType": "image/png",
-            "description": null,
-            "ephemeral": false
-          }
-        ],
-        "authorID": "183581008677961728",
-        "authorName": "Tom",
-        "authorAvatar": "5515b9b4577d71235cbd54d5c61ff4dd",
-        "createdAtDate": 1674050760804
-      },
-      {
-        "content": "Hey @Tom, I tested and wrote the Dockerfile from the template. I can give it another once over.",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674052766092
-      },
-      {
-        "content": "It was done w/o yarn because we wanted to support both npm and yarn.",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674052931454
-      },
-      {
-        "content": "Really, the Dockerfile that ships w/ the template is highly coupled with the code in the template itself",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674052949252
-      },
-      {
-        "content": "The main problem I had with NorthFlank&#x27;s Dockerfile was that it was copying <em>everything</em> from the src dir, which technically isn&#x27;t secure.",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674053347202
-      },
-      {
-        "content": "<pre><code class=\"hljs\"># Copy the built application.\nCOPY --from=build /home/node /home/node</code></pre><br>This line copies everything from the workdir, which would also bloat the image size",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674053410646
-      },
-      {
-        "content": "Seems to run fine for me on a fresh create-payload-app project",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674053845375
-      },
-      {
-        "content": "Ahhh, I see the problem.",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674053915995
-      },
-      {
-        "content": "Looks like the docs are missing setting of PAYLOAD_CONFIG_PATH, but it is set in the create-payload-template. Thanks for the heads up @Tom 👍",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674053952278
-      },
-      {
-        "content": "Maybe this needs to be more prominent in the docs<br><blockquote>This is an example of a multi-stage docker build of Payload for production. Ensure you are setting your environment variables on deployment, like PAYLOAD_SECRET, PAYLOAD_CONFIG_PATH, and MONGODB_URI if needed.</blockquote>",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674053990714
-      },
-      {
-        "content": "This makes sense to me, I think yarn should be opt-in now opt-out since npm comes with every node install and yarn doesn&#x27;t with additional configuration. I did in fact use the <code>PAYLOAD_CONFIG_PATH</code> in my second deploy but it gave a different error.",
-        "fileAttachments": [],
-        "authorID": "183581008677961728",
-        "authorName": "Tom",
-        "authorAvatar": "5515b9b4577d71235cbd54d5c61ff4dd",
-        "createdAtDate": 1674055930672
-      },
-      {
-        "content": "Which is this one, I&#x27;m not entirely sure what it&#x27;s trying to tell me however.",
-        "fileAttachments": [],
-        "authorID": "183581008677961728",
-        "authorName": "Tom",
-        "authorAvatar": "5515b9b4577d71235cbd54d5c61ff4dd",
-        "createdAtDate": 1674055952002
-      },
-      {
-        "content": "It seems even with the PAYLOAD_CONFIG_PATH copied over, it&#x27;s failing to find it because in the Dockerfile, it never copies the src folder. I&#x27;ll do a local build would it be a case of doing <code>PAYLOAD_CONFIG_PATH=dist/payload.config.ts</code>?",
-        "fileAttachments": [],
-        "authorID": "183581008677961728",
-        "authorName": "Tom",
-        "authorAvatar": "5515b9b4577d71235cbd54d5c61ff4dd",
-        "createdAtDate": 1674056118412
-      },
-      {
-        "content": "If you&#x27;re point to dist/ you&#x27;ll need to do payload.config.js",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674059759989
-      },
-      {
-        "content": "or add a step to copy over the ts file and point at that",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674059783823
-      },
-      {
-        "content": "Hmm, I&#x27;m unsure if I&#x27;m understanding correctly.",
-        "fileAttachments": [],
-        "authorID": "183581008677961728",
-        "authorName": "Tom",
-        "authorAvatar": "5515b9b4577d71235cbd54d5c61ff4dd",
-        "createdAtDate": 1674060165717
-      },
-      {
-        "content": "You&#x27;ll notice this mirrors what is in package.json for <code>serve</code>",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674060179757
-      },
-      {
-        "content": "<code>cross-env PAYLOAD_CONFIG_PATH=dist/payload.config.js NODE_ENV=production node dist/server.js</code>",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674060198507
-      },
-      {
-        "content": "Yeah, that is what I did, strange.",
-        "fileAttachments": [],
-        "authorID": "183581008677961728",
-        "authorName": "Tom",
-        "authorAvatar": "5515b9b4577d71235cbd54d5c61ff4dd",
-        "createdAtDate": 1674060198528
-      },
-      {
-        "content": "Got it working, thanks Elliot, I thought I had copied over the dist/payload.config.js but it turns out I copied the src/payload.config.js from the <code>generate:types</code> by accident.",
-        "fileAttachments": [],
-        "authorID": "183581008677961728",
-        "authorName": "Tom",
-        "authorAvatar": "5515b9b4577d71235cbd54d5c61ff4dd",
-        "createdAtDate": 1674060702890
-      },
-      {
-        "content": "Great, glad we were able to figure it out 👍",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1674060734306
-      },
-      {
-        "content": "@denolfe is it safe to add the PAYLOAD_SECRET, PAYLOAD_CONFIG_PATH etc. to the dockerfile in the same way as:<br><code>ENV NODE_ENV=production</code> ?",
-        "fileAttachments": [],
-        "authorID": "172112808668823552",
-        "authorName": "rafael_drs",
-        "authorAvatar": "310f2e39e19eab40059f290681bd7426",
-        "createdAtDate": 1675153465536
-      },
-      {
-        "content": "PAYLOAD_CONFIG_PATH is safe",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675174640247
-      },
-      {
-        "content": "However, PAYLOAD_SECRET should be set at runtime in your deployment environment",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675174662075
-      },
-      {
-        "content": "You typically would not bake sensitive values into a docker image",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675174678137
-      },
-      {
-        "content": "Most deployment platforms let you set these externally to the image",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675174703116
-      },
-      {
-        "content": "For running locally if you use dotenv, you can do something like this <code>docker run --env-file .env -p 3000:3000 imagename</code>",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675174746089
-      },
-      {
-        "content": "Makes sense, thank you!",
-        "fileAttachments": [],
-        "authorID": "172112808668823552",
-        "authorName": "rafael_drs",
-        "authorAvatar": "310f2e39e19eab40059f290681bd7426",
-        "createdAtDate": 1675185659562
-      }
-    ],
-    "messageCount": 28
   },
   {
     "info": {
@@ -8906,6 +9322,393 @@
       }
     ],
     "messageCount": 2
+  },
+  {
+    "info": {
+      "name": "Auth issues",
+      "id": "1080347758940135485",
+      "guildId": "967097582721572934",
+      "createdAt": 1677645377622
+    },
+    "messages": [
+      {
+        "content": "via postman i can login and get responses like expected, but when trying to fetch the /Me endpoint from my front-end, i always get { users : none } back, even if called directly after passing login. when i try to logout i get a &quot;no user&quot; error. <br><br>i have seen <br><pre><code class=\"hljs\">credentials : &#x27;include&#x27;</code></pre><br>i tried adding it to the request but i get cors errors even though both urls (localhost with ports) are whitelisted <br><br>does anyone have an idea what i am doing wrong here?",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677645377622
+      },
+      {
+        "content": "To make authentication work across domains you need to set cors, csrf, and the cookie domain. Our official auth example demonstrates this pretty simply, check it out; <a href=\"https://github.com/payloadcms/payload/tree/master/examples/auth/cms#readme\">https://github.com/payloadcms/payload/tree/master/examples/auth/cms#readme</a>",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677649862600
+      },
+      {
+        "content": "The <code>credentials: include</code> line in your front-end fetch will automatically attach Payload&#x27;s http-only cookie to the request, but Payload will only respect that request and cookie if the settings are configured.",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677650061933
+      },
+      {
+        "content": "If you&#x27;re still seeing a cors error after setting the config, double check that the values are correct. You may be using environment variables that are not loaded. This has tripped me up more times than I&#x27;m willing to admit.",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677650092371
+      },
+      {
+        "content": "Also note that Postman will not trigger cors errors because it makes the request server-side and cors is a browser-only concept.",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677650150183
+      },
+      {
+        "content": "thanks for the quick response! <br><br>the cookie domain i had not set but the cors and csrf configs are like in the example with the exception of using strings directly<br><br><pre><code class=\"hljs ts\"><span class=\"hljs-keyword\">const</span> clientUrls = [<span class=\"hljs-string\">&#x27;http://localhost:5173&#x27;</span>, <span class=\"hljs-string\">&#x27;http://localhost:3000&#x27;</span>];\n\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">default</span> <span class=\"hljs-title function_\">buildConfig</span>({\n  <span class=\"hljs-attr\">serverURL</span>: process.<span class=\"hljs-property\">env</span>.<span class=\"hljs-property\">PAYLOAD_PUBLIC_SERVER_URL</span>,\n  <span class=\"hljs-attr\">admin</span>: {\n    <span class=\"hljs-attr\">user</span>: <span class=\"hljs-title class_\">Admins</span>.<span class=\"hljs-property\">slug</span>,\n  },\n  <span class=\"hljs-attr\">cors</span>: clientUrls,\n  <span class=\"hljs-attr\">csrf</span>: clientUrls,\n  <span class=\"hljs-attr\">collections</span>: [<span class=\"hljs-title class_\">Admins</span>, players],\n  <span class=\"hljs-attr\">typescript</span>: {\n    <span class=\"hljs-attr\">outputFile</span>: path.<span class=\"hljs-title function_\">resolve</span>(__dirname, <span class=\"hljs-string\">&quot;payload-types.ts&quot;</span>),\n  },\n  <span class=\"hljs-attr\">graphQL</span>: {\n    <span class=\"hljs-attr\">schemaOutputFile</span>: path.<span class=\"hljs-title function_\">resolve</span>(__dirname, <span class=\"hljs-string\">&quot;generated-schema.graphql&quot;</span>),\n  },\n});</code></pre><br><br>the cors errors persists",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677650971842
+      },
+      {
+        "content": "Can you paste the error here? And possibly your request as well.",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677652157923
+      },
+      {
+        "content": "<a href=\"https://i.imgur.com/tGYWsVZ.png\">https://i.imgur.com/tGYWsVZ.png</a>",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677653327372
+      },
+      {
+        "content": "<pre><code class=\"hljs\">Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at http://localhost:3000/api/players/login. (Reason: expected ‘true’ in CORS header ‘Access-Control-Allow-Credentials’).</code></pre>",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677653360689
+      },
+      {
+        "content": "<a href=\"https://i.imgur.com/0F5TVjw.png\">https://i.imgur.com/0F5TVjw.png</a>",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677653554169
+      },
+      {
+        "content": "<pre><code class=\"hljs ts\"> <span class=\"hljs-keyword\">const</span> res = <span class=\"hljs-keyword\">await</span> <span class=\"hljs-title function_\">fetch</span>(<span class=\"hljs-string\">&#x27;http://localhost:3000/api/players/login&#x27;</span>, {\n      <span class=\"hljs-attr\">method</span>: <span class=\"hljs-string\">&#x27;POST&#x27;</span>,\n      <span class=\"hljs-attr\">credentials</span>: <span class=\"hljs-string\">&#x27;include&#x27;</span>,\n      <span class=\"hljs-attr\">headers</span>: {\n        <span class=\"hljs-string\">&#x27;Content-Type&#x27;</span>: <span class=\"hljs-string\">&#x27;application/json&#x27;</span>,\n      },\n      <span class=\"hljs-attr\">body</span>: <span class=\"hljs-title class_\">JSON</span>.<span class=\"hljs-title function_\">stringify</span>({\n        <span class=\"hljs-attr\">email</span>: username,\n        <span class=\"hljs-attr\">password</span>: password,\n      }),\n      });</code></pre>",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677653619496
+      },
+      {
+        "content": "Weird, your response headers indicate that <code>http://localhost:5173</code> is whitelisted as expected",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677679467095
+      },
+      {
+        "content": "<code>http://localhost:5173</code> is the address of your front-end right?",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677679631659
+      },
+      {
+        "content": "Yes",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677682928796
+      },
+      {
+        "content": "Are you able to hit any other endpoints with success? Like <code>/api/players</code>?",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677683797969
+      },
+      {
+        "content": "when i leave out the credentials : &#x27;include&#x27;<br>i can log in , get the correct user info and token",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677683878414
+      },
+      {
+        "content": "but in the same function, after the user token retrieval, when fetching /me again, it shows not logged in, when using not the credential line (it goes through) but with the line, the cors errors appear",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677683979455
+      },
+      {
+        "content": "so nothing with the credential line included goes through, everything without goes through, works but as expected when your not logged in",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677683995672
+      },
+      {
+        "content": "Ok this is making more sense",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677684114850
+      },
+      {
+        "content": "The reason you are logging in the first time with success, but do not remain logged in, is because of the cookie domain settings",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677684178857
+      },
+      {
+        "content": "You need to whitelist <code>localhost</code> as seen here: <a href=\"https://github.com/payloadcms/payload/blob/master/examples/auth/cms/src/collections/Users.ts#L14\">https://github.com/payloadcms/payload/blob/master/examples/auth/cms/src/collections/Users.ts#L14</a>",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677684186855
+      },
+      {
+        "content": "This will allow Payload to attach the http-only cookie to your browser and read it back on every <code>/me</code> request",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677684249028
+      },
+      {
+        "content": "<a href=\"https://i.imgur.com/w7leWko.png\">https://i.imgur.com/w7leWko.png</a>",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677684257977
+      },
+      {
+        "content": "i tried swapping secure to false since it did not work the first time i tried, ignore that pls",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677684284737
+      },
+      {
+        "content": "Can you verify your cookie settings by inspecting the cookie in your browser?",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677684462225
+      },
+      {
+        "content": "In Chrome, Inspector &gt; Application &gt; Cookies",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677684476425
+      },
+      {
+        "content": "You can see what domain, etc is being attached",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677684493580
+      },
+      {
+        "content": "hmm might need to swap browsers here 😄",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677684734799
+      },
+      {
+        "content": "nothing appears there but just to be clear , i cannot log in with &#x27;credentials : &quot;include&quot;&#x27; right",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677684858437
+      },
+      {
+        "content": "Right and that is because <code>credentials: include</code> attaches that cookie to the request",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677684966156
+      },
+      {
+        "content": "But all signs are pointing to a bad cookie",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677684978905
+      },
+      {
+        "content": "yea , that seems to be missing , there is nothing i have specifically do right?",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677685023771
+      },
+      {
+        "content": "im not experienced at all with web development to be honest, sorry if im being stupid here, usually doing more c++ or gamedev stuff ^^",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677685155355
+      },
+      {
+        "content": "It&#x27;s all good! Happy to help. I think we&#x27;re close.",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677685175515
+      },
+      {
+        "content": "Do you have any custom hooks that might be manipulating the user in the response?",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677685187363
+      },
+      {
+        "content": "there are some hooks, but they dont do anything as far as i can tell",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677685296264
+      },
+      {
+        "content": "<a href=\"https://i.imgur.com/U98Gm0Y.png\">https://i.imgur.com/U98Gm0Y.png</a>",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677685297367
+      },
+      {
+        "content": "<a href=\"https://i.imgur.com/fpgHnuz.png\">https://i.imgur.com/fpgHnuz.png</a>",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677685356437
+      },
+      {
+        "content": "Try commenting those out temporarily",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677685439532
+      },
+      {
+        "content": "no effect",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677685679696
+      },
+      {
+        "content": "what about <br><pre><code class=\"hljs ts\">  app.<span class=\"hljs-title function_\">use</span>(payload.<span class=\"hljs-property\">authenticate</span>);</code></pre> <br>? i seen it somewhere, had commented it out bc it did not seem to be required",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677685804899
+      },
+      {
+        "content": "<a href=\"https://i.imgur.com/Pn3ThPS.png\">https://i.imgur.com/Pn3ThPS.png</a>",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677686366796
+      },
+      {
+        "content": "here is a login response btw",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677686370670
+      },
+      {
+        "content": "maybe there is some useful info",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677686379123
+      },
+      {
+        "content": "@Nog can you paste what your most recent Players auth config looks like?",
+        "fileAttachments": [],
+        "authorID": "281120856527077378",
+        "authorName": "Jarrod",
+        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
+        "createdAtDate": 1677720452819
+      },
+      {
+        "content": "i was able to fix this issue 20 min ago , the essential parts i was missing was setting cookie settings in the user collection, jacob pointed that out, and lastly correctly setting the cookie.",
+        "fileAttachments": [],
+        "authorID": "277050857852370944",
+        "authorName": "Nog",
+        "authorAvatar": "3e5fb878dd53777e469ed9f0f2821c9a",
+        "createdAtDate": 1677720630826
+      },
+      {
+        "content": "Amazing, happy to hear it 👍",
+        "fileAttachments": [],
+        "authorID": "281120856527077378",
+        "authorName": "Jarrod",
+        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
+        "createdAtDate": 1677720867612
+      }
+    ],
+    "messageCount": 46
   },
   {
     "info": {
@@ -11517,6 +12320,33 @@
   },
   {
     "info": {
+      "name": "cloud-storage error",
+      "id": "1080613915207143494",
+      "guildId": "967097582721572934",
+      "createdAt": 1677708834221
+    },
+    "messages": [
+      {
+        "content": "Getting the following error after installing and configuring <code>@payloadcms/plugin-cloud-storge</code>.<br><br><pre><code class=\"hljs\">ERROR in ./node_modules/@payloadcms/plugin-cloud-storage/dist/adapters/s3/handleUpload.js 43:27-40\nModule not found: Error: Can&#x27;t resolve &#x27;fs&#x27; in &#x27;/usr/src/app/node_modules/@payloadcms/plugin-cloud-storage/dist/adapters/s3&#x27;</code></pre><br><br>I saw in another community post that maybe I need to setup an alias to <code>fs</code> in the webpack config. The README for this plugin doesn&#x27;t state that however. I&#x27;m going to give it a go but if that&#x27;s unintended, I&#x27;d like to know.<br><br>Thanks!",
+        "fileAttachments": [],
+        "authorID": "214419801039175682",
+        "authorName": "Jakey",
+        "authorAvatar": "235bf3c8f56d52de5dc4772e5aa2d2bb",
+        "createdAtDate": 1677708834221
+      },
+      {
+        "content": "Adding the alias seems to have worked, though I think (if possible) it&#x27;d be better if the package could avoid requiring <code>fs</code> if it&#x27;s being compiled client side.<br><br>Here&#x27;s what I did in case someone searches in here to find an answer and missed it on the website:<br><br>mocks/emptyObject.js<br><pre><code class=\"hljs\">export default {}</code></pre><br><br>payload.config.ts<br><pre><code class=\"hljs\">import path from &#x27;path&#x27;\nconst mockModulePath = path.resolve(__dirname, &#x27;mocks/emptyObject.js&#x27;)\n\nexport default buildConfig({\n    serverURL: &#x27;http://localhost:3000&#x27;,\n    admin: {\n        webpack: (config) =&gt; {\n            return {\n                ...config,\n                resolve: {\n                    ...config.resolve,\n                    alias: {\n                        ...config.resolve.alias,\n                        &#x27;fs&#x27;: mockModulePath,\n                    }\n                }\n            };\n        },\n...</code></pre><br><br>Then it compiled just fine. I also had to add a <code>region</code> property to the s3 config. That wasn&#x27;t immediately called out in the readme.<br><br>Hope this is helpful to someone!",
+        "fileAttachments": [],
+        "authorID": "214419801039175682",
+        "authorName": "Jakey",
+        "authorAvatar": "235bf3c8f56d52de5dc4772e5aa2d2bb",
+        "createdAtDate": 1677717345671
+      }
+    ],
+    "messageCount": 1
+  },
+  {
+    "info": {
       "name": "The payload template setup for javascript fails to run",
       "id": "1071421186086551673",
       "guildId": "967097582721572934",
@@ -12630,7 +13460,7 @@
         ],
         "authorID": "765140200438366209",
         "authorName": "Lloyd",
-        "authorAvatar": "747c3cf51f84086ffb7b2a1d73eee84d",
+        "authorAvatar": null,
         "createdAtDate": 1677145499405
       },
       {
@@ -12646,7 +13476,7 @@
         "fileAttachments": [],
         "authorID": "765140200438366209",
         "authorName": "Lloyd",
-        "authorAvatar": "747c3cf51f84086ffb7b2a1d73eee84d",
+        "authorAvatar": null,
         "createdAtDate": 1677223674174
       }
     ],
@@ -13162,6 +13992,55 @@
   },
   {
     "info": {
+      "name": "React Console errors",
+      "id": "1080345190583250995",
+      "guildId": "967097582721572934",
+      "createdAt": 1677644765278
+    },
+    "messages": [
+      {
+        "content": "Hey folks, when I run the admin portal on my express server, I&#x27;m getting some react errors when I get to the admin page. Any ideas where I should start for a fix?",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1080345190583250995/1080345190792962150/image.png",
+            "name": "image.png",
+            "id": "1080345190792962150",
+            "size": 323262,
+            "url": "https://cdn.discordapp.com/attachments/1080345190583250995/1080345190792962150/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1080345190583250995/1080345190792962150/image.png",
+            "height": 759,
+            "width": 669,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "201094837066399744",
+        "authorName": "badjab326",
+        "authorAvatar": "ba2d52761439e0f4254f4daa5bd91be7",
+        "createdAtDate": 1677644765278
+      },
+      {
+        "content": "This is very likely due to reason number 3 from that error message. You probably have more than one copy of React. Do you have React installed as a dependency in your project? Or do you have Payload linked locally? These are two common causes.",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677650493541
+      },
+      {
+        "content": "Thanks a ton! Turns out there are multiple react dependencies in my project, so I added react to my overrides to fix it.<br><br><pre><code class=\"hljs\">&quot;overrides&quot;: {\n    &quot;graphql&quot;: &quot;15.8.0&quot;,\n    &quot;react&quot;: &quot;18.2.0&quot;\n  }</code></pre>",
+        "fileAttachments": [],
+        "authorID": "201094837066399744",
+        "authorName": "badjab326",
+        "authorAvatar": "ba2d52761439e0f4254f4daa5bd91be7",
+        "createdAtDate": 1677719345453
+      }
+    ],
+    "messageCount": 2
+  },
+  {
+    "info": {
       "name": "How do I upload in-memory files via the the local API?",
       "id": "1076195533598769182",
       "guildId": "967097582721572934",
@@ -13349,9 +14228,17 @@
         "authorName": "denolfe",
         "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
         "createdAtDate": 1677680751937
+      },
+      {
+        "content": "Works perfectly, thanks!",
+        "fileAttachments": [],
+        "authorID": "1041438496285532170",
+        "authorName": "TheFrontend",
+        "authorAvatar": "bcb7fbbe04c97de177f47c68e9fbaf6d",
+        "createdAtDate": 1677705108572
       }
     ],
-    "messageCount": 9
+    "messageCount": 10
   },
   {
     "info": {
@@ -13748,65 +14635,6 @@
   },
   {
     "info": {
-      "name": "replace Search Bar in Admin Panel",
-      "id": "1069405238831894619",
-      "guildId": "967097582721572934",
-      "createdAt": 1675036477526
-    },
-    "messages": [
-      {
-        "content": "Is there a way to exclusively replace the search bar in the payload admin panel for a specific collection? I&#x27;d like to implement a custom search, therefore the search input has to send the query to another endpoint",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1675036477526
-      },
-      {
-        "content": "Have you checked <a href=\"https://payloadcms.com/docs/admin/components\">https://payloadcms.com/docs/admin/components</a> yet?",
-        "fileAttachments": [],
-        "authorID": "1044822902572318781",
-        "authorName": "fewbar",
-        "authorAvatar": null,
-        "createdAtDate": 1675044596962
-      },
-      {
-        "content": "Maybe use custom routes?",
-        "fileAttachments": [],
-        "authorID": "1044822902572318781",
-        "authorName": "fewbar",
-        "authorAvatar": null,
-        "createdAtDate": 1675044751930
-      },
-      {
-        "content": "Yeah that&#x27;s an option of course, but I don&#x27;t want to create a List view from scratch just because I want the search bar to behave a bit differently, I really like the default one! 😅",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1675066550177
-      },
-      {
-        "content": "Yeah, as of now there is not a granular way of replacing a single component inside the default",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675113838574
-      },
-      {
-        "content": "you don&#x27;t have to create it from scratch, just copy the source from the original, or alternatively, clone the entire repository 😄",
-        "fileAttachments": [],
-        "authorID": "1044822902572318781",
-        "authorName": "fewbar",
-        "authorAvatar": null,
-        "createdAtDate": 1675150578948
-      }
-    ],
-    "messageCount": 5
-  },
-  {
-    "info": {
       "name": "Replacing an uploaded image's buffer in a beforeValidate/Change hook",
       "id": "1070461370501447680",
       "guildId": "967097582721572934",
@@ -13960,140 +14788,6 @@
   },
   {
     "info": {
-      "name": "Can we have a \"slug\" field?",
-      "id": "1069324183928049814",
-      "guildId": "967097582721572934",
-      "createdAt": 1675017152531
-    },
-    "messages": [
-      {
-        "content": "Most CMS out there have some sort of concept of a &quot;slug&quot; for use in URLs where it&#x27;s a URL friendly string (text field) that&#x27;s auto-populated from the document title (replacing nonalphanumeric characters with a hyphen and lowercasing it) by default but can be changed by the editor as long as the resulting slug is unique, either within the whole system or at least within the content type (collection).<br><br>Is it possible to create such a field natively in Payload or would this require a custom field?",
-        "fileAttachments": [],
-        "authorID": "365498720726286349",
-        "authorName": "Kyr",
-        "authorAvatar": "80448b45efe7253a0cc090c246e96c09",
-        "createdAtDate": 1675017152531
-      },
-      {
-        "content": "I ended up using the slug field they used for their own website, here: <a href=\"https://github.com/payloadcms/website-cms/blob/main/src/fields/slug.ts\">https://github.com/payloadcms/website-cms/blob/main/src/fields/slug.ts</a>",
-        "fileAttachments": [],
-        "authorID": "147318438027722752",
-        "authorName": "Merl",
-        "authorAvatar": "a_89a01e93878e312b999f417b5fdff7fd",
-        "createdAtDate": 1675017702235
-      },
-      {
-        "content": "Yes you can use the beforeValidate hook @Kyr",
-        "fileAttachments": [],
-        "authorID": "1044822902572318781",
-        "authorName": "fewbar",
-        "authorAvatar": null,
-        "createdAtDate": 1675021058065
-      },
-      {
-        "content": "Two further questions...<br><br>1. Is there a way to make the field value be &quot;unique&quot; and validated as such<br>2. Is there a way to create a new API endpoint to easily retrieve single documents by their slug instead of ID?",
-        "fileAttachments": [],
-        "authorID": "365498720726286349",
-        "authorName": "Kyr",
-        "authorAvatar": "80448b45efe7253a0cc090c246e96c09",
-        "createdAtDate": 1675075554177
-      },
-      {
-        "content": "You can set <code>unique: true</code> on the field to ensure it&#x27;s unique among other documents in the same collection. Then to query by slug, do something like this: <code>where: { slug: { equals: &#x27;test&#x27; } }</code>",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675082104151
-      },
-      {
-        "content": "thanks.",
-        "fileAttachments": [],
-        "authorID": "365498720726286349",
-        "authorName": "Kyr",
-        "authorAvatar": "80448b45efe7253a0cc090c246e96c09",
-        "createdAtDate": 1675162302904
-      }
-    ],
-    "messageCount": 5
-  },
-  {
-    "info": {
-      "name": "Help with richText",
-      "id": "1068394736425119766",
-      "guildId": "967097582721572934",
-      "createdAt": 1674795554978
-    },
-    "messages": [
-      {
-        "content": "I really need help with the serialize component/example. 🥲 <br><br>This is my code:<br><pre><code class=\"hljs\">// richTextSerializer component\n\nimport { Serialize } from &#x27;./serialize&#x27;;\n\nexport default function RichTextSerializer({ content }) {\n  if (!content) {\n    return null;\n  }\n\n  return &lt;Serialize content={content} /&gt;;\n}</code></pre>",
-        "fileAttachments": [],
-        "authorID": "706208036439588934",
-        "authorName": "akacronos",
-        "authorAvatar": "6f1f79489add6cb4d6f26a7df670a8ec",
-        "createdAtDate": 1674795554978
-      },
-      {
-        "content": "<pre><code class=\"hljs\">// serialize.js\n\nimport React, { Fragment } from &#x27;react&#x27;;\nimport escapeHtml from &#x27;escape-html&#x27;;\nimport { Text } from &#x27;slate&#x27;;\n\nexport default function Serialize({ content }) {\n  return (\n    &lt;&gt;\n      {content?.map((node, i) =&gt; {\n        if (Text.isText(node)) {\n          let text = (\n            &lt;span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} /&gt;\n          );\n\n          if (node.bold) {\n            text = &lt;strong key={i}&gt;{text}&lt;/strong&gt;;\n          }\n\n          return &lt;Fragment key={i}&gt;{text}&lt;/Fragment&gt;;\n        }\n\n        if (!node) {\n          return null;\n        }\n\n        switch (node.type) {\n          case &#x27;ul&#x27;:\n            return (\n              &lt;ul key={i}&gt;\n                &lt;Serialize content={node.children} /&gt;\n              &lt;/ul&gt;\n            );\n          case &#x27;ol&#x27;:\n            return (\n              &lt;ol key={i}&gt;\n                &lt;Serialize content={node.children} /&gt;\n              &lt;/ol&gt;\n            );\n          case &#x27;li&#x27;:\n            return (\n              &lt;li key={i}&gt;\n                &lt;Serialize content={node.children} /&gt;\n              &lt;/li&gt;\n            );\n\n          default:\n            return (\n              &lt;p key={i}&gt;\n                &lt;Serialize content={node.children} /&gt;\n              &lt;/p&gt;\n            );\n        }\n      })}\n    &lt;/&gt;\n  );\n}</code></pre>",
-        "fileAttachments": [],
-        "authorID": "706208036439588934",
-        "authorName": "akacronos",
-        "authorAvatar": "6f1f79489add6cb4d6f26a7df670a8ec",
-        "createdAtDate": 1674795605195
-      },
-      {
-        "content": "And in my page I use it like this:<br><code>&lt;RichTextSerializer content={activity?.intro} /&gt;</code>",
-        "fileAttachments": [],
-        "authorID": "706208036439588934",
-        "authorName": "akacronos",
-        "authorAvatar": "6f1f79489add6cb4d6f26a7df670a8ec",
-        "createdAtDate": 1674795635962
-      },
-      {
-        "content": "I can&#x27;t get it to work, any suggestions?",
-        "fileAttachments": [],
-        "authorID": "706208036439588934",
-        "authorName": "akacronos",
-        "authorAvatar": "6f1f79489add6cb4d6f26a7df670a8ec",
-        "createdAtDate": 1674795741010
-      },
-      {
-        "content": "It&#x27;s probably a small bug, but I don&#x27;t know where.<br>(I&#x27;m a product designer with a little of JS knowledge)",
-        "fileAttachments": [],
-        "authorID": "706208036439588934",
-        "authorName": "akacronos",
-        "authorAvatar": "6f1f79489add6cb4d6f26a7df670a8ec",
-        "createdAtDate": 1674795870012
-      },
-      {
-        "content": "well.... I think I fix it after trying and redoing... <br><br>I change this: <br><pre><code class=\"hljs\">let text = (\n  &lt;span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} /&gt;\n);</code></pre><br><br>to this:<br><pre><code class=\"hljs\">let text = escapeHTML(node.text);</code></pre>",
-        "fileAttachments": [],
-        "authorID": "706208036439588934",
-        "authorName": "akacronos",
-        "authorAvatar": "6f1f79489add6cb4d6f26a7df670a8ec",
-        "createdAtDate": 1674797569120
-      },
-      {
-        "content": "Weird.... I am curious what your data looked like to make that not work? I would have expected the original to work.",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1674836418210
-      },
-      {
-        "content": "At the end, it was a type error, thanks!",
-        "fileAttachments": [],
-        "authorID": "706208036439588934",
-        "authorName": "akacronos",
-        "authorAvatar": "6f1f79489add6cb4d6f26a7df670a8ec",
-        "createdAtDate": 1675142027870
-      }
-    ],
-    "messageCount": 7
-  },
-  {
-    "info": {
       "name": "plugin-form-builder implementation",
       "id": "1075986888076300371",
       "guildId": "967097582721572934",
@@ -14172,9 +14866,17 @@
         "authorName": "denolfe",
         "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
         "createdAtDate": 1677512498456
+      },
+      {
+        "content": "Internationalization of the admin has many languages. For example, I would like only to have English and Français and expand the languages when my custom components get translated and ready to enter the target market in the relevant countries.",
+        "fileAttachments": [],
+        "authorID": "1054787039339495474",
+        "authorName": "Martin R",
+        "authorAvatar": "0053f8652dc08a03c69a03708d98f339",
+        "createdAtDate": 1677828516652
       }
     ],
-    "messageCount": 1
+    "messageCount": 2
   },
   {
     "info": {
@@ -14599,356 +15301,17 @@
         "authorName": "denolfe",
         "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
         "createdAtDate": 1677679717901
+      },
+      {
+        "content": "Ok. Is there way to add images to blocks or other fields",
+        "fileAttachments": [],
+        "authorID": "1009647354758054068",
+        "authorName": "christopher.nowlan",
+        "authorAvatar": "dd3e3473c973fa3dd493e55c12b1bf78",
+        "createdAtDate": 1677794927449
       }
     ],
-    "messageCount": 16
-  },
-  {
-    "info": {
-      "name": "Can I make the User create page public / allowed without logging in?",
-      "id": "1070050520754040893",
-      "guildId": "967097582721572934",
-      "createdAt": 1675190324725
-    },
-    "messages": [
-      {
-        "content": "I want people to visit my app and register themselves before accessing other lists. Only the User creation page should be public. Setting the access controls for the Users list to be true doesn&#x27;t make the page public.",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675190324725
-      },
-      {
-        "content": "@Kalon-Robson sorry to tag u, noticed u were typing before, any ideas at all where i should look?",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675195235220
-      },
-      {
-        "content": "Hi @minanaro_3776, <br><br>By default collections and globals are only accessible by the admin user collection. You can give none admin users access by defining the return value as true<br><pre><code class=\"hljs js\"><span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">const</span> <span class=\"hljs-title class_\">TestCollection</span>: <span class=\"hljs-title class_\">CollectionConfig</span> = {\n  <span class=\"hljs-attr\">slug</span>: <span class=\"hljs-string\">&#x27;slug-name&#x27;</span>,\n  <span class=\"hljs-attr\">access</span>: {\n    <span class=\"hljs-attr\">read</span>: (): <span class=\"hljs-function\"><span class=\"hljs-params\">boolean</span> =&gt;</span> <span class=\"hljs-literal\">true</span>, <span class=\"hljs-comment\">// Everyone can read Pages</span>\n  },</code></pre><br>p.s. Sorry I typed the message then left it unsent xD",
-        "fileAttachments": [],
-        "authorID": "618601682460344334",
-        "authorName": "Kalon-Robson",
-        "authorAvatar": "416a5969efb8ca3e0c40f9b37f5e2bf6",
-        "createdAtDate": 1675195567033
-      },
-      {
-        "content": "Is the above what your trying to achieve or are you needing some condition",
-        "fileAttachments": [],
-        "authorID": "618601682460344334",
-        "authorName": "Kalon-Robson",
-        "authorAvatar": "416a5969efb8ca3e0c40f9b37f5e2bf6",
-        "createdAtDate": 1675195603519
-      },
-      {
-        "content": "i tried setting read to true but it&#x27;s still forcing me to login",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675195608271
-      },
-      {
-        "content": "Ah you want a none logged in user to see the admin cms?",
-        "fileAttachments": [],
-        "authorID": "618601682460344334",
-        "authorName": "Kalon-Robson",
-        "authorAvatar": "416a5969efb8ca3e0c40f9b37f5e2bf6",
-        "createdAtDate": 1675195631036
-      },
-      {
-        "content": "yeah only the Users list&#x27;s create page",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675195642581
-      },
-      {
-        "content": "where we create a new user",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675195646802
-      },
-      {
-        "content": "i want people to access this page",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675195651204
-      },
-      {
-        "content": "to register",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675195653185
-      },
-      {
-        "content": "instead of adding them myself",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675195658491
-      },
-      {
-        "content": "they should only access the Users list&#x27;s create page",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675195670036
-      },
-      {
-        "content": "I&#x27;m really not sure if that is possible. The standard approach would be to create a register page with a form that submits to Payload to create the user",
-        "fileAttachments": [],
-        "authorID": "618601682460344334",
-        "authorName": "Kalon-Robson",
-        "authorAvatar": "416a5969efb8ca3e0c40f9b37f5e2bf6",
-        "createdAtDate": 1675195691875
-      },
-      {
-        "content": "Let me take a look. One moment",
-        "fileAttachments": [],
-        "authorID": "618601682460344334",
-        "authorName": "Kalon-Robson",
-        "authorAvatar": "416a5969efb8ca3e0c40f9b37f5e2bf6",
-        "createdAtDate": 1675195718181
-      },
-      {
-        "content": "i initially thought of doing that",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675195736917
-      },
-      {
-        "content": "so it&#x27;s not possible to let just anyone enter the admin panel?",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675195756811
-      },
-      {
-        "content": "they have to always log in first?",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675195766607
-      },
-      {
-        "content": "also i couldn&#x27;t find a way to access req.payload to make queries while creating new expressjs routes",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675195804691
-      },
-      {
-        "content": "I suspect the above is the case. Using endpoints and components I reckon you should be able to create a register form similar the setup form.",
-        "fileAttachments": [],
-        "authorID": "618601682460344334",
-        "authorName": "Kalon-Robson",
-        "authorAvatar": "416a5969efb8ca3e0c40f9b37f5e2bf6",
-        "createdAtDate": 1675195958268
-      },
-      {
-        "content": "On your last point, are you trying to fetch or post data to payload from within an express route?",
-        "fileAttachments": [],
-        "authorID": "618601682460344334",
-        "authorName": "Kalon-Robson",
-        "authorAvatar": "416a5969efb8ca3e0c40f9b37f5e2bf6",
-        "createdAtDate": 1675195994923
-      },
-      {
-        "content": "i haven&#x27;t done anything yet but i&#x27;m going to post the register form data to make the user register",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675196029260
-      },
-      {
-        "content": "i remember reading about querying using a req property",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675196050141
-      },
-      {
-        "content": "like req.payload...something",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675196062374
-      },
-      {
-        "content": "the req object didn&#x27;t have that property",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675196080075
-      },
-      {
-        "content": "i&#x27;m doing that inside server.ts, after payload.init, an expressjs post route",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675196110121
-      },
-      {
-        "content": "Let me check something, one moment.",
-        "fileAttachments": [],
-        "authorID": "618601682460344334",
-        "authorName": "Kalon-Robson",
-        "authorAvatar": "416a5969efb8ca3e0c40f9b37f5e2bf6",
-        "createdAtDate": 1675196150369
-      },
-      {
-        "content": "So your using the parent express server when to access req.payload you need to use Payloads express server. [Edit: Corrected Below]<br><br>So if you move your route into your config inside endpoints[] You will get the payload property",
-        "fileAttachments": [],
-        "authorID": "618601682460344334",
-        "authorName": "Kalon-Robson",
-        "authorAvatar": "416a5969efb8ca3e0c40f9b37f5e2bf6",
-        "createdAtDate": 1675196402199
-      },
-      {
-        "content": "ohh",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675196417735
-      },
-      {
-        "content": "you should actually get <code>req.payload</code> everywhere on your app",
-        "fileAttachments": [],
-        "authorID": "364124941832159242",
-        "authorName": "jmikrut",
-        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
-        "createdAtDate": 1675196433958
-      },
-      {
-        "content": "i&#x27;ll do that, thanks a lot for sparing your time! 😄",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675196434308
-      },
-      {
-        "content": "ok 1 sec let me try to access it again",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675196452986
-      },
-      {
-        "content": "oh",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675196494429
-      },
-      {
-        "content": "i think i just had the wrong types",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675196498481
-      },
-      {
-        "content": "for the request handler",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675196500981
-      },
-      {
-        "content": "thank you @jmikrut 😄",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675196508181
-      },
-      {
-        "content": "@jmikrut  hey while you&#x27;re here, could you tell me if it&#x27;s possible to let&#x27;s say we have a Users list, and I want everyone, without logging in, be able to view the new user create page and create a user, as if registering",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675196557143
-      },
-      {
-        "content": "or should i make a new route and handle that there like Kalon said",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675196571626
-      },
-      {
-        "content": "you&#x27;d need to add a custom admin panel route yourself",
-        "fileAttachments": [],
-        "authorID": "364124941832159242",
-        "authorName": "jmikrut",
-        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
-        "createdAtDate": 1675196574677
-      },
-      {
-        "content": "ok i&#x27;ll do that, thanks a lot, i really appreciate Payload and how you guys respond to help threads! 🙂",
-        "fileAttachments": [],
-        "authorID": "1043123648216707073",
-        "authorName": "minanaro_3776",
-        "authorAvatar": "b95d30a2f7564689959555f07b1a62bc",
-        "createdAtDate": 1675196605487
-      },
-      {
-        "content": "Wasn&#x27;t sure if Payload would perhaps clean out the req object before passing it over to other routes. Makes sense that it doesn&#x27;t",
-        "fileAttachments": [],
-        "authorID": "618601682460344334",
-        "authorName": "Kalon-Robson",
-        "authorAvatar": "416a5969efb8ca3e0c40f9b37f5e2bf6",
-        "createdAtDate": 1675196606784
-      },
-      {
-        "content": "<a href=\"https://payloadcms.com/docs/admin/components#custom-routes\">https://payloadcms.com/docs/admin/components#custom-routes</a>",
-        "fileAttachments": [],
-        "authorID": "364124941832159242",
-        "authorName": "jmikrut",
-        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
-        "createdAtDate": 1675196625613
-      },
-      {
-        "content": "yep, we DO scope most of Payload&#x27;s functionality to only Payload routes, but the <code>req.payload</code> middleware in specific is added to all Express stuff",
-        "fileAttachments": [],
-        "authorID": "364124941832159242",
-        "authorName": "jmikrut",
-        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
-        "createdAtDate": 1675196650044
-      }
-    ],
-    "messageCount": 41
+    "messageCount": 17
   },
   {
     "info": {
@@ -15075,6 +15438,57 @@
       }
     ],
     "messageCount": 3
+  },
+  {
+    "info": {
+      "name": "Querying nested-docs",
+      "id": "1080202425585106964",
+      "guildId": "967097582721572934",
+      "createdAt": 1677610727450
+    },
+    "messages": [
+      {
+        "content": "What is the recommended way of querying nested-docs when you know the path?<br><br>Given the following paths:<br><pre><code class=\"hljs\">/parent-page\n/parent-page/child-page\n/parent-page/child-page/grandchild-page</code></pre><br><br><code>/api/pages?where[breadcrumbs.url][equals]=/parent-page/child-page</code> <br><br>This query returns both the child-page document, and the grandchild-page document ... <br><br>I&#x27;m having trouble figuring out how to retrieve only the page that matches this path exactly.  I am temporarily using a hidden auto-generated field, that takes the last breadcrumb and stores it&#x27;s <code>url</code> into a <code>path</code> field at the document root ... so I can query <code>where[path][equals]=/parent-page/child-page</code> but this seems awkward, and I&#x27;m assuming there&#x27;s a proper way to query nested-docs?",
+        "fileAttachments": [],
+        "authorID": "131800639293358080",
+        "authorName": "David",
+        "authorAvatar": "3ecb26fcfaf6619fcfad9de1cdc6a92d",
+        "createdAtDate": 1677610727450
+      },
+      {
+        "content": "That url probably fails because the forward slashes in your <code>where</code> query are not encoded, which would look like this: <code>/api/pages?where[breadcrumbs.url][equals]=%2Fparent-page%2Fchild-page</code>",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677651639190
+      },
+      {
+        "content": "But this may match on multiple docs instead of just one, because the breadcrumb may appear across more than one document, especially within the same tree.",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677651834628
+      },
+      {
+        "content": "You may want to query by <em>slug</em> then find the document whose <em>last</em> breadcrumb matches your url",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677652002626
+      },
+      {
+        "content": "thanks - I think that helped.  I just added the slug to the query and that seems to have resolved it ... <br><br>I now have something like this ... <br><br><pre><code class=\"hljs\">?where[breadcrumbs.url][equals]=/new-page/child-page/grandchild-page&amp;where[slug][equals]=grandchild-page</code></pre><br><br>The URL does get encoded by the browser before sending, I&#x27;m just showing the decoded version for readability.",
+        "fileAttachments": [],
+        "authorID": "131800639293358080",
+        "authorName": "David",
+        "authorAvatar": "3ecb26fcfaf6619fcfad9de1cdc6a92d",
+        "createdAtDate": 1677681693720
+      }
+    ],
+    "messageCount": 4
   },
   {
     "info": {
@@ -15223,6 +15637,111 @@
       }
     ],
     "messageCount": 5
+  },
+  {
+    "info": {
+      "name": "Best place to deploy payloadcms?",
+      "id": "1080336938915070033",
+      "guildId": "967097582721572934",
+      "createdAt": 1677642797927
+    },
+    "messages": [
+      {
+        "content": "I know there are lots of ways to deploy it, but I wanted to know you guys favorite options, I didn&#x27;t want to use aws EC3 mostly because I think for what I have it is too much <br><br>I love how vercel or amplify works while deploying apps and  how it connects to github actions, do you know if there is something similar that you can deploy payloadcms that is as easy as that ?",
+        "fileAttachments": [],
+        "authorID": "391293587922485252",
+        "authorName": "Hyra10",
+        "authorAvatar": "930bc5beaa28b294cc7c1af61014f3f4",
+        "createdAtDate": 1677642797927
+      },
+      {
+        "content": "Payload Cloud 🌥️ <a href=\"https://github.com/payloadcms/payload/discussions/583\">https://github.com/payloadcms/payload/discussions/583</a>",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677650644738
+      },
+      {
+        "content": "This is marked as roadmap priority 1 and is being actively developed. I&#x27;ve deployed on Digital Ocean dozens of times, which works well but requires all the manual setup. We have some helpful tutorials for this listed in our docs here: <a href=\"https://payloadcms.com/docs/production/deployment#digitalocean-tutorials\">https://payloadcms.com/docs/production/deployment#digitalocean-tutorials</a>. You can also leverage Docker if you&#x27;re doing this often or want to make standardize things, more on that here: <a href=\"https://payloadcms.com/docs/production/deployment#docker\">https://payloadcms.com/docs/production/deployment#docker</a>",
+        "fileAttachments": [],
+        "authorID": "808734492645785600",
+        "authorName": "jacobsfletch",
+        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
+        "createdAtDate": 1677651137763
+      },
+      {
+        "content": "I can highly recommend digitalOcean. But instead of spinning up a droplet (as in the documentation) you can simply deploy it as an „App“. Only very little configutration needed, autmatic deploys from your Github repository 🙏",
+        "fileAttachments": [],
+        "authorID": "1041438496285532170",
+        "authorName": "TheFrontend",
+        "authorAvatar": "bcb7fbbe04c97de177f47c68e9fbaf6d",
+        "createdAtDate": 1677654305406
+      },
+      {
+        "content": "i would suggest google cloud run, this will surely help <a href=\"https://discord.com/channels/967097582721572934/1075750048924708865\">https://discord.com/channels/967097582721572934/1075750048924708865</a>",
+        "fileAttachments": [],
+        "authorID": "877297218967724072",
+        "authorName": "eloahsam",
+        "authorAvatar": "07dcdf8e4b5e97f273507519ed261742",
+        "createdAtDate": 1677660822838
+      },
+      {
+        "content": "for anyone finding this through the search, I&#x27;m currently using Railway and this is my setup (I&#x27;m using it inside a turborepo but you can replace it with simple yarn build &amp; yarn start if you don’t).<br><br>The experience is ok, will definitely go for the upcoming official platform once it&#x27;s available though",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1080336938915070033/1080467146234146856/image.png",
+            "name": "image.png",
+            "id": "1080467146234146856",
+            "size": 523666,
+            "url": "https://cdn.discordapp.com/attachments/1080336938915070033/1080467146234146856/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1080336938915070033/1080467146234146856/image.png",
+            "height": 2368,
+            "width": 1948,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "157199103921618944",
+        "authorName": "Migu",
+        "authorAvatar": "7c40c98d2393a326cea0da98f91966d2",
+        "createdAtDate": 1677673841796
+      },
+      {
+        "content": "For me the best place is railway, but I also deploy to my vps with coolify and work really well (Better when you need more resources because it&#x27;s more cheap).",
+        "fileAttachments": [],
+        "authorID": "284940321966522368",
+        "authorName": "Franco",
+        "authorAvatar": "13a1a45b12155816a4867b39bc4e1d13",
+        "createdAtDate": 1677678187691
+      },
+      {
+        "content": "I&#x27;m using render.com but it&#x27;s extra paid",
+        "fileAttachments": [],
+        "authorID": "803037652894482442",
+        "authorName": "kosmo",
+        "authorAvatar": "f054fc1ce7516d4903c0712698fc5eb1",
+        "createdAtDate": 1677678680191
+      },
+      {
+        "content": "I use Digital Ocean App platform for Payload. To me, it feels very similar to deploying on Vercel (which I use to deploy my frontend)",
+        "fileAttachments": [],
+        "authorID": "783701636165402624",
+        "authorName": "tylandavis",
+        "authorAvatar": "f93cd3cba7ccab13bbb14a2f41ffd5a5",
+        "createdAtDate": 1677679849401
+      },
+      {
+        "content": "thank you for your suggestions 🙇‍♂️",
+        "fileAttachments": [],
+        "authorID": "391293587922485252",
+        "authorName": "Hyra10",
+        "authorAvatar": "930bc5beaa28b294cc7c1af61014f3f4",
+        "createdAtDate": 1677713113272
+      }
+    ],
+    "messageCount": 9
   },
   {
     "info": {
@@ -15454,9 +15973,17 @@
         "authorName": "denolfe",
         "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
         "createdAtDate": 1677686049605
+      },
+      {
+        "content": "I see, thank you",
+        "fileAttachments": [],
+        "authorID": "351983077423185921",
+        "authorName": "Ysione",
+        "authorAvatar": "f612bad72951735200e85f09988732ec",
+        "createdAtDate": 1677754193675
       }
     ],
-    "messageCount": 1
+    "messageCount": 2
   },
   {
     "info": {
@@ -16376,6 +16903,122 @@
   },
   {
     "info": {
+      "name": "Payload richtext editor blockquote doesn't work",
+      "id": "1079876635387498577",
+      "guildId": "967097582721572934",
+      "createdAt": 1677533053014
+    },
+    "messages": [
+      {
+        "content": "According to the intellisense I get, Payload&#x27;s default rich text editor is supposed to have a blockquote option, but when set it doesn&#x27;t show up in the UI",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1079876635387498577/1079876635618197504/image.png",
+            "name": "image.png",
+            "id": "1079876635618197504",
+            "size": 32654,
+            "url": "https://cdn.discordapp.com/attachments/1079876635387498577/1079876635618197504/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1079876635387498577/1079876635618197504/image.png",
+            "height": 386,
+            "width": 694,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          },
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1079876635387498577/1079876635932774410/image.png",
+            "name": "image.png",
+            "id": "1079876635932774410",
+            "size": 10860,
+            "url": "https://cdn.discordapp.com/attachments/1079876635387498577/1079876635932774410/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1079876635387498577/1079876635932774410/image.png",
+            "height": 273,
+            "width": 932,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "521690392983371776",
+        "authorName": "hypersonic.dev",
+        "authorAvatar": "e5eb7ca314f65914dbac99a0ca26ff16",
+        "createdAtDate": 1677533053014
+      },
+      {
+        "content": "",
+        "fileAttachments": [
+          {
+            "attachment": "https://cdn.discordapp.com/attachments/1079876635387498577/1079876805151965304/image.png",
+            "name": "image.png",
+            "id": "1079876805151965304",
+            "size": 53623,
+            "url": "https://cdn.discordapp.com/attachments/1079876635387498577/1079876805151965304/image.png",
+            "proxyURL": "https://media.discordapp.net/attachments/1079876635387498577/1079876805151965304/image.png",
+            "height": 331,
+            "width": 1412,
+            "contentType": "image/png",
+            "description": null,
+            "ephemeral": false
+          }
+        ],
+        "authorID": "521690392983371776",
+        "authorName": "hypersonic.dev",
+        "authorAvatar": "e5eb7ca314f65914dbac99a0ca26ff16",
+        "createdAtDate": 1677533093547
+      },
+      {
+        "content": "@hypersonic.dev your placeholder text made me lol irl. I&#x27;ll get with the team and get you an answer here. Hold tight!",
+        "fileAttachments": [],
+        "authorID": "364562745447940099",
+        "authorName": "zubricks",
+        "authorAvatar": "44115fecb609a69a5ef35b4d8ac908f6",
+        "createdAtDate": 1677537018163
+      },
+      {
+        "content": "@zubricks try to recreate this on latest using create payload app",
+        "fileAttachments": [],
+        "authorID": "281120856527077378",
+        "authorName": "Jarrod",
+        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
+        "createdAtDate": 1677588116906
+      },
+      {
+        "content": "Hello again 😅 <br>Are there any plans to fix this issue soon? It wasn&#x27;t fixed in the <code>1.6.16</code> update",
+        "fileAttachments": [],
+        "authorID": "521690392983371776",
+        "authorName": "hypersonic.dev",
+        "authorAvatar": "e5eb7ca314f65914dbac99a0ca26ff16",
+        "createdAtDate": 1677780891271
+      },
+      {
+        "content": "@hypersonic.dev I actually think the intellisense is incorrect. RichTexts can currently render <em>pasted</em> blockquotes but there is no toggle/button to format on/off of blockquote. We should be able to add this will low effort. @zubricks can you throw this on our roadmap",
+        "fileAttachments": [],
+        "authorID": "281120856527077378",
+        "authorName": "Jarrod",
+        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
+        "createdAtDate": 1677851282960
+      },
+      {
+        "content": "Thanks for the clarification!",
+        "fileAttachments": [],
+        "authorID": "521690392983371776",
+        "authorName": "hypersonic.dev",
+        "authorAvatar": "e5eb7ca314f65914dbac99a0ca26ff16",
+        "createdAtDate": 1677853208549
+      },
+      {
+        "content": "I&#x27;m looking forward to it!",
+        "fileAttachments": [],
+        "authorID": "521690392983371776",
+        "authorName": "hypersonic.dev",
+        "authorAvatar": "e5eb7ca314f65914dbac99a0ca26ff16",
+        "createdAtDate": 1677853217497
+      }
+    ],
+    "messageCount": 7
+  },
+  {
+    "info": {
       "name": "Type broblem in Custom Graphql query",
       "id": "1062719495946387486",
       "guildId": "967097582721572934",
@@ -16483,57 +17126,6 @@
   },
   {
     "info": {
-      "name": "Removing collection from admin panel, while still retaining read access",
-      "id": "1069966094498005052",
-      "guildId": "967097582721572934",
-      "createdAt": 1675170195937
-    },
-    "messages": [
-      {
-        "content": "I have several collections that are readable by all, or multiple user roles, however, I do not want the users accessing the collections through the admin panel. How can I remove the collections from the admin panel  for those users while still retaining read access?",
-        "fileAttachments": [],
-        "authorID": "744383324629237872",
-        "authorName": "Skumm",
-        "authorAvatar": "9e953d25a78f40f8f8c2d2b72410d71b",
-        "createdAtDate": 1675170195937
-      },
-      {
-        "content": "Related: <a href=\"https://discord.com/channels/967097582721572934/1064531848220381295\">https://discord.com/channels/967097582721572934/1064531848220381295</a>",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675171469606
-      },
-      {
-        "content": "While CSS does work, is there a method to modify the query that populates the admin panel without creating a custom build?",
-        "fileAttachments": [],
-        "authorID": "744383324629237872",
-        "authorName": "Skumm",
-        "authorAvatar": "9e953d25a78f40f8f8c2d2b72410d71b",
-        "createdAtDate": 1675174138499
-      },
-      {
-        "content": "Another related 😀: <a href=\"https://discord.com/channels/967097582721572934/1068706036883669022\">https://discord.com/channels/967097582721572934/1068706036883669022</a>",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675175226559
-      },
-      {
-        "content": "We are planning to support a <code>hidden</code> property on collections",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675175242395
-      }
-    ],
-    "messageCount": 4
-  },
-  {
-    "info": {
       "name": "webpack < 5 used to include polyfills",
       "id": "1069381194162131005",
       "guildId": "967097582721572934",
@@ -16558,6 +17150,57 @@
       }
     ],
     "messageCount": 1
+  },
+  {
+    "info": {
+      "name": "Next.js Auth Guard inside getServerSideProps",
+      "id": "1081080402946576394",
+      "guildId": "967097582721572934",
+      "createdAt": 1677820053565
+    },
+    "messages": [
+      {
+        "content": "Started using Payload with Next.js and i&#x27;m interested in implementing an auth guard during SSR that makes a request to the <code>/api/users/me</code> endpoint from within <code>getServerSideProps</code> to verify if the user is authenticated or else they will get redirected.",
+        "fileAttachments": [],
+        "authorID": "520438276964876298",
+        "authorName": "Thinh Nguyen",
+        "authorAvatar": "52f75597b2219461addc26b187e16dd9",
+        "createdAtDate": 1677820053565
+      },
+      {
+        "content": "Would something like this work?<br><br><pre><code class=\"hljs\">export async function getServerSideProps(context: GetServerSidePropsContext) {\n  const res = await fetch(&quot;http://localhost:8080/api/users/me&quot;, {\n    credentials: &quot;include&quot;,\n  });\n  const { user, errors } = await res.json();\n\n  if (!user) {\n    return {\n      redirect: {\n        destination: &quot;/&quot;,\n        permanent: false,\n      },\n    };\n  }\n\n  return {\n    props: {\n      user: user,\n    },\n  };\n}</code></pre>",
+        "fileAttachments": [],
+        "authorID": "520438276964876298",
+        "authorName": "Thinh Nguyen",
+        "authorAvatar": "52f75597b2219461addc26b187e16dd9",
+        "createdAtDate": 1677820319484
+      },
+      {
+        "content": "Hi @Thinh Nguyen ! I don&#x27;t think any kind of SSR will work for this, because this code won&#x27;t run in the user&#x27;s browser. It will run in the server, so the authentication cookies will not be present to be validated. Therefore, your code will always return a redirect to &quot;/&quot;",
+        "fileAttachments": [],
+        "authorID": "736673642158620680",
+        "authorName": "arielarial",
+        "authorAvatar": "50c7590d9709bd9e02848d28172b0bd9",
+        "createdAtDate": 1677820970144
+      },
+      {
+        "content": "Thanks @arielarial for making this distinction clear!",
+        "fileAttachments": [],
+        "authorID": "520438276964876298",
+        "authorName": "Thinh Nguyen",
+        "authorAvatar": "52f75597b2219461addc26b187e16dd9",
+        "createdAtDate": 1677825083799
+      },
+      {
+        "content": "I know in the app folder you can get the cookies off the request, and then you can make that same <code>/me</code> fetch with:<br><br><pre><code class=\"hljs ts\"><span class=\"hljs-comment\">// you will need to get cookies from req (Context?) and then look for the payload-token cookie</span>\n\n<span class=\"hljs-title function_\">fetch</span>(<span class=\"hljs-string\">&quot;http://localhost:8080/api/users/me&quot;</span>, {\n  <span class=\"hljs-attr\">headers</span>: {\n    <span class=\"hljs-title class_\">Authorization</span>: <span class=\"hljs-string\">`JWT <span class=\"hljs-subst\">${jwt <span class=\"hljs-keyword\">from</span> cookie on req}</span>`</span>,\n  }\n}</code></pre>",
+        "fileAttachments": [],
+        "authorID": "281120856527077378",
+        "authorName": "Jarrod",
+        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
+        "createdAtDate": 1677851840014
+      }
+    ],
+    "messageCount": 4
   },
   {
     "info": {
@@ -16832,79 +17475,6 @@
       }
     ],
     "messageCount": 1
-  },
-  {
-    "info": {
-      "name": "Generated type for upload field",
-      "id": "1069454415444070560",
-      "guildId": "967097582721572934",
-      "createdAt": 1675048202144
-    },
-    "messages": [
-      {
-        "content": "When running <code>generate:types</code>, upload fields using my <code>Images</code> collection are given the type <code>string | Image</code>.<br><br><pre><code class=\"hljs ts\"><span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">interface</span> <span class=\"hljs-title class_\">Opengraph</span> {\n  <span class=\"hljs-attr\">id</span>: <span class=\"hljs-built_in\">string</span>;\n  <span class=\"hljs-attr\">description</span>: <span class=\"hljs-built_in\">string</span>;\n  <span class=\"hljs-attr\">image</span>: <span class=\"hljs-built_in\">string</span> | <span class=\"hljs-title class_\">Image</span>;\n}</code></pre><br>This doesn&#x27;t make sense since the field needs subfields when querying it",
-        "fileAttachments": [
-          {
-            "attachment": "https://cdn.discordapp.com/attachments/1069454415444070560/1069454415733456916/image.png",
-            "name": "image.png",
-            "id": "1069454415733456916",
-            "size": 61473,
-            "url": "https://cdn.discordapp.com/attachments/1069454415444070560/1069454415733456916/image.png",
-            "proxyURL": "https://media.discordapp.net/attachments/1069454415444070560/1069454415733456916/image.png",
-            "height": 328,
-            "width": 1540,
-            "contentType": "image/png",
-            "description": null,
-            "ephemeral": false
-          }
-        ],
-        "authorID": "492539613034971146",
-        "authorName": "slava",
-        "authorAvatar": "da5315004217f5d12e940e222a3d0292",
-        "createdAtDate": 1675048202144
-      },
-      {
-        "content": "Same thing is happening for <code>relationship</code> fields",
-        "fileAttachments": [],
-        "authorID": "492539613034971146",
-        "authorName": "slava",
-        "authorAvatar": "da5315004217f5d12e940e222a3d0292",
-        "createdAtDate": 1675066872789
-      },
-      {
-        "content": "Yes, in graphql, all fields down the tree are required to be filled out (cannot just specify image, you need to specify at least 1 nested field) - just the nature of graphql. The reason it is <code>string | Image</code>, stems from the RESTful API, if you have nested relationship fields you can add a <code>depth</code> query param to deepen or shallow the amount of nested relationships that get resolved.<br><br>For example - if you specify depth=0, relationships will not resolve and you will get the <code>id</code> in string format, hence the <code>string | Image</code> in your case",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1675107342559
-      },
-      {
-        "content": "What&#x27;s the approach for dealing with this in my framework? I&#x27;m fairly new to TS, do I have to add some kind of way to assert that the type isn&#x27;t a <code>string</code> in every instance the data is used? Seems like overkill/annoying for a case that isn&#x27;t even possible when using the GraphQL API (what I&#x27;m using)",
-        "fileAttachments": [],
-        "authorID": "492539613034971146",
-        "authorName": "slava",
-        "authorAvatar": "da5315004217f5d12e940e222a3d0292",
-        "createdAtDate": 1675134758193
-      },
-      {
-        "content": "Would adding some kind of flag to <code>payload generate:types</code> that tells it to ignore this <code>depth=0</code> case be possible?",
-        "fileAttachments": [],
-        "authorID": "492539613034971146",
-        "authorName": "slava",
-        "authorAvatar": "da5315004217f5d12e940e222a3d0292",
-        "createdAtDate": 1675134804179
-      },
-      {
-        "content": "Check out this related convo: <a href=\"https://discord.com/channels/967097582721572934/1061947681448153188\">https://discord.com/channels/967097582721572934/1061947681448153188</a>",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1675139666897
-      }
-    ],
-    "messageCount": 5
   },
   {
     "info": {
@@ -17431,79 +18001,6 @@
       }
     ],
     "messageCount": 1
-  },
-  {
-    "info": {
-      "name": "API Key issue",
-      "id": "1069735518562168912",
-      "guildId": "967097582721572934",
-      "createdAt": 1675115222350
-    },
-    "messages": [
-      {
-        "content": "There is a weird problem happening with the api key string, every time I&#x27;m changing workspace ex switching from personal to  work laptop or in production mode, the string is just doing this. It&#x27;s not just a display problem because the api key isn&#x27;t working anymore after the bug. Anyone having the same issue? (using payload 1.5.8)",
-        "fileAttachments": [
-          {
-            "attachment": "https://cdn.discordapp.com/attachments/1069735518562168912/1069735518717353994/imfffffage.png",
-            "name": "imfffffage.png",
-            "id": "1069735518717353994",
-            "size": 12132,
-            "url": "https://cdn.discordapp.com/attachments/1069735518562168912/1069735518717353994/imfffffage.png",
-            "proxyURL": "https://media.discordapp.net/attachments/1069735518562168912/1069735518717353994/imfffffage.png",
-            "height": 215,
-            "width": 1003,
-            "contentType": "image/png",
-            "description": null,
-            "ephemeral": false
-          }
-        ],
-        "authorID": "122444319054495746",
-        "authorName": "SKRY",
-        "authorAvatar": "5b54bd085cab964c72bce21dcfe04638",
-        "createdAtDate": 1675115222350
-      },
-      {
-        "content": "Are you using the same secret key in both workspaces?",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675115276347
-      },
-      {
-        "content": "This might be the problem, I&#x27;m checking",
-        "fileAttachments": [],
-        "authorID": "122444319054495746",
-        "authorName": "SKRY",
-        "authorAvatar": "5b54bd085cab964c72bce21dcfe04638",
-        "createdAtDate": 1675115381774
-      },
-      {
-        "content": "That would be my best guess since this API key is encrypted using the key. Attempting to decrypt with a different key wouldn&#x27;t work and may result in what you&#x27;re seeing",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675115414540
-      },
-      {
-        "content": "Ok yes the secret keys where different, thanks",
-        "fileAttachments": [],
-        "authorID": "122444319054495746",
-        "authorName": "SKRY",
-        "authorAvatar": "5b54bd085cab964c72bce21dcfe04638",
-        "createdAtDate": 1675116001578
-      },
-      {
-        "content": "No problem 👍",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675116012042
-      }
-    ],
-    "messageCount": 5
   },
   {
     "info": {
@@ -20135,153 +20632,6 @@
   },
   {
     "info": {
-      "name": "Suddenly not getting PAYLOAD_PUBLIC_* in process.env in client bundle",
-      "id": "1069706320418181180",
-      "guildId": "967097582721572934",
-      "createdAt": 1675108260970
-    },
-    "messages": [
-      {
-        "content": "For some reason I&#x27;m no longer getting my environment variables in <code>process.env</code> anymore on the client side. Has there been a change to this? Any ideas?",
-        "fileAttachments": [],
-        "authorID": "1033006865661050921",
-        "authorName": "\\ ឵឵឵",
-        "authorAvatar": null,
-        "createdAtDate": 1675108260970
-      },
-      {
-        "content": "Is it calling dotenv at the top to pull in the .env file?",
-        "fileAttachments": [],
-        "authorID": "486710146651652106",
-        "authorName": "notchris",
-        "authorAvatar": "b37606a7b06253291fc1308b71bc02de",
-        "createdAtDate": 1675108710829
-      },
-      {
-        "content": "On the server the environment is loaded fine, yes.",
-        "fileAttachments": [],
-        "authorID": "1033006865661050921",
-        "authorName": "\\ ឵឵឵",
-        "authorAvatar": null,
-        "createdAtDate": 1675108744665
-      },
-      {
-        "content": "On the client, <code>process.env</code> is <code>{}</code>.",
-        "fileAttachments": [],
-        "authorID": "1033006865661050921",
-        "authorName": "\\ ឵឵឵",
-        "authorAvatar": null,
-        "createdAtDate": 1675108759563
-      },
-      {
-        "content": "I think it&#x27;s defined in the webpack config on client",
-        "fileAttachments": [],
-        "authorID": "486710146651652106",
-        "authorName": "notchris",
-        "authorAvatar": "b37606a7b06253291fc1308b71bc02de",
-        "createdAtDate": 1675108793759
-      },
-      {
-        "content": "Do you know at what path? I&#x27;m doing a deep merge on the webpack config with a bunch of my own stuff. Was working before, but maybe it&#x27;s clobbering whichever key has the environment stuff.",
-        "fileAttachments": [],
-        "authorID": "1033006865661050921",
-        "authorName": "\\ ឵឵឵",
-        "authorAvatar": null,
-        "createdAtDate": 1675109065203
-      },
-      {
-        "content": "I&#x27;m not 100% sure but I&#x27;ve seen it done like...",
-        "fileAttachments": [],
-        "authorID": "486710146651652106",
-        "authorName": "notchris",
-        "authorAvatar": "b37606a7b06253291fc1308b71bc02de",
-        "createdAtDate": 1675109118591
-      },
-      {
-        "content": "<pre><code class=\"hljs\">plugins: [\n  new webpack.DefinePlugin({\n    &#x27;process.env&#x27;: {\n    }\n  })\n]</code></pre>",
-        "fileAttachments": [],
-        "authorID": "486710146651652106",
-        "authorName": "notchris",
-        "authorAvatar": "b37606a7b06253291fc1308b71bc02de",
-        "createdAtDate": 1675109137533
-      },
-      {
-        "content": "Very strange, the plugins key is not getting clobbered and a <code>DefinePlugin</code> instance with the expected env vars is kinda there...",
-        "fileAttachments": [],
-        "authorID": "1033006865661050921",
-        "authorName": "\\ ឵឵឵",
-        "authorAvatar": null,
-        "createdAtDate": 1675109357369
-      },
-      {
-        "content": "but it looks like:<br><pre><code class=\"hljs ts\"><span class=\"hljs-title class_\">DefinePlugin</span> {\n  <span class=\"hljs-attr\">definitions</span>: {\n    <span class=\"hljs-string\">&#x27;process.env.PAYLOAD_PUBLIC_KEY&#x27;</span>: <span class=\"hljs-string\">&#x27;value&#x27;</span>\n  }\n}</code></pre>",
-        "fileAttachments": [],
-        "authorID": "1033006865661050921",
-        "authorName": "\\ ឵឵឵",
-        "authorAvatar": null,
-        "createdAtDate": 1675109424192
-      },
-      {
-        "content": "No wonder it isn&#x27;t working 😦",
-        "fileAttachments": [],
-        "authorID": "1033006865661050921",
-        "authorName": "\\ ឵឵឵",
-        "authorAvatar": null,
-        "createdAtDate": 1675109469659
-      },
-      {
-        "content": "I am facing the same problem as well . I noticed this happens only when the NODE_ENV is set to &#x27;production&#x27; where as it works fine when it is &#x27;development&#x27;. Is that the same with you?",
-        "fileAttachments": [],
-        "authorID": "884837823931375646",
-        "authorName": "sowmyapeta",
-        "authorAvatar": null,
-        "createdAtDate": 1675109609487
-      },
-      {
-        "content": "Don&#x27;t think that&#x27;s the issue mate. The reason this isn&#x27;t working on my end is that they are using webpack string substitution in the preprocessor to simulate the existence of <code>process.env</code>.",
-        "fileAttachments": [],
-        "authorID": "1033006865661050921",
-        "authorName": "\\ ឵឵឵",
-        "authorAvatar": null,
-        "createdAtDate": 1675109746728
-      },
-      {
-        "content": "Meaning if it doesn&#x27;t look exactly like <code>process.env.SOME_NAME</code>, but for example looks like <code>process.env[SOME_NAME]</code> or anything else, it won&#x27;t get picked up.",
-        "fileAttachments": [],
-        "authorID": "1033006865661050921",
-        "authorName": "\\ ឵឵឵",
-        "authorAvatar": null,
-        "createdAtDate": 1675109795973
-      },
-      {
-        "content": "check out this convo: <a href=\"https://github.com/payloadcms/payload/issues/1654#issuecomment-1403972303\">https://github.com/payloadcms/payload/issues/1654#issuecomment-1403972303</a>",
-        "fileAttachments": [],
-        "authorID": "281120856527077378",
-        "authorName": "Jarrod",
-        "authorAvatar": "13f36e4a409884dd6dbdee1b9be1a525",
-        "createdAtDate": 1675113029298
-      },
-      {
-        "content": "@\\ ឵឵឵  In addition to the above link. We dynamically generate that by looking at all values in process.env and look for the prefix. It doesn&#x27;t need to be in the exact form of <code>process.env.SOME_NAME</code>, it&#x27;s generated.<br><br><a href=\"https://github.com/payloadcms/payload/blob/master/src/webpack/getBaseConfig.ts#L67\">https://github.com/payloadcms/payload/blob/master/src/webpack/getBaseConfig.ts#L67</a>",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675113667134
-      },
-      {
-        "content": "<code>DefinePlugin</code> is not that smart. You&#x27;re not implicitly creating a global <code>process.env</code> that can be accessed on the client, it&#x27;s just doing string substitution on the files in the bundle.",
-        "fileAttachments": [],
-        "authorID": "1033006865661050921",
-        "authorName": "\\ ឵឵឵",
-        "authorAvatar": null,
-        "createdAtDate": 1675114480694
-      }
-    ],
-    "messageCount": 16
-  },
-  {
-    "info": {
       "name": "When accessing api from browser I see uploaded images with sizes and all, but when using fetch no",
       "id": "1078793213244084355",
       "guildId": "967097582721572934",
@@ -20934,9 +21284,17 @@
         "authorName": "denolfe",
         "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
         "createdAtDate": 1677592204112
+      },
+      {
+        "content": "yeah already solved using rollup, to have cjs output",
+        "fileAttachments": [],
+        "authorID": "946373741175267329",
+        "authorName": "rrums",
+        "authorAvatar": "6a019fb818dd1274398027f152b5294b",
+        "createdAtDate": 1677762056286
       }
     ],
-    "messageCount": 1
+    "messageCount": 2
   },
   {
     "info": {
@@ -21237,49 +21595,6 @@
   },
   {
     "info": {
-      "name": "onInput Hook",
-      "id": "1068870646827847721",
-      "guildId": "967097582721572934",
-      "createdAt": 1674909020860
-    },
-    "messages": [
-      {
-        "content": "Is it planned to add an onInput Hook to the standard fields? This would be very practical for<br>1. Live Previews<br>2. dynamic Title fields (e.g. Contact has firstName and lastName, and you&#x27;re using a dynamically updated field fullName for the title)",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1674909020860
-      },
-      {
-        "content": "I think this is recommended approach to this would be a custom element, it&#x27;s what I&#x27;m looking at to achieve a similar thing for a slug field but havent started working on it yet",
-        "fileAttachments": [],
-        "authorID": "858693520012476436",
-        "authorName": "noheadphones",
-        "authorAvatar": "db21160ec6d6b123e83a8b6768467352",
-        "createdAtDate": 1674910710745
-      },
-      {
-        "content": "Jep, however, in case of a live preview, every field would need that Hook, means i&#x27;d have to recreate all payload field types which wouldn&#x27;t be an optimal solution i guess😅",
-        "fileAttachments": [],
-        "authorID": "900030932617162793",
-        "authorName": "Sandro Wegmann",
-        "authorAvatar": "51018814dbca15d823817ac63e505824",
-        "createdAtDate": 1674915079830
-      },
-      {
-        "content": "@Sandro Wegmann You could still use a custom component for this as @noheadphones suggests, but subscribe to the entire form state. Check this out: <a href=\"https://payloadcms.com/docs/admin/hooks#useformfields\">https://payloadcms.com/docs/admin/hooks#useformfields</a>",
-        "fileAttachments": [],
-        "authorID": "808734492645785600",
-        "authorName": "jacobsfletch",
-        "authorAvatar": "cfb0dda51cec514f07387fafddb55269",
-        "createdAtDate": 1675130909098
-      }
-    ],
-    "messageCount": 3
-  },
-  {
-    "info": {
       "name": "[Possible bug] How to clean a field using the dispatch from useFormFields?",
       "id": "1080189737421246536",
       "guildId": "967097582721572934",
@@ -21476,137 +21791,6 @@
       }
     ],
     "messageCount": 2
-  },
-  {
-    "info": {
-      "name": "Clean install, app does not run",
-      "id": "1069639304307023923",
-      "guildId": "967097582721572934",
-      "createdAt": 1675092283084
-    },
-    "messages": [
-      {
-        "content": "via node <code>v19.5.0</code> on an M1 mac<br><br>I run <code>npx create-payload-app</code>, fill in the settings and run a local mongo instance. After visiting <code>http://localhost:3000/admin</code> i just get module build failed.<br><br>Lots of the errors seem to stem from tailwind through webpack, not sure of what would be the best way to debug or fix this.<br><br><br><pre><code class=\"hljs\">$ npm run dev\n\n&gt; rfcms@1.0.0 dev\n&gt; cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts nodemon\n\n[nodemon] 2.0.20\n[nodemon] to restart at any time, enter `rs`\n[nodemon] watching path(s): *.*\n[nodemon] watching extensions: ts\n[nodemon] starting `ts-node src/server.ts`\n[15:01:56] INFO (payload): Starting Payload...\n[15:01:57] INFO (payload): Payload Admin URL: http://localhost:3000/admin\n[15:01:57] INFO (payload): Connected to Mongo server successfully!\n&lt;i&gt; [webpack-dev-middleware] wait until bundle finished: /adminindex.html\nwebpack built c4a4bdbe77f7a14ad36d in 4416ms\nERROR in ./node_modules/payload/dist/admin/components/elements/ArrayAction/index.scss (./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./node_modules/sass-loader/dist/cjs.js!./node_modules/payload/dist/admin/components/elements/ArrayAction/index.scss)</code></pre>",
-        "fileAttachments": [],
-        "authorID": "165553880720080896",
-        "authorName": "ds",
-        "authorAvatar": "be7047dfd3b5239be387a4038aba16a4",
-        "createdAtDate": 1675092283084
-      },
-      {
-        "content": "so just to be clear, you&#x27;re attempting to use Tailwind?",
-        "fileAttachments": [],
-        "authorID": "364124941832159242",
-        "authorName": "jmikrut",
-        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
-        "createdAtDate": 1675106954582
-      },
-      {
-        "content": "by overriding your webpack config or similar?",
-        "fileAttachments": [],
-        "authorID": "364124941832159242",
-        "authorName": "jmikrut",
-        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
-        "createdAtDate": 1675106965504
-      },
-      {
-        "content": "no i haven&#x27;t overrode anything, I just ran the <code>create-payload-app</code> script",
-        "fileAttachments": [],
-        "authorID": "165553880720080896",
-        "authorName": "ds",
-        "authorAvatar": "be7047dfd3b5239be387a4038aba16a4",
-        "createdAtDate": 1675110607904
-      },
-      {
-        "content": "and <code>npm run dev</code> and thats the error i get",
-        "fileAttachments": [],
-        "authorID": "165553880720080896",
-        "authorName": "ds",
-        "authorAvatar": "be7047dfd3b5239be387a4038aba16a4",
-        "createdAtDate": 1675110619137
-      },
-      {
-        "content": "interesting, we don&#x27;t use tailwind at all, and i don&#x27;t see anything regarding tailwind in the error message but we will give it a shot to see if we can reproduce",
-        "fileAttachments": [],
-        "authorID": "364124941832159242",
-        "authorName": "jmikrut",
-        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
-        "createdAtDate": 1675112516480
-      },
-      {
-        "content": "what version of Node are you on?",
-        "fileAttachments": [],
-        "authorID": "364124941832159242",
-        "authorName": "jmikrut",
-        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
-        "createdAtDate": 1675112519119
-      },
-      {
-        "content": "I&#x27;m not able to recreate with latest create-payload-app.",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675112815900
-      },
-      {
-        "content": "I&#x27;m on Intel though, might have someone try M1",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675112858165
-      },
-      {
-        "content": "I have M1, can&#x27;t recreate",
-        "fileAttachments": [],
-        "authorID": "364124941832159242",
-        "authorName": "jmikrut",
-        "authorAvatar": "75c6eefb2f22c067ecb125f7837833f3",
-        "createdAtDate": 1675112882944
-      },
-      {
-        "content": "i found the problem- i did ran <code>npx create-payload-app</code> within the directory of an existing app",
-        "fileAttachments": [],
-        "authorID": "165553880720080896",
-        "authorName": "ds",
-        "authorAvatar": "be7047dfd3b5239be387a4038aba16a4",
-        "createdAtDate": 1675115199179
-      },
-      {
-        "content": "i ran the command in a clean directory and it seemed to work",
-        "fileAttachments": [],
-        "authorID": "165553880720080896",
-        "authorName": "ds",
-        "authorAvatar": "be7047dfd3b5239be387a4038aba16a4",
-        "createdAtDate": 1675115216748
-      },
-      {
-        "content": "Awesome, glad you were able to figure it out",
-        "fileAttachments": [],
-        "authorID": "967118574445547650",
-        "authorName": "denolfe",
-        "authorAvatar": "4b4f2116891f3b207b508b1c03a6f931",
-        "createdAtDate": 1675115228671
-      },
-      {
-        "content": "guess webpack doesnt mingle well with multiple projects",
-        "fileAttachments": [],
-        "authorID": "165553880720080896",
-        "authorName": "ds",
-        "authorAvatar": "be7047dfd3b5239be387a4038aba16a4",
-        "createdAtDate": 1675115241514
-      },
-      {
-        "content": "thanks for following up!",
-        "fileAttachments": [],
-        "authorID": "165553880720080896",
-        "authorName": "ds",
-        "authorAvatar": "be7047dfd3b5239be387a4038aba16a4",
-        "createdAtDate": 1675115248693
-      }
-    ],
-    "messageCount": 14
   },
   {
     "info": {
