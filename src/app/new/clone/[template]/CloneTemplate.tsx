@@ -10,11 +10,10 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { LoadingShimmer } from '@components/LoadingShimmer'
-import { ScopeSelector } from '@components/ScopeSelector'
+import { useScopeSelector } from '@components/ScopeSelector'
 import { PayloadIcon } from '@root/graphics/PayloadIcon'
 import { Template } from '@root/payload-cloud-types'
 import { useCreateDraftProject } from '@root/utilities/use-create-draft-project'
-import { Install } from '@root/utilities/use-get-installs'
 
 import classes from './CloneTemplate.module.scss'
 
@@ -24,8 +23,8 @@ export const CloneTemplate: React.FC<{
   const { template } = props
   const [makePrivate, setMakePrivate] = React.useState(false)
   const [name, setName] = React.useState('my-project')
-  const [selectedInstall, setSelectedInstall] = React.useState<Install | undefined>(undefined)
   const router = useRouter()
+  const [ScopeSelector, { value: selectedInstall }] = useScopeSelector()
 
   const {
     submitDraftProject,
@@ -64,7 +63,7 @@ export const CloneTemplate: React.FC<{
           <Cell cols={8} colsM={8}>
             <Grid className={classes.projectInfo}>
               <Cell cols={4}>
-                <ScopeSelector value={selectedInstall?.id} onChange={setSelectedInstall} />
+                <ScopeSelector />
               </Cell>
               <Cell cols={4}>
                 <Text

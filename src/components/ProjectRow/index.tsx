@@ -14,7 +14,7 @@ export const ProjectRow: React.FC<{
   const { project } = props
   const [isHovered, setIsHovered] = React.useState<boolean>(false)
 
-  const { team, _status, deploymentBranch, repositoryName } = project
+  const { team, status, deploymentBranch, repositoryName } = project
 
   const teamSlug = typeof team === 'string' ? team : team.slug
 
@@ -26,7 +26,7 @@ export const ProjectRow: React.FC<{
     >
       <h6 className={classes.title}>
         {project.name}
-        {/* {_status === 'draft' && <span className={classes.draft}>&nbsp;(Draft)</span>} */}
+        {/* {status === 'draft' && <span className={classes.draft}>&nbsp;(Draft)</span>} */}
         <div className={classes.details}>
           {repositoryName && (
             <div className={classes.projectRepo}>
@@ -44,10 +44,10 @@ export const ProjectRow: React.FC<{
       </h6>
       <Button
         appearance="primary"
-        label={_status === 'draft' ? 'Setup' : 'View'}
+        label={status === 'draft' ? 'Setup' : 'View'}
         size="small"
         href={
-          _status === 'draft'
+          status === 'draft'
             ? `/new/configure/${project.id}`
             : `/dashboard/${teamSlug}/${project.slug}`
         }

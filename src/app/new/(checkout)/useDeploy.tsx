@@ -2,23 +2,19 @@ import { useCallback, useState } from 'react'
 import { CardElement as StripeCardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { useRouter } from 'next/navigation'
 
-import { Plan, Project, Team } from '@root/payload-cloud-types'
+import { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
-import { Install } from '@root/utilities/use-get-installs'
 
 export const useDeploy = (args: {
   project: Project
   stripeClientSecret: string
-  plan: Plan
-  install: Install
-  team: Team
   paymentMethod: string | null
 }): {
   errorDeploying: string | null
   isDeploying: boolean
   deploy: () => Promise<void>
 } => {
-  const { stripeClientSecret, project, plan, team, install, paymentMethod } = args
+  const { stripeClientSecret, project, paymentMethod } = args
   const { user } = useAuth()
   const router = useRouter()
   const [error, setError] = useState<string | null>(null)
@@ -27,7 +23,9 @@ export const useDeploy = (args: {
   const elements = useElements()
 
   const processPayment = useCallback(async (): Promise<void> => {
-    if (plan.slug === 'free' && !stripeClientSecret) {
+    const { plan } = project
+
+    if (typeof plan !== 'string' && plan.slug === 'free' && !stripeClientSecret) {
       return
     }
 
@@ -40,7 +38,7 @@ export const useDeploy = (args: {
     if (payload.error) {
       throw new Error(payload.error.message)
     }
-  }, [stripeClientSecret, elements, stripe, plan, paymentMethod])
+  }, [stripeClientSecret, elements, stripe, project, paymentMethod])
 
   const deploy = useCallback(async () => {
     window.scrollTo(0, 0)
@@ -52,23 +50,17 @@ export const useDeploy = (args: {
       // process the payment
       await processPayment()
 
-      // deploy the project
-      const req = await fetch(
-        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project.id}`,
-        {
-          credentials: 'include',
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            _status: 'published',
-            team: team?.id,
-            plan: plan?.id,
-            installID: install?.id,
-          }),
+      // attempt to deploy the project
+      const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deploy`, {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      )
+        body: JSON.stringify({
+          project,
+        }),
+      })
 
       const res: {
         doc: Project
@@ -77,7 +69,12 @@ export const useDeploy = (args: {
       } = await req.json()
 
       if (req.ok) {
+        const {
+          doc: { team },
+        } = res
+
         const teamID = typeof team === 'string' ? team : team?.id
+
         const matchedTeam = user.teams.find(({ team: userTeam }) => {
           return typeof userTeam === 'string' ? userTeam === teamID : userTeam?.id === teamID
         })?.team
@@ -98,7 +95,7 @@ export const useDeploy = (args: {
       setError(message)
       setIsDeploying(false)
     }
-  }, [user, project, router, plan, team, install, processPayment])
+  }, [user, project, router, processPayment])
 
   return {
     errorDeploying: error,

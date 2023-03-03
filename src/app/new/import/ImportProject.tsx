@@ -6,19 +6,18 @@ import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { LineDraw } from '@components/LineDraw'
 import { LoadingShimmer } from '@components/LoadingShimmer'
-import { ScopeSelector } from '@components/ScopeSelector'
-import { Install } from '@root/utilities/use-get-installs'
+import { useScopeSelector } from '@components/ScopeSelector'
 import { useCreateDraftProject } from '../../../utilities/use-create-draft-project'
 import { useGetRepos } from '../../../utilities/use-get-repos'
 
 import classes from './index.module.scss'
 
 export const ImportProject: React.FC = () => {
-  const [loadingInstalls, setLoadingInstalls] = React.useState<boolean>(true)
-  const [installs, setInstalls] = React.useState<Install[]>()
-  const [selectedInstall, setSelectedInstall] = React.useState<Install | undefined>(undefined)
   const router = useRouter()
   const [hoverIndex, setHoverIndex] = React.useState<number | undefined>(undefined)
+
+  const [ScopeSelector, { value: selectedInstall, installs, loading: loadingInstalls }] =
+    useScopeSelector()
 
   const {
     submitDraftProject,
@@ -43,12 +42,7 @@ export const ImportProject: React.FC = () => {
         <Grid>
           <Cell cols={4} colsM={8} className={classes.sidebarCell}>
             <div className={classes.sidebar}>
-              <ScopeSelector
-                value={selectedInstall?.id}
-                onChange={setSelectedInstall}
-                onInstalls={setInstalls}
-                onLoading={setLoadingInstalls}
-              />
+              <ScopeSelector />
               {/* <div>
             <p className={classes.label}>Search</p>
             <Text placeholder="Enter search term" />

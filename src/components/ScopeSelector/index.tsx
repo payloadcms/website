@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useMemo } from 'react'
 import { components } from 'react-select'
 import { Select } from '@forms/fields/Select'
 import Label from '@forms/Label'
@@ -7,7 +7,7 @@ import { v4 as uuid } from 'uuid'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import useDebounce from '@root/utilities/use-debounce'
-import { Install, useGetInstalls } from '@root/utilities/use-get-installs'
+import { Install, UseGetInstalls, useGetInstalls } from '@root/utilities/use-get-installs'
 import { usePopupWindow } from '@root/utilities/use-popup-window'
 
 import classes from './index.module.scss'
@@ -59,36 +59,32 @@ const Option = props => {
   )
 }
 
-export const ScopeSelector: React.FC<{
+type ScopeSelectorProps = {
   value?: Install['id']
   onChange?: (value: Install) => void // eslint-disable-line no-unused-vars
-  onLoading?: (loading: boolean) => void // eslint-disable-line no-unused-vars
-  onInstalls?: (installs: Install[]) => void // eslint-disable-line no-unused-vars
-}> = props => {
-  const { onChange, value: valueFromProps, onLoading, onInstalls } = props
+  installs?: Install[]
+  reloadInstalls?: ReturnType<UseGetInstalls>['reload']
+  loading?: boolean
+  error?: string
+}
+
+export const ScopeSelector: React.FC<ScopeSelectorProps> = props => {
+  const { onChange, value: valueFromProps, installs, reloadInstalls, error, loading } = props
   const hasInitializedSelection = React.useRef(false)
   const selectAfterLoad = React.useRef<Install['id']>()
-  const [selectedInstall, setSelectedInstall] = React.useState<Install | undefined>()
-
-  const {
-    error: installsError,
-    loading: installsLoading,
-    installs,
-    reloadInstalls,
-  } = useGetInstalls()
+  const [selection, setSelection] = React.useState<Install | undefined>()
 
   useEffect(() => {
-    if (typeof onLoading === 'function') {
-      onLoading(installsLoading)
-    }
-  }, [installsLoading, onLoading])
-
-  useEffect(() => {
-    if (valueFromProps === selectedInstall?.id && installs?.length) {
+    if (
+      hasInitializedSelection &&
+      valueFromProps !== undefined &&
+      valueFromProps === selection?.id &&
+      installs?.length
+    ) {
       const newSelection = installs.find(install => install.id === valueFromProps)
-      setSelectedInstall(newSelection)
+      setSelection(newSelection)
     }
-  }, [valueFromProps, installs, selectedInstall])
+  }, [valueFromProps, installs, selection])
 
   const { openPopupWindow } = usePopupWindow({
     href,
@@ -104,33 +100,27 @@ export const ScopeSelector: React.FC<{
   useEffect(() => {
     if (installs?.length && !hasInitializedSelection.current) {
       hasInitializedSelection.current = true
-      setSelectedInstall(installs[installs.length - 1])
+      setSelection(installs[installs.length - 1])
     }
   }, [installs])
-
-  const loading = useDebounce(installsLoading, 250)
-
-  useEffect(() => {
-    if (typeof onChange === 'function') {
-      onChange(selectedInstall)
-    }
-  }, [onChange, selectedInstall])
 
   useEffect(() => {
     if (selectAfterLoad.current) {
       const newSelection = installs.find(install => install.id === selectAfterLoad.current)
-      setSelectedInstall(newSelection)
+      setSelection(newSelection)
       selectAfterLoad.current = undefined
     }
+  }, [installs])
 
-    if (typeof onInstalls === 'function') {
-      onInstalls(installs)
+  useEffect(() => {
+    if (typeof onChange === 'function') {
+      onChange(selection)
     }
-  }, [onInstalls, installs])
+  }, [selection, onChange])
 
   return (
     <Fragment>
-      {installsError && <p>{installsError}</p>}
+      {error && <p>{error}</p>}
       {loading && (
         <Fragment>
           <Label label="GitHub Scope" htmlFor="github-scope" />
@@ -140,11 +130,12 @@ export const ScopeSelector: React.FC<{
       {!loading && (
         <Select
           label="GitHub Scope"
-          value={selectedInstall?.account?.login}
+          value={selection?.account?.login}
           initialValue={installs?.[0]?.account?.login}
           onChange={option => {
             if (Array.isArray(option)) return
-            setSelectedInstall(installs.find(install => install.account.login === option.value))
+            const newSelection = installs.find(install => install.account.login === option.value)
+            setSelection(newSelection)
           }}
           options={[
             ...(installs && installs.length > 0
@@ -173,4 +164,40 @@ export const ScopeSelector: React.FC<{
       )}
     </Fragment>
   )
+}
+
+export const useScopeSelector = (): [
+  React.FC,
+  ReturnType<UseGetInstalls> & {
+    value?: Install
+  },
+] => {
+  const [value, setValue] = React.useState<Install>(undefined)
+  const installsData = useGetInstalls()
+  const debouncedLoading = useDebounce(installsData.loading, 250)
+
+  const MemoizedScopeSelector = useMemo(
+    () => () => {
+      const { error, installs, reload } = installsData
+
+      return (
+        <ScopeSelector
+          loading={debouncedLoading}
+          error={error}
+          installs={installs}
+          reloadInstalls={reload}
+          onChange={setValue}
+        />
+      )
+    },
+    [installsData, debouncedLoading],
+  )
+
+  return [
+    MemoizedScopeSelector,
+    {
+      ...installsData,
+      value,
+    },
+  ]
 }
