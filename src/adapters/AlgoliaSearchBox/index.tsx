@@ -45,7 +45,6 @@ export const AlgoliaSearchBox: React.FC<{
     <input
       {...props}
       type="text"
-      placeholder="Search here" // TODO: translate
       className={[classes.algoliaSearchBox, className].filter(Boolean).join(' ')}
       value={value}
       onChange={handleChange}

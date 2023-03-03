@@ -1,22 +1,25 @@
 'use client'
 
+import React from 'react'
+import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Banner } from '@components/Banner'
 import { Gutter } from '@components/Gutter'
+import DiscordGitCTA from '@components/DiscordGitCTA'
 import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@root/providers/Theme'
-import React from 'react'
-import { DocSearch } from '@docsearch/react'
 import {
   Configure,
   useCurrentRefinements,
   useHits,
   usePagination,
 } from 'react-instantsearch-hooks-web'
+import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { CommentsIcon } from '@root/graphics/CommentsIcon'
 import { ThreadProps } from './discord/[thread]/render'
 import { DiscussionProps } from './github/[discussion]/render'
 
 import classes from './index.module.scss'
-import { ArchiveSearchBar } from './ArchiveFilterBar'
+import { ArchiveSearchBar } from './ArchiveSearchBar'
 import { AlgoliaProvider } from './AlgoliaProvider'
 
 export type CommunityHelpType = {
@@ -33,69 +36,47 @@ export const CommunityHelp: React.FC<
 
   const { hits }: { hits: Array<any> } = useHits()
 
-  console.log(hits)
-
   const hasResults = hits && Array.isArray(hits) && hits.length > 0
 
   return (
     <HeaderObserver color={theme} pullUp>
       <Gutter>
-        <Banner type="error">
-          This page is currently under construction &mdash; community help archive coming soon.
-        </Banner>
-        {/* <DocSearch
-          appId="9MJY7K9GOW"
-          indexName="payloadcms"
-          apiKey={process.env.NEXT_PUBLIC_ALGOLIA_DOCSEARCH_KEY}
-        /> */}
-        <ArchiveSearchBar />
-        {hasResults && (
-          <ul>
-            {hits.map((hit, i) => {
-              return <li key={i}>{hit.anchor}</li>
-            })}
-          </ul>
-        )}
-
-        {/* <div className={classes.wrap}>
-          <div>
-            <h2>GitHub</h2>
-            <h6>Total: {discussions.length}</h6>
-            <ul>
-              {discussions.map((discussion, i) => {
-                return (
-                  <li key={i}>
-                    <a
-                      href={`/community-help/github/${discussion.id}`}
-                      aria-label={discussion.title}
-                    >
-                      {discussion.title}
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-          <div>
-            <h2>Discord</h2>
-            <h6>Total: {threads.length}</h6>
-            <ul>
-              {threads.map((thread, i) => {
-                return (
-                  <li key={i}>
-                    <a
-                      href={`/community-help/discord/${thread.info.id}`}
-                      aria-label={thread.info.name}
-                    >
-                      {thread.info.name}
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-        </div> */}
+        <Grid>
+          <Cell cols={10} colsL={9} className={classes.communityHelpWrap}>
+            <Banner type="error">
+              This page is currently under construction &mdash; community help archive coming soon.
+            </Banner>
+            <ArchiveSearchBar className={classes.searchBar} />
+            {hasResults && (
+              <ul className={classes.postsWrap}>
+                {hits.map((hit, i) => {
+                  return (
+                    <li key={i} className={classes.post}>
+                      <div className={classes.postContent}>
+                        <div>
+                          <h5 className={classes.title}>{hit.anchor}</h5>
+                          <span className={classes.author}>Lorem Ipsum</span>
+                          <span className={classes.date}>&nbsp;last week</span>
+                          <span className={classes.platform}>&nbsp;in Discord</span>
+                        </div>
+                        <div className={classes.upvotes}>
+                          <span>
+                            <ArrowIcon rotation={-45} /> 4
+                          </span>
+                          <span>
+                            <CommentsIcon /> 7
+                          </span>
+                        </div>
+                      </div>
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
+          </Cell>
+        </Grid>
       </Gutter>
+      <DiscordGitCTA />
     </HeaderObserver>
   )
 }

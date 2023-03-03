@@ -1,5 +1,18 @@
 @use '@scss/common' as *;
 
+.communityHelpWrap {
+  max-width: 1200px;
+  margin-right: calc(var(--base) * 8);
+
+  @include mid-break {
+    margin: 0;
+  }
+
+  @include small-break {
+    margin-top: var(--base);
+  }
+}
+
 .wrap {
   display: flex;
   flex-direction: row;
@@ -16,5 +29,46 @@
     & div {
       width: unset;
     }
+  }
+}
+
+.postsWrap {
+  list-style: none;
+}
+
+.post {
+  border-bottom: 1px solid var(--color-base-650);
+  margin-bottom: calc(var(--base) * 1.75);
+}
+
+.postContent {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: calc(var(--base) * 1.75);
+}
+
+.title {
+  margin: 0;
+}
+.author,
+.date,
+.platform {
+  color: var(--theme-elevation-500);
+  font-weight: normal;
+}
+
+.upvotes {
+  display: flex;
+  align-items: center;
+  color: var(--theme-elevation-500);
+  margin-left: var(--base);
+
+  & svg {
+    width: calc(var(--base) * .75);
+    margin-right: calc(var(--base) * .35);
+  }
+
+  & span:first-child {
+    padding-right: var(--base);
   }
 }

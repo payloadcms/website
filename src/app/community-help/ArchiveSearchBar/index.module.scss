@@ -1,0 +1,61 @@
+@use "@scss/common" as *;
+
+.filterBar {
+  background-color: var(--color-base-750);
+  padding: 0 calc(var(--base) * 1.5);
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: calc(var(--base) * 3.5);
+  margin-bottom: calc(var(--base) * 4);
+
+  @include mid-break {
+    left: 0;
+    width: 100%;
+    right: 0;
+  }
+}
+
+.searchInput {
+  @include label;
+  font-family: inherit;
+  flex-grow: 1;
+  height: calc(var(--base) * 2);
+  margin-right: calc(var(--base) * 0.5);
+
+  &::placeholder {
+    @include label;
+    color: black;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.searchIcon, .filterIcon {
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  margin-right: var(--base);
+}
+
+:global([data-theme="light"]) {
+  .searchIcon {
+    & svg {
+      & circle, line {
+        stroke: var(--color-base-750);
+      }
+    }
+  }
+
+  .filterIcon {
+    & svg {
+      & path {
+        stroke: var(--color-base-750);
+      }
+    }
+  }
+}
