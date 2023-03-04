@@ -11,23 +11,22 @@ const Icons = {
   chevron: ChevronIcon,
 }
 
-type Props = {
+type HeaderProps = {
   label: React.ReactNode
   onToggle?: () => void
-  className?: string
-  icon?: 'eye' | 'chevron'
+  toggleIcon?: 'eye' | 'chevron'
 }
-const Header: React.FC<Props> = ({ label, onToggle, className, icon = 'eye' }) => {
-  const IconToRender = Icons[icon]
+const Header: React.FC<HeaderProps> = ({ label, onToggle, toggleIcon = 'eye' }) => {
+  const IconToRender = Icons[toggleIcon]
 
   return (
-    <div className={[classes.header, className].filter(Boolean).join(' ')} data-accordion-header>
+    <div className={classes.header} data-accordion-header>
       <div className={classes.labelContent} data-accordion-header-content>
         {label}
       </div>
 
       <CollapsibleToggler
-        className={[classes.toggler, classes[`icon--${icon}`]].filter(Boolean).join(' ')}
+        className={[classes.toggler, classes[`icon--${toggleIcon}`]].filter(Boolean).join(' ')}
         onClick={onToggle}
         data-accordion-header-toggle
       >
@@ -39,19 +38,24 @@ const Header: React.FC<Props> = ({ label, onToggle, className, icon = 'eye' }) =
 
 type ContentProps = {
   children: React.ReactNode
-  className?: string
 }
-const Content: React.FC<ContentProps> = ({ children, className }) => {
+const Content: React.FC<ContentProps> = ({ children }) => {
   return (
     <CollapsibleContent>
-      <div className={[classes.collapsibleContent, className].filter(Boolean).join(' ')}>
-        {children}
-      </div>
+      <div className={classes.collapsibleContent}>{children}</div>
     </CollapsibleContent>
   )
 }
 
-export const Accordion = {
-  Header,
-  Content,
+type AccordionProps = HeaderProps &
+  ContentProps & {
+    className?: string
+  }
+export const Accordion: React.FC<AccordionProps> = ({ children, className, ...rest }) => {
+  return (
+    <div className={[classes.accordion, className].filter(Boolean).join(' ')}>
+      <Header {...rest} />
+      <Content>{children}</Content>
+    </div>
+  )
 }

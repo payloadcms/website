@@ -5,7 +5,7 @@ import classes from './index.module.scss'
 
 type Headings = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 type Props = {
-  element?: Headings
+  element?: Headings | 'p'
   as?: Headings
   margin?: boolean
   marginTop?: boolean
