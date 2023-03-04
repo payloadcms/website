@@ -56,6 +56,7 @@ export interface Team {
   id: string;
   name?: string;
   slug?: string;
+  billingEmail?: string;
   stripeCustomerID?: string;
   subscriptions: {
     stripeSubscriptionID?: string;
@@ -74,6 +75,7 @@ export interface Plan {
   slug?: string;
   stripeProductID?: string;
   priceJSON?: string;
+  order?: number;
   createdAt: string;
   updatedAt: string;
 }

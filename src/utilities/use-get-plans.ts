@@ -23,7 +23,7 @@ export const useGetPlans: UseGetPlans = () => {
         setIsLoading(true)
 
         const plansReq = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/plans?where[slug][not_equals]=enterprise`,
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/plans?where[slug][not_equals]=enterprise&sort=order`,
           {
             credentials: 'include',
           },
