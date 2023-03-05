@@ -28,18 +28,18 @@ export default () => {
     <Fragment>
       <RouteTabs
         className={classes.tabs}
-        routePrefix="/dashboard"
+        basePath="/dashboard"
         tabs={[
           {
             label: 'Projects',
           },
           {
             label: 'Teams',
-            pathSegment: 'teams',
+            slug: 'teams',
           },
           {
             label: 'Settings',
-            pathSegment: 'settings',
+            slug: 'settings',
           },
         ]}
       />

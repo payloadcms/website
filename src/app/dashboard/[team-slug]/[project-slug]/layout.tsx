@@ -28,7 +28,7 @@ export default ({ children }: ProjectLayoutType) => {
     <React.Fragment>
       <RouteTabs
         className={classes.tabContainer}
-        routePrefix={`/dashboard/${
+        basePath={`/dashboard/${
           typeof project.team === 'string' ? project.team : project?.team?.slug
         }/${project.slug}`}
         tabs={[
@@ -37,19 +37,19 @@ export default ({ children }: ProjectLayoutType) => {
           },
           {
             label: 'Logs',
-            pathSegment: 'logs',
+            slug: 'logs',
           },
           {
             label: 'Database',
-            pathSegment: 'database',
+            slug: 'database',
           },
           {
             label: 'File Storage',
-            pathSegment: 'file-storage',
+            slug: 'file-storage',
           },
           {
             label: 'Settings',
-            pathSegment: 'settings',
+            slug: 'settings',
           },
         ]}
       />

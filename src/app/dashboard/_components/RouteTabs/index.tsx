@@ -5,46 +5,40 @@ import { usePathname } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
-import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
 
 import classes from './index.module.scss'
 
 type TabRoute = {
   label: string
-  pathSegment?: string
+  slug?: string
 }
 
 export const RouteTabs: React.FC<{
   tabs: TabRoute[]
-  routePrefix?: string
+  basePath?: string
   className?: string
 }> = props => {
-  const { tabs, routePrefix, className } = props
+  const { tabs, basePath, className } = props
   const pathname = usePathname()
-  const segments = usePathnameSegments()
-  const slug = segments[segments.length - 1]
+  const slug = pathname.split('/').pop()
 
   return (
     <div className={[classes.tabsContainer, className].filter(Boolean).join(' ')}>
       <Gutter>
         <div className={classes.tabs}>
-          {tabs.map(route => {
-            const isActive = route.pathSegment
-              ? route.pathSegment === slug
-              : routePrefix === pathname
+          {tabs.map(({ slug: tabSlug, label }, index) => {
+            const isActive = tabSlug ? tabSlug === slug : basePath === pathname
 
-            const href = routePrefix
-              ? `${routePrefix}${route.pathSegment ? `/${route.pathSegment}` : ''}`
-              : `/${route.pathSegment}`
+            const href = basePath ? `${basePath}${tabSlug ? `/${tabSlug}` : ''}` : `/${tabSlug}`
 
             return (
               <Heading
-                key={route.label}
+                key={index}
                 className={[classes.tab, isActive && classes.active].filter(Boolean).join(' ')}
                 href={href}
                 element="h5"
               >
-                {route.label}
+                {label}
               </Heading>
             )
           })}

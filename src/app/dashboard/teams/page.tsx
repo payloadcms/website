@@ -10,18 +10,18 @@ export default () => {
   return (
     <div className={classes.teams}>
       <RouteTabs
-        routePrefix="/dashboard"
+        basePath="/dashboard"
         tabs={[
           {
             label: 'Projects',
           },
           {
             label: 'Teams',
-            pathSegment: 'teams',
+            slug: 'teams',
           },
           {
             label: 'Settings',
-            pathSegment: 'settings',
+            slug: 'settings',
           },
         ]}
       />
