@@ -27,6 +27,7 @@ const exampleLog = [
 
 export default () => {
   const { project } = useRouteData()
+  console.log('project', project)
   const [status, setStatus] = React.useState('offline')
 
   return (

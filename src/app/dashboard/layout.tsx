@@ -10,7 +10,6 @@ const AuthLayout = ({ children }) => {
   return (
     <RouteDataProvider>
       <RouteCrumbs />
-
       {children}
     </RouteDataProvider>
   )

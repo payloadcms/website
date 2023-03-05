@@ -1,15 +1,32 @@
 @use '@scss/common.scss' as *;
 
 .desktopNav {
+  position: relative;
+
+  &:local() {
+    a {
+      text-decoration: none;
+    }
+  }
+
   @include small-break {
     display: none;
     visibility: hidden;
   }
 }
 
-.grid {
-  :local(a) {
-    text-decoration: none;
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin-left: calc(var(--gutter-h) / -2);
+  margin-right: calc(var(--gutter-h) / -2);
+
+  @include large-break {
+    margin-left: 0;
+    margin-right: 0;
+    justify-content: unset;
   }
 }
 
@@ -27,23 +44,20 @@
 }
 
 .logo {
-  width: calc(var(--gutter-h) / 2 - var(--base));
   height: 100%;
-  position: absolute;
-  left: calc(-1 * var(--base));
   display: flex;
   justify-content: flex-start;
-  transform: translateX(-100%);
+  position: relative;
   top: -2px;
+  margin-right: var(--base);
+  width: calc(var(--gutter-h) / 2 - var(--base));
+
 
   svg {
     height: auto;
   }
 
   @include large-break {
-    position: static;
-    left: 0;
-    transform: unset;
     width: auto;
     margin-right: var(--base);
   }
@@ -59,15 +73,14 @@
   }
 }
 
-.content {
+.secondaryNavItems {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  position: relative;
-  width: 100%;
+  white-space: nowrap;
 
-  @include large-break {
-    justify-content: unset;
+  & > *:not(:last-child) {
+    margin-right: calc(var(--base) * .75);
   }
 }
 
@@ -78,19 +91,8 @@
   margin-right: var(--base);
 
   @include large-break {
-    margin-right: 0;
-  }
-
-  :local(.stars) {
-    vertical-align: middle;
-  }
-
-  @include large-break {
     margin-left: auto;
-
-    :local(.stars) {
-      margin-right: var(--base);
-    }
+    margin-right: 0;
   }
 }
 
@@ -103,6 +105,8 @@
 
 .starsWrap {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .payload {

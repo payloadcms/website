@@ -4,6 +4,11 @@ export const PROJECTS = `
       docs {
         id
         slug
+        team {
+          id
+          slug
+          name
+        }
         name
         installScript
         buildScript
