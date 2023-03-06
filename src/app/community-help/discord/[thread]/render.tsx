@@ -69,7 +69,6 @@ export const RenderThread: React.FC<ThreadProps> = props => {
         <Grid>
           <Cell cols={10} colsL={9} className={classes.post}>
             <DiscordGitIntro
-              postUrl={postUrl}
               postName={info.name}
               author={author}
               image={authorAvatarImg}
