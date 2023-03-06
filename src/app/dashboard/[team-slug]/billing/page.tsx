@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 
+import { Gutter } from '@components/Gutter'
 import { RouteTabs } from '../../_components/RouteTabs'
 import { useRouteData } from '../../context'
 
@@ -28,6 +29,10 @@ export default () => {
           },
         ]}
       />
+      <Gutter>
+        <h1>Billing</h1>
+        <p>Coming soon...</p>
+      </Gutter>
     </div>
   )
 }
