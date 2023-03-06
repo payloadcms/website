@@ -2,14 +2,17 @@
 
 import * as React from 'react'
 
-import { RouteTabs } from '../_components/RouteTabs'
-import { useRouteData } from '../context'
+import { Gutter } from '@components/Gutter'
+import { RouteTabs } from '../../_components/RouteTabs'
+import { useRouteData } from '../../context'
+
+import classes from './page.module.scss'
 
 export default () => {
   const { team } = useRouteData()
 
   return (
-    <div>
+    <div className={classes.settings}>
       <RouteTabs
         basePath={`/dashboard/${team.slug}`}
         tabs={[
@@ -26,6 +29,12 @@ export default () => {
           },
         ]}
       />
+      <Gutter>
+        <div className={classes.content}>
+          <h1>Settings</h1>
+          <p>Coming soon...</p>
+        </div>
+      </Gutter>
     </div>
   )
 }

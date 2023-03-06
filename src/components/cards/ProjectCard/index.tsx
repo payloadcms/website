@@ -17,7 +17,6 @@ export const ProjectCard: React.FC<{
   const { team, status, deploymentBranch, repositoryName } = project
 
   const teamSlug = typeof team === 'string' ? team : team.slug
-  console.log('project', project)
   return (
     <Link
       href={

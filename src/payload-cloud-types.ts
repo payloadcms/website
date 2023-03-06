@@ -19,6 +19,7 @@ export interface Config {
 }
 export interface User {
   id: string;
+  name?: string;
   githubID?: string;
   defaultTeam?: string | Team;
   teams: {

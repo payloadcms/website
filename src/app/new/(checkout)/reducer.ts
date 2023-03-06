@@ -53,7 +53,6 @@ export const checkoutReducer = (state: CheckoutState, action: Action): CheckoutS
     case 'UPDATE_PROJECT':
       return { ...state, ...action.payload }
     case 'SET_PLAN':
-      console.log('SET_PLAN', action.payload)
       return {
         ...state,
         project: {

@@ -6,7 +6,7 @@ import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Plan } from '@root/payload-cloud-types'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import useDebounce from '@root/utilities/use-debounce'
-import { UseGetPlans, useGetPlans } from '../../utilities/use-get-plans'
+import { UseGetCloud, useGetPlans } from '@root/utilities/use-cloud'
 
 import classes from './index.module.scss'
 
@@ -94,7 +94,7 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
 
 export const usePlanSelector = (args: {
   onChange?: (value: Plan) => void // eslint-disable-line no-unused-vars
-}): [React.FC, ReturnType<UseGetPlans>] => {
+}): [React.FC, ReturnType<UseGetCloud<Plan>>] => {
   const { onChange } = args
 
   const plansData = useGetPlans()
@@ -102,7 +102,7 @@ export const usePlanSelector = (args: {
 
   const MemoizedPlanSelector = useMemo(
     () => () => {
-      const { error, plans } = plansData
+      const { error, result: plans } = plansData
 
       return (
         <PlanSelector loading={debouncedLoading} error={error} plans={plans} onChange={onChange} />

@@ -14,7 +14,7 @@ type ProjectLayoutType = {
 }
 
 export default ({ children }: ProjectLayoutType) => {
-  const { project, setProject } = useRouteData()
+  const { project, setProject, team } = useRouteData()
 
   React.useEffect(() => {
     return () => setProject(undefined)
@@ -28,9 +28,7 @@ export default ({ children }: ProjectLayoutType) => {
     <React.Fragment>
       <RouteTabs
         className={classes.tabContainer}
-        basePath={`/dashboard/${
-          typeof project.team === 'string' ? project.team : project?.team?.slug
-        }/${project.slug}`}
+        basePath={`/dashboard/${team.slug}/${project.slug}`}
         tabs={[
           {
             label: 'Overview',

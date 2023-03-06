@@ -11,7 +11,7 @@ import { Gutter } from '@components/Gutter'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { TeamSelector } from '@components/TeamSelector'
 import { Team } from '@root/payload-cloud-types'
-import { useGetProjects } from '@root/utilities/use-get-projects'
+import { useGetProjects } from '@root/utilities/use-cloud'
 import { RouteTabs } from './_components/RouteTabs'
 
 import classes from './index.module.scss'
@@ -19,10 +19,7 @@ import classes from './index.module.scss'
 export default () => {
   const [selectedTeam, setSelectedTeam] = React.useState<Team>()
 
-  const { loading, error, projects } = useGetProjects({
-    selectedTeam,
-    delay: 250,
-  })
+  const { isLoading, error, result: projects } = useGetProjects(selectedTeam)
 
   return (
     <Fragment>
@@ -63,7 +60,7 @@ export default () => {
             />
           </Cell>
         </Grid>
-        {loading ? (
+        {isLoading ? (
           <LoadingShimmer number={3} />
         ) : (
           <div className={classes.content}>

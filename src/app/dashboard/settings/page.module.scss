@@ -1,5 +1,9 @@
 @use '@scss/common.scss' as *;
 
-.settings {
-
+.form {
+    margin-top: calc(var(--base) * 2);
+    
+    & > * {
+        margin-bottom: var(--base);
+    }
 }
