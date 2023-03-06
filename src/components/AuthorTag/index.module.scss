@@ -1,0 +1,140 @@
+@use '@scss/common' as *;
+
+.authorTag,
+.author,
+.authorLink {
+  display: flex;
+  align-items: center;
+}
+
+.author {
+  color: var(--theme-elevation-900);
+  margin-right: calc(var(--base) * 0.25);
+
+  & img {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-right: calc(var(--base) * 0.35);
+  }
+}
+
+.authorLink {
+  text-decoration: none;
+}
+
+.teamTag {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.twitterIcon {
+  display: flex;
+  margin: 0 calc(var(--base) * 0.35) 0 calc(var(--base) * 0.35);
+}
+
+.isAnswer {
+  color: var(--theme-success-100);
+  background-color: var(--color-success-500);
+}
+
+.date,
+.platform {
+  color: var(--theme-elevation-500);
+  font-weight: normal;
+}
+
+.upvotes {
+  display: flex;
+  align-items: center;
+  color: var(--theme-elevation-500);
+  margin-left: var(--base);
+
+  & svg {
+    width: calc(var(--base) * .75);
+    margin-right: calc(var(--base) * .35);
+  }
+
+  & span:first-child {
+    padding-right: var(--base);
+  }
+}
+
+.comments {
+  height: 100%;
+  margin-left: calc(var(--base) * 1.25);
+  color: var(--color-base-300);
+
+  & svg {
+    width: calc(var(--base) * 0.75);
+    margin-right: calc(var(--base) * 0.25);
+  }
+
+  & span {
+    color: var(--theme-elevation-500);
+  }
+}
+
+:global([data-theme="light"]) {
+  .isAnswer {
+    background-color: var(--color-success-900);
+    color: var(--color-success-500);
+  }
+
+  .upvotes,
+  .comments {
+    & svg {
+      & path {
+        stroke: var(--theme-elevation-500);
+      }
+    }
+  }
+}
+
+@include large-break {
+  .authorTag {
+    flex-wrap: wrap;
+  }
+}
+
+@include mid-break {
+  .author {
+    & img {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .authorTag {
+    justify-content: unset;
+  }
+}
+
+@include small-break {
+  .authorTag {
+    line-height: 2;
+  }
+
+  .author {
+    flex-wrap: wrap;
+  }
+
+  .teamMember {
+    line-height: 2.5;
+  }
+
+  .upvotes {
+    margin-left: calc(var(--base) * 0.5);
+
+    & span:first-child {
+      padding-right: calc(var(--base) * 0.5);
+    }
+  }
+
+  .comments {
+    margin-left: calc(var(--base) * 0.5);
+  }
+}

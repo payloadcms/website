@@ -1,4 +1,5 @@
-import type { CaseStudy, Footer, MainMenu, Page, Post } from '../payload-types'
+import type { Announcement, CaseStudy, Footer, MainMenu, Page, Post } from '../payload-types'
+import { ANNOUNCEMENT_FIELDS } from './announcement'
 import { CASE_STUDIES, CASE_STUDY } from './case-studies'
 import { GLOBALS } from './globals'
 import { PAGE, PAGES } from './pages'
@@ -8,8 +9,11 @@ const next = {
   revalidate: 600,
 }
 
-export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu; footer: Footer }> => {
-  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+export const fetchGlobals = async (): Promise<{
+  mainMenu: MainMenu
+  footer: Footer
+}> => {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?globals`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -21,8 +25,27 @@ export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu; footer: Foot
   }).then(res => res.json())
 
   return {
-    mainMenu: data.MainMenu,
-    footer: data.Footer,
+    mainMenu: data?.MainMenu,
+    footer: data?.Footer,
+  }
+}
+
+export const fetchAnnouncements = async (): Promise<{
+  announcements: Announcement[]
+}> => {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?announcements`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    next,
+    body: JSON.stringify({
+      query: ANNOUNCEMENT_FIELDS,
+    }),
+  }).then(res => res.json())
+
+  return {
+    announcements: data?.Announcements?.docs || [],
   }
 }
 
@@ -30,19 +53,22 @@ export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page> 
   const slugSegments = incomingSlugSegments || ['home']
   const slug = slugSegments[slugSegments.length - 1]
 
-  const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    next,
-    body: JSON.stringify({
-      query: PAGE,
-      variables: {
-        slug,
+  const { data, errors } = await fetch(
+    `${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?page=${slug}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    }),
-  }).then(res => res.json())
+      next,
+      body: JSON.stringify({
+        query: PAGE,
+        variables: {
+          slug,
+        },
+      }),
+    },
+  ).then(res => res.json())
 
   if (errors) {
     console.error(JSON.stringify(errors))
@@ -51,7 +77,7 @@ export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page> 
 
   const pagePath = `/${slugSegments.join('/')}`
 
-  const page = data.Pages.docs.find(({ breadcrumbs }: Page) => {
+  const page = data.Pages?.docs.find(({ breadcrumbs }: Page) => {
     const { url } = breadcrumbs[breadcrumbs.length - 1]
     return url === pagePath
   })
@@ -66,7 +92,7 @@ export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page> 
 export const fetchPages = async (): Promise<
   Array<{ breadcrumbs: Page['breadcrumbs']; slug: string }>
 > => {
-  const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+  const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?pages`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -86,7 +112,7 @@ export const fetchPages = async (): Promise<
 }
 
 export const fetchPosts = async (): Promise<Array<{ slug: string }>> => {
-  const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+  const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?posts`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -102,12 +128,12 @@ export const fetchPosts = async (): Promise<Array<{ slug: string }>> => {
     throw new Error()
   }
 
-  return data.Posts.docs
+  return data?.Posts?.docs
 }
 
 export const fetchBlogPosts = async (): Promise<Post[]> => {
   const currentDate = new Date()
-  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?blogPosts`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -121,11 +147,11 @@ export const fetchBlogPosts = async (): Promise<Post[]> => {
     }),
   }).then(res => res.json())
 
-  return data.Posts.docs
+  return data?.Posts?.docs
 }
 
 export const fetchBlogPost = async (slug: string): Promise<Post> => {
-  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?blogPost=${slug}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -139,11 +165,11 @@ export const fetchBlogPost = async (slug: string): Promise<Post> => {
     }),
   }).then(res => res.json())
 
-  return data.Posts.docs[0]
+  return data?.Posts?.docs[0]
 }
 
 export const fetchCaseStudies = async (): Promise<CaseStudy[]> => {
-  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?caseStudies`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -154,11 +180,11 @@ export const fetchCaseStudies = async (): Promise<CaseStudy[]> => {
     }),
   }).then(res => res.json())
 
-  return data.CaseStudies.docs
+  return data?.CaseStudies?.docs
 }
 
 export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
-  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql`, {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?caseStudy=${slug}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -172,5 +198,5 @@ export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
     }),
   }).then(res => res.json())
 
-  return data.CaseStudies.docs[0]
+  return data?.CaseStudies?.docs[0]
 }
