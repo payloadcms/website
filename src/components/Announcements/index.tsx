@@ -14,7 +14,7 @@ export const Announcements: React.FC<{ announcements: Announcement[] }> = ({ ann
   const [closeAnnouncement, setCloseAnnouncement] = React.useState(false)
   const [cookies, setCookie] = useCookies()
   const pathname = usePathname()
-  const onDocsPage = pathname.startsWith('/docs')
+  const onDocsPage = pathname?.startsWith('/docs')
 
   const showAnnouncement = !closeAnnouncement && !cookies.dismissAnnouncement
 
