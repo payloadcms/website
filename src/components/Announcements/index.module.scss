@@ -16,20 +16,25 @@
   }
 }
 
+.onDocsPage {
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 3);
+  }
+}
+
 .announcement {
   position: relative;
   display: flex;
   gap: var(--base);
   pointer-events: all;
   margin: var(--spacer);
-  padding: 
-    var(--base) 
-    calc((var(--gutter-h) / 2) - var(--spacer));
+  padding:
+    var(--base) calc((var(--gutter-h) / 2) - var(--spacer));
   transition: color 300ms ease;
   border-bottom: 1px solid var(--announcement-text-color);
   color: var(--announcement-text-color);
   background-color: transparent;
-  
+
   &:after {
     content: '';
     position: absolute;
