@@ -8,7 +8,7 @@ export const LargeRadio: React.FC<{
   id: string
   value: any
   checked?: boolean
-  name: string
+  name?: string
   disabled?: boolean
   onChange?: (value?: any) => void // eslint-disable-line no-unused-vars
   price?: string

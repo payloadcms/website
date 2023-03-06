@@ -16,9 +16,9 @@ export const useField = <T extends Value>(props: {
   required?: boolean
 }): {
   onChange: (value: T) => void // eslint-disable-line no-unused-vars
-  value: T
+  value: T | null
   showError: boolean
-  errorMessage: string
+  errorMessage?: string
 } => {
   const { path, onChange: onChangeFromProps, validate, required, initialValue } = props
 
@@ -35,7 +35,9 @@ export const useField = <T extends Value>(props: {
 
   const valueFromContextOrProps = valueFromContext || initialValue
 
-  const [internalState, setInternalState] = useState<T>(valueFromContext || initialValue) // not debounced
+  const [internalState, setInternalState] = useState<T | null>(
+    valueFromContext || initialValue || null,
+  ) // not debounced
 
   useEffect(() => {
     if (valueFromContextOrProps !== undefined && valueFromContextOrProps !== internalState)

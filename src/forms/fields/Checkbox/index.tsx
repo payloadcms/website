@@ -34,9 +34,9 @@ export const Checkbox: React.FC<
     disabled,
   } = props
 
-  const [checked, setChecked] = React.useState(initialValue || false)
-  const prevChecked = React.useRef(checked)
-  const prevContextValue = React.useRef(initialValue)
+  const [checked, setChecked] = React.useState<boolean | undefined | null>(initialValue || false)
+  const prevChecked = React.useRef<boolean | undefined | null>(checked)
+  const prevContextValue = React.useRef<boolean | undefined | null>(initialValue)
 
   const {
     onChange,

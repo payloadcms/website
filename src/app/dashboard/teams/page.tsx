@@ -15,7 +15,7 @@ export default () => {
   const { user } = useAuth()
   const [hoverIndex, setHoverIndex] = React.useState<number | null>(null)
 
-  const hasTeams = user?.teams?.length > 0
+  const hasTeams = user?.teams?.length && user.teams.length > 0
 
   return (
     <div className={classes.teams}>

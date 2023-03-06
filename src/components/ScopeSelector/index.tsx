@@ -61,9 +61,9 @@ const Option = props => {
 
 type ScopeSelectorProps = {
   value?: Install['id']
-  onChange?: (value: Install) => void // eslint-disable-line no-unused-vars
+  onChange?: (value?: Install) => void // eslint-disable-line no-unused-vars
   installs?: Install[]
-  reloadInstalls?: ReturnType<UseGetInstalls>['reload']
+  reloadInstalls: ReturnType<UseGetInstalls>['reload']
   loading?: boolean
   error?: string
 }
@@ -106,7 +106,7 @@ export const ScopeSelector: React.FC<ScopeSelectorProps> = props => {
 
   useEffect(() => {
     if (selectAfterLoad.current) {
-      const newSelection = installs.find(install => install.id === selectAfterLoad.current)
+      const newSelection = installs?.find(install => install.id === selectAfterLoad.current)
       setSelection(newSelection)
       selectAfterLoad.current = undefined
     }
@@ -134,7 +134,7 @@ export const ScopeSelector: React.FC<ScopeSelectorProps> = props => {
           initialValue={installs?.[0]?.account?.login}
           onChange={option => {
             if (Array.isArray(option)) return
-            const newSelection = installs.find(install => install.account.login === option.value)
+            const newSelection = installs?.find(install => install.account.login === option.value)
             setSelection(newSelection)
           }}
           options={[
@@ -172,7 +172,7 @@ export const useScopeSelector = (): [
     value?: Install
   },
 ] => {
-  const [value, setValue] = React.useState<Install>(undefined)
+  const [value, setValue] = React.useState<Install | undefined>(undefined)
   const installsData = useGetInstalls()
   const debouncedLoading = useDebounce(installsData.loading, 250)
 

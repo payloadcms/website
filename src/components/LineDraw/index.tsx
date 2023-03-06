@@ -6,7 +6,7 @@ import classes from './index.module.scss'
 
 export const LineDraw: React.FC<{
   className?: string
-  active?: Boolean
+  active?: Boolean | null
   align?: 'top' | 'bottom'
 }> = ({ className, active: isHovered, align = 'top' }) => {
   return (

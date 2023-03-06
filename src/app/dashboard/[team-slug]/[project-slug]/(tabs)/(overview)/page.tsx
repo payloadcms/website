@@ -9,7 +9,6 @@ import { Label } from '@components/Label'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 import { BranchIcon } from '@root/graphics/BranchIcon'
 import { CommitIcon } from '@root/graphics/CommitIcon'
-import { useRouteData } from '../../../../context'
 
 import classes from './page.module.scss'
 
@@ -26,8 +25,8 @@ const exampleLog = [
 ]
 
 export default () => {
-  const { project } = useRouteData()
-  const [status, setStatus] = React.useState('offline')
+  // const { project } = useRouteData()
+  const [status] = React.useState('offline')
 
   return (
     <React.Fragment>
@@ -64,7 +63,7 @@ export default () => {
               <div>
                 <Button
                   onClick={() => {
-                    console.log('redeploy')
+                    // TODO: trigger redeploy
                   }}
                   label="Trigger Redeploy"
                   appearance="secondary"

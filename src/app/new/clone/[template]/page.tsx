@@ -59,7 +59,7 @@ const ProjectFromTemplate: React.FC<{
       </Gutter>
       {!loading && (error || !tokenIsValid) && (
         <Authorize
-          onAuthorize={({ code }) => {
+          onAuthorize={async ({ code }) => {
             exchangeCode(code)
           }}
         />

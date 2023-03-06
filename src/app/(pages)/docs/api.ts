@@ -13,8 +13,8 @@ export async function getTopics(): Promise<Topic[]> {
   }))
 }
 
-export async function getDoc({ topic: topicSlug, doc: docSlug }: DocPath): Promise<Doc> {
+export async function getDoc({ topic: topicSlug, doc: docSlug }: DocPath): Promise<Doc | null> {
   const matchedTopic = content.find(topic => topic.slug.toLowerCase() === topicSlug)
-  const matchedDoc = matchedTopic.docs.find(doc => doc.slug === docSlug)
+  const matchedDoc = matchedTopic?.docs?.find(doc => doc.slug === docSlug) || null
   return matchedDoc
 }

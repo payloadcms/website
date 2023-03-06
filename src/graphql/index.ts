@@ -87,7 +87,7 @@ export const fetchTemplates = async (): Promise<Template[]> => {
   return templatesData.Templates.docs
 }
 
-export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page> => {
+export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page | null> => {
   const slugSegments = incomingSlugSegments || ['home']
   const slug = slugSegments.at(-1)
   const { data, errors } = await fetch(

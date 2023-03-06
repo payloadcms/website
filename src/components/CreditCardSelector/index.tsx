@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Card } from '@stripe/stripe-js'
 
 import { CreditCardElement } from '@components/CreditCardElement'
 import { LargeRadio } from '@components/LargeRadio'
@@ -9,11 +10,16 @@ import classes from './index.module.scss'
 export const CreditCardSelector: React.FC<{
   team: Team
   initialValue?: string
-  onChange?: (method: string) => void // eslint-disable-line no-unused-vars
+  onChange?: (method?: string) => void // eslint-disable-line no-unused-vars
 }> = props => {
   const { onChange, initialValue, team } = props
   const [error, setError] = React.useState<string | undefined>()
-  const [cards, setCards] = React.useState([])
+  const [cards, setCards] = React.useState<
+    {
+      id: string
+      card: Card
+    }[]
+  >([])
   const hasMadeRequest = React.useRef(false)
   const [internalState, setInternalState] = React.useState(initialValue)
   const [showNewCard, setShowNewCard] = React.useState(false)

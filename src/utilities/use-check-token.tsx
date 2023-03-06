@@ -14,7 +14,7 @@ export const useCheckToken = (props: {
 
   const { user } = useAuth()
   const [loading, setLoading] = useState(true)
-  const [error, setError] = React.useState('')
+  const [error, setError] = React.useState<string | undefined>('')
   const [tokenIsValid, setIsTokenValid] = useState(false)
 
   useEffect(() => {

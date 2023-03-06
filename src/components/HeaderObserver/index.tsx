@@ -9,6 +9,7 @@ import { useTheme } from '@root/providers/Theme'
 import classes from './index.module.scss'
 
 type Props = {
+  color?: 'light' | 'dark' | null
   className?: string
   zIndex?: number
   children?: React.ReactNode
@@ -107,9 +108,9 @@ type Type = {
   isDetached: boolean
   detachParentObserver: () => void
 }
-const Context = React.createContext<Type>(undefined)
+const Context = React.createContext<Type | undefined>(undefined)
 
-const useParentHeaderObserver = (): Type => React.useContext(Context)
+const useParentHeaderObserver = (): Type | undefined => React.useContext(Context)
 export const HeaderObserver: React.FC<Props> = props => {
   const [isDetached, setIsDetached] = React.useState(false)
   const parentObserver = useParentHeaderObserver()

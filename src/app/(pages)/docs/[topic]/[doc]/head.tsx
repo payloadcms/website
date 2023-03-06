@@ -11,6 +11,7 @@ export default async ({ params }) => {
         title={`${doc.title} | Documentation | Payload CMS`}
         description={doc.desc}
         slug={`docs/${topic}/${docSlug}`}
+        image={`${process.env.NEXT_PUBLIC_SITE_URL}/api/og?topic=${topic}&title=${doc?.title}`}
       />
     )
   return null

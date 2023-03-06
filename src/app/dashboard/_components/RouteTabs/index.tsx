@@ -20,7 +20,7 @@ export const RouteTabs: React.FC<{
 }> = props => {
   const { tabs, basePath, className } = props
   const pathname = usePathname()
-  const slug = pathname.split('/').pop()
+  const slug = pathname?.split('/').pop()
 
   return (
     <div className={[classes.tabsContainer, className].filter(Boolean).join(' ')}>

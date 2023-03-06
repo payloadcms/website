@@ -75,7 +75,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
                     .join(' ')}
                   onClick={() => {
                     if (isCurrentTopic) {
-                      if (openTopicPreferences.includes(topicSlug) && currentTopicIsOpen) {
+                      if (openTopicPreferences?.includes(topicSlug) && currentTopicIsOpen) {
                         const newState = [...openTopicPreferences]
                         newState.splice(newState.indexOf(topicSlug), 1)
 
@@ -87,7 +87,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
                       }
                       setCurrentTopicIsOpen(state => !state)
                     } else {
-                      const newState = [...openTopicPreferences]
+                      const newState = [...(openTopicPreferences || [])]
 
                       if (!newState.includes(topicSlug)) {
                         newState.push(topicSlug)

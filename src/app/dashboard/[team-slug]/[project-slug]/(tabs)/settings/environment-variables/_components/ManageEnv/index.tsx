@@ -19,7 +19,7 @@ type FetchEnvArgs = {
   envKey: string
   projectID: string
 }
-const fetchEnv = async ({ envKey, projectID }: FetchEnvArgs): Promise<string> => {
+const fetchEnv = async ({ envKey, projectID }: FetchEnvArgs): Promise<string | null> => {
   try {
     const req = await fetch(
       `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/env?key=${envKey}`,
@@ -54,7 +54,7 @@ const setEnv = async ({
   envValue,
   projectID,
   arrayItemID,
-}: SetEnvArgs): Promise<string> => {
+}: SetEnvArgs): Promise<string | null> => {
   try {
     const req = await fetch(
       `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/env`,
@@ -82,17 +82,17 @@ const setEnv = async ({
 
 type Props = {
   index: number
-  envKey: string
-  arrayItemID: string
+  envKey?: string
+  arrayItemID?: string
 }
 export const ManageEnv: React.FC<Props> = ({ index, envKey, arrayItemID }) => {
-  const [fetchedEnvValue, setFetchedEnvValue] = React.useState<string>(undefined)
-  const { refreshProject, project } = useRouteData()
+  const [fetchedEnvValue, setFetchedEnvValue] = React.useState<string | undefined>(undefined)
+  const { reloadProject, project } = useRouteData()
   const { closeModal, openModal } = useModal()
   const projectID = project.id
   const modalSlug = `delete-env-${index}`
-  const existingEnvKeys = (project.environmentVariables || []).reduce((acc, { key }) => {
-    if (key !== envKey) {
+  const existingEnvKeys = (project.environmentVariables || []).reduce((acc: string[], { key }) => {
+    if (key && key !== envKey) {
       acc.push(key)
     }
     return acc
@@ -105,16 +105,16 @@ export const ManageEnv: React.FC<Props> = ({ index, envKey, arrayItemID }) => {
 
       // TODO: alert user based on status code & message
 
-      if (typeof newEnvValue === 'string') {
+      if (typeof newEnvValue === 'string' && typeof newEnvKey === 'string' && arrayItemID) {
         try {
           await setEnv({ envKey: newEnvKey, projectID, envValue: newEnvValue, arrayItemID })
-          refreshProject()
+          reloadProject()
         } catch (e) {
           console.error(e)
         }
       }
     },
-    [projectID, arrayItemID, index, refreshProject],
+    [projectID, arrayItemID, index, reloadProject],
   )
 
   const deleteEnv = React.useCallback(async () => {
@@ -133,20 +133,20 @@ export const ManageEnv: React.FC<Props> = ({ index, envKey, arrayItemID }) => {
       // TODO: alert user based on status code & message
 
       if (req.status === 200) {
-        refreshProject()
+        reloadProject()
       }
     } catch (e) {
       console.error(e)
     } finally {
       closeModal(modalSlug)
     }
-  }, [projectID, refreshProject, envKey, closeModal, modalSlug])
+  }, [projectID, reloadProject, envKey, closeModal, modalSlug])
 
   return (
     <Collapsible>
       <Accordion
         onToggle={async () => {
-          if (!fetchedEnvValue) {
+          if (!fetchedEnvValue && envKey) {
             const envValue = await fetchEnv({ envKey, projectID })
             if (envValue) setFetchedEnvValue(envValue)
           }

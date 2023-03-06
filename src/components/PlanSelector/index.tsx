@@ -5,19 +5,19 @@ import { LargeRadio } from '@components/LargeRadio'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Plan } from '@root/payload-cloud-types'
 import { priceFromJSON } from '@root/utilities/price-from-json'
+import { UseCloud, useGetPlans } from '@root/utilities/use-cloud'
 import useDebounce from '@root/utilities/use-debounce'
-import { UseGetCloud, useGetPlans } from '@root/utilities/use-cloud'
 
 import classes from './index.module.scss'
 
 type PlanSelectorProps = {
   value?: string
-  onChange?: (value: Plan) => void // eslint-disable-line no-unused-vars
+  onChange?: (value?: Plan | null) => void // eslint-disable-line no-unused-vars
   plans: Plan[]
   loading: boolean
   error: string | undefined
   initialSelection?: Plan
-  onFreeTrialChange?: (value: boolean) => void // eslint-disable-line no-unused-vars
+  onFreeTrialChange?: (value?: boolean) => void // eslint-disable-line no-unused-vars
   freeTrial?: boolean
 }
 
@@ -25,7 +25,7 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
   const { onChange, value: valueFromProps, loading, error, plans, initialSelection } = props
 
   const hasInitializedSelection = React.useRef(false)
-  const [selectedPlan, setSelectedPlan] = React.useState<Plan | null>(initialSelection)
+  const [selectedPlan, setSelectedPlan] = React.useState<Plan | undefined | null>(initialSelection)
 
   // initialize with the `standard` plan
   useEffect(() => {
@@ -94,7 +94,7 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
 
 export const usePlanSelector = (args: {
   onChange?: (value: Plan) => void // eslint-disable-line no-unused-vars
-}): [React.FC, ReturnType<UseGetCloud<Plan>>] => {
+}): [React.FC, ReturnType<UseCloud<Plan>>] => {
   const { onChange } = args
 
   const plansData = useGetPlans()

@@ -20,7 +20,7 @@ export const RouteCrumbs: React.FC = () => {
 
   if (teamSlug && team) {
     crumbs.push({
-      label: team.name,
+      label: team.name || 'Team',
       url: `/dashboard/${teamSlug}`,
     })
 

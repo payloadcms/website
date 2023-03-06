@@ -7,8 +7,8 @@ import { useGetProject, useGetTeam } from '@root/utilities/use-cloud'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
 
 type ContextType = {
-  team: Team | undefined
-  project: Project | undefined
+  team: Team
+  project: Project
   reloadProject: () => void
   reloadTeam: () => void
 }
@@ -24,6 +24,8 @@ export const RouteDataProvider: React.FC<{
 
   const { result: projects, reload: reloadProject } = useGetProject(projectSlug)
   const { result: teams, reload: reloadTeam } = useGetTeam(teamSlug)
+
+  if (!projects[0] || !teams[0]) return null
 
   return (
     <Context.Provider

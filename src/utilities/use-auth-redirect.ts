@@ -8,7 +8,7 @@ export const useAuthRedirect = (): string | null => {
   const pathname = usePathname()
 
   if (user === null) {
-    redirect(`/login?redirect=${encodeURIComponent(pathname)}`)
+    redirect(`/login?redirect=${encodeURIComponent(pathname || '')}`)
   }
 
   if (!user) {

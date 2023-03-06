@@ -50,7 +50,7 @@ const Context = createContext({} as AuthContext)
 const CLOUD_CONNECTION_ERROR = 'An error occurred while attempting to connect to Cloud CMS.'
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(undefined)
+  const [user, setUser] = useState<User | null | undefined>(undefined)
   const fetchedMe = useRef(false)
 
   const create = useCallback<Create>(async args => {

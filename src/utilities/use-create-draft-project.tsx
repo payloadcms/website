@@ -12,7 +12,7 @@ export const useCreateDraftProject = ({
   onSubmit,
 }: {
   projectName?: string
-  installID: number
+  installID?: number
   onSubmit?: (project: Project) => void // eslint-disable-line no-unused-vars
   templateID?: string // only applies to `clone` flow
   makePrivate?: boolean // only applies to `clone` flow
@@ -27,6 +27,10 @@ export const useCreateDraftProject = ({
 
   const submitDraftProject = useCallback(
     async ({ repo }: { repo: Repo }) => {
+      if (!user) {
+        return
+      }
+
       window.scrollTo(0, 0)
       setError('')
       setIsSubmitting(true)
@@ -41,7 +45,7 @@ export const useCreateDraftProject = ({
           body: JSON.stringify({
             name: projectName || repo?.name || 'Untitled Project',
             installID,
-            team: typeof user.defaultTeam === 'string' ? user.defaultTeam : user.defaultTeam.id,
+            team: typeof user.defaultTeam === 'string' ? user.defaultTeam : user.defaultTeam?.id,
             repositoryID: repo?.id, // only applies to the `import` flow
             repositoryName: repo?.name,
             template: templateID,

@@ -11,11 +11,11 @@ export interface PayloadPaymentIntent {
 
 export const usePaymentIntent = (
   props: CheckoutState,
-): { error: string; paymentIntent: PayloadPaymentIntent } => {
+): { error?: string; paymentIntent?: PayloadPaymentIntent } => {
   const { project, paymentMethod, freeTrial } = props
 
   const [paymentIntent, setPaymentIntent] = useState<PayloadPaymentIntent>()
-  const [error, setError] = useState('')
+  const [error, setError] = useState<string | undefined>('')
   const isRequesting = React.useRef<boolean>(false)
 
   useEffect(() => {

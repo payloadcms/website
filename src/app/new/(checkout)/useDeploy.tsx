@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { CardElement as StripeCardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import { PaymentIntent } from '@stripe/stripe-js'
+import { PaymentIntent, StripeCardElement as StripeCardElementType } from '@stripe/stripe-js'
 import { useRouter } from 'next/navigation'
 
 import { Project } from '@root/payload-cloud-types'
@@ -10,8 +10,8 @@ import { CheckoutState } from './reducer'
 
 export const useDeploy = (args: {
   checkoutState: CheckoutState
-  paymentIntent: PayloadPaymentIntent
-  installID: string
+  paymentIntent?: PayloadPaymentIntent
+  installID?: string
 }): {
   errorDeploying: string | null
   isDeploying: boolean
@@ -25,8 +25,8 @@ export const useDeploy = (args: {
   const stripe = useStripe()
   const elements = useElements()
 
-  const makePayment = useCallback(async (): Promise<PaymentIntent> => {
-    if (!paymentIntent || !checkoutState) {
+  const makePayment = useCallback(async (): Promise<PaymentIntent | null> => {
+    if (!paymentIntent || !checkoutState || !stripe || !elements) {
       throw new Error('No payment intent or checkout state')
     }
 
@@ -47,7 +47,7 @@ export const useDeploy = (args: {
         paymentMethod !== 'new-card'
           ? paymentMethod
           : {
-              card: elements.getElement(StripeCardElement),
+              card: elements.getElement(StripeCardElement) as StripeCardElementType,
             },
     })
 
@@ -61,7 +61,7 @@ export const useDeploy = (args: {
   const deploy = useCallback(async () => {
     setTimeout(() => window.scrollTo(0, 0), 0)
 
-    if (!checkoutState || !paymentIntent) return
+    if (!checkoutState || !paymentIntent || !user) return
 
     const { project } = checkoutState
     const { subscription } = paymentIntent || {}

@@ -17,10 +17,10 @@ const generateUUID = () => {
 }
 
 export const AddEnvs: React.FC = () => {
-  const { project, refreshProject } = useRouteData()
+  const { project, reloadProject } = useRouteData()
   const [tempEnvUUIDs, setTempUUIDs] = React.useState([generateUUID()])
 
-  const existingEnvKeys = (project.environmentVariables || []).map(({ key }) => key)
+  const existingEnvKeys = (project.environmentVariables || []).map(({ key }) => key || '')
   const projectID = project.id
 
   const resetTempEnvs = React.useCallback(() => {
@@ -74,7 +74,7 @@ export const AddEnvs: React.FC = () => {
 
           if (req.status === 200) {
             resetTempEnvs()
-            refreshProject()
+            reloadProject()
           }
 
           return
@@ -85,7 +85,7 @@ export const AddEnvs: React.FC = () => {
 
       resetTempEnvs()
     },
-    [projectID, resetTempEnvs, refreshProject],
+    [projectID, resetTempEnvs, reloadProject],
   )
 
   return (

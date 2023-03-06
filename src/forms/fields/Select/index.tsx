@@ -77,7 +77,7 @@ export const Select: React.FC<{
 
   const { value: valueFromContext, showError, setValue, errorMessage } = fieldFromContext
 
-  const [internalState, setInternalState] = useState<Option | Option[]>(() => {
+  const [internalState, setInternalState] = useState<Option | Option[] | null>(() => {
     const initialValue = valueFromContext || initialValueFromProps
 
     if (Array.isArray(initialValue)) {
@@ -88,7 +88,7 @@ export const Select: React.FC<{
   })
 
   const setFormattedValue = useCallback(
-    (incomingSelection: string | string[]) => {
+    (incomingSelection?: string | string[]) => {
       let isDifferent = false
       let differences
 
@@ -118,7 +118,7 @@ export const Select: React.FC<{
       }
 
       if (incomingSelection !== undefined && isDifferent) {
-        let newValue = null
+        let newValue: Option | Option[] | null = null
 
         if (Array.isArray(incomingSelection)) {
           newValue = options?.filter(item => incomingSelection.find(x => x === item.value)) || []
@@ -133,10 +133,6 @@ export const Select: React.FC<{
     },
     [internalState, options],
   )
-
-  useEffect(() => {
-    setFormattedValue(valueFromContext)
-  }, [valueFromContext, setFormattedValue])
 
   useEffect(() => {
     setFormattedValue(valueFromProps)

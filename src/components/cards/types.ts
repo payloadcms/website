@@ -2,8 +2,8 @@ import type { CMSLinkType } from '@components/CMSLink'
 import type { Media } from '@root/payload-types'
 
 export interface SharedProps {
-  title: string
-  description: string
+  title?: string
+  description?: string
   className?: string
 }
 

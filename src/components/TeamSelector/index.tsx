@@ -29,7 +29,7 @@ const SelectMenuButton = props => {
 
 export const TeamSelector: React.FC<{
   value?: string
-  onChange?: (value: Team) => void // eslint-disable-line no-unused-vars
+  onChange?: (value?: Team) => void // eslint-disable-line no-unused-vars
   className?: string
 }> = props => {
   const { user } = useAuth()
@@ -83,12 +83,12 @@ export const TeamSelector: React.FC<{
       }}
       options={[
         ...(user.teams && user.teams?.length > 0
-          ? [
+          ? ([
               ...user?.teams?.map(({ team }) => ({
                 label: typeof team === 'string' ? team : team.name,
                 value: typeof team === 'string' ? team : team.id,
               })),
-            ]
+            ] as any)
           : [
               {
                 label: 'No teams found',

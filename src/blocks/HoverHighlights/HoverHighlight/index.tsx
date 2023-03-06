@@ -16,7 +16,7 @@ type HoverHighlightProps = Extract<Page['layout'][0], { blockType: 'hoverHighlig
 export const HoverHighlight: React.FC<
   HoverHighlightProps['hoverHighlightsFields']['highlights'][0] & {
     index: number
-    addRowNumbers: boolean
+    addRowNumbers?: boolean
     isLast?: boolean
   }
 > = props => {

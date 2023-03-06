@@ -15,6 +15,8 @@ export default () => {
 
   const onSubmit = React.useCallback(
     async ({ unflattenedData }) => {
+      if (!project) return
+
       try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project.id}`,
@@ -37,7 +39,7 @@ export default () => {
         // TODO: error message
       }
     },
-    [project.id],
+    [project],
   )
 
   return (

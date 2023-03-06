@@ -25,14 +25,14 @@ export type CustomRenderers = {
 }
 
 type SerializeFunction = React.FC<{
-  content: Node[]
+  content?: Node[]
   customRenderers?: CustomRenderers
 }>
 
 export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
   return (
     <Fragment>
-      {content.map((node, i) => {
+      {content?.map((node, i) => {
         if (Text.isText(node)) {
           let text = <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />
 
