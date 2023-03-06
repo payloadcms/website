@@ -12,7 +12,7 @@ import classes from './index.module.scss'
 import { Width } from './Width'
 
 export const CMSForm: React.FC<{
-  form: string | Form
+  form?: string | Form
 }> = props => {
   const { form } = props
 

@@ -24,7 +24,7 @@ export const Image: React.FC<Props> = props => {
   let width: number | undefined
   let height: number | undefined
   let alt = altFromProps
-  let src: StaticImageData | string = srcFromProps
+  let src: StaticImageData | string | undefined = srcFromProps
 
   const hasDarkModeFallback =
     resource?.darkModeFallback &&
@@ -58,8 +58,8 @@ export const Image: React.FC<Props> = props => {
     <React.Fragment>
       <NextImage
         className={`${baseClasses} ${classes.themeLight}`}
-        src={src}
-        alt={alt}
+        src={src || ''}
+        alt={alt || ''}
         onClick={onClick}
         onLoad={() => {
           setIsLoading(false)
@@ -77,7 +77,7 @@ export const Image: React.FC<Props> = props => {
         <NextImage
           className={`${baseClasses} ${classes.themeDark}`}
           src={`${process.env.NEXT_PUBLIC_CMS_URL}/media/${resource.darkModeFallback.filename}`}
-          alt={alt}
+          alt={alt || ''}
           onClick={onClick}
           onLoad={() => {
             setIsLoading(false)

@@ -10,7 +10,7 @@ import { Pill } from '@components/Pill'
 import classes from './index.module.scss'
 
 export type Props = {
-  author: string
+  author?: string
   className?: string
   date?: Date
   image: string

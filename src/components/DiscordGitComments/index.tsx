@@ -50,7 +50,7 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
       )}
 
       {answerReplies &&
-        answer.replies.map((reply, replyIndex) => {
+        answer?.replies?.map((reply, replyIndex) => {
           return (
             <li key={replyIndex} className={classes.reply}>
               <AuthorTag

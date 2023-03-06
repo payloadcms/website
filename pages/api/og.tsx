@@ -2,7 +2,7 @@ import { ImageResponse } from '@vercel/og'
 import { NextRequest } from 'next/server'
 
 export const config = {
-  runtime: 'experimental-edge',
+  runtime: 'edge',
 }
 
 const neueMontrealFont = fetch(
@@ -21,7 +21,7 @@ export default async function handler(req: NextRequest) {
 
     const hasTitle = searchParams.has('title')
     const title = hasTitle ? searchParams.get('title')?.slice(0, 100) : ''
-    const titlePerWord = title.trim().split(' ')
+    const titlePerWord = title?.trim()?.split(' ')
     const hasTopic = searchParams.has('topic')
     const topic = hasTopic ? searchParams.get('topic')?.slice(0, 100).replace('-', ' ') : ''
 
@@ -58,7 +58,7 @@ export default async function handler(req: NextRequest) {
                 marginTop: '10px,',
               }}
             >
-              {titlePerWord.map((word, i) => {
+              {titlePerWord?.map((word, i) => {
                 return (
                   <span
                     key={i}
@@ -130,7 +130,7 @@ export default async function handler(req: NextRequest) {
       },
     )
   } catch (e: any) {
-    console.log(`${e.message}`)
+    console.error(`${e.message}`)
     return new Response(`Failed to generate the image`, {
       status: 500,
     })

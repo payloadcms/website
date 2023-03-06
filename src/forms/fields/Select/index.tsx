@@ -69,8 +69,9 @@ export const Select: React.FC<{
 
   const valueFromContextOrProps = valueFromContext || initialValueFromProps
 
-  const [internalState, setInternalState] = useState<Option | Option[]>(() => {
+  const [internalState, setInternalState] = useState<Option | Option[] | null>(() => {
     const initialValue = valueFromContext || initialValueFromProps
+
     if (Array.isArray(initialValue)) {
       return options?.filter(item => item.value === initialValue) || []
     }
@@ -93,7 +94,7 @@ export const Select: React.FC<{
     }
 
     if (valueFromContextOrProps !== undefined && isDifferent) {
-      let newValue = null
+      let newValue: Option | Option[] | null = null
 
       if (Array.isArray(valueFromContextOrProps)) {
         newValue =

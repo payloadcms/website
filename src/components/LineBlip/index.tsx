@@ -12,7 +12,7 @@ export const LineBlip: React.FC<{
   const [isAnimating, setIsAnimating] = useState(isHovered)
   const [isAnimatingIn, setIsAnimatingIn] = useState<boolean>(false)
   const [isAnimatingOut, setIsAnimatingOut] = useState<boolean>(false)
-  const ref = useRef(null)
+  const ref = useRef<HTMLDivElement>(null)
 
   let animationDuration = 750
 
@@ -22,11 +22,13 @@ export const LineBlip: React.FC<{
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
-    let outTimer: NodeJS.Timeout // eslint-disable-line
-    let inTimer: NodeJS.Timeout // eslint-disable-line
+    let outTimer: NodeJS.Timeout | undefined = undefined // eslint-disable-line
+    let inTimer: NodeJS.Timeout | undefined = undefined // eslint-disable-line
 
     if (isHovered) {
-      ref.current.style.animationDuration = 0
+      if (ref?.current) {
+        ref.current.style.animationDuration = '0'
+      }
       setIsAnimating(true)
       setIsAnimatingIn(true)
 

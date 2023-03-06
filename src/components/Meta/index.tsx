@@ -3,8 +3,8 @@ import { Media } from '@root/payload-types'
 
 export type MetaType = {
   image?: Media | string
-  description: string
-  title: string
+  description?: string
+  title?: string
   slug: string
 }
 

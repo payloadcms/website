@@ -11,8 +11,8 @@ import { DiscussionProps } from './github/[discussion]/render'
 import classes from './index.module.scss'
 
 export const RenderCommunityHelp: React.FC<{
-  discussions: DiscussionProps[]
-  threads: ThreadProps[]
+  discussions?: DiscussionProps[]
+  threads?: ThreadProps[]
 }> = ({ discussions, threads }) => {
   const theme = useTheme()
 
@@ -25,9 +25,9 @@ export const RenderCommunityHelp: React.FC<{
         <div className={classes.wrap}>
           <div>
             <h2>GitHub</h2>
-            <h6>Total: {discussions.length}</h6>
+            <h6>Total: {discussions?.length}</h6>
             <ul>
-              {discussions.map((discussion, i) => {
+              {discussions?.map((discussion, i) => {
                 return (
                   <li key={i}>
                     <a
@@ -43,9 +43,9 @@ export const RenderCommunityHelp: React.FC<{
           </div>
           <div>
             <h2>Discord</h2>
-            <h6>Total: {threads.length}</h6>
+            <h6>Total: {threads?.length}</h6>
             <ul>
-              {threads.map((thread, i) => {
+              {threads?.map((thread, i) => {
                 return (
                   <li key={i}>
                     <a

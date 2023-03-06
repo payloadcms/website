@@ -16,7 +16,9 @@ export default Discussion
 
 export async function generateStaticParams() {
   const discussions = await getAllDiscussions()
-  return discussions.map(({ id }) => ({
-    discussion: id,
-  }))
+  return (
+    discussions?.map(({ id }) => ({
+      discussion: id,
+    })) ?? []
+  )
 }

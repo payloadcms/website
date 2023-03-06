@@ -11,7 +11,7 @@ type Props = Extract<Page['layout'][0], { blockType: 'steps' }>['stepsFields']['
 }
 
 export const Step: React.FC<Props> = ({ layout, i }) => {
-  const ref = useRef()
+  const ref = useRef(null)
   const { isIntersecting } = useIntersection({ ref, rootMargin: '0% 0% -25% 0%' })
 
   const [hasAnimated, setHasAnimated] = useState(false)

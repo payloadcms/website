@@ -35,7 +35,7 @@ const icons = {
 }
 
 type GenerateSlugType = {
-  type: LinkType
+  type?: LinkType
   url?: string
   reference?: Reference
 }

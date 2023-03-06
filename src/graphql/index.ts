@@ -49,7 +49,7 @@ export const fetchAnnouncements = async (): Promise<{
   }
 }
 
-export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page> => {
+export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page | null> => {
   const slugSegments = incomingSlugSegments || ['home']
   const slug = slugSegments[slugSegments.length - 1]
 
