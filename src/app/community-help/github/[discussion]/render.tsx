@@ -64,7 +64,6 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
           <Grid>
             <Cell cols={10} colsL={9} className={classes.post}>
               <DiscordGitIntro
-                postUrl={url}
                 postName={title}
                 author={author.name}
                 image={author.avatar}

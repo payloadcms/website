@@ -10,7 +10,7 @@
 }
 
 .title {
-  margin-top: 0;
+  @include h3;
   text-decoration: none;
 }
 
