@@ -15,8 +15,12 @@ export const Announcements: React.FC<{ announcements: Announcement[] }> = ({ ann
   const [cookies, setCookie] = useCookies()
   const pathname = usePathname()
   const onDocsPage = pathname?.startsWith('/docs')
+  const [showAnnouncement, setShowAnnouncement] = React.useState(false)
 
-  const showAnnouncement = !closeAnnouncement && !cookies.dismissAnnouncement
+  React.useEffect(() => {
+    const newShow = !closeAnnouncement && !cookies.dismissAnnouncement
+    setShowAnnouncement(newShow)
+  }, [closeAnnouncement, cookies.dismissAnnouncement])
 
   return (
     <div
@@ -25,11 +29,11 @@ export const Announcements: React.FC<{ announcements: Announcement[] }> = ({ ann
         .join(' ')}
     >
       {showAnnouncement &&
-        announcements.map(announcement => {
+        announcements.map((announcement, index) => {
           const { content } = announcement
 
           return (
-            <div className={classes.announcement}>
+            <div className={classes.announcement} key={index}>
               <div className={classes.richText}>
                 <RichText content={content} />
                 <ArrowIcon className={classes.arrow} />
