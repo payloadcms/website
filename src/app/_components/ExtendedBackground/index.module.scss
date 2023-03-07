@@ -4,7 +4,7 @@
   position: relative;
   --bg-extension: calc(var(--gutter-h) * .25);
   --pixel-bg-extension: calc(var(--bg-extension) * 2);
-  --pixel-extension: calc(var(--bg-extension) * .5);
+  --pixel-extension: calc(var(--bg-extension));
 
   @include large-break {
     --bg-extension: calc(var(--gutter-h) * .5);
