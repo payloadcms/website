@@ -60,7 +60,7 @@ export const Select: React.FC<{
   const id = useId()
   const ref = useRef<any>(null)
 
-  const fieldFromContext = useFormField<string | string[]>({
+  const fieldFromContext = useFormField<Option | Option[]>({
     path,
     validate: required ? validate : undefined,
   })
@@ -76,7 +76,7 @@ export const Select: React.FC<{
       return options?.filter(item => item.value === initialValue) || []
     }
 
-    return options?.find(item => item.value === initialValue) || null
+    return initialValue?.value
   })
 
   useEffect(() => {
@@ -91,6 +91,10 @@ export const Select: React.FC<{
 
     if (typeof valueFromContextOrProps === 'string' && typeof internalState === 'string') {
       isDifferent = valueFromContextOrProps !== internalState
+    }
+
+    if (typeof valueFromContextOrProps === 'object' && !Array.isArray(valueFromContextOrProps)) {
+      setInternalState(valueFromContextOrProps?.value)
     }
 
     if (valueFromContextOrProps !== undefined && isDifferent) {
@@ -111,14 +115,19 @@ export const Select: React.FC<{
 
   const handleChange = useCallback(
     (incomingSelection: Option | Option[]) => {
-      setInternalState(incomingSelection)
+      let selectedOption
+      if (Array.isArray(incomingSelection)) {
+        selectedOption = incomingSelection
+      } else {
+        selectedOption = incomingSelection.value
+      }
 
       if (typeof setValue === 'function') {
-        setValue(incomingSelection)
+        setValue(selectedOption)
       }
 
       if (typeof onChange === 'function') {
-        onChange(incomingSelection)
+        onChange(selectedOption)
       }
     },
     [onChange, setValue],
