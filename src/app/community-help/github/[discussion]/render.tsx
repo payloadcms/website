@@ -13,6 +13,7 @@ import { DiscordGitIntro } from '@components/DiscordGitIntro'
 import { DiscordGitComments } from '@components/DiscordGitComments'
 import classes from './index.module.scss'
 
+type DateFromSource = string | number
 export type Author = {
   name: string
   url: string
@@ -21,16 +22,16 @@ export type Author = {
 export type Comment = {
   author: Author
   body: string
-  createdAt: Date
+  createdAt: DateFromSource
   replies?: Comment[]
 }
 
 export type Answer = {
   author: Author
   body: string
-  createdAt: Date
+  createdAt: DateFromSource
   chosenBy: Author
-  chosenAt: Date
+  chosenAt: DateFromSource
   replies?: Comment[]
 }
 
@@ -40,7 +41,7 @@ export type DiscussionProps = {
   author: Author
   answer?: Answer
   body: string
-  createdAt: Date
+  createdAt: DateFromSource
   url: string
   commentTotal: number
   upvotes: number
@@ -68,12 +69,11 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
                 author={author.name}
                 image={author.avatar}
                 date={createdAt}
-                platform="Github"
                 messageCount={commentTotal}
                 upvotes={upvotes}
                 content={body}
               />
-              <DiscordGitComments answer={answer} comments={comments} platform="Github" />
+              <DiscordGitComments answer={answer} comments={comments} />
               <OpenPost url={url} platform="GitHub" />
             </Cell>
           </Grid>

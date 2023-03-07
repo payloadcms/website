@@ -71,11 +71,10 @@ export const RenderThread: React.FC<ThreadProps> = props => {
               author={author}
               image={authorAvatarImg}
               date={info.createdAt}
-              platform="Discord"
               messageCount={messageCount}
               content={originalMessage}
             />
-            <DiscordGitComments comments={allMessagesExceptOriginal} platform="Discord" />
+            <DiscordGitComments comments={allMessagesExceptOriginal} />
             <OpenPost url={postUrl} platform="Discord" />
           </Cell>
         </Grid>
