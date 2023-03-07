@@ -14,23 +14,23 @@ const sidebarNavRoutes = [
   },
   {
     label: 'Environment Variables',
-    pathSegment: 'environment-variables',
+    slug: 'environment-variables',
   },
   {
     label: 'Domains',
-    pathSegment: 'domains',
+    slug: 'domains',
   },
   {
     label: 'Ownership',
-    pathSegment: 'ownership',
+    slug: 'ownership',
   },
   {
     label: 'Plan',
-    pathSegment: 'plan',
+    slug: 'plan',
   },
   {
     label: 'Billing',
-    pathSegment: 'billing',
+    slug: 'billing',
   },
 ]
 
@@ -45,7 +45,7 @@ export default ({ children }: ProjectSettingsLayoutType) => {
       <Cell cols={3} start={1}>
         <div className={classes.sidebarNav}>
           {sidebarNavRoutes.map(route => {
-            const isActive = settingSlug === route?.pathSegment
+            const isActive = settingSlug === route?.slug
 
             return (
               <p
@@ -56,7 +56,7 @@ export default ({ children }: ProjectSettingsLayoutType) => {
               >
                 <Link
                   href={`/${home}/${teamSlug}/${projectSlug}/${settingsTab}${
-                    route?.pathSegment ? `/${route.pathSegment}` : ''
+                    route?.slug ? `/${route.slug}` : ''
                   }`}
                 >
                   {route.label}

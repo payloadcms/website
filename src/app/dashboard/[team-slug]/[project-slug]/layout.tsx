@@ -4,8 +4,8 @@ import * as React from 'react'
 import { notFound } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
+import { RouteTabs } from '../../_components/RouteTabs'
 import { useRouteData } from '../../context'
-import { RouteTabs } from './_components/RouteTabs'
 
 import classes from './index.module.scss'
 
@@ -14,11 +14,11 @@ type ProjectLayoutType = {
 }
 
 export default ({ children }: ProjectLayoutType) => {
-  const { project, setProject } = useRouteData()
+  const { team, project, reloadProject } = useRouteData()
 
   React.useEffect(() => {
-    return () => setProject(undefined)
-  }, [setProject])
+    reloadProject()
+  }, [reloadProject])
 
   if (project === undefined) return null
 
@@ -26,10 +26,31 @@ export default ({ children }: ProjectLayoutType) => {
 
   return (
     <React.Fragment>
-      <Gutter className={classes.tabContainer}>
-        <RouteTabs />
-      </Gutter>
-
+      <RouteTabs
+        className={classes.tabContainer}
+        basePath={`/dashboard/${team.slug}/${project.slug}`}
+        tabs={[
+          {
+            label: 'Overview',
+          },
+          {
+            label: 'Logs',
+            slug: 'logs',
+          },
+          {
+            label: 'Database',
+            slug: 'database',
+          },
+          {
+            label: 'File Storage',
+            slug: 'file-storage',
+          },
+          {
+            label: 'Settings',
+            slug: 'settings',
+          },
+        ]}
+      />
       <Gutter>{children}</Gutter>
     </React.Fragment>
   )

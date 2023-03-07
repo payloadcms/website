@@ -57,7 +57,7 @@ export const Secret: React.FC<SecretProps> = props => {
     required,
   })
 
-  const loadExternalValue = React.useCallback(async (): Promise<string> => {
+  const loadExternalValue = React.useCallback(async (): Promise<string | null> => {
     try {
       const loadedValue = await loadValue()
       onChange(loadedValue)
@@ -107,7 +107,7 @@ export const Secret: React.FC<SecretProps> = props => {
         name={path}
         required={required}
         type="text"
-        value={isHidden ? '••••••••••' : value}
+        value={isHidden ? '••••••••••' : value || ''}
         tabIndex={isHidden ? -1 : 0}
       />
     </div>

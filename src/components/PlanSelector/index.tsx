@@ -1,43 +1,37 @@
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useEffect, useMemo } from 'react'
 import Label from '@forms/Label'
 
 import { LargeRadio } from '@components/LargeRadio'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Plan } from '@root/payload-cloud-types'
 import { priceFromJSON } from '@root/utilities/price-from-json'
+import { UseCloud, useGetPlans } from '@root/utilities/use-cloud'
 import useDebounce from '@root/utilities/use-debounce'
-import { UseGetPlans, useGetPlans } from '../../utilities/use-get-plans'
 
 import classes from './index.module.scss'
 
 type PlanSelectorProps = {
   value?: string
-  onChange?: (value: Plan) => void // eslint-disable-line no-unused-vars
-  isOrgScope?: boolean
+  onChange?: (value?: Plan | null) => void // eslint-disable-line no-unused-vars
   plans: Plan[]
   loading: boolean
   error: string | undefined
   initialSelection?: Plan
+  onFreeTrialChange?: (value?: boolean) => void // eslint-disable-line no-unused-vars
+  freeTrial?: boolean
 }
 
 export const PlanSelector: React.FC<PlanSelectorProps> = props => {
-  const {
-    onChange,
-    value: valueFromProps,
-    isOrgScope,
-    loading,
-    error,
-    plans,
-    initialSelection,
-  } = props
-  const hasInitializedSelection = React.useRef(false)
-  const [selectedPlan, setSelectedPlan] = React.useState<Plan | null>(initialSelection)
+  const { onChange, value: valueFromProps, loading, error, plans, initialSelection } = props
 
-  // initialize with the `free` plan
+  const hasInitializedSelection = React.useRef(false)
+  const [selectedPlan, setSelectedPlan] = React.useState<Plan | undefined | null>(initialSelection)
+
+  // initialize with the `standard` plan
   useEffect(() => {
     if (plans?.length && !initialSelection && !hasInitializedSelection.current) {
       hasInitializedSelection.current = true
-      setSelectedPlan(plans.find(plan => plan.slug === 'free'))
+      setSelectedPlan(plans.find(plan => plan.slug === 'standard'))
     }
   }, [plans, initialSelection])
 
@@ -59,12 +53,6 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
     }
   }, [onChange, selectedPlan])
 
-  useEffect(() => {
-    if (isOrgScope && selectedPlan?.slug === 'free') {
-      setSelectedPlan(plans.find(plan => plan.slug === 'pro'))
-    }
-  }, [isOrgScope, plans, selectedPlan])
-
   return (
     <Fragment>
       {error && <p>{error}</p>}
@@ -75,29 +63,29 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
         </Fragment>
       )}
       {!loading && (
-        <div className={classes.plans}>
-          {plans &&
-            plans.length > 0 &&
-            plans.map(plan => {
-              const { priceJSON, name, slug } = plan
-              const checked = selectedPlan?.id === plan.id
-              const price = priceFromJSON(priceJSON, false)
-              const disabled = isOrgScope && slug === 'free'
+        <div>
+          <div className={classes.plans}>
+            {plans &&
+              plans.length > 0 &&
+              plans.map(plan => {
+                const { priceJSON, name } = plan
+                const checked = selectedPlan?.id === plan.id
+                const price = priceFromJSON(priceJSON, false)
 
-              return (
-                <LargeRadio
-                  key={plan.id}
-                  checked={checked}
-                  disabled={disabled}
-                  name={name}
-                  id={plan.id}
-                  value={plan}
-                  price={price}
-                  onChange={setSelectedPlan}
-                  label={name}
-                />
-              )
-            })}
+                return (
+                  <LargeRadio
+                    key={plan.id}
+                    checked={checked}
+                    name={name}
+                    id={plan.id}
+                    value={plan}
+                    price={price}
+                    onChange={setSelectedPlan}
+                    label={name}
+                  />
+                )
+              })}
+          </div>
         </div>
       )}
     </Fragment>
@@ -105,48 +93,23 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
 }
 
 export const usePlanSelector = (args: {
-  isOrgScope: boolean
   onChange?: (value: Plan) => void // eslint-disable-line no-unused-vars
-}): [
-  React.FC,
-  ReturnType<UseGetPlans> & {
-    value: Plan | undefined
-  },
-] => {
-  const { isOrgScope, onChange } = args
+}): [React.FC, ReturnType<UseCloud<Plan>>] => {
+  const { onChange } = args
 
-  const [value, setValue] = useState<Plan | undefined>()
   const plansData = useGetPlans()
   const debouncedLoading = useDebounce(plansData.isLoading, 250)
 
   const MemoizedPlanSelector = useMemo(
     () => () => {
-      const { error, plans } = plansData
+      const { error, result: plans } = plansData
 
       return (
-        <PlanSelector
-          loading={debouncedLoading}
-          error={error}
-          plans={plans}
-          onChange={setValue}
-          isOrgScope={isOrgScope}
-        />
+        <PlanSelector loading={debouncedLoading} error={error} plans={plans} onChange={onChange} />
       )
     },
-    [debouncedLoading, isOrgScope, plansData],
+    [debouncedLoading, plansData, onChange],
   )
 
-  useEffect(() => {
-    if (typeof onChange === 'function') {
-      onChange(value)
-    }
-  }, [onChange, value])
-
-  return [
-    MemoizedPlanSelector,
-    {
-      ...plansData,
-      value,
-    },
-  ]
+  return [MemoizedPlanSelector, plansData]
 }

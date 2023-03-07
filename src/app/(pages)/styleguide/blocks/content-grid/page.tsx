@@ -9,7 +9,8 @@ const data: ContentGridProps = {
   blockType: 'contentGrid',
   contentGridFields: {
     useLeadingHeader: false,
-    leadingHeader: undefined,
+    // @ts-expect-error
+    leadingHeader: null,
     cells: [
       {
         content: [

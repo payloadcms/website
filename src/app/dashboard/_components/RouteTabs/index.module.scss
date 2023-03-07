@@ -1,3 +1,19 @@
+.tabsContainer {
+  position: relative;
+  width: 100%;
+
+  &:after {
+    // thin full width line
+    content: '';
+    position: absolute;
+    width: calc(100% + var(--gutter-h));
+    left: calc(-1 * var(--gutter-h));
+    height: 1px;
+    bottom: 3px;
+    background-color: var(--theme-elevation-200)
+  }
+}
+
 .tabs {
   width: calc(100% + var(--gutter-h) * 2);
   margin-left: calc(var(--gutter-h) * -1);

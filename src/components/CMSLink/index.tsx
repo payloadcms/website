@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { CaseStudy, Page, Post } from '@root/payload-types'
 // eslint-disable-next-line import/no-cycle
-import { Button, ButtonProps as ButtonProps } from '../Button'
+import { Button, ButtonProps } from '../Button'
 
 const relationSlugs = {
   case_studies: 'case-studies',
@@ -44,7 +44,7 @@ export type CMSLinkType = {
 }
 
 type GenerateSlugType = {
-  type: LinkType
+  type?: LinkType
   url?: string
   reference?: Reference
 }

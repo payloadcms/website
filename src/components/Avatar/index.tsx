@@ -27,7 +27,7 @@ export const Avatar: React.FC = () => {
       <DropdownMenu isOpen={isOpen} onChange={setIsOpen} /> */}
       <Link href="/dashboard">
         <div className={classes.primaryUser}>
-          <div className={classes.userInitial}>{user.email.charAt(0).toUpperCase()}</div>
+          <div className={classes.userInitial}>{user?.email?.charAt(0).toUpperCase()}</div>
         </div>
       </Link>
     </div>

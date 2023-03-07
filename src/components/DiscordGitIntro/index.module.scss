@@ -1,0 +1,25 @@
+@use '@scss/common' as *;
+
+.breadcrumbWrap {
+  margin: 0 0 var(--base) 0;
+}
+
+.breadcrumb {
+  @include label;
+  text-decoration: none;
+}
+
+.title {
+  @include h3;
+  text-decoration: none;
+}
+
+.authorDetails {
+  display: flex;
+  align-items: center;
+  padding: var(--base) 0 var(--base) 0;
+
+  @include mid-break {
+    padding: calc(var(--base) * 0.5) 0;
+  }
+}

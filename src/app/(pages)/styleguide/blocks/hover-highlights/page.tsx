@@ -43,6 +43,7 @@ const data: HoverHighlightProps = {
         },
         link: {
           type: 'reference',
+          // @ts-expect-error
           reference: null,
           url: '',
         },
@@ -66,6 +67,7 @@ const data: HoverHighlightProps = {
         },
         link: {
           type: 'reference',
+          // @ts-expect-error
           reference: null,
           url: '',
         },
@@ -89,6 +91,7 @@ const data: HoverHighlightProps = {
         },
         link: {
           type: 'reference',
+          // @ts-expect-error
           reference: null,
           url: '',
         },

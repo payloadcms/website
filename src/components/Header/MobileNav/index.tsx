@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Modal, useModal } from '@faceless-ui/modal'
-import { useHeaderTheme } from '@providers/HeaderTheme'
+import { HeaderColors, useHeaderTheme } from '@providers/HeaderTheme'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -48,7 +48,7 @@ const MobileMenuModal: React.FC<NavItems> = ({ navItems }) => {
 export const MobileNav: React.FC<NavItems> = props => {
   const { isModalOpen, openModal, closeModal, closeAllModals } = useModal()
   const { headerColor, setHeaderColor } = useHeaderTheme()
-  const headerColorRef = React.useRef(null)
+  const headerColorRef = React.useRef<HeaderColors | null | undefined>(undefined)
 
   const pathname = usePathname()
 

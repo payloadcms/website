@@ -40,7 +40,11 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
   // Method to send update field values from field component(s)
   // Should only be used internally
   const sendField = useCallback(
-    async (valueToSend: Value) => {
+    async (valueToSend?: Value) => {
+      if (valueToSend === undefined) {
+        return
+      }
+
       const fieldToDispatch: Action = {
         type: 'UPDATE',
         path,

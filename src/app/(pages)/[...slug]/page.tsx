@@ -26,6 +26,6 @@ export async function generateStaticParams() {
   const pages = await fetchPages()
 
   return pages.map(({ breadcrumbs }) => ({
-    slug: breadcrumbs[breadcrumbs.length - 1].url.replace(/^\/|\/$/g, '').split('/'),
+    slug: breadcrumbs?.[breadcrumbs.length - 1]?.url?.replace(/^\/|\/$/g, '').split('/'),
   }))
 }

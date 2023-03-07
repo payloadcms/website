@@ -18,7 +18,7 @@ import { useCreateDraftProject } from '@root/utilities/use-create-draft-project'
 import classes from './CloneTemplate.module.scss'
 
 export const CloneTemplate: React.FC<{
-  template: Template
+  template?: Template
 }> = props => {
   const { template } = props
   const [makePrivate, setMakePrivate] = React.useState(false)
@@ -31,9 +31,9 @@ export const CloneTemplate: React.FC<{
     error: createError,
     isSubmitting,
   } = useCreateDraftProject({
-    projectName: template.name,
+    projectName: template?.name,
     installID: selectedInstall?.id,
-    templateID: template.id,
+    templateID: template?.id,
     makePrivate,
     onSubmit: ({ id: draftProjectID }) => {
       router.push(`/new/clone/configure/${draftProjectID}`)
@@ -68,7 +68,7 @@ export const CloneTemplate: React.FC<{
               <Cell cols={4}>
                 <Text
                   label="Repository Name"
-                  initialValue={template.slug}
+                  initialValue={template?.slug}
                   onChange={setName}
                   required
                 />

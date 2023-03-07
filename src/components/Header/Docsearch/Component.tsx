@@ -9,7 +9,7 @@ function Component() {
       <DocSearch
         appId="9MJY7K9GOW"
         indexName="payloadcms"
-        apiKey={process.env.NEXT_PUBLIC_ALGOLIA_DOCSEARCH_KEY}
+        apiKey={process.env.NEXT_PUBLIC_ALGOLIA_DOCSEARCH_KEY || ''}
       />
     </div>
   )

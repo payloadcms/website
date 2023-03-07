@@ -12,7 +12,7 @@ export const DefaultCard: React.FC<DefaultCardProps> = props => {
 
   return (
     <Link
-      href={href}
+      href={href || ''}
       className={[classes.defaultCard, className && className].filter(Boolean).join(' ')}
     >
       {leader && <span className={classes.leader}>{leader}</span>}

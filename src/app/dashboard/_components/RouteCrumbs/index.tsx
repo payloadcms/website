@@ -4,9 +4,11 @@ import React from 'react'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
+import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
 import { useRouteData } from '../../context'
 
 export const RouteCrumbs: React.FC = () => {
+  const [_, teamSlug, projectSlug] = usePathnameSegments() // eslint-disable-line no-unused-vars
   const { team, project } = useRouteData()
 
   const crumbs = [
@@ -16,16 +18,16 @@ export const RouteCrumbs: React.FC = () => {
     },
   ]
 
-  if (team) {
+  if (teamSlug && team) {
     crumbs.push({
-      label: team.name,
-      url: `/dashboard/${team.slug}`,
+      label: team.name || 'Team',
+      url: `/dashboard/${teamSlug}`,
     })
 
-    if (project) {
+    if (projectSlug && project) {
       crumbs.push({
         label: project.name,
-        url: `/dashboard/${team.slug}/${project.slug}`,
+        url: `/dashboard/${teamSlug}/${projectSlug}`,
       })
     }
   }

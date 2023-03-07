@@ -12,11 +12,11 @@ import classes from './Authorize.module.scss'
 const href = `https://github.com/login/oauth/authorize?client_id=${
   process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
 }&redirect_uri=${encodeURIComponent(
-  process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
+  process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI || '',
 )}&state=${encodeURIComponent(`/new/import`)}`
 
 export const Authorize: React.FC<{
-  onAuthorize: (searchParams: any) => void // eslint-disable-line no-unused-vars
+  onAuthorize: (searchParams: any) => Promise<void> // eslint-disable-line no-unused-vars
 }> = props => {
   const { onAuthorize } = props
   const { openPopupWindow } = usePopupWindow({

@@ -9,4 +9,5 @@ export interface FieldProps<T> {
   onChange?: (value: T) => void // eslint-disable-line no-unused-vars
   initialValue?: T
   className?: string
+  disabled?: boolean
 }

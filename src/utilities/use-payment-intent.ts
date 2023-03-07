@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from 'react'
 
-import type { Plan, Team } from '@root/payload-cloud-types'
+import type { CheckoutState } from '@root/app/new/(checkout)/reducer'
 
-export const usePaymentIntent = (props: {
-  plan: Plan
-  team: Team
-  paymentMethod?: string
-}): { clientSecret: string; error: string } => {
-  const { plan, team, paymentMethod } = props
+export interface PayloadPaymentIntent {
+  client_secret: string
+  paid?: boolean
+  subscription?: string
+  error?: string
+}
 
-  const [clientSecret, setClientSecret] = useState<string>('')
-  const [error, setError] = useState<'' | null>(null)
-  const lastRequestedPlan = React.useRef(plan)
+export const usePaymentIntent = (
+  props: CheckoutState,
+): { error?: string; paymentIntent?: PayloadPaymentIntent } => {
+  const { project, paymentMethod, freeTrial } = props
+
+  const [paymentIntent, setPaymentIntent] = useState<PayloadPaymentIntent>()
+  const [error, setError] = useState<string | undefined>('')
+  const isRequesting = React.useRef<boolean>(false)
 
   useEffect(() => {
-    if (plan) {
-      if (lastRequestedPlan.current?.id === plan?.id) return
-      lastRequestedPlan.current = plan
+    if (project?.plan) {
+      const { plan, team } = project
 
-      if (plan.slug === 'free') return
+      if (isRequesting.current) return
 
       const makePaymentIntent = async (): Promise<void> => {
         const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/payment-intent`, {
@@ -27,24 +31,27 @@ export const usePaymentIntent = (props: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            plan: plan?.id,
-            team: team?.id,
+            plan: typeof plan === 'string' ? plan : plan?.id,
+            team: typeof team === 'string' ? team : team?.id,
             paymentMethod,
+            freeTrial,
           }),
         })
 
-        const res = await req.json()
+        const res: PayloadPaymentIntent = await req.json()
 
         if (req.ok) {
-          setClientSecret(res.client_secret)
+          setPaymentIntent(res)
         } else {
           setError(res.error)
         }
+
+        isRequesting.current = false
       }
 
       makePaymentIntent()
     }
-  }, [plan, team, paymentMethod])
+  }, [project, paymentMethod, freeTrial])
 
-  return { clientSecret, error }
+  return { error, paymentIntent }
 }

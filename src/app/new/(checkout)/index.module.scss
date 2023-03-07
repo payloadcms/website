@@ -32,6 +32,22 @@
     }
 }
 
+.totalPriceSection {
+    margin-top: var(--base);
+}
+
+.totalPrice {
+    margin: 0;
+}
+
+.freeTrial {
+    margin-top: var(--base);
+}
+
+.freeTrialDisabled {
+    color: var(--theme-elevation-500);
+}
+
 .buildSettings {
     > * {
         margin-bottom: var(--base);

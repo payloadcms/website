@@ -17,7 +17,7 @@ import classes from './index.module.scss'
 
 type Props = {
   doc: Doc
-  next?: NextDoc
+  next?: NextDoc | null
 }
 
 export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
@@ -32,7 +32,7 @@ export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
   }, [])
 
   const openSearch = React.useCallback(() => {
-    document.querySelector<HTMLButtonElement>('.DocSearch-Button').click()
+    document?.querySelector<HTMLButtonElement>('.DocSearch-Button')?.click()
   }, [])
 
   return (

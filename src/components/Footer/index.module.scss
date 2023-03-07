@@ -116,7 +116,8 @@
   margin-right: var(--base);
 }
 
-.copyright {
+.copyright,
+.communityHelp {
   font-size: calc(var(--font-body-size) * 0.925);
   color: var(--theme-elevation-500);
   margin: 0;

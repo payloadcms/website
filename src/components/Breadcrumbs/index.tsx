@@ -9,13 +9,13 @@ export type Breadcrumb = {
 }
 
 export type Props = {
-  items: Array<Breadcrumb>
+  items?: Array<Breadcrumb>
 }
 
 export const Breadcrumbs: React.FC<Props> = ({ items }) => {
   return (
     <nav className={classes.breadcrumbs}>
-      {items.map((item, index) => {
+      {items?.map((item, index) => {
         const isLast = index === items.length - 1
 
         if (item?.url && typeof item.url === 'string' && !isLast) {

@@ -25,7 +25,7 @@ export const DropdownMenu: React.FC<{
     }
   }, [isOpen, onChange])
 
-  const ref = React.useRef()
+  const ref = React.useRef<HTMLDivElement>(null)
 
   const handleClickAway = React.useCallback(() => {
     setIsOpen(false)
@@ -44,9 +44,9 @@ export const DropdownMenu: React.FC<{
           <p className={classes.dropdownLabel}>Personal account</p>
           <Link href="/dashboard" className={classes.profileLink}>
             <div className={classes.profileAvatar}>
-              <div className={classes.userInitial}>{user.email.charAt(0).toUpperCase()}</div>
+              <div className={classes.userInitial}>{user?.email?.charAt(0).toUpperCase()}</div>
             </div>
-            <p className={classes.profileName}>{user.email}</p>
+            <p className={classes.profileName}>{user?.email}</p>
           </Link>
         </div>
         <div>

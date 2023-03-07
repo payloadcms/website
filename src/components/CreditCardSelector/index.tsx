@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Card } from '@stripe/stripe-js'
 
 import { CreditCardElement } from '@components/CreditCardElement'
 import { LargeRadio } from '@components/LargeRadio'
@@ -9,13 +10,17 @@ import classes from './index.module.scss'
 export const CreditCardSelector: React.FC<{
   team: Team
   initialValue?: string
-  onChange?: (value: string) => void // eslint-disable-line no-unused-vars
+  onChange?: (method?: string) => void // eslint-disable-line no-unused-vars
 }> = props => {
   const { onChange, initialValue, team } = props
   const [error, setError] = React.useState<string | undefined>()
-  const [cards, setCards] = React.useState([])
+  const [cards, setCards] = React.useState<
+    {
+      id: string
+      card: Card
+    }[]
+  >([])
   const hasMadeRequest = React.useRef(false)
-  // const prevValueFromProps = React.useRef(valueFromProps)
   const [internalState, setInternalState] = React.useState(initialValue)
   const [showNewCard, setShowNewCard] = React.useState(false)
 
@@ -60,19 +65,15 @@ export const CreditCardSelector: React.FC<{
     fetchPaymentMethods()
   }, [team])
 
-  // allow external control of internal state
-  // useEffect(() => {
-  //   if (valueFromProps !== prevValueFromProps.current) setInternalState(valueFromProps)
-  // }, [valueFromProps, internalState])
-
   useEffect(() => {
-    if (typeof onChange === 'function') onChange(internalState)
+    if (typeof onChange === 'function') {
+      onChange(internalState)
+    }
   }, [onChange, internalState])
 
   return (
     <div className={classes.creditCardSelector}>
       {error && <p className={classes.error}>{error}</p>}
-      {cards?.length === 0 && <p>No cards on file</p>}
       <div className={classes.cards}>
         {cards?.map(card => (
           <LargeRadio
@@ -96,16 +97,18 @@ export const CreditCardSelector: React.FC<{
           />
         )}
       </div>
-      <button
-        className={classes.addNew}
-        onClick={() => {
-          setShowNewCard(!showNewCard)
-          setInternalState(showNewCard ? cards?.[0]?.id || 'new-card' : 'new-card')
-        }}
-        type="button"
-      >
-        {showNewCard ? 'Cancel new card' : 'Add new card'}
-      </button>
+      {cards.filter(card => card.id !== 'new-card').length > 0 && (
+        <button
+          className={classes.addNew}
+          onClick={() => {
+            setShowNewCard(!showNewCard)
+            setInternalState(showNewCard ? cards?.[0]?.id || 'new-card' : 'new-card')
+          }}
+          type="button"
+        >
+          {showNewCard ? 'Cancel' : 'Add new card'}
+        </button>
+      )}
     </div>
   )
 }

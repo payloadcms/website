@@ -1,7 +1,8 @@
 'use client'
 
-import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import React, { Fragment, useCallback, useEffect } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import { Checkbox } from '@forms/fields/Checkbox'
 import { Text } from '@forms/fields/Text'
 import Label from '@forms/Label'
 import { Elements } from '@stripe/react-stripe-js'
@@ -22,7 +23,7 @@ import { priceFromJSON } from '@root/utilities/price-from-json'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import useDebounce from '@root/utilities/use-debounce'
 import { usePaymentIntent } from '@root/utilities/use-payment-intent'
-import { projectReducer } from './reducer'
+import { checkoutReducer, CheckoutState } from './reducer'
 import { useDeploy } from './useDeploy'
 
 import classes from './index.module.scss'
@@ -38,32 +39,43 @@ const Stripe = loadStripe(apiKey)
 const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) => {
   const router = useRouter()
   const [isLoading, setIsLoading] = React.useState<boolean>(true)
-  const [project, dispatchProject] = React.useReducer(projectReducer, null)
-  const requestedProject = React.useRef(false)
-  const [paymentMethod, setPaymentMethod] = React.useState<string | null>(null)
-  const [ScopeSelector, { value: selectedInstall, loading: installsLoading }] = useScopeSelector()
-
-  const [isOrgScope, setIsOrgScope] = useState(
-    () => selectedInstall?.target_type === 'Organization',
+  const [checkoutState, dispatchCheckoutState] = React.useReducer(
+    checkoutReducer,
+    {} as CheckoutState,
   )
+  const requestedProject = React.useRef(false)
 
-  const handleChange = useCallback(incomingPlan => {
-    dispatchProject({
+  const [
+    ScopeSelector,
+    { value: selectedInstall, loading: installsLoading, error: installsError },
+  ] = useScopeSelector()
+
+  const handleCardChange = useCallback((incomingPaymentMethod: string) => {
+    dispatchCheckoutState({
+      type: 'SET_PAYMENT_METHOD',
+      payload: incomingPaymentMethod,
+    })
+  }, [])
+
+  const handlePlanChange = useCallback((incomingPlan: Plan) => {
+    dispatchCheckoutState({
       type: 'SET_PLAN',
       payload: incomingPlan,
     })
   }, [])
 
+  const handleTrialChange = useCallback((incomingStatus: boolean) => {
+    dispatchCheckoutState({
+      type: 'SET_FREE_TRIAL',
+      payload: incomingStatus,
+    })
+  }, [])
+
   const [PlanSelector] = usePlanSelector({
-    isOrgScope,
-    onChange: handleChange,
+    onChange: handlePlanChange,
   })
 
-  const { clientSecret: stripeClientSecret, error: paymentIntentError } = usePaymentIntent({
-    plan: project?.plan as Plan,
-    team: project?.team as Team,
-    paymentMethod,
-  })
+  const { paymentIntent, error: paymentIntentError } = usePaymentIntent(checkoutState)
 
   useEffect(() => {
     if (requestedProject.current) return
@@ -86,8 +98,8 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
           if (res.status === 'published') {
             router.push(`/dashboard/${res?.team?.slug}/${res.slug}`)
           } else {
-            dispatchProject({
-              type: 'SET',
+            dispatchCheckoutState({
+              type: 'SET_PROJECT',
               payload: {
                 ...res,
                 team: res.team as Team,
@@ -107,21 +119,14 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
   }, [draftProjectID, router])
 
   const { isDeploying, errorDeploying, deploy } = useDeploy({
-    project: {
-      ...project,
-      installID: selectedInstall?.id.toString(),
-    },
-    stripeClientSecret,
-    paymentMethod,
+    checkoutState,
+    installID: selectedInstall?.id.toString(),
+    paymentIntent,
   })
-
-  useEffect(() => {
-    setIsOrgScope(selectedInstall?.target_type === 'Organization')
-  }, [selectedInstall])
 
   const loading = useDebounce(isLoading, 500)
 
-  if (!loading && !project) {
+  if (!loading && !checkoutState?.project) {
     return <Gutter>This project does not exist.</Gutter>
   }
 
@@ -143,6 +148,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
           />
           <h1>Configure your project</h1>
           {errorDeploying && <p className={classes.error}>{errorDeploying}</p>}
+          {installsError && <p className={classes.error}>{installsError}</p>}
           {paymentIntentError && <p className={classes.error}>{paymentIntentError}</p>}
           {isDeploying && <p className={classes.submitting}>Submitting, one moment...</p>}
         </div>
@@ -154,14 +160,16 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
               ) : (
                 <Fragment>
                   <ScopeSelector />
-                  <br />
-                  <div>
+                  <div className={classes.totalPriceSection}>
                     <Label label="Total cost" htmlFor="" />
-                    <p>
+                    <p className={classes.totalPrice}>
                       {priceFromJSON(
-                        typeof project.plan !== 'string' ? project?.plan?.priceJSON : '',
+                        typeof checkoutState?.project?.plan !== 'string'
+                          ? checkoutState?.project?.plan?.priceJSON
+                          : '',
                       )}
                     </p>
+                    {checkoutState?.freeTrial && <p>(Free for 7 days)</p>}
                   </div>
                 </Fragment>
               )}
@@ -179,6 +187,23 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
                     </div>
                     <div className={classes.plans}>
                       <PlanSelector />
+                      <div className={classes.freeTrial}>
+                        <Checkbox
+                          label="7 day free trial"
+                          checked={checkoutState?.freeTrial}
+                          onChange={handleTrialChange}
+                          disabled={
+                            typeof checkoutState?.project?.plan === 'object' &&
+                            checkoutState?.project?.plan?.slug !== 'standard'
+                          }
+                        />
+                        {typeof checkoutState?.project?.plan === 'object' &&
+                          checkoutState?.project?.plan?.slug !== 'standard' && (
+                            <p className={classes.freeTrialDisabled}>
+                              Free trials are only available on the Standard plan.
+                            </p>
+                          )}
+                      </div>
                     </div>
                   </div>
                   <div>
@@ -193,7 +218,11 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
                       <h5 className={classes.sectionTitle}>Build Settings</h5>
                       <Link href="">Learn more</Link>
                     </div>
-                    <Text label="Project name" path="name" initialValue={project?.name} />
+                    <Text
+                      label="Project name"
+                      path="name"
+                      initialValue={checkoutState?.project?.name}
+                    />
                     <Text label="Install Command" path="installCommand" initialValue="yarn" />
                     <Text label="Build Command" path="buildCommand" initialValue="yarn build" />
                     <Text label="Branch to deploy" path="branch" initialValue="main" />
@@ -217,13 +246,13 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
                       Add another
                     </button>
                   </div>
-                  {typeof project?.plan !== 'string' && project?.plan?.slug !== 'free' && (
+                  {!checkoutState?.freeTrial && (
                     <div>
                       <h5>Payment Info</h5>
                       <CreditCardSelector
-                        initialValue={paymentMethod}
-                        team={project?.team as Team}
-                        onChange={setPaymentMethod}
+                        initialValue={checkoutState?.paymentMethod}
+                        team={checkoutState?.project?.team as Team}
+                        onChange={handleCardChange}
                       />
                     </div>
                   )}

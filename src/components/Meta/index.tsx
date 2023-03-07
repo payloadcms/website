@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react'
+
 import { Media } from '@root/payload-types'
 
 export type MetaType = {
   image?: Media | string
-  description: string
-  title: string
+  description?: string
+  title?: string
   slug: string
 }
 
@@ -23,10 +24,15 @@ const Meta: React.FC<MetaType> = ({
 }) => {
   const title = titleFromProps || defaults.title
   const description = descriptionFromProps || defaults.description
-  const image =
-    typeof imageFromProps !== 'string' && imageFromProps?.url
-      ? `${process.env.NEXT_PUBLIC_CMS_URL}${imageFromProps.url}`
-      : defaults.image
+  let image = defaults.image
+
+  if (imageFromProps) {
+    if (typeof imageFromProps !== 'string' && imageFromProps?.url) {
+      image = `${process.env.NEXT_PUBLIC_CMS_URL}${imageFromProps.url}`
+    } else {
+      image = String(imageFromProps)
+    }
+  }
 
   return (
     <Fragment>

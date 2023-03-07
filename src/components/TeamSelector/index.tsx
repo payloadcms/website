@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { components } from 'react-select'
 import { Select } from '@forms/fields/Select'
 import Link from 'next/link'
@@ -29,11 +29,12 @@ const SelectMenuButton = props => {
 
 export const TeamSelector: React.FC<{
   value?: string
-  onChange?: (value: Team) => void // eslint-disable-line no-unused-vars
+  onChange?: (value?: Team) => void // eslint-disable-line no-unused-vars
+  className?: string
 }> = props => {
   const { user } = useAuth()
 
-  const { onChange, value: valueFromProps } = props
+  const { onChange, value: valueFromProps, className } = props
   const hasInitializedSelection = React.useRef(false)
   const [selectedTeam, setSelectedTeam] = React.useState<Team | undefined>()
 
@@ -64,41 +65,40 @@ export const TeamSelector: React.FC<{
   if (!user) return null
 
   return (
-    <Fragment>
-      <Select
-        label="Team"
-        value={selectedTeam?.id}
-        initialValue={
-          typeof user?.teams?.[0]?.team === 'string'
-            ? user?.teams?.[0]?.team
-            : user?.teams?.[0]?.team.id
-        }
-        onChange={option => {
-          if (Array.isArray(option)) return
-          setSelectedTeam(
-            user?.teams?.find(({ team }) => typeof team === 'object' && team.id === option.value)
-              ?.team as Team,
-          )
-        }}
-        options={[
-          ...(user.teams && user.teams?.length > 0
-            ? [
-                ...user?.teams?.map(({ team }) => ({
-                  label: typeof team === 'string' ? team : team.name,
-                  value: typeof team === 'string' ? team : team.id,
-                })),
-              ]
-            : [
-                {
-                  label: 'No teams found',
-                  value: 'no-teams',
-                },
-              ]),
-        ]}
-        components={{
-          MenuList: SelectMenuButton,
-        }}
-      />
-    </Fragment>
+    <Select
+      className={className}
+      label="Team"
+      value={selectedTeam?.id}
+      initialValue={
+        typeof user?.teams?.[0]?.team === 'string'
+          ? user?.teams?.[0]?.team
+          : user?.teams?.[0]?.team.id
+      }
+      onChange={option => {
+        if (Array.isArray(option)) return
+        setSelectedTeam(
+          user?.teams?.find(({ team }) => typeof team === 'object' && team.id === option.value)
+            ?.team as Team,
+        )
+      }}
+      options={[
+        ...(user.teams && user.teams?.length > 0
+          ? ([
+              ...user?.teams?.map(({ team }) => ({
+                label: typeof team === 'string' ? team : team.name,
+                value: typeof team === 'string' ? team : team.id,
+              })),
+            ] as any)
+          : [
+              {
+                label: 'No teams found',
+                value: 'no-teams',
+              },
+            ]),
+      ]}
+      components={{
+        MenuList: SelectMenuButton,
+      }}
+    />
   )
 }
