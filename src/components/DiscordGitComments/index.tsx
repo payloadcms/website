@@ -95,7 +95,10 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments })
                         <FileAttachment
                           key={x}
                           url={fileAttachment?.url}
-                          name={fileAttachment.name}
+                          name={fileAttachment?.name}
+                          width={fileAttachment?.width}
+                          height={fileAttachment?.height}
+                          contentType={fileAttachment?.contentType}
                         />
                       )
                     })}

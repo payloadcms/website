@@ -19,7 +19,13 @@ export type Attachments = {
   proxyURL: string
   height: number
   width: number
-  contentType: 'image/png' | 'video/MP2T' | 'text/plain' | 'application/json' | 'video/quicktime'
+  contentType:
+  | 'image/png'
+  | 'video/MP2T'
+  | 'text/plain'
+  | 'application/json'
+  | 'video/quicktime'
+  | 'image/jpeg'
   description: string
   ephemeral: boolean
 }[]
@@ -55,6 +61,8 @@ export const RenderThread: React.FC<ThreadProps> = props => {
 
   const originalMessage = messages[0].content
 
+  const originalMessageAttachments = messages[0].fileAttachments
+
   const allMessagesExceptOriginal = messages.slice(1)
 
   const postUrl = `https://discord.com/channels/${info.guildId}/${info.id}`
@@ -73,6 +81,7 @@ export const RenderThread: React.FC<ThreadProps> = props => {
               date={info.createdAt}
               messageCount={messageCount}
               content={originalMessage}
+              attachments={originalMessageAttachments}
             />
             <DiscordGitComments comments={allMessagesExceptOriginal} />
             <OpenPost url={postUrl} platform="Discord" />
