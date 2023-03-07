@@ -9,7 +9,7 @@ export type Props = {
   postName?: string
   author?: string
   image: string
-  date?: Date
+  date?: string | number
   messageCount?: number
   upvotes?: number
   content?: string

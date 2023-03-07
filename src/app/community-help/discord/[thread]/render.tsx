@@ -30,7 +30,7 @@ export type Messages = {
   authorID: string
   authorName: string
   authorAvatar: string
-  createdAtDate: Date
+  createdAtDate: string | number
 }
 
 export type ThreadProps = {
@@ -38,7 +38,7 @@ export type ThreadProps = {
     name: string
     id: string
     guildId: string
-    createdAt: Date
+    createdAt: string | number
   }
   messageCount: number
   messages: Messages[]
