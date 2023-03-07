@@ -1,0 +1,15 @@
+@use '@scss/common' as *;
+
+.formContent {
+  gap: var(--base);
+  display: flex;
+  flex-direction: column;
+}
+
+.actionFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--base);
+  border-top: 1px solid var(--theme-elevation-200);
+  padding-top: calc(var(--base) * 1);
+}

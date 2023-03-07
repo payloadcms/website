@@ -3,26 +3,22 @@
 import * as React from 'react'
 import { Collapsible, CollapsibleGroup } from '@faceless-ui/collapsibles'
 
-import { Button } from '@components/Button'
-import { Heading } from '@components/Heading'
 import { useRouteData } from '@root/app/dashboard/context'
-import { Accordion } from './_components/Accordion'
+import { Accordion } from '@dashboard/_components/Accordion'
+import { SectionHeader } from '../_layoutComponents/SectionHeader'
 import { AddEnvs } from './_components/AddEnvs'
 import { ManageEnv } from './_components/ManageEnv'
 
 import classes from './index.module.scss'
+import { Divider } from '@dashboard/_components/SectionDivider'
+import { NoData } from '../_layoutComponents/NoData'
 
 export default () => {
   const { project } = useRouteData()
 
   return (
     <div className={classes.envVariables}>
-      <div className={classes.sectionHeader}>
-        <Heading element="h2" as="h5" marginTop={false}>
-          Environment Variables
-        </Heading>
-        <Button label="learn more" icon="arrow" el="link" href="/" />
-      </div>
+      <SectionHeader title="Environment Variables" />
 
       <CollapsibleGroup transTime={250} transCurve="ease">
         <Collapsible openOnInit>
@@ -32,10 +28,10 @@ export default () => {
         </Collapsible>
       </CollapsibleGroup>
 
-      <hr className={classes.divider} />
+      <Divider />
 
       {(project.environmentVariables || []).length === 0 ? (
-        <p className={classes.noEnvs}>This project currently has no environment variables.</p>
+        <NoData message="This project currently has no environment variables." />
       ) : (
         <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
           <div className={classes.collapsibleGroup}>

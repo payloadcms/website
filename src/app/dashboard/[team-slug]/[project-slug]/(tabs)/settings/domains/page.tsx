@@ -1,13 +1,35 @@
+'use client'
+
 import * as React from 'react'
+import { Accordion } from '@dashboard/_components/Accordion'
+import { Collapsible, CollapsibleGroup } from '@faceless-ui/collapsibles'
+import { Divider } from '@dashboard/_components/SectionDivider'
+import { useRouteData } from '@dashboard/context'
 
-import { Heading } from '@components/Heading'
+import { SectionHeader } from '../_layoutComponents/SectionHeader'
+import { AddDomain } from './_components/AddDomain'
 
-export default async () => {
+import classes from './index.module.scss'
+import { NoData } from '../_layoutComponents/NoData'
+
+export default () => {
+  const { project } = useRouteData()
+
   return (
     <div>
-      <Heading element="h2" as="h4" marginTop={false}>
-        Domain
-      </Heading>
+      <SectionHeader title="Domains" />
+
+      <CollapsibleGroup transTime={250} transCurve="ease">
+        <Collapsible openOnInit>
+          <Accordion label="New Domain" toggleIcon="chevron" className={classes.addDomain}>
+            <AddDomain />
+          </Accordion>
+        </Collapsible>
+      </CollapsibleGroup>
+
+      <Divider />
+
+      <NoData message="This project currently has no configured domains." />
     </div>
   )
 }

@@ -27,6 +27,9 @@
       "@components/*": [
         "./src/components/*"
       ],
+      "@dashboard/*": [
+        "./src/app/dashboard/*"
+      ],
       "@forms/*": [
         "./src/forms/*"
       ],
@@ -66,9 +69,6 @@
       "@graphql/*": [
         "./src/graphql/*"
       ],
-      "@rsc-api/*": [
-        "./src/app/rsc-api/*"
-      ]
     },
     "strictNullChecks": true
   },

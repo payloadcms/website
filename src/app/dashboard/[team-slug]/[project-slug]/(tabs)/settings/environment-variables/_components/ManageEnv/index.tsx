@@ -10,7 +10,7 @@ import { Button } from '@components/Button'
 import { Heading } from '@components/Heading'
 import { ModalWindow } from '@components/ModalWindow'
 import { useRouteData } from '@root/app/dashboard/context'
-import { Accordion } from '../Accordion'
+import { Accordion } from '@dashboard/_components/Accordion'
 import { validateKey, validateValue } from '../validations'
 
 import classes from './index.module.scss'
@@ -194,8 +194,8 @@ export const ManageEnv: React.FC<Props> = ({ index, envKey, arrayItemID }) => {
                 Are you sure you want to delete this environment variable?
               </Heading>
               <p>
-                This action cannot be undone. This will permanently delete the environment variable
-                from your project.
+                Deleting an environment variable from a project cannot be undone. You can manually
+                add the env back to the project.
               </p>
 
               <div className={classes.modalActions}>

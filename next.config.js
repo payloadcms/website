@@ -19,6 +19,7 @@ const nextConfig = withBundleAnalyzer({
       ...config.resolve.alias,
       '@scss': path.resolve(__dirname, './src/css/'),
       '@components': path.resolve(__dirname, './src/components'),
+      '@dashboard': path.resolve(__dirname, './src/app/dashboard'),
       '@forms': path.resolve(__dirname, './src/forms'),
       '@blocks': path.resolve(__dirname, './src/blocks'),
       '@providers': path.resolve(__dirname, './src/providers'),
@@ -27,7 +28,6 @@ const nextConfig = withBundleAnalyzer({
       '@types': path.resolve(__dirname, './payload-types.ts'),
       '@graphics': path.resolve(__dirname, './src/graphics'),
       '@graphql': path.resolve(__dirname, './src/graphql'),
-      '@rsc-api': path.resolve(__dirname, './src/app/rsc-api'),
       // IMPORTANT: the next lines are for development only
       // keep them commented out unless actively developing local react modules
       // modify their paths according to your local directory

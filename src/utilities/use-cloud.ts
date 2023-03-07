@@ -90,12 +90,14 @@ export const useGetProjects: UseCloud<Project, Team> = team => {
 
 export const useGetProject: UseCloud<Project, string> = projectSlug => {
   return useCloud<Project>({
-    url: projectSlug ? `/api/projects?where[slug][equals]=${projectSlug}&limit=1` : '',
+    url: projectSlug
+      ? `/api/projects?where[slug][equals]=${projectSlug.toLowerCase()}&limit=1`
+      : '',
   })
 }
 
 export const useGetTeam: UseCloud<Team, string> = teamSlug => {
   return useCloud<Team>({
-    url: teamSlug ? `/api/teams?where[slug][equals]=${teamSlug}&limit=1` : '',
+    url: teamSlug ? `/api/teams?where[slug][equals]=${teamSlug.toLowerCase()}&limit=1` : '',
   })
 }
