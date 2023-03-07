@@ -1,7 +1,7 @@
 import React from 'react'
 import AuthorTag from '@components/AuthorTag'
 import { CheckmarkIcon } from '@root/graphics/CheckmarkIcon'
-import { FileAttachment } from '@components/FileAttachment'
+import { FileAttachments } from '@components/FileAttachment'
 import { DiscordGitBody } from '@components/DiscordGitBody'
 import { Answer, Comment } from '@root/app/community-help/github/[discussion]/render'
 import { Messages } from '@root/app/community-help/discord/[thread]/render'
@@ -88,22 +88,7 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments })
                 />
                 <DiscordGitBody body={comment.body || comment.content} />
 
-                {hasFileAttachments && (
-                  <div className={classes.attachmentWrap}>
-                    {comment.fileAttachments.map((fileAttachment, x) => {
-                      return (
-                        <FileAttachment
-                          key={x}
-                          url={fileAttachment?.url}
-                          name={fileAttachment?.name}
-                          width={fileAttachment?.width}
-                          height={fileAttachment?.height}
-                          contentType={fileAttachment?.contentType}
-                        />
-                      )
-                    })}
-                  </div>
-                )}
+                {hasFileAttachments && <FileAttachments attachments={comment.fileAttachments} />}
 
                 {totalReplies && (
                   <div className={classes.replyCount}>

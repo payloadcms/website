@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import AuthorTag from '@components/AuthorTag'
 import Link from 'next/link'
 import { DiscordGitBody } from '@components/DiscordGitBody'
-import { FileAttachment } from '@components/FileAttachment'
+import { FileAttachments } from '@components/FileAttachment'
 import { Attachments } from '@root/app/community-help/discord/[thread]/render'
 import classes from './index.module.scss'
 
@@ -48,22 +48,7 @@ export const DiscordGitIntro: React.FC<Props> = ({
         />
       </div>
       <DiscordGitBody body={content} />
-      {hasFileAttachments && (
-        <div className={classes.attachmentWrap}>
-          {attachments.map((attachment, x) => {
-            return (
-              <FileAttachment
-                key={x}
-                url={attachment?.url}
-                name={attachment?.name}
-                width={attachment?.width}
-                height={attachment?.height}
-                contentType={attachment?.contentType}
-              />
-            )
-          })}
-        </div>
-      )}
+      {hasFileAttachments && <FileAttachments attachments={attachments} />}
     </Fragment>
   )
 }
