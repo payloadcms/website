@@ -26,7 +26,7 @@ import { usePaymentIntent } from '@root/utilities/use-payment-intent'
 import { checkoutReducer, CheckoutState } from './reducer'
 import { useDeploy } from './useDeploy'
 
-import classes from './index.module.scss'
+import classes from './Checkout.module.scss'
 
 type Props = {
   draftProjectID: string
