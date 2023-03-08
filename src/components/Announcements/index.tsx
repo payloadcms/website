@@ -5,7 +5,7 @@ import { useCookies } from 'react-cookie'
 import { usePathname } from 'next/navigation'
 
 import { RichText } from '@components/RichText'
-import { CloseIcon } from '@root/graphics/CloseIcon'
+import { CloseIcon } from '@root/icons/CloseIcon'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import type { Announcement } from '../../payload-types'
 

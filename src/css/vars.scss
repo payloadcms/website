@@ -66,7 +66,6 @@ $breakpoint-xl-width: 1920px;
 //////////////////////////////
 
 @mixin blur-bg($color: var(--theme-bg)) {
-
   &:before,
   &:after {
     content: ' ';

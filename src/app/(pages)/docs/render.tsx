@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import AnimateHeight from 'react-animate-height'
 import { ChevronIcon } from '@graphics/ChevronIcon'
-import { CloseIcon } from '@graphics/CloseIcon'
+import { CloseIcon } from '@root/icons/CloseIcon'
 import { MenuIcon } from '@graphics/MenuIcon'
 import Link from 'next/link'
 import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
