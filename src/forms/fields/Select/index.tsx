@@ -76,7 +76,7 @@ export const Select: React.FC<{
       return options?.filter(item => item.value === initialValue) || []
     }
 
-    return initialValue?.value
+    return options?.find(item => item.value === initialValue) || null
   })
 
   useEffect(() => {
@@ -94,7 +94,7 @@ export const Select: React.FC<{
     }
 
     if (typeof valueFromContextOrProps === 'object' && !Array.isArray(valueFromContextOrProps)) {
-      setInternalState(valueFromContextOrProps?.value)
+      setInternalState(valueFromContextOrProps)
     }
 
     if (valueFromContextOrProps !== undefined && isDifferent) {
@@ -121,6 +121,7 @@ export const Select: React.FC<{
       } else {
         selectedOption = incomingSelection.value
       }
+      setInternalState(incomingSelection)
 
       if (typeof setValue === 'function') {
         setValue(selectedOption)

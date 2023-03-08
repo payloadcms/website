@@ -22,7 +22,7 @@ export const CMSForm: React.FC<{
     id: formID,
     submitButtonLabel,
     confirmationType,
-    redirect,
+    redirect: formRedirect,
     confirmationMessage,
     leader,
   } = form
@@ -81,18 +81,17 @@ export const CMSForm: React.FC<{
           setIsLoading(false)
           setHasSubmitted(true)
 
-          if (confirmationType === 'redirect' && redirect) {
-            const { url } = redirect
+          if (confirmationType === 'redirect' && formRedirect) {
+            const { url } = formRedirect
 
             if (!url) return
 
             try {
-              const redirectUrl = new URL(url)
-
-              if (redirectUrl.origin === process.env.NEXT_PUBLIC_APP_URL) {
-                router.push(redirectUrl.href)
+              if (url.startsWith('/')) {
+                router.push(url)
+              } else {
+                window.location.assign(url)
               }
-              window.location.assign(url)
             } catch (err) {
               console.warn(err)
               setError({
@@ -111,7 +110,7 @@ export const CMSForm: React.FC<{
 
       submitForm()
     },
-    [router, formID, redirect, confirmationType],
+    [router, formID, formRedirect, confirmationType],
   )
 
   return (
