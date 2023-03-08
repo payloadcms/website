@@ -47,11 +47,13 @@ const Form: React.FC<{
     async (e: ChangeEvent<HTMLFormElement>) => {
       e.preventDefault()
       e.stopPropagation()
-
       setHasSubmitted(true)
-      setIsProcessing(true)
 
       const formIsValid = contextRef.current.validateForm()
+
+      if (formIsValid) {
+        setIsProcessing(true)
+      }
 
       if (!formIsValid) {
         e.preventDefault()

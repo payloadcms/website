@@ -100,6 +100,7 @@ export const AddEnvs: React.FC = () => {
                 className={classes.newEnvInput}
                 path={`newEnvs.${index}.key`}
                 validate={(key: string) => validateKey(key, existingEnvKeys)}
+                initialValue=""
               />
 
               <Text
@@ -108,6 +109,7 @@ export const AddEnvs: React.FC = () => {
                 className={classes.newEnvInput}
                 path={`newEnvs.${index}.value`}
                 validate={validateValue}
+                initialValue=""
               />
             </div>
 
