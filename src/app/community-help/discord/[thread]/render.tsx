@@ -19,7 +19,13 @@ export type Attachments = {
   proxyURL: string
   height: number
   width: number
-  contentType: 'image/png' | 'video/MP2T' | 'text/plain' | 'application/json' | 'video/quicktime' | 'image/jpeg'
+  contentType:
+  | 'image/png'
+  | 'video/MP2T'
+  | 'text/plain'
+  | 'application/json'
+  | 'video/quicktime'
+  | 'image/jpeg'
   description: string
   ephemeral: boolean
 }[]
