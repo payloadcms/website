@@ -80,9 +80,11 @@ const RenderForm = ({ form }: { form: Form }) => {
 
             if (!url) return
 
+            const redirectUrl = new URL(url, process.env.NEXT_PUBLIC_APP_URL)
+
             try {
-              if (url.startsWith('/')) {
-                router.push(url)
+              if (url.startsWith('/') || redirectUrl.origin === process.env.NEXT_PUBLIC_APP_URL) {
+                router.push(redirectUrl.href)
               } else {
                 window.location.assign(url)
               }

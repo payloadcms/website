@@ -60,7 +60,7 @@ export const Select: React.FC<{
   const id = useId()
   const ref = useRef<any>(null)
 
-  const fieldFromContext = useFormField<Option | Option[]>({
+  const fieldFromContext = useFormField<string | string[]>({
     path,
     validate: required ? validate : undefined,
   })
@@ -111,7 +111,7 @@ export const Select: React.FC<{
 
       setInternalState(newValue)
     }
-  }, [valueFromContextOrProps, internalState])
+  }, [valueFromContextOrProps, options, internalState])
 
   const handleChange = useCallback(
     (incomingSelection: Option | Option[]) => {
