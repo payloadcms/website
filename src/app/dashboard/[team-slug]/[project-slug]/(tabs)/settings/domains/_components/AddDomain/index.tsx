@@ -6,6 +6,7 @@ import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { useRouteData } from '@root/app/dashboard/context'
+import { Project } from '@root/payload-cloud-types'
 
 import classes from './index.module.scss'
 
@@ -14,7 +15,8 @@ const validateDomain = (domainValue: string) => {
     return 'Please enter a domain'
   }
 
-  if (!domainValue.match(/^[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*$/)) {
+  const validDomainRegex = /(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\.)+[a-zA-Z]{2,63}$)/ // source: https://www.regextester.com/103452
+  if (!domainValue.match(validDomainRegex)) {
     return `"${domainValue}" is not a fully qualified domain name.`
   }
 
@@ -31,6 +33,12 @@ export const AddDomain: React.FC = () => {
 
   const saveDomain = React.useCallback(
     async ({ data }) => {
+      const newDomain: Project['domains'][0] = {
+        domain: data[domainFieldPath],
+        status: 'pending',
+        records: [],
+      }
+
       try {
         const req = await fetch(
           `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}`,
@@ -41,7 +49,7 @@ export const AddDomain: React.FC = () => {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              domains: [data[domainFieldPath], ...(projectDomains || [])],
+              domains: [newDomain, ...(projectDomains || [])],
             }),
           },
         )
