@@ -9,7 +9,7 @@
 .comment,
 .reply {
   border: 1px solid var(--color-base-650);
-  padding: calc(var(--base) * 2);
+  padding: calc(var(--base) * 1.5);
   line-height: 1.5;
   margin: 0 0 calc(var(--base) * 1.75) 0;
 
@@ -21,6 +21,10 @@
   }
 }
 
+.comment.answer {
+  padding: 0;
+}
+
 .hasReplies {
   margin: 0;
 }
@@ -29,6 +33,7 @@
   border-top: none;
   margin: 0;
   background-color: var(--theme-elevation-50);
+  border-left-width: 8px;
 
   &:last-child {
     margin-bottom: calc(var(--base) * 2);
@@ -38,38 +43,54 @@
 .replyCount {
   font-size: calc(var(--base) * 0.75);
   color: var(--color-base-500);
-  margin-top: var(--base);
+  padding: calc(var(--base) * 1.5);
+  padding-top: 0;
 }
 
 .answer {
   background-color: var(--theme-success-100);
   color: var(--color-success-500);
+  border: 1px solid var(--theme-success-200);
 
   & code {
     color: var(--theme-elevation-900);
   }
 }
 
-.answerLabel {
-  margin-bottom: var(--base);
-
+.answerHeader {
+  display: flex;
+  gap: 10px;
+  padding: calc(var(--base) * .75) calc(var(--base) * 1.5);
+  width: 100%;
+  background: var(--theme-success-50);
+  border-bottom: 1px solid var(--theme-success-150);
+  
   & label {
-    margin: 0 calc(var(--base) * 0.35) 0 calc(var(--base) * 0.5);
+    @include label;
+    font-size: 13px;
   }
 
   .checkmark {
-    border: 1px solid var(--color-success-400);
+    border: 1px solid currentColor;
     border-radius: 100%;
+    height: 15px;
+    width: auto;
+    display: flex;
+    align-self: center;
 
     & path {
-      stroke: var(--color-success-400);
-      stroke-width: 1px;
+      stroke-width: 2px;
     }
   }
 
   .selectedBy {
     font-size: calc(var(--base) * 0.65);
   }
+}
+
+.answerBody {
+  padding: calc(var(--base) * 1.5);
+  color: var(--theme-text);
 }
 
 .attachmentWrap {
@@ -85,19 +106,15 @@
 
 :global([data-theme="light"]) {
   .answer {
-    background-color: var(--theme-success-450);
-    border-color: var(--theme-success-550);
-    color: black;
+    background-color: var(--theme-success-350);
+    border-color: var(--theme-success-750);
+    color: var(--theme-text);
   }
 
-  .answerLabel {
-    .checkmark {
-      border: 1px solid var(--theme-elevation-900);
-
-      & path {
-        stroke: var(--theme-elevation-900);
-      }
-    }
+  .answerHeader {
+    background: var(--theme-success-850);
+    color: var(--theme-success-150);
+    border-bottom: 1px solid var(--theme-success-650);
   }
 }
 
