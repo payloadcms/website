@@ -50,8 +50,8 @@
   display: flex;
   justify-content: flex-end;
   gap: var(--base);
+  padding-top: var(--base);
   border-top: 1px solid var(--theme-elevation-200);
-  padding-top: calc(var(--base) * 1);
 }
 
 .addAnotherButtonWrap {

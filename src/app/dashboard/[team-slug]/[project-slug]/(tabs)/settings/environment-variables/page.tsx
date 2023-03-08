@@ -3,15 +3,15 @@
 import * as React from 'react'
 import { Collapsible, CollapsibleGroup } from '@faceless-ui/collapsibles'
 
-import { useRouteData } from '@root/app/dashboard/context'
 import { Accordion } from '@dashboard/_components/Accordion'
+import { Divider } from '@dashboard/_components/SectionDivider'
+import { useRouteData } from '@root/app/dashboard/context'
+import { NoData } from '../_layoutComponents/NoData'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'
 import { AddEnvs } from './_components/AddEnvs'
 import { ManageEnv } from './_components/ManageEnv'
 
 import classes from './index.module.scss'
-import { Divider } from '@dashboard/_components/SectionDivider'
-import { NoData } from '../_layoutComponents/NoData'
 
 export default () => {
   const { project } = useRouteData()
@@ -35,8 +35,8 @@ export default () => {
       ) : (
         <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
           <div className={classes.collapsibleGroup}>
-            {project.environmentVariables.map(({ key, id }, i) => (
-              <ManageEnv key={id || i} index={i} envKey={key} arrayItemID={id} />
+            {project.environmentVariables.map(env => (
+              <ManageEnv key={env.id} env={env} />
             ))}
           </div>
         </CollapsibleGroup>
