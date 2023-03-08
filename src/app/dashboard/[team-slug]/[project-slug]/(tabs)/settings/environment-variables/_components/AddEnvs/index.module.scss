@@ -14,7 +14,8 @@
   .trashButton {
     all: unset;
     position: relative;
-    top: 10px;
+    bottom: 14px;
+    align-self: flex-end;
     display: flex;
     padding: 2px 5px;
     border-radius: 3px;

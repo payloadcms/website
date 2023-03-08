@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
 
 import { Banner } from '@components/Banner'
 import { Gutter } from '@components/Gutter'
@@ -31,12 +32,12 @@ export const RenderCommunityHelp: React.FC<{
               {discussions?.map((discussion, i) => {
                 return (
                   <li key={i}>
-                    <a
+                    <Link
                       href={`/community-help/github/${discussion.id}`}
                       aria-label={discussion.title}
                     >
                       {discussion.title}
-                    </a>
+                    </Link>
                   </li>
                 )
               })}
@@ -49,12 +50,12 @@ export const RenderCommunityHelp: React.FC<{
               {threads?.map((thread, i) => {
                 return (
                   <li key={i}>
-                    <a
+                    <Link
                       href={`/community-help/discord/${thread.info.id}`}
                       aria-label={thread.info.name}
                     >
                       {thread.info.name}
-                    </a>
+                    </Link>
                   </li>
                 )
               })}

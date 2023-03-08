@@ -12,21 +12,7 @@ import { Width } from './Width'
 
 import classes from './index.module.scss'
 
-export const CMSForm: React.FC<{
-  form?: Form
-}> = props => {
-  const {
-    form = {
-      id: undefined,
-      submitButtonLabel: '',
-      confirmationType: '',
-      redirect: '',
-      confirmationMessage: '',
-      leader: '',
-      fields: [],
-    },
-  } = props
-
+const RenderForm = ({ form }: { form: Form }) => {
   const {
     id: formID,
     submitButtonLabel,
@@ -159,4 +145,14 @@ export const CMSForm: React.FC<{
       )}
     </div>
   )
+}
+
+export const CMSForm: React.FC<{
+  form?: string | Form
+}> = props => {
+  const { form } = props
+
+  if (!form || typeof form === 'string') return null
+
+  return <RenderForm form={form} />
 }
