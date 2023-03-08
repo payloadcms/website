@@ -93,6 +93,10 @@ export const Select: React.FC<{
       isDifferent = valueFromContextOrProps !== internalState
     }
 
+    if (typeof valueFromContextOrProps === 'object' && !Array.isArray(valueFromContextOrProps)) {
+      setInternalState(valueFromContextOrProps)
+    }
+
     if (valueFromContextOrProps !== undefined && isDifferent) {
       let newValue: Option | Option[] | null = null
 
@@ -107,18 +111,24 @@ export const Select: React.FC<{
 
       setInternalState(newValue)
     }
-  }, [valueFromContextOrProps, internalState])
+  }, [valueFromContextOrProps, options, internalState])
 
   const handleChange = useCallback(
     (incomingSelection: Option | Option[]) => {
+      let selectedOption
+      if (Array.isArray(incomingSelection)) {
+        selectedOption = incomingSelection
+      } else {
+        selectedOption = incomingSelection.value
+      }
       setInternalState(incomingSelection)
 
       if (typeof setValue === 'function') {
-        setValue(incomingSelection)
+        setValue(selectedOption)
       }
 
       if (typeof onChange === 'function') {
-        onChange(incomingSelection)
+        onChange(selectedOption)
       }
     },
     [onChange, setValue],
