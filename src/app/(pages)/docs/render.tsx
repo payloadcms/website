@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from 'react'
 import AnimateHeight from 'react-animate-height'
 import { ChevronIcon } from '@graphics/ChevronIcon'
-import { CloseIcon } from '@root/icons/CloseIcon'
 import { MenuIcon } from '@graphics/MenuIcon'
 import Link from 'next/link'
 import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
 
+import { CloseIcon } from '@root/icons/CloseIcon'
 import { MDXProvider } from '../../../components/MDX'
 import { DocMeta, Topic } from './types'
 
