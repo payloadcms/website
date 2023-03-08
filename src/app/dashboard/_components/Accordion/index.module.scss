@@ -1,7 +1,7 @@
 @use '@scss/common' as *;
 
 .accordion {
-  --outer-padding: calc(var(--base) * .75) var(--base);
+  --gutter-h: var(--base);
 
   border: 1px solid var(--theme-elevation-200);
   background-color: var(--theme-elevation-50);
@@ -13,7 +13,9 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: var(--outer-padding);
+  padding: 
+    calc(var(--base) * .75)
+    var(--gutter-h);
 }
 
 .labelContent {
@@ -72,6 +74,8 @@
 }
 
 .collapsibleContent {
-  padding: var(--outer-padding);
+  padding: 
+    calc(var(--base) * 1.25)
+    var(--gutter-h);
   border-top: 1px solid var(--theme-elevation-150);
 }
