@@ -1,10 +1,11 @@
 'use client'
 
+import React from 'react'
 import { Banner } from '@components/Banner'
 import { Gutter } from '@components/Gutter'
 import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@root/providers/Theme'
-import React from 'react'
+import Link from 'next/link'
 import { ThreadProps } from './discord/[thread]/render'
 import { DiscussionProps } from './github/[discussion]/render'
 
@@ -30,12 +31,12 @@ export const RenderCommunityHelp: React.FC<{
               {discussions?.map((discussion, i) => {
                 return (
                   <li key={i}>
-                    <a
+                    <Link
                       href={`/community-help/github/${discussion.id}`}
                       aria-label={discussion.title}
                     >
                       {discussion.title}
-                    </a>
+                    </Link>
                   </li>
                 )
               })}
@@ -48,12 +49,12 @@ export const RenderCommunityHelp: React.FC<{
               {threads?.map((thread, i) => {
                 return (
                   <li key={i}>
-                    <a
+                    <Link
                       href={`/community-help/discord/${thread.info.id}`}
                       aria-label={thread.info.name}
                     >
                       {thread.info.name}
-                    </a>
+                    </Link>
                   </li>
                 )
               })}

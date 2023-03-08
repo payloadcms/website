@@ -41,7 +41,11 @@ const AuthorTag: React.FC<Props> = ({
       <div className={classes.authorCell}>
         <div className={classes.authorImageWrap}>
           {teamMember ? (
-            <a className={classes.authorLink} href={`https://twitter.com/${teamMember}`}>
+            <a
+              className={classes.authorLink}
+              href={`https://twitter.com/${teamMember}`}
+              target="_blank"
+            >
               <img src={image} />
             </a>
           ) : (
@@ -53,7 +57,11 @@ const AuthorTag: React.FC<Props> = ({
           <div className={classes.authorName}>
             {teamMember ? (
               <>
-                <a className={classes.authorLink} href={`https://twitter.com/${teamMember}`}>
+                <a
+                  className={classes.authorLink}
+                  href={`https://twitter.com/${teamMember}`}
+                  target="_blank"
+                >
                   <strong>{author}</strong>
                   <div className={classes.teamTag}>
                     <span className={classes.twitterIcon}>
