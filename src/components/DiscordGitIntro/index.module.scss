@@ -23,3 +23,14 @@
     padding: calc(var(--base) * 0.5) 0;
   }
 }
+
+.attachmentWrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  margin-top: var(--base);
+
+  @include large-break {
+    grid-template-columns: 1fr;
+  }
+}
