@@ -1,7 +1,7 @@
 'use client'
 
-import { RichText } from '@components/RichText'
 import * as React from 'react'
+import { RichText } from '@components/RichText'
 import { useRouter } from 'next/navigation'
 import Submit from '@forms/Submit'
 import FormComponent from '@forms/Form'
@@ -11,13 +11,7 @@ import { fields } from './fields'
 import classes from './index.module.scss'
 import { Width } from './Width'
 
-export const CMSForm: React.FC<{
-  form?: string | Form
-}> = props => {
-  const { form } = props
-
-  if (!form || typeof form === 'string') return null
-
+const RenderForm = ({ form }: { form: Form }) => {
   const {
     id: formID,
     submitButtonLabel,
@@ -149,4 +143,14 @@ export const CMSForm: React.FC<{
       )}
     </div>
   )
+}
+
+export const CMSForm: React.FC<{
+  form?: string | Form
+}> = props => {
+  const { form } = props
+
+  if (!form || typeof form === 'string') return null
+
+  return <RenderForm form={form} />
 }
