@@ -32,7 +32,7 @@ export type Messages = {
   authorID: string
   authorName: string
   authorAvatar: string
-  createdAtDate: Date
+  createdAtDate: string | number
 }
 
 export type ThreadProps = {
@@ -40,7 +40,7 @@ export type ThreadProps = {
     name: string
     id: string
     guildId: string
-    createdAt: Date
+    createdAt: string | number
   }
   messageCount: number
   messages: Messages[]
@@ -73,11 +73,10 @@ export const RenderThread: React.FC<ThreadProps> = props => {
               author={author}
               image={authorAvatarImg}
               date={info.createdAt}
-              platform="Discord"
               messageCount={messageCount}
               content={originalMessage}
             />
-            <DiscordGitComments comments={allMessagesExceptOriginal} platform="Discord" />
+            <DiscordGitComments comments={allMessagesExceptOriginal} />
             <OpenPost url={postUrl} platform="Discord" />
           </Cell>
         </Grid>

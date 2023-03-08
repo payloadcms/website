@@ -11,8 +11,7 @@ export type Props = {
   postName?: string
   author?: string
   image: string
-  date?: Date
-  platform?: 'Github' | 'Discord'
+  date?: string | number
   messageCount?: number
   upvotes?: number
   content?: string
@@ -23,7 +22,6 @@ export const DiscordGitIntro: React.FC<Props> = ({
   author,
   image,
   date,
-  platform,
   messageCount,
   upvotes,
   content,
@@ -41,7 +39,6 @@ export const DiscordGitIntro: React.FC<Props> = ({
           author={author}
           image={image}
           date={date}
-          platform={platform}
           messageCount={messageCount}
           upvotes={upvotes}
         />
