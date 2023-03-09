@@ -8,34 +8,30 @@ import { Heading } from '@components/Heading'
 
 import classes from './index.module.scss'
 
-type TabRoute = {
+export type TabRoute = {
   label: string
-  slug?: string
+  url?: string
 }
 
 export const RouteTabs: React.FC<{
-  tabs: TabRoute[]
-  basePath?: string
+  tabs?: TabRoute[]
   className?: string
 }> = props => {
-  const { tabs, basePath, className } = props
+  const { tabs, className } = props
   const pathname = usePathname()
-  const slug = pathname?.split('/').pop()
 
   return (
     <div className={[classes.tabsContainer, className].filter(Boolean).join(' ')}>
       <Gutter>
         <div className={classes.tabs}>
-          {tabs.map(({ slug: tabSlug, label }, index) => {
-            const isActive = tabSlug ? tabSlug === slug : basePath === pathname
-
-            const href = basePath ? `${basePath}${tabSlug ? `/${tabSlug}` : ''}` : `/${tabSlug}`
+          {tabs?.map(({ url: tabURL, label }, index) => {
+            const isActive = pathname === tabURL
 
             return (
               <Heading
                 key={index}
                 className={[classes.tab, isActive && classes.active].filter(Boolean).join(' ')}
-                href={href}
+                href={tabURL}
                 element="h5"
               >
                 {label}

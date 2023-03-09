@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import { Project, Team } from '@root/payload-cloud-types'
+import { Project, Team } from '@root/payload-types copy'
 import { useGetProject, useGetTeam } from '@root/utilities/use-cloud'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
 

@@ -42,7 +42,7 @@ export const TeamDrawer: React.FC<TeamDrawerProps> = props => {
   )
 }
 
-export const useTeamDrawer: UseTeamDrawer = ({ selectedTeam }) => {
+export const useTeamDrawer: UseTeamDrawer = ({ team } = {}) => {
   const uuid = useId()
   const { modalState, toggleModal, closeModal, openModal } = useModal()
   const [isOpen, setIsOpen] = useState(false)
@@ -73,10 +73,10 @@ export const useTeamDrawer: UseTeamDrawer = ({ selectedTeam }) => {
         drawerSlug={drawerSlug}
         closeDrawer={closeDrawer}
         key={drawerSlug}
-        selectedTeam={selectedTeam}
+        team={team}
       />
     )
-  }, [drawerSlug, closeDrawer, selectedTeam])
+  }, [drawerSlug, closeDrawer, team])
 
   const MemoizedDrawerToggler = useMemo(() => {
     return props => <TeamDrawerToggler {...props} drawerSlug={drawerSlug} />

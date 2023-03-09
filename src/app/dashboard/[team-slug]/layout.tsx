@@ -20,5 +20,5 @@ export default ({ children }: ProjectLayoutType) => {
 
   if (team === null) notFound()
 
-  return children
+  return <React.Fragment>{children}</React.Fragment>
 }

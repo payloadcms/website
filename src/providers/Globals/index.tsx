@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import { Template } from '@root/payload-cloud-types'
+import { Template } from '@root/payload-types copy'
 
 const GlobalsContext = React.createContext<{
   templates: Template[]

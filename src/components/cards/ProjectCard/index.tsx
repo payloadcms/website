@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { BranchIcon } from '@root/graphics/BranchIcon'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { Project } from '@root/payload-cloud-types'
+import { Project } from '@root/payload-types copy'
 
 import classes from './index.module.scss'
 

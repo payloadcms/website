@@ -3,7 +3,7 @@ import Label from '@forms/Label'
 
 import { LargeRadio } from '@components/LargeRadio'
 import { LoadingShimmer } from '@components/LoadingShimmer'
-import { Plan } from '@root/payload-cloud-types'
+import { Plan } from '@root/payload-types copy'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import { UseCloud, useGetPlans } from '@root/utilities/use-cloud'
 import useDebounce from '@root/utilities/use-debounce'

@@ -4,6 +4,7 @@ export const TEMPLATE_FIELDS = `
   slug
   description
   repositoryURL
+  order
 `
 
 export const TEMPLATES = `

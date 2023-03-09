@@ -3,7 +3,7 @@ import { CardElement as StripeCardElement, useElements, useStripe } from '@strip
 import { PaymentIntent, StripeCardElement as StripeCardElementType } from '@stripe/stripe-js'
 import { useRouter } from 'next/navigation'
 
-import { Project } from '@root/payload-cloud-types'
+import { Project } from '@root/payload-types copy'
 import { useAuth } from '@root/providers/Auth'
 import { PayloadPaymentIntent } from '@root/utilities/use-payment-intent'
 import { CheckoutState } from './reducer'

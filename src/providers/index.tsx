@@ -8,7 +8,7 @@ import { MouseInfoProvider } from '@faceless-ui/mouse-info'
 import { ScrollInfoProvider } from '@faceless-ui/scroll-info'
 import { WindowInfoProvider } from '@faceless-ui/window-info'
 
-import { Template } from '@root/payload-cloud-types'
+import { Template } from '@root/payload-types copy'
 import { AuthProvider } from './Auth'
 import { ComputedCSSValuesProvider } from './ComputedCSSValues'
 import { GlobalsProvider } from './Globals'

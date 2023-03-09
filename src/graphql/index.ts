@@ -1,4 +1,4 @@
-import type { Project, Team, Template } from '@root/payload-cloud-types'
+import type { Project, Team, Template } from '@root/payload-types copy'
 import type { Announcement, CaseStudy, Footer, MainMenu, Page, Post } from '../payload-types'
 import { ANNOUNCEMENT_FIELDS } from './announcement'
 import { CASE_STUDIES, CASE_STUDY } from './case-studies'
@@ -30,7 +30,7 @@ export const fetchGlobals = async (): Promise<{
   }).then(res => res.json())
 
   const { data: templatesData } = await fetch(
-    `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql?templates`,
+    `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql?templates&sort=order`,
     {
       method: 'POST',
       headers: {

@@ -1,12 +1,12 @@
 import type { HTMLAttributes } from 'react'
 import type React from 'react'
 
-import type { Team } from '@root/payload-cloud-types'
+import type { Team } from '@root/payload-types copy'
 
 export interface TeamDrawerProps {
   onSelect?: (args: { team: Team }) => void
   drawerSlug: string
-  selectedTeam?: Team['slug']
+  team?: Team
   onCreate: (team: Team) => void
 }
 
@@ -17,7 +17,7 @@ export type TeamDrawerTogglerProps = HTMLAttributes<HTMLButtonElement> & {
   disabled?: boolean
 }
 
-export type UseTeamDrawer = (args: { selectedTeam?: string }) => [
+export type UseTeamDrawer = (args?: { team?: Team }) => [
   React.FC<Pick<TeamDrawerProps, 'onSelect'>>, // drawer
   React.FC<Pick<TeamDrawerTogglerProps, 'disabled' | 'className' | 'children'>>, // toggler
   {

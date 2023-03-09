@@ -3,7 +3,7 @@ import { useModal } from '@faceless-ui/modal'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 
-import { Team } from '@root/payload-cloud-types'
+import { Team } from '@root/payload-types copy'
 import { TeamDrawerProps } from './types'
 
 export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({ drawerSlug, onCreate }) => {

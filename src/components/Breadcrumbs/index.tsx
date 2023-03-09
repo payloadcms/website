@@ -36,7 +36,7 @@ export const Breadcrumbs: React.FC<Props> = ({ items }) => {
         return (
           <label key={index} className={classes.label}>
             {item.label}
-            {!isLast && <span>&nbsp;&sol;&nbsp;</span>}
+            {!isLast && <span>&nbsp;/&nbsp;</span>}
           </label>
         )
       })}

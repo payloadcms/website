@@ -3,7 +3,7 @@ import { components } from 'react-select'
 import { Select } from '@forms/fields/Select'
 
 import { useTeamDrawer } from '@components/TeamDrawer'
-import { Team } from '@root/payload-cloud-types'
+import { Team } from '@root/payload-types copy'
 import { useAuth } from '@root/providers/Auth'
 
 import classes from './index.module.scss'
@@ -33,7 +33,7 @@ export const TeamSelector: React.FC<{
   const { onChange, value: valueFromProps, className } = props
   const hasInitializedSelection = React.useRef(false)
   const [selectedTeam, setSelectedTeam] = React.useState<Team | undefined>()
-  const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer({ selectedTeam: selectedTeam?.slug })
+  const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer({ team: selectedTeam })
 
   useEffect(() => {
     if (user) {

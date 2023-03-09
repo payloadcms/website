@@ -5,9 +5,9 @@ import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 
+import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { useAuth } from '@root/providers/Auth'
-import { RouteTabs } from '../_components/RouteTabs'
 
 import classes from './page.module.scss'
 
@@ -17,42 +17,27 @@ export default () => {
   if (!user) return null
 
   return (
-    <React.Fragment>
-      <RouteTabs
-        basePath="/dashboard"
-        tabs={[
-          {
-            label: 'Projects',
+    <Gutter className={classes.content}>
+      <h5 className={classes.title}>Account</h5>
+      <Form
+        className={classes.form}
+        initialState={{
+          name: {
+            initialValue: user?.name,
+            value: user?.name,
           },
-          {
-            label: 'Teams',
-            slug: 'teams',
+          email: {
+            initialValue: user?.email,
+            value: user?.email,
           },
-          {
-            label: 'Settings',
-            slug: 'settings',
-          },
-        ]}
-      />
-      <Gutter>
-        <Form
-          className={classes.form}
-          initialState={{
-            name: {
-              initialValue: user?.name,
-              value: user?.name,
-            },
-            email: {
-              initialValue: user?.email,
-              value: user?.email,
-            },
-          }}
-        >
-          <Text path="name" label="Name" initialValue={user?.name} />
-          <Text path="email" label="Email" initialValue={user?.email} required />
-          <Submit label="Save" />
-        </Form>
-      </Gutter>
-    </React.Fragment>
+        }}
+      >
+        <Text path="name" label="Name" initialValue={user?.name} />
+        <Text path="email" label="Email" initialValue={user?.email} required />
+        <Submit label="Save" className={classes.submit} />
+      </Form>
+      <hr className={classes.hr} />
+      <Button label="Log out" appearance="secondary" href="/logout" el="link" />
+    </Gutter>
   )
 }

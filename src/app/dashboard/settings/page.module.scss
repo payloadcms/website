@@ -1,9 +1,25 @@
 @use '@scss/common.scss' as *;
 
+.title {
+    margin: 0;
+}
+
 .form {
-    margin-top: calc(var(--base) * 2);
+    margin-top: calc(var(--base));
     
     & > * {
         margin-bottom: var(--base);
+    }
+
+    & > *:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.hr {
+    margin: calc(var(--base) * 4) 0;
+
+    @include mid-break {
+        margin: calc(var(--base)) 0;
     }
 }

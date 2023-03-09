@@ -1,13 +1,9 @@
 @use '@scss/common.scss' as *;
 
-.teams {
-
-}
 
 .list {
     position: relative;
     list-style: none;
-    margin-top: calc(var(--base));
     padding: 0;
 }
 
@@ -25,7 +21,34 @@
     flex-grow: 1;
 }
 
-.teamContent {
+.teamWrapper {
     flex-grow: 1;
     display: flex;
+    align-items: center;
+}
+
+.teamContent {
+    flex-grow: 1;
+}
+
+.teamName {
+    font-weight: bold;
+}
+
+.teamName,
+.teamSlug {
+    margin: 0;
+}
+
+.teamDrawerToggler {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    margin-top: calc(var(--base) * 1.5);
+
+    @include mid-break {
+        margin-top: var(--base);
+    }
 }
