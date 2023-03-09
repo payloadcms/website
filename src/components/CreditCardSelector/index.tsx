@@ -3,7 +3,7 @@ import { Card } from '@stripe/stripe-js'
 
 import { CreditCardElement } from '@components/CreditCardElement'
 import { LargeRadio } from '@components/LargeRadio'
-import { Team } from '@root/payload-types copy'
+import { Team } from '@root/payload-cloud-types'
 
 import classes from './index.module.scss'
 

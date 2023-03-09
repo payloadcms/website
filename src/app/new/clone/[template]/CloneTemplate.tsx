@@ -12,7 +12,7 @@ import { Gutter } from '@components/Gutter'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { useScopeSelector } from '@components/ScopeSelector'
 import { PayloadIcon } from '@root/graphics/PayloadIcon'
-import { Template } from '@root/payload-types copy'
+import { Template } from '@root/payload-cloud-types'
 import { useCreateDraftProject } from '@root/utilities/use-create-draft-project'
 
 import classes from './CloneTemplate.module.scss'

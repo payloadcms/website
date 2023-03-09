@@ -1,4 +1,4 @@
-import type { Project, Team, Template } from '@root/payload-types copy'
+import type { Project, Team, Template } from '@root/payload-cloud-types'
 import type { Announcement, CaseStudy, Footer, MainMenu, Page, Post } from '../payload-types'
 import { ANNOUNCEMENT_FIELDS } from './announcement'
 import { CASE_STUDIES, CASE_STUDY } from './case-studies'

@@ -3,7 +3,7 @@ import { components } from 'react-select'
 import { Select } from '@forms/fields/Select'
 
 import { useTeamDrawer } from '@components/TeamDrawer'
-import { Team } from '@root/payload-types copy'
+import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 
 import classes from './index.module.scss'

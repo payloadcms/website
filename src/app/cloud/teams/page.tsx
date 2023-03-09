@@ -5,7 +5,6 @@ import Link from 'next/link'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
-import { LineDraw } from '@components/LineDraw'
 import { useTeamDrawer } from '@components/TeamDrawer'
 import { useAuth } from '@root/providers/Auth'
 import { cloudSlug } from '../layout'
@@ -14,7 +13,6 @@ import classes from './page.module.scss'
 
 export default () => {
   const { user } = useAuth()
-  const [hoverIndex, setHoverIndex] = React.useState<number | null>(null)
 
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer()
 
@@ -26,31 +24,22 @@ export default () => {
         <Gutter className={classes.content}>
           {hasTeams && (
             <ul className={classes.list}>
-              {user.teams.map(({ team }, index) => {
+              {user.teams?.map(({ team }, index) => {
                 if (typeof team === 'string') return null
-                const isHovered = hoverIndex === index
 
                 return (
-                  <li key={team.id} className={classes.listItem}>
-                    <Link
-                      href={`/${cloudSlug}/${team.slug}`}
-                      className={classes.team}
-                      onMouseEnter={() => setHoverIndex(index)}
-                      onMouseLeave={() => setHoverIndex(null)}
-                    >
-                      <div className={classes.teamWrapper}>
-                        <div className={classes.teamContent}>
-                          {team?.name && <p className={classes.teamName}>{team.name}</p>}
-                          {team?.slug && <p className={classes.teamSlug}>{team.slug}</p>}
-                        </div>
-                        <Button
-                          size="small"
-                          appearance="primary"
-                          label="View"
-                          href={`/${cloudSlug}/${team.slug}`}
-                        />
+                  <li key={`${team.id}-${index}`} className={classes.listItem}>
+                    <Link href={`/${cloudSlug}/${team.slug}`} className={classes.team}>
+                      <div className={classes.teamContent}>
+                        {team?.name && <p className={classes.teamName}>{team.name}</p>}
+                        {team?.slug && <p className={classes.teamSlug}>{team.slug}</p>}
                       </div>
-                      <LineDraw active={isHovered} align="bottom" />
+                      <Button
+                        size="small"
+                        appearance="primary"
+                        label="View"
+                        href={`/${cloudSlug}/${team.slug}`}
+                      />
                     </Link>
                   </li>
                 )

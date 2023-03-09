@@ -5,7 +5,7 @@ import { cloudSlug } from '@root/app/cloud/layout'
 import { BranchIcon } from '@root/graphics/BranchIcon'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { Project } from '@root/payload-types copy'
+import { Project } from '@root/payload-cloud-types'
 
 import classes from './index.module.scss'
 

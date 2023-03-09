@@ -10,7 +10,7 @@ import { ProjectCard } from '@components/cards/ProjectCard'
 import { Gutter } from '@components/Gutter'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { TeamSelector } from '@components/TeamSelector'
-import { Team } from '@root/payload-types copy'
+import { Team } from '@root/payload-cloud-types'
 import { useGetProjects } from '@root/utilities/use-cloud'
 
 import classes from './index.module.scss'
@@ -18,7 +18,16 @@ import classes from './index.module.scss'
 export default () => {
   const [selectedTeam, setSelectedTeam] = React.useState<Team>()
 
-  const { isLoading, error, result: projects } = useGetProjects(selectedTeam)
+  const [search, setSearch] = React.useState<string>('')
+
+  const {
+    isLoading,
+    error,
+    result: projects,
+  } = useGetProjects({
+    team: selectedTeam,
+    search,
+  })
 
   return (
     <Gutter>
@@ -26,7 +35,12 @@ export default () => {
       <Grid className={classes.controls}>
         <div className={classes.controlsBG} />
         <Cell cols={5}>
-          <Text placeholder="Search projects" label="Search" />
+          <Text
+            placeholder="Search projects"
+            label="Search"
+            initialValue={search}
+            onChange={setSearch}
+          />
         </Cell>
         <Cell cols={4}>
           <TeamSelector onChange={setSelectedTeam} className={classes.teamSelector} />

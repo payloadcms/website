@@ -4,7 +4,7 @@ import { PaymentIntent, StripeCardElement as StripeCardElementType } from '@stri
 import { useRouter } from 'next/navigation'
 
 import { cloudSlug } from '@root/app/cloud/layout'
-import { Project } from '@root/payload-types copy'
+import { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { PayloadPaymentIntent } from '@root/utilities/use-payment-intent'
 import { CheckoutState } from './reducer'

@@ -1,6 +1,6 @@
 // project reducer
 
-import type { Plan, Project, Team } from '@root/payload-types copy'
+import type { Plan, Project, Team } from '@root/payload-cloud-types'
 
 interface SET_PLAN {
   type: 'SET_PLAN'

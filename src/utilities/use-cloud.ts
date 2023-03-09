@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 
-import type { Plan, Project, Team } from '@root/payload-types copy'
+import type { Plan, Project, Team } from '@root/payload-cloud-types'
 
 export type UseCloud<T, A = null> = (args?: A) => {
   result: T[]
@@ -82,9 +82,18 @@ export const useGetPlans: UseCloud<Plan> = () => {
   })
 }
 
-export const useGetProjects: UseCloud<Project, Team> = team => {
+export const useGetProjects: UseCloud<
+  Project,
+  {
+    team?: Team
+    search?: string
+  }
+> = args => {
+  const { team, search } = args || {}
+  const query = search && search?.length >= 3 ? `where[name][like]=${search}` : undefined
+
   return useCloud<Project>({
-    url: team ? `/api/projects?where[team][equals]=${team.id}` : '',
+    url: team ? `/api/projects?where[team][equals]=${team.id}${query ? `&${query}` : ''}` : '',
   })
 }
 

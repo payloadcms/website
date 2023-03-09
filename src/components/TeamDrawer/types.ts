@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from 'react'
 import type React from 'react'
 
-import type { Team } from '@root/payload-types copy'
+import type { Team } from '@root/payload-cloud-types'
 
 export interface TeamDrawerProps {
   onSelect?: (args: { team: Team }) => void
