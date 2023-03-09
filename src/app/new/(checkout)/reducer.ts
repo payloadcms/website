@@ -2,6 +2,10 @@
 
 import type { Plan, Project, Team } from '@root/payload-cloud-types'
 
+type ProjectWithTeam = Omit<Project, 'team'> & {
+  team: Team
+}
+
 interface SET_PLAN {
   type: 'SET_PLAN'
   payload: Plan
@@ -9,12 +13,12 @@ interface SET_PLAN {
 
 interface SET_PROJECT {
   type: 'SET_PROJECT'
-  payload: Project
+  payload: ProjectWithTeam
 }
 
 interface UPDATE_PROJECT {
   type: 'UPDATE_PROJECT'
-  payload: Project
+  payload: ProjectWithTeam
 }
 
 interface SET_TEAM {
@@ -41,7 +45,7 @@ type Action =
   | SET_FREE_TRIAL
 
 export interface CheckoutState {
-  project: Project
+  project: ProjectWithTeam
   paymentMethod: string
   freeTrial: boolean
 }

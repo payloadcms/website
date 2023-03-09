@@ -22,6 +22,7 @@ import { cloudSlug } from '@root/app/cloud/layout'
 import { Plan, Team } from '@root/payload-cloud-types'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
+import { useGetProject } from '@root/utilities/use-cloud'
 import useDebounce from '@root/utilities/use-debounce'
 import { usePaymentIntent } from '@root/utilities/use-payment-intent'
 import { checkoutReducer, CheckoutState } from './reducer'
@@ -39,12 +40,10 @@ const Stripe = loadStripe(apiKey)
 
 const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) => {
   const router = useRouter()
-  const [isLoading, setIsLoading] = React.useState<boolean>(true)
   const [checkoutState, dispatchCheckoutState] = React.useReducer(
     checkoutReducer,
     {} as CheckoutState,
   )
-  const requestedProject = React.useRef(false)
 
   const [
     ScopeSelector,
@@ -72,52 +71,41 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
     })
   }, [])
 
+  const handleTeamChange = useCallback((incomingTeam: Team) => {
+    dispatchCheckoutState({
+      type: 'SET_TEAM',
+      payload: incomingTeam,
+    })
+  }, [])
+
   const [PlanSelector] = usePlanSelector({
     onChange: handlePlanChange,
   })
 
   const { paymentIntent, error: paymentIntentError } = usePaymentIntent(checkoutState)
 
+  const {
+    result: [project],
+    isLoading,
+  } = useGetProject({
+    projectSlug: draftProjectID,
+    teamSlug: checkoutState?.project?.team?.slug,
+  })
+
   useEffect(() => {
-    if (requestedProject.current) return
-    requestedProject.current = true
-
-    const fetchProject = async () => {
-      try {
-        const req = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${draftProjectID}`,
-          {
-            method: 'GET',
-            credentials: 'include',
-          },
-        )
-
-        const res = await req.json()
-
-        if (req.ok) {
-          // eslint-disable-next-line no-underscore-dangle
-          if (res.status === 'published') {
-            router.push(`/${cloudSlug}/${res?.team?.slug}/${res.slug}`)
-          } else {
-            dispatchCheckoutState({
-              type: 'SET_PROJECT',
-              payload: {
-                ...res,
-                team: res.team as Team,
-                plan: res.plan as Plan,
-              },
-            })
-            setIsLoading(false)
-          }
-        }
-      } catch (err: unknown) {
-        console.error(err)
-        setIsLoading(false)
-      }
+    if (project.status === 'published') {
+      router.push(`/${cloudSlug}/${project?.team?.slug}/${project.slug}`)
+    } else {
+      dispatchCheckoutState({
+        type: 'SET_PROJECT',
+        payload: {
+          ...project,
+          team: project.team as Team,
+          plan: project.plan as Plan,
+        },
+      })
     }
-
-    fetchProject()
-  }, [draftProjectID, router])
+  }, [project, router])
 
   const { isDeploying, errorDeploying, deploy } = useDeploy({
     checkoutState,
@@ -212,7 +200,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
                       <h5 className={classes.sectionTitle}>Ownership</h5>
                       <Link href="">Learn more</Link>
                     </div>
-                    <TeamSelector />
+                    <TeamSelector onChange={handleTeamChange} />
                   </div>
                   <div className={classes.buildSettings}>
                     <div className={classes.sectionHeader}>

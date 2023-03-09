@@ -22,7 +22,10 @@ export const RouteDataProvider: React.FC<{
 }> = ({ children }) => {
   const [, teamSlug, projectSlug] = usePathnameSegments()
 
-  const { result: projects, reload: reloadProject } = useGetProject(projectSlug)
+  const { result: projects, reload: reloadProject } = useGetProject({
+    teamSlug,
+    projectSlug,
+  })
   const { result: teams, reload: reloadTeam } = useGetTeam(teamSlug)
 
   return (

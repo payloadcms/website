@@ -108,9 +108,24 @@ export const useGetProjects: UseCloud<
   })
 }
 
-export const useGetProject: UseCloud<Project, string> = projectSlug => {
-  return useCloud<Project>({
-    url: projectSlug ? `/api/projects?where[slug][equals]=${projectSlug}&limit=1` : '',
+type ProjectWithTeam = Omit<Project, 'team'> & {
+  team: Team
+}
+
+export const useGetProject: UseCloud<
+  ProjectWithTeam,
+  {
+    teamSlug?: string
+    projectSlug?: string
+  }
+> = args => {
+  const { teamSlug, projectSlug } = args || {}
+
+  return useCloud<ProjectWithTeam>({
+    url:
+      teamSlug && projectSlug
+        ? `/api/projects?where[][team][equals]=${teamSlug}&where[][slug][equals]=${projectSlug}&limit=1`
+        : '',
   })
 }
 
