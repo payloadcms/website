@@ -18,6 +18,7 @@ import { LoadingShimmer } from '@components/LoadingShimmer'
 import { usePlanSelector } from '@components/PlanSelector'
 import { useScopeSelector } from '@components/ScopeSelector'
 import { TeamSelector } from '@components/TeamSelector'
+import { cloudSlug } from '@root/app/cloud/layout'
 import { Plan, Team } from '@root/payload-types copy'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
@@ -96,7 +97,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
         if (req.ok) {
           // eslint-disable-next-line no-underscore-dangle
           if (res.status === 'published') {
-            router.push(`/dashboard/${res?.team?.slug}/${res.slug}`)
+            router.push(`/${cloudSlug}/${res?.team?.slug}/${res.slug}`)
           } else {
             dispatchCheckoutState({
               type: 'SET_PROJECT',

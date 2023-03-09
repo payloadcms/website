@@ -8,6 +8,7 @@ import { Gutter } from '@components/Gutter'
 import { LineDraw } from '@components/LineDraw'
 import { useTeamDrawer } from '@components/TeamDrawer'
 import { useAuth } from '@root/providers/Auth'
+import { cloudSlug } from '../layout'
 
 import classes from './page.module.scss'
 
@@ -32,7 +33,7 @@ export default () => {
                 return (
                   <li key={team.id} className={classes.listItem}>
                     <Link
-                      href={`/dashboard/${team.slug}`}
+                      href={`/${cloudSlug}/${team.slug}`}
                       className={classes.team}
                       onMouseEnter={() => setHoverIndex(index)}
                       onMouseLeave={() => setHoverIndex(null)}
@@ -46,7 +47,7 @@ export default () => {
                           size="small"
                           appearance="primary"
                           label="View"
-                          href={`/dashboard/${team.slug}`}
+                          href={`/${cloudSlug}/${team.slug}`}
                         />
                       </div>
                       <LineDraw active={isHovered} align="bottom" />

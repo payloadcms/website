@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import Link from 'next/link'
 
+import { cloudSlug } from '@root/app/cloud/layout'
 import { BranchIcon } from '@root/graphics/BranchIcon'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
@@ -22,7 +23,7 @@ export const ProjectCard: React.FC<{
       href={
         status === 'draft'
           ? `/new/configure/${project.id}`
-          : `/dashboard/${teamSlug}/${project.slug}`
+          : `/${cloudSlug}/${teamSlug}/${project.slug}`
       }
       className={[className, classes.project].filter(Boolean).join(' ')}
     >

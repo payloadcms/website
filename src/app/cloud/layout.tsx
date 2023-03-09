@@ -9,7 +9,7 @@ import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
 import { RouteTabs } from './_components/RouteTabs'
 import { RouteDataProvider, useRouteData } from './context'
 
-const basePath = 'dashboard'
+export const cloudSlug = 'cloud'
 
 const DashboardHeader = () => {
   const { team, project } = useRouteData()
@@ -24,7 +24,7 @@ const DashboardHeader = () => {
       href?: string
     }
   } = {
-    [basePath]: {
+    [cloudSlug]: {
       tabLabel: 'Projects',
     },
     teams: {
@@ -38,7 +38,7 @@ const DashboardHeader = () => {
   }
 
   // we know it's a team route if the second segment is not a base route
-  // i.e. /dashboard/teams is a team route, /dashboard/settings is not
+  // i.e. /cloud/teams is a team route, /cloud/settings is not
   // we can do the same for project routes one level deeper
   const isTeamRoute = segments.length > 1 && routes[segments[1]] === undefined
 
@@ -99,10 +99,10 @@ const DashboardHeader = () => {
           items={segments.reduce((acc: Breadcrumb[], segment) => {
             acc.push({
               label:
-                segment === 'dashboard'
+                segment === 'cloud'
                   ? 'Cloud'
                   : routes[segment]?.crumbLabel || routes[segment]?.tabLabel,
-              url: `/${basePath}${routes[segment]?.href || ''}`,
+              url: `/${cloudSlug}${routes[segment]?.href || ''}`,
             })
             return acc
           }, [])}
@@ -115,7 +115,7 @@ const DashboardHeader = () => {
             if (value.tabLabel) {
               acc.push({
                 label: value.tabLabel,
-                url: `/${basePath}${value.href || ''}`,
+                url: `/${cloudSlug}${value.href || ''}`,
               })
             }
             return acc

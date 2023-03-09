@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 
+import { cloudSlug } from '@root/app/cloud/layout'
 import { useAuth } from '@root/providers/Auth'
 
 // import { DropdownMenu } from './DropdownMenu'
@@ -25,7 +26,7 @@ export const Avatar: React.FC = () => {
         </div>
       </button>
       <DropdownMenu isOpen={isOpen} onChange={setIsOpen} /> */}
-      <Link href="/dashboard">
+      <Link href={`/${cloudSlug}`}>
         <div className={classes.primaryUser}>
           <div className={classes.userInitial}>{user?.email?.charAt(0).toUpperCase()}</div>
         </div>
