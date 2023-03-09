@@ -36,7 +36,7 @@ export default () => {
                       </div>
                       <Button
                         size="small"
-                        appearance="primary"
+                        appearance="secondary"
                         label="View"
                         href={`/${cloudSlug}/${team.slug}`}
                       />

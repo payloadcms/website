@@ -60,7 +60,7 @@ const DashboardHeader = () => {
     }
   }
 
-  const isProjectRoute = segments.length > 2 && routes[segments[2]] === undefined && isTeamRoute
+  const isProjectRoute = isTeamRoute && segments.length > 2 && routes[segments[2]] === undefined
 
   if (isProjectRoute) {
     routes = {

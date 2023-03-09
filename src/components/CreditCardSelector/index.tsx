@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import { Card } from '@stripe/stripe-js'
 
 import { CreditCardElement } from '@components/CreditCardElement'
 import { LargeRadio } from '@components/LargeRadio'
 import { Team } from '@root/payload-cloud-types'
+import { useGetPaymentMethods } from '@root/utilities/use-cloud'
 
 import classes from './index.module.scss'
 
@@ -13,57 +13,15 @@ export const CreditCardSelector: React.FC<{
   onChange?: (method?: string) => void // eslint-disable-line no-unused-vars
 }> = props => {
   const { onChange, initialValue, team } = props
-  const [error, setError] = React.useState<string | undefined>()
-  const [cards, setCards] = React.useState<
-    {
-      id: string
-      card: Card
-    }[]
-  >([])
-  const hasMadeRequest = React.useRef(false)
   const [internalState, setInternalState] = React.useState(initialValue)
   const [showNewCard, setShowNewCard] = React.useState(false)
 
+  const { result: paymentMethods, error } = useGetPaymentMethods(team)
+
   useEffect(() => {
-    if (hasMadeRequest.current) return
-    hasMadeRequest.current = true
-
-    const fetchPaymentMethods = async () => {
-      try {
-        const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/stripe/rest`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            stripeMethod: 'customers.listPaymentMethods',
-            stripeArgs: [
-              team.stripeCustomerID,
-              {
-                type: 'card',
-              },
-            ],
-          }),
-        })
-
-        const res = await req.json()
-
-        if (req.ok) {
-          const newCards = res?.data?.data || []
-          setCards(newCards)
-          setShowNewCard(newCards.length === 0)
-          setInternalState(newCards?.[0]?.id || 'new-card')
-        } else {
-          setError(res.message)
-        }
-      } catch (err: any) {
-        setError(err.message)
-      }
-    }
-
-    fetchPaymentMethods()
-  }, [team])
+    setShowNewCard(!paymentMethods?.filter(paymentMethod => paymentMethod.id !== 'new-card').length)
+    setInternalState(paymentMethods?.[0]?.id || 'new-card')
+  }, [paymentMethods])
 
   useEffect(() => {
     if (typeof onChange === 'function') {
@@ -75,15 +33,15 @@ export const CreditCardSelector: React.FC<{
     <div className={classes.creditCardSelector}>
       {error && <p className={classes.error}>{error}</p>}
       <div className={classes.cards}>
-        {cards?.map(card => (
+        {paymentMethods?.map(paymentMethod => (
           <LargeRadio
-            key={card.id}
-            value={card.id}
-            checked={internalState === card.id}
+            key={paymentMethod.id}
+            value={paymentMethod.id}
+            checked={internalState === paymentMethod.id}
             onChange={setInternalState}
-            label={`${card.card.brand} ending in ${card.card.last4}`}
+            label={`${paymentMethod?.card?.brand} ending in ${paymentMethod?.card?.last4}`}
             name="card"
-            id={card.id}
+            id={paymentMethod.id}
           />
         ))}
         {showNewCard && (
@@ -97,12 +55,12 @@ export const CreditCardSelector: React.FC<{
           />
         )}
       </div>
-      {cards.filter(card => card.id !== 'new-card').length > 0 && (
+      {paymentMethods?.filter(paymentMethod => paymentMethod.id !== 'new-card').length > 0 && (
         <button
           className={classes.addNew}
           onClick={() => {
             setShowNewCard(!showNewCard)
-            setInternalState(showNewCard ? cards?.[0]?.id || 'new-card' : 'new-card')
+            setInternalState(showNewCard ? paymentMethods?.[0]?.id || 'new-card' : 'new-card')
           }}
           type="button"
         >

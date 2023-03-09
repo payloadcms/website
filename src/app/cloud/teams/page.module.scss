@@ -13,7 +13,18 @@
     position: relative;
     width: 100%;
     text-decoration: none;
-    background-color: var(--theme-elevation-50);
+    background-color: var(--theme-elevation-50);    
+    border: var(--theme-elevation-150) 1px solid;
+
+    &:hover {
+        border-color: var(--theme-elevation-300);
+
+        &:local() {
+            .arrowIcon {
+                opacity: 1;
+            }
+        }
+    }
 }
 
 .teamContent {

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
+import type { PaymentMethod } from '@stripe/stripe-js'
 
 import type { Plan, Project, Team } from '@root/payload-cloud-types'
 
@@ -9,8 +10,13 @@ export type UseCloud<T, A = null> = (args?: A) => {
   reload: () => void
 }
 
-export const useCloud = <T>(args: { url: string; delay?: number }): ReturnType<UseCloud<T>> => {
-  const { url, delay = 250 } = args
+export const useCloud = <T>(args: {
+  url: string
+  delay?: number
+  method?: 'GET' | 'POST'
+  body?: string
+}): ReturnType<UseCloud<T>> => {
+  const { url, delay = 250, method = 'GET', body } = args
   const hasMadeRequest = useRef(false)
   const [result, setResult] = useState<T[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -29,7 +35,12 @@ export const useCloud = <T>(args: { url: string; delay?: number }): ReturnType<U
           setIsLoading(true)
 
           const plansReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}${url}`, {
+            method,
             credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body,
           })
 
           const json: {
@@ -61,7 +72,7 @@ export const useCloud = <T>(args: { url: string; delay?: number }): ReturnType<U
     return () => {
       clearTimeout(timer)
     }
-  }, [url, requestTicker, delay])
+  }, [url, requestTicker, delay, method, body])
 
   const reload = useCallback(() => {
     hasMadeRequest.current = false
@@ -106,5 +117,21 @@ export const useGetProject: UseCloud<Project, string> = projectSlug => {
 export const useGetTeam: UseCloud<Team, string> = teamSlug => {
   return useCloud<Team>({
     url: teamSlug ? `/api/teams?where[slug][equals]=${teamSlug}&limit=1` : '',
+  })
+}
+
+export const useGetPaymentMethods: UseCloud<PaymentMethod, Team> = team => {
+  return useCloud<PaymentMethod>({
+    url: `/api/stripe/rest`,
+    method: 'POST',
+    body: JSON.stringify({
+      stripeMethod: 'customers.listPaymentMethods',
+      stripeArgs: [
+        team?.stripeCustomerID,
+        {
+          type: 'card',
+        },
+      ],
+    }),
   })
 }

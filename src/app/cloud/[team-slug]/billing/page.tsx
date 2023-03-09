@@ -1,43 +1,35 @@
 'use client'
 
 import * as React from 'react'
-import Link from 'next/link'
 
 import { Gutter } from '@components/Gutter'
+import { useGetPaymentMethods } from '@root/utilities/use-cloud'
 import { useRouteData } from '../../context'
 
 import classes from './page.module.scss'
 
 export default () => {
   const { team } = useRouteData()
+  const { result: paymentMethods } = useGetPaymentMethods(team)
 
-  const hasSubscriptions = team?.subscriptions?.length > 0
+  const hasCards = paymentMethods?.length > 0
 
   return (
     <div className={classes.billing}>
       <Gutter className={classes.content}>
-        {!hasSubscriptions && (
+        {!hasCards && (
           <div className={classes.empty}>
-            <p>
-              {`You don't have any current subscriptions. `}
-              <Link href="/new">Create a project</Link>
-              {` to get started.`}
-            </p>
+            <p>{`You currently don't have any payment methods on file.`}</p>
           </div>
         )}
-        {hasSubscriptions && (
+        {hasCards && (
           <div className={classes.subscriptions}>
-            <h2>Subscriptions</h2>
+            <h2>Payment methods</h2>
             <ul>
-              {team.subscriptions.map(subscription => (
-                <li key={subscription.id}>
-                  <p>
-                    {typeof subscription.plan === 'string'
-                      ? subscription.plan
-                      : subscription.plan?.name}
-                  </p>
-                  <p>{subscription.stripeProductID}</p>
-                  <p>{subscription.status}</p>
+              {paymentMethods.map(paymentMethod => (
+                <li key={paymentMethod.id}>
+                  <p>{paymentMethod.card?.brand}</p>
+                  <p>{paymentMethod.card?.last4}</p>
                 </li>
               ))}
             </ul>

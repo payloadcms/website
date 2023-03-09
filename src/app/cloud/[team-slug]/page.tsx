@@ -48,11 +48,16 @@ export default () => {
         <LoadingShimmer number={3} />
       ) : (
         <div className={classes.content}>
-          {projects && projects.length === 0 && (
+          {projects && projects.length === 0 && (!search || search.length === 0) && (
             <p className={classes.noProjects}>
               {"You don't have any projects yet, "}
               <Link href="/new">create a new project</Link>
               {' to get started.'}
+            </p>
+          )}
+          {projects && projects.length === 0 && search?.length > 0 && (
+            <p className={classes.noResults}>
+              {"Your search didn't return any results, please try again."}
             </p>
           )}
           {Array.isArray(projects) && projects.length > 0 && (
