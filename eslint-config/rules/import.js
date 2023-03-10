@@ -40,7 +40,7 @@ module.exports = {
           ['^react', '^@?\\w'],
           // Absolute imports and Relative imports, not scss
           [
-            '^(@root|@graphql|@components|@dashboard|@forms|@blocks|@hooks|@utilities|@types|@graphics|@icons|@scss)(/.*|$)',
+            '^(@root|@graphql|@components|@cloud|@forms|@blocks|@hooks|@utilities|@types|@graphics|@icons|@scss)(/.*|$)',
             '^\\.((?!.scss).)*$',
           ],
           // All other imports

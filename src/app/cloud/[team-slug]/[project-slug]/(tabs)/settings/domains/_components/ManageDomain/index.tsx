@@ -3,12 +3,12 @@ import { Collapsible } from '@faceless-ui/collapsibles'
 import { useModal } from '@faceless-ui/modal'
 import Link from 'next/link'
 
+import { Accordion } from '@cloud/_components/Accordion'
+import { useRouteData } from '@cloud/context'
 import { Button } from '@components/Button'
 import { Heading } from '@components/Heading'
 import { Label } from '@components/Label'
 import { ModalWindow } from '@components/ModalWindow'
-import { Accordion } from '@dashboard/_components/Accordion'
-import { useRouteData } from '@dashboard/context'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
@@ -21,7 +21,7 @@ const domainValueFieldPath = 'domain'
 
 type Props = {
   domain: Project['domains'][0]
-  cnameRecord: string
+  cnameRecord?: string
 }
 export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
   const { id, domain: domainURL, status } = domain

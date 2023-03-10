@@ -3,8 +3,8 @@
 import * as React from 'react'
 import { Collapsible, CollapsibleGroup } from '@faceless-ui/collapsibles'
 
-import { Accordion } from '@dashboard/_components/Accordion'
-import { Divider } from '@dashboard/_components/SectionDivider'
+import { Accordion } from '@cloud/_components/Accordion'
+import { Divider } from '@cloud/_components/SectionDivider'
 import { useRouteData } from '@root/app/cloud/context'
 import { NoData } from '../_layoutComponents/NoData'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'

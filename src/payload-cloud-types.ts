@@ -66,13 +66,13 @@ export interface Team {
     stripeProductID?: string
     plan?: string | Plan
     status?:
-    | 'active'
-    | 'canceled'
-    | 'incomplete'
-    | 'incomplete_expired'
-    | 'past_due'
-    | 'trialing'
-    | 'unpaid'
+      | 'active'
+      | 'canceled'
+      | 'incomplete'
+      | 'incomplete_expired'
+      | 'past_due'
+      | 'trialing'
+      | 'unpaid'
     id?: string
   }>
   skipSync?: boolean
@@ -185,14 +185,14 @@ export interface AtlasProject {
   projects?: string[] | Project[]
   projectCount?: number
   atlasOrg?:
-  | {
-    [k: string]: unknown
-  }
-  | unknown[]
-  | string
-  | number
-  | boolean
-  | null
+    | {
+        [k: string]: unknown
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null
   createdAt: string
   updatedAt: string
 }

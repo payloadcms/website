@@ -30,7 +30,7 @@ export const fetchGlobals = async (): Promise<{
   }).then(res => res.json())
 
   const { data: templatesData } = await fetch(
-    `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql?templates&sort=order`,
+    `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql?templates`,
     {
       method: 'POST',
       headers: {
@@ -42,7 +42,7 @@ export const fetchGlobals = async (): Promise<{
       }),
     },
   ).then(res => res.json())
-
+  console.log({ templatesData })
   return {
     mainMenu: data.MainMenu,
     footer: data.Footer,

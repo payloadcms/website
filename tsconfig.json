@@ -27,8 +27,8 @@
       "@components/*": [
         "./src/components/*"
       ],
-      "@dashboard/*": [
-        "./src/app/dashboard/*"
+      "@cloud/*": [
+        "./src/app/cloud/*"
       ],
       "@forms/*": [
         "./src/forms/*"
