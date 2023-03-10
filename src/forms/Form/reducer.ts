@@ -81,6 +81,7 @@ function fieldReducer(state: Fields, action: Action): Fields {
       }
     }
 
+    case 'UPDATE':
     default: {
       const newField = {
         value: action.value,

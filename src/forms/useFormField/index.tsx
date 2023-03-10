@@ -1,8 +1,8 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import useDebounce from '@utilities/use-debounce'
 
+import useDebounce from '@utilities/use-debounce'
 import { useForm, useFormModified, useFormProcessing, useFormSubmitted } from '../Form/context'
 import { Action, Value } from '../types'
 import { FormField, SetValue } from './types'
@@ -88,6 +88,12 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
       setInternalValue(initialValue)
     }
   }, [initialValue])
+
+  useEffect(() => {
+    if (field?.value !== undefined) {
+      setInternalValue(field.value)
+    }
+  }, [field?.value])
 
   useEffect(() => {
     if (debouncedValue !== undefined || !fieldExists) {

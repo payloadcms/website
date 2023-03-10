@@ -128,8 +128,9 @@
   --theme-elevation-1000: var(--color-base-1000);
 
   --theme-bg: var(--theme-elevation-0);
-  --theme-input-bg: var(--theme-elevation-0);
+  --theme-input-bg: var(--theme-elevation-50);
   --theme-text: var(--theme-elevation-750);
+  --theme-border-color: var(--theme-elevation-150);
 
   color-scheme: light;
   color: var(--theme-text);
@@ -281,7 +282,8 @@
 
   --theme-bg: var(--theme-elevation-100);
   --theme-text: var(--theme-elevation-1000);
-  --theme-input-bg: var(--theme-elevation-100);
+  --theme-input-bg: var(--theme-elevation-150);
+  --theme-border-color: var(--theme-elevation-250);
 
   color-scheme: dark;
   color: var(--theme-text);

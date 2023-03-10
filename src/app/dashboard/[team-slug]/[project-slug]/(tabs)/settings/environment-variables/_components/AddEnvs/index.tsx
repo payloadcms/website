@@ -1,11 +1,11 @@
 'use client'
 
 import * as React from 'react'
+
+import { Button } from '@components/Button'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
-
-import { Button } from '@components/Button'
 import { useRouteData } from '@root/app/dashboard/context'
 import { TrashIcon } from '@root/icons/TrashIcon'
 import { validateKey, validateValue } from '../validations'

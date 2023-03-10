@@ -17,7 +17,7 @@
   gap: var(--base);
   margin-top: var(--base);
   padding-top: var(--base);
-  border-top: 1px solid var(--theme-elevation-200);
+  border-top: 1px solid var(--theme-border-color);
 }
 
 .modalActions {
@@ -26,5 +26,5 @@
   justify-content: flex-end;
   width: 100%;
   padding-top: var(--base);
-  border-top: 1px solid var(--theme-elevation-200);
+  border-top: 1px solid var(--theme-border-color);
 }

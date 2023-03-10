@@ -5,7 +5,7 @@ import { Collapsible, CollapsibleGroup } from '@faceless-ui/collapsibles'
 
 import { Accordion } from '@dashboard/_components/Accordion'
 import { Divider } from '@dashboard/_components/SectionDivider'
-import { Project } from '@root/payload-cloud-types'
+import { useRouteData } from '@dashboard/context'
 import { NoData } from '../_layoutComponents/NoData'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'
 import { AddDomain } from './_components/AddDomain'
@@ -13,40 +13,8 @@ import { ManageDomain } from './_components/ManageDomain'
 
 import classes from './index.module.scss'
 
-const mockDomains: Project['domains'] = [
-  {
-    id: '1',
-    domain: 'active.com',
-    status: 'active',
-    records: [
-      {
-        type: 'CNAME',
-        name: '@',
-        value: '58.58.58.58',
-      },
-      {
-        type: 'A',
-        name: '@',
-        value: '58.58.58.58',
-      },
-    ],
-  },
-  {
-    id: '2',
-    domain: 'pending.com',
-    status: 'pending',
-    records: [
-      {
-        type: 'A',
-        name: '@',
-        value: '58.58.58.58',
-      },
-    ],
-  },
-]
-
 export default () => {
-  const domains = mockDomains // will come from project
+  const { project } = useRouteData()
 
   return (
     <div>
@@ -62,11 +30,11 @@ export default () => {
 
       <Divider />
 
-      {domains.length > 0 ? (
+      {project.domains.length > 0 ? (
         <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
           <div className={classes.collapsibleGroup}>
-            {domains.map(domain => (
-              <ManageDomain key={domain.id} domain={domain} />
+            {project.domains.map(domain => (
+              <ManageDomain key={domain.id} domain={domain} cnameRecord={project.cnameRecord} />
             ))}
           </div>
         </CollapsibleGroup>

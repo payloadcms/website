@@ -5,6 +5,7 @@ import * as React from 'react'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
+import { OnSubmit } from '@forms/types'
 import { useRouteData } from '@root/app/dashboard/context'
 import { Project } from '@root/payload-cloud-types'
 
@@ -31,39 +32,54 @@ export const AddDomain: React.FC = () => {
   const projectID = project.id
   const projectDomains = project?.domains
 
-  const saveDomain = React.useCallback(
-    async ({ data }) => {
+  const resetFieldValue = (dispatchFields: any) => {
+    dispatchFields({
+      type: 'UPDATE',
+      path: domainFieldPath,
+      value: '',
+      valid: true,
+    })
+  }
+
+  const saveDomain = React.useCallback<OnSubmit>(
+    async ({ data, dispatchFields }) => {
       const newDomain: Project['domains'][0] = {
-        domain: data[domainFieldPath],
+        domain: data[domainFieldPath] as string,
         status: 'pending',
-        records: [],
       }
 
-      try {
-        const req = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}`,
-          {
-            method: 'PATCH',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
+      const domainExists = projectDomains?.find(
+        projectDomain => projectDomain.domain === newDomain.domain,
+      )
+
+      if (!domainExists) {
+        try {
+          const req = await fetch(
+            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}`,
+            {
+              method: 'PATCH',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                domains: [newDomain, ...(projectDomains || [])],
+              }),
             },
-            body: JSON.stringify({
-              domains: [newDomain, ...(projectDomains || [])],
-            }),
-          },
-        )
+          )
 
-        if (req.status === 200) {
-          reloadProject()
+          if (req.status === 200) {
+            reloadProject()
+            resetFieldValue(dispatchFields)
+          }
+
+          return
+        } catch (e) {
+          console.error(e)
         }
-
-        return
-      } catch (e) {
-        console.error(e)
+      } else {
+        resetFieldValue(dispatchFields)
       }
-
-      // TODO: clear form
     },
     [projectID, reloadProject, projectDomains],
   )

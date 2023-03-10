@@ -16,14 +16,16 @@ import reducer from './reducer'
 
 const defaultInitialState = {}
 
-const Form: React.FC<{
+export type FormProps = {
   onSubmit?: OnSubmit
   children: React.ReactNode
   initialState?: InitialState
   method?: 'GET' | 'POST'
   action?: string
   className?: string
-}> = props => {
+}
+
+const Form: React.FC<FormProps> = props => {
   const {
     onSubmit,
     children,
@@ -72,6 +74,7 @@ const Form: React.FC<{
         await onSubmit({
           data: reduceFieldsToValues(fields, false),
           unflattenedData: reduceFieldsToValues(fields, true),
+          dispatchFields,
         })
       }
 

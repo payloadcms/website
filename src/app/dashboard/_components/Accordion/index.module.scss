@@ -3,8 +3,7 @@
 .accordion {
   --gutter-h: var(--base);
 
-  border: 1px solid var(--theme-elevation-200);
-  background-color: var(--theme-elevation-50);
+  border: 1px solid var(--theme-border-color);
   margin-bottom: var(--base);
   color: var(--theme-elevation-650);
 }
@@ -14,18 +13,24 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  background-color: var(--theme-elevation-50);
   padding: 
-    calc(var(--base) * .75)
+    calc(var(--base) * .5)
     var(--gutter-h);
 }
 
+:global([data-theme="dark"]) {
+  .header {
+    background-color: var(--theme-elevation-150);
+  }
+}
+
 .labelContent {
-  @include label;
+  font-size: 18px;
   margin: 0;
   display: flex;
   gap: var(--base);
   align-items: center;
-  color: var(--theme-elevation-500);
 
   * {
     margin: 0;
@@ -78,5 +83,5 @@
   padding: 
     calc(var(--base) * 1.25)
     var(--gutter-h);
-  border-top: 1px solid var(--theme-elevation-150);
+  border-top: 1px solid var(--theme-border-color);
 }

@@ -16,7 +16,6 @@ import { validateKey, validateValue } from '../validations'
 
 import classes from './index.module.scss'
 
-const modalSlug = 'delete-env'
 const envKeyFieldPath = 'envKey'
 const envValueFieldPath = 'envValue'
 
@@ -24,6 +23,7 @@ type Props = {
   env: Project['environmentVariables'][0]
 }
 export const ManageEnv: React.FC<Props> = ({ env: { key, id } }) => {
+  const modalSlug = `delete-env-${id}`
   const [fetchedEnvValue, setFetchedEnvValue] = React.useState<string | undefined>(undefined)
   const { reloadProject, project } = useRouteData()
   const { closeModal, openModal } = useModal()
@@ -121,7 +121,7 @@ export const ManageEnv: React.FC<Props> = ({ env: { key, id } }) => {
     } finally {
       closeModal(modalSlug)
     }
-  }, [projectID, reloadProject, key, closeModal])
+  }, [projectID, reloadProject, key, closeModal, modalSlug])
 
   return (
     <>

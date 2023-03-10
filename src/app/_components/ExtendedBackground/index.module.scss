@@ -34,13 +34,12 @@
     width: calc(100% + var(--bg-extension));
 
     &.upperBackground {
-      background-color: var(--theme-elevation-50);
-      border: 1px solid var(--theme-elevation-200);
+      background-color: var(--theme-bg);
+      border: 1px solid var(--theme-border-color);
     }
     &.lowerBackground {
       background-color: var(--theme-bg);
-      border: 1px solid var(--theme-elevation-200);
-      border-top: 1px solid var(--theme-elevation-150);
+      border: 1px solid var(--theme-border-color);
       top: -1px;
     }
     &.pixels {

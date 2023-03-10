@@ -91,7 +91,7 @@ $breakpoint-xl-width: 1920px;
   @include inputShadow;
   font-family: var(--font-body);
   width: 100%;
-  border: 1px solid var(--theme-elevation-250);
+  border: 1px solid var(--theme-border-color);
   background: var(--theme-input-bg);
   color: var(--theme-elevation-800);
   border-radius: 0;

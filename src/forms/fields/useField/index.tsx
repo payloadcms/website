@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+
 import { Validate, Value } from '@forms/types'
 import { useFormField } from '@forms/useFormField'
 
@@ -33,7 +34,7 @@ export const useField = <T extends Value>(props: {
     initialValue,
   })
 
-  const valueFromContextOrProps = valueFromContext || initialValue
+  const valueFromContextOrProps = valueFromContext !== undefined ? valueFromContext : initialValue
 
   const [internalState, setInternalState] = useState<T | null>(
     valueFromContext || initialValue || null,

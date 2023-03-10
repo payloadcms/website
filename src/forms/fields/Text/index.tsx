@@ -1,9 +1,9 @@
 'use client'
 
 import React from 'react'
-import Label from '@forms/Label'
 
 import { CopyToClipboard } from '@components/CopyToClipboard'
+import Label from '@forms/Label'
 import Error from '../../Error'
 import { Validate } from '../../types'
 import { FieldProps } from '../types'

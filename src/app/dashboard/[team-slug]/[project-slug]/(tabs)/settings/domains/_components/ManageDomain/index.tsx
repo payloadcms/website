@@ -18,13 +18,14 @@ import { Project } from '@root/payload-cloud-types'
 import classes from './index.module.scss'
 
 const domainValueFieldPath = 'domain'
-const modalSlug = 'delete-domain'
 
 type Props = {
   domain: Project['domains'][0]
+  cnameRecord: string
 }
-export const ManageDomain: React.FC<Props> = ({ domain }) => {
-  const { id: domainID, domain: domainURL, status, records } = domain
+export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
+  const { id, domain: domainURL, status } = domain
+  const modalSlug = `delete-domain-${id}`
 
   const { openModal, closeModal } = useModal()
   const { project, reloadProject } = useRouteData()
@@ -66,9 +67,9 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
     async ({ data }) => {
       const newDomainValue = data[domainValueFieldPath]
 
-      if (typeof newDomainValue === 'string' && domainID) {
+      if (typeof newDomainValue === 'string' && id) {
         const updatedDomains = projectDomains.map(existingDomain => {
-          if (existingDomain.id === domainID) {
+          if (existingDomain.id === id) {
             return {
               ...existingDomain,
               domain: newDomainValue,
@@ -81,22 +82,24 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
         await patchDomains(updatedDomains)
       }
     },
-    [domainID, projectDomains, patchDomains],
+    [id, projectDomains, patchDomains],
   )
 
   const deleteDomain = React.useCallback(async () => {
     const remainingDomains = (projectDomains || []).filter(
-      existingDomain => existingDomain.id !== domainID,
+      existingDomain => existingDomain.id !== id,
     )
 
     await patchDomains(remainingDomains)
     closeModal(modalSlug)
-  }, [domainID, closeModal, projectDomains, patchDomains])
+  }, [id, closeModal, projectDomains, patchDomains, modalSlug])
 
   return (
     <>
       <Collapsible openOnInit={status === 'pending'}>
         <Accordion
+          className={[classes.domainAccordion, classes[status]].join(' ')}
+          toggleIcon="chevron"
           label={
             <div className={classes.labelWrap}>
               {status === 'active' ? (
@@ -113,8 +116,6 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
               )}
             </div>
           }
-          toggleIcon="chevron"
-          className={[classes.domain, classes[status]].join(' ')}
         >
           <Form onSubmit={updateDomain}>
             <div className={classes.domainContent}>
@@ -127,15 +128,12 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
               />
 
               <div>
-                <Label className={classes.domainRecordsTitle}>Records</Label>
+                <Label className={classes.domainRecordsTitle}>Record</Label>
 
                 <div className={classes.domainRecords}>
                   <table className={classes.domainRecordsTable}>
                     <thead>
                       <tr>
-                        <th>
-                          <Label>Name</Label>
-                        </th>
                         <th>
                           <Label>Type</Label>
                         </th>
@@ -145,22 +143,20 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {(records || []).map(record => (
-                        <tr key={record.id} className={classes.domainRecord}>
-                          <td className={classes.domainRecordName}>
-                            <Label>{record.name}</Label>
-                          </td>
-                          <td className={classes.domainRecordType}>
-                            <Label>{record.type}</Label>
-                          </td>
-                          <td className={classes.domainRecordValue}>
-                            <Label>{record.value}</Label>
-                          </td>
-                        </tr>
-                      ))}
+                      <tr className={classes.domainRecord}>
+                        <td className={classes.domainRecordName}>
+                          <Label>CNAME</Label>
+                        </td>
+                        <td className={classes.domainRecordValue}>
+                          <Label>{cnameRecord || '8.58.8.58'}</Label>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
+                <p className={classes.configureMessage}>
+                  Configure this record on your DNS provider to continue
+                </p>
               </div>
 
               <div className={classes.domainActions}>

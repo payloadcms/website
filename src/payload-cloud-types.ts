@@ -115,14 +115,9 @@ export interface Project {
   domains: Array<{
     domain: string
     status: 'pending' | 'active' | 'inactive'
-    records: Array<{
-      type: 'A' | 'AAAA' | 'CNAME'
-      name: string
-      value: string
-      id?: string
-    }>
     id?: string
   }>
+  cnameRecord?: string
   atlasClusterID?: string
   atlasProjectID?: string
   atlasDatabaseName?: string

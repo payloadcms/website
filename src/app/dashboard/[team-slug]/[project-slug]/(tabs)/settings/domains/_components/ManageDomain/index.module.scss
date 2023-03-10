@@ -1,3 +1,5 @@
+@use '@scss/common' as *;
+
 .domainContent {
   display: flex;
   flex-direction: column;
@@ -11,32 +13,27 @@
   text-decoration: none;
 }
 
-.domainTitleName {
-  text-transform: lowercase;
-}
-
 .externalLinkIcon {
   height: 22px;
   width: auto;
 }
 
-.active {
-  [data-accordion-header] {
-    border-left: 2px solid var(--theme-success-500);
-  }
+.domainTitleName {
+  text-transform: lowercase;
+  color: var(--theme-text);
+}
 
-  .domainTitleName {
-    color: var(--theme-success-500);
-  }
+.active {
+  border-left: 2px solid var(--theme-success-300);
 }
 
 .pending {
-  [data-accordion-header] {
-    border-left: 2px solid var(--theme-error-500);
-  }
+  border-left: 2px solid var(--theme-error-300);
+}
 
-  .domainTitleName {
-    color: var(--theme-error-500);
+:global([data-theme="light"]) {
+  .active {
+    border-left: 2px solid var(--theme-success-550);
   }
 }
 
@@ -45,10 +42,18 @@
 }
 
 .domainRecords {
-  background: var(--theme-elevation-100);
-  border: 1px solid var(--theme-elevation-200);
   max-width: 100%;
   overflow: auto;
+  background: var(--theme-elevation-150);
+  padding: calc(var(--base) * .25);
+  padding: calc(var(--base) / 2) calc(var(--base) * 0.25);
+  margin-bottom: calc(var(--base) / 4);
+}
+
+:global([data-theme="light"]) {
+  .domainRecords {
+    background: var(--theme-elevation-100);
+  }
 }
 
 .domainRecordsTable {
@@ -57,11 +62,6 @@
   width: 100%;
 
   thead {
-    tr {
-      background-color: var(--theme-elevation-150);
-      border-bottom: 1px solid var(--theme-elevation-200);
-    }
-
     th {
       font-weight: normal;
     }
@@ -69,7 +69,7 @@
 
   th, td {
     padding: 
-      calc(var(--base) * .5)
+      calc(var(--base) * .25)
       calc(var(--base) * .75);
     display: table-cell;
     text-align: left;
@@ -80,14 +80,20 @@
   }
 
   tbody {
-    tr:nth-child(even) {
-      background-color: var(--theme-elevation-150);
-    }
-
     td p {
       font-size: 16px;
     }
   }
+}
+
+.configureMessage {
+  @include body;
+  padding: 
+    calc(var(--base) * .25)
+    calc(var(--base) * .5);
+  background-color: var(--theme-warning-100);
+  color: var(--theme-warning-550);
+  margin: 0;
 }
 
 .domainActions {
@@ -97,5 +103,14 @@
   width: 100%;
   margin-top: var(--base);
   padding-top: var(--base);
-  border-top: 1px solid var(--theme-elevation-200);
+  border-top: 1px solid var(--theme-border-color);
+}
+
+.modalActions {
+  display: flex;
+  gap: var(--base);
+  justify-content: flex-end;
+  width: 100%;
+  padding-top: var(--base);
+  border-top: 1px solid var(--theme-border-color);
 }
