@@ -42,7 +42,7 @@ export const fetchGlobals = async (): Promise<{
       }),
     },
   ).then(res => res.json())
-  console.log({ templatesData })
+
   return {
     mainMenu: data.MainMenu,
     footer: data.Footer,
