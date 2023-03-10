@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { components } from 'react-select'
 import { Select } from '@forms/fields/Select'
-import Link from 'next/link'
 
+import { useTeamDrawer } from '@components/TeamDrawer'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 
@@ -10,19 +10,15 @@ import classes from './index.module.scss'
 
 const SelectMenuButton = props => {
   const {
-    selectProps: { selectProps },
+    selectProps: {
+      selectProps: { TeamDrawerToggler },
+    },
   } = props
 
   return (
     <components.MenuList {...props}>
       {props.children}
-      <Link
-        className={classes.addTeamButton}
-        href="/new/team"
-        onClick={selectProps?.openPopupWindow}
-      >
-        Create new team
-      </Link>
+      {TeamDrawerToggler}
     </components.MenuList>
   )
 }
@@ -37,6 +33,7 @@ export const TeamSelector: React.FC<{
   const { onChange, value: valueFromProps, className } = props
   const hasInitializedSelection = React.useRef(false)
   const [selectedTeam, setSelectedTeam] = React.useState<Team | undefined>()
+  const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer({ team: selectedTeam })
 
   useEffect(() => {
     if (user) {
@@ -65,40 +62,50 @@ export const TeamSelector: React.FC<{
   if (!user) return null
 
   return (
-    <Select
-      className={className}
-      label="Team"
-      value={selectedTeam?.id}
-      initialValue={
-        typeof user?.teams?.[0]?.team === 'string'
-          ? user?.teams?.[0]?.team
-          : user?.teams?.[0]?.team.id
-      }
-      onChange={option => {
-        if (Array.isArray(option)) return
-        setSelectedTeam(
-          user?.teams?.find(({ team }) => typeof team === 'object' && team.id === option.value)
-            ?.team as Team,
-        )
-      }}
-      options={[
-        ...(user.teams && user.teams?.length > 0
-          ? ([
-              ...user?.teams?.map(({ team }) => ({
-                label: typeof team === 'string' ? team : team.name,
-                value: typeof team === 'string' ? team : team.id,
-              })),
-            ] as any)
-          : [
-              {
-                label: 'No teams found',
-                value: 'no-teams',
-              },
-            ]),
-      ]}
-      components={{
-        MenuList: SelectMenuButton,
-      }}
-    />
+    <Fragment>
+      <Select
+        className={className}
+        label="Team"
+        value={selectedTeam?.id}
+        initialValue={
+          typeof user?.teams?.[0]?.team === 'string'
+            ? user?.teams?.[0]?.team
+            : user?.teams?.[0]?.team.id
+        }
+        onChange={option => {
+          if (Array.isArray(option)) return
+          setSelectedTeam(
+            user?.teams?.find(({ team }) => typeof team === 'object' && team.id === option.value)
+              ?.team as Team,
+          )
+        }}
+        options={[
+          ...(user.teams && user.teams?.length > 0
+            ? ([
+                ...user?.teams?.map(({ team }) => ({
+                  label: typeof team === 'string' ? team : team.name,
+                  value: typeof team === 'string' ? team : team.id,
+                })),
+              ] as any)
+            : [
+                {
+                  label: 'No teams found',
+                  value: 'no-teams',
+                },
+              ]),
+        ]}
+        selectProps={{
+          TeamDrawerToggler: (
+            <TeamDrawerToggler className={classes.teamDrawerToggler}>
+              Create new team
+            </TeamDrawerToggler>
+          ),
+        }}
+        components={{
+          MenuList: SelectMenuButton,
+        }}
+      />
+      <TeamDrawer />
+    </Fragment>
   )
 }

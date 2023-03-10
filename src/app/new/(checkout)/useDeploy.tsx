@@ -3,6 +3,7 @@ import { CardElement as StripeCardElement, useElements, useStripe } from '@strip
 import { PaymentIntent, StripeCardElement as StripeCardElementType } from '@stripe/stripe-js'
 import { useRouter } from 'next/navigation'
 
+import { cloudSlug } from '@root/app/cloud/layout'
 import { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { PayloadPaymentIntent } from '@root/utilities/use-payment-intent'
@@ -108,8 +109,8 @@ export const useDeploy = (args: {
 
         const redirectURL =
           typeof matchedTeam === 'object'
-            ? `/dashboard/${matchedTeam?.slug}/${res.doc.slug}`
-            : '/dashboard'
+            ? `/${cloudSlug}/${matchedTeam?.slug}/${res.doc.slug}`
+            : `/${cloudSlug}`
 
         router.push(redirectURL)
       } else {

@@ -1,13 +1,10 @@
 import React from 'react'
 
+import { IconProps } from '../types'
+
 import classes from '../index.module.scss'
 
-export const Check: React.FC<{
-  className?: string
-  color?: string
-  size?: string
-  bold?: boolean
-}> = props => {
+export const Check: React.FC<IconProps> = props => {
   const { color, size, className, bold } = props
 
   return (

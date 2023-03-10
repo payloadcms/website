@@ -1,0 +1,17 @@
+@use '@scss/common.scss' as *;
+
+.title {
+    margin: 0;
+}
+
+.form {
+    margin-top: calc(var(--base));
+    
+    & > * {
+        margin-bottom: var(--base);
+    }
+
+    & > *:last-child {
+        margin-bottom: 0;
+    }
+}

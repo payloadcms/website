@@ -1,13 +1,10 @@
 import React from 'react'
 
+import { IconProps } from '../types'
+
 import classes from '../index.module.scss'
 
-export const ArrowIcon: React.FC<{
-  rotation?: number
-  size?: 'small' | 'large'
-  className?: string
-  bold?: boolean
-}> = props => {
+export const ArrowIcon: React.FC<IconProps> = props => {
   const { rotation, size, className, bold } = props
 
   return (

@@ -1,14 +1,10 @@
 import React from 'react'
 
+import { IconProps } from '../types'
+
 import classes from '../index.module.scss'
 
-export const SearchIcon: React.FC<{
-  rotation?: number
-  color?: string
-  size?: 'small' | 'large'
-  className?: string
-  bold?: boolean
-}> = props => {
+export const SearchIcon: React.FC<IconProps> = props => {
   const { color, rotation, size, className, bold } = props
 
   return (

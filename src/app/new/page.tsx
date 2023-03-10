@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { TemplatesBlock } from '@blocks/TemplatesBlock'
 import Link from 'next/link'
 
+import { BlockSpacing } from '@components/BlockSpacing'
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
@@ -29,7 +30,9 @@ const NewProject: React.FC = () => {
           />
         </div>
       </Gutter>
-      <TemplatesBlock />
+      <BlockSpacing top={false}>
+        <TemplatesBlock />
+      </BlockSpacing>
       <Gutter>
         <div className={classes.callToAction}>
           <h6>Payload Cloud is the best way to deploy a Payload project.</h6>

@@ -9,6 +9,7 @@ import { redirect } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
+import { cloudSlug } from '@root/app/cloud/layout'
 import { useAuth } from '@root/providers/Auth'
 
 import classes from './index.module.scss'
@@ -17,7 +18,7 @@ const Login: React.FC = () => {
   const { user, login } = useAuth()
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
-  const [redirectTo, setRedirectTo] = useState('/dashboard')
+  const [redirectTo, setRedirectTo] = useState(`${cloudSlug}`)
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)

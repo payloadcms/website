@@ -3,13 +3,13 @@
 import React, { useEffect, useState } from 'react'
 import AnimateHeight from 'react-animate-height'
 import { ChevronIcon } from '@graphics/ChevronIcon'
-import { CloseIcon } from '@graphics/CloseIcon'
 import { MenuIcon } from '@graphics/MenuIcon'
 import { useTheme } from '@providers/Theme'
 import Link from 'next/link'
 import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
 
 import { HeaderObserver } from '@components/HeaderObserver'
+import { CloseIcon } from '@root/icons/CloseIcon'
 import { MDXProvider } from '../../components/MDX'
 import { DocMeta, Topic } from '../(pages)/docs/types'
 

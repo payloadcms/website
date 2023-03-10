@@ -16,7 +16,7 @@ import classes from './index.module.scss'
 
 export type ButtonProps = {
   appearance?: 'default' | 'text' | 'primary' | 'secondary' | 'danger'
-  el?: 'button' | 'link' | 'a'
+  el?: 'button' | 'link' | 'a' | 'div'
   onClick?: () => void
   href?: string
   newTab?: boolean
@@ -110,6 +110,7 @@ const elements: {
 } = {
   a: 'a',
   button: 'button',
+  div: 'div',
 }
 
 export const Button: React.FC<ButtonProps> = props => {
