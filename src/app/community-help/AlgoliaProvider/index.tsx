@@ -3,31 +3,22 @@ import algoliasearch, { SearchClient } from 'algoliasearch/lite'
 import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
 import { IndexUiState, UiState } from 'instantsearch.js'
 import { history } from 'instantsearch.js/es/lib/routers'
-import Router from 'next/router'
+import router from 'next/router'
 import { getInitialState } from './getInitialState'
 
-// https://www.algolia.com/doc/guides/building-search-ui/going-further/routing-urls/react-hooks/
-
 let searchClient: SearchClient
-const appID = '9MJY7K9GOW'
-const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_DOCSEARCH_KEY || ''
+const appID = process.env.NEXT_PUBLIC_ALGOLIA_CH_ID
+const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_CH_KEY
+const indexName = process.env.NEXT_PUBLIC_ALGOLIA_CH_INDEX_NAME
 if (appID && apiKey) searchClient = algoliasearch(appID, apiKey)
-
 export const algoliaPerPage = 20
 
 export const AlgoliaProvider: React.FC<{
   children?: React.ReactNode
-  indexName?: string
 }> = props => {
-  const { children, indexName = 'searchable_posts_date_desc' } = props
+  const { children } = props
 
   const [initialURLState] = useState<IndexUiState>(() => getInitialState())
-
-  const [algoliaIndex] = useState<string | undefined>(() => {
-    if (indexName) {
-      return `${process.env.NEXT_PUBLIC_ALGOLIA_INDEX_PREFIX}${indexName}`
-    }
-  })
 
   if (indexName) {
     return (
@@ -64,7 +55,7 @@ export const AlgoliaProvider: React.FC<{
 
               const href = `${origin}${pathname}${encodedString}${hash}`
 
-              Router.push(href, undefined, { shallow: true })
+              // router.push(href, undefined, { shallow: true })
 
               return href
             },
@@ -72,8 +63,8 @@ export const AlgoliaProvider: React.FC<{
           stateMapping: {
             // @ts-ignore
             stateToRoute(uiState: UiState): IndexUiState {
-              const indexUiState = uiState[algoliaIndex]
-              delete indexUiState.configure
+              const indexUiState = uiState[indexName]
+              if (indexUiState.configure) delete indexUiState.configure
               return indexUiState
             },
             // @ts-ignore

@@ -7,25 +7,14 @@ import { Gutter } from '@components/Gutter'
 import DiscordGitCTA from '@components/DiscordGitCTA'
 import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@root/providers/Theme'
-import {
-  Configure,
-  useCurrentRefinements,
-  useHits,
-  usePagination,
-} from 'react-instantsearch-hooks-web'
+import { useHits } from 'react-instantsearch-hooks-web'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { CommentsIcon } from '@root/graphics/CommentsIcon'
-import { ThreadProps } from './discord/[thread]/render'
-import { DiscussionProps } from './github/[discussion]/render'
-
-import classes from './index.module.scss'
+import getRelativeDate from '@root/utilities/get-relative-date'
 import { ArchiveSearchBar } from './ArchiveSearchBar'
 import { AlgoliaProvider } from './AlgoliaProvider'
 
-export type CommunityHelpType = {
-  discussions: DiscussionProps[]
-  threads: ThreadProps[]
-}
+import classes from './index.module.scss'
 
 export const CommunityHelp: React.FC<
   CommunityHelpType & {
@@ -54,18 +43,24 @@ export const CommunityHelp: React.FC<
                     <li key={i} className={classes.post}>
                       <div className={classes.postContent}>
                         <div>
-                          <h5 className={classes.title}>{hit.anchor}</h5>
-                          <span className={classes.author}>Lorem Ipsum</span>
-                          <span className={classes.date}>&nbsp;last week</span>
-                          <span className={classes.platform}>&nbsp;in Discord</span>
+                          <h5 className={classes.title}>{hit.name}</h5>
+                          <span className={classes.author}>{hit.author} posted</span>
+                          <span className={classes.date}>
+                            &nbsp;{getRelativeDate(hit.createdAt)}
+                          </span>
+                          <span className={classes.platform}>&nbsp;in {hit.platform}</span>
                         </div>
                         <div className={classes.upvotes}>
-                          <span>
-                            <ArrowIcon rotation={-45} /> 4
-                          </span>
-                          <span>
-                            <CommentsIcon /> 7
-                          </span>
+                          {hit.upvotes && hit.upvotes > 0 && (
+                            <span>
+                              <ArrowIcon rotation={-45} /> {hit.upvotes}
+                            </span>
+                          )}
+                          {hit.messageCount && hit.messageCount > 0 && (
+                            <span>
+                              <CommentsIcon /> {hit.messageCount}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </li>
@@ -81,12 +76,10 @@ export const CommunityHelp: React.FC<
   )
 }
 
-export const RenderCommunityHelp = (props: CommunityHelpType) => {
-  const indexName = 'payloadcms'
-
+export const RenderCommunityHelp = () => {
   return (
-    <AlgoliaProvider indexName={indexName}>
-      <CommunityHelp {...props} indexName={indexName} />
+    <AlgoliaProvider>
+      <CommunityHelp />
     </AlgoliaProvider>
   )
 }
