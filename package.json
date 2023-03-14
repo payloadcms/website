@@ -26,6 +26,7 @@
     "@next/bundle-analyzer": "^13.0.2",
     "@next/font": "^13.0.3",
     "@vercel/og": "^0.0.21",
+    "cheerio": "^1.0.0-rc.12",
     "discord-markdown": "^2.5.1",
     "dotenv": "^16.0.3",
     "escape-html": "^1.0.3",

@@ -23,6 +23,10 @@
   }
 
   &>* {
+    &:not(pre) {
+      display: inline;
+    }
+    
     &:last-child {
       margin-bottom: 0;
     }

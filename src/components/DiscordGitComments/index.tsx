@@ -1,5 +1,6 @@
 import React from 'react'
 import AuthorTag from '@components/AuthorTag'
+import * as cheerio from 'cheerio'
 import { CheckmarkIcon } from '@root/graphics/CheckmarkIcon'
 import { FileAttachments } from '@components/FileAttachment'
 import { DiscordGitBody } from '@components/DiscordGitBody'
@@ -65,6 +66,23 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments })
           const totalReplies = comment?.replies ? comment?.replies?.length : false
           if (answer && comment?.body === answer?.body) return null
 
+          let body = ''
+
+          if (comment.content) {
+            const unwrappedMessage = cheerio.load(comment.content)
+
+            unwrappedMessage('body')
+              .contents()
+              .filter(function () {
+                return this.nodeType === 3
+              })
+              .wrap('<p></p>')
+
+            body = unwrappedMessage.html()
+          } else {
+            body = comment.body
+          }
+
           const avatarImg = comment.authorAvatar
             ? `https://cdn.discordapp.com/avatars/${comment.authorID}/${comment.authorAvatar}.png?size=256`
             : 'https://cdn.discordapp.com/embed/avatars/0.png'
@@ -86,7 +104,7 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments })
                   image={comment.author?.avatar || avatarImg}
                   date={comment?.createdAt || comment.createdAtDate}
                 />
-                <DiscordGitBody body={comment.body || comment.content} />
+                <DiscordGitBody body={body} />
 
                 {hasFileAttachments && <FileAttachments attachments={comment.fileAttachments} />}
 
