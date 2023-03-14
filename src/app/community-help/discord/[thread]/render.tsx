@@ -48,6 +48,7 @@ export type ThreadProps = {
   }
   messageCount: number
   messages: Messages[]
+  slug: string
 }
 
 export const RenderThread: React.FC<ThreadProps> = props => {

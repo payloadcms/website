@@ -46,6 +46,7 @@ export type DiscussionProps = {
   commentTotal: number
   upvotes: number
   comments: Comment[]
+  slug: string
 }
 
 export const RenderDiscussion: React.FC<DiscussionProps> = props => {
