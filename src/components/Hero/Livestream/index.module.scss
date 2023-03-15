@@ -85,6 +85,8 @@
   flex-direction: row;
   align-items: center;
   text-decoration: none;
+  margin-top: calc(var(--base) * 2.5);
+  margin-bottom: calc(var(--base) * 1.25);
 
   & img {
     width: 45px;
@@ -96,8 +98,9 @@
     flex-shrink: 0;
   }
 
-  &:not(:last-child) {
-    margin-bottom: var(--base);
+  &:last-child {
+    margin-top: var(--base);
+    margin-bottom: 0;
   }
 }
 
