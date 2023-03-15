@@ -1,7 +1,4 @@
-'use client'
-
 import * as React from 'react'
-import { usePathname } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
@@ -11,6 +8,7 @@ import classes from './index.module.scss'
 export type TabRoute = {
   label: string
   url?: string
+  isActive?: boolean
 }
 
 export const RouteTabs: React.FC<{
@@ -18,15 +16,12 @@ export const RouteTabs: React.FC<{
   className?: string
 }> = props => {
   const { tabs, className } = props
-  const pathname = usePathname()
 
   return (
     <div className={[classes.tabsContainer, className].filter(Boolean).join(' ')}>
       <Gutter>
         <div className={classes.tabs}>
-          {tabs?.map(({ url: tabURL, label }, index) => {
-            const isActive = pathname === tabURL
-
+          {tabs?.map(({ url: tabURL, label, isActive }, index) => {
             return (
               <Heading
                 key={index}

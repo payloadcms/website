@@ -1,6 +1,7 @@
 'use client'
 
 import { Fragment } from 'react'
+import { usePathname } from 'next/navigation'
 
 import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
@@ -13,7 +14,8 @@ export const cloudSlug = 'cloud'
 
 const DashboardHeader = () => {
   const { team, project } = useRouteData()
-  const segments = usePathnameSegments()
+  const pathname = usePathname()
+  let segments = usePathnameSegments()
 
   // optional `tabLabel` and `crumbLabel` properties determine
   // where whether the item is rendered in the breadcrumbs or tabs, or both
@@ -92,17 +94,24 @@ const DashboardHeader = () => {
     }
   }
 
+  const isSettingsRoute = segments.length >= 3 && segments[3] === 'settings'
+
+  if (isSettingsRoute) {
+    segments = segments.slice(0, 4)
+  }
+
   return (
     <Fragment>
       <Gutter>
         <Breadcrumbs
           items={segments.reduce((acc: Breadcrumb[], segment) => {
+            const lowercaseSegment = segment.toLowerCase()
             acc.push({
               label:
-                segment === 'cloud'
+                lowercaseSegment === 'cloud'
                   ? 'Cloud'
-                  : routes[segment]?.crumbLabel || routes[segment]?.tabLabel,
-              url: `/${cloudSlug}${routes[segment]?.href || ''}`,
+                  : routes[lowercaseSegment]?.crumbLabel || routes[lowercaseSegment]?.tabLabel,
+              url: `/${cloudSlug}${routes[lowercaseSegment]?.href || ''}`,
             })
             return acc
           }, [])}
@@ -113,9 +122,15 @@ const DashboardHeader = () => {
           // eslint-disable-next-line no-unused-vars
           ...Object.entries(routes).reduce((acc: any[], [key, value]) => {
             if (value.tabLabel) {
+              const tabURL = `/${cloudSlug}${value.href || ''}`
+              const onTabPath = pathname === tabURL
+              const onSettingsPath = isSettingsRoute && tabURL?.includes('/settings')
+              const isActive = onTabPath || onSettingsPath
+
               acc.push({
                 label: value.tabLabel,
-                url: `/${cloudSlug}${value.href || ''}`,
+                url: tabURL,
+                isActive,
               })
             }
             return acc
