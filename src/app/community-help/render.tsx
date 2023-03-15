@@ -11,6 +11,7 @@ import { useHits } from 'react-instantsearch-hooks-web'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { CommentsIcon } from '@root/graphics/CommentsIcon'
 import getRelativeDate from '@root/utilities/get-relative-date'
+import { AlgoliaPagination } from '@root/adapters/AlgoliaPagination'
 import { ArchiveSearchBar } from './ArchiveSearchBar'
 import { AlgoliaProvider } from './AlgoliaProvider'
 
@@ -68,6 +69,7 @@ export const CommunityHelp: React.FC<
                 })}
               </ul>
             )}
+            <AlgoliaPagination />
           </Cell>
         </Grid>
       </Gutter>

@@ -1,0 +1,34 @@
+@use '@scss/common' as *;
+
+.pagination {
+  display: flex;
+  margin-top: calc(var(--base) * 4);
+
+  & > *:not(:last-child) {
+    margin-right: calc(var(--base) * 0.25);
+  }
+}
+
+.paginationButton {
+  all: unset;
+  cursor: pointer;
+  width: calc(var(--base) * 3);
+  height: calc(var(--base) * 3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+  border-color: transparent;
+
+  &:hover {
+    border-color: #3C3C3C;
+  }
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.paginationButtonActive {
+  border-color: #3C3C3C;
+}
