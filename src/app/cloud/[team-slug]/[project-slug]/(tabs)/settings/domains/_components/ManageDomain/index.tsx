@@ -134,12 +134,8 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
                       <table className={classes.domainRecordsTable}>
                         <thead>
                           <tr>
-                            <th>
-                              <Label>Record Type</Label>
-                            </th>
-                            <th>
-                              <Label>Record Value</Label>
-                            </th>
+                            <th>Record Type</th>
+                            <th>Record Value</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -148,7 +144,7 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
                               <p>CNAME</p>
                             </td>
                             <td className={classes.domainRecordValue}>
-                              <p>{cnameRecord || '8.58.8.58'}</p>
+                              {cnameRecord || '8.58.8.58'}
                             </td>
                           </tr>
                         </tbody>
