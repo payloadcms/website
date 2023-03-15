@@ -15,8 +15,17 @@ import { Video } from '@components/RichText/Video'
 
 import classes from './index.module.scss'
 
-export const LivestreamHero: React.FC<Page['hero']> = props => {
-  const { breadcrumbs, date, links, richText, youtubeID } = props
+export const LivestreamHero: React.FC<
+  Page['hero'] & {
+    breadcrumbs?: Page['breadcrumbs']
+  }
+> = props => {
+  const {
+    breadcrumbs,
+    livestream: { id: youtubeID = '', date, guests },
+    links,
+    richText,
+  } = props
   const theme = useTheme()
 
   const today = new Date()
@@ -47,9 +56,19 @@ export const LivestreamHero: React.FC<Page['hero']> = props => {
           </div>
           <Gutter className={classes.gutter}>
             <Grid>
-              <Cell cols={6} colsM={8} startM={1} className={classes.richTextCell}>
+              <Cell cols={6} colsM={8} startM={1}>
                 {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
-                {richText && <RichText className={classes.richText} content={richText} />}
+                {richText && <RichText content={richText} />}
+                {guests &&
+                  Array.isArray(guests) &&
+                  guests.map(({ name, link, image }, i) => {
+                    return (
+                      <a className={classes.guestWrap} key={i} href={link || '/'} target="_blank">
+                        {image && <img src={image.url} />}
+                        {name && name}
+                      </a>
+                    )
+                  })}
               </Cell>
               {!isLive && (
                 <Cell cols={6} start={8} colsM={8} startM={1} className={classes.linkCell}>
@@ -58,16 +77,19 @@ export const LivestreamHero: React.FC<Page['hero']> = props => {
                     &nbsp;
                     {Array.isArray(links) &&
                       links.map(({ link }, i) => {
-                        const { appearance } = link
+                        const { appearance, url, label } = link
                         return (
                           <Button
                             key={i}
-                            {...link}
+                            appearance={appearance}
                             className={[classes.link, appearance && classes[`link--${appearance}`]]
                               .filter(Boolean)
                               .join(' ')}
-                            icon="arrow"
                             disableLineBlip
+                            el="a"
+                            href={url}
+                            icon="arrow"
+                            label={label}
                           />
                         )
                       })}

@@ -44,7 +44,11 @@
 }
 
 .videoWrap {
-  width: calc(100% + (calc(var(--gutter-h)*0.5)));
+  width: calc(100% + (calc(var(--gutter-h)*0.75)));
+
+  @include extra-large-break {
+    width: calc(100% + (calc(var(--gutter-h)*1)));
+  }
 
   @include mid-break {
     width: 100%;
@@ -52,8 +56,6 @@
 }
 
 .link {
-  max-width: 500px;
-
   &:not(:last-child) {
     margin-bottom: var(--base);
   }
@@ -76,6 +78,29 @@
     }
   }
 }
+
+.guestWrap {
+  @include label;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+
+  & img {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-right: calc(var(--base) * 1.5);
+    border: none;
+    flex-shrink: 0;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: var(--base);
+  }
+}
+
 
 // BG
 
@@ -126,8 +151,7 @@
   left: 0;
 
   @include mid-break {
-    height: calc(100% - (var(--base) * 4));
-    top: calc(var(--base) * 2);
+    opacity: 0;
   }
 }
 

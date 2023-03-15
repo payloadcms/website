@@ -51,7 +51,7 @@ const formatOptions: { [key: string]: Intl.DateTimeFormatOptions } = {
 
 interface Args {
   date: string | Date
-  format?: 'longDateStamp' | 'shortDateStamp'
+  format?: 'longDateStamp' | 'shortDateStamp' | 'dateAndTime'
 }
 export function formatDate(args: Args): string {
   const { date, format = 'longDateStamp' } = args
