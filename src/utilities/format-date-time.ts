@@ -40,12 +40,12 @@ const formatOptions: { [key: string]: Intl.DateTimeFormatOptions } = {
     day: 'numeric',
   },
   dateAndTime: {
-    year: 'numeric',
+    year: undefined,
     month: 'long',
     day: 'numeric',
     hour: 'numeric',
-    timeZoneName: 'shortGeneric',
-    timeZone: 'PST',
+    timeZoneName: 'short',
+    timeZone: 'America/Los_Angeles',
   },
 }
 

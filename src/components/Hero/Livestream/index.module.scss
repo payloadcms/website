@@ -21,7 +21,8 @@
   }
 }
 
-.linkCell {
+.linkCell,
+.videoCell {
   padding: calc(var(--base) * 4) 0;
 
   &>*:not(:last-child) {
@@ -34,14 +35,25 @@
   }
 }
 
-.linksWrap {
+.linksWrap,
+.videoWrap {
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 100%;
 }
 
+.videoWrap {
+  width: calc(100% + (calc(var(--gutter-h)*0.5)));
+
+  @include mid-break {
+    width: 100%;
+  }
+}
+
 .link {
+  max-width: 500px;
+
   &:not(:last-child) {
     margin-bottom: var(--base);
   }
