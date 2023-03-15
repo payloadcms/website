@@ -28,7 +28,10 @@ export const AddEnvs: React.FC = () => {
   }, [])
 
   const removeRow = React.useCallback((index: number) => {
-    setRows(prev => prev.filter((_, i) => i !== index))
+    setRows(prev => {
+      const remainingRows = prev.filter((_, i) => i !== index)
+      return remainingRows.length > 0 ? remainingRows : [generateUUID()]
+    })
   }, [])
 
   const clearRows = React.useCallback(() => {
