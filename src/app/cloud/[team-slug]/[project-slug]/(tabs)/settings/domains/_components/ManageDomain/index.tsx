@@ -68,7 +68,7 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
       const newDomainValue = data[domainValueFieldPath]
 
       if (typeof newDomainValue === 'string' && id) {
-        const updatedDomains = projectDomains.map(existingDomain => {
+        const updatedDomains = (projectDomains || []).map(existingDomain => {
           if (existingDomain.id === id) {
             return {
               ...existingDomain,
@@ -127,46 +127,57 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
                 initialValue={domainURL}
               />
 
-              <div>
-                <Label className={classes.domainRecordsTitle}>Record</Label>
+              {status === 'pending' && (
+                <div className={classes.pendingDomain}>
+                  <div className={classes.configureDomain}>
+                    <div className={classes.domainRecords}>
+                      <table className={classes.domainRecordsTable}>
+                        <thead>
+                          <tr>
+                            <th>
+                              <Label>Record Type</Label>
+                            </th>
+                            <th>
+                              <Label>Record Value</Label>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className={classes.domainRecord}>
+                            <td className={classes.domainRecordName}>
+                              <p>CNAME</p>
+                            </td>
+                            <td className={classes.domainRecordValue}>
+                              <p>{cnameRecord || '8.58.8.58'}</p>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
 
-                <div className={classes.domainRecords}>
-                  <table className={classes.domainRecordsTable}>
-                    <thead>
-                      <tr>
-                        <th>
-                          <Label>Type</Label>
-                        </th>
-                        <th>
-                          <Label>Value</Label>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className={classes.domainRecord}>
-                        <td className={classes.domainRecordName}>
-                          <Label>CNAME</Label>
-                        </td>
-                        <td className={classes.domainRecordValue}>
-                          <Label>{cnameRecord || '8.58.8.58'}</Label>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <p className={classes.pendingDomainAlert}>
+                    You still need to configure the listed CNAME record with your DNS provider
+                  </p>
                 </div>
-                <p className={classes.configureMessage}>
-                  Configure this record on your DNS provider to continue
-                </p>
-              </div>
+              )}
 
               <div className={classes.domainActions}>
-                <Button
-                  size="small"
-                  label="delete"
-                  appearance="danger"
-                  onClick={() => openModal(modalSlug)}
-                />
-                <Submit size="small" label="save" appearance="secondary" icon={false} />
+                {status === 'pending' && (
+                  <div className={classes.leftActions}>
+                    <Button label="refresh" appearance="secondary" size="small" />
+                  </div>
+                )}
+
+                <div className={classes.rightActions}>
+                  <Button
+                    size="small"
+                    label="delete"
+                    appearance="danger"
+                    onClick={() => openModal(modalSlug)}
+                  />
+                  <Submit size="small" label="save" appearance="secondary" icon={false} />
+                </div>
               </div>
             </div>
           </Form>
@@ -179,8 +190,8 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
             Are you sure you want to delete this domain?
           </Heading>
           <p>
-            Deleting a domain variable from a project cannot be undone. You can manually add the
-            domain back to the project.
+            Deleting a domain from a project cannot be undone. You can manually add the domain back
+            to the project.
           </p>
 
           <div className={classes.modalActions}>

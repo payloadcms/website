@@ -74,7 +74,6 @@ const Form: React.FC<FormProps> = props => {
         await onSubmit({
           data: reduceFieldsToValues(fields, false),
           unflattenedData: reduceFieldsToValues(fields, true),
-          dispatchFields,
         })
       }
 
@@ -103,18 +102,15 @@ const Form: React.FC<FormProps> = props => {
     return !Object.values(contextRef.current.fields).some((field): boolean => field.valid === false)
   }, [contextRef])
 
-  contextRef.current = {
-    ...contextRef.current,
-    dispatchFields,
-    handleSubmit,
-    getFields,
-    getField,
-    getFormData,
-    validateForm,
-    setIsModified,
-    setIsProcessing,
-    setHasSubmitted,
-  }
+  contextRef.current.dispatchFields = dispatchFields
+  contextRef.current.handleSubmit = handleSubmit
+  contextRef.current.getFields = getFields
+  contextRef.current.getField = getField
+  contextRef.current.getFormData = getFormData
+  contextRef.current.validateForm = validateForm
+  contextRef.current.setIsModified = setIsModified
+  contextRef.current.setIsProcessing = setIsProcessing
+  contextRef.current.setHasSubmitted = setHasSubmitted
 
   useEffect(() => {
     contextRef.current = { ...initialContext }

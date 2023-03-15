@@ -18,7 +18,21 @@ export default () => {
 
   return (
     <div>
-      <SectionHeader title="Domains" />
+      <SectionHeader
+        title="Custom Domains"
+        intro={
+          <>
+            {project.defaultDomain && (
+              <p>
+                You can also access your CMS by visiting{' '}
+                <a href={project.defaultDomain} target="_blank">
+                  {project.defaultDomain}
+                </a>
+              </p>
+            )}
+          </>
+        }
+      />
 
       <CollapsibleGroup transTime={250} transCurve="ease">
         <Collapsible openOnInit>
@@ -30,7 +44,7 @@ export default () => {
 
       <Divider />
 
-      {project.domains.length > 0 ? (
+      {project?.domains && project.domains.length > 0 ? (
         <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
           <div className={classes.collapsibleGroup}>
             {project.domains.map(domain => (

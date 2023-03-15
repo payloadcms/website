@@ -18,33 +18,24 @@ const generateUUID = () => {
 
 export const AddEnvs: React.FC = () => {
   const { project, reloadProject } = useRouteData()
-  const [tempEnvUUIDs, setTempUUIDs] = React.useState([generateUUID()])
-
-  const existingEnvKeys = (project.environmentVariables || []).map(({ key }) => key || '')
   const projectID = project.id
 
-  const resetTempEnvs = React.useCallback(() => {
-    setTempUUIDs([generateUUID()])
+  const [rows, setRows] = React.useState([generateUUID()])
+  const existingEnvKeys = (project.environmentVariables || []).map(({ key }) => key || '')
+
+  const addRow = React.useCallback(() => {
+    setRows(prev => [...prev, generateUUID()])
   }, [])
 
-  const addTempEnv = () => {
-    setTempUUIDs(curr => [...curr, generateUUID()])
-  }
+  const removeRow = React.useCallback((index: number) => {
+    setRows(prev => prev.filter((_, i) => i !== index))
+  }, [])
 
-  const removeTempEnv = React.useCallback(
-    index => {
-      if (tempEnvUUIDs.length === 1) {
-        resetTempEnvs()
-      } else {
-        const newEnvs = [...tempEnvUUIDs]
-        newEnvs.splice(index, 1)
-        setTempUUIDs(newEnvs)
-      }
-    },
-    [tempEnvUUIDs, resetTempEnvs],
-  )
+  const clearRows = React.useCallback(() => {
+    setRows([generateUUID()])
+  }, [])
 
-  const saveEnvs = React.useCallback(
+  const handleSubmit = React.useCallback(
     async ({ unflattenedData }) => {
       if (unflattenedData?.newEnvs?.length > 0) {
         const sanitizedEnvs = unflattenedData.newEnvs.reduce((acc, env) => {
@@ -73,7 +64,7 @@ export const AddEnvs: React.FC = () => {
           )
 
           if (req.status === 200) {
-            resetTempEnvs()
+            clearRows()
             reloadProject()
           }
 
@@ -82,17 +73,15 @@ export const AddEnvs: React.FC = () => {
           console.error(e)
         }
       }
-
-      resetTempEnvs()
     },
-    [projectID, resetTempEnvs, reloadProject],
+    [projectID, reloadProject, clearRows],
   )
 
   return (
-    <Form className={classes.formContent} onSubmit={saveEnvs}>
-      {tempEnvUUIDs.map((id, index) => {
+    <Form className={classes.formContent} onSubmit={handleSubmit}>
+      {rows.map((tempUUID, index) => {
         return (
-          <div className={classes.newItemRow} key={id}>
+          <div className={classes.newItemRow} key={tempUUID}>
             <div className={classes.newVariableInputs}>
               <Text
                 required
@@ -113,22 +102,19 @@ export const AddEnvs: React.FC = () => {
               />
             </div>
 
-            <button
-              type="button"
-              className={classes.trashButton}
-              onClick={() => removeTempEnv(index)}
-            >
+            <button type="button" className={classes.trashButton} onClick={() => removeRow(index)}>
               <TrashIcon />
             </button>
           </div>
         )
       })}
+
       <div className={classes.addAnotherButtonWrap}>
         <Button
           label="Add another"
           size="small"
           appearance="text"
-          onClick={addTempEnv}
+          onClick={addRow}
           icon="plus"
           fullWidth={false}
           className={classes.addAnotherButton}

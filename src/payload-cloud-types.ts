@@ -24,7 +24,7 @@ export interface User {
   name?: string
   githubID?: string
   defaultTeam?: string | Team
-  teams: Array<{
+  teams?: Array<{
     team: string | Team
     roles?: Array<'owner' | 'admin' | 'user'>
     invitedOn?: string
@@ -32,7 +32,7 @@ export interface User {
     default?: boolean
     id?: string
   }>
-  projects: Array<{
+  projects?: Array<{
     project?: string | Project
     roles?: Array<'owner' | 'admin' | 'user'>
     invitedOn?: string
@@ -61,18 +61,18 @@ export interface Team {
   slug?: string
   billingEmail?: string
   stripeCustomerID?: string
-  subscriptions: Array<{
+  subscriptions?: Array<{
     stripeSubscriptionID?: string
     stripeProductID?: string
     plan?: string | Plan
     status?:
-      | 'active'
-      | 'canceled'
-      | 'incomplete'
-      | 'incomplete_expired'
-      | 'past_due'
-      | 'trialing'
-      | 'unpaid'
+    | 'active'
+    | 'canceled'
+    | 'incomplete'
+    | 'incomplete_expired'
+    | 'past_due'
+    | 'trialing'
+    | 'unpaid'
     id?: string
   }>
   skipSync?: boolean
@@ -112,11 +112,12 @@ export interface Project {
   rootDirectory?: string
   digitalOceanAppID?: string
   digitalOceanProjectID?: string
-  domains: Array<{
+  domains?: Array<{
     domain: string
     status: 'pending' | 'active' | 'inactive'
     id?: string
   }>
+  defaultDomain?: string
   cnameRecord?: string
   atlasClusterID?: string
   atlasProjectID?: string
@@ -125,12 +126,12 @@ export interface Project {
   atlasDatabasePassword?: string
   s3Policy?: 'public' | 'private'
   region?: 'us-east-1' | 'us-west-2' | 'eu-west-2' | 'eu-central-1'
-  environmentVariables: Array<{
+  environmentVariables?: Array<{
     key?: string
     value?: string
     id?: string
   }>
-  aws: {
+  aws?: {
     user?: string
   }
   skipSync?: boolean
@@ -154,7 +155,7 @@ export interface Deployment {
   project: string | Project
   deployedAt: string
   deploymentURL: string
-  logs: Array<{
+  logs?: Array<{
     timestamp?: string
     message?: string
     id?: string
@@ -185,14 +186,14 @@ export interface AtlasProject {
   projects?: string[] | Project[]
   projectCount?: number
   atlasOrg?:
-    | {
-        [k: string]: unknown
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null
+  | {
+    [k: string]: unknown
+  }
+  | unknown[]
+  | string
+  | number
+  | boolean
+  | null
   createdAt: string
   updatedAt: string
 }

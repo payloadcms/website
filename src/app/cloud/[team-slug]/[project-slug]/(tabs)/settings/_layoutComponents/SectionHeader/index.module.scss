@@ -1,7 +1,16 @@
 .sectionHeader {
+  margin-bottom: calc(var(--base) * 2);
+}
+
+.titleAndLink {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: calc(var(--base) * 2);
+}
+
+.intro {
+  margin-top: calc(var(--base) * .25);
+  display: block;
+  color: var(--theme-elevation-450)
 }

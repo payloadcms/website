@@ -14,7 +14,7 @@ import { FormField, SetValue } from './types'
 // 4. returns form state and field-level errors
 
 export const useFormField = <T extends Value>(options): FormField<T> => {
-  const { path, validate, initialValue } = options
+  const { path, validate } = options
 
   const formContext = useForm()
   const submitted = useFormSubmitted()
@@ -27,6 +27,8 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
   const field = getField(path)
 
   const fieldExists = Boolean(field)
+
+  const initialValue = field?.initialValue
 
   const [internalValue, setInternalValue] = useState<Value>()
 
@@ -88,12 +90,6 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
       setInternalValue(initialValue)
     }
   }, [initialValue])
-
-  useEffect(() => {
-    if (field?.value !== undefined) {
-      setInternalValue(field.value)
-    }
-  }, [field?.value])
 
   useEffect(() => {
     if (debouncedValue !== undefined || !fieldExists) {
