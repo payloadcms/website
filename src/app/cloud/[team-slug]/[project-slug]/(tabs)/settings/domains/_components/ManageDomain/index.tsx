@@ -144,7 +144,7 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
                               <p>CNAME</p>
                             </td>
                             <td className={classes.domainRecordValue}>
-                              {cnameRecord || '8.58.8.58'}
+                              {cnameRecord || 'some-domain.payloadcms.app'}
                             </td>
                           </tr>
                         </tbody>
@@ -153,7 +153,7 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
                   </div>
 
                   <p className={classes.pendingDomainAlert}>
-                    You still need to configure the listed CNAME record with your DNS provider
+                    You will need to configure this record with your DNS provider.
                   </p>
                 </div>
               )}
