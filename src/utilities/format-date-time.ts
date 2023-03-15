@@ -39,6 +39,14 @@ const formatOptions: { [key: string]: Intl.DateTimeFormatOptions } = {
     month: 'short',
     day: 'numeric',
   },
+  dateAndTime: {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    timeZoneName: 'shortGeneric',
+    timeZone: 'PST',
+  },
 }
 
 interface Args {

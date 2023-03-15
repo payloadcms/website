@@ -1,0 +1,141 @@
+@use "@scss/common" as *;
+
+.livestreamHero {
+  position: relative;
+  margin-top: calc(var(--base) * -2);
+  color: var(--color-base-0);
+
+  @include mid-break {
+    margin-top: calc(var(--base) * -1);
+  }
+}
+
+.gutter {
+  position: relative;
+  padding-top: calc(var(--base) * 8);
+  padding-bottom: calc(var(--base) * 8);
+
+  @include mid-break {
+    padding-top: calc(var(--base) * 4);
+    padding-bottom: calc(var(--base) * 4);
+  }
+}
+
+.linkCell {
+  padding: calc(var(--base) * 4) 0;
+
+  &>*:not(:last-child) {
+    margin-bottom: var(--base);
+  }
+
+  @include mid-break {
+    margin-top: var(--base);
+    padding: 0;
+  }
+}
+
+.linksWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.link {
+  &:not(:last-child) {
+    margin-bottom: var(--base);
+  }
+
+  &--secondary {
+    color: var(--color-success-400);
+    border-color: var(--color-success-400);
+  }
+
+  &--default {
+    color: var(--color-blue-600);
+    width: min-content;
+
+    & div {
+      width: unset;
+    }
+
+    @include mid-break {
+      padding: 0;
+    }
+  }
+}
+
+// BG
+
+.bgWrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.bgGutter {
+  width: 100%;
+  height: 100%;
+}
+
+.bg1 {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-base-950);
+  margin-left: calc(var(--gutter-h) / -2);
+  width: calc(100% + var(--gutter-h));
+
+  @include mid-break {
+    margin: 0;
+    width: 100%;
+  }
+}
+
+.pixelBG {
+  position: absolute;
+  height: 100%;
+  width: calc(var(--base) * 16);
+  right: 0;
+  left: auto;
+
+  @include mid-break {
+    width: calc(var(--base) * 10);
+  }
+}
+
+.bg2Wrapper {
+  width: 100%;
+  height: calc(100% - (var(--base) * 16));
+  top: calc(var(--base) * 8);
+  position: absolute;
+  left: 0;
+
+  @include mid-break {
+    height: calc(100% - (var(--base) * 4));
+    top: calc(var(--base) * 2);
+  }
+}
+
+.bg2Grid {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.bg2Cell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.bg2 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(100% + var(--gutter-h));
+  height: 100%;
+  background-color: var(--color-base-900);
+}
