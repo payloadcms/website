@@ -13,26 +13,26 @@ import { DiscordGitIntro } from '@components/DiscordGitIntro'
 import { DiscordGitComments } from '@components/DiscordGitComments'
 import classes from './index.module.scss'
 
-type DateFromSource = string | number
+type DateFromSource = string
 export type Author = {
-  name: string
-  url: string
-  avatar: string
+  name?: string
+  url?: string
+  avatar?: string
 }
 export type Comment = {
   author: Author
   body: string
   createdAt: DateFromSource
-  replies?: Comment[]
+  replies?: Comment[] | null
 }
 
 export type Answer = {
   author: Author
   body: string
   createdAt: DateFromSource
-  chosenBy: Author
+  chosenBy?: string
   chosenAt: DateFromSource
-  replies?: Comment[]
+  replies?: Comment[] | null
 }
 
 export type DiscussionProps = {
