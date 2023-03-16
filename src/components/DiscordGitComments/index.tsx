@@ -65,11 +65,11 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
       {comments &&
         comments.map((comment, index) => {
           const totalReplies = comment?.replies ? comment?.replies?.length : false
-          if (answer && comment?.body === answer?.body) return null
+          if ((answer && comment?.body === answer?.body) || !comment) return null
 
           let body = ''
 
-          if (comment.content) {
+          if (comment?.content) {
             const unwrappedMessage = cheerio.load(comment.content)
 
             unwrappedMessage('body')
