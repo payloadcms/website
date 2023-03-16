@@ -65,7 +65,7 @@ export const AlgoliaPagination: React.FC<{
           onClick={() => {
             refine(currentRefinement + 1)
           }}
-          disabled={currentRefinement >= nbPages}
+          disabled={currentRefinement >= (nbPages - 1)}
         >
           <ChevronIconV2 />
         </button>
