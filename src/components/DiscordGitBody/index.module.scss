@@ -13,6 +13,7 @@
   }
 
   img {
+    @include shadow-lg;
     margin: 20px 0;
   }
 
