@@ -39,11 +39,19 @@ const formatOptions: { [key: string]: Intl.DateTimeFormatOptions } = {
     month: 'short',
     day: 'numeric',
   },
+  dateAndTime: {
+    year: undefined,
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    timeZoneName: 'short',
+    timeZone: 'America/Los_Angeles',
+  },
 }
 
 interface Args {
   date: string | Date
-  format?: 'longDateStamp' | 'shortDateStamp'
+  format?: 'longDateStamp' | 'shortDateStamp' | 'dateAndTime'
 }
 export function formatDate(args: Args): string {
   const { date, format = 'longDateStamp' } = args
