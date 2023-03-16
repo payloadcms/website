@@ -14,7 +14,7 @@ const client = algoliasearch(appID, apiKey)
 const index = client.initIndex(indexName)
 
 const discordRecords = threads.map(thread => {
-  const { info } = thread
+  const { info, slug } = thread
 
   const messages = thread.messages.map(message => {
     return {
@@ -31,11 +31,12 @@ const discordRecords = threads.map(thread => {
     author: thread.messages[0].authorName,
     messages,
     messageCount: thread.messageCount,
+    slug,
   }
 })
 
 const gitDiscussions = discussions.map(discussion => {
-  const { id, title, body, author, createdAt, commentTotal, upvotes } = discussion
+  const { id, title, body, author, createdAt, commentTotal, upvotes, slug } = discussion
 
   const comments = discussion.comments?.map(comment => {
     const replies = comment.replies?.map(reply => {
@@ -62,6 +63,7 @@ const gitDiscussions = discussions.map(discussion => {
     upvotes,
     author: author.name,
     comments: comments || [],
+    slug,
   }
 })
 

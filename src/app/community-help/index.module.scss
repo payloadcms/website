@@ -40,13 +40,13 @@
 
 .post {
   border-bottom: 1px solid var(--color-base-650);
-  margin-bottom: calc(var(--base) * 1.75);
 }
 
 .postContent {
+  text-decoration: none;
   display: flex;
   justify-content: space-between;
-  margin-bottom: calc(var(--base) * 1.75);
+  padding: calc(var(--base) * 1.75) 0;
 }
 
 .title {
@@ -57,7 +57,6 @@
 .date,
 .platform {
   color: var(--theme-elevation-500);
-  font-weight: normal;
 }
 
 .upvotes {
@@ -76,4 +75,9 @@
   & span:not(:last-child) {
     padding-right: var(--base);
   }
+}
+
+.icon {
+  width: 20px;
+  margin: 0 1px;
 }

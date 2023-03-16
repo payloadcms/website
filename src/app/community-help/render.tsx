@@ -2,26 +2,24 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { Banner } from '@components/Banner'
 import { Gutter } from '@components/Gutter'
 import DiscordGitCTA from '@components/DiscordGitCTA'
 import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@root/providers/Theme'
 import { useHits } from 'react-instantsearch-hooks-web'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { DiscordIcon } from '@root/graphics/DiscordIcon'
+import { GithubIcon } from '@root/graphics/GithubIcon'
 import { CommentsIcon } from '@root/graphics/CommentsIcon'
 import getRelativeDate from '@root/utilities/get-relative-date'
 import { AlgoliaPagination } from '@root/adapters/AlgoliaPagination'
+import Link from 'next/link'
 import { ArchiveSearchBar } from './ArchiveSearchBar'
 import { AlgoliaProvider } from './AlgoliaProvider'
 
 import classes from './index.module.scss'
 
-export const CommunityHelp: React.FC<
-  CommunityHelpType & {
-    indexName: string
-  }
-> = ({ discussions, threads }) => {
+export const CommunityHelp: React.FC = () => {
   const theme = useTheme()
 
   const { hits }: { hits: Array<any> } = useHits()
@@ -33,23 +31,32 @@ export const CommunityHelp: React.FC<
       <Gutter>
         <Grid>
           <Cell cols={10} colsL={9} className={classes.communityHelpWrap}>
-            <Banner type="error">
-              This page is currently under construction &mdash; community help archive coming soon.
-            </Banner>
+            <h1>Community Help</h1>
             <ArchiveSearchBar className={classes.searchBar} />
             {hasResults && (
               <ul className={classes.postsWrap}>
                 {hits.map((hit, i) => {
+                  const { name, author, createdAt, platform, slug } = hit
                   return (
                     <li key={i} className={classes.post}>
-                      <div className={classes.postContent}>
+                      <Link
+                        className={classes.postContent}
+                        href={`/community-help/${platform.toLowerCase()}/${slug}`}
+                      >
                         <div>
-                          <h5 className={classes.title}>{hit.name}</h5>
-                          <span className={classes.author}>{hit.author} posted</span>
-                          <span className={classes.date}>
-                            &nbsp;{getRelativeDate(hit.createdAt)}
+                          <h5 className={classes.title}>{name}</h5>
+                          <span className={classes.author}>
+                            <strong>{author}</strong> posted
                           </span>
-                          <span className={classes.platform}>&nbsp;in {hit.platform}</span>
+                          <span className={classes.date}>
+                            <strong>&nbsp;{getRelativeDate(createdAt)}</strong>
+                          </span>
+                          <span className={classes.platform}>
+                            &nbsp;in&nbsp;
+                            {platform === 'Discord' && <DiscordIcon className={classes.icon} />}
+                            {platform === 'Github' && <GithubIcon className={classes.icon} />}
+                            &nbsp;{platform}
+                          </span>
                         </div>
                         <div className={classes.upvotes}>
                           {hit.upvotes && hit.upvotes > 0 && (
@@ -63,7 +70,7 @@ export const CommunityHelp: React.FC<
                             </span>
                           )}
                         </div>
-                      </div>
+                      </Link>
                     </li>
                   )
                 })}

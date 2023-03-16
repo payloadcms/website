@@ -1,7 +1,7 @@
 @use '@scss/common' as *;
 
 .authorTag {
-  --byline-spacer :calc(var(--base) * .75);
+  --byline-spacer: calc(var(--base) * .75);
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -81,7 +81,7 @@
   color: var(--theme-elevation-500);
   margin-top: calc(var(--base) * 0.5);
 
-  > span {
+  >span {
     @include label;
     color: var(--theme-elevation-300);
     border: 1px solid;
