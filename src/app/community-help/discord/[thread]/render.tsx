@@ -22,12 +22,12 @@ export type Attachments = {
   height: number
   width: number
   contentType:
-    | 'image/png'
-    | 'video/MP2T'
-    | 'text/plain'
-    | 'application/json'
-    | 'video/quicktime'
-    | 'image/jpeg'
+  | 'image/png'
+  | 'video/MP2T'
+  | 'text/plain'
+  | 'application/json'
+  | 'video/quicktime'
+  | 'image/jpeg'
   description: string
   ephemeral: boolean
 }[]
@@ -91,8 +91,9 @@ export const RenderThread: React.FC<ThreadProps> = props => {
               messageCount={messageCount}
               content={wrappedOriginalMessage}
               attachments={intro.fileAttachments}
+              platform="Discord"
             />
-            <DiscordGitComments comments={messages} />
+            <DiscordGitComments comments={messages} platform="Discord" />
             <OpenPost url={postUrl} platform="Discord" />
           </Cell>
         </Grid>

@@ -16,6 +16,7 @@ export type Props = {
   upvotes?: number
   content?: string
   attachments?: Attachments
+  platform?: 'Discord' | 'GitHub'
 }
 
 export const DiscordGitIntro: React.FC<Props> = ({
@@ -27,6 +28,7 @@ export const DiscordGitIntro: React.FC<Props> = ({
   upvotes,
   content,
   attachments,
+  platform,
 }) => {
   const hasFileAttachments = attachments && Array.isArray(attachments) && attachments.length > 0
 
@@ -47,7 +49,7 @@ export const DiscordGitIntro: React.FC<Props> = ({
           upvotes={upvotes}
         />
       </div>
-      <DiscordGitBody body={content} />
+      <DiscordGitBody body={content} platform={platform} />
       {hasFileAttachments && <FileAttachments attachments={attachments} />}
     </Fragment>
   )

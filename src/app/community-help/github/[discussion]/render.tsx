@@ -68,13 +68,14 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
               <DiscordGitIntro
                 postName={title}
                 author={author.name}
-                image={author.avatar}
+                image={author.avatar ? author.avatar : '/images/avatars/default.png'}
                 date={createdAt}
                 messageCount={commentTotal}
                 upvotes={upvotes}
                 content={body}
+                platform="GitHub"
               />
-              <DiscordGitComments answer={answer} comments={comments} />
+              <DiscordGitComments answer={answer} comments={comments} platform="GitHub" />
               <OpenPost url={url} platform="GitHub" />
             </Cell>
           </Grid>

@@ -19,7 +19,7 @@ export type Props = {
   author?: string
   className?: string
   date?: string | number
-  image: string
+  image?: string
   messageCount?: number
   upvotes?: number
   isAnswer?: boolean
