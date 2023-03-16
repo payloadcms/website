@@ -59,7 +59,7 @@ export function formatDate(args: Args): string {
   try {
     const dateObj = new Date(
       new Date(date).toLocaleString('en-US', {
-        timeZone: 'America/Detroit',
+        timeZone: format !== 'dateAndTime' ? 'America/Detroit' : 'GMT',
       }),
     )
 
