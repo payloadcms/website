@@ -14,7 +14,7 @@ const client = algoliasearch(appID, apiKey)
 const index = client.initIndex(indexName)
 
 const discordRecords = threads.map(thread => {
-  const { info, slug } = thread
+  const { info, intro, slug } = thread
 
   const messages = thread.messages.map(message => {
     return {
@@ -28,7 +28,7 @@ const discordRecords = threads.map(thread => {
     platform: 'Discord',
     name: info.name,
     createdAt: info.createdAt,
-    author: thread.messages[0].authorName,
+    author: intro.authorName,
     messages,
     messageCount: thread.messageCount,
     slug,
