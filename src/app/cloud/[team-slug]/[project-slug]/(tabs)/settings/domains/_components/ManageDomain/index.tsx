@@ -142,9 +142,7 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
                             <td className={classes.domainRecordName}>
                               <p>CNAME</p>
                             </td>
-                            <td className={classes.domainRecordValue}>
-                              {cnameRecord || 'some-domain.payloadcms.app'}
-                            </td>
+                            <td className={classes.domainRecordValue}>{cnameRecord}</td>
                           </tr>
                         </tbody>
                       </table>

@@ -35,7 +35,7 @@ export default () => {
       ) : (
         <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
           <div className={classes.collapsibleGroup}>
-            {project.environmentVariables.map(env => (
+            {project?.environmentVariables?.map(env => (
               <ManageEnv key={env.id} env={env} />
             ))}
           </div>
