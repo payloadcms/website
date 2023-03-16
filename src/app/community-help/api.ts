@@ -3,11 +3,11 @@ import threads from '../../../threads.json'
 import type { ThreadProps } from './discord/[thread]/render'
 import type { DiscussionProps } from './github/[discussion]/render'
 
-export async function getAllDiscussions(): Promise<DiscussionProps[] | undefined> {
-  return discussions.map(discussion => ({ ...discussion })) as any as DiscussionProps[] // TODO: Fix this
+export function getAllDiscussions(): DiscussionProps[] | undefined {
+  return discussions
 }
 
-export async function getDiscussion(slug: string): Promise<DiscussionProps | undefined> {
+export function getDiscussion(slug: string): DiscussionProps | undefined {
   const matchedDiscussion = discussions.find(discussion => discussion.slug === slug) as
     | DiscussionProps
     | undefined
@@ -15,11 +15,11 @@ export async function getDiscussion(slug: string): Promise<DiscussionProps | und
   return matchedDiscussion
 }
 
-export async function getAllThreads(): Promise<ThreadProps[] | undefined> {
-  return threads.map(thread => ({ ...thread })) as ThreadProps[]
+export function getAllThreads(): ThreadProps[] | undefined {
+  return threads as ThreadProps[]
 }
 
-export async function getThread(slug: string): Promise<ThreadProps | undefined> {
+export function getThread(slug: string): ThreadProps | undefined {
   const matchedThread = threads.find(thread => thread.slug === slug) as ThreadProps
 
   return matchedThread
