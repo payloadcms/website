@@ -1,20 +1,21 @@
 import React from 'react'
 import AuthorTag from '@components/AuthorTag'
-import * as cheerio from 'cheerio'
 import { CheckmarkIcon } from '@root/graphics/CheckmarkIcon'
 import { FileAttachments } from '@components/FileAttachment'
 import { DiscordGitBody } from '@components/DiscordGitBody'
 import { Answer, Comment } from '@root/app/community-help/github/[discussion]/render'
 import { Messages } from '@root/app/community-help/discord/[thread]/render'
+import * as cheerio from 'cheerio'
 
 import classes from './index.module.scss'
 
 export type CommentProps = {
   answer?: Answer
   comments?: Comment[] | Messages[]
+  platform?: 'GitHub' | 'Discord'
 }
 
-export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments }) => {
+export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, platform }) => {
   const answerReplies = answer?.replies ? answer?.replies?.length : false
   return (
     <ul className={classes.comments}>
@@ -37,7 +38,7 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments })
               date={answer.createdAt}
               isAnswer
             />
-            <DiscordGitBody body={answer?.body} />
+            <DiscordGitBody body={answer?.body} platform={platform} />
           </div>
           {answerReplies && (
             <div className={classes.replyCount}>
@@ -56,7 +57,7 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments })
                 image={reply.author.avatar}
                 date={reply.createdAt}
               />
-              <DiscordGitBody body={reply.body} />
+              <DiscordGitBody body={reply.body} platform={platform} />
             </li>
           )
         })}
@@ -104,7 +105,7 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments })
                   image={comment.author?.avatar || avatarImg}
                   date={comment?.createdAt || comment.createdAtDate}
                 />
-                <DiscordGitBody body={body} />
+                <DiscordGitBody body={body} platform={platform} />
 
                 {hasFileAttachments && <FileAttachments attachments={comment.fileAttachments} />}
 
@@ -124,7 +125,7 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments })
                         image={reply.author.avatar}
                         date={reply.createdAt}
                       />
-                      <DiscordGitBody body={reply.body} />
+                      <DiscordGitBody body={reply.body} platform={platform} />
                     </div>
                   )
                 })}

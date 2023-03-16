@@ -51,6 +51,7 @@ export type ThreadProps = {
   intro: Messages
   messageCount: number
   messages: Messages[]
+  slug: string
 }
 
 export const RenderThread: React.FC<ThreadProps> = props => {
@@ -90,8 +91,9 @@ export const RenderThread: React.FC<ThreadProps> = props => {
               messageCount={messageCount}
               content={wrappedOriginalMessage}
               attachments={intro.fileAttachments}
+              platform="Discord"
             />
-            <DiscordGitComments comments={messages} />
+            <DiscordGitComments comments={messages} platform="Discord" />
             <OpenPost url={postUrl} platform="Discord" />
           </Cell>
         </Grid>
