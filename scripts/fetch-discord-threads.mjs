@@ -88,6 +88,25 @@ client.once(Events.ClientReady, async c => {
 
     const messages = await info.messages.fetch()
 
+    const [intro, ...combinedResponses] = messages.reverse().reduce((acc, message) => {
+      const prevMessage = acc[acc.length - 1]
+      let newAuthor = true
+
+      if (prevMessage) {
+        // should combine with prev message - same author
+        if (prevMessage.author.id === message.author.id) {
+          prevMessage.content += `\n \n ${message.content}`
+          newAuthor = false
+        }
+      }
+
+      if (newAuthor) {
+        acc.push(message)
+      }
+
+      return acc
+    }, [])
+
     return {
       info: {
         name: info.name,
@@ -95,7 +114,15 @@ client.once(Events.ClientReady, async c => {
         guildId: info.guildId,
         createdAt: info.createdTimestamp,
       },
-      messages: messages.reverse().map(m => {
+      intro: {
+        content: toHTML(intro.cleanContent),
+        fileAttachments: intro.attachments,
+        authorID: intro.author.id,
+        authorName: intro.author.username,
+        authorAvatar: intro.author.avatar,
+        createdAtDate: intro.createdTimestamp,
+      },
+      messages: combinedResponses.map(m => {
         const { createdTimestamp, cleanContent, author, attachments } = m
         return {
           content: toHTML(cleanContent),
