@@ -22,9 +22,8 @@ export const LivestreamHero: React.FC<
 > = props => {
   const {
     breadcrumbs,
-    livestream: { id: youtubeID = '', date, guests },
+    livestream: { id: youtubeID = '', date, guests, richText },
     links,
-    richText,
   } = props
   const theme = useTheme()
 
