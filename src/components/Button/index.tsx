@@ -27,6 +27,7 @@ export type Props = {
   htmlButtonType?: 'button' | 'submit'
   onMouseEnter?: () => void
   onMouseLeave?: () => void
+  disableLineBlip?: boolean
 }
 
 const icons = {
@@ -119,6 +120,7 @@ export const Button: React.FC<Props> = props => {
     mobileFullWidth,
     htmlButtonType = 'button',
     href: hrefFromProps,
+    disableLineBlip,
   } = props
 
   const href = hrefFromProps || generateHref({ type, reference })
@@ -150,7 +152,7 @@ export const Button: React.FC<Props> = props => {
             setIsHovered(false)
           }}
         >
-          {appearance === 'default' && <LineBlip active={isHovered} />}
+          {appearance === 'default' && !disableLineBlip && <LineBlip active={isHovered} />}
           <ButtonContent {...props} />
         </a>
       </Link>
@@ -174,7 +176,7 @@ export const Button: React.FC<Props> = props => {
           setIsHovered(false)
         }}
       >
-        {appearance === 'default' && <LineBlip active={isHovered} />}
+        {appearance === 'default' && !disableLineBlip && <LineBlip active={isHovered} />}
         <ButtonContent {...props} />
       </Element>
     )

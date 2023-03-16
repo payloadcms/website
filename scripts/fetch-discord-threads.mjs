@@ -6,8 +6,24 @@ import fs from 'fs'
 import dotenv from 'dotenv'
 import { Bar } from 'cli-progress'
 import DiscordMarkdown from 'discord-markdown'
-
 import { fileURLToPath } from 'url'
+
+function slugify(string) {
+  const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
+  const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
+  const p = new RegExp(a.split('').join('|'), 'g')
+
+  return string
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+    .replace(/&/g, '-and-') // Replace & with 'and'
+    .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .replace(/^-+/, '') // Trim - from start of text
+    .replace(/-+$/, '') // Trim - from end of text
+}
 
 const { toHTML } = DiscordMarkdown
 
@@ -72,6 +88,25 @@ client.once(Events.ClientReady, async c => {
 
     const messages = await info.messages.fetch()
 
+    const [intro, ...combinedResponses] = messages.reverse().reduce((acc, message) => {
+      const prevMessage = acc[acc.length - 1]
+      let newAuthor = true
+
+      if (prevMessage) {
+        // should combine with prev message - same author
+        if (prevMessage.author.id === message.author.id) {
+          prevMessage.content += `\n \n ${message.content}`
+          newAuthor = false
+        }
+      }
+
+      if (newAuthor) {
+        acc.push(message)
+      }
+
+      return acc
+    }, [])
+
     return {
       info: {
         name: info.name,
@@ -79,7 +114,15 @@ client.once(Events.ClientReady, async c => {
         guildId: info.guildId,
         createdAt: info.createdTimestamp,
       },
-      messages: messages.reverse().map(m => {
+      intro: {
+        content: toHTML(intro.cleanContent),
+        fileAttachments: intro.attachments,
+        authorID: intro.author.id,
+        authorName: intro.author.username,
+        authorAvatar: intro.author.avatar,
+        createdAtDate: intro.createdTimestamp,
+      },
+      messages: combinedResponses.map(m => {
         const { createdTimestamp, cleanContent, author, attachments } = m
         return {
           content: toHTML(cleanContent),
@@ -91,10 +134,7 @@ client.once(Events.ClientReady, async c => {
         }
       }),
       messageCount: info.messageCount,
-      slug: info.name
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)+/g, ''),
+      slug: slugify(info.name),
     }
   })
   console.log('\n\n')
