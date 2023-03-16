@@ -2,9 +2,6 @@
 
 import React, { Fragment, useCallback, useEffect } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { Checkbox } from '@forms/fields/Checkbox'
-import { Text } from '@forms/fields/Text'
-import Label from '@forms/Label'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import Link from 'next/link'
@@ -14,10 +11,13 @@ import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
 import { Button } from '@components/Button'
 import { CreditCardSelector } from '@components/CreditCardSelector'
 import { Gutter } from '@components/Gutter'
+import { useInstallationSelector } from '@components/InstallationSelector'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { usePlanSelector } from '@components/PlanSelector'
-import { useScopeSelector } from '@components/ScopeSelector'
 import { TeamSelector } from '@components/TeamSelector'
+import { Checkbox } from '@forms/fields/Checkbox'
+import { Text } from '@forms/fields/Text'
+import Label from '@forms/Label'
 import { cloudSlug } from '@root/app/cloud/layout'
 import { Plan, Team } from '@root/payload-cloud-types'
 import { priceFromJSON } from '@root/utilities/price-from-json'
@@ -48,7 +48,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
   const [
     ScopeSelector,
     { value: selectedInstall, loading: installsLoading, error: installsError },
-  ] = useScopeSelector()
+  ] = useInstallationSelector()
 
   const handleCardChange = useCallback((incomingPaymentMethod: string) => {
     dispatchCheckoutState({

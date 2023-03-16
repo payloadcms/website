@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { LoadingShimmer } from '@components/LoadingShimmer'
-import { useScopeSelector } from '@components/ScopeSelector'
+import { useInstallationSelector } from '@components/InstallationSelector'
 import { PayloadIcon } from '@root/graphics/PayloadIcon'
 import { Template } from '@root/payload-cloud-types'
 import { useCreateDraftProject } from '@root/utilities/use-create-draft-project'
@@ -24,7 +24,7 @@ export const CloneTemplate: React.FC<{
   const [makePrivate, setMakePrivate] = React.useState(false)
   const [name, setName] = React.useState('my-project')
   const router = useRouter()
-  const [ScopeSelector, { value: selectedInstall }] = useScopeSelector()
+  const [ScopeSelector, { value: selectedInstall }] = useInstallationSelector()
 
   const {
     submitDraftProject,

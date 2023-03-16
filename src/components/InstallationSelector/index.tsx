@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useMemo } from 'react'
 import { components } from 'react-select'
-import { Select } from '@forms/fields/Select'
-import Label from '@forms/Label'
 import { v4 as uuid } from 'uuid'
 
 import { LoadingShimmer } from '@components/LoadingShimmer'
+import { Select } from '@forms/fields/Select'
+import Label from '@forms/Label'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import useDebounce from '@root/utilities/use-debounce'
 import { Install, UseGetInstalls, useGetInstalls } from '@root/utilities/use-get-installs'
@@ -59,7 +59,7 @@ const Option = props => {
   )
 }
 
-type ScopeSelectorProps = {
+type InstallationSelectorProps = {
   value?: Install['id']
   onChange?: (value?: Install) => void // eslint-disable-line no-unused-vars
   installs?: Install[]
@@ -68,7 +68,7 @@ type ScopeSelectorProps = {
   error?: string
 }
 
-export const ScopeSelector: React.FC<ScopeSelectorProps> = props => {
+export const InstallationSelector: React.FC<InstallationSelectorProps> = props => {
   const { onChange, value: valueFromProps, installs, reloadInstalls, error, loading } = props
   const hasInitializedSelection = React.useRef(false)
   const selectAfterLoad = React.useRef<Install['id']>()
@@ -88,7 +88,7 @@ export const ScopeSelector: React.FC<ScopeSelectorProps> = props => {
 
   const { openPopupWindow } = usePopupWindow({
     href,
-    eventType: 'github-oauth',
+    eventType: 'github-install',
     onMessage: async (searchParams: { state: string; installation_id: string }) => {
       if (searchParams.state === id) {
         selectAfterLoad.current = parseInt(searchParams.installation_id, 10)
@@ -123,13 +123,13 @@ export const ScopeSelector: React.FC<ScopeSelectorProps> = props => {
       {error && <p>{error}</p>}
       {loading && (
         <Fragment>
-          <Label label="GitHub Scope" htmlFor="github-scope" />
+          <Label label="GitHub Installation" htmlFor="github-installation" />
           <LoadingShimmer />
         </Fragment>
       )}
       {!loading && (
         <Select
-          label="GitHub Scope"
+          label="GitHub Installation"
           value={selection?.account?.login}
           initialValue={installs?.[0]?.account?.login}
           onChange={option => {
@@ -166,7 +166,7 @@ export const ScopeSelector: React.FC<ScopeSelectorProps> = props => {
   )
 }
 
-export const useScopeSelector = (): [
+export const useInstallationSelector = (): [
   React.FC,
   ReturnType<UseGetInstalls> & {
     value?: Install
@@ -176,12 +176,12 @@ export const useScopeSelector = (): [
   const installsData = useGetInstalls()
   const debouncedLoading = useDebounce(installsData.loading, 250)
 
-  const MemoizedScopeSelector = useMemo(
+  const MemoizedInstallationSelector = useMemo(
     () => () => {
       const { error, installs, reload } = installsData
 
       return (
-        <ScopeSelector
+        <InstallationSelector
           loading={debouncedLoading}
           error={error}
           installs={installs}
@@ -194,7 +194,7 @@ export const useScopeSelector = (): [
   )
 
   return [
-    MemoizedScopeSelector,
+    MemoizedInstallationSelector,
     {
       ...installsData,
       value,

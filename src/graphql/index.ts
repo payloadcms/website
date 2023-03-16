@@ -46,7 +46,7 @@ export const fetchGlobals = async (): Promise<{
   return {
     mainMenu: data.MainMenu,
     footer: data.Footer,
-    templates: templatesData.Templates.docs,
+    templates: templatesData.Templates?.docs,
   }
 }
 
