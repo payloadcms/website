@@ -6,8 +6,8 @@ import fs from 'fs'
 import dotenv from 'dotenv'
 import { Bar } from 'cli-progress'
 import DiscordMarkdown from 'discord-markdown'
-
 import { fileURLToPath } from 'url'
+import slugify from '../src/utilities/slugify'
 
 const { toHTML } = DiscordMarkdown
 
@@ -91,10 +91,7 @@ client.once(Events.ClientReady, async c => {
         }
       }),
       messageCount: info.messageCount,
-      slug: info.name
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)+/g, ''),
+      slug: slugify(info.name),
     }
   })
   console.log('\n\n')
