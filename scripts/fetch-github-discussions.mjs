@@ -204,6 +204,10 @@ const fetchGithubDiscussions = async () => {
         body: discussion.bodyHTML,
         url: discussion.url,
         id: String(discussion.number),
+        slug: discussion.title
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)+/g, ''),
         createdAt: discussion.createdAt,
         upvotes: discussion.upvoteCount,
         commentTotal: discussion.comments.totalCount,

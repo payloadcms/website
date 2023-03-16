@@ -2,32 +2,34 @@ import React, { Fragment } from 'react'
 import AuthorTag from '@components/AuthorTag'
 import Link from 'next/link'
 import { DiscordGitBody } from '@components/DiscordGitBody'
+import { FileAttachments } from '@components/FileAttachment'
+import { Attachments } from '@root/app/community-help/discord/[thread]/render'
 import classes from './index.module.scss'
 
 export type Props = {
   className?: string
-  postUrl?: string
   postName?: string
   author?: string
   image: string
-  date?: Date
-  platform?: 'Github' | 'Discord'
+  date?: string | number
   messageCount?: number
   upvotes?: number
   content?: string
+  attachments?: Attachments
 }
 
 export const DiscordGitIntro: React.FC<Props> = ({
-  postUrl,
   postName,
   author,
   image,
   date,
-  platform,
   messageCount,
   upvotes,
   content,
+  attachments,
 }) => {
+  const hasFileAttachments = attachments && Array.isArray(attachments) && attachments.length > 0
+
   return (
     <Fragment>
       <div className={classes.breadcrumbWrap}>
@@ -35,20 +37,18 @@ export const DiscordGitIntro: React.FC<Props> = ({
           Community Help
         </Link>
       </div>
-      <a className={classes.title} href={postUrl} rel="noopener noreferrer" target="_blank">
-        <h3>{postName}</h3>
-      </a>
+      <h1 className={classes.title}>{postName}</h1>
       <div className={classes.authorDetails}>
         <AuthorTag
           author={author}
           image={image}
           date={date}
-          platform={platform}
           messageCount={messageCount}
           upvotes={upvotes}
         />
       </div>
       <DiscordGitBody body={content} />
+      {hasFileAttachments && <FileAttachments attachments={attachments} />}
     </Fragment>
   )
 }

@@ -1,8 +1,7 @@
 import React from 'react'
 import AuthorTag from '@components/AuthorTag'
 import { CheckmarkIcon } from '@root/graphics/CheckmarkIcon'
-import getRelativeDate from '@root/utilities/get-relative-date'
-import { FileAttachment } from '@components/FileAttachment'
+import { FileAttachments } from '@components/FileAttachment'
 import { DiscordGitBody } from '@components/DiscordGitBody'
 import { Answer, Comment } from '@root/app/community-help/github/[discussion]/render'
 import { Messages } from '@root/app/community-help/discord/[thread]/render'
@@ -12,10 +11,9 @@ import classes from './index.module.scss'
 export type CommentProps = {
   answer?: Answer
   comments?: Comment[] | Messages[]
-  platform?: 'Github' | 'Discord'
 }
 
-export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, platform }) => {
+export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments }) => {
   const answerReplies = answer?.replies ? answer?.replies?.length : false
   return (
     <ul className={classes.comments}>
@@ -25,22 +23,21 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
             .filter(Boolean)
             .join(' ')}
         >
-          <div className={classes.answerLabel}>
+          <div className={classes.answerHeader}>
             <CheckmarkIcon className={classes.checkmark} />
-            <label>Answer</label>
-            <span className={classes.selectedBy}>
-              {`selected by ${answer.chosenBy} `}
-              {getRelativeDate(answer.chosenAt)}
-            </span>
+            <label>Selected Answer</label>
           </div>
-          <AuthorTag
-            className={classes.answerAuthor}
-            author={answer.author.name}
-            image={answer.author.avatar}
-            date={answer.createdAt}
-            isAnswer
-          />
-          <DiscordGitBody body={answer?.body} />
+
+          <div className={classes.answerBody}>
+            <AuthorTag
+              className={classes.answerAuthor}
+              author={answer.author.name}
+              image={answer.author.avatar}
+              date={answer.createdAt}
+              isAnswer
+            />
+            <DiscordGitBody body={answer?.body} />
+          </div>
           {answerReplies && (
             <div className={classes.replyCount}>
               {answerReplies} repl{answerReplies > 1 ? 'ies' : 'y'}
@@ -50,7 +47,7 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
       )}
 
       {answerReplies &&
-        answer.replies.map((reply, replyIndex) => {
+        answer?.replies?.map((reply, replyIndex) => {
           return (
             <li key={replyIndex} className={classes.reply}>
               <AuthorTag
@@ -88,24 +85,10 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
                   author={comment.author?.name || comment.authorName}
                   image={comment.author?.avatar || avatarImg}
                   date={comment?.createdAt || comment.createdAtDate}
-                  platform={platform}
-                  comment
                 />
                 <DiscordGitBody body={comment.body || comment.content} />
 
-                {hasFileAttachments && (
-                  <div className={classes.attachmentWrap}>
-                    {comment.fileAttachments.map((fileAttachment, x) => {
-                      return (
-                        <FileAttachment
-                          key={x}
-                          url={fileAttachment?.url}
-                          name={fileAttachment.name}
-                        />
-                      )
-                    })}
-                  </div>
-                )}
+                {hasFileAttachments && <FileAttachments attachments={comment.fileAttachments} />}
 
                 {totalReplies && (
                   <div className={classes.replyCount}>

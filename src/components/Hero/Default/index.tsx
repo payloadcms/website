@@ -25,7 +25,7 @@ export const DefaultHero: React.FC<
       sidebarContent[0].children?.length === 1 &&
       !sidebarContent[0].children[0].text)
   const slug = usePathname()
-  const pullUpObserver = !['/', '/home'].includes(slug)
+  const pullUpObserver = !(slug ? ['/', '/home'].includes(slug) : false)
 
   return (
     <HeaderObserver color={theme} pullUp={pullUpObserver}>

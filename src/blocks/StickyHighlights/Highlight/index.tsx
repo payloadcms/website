@@ -13,7 +13,7 @@ import classes from './index.module.scss'
 type Props = Extract<
   Page['layout'][0],
   { blockType: 'stickyHighlights' }
->['stickyHighlightsFields']['highlights'][0] & { yDirection: 'up' | 'down'; midBreak: boolean }
+>['stickyHighlightsFields']['highlights'][0] & { yDirection?: 'up' | 'down'; midBreak: boolean }
 
 export const StickyHighlight: React.FC<Props> = React.memo(
   ({ richText, enableLink, link, type, code, media, yDirection, midBreak }) => {
@@ -59,6 +59,7 @@ export const StickyHighlight: React.FC<Props> = React.memo(
           resizeObserver = new ResizeObserver(entries => {
             entries.forEach(entry => {
               setCenterCodeMedia(
+                // @ts-expect-error
                 entry.contentRect.height > (codeMediaInnerRef?.current?.clientHeight || 0),
               )
             })

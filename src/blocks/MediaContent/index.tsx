@@ -25,7 +25,7 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
               colsM={12}
               className={[classes.media, classes.left].filter(Boolean).join(' ')}
             >
-              <Media resource={typeof media !== 'string' && media} />
+              <Media resource={typeof media !== 'string' ? media : undefined} />
             </Cell>
             <Cell
               start={8}
@@ -65,7 +65,7 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
               colsM={12}
               className={[classes.media, classes.right].filter(Boolean).join(' ')}
             >
-              <Media resource={typeof media !== 'string' && media} />
+              <Media resource={typeof media !== 'string' ? media : undefined} />
             </Cell>
           </React.Fragment>
         )}

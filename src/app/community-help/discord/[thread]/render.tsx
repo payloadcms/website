@@ -19,7 +19,13 @@ export type Attachments = {
   proxyURL: string
   height: number
   width: number
-  contentType: 'image/png' | 'video/MP2T' | 'text/plain' | 'application/json' | 'video/quicktime'
+  contentType:
+    | 'image/png'
+    | 'video/MP2T'
+    | 'text/plain'
+    | 'application/json'
+    | 'video/quicktime'
+    | 'image/jpeg'
   description: string
   ephemeral: boolean
 }[]
@@ -30,7 +36,7 @@ export type Messages = {
   authorID: string
   authorName: string
   authorAvatar: string
-  createdAtDate: Date
+  createdAtDate: string | number
 }
 
 export type ThreadProps = {
@@ -38,10 +44,11 @@ export type ThreadProps = {
     name: string
     id: string
     guildId: string
-    createdAt: Date
+    createdAt: string | number
   }
   messageCount: number
   messages: Messages[]
+  slug: string
 }
 
 export const RenderThread: React.FC<ThreadProps> = props => {
@@ -55,6 +62,8 @@ export const RenderThread: React.FC<ThreadProps> = props => {
 
   const originalMessage = messages[0].content
 
+  const originalMessageAttachments = messages[0].fileAttachments
+
   const allMessagesExceptOriginal = messages.slice(1)
 
   const postUrl = `https://discord.com/channels/${info.guildId}/${info.id}`
@@ -67,16 +76,15 @@ export const RenderThread: React.FC<ThreadProps> = props => {
         <Grid>
           <Cell cols={10} colsL={9} className={classes.post}>
             <DiscordGitIntro
-              postUrl={postUrl}
               postName={info.name}
               author={author}
               image={authorAvatarImg}
               date={info.createdAt}
-              platform="Discord"
               messageCount={messageCount}
               content={originalMessage}
+              attachments={originalMessageAttachments}
             />
-            <DiscordGitComments comments={allMessagesExceptOriginal} platform="Discord" />
+            <DiscordGitComments comments={allMessagesExceptOriginal} />
             <OpenPost url={postUrl} platform="Discord" />
           </Cell>
         </Grid>

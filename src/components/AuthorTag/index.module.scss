@@ -1,27 +1,47 @@
 @use '@scss/common' as *;
 
-.authorTag,
-.author,
-.authorLink {
+.authorTag {
+  --byline-spacer :calc(var(--base) * .75);
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.author {
+.authorCell {
+  display: flex;
+  justify-content: space-between;
+}
+
+.authorName {
+  display: flex;
+}
+
+.authorDetails {
+  display: flex;
+  flex-direction: column;
   color: var(--theme-elevation-900);
-  margin-right: calc(var(--base) * 0.25);
+}
+
+.authorImageWrap {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
 
   & img {
     width: 45px;
     height: 45px;
     border-radius: 100%;
     overflow: hidden;
-    margin-right: calc(var(--base) * 0.35);
+    margin-right: calc(var(--base) * 0.75);
+    border: 1px solid var(--theme-elevation-100);
+    flex-shrink: 0;
   }
 }
 
 .authorLink {
   text-decoration: none;
+  display: flex;
+  color: var(--theme-text);
 }
 
 .teamTag {
@@ -32,33 +52,50 @@
 
 .twitterIcon {
   display: flex;
-  margin: 0 calc(var(--base) * 0.35) 0 calc(var(--base) * 0.35);
+  margin: 0 var(--byline-spacer) 0 var(--byline-spacer);
+}
+
+.commentMeta {
+  display: flex;
+  gap: var(--base);
+  @include label;
 }
 
 .isAnswer {
-  color: var(--theme-success-100);
-  background-color: var(--color-success-500);
+  background: transparent;
+  color: var(--theme-success-400);
+  border: 1px solid;
 }
 
-.date,
-.platform {
+.date {
+  @include label;
+  font-size: 13px;
   color: var(--theme-elevation-500);
   font-weight: normal;
 }
 
-.upvotes {
+.commentMetaStats {
   display: flex;
-  align-items: center;
+  gap: calc(var(--base) * 0.5);
+  align-items: flex-end;
   color: var(--theme-elevation-500);
-  margin-left: var(--base);
+  margin-top: calc(var(--base) * 0.5);
+
+  > span {
+    @include label;
+    color: var(--theme-elevation-300);
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 0 8px;
+    background-color: var(--theme-elevation-50);
+    height: 25px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
 
   & svg {
     width: calc(var(--base) * .75);
-    margin-right: calc(var(--base) * .35);
-  }
-
-  & span:first-child {
-    padding-right: var(--base);
   }
 }
 
@@ -79,11 +116,11 @@
 
 :global([data-theme="light"]) {
   .isAnswer {
-    background-color: var(--color-success-900);
-    color: var(--color-success-500);
+    background: transparent;
+    color: var(--color-success-850);
   }
 
-  .upvotes,
+  .commentMetaStats,
   .comments {
     & svg {
       & path {
@@ -99,39 +136,13 @@
   }
 }
 
-@include mid-break {
-  .author {
-    & img {
-      flex-shrink: 0;
-      width: 30px;
-      height: 30px;
-    }
-  }
-
-  .authorTag {
-    justify-content: unset;
-  }
-}
-
 @include small-break {
   .authorTag {
     line-height: 2;
   }
 
-  .author {
+  .authorName {
     flex-wrap: wrap;
-  }
-
-  .teamMember {
-    line-height: 2.5;
-  }
-
-  .upvotes {
-    margin-left: calc(var(--base) * 0.5);
-
-    & span:first-child {
-      padding-right: calc(var(--base) * 0.5);
-    }
   }
 
   .comments {

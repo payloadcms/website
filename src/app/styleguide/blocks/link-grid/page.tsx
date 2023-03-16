@@ -13,6 +13,7 @@ const data: LinkGridProps = {
           type: 'custom',
           url: '/',
           label: 'Learn about Payload’s Access Control',
+          // @ts-expect-error
           reference: null,
         },
         id: '636c1ccf10f2d6ed1ab96ac0',
@@ -22,6 +23,7 @@ const data: LinkGridProps = {
           type: 'custom',
           url: '/',
           label: 'Watch a video to see how to set up multi-tenant architecture',
+          // @ts-expect-error
           reference: null,
         },
         id: '636c1d0e10f2d6ed1ab96ac1',

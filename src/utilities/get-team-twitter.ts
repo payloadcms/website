@@ -1,4 +1,4 @@
-export const getTeamTwitter = (teamMember: string): string => {
+export const getTeamTwitter = (teamMember?: string): string => {
   const twitterHandles = {
     denolfe: 'ElliotHimself',
     jmikrut: 'JamesMikrut',
@@ -14,5 +14,5 @@ export const getTeamTwitter = (teamMember: string): string => {
     patrikkozak: 'PatKozak4',
   }
 
-  return twitterHandles[teamMember]
+  return twitterHandles?.[teamMember || '']
 }

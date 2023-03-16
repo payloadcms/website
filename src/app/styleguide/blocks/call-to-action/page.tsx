@@ -31,6 +31,7 @@ const data: CallToActionProps = {
           type: 'custom',
           url: '/',
           label: 'Create new project',
+          // @ts-expect-error
           reference: null,
         },
         id: '636ae0dadcfd6be2845199a4',

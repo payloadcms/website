@@ -91,6 +91,10 @@ client.once(Events.ClientReady, async c => {
         }
       }),
       messageCount: info.messageCount,
+      slug: info.name
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)+/g, ''),
     }
   })
   console.log('\n\n')

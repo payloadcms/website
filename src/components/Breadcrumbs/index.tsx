@@ -3,7 +3,7 @@ import * as React from 'react'
 import classes from './index.module.scss'
 
 type Props = {
-  items: Array<{
+  items?: Array<{
     label?: string
     url?: string
   }>
@@ -12,7 +12,7 @@ type Props = {
 export const Breadcrumbs: React.FC<Props> = ({ items }) => {
   return (
     <nav className={classes.breadcrumbs}>
-      {items.map((item, index) => {
+      {items?.map((item, index) => {
         const isLast = index === items.length - 1
 
         if (item?.url && typeof item.url === 'string' && !isLast) {
