@@ -24,25 +24,21 @@ const validateDomain = (domainValue: string) => {
   return true
 }
 
+const generateUUID = () => {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+}
+
 const domainFieldPath = 'newDomain'
 
 export const AddDomain: React.FC = () => {
   const { project, reloadProject } = useRouteData()
+  const [fieldKey, setFieldKey] = React.useState(generateUUID())
 
   const projectID = project.id
   const projectDomains = project?.domains
 
-  const resetFieldValue = (dispatchFields: any) => {
-    dispatchFields({
-      type: 'UPDATE',
-      path: domainFieldPath,
-      value: '',
-      valid: true,
-    })
-  }
-
   const saveDomain = React.useCallback<OnSubmit>(
-    async ({ data, dispatchFields }) => {
+    async ({ data }) => {
       const newDomain: Project['domains'][0] = {
         domain: data[domainFieldPath] as string,
         status: 'pending',
@@ -51,6 +47,8 @@ export const AddDomain: React.FC = () => {
       const domainExists = projectDomains?.find(
         projectDomain => projectDomain.domain === newDomain.domain,
       )
+
+      // TODO - toast messages
 
       if (!domainExists) {
         try {
@@ -70,7 +68,7 @@ export const AddDomain: React.FC = () => {
 
           if (req.status === 200) {
             reloadProject()
-            resetFieldValue(dispatchFields)
+            setFieldKey(generateUUID())
           }
 
           return
@@ -78,7 +76,7 @@ export const AddDomain: React.FC = () => {
           console.error(e)
         }
       } else {
-        resetFieldValue(dispatchFields)
+        setFieldKey(generateUUID())
       }
     },
     [projectID, reloadProject, projectDomains],
@@ -86,7 +84,13 @@ export const AddDomain: React.FC = () => {
 
   return (
     <Form className={classes.formContent} onSubmit={saveDomain}>
-      <Text required label="Domain" path={domainFieldPath} validate={validateDomain} />
+      <Text
+        key={fieldKey}
+        required
+        label="Domain"
+        path={domainFieldPath}
+        validate={validateDomain}
+      />
 
       <div className={classes.actionFooter}>
         <Submit icon={false} label="Save" appearance="secondary" size="small" />

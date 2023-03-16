@@ -7,7 +7,6 @@ import { Accordion } from '@cloud/_components/Accordion'
 import { useRouteData } from '@cloud/context'
 import { Button } from '@components/Button'
 import { Heading } from '@components/Heading'
-import { Label } from '@components/Label'
 import { ModalWindow } from '@components/ModalWindow'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
@@ -134,12 +133,8 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
                       <table className={classes.domainRecordsTable}>
                         <thead>
                           <tr>
-                            <th>
-                              <Label>Record Type</Label>
-                            </th>
-                            <th>
-                              <Label>Record Value</Label>
-                            </th>
+                            <th>Record Type</th>
+                            <th>Record Value</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -147,9 +142,7 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
                             <td className={classes.domainRecordName}>
                               <p>CNAME</p>
                             </td>
-                            <td className={classes.domainRecordValue}>
-                              <p>{cnameRecord || '8.58.8.58'}</p>
-                            </td>
+                            <td className={classes.domainRecordValue}>{cnameRecord}</td>
                           </tr>
                         </tbody>
                       </table>
@@ -157,7 +150,7 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
                   </div>
 
                   <p className={classes.pendingDomainAlert}>
-                    You still need to configure the listed CNAME record with your DNS provider
+                    You will need to configure this record with your DNS provider.
                   </p>
                 </div>
               )}

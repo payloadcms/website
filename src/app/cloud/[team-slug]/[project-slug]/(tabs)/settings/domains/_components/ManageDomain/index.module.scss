@@ -54,22 +54,23 @@
   
     thead {
       th {
+        @include body;
         font-weight: normal;
+        font-size: calc(var(--base) * .75);
+        color: var(--theme-elevation-500);
       }
     }
   
     th, td {
       display: table-cell;
       text-align: left;
-  
-      p {
-        margin: 0;
-      }
     }
   
     tbody {
-      td p {
-        font-size: 16px;
+      td {
+        @include body;
+        font-weight: normal;
+        font-size: calc(var(--base) * .75);
       }
     }
   }
@@ -82,8 +83,9 @@
 .pendingDomainAlert {
   margin: 0;
   color: var(--theme-error-500);
-  background: var(--theme-error-150);
+  background: var(--theme-error-100);
   padding: calc(var(--base) * .25) var(--base);
+  font-size: calc(var(--base) * .75)
 }
 
 .domainActions {

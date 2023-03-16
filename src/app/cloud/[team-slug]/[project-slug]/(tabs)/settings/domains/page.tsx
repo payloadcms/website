@@ -17,7 +17,7 @@ export default () => {
   const { project } = useRouteData()
 
   return (
-    <div>
+    <div className={classes.domains}>
       <SectionHeader
         title="Custom Domains"
         intro={
