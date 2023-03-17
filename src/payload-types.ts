@@ -578,6 +578,7 @@ export interface Page {
     livestream: {
       id?: string;
       date: string;
+      hideBreadcrumbs?: boolean;
       richText?: {
         [k: string]: unknown;
       }[];
