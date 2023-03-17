@@ -34,8 +34,7 @@
   }
 }
 
-.searchIcon,
-.filterIcon {
+.searchIcon {
   display: flex;
   align-items: center;
 }
@@ -50,14 +49,6 @@
 
       & circle,
       line {
-        stroke: var(--color-base-750);
-      }
-    }
-  }
-
-  .filterIcon {
-    & svg {
-      & path {
         stroke: var(--color-base-750);
       }
     }
