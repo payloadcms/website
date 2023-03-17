@@ -10,4 +10,5 @@ export interface FieldProps<T> {
   initialValue?: T
   className?: string
   disabled?: boolean
+  description?: string
 }

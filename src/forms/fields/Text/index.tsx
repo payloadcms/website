@@ -40,11 +40,13 @@ export const Text: React.FC<
     initialValue,
     className,
     copy,
+    disabled,
     elementAttributes = {
       autoComplete: 'off',
       autoCorrect: 'off',
       autoCapitalize: 'none',
     },
+    description,
   } = props
 
   const { onChange, value, showError, errorMessage } = useField<string>({
@@ -70,6 +72,7 @@ export const Text: React.FC<
       />
       <input
         {...elementAttributes}
+        disabled={disabled}
         className={classes.input}
         value={value || ''}
         onChange={e => {
@@ -80,6 +83,7 @@ export const Text: React.FC<
         id={path}
         name={path}
       />
+      {description && <p className={classes.description}>{description}</p>}
     </div>
   )
 }
