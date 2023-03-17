@@ -10,6 +10,7 @@
   margin-right: calc(var(--base) * 0.4);
 
   @include small-break {
+    padding: calc(var(--base) * 0.35) calc(var(--base) * 0.5);
     max-height: 28px;
   }
 }

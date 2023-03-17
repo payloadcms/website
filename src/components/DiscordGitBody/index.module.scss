@@ -1,5 +1,28 @@
 @use '@scss/common' as *;
 
+.Discord {
+  & p {
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  &>* {
+    &:not(pre) {
+      display: inline;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.GitHub {
+  & p {
+    margin-bottom: var(--base);
+  }
+}
+
 .body {
   margin-top: var(--base);
 
@@ -7,24 +30,19 @@
     display: block;
   }
 
-  & p {
-    margin: 0;
-    line-height: 1.35;
-  }
-
   img {
     @include shadow-lg;
     margin: 20px 0;
   }
 
-  & div {
-    & p {
+  &>* {
+    &:last-child {
       margin-bottom: 0;
     }
   }
 
-  &>* {
-    &:last-child {
+  & div {
+    & p {
       margin-bottom: 0;
     }
   }

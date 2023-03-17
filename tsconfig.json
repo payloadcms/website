@@ -40,30 +40,31 @@
         "./src/*"
       ],
       "@providers": [
-        "./src/providers",
+        "./src/providers"
       ],
       "@providers/*": [
-        "./src/providers/*",
+        "./src/providers/*"
       ],
       "@icons/*": [
-        "./src/icons/*",
+        "./src/icons/*"
       ],
       "@utilities/*": [
-        "./src/utilities/*",
+        "./src/utilities/*"
       ],
       "@types": [
-        "./src/payload-types.ts",
+        "./src/payload-types.ts"
       ],
       "@graphics/*": [
-        "./src/graphics/*",
+        "./src/graphics/*"
       ],
       "@graphql": [
-        "./src/graphql",
+        "./src/graphql"
       ],
       "@graphql/*": [
-        "./src/graphql/*",
-      ],
-    }
+        "./src/graphql/*"
+      ]
+    },
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",

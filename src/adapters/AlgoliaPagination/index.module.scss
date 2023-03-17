@@ -2,11 +2,21 @@
 
 .pagination {
   display: flex;
+  align-items: center;
   margin-top: calc(var(--base) * 4);
 
   & > *:not(:last-child) {
     margin-right: calc(var(--base) * 0.25);
   }
+
+  @include mid-break {
+    justify-content: space-between;
+  }
+}
+
+.pages {
+  display: flex;
+  align-items: center;
 }
 
 .paginationButton {
@@ -19,9 +29,16 @@
   justify-content: center;
   border: 1px solid;
   border-color: transparent;
+  margin-right: calc(var(--base) * 0.5);
 
   &:hover {
     border-color: #3C3C3C;
+  }
+
+  @include small-break {
+    width: calc(var(--base) * 2);
+    height: calc(var(--base) * 2);
+    margin-right: calc(var(--base) * 0.25);
   }
 }
 
@@ -31,4 +48,39 @@
 
 .paginationButtonActive {
   border-color: #3C3C3C;
+}
+
+.nextPrev {
+  display: flex;
+  margin-left: calc(var(--base) * 0.5);
+
+  // @include mid-break {
+  //   margin: 0;
+  // }
+}
+
+.chevronButton {
+  all: unset;
+  cursor: pointer;
+  width: calc(var(--base) * 3);
+  height: calc(var(--base) * 3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+  border-color: transparent;
+
+  svg {
+    width: var(--base);
+    height: var(--base);
+  }
+
+  &:hover {
+    border-color: #3C3C3C;
+  }
+
+  @include small-break {
+    width: calc(var(--base) * 2);
+    height: calc(var(--base) * 2);
+  }
 }
