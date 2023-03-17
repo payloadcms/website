@@ -20,8 +20,6 @@ export const usePaymentIntent = (
 
   useEffect(() => {
     if (project?.plan) {
-      const { plan, team } = project
-
       if (isRequesting.current) return
 
       const makePaymentIntent = async (): Promise<void> => {
@@ -31,8 +29,7 @@ export const usePaymentIntent = (
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            plan: typeof plan === 'string' ? plan : plan?.id,
-            team: typeof team === 'string' ? team : team?.id,
+            project,
             paymentMethod,
             freeTrial,
           }),

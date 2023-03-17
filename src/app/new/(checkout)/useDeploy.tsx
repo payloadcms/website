@@ -103,7 +103,11 @@ export const useDeploy = (args: {
 
         const teamID = typeof team === 'string' ? team : team?.id
 
-        const matchedTeam = user.teams.find(({ team: userTeam }) => {
+        if (!user.teams || user.teams.length === 0) {
+          throw new Error('No teams found')
+        }
+
+        const matchedTeam = user?.teams.find(({ team: userTeam }) => {
           return typeof userTeam === 'string' ? userTeam === teamID : userTeam?.id === teamID
         })?.team
 

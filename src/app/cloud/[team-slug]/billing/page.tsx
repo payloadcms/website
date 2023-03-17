@@ -17,14 +17,14 @@ export default () => {
   return (
     <div className={classes.billing}>
       <Gutter className={classes.content}>
+        <h2>Payment methods</h2>
         {!hasCards && (
           <div className={classes.empty}>
             <p>{`You currently don't have any payment methods on file.`}</p>
           </div>
         )}
         {hasCards && (
-          <div className={classes.subscriptions}>
-            <h2>Payment methods</h2>
+          <div className={classes.paymentMethods}>
             <ul>
               {paymentMethods.map(paymentMethod => (
                 <li key={paymentMethod.id}>

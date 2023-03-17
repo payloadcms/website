@@ -88,22 +88,24 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
     result: [project],
     isLoading,
   } = useGetProject({
-    projectSlug: draftProjectID,
+    projectID: draftProjectID,
     teamSlug: checkoutState?.project?.team?.slug,
   })
 
   useEffect(() => {
-    if (project.status === 'published') {
-      router.push(`/${cloudSlug}/${project?.team?.slug}/${project.slug}`)
-    } else {
-      dispatchCheckoutState({
-        type: 'SET_PROJECT',
-        payload: {
-          ...project,
-          team: project.team as Team,
-          plan: project.plan as Plan,
-        },
-      })
+    if (project) {
+      if (project.status === 'published') {
+        router.push(`/${cloudSlug}/${project?.team?.slug}/${project.slug}`)
+      } else {
+        dispatchCheckoutState({
+          type: 'SET_PROJECT',
+          payload: {
+            ...project,
+            team: project.team as Team,
+            plan: project.plan as Plan,
+          },
+        })
+      }
     }
   }, [project, router])
 
@@ -200,7 +202,25 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
                       <h5 className={classes.sectionTitle}>Ownership</h5>
                       <Link href="">Learn more</Link>
                     </div>
-                    <TeamSelector onChange={handleTeamChange} />
+                    <TeamSelector onChange={handleTeamChange} className={classes.teamSelector} />
+                    <Text
+                      label="Repository URL"
+                      path="repositoryURL"
+                      initialValue={checkoutState?.project?.repositoryURL}
+                      disabled
+                      description="This only applies to the `import` flow."
+                    />
+                    <Text
+                      label="Template"
+                      path="template"
+                      initialValue={
+                        typeof checkoutState?.project?.template !== 'string'
+                          ? checkoutState?.project?.template?.name
+                          : ''
+                      }
+                      disabled
+                      description="This only applies to the `clone` flow."
+                    />
                   </div>
                   <div className={classes.buildSettings}>
                     <div className={classes.sectionHeader}>
