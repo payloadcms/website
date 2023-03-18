@@ -5,26 +5,15 @@ import React, { Fragment } from 'react'
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
 import { LoadingShimmer } from '@components/LoadingShimmer'
-import useDebounce from '@root/utilities/use-debounce'
-import { useCheckToken } from '../../../utilities/use-check-token'
-import { useExchangeCode } from '../../../utilities/use-exchange-code'
-import { Authorize } from '../Authorize'
+import { useGitAuthRedirect } from '../authorize/useGitAuthRedirect'
 import { ImportProject } from './ImportProject'
 
 import classes from './index.module.scss'
 
+const title = `Import a codebase`
+
 const ProjectFromImport: React.FC = () => {
-  const { error: exchangeError, hasExchangedCode, exchangeCode } = useExchangeCode()
-
-  const {
-    tokenIsValid,
-    loading: tokenLoading,
-    error,
-  } = useCheckToken({
-    hasExchangedCode,
-  })
-
-  const loading = useDebounce(tokenLoading, 250)
+  const { tokenLoading, tokenIsValid } = useGitAuthRedirect()
 
   return (
     <Fragment>
@@ -41,19 +30,11 @@ const ProjectFromImport: React.FC = () => {
               },
             ]}
           />
-          <h1>Import a codebase</h1>
+          <h1>{title}</h1>
         </div>
-        {loading && <LoadingShimmer number={3} />}
-        {exchangeError && <p>{exchangeError}</p>}
+        {tokenLoading && <LoadingShimmer number={3} />}
       </Gutter>
-      {!loading && (error || !tokenIsValid) && (
-        <Authorize
-          onAuthorize={async ({ code }) => {
-            exchangeCode(code)
-          }}
-        />
-      )}
-      {!loading && !error && tokenIsValid && <ImportProject />}
+      {!tokenLoading && tokenIsValid && <ImportProject />}
     </Fragment>
   )
 }

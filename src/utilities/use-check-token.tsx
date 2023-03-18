@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { useAuth } from '@root/providers/Auth'
 
-export const useCheckToken = (props: {
-  hasExchangedCode: boolean
+export const useCheckToken = (props?: {
+  hasExchangedCode?: boolean
 }): {
   loading: boolean
   error: string | undefined
   tokenIsValid: boolean
 } => {
-  const { hasExchangedCode } = props
+  const { hasExchangedCode } = props || {}
   const hasMadeRequest = useRef(false)
 
   const { user } = useAuth()

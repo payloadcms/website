@@ -123,13 +123,13 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
       {error && <p>{error}</p>}
       {loading && (
         <Fragment>
-          <Label label="GitHub Installation" htmlFor="github-installation" />
+          <Label label="GitHub Scope" htmlFor="github-installation" />
           <LoadingShimmer />
         </Fragment>
       )}
       {!loading && (
         <Select
-          label="GitHub Installation"
+          label="GitHub Scope"
           value={selection?.account?.login}
           initialValue={installs?.[0]?.account?.login}
           onChange={option => {

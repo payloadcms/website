@@ -7,13 +7,12 @@ import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { useGlobals } from '@root/providers/Globals'
-import { useCheckToken } from '@root/utilities/use-check-token'
-import useDebounce from '@root/utilities/use-debounce'
-import { useExchangeCode } from '../../../../utilities/use-exchange-code'
-import { Authorize } from '../../Authorize'
+import { useGitAuthRedirect } from '../../authorize/useGitAuthRedirect'
 import { CloneTemplate } from './CloneTemplate'
 
 import classes from './index.module.scss'
+
+const title = `Create new from template`
 
 const ProjectFromTemplate: React.FC<{
   params: Params
@@ -21,17 +20,7 @@ const ProjectFromTemplate: React.FC<{
   const { templates } = useGlobals()
   const matchedTemplate = templates.find(t => t.slug === templateParam)
 
-  const { error: exchangeError, hasExchangedCode, exchangeCode } = useExchangeCode()
-
-  const {
-    tokenIsValid,
-    loading: tokenLoading,
-    error,
-  } = useCheckToken({
-    hasExchangedCode,
-  })
-
-  const loading = useDebounce(tokenLoading, 1000)
+  const { tokenLoading, tokenIsValid } = useGitAuthRedirect()
 
   return (
     <Fragment>
@@ -52,19 +41,11 @@ const ProjectFromTemplate: React.FC<{
               },
             ]}
           />
-          <h1>Create new from template</h1>
+          <h1>{title}</h1>
         </div>
-        {loading && <LoadingShimmer number={3} />}
-        {exchangeError && <p>{exchangeError}</p>}
+        {tokenLoading && <LoadingShimmer number={3} />}
       </Gutter>
-      {!loading && (error || !tokenIsValid) && (
-        <Authorize
-          onAuthorize={async ({ code }) => {
-            exchangeCode(code)
-          }}
-        />
-      )}
-      {!loading && !error && tokenIsValid && <CloneTemplate template={matchedTemplate} />}
+      {!tokenLoading && tokenIsValid && <CloneTemplate template={matchedTemplate} />}
     </Fragment>
   )
 }

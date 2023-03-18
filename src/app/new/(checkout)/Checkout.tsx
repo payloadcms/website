@@ -25,6 +25,7 @@ import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import { useGetProject } from '@root/utilities/use-cloud'
 import useDebounce from '@root/utilities/use-debounce'
 import { usePaymentIntent } from '@root/utilities/use-payment-intent'
+import { useGitAuthRedirect } from '../authorize/useGitAuthRedirect'
 import { checkoutReducer, CheckoutState } from './reducer'
 import { useDeploy } from './useDeploy'
 
@@ -38,7 +39,9 @@ type Props = {
 const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
 const Stripe = loadStripe(apiKey)
 
-const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) => {
+const title = 'Configure your project'
+
+const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
   const router = useRouter()
   const [checkoutState, dispatchCheckoutState] = React.useReducer(
     checkoutReducer,
@@ -46,7 +49,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
   )
 
   const [
-    ScopeSelector,
+    InstallationSelector,
     { value: selectedInstall, loading: installsLoading, error: installsError },
   ] = useInstallationSelector()
 
@@ -124,20 +127,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
   return (
     <Fragment>
       <Gutter>
-        <div className={classes.header}>
-          <Breadcrumbs
-            items={[
-              {
-                label: 'New',
-                url: '/new',
-              },
-              ...(breadcrumb ? [breadcrumb] : []),
-              {
-                label: 'Configure',
-              },
-            ]}
-          />
-          <h1>Configure your project</h1>
+        <div>
           {errorDeploying && <p className={classes.error}>{errorDeploying}</p>}
           {installsError && <p className={classes.error}>{installsError}</p>}
           {paymentIntentError && <p className={classes.error}>{paymentIntentError}</p>}
@@ -150,7 +140,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
                 <LoadingShimmer number={1} />
               ) : (
                 <Fragment>
-                  <ScopeSelector />
+                  <InstallationSelector />
                   <div className={classes.totalPriceSection}>
                     <Label label="Total cost" htmlFor="" />
                     <p className={classes.totalPrice}>
@@ -283,12 +273,41 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID, breadcrumb }) 
 }
 
 const Checkout: React.FC<Props> = props => {
+  const { breadcrumb } = props
+
   useAuthRedirect()
 
+  const { tokenLoading } = useGitAuthRedirect()
+
   return (
-    <Elements stripe={Stripe}>
-      <ConfigureDraftProject {...props} />
-    </Elements>
+    <Fragment>
+      <Gutter>
+        <div className={classes.header}>
+          <Breadcrumbs
+            items={[
+              {
+                label: 'New',
+                url: '/new',
+              },
+              ...(breadcrumb ? [breadcrumb] : []),
+              {
+                label: 'Configure',
+              },
+            ]}
+          />
+          <h1>{title}</h1>
+        </div>
+      </Gutter>
+      {tokenLoading ? (
+        <Gutter>
+          <LoadingShimmer number={3} />
+        </Gutter>
+      ) : (
+        <Elements stripe={Stripe}>
+          <ConfigureDraftProject {...props} />
+        </Elements>
+      )}
+    </Fragment>
   )
 }
 
