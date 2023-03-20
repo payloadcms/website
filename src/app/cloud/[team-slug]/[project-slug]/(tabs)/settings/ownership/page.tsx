@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { useRouter } from 'next/navigation'
 
+import { CloudRadioGroup } from '@cloud/_components/RadioGroup'
 import { useRouteData } from '@cloud/context'
 import { Text } from '@forms/fields/Text'
 import { useField } from '@forms/fields/useField'
@@ -14,18 +15,12 @@ import { SectionHeader } from '../_layoutComponents/SectionHeader'
 
 import classes from './index.module.scss'
 
-type TeamSelectorProps = {
+type SelectTeamProps = {
   teams: { label: string; slug?: string; value: string }[]
   initialValue?: string
 }
-const TeamSelector: React.FC<TeamSelectorProps> = ({ teams, initialValue }) => {
+const SelectTeam: React.FC<SelectTeamProps> = ({ teams, initialValue }) => {
   const initialTeam = teams.find(team => team.value === initialValue)
-
-  const { value, onChange } = useField<string>({
-    path: 'teamID',
-    required: true,
-    initialValue,
-  })
 
   const { value: slugValue, onChange: slugOnChange } = useField<string>({
     path: 'teamSlug',
@@ -34,40 +29,20 @@ const TeamSelector: React.FC<TeamSelectorProps> = ({ teams, initialValue }) => {
   })
 
   const handleChange = React.useCallback(
-    ({ value: newValue, slug }) => {
-      onChange(newValue)
+    ({ slug }) => {
       slugOnChange(slug)
     },
-    [onChange, slugOnChange],
+    [slugOnChange],
   )
 
   return (
-    <div className={classes.teams}>
-      {teams.map((team, index) => {
-        const isSelected = String(team.value) === String(value)
-
-        return (
-          <div
-            key={team.value}
-            className={[isSelected && classes.isSelected].filter(Boolean).join(' ')}
-          >
-            <input
-              type="radio"
-              id={`teamID-${index}`}
-              value={team.value}
-              checked={isSelected}
-              onChange={() => {
-                handleChange({ value: team.value, slug: team.slug })
-              }}
-              className={classes.radioInput}
-            />
-            <label htmlFor={`teamID-${index}`} className={classes.radioCard}>
-              <div className={classes.styledRadioInput} />
-              <span>"{team.label}" owns this project</span>
-            </label>
-          </div>
-        )
-      })}
+    <div>
+      <CloudRadioGroup
+        path="teamID"
+        options={teams}
+        initialValue={initialValue}
+        onChange={handleChange}
+      />
 
       <Text type="hidden" path="teamSlug" initialValue={slugValue || undefined} />
     </div>
@@ -95,8 +70,8 @@ export default () => {
     if (isExpandedDoc<Team>(userTeam.team) && userTeam?.roles?.length) {
       acc.push({
         value: userTeam.team.id,
-        label: userTeam.team?.name || 'No name',
-        slug: userTeam.team?.slug,
+        label: `"${userTeam.team.name}" owns this project`,
+        slug: userTeam.team.slug,
       })
     }
 
@@ -143,7 +118,7 @@ export default () => {
 
       {isCurrentTeamOwner && teamOptions ? (
         <Form onSubmit={onSubmit} className={classes.teamSelect}>
-          <TeamSelector teams={teamOptions} initialValue={currentTeam.id} />
+          <SelectTeam teams={teamOptions} initialValue={currentTeam.id} />
 
           <div className={classes.actionsFooter}>
             <Submit label="Save" size="small" appearance="secondary" icon={false} />
