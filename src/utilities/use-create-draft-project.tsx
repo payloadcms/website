@@ -45,7 +45,11 @@ export const useCreateDraftProject = ({
           body: JSON.stringify({
             name: projectName || repo?.name || 'Untitled Project',
             installID,
-            team: typeof user.defaultTeam === 'string' ? user.defaultTeam : user.defaultTeam?.id,
+            team:
+              typeof user.teams?.[0]?.team === 'string'
+                ? user.teams?.[0]?.team
+                : user.teams?.[0]?.team?.id,
+            defaultDomain: 'something.com',
             repositoryID: repo?.id, // only applies to the `import` flow
             repositoryName: repo?.name,
             template: templateID,

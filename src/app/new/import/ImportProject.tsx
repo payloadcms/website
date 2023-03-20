@@ -4,9 +4,9 @@ import { useRouter } from 'next/navigation'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
+import { useInstallationSelector } from '@components/InstallationSelector'
 import { LineDraw } from '@components/LineDraw'
 import { LoadingShimmer } from '@components/LoadingShimmer'
-import { useInstallationSelector } from '@components/InstallationSelector'
 import { useCreateDraftProject } from '../../../utilities/use-create-draft-project'
 import { useGetRepos } from '../../../utilities/use-get-repos'
 

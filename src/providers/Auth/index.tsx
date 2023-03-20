@@ -30,11 +30,6 @@ type AuthContext = {
 const USER = `
   id
   email
-  defaultTeam {
-    id
-    name
-    slug
-  }
   teams {
     team {
       id

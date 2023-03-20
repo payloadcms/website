@@ -24,20 +24,9 @@ export interface User {
   id: string;
   name?: string;
   githubID?: string;
-  defaultTeam?: string | Team;
   teams?: {
-    team: string | Team;
+    team?: string | Team;
     roles?: ('owner' | 'admin' | 'user')[];
-    invitedOn?: string;
-    acceptedOn?: string;
-    default?: boolean;
-    id?: string;
-  }[];
-  projects?: {
-    project?: string | Project;
-    roles?: ('owner' | 'admin' | 'user')[];
-    invitedOn?: string;
-    acceptedOn?: string;
     id?: string;
   }[];
   roles?: ('admin' | 'user')[];
@@ -60,9 +49,16 @@ export interface Team {
   id: string;
   name?: string;
   slug?: string;
-  billingEmail?: string;
+  billingEmail: string;
   stripeCustomerID?: string;
   skipSync?: boolean;
+  members?: {
+    user?: string | User;
+    roles?: ('owner' | 'admin' | 'user')[];
+    invitedOn?: string;
+    acceptedOn?: string;
+    id?: string;
+  }[];
   createdAt: string;
   updatedAt: string;
 }
@@ -70,6 +66,46 @@ export interface Project {
   id: string;
   slug?: string;
   status?: 'draft' | 'published';
+  deletedOn?: string;
+  skipSync?: boolean;
+  name: string;
+  plan?: string | Plan;
+  team: string | Team;
+  template?: string | Template;
+  makePrivate?: boolean;
+  source?: 'github';
+  repositoryName?: string;
+  repositoryURL?: string;
+  repositoryID?: string;
+  installID?: string;
+  deploymentBranch?: string;
+  outputDirectory?: string;
+  buildScript?: string;
+  installScript?: string;
+  runScript?: string;
+  rootDirectory?: string;
+  cloudflareDNSRecordID?: string;
+  digitalOceanAppID?: string;
+  atlasProjectID?: string;
+  atlasDatabaseName?: string;
+  atlasDatabaseType?: 'cluster' | 'serverless';
+  atlasDatabaseUser?: string;
+  atlasDatabasePassword?: string;
+  s3Policy?: 'public' | 'private';
+  cognitoIdentityID?: string;
+  cognitoPassword?: string;
+  region?: 'us-east' | 'us-west' | 'eu-west';
+  defaultDomain?: string;
+  domains?: {
+    domain: string;
+    status: 'pending' | 'active' | 'inactive';
+    id?: string;
+  }[];
+  environmentVariables?: {
+    key?: string;
+    value?: string;
+    id?: string;
+  }[];
   stripeSubscriptionID?: string;
   stripeSubscriptionStatus?:
     | 'active'
@@ -80,49 +116,6 @@ export interface Project {
     | 'trialing'
     | 'unpaid'
     | 'paused';
-  deletedOn?: string;
-  name: string;
-  team: string | Team;
-  plan?: string | Plan;
-  source?: 'github';
-  repositoryName?: string;
-  template?: string | Template;
-  makePrivate?: boolean;
-  repositoryURL?: string;
-  repositoryID?: string;
-  installID?: string;
-  deploymentBranch?: string;
-  outputDirectory?: string;
-  buildScript?: string;
-  installScript?: string;
-  runScript?: string;
-  rootDirectory?: string;
-  digitalOceanAppID?: string;
-  digitalOceanProjectID?: string;
-  domains?: {
-    domain: string;
-    status: 'pending' | 'active' | 'inactive';
-    id?: string;
-  }[];
-  atlasClusterID?: string;
-  atlasProjectID?: string;
-  atlasDatabaseName?: string;
-  atlasDatabaseUser?: string;
-  atlasDatabasePassword?: string;
-  s3Policy?: 'public' | 'private';
-  region?: 'us-east-1' | 'us-west-2' | 'eu-west-1';
-  environmentVariables?: {
-    key?: string;
-    value?: string;
-    id?: string;
-  }[];
-  aws?: {
-    user?: string;
-  };
-  skipSync?: boolean;
-  atlasDatabaseType?: 'cluster' | 'serverless';
-  cognitoPassword?: string;
-  defaultDomain?: string;
   teamProjectName?: string;
   createdAt: string;
   updatedAt: string;
@@ -198,7 +191,8 @@ export interface AtlasOrg {
 export interface Job {
   id: string;
   type: 'deployApp' | 'provisionDNS';
-  status?: string;
+  processing?: boolean;
+  seenByWorker?: boolean;
   deployApp?: {
     project: string | Project;
   };
