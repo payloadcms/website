@@ -27,7 +27,7 @@ const SelectMenuButton = props => {
     <components.MenuList {...props}>
       {props.children}
       <a className={classes.addAccountButton} href={href} onClick={selectProps?.openPopupWindow}>
-        Add GitHub Account
+        Install Payload App
       </a>
     </components.MenuList>
   )
@@ -88,7 +88,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
 
   const { openPopupWindow } = usePopupWindow({
     href,
-    eventType: 'github-install',
+    eventType: 'github',
     onMessage: async (searchParams: { state: string; installation_id: string }) => {
       if (searchParams.state === id) {
         selectAfterLoad.current = parseInt(searchParams.installation_id, 10)
@@ -147,7 +147,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
                 ]
               : [
                   {
-                    label: 'No GitHub accounts found',
+                    label: 'No installations found',
                     value: 'no-accounts',
                   },
                 ]),

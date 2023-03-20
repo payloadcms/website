@@ -36,7 +36,7 @@ export const Authorize: React.FC = () => {
 
   const { openPopupWindow } = usePopupWindow({
     href,
-    eventType: 'github-oauth',
+    eventType: 'github',
     onMessage: async ({ code }) => {
       exchangeCode(code)
     },

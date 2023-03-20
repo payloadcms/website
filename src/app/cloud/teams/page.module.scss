@@ -4,6 +4,10 @@
     position: relative;
     list-style: none;
     padding: 0;
+
+    & > *:not(:last-child) {
+        margin-bottom: var(--base);
+    }
 }
 
 .team {

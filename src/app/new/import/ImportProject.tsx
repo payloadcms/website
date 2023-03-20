@@ -30,7 +30,13 @@ export const ImportProject: React.FC = () => {
     },
   })
 
-  const { loading: loadingRepos, repos } = useGetRepos({
+  const {
+    loading: loadingRepos,
+    results,
+    page,
+    setPage,
+    perPage,
+  } = useGetRepos({
     selectedInstall,
   })
 
@@ -62,11 +68,12 @@ export const ImportProject: React.FC = () => {
             {((loadingRepos && installs?.length > 0) || loadingInstalls) && (
               <LoadingShimmer number={3} />
             )}
-            {!loadingInstalls && !loadingRepos && repos?.length > 0 && (
+            {!loadingInstalls && !loadingRepos && results?.repos?.length > 0 && (
               <div className={classes.repos}>
-                {repos?.map((repo, index) => {
+                {results?.repos?.map((repo, index) => {
                   const { name, description } = repo
                   const isHovered = hoverIndex === index
+
                   return (
                     <div
                       key={repo.id}
@@ -93,24 +100,71 @@ export const ImportProject: React.FC = () => {
                 })}
               </div>
             )}
-            {!loadingInstalls && installs?.length > 0 && !loadingRepos && repos?.length === 0 && (
-              <div className={classes.noRepos}>
-                <h6>No repositories found</h6>
-                <p>
-                  {`No repositories were found in the account "${selectedInstall?.account.login}". Create a new repository or `}
-                  <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
-                    adjust your GitHub app permissions
-                  </a>
-                  {'.'}
-                </p>
-              </div>
-            )}
+            {!loadingInstalls &&
+              installs?.length > 0 &&
+              !loadingRepos &&
+              results?.repos?.length === 0 && (
+                <div className={classes.noRepos}>
+                  <h6>No repositories found</h6>
+                  <p>
+                    {`No repositories were found in the account "${selectedInstall?.account.login}". Create a new repository or `}
+                    <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
+                      adjust your GitHub app permissions
+                    </a>
+                    {'.'}
+                  </p>
+                </div>
+              )}
             {!loadingInstalls && installs?.length === 0 && (
               <div className={classes.noRepos}>
                 <h6>No installations found</h6>
                 <p>
-                  {`No installations were found under this profile. Click "Add GitHub Account" from the dropdown to install the Payload app and provide access to your repositories.`}
+                  {`No installations were found under this profile. To see your repositories, you must first `}
+                  <button
+                    onClick={() => {
+                      // do something
+                    }}
+                    type="button"
+                  >
+                    install the Payload App
+                  </button>
+                  {` and provide access to your repositories.`}
                 </p>
+              </div>
+            )}
+            {installs?.length > 0 && results.total_count / perPage > 1 && (
+              <div className={classes.pagination}>
+                <button
+                  disabled={page - 1 < 1}
+                  onClick={() => {
+                    if (page - 1 < 1) return
+
+                    setTimeout(() => {
+                      window.scrollTo(0, 0)
+                    }, 0)
+                    setPage(page > 1 ? page - 1 : 1)
+                  }}
+                  className={classes.paginationButton}
+                >
+                  &#8249;
+                </button>
+                <span className={classes.paginationPage}>
+                  {`Page ${page} of ${Math.ceil(results.total_count / perPage)}`}
+                </span>
+                <button
+                  disabled={page + 1 > Math.ceil(results.total_count / perPage)}
+                  onClick={() => {
+                    if (page + 1 > Math.ceil(results.total_count / perPage)) return
+
+                    setTimeout(() => {
+                      window.scrollTo(0, 0)
+                    }, 0)
+                    setPage(page + 1)
+                  }}
+                  className={classes.paginationButton}
+                >
+                  &#8250;
+                </button>
               </div>
             )}
           </Cell>

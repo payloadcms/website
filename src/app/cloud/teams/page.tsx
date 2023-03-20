@@ -25,7 +25,7 @@ export default () => {
           {hasTeams && (
             <ul className={classes.list}>
               {user.teams?.map(({ team }, index) => {
-                if (typeof team === 'string') return null
+                if (!team || typeof team === 'string') return null
 
                 return (
                   <li key={`${team.id}-${index}`} className={classes.listItem}>
@@ -47,7 +47,7 @@ export default () => {
             </ul>
           )}
           <TeamDrawerToggler className={classes.teamDrawerToggler}>
-            <Button appearance="secondary" label="Create new team" el="div" />
+            <Button appearance="primary" label="Create new team" el="div" />
           </TeamDrawerToggler>
         </Gutter>
       </div>
