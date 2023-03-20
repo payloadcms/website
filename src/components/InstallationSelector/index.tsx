@@ -15,7 +15,6 @@ import classes from './index.module.scss'
 // generate an id to use for the state
 // this will be validated after the the redirect back
 const id = uuid()
-
 const href = `https://github.com/apps/payload-cms/installations/new?state=${id}`
 
 const SelectMenuButton = props => {
@@ -26,8 +25,9 @@ const SelectMenuButton = props => {
   return (
     <components.MenuList {...props}>
       {props.children}
+      {/* use an anchor tag with an href despite the onClick for better UX */}
       <a className={classes.addAccountButton} href={href} onClick={selectProps?.openPopupWindow}>
-        Install Payload App
+        Install the Payload App
       </a>
     </components.MenuList>
   )
@@ -174,12 +174,12 @@ export const useInstallationSelector = (): [
 ] => {
   const [value, setValue] = React.useState<Install | undefined>(undefined)
   const installsData = useGetInstalls()
-  const debouncedLoading = useDebounce(installsData.loading, 250)
+  const { error, installs, reload, loading } = installsData
+
+  const debouncedLoading = useDebounce(loading, 250)
 
   const MemoizedInstallationSelector = useMemo(
     () => () => {
-      const { error, installs, reload } = installsData
-
       return (
         <InstallationSelector
           loading={debouncedLoading}
@@ -190,7 +190,7 @@ export const useInstallationSelector = (): [
         />
       )
     },
-    [installsData, debouncedLoading],
+    [error, installs, reload, debouncedLoading],
   )
 
   return [

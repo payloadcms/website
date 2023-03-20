@@ -1,0 +1,13 @@
+@use '@scss/common' as *;
+
+.addAccountButton {
+    background-color: transparent;
+    margin: 0;
+    padding:0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    text-align: left;
+    line-height: inherit;
+    font-size: inherit;
+}

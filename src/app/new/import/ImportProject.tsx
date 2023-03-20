@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { useRouter } from 'next/navigation'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
+import { useInstallationButton } from '@components/InstallationButton'
 import { useInstallationSelector } from '@components/InstallationSelector'
 import { LineDraw } from '@components/LineDraw'
 import { LoadingShimmer } from '@components/LoadingShimmer'
@@ -16,8 +17,18 @@ export const ImportProject: React.FC = () => {
   const router = useRouter()
   const [hoverIndex, setHoverIndex] = React.useState<number | undefined>(undefined)
 
-  const [ScopeSelector, { value: selectedInstall, installs, loading: loadingInstalls }] =
-    useInstallationSelector()
+  const [
+    ScopeSelector,
+    { value: selectedInstall, installs, loading: loadingInstalls, reload: reloadInstalls },
+  ] = useInstallationSelector()
+
+  const handleInstallationFromButton = useCallback(() => {
+    reloadInstalls()
+  }, [reloadInstalls])
+
+  const [InstallationButton] = useInstallationButton({
+    onInstallation: handleInstallationFromButton,
+  })
 
   const {
     submitDraftProject,
@@ -120,15 +131,8 @@ export const ImportProject: React.FC = () => {
                 <h6>No installations found</h6>
                 <p>
                   {`No installations were found under this profile. To see your repositories, you must first `}
-                  <button
-                    onClick={() => {
-                      // do something
-                    }}
-                    type="button"
-                  >
-                    install the Payload App
-                  </button>
-                  {` and provide access to your repositories.`}
+                  <InstallationButton />
+                  {'.'}
                 </p>
               </div>
             )}
