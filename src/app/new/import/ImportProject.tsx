@@ -35,6 +35,7 @@ export const ImportProject: React.FC = () => {
     results,
     page,
     setPage,
+    perPage,
   } = useGetRepos({
     selectedInstall,
   })
@@ -118,22 +119,54 @@ export const ImportProject: React.FC = () => {
               <div className={classes.noRepos}>
                 <h6>No installations found</h6>
                 <p>
-                  {`No installations were found under this profile. Click "Add GitHub Account" from the dropdown to install the Payload app and provide access to your repositories.`}
+                  {`No installations were found under this profile. To see your repositories, you must first `}
+                  <button
+                    onClick={() => {
+                      // do something
+                    }}
+                    type="button"
+                  >
+                    install the Payload App
+                  </button>
+                  {` and provide access to your repositories.`}
                 </p>
               </div>
             )}
-            <div className={classes.pagination}>
-              <button
-                onClick={() => setPage(page > 1 ? page - 1 : 1)}
-                className={classes.paginationButton}
-              >
-                &#8249;
-              </button>
-              <span className={classes.paginationPage}>{page}</span>
-              <button onClick={() => setPage(page + 1)} className={classes.paginationButton}>
-                &#8250;
-              </button>
-            </div>
+            {installs?.length > 0 && results.total_count / perPage > 1 && (
+              <div className={classes.pagination}>
+                <button
+                  disabled={page - 1 < 1}
+                  onClick={() => {
+                    if (page - 1 < 1) return
+
+                    setTimeout(() => {
+                      window.scrollTo(0, 0)
+                    }, 0)
+                    setPage(page > 1 ? page - 1 : 1)
+                  }}
+                  className={classes.paginationButton}
+                >
+                  &#8249;
+                </button>
+                <span className={classes.paginationPage}>
+                  {`Page ${page} of ${Math.ceil(results.total_count / perPage)}`}
+                </span>
+                <button
+                  disabled={page + 1 > Math.ceil(results.total_count / perPage)}
+                  onClick={() => {
+                    if (page + 1 > Math.ceil(results.total_count / perPage)) return
+
+                    setTimeout(() => {
+                      window.scrollTo(0, 0)
+                    }, 0)
+                    setPage(page + 1)
+                  }}
+                  className={classes.paginationButton}
+                >
+                  &#8250;
+                </button>
+              </div>
+            )}
           </Cell>
         </Grid>
       )}

@@ -8,7 +8,7 @@ export default ({ searchParams }) => {
   useEffect(() => {
     if (window.opener == null) window.close()
     const message: PopupMessage = {
-      type: 'github-oauth',
+      type: 'github',
       searchParams,
     }
 
