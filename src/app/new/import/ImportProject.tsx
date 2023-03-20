@@ -30,7 +30,12 @@ export const ImportProject: React.FC = () => {
     },
   })
 
-  const { loading: loadingRepos, repos } = useGetRepos({
+  const {
+    loading: loadingRepos,
+    results,
+    page,
+    setPage,
+  } = useGetRepos({
     selectedInstall,
   })
 
@@ -62,11 +67,12 @@ export const ImportProject: React.FC = () => {
             {((loadingRepos && installs?.length > 0) || loadingInstalls) && (
               <LoadingShimmer number={3} />
             )}
-            {!loadingInstalls && !loadingRepos && repos?.length > 0 && (
+            {!loadingInstalls && !loadingRepos && results?.repos?.length > 0 && (
               <div className={classes.repos}>
-                {repos?.map((repo, index) => {
+                {results?.repos?.map((repo, index) => {
                   const { name, description } = repo
                   const isHovered = hoverIndex === index
+
                   return (
                     <div
                       key={repo.id}
@@ -93,18 +99,21 @@ export const ImportProject: React.FC = () => {
                 })}
               </div>
             )}
-            {!loadingInstalls && installs?.length > 0 && !loadingRepos && repos?.length === 0 && (
-              <div className={classes.noRepos}>
-                <h6>No repositories found</h6>
-                <p>
-                  {`No repositories were found in the account "${selectedInstall?.account.login}". Create a new repository or `}
-                  <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
-                    adjust your GitHub app permissions
-                  </a>
-                  {'.'}
-                </p>
-              </div>
-            )}
+            {!loadingInstalls &&
+              installs?.length > 0 &&
+              !loadingRepos &&
+              results?.repos?.length === 0 && (
+                <div className={classes.noRepos}>
+                  <h6>No repositories found</h6>
+                  <p>
+                    {`No repositories were found in the account "${selectedInstall?.account.login}". Create a new repository or `}
+                    <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
+                      adjust your GitHub app permissions
+                    </a>
+                    {'.'}
+                  </p>
+                </div>
+              )}
             {!loadingInstalls && installs?.length === 0 && (
               <div className={classes.noRepos}>
                 <h6>No installations found</h6>
@@ -113,6 +122,18 @@ export const ImportProject: React.FC = () => {
                 </p>
               </div>
             )}
+            <div className={classes.pagination}>
+              <button
+                onClick={() => setPage(page > 1 ? page - 1 : 1)}
+                className={classes.paginationButton}
+              >
+                &#8249;
+              </button>
+              <span className={classes.paginationPage}>{page}</span>
+              <button onClick={() => setPage(page + 1)} className={classes.paginationButton}>
+                &#8250;
+              </button>
+            </div>
           </Cell>
         </Grid>
       )}

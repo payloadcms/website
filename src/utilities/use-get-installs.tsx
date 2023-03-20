@@ -47,6 +47,7 @@ export const useGetInstalls: UseGetInstalls = () => {
   const [installsLoading, setInstallsLoading] = React.useState(true)
   const [installs, dispatchInstalls] = React.useReducer(installReducer, [])
   const { user } = useAuth()
+  const hasRequested = React.useRef(false)
 
   const loadInstalls = useCallback(async (): Promise<Install[]> => {
     const installsReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
@@ -74,14 +75,20 @@ export const useGetInstalls: UseGetInstalls = () => {
 
     if (user) {
       const getInstalls = async () => {
-        timeout = setTimeout(() => {
-          setInstallsLoading(true)
-        }, 250)
+        if (!hasRequested.current) {
+          hasRequested.current = true
 
-        const installations = await loadInstalls()
-        clearTimeout(timeout)
-        dispatchInstalls({ type: 'set', payload: installations })
-        setInstallsLoading(false)
+          timeout = setTimeout(() => {
+            setInstallsLoading(true)
+          }, 250)
+
+          const installations = await loadInstalls()
+          clearTimeout(timeout)
+          dispatchInstalls({ type: 'set', payload: installations })
+          setInstallsLoading(false)
+
+          hasRequested.current = false
+        }
       }
 
       getInstalls()

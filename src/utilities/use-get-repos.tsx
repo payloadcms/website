@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { useAuth } from '@root/providers/Auth'
+import { qs } from './qs'
 import { Install } from './use-get-installs'
 
 export interface Repo {
@@ -8,19 +9,33 @@ export interface Repo {
   id?: string // applies only to the `import` flow
   description?: string
 }
+
+export interface Results {
+  total_count?: number
+  repos: Repo[]
+}
 export const useGetRepos = (props: {
   selectedInstall: Install | undefined
   delay?: number
+  perPage?: number
 }): {
   error: string | undefined
   loading: boolean
-  repos: Repo[]
+  results
+  page: number
+  perPage: number
+  setPage: React.Dispatch<React.SetStateAction<number>>
 } => {
-  const { selectedInstall, delay = 250 } = props
+  const { selectedInstall, delay = 250, perPage = 30 } = props
+  const [page, setPage] = React.useState<number>(1)
   const [error, setError] = React.useState<string | undefined>()
   const [loading, setLoading] = React.useState<boolean>(true)
-  const [repos, setRepos] = React.useState<Repo[]>([])
+  const [results, setResults] = React.useState<Results>({
+    total_count: undefined,
+    repos: [],
+  })
   const { user } = useAuth()
+  const hasRequested = React.useRef(false)
 
   useEffect(() => {
     let timeout: NodeJS.Timeout
@@ -30,28 +45,45 @@ export const useGetRepos = (props: {
       setError(undefined)
 
       const getRepos = async () => {
-        const reposReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            route: `GET /user/installations/${selectedInstall.id}/repositories`,
-          }),
-        })
+        if (!hasRequested.current) {
+          hasRequested.current = true
 
-        const res = await reposReq.json()
+          const query = qs.stringify({
+            per_page: perPage,
+            page,
+          })
 
-        if (reposReq.ok) {
-          timeout = setTimeout(() => {
-            setRepos(res.data?.repositories)
+          const reposReq = await fetch(
+            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`,
+            {
+              method: 'POST',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                route: `GET /user/installations/${selectedInstall.id}/repositories?${query}`,
+              }),
+            },
+          )
+
+          const res = await reposReq.json()
+
+          if (reposReq.ok) {
+            timeout = setTimeout(() => {
+              setResults({
+                total_count: res.data.total_count,
+                repos: res.data.repositories,
+              })
+              setLoading(false)
+              setError(undefined)
+            }, delay)
+          } else {
+            setError(res.error)
             setLoading(false)
-            setError(undefined)
-          }, delay)
-        } else {
-          setError(res.error)
-          setLoading(false)
+          }
+
+          hasRequested.current = false
         }
       }
 
@@ -61,9 +93,12 @@ export const useGetRepos = (props: {
     return () => {
       clearTimeout(timeout)
     }
-  }, [user, selectedInstall, delay])
+  }, [user, selectedInstall, delay, perPage, page])
 
-  const memoizedState = React.useMemo(() => ({ repos, error, loading }), [repos, error, loading])
+  const memoizedState = React.useMemo(
+    () => ({ results, error, loading, perPage, setPage, page }),
+    [results, error, loading, perPage, setPage, page],
+  )
 
   return memoizedState
 }
