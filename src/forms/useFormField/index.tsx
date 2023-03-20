@@ -14,7 +14,7 @@ import { FormField, SetValue } from './types'
 // 4. returns form state and field-level errors
 
 export const useFormField = <T extends Value>(options): FormField<T> => {
-  const { path, validate } = options
+  const { path, validate, initialValue: initialValueFromProps } = options
 
   const formContext = useForm()
   const submitted = useFormSubmitted()
@@ -28,7 +28,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
 
   const fieldExists = Boolean(field)
 
-  const initialValue = field?.initialValue
+  const initialValue = field?.initialValue || initialValueFromProps
 
   const [internalValue, setInternalValue] = useState<Value>()
 

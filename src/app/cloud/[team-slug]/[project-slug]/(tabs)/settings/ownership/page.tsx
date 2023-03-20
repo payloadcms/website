@@ -1,26 +1,45 @@
 'use client'
 
 import * as React from 'react'
+import { useRouter } from 'next/navigation'
 
 import { useRouteData } from '@cloud/context'
+import { Text } from '@forms/fields/Text'
 import { useField } from '@forms/fields/useField'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
+import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'
 
 import classes from './index.module.scss'
 
 type TeamSelectorProps = {
-  teams: { label: string; value: string }[]
+  teams: { label: string; slug?: string; value: string }[]
   initialValue?: string
 }
 const TeamSelector: React.FC<TeamSelectorProps> = ({ teams, initialValue }) => {
+  const initialTeam = teams.find(team => team.value === initialValue)
+
   const { value, onChange } = useField<string>({
-    path: 'team',
+    path: 'teamID',
     required: true,
     initialValue,
   })
+
+  const { value: slugValue, onChange: slugOnChange } = useField<string>({
+    path: 'teamSlug',
+    required: true,
+    initialValue: initialTeam?.slug,
+  })
+
+  const handleChange = React.useCallback(
+    ({ value: newValue, slug }) => {
+      onChange(newValue)
+      slugOnChange(slug)
+    },
+    [onChange, slugOnChange],
+  )
 
   return (
     <div className={classes.teams}>
@@ -34,26 +53,36 @@ const TeamSelector: React.FC<TeamSelectorProps> = ({ teams, initialValue }) => {
           >
             <input
               type="radio"
-              id={`team-${index}`}
+              id={`teamID-${index}`}
               value={team.value}
-              checked={team.value === value}
-              onChange={e => onChange(e.target.value)}
+              checked={isSelected}
+              onChange={() => {
+                handleChange({ value: team.value, slug: team.slug })
+              }}
               className={classes.radioInput}
             />
-            <label htmlFor={`team-${index}`} className={classes.radioCard}>
+            <label htmlFor={`teamID-${index}`} className={classes.radioCard}>
               <div className={classes.styledRadioInput} />
               <span>"{team.label}" owns this project</span>
             </label>
           </div>
         )
       })}
+
+      <Text type="hidden" path="teamSlug" initialValue={slugValue || undefined} />
     </div>
   )
+}
+
+export function isExpandedDoc<T>(doc: any): doc is T {
+  if (typeof doc === 'object' && doc !== null) return true
+  return false
 }
 
 export default () => {
   const { user } = useAuth()
   const { project, reloadProject, team: currentTeam } = useRouteData()
+  const router = useRouter()
 
   const isCurrentTeamOwner = user?.teams?.some(userTeam => {
     if (currentTeam.id === (typeof userTeam.team === 'string' ? userTeam.team : userTeam.team.id)) {
@@ -63,14 +92,16 @@ export default () => {
   })
 
   const teamOptions = user?.teams?.reduce((acc, userTeam) => {
-    if (userTeam?.roles?.length) {
+    if (isExpandedDoc<Team>(userTeam.team) && userTeam?.roles?.length) {
       acc.push({
-        label: typeof userTeam.team === 'string' ? userTeam.team : userTeam.team.name || 'No name',
-        value: typeof userTeam.team === 'string' ? userTeam.team : userTeam.team.id,
+        value: userTeam.team.id,
+        label: userTeam.team?.name || 'No name',
+        slug: userTeam.team?.slug,
       })
     }
+
     return acc
-  }, [] as { label: string; value: string }[])
+  }, [] as { label: string; slug?: string; value: string }[])
 
   const onSubmit = React.useCallback(
     async ({ unflattenedData }) => {
@@ -86,20 +117,21 @@ export default () => {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              team: unflattenedData.team,
+              team: unflattenedData.teamID,
             }),
           },
         )
 
         if (res.status === 200) {
           reloadProject()
+          router.push(`/cloud/${unflattenedData.teamSlug}/${project.slug}/settings/ownership`)
           // TODO: figure out how to reroute with new team slug
         }
       } catch (e) {
         console.error(e)
       }
     },
-    [project.id, reloadProject],
+    [project.id, reloadProject, router, project.slug],
   )
 
   return (

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'r
 import type { PaymentMethod } from '@stripe/stripe-js'
 
 import type { Plan, Project, Team } from '@root/payload-cloud-types'
+import { qs } from '@utilities/qs'
 
 export type UseCloud<T, A = null> = (args?: A) => {
   result: T[]
@@ -121,10 +122,25 @@ export const useGetProject: UseCloud<
   }
 > = args => {
   const { teamSlug, projectSlug, projectID } = args || {}
-  let url =
-    teamSlug && projectSlug
-      ? `/api/projects?where[][team.slug][equals]=${teamSlug}&where[][slug][equals]=${projectSlug}&limit=1`
-      : ''
+  const query = qs.stringify({
+    where: {
+      and: [
+        {
+          team: {
+            slug: {
+              equals: teamSlug,
+            },
+          },
+        },
+        {
+          slug: {
+            equals: projectSlug,
+          },
+        },
+      ],
+    },
+  })
+  let url = teamSlug && projectSlug ? `/api/projects?${query}&limit=1` : ''
 
   if (projectID) {
     url = `/api/projects?where[id][equals]=${projectID}&limit=1`
