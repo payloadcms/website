@@ -27,6 +27,7 @@ export const Text: React.FC<
     type?: 'text' | 'password' | 'hidden'
     copy?: boolean
     elementAttributes?: React.InputHTMLAttributes<HTMLInputElement>
+    value?: string
   }
 > = props => {
   const {
@@ -47,15 +48,23 @@ export const Text: React.FC<
       autoCapitalize: 'none',
     },
     description,
+    value: valueFromProps,
   } = props
 
-  const { onChange, value, showError, errorMessage } = useField<string>({
+  const {
+    onChange,
+    value: valueFromContext,
+    showError,
+    errorMessage,
+  } = useField<string>({
     initialValue,
     onChange: onChangeFromProps,
     path,
     validate,
     required,
   })
+
+  const value = valueFromProps || valueFromContext
 
   return (
     <div

@@ -21,7 +21,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
   const processing = useFormProcessing()
   const modified = useFormModified()
 
-  const { dispatchFields, getField, setIsModified } = formContext
+  const { dispatchFields, getField, setIsModified, apiErrors } = formContext
 
   // Get field by path
   const field = getField(path)
@@ -36,8 +36,10 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
   const debouncedValue = useDebounce(internalValue, 120)
 
   // Valid could be a string equal to an error message
-  const valid = field && typeof field.valid === 'boolean' ? field.valid : true
-  const showError = valid === false && submitted
+  const validFromContext = field && typeof field.valid === 'boolean' ? field.valid : true
+  const apiError = apiErrors?.find(error => error.field === path)
+  const validFromAPI = apiError === undefined
+  const showError = (validFromContext === false || validFromAPI === false) && submitted
 
   // Method to send update field values from field component(s)
   // Should only be used internally
@@ -110,7 +112,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
   return {
     ...options,
     showError,
-    errorMessage: field?.errorMessage,
+    errorMessage: field?.errorMessage || apiError?.message,
     value: internalValue,
     formSubmitted: submitted,
     formProcessing: processing,

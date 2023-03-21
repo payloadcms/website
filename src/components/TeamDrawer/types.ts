@@ -8,6 +8,7 @@ export interface TeamDrawerProps {
   drawerSlug: string
   team?: Team
   onCreate: (team: Team) => void
+  closeDrawer: () => void
 }
 
 export type TeamDrawerTogglerProps = HTMLAttributes<HTMLButtonElement> & {

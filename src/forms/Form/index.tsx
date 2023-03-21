@@ -23,6 +23,10 @@ export type FormProps = {
   method?: 'GET' | 'POST'
   action?: string
   className?: string
+  errors?: {
+    field: string
+    message: string
+  }[]
 }
 
 const Form: React.FC<FormProps> = props => {
@@ -33,6 +37,7 @@ const Form: React.FC<FormProps> = props => {
     method,
     action,
     className,
+    errors: errorsFromProps,
   } = props
 
   const [fields, dispatchFields] = useReducer(reducer, initialState)
@@ -59,13 +64,6 @@ const Form: React.FC<FormProps> = props => {
 
       if (!formIsValid) {
         e.preventDefault()
-
-        // TODO: wire in notifications
-        // setNotification({
-        //   id: 'formError',
-        //   message: 'Please check your submission and try again.',
-        // })
-
         setIsProcessing(false)
         return false
       }
@@ -77,12 +75,11 @@ const Form: React.FC<FormProps> = props => {
         })
       }
 
-      setHasSubmitted(false)
       setIsProcessing(false)
       setIsModified(false)
       return false
     },
-    [onSubmit, fields, setHasSubmitted, setIsProcessing, setIsModified],
+    [onSubmit, setHasSubmitted, setIsProcessing, setIsModified, fields],
   )
 
   const getFields = useCallback(() => contextRef.current.fields, [contextRef])
@@ -128,12 +125,13 @@ const Form: React.FC<FormProps> = props => {
       onSubmit={contextRef.current.handleSubmit}
       className={className}
     >
-      <FormContext.Provider value={contextRef.current}>
-        <FieldContext.Provider
-          value={{
-            ...contextRef.current,
-          }}
-        >
+      <FormContext.Provider
+        value={{
+          ...contextRef.current,
+          apiErrors: errorsFromProps,
+        }}
+      >
+        <FieldContext.Provider value={contextRef.current}>
           <FormSubmittedContext.Provider value={hasSubmitted}>
             <ProcessingContext.Provider value={isProcessing}>
               <ModifiedContext.Provider value={isModified}>{children}</ModifiedContext.Provider>

@@ -27,7 +27,7 @@ const SelectMenuButton = props => {
       {props.children}
       {/* use an anchor tag with an href despite the onClick for better UX */}
       <a className={classes.addAccountButton} href={href} onClick={selectProps?.openPopupWindow}>
-        Install the Payload App
+        Add new installation
       </a>
     </components.MenuList>
   )

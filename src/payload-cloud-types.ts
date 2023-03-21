@@ -87,6 +87,7 @@ export interface Project {
   cloudflareDNSRecordID?: string;
   digitalOceanAppID?: string;
   atlasProjectID?: string;
+  atlasConnectionString?: string;
   atlasDatabaseName?: string;
   atlasDatabaseType?: 'cluster' | 'serverless';
   atlasDatabaseUser?: string;
@@ -147,12 +148,14 @@ export interface Deployment {
   deployedAt?: string;
   deploymentURL?: string;
   deploymentID?: string;
+  commitSha?: string;
+  commitMessage?: string;
   logs?: {
     timestamp?: string;
     message?: string;
     id?: string;
   }[];
-  deploymentStatus?: 'success' | 'error';
+  deploymentStatus?: 'pending' | 'inProgress' | 'success' | 'error';
   createdAt: string;
   updatedAt: string;
 }
