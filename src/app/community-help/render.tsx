@@ -16,6 +16,7 @@ import { AlgoliaPagination } from '@root/adapters/AlgoliaPagination'
 import Link from 'next/link'
 import { ArchiveSearchBar } from './ArchiveSearchBar'
 import { AlgoliaProvider } from './AlgoliaProvider'
+import { Banner } from '@components/Banner'
 
 import classes from './index.module.scss'
 
@@ -25,7 +26,6 @@ export const CommunityHelp: React.FC = () => {
   const { hits }: { hits: Array<any> } = useHits()
 
   const hasResults = hits && Array.isArray(hits) && hits.length > 0
-
   return (
     <HeaderObserver color={theme} pullUp>
       <Gutter>
@@ -55,16 +55,16 @@ export const CommunityHelp: React.FC = () => {
                             &nbsp;in&nbsp;
                             {platform === 'Discord' && <DiscordIcon className={classes.icon} />}
                             {platform === 'Github' && <GithubIcon className={classes.icon} />}
-                            &nbsp;{platform}
+                            {' '}{platform}
                           </span>
                         </div>
                         <div className={classes.upvotes}>
-                          {hit.upvotes && hit.upvotes > 0 && (
+                          {hit.upvotes > 0 && (
                             <span>
-                              <ArrowIcon rotation={-45} /> {hit.upvotes}
+                              <ArrowIcon rotation={-45} /> {hit.upvotes || ''}
                             </span>
                           )}
-                          {hit.messageCount && hit.messageCount > 0 && (
+                          {hit.messageCount > 0 && (
                             <span>
                               <CommentsIcon /> {hit.messageCount}
                             </span>
@@ -75,6 +75,17 @@ export const CommunityHelp: React.FC = () => {
                   )
                 })}
               </ul>
+            )}
+            {!hasResults && (
+              <Banner type="warning">
+                <h5>Sorry, no results were found...</h5>
+                <label>Search tips</label>
+                <ul>
+                  <li>Make sure all words are spelled correctly</li>
+                  <li>Try more general keywords</li>
+                  <li>Try different keywords</li>
+                </ul>
+              </Banner>
             )}
             <AlgoliaPagination />
           </Cell>

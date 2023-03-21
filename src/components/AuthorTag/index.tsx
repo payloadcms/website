@@ -85,7 +85,7 @@ const AuthorTag: React.FC<Props> = ({
       </div>
 
       <div className={classes.commentMetaStats}>
-        {upvotes && (
+        {upvotes !== undefined && upvotes > 0 && (
           <span>
             <ArrowIcon rotation={-45} /> {upvotes}
           </span>

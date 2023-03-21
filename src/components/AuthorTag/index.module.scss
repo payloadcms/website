@@ -143,9 +143,16 @@
 
   .authorName {
     flex-wrap: wrap;
+    align-items: center;
+    padding-bottom: calc(var(--base) * 0.25);
   }
 
   .comments {
     margin-left: calc(var(--base) * 0.5);
+  }
+
+  .twitterIcon {
+    width: 15px;
+    margin: 0 calc(var(--base) * 0.5);
   }
 }
