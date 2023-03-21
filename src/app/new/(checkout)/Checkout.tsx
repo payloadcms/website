@@ -124,6 +124,8 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
     return <Gutter>This project does not exist.</Gutter>
   }
 
+  const enableTrialSelector = new Date().getTime() < new Date('2023-07-01').getTime()
+
   return (
     <Fragment>
       <Gutter>
@@ -150,7 +152,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                           : '',
                       )}
                     </p>
-                    {checkoutState?.freeTrial && <p>(Free for 7 days)</p>}
+                    {checkoutState?.freeTrial && <p>Free trial (ends July 1)</p>}
                   </div>
                 </Fragment>
               )}
@@ -168,23 +170,19 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                     </div>
                     <div className={classes.plans}>
                       <PlanSelector />
-                      <div className={classes.freeTrial}>
-                        <Checkbox
-                          label="7 day free trial"
-                          checked={checkoutState?.freeTrial}
-                          onChange={handleTrialChange}
-                          disabled={
-                            typeof checkoutState?.project?.plan === 'object' &&
-                            checkoutState?.project?.plan?.slug !== 'standard'
-                          }
-                        />
-                        {typeof checkoutState?.project?.plan === 'object' &&
-                          checkoutState?.project?.plan?.slug !== 'standard' && (
-                            <p className={classes.freeTrialDisabled}>
-                              Free trials are only available on the Standard plan.
-                            </p>
-                          )}
-                      </div>
+                      {enableTrialSelector && (
+                        <div className={classes.freeTrial}>
+                          <Checkbox
+                            label="Free trial (ends July 1)"
+                            checked={checkoutState?.freeTrial}
+                            onChange={handleTrialChange}
+                            disabled={
+                              typeof checkoutState?.project?.plan === 'object' &&
+                              checkoutState?.project?.plan?.slug !== 'standard'
+                            }
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div>
