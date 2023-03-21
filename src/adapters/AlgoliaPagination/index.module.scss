@@ -5,13 +5,10 @@
   align-items: center;
   margin-top: calc(var(--base) * 4);
 
-  & > *:not(:last-child) {
+  &>*:not(:last-child) {
     margin-right: calc(var(--base) * 0.25);
   }
 
-  @include mid-break {
-    justify-content: space-between;
-  }
 }
 
 .pages {
@@ -42,6 +39,10 @@
   }
 }
 
+.dash {
+  margin-right: calc(var(--base) * 0.5);
+}
+
 .disabled {
   pointer-events: none;
 }
@@ -53,10 +54,6 @@
 .nextPrev {
   display: flex;
   margin-left: calc(var(--base) * 0.5);
-
-  // @include mid-break {
-  //   margin: 0;
-  // }
 }
 
 .chevronButton {
@@ -77,6 +74,14 @@
 
   &:hover {
     border-color: #3C3C3C;
+  }
+
+  &.disabled {
+    cursor: default;
+
+    &:hover {
+      border-color: transparent;
+    }
   }
 
   @include small-break {
