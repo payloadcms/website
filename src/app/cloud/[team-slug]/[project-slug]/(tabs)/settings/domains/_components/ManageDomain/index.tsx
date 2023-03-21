@@ -11,6 +11,7 @@ import { ModalWindow } from '@components/ModalWindow'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
+import { validateDomain } from '@forms/validations'
 import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon'
 import { Project } from '@root/payload-cloud-types'
 
@@ -124,6 +125,7 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
                 className={classes.domainInput}
                 path={domainValueFieldPath}
                 initialValue={domainURL}
+                validate={validateDomain}
               />
 
               {status === 'pending' && (

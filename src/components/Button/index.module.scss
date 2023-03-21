@@ -15,6 +15,11 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   &:local(.size--small) {
     --button-padding: calc(var(--base) * 0.25) calc(var(--base) * 0.5);
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: .25;
+  }
 }
 
 .full-width {
