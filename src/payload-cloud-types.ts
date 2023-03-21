@@ -7,107 +7,65 @@
 
 export interface Config {
   collections: {
-    users: User;
-    teams: Team;
-    projects: Project;
-    deployments: Deployment;
-    plans: Plan;
-    templates: Template;
-    'api-keys': ApiKey;
-    'atlas-projects': AtlasProject;
-    'atlas-orgs': AtlasOrg;
-    jobs: Job;
-  };
-  globals: {};
+    users: User
+    teams: Team
+    projects: Project
+    deployments: Deployment
+    plans: Plan
+    templates: Template
+    'api-keys': ApiKey
+    'atlas-projects': AtlasProject
+    'atlas-orgs': AtlasOrg
+  }
+  globals: {}
 }
 export interface User {
-  id: string;
-  name?: string;
-  githubID?: string;
-  teams?: {
-    team?: string | Team;
-    roles?: ('owner' | 'admin' | 'user')[];
-    id?: string;
-  }[];
-  roles?: ('admin' | 'user')[];
-  githubAccessToken?: string;
-  githubAccessTokenExpiration?: number;
-  githubRefreshToken?: string;
-  githubRefreshTokenExpiration?: number;
-  email?: string;
-  resetPasswordToken?: string;
-  resetPasswordExpiration?: string;
-  _verified?: boolean;
-  _verificationToken?: string;
-  loginAttempts?: number;
-  lockUntil?: string;
-  createdAt: string;
-  updatedAt: string;
-  password?: string;
+  id: string
+  name?: string
+  githubID?: string
+  defaultTeam?: string | Team
+  teams: Array<{
+    team: string | Team
+    roles?: Array<'owner' | 'admin' | 'user'>
+    invitedOn?: string
+    acceptedOn?: string
+    default?: boolean
+    id?: string
+  }>
+  projects: Array<{
+    project?: string | Project
+    roles?: Array<'owner' | 'admin' | 'user'>
+    invitedOn?: string
+    acceptedOn?: string
+    id?: string
+  }>
+  roles?: Array<'admin' | 'user'>
+  githubAccessToken?: string
+  githubAccessTokenExpiration?: number
+  githubRefreshToken?: string
+  githubRefreshTokenExpiration?: number
+  email?: string
+  resetPasswordToken?: string
+  resetPasswordExpiration?: string
+  _verified?: boolean
+  _verificationToken?: string
+  loginAttempts?: number
+  lockUntil?: string
+  createdAt: string
+  updatedAt: string
+  password?: string
 }
 export interface Team {
-  id: string;
-  name?: string;
-  slug?: string;
-  billingEmail: string;
-  stripeCustomerID?: string;
-  skipSync?: boolean;
-  members?: {
-    user?: string | User;
-    roles?: ('owner' | 'admin' | 'user')[];
-    invitedOn?: string;
-    acceptedOn?: string;
-    id?: string;
-  }[];
-  createdAt: string;
-  updatedAt: string;
-}
-export interface Project {
-  id: string;
-  slug?: string;
-  status?: 'draft' | 'published';
-  deletedOn?: string;
-  skipSync?: boolean;
-  name: string;
-  plan?: string | Plan;
-  team: string | Team;
-  template?: string | Template;
-  makePrivate?: boolean;
-  source?: 'github';
-  repositoryName?: string;
-  repositoryURL?: string;
-  repositoryID?: string;
-  installID?: string;
-  deploymentBranch?: string;
-  outputDirectory?: string;
-  buildScript?: string;
-  installScript?: string;
-  runScript?: string;
-  rootDirectory?: string;
-  cloudflareDNSRecordID?: string;
-  digitalOceanAppID?: string;
-  atlasProjectID?: string;
-  atlasDatabaseName?: string;
-  atlasDatabaseType?: 'cluster' | 'serverless';
-  atlasDatabaseUser?: string;
-  atlasDatabasePassword?: string;
-  s3Policy?: 'public' | 'private';
-  cognitoIdentityID?: string;
-  cognitoPassword?: string;
-  region?: 'us-east' | 'us-west' | 'eu-west';
-  defaultDomain?: string;
-  domains?: {
-    domain: string;
-    status: 'pending' | 'active' | 'inactive';
-    id?: string;
-  }[];
-  environmentVariables?: {
-    key?: string;
-    value?: string;
-    id?: string;
-  }[];
-  stripeSubscriptionID?: string;
-  stripeSubscriptionStatus?:
+  id: string
+  name?: string
+  slug?: string
+  billingEmail?: string
+  stripeCustomerID?: string
+  subscriptions: Array<{
+    stripeSubscriptionID?: string
+    stripeProductID?: string
+    plan?: string | Plan
+    status?:
     | 'active'
     | 'canceled'
     | 'incomplete'
@@ -115,100 +73,136 @@ export interface Project {
     | 'past_due'
     | 'trialing'
     | 'unpaid'
-    | 'paused';
-  teamProjectName?: string;
-  createdAt: string;
-  updatedAt: string;
+    id?: string
+  }>
+  skipSync?: boolean
+  createdAt: string
+  updatedAt: string
 }
 export interface Plan {
-  id: string;
-  name?: string;
-  slug?: string;
-  stripeProductID?: string;
-  priceJSON?: string;
-  order?: number;
-  createdAt: string;
-  updatedAt: string;
+  id: string
+  name?: string
+  slug?: string
+  stripeProductID?: string
+  priceJSON?: string
+  order?: number
+  createdAt: string
+  updatedAt: string
+}
+export interface Project {
+  id: string
+  slug?: string
+  status?: 'draft' | 'published'
+  deletedOn?: string
+  skipSync?: boolean
+  name: string
+  plan?: string | Plan
+  team: string | Team
+  template?: string | Template
+  makePrivate?: boolean
+  source?: 'github'
+  repositoryName?: string
+  repositoryURL?: string
+  repositoryID?: string
+  installID?: string
+  deploymentBranch?: string
+  outputDirectory?: string
+  buildScript?: string
+  installScript?: string
+  runScript?: string
+  rootDirectory?: string
+  digitalOceanAppID?: string
+  digitalOceanProjectID?: string
+  atlasClusterID?: string
+  atlasProjectID?: string
+  atlasDatabaseName?: string
+  atlasDatabaseUser?: string
+  atlasDatabasePassword?: string
+  s3Policy?: 'public' | 'private'
+  region?: 'us-east-1' | 'us-west-2' | 'eu-west-2' | 'eu-central-1'
+  aws: {
+    user?: string
+  }
+  defaultDomain?: string
+  cnameRecord?: string
+  domains: Array<{
+    domain: string
+    status: 'pending' | 'active' | 'inactive'
+    id?: string
+  }>
+  environmentVariables: Array<{
+    key?: string
+    value?: string
+    id?: string
+  }>
+  createdAt: string
+  updatedAt: string
 }
 export interface Template {
-  id: string;
-  name?: string;
-  slug?: string;
-  description?: string;
-  repositoryURL?: string;
-  order?: number;
-  createdAt: string;
-  updatedAt: string;
+  id: string
+  name?: string
+  slug?: string
+  description?: string
+  repositoryURL?: string
+  order?: number
+  createdAt: string
+  updatedAt: string
 }
 export interface Deployment {
-  id: string;
-  name?: string;
-  project: string | Project;
-  deployedAt?: string;
-  deploymentURL?: string;
-  deploymentID?: string;
-  logs?: {
-    timestamp?: string;
-    message?: string;
-    id?: string;
-  }[];
-  deploymentStatus?: 'success' | 'error';
-  createdAt: string;
-  updatedAt: string;
+  id: string
+  name?: string
+  team: string | Team
+  project: string | Project
+  deployedAt: string
+  deploymentURL: string
+  logs: Array<{
+    timestamp?: string
+    message?: string
+    id?: string
+  }>
+  deploymentStatus?: 'success' | 'error'
+  createdAt: string
+  updatedAt: string
 }
 export interface ApiKey {
-  id: string;
-  name?: string;
-  roles: ('owner' | 'admin' | 'user')[];
-  enableAPIKey?: boolean;
-  apiKey?: string;
-  apiKeyIndex?: string;
-  email?: string;
-  resetPasswordToken?: string;
-  resetPasswordExpiration?: string;
-  loginAttempts?: number;
-  lockUntil?: string;
-  createdAt: string;
-  updatedAt: string;
-  password?: string;
+  id: string
+  name?: string
+  roles: Array<'owner' | 'admin' | 'user'>
+  enableAPIKey?: boolean
+  apiKey?: string
+  apiKeyIndex?: string
+  email?: string
+  resetPasswordToken?: string
+  resetPasswordExpiration?: string
+  loginAttempts?: number
+  lockUntil?: string
+  createdAt: string
+  updatedAt: string
+  password?: string
 }
 export interface AtlasProject {
-  id: string;
-  atlasProjectID?: string;
-  projects?: string[] | Project[];
-  projectCount?: number;
-  createdAt: string;
-  updatedAt: string;
+  id: string
+  name?: string
+  projects?: string[] | Project[]
+  projectCount?: number
+  atlasOrg?:
+  | {
+    [k: string]: unknown
+  }
+  | unknown[]
+  | string
+  | number
+  | boolean
+  | null
+  createdAt: string
+  updatedAt: string
 }
 export interface AtlasOrg {
-  id: string;
-  atlasOrgID?: string;
-  atlasProjects?: string[] | AtlasProject[];
-  projectCount?: number;
-  createdAt: string;
-  updatedAt: string;
-}
-export interface Job {
-  id: string;
-  type: 'deployApp' | 'provisionDNS';
-  processing?: boolean;
-  seenByWorker?: boolean;
-  deployApp?: {
-    project: string | Project;
-  };
-  provisionDNS?: {
-    project: string | Project;
-  };
-  hasError?: boolean;
-  error?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  createdAt: string;
-  updatedAt: string;
+  id: string
+  name?: string
+  orgId: string
+  atlasProjects?: string[] | AtlasProject[]
+  projectCount?: number
+  createdAt: string
+  updatedAt: string
 }

@@ -11,6 +11,7 @@ import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
+import { isExpandedDoc } from '@root/utilities/is-expanded-doc'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'
 
 import classes from './index.module.scss'
@@ -47,11 +48,6 @@ const SelectTeam: React.FC<SelectTeamProps> = ({ teams, initialValue }) => {
       <Text type="hidden" path="teamSlug" initialValue={slugValue || undefined} />
     </div>
   )
-}
-
-export function isExpandedDoc<T>(doc: any): doc is T {
-  if (typeof doc === 'object' && doc !== null) return true
-  return false
 }
 
 export default () => {

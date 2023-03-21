@@ -1,0 +1,46 @@
+.plan {
+  max-width: 1000px;
+}
+
+.borderBox {
+  padding: calc(var(--base) * 1.25);
+  border: 1px solid var(--theme-border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--base) * 1.25);
+}
+
+.highlightHeading {
+  position: relative;
+  padding-bottom: calc(var(--base) * 1.5);
+  display: inline-flex;
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    height: 1px;
+    background: var(--theme-border-color);
+    width: 50%;
+  }
+}
+
+.downgradeText {
+  color: var(--theme-elevation-500);
+  margin-bottom: 0;
+}
+
+.deleteHeading {
+  margin-top: calc(var(--base) * 3.5);
+}
+
+.modalActions {
+  display: flex;
+  gap: var(--base);
+  justify-content: flex-end;
+  width: 100%;
+  padding-top: var(--base);
+  border-top: 1px solid var(--theme-border-color);
+  margin-top: var(--base);
+}
