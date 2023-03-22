@@ -65,8 +65,16 @@ client.once(Events.ClientReady, async c => {
     return
   }
 
-  const fetchedThreads = await communityHelpChannel.threads.fetchActive()
-  const { threads } = fetchedThreads
+  // Fetches a max limit of 100 archived threads
+  const fetchedArchivedThreads = await communityHelpChannel.threads.fetchArchived({ limit: 100, fetchAll: true })
+
+  const { threads: archiveThreads } = fetchedArchivedThreads
+
+  const fetchedActiveThreads = await communityHelpChannel.threads.fetchActive()
+  const { threads: activeThreads } = fetchedActiveThreads
+
+  // Combines active threads with archived threads
+  let threads = activeThreads.concat(archiveThreads)
 
   const allThreads = threads.map(async info => {
     return info
@@ -113,6 +121,7 @@ client.once(Events.ClientReady, async c => {
         id: info.id,
         guildId: info.guildId,
         createdAt: info.createdTimestamp,
+        archived: info.archived,
       },
       intro: {
         content: toHTML(intro.cleanContent),
