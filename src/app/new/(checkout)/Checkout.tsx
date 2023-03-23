@@ -20,7 +20,7 @@ import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Label from '@forms/Label'
 import { cloudSlug } from '@root/app/cloud/layout'
-import { Plan, Team } from '@root/payload-cloud-types'
+import { Plan } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
@@ -116,8 +116,8 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
           type: 'SET_PROJECT',
           payload: {
             ...project,
-            team: project.team as Team,
-            plan: project.plan as Plan,
+            team: project.team,
+            plan: project.plan,
           },
         })
       }
@@ -268,11 +268,13 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                   </div>
                   <div>
                     <h5>Payment Info</h5>
-                    <CreditCardSelector
-                      initialValue={checkoutState?.paymentMethod}
-                      team={checkoutState?.project?.team as Team}
-                      onChange={handleCardChange}
-                    />
+                    {checkoutState?.project?.team && (
+                      <CreditCardSelector
+                        initialValue={checkoutState?.paymentMethod}
+                        team={checkoutState.project.team}
+                        onChange={handleCardChange}
+                      />
+                    )}
                   </div>
                   <Button
                     appearance="primary"

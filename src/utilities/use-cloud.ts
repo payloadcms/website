@@ -12,7 +12,7 @@ export type UseCloud<T, A = null> = (args?: A) => {
 }
 
 export const useCloud = <T>(args: {
-  url: string
+  url?: string
   delay?: number
   method?: 'GET' | 'POST'
   body?: string
@@ -177,7 +177,7 @@ export const useGetTeam: UseCloud<Team, string> = teamSlug => {
 
 export const useGetPaymentMethods: UseCloud<PaymentMethod, Team> = team => {
   return useCloud<PaymentMethod>({
-    url: `/api/stripe/rest`,
+    url: team ? `/api/stripe/rest` : '',
     method: 'POST',
     body: JSON.stringify({
       stripeMethod: 'customers.listPaymentMethods',
