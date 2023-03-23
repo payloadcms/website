@@ -5,8 +5,8 @@ import { getAllThreads, getThread } from '../../api'
 import { RenderThread } from './render'
 
 const Thread = async ({ params }) => {
-  const { thread: id } = params
-  const thread = await getThread(id)
+  const { thread: slug } = params
+  const thread = await getThread(slug)
 
   if (!thread) return notFound()
 
@@ -18,9 +18,5 @@ export default Thread
 export async function generateStaticParams() {
   const threads = await getAllThreads()
 
-  return (
-    threads?.map(({ info }) => ({
-      thread: info.id,
-    })) ?? []
-  )
+  return threads?.map(({ slug }) => slug) ?? []
 }

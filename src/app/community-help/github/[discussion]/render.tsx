@@ -14,26 +14,26 @@ import OpenPost from '@components/OpenPost'
 
 import classes from './index.module.scss'
 
-type DateFromSource = string | number
+type DateFromSource = string
 export type Author = {
-  name: string
-  url: string
-  avatar: string
+  name?: string
+  url?: string
+  avatar?: string
 }
 export type Comment = {
   author: Author
   body: string
   createdAt: DateFromSource
-  replies?: Comment[]
+  replies?: Comment[] | null
 }
 
 export type Answer = {
   author: Author
   body: string
   createdAt: DateFromSource
-  chosenBy: Author
+  chosenBy?: string
   chosenAt: DateFromSource
-  replies?: Comment[]
+  replies?: Comment[] | null
 }
 
 export type DiscussionProps = {
@@ -47,6 +47,7 @@ export type DiscussionProps = {
   commentTotal: number
   upvotes: number
   comments: Comment[]
+  slug: string
 }
 
 export const RenderDiscussion: React.FC<DiscussionProps> = props => {
@@ -68,13 +69,14 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
               <DiscordGitIntro
                 postName={title}
                 author={author.name}
-                image={author.avatar}
+                image={author.avatar ? author.avatar : '/images/avatars/default.png'}
                 date={createdAt}
                 messageCount={commentTotal}
                 upvotes={upvotes}
                 content={body}
+                platform="GitHub"
               />
-              <DiscordGitComments answer={answer} comments={comments} />
+              <DiscordGitComments answer={answer} comments={comments} platform="GitHub" />
               <OpenPost url={url} platform="GitHub" />
             </Cell>
           </Grid>

@@ -33,6 +33,7 @@ export type ButtonProps = {
   onMouseLeave?: () => void
   size?: 'small' | 'default'
   disabled?: boolean
+  disableLineBlip?: boolean
 }
 
 const icons = {
@@ -128,6 +129,7 @@ export const Button: React.FC<ButtonProps> = props => {
     size,
     disabled,
     href: hrefFromProps,
+    disableLineBlip,
   } = props
 
   const href = hrefFromProps || generateHref({ type, reference })
@@ -161,7 +163,7 @@ export const Button: React.FC<ButtonProps> = props => {
             setIsHovered(false)
           }}
         >
-          {appearance === 'default' && <LineBlip active={isHovered} />}
+          {appearance === 'default' && !disableLineBlip && <LineBlip active={isHovered} />}
           <ButtonContent {...props} />
         </a>
       </Link>
@@ -186,7 +188,7 @@ export const Button: React.FC<ButtonProps> = props => {
         }}
         disabled={disabled}
       >
-        {appearance === 'default' && <LineBlip active={isHovered} />}
+        {appearance === 'default' && !disableLineBlip && <LineBlip active={isHovered} />}
         <ButtonContent {...props} />
       </Element>
     )

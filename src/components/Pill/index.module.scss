@@ -6,10 +6,11 @@
   background-color: var(--theme-success-100);
   color: var(--color-success-500);
   border-radius: 19px;
-  padding: calc(var(--base) * 0.3) calc(var(--base) * 0.5);
+  padding: 0 calc(var(--base) * 0.5);
   margin-right: calc(var(--base) * 0.4);
 
   @include small-break {
+    padding: calc(var(--base) * 0.35) calc(var(--base) * 0.5);
     max-height: 28px;
   }
 }

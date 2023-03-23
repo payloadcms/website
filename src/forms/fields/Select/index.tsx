@@ -42,7 +42,7 @@ export const Select: React.FC<{
   label?: string
   options: Option[]
   validate?: Validate
-  onChange?: (value: Option | Option[]) => void // eslint-disable-line no-unused-vars
+  onChange?: (value: string | string[]) => void // eslint-disable-line no-unused-vars
   initialValue?: string | string[]
   className?: string
   isMulti?: boolean
@@ -140,14 +140,20 @@ export const Select: React.FC<{
 
   const handleChange = useCallback(
     (incomingSelection: Option | Option[]) => {
+      let selectedOption
+      if (Array.isArray(incomingSelection)) {
+        selectedOption = incomingSelection
+      } else {
+        selectedOption = incomingSelection.value
+      }
       setInternalState(incomingSelection)
 
       if (typeof setValue === 'function') {
-        setValue(incomingSelection)
+        setValue(selectedOption)
       }
 
       if (typeof onChange === 'function') {
-        onChange(incomingSelection)
+        onChange(selectedOption)
       }
     },
     [onChange, setValue],

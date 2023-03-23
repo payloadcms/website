@@ -33,7 +33,7 @@ export const RenderCommunityHelp: React.FC<{
                 return (
                   <li key={i}>
                     <Link
-                      href={`/community-help/github/${discussion.id}`}
+                      href={`/community-help/github/${discussion.slug}`}
                       aria-label={discussion.title}
                     >
                       {discussion.title}
@@ -51,7 +51,7 @@ export const RenderCommunityHelp: React.FC<{
                 return (
                   <li key={i}>
                     <Link
-                      href={`/community-help/discord/${thread.info.id}`}
+                      href={`/community-help/discord/${thread.slug}`}
                       aria-label={thread.info.name}
                     >
                       {thread.info.name}

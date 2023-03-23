@@ -44,7 +44,7 @@ export const TeamInvites: React.FC<{
                 const newMembers = [...members]
                 newMembers[index] = {
                   ...(newMembers?.[index] || {}),
-                  role: ('role' in value ? value.role : value) as 'admin' | 'user',
+                  role: value as 'admin' | 'user',
                 }
                 setValue(newMembers)
               }}

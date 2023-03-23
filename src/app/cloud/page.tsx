@@ -16,7 +16,6 @@ import classes from './index.module.scss'
 
 export default () => {
   const [selectedTeam, setSelectedTeam] = React.useState<string | 'none'>()
-
   const [search, setSearch] = React.useState<string>('')
 
   const {
@@ -43,7 +42,9 @@ export default () => {
         </Cell>
         <Cell cols={4}>
           <TeamSelector
-            onChange={setSelectedTeam}
+            onChange={incomingTeam => {
+              setSelectedTeam(incomingTeam)
+            }}
             className={classes.teamSelector}
             initialValue="none"
             allowEmpty
