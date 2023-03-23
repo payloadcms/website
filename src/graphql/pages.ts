@@ -37,7 +37,7 @@ export const PAGES = `
 
 export const PAGE = `
   query Page($slug: String ) {
-    Pages(where: { slug: { equals: $slug} }, draft: true) {
+    Pages(where: { slug: { equals: $slug} }) {
       docs {
         id
         title

@@ -1,0 +1,10 @@
+# Spin up the caddy server with `caddy run` or `yarn caddy`
+# this is useful to test the github oauth flow locally
+
+payloadcms.localhost {
+  reverse_proxy :3000
+}
+
+cms.payloadcms.localhost {
+  reverse_proxy :8001
+}

@@ -1,8 +1,10 @@
 'use client'
 
 import React, { useEffect, useRef } from 'react'
-import classes from './index.module.scss'
+
 import { Props } from '../types'
+
+import classes from './index.module.scss'
 
 export const Video: React.FC<Props> = props => {
   const { videoClassName, resource, onClick } = props

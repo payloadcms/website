@@ -1,15 +1,16 @@
 'use client'
 
 import * as React from 'react'
-import { RichText } from '@components/RichText'
-import { useRouter } from 'next/navigation'
-import Submit from '@forms/Submit'
 import FormComponent from '@forms/Form'
-import { Data } from '@forms/types'
+import Submit from '@forms/Submit'
+import { useRouter } from 'next/navigation'
+
+import { RichText } from '@components/RichText'
 import { Form } from '@root/payload-types'
 import { fields } from './fields'
-import classes from './index.module.scss'
 import { Width } from './Width'
+
+import classes from './index.module.scss'
 
 const RenderForm = ({ form }: { form: Form }) => {
   const {
@@ -30,7 +31,7 @@ const RenderForm = ({ form }: { form: Form }) => {
   const router = useRouter()
 
   const onSubmit = React.useCallback(
-    (data: Data) => {
+    ({ data }) => {
       let loadingTimerID: NodeJS.Timer
 
       const submitForm = async () => {
@@ -109,6 +110,8 @@ const RenderForm = ({ form }: { form: Form }) => {
     [router, formID, formRedirect, confirmationType],
   )
 
+  if (!form?.id) return null
+
   return (
     <div className={classes.cmsForm}>
       {!isLoading && hasSubmitted && confirmationType === 'message' && (
@@ -121,22 +124,21 @@ const RenderForm = ({ form }: { form: Form }) => {
           {leader && <RichText className={classes.leader} content={leader} />}
           <FormComponent onSubmit={onSubmit}>
             <div className={classes.fieldWrap}>
-              {form &&
-                form.fields?.map((field, index) => {
-                  const Field: React.FC<any> = fields?.[field.blockType]
-                  if (Field) {
-                    return (
-                      <Width key={index} width={'width' in field ? field.width : 100}>
-                        <Field
-                          path={'name' in field ? field.name : undefined}
-                          form={form}
-                          {...field}
-                        />
-                      </Width>
-                    )
-                  }
-                  return null
-                })}
+              {form.fields?.map((field, index) => {
+                const Field: React.FC<any> = fields?.[field.blockType]
+                if (Field) {
+                  return (
+                    <Width key={index} width={'width' in field ? field.width : 100}>
+                      <Field
+                        path={'name' in field ? field.name : undefined}
+                        form={form}
+                        {...field}
+                      />
+                    </Width>
+                  )
+                }
+                return null
+              })}
             </div>
             <Submit processing={isLoading} label={submitButtonLabel} />
           </FormComponent>

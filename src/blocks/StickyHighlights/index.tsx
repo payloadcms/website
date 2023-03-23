@@ -1,10 +1,12 @@
 import React from 'react'
 import { useScrollInfo } from '@faceless-ui/scroll-info'
-import { Page } from '@root/payload-types'
-import { Gutter } from '@components/Gutter'
 import { useWindowInfo } from '@faceless-ui/window-info'
-import classes from './index.module.scss'
+
+import { Gutter } from '@components/Gutter'
+import { Page } from '@root/payload-types'
 import { StickyHighlight } from './Highlight'
+
+import classes from './index.module.scss'
 
 type Props = Extract<Page['layout'][0], { blockType: 'stickyHighlights' }>
 

@@ -1,8 +1,9 @@
 'use client'
 
-import canUseDom from '@root/utilities/can-use-dom'
-import { usePathname } from 'next/navigation'
 import React, { useEffect, useReducer, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
+
+import canUseDom from '@root/utilities/can-use-dom'
 
 export const PageTransition: React.FC<{
   children: React.ReactNode

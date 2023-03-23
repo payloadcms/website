@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Page } from '@root/payload-types'
 import { ContentMediaHero } from './ContentMedia'
 import { DefaultHero } from './Default'

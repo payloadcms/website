@@ -1,14 +1,16 @@
 'use client'
 
-import { RichText } from '@components/RichText'
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { BlockSpacing } from '@components/BlockSpacing'
-import { Gutter } from '@components/Gutter'
 import { ThemeProvider, useTheme } from '@providers/Theme'
+
+import { BlockSpacing } from '@components/BlockSpacing'
 import { CMSForm } from '@components/CMSForm'
+import { Gutter } from '@components/Gutter'
 import { PixelBackground } from '@components/PixelBackground'
+import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
+
 import classes from './index.module.scss'
 
 export type FormBlockProps = Extract<Page['layout'][0], { blockType: 'form' }>
@@ -17,6 +19,8 @@ const Content: React.FC<FormBlockProps> = props => {
   const { formFields: { container, richText, form } = {} } = props
 
   const theme = useTheme()
+
+  if (typeof form === 'string') return null
 
   return (
     <BlockSpacing className={classes.formBlock}>

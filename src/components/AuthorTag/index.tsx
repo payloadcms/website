@@ -1,10 +1,11 @@
 import React from 'react'
-import getRelativeDate from '@root/utilities/get-relative-date'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { CommentsIcon } from '@root/graphics/CommentsIcon'
-import { getTeamTwitter } from '@root/utilities/get-team-twitter'
-import { TwitterIconV2 } from '@root/graphics/TwitterIconV2'
+
 import { Pill } from '@components/Pill'
+import { CommentsIcon } from '@root/graphics/CommentsIcon'
+import { TwitterIconV2 } from '@root/graphics/TwitterIconV2'
+import { ArrowIcon } from '@root/icons/ArrowIcon'
+import getRelativeDate from '@root/utilities/get-relative-date'
+import { getTeamTwitter } from '@root/utilities/get-team-twitter'
 
 import classes from './index.module.scss'
 

@@ -1,9 +1,36 @@
+@use '@scss/common' as *;
+
 .label {
+  @include label;
   display: block;
-  margin-bottom: calc(var(--base) * 0.25);
+  margin-bottom: calc(var(--base) * 0.5);
+  color: var(--theme-elevation-650);
+  line-height: 1;
+  font-size: 14px;
+  align-self: flex-end;
 }
 
 .required {
   color: var(--color-failure-500);
   margin: 0 calc(var(--base) * 0.25);
+}
+
+.labelWithActions {
+  display: flex;
+  align-items: center;
+  margin-bottom: calc(var(--base) * 0.5);
+
+  label {
+    margin: 0;
+  }
+}
+
+.actions {
+  display: flex;
+  margin-left: auto;
+
+  svg {
+    height: 24px;
+    width: auto;
+  }
 }

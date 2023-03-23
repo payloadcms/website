@@ -1,50 +1,17 @@
 @use '@scss/common.scss' as *;
 
 .desktopNav {
+  position: relative;
+
+  &:local() {
+    a {
+      text-decoration: none;
+    }
+  }
+
   @include small-break {
     display: none;
     visibility: hidden;
-  }
-}
-
-.grid {
-  :local(a) {
-    text-decoration: none;
-  }
-}
-
-.container {
-  position: relative;
-}
-
-.logo {
-  width: calc(var(--gutter-h) / 2 - var(--base));
-  height: 100%;
-  position: absolute;
-  left: calc(-1 * var(--base));
-  display: flex;
-  justify-content: flex-start;
-  transform: translateX(-100%);
-  top: -2px;
-
-  svg {
-    height: auto;
-  }
-
-  @include large-break {
-    position: static;
-    left: 0;
-    transform: unset;
-    width: auto;
-    margin-right: var(--base);
-  }
-}
-
-.navItems {
-  display: flex;
-
-  :local(.navItem) {
-    margin-right: calc(var(--base) * .75);
   }
 }
 
@@ -53,10 +20,67 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
-  width: 100%;
+  margin-left: calc(var(--gutter-h) / -2);
+  margin-right: calc(var(--gutter-h) / -2);
 
   @include large-break {
+    margin-left: 0;
+    margin-right: 0;
     justify-content: unset;
+  }
+}
+
+.authNav {
+  display: flex;
+  align-items: center;
+
+  & > *:not(:last-child) {
+    margin-right: calc(var(--base) * 1);
+  }
+}
+
+.container {
+  position: relative;
+}
+
+.logo {
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  top: -2px;
+  margin-right: var(--base);
+  width: calc(var(--gutter-h) / 2 - var(--base));
+
+
+  svg {
+    height: auto;
+  }
+
+  @include large-break {
+    width: auto;
+    margin-right: var(--base);
+  }
+}
+
+.navItems {
+  display: flex;
+  flex-grow: 1;
+  white-space: nowrap;
+
+  :local(.navItem) {
+    margin-right: calc(var(--base) * .75);
+  }
+}
+
+.secondaryNavItems {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  white-space: nowrap;
+
+  & > *:not(:last-child) {
+    margin-right: calc(var(--base) * .75);
   }
 }
 
@@ -64,17 +88,11 @@
   display: flex;
   color-scheme: none;
   align-items: center;
-
-  :local(.stars) {
-    vertical-align: middle;
-  }
+  margin-right: var(--base);
 
   @include large-break {
     margin-left: auto;
-
-    :local(.stars) {
-      margin-right: var(--base);
-    }
+    margin-right: 0;
   }
 }
 
@@ -87,6 +105,8 @@
 
 .starsWrap {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .payload {
@@ -106,10 +126,12 @@
   transform: translateX(100%);
   top: 0;
   align-items: center;
+  margin-left: var(--base);
   
   > * {
-    margin-right: calc(var(--base) * .5);
+    margin-right: var(--base);
     line-height: 1;
+    flex-shrink: 0;
     
     &:last-child {
       margin-right: 0;

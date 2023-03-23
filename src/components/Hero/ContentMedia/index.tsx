@@ -1,15 +1,16 @@
 'use client'
 
+import React from 'react'
+import { Cell, Grid } from '@faceless-ui/css-grid'
+
 import { Breadcrumbs } from '@components/Breadcrumbs'
+import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
 import { HeaderObserver } from '@components/HeaderObserver'
-import { useTheme } from '@providers/Theme'
-import { RichText } from '@components/RichText'
-import { Cell, Grid } from '@faceless-ui/css-grid'
-import React from 'react'
-import { Page } from '@root/payload-types'
 import { Media } from '@components/Media'
-import { CMSLink } from '@components/CMSLink'
+import { RichText } from '@components/RichText'
+import { Page } from '@root/payload-types'
+
 import classes from './index.module.scss'
 
 export const ContentMediaHero: React.FC<
@@ -17,10 +18,8 @@ export const ContentMediaHero: React.FC<
     breadcrumbs?: Page['breadcrumbs']
   }
 > = ({ richText, media, breadcrumbs, links }) => {
-  const theme = useTheme()
-
   return (
-    <HeaderObserver color={theme} pullUp>
+    <HeaderObserver>
       <Gutter>
         <Grid className={classes.grid}>
           <Cell cols={7} colsM={8}>

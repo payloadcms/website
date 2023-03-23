@@ -1,6 +1,7 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
-import { getThread, getAllThreads } from '../../api'
+
+import { getAllThreads, getThread } from '../../api'
 import { RenderThread } from './render'
 
 const Thread = async ({ params }) => {

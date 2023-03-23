@@ -1,9 +1,10 @@
 // no declaration file for flatley, and no @types either, so require instead of import
 // import flatley from 'flatley';
 import flatley from 'flatley'
+
 import type { Fields, Property } from '../types'
 
-const reduceFieldsToValues = (fields: Fields, unflatten: boolean): Property => {
+export const reduceFieldsToValues = (fields: Fields, unflatten: boolean): Property => {
   const data: Property = {}
 
   Object.keys(fields).forEach(key => {
@@ -19,5 +20,3 @@ const reduceFieldsToValues = (fields: Fields, unflatten: boolean): Property => {
 
   return data
 }
-
-export default reduceFieldsToValues

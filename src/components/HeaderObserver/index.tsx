@@ -1,6 +1,10 @@
+'use client'
+
 import * as React from 'react'
 import { useWindowInfo } from '@faceless-ui/window-info'
 import { useHeaderTheme } from '@providers/HeaderTheme'
+
+import { useTheme } from '@root/providers/Theme'
 
 import classes from './index.module.scss'
 
@@ -11,20 +15,20 @@ type Props = {
   children?: React.ReactNode
   pullUp?: boolean
 }
-export const HeaderObserver: React.FC<Props> = ({
-  color,
-  children,
-  className,
-  zIndex,
-  pullUp = false,
-}) => {
+const WrappedHeaderObserver: React.FC<
+  Props & {
+    isDetached: boolean
+  }
+> = ({ children, className, zIndex, pullUp, isDetached }) => {
   const ref = React.useRef<HTMLDivElement>(null)
   const { height: windowHeight } = useWindowInfo()
-  const { setHeaderColor, debug } = useHeaderTheme()
+  const { setHeaderColor, debug, isFirstObserver, setIsFirstObserver } = useHeaderTheme()
   const [isIntersecting, setIsIntersecting] = React.useState(false)
+  const themeColor = useTheme()
+  const isFirstRef = React.useRef(false)
 
   React.useEffect(() => {
-    if (ref?.current && windowHeight && color) {
+    if (ref?.current && windowHeight && themeColor) {
       const headerHeight = parseInt(
         getComputedStyle(document.documentElement).getPropertyValue('--header-height'),
         10,
@@ -53,13 +57,24 @@ export const HeaderObserver: React.FC<Props> = ({
     }
 
     return () => null
-  }, [setIsIntersecting, windowHeight, color])
+  }, [setIsIntersecting, windowHeight, themeColor])
 
   React.useEffect(() => {
     if (isIntersecting) {
-      setHeaderColor(color)
+      setHeaderColor(themeColor)
     }
-  }, [isIntersecting, color])
+  }, [isIntersecting, themeColor, setHeaderColor])
+
+  React.useEffect(() => {
+    if (isFirstObserver) {
+      isFirstRef.current = true
+      setIsFirstObserver(false)
+    }
+  }, [isDetached, isFirstObserver, setIsFirstObserver])
+
+  if (isDetached) {
+    return <React.Fragment>{children && children}</React.Fragment>
+  }
 
   return (
     <div
@@ -71,7 +86,10 @@ export const HeaderObserver: React.FC<Props> = ({
       {children && children}
 
       <div
-        className={[classes.observerContainer, pullUp && classes.pullContainerUp]
+        className={[
+          classes.observerContainer,
+          (pullUp ?? isFirstRef.current) && classes.pullContainerUp,
+        ]
           .filter(Boolean)
           .join(' ')}
       >
@@ -83,5 +101,38 @@ export const HeaderObserver: React.FC<Props> = ({
         <div ref={ref} className={classes.stickyObserver} />
       </div>
     </div>
+  )
+}
+
+type Type = {
+  isDetached: boolean
+  detachParentObserver: () => void
+}
+const Context = React.createContext<Type | undefined>(undefined)
+
+const useParentHeaderObserver = (): Type | undefined => React.useContext(Context)
+export const HeaderObserver: React.FC<Props> = props => {
+  const [isDetached, setIsDetached] = React.useState(false)
+  const parentObserver = useParentHeaderObserver()
+
+  const detachParentObserver = React.useCallback(() => {
+    setIsDetached(true)
+  }, [])
+
+  React.useEffect(() => {
+    if (parentObserver !== undefined) {
+      parentObserver.detachParentObserver()
+    }
+  }, [parentObserver])
+
+  return (
+    <Context.Provider
+      value={{
+        isDetached,
+        detachParentObserver,
+      }}
+    >
+      <WrappedHeaderObserver {...props} isDetached={isDetached} />
+    </Context.Provider>
   )
 }

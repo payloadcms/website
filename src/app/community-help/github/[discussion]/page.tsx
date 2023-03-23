@@ -1,6 +1,7 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
-import { getDiscussion, getAllDiscussions } from '../../api'
+
+import { getAllDiscussions, getDiscussion } from '../../api'
 import { RenderDiscussion } from './render'
 
 const Discussion = async ({ params }) => {

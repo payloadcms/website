@@ -4,10 +4,23 @@
   position: relative;
 }
 
+.actionsSlot {
+  display: flex;
+  margin-left: auto;
+  gap: calc(var(--base) * .5);
+
+  svg {
+    height: 24px;
+    width: auto;
+  }
+}
+
 .input {
   @include shared.formInput;
+}
 
-  &.error {
-    background-color: var(--theme-failure-500);
+.showError {
+  .input {
+    border-left: 2px solid var(--theme-error-500);
   }
 }

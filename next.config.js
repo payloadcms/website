@@ -19,6 +19,7 @@ const nextConfig = withBundleAnalyzer({
       ...config.resolve.alias,
       '@scss': path.resolve(__dirname, './src/css/'),
       '@components': path.resolve(__dirname, './src/components'),
+      '@cloud': path.resolve(__dirname, './src/app/cloud'),
       '@forms': path.resolve(__dirname, './src/forms'),
       '@blocks': path.resolve(__dirname, './src/blocks'),
       '@providers': path.resolve(__dirname, './src/providers'),

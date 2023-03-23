@@ -1,6 +1,7 @@
+import { useCallback, useEffect, useState } from 'react'
+
 import { Validate, Value } from '@forms/types'
 import { useFormField } from '@forms/useFormField'
-import { useCallback, useEffect, useState } from 'react'
 
 // the purpose of this hook is to provide a way to;
 // 1. allow the field to update its own value without debounce
@@ -22,19 +23,18 @@ export const useField = <T extends Value>(props: {
 } => {
   const { path, onChange: onChangeFromProps, validate, required, initialValue } = props
 
-  const fieldFromContext = useFormField<T>({
-    path,
-    validate: required ? validate : undefined,
-  })
-
   const {
     value: valueFromContext,
     showError,
     setValue: setContextValue,
     errorMessage,
-  } = fieldFromContext
+  } = useFormField<T>({
+    path,
+    validate: required ? validate : undefined,
+    initialValue,
+  })
 
-  const valueFromContextOrProps = valueFromContext || initialValue
+  const valueFromContextOrProps = valueFromContext !== undefined ? valueFromContext : initialValue
 
   const [internalState, setInternalState] = useState<T | null>(
     valueFromContext || initialValue || null,

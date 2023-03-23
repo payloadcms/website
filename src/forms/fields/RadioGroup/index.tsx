@@ -1,12 +1,14 @@
 'use client'
 
 import React, { useId } from 'react'
+
 import Error from '../../Error'
 import Label from '../../Label'
 import { Validate } from '../../types'
-import classes from './index.module.scss'
 import { FieldProps } from '../types'
 import { useField } from '../useField'
+
+import classes from './index.module.scss'
 
 export type Option = {
   label: string | React.ReactElement

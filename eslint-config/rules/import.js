@@ -5,7 +5,7 @@ module.exports = {
     es6: true,
   },
   extends: ['plugin:import/errors', 'plugin:import/warnings', 'plugin:import/typescript'],
-  plugins: ['import'],
+  plugins: ['import', 'simple-import-sort'],
   settings: {
     'import/resolver': {
       node: {
@@ -31,6 +31,24 @@ module.exports = {
         jsx: 'never',
       },
     ],
+    'simple-import-sort/imports': [
+      'error',
+      {
+        groups: [
+          // Packages. `react` related packages come first.
+          // Things that start with a letter (or digit or underscore), or `@` followed by a letter.
+          ['^react', '^@?\\w'],
+          // Absolute imports and Relative imports, not scss
+          [
+            '^(@root|@graphql|@components|@cloud|@forms|@blocks|@hooks|@utilities|@types|@graphics|@icons|@scss)(/.*|$)',
+            '^\\.((?!.scss).)*$',
+          ],
+          // All other imports
+          ['^[^.]'],
+        ],
+      },
+    ],
+    'simple-import-sort/exports': 'error',
     'import/no-extraneous-dependencies': 'off',
     /**
      * https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/named.md#when-not-to-use-it

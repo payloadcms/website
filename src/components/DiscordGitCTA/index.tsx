@@ -1,8 +1,9 @@
 import React from 'react'
-import Link from 'next/link'
 import GitHubButton from 'react-github-btn'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
+import Link from 'next/link'
+
 import { PixelBackground } from '@components/PixelBackground'
+import { ArrowIcon } from '@root/icons/ArrowIcon'
 
 import classes from './index.module.scss'
 

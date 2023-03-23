@@ -1,0 +1,34 @@
+.ownership {
+  max-width: 1000px;
+}
+
+.teamSelect {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  padding: calc(var(--base) * 1.25) var(--base);
+  border: 1px solid var(--theme-border-color);
+}
+
+.actionsFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--base);
+  padding-top: var(--base);
+  border-top: 1px solid var(--theme-border-color);
+}
+
+.noAccess {
+  padding: calc(var(--base) * 1.25) var(--base);
+  color: var(--color-warning-500);
+  background: var(--theme-warning-100);
+  border-bottom: 1px solid var(--color-warning-500);
+}
+
+:global([data-theme="light"]) {
+  .noAccess {
+    color: var(--color-warning-850);
+    background-color: var(--theme-warning-450);
+    border-bottom: 1px solid var(--color-warning-550);
+  }
+}

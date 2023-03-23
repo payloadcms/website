@@ -1,30 +1,35 @@
 'use client'
 
-import React, { useEffect, useRef, useState, useCallback, useReducer, ChangeEvent } from 'react'
-import reduceFieldsToValues from './reduceFieldsToValues'
-import reducer from './reducer'
-import initialContext from './initialContext'
+import React, { ChangeEvent, useCallback, useEffect, useReducer, useRef, useState } from 'react'
 
+import { Data, Field, IFormContext, InitialState, OnSubmit } from '../types'
 import {
-  FormSubmittedContext,
-  ProcessingContext,
-  ModifiedContext,
-  FormContext,
   FieldContext,
+  FormContext,
+  FormSubmittedContext,
+  ModifiedContext,
+  ProcessingContext,
 } from './context'
-
-import { IFormContext, Field, OnSubmit, InitialState, Data } from '../types'
+import initialContext from './initialContext'
+import { reduceFieldsToValues } from './reduceFieldsToValues'
+import reducer from './reducer'
 
 const defaultInitialState = {}
 
-const Form: React.FC<{
+export type FormProps = {
   onSubmit?: OnSubmit
   children: React.ReactNode
   initialState?: InitialState
   method?: 'GET' | 'POST'
   action?: string
   className?: string
-}> = props => {
+  errors?: {
+    field: string
+    message: string
+  }[]
+}
+
+const Form: React.FC<FormProps> = props => {
   const {
     onSubmit,
     children,
@@ -32,6 +37,7 @@ const Form: React.FC<{
     method,
     action,
     className,
+    errors: errorsFromProps,
   } = props
 
   const [fields, dispatchFields] = useReducer(reducer, initialState)
@@ -48,35 +54,33 @@ const Form: React.FC<{
     async (e: ChangeEvent<HTMLFormElement>) => {
       e.preventDefault()
       e.stopPropagation()
-
       setHasSubmitted(true)
-      setIsProcessing(true)
 
       const formIsValid = contextRef.current.validateForm()
 
+      if (formIsValid) {
+        setIsProcessing(true)
+      }
+
       if (!formIsValid) {
         e.preventDefault()
-
-        // TODO: wire in notifications
-        // setNotification({
-        //   id: 'formError',
-        //   message: 'Please check your submission and try again.',
-        // })
-
         setIsProcessing(false)
         return false
       }
 
       if (typeof onSubmit === 'function') {
-        await onSubmit(reduceFieldsToValues(fields, false), reduceFieldsToValues(fields, true))
+        await onSubmit({
+          data: reduceFieldsToValues(fields, false),
+          unflattenedData: reduceFieldsToValues(fields, true),
+          dispatchFields: contextRef.current.dispatchFields,
+        })
       }
 
-      setHasSubmitted(false)
       setIsProcessing(false)
       setIsModified(false)
       return false
     },
-    [fields, onSubmit, isProcessing],
+    [onSubmit, setHasSubmitted, setIsProcessing, setIsModified, fields],
   )
 
   const getFields = useCallback(() => contextRef.current.fields, [contextRef])
@@ -96,18 +100,15 @@ const Form: React.FC<{
     return !Object.values(contextRef.current.fields).some((field): boolean => field.valid === false)
   }, [contextRef])
 
-  contextRef.current = {
-    ...contextRef.current,
-    dispatchFields,
-    handleSubmit,
-    getFields,
-    getField,
-    getFormData,
-    validateForm,
-    setIsModified,
-    setIsProcessing,
-    setHasSubmitted,
-  }
+  contextRef.current.dispatchFields = dispatchFields
+  contextRef.current.handleSubmit = handleSubmit
+  contextRef.current.getFields = getFields
+  contextRef.current.getField = getField
+  contextRef.current.getFormData = getFormData
+  contextRef.current.validateForm = validateForm
+  contextRef.current.setIsModified = setIsModified
+  contextRef.current.setIsProcessing = setIsProcessing
+  contextRef.current.setHasSubmitted = setHasSubmitted
 
   useEffect(() => {
     contextRef.current = { ...initialContext }
@@ -125,12 +126,13 @@ const Form: React.FC<{
       onSubmit={contextRef.current.handleSubmit}
       className={className}
     >
-      <FormContext.Provider value={contextRef.current}>
-        <FieldContext.Provider
-          value={{
-            ...contextRef.current,
-          }}
-        >
+      <FormContext.Provider
+        value={{
+          ...contextRef.current,
+          apiErrors: errorsFromProps,
+        }}
+      >
+        <FieldContext.Provider value={contextRef.current}>
           <FormSubmittedContext.Provider value={hasSubmitted}>
             <ProcessingContext.Provider value={isProcessing}>
               <ModifiedContext.Provider value={isModified}>{children}</ModifiedContext.Provider>

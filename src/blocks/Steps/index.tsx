@@ -1,7 +1,9 @@
 import React from 'react'
+
 import { Page } from '@root/payload-types'
-import classes from './index.module.scss'
 import { Step } from './Step'
+
+import classes from './index.module.scss'
 
 type Props = Extract<Page['layout'][0], { blockType: 'steps' }>
 

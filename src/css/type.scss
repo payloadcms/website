@@ -163,6 +163,11 @@
   }
 }
 
+@mixin small {
+  font-size: 14px;
+  line-height: 15px;
+}
+
 @mixin large-body {
   font-size: 33px;
   line-height: 42px;
