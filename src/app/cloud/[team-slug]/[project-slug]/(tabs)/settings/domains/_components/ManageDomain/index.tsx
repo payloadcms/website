@@ -13,18 +13,23 @@ import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { validateDomain } from '@forms/validations'
 import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon'
-import { Project } from '@root/payload-cloud-types'
 
+// import { Project } from '@root/payload-cloud-types'
 import classes from './index.module.scss'
 
 const domainValueFieldPath = 'domain'
 
 type Props = {
-  domain: Project['domains'][0]
+  // Project.domains[0] -> not working because the array is not required
+  domain: {
+    domain: string
+    cloudflareID?: string
+    id?: string
+  }
   cnameRecord?: string
 }
 export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
-  const { id, domain: domainURL, status } = domain
+  const { id, domain: domainURL } = domain
   const modalSlug = `delete-domain-${id}`
 
   const { openModal, closeModal } = useModal()
@@ -96,24 +101,16 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
 
   return (
     <>
-      <Collapsible openOnInit={status === 'pending'}>
+      <Collapsible openOnInit={false}>
         <Accordion
-          className={[classes.domainAccordion, classes[status]].join(' ')}
+          className={classes.domainAccordion}
           toggleIcon="chevron"
           label={
             <div className={classes.labelWrap}>
-              {status === 'active' ? (
-                <Link
-                  href={`https://${domainURL}`}
-                  target="_blank"
-                  className={classes.linkedDomain}
-                >
-                  <div className={classes.domainTitleName}>{domainURL}</div>
-                  <ExternalLinkIcon className={classes.externalLinkIcon} />
-                </Link>
-              ) : (
+              <Link href={`https://${domainURL}`} target="_blank" className={classes.linkedDomain}>
                 <div className={classes.domainTitleName}>{domainURL}</div>
-              )}
+                <ExternalLinkIcon className={classes.externalLinkIcon} />
+              </Link>
             </div>
           }
         >
@@ -128,34 +125,32 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
                 validate={validateDomain}
               />
 
-              {status === 'pending' && (
-                <div className={classes.pendingDomain}>
-                  <div className={classes.configureDomain}>
-                    <div className={classes.domainRecords}>
-                      <table className={classes.domainRecordsTable}>
-                        <thead>
-                          <tr>
-                            <th>Record Type</th>
-                            <th>Record Value</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr className={classes.domainRecord}>
-                            <td className={classes.domainRecordName}>
-                              <p>CNAME</p>
-                            </td>
-                            <td className={classes.domainRecordValue}>{cnameRecord}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+              <div className={classes.pendingDomain}>
+                <div className={classes.configureDomain}>
+                  <div className={classes.domainRecords}>
+                    <table className={classes.domainRecordsTable}>
+                      <thead>
+                        <tr>
+                          <th>Record Type</th>
+                          <th>Record Value</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className={classes.domainRecord}>
+                          <td className={classes.domainRecordName}>
+                            <p>CNAME</p>
+                          </td>
+                          <td className={classes.domainRecordValue}>{cnameRecord}</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
-
-                  <p className={classes.pendingDomainAlert}>
-                    You will need to configure this record with your DNS provider.
-                  </p>
                 </div>
-              )}
+
+                <p className={classes.pendingDomainAlert}>
+                  You will need to configure this record with your DNS provider.
+                </p>
+              </div>
 
               <div className={classes.domainActions}>
                 {/* {status === 'pending' && (

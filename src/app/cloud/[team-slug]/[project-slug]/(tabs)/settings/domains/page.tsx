@@ -48,7 +48,7 @@ export default () => {
         <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
           <div className={classes.collapsibleGroup}>
             {project.domains.map(domain => (
-              <ManageDomain key={domain.id} domain={domain} cnameRecord={project.cnameRecord} />
+              <ManageDomain key={domain.id} domain={domain} />
             ))}
           </div>
         </CollapsibleGroup>
