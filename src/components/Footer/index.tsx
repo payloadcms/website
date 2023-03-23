@@ -2,13 +2,12 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { Text } from '@forms/fields/Text'
-import { validateEmail } from '@forms/validations'
-import { ArrowIcon } from '@icons/ArrowIcon'
-import { Footer as FooterType } from '@types'
 
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
+import { Text } from '@forms/fields/Text'
+import { validateEmail } from '@forms/validations'
+import { ArrowIcon } from '@icons/ArrowIcon'
 import { FacebookIcon } from '@root/graphics/FacebookIcon'
 import { InstagramIcon } from '@root/graphics/InstagramIcon'
 import { PayloadIcon } from '@root/graphics/PayloadIcon'
@@ -23,6 +22,7 @@ import { useThemePreference } from '@root/providers/Theme'
 import { getImplicitPreference, themeLocalStorageKey } from '@root/providers/Theme/shared'
 import { Theme } from '@root/providers/Theme/types'
 import { analyticsEvent } from '@root/utilities/analytics'
+import { Footer as FooterType } from '@types'
 
 import classes from './index.module.scss'
 

@@ -108,14 +108,14 @@ export interface Project {
   }>
   stripeSubscriptionID?: string
   stripeSubscriptionStatus?:
-  | 'active'
-  | 'canceled'
-  | 'incomplete'
-  | 'incomplete_expired'
-  | 'past_due'
-  | 'trialing'
-  | 'unpaid'
-  | 'paused'
+    | 'active'
+    | 'canceled'
+    | 'incomplete'
+    | 'incomplete_expired'
+    | 'past_due'
+    | 'trialing'
+    | 'unpaid'
+    | 'paused'
   teamProjectName?: string
   createdAt: string
   updatedAt: string
@@ -187,14 +187,14 @@ export interface Job {
   }
   hasError?: boolean
   error?:
-  | {
-    [k: string]: unknown
-  }
-  | unknown[]
-  | string
-  | number
-  | boolean
-  | null
+    | {
+        [k: string]: unknown
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null
   createdAt: string
   updatedAt: string
 }

@@ -2,11 +2,11 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { CalendarIcon } from '@graphics/CalendarIcon'
-import { formatDate } from '@utilities/format-date-time'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
+import { CalendarIcon } from '@graphics/CalendarIcon'
 import { Post } from '@root/payload-types'
+import { formatDate } from '@utilities/format-date-time'
 import { Gutter } from '../../../../components/Gutter'
 import { Label } from '../../../../components/Label'
 import { Media } from '../../../../components/Media'

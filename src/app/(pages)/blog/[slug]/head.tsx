@@ -1,6 +1,5 @@
-import { fetchBlogPost } from '@graphql'
-
 import Meta from '@components/Meta'
+import { fetchBlogPost } from '@graphql'
 
 export default async ({ params }) => {
   const { slug } = params

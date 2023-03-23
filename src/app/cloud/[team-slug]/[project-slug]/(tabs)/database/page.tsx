@@ -2,10 +2,10 @@
 
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { Secret } from '@forms/fields/Secret'
 
 import { Heading } from '@components/Heading'
 import { Label } from '@components/Label'
+import { Secret } from '@forms/fields/Secret'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 
 import classes from './index.module.scss'

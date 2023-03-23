@@ -1,6 +1,5 @@
-import { fetchCaseStudy } from '@graphql'
-
 import Meta from '@components/Meta'
+import { fetchCaseStudy } from '@graphql'
 
 export default async ({ params }) => {
   const { slug } = params
