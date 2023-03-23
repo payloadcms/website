@@ -42,7 +42,7 @@ export const Select: React.FC<{
   label?: string
   options: Option[]
   validate?: Validate
-  onChange?: (value: Option | Option[]) => void // eslint-disable-line no-unused-vars
+  onChange?: (value: string | string[]) => void // eslint-disable-line no-unused-vars
   initialValue?: string | string[]
   className?: string
   isMulti?: boolean

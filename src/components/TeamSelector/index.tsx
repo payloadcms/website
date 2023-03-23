@@ -64,7 +64,7 @@ export const TeamSelector: React.FC<{
         initialValue={selectedTeam}
         onChange={option => {
           if (Array.isArray(option)) return
-          setSelectedTeam(option.value)
+          setSelectedTeam(option)
         }}
         options={[
           ...(allowEmpty ? [{ label: 'All teams', value: 'none' }] : []),
