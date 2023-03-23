@@ -1,10 +1,10 @@
 'use client'
 
 import React from 'react'
-import Label from '@forms/Label'
 
 import { CopyToClipboard } from '@components/CopyToClipboard'
 import { TooltipButton } from '@components/TooltipButton'
+import Label from '@forms/Label'
 import { EyeIcon } from '@root/icons/EyeIcon'
 import Error from '../../Error'
 import { Validate } from '../../types'
@@ -90,7 +90,7 @@ export const Secret: React.FC<SecretProps> = props => {
         actionsSlot={
           <>
             <TooltipButton text={isHidden ? 'show' : 'hide'} onClick={toggleVisibility}>
-              <EyeIcon />
+              <EyeIcon closed={isHidden} />
             </TooltipButton>
             <CopyToClipboard value={isValueLoaded ? value : loadExternalValue} />
           </>

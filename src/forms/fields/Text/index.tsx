@@ -3,7 +3,9 @@
 import React from 'react'
 
 import { CopyToClipboard } from '@components/CopyToClipboard'
+import { TooltipButton } from '@components/TooltipButton'
 import Label from '@forms/Label'
+import { EyeIcon } from '@root/icons/EyeIcon'
 import Error from '../../Error'
 import { Validate } from '../../types'
 import { FieldProps } from '../types'
@@ -39,7 +41,7 @@ export const Text: React.FC<
     onChange: onChangeFromProps,
     initialValue,
     className,
-    copy,
+    copy = false,
     disabled,
     elementAttributes = {
       autoComplete: 'off',
@@ -48,6 +50,8 @@ export const Text: React.FC<
     },
     description,
   } = props
+
+  const [isHidden, setIsHidden] = React.useState(type === 'password')
 
   const { onChange, value, showError, errorMessage } = useField<string>({
     initialValue,
@@ -68,7 +72,16 @@ export const Text: React.FC<
         htmlFor={path}
         label={label}
         required={required}
-        actionsSlot={copy && <CopyToClipboard value={value} />}
+        actionsSlot={
+          <>
+            {copy && <CopyToClipboard value={value} />}
+            {type === 'password' && (
+              <TooltipButton text={isHidden ? 'show' : 'hide'} onClick={() => setIsHidden(h => !h)}>
+                <EyeIcon closed={isHidden} />
+              </TooltipButton>
+            )}
+          </>
+        }
       />
       <input
         {...elementAttributes}
@@ -79,7 +92,7 @@ export const Text: React.FC<
           onChange(e.target.value)
         }}
         placeholder={placeholder}
-        type={type}
+        type={type === 'password' && !isHidden ? 'text' : type}
         id={path}
         name={path}
       />

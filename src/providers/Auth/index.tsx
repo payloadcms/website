@@ -22,7 +22,6 @@ type AuthContext = {
   setUser: (user: User | null) => void // eslint-disable-line no-unused-vars
   logout: Logout
   login: Login
-  create: Create
   resetPassword: ResetPassword
   forgotPassword: ForgotPassword
 }
@@ -30,6 +29,7 @@ type AuthContext = {
 const USER = `
   id
   email
+  roles
   teams {
     team {
       id
@@ -47,35 +47,6 @@ const CLOUD_CONNECTION_ERROR = 'An error occurred while attempting to connect to
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null | undefined>(undefined)
   const fetchedMe = useRef(false)
-
-  const create = useCallback<Create>(async args => {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: `mutation {
-              createUser(data: { email: "${args.email}", password: "${args.password}" }) {
-                email
-              }
-            }`,
-        }),
-      })
-
-      if (res.ok) {
-        const { data, errors } = await res.json()
-        if (errors) throw new Error(errors[0].message)
-        setUser(data?.loginUser?.user)
-      } else {
-        throw new Error('Invalid login')
-      }
-    } catch (e) {
-      throw new Error(CLOUD_CONNECTION_ERROR)
-    }
-  }, [])
 
   const login = useCallback<Login>(async args => {
     try {
@@ -245,7 +216,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setUser,
         login,
         logout,
-        create,
         resetPassword,
         forgotPassword,
       }}

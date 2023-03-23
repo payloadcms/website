@@ -1,47 +1,140 @@
 'use client'
 
 import React, { useCallback, useState } from 'react'
-import { Text } from '@forms/fields/Text'
-import Form from '@forms/Form'
-import Submit from '@forms/Submit'
 import Link from 'next/link'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
+import { Highlight } from '@components/Highlight'
+import { Text } from '@forms/fields/Text'
+import Form from '@forms/Form'
+import Submit from '@forms/Submit'
+import { InitialState, OnSubmit } from '@forms/types'
+import { BorderBox } from '@root/app/_components/BorderBox'
+import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
 
 import classes from './index.module.scss'
 
+const initialFormState: InitialState = {
+  email: {
+    value: '',
+    valid: false,
+    initialValue: undefined,
+    errorMessage: 'Please enter a valid email address',
+  },
+  password: {
+    value: '',
+    valid: false,
+    initialValue: undefined,
+    errorMessage: 'Please enter a password',
+  },
+  passwordConfirm: {
+    value: '',
+    valid: false,
+    initialValue: undefined,
+    errorMessage: 'Please confirm your password',
+  },
+}
+
 const CreateAccount: React.FC = () => {
-  const { user, logout, create } = useAuth()
-  const [loading, setLoading] = useState(false)
+  const { user, logout } = useAuth()
   const [error, setError] = useState<string | null>(null)
+  const [successfullySubmitted, setSuccessfullySubmitted] = useState(false)
 
-  const handleSubmit = useCallback(
-    async ({ data }) => {
-      const loadingTimer = setTimeout(() => {
-        setLoading(true)
-      }, 1000)
+  const createAccount: OnSubmit = useCallback(async ({ data, dispatchFields }) => {
+    if (data.password !== data.passwordConfirm) {
+      dispatchFields({
+        type: 'UPDATE',
+        path: 'passwordConfirm',
+        errorMessage: 'Passwords do not match',
+        valid: false,
+        value: data.passwordConfirm,
+      })
+      dispatchFields({
+        type: 'UPDATE',
+        path: 'password',
+        errorMessage: 'Passwords do not match',
+        valid: false,
+        value: data.password,
+      })
+      return
+    }
 
-      try {
-        await create({
-          email: data.email as string,
-          password: data.password as string,
-          passwordConfirm: data.passwordConfirm as string,
-        })
+    try {
+      const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `mutation {
+            createUser(data: { email: "${data.email}", password: "${data.password}" }) {
+              email
+            }
+          }`,
+        }),
+      })
 
-        clearTimeout(loadingTimer)
-        setLoading(false)
-      } catch (err) {
-        console.error(err)
-        clearTimeout(loadingTimer)
-        setLoading(false)
-        setError(err.message)
+      if (req.ok) {
+        const res = await req.json()
+
+        if (!res.errors) {
+          // reset form
+          dispatchFields({
+            type: 'REPLACE_STATE',
+            state: initialFormState,
+          })
+          setSuccessfullySubmitted(true)
+        } else if (res?.errors?.length > 0) {
+          const stateWithErrors = res.errors.reduce(
+            (acc, formError) => {
+              formError.extensions?.data?.forEach(fieldError => {
+                acc[fieldError.field] = {
+                  ...acc[fieldError.field],
+                  valid: false,
+                  errorMessage: fieldError.message,
+                }
+              })
+              return acc
+            },
+            {
+              email: {
+                ...initialFormState.email,
+                value: data.email,
+                valid: true,
+              },
+              password: {
+                ...initialFormState.password,
+                value: data.password,
+                valid: true,
+              },
+              passwordConfirm: {
+                ...initialFormState.passwordConfirm,
+                value: data.passwordConfirm,
+                valid: true,
+              },
+            },
+          )
+
+          dispatchFields({
+            type: 'REPLACE_STATE',
+            state: stateWithErrors,
+          })
+        } else {
+          throw new Error('An unknown error occurred. Please try again.')
+        }
+      } else {
+        throw new Error(
+          'Unable to create an account. One may already exist with this email address. Please try again.',
+        )
       }
-    },
-    [create],
-  )
+    } catch (e) {
+      console.log('caught error', e)
+      setError(e.message)
+    }
+  }, [])
 
   if (user) {
     return (
@@ -54,20 +147,49 @@ const CreateAccount: React.FC = () => {
 
   return (
     <Gutter>
-      <Heading marginTop={false}>Create an account</Heading>
-      <div className={classes.leader}>
-        {`Already have an account? `}
-        <Link href="/login">Log in now</Link>
-        {'.'}
-      </div>
-      {error && <div className={classes.error}>{error}</div>}
-      {loading && <div className={classes.loading}>Loading...</div>}
-      <Form onSubmit={handleSubmit} className={classes.form}>
-        <Text path="email" label="Email" required />
-        <Text path="password" label="Password" type="password" required />
-        <Text path="passwordConfirm" label="Confirm Password" type="password" required />
-        <Submit label="Create Account" className={classes.submit} />
-      </Form>
+      {successfullySubmitted ? (
+        <MaxWidth size="medium" centered className={classes.maxWidth}>
+          <BorderBox>
+            <Heading marginTop={false} element="h2" as="h5">
+              <Highlight text="Success" />
+            </Heading>
+            <Heading marginTop={false} element="p" as="h6">
+              Your account has been created! Please check your email to verify your account.
+            </Heading>
+
+            <div className={classes.formFooter}>
+              {`Already verified your account? `}
+              <Link href="/login">Log in now</Link>
+              {'.'}
+            </div>
+          </BorderBox>
+        </MaxWidth>
+      ) : (
+        <MaxWidth centered className={classes.maxWidth}>
+          <Heading marginTop={false} element="h1" as="h3">
+            Create an account
+          </Heading>
+
+          {error && <div className={classes.error}>{error}</div>}
+
+          <BorderBox className={classes.borderBox}>
+            <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>
+              <Text path="email" label="Email" required />
+              <Text path="password" label="Password" type="password" required />
+              <Text path="passwordConfirm" label="Confirm Password" type="password" required />
+              <div>
+                <Submit label="Create Account" className={classes.submit} />
+              </div>
+            </Form>
+
+            <div className={classes.formFooter}>
+              {`Already have an account? `}
+              <Link href="/login">Log in now</Link>
+              {'.'}
+            </div>
+          </BorderBox>
+        </MaxWidth>
+      )}
     </Gutter>
   )
 }

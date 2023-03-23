@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import useDebounce from '@utilities/use-debounce'
 import { useForm, useFormModified, useFormProcessing, useFormSubmitted } from '../Form/context'
@@ -20,6 +20,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
   const submitted = useFormSubmitted()
   const processing = useFormProcessing()
   const modified = useFormModified()
+  const wasSubmittedRef = useRef(false)
 
   const { dispatchFields, getField, setIsModified } = formContext
 
@@ -37,7 +38,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
 
   // Valid could be a string equal to an error message
   const valid = field && typeof field.valid === 'boolean' ? field.valid : true
-  const showError = valid === false && submitted
+  const showError = valid === false && (submitted || wasSubmittedRef.current)
 
   // Method to send update field values from field component(s)
   // Should only be used internally
@@ -90,6 +91,16 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
       setInternalValue(initialValue)
     }
   }, [initialValue])
+
+  // re-sync state with field.value after submission (field could have been reset)
+  useEffect(() => {
+    if (submitted) {
+      wasSubmittedRef.current = true
+    } else if (!submitted && wasSubmittedRef.current) {
+      wasSubmittedRef.current = false
+      setInternalValue(field?.value)
+    }
+  }, [submitted, field?.value])
 
   useEffect(() => {
     if (debouncedValue !== undefined || !fieldExists) {

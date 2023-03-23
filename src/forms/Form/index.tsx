@@ -74,6 +74,7 @@ const Form: React.FC<FormProps> = props => {
         await onSubmit({
           data: reduceFieldsToValues(fields, false),
           unflattenedData: reduceFieldsToValues(fields, true),
+          dispatchFields: contextRef.current.dispatchFields,
         })
       }
 

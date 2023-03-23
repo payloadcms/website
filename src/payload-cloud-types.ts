@@ -13,9 +13,10 @@ export interface Config {
     deployments: Deployment
     plans: Plan
     templates: Template
-    'api-keys': ApiKey
     'atlas-projects': AtlasProject
     'atlas-orgs': AtlasOrg
+    jobs: Job
+    'teardown-errors': TeardownError
   }
   globals: {}
 }
@@ -23,20 +24,9 @@ export interface User {
   id: string
   name?: string
   githubID?: string
-  defaultTeam?: string | Team
-  teams: Array<{
-    team: string | Team
+  teams?: Array<{
+    team?: string | Team
     roles?: Array<'owner' | 'admin' | 'user'>
-    invitedOn?: string
-    acceptedOn?: string
-    default?: boolean
-    id?: string
-  }>
-  projects: Array<{
-    project?: string | Project
-    roles?: Array<'owner' | 'admin' | 'user'>
-    invitedOn?: string
-    acceptedOn?: string
     id?: string
   }>
   roles?: Array<'admin' | 'user'>
@@ -59,33 +49,16 @@ export interface Team {
   id: string
   name?: string
   slug?: string
-  billingEmail?: string
+  billingEmail: string
   stripeCustomerID?: string
-  subscriptions: Array<{
-    stripeSubscriptionID?: string
-    stripeProductID?: string
-    plan?: string | Plan
-    status?:
-    | 'active'
-    | 'canceled'
-    | 'incomplete'
-    | 'incomplete_expired'
-    | 'past_due'
-    | 'trialing'
-    | 'unpaid'
+  skipSync?: boolean
+  members?: Array<{
+    user?: string | User
+    roles?: Array<'owner' | 'admin' | 'user'>
+    invitedOn?: string
+    acceptedOn?: string
     id?: string
   }>
-  skipSync?: boolean
-  createdAt: string
-  updatedAt: string
-}
-export interface Plan {
-  id: string
-  name?: string
-  slug?: string
-  stripeProductID?: string
-  priceJSON?: string
-  order?: number
   createdAt: string
   updatedAt: string
 }
@@ -93,7 +66,6 @@ export interface Project {
   id: string
   slug?: string
   status?: 'draft' | 'published'
-  deletedOn?: string
   skipSync?: boolean
   name: string
   plan?: string | Plan
@@ -111,30 +83,50 @@ export interface Project {
   installScript?: string
   runScript?: string
   rootDirectory?: string
+  cloudflareDNSRecordID?: string
   digitalOceanAppID?: string
-  digitalOceanProjectID?: string
-  atlasClusterID?: string
   atlasProjectID?: string
+  atlasConnectionString?: string
   atlasDatabaseName?: string
+  atlasDatabaseType?: 'cluster' | 'serverless'
   atlasDatabaseUser?: string
   atlasDatabasePassword?: string
   s3Policy?: 'public' | 'private'
-  region?: 'us-east-1' | 'us-west-2' | 'eu-west-2' | 'eu-central-1'
-  aws: {
-    user?: string
-  }
+  cognitoIdentityID?: string
+  cognitoPassword?: string
+  region?: 'us-east' | 'us-west' | 'eu-west'
   defaultDomain?: string
-  cnameRecord?: string
-  domains: Array<{
+  domains?: Array<{
     domain: string
-    status: 'pending' | 'active' | 'inactive'
+    cloudflareID?: string
     id?: string
   }>
-  environmentVariables: Array<{
+  environmentVariables?: Array<{
     key?: string
     value?: string
     id?: string
   }>
+  stripeSubscriptionID?: string
+  stripeSubscriptionStatus?:
+  | 'active'
+  | 'canceled'
+  | 'incomplete'
+  | 'incomplete_expired'
+  | 'past_due'
+  | 'trialing'
+  | 'unpaid'
+  | 'paused'
+  teamProjectName?: string
+  createdAt: string
+  updatedAt: string
+}
+export interface Plan {
+  id: string
+  name?: string
+  slug?: string
+  stripeProductID?: string
+  priceJSON?: string
+  order?: number
   createdAt: string
   updatedAt: string
 }
@@ -151,41 +143,50 @@ export interface Template {
 export interface Deployment {
   id: string
   name?: string
-  team: string | Team
   project: string | Project
-  deployedAt: string
-  deploymentURL: string
-  logs: Array<{
+  deployedAt?: string
+  deploymentURL?: string
+  deploymentID?: string
+  commitSha?: string
+  commitMessage?: string
+  logs?: Array<{
     timestamp?: string
     message?: string
     id?: string
   }>
-  deploymentStatus?: 'success' | 'error'
+  deploymentStatus?: 'pending' | 'inProgress' | 'success' | 'error'
   createdAt: string
   updatedAt: string
-}
-export interface ApiKey {
-  id: string
-  name?: string
-  roles: Array<'owner' | 'admin' | 'user'>
-  enableAPIKey?: boolean
-  apiKey?: string
-  apiKeyIndex?: string
-  email?: string
-  resetPasswordToken?: string
-  resetPasswordExpiration?: string
-  loginAttempts?: number
-  lockUntil?: string
-  createdAt: string
-  updatedAt: string
-  password?: string
 }
 export interface AtlasProject {
   id: string
-  name?: string
+  atlasProjectID?: string
   projects?: string[] | Project[]
   projectCount?: number
-  atlasOrg?:
+  createdAt: string
+  updatedAt: string
+}
+export interface AtlasOrg {
+  id: string
+  atlasOrgID?: string
+  atlasProjects?: string[] | AtlasProject[]
+  projectCount?: number
+  createdAt: string
+  updatedAt: string
+}
+export interface Job {
+  id: string
+  type: 'deployApp' | 'provisionDNS'
+  processing?: boolean
+  seenByWorker?: boolean
+  deployApp?: {
+    project: string | Project
+  }
+  provisionDNS?: {
+    project: string | Project
+  }
+  hasError?: boolean
+  error?:
   | {
     [k: string]: unknown
   }
@@ -197,12 +198,18 @@ export interface AtlasProject {
   createdAt: string
   updatedAt: string
 }
-export interface AtlasOrg {
+export interface TeardownError {
   id: string
-  name?: string
-  orgId: string
-  atlasProjects?: string[] | AtlasProject[]
-  projectCount?: number
+  project?: {
+    name: string
+    teamName?: string
+    teamID: string
+  }
+  errors?: Array<{
+    service?: string
+    error?: string
+    id?: string
+  }>
   createdAt: string
   updatedAt: string
 }

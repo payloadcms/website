@@ -1,7 +1,7 @@
 @use '@scss/common' as *;
 
 .accordion {
-  --gutter-h: var(--base);
+  --accordion-gutter: var(--base);
 
   border: 1px solid var(--theme-border-color);
   margin-bottom: var(--base);
@@ -16,7 +16,7 @@
   background-color: var(--theme-elevation-50);
   padding: 
     calc(var(--base) * .5)
-    var(--gutter-h);
+    var(--accordion-gutter);
 }
 
 :global([data-theme="dark"]) {
@@ -82,6 +82,6 @@
 .collapsibleContent {
   padding: 
     calc(var(--base) * 1.25)
-    var(--gutter-h);
+    var(--accordion-gutter);
   border-top: 1px solid var(--theme-border-color);
 }

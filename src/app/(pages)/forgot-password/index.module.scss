@@ -21,4 +21,6 @@
 .formFooter {
   border-top: 1px solid var(--theme-border-color);
   padding-top: var(--base);
+  display: flex;
+  gap: var(--base);
 }

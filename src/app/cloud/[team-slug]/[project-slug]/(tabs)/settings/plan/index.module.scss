@@ -1,5 +1,8 @@
 .plan {
   max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 3.5);
 }
 
 .borderBox {
@@ -29,10 +32,6 @@
 .downgradeText {
   color: var(--theme-elevation-500);
   margin-bottom: 0;
-}
-
-.deleteHeading {
-  margin-top: calc(var(--base) * 3.5);
 }
 
 .modalActions {

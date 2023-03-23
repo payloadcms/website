@@ -1,10 +1,8 @@
 'use client'
 
 import * as React from 'react'
-import { Secret } from '@forms/fields/Secret'
-import Form from '@forms/Form'
-import Submit from '@forms/Submit'
 
+import { Secret } from '@forms/fields/Secret'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 
 import classes from './index.module.scss'
@@ -15,7 +13,7 @@ export default () => {
       <ExtendedBackground
         pixels
         upperChildren={
-          <Form className={classes.form}>
+          <>
             <Secret
               label="S3 Endpoint"
               path="s3Endpoint"
@@ -50,11 +48,7 @@ export default () => {
               className={classes.secretInput}
               loadSecret={() => Promise.resolve('some-secret')}
             />
-
-            <div>
-              <Submit label="Update" />
-            </div>
-          </Form>
+          </>
         }
       />
     </div>

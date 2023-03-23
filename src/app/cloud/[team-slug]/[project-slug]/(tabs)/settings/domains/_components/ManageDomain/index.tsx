@@ -158,11 +158,11 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
               )}
 
               <div className={classes.domainActions}>
-                {status === 'pending' && (
+                {/* {status === 'pending' && (
                   <div className={classes.leftActions}>
                     <Button label="refresh" appearance="secondary" size="small" />
                   </div>
-                )}
+                )} */}
 
                 <div className={classes.rightActions}>
                   <Button

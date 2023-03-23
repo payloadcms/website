@@ -15,7 +15,15 @@ export interface Data {
 }
 
 export interface OnSubmit {
-  ({ data, unflattenedData }: { data: Property; unflattenedData: Data }): void | Promise<void>
+  ({
+    data,
+    unflattenedData,
+    dispatchFields,
+  }: {
+    data: Property
+    unflattenedData: Data
+    dispatchFields: React.Dispatch<Action>
+  }): void | Promise<void>
 }
 
 export interface Field {

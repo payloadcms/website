@@ -1,30 +1,43 @@
 @use '@scss/common' as *;
 
-.form {
-    margin-bottom: var(--base);
-
-    & > *:not(:last-child) {
-        margin-bottom: var(--base);
-    }
-}
-
 .error {
-    color: var(--color-error-500);
+  color: var(--color-error-500);
 }
 
-.leader {
-    margin-bottom: var(--base);
+.maxWidth {
+  padding: calc(var(--base) * 2) 0;
+
+  @include mid-break {
+    padding-top: 0;
+  }
+}
+
+.borderBox, .form {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 1.25);
+}
+
+.formFooter {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--theme-border-color);
+  padding-top: var(--base);
+
+  @include mid-break {
+    gap: calc(var(--base) * .25);
+  }
 }
 
 .changeLoginMethod {
-    margin-top: var(--base);
-    display: block;
-    background-color: transparent;
-    border: 0;
-    outline: none;
-    font-size: inherit;
-    line-height: inherit;
-    text-align: left;
-    padding: 0;
-    cursor: pointer;
+  margin-top: var(--base);
+  display: block;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+  font-size: inherit;
+  line-height: inherit;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
 }

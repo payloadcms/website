@@ -1,14 +1,16 @@
 'use client'
 
-import React, { Fragment, useCallback, useEffect, useState } from 'react'
-import { Text } from '@forms/fields/Text'
-import Form from '@forms/Form'
-import Submit from '@forms/Submit'
+import React, { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
+import { Text } from '@forms/fields/Text'
+import Form from '@forms/Form'
+import Submit from '@forms/Submit'
+import { BorderBox } from '@root/app/_components/BorderBox'
+import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { cloudSlug } from '@root/app/cloud/layout'
 import { useAuth } from '@root/providers/Auth'
 
@@ -65,22 +67,32 @@ const Login: React.FC = () => {
 
   return (
     <Gutter>
-      <Heading marginTop={false}>Log in</Heading>
-      {error && <div className={classes.error}>{error}</div>}
-      {message && <div className={classes.message}>{message}</div>}
-      <Fragment>
-        <div className={classes.leader}>
-          {`Don't have an account? `}
-          <Link href="/create-account">Register for free</Link>
-          {'.'}
-        </div>
-        <Form onSubmit={handleSubmit} className={classes.form}>
-          <Text path="email" label="Email" required elementAttributes={{ autoComplete: 'on' }} />
-          <Text path="password" label="Password" type="password" required />
-          <Submit label="Log in" className={classes.submit} processing={loading} />
-        </Form>
-        <Link href="/recover-password">Forgot your password?</Link>
-      </Fragment>
+      <MaxWidth centered className={classes.maxWidth}>
+        <Heading marginTop={false} element="h1" as="h3">
+          Log in
+        </Heading>
+        {error && <div className={classes.error}>{error}</div>}
+        {message && <div className={classes.message}>{message}</div>}
+
+        <BorderBox className={classes.borderBox}>
+          <Form onSubmit={handleSubmit} className={classes.form}>
+            <Text path="email" label="Email" required elementAttributes={{ autoComplete: 'on' }} />
+            <Text path="password" label="Password" type="password" required />
+            <div>
+              <Submit label="Log in" className={classes.submit} processing={loading} />
+            </div>
+          </Form>
+
+          <div className={classes.formFooter}>
+            <Link href="/forgot-password">Forgot your password?</Link>
+            <div className={classes.leader}>
+              {`Don't have an account? `}
+              <Link href="/create-account">Register for free</Link>
+              {'.'}
+            </div>
+          </div>
+        </BorderBox>
+      </MaxWidth>
     </Gutter>
   )
 }
