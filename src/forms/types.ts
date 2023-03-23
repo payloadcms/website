@@ -1,10 +1,8 @@
 import type React from 'react'
 
-import type { Option } from './fields/RadioGroup'
-
 export type Validate = undefined | ((value: unknown, options?: unknown) => boolean | string)
 
-export type Value = string | number | boolean | string[] | Option | Option[]
+export type Value = any
 
 export interface Property {
   [key: string]: Value
@@ -92,4 +90,8 @@ export interface IFormContext {
   setIsModified: (modified: boolean) => void
   setIsProcessing: (processing: boolean) => void
   setHasSubmitted: (submitted: boolean) => void
+  apiErrors?: Array<{
+    field: string
+    message: string
+  }>
 }

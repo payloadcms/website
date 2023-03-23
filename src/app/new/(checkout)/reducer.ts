@@ -63,7 +63,7 @@ export const checkoutReducer = (state: CheckoutState, action: Action): CheckoutS
           ...state.project,
           plan: action.payload,
         },
-        freeTrial: action.payload?.slug !== 'standard' ? false : state?.freeTrial,
+        // freeTrial: action.payload?.slug !== 'standard' ? false : state?.freeTrial, // uncomment to enforce trial for only specific plans
       }
     case 'SET_TEAM':
       return {

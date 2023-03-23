@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect } from 'react'
 import { components } from 'react-select'
-import { Select } from '@forms/fields/Select'
 
 import { useTeamDrawer } from '@components/TeamDrawer'
+import { Select } from '@forms/fields/Select'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 
@@ -25,34 +25,28 @@ const SelectMenuButton = props => {
 
 export const TeamSelector: React.FC<{
   value?: string
-  onChange?: (value?: Team) => void // eslint-disable-line no-unused-vars
+  onChange?: (value?: string) => void // eslint-disable-line no-unused-vars
   className?: string
+  allowEmpty?: boolean
+  initialValue?: string
 }> = props => {
+  const { onChange, value: valueFromProps, className, allowEmpty, initialValue } = props
   const { user } = useAuth()
+  const teams = user?.teams?.map(({ team }) => team)
+  const [selectedTeam, setSelectedTeam] = React.useState<string | undefined>(initialValue)
 
-  const { onChange, value: valueFromProps, className } = props
-  const hasInitializedSelection = React.useRef(false)
-  const [selectedTeam, setSelectedTeam] = React.useState<Team | undefined>()
-  const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer({ team: selectedTeam })
+  const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer({
+    team: teams?.find(team => typeof team === 'object' && team.id === selectedTeam) as Team,
+  })
 
+  // allow external control of the selection
   useEffect(() => {
-    if (user) {
-      if (valueFromProps === selectedTeam?.id && user?.teams?.length) {
-        const newSelection = user.teams?.find(team => team.id === valueFromProps)?.team as Team
-        setSelectedTeam(newSelection)
-      }
+    if (valueFromProps === selectedTeam) {
+      setSelectedTeam(valueFromProps)
     }
-  }, [valueFromProps, user, selectedTeam])
+  }, [valueFromProps, selectedTeam])
 
-  useEffect(() => {
-    if (user) {
-      if (user?.teams?.length && !hasInitializedSelection.current) {
-        hasInitializedSelection.current = true
-        setSelectedTeam(user.teams?.[0]?.team as Team)
-      }
-    }
-  }, [user])
-
+  // report the selection to the parent
   useEffect(() => {
     if (typeof onChange === 'function') {
       onChange(selectedTeam)
@@ -66,25 +60,19 @@ export const TeamSelector: React.FC<{
       <Select
         className={className}
         label="Team"
-        value={selectedTeam?.id}
-        initialValue={
-          typeof user?.teams?.[0]?.team === 'string'
-            ? user?.teams?.[0]?.team
-            : user?.teams?.[0]?.team.id
-        }
+        value={selectedTeam}
+        initialValue={selectedTeam}
         onChange={option => {
           if (Array.isArray(option)) return
-          setSelectedTeam(
-            user?.teams?.find(({ team }) => typeof team === 'object' && team.id === option.value)
-              ?.team as Team,
-          )
+          setSelectedTeam(option.value)
         }}
         options={[
+          ...(allowEmpty ? [{ label: 'All teams', value: 'none' }] : []),
           ...(user.teams && user.teams?.length > 0
             ? ([
                 ...user?.teams?.map(({ team }) => ({
-                  label: typeof team === 'string' ? team : team.name,
-                  value: typeof team === 'string' ? team : team.id,
+                  label: typeof team === 'string' ? team : team?.name,
+                  value: typeof team === 'string' ? team : team?.id,
                 })),
               ] as any)
             : [
@@ -105,7 +93,11 @@ export const TeamSelector: React.FC<{
           MenuList: SelectMenuButton,
         }}
       />
-      <TeamDrawer />
+      <TeamDrawer
+        onCreate={team => {
+          setSelectedTeam(team.id)
+        }}
+      />
     </Fragment>
   )
 }

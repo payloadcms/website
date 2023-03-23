@@ -5,7 +5,7 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 
 import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
 import { Button } from '@components/Button'
@@ -17,15 +17,18 @@ import { usePlanSelector } from '@components/PlanSelector'
 import { TeamSelector } from '@components/TeamSelector'
 import { Checkbox } from '@forms/fields/Checkbox'
 import { Text } from '@forms/fields/Text'
+import Form from '@forms/Form'
 import Label from '@forms/Label'
 import { cloudSlug } from '@root/app/cloud/layout'
 import { Plan, Team } from '@root/payload-cloud-types'
+import { useAuth } from '@root/providers/Auth'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import { useGetProject } from '@root/utilities/use-cloud'
 import useDebounce from '@root/utilities/use-debounce'
 import { usePaymentIntent } from '@root/utilities/use-payment-intent'
 import { useGitAuthRedirect } from '../authorize/useGitAuthRedirect'
+import { EnvVars } from './EnvVars'
 import { checkoutReducer, CheckoutState } from './reducer'
 import { useDeploy } from './useDeploy'
 
@@ -43,6 +46,8 @@ const title = 'Configure your project'
 
 const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
   const router = useRouter()
+  const { user } = useAuth()
+
   const [checkoutState, dispatchCheckoutState] = React.useReducer(
     checkoutReducer,
     {} as CheckoutState,
@@ -74,12 +79,19 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
     })
   }, [])
 
-  const handleTeamChange = useCallback((incomingTeam: Team) => {
-    dispatchCheckoutState({
-      type: 'SET_TEAM',
-      payload: incomingTeam,
-    })
-  }, [])
+  const handleTeamChange = useCallback(
+    (incomingTeam: string) => {
+      const selectedTeam = user?.teams?.find(team => team.id === incomingTeam)?.team
+
+      if (selectedTeam && typeof selectedTeam !== 'string') {
+        dispatchCheckoutState({
+          type: 'SET_TEAM',
+          payload: selectedTeam,
+        })
+      }
+    },
+    [user],
+  )
 
   const [PlanSelector] = usePlanSelector({
     onChange: handlePlanChange,
@@ -120,8 +132,11 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
 
   const loading = useDebounce(isLoading, 500)
 
-  if (!loading && !checkoutState?.project) {
-    return <Gutter>This project does not exist.</Gutter>
+  const enableTrialSelector = new Date().getTime() < new Date('2023-07-01').getTime()
+
+  // project does not exist
+  if (isLoading === false && !project) {
+    redirect(`/404`)
   }
 
   return (
@@ -150,7 +165,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                           : '',
                       )}
                     </p>
-                    {checkoutState?.freeTrial && <p>(Free for 7 days)</p>}
+                    {checkoutState?.freeTrial && <p>Free trial (ends July 1)</p>}
                   </div>
                 </Fragment>
               )}
@@ -161,30 +176,52 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
               <LoadingShimmer number={3} />
             ) : (
               <Fragment>
-                <div className={classes.details}>
+                <Form
+                  className={classes.details}
+                  onSubmit={deploy}
+                  initialState={{
+                    name: {
+                      initialValue: project?.name,
+                    },
+                    repositoryURL: {
+                      initialValue: project?.repositoryURL,
+                    },
+                    template: {
+                      initialValue: project?.template,
+                    },
+                    installScript: {
+                      initialValue: project?.installScript || 'yarn',
+                    },
+                    buildScript: {
+                      initialValue: project?.buildScript || 'yarn build',
+                    },
+                    deploymentBranch: {
+                      initialValue: project?.deploymentBranch || 'main',
+                    },
+                    environmentVariables: {
+                      initialValue: project?.environmentVariables || [{ key: '', value: '' }],
+                    },
+                  }}
+                >
                   <div>
                     <div className={classes.sectionHeader}>
                       <h5 className={classes.sectionTitle}>Select your plan</h5>
                     </div>
                     <div className={classes.plans}>
                       <PlanSelector />
-                      <div className={classes.freeTrial}>
-                        <Checkbox
-                          label="7 day free trial"
-                          checked={checkoutState?.freeTrial}
-                          onChange={handleTrialChange}
-                          disabled={
-                            typeof checkoutState?.project?.plan === 'object' &&
-                            checkoutState?.project?.plan?.slug !== 'standard'
-                          }
-                        />
-                        {typeof checkoutState?.project?.plan === 'object' &&
-                          checkoutState?.project?.plan?.slug !== 'standard' && (
-                            <p className={classes.freeTrialDisabled}>
-                              Free trials are only available on the Standard plan.
-                            </p>
-                          )}
-                      </div>
+                      {enableTrialSelector && (
+                        <div className={classes.freeTrial}>
+                          <Checkbox
+                            label="Free trial (ends July 1)"
+                            checked={checkoutState?.freeTrial}
+                            onChange={handleTrialChange}
+                            disabled={
+                              typeof checkoutState?.project?.plan === 'object' &&
+                              checkoutState?.project?.plan?.slug !== 'standard'
+                            }
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div>
@@ -192,22 +229,22 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                       <h5 className={classes.sectionTitle}>Ownership</h5>
                       <Link href="">Learn more</Link>
                     </div>
-                    <TeamSelector onChange={handleTeamChange} className={classes.teamSelector} />
+                    <TeamSelector
+                      onChange={handleTeamChange}
+                      className={classes.teamSelector}
+                      initialValue={
+                        typeof user?.teams?.[0]?.team !== 'string' ? user?.teams?.[0]?.team?.id : ''
+                      }
+                    />
                     <Text
                       label="Repository URL"
                       path="repositoryURL"
-                      initialValue={checkoutState?.project?.repositoryURL}
                       disabled
                       description="This only applies to the `import` flow."
                     />
                     <Text
                       label="Template"
                       path="template"
-                      initialValue={
-                        typeof checkoutState?.project?.template !== 'string'
-                          ? checkoutState?.project?.template?.name
-                          : ''
-                      }
                       disabled
                       description="This only applies to the `clone` flow."
                     />
@@ -217,44 +254,26 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                       <h5 className={classes.sectionTitle}>Build Settings</h5>
                       <Link href="">Learn more</Link>
                     </div>
-                    <Text
-                      label="Project name"
-                      path="name"
-                      initialValue={checkoutState?.project?.name}
-                    />
-                    <Text label="Install Command" path="installCommand" initialValue="yarn" />
-                    <Text label="Build Command" path="buildCommand" initialValue="yarn build" />
-                    <Text label="Branch to deploy" path="branch" initialValue="main" />
+                    <Text label="Project name" path="name" />
+                    <Text label="Install Script" path="installScript" />
+                    <Text label="Build Script" path="buildScript" />
+                    <Text label="Branch to deploy" path="deploymentBranch" />
                   </div>
                   <div>
                     <div className={classes.sectionHeader}>
                       <h5 className={classes.sectionTitle}>Environment Variables</h5>
                       <Link href="">Learn more</Link>
                     </div>
-                    <div className={classes.envVars}>
-                      <Text label="Name" path="environmentVariables[0].name" />
-                      <Text label="Value" path="environmentVariables[0].value" />
-                    </div>
-                    <button
-                      className={classes.envAdd}
-                      type="button"
-                      onClick={() => {
-                        // do something
-                      }}
-                    >
-                      Add another
-                    </button>
+                    <EnvVars className={classes.envVars} />
                   </div>
-                  {!checkoutState?.freeTrial && (
-                    <div>
-                      <h5>Payment Info</h5>
-                      <CreditCardSelector
-                        initialValue={checkoutState?.paymentMethod}
-                        team={checkoutState?.project?.team as Team}
-                        onChange={handleCardChange}
-                      />
-                    </div>
-                  )}
+                  <div>
+                    <h5>Payment Info</h5>
+                    <CreditCardSelector
+                      initialValue={checkoutState?.paymentMethod}
+                      team={checkoutState?.project?.team as Team}
+                      onChange={handleCardChange}
+                    />
+                  </div>
                   <Button
                     appearance="primary"
                     label="Deploy now"
@@ -262,7 +281,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                     onClick={deploy}
                     disabled={isDeploying}
                   />
-                </div>
+                </Form>
               </Fragment>
             )}
           </Cell>

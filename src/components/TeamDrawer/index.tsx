@@ -5,8 +5,6 @@ import { Drawer, DrawerToggler } from '../Drawer'
 import { TeamDrawerContent } from './DrawerContent'
 import { TeamDrawerProps, TeamDrawerTogglerProps, UseTeamDrawer } from './types'
 
-import classes from './index.module.scss'
-
 const formatTeamDrawerSlug = ({
   uuid,
 }: {
@@ -21,12 +19,7 @@ export const TeamDrawerToggler: React.FC<TeamDrawerTogglerProps> = ({
   ...rest
 }) => {
   return (
-    <DrawerToggler
-      slug={drawerSlug || ''}
-      className={[className, `${classes}__toggler`].filter(Boolean).join(' ')}
-      disabled={disabled}
-      {...rest}
-    >
+    <DrawerToggler slug={drawerSlug || ''} className={className} disabled={disabled} {...rest}>
       {children}
     </DrawerToggler>
   )
@@ -36,7 +29,7 @@ export const TeamDrawer: React.FC<TeamDrawerProps> = props => {
   const { drawerSlug } = props
 
   return (
-    <Drawer slug={drawerSlug || ''} className={classes.teamDrawer} title="Create Team">
+    <Drawer slug={drawerSlug || ''} title="Create Team">
       <TeamDrawerContent {...props} />
     </Drawer>
   )

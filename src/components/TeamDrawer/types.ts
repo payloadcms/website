@@ -4,10 +4,11 @@ import type React from 'react'
 import type { Team } from '@root/payload-cloud-types'
 
 export interface TeamDrawerProps {
-  onSelect?: (args: { team: Team }) => void
   drawerSlug: string
   team?: Team
-  onCreate: (team: Team) => void
+  onCreate?: (team: Team) => void
+  closeDrawer: () => void
+  redirectAfterCreate?: boolean
 }
 
 export type TeamDrawerTogglerProps = HTMLAttributes<HTMLButtonElement> & {
@@ -18,7 +19,7 @@ export type TeamDrawerTogglerProps = HTMLAttributes<HTMLButtonElement> & {
 }
 
 export type UseTeamDrawer = (args?: { team?: Team }) => [
-  React.FC<Pick<TeamDrawerProps, 'onSelect'>>, // drawer
+  React.FC<Pick<TeamDrawerProps, 'onCreate' | 'redirectAfterCreate'>>, // drawer
   React.FC<Pick<TeamDrawerTogglerProps, 'disabled' | 'className' | 'children'>>, // toggler
   {
     drawerSlug: string

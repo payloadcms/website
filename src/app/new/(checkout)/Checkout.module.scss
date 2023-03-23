@@ -62,19 +62,6 @@
     }
 }
 
-.envVars {
-    display: flex;
-    margin-bottom: var(--base);
-    width: calc(100% + 2 * calc(var(--base) / 2));
-    left: calc(-0.5 * var(--base));
-    position: relative;
-    
-    > * {
-        margin: 0 calc(var(--base) / 2);
-        width: 50%;
-    }
-}
-
 .envAdd {
     background-color: transparent;
     border: none;

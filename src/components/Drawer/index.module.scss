@@ -28,7 +28,6 @@
   width: 100%;
   transition: all 300ms ease-out;
   overflow: hidden;
-  padding:  calc(var(--base) * 4) calc(var(--base) * 4) 0;
   background-color: var(--theme-elevation-50);
 
   @include mid-break {
@@ -41,6 +40,7 @@
   z-index: 1;
   overflow: auto;
   height: 100%;
+  padding:  calc(var(--base) * 4) calc(var(--base) * 4);
 }
 
 .isOpen {

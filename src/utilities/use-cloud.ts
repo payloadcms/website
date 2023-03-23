@@ -6,7 +6,7 @@ import { qs } from '@utilities/qs'
 
 export type UseCloud<T, A = null> = (args?: A) => {
   result: T[]
-  isLoading: boolean
+  isLoading: null | boolean
   error: string
   reload: () => void
 }
@@ -20,7 +20,7 @@ export const useCloud = <T>(args: {
   const { url, delay = 250, method = 'GET', body } = args
   const hasMadeRequest = useRef(false)
   const [result, setResult] = useState<T[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState<boolean | null>(null)
   const [error, setError] = useState('')
   const [requestTicker, dispatchRequestTicker] = useReducer((state: number) => state + 1, 0)
 
@@ -97,15 +97,33 @@ export const useGetPlans: UseCloud<Plan> = () => {
 export const useGetProjects: UseCloud<
   Project,
   {
-    team?: Team
+    team?: string
     search?: string
   }
 > = args => {
   const { team, search } = args || {}
-  const query = search && search?.length >= 3 ? `where[name][like]=${search}` : undefined
+
+  const query = qs.stringify({
+    ...(team && team !== 'none'
+      ? {
+          where: {
+            team: {
+              equals: team,
+            },
+          },
+        }
+      : {}),
+    ...(search && search?.length >= 3
+      ? {
+          name: {
+            like: search,
+          },
+        }
+      : {}),
+  })
 
   return useCloud<Project>({
-    url: team ? `/api/projects?where[team][equals]=${team.id}${query ? `&${query}` : ''}` : '',
+    url: `/api/projects${query ? `?${query}` : ''}`,
   })
 }
 

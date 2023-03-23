@@ -20,6 +20,7 @@ const Submit: React.FC<
     appearance = 'primary',
     size = 'default',
     icon = true,
+    disabled,
   } = props
 
   const processing = useFormProcessing()
@@ -33,7 +34,7 @@ const Submit: React.FC<
       icon={icon && !isProcessing ? 'arrow' : undefined}
       label={isProcessing ? 'Processing...' : label || 'Submit'}
       className={className}
-      disabled={isProcessing || props.disabled}
+      disabled={isProcessing || disabled}
     />
   )
 }

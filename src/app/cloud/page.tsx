@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { Text } from '@forms/fields/Text'
 import Link from 'next/link'
 
 import { Button } from '@components/Button'
@@ -10,13 +9,13 @@ import { ProjectCard } from '@components/cards/ProjectCard'
 import { Gutter } from '@components/Gutter'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { TeamSelector } from '@components/TeamSelector'
-import { Team } from '@root/payload-cloud-types'
+import { Text } from '@forms/fields/Text'
 import { useGetProjects } from '@root/utilities/use-cloud'
 
 import classes from './index.module.scss'
 
 export default () => {
-  const [selectedTeam, setSelectedTeam] = React.useState<Team>()
+  const [selectedTeam, setSelectedTeam] = React.useState<string | 'none'>()
 
   const [search, setSearch] = React.useState<string>('')
 
@@ -25,7 +24,7 @@ export default () => {
     error,
     result: projects,
   } = useGetProjects({
-    team: selectedTeam,
+    team: selectedTeam !== 'none' ? selectedTeam : undefined,
     search,
   })
 
@@ -43,7 +42,12 @@ export default () => {
           />
         </Cell>
         <Cell cols={4}>
-          <TeamSelector onChange={setSelectedTeam} className={classes.teamSelector} />
+          <TeamSelector
+            onChange={setSelectedTeam}
+            className={classes.teamSelector}
+            initialValue="none"
+            allowEmpty
+          />
         </Cell>
         <Cell cols={3}>
           <Button

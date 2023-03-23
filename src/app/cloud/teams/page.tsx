@@ -51,7 +51,7 @@ export default () => {
           </TeamDrawerToggler>
         </Gutter>
       </div>
-      <TeamDrawer />
+      <TeamDrawer redirectAfterCreate />
     </React.Fragment>
   )
 }

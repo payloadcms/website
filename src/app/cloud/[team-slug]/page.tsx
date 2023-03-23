@@ -19,7 +19,14 @@ export default () => {
 
   const [search, setSearch] = React.useState<string>('')
 
-  const { isLoading, error, result: projects } = useGetProjects({ team, search })
+  const {
+    isLoading,
+    error,
+    result: projects,
+  } = useGetProjects({
+    team: typeof team === 'object' ? team.id : team,
+    search,
+  })
 
   return (
     <Gutter>
