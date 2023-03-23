@@ -40,7 +40,14 @@ const initialFormState: InitialState = {
 
 const CreateAccount: React.FC = () => {
   const { user, logout } = useAuth()
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = React.useState<{
+    message: string
+    name: string
+    data: {
+      message: string
+      field: string
+    }[]
+  }>()
   const [successfullySubmitted, setSuccessfullySubmitted] = useState(false)
 
   const createAccount: OnSubmit = useCallback(async ({ data, dispatchFields }) => {
@@ -88,40 +95,8 @@ const CreateAccount: React.FC = () => {
           })
           setSuccessfullySubmitted(true)
         } else if (res?.errors?.length > 0) {
-          const stateWithErrors = res.errors.reduce(
-            (acc, formError) => {
-              formError.extensions?.data?.forEach(fieldError => {
-                acc[fieldError.field] = {
-                  ...acc[fieldError.field],
-                  valid: false,
-                  errorMessage: fieldError.message,
-                }
-              })
-              return acc
-            },
-            {
-              email: {
-                ...initialFormState.email,
-                value: data.email,
-                valid: true,
-              },
-              password: {
-                ...initialFormState.password,
-                value: data.password,
-                valid: true,
-              },
-              passwordConfirm: {
-                ...initialFormState.passwordConfirm,
-                value: data.passwordConfirm,
-                valid: true,
-              },
-            },
-          )
-
-          dispatchFields({
-            type: 'REPLACE_STATE',
-            state: stateWithErrors,
-          })
+          setError(res?.errors?.[0]?.extensions)
+          return
         } else {
           throw new Error('An unknown error occurred. Please try again.')
         }
@@ -170,10 +145,13 @@ const CreateAccount: React.FC = () => {
             Create an account
           </Heading>
 
-          {error && <div className={classes.error}>{error}</div>}
-
           <BorderBox className={classes.borderBox}>
-            <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>
+            <Form
+              onSubmit={createAccount}
+              className={classes.form}
+              initialState={initialFormState}
+              errors={error?.data}
+            >
               <Text path="email" label="Email" required />
               <Text path="password" label="Password" type="password" required />
               <Text path="passwordConfirm" label="Confirm Password" type="password" required />

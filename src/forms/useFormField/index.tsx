@@ -38,11 +38,10 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
 
   // Valid could be a string equal to an error message
 
-  // const valid = field && typeof field.valid === 'boolean' ? field.valid : true
-  // const showError = valid === false && (submitted || wasSubmittedRef.current)
-
   const validFromContext = field && typeof field.valid === 'boolean' ? field.valid : true
-  const apiError = apiErrors?.find(error => error.field === path)
+  const apiError = Array.isArray(apiErrors)
+    ? apiErrors?.find(error => error.field === path)
+    : undefined
   const validFromAPI = apiError === undefined
   const showError = (validFromContext === false || validFromAPI === false) && submitted
 
