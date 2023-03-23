@@ -21,6 +21,7 @@ import Form from '@forms/Form'
 import Label from '@forms/Label'
 import { cloudSlug } from '@root/app/cloud/layout'
 import { Plan, Team } from '@root/payload-cloud-types'
+import { useAuth } from '@root/providers/Auth'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import { useGetProject } from '@root/utilities/use-cloud'
@@ -45,6 +46,8 @@ const title = 'Configure your project'
 
 const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
   const router = useRouter()
+  const { user } = useAuth()
+
   const [checkoutState, dispatchCheckoutState] = React.useReducer(
     checkoutReducer,
     {} as CheckoutState,
@@ -76,12 +79,19 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
     })
   }, [])
 
-  const handleTeamChange = useCallback((incomingTeam: Team) => {
-    dispatchCheckoutState({
-      type: 'SET_TEAM',
-      payload: incomingTeam,
-    })
-  }, [])
+  const handleTeamChange = useCallback(
+    (incomingTeam: string) => {
+      const selectedTeam = user?.teams?.find(team => team.id === incomingTeam)?.team
+
+      if (selectedTeam && typeof selectedTeam !== 'string') {
+        dispatchCheckoutState({
+          type: 'SET_TEAM',
+          payload: selectedTeam,
+        })
+      }
+    },
+    [user],
+  )
 
   const [PlanSelector] = usePlanSelector({
     onChange: handlePlanChange,
@@ -219,7 +229,13 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                       <h5 className={classes.sectionTitle}>Ownership</h5>
                       <Link href="">Learn more</Link>
                     </div>
-                    <TeamSelector onChange={handleTeamChange} className={classes.teamSelector} />
+                    <TeamSelector
+                      onChange={handleTeamChange}
+                      className={classes.teamSelector}
+                      initialValue={
+                        typeof user?.teams?.[0]?.team !== 'string' ? user?.teams?.[0]?.team?.id : ''
+                      }
+                    />
                     <Text
                       label="Repository URL"
                       path="repositoryURL"

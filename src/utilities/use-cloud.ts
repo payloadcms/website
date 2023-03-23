@@ -97,15 +97,33 @@ export const useGetPlans: UseCloud<Plan> = () => {
 export const useGetProjects: UseCloud<
   Project,
   {
-    team?: Team
+    team?: string
     search?: string
   }
 > = args => {
   const { team, search } = args || {}
-  const query = search && search?.length >= 3 ? `where[name][like]=${search}` : undefined
+
+  const query = qs.stringify({
+    ...(team && team !== 'none'
+      ? {
+          where: {
+            team: {
+              equals: team,
+            },
+          },
+        }
+      : {}),
+    ...(search && search?.length >= 3
+      ? {
+          name: {
+            like: search,
+          },
+        }
+      : {}),
+  })
 
   return useCloud<Project>({
-    url: team ? `/api/projects?where[team][equals]=${team.id}${query ? `&${query}` : ''}` : '',
+    url: `/api/projects${query ? `?${query}` : ''}`,
   })
 }
 
