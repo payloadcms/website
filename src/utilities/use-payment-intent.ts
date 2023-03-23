@@ -19,7 +19,7 @@ export const usePaymentIntent = (
   const isRequesting = React.useRef<boolean>(false)
 
   useEffect(() => {
-    if (project?.plan) {
+    if (project?.id && project?.plan) {
       if (isRequesting.current) return
 
       const makePaymentIntent = async (): Promise<void> => {
