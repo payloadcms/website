@@ -5,6 +5,7 @@ import { ContentMediaHero } from './ContentMedia'
 import { DefaultHero } from './Default'
 import { FormHero } from './FormHero'
 import { HomeHero } from './Home'
+import { LivestreamHero } from './Livestream'
 
 import classes from './index.module.scss'
 
@@ -13,6 +14,7 @@ const heroes = {
   contentMedia: ContentMediaHero,
   home: HomeHero,
   form: FormHero,
+  livestream: LivestreamHero,
 }
 
 export const Hero: React.FC<{

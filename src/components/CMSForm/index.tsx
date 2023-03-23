@@ -17,7 +17,7 @@ const RenderForm = ({ form }: { form: Form }) => {
     id: formID,
     submitButtonLabel,
     confirmationType,
-    redirect,
+    redirect: formRedirect,
     confirmationMessage,
     leader,
   } = form
@@ -76,18 +76,19 @@ const RenderForm = ({ form }: { form: Form }) => {
           setIsLoading(false)
           setHasSubmitted(true)
 
-          if (confirmationType === 'redirect' && redirect) {
-            const { url } = redirect
+          if (confirmationType === 'redirect' && formRedirect) {
+            const { url } = formRedirect
 
             if (!url) return
 
-            try {
-              const redirectUrl = new URL(url)
+            const redirectUrl = new URL(url, process.env.NEXT_PUBLIC_APP_URL)
 
-              if (redirectUrl.origin === process.env.NEXT_PUBLIC_APP_URL) {
+            try {
+              if (url.startsWith('/') || redirectUrl.origin === process.env.NEXT_PUBLIC_APP_URL) {
                 router.push(redirectUrl.href)
+              } else {
+                window.location.assign(url)
               }
-              window.location.assign(url)
             } catch (err) {
               console.warn(err)
               setError({
@@ -106,7 +107,7 @@ const RenderForm = ({ form }: { form: Form }) => {
 
       submitForm()
     },
-    [router, formID, redirect, confirmationType],
+    [router, formID, formRedirect, confirmationType],
   )
 
   if (!form?.id) return null

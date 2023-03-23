@@ -3,6 +3,7 @@
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { useTheme } from '@providers/Theme'
+import * as cheerio from 'cheerio'
 
 import { DiscordGitComments } from '@components/DiscordGitComments'
 import DiscordGitCTA from '@components/DiscordGitCTA'
@@ -21,7 +22,13 @@ export type Attachments = {
   proxyURL: string
   height: number
   width: number
-  contentType: 'image/png' | 'video/MP2T' | 'text/plain' | 'application/json' | 'video/quicktime'
+  contentType:
+    | 'image/png'
+    | 'video/MP2T'
+    | 'text/plain'
+    | 'application/json'
+    | 'video/quicktime'
+    | 'image/jpeg'
   description: string
   ephemeral: boolean
 }[]
@@ -42,22 +49,31 @@ export type ThreadProps = {
     guildId: string
     createdAt: string | number
   }
+  intro: Messages
   messageCount: number
   messages: Messages[]
+  slug: string
 }
 
 export const RenderThread: React.FC<ThreadProps> = props => {
-  const { info, messageCount, messages } = props
+  const { info, intro, messageCount, messages } = props
 
-  const author = messages[0].authorName
+  const author = intro.authorName
 
-  const selectedAuthorAvatar = `https://cdn.discordapp.com/avatars/${messages[0].authorID}/${messages[0].authorAvatar}.png?size=256`
+  const selectedAuthorAvatar = `https://cdn.discordapp.com/avatars/${intro.authorID}/${intro.authorAvatar}.png?size=256`
   const defaultAuthorAvatar = 'https://cdn.discordapp.com/embed/avatars/0.png'
-  const authorAvatarImg = messages[0].authorAvatar ? selectedAuthorAvatar : defaultAuthorAvatar
+  const authorAvatarImg = intro.authorAvatar ? selectedAuthorAvatar : defaultAuthorAvatar
 
-  const originalMessage = messages[0].content
+  const unwrappedOriginalMessage = cheerio.load(intro.content)
 
-  const allMessagesExceptOriginal = messages.slice(1)
+  unwrappedOriginalMessage('body')
+    .contents()
+    .filter(function () {
+      return this.nodeType === 3
+    })
+    .wrap('<p></p>')
+
+  const wrappedOriginalMessage = unwrappedOriginalMessage.html()
 
   const postUrl = `https://discord.com/channels/${info.guildId}/${info.id}`
 
@@ -74,9 +90,11 @@ export const RenderThread: React.FC<ThreadProps> = props => {
               image={authorAvatarImg}
               date={info.createdAt}
               messageCount={messageCount}
-              content={originalMessage}
+              content={wrappedOriginalMessage}
+              attachments={intro.fileAttachments}
+              platform="Discord"
             />
-            <DiscordGitComments comments={allMessagesExceptOriginal} />
+            <DiscordGitComments comments={messages} platform="Discord" />
             <OpenPost url={postUrl} platform="Discord" />
           </Cell>
         </Grid>

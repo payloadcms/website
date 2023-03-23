@@ -3,6 +3,8 @@ import Link from 'next/link'
 
 import AuthorTag from '@components/AuthorTag'
 import { DiscordGitBody } from '@components/DiscordGitBody'
+import { FileAttachments } from '@components/FileAttachment'
+import { Attachments } from '@root/app/community-help/discord/[thread]/render'
 
 import classes from './index.module.scss'
 
@@ -15,6 +17,8 @@ export type Props = {
   messageCount?: number
   upvotes?: number
   content?: string
+  attachments?: Attachments
+  platform?: 'Discord' | 'GitHub'
 }
 
 export const DiscordGitIntro: React.FC<Props> = ({
@@ -25,7 +29,11 @@ export const DiscordGitIntro: React.FC<Props> = ({
   messageCount,
   upvotes,
   content,
+  attachments,
+  platform,
 }) => {
+  const hasFileAttachments = attachments && Array.isArray(attachments) && attachments.length > 0
+
   return (
     <Fragment>
       <div className={classes.breadcrumbWrap}>
@@ -43,7 +51,8 @@ export const DiscordGitIntro: React.FC<Props> = ({
           upvotes={upvotes}
         />
       </div>
-      <DiscordGitBody body={content} />
+      <DiscordGitBody body={content} platform={platform} />
+      {hasFileAttachments && <FileAttachments attachments={attachments} />}
     </Fragment>
   )
 }

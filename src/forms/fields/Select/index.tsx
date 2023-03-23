@@ -140,14 +140,20 @@ export const Select: React.FC<{
 
   const handleChange = useCallback(
     (incomingSelection: Option | Option[]) => {
+      let selectedOption
+      if (Array.isArray(incomingSelection)) {
+        selectedOption = incomingSelection
+      } else {
+        selectedOption = incomingSelection.value
+      }
       setInternalState(incomingSelection)
 
       if (typeof setValue === 'function') {
-        setValue(incomingSelection)
+        setValue(selectedOption)
       }
 
       if (typeof onChange === 'function') {
-        onChange(incomingSelection)
+        onChange(selectedOption)
       }
     },
     [onChange, setValue],
