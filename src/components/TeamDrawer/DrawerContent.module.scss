@@ -8,5 +8,8 @@
 
 .teamMembers {
   margin-top: calc(var(--base) * 2);
-  margin-bottom: calc(var(--base) * 2);
+}
+
+.submit {
+  margin-top: var(--base);
 }

@@ -1,0 +1,34 @@
+@use "@scss/common" as *;
+
+.title {
+  margin-top: 0;
+}
+
+.vars {  
+  & > *:not(:last-child) {
+    margin-bottom: var(--base);
+  }
+}
+
+.item {
+  display: flex;
+  position: relative;
+  left: calc(var(--base) * -0.5);
+  width: calc(100% + var(--base));
+
+  & > * {
+    flex: 1;
+    margin: 0 calc(var(--base) / 2);
+  }
+}
+
+.button {
+  margin-top: calc(var(--base) / 2);
+  background: transparent;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+  line-height: inherit;
+  font-size: inherit;
+}

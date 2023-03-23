@@ -49,7 +49,7 @@ export const useCreateDraftProject = ({
               typeof user.teams?.[0]?.team === 'string'
                 ? user.teams?.[0]?.team
                 : user.teams?.[0]?.team?.id,
-            defaultDomain: 'something.com',
+            defaultDomain: undefined,
             repositoryID: repo?.id, // only applies to the `import` flow
             repositoryName: repo?.name,
             template: templateID,

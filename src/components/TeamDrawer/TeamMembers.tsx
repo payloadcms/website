@@ -36,7 +36,6 @@ export const TeamMembers: React.FC<{
                   ...(newMembers?.[index] || {}),
                   email: value,
                 }
-                console.log(newMembers)
                 setValue(newMembers)
               }}
             />

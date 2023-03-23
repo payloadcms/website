@@ -39,7 +39,6 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
       }
 
       setLoading(true)
-      console.log(data)
 
       const newTeam: Team = {
         ...(data || {}),
@@ -130,7 +129,7 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
         <Text path="name" required label="Name" />
         <Text path="slug" required label="Slug" description="Slug must be unique." />
         <TeamMembers className={classes.teamMembers} />
-        <Submit label="Create Team" />
+        <Submit label="Create Team" className={classes.submit} />
       </Form>
     </div>
   )
