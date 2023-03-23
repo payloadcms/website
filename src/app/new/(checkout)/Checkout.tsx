@@ -5,7 +5,7 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 
 import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
 import { Button } from '@components/Button'
@@ -122,11 +122,12 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
 
   const loading = useDebounce(isLoading, 500)
 
-  if (!loading && !checkoutState?.project) {
-    return <Gutter>This project does not exist.</Gutter>
-  }
-
   const enableTrialSelector = new Date().getTime() < new Date('2023-07-01').getTime()
+
+  // project does not exist
+  if (isLoading === false && !project) {
+    redirect(`/404`)
+  }
 
   return (
     <Fragment>

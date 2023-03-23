@@ -6,7 +6,7 @@ import { qs } from '@utilities/qs'
 
 export type UseCloud<T, A = null> = (args?: A) => {
   result: T[]
-  isLoading: boolean
+  isLoading: null | boolean
   error: string
   reload: () => void
 }
@@ -20,7 +20,7 @@ export const useCloud = <T>(args: {
   const { url, delay = 250, method = 'GET', body } = args
   const hasMadeRequest = useRef(false)
   const [result, setResult] = useState<T[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState<boolean | null>(null)
   const [error, setError] = useState('')
   const [requestTicker, dispatchRequestTicker] = useReducer((state: number) => state + 1, 0)
 
