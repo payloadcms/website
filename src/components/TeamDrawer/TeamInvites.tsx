@@ -4,9 +4,9 @@ import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import { useFormField } from '@forms/useFormField'
 
-import classes from './TeamMembers.module.scss'
+import classes from './TeamInvites.module.scss'
 
-export const TeamMembers: React.FC<{
+export const TeamInvites: React.FC<{
   className?: string
 }> = ({ className }) => {
   const { value: members, setValue } = useFormField<
@@ -19,12 +19,10 @@ export const TeamMembers: React.FC<{
   })
 
   return (
-    <div className={[classes.teamMembers, className].filter(Boolean).join(' ')}>
+    <div className={[classes.teamInvites, className].filter(Boolean).join(' ')}>
       <h6 className={classes.title}>Team members</h6>
-      <p className={classes.description}>
-        Optionally invite members to your team. You can always invite more team members later.
-      </p>
-      <div className={classes.members}>
+      <p className={classes.description}>Invite others to join your team (or do this later).</p>
+      <div className={classes.invites}>
         {members?.map((member, index) => (
           <div key={index} className={classes.item}>
             <Text
