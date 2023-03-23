@@ -13,7 +13,7 @@ export default () => {
       <ExtendedBackground
         pixels
         upperChildren={
-          <>
+          <div className={classes.fields}>
             <Secret
               label="S3 Endpoint"
               path="s3Endpoint"
@@ -48,7 +48,7 @@ export default () => {
               className={classes.secretInput}
               loadSecret={() => Promise.resolve('some-secret')}
             />
-          </>
+          </div>
         }
       />
     </div>

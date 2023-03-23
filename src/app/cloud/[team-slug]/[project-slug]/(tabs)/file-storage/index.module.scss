@@ -1,9 +1,5 @@
-.form {
+.fields {
   display: flex;
   flex-direction: column;
   gap: var(--base);
-
-  button[type="submit"] {
-    width: auto;
-  }
 }

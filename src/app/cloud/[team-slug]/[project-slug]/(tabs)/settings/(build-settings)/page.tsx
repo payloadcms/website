@@ -1,11 +1,13 @@
 'use client'
 
 import * as React from 'react'
+
+import { Heading } from '@components/Heading'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
-
-import { Heading } from '@components/Heading'
+import { BorderBox } from '@root/app/_components/BorderBox'
+import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useRouteData } from '@root/app/cloud/context'
 
 import classes from './index.module.scss'
@@ -43,44 +45,45 @@ export default () => {
   )
 
   return (
-    <div>
+    <MaxWidth>
       <Heading element="h2" as="h4" marginTop={false}>
         Build Settings
       </Heading>
+      <BorderBox>
+        <Form className={classes.form} onSubmit={onSubmit}>
+          <Text
+            label="Project name"
+            placeholder="Enter a name for your project"
+            path="name"
+            initialValue={project.name}
+          />
 
-      <Form className={classes.form} onSubmit={onSubmit}>
-        <Text
-          label="Project name"
-          placeholder="Enter a name for your project"
-          path="name"
-          initialValue={project.name}
-        />
+          <Text
+            label="Install Command"
+            placeholder="Enter the command to install your project dependencies"
+            path="installScript"
+            initialValue={project.installScript}
+          />
 
-        <Text
-          label="Install Command"
-          placeholder="Enter the command to install your project dependencies"
-          path="installScript"
-          initialValue={project.installScript}
-        />
+          <Text
+            label="Build Command"
+            placeholder="Enter the command to build your project"
+            path="buildScript"
+            initialValue={project.buildScript}
+          />
 
-        <Text
-          label="Build Command"
-          placeholder="Enter the command to build your project"
-          path="buildScript"
-          initialValue={project.buildScript}
-        />
+          <Text
+            label="Branch to deploy"
+            placeholder="Enter the branch to deploy"
+            path="deploymentBranch"
+            initialValue={project.deploymentBranch}
+          />
 
-        <Text
-          label="Branch to deploy"
-          placeholder="Enter the branch to deploy"
-          path="deploymentBranch"
-          initialValue={project.deploymentBranch}
-        />
-
-        <div>
-          <Submit label="Update" />
-        </div>
-      </Form>
-    </div>
+          <div>
+            <Submit label="Update" />
+          </div>
+        </Form>
+      </BorderBox>
+    </MaxWidth>
   )
 }

@@ -88,12 +88,12 @@ export const Secret: React.FC<SecretProps> = props => {
         label={label}
         required={required}
         actionsSlot={
-          <>
+          <div className={classes.actionsSlot}>
             <TooltipButton text={isHidden ? 'show' : 'hide'} onClick={toggleVisibility}>
               <EyeIcon closed={isHidden} />
             </TooltipButton>
             <CopyToClipboard value={isValueLoaded ? value : loadExternalValue} />
-          </>
+          </div>
         }
       />
 

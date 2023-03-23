@@ -82,14 +82,14 @@ export const Text: React.FC<
         label={label}
         required={required}
         actionsSlot={
-          <>
+          <div className={classes.actionSlot}>
             {copy && <CopyToClipboard value={value} />}
             {type === 'password' && (
               <TooltipButton text={isHidden ? 'show' : 'hide'} onClick={() => setIsHidden(h => !h)}>
                 <EyeIcon closed={isHidden} />
               </TooltipButton>
             )}
-          </>
+          </div>
         }
       />
       <input
