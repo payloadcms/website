@@ -93,7 +93,11 @@ export const TeamSelector: React.FC<{
           MenuList: SelectMenuButton,
         }}
       />
-      <TeamDrawer />
+      <TeamDrawer
+        onCreate={team => {
+          setSelectedTeam(team.id)
+        }}
+      />
     </Fragment>
   )
 }

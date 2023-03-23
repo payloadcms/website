@@ -101,7 +101,7 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
           ],
         })
 
-        if (typeof onCreate === 'function') onCreate(newTeam)
+        if (typeof onCreate === 'function') onCreate(response?.doc)
 
         if (redirectAfterCreate) router.push(`/cloud/${response?.doc?.slug}`)
         else {
