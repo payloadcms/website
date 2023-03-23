@@ -37,7 +37,7 @@
     "flatley": "^5.2.0",
     "graphql": "^16.6.0",
     "gray-matter": "^4.0.3",
-    "next": "^13.1.7-canary.4",
+    "next": "^13.2.3",
     "next-mdx-remote": "^4.2.1",
     "next-sitemap": "^3.1.30",
     "node-fetch": "^3.2.10",
