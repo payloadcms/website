@@ -2,43 +2,25 @@
 
 import * as React from 'react'
 
-import { Button } from '@components/Button'
+import { AddArrayRow, ArrayRow } from '@forms/fields/Array'
+import { ArrayProvider, useArray } from '@forms/fields/Array/context'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
+import { OnSubmit } from '@forms/types'
 import { useRouteData } from '@root/app/cloud/context'
-import { TrashIcon } from '@root/icons/TrashIcon'
 import { validateKey, validateValue } from '../validations'
 
 import classes from './index.module.scss'
 
-const generateUUID = () => {
-  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-}
-
-export const AddEnvs: React.FC = () => {
+export const EnvManagement: React.FC = () => {
+  const { uuids, clearRows } = useArray()
   const { project, reloadProject } = useRouteData()
   const projectID = project.id
 
-  const [rows, setRows] = React.useState([generateUUID()])
   const existingEnvKeys = (project.environmentVariables || []).map(({ key }) => key || '')
 
-  const addRow = React.useCallback(() => {
-    setRows(prev => [...prev, generateUUID()])
-  }, [])
-
-  const removeRow = React.useCallback((index: number) => {
-    setRows(prev => {
-      const remainingRows = prev.filter((_, i) => i !== index)
-      return remainingRows.length > 0 ? remainingRows : [generateUUID()]
-    })
-  }, [])
-
-  const clearRows = React.useCallback(() => {
-    setRows([generateUUID()])
-  }, [])
-
-  const handleSubmit = React.useCallback(
+  const handleSubmit: OnSubmit = React.useCallback(
     async ({ unflattenedData }) => {
       if (unflattenedData?.newEnvs?.length > 0) {
         const sanitizedEnvs = unflattenedData.newEnvs.reduce((acc, env) => {
@@ -82,51 +64,43 @@ export const AddEnvs: React.FC = () => {
 
   return (
     <Form className={classes.formContent} onSubmit={handleSubmit}>
-      {rows.map((tempUUID, index) => {
+      {uuids.map((uuid, index) => {
         return (
-          <div className={classes.newItemRow} key={tempUUID}>
-            <div className={classes.newVariableInputs}>
-              <Text
-                required
-                label="Key"
-                className={classes.newEnvInput}
-                path={`newEnvs.${index}.key`}
-                validate={(key: string) => validateKey(key, existingEnvKeys)}
-                initialValue=""
-              />
+          <ArrayRow key={uuid} index={index} allowRemove>
+            <Text
+              required
+              label="Key"
+              className={classes.newEnvInput}
+              path={`newEnvs.${index}.key`}
+              validate={(key: string) => validateKey(key, existingEnvKeys)}
+              initialValue=""
+            />
 
-              <Text
-                required
-                label="Value"
-                className={classes.newEnvInput}
-                path={`newEnvs.${index}.value`}
-                validate={validateValue}
-                initialValue=""
-              />
-            </div>
-
-            <button type="button" className={classes.trashButton} onClick={() => removeRow(index)}>
-              <TrashIcon />
-            </button>
-          </div>
+            <Text
+              required
+              label="Value"
+              className={classes.newEnvInput}
+              path={`newEnvs.${index}.value`}
+              validate={validateValue}
+              initialValue=""
+            />
+          </ArrayRow>
         )
       })}
 
-      <div className={classes.addAnotherButtonWrap}>
-        <Button
-          label="Add another"
-          size="small"
-          appearance="text"
-          onClick={addRow}
-          icon="plus"
-          fullWidth={false}
-          className={classes.addAnotherButton}
-        />
-      </div>
+      <AddArrayRow />
 
       <div className={classes.actionFooter}>
         <Submit icon={false} label="Save" appearance="secondary" size="small" />
       </div>
     </Form>
+  )
+}
+
+export const AddEnvs: React.FC = () => {
+  return (
+    <ArrayProvider>
+      <EnvManagement />
+    </ArrayProvider>
   )
 }

@@ -17,5 +17,9 @@ export default Discussion
 
 export async function generateStaticParams() {
   const discussions = await getAllDiscussions()
-  return discussions?.map(({ slug }) => slug) ?? []
+  return (
+    discussions?.map(discussion => ({
+      discussion: discussion.slug,
+    })) ?? []
+  )
 }

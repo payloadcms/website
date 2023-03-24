@@ -105,7 +105,12 @@ export const usePlanSelector = (args: {
       const { error, result: plans } = plansData
 
       return (
-        <PlanSelector loading={debouncedLoading} error={error} plans={plans} onChange={onChange} />
+        <PlanSelector
+          loading={Boolean(debouncedLoading)}
+          error={error}
+          plans={plans}
+          onChange={onChange}
+        />
       )
     },
     [debouncedLoading, plansData, onChange],

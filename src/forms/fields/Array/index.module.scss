@@ -1,0 +1,43 @@
+.row {
+  display: flex;
+  gap: var(--base);
+  align-items: center;
+}
+
+.trashButton {
+  all: unset;
+  position: relative;
+  bottom: 14px;
+  align-self: flex-end;
+  display: flex;
+  padding: 2px 5px;
+  border-radius: 3px;
+  cursor: pointer;
+  color: var(--color-error-550);
+
+  &:hover,
+  &:focus {
+    background-color: var(--theme-error-100);
+  }
+}
+
+.children {
+  width: 100%;
+  display: flex;
+  gap: inherit;
+  flex-wrap: wrap;
+}
+
+.addRowWrap {
+  display: inline-flex;
+}
+
+.addRowButton {
+  margin-top: calc(var(--base) * 0.75);
+  padding: 0;
+  color: var(--theme-elevation-850);
+
+  > div {
+    flex-direction: row-reverse;
+  }
+}

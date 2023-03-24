@@ -11,16 +11,21 @@ import { Textarea } from '@forms/fields/Textarea'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { useRouteData } from '@root/app/cloud/context'
-import { Project } from '@root/payload-cloud-types'
 import { validateKey, validateValue } from '../validations'
 
+// import { Project } from '@root/payload-cloud-types'
 import classes from './index.module.scss'
 
 const envKeyFieldPath = 'envKey'
 const envValueFieldPath = 'envValue'
 
 type Props = {
-  env: Project['environmentVariables'][0]
+  // env: Project['environmentVariables'][0]
+  env: {
+    key?: string
+    value?: string
+    id?: string
+  }
 }
 export const ManageEnv: React.FC<Props> = ({ env: { key, id } }) => {
   const modalSlug = `delete-env-${id}`

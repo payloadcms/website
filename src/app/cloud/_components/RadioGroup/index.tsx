@@ -12,7 +12,7 @@ export const CloudRadioGroup: React.FC<{
   path: string
   initialValue?: string
   options: RadioOption[]
-  onChange: (option: Option) => void
+  onChange: (option: any) => void // eslint-disable-line no-unused-vars
 }> = ({ path, options, initialValue, onChange: onChangeFromProps }) => {
   const { value, onChange } = useField<string>({
     path,
