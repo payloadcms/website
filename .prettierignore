@@ -3,5 +3,5 @@ node_modules
 *.scss
 *.json
 *.md
-src/payload-cloud-types.ts
-src/payload-types.ts
+**/payload-cloud-types.ts
+**/payload-types.ts
