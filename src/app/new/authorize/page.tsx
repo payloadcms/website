@@ -20,7 +20,7 @@ const href = `https://github.com/login/oauth/authorize?client_id=${
   process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI || '',
 )}&state=${encodeURIComponent(`/new/import`)}`
 
-export const Authorize: React.FC = () => {
+const Authorize: React.FC = () => {
   const params = useSearchParams()
   const { error: exchangeError, hasExchangedCode, exchangeCode } = useExchangeCode()
 
