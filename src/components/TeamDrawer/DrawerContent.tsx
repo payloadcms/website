@@ -2,6 +2,7 @@ import React, { useCallback } from 'react'
 import { useModal } from '@faceless-ui/modal'
 import { useRouter } from 'next/navigation'
 
+import { ArrayProvider } from '@forms/fields/Array/context'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
@@ -31,7 +32,7 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
   const { modalState } = useModal()
 
   const handleSubmit = useCallback(
-    async ({ data }) => {
+    async ({ unflattenedData }) => {
       if (user) {
         // TODO: access the ref directly, might need to publish a `forwardRef` modal or add it to context
         // pretty sure this doesn't work anyway
@@ -46,7 +47,7 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
         setLoading(true)
 
         const newTeam: Team = {
-          ...(data || {}),
+          ...(unflattenedData || {}),
           billingEmail: user?.email,
           members: [
             // add the current user as team admin
@@ -54,7 +55,7 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
               user: user?.id,
               roles: ['admin'],
             },
-            ...(data?.members || [])
+            ...(unflattenedData?.members || [])
               ?.filter(mem => mem.email)
               .map(mem => ({
                 invitedEmail: mem.email,
@@ -117,42 +118,44 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
   if (!isOpen) return null
 
   return (
-    <div className="list-drawer__content">
-      {success && <p className="">Team created successfully, now redirecting...</p>}
-      {error && (
-        <div className={classes.error}>
-          <p>{error?.message}</p>
-        </div>
-      )}
-      {loading && <p className="">Creating team...</p>}
-      <Form
-        onSubmit={handleSubmit}
-        className={classes.form}
-        errors={error?.data}
-        initialState={{
-          name: {
-            initialValue: 'My Team',
-            value: 'My Team',
-          },
-          slug: {
-            initialValue: 'my-team',
-            value: 'my-team',
-          },
-          members: {
-            initialValue: [
-              {
-                email: '',
-                role: 'user',
-              },
-            ],
-          },
-        }}
-      >
-        <Text path="name" required label="Name" />
-        <Text path="slug" required label="Slug" description="Slug must be unique." />
-        <TeamInvites className={classes.teamInvites} />
-        <Submit label="Create Team" className={classes.submit} />
-      </Form>
-    </div>
+    <ArrayProvider>
+      <div className="list-drawer__content">
+        {success && <p className="">Team created successfully, now redirecting...</p>}
+        {error && (
+          <div className={classes.error}>
+            <p>{error?.message}</p>
+          </div>
+        )}
+        {loading && <p className="">Creating team...</p>}
+        <Form
+          onSubmit={handleSubmit}
+          className={classes.form}
+          errors={error?.data}
+          initialState={{
+            name: {
+              initialValue: 'My Team',
+              value: 'My Team',
+            },
+            slug: {
+              initialValue: 'my-team',
+              value: 'my-team',
+            },
+            members: {
+              initialValue: [
+                {
+                  email: '',
+                  role: 'user',
+                },
+              ],
+            },
+          }}
+        >
+          <Text path="name" required label="Name" />
+          <Text path="slug" required label="Slug" description="Slug must be unique." />
+          <TeamInvites className={classes.teamInvites} />
+          <Submit label="Create Team" className={classes.submit} />
+        </Form>
+      </div>
+    </ArrayProvider>
   )
 }
