@@ -16,8 +16,8 @@ export default () => {
 
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer()
 
-  const hasTeams = user?.teams?.length && user.teams.length > 0
-  console.log('user.teams', user?.teams)
+  const hasTeams = Boolean(user?.teams?.length && user.teams.length > 0)
+
   return (
     <React.Fragment>
       <div className={classes.teams}>
@@ -29,7 +29,7 @@ export default () => {
           )}
           {hasTeams && (
             <ul className={classes.list}>
-              {user.teams?.map(({ team }, index) => {
+              {user?.teams?.map(({ team }, index) => {
                 if (!team || typeof team === 'string') return null
 
                 return (
