@@ -6,7 +6,6 @@ import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { useRouter } from 'next/navigation'
 
-import { BorderBox } from '@root/app/_components/BorderBox'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { TeamInvites } from './TeamInvites'
@@ -120,47 +119,45 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
 
   return (
     <ArrayProvider>
-      <BorderBox>
-        <div className="list-drawer__content">
-          {success && <p className="">Team created successfully, now redirecting...</p>}
-          {error && (
-            <div className={classes.error}>
-              <p>{error?.message}</p>
-            </div>
-          )}
-          {loading && <p className="">Creating team...</p>}
-          <Form
-            onSubmit={handleSubmit}
-            className={classes.form}
-            errors={error?.data}
-            initialState={{
-              name: {
-                initialValue: 'My Team',
-                value: 'My Team',
-              },
-              slug: {
-                initialValue: 'my-team',
-                value: 'my-team',
-              },
-              members: {
-                initialValue: [
-                  {
-                    email: '',
-                    role: 'user',
-                  },
-                ],
-              },
-            }}
-          >
-            <Text path="name" required label="Name" />
-            <Text path="slug" required label="Slug" description="Slug must be unique." />
-            <TeamInvites className={classes.teamInvites} />
-            <div>
-              <Submit label="Create Team" className={classes.submit} />
-            </div>
-          </Form>
-        </div>
-      </BorderBox>
+      <div className="list-drawer__content">
+        {success && <p className="">Team created successfully, now redirecting...</p>}
+        {error && (
+          <div className={classes.error}>
+            <p>{error?.message}</p>
+          </div>
+        )}
+        {loading && <p className="">Creating team...</p>}
+        <Form
+          onSubmit={handleSubmit}
+          className={classes.form}
+          errors={error?.data}
+          initialState={{
+            name: {
+              initialValue: 'My Team',
+              value: 'My Team',
+            },
+            slug: {
+              initialValue: 'my-team',
+              value: 'my-team',
+            },
+            members: {
+              initialValue: [
+                {
+                  email: '',
+                  role: 'user',
+                },
+              ],
+            },
+          }}
+        >
+          <Text path="name" required label="Name" />
+          <Text path="slug" required label="Slug" description="Slug must be unique." />
+          <TeamInvites />
+          <div>
+            <Submit label="Create Team" className={classes.submit} />
+          </div>
+        </Form>
+      </div>
     </ArrayProvider>
   )
 }

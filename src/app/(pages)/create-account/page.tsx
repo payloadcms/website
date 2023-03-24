@@ -124,14 +124,13 @@ const CreateAccount: React.FC = () => {
     <Gutter>
       {successfullySubmitted ? (
         <MaxWidth size="medium" centered className={classes.maxWidth}>
-          <BorderBox>
+          <BorderBox padding="large">
             <Heading marginTop={false} element="h2" as="h5">
               <Highlight text="Success" />
             </Heading>
             <Heading marginTop={false} element="p" as="h6">
               Your account was created! Please check your email to verify your account and login.
             </Heading>
-
             <div className={classes.formFooter}>
               {`Already verified your account? `}
               <Link href="/login">Log in now</Link>
@@ -144,8 +143,7 @@ const CreateAccount: React.FC = () => {
           <Heading marginTop={false} element="h1" as="h3">
             Create an account
           </Heading>
-
-          <BorderBox className={classes.borderBox}>
+          <BorderBox className={classes.borderBox} padding="large">
             <Form
               onSubmit={createAccount}
               className={classes.form}
@@ -159,7 +157,6 @@ const CreateAccount: React.FC = () => {
                 <Submit label="Create Account" className={classes.submit} />
               </div>
             </Form>
-
             <div className={classes.formFooter}>
               {`Already have an account? `}
               <Link href="/login">Log in now</Link>

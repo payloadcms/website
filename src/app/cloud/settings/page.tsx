@@ -19,7 +19,7 @@ export default () => {
 
   return (
     <Gutter className={classes.content}>
-      <Heading element="h1" as="h6" className={classes.title}>
+      <Heading marginTop={false} element="h1" as="h6" className={classes.title}>
         Account settings
       </Heading>
       <Form

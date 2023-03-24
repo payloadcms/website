@@ -17,7 +17,7 @@
 }
 
 .hr {
-    margin: calc(var(--base) * 4) 0;
+    margin: calc(var(--base) * 3) 0;
 
     @include mid-break {
         margin: calc(var(--base)) 0;

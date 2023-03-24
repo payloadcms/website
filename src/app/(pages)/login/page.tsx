@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
+import { InitialState } from '@forms/types'
 import Link from 'next/link'
 import { redirect, useSearchParams } from 'next/navigation'
 
@@ -15,6 +16,21 @@ import { cloudSlug } from '@root/app/cloud/layout'
 import { useAuth } from '@root/providers/Auth'
 
 import classes from './index.module.scss'
+
+const initialFormState: InitialState = {
+  email: {
+    value: '',
+    valid: false,
+    initialValue: undefined,
+    errorMessage: 'Please enter a valid email address',
+  },
+  password: {
+    value: '',
+    valid: false,
+    initialValue: undefined,
+    errorMessage: 'Please enter a password',
+  },
+}
 
 const Login: React.FC = () => {
   const searchParams = useSearchParams()
@@ -34,6 +50,10 @@ const Login: React.FC = () => {
 
   const handleSubmit = useCallback(
     async ({ data }) => {
+      setTimeout(() => {
+        window.scrollTo(0, 0)
+      }, 0)
+
       const loadingTimer = setTimeout(() => {
         setLoading(true)
       }, 1000)
@@ -65,26 +85,22 @@ const Login: React.FC = () => {
 
   if (user) redirect(redirectTo)
 
-  // const message = new URLSearchParams(window.location.search).get('message')
-
   return (
     <Gutter>
       <MaxWidth centered className={classes.maxWidth}>
         <Heading marginTop={false} element="h1" as="h3">
           Log in
         </Heading>
-        {error && <div className={classes.error}>{error}</div>}
-        {message && <div className={classes.message}>{message}</div>}
-
-        <BorderBox className={classes.borderBox}>
-          <Form onSubmit={handleSubmit} className={classes.form}>
+        {message && <p className={classes.message}>{message}</p>}
+        <BorderBox className={classes.borderBox} padding="large">
+          {error && <div className={classes.error}>{error}</div>}
+          <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
             <Text path="email" label="Email" required elementAttributes={{ autoComplete: 'on' }} />
             <Text path="password" label="Password" type="password" required />
             <div>
               <Submit label="Log in" className={classes.submit} processing={loading} />
             </div>
           </Form>
-
           <div className={classes.formFooter}>
             <Link href="/forgot-password">Forgot your password?</Link>
             <div className={classes.leader}>

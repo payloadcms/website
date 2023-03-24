@@ -8,3 +8,7 @@
     padding: calc(var(--base) * .75);
   }
 }
+
+.padding--large {
+  padding: calc(var(--base) * 1.75);
+}
