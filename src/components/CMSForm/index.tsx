@@ -1,11 +1,11 @@
 'use client'
 
 import * as React from 'react'
-import FormComponent from '@forms/Form'
-import Submit from '@forms/Submit'
 import { useRouter } from 'next/navigation'
 
 import { RichText } from '@components/RichText'
+import FormComponent from '@forms/Form'
+import Submit from '@forms/Submit'
 import { Form } from '@root/payload-types'
 import { fields } from './fields'
 import { Width } from './Width'

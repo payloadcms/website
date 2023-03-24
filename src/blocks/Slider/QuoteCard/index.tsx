@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { QuoteIcon } from '@icons/QuoteIcon'
 import { ThemeProvider } from '@providers/Theme'
-import { formatDate } from '@utilities/format-date-time'
 
 import { RichText } from '@components/RichText'
+import { QuoteIcon } from '@icons/QuoteIcon'
 import { Page } from '@root/payload-types'
+import { formatDate } from '@utilities/format-date-time'
 
 import classes from './index.module.scss'
 

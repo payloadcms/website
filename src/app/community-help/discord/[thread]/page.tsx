@@ -17,6 +17,9 @@ export default Thread
 
 export async function generateStaticParams() {
   const threads = await getAllThreads()
-
-  return threads?.map(({ slug }) => slug) ?? []
+  return (
+    threads?.map(thread => ({
+      thread: thread.slug,
+    })) ?? []
+  )
 }

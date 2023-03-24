@@ -56,14 +56,21 @@ export default () => {
   const router = useRouter()
 
   const isCurrentTeamOwner = user?.teams?.some(userTeam => {
-    if (currentTeam.id === (typeof userTeam.team === 'string' ? userTeam.team : userTeam.team.id)) {
+    if (
+      currentTeam.id === (typeof userTeam.team === 'string' ? userTeam.team : userTeam?.team?.id)
+    ) {
       return userTeam?.roles?.includes('owner')
     }
     return false
   })
 
   const teamOptions = user?.teams?.reduce((acc, userTeam) => {
-    if (isExpandedDoc<Team>(userTeam.team) && userTeam?.roles?.length) {
+    if (
+      userTeam.team &&
+      userTeam.team !== 'string' &&
+      isExpandedDoc<Team>(userTeam.team) &&
+      userTeam?.roles?.length
+    ) {
       acc.push({
         value: userTeam.team.id,
         label: `"${userTeam.team.name}" owns this project`,

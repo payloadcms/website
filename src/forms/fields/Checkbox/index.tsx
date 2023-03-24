@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import { Check } from '@icons/Check'
 
+import { Check } from '@icons/Check'
 import Error from '../../Error'
 import { FieldProps } from '../types'
 import { useField } from '../useField'

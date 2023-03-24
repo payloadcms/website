@@ -70,8 +70,10 @@ export interface Project {
   name: string
   plan?: string | Plan
   team: string | Team
+  region?: 'us-east' | 'us-west' | 'eu-west'
   template?: string | Template
   makePrivate?: boolean
+  digitalOceanAppID?: string
   source?: 'github'
   repositoryName?: string
   repositoryURL?: string
@@ -84,7 +86,12 @@ export interface Project {
   runScript?: string
   rootDirectory?: string
   cloudflareDNSRecordID?: string
-  digitalOceanAppID?: string
+  defaultDomain?: string
+  domains?: Array<{
+    domain: string
+    cloudflareID?: string
+    id?: string
+  }>
   atlasProjectID?: string
   atlasConnectionString?: string
   atlasDatabaseName?: string
@@ -94,13 +101,7 @@ export interface Project {
   s3Policy?: 'public' | 'private'
   cognitoIdentityID?: string
   cognitoPassword?: string
-  region?: 'us-east' | 'us-west' | 'eu-west'
-  defaultDomain?: string
-  domains?: Array<{
-    domain: string
-    cloudflareID?: string
-    id?: string
-  }>
+  PAYLOAD_SECRET?: string
   environmentVariables?: Array<{
     key?: string
     value?: string
@@ -108,14 +109,14 @@ export interface Project {
   }>
   stripeSubscriptionID?: string
   stripeSubscriptionStatus?:
-  | 'active'
-  | 'canceled'
-  | 'incomplete'
-  | 'incomplete_expired'
-  | 'past_due'
-  | 'trialing'
-  | 'unpaid'
-  | 'paused'
+    | 'active'
+    | 'canceled'
+    | 'incomplete'
+    | 'incomplete_expired'
+    | 'past_due'
+    | 'trialing'
+    | 'unpaid'
+    | 'paused'
   teamProjectName?: string
   createdAt: string
   updatedAt: string
@@ -187,14 +188,14 @@ export interface Job {
   }
   hasError?: boolean
   error?:
-  | {
-    [k: string]: unknown
-  }
-  | unknown[]
-  | string
-  | number
-  | boolean
-  | null
+    | {
+        [k: string]: unknown
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null
   createdAt: string
   updatedAt: string
 }
@@ -205,7 +206,7 @@ export interface TeardownError {
     teamName?: string
     teamID: string
   }
-  errors?: Array<{
+  serviceErrors?: Array<{
     service?: string
     error?: string
     id?: string

@@ -8,8 +8,8 @@ import Submit from '@forms/Submit'
 import { OnSubmit } from '@forms/types'
 import { validateDomain } from '@forms/validations'
 import { useRouteData } from '@root/app/cloud/context'
-import { Project } from '@root/payload-cloud-types'
 
+// import { Project } from '@root/payload-cloud-types'
 import classes from './index.module.scss'
 
 const generateUUID = () => {
@@ -27,9 +27,13 @@ export const AddDomain: React.FC = () => {
 
   const saveDomain = React.useCallback<OnSubmit>(
     async ({ data }) => {
-      const newDomain: Project['domains'][0] = {
+      // The type `Project.domains[0]` -> does not work because the array is not required - Payload type issue?
+      const newDomain: {
+        domain: string
+        cloudflareID?: string
+        id?: string
+      } = {
         domain: data[domainFieldPath] as string,
-        status: 'pending',
       }
 
       const domainExists = projectDomains?.find(

@@ -9,7 +9,6 @@ export const reduceFieldsToValues = (fields: Fields, unflatten: boolean): Proper
 
   Object.keys(fields).forEach(key => {
     if (fields[key].value !== undefined) {
-      // @ts-expect-error
       data[key] = fields[key].value
     }
   })

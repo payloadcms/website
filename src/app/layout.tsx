@@ -1,9 +1,9 @@
 import React from 'react'
-import { fetchAnnouncements, fetchGlobals } from '@graphql'
 import { Providers } from '@providers'
 
 import { Announcements } from '@components/Announcements'
 import { HeaderObserver } from '@components/HeaderObserver'
+import { fetchAnnouncements, fetchGlobals } from '@graphql'
 import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
 import { neueMontrealBold, neueMontrealItalic, neueMontrealRegular, robotoMono } from './fonts'
