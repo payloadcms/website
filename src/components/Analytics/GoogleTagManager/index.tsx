@@ -11,6 +11,7 @@ export const GoogleTagManager: React.FC = () => {
   return (
     <Fragment>
       <Script
+        id="google-tag-manager"
         strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

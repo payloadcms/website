@@ -1,14 +1,14 @@
 'use client'
 
 import * as React from 'react'
-import { useRouter } from 'next/navigation'
-
 import { CloudRadioGroup } from '@cloud/_components/RadioGroup'
 import { useRouteData } from '@cloud/context'
 import { Text } from '@forms/fields/Text'
 import { useField } from '@forms/fields/useField'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
+import { useRouter } from 'next/navigation'
+
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { isExpandedDoc } from '@root/utilities/is-expanded-doc'
@@ -106,7 +106,7 @@ export default () => {
           // TODO: figure out how to reroute with new team slug
         }
       } catch (e) {
-        console.error(e)
+        console.error(e) // eslint-disable-line no-console
       }
     },
     [project.id, reloadProject, router, project.slug],

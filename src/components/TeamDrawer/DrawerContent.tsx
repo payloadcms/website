@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react'
 import { useModal } from '@faceless-ui/modal'
-import { useRouter } from 'next/navigation'
-
 import { ArrayProvider } from '@forms/fields/Array/context'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
+import { useRouter } from 'next/navigation'
+
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { TeamInvites } from './TeamInvites'

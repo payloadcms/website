@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect } from 'react'
 import { components } from 'react-select'
+import { Select } from '@forms/fields/Select'
 
 import { useTeamDrawer } from '@components/TeamDrawer'
-import { Select } from '@forms/fields/Select'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 

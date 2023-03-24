@@ -8,6 +8,7 @@ export interface PopupMessage {
 export const usePopupWindow = (props: {
   href: string
   eventType?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onMessage?: (searchParams: any) => Promise<void> // eslint-disable-line no-unused-vars
 }): {
   openPopupWindow: (e: React.MouseEvent<HTMLAnchorElement>) => void
@@ -17,7 +18,7 @@ export const usePopupWindow = (props: {
   useEffect(() => {
     const receiveMessage = (event: MessageEvent): void => {
       if (event.origin !== window.location.origin) {
-        console.warn(`Message received by ${event.origin}; IGNORED.`)
+        console.warn(`Message received by ${event.origin}; IGNORED.`) // eslint-disable-line no-console
         return
       }
 

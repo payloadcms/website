@@ -2,15 +2,15 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import { Checkbox } from '@forms/fields/Checkbox'
+import { Text } from '@forms/fields/Text'
+import Label from '@forms/Label'
 import { useRouter } from 'next/navigation'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { useInstallationSelector } from '@components/InstallationSelector'
 import { LoadingShimmer } from '@components/LoadingShimmer'
-import { Checkbox } from '@forms/fields/Checkbox'
-import { Text } from '@forms/fields/Text'
-import Label from '@forms/Label'
 import { PayloadIcon } from '@root/graphics/PayloadIcon'
 import { Template } from '@root/payload-cloud-types'
 import { useCreateDraftProject } from '@root/utilities/use-create-draft-project'

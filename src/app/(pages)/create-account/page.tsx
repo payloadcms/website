@@ -1,16 +1,16 @@
 'use client'
 
 import React, { useCallback, useState } from 'react'
+import { Text } from '@forms/fields/Text'
+import Form from '@forms/Form'
+import Submit from '@forms/Submit'
+import { InitialState, OnSubmit } from '@forms/types'
 import Link from 'next/link'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { Highlight } from '@components/Highlight'
-import { Text } from '@forms/fields/Text'
-import Form from '@forms/Form'
-import Submit from '@forms/Submit'
-import { InitialState, OnSubmit } from '@forms/types'
 import { BorderBox } from '@root/app/_components/BorderBox'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
@@ -106,7 +106,7 @@ const CreateAccount: React.FC = () => {
         )
       }
     } catch (e) {
-      console.log('caught error', e)
+      console.log('caught error', e) // eslint-disable-line no-console
       setError(e.message)
     }
   }, [])

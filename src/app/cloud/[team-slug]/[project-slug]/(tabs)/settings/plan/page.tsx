@@ -1,17 +1,17 @@
 'use client'
 
 import * as React from 'react'
+import { useRouteData } from '@cloud/context'
 import { useModal } from '@faceless-ui/modal'
+import { Text } from '@forms/fields/Text'
+import Form from '@forms/Form'
+import Submit from '@forms/Submit'
 import { useRouter } from 'next/navigation'
 
-import { useRouteData } from '@cloud/context'
 import { Button } from '@components/Button'
 import { Heading } from '@components/Heading'
 import { Highlight } from '@components/Highlight'
 import { ModalWindow } from '@components/ModalWindow'
-import { Text } from '@forms/fields/Text'
-import Form from '@forms/Form'
-import Submit from '@forms/Submit'
 import { canUserMangeProject } from '@root/access'
 import { Plan } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
@@ -80,7 +80,7 @@ export default () => {
           router.push('/cloud/projects')
         }
       } catch (e) {
-        console.error(e)
+        console.error(e) // eslint-disable-line no-console
       }
     }
   }, [project, canManageProject, router])

@@ -37,7 +37,7 @@ export const useExchangeCode = (): {
               setError(`Unable to authorize GitHub: ${body.error}`)
             }
           } catch (err) {
-            console.error(err)
+            console.error(err) // eslint-disable-line no-console
             setError(err.message)
           }
         }

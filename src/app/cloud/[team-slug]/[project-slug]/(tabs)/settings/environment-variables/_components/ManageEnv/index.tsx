@@ -1,15 +1,15 @@
 import * as React from 'react'
+import { Accordion } from '@cloud/_components/Accordion'
 import { Collapsible } from '@faceless-ui/collapsibles'
 import { useModal } from '@faceless-ui/modal'
-
-import { Accordion } from '@cloud/_components/Accordion'
-import { Button } from '@components/Button'
-import { Heading } from '@components/Heading'
-import { ModalWindow } from '@components/ModalWindow'
 import { Text } from '@forms/fields/Text'
 import { Textarea } from '@forms/fields/Textarea'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
+
+import { Button } from '@components/Button'
+import { Heading } from '@components/Heading'
+import { ModalWindow } from '@components/ModalWindow'
 import { useRouteData } from '@root/app/cloud/context'
 import { validateKey, validateValue } from '../validations'
 
@@ -61,7 +61,7 @@ export const ManageEnv: React.FC<Props> = ({ env: { key, id } }) => {
         return res.value
       }
     } catch (e) {
-      console.error(e)
+      console.error(e) // eslint-disable-line no-console
     }
 
     return null
@@ -94,7 +94,7 @@ export const ManageEnv: React.FC<Props> = ({ env: { key, id } }) => {
             return res.value
           }
         } catch (e) {
-          console.error(e)
+          console.error(e) // eslint-disable-line no-console
         }
       }
 
@@ -122,7 +122,7 @@ export const ManageEnv: React.FC<Props> = ({ env: { key, id } }) => {
         reloadProject()
       }
     } catch (e) {
-      console.error(e)
+      console.error(e) // eslint-disable-line no-console
     } finally {
       closeModal(modalSlug)
     }

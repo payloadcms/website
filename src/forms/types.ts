@@ -2,7 +2,7 @@ import type React from 'react'
 
 export type Validate = undefined | ((value: unknown, options?: unknown) => boolean | string)
 
-export type Value = any
+export type Value = any // eslint-disable-line @typescript-eslint/no-explicit-any
 
 export interface Property {
   [key: string]: Value

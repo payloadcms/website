@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useMemo } from 'react'
 import { components } from 'react-select'
+import { Select } from '@forms/fields/Select'
+import Label from '@forms/Label'
 import { v4 as uuid } from 'uuid'
 
 import { LoadingShimmer } from '@components/LoadingShimmer'
-import { Select } from '@forms/fields/Select'
-import Label from '@forms/Label'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import useDebounce from '@root/utilities/use-debounce'
 import { Install, UseGetInstalls, useGetInstalls } from '@root/utilities/use-get-installs'

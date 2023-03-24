@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react'
-
 import { CallToAction, CallToActionProps } from '@blocks/CallToAction'
+
 import { StyleguidePageContent } from '../../PageContent'
 
 const data: CallToActionProps = {

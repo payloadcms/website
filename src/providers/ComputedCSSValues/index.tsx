@@ -1,5 +1,4 @@
 import * as React from 'react'
-
 import { useResize } from '@utilities/use-resize'
 
 interface IComputedCSSValues {

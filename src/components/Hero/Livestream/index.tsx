@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { ThemeProvider, useTheme } from '@providers/Theme'
+import { formatDate } from '@utilities/format-date-time'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Button } from '@components/Button'
@@ -12,7 +13,6 @@ import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'
 import { Video } from '@components/RichText/Video'
 import { Page } from '@root/payload-types'
-import { formatDate } from '@utilities/format-date-time'
 
 import classes from './index.module.scss'
 
@@ -64,6 +64,7 @@ export const LivestreamHero: React.FC<
                   guests.map(({ name, link, image }, i) => {
                     return (
                       <a className={classes.guestWrap} key={i} href={link || '/'} target="_blank">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         {image && <img src={`${process.env.NEXT_PUBLIC_CMS_URL}${image.url}`} />}
                         {name && name}
                       </a>

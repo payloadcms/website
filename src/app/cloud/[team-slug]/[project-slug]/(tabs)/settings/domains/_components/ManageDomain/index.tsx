@@ -1,17 +1,17 @@
 import * as React from 'react'
-import { Collapsible } from '@faceless-ui/collapsibles'
-import { useModal } from '@faceless-ui/modal'
-import Link from 'next/link'
-
 import { Accordion } from '@cloud/_components/Accordion'
 import { useRouteData } from '@cloud/context'
-import { Button } from '@components/Button'
-import { Heading } from '@components/Heading'
-import { ModalWindow } from '@components/ModalWindow'
+import { Collapsible } from '@faceless-ui/collapsibles'
+import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { validateDomain } from '@forms/validations'
+import Link from 'next/link'
+
+import { Button } from '@components/Button'
+import { Heading } from '@components/Heading'
+import { ModalWindow } from '@components/ModalWindow'
 import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon'
 
 // import { Project } from '@root/payload-cloud-types'
@@ -60,7 +60,7 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
           return res
         }
       } catch (e) {
-        console.error(e)
+        console.error(e) // eslint-disable-line no-console
       }
 
       return null

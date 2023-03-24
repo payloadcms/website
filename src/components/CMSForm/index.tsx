@@ -1,11 +1,11 @@
 'use client'
 
 import * as React from 'react'
+import FormComponent from '@forms/Form'
+import Submit from '@forms/Submit'
 import { useRouter } from 'next/navigation'
 
 import { RichText } from '@components/RichText'
-import FormComponent from '@forms/Form'
-import Submit from '@forms/Submit'
 import { Form } from '@root/payload-types'
 import { fields } from './fields'
 import { Width } from './Width'
@@ -90,14 +90,14 @@ const RenderForm = ({ form }: { form: Form }) => {
                 window.location.assign(url)
               }
             } catch (err) {
-              console.warn(err)
+              console.warn(err) // eslint-disable-line no-console
               setError({
                 message: 'Something went wrong. Did not redirect.',
               })
             }
           }
         } catch (err) {
-          console.warn(err)
+          console.warn(err) // eslint-disable-line no-console
           setIsLoading(false)
           setError({
             message: 'Something went wrong.',

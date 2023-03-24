@@ -1,7 +1,6 @@
 'use client'
 
 import React, { Fragment } from 'react'
-
 import { BannerBlock } from '@blocks/Banner'
 import { BlogContent } from '@blocks/BlogContent'
 import { BlogMarkdown } from '@blocks/BlogMarkdown'
@@ -22,9 +21,10 @@ import { ReusableContentBlock } from '@blocks/ReusableContent'
 import { Slider } from '@blocks/Slider'
 import { Steps } from '@blocks/Steps'
 import { StickyHighlights } from '@blocks/StickyHighlights'
+import { toKebabCase } from '@utilities/to-kebab-case'
+
 import { BlockSpacing } from '@components/BlockSpacing'
 import { Page, ReusableContent } from '@root/payload-types'
-import { toKebabCase } from '@utilities/to-kebab-case'
 
 type ReusableContentBlockType = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 

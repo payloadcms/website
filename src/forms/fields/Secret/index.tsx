@@ -1,10 +1,10 @@
 'use client'
 
 import React from 'react'
+import Label from '@forms/Label'
 
 import { CopyToClipboard } from '@components/CopyToClipboard'
 import { TooltipButton } from '@components/TooltipButton'
-import Label from '@forms/Label'
 import { EyeIcon } from '@root/icons/EyeIcon'
 import Error from '../../Error'
 import { Validate } from '../../types'
@@ -64,7 +64,7 @@ export const Secret: React.FC<SecretProps> = props => {
       setIsValueLoaded(true)
       return loadedValue
     } catch (e) {
-      console.error('Error loading external field value', e)
+      console.error('Error loading external field value', e) // eslint-disable-line no-console
       return null
     }
   }, [loadValue, onChange])

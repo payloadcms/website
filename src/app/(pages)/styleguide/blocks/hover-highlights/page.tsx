@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react'
-
 import { HoverHighlightProps, HoverHighlights } from '@blocks/HoverHighlights'
+
 import { StyleguidePageContent } from '../../PageContent'
 
 const data: HoverHighlightProps = {
