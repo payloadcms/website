@@ -5,7 +5,7 @@ import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
+import { redirect, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
@@ -17,6 +17,8 @@ import { useAuth } from '@root/providers/Auth'
 import classes from './index.module.scss'
 
 const Login: React.FC = () => {
+  const searchParams = useSearchParams()
+  const message = searchParams?.get('message')
   const { user, login } = useAuth()
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -63,7 +65,7 @@ const Login: React.FC = () => {
 
   if (user) redirect(redirectTo)
 
-  const message = new URLSearchParams(window.location.search).get('message')
+  // const message = new URLSearchParams(window.location.search).get('message')
 
   return (
     <Gutter>

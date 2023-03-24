@@ -129,7 +129,7 @@ const CreateAccount: React.FC = () => {
               <Highlight text="Success" />
             </Heading>
             <Heading marginTop={false} element="p" as="h6">
-              Your account has been created! Please check your email to verify your account.
+              Your account was created! Please check your email to verify your account and login.
             </Heading>
 
             <div className={classes.formFooter}>
