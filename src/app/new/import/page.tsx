@@ -8,8 +8,6 @@ import { LoadingShimmer } from '@components/LoadingShimmer'
 import { useGitAuthRedirect } from '../authorize/useGitAuthRedirect'
 import { ImportProject } from './ImportProject'
 
-import classes from './index.module.scss'
-
 const title = `Import a codebase`
 
 const ProjectFromImport: React.FC = () => {
@@ -18,7 +16,7 @@ const ProjectFromImport: React.FC = () => {
   return (
     <Fragment>
       <Gutter>
-        <div className={classes.header}>
+        <div>
           <Breadcrumbs
             items={[
               {

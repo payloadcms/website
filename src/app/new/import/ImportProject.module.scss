@@ -92,3 +92,17 @@
     cursor: pointer;
     padding: 0 calc(var(--base) / 2);
 }
+
+.createTeamLink {
+    background-color: transparent;
+    line-height: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    color: inherit;
+    text-decoration: underline;
+}
