@@ -7,7 +7,9 @@ import Submit from '@forms/Submit'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
-import { TeamInvitations } from '@components/TeamDrawer/TeamInvitations'
+import { InviteTeammates } from '@components/InviteTeammates'
+import { TeamInvitations } from '@components/TeamInvitations'
+import { BorderBox } from '@root/app/_components/BorderBox'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { useRouteData } from '../../context'
@@ -115,8 +117,9 @@ export default () => {
       >
         <Text path="name" label="Name" />
         <Text path="slug" label="Slug" required />
-        <Text path="email" label="Billing Email" required />
-        <TeamInvitations />
+        <Text path="billingEmail" label="Billing Email" required />
+        {team?.invitations && team?.invitations?.length > 0 && <TeamInvitations team={team} />}
+        <InviteTeammates />
         <Submit label="Save" className={classes.submit} />
       </Form>
     </Gutter>

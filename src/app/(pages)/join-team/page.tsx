@@ -6,16 +6,13 @@ export default async ({ searchParams }) => {
   if (team) {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/accept-invitation`,
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/accept-invitation`,
         {
           method: 'POST',
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            team,
-          }),
         },
       )
 

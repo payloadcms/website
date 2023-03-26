@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
-import { TeamInvitations } from './TeamInvitations'
+import { InviteTeammates } from '../InviteTeammates'
 import { TeamDrawerProps } from './types'
 
 import classes from './DrawerContent.module.scss'
@@ -131,7 +131,7 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
       >
         <Text path="name" required label="Name" />
         <Text path="slug" required label="Slug" description="Slug must be unique." />
-        <TeamInvitations />
+        <InviteTeammates />
         <div>
           <Submit label="Create Team" className={classes.submit} />
         </div>
