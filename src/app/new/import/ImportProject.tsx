@@ -60,17 +60,19 @@ export const ImportProject: React.FC = () => {
   return (
     <Fragment>
       <Gutter>
-        {!user?.teams ||
-          (user?.teams.length === 0 && (
-            <p className={classes.error}>
-              {`You must be a member of a team to create a project. `}
-              <TeamDrawerToggler className={classes.createTeamLink}>
-                Create a new team
-              </TeamDrawerToggler>
-              {'.'}
-            </p>
-          ))}
-        {createError && <p className={classes.error}>{createError}</p>}
+        <div className={classes.errors}>
+          {!user?.teams ||
+            (user?.teams.length === 0 && (
+              <p>
+                {`You must be a member of a team to create a project. `}
+                <TeamDrawerToggler className={classes.createTeamLink}>
+                  Create a new team
+                </TeamDrawerToggler>
+                {'.'}
+              </p>
+            ))}
+          {createError && <p>{createError}</p>}
+        </div>
         {isSubmitting && <LoadingShimmer number={3} />}
         {!isSubmitting && (
           <Grid>

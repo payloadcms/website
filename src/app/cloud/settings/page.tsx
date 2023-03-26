@@ -35,8 +35,8 @@ export default () => {
           },
         }}
       >
-        <Text path="name" label="Name" initialValue={user?.name} />
-        <Text path="email" label="Email" initialValue={user?.email} required />
+        <Text path="name" label="Name" />
+        <Text path="email" label="Email" required />
         <Submit label="Save" className={classes.submit} />
       </Form>
       <hr className={classes.hr} />

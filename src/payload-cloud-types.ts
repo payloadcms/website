@@ -51,6 +51,19 @@ export interface Team {
   id: string;
   name?: string;
   slug?: string;
+  invitations?: {
+    user?: string | User;
+    email?: string;
+    roles?: ('owner' | 'admin' | 'user')[];
+    invitedOn?: string;
+    id?: string;
+  }[];
+  sendEmailInvitationsTo?: {
+    user?: string | User;
+    email?: string;
+    roles?: ('owner' | 'admin' | 'user')[];
+    id?: string;
+  }[];
   billingEmail: string;
   stripeCustomerID?: string;
   skipSync?: boolean;

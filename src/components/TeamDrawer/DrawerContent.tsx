@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react'
 import { useModal } from '@faceless-ui/modal'
-import { ArrayProvider } from '@forms/fields/Array/context'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
@@ -8,7 +7,7 @@ import { useRouter } from 'next/navigation'
 
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
-import { TeamInvites } from './TeamInvites'
+import { TeamInvitations } from './TeamInvitations'
 import { TeamDrawerProps } from './types'
 
 import classes from './DrawerContent.module.scss'
@@ -49,23 +48,17 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
         const newTeam: Team = {
           ...(unflattenedData || {}),
           billingEmail: user?.email,
-          members: [
-            // add the current user as team admin
-            {
-              user: user?.id,
-              roles: ['admin'],
-            },
-            ...(unflattenedData?.members || [])
-              ?.filter(mem => mem.email)
-              .map(mem => ({
-                invitedEmail: mem.email,
-                roles: [mem.role],
-              })),
-          ],
+          // flatten `roles` to an array of values
+          // there's probably a better way to do this like using `flattenedData` or modifying the API handler
+          sendEmailInvitationsTo: unflattenedData?.sendEmailInvitationsTo?.map(invite => ({
+            email: invite?.email,
+            roles: invite?.roles?.map(role => role?.value),
+          })),
         }
 
         const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams`, {
           method: 'POST',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
           },
@@ -91,17 +84,6 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
         setLoading(false)
         setSuccess(true)
 
-        setUser({
-          ...user,
-          teams: [
-            ...(user?.teams || []),
-            {
-              team: response?.doc,
-              // roles: TODO: add the user's roles within this team
-            },
-          ],
-        })
-
         if (typeof onCreate === 'function') onCreate(response?.doc)
 
         if (redirectAfterCreate) router.push(`/cloud/${response?.doc?.slug}`)
@@ -110,7 +92,7 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
         }
       }
     },
-    [onCreate, user, drawerSlug, setUser, router, closeDrawer, redirectAfterCreate],
+    [onCreate, user, drawerSlug, router, closeDrawer, redirectAfterCreate],
   )
 
   const isOpen = modalState[drawerSlug]?.isOpen
@@ -118,46 +100,42 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
   if (!isOpen) return null
 
   return (
-    <ArrayProvider>
-      <div className="list-drawer__content">
+    <div className="list-drawer__content">
+      <div className={classes.formState}>
         {success && <p className="">Team created successfully, now redirecting...</p>}
-        {error && (
-          <div className={classes.error}>
-            <p>{error?.message}</p>
-          </div>
-        )}
+        {error && <p className={classes.error}>{error?.message}</p>}
         {loading && <p className="">Creating team...</p>}
-        <Form
-          onSubmit={handleSubmit}
-          className={classes.form}
-          errors={error?.data}
-          initialState={{
-            name: {
-              initialValue: 'My Team',
-              value: 'My Team',
-            },
-            slug: {
-              initialValue: 'my-team',
-              value: 'my-team',
-            },
-            members: {
-              initialValue: [
-                {
-                  email: '',
-                  role: 'user',
-                },
-              ],
-            },
-          }}
-        >
-          <Text path="name" required label="Name" />
-          <Text path="slug" required label="Slug" description="Slug must be unique." />
-          <TeamInvites />
-          <div>
-            <Submit label="Create Team" className={classes.submit} />
-          </div>
-        </Form>
       </div>
-    </ArrayProvider>
+      <Form
+        onSubmit={handleSubmit}
+        className={classes.form}
+        errors={error?.data}
+        initialState={{
+          name: {
+            initialValue: 'My Team',
+            value: 'My Team',
+          },
+          slug: {
+            initialValue: 'my-team',
+            value: 'my-team',
+          },
+          sendEmailInvitationsTo: {
+            initialValue: [
+              {
+                email: '',
+                roles: ['user'],
+              },
+            ],
+          },
+        }}
+      >
+        <Text path="name" required label="Name" />
+        <Text path="slug" required label="Slug" description="Slug must be unique." />
+        <TeamInvitations />
+        <div>
+          <Submit label="Create Team" className={classes.submit} />
+        </div>
+      </Form>
+    </div>
   )
 }

@@ -1,14 +1,14 @@
 import React from 'react'
 import { AddArrayRow, ArrayRow } from '@forms/fields/Array'
-import { useArray } from '@forms/fields/Array/context'
+import { ArrayProvider, useArray } from '@forms/fields/Array/context'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 
 import { BorderBox } from '@root/app/_components/BorderBox'
 
-import classes from './TeamInvites.module.scss'
+import classes from './TeamInvitations.module.scss'
 
-export const TeamInvites: React.FC<{
+const Invites: React.FC<{
   className?: string
 }> = ({ className }) => {
   const { uuids } = useArray()
@@ -16,21 +16,24 @@ export const TeamInvites: React.FC<{
   return (
     <BorderBox className={[classes.teamInvites, className].filter(Boolean).join(' ')}>
       <h6 className={classes.title}>Team members</h6>
-      <p className={classes.description}>Invite others to join your team (or do this later).</p>
-
+      <p className={classes.description}>Invite others to join your team.</p>
       <div className={classes.invites}>
         {uuids?.map((uuid, index) => {
           return (
             <ArrayRow key={uuid} index={index} allowRemove>
               <Text
                 label="Email address"
-                path={`members.${index}.email`}
+                path={`sendEmailInvitationsTo.${index}.email`}
                 className={classes.arrayRowField}
               />
               <Select
-                label="Role"
-                path={`members.${index}.role`}
+                label="Roles"
+                path={`sendEmailInvitationsTo.${index}.roles`}
                 options={[
+                  {
+                    label: 'Owner',
+                    value: 'owner',
+                  },
                   {
                     label: 'Admin',
                     value: 'admin',
@@ -40,15 +43,22 @@ export const TeamInvites: React.FC<{
                     value: 'user',
                   },
                 ]}
+                isMulti
                 className={classes.arrayRowField}
-                initialValue="user"
               />
             </ArrayRow>
           )
         })}
       </div>
-
       <AddArrayRow />
     </BorderBox>
+  )
+}
+
+export const TeamInvitations = () => {
+  return (
+    <ArrayProvider>
+      <Invites />
+    </ArrayProvider>
   )
 }
