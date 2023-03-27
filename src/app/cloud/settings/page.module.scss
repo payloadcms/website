@@ -4,6 +4,14 @@
     margin: 0;
 }
 
+.error {
+    color: var(--theme-error-500);
+}
+
+.formState {
+    margin-top: var(--base);
+}
+
 .form {
     margin-top: calc(var(--base));
     
