@@ -36,21 +36,25 @@ export type Answer = {
 }
 
 export type DiscussionProps = {
-  title: string
-  id: string
-  author: Author
-  answer?: Answer
-  body: string
-  createdAt: DateFromSource
-  url: string
-  commentTotal: number
-  upvotes: number
-  comments: Comment[]
-  slug: string
+  communityHelpJSON: {
+    title: string
+    id: string
+    author: Author
+    answer?: Answer
+    body: string
+    createdAt: DateFromSource
+    url: string
+    commentTotal: number
+    upvotes: number
+    comments: Comment[]
+    slug: string
+  }
 }
 
 export const RenderDiscussion: React.FC<DiscussionProps> = props => {
-  const { title, answer, author, body, createdAt, url, comments, commentTotal, upvotes, id } = props
+  const { communityHelpJSON } = props
+
+  const { title, answer, author, body, createdAt, url, comments, commentTotal, upvotes, id } = communityHelpJSON
 
   const theme = useTheme()
 

@@ -1,11 +1,12 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
-import { getThread, getAllThreads } from '../../api'
 import { RenderThread } from './render'
+import { fetchCommunityHelp, fetchCommunityHelps } from '@root/graphql'
 
 const Thread = async ({ params }) => {
   const { thread: slug } = params
-  const thread = await getThread(slug)
+
+  const thread = await fetchCommunityHelp(slug)
 
   if (!thread) return notFound()
 
@@ -15,7 +16,7 @@ const Thread = async ({ params }) => {
 export default Thread
 
 export async function generateStaticParams() {
-  const threads = await getAllThreads()
+  const fetchedThreads = await fetchCommunityHelps()
 
-  return threads?.map(({ slug }) => slug) ?? []
+  return fetchedThreads?.map(({ slug }) => slug) ?? []
 }

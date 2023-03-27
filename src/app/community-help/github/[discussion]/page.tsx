@@ -1,11 +1,11 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
-import { getDiscussion, getAllDiscussions } from '../../api'
 import { RenderDiscussion } from './render'
+import { fetchCommunityHelp, fetchCommunityHelps } from '@root/graphql'
 
 const Discussion = async ({ params }) => {
   const { discussion: slug } = params
-  const discussion = await getDiscussion(slug)
+  const discussion = await await fetchCommunityHelp(slug)
 
   if (!discussion) return notFound()
 
@@ -15,6 +15,6 @@ const Discussion = async ({ params }) => {
 export default Discussion
 
 export async function generateStaticParams() {
-  const discussions = await getAllDiscussions()
+  const discussions = await fetchCommunityHelps()
   return discussions?.map(({ slug }) => slug) ?? []
 }
