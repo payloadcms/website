@@ -23,7 +23,7 @@ import { META_FIELDS } from './meta'
 
 export const PAGES = `
   query Pages {
-    Pages(limit: 300) {
+    Pages(limit: 300, where: { slug: { notEquals: "cloud" } }) {
       docs {
         slug
         breadcrumbs {

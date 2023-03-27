@@ -14,7 +14,7 @@ import { useGetProjects } from '@root/utilities/use-cloud'
 
 import classes from './index.module.scss'
 
-export const Dashboard: React.FC = () => {
+export default () => {
   const [selectedTeam, setSelectedTeam] = React.useState<string | 'none'>()
   const [search, setSearch] = React.useState<string>('')
 

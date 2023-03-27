@@ -8,7 +8,8 @@ export const useAuthRedirect = (): string | void => {
   const { user } = useAuth()
   const pathname = usePathname()
 
-  if (user === null) {
+  // let `cloud` through, we will manually handle that within the cloud layout
+  if (pathname !== '/cloud' && user === null) {
     redirect(`/login?redirect=${encodeURIComponent(pathname || '')}`)
   }
 

@@ -1,8 +1,7 @@
 import React from 'react'
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 
 import { fetchPage, fetchPages } from '../../../graphql'
-import { CloudLanding } from './CloudLanding'
 import { PageContent } from './PageContent'
 
 const Page = async ({ params: { slug } }) => {
@@ -10,11 +9,7 @@ const Page = async ({ params: { slug } }) => {
 
   if (!page) return notFound()
 
-  if (slug?.[0] === 'cloud') {
-    return <CloudLanding page={page} />
-  }
-
-  return <PageContent page={page} />
+  return <PageContent page={page} slug={slug} />
 }
 
 export default Page
