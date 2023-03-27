@@ -1,23 +1,20 @@
 import React from 'react'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
-import Meta from '@components/Meta'
-import { Hero } from '../../../components/Hero'
-import { RenderBlocks } from '../../../components/RenderBlocks'
 import { fetchPage, fetchPages } from '../../../graphql'
+import { CloudLanding } from './CloudLanding'
+import { PageContent } from './PageContent'
 
 const Page = async ({ params: { slug } }) => {
   const page = await fetchPage(slug)
 
   if (!page) return notFound()
 
-  return (
-    <React.Fragment>
-      <Meta title={page.meta?.title} description={page.meta?.description} slug={slug} />
-      <Hero page={page} />
-      <RenderBlocks blocks={page.layout} />
-    </React.Fragment>
-  )
+  if (slug?.[0] === 'cloud') {
+    return <CloudLanding page={page} />
+  }
+
+  return <PageContent page={page} />
 }
 
 export default Page

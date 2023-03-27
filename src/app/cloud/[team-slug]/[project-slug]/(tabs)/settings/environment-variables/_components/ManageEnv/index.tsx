@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Accordion } from '@cloud/_components/Accordion'
 import { Collapsible } from '@faceless-ui/collapsibles'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text'
@@ -10,6 +9,7 @@ import Submit from '@forms/Submit'
 import { Button } from '@components/Button'
 import { Heading } from '@components/Heading'
 import { ModalWindow } from '@components/ModalWindow'
+import { Accordion } from '@root/app/cloud/_components/Accordion'
 import { useRouteData } from '@root/app/cloud/context'
 import { validateKey, validateValue } from '../validations'
 

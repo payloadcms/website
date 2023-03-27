@@ -28,7 +28,7 @@
         "./src/components/*"
       ],
       "@cloud/*": [
-        "./src/app/cloud/*"
+        "src/app/cloud/*"
       ],
       "@forms/*": [
         "./src/forms/*"
@@ -77,7 +77,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "/Users/jacobfletcher/dev/payload/website/.next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
