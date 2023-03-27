@@ -19,14 +19,15 @@
 }
 
 .searchInput {
-  @include label;
-  font-family: inherit;
+  font-family: var(--font-body);
+  font-size: calc(var(--font-body-size) * 0.925);
+  letter-spacing: 1px;
   flex-grow: 1;
   height: calc(var(--base) * 2);
   margin-right: calc(var(--base) * 0.5);
-
+  text-transform: none;
+  
   &::placeholder {
-    @include label;
     color: black;
   }
 
@@ -38,10 +39,6 @@
 .searchIcon {
   display: flex;
   align-items: center;
-}
-
-.searchIcon {
-  margin-right: var(--base);
 }
 
 :global([data-theme="light"]) {

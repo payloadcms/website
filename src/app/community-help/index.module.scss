@@ -65,11 +65,11 @@
 
 .upvotes {
   display: flex;
-  align-items: center;
   justify-content: flex-end;
   color: var(--theme-elevation-500);
   margin-left: var(--base);
   flex-shrink: 0;
+  line-height: 42px;
 
   & svg {
     width: calc(var(--base) * .75);
@@ -78,6 +78,14 @@
 
   & span:not(:last-child) {
     padding-right: var(--base);
+  }
+
+  @include mid-break {
+    line-height: 32px;
+  }
+
+  @include small-break {
+    line-height: 24px;
   }
 }
 

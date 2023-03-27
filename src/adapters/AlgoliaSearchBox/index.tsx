@@ -36,7 +36,7 @@ export const AlgoliaSearchBox: React.FC<{
   )
 
   useEffect(() => {
-    if (debouncedInput.length >= 3) {
+    if (debouncedInput.length >= 0) {
       refine(debouncedInput)
     }
   }, [debouncedInput, refine])
