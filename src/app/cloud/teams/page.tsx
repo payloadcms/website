@@ -24,7 +24,13 @@ export default () => {
         <Gutter className={classes.content}>
           {!hasTeams && (
             <div className={classes.noTeams}>
-              <p>You don't have any teams yet. Create a new team to get started.</p>
+              <p>
+                {`You are not a member of any teams. `}
+                <TeamDrawerToggler className={classes.createTeamLink}>
+                  Create a new team
+                </TeamDrawerToggler>
+                {' to get started.'}
+              </p>{' '}
             </div>
           )}
           {hasTeams && (

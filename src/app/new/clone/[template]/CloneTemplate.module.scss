@@ -25,9 +25,18 @@
     }
 }
 
-.error {
-    margin-top: var(--base);
+
+.errors {
+    margin-bottom: calc(var(--base) * 2);
     color: var(--theme-error-500);
+
+    & > * {
+        margin: 0;
+
+        &:not(:last-child) {
+            margin-bottom: calc(var(--base) / 2);
+        }
+    }
 }
 
 .projectInfo {

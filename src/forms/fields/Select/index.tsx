@@ -81,7 +81,7 @@ export const Select: React.FC<{
     const initialValue = valueFromContext || initialValueFromProps
 
     if (Array.isArray(initialValue)) {
-      return options?.filter(item => initialValue.some(item.value)) || []
+      return options?.filter(item => initialValue?.some(item.value)) || []
     }
 
     return options?.find(item => item.value === initialValue) || null

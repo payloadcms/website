@@ -142,12 +142,12 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
   return (
     <Fragment>
       <Gutter>
-        <div>
-          {errorDeploying && <p className={classes.error}>{errorDeploying}</p>}
-          {installsError && <p className={classes.error}>{installsError}</p>}
-          {paymentIntentError && <p className={classes.error}>{paymentIntentError}</p>}
-          {isDeploying && <p className={classes.submitting}>Submitting, one moment...</p>}
+        <div className={classes.errors}>
+          {errorDeploying && <p>{errorDeploying}</p>}
+          {installsError && <p>{installsError}</p>}
+          {paymentIntentError && <p>{paymentIntentError}</p>}
         </div>
+        {isDeploying && <p className={classes.submitting}>Submitting, one moment...</p>}
         <Grid>
           <Cell cols={3} colsM={8} className={classes.sidebarCell}>
             <div className={classes.sidebar}>
