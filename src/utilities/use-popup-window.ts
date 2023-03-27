@@ -1,15 +1,21 @@
 import { useCallback, useEffect } from 'react'
+import type { ReadonlyURLSearchParams } from 'next/navigation'
 
 export interface PopupMessage {
   type: string
-  searchParams: any // eslint-disable-line @typescript-eslint/no-explicit-any
+  searchParams: {
+    code: string
+    installation_id: string
+    state: string
+    [key: string]: string | ReadonlyURLSearchParams | undefined
+  }
 }
 
 export const usePopupWindow = (props: {
   href: string
   eventType?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onMessage?: (searchParams: any) => Promise<void> // eslint-disable-line no-unused-vars
+  onMessage?: (searchParams: PopupMessage['searchParams']) => Promise<void>
 }): {
   openPopupWindow: (e: React.MouseEvent<HTMLAnchorElement>) => void
 } => {

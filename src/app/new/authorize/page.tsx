@@ -37,9 +37,7 @@ const Authorize: React.FC = () => {
   const { openPopupWindow } = usePopupWindow({
     href,
     eventType: 'github',
-    onMessage: async ({ code }) => {
-      await exchangeCode(code)
-    },
+    onMessage: async ({ code }) => exchangeCode(code),
   })
 
   if (tokenIsValid) {
