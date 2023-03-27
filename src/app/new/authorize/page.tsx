@@ -8,6 +8,7 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import { useCheckToken } from '@root/utilities/use-check-token'
 import { useExchangeCode } from '@root/utilities/use-exchange-code'
 import { usePopupWindow } from '@root/utilities/use-popup-window'
@@ -21,6 +22,8 @@ const href = `https://github.com/login/oauth/authorize?client_id=${
 )}&state=${encodeURIComponent(`/new/import`)}`
 
 const Authorize: React.FC = () => {
+  useAuthRedirect()
+
   const params = useSearchParams()
   const { error: exchangeError, hasExchangedCode, exchangeCode } = useExchangeCode()
 
