@@ -58,12 +58,14 @@ const ForgotPassword: React.FC = () => {
           type: 'REPLACE_STATE',
           state: initialFormState,
         })
+
         setError(null)
         setSuccessfullySubmitted(true)
         return
       } catch (err) {
         setError(err.message)
       }
+
       setSuccessfullySubmitted(false)
     },
     [setError, setSuccessfullySubmitted],
@@ -77,11 +79,9 @@ const ForgotPassword: React.FC = () => {
             <Heading marginTop={false} element="h2" as="h5">
               <Highlight text="Hang on" appearance="danger" />
             </Heading>
-
             <Heading marginTop={false} element="p" as="h6">
               You are already logged in.
             </Heading>
-
             <div className={classes.formFooter}>
               <Button label="Log out" size="small" onClick={logout} appearance="primary" />
               <Button label="Dashboard" size="small" href="/cloud" appearance="secondary" />
@@ -103,7 +103,6 @@ const ForgotPassword: React.FC = () => {
             <Heading marginTop={false} element="p" as="h6">
               We have sent you an email with a link to reset your password. Please check your inbox.
             </Heading>
-
             <div className={classes.formFooter}>
               <div>
                 {`Ready to login? `}
@@ -118,7 +117,6 @@ const ForgotPassword: React.FC = () => {
           <Heading marginTop={false} element="h1" as="h3">
             Forgot password
           </Heading>
-
           {error && <div className={classes.error}>{error}</div>}
           <BorderBox className={classes.borderBox}>
             <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
@@ -127,7 +125,6 @@ const ForgotPassword: React.FC = () => {
                 <Submit label="Recover" className={classes.submit} />
               </div>
             </Form>
-
             <div className={classes.formFooter}>
               <div>
                 {`Already have an account? `}

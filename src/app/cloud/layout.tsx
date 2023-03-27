@@ -1,7 +1,7 @@
 'use client'
 
 import { Fragment } from 'react'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
@@ -15,9 +15,12 @@ import Dashboard from './Dashboard'
 export const cloudSlug = 'cloud'
 
 const DashboardHeader = () => {
+  const searchParams = useSearchParams()
   const { team, project } = useRouteData()
   const pathname = usePathname()
   let segments = usePathnameSegments()
+
+  const message = searchParams?.get('message')
 
   // optional `tabLabel` and `crumbLabel` properties determine
   // where whether the item is rendered in the breadcrumbs or tabs, or both
@@ -105,6 +108,7 @@ const DashboardHeader = () => {
   return (
     <Fragment>
       <Gutter>
+        {message && <p>{message}</p>}
         <Breadcrumbs
           items={segments.reduce((acc: Breadcrumb[], segment) => {
             const lowercaseSegment = segment.toLowerCase()

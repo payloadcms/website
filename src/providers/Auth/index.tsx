@@ -42,7 +42,7 @@ const USER = `
 
 const Context = createContext({} as AuthContext)
 
-const CLOUD_CONNECTION_ERROR = 'An error occurred while attempting to connect to Cloud CMS.'
+const CLOUD_CONNECTION_ERROR = 'An error occurred while attempting to connect to Payload Cloud'
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null | undefined>(undefined)
@@ -77,7 +77,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       throw new Error('Invalid login')
     } catch (e) {
-      throw new Error(CLOUD_CONNECTION_ERROR)
+      throw new Error(`${CLOUD_CONNECTION_ERROR}: ${e.message}`)
     }
   }, [])
 
@@ -102,7 +102,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         throw new Error('An error occurred while attempting to logout.')
       }
     } catch (e) {
-      throw new Error(CLOUD_CONNECTION_ERROR)
+      throw new Error(`${CLOUD_CONNECTION_ERROR}: ${e.message}`)
     }
   }, [])
 
@@ -138,7 +138,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       } catch (e) {
         setUser(null)
-        throw new Error(CLOUD_CONNECTION_ERROR)
+        throw new Error(`${CLOUD_CONNECTION_ERROR}: ${e.message}`)
       }
     }
 
@@ -173,7 +173,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         throw new Error('Invalid login')
       }
     } catch (e) {
-      throw new Error(CLOUD_CONNECTION_ERROR)
+      throw new Error(`${CLOUD_CONNECTION_ERROR}: ${e.message}`)
     }
   }, [])
 
@@ -187,11 +187,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         },
         body: JSON.stringify({
           query: `mutation {
-              resetPasswordUser(password: "${args.password}", passwordConfirm: "${args.passwordConfirm}", token: "${args.token}") {
+              resetPasswordUser(password: "${args.password}", token: "${args.token}") {
                 user {
                   ${USER}
                 }
-                exp
               }
             }`,
         }),
@@ -200,12 +199,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (res.ok) {
         const { data, errors } = await res.json()
         if (errors) throw new Error(errors[0].message)
-        setUser(data?.loginUser?.user)
+        setUser(data?.resetPasswordUser?.user)
       } else {
         throw new Error('Invalid login')
       }
     } catch (e) {
-      throw new Error(CLOUD_CONNECTION_ERROR)
+      throw new Error(`${CLOUD_CONNECTION_ERROR}: ${e.message}`)
     }
   }, [])
 
