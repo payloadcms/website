@@ -33,33 +33,45 @@ export const useCheckToken = (props?: {
         setLoading(true)
       }, 250)
 
-      const checkToken = async () => {
-        const reposReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            route: `GET /user`,
-          }),
-        })
+      try {
+        const checkToken = async () => {
+          const reposReq = await fetch(
+            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`,
+            {
+              method: 'POST',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                route: `GET /user`,
+              }),
+            },
+          )
 
-        const res = await reposReq.json()
+          const res = await reposReq.json()
 
-        if (reposReq.ok) {
-          setIsTokenValid(true)
-          setError(undefined)
-        } else {
-          setError(res.error)
+          if (reposReq.ok) {
+            setIsTokenValid(true)
+            setError(undefined)
+          } else {
+            console.error(res.error) // eslint-disable-line no-console
+            setError(res.error)
+          }
+
+          clearTimeout(timeout)
+          setLoading(false)
         }
 
+        checkToken()
+      } catch (err) {
+        console.error(err) // eslint-disable-line no-console
+        setError(err.message)
         clearTimeout(timeout)
         setLoading(false)
       }
-
-      checkToken()
     }
+
     return () => {
       clearTimeout(timeout)
     }

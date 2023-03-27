@@ -2,6 +2,8 @@ import React, { useCallback, useRef } from 'react'
 
 import { useAuth } from '@root/providers/Auth'
 
+const logs = process.env.NEXT_PUBLIC_LOGS_GITHUB === '1'
+
 export const useExchangeCode = (): {
   error: string
   hasExchangedCode: boolean
@@ -31,10 +33,10 @@ export const useExchangeCode = (): {
 
             if (res.ok) {
               setHasExchangedCode(true)
-
-              // do more async stuff
             } else {
-              setError(`Unable to authorize GitHub: ${body.error}`)
+              const message = `Unable to authorize GitHub: ${body.error}`
+              console.error(message) // eslint-disable-line no-console
+              setError(message)
             }
           } catch (err) {
             console.error(err) // eslint-disable-line no-console
