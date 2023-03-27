@@ -16,14 +16,14 @@ export const usePopupWindow = (props: {
   const { href, onMessage, eventType } = props
 
   useEffect(() => {
-    const receiveMessage = (event: MessageEvent): void => {
+    const receiveMessage = async (event: MessageEvent): Promise<void> => {
       if (event.origin !== window.location.origin) {
         console.warn(`Message received by ${event.origin}; IGNORED.`) // eslint-disable-line no-console
         return
       }
 
       if (typeof onMessage === 'function' && event.data?.type === eventType) {
-        onMessage(event.data?.searchParams)
+        await onMessage(event.data?.searchParams)
       }
     }
 

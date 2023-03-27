@@ -7,7 +7,7 @@ const logs = process.env.NEXT_PUBLIC_LOGS_GITHUB === '1'
 export const useExchangeCode = (): {
   error: string
   hasExchangedCode: boolean
-  exchangeCode: (code?: string) => void // eslint-disable-line no-unused-vars
+  exchangeCode: (code?: string) => Promise<void> // eslint-disable-line no-unused-vars
 } => {
   const { user } = useAuth()
   const hasRequestedGithub = useRef(false)
@@ -15,7 +15,7 @@ export const useExchangeCode = (): {
   const [hasExchangedCode, setHasExchangedCode] = React.useState(false)
 
   const exchangeCode = useCallback(
-    (code: string) => {
+    async (code: string) => {
       if (user && code && !hasRequestedGithub.current) {
         hasRequestedGithub.current = true
 

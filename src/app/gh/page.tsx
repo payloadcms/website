@@ -6,14 +6,19 @@ import { PopupMessage } from '@root/utilities/use-popup-window'
 
 export default ({ searchParams }) => {
   useEffect(() => {
-    if (window.opener == null) window.close()
-    const message: PopupMessage = {
-      type: 'github',
-      searchParams,
+    const doHandleMessage = async () => {
+      if (window.opener == null) window.close()
+
+      const message: PopupMessage = {
+        type: 'github',
+        searchParams,
+      }
+
+      await window.opener.postMessage(message)
+      window.close()
     }
 
-    window.opener.postMessage(message)
-    window.close()
+    doHandleMessage()
   }, [searchParams])
 
   return null

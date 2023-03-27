@@ -38,7 +38,7 @@ const Authorize: React.FC = () => {
     href,
     eventType: 'github',
     onMessage: async ({ code }) => {
-      exchangeCode(code)
+      await exchangeCode(code)
     },
   })
 
