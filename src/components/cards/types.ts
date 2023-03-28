@@ -10,6 +10,8 @@ export interface SharedProps {
 export interface SquareCardProps extends SharedProps {
   leader?: string
   link: CMSLinkType
+
+  appearance?: 'pricing'
 }
 
 export interface BlogCardProps extends SharedProps {

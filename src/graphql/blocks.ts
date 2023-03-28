@@ -209,6 +209,25 @@ export const MEDIA_CONTENT = `
 }
 `
 
+export const PRICING_BLOCK = `
+...on Pricing {
+  blockType
+  pricingFields {
+    plans {
+      name
+      price
+      description
+      enableLink
+      link ${LINK_FIELDS({ disableAppearance: true, disableLabel: true })}
+      features {
+        icon
+        feature
+      }
+    }
+  }
+}
+`
+
 export const SLIDER = `
 ...on Slider {
   blockType

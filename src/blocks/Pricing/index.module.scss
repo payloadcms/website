@@ -1,0 +1,192 @@
+@use "@scss/common" as *;
+
+.pricingBlock {
+    position: relative;
+}
+
+.bg {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: calc(100% + var(--gutter-h));
+    height: calc(100% - var(--gutter-h));
+    margin: var(--gutter-h) 0 0 calc(var(--gutter-h) / -2);
+    overflow: hidden;
+
+    &:before {
+        content: "";
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: calc(var(--base) * 3);
+        background-color: var(--color-base-1000);
+    }
+}
+
+.wrap {
+    position: relative;
+    padding: calc(var(--base) * 4) 0;
+}
+
+.planWrap {
+    &:first-child {
+        .card {
+            & path {
+                stroke: white;
+            }
+        }
+    }
+
+    &:nth-child(2) {
+        .card {
+            color: var(--color-base-950);
+            border-color: var(--color-base-950);
+
+            & div {
+                background-color: var(--color-success-400);
+            }
+
+            & span {
+                z-index: 1;
+            }
+
+
+            & path {
+                stroke: var(--color-base-950);
+            }
+        }
+    }
+
+    &:nth-child(3) {
+        .card {
+            color: var(--color-success-400);
+            border-color: var(--color-success-400);
+        }
+    }
+
+    &:hover {
+        .card {
+            & path {
+                opacity: 0.8;
+            }
+
+        }
+    }
+}
+
+.features {
+    list-style: none;
+    margin: calc(var(--base) * 2.5) 0;
+    padding: 0;
+
+    .feature {
+        margin: var(--base) 0;
+        display: flex;
+    }
+
+    .check,
+    .x {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        flex-shrink: 0;
+        width: calc(var(--base) * 1.5);
+        height: calc(var(--base) * 1.5);
+        margin-right: calc(var(--base) * 1.5);
+        justify-items: center;
+    }
+
+    .check {
+        border: 1px solid var(--color-success-500);
+
+        & svg {
+            color: var(--color-success-500);
+            width: 100%;
+            height: 100%;
+
+            & path {
+                stroke-width: 1px;
+            }
+        }
+    }
+
+    .x {
+        border: 1px solid var(--color-error-500);
+
+        & svg {
+            color: var(--color-error-500);
+            width: 80%;
+            height: 80%;
+
+            & rect {
+                height: 1.5px;
+            }
+        }
+    }
+}
+
+.toggler {
+    display: none;
+}
+
+.collapsibleList {
+    display: none;
+}
+
+@include large-break {
+    .wrap {
+        padding-bottom: 0;
+    }
+
+    .bg {
+        top: var(--gutter-h);
+        margin-left: calc(var(--gutter-h) * -1);
+        width: calc(100% + (var(--gutter-h) * 2));
+
+        &:before {
+            margin: calc(var(--base) * 4) calc(var(--base) * 2);
+        }
+    }
+}
+
+@include mid-break {
+    .wrap {
+        padding: calc(var(--base) * 2) calc(var(--base) * 2);
+    }
+
+    .bg {
+        height: calc(100% + var(--gutter-h));
+    }
+
+    .toggler,
+    .collapsibleList {
+        display: unset;
+    }
+
+    .list {
+        display: none;
+    }
+
+    .toggler {
+        background-color: transparent;
+        border: none;
+        margin: calc(var(--base)*0.25) 0;
+    }
+
+    .chevron {
+        transform: rotate(90deg);
+
+        & path {
+            stroke-width: 1px;
+        }
+    }
+
+    .chevron.open {
+        transform: rotate(-90deg);
+    }
+}

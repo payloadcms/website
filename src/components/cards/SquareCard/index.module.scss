@@ -23,7 +23,7 @@
             .description {
                 opacity: 1;
             }
-            
+
             .arrow {
                 opacity: 1;
             }
@@ -32,7 +32,7 @@
                 transform: translate3d(0, 0, 0);
                 opacity: 1;
             }
-        
+
             .leader {
                 opacity: 0;
             }
@@ -129,7 +129,7 @@
     margin: 0 !important;
 
     @include extra-large-break {
-      @include h6;
+        @include h6;
     }
 
     @include mid-break {
@@ -153,7 +153,8 @@
     }
 }
 
-.noLink {
+.noLink,
+.pricing {
     color: var(--color-base-0);
 
     &:local() {
@@ -174,7 +175,7 @@
             transform: translate3d(0, 0, 0);
             opacity: 1;
         }
-    
+
         .leader {
             opacity: 1;
         }
@@ -198,6 +199,108 @@
             .arrow {
                 opacity: 0;
             }
+        }
+    }
+}
+
+.pricing {
+    .bg {
+        background-color: var(--color-base-900);
+    }
+
+    .title {
+        @include h1;
+        position: relative;
+
+        &:after {
+            @include h5;
+            content: '/mo';
+            position: absolute;
+            margin: 0;
+            bottom: 0;
+        }
+    }
+
+    .titleWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .content,
+    .titleWrapper {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .content {
+        transform: translate3d(0, 0, 0);
+        padding: 0;
+        position: unset;
+    }
+
+    .description {
+        @include h6;
+        position: unset;
+        margin-bottom: 0;
+    }
+
+    .arrow {
+        position: absolute;
+        opacity: 1;
+        margin: calc(var(--base) * 2);
+        top: 0;
+        right: 0;
+        width: var(--base);
+        height: var(--base);
+    }
+
+    &:hover {
+        &:local() {
+            .content {
+                transform: translate3d(0, 0, 0);
+            }
+
+            .arrow,
+            .leader {
+                opacity: 1;
+            }
+        }
+    }
+
+    @include extra-large-break {
+        .description {
+            font-size: unset;
+            line-height: 1.5;
+        }
+    }
+
+    @include large-break {
+        aspect-ratio: unset;
+        min-height: calc(var(--base) * 20);
+        height: calc(var(--base) * 20);
+
+    }
+
+    @include mid-break {
+        min-height: unset;
+        height: unset;
+
+        .spacer {
+            display: none;
+        }
+
+        .title {
+            padding-top: var(--base);
+            font-size: calc(var(--base)*2.5);
+
+            &:after {
+                margin: 0;
+            }
+        }
+
+        .description {
+            margin-bottom: 0;
         }
     }
 }
