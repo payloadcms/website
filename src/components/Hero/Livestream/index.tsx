@@ -63,11 +63,8 @@ export const LivestreamHero: React.FC<
                   guests.map(({ name, link, image }, i) => {
                     return (
                       <a className={classes.guestWrap} key={i} href={link || '/'} target="_blank">
-                        {image && (
-                          <img
-                            src={`${process.env.NEXT_PUBLIC_CMS_URL}
-                            ${typeof image === 'string' ? image : image.url}`}
-                          />
+                        {image && typeof image !== 'string' && (
+                          <img src={`${process.env.NEXT_PUBLIC_CMS_URL}${image.url}`} />
                         )}
                         {name && name}
                       </a>
