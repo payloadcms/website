@@ -1,0 +1,14 @@
+@use '@scss/common' as *;
+
+.borderBox {
+  padding: calc(var(--base) * 1.25);
+  border: 1px solid var(--theme-border-color); 
+
+  @include mid-break {
+    padding: calc(var(--base) * .75);
+  }
+}
+
+.padding--large {
+  padding: calc(var(--base) * 1.75);
+}

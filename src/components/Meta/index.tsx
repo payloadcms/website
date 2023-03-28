@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+
 import { Media } from '@root/payload-types'
 
 export type MetaType = {

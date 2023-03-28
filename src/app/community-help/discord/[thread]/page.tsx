@@ -1,6 +1,7 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
-import { getThread, getAllThreads } from '../../api'
+
+import { getAllThreads, getThread } from '../../api'
 import { RenderThread } from './render'
 
 const Thread = async ({ params }) => {
@@ -16,6 +17,9 @@ export default Thread
 
 export async function generateStaticParams() {
   const threads = await getAllThreads()
-
-  return threads?.map(({ slug }) => slug) ?? []
+  return (
+    threads?.map(thread => ({
+      thread: thread.slug,
+    })) ?? []
+  )
 }

@@ -1,11 +1,12 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
+
 import { Banner } from '@components/Banner'
 import { Gutter } from '@components/Gutter'
 import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@root/providers/Theme'
-import Link from 'next/link'
 import { ThreadProps } from './discord/[thread]/render'
 import { DiscussionProps } from './github/[discussion]/render'
 

@@ -13,7 +13,7 @@ function slugify(string: string): string {
       // Remove all non-word characters
       .replace(/[^\w\-]+/g, '') // eslint-disable-line
       // replace multiple - with single -
-    .replace(/\-\-+/g, '-') // eslint-disable-line 
+      .replace(/\-\-+/g, '-') // eslint-disable-line
       .replace(/^-+/, '') // Trim - from start of text
       .replace(/-+$/, '')
   ) // Trim - from end of text

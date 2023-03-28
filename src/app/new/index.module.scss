@@ -1,0 +1,40 @@
+@use '@scss/common' as *;
+
+.header {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: calc(var(--base) * 3);
+
+    @include mid-break {
+        margin-bottom: 0;
+        flex-wrap: wrap;
+    }
+}
+
+.description {
+    margin-bottom: 0;
+}
+
+.headerContent {
+    flex-grow: 1;
+    
+    @include mid-break {
+        margin-bottom: var(--base);
+    }
+}
+
+.callToAction {
+    @include shadow;
+    background-color: var(--theme-elevation-50);
+    padding: calc(var(--base) * 2);
+    position: relative;
+    width: calc(100% + var(--gutter-h));
+    left: calc(var(--gutter-h) * -0.5);
+
+    @include mid-break {
+        padding: calc(var(--base) * 1.5);
+        width: calc(100% + (var(--gutter-h) * 2));
+        left: calc(var(--gutter-h) * -1);
+    }
+}

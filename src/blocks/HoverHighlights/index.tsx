@@ -1,11 +1,13 @@
 import React from 'react'
-import { Page } from '@root/payload-types'
-import { Gutter } from '@components/Gutter'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { RichText } from '@components/RichText'
+
+import { Gutter } from '@components/Gutter'
 import { PixelBackground } from '@components/PixelBackground'
-import classes from './index.module.scss'
+import { RichText } from '@components/RichText'
+import { Page } from '@root/payload-types'
 import { HoverHighlight } from './HoverHighlight'
+
+import classes from './index.module.scss'
 
 export type HoverHighlightProps = Extract<Page['layout'][0], { blockType: 'hoverHighlights' }>
 

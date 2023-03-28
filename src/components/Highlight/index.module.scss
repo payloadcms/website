@@ -28,6 +28,13 @@
     transition: height cubic-bezier(0.4, 0, 0.2, 1) 500ms;
     transition-delay: 250ms;
   }
+
+}
+
+.danger {
+  .highlightNode:before {
+    background-color: var(--theme-error-150);
+  }
 }
 
 .doHighlight {
@@ -56,6 +63,22 @@
     .doHighlight {
       .label {
         color: var(--theme-success-600);
+      }
+    }
+  }
+
+  &.danger {
+    &:local() {
+      .highlightNode {
+        &::before {
+          background-color: var(--theme-error-100);
+        }
+      }
+
+      .doHighlight {
+        .label {
+          color: var(--theme-error-550);
+        }
       }
     }
   }

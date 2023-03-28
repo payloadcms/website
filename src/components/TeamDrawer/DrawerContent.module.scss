@@ -1,0 +1,15 @@
+@use "@scss/common" as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+}
+
+.error {
+  color: var(--theme-error-500);
+}
+
+.submit {
+  margin-top: calc(var(--base) * 1.5);
+}

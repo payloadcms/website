@@ -1,0 +1,23 @@
+@use '@scss/common' as *;
+
+.error {
+    color: var(--theme-error-500);
+}
+
+.cards {
+    > *:not(:last-child) {
+        margin-bottom: var(--base);
+    }
+}
+
+.addNew {
+    background-color: transparent;
+    border: 0;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    line-height: inherit;
+    font-size: inherit;
+    margin-top: var(--base);
+    cursor: pointer;
+}

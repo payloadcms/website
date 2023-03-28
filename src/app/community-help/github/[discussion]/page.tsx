@@ -1,6 +1,7 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
-import { getDiscussion, getAllDiscussions } from '../../api'
+
+import { getAllDiscussions, getDiscussion } from '../../api'
 import { RenderDiscussion } from './render'
 
 const Discussion = async ({ params }) => {
@@ -16,5 +17,9 @@ export default Discussion
 
 export async function generateStaticParams() {
   const discussions = await getAllDiscussions()
-  return discussions?.map(({ slug }) => slug) ?? []
+  return (
+    discussions?.map(discussion => ({
+      discussion: discussion.slug,
+    })) ?? []
+  )
 }
