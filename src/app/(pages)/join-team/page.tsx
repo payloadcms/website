@@ -1,37 +1,69 @@
-import { redirect } from 'next/navigation'
+'use client'
 
-export default async ({ searchParams }) => {
-  const { team } = searchParams
+import React, { useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 
-  if (team) {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/accept-invitation`,
-        {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      )
+import { Gutter } from '@components/Gutter'
+import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 
-      if (res.ok) {
-        const { data, errors } = await res.json()
-        if (errors) throw new Error(errors[0].message)
-      } else {
-        throw new Error('Invalid response from server')
+import classes from './index.module.scss'
+
+const JoinTeam: React.FC = () => {
+  useAuthRedirect()
+  const router = useRouter()
+
+  const searchParams = useSearchParams()
+
+  const team = searchParams?.get('team')
+
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (team) {
+      setLoading(true)
+
+      const fetchTeam = async () => {
+        try {
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team}/accept-invitation`,
+            {
+              method: 'POST',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            },
+          )
+
+          const { data, error } = await res.json()
+
+          if (res.status === 200) {
+            router.push(
+              `/cloud/${data?.team?.slug}?message=${encodeURIComponent(
+                `Success! You have joined the team ${data?.team?.name}`,
+              )}`,
+            )
+          } else {
+            throw new Error(error)
+          }
+        } catch (e: any) {
+          setError(`An error occurred while accepting team invitation: ${e.message}`)
+          setLoading(false)
+        }
       }
-    } catch (e) {
-      throw new Error(`Error accepting invitation: ${e.message}`)
+
+      fetchTeam()
     }
+  }, [team, router])
 
-    redirect(
-      `/cloud/${team?.slug}?message=${encodeURIComponent(
-        `Succeess! You have joined the team ${team?.name}`,
-      )}`,
-    )
-  }
-
-  return null
+  return (
+    <Gutter>
+      <h1>Join team</h1>
+      {error && <p className={classes.error}>{error}</p>}
+      {loading && <p className={classes.loading}>Loading...</p>}
+    </Gutter>
+  )
 }
+
+export default JoinTeam

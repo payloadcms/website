@@ -79,10 +79,6 @@ export const ImportProject: React.FC = () => {
             <Cell cols={4} colsM={8} className={classes.sidebarCell}>
               <div className={classes.sidebar}>
                 <ScopeSelector />
-                {/* <div>
-            <p className={classes.label}>Search</p>
-            <Text placeholder="Enter search term" />
-          </div> */}
                 <div>
                   <p>
                     {`Don't see your repository? `}

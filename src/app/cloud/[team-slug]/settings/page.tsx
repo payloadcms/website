@@ -16,7 +16,7 @@ import { useRouteData } from '../../context'
 import classes from './page.module.scss'
 
 export default () => {
-  const { team } = useRouteData()
+  const { team, setTeam } = useRouteData()
   const { user } = useAuth()
   const [error, setError] = React.useState<{
     message: string
@@ -72,9 +72,10 @@ export default () => {
 
         setLoading(false)
         setSuccess(true)
+        setTeam(response.doc)
       }
     },
-    [user, team],
+    [user, team, setTeam],
   )
 
   return (
@@ -83,9 +84,9 @@ export default () => {
         Team settings
       </Heading>
       <div className={classes.formState}>
-        {success && <p>Team updated successfully</p>}
+        {success && <p className={classes.success}>Team updated successfully!</p>}
         {error && <p className={classes.error}>{error?.message}</p>}
-        {loading && <p>Updating team...</p>}
+        {loading && <p className={classes.loading}>Updating team...</p>}
       </div>
       <Form
         onSubmit={handleSubmit}
