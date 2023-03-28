@@ -16,8 +16,9 @@ export const useGitAuthRedirect = (args?: {
 
   if (!loading && (tokenError || !tokenIsValid)) {
     const title = pageTitle ? `&title=${encodeURIComponent(pageTitle)}&scope=repo` : ''
+    const redirectURL = encodeURIComponent(window.location.pathname)
     redirect(
-      `/new/authorize?redirect=${encodeURIComponent(window.location.pathname)}${title}`,
+      `/new/authorize?redirect=${redirectURL}${title}`,
     )
   }
 
