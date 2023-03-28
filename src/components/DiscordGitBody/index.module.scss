@@ -1,0 +1,139 @@
+@use '@scss/common' as *;
+
+.Discord {
+  & p {
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  &>* {
+    &:not(pre) {
+      display: inline;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.GitHub {
+  & p {
+    margin-bottom: var(--base);
+  }
+}
+
+.body {
+  margin-top: var(--base);
+
+  :global(.ts) {
+    display: block;
+  }
+
+  img {
+    margin: 20px 0;
+  }
+
+  &>* {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  & div {
+    & p {
+      margin-bottom: 0;
+    }
+  }
+
+  & span,
+  & pre,
+  & code {
+    white-space: break-spaces;
+    line-break: anywhere;
+  }
+
+  & hr {
+    margin: var(--base) 0;
+  }
+
+  & code,
+  & pre {
+    background-color: var(--theme-elevation-100);
+    font-family: var(--font-mono);
+    font-size: calc(var(--font-body-size) * .825);
+    line-height: var(--base);
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    padding: calc(var(--base) * 0.15);
+  }
+
+  & pre {
+    background-color: var(--color-base-950);
+    padding: calc(var(--base) * 1.5);
+
+    code {
+      background: none;
+    }
+  }
+
+  & p>code {
+    color: var(--theme-elevation-900);
+  }
+
+  & h1 {
+    @include h3;
+  }
+
+  & h2 {
+    @include h4;
+  }
+
+  & h3 {
+    @include h5;
+  }
+
+  & h4 {
+    font-size: calc(var(--base) * 1.35);
+  }
+
+  & h5 {
+    font-size: calc(var(--base) * 1.25);
+  }
+
+  & h6 {
+    font-size: calc(var(--base) * 1.15);
+  }
+
+  & a {
+    color: var(--color-blue-600);
+    word-wrap: break-word;
+  }
+
+  & blockquote {
+    margin-left: 0;
+    padding-left: var(--base);
+    border-left: 2px solid var(--theme-elevation-300);
+  }
+
+  & strong {
+    @include small-break {
+      word-wrap: break-word;
+    }
+  }
+}
+
+:global([data-theme="light"]) {
+  .body {
+    & pre {
+      & code {
+        color: var(--theme-elevation-100);
+      }
+    }
+  }
+}

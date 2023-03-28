@@ -34,6 +34,7 @@ export const ErrorMessage: React.FC<{ error?: string }> = ({ error }) => {
           links: [
             {
               link: {
+                // @ts-expect-error
                 reference: undefined,
                 type: 'custom',
                 url: '/',

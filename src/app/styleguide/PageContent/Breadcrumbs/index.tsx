@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 
 export const StyleguideBreadcrumbs: React.FC<{
-  pageTitle: string
+  pageTitle?: string
 }> = ({ pageTitle }) => {
   return (
     <div

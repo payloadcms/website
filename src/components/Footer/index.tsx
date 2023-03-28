@@ -154,10 +154,12 @@ export const Footer: React.FC<FooterType> = props => {
             </Cell>
 
             <Cell cols={4} colsM={8}>
-              <p className={classes.copyright}>Copyright 2022 Payload CMS, Inc.</p>
+              <p
+                className={classes.copyright}
+              >{`Copyright ${new Date().getFullYear()} Payload CMS, Inc.`}</p>
             </Cell>
 
-            <Cell cols={5} colsM={8} className={classes.themeCell}>
+            <Cell cols={2} colsM={8} className={classes.themeCell}>
               <div className={classes.selectContainer}>
                 <label htmlFor="theme">
                   <div className={`${classes.switcherIcon} ${classes.themeIcon}`}>
@@ -181,6 +183,9 @@ export const Footer: React.FC<FooterType> = props => {
                   />
                 </label>
               </div>
+            </Cell>
+            <Cell cols={3} colsM={8} className={classes.communityHelp}>
+              <a href="/community-help">Community Help</a> (Beta)
             </Cell>
           </Grid>
         </Gutter>

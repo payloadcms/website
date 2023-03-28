@@ -5,7 +5,7 @@ import { useHeaderTheme } from '@providers/HeaderTheme'
 import classes from './index.module.scss'
 
 type Props = {
-  color: 'light' | 'dark'
+  color?: 'light' | 'dark' | null
   className?: string
   zIndex?: number
   children?: React.ReactNode

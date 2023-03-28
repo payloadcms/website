@@ -1,0 +1,151 @@
+@use '@scss/common' as *;
+
+.authorTag {
+  --byline-spacer :calc(var(--base) * .75);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.authorCell {
+  display: flex;
+  justify-content: space-between;
+}
+
+.authorName {
+  display: flex;
+}
+
+.authorDetails {
+  display: flex;
+  flex-direction: column;
+  color: var(--theme-elevation-900);
+}
+
+.authorImageWrap {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+
+  & img {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-right: calc(var(--base) * 0.75);
+    border: 1px solid var(--theme-elevation-100);
+    flex-shrink: 0;
+  }
+}
+
+.authorLink {
+  text-decoration: none;
+  display: flex;
+  color: var(--theme-text);
+}
+
+.teamTag {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.twitterIcon {
+  display: flex;
+  margin: 0 var(--byline-spacer) 0 var(--byline-spacer);
+}
+
+.commentMeta {
+  display: flex;
+  gap: var(--base);
+  @include label;
+}
+
+.isAnswer {
+  background: transparent;
+  color: var(--theme-success-400);
+  border: 1px solid;
+}
+
+.date {
+  @include label;
+  font-size: 13px;
+  color: var(--theme-elevation-500);
+  font-weight: normal;
+}
+
+.commentMetaStats {
+  display: flex;
+  gap: calc(var(--base) * 0.5);
+  align-items: flex-end;
+  color: var(--theme-elevation-500);
+  margin-top: calc(var(--base) * 0.5);
+
+  > span {
+    @include label;
+    color: var(--theme-elevation-300);
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 0 8px;
+    background-color: var(--theme-elevation-50);
+    height: 25px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  & svg {
+    width: calc(var(--base) * .75);
+  }
+}
+
+.comments {
+  height: 100%;
+  margin-left: calc(var(--base) * 1.25);
+  color: var(--color-base-300);
+
+  & svg {
+    width: calc(var(--base) * 0.75);
+    margin-right: calc(var(--base) * 0.25);
+  }
+
+  & span {
+    color: var(--theme-elevation-500);
+  }
+}
+
+:global([data-theme="light"]) {
+  .isAnswer {
+    background: transparent;
+    color: var(--color-success-850);
+  }
+
+  .commentMetaStats,
+  .comments {
+    & svg {
+      & path {
+        stroke: var(--theme-elevation-500);
+      }
+    }
+  }
+}
+
+@include large-break {
+  .authorTag {
+    flex-wrap: wrap;
+  }
+}
+
+@include small-break {
+  .authorTag {
+    line-height: 2;
+  }
+
+  .authorName {
+    flex-wrap: wrap;
+  }
+
+  .comments {
+    margin-left: calc(var(--base) * 0.5);
+  }
+}

@@ -1,0 +1,20 @@
+@use '@scss/common' as *;
+
+.wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  & div {
+    width: 45%;
+    font-size: calc(var(--base)*0.85);
+  }
+
+  @include large-break {
+    flex-direction: column;
+
+    & div {
+      width: unset;
+    }
+  }
+}

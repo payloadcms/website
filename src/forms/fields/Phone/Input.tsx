@@ -48,7 +48,7 @@ const Phone: React.FC<FieldProps<string>> = props => {
       <Label htmlFor={path} label={label} required={required} />
       <PhoneInput
         className={classes.phone}
-        value={value || null}
+        value={value || undefined}
         onChange={onChange}
         placeholder={placeholder}
         defaultCountry="US"

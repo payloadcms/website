@@ -1,7 +1,7 @@
 'use client'
 
-import { RichText } from '@components/RichText'
 import * as React from 'react'
+import { RichText } from '@components/RichText'
 import { useRouter } from 'next/navigation'
 import Submit from '@forms/Submit'
 import FormComponent from '@forms/Form'
@@ -11,18 +11,12 @@ import { fields } from './fields'
 import classes from './index.module.scss'
 import { Width } from './Width'
 
-export const CMSForm: React.FC<{
-  form: string | Form
-}> = props => {
-  const { form } = props
-
-  if (!form || typeof form === 'string') return null
-
+const RenderForm = ({ form }: { form: Form }) => {
   const {
     id: formID,
     submitButtonLabel,
     confirmationType,
-    redirect,
+    redirect: formRedirect,
     confirmationMessage,
     leader,
   } = form
@@ -81,8 +75,25 @@ export const CMSForm: React.FC<{
           setIsLoading(false)
           setHasSubmitted(true)
 
-          if (confirmationType === 'redirect' && redirect) {
-            if (redirect.url) router.push(redirect.url)
+          if (confirmationType === 'redirect' && formRedirect) {
+            const { url } = formRedirect
+
+            if (!url) return
+
+            const redirectUrl = new URL(url, process.env.NEXT_PUBLIC_APP_URL)
+
+            try {
+              if (url.startsWith('/') || redirectUrl.origin === process.env.NEXT_PUBLIC_APP_URL) {
+                router.push(redirectUrl.href)
+              } else {
+                window.location.assign(url)
+              }
+            } catch (err) {
+              console.warn(err)
+              setError({
+                message: 'Something went wrong. Did not redirect.',
+              })
+            }
           }
         } catch (err) {
           console.warn(err)
@@ -95,7 +106,7 @@ export const CMSForm: React.FC<{
 
       submitForm()
     },
-    [router, formID, redirect, confirmationType],
+    [router, formID, formRedirect, confirmationType],
   )
 
   return (
@@ -133,4 +144,14 @@ export const CMSForm: React.FC<{
       )}
     </div>
   )
+}
+
+export const CMSForm: React.FC<{
+  form?: string | Form
+}> = props => {
+  const { form } = props
+
+  if (!form || typeof form === 'string') return null
+
+  return <RenderForm form={form} />
 }

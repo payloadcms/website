@@ -59,6 +59,19 @@ export const PAGE = `
             adjective 
           }
           form ${FORM_FIELDS}
+          livestream {
+            id
+            date
+            richText
+            guests {
+              name
+              link
+              image {
+                url
+              }
+            }
+            hideBreadcrumbs
+          }
         }
         layout {
           ${CALL_TO_ACTION}

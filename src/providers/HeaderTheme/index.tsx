@@ -1,15 +1,15 @@
 import React, { createContext, useContext } from 'react'
 
-type Colors = 'light' | 'dark'
+export type HeaderColors = 'light' | 'dark'
 
 type Type = {
-  headerColor: Colors
-  setHeaderColor: (color: Colors) => void // eslint-disable-line no-unused-vars
+  headerColor?: HeaderColors | null
+  setHeaderColor: (color?: HeaderColors | null) => void // eslint-disable-line no-unused-vars
   debug?: boolean
 }
 export const HeaderThemeContext = createContext<Type>({
   headerColor: undefined,
-  setHeaderColor: undefined,
+  setHeaderColor: () => null,
   debug: false,
 })
 export const useHeaderTheme = (): Type => useContext(HeaderThemeContext)
@@ -18,7 +18,7 @@ const HeaderThemeProvider: React.FC<{
   children: React.ReactNode
   debug?: boolean
 }> = ({ children, debug }) => {
-  const [headerColor, setHeaderColor] = React.useState<Colors>()
+  const [headerColor, setHeaderColor] = React.useState<HeaderColors | null | undefined>(undefined)
 
   return (
     <HeaderThemeContext.Provider

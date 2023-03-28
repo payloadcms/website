@@ -15,7 +15,7 @@ const Doc = async ({ params }) => {
 
   const parentTopic = topics[parentTopicIndex]
   const nextTopic = topics[parentTopicIndex + 1]
-  let next: NextDoc
+  let next: NextDoc | null = null
 
   if (parentTopic) {
     const docIndex = parentTopic?.docs.findIndex(({ slug }) => slug === docSlug)
@@ -44,10 +44,14 @@ const Doc = async ({ params }) => {
 
 export default Doc
 
+type Param = {
+  topic: string
+  doc: string
+}
 export async function generateStaticParams() {
   const topics = await getTopics()
 
-  const result = topics.reduce((params, topic) => {
+  const result = topics.reduce((params: Param[], topic) => {
     return params.concat(
       topic.docs.map(doc => ({
         topic: topic.slug.toLowerCase(),

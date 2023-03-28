@@ -1,0 +1,97 @@
+@use '@scss/common' as *;
+
+.fileAttachments {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  margin-top: var(--base);
+
+  @include large-break {
+    grid-template-columns: 1fr;
+  }
+}
+
+.oneAttachment {
+  display: block;
+}
+
+.attachmentWrap {
+  text-decoration: none;
+
+  &:nth-child(even) {
+    margin-left: calc(var(--base) * 1.75);
+  }
+
+  &:nth-child(2n+3) {
+    margin-top: calc(var(--base) * 1.75);
+  }
+
+  @include large-break {
+    &:not(:first-child) {
+      margin-top: calc(var(--base) * 1.75);
+      margin-left: 0;
+    }
+  }
+}
+
+.image {
+  width: 100%;
+  object-fit: cover;
+}
+
+.attachment {
+  @include shadow-lg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--base);
+  background-color: var(--color-base-1000);
+  border: 1px solid var(--color-base-650);
+  font-size: calc(var(--base) * 0.75);
+  
+  & svg {
+    width: calc(var(--base) * 2);
+    margin-left: calc(var(--base) * 0.5);
+  }
+
+  &:hover {
+    background-color: var(--color-base-850);
+  }
+
+  @include large-break {
+    & svg {
+      width: unset
+    }
+  }
+
+  @include small-break {
+    padding: calc(var(--base) * 1);
+    font-size: calc(var(--base) * 0.75);
+  }
+}
+
+.attachmentName {
+  width: 100%;
+}
+
+.downloadIcon {
+  & path {
+    stroke: white;
+  }
+}
+
+:global([data-theme="light"]) {
+  .attachment {
+    background-color: var(--theme-elevation-200);
+
+    &:hover {
+      background-color: var(--theme-elevation-300);
+    }
+  }
+
+  .downloadIcon {
+    & path {
+      stroke: var(--color-base-750);
+    }
+  }
+}

@@ -3,10 +3,10 @@ import { defaultTheme, getImplicitPreference, themeLocalStorageKey } from './sha
 import { Theme, themeIsValid, ThemePreferenceContextType } from './types'
 import classes from './index.module.scss'
 
-const ThemeContext = createContext<Theme | undefined>(undefined)
+const ThemeContext = createContext<Theme | null | undefined>(undefined)
 
 export const ThemeProvider: React.FC<{
-  theme: Theme
+  theme?: Theme | null
   children: React.ReactNode
   className?: string
 }> = ({ theme, children, className }) => {
@@ -23,7 +23,7 @@ export const ThemeProvider: React.FC<{
   )
 }
 
-export const useTheme = (): Theme => useContext(ThemeContext)
+export const useTheme = (): Theme | null | undefined => useContext(ThemeContext)
 
 const initialContext: ThemePreferenceContextType = {
   theme: undefined,
@@ -33,13 +33,13 @@ const initialContext: ThemePreferenceContextType = {
 const ThemePreferenceContext = createContext(initialContext)
 
 export const ThemePreferenceProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>()
+  const [theme, setThemeState] = useState<Theme | null>(null)
 
-  const setTheme = useCallback((themeToSet: Theme) => {
+  const setTheme = useCallback((themeToSet: Theme | null) => {
     if (themeToSet === null) {
       window.localStorage.removeItem(themeLocalStorageKey)
       const implicitPreference = getImplicitPreference()
-      document.documentElement.setAttribute('data-theme', implicitPreference)
+      document.documentElement.setAttribute('data-theme', implicitPreference || '')
       setThemeState(implicitPreference)
     } else {
       setThemeState(themeToSet)
