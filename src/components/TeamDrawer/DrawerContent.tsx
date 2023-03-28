@@ -5,6 +5,7 @@ import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { useRouter } from 'next/navigation'
 
+import { UniqueProjectSlug, UniqueTeamSlug } from '@components/UniqueSlug'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { InviteTeammates } from '../InviteTeammates'
@@ -116,8 +117,8 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
             value: 'My Team',
           },
           slug: {
-            initialValue: 'my-team',
-            value: 'my-team',
+            initialValue: '',
+            value: '',
           },
           sendEmailInvitationsTo: {
             initialValue: [
@@ -130,7 +131,7 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
         }}
       >
         <Text path="name" required label="Name" />
-        <Text path="slug" required label="Slug" description="Slug must be unique." />
+        <UniqueTeamSlug />
         <InviteTeammates />
         <div>
           <Submit label="Create Team" className={classes.submit} />

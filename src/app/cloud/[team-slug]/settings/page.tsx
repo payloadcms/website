@@ -9,6 +9,7 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { InviteTeammates } from '@components/InviteTeammates'
 import { TeamInvitations } from '@components/TeamInvitations'
+import { UniqueTeamSlug } from '@components/UniqueSlug'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { useRouteData } from '../../context'
@@ -71,6 +72,7 @@ export default () => {
         }
 
         setLoading(false)
+        setError(undefined)
         setSuccess(true)
         setTeam(response.doc)
       }
@@ -116,7 +118,7 @@ export default () => {
         }}
       >
         <Text path="name" label="Name" />
-        <Text path="slug" label="Slug" required />
+        <UniqueTeamSlug teamID={team?.id} />
         <Text path="billingEmail" label="Billing Email" required />
         {team?.invitations && team?.invitations?.length > 0 && <TeamInvitations team={team} />}
         <InviteTeammates />

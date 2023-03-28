@@ -70,7 +70,7 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
               plans.map(plan => {
                 const { priceJSON, name } = plan
                 const checked = selectedPlan?.id === plan.id
-                const price = priceFromJSON(priceJSON, false)
+                const price = priceFromJSON(priceJSON?.toString(), false)
 
                 return (
                   <LargeRadio
