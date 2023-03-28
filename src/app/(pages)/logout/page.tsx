@@ -48,7 +48,7 @@ const Logout: React.FC = () => {
       <Heading marginTop={false}>You have been logged out</Heading>
       <p>
         {'What you like to do next? Go to the '}
-        <Link href="/login">home page</Link>
+        <Link href="/">home page</Link>
         {' or '}
         <Link href="/login">log back in</Link>
         {'.'}

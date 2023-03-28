@@ -24,6 +24,8 @@ export interface User {
   id: string;
   name?: string;
   githubID?: string;
+  createTeamFromSlug?: string;
+  createTeamFromName?: string;
   teams?: {
     team?: string | Team;
     roles?: ('owner' | 'admin' | 'user')[];
@@ -50,7 +52,7 @@ export interface User {
 export interface Team {
   id: string;
   name?: string;
-  slug?: string;
+  slug: string;
   invitations?: {
     user?: string | User;
     email?: string;
@@ -72,7 +74,7 @@ export interface Team {
 }
 export interface Project {
   id: string;
-  slug?: string;
+  slug: string;
   status?: 'draft' | 'published';
   skipSync?: boolean;
   name: string;
@@ -84,7 +86,6 @@ export interface Project {
   digitalOceanAppID?: string;
   source?: 'github';
   repositoryName?: string;
-  repositoryURL?: string;
   repositoryID?: string;
   installID?: string;
   deploymentBranch?: string;
@@ -125,16 +126,32 @@ export interface Project {
     | 'trialing'
     | 'unpaid'
     | 'paused';
+  resendAPIKey?: string;
+  defaultDomainResendDNSRecords?: {
+    cloudflareID: string;
+    type: 'MX' | 'TXT' | 'CNAME';
+    name: string;
+    value: string;
+    id?: string;
+  }[];
   teamProjectName?: string;
   createdAt: string;
   updatedAt: string;
 }
 export interface Plan {
   id: string;
-  name?: string;
-  slug?: string;
+  name: string;
+  slug: string;
   stripeProductID?: string;
-  priceJSON?: string;
+  priceJSON?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   order?: number;
   createdAt: string;
   updatedAt: string;
@@ -144,26 +161,29 @@ export interface Template {
   name?: string;
   slug?: string;
   description?: string;
-  repositoryURL?: string;
+  templateOwner: string;
+  templateRepo: string;
   order?: number;
   createdAt: string;
   updatedAt: string;
 }
 export interface Deployment {
   id: string;
-  name?: string;
   project: string | Project;
-  deployedAt?: string;
-  deploymentURL?: string;
-  deploymentID?: string;
+  deploymentID: string;
   commitSha?: string;
   commitMessage?: string;
-  logs?: {
-    timestamp?: string;
-    message?: string;
-    id?: string;
-  }[];
-  deploymentStatus?: 'pending' | 'inProgress' | 'success' | 'error';
+  lastSync?: string;
+  deploymentStatus?:
+    | 'UNKNOWN'
+    | 'PENDING_BUILD'
+    | 'BUILDING'
+    | 'PENDING_DEPLOY'
+    | 'DEPLOYING'
+    | 'ACTIVE'
+    | 'SUPERSEDED'
+    | 'ERROR'
+    | 'CANCELED';
   createdAt: string;
   updatedAt: string;
 }

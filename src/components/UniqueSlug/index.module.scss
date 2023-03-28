@@ -1,0 +1,13 @@
+.error {
+  color: var(--theme-error-500)
+}
+
+.fieldState {
+  & > * {
+    margin: 0;
+    
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+  }
+}

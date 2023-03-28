@@ -160,8 +160,9 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                     <Label label="Total cost" htmlFor="" />
                     <p className={classes.totalPrice}>
                       {priceFromJSON(
-                        typeof checkoutState?.project?.plan !== 'string'
-                          ? checkoutState?.project?.plan?.priceJSON
+                        typeof checkoutState?.project?.plan === 'object' &&
+                          'priceJSON' in checkoutState?.project?.plan
+                          ? checkoutState?.project?.plan?.priceJSON?.toString()
                           : '',
                       )}
                     </p>
@@ -183,8 +184,8 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                     name: {
                       initialValue: project?.name,
                     },
-                    repositoryURL: {
-                      initialValue: project?.repositoryURL,
+                    repositoryID: {
+                      initialValue: project?.repositoryID,
                     },
                     template: {
                       initialValue: project?.template,
@@ -237,8 +238,8 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                       }
                     />
                     <Text
-                      label="Repository URL"
-                      path="repositoryURL"
+                      label="Repository ID"
+                      path="repositoryID"
                       disabled
                       description="This only applies to the `import` flow."
                     />

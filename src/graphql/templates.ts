@@ -3,7 +3,7 @@ export const TEMPLATE_FIELDS = `
   name
   slug
   description
-  repositoryURL
+  templateRepo
   order
 `
 

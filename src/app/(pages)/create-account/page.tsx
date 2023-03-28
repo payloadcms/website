@@ -11,6 +11,7 @@ import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { Highlight } from '@components/Highlight'
+import { UniqueTeamSlug } from '@components/UniqueSlug'
 import { BorderBox } from '@root/app/_components/BorderBox'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
@@ -23,6 +24,18 @@ const initialFormState: InitialState = {
     valid: false,
     initialValue: undefined,
     errorMessage: 'Please enter a valid email address',
+  },
+  createTeamFromName: {
+    value: 'My Team',
+    valid: false,
+    initialValue: 'My Team',
+    errorMessage: 'Please enter a team name',
+  },
+  createTeamFromSlug: {
+    value: '',
+    valid: false,
+    initialValue: undefined,
+    errorMessage: 'Please enter a team slug',
   },
   password: {
     value: '',
@@ -40,31 +53,30 @@ const initialFormState: InitialState = {
 
 const CreateAccount: React.FC = () => {
   const { user, logout } = useAuth()
-  const [error, setError] = React.useState<{
-    message: string
-    name: string
-    data: {
-      message: string
-      field: string
-    }[]
-  }>()
+
+  const [error, setError] = React.useState<string | null>(null)
+
   const [successfullySubmitted, setSuccessfullySubmitted] = useState(false)
 
-  const createAccount: OnSubmit = useCallback(async ({ data, dispatchFields }) => {
-    if (data.password !== data.passwordConfirm) {
+  const createAccount: OnSubmit = useCallback(async ({ data: formData, dispatchFields }) => {
+    setTimeout(() => {
+      window.scrollTo(0, 0)
+    }, 0)
+
+    if (formData.password !== formData.passwordConfirm) {
       dispatchFields({
         type: 'UPDATE',
         path: 'passwordConfirm',
         errorMessage: 'Passwords do not match',
         valid: false,
-        value: data.passwordConfirm,
+        value: formData.passwordConfirm,
       })
       dispatchFields({
         type: 'UPDATE',
         path: 'password',
         errorMessage: 'Passwords do not match',
         valid: false,
-        value: data.password,
+        value: formData.password,
       })
       return
     }
@@ -77,37 +89,31 @@ const CreateAccount: React.FC = () => {
         },
         body: JSON.stringify({
           query: `mutation {
-            createUser(data: { email: "${data.email}", password: "${data.password}" }) {
-              email
+            createUser(data: { email: "${formData.email}", password: "${formData.password}", createTeamFromName: "${formData.createTeamFromName}", createTeamFromSlug: "${formData.createTeamFromSlug}" }) {
+               email
             }
           }`,
         }),
       })
 
-      if (req.ok) {
-        const res = await req.json()
+      const { data, errors } = await req.json()
 
-        if (!res.errors) {
-          // reset form
-          dispatchFields({
-            type: 'REPLACE_STATE',
-            state: initialFormState,
-          })
-          setSuccessfullySubmitted(true)
-        } else if (res?.errors?.length > 0) {
-          setError(res?.errors?.[0]?.extensions)
-          return
-        } else {
-          throw new Error('An unknown error occurred. Please try again.')
+      if (req.ok) {
+        if (errors) {
+          throw new Error(errors[0].message)
         }
+
+        if (!data?.createUser) {
+          throw new Error('An error occurred')
+        }
+
+        setSuccessfullySubmitted(true)
       } else {
-        throw new Error(
-          'Unable to create an account. One may already exist with this email address. Please try again.',
-        )
+        throw new Error(errors?.[0]?.message)
       }
     } catch (e) {
-      console.log('caught error', e) // eslint-disable-line no-console
-      setError(e.message)
+      console.error(e) // eslint-disable-line no-console
+      setError(e?.message || 'An error occurred')
     }
   }, [])
 
@@ -144,13 +150,11 @@ const CreateAccount: React.FC = () => {
             Create an account
           </Heading>
           <BorderBox className={classes.borderBox} padding="large">
-            <Form
-              onSubmit={createAccount}
-              className={classes.form}
-              initialState={initialFormState}
-              errors={error?.data}
-            >
+            {error && <div className={classes.error}>{error}</div>}
+            <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>
               <Text path="email" label="Email" required />
+              <Text path="createTeamFromName" label="Team Name" required />
+              <UniqueTeamSlug path="createTeamFromSlug" />
               <Text path="password" label="Password" type="password" required />
               <Text path="passwordConfirm" label="Confirm Password" type="password" required />
               <div>
