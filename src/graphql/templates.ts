@@ -5,7 +5,6 @@ export const TEMPLATE_FIELDS = `
   description
   templateRepo
   order
-  image
 `
 
 export const TEMPLATES = `

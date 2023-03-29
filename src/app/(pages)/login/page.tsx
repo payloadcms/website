@@ -103,7 +103,7 @@ const Login: React.FC = () => {
               <Submit label="Log in" className={classes.submit} processing={loading} />
             </div>
           </Form>
-          <div className={classes.formFooter}>
+          <div className={classes.sidebar}>
             <Link href={`/forgot-password${search}`}>Forgot your password?</Link>
             <div className={classes.leader}>
               {`Don't have an account? `}
