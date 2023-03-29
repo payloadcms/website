@@ -51,7 +51,7 @@ const initialFormState: InitialState = {
   },
 }
 
-const CreateAccount: React.FC = () => {
+const Signup: React.FC = () => {
   const { user, logout } = useAuth()
 
   const [error, setError] = React.useState<string | null>(null)
@@ -147,7 +147,7 @@ const CreateAccount: React.FC = () => {
       ) : (
         <MaxWidth centered className={classes.maxWidth}>
           <Heading marginTop={false} element="h1" as="h3">
-            Create an account
+            Sign up for Payload Cloud
           </Heading>
           <BorderBox className={classes.borderBox} padding="large">
             {error && <div className={classes.error}>{error}</div>}
@@ -158,7 +158,7 @@ const CreateAccount: React.FC = () => {
               <Text path="password" label="Password" type="password" required />
               <Text path="passwordConfirm" label="Confirm Password" type="password" required />
               <div>
-                <Submit label="Create Account" className={classes.submit} />
+                <Submit label="Signup" className={classes.submit} />
               </div>
             </Form>
             <div className={classes.formFooter}>
@@ -173,4 +173,4 @@ const CreateAccount: React.FC = () => {
   )
 }
 
-export default CreateAccount
+export default Signup

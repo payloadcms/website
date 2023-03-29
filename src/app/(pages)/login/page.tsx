@@ -104,9 +104,7 @@ const Login: React.FC = () => {
             <Link href={`/forgot-password${window?.location?.search}`}>Forgot your password?</Link>
             <div className={classes.leader}>
               {`Don't have an account? `}
-              <Link href={`/create-account${window?.location?.search || ''}`}>
-                Register for free
-              </Link>
+              <Link href={`/signup${window?.location?.search || ''}`}>Register for free</Link>
               {'.'}
             </div>
           </div>
