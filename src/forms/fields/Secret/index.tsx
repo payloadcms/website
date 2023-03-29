@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import Label from '@forms/Label'
 
 import { CopyToClipboard } from '@components/CopyToClipboard'
@@ -88,12 +88,16 @@ export const Secret: React.FC<SecretProps> = props => {
         label={label}
         required={required}
         actionsSlot={
-          <div className={classes.actionsSlot}>
-            <TooltipButton text={isHidden ? 'show' : 'hide'} onClick={toggleVisibility}>
-              <EyeIcon closed={isHidden} />
+          <Fragment>
+            <TooltipButton
+              text={isHidden ? 'show' : 'hide'}
+              onClick={toggleVisibility}
+              className={classes.tooltipButton}
+            >
+              <EyeIcon closed={isHidden} size="large" />
             </TooltipButton>
             <CopyToClipboard value={isValueLoaded ? value : loadExternalValue} />
-          </div>
+          </Fragment>
         }
       />
 

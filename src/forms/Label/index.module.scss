@@ -29,8 +29,8 @@
   display: flex;
   margin-left: auto;
 
-  svg {
-    height: 24px;
-    width: auto;
-  }
+  // & > * {
+  //   width: var(--base);
+  //   height: var(--base);
+  // }
 }

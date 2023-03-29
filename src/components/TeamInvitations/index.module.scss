@@ -10,6 +10,14 @@
   }
 }
 
+.success {
+  color: var(--theme-success-500)
+}
+
+.error {
+  color: var(--theme-error-500)
+}
+
 .invite { 
   display: flex;
 

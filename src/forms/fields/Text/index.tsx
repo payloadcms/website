@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import Label from '@forms/Label'
 
 import { CopyToClipboard } from '@components/CopyToClipboard'
@@ -91,14 +91,18 @@ export const Text: React.FC<
         label={label}
         required={required}
         actionsSlot={
-          <div className={classes.actionSlot}>
+          <Fragment>
             {copy && <CopyToClipboard value={value} />}
             {type === 'password' && (
-              <TooltipButton text={isHidden ? 'show' : 'hide'} onClick={() => setIsHidden(h => !h)}>
-                <EyeIcon closed={isHidden} />
+              <TooltipButton
+                text={isHidden ? 'show' : 'hide'}
+                onClick={() => setIsHidden(h => !h)}
+                className={classes.tooltipButton}
+              >
+                <EyeIcon closed={isHidden} size="large" />
               </TooltipButton>
             )}
-          </div>
+          </Fragment>
         }
       />
       <input

@@ -4,17 +4,6 @@
   position: relative;
 }
 
-.actionsSlot {
-  display: flex;
-  margin-left: auto;
-  gap: calc(var(--base) * .5);
-
-  svg {
-    height: 24px;
-    width: auto;
-  }
-}
-
 .input {
   @include shared.formInput;
 }
@@ -27,4 +16,9 @@
 
 .description {
   margin-bottom: 0;
+}
+
+.tooltipButton {
+  width: 100%;
+  height: 100%;
 }
