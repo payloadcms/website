@@ -9,6 +9,9 @@
     margin-right: calc(var(--base) * 0.25);
   }
 
+  @include small-break {
+    margin-top: calc(var(--base) * 3);
+  }
 }
 
 .pages {
