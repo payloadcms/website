@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { CreditCardElement } from '@components/CreditCardElement'
 import { LargeRadio } from '@components/LargeRadio'
 import { Team } from '@root/payload-cloud-types'
-import { useGetPaymentMethods } from '@root/utilities/use-cloud'
+import { useGetPaymentMethods } from '@root/utilities/use-cloud-api'
 
 import classes from './index.module.scss'
 

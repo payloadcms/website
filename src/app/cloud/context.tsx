@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react'
 
 import { Project, Team } from '@root/payload-cloud-types'
-import { useGetProject, useGetTeam } from '@root/utilities/use-cloud'
+import { useGetProject, useGetTeam } from '@root/utilities/use-cloud-api'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
 
 type ContextType = {

@@ -24,7 +24,7 @@ import { Plan } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
-import { useGetProject } from '@root/utilities/use-cloud'
+import { useGetProject } from '@root/utilities/use-cloud-api'
 import useDebounce from '@root/utilities/use-debounce'
 import { usePaymentIntent } from '@root/utilities/use-payment-intent'
 import { useGitAuthRedirect } from '../authorize/useGitAuthRedirect'
@@ -97,10 +97,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
     onChange: handlePlanChange,
   })
 
-  const {
-    result: [project],
-    isLoading,
-  } = useGetProject({
+  const { result: project, isLoading } = useGetProject({
     projectID: draftProjectID,
     teamSlug: checkoutState?.team?.slug,
   })

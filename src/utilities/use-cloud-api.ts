@@ -4,22 +4,22 @@ import { qs } from '@utilities/qs'
 
 import type { Plan, Project, Team } from '@root/payload-cloud-types'
 
-export type UseCloud<T, A = null> = (args?: A) => {
-  result: T[]
+export type UseCloudAPI<R, A = null> = (args?: A) => {
+  result: R
   isLoading: null | boolean
   error: string
   reload: () => void
 }
 
-export const useCloud = <T>(args: {
+export const useCloudAPI = <R>(args: {
   url?: string
   delay?: number
   method?: 'GET' | 'POST'
   body?: string
-}): ReturnType<UseCloud<T>> => {
+}): ReturnType<UseCloudAPI<R>> => {
   const { url, delay = 250, method = 'GET', body } = args
   const hasMadeRequest = useRef(false)
-  const [result, setResult] = useState<T[]>([])
+  const [result, setResult] = useState<R>(undefined as unknown as R)
   const [isLoading, setIsLoading] = useState<boolean | null>(null)
   const [error, setError] = useState('')
   const [requestTicker, dispatchRequestTicker] = useReducer((state: number) => state + 1, 0)
@@ -44,18 +44,16 @@ export const useCloud = <T>(args: {
             body,
           })
 
-          const json: {
-            message: string
-            docs: T[]
-          } = await plansReq.json()
+          const json: R = await plansReq.json()
 
           if (plansReq.ok) {
             setTimeout(() => {
-              setResult(json.docs)
+              setResult(json)
               setIsLoading(false)
             }, delay)
           } else {
-            throw new Error(json.message)
+            // @ts-expect-error
+            setError(json?.message || 'Something went wrong')
           }
         } catch (err: unknown) {
           const message = (err as Error)?.message || 'Something went wrong'
@@ -88,14 +86,21 @@ export const useCloud = <T>(args: {
   return memoizedState
 }
 
-export const useGetPlans: UseCloud<Plan> = () => {
-  return useCloud<Plan>({
+export const useGetPlans: UseCloudAPI<Plan[]> = () => {
+  const { result, ...rest } = useCloudAPI<{
+    docs: Plan[]
+  }>({
     url: '/api/plans?where[slug][not_equals]=enterprise&sort=order',
   })
+
+  return {
+    ...rest,
+    result: result?.docs,
+  }
 }
 
-export const useGetProjects: UseCloud<
-  Project,
+export const useGetProjects: UseCloudAPI<
+  Project[],
   {
     team?: string
     search?: string
@@ -123,17 +128,24 @@ export const useGetProjects: UseCloud<
       : {}),
   })
 
-  return useCloud<Project>({
+  const { result, ...rest } = useCloudAPI<{
+    docs: Project[]
+  }>({
     url: `/api/projects${query ? `?${query}` : ''}`,
     delay,
   })
+
+  return {
+    ...rest,
+    result: result?.docs,
+  }
 }
 
 type ProjectWithTeam = Omit<Project, 'team'> & {
   team: Team
 }
 
-export const useGetProject: UseCloud<
+export const useGetProject: UseCloudAPI<
   ProjectWithTeam,
   {
     teamSlug?: string
@@ -142,6 +154,7 @@ export const useGetProject: UseCloud<
   }
 > = args => {
   const { teamSlug, projectSlug, projectID } = args || {}
+
   const query = qs.stringify({
     where: {
       and: [
@@ -166,19 +179,37 @@ export const useGetProject: UseCloud<
     url = `/api/projects?where[id][equals]=${projectID}&limit=1`
   }
 
-  return useCloud<ProjectWithTeam>({
+  const { result, ...rest } = useCloudAPI<{
+    docs: ProjectWithTeam[]
+  }>({
     url,
   })
+
+  return {
+    ...rest,
+    result: result?.docs?.[0],
+  }
 }
 
-export const useGetTeam: UseCloud<Team, string> = teamSlug => {
-  return useCloud<Team>({
+export const useGetTeam: UseCloudAPI<Team, string> = teamSlug => {
+  const { result, ...rest } = useCloudAPI<{
+    docs: Team[]
+  }>({
     url: teamSlug ? `/api/teams?where[slug][equals]=${teamSlug.toLowerCase()}&limit=1` : '',
   })
+
+  return {
+    ...rest,
+    result: result?.docs?.[0],
+  }
 }
 
-export const useGetPaymentMethods: UseCloud<PaymentMethod, Team> = team => {
-  return useCloud<PaymentMethod>({
+export const useGetPaymentMethods: UseCloudAPI<PaymentMethod[], Team> = team => {
+  const { result, ...rest } = useCloudAPI<{
+    data: {
+      data: PaymentMethod[]
+    }
+  }>({
     url: team ? `/api/stripe/rest` : '',
     method: 'POST',
     body: JSON.stringify({
@@ -191,4 +222,9 @@ export const useGetPaymentMethods: UseCloud<PaymentMethod, Team> = team => {
       ],
     }),
   })
+
+  return {
+    ...rest,
+    result: result?.data?.data,
+  }
 }

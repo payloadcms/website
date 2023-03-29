@@ -3,7 +3,7 @@
 import * as React from 'react'
 
 import { Gutter } from '@components/Gutter'
-import { useGetPaymentMethods } from '@root/utilities/use-cloud'
+import { useGetPaymentMethods } from '@root/utilities/use-cloud-api'
 import { useRouteData } from '../../context'
 
 import classes from './page.module.scss'

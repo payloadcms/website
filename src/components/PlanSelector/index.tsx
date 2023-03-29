@@ -5,7 +5,7 @@ import { LargeRadio } from '@components/LargeRadio'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Plan } from '@root/payload-cloud-types'
 import { priceFromJSON } from '@root/utilities/price-from-json'
-import { UseCloud, useGetPlans } from '@root/utilities/use-cloud'
+import { UseCloudAPI, useGetPlans } from '@root/utilities/use-cloud-api'
 import useDebounce from '@root/utilities/use-debounce'
 
 import classes from './index.module.scss'
@@ -94,7 +94,7 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
 
 export const usePlanSelector = (args: {
   onChange?: (value: Plan) => void // eslint-disable-line no-unused-vars
-}): [React.FC, ReturnType<UseCloud<Plan>>] => {
+}): [React.FC, ReturnType<UseCloudAPI<Plan[]>>] => {
   const { onChange } = args
 
   const plansData = useGetPlans()
