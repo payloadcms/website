@@ -77,7 +77,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "/Users/jacobfletcher/dev/payload/website/.next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

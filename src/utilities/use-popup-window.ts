@@ -1,28 +1,35 @@
 import { useCallback, useEffect } from 'react'
+import type { ReadonlyURLSearchParams } from 'next/navigation'
 
 export interface PopupMessage {
   type: string
-  searchParams: any // eslint-disable-line @typescript-eslint/no-explicit-any
+  searchParams: {
+    code: string
+    installation_id: string
+    state: string
+    [key: string]: string | ReadonlyURLSearchParams | undefined
+  }
 }
 
 export const usePopupWindow = (props: {
   href: string
   eventType?: string
-  onMessage?: (searchParams: any) => Promise<void> // eslint-disable-line no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onMessage?: (searchParams: PopupMessage['searchParams']) => Promise<void>
 }): {
   openPopupWindow: (e: React.MouseEvent<HTMLAnchorElement>) => void
 } => {
   const { href, onMessage, eventType } = props
 
   useEffect(() => {
-    const receiveMessage = (event: MessageEvent): void => {
+    const receiveMessage = async (event: MessageEvent): Promise<void> => {
       if (event.origin !== window.location.origin) {
-        console.warn(`Message received by ${event.origin}; IGNORED.`)
+        console.warn(`Message received by ${event.origin}; IGNORED.`) // eslint-disable-line no-console
         return
       }
 
       if (typeof onMessage === 'function' && event.data?.type === eventType) {
-        onMessage(event.data?.searchParams)
+        await onMessage(event.data?.searchParams)
       }
     }
 

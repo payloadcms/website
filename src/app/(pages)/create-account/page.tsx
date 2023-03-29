@@ -1,21 +1,22 @@
 'use client'
 
 import React, { useCallback, useState } from 'react'
+import { Text } from '@forms/fields/Text'
+import Form from '@forms/Form'
+import Submit from '@forms/Submit'
+import { InitialState, OnSubmit } from '@forms/types'
 import Link from 'next/link'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { Highlight } from '@components/Highlight'
-import { Text } from '@forms/fields/Text'
-import Form from '@forms/Form'
-import Submit from '@forms/Submit'
-import { InitialState, OnSubmit } from '@forms/types'
-import { FormWrap } from '@root/app/_components/FormWrap'
+import { UniqueTeamSlug } from '@components/UniqueSlug'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
 
 import classes from './index.module.scss'
+import { FormWrap } from '@root/app/_components/FormWrap'
 
 const initialFormState: InitialState = {
   email: {
@@ -23,6 +24,18 @@ const initialFormState: InitialState = {
     valid: false,
     initialValue: undefined,
     errorMessage: 'Please enter a valid email address',
+  },
+  createTeamFromName: {
+    value: 'My Team',
+    valid: false,
+    initialValue: 'My Team',
+    errorMessage: 'Please enter a team name',
+  },
+  createTeamFromSlug: {
+    value: '',
+    valid: false,
+    initialValue: undefined,
+    errorMessage: 'Please enter a team slug',
   },
   password: {
     value: '',
@@ -40,31 +53,30 @@ const initialFormState: InitialState = {
 
 const CreateAccount: React.FC = () => {
   const { user, logout } = useAuth()
-  const [error, setError] = React.useState<{
-    message: string
-    name: string
-    data: {
-      message: string
-      field: string
-    }[]
-  }>()
+
+  const [error, setError] = React.useState<string | null>(null)
+
   const [successfullySubmitted, setSuccessfullySubmitted] = useState(false)
 
-  const createAccount: OnSubmit = useCallback(async ({ data, dispatchFields }) => {
-    if (data.password !== data.passwordConfirm) {
+  const createAccount: OnSubmit = useCallback(async ({ data: formData, dispatchFields }) => {
+    setTimeout(() => {
+      window.scrollTo(0, 0)
+    }, 0)
+
+    if (formData.password !== formData.passwordConfirm) {
       dispatchFields({
         type: 'UPDATE',
         path: 'passwordConfirm',
         errorMessage: 'Passwords do not match',
         valid: false,
-        value: data.passwordConfirm,
+        value: formData.passwordConfirm,
       })
       dispatchFields({
         type: 'UPDATE',
         path: 'password',
         errorMessage: 'Passwords do not match',
         valid: false,
-        value: data.password,
+        value: formData.password,
       })
       return
     }
@@ -77,37 +89,31 @@ const CreateAccount: React.FC = () => {
         },
         body: JSON.stringify({
           query: `mutation {
-            createUser(data: { email: "${data.email}", password: "${data.password}" }) {
-              email
+            createUser(data: { email: "${formData.email}", password: "${formData.password}", createTeamFromName: "${formData.createTeamFromName}", createTeamFromSlug: "${formData.createTeamFromSlug}" }) {
+               email
             }
           }`,
         }),
       })
 
-      if (req.ok) {
-        const res = await req.json()
+      const { data, errors } = await req.json()
 
-        if (!res.errors) {
-          // reset form
-          dispatchFields({
-            type: 'REPLACE_STATE',
-            state: initialFormState,
-          })
-          setSuccessfullySubmitted(true)
-        } else if (res?.errors?.length > 0) {
-          setError(res?.errors?.[0]?.extensions)
-          return
-        } else {
-          throw new Error('An unknown error occurred. Please try again.')
+      if (req.ok) {
+        if (errors) {
+          throw new Error(errors[0].message)
         }
+
+        if (!data?.createUser) {
+          throw new Error('An error occurred')
+        }
+
+        setSuccessfullySubmitted(true)
       } else {
-        throw new Error(
-          'Unable to create an account. One may already exist with this email address. Please try again.',
-        )
+        throw new Error(errors?.[0]?.message)
       }
     } catch (e) {
-      console.log('caught error', e)
-      setError(e.message)
+      console.error(e) // eslint-disable-line no-console
+      setError(e?.message || 'An error occurred')
     }
   }, [])
 
@@ -128,10 +134,9 @@ const CreateAccount: React.FC = () => {
               <Highlight text="Success" />
             </Heading>
             <Heading marginTop={false} element="p" as="h6">
-              Your account has been created! Please check your email to verify your account.
+              Your account was created! Please check your email to verify your account and login.
             </Heading>
-
-            <div className={classes.formFooter}>
+            <div>
               {`Already verified your account? `}
               <Link href="/login">Log in now</Link>
               {'.'}
@@ -139,26 +144,22 @@ const CreateAccount: React.FC = () => {
         </MaxWidth>
       ) : (
         <MaxWidth centered className={classes.maxWidth}>
-          <Heading marginTop={false} element="h1" as="h2">
+          <Heading marginTop={false} element="h1" as="h3">
             Create an account
           </Heading>
-
           <FormWrap>
-            <Form
-              onSubmit={createAccount}
-              className={classes.form}
-              initialState={initialFormState}
-              errors={error?.data}
-            >
+            {error && <div className={classes.error}>{error}</div>}
+            <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>
               <Text path="email" label="Email" required />
+              <Text path="createTeamFromName" label="Team Name" required />
+              <UniqueTeamSlug path="createTeamFromSlug" />
               <Text path="password" label="Password" type="password" required />
               <Text path="passwordConfirm" label="Confirm Password" type="password" required />
               <div>
                 <Submit label="Create Account" className={classes.submit} />
               </div>
             </Form>
-
-            <div>
+            <div className={classes.sidebar}>
               {`Already have an account? `}
               <Link href="/login">Log in now</Link>
               {'.'}

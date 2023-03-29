@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react'
-
 import { CallToAction } from '@blocks/CallToAction'
+
 import { DefaultHero } from '@components/Hero/Default'
 
 export const ErrorMessage: React.FC<{ error?: string }> = ({ error }) => {

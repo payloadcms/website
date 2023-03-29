@@ -46,7 +46,7 @@ export const fetchGlobals = async (): Promise<{
   return {
     mainMenu: data.MainMenu,
     footer: data.Footer,
-    templates: templatesData.Templates?.docs,
+    templates: templatesData?.Templates?.docs,
   }
 }
 
@@ -108,7 +108,7 @@ export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page |
   ).then(res => res.json())
 
   if (errors) {
-    console.error(JSON.stringify(errors))
+    console.error(JSON.stringify(errors)) // eslint-disable-line no-console
     throw new Error()
   }
 
@@ -141,7 +141,7 @@ export const fetchPages = async (): Promise<
   }).then(res => res.json())
 
   if (errors) {
-    console.error(JSON.stringify(errors))
+    console.error(JSON.stringify(errors)) // eslint-disable-line no-console
     throw new Error()
   }
 
@@ -161,7 +161,7 @@ export const fetchPosts = async (): Promise<Array<{ slug: string }>> => {
   }).then(res => res.json())
 
   if (errors) {
-    console.error(JSON.stringify(errors))
+    console.error(JSON.stringify(errors)) // eslint-disable-line no-console
     throw new Error()
   }
 

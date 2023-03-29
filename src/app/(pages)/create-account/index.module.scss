@@ -17,8 +17,14 @@
   margin-top: var(--base);
 }
 
+.sidebar {
+  padding-top: var(--base);
+}
+
 @include mid-break {
-  .maxWidth {
+
+  .maxWidth,
+  .sidebar {
     padding-top: 0;
   }
 

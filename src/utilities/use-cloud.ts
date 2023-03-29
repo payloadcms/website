@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import type { PaymentMethod } from '@stripe/stripe-js'
+import { qs } from '@utilities/qs'
 
 import type { Plan, Project, Team } from '@root/payload-cloud-types'
-import { qs } from '@utilities/qs'
 
 export type UseCloud<T, A = null> = (args?: A) => {
   result: T[]

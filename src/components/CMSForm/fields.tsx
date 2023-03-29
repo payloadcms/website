@@ -1,8 +1,9 @@
-import { RichText } from '@components/RichText'
 import { Checkbox } from '@forms/fields/Checkbox'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import { Textarea } from '@forms/fields/Textarea'
+
+import { RichText } from '@components/RichText'
 
 export const fields = {
   text: Text,

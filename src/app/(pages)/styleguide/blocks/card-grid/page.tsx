@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react'
-
 import { CardGrid, CardGridProps } from '@blocks/CardGrid'
+
 import { StyleguidePageContent } from '../../PageContent'
 
 const data: CardGridProps = {

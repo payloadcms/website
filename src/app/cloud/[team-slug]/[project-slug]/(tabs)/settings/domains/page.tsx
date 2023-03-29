@@ -3,9 +3,9 @@
 import * as React from 'react'
 import { Collapsible, CollapsibleGroup } from '@faceless-ui/collapsibles'
 
-import { Accordion } from '@cloud/_components/Accordion'
-import { Divider } from '@cloud/_components/SectionDivider'
-import { useRouteData } from '@cloud/context'
+import { Accordion } from '@root/app/cloud/_components/Accordion'
+import { Divider } from '@root/app/cloud/_components/SectionDivider'
+import { useRouteData } from '@root/app/cloud/context'
 import { NoData } from '../_layoutComponents/NoData'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'
 import { AddDomain } from './_components/AddDomain'

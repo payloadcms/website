@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect } from 'react'
 import { components } from 'react-select'
+import { Select } from '@forms/fields/Select'
 
 import { useTeamDrawer } from '@components/TeamDrawer'
-import { Select } from '@forms/fields/Select'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 
@@ -36,7 +36,7 @@ export const TeamSelector: React.FC<{
   const [selectedTeam, setSelectedTeam] = React.useState<string | undefined>(initialValue)
 
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer({
-    team: teams?.find(team => typeof team === 'object' && team.id === selectedTeam) as Team,
+    team: teams?.find(team => typeof team === 'object' && team?.id === selectedTeam) as Team,
   })
 
   // allow external control of the selection

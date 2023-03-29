@@ -1,4 +1,4 @@
-import { redirect, usePathname } from 'next/navigation'
+import { redirect, usePathname, useSearchParams } from 'next/navigation'
 
 import { useAuth } from '@root/providers/Auth'
 
@@ -7,9 +7,11 @@ import { useAuth } from '@root/providers/Auth'
 export const useAuthRedirect = (): string | void => {
   const { user } = useAuth()
   const pathname = usePathname()
+  const searchParams = useSearchParams()
 
-  if (user === null) {
-    redirect(`/login?redirect=${encodeURIComponent(pathname || '')}`)
+  // let `cloud` through, we will manually handle that within the cloud layout
+  if (pathname !== '/cloud' && user === null) {
+    redirect(`/login?redirect=${encodeURIComponent(`${pathname}?${searchParams}`)}`)
   }
 
   if (!user) {

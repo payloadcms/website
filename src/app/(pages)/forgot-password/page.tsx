@@ -1,19 +1,19 @@
 'use client'
 
 import React, { useCallback } from 'react'
+import { Text } from '@forms/fields/Text'
+import Form from '@forms/Form'
+import Submit from '@forms/Submit'
+import { InitialState, OnSubmit } from '@forms/types'
 import Link from 'next/link'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { Highlight } from '@components/Highlight'
-import { Text } from '@forms/fields/Text'
-import Form from '@forms/Form'
-import Submit from '@forms/Submit'
-import { InitialState, OnSubmit } from '@forms/types'
-import { FormWrap } from '@root/app/_components/FormWrap'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
+import { FormWrap } from '@root/app/_components/FormWrap'
 
 import classes from './index.module.scss'
 
@@ -58,32 +58,32 @@ const ForgotPassword: React.FC = () => {
           type: 'REPLACE_STATE',
           state: initialFormState,
         })
+
         setError(null)
         setSuccessfullySubmitted(true)
         return
       } catch (err) {
         setError(err.message)
       }
+
       setSuccessfullySubmitted(false)
     },
     [setError, setSuccessfullySubmitted],
   )
 
-  if (user) {
+  if (!user) {
     return (
       <Gutter>
         <MaxWidth size="medium" centered className={classes.maxWidth}>
             <Heading marginTop={false} element="h2" as="h2">
               <Highlight text="Hang on" appearance="danger" />
             </Heading>
-
             <Heading marginTop={false} element="p" as="h6">
               You are already logged in.
             </Heading>
-
-            <div className={classes.sidebar}>
-              <Button label="Log out" onClick={logout} appearance="primary" />
-              <Button label="Dashboard" href="/cloud" appearance="secondary" />
+            <div className={classes.buttonWrap}>
+              <Button label="Log out" size="small" onClick={logout} appearance="primary" />
+              <Button label="Dashboard" size="small" href="/cloud" appearance="secondary" />
             </div>
         </MaxWidth>
       </Gutter>
@@ -100,7 +100,6 @@ const ForgotPassword: React.FC = () => {
             <Heading marginTop={false} element="p" as="h6">
               We have sent you an email with a link to reset your password. Please check your inbox.
             </Heading>
-
             <div className={classes.sidebar}>
               <div>
                 {`Ready to login? `}
@@ -114,7 +113,6 @@ const ForgotPassword: React.FC = () => {
           <Heading marginTop={false} element="h1" as="h3">
             Forgot password
           </Heading>
-
           {error && <div className={classes.error}>{error}</div>}
           <FormWrap>
             <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
@@ -123,14 +121,10 @@ const ForgotPassword: React.FC = () => {
                 <Submit label="Recover" className={classes.submit} />
               </div>
             </Form>
-
-            <div className={classes.sidebar}>
-              <div>
+              <div className={classes.sidebar}>
                 {`Already have an account? `}
-                <Link href="/login">Log in here</Link>
-                {'.'}
+                <Link href="/login">Log in here</Link>.
               </div>
-            </div>
           </FormWrap>
         </MaxWidth>
       )}

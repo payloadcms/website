@@ -1,6 +1,4 @@
 import React from 'react'
-
-import { Gutter } from '@components/Gutter'
 import { Checkbox } from '@forms/fields/Checkbox'
 import { NumberInput } from '@forms/fields/Number'
 import { Phone } from '@forms/fields/Phone'
@@ -8,6 +6,8 @@ import RadioGroup from '@forms/fields/RadioGroup'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import { Textarea } from '@forms/fields/Textarea'
+
+import { Gutter } from '@components/Gutter'
 import { StyleguidePageContent } from '../PageContent'
 
 const Forms: React.FC = () => {

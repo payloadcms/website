@@ -1,13 +1,13 @@
 'use client'
 
 import * as React from 'react'
-
 import { AddArrayRow, ArrayRow } from '@forms/fields/Array'
 import { ArrayProvider, useArray } from '@forms/fields/Array/context'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { OnSubmit } from '@forms/types'
+
 import { useRouteData } from '@root/app/cloud/context'
 import { validateKey, validateValue } from '../validations'
 
@@ -55,7 +55,7 @@ export const EnvManagement: React.FC = () => {
 
           return
         } catch (e) {
-          console.error(e)
+          console.error(e) // eslint-disable-line no-console
         }
       }
     },

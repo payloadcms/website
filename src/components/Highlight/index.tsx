@@ -1,6 +1,5 @@
 import React, { Fragment, useRef } from 'react'
 import { useTheme } from '@providers/Theme'
-
 import useIntersection from '@utilities/useIntersection'
 
 import classes from './index.module.scss'

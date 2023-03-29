@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react'
 import { CardElement as StripeCardElement, useElements, useStripe } from '@stripe/react-stripe-js'
+// eslint-disable-next-line import/named
 import { PaymentIntent, StripeCardElement as StripeCardElementType } from '@stripe/stripe-js'
 import { useRouter } from 'next/navigation'
 
@@ -122,7 +123,7 @@ export const useDeploy = (args: {
         setError(res.error)
       }
     } catch (err: unknown) {
-      console.error(err)
+      console.error(err) // eslint-disable-line no-console
       const message = err instanceof Error ? err.message : 'Unknown error'
       setError(message)
       setIsDeploying(false)

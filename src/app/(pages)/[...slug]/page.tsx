@@ -1,23 +1,15 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
 
-import Meta from '@components/Meta'
-import { Hero } from '../../../components/Hero'
-import { RenderBlocks } from '../../../components/RenderBlocks'
 import { fetchPage, fetchPages } from '../../../graphql'
+import { PageContent } from './PageContent'
 
 const Page = async ({ params: { slug } }) => {
   const page = await fetchPage(slug)
 
   if (!page) return notFound()
 
-  return (
-    <React.Fragment>
-      <Meta title={page.meta?.title} description={page.meta?.description} slug={slug} />
-      <Hero page={page} />
-      <RenderBlocks blocks={page.layout} />
-    </React.Fragment>
-  )
+  return <PageContent page={page} slug={slug} />
 }
 
 export default Page

@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import { ArrowIcon } from '@icons/ArrowIcon'
 
 import { BlockSpacing } from '@components/BlockSpacing'
 import { CMSLink } from '@components/CMSLink'
@@ -8,7 +9,6 @@ import { Gutter } from '@components/Gutter'
 import { Label } from '@components/Label'
 import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'
-import { ArrowIcon } from '@icons/ArrowIcon'
 import { Page } from '@root/payload-types'
 import { ThemeProvider } from '@root/providers/Theme'
 

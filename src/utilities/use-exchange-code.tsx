@@ -2,10 +2,12 @@ import React, { useCallback, useRef } from 'react'
 
 import { useAuth } from '@root/providers/Auth'
 
+const logs = process.env.NEXT_PUBLIC_LOGS_GITHUB === '1'
+
 export const useExchangeCode = (): {
   error: string
   hasExchangedCode: boolean
-  exchangeCode: (code?: string) => void // eslint-disable-line no-unused-vars
+  exchangeCode: (code?: string) => Promise<void> // eslint-disable-line no-unused-vars
 } => {
   const { user } = useAuth()
   const hasRequestedGithub = useRef(false)
@@ -13,7 +15,7 @@ export const useExchangeCode = (): {
   const [hasExchangedCode, setHasExchangedCode] = React.useState(false)
 
   const exchangeCode = useCallback(
-    (code: string) => {
+    async (code: string) => {
       if (user && code && !hasRequestedGithub.current) {
         hasRequestedGithub.current = true
 
@@ -31,13 +33,13 @@ export const useExchangeCode = (): {
 
             if (res.ok) {
               setHasExchangedCode(true)
-
-              // do more async stuff
             } else {
-              setError(`Unable to authorize GitHub: ${body.error}`)
+              const message = `Unable to authorize GitHub: ${body.error}`
+              console.error(message) // eslint-disable-line no-console
+              setError(message)
             }
           } catch (err) {
-            console.error(err)
+            console.error(err) // eslint-disable-line no-console
             setError(err.message)
           }
         }

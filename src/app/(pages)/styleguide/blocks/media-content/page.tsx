@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react'
-
 import { MediaContent, MediaContentProps } from '@blocks/MediaContent'
+
 import { StyleguidePageContent } from '../../PageContent'
 
 const data: MediaContentProps = {

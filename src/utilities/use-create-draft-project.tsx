@@ -31,6 +31,11 @@ export const useCreateDraftProject = ({
         return
       }
 
+      if (!user.teams || user.teams.length === 0) {
+        setError('You must be a member of a team to create a project')
+        return
+      }
+
       window.scrollTo(0, 0)
       setError('')
       setIsSubmitting(true)
@@ -68,7 +73,7 @@ export const useCreateDraftProject = ({
           setIsSubmitting(false)
         }
       } catch (err) {
-        console.error(err)
+        console.error(err) // eslint-disable-line no-console
         setError(err.message)
         setIsSubmitting(false)
       }

@@ -47,9 +47,10 @@ const AuthorTag: React.FC<Props> = ({
               href={`https://twitter.com/${teamMember}`}
               target="_blank"
             >
-              <img src={image} />
+              <img src={image} /> {/* eslint-disable-line @next/next/no-img-element */}
             </a>
           ) : (
+            // eslint-disable-next-line @next/next/no-img-element
             <img src={image} />
           )}
         </div>

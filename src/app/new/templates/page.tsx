@@ -1,9 +1,9 @@
 'use client'
 
 import React, { Fragment } from 'react'
+import { TemplatesBlock } from '@blocks/TemplatesBlock'
 import Link from 'next/link'
 
-import { TemplatesBlock } from '@blocks/TemplatesBlock'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 

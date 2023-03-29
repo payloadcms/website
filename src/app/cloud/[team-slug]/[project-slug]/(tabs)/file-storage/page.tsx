@@ -1,8 +1,8 @@
 'use client'
 
 import * as React from 'react'
-
 import { Secret } from '@forms/fields/Secret'
+
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 
 import classes from './index.module.scss'

@@ -114,7 +114,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
           href = objectURL.href.replace(process.env.NEXT_PUBLIC_APP_URL, '')
         }
       } catch (e) {
-        console.error(`Failed to format url: ${href}`, e)
+        console.error(`Failed to format url: ${href}`, e) // eslint-disable-line no-console
       }
     }
 

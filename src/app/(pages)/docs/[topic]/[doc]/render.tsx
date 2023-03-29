@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { ArrowIcon } from '@icons/ArrowIcon'
 import { useTheme } from '@providers/Theme'
 import Link from 'next/link'
 import { MDXRemote } from 'next-mdx-remote'
@@ -9,7 +10,6 @@ import { Button } from '@components/Button'
 import { JumplistProvider } from '@components/Jumplist'
 import components from '@components/MDX/components'
 import TableOfContents from '@components/TableOfContents'
-import { ArrowIcon } from '@icons/ArrowIcon'
 import slugify from '@root/utilities/slugify'
 import { Doc, NextDoc } from '../../types'
 

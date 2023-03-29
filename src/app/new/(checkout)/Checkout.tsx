@@ -2,6 +2,10 @@
 
 import React, { Fragment, useCallback, useEffect } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import { Checkbox } from '@forms/fields/Checkbox'
+import { Text } from '@forms/fields/Text'
+import Form from '@forms/Form'
+import Label from '@forms/Label'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import Link from 'next/link'
@@ -15,10 +19,6 @@ import { useInstallationSelector } from '@components/InstallationSelector'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { usePlanSelector } from '@components/PlanSelector'
 import { TeamSelector } from '@components/TeamSelector'
-import { Checkbox } from '@forms/fields/Checkbox'
-import { Text } from '@forms/fields/Text'
-import Form from '@forms/Form'
-import Label from '@forms/Label'
 import { cloudSlug } from '@root/app/cloud/layout'
 import { Plan } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
@@ -142,12 +142,12 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
   return (
     <Fragment>
       <Gutter>
-        <div>
-          {errorDeploying && <p className={classes.error}>{errorDeploying}</p>}
-          {installsError && <p className={classes.error}>{installsError}</p>}
-          {paymentIntentError && <p className={classes.error}>{paymentIntentError}</p>}
-          {isDeploying && <p className={classes.submitting}>Submitting, one moment...</p>}
+        <div className={classes.errors}>
+          {errorDeploying && <p>{errorDeploying}</p>}
+          {installsError && <p>{installsError}</p>}
+          {paymentIntentError && <p>{paymentIntentError}</p>}
         </div>
+        {isDeploying && <p className={classes.submitting}>Submitting, one moment...</p>}
         <Grid>
           <Cell cols={3} colsM={8} className={classes.sidebarCell}>
             <div className={classes.sidebar}>
@@ -160,8 +160,9 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                     <Label label="Total cost" htmlFor="" />
                     <p className={classes.totalPrice}>
                       {priceFromJSON(
-                        typeof checkoutState?.project?.plan !== 'string'
-                          ? checkoutState?.project?.plan?.priceJSON
+                        typeof checkoutState?.project?.plan === 'object' &&
+                          'priceJSON' in checkoutState?.project?.plan
+                          ? checkoutState?.project?.plan?.priceJSON?.toString()
                           : '',
                       )}
                     </p>
@@ -183,8 +184,8 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                     name: {
                       initialValue: project?.name,
                     },
-                    repositoryURL: {
-                      initialValue: project?.repositoryURL,
+                    repositoryID: {
+                      initialValue: project?.repositoryID,
                     },
                     template: {
                       initialValue: project?.template,
@@ -237,8 +238,8 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                       }
                     />
                     <Text
-                      label="Repository URL"
-                      path="repositoryURL"
+                      label="Repository ID"
+                      path="repositoryID"
                       disabled
                       description="This only applies to the `import` flow."
                     />

@@ -19,6 +19,7 @@ type Logout = () => Promise<void>
 
 type AuthContext = {
   user?: User | null
+  updateUser: (user: Partial<User>) => void // eslint-disable-line no-unused-vars
   setUser: (user: User | null) => void // eslint-disable-line no-unused-vars
   logout: Logout
   login: Login
@@ -28,6 +29,7 @@ type AuthContext = {
 
 const USER = `
   id
+  name
   email
   roles
   teams {
@@ -42,7 +44,7 @@ const USER = `
 
 const Context = createContext({} as AuthContext)
 
-const CLOUD_CONNECTION_ERROR = 'An error occurred while attempting to connect to Cloud CMS.'
+const CLOUD_CONNECTION_ERROR = 'An error occurred while attempting to connect to Payload Cloud'
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null | undefined>(undefined)
@@ -68,16 +70,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }),
       })
 
+      const { data, errors } = await res.json()
+
       if (res.ok) {
-        const { data, errors } = await res.json()
         if (errors) throw new Error(errors[0].message)
         setUser(data?.loginUser?.user)
         return data?.loginUser?.user
       }
 
-      throw new Error('Invalid login')
+      throw new Error(errors?.[0]?.message || 'An error occurred while attempting to login.')
     } catch (e) {
-      throw new Error(CLOUD_CONNECTION_ERROR)
+      throw new Error(`${CLOUD_CONNECTION_ERROR}: ${e.message}`)
     }
   }, [])
 
@@ -102,7 +105,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         throw new Error('An error occurred while attempting to logout.')
       }
     } catch (e) {
-      throw new Error(CLOUD_CONNECTION_ERROR)
+      throw new Error(`${CLOUD_CONNECTION_ERROR}: ${e.message}`)
     }
   }, [])
 
@@ -130,15 +133,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           }),
         })
 
+        const { data, errors } = await res.json()
+
         if (res.ok) {
-          const { data } = await res.json()
           setUser(data?.meUser?.user || null)
         } else {
-          throw new Error('An error occurred while fetching your account.')
+          throw new Error(
+            errors?.[0]?.message || 'An error occurred while attempting to fetch user.',
+          )
         }
       } catch (e) {
         setUser(null)
-        throw new Error(CLOUD_CONNECTION_ERROR)
+        throw new Error(`${CLOUD_CONNECTION_ERROR}: ${e.message}`)
       }
     }
 
@@ -165,15 +171,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }),
       })
 
+      const { data, errors } = await res.json()
+
       if (res.ok) {
-        const { data, errors } = await res.json()
         if (errors) throw new Error(errors[0].message)
         setUser(data?.loginUser?.user)
       } else {
-        throw new Error('Invalid login')
+        throw new Error(
+          errors?.[0]?.message || 'An error occurred while attempting to reset your password.',
+        )
       }
     } catch (e) {
-      throw new Error(CLOUD_CONNECTION_ERROR)
+      throw new Error(`${CLOUD_CONNECTION_ERROR}: ${e.message}`)
     }
   }, [])
 
@@ -187,27 +196,69 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         },
         body: JSON.stringify({
           query: `mutation {
-              resetPasswordUser(password: "${args.password}", passwordConfirm: "${args.passwordConfirm}", token: "${args.token}") {
+              resetPasswordUser(password: "${args.password}", token: "${args.token}") {
                 user {
                   ${USER}
                 }
-                exp
               }
             }`,
         }),
       })
 
+      const { data, errors } = await res.json()
+
       if (res.ok) {
-        const { data, errors } = await res.json()
         if (errors) throw new Error(errors[0].message)
-        setUser(data?.loginUser?.user)
+        setUser(data?.resetPasswordUser?.user)
       } else {
-        throw new Error('Invalid login')
+        throw new Error(errors?.[0]?.message || 'Invalid login')
       }
     } catch (e) {
-      throw new Error(CLOUD_CONNECTION_ERROR)
+      throw new Error(`${CLOUD_CONNECTION_ERROR}: ${e.message}`)
     }
   }, [])
+
+  const updateUser = useCallback(
+    async (incomingUser: Partial<User>) => {
+      try {
+        if (!user || !incomingUser) throw new Error('No user found to update.')
+
+        const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            query: `mutation {
+              updateUser(
+                id: "${user?.id}",
+                data: {
+                  ${Object.entries(incomingUser)
+                    .map(([key, value]) => `${key}: "${value}"`)
+                    .join(', ')}
+                }
+              ) {
+                ${USER}
+              }
+            }`,
+          }),
+        })
+
+        const { data, errors } = await res.json()
+
+        if (res.ok) {
+          if (errors) throw new Error(errors[0].message)
+          setUser(data?.updateUser)
+        } else {
+          throw new Error(errors?.[0]?.message || 'An error occurred while updating your account.')
+        }
+      } catch (e) {
+        throw new Error(`${CLOUD_CONNECTION_ERROR}: ${e.message}`)
+      }
+    },
+    [user],
+  )
 
   return (
     <Context.Provider
@@ -218,6 +269,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         logout,
         resetPassword,
         forgotPassword,
+        updateUser,
       }}
     >
       {children}

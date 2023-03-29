@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react'
-
 import { BannerBlock, BannerBlockProps } from '@blocks/Banner'
+
 import { StyleguidePageContent } from '../../PageContent'
 
 const data: BannerBlockProps = {

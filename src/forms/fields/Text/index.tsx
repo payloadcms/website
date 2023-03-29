@@ -1,10 +1,10 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
+import Label from '@forms/Label'
 
 import { CopyToClipboard } from '@components/CopyToClipboard'
 import { TooltipButton } from '@components/TooltipButton'
-import Label from '@forms/Label'
 import { EyeIcon } from '@root/icons/EyeIcon'
 import Error from '../../Error'
 import { Validate } from '../../types'
@@ -53,6 +53,8 @@ export const Text: React.FC<
     value: valueFromProps,
   } = props
 
+  const prevValueFromProps = React.useRef(valueFromProps)
+
   const [isHidden, setIsHidden] = React.useState(type === 'password')
 
   const {
@@ -69,6 +71,13 @@ export const Text: React.FC<
   })
 
   const value = valueFromProps || valueFromContext
+
+  useEffect(() => {
+    if (valueFromProps !== undefined && valueFromProps !== valueFromContext) {
+      prevValueFromProps.current = valueFromProps
+      onChange(valueFromProps)
+    }
+  }, [valueFromProps, onChange, valueFromContext])
 
   return (
     <div

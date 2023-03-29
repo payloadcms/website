@@ -16,15 +16,26 @@ export default () => {
 
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer()
 
-  const hasTeams = user?.teams?.length && user.teams.length > 0
+  const hasTeams = Boolean(user?.teams?.length && user.teams.length > 0)
 
   return (
     <React.Fragment>
       <div className={classes.teams}>
         <Gutter className={classes.content}>
+          {!hasTeams && (
+            <div className={classes.noTeams}>
+              <p>
+                {`You are not a member of any teams. `}
+                <TeamDrawerToggler className={classes.createTeamLink}>
+                  Create a new team
+                </TeamDrawerToggler>
+                {' to get started.'}
+              </p>{' '}
+            </div>
+          )}
           {hasTeams && (
             <ul className={classes.list}>
-              {user.teams?.map(({ team }, index) => {
+              {user?.teams?.map(({ team }, index) => {
                 if (!team || typeof team === 'string') return null
 
                 return (

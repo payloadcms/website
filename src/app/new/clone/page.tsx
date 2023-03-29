@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
+import { TemplatesBlock } from '@blocks/TemplatesBlock'
 import Link from 'next/link'
 
-import { TemplatesBlock } from '@blocks/TemplatesBlock'
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
 

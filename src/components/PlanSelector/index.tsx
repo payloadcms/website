@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, useMemo } from 'react'
+import Label from '@forms/Label'
 
 import { LargeRadio } from '@components/LargeRadio'
 import { LoadingShimmer } from '@components/LoadingShimmer'
-import Label from '@forms/Label'
 import { Plan } from '@root/payload-cloud-types'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import { UseCloud, useGetPlans } from '@root/utilities/use-cloud'
@@ -70,7 +70,7 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
               plans.map(plan => {
                 const { priceJSON, name } = plan
                 const checked = selectedPlan?.id === plan.id
-                const price = priceFromJSON(priceJSON, false)
+                const price = priceFromJSON(priceJSON?.toString(), false)
 
                 return (
                   <LargeRadio

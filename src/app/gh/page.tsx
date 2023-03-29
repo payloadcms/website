@@ -1,19 +1,30 @@
 'use client'
 
 import { useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 import { PopupMessage } from '@root/utilities/use-popup-window'
 
-export default ({ searchParams }) => {
-  useEffect(() => {
-    if (window.opener == null) window.close()
-    const message: PopupMessage = {
-      type: 'github',
-      searchParams,
-    }
+export default () => {
+  // do not read `searchParams` prop, see https://github.com/vercel/next.js/issues/43077
+  const searchParams = useSearchParams()
 
-    window.opener.postMessage(message)
-    window.close()
+  useEffect(() => {
+    ;(async () => {
+      if (window.opener == null) window.close()
+
+      const paramObj = Object.fromEntries(
+        searchParams?.entries() || [],
+      ) as PopupMessage['searchParams']
+
+      const message: PopupMessage = {
+        type: 'github',
+        searchParams: paramObj,
+      }
+
+      await window.opener.postMessage(message)
+      window.close()
+    })()
   }, [searchParams])
 
   return null

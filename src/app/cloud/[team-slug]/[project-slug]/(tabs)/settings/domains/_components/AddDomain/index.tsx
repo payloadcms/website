@@ -1,12 +1,12 @@
 'use client'
 
 import * as React from 'react'
-
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { OnSubmit } from '@forms/types'
 import { validateDomain } from '@forms/validations'
+
 import { useRouteData } from '@root/app/cloud/context'
 
 // import { Project } from '@root/payload-cloud-types'
@@ -65,7 +65,7 @@ export const AddDomain: React.FC = () => {
 
           return
         } catch (e) {
-          console.error(e)
+          console.error(e) // eslint-disable-line no-console
         }
       } else {
         setFieldKey(generateUUID())
