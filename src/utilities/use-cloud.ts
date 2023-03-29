@@ -99,9 +99,10 @@ export const useGetProjects: UseCloud<
   {
     team?: string
     search?: string
+    delay?: number
   }
 > = args => {
-  const { team, search } = args || {}
+  const { team, search, delay } = args || {}
 
   const query = qs.stringify({
     ...(team && team !== 'none'
@@ -124,6 +125,7 @@ export const useGetProjects: UseCloud<
 
   return useCloud<Project>({
     url: `/api/projects${query ? `?${query}` : ''}`,
+    delay,
   })
 }
 
