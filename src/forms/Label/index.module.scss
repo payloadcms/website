@@ -8,6 +8,7 @@
   line-height: 1;
   font-size: 14px;
   align-self: flex-end;
+  display: inline-flex;
 }
 
 .required {
@@ -16,10 +17,10 @@
 }
 
 .labelWithActions {
-  display: flex;
+  width: 100%;
+  display: inline-flex;
   align-items: center;
   margin-bottom: calc(var(--base) * 0.5);
-  min-height: 24px; // to align with icons inputs without icons
 
   label {
     margin: 0;

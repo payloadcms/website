@@ -11,9 +11,11 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   padding: var(--button-padding);
 
   --button-padding: calc(var(--base) * 0.5) var(--base);
+  height: calc(var(--base) * 2.5); // match input height
 
   &:local(.size--small) {
     --button-padding: calc(var(--base) * 0.25) calc(var(--base) * 0.5);
+    height: unset;
   }
 
   &:disabled {
@@ -111,6 +113,7 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   &--text {
     display: inline-flex;
     padding: unset;
+    height: unset;
     border-radius: 3px;
     border: 1px solid transparent;
 
