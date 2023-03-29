@@ -19,7 +19,7 @@ export const TemplatesBlock: React.FC<{}> = () => {
           <PixelBackground />
         </div>
         <div className={classes.templates}>
-          {templates.map((template, index) => (
+          {templates?.map((template, index) => (
             <DefaultCard
               key={template.slug}
               className={classes.card}
@@ -27,6 +27,7 @@ export const TemplatesBlock: React.FC<{}> = () => {
               href={`/new/clone/${template.slug}`}
               title={template.name}
               description={template.description}
+              media={template.image}
             />
           ))}
         </div>

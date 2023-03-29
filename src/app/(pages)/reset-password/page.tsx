@@ -18,6 +18,7 @@ import { getImplicitPreference } from '@root/providers/Theme/shared'
 import canUseDom from '@root/utilities/can-use-dom'
 
 import classes from './index.module.scss'
+import { FormWrap } from '@root/app/_components/FormWrap'
 
 const ResetPassword: React.FC = () => {
   const searchParams = useSearchParams()
@@ -59,8 +60,7 @@ const ResetPassword: React.FC = () => {
         <Heading marginTop={false} element="h1" as="h3">
           Reset password
         </Heading>
-        <BorderBox className={classes.borderBox}>
-          {error && <div className={classes.error}>{error}</div>}
+        <FormWrap>
           <Form
             onSubmit={handleSubmit}
             className={classes.form}
@@ -76,18 +76,19 @@ const ResetPassword: React.FC = () => {
               },
             }}
           >
+          {error && <div className={classes.error}>{error}</div>}
             <Text path="password" type="password" label="New Password" required />
             <Text path="passwordConfirm" type="password" label="Confirm Password" required />
             <div>
               <Submit label="Reset Password" className={classes.submit} />
             </div>
           </Form>
-          <div className={classes.formFooter}>
+          <div>
             {`Already have an account? `}
             <Link href={`/login${search}`}>Log in here</Link>
             {'.'}
           </div>
-        </BorderBox>
+        </FormWrap>
       </MaxWidth>
     </Gutter>
   )

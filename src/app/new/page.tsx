@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import { TemplatesBlock } from '@blocks/TemplatesBlock'
-import Link from 'next/link'
 
 import { BlockSpacing } from '@components/BlockSpacing'
 import { Button } from '@components/Button'
@@ -33,18 +32,6 @@ const NewProject: React.FC = () => {
       <BlockSpacing top={false}>
         <TemplatesBlock />
       </BlockSpacing>
-      <Gutter>
-        <div className={classes.callToAction}>
-          <h6>Payload Cloud is the best way to deploy a Payload project.</h6>
-          <p>
-            {`Get a quick-start with one of our `}
-            <Link href="/new/templates">pre-built templates</Link>
-            {`, or deploy your own `}
-            <Link href="/new/clone">existing</Link>
-            {` Payload codebase.`}
-          </p>
-        </div>
-      </Gutter>
     </Fragment>
   )
 }
