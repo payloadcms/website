@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
@@ -14,6 +14,7 @@ import { Highlight } from '@components/Highlight'
 import { BorderBox } from '@root/app/_components/BorderBox'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
+import canUseDom from '@root/utilities/can-use-dom'
 
 import classes from './index.module.scss'
 
@@ -28,6 +29,7 @@ const initialFormState: InitialState = {
 
 const ForgotPassword: React.FC = () => {
   const { user, logout } = useAuth()
+  const [search] = React.useState<string | null>(() => (canUseDom ? window.location.search : null))
 
   const [error, setError] = React.useState<string | null>(null)
   const [successfullySubmitted, setSuccessfullySubmitted] = React.useState(false)
@@ -128,7 +130,7 @@ const ForgotPassword: React.FC = () => {
             <div className={classes.formFooter}>
               <div>
                 {`Already have an account? `}
-                <Link href={`/login${window?.location?.search || ''}`}>Log in here</Link>
+                <Link href={`/login${search}`}>Log in here</Link>
                 {'.'}
               </div>
             </div>

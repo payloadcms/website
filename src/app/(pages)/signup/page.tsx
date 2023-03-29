@@ -15,6 +15,7 @@ import { UniqueTeamSlug } from '@components/UniqueSlug'
 import { BorderBox } from '@root/app/_components/BorderBox'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
+import canUseDom from '@root/utilities/can-use-dom'
 
 import classes from './index.module.scss'
 
@@ -57,6 +58,7 @@ const Signup: React.FC = () => {
   const [error, setError] = React.useState<string | null>(null)
 
   const [successfullySubmitted, setSuccessfullySubmitted] = useState(false)
+  const [search] = React.useState<string | null>(() => (canUseDom ? window.location.search : null))
 
   const createAccount: OnSubmit = useCallback(async ({ data: formData, dispatchFields }) => {
     setTimeout(() => {
@@ -139,7 +141,7 @@ const Signup: React.FC = () => {
             </Heading>
             <div className={classes.formFooter}>
               {`Already verified your account? `}
-              <Link href={`/login${window?.location?.search || ''}`}>Log in now</Link>
+              <Link href={`/login${search}`}>Log in now</Link>
               {'.'}
             </div>
           </BorderBox>
@@ -163,7 +165,7 @@ const Signup: React.FC = () => {
             </Form>
             <div className={classes.formFooter}>
               {`Already have an account? `}
-              <Link href={`/login${window?.location?.search || ''}`}>Log in now</Link>
+              <Link href={`/login${search}`}>Log in now</Link>
               {'.'}
             </div>
           </BorderBox>
