@@ -23,7 +23,7 @@ export const LivestreamHero: React.FC<
 > = props => {
   const {
     breadcrumbs,
-    livestream: { id: youtubeID = '', date, guests, richText },
+    livestream: { id: youtubeID = '', hideBreadcrumbs, date, guests, richText },
     links,
   } = props
   const theme = useTheme()
@@ -57,7 +57,7 @@ export const LivestreamHero: React.FC<
           <Gutter className={classes.gutter}>
             <Grid>
               <Cell cols={6} colsM={8} startM={1}>
-                {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
+                {breadcrumbs && !hideBreadcrumbs && <Breadcrumbs items={breadcrumbs} />}
                 {richText && <RichText content={richText} />}
                 {guests &&
                   Array.isArray(guests) &&

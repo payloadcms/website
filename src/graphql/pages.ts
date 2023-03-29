@@ -70,6 +70,7 @@ export const PAGE = `
                 url
               }
             }
+            hideBreadcrumbs
           }
         }
         layout {
