@@ -17,7 +17,7 @@ export const useCreateDraftProject = ({
   templateID?: string // only applies to `clone` flow
   makePrivate?: boolean // only applies to `clone` flow
 }): {
-  submitDraftProject: (args?: { repo: Repo }) => void // eslint-disable-line no-unused-vars
+  submitDraftProject: (args?: { repo: Partial<Repo> }) => void // eslint-disable-line no-unused-vars
   isSubmitting: boolean
   error: string
 } => {
@@ -26,7 +26,7 @@ export const useCreateDraftProject = ({
   const [isSubmitting, setIsSubmitting] = React.useState(false)
 
   const submitDraftProject = useCallback(
-    async ({ repo }: { repo: Repo }) => {
+    async ({ repo }: { repo: Partial<Repo> }) => {
       if (!user) {
         return
       }
@@ -57,6 +57,7 @@ export const useCreateDraftProject = ({
             defaultDomain: undefined,
             repositoryID: repo?.id, // only applies to the `import` flow
             repositoryName: repo?.name,
+            repositoryFullName: repo?.full_name,
             template: templateID,
             makePrivate,
           }),

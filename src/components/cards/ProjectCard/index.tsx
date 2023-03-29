@@ -15,7 +15,7 @@ export const ProjectCard: React.FC<{
 }> = props => {
   const { project, className } = props
 
-  const { team, status, deploymentBranch, repositoryName } = project
+  const { team, status, deploymentBranch, repositoryFullName } = project
 
   const teamSlug = typeof team === 'string' ? team : team.slug
   return (
@@ -37,10 +37,10 @@ export const ProjectCard: React.FC<{
       </div>
       <h6 className={classes.title}>{project.name}</h6>
       <div className={classes.details}>
-        {repositoryName && (
+        {repositoryFullName && (
           <div className={classes.projectRepo}>
             <GitHubIcon className={classes.githubIcon} />
-            {repositoryName}
+            {repositoryFullName}
           </div>
         )}
         {deploymentBranch && (

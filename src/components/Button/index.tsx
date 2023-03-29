@@ -8,7 +8,7 @@ import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { PlusIcon } from '@root/icons/PlusIcon'
 import { SearchIcon } from '@root/icons/SearchIcon'
-import { Page } from '../../payload-types'
+import { Page } from '@root/payload-types'
 // eslint-disable-next-line import/no-cycle
 import { LinkType, Reference } from '../CMSLink'
 

@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react'
 
 import { Project, Team } from '@root/payload-cloud-types'
-import { useGetProject, useGetTeam } from '@root/utilities/use-cloud'
+import { useGetProject, useGetTeam } from '@root/utilities/use-cloud-api'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
 
 type ContextType = {
@@ -23,25 +23,25 @@ export const RouteDataProvider: React.FC<{
 }> = ({ children }) => {
   const [, teamSlug, projectSlug] = usePathnameSegments()
 
-  const { result: projects, reload: reloadProject } = useGetProject({
+  const { result: project, reload: reloadProject } = useGetProject({
     teamSlug,
     projectSlug,
   })
 
-  const { result: teams, reload: reloadTeam } = useGetTeam(teamSlug)
+  const { result: team, reload: reloadTeam } = useGetTeam(teamSlug)
 
-  const [team, setTeam] = React.useState<Team>(teams[0])
+  const [selectedTeam, setTeam] = React.useState<Team>(team)
 
   useEffect(() => {
-    setTeam(teams[0])
-  }, [teams])
+    setTeam(team)
+  }, [team])
 
   return (
     <Context.Provider
       value={{
-        team,
+        team: selectedTeam,
         setTeam,
-        project: projects[0],
+        project,
         reloadProject,
         reloadTeam,
       }}

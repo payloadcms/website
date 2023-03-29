@@ -9,7 +9,7 @@ import { Button } from '@components/Button'
 import { ProjectCard } from '@components/cards/ProjectCard'
 import { Gutter } from '@components/Gutter'
 import { LoadingShimmer } from '@components/LoadingShimmer'
-import { useGetProjects } from '@root/utilities/use-cloud'
+import { useGetProjects } from '@root/utilities/use-cloud-api'
 import { useRouteData } from '../context'
 
 import classes from './index.module.scss'
@@ -26,6 +26,7 @@ export default () => {
   } = useGetProjects({
     team: typeof team === 'object' ? team.id : team,
     search,
+    delay: 500,
   })
 
   return (
