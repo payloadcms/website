@@ -17,6 +17,7 @@ import { useAuth } from '@root/providers/Auth'
 import canUseDom from '@root/utilities/can-use-dom'
 
 import classes from './index.module.scss'
+import { FormWrap } from '@root/app/_components/FormWrap'
 
 const initialFormState: InitialState = {
   email: {
@@ -89,13 +90,13 @@ const Login: React.FC = () => {
   return (
     <Gutter>
       <MaxWidth centered className={classes.maxWidth}>
-        <Heading marginTop={false} element="h1" as="h3">
+        <Heading marginTop={false} element="h1" as="h2">
           Log in
         </Heading>
         {message && <p className={classes.message}>{message}</p>}
-        <BorderBox className={classes.borderBox}>
-          {error && <div className={classes.error}>{error}</div>}
+        <FormWrap>
           <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
+          {error && <div className={classes.error}>{error}</div>}
             <Text path="email" label="Email" required elementAttributes={{ autoComplete: 'on' }} />
             <Text path="password" label="Password" type="password" required />
             <div>
@@ -110,7 +111,7 @@ const Login: React.FC = () => {
               {'.'}
             </div>
           </div>
-        </BorderBox>
+        </FormWrap>
       </MaxWidth>
     </Gutter>
   )

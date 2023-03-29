@@ -12,12 +12,12 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { Highlight } from '@components/Highlight'
 import { UniqueTeamSlug } from '@components/UniqueSlug'
-import { BorderBox } from '@root/app/_components/BorderBox'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
 import canUseDom from '@root/utilities/can-use-dom'
 
 import classes from './index.module.scss'
+import { FormWrap } from '@root/app/_components/FormWrap'
 
 const initialFormState: InitialState = {
   email: {
@@ -132,28 +132,26 @@ const Signup: React.FC = () => {
     <Gutter>
       {successfullySubmitted ? (
         <MaxWidth size="medium" centered className={classes.maxWidth}>
-          <BorderBox>
-            <Heading marginTop={false} element="h2" as="h5">
-              <Highlight text="Success" />
-            </Heading>
-            <Heading marginTop={false} element="p" as="h6">
-              Your account was created! Please check your email to verify your account and login.
-            </Heading>
-            <div className={classes.formFooter}>
-              {`Already verified your account? `}
-              <Link href={`/login${search}`}>Log in now</Link>
-              {'.'}
-            </div>
-          </BorderBox>
+          <Heading marginTop={false} element="h2" as="h2">
+            <Highlight text="Success" />
+          </Heading>
+          <Heading marginTop={false} element="p" as="h6">
+            Your account was created! Please check your email to verify your account and login.
+          </Heading>
+          <div>
+            {`Already verified your account? `}
+            <Link href={`/login${search}`}>Log in now</Link>
+            {'.'}
+          </div>
         </MaxWidth>
       ) : (
         <MaxWidth centered className={classes.maxWidth}>
           <Heading marginTop={false} element="h1" as="h3">
             Sign up for Payload Cloud
           </Heading>
-          <BorderBox className={classes.borderBox}>
-            {error && <div className={classes.error}>{error}</div>}
+          <FormWrap>
             <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>
+              {error && <div className={classes.error}>{error}</div>}
               <Text path="email" label="Email" required />
               <Text path="createTeamFromName" label="Team Name" required />
               <UniqueTeamSlug path="createTeamFromSlug" />
@@ -163,12 +161,12 @@ const Signup: React.FC = () => {
                 <Submit label="Signup" className={classes.submit} />
               </div>
             </Form>
-            <div className={classes.formFooter}>
+            <div className={classes.sidebar}>
               {`Already have an account? `}
               <Link href={`/login${search}`}>Log in now</Link>
               {'.'}
             </div>
-          </BorderBox>
+          </FormWrap>
         </MaxWidth>
       )}
     </Gutter>
