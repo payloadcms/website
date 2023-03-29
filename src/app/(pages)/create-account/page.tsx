@@ -148,8 +148,8 @@ const CreateAccount: React.FC = () => {
             Create an account
           </Heading>
           <FormWrap>
-            {error && <div className={classes.error}>{error}</div>}
             <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>
+            {error && <div className={classes.error}>{error}</div>}
               <Text path="email" label="Email" required />
               <Text path="createTeamFromName" label="Team Name" required />
               <UniqueTeamSlug path="createTeamFromSlug" />

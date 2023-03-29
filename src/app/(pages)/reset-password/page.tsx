@@ -59,7 +59,6 @@ const ResetPassword: React.FC = () => {
           Reset password
         </Heading>
         <FormWrap>
-          {error && <div className={classes.error}>{error}</div>}
           <Form
             onSubmit={handleSubmit}
             className={classes.form}
@@ -75,6 +74,7 @@ const ResetPassword: React.FC = () => {
               },
             }}
           >
+          {error && <div className={classes.error}>{error}</div>}
             <Text path="password" type="password" label="New Password" required />
             <Text path="passwordConfirm" type="password" label="Confirm Password" required />
             <div>

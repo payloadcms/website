@@ -71,7 +71,7 @@ const ForgotPassword: React.FC = () => {
     [setError, setSuccessfullySubmitted],
   )
 
-  if (!user) {
+  if (user) {
     return (
       <Gutter>
         <MaxWidth size="medium" centered className={classes.maxWidth}>
@@ -113,9 +113,9 @@ const ForgotPassword: React.FC = () => {
           <Heading marginTop={false} element="h1" as="h3">
             Forgot password
           </Heading>
-          {error && <div className={classes.error}>{error}</div>}
           <FormWrap>
             <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
+              {error && <div className={classes.error}>{error}</div>}
               <Text path="email" label="Email" required />
               <div>
                 <Submit label="Recover" className={classes.submit} />
