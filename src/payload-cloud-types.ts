@@ -7,128 +7,30 @@
 
 export interface Config {
   collections: {
-    'atlas-orgs': AtlasOrg;
-    'atlas-projects': AtlasProject;
-    deployments: Deployment;
-    jobs: Job;
-    media: Media;
-    plans: Plan;
-    projects: Project;
-    teams: Team;
-    'teardown-errors': TeardownError;
-    templates: Template;
     users: User;
+    teams: Team;
+    projects: Project;
+    deployments: Deployment;
+    plans: Plan;
+    templates: Template;
+    'atlas-projects': AtlasProject;
+    'atlas-orgs': AtlasOrg;
+    jobs: Job;
+    'teardown-errors': TeardownError;
   };
   globals: {};
-}
-export interface AtlasOrg {
-  id: string;
-  atlasOrgID?: string;
-  atlasProjects?: string[] | AtlasProject[];
-  projectCount?: number;
-  createdAt: string;
-  updatedAt: string;
-}
-export interface AtlasProject {
-  id: string;
-  atlasProjectID?: string;
-  projects?: string[] | Project[];
-  projectCount?: number;
-  createdAt: string;
-  updatedAt: string;
-}
-export interface Project {
-  id: string;
-  slug?: string;
-  status?: 'draft' | 'published';
-  skipSync?: boolean;
-  name: string;
-  plan?: string | Plan;
-  team: string | Team;
-  template?: string | Template;
-  makePrivate?: boolean;
-  source?: 'github';
-  repositoryName?: string;
-  repositoryURL?: string;
-  repositoryID?: string;
-  installID?: string;
-  deploymentBranch?: string;
-  outputDirectory?: string;
-  buildScript?: string;
-  installScript?: string;
-  runScript?: string;
-  rootDirectory?: string;
-  cloudflareDNSRecordID?: string;
-  digitalOceanAppID?: string;
-  atlasProjectID?: string;
-  atlasConnectionString?: string;
-  atlasDatabaseName?: string;
-  atlasDatabaseType?: 'cluster' | 'serverless';
-  atlasDatabaseUser?: string;
-  atlasDatabasePassword?: string;
-  s3Policy?: 'public' | 'private';
-  cognitoIdentityID?: string;
-  cognitoPassword?: string;
-  region?: 'us-east' | 'us-west' | 'eu-west';
-  defaultDomain?: string;
-  domains?: {
-    domain: string;
-    cloudflareID?: string;
-    id?: string;
-  }[];
-  environmentVariables?: {
-    key?: string;
-    value?: string;
-    id?: string;
-  }[];
-  stripeSubscriptionID?: string;
-  stripeSubscriptionStatus?:
-  | 'active'
-  | 'canceled'
-  | 'incomplete'
-  | 'incomplete_expired'
-  | 'past_due'
-  | 'trialing'
-  | 'unpaid'
-  | 'paused';
-  teamProjectName?: string;
-  createdAt: string;
-  updatedAt: string;
-}
-export interface Plan {
-  id: string;
-  name?: string;
-  slug?: string;
-  stripeProductID?: string;
-  priceJSON?: string;
-  order?: number;
-  createdAt: string;
-  updatedAt: string;
-}
-export interface Team {
-  id: string;
-  name?: string;
-  slug?: string;
-  billingEmail: string;
-  stripeCustomerID?: string;
-  skipSync?: boolean;
-  members?: {
-    user?: string | User;
-    roles?: ('owner' | 'admin' | 'user')[];
-    invitedOn?: string;
-    acceptedOn?: string;
-    id?: string;
-  }[];
-  createdAt: string;
-  updatedAt: string;
 }
 export interface User {
   id: string;
   name?: string;
   githubID?: string;
+  createTeamFromSlug?: string;
+  createTeamFromName?: string;
   teams?: {
     team?: string | Team;
     roles?: ('owner' | 'admin' | 'user')[];
+    invitedOn?: string;
+    acceptedOn?: string;
     id?: string;
   }[];
   roles?: ('admin' | 'user')[];
@@ -147,44 +49,163 @@ export interface User {
   updatedAt: string;
   password?: string;
 }
+export interface Team {
+  id: string;
+  name: string;
+  slug: string;
+  invitations?: {
+    user?: string | User;
+    email?: string;
+    roles?: ('owner' | 'admin' | 'user')[];
+    invitedOn?: string;
+    id?: string;
+  }[];
+  sendEmailInvitationsTo?: {
+    user?: string | User;
+    email?: string;
+    roles?: ('owner' | 'admin' | 'user')[];
+    id?: string;
+  }[];
+  billingEmail: string;
+  stripeCustomerID?: string;
+  skipSync?: boolean;
+  createdBy?: string | User;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface Project {
+  id: string;
+  slug: string;
+  status?: 'draft' | 'published';
+  skipSync?: boolean;
+  name: string;
+  plan?: string | Plan;
+  team: string | Team;
+  region?: 'us-east' | 'us-west' | 'eu-west';
+  template?: string | Template;
+  makePrivate?: boolean;
+  digitalOceanAppID?: string;
+  source?: 'github';
+  repositoryName?: string;
+  repositoryID?: string;
+  installID?: string;
+  deploymentBranch?: string;
+  outputDirectory?: string;
+  buildScript?: string;
+  installScript?: string;
+  runScript?: string;
+  rootDirectory?: string;
+  cloudflareDNSRecordID?: string;
+  defaultDomain?: string;
+  domains?: {
+    domain: string;
+    cloudflareID?: string;
+    id?: string;
+  }[];
+  atlasProjectID?: string;
+  atlasConnectionString?: string;
+  atlasDatabaseName?: string;
+  atlasDatabaseType?: 'cluster' | 'serverless';
+  atlasDatabaseUser?: string;
+  atlasDatabasePassword?: string;
+  s3Policy?: 'public' | 'private';
+  cognitoIdentityID?: string;
+  cognitoPassword?: string;
+  PAYLOAD_SECRET?: string;
+  environmentVariables?: {
+    key?: string;
+    value?: string;
+    id?: string;
+  }[];
+  stripeSubscriptionID?: string;
+  stripeSubscriptionStatus?:
+    | 'active'
+    | 'canceled'
+    | 'incomplete'
+    | 'incomplete_expired'
+    | 'past_due'
+    | 'trialing'
+    | 'unpaid'
+    | 'paused';
+  resendAPIKey?: string;
+  defaultDomainResendDNSRecords?: {
+    cloudflareID: string;
+    type: 'MX' | 'TXT' | 'CNAME';
+    name: string;
+    value: string;
+    id?: string;
+  }[];
+  teamProjectName?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface Plan {
+  id: string;
+  name: string;
+  slug: string;
+  stripeProductID?: string;
+  priceJSON?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  order?: number;
+  createdAt: string;
+  updatedAt: string;
+}
 export interface Template {
   id: string;
   name?: string;
   slug?: string;
   description?: string;
-  repositoryURL?: string;
+  templateOwner: string;
+  templateRepo: string;
   order?: number;
-  image?: string | Media;
-  createdAt: string;
-  updatedAt: string;
-}
-export interface Media {
-  id: string;
-  alt: string;
-  url?: string;
-  filename?: string;
-  mimeType?: string;
-  filesize?: number;
-  width?: number;
-  height?: number;
+  files?: {
+    path: string;
+    content?: string;
+    id?: string;
+  }[];
   createdAt: string;
   updatedAt: string;
 }
 export interface Deployment {
   id: string;
-  name?: string;
   project: string | Project;
-  deployedAt?: string;
-  deploymentURL?: string;
-  deploymentID?: string;
+  deploymentID: string;
   commitSha?: string;
   commitMessage?: string;
-  logs?: {
-    timestamp?: string;
-    message?: string;
-    id?: string;
-  }[];
-  deploymentStatus?: 'pending' | 'inProgress' | 'success' | 'error';
+  lastSync?: string;
+  deploymentStatus?:
+    | 'UNKNOWN'
+    | 'PENDING_BUILD'
+    | 'BUILDING'
+    | 'PENDING_DEPLOY'
+    | 'DEPLOYING'
+    | 'ACTIVE'
+    | 'SUPERSEDED'
+    | 'ERROR'
+    | 'CANCELED';
+  createdAt: string;
+  updatedAt: string;
+}
+export interface AtlasProject {
+  id: string;
+  atlasProjectID?: string;
+  projects?: string[] | Project[];
+  projectCount?: number;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface AtlasOrg {
+  id: string;
+  atlasOrgID?: string;
+  atlasProjects?: string[] | AtlasProject[];
+  projectCount?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -201,14 +222,14 @@ export interface Job {
   };
   hasError?: boolean;
   error?:
-  | {
-    [k: string]: unknown;
-  }
-  | unknown[]
-  | string
-  | number
-  | boolean
-  | null;
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -219,7 +240,7 @@ export interface TeardownError {
     teamName?: string;
     teamID: string;
   };
-  errors?: {
+  serviceErrors?: {
     service?: string;
     error?: string;
     id?: string;
