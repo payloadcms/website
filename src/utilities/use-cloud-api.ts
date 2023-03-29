@@ -87,16 +87,18 @@ export const useCloudAPI = <R>(args: {
 }
 
 export const useGetPlans: UseCloudAPI<Plan[]> = () => {
-  const { result, ...rest } = useCloudAPI<{
+  const response = useCloudAPI<{
     docs: Plan[]
   }>({
     url: '/api/plans?where[slug][not_equals]=enterprise&sort=order',
   })
 
-  return {
-    ...rest,
-    result: result?.docs,
-  }
+  return useMemo(() => {
+    return {
+      ...response,
+      result: response.result?.docs,
+    }
+  }, [response])
 }
 
 export const useGetProjects: UseCloudAPI<
@@ -128,17 +130,19 @@ export const useGetProjects: UseCloudAPI<
       : {}),
   })
 
-  const { result, ...rest } = useCloudAPI<{
+  const response = useCloudAPI<{
     docs: Project[]
   }>({
     url: `/api/projects${query ? `?${query}` : ''}`,
     delay,
   })
 
-  return {
-    ...rest,
-    result: result?.docs,
-  }
+  return useMemo(() => {
+    return {
+      ...response,
+      result: response.result?.docs,
+    }
+  }, [response])
 }
 
 type ProjectWithTeam = Omit<Project, 'team'> & {
@@ -179,33 +183,37 @@ export const useGetProject: UseCloudAPI<
     url = `/api/projects?where[id][equals]=${projectID}&limit=1`
   }
 
-  const { result, ...rest } = useCloudAPI<{
+  const response = useCloudAPI<{
     docs: ProjectWithTeam[]
   }>({
     url,
   })
 
-  return {
-    ...rest,
-    result: result?.docs?.[0],
-  }
+  return useMemo(() => {
+    return {
+      ...response,
+      result: response.result?.docs?.[0],
+    }
+  }, [response])
 }
 
 export const useGetTeam: UseCloudAPI<Team, string> = teamSlug => {
-  const { result, ...rest } = useCloudAPI<{
+  const response = useCloudAPI<{
     docs: Team[]
   }>({
     url: teamSlug ? `/api/teams?where[slug][equals]=${teamSlug.toLowerCase()}&limit=1` : '',
   })
 
-  return {
-    ...rest,
-    result: result?.docs?.[0],
-  }
+  return useMemo(() => {
+    return {
+      ...response,
+      result: response.result?.docs?.[0],
+    }
+  }, [response])
 }
 
 export const useGetPaymentMethods: UseCloudAPI<PaymentMethod[], Team> = team => {
-  const { result, ...rest } = useCloudAPI<{
+  const response = useCloudAPI<{
     data: {
       data: PaymentMethod[]
     }
@@ -223,8 +231,10 @@ export const useGetPaymentMethods: UseCloudAPI<PaymentMethod[], Team> = team => 
     }),
   })
 
-  return {
-    ...rest,
-    result: result?.data?.data,
-  }
+  return useMemo(() => {
+    return {
+      ...response,
+      result: response.result?.data?.data,
+    }
+  }, [response])
 }
