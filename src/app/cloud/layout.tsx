@@ -105,6 +105,8 @@ const DashboardHeader = () => {
     segments = segments.slice(0, 4)
   }
 
+  const projectIsOnline = project?.infraStatus === 'done'
+
   return (
     <Fragment>
       <Gutter>
@@ -125,19 +127,26 @@ const DashboardHeader = () => {
       </Gutter>
       <RouteTabs
         tabs={[
-          // eslint-disable-next-line no-unused-vars
-          ...Object.entries(routes).reduce((acc: any[], [key, value]) => {
+          ...Object.entries(routes).reduce((acc: any[], [, value], index) => {
             if (value.tabLabel) {
               const tabURL = `/${cloudSlug}${value.href || ''}`
               const onTabPath = pathname === tabURL
               const onSettingsPath = isSettingsRoute && tabURL?.includes('/settings')
               const isActive = onTabPath || onSettingsPath
 
-              acc.push({
+              const tab = {
                 label: value.tabLabel,
                 url: tabURL,
                 isActive,
-              })
+              }
+
+              if (isProjectRoute && !projectIsOnline) {
+                if (tab.label === 'Overview') {
+                  acc.push(tab)
+                }
+              } else {
+                acc.push(tab)
+              }
             }
             return acc
           }, []),

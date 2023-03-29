@@ -90,7 +90,7 @@ const Login: React.FC = () => {
   return (
     <Gutter>
       <MaxWidth centered className={classes.maxWidth}>
-        <Heading marginTop={false} element="h1" as="h2">
+        <Heading marginTop={false} element="h1" as="h3">
           Log in
         </Heading>
         {message && <p className={classes.message}>{message}</p>}

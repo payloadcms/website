@@ -39,17 +39,18 @@ export interface AtlasProject {
 }
 export interface Project {
   id: string;
-  slug?: string;
+  slug: string;
   status?: 'draft' | 'published';
   skipSync?: boolean;
   name: string;
   plan?: string | Plan;
   team: string | Team;
+  region?: 'us-east' | 'us-west' | 'eu-west';
   template?: string | Template;
   makePrivate?: boolean;
+  digitalOceanAppID?: string;
   source?: 'github';
   repositoryName?: string;
-  repositoryURL?: string;
   repositoryID?: string;
   installID?: string;
   deploymentBranch?: string;
@@ -59,7 +60,12 @@ export interface Project {
   runScript?: string;
   rootDirectory?: string;
   cloudflareDNSRecordID?: string;
-  digitalOceanAppID?: string;
+  defaultDomain?: string;
+  domains?: {
+    domain: string;
+    cloudflareID?: string;
+    id?: string;
+  }[];
   atlasProjectID?: string;
   atlasConnectionString?: string;
   atlasDatabaseName?: string;
@@ -69,13 +75,7 @@ export interface Project {
   s3Policy?: 'public' | 'private';
   cognitoIdentityID?: string;
   cognitoPassword?: string;
-  region?: 'us-east' | 'us-west' | 'eu-west';
-  defaultDomain?: string;
-  domains?: {
-    domain: string;
-    cloudflareID?: string;
-    id?: string;
-  }[];
+  PAYLOAD_SECRET?: string;
   environmentVariables?: {
     key?: string;
     value?: string;
@@ -83,42 +83,66 @@ export interface Project {
   }[];
   stripeSubscriptionID?: string;
   stripeSubscriptionStatus?:
-  | 'active'
-  | 'canceled'
-  | 'incomplete'
-  | 'incomplete_expired'
-  | 'past_due'
-  | 'trialing'
-  | 'unpaid'
-  | 'paused';
+    | 'active'
+    | 'canceled'
+    | 'incomplete'
+    | 'incomplete_expired'
+    | 'past_due'
+    | 'trialing'
+    | 'unpaid'
+    | 'paused';
+  resendAPIKey?: string;
+  defaultDomainResendDNSRecords?: {
+    cloudflareID: string;
+    type: 'MX' | 'TXT' | 'CNAME';
+    name: string;
+    value: string;
+    id?: string;
+  }[];
   teamProjectName?: string;
+  infraStatus?: 'notStarted' | 'awaitingDatabase' | 'deploying' | 'provisioningDNS' | 'done' | 'deployError' | 'error';
   createdAt: string;
   updatedAt: string;
 }
 export interface Plan {
   id: string;
-  name?: string;
-  slug?: string;
+  name: string;
+  slug: string;
   stripeProductID?: string;
-  priceJSON?: string;
+  priceJSON?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   order?: number;
   createdAt: string;
   updatedAt: string;
 }
 export interface Team {
   id: string;
-  name?: string;
-  slug?: string;
+  name: string;
+  slug: string;
+  invitations?: {
+    user?: string | User;
+    email?: string;
+    roles?: ('owner' | 'admin' | 'user')[];
+    invitedOn?: string;
+    id?: string;
+  }[];
+  sendEmailInvitationsTo?: {
+    user?: string | User;
+    email?: string;
+    roles?: ('owner' | 'admin' | 'user')[];
+    id?: string;
+  }[];
   billingEmail: string;
   stripeCustomerID?: string;
   skipSync?: boolean;
-  members?: {
-    user?: string | User;
-    roles?: ('owner' | 'admin' | 'user')[];
-    invitedOn?: string;
-    acceptedOn?: string;
-    id?: string;
-  }[];
+  createdBy?: string | User;
   createdAt: string;
   updatedAt: string;
 }
@@ -126,9 +150,13 @@ export interface User {
   id: string;
   name?: string;
   githubID?: string;
+  createTeamFromSlug?: string;
+  createTeamFromName?: string;
   teams?: {
     team?: string | Team;
     roles?: ('owner' | 'admin' | 'user')[];
+    invitedOn?: string;
+    acceptedOn?: string;
     id?: string;
   }[];
   roles?: ('admin' | 'user')[];
@@ -152,9 +180,15 @@ export interface Template {
   name?: string;
   slug?: string;
   description?: string;
-  repositoryURL?: string;
+  templateOwner: string;
+  templateRepo: string;
   order?: number;
   image?: string | Media;
+  files?: {
+    path: string;
+    content?: string;
+    id?: string;
+  }[];
   createdAt: string;
   updatedAt: string;
 }
@@ -172,19 +206,21 @@ export interface Media {
 }
 export interface Deployment {
   id: string;
-  name?: string;
   project: string | Project;
-  deployedAt?: string;
-  deploymentURL?: string;
-  deploymentID?: string;
+  deploymentID: string;
   commitSha?: string;
   commitMessage?: string;
-  logs?: {
-    timestamp?: string;
-    message?: string;
-    id?: string;
-  }[];
-  deploymentStatus?: 'pending' | 'inProgress' | 'success' | 'error';
+  lastSync?: string;
+  deploymentStatus?:
+    | 'UNKNOWN'
+    | 'PENDING_BUILD'
+    | 'BUILDING'
+    | 'PENDING_DEPLOY'
+    | 'DEPLOYING'
+    | 'ACTIVE'
+    | 'SUPERSEDED'
+    | 'ERROR'
+    | 'CANCELED';
   createdAt: string;
   updatedAt: string;
 }
@@ -201,14 +237,14 @@ export interface Job {
   };
   hasError?: boolean;
   error?:
-  | {
-    [k: string]: unknown;
-  }
-  | unknown[]
-  | string
-  | number
-  | boolean
-  | null;
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -219,7 +255,7 @@ export interface TeardownError {
     teamName?: string;
     teamID: string;
   };
-  errors?: {
+  serviceErrors?: {
     service?: string;
     error?: string;
     id?: string;
