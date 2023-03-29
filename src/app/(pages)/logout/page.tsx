@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from 'react'
 
+import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { useAuth } from '@root/providers/Auth'
-import { Button } from '@components/Button'
 
 import classes from './index.module.scss'
 
@@ -47,12 +47,14 @@ const Logout: React.FC = () => {
 
   return (
     <Gutter>
-      <Heading as="h3" marginTop={false}>You have been logged out</Heading>
-      <div className={classes.buttonWrap}> 
-        <Button label="Return to Homepage" size="small"  href="/" appearance="primary" />
+      <Heading as="h3" marginTop={false}>
+        You have been logged out
+      </Heading>
+      <div className={classes.buttonWrap}>
+        <Button label="Return to Homepage" size="small" href="/" appearance="primary" />
         <Button label="Return to Login" size="small" href="/login" appearance="secondary" />
       </div>
-     </Gutter>
+    </Gutter>
   )
 }
 

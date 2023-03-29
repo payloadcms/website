@@ -11,13 +11,13 @@ import { redirect, useSearchParams } from 'next/navigation'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { BorderBox } from '@root/app/_components/BorderBox'
+import { FormWrap } from '@root/app/_components/FormWrap'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { cloudSlug } from '@root/app/cloud/layout'
 import { useAuth } from '@root/providers/Auth'
 import canUseDom from '@root/utilities/can-use-dom'
 
 import classes from './index.module.scss'
-import { FormWrap } from '@root/app/_components/FormWrap'
 
 const initialFormState: InitialState = {
   email: {
@@ -96,7 +96,7 @@ const Login: React.FC = () => {
         {message && <p className={classes.message}>{message}</p>}
         <FormWrap>
           <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
-          {error && <div className={classes.error}>{error}</div>}
+            {error && <div className={classes.error}>{error}</div>}
             <Text path="email" label="Email" required elementAttributes={{ autoComplete: 'on' }} />
             <Text path="password" label="Password" type="password" required />
             <div>
