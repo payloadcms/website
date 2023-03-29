@@ -15,6 +15,7 @@ import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
 import { useHeaderTheme } from '@root/providers/HeaderTheme'
 import { getImplicitPreference } from '@root/providers/Theme/shared'
+import canUseDom from '@root/utilities/can-use-dom'
 
 import classes from './index.module.scss'
 import { FormWrap } from '@root/app/_components/FormWrap'
@@ -27,6 +28,7 @@ const ResetPassword: React.FC = () => {
   const { user, logout, resetPassword } = useAuth()
   const { setHeaderColor } = useHeaderTheme()
   const [error, setError] = React.useState<string | null>(null)
+  const [search] = React.useState<string | null>(() => (canUseDom ? window.location.search : null))
 
   useEffect(() => {
     const implicitPreference = getImplicitPreference()
@@ -83,7 +85,8 @@ const ResetPassword: React.FC = () => {
           </Form>
           <div>
             {`Already have an account? `}
-            <Link href="/login">Log in here</Link>.
+            <Link href={`/login${search}`}>Log in here</Link>
+            {'.'}
           </div>
         </FormWrap>
       </MaxWidth>

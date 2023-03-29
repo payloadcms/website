@@ -14,6 +14,7 @@ import { BorderBox } from '@root/app/_components/BorderBox'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { cloudSlug } from '@root/app/cloud/layout'
 import { useAuth } from '@root/providers/Auth'
+import canUseDom from '@root/utilities/can-use-dom'
 
 import classes from './index.module.scss'
 import { FormWrap } from '@root/app/_components/FormWrap'
@@ -40,14 +41,14 @@ const Login: React.FC = () => {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [redirectTo, setRedirectTo] = useState(`${cloudSlug}`)
+  const [search] = React.useState<string | null>(() => (canUseDom ? window.location.search : null))
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    const redirectParam = params.get('redirect')
+    const redirectParam = searchParams?.get('redirect')
     if (redirectParam) {
       setRedirectTo(redirectParam)
     }
-  }, [])
+  }, [searchParams])
 
   const handleSubmit = useCallback(
     async ({ data }) => {
@@ -102,14 +103,12 @@ const Login: React.FC = () => {
               <Submit label="Log in" className={classes.submit} processing={loading} />
             </div>
           </Form>
-          <div className={classes.sidebar}>
-            <div className={classes.leader}>
-              {`Forgot your password? `}
-            <Link href="/forgot-password">Reset it here</Link>.
-            </div>
+          <div className={classes.formFooter}>
+            <Link href={`/forgot-password${search}`}>Forgot your password?</Link>
             <div className={classes.leader}>
               {`Don't have an account? `}
-              <Link href="/create-account">Register for free</Link>.
+              <Link href={`/signup${search}`}>Register for free</Link>
+              {'.'}
             </div>
           </div>
         </FormWrap>

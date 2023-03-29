@@ -14,6 +14,7 @@ import { Highlight } from '@components/Highlight'
 import { UniqueTeamSlug } from '@components/UniqueSlug'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
+import canUseDom from '@root/utilities/can-use-dom'
 
 import classes from './index.module.scss'
 import { FormWrap } from '@root/app/_components/FormWrap'
@@ -51,12 +52,13 @@ const initialFormState: InitialState = {
   },
 }
 
-const CreateAccount: React.FC = () => {
+const Signup: React.FC = () => {
   const { user, logout } = useAuth()
 
   const [error, setError] = React.useState<string | null>(null)
 
   const [successfullySubmitted, setSuccessfullySubmitted] = useState(false)
+  const [search] = React.useState<string | null>(() => (canUseDom ? window.location.search : null))
 
   const createAccount: OnSubmit = useCallback(async ({ data: formData, dispatchFields }) => {
     setTimeout(() => {
@@ -138,14 +140,14 @@ const CreateAccount: React.FC = () => {
             </Heading>
             <div>
               {`Already verified your account? `}
-              <Link href="/login">Log in now</Link>
+              <Link href={`/login${search}`}>Log in now</Link>
               {'.'}
             </div>
         </MaxWidth>
       ) : (
         <MaxWidth centered className={classes.maxWidth}>
           <Heading marginTop={false} element="h1" as="h3">
-            Create an account
+            Sign up for Payload Cloud
           </Heading>
           <FormWrap>
             <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>
@@ -156,12 +158,12 @@ const CreateAccount: React.FC = () => {
               <Text path="password" label="Password" type="password" required />
               <Text path="passwordConfirm" label="Confirm Password" type="password" required />
               <div>
-                <Submit label="Create Account" className={classes.submit} />
+                <Submit label="Signup" className={classes.submit} />
               </div>
             </Form>
             <div className={classes.sidebar}>
               {`Already have an account? `}
-              <Link href="/login">Log in now</Link>
+              <Link href={`/login${search}`}>Log in now</Link>
               {'.'}
             </div>
           </FormWrap>
@@ -171,4 +173,4 @@ const CreateAccount: React.FC = () => {
   )
 }
 
-export default CreateAccount
+export default Signup

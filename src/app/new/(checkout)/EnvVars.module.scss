@@ -10,15 +10,20 @@
   }
 }
 
-.item {
+.row {
+  width: 100%;
+}
+
+.fields {
   display: flex;
   position: relative;
   left: calc(var(--base) * -0.5);
-  width: calc(100% + var(--base));
+  right: calc(var(--base) * -0.5);
+  width: calc(100% + calc(var(--base)));
 
   & > * {
-    flex: 1;
     margin: 0 calc(var(--base) / 2);
+    width: calc(50% - calc(var(--base) / 2));
   }
 }
 
