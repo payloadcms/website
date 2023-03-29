@@ -48,9 +48,10 @@ export interface Project {
   region?: 'us-east' | 'us-west' | 'eu-west';
   template?: string | Template;
   makePrivate?: boolean;
+  repositoryName?: string;
   digitalOceanAppID?: string;
   source?: 'github';
-  repositoryName?: string;
+  repositoryFullName?: string;
   repositoryID?: string;
   installID?: string;
   deploymentBranch?: string;
@@ -100,6 +101,7 @@ export interface Project {
     id?: string;
   }[];
   teamProjectName?: string;
+  infraStatus?: 'notStarted' | 'awaitingDatabase' | 'deploying' | 'provisioningDNS' | 'done' | 'deployError' | 'error';
   createdAt: string;
   updatedAt: string;
 }
@@ -123,7 +125,7 @@ export interface Plan {
 }
 export interface Team {
   id: string;
-  name?: string;
+  name: string;
   slug: string;
   invitations?: {
     user?: string | User;

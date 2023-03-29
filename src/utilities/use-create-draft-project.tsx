@@ -57,6 +57,7 @@ export const useCreateDraftProject = ({
             defaultDomain: undefined,
             repositoryID: repo?.id, // only applies to the `import` flow
             repositoryName: repo?.name,
+            repositoryFullName: repo?.full_name,
             template: templateID,
             makePrivate,
           }),
