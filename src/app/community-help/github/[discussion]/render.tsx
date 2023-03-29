@@ -36,6 +36,12 @@ export type Answer = {
 }
 
 export type DiscussionProps = {
+  id: string
+  title?: string
+  slug?: string
+  discordID?: string
+  githubID?: string
+  communityHelpType?: 'discord' | 'github'
   communityHelpJSON: {
     title: string
     id: string
