@@ -1,68 +1,42 @@
 import React from 'react'
+import { AddArrayRow, ArrayRow } from '@forms/fields/Array'
+import { ArrayProvider, useArray } from '@forms/fields/Array/context'
 import { Text } from '@forms/fields/Text'
-import { useFormField } from '@forms/useFormField'
 
 import classes from './EnvVars.module.scss'
 
-export const EnvVars: React.FC<{
+const NewEnvVarManager: React.FC<{
   className?: string
 }> = ({ className }) => {
-  const { value: vars, setValue } = useFormField<
-    Array<{
-      key: string
-      value: string
-    }>
-  >({
-    path: 'environmentVariables',
-  })
+  const { uuids } = useArray()
 
   return (
     <div className={[classes.envVars, className].filter(Boolean).join(' ')}>
       <div className={classes.vars}>
-        {vars?.map((envVar, index) => (
-          <div key={index} className={classes.item}>
-            <Text
-              label="Key"
-              value={envVar?.key}
-              onChange={value => {
-                const newVars = [...vars]
-                newVars[index] = {
-                  key: value,
-                  value: envVar?.value,
-                }
-                setValue(newVars)
-              }}
-            />
-            <Text
-              label="Value"
-              value={envVar?.value}
-              onChange={value => {
-                const newVars = [...vars]
-                newVars[index] = {
-                  key: envVar?.key,
-                  value,
-                }
-                setValue(newVars)
-              }}
-            />
-          </div>
-        ))}
+        {uuids?.map((uuid, index) => {
+          return (
+            <ArrayRow key={uuid} index={index} allowRemove>
+              <div className={classes.row}>
+                <div className={classes.fields}>
+                  <Text label="Key" path={`environmentVariables.${index}.key`} />
+                  <Text label="Value" path={`environmentVariables.${index}.value`} />
+                </div>
+              </div>
+            </ArrayRow>
+          )
+        })}
       </div>
-      <button
-        type="button"
-        onClick={() =>
-          setValue([
-            ...(vars || []),
-            {
-              key: '',
-              value: '',
-            },
-          ])
-        }
-        className={classes.button}
-      >
-        Add more
-      </button>
+      <AddArrayRow />
     </div>
+  )
+}
+
+export const EnvVars: React.FC<{
+  className?: string
+}> = ({ className }) => {
+  return (
+    <ArrayProvider>
+      <NewEnvVarManager className={className} />
+    </ArrayProvider>
   )
 }
