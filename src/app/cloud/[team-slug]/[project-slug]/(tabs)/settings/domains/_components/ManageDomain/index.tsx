@@ -26,9 +26,8 @@ type Props = {
     cloudflareID?: string
     id?: string
   }
-  cnameRecord?: string
 }
-export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
+export const ManageDomain: React.FC<Props> = ({ domain }) => {
   const { id, domain: domainURL } = domain
   const modalSlug = `delete-domain-${id}`
 
@@ -36,6 +35,7 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
   const { project, reloadProject } = useRouteData()
   const projectID = project.id
   const projectDomains = project?.domains
+  const cnameRecord = project.defaultDomain
 
   const patchDomains = React.useCallback(
     async (domains: Props['domain'][]) => {
@@ -138,9 +138,13 @@ export const ManageDomain: React.FC<Props> = ({ domain, cnameRecord }) => {
                       <tbody>
                         <tr className={classes.domainRecord}>
                           <td className={classes.domainRecordName}>
-                            <p>CNAME</p>
+                            <p>{domainURL.split('.').length > 1 ? 'CNAME' : 'A'}</p>
                           </td>
-                          <td className={classes.domainRecordValue}>{cnameRecord}</td>
+                          <td className={classes.domainRecordValue}>
+                            {domainURL.split('.').length > 1
+                              ? cnameRecord
+                              : process.env.DOMAINS_A_RECORD}
+                          </td>
                         </tr>
                       </tbody>
                     </table>

@@ -2,10 +2,9 @@
 
 .maxWidth {
   padding: calc(var(--base) * 2) 0;
-
-  & a {
-    color: var(--theme-blue-400);
-    text-decoration: none;
+  
+  .submit {
+    margin-top: var(--base);
   }
 }
 
@@ -13,9 +12,6 @@
   color: var(--color-error-500);
 }
 
-.submit {
-  margin-top: var(--base);
-}
 
 .sidebar {
   padding-top: var(--base);

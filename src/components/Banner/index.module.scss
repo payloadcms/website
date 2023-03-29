@@ -9,7 +9,12 @@
   a:active {
     color: currentColor !important
   }
+
+  &.noMargin {
+    margin: 0;
+  }
 }
+
 
 .children {
   *:first-child {
