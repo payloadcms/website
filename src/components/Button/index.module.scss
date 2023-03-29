@@ -33,7 +33,7 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 :global([data-theme="light"]) {
-  .appearance {  
+  .appearance {
     &--primary {
       &:focus-visible {
         border-color: var(--theme-elevation-950);
@@ -74,7 +74,6 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
     // &.isHovered {
     //   transition: background-position 250ms $transCurve;
     // }
-      
     // &--animating-out {
     //   background-position: 100% 100%;
     // }
@@ -91,6 +90,7 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
 
     &.isHovered {
       border-color: var(--theme-elevation-900);
+
       @include mid-break {
         border-color: var(--theme-elevation-500);
       }
@@ -132,7 +132,7 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .isHovered {
-  &:local()  {
+  &:local() {
     .icon--arrow {
       transform: translate3d(2px, -2px, 0);
 
@@ -174,6 +174,5 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   transition-timing-function: $transCurve;
   flex-shrink: 0;
   transform: translate3d(0, 0, 0);
-  width: var(--base);
-  height: var(--base);
+  margin-left: var(--base);
 }

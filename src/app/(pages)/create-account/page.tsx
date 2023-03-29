@@ -11,7 +11,7 @@ import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { InitialState, OnSubmit } from '@forms/types'
-import { BorderBox } from '@root/app/_components/BorderBox'
+import { FormWrap } from '@root/app/_components/FormWrap'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
 
@@ -124,8 +124,7 @@ const CreateAccount: React.FC = () => {
     <Gutter>
       {successfullySubmitted ? (
         <MaxWidth size="medium" centered className={classes.maxWidth}>
-          <BorderBox>
-            <Heading marginTop={false} element="h2" as="h5">
+            <Heading marginTop={false} element="h2" as="h2">
               <Highlight text="Success" />
             </Heading>
             <Heading marginTop={false} element="p" as="h6">
@@ -137,15 +136,14 @@ const CreateAccount: React.FC = () => {
               <Link href="/login">Log in now</Link>
               {'.'}
             </div>
-          </BorderBox>
         </MaxWidth>
       ) : (
         <MaxWidth centered className={classes.maxWidth}>
-          <Heading marginTop={false} element="h1" as="h3">
+          <Heading marginTop={false} element="h1" as="h2">
             Create an account
           </Heading>
 
-          <BorderBox className={classes.borderBox}>
+          <FormWrap>
             <Form
               onSubmit={createAccount}
               className={classes.form}
@@ -160,12 +158,12 @@ const CreateAccount: React.FC = () => {
               </div>
             </Form>
 
-            <div className={classes.formFooter}>
+            <div>
               {`Already have an account? `}
               <Link href="/login">Log in now</Link>
               {'.'}
             </div>
-          </BorderBox>
+          </FormWrap>
         </MaxWidth>
       )}
     </Gutter>

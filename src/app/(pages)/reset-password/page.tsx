@@ -9,13 +9,13 @@ import { Heading } from '@components/Heading'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
-import { BorderBox } from '@root/app/_components/BorderBox'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
 import { useHeaderTheme } from '@root/providers/HeaderTheme'
 import { getImplicitPreference } from '@root/providers/Theme/shared'
 
 import classes from './index.module.scss'
+import { FormWrap } from '@root/app/_components/FormWrap'
 
 const ResetPassword: React.FC = () => {
   const { user, logout, resetPassword } = useAuth()
@@ -53,7 +53,7 @@ const ResetPassword: React.FC = () => {
           Reset password
         </Heading>
 
-        <BorderBox className={classes.borderBox}>
+        <FormWrap>
           <Form onSubmit={handleSubmit} className={classes.form}>
             <Text path="password" type="password" label="New Password" required />
             <Text path="passwordConfirm" type="password" label="Confirm Password" required />
@@ -63,12 +63,11 @@ const ResetPassword: React.FC = () => {
             </div>
           </Form>
 
-          <div className={classes.formFooter}>
+          <div className={classes.sidebar}>
             {`Already have an account? `}
-            <Link href="/login">Log in here</Link>
-            {'.'}
+            <Link href="/login">Log in here</Link>.
           </div>
-        </BorderBox>
+        </FormWrap>
       </MaxWidth>
     </Gutter>
   )

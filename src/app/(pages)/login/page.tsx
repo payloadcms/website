@@ -9,7 +9,7 @@ import { Heading } from '@components/Heading'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
-import { BorderBox } from '@root/app/_components/BorderBox'
+import { FormWrap } from '@root/app/_components/FormWrap'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { cloudSlug } from '@root/app/cloud/layout'
 import { useAuth } from '@root/providers/Auth'
@@ -68,13 +68,13 @@ const Login: React.FC = () => {
   return (
     <Gutter>
       <MaxWidth centered className={classes.maxWidth}>
-        <Heading marginTop={false} element="h1" as="h3">
+        <Heading marginTop={false} element="h1" as="h2">
           Log in
         </Heading>
         {error && <div className={classes.error}>{error}</div>}
         {message && <div className={classes.message}>{message}</div>}
 
-        <BorderBox className={classes.borderBox}>
+        <FormWrap>
           <Form onSubmit={handleSubmit} className={classes.form}>
             <Text path="email" label="Email" required elementAttributes={{ autoComplete: 'on' }} />
             <Text path="password" label="Password" type="password" required />
@@ -83,15 +83,17 @@ const Login: React.FC = () => {
             </div>
           </Form>
 
-          <div className={classes.formFooter}>
-            <Link href="/forgot-password">Forgot your password?</Link>
+          <div className={classes.sidebar}>
             <div className={classes.leader}>
               {`Don't have an account? `}
-              <Link href="/create-account">Register for free</Link>
-              {'.'}
+              <Link href="/create-account">Register for free</Link>.
+            </div>
+            <div className={classes.leader}>
+              {`Forgot your password? `}
+            <Link href="/forgot-password">Reset it here</Link>.
             </div>
           </div>
-        </BorderBox>
+        </FormWrap>
       </MaxWidth>
     </Gutter>
   )

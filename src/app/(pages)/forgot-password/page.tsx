@@ -11,7 +11,7 @@ import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { InitialState, OnSubmit } from '@forms/types'
-import { BorderBox } from '@root/app/_components/BorderBox'
+import { FormWrap } from '@root/app/_components/FormWrap'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
 
@@ -73,8 +73,7 @@ const ForgotPassword: React.FC = () => {
     return (
       <Gutter>
         <MaxWidth size="medium" centered className={classes.maxWidth}>
-          <BorderBox>
-            <Heading marginTop={false} element="h2" as="h5">
+            <Heading marginTop={false} element="h2" as="h2">
               <Highlight text="Hang on" appearance="danger" />
             </Heading>
 
@@ -82,11 +81,10 @@ const ForgotPassword: React.FC = () => {
               You are already logged in.
             </Heading>
 
-            <div className={classes.formFooter}>
-              <Button label="Log out" size="small" onClick={logout} appearance="primary" />
-              <Button label="Dashboard" size="small" href="/cloud" appearance="secondary" />
+            <div className={classes.sidebar}>
+              <Button label="Log out" onClick={logout} appearance="primary" />
+              <Button label="Dashboard" href="/cloud" appearance="secondary" />
             </div>
-          </BorderBox>
         </MaxWidth>
       </Gutter>
     )
@@ -96,22 +94,20 @@ const ForgotPassword: React.FC = () => {
     <Gutter>
       {successfullySubmitted ? (
         <MaxWidth size="medium" centered className={classes.maxWidth}>
-          <BorderBox>
-            <Heading marginTop={false} element="h2" as="h5">
+            <Heading marginTop={false} element="h2" as="h2">
               <Highlight text="Success" />
             </Heading>
             <Heading marginTop={false} element="p" as="h6">
               We have sent you an email with a link to reset your password. Please check your inbox.
             </Heading>
 
-            <div className={classes.formFooter}>
+            <div className={classes.sidebar}>
               <div>
                 {`Ready to login? `}
                 <Link href="/login">Log in now</Link>
                 {'.'}
               </div>
             </div>
-          </BorderBox>
         </MaxWidth>
       ) : (
         <MaxWidth centered className={classes.maxWidth}>
@@ -120,7 +116,7 @@ const ForgotPassword: React.FC = () => {
           </Heading>
 
           {error && <div className={classes.error}>{error}</div>}
-          <BorderBox className={classes.borderBox}>
+          <FormWrap>
             <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
               <Text path="email" label="Email" required />
               <div>
@@ -128,14 +124,14 @@ const ForgotPassword: React.FC = () => {
               </div>
             </Form>
 
-            <div className={classes.formFooter}>
+            <div className={classes.sidebar}>
               <div>
                 {`Already have an account? `}
                 <Link href="/login">Log in here</Link>
                 {'.'}
               </div>
             </div>
-          </BorderBox>
+          </FormWrap>
         </MaxWidth>
       )}
     </Gutter>

@@ -2,25 +2,34 @@
 
 .maxWidth {
   padding: calc(var(--base) * 2) 0;
-
-  @include mid-break {
-    padding-top: 0;
-  }
 }
 
 .error {
   color: var(--color-error-500);
 }
 
-.borderBox, .form {
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--base) * 1.25);
-}
-
-.formFooter {
-  border-top: 1px solid var(--theme-border-color);
+.sidebar {
   padding-top: var(--base);
   display: flex;
   gap: var(--base);
+
+  & a {
+    color: var(--theme-blue-400);
+    text-decoration: none;
+  }
+}
+
+.submit {
+  margin-top: var(--base);
+}
+
+@include mid-break {
+  .submit {
+    margin-top: 0;
+  }
+
+  .sidebar,
+  .maxWidth {
+    padding-top: 0;
+  }
 }
