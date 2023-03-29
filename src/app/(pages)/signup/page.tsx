@@ -12,12 +12,12 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { Highlight } from '@components/Highlight'
 import { UniqueTeamSlug } from '@components/UniqueSlug'
+import { FormWrap } from '@root/app/_components/FormWrap'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
 import canUseDom from '@root/utilities/can-use-dom'
 
 import classes from './index.module.scss'
-import { FormWrap } from '@root/app/_components/FormWrap'
 
 const initialFormState: InitialState = {
   email: {

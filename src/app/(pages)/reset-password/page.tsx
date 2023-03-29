@@ -11,6 +11,7 @@ import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { BorderBox } from '@root/app/_components/BorderBox'
+import { FormWrap } from '@root/app/_components/FormWrap'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
 import { useHeaderTheme } from '@root/providers/HeaderTheme'
@@ -18,7 +19,6 @@ import { getImplicitPreference } from '@root/providers/Theme/shared'
 import canUseDom from '@root/utilities/can-use-dom'
 
 import classes from './index.module.scss'
-import { FormWrap } from '@root/app/_components/FormWrap'
 
 const ResetPassword: React.FC = () => {
   const searchParams = useSearchParams()
@@ -76,7 +76,7 @@ const ResetPassword: React.FC = () => {
               },
             }}
           >
-          {error && <div className={classes.error}>{error}</div>}
+            {error && <div className={classes.error}>{error}</div>}
             <Text path="password" type="password" label="New Password" required />
             <Text path="passwordConfirm" type="password" label="Confirm Password" required />
             <div>
