@@ -91,7 +91,7 @@ const Login: React.FC = () => {
           Log in
         </Heading>
         {message && <p className={classes.message}>{message}</p>}
-        <BorderBox className={classes.borderBox} padding="large">
+        <BorderBox className={classes.borderBox}>
           {error && <div className={classes.error}>{error}</div>}
           <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
             <Text path="email" label="Email" required elementAttributes={{ autoComplete: 'on' }} />

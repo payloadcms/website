@@ -130,7 +130,7 @@ const Signup: React.FC = () => {
     <Gutter>
       {successfullySubmitted ? (
         <MaxWidth size="medium" centered className={classes.maxWidth}>
-          <BorderBox padding="large">
+          <BorderBox>
             <Heading marginTop={false} element="h2" as="h5">
               <Highlight text="Success" />
             </Heading>
@@ -149,7 +149,7 @@ const Signup: React.FC = () => {
           <Heading marginTop={false} element="h1" as="h3">
             Sign up for Payload Cloud
           </Heading>
-          <BorderBox className={classes.borderBox} padding="large">
+          <BorderBox className={classes.borderBox}>
             {error && <div className={classes.error}>{error}</div>}
             <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>
               <Text path="email" label="Email" required />
