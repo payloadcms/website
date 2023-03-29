@@ -19,7 +19,7 @@ const href = `https://github.com/login/oauth/authorize?client_id=${
   process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
 }&redirect_uri=${encodeURIComponent(
   process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI || '',
-)}&state=${encodeURIComponent(`/new/import`)}&scope=repo`
+)}&state=${encodeURIComponent(`/new/import`)}`
 
 const Authorize: React.FC = () => {
   useAuthRedirect()
