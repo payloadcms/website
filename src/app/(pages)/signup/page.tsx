@@ -132,17 +132,17 @@ const Signup: React.FC = () => {
     <Gutter>
       {successfullySubmitted ? (
         <MaxWidth size="medium" centered className={classes.maxWidth}>
-            <Heading marginTop={false} element="h2" as="h2">
-              <Highlight text="Success" />
-            </Heading>
-            <Heading marginTop={false} element="p" as="h6">
-              Your account was created! Please check your email to verify your account and login.
-            </Heading>
-            <div>
-              {`Already verified your account? `}
-              <Link href={`/login${search}`}>Log in now</Link>
-              {'.'}
-            </div>
+          <Heading marginTop={false} element="h2" as="h2">
+            <Highlight text="Success" />
+          </Heading>
+          <Heading marginTop={false} element="p" as="h6">
+            Your account was created! Please check your email to verify your account and login.
+          </Heading>
+          <div>
+            {`Already verified your account? `}
+            <Link href={`/login${search}`}>Log in now</Link>
+            {'.'}
+          </div>
         </MaxWidth>
       ) : (
         <MaxWidth centered className={classes.maxWidth}>
@@ -151,7 +151,7 @@ const Signup: React.FC = () => {
           </Heading>
           <FormWrap>
             <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>
-            {error && <div className={classes.error}>{error}</div>}
+              {error && <div className={classes.error}>{error}</div>}
               <Text path="email" label="Email" required />
               <Text path="createTeamFromName" label="Team Name" required />
               <UniqueTeamSlug path="createTeamFromSlug" />
