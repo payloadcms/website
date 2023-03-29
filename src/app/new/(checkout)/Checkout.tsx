@@ -6,13 +6,13 @@ import { Checkbox } from '@forms/fields/Checkbox'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Label from '@forms/Label'
+import Submit from '@forms/Submit'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import Link from 'next/link'
 import { redirect, useRouter } from 'next/navigation'
 
 import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
-import { Button } from '@components/Button'
 import { CreditCardSelector } from '@components/CreditCardSelector'
 import { Gutter } from '@components/Gutter'
 import { useInstallationSelector } from '@components/InstallationSelector'
@@ -97,14 +97,17 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
     onChange: handlePlanChange,
   })
 
-  const { paymentIntent, error: paymentIntentError } = usePaymentIntent(checkoutState)
-
   const {
     result: [project],
     isLoading,
   } = useGetProject({
     projectID: draftProjectID,
-    teamSlug: checkoutState?.project?.team?.slug,
+    teamSlug: checkoutState?.team?.slug,
+  })
+
+  const { paymentIntent, error: paymentIntentError } = usePaymentIntent({
+    project,
+    checkoutState,
   })
 
   useEffect(() => {
@@ -113,11 +116,10 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
         router.push(`/${cloudSlug}/${project?.team?.slug}/${project.slug}`)
       } else {
         dispatchCheckoutState({
-          type: 'SET_PROJECT',
+          type: 'UPDATE_STATE',
           payload: {
-            ...project,
             team: project.team,
-            plan: project.plan,
+            plan: project.plan as Plan,
           },
         })
       }
@@ -125,6 +127,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
   }, [project, router])
 
   const { isDeploying, errorDeploying, deploy } = useDeploy({
+    projectID: draftProjectID,
     checkoutState,
     installID: selectedInstall?.id.toString(),
     paymentIntent,
@@ -156,18 +159,20 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
               ) : (
                 <Fragment>
                   <InstallationSelector />
-                  <div className={classes.totalPriceSection}>
-                    <Label label="Total cost" htmlFor="" />
-                    <p className={classes.totalPrice}>
-                      {priceFromJSON(
-                        typeof checkoutState?.project?.plan === 'object' &&
-                          'priceJSON' in checkoutState?.project?.plan
-                          ? checkoutState?.project?.plan?.priceJSON?.toString()
-                          : '',
-                      )}
-                    </p>
-                    {checkoutState?.freeTrial && <p>Free trial (ends July 1)</p>}
-                  </div>
+                  {checkoutState?.plan && (
+                    <div className={classes.totalPriceSection}>
+                      <Label label="Total cost" htmlFor="" />
+                      <p className={classes.totalPrice}>
+                        {priceFromJSON(
+                          typeof checkoutState?.plan === 'object' &&
+                            'priceJSON' in checkoutState?.plan
+                            ? checkoutState?.plan?.priceJSON?.toString()
+                            : '',
+                        )}
+                      </p>
+                    </div>
+                  )}
+                  {checkoutState?.freeTrial && <p>Free trial (ends July 1)</p>}
                 </Fragment>
               )}
             </div>
@@ -183,21 +188,27 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                   initialState={{
                     name: {
                       initialValue: project?.name,
+                      value: project?.name,
                     },
                     repositoryID: {
                       initialValue: project?.repositoryID,
+                      value: project?.repositoryID,
                     },
                     template: {
                       initialValue: project?.template,
+                      value: project?.template,
                     },
                     installScript: {
                       initialValue: project?.installScript || 'yarn',
+                      value: project?.installScript || 'yarn',
                     },
                     buildScript: {
                       initialValue: project?.buildScript || 'yarn build',
+                      value: project?.buildScript || 'yarn build',
                     },
                     deploymentBranch: {
                       initialValue: project?.deploymentBranch || 'main',
+                      value: project?.deploymentBranch || 'main',
                     },
                     environmentVariables: {
                       initialValue: project?.environmentVariables || [{ key: '', value: '' }],
@@ -217,15 +228,15 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                             checked={checkoutState?.freeTrial}
                             onChange={handleTrialChange}
                             disabled={
-                              typeof checkoutState?.project?.plan === 'object' &&
-                              checkoutState?.project?.plan?.slug !== 'standard'
+                              typeof project?.plan === 'object' &&
+                              project?.plan?.slug !== 'standard'
                             }
                           />
                         </div>
                       )}
                     </div>
                   </div>
-                  <div>
+                  <div className={classes.projectDetails}>
                     <div className={classes.sectionHeader}>
                       <h5 className={classes.sectionTitle}>Ownership</h5>
                       <Link href="">Learn more</Link>
@@ -269,21 +280,15 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                   </div>
                   <div>
                     <h5>Payment Info</h5>
-                    {checkoutState?.project?.team && (
+                    {checkoutState?.team && (
                       <CreditCardSelector
                         initialValue={checkoutState?.paymentMethod}
-                        team={checkoutState.project.team}
+                        team={checkoutState?.team}
                         onChange={handleCardChange}
                       />
                     )}
                   </div>
-                  <Button
-                    appearance="primary"
-                    label="Deploy now"
-                    icon="arrow"
-                    onClick={deploy}
-                    disabled={isDeploying}
-                  />
+                  <Submit label="Deploy now" />
                 </Form>
               </Fragment>
             )}

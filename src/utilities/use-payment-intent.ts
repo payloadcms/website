@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import type { CheckoutState } from '@root/app/new/(checkout)/reducer'
+import type { Project } from '@root/payload-cloud-types'
 
 export interface PayloadPaymentIntent {
   client_secret: string
@@ -9,18 +10,22 @@ export interface PayloadPaymentIntent {
   error?: string
 }
 
-export const usePaymentIntent = (
-  props: CheckoutState,
-): { error?: string; paymentIntent?: PayloadPaymentIntent } => {
-  const { project, paymentMethod, freeTrial } = props
+export const usePaymentIntent = (args: {
+  project: Project
+  checkoutState: CheckoutState
+}): { error?: string; paymentIntent?: PayloadPaymentIntent } => {
+  const { project, checkoutState } = args
 
   const [paymentIntent, setPaymentIntent] = useState<PayloadPaymentIntent>()
   const [error, setError] = useState<string | undefined>('')
   const isRequesting = React.useRef<boolean>(false)
 
   useEffect(() => {
-    if (project?.id && project?.plan) {
+    const { paymentMethod, freeTrial, plan, team } = checkoutState
+
+    if (project?.id && plan && paymentMethod && team) {
       if (isRequesting.current) return
+      setError(undefined)
 
       const makePaymentIntent = async (): Promise<void> => {
         const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/payment-intent`, {
@@ -29,7 +34,11 @@ export const usePaymentIntent = (
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            project,
+            project: {
+              ...project,
+              plan,
+              team,
+            },
             paymentMethod,
             freeTrial,
           }),
@@ -48,7 +57,7 @@ export const usePaymentIntent = (
 
       makePaymentIntent()
     }
-  }, [project, paymentMethod, freeTrial])
+  }, [project, checkoutState])
 
   return { error, paymentIntent }
 }

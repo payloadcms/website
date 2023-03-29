@@ -1,29 +1,20 @@
 // project reducer
 
-import type { Plan, Project, Team } from '@root/payload-cloud-types'
-
-type ProjectWithTeam = Omit<Project, 'team'> & {
-  team: Team
-}
+import type { Plan, Team } from '@root/payload-cloud-types'
 
 interface SET_PLAN {
   type: 'SET_PLAN'
   payload: Plan
 }
 
-interface SET_PROJECT {
-  type: 'SET_PROJECT'
-  payload: ProjectWithTeam
-}
-
-interface UPDATE_PROJECT {
-  type: 'UPDATE_PROJECT'
-  payload: ProjectWithTeam
-}
-
 interface SET_TEAM {
   type: 'SET_TEAM'
   payload: Team
+}
+
+interface UPDATE_STATE {
+  type: 'UPDATE_STATE'
+  payload: Partial<CheckoutState>
 }
 
 interface SET_PAYMENT_METHOD {
@@ -36,42 +27,29 @@ interface SET_FREE_TRIAL {
   payload: boolean
 }
 
-type Action =
-  | SET_PROJECT
-  | UPDATE_PROJECT
-  | SET_PLAN
-  | SET_TEAM
-  | SET_PAYMENT_METHOD
-  | SET_FREE_TRIAL
+type Action = UPDATE_STATE | SET_PLAN | SET_TEAM | SET_PAYMENT_METHOD | SET_FREE_TRIAL
 
 export interface CheckoutState {
-  project: ProjectWithTeam
+  team: Team
+  plan: Plan
   paymentMethod: string
   freeTrial: boolean
 }
 
 export const checkoutReducer = (state: CheckoutState, action: Action): CheckoutState => {
   switch (action.type) {
-    case 'SET_PROJECT':
-      return { ...state, project: action.payload }
-    case 'UPDATE_PROJECT':
+    case 'UPDATE_STATE':
       return { ...state, ...action.payload }
     case 'SET_PLAN':
       return {
         ...state,
-        project: {
-          ...state.project,
-          plan: action.payload,
-        },
+        plan: action.payload,
         // freeTrial: action.payload?.slug !== 'standard' ? false : state?.freeTrial, // uncomment to enforce trial for only specific plans
       }
     case 'SET_TEAM':
       return {
         ...state,
-        project: {
-          ...state.project,
-          team: action.payload,
-        },
+        team: action.payload,
       }
     case 'SET_PAYMENT_METHOD':
       return { ...state, paymentMethod: action.payload }

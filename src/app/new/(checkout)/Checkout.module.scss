@@ -69,6 +69,12 @@
     margin-bottom: var(--base);
 }
 
+.projectDetails {
+    > * {
+        margin-bottom: var(--base);
+    }
+}
+
 .buildSettings {
     > * {
         margin-bottom: var(--base);
