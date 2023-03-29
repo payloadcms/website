@@ -7,69 +7,33 @@
 
 export interface Config {
   collections: {
-    users: User;
-    teams: Team;
-    projects: Project;
-    deployments: Deployment;
-    plans: Plan;
-    templates: Template;
-    'atlas-projects': AtlasProject;
     'atlas-orgs': AtlasOrg;
+    'atlas-projects': AtlasProject;
+    deployments: Deployment;
     jobs: Job;
+    media: Media;
+    plans: Plan;
+    projects: Project;
+    teams: Team;
     'teardown-errors': TeardownError;
+    templates: Template;
+    users: User;
   };
   globals: {};
 }
-export interface User {
+export interface AtlasOrg {
   id: string;
-  name?: string;
-  githubID?: string;
-  createTeamFromSlug?: string;
-  createTeamFromName?: string;
-  teams?: {
-    team?: string | Team;
-    roles?: ('owner' | 'admin' | 'user')[];
-    invitedOn?: string;
-    acceptedOn?: string;
-    id?: string;
-  }[];
-  roles?: ('admin' | 'user')[];
-  githubAccessToken?: string;
-  githubAccessTokenExpiration?: number;
-  githubRefreshToken?: string;
-  githubRefreshTokenExpiration?: number;
-  email?: string;
-  resetPasswordToken?: string;
-  resetPasswordExpiration?: string;
-  _verified?: boolean;
-  _verificationToken?: string;
-  loginAttempts?: number;
-  lockUntil?: string;
+  atlasOrgID?: string;
+  atlasProjects?: string[] | AtlasProject[];
+  projectCount?: number;
   createdAt: string;
   updatedAt: string;
-  password?: string;
 }
-export interface Team {
+export interface AtlasProject {
   id: string;
-  name: string;
-  slug: string;
-  invitations?: {
-    user?: string | User;
-    email?: string;
-    roles?: ('owner' | 'admin' | 'user')[];
-    invitedOn?: string;
-    id?: string;
-  }[];
-  sendEmailInvitationsTo?: {
-    user?: string | User;
-    email?: string;
-    roles?: ('owner' | 'admin' | 'user')[];
-    id?: string;
-  }[];
-  billingEmail: string;
-  stripeCustomerID?: string;
-  skipSync?: boolean;
-  createdBy?: string | User;
+  atlasProjectID?: string;
+  projects?: string[] | Project[];
+  projectCount?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -119,14 +83,14 @@ export interface Project {
   }[];
   stripeSubscriptionID?: string;
   stripeSubscriptionStatus?:
-    | 'active'
-    | 'canceled'
-    | 'incomplete'
-    | 'incomplete_expired'
-    | 'past_due'
-    | 'trialing'
-    | 'unpaid'
-    | 'paused';
+  | 'active'
+  | 'canceled'
+  | 'incomplete'
+  | 'incomplete_expired'
+  | 'past_due'
+  | 'trialing'
+  | 'unpaid'
+  | 'paused';
   resendAPIKey?: string;
   defaultDomainResendDNSRecords?: {
     cloudflareID: string;
@@ -145,17 +109,70 @@ export interface Plan {
   slug: string;
   stripeProductID?: string;
   priceJSON?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
+  | {
+    [k: string]: unknown;
+  }
+  | unknown[]
+  | string
+  | number
+  | boolean
+  | null;
   order?: number;
   createdAt: string;
   updatedAt: string;
+}
+export interface Team {
+  id: string;
+  name?: string;
+  slug: string;
+  invitations?: {
+    user?: string | User;
+    email?: string;
+    roles?: ('owner' | 'admin' | 'user')[];
+    invitedOn?: string;
+    id?: string;
+  }[];
+  sendEmailInvitationsTo?: {
+    user?: string | User;
+    email?: string;
+    roles?: ('owner' | 'admin' | 'user')[];
+    id?: string;
+  }[];
+  billingEmail: string;
+  stripeCustomerID?: string;
+  skipSync?: boolean;
+  createdBy?: string | User;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface User {
+  id: string;
+  name?: string;
+  githubID?: string;
+  createTeamFromSlug?: string;
+  createTeamFromName?: string;
+  teams?: {
+    team?: string | Team;
+    roles?: ('owner' | 'admin' | 'user')[];
+    invitedOn?: string;
+    acceptedOn?: string;
+    id?: string;
+  }[];
+  roles?: ('admin' | 'user')[];
+  githubAccessToken?: string;
+  githubAccessTokenExpiration?: number;
+  githubRefreshToken?: string;
+  githubRefreshTokenExpiration?: number;
+  email?: string;
+  resetPasswordToken?: string;
+  resetPasswordExpiration?: string;
+  _verified?: boolean;
+  _verificationToken?: string;
+  loginAttempts?: number;
+  lockUntil?: string;
+  createdAt: string;
+  updatedAt: string;
+  password?: string;
 }
 export interface Template {
   id: string;
@@ -165,11 +182,24 @@ export interface Template {
   templateOwner: string;
   templateRepo: string;
   order?: number;
+  image?: string | Media;
   files?: {
     path: string;
     content?: string;
     id?: string;
   }[];
+  createdAt: string;
+  updatedAt: string;
+}
+export interface Media {
+  id: string;
+  alt: string;
+  url?: string;
+  filename?: string;
+  mimeType?: string;
+  filesize?: number;
+  width?: number;
+  height?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -181,31 +211,15 @@ export interface Deployment {
   commitMessage?: string;
   lastSync?: string;
   deploymentStatus?:
-    | 'UNKNOWN'
-    | 'PENDING_BUILD'
-    | 'BUILDING'
-    | 'PENDING_DEPLOY'
-    | 'DEPLOYING'
-    | 'ACTIVE'
-    | 'SUPERSEDED'
-    | 'ERROR'
-    | 'CANCELED';
-  createdAt: string;
-  updatedAt: string;
-}
-export interface AtlasProject {
-  id: string;
-  atlasProjectID?: string;
-  projects?: string[] | Project[];
-  projectCount?: number;
-  createdAt: string;
-  updatedAt: string;
-}
-export interface AtlasOrg {
-  id: string;
-  atlasOrgID?: string;
-  atlasProjects?: string[] | AtlasProject[];
-  projectCount?: number;
+  | 'UNKNOWN'
+  | 'PENDING_BUILD'
+  | 'BUILDING'
+  | 'PENDING_DEPLOY'
+  | 'DEPLOYING'
+  | 'ACTIVE'
+  | 'SUPERSEDED'
+  | 'ERROR'
+  | 'CANCELED';
   createdAt: string;
   updatedAt: string;
 }
@@ -222,14 +236,14 @@ export interface Job {
   };
   hasError?: boolean;
   error?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
+  | {
+    [k: string]: unknown;
+  }
+  | unknown[]
+  | string
+  | number
+  | boolean
+  | null;
   createdAt: string;
   updatedAt: string;
 }
