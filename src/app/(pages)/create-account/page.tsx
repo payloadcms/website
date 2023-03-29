@@ -139,7 +139,7 @@ const CreateAccount: React.FC = () => {
             </Heading>
             <div className={classes.formFooter}>
               {`Already verified your account? `}
-              <Link href="/login">Log in now</Link>
+              <Link href={`/login${window?.location?.search || ''}`}>Log in now</Link>
               {'.'}
             </div>
           </BorderBox>
@@ -163,7 +163,7 @@ const CreateAccount: React.FC = () => {
             </Form>
             <div className={classes.formFooter}>
               {`Already have an account? `}
-              <Link href="/login">Log in now</Link>
+              <Link href={`/login${window?.location?.search || ''}`}>Log in now</Link>
               {'.'}
             </div>
           </BorderBox>

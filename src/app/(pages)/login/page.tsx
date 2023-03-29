@@ -41,12 +41,11 @@ const Login: React.FC = () => {
   const [redirectTo, setRedirectTo] = useState(`${cloudSlug}`)
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    const redirectParam = params.get('redirect')
+    const redirectParam = searchParams?.get('redirect')
     if (redirectParam) {
       setRedirectTo(redirectParam)
     }
-  }, [])
+  }, [searchParams])
 
   const handleSubmit = useCallback(
     async ({ data }) => {
@@ -102,10 +101,12 @@ const Login: React.FC = () => {
             </div>
           </Form>
           <div className={classes.formFooter}>
-            <Link href="/forgot-password">Forgot your password?</Link>
+            <Link href={`/forgot-password${window?.location?.search}`}>Forgot your password?</Link>
             <div className={classes.leader}>
               {`Don't have an account? `}
-              <Link href="/create-account">Register for free</Link>
+              <Link href={`/create-account${window?.location?.search || ''}`}>
+                Register for free
+              </Link>
               {'.'}
             </div>
           </div>

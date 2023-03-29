@@ -82,7 +82,7 @@ const ResetPassword: React.FC = () => {
           </Form>
           <div className={classes.formFooter}>
             {`Already have an account? `}
-            <Link href="/login">Log in here</Link>
+            <Link href={`/login${window?.location?.search || ''}`}>Log in here</Link>
             {'.'}
           </div>
         </BorderBox>

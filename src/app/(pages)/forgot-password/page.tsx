@@ -128,7 +128,7 @@ const ForgotPassword: React.FC = () => {
             <div className={classes.formFooter}>
               <div>
                 {`Already have an account? `}
-                <Link href="/login">Log in here</Link>
+                <Link href={`/login${window?.location?.search || ''}`}>Log in here</Link>
                 {'.'}
               </div>
             </div>
