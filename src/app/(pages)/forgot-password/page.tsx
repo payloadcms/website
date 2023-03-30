@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
@@ -29,8 +29,6 @@ const initialFormState: InitialState = {
 
 const ForgotPassword: React.FC = () => {
   const { user, logout } = useAuth()
-  const [search] = React.useState<string | null>(() => (canUseDom ? window.location.search : null))
-
   const [error, setError] = React.useState<string | null>(null)
   const [successfullySubmitted, setSuccessfullySubmitted] = React.useState(false)
 
@@ -125,7 +123,7 @@ const ForgotPassword: React.FC = () => {
             </Form>
             <div className={classes.sidebar}>
               {`Already have an account? `}
-              <Link href={`/login${search}`}>Log in here</Link>
+              <Link href={`/login${canUseDom ? window.location.search : ''}`}>Log in here</Link>
               {'.'}
             </div>
           </FormWrap>

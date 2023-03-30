@@ -7,10 +7,8 @@ import Submit from '@forms/Submit'
 import Link from 'next/link'
 import { redirect, useSearchParams } from 'next/navigation'
 
-import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
-import { BorderBox } from '@root/app/_components/BorderBox'
 import { FormWrap } from '@root/app/_components/FormWrap'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
@@ -25,10 +23,9 @@ const ResetPassword: React.FC = () => {
 
   const token = searchParams?.get('token')
 
-  const { user, logout, resetPassword } = useAuth()
+  const { user, resetPassword } = useAuth()
   const { setHeaderColor } = useHeaderTheme()
   const [error, setError] = React.useState<string | null>(null)
-  const [search] = React.useState<string | null>(() => (canUseDom ? window.location.search : null))
 
   useEffect(() => {
     const implicitPreference = getImplicitPreference()
@@ -85,7 +82,7 @@ const ResetPassword: React.FC = () => {
           </Form>
           <div>
             {`Already have an account? `}
-            <Link href={`/login${search}`}>Log in here</Link>
+            <Link href={`/login${canUseDom ? window.location.search : ''}`}>Log in here</Link>
             {'.'}
           </div>
         </FormWrap>
