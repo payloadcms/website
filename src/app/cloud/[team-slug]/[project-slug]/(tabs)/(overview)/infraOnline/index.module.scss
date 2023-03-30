@@ -40,6 +40,14 @@
   margin: 0;
 }
 
+.domainLink {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .statusDetail {
   display: flex;
   align-items: center;

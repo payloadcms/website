@@ -1,3 +1,5 @@
+@use '@scss/common' as *;
+
 .tabsContainer {
   position: relative;
   width: 100%;
@@ -21,42 +23,53 @@
   overflow: auto;
   position: relative;
   display: inline-flex;
+}
 
-  .tab {
-    text-decoration: none;
-    white-space: nowrap;
-    margin: 0;
-    margin-right: calc(var(--base) * 1.5);
-    padding-bottom: calc(var(--base) * 1.5);
-    position: relative;
-    color: var(--theme-elevation-300);
+.tabs .tab {
+  text-decoration: none;
+  white-space: nowrap;
+  margin: 0;
+  margin-right: calc(var(--base) * 1.5);
+  padding-bottom: calc(var(--base) * 1.5);
+  position: relative;
+  color: var(--theme-elevation-300);
 
-    &:first-child {
-      margin-left: var(--gutter-h);
-    }
+  &:first-child {
+    margin-left: var(--gutter-h);
+  }
 
-    &:after {
-      // text underline
-      content: '';
-      position: absolute;
-      width: 100%;
-      left: 0;
-      bottom: 0;
-      height: 4px;
-      background-color: currentColor;
-      opacity: 0;
-      z-index: 1;
-    }
+  &:after {
+    // text underline
+    content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    background-color: currentColor;
+    opacity: 0;
+    z-index: 1;
+  }
 
-    &:hover::after,
-    &.active::after,
-    &:focus-within::after {
-      // text underline
-      opacity: 1;
-    }
+  &:hover::after,
+  &.active::after,
+  &:focus-within::after {
+    // text underline
+    opacity: 1;
+  }
 
-    &.active {
-      color: var(--theme-text);
+  &.active {
+    color: var(--theme-text);
+  }
+
+}
+
+.tabsContainer {
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 1.75);
+    
+    .tab {
+      padding-bottom: calc(var(--base));
     }
   }
 }

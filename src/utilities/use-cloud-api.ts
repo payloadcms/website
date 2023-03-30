@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'r
 import type { PaymentMethod } from '@stripe/stripe-js'
 import { qs } from '@utilities/qs'
 
-import type { Plan, Project, Team } from '@root/payload-cloud-types'
+import type { Deployment, Plan, Project, Team } from '@root/payload-cloud-types'
 
 export type UseCloudAPI<R, A = null> = (args?: A) => {
   result: R
@@ -16,8 +16,9 @@ export const useCloudAPI = <R>(args: {
   delay?: number
   method?: 'GET' | 'POST'
   body?: string
+  interval?: number
 }): ReturnType<UseCloudAPI<R>> => {
-  const { url, delay = 250, method = 'GET', body } = args
+  const { url, delay = 250, interval, method = 'GET', body } = args
   const hasMadeRequest = useRef(false)
   const [result, setResult] = useState<R>(undefined as unknown as R)
   const [isLoading, setIsLoading] = useState<boolean | null>(null)
@@ -35,7 +36,7 @@ export const useCloudAPI = <R>(args: {
         try {
           setIsLoading(true)
 
-          const plansReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}${url}`, {
+          const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}${url}`, {
             method,
             credentials: 'include',
             headers: {
@@ -44,9 +45,9 @@ export const useCloudAPI = <R>(args: {
             body,
           })
 
-          const json: R = await plansReq.json()
+          const json: R = await req.json()
 
-          if (plansReq.ok) {
+          if (req.ok) {
             setTimeout(() => {
               setResult(json)
               setIsLoading(false)
@@ -77,6 +78,20 @@ export const useCloudAPI = <R>(args: {
     hasMadeRequest.current = false
     dispatchRequestTicker()
   }, [])
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout
+
+    if (url && interval) {
+      timer = setTimeout(() => {
+        reload()
+      }, interval)
+    }
+
+    return () => {
+      if (timer) clearTimeout(timer)
+    }
+  }, [url, requestTicker, reload, interval])
 
   const memoizedState = useMemo(
     () => ({ result, isLoading, error, reload }),
@@ -185,6 +200,84 @@ export const useGetProject: UseCloudAPI<
 
   const response = useCloudAPI<{
     docs: ProjectWithTeam[]
+  }>({
+    url,
+  })
+
+  return useMemo(() => {
+    return {
+      ...response,
+      result: response.result?.docs?.[0],
+    }
+  }, [response])
+}
+
+export const useGetProjectDeployments: UseCloudAPI<
+  Deployment[],
+  {
+    projectID?: string
+    page?: number
+    interval?: number
+  }
+> = args => {
+  const { projectID, page = 0, interval } = args || {}
+
+  const query = qs.stringify({
+    where: {
+      and: [
+        {
+          project: {
+            equals: projectID,
+          },
+        },
+      ],
+    },
+  })
+  let url = `/api/deployments?${query}&limit=10&page=${page}&sort=-createdAt`
+
+  const response = useCloudAPI<{
+    docs: Deployment[]
+  }>({
+    url,
+    interval: interval,
+  })
+
+  return useMemo(() => {
+    return {
+      ...response,
+      result: response.result?.docs,
+    }
+  }, [response])
+}
+
+export const useGetActiveProjectDeployment: UseCloudAPI<
+  Deployment,
+  {
+    projectID?: string
+  }
+> = args => {
+  const { projectID } = args || {}
+
+  const query = qs.stringify({
+    where: {
+      and: [
+        {
+          project: {
+            equals: projectID,
+          },
+        },
+        {
+          deploymentStatus: {
+            equals: 'ACTIVE',
+          },
+        },
+      ],
+    },
+  })
+  let url = `/api/deployments?${query}&limit=1`
+
+  const response = useCloudAPI<{
+    docs: Deployment[]
   }>({
     url,
   })

@@ -67,7 +67,7 @@ export default ({ children }: ProjectSettingsLayoutType) => {
         </div>
       </Cell>
 
-      <Cell start={4} cols={9}>
+      <Cell start={4} cols={9} startS={1}>
         {children}
       </Cell>
     </Grid>
