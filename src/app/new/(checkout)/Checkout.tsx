@@ -41,7 +41,10 @@ const Stripe = loadStripe(apiKey)
 const title = 'Configure your project'
 
 // `checkoutState` is external from form state,
-// this is bc we need to make a new payment intent each time it values change
+// this is bc we need to make a new payment intent each time it's values change
+// and _not_ when the form values change
+// this is to avoid making more Stripe records than necessary
+// a new one is needed each time the plan (including trial), card, or team changes
 const Checkout: React.FC<{
   project: Project
   draftProjectID: string
@@ -253,7 +256,14 @@ const Checkout: React.FC<{
                           : ''
                       }
                     />
-                    {!isClone && <Text label="Repository ID" path="repositoryID" disabled />}
+                    {!isClone && (
+                      <Text
+                        label="Repository ID"
+                        path="repositoryID"
+                        disabled
+                        description="This is the GitHub ID of the repository being imported."
+                      />
+                    )}
                     {isClone && (
                       <Select
                         label="Template"

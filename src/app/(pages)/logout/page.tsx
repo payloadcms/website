@@ -51,8 +51,14 @@ const Logout: React.FC = () => {
         You have been logged out
       </Heading>
       <div className={classes.buttonWrap}>
-        <Button label="Return to Homepage" size="small" href="/" appearance="primary" />
-        <Button label="Return to Login" size="small" href="/login" appearance="secondary" />
+        <Button label="Return to Homepage" size="small" href="/" appearance="primary" el="link" />
+        <Button
+          label="Return to Login"
+          size="small"
+          href="/login"
+          appearance="secondary"
+          el="link"
+        />
       </div>
     </Gutter>
   )

@@ -116,8 +116,9 @@ export const useGetProjects: UseCloudAPI<
   const teamsWithoutNone = teamsFromArgs?.filter(team => team !== 'none') || []
 
   const userTeams =
-    user?.teams?.map(({ team }) => (typeof team === 'object' && 'id' in team ? team.id : team)) ||
-    [].filter(Boolean)
+    user?.teams?.map(({ team }) =>
+      team && typeof team === 'object' && 'id' in team ? team.id : team,
+    ) || [].filter(Boolean) // eslint-disable-line function-paren-newline
 
   const teams = teamsWithoutNone && teamsWithoutNone?.length > 0 ? teamsWithoutNone : userTeams
 
