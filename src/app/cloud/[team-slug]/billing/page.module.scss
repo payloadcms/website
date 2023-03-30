@@ -3,4 +3,15 @@
 .paymentMethods {
     padding: 0;
     list-style: none;
+
+    & > *:not(:last-child) {
+        margin-bottom: var(--base);
+    }
+}
+
+.paymentMethod {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    border: 1px solid var(--theme-elevation-500);
 }

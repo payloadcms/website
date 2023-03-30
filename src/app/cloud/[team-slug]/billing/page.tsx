@@ -24,16 +24,13 @@ export default () => {
           </div>
         )}
         {hasCards && (
-          <div className={classes.paymentMethods}>
-            <ul>
-              {paymentMethods.map(paymentMethod => (
-                <li key={paymentMethod.id}>
-                  <p>{paymentMethod.card?.brand}</p>
-                  <p>{paymentMethod.card?.last4}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul className={classes.paymentMethods}>
+            {paymentMethods.map(paymentMethod => (
+              <li key={paymentMethod.id} className={classes.paymentMethod}>
+                <p>{`${paymentMethod?.card?.brand} ending in ${paymentMethod?.card?.last4}`}</p>
+              </li>
+            ))}
+          </ul>
         )}
       </Gutter>
     </div>

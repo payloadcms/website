@@ -6,12 +6,7 @@ import Checkout from '@root/app/new/(checkout)/Checkout'
 const ConfigureDraftFromTemplate: React.FC<{
   params: Params
 }> = ({ params: { id: draftProjectID } }) => {
-  return (
-    <Checkout
-      draftProjectID={draftProjectID}
-      breadcrumb={{ label: 'Template', url: '/new/clone' }}
-    />
-  )
+  return <Checkout draftProjectID={draftProjectID} />
 }
 
 export default ConfigureDraftFromTemplate

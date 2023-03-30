@@ -66,10 +66,20 @@ type InstallationSelectorProps = {
   reloadInstalls: ReturnType<UseGetInstalls>['reload']
   loading?: boolean
   error?: string
+  description?: string
 }
 
 export const InstallationSelector: React.FC<InstallationSelectorProps> = props => {
-  const { onChange, value: valueFromProps, installs, reloadInstalls, error, loading } = props
+  const {
+    onChange,
+    value: valueFromProps,
+    installs,
+    reloadInstalls,
+    error,
+    loading,
+    description,
+  } = props
+
   const hasInitializedSelection = React.useRef(false)
   const selectAfterLoad = React.useRef<Install['id']>()
   const [selection, setSelection] = React.useState<Install | undefined>()
@@ -119,7 +129,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
   }, [selection, onChange])
 
   return (
-    <Fragment>
+    <div>
       {error && <p>{error}</p>}
       {loading && (
         <Fragment>
@@ -162,14 +172,18 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
           }}
         />
       )}
-    </Fragment>
+      {description && <p className={classes.description}>{description}</p>}
+    </div>
   )
 }
 
 export const useInstallationSelector = (): [
-  React.FC,
+  React.FC<{
+    description?: string
+  }>,
   ReturnType<UseGetInstalls> & {
     value?: Install
+    description?: string
   },
 ] => {
   const [value, setValue] = React.useState<Install | undefined>(undefined)
@@ -179,17 +193,19 @@ export const useInstallationSelector = (): [
   const debouncedLoading = useDebounce(loading, 250)
 
   const MemoizedInstallationSelector = useMemo(
-    () => () => {
-      return (
-        <InstallationSelector
-          loading={debouncedLoading}
-          error={error}
-          installs={installs}
-          reloadInstalls={reload}
-          onChange={setValue}
-        />
-      )
-    },
+    () =>
+      ({ description }) => {
+        return (
+          <InstallationSelector
+            loading={debouncedLoading}
+            error={error}
+            installs={installs}
+            reloadInstalls={reload}
+            onChange={setValue}
+            description={description}
+          />
+        )
+      },
     [error, installs, reload, debouncedLoading],
   )
 

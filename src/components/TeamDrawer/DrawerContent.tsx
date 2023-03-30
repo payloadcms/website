@@ -84,6 +84,18 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
 
         setLoading(false)
         setSuccess(true)
+        setUser({
+          ...user,
+          teams: [
+            ...(user?.teams || []),
+            // the api adds the user as an owner automatically, need to sync that here
+            // this data does not come back from the API in the response
+            {
+              team: response?.doc,
+              roles: ['owner'],
+            },
+          ],
+        })
 
         if (typeof onCreate === 'function') onCreate(response?.doc)
 
@@ -93,7 +105,7 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
         }
       }
     },
-    [onCreate, user, drawerSlug, router, closeDrawer, redirectAfterCreate],
+    [onCreate, user, drawerSlug, router, closeDrawer, redirectAfterCreate, setUser],
   )
 
   const isOpen = modalState[drawerSlug]?.isOpen

@@ -23,8 +23,9 @@ export const usePaymentIntent = (args: {
   useEffect(() => {
     const { paymentMethod, freeTrial, plan, team } = checkoutState
 
-    if (project?.id && plan && paymentMethod && team) {
-      if (isRequesting.current) return
+    if (!isRequesting.current && project?.id && plan && paymentMethod && team) {
+      isRequesting.current = true
+
       setError(undefined)
 
       const makePaymentIntent = async (): Promise<void> => {

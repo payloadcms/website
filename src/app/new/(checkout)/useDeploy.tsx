@@ -3,9 +3,7 @@ import { OnSubmit } from '@forms/types'
 import { CardElement as StripeCardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 // eslint-disable-next-line import/named
 import { PaymentIntent, StripeCardElement as StripeCardElementType } from '@stripe/stripe-js'
-import { useRouter } from 'next/navigation'
 
-import { cloudSlug } from '@root/app/cloud/layout'
 import { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { PayloadPaymentIntent } from '@root/utilities/use-payment-intent'
@@ -16,15 +14,15 @@ export const useDeploy = (args: {
   checkoutState: CheckoutState
   paymentIntent?: PayloadPaymentIntent
   installID?: string
+  onDeploy?: (project: Project) => void
 }): {
   projectID?: string
   errorDeploying: string | null
   isDeploying: boolean
   deploy: OnSubmit
 } => {
-  const { paymentIntent, checkoutState, installID, projectID } = args
+  const { paymentIntent, checkoutState, installID, projectID, onDeploy } = args
   const { user } = useAuth()
-  const router = useRouter()
   const [error, setError] = useState<string | null>(null)
   const [isDeploying, setIsDeploying] = useState(false)
   const stripe = useStripe()
@@ -112,22 +110,13 @@ export const useDeploy = (args: {
             doc: { team },
           } = res
 
-          const teamID = typeof team === 'string' ? team : team?.id
-
           if (!user.teams || user.teams.length === 0) {
             throw new Error('No teams found')
           }
 
-          const matchedTeam = user?.teams.find(({ team: userTeam }) => {
-            return typeof userTeam === 'string' ? userTeam === teamID : userTeam?.id === teamID
-          })?.team
-
-          const redirectURL =
-            typeof matchedTeam === 'object'
-              ? `/${cloudSlug}/${matchedTeam?.slug}/${res.doc.slug}`
-              : `/${cloudSlug}`
-
-          router.push(redirectURL)
+          if (typeof onDeploy === 'function') {
+            onDeploy(res.doc)
+          }
         } else {
           setIsDeploying(false)
           setError(res.error)
@@ -139,7 +128,7 @@ export const useDeploy = (args: {
         setIsDeploying(false)
       }
     },
-    [user, router, makePayment, paymentIntent, installID, checkoutState, projectID],
+    [user, makePayment, paymentIntent, installID, checkoutState, projectID, onDeploy],
   )
 
   return {

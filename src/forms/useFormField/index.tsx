@@ -31,7 +31,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
 
   const initialValue = field?.initialValue || initialValueFromProps
 
-  const [internalValue, setInternalValue] = useState<Value>()
+  const [internalValue, setInternalValue] = useState<Value>(initialValue)
 
   // Debounce internal values to update form state only every 60ms
   const debouncedValue = useDebounce(internalValue, 120)

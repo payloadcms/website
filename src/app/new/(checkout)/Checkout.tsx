@@ -3,6 +3,7 @@
 import React, { Fragment, useCallback, useEffect } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
+import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Label from '@forms/Label'
@@ -12,7 +13,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import Link from 'next/link'
 import { redirect, useRouter } from 'next/navigation'
 
-import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
+import { Breadcrumbs } from '@components/Breadcrumbs'
 import { CreditCardSelector } from '@components/CreditCardSelector'
 import { Gutter } from '@components/Gutter'
 import { useInstallationSelector } from '@components/InstallationSelector'
@@ -20,12 +21,12 @@ import { LoadingShimmer } from '@components/LoadingShimmer'
 import { usePlanSelector } from '@components/PlanSelector'
 import { TeamSelector } from '@components/TeamSelector'
 import { cloudSlug } from '@root/app/cloud/layout'
-import { Plan } from '@root/payload-cloud-types'
+import { Plan, Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
+import { useGlobals } from '@root/providers/Globals'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import { useGetProject } from '@root/utilities/use-cloud-api'
-import useDebounce from '@root/utilities/use-debounce'
 import { usePaymentIntent } from '@root/utilities/use-payment-intent'
 import { useGitAuthRedirect } from '../authorize/useGitAuthRedirect'
 import { EnvVars } from './EnvVars'
@@ -34,29 +35,32 @@ import { useDeploy } from './useDeploy'
 
 import classes from './Checkout.module.scss'
 
-type Props = {
-  draftProjectID: string
-  breadcrumb?: Breadcrumb
-}
-
 const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
 const Stripe = loadStripe(apiKey)
 
 const title = 'Configure your project'
 
-const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
+// `checkoutState` is external from form state,
+// this is bc we need to make a new payment intent each time it's values change
+// and _not_ when the form values change
+// this is to avoid making more Stripe records than necessary
+// a new one is needed each time the plan (including trial), card, or team changes
+const Checkout: React.FC<{
+  project: Project
+  draftProjectID: string
+}> = props => {
+  const { project, draftProjectID } = props
+
   const router = useRouter()
   const { user } = useAuth()
+  const { templates } = useGlobals()
 
-  const [checkoutState, dispatchCheckoutState] = React.useReducer(
-    checkoutReducer,
-    {} as CheckoutState,
-  )
-
-  const [
-    InstallationSelector,
-    { value: selectedInstall, loading: installsLoading, error: installsError },
-  ] = useInstallationSelector()
+  const [checkoutState, dispatchCheckoutState] = React.useReducer(checkoutReducer, {
+    plan: project?.plan,
+    team: project?.team,
+    freeTrial: true,
+    paymentMethod: '',
+  } as CheckoutState)
 
   const handleCardChange = useCallback((incomingPaymentMethod: string) => {
     dispatchCheckoutState({
@@ -97,47 +101,39 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
     onChange: handlePlanChange,
   })
 
-  const { result: project, isLoading } = useGetProject({
-    projectID: draftProjectID,
-    teamSlug: checkoutState?.team?.slug,
-  })
+  const [
+    InstallationSelector,
+    { value: selectedInstall, loading: installsLoading, error: installsError },
+  ] = useInstallationSelector()
 
   const { paymentIntent, error: paymentIntentError } = usePaymentIntent({
     project,
     checkoutState,
   })
 
-  useEffect(() => {
-    if (project) {
-      if (project.status === 'published') {
-        router.push(`/${cloudSlug}/${project?.team?.slug}/${project.slug}`)
-      } else {
-        dispatchCheckoutState({
-          type: 'UPDATE_STATE',
-          payload: {
-            team: project.team,
-            plan: project.plan as Plan,
-          },
-        })
-      }
-    }
-  }, [project, router])
+  const onDeploy = useCallback(
+    (project: Project) => {
+      const redirectURL =
+        typeof project?.team === 'object'
+          ? `/${cloudSlug}/${project?.team?.slug}/${project.slug}`
+          : `/${cloudSlug}`
+
+      router.push(redirectURL)
+    },
+    [router],
+  )
 
   const { isDeploying, errorDeploying, deploy } = useDeploy({
+    onDeploy,
     projectID: draftProjectID,
     checkoutState,
     installID: selectedInstall?.id.toString(),
     paymentIntent,
   })
 
-  const loading = useDebounce(isLoading, 500)
-
   const enableTrialSelector = new Date().getTime() < new Date('2023-07-01').getTime()
 
-  // project does not exist
-  if (isLoading === false && !project) {
-    redirect(`/404`)
-  }
+  const isClone = Boolean(!project?.repositoryID)
 
   return (
     <Fragment>
@@ -151,11 +147,17 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
         <Grid>
           <Cell cols={3} colsM={8} className={classes.sidebarCell}>
             <div className={classes.sidebar}>
-              {loading || installsLoading ? (
+              {installsLoading ? (
                 <LoadingShimmer number={1} />
               ) : (
                 <Fragment>
-                  <InstallationSelector />
+                  <InstallationSelector
+                    description={
+                      isClone
+                        ? `Select where to create this repository.`
+                        : `This is the scope of the repository being imported.`
+                    }
+                  />
                   {checkoutState?.plan && (
                     <div className={classes.totalPriceSection}>
                       <Label label="Total cost" htmlFor="" />
@@ -175,7 +177,7 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
             </div>
           </Cell>
           <Cell cols={9} colsM={8}>
-            {loading || installsLoading ? (
+            {installsLoading ? (
               <LoadingShimmer number={3} />
             ) : (
               <Fragment>
@@ -192,8 +194,14 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                       value: project?.repositoryID,
                     },
                     template: {
-                      initialValue: project?.template,
-                      value: project?.template,
+                      initialValue:
+                        typeof project?.template === 'object' && 'id' in project?.template
+                          ? project?.template?.id
+                          : project?.template,
+                      value:
+                        typeof project?.template === 'object' && 'id' in project?.template
+                          ? project?.template?.id
+                          : project?.template,
                     },
                     installScript: {
                       initialValue: project?.installScript || 'yarn',
@@ -235,35 +243,47 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
                   </div>
                   <div className={classes.projectDetails}>
                     <div className={classes.sectionHeader}>
-                      <h5 className={classes.sectionTitle}>Ownership</h5>
+                      <h5 className={classes.sectionTitle}>Project Settings</h5>
                       <Link href="">Learn more</Link>
                     </div>
+                    <Text label="Project name" path="name" />
                     <TeamSelector
                       onChange={handleTeamChange}
                       className={classes.teamSelector}
                       initialValue={
-                        typeof user?.teams?.[0]?.team !== 'string' ? user?.teams?.[0]?.team?.id : ''
+                        typeof project?.team === 'object' && 'id' in project?.team
+                          ? project?.team?.id
+                          : ''
                       }
                     />
-                    <Text
-                      label="Repository ID"
-                      path="repositoryID"
-                      disabled
-                      description="This only applies to the `import` flow."
-                    />
-                    <Text
-                      label="Template"
-                      path="template"
-                      disabled
-                      description="This only applies to the `clone` flow."
-                    />
+                    {!isClone && (
+                      <Text
+                        label="Repository ID"
+                        path="repositoryID"
+                        disabled
+                        description="This is the GitHub ID of the repository being imported."
+                      />
+                    )}
+                    {isClone && (
+                      <Select
+                        label="Template"
+                        path="template"
+                        disabled={Boolean(project?.repositoryID)}
+                        options={[
+                          { label: 'None', value: '' },
+                          ...(templates || [])?.map(template => ({
+                            label: template.name || '',
+                            value: template.id,
+                          })),
+                        ]}
+                      />
+                    )}
                   </div>
                   <div className={classes.buildSettings}>
                     <div className={classes.sectionHeader}>
                       <h5 className={classes.sectionTitle}>Build Settings</h5>
                       <Link href="">Learn more</Link>
                     </div>
-                    <Text label="Project name" path="name" />
                     <Text label="Install Script" path="installScript" />
                     <Text label="Build Script" path="buildScript" />
                     <Text label="Branch to deploy" path="deploymentBranch" />
@@ -296,12 +316,28 @@ const ConfigureDraftProject: React.FC<Props> = ({ draftProjectID }) => {
   )
 }
 
-const Checkout: React.FC<Props> = props => {
-  const { breadcrumb } = props
+const CheckoutProvider: React.FC<{
+  draftProjectID: string
+}> = props => {
+  const { draftProjectID } = props
 
   useAuthRedirect()
 
   const { tokenLoading } = useGitAuthRedirect()
+
+  const { result: project, isLoading: projectLoading } = useGetProject({
+    projectID: draftProjectID,
+  })
+
+  if (projectLoading === false && !project) {
+    redirect('/404')
+  }
+
+  if (projectLoading === false && project?.status === 'published') {
+    redirect(`/${cloudSlug}/${project?.team?.slug}/${project.slug}`)
+  }
+
+  const isClone = Boolean(!project?.repositoryID)
 
   return (
     <Fragment>
@@ -313,7 +349,14 @@ const Checkout: React.FC<Props> = props => {
                 label: 'New',
                 url: '/new',
               },
-              ...(breadcrumb ? [breadcrumb] : []),
+              ...(isClone
+                ? [{ label: 'Template', url: '/new/clone' }]
+                : [
+                    {
+                      label: 'Import',
+                      url: '/new/import',
+                    },
+                  ]),
               {
                 label: 'Configure',
               },
@@ -322,17 +365,17 @@ const Checkout: React.FC<Props> = props => {
           <h1>{title}</h1>
         </div>
       </Gutter>
-      {tokenLoading ? (
+      {tokenLoading || projectLoading ? (
         <Gutter>
           <LoadingShimmer number={3} />
         </Gutter>
       ) : (
         <Elements stripe={Stripe}>
-          <ConfigureDraftProject {...props} />
+          <Checkout project={project} draftProjectID={draftProjectID} />
         </Elements>
       )}
     </Fragment>
   )
 }
 
-export default Checkout
+export default CheckoutProvider

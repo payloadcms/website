@@ -157,7 +157,7 @@ export interface User {
     team?: string | Team;
     roles?: ('owner' | 'admin' | 'user')[];
     invitedOn?: string;
-    acceptedOn?: string;
+    joinedOn?: string;
     id?: string;
   }[];
   roles?: ('admin' | 'user')[];
