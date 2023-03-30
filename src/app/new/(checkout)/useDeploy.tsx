@@ -3,9 +3,7 @@ import { OnSubmit } from '@forms/types'
 import { CardElement as StripeCardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 // eslint-disable-next-line import/named
 import { PaymentIntent, StripeCardElement as StripeCardElementType } from '@stripe/stripe-js'
-import { useRouter } from 'next/navigation'
 
-import { cloudSlug } from '@root/app/cloud/layout'
 import { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { PayloadPaymentIntent } from '@root/utilities/use-payment-intent'
@@ -25,7 +23,6 @@ export const useDeploy = (args: {
 } => {
   const { paymentIntent, checkoutState, installID, projectID, onDeploy } = args
   const { user } = useAuth()
-  const router = useRouter()
   const [error, setError] = useState<string | null>(null)
   const [isDeploying, setIsDeploying] = useState(false)
   const stripe = useStripe()

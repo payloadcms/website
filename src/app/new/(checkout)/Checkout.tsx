@@ -13,7 +13,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import Link from 'next/link'
 import { redirect, useRouter } from 'next/navigation'
 
-import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
+import { Breadcrumbs } from '@components/Breadcrumbs'
 import { CreditCardSelector } from '@components/CreditCardSelector'
 import { Gutter } from '@components/Gutter'
 import { useInstallationSelector } from '@components/InstallationSelector'
@@ -27,7 +27,6 @@ import { useGlobals } from '@root/providers/Globals'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import { useGetProject } from '@root/utilities/use-cloud-api'
-import useDebounce from '@root/utilities/use-debounce'
 import { usePaymentIntent } from '@root/utilities/use-payment-intent'
 import { useGitAuthRedirect } from '../authorize/useGitAuthRedirect'
 import { EnvVars } from './EnvVars'
@@ -41,6 +40,8 @@ const Stripe = loadStripe(apiKey)
 
 const title = 'Configure your project'
 
+// `checkoutState` is external from form state,
+// this is bc we need to make a new payment intent each time it values change
 const Checkout: React.FC<{
   project: Project
   draftProjectID: string
@@ -54,7 +55,7 @@ const Checkout: React.FC<{
   const [checkoutState, dispatchCheckoutState] = React.useReducer(checkoutReducer, {
     plan: project?.plan,
     team: project?.team,
-    freeTrial: false,
+    freeTrial: true,
     paymentMethod: '',
   } as CheckoutState)
 
@@ -239,14 +240,17 @@ const Checkout: React.FC<{
                   </div>
                   <div className={classes.projectDetails}>
                     <div className={classes.sectionHeader}>
-                      <h5 className={classes.sectionTitle}>Ownership</h5>
+                      <h5 className={classes.sectionTitle}>Project Settings</h5>
                       <Link href="">Learn more</Link>
                     </div>
+                    <Text label="Project name" path="name" />
                     <TeamSelector
                       onChange={handleTeamChange}
                       className={classes.teamSelector}
                       initialValue={
-                        typeof user?.teams?.[0]?.team !== 'string' ? user?.teams?.[0]?.team?.id : ''
+                        typeof project?.team === 'object' && 'id' in project?.team
+                          ? project?.team?.id
+                          : ''
                       }
                     />
                     {!isClone && <Text label="Repository ID" path="repositoryID" disabled />}
@@ -270,7 +274,6 @@ const Checkout: React.FC<{
                       <h5 className={classes.sectionTitle}>Build Settings</h5>
                       <Link href="">Learn more</Link>
                     </div>
-                    <Text label="Project name" path="name" />
                     <Text label="Install Script" path="installScript" />
                     <Text label="Build Script" path="buildScript" />
                     <Text label="Branch to deploy" path="deploymentBranch" />

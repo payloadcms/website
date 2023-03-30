@@ -55,6 +55,31 @@ export const TeamSelector: React.FC<{
 
   if (!user) return null
 
+  const options = (
+    user.teams && user.teams?.length > 0
+      ? ([
+          ...user?.teams?.map(({ team }) => ({
+            label: typeof team === 'string' ? team : team?.name,
+            value: typeof team === 'string' ? team : team?.id,
+          })),
+        ] as any)
+      : [
+          {
+            label: 'No teams found',
+            value: 'no-teams',
+          },
+        ]
+  ) as any
+
+  const valueNotFound = selectedTeam && !options.find(option => option.value === selectedTeam)
+
+  if (valueNotFound) {
+    options.push({
+      label: `Team ${selectedTeam} (non-member)`,
+      value: selectedTeam,
+    })
+  }
+
   return (
     <Fragment>
       <Select
@@ -66,22 +91,7 @@ export const TeamSelector: React.FC<{
           if (Array.isArray(option)) return
           setSelectedTeam(option)
         }}
-        options={[
-          ...(allowEmpty ? [{ label: 'All teams', value: 'none' }] : []),
-          ...(user.teams && user.teams?.length > 0
-            ? ([
-                ...user?.teams?.map(({ team }) => ({
-                  label: typeof team === 'string' ? team : team?.name,
-                  value: typeof team === 'string' ? team : team?.id,
-                })),
-              ] as any)
-            : [
-                {
-                  label: 'No teams found',
-                  value: 'no-teams',
-                },
-              ]),
-        ]}
+        options={[...(allowEmpty ? [{ label: 'All teams', value: 'none' }] : []), ...options]}
         selectProps={{
           TeamDrawerToggler: (
             <TeamDrawerToggler className={classes.teamDrawerToggler}>

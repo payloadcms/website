@@ -3,6 +3,7 @@ import type { PaymentMethod } from '@stripe/stripe-js'
 import { qs } from '@utilities/qs'
 
 import type { Plan, Project, Team } from '@root/payload-cloud-types'
+import { useAuth } from '@root/providers/Auth'
 
 export type UseCloudAPI<R, A = null> = (args?: A) => {
   result: R
@@ -104,23 +105,28 @@ export const useGetPlans: UseCloudAPI<Plan[]> = () => {
 export const useGetProjects: UseCloudAPI<
   Project[],
   {
-    team?: string
+    teams?: string[]
     search?: string
     delay?: number
   }
 > = args => {
-  const { team, search, delay } = args || {}
+  const { user } = useAuth()
+  const { teams: teamsFromArgs, search, delay } = args || {}
+
+  const teamsWithoutNone = teamsFromArgs?.filter(team => team !== 'none') || []
+
+  const userTeams =
+    user?.teams?.map(({ team }) => (typeof team === 'object' && 'id' in team ? team.id : team)) ||
+    [].filter(Boolean)
+
+  const teams = teamsWithoutNone && teamsWithoutNone?.length > 0 ? teamsWithoutNone : userTeams
 
   const query = qs.stringify({
-    ...(team && team !== 'none'
-      ? {
-          where: {
-            team: {
-              equals: team,
-            },
-          },
-        }
-      : {}),
+    where: {
+      team: {
+        in: teams,
+      },
+    },
     ...(search && search?.length >= 3
       ? {
           name: {

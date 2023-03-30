@@ -23,7 +23,7 @@ export default () => {
     error,
     result: projects,
   } = useGetProjects({
-    team: selectedTeam !== 'none' ? selectedTeam : undefined,
+    teams: selectedTeam ? [selectedTeam] : undefined,
     search,
   })
 
