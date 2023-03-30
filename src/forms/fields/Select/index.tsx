@@ -51,6 +51,8 @@ export const Select: React.FC<{
   }
   selectProps?: any
   value?: string | string[]
+  description?: string
+  disabled?: boolean
 }> = props => {
   const {
     path,
@@ -65,6 +67,8 @@ export const Select: React.FC<{
     components,
     selectProps,
     value: valueFromProps, // allow external control
+    description,
+    disabled,
   } = props
 
   const id = useId()
@@ -79,7 +83,6 @@ export const Select: React.FC<{
 
   const [internalState, setInternalState] = useState<Option | Option[] | null>(() => {
     const initialValue = valueFromContext || initialValueFromProps
-
     if (Array.isArray(initialValue)) {
       return options?.filter(item => initialValue?.some(item.value)) || []
     }
@@ -186,7 +189,9 @@ export const Select: React.FC<{
         components={components}
         // @ts-expect-error
         selectProps={selectProps}
+        isDisabled={disabled}
       />
+      {description && <div className={classes.description}>{description}</div>}
     </div>
   )
 }

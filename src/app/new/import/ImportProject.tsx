@@ -22,7 +22,7 @@ export const ImportProject: React.FC = () => {
   const [hoverIndex, setHoverIndex] = React.useState<number | undefined>(undefined)
 
   const [
-    ScopeSelector,
+    InstallationSelector,
     { value: selectedInstall, installs, loading: loadingInstalls, reload: reloadInstalls },
   ] = useInstallationSelector()
 
@@ -78,7 +78,7 @@ export const ImportProject: React.FC = () => {
           <Grid>
             <Cell cols={4} colsM={8} className={classes.sidebarCell}>
               <div className={classes.sidebar}>
-                <ScopeSelector />
+                <InstallationSelector description="Select the org or user to import from." />
                 <div>
                   <p>
                     {`Don't see your repository? `}

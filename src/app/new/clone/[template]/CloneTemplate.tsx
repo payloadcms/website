@@ -27,7 +27,7 @@ export const CloneTemplate: React.FC<{
   const [makePrivate, setMakePrivate] = React.useState(false)
   const [name, setName] = React.useState('my-project')
   const router = useRouter()
-  const [ScopeSelector, { value: selectedInstall }] = useInstallationSelector()
+  const [InstallationSelector, { value: selectedInstall }] = useInstallationSelector()
 
   const {
     submitDraftProject,
@@ -81,7 +81,7 @@ export const CloneTemplate: React.FC<{
             <Cell cols={8} colsM={8}>
               <Grid className={classes.projectInfo}>
                 <Cell cols={4}>
-                  <ScopeSelector />
+                  <InstallationSelector description="Select where to create this repository." />
                 </Cell>
                 <Cell cols={4}>
                   <Text
@@ -89,6 +89,7 @@ export const CloneTemplate: React.FC<{
                     initialValue={template?.slug}
                     onChange={setName}
                     required
+                    description="Give the newly created repository a name."
                   />
                 </Cell>
               </Grid>

@@ -149,6 +149,7 @@ type ProjectWithTeam = Omit<Project, 'team'> & {
   team: Team
 }
 
+// you can get projects with either the `id` or `teamSlug` and `projectSlug`
 export const useGetProject: UseCloudAPI<
   ProjectWithTeam,
   {
@@ -177,6 +178,7 @@ export const useGetProject: UseCloudAPI<
       ],
     },
   })
+
   let url = teamSlug && projectSlug ? `/api/projects?${query}&limit=1` : ''
 
   if (projectID) {

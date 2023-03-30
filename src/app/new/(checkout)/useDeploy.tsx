@@ -16,13 +16,14 @@ export const useDeploy = (args: {
   checkoutState: CheckoutState
   paymentIntent?: PayloadPaymentIntent
   installID?: string
+  onDeploy?: (project: Project) => void
 }): {
   projectID?: string
   errorDeploying: string | null
   isDeploying: boolean
   deploy: OnSubmit
 } => {
-  const { paymentIntent, checkoutState, installID, projectID } = args
+  const { paymentIntent, checkoutState, installID, projectID, onDeploy } = args
   const { user } = useAuth()
   const router = useRouter()
   const [error, setError] = useState<string | null>(null)
@@ -112,22 +113,13 @@ export const useDeploy = (args: {
             doc: { team },
           } = res
 
-          const teamID = typeof team === 'string' ? team : team?.id
-
           if (!user.teams || user.teams.length === 0) {
             throw new Error('No teams found')
           }
 
-          const matchedTeam = user?.teams.find(({ team: userTeam }) => {
-            return typeof userTeam === 'string' ? userTeam === teamID : userTeam?.id === teamID
-          })?.team
-
-          const redirectURL =
-            typeof matchedTeam === 'object'
-              ? `/${cloudSlug}/${matchedTeam?.slug}/${res.doc.slug}`
-              : `/${cloudSlug}`
-
-          router.push(redirectURL)
+          if (typeof onDeploy === 'function') {
+            onDeploy(res.doc)
+          }
         } else {
           setIsDeploying(false)
           setError(res.error)
@@ -139,7 +131,7 @@ export const useDeploy = (args: {
         setIsDeploying(false)
       }
     },
-    [user, router, makePayment, paymentIntent, installID, checkoutState, projectID],
+    [user, makePayment, paymentIntent, installID, checkoutState, projectID, onDeploy],
   )
 
   return {
