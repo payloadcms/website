@@ -1,49 +1,35 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 
-type WebSocketHookReturnType = [string, (message: string) => void, Event | null]
+type WebSocketHookReturnType = [string, Event | null]
 
 export function useWebSocket(url: string, onOpen?: () => void): WebSocketHookReturnType {
   const [message, setMessage] = useState('')
   const [error, setError] = useState<Event | null>(null)
-  const socketRef = useRef<WebSocket | null>(null)
+  const [socket] = useState<WebSocket>(() => {
+    const webSocket = new WebSocket(url)
 
-  useEffect(() => {
-    if (!url) return
-
-    const wsURL = url.replace(/^http/, 'ws')
-
-    try {
-      socketRef.current = new WebSocket(wsURL)
-
-      socketRef.current.onopen = () => {
-        if (onOpen) {
-          onOpen()
-        }
+    webSocket.onopen = () => {
+      console.log('opened')
+      if (onOpen) {
+        onOpen()
       }
-
-      socketRef.current.onmessage = event => {
-        setMessage(event.data)
-      }
-
-      socketRef.current.onerror = error => {
-        setError(error)
-      }
-
-      return () => {
-        if (socketRef.current) {
-          socketRef.current.close()
-        }
-      }
-    } catch (e: unknown) {
-      console.error(`Error connecting to websocket url ${wsURL}`, e)
     }
-  }, [url, onOpen])
 
-  const sendMessage = (message: string) => {
-    if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
-      socketRef.current.send(message)
+    webSocket.onmessage = event => {
+      console.log(event.data)
+      setMessage(event.data)
     }
-  }
 
-  return [message, sendMessage, error]
+    webSocket.onerror = error => {
+      setError(error)
+    }
+
+    webSocket.onclose = () => {
+      console.log('closed')
+    }
+
+    return webSocket
+  })
+
+  return [message, error]
 }

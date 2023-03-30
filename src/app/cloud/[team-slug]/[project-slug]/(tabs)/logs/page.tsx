@@ -1,9 +1,13 @@
+'use client'
+
 import * as React from 'react'
 
 import { Heading } from '@components/Heading'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 
 import classes from './index.module.scss'
+import { useWebSocket } from '@root/utilities/use-websocket'
+import { useRouteData } from '@cloud/context'
 
 const exampleLog = [
   '0|prod | Error while sending email to address:',
@@ -38,7 +42,16 @@ const exampleLog = [
   '0|prod | }',
 ]
 
-export default async () => {
+export default () => {
+  const { project } = useRouteData()
+  const [message, wsError] = useWebSocket(
+    `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project.id}/logs`.replace(
+      'http',
+      'ws',
+    ),
+  )
+
+  console.log({ message, wsError })
   return (
     <div>
       <Heading element="h5" marginTop={false}>
