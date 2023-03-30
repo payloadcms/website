@@ -304,10 +304,9 @@ const Checkout: React.FC<{
 }
 
 const CheckoutProvider: React.FC<{
-  breadcrumb: Breadcrumb
   draftProjectID: string
 }> = props => {
-  const { breadcrumb, draftProjectID } = props
+  const { draftProjectID } = props
 
   useAuthRedirect()
 
@@ -337,10 +336,14 @@ const CheckoutProvider: React.FC<{
                 label: 'New',
                 url: '/new',
               },
-              ...(breadcrumb ? [breadcrumb] : []),
-              {
-                label: isClone ? 'Clone' : 'Import',
-              },
+              ...(isClone
+                ? [{ label: 'Template', url: '/new/clone' }]
+                : [
+                    {
+                      label: 'Import',
+                      url: '/new/import',
+                    },
+                  ]),
               {
                 label: 'Configure',
               },
