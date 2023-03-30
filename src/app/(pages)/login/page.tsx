@@ -10,7 +10,6 @@ import { redirect, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
-import { BorderBox } from '@root/app/_components/BorderBox'
 import { FormWrap } from '@root/app/_components/FormWrap'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { cloudSlug } from '@root/app/cloud/layout'
@@ -41,7 +40,6 @@ const Login: React.FC = () => {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [redirectTo, setRedirectTo] = useState(`${cloudSlug}`)
-  const [search] = React.useState<string | null>(() => (canUseDom ? window.location.search : null))
 
   useEffect(() => {
     const redirectParam = searchParams?.get('redirect')
@@ -104,10 +102,14 @@ const Login: React.FC = () => {
             </div>
           </Form>
           <div className={classes.sidebar}>
-            <Link href={`/forgot-password${search}`}>Forgot your password?</Link>
+            <Link href={`/forgot-password${canUseDom ? window.location.search : ''}`}>
+              Forgot your password?
+            </Link>
             <div className={classes.leader}>
               {`Don't have an account? `}
-              <Link href={`/signup${search}`}>Register for free</Link>
+              <Link href={`/signup${canUseDom ? window.location.search : ''}`}>
+                Register for free
+              </Link>
               {'.'}
             </div>
           </div>

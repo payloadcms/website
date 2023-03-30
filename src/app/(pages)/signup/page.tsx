@@ -58,7 +58,6 @@ const Signup: React.FC = () => {
   const [error, setError] = React.useState<string | null>(null)
 
   const [successfullySubmitted, setSuccessfullySubmitted] = useState(false)
-  const [search] = React.useState<string | null>(() => (canUseDom ? window.location.search : null))
 
   const createAccount: OnSubmit = useCallback(async ({ data: formData, dispatchFields }) => {
     setTimeout(() => {
@@ -140,7 +139,7 @@ const Signup: React.FC = () => {
           </Heading>
           <div>
             {`Already verified your account? `}
-            <Link href={`/login${search}`}>Log in now</Link>
+            <Link href={`/login${canUseDom ? window.location.search : ''}`}>Log in now</Link>
             {'.'}
           </div>
         </MaxWidth>
@@ -163,7 +162,7 @@ const Signup: React.FC = () => {
             </Form>
             <div className={classes.sidebar}>
               {`Already have an account? `}
-              <Link href={`/login${search}`}>Log in now</Link>
+              <Link href={`/login${canUseDom ? window.location.search : ''}`}>Log in now</Link>
               {'.'}
             </div>
           </FormWrap>
