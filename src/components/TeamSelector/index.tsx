@@ -58,10 +58,15 @@ export const TeamSelector: React.FC<{
   const options = (
     user.teams && user.teams?.length > 0
       ? ([
-          ...user?.teams?.map(({ team }) => ({
-            label: typeof team === 'string' ? team : team?.name,
-            value: typeof team === 'string' ? team : team?.id,
-          })),
+          ...user?.teams
+            ?.map(({ team }) => {
+              if (!team) return null
+              return {
+                label: typeof team === 'string' ? team : team?.name || team?.id,
+                value: typeof team === 'string' ? team : team?.id,
+              }
+            })
+            .filter(Boolean),
         ] as any)
       : [
           {
@@ -73,7 +78,7 @@ export const TeamSelector: React.FC<{
 
   const valueNotFound = selectedTeam && !options.find(option => option.value === selectedTeam)
 
-  if (valueNotFound) {
+  if (selectedTeam !== 'none' && valueNotFound) {
     options.push({
       label: `Team ${selectedTeam} (non-member)`,
       value: selectedTeam,

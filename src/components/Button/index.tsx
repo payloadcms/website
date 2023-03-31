@@ -17,7 +17,7 @@ import classes from './index.module.scss'
 export type ButtonProps = {
   appearance?: 'default' | 'text' | 'primary' | 'secondary' | 'danger'
   el?: 'button' | 'link' | 'a' | 'div'
-  onClick?: () => void
+  onClick?: (e: any) => void | Promise<void>
   href?: string
   newTab?: boolean
   className?: string
@@ -99,6 +99,7 @@ const ButtonContent: React.FC<ButtonProps> = props => {
           {label}
         </div>
       )}
+      {Icon && label && <div className={classes.spacer} />}
       {Icon && (
         <Icon className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')} />
       )}

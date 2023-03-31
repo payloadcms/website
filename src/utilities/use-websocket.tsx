@@ -46,7 +46,6 @@ export const useWebSocket = ({
   })
 
   React.useEffect(() => {
-    console.log(url, socket?.url)
     if (url && socket && socket?.url !== url) {
       socket.close()
       setSocket(new WebSocket(url))

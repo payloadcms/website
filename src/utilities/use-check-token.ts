@@ -34,7 +34,7 @@ export const useCheckToken = (props?: {
       }, 250)
 
       try {
-        const checkToken = async () => {
+        const checkToken = async (): Promise<void> => {
           const reposReq = await fetch(
             `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`,
             {
@@ -64,9 +64,10 @@ export const useCheckToken = (props?: {
         }
 
         checkToken()
-      } catch (err) {
-        console.error(err) // eslint-disable-line no-console
-        setError(err.message)
+      } catch (err: unknown) {
+        const message = `Unable to authorize GitHub: ${err}`
+        console.error(message) // eslint-disable-line no-console
+        setError(message)
         clearTimeout(timeout)
         setLoading(false)
       }

@@ -2,8 +2,6 @@ import React, { useCallback, useRef } from 'react'
 
 import { useAuth } from '@root/providers/Auth'
 
-const logs = process.env.NEXT_PUBLIC_LOGS_GITHUB === '1'
-
 export const useExchangeCode = (): {
   error: string
   hasExchangedCode: boolean
@@ -19,7 +17,7 @@ export const useExchangeCode = (): {
       if (user && code && !hasRequestedGithub.current) {
         hasRequestedGithub.current = true
 
-        const doExchange = async () => {
+        const doExchange = async (): Promise<void> => {
           try {
             const res = await fetch(
               `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/exchange-code?code=${code}`,
@@ -38,9 +36,10 @@ export const useExchangeCode = (): {
               console.error(message) // eslint-disable-line no-console
               setError(message)
             }
-          } catch (err) {
-            console.error(err) // eslint-disable-line no-console
-            setError(err.message)
+          } catch (err: unknown) {
+            const message = `Unable to authorize GitHub: ${err}`
+            console.error(message) // eslint-disable-line no-console
+            setError(message)
           }
         }
 

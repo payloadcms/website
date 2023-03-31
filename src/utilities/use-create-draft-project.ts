@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 
-import { Project } from '@root/payload-cloud-types'
+import type { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
-import { Repo } from './use-get-repos'
+import type { Repo } from './use-get-repos'
 
 export const useCreateDraftProject = ({
   projectName,
@@ -73,9 +73,10 @@ export const useCreateDraftProject = ({
           setError(`Error creating project: ${projectErrs[0].message}`)
           setIsSubmitting(false)
         }
-      } catch (err) {
-        console.error(err) // eslint-disable-line no-console
-        setError(err.message)
+      } catch (err: unknown) {
+        const message = `Error creating project: ${err}`
+        console.error(message) // eslint-disable-line no-console
+        setError(message)
         setIsSubmitting(false)
       }
     },

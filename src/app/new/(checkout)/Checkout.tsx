@@ -55,10 +55,12 @@ const Checkout: React.FC<{
   const { user } = useAuth()
   const { templates } = useGlobals()
 
+  const isBeta = new Date().getTime() < new Date('2023-07-01').getTime()
+
   const [checkoutState, dispatchCheckoutState] = React.useReducer(checkoutReducer, {
     plan: project?.plan,
     team: project?.team,
-    freeTrial: true,
+    freeTrial: isBeta,
     paymentMethod: '',
   } as CheckoutState)
 
@@ -131,8 +133,6 @@ const Checkout: React.FC<{
     paymentIntent,
   })
 
-  const enableTrialSelector = new Date().getTime() < new Date('2023-07-01').getTime()
-
   const isClone = Boolean(!project?.repositoryID)
 
   return (
@@ -171,7 +171,7 @@ const Checkout: React.FC<{
                       </p>
                     </div>
                   )}
-                  {checkoutState?.freeTrial && <p>Free trial (ends July 1)</p>}
+                  {checkoutState?.freeTrial && <p>Free during beta—ends July 1st</p>}
                 </Fragment>
               )}
             </div>
@@ -226,18 +226,11 @@ const Checkout: React.FC<{
                     </div>
                     <div className={classes.plans}>
                       <PlanSelector />
-                      {enableTrialSelector && (
-                        <div className={classes.freeTrial}>
-                          <Checkbox
-                            label="Free trial (ends July 1)"
-                            checked={checkoutState?.freeTrial}
-                            onChange={handleTrialChange}
-                            disabled={
-                              typeof project?.plan === 'object' &&
-                              project?.plan?.slug !== 'standard'
-                            }
-                          />
-                        </div>
+                      {isBeta && (
+                        <p className={classes.trialDescription}>
+                          All plans all free during beta. You will not be charged until after July
+                          1st. You can cancel anytime.
+                        </p>
                       )}
                     </div>
                   </div>
