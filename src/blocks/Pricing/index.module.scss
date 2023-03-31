@@ -32,6 +32,10 @@
     padding: calc(var(--base) * 4) 0;
 }
 
+.disclaimer {
+    padding-bottom: var(--base);
+}
+
 .planWrap {
     &:first-child {
         .card {
@@ -156,10 +160,11 @@
 
 @include mid-break {
     .wrap {
-        padding: calc(var(--base) * 2) calc(var(--base) * 2);
+        padding: 0 calc(var(--base) * 2);
     }
 
     .bg {
+        top: var(--base);
         height: calc(100% + var(--gutter-h));
     }
 

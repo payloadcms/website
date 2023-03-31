@@ -224,6 +224,7 @@ export const PRICING_BLOCK = `
         feature
       }
     }
+    disclaimer
   }
 }
 `

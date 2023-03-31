@@ -14,7 +14,7 @@ import classes from './index.module.scss'
 export type Props = Extract<Page['layout'][0], { blockType: 'pricing' }>
 
 export const Pricing: React.FC<Props> = ({ pricingFields }) => {
-  const { plans } = pricingFields
+  const { plans, disclaimer } = pricingFields
 
   const [toggledPlan, setToggledPlan] = React.useState('')
   const hasPlans = Array.isArray(plans) && plans.length > 0
@@ -90,6 +90,13 @@ export const Pricing: React.FC<Props> = ({ pricingFields }) => {
                   </Cell>
                 )
               })}
+              {disclaimer &&
+                <Cell>
+                  <div className={classes.disclaimer}>
+                    <i>{disclaimer}</i>
+                  </div>
+                </Cell>
+              }
             </Grid>
           </div>
         )}
