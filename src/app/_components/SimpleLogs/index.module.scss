@@ -1,0 +1,37 @@
+.console {
+  overflow: auto;
+
+  code {
+    background-color: unset;
+    display: block;
+  }
+}
+
+.logLines {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+}
+
+.logLine {
+  margin-bottom: 0;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  display: flex;
+  gap: 5px;
+  letter-spacing: -0.5px;
+  color: var(--theme-elevation-500);
+
+  p {
+    margin-bottom: 0;
+  }
+}
+  
+.lineInfo {
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+  
+.lineMessage {
+  color: var(--theme-text);
+}

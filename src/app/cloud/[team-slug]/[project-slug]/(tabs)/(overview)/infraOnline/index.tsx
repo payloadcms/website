@@ -9,6 +9,7 @@ import { Heading } from '@components/Heading'
 import { Label } from '@components/Label'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 import { Indicator } from '@root/app/_components/Indicator'
+import { SimpleLogs } from '@root/app/_components/SimpleLogs'
 import { BranchIcon } from '@root/graphics/BranchIcon'
 import { CommitIcon } from '@root/graphics/CommitIcon'
 import { Deployment } from '@root/payload-cloud-types'
@@ -19,9 +20,42 @@ import { useWebSocket } from '@root/utilities/use-websocket'
 
 import classes from './index.module.scss'
 
+type Log = {
+  service: string
+  timestamp: string
+  message: string
+}
+
 export const InfraOnline: React.FC = () => {
   const [logsWebSocketURL, setLogsWebSocketURL] = React.useState<string>('')
+  const [deploymentLogs, setDeploymentLogs] = React.useState<Log[]>([])
+  const fetchedHistoricLogs = React.useRef(false)
   const { project } = useRouteData()
+  useWebSocket({
+    url: logsWebSocketURL,
+    onMessage: event => {
+      const message = event?.data
+      try {
+        const parsedMessage = JSON.parse(message)
+        if (parsedMessage?.data) {
+          const [service, timestamp, ...rest] = parsedMessage.data.split(' ')
+          setDeploymentLogs(current => [
+            ...current,
+            {
+              service,
+              timestamp,
+              message: rest.join(' '),
+            },
+          ])
+        }
+      } catch (e) {
+        // fail silently
+      }
+    },
+    onClose: () => {
+      setDeploymentLogs([])
+    },
+  })
 
   const {
     isLoading,
@@ -32,27 +66,46 @@ export const InfraOnline: React.FC = () => {
     interval: 10_000,
   })
 
-  const [message, , wsError] = useWebSocket(logsWebSocketURL)
+  const getOneDeploymentByStatus = React.useCallback(
+    async (status: Deployment['deploymentStatus']) => {
+      const query = qs.stringify({
+        where: {
+          and: [
+            {
+              project: {
+                equals: project.id,
+              },
+            },
+            {
+              deploymentStatus: {
+                equals: status,
+              },
+            },
+          ],
+        },
+      })
 
-  React.useEffect(() => {
-    async function getSocketURL() {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project.id}/run-logs`,
+      const req = await fetch(
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deployments?${query}&limit=1`,
         {
           method: 'GET',
           credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
       )
 
-      const json = await res.json()
-      // console.log(json)
-      const logsText = await fetch(json.live_url).then(res => res.text())
-      console.log(logsText)
-      // setLogsWebSocketURL(json.live_url)
-    }
+      const json = await req.json()
 
-    getSocketURL()
-  }, [project.id])
+      if (json.docs?.[0]) {
+        return json.docs[0]
+      }
+
+      return null
+    },
+    [project.id],
+  )
 
   const [activeDeployment, setActiveDeployment] = React.useState<Deployment | null | undefined>(
     deployments?.find(deployment => {
@@ -63,46 +116,67 @@ export const InfraOnline: React.FC = () => {
   React.useEffect(() => {
     const getActiveDeployment = async () => {
       if (!activeDeployment) {
-        const query = qs.stringify({
-          where: {
-            and: [
-              {
-                project: {
-                  equals: project.id,
-                },
-              },
-              {
-                deploymentStatus: {
-                  equals: 'ACTIVE',
-                },
-              },
-            ],
-          },
-        })
-
-        const req = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deployments?${query}&limit=1`,
-          {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
-        )
-
-        const json = await req.json()
-
-        if (json.docs?.[0]) {
-          setActiveDeployment(json.docs[0])
-        } else {
-          setActiveDeployment(null)
-        }
+        const newDeployment = await getOneDeploymentByStatus('ACTIVE')
+        setActiveDeployment(newDeployment)
       }
     }
 
     getActiveDeployment()
-  }, [activeDeployment, project.id])
+  }, [getOneDeploymentByStatus, activeDeployment])
+
+  // the most recent build log - either active build or newest build
+  const latestDeployment = deployments?.[0]
+
+  React.useEffect(() => {
+    const getLatestHistoricLog = async () => {
+      const req = await fetch(
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deployments/${latestDeployment.id}/logs`,
+        {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      )
+
+      const historicLogs = await req.json()
+      if (Array.isArray(historicLogs)) {
+        const [firstLogString] = historicLogs
+
+        const logLines = firstLogString.split('\n')
+        const newLogs = logLines.map(line => {
+          const [service, timestamp, ...rest] = line.split(' ')
+          const microTimestampPattern = /\x1B\[[0-9;]*[a-zA-Z]/g
+          const message = rest.join(' ').trim().replace(microTimestampPattern, '')
+
+          return {
+            service,
+            timestamp,
+            message,
+          }
+        })
+
+        setDeploymentLogs(newLogs)
+      }
+    }
+
+    if (latestDeployment?.deploymentStatus === 'BUILDING') {
+      // stream in live logs
+      setLogsWebSocketURL(
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deployments/${latestDeployment.id}/logs`.replace(
+          'http',
+          'ws',
+        ),
+      )
+    } else {
+      // get static logs
+      if (!fetchedHistoricLogs.current && latestDeployment) {
+        getLatestHistoricLog()
+        fetchedHistoricLogs.current = true
+      }
+    }
+  }, [getOneDeploymentByStatus, latestDeployment])
 
   const projectDomains = [
     ...(project?.domains || []).map(domain => domain.domain),
@@ -196,9 +270,7 @@ export const InfraOnline: React.FC = () => {
         Latest build logs
       </Heading>
 
-      <ExtendedBackground
-        upperChildren={<div className={classes.console}>latest build logs go here</div>}
-      />
+      <ExtendedBackground upperChildren={<SimpleLogs logs={deploymentLogs} />} />
     </React.Fragment>
   )
 }

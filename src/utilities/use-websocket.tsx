@@ -1,35 +1,57 @@
-import { useState } from 'react'
+import React from 'react'
 
-type WebSocketHookReturnType = [string, Event | null]
+type WebSocketHookArgs = {
+  url: string
+  onMessage: (message: MessageEvent) => void
+  onError?: (error: Event) => void
+  onOpen?: () => void
+  onClose?: () => void
+}
 
-export function useWebSocket(url: string, onOpen?: () => void): WebSocketHookReturnType {
-  const [message, setMessage] = useState('')
-  const [error, setError] = useState<Event | null>(null)
-  const [socket] = useState<WebSocket>(() => {
+export const useWebSocket = ({
+  url,
+  onOpen,
+  onMessage,
+  onError,
+  onClose,
+}: WebSocketHookArgs): void => {
+  const [socket, setSocket] = React.useState<WebSocket | null>(() => {
+    if (!url) return null
+
     const webSocket = new WebSocket(url)
 
     webSocket.onopen = () => {
-      console.log('opened')
       if (onOpen) {
         onOpen()
       }
     }
 
     webSocket.onmessage = event => {
-      console.log(event.data)
-      setMessage(event.data)
+      onMessage(event)
     }
 
     webSocket.onerror = error => {
-      setError(error)
+      if (onError) {
+        onError(error)
+      }
     }
 
     webSocket.onclose = () => {
-      console.log('closed')
+      if (onClose) {
+        onClose()
+      }
     }
 
     return webSocket
   })
 
-  return [message, error]
+  React.useEffect(() => {
+    console.log(url, socket?.url)
+    if (url && socket && socket?.url !== url) {
+      socket.close()
+      setSocket(new WebSocket(url))
+    } else if (url && !socket) {
+      setSocket(new WebSocket(url))
+    }
+  }, [url, socket])
 }
