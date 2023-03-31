@@ -26,7 +26,9 @@ const NewEnvVarManager: React.FC<{
           )
         })}
       </div>
-      <AddArrayRow />
+      <div className={classes.addNew}>
+        <AddArrayRow />
+      </div>
     </div>
   )
 }

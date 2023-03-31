@@ -228,7 +228,7 @@ const Checkout: React.FC<{
                       <PlanSelector />
                       {isBeta && (
                         <p className={classes.trialDescription}>
-                          All plans all free during beta. You will not be charged until after July
+                          All plans are free during beta. You will not be charged until after July
                           1st. You can cancel anytime.
                         </p>
                       )}
