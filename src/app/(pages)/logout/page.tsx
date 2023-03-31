@@ -1,27 +1,31 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { useAuth } from '@root/providers/Auth'
 
-import classes from './index.module.scss'
-
 const Logout: React.FC = () => {
   const { user, logout } = useAuth()
-  const [loading, setLoading] = useState(false)
+  const [loggingOut, setLoggingOut] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
     const loadingTimer = setTimeout(() => {
-      setLoading(true)
+      setLoggingOut(true)
     }, 1000)
 
     const initTimer = async () => {
-      await logout()
-      clearTimeout(loadingTimer)
-      setLoading(false)
+      try {
+        await logout()
+        router.push('/cloud')
+        clearTimeout(loadingTimer)
+      } catch (e) {
+        setLoggingOut(false)
+      }
     }
 
     initTimer()
@@ -29,37 +33,23 @@ const Logout: React.FC = () => {
     return () => {
       clearTimeout(loadingTimer)
     }
-  }, [logout])
+  }, [logout, router])
 
-  if (loading)
+  if (loggingOut && user)
     return (
       <Gutter>
-        <div>Logging out...</div>
-      </Gutter>
-    )
-
-  if (!loading && user)
-    return (
-      <Gutter>
-        <div>Something went wrong, please try again.</div>
+        <Heading as="h3" marginTop={false}>
+          Logging out...
+        </Heading>
       </Gutter>
     )
 
   return (
     <Gutter>
       <Heading as="h3" marginTop={false}>
-        You have been logged out
+        Something went wrong, please try again.
       </Heading>
-      <div className={classes.buttonWrap}>
-        <Button label="Return to Homepage" size="small" href="/" appearance="primary" el="link" />
-        <Button
-          label="Return to Login"
-          size="small"
-          href="/login"
-          appearance="secondary"
-          el="link"
-        />
-      </div>
+      <Button label="Logout" onClick={logout} appearance="primary" />
     </Gutter>
   )
 }
