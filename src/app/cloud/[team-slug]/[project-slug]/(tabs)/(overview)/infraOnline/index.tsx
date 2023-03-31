@@ -29,8 +29,28 @@ type Log = {
 export const InfraOnline: React.FC = () => {
   const [logsWebSocketURL, setLogsWebSocketURL] = React.useState<string>('')
   const [deploymentLogs, setDeploymentLogs] = React.useState<Log[]>([])
-  const fetchedHistoricLogs = React.useRef(false)
+  const lastHistoricDeploymentID = React.useRef<string>()
+
   const { project } = useRouteData()
+  const {
+    isLoading,
+    error,
+    result: deployments,
+  } = useGetProjectDeployments({
+    projectID: project.id,
+    interval: 10_000,
+  })
+
+  const [activeDeployment, setActiveDeployment] = React.useState<Deployment | null | undefined>(
+    deployments?.find(deployment => {
+      return deployment.deploymentStatus === 'ACTIVE'
+    }),
+  )
+
+  // the most recent build log - either ACTIVE or another state
+
+  const latestDeployment = deployments?.[0]
+
   useWebSocket({
     url: logsWebSocketURL,
     onMessage: event => {
@@ -55,15 +75,6 @@ export const InfraOnline: React.FC = () => {
     onClose: () => {
       setDeploymentLogs([])
     },
-  })
-
-  const {
-    isLoading,
-    error,
-    result: deployments,
-  } = useGetProjectDeployments({
-    projectID: project.id,
-    interval: 10_000,
   })
 
   const getOneDeploymentByStatus = React.useCallback(
@@ -107,12 +118,6 @@ export const InfraOnline: React.FC = () => {
     [project.id],
   )
 
-  const [activeDeployment, setActiveDeployment] = React.useState<Deployment | null | undefined>(
-    deployments?.find(deployment => {
-      return deployment.deploymentStatus === 'ACTIVE'
-    }),
-  )
-
   React.useEffect(() => {
     const getActiveDeployment = async () => {
       if (!activeDeployment) {
@@ -123,9 +128,6 @@ export const InfraOnline: React.FC = () => {
 
     getActiveDeployment()
   }, [getOneDeploymentByStatus, activeDeployment])
-
-  // the most recent build log - either active build or newest build
-  const latestDeployment = deployments?.[0]
 
   React.useEffect(() => {
     const getLatestHistoricLog = async () => {
@@ -161,6 +163,8 @@ export const InfraOnline: React.FC = () => {
       }
     }
 
+    // if BUILDING, we will stream in live build logs
+    // otherwise, we will fetch the last historic logs
     if (latestDeployment?.deploymentStatus === 'BUILDING') {
       // stream in live logs
       setLogsWebSocketURL(
@@ -169,12 +173,9 @@ export const InfraOnline: React.FC = () => {
           'ws',
         ),
       )
-    } else {
-      // get static logs
-      if (!fetchedHistoricLogs.current && latestDeployment) {
-        getLatestHistoricLog()
-        fetchedHistoricLogs.current = true
-      }
+    } else if (latestDeployment?.id && lastHistoricDeploymentID.current !== latestDeployment.id) {
+      getLatestHistoricLog()
+      lastHistoricDeploymentID.current = latestDeployment.id
     }
   }, [getOneDeploymentByStatus, latestDeployment])
 
@@ -266,11 +267,15 @@ export const InfraOnline: React.FC = () => {
         }
       />
 
-      <Heading element="h5" className={classes.consoleHeading}>
-        Latest build logs
-      </Heading>
+      {deployments?.length > 0 && (
+        <React.Fragment>
+          <Heading element="h5" className={classes.consoleHeading}>
+            Latest build logs
+          </Heading>
 
-      <ExtendedBackground upperChildren={<SimpleLogs logs={deploymentLogs} />} />
+          <ExtendedBackground upperChildren={<SimpleLogs logs={deploymentLogs} />} />
+        </React.Fragment>
+      )}
     </React.Fragment>
   )
 }
