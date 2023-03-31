@@ -99,6 +99,7 @@ const ButtonContent: React.FC<ButtonProps> = props => {
           {label}
         </div>
       )}
+      {Icon && label && <div className={classes.spacer} />}
       {Icon && (
         <Icon className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')} />
       )}

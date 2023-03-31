@@ -151,7 +151,6 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   width: 100%;
-  gap: calc(var(--base) * .5);
 }
 
 .label {
@@ -171,11 +170,15 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
 }
 
+.spacer {
+  width: var(--base);
+  height: var(--base);
+}
+
 .icon {
   position: relative;
   transition-duration: 50ms;
   transition-timing-function: $transCurve;
   flex-shrink: 0;
   transform: translate3d(0, 0, 0);
-  margin-left: var(--base);
 }
