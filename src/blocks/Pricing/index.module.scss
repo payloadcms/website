@@ -37,31 +37,11 @@
 }
 
 .planWrap {
-    &:first-child {
-        .card {
-            & path {
-                stroke: white;
-            }
-        }
-    }
-
     &:nth-child(2) {
         .card {
             color: var(--color-base-950);
             border-color: var(--color-base-950);
-
-            & div {
-                background-color: var(--color-success-400);
-            }
-
-            & span {
-                z-index: 1;
-            }
-
-
-            & path {
-                stroke: var(--color-base-950);
-            }
+            background-color: var(--color-success-400);
         }
     }
 
@@ -69,15 +49,6 @@
         .card {
             color: var(--color-success-400);
             border-color: var(--color-success-400);
-        }
-    }
-
-    &:hover {
-        .card {
-            & path {
-                opacity: 0.8;
-            }
-
         }
     }
 }
@@ -178,6 +149,7 @@
     }
 
     .toggler {
+        @include label;
         background-color: transparent;
         border: none;
         margin: calc(var(--base)*0.25) 0;

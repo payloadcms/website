@@ -6,10 +6,11 @@ import { SquareCard } from '@components/cards/SquareCard'
 import { Page } from '@root/payload-types'
 import { Gutter } from '@components/Gutter'
 import { CheckmarkIcon } from '@root/graphics/CheckmarkIcon'
-import { CloseIcon } from '@root/graphics/CloseIcon'
+import { CloseIcon } from '@root/icons/CloseIcon'
 import { Collapsible, CollapsibleToggler, CollapsibleContent } from '@faceless-ui/collapsibles'
 import { ChevronIcon } from '@root/graphics/ChevronIcon'
 import classes from './index.module.scss'
+import { PricingCard } from '@components/cards/PricingCard'
 
 export type Props = Extract<Page['layout'][0], { blockType: 'pricing' }>
 
@@ -53,13 +54,12 @@ export const Pricing: React.FC<Props> = ({ pricingFields }) => {
 
                 return (
                   <Cell className={classes.planWrap} key={i} cols={4} colsM={8}>
-                    <SquareCard
+                    <PricingCard
                       leader={name}
                       className={classes.card}
                       title={price}
                       description={description}
                       link={link}
-                      appearance="pricing"
                     />
 
                     <div className={classes.list}>{featureList(features)}</div>
@@ -76,14 +76,12 @@ export const Pricing: React.FC<Props> = ({ pricingFields }) => {
                       >
                         <CollapsibleContent>{featureList(features)}</CollapsibleContent>
                         <CollapsibleToggler className={classes.toggler}>
-                          <label>
                             Features
                             <ChevronIcon
                               className={[classes.chevron, isToggled && classes.open]
                                 .filter(Boolean)
                                 .join(' ')}
                             />
-                          </label>
                         </CollapsibleToggler>
                       </Collapsible>
                     </div>
