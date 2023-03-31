@@ -57,10 +57,17 @@
   }
 }
 
-.author,
-.date,
-.platform {
+.titleMeta {
+  display: flex;
+  align-items: center;
+  margin-top: calc(var(--base) * .25);
   color: var(--theme-elevation-500);
+  gap: calc(var(--base) * .5);
+}
+
+.platform {
+  display: inline-flex;
+  margin-right: calc(var(--base) * .25);
 }
 
 .upvotes {

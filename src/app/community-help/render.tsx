@@ -14,9 +14,9 @@ import { CommentsIcon } from '@root/graphics/CommentsIcon'
 import getRelativeDate from '@root/utilities/get-relative-date'
 import { AlgoliaPagination } from '@root/adapters/AlgoliaPagination'
 import Link from 'next/link'
+import { Banner } from '@components/Banner'
 import { ArchiveSearchBar } from './ArchiveSearchBar'
 import { AlgoliaProvider } from './AlgoliaProvider'
-import { Banner } from '@components/Banner'
 
 import classes from './index.module.scss'
 
@@ -45,18 +45,17 @@ export const CommunityHelp: React.FC = () => {
                       >
                         <div>
                           <h5 className={classes.title}>{name}</h5>
-                          <span className={classes.author}>
-                            <strong>{author}</strong> posted
-                          </span>
-                          <span className={classes.date}>
-                            <strong>&nbsp;{getRelativeDate(createdAt)}</strong>
-                          </span>
-                          <span className={classes.platform}>
-                            &nbsp;in&nbsp;
-                            {platform === 'Discord' && <DiscordIcon className={classes.icon} />}
-                            {platform === 'Github' && <GithubIcon className={classes.icon} />}
-                            {' '}{platform}
-                          </span>
+                          <div className={classes.titleMeta}>
+                            <span className={classes.platform}>
+                              {platform === 'Discord' && <DiscordIcon className={classes.icon} />}
+                              {platform === 'Github' && (
+                                <GithubIcon className={classes.icon} />
+                              )}{' '}
+                            </span>
+                            <span className={classes.author}>{author}</span>
+                            <span>—</span>
+                            <span className={classes.date}>&nbsp;{getRelativeDate(createdAt)}</span>
+                          </div>
                         </div>
                         <div className={classes.upvotes}>
                           {hit.upvotes > 0 && (
@@ -77,15 +76,17 @@ export const CommunityHelp: React.FC = () => {
               </ul>
             )}
             {!hasResults && (
-              <Banner type="warning">
+              <>
                 <h5>Sorry, no results were found...</h5>
-                <label>Search tips</label>
-                <ul>
-                  <li>Make sure all words are spelled correctly</li>
-                  <li>Try more general keywords</li>
-                  <li>Try different keywords</li>
-                </ul>
-              </Banner>
+                <Banner type="warning">
+                  <label>Search tips</label>
+                  <ul>
+                    <li>Make sure all words are spelled correctly</li>
+                    <li>Try more general keywords</li>
+                    <li>Try different keywords</li>
+                  </ul>
+                </Banner>
+              </>
             )}
             <AlgoliaPagination />
           </Cell>
