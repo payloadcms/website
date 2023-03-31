@@ -1,7 +1,9 @@
 /* eslint-disable no-param-reassign */
 import React from 'react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
+
 import { Props } from './types'
+
 import classes from './index.module.scss'
 
 let highlightStart = false

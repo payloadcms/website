@@ -1,0 +1,23 @@
+.indicator {
+  border-radius: 100%;
+  width: 10px;
+  height: 10px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.status--success {
+  background-color: var(--theme-success-500);
+}
+
+.status--warning {
+  background-color: var(--theme-warning-500);
+}
+
+.status--error {
+  background-color: var(--theme-error-500);
+}
+
+.status--info {
+  background-color: var(--theme-elevation-500);
+}

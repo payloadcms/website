@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTheme } from '@providers/Theme'
+
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 
 import classes from './index.module.scss'

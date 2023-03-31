@@ -1,6 +1,8 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
+
 import { defaultTheme, getImplicitPreference, themeLocalStorageKey } from './shared'
 import { Theme, themeIsValid, ThemePreferenceContextType } from './types'
+
 import classes from './index.module.scss'
 
 const ThemeContext = createContext<Theme | null | undefined>(undefined)

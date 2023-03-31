@@ -1,9 +1,10 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import useDebounce from '@utilities/use-debounce'
-import { useFormProcessing, useFormSubmitted, useFormModified, useForm } from '../Form/context'
-import { Value, Action } from '../types'
+
+import { useForm, useFormModified, useFormProcessing, useFormSubmitted } from '../Form/context'
+import { Action, Value } from '../types'
 import { FormField, SetValue } from './types'
 
 // this hook:
@@ -13,30 +14,36 @@ import { FormField, SetValue } from './types'
 // 4. returns form state and field-level errors
 
 export const useFormField = <T extends Value>(options): FormField<T> => {
-  const { path, validate } = options
+  const { path, validate, initialValue: initialValueFromProps } = options
 
   const formContext = useForm()
   const submitted = useFormSubmitted()
   const processing = useFormProcessing()
   const modified = useFormModified()
+  const wasSubmittedRef = useRef(false)
 
-  const { dispatchFields, getField, setIsModified } = formContext
+  const { dispatchFields, getField, setIsModified, apiErrors } = formContext
 
   // Get field by path
   const field = getField(path)
 
   const fieldExists = Boolean(field)
 
-  const initialValue = field?.initialValue
+  const initialValue = field?.initialValue || initialValueFromProps
 
-  const [internalValue, setInternalValue] = useState<Value>()
+  const [internalValue, setInternalValue] = useState<Value>(initialValue)
 
   // Debounce internal values to update form state only every 60ms
   const debouncedValue = useDebounce(internalValue, 120)
 
   // Valid could be a string equal to an error message
-  const valid = field && typeof field.valid === 'boolean' ? field.valid : true
-  const showError = valid === false && submitted
+
+  const validFromContext = field && typeof field.valid === 'boolean' ? field.valid : true
+  const apiError = Array.isArray(apiErrors)
+    ? apiErrors?.find(error => error.field === path)
+    : undefined
+  const validFromAPI = apiError === undefined
+  const showError = (validFromContext === false || validFromAPI === false) && submitted
 
   // Method to send update field values from field component(s)
   // Should only be used internally
@@ -90,6 +97,16 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
     }
   }, [initialValue])
 
+  // re-sync state with field.value after submission (field could have been reset)
+  useEffect(() => {
+    if (submitted) {
+      wasSubmittedRef.current = true
+    } else if (!submitted && wasSubmittedRef.current) {
+      wasSubmittedRef.current = false
+      setInternalValue(field?.value)
+    }
+  }, [submitted, field?.value])
+
   useEffect(() => {
     if (debouncedValue !== undefined || !fieldExists) {
       sendField(debouncedValue)
@@ -109,7 +126,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
   return {
     ...options,
     showError,
-    errorMessage: field?.errorMessage,
+    errorMessage: field?.errorMessage || apiError?.message,
     value: internalValue,
     formSubmitted: submitted,
     formProcessing: processing,

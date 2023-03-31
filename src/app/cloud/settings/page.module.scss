@@ -1,0 +1,37 @@
+@use '@scss/common.scss' as *;
+
+.title {
+    margin: 0;
+}
+
+.error {
+    color: var(--theme-error-500);
+}
+
+.success {
+    color: var(--theme-success-500);
+}
+
+.formState {
+    margin-top: var(--base);
+}
+
+.form {
+    margin-top: calc(var(--base));
+    
+    & > * {
+        margin-bottom: var(--base);
+    }
+
+    & > *:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.hr {
+    margin: calc(var(--base) * 3) 0;
+
+    @include mid-break {
+        margin: calc(var(--base)) 0;
+    }
+}

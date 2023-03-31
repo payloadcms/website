@@ -18,3 +18,10 @@ export interface BlogCardProps extends SharedProps {
   media: Media | string
   href: string
 }
+
+export interface DefaultCardProps extends SharedProps {
+  leader?: string
+  media?: Media | string
+  href?: string
+  onClick?: () => void
+}

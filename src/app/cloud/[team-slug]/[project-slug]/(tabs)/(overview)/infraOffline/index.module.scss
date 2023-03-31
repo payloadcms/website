@@ -1,0 +1,133 @@
+@use '@scss/common.scss' as *;
+
+.reTriggerBackground {
+  display: flex;
+  gap: calc(var(--base) * 1.5);
+
+  @include small-break {
+    gap: var(--base);
+    flex-direction: column-reverse;
+  }
+}
+
+.deployDetails {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * .5);
+
+  p {
+    margin: 0;
+  }
+
+  .iconAndLabel {
+    @include small;
+    display: flex;
+    align-items: center;
+    color: var(--theme-elevation-500);
+
+    svg {
+      color: var(--theme-elevation-400);
+      height: 20px;
+      margin-right: calc(var(--base) * 0.5);
+    }
+  }
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base));
+}
+
+.indicationLine {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * 0.5);
+
+  p {
+    margin: 0;
+    color: var(--theme-elevation-450);
+  }
+}
+
+.statusLine {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * 0.5);
+
+  p {
+    font-size: calc(var(--base) * .75);
+    margin: 0;
+    color: var(--theme-elevation-450);
+
+    b {
+      color: var(--theme-text);
+    }
+  }
+}
+
+.progressBar {
+  width: 100%;
+  position: relative;
+  height: 10px;
+  background-color: var(--theme-border-color);
+
+  &:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: var(--theme-success-450);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 300ms ease;
+  }
+  &.step--0 {
+    &:after {
+      width: 2%;
+    }
+  }
+  &.step--1 {
+    &:after {
+      width: 25%;
+    }
+  }
+  &.step--2 {
+    &:after {
+      width: 50%;
+    }
+  }
+  &.step--3 {
+    &:after {
+      width: 75%;
+    }
+  }
+  &.step--4 {
+    &:after {
+      width: 100%;
+    }
+  }
+
+  &.status--error {
+    &:after {
+      background-color: var(--theme-error-500);
+    }
+  }
+  &.status--warning {
+    &:after {
+      background-color: var(--theme-warning-500);
+    }
+  }
+}
+
+.consoleHeading {
+  padding-top: calc(var(--base) * 2);
+}
+
+.console {
+  code {
+    background-color: unset;
+    display: block;
+  }
+}

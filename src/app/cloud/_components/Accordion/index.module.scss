@@ -1,0 +1,87 @@
+@use '@scss/common' as *;
+
+.accordion {
+  --accordion-gutter: var(--base);
+
+  border: 1px solid var(--theme-border-color);
+  margin-bottom: var(--base);
+  color: var(--theme-elevation-650);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: var(--theme-elevation-50);
+  padding: 
+    calc(var(--base) * .5)
+    var(--accordion-gutter);
+}
+
+:global([data-theme="dark"]) {
+  .header {
+    background-color: var(--theme-elevation-150);
+  }
+}
+
+.labelContent {
+  font-size: 18px;
+  margin: 0;
+  display: flex;
+  gap: var(--base);
+  align-items: center;
+
+  * {
+    margin: 0;
+  }
+}
+
+.toggler {
+  all: unset;
+  cursor: pointer;
+  line-height: 1;
+  padding: 2px 5px;
+  border-radius: 3px;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--theme-elevation-200);
+  }
+
+  &.icon--chevron {
+    svg {
+      transform: rotate(90deg);
+    }
+
+    &[aria-expanded="true"] {
+      svg {
+        transform: rotate(-90deg);
+      }
+    }
+  }
+
+  &.icon--eye {
+    svg [data-show] {
+      display: initial;
+    }
+    svg [data-hidden] {
+      display: none;
+    }
+    &[aria-expanded="true"] {
+      svg [data-show] {
+        display: none;
+      }
+      svg [data-hidden] {
+        display: initial;
+      }
+    }
+  }
+}
+
+.collapsibleContent {
+  padding: 
+    calc(var(--base) * 1.25)
+    var(--accordion-gutter);
+  border-top: 1px solid var(--theme-border-color);
+}

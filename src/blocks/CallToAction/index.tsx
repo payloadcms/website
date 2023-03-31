@@ -1,15 +1,17 @@
 import React, { Fragment } from 'react'
-import { BlockSpacing } from '@components/BlockSpacing'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import { ArrowIcon } from '@icons/ArrowIcon'
+
+import { BlockSpacing } from '@components/BlockSpacing'
 import { CMSLink } from '@components/CMSLink'
 import CreatePayloadApp from '@components/CreatePayloadApp'
+import { Gutter } from '@components/Gutter'
 import { Label } from '@components/Label'
 import { PixelBackground } from '@components/PixelBackground'
-import { ArrowIcon } from '@icons/ArrowIcon'
 import { RichText } from '@components/RichText'
-import { Gutter } from '@components/Gutter'
 import { Page } from '@root/payload-types'
 import { ThemeProvider } from '@root/providers/Theme'
+
 import classes from './index.module.scss'
 
 export type CallToActionProps = Extract<Page['layout'][0], { blockType: 'cta' }>

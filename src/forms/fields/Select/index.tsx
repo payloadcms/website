@@ -3,10 +3,12 @@
 import React, { useCallback, useEffect, useId, useRef, useState } from 'react'
 import ReactSelect from 'react-select'
 import { useTheme } from '@providers/Theme'
+
+import Error from '../../Error'
+import Label from '../../Label'
 import { Validate } from '../../types'
 import { useFormField } from '../../useFormField'
-import Label from '../../Label'
-import Error from '../../Error'
+
 import classes from './index.module.scss'
 
 type Option = {
@@ -40,10 +42,17 @@ export const Select: React.FC<{
   label?: string
   options: Option[]
   validate?: Validate
-  onChange?: (value: Option | Option[]) => void // eslint-disable-line no-unused-vars
+  onChange?: (value: string | string[]) => void // eslint-disable-line no-unused-vars
   initialValue?: string | string[]
   className?: string
   isMulti?: boolean
+  components?: {
+    [key: string]: React.FC<any>
+  }
+  selectProps?: any
+  value?: string | string[]
+  description?: string
+  disabled?: boolean
 }> = props => {
   const {
     path,
@@ -55,6 +64,11 @@ export const Select: React.FC<{
     className,
     initialValue: initialValueFromProps, // allow external control
     isMulti,
+    components,
+    selectProps,
+    value: valueFromProps, // allow external control
+    description,
+    disabled,
   } = props
 
   const id = useId()
@@ -67,51 +81,65 @@ export const Select: React.FC<{
 
   const { value: valueFromContext, showError, setValue, errorMessage } = fieldFromContext
 
-  const valueFromContextOrProps = valueFromContext || initialValueFromProps
-
   const [internalState, setInternalState] = useState<Option | Option[] | null>(() => {
     const initialValue = valueFromContext || initialValueFromProps
-
     if (Array.isArray(initialValue)) {
-      return options?.filter(item => item.value === initialValue) || []
+      return options?.filter(item => initialValue?.some(item.value)) || []
     }
 
     return options?.find(item => item.value === initialValue) || null
   })
 
+  const setFormattedValue = useCallback(
+    (incomingSelection?: string | string[]) => {
+      let isDifferent = false
+      let differences
+
+      if (incomingSelection && !internalState) {
+        isDifferent = true
+      }
+
+      if (incomingSelection && internalState) {
+        if (Array.isArray(incomingSelection) && Array.isArray(internalState)) {
+          const internalValues = internalState.map(item => item.value)
+          differences = incomingSelection.filter(x => internalValues.includes(x))
+          isDifferent = differences.length > 0
+        }
+
+        if (typeof incomingSelection === 'string' && typeof internalState === 'string') {
+          isDifferent = incomingSelection !== internalState
+        }
+
+        if (
+          typeof incomingSelection === 'string' &&
+          typeof internalState === 'object' &&
+          internalState !== null &&
+          'value' in internalState
+        ) {
+          isDifferent = incomingSelection !== internalState.value
+        }
+      }
+
+      if (incomingSelection !== undefined && isDifferent) {
+        let newValue: Option | Option[] | null = null
+
+        if (Array.isArray(incomingSelection)) {
+          newValue = options?.filter(item => incomingSelection.find(x => x === item.value)) || []
+        }
+
+        if (typeof incomingSelection === 'string') {
+          newValue = options?.find(item => item.value === incomingSelection) || null
+        }
+
+        setInternalState(newValue)
+      }
+    },
+    [internalState, options],
+  )
+
   useEffect(() => {
-    let isDifferent = false
-    let differences
-
-    if (Array.isArray(valueFromContextOrProps) && Array.isArray(internalState)) {
-      const internalValues = internalState.map(item => item.value)
-      differences = valueFromContextOrProps.filter(x => internalValues.includes(x))
-      isDifferent = differences.length > 0
-    }
-
-    if (typeof valueFromContextOrProps === 'string' && typeof internalState === 'string') {
-      isDifferent = valueFromContextOrProps !== internalState
-    }
-
-    if (typeof valueFromContextOrProps === 'object' && !Array.isArray(valueFromContextOrProps)) {
-      setInternalState(valueFromContextOrProps)
-    }
-
-    if (valueFromContextOrProps !== undefined && isDifferent) {
-      let newValue: Option | Option[] | null = null
-
-      if (Array.isArray(valueFromContextOrProps)) {
-        newValue =
-          options?.filter(item => valueFromContextOrProps.find(x => x === item.value)) || []
-      }
-
-      if (typeof valueFromContextOrProps === 'string') {
-        newValue = options?.find(item => item.value === valueFromContextOrProps) || null
-      }
-
-      setInternalState(newValue)
-    }
-  }, [valueFromContextOrProps, options, internalState])
+    setFormattedValue(valueFromProps)
+  }, [valueFromProps, setFormattedValue])
 
   const handleChange = useCallback(
     (incomingSelection: Option | Option[]) => {
@@ -158,7 +186,12 @@ export const Select: React.FC<{
         value={internalState}
         className={classes.reactSelect}
         classNamePrefix="rs"
+        components={components}
+        // @ts-expect-error
+        selectProps={selectProps}
+        isDisabled={disabled}
       />
+      {description && <div className={classes.description}>{description}</div>}
     </div>
   )
 }

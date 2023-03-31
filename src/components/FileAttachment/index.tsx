@@ -1,8 +1,9 @@
 import React from 'react'
 import NextImage from 'next/image'
-import { DownloadIcon } from '@root/graphics/DownloadIcon'
 
 import { Attachments } from '@root/app/community-help/discord/[thread]/render'
+import { DownloadIcon } from '@root/graphics/DownloadIcon'
+
 import classes from './index.module.scss'
 
 export type Props = {

@@ -1,0 +1,35 @@
+@use '@scss/common' as *;
+
+.formWrap {
+  display: flex;
+  flex-direction: row;
+
+  & form {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: calc(var(--base) * 1.25);
+    max-width: 500px;
+    margin-right: calc(var(--base) * 5);
+  }
+
+  & label {
+    @include small;
+    font-family: var(--font-body);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  & a {
+    color: var(--theme-blue-450);
+    text-decoration: none;
+  }
+
+  @include mid-break {
+    flex-direction: column;
+
+    & form {
+      margin-right: 0;
+    }
+  }
+}

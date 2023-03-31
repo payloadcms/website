@@ -2,16 +2,17 @@
 
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import { ThemeProvider, useTheme } from '@providers/Theme'
+import { formatDate } from '@utilities/format-date-time'
+
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Button } from '@components/Button'
-import { formatDate } from '@utilities/format-date-time'
 import { Gutter } from '@components/Gutter'
 import { HeaderObserver } from '@components/HeaderObserver'
-import { Page } from '@root/payload-types'
 import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'
-import { ThemeProvider, useTheme } from '@providers/Theme'
 import { Video } from '@components/RichText/Video'
+import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
 

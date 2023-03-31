@@ -2,14 +2,15 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { HeaderObserver } from '@components/HeaderObserver'
 import { useTheme } from '@providers/Theme'
-import { Gutter } from '@components/Gutter'
-import DiscordGitCTA from '@components/DiscordGitCTA'
-import OpenPost from '@components/OpenPost'
-import { DiscordGitIntro } from '@components/DiscordGitIntro'
-import { DiscordGitComments } from '@components/DiscordGitComments'
 import * as cheerio from 'cheerio'
+
+import { DiscordGitComments } from '@components/DiscordGitComments'
+import DiscordGitCTA from '@components/DiscordGitCTA'
+import { DiscordGitIntro } from '@components/DiscordGitIntro'
+import { Gutter } from '@components/Gutter'
+import { HeaderObserver } from '@components/HeaderObserver'
+import OpenPost from '@components/OpenPost'
 
 import classes from './index.module.scss'
 

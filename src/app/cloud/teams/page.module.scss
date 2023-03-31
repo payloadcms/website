@@ -1,0 +1,78 @@
+@use '@scss/common.scss' as *;
+
+.list {
+    position: relative;
+    list-style: none;
+    padding: 0;
+
+    & > *:not(:last-child) {
+        margin-bottom: var(--base);
+    }
+}
+
+.team {
+    padding: calc(var(--base) * 2);
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    text-decoration: none;
+    background-color: var(--theme-elevation-50);    
+    border: var(--theme-elevation-150) 1px solid;
+
+    &:hover {
+        border-color: var(--theme-elevation-300);
+
+        &:local() {
+            .arrowIcon {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.teamContent {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: var(--base);
+}
+
+.teamName,
+.teamSlug {
+    margin: 0;
+}
+
+.teamName {
+    font-weight: bold;
+    margin: 0;
+    margin-right: calc(var(--base) / 2);
+}
+
+.createTeamLink {
+    background-color: transparent;
+    line-height: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    color: inherit;
+    text-decoration: underline;
+}
+
+.teamDrawerToggler {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    margin-top: calc(var(--base) * 1.5);
+
+    @include mid-break {
+        margin-top: var(--base);
+    }
+}

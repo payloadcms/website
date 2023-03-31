@@ -1,16 +1,18 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
 import AnimateHeight from 'react-animate-height'
-import Link from 'next/link'
-import { MenuIcon } from '@graphics/MenuIcon'
-import { CloseIcon } from '@graphics/CloseIcon'
-import { HeaderObserver } from '@components/HeaderObserver'
-import { useTheme } from '@providers/Theme'
 import { ChevronIcon } from '@graphics/ChevronIcon'
-import { DocMeta, Topic } from './types'
+import { MenuIcon } from '@graphics/MenuIcon'
+import { useTheme } from '@providers/Theme'
+import Link from 'next/link'
+import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
+
+import { HeaderObserver } from '@components/HeaderObserver'
+import { CloseIcon } from '@root/icons/CloseIcon'
 import { MDXProvider } from '../../components/MDX'
+import { DocMeta, Topic } from '../(pages)/docs/types'
+
 import classes from './index.module.scss'
 
 const openTopicsLocalStorageKey = 'docs-open-topics'
@@ -31,7 +33,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
 
   useEffect(() => {
     if (navOpen) setNavOpen(false)
-  }, [pathname])
+  }, [pathname, navOpen])
 
   useEffect(() => {
     const preference = window.localStorage.getItem(openTopicsLocalStorageKey)
@@ -41,13 +43,13 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
     } else {
       setOpenTopicPreferences([topicParam])
     }
-  }, [])
+  }, [topicParam])
 
   useEffect(() => {
     if (openTopicPreferences && !init) {
       setInit(true)
     }
-  }, [openTopicPreferences])
+  }, [openTopicPreferences, init])
 
   return (
     <HeaderObserver color={theme} pullUp>

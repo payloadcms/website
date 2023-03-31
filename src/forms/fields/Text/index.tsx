@@ -1,8 +1,12 @@
 'use client'
 
-import React from 'react'
+import React, { Fragment, useEffect } from 'react'
+import Label from '@forms/Label'
+
+import { CopyToClipboard } from '@components/CopyToClipboard'
+import { TooltipButton } from '@components/TooltipButton'
+import { EyeIcon } from '@root/icons/EyeIcon'
 import Error from '../../Error'
-import Label from '../../Label'
 import { Validate } from '../../types'
 import { FieldProps } from '../types'
 import { useField } from '../useField'
@@ -22,7 +26,10 @@ const defaultValidate: Validate = val => {
 
 export const Text: React.FC<
   FieldProps<string> & {
-    type?: 'text' | 'hidden'
+    type?: 'text' | 'password' | 'hidden'
+    copy?: boolean
+    elementAttributes?: React.InputHTMLAttributes<HTMLInputElement>
+    value?: string
   }
 > = props => {
   const {
@@ -35,9 +42,27 @@ export const Text: React.FC<
     onChange: onChangeFromProps,
     initialValue,
     className,
+    copy = false,
+    disabled,
+    elementAttributes = {
+      autoComplete: 'off',
+      autoCorrect: 'off',
+      autoCapitalize: 'none',
+    },
+    description,
+    value: valueFromProps,
   } = props
 
-  const { onChange, value, showError, errorMessage } = useField<string>({
+  const prevValueFromProps = React.useRef(valueFromProps)
+
+  const [isHidden, setIsHidden] = React.useState(type === 'password')
+
+  const {
+    onChange,
+    value: valueFromContext,
+    showError,
+    errorMessage,
+  } = useField<string>({
     initialValue,
     onChange: onChangeFromProps,
     path,
@@ -45,21 +70,55 @@ export const Text: React.FC<
     required,
   })
 
+  const value = valueFromProps || valueFromContext
+
+  useEffect(() => {
+    if (valueFromProps !== undefined && valueFromProps !== valueFromContext) {
+      prevValueFromProps.current = valueFromProps
+      onChange(valueFromProps)
+    }
+  }, [valueFromProps, onChange, valueFromContext])
+
   return (
-    <div className={[className, classes.wrap].filter(Boolean).join(' ')}>
+    <div
+      className={[className, classes.wrap, showError && classes.showError]
+        .filter(Boolean)
+        .join(' ')}
+    >
       <Error showError={showError} message={errorMessage} />
-      <Label htmlFor={path} label={label} required={required} />
+      <Label
+        htmlFor={path}
+        label={label}
+        required={required}
+        actionsSlot={
+          <Fragment>
+            {copy && <CopyToClipboard value={value} />}
+            {type === 'password' && (
+              <TooltipButton
+                text={isHidden ? 'show' : 'hide'}
+                onClick={() => setIsHidden(h => !h)}
+                className={classes.tooltipButton}
+              >
+                <EyeIcon closed={isHidden} size="large" />
+              </TooltipButton>
+            )}
+          </Fragment>
+        }
+      />
       <input
+        {...elementAttributes}
+        disabled={disabled}
         className={classes.input}
         value={value || ''}
         onChange={e => {
           onChange(e.target.value)
         }}
         placeholder={placeholder}
-        type={type}
+        type={type === 'password' && !isHidden ? 'text' : type}
         id={path}
         name={path}
       />
+      {description && <p className={classes.description}>{description}</p>}
     </div>
   )
 }

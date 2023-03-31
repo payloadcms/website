@@ -95,6 +95,7 @@ export default async function handler(req: NextRequest) {
               alignItems: 'flex-end',
             }}
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={`${process.env.NEXT_PUBLIC_SITE_URL}/images/fullLogo.png`}
               alt="Payload CMS"
@@ -130,7 +131,7 @@ export default async function handler(req: NextRequest) {
       },
     )
   } catch (e: any) {
-    console.error(`${e.message}`)
+    console.error(`${e.message}`) // eslint-disable-line no-console
     return new Response(`Failed to generate the image`, {
       status: 500,
     })

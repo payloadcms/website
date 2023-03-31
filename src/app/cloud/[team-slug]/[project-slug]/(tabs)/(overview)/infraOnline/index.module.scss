@@ -1,0 +1,81 @@
+@use '@scss/common.scss' as *;
+
+.reTriggerBackground {
+  display: flex;
+  gap: calc(var(--base) * 1.5);
+
+  @include small-break {
+    gap: var(--base);
+    flex-direction: column-reverse;
+  }
+}
+
+.deployDetails {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * .5);
+
+  p {
+    margin: 0;
+  }
+
+  .iconAndLabel {
+    @include small;
+    display: flex;
+    align-items: center;
+    color: var(--theme-elevation-500);
+
+    svg {
+      color: var(--theme-elevation-400);
+      height: 20px;
+      margin-right: calc(var(--base) * 0.5);
+    }
+  }
+}
+
+.detail {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.domainLink {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.statusDetail {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * 0.5);
+
+  .statusIndicator {
+    border-radius: 100%;
+    width: 10px;
+    height: 10px;
+    position: relative;
+    
+    &.status--offline {
+      background-color: var(--theme-error-500);
+    }
+
+    &.status--online {
+      background-color: var(--theme-success-500);
+    }
+  }  
+}
+
+.consoleHeading {
+  padding-top: calc(var(--base) * 2);
+}
+
+.console {
+  code {
+    background-color: unset;
+    display: block;
+  }
+}

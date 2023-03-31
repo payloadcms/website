@@ -1,0 +1,48 @@
+@use '@scss/common' as *;
+@use "../../../forms/fields/shared.scss";
+
+.error {
+  color: var(--color-error-500);
+}
+
+.maxWidth {
+  padding: calc(var(--base) * 2) 0;
+
+  .submit {
+    margin-top: var(--base);
+  }
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--base);
+  margin-left: auto;
+
+  @include mid-break {
+    gap: calc(var(--base) * .25);
+  }
+}
+
+.changeLoginMethod {
+  margin-top: var(--base);
+  display: block;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+  font-size: inherit;
+  line-height: inherit;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+}
+
+@include mid-break {
+  .sidebar {
+    margin: var(--base) 0 0 0;
+  }
+
+  .maxWidth {
+    padding-top: 0;
+  }
+}

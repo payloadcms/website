@@ -1,0 +1,44 @@
+@use "@scss/common" as *;
+
+.title {
+  margin-top: 0;
+}
+
+.invitations {
+  & > *:not(:last-child) {
+      margin-bottom: var(--base);
+  }
+}
+
+.success {
+  color: var(--theme-success-500)
+}
+
+.error {
+  color: var(--theme-error-500)
+}
+
+.invite { 
+  display: flex;
+
+  & > * {
+      margin-bottom: 0;
+
+      &:not(:last-child) {
+          margin-right: var(--base);
+      }
+  }
+}
+
+.resendEmail {
+  border: none;
+  background: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  line-height: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}

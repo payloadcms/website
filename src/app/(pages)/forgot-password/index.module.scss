@@ -1,0 +1,34 @@
+@use '@scss/common' as *;
+
+.maxWidth {
+  padding: calc(var(--base) * 2) 0;
+
+  .submit {
+    margin-top: var(--base);
+  }
+}
+
+.error {
+  color: var(--color-error-500);
+}
+
+
+.sidebar {
+  padding-top: var(--base);
+}
+
+.buttonWrap {
+  display: flex;
+  gap: var(--base);
+}
+
+@include mid-break {
+  .submit {
+    margin-top: 0;
+  }
+
+  .maxWidth,
+  .sidebar {
+    padding-top: 0;
+  }
+}

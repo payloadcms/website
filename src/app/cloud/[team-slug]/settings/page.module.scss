@@ -1,0 +1,29 @@
+@use '@scss/common.scss' as *;
+
+.title {
+    margin: 0;
+}
+
+.formState {
+    margin-top: calc(var(--base) * 2);
+}
+
+.error {
+  color: var(--theme-error-500);
+}
+
+.success {
+    color: var(--theme-success-500);
+}
+
+.form {
+    margin-top: calc(var(--base));
+    
+    & > * {
+        margin-bottom: var(--base);
+    }
+
+    & > *:last-child {
+        margin-bottom: 0;
+    }
+}

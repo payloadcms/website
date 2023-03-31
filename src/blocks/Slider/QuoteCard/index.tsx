@@ -1,10 +1,11 @@
 import * as React from 'react'
+import { QuoteIcon } from '@icons/QuoteIcon'
+import { ThemeProvider } from '@providers/Theme'
+import { formatDate } from '@utilities/format-date-time'
+
 import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
-import { ThemeProvider } from '@providers/Theme'
-import { QuoteIcon } from '@icons/QuoteIcon'
 
-import { formatDate } from '@utilities/format-date-time'
 import classes from './index.module.scss'
 
 type Props = Extract<Page['layout'][0], { blockType: 'slider' }>['sliderFields']['quoteSlides'][0]

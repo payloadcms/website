@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { ReusableContent } from '@root/payload-types'
 import { CheckmarkIcon } from '@graphics/CheckmarkIcon'
+
+import { ReusableContent } from '@root/payload-types'
 import { RichText } from '../RichText'
 
 import classes from './index.module.scss'
@@ -14,6 +15,7 @@ export type Props = {
   children?: React.ReactNode
   checkmark?: boolean
   icon?: 'checkmark'
+  margin?: boolean
 }
 
 const Icons = {
@@ -26,12 +28,17 @@ export const Banner: React.FC<Props> = ({
   icon,
   type = 'default',
   checkmark,
+  margin = true,
 }) => {
   let Icon = icon && Icons[icon]
   if (!Icon && checkmark) Icon = Icons.checkmark
 
   return (
-    <div className={[classes.banner, 'banner', classes[type]].filter(Boolean).join(' ')}>
+    <div
+      className={[classes.banner, 'banner', classes[type], !margin && classes.noMargin]
+        .filter(Boolean)
+        .join(' ')}
+    >
       {Icon && <Icon className={classes.icon} />}
 
       {content && <RichText content={content} />}

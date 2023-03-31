@@ -1,0 +1,33 @@
+@use '@scss/common.scss' as *;
+
+.sidebarNav {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: calc(var(--header-height) + var(--base));
+
+  @include small-break {
+    margin-bottom: var(--base);
+  }
+}
+
+.sidebarNavItem {
+  margin: 0;
+  color: var(--theme-elevation-300);
+
+  &.active {
+
+    a,
+    a:hover {
+      color: var(--theme-text);
+    }
+  }
+
+  a {
+    &:hover {
+      color: var(--theme-text);
+    }
+
+    @include underline-on-focus;
+  }
+}
