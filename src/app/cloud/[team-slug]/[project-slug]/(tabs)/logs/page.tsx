@@ -1,13 +1,13 @@
 'use client'
 
 import * as React from 'react'
+import { useRouteData } from '@cloud/context'
 
 import { Heading } from '@components/Heading'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
+import { useWebSocket } from '@root/utilities/use-websocket'
 
 import classes from './index.module.scss'
-import { useWebSocket } from '@root/utilities/use-websocket'
-import { useRouteData } from '@cloud/context'
 
 const exampleLog = [
   '0|prod | Error while sending email to address:',
@@ -51,7 +51,8 @@ export default () => {
     ),
   )
 
-  console.log({ message, wsError })
+  console.log({ message, wsError }) // eslint-disable-line no-console
+
   return (
     <div>
       <Heading element="h5" marginTop={false}>

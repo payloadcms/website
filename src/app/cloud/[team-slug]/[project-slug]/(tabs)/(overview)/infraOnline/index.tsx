@@ -32,6 +32,7 @@ export const InfraOnline: React.FC = () => {
     interval: 10_000,
   })
 
+  // @ts-expect-error
   const [message, , wsError] = useWebSocket(logsWebSocketURL)
 
   React.useEffect(() => {
@@ -47,7 +48,7 @@ export const InfraOnline: React.FC = () => {
       const json = await res.json()
       // console.log(json)
       const logsText = await fetch(json.live_url).then(res => res.text())
-      console.log(logsText)
+      console.log(logsText) // eslint-disable-line no-console
       // setLogsWebSocketURL(json.live_url)
     }
 

@@ -9,14 +9,14 @@ export function useWebSocket(url: string, onOpen?: () => void): WebSocketHookRet
     const webSocket = new WebSocket(url)
 
     webSocket.onopen = () => {
-      console.log('opened')
+      console.log('opened') // eslint-disable-line no-console
       if (onOpen) {
         onOpen()
       }
     }
 
     webSocket.onmessage = event => {
-      console.log(event.data)
+      console.log(event.data) // eslint-disable-line no-console
       setMessage(event.data)
     }
 
@@ -25,7 +25,7 @@ export function useWebSocket(url: string, onOpen?: () => void): WebSocketHookRet
     }
 
     webSocket.onclose = () => {
-      console.log('closed')
+      console.log('closed') // eslint-disable-line no-console
     }
 
     return webSocket

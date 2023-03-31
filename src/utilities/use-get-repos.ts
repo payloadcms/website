@@ -12,7 +12,7 @@ export interface Repo {
 }
 
 export interface Results {
-  total_count?: number
+  total_count: number
   repos: Repo[]
 }
 export const useGetRepos = (props: {
@@ -22,7 +22,7 @@ export const useGetRepos = (props: {
 }): {
   error: string | undefined
   loading: boolean
-  results
+  results: Results
   page: number
   perPage: number
   setPage: React.Dispatch<React.SetStateAction<number>>
@@ -32,7 +32,7 @@ export const useGetRepos = (props: {
   const [error, setError] = React.useState<string | undefined>()
   const [loading, setLoading] = React.useState<boolean>(true)
   const [results, setResults] = React.useState<Results>({
-    total_count: undefined,
+    total_count: 0,
     repos: [],
   })
   const { user } = useAuth()
@@ -45,7 +45,7 @@ export const useGetRepos = (props: {
       setLoading(true)
       setError(undefined)
 
-      const getRepos = async () => {
+      const getRepos = async (): Promise<void> => {
         if (!hasRequested.current) {
           hasRequested.current = true
 
