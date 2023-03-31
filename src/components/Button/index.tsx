@@ -17,7 +17,7 @@ import classes from './index.module.scss'
 export type ButtonProps = {
   appearance?: 'default' | 'text' | 'primary' | 'secondary' | 'danger'
   el?: 'button' | 'link' | 'a' | 'div'
-  onClick?: () => void
+  onClick?: (e: any) => Promise<void>
   href?: string
   newTab?: boolean
   className?: string

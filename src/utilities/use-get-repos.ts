@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import { useAuth } from '@root/providers/Auth'
 import { qs } from './qs'
-import { Install } from './use-get-installs'
+import type { Install } from './use-get-installs'
 
 export interface Repo {
   name: string

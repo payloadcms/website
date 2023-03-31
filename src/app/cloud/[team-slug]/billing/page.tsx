@@ -2,36 +2,44 @@
 
 import * as React from 'react'
 
+import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
-import { useGetPaymentMethods } from '@root/utilities/use-cloud-api'
+import { Heading } from '@components/Heading'
+import { useCustomerPortal } from '@root/utilities/use-customer-portal'
 import { useRouteData } from '../../context'
 
 import classes from './page.module.scss'
 
+const portalURL = `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/customer-portal`
+
 export default () => {
   const { team } = useRouteData()
-  const { result: paymentMethods } = useGetPaymentMethods(team)
-
-  const hasCards = paymentMethods?.length > 0
+  const { openPortalSession, error, loading } = useCustomerPortal({
+    team,
+  })
 
   return (
     <div className={classes.billing}>
       <Gutter className={classes.content}>
-        <h2>Payment methods</h2>
-        {!hasCards && (
-          <div className={classes.empty}>
-            <p>{`You currently don't have any payment methods on file.`}</p>
+        <Heading marginTop={false} element="h1" as="h6" className={classes.title}>
+          Team billing
+        </Heading>
+        <p>
+          All billing is manage in Stripe, click the link below to be taken to your customer portal.
+          You must be an owner of this team to manage billing.
+        </p>
+        {(loading || error) && (
+          <div className={classes.formSate}>
+            {loading && <p className={classes.loading}>Loading...</p>}
+            {error && <p className={classes.error}>{error}</p>}
           </div>
         )}
-        {hasCards && (
-          <ul className={classes.paymentMethods}>
-            {paymentMethods.map(paymentMethod => (
-              <li key={paymentMethod.id} className={classes.paymentMethod}>
-                <p>{`${paymentMethod?.card?.brand} ending in ${paymentMethod?.card?.last4}`}</p>
-              </li>
-            ))}
-          </ul>
-        )}
+        <Button
+          href={portalURL}
+          onClick={openPortalSession}
+          label="Manage Billing"
+          appearance="primary"
+        />
       </Gutter>
     </div>
   )

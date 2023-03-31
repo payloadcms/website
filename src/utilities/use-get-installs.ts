@@ -12,19 +12,19 @@ export interface Install {
   target_type: 'User' | 'Organization'
 }
 
-type Add = {
+interface Add {
   type: 'add'
   payload: Install
 }
 
-type Set = {
+interface Set {
   type: 'set'
   payload: Install[]
 }
 
 type Action = Add | Set
 
-const installReducer = (state: Install[], action: Action) => {
+const installReducer = (state: Install[], action: Action): Install[] => {
   switch (action.type) {
     case 'add':
       return [...state, action.payload]
@@ -74,7 +74,7 @@ export const useGetInstalls: UseGetInstalls = () => {
     let timeout: NodeJS.Timeout
 
     if (user) {
-      const getInstalls = async () => {
+      const getInstalls = async (): Promise<void> => {
         if (!hasRequested.current) {
           hasRequested.current = true
 
