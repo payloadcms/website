@@ -1,3 +1,5 @@
+@use '@scss/common' as *;
+
 .console {
   overflow: auto;
 
@@ -34,4 +36,8 @@
   
 .lineMessage {
   color: var(--theme-text);
+
+  @include mid-break {
+    white-space: nowrap;
+  }
 }

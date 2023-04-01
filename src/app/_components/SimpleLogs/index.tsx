@@ -13,19 +13,24 @@ export const SimpleLogs: React.FC<Logs> = ({ logs }) => {
   return (
     <div className={classes.console}>
       <div className={classes.logLines}>
-        {logs.map((message, index) => {
-          if (message) {
-            return (
-              <div key={index} className={classes.logLine}>
-                <p className={classes.lineInfo}>[{message.service}]</p>
-                <p className={classes.lineInfo}>[{message.timestamp}]</p>
-                <p className={classes.lineMessage}>{message.message}</p>
-              </div>
-            )
-          }
+        <table>
+          <tbody>
+            {logs.map((message, index) => {
+              if (message) {
+                return (
+                  <tr key={index} className={classes.logLine}>
+                    {message?.timestamp && (
+                      <td className={classes.lineInfo}>[{message.timestamp}]</td>
+                    )}
+                    {message?.message && <td className={classes.lineMessage}>{message.message}</td>}
+                  </tr>
+                )
+              }
 
-          return null
-        })}
+              return null
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   )
