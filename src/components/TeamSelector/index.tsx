@@ -35,6 +35,7 @@ export const TeamSelector: React.FC<{
   const { user } = useAuth()
   const teams = user?.teams?.map(({ team }) => team)
   const [selectedTeam, setSelectedTeam] = React.useState<string | undefined>(initialValue)
+  const prevSelectedTeam = React.useRef<string | undefined>(selectedTeam)
 
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer({
     team: teams?.find(team => typeof team === 'object' && team?.id === selectedTeam) as Team,
@@ -49,8 +50,9 @@ export const TeamSelector: React.FC<{
 
   // report the selection to the parent
   useEffect(() => {
-    if (typeof onChange === 'function') {
-      onChange(selectedTeam)
+    if (prevSelectedTeam.current !== selectedTeam) {
+      prevSelectedTeam.current = selectedTeam
+      if (typeof onChange === 'function') onChange(selectedTeam)
     }
   }, [onChange, selectedTeam])
 

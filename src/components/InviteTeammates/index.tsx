@@ -13,43 +13,48 @@ const Invites: React.FC<{
 }> = ({ className }) => {
   const { uuids } = useArray()
 
+  const hasInvites = uuids?.length > 0
+
   return (
     <BorderBox className={[classes.teamInvites, className].filter(Boolean).join(' ')}>
-      <h6 className={classes.title}>Invite others</h6>
-      {/* <p className={classes.description}>Invite others to join your team.</p> */}
-      <div className={classes.invites}>
-        {uuids?.map((uuid, index) => {
-          return (
-            <ArrayRow key={uuid} index={index} allowRemove>
-              <Text
-                label="Email address"
-                path={`sendEmailInvitationsTo.${index}.email`}
-                className={classes.arrayRowField}
-              />
-              <Select
-                label="Roles"
-                path={`sendEmailInvitationsTo.${index}.roles`}
-                options={[
-                  {
-                    label: 'Owner',
-                    value: 'owner',
-                  },
-                  {
-                    label: 'Admin',
-                    value: 'admin',
-                  },
-                  {
-                    label: 'User',
-                    value: 'user',
-                  },
-                ]}
-                isMulti
-                className={classes.arrayRowField}
-              />
-            </ArrayRow>
-          )
-        })}
-      </div>
+      {hasInvites && (
+        <div>
+          <h5 className={classes.title}>Invite Others</h5>
+          <div className={classes.invites}>
+            {uuids?.map((uuid, index) => {
+              return (
+                <ArrayRow key={uuid} index={index} allowRemove>
+                  <Text
+                    label="Email address"
+                    path={`sendEmailInvitationsTo.${index}.email`}
+                    className={classes.arrayRowField}
+                  />
+                  <Select
+                    label="Roles"
+                    path={`sendEmailInvitationsTo.${index}.roles`}
+                    options={[
+                      {
+                        label: 'Owner',
+                        value: 'owner',
+                      },
+                      {
+                        label: 'Admin',
+                        value: 'admin',
+                      },
+                      {
+                        label: 'User',
+                        value: 'user',
+                      },
+                    ]}
+                    isMulti
+                    className={classes.arrayRowField}
+                  />
+                </ArrayRow>
+              )
+            })}
+          </div>
+        </div>
+      )}
       <AddArrayRow singularLabel="Invite" pluralLabel="Invites" />
     </BorderBox>
   )
@@ -57,7 +62,7 @@ const Invites: React.FC<{
 
 export const InviteTeammates = () => {
   return (
-    <ArrayProvider>
+    <ArrayProvider instantiateEmpty>
       <Invites />
     </ArrayProvider>
   )

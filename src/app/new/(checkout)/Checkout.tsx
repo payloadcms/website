@@ -21,7 +21,7 @@ import { LoadingShimmer } from '@components/LoadingShimmer'
 import { usePlanSelector } from '@components/PlanSelector'
 import { TeamSelector } from '@components/TeamSelector'
 import { cloudSlug } from '@root/app/cloud/layout'
-import { Plan, Project } from '@root/payload-cloud-types'
+import { Plan, Project, Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { useGlobals } from '@root/providers/Globals'
 import { priceFromJSON } from '@root/utilities/price-from-json'
@@ -87,7 +87,9 @@ const Checkout: React.FC<{
 
   const handleTeamChange = useCallback(
     (incomingTeam: string) => {
-      const selectedTeam = user?.teams?.find(team => team.id === incomingTeam)?.team
+      const selectedTeam = user?.teams?.find(
+        ({ team }) => typeof team === 'object' && team?.id === incomingTeam,
+      )?.team
 
       if (selectedTeam && typeof selectedTeam !== 'string') {
         dispatchCheckoutState({

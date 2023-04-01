@@ -19,12 +19,23 @@ export const usePaymentIntent = (args: {
   const [paymentIntent, setPaymentIntent] = useState<PayloadPaymentIntent>()
   const [error, setError] = useState<string | undefined>('')
   const isRequesting = React.useRef<boolean>(false)
+  const prevPaymentMethod = React.useRef<string | undefined>(checkoutState?.paymentMethod)
 
   useEffect(() => {
     const { paymentMethod, freeTrial, plan, team } = checkoutState
 
-    if (!isRequesting.current && project?.id && plan && paymentMethod && team) {
+    // only make a payment intent if the payment method has changed
+    // to do this maintain a ref to the previous payment method
+    if (
+      !isRequesting.current &&
+      prevPaymentMethod.current !== checkoutState.paymentMethod &&
+      project?.id &&
+      plan &&
+      paymentMethod &&
+      team
+    ) {
       isRequesting.current = true
+      prevPaymentMethod.current = paymentMethod
 
       setError(undefined)
 

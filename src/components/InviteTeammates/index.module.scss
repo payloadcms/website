@@ -5,6 +5,8 @@
 }
 
 .invites {  
+  margin-bottom: var(--base);
+  
   & > *:not(:last-child) {
     margin-bottom: var(--base);
   }
@@ -20,17 +22,6 @@
     flex: 1;
     margin: 0 calc(var(--base) / 2);
   }
-}
-
-.button {
-  margin-top: calc(var(--base) / 2);
-  background: transparent;
-  border: 0;
-  outline: none;
-  cursor: pointer;
-  padding: 0;
-  line-height: inherit;
-  font-size: inherit;
 }
 
 .arrayRowField {
