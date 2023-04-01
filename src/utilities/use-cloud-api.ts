@@ -20,7 +20,7 @@ export const useCloudAPI = <R>(args: {
   interval?: number
 }): ReturnType<UseCloudAPI<R>> => {
   const { url, delay = 250, interval, method = 'GET', body } = args
-  const hasMadeRequest = useRef(false)
+  const isRequesting = useRef(false)
   const [result, setResult] = useState<R>(undefined as unknown as R)
   const [isLoading, setIsLoading] = useState<boolean | null>(null)
   const [error, setError] = useState('')
@@ -30,8 +30,8 @@ export const useCloudAPI = <R>(args: {
     let timer: NodeJS.Timeout
 
     if (url) {
-      if (hasMadeRequest.current) return
-      hasMadeRequest.current = true
+      if (isRequesting.current) return
+      isRequesting.current = true
 
       const makeRequest = async (): Promise<void> => {
         try {
@@ -63,7 +63,7 @@ export const useCloudAPI = <R>(args: {
           setIsLoading(false)
         }
 
-        hasMadeRequest.current = false
+        isRequesting.current = false
       }
 
       makeRequest()
@@ -76,7 +76,7 @@ export const useCloudAPI = <R>(args: {
   }, [url, requestTicker, delay, method, body])
 
   const reload = useCallback(() => {
-    hasMadeRequest.current = false
+    isRequesting.current = false
     dispatchRequestTicker()
   }, [])
 

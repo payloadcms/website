@@ -3,10 +3,11 @@ import Link from 'next/link'
 
 import classes from './index.module.scss'
 
-type Headings = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+export type HeadingType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+
 type Props = {
-  element?: Headings | 'p'
-  as?: Headings
+  element?: HeadingType | 'p'
+  as?: HeadingType
   margin?: boolean
   marginTop?: boolean
   marginBottom?: boolean
@@ -15,6 +16,7 @@ type Props = {
   href?: string
   className?: string
 }
+
 const HeadingElement: React.FC<Partial<Props>> = props => {
   const { element: Element = 'h1', children, id, className = [], margin } = props
 

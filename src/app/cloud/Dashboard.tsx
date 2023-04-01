@@ -1,9 +1,9 @@
 'use client'
 
 import React from 'react'
+import { NewProjectBlock } from '@blocks/NewProject'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
-import Link from 'next/link'
 
 import { Button } from '@components/Button'
 import { ProjectCard } from '@components/cards/ProjectCard'
@@ -12,11 +12,12 @@ import { LoadingShimmer } from '@components/LoadingShimmer'
 import { TeamSelector } from '@components/TeamSelector'
 import { useGetProjects } from '@root/utilities/use-cloud-api'
 
-import classes from './index.module.scss'
+import classes from './Dashboard.module.scss'
 
 export default () => {
   const [selectedTeam, setSelectedTeam] = React.useState<string | 'none'>()
   const [search, setSearch] = React.useState<string>('')
+  const [hasLoaded, setHasLoaded] = React.useState<boolean>(false)
 
   const {
     isLoading,
@@ -26,6 +27,24 @@ export default () => {
     teams: selectedTeam ? [selectedTeam] : undefined,
     search,
   })
+
+  React.useEffect(() => {
+    if (isLoading === false) {
+      setHasLoaded(true)
+    }
+  }, [isLoading])
+
+  if (!hasLoaded) {
+    return (
+      <Gutter>
+        <LoadingShimmer number={3} />
+      </Gutter>
+    )
+  }
+
+  if (hasLoaded && projects && projects.length === 0) {
+    return <NewProjectBlock cardLeader="New" headingElement="h2" />
+  }
 
   return (
     <Gutter>
@@ -64,13 +83,6 @@ export default () => {
         <LoadingShimmer number={3} />
       ) : (
         <div className={classes.content}>
-          {projects && projects.length === 0 && (!search || search.length === 0) && (
-            <p className={classes.noProjects}>
-              {"You don't have any projects yet, "}
-              <Link href="/new">create a new project</Link>
-              {' to get started.'}
-            </p>
-          )}
           {projects && projects.length === 0 && search?.length > 0 && (
             <p className={classes.noResults}>
               {"Your search didn't return any results, please try again."}

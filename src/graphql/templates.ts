@@ -5,6 +5,15 @@ export const TEMPLATE_FIELDS = `
   description
   templateRepo
   order
+  image {
+    mimeType
+    alt
+    filename
+    filesize
+    url
+    width
+    height
+  }
 `
 
 export const TEMPLATES = `

@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { Heading } from '@components/Heading'
 import { Media } from '@components/Media'
+import { PlusIcon } from '@root/icons/PlusIcon'
 import { DefaultCardProps } from '../types'
 
 import classes from './index.module.scss'
@@ -15,11 +16,14 @@ export const DefaultCard: React.FC<DefaultCardProps> = props => {
       href={href || ''}
       className={[classes.defaultCard, className && className].filter(Boolean).join(' ')}
     >
-      {leader && <span className={classes.leader}>{leader}</span>}
-      <Heading element="h2" as="h5">
-        {title}
-      </Heading>
-      <p className={classes.description}>{description}</p>
+      <div className={classes.content}>
+        {leader && <div className={classes.leader}>{leader}</div>}
+        <Heading element="h2" as="h5" className={classes.title}>
+          {title}
+        </Heading>
+        <PlusIcon className={classes.plusIcon} />
+        <p className={classes.description}>{description}</p>
+      </div>
       {media && typeof media !== 'string' && (
         <Media resource={media} className={classes.media} sizes="(max-width: 768px) 100vw, 20vw" />
       )}
