@@ -3,7 +3,7 @@
 .docSearch {
   position: relative;
   :global(.DocSearch-Button) {
-    margin: 0;
+    margin: 0 0 0 var(--base);
     padding: 0;
   }
 }

@@ -4,9 +4,11 @@ import { Modal, useModal } from '@faceless-ui/modal'
 import { HeaderColors, useHeaderTheme } from '@providers/HeaderTheme'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-
+import { Avatar } from '@components/Avatar'
 import { Gutter } from '@components/Gutter'
 import { MainMenu } from '@root/payload-types'
+import { useAuth } from '@root/providers/Auth'
+import { DiscordIcon } from '../../../graphics/DiscordIcon'
 import { FullLogo } from '../../../graphics/FullLogo'
 import { MenuIcon } from '../../../graphics/MenuIcon'
 import { CMSLink } from '../../CMSLink'
@@ -19,11 +21,21 @@ export const modalSlug = 'mobile-nav'
 type NavItems = Pick<MainMenu, 'navItems'>
 
 const MobileNavItems = ({ navItems }: NavItems) => {
+  const { user } = useAuth()
+
   return (
     <ul className={classes.mobileMenuItems}>
       {(navItems || []).map((item, index) => {
         return <CMSLink className={classes.mobileMenuItem} key={index} {...item.link} />
       })}
+      <Link className={classes.mobileMenuItem} href="/new">
+        New project
+      </Link>
+      {!user && (
+        <Link className={classes.mobileMenuItem} href="/login">
+          Login
+        </Link>
+      )}
     </ul>
   )
 }
@@ -49,6 +61,7 @@ export const MobileNav: React.FC<NavItems> = props => {
   const { isModalOpen, openModal, closeModal, closeAllModals } = useModal()
   const { headerColor, setHeaderColor } = useHeaderTheme()
   const headerColorRef = React.useRef<HeaderColors | null | undefined>(undefined)
+  const { user } = useAuth()
 
   const pathname = usePathname()
 
@@ -78,8 +91,12 @@ export const MobileNav: React.FC<NavItems> = props => {
               </Link>
 
               <div className={classes.icons}>
+                <div className={classes.cloudNewProject}>
+                  <Link href="/new">New project</Link>
+                  {!user && <Link href="/login">Login</Link>}
+                </div>
+                {user && <Avatar className={classes.mobileAvatar} />}
                 <DocSearch />
-
                 <button type="button" className={classes.modalToggler} onClick={toggleModal}>
                   <MenuIcon />
                 </button>

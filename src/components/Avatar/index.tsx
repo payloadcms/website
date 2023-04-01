@@ -7,13 +7,13 @@ import { useAuth } from '@root/providers/Auth'
 // import { DropdownMenu } from './DropdownMenu'
 import classes from './index.module.scss'
 
-export const Avatar: React.FC = () => {
+export const Avatar: React.FC<{ className?: string }> = ({ className }) => {
   const { user } = useAuth()
 
   // const [isOpen, setIsOpen] = React.useState(false)
 
   return (
-    <div className={classes.avatar}>
+    <div className={[classes.avatar, className].filter(Boolean).join(' ')}>
       {/* <button
         type="button"
         className={classes.button}
