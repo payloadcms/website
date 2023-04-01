@@ -151,10 +151,9 @@ const Checkout: React.FC<{
                 <LoadingShimmer number={1} />
               ) : (
                 <Fragment>
-                  <InstallationSelector
-                    description={isClone ? `Select where to create this repository.` : undefined}
-                    disabled={!isClone}
-                  />
+                  {isClone && (
+                    <InstallationSelector description={`Select where to create this repository.`} />
+                  )}
                   {!isClone && (
                     <div>
                       <Text label="Repository" value={project?.repositoryFullName} disabled />
