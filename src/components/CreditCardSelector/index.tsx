@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { CircleIconButton } from '@forms/fields/Array'
 
+import { CircleIconButton } from '@components/CircleIconButton'
 import { CreditCardElement } from '@components/CreditCardElement'
 import { LargeRadio } from '@components/LargeRadio'
 import { Team } from '@root/payload-cloud-types'

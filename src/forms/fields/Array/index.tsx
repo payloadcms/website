@@ -1,7 +1,6 @@
 import * as React from 'react'
 
-import { Button } from '@components/Button'
-import { PlusIcon } from '@root/icons/PlusIcon'
+import { CircleIconButton } from '@components/CircleIconButton'
 import { TrashIcon } from '@root/icons/TrashIcon'
 import { useArray } from './context'
 
@@ -48,25 +47,4 @@ export const AddArrayRow: React.FC<AddRowProps> = ({
   const label = labelFromProps || (!uuids?.length ? `Add ${pluralLabel}` : `Add ${singularLabel}`)
 
   return <CircleIconButton className={className} onClick={addRow} label={label} />
-}
-
-export const CircleIconButton: React.FC<{
-  className?: string
-  onClick: () => void
-  label: string
-}> = ({ children, ...props }: any) => {
-  const { onClick, className, label, ...rest } = props
-
-  return (
-    <button
-      className={[classes.button, className].filter(Boolean).join(' ')}
-      type="button"
-      onClick={onClick}
-    >
-      <div className={classes.iconWrapper}>
-        <PlusIcon className={classes.icon} />
-      </div>
-      <span className={classes.label}>{label}</span>
-    </button>
-  )
 }
