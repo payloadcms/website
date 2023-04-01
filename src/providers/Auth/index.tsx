@@ -37,6 +37,7 @@ const USER = `
       id
       name
       slug
+      stripeCustomerID
     }
     roles
   }

@@ -13,15 +13,6 @@
   }
 }
 
-.links {
-  margin-bottom: calc(var(--base) * 2);
-
-  & a {
-    color: var(--theme-blue-450);
-    text-decoration: underline;
-  }
-}
-
 .form {
   display: flex;
   flex-direction: column;

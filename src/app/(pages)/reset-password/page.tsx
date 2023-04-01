@@ -5,7 +5,6 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
-import Link from 'next/link'
 import { redirect, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
@@ -13,7 +12,6 @@ import { Heading } from '@components/Heading'
 import { useAuth } from '@root/providers/Auth'
 import { useHeaderTheme } from '@root/providers/HeaderTheme'
 import { getImplicitPreference } from '@root/providers/Theme/shared'
-import canUseDom from '@root/utilities/can-use-dom'
 
 import classes from './index.module.scss'
 
@@ -49,7 +47,7 @@ const ResetPassword: React.FC = () => {
   if (user) {
     redirect(
       `/cloud/settings?success=${encodeURIComponent(
-        `You're password has been reset. You may now log in.`,
+        `Your password has been reset. You may now log in.`,
       )}`,
     )
   }
@@ -61,11 +59,6 @@ const ResetPassword: React.FC = () => {
       </Heading>
       <Grid>
         <Cell cols={5} colsM={8}>
-          <div className={classes.links}>
-            {`Already have an account? `}
-            <Link href={`/login${canUseDom ? window.location.search : ''}`}>Log in here</Link>
-            {'.'}
-          </div>
           <Form
             onSubmit={handleSubmit}
             className={classes.form}

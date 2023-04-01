@@ -33,9 +33,7 @@ const NewEnvVarManager: React.FC<{
           </div>
         </div>
       )}
-      <div className={classes.addNew}>
-        <AddArrayRow singularLabel="Environment Variable" pluralLabel="Environment Variables" />
-      </div>
+      <AddArrayRow singularLabel="Environment Variable" pluralLabel="Environment Variables" />
     </div>
   )
 }
