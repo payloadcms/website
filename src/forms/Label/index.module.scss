@@ -1,7 +1,6 @@
 @use '@scss/common' as *;
 
 .label {
-  @include label;
   display: block;
   margin-bottom: calc(var(--base) * 0.5);
   color: var(--theme-elevation-650);

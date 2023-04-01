@@ -110,7 +110,7 @@ export default () => {
         }}
         onSubmit={handleSubmit}
       >
-        <Text path="name" label="Name" />
+        <Text path="name" label="Your Full Name" />
         <Text path="email" label="Email" required />
         <Text type="password" path="password" label="Password" />
         <Text type="password" path="passwordConfirm" label="Password Confirm" />
