@@ -10,6 +10,8 @@ import { DocSearch } from '../Docsearch'
 
 import classes from './index.module.scss'
 
+export { classes as DesktopNavClasses }
+
 export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) => {
   return (
     <Gutter className={classes.desktopNav}>

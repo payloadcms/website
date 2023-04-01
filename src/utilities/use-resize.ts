@@ -10,7 +10,9 @@ interface Resize {
   size?: Size
 }
 
-export const useResize = (ref: React.MutableRefObject<null>): Resize => {
+export const useResize = (
+  ref: React.MutableRefObject<null> | React.RefObject<null | HTMLDivElement>,
+): Resize => {
   const [size, setSize] = useState<Size>()
 
   useEffect(() => {

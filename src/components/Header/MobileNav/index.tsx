@@ -13,6 +13,8 @@ import { CMSLink } from '../../CMSLink'
 
 import classes from './index.module.scss'
 
+export { classes as MobileNavClasses }
+
 export const modalSlug = 'mobile-nav'
 
 type NavItems = Pick<MainMenu, 'navItems'>
