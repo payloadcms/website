@@ -5,6 +5,13 @@
     height: 100%;
 }
 
+.appPermissions {
+    a {
+        color: var(--theme-blue-500);
+        text-decoration: underline;
+    }
+}
+
 .sidebar {
     position: sticky;
     top: calc(var(--base) * 5);

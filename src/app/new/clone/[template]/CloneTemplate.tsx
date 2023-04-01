@@ -93,15 +93,13 @@ export const CloneTemplate: React.FC<{
                   />
                 </Cell>
               </Grid>
-              <div>
-                <p>
-                  {`Don't see your organization? `}
-                  <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
-                    Adjust your GitHub app permissions
-                  </a>
-                  {'.'}
-                </p>
-              </div>
+              <p className={classes.appPermissions}>
+                {`Don't see your organization? `}
+                <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
+                  Adjust your GitHub app permissions
+                </a>
+                {'.'}
+              </p>
               <div className={classes.createPrivate}>
                 <Checkbox
                   label="Create private Git repository"

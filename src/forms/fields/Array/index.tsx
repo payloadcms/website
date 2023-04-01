@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Button } from '@components/Button'
+import { CircleIconButton } from '@components/CircleIconButton'
 import { TrashIcon } from '@root/icons/TrashIcon'
 import { useArray } from './context'
 
@@ -32,21 +32,19 @@ export const ArrayRow: React.FC<ArrayRowProps> = props => {
 type AddRowProps = {
   className?: string
   label?: string
+  singularLabel?: string
+  pluralLabel?: string
 }
-export const AddArrayRow: React.FC<AddRowProps> = ({ className, label = 'Add another' }) => {
-  const { addRow } = useArray()
 
-  return (
-    <div className={[classes.addRowWrap, className].filter(Boolean).join(' ')}>
-      <Button
-        label={label}
-        size="small"
-        appearance="text"
-        onClick={addRow}
-        icon="plus"
-        fullWidth={false}
-        className={classes.addRowButton}
-      />
-    </div>
-  )
+export const AddArrayRow: React.FC<AddRowProps> = ({
+  className,
+  label: labelFromProps,
+  singularLabel = 'one',
+  pluralLabel = 'another',
+}) => {
+  const { addRow, uuids } = useArray()
+
+  const label = labelFromProps || (!uuids?.length ? `Add ${pluralLabel}` : `Add ${singularLabel}`)
+
+  return <CircleIconButton className={className} onClick={addRow} label={label} />
 }

@@ -87,9 +87,7 @@ export const EnvManagement: React.FC = () => {
           </ArrayRow>
         )
       })}
-
-      <AddArrayRow />
-
+      <AddArrayRow singularLabel="Environment Variable" pluralLabel="Environment Variables" />
       <div className={classes.actionFooter}>
         <Submit icon={false} label="Save" appearance="secondary" size="small" />
       </div>

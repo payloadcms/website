@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { Button } from '@components/Button'
+import { CircleIconButton } from '@components/CircleIconButton'
 import { CreditCardElement } from '@components/CreditCardElement'
 import { LargeRadio } from '@components/LargeRadio'
 import { Team } from '@root/payload-cloud-types'
@@ -58,16 +58,12 @@ export const CreditCardSelector: React.FC<{
       </div>
       {paymentMethods?.filter(paymentMethod => paymentMethod.id !== 'new-card').length > 0 && (
         <div className={classes.addNew}>
-          <Button
-            label={showNewCard ? 'Cancel new card' : 'Add new card'}
-            size="small"
-            appearance="text"
+          <CircleIconButton
             onClick={() => {
               setShowNewCard(!showNewCard)
               setInternalState(showNewCard ? paymentMethods?.[0]?.id || 'new-card' : 'new-card')
             }}
-            icon="plus"
-            fullWidth={false}
+            label={showNewCard ? 'Cancel new card' : 'Add new card'}
           />
         </div>
       )}
