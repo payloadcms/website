@@ -12,6 +12,7 @@ import { CloudRadioGroup } from '@root/app/cloud/_components/RadioGroup'
 import { useRouteData } from '@root/app/cloud/context'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
+import { checkTeamRoles } from '@root/utilities/check-team-roles'
 import { isExpandedDoc } from '@root/utilities/is-expanded-doc'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'
 
@@ -56,14 +57,7 @@ export default () => {
   const { project, reloadProject, team: currentTeam } = useRouteData()
   const router = useRouter()
 
-  const isCurrentTeamOwner = user?.teams?.some(userTeam => {
-    if (
-      currentTeam.id === (typeof userTeam.team === 'string' ? userTeam.team : userTeam?.team?.id)
-    ) {
-      return userTeam?.roles?.includes('owner')
-    }
-    return false
-  })
+  const isCurrentTeamOwner = checkTeamRoles(user, currentTeam, ['owner'])
 
   const teamOptions = user?.teams?.reduce((acc, userTeam) => {
     if (
