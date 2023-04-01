@@ -17,14 +17,6 @@
   }
 }
 
-.tabs {
-  width: calc(100% + var(--gutter-h) * 2);
-  margin-left: calc(var(--gutter-h) * -1);
-  overflow: auto;
-  position: relative;
-  display: inline-flex;
-}
-
 .tabs .tab {
   text-decoration: none;
   white-space: nowrap;
@@ -34,8 +26,8 @@
   position: relative;
   color: var(--theme-elevation-300);
 
-  &:first-child {
-    margin-left: var(--gutter-h);
+  &.lastTab {
+    margin-right: 0;
   }
 
   &:after {

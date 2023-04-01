@@ -7,6 +7,7 @@ import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { useRouter } from 'next/navigation'
 
+import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { CloudRadioGroup } from '@root/app/cloud/_components/RadioGroup'
 import { useRouteData } from '@root/app/cloud/context'
 import { Team } from '@root/payload-cloud-types'
@@ -113,7 +114,7 @@ export default () => {
   )
 
   return (
-    <div className={classes.ownership}>
+    <MaxWidth>
       <SectionHeader
         title="Ownership"
         intro={isCurrentTeamOwner && <p>Manage which team retains ownership over this project.</p>}
@@ -132,6 +133,6 @@ export default () => {
           You do not have permission to change ownership of this project.
         </div>
       )}
-    </div>
+    </MaxWidth>
   )
 }

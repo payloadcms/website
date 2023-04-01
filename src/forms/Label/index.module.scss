@@ -30,9 +30,6 @@
 .actions {
   display: flex;
   margin-left: auto;
-
-  // & > * {
-  //   width: var(--base);
-  //   height: var(--base);
-  // }
+  align-items: center;
+  gap: calc(var(--base) * .5);
 }

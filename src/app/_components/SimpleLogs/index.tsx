@@ -17,6 +17,13 @@ export const SimpleLogs: React.FC<Logs> = ({ logs }) => {
           <tbody>
             {logs.map((message, index) => {
               if (message) {
+                let timestamp = message.timestamp
+                try {
+                  const date = new Date(`${timestamp}`)
+                  message.timestamp = date.toISOString().slice(0, -5)
+                } catch (error) {
+                  message.timestamp = timestamp
+                }
                 return (
                   <tr key={index} className={classes.logLine}>
                     {message?.timestamp && (

@@ -1,5 +1,9 @@
 @use '@scss/common.scss' as *;
 
+.gridWrap {
+  margin-bottom: calc(var(--base) * 4);
+}
+
 .sidebarNav {
   display: flex;
   flex-direction: column;
@@ -8,12 +12,18 @@
 
   @include small-break {
     margin-bottom: var(--base);
+    flex-direction: row;
   }
 }
 
 .sidebarNavItem {
   margin: 0;
   color: var(--theme-elevation-300);
+  margin-right: calc(var(--base) * .75);
+
+  &.lastItem {
+    margin-right: 0;
+  }
 
   &.active {
 

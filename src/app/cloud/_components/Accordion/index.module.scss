@@ -1,8 +1,6 @@
 @use '@scss/common' as *;
 
 .accordion {
-  --accordion-gutter: var(--base);
-
   border: 1px solid var(--theme-border-color);
   margin-bottom: var(--base);
   color: var(--theme-elevation-650);
@@ -14,9 +12,7 @@
   align-items: center;
   width: 100%;
   background-color: var(--theme-elevation-50);
-  padding: 
-    calc(var(--base) * .5)
-    var(--accordion-gutter);
+  padding: calc(var(--base) * .5) calc(var(--base) * 1);
 }
 
 :global([data-theme="dark"]) {
@@ -80,8 +76,9 @@
 }
 
 .collapsibleContent {
-  padding: 
-    calc(var(--base) * 1.25)
-    var(--accordion-gutter);
+  padding: calc(var(--base) * .75) calc(var(--base) * 1);
   border-top: 1px solid var(--theme-border-color);
+
+  @include mid-break {
+  }
 }

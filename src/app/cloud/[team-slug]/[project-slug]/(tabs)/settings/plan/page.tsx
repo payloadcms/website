@@ -12,6 +12,7 @@ import { Heading } from '@components/Heading'
 import { Highlight } from '@components/Highlight'
 import { ModalWindow } from '@components/ModalWindow'
 import { canUserMangeProject } from '@root/access'
+import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useRouteData } from '@root/app/cloud/context'
 import { Plan } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
@@ -86,7 +87,7 @@ export default () => {
   }, [project, canManageProject, router])
 
   return (
-    <div className={classes.plan}>
+    <MaxWidth className={classes.plan}>
       {project?.plan && isExpandedDoc<Plan>(project.plan) && (
         <div>
           <SectionHeader title="Current Plan" />
@@ -131,6 +132,6 @@ export default () => {
           </ModalWindow>
         </div>
       )}
-    </div>
+    </MaxWidth>
   )
 }

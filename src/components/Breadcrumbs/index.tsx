@@ -1,6 +1,8 @@
 import * as React from 'react'
 import Link from 'next/link'
 
+import { EdgeScroll } from '@components/EdgeScroll'
+
 import classes from './index.module.scss'
 
 export type Breadcrumb = {
@@ -14,7 +16,7 @@ export type Props = {
 
 export const Breadcrumbs: React.FC<Props> = ({ items }) => {
   return (
-    <nav className={classes.breadcrumbs}>
+    <EdgeScroll element="nav" className={classes.breadcrumbs}>
       {items?.map((item, index) => {
         const isLast = index === items.length - 1
 
@@ -40,6 +42,6 @@ export const Breadcrumbs: React.FC<Props> = ({ items }) => {
           </label>
         )
       })}
-    </nav>
+    </EdgeScroll>
   )
 }
