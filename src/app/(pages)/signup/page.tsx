@@ -6,6 +6,7 @@ import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { InitialState, OnSubmit } from '@forms/types'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
@@ -53,6 +54,7 @@ const initialFormState: InitialState = {
 }
 
 const Signup: React.FC = () => {
+  const searchParams = useSearchParams()
   const { user, logout } = useAuth()
 
   const [error, setError] = React.useState<string | null>(null)
@@ -83,19 +85,24 @@ const Signup: React.FC = () => {
     }
 
     try {
-      const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: `mutation {
+      const req = await fetch(
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql${
+          formData?.redirect ? `?redirect=${formData.redirect}` : ''
+        }`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            query: `mutation {
             createUser(data: { email: "${formData.email}", password: "${formData.password}", createTeamFromName: "${formData.createTeamFromName}", createTeamFromSlug: "${formData.createTeamFromSlug}" }) {
                email
             }
           }`,
-        }),
-      })
+          }),
+        },
+      )
 
       const { data, errors } = await req.json()
 
@@ -117,6 +124,8 @@ const Signup: React.FC = () => {
       setError(e?.message || 'An error occurred')
     }
   }, [])
+
+  const redirectParam = searchParams?.get('redirect')
 
   if (user) {
     return (
@@ -151,11 +160,19 @@ const Signup: React.FC = () => {
           <FormWrap>
             <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>
               {error && <div className={classes.error}>{error}</div>}
-              <Text path="email" label="Email" required />
-              <Text path="createTeamFromName" label="Team Name" required />
+              <Text
+                path="email"
+                label="Email"
+                required
+                initialValue={searchParams?.get('email') || undefined}
+              />
+              <Text path="createTeamFromName" label="Personal Team" required />
               <UniqueTeamSlug path="createTeamFromSlug" />
               <Text path="password" label="Password" type="password" required />
               <Text path="passwordConfirm" label="Confirm Password" type="password" required />
+              {typeof redirectParam === 'string' && (
+                <Text path="redirect" type="hidden" value={redirectParam} />
+              )}
               <div>
                 <Submit label="Signup" className={classes.submit} />
               </div>

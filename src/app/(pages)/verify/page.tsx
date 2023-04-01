@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 export const dynamic = 'force-dynamic'
 
 export default async ({ searchParams }) => {
-  const { token } = searchParams
+  const { token, redirect: redirectParam, email: emailParam } = searchParams
 
   if (token) {
     try {
@@ -33,9 +33,15 @@ export default async ({ searchParams }) => {
     }
 
     redirect(
-      `/login?message=${encodeURIComponent('Your email has been verified! You may now login.')}`,
+      `/login?message=${encodeURIComponent('Your email has been verified! You may now login.')}${
+        redirectParam ? `&redirect=${redirectParam}` : ''
+      }${emailParam ? `&email=${emailParam}` : ''}`,
     )
   }
 
-  redirect(`/login?message=${encodeURIComponent('Invalid verification token. Please try again.')}`)
+  redirect(
+    `/login?message=${encodeURIComponent('Invalid verification token. Please try again.')}${
+      redirectParam ? `&redirect=${redirectParam}` : ''
+    }${emailParam ? `&email=${emailParam}` : ''}`,
+  )
 }

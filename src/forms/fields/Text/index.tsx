@@ -81,30 +81,34 @@ export const Text: React.FC<
 
   return (
     <div
-      className={[className, classes.wrap, showError && classes.showError]
+      className={[className, classes.wrap, showError && classes.showError, classes[`type--${type}`]]
         .filter(Boolean)
         .join(' ')}
     >
-      <Error showError={showError} message={errorMessage} />
-      <Label
-        htmlFor={path}
-        label={label}
-        required={required}
-        actionsSlot={
-          <Fragment>
-            {copy && <CopyToClipboard value={value} />}
-            {type === 'password' && (
-              <TooltipButton
-                text={isHidden ? 'show' : 'hide'}
-                onClick={() => setIsHidden(h => !h)}
-                className={classes.tooltipButton}
-              >
-                <EyeIcon closed={isHidden} size="large" />
-              </TooltipButton>
-            )}
-          </Fragment>
-        }
-      />
+      {type !== 'hidden' && (
+        <>
+          <Error showError={showError} message={errorMessage} />
+          <Label
+            htmlFor={path}
+            label={label}
+            required={required}
+            actionsSlot={
+              <Fragment>
+                {copy && <CopyToClipboard value={value} />}
+                {type === 'password' && (
+                  <TooltipButton
+                    text={isHidden ? 'show' : 'hide'}
+                    onClick={() => setIsHidden(h => !h)}
+                    className={classes.tooltipButton}
+                  >
+                    <EyeIcon closed={isHidden} size="large" />
+                  </TooltipButton>
+                )}
+              </Fragment>
+            }
+          />
+        </>
+      )}
       <input
         {...elementAttributes}
         disabled={disabled}
