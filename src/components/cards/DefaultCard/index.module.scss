@@ -5,6 +5,9 @@
   padding-bottom: 0;
   text-decoration: none;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   &:hover {
     @include shadow-lg;

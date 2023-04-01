@@ -27,18 +27,6 @@ const initialFormState: InitialState = {
     initialValue: undefined,
     errorMessage: 'Please enter a valid email address',
   },
-  createTeamFromName: {
-    value: 'My Team',
-    valid: false,
-    initialValue: 'My Team',
-    errorMessage: 'Please enter a team name',
-  },
-  createTeamFromSlug: {
-    value: '',
-    valid: false,
-    initialValue: undefined,
-    errorMessage: 'Please enter a team slug',
-  },
   password: {
     value: '',
     valid: false,
@@ -96,8 +84,8 @@ const Signup: React.FC = () => {
           },
           body: JSON.stringify({
             query: `mutation {
-            createUser(data: { email: "${formData.email}", password: "${formData.password}", createTeamFromName: "${formData.createTeamFromName}", createTeamFromSlug: "${formData.createTeamFromSlug}" }) {
-               email
+            createUser(data: { email: "${formData.email}", password: "${formData.password}"}) {
+              email
             }
           }`,
           }),
@@ -166,8 +154,6 @@ const Signup: React.FC = () => {
                 required
                 initialValue={searchParams?.get('email') || undefined}
               />
-              <Text path="createTeamFromName" label="Personal Team" required />
-              <UniqueTeamSlug path="createTeamFromSlug" />
               <Text path="password" label="Password" type="password" required />
               <Text path="passwordConfirm" label="Confirm Password" type="password" required />
               {typeof redirectParam === 'string' && (
