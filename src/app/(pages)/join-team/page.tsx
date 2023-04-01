@@ -41,8 +41,8 @@ const JoinTeam: React.FC = () => {
 
           if (res.status === 200) {
             router.push(
-              `/cloud/${data?.team?.slug}?message=${encodeURIComponent(
-                `Success! You have joined the '${data?.team?.name}' team!`,
+              `/cloud/${data?.team?.slug}?success=${encodeURIComponent(
+                `You have joined the '${data?.team?.name}' team.`,
               )}`,
             )
           } else {

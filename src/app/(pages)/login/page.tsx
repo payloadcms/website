@@ -11,6 +11,7 @@ import { redirect, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
+import { Message } from '@components/Message'
 import { cloudSlug } from '@root/app/cloud/layout'
 import { useAuth } from '@root/providers/Auth'
 import canUseDom from '@root/utilities/can-use-dom'
@@ -34,7 +35,10 @@ const initialFormState: InitialState = {
 
 const Login: React.FC = () => {
   const searchParams = useSearchParams()
-  const message = searchParams?.get('message')
+  const successParam = searchParams?.get('success')
+  const errorParam = searchParams?.get('error')
+  const warningParam = searchParams?.get('warning')
+
   const { user, login } = useAuth()
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -89,9 +93,9 @@ const Login: React.FC = () => {
       <Heading marginTop={false} element="h1">
         Log in
       </Heading>
-      {message && <p className={classes.message}>{message}</p>}
       <Grid>
         <Cell cols={5} colsM={8}>
+          <Message error={errorParam} success={successParam} warning={warningParam} />
           <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
             {error && <div className={classes.error}>{error}</div>}
             <Text

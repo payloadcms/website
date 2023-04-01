@@ -13,7 +13,7 @@ const AllProjectsLayout = ({ children }) => {
 
   if (user === null)
     redirect(
-      `/login?redirect=${encodeURIComponent(pathname || '')}&message=${encodeURIComponent(
+      `/login?redirect=${encodeURIComponent(pathname || '')}&warning=${encodeURIComponent(
         'You must first login to clone this template.',
       )}`,
     )
