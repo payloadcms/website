@@ -17,18 +17,16 @@ export const SimpleLogs: React.FC<Logs> = ({ logs }) => {
           <tbody>
             {logs.map((message, index) => {
               if (message) {
-                let timestamp = message.timestamp
+                let timestamp = message?.timestamp
                 try {
                   const date = new Date(`${timestamp}`)
-                  message.timestamp = date.toISOString().slice(0, -5)
+                  timestamp = date.toISOString().slice(0, -5)
                 } catch (error) {
-                  message.timestamp = timestamp
+                  // ignore
                 }
                 return (
                   <tr key={index} className={classes.logLine}>
-                    {message?.timestamp && (
-                      <td className={classes.lineInfo}>[{message.timestamp}]</td>
-                    )}
+                    {timestamp && <td className={classes.lineInfo}>[{timestamp}]</td>}
                     {message?.message && <td className={classes.lineMessage}>{message.message}</td>}
                   </tr>
                 )
