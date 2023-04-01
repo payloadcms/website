@@ -47,7 +47,11 @@ const ResetPassword: React.FC = () => {
   )
 
   if (user) {
-    redirect(`/cloud/settings?message=${encodeURIComponent(`You're password has been reset!`)}`)
+    redirect(
+      `/cloud/settings?success=${encodeURIComponent(
+        `You're password has been reset. You may now log in.`,
+      )}`,
+    )
   }
 
   return (

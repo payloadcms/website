@@ -5,6 +5,7 @@ import { usePathname, useSearchParams } from 'next/navigation'
 
 import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
+import { Message } from '@components/Message'
 import { useAuth } from '@root/providers/Auth'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
@@ -20,7 +21,9 @@ const DashboardHeader = () => {
   const pathname = usePathname()
   let segments = usePathnameSegments()
 
-  const message = searchParams?.get('message')
+  const successParam = searchParams?.get('success')
+  const errorParam = searchParams?.get('error')
+  const warningParam = searchParams?.get('warning')
 
   // optional `tabLabel` and `crumbLabel` properties determine
   // where whether the item is rendered in the breadcrumbs or tabs, or both
@@ -110,7 +113,7 @@ const DashboardHeader = () => {
   return (
     <Fragment>
       <Gutter>
-        {message && <p>{message}</p>}
+        <Message error={errorParam} success={successParam} warning={warningParam} />
         <Breadcrumbs
           items={segments.reduce((acc: Breadcrumb[], segment) => {
             const lowercaseSegment = segment.toLowerCase()
