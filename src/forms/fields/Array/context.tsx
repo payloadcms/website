@@ -18,10 +18,11 @@ export const useArray = () => React.useContext(ArrayContext)
 
 export const ArrayProvider: React.FC<{
   children: React.ReactNode
+  instantiateEmpty?: boolean
 }> = props => {
-  const { children } = props
+  const { children, instantiateEmpty } = props
 
-  const [uuids, setUUIDs] = React.useState([uuid()])
+  const [uuids, setUUIDs] = React.useState<string[]>(instantiateEmpty ? [] : [uuid()])
 
   const addRow = React.useCallback(() => {
     setUUIDs(prev => [...prev, uuid()])

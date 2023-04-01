@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import { Button } from '@components/Button'
+import { PlusIcon } from '@root/icons/PlusIcon'
 import { TrashIcon } from '@root/icons/TrashIcon'
 import { useArray } from './context'
 
@@ -32,21 +33,40 @@ export const ArrayRow: React.FC<ArrayRowProps> = props => {
 type AddRowProps = {
   className?: string
   label?: string
+  singularLabel?: string
+  pluralLabel?: string
 }
-export const AddArrayRow: React.FC<AddRowProps> = ({ className, label = 'Add another' }) => {
-  const { addRow } = useArray()
+
+export const AddArrayRow: React.FC<AddRowProps> = ({
+  className,
+  label: labelFromProps,
+  singularLabel = 'one',
+  pluralLabel = 'another',
+}) => {
+  const { addRow, uuids } = useArray()
+
+  const label = labelFromProps || (!uuids?.length ? `Add ${pluralLabel}` : `Add ${singularLabel}`)
+
+  return <CircleIconButton className={className} onClick={addRow} label={label} />
+}
+
+export const CircleIconButton: React.FC<{
+  className?: string
+  onClick: () => void
+  label: string
+}> = ({ children, ...props }: any) => {
+  const { onClick, className, label, ...rest } = props
 
   return (
-    <div className={[classes.addRowWrap, className].filter(Boolean).join(' ')}>
-      <Button
-        label={label}
-        size="small"
-        appearance="text"
-        onClick={addRow}
-        icon="plus"
-        fullWidth={false}
-        className={classes.addRowButton}
-      />
-    </div>
+    <button
+      className={[classes.button, className].filter(Boolean).join(' ')}
+      type="button"
+      onClick={onClick}
+    >
+      <div className={classes.iconWrapper}>
+        <PlusIcon className={classes.icon} />
+      </div>
+      <span className={classes.label}>{label}</span>
+    </button>
   )
 }

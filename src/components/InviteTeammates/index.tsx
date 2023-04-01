@@ -50,7 +50,7 @@ const Invites: React.FC<{
           )
         })}
       </div>
-      <AddArrayRow />
+      <AddArrayRow singularLabel="Invite" pluralLabel="Invites" />
     </BorderBox>
   )
 }

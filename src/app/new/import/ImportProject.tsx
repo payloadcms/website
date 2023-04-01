@@ -79,15 +79,13 @@ export const ImportProject: React.FC = () => {
             <Cell cols={4} colsM={8} className={classes.sidebarCell}>
               <div className={classes.sidebar}>
                 <InstallationSelector description="Select the org or user to import from." />
-                <div>
-                  <p>
-                    {`Don't see your repository? `}
-                    <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
-                      Adjust your GitHub app permissions
-                    </a>
-                    {'.'}
-                  </p>
-                </div>
+                <p className={classes.appPermissions}>
+                  {`Don't see your repository? `}
+                  <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
+                    Adjust your GitHub app permissions
+                  </a>
+                  {'.'}
+                </p>
               </div>
             </Cell>
             <Cell cols={8} colsM={8}>
@@ -132,7 +130,7 @@ export const ImportProject: React.FC = () => {
                 results?.repos?.length === 0 && (
                   <div className={classes.noRepos}>
                     <h6>No repositories found</h6>
-                    <p>
+                    <p className={classes.appPermissions}>
                       {`No repositories were found in the account "${selectedInstall?.account.login}". Create a new repository or `}
                       <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
                         adjust your GitHub app permissions

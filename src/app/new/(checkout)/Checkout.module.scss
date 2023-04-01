@@ -42,15 +42,14 @@
 .sidebar {
     position: sticky;
     top: calc(var(--base) * 5);
+    gap: var(--base);
+    display: flex;
+    flex-direction: column;
 
     @include mid-break {
         position: static;
         top: unset;
     }
-}
-
-.totalPriceSection {
-    margin-top: var(--base);
 }
 
 .totalPrice {

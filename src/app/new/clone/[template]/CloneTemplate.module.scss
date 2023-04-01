@@ -25,6 +25,12 @@
     }
 }
 
+.appPermissions {
+    a {
+        color: var(--theme-blue-500);
+        text-decoration: underline;
+    }
+}
 
 .errors {
     margin-bottom: calc(var(--base) * 2);

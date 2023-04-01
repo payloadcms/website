@@ -67,6 +67,7 @@ type InstallationSelectorProps = {
   loading?: boolean
   error?: string
   description?: string
+  disabled?: boolean
 }
 
 export const InstallationSelector: React.FC<InstallationSelectorProps> = props => {
@@ -78,6 +79,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
     error,
     loading,
     description,
+    disabled,
   } = props
 
   const hasInitializedSelection = React.useRef(false)
@@ -170,6 +172,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
             Option,
             SingleValue,
           }}
+          disabled={disabled}
         />
       )}
       {description && <p className={classes.description}>{description}</p>}
@@ -180,6 +183,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
 export const useInstallationSelector = (): [
   React.FC<{
     description?: string
+    disabled?: boolean
   }>,
   ReturnType<UseGetInstalls> & {
     value?: Install
@@ -194,7 +198,7 @@ export const useInstallationSelector = (): [
 
   const MemoizedInstallationSelector = useMemo(
     () =>
-      ({ description }) => {
+      ({ description, disabled }) => {
         return (
           <InstallationSelector
             loading={debouncedLoading}
@@ -203,6 +207,7 @@ export const useInstallationSelector = (): [
             reloadInstalls={reload}
             onChange={setValue}
             description={description}
+            disabled={disabled}
           />
         )
       },

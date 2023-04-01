@@ -152,12 +152,14 @@ const Checkout: React.FC<{
               ) : (
                 <Fragment>
                   <InstallationSelector
-                    description={
-                      isClone
-                        ? `Select where to create this repository.`
-                        : `This is the scope of the repository being imported.`
-                    }
+                    description={isClone ? `Select where to create this repository.` : undefined}
+                    disabled={!isClone}
                   />
+                  {!isClone && (
+                    <div>
+                      <Text label="Repository" value={project?.repositoryFullName} disabled />
+                    </div>
+                  )}
                   {checkoutState?.plan && (
                     <div className={classes.totalPriceSection}>
                       <Label label="Total cost" htmlFor="" />
@@ -169,9 +171,9 @@ const Checkout: React.FC<{
                             : '',
                         )}
                       </p>
+                      {checkoutState?.freeTrial && <p>Free during beta—ends July 1st</p>}
                     </div>
                   )}
-                  {checkoutState?.freeTrial && <p>Free during beta—ends July 1st</p>}
                 </Fragment>
               )}
             </div>
@@ -188,10 +190,6 @@ const Checkout: React.FC<{
                     name: {
                       initialValue: project?.name,
                       value: project?.name,
-                    },
-                    repositoryID: {
-                      initialValue: project?.repositoryID,
-                      value: project?.repositoryID,
                     },
                     template: {
                       initialValue:
@@ -216,7 +214,7 @@ const Checkout: React.FC<{
                       value: project?.deploymentBranch || 'main',
                     },
                     environmentVariables: {
-                      initialValue: project?.environmentVariables || [{ key: '', value: '' }],
+                      initialValue: project?.environmentVariables || [],
                     },
                   }}
                 >
@@ -237,7 +235,6 @@ const Checkout: React.FC<{
                   <div className={classes.projectDetails}>
                     <div className={classes.sectionHeader}>
                       <h5 className={classes.sectionTitle}>Project Settings</h5>
-                      <Link href="">Learn more</Link>
                     </div>
                     <Text label="Project name" path="name" />
                     <TeamSelector
@@ -249,14 +246,6 @@ const Checkout: React.FC<{
                           : ''
                       }
                     />
-                    {!isClone && (
-                      <Text
-                        label="Repository ID"
-                        path="repositoryID"
-                        disabled
-                        description="This is the GitHub ID of the repository being imported."
-                      />
-                    )}
                     {isClone && (
                       <Select
                         label="Template"
@@ -275,19 +264,12 @@ const Checkout: React.FC<{
                   <div className={classes.buildSettings}>
                     <div className={classes.sectionHeader}>
                       <h5 className={classes.sectionTitle}>Build Settings</h5>
-                      <Link href="">Learn more</Link>
                     </div>
                     <Text label="Install Script" path="installScript" />
                     <Text label="Build Script" path="buildScript" />
                     <Text label="Branch to deploy" path="deploymentBranch" />
                   </div>
-                  <div>
-                    <div className={classes.sectionHeader}>
-                      <h5 className={classes.sectionTitle}>Environment Variables</h5>
-                      <Link href="">Learn more</Link>
-                    </div>
-                    <EnvVars className={classes.envVars} />
-                  </div>
+                  <EnvVars className={classes.envVars} />
                   <div>
                     <h5>Payment Info</h5>
                     {checkoutState?.team && (
