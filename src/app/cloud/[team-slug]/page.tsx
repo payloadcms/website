@@ -32,26 +32,22 @@ export default () => {
   return (
     <Gutter>
       {error && <p className={classes.error}>{error}</p>}
-      <Grid className={classes.controls}>
+      <div className={classes.controls}>
         <div className={classes.controlsBG} />
-        <Cell cols={9}>
-          <Text
-            placeholder="Search projects"
-            label="Search"
-            initialValue={search}
-            onChange={setSearch}
-          />
-        </Cell>
-        <Cell cols={3}>
-          <Button
-            appearance="primary"
-            href="/new"
-            label="New project"
-            el="link"
-            className={classes.createButton}
-          />
-        </Cell>
-      </Grid>
+        <Text
+          placeholder="Search projects"
+          initialValue={search}
+          onChange={setSearch}
+          className={classes.search}
+        />
+        <Button
+          appearance="primary"
+          href="/new"
+          el="link"
+          className={classes.createButton}
+          label="Create new project"
+        />
+      </div>
       {isLoading ? (
         <LoadingShimmer number={3} />
       ) : (

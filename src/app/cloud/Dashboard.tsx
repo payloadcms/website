@@ -49,36 +49,31 @@ export default () => {
   return (
     <Gutter>
       {error && <p className={classes.error}>{error}</p>}
-      <Grid className={classes.controls}>
+      <div className={classes.controls}>
         <div className={classes.controlsBG} />
-        <Cell cols={5}>
-          <Text
-            placeholder="Search projects"
-            label="Search"
-            initialValue={search}
-            onChange={setSearch}
-          />
-        </Cell>
-        <Cell cols={4}>
-          <TeamSelector
-            onChange={incomingTeam => {
-              setSelectedTeam(incomingTeam)
-            }}
-            className={classes.teamSelector}
-            initialValue="none"
-            allowEmpty
-          />
-        </Cell>
-        <Cell cols={3}>
-          <Button
-            appearance="primary"
-            href="/new"
-            label="New project"
-            el="link"
-            className={classes.createButton}
-          />
-        </Cell>
-      </Grid>
+        <Text
+          placeholder="Search projects"
+          initialValue={search}
+          onChange={setSearch}
+          className={classes.search}
+        />
+        <TeamSelector
+          onChange={incomingTeam => {
+            setSelectedTeam(incomingTeam)
+          }}
+          className={classes.teamSelector}
+          initialValue="none"
+          allowEmpty
+          label={false}
+        />
+        <Button
+          appearance="primary"
+          href="/new"
+          label="New project"
+          el="link"
+          className={classes.createButton}
+        />
+      </div>
       {isLoading ? (
         <LoadingShimmer number={3} />
       ) : (

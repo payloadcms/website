@@ -29,6 +29,7 @@ export const TeamSelector: React.FC<{
   className?: string
   allowEmpty?: boolean
   initialValue?: string
+  label?: string | false
 }> = props => {
   const { onChange, value: valueFromProps, className, allowEmpty, initialValue } = props
   const { user } = useAuth()
@@ -89,7 +90,7 @@ export const TeamSelector: React.FC<{
     <Fragment>
       <Select
         className={className}
-        label="Team"
+        label={props.label !== false ? 'Team' : ''}
         value={selectedTeam}
         initialValue={selectedTeam}
         onChange={option => {

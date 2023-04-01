@@ -15,6 +15,10 @@
     bottom: 3px;
     background-color: var(--theme-elevation-200)
   }
+
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 1.5);
+  }
 }
 
 .tabs .tab {
@@ -57,9 +61,7 @@
 }
 
 .tabsContainer {
-  @include mid-break {
-    margin-bottom: calc(var(--base) * 1.75);
-    
+  @include mid-break {    
     .tab {
       padding-bottom: calc(var(--base));
     }
