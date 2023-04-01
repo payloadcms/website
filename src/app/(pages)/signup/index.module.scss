@@ -1,30 +1,40 @@
 @use '@scss/common' as *;
-
-.maxWidth {
-  padding: calc(var(--base) * 2) 0;
-  
-  .submit {
-    margin-top: var(--base);
-  }
-}
+@use "../../../forms/fields/shared.scss";
 
 .error {
   color: var(--color-error-500);
 }
 
+.submit {
+  margin-top: var(--base);
 
-.sidebar {
-  padding-top: var(--base);
+  @include mid-break {
+    margin-top: calc(var(--base) / 4);
+  }
 }
 
-@include mid-break {
+.links {
+  margin-bottom: calc(var(--base) * 3);
 
-  .maxWidth,
-  .sidebar {
-    padding-top: 0;
+  & a {
+    color: var(--theme-blue-450);
+    text-decoration: underline;
   }
+}
 
-  .submit {
-    margin: 0 0 var(--base) 0;
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 1.25);
+
+  @include mid-break {
+    gap: calc(var(--base) * 1);
   }
+}
+
+.buttonWrap {
+  margin-top: calc(var(--base) * 2);
+  display: flex;
+  align-items: center;
+  gap: var(--base);
 }

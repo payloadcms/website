@@ -1,12 +1,5 @@
 @use '@scss/common' as *;
-
-.maxWidth {
-  padding: calc(var(--base) * 2) 0;
-
-  @include mid-break {
-    padding-top: 0;
-  }
-}
+@use "../../../forms/fields/shared.scss";
 
 .error {
   color: var(--color-error-500);
@@ -16,6 +9,25 @@
   margin-top: var(--base);
 
   @include mid-break {
-    margin: 0 0 var(--base) 0;
+    margin-top: calc(var(--base) / 4);
+  }
+}
+
+.links {
+  margin-bottom: calc(var(--base) * 3);
+
+  & a {
+    color: var(--theme-blue-450);
+    text-decoration: underline;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 1.25);
+
+  @include mid-break {
+    gap: calc(var(--base) * 1);
   }
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useCallback, useEffect, useState } from 'react'
+import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
@@ -10,8 +11,6 @@ import { redirect, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
-import { FormWrap } from '@root/app/_components/FormWrap'
-import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { cloudSlug } from '@root/app/cloud/layout'
 import { useAuth } from '@root/providers/Auth'
 import canUseDom from '@root/utilities/can-use-dom'
@@ -87,12 +86,12 @@ const Login: React.FC = () => {
 
   return (
     <Gutter>
-      <MaxWidth centered className={classes.maxWidth}>
-        <Heading marginTop={false} element="h1" as="h3">
-          Log in
-        </Heading>
-        {message && <p className={classes.message}>{message}</p>}
-        <FormWrap>
+      <Heading marginTop={false} element="h1">
+        Log in
+      </Heading>
+      {message && <p className={classes.message}>{message}</p>}
+      <Grid>
+        <Cell cols={5} colsM={8}>
           <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
             {error && <div className={classes.error}>{error}</div>}
             <Text
@@ -107,20 +106,26 @@ const Login: React.FC = () => {
               <Submit label="Log in" className={classes.submit} processing={loading} />
             </div>
           </Form>
+        </Cell>
+        <Cell cols={4} start={8} startM={1} colsM={8}>
           <div className={classes.sidebar}>
-            <Link href={`/forgot-password${canUseDom ? window.location.search : ''}`}>
-              Forgot your password?
-            </Link>
-            <div className={classes.leader}>
+            <p>
               {`Don't have an account? `}
               <Link href={`/signup${canUseDom ? window.location.search : ''}`}>
                 Register for free
               </Link>
               {'.'}
-            </div>
+            </p>
+            <p>
+              {`Forgot your password? `}
+              <Link href={`/forgot-password${canUseDom ? window.location.search : ''}`}>
+                Reset it here
+              </Link>
+              {'.'}
+            </p>
           </div>
-        </FormWrap>
-      </MaxWidth>
+        </Cell>
+      </Grid>
     </Gutter>
   )
 }

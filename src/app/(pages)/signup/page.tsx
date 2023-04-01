@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useCallback, useState } from 'react'
+import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
@@ -12,9 +13,6 @@ import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { Highlight } from '@components/Highlight'
-import { UniqueTeamSlug } from '@components/UniqueSlug'
-import { FormWrap } from '@root/app/_components/FormWrap'
-import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
 import canUseDom from '@root/utilities/can-use-dom'
 
@@ -118,59 +116,80 @@ const Signup: React.FC = () => {
   if (user) {
     return (
       <Gutter>
-        <h1>You are already logged in.</h1>
-        <Button label="Log out" onClick={logout} appearance="primary" />
+        <Grid>
+          <Cell cols={5} colsM={8}>
+            <Heading marginTop={false} element="h2" as="h2">
+              <Highlight text="Already logged in" appearance="success" />
+            </Heading>
+            <Heading marginTop={false} element="p" as="h6">
+              You must first logout to create another account.
+            </Heading>
+            <div className={classes.buttonWrap}>
+              <Button label="Log out" onClick={logout} appearance="primary" />
+              <Button label="Dashboard" href="/cloud" appearance="secondary" />
+            </div>
+          </Cell>
+        </Grid>
+      </Gutter>
+    )
+  }
+
+  if (successfullySubmitted) {
+    return (
+      <Gutter>
+        <Heading marginTop={false} element="h2" as="h2">
+          <Highlight text="Verify your account" />
+        </Heading>
+        <Grid>
+          <Cell cols={5} colsM={8}>
+            <Heading marginTop={false} element="p" as="h6">
+              Your account has been created. Please check your email to verify your account and
+              login.
+            </Heading>
+            <div className={classes.links}>
+              <p>
+                {`Already verified your account? `}
+                <Link href={`/login${canUseDom ? window.location.search : ''}`}>Log in now</Link>
+                {'.'}
+              </p>
+            </div>
+          </Cell>
+        </Grid>
       </Gutter>
     )
   }
 
   return (
     <Gutter>
-      {successfullySubmitted ? (
-        <MaxWidth size="medium" centered className={classes.maxWidth}>
-          <Heading marginTop={false} element="h2" as="h2">
-            <Highlight text="Success" />
-          </Heading>
-          <Heading marginTop={false} element="p" as="h6">
-            Your account was created! Please check your email to verify your account and login.
-          </Heading>
-          <div>
-            {`Already verified your account? `}
+      <Heading marginTop={false} element="h1">
+        Create an account
+      </Heading>
+      <Grid>
+        <Cell cols={5} colsM={8}>
+          <div className={classes.links}>
+            {`Already have an account? `}
             <Link href={`/login${canUseDom ? window.location.search : ''}`}>Log in now</Link>
             {'.'}
           </div>
-        </MaxWidth>
-      ) : (
-        <MaxWidth centered className={classes.maxWidth}>
-          <Heading marginTop={false} element="h1" as="h3">
-            Sign up for Payload Cloud
-          </Heading>
-          <FormWrap>
-            <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>
-              {error && <div className={classes.error}>{error}</div>}
-              <Text
-                path="email"
-                label="Email"
-                required
-                initialValue={searchParams?.get('email') || undefined}
-              />
-              <Text path="password" label="Password" type="password" required />
-              <Text path="passwordConfirm" label="Confirm Password" type="password" required />
-              {typeof redirectParam === 'string' && (
-                <Text path="redirect" type="hidden" value={redirectParam} />
-              )}
-              <div>
-                <Submit label="Signup" className={classes.submit} />
-              </div>
-            </Form>
-            <div className={classes.sidebar}>
-              {`Already have an account? `}
-              <Link href={`/login${canUseDom ? window.location.search : ''}`}>Log in now</Link>
-              {'.'}
+          <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>
+            {error && <div className={classes.error}>{error}</div>}
+            <Text
+              path="email"
+              label="Email"
+              required
+              initialValue={searchParams?.get('email') || undefined}
+            />
+            <Text path="password" label="Password" type="password" required />
+            <Text path="passwordConfirm" label="Confirm Password" type="password" required />
+            {typeof redirectParam === 'string' && (
+              <Text path="redirect" type="hidden" value={redirectParam} />
+            )}
+            <div>
+              <Submit label="Signup" className={classes.submit} />
             </div>
-          </FormWrap>
-        </MaxWidth>
-      )}
+          </Form>
+        </Cell>
+      </Grid>
     </Gutter>
   )
 }

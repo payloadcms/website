@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
+import { Heading } from '@components/Heading'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 
 import classes from './index.module.scss'
@@ -59,7 +60,9 @@ const JoinTeam: React.FC = () => {
 
   return (
     <Gutter>
-      <h1>Join team</h1>
+      <Heading marginTop={false} element="h1">
+        Join Team
+      </Heading>
       {error && <p className={classes.error}>{error}</p>}
       {loading && <p className={classes.loading}>Loading...</p>}
     </Gutter>

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useCallback, useEffect } from 'react'
+import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
@@ -9,8 +10,6 @@ import { redirect, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
-import { FormWrap } from '@root/app/_components/FormWrap'
-import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
 import { useHeaderTheme } from '@root/providers/HeaderTheme'
 import { getImplicitPreference } from '@root/providers/Theme/shared'
@@ -53,11 +52,16 @@ const ResetPassword: React.FC = () => {
 
   return (
     <Gutter>
-      <MaxWidth centered className={classes.maxWidth}>
-        <Heading marginTop={false} element="h1" as="h3">
-          Reset password
-        </Heading>
-        <FormWrap>
+      <Heading marginTop={false} element="h1">
+        Reset password
+      </Heading>
+      <Grid>
+        <Cell cols={5} colsM={8}>
+          <div className={classes.links}>
+            {`Already have an account? `}
+            <Link href={`/login${canUseDom ? window.location.search : ''}`}>Log in here</Link>
+            {'.'}
+          </div>
           <Form
             onSubmit={handleSubmit}
             className={classes.form}
@@ -80,13 +84,8 @@ const ResetPassword: React.FC = () => {
               <Submit label="Reset Password" className={classes.submit} />
             </div>
           </Form>
-          <div>
-            {`Already have an account? `}
-            <Link href={`/login${canUseDom ? window.location.search : ''}`}>Log in here</Link>
-            {'.'}
-          </div>
-        </FormWrap>
-      </MaxWidth>
+        </Cell>
+      </Grid>
     </Gutter>
   )
 }

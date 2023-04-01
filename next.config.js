@@ -8,7 +8,14 @@ const nextConfig = withBundleAnalyzer({
   reactStrictMode: true,
   images: {
     minimumCacheTTL: 6000,
-    domains: ['localhost', 'cms.payloadcms.com', 'stage.cms.payloadcms.com', 'cdn.discordapp.com'],
+    domains: [
+      'localhost',
+      'cms.payloadcms.com',
+      'cloud-api.payloadcms.com',
+      'cms.local.payloadcms.com',
+      'stage.cms.payloadcms.com',
+      'cdn.discordapp.com',
+    ],
   },
   experimental: {
     appDir: true,
