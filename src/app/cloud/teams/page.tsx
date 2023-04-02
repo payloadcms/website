@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import Link from 'next/link'
+import { LinkGrid } from '@blocks/LinkGrid'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
@@ -33,30 +33,39 @@ export default () => {
               </p>{' '}
             </div>
           )}
-          {hasTeams && (
-            <ul className={classes.list}>
-              {user?.teams?.map(({ team }, index) => {
-                if (!team || typeof team === 'string') return null
-
-                return (
-                  <li key={`${team.id}-${index}`} className={classes.listItem}>
-                    <Link href={`/${cloudSlug}/${team.slug}`} className={classes.team}>
-                      <div className={classes.teamContent}>
-                        {team?.name && <p className={classes.teamName}>{team.name}</p>}
-                        {team?.slug && <p className={classes.teamSlug}>{team.slug}</p>}
-                      </div>
-                      <Button
-                        size="small"
-                        appearance="secondary"
-                        label="View"
-                        href={`/${cloudSlug}/${team.slug}`}
-                      />
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
+          {user?.teams?.length && (
+            <p>
+              {`You are a member of ${user.teams?.length} team${
+                user.teams.length > 1 ? 's' : ''
+              }. `}
+              <TeamDrawerToggler className={classes.createTeamLink}>
+                Create a new team
+              </TeamDrawerToggler>
+              {'.'}
+            </p>
           )}
+        </Gutter>
+        {hasTeams && (
+          <LinkGrid
+            blockType="linkGrid"
+            className={classes.linkGrid}
+            linkGridFields={{
+              links:
+                user?.teams?.map(({ team }, index) => {
+                  if (!team || typeof team === 'string') return null as any
+
+                  return {
+                    link: {
+                      type: 'custom',
+                      url: `/${cloudSlug}/${team.slug}`,
+                      label: team.name,
+                    },
+                  }
+                }) || [],
+            }}
+          />
+        )}
+        <Gutter>
           <TeamDrawerToggler className={classes.teamDrawerToggler}>
             <Button appearance="primary" label="Create new team" el="div" />
           </TeamDrawerToggler>

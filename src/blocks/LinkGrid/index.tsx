@@ -28,15 +28,20 @@ const Link: React.FC<LinkGridProps['linkGridFields']['links'][0]['link']> = prop
   )
 }
 
-export const LinkGrid: React.FC<LinkGridProps> = props => {
+export const LinkGrid: React.FC<
+  LinkGridProps & {
+    className?: string
+  }
+> = props => {
   const {
+    className,
     linkGridFields: { links },
   } = props
 
   const hasLinks = Array.isArray(links) && links.length > 0
 
   return (
-    <BlockSpacing className={classes.linkGrid}>
+    <BlockSpacing className={[className, classes.linkGrid].filter(Boolean).join(' ')}>
       <Gutter>
         {hasLinks && (
           <div className={classes.links}>
