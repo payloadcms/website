@@ -49,6 +49,8 @@ export default () => {
           <LinkGrid
             blockType="linkGrid"
             className={classes.linkGrid}
+            topMargin={false}
+            bottomMargin={false}
             linkGridFields={{
               links:
                 user?.teams?.map(({ team }, index) => {
