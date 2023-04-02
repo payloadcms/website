@@ -9,9 +9,15 @@
     }
   }
 
-  @include small-break {
+  @include mobile-header-break {
     display: none;
     visibility: hidden;
+  }
+}
+
+.grid {
+  :local(a) {
+    text-decoration: none;
   }
 }
 
@@ -20,12 +26,9 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
-  margin-left: calc(var(--gutter-h) / -2);
-  margin-right: calc(var(--gutter-h) / -2);
+  width: 100%;
 
   @include large-break {
-    margin-left: 0;
-    margin-right: 0;
     justify-content: unset;
   }
 }
@@ -80,7 +83,11 @@
   white-space: nowrap;
 
   & > *:not(:last-child) {
-    margin-right: calc(var(--base) * .75);
+    margin-right: calc(var(--base) * 1.25);
+
+    @include large-break {
+      margin-right: var(--base);
+    }
   }
 }
 
@@ -88,18 +95,33 @@
   display: flex;
   color-scheme: none;
   align-items: center;
-  margin-right: var(--base);
 
   @include large-break {
     margin-left: auto;
-    margin-right: 0;
   }
 }
 
-.githubText {
-  margin-right: calc(var(--base) * .5);
+.githubLoggedIn {
+  margin-right: calc(var(--base) * 1.5) !important;
+
   @include large-break {
-    display: none;
+    margin-right: var(--base) !important;
+  }
+}
+
+.avatar {
+  margin-right: 0 !important;
+
+  @include large-break {
+    margin-right: calc(var(--base) * 1.25) !important;
+  }
+}
+
+.githubLoggedOut {
+  margin-right: 0 !important;
+
+  @include large-break {
+    margin-right: var(--base) !important;
   }
 }
 
@@ -126,15 +148,20 @@
   transform: translateX(100%);
   top: 0;
   align-items: center;
-  margin-left: var(--base);
+  height: 100%;
   
   > * {
     margin-right: var(--base);
     line-height: 1;
-    flex-shrink: 0;
     
     &:last-child {
       margin-right: 0;
+    }
+  }
+
+  @include extra-large-break {
+    > * {
+      margin-right: calc(var(--base) * 0.75);
     }
   }
 
@@ -143,5 +170,13 @@
     right: 0;
     transform: unset;
     width: auto;
+
+    > * {
+      margin-right: calc(var(--base) * 0.5);
+    }
   }
+}
+
+.discord {
+  display: flex;
 }
