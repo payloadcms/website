@@ -1,16 +1,18 @@
-import { BlockSpacing } from '@components/BlockSpacing'
-import { PixelBackground } from '@components/PixelBackground'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import React from 'react'
-import { SquareCard } from '@components/cards/SquareCard'
-import { Page } from '@root/payload-types'
-import { Gutter } from '@components/Gutter'
-import { CheckmarkIcon } from '@root/graphics/CheckmarkIcon'
-import { CloseIcon } from '@root/icons/CloseIcon'
-import { Collapsible, CollapsibleToggler, CollapsibleContent } from '@faceless-ui/collapsibles'
-import { ChevronIcon } from '@root/graphics/ChevronIcon'
-import classes from './index.module.scss'
+import { Collapsible, CollapsibleContent, CollapsibleToggler } from '@faceless-ui/collapsibles'
+import { Cell, Grid } from '@faceless-ui/css-grid'
+
+import { BlockSpacing } from '@components/BlockSpacing'
 import { PricingCard } from '@components/cards/PricingCard'
+import { SquareCard } from '@components/cards/SquareCard'
+import { Gutter } from '@components/Gutter'
+import { PixelBackground } from '@components/PixelBackground'
+import { CheckmarkIcon } from '@root/graphics/CheckmarkIcon'
+import { ChevronIcon } from '@root/graphics/ChevronIcon'
+import { CloseIcon } from '@root/icons/CloseIcon'
+import { Page } from '@root/payload-types'
+
+import classes from './index.module.scss'
 
 export type Props = Extract<Page['layout'][0], { blockType: 'pricing' }>
 
@@ -49,7 +51,7 @@ export const Pricing: React.FC<Props> = ({ pricingFields }) => {
             </div>
             <Grid>
               {plans.map((plan, i) => {
-                const { name, price, description, link, features } = plan
+                const { name, title, price, description, link, features } = plan
                 const isToggled = toggledPlan === name
 
                 return (
@@ -57,7 +59,8 @@ export const Pricing: React.FC<Props> = ({ pricingFields }) => {
                     <PricingCard
                       leader={name}
                       className={classes.card}
-                      title={price}
+                      price={price}
+                      title={title}
                       description={description}
                       link={link}
                     />
@@ -76,25 +79,25 @@ export const Pricing: React.FC<Props> = ({ pricingFields }) => {
                       >
                         <CollapsibleContent>{featureList(features)}</CollapsibleContent>
                         <CollapsibleToggler className={classes.toggler}>
-                            Features
-                            <ChevronIcon
-                              className={[classes.chevron, isToggled && classes.open]
-                                .filter(Boolean)
-                                .join(' ')}
-                            />
+                          Features
+                          <ChevronIcon
+                            className={[classes.chevron, isToggled && classes.open]
+                              .filter(Boolean)
+                              .join(' ')}
+                          />
                         </CollapsibleToggler>
                       </Collapsible>
                     </div>
                   </Cell>
                 )
               })}
-              {disclaimer &&
+              {disclaimer && (
                 <Cell>
                   <div className={classes.disclaimer}>
                     <i>{disclaimer}</i>
                   </div>
                 </Cell>
-              }
+              )}
             </Grid>
           </div>
         )}

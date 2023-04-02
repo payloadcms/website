@@ -26,6 +26,8 @@ type Log = {
   message: string
 }
 
+const finalDeploymentStages: Deployment['deploymentStatus'][] = ['ACTIVE', 'SUPERSEDED']
+
 export const InfraOnline: React.FC = () => {
   const [logsWebSocketURL, setLogsWebSocketURL] = React.useState<string>('')
   const [deploymentLogs, setDeploymentLogs] = React.useState<Log[]>([])
@@ -41,11 +43,7 @@ export const InfraOnline: React.FC = () => {
     interval: 10_000,
   })
 
-  const [activeDeployment, setActiveDeployment] = React.useState<Deployment | null | undefined>(
-    deployments?.find(deployment => {
-      return deployment.deploymentStatus === 'ACTIVE'
-    }),
-  )
+  const [activeDeployment, setActiveDeployment] = React.useState<Deployment | null | undefined>()
 
   // the most recent build log - either ACTIVE or another state
 
@@ -128,6 +126,16 @@ export const InfraOnline: React.FC = () => {
 
     getActiveDeployment()
   }, [getOneDeploymentByStatus, activeDeployment])
+
+  React.useEffect(() => {
+    const activeDeployment = deployments?.find(deployment => {
+      return finalDeploymentStages.includes(deployment.deploymentStatus)
+    })
+
+    if (activeDeployment) {
+      setActiveDeployment(activeDeployment)
+    }
+  }, [deployments])
 
   React.useEffect(() => {
     const getLatestHistoricLog = async () => {
@@ -223,7 +231,7 @@ export const InfraOnline: React.FC = () => {
                   status={
                     activeDeployment === undefined
                       ? 'info'
-                      : activeDeployment?.deploymentStatus === 'ACTIVE'
+                      : finalDeploymentStages.includes(activeDeployment?.deploymentStatus)
                       ? 'success'
                       : 'error'
                   }
@@ -231,7 +239,7 @@ export const InfraOnline: React.FC = () => {
                 <p className={classes.detail}>
                   {activeDeployment === undefined
                     ? ''
-                    : activeDeployment?.deploymentStatus === 'ACTIVE'
+                    : finalDeploymentStages.includes(activeDeployment?.deploymentStatus)
                     ? 'Online'
                     : 'Offline'}
                 </p>

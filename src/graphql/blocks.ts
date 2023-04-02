@@ -215,7 +215,9 @@ export const PRICING_BLOCK = `
   pricingFields {
     plans {
       name
+      hasPrice
       price
+      title
       description
       enableLink
       link ${LINK_FIELDS({ disableAppearance: true, disableLabel: true })}

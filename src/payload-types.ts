@@ -340,7 +340,9 @@ export interface CaseStudy {
       pricingFields: {
         plans: {
           name: string;
+          hasPrice?: boolean;
           price: string;
+          title: string;
           description?: string;
           enableLink?: boolean;
           link: {
@@ -1024,7 +1026,9 @@ export interface Page {
       pricingFields: {
         plans: {
           name: string;
+          hasPrice?: boolean;
           price: string;
+          title: string;
           description?: string;
           enableLink?: boolean;
           link: {
@@ -1851,7 +1855,9 @@ export interface ReusableContent {
       pricingFields: {
         plans: {
           name: string;
+          hasPrice?: boolean;
           price: string;
+          title: string;
           description?: string;
           enableLink?: boolean;
           link: {

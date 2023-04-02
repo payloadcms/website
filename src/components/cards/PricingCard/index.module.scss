@@ -41,18 +41,21 @@
     justify-content: space-between;
 }
 
-.title {
+.title,
+.price {
     @include h1;
     position: relative;
     margin: var(--base) 0 0 0;
+}
 
-    &:after {
-        @include h5;
-        content: '/mo';
-        position: absolute;
-        margin: 0;
-        bottom: 0;
-    }
+.price {
+  &:after {
+    @include h5;
+    content: '/mo';
+    position: absolute;
+    margin: 0;
+    bottom: 0;
+}
 }
 
 .description {

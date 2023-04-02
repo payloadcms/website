@@ -145,10 +145,10 @@ export const useGetProjects: UseCloudAPI<
     },
     ...(search && search?.length >= 3
       ? {
-          name: {
-            like: search,
-          },
-        }
+        name: {
+          like: search,
+        },
+      }
       : {}),
   })
 
