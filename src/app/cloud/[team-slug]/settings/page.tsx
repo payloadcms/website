@@ -102,7 +102,7 @@ export default () => {
         </div>
       )}
       <Grid>
-        <Cell cols={5} colsM={8}>
+        <Cell cols={6} colsM={8}>
           <Form
             onSubmit={handleSubmit}
             className={classes.form}
@@ -120,10 +120,6 @@ export default () => {
                 initialValue: team?.billingEmail,
                 value: team?.billingEmail,
               },
-              stripeCustomerID: {
-                initialValue: team?.stripeCustomerID,
-                value: team?.stripeCustomerID,
-              },
               sendEmailInvitationsTo: {
                 initialValue: [
                   {
@@ -137,12 +133,6 @@ export default () => {
             <Text path="name" label="Team Name" />
             <UniqueTeamSlug teamID={team?.id} />
             <Text path="billingEmail" label="Billing Email" required />
-            <Text
-              path="stripeCustomerID"
-              label="Customer ID"
-              disabled
-              description="This value was automatically generated when this team was created."
-            />
             {team?.invitations && team?.invitations?.length > 0 && (
               <React.Fragment>
                 <hr className={classes.hr} />

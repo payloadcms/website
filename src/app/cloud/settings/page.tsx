@@ -85,7 +85,7 @@ export default () => {
         {success && <p className={classes.success}>{success}</p>}
       </div>
       <Grid>
-        <Cell cols={5} colsM={8}>
+        <Cell cols={6} colsM={8}>
           <Form
             className={classes.form}
             initialState={{
