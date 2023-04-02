@@ -87,12 +87,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
   const [selection, setSelection] = React.useState<Install | undefined>()
 
   useEffect(() => {
-    if (
-      hasInitializedSelection &&
-      valueFromProps !== undefined &&
-      valueFromProps === selection?.id &&
-      installs?.length
-    ) {
+    if (hasInitializedSelection && valueFromProps !== undefined && !selection && installs?.length) {
       const newSelection = installs.find(install => install.id === valueFromProps)
       setSelection(newSelection)
     }
@@ -180,7 +175,13 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
   )
 }
 
-export const useInstallationSelector = (): [
+type UseInstallationSelectorArgs = {
+  initialInstallID?: string
+}
+
+export const useInstallationSelector = (
+  args: UseInstallationSelectorArgs = {},
+): [
   React.FC<{
     description?: string
     disabled?: boolean
@@ -190,6 +191,7 @@ export const useInstallationSelector = (): [
     description?: string
   },
 ] => {
+  const { initialInstallID } = args
   const [value, setValue] = React.useState<Install | undefined>(undefined)
   const installsData = useGetInstalls()
   const { error, installs, reload, loading } = installsData
@@ -201,6 +203,7 @@ export const useInstallationSelector = (): [
       ({ description, disabled }) => {
         return (
           <InstallationSelector
+            value={initialInstallID ? Number(initialInstallID) : undefined}
             loading={debouncedLoading}
             error={error}
             installs={installs}
@@ -211,7 +214,7 @@ export const useInstallationSelector = (): [
           />
         )
       },
-    [error, installs, reload, debouncedLoading],
+    [error, installs, reload, debouncedLoading, initialInstallID],
   )
 
   return [

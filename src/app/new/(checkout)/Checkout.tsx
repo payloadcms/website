@@ -108,7 +108,7 @@ const Checkout: React.FC<{
   const [
     InstallationSelector,
     { value: selectedInstall, loading: installsLoading, error: installsError },
-  ] = useInstallationSelector()
+  ] = useInstallationSelector({ initialInstallID: project?.installID })
 
   const { paymentIntent, error: paymentIntentError } = usePaymentIntent({
     project,
