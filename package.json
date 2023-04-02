@@ -54,6 +54,7 @@
     "react-markdown": "^8.0.3",
     "react-phone-number-input": "^3.2.12",
     "react-select": "^5.7.0",
+    "react-toastify": "^9.1.2",
     "react-transition-group": "^4.4.5",
     "remark-gfm": "^3.0.1",
     "sass": "^1.55.0",

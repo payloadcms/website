@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { toast } from 'react-toastify'
 import { useRouteData } from '@cloud/context'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 
@@ -199,7 +200,7 @@ export const InfraOnline: React.FC = () => {
         upperChildren={
           <Grid>
             <Cell start={1} cols={4} colsM={8}>
-              <Label>Visit CMS</Label>
+              <Label>URL</Label>
               <ul>
                 {projectDomains.map(domain => (
                   <li key={domain} title={domain}>
@@ -252,24 +253,26 @@ export const InfraOnline: React.FC = () => {
             <Cell className={classes.reTriggerBackground} start={1}>
               <div>
                 <Button
+                  appearance="text"
                   onClick={() => {
-                    // TODO: trigger redeploy
+                    toast.success('New deployment triggered successfully')
                   }}
                   label="Trigger Redeploy"
-                  appearance="secondary"
                 />
               </div>
 
-              <div className={classes.deployDetails}>
-                <div className={classes.iconAndLabel}>
-                  <BranchIcon />
-                  <p>{project.deploymentBranch}</p>
+              {activeDeployment?.commitMessage && (
+                <div className={classes.deployDetails}>
+                  <div className={classes.iconAndLabel}>
+                    <BranchIcon />
+                    <p>{project.deploymentBranch}</p>
+                  </div>
+                  <div className={classes.iconAndLabel}>
+                    <CommitIcon />
+                    <p>{activeDeployment?.commitMessage}</p>
+                  </div>
                 </div>
-                <div className={classes.iconAndLabel}>
-                  <CommitIcon />
-                  <p>32rf343: some message</p>
-                </div>
-              </div>
+              )}
             </Cell>
           </Grid>
         }

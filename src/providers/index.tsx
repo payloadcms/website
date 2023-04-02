@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { CookiesProvider } from 'react-cookie'
+import { Slide, ToastContainer } from 'react-toastify'
 import { GridProvider } from '@faceless-ui/css-grid'
 import { ModalContainer, ModalProvider } from '@faceless-ui/modal'
 import { MouseInfoProvider } from '@faceless-ui/mouse-info'
@@ -65,6 +66,11 @@ export const Providers: React.FC<{
                           <HeaderThemeProvider>
                             {children}
                             <ModalContainer />
+                            <ToastContainer
+                              position="bottom-center"
+                              transition={Slide}
+                              icon={false}
+                            />
                           </HeaderThemeProvider>
                         </PageTransition>
                       </ModalProvider>
