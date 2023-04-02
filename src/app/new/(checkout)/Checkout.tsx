@@ -12,6 +12,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import { redirect, useRouter } from 'next/navigation'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
+import { Button } from '@components/Button'
 import { CreditCardSelector } from '@components/CreditCardSelector'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
@@ -55,6 +56,8 @@ const Checkout: React.FC<{
   const { templates } = useGlobals()
 
   const isBeta = new Date().getTime() < new Date('2023-07-01').getTime()
+  const [deleting, setDeleting] = React.useState(false)
+  const [errorDeleting, setErrorDeleting] = React.useState('')
 
   const [checkoutState, dispatchCheckoutState] = React.useReducer(checkoutReducer, {
     plan: project?.plan,
@@ -134,6 +137,39 @@ const Checkout: React.FC<{
     paymentIntent,
   })
 
+  const deleteProject = useCallback(async () => {
+    setTimeout(() => {
+      window.scrollTo(0, 0)
+    }, 0)
+
+    setDeleting(true)
+    setErrorDeleting('')
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${draftProjectID}`,
+        {
+          method: 'DELETE',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      )
+
+      if (response.ok) {
+        router.push(`/${cloudSlug}`)
+      } else {
+        setDeleting(false)
+        setErrorDeleting('There was an error deleting your project.')
+      }
+    } catch (error) {
+      console.error(error) // eslint-disable-line no-console
+      setDeleting(false)
+      setErrorDeleting(`There was an error deleting your project: ${error?.message || 'Unknown'}`)
+    }
+  }, [draftProjectID, router])
+
   const isClone = Boolean(!project?.repositoryID)
 
   return (
@@ -143,8 +179,10 @@ const Checkout: React.FC<{
           {errorDeploying && <p>{errorDeploying}</p>}
           {installsError && <p>{installsError}</p>}
           {paymentIntentError && <p>{paymentIntentError}</p>}
+          {errorDeleting && <p>{errorDeleting}</p>}
         </div>
         {isDeploying && <p className={classes.submitting}>Submitting, one moment...</p>}
+        {deleting && <p className={classes.submitting}>Deleting draft project, one moment...</p>}
         <Grid>
           <Cell cols={3} colsM={8} className={classes.sidebarCell}>
             <div className={classes.sidebar}>
@@ -285,6 +323,7 @@ const Checkout: React.FC<{
                   </div>
                   <div className={classes.submit}>
                     <Submit label="Deploy now" />
+                    <Button onClick={deleteProject} label="Delete" appearance="text" />
                   </div>
                 </Form>
               </Fragment>
