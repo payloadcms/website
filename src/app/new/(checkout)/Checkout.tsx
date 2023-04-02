@@ -2,6 +2,7 @@
 
 import React, { Fragment, useCallback } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import { Checkbox } from '@forms/fields/Checkbox'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
@@ -9,6 +10,7 @@ import Label from '@forms/Label'
 import Submit from '@forms/Submit'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
+import Link from 'next/link'
 import { redirect, useRouter } from 'next/navigation'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
@@ -253,6 +255,13 @@ const Checkout: React.FC<{
                     environmentVariables: {
                       initialValue: project?.environmentVariables || [],
                     },
+                    agreeToTerms: {
+                      initialValue: false,
+                      value: false,
+                      valid: false,
+                      errorMessage:
+                        'You must agree to the terms of service to deploy your project.',
+                    },
                   }}
                 >
                   <div>
@@ -321,6 +330,20 @@ const Checkout: React.FC<{
                       />
                     )}
                   </div>
+                  <hr className={classes.hr} />
+                  <Checkbox
+                    path="agreeToTerms"
+                    label={
+                      <Fragment>
+                        {'I agree to the '}
+                        <Link href="/cloud-terms" target="_blank">
+                          Terms of Service
+                        </Link>
+                      </Fragment>
+                    }
+                    required
+                    className={classes.agreeToTerms}
+                  />
                   <div className={classes.submit}>
                     <Submit label="Deploy now" />
                     <Button onClick={deleteProject} label="Delete" appearance="text" />
