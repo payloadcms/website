@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
@@ -100,47 +101,61 @@ export default () => {
           {loading && <p className={classes.loading}>Updating team...</p>}
         </div>
       )}
-      <Form
-        onSubmit={handleSubmit}
-        className={classes.form}
-        errors={error?.data}
-        initialState={{
-          name: {
-            initialValue: team?.name,
-            value: team?.name,
-          },
-          slug: {
-            initialValue: team?.slug,
-            value: team?.slug,
-          },
-          billingEmail: {
-            initialValue: team?.billingEmail,
-            value: team?.billingEmail,
-          },
-          sendEmailInvitationsTo: {
-            initialValue: [
-              {
-                email: '',
-                roles: ['user'],
+      <Grid>
+        <Cell cols={5} colsM={8}>
+          <Form
+            onSubmit={handleSubmit}
+            className={classes.form}
+            errors={error?.data}
+            initialState={{
+              name: {
+                initialValue: team?.name,
+                value: team?.name,
               },
-            ],
-          },
-        }}
-      >
-        <Text path="name" label="Name" />
-        <UniqueTeamSlug teamID={team?.id} />
-        <Text path="billingEmail" label="Billing Email" required />
-        {team?.invitations && team?.invitations?.length > 0 && (
-          <React.Fragment>
+              slug: {
+                initialValue: team?.slug,
+                value: team?.slug,
+              },
+              billingEmail: {
+                initialValue: team?.billingEmail,
+                value: team?.billingEmail,
+              },
+              stripeCustomerID: {
+                initialValue: team?.stripeCustomerID,
+                value: team?.stripeCustomerID,
+              },
+              sendEmailInvitationsTo: {
+                initialValue: [
+                  {
+                    email: '',
+                    roles: ['user'],
+                  },
+                ],
+              },
+            }}
+          >
+            <Text path="name" label="Team Name" />
+            <UniqueTeamSlug teamID={team?.id} />
+            <Text path="billingEmail" label="Billing Email" required />
+            <Text
+              path="stripeCustomerID"
+              label="Customer ID"
+              disabled
+              description="This value was automatically generated when this team was created."
+            />
+            {team?.invitations && team?.invitations?.length > 0 && (
+              <React.Fragment>
+                <hr className={classes.hr} />
+                <TeamInvitations team={team} />
+              </React.Fragment>
+            )}
             <hr className={classes.hr} />
-            <TeamInvitations team={team} />
-          </React.Fragment>
-        )}
-        <hr className={classes.hr} />
-        <InviteTeammates />
-        <hr className={classes.hr} />
-        <Submit label="Save" className={classes.submit} />
-      </Form>
+            <InviteTeammates />
+            <hr className={classes.hr} />
+            <Submit label="Save" className={classes.submit} />
+          </Form>
+        </Cell>
+      </Grid>
     </Gutter>
   )
 }

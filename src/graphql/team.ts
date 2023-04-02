@@ -5,6 +5,7 @@ export const TEAMS = `
         id
         name
         slug
+        stripeCustomerID
       }
     }
   }
