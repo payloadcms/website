@@ -23,8 +23,8 @@ export default () => {
           <>
             {project.defaultDomain && (
               <p>
-                You can also access your CMS by visiting{' '}
-                <a href={project.defaultDomain} target="_blank">
+                <strong>Default domain: </strong>
+                <a href={`https://${project.defaultDomain}`} target="_blank">
                   {project.defaultDomain}
                 </a>
               </p>

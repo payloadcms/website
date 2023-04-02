@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { useRouteData } from '@cloud/context'
 import { Secret } from '@forms/fields/Secret'
 
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
@@ -8,6 +9,7 @@ import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 import classes from './index.module.scss'
 
 export default () => {
+  const { project } = useRouteData()
   return (
     <div>
       <ExtendedBackground

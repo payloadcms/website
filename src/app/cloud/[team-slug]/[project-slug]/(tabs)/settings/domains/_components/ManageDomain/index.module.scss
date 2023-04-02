@@ -11,12 +11,6 @@
   }
 }
 
-.domainContent {
-  display: flex;
-  flex-direction: column;
-  gap: var(--base);
-}
-
 .pending {
   border-left: 1px solid var(--theme-error-500);
 }
@@ -33,59 +27,33 @@
   width: auto;
 }
 
+.domainInput {
+  margin-bottom: var(--base);
+}
+
 .domainTitleName {
-  text-transform: lowercase;
   color: var(--theme-text);
 }
 
-.pendingDomain {
-  margin-top: var(--base);
-}
+.record {
+  width: 100%;
+  background: var(--theme-elevation-50);
+  padding: var(--base);
 
-.configureDomain {
-  padding: calc(var(--base) * .75) var(--base) ;
-  color: var(--theme-elevation-650);
-  background: var(--theme-elevation-150);
-
-  .domainRecordsTable {
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 100%;
-  
-    thead {
-      th {
-        @include body;
-        font-weight: normal;
-        font-size: calc(var(--base) * .75);
-        color: var(--theme-elevation-500);
-      }
-    }
-  
-    th, td {
-      display: table-cell;
-      text-align: left;
-    }
-  
-    tbody {
-      td {
-        @include body;
-        font-weight: normal;
-        font-size: calc(var(--base) * .75);
-      }
-    }
+  th,
+  td {
+    padding-right: calc(var(--base) * .5);
+    vertical-align: top;
   }
 
-  p {
-    margin: 0;
+  th {
+    font-weight: normal;
+    text-align: left;
   }
-}
 
-.pendingDomainAlert {
-  margin: 0;
-  color: var(--theme-error-500);
-  background: var(--theme-error-100);
-  padding: calc(var(--base) * .25) var(--base);
-  font-size: calc(var(--base) * .75)
+  td {
+    color: var(--theme-text)
+  }
 }
 
 .domainActions {

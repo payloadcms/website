@@ -13,6 +13,7 @@ import { ModalWindow } from '@components/ModalWindow'
 import { Accordion } from '@root/app/cloud/_components/Accordion'
 import { useRouteData } from '@root/app/cloud/context'
 import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon'
+import { Project } from '@root/payload-cloud-types'
 
 // import { Project } from '@root/payload-cloud-types'
 import classes from './index.module.scss'
@@ -20,15 +21,10 @@ import classes from './index.module.scss'
 const domainValueFieldPath = 'domain'
 
 type Props = {
-  // Project.domains[0] -> not working because the array is not required
-  domain: {
-    domain: string
-    cloudflareID?: string
-    id?: string
-  }
+  domain: NonNullable<Project['domains']>[0]
 }
 export const ManageDomain: React.FC<Props> = ({ domain }) => {
-  const { id, domain: domainURL } = domain
+  const { id, domain: domainURL, recordType, recordName, recordContent } = domain
   const modalSlug = `delete-domain-${id}`
 
   const { openModal, closeModal } = useModal()
@@ -101,7 +97,7 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
 
   return (
     <>
-      <Collapsible openOnInit={false}>
+      <Collapsible openOnInit>
         <Accordion
           className={classes.domainAccordion}
           toggleIcon="chevron"
@@ -125,44 +121,21 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
                 validate={validateDomain}
               />
 
-              <div className={classes.pendingDomain}>
-                <div className={classes.configureDomain}>
-                  <div className={classes.domainRecords}>
-                    <table className={classes.domainRecordsTable}>
-                      <thead>
-                        <tr>
-                          <th>Record Type</th>
-                          <th>Record Value</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className={classes.domainRecord}>
-                          <td className={classes.domainRecordName}>
-                            <p>{domainURL.split('.').length > 1 ? 'CNAME' : 'A'}</p>
-                          </td>
-                          <td className={classes.domainRecordValue}>
-                            {domainURL.split('.').length > 1
-                              ? cnameRecord
-                              : process.env.DOMAINS_A_RECORD}
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-                <p className={classes.pendingDomainAlert}>
-                  You will need to configure this record with your DNS provider.
-                </p>
-              </div>
+              <p>Add the following record to your DNS provider:</p>
+              <table className={classes.record}>
+                <tr>
+                  <th>Type</th>
+                  <th>Name</th>
+                  <th>Content</th>
+                </tr>
+                <tr>
+                  <td>{recordType}</td>
+                  <td>{recordName}</td>
+                  <td>{recordContent}</td>
+                </tr>
+              </table>
 
               <div className={classes.domainActions}>
-                {/* {status === 'pending' && (
-                  <div className={classes.leftActions}>
-                    <Button label="refresh" appearance="secondary" size="small" />
-                  </div>
-                )} */}
-
                 <div className={classes.rightActions}>
                   <Button
                     size="small"
@@ -183,11 +156,6 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
           <Heading marginTop={false} as="h5">
             Are you sure you want to delete this domain?
           </Heading>
-          <p>
-            Deleting a domain from a project cannot be undone. You can manually add the domain back
-            to the project.
-          </p>
-
           <div className={classes.modalActions}>
             <Button label="cancel" appearance="secondary" onClick={() => closeModal(modalSlug)} />
             <Button label="delete" appearance="danger" onClick={deleteDomain} />

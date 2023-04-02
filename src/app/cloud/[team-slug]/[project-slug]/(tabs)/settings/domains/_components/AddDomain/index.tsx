@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { toast } from 'react-toastify'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
@@ -61,6 +62,7 @@ export const AddDomain: React.FC = () => {
           if (req.status === 200) {
             reloadProject()
             setFieldKey(generateUUID())
+            toast.success('Domain added successfully.')
           }
 
           return
