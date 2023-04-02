@@ -109,6 +109,9 @@ const DashboardHeader = () => {
   }
 
   const projectIsOnline = project?.infraStatus === 'done'
+  const projectIsOnDigitalOcean =
+    project?.infraStatus &&
+    ['appCreationError', 'deploying', 'deployError', 'done'].includes(project.infraStatus)
 
   return (
     <Fragment>
@@ -130,7 +133,7 @@ const DashboardHeader = () => {
       </Gutter>
       <RouteTabs
         tabs={[
-          ...Object.entries(routes).reduce((acc: any[], [, value], index) => {
+          ...Object.entries(routes).reduce((acc: any[], [, value]) => {
             if (value.tabLabel) {
               const tabURL = `/${cloudSlug}${value.href || ''}`
               const onTabPath = pathname === tabURL
@@ -145,6 +148,10 @@ const DashboardHeader = () => {
 
               if (isProjectRoute && !projectIsOnline) {
                 if (tab.label === 'Overview') {
+                  acc.push(tab)
+                }
+              } else if (isProjectRoute && projectIsOnDigitalOcean) {
+                if (tab.label === 'Overview' || tab.label === 'Settings') {
                   acc.push(tab)
                 }
               } else {

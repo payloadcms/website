@@ -1,24 +1,13 @@
 import React from 'react'
-import { fetchPage } from '@graphql'
 
 import Meta from '@components/Meta'
 
 export default async props => {
-  const { slug } = props.params
-  const page = await fetchPage(slug)
+  const { 'team-slug': teamSlug, 'project-slug': projectSlug } = props.params
 
-  if (page) {
-    const { meta } = page
-    return (
-      <React.Fragment>
-        <Meta
-          title={meta?.title}
-          description={meta?.description}
-          image={meta?.image}
-          slug={`${slug ? slug?.join('/') : ''}`}
-        />
-      </React.Fragment>
-    )
-  }
-  return null
+  return (
+    <React.Fragment>
+      <Meta title={`${teamSlug} — ${projectSlug}`} slug={`/cloud/${teamSlug}/${projectSlug}`} />
+    </React.Fragment>
+  )
 }
