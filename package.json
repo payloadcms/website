@@ -39,7 +39,7 @@
     "graphql": "^16.6.0",
     "gray-matter": "^4.0.3",
     "next": "^13.2.3",
-    "next-mdx-remote": "^4.2.1",
+    "next-mdx-remote": "^4.4.1",
     "next-sitemap": "^3.1.30",
     "node-fetch": "^3.2.10",
     "payload-admin-bar": "^1.0.5",

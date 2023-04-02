@@ -111,7 +111,7 @@ export const Secret: React.FC<SecretProps> = props => {
         name={path}
         required={required}
         type="text"
-        value={isHidden ? '••••••••••' : value || ''}
+        value={isHidden ? '••••••••••••••••••••••••••••••' : value || ''}
         tabIndex={isHidden ? -1 : 0}
       />
     </div>
