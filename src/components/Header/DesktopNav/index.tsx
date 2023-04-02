@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import Link from 'next/link'
+
 import { Avatar } from '@components/Avatar'
-import { DiscordIcon } from '@root/graphics/DiscordIcon'
 import { Gutter } from '@components/Gutter'
+import { DiscordIcon } from '@root/graphics/DiscordIcon'
 import { MainMenu } from '@root/payload-types'
 import { useAuth } from '@root/providers/Auth'
 import { FullLogo } from '../../../graphics/FullLogo'

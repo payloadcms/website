@@ -50,10 +50,11 @@
   height: 100%;
   display: flex;
   justify-content: flex-start;
-  position: relative;
+  position: absolute;
   top: -2px;
-  margin-right: var(--base);
+  left: calc(-1*var(--base));
   width: calc(var(--gutter-h) / 2 - var(--base));
+  transform: translateX(-100%);
 
 
   svg {
@@ -63,6 +64,9 @@
   @include large-break {
     width: auto;
     margin-right: var(--base);
+    position: relative;
+    transform: none;
+    left: 0;
   }
 }
 
