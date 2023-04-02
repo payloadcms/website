@@ -26,13 +26,14 @@ export const usePaymentIntent = (args: {
 
     // only make a payment intent if the payment method has changed
     // to do this maintain a ref to the previous payment method
+    // also ensure they have a `stripeCustomerID`
     if (
       !isRequesting.current &&
       prevPaymentMethod.current !== checkoutState.paymentMethod &&
       project?.id &&
       plan &&
       paymentMethod &&
-      team
+      team?.stripeCustomerID
     ) {
       isRequesting.current = true
       prevPaymentMethod.current = paymentMethod
