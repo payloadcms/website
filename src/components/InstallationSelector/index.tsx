@@ -105,11 +105,11 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
   })
 
   useEffect(() => {
-    if (installs?.length && !hasInitializedSelection.current) {
+    if (installs?.length && !hasInitializedSelection.current && !valueFromProps) {
       hasInitializedSelection.current = true
       setSelection(installs[installs.length - 1])
     }
-  }, [installs])
+  }, [installs, valueFromProps])
 
   useEffect(() => {
     if (selectAfterLoad.current) {
