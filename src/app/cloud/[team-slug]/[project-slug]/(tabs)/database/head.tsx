@@ -7,7 +7,10 @@ export default async props => {
 
   return (
     <React.Fragment>
-      <Meta title={`${teamSlug} | ${projectSlug}`} slug={`/cloud/${teamSlug}/${projectSlug}`} />
+      <Meta
+        title={`Database | ${teamSlug} | ${projectSlug}`}
+        slug={`/cloud/${teamSlug}/${projectSlug}/database`}
+      />
     </React.Fragment>
   )
 }
