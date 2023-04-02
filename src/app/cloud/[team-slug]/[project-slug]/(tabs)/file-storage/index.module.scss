@@ -3,3 +3,18 @@
   flex-direction: column;
   gap: var(--base);
 }
+
+.meta {
+  list-style: none;
+  background: var(--theme-elevation-50);
+  padding: var(--base);
+
+  li {
+    display: flex;
+  }
+
+  strong {
+    width: 300px;
+    flex-shrink: 0;
+  }
+}

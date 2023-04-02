@@ -64,7 +64,7 @@
 
 :global([data-theme="dark"]) {
   .default, .info {
-    background: var(--theme-elevation-100);
+    background: var(--theme-elevation-150);
     color: var(--theme-text);
     border-bottom: 1px solid var(--theme-elevation-600);
   }
