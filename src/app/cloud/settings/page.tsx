@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useCallback } from 'react'
+import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
@@ -83,39 +84,43 @@ export default () => {
         {error && <p className={classes.error}>{error}</p>}
         {success && <p className={classes.success}>{success}</p>}
       </div>
-      <Form
-        className={classes.form}
-        initialState={{
-          name: {
-            value: user?.name,
-            initialValue: user?.name,
-            errorMessage: 'Please enter a name',
-          },
-          email: {
-            value: user?.email,
-            valid: Boolean(user?.email),
-            initialValue: user?.email,
-            errorMessage: 'Please enter a valid email address',
-          },
-          password: {
-            value: '',
-            initialValue: undefined,
-            errorMessage: 'Please enter a password',
-          },
-          passwordConfirm: {
-            value: '',
-            initialValue: undefined,
-            errorMessage: 'Please confirm your password',
-          },
-        }}
-        onSubmit={handleSubmit}
-      >
-        <Text path="name" label="Your Full Name" />
-        <Text path="email" label="Email" required />
-        <Text type="password" path="password" label="Password" />
-        <Text type="password" path="passwordConfirm" label="Password Confirm" />
-        <Submit label="Save" className={classes.submit} />
-      </Form>
+      <Grid>
+        <Cell cols={5} colsM={8}>
+          <Form
+            className={classes.form}
+            initialState={{
+              name: {
+                value: user?.name,
+                initialValue: user?.name,
+                errorMessage: 'Please enter a name',
+              },
+              email: {
+                value: user?.email,
+                valid: Boolean(user?.email),
+                initialValue: user?.email,
+                errorMessage: 'Please enter a valid email address',
+              },
+              password: {
+                value: '',
+                initialValue: undefined,
+                errorMessage: 'Please enter a password',
+              },
+              passwordConfirm: {
+                value: '',
+                initialValue: undefined,
+                errorMessage: 'Please confirm your password',
+              },
+            }}
+            onSubmit={handleSubmit}
+          >
+            <Text path="name" label="Your Full Name" />
+            <Text path="email" label="Email" required />
+            <Text type="password" path="password" label="Password" />
+            <Text type="password" path="passwordConfirm" label="Password Confirm" />
+            <Submit label="Save" className={classes.submit} />
+          </Form>
+        </Cell>
+      </Grid>
       <hr className={classes.hr} />
       <Button label="Log out" appearance="secondary" href="/logout" el="link" />
     </Gutter>
