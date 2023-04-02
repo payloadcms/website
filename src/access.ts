@@ -28,11 +28,16 @@ export const canUserMangeProject = ({
   if (checkRole(['admin'], user)) return true
 
   const userTeams = user?.teams || []
-  const isTeamOwner = userTeams.find(team => {
-    const userIsOnTeam =
-      typeof project.team === 'string' ? project.team === team.id : project.team.id === team.id
 
-    return userIsOnTeam && (team.roles || []).includes('owner')
+  const projectTeamID =
+    typeof project.team === 'object' && 'id' in project.team ? project.team.id : project.team
+
+  if (!projectTeamID) return false
+
+  const isTeamOwner = userTeams.find(({ team, roles }) => {
+    const userTeamID = typeof team === 'object' && 'id' in team ? team.id : team
+    const userIsOnTeam = userTeamID === projectTeamID
+    return userIsOnTeam && (roles || []).includes('owner')
   })
 
   return Boolean(isTeamOwner)

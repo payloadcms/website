@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { toast } from 'react-toastify'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
@@ -33,12 +34,12 @@ export default () => {
         )
 
         if (res.status === 200) {
-          // TODO: success message
+          toast.success('Settings updated successfully.')
         } else {
-          // TODO: error message
+          toast.error('Failed to update settings.')
         }
       } catch (e) {
-        // TODO: error message
+        toast.error('Failed to update settings.')
       }
     },
     [project],
