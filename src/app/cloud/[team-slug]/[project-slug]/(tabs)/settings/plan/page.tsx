@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { toast } from 'react-toastify'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
@@ -79,6 +80,7 @@ export default () => {
 
         if (req.status === 200) {
           router.push('/cloud/projects')
+          toast.success('Project was deleted successfully.')
         }
       } catch (e) {
         console.error(e) // eslint-disable-line no-console
