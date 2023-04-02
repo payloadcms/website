@@ -25,6 +25,7 @@ import { toKebabCase } from '@utilities/to-kebab-case'
 
 import { BlockSpacing } from '@components/BlockSpacing'
 import { Page, ReusableContent } from '@root/payload-types'
+import { Pricing } from '@blocks/Pricing'
 
 type ReusableContentBlockType = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 
@@ -49,6 +50,7 @@ const blockComponents = {
   cta: CallToAction,
   linkGrid: LinkGrid,
   reusableContentBlock: ReusableContentBlock,
+  pricing: Pricing,
 }
 
 type Props = {
@@ -58,7 +60,6 @@ type Props = {
 
 export const RenderBlocks: React.FC<Props> = props => {
   const { blocks, disableOuterSpacing } = props
-
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
 
   if (hasBlocks) {

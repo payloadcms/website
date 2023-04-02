@@ -17,6 +17,11 @@ export interface BlogCardProps extends SharedProps {
   href: string
 }
 
+export interface PricingCardProps extends SharedProps {
+  leader?: string
+  link: CMSLinkType
+}
+
 export interface DefaultCardProps extends SharedProps {
   leader?: string
   media?: Media | string
