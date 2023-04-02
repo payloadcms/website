@@ -22,6 +22,7 @@ export const useGetPaymentMethods = (args: {
 
     if (!team?.stripeCustomerID) {
       setError('No customer ID')
+      setResult([])
       return
     }
 
