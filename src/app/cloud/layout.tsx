@@ -108,10 +108,9 @@ const DashboardHeader = () => {
     segments = segments.slice(0, 4)
   }
 
-  const projectIsOnline = project?.infraStatus === 'done'
-  const projectIsOnDigitalOcean =
+  const failedToDeployApp =
     project?.infraStatus &&
-    ['appCreationError', 'deploying', 'deployError', 'done'].includes(project.infraStatus)
+    ['appCreationError', 'deployError', 'error'].includes(project.infraStatus)
 
   return (
     <Fragment>
@@ -146,13 +145,21 @@ const DashboardHeader = () => {
                 isActive,
               }
 
-              if (isProjectRoute && !projectIsOnline) {
-                if (tab.label === 'Overview') {
+              if (isProjectRoute) {
+                if (project?.infraStatus === 'done') {
+                  // push all tabs for online projects
                   acc.push(tab)
-                }
-              } else if (isProjectRoute && projectIsOnDigitalOcean) {
-                if (tab.label === 'Overview' || tab.label === 'Settings') {
-                  acc.push(tab)
+                } else {
+                  // always push the overview tab for offline projects
+                  if (tab.label === 'Overview') {
+                    acc.push(tab)
+                  }
+
+                  // push the settings tab for offline projects that made it to DigitalOcean
+                  // (i.e. db creation was successful, but the app failed to deploy, or is deploying)
+                  if (failedToDeployApp && tab.label === 'Settings') {
+                    acc.push(tab)
+                  }
                 }
               } else {
                 acc.push(tab)

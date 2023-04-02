@@ -36,11 +36,6 @@ const deploymentStates: DeploymentStates = {
     status: 'success',
     label: 'Deploying your project',
   },
-  provisioningDNS: {
-    step: 3,
-    status: 'success',
-    label: 'Provisioning DNS',
-  },
   done: {
     step: 4,
     status: 'success',
@@ -55,6 +50,11 @@ const deploymentStates: DeploymentStates = {
     step: 0,
     status: 'error',
     label: 'Deployment failed',
+  },
+  appCreationError: {
+    step: 0,
+    status: 'error',
+    label: 'Failed to create the application',
   },
 }
 

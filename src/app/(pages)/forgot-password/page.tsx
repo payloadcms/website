@@ -124,7 +124,7 @@ const ForgotPassword: React.FC = () => {
         <Cell cols={5} colsM={8}>
           <div className={classes.links}>
             <p>
-              {`Already have an account? `}
+              {`Know your password? `}
               <Link href={`/login${canUseDom ? window.location.search : ''}`}>Log in here</Link>
               {'.'}
             </p>

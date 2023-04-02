@@ -25,7 +25,7 @@ export const CloneTemplate: React.FC<{
   const { user } = useAuth()
   const { template } = props
   const [makePrivate, setMakePrivate] = React.useState(false)
-  const [name, setName] = React.useState('my-project')
+  const [name, setName] = React.useState(template?.slug)
   const router = useRouter()
   const [InstallationSelector, { value: selectedInstall }] = useInstallationSelector()
 
