@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { NewProjectBlock } from '@blocks/NewProject'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Link from 'next/link'
@@ -16,6 +17,7 @@ import classes from './index.module.scss'
 
 export default () => {
   const { team } = useRouteData()
+  const [hasLoaded, setHasLoaded] = React.useState<boolean>(false)
 
   const [search, setSearch] = React.useState<string>('')
 
@@ -28,6 +30,24 @@ export default () => {
     search,
     delay: 500,
   })
+
+  React.useEffect(() => {
+    if (isLoading === false) {
+      setHasLoaded(true)
+    }
+  }, [isLoading])
+
+  if (!hasLoaded) {
+    return (
+      <Gutter>
+        <LoadingShimmer number={3} />
+      </Gutter>
+    )
+  }
+
+  if (hasLoaded && projects && projects.length === 0) {
+    return <NewProjectBlock cardLeader="New" headingElement="h2" />
+  }
 
   return (
     <Gutter>
