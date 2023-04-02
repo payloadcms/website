@@ -19,12 +19,14 @@ export const Image: React.FC<Props> = props => {
     fill,
     src: srcFromProps,
     alt: altFromProps,
+    width: widthFromProps,
+    height: heightFromProps,
   } = props
 
   const [isLoading, setIsLoading] = React.useState(true)
 
-  let width: number | undefined
-  let height: number | undefined
+  let width: number | undefined = widthFromProps
+  let height: number | undefined = heightFromProps
   let alt = altFromProps
   let src: StaticImageData | string | undefined = srcFromProps
 

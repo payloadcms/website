@@ -4,7 +4,7 @@ import type { StaticImageData } from 'next/image'
 import type { Media as MediaType } from '@root/payload-types'
 
 export interface Props {
-  src?: StaticImageData // for static media
+  src?: StaticImageData | string // for static media
   alt?: string
   resource?: MediaType // for Payload media
   sizes?: string // for NextImage only
@@ -17,4 +17,6 @@ export interface Props {
   onClick?: () => void
   onLoad?: () => void
   ref?: Ref<null | HTMLImageElement | HTMLVideoElement>
+  width?: number
+  height?: number
 }
