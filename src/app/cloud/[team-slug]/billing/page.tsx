@@ -23,41 +23,52 @@ export default () => {
   })
 
   const isCurrentTeamOwner = checkTeamRoles(user, team, ['owner'])
+  const hasCustomerID = team?.stripeCustomerID
 
   return (
     <Gutter>
       <Heading marginTop={false} element="h1" as="h6" className={classes.title}>
         Team billing
       </Heading>
-      {!isCurrentTeamOwner && (
-        <p className={classes.error}>You must be an owner of this team to manage billing.</p>
+      {(loading || error) && (
+        <div className={classes.formSate}>
+          {loading && <p className={classes.loading}>Opening customer portal...</p>}
+          {error && <p className={classes.error}>{error}</p>}
+        </div>
       )}
-      {isCurrentTeamOwner && (
+      {!hasCustomerID && (
+        <p className={classes.error}>
+          This team does not have a billing account. Please contact support to resolve this issue.
+        </p>
+      )}
+      {hasCustomerID && (
         <React.Fragment>
-          <p>
-            {'All billing is securely managed in '}
-            <a
-              href="https://stripe.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={classes.stripeLink}
-            >
-              Stripe.com
-            </a>
-            , click the link below to access your customer portal and manage your subscriptions.
-          </p>
-          {(loading || error) && (
-            <div className={classes.formSate}>
-              {loading && <p className={classes.loading}>Loading...</p>}
-              {error && <p className={classes.error}>{error}</p>}
-            </div>
+          {!isCurrentTeamOwner && (
+            <p className={classes.error}>You must be an owner of this team to manage billing.</p>
           )}
-          <Button
-            href={portalURL}
-            onClick={openPortalSession}
-            label="Customer Portal"
-            appearance="primary"
-          />
+          {isCurrentTeamOwner && (
+            <React.Fragment>
+              <p>
+                {'To manage your billing, please open the '}
+                <a
+                  className={classes.stripeLink}
+                  onClick={e => {
+                    e.preventDefault()
+                    openPortalSession(e)
+                  }}
+                >
+                  customer portal
+                </a>
+                {'. There you can manage your subscriptions, payment methods, and billing history.'}
+              </p>
+              <Button
+                href={portalURL}
+                onClick={openPortalSession}
+                label="Customer Portal"
+                appearance="primary"
+              />
+            </React.Fragment>
+          )}
         </React.Fragment>
       )}
     </Gutter>
