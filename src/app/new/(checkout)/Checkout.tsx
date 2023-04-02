@@ -186,7 +186,6 @@ const Checkout: React.FC<{
             ) : (
               <Fragment>
                 <Form
-                  className={classes.details}
                   onSubmit={deploy}
                   initialState={{
                     name: {
@@ -221,9 +220,9 @@ const Checkout: React.FC<{
                   }}
                 >
                   <div>
-                    <div className={classes.sectionHeader}>
-                      <h5 className={classes.sectionTitle}>Select your plan</h5>
-                    </div>
+                    <Heading element="h5" marginTop={false}>
+                      Select your plan
+                    </Heading>
                     <div className={classes.plans}>
                       <PlanSelector />
                       {isBeta && (
@@ -234,10 +233,11 @@ const Checkout: React.FC<{
                       )}
                     </div>
                   </div>
+                  <hr className={classes.hr} />
                   <div className={classes.projectDetails}>
-                    <div className={classes.sectionHeader}>
-                      <h5 className={classes.sectionTitle}>Project Settings</h5>
-                    </div>
+                    <Heading element="h5" marginTop={false} marginBottom={false}>
+                      Project Details
+                    </Heading>
                     <Text label="Project name" path="name" />
                     <TeamSelector
                       onChange={handleTeamChange}
@@ -263,15 +263,18 @@ const Checkout: React.FC<{
                       />
                     )}
                   </div>
+                  <hr className={classes.hr} />
                   <div className={classes.buildSettings}>
-                    <div className={classes.sectionHeader}>
-                      <h5 className={classes.sectionTitle}>Build Settings</h5>
-                    </div>
+                    <Heading element="h5" marginTop={false} marginBottom={false}>
+                      Build Settings
+                    </Heading>
                     <Text label="Install Script" path="installScript" />
                     <Text label="Build Script" path="buildScript" />
                     <Text label="Branch to deploy" path="deploymentBranch" />
                   </div>
+                  <hr className={classes.hr} />
                   <EnvVars className={classes.envVars} />
+                  <hr className={classes.hr} />
                   <div>
                     <h5>Payment Info</h5>
                     {checkoutState?.team && (
@@ -282,7 +285,9 @@ const Checkout: React.FC<{
                       />
                     )}
                   </div>
-                  <Submit label="Deploy now" />
+                  <div className={classes.submit}>
+                    <Submit label="Deploy now" />
+                  </div>
                 </Form>
               </Fragment>
             )}

@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { Heading } from '@components/Heading'
 import { BorderBox } from '@root/app/_components/BorderBox'
 import { Team } from '@root/payload-cloud-types'
 import { formatDate } from '@root/utilities/format-date-time'
@@ -58,31 +59,31 @@ export const TeamInvitations: React.FC<{
   )
 
   return (
-    <div ref={ref} className={className}>
-      <BorderBox className={classes.invitations}>
-        <h6 className={classes.title}>Current invitations</h6>
-        {error && <p className={classes.error}>{error}</p>}
-        {success && <p className={classes.success}>Invitation resent!</p>}
-        {loading && <p className={classes.loading}>Resending invitation...</p>}
-        {team?.invitations?.map(invite => (
-          <div key={invite?.id} className={classes.invite}>
-            <p>{`Email: ${invite?.email}`}</p>
-            <p>{`Roles: ${invite?.roles?.join(', ')}`}</p>
-            <p>{`Invited On: ${formatDate({
-              date: invite?.invitedOn || '',
-            })}`}</p>
-            <button
-              className={classes.resendEmail}
-              type="button"
-              onClick={() => {
-                resendEmail(invite?.email)
-              }}
-            >
-              Resend invite
-            </button>
-          </div>
-        ))}
-      </BorderBox>
+    <div ref={ref} className={[classes.invitations, className].filter(Boolean).join(' ')}>
+      <Heading element="h6" marginTop={false}>
+        Current invitations
+      </Heading>
+      {error && <p className={classes.error}>{error}</p>}
+      {success && <p className={classes.success}>Invitation resent!</p>}
+      {loading && <p className={classes.loading}>Resending invitation...</p>}
+      {team?.invitations?.map(invite => (
+        <div key={invite?.id} className={classes.invite}>
+          <p className={classes.email}>{`Email: ${invite?.email}`}</p>
+          <p>{`Roles: ${invite?.roles?.join(', ')}`}</p>
+          <p>{`Invited On: ${formatDate({
+            date: invite?.invitedOn || '',
+          })}`}</p>
+          <button
+            className={classes.resendEmail}
+            type="button"
+            onClick={() => {
+              resendEmail(invite?.email)
+            }}
+          >
+            Resend invite
+          </button>
+        </div>
+      ))}
     </div>
   )
 }

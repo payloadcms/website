@@ -1,9 +1,5 @@
 @use '@scss/common.scss' as *;
 
-.formState {
-    margin-top: var(--base);
-}
-
 .error {
   color: var(--theme-error-500);
 }

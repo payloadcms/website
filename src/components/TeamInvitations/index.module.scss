@@ -1,9 +1,5 @@
 @use "@scss/common" as *;
 
-.title {
-  margin-top: 0;
-}
-
 .invitations {
   & > *:not(:last-child) {
       margin-bottom: var(--base);
@@ -28,6 +24,10 @@
           margin-right: var(--base);
       }
   }
+}
+
+.email {
+  flex-grow: 1;
 }
 
 .resendEmail {

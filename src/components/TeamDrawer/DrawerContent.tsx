@@ -144,7 +144,9 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
       >
         <Text path="name" required label="Name" />
         <UniqueTeamSlug />
+        <hr className={classes.hr} />
         <InviteTeammates />
+        <hr className={classes.hr} />
         <div>
           <Submit label="Create Team" className={classes.submit} />
         </div>

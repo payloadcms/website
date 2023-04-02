@@ -9,6 +9,10 @@
   flex-direction: column;
   justify-content: space-between;
 
+  &:focus {
+    text-decoration: none;
+  }
+
   &:hover {
     @include shadow-lg;
 

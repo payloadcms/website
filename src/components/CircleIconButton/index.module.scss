@@ -11,7 +11,6 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  margin-top: calc(var(--base) * 0.75);
   transition: color 25ms linear;
 
   &:hover {
@@ -22,16 +21,16 @@
 }
 
 .label {
-  margin-left: var(--base);
+  margin-left: calc(var(--base) * 0.75);
 }
 
 .iconWrapper {
-  width: calc(var(--base) * 2);
-  height: calc(var(--base) * 2);
+  width: calc(var(--base) * 1.5);
+  height: calc(var(--base) * 1.5);
   border: 1px solid currentColor;
   border-radius: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(var(--base) / 2);
+  padding: 6px;
 }

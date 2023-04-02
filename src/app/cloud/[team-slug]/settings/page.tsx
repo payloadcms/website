@@ -4,6 +4,7 @@ import * as React from 'react'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
+import { OnSubmit } from '@forms/types'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
@@ -27,16 +28,17 @@ export default () => {
   const [loading, setLoading] = React.useState<boolean>(false)
   const [success, setSuccess] = React.useState<boolean>(false)
 
-  const handleSubmit = React.useCallback(
-    async ({ unflattenedData }) => {
+  const handleSubmit: OnSubmit = React.useCallback(
+    async ({ unflattenedData, dispatchFields }) => {
       if (user) {
         setTimeout(() => {
           window.scrollTo(0, 0)
         }, 0)
 
         setLoading(true)
+        setError(undefined)
 
-        const updatedTeam: Team = {
+        const updatedTeam: Partial<Team> = {
           ...(unflattenedData || {}),
           // flatten `roles` to an array of values
           // there's probably a better way to do this like using `flattenedData` or modifying the API handler
@@ -75,6 +77,12 @@ export default () => {
         setError(undefined)
         setSuccess(true)
         setTeam(response.doc)
+
+        // TODO: update the form state with the new team data
+        // dispatchFields({
+        //   type: 'REPLACE_STATE',
+        //   state:
+        // })
       }
     },
     [user, team, setTeam],
@@ -122,8 +130,15 @@ export default () => {
         <Text path="name" label="Name" />
         <UniqueTeamSlug teamID={team?.id} />
         <Text path="billingEmail" label="Billing Email" required />
-        {team?.invitations && team?.invitations?.length > 0 && <TeamInvitations team={team} />}
+        {team?.invitations && team?.invitations?.length > 0 && (
+          <React.Fragment>
+            <hr className={classes.hr} />
+            <TeamInvitations team={team} />
+          </React.Fragment>
+        )}
+        <hr className={classes.hr} />
         <InviteTeammates />
+        <hr className={classes.hr} />
         <Submit label="Save" className={classes.submit} />
       </Form>
     </Gutter>

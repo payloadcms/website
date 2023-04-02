@@ -17,11 +17,11 @@ const Invites: React.FC<{
   const hasInvites = uuids?.length > 0
 
   return (
-    <BorderBox className={[classes.teamInvites, className].filter(Boolean).join(' ')}>
+    <div className={[classes.teamInvites, className].filter(Boolean).join(' ')}>
       {hasInvites && (
         <div>
           <Heading element="h5" marginTop={false}>
-            Invite Others
+            Invite your teammates
           </Heading>
           <div className={classes.invites}>
             {uuids?.map((uuid, index) => {
@@ -30,7 +30,7 @@ const Invites: React.FC<{
                   <Text
                     label="Email address"
                     path={`sendEmailInvitationsTo.${index}.email`}
-                    className={classes.arrayRowField}
+                    className={classes.field}
                   />
                   <Select
                     label="Roles"
@@ -50,7 +50,7 @@ const Invites: React.FC<{
                       },
                     ]}
                     isMulti
-                    className={classes.arrayRowField}
+                    className={classes.field}
                   />
                 </ArrayRow>
               )
@@ -58,8 +58,8 @@ const Invites: React.FC<{
           </div>
         </div>
       )}
-      <AddArrayRow singularLabel="Invite" pluralLabel="Invites" />
-    </BorderBox>
+      <AddArrayRow baseLabel="Invite" singularLabel="Teammate" pluralLabel="Teammates" />
+    </div>
   )
 }
 

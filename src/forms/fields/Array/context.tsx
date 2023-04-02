@@ -28,12 +28,16 @@ export const ArrayProvider: React.FC<{
     setUUIDs(prev => [...prev, uuid()])
   }, [])
 
-  const removeRow = React.useCallback((index: number) => {
-    setUUIDs(prev => {
-      const remainingRows = prev.filter((_, i) => i !== index)
-      return remainingRows.length > 0 ? remainingRows : [uuid()]
-    })
-  }, [])
+  const removeRow = React.useCallback(
+    (index: number) => {
+      setUUIDs(prev => {
+        const initialRows = (instantiateEmpty ? [] : [uuid()]) as string[]
+        const remainingRows = prev.filter((_, i) => i !== index)
+        return remainingRows.length > 0 ? remainingRows : initialRows
+      })
+    },
+    [instantiateEmpty],
+  )
 
   const clearRows = React.useCallback(() => {
     setUUIDs([uuid()])
