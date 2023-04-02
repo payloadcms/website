@@ -2,8 +2,8 @@
 
 import * as React from 'react'
 import { useRouteData } from '@cloud/context'
+import { Text } from '@forms/fields/Text'
 
-import { Button } from '@components/Button'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
@@ -12,11 +12,9 @@ import { SectionHeader } from '../_layoutComponents/SectionHeader'
 
 import classes from './page.module.scss'
 
-const portalURL = `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/customer-portal`
-
 export default () => {
   const { user } = useAuth()
-  const { team } = useRouteData()
+  const { team, project } = useRouteData()
   const { openPortalSession, error, loading } = useCustomerPortal({
     team,
   })
@@ -26,7 +24,7 @@ export default () => {
 
   return (
     <MaxWidth>
-      <SectionHeader title="Team billing" />
+      <SectionHeader title="Project billing" />
       {(loading || error) && (
         <div className={classes.formSate}>
           {loading && <p className={classes.loading}>Opening customer portal...</p>}
@@ -40,13 +38,20 @@ export default () => {
       )}
       {hasCustomerID && (
         <React.Fragment>
+          <Text
+            disabled
+            value={project?.stripeSubscriptionID}
+            label="Subscription ID"
+            description="This is the ID of the subscription for this project."
+            className={classes.subscriptionID}
+          />
           {!isCurrentTeamOwner && (
             <p className={classes.error}>You must be an owner of this team to manage billing.</p>
           )}
           {isCurrentTeamOwner && (
             <React.Fragment>
               <p>
-                {'To manage your billing, please open the '}
+                {'To manage your subscriptions, payment methods, and billing history, go to the '}
                 <a
                   className={classes.stripeLink}
                   onClick={e => {
@@ -56,14 +61,8 @@ export default () => {
                 >
                   customer portal
                 </a>
-                {'. There you can manage your subscriptions, payment methods, and billing history.'}
+                {'.'}
               </p>
-              <Button
-                href={portalURL}
-                onClick={openPortalSession}
-                label="Customer Portal"
-                appearance="primary"
-              />
             </React.Fragment>
           )}
         </React.Fragment>
