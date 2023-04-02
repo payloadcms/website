@@ -4,6 +4,7 @@ import { Modal, useModal } from '@faceless-ui/modal'
 import { HeaderColors, useHeaderTheme } from '@providers/HeaderTheme'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+
 import { Avatar } from '@components/Avatar'
 import { Gutter } from '@components/Gutter'
 import { MainMenu } from '@root/payload-types'

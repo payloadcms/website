@@ -17,6 +17,7 @@ import { HoverHighlights } from '@blocks/HoverHighlights'
 import { LinkGrid } from '@blocks/LinkGrid'
 import { MediaBlock } from '@blocks/MediaBlock'
 import { MediaContent } from '@blocks/MediaContent'
+import { Pricing } from '@blocks/Pricing'
 import { ReusableContentBlock } from '@blocks/ReusableContent'
 import { Slider } from '@blocks/Slider'
 import { Steps } from '@blocks/Steps'
@@ -25,7 +26,6 @@ import { toKebabCase } from '@utilities/to-kebab-case'
 
 import { BlockSpacing } from '@components/BlockSpacing'
 import { Page, ReusableContent } from '@root/payload-types'
-import { Pricing } from '@blocks/Pricing'
 
 type ReusableContentBlockType = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 
