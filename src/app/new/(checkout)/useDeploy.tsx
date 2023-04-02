@@ -6,8 +6,8 @@ import { PaymentIntent, StripeCardElement as StripeCardElementType } from '@stri
 
 import { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
-import { PayloadPaymentIntent } from '@root/utilities/use-payment-intent'
 import { CheckoutState } from './reducer'
+import { PayloadPaymentIntent } from './usePaymentIntent'
 
 export const useDeploy = (args: {
   projectID?: string
