@@ -4,7 +4,7 @@ import { CircleIconButton } from '@components/CircleIconButton'
 import { CreditCardElement } from '@components/CreditCardElement'
 import { LargeRadio } from '@components/LargeRadio'
 import { Team } from '@root/payload-cloud-types'
-import { useGetPaymentMethods } from '@root/utilities/use-cloud-api'
+import { useGetPaymentMethods } from './useGetPaymentMethods'
 
 import classes from './index.module.scss'
 
@@ -17,7 +17,7 @@ export const CreditCardSelector: React.FC<{
   const [internalState, setInternalState] = React.useState(initialValue)
   const [showNewCard, setShowNewCard] = React.useState(false)
 
-  const { result: paymentMethods, error } = useGetPaymentMethods(team)
+  const { result: paymentMethods, error } = useGetPaymentMethods({ team })
 
   useEffect(() => {
     setShowNewCard(!paymentMethods?.filter(paymentMethod => paymentMethod.id !== 'new-card').length)

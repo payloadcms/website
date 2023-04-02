@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
-import type { PaymentMethod } from '@stripe/stripe-js'
 import { qs } from '@utilities/qs'
 
 import type { Deployment, Plan, Project, Team } from '@root/payload-cloud-types'
@@ -51,6 +50,7 @@ export const useCloudAPI = <R>(args: {
           if (req.ok) {
             setTimeout(() => {
               setResult(json)
+              setError('')
               setIsLoading(false)
             }, delay)
           } else {
@@ -310,33 +310,6 @@ export const useGetTeam: UseCloudAPI<Team, string> = teamSlug => {
     return {
       ...response,
       result: response.result?.docs?.[0],
-    }
-  }, [response])
-}
-
-export const useGetPaymentMethods: UseCloudAPI<PaymentMethod[], Team> = team => {
-  const response = useCloudAPI<{
-    data: {
-      data: PaymentMethod[]
-    }
-  }>({
-    url: team ? `/api/stripe/rest` : '',
-    method: 'POST',
-    body: JSON.stringify({
-      stripeMethod: 'customers.listPaymentMethods',
-      stripeArgs: [
-        team?.stripeCustomerID,
-        {
-          type: 'card',
-        },
-      ],
-    }),
-  })
-
-  return useMemo(() => {
-    return {
-      ...response,
-      result: response.result?.data?.data,
     }
   }, [response])
 }
