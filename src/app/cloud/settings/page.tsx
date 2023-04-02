@@ -75,7 +75,7 @@ export default () => {
 
   return (
     <Gutter className={classes.content}>
-      <Heading marginTop={false} element="h1" as="h6" className={classes.title}>
+      <Heading marginTop={false} element="h1" as="h6">
         Account settings
       </Heading>
       <div className={classes.formState}>

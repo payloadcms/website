@@ -32,11 +32,6 @@
   }
 }
 
-.title {
-  margin: 0;
-  margin-bottom: calc(var(--base) / 2);
-}
-
 .content {
   padding: calc(var(--base) * 2);
   padding-bottom: 0;
@@ -79,7 +74,7 @@
   width: calc(var(--base) * 2.5);
   height: calc(var(--base) * 2.5);
   color: var(--theme-elevation-200);
-  transition: 50ms linear color;
+  transition: 25ms linear color;
 
   @include mid-break {
     top: calc(var(--base) * 0.5);

@@ -18,10 +18,12 @@ export const DefaultCard: React.FC<DefaultCardProps> = props => {
     >
       <div className={classes.content}>
         {leader && <div className={classes.leader}>{leader}</div>}
-        <Heading element="h2" as="h5" className={classes.title}>
+        <Heading element="h2" as="h5" marginTop={false}>
           {title}
         </Heading>
-        <PlusIcon className={classes.plusIcon} />
+        <div className={classes.plusIcon}>
+          <PlusIcon size="full" />
+        </div>
         <p className={classes.description}>{description}</p>
       </div>
       {media && typeof media !== 'string' && (

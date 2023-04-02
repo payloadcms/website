@@ -18,7 +18,7 @@ export const CircleIconButton: React.FC<{
       onClick={onClick}
     >
       <div className={classes.iconWrapper}>
-        <PlusIcon className={classes.icon} />
+        <PlusIcon size="full" />
       </div>
       <span className={classes.label}>{label}</span>
     </button>

@@ -16,6 +16,7 @@ import { redirect, useRouter } from 'next/navigation'
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { CreditCardSelector } from '@components/CreditCardSelector'
 import { Gutter } from '@components/Gutter'
+import { Heading } from '@components/Heading'
 import { useInstallationSelector } from '@components/InstallationSelector'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { usePlanSelector } from '@components/PlanSelector'
@@ -338,7 +339,9 @@ const CheckoutProvider: React.FC<{
               },
             ]}
           />
-          <h1>{title}</h1>
+          <Heading element="h1" marginTop={false}>
+            {title}
+          </Heading>
         </div>
       </Gutter>
       {tokenLoading || projectLoading ? (

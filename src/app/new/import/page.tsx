@@ -4,6 +4,7 @@ import React, { Fragment } from 'react'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
+import { Heading } from '@components/Heading'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { useGitAuthRedirect } from '../authorize/useGitAuthRedirect'
 import { ImportProject } from './ImportProject'
@@ -28,7 +29,9 @@ const ProjectFromImport: React.FC = () => {
               },
             ]}
           />
-          <h1>{title}</h1>
+          <Heading marginTop={false} element="h1">
+            {title}
+          </Heading>
         </div>
         {tokenLoading && <LoadingShimmer number={3} />}
       </Gutter>

@@ -3,6 +3,8 @@ import { AddArrayRow, ArrayRow } from '@forms/fields/Array'
 import { ArrayProvider, useArray } from '@forms/fields/Array/context'
 import { Text } from '@forms/fields/Text'
 
+import { Heading } from '@components/Heading'
+
 import classes from './EnvVars.module.scss'
 
 const NewEnvVarManager: React.FC<{
@@ -16,7 +18,9 @@ const NewEnvVarManager: React.FC<{
     <div className={[classes.envVars, className].filter(Boolean).join(' ')}>
       {hasEnvVars && (
         <div>
-          <h5 className={classes.sectionTitle}>Environment Variables</h5>
+          <Heading element="h5" marginTop={false}>
+            Environment Variables
+          </Heading>
           <div className={classes.vars}>
             {uuids?.map((uuid, index) => {
               return (

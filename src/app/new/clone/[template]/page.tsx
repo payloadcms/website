@@ -5,6 +5,7 @@ import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
+import { Heading } from '@components/Heading'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { useGlobals } from '@root/providers/Globals'
 import { useGitAuthRedirect } from '../../authorize/useGitAuthRedirect'
@@ -41,7 +42,9 @@ const ProjectFromTemplate: React.FC<{
               },
             ]}
           />
-          <h1>{title}</h1>
+          <Heading marginTop={false} element="h1">
+            {title}
+          </Heading>
         </div>
         {tokenLoading && <LoadingShimmer number={3} />}
       </Gutter>

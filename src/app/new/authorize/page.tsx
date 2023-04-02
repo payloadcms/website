@@ -50,7 +50,7 @@ const Authorize: React.FC = () => {
   return (
     <Gutter>
       <div className={classes.header}>
-        <Heading element="h1" as="h2" className={classes.title}>
+        <Heading element="h1" as="h2" marginTop={false}>
           {params?.get('title') || 'Authorize your Git provider'}
         </Heading>
         {exchangeError && <div className={classes.error}>{exchangeError}</div>}

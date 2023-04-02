@@ -26,12 +26,7 @@ export const NewProjectBlock: React.FC<{
       <Gutter>
         <div className={classes.header}>
           <div className={classes.headerContent}>
-            <Heading
-              element={headingElement}
-              marginTop={false}
-              marginBottom={false}
-              className={classes.title}
-            >
+            <Heading element={headingElement} marginTop={false}>
               {heading}
             </Heading>
             {description || (

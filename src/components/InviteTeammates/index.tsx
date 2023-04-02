@@ -4,6 +4,7 @@ import { ArrayProvider, useArray } from '@forms/fields/Array/context'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 
+import { Heading } from '@components/Heading'
 import { BorderBox } from '@root/app/_components/BorderBox'
 
 import classes from './index.module.scss'
@@ -19,7 +20,9 @@ const Invites: React.FC<{
     <BorderBox className={[classes.teamInvites, className].filter(Boolean).join(' ')}>
       {hasInvites && (
         <div>
-          <h5 className={classes.title}>Invite Others</h5>
+          <Heading element="h5" marginTop={false}>
+            Invite Others
+          </Heading>
           <div className={classes.invites}>
             {uuids?.map((uuid, index) => {
               return (
