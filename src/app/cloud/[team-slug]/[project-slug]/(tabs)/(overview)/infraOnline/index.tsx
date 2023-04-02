@@ -117,6 +117,24 @@ export const InfraOnline: React.FC = () => {
     [project.id],
   )
 
+  const triggerDeploy = React.useCallback(() => {
+    fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project.id}/deploy`, {
+      method: 'POST',
+      credentials: 'include',
+    }).then(res => {
+      if (res.status === 200) {
+        return toast.success('New deployment triggered successfully')
+      }
+      if (res.status === 429) {
+        return toast.error(
+          'You can only manually deploy once per minute. Please wait and try again.',
+        )
+      }
+
+      return toast.error('Failed to deploy')
+    })
+  }, [project.id])
+
   React.useEffect(() => {
     const getActiveDeployment = async () => {
       if (!activeDeployment) {
@@ -252,13 +270,7 @@ export const InfraOnline: React.FC = () => {
           <Grid>
             <Cell className={classes.reTriggerBackground} start={1}>
               <div>
-                <Button
-                  appearance="text"
-                  onClick={() => {
-                    toast.success('New deployment triggered successfully')
-                  }}
-                  label="Trigger Redeploy"
-                />
+                <Button appearance="text" onClick={triggerDeploy} label="Trigger Redeploy" />
               </div>
 
               {activeDeployment?.commitMessage && (
