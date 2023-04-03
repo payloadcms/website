@@ -1,0 +1,7 @@
+node_modules
+.next
+*.scss
+*.json
+*.md
+**/payload-cloud-types.ts
+**/payload-types.ts

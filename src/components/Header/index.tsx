@@ -2,12 +2,13 @@
 
 import * as React from 'react'
 import { useModal } from '@faceless-ui/modal'
+import { useScrollInfo } from '@faceless-ui/scroll-info'
 import { useHeaderTheme } from '@providers/HeaderTheme'
 import { ThemeProvider } from '@providers/Theme'
+
 import { MainMenu } from '@root/payload-types'
-import { useScrollInfo } from '@faceless-ui/scroll-info'
-import { MobileNav, modalSlug as mobileNavModalSlug } from './MobileNav'
 import { DesktopNav } from './DesktopNav'
+import { MobileNav, modalSlug as mobileNavModalSlug } from './MobileNav'
 
 import classes from './index.module.scss'
 

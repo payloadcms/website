@@ -1,0 +1,29 @@
+@use '@scss/common.scss' as *;
+
+.tooltipButton {
+  all: unset;
+  display: flex;
+  position: relative;
+  cursor: pointer;
+  border-radius: 3px;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--theme-elevation-200);
+  }
+
+  &:focus-visible {
+    @include outline;
+  }
+
+  .tip {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &.show {
+    .tip {
+      opacity: 1;
+    }
+  }
+}

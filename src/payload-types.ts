@@ -337,6 +337,46 @@ export interface CaseStudy {
       blockType: 'mediaContent';
     }
     | {
+      pricingFields: {
+        plans: {
+          name: string;
+          hasPrice?: boolean;
+          price: string;
+          title: string;
+          description?: string;
+          enableLink?: boolean;
+          link: {
+            type?: 'reference' | 'custom';
+            newTab?: boolean;
+            reference:
+            | {
+              value: string | Page;
+              relationTo: 'pages';
+            }
+            | {
+              value: string | Post;
+              relationTo: 'posts';
+            }
+            | {
+              value: string | CaseStudy;
+              relationTo: 'case-studies';
+            };
+            url: string;
+          };
+          features: {
+            icon?: 'check' | 'x';
+            feature?: string;
+            id?: string;
+          }[];
+          id?: string;
+        }[];
+        disclaimer?: string;
+      };
+      id?: string;
+      blockName?: string;
+      blockType: 'pricing';
+    }
+    | {
       reusableContentBlockFields: {
         reusableContent: string | ReusableContent;
       };
@@ -585,7 +625,7 @@ export interface Page {
       guests: {
         name?: string;
         link?: string;
-        image?: Media;
+        image?: string | Media;
         id?: string;
       }[];
     };
@@ -981,6 +1021,46 @@ export interface Page {
       id?: string;
       blockName?: string;
       blockType: 'mediaContent';
+    }
+    | {
+      pricingFields: {
+        plans: {
+          name: string;
+          hasPrice?: boolean;
+          price: string;
+          title: string;
+          description?: string;
+          enableLink?: boolean;
+          link: {
+            type?: 'reference' | 'custom';
+            newTab?: boolean;
+            reference:
+            | {
+              value: string | Page;
+              relationTo: 'pages';
+            }
+            | {
+              value: string | Post;
+              relationTo: 'posts';
+            }
+            | {
+              value: string | CaseStudy;
+              relationTo: 'case-studies';
+            };
+            url: string;
+          };
+          features: {
+            icon?: 'check' | 'x';
+            feature?: string;
+            id?: string;
+          }[];
+          id?: string;
+        }[];
+        disclaimer?: string;
+      };
+      id?: string;
+      blockName?: string;
+      blockType: 'pricing';
     }
     | {
       reusableContentBlockFields: {
@@ -1770,6 +1850,46 @@ export interface ReusableContent {
       id?: string;
       blockName?: string;
       blockType: 'mediaContent';
+    }
+    | {
+      pricingFields: {
+        plans: {
+          name: string;
+          hasPrice?: boolean;
+          price: string;
+          title: string;
+          description?: string;
+          enableLink?: boolean;
+          link: {
+            type?: 'reference' | 'custom';
+            newTab?: boolean;
+            reference:
+            | {
+              value: string | Page;
+              relationTo: 'pages';
+            }
+            | {
+              value: string | Post;
+              relationTo: 'posts';
+            }
+            | {
+              value: string | CaseStudy;
+              relationTo: 'case-studies';
+            };
+            url: string;
+          };
+          features: {
+            icon?: 'check' | 'x';
+            feature?: string;
+            id?: string;
+          }[];
+          id?: string;
+        }[];
+        disclaimer?: string;
+      };
+      id?: string;
+      blockName?: string;
+      blockType: 'pricing';
     }
     | {
       sliderFields: {

@@ -1,0 +1,7 @@
+@use '@scss/common' as *;
+
+.plans {
+    & > *:not(:last-child) {
+        margin-bottom: var(--base);
+    }
+}

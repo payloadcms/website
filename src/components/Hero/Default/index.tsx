@@ -1,13 +1,12 @@
 'use client'
 
+import React from 'react'
+import { Cell, Grid } from '@faceless-ui/css-grid'
+
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
 import { HeaderObserver } from '@components/HeaderObserver'
-import { useTheme } from '@providers/Theme'
 import { RichText } from '@components/RichText'
-import { Cell, Grid } from '@faceless-ui/css-grid'
-import { usePathname } from 'next/navigation'
-import React from 'react'
 import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
@@ -17,18 +16,15 @@ export const DefaultHero: React.FC<
     breadcrumbs?: Page['breadcrumbs']
   }
 > = ({ richText, sidebarContent, breadcrumbs }) => {
-  const theme = useTheme()
   const withoutSidebar =
     !sidebarContent ||
     (sidebarContent.length === 1 &&
       Array.isArray(sidebarContent[0].children) &&
       sidebarContent[0].children?.length === 1 &&
       !sidebarContent[0].children[0].text)
-  const slug = usePathname()
-  const pullUpObserver = !(slug ? ['/', '/home'].includes(slug) : false)
 
   return (
-    <HeaderObserver color={theme} pullUp={pullUpObserver}>
+    <HeaderObserver pullUp>
       <Gutter>
         <div className={classes.defaultHero}>
           {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}

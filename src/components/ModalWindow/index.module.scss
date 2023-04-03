@@ -1,0 +1,19 @@
+.modalWindow {
+  all: unset;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  z-index: calc(var(--z-modal) + 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.window {
+  background-color: var(--theme-bg);
+  border: 1px solid var(--theme-elevation-250);
+  padding: calc(var(--base) * 2);
+  width: 700px;
+  max-width: calc(100% - var(--gutter-h));
+  margin: auto;
+}

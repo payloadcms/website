@@ -1,0 +1,123 @@
+@use '@scss/common' as *;
+
+.sidebarCell {
+    position: relative;
+    height: 100%;
+}
+
+.appPermissions {
+    a {
+        color: var(--theme-blue-500);
+        text-decoration: underline;
+    }
+}
+
+.sidebar {
+    position: sticky;
+    top: calc(var(--base) * 5);
+
+    > *:not(:last-child) {
+        margin-bottom: calc(var(--base) * 2);
+    }
+
+    @include mid-break {
+        position: static;
+        top: unset;
+
+        > *:not(:last-child) {
+            margin-bottom: var(--base);
+        }
+    }
+}
+
+.errors {
+    margin-bottom: calc(var(--base) * 2);
+    color: var(--theme-error-500);
+
+    & > * {
+        margin: 0;
+
+        &:not(:last-child) {
+            margin-bottom: calc(var(--base) / 2);
+        }
+    }
+}
+
+.repos {
+    border: 0.5px solid var(--theme-elevation-500);
+    border-left: 0;
+    border-right: 0;
+}
+
+.repo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: calc(var(--base) * 2) 0;
+    position: relative;
+
+    &:not(:last-child) {
+        border-bottom: 0.5px solid var(--theme-elevation-500);
+    }
+
+    @include small-break {
+        padding: var(--base) 0;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.repoContent {
+    flex-grow: 1;
+    margin-right: var(--base);
+
+    @include small-break {
+        margin-right: 0;
+        margin-bottom: calc(var(--base) / 2);
+    }
+}
+
+.repoName {
+    margin: 0;
+}
+
+.repoDescription {
+    margin: 0;
+    margin-top: calc(var(--base) / 2);
+    color: var(--theme-text-500);
+}
+
+.pagination {
+    margin-top: calc(var(--base) * 2);
+    display: flex;
+    align-items: center;
+}
+
+.paginationPage {
+    margin: 0 var(--base);
+}
+
+.paginationButton {
+    background: var(--theme-elevation-500);
+    border: 0;
+    outline: none;
+    line-height: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    cursor: pointer;
+    padding: 0 calc(var(--base) / 2);
+}
+
+.createTeamLink {
+    background-color: transparent;
+    line-height: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    color: inherit;
+    text-decoration: underline;
+}

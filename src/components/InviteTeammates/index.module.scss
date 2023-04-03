@@ -1,0 +1,57 @@
+@use "@scss/common" as *;
+
+.invites {  
+  margin-bottom: var(--base);
+  
+  & > *:not(:last-child) {
+    margin-bottom: var(--base);
+  }
+}
+
+.item {
+  display: flex;
+  position: relative;
+  left: calc(var(--base) * -0.5);
+  width: calc(100% + var(--base));
+
+  & > * {
+    flex: 1;
+    margin: 0 calc(var(--base) / 2);
+  }
+}
+
+.field {
+  width: 100%;
+  align-self: flex-end;
+  flex: 1 1;
+}
+
+@include small-break {
+  .fieldWrap {
+    padding: var(--base) 0;
+    position: relative;
+
+    &:before {
+      position: absolute;
+      content: '';
+      width: 1px;
+      height: calc(100% - calc(var(--base)*2));
+      top: var(--base);
+      left: calc(var(--base) * -1);
+      background-color: var(--theme-border-color);
+    }
+
+    & div {
+      flex-direction: column;
+    }
+
+    & label {
+      align-self: flex-start;
+    }
+
+    & button {
+      align-self: center;
+      transform: translateY(100%);
+    }
+  }
+}

@@ -23,7 +23,7 @@
             .description {
                 opacity: 1;
             }
-            
+
             .arrow {
                 opacity: 1;
             }
@@ -32,7 +32,7 @@
                 transform: translate3d(0, 0, 0);
                 opacity: 1;
             }
-        
+
             .leader {
                 opacity: 0;
             }
@@ -129,7 +129,7 @@
     margin: 0 !important;
 
     @include extra-large-break {
-      @include h6;
+        @include h6;
     }
 
     @include mid-break {
@@ -174,7 +174,7 @@
             transform: translate3d(0, 0, 0);
             opacity: 1;
         }
-    
+
         .leader {
             opacity: 1;
         }

@@ -1,0 +1,15 @@
+@use '@scss/common' as *;
+
+.error {
+    color: var(--theme-error-500);
+}
+
+.cards {
+    > *:not(:last-child) {
+        margin-bottom: var(--base);
+    }
+}
+
+.addNew {
+    margin-top: var(--base);
+}

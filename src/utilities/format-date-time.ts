@@ -66,7 +66,7 @@ export function formatDate(args: Args): string {
     const options = formatOptions[format]
     return new Intl.DateTimeFormat('en-US', options).format(dateObj)
   } catch (e: unknown) {
-    console.error('Error formatting date', e)
+    console.error('Error formatting date', e) // eslint-disable-line no-console
     return String(date)
   }
 }

@@ -1,0 +1,24 @@
+@use '@scss/common' as *;
+@use "../../../forms/fields/shared.scss";
+
+.error {
+  color: var(--color-error-500);
+}
+
+.submit {
+  margin-top: var(--base);
+
+  @include mid-break {
+    margin-top: calc(var(--base) / 4);
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 1.25);
+
+  @include mid-break {
+    gap: calc(var(--base) * 1);
+  }
+}

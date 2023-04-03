@@ -1,11 +1,12 @@
 'use client'
 
 import * as React from 'react'
-import { RichText } from '@components/RichText'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { CloseIcon } from '@root/graphics/CloseIcon'
 import { useCookies } from 'react-cookie'
 import { usePathname } from 'next/navigation'
+
+import { RichText } from '@components/RichText'
+import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { CloseIcon } from '@root/icons/CloseIcon'
 import type { Announcement } from '../../payload-types'
 
 import classes from './index.module.scss'

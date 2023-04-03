@@ -1,10 +1,12 @@
-import { BlockSpacing } from '@components/BlockSpacing'
 import React, { useState } from 'react'
-import { Page } from '@root/payload-types'
-import { Gutter } from '@components/Gutter'
+
+import { BlockSpacing } from '@components/BlockSpacing'
 import { CMSLink } from '@components/CMSLink'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { Gutter } from '@components/Gutter'
 import { LineDraw } from '@components/LineDraw'
+import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { Page } from '@root/payload-types'
+
 import classes from './index.module.scss'
 
 export type LinkGridProps = Extract<Page['layout'][0], { blockType: 'linkGrid' }>
@@ -26,15 +28,28 @@ const Link: React.FC<LinkGridProps['linkGridFields']['links'][0]['link']> = prop
   )
 }
 
-export const LinkGrid: React.FC<LinkGridProps> = props => {
+export const LinkGrid: React.FC<
+  LinkGridProps & {
+    className?: string
+    topMargin?: boolean
+    bottomMargin?: boolean
+  }
+> = props => {
   const {
+    className,
+    topMargin,
+    bottomMargin,
     linkGridFields: { links },
   } = props
 
   const hasLinks = Array.isArray(links) && links.length > 0
 
   return (
-    <BlockSpacing className={classes.linkGrid}>
+    <BlockSpacing
+      className={[className, classes.linkGrid].filter(Boolean).join(' ')}
+      top={topMargin}
+      bottom={bottomMargin}
+    >
       <Gutter>
         {hasLinks && (
           <div className={classes.links}>

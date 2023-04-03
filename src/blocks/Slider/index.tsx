@@ -1,14 +1,15 @@
 import * as React from 'react'
-import { SliderProvider, SliderNav, SliderTrack, Slide } from '@faceless-ui/slider'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import { Slide, SliderNav, SliderProvider, SliderTrack } from '@faceless-ui/slider'
+
 import { Gutter } from '@components/Gutter'
 import { PixelBackground } from '@components/PixelBackground'
-import { Page } from '@root/payload-types'
 import { RichText } from '@components/RichText'
+import { Page } from '@root/payload-types'
 import { ArrowIcon } from '../../icons/ArrowIcon'
+import { useComputedCSSValues } from '../../providers/ComputedCSSValues'
 import { ImageCard } from './ImageCard'
 import { QuoteCard } from './QuoteCard'
-import { useComputedCSSValues } from '../../providers/ComputedCSSValues'
 
 import classes from './index.module.scss'
 

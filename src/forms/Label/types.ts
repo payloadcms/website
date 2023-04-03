@@ -1,5 +1,6 @@
 export interface Props {
-  label?: string
+  label?: string | React.ReactNode
   required?: boolean
+  actionsSlot?: React.ReactNode
   htmlFor?: string
 }

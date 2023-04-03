@@ -1,6 +1,7 @@
 import React, { Fragment, useRef } from 'react'
 import { useTheme } from '@providers/Theme'
 import useIntersection from '@utilities/useIntersection'
+
 import classes from './index.module.scss'
 
 export const Highlight: React.FC<{
@@ -11,8 +12,16 @@ export const Highlight: React.FC<{
   highlightOnHover?: boolean
   highlight?: boolean
   reverseIcon?: boolean
+  appearance?: 'success' | 'danger'
 }> = props => {
-  const { bold, className, text, inlineIcon: InlineIcon, reverseIcon } = props
+  const {
+    bold,
+    className,
+    text,
+    inlineIcon: InlineIcon,
+    reverseIcon,
+    appearance = 'success',
+  } = props
 
   const ref = useRef(null)
 
@@ -30,7 +39,12 @@ export const Highlight: React.FC<{
       return (
         <span
           ref={ref}
-          className={[classes.highlightWrapper, className, theme === 'dark' && classes.darkMode]
+          className={[
+            classes.highlightWrapper,
+            className,
+            theme === 'dark' && classes.darkMode,
+            classes[appearance],
+          ]
             .filter(Boolean)
             .join(' ')}
         >

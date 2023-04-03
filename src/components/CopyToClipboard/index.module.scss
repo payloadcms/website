@@ -1,46 +1,9 @@
-@use '@scss/common' as *;
-
-.copyToClipboard {
-  @include btnReset;
-  position: relative;
-  cursor: pointer;
-  vertical-align: middle;
-  color: currentColor;
-  display: inline-flex;
-
-  textarea {
-    position: absolute;
-    opacity: 0;
-    z-index: -1;
-    height: 0px;
-    width: 0px;
-  }
-
-  .tooltip {
-    pointer-events: none;
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  &:focus,
-  &:active {
-    outline: none;
-  }
-
-  &:hover {
-    .tooltip {
-      opacity: 1;
-      visibility: visible;
-
-    }
-  }
-}
-
-.tooltipWrapper {
+.copyTextarea {
+  position: absolute;
   opacity: 0;
+  border: none;
   pointer-events: none;
-}
-
-.showTooltip {
-  opacity: 1;
+  user-select: none;
+  width: 0;
+  height: 1px;
 }

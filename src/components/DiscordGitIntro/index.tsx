@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react'
-import AuthorTag from '@components/AuthorTag'
 import Link from 'next/link'
+
+import AuthorTag from '@components/AuthorTag'
 import { DiscordGitBody } from '@components/DiscordGitBody'
 import { FileAttachments } from '@components/FileAttachment'
 import { Attachments } from '@root/app/community-help/discord/[thread]/render'
+
 import classes from './index.module.scss'
 
 export type Props = {

@@ -1,0 +1,23 @@
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+}
+
+.meta {
+  list-style: none;
+  padding: 0;
+  
+  li {
+    display: flex;
+  }
+
+  strong {
+    width: 300px;
+    flex-shrink: 0;
+  }
+}
+
+.secretInput {
+  margin-bottom: calc(var(--base) * 1.5);
+}

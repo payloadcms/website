@@ -1,8 +1,9 @@
 import React from 'react'
-import Link from 'next/link'
 import GitHubButton from 'react-github-btn'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
+import Link from 'next/link'
+
 import { PixelBackground } from '@components/PixelBackground'
+import { ArrowIcon } from '@root/icons/ArrowIcon'
 
 import classes from './index.module.scss'
 
@@ -42,6 +43,7 @@ const DiscordGitCTA: React.FC = () => {
         >
           <div className={classes.message}>Connect with the Payload Community on Discord</div>
           <div className={classes.discordButton}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               alt="Discord"
               src="https://img.shields.io/discord/967097582721572934?label=Discord&color=5865F2&style=flat-square"

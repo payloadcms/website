@@ -11,6 +11,7 @@ import {
   LINK_GRID,
   MEDIA_BLOCK,
   MEDIA_CONTENT,
+  PRICING_BLOCK,
   REUSABLE_CONTENT_BLOCK,
   SLIDER,
   STEPS,
@@ -23,7 +24,7 @@ import { META_FIELDS } from './meta'
 
 export const PAGES = `
   query Pages {
-    Pages(limit: 300) {
+    Pages(limit: 300, where: { slug: { not_equals: "cloud" } }) {
       docs {
         slug
         breadcrumbs {
@@ -37,7 +38,7 @@ export const PAGES = `
 
 export const PAGE = `
   query Page($slug: String ) {
-    Pages(where: { slug: { equals: $slug} }, draft: true) {
+    Pages(where: { slug: { equals: $slug} }) {
       docs {
         id
         title
@@ -86,6 +87,7 @@ export const PAGE = `
           ${LINK_GRID}
           ${MEDIA_BLOCK}
           ${MEDIA_CONTENT}
+          ${PRICING_BLOCK}
           ${REUSABLE_CONTENT_BLOCK}
           ${SLIDER}
           ${STEPS}

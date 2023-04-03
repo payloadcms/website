@@ -1,0 +1,41 @@
+@use '@scss/common.scss' as *;
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.password {
+    @include label;
+}
+
+.error {
+    color: var(--theme-error-500);
+}
+
+.success {
+    color: var(--theme-success-500);
+}
+
+.form {
+    margin-top: calc(var(--base));
+    max-width: 600px;
+
+    &>* {
+        margin-bottom: var(--base);
+    }
+
+    &>*:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.hr {
+    margin: calc(var(--base) * 3) 0;
+
+    @include mid-break {
+        margin: calc(var(--base)) 0;
+    }
+}

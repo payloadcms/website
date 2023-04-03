@@ -1,0 +1,10 @@
+@use '@scss/common' as *;
+
+.divider {
+  margin: calc(var(--base) * 4) 0;
+  border-color: var(--theme-border-color);
+
+  @include mid-break {
+    margin: calc(var(--base) * 2) 0;
+  }
+}

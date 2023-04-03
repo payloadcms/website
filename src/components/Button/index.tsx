@@ -1,25 +1,29 @@
 'use client'
 
-import { LineBlip } from '@components/LineBlip'
-import Link from 'next/link'
 import React, { useState } from 'react'
+import Link from 'next/link'
+
+import { LineBlip } from '@components/LineBlip'
+import { GitHubIcon } from '@root/graphics/GitHub'
+import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { PlusIcon } from '@root/icons/PlusIcon'
+import { SearchIcon } from '@root/icons/SearchIcon'
+import { Page } from '@root/payload-types'
 // eslint-disable-next-line import/no-cycle
 import { LinkType, Reference } from '../CMSLink'
-import { ArrowIcon } from '../../icons/ArrowIcon'
-import { SearchIcon } from '../../icons/SearchIcon'
-import classes from './index.module.scss'
-import { Page } from '../../payload-types'
 
-export type Props = {
-  appearance?: 'default' | 'primary' | 'secondary'
-  el?: 'button' | 'link' | 'a'
-  onClick?: () => void
+import classes from './index.module.scss'
+
+export type ButtonProps = {
+  appearance?: 'default' | 'text' | 'primary' | 'secondary' | 'danger'
+  el?: 'button' | 'link' | 'a' | 'div'
+  onClick?: (e: any) => void | Promise<void>
   href?: string
   newTab?: boolean
   className?: string
   label?: string
   labelStyle?: 'mono' | 'regular'
-  icon?: 'arrow' | 'search'
+  icon?: 'arrow' | 'search' | 'github' | 'plus'
   fullWidth?: boolean
   mobileFullWidth?: boolean
   type?: LinkType
@@ -27,12 +31,16 @@ export type Props = {
   htmlButtonType?: 'button' | 'submit'
   onMouseEnter?: () => void
   onMouseLeave?: () => void
+  size?: 'pill' | 'default'
+  disabled?: boolean
   disableLineBlip?: boolean
 }
 
 const icons = {
   arrow: ArrowIcon,
   search: SearchIcon,
+  github: GitHubIcon,
+  plus: PlusIcon,
 }
 
 type GenerateSlugType = {
@@ -71,7 +79,7 @@ const generateHref = (args: GenerateSlugType): string => {
   return ''
 }
 
-const ButtonContent: React.FC<Props> = props => {
+const ButtonContent: React.FC<ButtonProps> = props => {
   const { icon, label, labelStyle = 'mono' } = props
 
   const Icon = icon ? icons[icon] : null
@@ -91,11 +99,10 @@ const ButtonContent: React.FC<Props> = props => {
           {label}
         </div>
       )}
-      {Icon && label && (
-        // NOTE: this is so that the icon and label can be reversed but keep spacing without messy css
-        <span className={classes.spacer} />
+      {Icon && label && <div className={classes.spacer} />}
+      {Icon && (
+        <Icon className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')} />
       )}
-      {Icon && <Icon className={classes.icon} />}
     </div>
   )
 }
@@ -105,9 +112,10 @@ const elements: {
 } = {
   a: 'a',
   button: 'button',
+  div: 'div',
 }
 
-export const Button: React.FC<Props> = props => {
+export const Button: React.FC<ButtonProps> = props => {
   const {
     el = 'button',
     type,
@@ -119,6 +127,8 @@ export const Button: React.FC<Props> = props => {
     fullWidth,
     mobileFullWidth,
     htmlButtonType = 'button',
+    size = 'default',
+    disabled,
     href: hrefFromProps,
     disableLineBlip,
   } = props
@@ -135,6 +145,8 @@ export const Button: React.FC<Props> = props => {
     classes[`appearance--${appearance}`],
     fullWidth && classes['full-width'],
     mobileFullWidth && classes['mobile-full-width'],
+    size && classes[`size--${size}`],
+    isHovered && classes.isHovered,
   ]
     .filter(Boolean)
     .join(' ')
@@ -175,8 +187,11 @@ export const Button: React.FC<Props> = props => {
         onMouseLeave={() => {
           setIsHovered(false)
         }}
+        disabled={disabled}
       >
-        {appearance === 'default' && !disableLineBlip && <LineBlip active={isHovered} />}
+        {size !== 'pill' && appearance === 'default' && !disableLineBlip && (
+          <LineBlip active={isHovered} />
+        )}
         <ButtonContent {...props} />
       </Element>
     )

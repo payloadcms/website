@@ -1,0 +1,42 @@
+@use '@scss/common.scss' as *;
+
+.button {
+  padding: 0;
+  color: var(--theme-elevation-500);
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  outline: 0;
+  line-height: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: color 25ms linear;
+
+  &:hover {
+    &:local() {
+      color: var(--color-theme-text);
+    }
+  }
+
+  &:focus-visible .iconWrapper{
+    @include outline;
+  }
+}
+
+.label {
+  margin-left: calc(var(--base) * 0.75);
+}
+
+.iconWrapper {
+  width: calc(var(--base) * 1.5);
+  height: calc(var(--base) * 1.5);
+  border: 1px solid currentColor;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+}

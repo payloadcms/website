@@ -1,73 +1,52 @@
-import React, { useEffect, useState, useRef } from 'react'
-import Copy from '../../icons/Copy'
-import Tooltip from '../Tooltip'
+import * as React from 'react'
+
+import { TooltipButton } from '@components/TooltipButton'
+import Copy from '@root/icons/Copy'
 
 import classes from './index.module.scss'
 
-export type Props = {
-  value?: string
-  defaultMessage?: string
-  successMessage?: string
+type CopyToClipboardProps = {
+  value: (() => Promise<string | null>) | string | null
   className?: string
 }
+export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ value, className }) => {
+  const [copied, setCopied] = React.useState(false)
+  const [showTooltip, setShowTooltip] = React.useState(false)
+  const ref = React.useRef<any>(null)
 
-const CopyToClipboard: React.FC<Props> = ({
-  value,
-  defaultMessage = 'copy',
-  successMessage = 'copied',
-  className,
-}) => {
-  const ref = useRef<any>(null)
-  const [copied, setCopied] = useState(false)
-  const [hovered, setHovered] = useState(false)
+  const copy = React.useCallback(async () => {
+    if (ref && ref.current && value) {
+      const copyValue = typeof value === 'string' ? value : await value()
+      if (!copyValue) return
 
-  useEffect(() => {
-    if (copied && !hovered) {
+      ref.current.value = copyValue
+      ref.current.select()
+      ref.current.setSelectionRange(0, copyValue.length + 1)
+      document.execCommand('copy')
+
+      setCopied(true)
+    }
+  }, [value])
+
+  React.useEffect(() => {
+    if (copied && !showTooltip) {
       setTimeout(() => {
         setCopied(false)
-      }, 1000)
+      }, 500)
     }
-  }, [copied, hovered])
+  }, [copied, showTooltip])
 
-  if (value) {
-    return (
-      <button
-        onMouseEnter={() => {
-          setHovered(true)
-          setCopied(false)
-        }}
-        onMouseLeave={() => {
-          setHovered(false)
-        }}
-        type="button"
-        className={[classes.copyToClipboard, className && className].filter(Boolean).join(' ')}
-        onClick={() => {
-          if (ref && ref.current) {
-            ref.current.select()
-            ref.current.setSelectionRange(0, value.length + 1)
-            document.execCommand('copy')
+  return (
+    <TooltipButton
+      onClick={copy}
+      text={copied ? 'copied' : 'copy'}
+      setIsVisible={setShowTooltip}
+      isVisible={showTooltip || copied}
+      className={className}
+    >
+      <Copy />
 
-            setCopied(true)
-          }
-        }}
-      >
-        <Copy />
-        <div
-          className={[classes.tooltipWrapper, hovered || copied ? classes.showTooltip : ''].join(
-            ' ',
-          )}
-        >
-          <Tooltip>
-            {copied && successMessage}
-            {!copied && defaultMessage}
-          </Tooltip>
-        </div>
-        <textarea readOnly value={value} ref={ref} />
-      </button>
-    )
-  }
-
-  return null
+      <textarea className={classes.copyTextarea} tabIndex={-1} readOnly ref={ref} />
+    </TooltipButton>
+  )
 }
-
-export default CopyToClipboard

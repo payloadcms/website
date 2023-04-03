@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+
 import slugify from '../../../utilities/slugify'
 import { JumplistNode } from '../../Jumplist'
 import { useMDX } from '../context'

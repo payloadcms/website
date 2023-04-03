@@ -18,7 +18,7 @@
   position: relative;
   padding: calc(var(--base) * 4) 0;
 
-  & > *:not(:last-child) {
+  &>*:not(:last-child) {
     margin-bottom: var(--base);
   }
 
@@ -33,9 +33,11 @@
   margin-bottom: var(--base);
 }
 
-.richText  {
+.richText {
   :global {
-    ul, ol {
+
+    ul,
+    ol {
       list-style: none;
       padding: 0;
     }
@@ -93,6 +95,12 @@
   position: relative;
 }
 
+.formCellContent {
+  & label {
+    @include label;
+  }
+}
+
 // .formCellContent {
 //   display: flex;
 //   flex-direction: column;
@@ -133,7 +141,7 @@
   width: calc(var(--base) * 16);
   right: 0;
   left: auto;
-  
+
   @include mid-break {
     width: calc(var(--base) * 10);
   }

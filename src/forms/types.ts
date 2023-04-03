@@ -1,9 +1,8 @@
 import type React from 'react'
-import type { Option } from './fields/RadioGroup'
 
 export type Validate = undefined | ((value: unknown, options?: unknown) => boolean | string)
 
-export type Value = string | number | boolean | string[] | Option | Option[]
+export type Value = any // eslint-disable-line @typescript-eslint/no-explicit-any
 
 export interface Property {
   [key: string]: Value
@@ -14,7 +13,15 @@ export interface Data {
 }
 
 export interface OnSubmit {
-  (data: Property, unflattenedData: Data): void | Promise<void>
+  ({
+    data,
+    unflattenedData,
+    dispatchFields,
+  }: {
+    data: Property
+    unflattenedData: Data
+    dispatchFields: React.Dispatch<Action>
+  }): void | Promise<void>
 }
 
 export interface Field {
@@ -83,4 +90,8 @@ export interface IFormContext {
   setIsModified: (modified: boolean) => void
   setIsProcessing: (processing: boolean) => void
   setHasSubmitted: (submitted: boolean) => void
+  apiErrors?: Array<{
+    field: string
+    message: string
+  }>
 }

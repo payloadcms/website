@@ -1,11 +1,12 @@
 'use client'
 
-import { CMSLink } from '@components/CMSLink'
-import CreatePayloadApp from '@components/CreatePayloadApp'
-import Image from 'next/image'
 import React from 'react'
 import Marquee from 'react-fast-marquee'
-import { ThemeProvider, useTheme } from '@providers/Theme'
+import { ThemeProvider } from '@providers/Theme'
+import Image from 'next/image'
+
+import { CMSLink } from '@components/CMSLink'
+import CreatePayloadApp from '@components/CreatePayloadApp'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
 import { RichText } from '@components/RichText'
@@ -21,12 +22,10 @@ export const HomeHero: React.FC<Page['hero']> = ({
   // buttons,
   media,
 }) => {
-  const theme = useTheme()
-
   return (
     <div className={classes.homeHero}>
       <ThemeProvider theme="dark" className={classes.wrap}>
-        <HeaderObserver color="dark">
+        <HeaderObserver>
           <div className={classes.bg}>
             <Marquee gradient={false}>
               <div className={classes.bgImage}>
@@ -90,11 +89,12 @@ export const HomeHero: React.FC<Page['hero']> = ({
           </div>
         </HeaderObserver>
       </ThemeProvider>
+
       {typeof media === 'object' && (
         <Gutter className={classes.mediaGutter}>
           <Media resource={media} className={classes.media} />
           <div className={classes.voidSpaceBelowMedia}>
-            <HeaderObserver color={theme} />
+            <HeaderObserver />
           </div>
         </Gutter>
       )}

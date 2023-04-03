@@ -1,8 +1,10 @@
 import React from 'react'
 import NextImage, { StaticImageData } from 'next/image'
-import classes from './index.module.scss'
+
 import cssVariables from '../../../../cssVariables'
 import { Props } from '../types'
+
+import classes from './index.module.scss'
 
 const { breakpoints } = cssVariables
 
@@ -17,12 +19,14 @@ export const Image: React.FC<Props> = props => {
     fill,
     src: srcFromProps,
     alt: altFromProps,
+    width: widthFromProps,
+    height: heightFromProps,
   } = props
 
   const [isLoading, setIsLoading] = React.useState(true)
 
-  let width: number | undefined
-  let height: number | undefined
+  let width: number | undefined = widthFromProps
+  let height: number | undefined = heightFromProps
   let alt = altFromProps
   let src: StaticImageData | string | undefined = srcFromProps
 

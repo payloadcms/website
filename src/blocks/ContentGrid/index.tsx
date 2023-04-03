@@ -1,8 +1,9 @@
 import * as React from 'react'
-import { Gutter } from '@components/Gutter'
-import { ThemeProvider } from '@providers/Theme'
-import { RichText } from '@components/RichText'
 import { Cell, Grid } from '@faceless-ui/css-grid'
+import { ThemeProvider } from '@providers/Theme'
+
+import { Gutter } from '@components/Gutter'
+import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
