@@ -71,7 +71,7 @@ export const InfraOffline: React.FC = () => {
   React.useEffect(() => {
     let timerId
 
-    if (!['done', 'error', 'deployError'].includes(infraStatus)) {
+    if (!['done'].includes(infraStatus)) {
       timerId = setInterval(() => {
         reloadProject()
       }, 5000) // Poll every 5 seconds
