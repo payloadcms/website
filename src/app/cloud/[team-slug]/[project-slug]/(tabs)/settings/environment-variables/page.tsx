@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { Collapsible, CollapsibleGroup } from '@faceless-ui/collapsibles'
 
+import { Banner } from '@components/Banner'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { Accordion } from '@root/app/cloud/_components/Accordion'
 import { Divider } from '@root/app/cloud/_components/SectionDivider'
@@ -18,6 +19,10 @@ export default () => {
   return (
     <MaxWidth>
       <SectionHeader title="Environment Variables" />
+      <Banner>
+        <strong>Note:</strong> if you update your environment variables, you will need to manually
+        trigger a deployment to see changes take effect.
+      </Banner>
 
       <CollapsibleGroup transTime={250} transCurve="ease">
         <Collapsible openOnInit>
