@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { useWindowInfo } from '@faceless-ui/window-info'
 import { useHeaderTheme } from '@providers/HeaderTheme'
+import { usePathname } from 'next/navigation'
 
 import { useTheme } from '@root/providers/Theme'
 
@@ -107,6 +108,7 @@ const WrappedHeaderObserver: React.FC<
 type Type = {
   isDetached: boolean
   detachParentObserver: () => void
+  attachParentObserver: () => void
 }
 const Context = React.createContext<Type | undefined>(undefined)
 
@@ -114,9 +116,14 @@ const useParentHeaderObserver = (): Type | undefined => React.useContext(Context
 export const HeaderObserver: React.FC<Props> = props => {
   const [isDetached, setIsDetached] = React.useState(false)
   const parentObserver = useParentHeaderObserver()
+  const pathname = usePathname()
 
   const detachParentObserver = React.useCallback(() => {
     setIsDetached(true)
+  }, [])
+
+  const attachParentObserver = React.useCallback(() => {
+    setIsDetached(false)
   }, [])
 
   React.useEffect(() => {
@@ -125,11 +132,18 @@ export const HeaderObserver: React.FC<Props> = props => {
     }
   }, [parentObserver])
 
+  React.useEffect(() => {
+    if (parentObserver !== undefined) {
+      parentObserver.attachParentObserver()
+    }
+  }, [parentObserver, pathname])
+
   return (
     <Context.Provider
       value={{
         isDetached,
         detachParentObserver,
+        attachParentObserver,
       }}
     >
       <WrappedHeaderObserver {...props} isDetached={isDetached} />
