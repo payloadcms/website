@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react'
 
+import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics'
+import { GoogleTagManager } from '@components/Analytics/GoogleTagManager'
 import { Media } from '@root/payload-types'
 
 export type MetaType = {
@@ -45,6 +47,8 @@ const Meta: React.FC<MetaType> = ({
       <meta property="og:site_name" content="Payload CMS" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta property="og:type" content="website" />
+      <GoogleAnalytics />
+      <GoogleTagManager />
     </Fragment>
   )
 }
