@@ -35,7 +35,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .success {
   background-color: var(--theme-success-100);
   color: var(--theme-success-900);
-  border-left:  1px solid var(--theme-success-500);
+  border-left: 1px solid var(--theme-success-500);
 
   &:local() {
     .icon {
@@ -47,7 +47,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .warning {
   background-color: var(--theme-warning-100);
   color: var(--theme-warning-900);
-  border-left:  1px solid var(--theme-warning-500);
+  border-left: 1px solid var(--theme-warning-500);
 
   &:local() {
     .icon {
@@ -72,4 +72,36 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   margin: 0;
   // position: relative;
   // top: 1px;
+}
+
+:global([data-theme="light"]) {
+  .success {
+    color: var(--color-success-850);
+    background-color: var(--theme-success-450);
+    border-left: 1px solid var(--color-success-550);
+
+    :local(.icon path) {
+      stroke: var(--theme-success-450);
+    }
+  }
+
+  .warning {
+    color: var(--color-warning-850);
+    background-color: var(--theme-warning-450);
+    border-left: 1px solid var(--color-warning-550);
+
+    :local(.icon path) {
+      stroke: var(--theme-warning-450);
+    }
+  }
+
+  .error {
+    color: var(--color-error-850);
+    background-color: var(--theme-error-450);
+    border-left: 1px solid var(--color-error-700);
+
+    :local(.icon path) {
+      stroke: var(--theme-error-450);
+    }
+  }
 }
