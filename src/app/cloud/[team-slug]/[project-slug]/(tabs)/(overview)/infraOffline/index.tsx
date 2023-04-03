@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { useRouteData } from '@cloud/context'
+import Link from 'next/link'
 
 import { Banner } from '@components/Banner'
 import { Label } from '@components/Label'
@@ -62,7 +63,7 @@ const deploymentStates: DeploymentStates = {
 }
 
 export const InfraOffline: React.FC = () => {
-  const { project, reloadProject } = useRouteData()
+  const { project, reloadProject, team } = useRouteData()
   const { infraStatus = 'notStarted' } = project
   const failedDeployment = ['error', 'deployError'].includes(infraStatus)
   const deploymentStep = deploymentStates[infraStatus]
@@ -85,39 +86,66 @@ export const InfraOffline: React.FC = () => {
     <ExtendedBackground
       pixels
       upperChildren={
-        <div className={classes.details}>
-          <div className={classes.indicationLine}>
-            <Indicator status={deploymentStep.status} />
-            <Label>initial Deployment {failedDeployment ? 'failed' : 'in progress'}</Label>
+        <React.Fragment>
+          <div className={classes.details}>
+            <div className={classes.indicationLine}>
+              <Indicator status={deploymentStep.status} />
+              <Label>initial Deployment {failedDeployment ? 'failed' : 'in progress'}</Label>
+            </div>
+
+            <div
+              className={[
+                classes.progressBar,
+                classes[`step--${deploymentStep.step}`],
+                classes[`status--${deploymentStep.status}`],
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            />
+
+            {failedDeployment ? (
+              <div>
+                <Banner type="error" margin={false}>
+                  There was an error deploying your app. Make sure you are able to build your
+                  project locally, and then push another commit to your repository to re-trigger a
+                  deployment.
+                </Banner>
+              </div>
+            ) : (
+              <div className={classes.statusLine}>
+                <p>Status:</p>
+                <p>
+                  <b>{deploymentStep.label}</b>{' '}
+                  {deploymentStep.timeframe ? `— (${deploymentStep.timeframe})` : ''}
+                </p>
+              </div>
+            )}
           </div>
-
-          <div
-            className={[
-              classes.progressBar,
-              classes[`step--${deploymentStep.step}`],
-              classes[`status--${deploymentStep.status}`],
-            ]
-              .filter(Boolean)
-              .join(' ')}
-          />
-
-          {failedDeployment ? (
-            <div>
-              <Banner type="error" margin={false}>
-                There was an error deploying your app. Make sure you are able to build your project
-                locally, and then push another commit to your repository to re-trigger a deployment.
-              </Banner>
-            </div>
-          ) : (
-            <div className={classes.statusLine}>
-              <p>Status:</p>
+          {failedDeployment && (
+            <React.Fragment>
+              <h4>Troubleshooting help</h4>
+              <h6>Does the branch "{project.deploymentBranch}" exist?</h6>
               <p>
-                <b>{deploymentStep.label}</b>{' '}
-                {deploymentStep.timeframe ? `— (${deploymentStep.timeframe})` : ''}
+                Validate that your branch exists. If it doesn't, go to{' '}
+                <Link href={`/cloud/${team.slug}/${project.slug}/settings`}>Settings</Link> and
+                change your branch to a valid branch that exists.
               </p>
-            </div>
+              <h6>Can you build your project locally?</h6>
+              <p>
+                If you're importing a project, make sure it can build on your local machine. If you
+                can't build locally, fix the errors and then push a commit to restart this process.
+              </p>
+              <h6>Are you specifying a port correctly?</h6>
+              <p>
+                By default, Payload Cloud listens on port 3000. Make sure that your app is set up to
+                listen on port 3000, or go to{' '}
+                <Link href={`/cloud/${team.slug}/${project.slug}/settings`}>Settings</Link>
+                and specify a <code>PORT</code> environment variable to manually set the port to
+                listen on.
+              </p>
+            </React.Fragment>
           )}
-        </div>
+        </React.Fragment>
       }
     />
   )
