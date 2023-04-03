@@ -13,9 +13,11 @@ import { Heading } from '@components/Heading'
 import { useAuth } from '@root/providers/Auth'
 
 import classes from './page.module.scss'
+
 export default () => {
   const { user, updateUser } = useAuth()
   const [loading, setLoading] = React.useState<boolean>(false)
+  const [formToShow, setFormToShow] = React.useState<'account' | 'password'>('account')
   const [error, setError] = React.useState<string | null>(null)
   const [success, setSuccess] = React.useState<string | null>(null)
 
@@ -76,8 +78,8 @@ export default () => {
 
   return (
     <Gutter className={classes.content}>
-      <Heading marginTop={false} element="h1" as="h6">
-        Account settings
+      <Heading marginTop={false} marginBottom={false} element="h1" as="h6">
+        {formToShow === 'account' ? 'Account Settings' : 'Change Password'}
       </Heading>
       <div className={classes.formState}>
         {loading && <p className={classes.loading}>Loading...</p>}
@@ -113,11 +115,30 @@ export default () => {
             }}
             onSubmit={handleSubmit}
           >
-            <Text path="name" label="Your Full Name" />
-            <Text path="email" label="Email" required />
-            <Text type="password" path="password" label="Password" />
-            <Text type="password" path="passwordConfirm" label="Password Confirm" />
-            <Submit label="Save" className={classes.submit} />
+            {formToShow === 'account' && (
+              <>
+                <Text path="name" label="Your Full Name" />
+                <Text path="email" label="Email" required />
+              </>
+            )}
+            {formToShow === 'password' && (
+              <>
+                <Text type="password" path="password" label="Password" />
+                <Text type="password" path="passwordConfirm" label="Password Confirm" />
+              </>
+            )}
+            <div className={classes.buttonWrap}>
+              <Submit label="Save" className={classes.submit} />
+              <button
+                className={classes.viewButton}
+                type="button"
+                onClick={() => {
+                  setFormToShow(formToShow === 'account' ? 'password' : 'account')
+                }}
+              >
+                {formToShow === 'account' ? 'Change Password' : 'Cancel'}
+              </button>
+            </div>
           </Form>
         </Cell>
       </Grid>

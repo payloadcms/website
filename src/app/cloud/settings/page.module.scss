@@ -1,14 +1,28 @@
 @use '@scss/common.scss' as *;
 
-.header {
+.form {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
+    flex-direction: column;
 }
 
-.password {
+.viewButton {
+    @include btnReset;
+    cursor: pointer;
+    margin-top: var(--base);
+    align-self: flex-start;
+}
+
+.password,
+.viewButton {
     @include label;
+}
+
+.formState {
+    margin-top: var(--base);
+
+    & p {
+        margin: 0;
+    }
 }
 
 .error {
@@ -38,4 +52,11 @@
     @include mid-break {
         margin: calc(var(--base)) 0;
     }
+}
+
+.buttonWrap {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    min-width: calc(var(--base)*7);
 }
