@@ -14,7 +14,7 @@ import { FormField, SetValue } from './types'
 // 4. returns form state and field-level errors
 
 export const useFormField = <T extends Value>(options): FormField<T> => {
-  const { path, validate, initialValue: initialValueFromProps } = options
+  const { path, validate, initialValue: initialValueFromProps, required } = options
 
   const formContext = useForm()
   const submitted = useFormSubmitted()
@@ -63,7 +63,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
       const validationResult =
         typeof validate === 'function'
           ? await validate(valueToSend, {
-              // TODO: send options through validate heres
+              required,
             })
           : true
 
@@ -76,7 +76,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
 
       dispatchFields(fieldToDispatch)
     },
-    [path, dispatchFields, validate, initialValue],
+    [path, dispatchFields, validate, initialValue, required],
   )
 
   // NOTE: 'internalValue' is NOT debounced

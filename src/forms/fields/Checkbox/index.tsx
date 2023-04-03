@@ -14,6 +14,10 @@ const defaultValidate = (value: boolean, options = {} as any) => {
     return 'This field can only be equal to true or false.'
   }
 
+  if (options.required && !value) {
+    return 'This field is required.'
+  }
+
   return true
 }
 

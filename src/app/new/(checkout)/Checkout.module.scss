@@ -95,3 +95,14 @@
     font-size: inherit;
     line-height: inherit;
 }
+
+.agreeToTerms {
+    a {
+        color: var(--theme-blue-500);
+        text-decoration: underline;
+    }
+}
+
+.cancel {
+  align-self: flex-start;
+}
