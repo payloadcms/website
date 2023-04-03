@@ -10,8 +10,8 @@ import { OnSubmit } from '@forms/types'
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
-import { useAuth } from '@root/providers/Auth'
 import { Message } from '@components/Message'
+import { useAuth } from '@root/providers/Auth'
 
 import classes from './page.module.scss'
 
@@ -84,7 +84,7 @@ export default () => {
         {formToShow === 'account' ? 'Account Settings' : 'Change Password'}
       </Heading>
       <div className={classes.formState}>
-        <Message error={error} success={success} warning={loading ? 'Loading...' : false} />
+        <Message error={error} success={success} warning={loading ? 'Loading...' : undefined} />
       </div>
       <Grid>
         <Cell cols={6} colsM={8}>
