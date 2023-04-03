@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { RenderCommunityHelp } from './render'
 
 const Page = async () => {

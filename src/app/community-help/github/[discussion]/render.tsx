@@ -61,7 +61,8 @@ export type DiscussionProps = {
 export const RenderDiscussion: React.FC<DiscussionProps> = props => {
   const { communityHelpJSON } = props
 
-  const { title, answer, author, body, createdAt, url, comments, commentTotal, upvotes, id } = communityHelpJSON
+  const { title, answer, author, body, createdAt, url, comments, commentTotal, upvotes, id } =
+    communityHelpJSON
 
   const theme = useTheme()
 

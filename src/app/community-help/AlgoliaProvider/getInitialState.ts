@@ -1,6 +1,7 @@
-import canUseDOM from '@root/utilities/can-use-dom'
 import type { IndexUiState } from 'instantsearch.js'
 import qs from 'qs'
+
+import canUseDOM from '@root/utilities/can-use-dom'
 
 export const convertObjectStringsToArrays = (
   object: Record<string, any>,

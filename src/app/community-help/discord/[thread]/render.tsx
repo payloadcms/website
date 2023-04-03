@@ -23,12 +23,12 @@ export type Attachments = {
   height: number
   width: number
   contentType:
-  | 'image/png'
-  | 'video/MP2T'
-  | 'text/plain'
-  | 'application/json'
-  | 'video/quicktime'
-  | 'image/jpeg'
+    | 'image/png'
+    | 'video/MP2T'
+    | 'text/plain'
+    | 'application/json'
+    | 'video/quicktime'
+    | 'image/jpeg'
   description: string
   ephemeral: boolean
 }[]

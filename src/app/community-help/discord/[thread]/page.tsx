@@ -1,7 +1,8 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
-import { Messages, RenderThread } from './render'
+
 import { fetchCommunityHelp, fetchCommunityHelps } from '@root/graphql'
+import { Messages, RenderThread } from './render'
 
 const isThreadData = (
   data: any,

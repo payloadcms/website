@@ -10,13 +10,14 @@ export default function handler(req, res) {
         headers: {
           'CRON-ENV-VAR': `${process.env.NEXT_PRIVATE_CRON_KEY}`,
         },
-      });
+      })
     } catch (error) {
-      console.error(error);
+      // eslint-disable-next-line no-console
+      console.error(error)
     }
   }
 
   communityHelpRequest()
 
-  res.status(200).end('Hello Community Help Cron!');
+  res.status(200).end('Hello Community Help Cron!')
 }
