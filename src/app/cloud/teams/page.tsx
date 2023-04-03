@@ -33,10 +33,10 @@ export default () => {
               </p>{' '}
             </div>
           )}
-          {user?.teams?.length && (
+          {Boolean(user?.teams?.length) && (
             <p>
-              {`You are a member of ${user.teams?.length} team${
-                user.teams.length > 1 ? 's' : ''
+              {`You are a member of ${user?.teams?.length || 0} team${
+                (user?.teams?.length || 0) > 1 ? 's' : ''
               }. `}
               <TeamDrawerToggler className={classes.createTeamLink}>
                 Create a new team
