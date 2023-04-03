@@ -7,7 +7,7 @@ import { getInitialState } from './getInitialState'
 
 let searchClient: SearchClient
 const appID = process.env.NEXT_PUBLIC_ALGOLIA_CH_ID
-const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_CH_KEY
+const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_PUBLIC_KEY
 const indexName = process.env.NEXT_PUBLIC_ALGOLIA_CH_INDEX_NAME
 if (appID && apiKey) searchClient = algoliasearch(appID, apiKey)
 export const algoliaPerPage = 20
