@@ -6,6 +6,14 @@ export const TEAMS = `
         name
         slug
         stripeCustomerID
+        members {
+          user {
+            id
+            email
+          }
+          roles
+          joinedOn
+        }
       }
     }
   }

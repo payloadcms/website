@@ -1,14 +1,35 @@
 @use '@scss/common.scss' as *;
 
-.header {
+.form {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
+    flex-direction: column;
 }
 
 .password {
     @include label;
+}
+
+
+.viewButton {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    line-height: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    color: var(--theme-blue-500);
+    text-decoration: underline;
+}
+
+.formState {
+    margin-top: var(--base);
+    max-width: 600px;
+
+    & div {
+        margin: 0;
+    }
 }
 
 .error {
@@ -20,14 +41,11 @@
 }
 
 .form {
-    margin-top: calc(var(--base));
-    max-width: 600px;
-
-    &>* {
+    & > * {
         margin-bottom: var(--base);
     }
 
-    &>*:last-child {
+    & > *:last-child {
         margin-bottom: 0;
     }
 }
@@ -38,4 +56,10 @@
     @include mid-break {
         margin: calc(var(--base)) 0;
     }
+}
+
+.buttonWrap {
+    margin-top: var(--base);
+    display: flex;
+    gap: var(--base);
 }

@@ -11,7 +11,7 @@
   font-weight: normal;
 
   @include extra-large-break {
-    font-size: 108px;
+    font-size: 96px;
   }
 
   @include large-break {
@@ -59,7 +59,7 @@
   font-size: 84px;
   line-height: 1;
   font-weight: normal;
-  
+
   @include extra-large-break {
     font-size: 60px;
   }

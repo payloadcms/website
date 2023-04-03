@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback } from 'react'
+import React, { Fragment, useCallback } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
@@ -10,12 +10,15 @@ import { OnSubmit } from '@forms/types'
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
+import { Message } from '@components/Message'
 import { useAuth } from '@root/providers/Auth'
 
 import classes from './page.module.scss'
+
 export default () => {
   const { user, updateUser } = useAuth()
   const [loading, setLoading] = React.useState<boolean>(false)
+  const [formToShow, setFormToShow] = React.useState<'account' | 'password'>('account')
   const [error, setError] = React.useState<string | null>(null)
   const [success, setSuccess] = React.useState<string | null>(null)
 
@@ -69,6 +72,7 @@ export default () => {
       // @ts-expect-error
       return () => {
         clearTimeout(loadingTimer)
+        setLoading(false)
       }
     },
     [updateUser],
@@ -76,16 +80,46 @@ export default () => {
 
   return (
     <Gutter className={classes.content}>
-      <Heading marginTop={false} element="h1" as="h6">
-        Account settings
+      <Heading marginTop={false} marginBottom={false} element="h1" as="h6">
+        Account Settings
       </Heading>
       <div className={classes.formState}>
-        {loading && <p className={classes.loading}>Loading...</p>}
-        {error && <p className={classes.error}>{error}</p>}
-        {success && <p className={classes.success}>{success}</p>}
+        <Message error={error} success={success} warning={loading ? 'Loading...' : undefined} />
       </div>
       <Grid>
         <Cell cols={6} colsM={8}>
+          <p>
+            {formToShow === 'account' && (
+              <Fragment>
+                {'To change your password, '}
+                <button
+                  className={classes.viewButton}
+                  type="button"
+                  onClick={() => {
+                    setFormToShow('password')
+                  }}
+                >
+                  click here
+                </button>
+                {'.'}
+              </Fragment>
+            )}
+            {formToShow === 'password' && (
+              <Fragment>
+                {'Change your password below. '}
+                <button
+                  className={classes.viewButton}
+                  type="button"
+                  onClick={() => {
+                    setFormToShow('account')
+                  }}
+                >
+                  Cancel
+                </button>
+                {'.'}
+              </Fragment>
+            )}
+          </p>
           <Form
             className={classes.form}
             initialState={{
@@ -113,11 +147,30 @@ export default () => {
             }}
             onSubmit={handleSubmit}
           >
-            <Text path="name" label="Your Full Name" />
-            <Text path="email" label="Email" required />
-            <Text type="password" path="password" label="Password" />
-            <Text type="password" path="passwordConfirm" label="Password Confirm" />
-            <Submit label="Save" className={classes.submit} />
+            {formToShow === 'account' && (
+              <>
+                <Text path="name" label="Your Full Name" />
+                <Text path="email" label="Email" required />
+              </>
+            )}
+            {formToShow === 'password' && (
+              <>
+                <Text type="password" path="password" label="Password" />
+                <Text type="password" path="passwordConfirm" label="Password Confirm" />
+              </>
+            )}
+            <div className={classes.buttonWrap}>
+              {formToShow === 'password' && (
+                <Button
+                  label="Cancel"
+                  appearance="secondary"
+                  onClick={() => {
+                    setFormToShow('account')
+                  }}
+                />
+              )}
+              <Submit label="Save" className={classes.submit} />
+            </div>
           </Form>
         </Cell>
       </Grid>

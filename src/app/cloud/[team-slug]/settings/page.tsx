@@ -11,6 +11,7 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { InviteTeammates } from '@components/InviteTeammates'
 import { TeamInvitations } from '@components/TeamInvitations'
+import { TeamMembers } from '@components/TeamMembers'
 import { UniqueTeamSlug } from '@components/UniqueSlug'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
@@ -133,6 +134,8 @@ export default () => {
             <Text path="name" label="Team Name" />
             <UniqueTeamSlug teamID={team?.id} />
             <Text path="billingEmail" label="Billing Email" required />
+            <hr className={classes.hr} />
+            <TeamMembers team={team} />
             {team?.invitations && team?.invitations?.length > 0 && (
               <React.Fragment>
                 <hr className={classes.hr} />

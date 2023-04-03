@@ -8,9 +8,7 @@
     color: var(--theme-success-500);
 }
 
-.form {
-    margin-top: calc(var(--base));
-    
+.form {    
     & > * {
         margin-bottom: var(--base);
     }

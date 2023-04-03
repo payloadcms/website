@@ -14,22 +14,6 @@
   color: var(--theme-error-500)
 }
 
-.invite { 
-  display: flex;
-
-  & > * {
-      margin-bottom: 0;
-
-      &:not(:last-child) {
-          margin-right: var(--base);
-      }
-  }
-}
-
-.email {
-  flex-grow: 1;
-}
-
 .resendEmail {
   border: none;
   background: none;

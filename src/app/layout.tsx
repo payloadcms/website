@@ -34,7 +34,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Providers templates={templates}>
           <Header {...mainMenu} />
           <div className={classes.layout}>
-            <HeaderObserver>{children}</HeaderObserver>
+            <HeaderObserver pullUp>{children}</HeaderObserver>
             <Footer {...footer} />
             <div id="docsearch" />
           </div>

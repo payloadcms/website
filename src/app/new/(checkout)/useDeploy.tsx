@@ -65,12 +65,16 @@ export const useDeploy = (args: {
       setTimeout(() => window.scrollTo(0, 0), 0)
 
       try {
+        if (!installID) {
+          throw new Error(`No installation ID was found for this project.`)
+        }
+
         if (!paymentIntent) {
-          throw new Error('No payment intent')
+          throw new Error(`No payment intent was found for this project.`)
         }
 
         if (!user) {
-          throw new Error('No user')
+          throw new Error(`You must be logged in to deploy a project.`)
         }
 
         const { subscription } = paymentIntent || {}
