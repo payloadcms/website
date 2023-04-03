@@ -16,6 +16,7 @@ type DeploymentStates = {
   [key in RequireField<Project, 'infraStatus'>['infraStatus']]: {
     status: 'success' | 'error' | 'warning'
     label: string
+    timeframe?: string
     step?: number
   }
 }
@@ -30,11 +31,13 @@ const deploymentStates: DeploymentStates = {
     step: 1,
     status: 'success',
     label: 'Deploying project database',
+    timeframe: '1 to 3 min',
   },
   deploying: {
     step: 2,
     status: 'success',
     label: 'Deploying your project',
+    timeframe: '5 to 10 min',
   },
   done: {
     step: 4,
@@ -109,7 +112,8 @@ export const InfraOffline: React.FC = () => {
             <div className={classes.statusLine}>
               <p>Status:</p>
               <p>
-                <b>{deploymentStep.label}</b>
+                <b>{deploymentStep.label}</b>{' '}
+                {deploymentStep.timeframe ? `— (${deploymentStep.timeframe})` : ''}
               </p>
             </div>
           )}

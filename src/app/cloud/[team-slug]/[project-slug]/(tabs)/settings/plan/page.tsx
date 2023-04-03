@@ -79,7 +79,7 @@ export default () => {
         )
 
         if (req.status === 200) {
-          router.push('/cloud/projects')
+          router.push('/cloud')
           toast.success('Project was deleted successfully.')
         }
       } catch (e) {
