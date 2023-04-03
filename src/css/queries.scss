@@ -22,6 +22,12 @@
   }
 }
 
+@mixin mobile-header-break {
+  @media (max-width: $breakpoint-mh-width) {
+    @content;
+  }
+}
+
 @mixin large-break {
   @media (max-width: $breakpoint-l-width) {
     @content;

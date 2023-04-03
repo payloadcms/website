@@ -1,0 +1,57 @@
+@use '@scss/common.scss' as *;
+
+.container {
+  position: relative;
+  --bg-extension: calc(var(--gutter-h) * .5);
+  --pixel-bg-extension: calc(var(--bg-extension) * 2);
+  --pixel-padding: calc(var(--bg-extension) / 2);
+
+  @include large-break {
+    --bg-extension: calc(var(--gutter-h) * .75);
+  }
+
+  @include mid-break {
+    --bg-extension: var(--gutter-h);
+    --pixel-padding: var(--bg-extension);
+  }
+  
+  &.withPixels {
+   padding-bottom: var(--pixel-padding);
+  }
+
+  .backgroundContainer {
+    position: relative;
+    padding: calc(var(--base) * 1.5) 0;
+  }
+
+  .extendedBackground {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    left: calc(-1 * var(--bg-extension) / 2);
+    width: calc(100% + var(--bg-extension));
+
+    &.upperBackground {
+      background-color: var(--theme-bg);
+      border: 1px solid var(--theme-border-color);
+    }
+    &.lowerBackground {
+      background-color: var(--theme-bg);
+      border: 1px solid var(--theme-border-color);
+      top: -1px;
+    }
+    &.pixels {
+      z-index: -2;
+      top: unset;
+      max-height: calc(50% + var(--pixel-padding));
+      bottom: 0;
+      background-image: url('/images/dot.png');
+      background-repeat: repeat;
+      background-position: center;
+      left: calc(-1 * var(--pixel-bg-extension) / 2);
+      width: calc(100% + var(--pixel-bg-extension));
+    }
+  }
+}

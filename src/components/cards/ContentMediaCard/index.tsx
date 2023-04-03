@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { Media } from '@components/Media'
 import Link from 'next/link'
+
+import { Media } from '@components/Media'
 import { BlogCardProps } from '../types'
 
 import classes from './index.module.scss'

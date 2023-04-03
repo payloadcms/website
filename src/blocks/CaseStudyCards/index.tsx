@@ -1,12 +1,13 @@
 import * as React from 'react'
+import Link from 'next/link'
+
+import { BlockSpacing } from '@components/BlockSpacing'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
+import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
 
-import { PixelBackground } from '@components/PixelBackground'
-import { BlockSpacing } from '@components/BlockSpacing'
-import Link from 'next/link'
 import classes from './index.module.scss'
 
 type Props = Extract<Page['layout'][0], { blockType: 'caseStudyCards' }>

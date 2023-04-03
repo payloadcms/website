@@ -1,10 +1,22 @@
-import type { Announcement, CaseStudy, Footer, MainMenu, Page, Post, CommunityHelp } from '../payload-types'
+import type {
+  Announcement,
+  CaseStudy,
+  Footer,
+  MainMenu,
+  Page,
+  Post,
+  CommunityHelp,
+} from '../payload-types'
+import type { Project, Team, Template } from '@root/payload-cloud-types'
 import { ANNOUNCEMENT_FIELDS } from './announcement'
 import { CASE_STUDIES, CASE_STUDY } from './case-studies'
 import { COMMUNITY_HELP, COMMUNITY_HELPS } from './community-helps'
 import { GLOBALS } from './globals'
 import { PAGE, PAGES } from './pages'
-import { POST, POSTS, POST_SLUGS } from './posts'
+import { POST, POST_SLUGS, POSTS } from './posts'
+import { PROJECTS } from './project'
+import { TEAMS } from './team'
+import { TEMPLATES } from './templates'
 
 const next = {
   revalidate: 600,
@@ -13,6 +25,7 @@ const next = {
 export const fetchGlobals = async (): Promise<{
   mainMenu: MainMenu
   footer: Footer
+  templates: Template[]
 }> => {
   const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?globals`, {
     method: 'POST',
@@ -25,9 +38,24 @@ export const fetchGlobals = async (): Promise<{
     }),
   }).then(res => res.json())
 
+  const { data: templatesData } = await fetch(
+    `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql?templates`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next,
+      body: JSON.stringify({
+        query: TEMPLATES,
+      }),
+    },
+  ).then(res => res.json())
+
   return {
-    mainMenu: data?.MainMenu,
-    footer: data?.Footer,
+    mainMenu: data.MainMenu,
+    footer: data.Footer,
+    templates: templatesData?.Templates?.docs,
   }
 }
 
@@ -50,10 +78,27 @@ export const fetchAnnouncements = async (): Promise<{
   }
 }
 
+export const fetchTemplates = async (): Promise<Template[]> => {
+  const { data: templatesData } = await fetch(
+    `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql?templates`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next,
+      body: JSON.stringify({
+        query: TEMPLATES,
+      }),
+    },
+  ).then(res => res.json())
+
+  return templatesData.Templates.docs
+}
+
 export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page | null> => {
   const slugSegments = incomingSlugSegments || ['home']
-  const slug = slugSegments[slugSegments.length - 1]
-
+  const slug = slugSegments.at(-1)
   const { data, errors } = await fetch(
     `${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?page=${slug}`,
     {
@@ -72,7 +117,7 @@ export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page |
   ).then(res => res.json())
 
   if (errors) {
-    console.error(JSON.stringify(errors))
+    console.error(JSON.stringify(errors)) // eslint-disable-line no-console
     throw new Error()
   }
 
@@ -105,7 +150,7 @@ export const fetchPages = async (): Promise<
   }).then(res => res.json())
 
   if (errors) {
-    console.error(JSON.stringify(errors))
+    console.error(JSON.stringify(errors)) // eslint-disable-line no-console
     throw new Error()
   }
 
@@ -125,7 +170,7 @@ export const fetchPosts = async (): Promise<Array<{ slug: string }>> => {
   }).then(res => res.json())
 
   if (errors) {
-    console.error(JSON.stringify(errors))
+    console.error(JSON.stringify(errors)) // eslint-disable-line no-console
     throw new Error()
   }
 
@@ -152,7 +197,7 @@ export const fetchBlogPosts = async (): Promise<Post[]> => {
 }
 
 export const fetchBlogPost = async (slug: string): Promise<Post> => {
-  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?blogPost=${slug}`, {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?post=${slug}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -170,7 +215,7 @@ export const fetchBlogPost = async (slug: string): Promise<Post> => {
 }
 
 export const fetchCaseStudies = async (): Promise<CaseStudy[]> => {
-  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?caseStudies`, {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?case-studies`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -185,19 +230,22 @@ export const fetchCaseStudies = async (): Promise<CaseStudy[]> => {
 }
 
 export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
-  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?caseStudy=${slug}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    next,
-    body: JSON.stringify({
-      query: CASE_STUDY,
-      variables: {
-        slug,
+  const { data } = await fetch(
+    `${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?case-study=${slug}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    }),
-  }).then(res => res.json())
+      next,
+      body: JSON.stringify({
+        query: CASE_STUDY,
+        variables: {
+          slug,
+        },
+      }),
+    },
+  ).then(res => res.json())
 
   return data?.CaseStudies?.docs[0]
 }
@@ -218,19 +266,73 @@ export const fetchCommunityHelps = async (): Promise<CommunityHelp[]> => {
 }
 
 export const fetchCommunityHelp = async (slug: string): Promise<CommunityHelp> => {
-  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?communityHelp=${slug}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    next,
-    body: JSON.stringify({
-      query: COMMUNITY_HELP,
-      variables: {
-        slug,
+  const { data } = await fetch(
+    `${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?communityHelp=${slug}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    }),
-  }).then(res => res.json())
+      next,
+      body: JSON.stringify({
+        query: COMMUNITY_HELP,
+        variables: {
+          slug,
+        },
+      }),
+    },
+  ).then(res => res.json())
 
   return data?.CommunityHelps?.docs[0]
+}
+
+export const fetchTeam = async (slug: string): Promise<Team> => {
+  const { data } = await fetch(
+    `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql?teams=${slug}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      next,
+      body: JSON.stringify({
+        query: TEAMS,
+        variables: {
+          slug: slug.toLowerCase(),
+        },
+      }),
+    },
+  ).then(res => res.json())
+
+  return data?.Teams?.docs[0]
+}
+
+export const fetchTeamProject = async ({
+  teamID,
+  projectSlug,
+}: {
+  teamID: string
+  projectSlug: string
+}): Promise<Project> => {
+  const { data } = await fetch(
+    `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql?teams=${teamID}&project=${projectSlug}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      next,
+      body: JSON.stringify({
+        query: PROJECTS,
+        variables: {
+          teamID,
+          projectSlug: projectSlug.toLowerCase(),
+        },
+      }),
+    },
+  ).then(res => res.json())
+
+  return data?.Projects?.docs[0]
 }

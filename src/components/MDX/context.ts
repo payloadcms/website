@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'react'
+
 import type { Heading, IContext } from './types'
 
 const Context = createContext<IContext>({

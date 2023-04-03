@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
+
 import classes from './index.module.scss'
 
 export const LineBlip: React.FC<{
@@ -61,7 +62,7 @@ export const LineBlip: React.FC<{
         clearTimeout(outTimer)
       }
     }
-  }, [isHovered])
+  }, [isHovered, animationDuration])
 
   return (
     <div

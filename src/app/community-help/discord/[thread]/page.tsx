@@ -3,7 +3,9 @@ import { notFound } from 'next/navigation'
 import { Messages, RenderThread } from './render'
 import { fetchCommunityHelp, fetchCommunityHelps } from '@root/graphql'
 
-const isThreadData = (data: any): data is {
+const isThreadData = (
+  data: any,
+): data is {
   id: string
   title?: string
   slug?: string

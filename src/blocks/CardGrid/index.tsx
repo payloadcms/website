@@ -1,12 +1,14 @@
+import React from 'react'
+import { Cell, Grid } from '@faceless-ui/css-grid'
+
 import { BlockSpacing } from '@components/BlockSpacing'
+import { SquareCard } from '@components/cards/SquareCard'
+import { CMSLink } from '@components/CMSLink'
+import { Gutter } from '@components/Gutter'
 import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'
-import { Cell, Grid } from '@faceless-ui/css-grid'
-import React from 'react'
-import { SquareCard } from '@components/cards/SquareCard'
 import { Page } from '@root/payload-types'
-import { Gutter } from '@components/Gutter'
-import { CMSLink } from '@components/CMSLink'
+
 import classes from './index.module.scss'
 
 export type CardGridProps = Extract<Page['layout'][0], { blockType: 'cardGrid' }>

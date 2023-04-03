@@ -1,4 +1,11 @@
+@use '@scss/common.scss' as *;
+
 .breadcrumbs {
   display: flex;
   margin-bottom: calc(var(--base) * 1.5);
+}
+
+
+.label {
+  @include label;
 }

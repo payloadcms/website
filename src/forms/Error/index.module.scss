@@ -1,4 +1,6 @@
 .error {
-  bottom: 80%;
   color: var(--theme-error-500);
+  line-height: 120%;
+  font-size: calc(var(--base) * .85);
+  margin-bottom: 5px;
 }

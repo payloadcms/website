@@ -13,9 +13,19 @@
   // font-family: $fontBody;
   font-size: 1rem;
 
+  &:disabled {
+    color: var(--theme-elevation-500);
+  }
+
   &:focus,
   &:active {
     outline: none;
+  }
+
+  &:focus-visible {
+    .input {
+      @include outline;
+    }
   }
 
   &:hover {

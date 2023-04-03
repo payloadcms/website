@@ -24,7 +24,6 @@
 .footer .link {
   display: block;
   margin-bottom: calc(var(--base) * .15);
-  text-decoration: none;
   width: 50%;
   font-size: calc(var(--font-body-size) * 0.925);
   color: var(--theme-elevation-500);
@@ -32,6 +31,8 @@
   &:hover {
     color: var(--theme-elevation-800)
   }
+
+  @include underline-on-focus;
 
   @include mid-break {
     width: 100%;

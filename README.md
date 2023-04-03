@@ -35,3 +35,13 @@ To get started with this repo locally, follow the steps below:
 - Fill out the values within your new `.env`, corresponding to your own environment
 - Run `yarn dev`
 - Bam
+
+### Hosts file
+
+The locally running app must run on `local.payloadcms.com:3000` because of http-only cookie policies and how the GitHub App redirects the user back to the site after authenticating. To do this, you'll need to add the following to your hosts file:
+
+```
+127.0.0.1 local.payloadcms.com
+```
+
+> On Mac you can find the hosts file at `/etc/hosts`. On Windows, it's at `C:\Windows\System32\drivers\etc\hosts`:

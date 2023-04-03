@@ -1,0 +1,19 @@
+@use '@scss/common.scss' as *;
+
+.error {
+  color: var(--theme-error-500);
+}
+
+.success {
+    color: var(--theme-success-500);
+}
+
+.stripeLink {
+  color: var(--theme-blue-500);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.subscriptionID {
+  margin-bottom: var(--base);
+}

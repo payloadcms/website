@@ -1,16 +1,17 @@
 'use client'
 
 import React from 'react'
-import { HeaderObserver } from '@components/HeaderObserver'
-import { useTheme } from '@providers/Theme'
-import { Gutter } from '@components/Gutter'
-import DiscordGitCTA from '@components/DiscordGitCTA'
-import OpenPost from '@components/OpenPost'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import Meta from '@components/Meta'
-import { DiscordGitIntro } from '@components/DiscordGitIntro'
+import { useTheme } from '@providers/Theme'
 
 import { DiscordGitComments } from '@components/DiscordGitComments'
+import DiscordGitCTA from '@components/DiscordGitCTA'
+import { DiscordGitIntro } from '@components/DiscordGitIntro'
+import { Gutter } from '@components/Gutter'
+import { HeaderObserver } from '@components/HeaderObserver'
+import Meta from '@components/Meta'
+import OpenPost from '@components/OpenPost'
+
 import classes from './index.module.scss'
 
 type DateFromSource = string

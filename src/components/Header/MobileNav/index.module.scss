@@ -4,7 +4,7 @@
   display: none;
   visibility: hidden;
 
-  @include small-break {
+  @include mobile-header-break {
     display: block;
     visibility: visible;
   }
@@ -23,6 +23,33 @@
 
 .icons {
   display: flex;
+  align-items: center;
+}
+
+.cloudNewProject {
+  display: flex;
+  align-items: center;
+
+  > * {
+    text-decoration: none;
+    margin-right: var(--base);
+    line-height: 1;
+  }
+
+  & > *:last-child {
+    margin-right: 0;
+  }
+
+  @include small-break {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+.mobileAvatar {
+  @include mobile-header-break {
+    margin-left: var(--base);
+  }
 }
 
 .searchToggler {
@@ -34,7 +61,7 @@
 .modalToggler {
   all: unset;
   cursor: pointer;
-  margin-left: calc(var(--base) *  .5);
+  margin-left: var(--base);
 }
 
 .modalBlur {
@@ -58,7 +85,7 @@
   display: none;
   visibility: hidden;
 
-  @include small-break {
+  @include mobile-header-break {
     display: block;
     visibility: visible;
   }

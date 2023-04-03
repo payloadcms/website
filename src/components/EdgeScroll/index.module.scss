@@ -1,0 +1,55 @@
+@use '@scss/common.scss' as *;
+
+@mixin overflow {
+  white-space: nowrap;
+  overflow: auto;
+  width: calc(100% + var(--gutter-h) * 2);
+  margin-left: calc(var(--gutter-h) * -1);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+@mixin noOverflow {
+  white-space: normal;
+  overflow: visible;
+  width: 100%;
+  margin-left: 0;
+  display: block;
+}
+
+.edgeScroll {
+  position: relative;
+  @include overflow;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &.mobileOnly {
+    @include noOverflow;
+
+    @include small-break {
+      @include overflow;
+    }
+  }
+}
+
+.gradient {
+  content: '';
+  position: sticky;
+  right: 0;
+  min-width: var(--gutter-h);
+  z-index: 1;
+
+  &.left {
+    left: 0;
+    background: linear-gradient(90deg, var(--theme-bg), transparent);
+  }
+  
+  &.right {
+    left: 0;
+    background: linear-gradient(-90deg, var(--theme-bg), transparent);
+    margin-left: auto;
+  }
+}

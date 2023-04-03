@@ -5,7 +5,9 @@ import { fetchCommunityHelp, fetchCommunityHelps } from '@root/graphql'
 
 type DateFromSource = string
 
-const isDiscussionData = (data: any): data is {
+const isDiscussionData = (
+  data: any,
+): data is {
   id: string
   title?: string
   slug?: string

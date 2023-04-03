@@ -1,7 +1,15 @@
 @use '@scss/common.scss' as *;
 
 .desktopNav {
-  @include small-break {
+  position: relative;
+
+  &:local() {
+    a {
+      text-decoration: none;
+    }
+  }
+
+  @include mobile-header-break {
     display: none;
     visibility: hidden;
   }
@@ -10,41 +18,6 @@
 .grid {
   :local(a) {
     text-decoration: none;
-  }
-}
-
-.container {
-  position: relative;
-}
-
-.logo {
-  width: calc(var(--gutter-h) / 2 - var(--base));
-  height: 100%;
-  position: absolute;
-  left: calc(-1 * var(--base));
-  display: flex;
-  justify-content: flex-start;
-  transform: translateX(-100%);
-  top: -2px;
-
-  svg {
-    height: auto;
-  }
-
-  @include large-break {
-    position: static;
-    left: 0;
-    transform: unset;
-    width: auto;
-    margin-right: var(--base);
-  }
-}
-
-.navItems {
-  display: flex;
-
-  :local(.navItem) {
-    margin-right: calc(var(--base) * .75);
   }
 }
 
@@ -60,33 +33,106 @@
   }
 }
 
-.github {
+.authNav {
   display: flex;
-  color-scheme: none;
   align-items: center;
 
-  :local(.stars) {
-    vertical-align: middle;
+  & > *:not(:last-child) {
+    margin-right: calc(var(--base) * 1);
+  }
+}
+
+.container {
+  position: relative;
+}
+
+.logo {
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  position: absolute;
+  top: -2px;
+  left: calc(-1*var(--base));
+  width: calc(var(--gutter-h) / 2 - var(--base));
+  transform: translateX(-100%);
+
+
+  svg {
+    height: auto;
   }
 
   @include large-break {
-    margin-left: auto;
+    width: auto;
+    margin-right: var(--base);
+    position: relative;
+    transform: none;
+    left: 0;
+  }
+}
 
-    :local(.stars) {
+.navItems {
+  display: flex;
+  flex-grow: 1;
+  white-space: nowrap;
+
+  :local(.navItem) {
+    margin-right: calc(var(--base) * .75);
+  }
+}
+
+.secondaryNavItems {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  white-space: nowrap;
+
+  & > *:not(:last-child) {
+    margin-right: calc(var(--base) * 1.25);
+
+    @include large-break {
       margin-right: var(--base);
     }
   }
 }
 
-.githubText {
-  margin-right: calc(var(--base) * .5);
+.github {
+  display: flex;
+  color-scheme: none;
+  align-items: center;
+
   @include large-break {
-    display: none;
+    margin-left: auto;
+  }
+}
+
+.githubLoggedIn {
+  margin-right: calc(var(--base) * 1.5) !important;
+
+  @include large-break {
+    margin-right: var(--base) !important;
+  }
+}
+
+.avatar {
+  margin-right: 0 !important;
+
+  @include large-break {
+    margin-right: calc(var(--base) * 1.25) !important;
+  }
+}
+
+.githubLoggedOut {
+  margin-right: 0 !important;
+
+  @include large-break {
+    margin-right: var(--base) !important;
   }
 }
 
 .starsWrap {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .payload {
@@ -106,13 +152,20 @@
   transform: translateX(100%);
   top: 0;
   align-items: center;
+  height: 100%;
   
   > * {
-    margin-right: calc(var(--base) * .5);
+    margin-right: var(--base);
     line-height: 1;
     
     &:last-child {
       margin-right: 0;
+    }
+  }
+
+  @include extra-large-break {
+    > * {
+      margin-right: calc(var(--base) * 0.75);
     }
   }
 
@@ -121,5 +174,13 @@
     right: 0;
     transform: unset;
     width: auto;
+
+    > * {
+      margin-right: calc(var(--base) * 0.5);
+    }
   }
+}
+
+.discord {
+  display: flex;
 }

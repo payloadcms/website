@@ -7,6 +7,7 @@
 $breakpoint-xs-width: 400px;
 $breakpoint-s-width: 768px;
 $breakpoint-m-width: 1024px;
+$breakpoint-mh-width: 1170px;
 $breakpoint-l-width: 1600px;
 $breakpoint-xl-width: 1920px;
 
@@ -66,7 +67,6 @@ $breakpoint-xl-width: 1920px;
 //////////////////////////////
 
 @mixin blur-bg($color: var(--theme-bg)) {
-
   &:before,
   &:after {
     content: ' ';
@@ -91,7 +91,7 @@ $breakpoint-xl-width: 1920px;
   @include inputShadow;
   font-family: var(--font-body);
   width: 100%;
-  border: 1px solid var(--theme-elevation-150);
+  border: 1px solid var(--theme-border-color);
   background: var(--theme-input-bg);
   color: var(--theme-elevation-800);
   border-radius: 0;
@@ -128,7 +128,7 @@ $breakpoint-xl-width: 1920px;
     color: var(--theme-elevation-450);
 
     &:hover {
-      border-color: var(--theme-elevation-150);
+      border-color: var(--theme-elevation-250);
     }
   }
 }
@@ -139,7 +139,7 @@ $breakpoint-xl-width: 1920px;
   box-shadow: none;
   border-radius: 0;
   padding: 0;
-  color: currentColor;  
+  color: currentColor;
   font-size: var(--font-body-size);
   font-family: var(--font-body);
 }
@@ -150,6 +150,11 @@ $breakpoint-xl-width: 1920px;
       @content;
     }
   }
+}
+
+@mixin outline {
+  outline: 1px solid var(--theme-blue-400);
+  outline-offset: 2px;
 }
 
 @mixin color-links {
@@ -184,5 +189,13 @@ $breakpoint-xl-width: 1920px;
     background-color: var(--color-base-800);
     border-radius: 0px;
     cursor: pointer;
+  }
+}
+
+@mixin underline-on-focus {
+  text-decoration: none;
+
+  &:focus {
+    text-decoration: underline;
   }
 }

@@ -1,7 +1,9 @@
 import React from 'react'
-import classes from './index.module.scss'
+
 import { VimeoPlayer } from './Vimeo'
 import { YouTubePlayer } from './YouTube'
+
+import classes from './index.module.scss'
 
 export const Video: React.FC<{
   platform?: 'vimeo' | 'youtube'

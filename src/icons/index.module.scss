@@ -6,6 +6,12 @@
   overflow: visible;
   transition: transform var(--default-trans-time) linear;
   will-change: transform;
+
+  :global() {
+    path {
+      vector-effect: non-scaling-stroke;
+    }
+  }
 }
 
 .stroke {
@@ -22,6 +28,11 @@
 .large {
   height: var(--base);
   width: var(--base);
+}
+
+.full {
+  height: 100%;
+  width: 100%;
 }
 
 .bold {
