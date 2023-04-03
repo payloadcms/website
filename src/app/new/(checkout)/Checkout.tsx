@@ -1,6 +1,7 @@
 'use client'
 
 import React, { Fragment, useCallback } from 'react'
+import { toast } from 'react-toastify'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
 import { Select } from '@forms/fields/Select'
@@ -127,6 +128,7 @@ const Checkout: React.FC<{
           : `/${cloudSlug}`
 
       router.push(redirectURL)
+      toast.success('Thank you! Your project is now being configured.')
     },
     [router],
   )
@@ -161,6 +163,7 @@ const Checkout: React.FC<{
 
       if (response.ok) {
         router.push(`/${cloudSlug}`)
+        toast.success('Draft project cancelled successfully.')
       } else {
         setDeleting(false)
         setErrorDeleting('There was an error deleting your project.')
@@ -214,6 +217,12 @@ const Checkout: React.FC<{
                       {checkoutState?.freeTrial && <p>Free during beta—ends July 1st</p>}
                     </div>
                   )}
+                  <Button
+                    onClick={deleteProject}
+                    label="Cancel"
+                    appearance="text"
+                    className={classes.cancel}
+                  />
                 </Fragment>
               )}
             </div>
@@ -283,6 +292,25 @@ const Checkout: React.FC<{
                     <Heading element="h5" marginTop={false} marginBottom={false}>
                       Project Details
                     </Heading>
+                    <Select
+                      label="Region"
+                      path="region"
+                      initialValue="us-east"
+                      options={[
+                        {
+                          label: 'US East',
+                          value: 'us-east',
+                        },
+                        {
+                          label: 'US West',
+                          value: 'us-west',
+                        },
+                        {
+                          label: 'EU West',
+                          value: 'eu-west',
+                        },
+                      ]}
+                    />
                     <Text label="Project name" path="name" />
                     <TeamSelector
                       onChange={handleTeamChange}
@@ -346,7 +374,6 @@ const Checkout: React.FC<{
                   />
                   <div className={classes.submit}>
                     <Submit label="Deploy now" />
-                    <Button onClick={deleteProject} label="Delete" appearance="text" />
                   </div>
                 </Form>
               </Fragment>
