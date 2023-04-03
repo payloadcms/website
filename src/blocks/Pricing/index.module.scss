@@ -29,7 +29,7 @@
 
 .wrap {
     position: relative;
-    padding: 0 0 calc(var(--base) * 4);
+    padding: 0 0 calc(var(--base) * 4) 0;
 }
 
 .disclaimer {
@@ -113,15 +113,22 @@
     display: none;
 }
 
+@include extra-large-break {
+    .bg {
+        margin-top: calc(var(--gutter-h)*0.5);
+        height: calc(100% - calc(var(--gutter-h)*0.5));
+    }
+}
+
 @include large-break {
     .wrap {
-        padding-bottom: 0;
+        padding: 0 0 calc(var(--base) * 2) 0;
     }
 
     .bg {
-        top: var(--gutter-h);
-        margin-left: calc(var(--gutter-h) * -1);
         width: calc(100% + (var(--gutter-h) * 2));
+        margin: var(--gutter-h) 0 0 calc(var(--gutter-h) * -1);
+        height: calc(100% - var(--gutter-h));
 
         &:before {
             margin: calc(var(--base) * 1.5);
@@ -131,12 +138,7 @@
 
 @include mid-break {
     .wrap {
-        padding: 0 calc(var(--base) * 2);
-    }
-
-    .bg {
-        top: var(--base);
-        height: calc(100% + var(--gutter-h));
+        padding: 0 calc(var(--base) * 2) calc(var(--base) * 3);
     }
 
     .toggler,
@@ -153,6 +155,7 @@
         background-color: transparent;
         border: none;
         margin: calc(var(--base)*0.25) 0;
+        cursor: pointer;
     }
 
     .chevron {
@@ -165,5 +168,9 @@
 
     .chevron.open {
         transform: rotate(-90deg);
+    }
+
+    .disclaimer {
+        padding: 0;
     }
 }
