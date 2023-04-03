@@ -1,0 +1,30 @@
+@use "@scss/common" as *;
+
+.member { 
+  & > * {
+      margin-bottom: 0;
+
+      &:not(:last-child) {
+          margin-bottom: var(--base);
+      }
+  }
+}
+
+.memberFields {
+  display: flex;
+  gap: var(--base);
+
+  & > * {
+      flex: 1;
+  }
+}
+
+.footer {
+  @include small;
+  color: var(--theme-elevation-500);
+
+   > a, button {
+      color: var(--theme-blue-500);
+      text-decoration: underline;
+   }
+}

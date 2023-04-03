@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 
 import { Heading } from '@components/Heading'
-import { BorderBox } from '@root/app/_components/BorderBox'
+import { TeamMemberRow } from '@components/TeamMembers/TeamMemberRow'
 import { Team } from '@root/payload-cloud-types'
 import { formatDate } from '@root/utilities/format-date-time'
 
@@ -66,23 +66,29 @@ export const TeamInvitations: React.FC<{
       {error && <p className={classes.error}>{error}</p>}
       {success && <p className={classes.success}>Invitation resent!</p>}
       {loading && <p className={classes.loading}>Resending invitation...</p>}
-      {team?.invitations?.map(invite => (
-        <div key={invite?.id} className={classes.invite}>
-          <p className={classes.email}>{`Email: ${invite?.email}`}</p>
-          <p>{`Roles: ${invite?.roles?.join(', ')}`}</p>
-          <p>{`Invited On: ${formatDate({
-            date: invite?.invitedOn || '',
-          })}`}</p>
-          <button
-            className={classes.resendEmail}
-            type="button"
-            onClick={() => {
-              resendEmail(invite?.email)
-            }}
-          >
-            Resend invite
-          </button>
-        </div>
+      {team?.invitations?.map((invite, index) => (
+        <TeamMemberRow
+          index={index}
+          key={invite?.id}
+          email={typeof invite?.email === 'string' ? invite?.email : ''}
+          roles={invite?.roles}
+          footer={
+            <Fragment>
+              {`Invited On `}
+              {formatDate({ date: invite?.invitedOn || '' })}
+              {'—'}
+              <button
+                className={classes.resendEmail}
+                type="button"
+                onClick={() => {
+                  resendEmail(invite?.email)
+                }}
+              >
+                Resend invite
+              </button>
+            </Fragment>
+          }
+        />
       ))}
     </div>
   )
