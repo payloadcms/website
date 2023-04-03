@@ -9,7 +9,7 @@
     },
     {
       "path": "/api/community-help-algolia-cron",
-      "schedule": "0 5 * * *"
+      "schedule": "15 5 * * *"
     }
   ]
 }
