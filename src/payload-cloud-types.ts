@@ -91,14 +91,14 @@ export interface Project {
   }[];
   stripeSubscriptionID?: string;
   stripeSubscriptionStatus?:
-  | 'active'
-  | 'canceled'
-  | 'incomplete'
-  | 'incomplete_expired'
-  | 'past_due'
-  | 'trialing'
-  | 'unpaid'
-  | 'paused';
+    | 'active'
+    | 'canceled'
+    | 'incomplete'
+    | 'incomplete_expired'
+    | 'past_due'
+    | 'trialing'
+    | 'unpaid'
+    | 'paused';
   resendAPIKey?: string;
   defaultDomainResendDNSRecords?: {
     cloudflareID: string;
@@ -118,14 +118,14 @@ export interface Plan {
   slug: string;
   stripeProductID?: string;
   priceJSON?:
-  | {
-    [k: string]: unknown;
-  }
-  | unknown[]
-  | string
-  | number
-  | boolean
-  | null;
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   order?: number;
   createdAt: string;
   updatedAt: string;
@@ -219,15 +219,15 @@ export interface Deployment {
   commitMessage?: string;
   lastSync?: string;
   deploymentStatus?:
-  | 'UNKNOWN'
-  | 'PENDING_BUILD'
-  | 'BUILDING'
-  | 'PENDING_DEPLOY'
-  | 'DEPLOYING'
-  | 'ACTIVE'
-  | 'SUPERSEDED'
-  | 'ERROR'
-  | 'CANCELED';
+    | 'UNKNOWN'
+    | 'PENDING_BUILD'
+    | 'BUILDING'
+    | 'PENDING_DEPLOY'
+    | 'DEPLOYING'
+    | 'ACTIVE'
+    | 'SUPERSEDED'
+    | 'ERROR'
+    | 'CANCELED';
   createdAt: string;
   updatedAt: string;
 }
@@ -241,17 +241,18 @@ export interface Job {
   };
   provisionDNS?: {
     project: string | Project;
+    lastSeenPhase?: string;
   };
   hasError?: boolean;
   error?:
-  | {
-    [k: string]: unknown;
-  }
-  | unknown[]
-  | string
-  | number
-  | boolean
-  | null;
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   createdAt: string;
   updatedAt: string;
 }

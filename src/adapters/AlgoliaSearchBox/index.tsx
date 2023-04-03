@@ -1,6 +1,8 @@
-import useDebounce from '@root/utilities/use-debounce'
 import React, { useCallback, useEffect } from 'react'
 import { useSearchBox } from 'react-instantsearch-hooks-web'
+
+import useDebounce from '@root/utilities/use-debounce'
+
 import classes from './index.module.scss'
 
 export const AlgoliaSearchBox: React.FC<{
