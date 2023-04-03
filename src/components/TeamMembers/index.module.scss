@@ -1,0 +1,15 @@
+@use "@scss/common" as *;
+
+.members {
+  & > *:not(:last-child) {
+      margin-bottom: var(--base);
+  }
+}
+
+.success {
+  color: var(--theme-success-500)
+}
+
+.error {
+  color: var(--theme-error-500)
+}
