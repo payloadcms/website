@@ -8,16 +8,16 @@ import { BorderBox } from '@root/app/_components/BorderBox'
 import classes from './TeamMemberRow.module.scss'
 
 export const TeamMemberRow: React.FC<{
-  index: number
+  leader?: string
   email?: string
   roles?: ('owner' | 'admin' | 'user')[]
   footer?: React.ReactNode
 }> = props => {
-  const { email, roles, index, footer } = props
+  const { email, roles, leader, footer } = props
 
   return (
     <BorderBox className={classes.member}>
-      <p className={classes.memberIndex}>{`Member ${(index + 1).toString().padStart(2, '0')}`}</p>
+      {leader && <p className={classes.leader}>{leader}</p>}
       <div className={classes.memberFields}>
         <Text disabled value={email} label="Email" />
         <Select isMulti disabled value={roles} label="Roles" options={userTeamRoles} />

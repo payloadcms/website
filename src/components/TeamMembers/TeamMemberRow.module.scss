@@ -1,13 +1,7 @@
 @use "@scss/common" as *;
 
-.member { 
-  & > * {
-      margin-bottom: 0;
-
-      &:not(:last-child) {
-          margin-bottom: var(--base);
-      }
-  }
+.leader {
+  margin-bottom: 0;
 }
 
 .memberFields {
@@ -21,6 +15,7 @@
 
 .footer {
   @include small;
+  margin-top: var(--base);
   color: var(--theme-elevation-500);
 
    > a, button {

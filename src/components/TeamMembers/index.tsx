@@ -19,8 +19,8 @@ export const TeamMembers: React.FC<{
       {team?.members?.map((member, index) => {
         return (
           <TeamMemberRow
-            key={member?.id}
-            index={index}
+            key={index}
+            leader={`Member ${(index + 1).toString().padStart(2, '0')}`}
             email={typeof member?.user === 'string' ? member?.user : member?.user?.email}
             roles={member?.roles}
             footer={
