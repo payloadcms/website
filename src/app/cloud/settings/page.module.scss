@@ -19,8 +19,9 @@
 
 .formState {
     margin-top: var(--base);
+    max-width: 600px;
 
-    & p {
+    & div {
         margin: 0;
     }
 }

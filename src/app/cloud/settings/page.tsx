@@ -11,6 +11,7 @@ import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { useAuth } from '@root/providers/Auth'
+import { Message } from '@components/Message'
 
 import classes from './page.module.scss'
 
@@ -71,6 +72,7 @@ export default () => {
       // @ts-expect-error
       return () => {
         clearTimeout(loadingTimer)
+        setLoading(false)
       }
     },
     [updateUser],
@@ -82,9 +84,7 @@ export default () => {
         {formToShow === 'account' ? 'Account Settings' : 'Change Password'}
       </Heading>
       <div className={classes.formState}>
-        {loading && <p className={classes.loading}>Loading...</p>}
-        {error && <p className={classes.error}>{error}</p>}
-        {success && <p className={classes.success}>{success}</p>}
+        <Message error={error} success={success} warning={loading ? 'Loading...' : false} />
       </div>
       <Grid>
         <Cell cols={6} colsM={8}>
