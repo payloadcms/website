@@ -1,13 +1,13 @@
+import type { Project, Team, Template } from '@root/payload-cloud-types'
 import type {
   Announcement,
   CaseStudy,
+  CommunityHelp,
   Footer,
   MainMenu,
   Page,
   Post,
-  CommunityHelp,
 } from '../payload-types'
-import type { Project, Team, Template } from '@root/payload-cloud-types'
 import { ANNOUNCEMENT_FIELDS } from './announcement'
 import { CASE_STUDIES, CASE_STUDY } from './case-studies'
 import { COMMUNITY_HELP, COMMUNITY_HELPS } from './community-helps'
@@ -124,6 +124,7 @@ export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page |
   const pagePath = `/${slugSegments.join('/')}`
 
   const page = data.Pages?.docs.find(({ breadcrumbs }: Page) => {
+    if (!breadcrumbs) return false
     const { url } = breadcrumbs[breadcrumbs.length - 1]
     return url === pagePath
   })

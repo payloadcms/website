@@ -247,6 +247,7 @@ export interface Job {
   };
   provisionDNS?: {
     project: string | Project;
+    lastSeenPhase?: string;
   };
   hasError?: boolean;
   error?:
