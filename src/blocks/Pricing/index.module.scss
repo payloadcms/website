@@ -159,6 +159,7 @@
 
     .toggler {
         @include label;
+        color: var(--color-base-100);
         background-color: transparent;
         border: none;
         margin: calc(var(--base)*0.25) 0;
