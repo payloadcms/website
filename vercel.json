@@ -1,5 +1,15 @@
 {
   "github": {
     "silent": true
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/community-help-cron",
+      "schedule": "0 5 * * *"
+    },
+    {
+      "path": "/api/community-help-algolia-cron",
+      "schedule": "15 5 * * *"
+    }
+  ]
 }
