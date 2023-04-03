@@ -336,7 +336,7 @@ const Checkout: React.FC<{
                     label={
                       <Fragment>
                         {'I agree to the '}
-                        <Link href="/cloud/terms" target="_blank">
+                        <Link href="/cloud-terms" target="_blank">
                           Terms of Service
                         </Link>
                       </Fragment>
