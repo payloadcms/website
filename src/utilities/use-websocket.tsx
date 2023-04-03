@@ -34,7 +34,6 @@ export const useWebSocket = ({
       }
 
       webSocket.onerror = error => {
-        console.log('error', error)
         if (onError) {
           onError(error)
         }
@@ -54,11 +53,9 @@ export const useWebSocket = ({
   React.useEffect(() => {
     const socket = socketRef.current
     if (url && socket && socket?.url !== url) {
-      console.log('closing socket')
       socket.close()
       setupWebSocket(url)
     } else if (url && !socket) {
-      console.log('setting up socket')
       setupWebSocket(url)
     }
   }, [url, setupWebSocket])
