@@ -61,7 +61,7 @@ export const useDeploy = (args: {
   }, [paymentIntent, elements, stripe, checkoutState])
 
   const deploy: OnSubmit = useCallback(
-    async ({ data: formState }) => {
+    async ({ unflattenedData: formState }) => {
       setTimeout(() => window.scrollTo(0, 0), 0)
 
       try {
