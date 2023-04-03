@@ -4,7 +4,7 @@ export interface FieldProps<T> {
   path?: string
   required?: boolean
   validate?: Validate
-  label?: string
+  label?: string | React.ReactNode
   placeholder?: string
   onChange?: (value: T) => void // eslint-disable-line no-unused-vars
   initialValue?: T
