@@ -41,7 +41,7 @@ const initialFormState: InitialState = {
 
 const Signup: React.FC = () => {
   const searchParams = useSearchParams()
-  const { user, logout } = useAuth()
+  const { user } = useAuth()
 
   const [error, setError] = React.useState<string | null>(null)
 
@@ -125,8 +125,8 @@ const Signup: React.FC = () => {
               You must first logout to create another account.
             </Heading>
             <div className={classes.buttonWrap}>
-              <Button label="Log out" onClick={logout} appearance="primary" />
-              <Button label="Dashboard" href="/cloud" appearance="secondary" />
+              <Button label="Log out" href="/logout" appearance="primary" el="link" />
+              <Button label="Dashboard" href="/cloud" appearance="secondary" el="link" />
             </div>
           </Cell>
         </Grid>
