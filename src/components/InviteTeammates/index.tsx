@@ -5,9 +5,23 @@ import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 
 import { Heading } from '@components/Heading'
-import { BorderBox } from '@root/app/_components/BorderBox'
 
 import classes from './index.module.scss'
+
+export const userTeamRoles = [
+  {
+    label: 'Owner',
+    value: 'owner',
+  },
+  {
+    label: 'Admin',
+    value: 'admin',
+  },
+  {
+    label: 'User',
+    value: 'user',
+  },
+]
 
 const Invites: React.FC<{
   className?: string
@@ -20,7 +34,7 @@ const Invites: React.FC<{
     <div className={[classes.teamInvites, className].filter(Boolean).join(' ')}>
       {hasInvites && (
         <div>
-          <Heading element="h5" marginTop={false}>
+          <Heading element="h6" marginTop={false}>
             Invite your teammates
           </Heading>
           <div className={classes.invites}>
@@ -35,20 +49,7 @@ const Invites: React.FC<{
                   <Select
                     label="Roles"
                     path={`sendEmailInvitationsTo.${index}.roles`}
-                    options={[
-                      {
-                        label: 'Owner',
-                        value: 'owner',
-                      },
-                      {
-                        label: 'Admin',
-                        value: 'admin',
-                      },
-                      {
-                        label: 'User',
-                        value: 'user',
-                      },
-                    ]}
+                    options={userTeamRoles}
                     isMulti
                     className={classes.field}
                   />

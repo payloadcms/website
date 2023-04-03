@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback } from 'react'
+import React, { Fragment, useCallback } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
@@ -10,8 +10,8 @@ import { OnSubmit } from '@forms/types'
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
-import { useAuth } from '@root/providers/Auth'
 import { Message } from '@components/Message'
+import { useAuth } from '@root/providers/Auth'
 
 import classes from './page.module.scss'
 
@@ -81,13 +81,45 @@ export default () => {
   return (
     <Gutter className={classes.content}>
       <Heading marginTop={false} marginBottom={false} element="h1" as="h6">
-        {formToShow === 'account' ? 'Account Settings' : 'Change Password'}
+        Account Settings
       </Heading>
       <div className={classes.formState}>
-        <Message error={error} success={success} warning={loading ? 'Loading...' : false} />
+        <Message error={error} success={success} warning={loading ? 'Loading...' : undefined} />
       </div>
       <Grid>
         <Cell cols={6} colsM={8}>
+          <p>
+            {formToShow === 'account' && (
+              <Fragment>
+                {'To change your password, '}
+                <button
+                  className={classes.viewButton}
+                  type="button"
+                  onClick={() => {
+                    setFormToShow('password')
+                  }}
+                >
+                  click here
+                </button>
+                {'.'}
+              </Fragment>
+            )}
+            {formToShow === 'password' && (
+              <Fragment>
+                {'Change your password below. '}
+                <button
+                  className={classes.viewButton}
+                  type="button"
+                  onClick={() => {
+                    setFormToShow('account')
+                  }}
+                >
+                  Cancel
+                </button>
+                {'.'}
+              </Fragment>
+            )}
+          </p>
           <Form
             className={classes.form}
             initialState={{
@@ -128,16 +160,16 @@ export default () => {
               </>
             )}
             <div className={classes.buttonWrap}>
+              {formToShow === 'password' && (
+                <Button
+                  label="Cancel"
+                  appearance="secondary"
+                  onClick={() => {
+                    setFormToShow('account')
+                  }}
+                />
+              )}
               <Submit label="Save" className={classes.submit} />
-              <button
-                className={classes.viewButton}
-                type="button"
-                onClick={() => {
-                  setFormToShow(formToShow === 'account' ? 'password' : 'account')
-                }}
-              >
-                {formToShow === 'account' ? 'Change Password' : 'Cancel'}
-              </button>
             </div>
           </Form>
         </Cell>
