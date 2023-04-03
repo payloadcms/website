@@ -73,7 +73,6 @@ export const EnvManagement: React.FC = () => {
               className={classes.newEnvInput}
               path={`newEnvs.${index}.key`}
               validate={(key: string) => validateKey(key, existingEnvKeys)}
-              initialValue=""
             />
 
             <Text
@@ -82,7 +81,6 @@ export const EnvManagement: React.FC = () => {
               className={classes.newEnvInput}
               path={`newEnvs.${index}.value`}
               validate={validateValue}
-              initialValue=""
             />
           </ArrayRow>
         )
