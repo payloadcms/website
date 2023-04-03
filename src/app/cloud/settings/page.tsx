@@ -131,6 +131,7 @@ export default () => {
               <Submit label="Save" className={classes.submit} />
               <button
                 className={classes.viewButton}
+                type="button"
                 onClick={() => {
                   setFormToShow(formToShow === 'account' ? 'password' : 'account')
                 }}
