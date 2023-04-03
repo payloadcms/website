@@ -14,7 +14,7 @@ import { useRouteData } from '@root/app/cloud/context'
 import classes from './index.module.scss'
 
 export default () => {
-  const { project } = useRouteData()
+  const { project, reloadProject } = useRouteData()
 
   const onSubmit = React.useCallback(
     async ({ unflattenedData }) => {
@@ -34,6 +34,7 @@ export default () => {
         )
 
         if (res.status === 200) {
+          reloadProject()
           toast.success('Settings updated successfully.')
         } else {
           toast.error('Failed to update settings.')
@@ -42,7 +43,7 @@ export default () => {
         toast.error('Failed to update settings.')
       }
     },
-    [project],
+    [project, reloadProject],
   )
 
   return (
