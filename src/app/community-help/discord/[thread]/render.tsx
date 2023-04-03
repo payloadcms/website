@@ -23,12 +23,12 @@ export type Attachments = {
   height: number
   width: number
   contentType:
-    | 'image/png'
-    | 'video/MP2T'
-    | 'text/plain'
-    | 'application/json'
-    | 'video/quicktime'
-    | 'image/jpeg'
+  | 'image/png'
+  | 'video/MP2T'
+  | 'text/plain'
+  | 'application/json'
+  | 'video/quicktime'
+  | 'image/jpeg'
   description: string
   ephemeral: boolean
 }[]
@@ -43,20 +43,30 @@ export type Messages = {
 }
 
 export type ThreadProps = {
-  info: {
-    name: string
-    id: string
-    guildId: string
-    createdAt: string | number
+  id: string
+  title?: string
+  slug?: string
+  discordID?: string
+  githubID?: string
+  communityHelpType?: 'discord' | 'github'
+  communityHelpJSON: {
+    info: {
+      name: string
+      id: string
+      guildId: string
+      createdAt: string | number
+    }
+    intro: Messages
+    messageCount: number
+    messages: Messages[]
+    slug: string
   }
-  intro: Messages
-  messageCount: number
-  messages: Messages[]
-  slug: string
 }
 
 export const RenderThread: React.FC<ThreadProps> = props => {
-  const { info, intro, messageCount, messages } = props
+  const { communityHelpJSON } = props
+
+  const { info, intro, messageCount, messages } = communityHelpJSON
 
   const author = intro.authorName
 

@@ -64,7 +64,7 @@
   width: 100%;
   background: var(--theme-success-50);
   border-bottom: 1px solid var(--theme-success-150);
-  
+
   & label {
     @include label;
     font-size: 13px;
@@ -126,5 +126,15 @@
   .comment,
   .reply {
     padding: var(--base);
+  }
+
+  .replyCount {
+    padding: var(--base) 0 0 0;
+  }
+
+  .answer {
+    .replyCount {
+      padding: 0 calc(var(--base) * 1.5) calc(var(--base) * 1.5) calc(var(--base) * 1.5);
+    }
   }
 }

@@ -8,11 +8,6 @@
   border-radius: 19px;
   padding: 0 calc(var(--base) * 0.5);
   margin-right: calc(var(--base) * 0.4);
-
-  @include small-break {
-    padding: calc(var(--base) * 0.35) calc(var(--base) * 0.5);
-    max-height: 28px;
-  }
 }
 
 .text {
@@ -26,5 +21,17 @@
   .pill {
     background-color: var(--theme-success-450);
     color: black;
+  }
+}
+
+@include small-break {
+  .pill {
+    padding: calc(var(--base) * 0.25) calc(var(--base) * 0.45);
+    margin: 0;
+    max-height: 28px;
+  }
+
+  .text {
+    font-size: 10px;
   }
 }

@@ -1,7 +1,16 @@
+import type {
+  Announcement,
+  CaseStudy,
+  Footer,
+  MainMenu,
+  Page,
+  Post,
+  CommunityHelp,
+} from '../payload-types'
 import type { Project, Team, Template } from '@root/payload-cloud-types'
-import type { Announcement, CaseStudy, Footer, MainMenu, Page, Post } from '../payload-types'
 import { ANNOUNCEMENT_FIELDS } from './announcement'
 import { CASE_STUDIES, CASE_STUDY } from './case-studies'
+import { COMMUNITY_HELP, COMMUNITY_HELPS } from './community-helps'
 import { GLOBALS } from './globals'
 import { PAGE, PAGES } from './pages'
 import { POST, POST_SLUGS, POSTS } from './posts'
@@ -239,6 +248,42 @@ export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
   ).then(res => res.json())
 
   return data?.CaseStudies?.docs[0]
+}
+
+export const fetchCommunityHelps = async (): Promise<CommunityHelp[]> => {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?communityHelps`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    next,
+    body: JSON.stringify({
+      query: COMMUNITY_HELPS,
+    }),
+  }).then(res => res.json())
+
+  return data?.CommunityHelps?.docs
+}
+
+export const fetchCommunityHelp = async (slug: string): Promise<CommunityHelp> => {
+  const { data } = await fetch(
+    `${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?communityHelp=${slug}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next,
+      body: JSON.stringify({
+        query: COMMUNITY_HELP,
+        variables: {
+          slug,
+        },
+      }),
+    },
+  ).then(res => res.json())
+
+  return data?.CommunityHelps?.docs[0]
 }
 
 export const fetchTeam = async (slug: string): Promise<Team> => {

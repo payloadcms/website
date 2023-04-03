@@ -1,5 +1,18 @@
 @use '@scss/common' as *;
 
+.communityHelpWrap {
+  max-width: 1200px;
+  margin-right: calc(var(--base) * 8);
+
+  @include mid-break {
+    margin: 0;
+  }
+
+  @include small-break {
+    margin-top: var(--base);
+  }
+}
+
 .wrap {
   display: flex;
   flex-direction: row;
@@ -17,4 +30,73 @@
       width: unset;
     }
   }
+}
+
+.postsWrap {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.post {
+  border-bottom: 1px solid var(--color-base-650);
+}
+
+.postContent {
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  padding: calc(var(--base) * 1.75) 0;
+}
+
+.title {
+  margin: 0;
+
+  @include small-break {
+    margin-bottom: calc(var(--base)*0.25);
+  }
+}
+
+.titleMeta {
+  display: flex;
+  align-items: center;
+  margin-top: calc(var(--base) * .25);
+  color: var(--theme-elevation-500);
+  gap: calc(var(--base) * .5);
+}
+
+.platform {
+  display: inline-flex;
+  margin-right: calc(var(--base) * .25);
+}
+
+.upvotes {
+  display: flex;
+  justify-content: flex-end;
+  color: var(--theme-elevation-500);
+  margin-left: var(--base);
+  flex-shrink: 0;
+  line-height: 42px;
+
+  & svg {
+    width: calc(var(--base) * .75);
+    margin-right: calc(var(--base) * .35);
+  }
+
+  & span:not(:last-child) {
+    padding-right: var(--base);
+  }
+
+  @include mid-break {
+    line-height: 32px;
+  }
+
+  @include small-break {
+    line-height: 24px;
+  }
+}
+
+.icon {
+  width: 20px;
+  margin: 0 1px;
 }
