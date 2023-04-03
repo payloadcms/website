@@ -33,7 +33,19 @@ export default () => {
         upperChildren={
           <div className={classes.fields}>
             <Banner>
-              <p>Payload Cloud uses AWS Cognito for authentication to your S3 bucket.</p>
+              <p>
+                Payload Cloud uses AWS Cognito for authentication to your S3 bucket. To set up your
+                app to store its files to S3 using the credentials below, make sure your project's
+                Payload config has the official{' '}
+                <a
+                  href="https://github.com/payloadcms/plugin-cloud"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Payload Cloud Plugin
+                </a>{' '}
+                installed.
+              </p>
             </Banner>
             <ul className={classes.meta}>
               <li>
