@@ -15,42 +15,51 @@ export const useWebSocket = ({
   onError,
   onClose,
 }: WebSocketHookArgs): void => {
-  const [socket, setSocket] = React.useState<WebSocket | null>(() => {
-    if (!url) return null
+  const socketRef = React.useRef<WebSocket | null>()
 
-    const webSocket = new WebSocket(url)
+  const setupWebSocket = React.useCallback(
+    newURL => {
+      if (!newURL) return null
 
-    webSocket.onopen = () => {
-      if (onOpen) {
-        onOpen()
+      const webSocket = new WebSocket(newURL)
+
+      webSocket.onopen = () => {
+        if (onOpen) {
+          onOpen()
+        }
       }
-    }
 
-    webSocket.onmessage = event => {
-      onMessage(event)
-    }
-
-    webSocket.onerror = error => {
-      if (onError) {
-        onError(error)
+      webSocket.onmessage = event => {
+        onMessage(event)
       }
-    }
 
-    webSocket.onclose = () => {
-      if (onClose) {
-        onClose()
+      webSocket.onerror = error => {
+        console.log('error', error)
+        if (onError) {
+          onError(error)
+        }
       }
-    }
 
-    return webSocket
-  })
+      webSocket.onclose = () => {
+        if (onClose) {
+          onClose()
+        }
+      }
+
+      socketRef.current = webSocket
+    },
+    [onOpen, onMessage, onError, onClose],
+  )
 
   React.useEffect(() => {
+    const socket = socketRef.current
     if (url && socket && socket?.url !== url) {
+      console.log('closing socket')
       socket.close()
-      setSocket(new WebSocket(url))
+      setupWebSocket(url)
     } else if (url && !socket) {
-      setSocket(new WebSocket(url))
+      console.log('setting up socket')
+      setupWebSocket(url)
     }
-  }, [url, socket])
+  }, [url, setupWebSocket])
 }
