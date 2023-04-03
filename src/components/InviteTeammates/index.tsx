@@ -26,7 +26,7 @@ const Invites: React.FC<{
           <div className={classes.invites}>
             {uuids?.map((uuid, index) => {
               return (
-                <ArrayRow key={uuid} index={index} allowRemove>
+                <ArrayRow key={uuid} index={index} allowRemove className={classes.fieldWrap}>
                   <Text
                     label="Email address"
                     path={`sendEmailInvitationsTo.${index}.email`}
