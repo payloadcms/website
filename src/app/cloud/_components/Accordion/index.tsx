@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { CollapsibleContent, CollapsibleToggler } from '@faceless-ui/collapsibles'
+import { CollapsibleContent, CollapsibleToggler, useCollapsible } from '@faceless-ui/collapsibles'
 
 import { ChevronIcon } from '@root/graphics/ChevronIcon'
 import { EyeIcon } from '@root/icons/EyeIcon'
@@ -11,14 +11,23 @@ const Icons = {
   chevron: ChevronIcon,
 }
 
+const IconToRender: React.FC<{ icon: 'eye' | 'chevron' }> = ({ icon }) => {
+  const { isOpen } = useCollapsible()
+
+  if (icon === 'eye') {
+    return <EyeIcon closed={isOpen} size="large" />
+  }
+
+  const Icon = Icons[icon]
+  return <Icon />
+}
+
 type HeaderProps = {
   label: React.ReactNode
   onToggle?: () => void
   toggleIcon?: 'eye' | 'chevron'
 }
 const Header: React.FC<HeaderProps> = ({ label, onToggle, toggleIcon = 'eye' }) => {
-  const IconToRender = Icons[toggleIcon]
-
   return (
     <div className={classes.header} data-accordion-header>
       <div className={classes.labelContent} data-accordion-header-content>
@@ -30,7 +39,7 @@ const Header: React.FC<HeaderProps> = ({ label, onToggle, toggleIcon = 'eye' }) 
         onClick={onToggle}
         data-accordion-header-toggle
       >
-        <IconToRender />
+        <IconToRender icon={toggleIcon} />
       </CollapsibleToggler>
     </div>
   )
