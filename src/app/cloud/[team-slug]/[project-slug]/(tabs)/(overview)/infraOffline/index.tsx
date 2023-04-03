@@ -125,24 +125,32 @@ export const InfraOffline: React.FC = () => {
             <React.Fragment>
               <h4>Troubleshooting help</h4>
               <h6>Does the branch "{project.deploymentBranch}" exist?</h6>
-              <p>
+              <p className={classes.helpText}>
                 Validate that your branch exists. If it doesn't, go to{' '}
                 <Link href={`/cloud/${team.slug}/${project.slug}/settings`}>Settings</Link> and
                 change your branch to a valid branch that exists.
               </p>
               <h6>Can you build your project locally?</h6>
-              <p>
+              <p className={classes.helpText}>
                 If you're importing a project, make sure it can build on your local machine. If you
                 can't build locally, fix the errors and then push a commit to restart this process.
               </p>
               <h6>Are you specifying a port correctly?</h6>
-              <p>
+              <p className={classes.helpText}>
                 By default, Payload Cloud listens on port 3000. Make sure that your app is set up to
                 listen on port 3000, or go to{' '}
                 <Link href={`/cloud/${team.slug}/${project.slug}/settings`}>Settings</Link>
                 and specify a <code>PORT</code> environment variable to manually set the port to
                 listen on.
               </p>
+
+              <Banner type="default" margin={false}>
+                Running into trouble? Connect with us on{' '}
+                <a href="https://discord.com/invite/r6sCXqVk3v" target="_blank">
+                  discord
+                </a>
+                , we would love to help!
+              </Banner>
             </React.Fragment>
           )}
         </React.Fragment>
