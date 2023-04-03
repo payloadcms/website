@@ -9,13 +9,12 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-flex;
   position: relative;
   padding: var(--button-padding);
-
+  
   --button-padding: calc(var(--base) * 0.5) var(--base);
   height: calc(var(--base) * 2.5); // match input height
-
-  &:local(.size--small) {
-    --button-padding: calc(var(--base) * 0.35) calc(var(--base) * 0.75);
-    height: unset;
+  
+  &:focus-visible {
+    @include outline;
   }
 
   &:disabled {
@@ -23,6 +22,32 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
     opacity: .25;
   }
 }
+
+.size--pill {
+  @include small;
+  line-height: calc(var(--base) * 1.25);
+  height: unset;
+  border-radius: 3px;
+  padding: 0 6px;
+  font-weight: bold;
+
+  .spacer {
+    width: calc(var(--base) * 0.75);
+  }
+
+  &.appearance--default {
+    background-color: var(--theme-elevation-250);
+    color: var(--theme-elevation-1000);
+    min-width: unset;
+    padding: 0 6px;
+
+    &:focus-visible, &:hover {
+      background-color: var(--theme-elevation-200);
+      color: var(--theme-elevation-1000);
+    }
+  }
+}
+
 
 .full-width {
   width: 100%;
@@ -57,7 +82,7 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
     color: var(--theme-bg);
     background-color: var(--theme-elevation-950);
 
-    &:focus {
+    &:focus-visible, &:hover {
       color: var(--theme-bg);
       border-color: currentColor;
       background-color: var(--theme-elevation-700);
@@ -100,13 +125,11 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   &--danger {
-    color: var(--theme-error-550);
-    background: var(--theme-error-100);
-    border: 1px solid;
+    background-color: var(--theme-error-500);
+    color: var(--theme-error-50);
 
-    &:focus-visible {
-      color: var(--theme-error-800);
-      border-color: var(--theme-error-800);
+    &:focus-visible, &:hover {
+      background-color: var(--theme-error-450);
     }
   }
 
@@ -161,7 +184,7 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   align-items: center;
 }
 
-.label-mono {
+.size--default .label-mono {
   @include label;
 }
 

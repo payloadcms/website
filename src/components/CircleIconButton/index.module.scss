@@ -1,3 +1,5 @@
+@use '@scss/common.scss' as *;
+
 .button {
   padding: 0;
   color: var(--theme-elevation-500);
@@ -17,6 +19,10 @@
     &:local() {
       color: var(--color-theme-text);
     }
+  }
+
+  &:focus-visible .iconWrapper{
+    @include outline;
   }
 }
 

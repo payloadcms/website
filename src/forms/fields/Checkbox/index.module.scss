@@ -22,6 +22,12 @@
     outline: none;
   }
 
+  &:focus-visible {
+    .input {
+      @include outline;
+    }
+  }
+
   &:hover {
     :local() {
       .icon {

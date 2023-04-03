@@ -101,6 +101,10 @@
   overflow: hidden;
   position: relative;
   top: 14px;
+
+  &:focus-visible {
+    @include outline;
+  }
   
   @include mid-break {
     top: 2px;

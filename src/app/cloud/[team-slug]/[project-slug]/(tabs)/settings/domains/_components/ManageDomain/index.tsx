@@ -137,13 +137,8 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
 
               <div className={classes.domainActions}>
                 <div className={classes.rightActions}>
-                  <Button
-                    size="small"
-                    label="delete"
-                    appearance="danger"
-                    onClick={() => openModal(modalSlug)}
-                  />
-                  <Submit size="small" label="save" appearance="secondary" icon={false} />
+                  <Button label="delete" appearance="danger" onClick={() => openModal(modalSlug)} />
+                  <Submit label="save" appearance="secondary" icon={false} />
                 </div>
               </div>
             </div>

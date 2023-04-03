@@ -48,6 +48,10 @@
   &:focus-visible {
     background-color: var(--theme-elevation-200);
   }
+  
+  &:focus-visible {
+    @include outline;
+  }
 
   &.icon--chevron {
     svg {
@@ -82,7 +86,4 @@
 .collapsibleContent {
   padding: calc(var(--base) * .75) calc(var(--base) * 1);
   border-top: 1px solid var(--theme-border-color);
-
-  @include mid-break {
-  }
 }

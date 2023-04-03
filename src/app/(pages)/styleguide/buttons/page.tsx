@@ -23,6 +23,21 @@ const Buttons: React.FC = () => {
           <Button label="Learn more" icon="arrow" labelStyle="regular" />
         </div>
         <br />
+        <p>Default Pill</p>
+        <div>
+          <Button label="Create new" size="pill" />
+        </div>
+        <br />
+        <p>Primary Pill</p>
+        <div>
+          <Button appearance="primary" label="Create new" size="pill" />
+        </div>
+        <br />
+        <p>Pill</p>
+        <div>
+          <Button appearance="secondary" label="Create new" size="pill" />
+        </div>
+        <br />
         <p>Primary</p>
         <div>
           <Button appearance="primary" label="Create new project" />
@@ -41,6 +56,11 @@ const Buttons: React.FC = () => {
         <p>Secondary with icon</p>
         <div>
           <Button appearance="secondary" label="Read the docs" icon="arrow" />
+        </div>
+        <br />
+        <p>Danger with icon</p>
+        <div>
+          <Button appearance="danger" label="Delete" />
         </div>
       </Gutter>
     </StyleguidePageContent>

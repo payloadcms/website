@@ -164,13 +164,8 @@ export const ManageEnv: React.FC<Props> = ({ env: { key, id } }) => {
             />
 
             <div className={classes.actionFooter}>
-              <Button
-                label="delete"
-                appearance="danger"
-                size="small"
-                onClick={() => openModal(modalSlug)}
-              />
-              <Submit label="update" icon={false} appearance="secondary" size="small" />
+              <Button label="Remove" appearance="danger" onClick={() => openModal(modalSlug)} />
+              <Submit label="Update" icon={false} />
             </div>
           </Form>
         </Accordion>

@@ -104,6 +104,7 @@ export const Checkbox: React.FC<
         checked={Boolean(checked)}
         readOnly
         disabled={disabled}
+        tabIndex={-1}
       />
       <button
         type="button"

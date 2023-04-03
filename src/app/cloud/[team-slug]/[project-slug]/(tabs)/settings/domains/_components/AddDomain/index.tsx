@@ -87,7 +87,7 @@ export const AddDomain: React.FC = () => {
       />
 
       <div className={classes.actionFooter}>
-        <Submit icon={false} label="Save" appearance="secondary" size="small" />
+        <Submit icon={false} label="Save" appearance="secondary" />
       </div>
     </Form>
   )

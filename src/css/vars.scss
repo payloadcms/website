@@ -152,6 +152,11 @@ $breakpoint-xl-width: 1920px;
   }
 }
 
+@mixin outline {
+  outline: 1px solid var(--theme-blue-400);
+  outline-offset: 2px;
+}
+
 @mixin color-links {
   a {
     text-decoration: none;

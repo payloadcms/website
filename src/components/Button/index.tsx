@@ -31,7 +31,7 @@ export type ButtonProps = {
   htmlButtonType?: 'button' | 'submit'
   onMouseEnter?: () => void
   onMouseLeave?: () => void
-  size?: 'small' | 'default'
+  size?: 'pill' | 'default'
   disabled?: boolean
   disableLineBlip?: boolean
 }
@@ -127,7 +127,7 @@ export const Button: React.FC<ButtonProps> = props => {
     fullWidth,
     mobileFullWidth,
     htmlButtonType = 'button',
-    size,
+    size = 'default',
     disabled,
     href: hrefFromProps,
     disableLineBlip,
@@ -189,7 +189,9 @@ export const Button: React.FC<ButtonProps> = props => {
         }}
         disabled={disabled}
       >
-        {appearance === 'default' && !disableLineBlip && <LineBlip active={isHovered} />}
+        {size !== 'pill' && appearance === 'default' && !disableLineBlip && (
+          <LineBlip active={isHovered} />
+        )}
         <ButtonContent {...props} />
       </Element>
     )

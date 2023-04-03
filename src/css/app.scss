@@ -152,6 +152,10 @@ a {
     text-decoration: underline;
   }
 
+  &:focus-visible {
+    @include outline;
+  }
+
   &:active {
     opacity: .7;
     outline: none;

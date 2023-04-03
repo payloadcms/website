@@ -112,7 +112,6 @@ export const ImportProject: React.FC = () => {
                         <Button
                           label="Import"
                           appearance="primary"
-                          size="small"
                           onClick={() => {
                             submitDraftProject({ repo })
                           }}

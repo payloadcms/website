@@ -1,3 +1,5 @@
+@use '@scss/common.scss' as *;
+
 .row {
   display: flex;
   gap: var(--base);
@@ -18,6 +20,10 @@
   &:hover,
   &:focus {
     background-color: var(--theme-error-100);
+  }
+
+  &:focus-visible {
+    @include outline;
   }
 }
 

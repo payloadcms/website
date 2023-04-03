@@ -119,7 +119,7 @@ export default () => {
           <SelectTeam teams={teamOptions} initialValue={currentTeam.id} />
 
           <div className={classes.actionsFooter}>
-            <Submit label="Save" size="small" appearance="secondary" icon={false} />
+            <Submit label="Save" icon={false} />
           </div>
         </Form>
       ) : (
