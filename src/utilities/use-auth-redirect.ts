@@ -9,8 +9,7 @@ export const useAuthRedirect = (): string | void => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  // let `cloud` through, we will manually handle that within the cloud layout
-  if (pathname !== '/cloud' && user === null) {
+  if (user === null) {
     redirect(`/login?redirect=${encodeURIComponent(`${pathname}?${searchParams}`)}`)
   }
 

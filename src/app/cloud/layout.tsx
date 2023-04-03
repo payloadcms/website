@@ -6,12 +6,10 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
 import { Message } from '@components/Message'
-import { useAuth } from '@root/providers/Auth'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
 import { RouteTabs } from './_components/RouteTabs'
 import { RouteDataProvider, useRouteData } from './context'
-import Dashboard from './Dashboard'
 
 export const cloudSlug = 'cloud'
 
@@ -175,20 +173,6 @@ const DashboardHeader = () => {
 
 const DashboardLayout = ({ children }) => {
   useAuthRedirect()
-  const { user } = useAuth()
-  const pathname = usePathname()
-
-  if (pathname === '/cloud') {
-    // render the generic cloud landing page if the user is not logged in
-    if (!user) return children
-
-    return (
-      <RouteDataProvider>
-        <DashboardHeader />
-        <Dashboard />
-      </RouteDataProvider>
-    )
-  }
 
   return (
     <RouteDataProvider>
