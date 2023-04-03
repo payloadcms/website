@@ -17,33 +17,38 @@ type Log = {
 export default () => {
   const { project } = useRouteData()
   const [runtimeLogs, setRuntimeLogs] = React.useState<Log[]>([])
+
+  const onMessage = React.useCallback(event => {
+    const message = event?.data
+    try {
+      const parsedMessage = JSON.parse(message)
+      if (parsedMessage?.data) {
+        const [service, timestamp, ...rest] = parsedMessage.data.split(' ')
+        setRuntimeLogs(messages => [
+          ...messages,
+          {
+            service,
+            timestamp,
+            message: rest.join(' ').trim(),
+          },
+        ])
+      }
+    } catch (e) {
+      // fail silently
+    }
+  }, [])
+
+  const onClose = React.useCallback(() => {
+    setRuntimeLogs([])
+  }, [])
+
   useWebSocket({
     url: `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project.id}/logs`.replace(
       'http',
       'ws',
     ),
-    onMessage: event => {
-      const message = event?.data
-      try {
-        const parsedMessage = JSON.parse(message)
-        if (parsedMessage?.data) {
-          const [service, timestamp, ...rest] = parsedMessage.data.split(' ')
-          setRuntimeLogs(messages => [
-            ...messages,
-            {
-              service,
-              timestamp,
-              message: rest.join(' ').trim(),
-            },
-          ])
-        }
-      } catch (e) {
-        // fail silently
-      }
-    },
-    onClose: () => {
-      setRuntimeLogs([])
-    },
+    onMessage,
+    onClose,
   })
 
   return (
