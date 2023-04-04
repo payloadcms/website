@@ -69,7 +69,7 @@ const WrappedHeaderObserver: React.FC<
       isFirstRef.current = true
       setIsFirstObserver(false)
     }
-  }, [isDetached, isFirstObserver, setIsFirstObserver])
+  }, [isDetached, isFirstObserver, setIsFirstObserver, isDetached])
 
   if (isDetached) {
     return <React.Fragment>{children && children}</React.Fragment>
