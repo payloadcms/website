@@ -13,7 +13,7 @@ export const TeamMemberRow: React.FC<{
   roles?: ('owner' | 'admin' | 'user')[]
   footer?: React.ReactNode
 }> = props => {
-  const { email, roles, leader, footer } = props
+  const { email, leader, footer, roles } = props
 
   return (
     <BorderBox className={classes.member}>

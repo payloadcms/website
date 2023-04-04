@@ -73,6 +73,7 @@ export const Select: React.FC<{
 
   const id = useId()
   const ref = useRef<any>(null)
+  const prevValueFromProps = useRef<string | string[] | undefined>(valueFromProps)
 
   const fieldFromContext = useFormField<string | string[]>({
     path,
@@ -137,9 +138,16 @@ export const Select: React.FC<{
     [internalState, options],
   )
 
+  // allow external control
   useEffect(() => {
-    setFormattedValue(valueFromProps)
-  }, [valueFromProps, setFormattedValue])
+    // compare prevValueFromProps.current to valueFromProps
+    // this is bc components which are externally control the value AND rendered inside the form context
+    // will throw an infinite loop after the form state is updated-even if the value is the same, it is a new instance
+    if (valueFromProps !== prevValueFromProps.current) {
+      setFormattedValue(valueFromProps)
+      prevValueFromProps.current = valueFromProps
+    }
+  }, [valueFromProps, setFormattedValue, prevValueFromProps])
 
   const handleChange = useCallback(
     (incomingSelection: Option | Option[]) => {
