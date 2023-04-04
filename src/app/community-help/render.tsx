@@ -78,8 +78,8 @@ export const CommunityHelp: React.FC = () => {
             )}
             {!hasResults && (
               <>
-                <h5>Sorry, no results were found...</h5>
                 <Banner type="warning">
+                  <h5>Sorry, no results were found...</h5>
                   <label>Search tips</label>
                   <ul>
                     <li>Make sure all words are spelled correctly</li>
