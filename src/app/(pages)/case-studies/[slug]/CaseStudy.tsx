@@ -56,7 +56,7 @@ export const CaseStudy: React.FC<CaseStudyT> = props => {
         )}
       </Gutter>
 
-      <RenderBlocks blocks={layout} />
+      {Array.isArray(layout) && <RenderBlocks blocks={layout} />}
     </React.Fragment>
   )
 }

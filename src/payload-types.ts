@@ -39,7 +39,7 @@ export interface CaseStudy {
     [k: string]: unknown;
   }[];
   featuredImage: string | Media;
-  layout: (
+  layout?: (
     | {
       ctaFields: {
         richText: {
@@ -364,7 +364,7 @@ export interface CaseStudy {
             };
             url: string;
           };
-          features: {
+          features?: {
             icon?: 'check' | 'x';
             feature?: string;
             id?: string;
@@ -411,7 +411,7 @@ export interface CaseStudy {
     | {
       stepsFields: {
         steps: {
-          layout: (
+          layout?: (
             | {
               codeFeatureFields: {
                 disableBlockSpacing?: boolean;
@@ -623,7 +623,7 @@ export interface Page {
       richText?: {
         [k: string]: unknown;
       }[];
-      guests: {
+      guests?: {
         name?: string;
         link?: string;
         image?: string | Media;
@@ -636,7 +636,7 @@ export interface Page {
     sidebarContent?: {
       [k: string]: unknown;
     }[];
-    links: {
+    links?: {
       link: {
         type?: 'reference' | 'custom';
         newTab?: boolean;
@@ -659,7 +659,7 @@ export interface Page {
       };
       id?: string;
     }[];
-    actions: {
+    actions?: {
       link: {
         type?: 'reference' | 'custom';
         newTab?: boolean;
@@ -681,7 +681,7 @@ export interface Page {
       };
       id?: string;
     }[];
-    buttons: {
+    buttons?: {
       link: {
         type?: 'reference' | 'custom';
         newTab?: boolean;
@@ -705,7 +705,7 @@ export interface Page {
       id?: string;
     }[];
     media: string | Media;
-    adjectives: {
+    adjectives?: {
       adjective: string;
       id?: string;
     }[];
@@ -1050,7 +1050,7 @@ export interface Page {
             };
             url: string;
           };
-          features: {
+          features?: {
             icon?: 'check' | 'x';
             feature?: string;
             id?: string;
@@ -1097,7 +1097,7 @@ export interface Page {
     | {
       stepsFields: {
         steps: {
-          layout: (
+          layout?: (
             | {
               codeFeatureFields: {
                 disableBlockSpacing?: boolean;
@@ -1279,7 +1279,7 @@ export interface Page {
     image?: string | Media;
   };
   parent?: string | Page;
-  breadcrumbs: {
+  breadcrumbs?: {
     doc?: string | Page;
     url?: string;
     label?: string;
@@ -1380,7 +1380,7 @@ export interface User {
 export interface Form {
   id: string;
   title: string;
-  fields: (
+  fields?: (
     | {
       name: string;
       label?: string;
@@ -1879,7 +1879,7 @@ export interface ReusableContent {
             };
             url: string;
           };
-          features: {
+          features?: {
             icon?: 'check' | 'x';
             feature?: string;
             id?: string;
@@ -1918,7 +1918,7 @@ export interface ReusableContent {
     | {
       stepsFields: {
         steps: {
-          layout: (
+          layout?: (
             | {
               codeFeatureFields: {
                 disableBlockSpacing?: boolean;
