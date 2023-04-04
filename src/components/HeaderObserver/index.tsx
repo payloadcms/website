@@ -117,6 +117,7 @@ export const HeaderObserver: React.FC<Props> = props => {
   const [isDetached, setIsDetached] = React.useState(false)
   const parentObserver = useParentHeaderObserver()
   const pathname = usePathname()
+  const prevPathname = React.useRef(pathname)
 
   const detachParentObserver = React.useCallback(() => {
     setIsDetached(true)
@@ -133,8 +134,10 @@ export const HeaderObserver: React.FC<Props> = props => {
   }, [parentObserver])
 
   React.useEffect(() => {
-    if (parentObserver !== undefined) {
+    const routeChange = prevPathname.current !== pathname
+    if (parentObserver !== undefined && routeChange) {
       parentObserver.attachParentObserver()
+      prevPathname.current = pathname
     }
   }, [parentObserver, pathname])
 
