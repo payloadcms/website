@@ -8,7 +8,9 @@ import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
-type Props = Extract<Page['layout'][0], { blockType: 'slider' }>['sliderFields']['quoteSlides'][0]
+type Props = NonNullable<
+  Extract<Page['layout'][0], { blockType: 'slider' }>['sliderFields']['quoteSlides']
+>[0]
 export const QuoteCard: React.FC<Props> = ({ richText, quoteDate }) => {
   return (
     <ThemeProvider theme="dark" className={classes.quoteCard}>
