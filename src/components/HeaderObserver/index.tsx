@@ -56,7 +56,7 @@ const WrappedHeaderObserver: React.FC<
     }
 
     return () => null
-  }, [setIsIntersecting, windowHeight, themeColor])
+  }, [setIsIntersecting, windowHeight, themeColor, isDetached])
 
   React.useEffect(() => {
     if (isIntersecting) {
@@ -69,7 +69,7 @@ const WrappedHeaderObserver: React.FC<
       isFirstRef.current = true
       setIsFirstObserver(false)
     }
-  }, [isDetached, isFirstObserver, setIsFirstObserver, isDetached])
+  }, [isDetached, isFirstObserver, setIsFirstObserver])
 
   if (isDetached) {
     return <React.Fragment>{children && children}</React.Fragment>
