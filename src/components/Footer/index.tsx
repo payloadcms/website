@@ -184,9 +184,6 @@ export const Footer: React.FC<FooterType> = props => {
                 </label>
               </div>
             </Cell>
-            <Cell cols={3} colsM={8} className={classes.communityHelp}>
-              <a href="/community-help">Community Help</a> (Beta)
-            </Cell>
           </Grid>
         </Gutter>
       </footer>
