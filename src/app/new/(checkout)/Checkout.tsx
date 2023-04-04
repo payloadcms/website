@@ -137,7 +137,7 @@ const Checkout: React.FC<{
     onDeploy,
     projectID: draftProjectID,
     checkoutState,
-    installID: selectedInstall?.id.toString(),
+    installID: selectedInstall?.id.toString() || project?.installID,
     paymentIntent,
   })
 
