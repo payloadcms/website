@@ -3,7 +3,6 @@
 import * as React from 'react'
 import { useWindowInfo } from '@faceless-ui/window-info'
 import { useHeaderTheme } from '@providers/HeaderTheme'
-import { usePathname } from 'next/navigation'
 
 import { useTheme } from '@root/providers/Theme'
 
@@ -52,13 +51,14 @@ const WrappedHeaderObserver: React.FC<
       )
 
       observer.observe(el)
+
       return () => {
         observer.unobserve(el)
       }
     }
 
     return () => null
-  }, [setIsIntersecting, windowHeight, themeColor])
+  }, [setIsIntersecting, windowHeight, themeColor, isDetached])
 
   React.useEffect(() => {
     if (isIntersecting) {
@@ -116,8 +116,6 @@ const useParentHeaderObserver = (): Type | undefined => React.useContext(Context
 export const HeaderObserver: React.FC<Props> = props => {
   const [isDetached, setIsDetached] = React.useState(false)
   const parentObserver = useParentHeaderObserver()
-  const pathname = usePathname()
-  const prevPathname = React.useRef(pathname)
 
   const detachParentObserver = React.useCallback(() => {
     setIsDetached(true)
@@ -131,15 +129,13 @@ export const HeaderObserver: React.FC<Props> = props => {
     if (parentObserver !== undefined) {
       parentObserver.detachParentObserver()
     }
-  }, [parentObserver])
 
-  React.useEffect(() => {
-    const routeChange = prevPathname.current !== pathname
-    if (parentObserver !== undefined && routeChange) {
-      parentObserver.attachParentObserver()
-      prevPathname.current = pathname
+    return () => {
+      if (parentObserver !== undefined) {
+        parentObserver.attachParentObserver()
+      }
     }
-  }, [parentObserver, pathname])
+  }, [parentObserver])
 
   return (
     <Context.Provider
