@@ -3,20 +3,20 @@ import React, { useEffect, useState } from 'react'
 import type { CheckoutState } from '@root/app/new/(checkout)/reducer'
 import type { Project } from '@root/payload-cloud-types'
 
-export interface PayloadPaymentIntent {
+export interface PayloadStripeSubscription {
   client_secret: string
   paid?: boolean
   subscription?: string
   error?: string
 }
 
-export const usePaymentIntent = (args: {
+export const useCreateSubscription = (args: {
   project: Project
   checkoutState: CheckoutState
-}): { error?: string; paymentIntent?: PayloadPaymentIntent } => {
+}): { error?: string; subscription?: PayloadStripeSubscription } => {
   const { project, checkoutState } = args
 
-  const [paymentIntent, setPaymentIntent] = useState<PayloadPaymentIntent>()
+  const [subscription, setSubscription] = useState<PayloadStripeSubscription>()
   const [error, setError] = useState<string | undefined>('')
   const isRequesting = React.useRef<boolean>(false)
   const prevPaymentMethod = React.useRef<string | undefined>(checkoutState?.paymentMethod)
@@ -40,7 +40,7 @@ export const usePaymentIntent = (args: {
 
       setError(undefined)
 
-      const makePaymentIntent = async (): Promise<void> => {
+      const createSubscription = async (): Promise<void> => {
         const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/payment-intent`, {
           method: 'POST',
           headers: {
@@ -57,10 +57,10 @@ export const usePaymentIntent = (args: {
           }),
         })
 
-        const res: PayloadPaymentIntent = await req.json()
+        const res: PayloadStripeSubscription = await req.json()
 
         if (req.ok) {
-          setPaymentIntent(res)
+          setSubscription(res)
         } else {
           setError(res.error)
         }
@@ -68,9 +68,9 @@ export const usePaymentIntent = (args: {
         isRequesting.current = false
       }
 
-      makePaymentIntent()
+      createSubscription()
     }
   }, [project, checkoutState])
 
-  return { error, paymentIntent }
+  return { error, subscription }
 }

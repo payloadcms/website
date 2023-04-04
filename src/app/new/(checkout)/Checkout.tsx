@@ -33,8 +33,8 @@ import { useGetProject } from '@root/utilities/use-cloud-api'
 import { useGitAuthRedirect } from '../authorize/useGitAuthRedirect'
 import { EnvVars } from './EnvVars'
 import { checkoutReducer, CheckoutState } from './reducer'
+import { useCreateSubscription } from './useCreateSubscription'
 import { useDeploy } from './useDeploy'
-import { usePaymentIntent } from './usePaymentIntent'
 
 import classes from './Checkout.module.scss'
 
@@ -115,7 +115,7 @@ const Checkout: React.FC<{
     { value: selectedInstall, loading: installsLoading, error: installsError },
   ] = useInstallationSelector({ initialInstallID: project?.installID })
 
-  const { paymentIntent, error: paymentIntentError } = usePaymentIntent({
+  const { paymentIntent, error: paymentIntentError } = useCreateSubscription({
     project,
     checkoutState,
   })
