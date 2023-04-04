@@ -78,24 +78,27 @@
   display: flex;
   gap: calc(var(--base) * 0.5);
   align-items: flex-end;
-  color: var(--theme-elevation-500);
   margin-top: calc(var(--base) * 0.5);
 
   >span {
-    @include label;
-    color: var(--theme-elevation-300);
-    border: 1px solid;
+    font-family: var(--font-mono);
+    color: var(--theme-elevation-400);
+    border: 1px solid var(--theme-elevation-200);
     border-radius: 3px;
-    padding: 0 8px;
-    background-color: var(--theme-elevation-50);
-    height: 25px;
     display: inline-flex;
     align-items: center;
+    padding: 0 8px;
+    height: 26px;
     gap: 8px;
+    font-size: 14px;
   }
 
-  & svg {
-    width: calc(var(--base) * .75);
+  .arrowIcon {
+    height: 8px;
+  }
+
+  .messageIcon {
+    width: 12px;
   }
 }
 
