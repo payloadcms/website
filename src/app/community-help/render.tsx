@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHits } from 'react-instantsearch-hooks-web'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import Link from 'next/link'
@@ -21,9 +21,17 @@ import { ArchiveSearchBar } from './ArchiveSearchBar'
 import classes from './index.module.scss'
 
 export const CommunityHelp: React.FC = () => {
+  const [searchState, setSearchState] = useState('loading')
+
   const { hits }: { hits: Array<any> } = useHits()
 
   const hasResults = hits && Array.isArray(hits) && hits.length > 0
+
+  useEffect(() => {
+    if (hasResults) {
+      setSearchState('loaded')
+    }
+  }, [hits, hasResults])
 
   return (
     <>
@@ -75,7 +83,7 @@ export const CommunityHelp: React.FC = () => {
                 })}
               </ul>
             )}
-            {!hasResults && (
+            {!hasResults && searchState === 'loaded' && (
               <>
                 <Banner type="warning">
                   <h5>Sorry, no results were found...</h5>
