@@ -4,6 +4,12 @@
   max-width: 1200px;
   margin-right: calc(var(--base) * 8);
 
+  @include large-break {
+    .heading {
+      margin-top: 0;
+    }
+  }
+
   @include mid-break {
     margin: 0;
   }
