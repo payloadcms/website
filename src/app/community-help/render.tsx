@@ -89,7 +89,7 @@ export const CommunityHelp: React.FC = () => {
                 </Banner>
               </>
             )}
-            <AlgoliaPagination />
+            {hasResults && <AlgoliaPagination />}
           </Cell>
         </Grid>
       </Gutter>
