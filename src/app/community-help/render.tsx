@@ -30,9 +30,7 @@ export const CommunityHelp: React.FC = () => {
       <Gutter>
         <Grid>
           <Cell cols={10} colsL={9} className={classes.communityHelpWrap}>
-            <Heading element="h1" marginTop={false}>
-              Community Help
-            </Heading>
+            <Heading element="h1">Community Help</Heading>
             <ArchiveSearchBar className={classes.searchBar} />
             {hasResults && (
               <ul className={classes.postsWrap}>
