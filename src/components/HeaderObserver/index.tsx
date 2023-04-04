@@ -9,7 +9,6 @@ import { useTheme } from '@root/providers/Theme'
 import classes from './index.module.scss'
 
 type Props = {
-  color?: 'light' | 'dark' | null
   className?: string
   zIndex?: number
   children?: React.ReactNode
@@ -19,7 +18,7 @@ const WrappedHeaderObserver: React.FC<
   Props & {
     isDetached: boolean
   }
-> = ({ children, className, zIndex, pullUp, isDetached }) => {
+> = ({ children, className, zIndex, pullUp = false, isDetached }) => {
   const ref = React.useRef<HTMLDivElement>(null)
   const { height: windowHeight } = useWindowInfo()
   const { setHeaderColor, debug, isFirstObserver, setIsFirstObserver } = useHeaderTheme()
@@ -51,7 +50,6 @@ const WrappedHeaderObserver: React.FC<
       )
 
       observer.observe(el)
-
       return () => {
         observer.unobserve(el)
       }
@@ -131,6 +129,8 @@ export const HeaderObserver: React.FC<Props> = props => {
     }
 
     return () => {
+      // when a headerObserver unmounts and there is a parent observer
+      // reattach the parent observer
       if (parentObserver !== undefined) {
         parentObserver.attachParentObserver()
       }

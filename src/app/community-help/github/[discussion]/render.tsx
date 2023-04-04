@@ -2,13 +2,11 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { useTheme } from '@providers/Theme'
 
 import { DiscordGitComments } from '@components/DiscordGitComments'
 import DiscordGitCTA from '@components/DiscordGitCTA'
 import { DiscordGitIntro } from '@components/DiscordGitIntro'
 import { Gutter } from '@components/Gutter'
-import { HeaderObserver } from '@components/HeaderObserver'
 import Meta from '@components/Meta'
 import OpenPost from '@components/OpenPost'
 
@@ -64,8 +62,6 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
   const { title, answer, author, body, createdAt, url, comments, commentTotal, upvotes, id } =
     communityHelpJSON
 
-  const theme = useTheme()
-
   return (
     <>
       <Meta
@@ -73,27 +69,25 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
         description={title}
         slug={`community-help/github/${id}`}
       />
-      <HeaderObserver color={theme} pullUp>
-        <Gutter>
-          <Grid>
-            <Cell cols={10} colsL={9} className={classes.post}>
-              <DiscordGitIntro
-                postName={title}
-                author={author.name}
-                image={author.avatar ? author.avatar : '/images/avatars/default.png'}
-                date={createdAt}
-                messageCount={commentTotal}
-                upvotes={upvotes}
-                content={body}
-                platform="GitHub"
-              />
-              <DiscordGitComments answer={answer} comments={comments} platform="GitHub" />
-              <OpenPost url={url} platform="GitHub" />
-            </Cell>
-          </Grid>
-        </Gutter>
-        <DiscordGitCTA />
-      </HeaderObserver>
+      <Gutter>
+        <Grid>
+          <Cell cols={10} colsL={9} className={classes.post}>
+            <DiscordGitIntro
+              postName={title}
+              author={author.name}
+              image={author.avatar ? author.avatar : '/images/avatars/default.png'}
+              date={createdAt}
+              messageCount={commentTotal}
+              upvotes={upvotes}
+              content={body}
+              platform="GitHub"
+            />
+            <DiscordGitComments answer={answer} comments={comments} platform="GitHub" />
+            <OpenPost url={url} platform="GitHub" />
+          </Cell>
+        </Grid>
+      </Gutter>
+      <DiscordGitCTA />
     </>
   )
 }

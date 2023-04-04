@@ -8,13 +8,12 @@ import Link from 'next/link'
 import { Banner } from '@components/Banner'
 import DiscordGitCTA from '@components/DiscordGitCTA'
 import { Gutter } from '@components/Gutter'
-import { HeaderObserver } from '@components/HeaderObserver'
+import { Heading } from '@components/Heading'
 import { AlgoliaPagination } from '@root/adapters/AlgoliaPagination'
 import { CommentsIcon } from '@root/graphics/CommentsIcon'
 import { DiscordIcon } from '@root/graphics/DiscordIcon'
 import { GithubIcon } from '@root/graphics/GithubIcon'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { useTheme } from '@root/providers/Theme'
 import getRelativeDate from '@root/utilities/get-relative-date'
 import { AlgoliaProvider } from './AlgoliaProvider'
 import { ArchiveSearchBar } from './ArchiveSearchBar'
@@ -22,17 +21,16 @@ import { ArchiveSearchBar } from './ArchiveSearchBar'
 import classes from './index.module.scss'
 
 export const CommunityHelp: React.FC = () => {
-  const theme = useTheme()
-
   const { hits }: { hits: Array<any> } = useHits()
 
   const hasResults = hits && Array.isArray(hits) && hits.length > 0
+
   return (
-    <HeaderObserver color={theme} pullUp>
+    <>
       <Gutter>
         <Grid>
           <Cell cols={10} colsL={9} className={classes.communityHelpWrap}>
-            <h1>Community Help</h1>
+            <Heading element="h1">Community Help</Heading>
             <ArchiveSearchBar className={classes.searchBar} />
             {hasResults && (
               <ul className={classes.postsWrap}>
@@ -89,12 +87,13 @@ export const CommunityHelp: React.FC = () => {
                 </Banner>
               </>
             )}
-            <AlgoliaPagination />
+            {hasResults && <AlgoliaPagination />}
           </Cell>
         </Grid>
       </Gutter>
+
       <DiscordGitCTA />
-    </HeaderObserver>
+    </>
   )
 }
 
