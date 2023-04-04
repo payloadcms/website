@@ -56,7 +56,7 @@ const WrappedHeaderObserver: React.FC<
     }
 
     return () => null
-  }, [setIsIntersecting, windowHeight, themeColor, isDetached])
+  }, [setIsIntersecting, windowHeight, themeColor])
 
   React.useEffect(() => {
     if (isIntersecting) {

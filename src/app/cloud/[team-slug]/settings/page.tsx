@@ -136,12 +136,7 @@ export default () => {
             <Text path="billingEmail" label="Billing Email" required />
             <hr className={classes.hr} />
             <TeamMembers team={team} />
-            {team?.invitations && team?.invitations?.length > 0 && (
-              <React.Fragment>
-                <hr className={classes.hr} />
-                <TeamInvitations team={team} />
-              </React.Fragment>
-            )}
+            {team?.invitations && team?.invitations?.length > 0 && <TeamInvitations team={team} />}
             <hr className={classes.hr} />
             <InviteTeammates />
             <hr className={classes.hr} />

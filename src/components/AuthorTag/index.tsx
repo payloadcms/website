@@ -89,13 +89,13 @@ const AuthorTag: React.FC<Props> = ({
       <div className={classes.commentMetaStats}>
         {upvotes !== undefined && upvotes > 0 && (
           <span>
-            <ArrowIcon rotation={-45} /> {upvotes}
+            <ArrowIcon rotation={-45} className={classes.arrowIcon} /> {upvotes}
           </span>
         )}
 
         {messageCount && messageCount > 0 && (
           <span>
-            <CommentsIcon /> {messageCount}
+            <CommentsIcon className={classes.messageIcon} /> {messageCount}
           </span>
         )}
       </div>
