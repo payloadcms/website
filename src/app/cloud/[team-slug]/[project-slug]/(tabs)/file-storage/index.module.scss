@@ -7,6 +7,7 @@
 .meta {
   list-style: none;
   padding: 0;
+  overflow-wrap: anywhere;
   
   li {
     display: flex;
@@ -15,6 +16,11 @@
   strong {
     width: 300px;
     flex-shrink: 0;
+
+    @include small-break {
+      width: 50%;
+      padding-right: var(--base);
+    }
   }
 }
 
