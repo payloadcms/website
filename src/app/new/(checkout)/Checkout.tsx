@@ -115,11 +115,6 @@ const Checkout: React.FC<{
     { value: selectedInstall, loading: installsLoading, error: installsError },
   ] = useInstallationSelector({ initialInstallID: project?.installID })
 
-  const { paymentIntent, error: paymentIntentError } = useCreateSubscription({
-    project,
-    checkoutState,
-  })
-
   const onDeploy = useCallback(
     (project: Project) => {
       const redirectURL =
@@ -135,10 +130,9 @@ const Checkout: React.FC<{
 
   const { isDeploying, errorDeploying, deploy } = useDeploy({
     onDeploy,
-    projectID: draftProjectID,
+    project,
     checkoutState,
     installID: selectedInstall?.id.toString() || project?.installID,
-    paymentIntent,
   })
 
   const deleteProject = useCallback(async () => {
@@ -183,7 +177,6 @@ const Checkout: React.FC<{
         <div className={classes.errors}>
           {errorDeploying && <p>{errorDeploying}</p>}
           {installsError && <p>{installsError}</p>}
-          {paymentIntentError && <p>{paymentIntentError}</p>}
           {errorDeleting && <p>{errorDeleting}</p>}
         </div>
         {isDeploying && <p className={classes.submitting}>Submitting, one moment...</p>}
