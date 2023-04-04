@@ -2,12 +2,13 @@ import React from 'react'
 
 import classes from './index.module.scss'
 
+type Log = {
+  service: string
+  timestamp: string
+  message: string
+}
 type Logs = {
-  logs: {
-    service: string
-    timestamp: string
-    message: string
-  }[]
+  logs: Log[]
 }
 export const SimpleLogs: React.FC<Logs> = ({ logs }) => {
   return (
@@ -39,4 +40,20 @@ export const SimpleLogs: React.FC<Logs> = ({ logs }) => {
       </div>
     </div>
   )
+}
+
+export function formatLogData(logData: string): Log[] {
+  const microTimestampPattern = /\x1B\[[0-9;]*[a-zA-Z]/g
+  const logLines: string[] = logData.split('\n')
+  const formattedLogs = logLines?.map(line => {
+    const [service, timestamp, ...rest] = line.split(' ')
+
+    return {
+      service,
+      timestamp,
+      message: rest.join(' ').trim().replace(microTimestampPattern, ''),
+    }
+  })
+
+  return formattedLogs
 }
