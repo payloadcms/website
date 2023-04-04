@@ -46,11 +46,11 @@ export const useDeploy = (args: {
 
     const stripePayment = await stripe.confirmCardPayment(clientSecret, {
       payment_method:
-        paymentMethod !== 'new-card'
-          ? paymentMethod
-          : {
+        !paymentMethod || paymentMethod.startsWith('new-card')
+          ? {
               card: elements.getElement(StripeCardElement) as StripeCardElementType,
-            },
+            }
+          : paymentMethod,
     })
 
     if (stripePayment.error) {
