@@ -105,4 +105,8 @@
 
 .cancel {
   align-self: flex-start;
+
+  & div {
+    width: unset;
+  }
 }
