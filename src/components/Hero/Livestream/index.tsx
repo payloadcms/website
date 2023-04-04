@@ -16,11 +16,11 @@ import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
-export const LivestreamHero: React.FC<
-  Page['hero'] & {
-    breadcrumbs?: Page['breadcrumbs']
-  }
-> = props => {
+export const LivestreamHero: React.FC<{
+  livestream: NonNullable<Page['hero']['livestream']>
+  breadcrumbs?: Page['breadcrumbs']
+  links?: Page['hero']['links']
+}> = props => {
   const {
     breadcrumbs,
     livestream: { id: youtubeID = '', hideBreadcrumbs, date, guests, richText },
@@ -79,7 +79,7 @@ export const LivestreamHero: React.FC<
                     &nbsp;
                     {Array.isArray(links) &&
                       links.map(({ link }, i) => {
-                        const { appearance, url, label } = link
+                        const { appearance, url, label } = link || {}
                         return (
                           <Button
                             key={i}

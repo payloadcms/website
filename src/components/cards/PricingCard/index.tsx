@@ -9,7 +9,9 @@ import classes from './index.module.scss'
 export const PricingCard: React.FC<PricingCardProps> = props => {
   const { title, price, className, leader, description } = props
 
-  const hasLink = props.link.url || props.link.reference
+  const link = props.link || {}
+
+  const hasLink = link.url || link.reference
 
   return (
     <div

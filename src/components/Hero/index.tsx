@@ -28,7 +28,7 @@ export const Hero: React.FC<{
     },
   } = props
 
-  const HeroToRender = heroes[type]
+  const HeroToRender = heroes[type] as any
 
   if (HeroToRender) {
     return (
