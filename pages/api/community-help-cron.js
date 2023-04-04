@@ -6,11 +6,7 @@ export default function handler(req, res) {
   const communityHelpRequest = async () => {
     try {
       // Send a request to the custom endpoint
-      await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/community-help/cron`, {
-        headers: {
-          'CRON-ENV-VAR': req.query.key,
-        },
-      })
+      await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/community-help/cron?key=${req.query.key}`)
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error)
