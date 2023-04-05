@@ -30,7 +30,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
 
   useEffect(() => {
     if (navOpen) setNavOpen(false)
-  }, [pathname, navOpen])
+  }, [pathname])
 
   useEffect(() => {
     const preference = window.localStorage.getItem(openTopicsLocalStorageKey)
