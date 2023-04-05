@@ -134,6 +134,12 @@ export default () => {
             <Text path="name" label="Team Name" />
             <UniqueTeamSlug teamID={team?.id} />
             <Text path="billingEmail" label="Billing Email" required />
+            <Text
+              value={team?.id}
+              label="Team ID"
+              disabled
+              description="This is your team's ID within Payload"
+            />
             <hr className={classes.hr} />
             <TeamMembers team={team} />
             {team?.invitations && team?.invitations?.length > 0 && <TeamInvitations team={team} />}
