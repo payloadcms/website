@@ -55,13 +55,14 @@ const DiscordGitCTA: React.FC = () => {
         <div className={classes.enterpriseCTA}>
           <strong>Can&apos;t find what you&apos;re looking for?</strong>
           <br />
-          Get help straight from the Payload team with an Enterprise License.
-          <Link className={classes.button} href="/for-enterprise">
-            Learn More
-            <ArrowIcon />
-          </Link>
+          <p className={classes.license}>
+            Get help straight from the Payload team with an{' '}
+            <Link className={classes.button} href="/for-enterprise">
+              Enterprise License
+            </Link>
+            .
+          </p>
         </div>
-
         <PixelBackground className={classes.bg} />
       </div>
     </div>
