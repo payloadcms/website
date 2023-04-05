@@ -18,6 +18,7 @@ export default () => {
   const { team } = useRouteData()
   const { openPortalSession, error, loading } = useCustomerPortal({
     team,
+    headline: `"${team.name}" Team on Payload Cloud`,
   })
 
   const isCurrentTeamOwner = checkTeamRoles(user, team, ['owner'])
@@ -59,12 +60,9 @@ export default () => {
               )}
               {isCurrentTeamOwner && (
                 <React.Fragment>
-                  <p>
-                    {
-                      'To manage your subscriptions, payment methods, and billing history, go to the '
-                    }
+                  <p className={classes.description}>
+                    {'To manage your billing and payment information, open the '}
                     <a
-                      className={classes.stripeLink}
                       onClick={e => {
                         e.preventDefault()
                         openPortalSession(e)
