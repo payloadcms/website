@@ -1,6 +1,7 @@
 import React from 'react'
 import { fetchAnnouncements, fetchGlobals } from '@graphql'
 import { Providers } from '@providers'
+import { Metadata } from 'next'
 
 import { Announcements } from '@components/Announcements'
 import { HeaderObserver } from '@components/HeaderObserver'
@@ -43,4 +44,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </body>
     </html>
   )
+}
+
+export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://payloadcms.com'),
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Payload CMS',
+    description: 'The Node & React TypeScript Headless CMS',
+    creator: '@payloadcms',
+  },
 }
