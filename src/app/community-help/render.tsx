@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { useHits } from 'react-instantsearch-hooks-web'
+import { useHits, useSearchBox } from 'react-instantsearch-hooks-web'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import Link from 'next/link'
 
@@ -21,17 +21,22 @@ import { ArchiveSearchBar } from './ArchiveSearchBar'
 import classes from './index.module.scss'
 
 export const CommunityHelp: React.FC = () => {
-  const [searchState, setSearchState] = useState('loading')
-
   const { hits }: { hits: Array<any> } = useHits()
+
+  const { query } = useSearchBox() // returns input from search query
+
+  const [showNoResultsMessage, setShowNoResultsMessage] = useState(false)
 
   const hasResults = hits && Array.isArray(hits) && hits.length > 0
 
+  // Only show No Results banner if searched in input & no results found
   useEffect(() => {
-    if (hasResults) {
-      setSearchState('loaded')
+    if (query.length > 0 && !hasResults) {
+      setShowNoResultsMessage(true)
+    } else {
+      setShowNoResultsMessage(false)
     }
-  }, [hits, hasResults])
+  }, [hasResults, query])
 
   return (
     <>
@@ -85,7 +90,7 @@ export const CommunityHelp: React.FC = () => {
                 })}
               </ul>
             )}
-            {!hasResults && searchState === 'loaded' && (
+            {showNoResultsMessage && (
               <>
                 <Banner type="warning">
                   <h5>Sorry, no results were found...</h5>
