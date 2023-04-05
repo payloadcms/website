@@ -2,10 +2,6 @@ export const COMMUNITY_HELPS = `
   query CommunityHelps {
     CommunityHelps(limit: 0) {
       docs {
-        id
-        title
-        createdAt
-        communityHelpJSON
         slug
       }
     }
