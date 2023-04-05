@@ -12,6 +12,18 @@ import { SectionHeader } from '../_layoutComponents/SectionHeader'
 
 import classes from './page.module.scss'
 
+const statusLabels = {
+  active: 'Active',
+  canceled: 'Cancelled',
+  incomplete: 'Incomplete',
+  incomplete_expired: 'Incomplete Expired',
+  past_due: 'Past Due',
+  trialing: 'Trialing',
+  unpaid: 'Unpaid',
+  paused: 'Paused',
+  unknown: 'Unknown',
+}
+
 export default () => {
   const { user } = useAuth()
   const { team, project } = useRouteData()
@@ -38,13 +50,19 @@ export default () => {
       )}
       {hasCustomerID && (
         <React.Fragment>
-          <Text
-            disabled
-            value={project?.stripeSubscriptionID}
-            label="Subscription ID"
-            description="This is the ID of the subscription for this project."
-            className={classes.subscriptionID}
-          />
+          <div className={classes.fields}>
+            <Text
+              disabled
+              value={project?.stripeSubscriptionID}
+              label="Subscription ID"
+              description="This is the ID of the subscription for this project."
+            />
+            <Text
+              value={statusLabels?.[project?.stripeSubscriptionStatus || 'unknown']}
+              label="Subscription Status"
+              disabled
+            />
+          </div>
           {!isCurrentTeamOwner && (
             <p className={classes.error}>You must be an owner of this team to manage billing.</p>
           )}

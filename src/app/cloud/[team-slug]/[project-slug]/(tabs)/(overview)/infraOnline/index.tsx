@@ -10,7 +10,7 @@ import { Heading } from '@components/Heading'
 import { Label } from '@components/Label'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 import { Indicator } from '@root/app/_components/Indicator'
-import { SimpleLogs } from '@root/app/_components/SimpleLogs'
+import { formatLogData, SimpleLogs } from '@root/app/_components/SimpleLogs'
 import { BranchIcon } from '@root/graphics/BranchIcon'
 import { CommitIcon } from '@root/graphics/CommitIcon'
 import { Deployment } from '@root/payload-cloud-types'
@@ -62,34 +62,14 @@ export const InfraOnline: React.FC = () => {
       const incomingLogData = parsedMessage?.data
 
       if (incomingLogData) {
-        const microTimestampPattern = /\x1B\[[0-9;]*[a-zA-Z]/g
+        const formattedLogs = formatLogData(incomingLogData)
 
         if (parsedMessage?.logType === 'historic') {
           // historic logs - replace
-          const logLines: string[] = incomingLogData.split('\n')
-          const historicLogs = logLines?.map(line => {
-            const [service, timestamp, ...rest] = line.split(' ')
-            const message = rest.join(' ').trim().replace(microTimestampPattern, '')
-
-            return {
-              service,
-              timestamp,
-              message,
-            }
-          })
-
-          setLogs(historicLogs)
+          setLogs(formattedLogs)
         } else {
           // live log - append
-          const [service, timestamp, ...rest] = parsedMessage.data.split(' ')
-          setLogs(existingLogs => [
-            ...existingLogs,
-            {
-              service,
-              timestamp,
-              message: rest.join(' ').trim().replace(microTimestampPattern, ''),
-            },
-          ])
+          setLogs(existingLogs => [...existingLogs, ...formattedLogs])
         }
       }
     } catch (e) {

@@ -14,6 +14,9 @@
   text-decoration: underline;
 }
 
-.customerID {
+.fields {
   margin-bottom: var(--base);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) / 2);
 }

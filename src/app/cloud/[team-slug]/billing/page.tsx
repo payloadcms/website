@@ -44,13 +44,14 @@ export default () => {
           )}
           {hasCustomerID && (
             <React.Fragment>
-              <Text
-                value={team?.stripeCustomerID}
-                label="Customer ID"
-                disabled
-                description="This value was automatically generated when this team was created."
-                className={classes.customerID}
-              />
+              <div className={classes.fields}>
+                <Text
+                  value={team?.stripeCustomerID}
+                  label="Customer ID"
+                  disabled
+                  description="This value was automatically generated when this team was created."
+                />
+              </div>
               {!isCurrentTeamOwner && (
                 <p className={classes.error}>
                   You must be an owner of this team to manage billing.
