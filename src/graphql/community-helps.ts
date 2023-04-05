@@ -1,6 +1,6 @@
 export const COMMUNITY_HELPS = `
-  query CommunityHelps {
-    CommunityHelps(limit: 0) {
+  query CommunityHelps($communityHelpType: CommunityHelp_communityHelpType_Input) {
+    CommunityHelps(limit: 0, where: { communityHelpType: { equals: $communityHelpType} }) {
       docs {
         slug
       }
