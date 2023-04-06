@@ -9,6 +9,7 @@ import DiscordGitCTA from '@components/DiscordGitCTA'
 import { DiscordGitIntro } from '@components/DiscordGitIntro'
 import { Gutter } from '@components/Gutter'
 import OpenPost from '@components/OpenPost'
+import Meta from '@components/Meta'
 
 import classes from './index.module.scss'
 
@@ -62,7 +63,7 @@ export type ThreadProps = {
 }
 
 export const RenderThread: React.FC<ThreadProps> = props => {
-  const { communityHelpJSON } = props
+  const { communityHelpJSON, title, slug } = props
 
   const { info, intro, messageCount, messages } = communityHelpJSON
 
@@ -87,6 +88,11 @@ export const RenderThread: React.FC<ThreadProps> = props => {
 
   return (
     <>
+      <Meta
+        title={`${title} | Community Help | Payload CMS`}
+        description={title}
+        slug={`/community-help/discord/${slug}`}
+      />
       <Gutter>
         <Grid>
           <Cell cols={10} colsL={9} className={classes.post}>
