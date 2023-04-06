@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { RenderCommunityHelp } from './render'
+import { CommunityHelpPage } from './client_page'
 
 const Page = async () => {
-  return <RenderCommunityHelp />
+  return <CommunityHelpPage />
 }
 
 export default Page

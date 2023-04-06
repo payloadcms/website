@@ -1,8 +1,9 @@
 import React from 'react'
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { fetchCommunityHelp, fetchCommunityHelps } from '@root/graphql'
-import { Answer, Author, Comment, RenderDiscussion } from './render'
+import { Answer, Author, Comment, GithubDiscussionPage } from './client_page'
 
 type DateFromSource = string
 
@@ -53,7 +54,7 @@ const Discussion = async ({ params }) => {
     throw new Error('Unexpected discussion data')
   }
 
-  return <RenderDiscussion {...discussion} />
+  return <GithubDiscussionPage {...discussion} />
 }
 
 export default Discussion
@@ -61,4 +62,13 @@ export default Discussion
 export async function generateStaticParams() {
   const discussions = await fetchCommunityHelps()
   return discussions?.map(({ slug }) => slug) ?? []
+}
+
+export async function generateStaticPaths({ params: { discussion } }): Promise<Metadata> {
+  return {
+    title: 'Github Discussion',
+    openGraph: {
+      url: `/community-help/github/${discussion}`,
+    },
+  }
 }

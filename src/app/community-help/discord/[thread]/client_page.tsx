@@ -61,7 +61,7 @@ export type ThreadProps = {
   }
 }
 
-export const RenderThread: React.FC<ThreadProps> = props => {
+export const DiscordThreadPage: React.FC<ThreadProps> = props => {
   const { communityHelpJSON } = props
 
   const { info, intro, messageCount, messages } = communityHelpJSON
@@ -109,5 +109,3 @@ export const RenderThread: React.FC<ThreadProps> = props => {
     </>
   )
 }
-
-export default RenderThread

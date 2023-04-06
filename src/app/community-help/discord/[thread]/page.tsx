@@ -1,8 +1,9 @@
 import React from 'react'
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { fetchCommunityHelp, fetchCommunityHelps } from '@root/graphql'
-import { Messages, RenderThread } from './render'
+import { DiscordThreadPage, Messages } from './client_page'
 
 const isThreadData = (
   data: any,
@@ -50,7 +51,7 @@ const Thread = async ({ params }) => {
     throw new Error('Unexpected thread data')
   }
 
-  return <RenderThread {...thread} />
+  return <DiscordThreadPage {...thread} />
 }
 
 export default Thread
@@ -59,4 +60,17 @@ export async function generateStaticParams() {
   const fetchedThreads = await fetchCommunityHelps()
 
   return fetchedThreads?.map(({ slug }) => slug) ?? []
+}
+
+export const metadata: Metadata = {
+  title: 'Discord Thread',
+}
+
+export async function generateStaticPaths({ params: { thread } }): Promise<Metadata> {
+  return {
+    title: 'Discord Thread',
+    openGraph: {
+      url: `/community-help/discord/${thread}`,
+    },
+  }
 }

@@ -100,7 +100,7 @@ export const CommunityHelp: React.FC = () => {
   )
 }
 
-export const RenderCommunityHelp = () => {
+export const CommunityHelpPage = () => {
   return (
     <AlgoliaProvider>
       <CommunityHelp />

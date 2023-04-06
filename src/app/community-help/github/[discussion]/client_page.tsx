@@ -56,7 +56,7 @@ export type DiscussionProps = {
   }
 }
 
-export const RenderDiscussion: React.FC<DiscussionProps> = props => {
+export const GithubDiscussionPage: React.FC<DiscussionProps> = props => {
   const { communityHelpJSON } = props
 
   const { title, answer, author, body, createdAt, url, comments, commentTotal, upvotes, id } =
@@ -91,5 +91,3 @@ export const RenderDiscussion: React.FC<DiscussionProps> = props => {
     </>
   )
 }
-
-export default RenderDiscussion
