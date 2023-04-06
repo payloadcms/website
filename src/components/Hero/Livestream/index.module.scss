@@ -73,6 +73,10 @@
       width: unset;
     }
 
+    & svg {
+      margin-left: var(--base);
+    }
+
     @include mid-break {
       padding: 0;
     }
