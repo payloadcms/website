@@ -2,8 +2,8 @@ import { Metadata } from 'next'
 
 import { LinkGridPage } from './client_page'
 
-export default () => {
-  return <LinkGridPage />
+export default props => {
+  return <LinkGridPage {...props} />
 }
 
 export const metadata: Metadata = {

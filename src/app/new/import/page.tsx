@@ -2,8 +2,8 @@ import { Metadata } from 'next'
 
 import { ProjectFromImportPage } from './client_page'
 
-export default () => {
-  return <ProjectFromImportPage />
+export default props => {
+  return <ProjectFromImportPage {...props} />
 }
 
 export const metadata: Metadata = {

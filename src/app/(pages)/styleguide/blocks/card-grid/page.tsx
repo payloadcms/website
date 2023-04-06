@@ -2,8 +2,8 @@ import { Metadata } from 'next'
 
 import { CardGridPage } from './client_page'
 
-export default () => {
-  return <CardGridPage />
+export default props => {
+  return <CardGridPage {...props} />
 }
 
 export const metadata: Metadata = {

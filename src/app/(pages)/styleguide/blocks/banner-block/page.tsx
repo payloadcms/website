@@ -2,8 +2,8 @@ import { Metadata } from 'next'
 
 import { BannerBlockPage } from './client_page'
 
-export default () => {
-  return <BannerBlockPage />
+export default props => {
+  return <BannerBlockPage {...props} />
 }
 
 export const metadata: Metadata = {

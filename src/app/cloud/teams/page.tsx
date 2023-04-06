@@ -7,7 +7,7 @@ import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { useTeamDrawer } from '@components/TeamDrawer'
 import { useAuth } from '@root/providers/Auth'
-import { cloudSlug } from '../layout'
+import { cloudSlug } from '../client_layout'
 
 import classes from './page.module.scss'
 

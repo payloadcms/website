@@ -3,8 +3,8 @@ import { Metadata } from 'next'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { ThanksForSubscribingPage } from './client_page'
 
-export default () => {
-  return <ThanksForSubscribingPage />
+export default props => {
+  return <ThanksForSubscribingPage {...props} />
 }
 
 export const metadata: Metadata = {

@@ -3,12 +3,12 @@ import { Metadata } from 'next'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { Login } from './client_page'
 
-export default () => {
-  return <Login />
+export default props => {
+  return <Login {...props} />
 }
 
 export const metadata: Metadata = {
-  title: 'Cloud Login | Payload CMS',
+  title: 'Login | Payload Cloud',
   description: 'Login to Payload Cloud',
   openGraph: mergeOpenGraph({
     url: '/login',

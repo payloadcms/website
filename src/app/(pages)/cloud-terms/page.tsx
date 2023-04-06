@@ -12,6 +12,6 @@ export const metadata: Metadata = {
   }),
 }
 
-export default () => {
-  return <TermsClientPage />
+export default props => {
+  return <TermsClientPage {...props} />
 }
