@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+
 // force this component to use dynamic search params, see https://github.com/vercel/next.js/issues/43077
 // this is only an issue in production
 export const dynamic = 'force-dynamic'
@@ -49,7 +51,7 @@ export default async ({ searchParams }) => {
 
 export const metadata: Metadata = {
   title: 'Verify Email | Payload CMS',
-  openGraph: {
+  openGraph: mergeOpenGraph({
     url: '/verify',
-  },
+  }),
 }

@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { AuthorizePage } from './client_page'
 
 export default () => {
@@ -8,7 +9,7 @@ export default () => {
 
 export const metadata: Metadata = {
   title: 'Authorize | Payload Cloud',
-  openGraph: {
+  openGraph: mergeOpenGraph({
     url: '/new/authorize',
-  },
+  }),
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
 
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { getDoc, getTopics } from '../../api'
 import { NextDoc } from '../../types'
 import { RenderDoc } from './client_page'
@@ -70,8 +71,8 @@ export async function generateMetadata({ params: { topic, doc: docSlug } }) {
   return {
     title: `${doc?.title ? `${doc.title} | ` : ''}Documentation | Payload CMS`,
     description: doc?.desc || `Payload CMS ${topic} Documentation`,
-    openGraph: {
+    openGraph: mergeOpenGraph({
       url: `/api/og?topic=${topic}&title=${doc?.title}}`,
-    },
+    }),
   }
 }

@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import ClientLayout from './client_layout'
 
 export const metadata: Metadata = {
@@ -13,13 +14,13 @@ export const metadata: Metadata = {
     description: 'The Node & React TypeScript Headless CMS',
     creator: '@payloadcms',
   },
-  openGraph: {
+  openGraph: mergeOpenGraph({
     images: [
       {
         url: '/images/og-image.jpg',
       },
     ],
-  },
+  }),
 }
 
 export default async ({ children }) => {

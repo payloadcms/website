@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { fetchCommunityHelp, fetchCommunityHelps } from '@root/graphql'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { DiscordThreadPage, Messages } from './client_page'
 
 const isThreadData = (
@@ -69,8 +70,8 @@ export const metadata: Metadata = {
 export async function generateStaticPaths({ params: { thread } }): Promise<Metadata> {
   return {
     title: 'Discord Thread',
-    openGraph: {
+    openGraph: mergeOpenGraph({
       url: `/community-help/discord/${thread}`,
-    },
+    }),
   }
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { fetchCaseStudies, fetchCaseStudy } from '../../../../graphql'
 import { CaseStudy } from './client_page'
 
@@ -27,20 +28,24 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
   const caseStudy = await fetchCaseStudy(slug)
 
+  const ogImage =
+    typeof caseStudy?.meta?.image === 'object' &&
+    'url' in caseStudy?.meta?.image &&
+    caseStudy.meta.image.url
+
   return {
     title: `${caseStudy?.meta?.title} | Payload CMS`,
     description: caseStudy?.meta?.description,
-    openGraph: {
+    openGraph: mergeOpenGraph({
       url: `/case-studies/${slug}`,
       description: caseStudy?.meta?.description,
-      images: [
-        {
-          url:
-            typeof caseStudy.meta?.image === 'object' && caseStudy.meta.image?.url
-              ? caseStudy.meta.image.url
-              : '',
-        },
-      ],
-    },
+      images: ogImage
+        ? [
+            {
+              url: ogImage,
+            },
+          ]
+        : undefined,
+    }),
   }
 }

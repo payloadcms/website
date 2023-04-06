@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { fetchCommunityHelp, fetchCommunityHelps } from '@root/graphql'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { Answer, Author, Comment, GithubDiscussionPage } from './client_page'
 
 type DateFromSource = string
@@ -67,8 +68,8 @@ export async function generateStaticParams() {
 export async function generateStaticPaths({ params: { discussion } }): Promise<Metadata> {
   return {
     title: 'Github Discussion',
-    openGraph: {
+    openGraph: mergeOpenGraph({
       url: `/community-help/github/${discussion}`,
-    },
+    }),
   }
 }

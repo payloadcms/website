@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 
 import { Hero } from '@components/Hero'
 import { RenderBlocks } from '@components/RenderBlocks'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { fetchPage, fetchPages } from '../../../graphql'
 
 const Page = async ({ params: { slug } }) => {
@@ -32,19 +33,21 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
   const page = await fetchPage(slug)
 
+  const ogImage =
+    typeof page?.meta?.image === 'object' && 'url' in page?.meta?.image && page.meta.image.url
+
   return {
-    title: page?.meta?.title,
+    title: page?.meta?.title || 'Payload CMS',
     description: page?.meta?.description,
-    openGraph: {
-      url: slug.join('/'),
-      images: [
-        {
-          url:
-            typeof page?.meta?.image === 'object' && page.meta.image?.url
-              ? page.meta.image.url
-              : '',
-        },
-      ],
-    },
+    openGraph: mergeOpenGraph({
+      url: (slug || ['home']).join('/'),
+      images: ogImage
+        ? [
+            {
+              url: ogImage,
+            },
+          ]
+        : undefined,
+    }),
   }
 }

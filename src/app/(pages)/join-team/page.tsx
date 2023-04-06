@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { JoinTeam } from './client_page'
 
 export default () => {
@@ -9,7 +10,7 @@ export default () => {
 export const metadata: Metadata = {
   title: 'Join Team | Payload CMS',
   description: 'Join a Payload team',
-  openGraph: {
+  openGraph: mergeOpenGraph({
     url: '/join-team',
-  },
+  }),
 }
