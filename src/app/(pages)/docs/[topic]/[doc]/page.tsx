@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 
 import { getDoc, getTopics } from '../../api'
 import { NextDoc } from '../../types'
-import { RenderDoc } from './render'
+import { RenderDoc } from './client_page'
 
 const Doc = async ({ params }) => {
   const { topic, doc: docSlug } = params
@@ -62,4 +62,16 @@ export async function generateStaticParams() {
   }, [])
 
   return result
+}
+
+export async function generateMetadata({ params: { topic, doc: docSlug } }) {
+  const doc = await getDoc({ topic, doc: docSlug })
+
+  return {
+    title: `${doc?.title ? `${doc.title} | ` : ''}Documentation | Payload CMS`,
+    description: doc?.desc || `Payload CMS ${topic} Documentation`,
+    openGraph: {
+      url: `/api/og?topic=${topic}&title=${doc?.title}}`,
+    },
+  }
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { ArrowIcon } from '@icons/ArrowIcon'
 import { SearchIcon } from '@icons/SearchIcon'
+import { Metadata } from 'next'
 
 import { Gutter } from '@components/Gutter'
 import { StyleguidePageContent } from '../PageContent'
@@ -42,3 +43,7 @@ const Highlight: React.FC = () => {
 }
 
 export default Highlight
+
+export const metadata: Metadata = {
+  title: 'Icons',
+}

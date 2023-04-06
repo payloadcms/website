@@ -35,5 +35,16 @@ export async function generateMetadata({ params: { slug } }): Promise<Metadata> 
   return {
     title: page?.meta?.title,
     description: page?.meta?.description,
+    openGraph: {
+      url: slug.join('/'),
+      images: [
+        {
+          url:
+            typeof page?.meta?.image === 'object' && page.meta.image?.url
+              ? page.meta.image.url
+              : '',
+        },
+      ],
+    },
   }
 }

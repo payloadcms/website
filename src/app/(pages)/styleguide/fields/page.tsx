@@ -6,11 +6,12 @@ import RadioGroup from '@forms/fields/RadioGroup'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import { Textarea } from '@forms/fields/Textarea'
+import { Metadata } from 'next'
 
 import { Gutter } from '@components/Gutter'
 import { StyleguidePageContent } from '../PageContent'
 
-const Forms: React.FC = () => {
+const Fields: React.FC = () => {
   return (
     <StyleguidePageContent title="Fields" darkModePadding darkModeMargins>
       <Gutter>
@@ -79,4 +80,8 @@ const Forms: React.FC = () => {
   )
 }
 
-export default Forms
+export default Fields
+
+export const metadata: Metadata = {
+  title: 'Fields',
+}

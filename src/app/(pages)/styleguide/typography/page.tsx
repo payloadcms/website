@@ -1,4 +1,5 @@
 import React from 'react'
+import { Metadata } from 'next'
 
 import { Gutter } from '@components/Gutter'
 import { StyleguidePageContent } from '../PageContent'
@@ -37,3 +38,7 @@ const Typography: React.FC = () => {
 }
 
 export default Typography
+
+export const metadata: Metadata = {
+  title: 'Typography',
+}

@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
 // force this component to use dynamic search params, see https://github.com/vercel/next.js/issues/43077
@@ -44,4 +45,11 @@ export default async ({ searchParams }) => {
       redirectParam ? `&redirect=${redirectParam}` : ''
     }${emailParam ? `&email=${emailParam}` : ''}`,
   )
+}
+
+export const metadata: Metadata = {
+  title: 'Verify Email',
+  openGraph: {
+    url: '/verify',
+  },
 }

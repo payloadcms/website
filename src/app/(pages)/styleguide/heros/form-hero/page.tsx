@@ -1,4 +1,5 @@
 import React from 'react'
+import { Metadata } from 'next'
 
 import { Hero } from '@components/Hero'
 import { Page } from '@root/payload-types'
@@ -140,3 +141,7 @@ const FormBlockPage: React.FC = () => {
 }
 
 export default FormBlockPage
+
+export const metadata: Metadata = {
+  title: 'Form Hero',
+}

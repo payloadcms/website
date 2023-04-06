@@ -1,8 +1,9 @@
 import React from 'react'
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { fetchCaseStudies, fetchCaseStudy } from '../../../../graphql'
-import { CaseStudy } from './CaseStudy'
+import { CaseStudy } from './client_page'
 
 const CaseStudyBySlug = async ({ params }) => {
   const { slug } = params
@@ -21,4 +22,25 @@ export async function generateStaticParams() {
   return caseStudies.map(({ slug }) => ({
     slug,
   }))
+}
+
+export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
+  const caseStudy = await fetchCaseStudy(slug)
+
+  return {
+    title: caseStudy?.meta?.title,
+    description: caseStudy?.meta?.description,
+    openGraph: {
+      url: `/case-studies/${slug}`,
+      description: caseStudy?.meta?.description,
+      images: [
+        {
+          url:
+            typeof caseStudy.meta?.image === 'object' && caseStudy.meta.image?.url
+              ? caseStudy.meta.image.url
+              : '',
+        },
+      ],
+    },
+  }
 }

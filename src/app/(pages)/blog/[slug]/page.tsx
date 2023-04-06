@@ -35,7 +35,8 @@ export async function generateMetadata({ params: { slug } }): Promise<Metadata> 
       description: page?.meta?.description,
       images: [
         {
-          url: typeof page.image === 'object' && page.image?.url ? page.image.url : '',
+          url:
+            typeof page.meta?.image === 'object' && page.meta.image?.url ? page.meta.image.url : '',
         },
       ],
     },
