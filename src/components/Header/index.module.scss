@@ -39,6 +39,12 @@
     padding: var(--base) 0;
   }
 
+  @include mobile-header-break {
+    &:before, &:after {
+      transition: opacity 200ms ease;
+    }
+  }
+
   @include mid-break {
     padding: calc(var(--base) * .75) 0;
   }
@@ -50,6 +56,13 @@
   }
 
   &:after {
+    opacity: 0;
+  }
+}
+
+.header.mobileNavOpen {
+  z-index: calc(var(--z-nav) + 11);
+  &:before, &:after {
     opacity: 0;
   }
 }
