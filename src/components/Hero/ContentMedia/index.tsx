@@ -29,7 +29,7 @@ export const ContentMediaHero: React.FC<
               return <CMSLink key={i} {...link} className={classes.link} />
             })}
         </Cell>
-        {typeof media === 'object' && (
+        {typeof media === 'object' && media !== null && (
           <Cell cols={5} start={8} colsM={8} startM={1}>
             <div className={classes.media}>
               <Media resource={media} sizes="(max-width: 768px) 100vw, 33vw" />

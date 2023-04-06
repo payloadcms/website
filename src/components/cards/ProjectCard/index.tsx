@@ -31,7 +31,9 @@ export const ProjectCard: React.FC<{
         {status === 'draft' && <span className={classes.draft}>Draft</span>}
         {status !== 'draft' && project.plan && (
           <div className={classes.plan}>
-            {typeof project.plan === 'object' && <Fragment>{project.plan.name}</Fragment>}
+            {typeof project.plan === 'object' && project.plan !== null && (
+              <Fragment>{project.plan.name}</Fragment>
+            )}
           </div>
         )}
       </div>

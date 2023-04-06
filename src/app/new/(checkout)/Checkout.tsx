@@ -93,7 +93,7 @@ const Checkout: React.FC<{
   const handleTeamChange = useCallback(
     (incomingTeam: string) => {
       const selectedTeam = user?.teams?.find(
-        ({ team }) => typeof team === 'object' && team?.id === incomingTeam,
+        ({ team }) => typeof team === 'object' && team !== null && team?.id === incomingTeam,
       )?.team
 
       if (selectedTeam && typeof selectedTeam !== 'string') {
@@ -123,7 +123,7 @@ const Checkout: React.FC<{
   const onDeploy = useCallback(
     (project: Project) => {
       const redirectURL =
-        typeof project?.team === 'object'
+        typeof project?.team === 'object' && project?.team !== null
           ? `/${cloudSlug}/${project?.team?.slug}/${project.slug}`
           : `/${cloudSlug}`
 
@@ -209,6 +209,7 @@ const Checkout: React.FC<{
                       <p className={classes.totalPrice}>
                         {priceFromJSON(
                           typeof checkoutState?.plan === 'object' &&
+                            checkoutState?.plan !== null &&
                             'priceJSON' in checkoutState?.plan
                             ? checkoutState?.plan?.priceJSON?.toString()
                             : '',
@@ -241,11 +242,15 @@ const Checkout: React.FC<{
                     },
                     template: {
                       initialValue:
-                        typeof project?.template === 'object' && 'id' in project?.template
+                        typeof project?.template === 'object' &&
+                        project?.template !== null &&
+                        'id' in project?.template
                           ? project?.template?.id
                           : project?.template,
                       value:
-                        typeof project?.template === 'object' && 'id' in project?.template
+                        typeof project?.template === 'object' &&
+                        project?.template !== null &&
+                        'id' in project?.template
                           ? project?.template?.id
                           : project?.template,
                     },
@@ -316,7 +321,9 @@ const Checkout: React.FC<{
                       onChange={handleTeamChange}
                       className={classes.teamSelector}
                       initialValue={
-                        typeof project?.team === 'object' && 'id' in project?.team
+                        typeof project?.team === 'object' &&
+                        project?.team !== null &&
+                        'id' in project?.team
                           ? project?.team?.id
                           : ''
                       }

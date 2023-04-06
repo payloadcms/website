@@ -30,6 +30,7 @@ export async function generateMetadata({ params: { slug } }): Promise<Metadata> 
 
   const ogImage =
     typeof caseStudy?.meta?.image === 'object' &&
+    caseStudy?.meta?.image !== null &&
     'url' in caseStudy?.meta?.image &&
     caseStudy.meta.image.url
 

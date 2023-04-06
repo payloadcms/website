@@ -26,7 +26,7 @@ export default () => {
     error,
     result: projects,
   } = useGetProjects({
-    teams: [typeof team === 'object' ? team.id : team],
+    teams: [typeof team === 'object' && team !== null ? team.id : team],
     search,
     delay: 500,
   })

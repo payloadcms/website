@@ -25,7 +25,7 @@ export const CaseStudyCards: React.FC<Props> = props => {
                 <PixelBackground className={classes.pixels} />
               </div>
               {caseStudyCardFields.cards.map((card, i) => {
-                if (typeof card.caseStudy === 'object') {
+                if (typeof card.caseStudy === 'object' && card.caseStudy !== null) {
                   return (
                     <Link
                       href={`/case-studies/${card.caseStudy.slug}`}

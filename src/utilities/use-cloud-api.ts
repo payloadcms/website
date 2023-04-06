@@ -132,7 +132,7 @@ export const useGetProjects: UseCloudAPI<
 
   const userTeams =
     user?.teams?.map(({ team }) =>
-      team && typeof team === 'object' && 'id' in team ? team.id : team,
+      team && typeof team === 'object' && team !== null && 'id' in team ? team.id : team,
     ) || [].filter(Boolean) // eslint-disable-line function-paren-newline
 
   const teams = teamsWithoutNone && teamsWithoutNone?.length > 0 ? teamsWithoutNone : userTeams

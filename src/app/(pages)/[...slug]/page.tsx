@@ -34,7 +34,10 @@ export async function generateMetadata({ params: { slug } }): Promise<Metadata> 
   const page = await fetchPage(slug)
 
   const ogImage =
-    typeof page?.meta?.image === 'object' && 'url' in page?.meta?.image && page.meta.image.url
+    typeof page?.meta?.image === 'object' &&
+    page?.meta?.image !== null &&
+    'url' in page?.meta?.image &&
+    page.meta.image.url
 
   return {
     title: page?.meta?.title || 'Payload CMS',

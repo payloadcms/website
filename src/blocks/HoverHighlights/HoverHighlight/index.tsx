@@ -73,7 +73,7 @@ export const HoverHighlight: React.FC<
           </Cell>
         </Grid>
       </CMSLink>
-      {typeof media === 'object' && (
+      {typeof media === 'object' && media !== null && (
         <div
           className={[classes.mediaWrapper, isHovered && classes.wrapperHovered]
             .filter(Boolean)
