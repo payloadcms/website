@@ -8,8 +8,8 @@ import { DiscordGitComments } from '@components/DiscordGitComments'
 import DiscordGitCTA from '@components/DiscordGitCTA'
 import { DiscordGitIntro } from '@components/DiscordGitIntro'
 import { Gutter } from '@components/Gutter'
-import OpenPost from '@components/OpenPost'
 import Meta from '@components/Meta'
+import OpenPost from '@components/OpenPost'
 
 import classes from './index.module.scss'
 
