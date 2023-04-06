@@ -34,6 +34,7 @@ export type ButtonProps = {
   size?: 'pill' | 'default'
   disabled?: boolean
   disableLineBlip?: boolean
+  url?: string
 }
 
 const icons = {
@@ -131,10 +132,10 @@ export const Button: React.FC<ButtonProps> = props => {
     disabled,
     href: hrefFromProps,
     disableLineBlip,
+    url,
   } = props
 
-  const href = hrefFromProps || generateHref({ type, reference })
-
+  const href = hrefFromProps || generateHref({ type, reference, url })
   const [isHovered, setIsHovered] = useState(false)
 
   const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
