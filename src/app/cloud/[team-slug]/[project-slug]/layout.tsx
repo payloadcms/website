@@ -1,29 +1,22 @@
-'use client'
+import { Metadata } from 'next'
 
-import * as React from 'react'
-import { notFound } from 'next/navigation'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { ProjectLayout } from './client_layout'
 
-import { Gutter } from '@components/Gutter'
-import { useRouteData } from '../../context'
-
-type ProjectLayoutType = {
-  children: React.ReactNode
+export default props => {
+  return <ProjectLayout {...props} />
 }
 
-export default ({ children }: ProjectLayoutType) => {
-  const { project, reloadProject } = useRouteData()
-
-  React.useEffect(() => {
-    reloadProject()
-  }, [reloadProject])
-
-  if (project === undefined) return null
-
-  if (project === null) notFound()
-
-  return (
-    <React.Fragment>
-      <Gutter>{children}</Gutter>
-    </React.Fragment>
-  )
+export async function generateMetadata({
+  params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
+}): Promise<Metadata> {
+  return {
+    title: {
+      template: `${teamSlug} / ${projectSlug} | %s`,
+      default: 'Project',
+    },
+    openGraph: mergeOpenGraph({
+      url: `/cloud/${teamSlug}/${projectSlug}`,
+    }),
+  }
 }

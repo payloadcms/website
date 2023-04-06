@@ -13,5 +13,5 @@ const ConfigureDraftFromImport: React.FC<{
 export default ConfigureDraftFromImport
 
 export const metadata: Metadata = {
-  title: 'Configuration | Payload Cloud',
+  title: 'Checkout | Payload Cloud',
 }

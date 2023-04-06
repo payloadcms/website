@@ -7,5 +7,5 @@ export default props => {
 }
 
 export const metadata: Metadata = {
-  title: 'Cloud',
+  title: 'Home | Payload Cloud',
 }

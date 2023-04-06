@@ -1,18 +1,11 @@
-'use client'
+import { Metadata } from 'next'
 
-import * as React from 'react'
-import { useRouteData } from '@cloud/context'
+import { ProjectOverviewPage } from './client_page'
 
-import { InfraOffline } from './infraOffline'
-import { InfraOnline } from './infraOnline'
+export default props => {
+  return <ProjectOverviewPage {...props} />
+}
 
-export default () => {
-  const { project } = useRouteData()
-  const { infraStatus } = project
-
-  if (infraStatus === 'done') {
-    return <InfraOnline />
-  }
-
-  return <InfraOffline />
+export const metadata: Metadata = {
+  title: 'Overview',
 }

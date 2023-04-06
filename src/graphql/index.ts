@@ -304,7 +304,11 @@ export const fetchTeam = async (slug: string): Promise<Team> => {
         },
       }),
     },
-  ).then(res => res.json())
+  ).then(res => {
+    return res.json()
+  })
+
+  console.log(slug.toLowerCase(), data)
 
   return data?.Teams?.docs[0]
 }
