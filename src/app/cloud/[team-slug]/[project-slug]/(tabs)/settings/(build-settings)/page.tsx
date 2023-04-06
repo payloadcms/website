@@ -73,6 +73,13 @@ export default () => {
           />
 
           <Text
+            label="Serve Command"
+            placeholder="Enter the command to serve your project"
+            path="runScript"
+            initialValue={project.runScript}
+          />
+
+          <Text
             label="Branch to deploy"
             placeholder="Enter the branch to deploy"
             path="deploymentBranch"
