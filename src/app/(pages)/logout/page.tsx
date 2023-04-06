@@ -7,7 +7,7 @@ export default () => {
 }
 
 export const metadata: Metadata = {
-  title: 'Cloud Logout',
+  title: 'Cloud Logout | Payload CMS',
   description: 'Logout of Payload Cloud',
   openGraph: {
     url: '/logout',

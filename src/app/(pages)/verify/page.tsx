@@ -48,7 +48,7 @@ export default async ({ searchParams }) => {
 }
 
 export const metadata: Metadata = {
-  title: 'Verify Email',
+  title: 'Verify Email | Payload CMS',
   openGraph: {
     url: '/verify',
   },

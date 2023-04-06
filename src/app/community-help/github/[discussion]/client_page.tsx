@@ -7,7 +7,6 @@ import { DiscordGitComments } from '@components/DiscordGitComments'
 import DiscordGitCTA from '@components/DiscordGitCTA'
 import { DiscordGitIntro } from '@components/DiscordGitIntro'
 import { Gutter } from '@components/Gutter'
-import Meta from '@components/Meta'
 import OpenPost from '@components/OpenPost'
 
 import classes from './index.module.scss'
@@ -59,16 +58,11 @@ export type DiscussionProps = {
 export const GithubDiscussionPage: React.FC<DiscussionProps> = props => {
   const { communityHelpJSON } = props
 
-  const { title, answer, author, body, createdAt, url, comments, commentTotal, upvotes, id } =
+  const { title, answer, author, body, createdAt, url, comments, commentTotal, upvotes } =
     communityHelpJSON
 
   return (
     <>
-      <Meta
-        title={`${title} | Payload CMS`}
-        description={title}
-        slug={`community-help/github/${id}`}
-      />
       <Gutter>
         <Grid>
           <Cell cols={10} colsL={9} className={classes.post}>

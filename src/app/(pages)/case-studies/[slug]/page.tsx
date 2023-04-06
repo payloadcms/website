@@ -28,7 +28,7 @@ export async function generateMetadata({ params: { slug } }): Promise<Metadata> 
   const caseStudy = await fetchCaseStudy(slug)
 
   return {
-    title: caseStudy?.meta?.title,
+    title: `${caseStudy?.meta?.title} | Payload CMS`,
     description: caseStudy?.meta?.description,
     openGraph: {
       url: `/case-studies/${slug}`,

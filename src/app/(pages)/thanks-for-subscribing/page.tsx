@@ -7,7 +7,7 @@ export default () => {
 }
 
 export const metadata: Metadata = {
-  title: 'Thanks for Subscribing!',
+  title: 'Thanks for Subscribing | Payload CMS',
   openGraph: {
     url: '/thanks-for-subscribing',
   },

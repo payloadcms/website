@@ -4,7 +4,7 @@ import ClientLayout from './client_layout'
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Cloud',
+    template: '%s | Payload Cloud',
     default: 'Payload Cloud',
   },
   twitter: {

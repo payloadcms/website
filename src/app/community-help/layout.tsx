@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'Community Help',
+    absolute: 'Community Help | Payload CMS',
     template: '%s | Community Help | Payload CMS',
   },
   description:

@@ -7,7 +7,7 @@ export default () => {
 }
 
 export const metadata: Metadata = {
-  title: 'Forgot Password',
+  title: 'Forgot Password | Payload CMS',
   description: 'If you forgot your password, reset it',
   openGraph: {
     url: '/forgot-password',

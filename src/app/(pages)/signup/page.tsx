@@ -7,7 +7,7 @@ export default () => {
 }
 
 export const metadata: Metadata = {
-  title: 'Cloud Signup',
+  title: 'Cloud Signup | Payload CMS',
   description: 'Signup for Payload Cloud',
   openGraph: {
     url: '/signup',

@@ -4,7 +4,7 @@ import { Metadata } from 'next'
 import { TermsClientPage } from './client_page'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service',
+  title: 'Terms of Service | Payload Cloud',
   description: 'Payload Cloud Terms of Service',
   openGraph: {
     url: '/cloud/terms',
