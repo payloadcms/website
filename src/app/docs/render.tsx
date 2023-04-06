@@ -142,7 +142,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
         >
           Documentation
           {!navOpen && <MenuIcon />}
-          {navOpen && <CloseIcon />}
+          {navOpen && <CloseIcon bold={true} size="extraLarge" />}
         </button>
       </div>
     </MDXProvider>
