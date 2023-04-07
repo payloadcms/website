@@ -1,9 +1,10 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
 
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { getDoc, getTopics } from '../../api'
 import { NextDoc } from '../../types'
-import { RenderDoc } from './render'
+import { RenderDoc } from './client_page'
 
 const Doc = async ({ params }) => {
   const { topic, doc: docSlug } = params
@@ -62,4 +63,21 @@ export async function generateStaticParams() {
   }, [])
 
   return result
+}
+
+export async function generateMetadata({ params: { topic: topicSlug, doc: docSlug } }) {
+  const doc = await getDoc({ topic: topicSlug, doc: docSlug })
+
+  return {
+    title: `${doc?.title ? `${doc.title} | ` : ''}Documentation | Payload CMS`,
+    description: doc?.desc || `Payload CMS ${topicSlug} Documentation`,
+    openGraph: mergeOpenGraph({
+      url: `/docs/${topicSlug}/${docSlug}`,
+      images: [
+        {
+          url: `/api/og?topic=${topicSlug}&title=${doc?.title}`,
+        },
+      ],
+    }),
+  }
 }

@@ -2,7 +2,7 @@ import * as React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { cloudSlug } from '@root/app/cloud/layout'
+import { cloudSlug } from '@root/app/cloud/client_layout'
 import { useAuth } from '@root/providers/Auth'
 import useClickAway from '@root/utilities/use-click-away'
 

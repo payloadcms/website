@@ -1,4 +1,5 @@
 import React from 'react'
+import { Metadata } from 'next'
 
 import { Gutter } from '@components/Gutter'
 import { RichText } from '../../../../components/RichText'
@@ -41,3 +42,7 @@ const Highlight: React.FC = () => {
 }
 
 export default Highlight
+
+export const metadata: Metadata = {
+  title: 'Highlight',
+}

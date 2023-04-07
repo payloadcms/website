@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 
-import { cloudSlug } from '@root/app/cloud/layout'
+import { cloudSlug } from '@root/app/cloud/client_layout'
 import { useAuth } from '@root/providers/Auth'
 
 // import { DropdownMenu } from './DropdownMenu'

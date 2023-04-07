@@ -1,8 +1,10 @@
 import React from 'react'
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { fetchCommunityHelp, fetchCommunityHelps } from '@root/graphql'
-import { Messages, RenderThread } from './render'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { DiscordThreadPage, Messages } from './client_page'
 
 const isThreadData = (
   data: any,
@@ -50,7 +52,7 @@ const Thread = async ({ params }) => {
     throw new Error('Unexpected thread data')
   }
 
-  return <RenderThread {...thread} />
+  return <DiscordThreadPage {...thread} />
 }
 
 export default Thread
@@ -58,4 +60,13 @@ export default Thread
 export async function generateStaticParams() {
   const fetchedThreads = await fetchCommunityHelps('discord')
   return fetchedThreads?.map(({ slug }) => ({ slug })) ?? []
+}
+
+export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
+  return {
+    title: 'Discord Thread',
+    openGraph: mergeOpenGraph({
+      url: `/community-help/discord/${slug}`,
+    }),
+  }
 }

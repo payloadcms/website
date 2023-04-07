@@ -309,7 +309,9 @@ export const fetchTeam = async (slug: string): Promise<Team> => {
         },
       }),
     },
-  ).then(res => res.json())
+  ).then(res => {
+    return res.json()
+  })
 
   return data?.Teams?.docs[0]
 }

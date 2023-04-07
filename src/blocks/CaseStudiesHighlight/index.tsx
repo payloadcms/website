@@ -65,7 +65,7 @@ export const CaseStudiesHighlightBlock: React.FC<Props> = ({
                     let url
                     let alt
 
-                    if (typeof featuredImage === 'object') {
+                    if (typeof featuredImage === 'object' && featuredImage !== null) {
                       url = featuredImage.url
                       alt = featuredImage.alt
                     }

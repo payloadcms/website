@@ -1,45 +1,19 @@
-'use client'
+import { Metadata } from 'next'
 
-import * as React from 'react'
-import { Collapsible, CollapsibleGroup } from '@faceless-ui/collapsibles'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { ProjectEnvPage } from './client_page'
 
-import { MaxWidth } from '@root/app/_components/MaxWidth'
-import { Accordion } from '@root/app/cloud/_components/Accordion'
-import { Divider } from '@root/app/cloud/_components/SectionDivider'
-import { useRouteData } from '@root/app/cloud/context'
-import { NoData } from '../_layoutComponents/NoData'
-import { SectionHeader } from '../_layoutComponents/SectionHeader'
-import { AddEnvs } from './_components/AddEnvs'
-import { ManageEnv } from './_components/ManageEnv'
+export default props => {
+  return <ProjectEnvPage {...props} />
+}
 
-export default () => {
-  const { project } = useRouteData()
-
-  return (
-    <MaxWidth>
-      <SectionHeader title="Environment Variables" />
-
-      <CollapsibleGroup transTime={250} transCurve="ease">
-        <Collapsible openOnInit>
-          <Accordion label="New variables" toggleIcon="chevron">
-            <AddEnvs />
-          </Accordion>
-        </Collapsible>
-      </CollapsibleGroup>
-
-      <Divider />
-
-      {(project.environmentVariables || []).length === 0 ? (
-        <NoData message="This project currently has no environment variables." />
-      ) : (
-        <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
-          <div>
-            {project?.environmentVariables?.map(env => (
-              <ManageEnv key={env.id} env={env} />
-            ))}
-          </div>
-        </CollapsibleGroup>
-      )}
-    </MaxWidth>
-  )
+export async function generateMetadata({
+  params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
+}) {
+  return {
+    title: 'Environment Variables',
+    openGraph: mergeOpenGraph({
+      url: `/cloud/${teamSlug}/${projectSlug}/settings/environment-variables`,
+    }),
+  }
 }

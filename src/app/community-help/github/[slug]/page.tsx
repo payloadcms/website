@@ -1,8 +1,10 @@
 import React from 'react'
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { fetchCommunityHelp, fetchCommunityHelps } from '@root/graphql'
-import { Answer, Author, Comment, RenderDiscussion } from './render'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { Answer, Author, Comment, GithubDiscussionPage } from './client_page'
 
 type DateFromSource = string
 
@@ -50,10 +52,10 @@ const Discussion = async ({ params }) => {
   if (!discussion) return notFound()
 
   if (!isDiscussionData(discussion)) {
-    throw new Error('Unexpected thread data')
+    throw new Error('Unexpected github discussion thread data')
   }
 
-  return <RenderDiscussion {...discussion} />
+  return <GithubDiscussionPage {...discussion} />
 }
 
 export default Discussion
@@ -61,4 +63,13 @@ export default Discussion
 export async function generateStaticParams() {
   const discussions = await fetchCommunityHelps('github')
   return discussions?.map(({ slug }) => ({ slug })) ?? []
+}
+
+export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
+  return {
+    title: 'Github Discussion',
+    openGraph: mergeOpenGraph({
+      url: `/community-help/github/${slug}`,
+    }),
+  }
 }

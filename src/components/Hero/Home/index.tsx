@@ -81,7 +81,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
                 ))}
               </Marquee>
             )}
-            {typeof media === 'object' && (
+            {typeof media === 'object' && media !== null && (
               <Gutter>
                 <div className={classes.padForMedia} />
               </Gutter>
@@ -90,7 +90,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
         </HeaderObserver>
       </ThemeProvider>
 
-      {typeof media === 'object' && (
+      {typeof media === 'object' && media !== null && (
         <Gutter className={classes.mediaGutter}>
           <Media resource={media} className={classes.media} />
           <div className={classes.voidSpaceBelowMedia}>
