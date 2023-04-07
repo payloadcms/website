@@ -12,6 +12,11 @@ const ConfigureDraftFromTemplate: React.FC<{
 
 export default ConfigureDraftFromTemplate
 
-export const metadata: Metadata = {
-  title: 'Checkout | Payload Cloud',
+export async function generateMetadata({ params: { id } }: { params: Params }): Promise<Metadata> {
+  return {
+    title: 'Checkout | Payload Cloud',
+    openGraph: {
+      url: `/new/clone/configure/${id}`,
+    },
+  }
 }

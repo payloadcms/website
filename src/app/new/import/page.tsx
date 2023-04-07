@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { ProjectFromImportPage } from './client_page'
 
 export default props => {
@@ -8,4 +9,7 @@ export default props => {
 
 export const metadata: Metadata = {
   title: 'Import Project | Payload Cloud',
+  openGraph: mergeOpenGraph({
+    url: '/new/import',
+  }),
 }

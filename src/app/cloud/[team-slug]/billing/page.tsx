@@ -6,8 +6,11 @@ export default props => {
   return <TeamBillingPage {...props} />
 }
 
-export async function generateMetadata({ params: { 'team-slug': slug } }): Promise<Metadata> {
+export async function generateMetadata({ params: { 'team-slug': teamSlug } }): Promise<Metadata> {
   return {
-    title: `${slug} - Team Billing`,
+    title: `${teamSlug} - Team Billing`,
+    openGraph: {
+      url: `/cloud/${teamSlug}/billing`,
+    },
   }
 }

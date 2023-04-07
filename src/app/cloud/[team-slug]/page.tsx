@@ -1,13 +1,17 @@
 import { Metadata } from 'next'
 
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { TeamPage } from './client_page'
 
 export default props => {
   return <TeamPage {...props} />
 }
 
-export async function generateMetadata({ params: { 'team-slug': slug } }): Promise<Metadata> {
+export async function generateMetadata({ params: { 'team-slug': teamSlug } }): Promise<Metadata> {
   return {
-    title: `${slug} - Team Projects`,
+    title: `${teamSlug} - Team Projects`,
+    openGraph: mergeOpenGraph({
+      url: `/cloud/${teamSlug}`,
+    }),
   }
 }

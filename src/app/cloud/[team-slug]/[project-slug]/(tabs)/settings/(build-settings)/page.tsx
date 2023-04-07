@@ -1,11 +1,19 @@
 import { Metadata } from 'next'
 
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { ProjectBuildSettingsPage } from './client_page'
 
 export default props => {
   return <ProjectBuildSettingsPage {...props} />
 }
 
-export const metadata: Metadata = {
-  title: 'Build Settings',
+export async function generateMetadata({
+  params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
+}) {
+  return {
+    title: 'Build Settings',
+    openGraph: mergeOpenGraph({
+      url: `/cloud/${teamSlug}/${projectSlug}/settings/build-settings`,
+    }),
+  }
 }

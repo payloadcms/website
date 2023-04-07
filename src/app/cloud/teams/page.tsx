@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { MyTeamsPage } from './client_page'
 
 export default props => {
@@ -7,5 +8,8 @@ export default props => {
 }
 
 export const metadata: Metadata = {
-  title: 'Teams',
+  title: `My Teams`,
+  openGraph: mergeOpenGraph({
+    url: `/cloud/teams`,
+  }),
 }
