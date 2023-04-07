@@ -30,7 +30,7 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params: { slug = ['home'] } }): Promise<Metadata> {
+export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
   const page = await fetchPage(slug)
 
   const ogImage =
@@ -43,7 +43,7 @@ export async function generateMetadata({ params: { slug = ['home'] } }): Promise
     title: page?.meta?.title || 'Payload CMS',
     description: page?.meta?.description,
     openGraph: mergeOpenGraph({
-      url: slug.join('/'),
+      url: Array.isArray(slug) ? slug.join('/') : '/',
       images: ogImage
         ? [
             {
