@@ -2,6 +2,19 @@ const permalink = require('./src/utilities/formatPermalink')
 const { formatPermalink } = permalink
 
 module.exports = async () => {
+  const staticRedirects = [
+    {
+      source: '/docs',
+      destination: '/docs/getting-started/what-is-payload',
+      permanent: true,
+    },
+    {
+      source: '/roadmap',
+      destination: 'https://github.com/payloadcms/payload/discussions/categories/roadmap',
+      permanent: true,
+    },
+  ]
+
   const internetExplorerRedirect = {
     source: '/:path((?!ie-incompatible.html$).*)', // all pages except the incompatibility page
     has: [
@@ -60,7 +73,7 @@ module.exports = async () => {
     })
   }
 
-  const redirects = [internetExplorerRedirect, ...dynamicRedirects]
+  const redirects = [...staticRedirects, internetExplorerRedirect, ...dynamicRedirects]
 
   return redirects
 }
