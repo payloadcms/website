@@ -3,6 +3,8 @@ import { fetchAnnouncements, fetchGlobals } from '@graphql'
 import { Providers } from '@providers'
 import { Metadata } from 'next'
 
+import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics'
+import { GoogleTagManager } from '@components/Analytics/GoogleTagManager'
 import { Announcements } from '@components/Announcements'
 import { HeaderObserver } from '@components/HeaderObserver'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
@@ -22,8 +24,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en">
       <head>
         <link rel="icon" href="/images/favicon.svg" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+        <GoogleAnalytics />
+        <GoogleTagManager />
       </head>
       <body
         className={[
