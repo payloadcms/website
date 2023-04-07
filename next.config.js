@@ -1,3 +1,5 @@
+const redirects = require('./redirects')
+
 /** @type {import('next').NextConfig} */
 const path = require('path')
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -42,20 +44,7 @@ const nextConfig = withBundleAnalyzer({
     }
     return configCopy
   },
-  redirects() {
-    return [
-      {
-        source: '/docs',
-        destination: '/docs/getting-started/what-is-payload',
-        permanent: true,
-      },
-      {
-        source: '/roadmap',
-        destination: 'https://github.com/payloadcms/payload/discussions/categories/roadmap',
-        permanent: true,
-      },
-    ]
-  },
+  redirects,
   async headers() {
     const headers = []
 

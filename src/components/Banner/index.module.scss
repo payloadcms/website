@@ -1,8 +1,9 @@
+@use '@scss/common.scss' as *;
+
 .banner {
   padding: var(--base);
   margin: calc(var(--base) * 1.5) 0;
   display: flex;
-  align-items: center;
 
   a,
   a:hover,
@@ -102,9 +103,13 @@
   background-color: currentColor;
   border-radius: 50%;
   flex-shrink: 0;
-  margin-right: var(--base);
+  margin: 5px var(--base) 0 0;
 
   path {
     stroke: var(--color-base-800);
+  }
+
+  @include small-break {
+    margin-top: 0;
   }
 }

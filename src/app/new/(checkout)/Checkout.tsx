@@ -255,6 +255,10 @@ const Checkout: React.FC<{
                       initialValue: project?.buildScript || 'yarn build',
                       value: project?.buildScript || 'yarn build',
                     },
+                    runScript: {
+                      initialValue: project?.runScript || 'yarn serve',
+                      value: project?.runScript || 'yarn serve',
+                    },
                     deploymentBranch: {
                       initialValue: project?.deploymentBranch || 'main',
                       value: project?.deploymentBranch || 'main',
@@ -341,8 +345,9 @@ const Checkout: React.FC<{
                     <Heading element="h5" marginTop={false} marginBottom={false}>
                       Build Settings
                     </Heading>
-                    <Text label="Install Script" path="installScript" />
-                    <Text label="Build Script" path="buildScript" />
+                    <Text label="Install Command" path="installScript" />
+                    <Text label="Build Command" path="buildScript" />
+                    <Text label="Serve Command" path="runScript" />
                     <Text label="Branch to deploy" path="deploymentBranch" />
                   </div>
                   <hr className={classes.hr} />

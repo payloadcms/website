@@ -17,6 +17,7 @@ export interface Config {
     users: User;
     forms: Form;
     'form-submissions': FormSubmission;
+    redirects: Redirect;
   };
   globals: {
     footer: Footer;
@@ -2123,6 +2124,25 @@ export interface FormSubmission {
     value: string;
     id?: string;
   }[];
+  createdAt: string;
+  updatedAt: string;
+}
+export interface Redirect {
+  id: string;
+  from: string;
+  to: {
+    type?: 'reference' | 'custom';
+    reference:
+    | {
+      value: string | Page;
+      relationTo: 'pages';
+    }
+    | {
+      value: string | Post;
+      relationTo: 'posts';
+    };
+    url: string;
+  };
   createdAt: string;
   updatedAt: string;
 }
