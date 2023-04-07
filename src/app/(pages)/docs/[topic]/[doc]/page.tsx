@@ -65,14 +65,19 @@ export async function generateStaticParams() {
   return result
 }
 
-export async function generateMetadata({ params: { topic, doc: docSlug } }) {
-  const doc = await getDoc({ topic, doc: docSlug })
+export async function generateMetadata({ params: { topic: topicSlug, doc: docSlug } }) {
+  const doc = await getDoc({ topic: topicSlug, doc: docSlug })
 
   return {
     title: `${doc?.title ? `${doc.title} | ` : ''}Documentation | Payload CMS`,
-    description: doc?.desc || `Payload CMS ${topic} Documentation`,
+    description: doc?.desc || `Payload CMS ${topicSlug} Documentation`,
     openGraph: mergeOpenGraph({
-      url: `/api/og?topic=${topic}&title=${doc?.title}}`,
+      url: `/docs/${topicSlug}/${docSlug}`,
+      images: [
+        {
+          url: `/api/og?topic=${topicSlug}&title=${doc?.title}}`,
+        },
+      ],
     }),
   }
 }
