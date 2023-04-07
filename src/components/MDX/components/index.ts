@@ -2,6 +2,7 @@ import { Banner } from '../../Banner'
 import YouTube from '../../YouTube'
 import BlogImage from './BlogImage'
 import Code from './Code'
+import InlineCode from './InlineCode'
 import h1 from './H1'
 import h2 from './H2'
 import h3 from './H3'
@@ -15,6 +16,7 @@ export default {
   Banner,
   table,
   pre: Code,
+  code: InlineCode,
   HR,
   BlogImage,
   YouTube,
