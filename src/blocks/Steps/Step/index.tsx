@@ -22,16 +22,20 @@ export const Step: React.FC<Props> = ({ layout, i }) => {
     if (isIntersecting && !hasAnimated) setHasAnimated(true)
   }, [isIntersecting, hasAnimated])
 
-  return (
-    <li
-      className={[classes.step, hasAnimated && classes.animate].filter(Boolean).join(' ')}
-      key={i}
-      ref={ref}
-    >
-      <Gutter>
-        <Label className={classes.label}>Step 0{i + 1}</Label>
-      </Gutter>
-      <RenderBlocks disableOuterSpacing blocks={layout} />
-    </li>
-  )
+  if (layout) {
+    return (
+      <li
+        className={[classes.step, hasAnimated && classes.animate].filter(Boolean).join(' ')}
+        key={i}
+        ref={ref}
+      >
+        <Gutter>
+          <Label className={classes.label}>Step 0{i + 1}</Label>
+        </Gutter>
+        <RenderBlocks disableOuterSpacing blocks={layout} />
+      </li>
+    )
+  }
+
+  return null
 }

@@ -17,11 +17,15 @@ export const Header: React.FC<MainMenu> = ({ navItems }) => {
   const isMobileNavOpen = isModalOpen(mobileNavModalSlug)
   const { headerColor } = useHeaderTheme()
   const { y } = useScrollInfo()
-  const [hideBackground, setHideBackground] = React.useState(true)
+  const [hideBackground, setHideBackground] = React.useState(false)
 
   React.useEffect(() => {
-    setHideBackground(y < 30)
-  }, [y])
+    if (isMobileNavOpen) {
+      setHideBackground(false)
+    } else {
+      setHideBackground(y < 30)
+    }
+  }, [y, isMobileNavOpen])
 
   return (
     <ThemeProvider theme={headerColor}>

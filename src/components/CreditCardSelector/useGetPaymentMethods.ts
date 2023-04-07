@@ -65,12 +65,13 @@ export const useGetPaymentMethods = (args: {
           }, delay)
         } else {
           // @ts-expect-error
-          setError(json?.message || 'Something went wrong')
+          throw new Error(json?.message)
         }
       } catch (err: unknown) {
         const message = (err as Error)?.message || 'Something went wrong'
         setError(message)
         setIsLoading(false)
+        setResult([])
       }
 
       isRequesting.current = false

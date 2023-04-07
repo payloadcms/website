@@ -2,14 +2,13 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { useTheme } from '@providers/Theme'
 import * as cheerio from 'cheerio'
 
 import { DiscordGitComments } from '@components/DiscordGitComments'
 import DiscordGitCTA from '@components/DiscordGitCTA'
 import { DiscordGitIntro } from '@components/DiscordGitIntro'
 import { Gutter } from '@components/Gutter'
-import { HeaderObserver } from '@components/HeaderObserver'
+import Meta from '@components/Meta'
 import OpenPost from '@components/OpenPost'
 
 import classes from './index.module.scss'
@@ -64,7 +63,7 @@ export type ThreadProps = {
 }
 
 export const RenderThread: React.FC<ThreadProps> = props => {
-  const { communityHelpJSON } = props
+  const { communityHelpJSON, title, slug } = props
 
   const { info, intro, messageCount, messages } = communityHelpJSON
 
@@ -87,10 +86,13 @@ export const RenderThread: React.FC<ThreadProps> = props => {
 
   const postUrl = `https://discord.com/channels/${info.guildId}/${info.id}`
 
-  const theme = useTheme()
-
   return (
-    <HeaderObserver color={theme} pullUp>
+    <>
+      <Meta
+        title={`${title} | Community Help | Payload CMS`}
+        description={title}
+        slug={`/community-help/discord/${slug}`}
+      />
       <Gutter>
         <Grid>
           <Cell cols={10} colsL={9} className={classes.post}>
@@ -110,7 +112,7 @@ export const RenderThread: React.FC<ThreadProps> = props => {
         </Grid>
       </Gutter>
       <DiscordGitCTA />
-    </HeaderObserver>
+    </>
   )
 }
 

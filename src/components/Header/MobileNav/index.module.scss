@@ -80,7 +80,7 @@
   all: unset;
   width: 100%;
   height: 100%;
-  margin-top: var(--header-height);
+  padding-top: var(--header-height);
   backdrop-filter: blur(5px);
   display: none;
   visibility: hidden;
@@ -95,6 +95,10 @@
   display: flex;
   flex-direction: column;
   padding: calc(var(--base) *  1.5) 0;
+
+  @include mobile-header-break {
+    gap: calc(var(--base) * 1.25);
+  }
 }
 
 .mobileMenuItem {
@@ -103,8 +107,8 @@
   font-weight: bold;
   text-decoration: none;
   
-  @include mid-break {
-    margin: 0 0 var(--base) 0;
+  @include mobile-header-break {
+    margin: 0;
     color: var(--color-base-0);
   }
 }

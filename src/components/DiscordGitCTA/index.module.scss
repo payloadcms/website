@@ -87,7 +87,7 @@
 
   & img {
     border-radius: 5px;
-    height: 25px;
+    height: 28px;
   }
 }
 
@@ -97,16 +97,15 @@
   line-height: 1.2;
   margin-top: calc(var(--base) * 2.5);
 
-  .button {
-    @include label;
-    text-decoration: none;
-    margin-top: var(--base);
-    color: var(--color-blue-600);
-    transition: opacity 0.2s ease-in-out;
+  .license {
+    margin-bottom: 0;
+    color: var(--theme-elevation-450);
+  }
 
-    & svg {
-      margin-left: var(--base);
-    }
+  .button {
+    text-decoration: none;
+    color: var(--theme-blue-500);
+    transition: opacity 0.2s ease-in-out;
 
     &:hover {
       opacity: 0.8;

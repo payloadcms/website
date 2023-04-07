@@ -27,10 +27,9 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
   const [init, setInit] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
   const pathname = usePathname()
-
   useEffect(() => {
     if (navOpen) setNavOpen(false)
-  }, [pathname, navOpen])
+  }, [pathname])
 
   useEffect(() => {
     const preference = window.localStorage.getItem(openTopicsLocalStorageKey)
@@ -142,7 +141,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
         >
           Documentation
           {!navOpen && <MenuIcon />}
-          {navOpen && <CloseIcon />}
+          {navOpen && <CloseIcon size="large" />}
         </button>
       </div>
     </MDXProvider>

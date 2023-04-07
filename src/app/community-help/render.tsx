@@ -8,13 +8,12 @@ import Link from 'next/link'
 import { Banner } from '@components/Banner'
 import DiscordGitCTA from '@components/DiscordGitCTA'
 import { Gutter } from '@components/Gutter'
-import { HeaderObserver } from '@components/HeaderObserver'
+import { Heading } from '@components/Heading'
 import { AlgoliaPagination } from '@root/adapters/AlgoliaPagination'
 import { CommentsIcon } from '@root/graphics/CommentsIcon'
 import { DiscordIcon } from '@root/graphics/DiscordIcon'
 import { GithubIcon } from '@root/graphics/GithubIcon'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { useTheme } from '@root/providers/Theme'
 import getRelativeDate from '@root/utilities/get-relative-date'
 import { AlgoliaProvider } from './AlgoliaProvider'
 import { ArchiveSearchBar } from './ArchiveSearchBar'
@@ -22,17 +21,18 @@ import { ArchiveSearchBar } from './ArchiveSearchBar'
 import classes from './index.module.scss'
 
 export const CommunityHelp: React.FC = () => {
-  const theme = useTheme()
-
   const { hits }: { hits: Array<any> } = useHits()
 
   const hasResults = hits && Array.isArray(hits) && hits.length > 0
+
   return (
-    <HeaderObserver color={theme} pullUp>
+    <>
       <Gutter>
         <Grid>
           <Cell cols={10} colsL={9} className={classes.communityHelpWrap}>
-            <h1>Community Help</h1>
+            <Heading className={classes.heading} element="h1">
+              Community Help
+            </Heading>
             <ArchiveSearchBar className={classes.searchBar} />
             {hasResults && (
               <ul className={classes.postsWrap}>
@@ -43,6 +43,7 @@ export const CommunityHelp: React.FC = () => {
                       <Link
                         className={classes.postContent}
                         href={`/community-help/${platform.toLowerCase()}/${slug}`}
+                        style={{ textDecoration: 'none' }}
                       >
                         <div>
                           <h5 className={classes.title}>{name}</h5>
@@ -78,8 +79,8 @@ export const CommunityHelp: React.FC = () => {
             )}
             {!hasResults && (
               <>
-                <h5>Sorry, no results were found...</h5>
                 <Banner type="warning">
+                  <h5>Sorry, no results were found...</h5>
                   <label>Search tips</label>
                   <ul>
                     <li>Make sure all words are spelled correctly</li>
@@ -93,8 +94,9 @@ export const CommunityHelp: React.FC = () => {
           </Cell>
         </Grid>
       </Gutter>
+
       <DiscordGitCTA />
-    </HeaderObserver>
+    </>
   )
 }
 

@@ -3,14 +3,12 @@
 import * as React from 'react'
 import { useWindowInfo } from '@faceless-ui/window-info'
 import { useHeaderTheme } from '@providers/HeaderTheme'
-import { usePathname } from 'next/navigation'
 
 import { useTheme } from '@root/providers/Theme'
 
 import classes from './index.module.scss'
 
 type Props = {
-  color?: 'light' | 'dark' | null
   className?: string
   zIndex?: number
   children?: React.ReactNode
@@ -20,7 +18,7 @@ const WrappedHeaderObserver: React.FC<
   Props & {
     isDetached: boolean
   }
-> = ({ children, className, zIndex, pullUp, isDetached }) => {
+> = ({ children, className, zIndex, pullUp = false, isDetached }) => {
   const ref = React.useRef<HTMLDivElement>(null)
   const { height: windowHeight } = useWindowInfo()
   const { setHeaderColor, debug, isFirstObserver, setIsFirstObserver } = useHeaderTheme()
@@ -58,7 +56,7 @@ const WrappedHeaderObserver: React.FC<
     }
 
     return () => null
-  }, [setIsIntersecting, windowHeight, themeColor])
+  }, [setIsIntersecting, windowHeight, themeColor, isDetached])
 
   React.useEffect(() => {
     if (isIntersecting) {
@@ -116,7 +114,6 @@ const useParentHeaderObserver = (): Type | undefined => React.useContext(Context
 export const HeaderObserver: React.FC<Props> = props => {
   const [isDetached, setIsDetached] = React.useState(false)
   const parentObserver = useParentHeaderObserver()
-  const pathname = usePathname()
 
   const detachParentObserver = React.useCallback(() => {
     setIsDetached(true)
@@ -130,13 +127,15 @@ export const HeaderObserver: React.FC<Props> = props => {
     if (parentObserver !== undefined) {
       parentObserver.detachParentObserver()
     }
-  }, [parentObserver])
 
-  React.useEffect(() => {
-    if (parentObserver !== undefined) {
-      parentObserver.attachParentObserver()
+    return () => {
+      // when a headerObserver unmounts and there is a parent observer
+      // reattach the parent observer
+      if (parentObserver !== undefined) {
+        parentObserver.attachParentObserver()
+      }
     }
-  }, [parentObserver, pathname])
+  }, [parentObserver])
 
   return (
     <Context.Provider

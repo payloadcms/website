@@ -8,12 +8,21 @@
     color: var(--theme-success-500);
 }
 
-.stripeLink {
-  color: var(--theme-blue-500);
-  cursor: pointer;
-  text-decoration: underline;
+.description {
+  a {
+    color: var(--theme-blue-500);
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
 
-.customerID {
-  margin-bottom: var(--base);
+.fields {
+  margin-bottom: calc(var(--base) * 2);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) / 2);
+
+  @include mid-break {
+    margin-bottom: var(--base);
+  }
 }

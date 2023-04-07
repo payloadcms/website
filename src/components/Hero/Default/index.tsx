@@ -24,23 +24,21 @@ export const DefaultHero: React.FC<
       !sidebarContent[0].children[0].text)
 
   return (
-    <HeaderObserver pullUp>
-      <Gutter>
-        <div className={classes.defaultHero}>
-          {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
-          <Grid>
-            <Cell cols={withoutSidebar ? 10 : 8} colsM={withoutSidebar ? 7 : 5} colsS={8}>
-              <RichText className={classes.richText} content={richText} />
-            </Cell>
+    <Gutter>
+      <div className={classes.defaultHero}>
+        {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
+        <Grid>
+          <Cell cols={withoutSidebar ? 10 : 8} colsM={withoutSidebar ? 7 : 5} colsS={8}>
+            <RichText className={classes.richText} content={richText} />
+          </Cell>
 
-            {!withoutSidebar && (
-              <Cell start={10} cols={4} startM={6} colsS={12} startS={1}>
-                <RichText content={sidebarContent} />
-              </Cell>
-            )}
-          </Grid>
-        </div>
-      </Gutter>
-    </HeaderObserver>
+          {!withoutSidebar && (
+            <Cell start={10} cols={4} startM={6} colsS={12} startS={1}>
+              <RichText content={sidebarContent} />
+            </Cell>
+          )}
+        </Grid>
+      </div>
+    </Gutter>
   )
 }

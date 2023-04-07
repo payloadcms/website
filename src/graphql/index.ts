@@ -251,7 +251,9 @@ export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
   return data?.CaseStudies?.docs[0]
 }
 
-export const fetchCommunityHelps = async (): Promise<CommunityHelp[]> => {
+export const fetchCommunityHelps = async (
+  communityHelpType: CommunityHelp['communityHelpType'],
+): Promise<CommunityHelp[]> => {
   const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?communityHelps`, {
     method: 'POST',
     headers: {
@@ -260,6 +262,9 @@ export const fetchCommunityHelps = async (): Promise<CommunityHelp[]> => {
     next,
     body: JSON.stringify({
       query: COMMUNITY_HELPS,
+      variables: {
+        communityHelpType,
+      },
     }),
   }).then(res => res.json())
 

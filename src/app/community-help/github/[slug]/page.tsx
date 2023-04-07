@@ -43,14 +43,14 @@ const isDiscussionData = (
 }
 
 const Discussion = async ({ params }) => {
-  const { discussion: slug } = params
+  const { slug } = params
 
   const discussion = await fetchCommunityHelp(slug)
 
   if (!discussion) return notFound()
 
   if (!isDiscussionData(discussion)) {
-    throw new Error('Unexpected discussion data')
+    throw new Error('Unexpected thread data')
   }
 
   return <RenderDiscussion {...discussion} />
@@ -59,6 +59,6 @@ const Discussion = async ({ params }) => {
 export default Discussion
 
 export async function generateStaticParams() {
-  const discussions = await fetchCommunityHelps()
-  return discussions?.map(({ slug }) => slug) ?? []
+  const discussions = await fetchCommunityHelps('github')
+  return discussions?.map(({ slug }) => ({ slug })) ?? []
 }

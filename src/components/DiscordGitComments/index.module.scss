@@ -31,9 +31,9 @@
 
 .reply {
   border-top: none;
-  margin: 0;
   background-color: var(--theme-elevation-50);
   border-left-width: 8px;
+  margin-bottom: 0;
 
   &:last-child {
     margin-bottom: calc(var(--base) * 2);
@@ -43,8 +43,7 @@
 .replyCount {
   font-size: calc(var(--base) * 0.75);
   color: var(--color-base-500);
-  padding: calc(var(--base) * 1.5);
-  padding-top: 0;
+  padding-top: calc(var(--base) * 1.5);
 }
 
 .answer {
@@ -54,6 +53,11 @@
 
   & code {
     color: var(--theme-elevation-900);
+  }
+
+  .replyCount {
+    padding: calc(var(--base) * 1.5);
+    padding-top: 0;
   }
 }
 

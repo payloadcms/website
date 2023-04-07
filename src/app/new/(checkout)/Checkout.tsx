@@ -33,8 +33,8 @@ import { useGetProject } from '@root/utilities/use-cloud-api'
 import { useGitAuthRedirect } from '../authorize/useGitAuthRedirect'
 import { EnvVars } from './EnvVars'
 import { checkoutReducer, CheckoutState } from './reducer'
+import { useCreateSubscription } from './useCreateSubscription'
 import { useDeploy } from './useDeploy'
-import { usePaymentIntent } from './usePaymentIntent'
 
 import classes from './Checkout.module.scss'
 
@@ -115,11 +115,6 @@ const Checkout: React.FC<{
     { value: selectedInstall, loading: installsLoading, error: installsError },
   ] = useInstallationSelector({ initialInstallID: project?.installID })
 
-  const { paymentIntent, error: paymentIntentError } = usePaymentIntent({
-    project,
-    checkoutState,
-  })
-
   const onDeploy = useCallback(
     (project: Project) => {
       const redirectURL =
@@ -135,10 +130,9 @@ const Checkout: React.FC<{
 
   const { isDeploying, errorDeploying, deploy } = useDeploy({
     onDeploy,
-    projectID: draftProjectID,
+    project,
     checkoutState,
-    installID: selectedInstall?.id.toString(),
-    paymentIntent,
+    installID: selectedInstall?.id.toString() || project?.installID,
   })
 
   const deleteProject = useCallback(async () => {
@@ -183,7 +177,6 @@ const Checkout: React.FC<{
         <div className={classes.errors}>
           {errorDeploying && <p>{errorDeploying}</p>}
           {installsError && <p>{installsError}</p>}
-          {paymentIntentError && <p>{paymentIntentError}</p>}
           {errorDeleting && <p>{errorDeleting}</p>}
         </div>
         {isDeploying && <p className={classes.submitting}>Submitting, one moment...</p>}
@@ -256,6 +249,10 @@ const Checkout: React.FC<{
                     buildScript: {
                       initialValue: project?.buildScript || 'yarn build',
                       value: project?.buildScript || 'yarn build',
+                    },
+                    runScript: {
+                      initialValue: project?.runScript || 'yarn serve',
+                      value: project?.runScript || 'yarn serve',
                     },
                     deploymentBranch: {
                       initialValue: project?.deploymentBranch || 'main',
@@ -341,8 +338,9 @@ const Checkout: React.FC<{
                     <Heading element="h5" marginTop={false} marginBottom={false}>
                       Build Settings
                     </Heading>
-                    <Text label="Install Script" path="installScript" />
-                    <Text label="Build Script" path="buildScript" />
+                    <Text label="Install Command" path="installScript" />
+                    <Text label="Build Command" path="buildScript" />
+                    <Text label="Serve Command" path="runScript" />
                     <Text label="Branch to deploy" path="deploymentBranch" />
                   </div>
                   <hr className={classes.hr} />

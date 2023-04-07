@@ -40,7 +40,7 @@ const isThreadData = (
 }
 
 const Thread = async ({ params }) => {
-  const { thread: slug } = params
+  const { slug } = params
 
   const thread = await fetchCommunityHelp(slug)
 
@@ -56,7 +56,6 @@ const Thread = async ({ params }) => {
 export default Thread
 
 export async function generateStaticParams() {
-  const fetchedThreads = await fetchCommunityHelps()
-
-  return fetchedThreads?.map(({ slug }) => slug) ?? []
+  const fetchedThreads = await fetchCommunityHelps('discord')
+  return fetchedThreads?.map(({ slug }) => ({ slug })) ?? []
 }

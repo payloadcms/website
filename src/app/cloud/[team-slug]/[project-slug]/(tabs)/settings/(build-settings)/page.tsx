@@ -6,10 +6,10 @@ import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 
-import { Heading } from '@components/Heading'
 import { BorderBox } from '@root/app/_components/BorderBox'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useRouteData } from '@root/app/cloud/context'
+import { SectionHeader } from '../_layoutComponents/SectionHeader'
 
 import classes from './index.module.scss'
 
@@ -48,9 +48,7 @@ export default () => {
 
   return (
     <MaxWidth>
-      <Heading element="h2" as="h4" marginTop={false}>
-        Build Settings
-      </Heading>
+      <SectionHeader title="Build Settings" />
       <BorderBox>
         <Form className={classes.form} onSubmit={onSubmit}>
           <Text
@@ -72,6 +70,13 @@ export default () => {
             placeholder="Enter the command to build your project"
             path="buildScript"
             initialValue={project.buildScript}
+          />
+
+          <Text
+            label="Serve Command"
+            placeholder="Enter the command to serve your project"
+            path="runScript"
+            initialValue={project.runScript}
           />
 
           <Text

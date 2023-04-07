@@ -3,7 +3,7 @@
 .fileAttachments {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  width: 100%;
+  width: fit-content;
   margin-top: var(--base);
 
   @include large-break {
