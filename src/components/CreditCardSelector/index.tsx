@@ -66,17 +66,21 @@ export const CreditCardSelector: React.FC<{
           />
         )}
       </div>
-      <div className={classes.addNew}>
-        <CircleIconButton
-          onClick={() => {
-            setShowNewCard(!showNewCard)
-            setInternalState(
-              showNewCard ? paymentMethods?.[0]?.id || newCardID.current : newCardID.current,
-            )
-          }}
-          label={showNewCard ? 'Cancel new card' : 'Add new card'}
-        />
-      </div>
+      {/* Only show the add/remove new card button if there are existing payment methods */}
+      {paymentMethods?.length > 0 && (
+        <div className={classes.newCardController}>
+          <CircleIconButton
+            onClick={() => {
+              setShowNewCard(!showNewCard)
+              setInternalState(
+                showNewCard ? paymentMethods?.[0]?.id || newCardID.current : newCardID.current,
+              )
+            }}
+            label={showNewCard ? 'Cancel new card' : 'Add new card'}
+            icon={showNewCard ? 'close' : 'add'}
+          />
+        </div>
+      )}
     </div>
   )
 }

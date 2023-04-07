@@ -7,12 +7,23 @@ const portalURL = `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/customer-portal`
 
 export const useCustomerPortal = (args: {
   team: Team
+  // if you send the subscriptionID, it will open the portal to that subscription
+  // this uses the `subscription_cancel` flow in the customer portal
+  subscriptionID?: string
+  returnURL?: string
+  headline?: string
 }): {
   openPortalSession: (e: React.MouseEvent<HTMLAnchorElement>) => Promise<void>
   loading: boolean
   error: string | null
 } => {
-  const { team } = args
+  const {
+    team,
+    subscriptionID,
+    returnURL = `${process.env.NEXT_PUBLIC_SITE_URL}/cloud/${team.slug}/billing`,
+    headline = 'Payload Cloud',
+  } = args
+
   const router = useRouter()
   const [loading, setLoading] = React.useState<boolean>(false)
   const [error, setError] = React.useState<string | null>(null)
@@ -22,6 +33,7 @@ export const useCustomerPortal = (args: {
       // the href on the anchor is just for accessibility
       e.preventDefault()
 
+      setError(null)
       setLoading(true)
 
       try {
@@ -33,7 +45,9 @@ export const useCustomerPortal = (args: {
           },
           body: JSON.stringify({
             team: team.id,
-            redirectURL: `${process.env.NEXT_PUBLIC_SITE_URL}/cloud/${team.slug}/billing`,
+            returnURL,
+            subscriptionID,
+            headline,
           }),
         })
 
@@ -49,7 +63,7 @@ export const useCustomerPortal = (args: {
         setLoading(false)
       }
     },
-    [team, router],
+    [team, router, subscriptionID, returnURL, headline],
   )
 
   return {

@@ -7,12 +7,11 @@ import { PaymentIntent, StripeCardElement as StripeCardElementType } from '@stri
 import { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { CheckoutState } from './reducer'
-import { PayloadPaymentIntent } from './usePaymentIntent'
+import { PayloadStripeSubscription, useCreateSubscription } from './useCreateSubscription'
 
 export const useDeploy = (args: {
-  projectID?: string
+  project: Project
   checkoutState: CheckoutState
-  paymentIntent?: PayloadPaymentIntent
   installID?: string
   onDeploy?: (project: Project) => void
 }): {
@@ -21,44 +20,56 @@ export const useDeploy = (args: {
   isDeploying: boolean
   deploy: OnSubmit
 } => {
-  const { paymentIntent, checkoutState, installID, projectID, onDeploy } = args
+  const { checkoutState, installID, project, onDeploy } = args
   const { user } = useAuth()
   const [error, setError] = useState<string | null>(null)
   const [isDeploying, setIsDeploying] = useState(false)
   const stripe = useStripe()
   const elements = useElements()
 
-  const makePayment = useCallback(async (): Promise<PaymentIntent | null> => {
-    if (!paymentIntent || !checkoutState || !stripe || !elements) {
-      throw new Error('No payment intent or checkout state')
-    }
+  const { createSubscription } = useCreateSubscription({
+    project,
+    checkoutState,
+  })
 
-    const { paid, client_secret: clientSecret } = paymentIntent
-    const { plan, paymentMethod } = checkoutState
+  const makePayment = useCallback(
+    async (subscription: PayloadStripeSubscription): Promise<PaymentIntent | null> => {
+      if (!subscription) {
+        throw new Error('No subscription')
+      }
 
-    if (paid) {
-      return null
-    }
+      if (!checkoutState || !stripe || !elements) {
+        throw new Error('No payment intent or checkout state')
+      }
 
-    if (!plan || !clientSecret) {
-      throw new Error('No plan selected or client secret')
-    }
+      const { paid, client_secret: clientSecret } = subscription
+      const { plan, paymentMethod } = checkoutState
 
-    const stripePayment = await stripe.confirmCardPayment(clientSecret, {
-      payment_method:
-        !paymentMethod || paymentMethod.startsWith('new-card')
-          ? {
-              card: elements.getElement(StripeCardElement) as StripeCardElementType,
-            }
-          : paymentMethod,
-    })
+      if (paid) {
+        return null
+      }
 
-    if (stripePayment.error) {
-      throw new Error(stripePayment.error.message)
-    }
+      if (!plan || !clientSecret) {
+        throw new Error('No plan selected or client secret')
+      }
 
-    return stripePayment.paymentIntent
-  }, [paymentIntent, elements, stripe, checkoutState])
+      const stripePayment = await stripe.confirmCardPayment(clientSecret, {
+        payment_method:
+          !paymentMethod || paymentMethod.startsWith('new-card')
+            ? {
+                card: elements.getElement(StripeCardElement) as StripeCardElementType,
+              }
+            : paymentMethod,
+      })
+
+      if (stripePayment.error) {
+        throw new Error(stripePayment.error.message)
+      }
+
+      return stripePayment.paymentIntent
+    },
+    [elements, stripe, checkoutState],
+  )
 
   const deploy: OnSubmit = useCallback(
     async ({ unflattenedData: formState }) => {
@@ -69,23 +80,20 @@ export const useDeploy = (args: {
           throw new Error(`No installation ID was found for this project.`)
         }
 
-        if (!paymentIntent) {
-          throw new Error(`No payment intent was found for this project.`)
-        }
-
         if (!user) {
           throw new Error(`You must be logged in to deploy a project.`)
         }
 
-        const { subscription } = paymentIntent || {}
-
         setIsDeploying(true)
         setError(null)
 
-        // process the payment
-        await makePayment()
+        // first create the subscription
+        const subscription = await createSubscription()
 
-        // attempt to deploy the project
+        // then make the payment
+        await makePayment(subscription)
+
+        // finally attempt to deploy the project
         const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deploy`, {
           credentials: 'include',
           method: 'POST',
@@ -94,12 +102,12 @@ export const useDeploy = (args: {
           },
           body: JSON.stringify({
             project: {
-              id: projectID,
+              id: project?.id,
               ...checkoutState,
               ...formState,
               installID,
             },
-            subscription,
+            subscription: subscription?.subscription,
           }),
         })
 
@@ -132,7 +140,7 @@ export const useDeploy = (args: {
         setIsDeploying(false)
       }
     },
-    [user, makePayment, paymentIntent, installID, checkoutState, projectID, onDeploy],
+    [user, makePayment, installID, checkoutState, project, onDeploy, createSubscription],
   )
 
   return {

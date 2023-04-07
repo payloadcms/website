@@ -2,7 +2,6 @@ import { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { TeamSettingsPage } from './client_page'
-
 export default props => {
   return <TeamSettingsPage {...props} />
 }

@@ -151,6 +151,12 @@ export const SettingsPage = () => {
               <>
                 <Text path="name" label="Your Full Name" />
                 <Text path="email" label="Email" required />
+                <Text
+                  value={user?.id}
+                  label="User ID"
+                  disabled
+                  description="This is your user's ID within Payload"
+                />
               </>
             )}
             {formToShow === 'password' && (

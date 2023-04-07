@@ -6,6 +6,7 @@ export const TEAMS = `
         name
         slug
         stripeCustomerID
+        stripeSubscriptionStatus
         members {
           user {
             id

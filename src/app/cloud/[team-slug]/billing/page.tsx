@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
 
 import { TeamBillingPage } from './client_page'
-
 export default props => {
   return <TeamBillingPage {...props} />
 }

@@ -1,8 +1,7 @@
-'use client'
-
 import * as React from 'react'
 import { useRouteData } from '@cloud/context'
 import { Text } from '@forms/fields/Text'
+import Link from 'next/link'
 
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
@@ -12,19 +11,35 @@ import { SectionHeader } from '../_layoutComponents/SectionHeader'
 
 import classes from './page.module.scss'
 
+const statusLabels = {
+  active: 'Active',
+  canceled: 'Cancelled',
+  incomplete: 'Incomplete',
+  incomplete_expired: 'Incomplete Expired',
+  past_due: 'Past Due',
+  trialing: 'Trialing',
+  unpaid: 'Unpaid',
+  paused: 'Paused',
+  unknown: 'Unknown',
+}
+
 export const ProjectBillingPage = () => {
   const { user } = useAuth()
   const { team, project } = useRouteData()
   const { openPortalSession, error, loading } = useCustomerPortal({
     team,
+    subscriptionID: project.stripeSubscriptionID,
+    returnURL: `${process.env.NEXT_PUBLIC_SITE_URL}/cloud/${team.slug}/${project.slug}/settings/billing`,
+    headline: `"${project.name}" Project on Payload Cloud`,
   })
 
   const isCurrentTeamOwner = checkTeamRoles(user, team, ['owner'])
   const hasCustomerID = team?.stripeCustomerID
+  const hasSubscriptionID = project?.stripeSubscriptionID
 
   return (
     <MaxWidth>
-      <SectionHeader title="Project billing" />
+      <SectionHeader title="Project billing" className={classes.header} />
       {(loading || error) && (
         <div className={classes.formSate}>
           {loading && <p className={classes.loading}>Opening customer portal...</p>}
@@ -36,37 +51,52 @@ export const ProjectBillingPage = () => {
           This team does not have a billing account. Please contact support to resolve this issue.
         </p>
       )}
-      {hasCustomerID && (
+      {!hasSubscriptionID && (
+        <p className={classes.error}>
+          This project does not have a subscription. Please contact support to resolve this issue.
+        </p>
+      )}
+      {hasCustomerID && hasSubscriptionID && (
         <React.Fragment>
-          <Text
-            disabled
-            value={project?.stripeSubscriptionID}
-            label="Subscription ID"
-            description="This is the ID of the subscription for this project."
-            className={classes.subscriptionID}
-          />
+          <div className={classes.fields}>
+            <Text
+              disabled
+              value={project?.stripeSubscriptionID}
+              label="Subscription ID"
+              description="This is the ID of the subscription for this project."
+            />
+            <Text
+              value={statusLabels?.[project?.stripeSubscriptionStatus || 'unknown']}
+              label="Subscription Status"
+              disabled
+            />
+          </div>
           {!isCurrentTeamOwner && (
             <p className={classes.error}>You must be an owner of this team to manage billing.</p>
           )}
           {isCurrentTeamOwner && (
             <React.Fragment>
-              <p>
-                {'To manage your subscriptions, payment methods, and billing history, go to the '}
+              <p className={classes.description}>
+                {'To cancel your subscription, '}
                 <a
-                  className={classes.stripeLink}
                   onClick={e => {
                     e.preventDefault()
                     openPortalSession(e)
                   }}
                 >
-                  customer portal
+                  click here
                 </a>
-                {'.'}
+                {`. This will delete your project permanently. This action cannot be undone.`}
               </p>
             </React.Fragment>
           )}
         </React.Fragment>
       )}
+      <p className={classes.description}>
+        {`To manage your billing and payment information, go to your `}
+        <Link href={`/cloud/${team.slug}/billing`}>team billing page</Link>
+        {`.`}
+      </p>
     </MaxWidth>
   )
 }

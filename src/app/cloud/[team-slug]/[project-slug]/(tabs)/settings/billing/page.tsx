@@ -9,7 +9,7 @@ export default props => {
 
 export async function generateMetadata({
   params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
-}) {
+}): Promise<Metadata> {
   return {
     title: 'Billing',
     openGraph: mergeOpenGraph({

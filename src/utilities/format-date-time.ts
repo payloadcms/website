@@ -52,16 +52,13 @@ const formatOptions: { [key: string]: Intl.DateTimeFormatOptions } = {
 interface Args {
   date: string | Date
   format?: 'longDateStamp' | 'shortDateStamp' | 'dateAndTime'
+  timeZone?: string
 }
 export function formatDate(args: Args): string {
   const { date, format = 'longDateStamp' } = args
 
   try {
-    const dateObj = new Date(
-      new Date(date).toLocaleString('en-US', {
-        timeZone: format !== 'dateAndTime' ? 'America/Detroit' : 'GMT',
-      }),
-    )
+    const dateObj = new Date(new Date(date).toLocaleString('en-US'))
 
     const options = formatOptions[format]
     return new Intl.DateTimeFormat('en-US', options).format(dateObj)

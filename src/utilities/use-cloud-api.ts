@@ -186,10 +186,8 @@ export const useGetProject: UseCloudAPI<
     where: {
       and: [
         {
-          team: {
-            slug: {
-              equals: teamSlug,
-            },
+          'team.slug': {
+            equals: teamSlug,
           },
         },
         {

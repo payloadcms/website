@@ -22,13 +22,13 @@ const initialFormState: InitialState = {
   email: {
     value: '',
     valid: false,
-    initialValue: undefined,
+    initialValue: '',
     errorMessage: 'Please enter a valid email address',
   },
   password: {
     value: '',
     valid: false,
-    initialValue: undefined,
+    initialValue: '',
     errorMessage: 'Please enter a password',
   },
 }

@@ -58,7 +58,7 @@ export type DiscussionProps = {
 export const GithubDiscussionPage: React.FC<DiscussionProps> = props => {
   const { communityHelpJSON } = props
 
-  const { title, answer, author, body, createdAt, url, comments, commentTotal, upvotes } =
+  const { title, answer, author, body, createdAt, url, comments, commentTotal, upvotes, id } =
     communityHelpJSON
 
   return (
