@@ -9,6 +9,7 @@ export type UseCloudAPI<R, A = null> = (args?: A) => {
   isLoading: null | boolean
   error: string
   reload: () => void
+  reqStatus?: number
 }
 
 export const useCloudAPI = <R>(args: {
@@ -24,6 +25,7 @@ export const useCloudAPI = <R>(args: {
   const [isLoading, setIsLoading] = useState<boolean | null>(null)
   const [error, setError] = useState('')
   const [requestTicker, dispatchRequestTicker] = useReducer((state: number) => state + 1, 0)
+  const [reqStatus, setReqStatus] = useState<number | undefined>()
 
   useEffect(() => {
     let timer: NodeJS.Timeout
@@ -44,6 +46,8 @@ export const useCloudAPI = <R>(args: {
             },
             body,
           })
+
+          setReqStatus(req.status)
 
           const json: R = await req.json()
 
@@ -95,8 +99,8 @@ export const useCloudAPI = <R>(args: {
   }, [url, requestTicker, reload, interval])
 
   const memoizedState = useMemo(
-    () => ({ result, isLoading, error, reload }),
-    [result, isLoading, error, reload],
+    () => ({ result, isLoading, error, reload, reqStatus }),
+    [result, isLoading, error, reload, reqStatus],
   )
 
   return memoizedState

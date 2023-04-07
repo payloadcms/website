@@ -30,6 +30,7 @@ type Log = {
 const finalDeploymentStages: Deployment['deploymentStatus'][] = ['ACTIVE', 'SUPERSEDED']
 
 export const InfraOnline: React.FC = () => {
+  const [interval, setInterval] = React.useState<number | undefined>(10_000)
   const [logs, setLogs] = React.useState<Log[]>([
     {
       service: 'cloud',
@@ -43,10 +44,11 @@ export const InfraOnline: React.FC = () => {
     isLoading,
     error,
     result: deployments,
+    reqStatus,
     reload: reloadDeployments,
   } = useGetProjectDeployments({
     projectID: project.id,
-    interval: 10_000,
+    interval,
   })
 
   const [activeDeployment, setActiveDeployment] = React.useState<Deployment | null | undefined>()
@@ -183,6 +185,14 @@ export const InfraOnline: React.FC = () => {
       setLogs([])
     }
   }, [latestDeploymentStatus])
+
+  React.useEffect(() => {
+    if (reqStatus && reqStatus > 400) {
+      setInterval(undefined)
+    } else {
+      setInterval(10_000)
+    }
+  }, [reqStatus])
 
   const projectDomains = [
     ...(project?.domains || []).map(domain => domain.domain),
