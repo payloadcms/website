@@ -26,7 +26,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link rel="icon" href="/images/favicon.svg" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
         <GoogleAnalytics />
-        <GoogleTagManager />
       </head>
       <body
         className={[
@@ -36,6 +35,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           neueMontrealItalic.variable,
         ].join(' ')}
       >
+        <GoogleTagManager />
         <Providers templates={templates}>
           <Header {...mainMenu} />
           <div className={classes.layout}>
