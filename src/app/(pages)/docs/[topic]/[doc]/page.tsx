@@ -75,7 +75,7 @@ export async function generateMetadata({ params: { topic: topicSlug, doc: docSlu
       url: `/docs/${topicSlug}/${docSlug}`,
       images: [
         {
-          url: `/api/og?topic=${topicSlug}&title=${doc?.title}}`,
+          url: `/api/og?topic=${topicSlug}&title=${doc?.title}`,
         },
       ],
     }),
