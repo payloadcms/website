@@ -5,6 +5,7 @@ import { Metadata } from 'next'
 
 import { Announcements } from '@components/Announcements'
 import { HeaderObserver } from '@components/HeaderObserver'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
 import { neueMontrealBold, neueMontrealItalic, neueMontrealRegular, robotoMono } from './fonts'
@@ -50,8 +51,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://payloadcms.com'),
   twitter: {
     card: 'summary_large_image',
-    title: 'Payload CMS',
-    description: 'The Node & React TypeScript Headless CMS',
     creator: '@payloadcms',
   },
+  openGraph: mergeOpenGraph(),
 }

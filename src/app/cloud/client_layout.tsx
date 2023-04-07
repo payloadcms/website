@@ -171,7 +171,7 @@ const DashboardHeader = () => {
   )
 }
 
-export default ({ children }) => {
+export const CloudLayout = ({ children }) => {
   useAuthRedirect()
 
   return (

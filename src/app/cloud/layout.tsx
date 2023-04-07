@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import ClientLayout from './client_layout'
+import { CloudLayout } from './client_layout'
 
 export const metadata: Metadata = {
   title: {
@@ -25,5 +25,5 @@ export const metadata: Metadata = {
 }
 
 export default async ({ children }) => {
-  return <ClientLayout>{children}</ClientLayout>
+  return <CloudLayout>{children}</CloudLayout>
 }
