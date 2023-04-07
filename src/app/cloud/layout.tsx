@@ -15,13 +15,7 @@ export const metadata: Metadata = {
     creator: '@payloadcms',
   },
   // TODO: Add cloud graphic
-  openGraph: mergeOpenGraph({
-    images: [
-      {
-        url: '/images/og-image.jpg',
-      },
-    ],
-  }),
+  openGraph: mergeOpenGraph(),
 }
 
 export default async ({ children }) => {
