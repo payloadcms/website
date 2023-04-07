@@ -1,9 +1,13 @@
 import React from 'react'
 import { fetchAnnouncements, fetchGlobals } from '@graphql'
 import { Providers } from '@providers'
+import { Metadata } from 'next'
 
+import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics'
+import { GoogleTagManager } from '@components/Analytics/GoogleTagManager'
 import { Announcements } from '@components/Announcements'
 import { HeaderObserver } from '@components/HeaderObserver'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
 import { neueMontrealBold, neueMontrealItalic, neueMontrealRegular, robotoMono } from './fonts'
@@ -20,8 +24,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en">
       <head>
         <link rel="icon" href="/images/favicon.svg" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+        <GoogleAnalytics />
       </head>
       <body
         className={[
@@ -31,6 +35,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           neueMontrealItalic.variable,
         ].join(' ')}
       >
+        <GoogleTagManager />
         <Providers templates={templates}>
           <Header {...mainMenu} />
           <div className={classes.layout}>
@@ -43,4 +48,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </body>
     </html>
   )
+}
+
+export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://payloadcms.com'),
+  twitter: {
+    card: 'summary_large_image',
+    creator: '@payloadcms',
+  },
+  openGraph: mergeOpenGraph(),
 }

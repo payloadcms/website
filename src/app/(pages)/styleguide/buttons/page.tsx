@@ -1,4 +1,5 @@
 import React from 'react'
+import { Metadata } from 'next'
 
 import { Gutter } from '@components/Gutter'
 import { Button } from '../../../../components/Button'
@@ -68,3 +69,7 @@ const Buttons: React.FC = () => {
 }
 
 export default Buttons
+
+export const metadata: Metadata = {
+  title: 'Buttons',
+}

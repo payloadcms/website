@@ -33,6 +33,7 @@ export const Image: React.FC<Props> = props => {
   const hasDarkModeFallback =
     resource?.darkModeFallback &&
     typeof resource.darkModeFallback === 'object' &&
+    resource.darkModeFallback !== null &&
     typeof resource.darkModeFallback.filename === 'string'
 
   if (!src && resource && typeof resource !== 'string') {
@@ -77,25 +78,27 @@ export const Image: React.FC<Props> = props => {
         sizes={sizes}
         priority={priority}
       />
-      {hasDarkModeFallback && typeof resource.darkModeFallback === 'object' && (
-        <NextImage
-          className={`${baseClasses} ${classes.themeDark}`}
-          src={`${process.env.NEXT_PUBLIC_CMS_URL}/media/${resource.darkModeFallback.filename}`}
-          alt={alt || ''}
-          onClick={onClick}
-          onLoad={() => {
-            setIsLoading(false)
-            if (typeof onLoadFromProps === 'function') {
-              onLoadFromProps()
-            }
-          }}
-          fill={fill}
-          width={!fill ? width : undefined}
-          height={!fill ? height : undefined}
-          sizes={sizes}
-          priority={priority}
-        />
-      )}
+      {hasDarkModeFallback &&
+        typeof resource.darkModeFallback === 'object' &&
+        resource.darkModeFallback !== null && (
+          <NextImage
+            className={`${baseClasses} ${classes.themeDark}`}
+            src={`${process.env.NEXT_PUBLIC_CMS_URL}/media/${resource.darkModeFallback.filename}`}
+            alt={alt || ''}
+            onClick={onClick}
+            onLoad={() => {
+              setIsLoading(false)
+              if (typeof onLoadFromProps === 'function') {
+                onLoadFromProps()
+              }
+            }}
+            fill={fill}
+            width={!fill ? width : undefined}
+            height={!fill ? height : undefined}
+            sizes={sizes}
+            priority={priority}
+          />
+        )}
     </React.Fragment>
   )
 }

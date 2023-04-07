@@ -121,7 +121,7 @@ export const StickyHighlight: React.FC<Props> = React.memo(
                 </Grid>
               </React.Fragment>
             )}
-            {type === 'media' && typeof media === 'object' && (
+            {type === 'media' && typeof media === 'object' && media !== null && (
               <Grid>
                 <Cell cols={6} start={7} colsM={8} startM={1}>
                   <div className={codeMediaClasses} ref={codeMediaWrapRef}>

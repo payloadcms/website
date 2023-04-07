@@ -1,24 +1,5 @@
-'use client'
+import { TeamPageLayout } from './client_layout'
 
-import * as React from 'react'
-import { notFound } from 'next/navigation'
-
-import { useRouteData } from '../context'
-
-type ProjectLayoutType = {
-  children: React.ReactNode
-}
-
-export default ({ children }: ProjectLayoutType) => {
-  const { team, reloadTeam } = useRouteData()
-
-  React.useEffect(() => {
-    reloadTeam()
-  }, [reloadTeam])
-
-  if (team === undefined) return null
-
-  if (team === null) notFound()
-
-  return <React.Fragment>{children}</React.Fragment>
+export default props => {
+  return <TeamPageLayout {...props} />
 }

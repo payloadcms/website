@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { getTopics } from './api'
-import { RenderDocs } from './render'
+import { RenderDocs } from './client_layout'
 
 const Layout = async ({ children }) => {
   const topics = await getTopics()

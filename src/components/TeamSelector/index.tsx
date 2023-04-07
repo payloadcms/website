@@ -38,7 +38,9 @@ export const TeamSelector: React.FC<{
   const prevSelectedTeam = React.useRef<string | undefined>(selectedTeam)
 
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer({
-    team: teams?.find(team => typeof team === 'object' && team?.id === selectedTeam) as Team,
+    team: teams?.find(
+      team => typeof team === 'object' && team !== null && team.id === selectedTeam,
+    ) as Team,
   })
 
   // allow external control of the selection

@@ -8,7 +8,7 @@ export type Props = Extract<Page['layout'][0], { blockType: 'reusableContentBloc
 export const ReusableContentBlock: React.FC<Props> = ({ reusableContentBlockFields }) => {
   const { reusableContent } = reusableContentBlockFields
 
-  if (typeof reusableContent === 'object') {
+  if (typeof reusableContent === 'object' && reusableContent !== null) {
     return <RenderBlocks blocks={reusableContent.layout} />
   }
 
