@@ -65,7 +65,7 @@ export async function generateStaticParams() {
   return discussions?.map(({ slug }) => ({ slug })) ?? []
 }
 
-export async function generateStaticPaths({ params: { slug } }): Promise<Metadata> {
+export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
   return {
     title: 'Github Discussion',
     openGraph: mergeOpenGraph({

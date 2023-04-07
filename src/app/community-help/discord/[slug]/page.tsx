@@ -62,11 +62,7 @@ export async function generateStaticParams() {
   return fetchedThreads?.map(({ slug }) => ({ slug })) ?? []
 }
 
-export const metadata: Metadata = {
-  title: 'Discord Thread',
-}
-
-export async function generateStaticPaths({ params: { slug } }): Promise<Metadata> {
+export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
   return {
     title: 'Discord Thread',
     openGraph: mergeOpenGraph({
