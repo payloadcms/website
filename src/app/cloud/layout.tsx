@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     description: 'The Node & React TypeScript Headless CMS',
     creator: '@payloadcms',
   },
+  // TODO: Add cloud graphic
   openGraph: mergeOpenGraph({
     images: [
       {

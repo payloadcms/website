@@ -4,10 +4,11 @@ const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
   siteName: 'Payload CMS',
   title: 'Payload CMS',
-  description: 'The Node & React TypeScript Headless CMS',
+  description:
+    'Payload is a headless CMS and application framework built with TypeScript, Node.js, React and MongoDB',
   images: [
     {
-      url: 'https://payloadcms.com/images/og-image.jpg',
+      url: '/images/og-image.jpg',
     },
   ],
 }

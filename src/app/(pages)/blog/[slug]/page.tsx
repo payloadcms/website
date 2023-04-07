@@ -32,7 +32,7 @@ export async function generateMetadata({ params: { slug } }): Promise<Metadata> 
     typeof page?.meta?.image === 'object' &&
     page?.meta?.image !== null &&
     'url' in page?.meta?.image &&
-    page.meta.image.url
+    `${process.env.NEXT_PUBLIC_CMS_URL}${page.meta.image.url}`
 
   return {
     title: page?.meta?.title,
