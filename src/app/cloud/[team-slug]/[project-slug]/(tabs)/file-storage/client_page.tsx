@@ -34,9 +34,7 @@ export const ProjectFileStoragePage = () => {
           <div className={classes.fields}>
             <Banner>
               <p>
-                Payload Cloud uses AWS Cognito for authentication to your S3 bucket. To set up your
-                app to store its files to S3 using the credentials below, make sure your project's
-                Payload config has the official{' '}
+                Payload Cloud uses AWS Cognito for authentication to your S3 bucket. The{' '}
                 <a
                   href="https://github.com/payloadcms/plugin-cloud"
                   target="_blank"
@@ -44,7 +42,8 @@ export const ProjectFileStoragePage = () => {
                 >
                   Payload Cloud Plugin
                 </a>{' '}
-                installed.
+                will automatically pick up these values. These values are only if you'd like to
+                access your files directly, outside of Payload Cloud.
               </p>
             </Banner>
             <ul className={classes.meta}>
