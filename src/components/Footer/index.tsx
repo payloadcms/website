@@ -58,7 +58,9 @@ export const Footer: React.FC<FooterType> = props => {
           <Grid>
             <Cell cols={3} colsM={4}>
               <div className={classes.colHeader}>
-                <PayloadIcon />
+                <div className={classes.payloadIcon}>
+                  <PayloadIcon />
+                </div>
               </div>
 
               <div>
