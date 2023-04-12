@@ -9,10 +9,10 @@ import { Heading } from '@components/Heading'
 import { Label } from '@components/Label'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 import { Indicator } from '@root/app/_components/Indicator'
-import { formatLogData, SimpleLogs } from '@root/app/_components/SimpleLogs'
 import { Project } from '@root/payload-cloud-types'
 import { RequireField } from '@root/ts-helpers/requireField'
-import { useWebSocket } from '@root/utilities/use-websocket'
+import { useGetProjectDeployments } from '@root/utilities/use-cloud-api'
+import { DeploymentLogs } from '../DeploymentLogs'
 
 import classes from './index.module.scss'
 
@@ -74,95 +74,48 @@ export const InfraOffline: React.FC = () => {
   const { infraStatus = 'notStarted' } = project
   const failedDeployment = ['error', 'deployError', 'appCreationError'].includes(infraStatus)
   const deploymentStep = deploymentStates[infraStatus]
-  const [latestDeployment, setLatestDeployment] = React.useState<any>(null)
   const [logs, setLogs] = React.useState<any>([])
   const [attemptedDeploymentFetch, setAttemptedDeploymentFetch] = React.useState(false)
 
-  const onMessage = React.useCallback(event => {
-    const message = event?.data
-
-    try {
-      const parsedMessage = JSON.parse(message)
-      const incomingLogData = parsedMessage?.data
-
-      if (incomingLogData) {
-        const formattedLogs = formatLogData(incomingLogData)
-
-        if (parsedMessage?.logType === 'historic') {
-          // historic logs - replace
-          setLogs(formattedLogs)
-        } else {
-          // live log - append
-          setLogs(existingLogs => [...existingLogs, ...formattedLogs])
-        }
-      }
-    } catch (e) {
-      // fail silently
-    }
-  }, [])
-
-  const preventSocket =
-    latestDeployment?.deploymentStatus &&
-    ['PENDING_BUILD'].includes(latestDeployment.deploymentStatus)
-  useWebSocket({
-    url:
-      !preventSocket && latestDeployment?.id
-        ? `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deployments/${latestDeployment.id}/logs?${latestDeployment.deploymentStatus}`.replace(
-            'http',
-            'ws',
-          )
-        : '',
-    onMessage,
+  const {
+    result: deployments,
+    reqStatus,
+    reload: reloadDeployments,
+  } = useGetProjectDeployments({
+    projectID: project.id,
   })
+  const latestDeployment = deployments?.[0]
 
-  const fetchLatestDeployment = React.useCallback(async () => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deployments?where[project][equals]=${project.id}&limit=1&depth=0`,
-        {
-          credentials: 'include',
-        },
-      )
-      const data = await res.json()
-      if (data?.docs?.[0]) {
-        setLatestDeployment(data.docs[0])
-      }
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e)
-    }
-  }, [project.id])
-
+  //
+  // poll project for updates every 10 seconds
   React.useEffect(() => {
-    let timerId
+    let projectInterval
 
     if (!['done'].includes(infraStatus)) {
-      timerId = setInterval(() => {
+      projectInterval = setInterval(() => {
         reloadProject()
-      }, 5_000) // Poll every 5 seconds
+      }, 10_000)
     }
 
     return () => {
-      clearInterval(timerId)
+      clearInterval(projectInterval)
     }
   }, [reloadProject, infraStatus])
 
+  //
+  // poll deployments every 10 seconds
   React.useEffect(() => {
-    let interval
-    if (loggingStates.includes(infraStatus)) {
-      interval = setInterval(
-        () => {
-          fetchLatestDeployment()
-          setAttemptedDeploymentFetch(true)
-        },
-        !attemptedDeploymentFetch ? 0 : 10_000, // fetch immediately, then poll every 10 seconds
-      )
+    let deploymentInterval
+    if (reqStatus && reqStatus < 400) {
+      deploymentInterval = setInterval(() => {
+        reloadDeployments()
+      }, 10_000)
     }
 
     return () => {
-      clearInterval(interval)
+      deploymentInterval && clearInterval(deploymentInterval)
     }
-  }, [infraStatus, fetchLatestDeployment, attemptedDeploymentFetch])
+  }, [reqStatus, reloadDeployments])
 
   return (
     <>
@@ -253,7 +206,7 @@ export const InfraOffline: React.FC = () => {
             Build logs
           </Heading>
 
-          <ExtendedBackground upperChildren={<SimpleLogs logs={logs} />} />
+          <DeploymentLogs deployment={latestDeployment} />
         </React.Fragment>
       )}
     </>
