@@ -7,6 +7,7 @@ import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 
+import { BranchSelector } from '@components/BranchSelector'
 import { BorderBox } from '@root/app/_components/BorderBox'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useRouteData } from '@root/app/cloud/context'
@@ -79,24 +80,7 @@ export const ProjectBuildSettingsPage = () => {
             path="runScript"
             initialValue={project.runScript}
           />
-          {(project?.repositoryBranches as string[])?.length > 0 ? (
-            <Select
-              label="Branch to deploy"
-              path="deploymentBranch"
-              options={(project?.repositoryBranches as string[])?.map(branch => ({
-                label: branch,
-                value: branch,
-              }))}
-              initialValue={project.deploymentBranch}
-            />
-          ) : (
-            <Text
-              label="Branch to deploy"
-              path="deploymentBranch"
-              placeholder="Enter the branch to deploy"
-              initialValue={project.deploymentBranch}
-            />
-          )}
+          <BranchSelector repositoryFullName={project?.repositoryFullName} />
           <div>
             <Submit label="Update" />
           </div>

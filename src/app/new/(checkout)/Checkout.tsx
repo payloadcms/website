@@ -14,6 +14,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import Link from 'next/link'
 import { redirect, useRouter } from 'next/navigation'
 
+import { BranchSelector } from '@components/BranchSelector'
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Button } from '@components/Button'
 import { CreditCardSelector } from '@components/CreditCardSelector'
@@ -260,10 +261,8 @@ const Checkout: React.FC<{
                       value: project?.runScript || 'yarn serve',
                     },
                     deploymentBranch: {
-                      initialValue:
-                        project?.deploymentBranch || project?.repositoryBranches?.[0] || 'main',
-                      value:
-                        project?.deploymentBranch || project?.repositoryBranches?.[0] || 'main',
+                      initialValue: project?.deploymentBranch || 'main',
+                      value: project?.deploymentBranch || 'main',
                     },
                     environmentVariables: {
                       initialValue: project?.environmentVariables || [],
@@ -350,22 +349,7 @@ const Checkout: React.FC<{
                     <Text label="Install Command" path="installScript" />
                     <Text label="Build Command" path="buildScript" />
                     <Text label="Serve Command" path="runScript" />
-                    {(project?.repositoryBranches as string[])?.length > 0 ? (
-                      <Select
-                        label="Branch to deploy"
-                        path="deploymentBranch"
-                        options={(project?.repositoryBranches as string[])?.map(branch => ({
-                          label: branch,
-                          value: branch,
-                        }))}
-                      />
-                    ) : (
-                      <Text
-                        label="Branch to deploy"
-                        path="deploymentBranch"
-                        placeholder="Enter the branch to deploy"
-                      />
-                    )}
+                    <BranchSelector repositoryFullName={project?.repositoryFullName} />
                   </div>
                   <hr className={classes.hr} />
                   <EnvVars className={classes.envVars} />

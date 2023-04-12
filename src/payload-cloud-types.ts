@@ -48,20 +48,11 @@ export interface Project {
   region?: 'us-east' | 'us-west' | 'eu-west';
   template?: string | Template;
   makePrivate?: boolean;
+  repositoryName?: string;
   digitalOceanAppID?: string;
   source?: 'github';
-  repositoryName?: string;
   repositoryFullName?: string;
   repositoryID?: string;
-  repositoryBranches?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   installID?: string;
   deploymentBranch?: string;
   outputDirectory?: string;
