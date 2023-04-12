@@ -79,15 +79,24 @@ export const ProjectBuildSettingsPage = () => {
             path="runScript"
             initialValue={project.runScript}
           />
-          <Select
-            label="Branch to deploy"
-            path="deploymentBranch"
-            options={((project?.repositoryBranches as string[]) || 'main')?.map(branch => ({
-              label: branch,
-              value: branch,
-            }))}
-            initialValue={project.deploymentBranch}
-          />
+          {(project?.repositoryBranches as string[])?.length > 0 ? (
+            <Select
+              label="Branch to deploy"
+              path="deploymentBranch"
+              options={(project?.repositoryBranches as string[])?.map(branch => ({
+                label: branch,
+                value: branch,
+              }))}
+              initialValue={project.deploymentBranch}
+            />
+          ) : (
+            <Text
+              label="Branch to deploy"
+              path="deploymentBranch"
+              placeholder="Enter the branch to deploy"
+              initialValue={project.deploymentBranch}
+            />
+          )}
           <div>
             <Submit label="Update" />
           </div>

@@ -350,16 +350,22 @@ const Checkout: React.FC<{
                     <Text label="Install Command" path="installScript" />
                     <Text label="Build Command" path="buildScript" />
                     <Text label="Serve Command" path="runScript" />
-                    <Select
-                      label="Branch to deploy"
-                      path="deploymentBranch"
-                      options={((project?.repositoryBranches as string[]) || 'main')?.map(
-                        branch => ({
+                    {(project?.repositoryBranches as string[])?.length > 0 ? (
+                      <Select
+                        label="Branch to deploy"
+                        path="deploymentBranch"
+                        options={(project?.repositoryBranches as string[])?.map(branch => ({
                           label: branch,
                           value: branch,
-                        }),
-                      )}
-                    />
+                        }))}
+                      />
+                    ) : (
+                      <Text
+                        label="Branch to deploy"
+                        path="deploymentBranch"
+                        placeholder="Enter the branch to deploy"
+                      />
+                    )}
                   </div>
                   <hr className={classes.hr} />
                   <EnvVars className={classes.envVars} />
