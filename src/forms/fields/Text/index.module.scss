@@ -2,6 +2,9 @@
 
 .wrap {
   position: relative;
+  display: inline-flex;
+  flex-direction: column-reverse;
+  width: 100%;
 }
 
 .input {

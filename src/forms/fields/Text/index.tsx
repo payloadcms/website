@@ -85,6 +85,24 @@ export const Text: React.FC<
         .filter(Boolean)
         .join(' ')}
     >
+      {/* 
+        This field is display flex in column-reverse, so the html structure is opposite of other fields
+        This is so tabs go to the input before the label actions slot
+      */}
+      {description && <p className={classes.description}>{description}</p>}
+      <input
+        {...elementAttributes}
+        disabled={disabled}
+        className={classes.input}
+        value={value || ''}
+        onChange={e => {
+          onChange(e.target.value)
+        }}
+        placeholder={placeholder}
+        type={type === 'password' && !isHidden ? 'text' : type}
+        id={path}
+        name={path}
+      />
       {type !== 'hidden' && (
         <>
           <Error showError={showError} message={errorMessage} />
@@ -109,20 +127,6 @@ export const Text: React.FC<
           />
         </>
       )}
-      <input
-        {...elementAttributes}
-        disabled={disabled}
-        className={classes.input}
-        value={value || ''}
-        onChange={e => {
-          onChange(e.target.value)
-        }}
-        placeholder={placeholder}
-        type={type === 'password' && !isHidden ? 'text' : type}
-        id={path}
-        name={path}
-      />
-      {description && <p className={classes.description}>{description}</p>}
     </div>
   )
 }
