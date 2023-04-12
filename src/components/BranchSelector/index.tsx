@@ -25,28 +25,33 @@ export const BranchSelector: React.FC<{
       const repo = repositoryFullName?.split('/')?.[1]
 
       const getBranches = async () => {
-        const branchesReq = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`,
-          {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
+        try {
+          const branchesReq = await fetch(
+            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`,
+            {
+              method: 'POST',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                route: `GET /repos/${owner}/${repo}/branches`,
+              }),
             },
-            body: JSON.stringify({
-              route: `GET /repos/${owner}/${repo}/branches`,
-            }),
-          },
-        )
+          )
 
-        const branchesRes = await branchesReq.json()
+          const branchesRes = await branchesReq.json()
 
-        if (branchesRes?.data?.length > 0) {
-          setBranches(branchesRes.data.map((branch: any) => branch.name))
+          if (branchesRes?.data?.length > 0) {
+            setBranches(branchesRes.data.map((branch: any) => branch.name))
+          }
+
+          setIsLoading(false)
+          isRequesting.current = false
+        } catch (err: unknown) {
+          setIsLoading(false)
+          isRequesting.current = false
         }
-
-        setIsLoading(false)
-        isRequesting.current = false
       }
 
       getBranches()
