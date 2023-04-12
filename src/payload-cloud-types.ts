@@ -48,11 +48,20 @@ export interface Project {
   region?: 'us-east' | 'us-west' | 'eu-west';
   template?: string | Template;
   makePrivate?: boolean;
-  repositoryName?: string;
   digitalOceanAppID?: string;
   source?: 'github';
+  repositoryName?: string;
   repositoryFullName?: string;
   repositoryID?: string;
+  repositoryBranches?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   installID?: string;
   deploymentBranch?: string;
   outputDirectory?: string;
@@ -247,7 +256,6 @@ export interface Job {
   };
   provisionDNS?: {
     project: string | Project;
-    lastSeenPhase?: string;
   };
   hasError?: boolean;
   error?:
@@ -265,6 +273,7 @@ export interface Job {
 export interface TeardownError {
   id: string;
   project?: {
+    projectID?: string;
     name: string;
     teamName?: string;
     teamID: string;

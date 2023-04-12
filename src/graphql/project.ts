@@ -12,6 +12,7 @@ export const PROJECTS = `
         name
         installScript
         buildScript
+        repositoryBranches
         deploymentBranch
         environmentVariables {
           id

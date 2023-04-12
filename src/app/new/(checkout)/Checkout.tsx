@@ -260,8 +260,10 @@ const Checkout: React.FC<{
                       value: project?.runScript || 'yarn serve',
                     },
                     deploymentBranch: {
-                      initialValue: project?.deploymentBranch || 'main',
-                      value: project?.deploymentBranch || 'main',
+                      initialValue:
+                        project?.deploymentBranch || project?.repositoryBranches?.[0] || 'main',
+                      value:
+                        project?.deploymentBranch || project?.repositoryBranches?.[0] || 'main',
                     },
                     environmentVariables: {
                       initialValue: project?.environmentVariables || [],
@@ -348,7 +350,16 @@ const Checkout: React.FC<{
                     <Text label="Install Command" path="installScript" />
                     <Text label="Build Command" path="buildScript" />
                     <Text label="Serve Command" path="runScript" />
-                    <Text label="Branch to deploy" path="deploymentBranch" />
+                    <Select
+                      label="Branch to deploy"
+                      path="deploymentBranch"
+                      options={((project?.repositoryBranches as string[]) || 'main')?.map(
+                        branch => ({
+                          label: branch,
+                          value: branch,
+                        }),
+                      )}
+                    />
                   </div>
                   <hr className={classes.hr} />
                   <EnvVars className={classes.envVars} />

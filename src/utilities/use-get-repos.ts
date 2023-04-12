@@ -4,8 +4,12 @@ import { useAuth } from '@root/providers/Auth'
 import { qs } from './qs'
 import type { Install } from './use-get-installs'
 
+// TODO: type this using Octokit types
 export interface Repo {
   name: string
+  owner: {
+    login: string
+  }
   full_name: string
   id: string // applies only to the `import` flow
   description: string

@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { toast } from 'react-toastify'
+import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
@@ -78,14 +79,15 @@ export const ProjectBuildSettingsPage = () => {
             path="runScript"
             initialValue={project.runScript}
           />
-
-          <Text
+          <Select
             label="Branch to deploy"
-            placeholder="Enter the branch to deploy"
             path="deploymentBranch"
+            options={((project?.repositoryBranches as string[]) || 'main')?.map(branch => ({
+              label: branch,
+              value: branch,
+            }))}
             initialValue={project.deploymentBranch}
           />
-
           <div>
             <Submit label="Update" />
           </div>
