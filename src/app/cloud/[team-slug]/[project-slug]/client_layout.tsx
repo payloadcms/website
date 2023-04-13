@@ -21,9 +21,5 @@ export const ProjectLayout = ({ children }: ProjectLayoutType) => {
 
   if (project === null) notFound()
 
-  return (
-    <React.Fragment>
-      <Gutter>{children}</Gutter>
-    </React.Fragment>
-  )
+  return children
 }

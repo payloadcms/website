@@ -6,12 +6,14 @@ import { useRouteData } from '@cloud/context'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Button } from '@components/Button'
+import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { Label } from '@components/Label'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 import { Indicator } from '@root/app/_components/Indicator'
 import { BranchIcon } from '@root/graphics/BranchIcon'
 import { CommitIcon } from '@root/graphics/CommitIcon'
+import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon'
 import { Deployment } from '@root/payload-cloud-types'
 import { formatDate } from '@root/utilities/format-date-time'
 import { qs } from '@root/utilities/qs'
@@ -41,6 +43,7 @@ export const InfraOnline: React.FC = () => {
       credentials: 'include',
     }).then(res => {
       if (res.status === 200) {
+        reloadDeployments()
         return toast.success('New deployment triggered successfully')
       }
       if (res.status === 429) {
@@ -51,7 +54,7 @@ export const InfraOnline: React.FC = () => {
 
       return toast.error('Failed to deploy')
     })
-  }, [project.id])
+  }, [project.id, reloadDeployments])
 
   //
   // poll deployments every 10 seconds
@@ -129,92 +132,86 @@ export const InfraOnline: React.FC = () => {
 
   return (
     <React.Fragment>
-      <ExtendedBackground
-        pixels
-        upperChildren={
-          <Grid>
-            <Cell start={1} cols={4} colsM={8}>
-              <Label>URL</Label>
-              <ul>
+      <Gutter>
+        <ExtendedBackground
+          pixels
+          upperChildren={
+            <Grid>
+              <Cell start={1} cols={4} colsM={8}>
+                <Label>URL</Label>
                 {projectDomains.map(domain => (
-                  <li key={domain} title={domain}>
+                  <div key={domain} className={classes.textMask} title={domain}>
                     <a
                       className={[classes.detail, classes.domainLink].filter(Boolean).join(' ')}
                       href={`https://${domain}`}
                       target="_blank"
                     >
-                      {domain}
+                      <span>{domain}</span>
+
+                      <ExternalLinkIcon className={classes.externalLinkIcon} />
                     </a>
-                  </li>
+                  </div>
                 ))}
-              </ul>
-            </Cell>
+              </Cell>
 
-            <Cell start={5} cols={3} startM={1} colsM={8}>
-              <Label>Deployment Created At</Label>
-              <p className={classes.detail}>
-                {activeDeployment
-                  ? formatDate({ date: activeDeployment.createdAt, format: 'dateAndTime' })
-                  : ''}
-              </p>
-            </Cell>
-
-            <Cell start={9} cols={4} startM={1} colsM={8}>
-              <Label>Status</Label>
-              <div className={classes.statusDetail}>
-                <Indicator
-                  status={
-                    activeDeployment === undefined
-                      ? 'info'
-                      : finalDeploymentStages.includes(activeDeployment?.deploymentStatus)
-                      ? 'success'
-                      : 'error'
-                  }
-                />
+              <Cell start={5} cols={3} startM={1} colsM={8}>
+                <Label>Deployment Created At</Label>
                 <p className={classes.detail}>
-                  {activeDeployment === undefined
-                    ? ''
-                    : finalDeploymentStages.includes(activeDeployment?.deploymentStatus)
-                    ? 'Online'
-                    : 'Offline'}
+                  {activeDeployment
+                    ? formatDate({ date: activeDeployment.createdAt, format: 'dateAndTime' })
+                    : ''}
                 </p>
-              </div>
-            </Cell>
-          </Grid>
-        }
-        lowerChildren={
-          <Grid>
-            <Cell className={classes.reTriggerBackground} start={1}>
-              <div>
-                <Button appearance="text" onClick={triggerDeployment} label="Trigger Redeploy" />
-              </div>
+              </Cell>
 
-              {activeDeployment?.commitMessage && (
-                <div className={classes.deployDetails}>
-                  <div className={classes.iconAndLabel}>
-                    <BranchIcon />
-                    <p>{project.deploymentBranch}</p>
-                  </div>
-                  <div className={classes.iconAndLabel}>
-                    <CommitIcon />
-                    <p>{activeDeployment?.commitMessage}</p>
-                  </div>
+              <Cell start={9} cols={4} startM={1} colsM={8}>
+                <Label>Status</Label>
+                <div className={classes.statusDetail}>
+                  <Indicator
+                    status={
+                      activeDeployment === undefined
+                        ? 'info'
+                        : finalDeploymentStages.includes(activeDeployment?.deploymentStatus)
+                        ? 'success'
+                        : 'error'
+                    }
+                  />
+                  <p className={classes.detail}>
+                    {activeDeployment === undefined
+                      ? ''
+                      : finalDeploymentStages.includes(activeDeployment?.deploymentStatus)
+                      ? 'Online'
+                      : 'Offline'}
+                  </p>
                 </div>
-              )}
-            </Cell>
-          </Grid>
-        }
-      />
+              </Cell>
+            </Grid>
+          }
+          lowerChildren={
+            <Grid>
+              <Cell className={classes.reTriggerBackground} start={1}>
+                <div>
+                  <Button appearance="text" onClick={triggerDeployment} label="Trigger Redeploy" />
+                </div>
 
-      {deployments?.length > 0 && (
-        <React.Fragment>
-          <Heading element="h5" className={classes.consoleHeading}>
-            Latest build/deploy logs
-          </Heading>
+                {activeDeployment?.commitMessage && (
+                  <div className={classes.deployDetails}>
+                    <div className={classes.iconAndLabel}>
+                      <BranchIcon />
+                      <p>{project.deploymentBranch}</p>
+                    </div>
+                    <div className={classes.iconAndLabel}>
+                      <CommitIcon />
+                      <p>{activeDeployment?.commitMessage}</p>
+                    </div>
+                  </div>
+                )}
+              </Cell>
+            </Grid>
+          }
+        />
+      </Gutter>
 
-          <DeploymentLogs deployment={latestDeployment} />
-        </React.Fragment>
-      )}
+      {deployments?.length > 0 && <DeploymentLogs deployment={latestDeployment} />}
     </React.Fragment>
   )
 }
