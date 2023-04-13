@@ -3,7 +3,6 @@ import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
-import { useRouter } from 'next/navigation'
 
 import { UniqueTeamSlug } from '@components/UniqueSlug'
 import { Team } from '@root/payload-cloud-types'
@@ -16,10 +15,8 @@ import classes from './DrawerContent.module.scss'
 export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
   drawerSlug,
   onCreate,
-  redirectAfterCreate,
   closeDrawer,
 }) => {
-  const router = useRouter()
   const { user, setUser } = useAuth()
   const [error, setError] = React.useState<{
     message: string
@@ -99,13 +96,10 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
 
         if (typeof onCreate === 'function') onCreate(response?.doc)
 
-        if (redirectAfterCreate) router.push(`/cloud/${response?.doc?.slug}`)
-        else {
-          closeDrawer()
-        }
+        closeDrawer()
       }
     },
-    [onCreate, user, drawerSlug, router, closeDrawer, redirectAfterCreate, setUser],
+    [onCreate, user, drawerSlug, closeDrawer, setUser],
   )
 
   const isOpen = modalState[drawerSlug]?.isOpen

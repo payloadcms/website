@@ -25,17 +25,21 @@ const SelectMenuButton = props => {
 
 export const TeamSelector: React.FC<{
   value?: string
-  onChange?: (value?: string) => void // eslint-disable-line no-unused-vars
+  onChange?: (value?: Team) => void // eslint-disable-line no-unused-vars
   className?: string
   allowEmpty?: boolean
   initialValue?: string
   label?: string | false
 }> = props => {
   const { onChange, value: valueFromProps, className, allowEmpty, initialValue } = props
+  // console.log('TEAM SELECTOR', props)
   const { user } = useAuth()
   const teams = user?.teams?.map(({ team }) => team)
-  const [selectedTeam, setSelectedTeam] = React.useState<string | undefined>(initialValue)
-  const prevSelectedTeam = React.useRef<string | undefined>(selectedTeam)
+  const [selectedTeam, setSelectedTeam] = React.useState<Team['id'] | 'none' | undefined>(
+    initialValue || 'none',
+  )
+  const prevSelectedTeam = React.useRef<Team['id'] | 'none' | undefined>(selectedTeam)
+  const teamToSelectAfterUserUpdates = React.useRef<string | undefined>()
 
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer({
     team: teams?.find(
@@ -54,9 +58,21 @@ export const TeamSelector: React.FC<{
   useEffect(() => {
     if (prevSelectedTeam.current !== selectedTeam) {
       prevSelectedTeam.current = selectedTeam
-      if (typeof onChange === 'function') onChange(selectedTeam)
+
+      const foundTeam = teams?.find(
+        team => typeof team === 'object' && team !== null && team.id === selectedTeam,
+      ) as Team
+
+      if (typeof onChange === 'function') onChange(foundTeam)
     }
-  }, [onChange, selectedTeam])
+  }, [onChange, selectedTeam, teams])
+
+  useEffect(() => {
+    if (user && teamToSelectAfterUserUpdates.current) {
+      setSelectedTeam(teamToSelectAfterUserUpdates.current)
+      teamToSelectAfterUserUpdates.current = undefined
+    }
+  }, [user])
 
   if (!user) return null
 
@@ -85,7 +101,7 @@ export const TeamSelector: React.FC<{
 
   if (selectedTeam !== 'none' && valueNotFound) {
     options.push({
-      label: `Team ${selectedTeam} (non-member)`,
+      label: `Team ${selectedTeam}`,
       value: selectedTeam,
     })
   }
@@ -114,8 +130,8 @@ export const TeamSelector: React.FC<{
         }}
       />
       <TeamDrawer
-        onCreate={team => {
-          setSelectedTeam(team.id)
+        onCreate={newTeam => {
+          teamToSelectAfterUserUpdates.current = newTeam.id
         }}
       />
     </Fragment>

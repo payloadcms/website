@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { LinkGrid } from '@blocks/LinkGrid'
+import { useRouter } from 'next/navigation'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
@@ -12,6 +13,7 @@ import { cloudSlug } from '../client_layout'
 import classes from './page.module.scss'
 
 export const MyTeamsPage = () => {
+  const router = useRouter()
   const { user } = useAuth()
 
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer()
@@ -73,7 +75,11 @@ export const MyTeamsPage = () => {
           </TeamDrawerToggler>
         </Gutter>
       </div>
-      <TeamDrawer redirectAfterCreate />
+      <TeamDrawer
+        onCreate={newTeam => {
+          router.push(`/${cloudSlug}/${newTeam.slug}`)
+        }}
+      />
     </React.Fragment>
   )
 }

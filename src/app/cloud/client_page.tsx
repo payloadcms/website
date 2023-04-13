@@ -59,7 +59,7 @@ export const CloudHomePage = () => {
         />
         <TeamSelector
           onChange={incomingTeam => {
-            setSelectedTeam(incomingTeam)
+            setSelectedTeam(incomingTeam?.id)
           }}
           className={classes.teamSelector}
           initialValue="none"

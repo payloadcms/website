@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment, useCallback } from 'react'
+import React, { Fragment, useCallback, useMemo } from 'react'
 import { toast } from 'react-toastify'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
@@ -27,7 +27,6 @@ import { TeamSelector } from '@components/TeamSelector'
 import { UniqueRepoName } from '@components/UniqueRepoName'
 import { cloudSlug } from '@root/app/cloud/client_layout'
 import { Plan, Project, Team } from '@root/payload-cloud-types'
-import { useAuth } from '@root/providers/Auth'
 import { useGlobals } from '@root/providers/Globals'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
@@ -56,7 +55,6 @@ const Checkout: React.FC<{
   const { project, draftProjectID } = props
 
   const router = useRouter()
-  const { user } = useAuth()
   const { templates } = useGlobals()
 
   const isBeta = new Date().getTime() < new Date('2023-07-01').getTime()
@@ -84,28 +82,14 @@ const Checkout: React.FC<{
     })
   }, [])
 
-  const handleTrialChange = useCallback((incomingStatus: boolean) => {
-    dispatchCheckoutState({
-      type: 'SET_FREE_TRIAL',
-      payload: incomingStatus,
-    })
+  const handleTeamChange = useCallback((incomingTeam: Team) => {
+    if (incomingTeam) {
+      dispatchCheckoutState({
+        type: 'SET_TEAM',
+        payload: incomingTeam,
+      })
+    }
   }, [])
-
-  const handleTeamChange = useCallback(
-    (incomingTeam: string) => {
-      const selectedTeam = user?.teams?.find(
-        ({ team }) => typeof team === 'object' && team !== null && team?.id === incomingTeam,
-      )?.team
-
-      if (selectedTeam && typeof selectedTeam !== 'string') {
-        dispatchCheckoutState({
-          type: 'SET_TEAM',
-          payload: selectedTeam,
-        })
-      }
-    },
-    [user],
-  )
 
   const [PlanSelector] = usePlanSelector({
     onChange: handlePlanChange,
@@ -396,14 +380,17 @@ const Checkout: React.FC<{
   )
 }
 
+// The `CheckoutProvider`
+// 1. verifies GitHub authorization
+// 2. initializes Stripe Elements provider
+// 3. Loads the initial Payload project
+// 4. handles 404s and redirects
+// 5. simplifies initial state and loading
 const CheckoutProvider: React.FC<{
   draftProjectID: string
+  tokenLoading: boolean
 }> = props => {
-  const { draftProjectID } = props
-
-  useAuthRedirect()
-
-  const { tokenLoading } = useGitAuthRedirect()
+  const { draftProjectID, tokenLoading } = props
 
   const { result: project, isLoading: projectLoading } = useGetProject({
     projectID: draftProjectID,
@@ -460,4 +447,22 @@ const CheckoutProvider: React.FC<{
   )
 }
 
-export default CheckoutProvider
+// We need to memoize the `CheckoutProvider` so that it doesn't re-render
+// when the user object changes. This happens after creating a new team
+// during checkout, for instance, where the entire view would be re-rendered.
+// Both the `useAuthRedirect` and `useGitAuthRedirect  hooks depend on the `user` object
+// so those both should be called here, before the memoization.
+const CheckoutAuthentication: React.FC<{
+  draftProjectID: string
+}> = ({ draftProjectID }) => {
+  useAuthRedirect()
+  const { tokenLoading } = useGitAuthRedirect()
+
+  const memoizedCheckoutProvider = useMemo(() => {
+    return <CheckoutProvider draftProjectID={draftProjectID} tokenLoading={tokenLoading} />
+  }, [draftProjectID, tokenLoading])
+
+  return memoizedCheckoutProvider
+}
+
+export default CheckoutAuthentication
