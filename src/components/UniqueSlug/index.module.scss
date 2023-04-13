@@ -1,13 +1,14 @@
+@use "@scss/common" as *;
+
 .error {
   color: var(--theme-error-500)
 }
 
-.fieldState {
-  & > * {
-    margin: 0;
-    
-    &:not(:last-child) {
-      margin-bottom: 0.5rem;
-    }
-  }
+.success {
+  color: var(--theme-success-500)
+}
+
+.description {
+  @include small;
+  margin-top: calc(var(--base) / 2);
 }

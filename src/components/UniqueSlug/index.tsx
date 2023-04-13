@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text } from '@forms/fields/Text'
 
+import { Spinner } from '@root/app/_components/Spinner'
+import { Check } from '@root/icons/Check'
 import useDebounce from '@root/utilities/use-debounce'
 
 import classes from './index.module.scss'
@@ -18,15 +20,25 @@ export const UniqueSlug: React.FC<{
 }> = ({ initialValue, collection = 'teams', path = 'slug', label = 'Slug', teamID, id }) => {
   const [value, setValue] = React.useState(initialValue)
   const debouncedValue = useDebounce(value, 100)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const isRequesting = React.useRef(false)
   const [error, setError] = React.useState<string | null>(null)
   const [isValid, setIsValid] = React.useState<boolean | undefined>(undefined)
 
   useEffect(() => {
+    let timer: NodeJS.Timeout
+
     if (debouncedValue && !isRequesting.current) {
       isRequesting.current = true
+      setIsValid(undefined)
 
-      const doFetch = async () => {
+      const validateSlug = async () => {
+        // only show loading state if the request is slow
+        // this will prevent flickering on fast networks
+        timer = setTimeout(() => {
+          setIsLoading(true)
+        }, 200)
+
         try {
           const validityReq = await fetch(
             `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/validate-slug`,
@@ -44,11 +56,14 @@ export const UniqueSlug: React.FC<{
             },
           )
 
+          clearTimeout(timer)
+
           if (!validityReq.ok) {
             const message = `Error validating slug: ${validityReq.statusText}`
             console.error(message) // eslint-disable-line no-console
             setError(message)
             setIsValid(false)
+            setIsLoading(false)
             return
           }
 
@@ -60,30 +75,50 @@ export const UniqueSlug: React.FC<{
           console.error(message) // eslint-disable-line no-console
           setError(message)
           setIsValid(false)
+          setIsLoading(false)
         }
       }
-      doFetch()
+
+      validateSlug()
+    }
+
+    return () => {
+      clearTimeout(timer)
     }
   }, [debouncedValue, collection, teamID, initialValue, id])
 
+  let description = 'Choose a team slug'
+  if (error) description = error
+  if (debouncedValue && isValid === false)
+    description = `'${debouncedValue}' is not available. Please choose another.`
+  if (debouncedValue && isValid) description = `'${debouncedValue}' is available`
+
+  let icon: React.ReactNode = null
+  if (isLoading) icon = <Spinner />
+  if (isValid) icon = <Check className={classes.check} />
+
   return (
     <div>
-      <div className={classes.fieldState}>
-        {error && <p className={classes.error}>{error}</p>}
-        {value && isValid === false && (
-          <p className={classes.error}>This slug is taken. Please try another.</p>
-        )}
-        {value && isValid && <p className={classes.success}>Slug is valid</p>}
-      </div>
       <Text
         label={label}
         path={path}
         initialValue={initialValue}
         value={value}
         onChange={setValue}
-        description="This value must be unique."
         required
+        icon={icon}
       />
+      <div
+        className={[
+          classes.description,
+          (error || isValid === false) && !isLoading && classes.error,
+          isValid && !isLoading && classes.success,
+        ]
+          .filter(Boolean)
+          .join(' ')}
+      >
+        {description}
+      </div>
     </div>
   )
 }
