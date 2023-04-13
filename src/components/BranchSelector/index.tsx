@@ -2,9 +2,12 @@ import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import Label from '@forms/Label'
+import type { Endpoints } from '@octokit/types'
 
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Project } from '@root/payload-cloud-types'
+
+type GitHubResponse = Endpoints['GET /repos/{owner}/{repo}/branches']['response']
 
 export const BranchSelector: React.FC<{
   repositoryFullName: Project['repositoryFullName']
@@ -41,7 +44,7 @@ export const BranchSelector: React.FC<{
             },
           )
 
-          const branchesRes = await branchesReq.json()
+          const branchesRes: GitHubResponse = await branchesReq.json()
 
           if (branchesRes?.data?.length > 0) {
             setBranches(branchesRes.data.map((branch: any) => branch.name))
