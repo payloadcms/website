@@ -107,6 +107,7 @@ export const UniqueSlug: React.FC<{
         onChange={setValue}
         required
         icon={icon}
+        showError={Boolean(error || isValid === false)}
       />
       <div
         className={[

@@ -6,6 +6,7 @@ import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { OnSubmit } from '@forms/types'
+import { useRouter } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
@@ -20,6 +21,7 @@ import { useRouteData } from '../../context'
 import classes from './page.module.scss'
 
 export const TeamSettingsPage = () => {
+  const router = useRouter()
   const { team, setTeam } = useRouteData()
   const { user } = useAuth()
   const [error, setError] = React.useState<{
@@ -80,6 +82,11 @@ export const TeamSettingsPage = () => {
         setSuccess(true)
         setTeam(response.doc)
 
+        // if the team slug has changed, redirect to the new URL
+        if (response.doc.slug !== team.slug) {
+          router.push(`/cloud/${response.doc.slug}/settings`)
+        }
+
         // TODO: update the form state with the new team data
         // dispatchFields({
         //   type: 'REPLACE_STATE',
@@ -87,7 +94,7 @@ export const TeamSettingsPage = () => {
         // })
       }
     },
-    [user, team, setTeam],
+    [user, team, setTeam, router],
   )
 
   return (
