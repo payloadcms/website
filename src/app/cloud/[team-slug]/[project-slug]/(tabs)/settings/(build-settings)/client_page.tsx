@@ -59,28 +59,28 @@ export const ProjectBuildSettingsPage = () => {
             path="name"
             initialValue={project.name}
           />
-
           <Text
             label="Install Command"
             placeholder="Enter the command to install your project dependencies"
             path="installScript"
             initialValue={project.installScript}
           />
-
           <Text
             label="Build Command"
             placeholder="Enter the command to build your project"
             path="buildScript"
             initialValue={project.buildScript}
           />
-
           <Text
             label="Serve Command"
             placeholder="Enter the command to serve your project"
             path="runScript"
             initialValue={project.runScript}
           />
-          <BranchSelector repositoryFullName={project?.repositoryFullName} />
+          <BranchSelector
+            repositoryFullName={project?.repositoryFullName}
+            initialValue={project?.deploymentBranch}
+          />
           <div>
             <Submit label="Update" />
           </div>

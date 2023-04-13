@@ -34,7 +34,6 @@ import { useGetProject } from '@root/utilities/use-cloud-api'
 import { useGitAuthRedirect } from '../authorize/useGitAuthRedirect'
 import { EnvVars } from './EnvVars'
 import { checkoutReducer, CheckoutState } from './reducer'
-import { useCreateSubscription } from './useCreateSubscription'
 import { useDeploy } from './useDeploy'
 
 import classes from './Checkout.module.scss'
@@ -260,10 +259,6 @@ const Checkout: React.FC<{
                       initialValue: project?.runScript || 'yarn serve',
                       value: project?.runScript || 'yarn serve',
                     },
-                    deploymentBranch: {
-                      initialValue: project?.deploymentBranch || 'main',
-                      value: project?.deploymentBranch || 'main',
-                    },
                     environmentVariables: {
                       initialValue: project?.environmentVariables || [],
                     },
@@ -349,7 +344,10 @@ const Checkout: React.FC<{
                     <Text label="Install Command" path="installScript" />
                     <Text label="Build Command" path="buildScript" />
                     <Text label="Serve Command" path="runScript" />
-                    <BranchSelector repositoryFullName={project?.repositoryFullName} />
+                    <BranchSelector
+                      repositoryFullName={project?.repositoryFullName}
+                      initialValue={project?.deploymentBranch}
+                    />
                   </div>
                   <hr className={classes.hr} />
                   <EnvVars className={classes.envVars} />

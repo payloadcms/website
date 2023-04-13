@@ -8,8 +8,9 @@ import { Project } from '@root/payload-cloud-types'
 
 export const BranchSelector: React.FC<{
   repositoryFullName: Project['repositoryFullName']
+  initialValue?: string
 }> = props => {
-  const { repositoryFullName } = props
+  const { repositoryFullName, initialValue = 'main' } = props
   const [branches, setBranches] = useState<string[]>([])
   // if we know the `repositoryFullName` then we need to load their branches
   // otherwise, we render a text field for the user to explicitly define
@@ -77,12 +78,14 @@ export const BranchSelector: React.FC<{
             label: branch,
             value: branch,
           }))}
+          initialValue={initialValue}
         />
       ) : (
         <Text
           label="Branch to deploy"
           path="deploymentBranch"
           placeholder="Enter the branch to deploy"
+          initialValue={initialValue}
         />
       )}
     </Fragment>
