@@ -11,4 +11,6 @@ export interface FieldProps<T> {
   className?: string
   disabled?: boolean
   description?: string
+  showError?: boolean
+  loading?: boolean
 }

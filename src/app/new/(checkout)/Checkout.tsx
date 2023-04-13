@@ -24,6 +24,7 @@ import { useInstallationSelector } from '@components/InstallationSelector'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { usePlanSelector } from '@components/PlanSelector'
 import { TeamSelector } from '@components/TeamSelector'
+import { UniqueRepoName } from '@components/UniqueRepoName'
 import { cloudSlug } from '@root/app/cloud/client_layout'
 import { Plan, Project, Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
@@ -322,18 +323,24 @@ const Checkout: React.FC<{
                       }
                     />
                     {isClone && (
-                      <Select
-                        label="Template"
-                        path="template"
-                        disabled={Boolean(project?.repositoryID)}
-                        options={[
-                          { label: 'None', value: '' },
-                          ...(templates || [])?.map(template => ({
-                            label: template.name || '',
-                            value: template.id,
-                          })),
-                        ]}
-                      />
+                      <Fragment>
+                        <Select
+                          label="Template"
+                          path="template"
+                          disabled={Boolean(project?.repositoryID)}
+                          options={[
+                            { label: 'None', value: '' },
+                            ...(templates || [])?.map(template => ({
+                              label: template.name || '',
+                              value: template.id,
+                            })),
+                          ]}
+                        />
+                        <UniqueRepoName
+                          repositoryOwner={selectedInstall?.account?.login}
+                          initialValue={project?.repositoryName}
+                        />
+                      </Fragment>
                     )}
                   </div>
                   <hr className={classes.hr} />

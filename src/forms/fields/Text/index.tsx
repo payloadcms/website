@@ -5,6 +5,7 @@ import Label from '@forms/Label'
 
 import { CopyToClipboard } from '@components/CopyToClipboard'
 import { TooltipButton } from '@components/TooltipButton'
+import { Spinner } from '@root/app/_components/Spinner'
 import { EyeIcon } from '@root/icons/EyeIcon'
 import Error from '../../Error'
 import { Validate } from '../../types'
@@ -51,6 +52,8 @@ export const Text: React.FC<
     },
     description,
     value: valueFromProps,
+    showError: showErrorFromProps,
+    loading: loadingFromProps,
   } = props
 
   const prevValueFromProps = React.useRef(valueFromProps)
@@ -81,13 +84,18 @@ export const Text: React.FC<
 
   return (
     <div
-      className={[className, classes.wrap, showError && classes.showError, classes[`type--${type}`]]
+      className={[
+        className,
+        classes.component,
+        (showError || showErrorFromProps) && classes.showError,
+        classes[`type--${type}`],
+      ]
         .filter(Boolean)
         .join(' ')}
     >
       {type !== 'hidden' && (
         <>
-          <Error showError={showError} message={errorMessage} />
+          <Error showError={showError || Boolean(showErrorFromProps)} message={errorMessage} />
           <Label
             htmlFor={path}
             label={label}
@@ -109,19 +117,26 @@ export const Text: React.FC<
           />
         </>
       )}
-      <input
-        {...elementAttributes}
-        disabled={disabled}
-        className={classes.input}
-        value={value || ''}
-        onChange={e => {
-          onChange(e.target.value)
-        }}
-        placeholder={placeholder}
-        type={type === 'password' && !isHidden ? 'text' : type}
-        id={path}
-        name={path}
-      />
+      <div className={classes.inputWrap}>
+        <input
+          {...elementAttributes}
+          disabled={disabled}
+          className={classes.input}
+          value={value || ''}
+          onChange={e => {
+            onChange(e.target.value)
+          }}
+          placeholder={placeholder}
+          type={type === 'password' && !isHidden ? 'text' : type}
+          id={path}
+          name={path}
+        />
+        {loadingFromProps && (
+          <div className={classes.loadingIndicator}>
+            <Spinner />
+          </div>
+        )}
+      </div>
       {description && <p className={classes.description}>{description}</p>}
     </div>
   )

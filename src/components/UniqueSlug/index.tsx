@@ -5,6 +5,9 @@ import useDebounce from '@root/utilities/use-debounce'
 
 import classes from './index.module.scss'
 
+// checks Payload to ensure that the given slug is unique
+// displays a success message if the slug is available
+// warns the user if the slug is taken
 export const UniqueSlug: React.FC<{
   initialValue?: string
   path?: 'slug' | 'createTeamFromSlug'

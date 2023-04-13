@@ -3,7 +3,6 @@
 import React, { Fragment } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
-import { Text } from '@forms/fields/Text'
 import Label from '@forms/Label'
 import { useRouter } from 'next/navigation'
 
@@ -12,6 +11,7 @@ import { Gutter } from '@components/Gutter'
 import { useInstallationSelector } from '@components/InstallationSelector'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { useTeamDrawer } from '@components/TeamDrawer'
+import { UniqueRepoName } from '@components/UniqueRepoName'
 import { PayloadIcon } from '@root/graphics/PayloadIcon'
 import { Template } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
@@ -84,12 +84,9 @@ export const CloneTemplate: React.FC<{
                   <InstallationSelector description="Select where to create this repository." />
                 </Cell>
                 <Cell cols={4}>
-                  <Text
-                    label="Repository Name"
+                  <UniqueRepoName
+                    repositoryOwner={selectedInstall?.account?.login}
                     initialValue={template?.slug}
-                    onChange={setName}
-                    required
-                    description="Give the newly created repository a name."
                   />
                 </Cell>
               </Grid>

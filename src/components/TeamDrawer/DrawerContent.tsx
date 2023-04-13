@@ -5,7 +5,7 @@ import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { useRouter } from 'next/navigation'
 
-import { UniqueProjectSlug, UniqueTeamSlug } from '@components/UniqueSlug'
+import { UniqueTeamSlug } from '@components/UniqueSlug'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { InviteTeammates } from '../InviteTeammates'

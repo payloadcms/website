@@ -1,0 +1,10 @@
+@use "@scss/common" as *;
+
+.error {
+  color: var(--theme-error-500)
+}
+
+.description {
+  @include small;
+  margin-top: calc(var(--base) / 2);
+}
