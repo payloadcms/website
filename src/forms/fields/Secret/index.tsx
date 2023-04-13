@@ -39,6 +39,7 @@ export const Secret: React.FC<SecretProps> = props => {
     initialValue,
     className,
     loadSecret: loadValue,
+    description,
   } = props
 
   const [isValueLoaded, setIsValueLoaded] = React.useState(false)
@@ -81,8 +82,25 @@ export const Secret: React.FC<SecretProps> = props => {
         .filter(Boolean)
         .join(' ')}
     >
+      {/* 
+        This field is display flex in column-reverse, so the html structure is opposite of other fields
+        This is so tabs go to the input before the label actions slot
+      */}
+      {description && <p className={classes.description}>{description}</p>}
+      <input
+        className={classes.input}
+        onChange={e => {
+          onChange(e.target.value)
+        }}
+        placeholder={placeholder}
+        id={path}
+        name={path}
+        required={required}
+        type="text"
+        value={isHidden ? '••••••••••••••••••••••••••••••' : value || ''}
+        tabIndex={isHidden ? -1 : 0}
+      />
       <Error showError={showError} message={errorMessage} />
-
       <Label
         htmlFor={path}
         label={label}
@@ -99,20 +117,6 @@ export const Secret: React.FC<SecretProps> = props => {
             <CopyToClipboard value={isValueLoaded ? value : loadExternalValue} />
           </Fragment>
         }
-      />
-
-      <input
-        className={classes.input}
-        onChange={e => {
-          onChange(e.target.value)
-        }}
-        placeholder={placeholder}
-        id={path}
-        name={path}
-        required={required}
-        type="text"
-        value={isHidden ? '••••••••••••••••••••••••••••••' : value || ''}
-        tabIndex={isHidden ? -1 : 0}
       />
     </div>
   )
