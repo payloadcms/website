@@ -4,6 +4,10 @@
   color: var(--theme-error-500)
 }
 
+.success {
+  color: var(--theme-success-500)
+}
+
 .description {
   @include small;
   margin-top: calc(var(--base) / 2);

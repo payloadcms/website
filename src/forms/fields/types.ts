@@ -12,5 +12,5 @@ export interface FieldProps<T> {
   disabled?: boolean
   description?: string
   showError?: boolean
-  loading?: boolean
+  icon?: React.ReactNode
 }

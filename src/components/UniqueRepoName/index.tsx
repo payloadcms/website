@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Text } from '@forms/fields/Text'
 import type { Endpoints } from '@octokit/types'
 
+import { Spinner } from '@root/app/_components/Spinner'
+import { Check } from '@root/icons/Check'
 import useDebounce from '@root/utilities/use-debounce'
 
 import classes from './index.module.scss'
@@ -30,6 +32,7 @@ export const UniqueRepoName: React.FC<{
     // use a ref to prevent duplicative requests as dependencies of this effect update
     if (debouncedValue && isRequesting.current !== debouncedValue && repositoryOwner) {
       isRequesting.current = debouncedValue
+      setIsValid(undefined)
 
       const checkRepositoryName = async () => {
         // only show loading state if the request is slow
@@ -69,11 +72,15 @@ export const UniqueRepoName: React.FC<{
     }
   }, [repositoryOwner, debouncedValue])
 
-  let description = 'This value must be unique'
+  let description = 'Choose a repository name'
   if (error) description = error
-  if (value && isValid === false)
-    description = `'${value}' is not available. Please choose another.`
-  if (value && isValid) description = `'${value}' is available`
+  if (debouncedValue && isValid === false)
+    description = `'${debouncedValue}' is not available. Please choose another.`
+  if (debouncedValue && isValid) description = `'${debouncedValue}' is available`
+
+  let icon: React.ReactNode = null
+  if (isLoading) icon = <Spinner />
+  if (isValid) icon = <Check className={classes.check} />
 
   return (
     <div>
@@ -85,11 +92,15 @@ export const UniqueRepoName: React.FC<{
         onChange={setValue}
         placeholder="Choose the name of your repository"
         required
-        showError={Boolean(error || !isValid)}
-        loading={isLoading}
+        showError={Boolean(error || isValid === false)}
+        icon={icon}
       />
       <div
-        className={[classes.description, (error || !isValid) && !isLoading && classes.error]
+        className={[
+          classes.description,
+          (error || isValid === false) && !isLoading && classes.error,
+          isValid && !isLoading && classes.success,
+        ]
           .filter(Boolean)
           .join(' ')}
       >

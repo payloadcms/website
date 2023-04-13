@@ -53,7 +53,7 @@ export const Text: React.FC<
     description,
     value: valueFromProps,
     showError: showErrorFromProps,
-    loading: loadingFromProps,
+    icon,
   } = props
 
   const prevValueFromProps = React.useRef(valueFromProps)
@@ -112,11 +112,7 @@ export const Text: React.FC<
           id={path}
           name={path}
         />
-        {loadingFromProps && (
-          <div className={classes.loadingIndicator}>
-            <Spinner />
-          </div>
-        )}
+        {icon && <div className={classes.icon}>{icon}</div>}
       </div>
       {type !== 'hidden' && (
         <>

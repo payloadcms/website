@@ -34,7 +34,10 @@
   display: none;
 }
 
-.loadingIndicator {
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   top: 50%;
   right: calc(var(--base) / 2);
