@@ -1,8 +1,11 @@
 @use '@scss/common.scss' as *;
 
-.gutter {
-  padding-right: var(--gutter-h);
+.leftGutter {
   padding-left: var(--gutter-h);
+}
+
+.rightGutter {
+  padding-right: var(--gutter-h);
 }
 
 .gutter.disableMobile {

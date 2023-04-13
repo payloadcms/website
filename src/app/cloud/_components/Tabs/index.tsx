@@ -6,14 +6,22 @@ import { Heading } from '@components/Heading'
 
 import classes from './index.module.scss'
 
-export type TabRoute = {
-  label: string
-  url?: string
+export type Tab = {
+  label: string | React.ReactNode
   isActive?: boolean
-}
+} & (
+  | {
+      url: string
+      onClick?: never
+    }
+  | {
+      url?: never
+      onClick: () => void
+    }
+)
 
-export const RouteTabs: React.FC<{
-  tabs?: TabRoute[]
+export const Tabs: React.FC<{
+  tabs?: Tab[]
   className?: string
 }> = props => {
   const { tabs, className } = props
@@ -22,8 +30,8 @@ export const RouteTabs: React.FC<{
     <div className={[classes.tabsContainer, className].filter(Boolean).join(' ')}>
       <Gutter>
         <EdgeScroll className={classes.tabs}>
-          {tabs?.map(({ url: tabURL, label, isActive }, index) => {
-            return (
+          {tabs?.map(({ url: tabURL, onClick, label, isActive }, index) => {
+            const RenderTab = (
               <Heading
                 key={index}
                 className={[
@@ -39,6 +47,16 @@ export const RouteTabs: React.FC<{
                 {label}
               </Heading>
             )
+
+            if (onClick) {
+              return (
+                <button key={index} onClick={onClick} type="button" className={classes.buttonTab}>
+                  {RenderTab}
+                </button>
+              )
+            }
+
+            return RenderTab
           })}
         </EdgeScroll>
       </Gutter>
