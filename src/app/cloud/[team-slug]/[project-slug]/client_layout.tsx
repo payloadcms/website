@@ -3,7 +3,6 @@
 import * as React from 'react'
 import { notFound } from 'next/navigation'
 
-import { Gutter } from '@components/Gutter'
 import { useRouteData } from '../../context'
 
 type ProjectLayoutType = {
@@ -21,5 +20,5 @@ export const ProjectLayout = ({ children }: ProjectLayoutType) => {
 
   if (project === null) notFound()
 
-  return children
+  return <>{children}</>
 }
