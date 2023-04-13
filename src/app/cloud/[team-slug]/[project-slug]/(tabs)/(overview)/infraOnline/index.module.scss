@@ -48,6 +48,27 @@
   }
 }
 
+.textMask {
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  a {
+    display: flex;
+    align-items: center;
+  }
+
+  span {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .externalLinkIcon {
+    flex-shrink: 0;
+    margin-left: calc(var(--base) / 2);
+  }
+}
+
 .statusDetail {
   display: flex;
   align-items: center;

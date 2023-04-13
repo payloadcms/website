@@ -6,11 +6,24 @@ type Props = {
   children: React.ReactNode
   className?: string
   disableMobile?: boolean
+  leftGutter?: boolean
+  rightGutter?: boolean
 }
-export const Gutter: React.FC<Props> = ({ children, className, disableMobile }) => {
+export const Gutter: React.FC<Props> = ({
+  children,
+  className,
+  disableMobile,
+  leftGutter = true,
+  rightGutter = true,
+}) => {
   return (
     <div
-      className={[className, classes.gutter, disableMobile && classes.disableMobile]
+      className={[
+        className,
+        leftGutter && classes.leftGutter,
+        rightGutter && classes.rightGutter,
+        disableMobile && classes.disableMobile,
+      ]
         .filter(Boolean)
         .join(' ')}
     >

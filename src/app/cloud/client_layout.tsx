@@ -8,7 +8,7 @@ import { Gutter } from '@components/Gutter'
 import { Message } from '@components/Message'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
-import { RouteTabs } from './_components/RouteTabs'
+import { Tabs } from './_components/Tabs'
 import { RouteDataProvider, useRouteData } from './context'
 
 export const cloudSlug = 'cloud'
@@ -128,7 +128,7 @@ const DashboardHeader = () => {
           }, [])}
         />
       </Gutter>
-      <RouteTabs
+      <Tabs
         tabs={[
           ...Object.entries(routes).reduce((acc: any[], [, value]) => {
             if (value.tabLabel) {

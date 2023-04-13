@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { useRouteData } from '@cloud/context'
 
+import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 import { SimpleLogs } from '@root/app/_components/SimpleLogs'
@@ -52,12 +53,12 @@ export const ProjectLogsPage = () => {
   })
 
   return (
-    <div>
+    <Gutter>
       <Heading element="h5" marginTop={false}>
         Project Runtime logs
       </Heading>
 
       <ExtendedBackground pixels upperChildren={<SimpleLogs logs={runtimeLogs} />} />
-    </div>
+    </Gutter>
   )
 }

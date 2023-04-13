@@ -57,7 +57,11 @@
   &.active {
     color: var(--theme-text);
   }
+}
 
+.buttonTab {
+  all: unset;
+  cursor: pointer;
 }
 
 .tabsContainer {

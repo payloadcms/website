@@ -49,7 +49,7 @@
       bottom: 0;
       background-image: url('/images/dot.png');
       background-repeat: repeat;
-      background-position: center;
+      background-position-x: 5px; // half image width
       left: calc(-1 * var(--pixel-bg-extension) / 2);
       width: calc(100% + var(--pixel-bg-extension));
     }
