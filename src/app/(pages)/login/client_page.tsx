@@ -42,7 +42,7 @@ export const Login: React.FC = () => {
   const { user, login } = useAuth()
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
-  const [redirectTo, setRedirectTo] = useState(`${cloudSlug}`)
+  const [redirectTo, setRedirectTo] = useState(cloudSlug)
 
   useEffect(() => {
     const redirectParam = searchParams?.get('redirect')

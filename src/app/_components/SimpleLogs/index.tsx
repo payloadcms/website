@@ -2,15 +2,15 @@ import React from 'react'
 
 import classes from './index.module.scss'
 
-type Log = {
+export type Log = {
   service: string
   timestamp: string
   message: string
 }
-type Logs = {
+type Props = {
   logs: Log[]
 }
-export const SimpleLogs: React.FC<Logs> = ({ logs }) => {
+export const SimpleLogs: React.FC<Props> = ({ logs }) => {
   return (
     <div className={classes.console}>
       <div className={classes.logLines}>

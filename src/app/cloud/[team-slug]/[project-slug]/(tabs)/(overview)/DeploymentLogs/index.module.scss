@@ -1,0 +1,20 @@
+
+.deploymentLogs {
+  margin-top: calc(var(--base) * 4);
+  
+  .logTabs {
+    position: sticky;
+    top: var(--header-height);
+    background: var(--theme-bg);
+  }
+}
+
+.tabLabel {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * .75);
+}
+
+.inactiveIndicator {
+  opacity: .25;
+}

@@ -51,7 +51,9 @@ type ContentProps = {
 const Content: React.FC<ContentProps> = ({ children }) => {
   return (
     <CollapsibleContent>
-      <div className={classes.collapsibleContent}>{children}</div>
+      <div className={classes.collapsibleContent} data-accordion-content>
+        {children}
+      </div>
     </CollapsibleContent>
   )
 }

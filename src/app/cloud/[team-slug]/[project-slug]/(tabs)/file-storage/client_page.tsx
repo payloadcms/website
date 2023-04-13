@@ -5,6 +5,7 @@ import { useRouteData } from '@cloud/context'
 import { Secret } from '@forms/fields/Secret'
 
 import { Banner } from '@components/Banner'
+import { Gutter } from '@components/Gutter'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 
 import classes from './index.module.scss'
@@ -27,7 +28,7 @@ export const ProjectFileStoragePage = () => {
   }, [project.id])
 
   return (
-    <div>
+    <Gutter>
       <ExtendedBackground
         pixels
         upperChildren={
@@ -85,6 +86,6 @@ export const ProjectFileStoragePage = () => {
           </div>
         }
       />
-    </div>
+    </Gutter>
   )
 }
