@@ -2,10 +2,12 @@
 
 import * as React from 'react'
 import { toast } from 'react-toastify'
+import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 
+import { BranchSelector } from '@components/BranchSelector'
 import { BorderBox } from '@root/app/_components/BorderBox'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useRouteData } from '@root/app/cloud/context'
@@ -57,35 +59,28 @@ export const ProjectBuildSettingsPage = () => {
             path="name"
             initialValue={project.name}
           />
-
           <Text
             label="Install Command"
             placeholder="Enter the command to install your project dependencies"
             path="installScript"
             initialValue={project.installScript}
           />
-
           <Text
             label="Build Command"
             placeholder="Enter the command to build your project"
             path="buildScript"
             initialValue={project.buildScript}
           />
-
           <Text
             label="Serve Command"
             placeholder="Enter the command to serve your project"
             path="runScript"
             initialValue={project.runScript}
           />
-
-          <Text
-            label="Branch to deploy"
-            placeholder="Enter the branch to deploy"
-            path="deploymentBranch"
-            initialValue={project.deploymentBranch}
+          <BranchSelector
+            repositoryFullName={project?.repositoryFullName}
+            initialValue={project?.deploymentBranch}
           />
-
           <div>
             <Submit label="Update" />
           </div>

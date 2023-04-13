@@ -14,6 +14,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import Link from 'next/link'
 import { redirect, useRouter } from 'next/navigation'
 
+import { BranchSelector } from '@components/BranchSelector'
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Button } from '@components/Button'
 import { CreditCardSelector } from '@components/CreditCardSelector'
@@ -33,7 +34,6 @@ import { useGetProject } from '@root/utilities/use-cloud-api'
 import { useGitAuthRedirect } from '../authorize/useGitAuthRedirect'
 import { EnvVars } from './EnvVars'
 import { checkoutReducer, CheckoutState } from './reducer'
-import { useCreateSubscription } from './useCreateSubscription'
 import { useDeploy } from './useDeploy'
 
 import classes from './Checkout.module.scss'
@@ -259,10 +259,6 @@ const Checkout: React.FC<{
                       initialValue: project?.runScript || 'yarn serve',
                       value: project?.runScript || 'yarn serve',
                     },
-                    deploymentBranch: {
-                      initialValue: project?.deploymentBranch || 'main',
-                      value: project?.deploymentBranch || 'main',
-                    },
                     environmentVariables: {
                       initialValue: project?.environmentVariables || [],
                     },
@@ -348,7 +344,10 @@ const Checkout: React.FC<{
                     <Text label="Install Command" path="installScript" />
                     <Text label="Build Command" path="buildScript" />
                     <Text label="Serve Command" path="runScript" />
-                    <Text label="Branch to deploy" path="deploymentBranch" />
+                    <BranchSelector
+                      repositoryFullName={project?.repositoryFullName}
+                      initialValue={project?.deploymentBranch}
+                    />
                   </div>
                   <hr className={classes.hr} />
                   <EnvVars className={classes.envVars} />

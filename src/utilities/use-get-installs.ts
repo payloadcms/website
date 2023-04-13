@@ -1,16 +1,11 @@
 import React, { useCallback, useEffect, useMemo } from 'react'
+import type { Endpoints } from '@octokit/types'
 
 import { useAuth } from '@root/providers/Auth'
 
-export interface Install {
-  id: number
-  account: {
-    id: string
-    login: string
-  }
-  html_url: string
-  target_type: 'User' | 'Organization'
-}
+type GitHubResponse = Endpoints['GET /user/installations']['response']
+
+export type Install = GitHubResponse['data']['installations'][0]
 
 interface Add {
   type: 'add'
@@ -61,10 +56,10 @@ export const useGetInstalls: UseGetInstalls = () => {
       }),
     })
 
-    const res = await installsReq.json()
+    const res: GitHubResponse = await installsReq.json()
 
     if (!installsReq.ok) {
-      setError(res.error)
+      setError(`Error getting installations: ${res.status}`)
     }
 
     return res.data?.installations
