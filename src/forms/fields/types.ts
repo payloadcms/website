@@ -13,4 +13,5 @@ export interface FieldProps<T> {
   description?: string
   showError?: boolean
   icon?: React.ReactNode
+  fullWidth?: boolean
 }

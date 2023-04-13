@@ -54,6 +54,7 @@ export const Text: React.FC<
     value: valueFromProps,
     showError: showErrorFromProps,
     icon,
+    fullWidth = true,
   } = props
 
   const prevValueFromProps = React.useRef(valueFromProps)
@@ -89,6 +90,7 @@ export const Text: React.FC<
         classes.component,
         (showError || showErrorFromProps) && classes.showError,
         classes[`type--${type}`],
+        fullWidth && classes.fullWidth,
       ]
         .filter(Boolean)
         .join(' ')}

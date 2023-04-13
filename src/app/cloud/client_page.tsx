@@ -56,6 +56,7 @@ export const CloudHomePage = () => {
           initialValue={search}
           onChange={setSearch}
           className={classes.search}
+          fullWidth={false}
         />
         <TeamSelector
           onChange={incomingTeam => {
