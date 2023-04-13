@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react'
+import type { Endpoints } from '@octokit/types'
 
 import { useAuth } from '@root/providers/Auth'
 import { qs } from './qs'
 import type { Install } from './use-get-installs'
 
-export interface Repo {
-  name: string
-  full_name: string
-  id: string // applies only to the `import` flow
-  description: string
+type GitHubResponse =
+  Endpoints['GET /user/installations/{installation_id}/repositories']['response']
+
+export type Repo = GitHubResponse['data']['repositories'][0]
+
+interface Results {
+  total_count: GitHubResponse['data']['total_count']
+  repos: GitHubResponse['data']['repositories']
 }
 
-export interface Results {
-  total_count: number
-  repos: Repo[]
-}
 export const useGetRepos = (props: {
   selectedInstall: Install | undefined
   delay?: number
@@ -68,7 +68,7 @@ export const useGetRepos = (props: {
             },
           )
 
-          const res = await reposReq.json()
+          const res: GitHubResponse = await reposReq.json()
 
           if (reposReq.ok) {
             timeout = setTimeout(() => {
@@ -80,7 +80,7 @@ export const useGetRepos = (props: {
               setError(undefined)
             }, delay)
           } else {
-            setError(res.error)
+            setError(`Error getting repos: ${res.status}`)
             setLoading(false)
           }
 

@@ -141,15 +141,15 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
           initialValue={installs?.[0]?.account?.login}
           onChange={option => {
             if (Array.isArray(option)) return
-            const newSelection = installs?.find(install => install.account.login === option)
+            const newSelection = installs?.find(install => install?.account?.login === option)
             setSelection(newSelection)
           }}
           options={[
             ...(installs && installs.length > 0
               ? [
                   ...installs.map(install => ({
-                    label: install.account.login,
-                    value: install.account.login,
+                    label: install?.account?.login || 'Untitled',
+                    value: install?.account?.login || '',
                   })),
                 ]
               : [

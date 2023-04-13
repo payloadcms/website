@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
+import type { Endpoints } from '@octokit/types'
 
 import { useAuth } from '@root/providers/Auth'
+
+type GitHubResponse = Endpoints['GET /user']['response']
 
 export const useCheckToken = (props?: {
   hasExchangedCode?: boolean
@@ -49,14 +52,13 @@ export const useCheckToken = (props?: {
             },
           )
 
-          const res = await reposReq.json()
+          const res: GitHubResponse = await reposReq.json()
 
           if (reposReq.ok) {
             setIsTokenValid(true)
             setError(undefined)
           } else {
-            console.error(res.error) // eslint-disable-line no-console
-            setError(res.error)
+            setError(`Error getting repos: ${res.status}`)
           }
 
           clearTimeout(timeout)

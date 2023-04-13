@@ -78,6 +78,7 @@ export const Select: React.FC<{
   const fieldFromContext = useFormField<string | string[]>({
     path,
     validate: required ? validate : undefined,
+    initialValue: initialValueFromProps,
   })
 
   const { value: valueFromContext, showError, setValue, errorMessage } = fieldFromContext

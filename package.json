@@ -68,6 +68,7 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.1.6",
+    "@octokit/types": "^9.0.0",
     "@payloadcms/eslint-config": "^0.0.1",
     "@types/cli-progress": "^3.11.0",
     "@types/node": "18.11.3",

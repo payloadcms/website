@@ -247,7 +247,6 @@ export interface Job {
   };
   provisionDNS?: {
     project: string | Project;
-    lastSeenPhase?: string;
   };
   hasError?: boolean;
   error?:
@@ -265,6 +264,7 @@ export interface Job {
 export interface TeardownError {
   id: string;
   project?: {
+    projectID?: string;
     name: string;
     teamName?: string;
     teamID: string;
