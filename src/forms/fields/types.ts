@@ -11,4 +11,5 @@ export interface FieldProps<T> {
   className?: string
   disabled?: boolean
   description?: string
+  fullWidth?: boolean
 }
