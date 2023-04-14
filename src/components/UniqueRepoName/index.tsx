@@ -16,8 +16,9 @@ type GitHubResponse = Endpoints['GET /repos/{owner}/{repo}']['response']
 export const UniqueRepoName: React.FC<{
   repositoryOwner?: string // i.e. `trouble`
   initialValue?: string
+  onChange?: (value: string) => void
 }> = props => {
-  const { repositoryOwner, initialValue = 'main' } = props
+  const { repositoryOwner, initialValue = 'main', onChange } = props
   const [value, setValue] = React.useState(initialValue)
   const debouncedValue = useDebounce(value, 200)
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -71,6 +72,11 @@ export const UniqueRepoName: React.FC<{
       clearTimeout(timer)
     }
   }, [repositoryOwner, debouncedValue])
+
+  // report changes to parent
+  useEffect(() => {
+    if (typeof onChange === 'function') onChange(debouncedValue)
+  }, [debouncedValue, onChange])
 
   let description = 'Choose a repository name'
   if (error) description = error

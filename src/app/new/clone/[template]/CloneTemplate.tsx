@@ -87,6 +87,7 @@ export const CloneTemplate: React.FC<{
                   <UniqueRepoName
                     repositoryOwner={selectedInstall?.account?.login}
                     initialValue={template?.slug}
+                    onChange={setName}
                   />
                 </Cell>
               </Grid>
