@@ -254,6 +254,10 @@ const Checkout: React.FC<{
                       errorMessage:
                         'You must agree to the terms of service to deploy your project.',
                     },
+                    makePrivate: {
+                      initialValue: project?.makePrivate || false,
+                      value: project?.makePrivate || false,
+                    },
                   }}
                 >
                   <div>
@@ -324,6 +328,7 @@ const Checkout: React.FC<{
                           repositoryOwner={selectedInstall?.account?.login}
                           initialValue={project?.repositoryName}
                         />
+                        <Checkbox path="makePrivate" label="Create private Git repository" />
                       </Fragment>
                     )}
                   </div>
