@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import { Check } from '@icons/Check'
 
+import { CheckIcon } from '@root/icons/CheckIcon'
 import Error from '../../Error'
 import { FieldProps } from '../types'
 import { useField } from '../useField'
@@ -115,7 +115,7 @@ export const Checkbox: React.FC<
         disabled={disabled}
       >
         <span className={classes.input}>
-          <Check className={classes.icon} size="large" bold />
+          <CheckIcon className={classes.icon} size="medium" bold />
         </span>
         <span className={classes.label}>{label}</span>
       </button>

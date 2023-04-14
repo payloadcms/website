@@ -11,7 +11,7 @@ export const CloseIcon: React.FC<IconProps> = props => {
     <svg
       width="100%"
       height="100%"
-      viewBox="0 0 18 17"
+      viewBox="0 0 15 15"
       xmlns="http://www.w3.org/2000/svg"
       className={[
         classes.icon,
@@ -24,10 +24,8 @@ export const CloseIcon: React.FC<IconProps> = props => {
         .join(' ')}
       style={{ transform: rotation ? `rotate(${rotation}deg)` : undefined }}
     >
-      <path
-        className={classes.stroke}
-        d="M1.94727 15.6296L15.7834 1.79346M2.53803 1.79347L16.3742 15.6296"
-      />
+      <line className={classes.stroke} x1="2" y1="2" x2="13" y2="13" />
+      <line className={classes.stroke} x1="13" y1="2" x2="2" y2="13" />
     </svg>
   )
 }

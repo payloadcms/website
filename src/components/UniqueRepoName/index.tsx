@@ -3,7 +3,7 @@ import { Text } from '@forms/fields/Text'
 import type { Endpoints } from '@octokit/types'
 
 import { Spinner } from '@root/app/_components/Spinner'
-import { Check } from '@root/icons/Check'
+import { CheckIcon } from '@root/icons/CheckIcon'
 import useDebounce from '@root/utilities/use-debounce'
 
 import classes from './index.module.scss'
@@ -86,7 +86,7 @@ export const UniqueRepoName: React.FC<{
 
   let icon: React.ReactNode = null
   if (isLoading) icon = <Spinner />
-  if (isValid) icon = <Check className={classes.check} />
+  if (isValid) icon = <CheckIcon className={classes.check} size="medium" bold />
 
   return (
     <div>
