@@ -4,6 +4,8 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
+import FormProcessing from '@forms/FormProcessing'
+import FormSubmissionError from '@forms/FormSubmissionError'
 import Submit from '@forms/Submit'
 import { InitialState } from '@forms/types'
 import Link from 'next/link'
@@ -40,8 +42,6 @@ export const Login: React.FC = () => {
   const warningParam = searchParams?.get('warning')
 
   const { user, login } = useAuth()
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
   const [redirectTo, setRedirectTo] = useState(cloudSlug)
 
   useEffect(() => {
@@ -57,28 +57,18 @@ export const Login: React.FC = () => {
         window.scrollTo(0, 0)
       }, 0)
 
-      const loadingTimer = setTimeout(() => {
-        setLoading(true)
-      }, 1000)
-
       try {
         const loggedInUser = await login({
           email: data.email as string,
           password: data.password as string,
         })
 
-        clearTimeout(loadingTimer)
-
         if (!loggedInUser) {
-          clearTimeout(loadingTimer)
-          setLoading(false)
-          setError('Invalid email or password')
+          throw new Error(`Invalid email or password`)
         }
       } catch (err) {
-        clearTimeout(loadingTimer)
         console.error(err) // eslint-disable-line no-console
-        setLoading(false)
-        setError('Invalid email or password')
+        throw new Error(`Invalid email or password`)
       }
     },
     [login],
@@ -97,7 +87,8 @@ export const Login: React.FC = () => {
         <Cell cols={5} colsM={8}>
           <Message error={errorParam} success={successParam} warning={warningParam} />
           <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
-            {error && <div className={classes.error}>{error}</div>}
+            <FormSubmissionError />
+            <FormProcessing />
             <Text
               path="email"
               label="Email"
@@ -107,7 +98,7 @@ export const Login: React.FC = () => {
             />
             <Text path="password" label="Password" type="password" required />
             <div>
-              <Submit label="Log in" className={classes.submit} processing={loading} />
+              <Submit label="Log in" className={classes.submit} />
             </div>
           </Form>
         </Cell>

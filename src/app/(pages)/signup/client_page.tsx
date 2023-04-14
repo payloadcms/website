@@ -4,6 +4,8 @@ import React, { useCallback, useState } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
+import FormProcessing from '@forms/FormProcessing'
+import FormSubmissionError from '@forms/FormSubmissionError'
 import Submit from '@forms/Submit'
 import { InitialState, OnSubmit } from '@forms/types'
 import Link from 'next/link'
@@ -42,8 +44,6 @@ const initialFormState: InitialState = {
 export const Signup: React.FC = () => {
   const searchParams = useSearchParams()
   const { user } = useAuth()
-
-  const [error, setError] = React.useState<string | null>(null)
 
   const [successfullySubmitted, setSuccessfullySubmitted] = useState(false)
 
@@ -107,7 +107,7 @@ export const Signup: React.FC = () => {
       }
     } catch (e) {
       console.error(e) // eslint-disable-line no-console
-      setError(e?.message || 'An error occurred')
+      throw new Error(e.message)
     }
   }, [])
 
@@ -172,7 +172,8 @@ export const Signup: React.FC = () => {
             {'.'}
           </div>
           <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>
-            {error && <div className={classes.error}>{error}</div>}
+            <FormSubmissionError />
+            <FormProcessing />
             <Text
               path="email"
               label="Email"

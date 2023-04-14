@@ -94,4 +94,5 @@ export interface IFormContext {
     field: string
     message: string
   }>
+  submissionError?: string
 }

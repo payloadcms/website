@@ -44,6 +44,7 @@ const Form: React.FC<FormProps> = props => {
   const [isModified, setIsModified] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [errorFromSubmit, setErrorFromSubmit] = useState<string>()
 
   const contextRef = useRef<IFormContext>(initialContext)
 
@@ -69,11 +70,17 @@ const Form: React.FC<FormProps> = props => {
       }
 
       if (typeof onSubmit === 'function') {
-        await onSubmit({
-          data: reduceFieldsToValues(fields, false),
-          unflattenedData: reduceFieldsToValues(fields, true),
-          dispatchFields: contextRef.current.dispatchFields,
-        })
+        try {
+          await onSubmit({
+            data: reduceFieldsToValues(fields, false),
+            unflattenedData: reduceFieldsToValues(fields, true),
+            dispatchFields: contextRef.current.dispatchFields,
+          })
+        } catch (err: unknown) {
+          const message = err instanceof Error ? err.message : 'Unknown error'
+          console.error(message) // eslint-disable-line no-console
+          setErrorFromSubmit(message)
+        }
       }
 
       setIsProcessing(false)
@@ -130,6 +137,7 @@ const Form: React.FC<FormProps> = props => {
         value={{
           ...contextRef.current,
           apiErrors: errorsFromProps,
+          submissionError: errorFromSubmit,
         }}
       >
         <FieldContext.Provider value={contextRef.current}>
