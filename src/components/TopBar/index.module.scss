@@ -1,0 +1,118 @@
+@use '@scss/common' as *;
+
+.topBar {  
+  --bg-color: var(--color-base-900);
+  --text-color: var(--color-base-100);
+
+  position: fixed;
+  top: 0;
+  height: var(--top-bar-height);
+  width: 100%;
+  z-index: var(--z-nav);
+
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color);
+    opacity: 0.85;
+    z-index: -1;
+    transition: opacity 500ms ease-out;
+  }
+  
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    z-index: -1;
+    opacity: 1;
+    transition: opacity 500ms ease-out;
+  }
+
+
+  .wrap {
+    position: relative;
+    padding: 0 calc((var(--gutter-h) / 2));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--base);
+    width: 100%;
+    height: 100%;
+  
+    pointer-events: all;
+    color: var(--text-color);
+    transition: color 300ms ease;
+    @include small;
+
+  }
+
+  .starWrap {
+    display: flex;
+    flex-direction: row;
+    
+    & > * {
+      margin-right: calc(var(--base)*0.25);
+    }
+  }
+
+  .starCount {
+    @include small;
+    font-weight: 900;
+  }
+
+  .mobileText {
+    display: none;
+  }
+
+
+  .richText {
+    & a {
+      color: var(--text-color);
+      transition: all 0.2s ease;
+
+      &:visited {
+        color: var(--text-color);
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  @include large-break {
+    .wrap {
+      padding-left: var(--gutter-h);
+      padding-right: var(--gutter-h);
+    }
+  }
+  
+  @include mid-break {
+    .richText {
+      display: none;
+    }
+  
+    .mobileText {
+      display: unset;
+
+      & a {
+        color: var(--text-color);
+  
+        &:visited {
+          color: var(--text-color);
+        }
+      }
+    }
+  }
+}
+

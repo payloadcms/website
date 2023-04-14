@@ -27,6 +27,7 @@
 
   --gutter-h: calc(var(--base) * 12);
   --block-spacing: calc(var(--base) * 7);
+  --top-bar-height: calc(var(--base) * 2.5);
 
   @include extra-large-break {
     --header-height: 92px;
@@ -47,7 +48,7 @@
   @include mid-break {
     --gutter-h: calc(var(--base) * 2);
     --block-spacing: calc(var(--base) * 3.5);
-    --page-padding-top: calc(var(--header-height) + var(--base) * 1.5);
+    --page-padding-top: calc(var(--header-height) + var(--top-bar-height) + var(--base) * 1.5);
   }
 
   @include small-break {

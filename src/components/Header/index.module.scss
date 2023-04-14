@@ -2,7 +2,7 @@
 
 .header {
   position: fixed;
-  top: 0;
+  top: var(--top-bar-height);
   width: 100%;
   z-index: var(--z-nav);
   padding: calc(var(--base) * 1.5) 0;
