@@ -3,6 +3,7 @@ import { Text } from '@forms/fields/Text'
 
 import { Spinner } from '@root/app/_components/Spinner'
 import { CheckIcon } from '@root/icons/CheckIcon'
+import { CloseIcon } from '@root/icons/CloseIcon'
 import useDebounce from '@root/utilities/use-debounce'
 
 import classes from './index.module.scss'
@@ -96,6 +97,7 @@ export const UniqueSlug: React.FC<{
   let icon: React.ReactNode = null
   if (isLoading) icon = <Spinner />
   if (isValid) icon = <CheckIcon className={classes.check} size="medium" bold />
+  if (error || isValid === false) icon = <CloseIcon className={classes.error} size="medium" bold />
 
   return (
     <div>

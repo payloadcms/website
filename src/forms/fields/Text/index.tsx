@@ -118,7 +118,10 @@ export const Text: React.FC<
       </div>
       {type !== 'hidden' && (
         <>
-          <Error showError={showError || Boolean(showErrorFromProps)} message={errorMessage} />
+          <Error
+            showError={Boolean((showError || showErrorFromProps) && errorMessage)}
+            message={errorMessage}
+          />
           <Label
             htmlFor={path}
             label={label}

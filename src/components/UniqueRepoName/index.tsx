@@ -4,6 +4,7 @@ import type { Endpoints } from '@octokit/types'
 
 import { Spinner } from '@root/app/_components/Spinner'
 import { CheckIcon } from '@root/icons/CheckIcon'
+import { CloseIcon } from '@root/icons/CloseIcon'
 import useDebounce from '@root/utilities/use-debounce'
 
 import classes from './index.module.scss'
@@ -23,6 +24,7 @@ export const UniqueRepoName: React.FC<{
   const debouncedValue = useDebounce(value, 200)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const isRequesting = useRef<string>('')
+  const prevRepoOwner = useRef<string | undefined>(undefined)
   const [error, setError] = React.useState<string | null>(null)
   const [isValid, setIsValid] = React.useState<boolean | undefined>(undefined)
 
@@ -31,8 +33,13 @@ export const UniqueRepoName: React.FC<{
 
     // run this effect as few times as possible by using the debounced value
     // use a ref to prevent duplicative requests as dependencies of this effect update
-    if (debouncedValue && isRequesting.current !== debouncedValue && repositoryOwner) {
+    if (
+      debouncedValue &&
+      repositoryOwner &&
+      (isRequesting.current !== debouncedValue || repositoryOwner !== prevRepoOwner.current)
+    ) {
       isRequesting.current = debouncedValue
+      prevRepoOwner.current = repositoryOwner
       setIsValid(undefined)
 
       const checkRepositoryName = async () => {
@@ -87,6 +94,7 @@ export const UniqueRepoName: React.FC<{
   let icon: React.ReactNode = null
   if (isLoading) icon = <Spinner />
   if (isValid) icon = <CheckIcon className={classes.check} size="medium" bold />
+  if (error || isValid === false) icon = <CloseIcon className={classes.error} size="medium" bold />
 
   return (
     <div>
