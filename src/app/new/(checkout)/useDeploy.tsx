@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { OnSubmit } from '@forms/types'
 import { CardElement as StripeCardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 // eslint-disable-next-line import/named
@@ -14,20 +14,13 @@ export const useDeploy = (args: {
   checkoutState: CheckoutState
   installID?: string
   onDeploy?: (project: Project) => void
-}): {
-  projectID?: string
-  errorDeploying: string | null
-  isDeploying: boolean
-  deploy: OnSubmit
-} => {
+}): OnSubmit => {
   const { checkoutState, installID, project, onDeploy } = args
   const { user } = useAuth()
-  const [error, setError] = useState<string | null>(null)
-  const [isDeploying, setIsDeploying] = useState(false)
   const stripe = useStripe()
   const elements = useElements()
 
-  const { createSubscription } = useCreateSubscription({
+  const createSubscription = useCreateSubscription({
     project,
     checkoutState,
   })
@@ -84,9 +77,6 @@ export const useDeploy = (args: {
           throw new Error(`You must be logged in to deploy a project.`)
         }
 
-        setIsDeploying(true)
-        setError(null)
-
         // first create the subscription
         const subscription = await createSubscription()
 
@@ -118,10 +108,6 @@ export const useDeploy = (args: {
         } = await req.json()
 
         if (req.ok) {
-          const {
-            doc: { team },
-          } = res
-
           if (!user.teams || user.teams.length === 0) {
             throw new Error('No teams found')
           }
@@ -130,22 +116,15 @@ export const useDeploy = (args: {
             onDeploy(res.doc)
           }
         } else {
-          setIsDeploying(false)
-          setError(res.error)
+          throw new Error(res.error || res.message)
         }
       } catch (err: unknown) {
-        console.error(err) // eslint-disable-line no-console
         const message = err instanceof Error ? err.message : 'Unknown error'
-        setError(message)
-        setIsDeploying(false)
+        throw new Error(`Error deploying project: ${message}`)
       }
     },
     [user, makePayment, installID, checkoutState, project, onDeploy, createSubscription],
   )
 
-  return {
-    errorDeploying: error,
-    isDeploying,
-    deploy,
-  }
+  return deploy
 }

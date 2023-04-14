@@ -7,6 +7,8 @@ import { Checkbox } from '@forms/fields/Checkbox'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
+import FormProcessing from '@forms/FormProcessing'
+import FormSubmissionError from '@forms/FormSubmissionError'
 import Label from '@forms/Label'
 import Submit from '@forms/Submit'
 import { Elements } from '@stripe/react-stripe-js'
@@ -113,7 +115,7 @@ const Checkout: React.FC<{
     [router],
   )
 
-  const { isDeploying, errorDeploying, deploy } = useDeploy({
+  const deploy = useDeploy({
     onDeploy,
     project,
     checkoutState,
@@ -160,11 +162,9 @@ const Checkout: React.FC<{
     <Fragment>
       <Gutter>
         <div className={classes.errors}>
-          {errorDeploying && <p>{errorDeploying}</p>}
           {installsError && <p>{installsError}</p>}
           {errorDeleting && <p>{errorDeleting}</p>}
         </div>
-        {isDeploying && <p className={classes.submitting}>Submitting, one moment...</p>}
         {deleting && <p className={classes.submitting}>Deleting draft project, one moment...</p>}
         <Grid>
           <Cell cols={3} colsM={8} className={classes.sidebarCell}>
@@ -260,6 +260,8 @@ const Checkout: React.FC<{
                     },
                   }}
                 >
+                  <FormProcessing message="Deploying project, one moment..." />
+                  <FormSubmissionError />
                   <div>
                     <Heading element="h5" marginTop={false}>
                       Select your plan
