@@ -162,8 +162,8 @@ const Checkout: React.FC<{
     <Fragment>
       <Gutter>
         <div className={classes.errors}>
-          {installsError && <p>{installsError}</p>}
-          {errorDeleting && <p>{errorDeleting}</p>}
+          {installsError && <p className={classes.error}>{installsError}</p>}
+          {errorDeleting && <p className={classes.error}>{errorDeleting}</p>}
         </div>
         {deleting && <p className={classes.submitting}>Deleting draft project, one moment...</p>}
         <Grid>
@@ -211,55 +211,7 @@ const Checkout: React.FC<{
               <LoadingShimmer number={3} />
             ) : (
               <Fragment>
-                <Form
-                  onSubmit={deploy}
-                  initialState={{
-                    name: {
-                      initialValue: project?.name,
-                      value: project?.name,
-                    },
-                    template: {
-                      initialValue:
-                        typeof project?.template === 'object' &&
-                        project?.template !== null &&
-                        'id' in project?.template
-                          ? project?.template?.id
-                          : project?.template,
-                      value:
-                        typeof project?.template === 'object' &&
-                        project?.template !== null &&
-                        'id' in project?.template
-                          ? project?.template?.id
-                          : project?.template,
-                    },
-                    installScript: {
-                      initialValue: project?.installScript || 'yarn',
-                      value: project?.installScript || 'yarn',
-                    },
-                    buildScript: {
-                      initialValue: project?.buildScript || 'yarn build',
-                      value: project?.buildScript || 'yarn build',
-                    },
-                    runScript: {
-                      initialValue: project?.runScript || 'yarn serve',
-                      value: project?.runScript || 'yarn serve',
-                    },
-                    environmentVariables: {
-                      initialValue: project?.environmentVariables || [],
-                    },
-                    agreeToTerms: {
-                      initialValue: false,
-                      value: false,
-                      valid: false,
-                      errorMessage:
-                        'You must agree to the terms of service to deploy your project.',
-                    },
-                    makePrivate: {
-                      initialValue: project?.makePrivate || false,
-                      value: project?.makePrivate || false,
-                    },
-                  }}
-                >
+                <Form onSubmit={deploy}>
                   <FormProcessing message="Deploying project, one moment..." />
                   <FormSubmissionError />
                   <div>
@@ -300,7 +252,7 @@ const Checkout: React.FC<{
                         },
                       ]}
                     />
-                    <Text label="Project name" path="name" />
+                    <Text label="Project name" path="name" initialValue={project?.name} />
                     <TeamSelector
                       onChange={handleTeamChange}
                       className={classes.teamSelector}
@@ -318,6 +270,13 @@ const Checkout: React.FC<{
                           label="Template"
                           path="template"
                           disabled={Boolean(project?.repositoryID)}
+                          initialValue={
+                            typeof project?.template === 'object' &&
+                            project?.template !== null &&
+                            'id' in project?.template
+                              ? project?.template?.id
+                              : project?.template
+                          }
                           options={[
                             { label: 'None', value: '' },
                             ...(templates || [])?.map(template => ({
@@ -330,7 +289,11 @@ const Checkout: React.FC<{
                           repositoryOwner={selectedInstall?.account?.login}
                           initialValue={project?.repositoryName}
                         />
-                        <Checkbox path="makePrivate" label="Create private Git repository" />
+                        <Checkbox
+                          path="makePrivate"
+                          label="Create private Git repository"
+                          initialValue={project?.makePrivate || false}
+                        />
                       </Fragment>
                     )}
                   </div>
@@ -339,9 +302,21 @@ const Checkout: React.FC<{
                     <Heading element="h5" marginTop={false} marginBottom={false}>
                       Build Settings
                     </Heading>
-                    <Text label="Install Command" path="installScript" />
-                    <Text label="Build Command" path="buildScript" />
-                    <Text label="Serve Command" path="runScript" />
+                    <Text
+                      label="Install Command"
+                      path="installScript"
+                      initialValue={project?.installScript || 'yarn'}
+                    />
+                    <Text
+                      label="Build Command"
+                      path="buildScript"
+                      initialValue={project?.buildScript || 'yarn build'}
+                    />
+                    <Text
+                      label="Serve Command"
+                      path="runScript"
+                      initialValue={project?.runScript || 'yarn serve'}
+                    />
                     <BranchSelector
                       repositoryFullName={project?.repositoryFullName}
                       initialValue={project?.deploymentBranch}
@@ -373,6 +348,12 @@ const Checkout: React.FC<{
                     }
                     required
                     className={classes.agreeToTerms}
+                    initialValue={false}
+                    validate={(value: boolean) => {
+                      return !value
+                        ? 'You must agree to the terms of service to deploy your project.'
+                        : true
+                    }}
                   />
                   <div className={classes.submit}>
                     <Submit label="Deploy now" />

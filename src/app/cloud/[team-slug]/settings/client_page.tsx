@@ -138,7 +138,7 @@ export const TeamSettingsPage = () => {
             }}
           >
             <FormSubmissionError />
-            <FormProcessing />
+            <FormProcessing message="Updating team, one moment..." />
             <Text path="name" label="Team Name" />
             <UniqueTeamSlug teamID={team?.id} />
             <Text path="billingEmail" label="Billing Email" required />

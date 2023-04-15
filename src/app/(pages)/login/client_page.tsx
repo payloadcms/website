@@ -88,7 +88,7 @@ export const Login: React.FC = () => {
           <Message error={errorParam} success={successParam} warning={warningParam} />
           <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
             <FormSubmissionError />
-            <FormProcessing />
+            <FormProcessing message="Logging in, one moment..." />
             <Text
               path="email"
               label="Email"

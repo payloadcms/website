@@ -124,7 +124,7 @@ export const ForgotPassword: React.FC = () => {
           </div>
           <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
             <FormSubmissionError />
-            <FormProcessing />
+            <FormProcessing message="Sending recovery email, one moment..." />
             <Text path="email" label="Email" required />
             <div>
               <Submit label="Recover" className={classes.submit} />

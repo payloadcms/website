@@ -135,7 +135,7 @@ export const SettingsPage = () => {
             onSubmit={handleSubmit}
           >
             <FormSubmissionError />
-            <FormProcessing />
+            <FormProcessing message="Updating profile, one moment" />
             {formToShow === 'account' && (
               <>
                 <Text path="name" label="Your Full Name" />

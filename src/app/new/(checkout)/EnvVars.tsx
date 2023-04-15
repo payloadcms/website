@@ -27,8 +27,16 @@ const NewEnvVarManager: React.FC<{
                 <ArrayRow key={uuid} index={index} allowRemove>
                   <div className={classes.row}>
                     <div className={classes.fields}>
-                      <Text label="Key" path={`environmentVariables.${index}.key`} />
-                      <Text label="Value" path={`environmentVariables.${index}.value`} />
+                      <Text
+                        label="Key"
+                        path={`environmentVariables.${index}.key`}
+                        initialValue=""
+                      />
+                      <Text
+                        label="Value"
+                        path={`environmentVariables.${index}.value`}
+                        initialValue=""
+                      />
                     </div>
                   </div>
                 </ArrayRow>

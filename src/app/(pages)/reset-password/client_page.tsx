@@ -76,7 +76,7 @@ export const ResetPassword: React.FC = () => {
             }}
           >
             <FormSubmissionError />
-            <FormProcessing />
+            <FormProcessing message="Resetting password, one moment..." />
             <Text path="password" type="password" label="New Password" required />
             <Text path="passwordConfirm" type="password" label="Confirm Password" required />
             <div>

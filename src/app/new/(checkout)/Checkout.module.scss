@@ -9,6 +9,10 @@
     }
 }
 
+.error {
+    color: var(--theme-error-500);
+}
+
 .errors {
     margin-bottom: calc(var(--base) * 2);
     color: var(--theme-error-500);
@@ -36,6 +40,10 @@
 .hr {
     margin: calc(var(--base) * 2) 0;
     border: 0.5px solid var(--theme-elevation-500);
+    
+    @include mid-break {
+        margin: calc(var(--base) * 1.5) 0;
+    }
 }   
 
 .sidebarCell {
@@ -51,6 +59,7 @@
     flex-direction: column;
 
     @include mid-break {
+        gap: calc(var(--base) / 2);
         position: static;
         top: unset;
     }
@@ -58,6 +67,12 @@
 
 .totalPrice {
     margin: 0;
+}
+
+.totalPriceSection {
+    > *:last-child {
+        margin-bottom: 0;
+    }
 }
 
 .freeTrial {

@@ -173,7 +173,7 @@ export const Signup: React.FC = () => {
           </div>
           <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>
             <FormSubmissionError />
-            <FormProcessing />
+            <FormProcessing message="Signing up, one moment..." />
             <Text
               path="email"
               label="Email"

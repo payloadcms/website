@@ -9,6 +9,8 @@ import { useField } from '../useField'
 
 import classes from './index.module.scss'
 
+// "You must agree to the terms of service to deploy your project."
+
 const defaultValidate = (value: boolean, options = {} as any) => {
   if ((value && typeof value !== 'boolean') || (options.required && typeof value !== 'boolean')) {
     return 'This field can only be equal to true or false.'
