@@ -59,6 +59,7 @@ export const TeamPage = () => {
           initialValue={search}
           onChange={setSearch}
           className={classes.search}
+          fullWidth={false}
         />
         <Button
           appearance="primary"

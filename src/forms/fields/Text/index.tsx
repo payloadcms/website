@@ -51,6 +51,7 @@ export const Text: React.FC<
     },
     description,
     value: valueFromProps,
+    fullWidth = true,
   } = props
 
   const prevValueFromProps = React.useRef(valueFromProps)
@@ -81,7 +82,13 @@ export const Text: React.FC<
 
   return (
     <div
-      className={[className, classes.wrap, showError && classes.showError, classes[`type--${type}`]]
+      className={[
+        className,
+        classes.wrap,
+        showError && classes.showError,
+        classes[`type--${type}`],
+        fullWidth && classes.fullWidth,
+      ]
         .filter(Boolean)
         .join(' ')}
     >
