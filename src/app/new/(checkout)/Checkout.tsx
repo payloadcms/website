@@ -159,12 +159,16 @@ const Checkout: React.FC<{
   const isClone = Boolean(!project?.repositoryID)
 
   return (
-    <Fragment>
+    <Form onSubmit={deploy}>
       <Gutter>
-        <div className={classes.errors}>
-          {installsError && <p className={classes.error}>{installsError}</p>}
-          {errorDeleting && <p className={classes.error}>{errorDeleting}</p>}
-        </div>
+        <FormProcessing message="Deploying project, one moment..." />
+        <FormSubmissionError className={classes.formSubmissionError} />
+        {(installsError || errorDeleting) && (
+          <div className={classes.errors}>
+            {installsError && <p className={classes.error}>{installsError}</p>}
+            {errorDeleting && <p className={classes.error}>{errorDeleting}</p>}
+          </div>
+        )}
         {deleting && <p className={classes.submitting}>Deleting draft project, one moment...</p>}
         <Grid>
           <Cell cols={3} colsM={8} className={classes.sidebarCell}>
@@ -211,160 +215,156 @@ const Checkout: React.FC<{
               <LoadingShimmer number={3} />
             ) : (
               <Fragment>
-                <Form onSubmit={deploy}>
-                  <FormProcessing message="Deploying project, one moment..." />
-                  <FormSubmissionError />
-                  <div>
-                    <Heading element="h5" marginTop={false}>
-                      Select your plan
-                    </Heading>
-                    <div className={classes.plans}>
-                      <PlanSelector />
-                      {isBeta && (
-                        <p className={classes.trialDescription}>
-                          All plans are free during beta. You will not be charged until after July
-                          1st. You can cancel anytime.
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                  <hr className={classes.hr} />
-                  <div className={classes.projectDetails}>
-                    <Heading element="h5" marginTop={false} marginBottom={false}>
-                      Project Details
-                    </Heading>
-                    <Select
-                      label="Region"
-                      path="region"
-                      initialValue="us-east"
-                      options={[
-                        {
-                          label: 'US East',
-                          value: 'us-east',
-                        },
-                        {
-                          label: 'US West',
-                          value: 'us-west',
-                        },
-                        {
-                          label: 'EU West',
-                          value: 'eu-west',
-                        },
-                      ]}
-                    />
-                    <Text label="Project name" path="name" initialValue={project?.name} />
-                    <TeamSelector
-                      onChange={handleTeamChange}
-                      className={classes.teamSelector}
-                      initialValue={
-                        typeof project?.team === 'object' &&
-                        project?.team !== null &&
-                        'id' in project?.team
-                          ? project?.team?.id
-                          : ''
-                      }
-                    />
-                    {isClone && (
-                      <Fragment>
-                        <Select
-                          label="Template"
-                          path="template"
-                          disabled={Boolean(project?.repositoryID)}
-                          initialValue={
-                            typeof project?.template === 'object' &&
-                            project?.template !== null &&
-                            'id' in project?.template
-                              ? project?.template?.id
-                              : project?.template
-                          }
-                          options={[
-                            { label: 'None', value: '' },
-                            ...(templates || [])?.map(template => ({
-                              label: template.name || '',
-                              value: template.id,
-                            })),
-                          ]}
-                        />
-                        <UniqueRepoName
-                          repositoryOwner={selectedInstall?.account?.login}
-                          initialValue={project?.repositoryName}
-                        />
-                        <Checkbox
-                          path="makePrivate"
-                          label="Create private Git repository"
-                          initialValue={project?.makePrivate || false}
-                        />
-                      </Fragment>
+                <div>
+                  <Heading element="h5" marginTop={false}>
+                    Select your plan
+                  </Heading>
+                  <div className={classes.plans}>
+                    <PlanSelector />
+                    {isBeta && (
+                      <p className={classes.trialDescription}>
+                        All plans are free during beta. You will not be charged until after July
+                        1st. You can cancel anytime.
+                      </p>
                     )}
                   </div>
-                  <hr className={classes.hr} />
-                  <div className={classes.buildSettings}>
-                    <Heading element="h5" marginTop={false} marginBottom={false}>
-                      Build Settings
-                    </Heading>
-                    <Text
-                      label="Install Command"
-                      path="installScript"
-                      initialValue={project?.installScript || 'yarn'}
-                    />
-                    <Text
-                      label="Build Command"
-                      path="buildScript"
-                      initialValue={project?.buildScript || 'yarn build'}
-                    />
-                    <Text
-                      label="Serve Command"
-                      path="runScript"
-                      initialValue={project?.runScript || 'yarn serve'}
-                    />
-                    <BranchSelector
-                      repositoryFullName={project?.repositoryFullName}
-                      initialValue={project?.deploymentBranch}
-                    />
-                  </div>
-                  <hr className={classes.hr} />
-                  <EnvVars className={classes.envVars} />
-                  <hr className={classes.hr} />
-                  <div>
-                    <h5>Payment Info</h5>
-                    {checkoutState?.team && (
-                      <CreditCardSelector
-                        initialValue={checkoutState?.paymentMethod}
-                        team={checkoutState?.team}
-                        onChange={handleCardChange}
-                      />
-                    )}
-                  </div>
-                  <hr className={classes.hr} />
-                  <Checkbox
-                    path="agreeToTerms"
-                    label={
-                      <Fragment>
-                        {'I agree to the '}
-                        <Link href="/cloud-terms" target="_blank">
-                          Terms of Service
-                        </Link>
-                      </Fragment>
-                    }
-                    required
-                    className={classes.agreeToTerms}
-                    initialValue={false}
-                    validate={(value: boolean) => {
-                      return !value
-                        ? 'You must agree to the terms of service to deploy your project.'
-                        : true
-                    }}
+                </div>
+                <hr className={classes.hr} />
+                <div className={classes.projectDetails}>
+                  <Heading element="h5" marginTop={false} marginBottom={false}>
+                    Project Details
+                  </Heading>
+                  <Select
+                    label="Region"
+                    path="region"
+                    initialValue="us-east"
+                    options={[
+                      {
+                        label: 'US East',
+                        value: 'us-east',
+                      },
+                      {
+                        label: 'US West',
+                        value: 'us-west',
+                      },
+                      {
+                        label: 'EU West',
+                        value: 'eu-west',
+                      },
+                    ]}
                   />
-                  <div className={classes.submit}>
-                    <Submit label="Deploy now" />
-                  </div>
-                </Form>
+                  <Text label="Project name" path="name" initialValue={project?.name} />
+                  <TeamSelector
+                    onChange={handleTeamChange}
+                    className={classes.teamSelector}
+                    initialValue={
+                      typeof project?.team === 'object' &&
+                      project?.team !== null &&
+                      'id' in project?.team
+                        ? project?.team?.id
+                        : ''
+                    }
+                  />
+                  {isClone && (
+                    <Fragment>
+                      <Select
+                        label="Template"
+                        path="template"
+                        disabled={Boolean(project?.repositoryID)}
+                        initialValue={
+                          typeof project?.template === 'object' &&
+                          project?.template !== null &&
+                          'id' in project?.template
+                            ? project?.template?.id
+                            : project?.template
+                        }
+                        options={[
+                          { label: 'None', value: '' },
+                          ...(templates || [])?.map(template => ({
+                            label: template.name || '',
+                            value: template.id,
+                          })),
+                        ]}
+                      />
+                      <UniqueRepoName
+                        repositoryOwner={selectedInstall?.account?.login}
+                        initialValue={project?.repositoryName}
+                      />
+                      <Checkbox
+                        path="makePrivate"
+                        label="Create private Git repository"
+                        initialValue={project?.makePrivate || false}
+                      />
+                    </Fragment>
+                  )}
+                </div>
+                <hr className={classes.hr} />
+                <div className={classes.buildSettings}>
+                  <Heading element="h5" marginTop={false} marginBottom={false}>
+                    Build Settings
+                  </Heading>
+                  <Text
+                    label="Install Command"
+                    path="installScript"
+                    initialValue={project?.installScript || 'yarn'}
+                  />
+                  <Text
+                    label="Build Command"
+                    path="buildScript"
+                    initialValue={project?.buildScript || 'yarn build'}
+                  />
+                  <Text
+                    label="Serve Command"
+                    path="runScript"
+                    initialValue={project?.runScript || 'yarn serve'}
+                  />
+                  <BranchSelector
+                    repositoryFullName={project?.repositoryFullName}
+                    initialValue={project?.deploymentBranch}
+                  />
+                </div>
+                <hr className={classes.hr} />
+                <EnvVars className={classes.envVars} />
+                <hr className={classes.hr} />
+                <div>
+                  <h5>Payment Info</h5>
+                  {checkoutState?.team && (
+                    <CreditCardSelector
+                      initialValue={checkoutState?.paymentMethod}
+                      team={checkoutState?.team}
+                      onChange={handleCardChange}
+                    />
+                  )}
+                </div>
+                <hr className={classes.hr} />
+                <Checkbox
+                  path="agreeToTerms"
+                  label={
+                    <Fragment>
+                      {'I agree to the '}
+                      <Link href="/cloud-terms" target="_blank">
+                        Terms of Service
+                      </Link>
+                    </Fragment>
+                  }
+                  required
+                  className={classes.agreeToTerms}
+                  initialValue={false}
+                  validate={(value: boolean) => {
+                    return !value
+                      ? 'You must agree to the terms of service to deploy your project.'
+                      : true
+                  }}
+                />
+                <div className={classes.submit}>
+                  <Submit label="Deploy now" />
+                </div>
               </Fragment>
             )}
           </Cell>
         </Grid>
       </Gutter>
-    </Fragment>
+    </Form>
   )
 }
 

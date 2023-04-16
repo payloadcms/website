@@ -1,12 +1,16 @@
 import { useCallback } from 'react'
 import { OnSubmit } from '@forms/types'
 import { CardElement as StripeCardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-// eslint-disable-next-line import/named
-import { PaymentIntent, StripeCardElement as StripeCardElementType } from '@stripe/stripe-js'
+import {
+  PaymentIntent, // eslint-disable-line import/named
+  SetupIntentResult, // eslint-disable-line import/named
+  StripeCardElement as StripeCardElementType, // eslint-disable-line import/named
+} from '@stripe/stripe-js'
 
 import { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { CheckoutState } from './reducer'
+import { PayloadStripeSetupIntent, useCreateSetupIntent } from './useCreateSetupIntent'
 import { PayloadStripeSubscription, useCreateSubscription } from './useCreateSubscription'
 
 export const useDeploy = (args: {
@@ -25,7 +29,48 @@ export const useDeploy = (args: {
     checkoutState,
   })
 
-  const makePayment = useCallback(
+  const createSetupIntent = useCreateSetupIntent({
+    project,
+    checkoutState,
+  })
+
+  // this will ensure payment methods are supplied even for trials
+  const confirmCardSetup = useCallback(
+    async (setupIntent: PayloadStripeSetupIntent): Promise<SetupIntentResult | null> => {
+      if (!setupIntent) {
+        throw new Error('No setup intent')
+      }
+
+      if (!checkoutState || !stripe || !elements) {
+        throw new Error('No payment intent or checkout state')
+      }
+
+      const { client_secret: clientSecret } = setupIntent
+      const { paymentMethod } = checkoutState
+
+      if (!clientSecret) {
+        throw new Error('No plan selected or client secret')
+      }
+
+      const stripePayment = await stripe.confirmCardSetup(clientSecret, {
+        payment_method:
+          !paymentMethod || paymentMethod.startsWith('new-card')
+            ? {
+                card: elements.getElement(StripeCardElement) as StripeCardElementType,
+              }
+            : paymentMethod,
+      })
+
+      if (stripePayment.error) {
+        throw new Error(stripePayment.error.message)
+      }
+
+      return stripePayment
+    },
+    [elements, stripe, checkoutState],
+  )
+
+  const makeCardPayment = useCallback(
     async (subscription: PayloadStripeSubscription): Promise<PaymentIntent | null> => {
       if (!subscription) {
         throw new Error('No subscription')
@@ -35,15 +80,11 @@ export const useDeploy = (args: {
         throw new Error('No payment intent or checkout state')
       }
 
-      const { paid, client_secret: clientSecret } = subscription
-      const { plan, paymentMethod } = checkoutState
+      const { client_secret: clientSecret } = subscription
+      const { paymentMethod } = checkoutState
 
-      if (paid) {
-        return null
-      }
-
-      if (!plan || !clientSecret) {
-        throw new Error('No plan selected or client secret')
+      if (!clientSecret) {
+        throw new Error('No client secret')
       }
 
       const stripePayment = await stripe.confirmCardPayment(clientSecret, {
@@ -77,11 +118,22 @@ export const useDeploy = (args: {
           throw new Error(`You must be logged in to deploy a project.`)
         }
 
-        // first create the subscription
+        if (!checkoutState?.plan) {
+          throw new Error(`No plan selected`)
+        }
+
+        // first create a setup intent
+        const setupIntent = await createSetupIntent()
+
+        // then confirm the card setup
+        // this will ensure that payment methods are supplied even for trials
+        await confirmCardSetup(setupIntent)
+
+        // next create a subscription
         const subscription = await createSubscription()
 
-        // then make the payment
-        await makePayment(subscription)
+        // finally pay for it (only applies to non-trials)
+        await makeCardPayment(subscription)
 
         // finally attempt to deploy the project
         const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deploy`, {
@@ -123,7 +175,17 @@ export const useDeploy = (args: {
         throw new Error(`Error deploying project: ${message}`)
       }
     },
-    [user, makePayment, installID, checkoutState, project, onDeploy, createSubscription],
+    [
+      user,
+      installID,
+      checkoutState,
+      project,
+      onDeploy,
+      createSubscription,
+      confirmCardSetup,
+      createSetupIntent,
+      makeCardPayment,
+    ],
   )
 
   return deploy
