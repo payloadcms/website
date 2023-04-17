@@ -1,10 +1,3 @@
 .node {
-  &:before {
-    display: block;
-    content: ' ';
-    visibility: hidden;
-    pointer-events: none;
-    margin-top: calc(var(--base) * -8);
-    height: calc(var(--base) * 8);
-  }
+  scroll-margin-top: calc(var(--base) * 8);
 }
