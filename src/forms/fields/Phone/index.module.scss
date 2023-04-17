@@ -25,6 +25,10 @@
 .phone {
   position: relative;
   
+  select {
+    @include shared.formInput;
+  }
+
   input {
     @include shared.formInput;
     padding-left: calc(var(--base) * 3);
