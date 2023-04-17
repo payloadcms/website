@@ -2,43 +2,34 @@ import React, { useCallback } from 'react'
 
 import type { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
-import type { Repo } from './use-get-repos'
+import type { Repo } from '../../utilities/use-get-repos'
 
 export const useCreateDraftProject = ({
   projectName,
   installID,
   templateID,
-  makePrivate,
   onSubmit,
 }: {
   projectName?: string
   installID?: number
   onSubmit?: (project: Project) => void // eslint-disable-line no-unused-vars
   templateID?: string // only applies to `clone` flow
-  makePrivate?: boolean // only applies to `clone` flow
-}): {
-  submitDraftProject: (args?: { repo: Partial<Repo> }) => void // eslint-disable-line no-unused-vars
-  isSubmitting: boolean
-  error: string
-} => {
+}): ((args?: { repo: Partial<Repo>; makePrivate?: boolean }) => void) => {
   const { user } = useAuth()
-  const [error, setError] = React.useState('')
-  const [isSubmitting, setIsSubmitting] = React.useState(false)
 
-  const submitDraftProject = useCallback(
-    async ({ repo }: { repo: Partial<Repo> }) => {
+  const createDraftProject = useCallback(
+    async (args: { repo: Partial<Repo>; makePrivate?: boolean }) => {
+      const { repo, makePrivate } = args
+
       if (!user) {
         return
       }
 
       if (!user.teams || user.teams.length === 0) {
-        setError('You must be a member of a team to create a project')
-        return
+        throw new Error('You must be a member of a team to create a project')
       }
 
       window.scrollTo(0, 0)
-      setError('')
-      setIsSubmitting(true)
 
       try {
         const projectReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects`, {
@@ -70,22 +61,16 @@ export const useCreateDraftProject = ({
             onSubmit(project)
           }
         } else {
-          setError(`Error creating project: ${projectErrs[0].message}`)
-          setIsSubmitting(false)
+          throw new Error(projectErrs[0].message)
         }
       } catch (err: unknown) {
         const message = `Error creating project: ${err}`
         console.error(message) // eslint-disable-line no-console
-        setError(message)
-        setIsSubmitting(false)
+        throw new Error(message)
       }
     },
-    [projectName, templateID, onSubmit, user, installID, makePrivate],
+    [projectName, templateID, onSubmit, user, installID],
   )
 
-  return {
-    submitDraftProject,
-    isSubmitting,
-    error,
-  }
+  return createDraftProject
 }

@@ -32,12 +32,13 @@ export const TeamSelector: React.FC<{
   label?: string | false
 }> = props => {
   const { onChange, value: valueFromProps, className, allowEmpty, initialValue } = props
-  // console.log('TEAM SELECTOR', props)
   const { user } = useAuth()
+
   const teams = user?.teams?.map(({ team }) => team)
   const [selectedTeam, setSelectedTeam] = React.useState<Team['id'] | 'none' | undefined>(
     initialValue || 'none',
   )
+
   const prevSelectedTeam = React.useRef<Team['id'] | 'none' | undefined>(selectedTeam)
   const teamToSelectAfterUserUpdates = React.useRef<string | undefined>()
 

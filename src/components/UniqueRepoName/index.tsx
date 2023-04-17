@@ -26,7 +26,7 @@ export const UniqueRepoName: React.FC<{
   const isRequesting = useRef<string>('')
   const prevRepoOwner = useRef<string | undefined>(undefined)
   const [error, setError] = React.useState<string | null>(null)
-  const [isValid, setIsValid] = React.useState<boolean | undefined>(undefined)
+  const [isAvailable, setIsAvailable] = React.useState<boolean | undefined>(undefined)
 
   useEffect(() => {
     let timer: NodeJS.Timeout
@@ -40,7 +40,7 @@ export const UniqueRepoName: React.FC<{
     ) {
       isRequesting.current = debouncedValue
       prevRepoOwner.current = repositoryOwner
-      setIsValid(undefined)
+      setIsAvailable(undefined)
 
       const checkRepositoryName = async () => {
         // only show loading state if the request is slow
@@ -63,7 +63,7 @@ export const UniqueRepoName: React.FC<{
 
           clearTimeout(timer)
           const repoRes: GitHubResponse = await repoReq.json()
-          setIsValid(repoRes.status !== 200)
+          setIsAvailable(repoRes.status !== 200)
           setIsLoading(false)
         } catch (err: unknown) {
           clearTimeout(timer)
@@ -82,19 +82,23 @@ export const UniqueRepoName: React.FC<{
 
   // report changes to parent
   useEffect(() => {
-    if (typeof onChange === 'function') onChange(debouncedValue)
+    if (typeof onChange === 'function') {
+      onChange(debouncedValue)
+    }
   }, [debouncedValue, onChange])
 
   let description = 'Choose a repository name'
+  if (!debouncedValue) description = 'Please enter a repository name'
   if (error) description = error
-  if (debouncedValue && isValid === false)
+  if (debouncedValue && isAvailable === false)
     description = `'${debouncedValue}' is not available. Please choose another.`
-  if (debouncedValue && isValid) description = `'${debouncedValue}' is available`
+  if (debouncedValue && isAvailable) description = `'${debouncedValue}' is available`
 
   let icon: React.ReactNode = null
   if (isLoading) icon = <Spinner />
-  if (isValid) icon = <CheckIcon className={classes.check} size="medium" bold />
-  if (error || isValid === false) icon = <CloseIcon className={classes.error} size="medium" bold />
+  if (isAvailable) icon = <CheckIcon className={classes.check} size="medium" bold />
+  if (error || isAvailable === false)
+    icon = <CloseIcon className={classes.error} size="medium" bold />
 
   return (
     <div>
@@ -106,14 +110,18 @@ export const UniqueRepoName: React.FC<{
         onChange={setValue}
         placeholder="Choose the name of your repository"
         required
-        showError={Boolean(error || isValid === false)}
+        showError={Boolean(!value || error || isAvailable === false)}
         icon={icon}
+        validate={value => {
+          const newValid = Boolean(!value || error || isAvailable !== false)
+          return newValid
+        }}
       />
       <div
         className={[
           classes.description,
-          (error || isValid === false) && !isLoading && classes.error,
-          isValid && !isLoading && classes.success,
+          (!value || error || isAvailable === false) && !isLoading && classes.error,
+          isAvailable && !isLoading && classes.success,
         ]
           .filter(Boolean)
           .join(' ')}

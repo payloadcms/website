@@ -67,7 +67,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
             })
           : true
 
-      if (typeof validationResult === 'string') {
+      if (typeof validationResult === 'string' || validationResult === false) {
         fieldToDispatch.errorMessage = validationResult
         fieldToDispatch.valid = false
       }

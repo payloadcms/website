@@ -89,6 +89,7 @@ export const UniqueSlug: React.FC<{
   }, [debouncedValue, collection, teamID, initialValue, id])
 
   let description = 'Choose a team slug'
+  if (!debouncedValue) description = 'Choose a slug'
   if (error) description = error
   if (debouncedValue && isValid === false)
     description = `'${debouncedValue}' is not available. Please choose another.`
