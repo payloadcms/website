@@ -40,6 +40,7 @@ const RadioGroup: React.FC<
     initialValue,
     layout,
     hidden,
+    onClick,
   } = props
 
   const id = useId()
@@ -65,7 +66,7 @@ const RadioGroup: React.FC<
 
           return (
             <li key={index} className={classes.li}>
-              <label htmlFor={optionId} className={classes.radioWrap}>
+              <label htmlFor={optionId} className={classes.radioWrap} onClick={onClick}>
                 <input
                   id={optionId}
                   type="radio"

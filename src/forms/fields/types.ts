@@ -14,4 +14,5 @@ export interface FieldProps<T> {
   showError?: boolean
   icon?: React.ReactNode
   fullWidth?: boolean
+  onClick?: () => void
 }

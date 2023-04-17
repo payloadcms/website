@@ -12,7 +12,6 @@ import { FormField, SetValue } from './types'
 // 2. debounces its value and sends it to the form context
 // 3. runs field-level validation
 // 4. returns form state and field-level errors
-
 export const useFormField = <T extends Value>(options): FormField<T> => {
   const { path, validate, initialValue: initialValueFromProps, required } = options
 
@@ -127,7 +126,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
     ...options,
     showError,
     errorMessage: field?.errorMessage || apiError?.message,
-    value: internalValue,
+    value: field?.value || initialValue,
     formSubmitted: submitted,
     formProcessing: processing,
     setValue,

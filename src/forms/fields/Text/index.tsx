@@ -77,7 +77,11 @@ export const Text: React.FC<
   const value = valueFromProps || valueFromContext
 
   useEffect(() => {
-    if (valueFromProps !== undefined && valueFromProps !== valueFromContext) {
+    if (
+      valueFromProps !== undefined &&
+      valueFromProps !== prevValueFromProps.current &&
+      valueFromProps !== valueFromContext
+    ) {
       prevValueFromProps.current = valueFromProps
       onChange(valueFromProps)
     }

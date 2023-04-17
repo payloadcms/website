@@ -18,7 +18,7 @@ export const useCreateDraftProject = ({
   const { user } = useAuth()
 
   const createDraftProject = useCallback(
-    async (args: { repo: Partial<Repo>; makePrivate?: boolean }) => {
+    async (args: { repo: Partial<Repo>; makePrivate?: boolean }): Promise<void> => {
       const { repo, makePrivate } = args
 
       if (!user) {
@@ -58,7 +58,7 @@ export const useCreateDraftProject = ({
 
         if (projectReq.ok) {
           if (typeof onSubmit === 'function') {
-            onSubmit(project)
+            await onSubmit(project)
           }
         } else {
           throw new Error(projectErrs[0].message)

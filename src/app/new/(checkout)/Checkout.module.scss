@@ -2,44 +2,28 @@
 @use "../../../forms/fields/shared.scss";
 
 .header {
-    margin-bottom: calc(var(--base) * 3);
+    margin-bottom: calc(var(--base) * 2);
+}
 
+.formState {
+    & > * {
+        margin: 0;
+        margin-bottom: var(--base);
+
+        &:last-child {
+            margin-bottom: calc(var(--base) * 2);
+        }
+    }
+    
     @include mid-break {
-        margin-bottom: calc(var(--base) * 2);
+        & > * {    
+            margin-bottom: calc(var(--base) / 2);
+        }
     }
 }
 
 .error {
     color: var(--theme-error-500);
-}
-
-.formSubmissionError {
-    margin-bottom: calc(var(--base) * 3);
-    
-    @include mid-break {
-        margin-bottom: calc(var(--base) * 2);
-    }
-}
-
-.errors {
-    margin-bottom: calc(var(--base) * 3);
-    color: var(--theme-error-500);
-
-    & > * {
-        margin: 0;
-
-        &:not(:last-child) {
-            margin-bottom: calc(var(--base) / 2);
-        }
-    }
-    
-    @include mid-break {
-        margin-bottom: calc(var(--base) * 2);
-    }
-}
-
-.submitting {
-    margin-bottom: calc(var(--base) * 2);
 }
 
 .submit {

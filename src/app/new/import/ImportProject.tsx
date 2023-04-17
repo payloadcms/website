@@ -1,10 +1,9 @@
-import React, { Fragment, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import RadioGroup from '@forms/fields/RadioGroup'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
 import FormSubmissionError from '@forms/FormSubmissionError'
-import Submit from '@forms/Submit'
 import { useRouter } from 'next/navigation'
 
 import { Button } from '@components/Button'
@@ -24,6 +23,8 @@ export const ImportProject: React.FC = () => {
   const { user } = useAuth()
 
   const router = useRouter()
+  const submitButtonRef = React.useRef<HTMLButtonElement | null>(null)
+  const formRef = React.useRef<HTMLFormElement | null>(null)
   const [hoverIndex, setHoverIndex] = React.useState<number | undefined>(undefined)
 
   const [
@@ -41,9 +42,10 @@ export const ImportProject: React.FC = () => {
 
   const createDraftProject = useCreateDraftProject({
     installID: selectedInstall?.id,
-    onSubmit: ({ id: draftProjectID }) => {
-      router.push(`/new/configure/${draftProjectID}`)
-    },
+    onSubmit: async ({ id: draftProjectID }) =>
+      new Promise<void>(() => {
+        router.push(`/new/configure/${draftProjectID}`)
+      }),
   })
 
   const {
@@ -56,34 +58,47 @@ export const ImportProject: React.FC = () => {
     selectedInstall,
   })
 
+  const handleSubmit = useCallback(
+    async ({ unflattenedData }) => {
+      const foundRepo = results?.repos?.find(repo => repo.name === unflattenedData.repositoryName)
+
+      if (!foundRepo) {
+        throw new Error(`Please select a repository to import.`)
+      }
+
+      await createDraftProject({
+        repo: foundRepo,
+      })
+    },
+    [createDraftProject, results],
+  )
+
+  const onRepoChange = useCallback(() => {
+    const { current } = submitButtonRef
+    if (current) {
+      current.click()
+    }
+  }, [])
+
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer()
   const noTeams = !user?.teams || user?.teams.length === 0
 
   return (
-    <Form
-      onSubmit={({ unflattenedData }) => {
-        const foundRepo = results.repos.find(repo => repo.name === unflattenedData?.repositoryName)
-        if (foundRepo) {
-          createDraftProject({
-            repo: foundRepo,
-          })
-        }
-      }}
-    >
+    <Form ref={formRef} onSubmit={handleSubmit}>
       <Gutter>
-        {noTeams && (
-          <div className={classes.errors}>
-            <p>
+        <div className={classes.formState}>
+          {noTeams && (
+            <p className={classes.error}>
               {`You must be a member of a team to create a project. `}
               <TeamDrawerToggler className={classes.createTeamLink}>
                 Create a new team
               </TeamDrawerToggler>
               {'.'}
             </p>
-          </div>
-        )}
-        <FormProcessing />
-        <FormSubmissionError />
+          )}
+          <FormProcessing message="Creating project, one moment..." />
+          <FormSubmissionError />
+        </div>
         <Grid>
           <Cell cols={4} colsM={8} className={classes.sidebarCell}>
             <div className={classes.sidebar}>
@@ -104,9 +119,12 @@ export const ImportProject: React.FC = () => {
             {!loadingInstalls && !loadingRepos && results?.repos?.length > 0 && (
               <RadioGroup
                 className={classes.repos}
+                initialValue=""
                 path="repositoryName"
                 layout="vertical"
                 hidden
+                required
+                onChange={onRepoChange}
                 options={results?.repos?.map((repo, index) => {
                   const { name, description } = repo
                   const isHovered = hoverIndex === index
@@ -124,7 +142,11 @@ export const ImportProject: React.FC = () => {
                           <h6 className={classes.repoName}>{name}</h6>
                           {description && <p className={classes.repoDescription}>{description}</p>}
                         </div>
-                        <Submit label="Import" appearance="primary" />
+                        <Button
+                          label="Import"
+                          appearance="primary"
+                          className={classes.importButton}
+                        />
                         <LineDraw align="bottom" active={isHovered} />
                       </div>
                     ),
@@ -196,6 +218,13 @@ export const ImportProject: React.FC = () => {
         </Grid>
       </Gutter>
       <TeamDrawer />
+      <button
+        ref={submitButtonRef}
+        // this button is hidden and programmatically clicked when a repo is selected
+        // see the `onChange` handler on the `RadioGroup` above
+        type="submit"
+        className={classes.submit}
+      />
     </Form>
   )
 }

@@ -1,13 +1,12 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Validate, Value } from '@forms/types'
 import { useFormField } from '@forms/useFormField'
 
-// the purpose of this hook is to provide a way to;
+// the purpose of this hook is to provide a way to:
 // 1. allow the field to update its own value without debounce
 // 2. conditionally report the updated value to the form
 // 3. allow the field be controlled externally either through props or form context
 // 4. standardize repetitive logic across all fields
-
 export const useField = <T extends Value>(props: {
   path?: string
   initialValue?: T
@@ -21,11 +20,12 @@ export const useField = <T extends Value>(props: {
   errorMessage?: string
 } => {
   const { path, onChange: onChangeFromProps, validate, initialValue, required } = props
+  const hasInitialized = useRef(false)
 
   const {
     value: valueFromContext,
     showError,
-    setValue: setContextValue,
+    setValue: setValueInContext,
     errorMessage,
   } = useFormField<T>({
     path,
@@ -47,18 +47,23 @@ export const useField = <T extends Value>(props: {
 
   const onChange = useCallback(
     (incomingValue: T) => {
+      hasInitialized.current = true
       setInternalState(incomingValue)
 
-      if (typeof setContextValue === 'function') {
-        setContextValue(incomingValue)
-      }
-
-      if (typeof onChangeFromProps === 'function') {
-        onChangeFromProps(incomingValue)
+      if (typeof setValueInContext === 'function') {
+        setValueInContext(incomingValue)
       }
     },
-    [onChangeFromProps, setContextValue],
+    [setValueInContext],
   )
+
+  useEffect(() => {
+    if (hasInitialized.current) {
+      if (typeof onChangeFromProps === 'function') {
+        onChangeFromProps(valueFromContext)
+      }
+    }
+  }, [valueFromContext, onChangeFromProps])
 
   return {
     onChange,

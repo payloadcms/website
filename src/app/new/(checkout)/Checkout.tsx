@@ -161,15 +161,13 @@ const Checkout: React.FC<{
   return (
     <Form onSubmit={deploy}>
       <Gutter>
-        <FormProcessing message="Deploying project, one moment..." />
-        <FormSubmissionError className={classes.formSubmissionError} />
-        {(installsError || errorDeleting) && (
-          <div className={classes.errors}>
-            {installsError && <p className={classes.error}>{installsError}</p>}
-            {errorDeleting && <p className={classes.error}>{errorDeleting}</p>}
-          </div>
-        )}
-        {deleting && <p className={classes.submitting}>Deleting draft project, one moment...</p>}
+        <div className={classes.formState}>
+          <FormProcessing message="Deploying project, one moment..." />
+          <FormSubmissionError />
+          {installsError && <p className={classes.error}>{installsError}</p>}
+          {errorDeleting && <p className={classes.error}>{errorDeleting}</p>}
+          {deleting && <p>Deleting draft project, one moment...</p>}
+        </div>
         <Grid>
           <Cell cols={3} colsM={8} className={classes.sidebarCell}>
             <div className={classes.sidebar}>

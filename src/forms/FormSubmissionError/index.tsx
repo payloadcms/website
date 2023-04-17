@@ -1,5 +1,5 @@
 import React from 'react'
-import { useForm, useFormModified, useFormSubmitted } from '@forms/Form/context'
+import { useForm, useFormModified, useFormProcessing, useFormSubmitted } from '@forms/Form/context'
 
 import classes from './index.module.scss'
 
@@ -12,8 +12,9 @@ const FormSubmissionError: React.FC<{
   const { submissionError } = useForm()
   const hasSubmitted = useFormSubmitted()
   const isModified = useFormModified()
+  const isProcessing = useFormProcessing()
 
-  if (hasSubmitted && !isModified && submissionError) {
+  if (hasSubmitted && submissionError && !isModified && !isProcessing) {
     return (
       <p className={[className, classes.formSubmissionError].filter(Boolean).join(' ')}>
         {message || submissionError}

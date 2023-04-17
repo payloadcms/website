@@ -1,6 +1,14 @@
 'use client'
 
-import React, { ChangeEvent, useCallback, useEffect, useReducer, useRef, useState } from 'react'
+import React, {
+  ChangeEvent,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from 'react'
 
 import { Data, Field, IFormContext, InitialState, OnSubmit } from '../types'
 import {
@@ -18,7 +26,7 @@ const defaultInitialState = {}
 
 export type FormProps = {
   onSubmit?: OnSubmit
-  children: React.ReactNode
+  children: React.ReactNode | ((context: IFormContext) => React.ReactNode)
   initialState?: InitialState
   method?: 'GET' | 'POST'
   action?: string
@@ -29,7 +37,7 @@ export type FormProps = {
   }[]
 }
 
-const Form: React.FC<FormProps> = props => {
+const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
   const {
     onSubmit,
     children,
@@ -132,6 +140,7 @@ const Form: React.FC<FormProps> = props => {
       noValidate
       onSubmit={contextRef.current.handleSubmit}
       className={className}
+      ref={ref}
     >
       <FormContext.Provider
         value={{
@@ -143,13 +152,15 @@ const Form: React.FC<FormProps> = props => {
         <FieldContext.Provider value={contextRef.current}>
           <FormSubmittedContext.Provider value={hasSubmitted}>
             <ProcessingContext.Provider value={isProcessing}>
-              <ModifiedContext.Provider value={isModified}>{children}</ModifiedContext.Provider>
+              <ModifiedContext.Provider value={isModified}>
+                {typeof children === 'function' ? children(contextRef.current) : children}
+              </ModifiedContext.Provider>
             </ProcessingContext.Provider>
           </FormSubmittedContext.Provider>
         </FieldContext.Provider>
       </FormContext.Provider>
     </form>
   )
-}
+})
 
 export default Form

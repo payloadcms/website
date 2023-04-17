@@ -105,7 +105,7 @@ export const CloneTemplate: React.FC<{
                 path="makePrivate"
               />
             </div>
-            <Submit label="Create Project" appearance="primary" icon />
+            <Submit label="Create Project" appearance="primary" />
           </Cell>
         </Grid>
       </Gutter>
