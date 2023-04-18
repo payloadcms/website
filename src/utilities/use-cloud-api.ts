@@ -146,14 +146,14 @@ export const useGetProjects: UseCloudAPI<
       team: {
         in: teams,
       },
+      ...(search
+        ? {
+            name: {
+              like: search,
+            },
+          }
+        : {}),
     },
-    ...(search && search?.length >= 3
-      ? {
-          name: {
-            like: search,
-          },
-        }
-      : {}),
   })
 
   const response = useCloudAPI<{

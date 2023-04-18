@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { NewProjectBlock } from '@blocks/NewProject'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
@@ -12,6 +12,7 @@ import { LoadingShimmer } from '@components/LoadingShimmer'
 import { TeamSelector } from '@components/TeamSelector'
 import { useAuth } from '@root/providers/Auth'
 import { useGetProjects } from '@root/utilities/use-cloud-api'
+import useDebounce from '@root/utilities/use-debounce'
 
 import classes from './index.module.scss'
 
@@ -19,7 +20,8 @@ export const CloudHomePage = () => {
   const { user } = useAuth()
   const [selectedTeam, setSelectedTeam] = React.useState<string | 'none'>()
   const [search, setSearch] = React.useState<string>('')
-  const [hasLoaded, setHasLoaded] = React.useState<boolean>(false)
+  const [searchedTerm, setSearchedTerm] = React.useState<string>(search)
+  const debouncedSearch = useDebounce(search, 100)
 
   const {
     isLoading,
@@ -27,22 +29,17 @@ export const CloudHomePage = () => {
     result: projects,
   } = useGetProjects({
     teams: selectedTeam ? [selectedTeam] : undefined,
-    search,
+    search: debouncedSearch,
   })
 
-  React.useEffect(() => {
+  // this will avoid rendering race conditions
+  // where the `NewProjectBlock` will flash on the screen
+  // before the `useGetProjects` hook has started loading
+  useEffect(() => {
     if (isLoading === false) {
-      setHasLoaded(true)
+      setSearchedTerm(debouncedSearch)
     }
-  }, [isLoading])
-
-  if (!hasLoaded) {
-    return (
-      <Gutter>
-        <LoadingShimmer number={3} />
-      </Gutter>
-    )
-  }
+  }, [isLoading, debouncedSearch])
 
   const matchedTeam = user?.teams?.find(({ team }) =>
     typeof team === 'string' ? team === selectedTeam : team?.id === selectedTeam,
@@ -58,7 +55,9 @@ export const CloudHomePage = () => {
           <Text
             placeholder="Search projects"
             initialValue={search}
-            onChange={setSearch}
+            onChange={(incomingSearch: string) => {
+              setSearch(incomingSearch)
+            }}
             className={classes.search}
             fullWidth={false}
           />
@@ -81,17 +80,17 @@ export const CloudHomePage = () => {
         </div>
         {isLoading && <LoadingShimmer number={3} />}
       </Gutter>
-      {!isLoading && hasLoaded && projects && projects.length === 0 && (
+      {!isLoading && projects?.length === 0 && searchedTerm.length === 0 && (
         <NewProjectBlock
-          heading={`Team '${teamName}' has no projects`}
+          heading={selectedTeam ? `Team '${teamName}' has no projects` : `You have no projects`}
           cardLeader="New"
           headingElement="h3"
         />
       )}
-      {!isLoading && hasLoaded && projects && projects.length > 0 && (
+      {!isLoading && (projects?.length > 0 || searchedTerm.length > 0) && (
         <Gutter>
           <div className={classes.content}>
-            {projects && projects.length === 0 && search?.length > 0 && (
+            {projects && projects.length === 0 && searchedTerm?.length > 0 && (
               <p className={classes.noResults}>
                 {"Your search didn't return any results, please try again."}
               </p>

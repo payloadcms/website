@@ -54,19 +54,24 @@ export const useField = <T extends Value>(props: {
       if (typeof setValueInContext === 'function') {
         setValueInContext(incomingValue)
       }
+
+      // if the field is not controlled by the form context, we need to report the change immediately
+      // however, if the field is controlled by the form context (`path`), we need to wait for the debounced value
+      // this is because the form context will not have updated the value here yet, see note below
+      if (!path && typeof onChangeFromProps === 'function') {
+        onChangeFromProps(incomingValue)
+      }
     },
-    [setValueInContext],
+    [setValueInContext, onChangeFromProps, path],
   )
 
-  // this effect is dependent on the `debouncedValue` because we only want to report
-  // the `onChange` event _after_ the value has been fully updated in the form context
+  // this effect is dependent on the `debouncedValue` because we only want to report the `onChange` event _after_
+  // the value has been fully updated in the form context (if applicable, see note above)
   useEffect(() => {
-    if (hasInitialized.current) {
-      if (typeof onChangeFromProps === 'function') {
-        onChangeFromProps(debouncedValueFromContext)
-      }
+    if (hasInitialized.current && path && typeof onChangeFromProps === 'function') {
+      onChangeFromProps(debouncedValueFromContext)
     }
-  }, [debouncedValueFromContext, onChangeFromProps])
+  }, [debouncedValueFromContext, onChangeFromProps, path])
 
   return {
     onChange,
