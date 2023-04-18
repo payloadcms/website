@@ -70,9 +70,6 @@ export const SettingsPage = () => {
       <Heading marginTop={false} marginBottom={false} element="h1" as="h6">
         Account Settings
       </Heading>
-      <div className={classes.formState}>
-        <Message success={success} />
-      </div>
       <Grid>
         <Cell cols={6} colsM={8}>
           <p>
@@ -134,6 +131,7 @@ export const SettingsPage = () => {
             }}
             onSubmit={handleSubmit}
           >
+            <Message success={success} />
             <FormSubmissionError />
             <FormProcessing message="Updating profile, one moment" />
             {formToShow === 'account' && (

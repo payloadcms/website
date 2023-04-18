@@ -85,8 +85,8 @@ export const Login: React.FC = () => {
       </Heading>
       <Grid>
         <Cell cols={5} colsM={8}>
-          <Message error={errorParam} success={successParam} warning={warningParam} />
           <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
+            <Message error={errorParam} success={successParam} warning={warningParam} />
             <FormSubmissionError />
             <FormProcessing message="Logging in, one moment..." />
             <Text
