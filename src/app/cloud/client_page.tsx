@@ -9,6 +9,7 @@ import { Button } from '@components/Button'
 import { ProjectCard } from '@components/cards/ProjectCard'
 import { Gutter } from '@components/Gutter'
 import { LoadingShimmer } from '@components/LoadingShimmer'
+import { Pagination } from '@components/Pagination'
 import { TeamSelector } from '@components/TeamSelector'
 import { useAuth } from '@root/providers/Auth'
 import { useGetProjects } from '@root/utilities/use-cloud-api'
@@ -22,14 +23,12 @@ export const CloudHomePage = () => {
   const [search, setSearch] = React.useState<string>('')
   const [searchedTerm, setSearchedTerm] = React.useState<string>(search)
   const debouncedSearch = useDebounce(search, 100)
+  const [page, setPage] = React.useState<number>(1)
 
-  const {
-    isLoading,
-    error,
-    result: projects,
-  } = useGetProjects({
+  const { isLoading, error, result } = useGetProjects({
     teams: selectedTeam ? [selectedTeam] : undefined,
     search: debouncedSearch,
+    page,
   })
 
   // this will avoid rendering race conditions
@@ -80,24 +79,24 @@ export const CloudHomePage = () => {
         </div>
         {isLoading && <LoadingShimmer number={3} />}
       </Gutter>
-      {!isLoading && projects?.length === 0 && searchedTerm.length === 0 && (
+      {!isLoading && result?.docs?.length === 0 && searchedTerm.length === 0 && (
         <NewProjectBlock
           heading={selectedTeam ? `Team '${teamName}' has no projects` : `You have no projects`}
           cardLeader="New"
           headingElement="h3"
         />
       )}
-      {!isLoading && (projects?.length > 0 || searchedTerm.length > 0) && (
+      {!isLoading && (result?.docs?.length > 0 || searchedTerm.length > 0) && (
         <Gutter>
           <div className={classes.content}>
-            {projects && projects.length === 0 && searchedTerm?.length > 0 && (
+            {result?.docs.length === 0 && searchedTerm?.length > 0 && (
               <p className={classes.noResults}>
                 {"Your search didn't return any results, please try again."}
               </p>
             )}
-            {Array.isArray(projects) && projects.length > 0 && (
+            {result?.docs.length > 0 && (
               <Grid className={classes.projects}>
-                {projects.map((project, index) => (
+                {result?.docs?.map((project, index) => (
                   <Cell key={index} cols={4}>
                     <ProjectCard project={project} className={classes.projectCard} />
                   </Cell>
@@ -105,6 +104,9 @@ export const CloudHomePage = () => {
               </Grid>
             )}
           </div>
+          {result?.totalPages > 1 && (
+            <Pagination page={page} totalPages={result?.totalPages} setPage={setPage} />
+          )}
         </Gutter>
       )}
     </Fragment>

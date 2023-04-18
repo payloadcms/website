@@ -10,6 +10,7 @@ import { Button } from '@components/Button'
 import { ProjectCard } from '@components/cards/ProjectCard'
 import { Gutter } from '@components/Gutter'
 import { LoadingShimmer } from '@components/LoadingShimmer'
+import { Pagination } from '@components/Pagination'
 import { useGetProjects } from '@root/utilities/use-cloud-api'
 import { useRouteData } from '../context'
 
@@ -18,17 +19,14 @@ import classes from './index.module.scss'
 export const TeamPage = () => {
   const { team } = useRouteData()
   const [hasLoaded, setHasLoaded] = React.useState<boolean>(false)
-
+  const [page, setPage] = React.useState<number>(1)
   const [search, setSearch] = React.useState<string>('')
 
-  const {
-    isLoading,
-    error,
-    result: projects,
-  } = useGetProjects({
+  const { isLoading, error, result } = useGetProjects({
     teams: [typeof team === 'object' && team !== null ? team.id : team],
     search,
     delay: 500,
+    page,
   })
 
   React.useEffect(() => {
@@ -45,7 +43,7 @@ export const TeamPage = () => {
     )
   }
 
-  if (hasLoaded && projects && projects.length === 0) {
+  if (hasLoaded && result?.docs.length === 0) {
     return <NewProjectBlock cardLeader="New" headingElement="h2" />
   }
 
@@ -73,21 +71,21 @@ export const TeamPage = () => {
         <LoadingShimmer number={3} />
       ) : (
         <div className={classes.content}>
-          {projects && projects.length === 0 && (!search || search.length === 0) && (
+          {result?.docs?.length === 0 && (!search || search.length === 0) && (
             <p className={classes.noProjects}>
               {"You don't have any projects yet, "}
               <Link href="/new">create a new project</Link>
               {' to get started.'}
             </p>
           )}
-          {projects && projects.length === 0 && search?.length > 0 && (
+          {result?.docs?.length === 0 && search?.length > 0 && (
             <p className={classes.noResults}>
               {"Your search didn't return any results, please try again."}
             </p>
           )}
-          {Array.isArray(projects) && projects.length > 0 && (
+          {result?.docs.length > 0 && (
             <Grid className={classes.projects}>
-              {projects.map((project, index) => (
+              {result.docs.map((project, index) => (
                 <Cell key={index} cols={4}>
                   <ProjectCard project={project} className={classes.projectCard} />
                 </Cell>
@@ -95,6 +93,9 @@ export const TeamPage = () => {
             </Grid>
           )}
         </div>
+      )}
+      {result?.totalPages > 1 && (
+        <Pagination page={page} totalPages={result?.totalPages} setPage={setPage} />
       )}
     </Gutter>
   )
