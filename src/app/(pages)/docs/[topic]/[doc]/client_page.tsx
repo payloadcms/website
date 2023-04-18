@@ -49,6 +49,7 @@ export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
             <Link
               className={classes[`next--${theme}`]}
               href={`/docs/${next.topic.toLowerCase()}/${next.slug}`}
+              data-algolia-no-crawl
             >
               <div className={classes.nextLabel}>
                 Next <ArrowIcon />
