@@ -73,6 +73,7 @@ export const ImportProject: React.FC = () => {
     [createDraftProject, results],
   )
 
+  // automatically submit the form when a repo is selected
   const onRepoChange = useCallback(() => {
     const { current } = submitButtonRef
     if (current) {

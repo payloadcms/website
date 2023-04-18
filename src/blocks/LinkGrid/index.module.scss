@@ -22,12 +22,15 @@
     text-decoration: none;
     display: flex;
     padding: calc(var(--base) * 2) 0;
+    // NOTE: do not `align-items: center;` here
+    // this is bcc we want the text to wrap without the icon vertically centering
+    // instead, use a static `top` value on the icon
 
     &:focus {
         text-decoration: none;
     }
 
-    @include mid-break {
+    @include small-break {
         padding: var(--base) 0;
     }
 }
@@ -37,8 +40,8 @@
     top: 8px;
     position: relative;
 
-    @include mid-break {
-        top: 2px;
+    @include small-break {
+        top: 5px;
         width: calc(var(--base) / 1.5) !important;
         height: calc(var(--base) / 1.5) !important;
     }

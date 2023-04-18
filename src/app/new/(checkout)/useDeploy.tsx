@@ -70,7 +70,7 @@ export const useDeploy = (args: {
     [elements, stripe, checkoutState],
   )
 
-  const makeCardPayment = useCallback(
+  const confirmCardPayment = useCallback(
     async (subscription: PayloadStripeSubscription): Promise<PaymentIntent | null> => {
       if (!subscription) {
         throw new Error('No subscription')
@@ -80,27 +80,33 @@ export const useDeploy = (args: {
         throw new Error('No payment intent or checkout state')
       }
 
-      const { client_secret: clientSecret } = subscription
+      const { paid, client_secret: clientSecret } = subscription
       const { paymentMethod } = checkoutState
 
-      if (!clientSecret) {
-        throw new Error('No client secret')
+      if (!paid && !clientSecret) {
+        throw new Error(`Could not confirm payment, no client secret`)
       }
 
-      const stripePayment = await stripe.confirmCardPayment(clientSecret, {
-        payment_method:
-          !paymentMethod || paymentMethod.startsWith('new-card')
-            ? {
-                card: elements.getElement(StripeCardElement) as StripeCardElementType,
-              }
-            : paymentMethod,
-      })
+      // free trials never return a client secret because their initial $0 invoice is pre-paid
+      // this is the case for both existing payment methods as well as new cards
+      if (!paid && clientSecret) {
+        const stripePayment = await stripe.confirmCardPayment(clientSecret, {
+          payment_method:
+            !paymentMethod || paymentMethod.startsWith('new-card')
+              ? {
+                  card: elements.getElement(StripeCardElement) as StripeCardElementType,
+                }
+              : paymentMethod,
+        })
 
-      if (stripePayment.error) {
-        throw new Error(stripePayment.error.message)
+        if (stripePayment.error) {
+          throw new Error(stripePayment.error.message)
+        }
+
+        return stripePayment.paymentIntent
       }
 
-      return stripePayment.paymentIntent
+      return null
     },
     [elements, stripe, checkoutState],
   )
@@ -122,18 +128,14 @@ export const useDeploy = (args: {
           throw new Error(`No plan selected`)
         }
 
-        // first create a setup intent
-        const setupIntent = await createSetupIntent()
-
-        // then confirm the card setup
+        // first create a setup intent and confirm it
         // this will ensure that payment methods are supplied even for trials
+        const setupIntent = await createSetupIntent()
         await confirmCardSetup(setupIntent)
 
-        // next create a subscription
+        // next create a subscription and confirm it's payment
         const subscription = await createSubscription()
-
-        // finally pay for it (only applies to non-trials)
-        await makeCardPayment(subscription)
+        await confirmCardPayment(subscription)
 
         // finally attempt to deploy the project
         const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deploy`, {
@@ -184,7 +186,7 @@ export const useDeploy = (args: {
       createSubscription,
       confirmCardSetup,
       createSetupIntent,
-      makeCardPayment,
+      confirmCardPayment,
     ],
   )
 
