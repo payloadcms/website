@@ -100,27 +100,6 @@
     color: var(--theme-text-500);
 }
 
-.pagination {
-    margin-top: calc(var(--base) * 2);
-    display: flex;
-    align-items: center;
-}
-
-.paginationPage {
-    margin: 0 var(--base);
-}
-
-.paginationButton {
-    background: var(--theme-elevation-500);
-    border: 0;
-    outline: none;
-    line-height: inherit;
-    font-size: inherit;
-    font-family: inherit;
-    cursor: pointer;
-    padding: 0 calc(var(--base) / 2);
-}
-
 .createTeamLink {
     background-color: transparent;
     line-height: inherit;

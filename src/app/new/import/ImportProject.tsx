@@ -12,6 +12,7 @@ import { useInstallationButton } from '@components/InstallationButton'
 import { useInstallationSelector } from '@components/InstallationSelector'
 import { LineDraw } from '@components/LineDraw'
 import { LoadingShimmer } from '@components/LoadingShimmer'
+import { Pagination } from '@components/Pagination'
 import { useTeamDrawer } from '@components/TeamDrawer'
 import { useAuth } from '@root/providers/Auth'
 import { useGetRepos } from '../../../utilities/use-get-repos'
@@ -181,39 +182,11 @@ export const ImportProject: React.FC = () => {
               </div>
             )}
             {installs?.length > 0 && results.total_count / perPage > 1 && (
-              <div className={classes.pagination}>
-                <button
-                  disabled={page - 1 < 1}
-                  onClick={() => {
-                    if (page - 1 < 1) return
-
-                    setTimeout(() => {
-                      window.scrollTo(0, 0)
-                    }, 0)
-                    setPage(page > 1 ? page - 1 : 1)
-                  }}
-                  className={classes.paginationButton}
-                >
-                  &#8249;
-                </button>
-                <span className={classes.paginationPage}>
-                  {`Page ${page} of ${Math.ceil(results.total_count / perPage)}`}
-                </span>
-                <button
-                  disabled={page + 1 > Math.ceil(results.total_count / perPage)}
-                  onClick={() => {
-                    if (page + 1 > Math.ceil(results.total_count / perPage)) return
-
-                    setTimeout(() => {
-                      window.scrollTo(0, 0)
-                    }, 0)
-                    setPage(page + 1)
-                  }}
-                  className={classes.paginationButton}
-                >
-                  &#8250;
-                </button>
-              </div>
+              <Pagination
+                page={page}
+                setPage={setPage}
+                totalPages={Math.ceil(results.total_count / perPage)}
+              />
             )}
           </Cell>
         </Grid>
