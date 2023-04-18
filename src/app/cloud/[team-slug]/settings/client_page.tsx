@@ -36,63 +36,66 @@ export const TeamSettingsPage = () => {
   const [success, setSuccess] = React.useState<boolean>(false)
 
   const handleSubmit: OnSubmit = React.useCallback(
-    async ({ unflattenedData, dispatchFields }) => {
-      if (user) {
-        setTimeout(() => {
-          window.scrollTo(0, 0)
-        }, 0)
+    async ({ unflattenedData, dispatchFields }): Promise<void> => {
+      setTimeout(() => {
+        window.scrollTo(0, 0)
+      }, 0)
 
-        setError(undefined)
-
-        const updatedTeam: Partial<Team> = {
-          ...(unflattenedData || {}),
-          // flatten `roles` to an array of values
-          // there's probably a better way to do this like using `flattenedData` or modifying the API handler
-          sendEmailInvitationsTo: unflattenedData?.sendEmailInvitationsTo?.map(invite => ({
-            email: invite?.email,
-            roles: invite?.roles?.map(role => role?.value),
-          })),
-        }
-
-        const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team.id}`, {
-          method: 'PATCH',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(updatedTeam),
-        })
-
-        const response: {
-          doc: Team
-          message: string
-          errors: {
-            message: string
-            name: string
-            data: { message: string; field: string }[]
-          }[]
-        } = await req.json()
-
-        if (!req.ok) {
-          setError(response?.errors?.[0])
-          return
-        }
-
-        setError(undefined)
-        setSuccess(true)
-        setTeam(response.doc)
-
-        // if the team slug has changed, redirect to the new URL
-        if (response.doc.slug !== team.slug) {
-          router.push(`/cloud/${response.doc.slug}/settings`)
-        }
-
-        // TODO: update the form state with the new team data
-        // dispatchFields({
-        //   type: 'REPLACE_STATE',
-        //   state:
-        // })
+      if (!user) {
+        // throw new Error('You must be logged in to update a team')
+        return
       }
+
+      setError(undefined)
+
+      const updatedTeam: Partial<Team> = {
+        ...(unflattenedData || {}),
+        // flatten `roles` to an array of values
+        // there's probably a better way to do this like using `flattenedData` or modifying the API handler
+        sendEmailInvitationsTo: unflattenedData?.sendEmailInvitationsTo?.map(invite => ({
+          email: invite?.email,
+          roles: invite?.roles?.map(role => role?.value),
+        })),
+      }
+
+      const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team.id}`, {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedTeam),
+      })
+
+      const response: {
+        doc: Team
+        message: string
+        errors: {
+          message: string
+          name: string
+          data: { message: string; field: string }[]
+        }[]
+      } = await req.json()
+
+      if (!req.ok) {
+        setError(response?.errors?.[0])
+        return
+      }
+
+      setError(undefined)
+      setSuccess(true)
+      setTeam(response.doc)
+
+      // if the team slug has changed, redirect to the new URL
+      if (response.doc.slug !== team.slug) {
+        router.push(`/cloud/${response.doc.slug}/settings`)
+      }
+
+      // TODO: update the form state with the new team data
+      // dispatchFields({
+      //   type: 'REPLACE_STATE',
+      //   state:
+      // })
     },
     [user, team, setTeam, router],
   )

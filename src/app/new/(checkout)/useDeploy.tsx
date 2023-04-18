@@ -113,8 +113,6 @@ export const useDeploy = (args: {
 
   const deploy: OnSubmit = useCallback(
     async ({ unflattenedData: formState }) => {
-      setTimeout(() => window.scrollTo(0, 0), 0)
-
       try {
         if (!installID) {
           throw new Error(`No installation ID was found for this project.`)
@@ -128,10 +126,19 @@ export const useDeploy = (args: {
           throw new Error(`No plan selected`)
         }
 
+        setTimeout(() => window.scrollTo(0, 0), 0)
+
         // first create a setup intent and confirm it
         // this will ensure that payment methods are supplied even for trials
         const setupIntent = await createSetupIntent()
         await confirmCardSetup(setupIntent)
+
+        // only scroll-to-top after the card has been confirmed
+        // Stripe automatically scrolls to the `CardElement` if an error occurs
+        // this gets interrupted if this scroll-to-top is fired immediately
+        // afaik there's no way to prevent this behavior, so instead we'll just scroll after
+        // this also means that we need to scroll in the catch block as well
+        setTimeout(() => window.scrollTo(0, 0), 0)
 
         // next create a subscription and confirm it's payment
         const subscription = await createSubscription()
@@ -173,6 +180,7 @@ export const useDeploy = (args: {
           throw new Error(res.error || res.message)
         }
       } catch (err: unknown) {
+        setTimeout(() => window.scrollTo(0, 0), 0)
         const message = err instanceof Error ? err.message : 'Unknown error'
         throw new Error(`Error deploying project: ${message}`)
       }

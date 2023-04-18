@@ -21,15 +21,17 @@ export const useCreateDraftProject = ({
     async (args: { repo: Partial<Repo>; makePrivate?: boolean }): Promise<void> => {
       const { repo, makePrivate } = args
 
+      setTimeout(() => {
+        window.scrollTo(0, 0)
+      }, 0)
+
       if (!user) {
-        return
+        throw new Error('You must be logged in to create a project')
       }
 
       if (!user.teams || user.teams.length === 0) {
         throw new Error('You must be a member of a team to create a project')
       }
-
-      window.scrollTo(0, 0)
 
       try {
         const projectReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects`, {
