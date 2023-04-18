@@ -24,6 +24,7 @@ export const useField = <T extends Value>(props: {
 
   const {
     value: valueFromContext,
+    debouncedValue: debouncedValueFromContext,
     showError,
     setValue: setValueInContext,
     errorMessage,
@@ -57,13 +58,15 @@ export const useField = <T extends Value>(props: {
     [setValueInContext],
   )
 
+  // this effect is dependent on the `debouncedValue` because we only want to report
+  // the `onChange` event _after_ the value has been fully updated in the form context
   useEffect(() => {
     if (hasInitialized.current) {
       if (typeof onChangeFromProps === 'function') {
-        onChangeFromProps(valueFromContext)
+        onChangeFromProps(debouncedValueFromContext)
       }
     }
-  }, [valueFromContext, onChangeFromProps])
+  }, [debouncedValueFromContext, onChangeFromProps])
 
   return {
     onChange,

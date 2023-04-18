@@ -106,7 +106,6 @@ export const UniqueRepoName: React.FC<{
         label="Repository name"
         path="repositoryName"
         initialValue={initialValue}
-        value={value}
         onChange={setValue}
         placeholder="Choose the name of your repository"
         required

@@ -106,7 +106,6 @@ export const UniqueSlug: React.FC<{
         label={label}
         path={path}
         initialValue={initialValue}
-        value={value}
         onChange={setValue}
         required
         icon={icon}
