@@ -64,6 +64,7 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
       e.preventDefault()
       e.stopPropagation()
       setHasSubmitted(true)
+      setErrorFromSubmit(undefined)
 
       const formIsValid = contextRef.current.validateForm()
 
