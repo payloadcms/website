@@ -164,8 +164,8 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment, setBuilt, setDeplo
                       className={[activeTab !== 'build' ? classes.inactiveIndicator : '']
                         .filter(Boolean)
                         .join(' ')}
-                      status={deployment.deploymentStatus === 'ERROR' ? 'error' : 'success'}
-                      spinner={deployment.deploymentStatus === 'BUILDING'}
+                      status={deployment.buildStepStatus === 'ERROR' ? 'error' : 'success'}
+                      spinner={deployment.buildStepStatus === 'RUNNING'}
                     />
                     Build Logs
                   </div>
@@ -177,15 +177,15 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment, setBuilt, setDeplo
               },
             hasDeployLog &&
               deployLogs &&
-              deployment?.deploymentStatus !== 'ERROR' && {
+              deployment.buildStepStatus !== 'ERROR' && {
                 label: (
                   <div className={classes.tabLabel}>
                     <Indicator
                       className={[activeTab !== 'deploy' ? classes.inactiveIndicator : '']
                         .filter(Boolean)
                         .join(' ')}
-                      status={'success'}
-                      spinner={deployment.deploymentStatus === 'DEPLOYING'}
+                      status={deployment.deployStepStatus === 'ERROR' ? 'error' : 'success'}
+                      spinner={deployment.deployStepStatus === 'RUNNING'}
                     />
                     Deploy Logs
                   </div>
