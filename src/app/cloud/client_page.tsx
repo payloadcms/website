@@ -33,7 +33,7 @@ export const CloudHomePage = () => {
 
   // this will avoid rendering race conditions
   // where the `NewProjectBlock` will flash on the screen
-  // before the `useGetProjects` hook has started loading
+  // and conflict with the `useGetProjects` loading state
   useEffect(() => {
     if (isLoading === false) {
       setSearchedTerm(debouncedSearch)
@@ -83,7 +83,7 @@ export const CloudHomePage = () => {
         <NewProjectBlock
           heading={selectedTeam ? `Team '${teamName}' has no projects` : `You have no projects`}
           cardLeader="New"
-          headingElement="h3"
+          headingElement="h4"
         />
       )}
       {!isLoading && (result?.docs?.length > 0 || searchedTerm.length > 0) && (
