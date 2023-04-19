@@ -92,6 +92,7 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment, setBuilt, setDeplo
   const hasBuildLog = deployment?.deploymentStatus
     ? buildLogStates.includes(deployment.deploymentStatus)
     : false
+
   useWebSocket({
     url: hasBuildLog
       ? `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deployments/${deployment.id}/logs?logType=BUILD`.replace(
@@ -132,7 +133,7 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment, setBuilt, setDeplo
     }
 
     // automatically switch to deploy logs if both are available
-    if (hasBuildLog && hasDeployLog) {
+    if (hasBuildLog && hasDeployLog && deployment?.deploymentStatus !== 'ERROR') {
       setActiveTab('deploy')
     }
 
@@ -163,11 +164,7 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment, setBuilt, setDeplo
                       className={[activeTab !== 'build' ? classes.inactiveIndicator : '']
                         .filter(Boolean)
                         .join(' ')}
-                      status={
-                        hasDeployLog || deployment.deploymentStatus !== 'ERROR'
-                          ? 'success'
-                          : 'error'
-                      }
+                      status={deployment.deploymentStatus === 'ERROR' ? 'error' : 'success'}
                       spinner={deployment.deploymentStatus === 'BUILDING'}
                     />
                     Build Logs
@@ -179,14 +176,15 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment, setBuilt, setDeplo
                 },
               },
             hasDeployLog &&
-              deployLogs && {
+              deployLogs &&
+              deployment?.deploymentStatus !== 'ERROR' && {
                 label: (
                   <div className={classes.tabLabel}>
                     <Indicator
                       className={[activeTab !== 'deploy' ? classes.inactiveIndicator : '']
                         .filter(Boolean)
                         .join(' ')}
-                      status={deployment.deploymentStatus !== 'ERROR' ? 'success' : 'error'}
+                      status={'success'}
                       spinner={deployment.deploymentStatus === 'DEPLOYING'}
                     />
                     Deploy Logs
