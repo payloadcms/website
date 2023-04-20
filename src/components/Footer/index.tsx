@@ -44,13 +44,15 @@ export const Footer: React.FC<FooterType> = props => {
   }
 
   React.useEffect(() => {
-    if (submitButtonRef.current) {
-      submitButtonRef.current.addEventListener('click', handleButtonClick)
+    const buttonElement = submitButtonRef.current
+
+    if (buttonElement) {
+      buttonElement.addEventListener('click', handleButtonClick)
     }
 
     return () => {
-      if (submitButtonRef.current) {
-        submitButtonRef.current.removeEventListener('click', handleButtonClick)
+      if (buttonElement) {
+        buttonElement.removeEventListener('click', handleButtonClick)
       }
     }
   }, [])
@@ -62,6 +64,8 @@ export const Footer: React.FC<FooterType> = props => {
   }
 
   const [error, setError] = React.useState<{ status?: string; message: string } | undefined>()
+
+  const invalidEmail = validateEmail?.(formData.email) === 'Please enter a valid email address.'
 
   const onThemeChange = (themeToSet: Theme & 'auto') => {
     if (themeToSet === 'auto') {
@@ -198,7 +202,14 @@ export const Footer: React.FC<FooterType> = props => {
                       className={classes.emailInput}
                       placeholder="Enter your email"
                     />
-                    <ArrowIcon className={classes.inputArrow} />
+                    <ArrowIcon
+                      className={[
+                        classes.inputArrow,
+                        buttonClicked && invalidEmail && classes.invalidEmailArrow,
+                      ]
+                        .filter(Boolean)
+                        .join(' ')}
+                    />
                   </div>
 
                   <div className={classes.subscribeAction}>
