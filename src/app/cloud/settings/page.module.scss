@@ -62,4 +62,41 @@
     margin-top: var(--base);
     display: flex;
     gap: var(--base);
+    justify-content: space-between;
+}
+
+.warning, .emailInput {
+    margin-bottom: var(--base);
+}
+
+.modal {
+    & > * {
+        width: 800px;
+        overflow-x: scroll;
+        max-height: 100vh;
+    }
+}
+
+.modalActions {
+  display: flex;
+  gap: var(--base);
+  justify-content: flex-end;
+  width: 100%;
+  padding-top: calc(var(--base)*2);
+  border-top: 1px solid var(--theme-border-color);
+  margin-top: calc(var(--base)*2);
+
+}
+
+@include small-break {
+    .buttonWrap, .modalActions {
+        flex-wrap: wrap;
+    }
+
+    .modal {
+        & > * {
+            padding: calc(var(--base)*2) var(--gutter-h);
+            border: 0;
+        }
+    }
 }
