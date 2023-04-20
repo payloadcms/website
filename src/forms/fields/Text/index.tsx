@@ -30,6 +30,7 @@ export const Text: React.FC<
     copy?: boolean
     elementAttributes?: React.InputHTMLAttributes<HTMLInputElement>
     value?: string
+    customOnChange?: (e: any) => void
   }
 > = props => {
   const {
@@ -40,6 +41,7 @@ export const Text: React.FC<
     placeholder,
     type = 'text',
     onChange: onChangeFromProps,
+    customOnChange,
     initialValue,
     className,
     copy = false,
@@ -102,9 +104,13 @@ export const Text: React.FC<
         disabled={disabled}
         className={classes.input}
         value={value || ''}
-        onChange={e => {
-          onChange(e.target.value)
-        }}
+        onChange={
+          customOnChange
+            ? customOnChange
+            : e => {
+                onChange(e.target.value)
+              }
+        }
         placeholder={placeholder}
         type={type === 'password' && !isHidden ? 'text' : type}
         id={path}

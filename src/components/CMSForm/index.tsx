@@ -121,7 +121,7 @@ const RenderForm = ({ form }: { form: Form }) => {
 
       submitForm()
     },
-    [router, formID, formRedirect, confirmationType],
+    [router, formID, formRedirect, confirmationType, pathname],
   )
 
   if (!form?.id) return null
