@@ -99,10 +99,7 @@ export const Footer: React.FC<FooterType> = props => {
         const hubspotCookie = getCookie('hubspotutk')
         const pageUri = `${process.env.NEXT_PUBLIC_SITE_URL}${pathname}`
         const slugParts = pathname?.split('/')
-        const pageName =
-          slugParts && slugParts[slugParts.length - 1] === ''
-            ? 'Home'
-            : slugParts && slugParts[slugParts.length - 1]
+        const pageName = slugParts?.at(-1) === '' ? 'Home' : slugParts?.at(-1)
         const req = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/form-submissions`, {
           method: 'POST',
           credentials: 'include',
