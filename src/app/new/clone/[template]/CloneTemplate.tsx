@@ -8,7 +8,7 @@ import FormProcessing from '@forms/FormProcessing'
 import FormSubmissionError from '@forms/FormSubmissionError'
 import Label from '@forms/Label'
 import Submit from '@forms/Submit'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { useInstallationSelector } from '@components/InstallationSelector'
@@ -16,7 +16,7 @@ import { useTeamDrawer } from '@components/TeamDrawer'
 import { UniqueRepoName } from '@components/UniqueRepoName'
 import { useCreateDraftProject } from '@root/app/new/useCreateDraftProject'
 import { PayloadIcon } from '@root/graphics/PayloadIcon'
-import { Template } from '@root/payload-cloud-types'
+import { Team, Template } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 
 import classes from './CloneTemplate.module.scss'
@@ -24,15 +24,22 @@ import classes from './CloneTemplate.module.scss'
 export const CloneTemplate: React.FC<{
   template?: Template
 }> = props => {
+  const searchParams = useSearchParams()
+  const teamParam = searchParams?.get('team')
   const { user } = useAuth()
   const { template } = props
   const router = useRouter()
   const [InstallationSelector, { value: selectedInstall }] = useInstallationSelector()
 
+  const matchedTeam = user?.teams?.find(
+    ({ team }) => typeof team !== 'string' && team?.slug === teamParam,
+  )?.team as Team //eslint-disable-line function-paren-newline
+
   const createDraftProject = useCreateDraftProject({
     projectName: template?.name,
     installID: selectedInstall?.id,
     templateID: template?.id,
+    teamID: matchedTeam?.id,
     onSubmit: ({ id: draftProjectID }) => {
       router.push(`/new/clone/configure/${draftProjectID}`)
     },

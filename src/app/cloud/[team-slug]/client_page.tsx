@@ -48,8 +48,6 @@ export const TeamPage = () => {
     }
   }, [isLoading, result, hasLoadedInitial])
 
-  const teamName = typeof team === 'string' ? team : team?.name
-
   if (!hasLoadedInitial) {
     return (
       <Gutter>
@@ -61,9 +59,10 @@ export const TeamPage = () => {
   if (renderNewProjectBlock) {
     return (
       <NewProjectBlock
-        heading={`Team '${teamName}' has no projects yet`}
+        heading={`Team '${team?.name}' has no projects yet`}
         cardLeader="New"
         headingElement="h4"
+        teamSlug={team?.slug}
       />
     )
   }
@@ -82,7 +81,7 @@ export const TeamPage = () => {
         />
         <Button
           appearance="primary"
-          href="/new"
+          href={`/new${team?.slug ? `?team=${team.slug}` : ''}`}
           el="link"
           className={classes.createButton}
           label="Create new project"

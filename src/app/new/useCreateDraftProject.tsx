@@ -8,13 +8,15 @@ export const useCreateDraftProject = ({
   projectName,
   installID,
   templateID,
+  teamID,
   onSubmit,
 }: {
   projectName?: string
   installID?: number
   onSubmit?: (project: Project) => void // eslint-disable-line no-unused-vars
   templateID?: string // only applies to `clone` flow
-}): ((args?: { repo: Partial<Repo>; makePrivate?: boolean }) => void) => {
+  teamID?: string
+}): ((args?: { repo: Partial<Repo>; makePrivate?: boolean; teamID?: string }) => void) => {
   const { user } = useAuth()
 
   const createDraftProject = useCallback(
@@ -44,9 +46,11 @@ export const useCreateDraftProject = ({
             name: projectName || repo?.name || 'Untitled Project',
             installID,
             team:
-              typeof user.teams?.[0]?.team === 'string'
+              teamID ||
+              // fallback to first team
+              (typeof user.teams?.[0]?.team === 'string'
                 ? user.teams?.[0]?.team
-                : user.teams?.[0]?.team?.id,
+                : user.teams?.[0]?.team?.id),
             defaultDomain: undefined,
             repositoryID: repo?.id, // only applies to the `import` flow
             repositoryName: repo?.name,
@@ -71,7 +75,7 @@ export const useCreateDraftProject = ({
         throw new Error(message)
       }
     },
-    [projectName, templateID, onSubmit, user, installID],
+    [projectName, templateID, onSubmit, user, installID, teamID],
   )
 
   return createDraftProject

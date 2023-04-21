@@ -4,7 +4,7 @@ import RadioGroup from '@forms/fields/RadioGroup'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
 import FormSubmissionError from '@forms/FormSubmissionError'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
@@ -14,6 +14,7 @@ import { LineDraw } from '@components/LineDraw'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Pagination } from '@components/Pagination'
 import { useTeamDrawer } from '@components/TeamDrawer'
+import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { useGetRepos } from '../../../utilities/use-get-repos'
 import { useCreateDraftProject } from '../useCreateDraftProject'
@@ -21,6 +22,8 @@ import { useCreateDraftProject } from '../useCreateDraftProject'
 import classes from './ImportProject.module.scss'
 
 export const ImportProject: React.FC = () => {
+  const searchParams = useSearchParams()
+  const teamParam = searchParams?.get('team')
   const { user } = useAuth()
 
   const router = useRouter()
@@ -41,7 +44,12 @@ export const ImportProject: React.FC = () => {
     onInstallation: handleInstallationFromButton,
   })
 
+  const matchedTeam = user?.teams?.find(
+    ({ team }) => typeof team !== 'string' && team?.slug === teamParam,
+  )?.team as Team //eslint-disable-line function-paren-newline
+
   const createDraftProject = useCreateDraftProject({
+    teamID: matchedTeam?.id,
     installID: selectedInstall?.id,
     onSubmit: async ({ id: draftProjectID }) =>
       new Promise<void>(() => {

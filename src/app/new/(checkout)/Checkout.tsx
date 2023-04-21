@@ -400,14 +400,21 @@ const CheckoutProvider: React.FC<{
             items={[
               {
                 label: 'New',
-                url: '/new',
+                url: `/new${project?.team?.slug ? `?team=${project?.team?.slug}` : ''}`,
               },
               ...(isClone
-                ? [{ label: 'Template', url: '/new/clone' }]
+                ? [
+                    {
+                      label: 'Template',
+                      url: `/new/clone${project?.team?.slug ? `?team=${project?.team?.slug}` : ''}`,
+                    },
+                  ]
                 : [
                     {
                       label: 'Import',
-                      url: '/new/import',
+                      url: `/new/import${
+                        project?.team?.slug ? `?team=${project?.team?.slug}` : ''
+                      }`,
                     },
                   ]),
               {

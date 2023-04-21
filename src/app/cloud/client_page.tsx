@@ -11,6 +11,7 @@ import { Gutter } from '@components/Gutter'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Pagination } from '@components/Pagination'
 import { TeamSelector } from '@components/TeamSelector'
+import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { useGetProjects } from '@root/utilities/use-cloud-api'
 import useDebounce from '@root/utilities/use-debounce'
@@ -42,8 +43,7 @@ export const CloudHomePage = () => {
 
   const matchedTeam = user?.teams?.find(({ team }) =>
     typeof team === 'string' ? team === selectedTeam : team?.id === selectedTeam,
-  )?.team //eslint-disable-line function-paren-newline
-  const teamName = typeof matchedTeam === 'string' ? matchedTeam : matchedTeam?.name
+  )?.team as Team //eslint-disable-line function-paren-newline
 
   return (
     <Fragment>
@@ -71,7 +71,7 @@ export const CloudHomePage = () => {
           />
           <Button
             appearance="primary"
-            href="/new"
+            href={`/new${matchedTeam?.slug ? `?team=${matchedTeam?.slug}` : ''}`}
             label="New project"
             el="link"
             className={classes.createButton}
@@ -81,9 +81,12 @@ export const CloudHomePage = () => {
       </Gutter>
       {!isLoading && result?.docs?.length === 0 && searchedTerm.length === 0 && (
         <NewProjectBlock
-          heading={selectedTeam ? `Team '${teamName}' has no projects` : `You have no projects`}
+          heading={
+            selectedTeam ? `Team '${matchedTeam?.name}' has no projects` : `You have no projects`
+          }
           cardLeader="New"
           headingElement="h4"
+          teamSlug={matchedTeam?.slug}
         />
       )}
       {!isLoading && (result?.docs?.length > 0 || searchedTerm.length > 0) && (
