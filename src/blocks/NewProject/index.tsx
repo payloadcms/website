@@ -2,12 +2,14 @@
 
 import React, { Fragment } from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 
 import { BlockSpacing } from '@components/BlockSpacing'
 import { DefaultCard } from '@components/cards/DefaultCard'
 import { Gutter } from '@components/Gutter'
 import { Heading, HeadingType } from '@components/Heading'
 import { PixelBackground } from '@components/PixelBackground'
+import { Team } from '@root/payload-cloud-types'
 import { useGlobals } from '@root/providers/Globals'
 
 import classes from './index.module.scss'
@@ -17,8 +19,20 @@ export const NewProjectBlock: React.FC<{
   heading?: string
   headingElement?: HeadingType
   description?: React.ReactNode
+  teamSlug?: Team['slug']
 }> = props => {
-  const { cardLeader, headingElement = 'h1', heading = 'New project', description } = props
+  const {
+    cardLeader,
+    headingElement = 'h1',
+    heading = 'New project',
+    description,
+    teamSlug: teamSlugFromProps,
+  } = props
+
+  const searchParams = useSearchParams()
+  const teamParam = searchParams?.get('team')
+  const teamSlug = teamParam || teamSlugFromProps
+
   const { templates } = useGlobals()
 
   return (
@@ -32,7 +46,10 @@ export const NewProjectBlock: React.FC<{
             {description || (
               <p className={classes.description}>
                 {'Create a project from a template, or '}
-                <Link href="/new/import" className={classes.import}>
+                <Link
+                  href={`/new/import${teamSlug ? `?team=${teamSlug}` : ''}`}
+                  className={classes.import}
+                >
                   import an existing Git codebase
                 </Link>
                 {'.'}
@@ -51,7 +68,7 @@ export const NewProjectBlock: React.FC<{
                   key={template.slug}
                   className={classes.card}
                   leader={cardLeader || (index + 1).toString().padStart(2, '0')}
-                  href={`/new/clone/${template.slug}`}
+                  href={`/new/clone/${template.slug}${teamSlug ? `?team=${teamSlug}` : ''}`}
                   title={template.name}
                   description={template.description}
                   media={template.image}

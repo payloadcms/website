@@ -12,16 +12,30 @@
   display: flex;
 }
 
-.li {
-  &:not(:last-child) {
-    margin-right: var(--base);
+.layout--vertical {
+  :local() {
+    .ul {
+      flex-direction: column;
+    }
+
+    .li {
+      gap: var(--base);
+    }
   }
+}
+
+.li {
+  display: flex;
+  gap: var(--base);
 }
 
 .radioWrap {
   display: flex;
   align-items: center;
   cursor: pointer;
+  flex-grow: 1;
+  width: 100%;
+  gap: calc(var(--base) / 2);
 
   :global {
     input[type=radio] {
@@ -60,6 +74,10 @@
   }
 }
 
+.hidden {
+  display: none;
+}
+
 .selected {
   &::before {
     opacity: 1 !important;
@@ -67,5 +85,5 @@
 }
 
 .label {
-  margin-left: calc(var(--base) / 2);
+  flex-grow: 1;
 }

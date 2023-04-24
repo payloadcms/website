@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { forwardRef, HTMLAttributes, useState } from 'react'
 import Link from 'next/link'
 
 import { LineBlip } from '@components/LineBlip'
@@ -14,23 +14,19 @@ import { LinkType, Reference } from '../CMSLink'
 
 import classes from './index.module.scss'
 
-export type ButtonProps = {
+export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
   appearance?: 'default' | 'text' | 'primary' | 'secondary' | 'danger'
   el?: 'button' | 'link' | 'a' | 'div'
-  onClick?: (e: any) => void | Promise<void>
   href?: string
   newTab?: boolean
-  className?: string
   label?: string
   labelStyle?: 'mono' | 'regular'
-  icon?: 'arrow' | 'search' | 'github' | 'plus'
+  icon?: false | 'arrow' | 'search' | 'github' | 'plus'
   fullWidth?: boolean
   mobileFullWidth?: boolean
   type?: LinkType
   reference?: Reference
   htmlButtonType?: 'button' | 'submit'
-  onMouseEnter?: () => void
-  onMouseLeave?: () => void
   size?: 'pill' | 'default'
   disabled?: boolean
   disableLineBlip?: boolean
@@ -116,7 +112,7 @@ const elements: {
   div: 'div',
 }
 
-export const Button: React.FC<ButtonProps> = props => {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const {
     el = 'button',
     type,
@@ -177,6 +173,7 @@ export const Button: React.FC<ButtonProps> = props => {
   if (Element) {
     return (
       <Element
+        ref={ref}
         type={htmlButtonType}
         className={className}
         {...newTabProps}
@@ -199,4 +196,4 @@ export const Button: React.FC<ButtonProps> = props => {
   }
 
   return null
-}
+})

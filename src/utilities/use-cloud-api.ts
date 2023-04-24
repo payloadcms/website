@@ -121,16 +121,23 @@ export const useGetPlans: UseCloudAPI<Plan[]> = () => {
   }, [response])
 }
 
+interface ProjectsData {
+  docs: Project[]
+  totalPages: number
+  totalDocs: number
+}
+
 export const useGetProjects: UseCloudAPI<
-  Project[],
+  ProjectsData,
   {
     teams?: string[]
     search?: string
     delay?: number
+    page?: number
   }
 > = args => {
   const { user } = useAuth()
-  const { teams: teamsFromArgs, search, delay } = args || {}
+  const { teams: teamsFromArgs, search, delay, page } = args || {}
 
   const teamsWithoutNone = teamsFromArgs?.filter(team => team !== 'none') || []
 
@@ -146,29 +153,21 @@ export const useGetProjects: UseCloudAPI<
       team: {
         in: teams,
       },
+      ...(search
+        ? {
+            name: {
+              like: search,
+            },
+          }
+        : {}),
     },
-    ...(search && search?.length >= 3
-      ? {
-          name: {
-            like: search,
-          },
-        }
-      : {}),
+    page,
   })
 
-  const response = useCloudAPI<{
-    docs: Project[]
-  }>({
+  return useCloudAPI<ProjectsData>({
     url: `/api/projects${query ? `?${query}` : ''}`,
     delay,
   })
-
-  return useMemo(() => {
-    return {
-      ...response,
-      result: response.result?.docs,
-    }
-  }, [response])
 }
 
 type ProjectWithTeam = Omit<Project, 'team'> & {

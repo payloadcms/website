@@ -4,6 +4,8 @@ import React, { useCallback } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
+import FormProcessing from '@forms/FormProcessing'
+import FormSubmissionError from '@forms/FormSubmissionError'
 import Submit from '@forms/Submit'
 import { InitialState, OnSubmit } from '@forms/types'
 import Link from 'next/link'
@@ -28,7 +30,6 @@ const initialFormState: InitialState = {
 
 export const ForgotPassword: React.FC = () => {
   const { user, logout } = useAuth()
-  const [error, setError] = React.useState<string | null>(null)
   const [successfullySubmitted, setSuccessfullySubmitted] = React.useState(false)
 
   const handleSubmit: OnSubmit = useCallback(
@@ -48,26 +49,18 @@ export const ForgotPassword: React.FC = () => {
 
         const res = await req.json()
 
-        if (res.errors) {
-          setError(res.errors[0].message)
-          return
-        }
-
         dispatchFields({
           type: 'REPLACE_STATE',
           state: initialFormState,
         })
 
-        setError(null)
         setSuccessfullySubmitted(true)
         return
       } catch (err) {
-        setError(err.message)
+        throw new Error(err.message)
       }
-
-      setSuccessfullySubmitted(false)
     },
-    [setError, setSuccessfullySubmitted],
+    [setSuccessfullySubmitted],
   )
 
   if (user) {
@@ -130,7 +123,8 @@ export const ForgotPassword: React.FC = () => {
             </p>
           </div>
           <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
-            {error && <div className={classes.error}>{error}</div>}
+            <FormSubmissionError />
+            <FormProcessing message="Sending recovery email, one moment..." />
             <Text path="email" label="Email" required />
             <div>
               <Submit label="Recover" className={classes.submit} />

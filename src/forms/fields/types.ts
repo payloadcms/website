@@ -11,5 +11,8 @@ export interface FieldProps<T> {
   className?: string
   disabled?: boolean
   description?: string
+  showError?: boolean
+  icon?: React.ReactNode
   fullWidth?: boolean
+  onClick?: () => void
 }
