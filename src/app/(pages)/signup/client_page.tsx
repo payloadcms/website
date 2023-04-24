@@ -17,6 +17,7 @@ import { Heading } from '@components/Heading'
 import { Highlight } from '@components/Highlight'
 import { useAuth } from '@root/providers/Auth'
 import canUseDom from '@root/utilities/can-use-dom'
+import { getCookie } from '@root/utilities/get-cookie'
 
 import classes from './index.module.scss'
 
@@ -71,6 +72,9 @@ export const Signup: React.FC = () => {
     }
 
     try {
+      const hubspotCookie = getCookie('hubspotutk')
+      const pageUri = `${process.env.NEXT_PUBLIC_SITE_URL}/signup`
+      const pageName = 'Cloud Sign Up'
       const req = await fetch(
         `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql${
           formData?.redirect ? `?redirect=${formData.redirect}` : ''
@@ -86,6 +90,9 @@ export const Signup: React.FC = () => {
               email
             }
           }`,
+            hubspotCookie,
+            pageUri,
+            pageName,
           }),
         },
       )

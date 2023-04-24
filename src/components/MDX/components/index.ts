@@ -6,6 +6,7 @@ import h1 from './H1'
 import h2 from './H2'
 import h3 from './H3'
 import HR from './HR'
+import InlineCode from './InlineCode'
 import table from './Table'
 
 export default {
@@ -15,6 +16,7 @@ export default {
   Banner,
   table,
   pre: Code,
+  code: InlineCode,
   HR,
   BlogImage,
   YouTube,
