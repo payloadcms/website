@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { LinkGrid } from '@blocks/LinkGrid'
+import { useRouter } from 'next/navigation'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
@@ -12,6 +13,7 @@ import { cloudSlug } from '../client_layout'
 import classes from './page.module.scss'
 
 export const MyTeamsPage = () => {
+  const router = useRouter()
   const { user } = useAuth()
 
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer()
@@ -21,29 +23,29 @@ export const MyTeamsPage = () => {
   return (
     <React.Fragment>
       <div className={classes.teams}>
-        <Gutter className={classes.content}>
-          {!hasTeams && (
-            <div className={classes.noTeams}>
+        <Gutter>
+          <div className={classes.introContent}>
+            {!hasTeams && (
               <p>
                 {`You are not a member of any teams. `}
                 <TeamDrawerToggler className={classes.createTeamLink}>
                   Create a new team
                 </TeamDrawerToggler>
                 {' to get started.'}
-              </p>{' '}
-            </div>
-          )}
-          {Boolean(user?.teams?.length) && (
-            <p>
-              {`You are a member of ${user?.teams?.length || 0} team${
-                (user?.teams?.length || 0) > 1 ? 's' : ''
-              }. `}
-              <TeamDrawerToggler className={classes.createTeamLink}>
-                Create a new team
-              </TeamDrawerToggler>
-              {'.'}
-            </p>
-          )}
+              </p>
+            )}
+            {Boolean(user?.teams?.length) && (
+              <p>
+                {`You are a member of ${user?.teams?.length || 0} team${
+                  (user?.teams?.length || 0) > 1 ? 's' : ''
+                }. `}
+                <TeamDrawerToggler className={classes.createTeamLink}>
+                  Create a new team
+                </TeamDrawerToggler>
+                {'.'}
+              </p>
+            )}
+          </div>
         </Gutter>
         {hasTeams && (
           <LinkGrid
@@ -73,7 +75,11 @@ export const MyTeamsPage = () => {
           </TeamDrawerToggler>
         </Gutter>
       </div>
-      <TeamDrawer redirectAfterCreate />
+      <TeamDrawer
+        onCreate={newTeam => {
+          router.push(`/${cloudSlug}/${newTeam.slug}`)
+        }}
+      />
     </React.Fragment>
   )
 }

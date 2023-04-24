@@ -82,6 +82,10 @@
   transform: translateY(-50%) rotate(45deg);
 }
 
+.invalidEmailArrow {
+  top: 68%;
+}
+
 .ok {
   cursor: pointer;
   height: calc(var(--base) * 3);

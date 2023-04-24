@@ -27,6 +27,7 @@ const RadioGroup: React.FC<
   FieldProps<string> & {
     options: Option[]
     layout?: 'vertical' | 'horizontal'
+    hidden?: boolean
   }
 > = props => {
   const {
@@ -37,6 +38,9 @@ const RadioGroup: React.FC<
     options,
     onChange: onChangeFromProps,
     initialValue,
+    layout,
+    hidden,
+    onClick,
   } = props
 
   const id = useId()
@@ -50,7 +54,9 @@ const RadioGroup: React.FC<
   })
 
   return (
-    <div className={classes.wrap}>
+    <div
+      className={[classes.wrap, layout && classes[`layout--${layout}`]].filter(Boolean).join(' ')}
+    >
       <Error showError={showError} message={errorMessage} />
       <Label htmlFor={path} label={label} required={required} />
       <ul className={classes.ul}>
@@ -60,7 +66,7 @@ const RadioGroup: React.FC<
 
           return (
             <li key={index} className={classes.li}>
-              <label htmlFor={optionId} className={classes.radioWrap}>
+              <label htmlFor={optionId} className={classes.radioWrap} onClick={onClick}>
                 <input
                   id={optionId}
                   type="radio"
@@ -70,7 +76,11 @@ const RadioGroup: React.FC<
                   }}
                 />
                 <span
-                  className={[classes.radio, isSelected && classes.selected]
+                  className={[
+                    classes.radio,
+                    isSelected && classes.selected,
+                    hidden && classes.hidden,
+                  ]
                     .filter(Boolean)
                     .join(' ')}
                 />

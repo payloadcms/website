@@ -4,14 +4,14 @@ import { IconProps } from '../types'
 
 import classes from '../index.module.scss'
 
-export const Check: React.FC<IconProps> = props => {
+export const CheckIcon: React.FC<IconProps> = props => {
   const { color, size, className, bold } = props
 
   return (
     <svg
       width="100%"
       height="100%"
-      viewBox="0 0 25 25"
+      viewBox="0 0 14 11"
       className={[
         className,
         classes.icon,
@@ -21,19 +21,10 @@ export const Check: React.FC<IconProps> = props => {
       ]
         .filter(Boolean)
         .join(' ')}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        d="M10.6092 16.0192L17.6477 8.98076"
-        strokeLinecap="square"
-        strokeLinejoin="bevel"
-        className={classes.stroke}
-      />
-      <path
-        d="M7.35229 12.7623L10.6092 16.0192"
-        className={classes.stroke}
-        strokeLinecap="square"
-        strokeLinejoin="bevel"
-      />
+      <path className={classes.stroke} d="M2.24023 5.72L5.04023 9.08L12.3202 1.8" />
     </svg>
   )
 }

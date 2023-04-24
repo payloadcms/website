@@ -4,24 +4,22 @@ import Tooltip from '@components/Tooltip'
 
 import classes from './index.module.scss'
 
-type TooltipButtonProps = {
+type TooltipButtonProps = React.HTMLAttributes<HTMLButtonElement> & {
   text: string
-  onClick: () => void | Promise<void>
   children: React.ReactNode
-  className?: string
 } & (
-  | {
-      isVisible?: never
-      setIsVisible?: never
-    }
-  | {
-      /**
-       * If this is set, the button will not manage its own state
-       */
-      isVisible: boolean
-      setIsVisible: (isActive: boolean) => void // eslint-disable-line no-unused-vars
-    }
-)
+    | {
+        isVisible?: never
+        setIsVisible?: never
+      }
+    | {
+        /**
+         * If this is set, the button will not manage its own state
+         */
+        isVisible: boolean
+        setIsVisible: (isActive: boolean) => void // eslint-disable-line no-unused-vars
+      }
+  )
 export const TooltipButton: React.FC<TooltipButtonProps> = ({
   children,
   className,
@@ -47,9 +45,12 @@ export const TooltipButton: React.FC<TooltipButtonProps> = ({
     [setIsActive, hoistControl],
   )
 
-  const handleOnClick = React.useCallback(async () => {
-    await onClick()
-  }, [onClick])
+  const handleOnClick = React.useCallback(
+    async e => {
+      if (typeof onClick === 'function') await onClick(e)
+    },
+    [onClick],
+  )
 
   return (
     <button

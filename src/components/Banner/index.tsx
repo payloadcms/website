@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { CheckmarkIcon } from '@graphics/CheckmarkIcon'
 
+import { CheckIcon } from '@root/icons/CheckIcon'
 import { ReusableContent } from '@root/payload-types'
 import { RichText } from '../RichText'
 
@@ -19,7 +19,7 @@ export type Props = {
 }
 
 const Icons = {
-  checkmark: CheckmarkIcon,
+  checkmark: CheckIcon,
 }
 
 export const Banner: React.FC<Props> = ({

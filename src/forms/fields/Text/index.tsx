@@ -5,6 +5,7 @@ import Label from '@forms/Label'
 
 import { CopyToClipboard } from '@components/CopyToClipboard'
 import { TooltipButton } from '@components/TooltipButton'
+import { Spinner } from '@root/app/_components/Spinner'
 import { EyeIcon } from '@root/icons/EyeIcon'
 import Error from '../../Error'
 import { Validate } from '../../types'
@@ -30,6 +31,7 @@ export const Text: React.FC<
     copy?: boolean
     elementAttributes?: React.InputHTMLAttributes<HTMLInputElement>
     value?: string
+    customOnChange?: (e: any) => void
   }
 > = props => {
   const {
@@ -40,6 +42,7 @@ export const Text: React.FC<
     placeholder,
     type = 'text',
     onChange: onChangeFromProps,
+    customOnChange,
     initialValue,
     className,
     copy = false,
@@ -51,6 +54,8 @@ export const Text: React.FC<
     },
     description,
     value: valueFromProps,
+    showError: showErrorFromProps,
+    icon,
     fullWidth = true,
   } = props
 
@@ -74,7 +79,11 @@ export const Text: React.FC<
   const value = valueFromProps || valueFromContext
 
   useEffect(() => {
-    if (valueFromProps !== undefined && valueFromProps !== valueFromContext) {
+    if (
+      valueFromProps !== undefined &&
+      valueFromProps !== prevValueFromProps.current &&
+      valueFromProps !== valueFromContext
+    ) {
       prevValueFromProps.current = valueFromProps
       onChange(valueFromProps)
     }
@@ -84,8 +93,8 @@ export const Text: React.FC<
     <div
       className={[
         className,
-        classes.wrap,
-        showError && classes.showError,
+        classes.component,
+        (showError || showErrorFromProps) && classes.showError,
         classes[`type--${type}`],
         fullWidth && classes.fullWidth,
       ]
@@ -97,22 +106,32 @@ export const Text: React.FC<
         This is so tabs go to the input before the label actions slot
       */}
       {description && <p className={classes.description}>{description}</p>}
-      <input
-        {...elementAttributes}
-        disabled={disabled}
-        className={classes.input}
-        value={value || ''}
-        onChange={e => {
-          onChange(e.target.value)
-        }}
-        placeholder={placeholder}
-        type={type === 'password' && !isHidden ? 'text' : type}
-        id={path}
-        name={path}
-      />
+      <div className={classes.inputWrap}>
+        <input
+          {...elementAttributes}
+          disabled={disabled}
+          className={classes.input}
+          value={value || ''}
+          onChange={
+            customOnChange
+              ? customOnChange
+              : e => {
+                  onChange(e.target.value)
+                }
+          }
+          placeholder={placeholder}
+          type={type === 'password' && !isHidden ? 'text' : type}
+          id={path}
+          name={path}
+        />
+        {icon && <div className={classes.icon}>{icon}</div>}
+      </div>
       {type !== 'hidden' && (
         <>
-          <Error showError={showError} message={errorMessage} />
+          <Error
+            showError={Boolean((showError || showErrorFromProps) && errorMessage)}
+            message={errorMessage}
+          />
           <Label
             htmlFor={path}
             label={label}

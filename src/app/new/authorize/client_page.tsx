@@ -15,12 +15,6 @@ import { usePopupWindow } from '@root/utilities/use-popup-window'
 
 import classes from './index.module.scss'
 
-const href = `https://github.com/login/oauth/authorize?client_id=${
-  process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
-}&redirect_uri=${encodeURIComponent(
-  process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI || '',
-)}&state=${encodeURIComponent(`/new/import`)}`
-
 export const AuthorizePage: React.FC = () => {
   useAuthRedirect()
 
@@ -37,6 +31,14 @@ export const AuthorizePage: React.FC = () => {
     hasExchangedCode,
   })
 
+  const teamParam = params?.get('team')
+
+  const href = `https://github.com/login/oauth/authorize?client_id=${
+    process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
+  }&redirect_uri=${encodeURIComponent(
+    process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI || '',
+  )}&state=${encodeURIComponent(`/new/import${teamParam ? `?team=${teamParam}` : ''}`)}`
+
   const { openPopupWindow } = usePopupWindow({
     href,
     eventType: 'github',
@@ -44,7 +46,7 @@ export const AuthorizePage: React.FC = () => {
   })
 
   if (tokenIsValid) {
-    redirect(params?.get('redirect') || '/new')
+    redirect(params?.get('redirect') || `/new${teamParam ? `?team=${teamParam}` : ''}`)
   }
 
   return (

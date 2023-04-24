@@ -3,10 +3,11 @@
 import * as React from 'react'
 import FormComponent from '@forms/Form'
 import Submit from '@forms/Submit'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 import { RichText } from '@components/RichText'
 import { Form } from '@root/payload-types'
+import { getCookie } from '@root/utilities/get-cookie'
 import { fields } from './fields'
 import { Width } from './Width'
 
@@ -30,6 +31,8 @@ const RenderForm = ({ form }: { form: Form }) => {
 
   const router = useRouter()
 
+  const pathname = usePathname()
+
   const onSubmit = React.useCallback(
     ({ data }) => {
       let loadingTimerID: NodeJS.Timer
@@ -48,14 +51,22 @@ const RenderForm = ({ form }: { form: Form }) => {
         }, 1000)
 
         try {
+          const hubspotCookie = getCookie('hubspotutk')
+          const pageUri = `${process.env.NEXT_PUBLIC_SITE_URL}${pathname}`
+          const slugParts = pathname?.split('/')
+          const pageName = slugParts?.at(-1) === '' ? 'Home' : slugParts?.at(-1)
           const req = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/form-submissions`, {
             method: 'POST',
+            credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
               form: formID,
               submissionData: dataToSend,
+              hubspotCookie,
+              pageUri,
+              pageName,
             }),
           })
 
@@ -81,10 +92,10 @@ const RenderForm = ({ form }: { form: Form }) => {
 
             if (!url) return
 
-            const redirectUrl = new URL(url, process.env.NEXT_PUBLIC_APP_URL)
+            const redirectUrl = new URL(url, process.env.NEXT_PUBLIC_SITE_URL)
 
             try {
-              if (url.startsWith('/') || redirectUrl.origin === process.env.NEXT_PUBLIC_APP_URL) {
+              if (url.startsWith('/') || redirectUrl.origin === process.env.NEXT_PUBLIC_SITE_URL) {
                 router.push(redirectUrl.href)
               } else {
                 window.location.assign(url)
@@ -107,7 +118,7 @@ const RenderForm = ({ form }: { form: Form }) => {
 
       submitForm()
     },
-    [router, formID, formRedirect, confirmationType],
+    [router, formID, formRedirect, confirmationType, pathname],
   )
 
   if (!form?.id) return null

@@ -7,14 +7,14 @@ import classes from './index.module.scss'
 
 export const CreditCardElement: React.FC = () => {
   const [error, setError] = useState(null)
-  const [disabled, setDisabled] = useState(true)
+  const [disableChangeHandler, setDisableChangeHandler] = useState(true)
   const theme = useTheme()
   const [style, setStyle] = useState<{ style: Record<string, unknown> }>()
 
   const handleChange = async event => {
-    // Listen for changes in the CardElement
-    // display any errors as they type card details
-    setDisabled(event.empty)
+    // listen for changes in the `CardElement` and display any errors as they occur
+    // prevent this from firing when the input is empty so the error does not show when first focusing the input
+    setDisableChangeHandler(event.empty)
     setError(event.error ? event.error.message : '')
   }
 
@@ -71,7 +71,9 @@ export const CreditCardElement: React.FC = () => {
         id="card-element"
         options={style}
         onChange={e => {
-          if (!disabled) handleChange(e)
+          // `onChange` here acts more like `onError` where it does not fire when the value changes
+          // instead, it only fires when Stripe revalidates the field, i.e. on focus, blur, complete, submit, etc
+          if (!disableChangeHandler) handleChange(e)
         }}
         className={classes.element}
       />

@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import { Spinner } from '../Spinner'
+
 import classes from './index.module.scss'
 
 type IndicatorProps = {
@@ -7,6 +9,7 @@ type IndicatorProps = {
   spinner?: boolean
   className?: string
 }
+
 export const Indicator: React.FC<IndicatorProps> = ({
   status = 'success',
   spinner = false,
@@ -14,14 +17,11 @@ export const Indicator: React.FC<IndicatorProps> = ({
 }) => {
   return (
     <div
-      className={[
-        className,
-        classes.indicator,
-        classes[`status--${status}`],
-        spinner && classes.spinner,
-      ]
+      className={[className, classes.indicator, classes[`status--${status}`]]
         .filter(Boolean)
         .join(' ')}
-    />
+    >
+      {spinner && <Spinner />}
+    </div>
   )
 }

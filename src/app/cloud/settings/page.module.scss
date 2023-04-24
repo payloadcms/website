@@ -23,15 +23,6 @@
     text-decoration: underline;
 }
 
-.formState {
-    margin-top: var(--base);
-    max-width: 600px;
-
-    & div {
-        margin: 0;
-    }
-}
-
 .error {
     color: var(--theme-error-500);
 }
