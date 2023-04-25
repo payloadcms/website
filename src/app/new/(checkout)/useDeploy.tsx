@@ -10,7 +10,6 @@ import { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { CheckoutState } from './reducer'
 import { useConfirmCardSetup } from './useConfirmCardSetup'
-import { useCreateSetupIntent } from './useCreateSetupIntent'
 import { PayloadStripeSubscription, useCreateSubscription } from './useCreateSubscription'
 
 export const useDeploy = (args: {

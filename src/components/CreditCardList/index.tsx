@@ -1,11 +1,13 @@
-import React, { Fragment, useCallback, useEffect, useRef } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { v4 as uuid } from 'uuid'
 
 import { CircleIconButton } from '@components/CircleIconButton'
 import { CreditCardElement } from '@components/CreditCardElement'
-import { useConfirmCardSetup } from '@root/app/new/(checkout)/useConfirmCardSetup'
+import { TrashIcon } from '@root/icons/TrashIcon'
 import { Team } from '@root/payload-cloud-types'
-import { useGetPaymentMethods } from '../CreditCardSelector/useGetPaymentMethods'
+import { useDeletePaymentMethod } from './useDeletePaymentMethod'
+import { useGetPaymentMethods } from './useGetPaymentMethods'
+import { useSaveNewPaymentMethod } from './useSaveNewPaymentMethod'
 
 import classes from './index.module.scss'
 
@@ -13,12 +15,9 @@ export const CreditCardList: React.FC<{
   team: Team
 }> = props => {
   const { team } = props
+  const ref = React.useRef<HTMLDivElement>(null)
   const newCardID = React.useRef<string>(`new-card-${uuid()}`)
   const [showNewCard, setShowNewCard] = React.useState(false)
-  const [error, setError] = React.useState<string | undefined>(undefined)
-  const [loading, setLoading] = React.useState(false)
-  const [success, setSuccess] = React.useState('')
-  const isRequesting = useRef(false)
 
   const {
     result: paymentMethods,
@@ -26,8 +25,24 @@ export const CreditCardList: React.FC<{
     refreshPaymentMethods,
   } = useGetPaymentMethods({ team })
 
-  const confirmCardSetup = useConfirmCardSetup({
+  const {
+    deletePaymentMethod,
+    success: deletionSuccess,
+    error: deletionError,
+    isLoading: isDeleting,
+  } = useDeletePaymentMethod({
+    onDelete: refreshPaymentMethods,
+  })
+
+  const {
+    saveNewPaymentMethod,
+    success: newCardSuccess,
+    error: newCardError,
+    isLoading: isSavingNewCard,
+  } = useSaveNewPaymentMethod({
     team,
+    onSave: refreshPaymentMethods,
+    newCardID: newCardID.current,
   })
 
   useEffect(() => {
@@ -36,59 +51,59 @@ export const CreditCardList: React.FC<{
     setShowNewCard(!firstCard)
   }, [paymentMethods, newCardID])
 
-  const handleSaveNewCard = useCallback(async () => {
-    if (isRequesting.current) {
-      return
-    }
-
-    isRequesting.current = true
-    setError(undefined)
-    setLoading(true)
-
-    try {
-      await confirmCardSetup(newCardID.current)
-      await refreshPaymentMethods()
-      setLoading(false)
-      setSuccess('New card saved')
-    } catch (error) {
-      setError(error.message)
-      setLoading(false)
-    }
-
-    isRequesting.current = false
-  }, [confirmCardSetup, refreshPaymentMethods])
-
   return (
-    <div className={classes.creditCardSelector}>
-      {paymentMethodsError && (
-        <div className={classes.formState}>
-          {paymentMethodsError && <p className={classes.error}>{paymentMethodsError}</p>}
-        </div>
-      )}
+    <div className={classes.creditCardSelector} ref={ref}>
+      <div className={classes.formState}>
+        {paymentMethodsError && <p className={classes.error}>{paymentMethodsError}</p>}
+        {deletionError && <p className={classes.error}>{deletionError}</p>}
+        {newCardError && <p className={classes.error}>{newCardError}</p>}
+        {deletionSuccess && <p className={classes.success}>Card deleted</p>}
+        {newCardSuccess && <p className={classes.success}>Card saved</p>}
+        {isDeleting && <p className={classes.loading}>Deleting card...</p>}
+        {isSavingNewCard && <p className={classes.loading}>Saving card...</p>}
+      </div>
       <div className={classes.cards}>
         {paymentMethods?.map((paymentMethod, index) => (
           <div className={classes.card} key={index}>
-            <p>{`${paymentMethod?.card?.brand} ending in ${paymentMethod?.card?.last4}`}</p>
+            <p className={classes.cardBrand}>
+              {`${paymentMethod?.card?.brand} ending in ${paymentMethod?.card?.last4}`}
+            </p>
+            {paymentMethods.length > 1 && (
+              // do not allow the user to delete the last card
+              // only show the delete button if there are multiple cards
+              <button
+                type="button"
+                className={classes.deleteCard}
+                onClick={() => {
+                  setTimeout(() => {
+                    if (ref.current) ref.current.scrollIntoView({ behavior: 'smooth' })
+                  }, 0)
+                  deletePaymentMethod(paymentMethod.id)
+                }}
+              >
+                <TrashIcon />
+              </button>
+            )}
           </div>
         ))}
         {showNewCard && (
-          <div className={classes.newCardWrapper}>
-            {(error || loading || success) && (
-              <div className={classes.cardState}>
-                {error && <p className={classes.error}>{error}</p>}
-                {success && <p className={classes.success}>{success}</p>}
-                {loading && <p className={classes.loading}>Saving new card...</p>}
-              </div>
-            )}
-            <div className={classes.card}>
-              <CreditCardElement />
-            </div>
+          <div className={classes.newCard}>
+            <CreditCardElement />
           </div>
         )}
       </div>
       <div className={classes.controls}>
         {showNewCard && (
-          <button type="button" onClick={handleSaveNewCard} className={classes.saveNewCard}>
+          <button
+            type="button"
+            className={classes.saveNewCard}
+            onClick={() => {
+              setTimeout(() => {
+                if (ref.current) ref.current.scrollIntoView({ behavior: 'smooth' })
+              }, 0)
+              saveNewPaymentMethod(newCardID.current)
+            }}
+          >
             Save new card
           </button>
         )}

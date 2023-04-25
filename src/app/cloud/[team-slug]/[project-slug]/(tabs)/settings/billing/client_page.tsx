@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { useCustomerPortal } from '@cloud/[team-slug]/billing/useCustomerPortal'
 import { useRouteData } from '@cloud/context'
 import { Text } from '@forms/fields/Text'
 import Link from 'next/link'
@@ -8,7 +9,6 @@ import Link from 'next/link'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
-import { useCustomerPortal } from '@cloud/[team-slug]/billing/useCustomerPortal'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'
 
 import classes from './page.module.scss'

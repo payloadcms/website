@@ -40,13 +40,33 @@
     }
 }
 
-.card {
+.card,
+.newCard {
     border: 1px solid var(--theme-success-500);
     padding: var(--base);
+    display: flex;
+    align-items: center;
+    gap: var(--base);
 
     > * {
         margin: 0;
     }
+}
+
+.newCard {
+    flex-grow: 1;
+
+    > * {
+        width: 100%;
+    }
+}
+
+.cardBrand {
+    flex-grow: 1;
+}
+
+.deleteCard {
+    color: var(--theme-elevation-500);
 }
 
 .controls {
@@ -56,6 +76,7 @@
     gap: var(--base);
 }
 
+.deleteCard,
 .saveNewCard,
 .cancelNewCard {
     background-color: transparent;

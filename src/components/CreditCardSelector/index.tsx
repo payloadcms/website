@@ -5,7 +5,7 @@ import { CircleIconButton } from '@components/CircleIconButton'
 import { CreditCardElement } from '@components/CreditCardElement'
 import { LargeRadio } from '@components/LargeRadio'
 import { Team } from '@root/payload-cloud-types'
-import { useGetPaymentMethods } from './useGetPaymentMethods'
+import { useGetPaymentMethods } from '../CreditCardList/useGetPaymentMethods'
 
 import classes from './index.module.scss'
 
@@ -19,18 +19,18 @@ export const CreditCardSelector: React.FC<{
   const [internalState, setInternalState] = React.useState(initialValue || newCardID.current)
   const [showNewCard, setShowNewCard] = React.useState(false)
 
-  const { result: paymentMethods, error } = useGetPaymentMethods({ team })
+  const { result: cards, error } = useGetPaymentMethods({ team })
 
   // update the internal state when the payment methods change
   // preselect the first card if there is only one
   // generate a unique id for the new card, prefixed with `new-card`
   // this will allow us to differentiate from a saved card in the checkout process
   useEffect(() => {
-    const firstCard = paymentMethods?.[0]?.id
+    const firstCard = cards?.[0]?.id
     newCardID.current = `new-card-${uuid()}`
     setShowNewCard(!firstCard)
     setInternalState(firstCard || newCardID.current)
-  }, [paymentMethods, newCardID])
+  }, [cards, newCardID])
 
   useEffect(() => {
     if (typeof onChange === 'function') {
@@ -44,7 +44,7 @@ export const CreditCardSelector: React.FC<{
     <div className={classes.creditCardSelector}>
       {error && <p className={classes.error}>{error}</p>}
       <div className={classes.cards}>
-        {paymentMethods?.map(paymentMethod => (
+        {cards?.map(paymentMethod => (
           <LargeRadio
             key={paymentMethod.id}
             value={paymentMethod.id}
@@ -67,13 +67,13 @@ export const CreditCardSelector: React.FC<{
         )}
       </div>
       {/* Only show the add/remove new card button if there are existing payment methods */}
-      {paymentMethods?.length > 0 && (
+      {cards?.length > 0 && (
         <div className={classes.newCardController}>
           <CircleIconButton
             onClick={() => {
               setShowNewCard(!showNewCard)
               setInternalState(
-                showNewCard ? paymentMethods?.[0]?.id || newCardID.current : newCardID.current,
+                showNewCard ? cards?.[0]?.id || newCardID.current : newCardID.current,
               )
             }}
             label={showNewCard ? 'Cancel new card' : 'Add new card'}
