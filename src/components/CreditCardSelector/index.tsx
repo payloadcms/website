@@ -1,25 +1,34 @@
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { v4 as uuid } from 'uuid'
 
 import { CircleIconButton } from '@components/CircleIconButton'
 import { CreditCardElement } from '@components/CreditCardElement'
 import { LargeRadio } from '@components/LargeRadio'
+import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Team } from '@root/payload-cloud-types'
 import { useGetPaymentMethods } from '../CreditCardList/useGetPaymentMethods'
+import { useGetCustomer } from './useGetCustomer'
+import { useGetSubscription } from './useGetSubscription'
 
 import classes from './index.module.scss'
 
-export const CreditCardSelector: React.FC<{
+type CreditCardSelectorType = {
   team: Team
   initialValue?: string
   onChange?: (method?: string) => void // eslint-disable-line no-unused-vars
-}> = props => {
+}
+
+const Selector: React.FC<CreditCardSelectorType> = props => {
   const { onChange, initialValue, team } = props
   const newCardID = React.useRef<string>(`new-card-${uuid()}`)
   const [internalState, setInternalState] = React.useState(initialValue || newCardID.current)
   const [showNewCard, setShowNewCard] = React.useState(false)
 
-  const { result: cards, error } = useGetPaymentMethods({ team })
+  const {
+    result: cards,
+    error: paymentMethodError,
+    isLoading: loadingPaymentMethods,
+  } = useGetPaymentMethods({ team })
 
   // update the internal state when the payment methods change
   // preselect the first card if there is only one
@@ -40,9 +49,13 @@ export const CreditCardSelector: React.FC<{
 
   const isNewCard = internalState === newCardID.current
 
+  if (loadingPaymentMethods) {
+    return <LoadingShimmer number={3} />
+  }
+
   return (
     <div className={classes.creditCardSelector}>
-      {error && <p className={classes.error}>{error}</p>}
+      {paymentMethodError && <p className={classes.error}>{paymentMethodError}</p>}
       <div className={classes.cards}>
         {cards?.map(paymentMethod => (
           <LargeRadio
@@ -82,5 +95,49 @@ export const CreditCardSelector: React.FC<{
         </div>
       )}
     </div>
+  )
+}
+
+// Need to first load the customer so we can know their initial payment method
+// Optionally pass a subscription to load its payment method as the initial value as priority
+export const CreditCardSelector: React.FC<
+  Omit<CreditCardSelectorType, 'customer'> & {
+    stripeSubscriptionID?: string
+  }
+> = props => {
+  const { team, stripeSubscriptionID } = props
+
+  const {
+    result: customer,
+    error: customerError,
+    isLoading: loadingCustomer,
+  } = useGetCustomer({ stripeCustomerID: team.stripeCustomerID })
+
+  const {
+    result: subscription,
+    error: subscriptionError,
+    isLoading: loadingSubscription,
+  } = useGetSubscription({ stripeSubscriptionID })
+
+  if (loadingCustomer || (stripeSubscriptionID && loadingSubscription)) {
+    return <LoadingShimmer number={3} />
+  }
+
+  if (customerError || (stripeSubscriptionID && subscriptionError)) {
+    return (
+      <Fragment>
+        {customerError && <p className={classes.error}>{customerError}</p>}
+        {subscriptionError && <p className={classes.error}>{subscriptionError}</p>}
+      </Fragment>
+    )
+  }
+
+  return (
+    <Selector
+      {...props}
+      initialValue={
+        subscription?.default_payment_method || customer?.invoice_settings?.default_payment_method
+      }
+    />
   )
 }

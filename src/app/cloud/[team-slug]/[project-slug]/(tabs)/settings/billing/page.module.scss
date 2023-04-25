@@ -9,6 +9,8 @@
 }
 
 .description {
+  margin-top: var(--base);
+  
   a {
     color: var(--theme-blue-500);
     cursor: pointer;
