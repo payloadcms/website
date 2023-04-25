@@ -4,22 +4,23 @@ import * as React from 'react'
 import { useRouteData } from '@cloud/context'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
+import { Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
 
+import { CreditCardList } from '@components/CreditCardList'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { useAuth } from '@root/providers/Auth'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
-import { useCustomerPortal } from '@root/utilities/use-customer-portal'
 
 import classes from './page.module.scss'
+
+const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
+const Stripe = loadStripe(apiKey)
 
 export const TeamBillingPage = () => {
   const { user } = useAuth()
   const { team } = useRouteData()
-  const { openPortalSession, error, loading } = useCustomerPortal({
-    team,
-    headline: `"${team.name}" Team on Payload Cloud`,
-  })
 
   const isCurrentTeamOwner = checkTeamRoles(user, team, ['owner'])
   const hasCustomerID = team?.stripeCustomerID
@@ -31,12 +32,6 @@ export const TeamBillingPage = () => {
       </Heading>
       <Grid>
         <Cell cols={6} colsM={8}>
-          {(loading || error) && (
-            <div className={classes.formSate}>
-              {loading && <p className={classes.loading}>Opening customer portal...</p>}
-              {error && <p className={classes.error}>{error}</p>}
-            </div>
-          )}
           {!hasCustomerID && (
             <p className={classes.error}>
               This team does not have a billing account. Please contact support to resolve this
@@ -60,18 +55,10 @@ export const TeamBillingPage = () => {
               )}
               {isCurrentTeamOwner && (
                 <React.Fragment>
-                  <p className={classes.description}>
-                    {'To manage your billing and payment information, open the '}
-                    <a
-                      onClick={e => {
-                        e.preventDefault()
-                        openPortalSession(e)
-                      }}
-                    >
-                      customer portal
-                    </a>
-                    {'.'}
-                  </p>
+                  <h6>Payment Methods</h6>
+                  <Elements stripe={Stripe}>
+                    <CreditCardList team={team} />
+                  </Elements>
                 </React.Fragment>
               )}
             </React.Fragment>

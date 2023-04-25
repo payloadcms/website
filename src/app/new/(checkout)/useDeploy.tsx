@@ -3,14 +3,14 @@ import { OnSubmit } from '@forms/types'
 import { CardElement as StripeCardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import {
   PaymentIntent, // eslint-disable-line import/named
-  SetupIntentResult, // eslint-disable-line import/named
   StripeCardElement as StripeCardElementType, // eslint-disable-line import/named
 } from '@stripe/stripe-js'
 
 import { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { CheckoutState } from './reducer'
-import { PayloadStripeSetupIntent, useCreateSetupIntent } from './useCreateSetupIntent'
+import { useConfirmCardSetup } from './useConfirmCardSetup'
+import { useCreateSetupIntent } from './useCreateSetupIntent'
 import { PayloadStripeSubscription, useCreateSubscription } from './useCreateSubscription'
 
 export const useDeploy = (args: {
@@ -29,46 +29,9 @@ export const useDeploy = (args: {
     checkoutState,
   })
 
-  const createSetupIntent = useCreateSetupIntent({
-    project,
-    checkoutState,
+  const confirmCardSetup = useConfirmCardSetup({
+    team: checkoutState?.team,
   })
-
-  // this will ensure payment methods are supplied even for trials
-  const confirmCardSetup = useCallback(
-    async (setupIntent: PayloadStripeSetupIntent): Promise<SetupIntentResult | null> => {
-      if (!setupIntent) {
-        throw new Error('No setup intent')
-      }
-
-      if (!checkoutState || !stripe || !elements) {
-        throw new Error('No payment intent or checkout state')
-      }
-
-      const { client_secret: clientSecret } = setupIntent
-      const { paymentMethod } = checkoutState
-
-      if (!clientSecret) {
-        throw new Error('No plan selected or client secret')
-      }
-
-      const stripePayment = await stripe.confirmCardSetup(clientSecret, {
-        payment_method:
-          !paymentMethod || paymentMethod.startsWith('new-card')
-            ? {
-                card: elements.getElement(StripeCardElement) as StripeCardElementType,
-              }
-            : paymentMethod,
-      })
-
-      if (stripePayment.error) {
-        throw new Error(stripePayment.error.message)
-      }
-
-      return stripePayment
-    },
-    [elements, stripe, checkoutState],
-  )
 
   const confirmCardPayment = useCallback(
     async (subscription: PayloadStripeSubscription): Promise<PaymentIntent | null> => {
@@ -130,8 +93,7 @@ export const useDeploy = (args: {
 
         // first create a setup intent and confirm it
         // this will ensure that payment methods are supplied even for trials
-        const setupIntent = await createSetupIntent()
-        await confirmCardSetup(setupIntent)
+        await confirmCardSetup(checkoutState.paymentMethod)
 
         // only scroll-to-top after the card has been confirmed
         // Stripe automatically scrolls to the `CardElement` if an error occurs
@@ -193,7 +155,6 @@ export const useDeploy = (args: {
       onDeploy,
       createSubscription,
       confirmCardSetup,
-      createSetupIntent,
       confirmCardPayment,
     ],
   )

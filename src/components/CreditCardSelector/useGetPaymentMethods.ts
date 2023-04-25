@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { PaymentMethod } from '@stripe/stripe-js'
 
 import type { Team } from '@root/payload-cloud-types'
@@ -10,6 +10,7 @@ export const useGetPaymentMethods = (args: {
   result: PaymentMethod[]
   isLoading: boolean | null
   error: string
+  refreshPaymentMethods: () => void
 } => {
   const { team, delay } = args
   const isRequesting = useRef(false)
@@ -17,7 +18,7 @@ export const useGetPaymentMethods = (args: {
   const [isLoading, setIsLoading] = useState<boolean | null>(null)
   const [error, setError] = useState('')
 
-  useEffect(() => {
+  const getPaymentMethods = useCallback(() => {
     let timer: NodeJS.Timeout
 
     if (!team?.stripeCustomerID) {
@@ -85,7 +86,18 @@ export const useGetPaymentMethods = (args: {
     }
   }, [delay, team?.stripeCustomerID])
 
-  const memoizedState = useMemo(() => ({ result, isLoading, error }), [result, isLoading, error])
+  useEffect(() => {
+    getPaymentMethods()
+  }, [getPaymentMethods])
+
+  const refreshPaymentMethods = useCallback(() => {
+    getPaymentMethods()
+  }, [getPaymentMethods])
+
+  const memoizedState = useMemo(
+    () => ({ result, isLoading, error, refreshPaymentMethods }),
+    [result, isLoading, error, refreshPaymentMethods],
+  )
 
   return memoizedState
 }

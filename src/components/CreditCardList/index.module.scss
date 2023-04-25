@@ -1,0 +1,73 @@
+@use '@scss/common' as *;
+
+.error {
+    color: var(--theme-error-500);
+}
+
+.success {
+    color: var(--theme-success-500);
+}
+
+.formState {
+    display: flex;
+    flex-direction: column;
+    gap: var(--base);
+    margin-bottom: var(--base);
+
+    > * {
+        margin: 0;
+    }
+}
+
+.cardState {
+    display: flex;
+    flex-direction: column;
+    gap: var(--base);
+    margin-bottom: calc(var(--base) / 2);
+
+    > * {
+        margin: 0;
+    }
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--base);
+    
+    @include mid-break {
+        gap: calc(var(--base) / 2);
+    }
+}
+
+.card {
+    border: 1px solid var(--theme-success-500);
+    padding: var(--base);
+
+    > * {
+        margin: 0;
+    }
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    margin-top: var(--base);
+    gap: var(--base);
+}
+
+.saveNewCard,
+.cancelNewCard {
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    border: none;
+    line-height: inherit;
+    font-family: inherit;
+    cursor: pointer;
+    font-size: inherit;
+}
+
+.cancelNewCard {
+    color: var(--theme-elevation-500);
+}

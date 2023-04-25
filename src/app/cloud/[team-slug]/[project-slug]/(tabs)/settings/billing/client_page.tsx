@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
-import { useCustomerPortal } from '@root/utilities/use-customer-portal'
+import { useCustomerPortal } from '@cloud/[team-slug]/billing/useCustomerPortal'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'
 
 import classes from './page.module.scss'

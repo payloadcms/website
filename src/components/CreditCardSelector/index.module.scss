@@ -5,8 +5,12 @@
 }
 
 .cards {
-    > *:not(:last-child) {
-        margin-bottom: var(--base);
+    display: flex;
+    flex-direction: column;
+    gap: var(--base);
+
+    @include mid-break {
+        gap: calc(var(--base) / 2);
     }
 }
 
