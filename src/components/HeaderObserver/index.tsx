@@ -44,8 +44,6 @@ const WrappedHeaderObserver: React.FC<
       return
     }
 
-    console.log({ cssHeaderHeight })
-
     if (ref?.current && windowHeight && windowWidth && cssHeaderHeight && themeColor) {
       const halfHeaderHeight = windowHeight - Math.ceil(cssHeaderHeight / 2)
 
