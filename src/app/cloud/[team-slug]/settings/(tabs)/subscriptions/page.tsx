@@ -1,15 +1,16 @@
 import { Metadata } from 'next'
 
-import { TeamBillingPage } from './client_page'
+import { TeamSubscriptionsPage } from './client_page'
+
 export default props => {
-  return <TeamBillingPage {...props} />
+  return <TeamSubscriptionsPage {...props} />
 }
 
 export async function generateMetadata({ params: { 'team-slug': teamSlug } }): Promise<Metadata> {
   return {
-    title: `${teamSlug} - Team Billing`,
+    title: `${teamSlug} - Team Subscriptions`,
     openGraph: {
-      url: `/cloud/${teamSlug}/billing`,
+      url: `/cloud/${teamSlug}/subscriptions`,
     },
   }
 }

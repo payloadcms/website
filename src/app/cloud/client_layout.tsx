@@ -57,10 +57,6 @@ const DashboardHeader = () => {
         crumbLabel: team?.slug,
         href: `/${team?.slug}`,
       },
-      billing: {
-        tabLabel: 'Billing',
-        href: `/${team?.slug}/billing`,
-      },
       settings: {
         tabLabel: 'Settings',
         href: `/${team?.slug}/settings`,

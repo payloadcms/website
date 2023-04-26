@@ -168,7 +168,7 @@ const List: React.FC<CreditCardListType> = props => {
 
 // Need to first load the customer so we can know their default payment method
 export const CreditCardList: React.FC<
-  Omit<CreditCardListType, 'customer' | 'setDefaultPaymentMethod'>
+  Omit<CreditCardListType, 'customer' | 'setDefaultPaymentMethod' | 'customerLoading'>
 > = props => {
   const { team } = props
 

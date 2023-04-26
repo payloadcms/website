@@ -111,7 +111,7 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
       {showTeamLink && (
         <p className={classes.description}>
           {`To manage your team's billing and payment information, go to your `}
-          <Link href={`/cloud/${team.slug}/billing`}>team billing page</Link>
+          <Link href={`/cloud/${team.slug}/settings/billing`}>team billing page</Link>
           {`.`}
         </p>
       )}

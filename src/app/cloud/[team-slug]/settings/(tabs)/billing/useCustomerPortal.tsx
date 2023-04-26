@@ -20,7 +20,7 @@ export const useCustomerPortal = (args: {
   const {
     team,
     subscriptionID,
-    returnURL = `${process.env.NEXT_PUBLIC_SITE_URL}/cloud/${team.slug}/billing`,
+    returnURL = `${process.env.NEXT_PUBLIC_SITE_URL}/cloud/${team.slug}/settings/billing`,
     headline = 'Payload Cloud',
   } = args
 

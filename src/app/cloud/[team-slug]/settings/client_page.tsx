@@ -101,7 +101,7 @@ export const TeamSettingsPage = () => {
   )
 
   return (
-    <Gutter className={classes.settings}>
+    <React.Fragment>
       <Heading marginTop={false} element="h1" as="h6" className={classes.title}>
         Team settings
       </Heading>
@@ -111,56 +111,52 @@ export const TeamSettingsPage = () => {
           {error && <p className={classes.error}>{error?.message}</p>}
         </div>
       )}
-      <Grid>
-        <Cell cols={6} colsM={8}>
-          <Form
-            onSubmit={handleSubmit}
-            className={classes.form}
-            errors={error?.data}
-            initialState={{
-              name: {
-                initialValue: team?.name,
-                value: team?.name,
+      <Form
+        onSubmit={handleSubmit}
+        className={classes.form}
+        errors={error?.data}
+        initialState={{
+          name: {
+            initialValue: team?.name,
+            value: team?.name,
+          },
+          slug: {
+            initialValue: team?.slug,
+            value: team?.slug,
+          },
+          billingEmail: {
+            initialValue: team?.billingEmail,
+            value: team?.billingEmail,
+          },
+          sendEmailInvitationsTo: {
+            initialValue: [
+              {
+                email: '',
+                roles: ['user'],
               },
-              slug: {
-                initialValue: team?.slug,
-                value: team?.slug,
-              },
-              billingEmail: {
-                initialValue: team?.billingEmail,
-                value: team?.billingEmail,
-              },
-              sendEmailInvitationsTo: {
-                initialValue: [
-                  {
-                    email: '',
-                    roles: ['user'],
-                  },
-                ],
-              },
-            }}
-          >
-            <FormSubmissionError />
-            <FormProcessing message="Updating team, one moment..." />
-            <Text path="name" label="Team Name" />
-            <UniqueTeamSlug teamID={team?.id} />
-            <Text path="billingEmail" label="Billing Email" required />
-            <Text
-              value={team?.id}
-              label="Team ID"
-              disabled
-              description="This is your team's ID within Payload"
-            />
-            <hr className={classes.hr} />
-            <TeamMembers team={team} />
-            {team?.invitations && team?.invitations?.length > 0 && <TeamInvitations team={team} />}
-            <hr className={classes.hr} />
-            <InviteTeammates />
-            <hr className={classes.hr} />
-            <Submit label="Save" className={classes.submit} />
-          </Form>
-        </Cell>
-      </Grid>
-    </Gutter>
+            ],
+          },
+        }}
+      >
+        <FormSubmissionError />
+        <FormProcessing message="Updating team, one moment..." />
+        <Text path="name" label="Team Name" />
+        <UniqueTeamSlug teamID={team?.id} />
+        <Text path="billingEmail" label="Billing Email" required />
+        <Text
+          value={team?.id}
+          label="Team ID"
+          disabled
+          description="This is your team's ID within Payload"
+        />
+        <hr className={classes.hr} />
+        <TeamMembers team={team} />
+        {team?.invitations && team?.invitations?.length > 0 && <TeamInvitations team={team} />}
+        <hr className={classes.hr} />
+        <InviteTeammates />
+        <hr className={classes.hr} />
+        <Submit label="Save" className={classes.submit} />
+      </Form>
+    </React.Fragment>
   )
 }
