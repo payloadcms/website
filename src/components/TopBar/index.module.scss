@@ -1,43 +1,13 @@
 @use '@scss/common' as *;
 
 .topBar {  
-  --bg-color: var(--color-base-900);
-  --text-color: var(--color-base-100);
-
   position: fixed;
   top: 0;
   height: var(--top-bar-height);
   width: 100%;
   z-index: var(--z-nav);
-
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--bg-color);
-    opacity: 0.85;
-    z-index: -1;
-    transition: opacity 500ms ease-out;
-  }
-  
-  &:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(5px);
-    z-index: -1;
-    opacity: 1;
-    transition: opacity 500ms ease-out;
-  }
-
+  background: var(--color-base-1000);
+  color: var(--color-base-100);
 
   .wrap {
     position: relative;
@@ -48,12 +18,10 @@
     gap: var(--base);
     width: 100%;
     height: 100%;
-  
     pointer-events: all;
     color: var(--text-color);
     transition: color 300ms ease;
     @include small;
-
   }
 
   .starWrap {
@@ -73,7 +41,6 @@
   .mobileText {
     display: none;
   }
-
 
   .richText {
     & a {

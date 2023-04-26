@@ -63,7 +63,7 @@ export const Providers: React.FC<{
                     <ComputedCSSValuesProvider>
                       <ModalProvider transTime={0} zIndex="var(--z-modal)">
                         <PageTransition>
-                          <HeaderThemeProvider>
+                          <HeaderThemeProvider debug>
                             {children}
                             <ModalContainer />
                             <ToastContainer

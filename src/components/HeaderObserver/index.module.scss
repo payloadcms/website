@@ -25,14 +25,14 @@
 .stickyObserver {
   width: 100%;
   position: sticky;
-  top: calc(.5 * var(--header-height));
-  margin-bottom: calc(.5 * var(--header-height));
+  top: calc(var(--top-bar-height) + var(--header-height) * .5);
+  margin-bottom: calc(var(--top-bar-height) + var(--header-height) * .5);
   height: 0px;
   z-index: 1;
 }
 
 .debug .stickyObserver {
-  background-color: hotpink;
+  background-color: var(--color-blue-500);
   height: 1px;
   z-index: 10000;
 }
