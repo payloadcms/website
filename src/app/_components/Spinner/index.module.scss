@@ -1,0 +1,25 @@
+.spinner {
+  position: absolute;
+  width: calc(100% + 5px);
+  height: calc(100% + 5px);
+  background: transparent;
+  border-radius: 100%;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  border: 1px solid transparent;
+  border-right: 1px solid var(--theme-elevation-600);
+  border-top: 0px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

@@ -6,7 +6,7 @@ import { DiscordGitBody } from '@components/DiscordGitBody'
 import { FileAttachments } from '@components/FileAttachment'
 import { Messages } from '@root/app/community-help/discord/[slug]/client_page'
 import { Answer, Comment } from '@root/app/community-help/github/[slug]/client_page'
-import { CheckmarkIcon } from '@root/graphics/CheckmarkIcon'
+import { CheckIcon } from '@root/icons/CheckIcon'
 
 import classes from './index.module.scss'
 
@@ -27,7 +27,9 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
             .join(' ')}
         >
           <div className={classes.answerHeader}>
-            <CheckmarkIcon className={classes.checkmark} />
+            <div className={classes.checkmark}>
+              <CheckIcon size="medium" bold />
+            </div>
             <label>Selected Answer</label>
           </div>
 

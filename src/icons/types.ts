@@ -1,6 +1,6 @@
 export interface IconProps {
   color?: string
-  size?: 'small' | 'large' | 'full'
+  size?: 'small' | 'medium' | 'large' | 'full'
   bold?: boolean
   className?: string
   rotation?: number

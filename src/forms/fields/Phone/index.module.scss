@@ -24,7 +24,7 @@
 
 .phone {
   position: relative;
-  
+
   input {
     @include shared.formInput;
     padding-left: calc(var(--base) * 3);
@@ -37,6 +37,8 @@
 
 .countrySelect {
   all: unset;
+  @include shared.formInput;
+  padding: 0;
   width: var(--base);
   height: var(--base);
   opacity: 0;

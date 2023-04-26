@@ -20,7 +20,7 @@ const Link: React.FC<LinkGridProps['linkGridFields']['links'][0]['link']> = prop
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <LineDraw active={isHovered} />
+      <LineDraw active={isHovered} align="bottom" />
       <CMSLink {...props} className={classes.link}>
         <ArrowIcon className={classes.icon} size="large" />
       </CMSLink>

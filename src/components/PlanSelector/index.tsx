@@ -28,10 +28,11 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
   const [selectedPlan, setSelectedPlan] = React.useState<Plan | undefined | null>(initialSelection)
 
   // initialize with the `standard` plan
+  // fallback to the first plan in the list
   useEffect(() => {
     if (plans?.length && !initialSelection && !hasInitializedSelection.current) {
       hasInitializedSelection.current = true
-      setSelectedPlan(plans.find(plan => plan.slug === 'standard'))
+      setSelectedPlan(plans?.find(plan => plan.slug === 'standard') || plans?.[0])
     }
   }, [plans, initialSelection])
 

@@ -12,7 +12,6 @@ import { FormField, SetValue } from './types'
 // 2. debounces its value and sends it to the form context
 // 3. runs field-level validation
 // 4. returns form state and field-level errors
-
 export const useFormField = <T extends Value>(options): FormField<T> => {
   const { path, validate, initialValue: initialValueFromProps, required } = options
 
@@ -67,7 +66,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
             })
           : true
 
-      if (typeof validationResult === 'string') {
+      if (typeof validationResult === 'string' || validationResult === false) {
         fieldToDispatch.errorMessage = validationResult
         fieldToDispatch.valid = false
       }
@@ -128,6 +127,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
     showError,
     errorMessage: field?.errorMessage || apiError?.message,
     value: internalValue,
+    debouncedValue: field?.value,
     formSubmitted: submitted,
     formProcessing: processing,
     setValue,

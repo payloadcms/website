@@ -1,10 +1,6 @@
 @use '@scss/common' as *;
 @use "../../../forms/fields/shared.scss";
 
-.error {
-  color: var(--color-error-500);
-}
-
 .submit {
   margin-top: var(--base);
 
