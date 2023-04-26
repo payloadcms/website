@@ -23,11 +23,13 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
           <Link href="/" className={classes.logo}>
             <FullLogo />
           </Link>
+
           <div className={classes.navItems}>
             {(navItems || []).map((item, index) => {
               return <CMSLink className={classes.navItem} key={index} {...item.link} />
             })}
           </div>
+
           <div className={classes.secondaryNavItems}>
             <Link href="/new">New project</Link>
 

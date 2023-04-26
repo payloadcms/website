@@ -85,14 +85,7 @@
   justify-content: flex-end;
   align-items: center;
   white-space: nowrap;
-
-  & > *:not(:last-child) {
-    margin-right: calc(var(--base) * 1.25);
-
-    @include large-break {
-      margin-right: var(--base);
-    }
-  }
+  gap: calc(var(--base) * 1.25);
 }
 
 .payload {
