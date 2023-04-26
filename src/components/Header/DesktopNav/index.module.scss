@@ -95,46 +95,6 @@
   }
 }
 
-.github {
-  display: flex;
-  color-scheme: none;
-  align-items: center;
-
-  @include large-break {
-    margin-left: auto;
-  }
-}
-
-.githubLoggedIn {
-  margin-right: calc(var(--base) * 1.5) !important;
-
-  @include large-break {
-    margin-right: var(--base) !important;
-  }
-}
-
-.avatar {
-  margin-right: 0 !important;
-
-  @include large-break {
-    margin-right: calc(var(--base) * 1.25) !important;
-  }
-}
-
-.githubLoggedOut {
-  margin-right: 0 !important;
-
-  @include large-break {
-    margin-right: var(--base) !important;
-  }
-}
-
-.starsWrap {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
 .payload {
   position: absolute;
   top: 0;
