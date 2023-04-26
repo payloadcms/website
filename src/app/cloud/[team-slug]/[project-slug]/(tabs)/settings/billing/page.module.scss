@@ -8,16 +8,6 @@
     color: var(--theme-success-500);
 }
 
-.description {
-  margin-top: var(--base);
-  
-  a {
-    color: var(--theme-blue-500);
-    cursor: pointer;
-    text-decoration: underline;
-  }
-}
-
 .fields {
   display: flex;
   flex-direction: column;

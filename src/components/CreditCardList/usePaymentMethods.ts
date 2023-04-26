@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { toast } from 'react-toastify'
 import type { PaymentMethod } from '@stripe/stripe-js'
 
 import { useConfirmCardSetup } from '@root/app/new/(checkout)/useConfirmCardSetup'
@@ -10,7 +11,6 @@ export const usePaymentMethods = (args: {
 }): {
   result: null | PaymentMethod[]
   isLoading: 'loading' | 'saving' | 'deleting' | false | null
-  success?: string
   error?: string
   deletePaymentMethod: (paymentMethod: string) => void
   getPaymentMethods: () => void
@@ -22,7 +22,6 @@ export const usePaymentMethods = (args: {
   const isDeleting = useRef(false)
   const [result, setResult] = useState<PaymentMethod[] | null>(null)
   const [isLoading, setIsLoading] = useState<'loading' | 'saving' | 'deleting' | false | null>(null)
-  const [success, setSuccess] = useState<string | undefined>('')
   const [error, setError] = useState<string | undefined>('')
 
   const confirmCardSetup = useConfirmCardSetup({
@@ -75,7 +74,7 @@ export const usePaymentMethods = (args: {
             setError('')
             setIsLoading(false)
             if (successMessage) {
-              setSuccess(successMessage)
+              toast.success(successMessage)
             }
           }, delay)
         } else {
@@ -114,7 +113,6 @@ export const usePaymentMethods = (args: {
       if (isDeleting.current) return
 
       isDeleting.current = true
-      setSuccess(undefined)
       setError(undefined)
       setIsLoading('deleting')
 
@@ -147,7 +145,6 @@ export const usePaymentMethods = (args: {
         const message = (err as Error)?.message || 'Something went wrong'
         setError(message)
         setIsLoading(false)
-        setSuccess('')
       }
 
       isDeleting.current = false
@@ -167,7 +164,6 @@ export const usePaymentMethods = (args: {
       }
 
       isSavingNew.current = true
-      setSuccess(undefined)
       setError(undefined)
       setIsLoading('saving')
 
@@ -193,17 +189,8 @@ export const usePaymentMethods = (args: {
       deletePaymentMethod,
       getPaymentMethods,
       saveNewPaymentMethod,
-      success,
     }),
-    [
-      result,
-      isLoading,
-      error,
-      deletePaymentMethod,
-      getPaymentMethods,
-      saveNewPaymentMethod,
-      success,
-    ],
+    [result, isLoading, error, deletePaymentMethod, getPaymentMethods, saveNewPaymentMethod],
   )
 
   return memoizedState

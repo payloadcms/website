@@ -5,9 +5,9 @@ import { useRouteData } from '@cloud/context'
 import { Text } from '@forms/fields/Text'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-import Link from 'next/link'
 
 import { CreditCardSelector } from '@components/CreditCardSelector'
+import { Heading } from '@components/Heading'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
@@ -76,7 +76,9 @@ export const ProjectBillingPage = () => {
             )}
             {isCurrentTeamOwner && (
               <React.Fragment>
-                <h6>Payment Method</h6>
+                <Heading marginBottom={false} element="h6">
+                  Payment Method
+                </Heading>
                 <Elements stripe={Stripe}>
                   <CreditCardSelector
                     team={team}
@@ -88,11 +90,6 @@ export const ProjectBillingPage = () => {
           </React.Fragment>
         )}
       </div>
-      <p className={classes.description}>
-        {`To manage your billing and payment information, go to your `}
-        <Link href={`/cloud/${team.slug}/billing`}>team billing page</Link>
-        {`.`}
-      </p>
     </MaxWidth>
   )
 }

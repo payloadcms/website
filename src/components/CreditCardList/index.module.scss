@@ -82,10 +82,26 @@
 .cardBrand {
     flex-grow: 1;
     line-height: var(--base);
+    display: flex;
+    align-items: center;
+    gap: calc(var(--base) / 2);
 }
 
-.deleteCard {
-    color: var(--theme-elevation-500);
+.deleteCard,
+.makeDefault {
+    background-color: transparent;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    line-height: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    outline: none;
+    
+    &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
 }
 
 .controls {
@@ -95,7 +111,6 @@
     gap: var(--base);
 }
 
-.deleteCard,
 .saveNewCard,
 .cancelNewCard {
     background-color: transparent;
