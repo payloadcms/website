@@ -331,6 +331,7 @@ const Checkout: React.FC<{
                       initialValue={checkoutState?.paymentMethod}
                       team={checkoutState?.team}
                       onChange={handleCardChange}
+                      enableInlineSave={false}
                     />
                   )}
                 </div>

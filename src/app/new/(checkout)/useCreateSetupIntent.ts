@@ -10,7 +10,7 @@ export interface PayloadStripeSetupIntent {
 }
 
 export const useCreateSetupIntent = (args: {
-  team: Team
+  team?: Team
 }): (() => Promise<PayloadStripeSetupIntent>) => {
   const { team } = args
 

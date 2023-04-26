@@ -1,29 +1,32 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
-interface Subscription {
-  default_payment_method: string
+// TODO: type this using Stripe module
+export interface Customer {
+  invoice_settings: {
+    default_payment_method: string
+  }
 }
 
-export const useGetSubscription = (args: {
-  stripeSubscriptionID?: string
+export const useCustomer = (args: {
+  stripeCustomerID?: string
   delay?: number
 }): {
-  result: Subscription | null
+  result: Customer | null
   isLoading: boolean | null
   error: string
-  refreshSubscription: () => void
+  refreshCustomer: () => void
 } => {
-  const { stripeSubscriptionID, delay } = args
+  const { stripeCustomerID, delay } = args
   const isRequesting = useRef(false)
-  const [result, setResult] = useState<Subscription | null>(null)
+  const [result, setResult] = useState<Customer | null>(null)
   const [isLoading, setIsLoading] = useState<boolean | null>(null)
   const [error, setError] = useState('')
 
   const getPaymentMethods = useCallback(() => {
     let timer: NodeJS.Timeout
 
-    if (!stripeSubscriptionID) {
-      setError('No subscription ID')
+    if (!stripeCustomerID) {
+      setError('No customer ID')
       setResult(null)
       return
     }
@@ -43,20 +46,18 @@ export const useGetSubscription = (args: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            stripeMethod: 'subscriptions.retrieve',
-            stripeArgs: [stripeSubscriptionID],
+            stripeMethod: 'customers.retrieve',
+            stripeArgs: [stripeCustomerID],
           }),
         })
 
         const json: {
-          data: {
-            data: Subscription
-          }
+          data: Customer
         } = await req.json()
 
         if (req.ok) {
           setTimeout(() => {
-            setResult(json?.data?.data)
+            setResult(json?.data)
             setError('')
             setIsLoading(false)
           }, delay)
@@ -80,19 +81,19 @@ export const useGetSubscription = (args: {
     return () => {
       clearTimeout(timer)
     }
-  }, [delay, stripeSubscriptionID])
+  }, [delay, stripeCustomerID])
 
   useEffect(() => {
     getPaymentMethods()
   }, [getPaymentMethods])
 
-  const refreshSubscription = useCallback(() => {
+  const refreshCustomer = useCallback(() => {
     getPaymentMethods()
   }, [getPaymentMethods])
 
   const memoizedState = useMemo(
-    () => ({ result, isLoading, error, refreshSubscription }),
-    [result, isLoading, error, refreshSubscription],
+    () => ({ result, isLoading, error, refreshCustomer }),
+    [result, isLoading, error, refreshCustomer],
   )
 
   return memoizedState

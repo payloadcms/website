@@ -1,7 +1,20 @@
 @use '@scss/common' as *;
 
+.creditCardSelector {
+    position: relative;
+}
+
+.scrollRef { 
+    position: absolute;
+    top: calc(var(--base) * -6);
+}
+
 .error {
     color: var(--theme-error-500);
+}
+
+.success {
+    color: var(--theme-success-500);
 }
 
 .cards {
@@ -14,6 +27,26 @@
     }
 }
 
-.newCardController {
+.controls {
+    display: flex;
+    align-items: center;
     margin-top: var(--base);
+    gap: var(--base);
+}
+
+.deleteCard,
+.saveNewCard,
+.cancelNewCard {
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    border: none;
+    line-height: inherit;
+    font-family: inherit;
+    cursor: pointer;
+    font-size: inherit;
+}
+
+.cancelNewCard {
+    color: var(--theme-elevation-500);
 }

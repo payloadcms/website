@@ -1,5 +1,14 @@
 @use '@scss/common' as *;
 
+.creditCardList {
+    position: relative;
+}
+
+.scrollRef { 
+    position: absolute;
+    top: calc(var(--base) * -6);
+}
+
 .error {
     color: var(--theme-error-500);
 }

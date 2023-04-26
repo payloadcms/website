@@ -1,13 +1,11 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useCallback, useEffect } from 'react'
 import { v4 as uuid } from 'uuid'
 
 import { CircleIconButton } from '@components/CircleIconButton'
 import { CreditCardElement } from '@components/CreditCardElement'
 import { TrashIcon } from '@root/icons/TrashIcon'
 import { Team } from '@root/payload-cloud-types'
-import { useDeletePaymentMethod } from './useDeletePaymentMethod'
-import { useGetPaymentMethods } from './useGetPaymentMethods'
-import { useSaveNewPaymentMethod } from './useSaveNewPaymentMethod'
+import { usePaymentMethods } from './usePaymentMethods'
 
 import classes from './index.module.scss'
 
@@ -15,34 +13,18 @@ export const CreditCardList: React.FC<{
   team: Team
 }> = props => {
   const { team } = props
-  const ref = React.useRef<HTMLDivElement>(null)
+  const scrollRef = React.useRef<HTMLDivElement>(null)
   const newCardID = React.useRef<string>(`new-card-${uuid()}`)
   const [showNewCard, setShowNewCard] = React.useState(false)
 
   const {
     result: paymentMethods,
     error: paymentMethodsError,
-    refreshPaymentMethods,
-  } = useGetPaymentMethods({ team })
-
-  const {
     deletePaymentMethod,
-    success: deletionSuccess,
-    error: deletionError,
-    isLoading: isDeleting,
-  } = useDeletePaymentMethod({
-    onDelete: refreshPaymentMethods,
-  })
-
-  const {
     saveNewPaymentMethod,
-    success: newCardSuccess,
-    error: newCardError,
-    isLoading: isSavingNewCard,
-  } = useSaveNewPaymentMethod({
+    isLoading: isLoading,
+  } = usePaymentMethods({
     team,
-    onSave: refreshPaymentMethods,
-    newCardID: newCardID.current,
   })
 
   useEffect(() => {
@@ -52,15 +34,11 @@ export const CreditCardList: React.FC<{
   }, [paymentMethods, newCardID])
 
   return (
-    <div className={classes.creditCardSelector} ref={ref}>
+    <div className={classes.creditCardList}>
+      <div ref={scrollRef} className={classes.scrollRef} />
       <div className={classes.formState}>
         {paymentMethodsError && <p className={classes.error}>{paymentMethodsError}</p>}
-        {deletionError && <p className={classes.error}>{deletionError}</p>}
-        {newCardError && <p className={classes.error}>{newCardError}</p>}
-        {deletionSuccess && <p className={classes.success}>Card deleted</p>}
-        {newCardSuccess && <p className={classes.success}>Card saved</p>}
-        {isDeleting && <p className={classes.loading}>Deleting card...</p>}
-        {isSavingNewCard && <p className={classes.loading}>Saving card...</p>}
+        {isLoading && <p className={classes.loading}>Saving card...</p>}
       </div>
       <div className={classes.cards}>
         {paymentMethods?.map((paymentMethod, index) => (
@@ -75,9 +53,6 @@ export const CreditCardList: React.FC<{
                 type="button"
                 className={classes.deleteCard}
                 onClick={() => {
-                  setTimeout(() => {
-                    if (ref.current) ref.current.scrollIntoView({ behavior: 'smooth' })
-                  }, 0)
                   deletePaymentMethod(paymentMethod.id)
                 }}
               >
@@ -98,9 +73,6 @@ export const CreditCardList: React.FC<{
             type="button"
             className={classes.saveNewCard}
             onClick={() => {
-              setTimeout(() => {
-                if (ref.current) ref.current.scrollIntoView({ behavior: 'smooth' })
-              }, 0)
               saveNewPaymentMethod(newCardID.current)
             }}
           >
@@ -108,7 +80,7 @@ export const CreditCardList: React.FC<{
           </button>
         )}
         {/* Only show the add/remove new card button if there are existing payment methods */}
-        {paymentMethods?.length > 0 && (
+        {paymentMethods && paymentMethods?.length > 0 && (
           <Fragment>
             {!showNewCard && (
               <CircleIconButton

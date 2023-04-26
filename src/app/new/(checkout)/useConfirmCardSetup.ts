@@ -10,7 +10,7 @@ import { useCreateSetupIntent } from './useCreateSetupIntent'
 
 type ConfirmCardSetup = (paymentMethod: string) => Promise<SetupIntentResult | null>
 
-export const useConfirmCardSetup = (args: { team: Team }): ConfirmCardSetup => {
+export const useConfirmCardSetup = (args: { team?: Team }): ConfirmCardSetup => {
   const { team } = args
   const stripe = useStripe()
   const elements = useElements()
