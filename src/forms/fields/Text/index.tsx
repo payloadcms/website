@@ -4,8 +4,7 @@ import React, { Fragment, useEffect } from 'react'
 import Label from '@forms/Label'
 
 import { CopyToClipboard } from '@components/CopyToClipboard'
-import { TooltipButton } from '@components/TooltipButton'
-import { Spinner } from '@root/app/_components/Spinner'
+import { Tooltip } from '@components/Tooltip'
 import { EyeIcon } from '@root/icons/EyeIcon'
 import Error from '../../Error'
 import { Validate } from '../../types'
@@ -140,13 +139,13 @@ export const Text: React.FC<
               <Fragment>
                 {copy && <CopyToClipboard value={value} />}
                 {type === 'password' && (
-                  <TooltipButton
+                  <Tooltip
                     text={isHidden ? 'show' : 'hide'}
                     onClick={() => setIsHidden(h => !h)}
                     className={classes.tooltipButton}
                   >
                     <EyeIcon closed={isHidden} size="large" />
-                  </TooltipButton>
+                  </Tooltip>
                 )}
               </Fragment>
             }

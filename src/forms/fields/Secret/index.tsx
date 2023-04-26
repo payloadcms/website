@@ -4,7 +4,7 @@ import React, { Fragment } from 'react'
 import Label from '@forms/Label'
 
 import { CopyToClipboard } from '@components/CopyToClipboard'
-import { TooltipButton } from '@components/TooltipButton'
+import { Tooltip } from '@components/Tooltip'
 import { EyeIcon } from '@root/icons/EyeIcon'
 import Error from '../../Error'
 import { Validate } from '../../types'
@@ -107,13 +107,13 @@ export const Secret: React.FC<SecretProps> = props => {
         required={required}
         actionsSlot={
           <Fragment>
-            <TooltipButton
+            <Tooltip
               text={isHidden ? 'show' : 'hide'}
               onClick={toggleVisibility}
               className={classes.tooltipButton}
             >
               <EyeIcon closed={isHidden} size="large" />
-            </TooltipButton>
+            </Tooltip>
             <CopyToClipboard value={isValueLoaded ? value : loadExternalValue} />
           </Fragment>
         }

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { TooltipButton } from '@components/TooltipButton'
+import { Tooltip } from '@components/Tooltip'
 import Copy from '@root/icons/Copy'
 
 import classes from './index.module.scss'
@@ -37,7 +37,7 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ value, classNa
   }, [copied, showTooltip])
 
   return (
-    <TooltipButton
+    <Tooltip
       onClick={copy}
       text={copied ? 'copied' : 'copy'}
       setIsVisible={setShowTooltip}
@@ -45,8 +45,7 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ value, classNa
       className={className}
     >
       <Copy />
-
       <textarea className={classes.copyTextarea} tabIndex={-1} readOnly ref={ref} />
-    </TooltipButton>
+    </Tooltip>
   )
 }
