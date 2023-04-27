@@ -8,6 +8,10 @@
   }
 }
 
+.error {
+  color: var(--theme-error-500);
+}
+
 .list {
   display: flex;
   flex-direction: column;
@@ -38,10 +42,28 @@
   }
 }
 
+.productName {
+  @include label;
+}
+
+.subscriptionTitleWrapper {
+  display: flex;
+  gap: calc(var(--base) / 2);
+  align-items: center;
+
+  @include small-break {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: calc(var(--base) / 2);
+  }
+}
+
 .subscriptionTitle {
   display: flex;
   gap: calc(var(--base) / 2);
   align-items: center;
+  flex-grow: 1;
+  flex-wrap: wrap;
 }
 
 .subscriptionDetails {

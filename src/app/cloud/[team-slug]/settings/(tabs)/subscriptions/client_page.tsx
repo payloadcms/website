@@ -4,6 +4,7 @@ import * as React from 'react'
 import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 import { useRouteData } from '@cloud/context'
 import { useModal } from '@faceless-ui/modal'
+import Link from 'next/link'
 
 import { Button } from '@components/Button'
 import { CircleIconButton } from '@components/CircleIconButton'
@@ -37,6 +38,7 @@ const Page = (props: { products: ReturnType<typeof useProducts>['result']; team:
     isLoading,
     cancelSubscription,
     loadMoreSubscriptions,
+    error: subscriptionsError,
   } = useSubscriptions({
     stripeCustomerID: team?.stripeCustomerID,
   })
@@ -50,15 +52,16 @@ const Page = (props: { products: ReturnType<typeof useProducts>['result']; team:
               You must be an owner of this team to manage subscriptions.
             </p>
           )}
+          {subscriptionsError && <p className={classes.error}>{subscriptionsError}</p>}
           {subscriptions === null && <LoadingShimmer number={3} />}
           {subscriptions !== null && (
             <React.Fragment>
-              {isLoading === 'deleting' && <p>Canceling plan...</p>}
+              {isLoading === 'deleting' && <p>Canceling subscription...</p>}
               {Array.isArray(subscriptions?.data) && subscriptions?.data?.length > 0 && (
                 <React.Fragment>
                   <ul className={classes.list}>
                     {subscriptions?.data?.map(subscription => {
-                      const { id: subscriptionID, metadata, status, trial_end } = subscription
+                      const { id: subscriptionID, project, status, trial_end } = subscription
                       const [item] = subscription.items.data
                       const matchingProduct = products?.find(
                         product => product.id === item.price.product,
@@ -69,19 +72,42 @@ const Page = (props: { products: ReturnType<typeof useProducts>['result']; team:
                       return (
                         <li key={subscriptionID} className={classes.subscription}>
                           <div className={classes.subscriptionDetails}>
-                            <div className={classes.subscriptionTitle}>
-                              <Heading element="h5" marginBottom={false} marginTop={false}>
-                                {matchingProduct?.name || `Item ID: ${item?.id}`}
-                              </Heading>
-                              <Pill
-                                text={
-                                  status === 'trialing'
-                                    ? `Trial ends ${formatDate({
-                                        date: trialEndDate,
-                                        format: 'shortDateStamp',
-                                      })}`
-                                    : status
-                                }
+                            {matchingProduct?.name && (
+                              <div className={classes.productName}>
+                                {`${matchingProduct?.name}`}
+                              </div>
+                            )}
+                            <div className={classes.subscriptionTitleWrapper}>
+                              <div className={classes.subscriptionTitle}>
+                                <Heading element="h5" marginBottom={false} marginTop={false}>
+                                  {project ? (
+                                    <Link href={`/cloud/${team.slug}/${project.slug}`}>
+                                      {project.name}
+                                    </Link>
+                                  ) : (
+                                    <span>{item?.id}</span>
+                                  )}
+                                </Heading>
+                                <Pill
+                                  text={
+                                    status === 'trialing'
+                                      ? `Trial ends ${formatDate({
+                                          date: trialEndDate,
+                                          format: 'shortDateStamp',
+                                        })}`
+                                      : status
+                                  }
+                                />
+                              </div>
+                              <Button
+                                className={classes.subscriptionCancel}
+                                appearance="primary"
+                                size="pill"
+                                onClick={() => {
+                                  setSubscriptionToDelete(subscriptionID)
+                                  openModal(modalSlug)
+                                }}
+                                label="Cancel plan"
                               />
                             </div>
                             <Heading element="h6" marginBottom={false} marginTop={false}>
@@ -95,16 +121,6 @@ const Page = (props: { products: ReturnType<typeof useProducts>['result']; team:
                               </div>
                             )}
                           </div>
-                          <Button
-                            className={classes.subscriptionCancel}
-                            appearance="primary"
-                            size="pill"
-                            onClick={() => {
-                              setSubscriptionToDelete(subscriptionID)
-                              openModal(modalSlug)
-                            }}
-                            label="Cancel plan"
-                          />
                         </li>
                       )
                     })}
@@ -127,10 +143,10 @@ const Page = (props: { products: ReturnType<typeof useProducts>['result']; team:
       <ModalWindow slug={modalSlug}>
         <div className={classes.modalContent}>
           <Heading marginTop={false} as="h5">
-            Are you sure you want to cancel this plan?
+            Are you sure you want to cancel this subscription?
           </Heading>
           <p>
-            {`Canceling plan `}
+            {`Canceling subscription `}
             <b>{subscriptionToDelete}</b>
             {` will permanently delete any associated projects. This action cannot be undone.`}
           </p>

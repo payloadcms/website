@@ -1,63 +1,10 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
+import QueryString from 'qs'
 
-// TODO: type this using the Stripe module
-export interface Subscription {
-  id: string
-  default_payment_method: string
-  plan: {
-    id: string
-    nickname: string
-  }
-  status: string
-  trial_end: number
-  items: {
-    data: Array<{
-      id: string
-      price: {
-        id: string
-        nickname: string
-        unit_amount: number
-        currency: string
-        type: string
-        recurring: {
-          interval: string
-          interval_count: number
-        }
-        product: string
-      }
-    }>
-  }
-  metadata: {
-    payload_project_id: string
-  }
-}
-
-interface SubscriptionsResult {
-  data: Subscription[]
-  has_more: boolean
-}
-
-const reducer = (
-  state: SubscriptionsResult | null,
-  action: {
-    type: 'reset' | 'add'
-    payload?: SubscriptionsResult
-  },
-): SubscriptionsResult | null => {
-  switch (action.type) {
-    case 'reset':
-      return action.payload || null
-    case 'add':
-      if (!state) return action.payload || null
-      return {
-        data: [...state.data, ...(action.payload?.data || [])],
-        has_more: action.payload?.has_more || false,
-      }
-    default:
-      return state
-  }
-}
+import type { Project } from '@root/payload-cloud-types'
+import type { Subscription, SubscriptionsResult } from './reducer'
+import { subscriptionsReducer } from './reducer'
 
 export const useSubscriptions = (args: {
   delay?: number
@@ -75,7 +22,7 @@ export const useSubscriptions = (args: {
   const isRequesting = useRef(false)
   const isDeleting = useRef(false)
   const isUpdating = useRef(false)
-  const [result, dispatchResult] = useReducer(reducer, null)
+  const [result, dispatchResult] = useReducer(subscriptionsReducer, null)
   const [isLoading, setIsLoading] = useState<'loading' | 'updating' | 'deleting' | false | null>(
     null,
   )
@@ -115,10 +62,52 @@ export const useSubscriptions = (args: {
         } = await req.json()
 
         if (req.ok) {
+          let projects: Project[] | null = null
+
+          try {
+            // need to also fetch the projects for associated with the subscriptions
+            // then match them up to the corresponding subscription in the reducer
+            const query = QueryString.stringify({
+              where: {
+                stripeSubscriptionID: {
+                  in: json.data.data.map(sub => sub.id),
+                },
+              },
+              limit: 100,
+            })
+
+            const projectsReq = await fetch(
+              `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects?${query}`,
+              {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              },
+            )
+
+            const projectsJson: {
+              docs: Project[]
+            } = await projectsReq.json()
+
+            if (projectsReq.ok) {
+              projects = projectsJson.docs
+            } else {
+              // @ts-expect-error
+              throw new Error(projectsJson?.message)
+            }
+          } catch (err: unknown) {
+            throw new Error((err as Error)?.message || 'Something went wrong')
+          }
+
           setTimeout(() => {
             dispatchResult({
               type: starting_after ? 'add' : 'reset',
-              payload: json.data,
+              payload: {
+                subscriptions: json.data,
+                projects,
+              },
             })
             setError('')
             setIsLoading(false)
@@ -250,7 +239,7 @@ export const useSubscriptions = (args: {
         } = await req.json()
 
         if (req.ok) {
-          await refreshSubscriptions('Success, subscription cancelled')
+          await refreshSubscriptions('Success, subscription canceled')
         } else {
           // @ts-expect-error
           throw new Error(json?.message)

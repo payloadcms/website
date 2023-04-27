@@ -20,7 +20,7 @@ const Stripe = loadStripe(apiKey)
 
 const statusLabels = {
   active: 'Active',
-  canceled: 'Cancelled',
+  canceled: 'Canceled',
   incomplete: 'Incomplete',
   incomplete_expired: 'Incomplete Expired',
   past_due: 'Past Due',

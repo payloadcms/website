@@ -144,7 +144,7 @@ const Checkout: React.FC<{
 
       if (response.ok) {
         router.push(`/${cloudSlug}`)
-        toast.success('Draft project cancelled successfully.')
+        toast.success('Draft project canceled successfully.')
       } else {
         setDeleting(false)
         setErrorDeleting('There was an error deleting your project.')
