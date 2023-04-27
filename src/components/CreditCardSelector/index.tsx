@@ -40,7 +40,6 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
   const [showNewCard, setShowNewCard] = React.useState(false)
   const scrollRef = React.useRef<HTMLDivElement>(null)
   const setToAfterRefresh = React.useRef<string | undefined>(undefined)
-  const hasInitialized = React.useRef(false)
 
   const {
     result: paymentMethods,
@@ -50,29 +49,6 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
   } = usePaymentMethods({
     team,
   })
-
-  const scrollIntoView = useCallback(() => {
-    setTimeout(() => {
-      if (scrollRef.current) scrollRef.current.scrollIntoView({ behavior: 'smooth' })
-    }, 0)
-  }, [scrollRef])
-
-  // scroll into view each time the payment methods change but not on first load
-  // i.e. adding or deleting cards, refreshing the list, etc
-  useEffect(() => {
-    if (isLoading) {
-      if (hasInitialized.current) {
-        scrollIntoView()
-
-        if (setToAfterRefresh.current) {
-          setInternalState(setToAfterRefresh.current)
-          setToAfterRefresh.current = undefined
-        }
-      }
-
-      hasInitialized.current = true
-    }
-  }, [isLoading, scrollIntoView])
 
   // if the initial value is unset or invalid, preselect the first card if possible
   // otherwise show the new card option with a newly generated unique id, prefixed with `new-card`
@@ -174,7 +150,6 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
             className={classes.saveNewCard}
             onClick={() => {
               setToAfterRefresh.current = newCardID.current
-              scrollIntoView()
               saveNewPaymentMethod(newCardID.current)
             }}
           >

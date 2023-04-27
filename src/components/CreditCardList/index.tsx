@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { v4 as uuid } from 'uuid'
 
 import { CircleIconButton } from '@components/CircleIconButton'
@@ -24,7 +24,6 @@ const List: React.FC<CreditCardListType> = props => {
   const scrollRef = React.useRef<HTMLDivElement>(null)
   const newCardID = React.useRef<string>(`new-card-${uuid()}`)
   const [showNewCard, setShowNewCard] = React.useState(false)
-  const hasInitialized = React.useRef(false)
 
   const {
     result: paymentMethods,
@@ -35,24 +34,6 @@ const List: React.FC<CreditCardListType> = props => {
   } = usePaymentMethods({
     team,
   })
-
-  const scrollIntoView = useCallback(() => {
-    setTimeout(() => {
-      if (scrollRef.current) scrollRef.current.scrollIntoView({ behavior: 'smooth' })
-    }, 0)
-  }, [scrollRef])
-
-  // scroll into view each time the payment methods change but not on first load
-  // i.e. adding or deleting cards, refreshing the list, etc
-  useEffect(() => {
-    if (isLoading) {
-      if (hasInitialized.current) {
-        scrollIntoView()
-      }
-
-      hasInitialized.current = true
-    }
-  }, [isLoading, scrollIntoView])
 
   useEffect(() => {
     const firstCard = paymentMethods?.[0]?.id
@@ -84,37 +65,44 @@ const List: React.FC<CreditCardListType> = props => {
                   </div>
                 )}
               </div>
-              <DropdownMenu
-                menu={
-                  <Fragment>
-                    <button
-                      type="button"
-                      className={classes.deleteCard}
-                      onClick={() => {
-                        deletePaymentMethod(paymentMethod.id)
-                      }}
-                      // do not allow the user to delete the last card
-                      // only show the delete button if there are multiple cards
-                      disabled={paymentMethods.length === 1}
-                    >
-                      Delete
-                    </button>
-                    {!isDefault && (
-                      <button
-                        type="button"
-                        className={classes.makeDefault}
-                        onClick={() => {
-                          if (typeof setDefaultPaymentMethod === 'function')
-                            setDefaultPaymentMethod(paymentMethod.id)
-                        }}
-                      >
-                        Make default
-                      </button>
-                    )}
-                  </Fragment>
-                }
-                className={classes.tooltipButton}
-              />
+              {(paymentMethods.length > 1 || (paymentMethods.length === 1 && !isDefault)) && (
+                // hide the menu if no items will appear in the list
+                // i.e. if there is only one card, we are preventing it's deletion
+                // but if it's not default, we still want to show the "make default" button
+                <DropdownMenu
+                  menu={
+                    <Fragment>
+                      {paymentMethods.length > 1 && (
+                        // do not allow the user to delete the last card
+                        // only show the delete button if there are multiple cards
+                        <button
+                          type="button"
+                          className={classes.deleteCard}
+                          disabled={paymentMethods.length === 1}
+                          onClick={() => {
+                            deletePaymentMethod(paymentMethod.id)
+                          }}
+                        >
+                          Delete
+                        </button>
+                      )}
+                      {!isDefault && (
+                        <button
+                          type="button"
+                          className={classes.makeDefault}
+                          onClick={() => {
+                            if (typeof setDefaultPaymentMethod === 'function')
+                              setDefaultPaymentMethod(paymentMethod.id)
+                          }}
+                        >
+                          Make default
+                        </button>
+                      )}
+                    </Fragment>
+                  }
+                  className={classes.tooltipButton}
+                />
+              )}
             </div>
           )
         })}
