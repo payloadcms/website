@@ -15,3 +15,61 @@
   list-style: none;
   padding: 0;
 }
+
+.subscription {
+  display: flex;
+  align-items: flex-start;
+
+  &:not(:last-child) {
+    margin-bottom: calc(var(--base) * 2);
+    border-bottom: 1px solid var(--theme-elevation-500);
+    padding-bottom: calc(var(--base) * 2);
+  }
+
+  @include mid-break {
+    flex-direction: column;
+    gap: calc(var(--base) / 2);
+
+    &:not(:last-child) {
+      margin-bottom: var(--base);
+      padding-bottom: var(--base);
+    }
+  }
+}
+
+.subscriptionTitle {
+  display: flex;
+  gap: calc(var(--base) / 2);
+  align-items: center;
+}
+
+.subscriptionDetails {
+  flex-grow: 1;
+}
+
+
+.subscriptionCancel {
+  flex-shrink: 0;
+}
+
+.subscriptionContent {
+  margin-top: calc(var(--base) / 2);
+  display: flex;
+  gap: calc(var(--base) / 2);
+  flex-direction: column;
+}
+
+.freeTrialNotice {
+  @include small;
+  margin-top: calc(var(--base) / 2);
+  color: var(--theme-elevation-500);
+}
+
+.modalActions {
+  display: flex;
+  gap: var(--base);
+  justify-content: flex-end;
+  width: 100%;
+  padding-top: var(--base);
+  border-top: 1px solid var(--theme-border-color);
+}

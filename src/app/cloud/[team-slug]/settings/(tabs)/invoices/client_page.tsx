@@ -1,9 +1,9 @@
 'use client'
 
 import * as React from 'react'
+import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 import { useRouteData } from '@cloud/context'
 
-import { Heading } from '@components/Heading'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { useAuth } from '@root/providers/Auth'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
@@ -24,14 +24,19 @@ export const TeamInvoicesPage = () => {
 
   return (
     <React.Fragment>
-      <Heading marginTop={false} element="h1" as="h6" className={classes.title}>
-        Invoices
-      </Heading>
-      {!hasCustomerID && (
-        <p className={classes.error}>
-          This team does not have a billing account. Please contact support to resolve this issue.
-        </p>
-      )}
+      <SectionHeader
+        title="Invoices"
+        intro={
+          <React.Fragment>
+            {!hasCustomerID && (
+              <p className={classes.error}>
+                This team does not have a billing account. Please contact support to resolve this
+                issue.
+              </p>
+            )}
+          </React.Fragment>
+        }
+      />
       {hasCustomerID && (
         <React.Fragment>
           {!isCurrentTeamOwner && (

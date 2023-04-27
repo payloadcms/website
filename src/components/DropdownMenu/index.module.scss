@@ -12,18 +12,30 @@
   }
 }
 
+.show {
+  &:local() {
+    .threeDots {
+      color: var(--theme-text);
+    }
+  }
+}
+
 .threeDots {
   display: flex;
   align-items: center;
   gap: 2px;
   padding: calc(var(--base) / 2);
+  color: var(--theme-elevation-500);
+
+  &:hover {
+    color: var(--theme-text);
+  }
 
   & > div {
-    color: var(--color-text);
     flex-shrink: 0;
-    width: 4px;
-    height: 4px;
+    width: 3px;
+    height: 3px;
     border-radius: 50%;
-    background-color: var(--theme-text);
+    background-color: currentColor;
   }
 }

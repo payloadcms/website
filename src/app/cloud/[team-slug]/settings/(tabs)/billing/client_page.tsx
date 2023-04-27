@@ -1,13 +1,13 @@
 'use client'
 
 import * as React from 'react'
+import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 import { useRouteData } from '@cloud/context'
 import { Text } from '@forms/fields/Text'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 
 import { CreditCardList } from '@components/CreditCardList'
-import { Heading } from '@components/Heading'
 import { useAuth } from '@root/providers/Auth'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
 
@@ -25,14 +25,19 @@ export const TeamBillingPage = () => {
 
   return (
     <React.Fragment>
-      <Heading marginTop={false} element="h1" as="h6" className={classes.title}>
-        Billing
-      </Heading>
-      {!hasCustomerID && (
-        <p className={classes.error}>
-          This team does not have a billing account. Please contact support to resolve this issue.
-        </p>
-      )}
+      <SectionHeader
+        title="Billing"
+        intro={
+          <React.Fragment>
+            {!hasCustomerID && (
+              <p className={classes.error}>
+                This team does not have a billing account. Please contact support to resolve this
+                issue.
+              </p>
+            )}
+          </React.Fragment>
+        }
+      />
       {hasCustomerID && (
         <React.Fragment>
           <div className={classes.fields}>

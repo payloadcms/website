@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
@@ -10,8 +9,6 @@ import Submit from '@forms/Submit'
 import { OnSubmit } from '@forms/types'
 import { useRouter } from 'next/navigation'
 
-import { Gutter } from '@components/Gutter'
-import { Heading } from '@components/Heading'
 import { InviteTeammates } from '@components/InviteTeammates'
 import { TeamInvitations } from '@components/TeamInvitations'
 import { TeamMembers } from '@components/TeamMembers'
@@ -19,6 +16,7 @@ import { UniqueTeamSlug } from '@components/UniqueSlug'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { useRouteData } from '../../context'
+import { SectionHeader } from '../[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 
 import classes from './page.module.scss'
 
@@ -102,9 +100,7 @@ export const TeamSettingsPage = () => {
 
   return (
     <React.Fragment>
-      <Heading marginTop={false} element="h1" as="h6" className={classes.title}>
-        Team settings
-      </Heading>
+      <SectionHeader title="Team Settings" />
       {(success || error) && (
         <div className={classes.formState}>
           {success && <p className={classes.success}>Team updated successfully!</p>}

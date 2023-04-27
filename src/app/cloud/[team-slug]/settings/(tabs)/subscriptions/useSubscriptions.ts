@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { toast } from 'react-toastify'
 
 // TODO: type this using the Stripe module
 export interface Subscription {
@@ -9,6 +10,27 @@ export interface Subscription {
     nickname: string
   }
   status: string
+  trial_end: number
+  items: {
+    data: Array<{
+      id: string
+      price: {
+        id: string
+        nickname: string
+        unit_amount: number
+        currency: string
+        type: string
+        recurring: {
+          interval: string
+          interval_count: number
+        }
+        product: string
+      }
+    }>
+  }
+  metadata: {
+    payload_project_id: string
+  }
 }
 
 export const useSubscriptions = (args: {
@@ -16,102 +38,33 @@ export const useSubscriptions = (args: {
   stripeCustomerID?: string
 }): {
   result: Subscription[] | null
-  isLoading: boolean | null
+  isLoading: 'loading' | 'updating' | 'deleting' | false | null
   error: string
   refreshSubscriptions: () => void
   updateSubscription: (subscriptionID: string, subscription: Subscription) => void
+  cancelSubscription: (subscriptionID: string) => void
 } => {
   const { delay, stripeCustomerID } = args
   const isRequesting = useRef(false)
+  const isDeleting = useRef(false)
+  const isUpdating = useRef(false)
   const [result, setResult] = useState<Subscription[] | null>(null)
-  const [isLoading, setIsLoading] = useState<boolean | null>(null)
+  const [isLoading, setIsLoading] = useState<'loading' | 'updating' | 'deleting' | false | null>(
+    null,
+  )
   const [error, setError] = useState('')
 
-  const getSubscriptions = useCallback(() => {
-    let timer: NodeJS.Timeout
-
-    if (isRequesting.current) return
-
-    isRequesting.current = true
-
-    const makeRetrieval = async (): Promise<void> => {
-      try {
-        setIsLoading(true)
-
-        const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/stripe/rest`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            stripeMethod: 'subscriptions.list',
-            stripeArgs: [
-              {
-                customer: stripeCustomerID,
-                limit: 100, // TODO: paginate this
-              },
-            ],
-          }),
-        })
-
-        const json: {
-          data: {
-            data: Subscription[]
-          }
-        } = await req.json()
-
-        if (req.ok) {
-          setTimeout(() => {
-            setResult(json?.data?.data)
-            setError('')
-            setIsLoading(false)
-          }, delay)
-        } else {
-          // @ts-expect-error
-          throw new Error(json?.message)
-        }
-      } catch (err: unknown) {
-        const message = (err as Error)?.message || 'Something went wrong'
-        setError(message)
-        setIsLoading(false)
-      }
-
-      isRequesting.current = false
-    }
-
-    makeRetrieval()
-
-    // eslint-disable-next-line consistent-return
-    return () => {
-      clearTimeout(timer)
-    }
-  }, [delay, stripeCustomerID])
-
-  useEffect(() => {
-    getSubscriptions()
-  }, [getSubscriptions])
-
-  const refreshSubscriptions = useCallback(() => {
-    getSubscriptions()
-  }, [getSubscriptions])
-
-  const updateSubscription = useCallback(
-    (stripeSubscriptionID: string, newSubscription: Subscription) => {
+  const getSubscriptions = useCallback(
+    (successMessage?: string) => {
       let timer: NodeJS.Timeout
-
-      if (!stripeSubscriptionID) {
-        setError('No subscription ID')
-        return
-      }
 
       if (isRequesting.current) return
 
       isRequesting.current = true
 
-      const makeUpdate = async (): Promise<void> => {
+      const makeRetrieval = async (): Promise<void> => {
         try {
-          setIsLoading(true)
+          setIsLoading('loading')
 
           const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/stripe/rest`, {
             method: 'POST',
@@ -120,17 +73,31 @@ export const useSubscriptions = (args: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              stripeMethod: 'subscriptions.update',
-              stripeArgs: [stripeSubscriptionID, newSubscription],
+              stripeMethod: 'subscriptions.list',
+              stripeArgs: [
+                {
+                  customer: stripeCustomerID,
+                  limit: 100, // TODO: paginate this
+                },
+              ],
             }),
           })
 
           const json: {
-            data: Subscription
+            data: {
+              data: Subscription[]
+            }
           } = await req.json()
 
           if (req.ok) {
-            await refreshSubscriptions()
+            setTimeout(() => {
+              setResult(json?.data?.data)
+              setError('')
+              setIsLoading(false)
+              if (successMessage) {
+                toast.success(successMessage)
+              }
+            }, delay)
           } else {
             // @ts-expect-error
             throw new Error(json?.message)
@@ -144,7 +111,132 @@ export const useSubscriptions = (args: {
         isRequesting.current = false
       }
 
-      makeUpdate()
+      makeRetrieval()
+
+      // eslint-disable-next-line consistent-return
+      return () => {
+        clearTimeout(timer)
+      }
+    },
+    [delay, stripeCustomerID],
+  )
+
+  useEffect(() => {
+    getSubscriptions()
+  }, [getSubscriptions])
+
+  const refreshSubscriptions = useCallback(
+    (successMessage?: string) => {
+      getSubscriptions(successMessage)
+    },
+    [getSubscriptions],
+  )
+
+  const updateSubscription = useCallback(
+    async (stripeSubscriptionID: string, newSubscription: Subscription) => {
+      let timer: NodeJS.Timeout
+
+      if (!stripeSubscriptionID) {
+        setError('No subscription ID')
+        return
+      }
+
+      if (isUpdating.current) return
+
+      isUpdating.current = true
+
+      try {
+        setIsLoading('updating')
+
+        const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/stripe/rest`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            stripeMethod: 'subscriptions.update',
+            stripeArgs: [stripeSubscriptionID, newSubscription],
+          }),
+        })
+
+        const json: {
+          data: Subscription
+        } = await req.json()
+
+        if (req.ok) {
+          await refreshSubscriptions('Success, subscription updated')
+        } else {
+          // @ts-expect-error
+          throw new Error(json?.message)
+        }
+      } catch (err: unknown) {
+        const message = (err as Error)?.message || 'Something went wrong'
+        setError(message)
+        setIsLoading(false)
+      }
+
+      isUpdating.current = false
+
+      // eslint-disable-next-line consistent-return
+      return () => {
+        clearTimeout(timer)
+      }
+    },
+    [refreshSubscriptions],
+  )
+
+  const cancelSubscription = useCallback(
+    async (stripeSubscriptionID: string) => {
+      let timer: NodeJS.Timeout
+
+      if (!stripeSubscriptionID) {
+        setError('No subscription ID')
+        return
+      }
+
+      if (isDeleting.current) return
+
+      isDeleting.current = true
+
+      try {
+        setIsLoading('deleting')
+
+        const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/stripe/rest`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            stripeMethod: 'subscriptions.del',
+            stripeArgs: [
+              stripeSubscriptionID,
+              {
+                invoice_now: true,
+                prorate: true,
+              },
+            ],
+          }),
+        })
+
+        const json: {
+          data: Subscription
+        } = await req.json()
+
+        if (req.ok) {
+          await refreshSubscriptions('Success, subscription cancelled')
+        } else {
+          // @ts-expect-error
+          throw new Error(json?.message)
+        }
+      } catch (err: unknown) {
+        const message = (err as Error)?.message || 'Something went wrong'
+        setError(message)
+        setIsLoading(false)
+      }
+
+      isDeleting.current = false
 
       // eslint-disable-next-line consistent-return
       return () => {
@@ -155,8 +247,15 @@ export const useSubscriptions = (args: {
   )
 
   const memoizedState = useMemo(
-    () => ({ result, isLoading, error, refreshSubscriptions, updateSubscription }),
-    [result, isLoading, error, refreshSubscriptions, updateSubscription],
+    () => ({
+      result,
+      isLoading,
+      error,
+      refreshSubscriptions,
+      updateSubscription,
+      cancelSubscription,
+    }),
+    [result, isLoading, error, refreshSubscriptions, updateSubscription, cancelSubscription],
   )
 
   return memoizedState

@@ -20,7 +20,7 @@ export const DropdownMenu: React.FC<MenuProps> = ({ children, className, menu, o
   return (
     <div
       ref={ref}
-      className={[classes.dropdownMenu, className].filter(Boolean).join(' ')}
+      className={[classes.dropdownMenu, className, show && classes.show].filter(Boolean).join(' ')}
       role="button"
       tabIndex={0}
       onClick={() => setShow(!show)}
