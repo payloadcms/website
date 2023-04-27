@@ -26,8 +26,8 @@ export const TopBar: React.FC<TopBarType> = ({ starText, announcement }) => {
       {starCount && (
         <div className={classes.wrap}>
           <div className={classes.starWrap}>
-            <span>&#11088;</span>
-            <strong className={classes.starCount}>{starCount.toLocaleString()} stars</strong>
+            <span className={classes.star}>&#11088;</span>
+            <span className={classes.starCount}>{starCount.toLocaleString()} stars</span>
             <span>&#8212;</span>
             <RichText className={classes.richText} content={starText?.desktop} />
             <RichText className={classes.mobileText} content={starText?.mobile} />

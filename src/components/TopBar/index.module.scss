@@ -21,16 +21,19 @@
     pointer-events: all;
     color: var(--text-color);
     transition: color 300ms ease;
-    font-size: 21px;
+    font-size: 16px;
+  }
+
+  .star {
+    font-size: calc(var(--base) * 0.55);
+    margin-right: calc(var(--base) * .25);
+    display: flex;
   }
 
   .starWrap {
     display: flex;
     flex-direction: row;
-    
-    & > * {
-      margin-right: calc(var(--base)*0.25);
-    }
+    gap: calc(var(--base) * 0.25);
   }
 
   .starCount {
