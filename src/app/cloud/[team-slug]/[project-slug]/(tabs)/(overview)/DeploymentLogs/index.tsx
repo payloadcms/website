@@ -92,6 +92,7 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment, setBuilt, setDeplo
   const hasBuildLog = deployment?.deploymentStatus
     ? buildLogStates.includes(deployment.deploymentStatus)
     : false
+
   useWebSocket({
     url: hasBuildLog
       ? `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deployments/${deployment.id}/logs?logType=BUILD`.replace(
@@ -132,7 +133,7 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment, setBuilt, setDeplo
     }
 
     // automatically switch to deploy logs if both are available
-    if (hasBuildLog && hasDeployLog) {
+    if (hasBuildLog && hasDeployLog && deployment?.deploymentStatus !== 'ERROR') {
       setActiveTab('deploy')
     }
 
@@ -163,12 +164,8 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment, setBuilt, setDeplo
                       className={[activeTab !== 'build' ? classes.inactiveIndicator : '']
                         .filter(Boolean)
                         .join(' ')}
-                      status={
-                        hasDeployLog || deployment.deploymentStatus !== 'ERROR'
-                          ? 'success'
-                          : 'error'
-                      }
-                      spinner={deployment.deploymentStatus === 'BUILDING'}
+                      status={deployment.buildStepStatus === 'ERROR' ? 'error' : 'success'}
+                      spinner={deployment.buildStepStatus === 'RUNNING'}
                     />
                     Build Logs
                   </div>
@@ -179,15 +176,16 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment, setBuilt, setDeplo
                 },
               },
             hasDeployLog &&
-              deployLogs && {
+              deployLogs &&
+              deployment.buildStepStatus !== 'ERROR' && {
                 label: (
                   <div className={classes.tabLabel}>
                     <Indicator
                       className={[activeTab !== 'deploy' ? classes.inactiveIndicator : '']
                         .filter(Boolean)
                         .join(' ')}
-                      status={deployment.deploymentStatus !== 'ERROR' ? 'success' : 'error'}
-                      spinner={deployment.deploymentStatus === 'DEPLOYING'}
+                      status={deployment.deployStepStatus === 'ERROR' ? 'error' : 'success'}
+                      spinner={deployment.deployStepStatus === 'RUNNING'}
                     />
                     Deploy Logs
                   </div>

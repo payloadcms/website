@@ -104,9 +104,13 @@
   border-radius: 50%;
   flex-shrink: 0;
   margin: 5px var(--base) 0 0;
-
+  width: var(--base);
+  height: var(--base);
+  padding: 4px;
+  
   path {
     stroke: var(--color-base-800);
+    stroke-width: 2px;
   }
 
   @include small-break {

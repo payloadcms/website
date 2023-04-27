@@ -13,7 +13,7 @@ const data: BannerBlockProps = {
       {
         children: [
           {
-            text: 'Enterprise-only access to the best that Payload provides.',
+            text: 'Enterprise-only access to the best that Payload provides. Enterprise-only access to the best that Payload provides. Enterprise-only access to the best that Payload provides.',
           },
         ],
         type: 'p',
@@ -43,6 +43,7 @@ const successState: BannerBlockProps = {
   bannerFields: {
     ...data.bannerFields,
     type: 'success',
+    addCheckmark: true,
   },
 }
 
