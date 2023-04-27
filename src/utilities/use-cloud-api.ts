@@ -176,7 +176,7 @@ type ProjectWithTeam = Omit<Project, 'team'> & {
 
 // you can get projects with either the `id` or `teamSlug` and `projectSlug`
 export const useGetProject: UseCloudAPI<
-  ProjectWithTeam,
+  ProjectWithTeam | undefined | null,
   {
     teamSlug?: string
     projectSlug?: string
@@ -217,9 +217,13 @@ export const useGetProject: UseCloudAPI<
   return useMemo(() => {
     return {
       ...response,
-      result: response.result?.docs?.[0],
+      // `undefined` and `null` results are needed for loading states and 404 redirects
+      result:
+        (projectSlug || projectID) && response?.result?.docs
+          ? response.result.docs?.[0] || null
+          : undefined,
     }
-  }, [response])
+  }, [response, projectSlug, projectID])
 }
 
 export const useGetProjectDeployments: UseCloudAPI<
@@ -300,7 +304,7 @@ export const useGetActiveProjectDeployment: UseCloudAPI<
   }, [response])
 }
 
-export const useGetTeam: UseCloudAPI<Team, string> = teamSlug => {
+export const useGetTeam: UseCloudAPI<Team | null | undefined, string> = teamSlug => {
   const response = useCloudAPI<{
     docs: Team[]
   }>({
@@ -310,7 +314,8 @@ export const useGetTeam: UseCloudAPI<Team, string> = teamSlug => {
   return useMemo(() => {
     return {
       ...response,
-      result: response.result?.docs?.[0],
+      // `undefined` and `null` results are needed for loading states and 404 redirects
+      result: teamSlug && response?.result?.docs ? response.result.docs?.[0] || null : undefined,
     }
-  }, [response])
+  }, [response, teamSlug])
 }

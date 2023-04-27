@@ -29,7 +29,7 @@ export const ProjectEnvPage = () => {
 
       <Divider />
 
-      {(project.environmentVariables || []).length === 0 ? (
+      {(project?.environmentVariables || []).length === 0 ? (
         <NoData message="This project currently has no environment variables." />
       ) : (
         <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>

@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { notFound } from 'next/navigation'
+import { redirect } from 'next/navigation'
 
 import { useRouteData } from '../../context'
 
@@ -18,7 +18,7 @@ export const ProjectLayout = ({ children }: ProjectLayoutType) => {
 
   if (project === undefined) return null
 
-  if (project === null) notFound()
+  if (project === null) redirect(`/cloud?error=${encodeURIComponent('Project not found')}`)
 
   return <>{children}</>
 }

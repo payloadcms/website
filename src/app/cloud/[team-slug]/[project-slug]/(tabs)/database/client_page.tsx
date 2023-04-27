@@ -14,7 +14,7 @@ export const ProjectDatabasePage = () => {
 
   const loadConnectionString = React.useCallback(async () => {
     const { value } = await fetch(
-      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project.id}/atlas-connection`,
+      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/atlas-connection`,
       {
         credentials: 'include',
         headers: {
@@ -24,7 +24,7 @@ export const ProjectDatabasePage = () => {
     ).then(res => res.json())
 
     return value
-  }, [project.id])
+  }, [project?.id])
 
   return (
     <Gutter>

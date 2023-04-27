@@ -56,7 +56,7 @@ export const TeamSettingsPage = () => {
         })),
       }
 
-      const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team.id}`, {
+      const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}`, {
         method: 'PATCH',
         credentials: 'include',
         headers: {
@@ -85,7 +85,7 @@ export const TeamSettingsPage = () => {
       setTeam(response.doc)
 
       // if the team slug has changed, redirect to the new URL
-      if (response.doc.slug !== team.slug) {
+      if (response.doc.slug !== team?.slug) {
         router.push(`/cloud/${response.doc.slug}/settings`)
       }
 

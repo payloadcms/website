@@ -32,8 +32,8 @@ export const ManageEnv: React.FC<Props> = ({ env: { key, id } }) => {
   const [fetchedEnvValue, setFetchedEnvValue] = React.useState<string | undefined>(undefined)
   const { reloadProject, project } = useRouteData()
   const { closeModal, openModal } = useModal()
-  const projectID = project.id
-  const existingEnvKeys = (project.environmentVariables || []).reduce(
+  const projectID = project?.id
+  const existingEnvKeys = (project?.environmentVariables || []).reduce(
     (acc: string[], { key: existingKey }) => {
       if (existingKey && existingKey !== key) {
         acc.push(existingKey)

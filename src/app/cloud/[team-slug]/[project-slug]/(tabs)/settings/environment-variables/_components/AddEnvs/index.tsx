@@ -16,9 +16,9 @@ import classes from './index.module.scss'
 export const EnvManagement: React.FC = () => {
   const { uuids, clearRows } = useArray()
   const { project, reloadProject } = useRouteData()
-  const projectID = project.id
+  const projectID = project?.id
 
-  const existingEnvKeys = (project.environmentVariables || []).map(({ key }) => key || '')
+  const existingEnvKeys = (project?.environmentVariables || []).map(({ key }) => key || '')
 
   const handleSubmit: OnSubmit = React.useCallback(
     async ({ unflattenedData }) => {

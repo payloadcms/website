@@ -51,7 +51,7 @@ const title = 'Configure your project'
 // this is to avoid making more Stripe records than necessary
 // a new one is needed each time the plan (including trial), card, or team changes
 const Checkout: React.FC<{
-  project: Project
+  project: Project | null | undefined
   draftProjectID: string
 }> = props => {
   const { project, draftProjectID } = props

@@ -7,9 +7,9 @@ import { useGetProject, useGetTeam } from '@root/utilities/use-cloud-api'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
 
 type ContextType = {
-  team: Team
+  team: Team | undefined | null
   setTeam: (team: Team) => void
-  project: Project
+  project: Project | undefined | null
   reloadProject: () => void
   reloadTeam: () => void
 }
@@ -21,7 +21,13 @@ export const useRouteData = () => React.useContext(Context)
 export const RouteDataProvider: React.FC<{
   children: React.ReactNode
 }> = ({ children }) => {
-  const [, teamSlug, projectSlug] = usePathnameSegments()
+  const [, param2, param3] = usePathnameSegments()
+
+  const staticTeamRoutes = ['settings', 'teams']
+  const teamSlug = staticTeamRoutes.includes(param2) ? undefined : param2
+
+  const staticProjectRoutes = ['settings', 'logs', 'file-storage', 'database']
+  const projectSlug = staticProjectRoutes.includes(param3) ? undefined : param3
 
   const { result: project, reload: reloadProject } = useGetProject({
     teamSlug,
@@ -30,7 +36,7 @@ export const RouteDataProvider: React.FC<{
 
   const { result: team, reload: reloadTeam } = useGetTeam(teamSlug)
 
-  const [selectedTeam, setTeam] = React.useState<Team>(team)
+  const [currentTeam, setTeam] = React.useState<Team | undefined | null>(team)
 
   useEffect(() => {
     setTeam(team)
@@ -39,7 +45,7 @@ export const RouteDataProvider: React.FC<{
   return (
     <Context.Provider
       value={{
-        team: selectedTeam,
+        team: currentTeam,
         setTeam,
         project,
         reloadProject,

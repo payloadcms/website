@@ -13,7 +13,7 @@ import { useConfirmCardSetup } from './useConfirmCardSetup'
 import { PayloadStripeSubscription, useCreateSubscription } from './useCreateSubscription'
 
 export const useDeploy = (args: {
-  project: Project
+  project: Project | null | undefined
   checkoutState: CheckoutState
   installID?: string
   onDeploy?: (project: Project) => void

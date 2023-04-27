@@ -24,7 +24,10 @@ import classes from './page.module.scss'
 
 const modalSlug = 'cancel-subscription'
 
-const Page = (props: { products: ReturnType<typeof useProducts>['result']; team: Team }) => {
+const Page = (props: {
+  products: ReturnType<typeof useProducts>['result']
+  team: Team | null | undefined
+}) => {
   const { products, team } = props
   const { user } = useAuth()
   const { closeModal, openModal } = useModal()
