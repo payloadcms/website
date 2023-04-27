@@ -6,6 +6,7 @@ import { useRouteData } from '@cloud/context'
 import { useModal } from '@faceless-ui/modal'
 
 import { Button } from '@components/Button'
+import { CircleIconButton } from '@components/CircleIconButton'
 import { Heading } from '@components/Heading'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { ModalWindow } from '@components/ModalWindow'
@@ -35,6 +36,7 @@ const Page = (props: { products: ReturnType<typeof useProducts>['result'] }) => 
     result: subscriptions,
     isLoading,
     cancelSubscription,
+    loadMoreSubscriptions,
   } = useSubscriptions({
     stripeCustomerID: team?.stripeCustomerID,
   })
@@ -64,53 +66,61 @@ const Page = (props: { products: ReturnType<typeof useProducts>['result'] }) => 
           {subscriptions === null && <LoadingShimmer number={3} />}
           {subscriptions !== null && (
             <React.Fragment>
-              {isLoading === 'loading' && <p>Loading...</p>}
               {isLoading === 'deleting' && <p>Canceling plan...</p>}
-              {isLoading === 'updating' && <p>Updating...</p>}
-              {Array.isArray(subscriptions) && subscriptions?.length > 0 && (
+              {Array.isArray(subscriptions?.data) && subscriptions?.data?.length > 0 && (
                 <React.Fragment>
                   <ul className={classes.list}>
-                    {subscriptions &&
-                      subscriptions?.map(subscription => {
-                        const { id: subscriptionID, metadata, status, trial_end } = subscription
-                        const [item] = subscription.items.data
-                        const matchingProduct = products?.find(
-                          product => product.id === item.price.product,
-                        )
+                    {subscriptions?.data?.map(subscription => {
+                      const { id: subscriptionID, metadata, status, trial_end } = subscription
+                      const [item] = subscription.items.data
+                      const matchingProduct = products?.find(
+                        product => product.id === item.price.product,
+                      )
 
-                        return (
-                          <li key={subscriptionID} className={classes.subscription}>
-                            <div className={classes.subscriptionDetails}>
-                              <div className={classes.subscriptionTitle}>
-                                <Heading element="h5" marginBottom={false} marginTop={false}>
-                                  {matchingProduct?.name || `Item ID: ${item?.id}`}
-                                </Heading>
-                                <Pill text={status} />
-                              </div>
-                              <Heading element="h6" marginBottom={false} marginTop={false}>
-                                {`${priceFromJSON(JSON.stringify({ data: [item.price] }))}`}
+                      const trialEndDate = new Date(trial_end * 1000)
+
+                      return (
+                        <li key={subscriptionID} className={classes.subscription}>
+                          <div className={classes.subscriptionDetails}>
+                            <div className={classes.subscriptionTitle}>
+                              <Heading element="h5" marginBottom={false} marginTop={false}>
+                                {matchingProduct?.name || `Item ID: ${item?.id}`}
                               </Heading>
-                              {status === 'trialing' && trial_end && (
-                                <div className={classes.freeTrialNotice}>
-                                  {`After your free trial ends on ${formatDate({
-                                    date: new Date(trial_end * 1000),
-                                  })}, this plan will continue automatically.`}
-                                </div>
-                              )}
+                              <Pill
+                                text={
+                                  status === 'trialing'
+                                    ? `Trial ends ${formatDate({
+                                        date: trialEndDate,
+                                        format: 'shortDateStamp',
+                                      })}`
+                                    : status
+                                }
+                              />
                             </div>
-                            <Button
-                              className={classes.subscriptionCancel}
-                              appearance="primary"
-                              size="pill"
-                              onClick={() => {
-                                setSubscriptionToDelete(subscriptionID)
-                                openModal(modalSlug)
-                              }}
-                              label="Cancel plan"
-                            />
-                          </li>
-                        )
-                      })}
+                            <Heading element="h6" marginBottom={false} marginTop={false}>
+                              {`${priceFromJSON(JSON.stringify({ data: [item.price] }))}`}
+                            </Heading>
+                            {status === 'trialing' && trial_end && (
+                              <div className={classes.freeTrialNotice}>
+                                {`After your free trial ends on ${formatDate({
+                                  date: trialEndDate,
+                                })}, this plan will continue automatically.`}
+                              </div>
+                            )}
+                          </div>
+                          <Button
+                            className={classes.subscriptionCancel}
+                            appearance="primary"
+                            size="pill"
+                            onClick={() => {
+                              setSubscriptionToDelete(subscriptionID)
+                              openModal(modalSlug)
+                            }}
+                            label="Cancel plan"
+                          />
+                        </li>
+                      )
+                    })}
                   </ul>
                 </React.Fragment>
               )}
@@ -118,13 +128,22 @@ const Page = (props: { products: ReturnType<typeof useProducts>['result'] }) => 
           )}
         </React.Fragment>
       )}
+      {subscriptions?.has_more && (
+        <div className={classes.loadMore}>
+          <CircleIconButton
+            icon="add"
+            label={isLoading === 'loading' ? 'Loading...' : 'Load more'}
+            onClick={loadMoreSubscriptions}
+          />
+        </div>
+      )}
       <ModalWindow slug={modalSlug}>
         <div className={classes.modalContent}>
           <Heading marginTop={false} as="h5">
             Are you sure you want to cancel this plan?
           </Heading>
           <p>
-            {`Cancelling plan `}
+            {`Canceling plan `}
             <b>{subscriptionToDelete}</b>
             {` will permanently delete any associated projects. This action cannot be undone.`}
           </p>

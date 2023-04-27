@@ -4,6 +4,7 @@ import * as React from 'react'
 import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 import { useRouteData } from '@cloud/context'
 
+import { CircleIconButton } from '@components/CircleIconButton'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { useAuth } from '@root/providers/Auth'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
@@ -18,7 +19,11 @@ export const TeamInvoicesPage = () => {
   const isCurrentTeamOwner = checkTeamRoles(user, team, ['owner'])
   const hasCustomerID = team?.stripeCustomerID
 
-  const { result: invoices, isLoading } = useInvoices({
+  const {
+    result: invoices,
+    isLoading,
+    loadMoreInvoices,
+  } = useInvoices({
     stripeCustomerID: team?.stripeCustomerID,
   })
 
@@ -42,12 +47,12 @@ export const TeamInvoicesPage = () => {
           {!isCurrentTeamOwner && (
             <p className={classes.error}>You must be an owner of this team to manage invoices.</p>
           )}
-          {isLoading && <LoadingShimmer number={3} />}
-          {isLoading === false && invoices && invoices?.length > 0 && (
+          {invoices === null && <LoadingShimmer number={3} />}
+          {invoices !== null && (
             <React.Fragment>
               <ul className={classes.list}>
                 {invoices &&
-                  invoices?.map(subscription => (
+                  invoices?.data?.map(subscription => (
                     <li key={subscription.id}>
                       {subscription.id} - {subscription.status}
                     </li>
@@ -56,6 +61,15 @@ export const TeamInvoicesPage = () => {
             </React.Fragment>
           )}
         </React.Fragment>
+      )}
+      {invoices?.has_more && (
+        <div className={classes.loadMore}>
+          <CircleIconButton
+            icon="add"
+            label={isLoading === 'loading' ? 'Loading...' : 'Load more'}
+            onClick={loadMoreInvoices}
+          />
+        </div>
       )}
     </React.Fragment>
   )

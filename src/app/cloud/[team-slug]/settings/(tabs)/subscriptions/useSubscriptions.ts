@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 
 // TODO: type this using the Stripe module
@@ -33,85 +33,110 @@ export interface Subscription {
   }
 }
 
+interface SubscriptionsResult {
+  data: Subscription[]
+  has_more: boolean
+}
+
+const reducer = (
+  state: SubscriptionsResult | null,
+  action: {
+    type: 'reset' | 'add'
+    payload?: SubscriptionsResult
+  },
+): SubscriptionsResult | null => {
+  switch (action.type) {
+    case 'reset':
+      return action.payload || null
+    case 'add':
+      if (!state) return action.payload || null
+      return {
+        data: [...state.data, ...(action.payload?.data || [])],
+        has_more: action.payload?.has_more || false,
+      }
+    default:
+      return state
+  }
+}
+
 export const useSubscriptions = (args: {
   delay?: number
   stripeCustomerID?: string
 }): {
-  result: Subscription[] | null
+  result: SubscriptionsResult | null
   isLoading: 'loading' | 'updating' | 'deleting' | false | null
   error: string
   refreshSubscriptions: () => void
   updateSubscription: (subscriptionID: string, subscription: Subscription) => void
   cancelSubscription: (subscriptionID: string) => void
+  loadMoreSubscriptions: () => void
 } => {
   const { delay, stripeCustomerID } = args
   const isRequesting = useRef(false)
   const isDeleting = useRef(false)
   const isUpdating = useRef(false)
-  const [result, setResult] = useState<Subscription[] | null>(null)
+  const [result, dispatchResult] = useReducer(reducer, null)
   const [isLoading, setIsLoading] = useState<'loading' | 'updating' | 'deleting' | false | null>(
     null,
   )
   const [error, setError] = useState('')
 
   const getSubscriptions = useCallback(
-    (successMessage?: string) => {
+    async (successMessage?: string, starting_after?: string) => {
       let timer: NodeJS.Timeout
 
       if (isRequesting.current) return
 
       isRequesting.current = true
 
-      const makeRetrieval = async (): Promise<void> => {
-        try {
-          setIsLoading('loading')
+      try {
+        setIsLoading('loading')
 
-          const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/stripe/rest`, {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              stripeMethod: 'subscriptions.list',
-              stripeArgs: [
-                {
-                  customer: stripeCustomerID,
-                  limit: 100, // TODO: paginate this
-                },
-              ],
-            }),
-          })
+        const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/stripe/rest`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            stripeMethod: 'subscriptions.list',
+            stripeArgs: [
+              {
+                customer: stripeCustomerID,
+                starting_after,
+                limit: 10,
+              },
+            ],
+          }),
+        })
 
-          const json: {
-            data: {
-              data: Subscription[]
+        const json: {
+          data: SubscriptionsResult
+        } = await req.json()
+
+        if (req.ok) {
+          setTimeout(() => {
+            dispatchResult({
+              type: 'add',
+              payload: json.data,
+            })
+            setError('')
+            setIsLoading(false)
+            if (successMessage) {
+              toast.success(successMessage)
             }
-          } = await req.json()
-
-          if (req.ok) {
-            setTimeout(() => {
-              setResult(json?.data?.data)
-              setError('')
-              setIsLoading(false)
-              if (successMessage) {
-                toast.success(successMessage)
-              }
-            }, delay)
-          } else {
-            // @ts-expect-error
-            throw new Error(json?.message)
-          }
-        } catch (err: unknown) {
-          const message = (err as Error)?.message || 'Something went wrong'
-          setError(message)
-          setIsLoading(false)
+          }, delay)
+        } else {
+          // @ts-expect-error
+          throw new Error(json?.message)
         }
-
-        isRequesting.current = false
+      } catch (err: unknown) {
+        const message = (err as Error)?.message || 'Something went wrong'
+        setError(message)
+        setIsLoading(false)
       }
 
-      makeRetrieval()
+      isRequesting.current = false
 
       // eslint-disable-next-line consistent-return
       return () => {
@@ -246,6 +271,14 @@ export const useSubscriptions = (args: {
     [refreshSubscriptions],
   )
 
+  const loadMoreSubscriptions = useCallback(() => {
+    if (result?.has_more && result?.data?.length) {
+      const lastSubscription = result?.data?.[result?.data?.length - 1]
+      const lastSubscriptionID = lastSubscription.id
+      getSubscriptions(undefined, lastSubscriptionID)
+    }
+  }, [getSubscriptions, result])
+
   const memoizedState = useMemo(
     () => ({
       result,
@@ -254,8 +287,17 @@ export const useSubscriptions = (args: {
       refreshSubscriptions,
       updateSubscription,
       cancelSubscription,
+      loadMoreSubscriptions,
     }),
-    [result, isLoading, error, refreshSubscriptions, updateSubscription, cancelSubscription],
+    [
+      result,
+      isLoading,
+      error,
+      refreshSubscriptions,
+      updateSubscription,
+      cancelSubscription,
+      loadMoreSubscriptions,
+    ],
   )
 
   return memoizedState
