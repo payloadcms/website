@@ -62,11 +62,6 @@
   flex-direction: column;
 }
 
-.freeTrialNotice {
-  @include small;
-  color: var(--theme-elevation-500);
-}
-
 .loadMore {
   margin-top: calc(var(--base) * 2);
 }

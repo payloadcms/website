@@ -11,6 +11,7 @@ import { Heading } from '@components/Heading'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { ModalWindow } from '@components/ModalWindow'
 import { Pill } from '@components/Pill'
+import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
 import { formatDate } from '@root/utilities/format-date-time'
@@ -22,10 +23,9 @@ import classes from './page.module.scss'
 
 const modalSlug = 'cancel-subscription'
 
-const Page = (props: { products: ReturnType<typeof useProducts>['result'] }) => {
-  const { products } = props
+const Page = (props: { products: ReturnType<typeof useProducts>['result']; team: Team }) => {
+  const { products, team } = props
   const { user } = useAuth()
-  const { team } = useRouteData()
   const { closeModal, openModal } = useModal()
   const [subscriptionToDelete, setSubscriptionToDelete] = React.useState<string | null>(null)
 
@@ -43,19 +43,6 @@ const Page = (props: { products: ReturnType<typeof useProducts>['result'] }) => 
 
   return (
     <React.Fragment>
-      <SectionHeader
-        title="Subscriptions"
-        intro={
-          <React.Fragment>
-            {!hasCustomerID && (
-              <p className={classes.error}>
-                This team does not have a billing account. Please contact support to resolve this
-                issue.
-              </p>
-            )}
-          </React.Fragment>
-        }
-      />
       {hasCustomerID && (
         <React.Fragment>
           {!isCurrentTeamOwner && (
@@ -101,7 +88,7 @@ const Page = (props: { products: ReturnType<typeof useProducts>['result'] }) => 
                               {`${priceFromJSON(JSON.stringify({ data: [item.price] }))}`}
                             </Heading>
                             {status === 'trialing' && trial_end && (
-                              <div className={classes.freeTrialNotice}>
+                              <div>
                                 {`After your free trial ends on ${formatDate({
                                   date: trialEndDate,
                                 })}, this plan will continue automatically.`}
@@ -174,11 +161,27 @@ const Page = (props: { products: ReturnType<typeof useProducts>['result'] }) => 
 }
 
 export const TeamSubscriptionsPage = () => {
+  const { team } = useRouteData()
   const { result: products } = useProducts()
 
-  if (products === null) {
-    return <LoadingShimmer number={3} />
-  }
+  const hasCustomerID = team?.stripeCustomerID
 
-  return <Page products={products} />
+  return (
+    <React.Fragment>
+      <SectionHeader
+        title="Subscriptions"
+        intro={
+          <React.Fragment>
+            {!hasCustomerID && (
+              <p className={classes.error}>
+                This team does not have a billing account. Please contact support to resolve this
+                issue.
+              </p>
+            )}
+          </React.Fragment>
+        }
+      />
+      {products === null ? <LoadingShimmer number={3} /> : <Page products={products} team={team} />}
+    </React.Fragment>
+  )
 }

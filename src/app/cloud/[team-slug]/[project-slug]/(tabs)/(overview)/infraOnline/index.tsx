@@ -139,8 +139,8 @@ export const InfraOnline: React.FC = () => {
             <Grid>
               <Cell start={1} cols={4} colsM={8}>
                 <Label>URL</Label>
-                {projectDomains.map(domain => (
-                  <div key={domain} className={classes.textMask} title={domain}>
+                {projectDomains.map((domain, index) => (
+                  <div key={`${domain}-${index}`} className={classes.textMask} title={domain}>
                     <a
                       className={[classes.detail, classes.domainLink].filter(Boolean).join(' ')}
                       href={`https://${domain}`}

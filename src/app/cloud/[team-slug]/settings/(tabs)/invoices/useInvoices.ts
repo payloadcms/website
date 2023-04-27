@@ -5,6 +5,28 @@ import { toast } from 'react-toastify'
 export interface Invoice {
   id: string
   status: string
+
+  created: number
+  total: number
+  lines: {
+    url: string
+    data: [
+      {
+        id: string
+        description: string
+        period: {
+          start: number
+          end: number
+        }
+        plan: {
+          id: string
+        }
+        price: {
+          id: string
+        }
+      },
+    ]
+  }
 }
 
 interface InvoicesResult {
@@ -49,7 +71,7 @@ export const useInvoices = (args: {
   const [isLoading, setIsLoading] = useState<'loading' | false | null>(null)
   const [error, setError] = useState('')
 
-  const getInvoices = useCallback(
+  const loadInvoices = useCallback(
     async (successMessage?: string, starting_after?: string) => {
       let timer: NodeJS.Timeout
 
@@ -85,9 +107,10 @@ export const useInvoices = (args: {
         if (req.ok) {
           setTimeout(() => {
             dispatchResult({
-              type: 'add',
+              type: starting_after ? 'add' : 'reset',
               payload: json.data,
             })
+
             setError('')
             setIsLoading(false)
             if (successMessage) {
@@ -115,20 +138,20 @@ export const useInvoices = (args: {
   )
 
   useEffect(() => {
-    getInvoices()
-  }, [getInvoices])
+    loadInvoices()
+  }, [loadInvoices])
 
   const refreshInvoices = useCallback(() => {
-    getInvoices()
-  }, [getInvoices])
+    loadInvoices()
+  }, [loadInvoices])
 
   const loadMoreInvoices = useCallback(() => {
     if (result?.has_more && result?.data?.length) {
       const lastInvoice = result?.data?.[result?.data?.length - 1]
       const lastInvoiceID = lastInvoice.id
-      getInvoices(undefined, lastInvoiceID)
+      loadInvoices(undefined, lastInvoiceID)
     }
-  }, [getInvoices, result])
+  }, [loadInvoices, result])
 
   const memoizedState = useMemo(
     () => ({ result, isLoading, error, refreshInvoices, loadMoreInvoices }),

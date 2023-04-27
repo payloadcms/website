@@ -117,7 +117,7 @@ export const useSubscriptions = (args: {
         if (req.ok) {
           setTimeout(() => {
             dispatchResult({
-              type: 'add',
+              type: starting_after ? 'add' : 'reset',
               payload: json.data,
             })
             setError('')
