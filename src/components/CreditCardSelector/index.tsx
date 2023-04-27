@@ -5,6 +5,7 @@ import { CircleIconButton } from '@components/CircleIconButton'
 import { CreditCardElement } from '@components/CreditCardElement'
 import { LargeRadio } from '@components/LargeRadio'
 import { Team } from '@root/payload-cloud-types'
+import { capitalize } from '@root/utilities/capitalize'
 import { useGetPaymentMethods } from './useGetPaymentMethods'
 
 import classes from './index.module.scss'
@@ -50,7 +51,9 @@ export const CreditCardSelector: React.FC<{
             value={paymentMethod.id}
             checked={internalState === paymentMethod.id}
             onChange={setInternalState}
-            label={`${paymentMethod?.card?.brand} ending in ${paymentMethod?.card?.last4}`}
+            label={`${capitalize(paymentMethod?.card?.brand) || 'Card'} ending in ${
+              paymentMethod?.card?.last4
+            }`}
             name="card"
             id={paymentMethod.id}
           />
