@@ -18,6 +18,7 @@ type Node = {
   children?: Node[]
   url?: string
   [key: string]: unknown
+  newTab?: boolean
 }
 
 export type CustomRenderers = {
@@ -81,6 +82,8 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
         }
 
         switch (node.type) {
+          case 'br':
+            return <br key={i} />
           case 'h1':
             return (
               <h1 key={i}>
@@ -148,6 +151,7 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
                 type={node.linkType === 'internal' ? 'reference' : 'custom'}
                 url={node.url}
                 reference={node.doc as Reference}
+                newTab={node?.newTab}
               >
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </CMSLink>
