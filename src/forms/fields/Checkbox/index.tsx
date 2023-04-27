@@ -1,13 +1,15 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import { Check } from '@icons/Check'
 
+import { CheckIcon } from '@root/icons/CheckIcon'
 import Error from '../../Error'
 import { FieldProps } from '../types'
 import { useField } from '../useField'
 
 import classes from './index.module.scss'
+
+// "You must agree to the terms of service to deploy your project."
 
 const defaultValidate = (value: boolean, options = {} as any) => {
   if ((value && typeof value !== 'boolean') || (options.required && typeof value !== 'boolean')) {
@@ -115,7 +117,7 @@ export const Checkbox: React.FC<
         disabled={disabled}
       >
         <span className={classes.input}>
-          <Check className={classes.icon} size="large" bold />
+          <CheckIcon className={classes.icon} size="medium" bold />
         </span>
         <span className={classes.label}>{label}</span>
       </button>

@@ -16,6 +16,14 @@
     &:hover {
         border-color: var(--theme-success-300);
     }
+
+    @include mid-break {
+        padding: calc(var(--base) / 1.5);
+
+        &:hover {
+            border-color: var(--theme-elevation-200);
+        }
+    }
 }
 
 .disabled {
@@ -49,6 +57,11 @@
     border-radius: 100%;
     border: 1px solid var(--theme-elevation-200);
     margin-right: var(--base);
+    flex-shrink: 0;
+
+    @include mid-break {
+        margin-right: calc(var(--base) / 1.5);
+    }
 }
 
 .radio {
@@ -70,6 +83,7 @@
     @include label;
     color: var(--theme-success-500);
     margin: 0;
+    text-align: right;
 }
 
 :global([data-theme="light"]) {

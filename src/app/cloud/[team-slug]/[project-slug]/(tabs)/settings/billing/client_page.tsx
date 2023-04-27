@@ -58,9 +58,15 @@ export const ProjectBillingPage = () => {
           This project does not have a subscription. Please contact support to resolve this issue.
         </p>
       )}
-      {hasCustomerID && hasSubscriptionID && (
-        <React.Fragment>
-          <div className={classes.fields}>
+      <div className={classes.fields}>
+        <Text
+          value={project?.id}
+          label="Project ID"
+          disabled
+          description="This is your project's ID within Payload"
+        />
+        {hasCustomerID && hasSubscriptionID && (
+          <React.Fragment>
             <Text
               disabled
               value={project?.stripeSubscriptionID}
@@ -72,28 +78,28 @@ export const ProjectBillingPage = () => {
               label="Subscription Status"
               disabled
             />
-          </div>
-          {!isCurrentTeamOwner && (
-            <p className={classes.error}>You must be an owner of this team to manage billing.</p>
-          )}
-          {isCurrentTeamOwner && (
-            <React.Fragment>
-              <p className={classes.description}>
-                {'To cancel your subscription, '}
-                <a
-                  onClick={e => {
-                    e.preventDefault()
-                    openPortalSession(e)
-                  }}
-                >
-                  click here
-                </a>
-                {`. This will delete your project permanently. This action cannot be undone.`}
-              </p>
-            </React.Fragment>
-          )}
-        </React.Fragment>
-      )}
+            {!isCurrentTeamOwner && (
+              <p className={classes.error}>You must be an owner of this team to manage billing.</p>
+            )}
+            {isCurrentTeamOwner && (
+              <React.Fragment>
+                <p className={classes.description}>
+                  {'To cancel your subscription, '}
+                  <a
+                    onClick={e => {
+                      e.preventDefault()
+                      openPortalSession(e)
+                    }}
+                  >
+                    click here
+                  </a>
+                  {`. This will delete your project permanently. This action cannot be undone.`}
+                </p>
+              </React.Fragment>
+            )}
+          </React.Fragment>
+        )}
+      </div>
       <p className={classes.description}>
         {`To manage your billing and payment information, go to your `}
         <Link href={`/cloud/${team.slug}/billing`}>team billing page</Link>

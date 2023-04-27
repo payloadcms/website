@@ -4,11 +4,10 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { BlockSpacing } from '@components/BlockSpacing'
 import { PricingCard } from '@components/cards/PricingCard'
-import { SquareCard } from '@components/cards/SquareCard'
 import { Gutter } from '@components/Gutter'
 import { PixelBackground } from '@components/PixelBackground'
-import { CheckmarkIcon } from '@root/graphics/CheckmarkIcon'
 import { ChevronIcon } from '@root/graphics/ChevronIcon'
+import { CheckIcon } from '@root/icons/CheckIcon'
 import { CloseIcon } from '@root/icons/CloseIcon'
 import { Page } from '@root/payload-types'
 
@@ -30,7 +29,7 @@ export const Pricing: React.FC<Props> = ({ pricingFields }) => {
           return (
             <li className={classes.feature} key={index}>
               <div className={icon && classes[icon]}>
-                {icon === 'check' && <CheckmarkIcon />}
+                {icon === 'check' && <CheckIcon size="medium" />}
                 {icon === 'x' && <CloseIcon />}
               </div>
               {feature}

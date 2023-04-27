@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 
-import { CheckmarkIcon } from '@root/graphics/CheckmarkIcon'
+import { CheckIcon } from '@root/icons/CheckIcon'
 
 import classes from './index.module.scss'
 
@@ -25,7 +25,7 @@ export const LargeRadio: React.FC<{
         htmlFor={id}
       >
         <div className={classes.checkmark}>
-          {checked && <CheckmarkIcon />}
+          {checked && <CheckIcon size="medium" bold />}
           <input
             type="radio"
             name={name}

@@ -20,18 +20,36 @@ const WrappedHeaderObserver: React.FC<
   }
 > = ({ children, className, zIndex, pullUp = false, isDetached }) => {
   const ref = React.useRef<HTMLDivElement>(null)
-  const { height: windowHeight } = useWindowInfo()
+  const { height: windowHeight, width: windowWidth } = useWindowInfo()
   const { setHeaderColor, debug, isFirstObserver, setIsFirstObserver } = useHeaderTheme()
   const [isIntersecting, setIsIntersecting] = React.useState(false)
   const themeColor = useTheme()
   const isFirstRef = React.useRef(false)
+  const [tick, setTick] = React.useState<number | undefined>(undefined)
 
   React.useEffect(() => {
-    if (ref?.current && windowHeight && themeColor) {
-      const headerHeight = parseInt(
-        getComputedStyle(document.documentElement).getPropertyValue('--header-height'),
-        10,
-      )
+    let tickTimeout: NodeJS.Timeout | undefined
+    const topBarHeight = parseInt(
+      getComputedStyle(document.documentElement).getPropertyValue('--top-bar-height'),
+      10,
+    )
+    const cssHeaderHeight = parseInt(
+      getComputedStyle(document.documentElement).getPropertyValue('--header-height'),
+      10,
+    )
+
+    if (!cssHeaderHeight) {
+      // workaround for styles not always being loaded in time (oddity with NextJS App folder)
+      tickTimeout = setTimeout(() => {
+        setTick(tick === undefined ? 1 : tick + 1)
+      }, 50)
+
+      // early return to prevent the observer from being set up incorrectly
+      return
+    }
+
+    if (ref?.current && windowHeight && windowWidth && cssHeaderHeight && themeColor) {
+      const halfHeaderHeight = windowHeight - topBarHeight - Math.ceil(cssHeaderHeight / 2)
 
       const el = ref.current
       const observer = new IntersectionObserver(
@@ -44,7 +62,7 @@ const WrappedHeaderObserver: React.FC<
           // intersection area is top of the screen from 0px to 50% of the header height
           // when the sticky element which is offset from the top by 50% of the header height
           // is intersecting the intersection area
-          rootMargin: `0px 0px -${windowHeight - Math.ceil(headerHeight / 2)}px 0px`,
+          rootMargin: `0px 0px -${halfHeaderHeight}px 0px`,
           threshold: 0,
         },
       )
@@ -55,8 +73,12 @@ const WrappedHeaderObserver: React.FC<
       }
     }
 
-    return () => null
-  }, [setIsIntersecting, windowHeight, themeColor, isDetached])
+    return () => {
+      if (tickTimeout) clearTimeout(tickTimeout)
+
+      return null
+    }
+  }, [setIsIntersecting, windowHeight, themeColor, isDetached, windowWidth, tick])
 
   React.useEffect(() => {
     if (isIntersecting) {

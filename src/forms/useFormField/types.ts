@@ -11,6 +11,7 @@ export interface FormField<FieldValue> {
   showError: boolean
   errorMessage?: string
   value: FieldValue
+  debouncedValue: FieldValue
   formSubmitted: boolean
   formProcessing: boolean
   setValue: SetValue

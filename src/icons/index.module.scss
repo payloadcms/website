@@ -25,6 +25,11 @@
   height: calc(var(--base) * 0.25);
 }
 
+.medium {
+  height: calc(var(--base) * 0.75);
+  width: calc(var(--base) * 0.75);
+}
+
 .large {
   height: var(--base);
   width: var(--base);
