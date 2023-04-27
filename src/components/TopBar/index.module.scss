@@ -21,7 +21,7 @@
     pointer-events: all;
     color: var(--text-color);
     transition: color 300ms ease;
-    @include small;
+    font-size: 21px;
   }
 
   .starWrap {
@@ -34,7 +34,6 @@
   }
 
   .starCount {
-    @include small;
     font-weight: 900;
   }
 
@@ -54,6 +53,12 @@
       &:hover {
         opacity: 0.8;
       }
+    }
+  }
+
+  @include extra-large-break {
+    .wrap {
+      font-size: 18px;
     }
   }
 
@@ -79,6 +84,10 @@
           color: var(--text-color);
         }
       }
+    }
+
+    .wrap {
+      font-size: 16px;
     }
   }
 }
