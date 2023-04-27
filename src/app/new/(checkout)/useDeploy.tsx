@@ -101,11 +101,8 @@ export const useDeploy = (args: {
         // this also means that we need to scroll in the catch block as well
         setTimeout(() => window.scrollTo(0, 0), 0)
 
-        // next create a subscription and confirm it's payment
-        const subscription = await createSubscription()
-        await confirmCardPayment(subscription)
-
-        // finally attempt to deploy the project
+        // attempt to deploy the project
+        // do not create the subscription yet to ensure the project will deploy
         const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deploy`, {
           credentials: 'include',
           method: 'POST',
@@ -119,9 +116,13 @@ export const useDeploy = (args: {
               ...formState,
               installID,
             },
-            subscription: subscription?.subscription,
           }),
         })
+
+        // once the project is deployed successfully, create the subscription
+        // also confirm card payment at this time
+        const subscription = await createSubscription()
+        await confirmCardPayment(subscription)
 
         const res: {
           doc: Project

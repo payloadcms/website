@@ -72,7 +72,7 @@ export const CloneTemplate: React.FC<{
             {'.'}
           </p>
         )}
-        <FormProcessing delay={250} />
+        <FormProcessing />
         <FormSubmissionError />
         <Grid>
           <Cell cols={4} colsM={8} className={classes.sidebarCell}>

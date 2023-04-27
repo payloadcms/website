@@ -8,10 +8,10 @@ const FormProcessing: React.FC<{
   message?: string
   delay?: number
 }> = props => {
-  const { className, message = 'Processing...' } = props
+  const { className, message = 'Processing...', delay = 150 } = props
 
   const isProcessing = useFormProcessing()
-  const debouncedIsProcessing = useDebounce(isProcessing, props.delay || 0)
+  const debouncedIsProcessing = useDebounce(isProcessing, delay || 0)
 
   if (debouncedIsProcessing) {
     return <p className={[className].filter(Boolean).join(' ')}>{message}</p>
