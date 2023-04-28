@@ -9,7 +9,7 @@ export const usePaymentMethods = (args: {
   team?: Team
   delay?: number
 }): {
-  result: null | PaymentMethod[]
+  result: PaymentMethod[] | null | undefined
   isLoading: 'loading' | 'saving' | 'deleting' | false | null
   error?: string
   deletePaymentMethod: (paymentMethod: string) => void
@@ -20,7 +20,7 @@ export const usePaymentMethods = (args: {
   const isRequesting = useRef(false)
   const isSavingNew = useRef(false)
   const isDeleting = useRef(false)
-  const [result, setResult] = useState<PaymentMethod[] | null>(null)
+  const [result, setResult] = useState<PaymentMethod[] | null | undefined>(undefined)
   const [isLoading, setIsLoading] = useState<'loading' | 'saving' | 'deleting' | false | null>(null)
   const [error, setError] = useState<string | undefined>('')
 
@@ -70,7 +70,7 @@ export const usePaymentMethods = (args: {
 
         if (req.ok) {
           setTimeout(() => {
-            setResult(json?.data?.data)
+            setResult(json?.data?.data || null)
             setError('')
             setIsLoading(false)
             if (successMessage) {

@@ -1,13 +1,19 @@
 import React, { Fragment, useEffect } from 'react'
+import { useModal } from '@faceless-ui/modal'
+import type { PaymentMethod } from '@stripe/stripe-js'
 import { v4 as uuid } from 'uuid'
 
+import { Button } from '@components/Button'
 import { CircleIconButton } from '@components/CircleIconButton'
 import { CreditCardElement } from '@components/CreditCardElement'
 import { useCustomer } from '@components/CreditCardSelector/useCustomer'
 import { DropdownMenu } from '@components/DropdownMenu'
+import { Heading } from '@components/Heading'
 import { LoadingShimmer } from '@components/LoadingShimmer'
+import { ModalWindow } from '@components/ModalWindow'
 import { Pill } from '@components/Pill'
 import { Team } from '@root/payload-cloud-types'
+import useDebounce from '@root/utilities/use-debounce'
 import { usePaymentMethods } from './usePaymentMethods'
 
 import classes from './index.module.scss'
@@ -19,11 +25,15 @@ type CreditCardListType = {
   customerLoading: ReturnType<typeof useCustomer>['isLoading']
 }
 
+const modalSlug = 'confirm-delete-payment-method'
+
 const List: React.FC<CreditCardListType> = props => {
   const { team, customer, setDefaultPaymentMethod, customerLoading } = props
   const scrollRef = React.useRef<HTMLDivElement>(null)
   const newCardID = React.useRef<string>(`new-card-${uuid()}`)
   const [showNewCard, setShowNewCard] = React.useState(false)
+  const paymentMethodToDelete = React.useRef<PaymentMethod | null>(null)
+  const { closeModal, openModal } = useModal()
 
   const {
     result: paymentMethods,
@@ -36,20 +46,28 @@ const List: React.FC<CreditCardListType> = props => {
   })
 
   useEffect(() => {
-    const firstCard = paymentMethods?.[0]?.id
-    newCardID.current = `new-card-${uuid()}`
-    setShowNewCard(!firstCard)
+    if (paymentMethods) {
+      const firstCard = paymentMethods?.[0]?.id
+      newCardID.current = `new-card-${uuid()}`
+      setShowNewCard(!firstCard)
+    }
   }, [paymentMethods, newCardID])
 
   const defaultPaymentMethod = customer?.invoice_settings?.default_payment_method
+
+  // don't show the loading messages unless it the requests take longer than 500ms
+  const debouncedLoadingPaymentMethods = useDebounce(isLoading, 500)
+  const debouncedCustomerLoading = useDebounce(customerLoading, 500)
 
   return (
     <div className={classes.creditCardList}>
       <div ref={scrollRef} className={classes.scrollRef} />
       <div className={classes.formState}>
         {paymentMethodsError && <p className={classes.error}>{paymentMethodsError}</p>}
-        {isLoading === 'deleting' && <p className={classes.deleting}>Deleting...</p>}
-        {customerLoading && <p className={classes.loading}>Loading...</p>}
+        {debouncedLoadingPaymentMethods === 'deleting' && (
+          <p className={classes.deleting}>Deleting card...</p>
+        )}
+        {debouncedCustomerLoading && <p className={classes.loading}>Loading...</p>}
       </div>
       <div className={classes.cards}>
         {paymentMethods?.map((paymentMethod, index) => {
@@ -80,7 +98,8 @@ const List: React.FC<CreditCardListType> = props => {
                           className={classes.deleteCard}
                           disabled={paymentMethods.length === 1}
                           onClick={() => {
-                            deletePaymentMethod(paymentMethod.id)
+                            paymentMethodToDelete.current = paymentMethod
+                            openModal(modalSlug)
                           }}
                         >
                           Delete
@@ -121,7 +140,7 @@ const List: React.FC<CreditCardListType> = props => {
               saveNewPaymentMethod(newCardID.current)
             }}
           >
-            Save new card
+            {isLoading === 'saving' ? 'Saving...' : 'Save new card'}
           </button>
         )}
         {/* Only show the add/remove new card button if there are existing payment methods */}
@@ -150,6 +169,38 @@ const List: React.FC<CreditCardListType> = props => {
           </Fragment>
         )}
       </div>
+      <ModalWindow slug={modalSlug}>
+        <div className={classes.modalContent}>
+          <Heading marginTop={false} as="h5">
+            {`You are about to delete `}
+            <b>{`${paymentMethodToDelete?.current?.card?.brand}`}</b>
+            {` ending in `}
+            <b>{`${paymentMethodToDelete?.current?.card?.last4}`}</b>
+            {`?`}
+          </Heading>
+          <p>Are you sure you want to do this? This action cannot be undone.</p>
+          <div className={classes.modalActions}>
+            <Button
+              label="cancel"
+              appearance="secondary"
+              onClick={() => {
+                paymentMethodToDelete.current = null
+                closeModal(modalSlug)
+              }}
+            />
+            <Button
+              label="delete"
+              appearance="danger"
+              onClick={() => {
+                if (paymentMethodToDelete.current) {
+                  deletePaymentMethod(paymentMethodToDelete?.current?.id)
+                  closeModal(modalSlug)
+                }
+              }}
+            />
+          </div>
+        </div>
+      </ModalWindow>
     </div>
   )
 }

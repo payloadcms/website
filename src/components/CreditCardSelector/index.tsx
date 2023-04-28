@@ -8,6 +8,7 @@ import { LargeRadio } from '@components/LargeRadio'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Pill } from '@components/Pill'
 import { Team } from '@root/payload-cloud-types'
+import useDebounce from '@root/utilities/use-debounce'
 import { usePaymentMethods } from '../CreditCardList/usePaymentMethods'
 import { useCustomer } from './useCustomer'
 import { useSubscription } from './useSubscription'
@@ -82,6 +83,9 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
   const isNewCard = internalState === newCardID.current
   const defaultPaymentMethod = customer?.invoice_settings?.default_payment_method
 
+  // don't show the loading messages unless it the requests take longer than 500ms
+  const debouncedCustomerLoading = useDebounce(customerLoading, 500)
+
   return (
     <div className={classes.creditCardSelector}>
       {showTeamLink && (
@@ -93,9 +97,8 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
       )}
       <div ref={scrollRef} className={classes.scrollRef} />
       <div className={classes.formState}>
-        {isLoading === 'saving' && <p className={classes.loading}>Saving...</p>}
         {error && <p className={classes.error}>{error}</p>}
-        {customerLoading && <p className={classes.loading}>Loading...</p>}
+        {debouncedCustomerLoading && <p className={classes.loading}>Loading...</p>}
       </div>
       <div className={classes.cards}>
         {paymentMethods?.map(paymentMethod => {
@@ -153,7 +156,7 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
               saveNewPaymentMethod(newCardID.current)
             }}
           >
-            Save new card
+            {isLoading === 'saving' ? 'Saving...' : 'Save new card'}
           </button>
         )}
         {/* Only show the add/remove new card button if there are existing payment methods */}

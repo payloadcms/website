@@ -31,7 +31,7 @@ const Page = (props: {
   const { products, team } = props
   const { user } = useAuth()
   const { closeModal, openModal } = useModal()
-  const [subscriptionToDelete, setSubscriptionToDelete] = React.useState<string | null>(null)
+  const subscriptionToDelete = React.useRef<string | null>(null)
 
   const isCurrentTeamOwner = checkTeamRoles(user, team, ['owner'])
   const hasCustomerID = team?.stripeCustomerID
@@ -107,7 +107,7 @@ const Page = (props: {
                                 appearance="primary"
                                 size="pill"
                                 onClick={() => {
-                                  setSubscriptionToDelete(subscriptionID)
+                                  subscriptionToDelete.current = subscriptionID
                                   openModal(modalSlug)
                                 }}
                                 label="Cancel plan"
@@ -150,7 +150,7 @@ const Page = (props: {
           </Heading>
           <p>
             {`Canceling subscription `}
-            <b>{subscriptionToDelete}</b>
+            <b>{subscriptionToDelete.current}</b>
             {` will permanently delete any associated projects. This action cannot be undone.`}
           </p>
           <div className={classes.modalActions}>
@@ -158,7 +158,7 @@ const Page = (props: {
               label="cancel"
               appearance="secondary"
               onClick={() => {
-                setSubscriptionToDelete(null)
+                subscriptionToDelete.current = null
                 closeModal(modalSlug)
               }}
             />
@@ -166,8 +166,8 @@ const Page = (props: {
               label="delete"
               appearance="danger"
               onClick={() => {
-                if (subscriptionToDelete) {
-                  cancelSubscription(subscriptionToDelete)
+                if (subscriptionToDelete.current) {
+                  cancelSubscription(subscriptionToDelete.current)
                   closeModal(modalSlug)
                 }
               }}
