@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect } from 'react'
+import React, { Fragment, useCallback, useEffect, useRef } from 'react'
 import { toast } from 'react-toastify'
 import Link from 'next/link'
 import { v4 as uuid } from 'uuid'
@@ -43,7 +43,7 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
   const [internalState, setInternalState] = React.useState(initialValue)
   const [showNewCard, setShowNewCard] = React.useState(false)
   const scrollRef = React.useRef<HTMLDivElement>(null)
-  const setToAfterRefresh = React.useRef<string | undefined>(undefined)
+  const hasInitialized = useRef(false)
 
   const {
     result: paymentMethods,
@@ -57,7 +57,6 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
   // if the initial value is unset or invalid, preselect the first card if possible
   // otherwise show the new card option with a newly generated unique id, prefixed with `new-card`
   // this will allow us to differentiate from a saved card in the checkout process
-  // this is a callback so it can be used on mount and also on new card cancel
   const initializeState = useCallback(() => {
     if (
       paymentMethods &&
@@ -74,7 +73,10 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
   }, [paymentMethods, newCardID, initialValue])
 
   useEffect(() => {
-    initializeState()
+    if (!hasInitialized.current) {
+      hasInitialized.current = true
+      initializeState()
+    }
   }, [initializeState])
 
   const setSubscriptionPaymentMethod = React.useCallback(
@@ -99,13 +101,31 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
     }
   }, [onChange, internalState])
 
+  // save the selected payment method to the subscription
   const handleChange = React.useCallback(
     async (incomingValue: string) => {
-      await setSubscriptionPaymentMethod(incomingValue)
+      if (!incomingValue?.startsWith('new-card')) {
+        await setSubscriptionPaymentMethod(incomingValue)
+      }
       setInternalState(incomingValue)
     },
     [setSubscriptionPaymentMethod],
   )
+
+  // after saving a new card, auto select it
+  const handleSaveNewCard = useCallback(async () => {
+    const setupIntent = await saveNewPaymentMethod(newCardID.current)
+    const newPaymentMethod =
+      typeof setupIntent?.setupIntent?.payment_method === 'string'
+        ? setupIntent?.setupIntent?.payment_method
+        : setupIntent?.setupIntent?.payment_method?.id
+
+    if (newPaymentMethod) {
+      await setSubscriptionPaymentMethod(newPaymentMethod)
+      setInternalState(newPaymentMethod)
+      setShowNewCard(false)
+    }
+  }, [saveNewPaymentMethod, setSubscriptionPaymentMethod])
 
   const isNewCard = internalState === newCardID.current
   const defaultPaymentMethod = customer?.invoice_settings?.default_payment_method
@@ -175,14 +195,7 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
       </div>
       <div className={classes.controls}>
         {showNewCard && enableInlineSave && (
-          <button
-            type="button"
-            className={classes.saveNewCard}
-            onClick={() => {
-              setToAfterRefresh.current = newCardID.current
-              saveNewPaymentMethod(newCardID.current)
-            }}
-          >
+          <button type="button" className={classes.saveNewCard} onClick={handleSaveNewCard}>
             {isLoading === 'saving' ? 'Saving...' : 'Save new card'}
           </button>
         )}

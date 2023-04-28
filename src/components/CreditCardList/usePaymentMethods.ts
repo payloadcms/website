@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import type { PaymentMethod } from '@stripe/stripe-js'
 
+import type { UseConfirmCardSetup } from '@root/app/new/(checkout)/useConfirmCardSetup'
 import { useConfirmCardSetup } from '@root/app/new/(checkout)/useConfirmCardSetup'
 import type { Team } from '@root/payload-cloud-types'
 
@@ -14,7 +15,7 @@ export const usePaymentMethods = (args: {
   error?: string
   deletePaymentMethod: (paymentMethod: string) => void
   getPaymentMethods: () => void
-  saveNewPaymentMethod: (paymentMethod: string) => void
+  saveNewPaymentMethod: ReturnType<UseConfirmCardSetup>
 } => {
   const { team, delay } = args
   const isRequesting = useRef(false)
@@ -157,10 +158,10 @@ export const usePaymentMethods = (args: {
     [getPaymentMethods],
   )
 
-  const saveNewPaymentMethod = useCallback(
-    async (paymentMethod: string) => {
+  const saveNewPaymentMethod: ReturnType<UseConfirmCardSetup> = useCallback(
+    async paymentMethod => {
       if (isRequesting.current) {
-        return
+        return null
       }
 
       isSavingNew.current = true
@@ -168,8 +169,9 @@ export const usePaymentMethods = (args: {
       setIsLoading('saving')
 
       try {
-        await confirmCardSetup(paymentMethod)
+        const setupIntent = await confirmCardSetup(paymentMethod)
         await getPaymentMethods('Payment method saved successfully')
+        return setupIntent
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : 'Unknown error'
         setError(msg)
@@ -177,6 +179,7 @@ export const usePaymentMethods = (args: {
       }
 
       isSavingNew.current = false
+      return null
     },
     [confirmCardSetup, getPaymentMethods],
   )
