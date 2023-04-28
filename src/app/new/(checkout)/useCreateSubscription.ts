@@ -11,7 +11,7 @@ export interface PayloadStripeSubscription {
 }
 
 export const useCreateSubscription = (args: {
-  project: Project
+  project: Project | null | undefined
   checkoutState: CheckoutState
 }): (() => Promise<PayloadStripeSubscription>) => {
   const { project, checkoutState } = args

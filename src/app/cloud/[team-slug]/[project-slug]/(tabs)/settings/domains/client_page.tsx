@@ -21,7 +21,7 @@ export const ProjectDomainsPage = () => {
         title="Custom Domains"
         intro={
           <>
-            {project.defaultDomain && (
+            {project?.defaultDomain && (
               <p>
                 <strong>Default domain: </strong>
                 <a href={`https://${project.defaultDomain}`} target="_blank">

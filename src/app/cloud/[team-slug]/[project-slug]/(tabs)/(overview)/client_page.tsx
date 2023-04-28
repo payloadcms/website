@@ -8,9 +8,8 @@ import { InfraOnline } from './infraOnline'
 
 export const ProjectOverviewPage = () => {
   const { project } = useRouteData()
-  const { infraStatus } = project
 
-  if (infraStatus === 'done') {
+  if (project?.infraStatus === 'done') {
     return <InfraOnline />
   }
 

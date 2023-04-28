@@ -50,6 +50,9 @@ const DashboardHeader = () => {
   // we can do the same for project routes one level deeper
   const isTeamRoute = segments.length > 1 && routes[segments[1]] === undefined
 
+  let isSettingsRoute = false
+  let maxCrumbs = 3
+
   if (isTeamRoute) {
     routes = {
       [`${team?.slug}`]: {
@@ -57,15 +60,13 @@ const DashboardHeader = () => {
         crumbLabel: team?.slug,
         href: `/${team?.slug}`,
       },
-      billing: {
-        tabLabel: 'Billing',
-        href: `/${team?.slug}/billing`,
-      },
       settings: {
         tabLabel: 'Settings',
         href: `/${team?.slug}/settings`,
       },
     }
+
+    isSettingsRoute = segments[2] === 'settings'
   }
 
   const isProjectRoute = isTeamRoute && segments.length > 2 && routes[segments[2]] === undefined
@@ -98,12 +99,9 @@ const DashboardHeader = () => {
         href: `/${team?.slug}/${project?.slug}/settings`,
       },
     }
-  }
 
-  const isSettingsRoute = segments.length >= 3 && segments[3] === 'settings'
-
-  if (isSettingsRoute) {
-    segments = segments.slice(0, 4)
+    isSettingsRoute = segments[3] === 'settings'
+    maxCrumbs = 4
   }
 
   const failedToDeployApp =
@@ -115,15 +113,19 @@ const DashboardHeader = () => {
       <Gutter>
         <Message error={errorParam} success={successParam} warning={warningParam} />
         <Breadcrumbs
-          items={segments.reduce((acc: Breadcrumb[], segment) => {
+          items={segments.reduce((acc: Breadcrumb[], segment, index) => {
             const lowercaseSegment = segment.toLowerCase()
-            acc.push({
-              label:
-                lowercaseSegment === 'cloud'
-                  ? 'Cloud'
-                  : routes[lowercaseSegment]?.crumbLabel || routes[lowercaseSegment]?.tabLabel,
-              url: `/${cloudSlug}${routes[lowercaseSegment]?.href || ''}`,
-            })
+
+            if (index + 1 <= maxCrumbs) {
+              acc.push({
+                label:
+                  lowercaseSegment === 'cloud'
+                    ? 'Cloud'
+                    : routes[lowercaseSegment]?.crumbLabel || routes[lowercaseSegment]?.tabLabel,
+                url: `/${cloudSlug}${routes[lowercaseSegment]?.href || ''}`,
+              })
+            }
+
             return acc
           }, [])}
         />
@@ -163,6 +165,7 @@ const DashboardHeader = () => {
                 acc.push(tab)
               }
             }
+
             return acc
           }, []),
         ]}

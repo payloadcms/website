@@ -3,19 +3,24 @@
 import * as React from 'react'
 import { useRouteData } from '@cloud/context'
 import { Text } from '@forms/fields/Text'
-import Link from 'next/link'
+import { Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
 
+import { CreditCardSelector } from '@components/CreditCardSelector'
+import { Heading } from '@components/Heading'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { useAuth } from '@root/providers/Auth'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
-import { useCustomerPortal } from '@root/utilities/use-customer-portal'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'
 
 import classes from './page.module.scss'
 
+const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
+const Stripe = loadStripe(apiKey)
+
 const statusLabels = {
   active: 'Active',
-  canceled: 'Cancelled',
+  canceled: 'Canceled',
   incomplete: 'Incomplete',
   incomplete_expired: 'Incomplete Expired',
   past_due: 'Past Due',
@@ -28,12 +33,6 @@ const statusLabels = {
 export const ProjectBillingPage = () => {
   const { user } = useAuth()
   const { team, project } = useRouteData()
-  const { openPortalSession, error, loading } = useCustomerPortal({
-    team,
-    subscriptionID: project.stripeSubscriptionID,
-    returnURL: `${process.env.NEXT_PUBLIC_SITE_URL}/cloud/${team.slug}/${project.slug}/settings/billing`,
-    headline: `"${project.name}" Project on Payload Cloud`,
-  })
 
   const isCurrentTeamOwner = checkTeamRoles(user, team, ['owner'])
   const hasCustomerID = team?.stripeCustomerID
@@ -42,12 +41,6 @@ export const ProjectBillingPage = () => {
   return (
     <MaxWidth>
       <SectionHeader title="Project billing" className={classes.header} />
-      {(loading || error) && (
-        <div className={classes.formSate}>
-          {loading && <p className={classes.loading}>Opening customer portal...</p>}
-          {error && <p className={classes.error}>{error}</p>}
-        </div>
-      )}
       {!hasCustomerID && (
         <p className={classes.error}>
           This team does not have a billing account. Please contact support to resolve this issue.
@@ -83,28 +76,20 @@ export const ProjectBillingPage = () => {
             )}
             {isCurrentTeamOwner && (
               <React.Fragment>
-                <p className={classes.description}>
-                  {'To cancel your subscription, '}
-                  <a
-                    onClick={e => {
-                      e.preventDefault()
-                      openPortalSession(e)
-                    }}
-                  >
-                    click here
-                  </a>
-                  {`. This will delete your project permanently. This action cannot be undone.`}
-                </p>
+                <Heading marginBottom={false} element="h6">
+                  Payment Method
+                </Heading>
+                <Elements stripe={Stripe}>
+                  <CreditCardSelector
+                    team={team}
+                    stripeSubscriptionID={project?.stripeSubscriptionID}
+                  />
+                </Elements>
               </React.Fragment>
             )}
           </React.Fragment>
         )}
       </div>
-      <p className={classes.description}>
-        {`To manage your billing and payment information, go to your `}
-        <Link href={`/cloud/${team.slug}/billing`}>team billing page</Link>
-        {`.`}
-      </p>
     </MaxWidth>
   )
 }

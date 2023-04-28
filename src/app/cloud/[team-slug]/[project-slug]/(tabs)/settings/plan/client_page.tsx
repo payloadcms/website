@@ -71,7 +71,7 @@ export const ProjectPlanPage = () => {
 
       try {
         const req = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project.id}`,
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}`,
           {
             method: 'DELETE',
             credentials: 'include',

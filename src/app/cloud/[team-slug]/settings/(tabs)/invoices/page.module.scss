@@ -1,0 +1,79 @@
+@use '@scss/common.scss' as *;
+
+.description {
+  a {
+    color: var(--theme-blue-500);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) / 2);
+  list-style: none;
+  padding: 0;
+}
+
+.invoice {
+  display: flex;
+  gap: calc(var(--base) / 2);
+  flex-direction: column;
+  
+  &:not(:last-child) {
+    margin-bottom: calc(var(--base) * 2);
+    border-bottom: 1px solid var(--theme-elevation-500);
+    padding-bottom: calc(var(--base) * 2);
+  }
+
+  @include small-break {
+    &:not(:last-child) {
+      margin-bottom: var(--base);
+      padding-bottom: var(--base);
+    }
+  }
+}
+
+.invoiceTitle {
+  display: flex;
+  gap: calc(var(--base) / 2);
+  align-items: center;
+}
+
+.invoiceTotalNegative {
+  color: var(--theme-success-500);
+}
+
+.invoiceDetails {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) / 2);
+}
+
+.invoiceContent {
+  margin-top: calc(var(--base) / 2);
+  display: flex;
+  gap: calc(var(--base) / 2);
+  flex-direction: column;
+}
+
+.invoiceLine {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  & > * {
+    margin: 0;
+  }
+}
+
+.freeTrialNotice {
+  @include small;
+  color: var(--theme-elevation-500);
+}
+
+.loadMore {
+  margin-top: calc(var(--base) * 2);
+}

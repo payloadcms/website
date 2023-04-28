@@ -51,7 +51,7 @@ const title = 'Configure your project'
 // this is to avoid making more Stripe records than necessary
 // a new one is needed each time the plan (including trial), card, or team changes
 const Checkout: React.FC<{
-  project: Project
+  project: Project | null | undefined
   draftProjectID: string
 }> = props => {
   const { project, draftProjectID } = props
@@ -144,7 +144,7 @@ const Checkout: React.FC<{
 
       if (response.ok) {
         router.push(`/${cloudSlug}`)
-        toast.success('Draft project cancelled successfully.')
+        toast.success('Draft project canceled successfully.')
       } else {
         setDeleting(false)
         setErrorDeleting('There was an error deleting your project.')
@@ -327,10 +327,12 @@ const Checkout: React.FC<{
                 <div>
                   <h5>Payment Info</h5>
                   {checkoutState?.team && (
-                    <CreditCardSelector
+                    
                       initialValue={checkoutState?.paymentMethod}
                       team={checkoutState?.team}
                       onChange={handleCardChange}
+                      enableInlineSave={false}
+                      showTeamLink={false}
                     />
                   )}
                 </div>

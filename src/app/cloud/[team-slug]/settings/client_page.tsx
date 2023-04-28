@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
@@ -10,8 +9,6 @@ import Submit from '@forms/Submit'
 import { OnSubmit } from '@forms/types'
 import { useRouter } from 'next/navigation'
 
-import { Gutter } from '@components/Gutter'
-import { Heading } from '@components/Heading'
 import { InviteTeammates } from '@components/InviteTeammates'
 import { TeamInvitations } from '@components/TeamInvitations'
 import { TeamMembers } from '@components/TeamMembers'
@@ -19,6 +16,7 @@ import { UniqueTeamSlug } from '@components/UniqueSlug'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { useRouteData } from '../../context'
+import { SectionHeader } from '../[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 
 import classes from './page.module.scss'
 
@@ -58,7 +56,7 @@ export const TeamSettingsPage = () => {
         })),
       }
 
-      const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team.id}`, {
+      const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}`, {
         method: 'PATCH',
         credentials: 'include',
         headers: {
@@ -87,7 +85,7 @@ export const TeamSettingsPage = () => {
       setTeam(response.doc)
 
       // if the team slug has changed, redirect to the new URL
-      if (response.doc.slug !== team.slug) {
+      if (response.doc.slug !== team?.slug) {
         router.push(`/cloud/${response.doc.slug}/settings`)
       }
 
@@ -101,66 +99,60 @@ export const TeamSettingsPage = () => {
   )
 
   return (
-    <Gutter className={classes.settings}>
-      <Heading marginTop={false} element="h1" as="h6" className={classes.title}>
-        Team settings
-      </Heading>
+    <React.Fragment>
+      <SectionHeader title="Team Settings" />
       {(success || error) && (
         <div className={classes.formState}>
           {success && <p className={classes.success}>Team updated successfully!</p>}
           {error && <p className={classes.error}>{error?.message}</p>}
         </div>
       )}
-      <Grid>
-        <Cell cols={6} colsM={8}>
-          <Form
-            onSubmit={handleSubmit}
-            className={classes.form}
-            errors={error?.data}
-            initialState={{
-              name: {
-                initialValue: team?.name,
-                value: team?.name,
+      <Form
+        onSubmit={handleSubmit}
+        className={classes.form}
+        errors={error?.data}
+        initialState={{
+          name: {
+            initialValue: team?.name,
+            value: team?.name,
+          },
+          slug: {
+            initialValue: team?.slug,
+            value: team?.slug,
+          },
+          billingEmail: {
+            initialValue: team?.billingEmail,
+            value: team?.billingEmail,
+          },
+          sendEmailInvitationsTo: {
+            initialValue: [
+              {
+                email: '',
+                roles: ['user'],
               },
-              slug: {
-                initialValue: team?.slug,
-                value: team?.slug,
-              },
-              billingEmail: {
-                initialValue: team?.billingEmail,
-                value: team?.billingEmail,
-              },
-              sendEmailInvitationsTo: {
-                initialValue: [
-                  {
-                    email: '',
-                    roles: ['user'],
-                  },
-                ],
-              },
-            }}
-          >
-            <FormSubmissionError />
-            <FormProcessing message="Updating team, one moment..." />
-            <Text path="name" label="Team Name" />
-            <UniqueTeamSlug teamID={team?.id} />
-            <Text path="billingEmail" label="Billing Email" required />
-            <Text
-              value={team?.id}
-              label="Team ID"
-              disabled
-              description="This is your team's ID within Payload"
-            />
-            <hr className={classes.hr} />
-            <TeamMembers team={team} />
-            {team?.invitations && team?.invitations?.length > 0 && <TeamInvitations team={team} />}
-            <hr className={classes.hr} />
-            <InviteTeammates />
-            <hr className={classes.hr} />
-            <Submit label="Save" className={classes.submit} />
-          </Form>
-        </Cell>
-      </Grid>
-    </Gutter>
+            ],
+          },
+        }}
+      >
+        <FormSubmissionError />
+        <FormProcessing message="Updating team, one moment..." />
+        <Text path="name" label="Team Name" />
+        <UniqueTeamSlug teamID={team?.id} />
+        <Text path="billingEmail" label="Billing Email" required />
+        <Text
+          value={team?.id}
+          label="Team ID"
+          disabled
+          description="This is your team's ID within Payload"
+        />
+        <hr className={classes.hr} />
+        <TeamMembers team={team} />
+        {team?.invitations && team?.invitations?.length > 0 && <TeamInvitations team={team} />}
+        <hr className={classes.hr} />
+        <InviteTeammates />
+        <hr className={classes.hr} />
+        <Submit label="Save" className={classes.submit} />
+      </Form>
+    </React.Fragment>
   )
 }

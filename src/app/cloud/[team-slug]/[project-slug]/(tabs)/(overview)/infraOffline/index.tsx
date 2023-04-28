@@ -71,7 +71,7 @@ const initialDeploymentPhases: DeploymentPhases[] = ['notStarted', 'awaitingData
 
 export const InfraOffline: React.FC = () => {
   const { project, reloadProject, team } = useRouteData()
-  const { infraStatus = 'notStarted' } = project
+  const infraStatus = project?.infraStatus || 'notStarted'
   const failedDeployment = ['error', 'deployError', 'appCreationError'].includes(infraStatus)
   const deploymentStep = deploymentStates[infraStatus]
 
@@ -83,7 +83,7 @@ export const InfraOffline: React.FC = () => {
     reqStatus,
     reload: reloadDeployments,
   } = useGetProjectDeployments({
-    projectID: project.id,
+    projectID: project?.id,
   })
   const latestDeployment = deployments?.[0]
 
@@ -172,11 +172,11 @@ export const InfraOffline: React.FC = () => {
                     {!buildSuccess && (
                       <>
                         <h6>
-                          Does the branch <code>{project.deploymentBranch}</code> exist?
+                          Does the branch <code>{project?.deploymentBranch}</code> exist?
                         </h6>
                         <p className={classes.helpText}>
                           Validate that your branch exists. If it doesn't, go to{' '}
-                          <Link href={`/cloud/${team.slug}/${project.slug}/settings`}>
+                          <Link href={`/cloud/${team?.slug}/${project?.slug}/settings`}>
                             Settings
                           </Link>{' '}
                           and change your branch to a valid branch that exists.
@@ -203,7 +203,7 @@ export const InfraOffline: React.FC = () => {
                         <p className={classes.helpText}>
                           By default, Payload Cloud listens on port 3000. Make sure that your app is
                           set up to listen on port 3000, or go to{' '}
-                          <Link href={`/cloud/${team.slug}/${project.slug}/settings`}>
+                          <Link href={`/cloud/${team?.slug}/${project?.slug}/settings`}>
                             Settings
                           </Link>{' '}
                           and specify a <code>PORT</code> environment variable to manually set the

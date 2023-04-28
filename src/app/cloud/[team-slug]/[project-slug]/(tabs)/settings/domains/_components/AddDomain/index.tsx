@@ -23,7 +23,7 @@ export const AddDomain: React.FC = () => {
   const { project, reloadProject } = useRouteData()
   const [fieldKey, setFieldKey] = React.useState(generateUUID())
 
-  const projectID = project.id
+  const projectID = project?.id
   const projectDomains = project?.domains
 
   const saveDomain = React.useCallback<OnSubmit>(

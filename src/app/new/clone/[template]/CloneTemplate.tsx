@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment } from 'react'
+import React, { useCallback } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
 import Form from '@forms/Form'
@@ -39,7 +39,7 @@ export const CloneTemplate: React.FC<{
     projectName: template?.name,
     installID: selectedInstall?.id,
     templateID: template?.id,
-    teamID: matchedTeam?.id,
+    teamID: matchedTeam?.id, // the first team is used as a fallback
     onSubmit: ({ id: draftProjectID }) => {
       router.push(`/new/clone/configure/${draftProjectID}`)
     },
@@ -48,17 +48,20 @@ export const CloneTemplate: React.FC<{
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer()
   const noTeams = !user?.teams || user?.teams.length === 0
 
+  const handleSubmit = useCallback(
+    async ({ unflattenedData }) => {
+      await createDraftProject({
+        repo: {
+          name: unflattenedData?.repositoryName,
+        },
+        makePrivate: unflattenedData?.makePrivate,
+      })
+    },
+    [createDraftProject],
+  )
+
   return (
-    <Form
-      onSubmit={({ unflattenedData }) => {
-        createDraftProject({
-          repo: {
-            name: unflattenedData?.repositoryName,
-          },
-          makePrivate: unflattenedData?.makePrivate,
-        })
-      }}
-    >
+    <Form onSubmit={handleSubmit}>
       <Gutter>
         {noTeams && (
           <p className={classes.noTeams}>

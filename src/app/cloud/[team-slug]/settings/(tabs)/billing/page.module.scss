@@ -1,13 +1,5 @@
 @use '@scss/common.scss' as *;
 
-.error {
-  color: var(--theme-error-500);
-}
-
-.success {
-    color: var(--theme-success-500);
-}
-
 .description {
   a {
     color: var(--theme-blue-500);

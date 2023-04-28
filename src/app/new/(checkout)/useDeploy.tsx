@@ -3,18 +3,17 @@ import { OnSubmit } from '@forms/types'
 import { CardElement as StripeCardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import {
   PaymentIntent, // eslint-disable-line import/named
-  SetupIntentResult, // eslint-disable-line import/named
   StripeCardElement as StripeCardElementType, // eslint-disable-line import/named
 } from '@stripe/stripe-js'
 
 import { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { CheckoutState } from './reducer'
-import { PayloadStripeSetupIntent, useCreateSetupIntent } from './useCreateSetupIntent'
+import { useConfirmCardSetup } from './useConfirmCardSetup'
 import { PayloadStripeSubscription, useCreateSubscription } from './useCreateSubscription'
 
 export const useDeploy = (args: {
-  project: Project
+  project: Project | null | undefined
   checkoutState: CheckoutState
   installID?: string
   onDeploy?: (project: Project) => void
@@ -29,46 +28,9 @@ export const useDeploy = (args: {
     checkoutState,
   })
 
-  const createSetupIntent = useCreateSetupIntent({
-    project,
-    checkoutState,
+  const confirmCardSetup = useConfirmCardSetup({
+    team: checkoutState?.team,
   })
-
-  // this will ensure payment methods are supplied even for trials
-  const confirmCardSetup = useCallback(
-    async (setupIntent: PayloadStripeSetupIntent): Promise<SetupIntentResult | null> => {
-      if (!setupIntent) {
-        throw new Error('No setup intent')
-      }
-
-      if (!checkoutState || !stripe || !elements) {
-        throw new Error('No payment intent or checkout state')
-      }
-
-      const { client_secret: clientSecret } = setupIntent
-      const { paymentMethod } = checkoutState
-
-      if (!clientSecret) {
-        throw new Error('No plan selected or client secret')
-      }
-
-      const stripePayment = await stripe.confirmCardSetup(clientSecret, {
-        payment_method:
-          !paymentMethod || paymentMethod.startsWith('new-card')
-            ? {
-                card: elements.getElement(StripeCardElement) as StripeCardElementType,
-              }
-            : paymentMethod,
-      })
-
-      if (stripePayment.error) {
-        throw new Error(stripePayment.error.message)
-      }
-
-      return stripePayment
-    },
-    [elements, stripe, checkoutState],
-  )
 
   const confirmCardPayment = useCallback(
     async (subscription: PayloadStripeSubscription): Promise<PaymentIntent | null> => {
@@ -130,8 +92,7 @@ export const useDeploy = (args: {
 
         // first create a setup intent and confirm it
         // this will ensure that payment methods are supplied even for trials
-        const setupIntent = await createSetupIntent()
-        await confirmCardSetup(setupIntent)
+        await confirmCardSetup(checkoutState.paymentMethod)
 
         // only scroll-to-top after the card has been confirmed
         // Stripe automatically scrolls to the `CardElement` if an error occurs
@@ -140,11 +101,8 @@ export const useDeploy = (args: {
         // this also means that we need to scroll in the catch block as well
         setTimeout(() => window.scrollTo(0, 0), 0)
 
-        // next create a subscription and confirm it's payment
-        const subscription = await createSubscription()
-        await confirmCardPayment(subscription)
-
-        // finally attempt to deploy the project
+        // attempt to deploy the project
+        // do not create the subscription yet to ensure the project will deploy
         const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deploy`, {
           credentials: 'include',
           method: 'POST',
@@ -158,9 +116,13 @@ export const useDeploy = (args: {
               ...formState,
               installID,
             },
-            subscription: subscription?.subscription,
           }),
         })
+
+        // once the project is deployed successfully, create the subscription
+        // also confirm card payment at this time
+        const subscription = await createSubscription()
+        await confirmCardPayment(subscription)
 
         const res: {
           doc: Project
@@ -193,7 +155,6 @@ export const useDeploy = (args: {
       onDeploy,
       createSubscription,
       confirmCardSetup,
-      createSetupIntent,
       confirmCardPayment,
     ],
   )

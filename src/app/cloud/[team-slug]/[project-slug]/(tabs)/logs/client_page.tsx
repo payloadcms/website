@@ -44,7 +44,7 @@ export const ProjectLogsPage = () => {
   }, [])
 
   useWebSocket({
-    url: `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project.id}/logs`.replace(
+    url: `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/logs`.replace(
       'http',
       'ws',
     ),

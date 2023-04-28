@@ -82,7 +82,7 @@ export const ProjectOwnershipPage = () => {
 
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project.id}`,
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}`,
           {
             method: 'PATCH',
             credentials: 'include',
@@ -97,14 +97,14 @@ export const ProjectOwnershipPage = () => {
 
         if (res.status === 200) {
           reloadProject()
-          router.push(`/cloud/${unflattenedData.teamSlug}/${project.slug}/settings/ownership`)
+          router.push(`/cloud/${unflattenedData.teamSlug}/${project?.slug}/settings/ownership`)
           // TODO: figure out how to reroute with new team slug
         }
       } catch (e) {
         console.error(e) // eslint-disable-line no-console
       }
     },
-    [project.id, reloadProject, router, project.slug],
+    [project?.id, reloadProject, router, project?.slug],
   )
 
   return (
@@ -116,7 +116,7 @@ export const ProjectOwnershipPage = () => {
 
       {isCurrentTeamOwner && teamOptions ? (
         <Form onSubmit={onSubmit} className={classes.teamSelect}>
-          <SelectTeam teams={teamOptions} initialValue={currentTeam.id} />
+          <SelectTeam teams={teamOptions} initialValue={currentTeam?.id} />
 
           <div className={classes.actionsFooter}>
             <Submit label="Save" icon={false} />

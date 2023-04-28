@@ -27,7 +27,7 @@ export const TeamPage = () => {
   const [renderNewProjectBlock, setRenderNewProject] = useState(false)
 
   const { isLoading, error, result } = useGetProjects({
-    teams: [typeof team === 'object' && team !== null ? team.id : team],
+    teams: team ? [typeof team === 'object' && team !== null ? team.id : team] : undefined,
     search: debouncedSearch,
     page,
   })

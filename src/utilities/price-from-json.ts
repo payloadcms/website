@@ -7,17 +7,17 @@ export const priceFromJSON = (priceJSON = '{}', showFree = true): string => {
     const priceValue = parsed?.unit_amount
     const priceType = parsed?.type
 
-    if (!priceValue && !showFree) {
+    if (priceValue === undefined && !showFree) {
       return price
     }
 
-    price = (priceValue > 0 ? priceValue / 100 : 0).toLocaleString('en-US', {
+    price = (priceValue !== 0 ? priceValue / 100 : 0).toLocaleString('en-US', {
       style: 'currency',
       currency: 'USD', // TODO: use `parsed.currency`
     })
 
     if (priceType === 'recurring') {
-      price += ` / ${
+      price += ` per ${
         parsed.recurring.interval_count > 1
           ? `${parsed.recurring.interval_count} ${parsed.recurring.interval}`
           : parsed.recurring.interval
