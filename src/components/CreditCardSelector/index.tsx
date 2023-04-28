@@ -24,7 +24,7 @@ type CreditCardSelectorType = {
   showTeamLink?: boolean
   customer: ReturnType<typeof useCustomer>['result']
   customerLoading: ReturnType<typeof useCustomer>['isLoading']
-  updateSubscription: ReturnType<typeof useSubscription>['updateSubscription']
+  onPaymentMethodChange: (paymentMethod: string) => Promise<void>
 }
 
 const Selector: React.FC<CreditCardSelectorType> = props => {
@@ -36,7 +36,7 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
     customer,
     showTeamLink = true,
     customerLoading,
-    updateSubscription,
+    onPaymentMethodChange,
   } = props
 
   const newCardID = React.useRef<string>(`new-card-${uuid()}`)
@@ -79,22 +79,6 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
     }
   }, [initializeState])
 
-  const setSubscriptionPaymentMethod = React.useCallback(
-    async selectedPaymentMethod => {
-      if (typeof updateSubscription === 'function') {
-        try {
-          await updateSubscription({
-            default_payment_method: selectedPaymentMethod,
-          })
-          toast.success('Payment method changed successfully')
-        } catch (error) {
-          console.error(error) // eslint-disable-line no-console
-        }
-      }
-    },
-    [updateSubscription],
-  )
-
   useEffect(() => {
     if (typeof onChange === 'function') {
       onChange(internalState)
@@ -105,11 +89,11 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
   const handleChange = React.useCallback(
     async (incomingValue: string) => {
       if (!incomingValue?.startsWith('new-card')) {
-        await setSubscriptionPaymentMethod(incomingValue)
+        await onPaymentMethodChange(incomingValue)
       }
       setInternalState(incomingValue)
     },
-    [setSubscriptionPaymentMethod],
+    [onPaymentMethodChange],
   )
 
   // after saving a new card, auto select it
@@ -121,11 +105,11 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
         : setupIntent?.setupIntent?.payment_method?.id
 
     if (newPaymentMethod) {
-      await setSubscriptionPaymentMethod(newPaymentMethod)
+      await onPaymentMethodChange(newPaymentMethod)
       setInternalState(newPaymentMethod)
       setShowNewCard(false)
     }
-  }, [saveNewPaymentMethod, setSubscriptionPaymentMethod])
+  }, [saveNewPaymentMethod, onPaymentMethodChange])
 
   const isNewCard = internalState === newCardID.current
   const defaultPaymentMethod = customer?.invoice_settings?.default_payment_method
@@ -234,7 +218,10 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
 // Need to first load the customer so we can know their default payment method
 // Optionally pass a subscription to load its default payment method as priority
 export const CreditCardSelector: React.FC<
-  Omit<CreditCardSelectorType, 'customer' | 'customerLoading' | 'updateSubscription'> & {
+  Omit<CreditCardSelectorType, 'customer' | 'customerLoading' | 'onPaymentMethodChange'> & {
+    // if one is provided, we'll use it to fetch the subscription
+    // will also be used to update the subscription when a new card is saved
+    // or when a different card is selected
     stripeSubscriptionID?: string
   }
 > = props => {
@@ -256,6 +243,23 @@ export const CreditCardSelector: React.FC<
     stripeSubscriptionID,
   })
 
+  const onSubscriptionChange = useCallback(
+    async (newPaymentMethod: string) => {
+      if (stripeSubscriptionID) {
+        try {
+          await updateSubscription({
+            default_payment_method: newPaymentMethod,
+          })
+          toast.success('Payment method updated')
+        } catch (error) {
+          console.error(error) // eslint-disable-line no-console
+          toast.error('Error updating payment method')
+        }
+      }
+    },
+    [stripeSubscriptionID, updateSubscription],
+  )
+
   if (customer === null || (stripeSubscriptionID && subscription === null)) {
     return <LoadingShimmer number={3} />
   }
@@ -274,7 +278,7 @@ export const CreditCardSelector: React.FC<
       {...props}
       customer={customer}
       customerLoading={customerLoading}
-      updateSubscription={updateSubscription}
+      onPaymentMethodChange={onSubscriptionChange}
       initialValue={
         subscription?.default_payment_method || customer?.invoice_settings?.default_payment_method
       }
