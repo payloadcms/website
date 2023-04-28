@@ -116,10 +116,6 @@ export const TeamSettingsPage = () => {
             initialValue: team?.name,
             value: team?.name,
           },
-          slug: {
-            initialValue: team?.slug,
-            value: team?.slug,
-          },
           billingEmail: {
             initialValue: team?.billingEmail,
             value: team?.billingEmail,
@@ -137,7 +133,7 @@ export const TeamSettingsPage = () => {
         <FormSubmissionError />
         <FormProcessing message="Updating team, one moment..." />
         <Text path="name" label="Team Name" />
-        <UniqueTeamSlug teamID={team?.id} />
+        <UniqueTeamSlug teamID={team?.id} initialValue={team?.slug} />
         <Text path="billingEmail" label="Billing Email" required />
         <Text
           value={team?.id}
