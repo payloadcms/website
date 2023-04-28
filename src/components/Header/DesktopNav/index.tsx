@@ -23,56 +23,18 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
           <Link href="/" className={classes.logo}>
             <FullLogo />
           </Link>
+
           <div className={classes.navItems}>
             {(navItems || []).map((item, index) => {
               return <CMSLink className={classes.navItem} key={index} {...item.link} />
             })}
           </div>
+
           <div className={classes.secondaryNavItems}>
             <Link href="/new">New project</Link>
-            {user && (
-              <div className={[classes.github, classes.githubLoggedIn].filter(Boolean).join(' ')}>
-                <div className={classes.starsWrap}>
-                  <a
-                    id="github-star-count"
-                    href="https://github.com/payloadcms/payload"
-                    className={classes.payload}
-                    target="_blank"
-                  />
-                  <iframe
-                    className={classes.iframe}
-                    src="https://ghbtns.com/github-btn.html?user=payloadcms&repo=payload&type=star&count=true"
-                    frameBorder="0"
-                    scrolling="0"
-                    width="108"
-                    height="20"
-                    title="GitHub Stars"
-                  />
-                </div>
-              </div>
-            )}
+
             {user ? <Avatar className={classes.avatar} /> : <Link href="/login">Login</Link>}
-            {!user && (
-              <div className={[classes.github, classes.githubLoggedOut].filter(Boolean).join(' ')}>
-                <div className={classes.starsWrap}>
-                  <a
-                    id="github-star-count"
-                    href="https://github.com/payloadcms/payload"
-                    className={classes.payload}
-                    target="_blank"
-                  />
-                  <iframe
-                    className={classes.iframe}
-                    src="https://ghbtns.com/github-btn.html?user=payloadcms&repo=payload&type=star&count=true"
-                    frameBorder="0"
-                    scrolling="0"
-                    width="108"
-                    height="20"
-                    title="GitHub Stars"
-                  />
-                </div>
-              </div>
-            )}
+
             <div className={classes.icons}>
               <a
                 className={classes.discord}

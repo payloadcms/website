@@ -29,6 +29,10 @@ const WrappedHeaderObserver: React.FC<
 
   React.useEffect(() => {
     let tickTimeout: NodeJS.Timeout | undefined
+    const topBarHeight = parseInt(
+      getComputedStyle(document.documentElement).getPropertyValue('--top-bar-height'),
+      10,
+    )
     const cssHeaderHeight = parseInt(
       getComputedStyle(document.documentElement).getPropertyValue('--header-height'),
       10,
@@ -45,7 +49,7 @@ const WrappedHeaderObserver: React.FC<
     }
 
     if (ref?.current && windowHeight && windowWidth && cssHeaderHeight && themeColor) {
-      const halfHeaderHeight = windowHeight - Math.ceil(cssHeaderHeight / 2)
+      const halfHeaderHeight = windowHeight - topBarHeight - Math.ceil(cssHeaderHeight / 2)
 
       const el = ref.current
       const observer = new IntersectionObserver(
