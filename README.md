@@ -1,31 +1,32 @@
 # Payload CMS Website
 
-This is the repository for Payload's official website. We're building it completely in public.
+This is the repository for [Payload's official website](https://payloadcms.com/). It was built completely in public using Payload itself, [more on that here](#⭐-the-cms).
 
 <img src="https://payloadcms.com/images/og-image.jpg" alt="Payload headless CMS website" />
 
-This site showcases lots of cool stuff like how to use Payload's GraphQL API to its fullest extent, how to build a super dynamic light / dark mode into a Next site without any first-load flickering, how to render remotely stored docs from MDX to NextJS pages, and much more.  
+This site showcases lots of cool stuff like how to use Payload's GraphQL API to its fullest extent, how to build a super dynamic light / dark mode into a Next site without any first-load flickering, how to render remotely stored docs from MDX to Next.js pages, how to use Stripe to build a custom SaaS integration, and much more.  
 
-## Tech stack:
+## ✨ Tech stack
 
-- Payload (obviously)
+- [Payload](https://github.com/payloadcms/payload) (obviously)
 - TypeScript
-- Next 13 and its new `/app` folder
+- Next.js 13 and its new App Router
 - SCSS Modules
 - GraphQL
 - MDX for docs
+- Stripe for Payload Cloud
 
-#### The CMS
+## ⭐ The CMS
 
-Payload is leveraged for everything that the site does, outside of its documentation which is all stored as Markdown in the Payload repo itself. It's also completely open-source and [can be found here](https://github.com/payloadcms/website-cms). 
+[Payload](https://github.com/payloadcms/payload) is leveraged for everything that this site does, outside of its documentation which is all stored as Markdown in the Payload repo on GitHub. The CMS powering this site is completely open-source and [can be found here](https://github.com/payloadcms/website-cms).
 
 Both this repo and the CMS repo can be used as great examples to learn how to build Payload projects at scale.
 
-#### Payload Cloud
+## ☁️ Payload Cloud
 
-Soon, we'll be launching Payload Cloud, which will be a one-click GitHub integration that handles production deployment for your Payload apps. The entire frontend of Payload Cloud will also be built in public and included within this repo, which is going to be awesome.
+[Payload Cloud](https://payloadcms.com/cloud-pricing) is out! This is a one-click integration to deploy production-ready instances of your Payload apps directly from your GitHub repo, [read the blog post](https://payloadcms.com/blog/launch-week-day-1-payload-cloud-is-here) to get all the details. The entire frontend of Payload Cloud has been built in public and is included within this repo 😱.
 
-## Running the project locally
+## 🚀 Running the project locally
 
 To get started with this repo locally, follow the steps below:
 
