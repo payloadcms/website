@@ -5,7 +5,7 @@
   top: var(--top-bar-height);
   width: 100%;
   z-index: var(--z-nav);
-  padding: calc(var(--base) * 1.5) 0;
+  padding: var(--base) 0;
   transition: color 300ms ease;
 
   &:before {
