@@ -327,7 +327,7 @@ const Checkout: React.FC<{
                 <div>
                   <h5>Payment Info</h5>
                   {checkoutState?.team && (
-                    <CreditCardSelector
+                    
                       initialValue={checkoutState?.paymentMethod}
                       team={checkoutState?.team}
                       onChange={handleCardChange}

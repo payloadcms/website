@@ -169,7 +169,7 @@ export const usePaymentMethods = (args: {
 
       try {
         await confirmCardSetup(paymentMethod)
-        await getPaymentMethods('Success, new payment method saved')
+        await getPaymentMethods('Payment method saved successfully')
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : 'Unknown error'
         setError(msg)

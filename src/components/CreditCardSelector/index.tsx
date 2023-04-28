@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect } from 'react'
+import { toast } from 'react-toastify'
 import Link from 'next/link'
 import { v4 as uuid } from 'uuid'
 
@@ -23,6 +24,7 @@ type CreditCardSelectorType = {
   showTeamLink?: boolean
   customer: ReturnType<typeof useCustomer>['result']
   customerLoading: ReturnType<typeof useCustomer>['isLoading']
+  updateSubscription: ReturnType<typeof useSubscription>['updateSubscription']
 }
 
 const Selector: React.FC<CreditCardSelectorType> = props => {
@@ -34,6 +36,7 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
     customer,
     showTeamLink = true,
     customerLoading,
+    updateSubscription,
   } = props
 
   const newCardID = React.useRef<string>(`new-card-${uuid()}`)
@@ -74,11 +77,35 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
     initializeState()
   }, [initializeState])
 
+  const setSubscriptionPaymentMethod = React.useCallback(
+    async selectedPaymentMethod => {
+      if (typeof updateSubscription === 'function') {
+        try {
+          await updateSubscription({
+            default_payment_method: selectedPaymentMethod,
+          })
+          toast.success('Payment method changed successfully')
+        } catch (error) {
+          console.error(error) // eslint-disable-line no-console
+        }
+      }
+    },
+    [updateSubscription],
+  )
+
   useEffect(() => {
     if (typeof onChange === 'function') {
       onChange(internalState)
     }
   }, [onChange, internalState])
+
+  const handleChange = React.useCallback(
+    async (incomingValue: string) => {
+      await setSubscriptionPaymentMethod(incomingValue)
+      setInternalState(incomingValue)
+    },
+    [setSubscriptionPaymentMethod],
+  )
 
   const isNewCard = internalState === newCardID.current
   const defaultPaymentMethod = customer?.invoice_settings?.default_payment_method
@@ -112,7 +139,7 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
                 checked={isChecked}
                 onChange={(incomingValue: string) => {
                   setShowNewCard(false)
-                  setInternalState(incomingValue)
+                  handleChange(incomingValue)
                 }}
                 label={
                   <div className={classes.cardBrand}>
@@ -139,7 +166,7 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
           <LargeRadio
             value={newCardID}
             checked={isNewCard}
-            onChange={setInternalState}
+            onChange={handleChange}
             label={<CreditCardElement />}
             name="card"
             id={newCardID.current}
@@ -166,7 +193,7 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
               <CircleIconButton
                 onClick={() => {
                   setShowNewCard(true)
-                  setInternalState(newCardID.current)
+                  handleChange(newCardID.current)
                 }}
                 label="Add new card"
                 icon="add"
@@ -194,7 +221,7 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
 // Need to first load the customer so we can know their default payment method
 // Optionally pass a subscription to load its default payment method as priority
 export const CreditCardSelector: React.FC<
-  Omit<CreditCardSelectorType, 'customer' | 'customerLoading'> & {
+  Omit<CreditCardSelectorType, 'customer' | 'customerLoading' | 'updateSubscription'> & {
     stripeSubscriptionID?: string
   }
 > = props => {
@@ -208,7 +235,11 @@ export const CreditCardSelector: React.FC<
     stripeCustomerID: team.stripeCustomerID,
   })
 
-  const { result: subscription, error: subscriptionError } = useSubscription({
+  const {
+    result: subscription,
+    error: subscriptionError,
+    updateSubscription,
+  } = useSubscription({
     stripeSubscriptionID,
   })
 
@@ -230,6 +261,7 @@ export const CreditCardSelector: React.FC<
       {...props}
       customer={customer}
       customerLoading={customerLoading}
+      updateSubscription={updateSubscription}
       initialValue={
         subscription?.default_payment_method || customer?.invoice_settings?.default_payment_method
       }

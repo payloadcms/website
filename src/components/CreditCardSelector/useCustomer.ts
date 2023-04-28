@@ -119,7 +119,7 @@ export const useCustomer: UseCustomer = ({ stripeCustomerID, delay }) => {
           setTimeout(() => {
             setResult(json?.data)
             setError('')
-            toast.success('Success, default payment method updated')
+            toast.success(`Default payment method updated successfully`)
             setIsLoading(false)
           }, delay)
         } else {

@@ -179,7 +179,7 @@ export const useSubscriptions = (args: {
         } = await req.json()
 
         if (req.ok) {
-          await refreshSubscriptions('Success, subscription updated')
+          await refreshSubscriptions('Subscription updated successfully')
         } else {
           // @ts-expect-error
           throw new Error(json?.message)
@@ -239,7 +239,7 @@ export const useSubscriptions = (args: {
         } = await req.json()
 
         if (req.ok) {
-          await refreshSubscriptions('Success, subscription canceled')
+          await refreshSubscriptions('Subscription cancelled successfully')
         } else {
           // @ts-expect-error
           throw new Error(json?.message)
