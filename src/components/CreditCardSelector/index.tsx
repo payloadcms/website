@@ -58,23 +58,23 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
   // otherwise show the new card option with a newly generated unique id, prefixed with `new-card`
   // this will allow us to differentiate from a saved card in the checkout process
   const initializeState = useCallback(() => {
-    if (
-      paymentMethods &&
-      (!initialValue || !paymentMethods?.find(method => method?.id === initialValue))
-    ) {
-      const firstCard = paymentMethods?.[0]?.id
-      newCardID.current = `new-card-${uuid()}`
-      setShowNewCard(!firstCard)
-      setInternalState(firstCard || newCardID.current)
-    } else {
-      setShowNewCard(false)
-      setInternalState(initialValue)
+    if (paymentMethods) {
+      if (!initialValue || !paymentMethods?.find(method => method?.id === initialValue)) {
+        const firstCard = paymentMethods?.[0]?.id
+        newCardID.current = `new-card-${uuid()}`
+        setShowNewCard(!firstCard)
+        setInternalState(firstCard || newCardID.current)
+      } else {
+        setShowNewCard(false)
+        setInternalState(initialValue)
+      }
+
+      hasInitialized.current = true
     }
   }, [paymentMethods, newCardID, initialValue])
 
   useEffect(() => {
     if (!hasInitialized.current) {
-      hasInitialized.current = true
       initializeState()
     }
   }, [initializeState])
