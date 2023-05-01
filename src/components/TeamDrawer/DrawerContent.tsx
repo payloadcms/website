@@ -112,10 +112,6 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
             initialValue: 'My Team',
             value: 'My Team',
           },
-          slug: {
-            initialValue: '',
-            value: '',
-          },
           sendEmailInvitationsTo: {
             initialValue: [
               {
@@ -129,7 +125,7 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
         <FormProcessing message="Creating team..." />
         <FormSubmissionError />
         <Text path="name" required label="Name" />
-        <UniqueTeamSlug />
+        <UniqueTeamSlug initialValue="" />
         <hr className={classes.hr} />
         <InviteTeammates />
         <hr className={classes.hr} />

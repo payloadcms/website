@@ -5,6 +5,7 @@ import { Spinner } from '@root/app/_components/Spinner'
 import { CheckIcon } from '@root/icons/CheckIcon'
 import { CloseIcon } from '@root/icons/CloseIcon'
 import useDebounce from '@root/utilities/use-debounce'
+import { slugValidationReducer, SlugValidationResult } from './reducer'
 
 import classes from './index.module.scss'
 
@@ -24,63 +25,69 @@ export const UniqueSlug: React.FC<{
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const isRequesting = React.useRef(false)
   const [error, setError] = React.useState<string | null>(null)
-  const [isValid, setIsValid] = React.useState<boolean | undefined>(undefined)
+
+  const [slugValidation, dispatchSlugValidation] = React.useReducer(slugValidationReducer, {
+    slug: initialValue || '',
+    isUnique: undefined,
+  })
 
   useEffect(() => {
     let timer: NodeJS.Timeout
 
-    if (debouncedValue && !isRequesting.current) {
+    if (!isRequesting.current) {
       isRequesting.current = true
-      setIsValid(undefined)
 
-      const validateSlug = async () => {
-        // only show loading state if the request is slow
-        // this will prevent flickering on fast networks
-        timer = setTimeout(() => {
-          setIsLoading(true)
-        }, 200)
+      if (debouncedValue) {
+        const validateSlug = async () => {
+          // only show loading state if the request is slow
+          // this will prevent flickering on fast networks
+          timer = setTimeout(() => {
+            setIsLoading(true)
+          }, 200)
 
-        try {
-          const validityReq = await fetch(
-            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/validate-slug`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
+          try {
+            const validityReq = await fetch(
+              `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/validate-slug`,
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  slug: debouncedValue,
+                  collection,
+                  team: collection === 'projects' ? teamID : undefined,
+                  id,
+                }),
               },
-              body: JSON.stringify({
-                slug: debouncedValue,
-                collection,
-                team: collection === 'projects' ? teamID : undefined,
-                id,
-              }),
-            },
-          )
+            )
 
-          clearTimeout(timer)
+            clearTimeout(timer)
 
-          if (!validityReq.ok) {
-            const message = `Error validating slug: ${validityReq.statusText}`
+            if (!validityReq.ok) {
+              const message = `Error validating slug: ${validityReq.statusText}`
+              console.error(message) // eslint-disable-line no-console
+              setError(message)
+              dispatchSlugValidation({ type: 'SET_UNIQUE', payload: false })
+              setIsLoading(false)
+              return
+            }
+
+            const newValidation: SlugValidationResult = await validityReq.json()
+            dispatchSlugValidation({ type: 'RESET', payload: newValidation })
+          } catch (e) {
+            const message = `Error validating slug: ${e.message}`
             console.error(message) // eslint-disable-line no-console
             setError(message)
-            setIsValid(false)
+            dispatchSlugValidation({ type: 'SET_UNIQUE', payload: false })
             setIsLoading(false)
-            return
           }
-
-          const { isUnique } = await validityReq.json()
-          setIsValid(isUnique)
-          isRequesting.current = false
-        } catch (e) {
-          const message = `Error validating slug: ${e.message}`
-          console.error(message) // eslint-disable-line no-console
-          setError(message)
-          setIsValid(false)
-          setIsLoading(false)
         }
+
+        validateSlug()
       }
 
-      validateSlug()
+      isRequesting.current = false
     }
 
     return () => {
@@ -88,34 +95,39 @@ export const UniqueSlug: React.FC<{
     }
   }, [debouncedValue, collection, teamID, initialValue, id])
 
+  const validatedSlug = slugValidation?.slug
+  const slugIsValid = validatedSlug && slugValidation?.isUnique
+
   let description = 'Choose a team slug'
-  if (!debouncedValue) description = 'Choose a slug'
+  if (!validatedSlug) description = 'Choose a slug'
   if (error) description = error
-  if (debouncedValue && isValid === false)
-    description = `'${debouncedValue}' is not available. Please choose another.`
-  if (debouncedValue && isValid) description = `'${debouncedValue}' is available`
+  if (!slugIsValid) description = `'${validatedSlug}' is not available. Please choose another.`
+  if (slugIsValid) description = `'${validatedSlug}' is available`
 
   let icon: React.ReactNode = null
   if (isLoading) icon = <Spinner />
-  if (isValid) icon = <CheckIcon className={classes.check} size="medium" bold />
-  if (error || isValid === false) icon = <CloseIcon className={classes.error} size="medium" bold />
+  if (slugIsValid) icon = <CheckIcon className={classes.check} size="medium" bold />
+  if (error || !slugIsValid) icon = <CloseIcon className={classes.error} size="medium" bold />
 
+  // two fields are rendered here, the first is controlled, user-facing and not debounced
+  // the other is a hidden field that has been validated
+  // this field is the only one that is we need sent through the form state
   return (
     <div>
       <Text
         label={label}
-        path={path}
         initialValue={initialValue}
         onChange={setValue}
-        required
+        showError={Boolean(error || !slugIsValid)}
         icon={icon}
-        showError={Boolean(error || isValid === false)}
+        required
       />
+      <Text path={path} initialValue={initialValue} value={validatedSlug} required type="hidden" />
       <div
         className={[
           classes.description,
-          (error || isValid === false) && !isLoading && classes.error,
-          isValid && !isLoading && classes.success,
+          (error || !slugIsValid) && !isLoading && classes.error,
+          slugIsValid && !isLoading && classes.success,
         ]
           .filter(Boolean)
           .join(' ')}
@@ -129,13 +141,31 @@ export const UniqueSlug: React.FC<{
 export const UniqueTeamSlug: React.FC<{
   teamID?: string
   path?: 'slug' | 'createTeamFromSlug'
+  initialValue?: string
 }> = props => {
-  const { path = 'slug', teamID } = props
-  return <UniqueSlug label="Team Slug" path={path} collection="teams" id={teamID} />
+  const { path = 'slug', teamID, initialValue } = props
+  return (
+    <UniqueSlug
+      label="Team Slug"
+      path={path}
+      collection="teams"
+      id={teamID}
+      initialValue={initialValue}
+    />
+  )
 }
 
 export const UniqueProjectSlug: React.FC<{
   teamID: string
-}> = ({ teamID }) => {
-  return <UniqueSlug label="Project Slug" path="slug" collection="projects" teamID={teamID} />
+  initialValue?: string
+}> = ({ teamID, initialValue }) => {
+  return (
+    <UniqueSlug
+      label="Project Slug"
+      path="slug"
+      collection="projects"
+      teamID={teamID}
+      initialValue={initialValue}
+    />
+  )
 }
