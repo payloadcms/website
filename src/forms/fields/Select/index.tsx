@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useEffect, useId, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import ReactSelect from 'react-select'
 import { useTheme } from '@providers/Theme'
 
@@ -21,19 +21,16 @@ type ValidateOptions = {
   options: Option[]
 }
 
-const defaultValidate = (value: string, options: ValidateOptions): string | true => {
-  if (
-    typeof value === 'string' &&
-    !options.options.find(option => option && option.value === value)
-  ) {
-    return 'This field has an invalid selection'
-  }
-
-  if (options.required && !value) {
+const defaultValidate = (value: string, options: Option[]): string | true => {
+  if (!value) {
     return 'This field is required.'
   }
 
-  return ''
+  if (!options.find(option => option && option.value === value)) {
+    return 'This field has an invalid selection'
+  }
+
+  return true
 }
 
 export const Select: React.FC<{
@@ -75,9 +72,11 @@ export const Select: React.FC<{
   const ref = useRef<any>(null)
   const prevValueFromProps = useRef<string | string[] | undefined>(valueFromProps)
 
+  const validateFunction = useCallback(v => validate(v, options), [validate, options])
+
   const fieldFromContext = useFormField<string | string[]>({
     path,
-    validate: required ? validate : undefined,
+    validate: required ? validateFunction : undefined,
     initialValue: initialValueFromProps,
   })
 

@@ -11,13 +11,13 @@ import classes from './index.module.scss'
 
 // "You must agree to the terms of service to deploy your project."
 
-const defaultValidate = (value: boolean, options = {} as any) => {
-  if ((value && typeof value !== 'boolean') || (options.required && typeof value !== 'boolean')) {
-    return 'This field can only be equal to true or false.'
+const defaultValidate = (value: boolean): string | true => {
+  if (!value) {
+    return 'This field is required.'
   }
 
-  if (options.required && !value) {
-    return 'This field is required.'
+  if (typeof value !== 'boolean') {
+    return 'This field can only be equal to true or false.'
   }
 
   return true
@@ -44,6 +44,8 @@ export const Checkbox: React.FC<
   const prevChecked = React.useRef<boolean | undefined | null>(checked)
   const prevContextValue = React.useRef<boolean | undefined | null>(initialValue)
 
+  const validateFunction = React.useCallback(v => validate(v), [validate])
+
   const {
     onChange,
     value: valueFromContext,
@@ -53,7 +55,7 @@ export const Checkbox: React.FC<
     initialValue,
     onChange: onChangeFromProps,
     path,
-    validate,
+    validate: required ? validateFunction : undefined,
     required,
   })
 
