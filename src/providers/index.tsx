@@ -15,6 +15,7 @@ import { ComputedCSSValuesProvider } from './ComputedCSSValues'
 import { GlobalsProvider } from './Globals'
 import HeaderThemeProvider from './HeaderTheme'
 import { PageTransition } from './PageTransition'
+import { PrivacyProvider } from './Privacy'
 import { ThemePreferenceProvider } from './Theme'
 
 export const Providers: React.FC<{
@@ -35,47 +36,49 @@ export const Providers: React.FC<{
                 }}
               >
                 <ThemePreferenceProvider>
-                  <GridProvider
-                    breakpoints={{
-                      s: 768,
-                      m: 1024,
-                      l: 1680,
-                    }}
-                    rowGap={{
-                      s: '1rem',
-                      m: '1rem',
-                      l: '2rem',
-                      xl: '4rem',
-                    }}
-                    colGap={{
-                      s: 'var(--base)',
-                      m: 'calc(var(--base) * 2)',
-                      l: 'calc(var(--base) * 2)',
-                      xl: 'calc(var(--base) * 3)',
-                    }}
-                    cols={{
-                      s: 8,
-                      m: 8,
-                      l: 12,
-                      xl: 12,
-                    }}
-                  >
-                    <ComputedCSSValuesProvider>
-                      <ModalProvider transTime={0} zIndex="var(--z-modal)">
-                        <PageTransition>
-                          <HeaderThemeProvider>
-                            {children}
-                            <ModalContainer />
-                            <ToastContainer
-                              position="bottom-center"
-                              transition={Slide}
-                              icon={false}
-                            />
-                          </HeaderThemeProvider>
-                        </PageTransition>
-                      </ModalProvider>
-                    </ComputedCSSValuesProvider>
-                  </GridProvider>
+                  <PrivacyProvider>
+                    <GridProvider
+                      breakpoints={{
+                        s: 768,
+                        m: 1024,
+                        l: 1680,
+                      }}
+                      rowGap={{
+                        s: '1rem',
+                        m: '1rem',
+                        l: '2rem',
+                        xl: '4rem',
+                      }}
+                      colGap={{
+                        s: 'var(--base)',
+                        m: 'calc(var(--base) * 2)',
+                        l: 'calc(var(--base) * 2)',
+                        xl: 'calc(var(--base) * 3)',
+                      }}
+                      cols={{
+                        s: 8,
+                        m: 8,
+                        l: 12,
+                        xl: 12,
+                      }}
+                    >
+                      <ComputedCSSValuesProvider>
+                        <ModalProvider transTime={0} zIndex="var(--z-modal)">
+                          <PageTransition>
+                            <HeaderThemeProvider>
+                              {children}
+                              <ModalContainer />
+                              <ToastContainer
+                                position="bottom-center"
+                                transition={Slide}
+                                icon={false}
+                              />
+                            </HeaderThemeProvider>
+                          </PageTransition>
+                        </ModalProvider>
+                      </ComputedCSSValuesProvider>
+                    </GridProvider>
+                  </PrivacyProvider>
                 </ThemePreferenceProvider>
               </WindowInfoProvider>
             </MouseInfoProvider>
