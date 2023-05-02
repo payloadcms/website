@@ -31,6 +31,7 @@ export const Text: React.FC<
     elementAttributes?: React.InputHTMLAttributes<HTMLInputElement>
     value?: string
     customOnChange?: (e: any) => void
+    suffix?: React.ReactNode
   }
 > = props => {
   const {
@@ -56,6 +57,7 @@ export const Text: React.FC<
     showError: showErrorFromProps,
     icon,
     fullWidth = true,
+    suffix,
   } = props
 
   const prevValueFromProps = React.useRef(valueFromProps)
@@ -123,7 +125,12 @@ export const Text: React.FC<
           id={path}
           name={path}
         />
-        {icon && <div className={classes.icon}>{icon}</div>}
+        {(icon || suffix) && (
+          <div className={classes.iconWrapper}>
+            {suffix && <div className={classes.suffix}>{suffix}</div>}
+            {icon && <div className={classes.icon}>{icon}</div>}
+          </div>
+        )}
       </div>
       {type !== 'hidden' && (
         <>

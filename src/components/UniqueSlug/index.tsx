@@ -9,9 +9,8 @@ import { slugValidationReducer, SlugValidationResult } from './reducer'
 
 import classes from './index.module.scss'
 
-// checks Payload to ensure that the given slug is unique
-// displays a success message if the slug is available
-// warns the user if the slug is taken
+// checks Payload to ensure that the given slug is unique and ensures only the validated slug is used
+// displays a success message if the slug is available, warns the user if the slug is taken
 export const UniqueSlug: React.FC<{
   initialValue?: string
   path?: 'slug' | 'createTeamFromSlug'
@@ -27,7 +26,7 @@ export const UniqueSlug: React.FC<{
   const [error, setError] = React.useState<string | null>(null)
 
   const [slugValidation, dispatchSlugValidation] = React.useReducer(slugValidationReducer, {
-    slug: initialValue || '',
+    slug: '',
     isUnique: undefined,
   })
 
