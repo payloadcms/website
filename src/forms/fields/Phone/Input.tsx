@@ -5,29 +5,16 @@ import PhoneInput from 'react-phone-number-input'
 
 import Error from '../../Error'
 import Label from '../../Label'
-import { Validate } from '../../types'
 import { FieldProps } from '../types'
-// import 'react-phone-number-input/style.css'
 import { useField } from '../useField'
 
 import classes from './index.module.scss'
-
-const defaultValidate: Validate = val => {
-  const stringVal = val as string
-  const isValid = stringVal && stringVal.length > 0
-
-  if (isValid) {
-    return true
-  }
-
-  return 'Please enter a value.'
-}
 
 const Phone: React.FC<FieldProps<string>> = props => {
   const {
     path,
     required = false,
-    validate = defaultValidate,
+    validate,
     label,
     placeholder,
     onChange: onChangeFromProps,
@@ -35,11 +22,23 @@ const Phone: React.FC<FieldProps<string>> = props => {
     initialValue,
   } = props
 
+  const defaultValidateFunction = React.useCallback(
+    (fieldValue: string): string | true => {
+      const stringVal = fieldValue as string
+      if (required && (!fieldValue || stringVal.length === 0)) {
+        return 'Please enter a value.'
+      }
+
+      return true
+    },
+    [required],
+  )
+
   const { onChange, value, showError, errorMessage } = useField<string>({
     initialValue,
     onChange: onChangeFromProps,
     path,
-    validate,
+    validate: validate || defaultValidateFunction,
     required,
   })
 

@@ -47,6 +47,7 @@ const ModalContent: React.FC<ModalContentProps> = ({ confirmSlug }) => {
         onChange={value => {
           setIsDisabled(value.toLowerCase() !== confirmSlug.toLowerCase())
         }}
+        required
       />
 
       <div className={classes.modalActions}>
