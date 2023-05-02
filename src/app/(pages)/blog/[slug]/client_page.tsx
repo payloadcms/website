@@ -52,7 +52,7 @@ export const RenderBlogPost: React.FC<Post> = props => {
                 <Label>{`${author?.firstName || 'Unknown'} ${author?.lastName || 'Author'}`}</Label>
 
                 {typeof author?.photo !== 'string' && (
-                  <Media className={classes.authorImage} resource={author?.photo} priority />
+                  <Media className={classes.authorImage} resource={author?.photo} />
                 )}
               </div>
             )}
