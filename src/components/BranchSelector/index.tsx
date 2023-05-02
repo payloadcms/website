@@ -81,7 +81,8 @@ export const BranchSelector: React.FC<{
             label: branch,
             value: branch,
           }))}
-          initialValue={initialValue}
+          required
+          initialValue={branches[0]}
         />
       ) : (
         <Text
@@ -89,6 +90,7 @@ export const BranchSelector: React.FC<{
           path="deploymentBranch"
           placeholder="Enter the branch to deploy"
           initialValue={initialValue}
+          required
         />
       )}
     </Fragment>
