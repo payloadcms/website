@@ -4,7 +4,6 @@ import React, { useId } from 'react'
 
 import Error from '../../Error'
 import Label from '../../Label'
-import { Validate } from '../../types'
 import { FieldProps } from '../types'
 import { useField } from '../useField'
 
@@ -13,14 +12,6 @@ import classes from './index.module.scss'
 export type Option = {
   label: string | React.ReactElement
   value: string
-}
-
-const defaultValidate: Validate = val => {
-  const isValid = Boolean(val)
-
-  if (isValid) return true
-
-  return 'Please make a selection.'
 }
 
 const RadioGroup: React.FC<
@@ -33,7 +24,7 @@ const RadioGroup: React.FC<
   const {
     path,
     required = false,
-    validate = defaultValidate,
+    validate,
     label,
     options,
     onChange: onChangeFromProps,
@@ -45,11 +36,26 @@ const RadioGroup: React.FC<
 
   const id = useId()
 
+  const defaultValidateFunction = React.useCallback(
+    (fieldValue: string): string | true => {
+      if (required && !fieldValue) {
+        return 'Please make a selection.'
+      }
+
+      if (fieldValue && !options.find(option => option && option.value === fieldValue)) {
+        return 'This field has an invalid selection'
+      }
+
+      return true
+    },
+    [required, options],
+  )
+
   const { onChange, value, showError, errorMessage } = useField<string>({
     initialValue,
     onChange: onChangeFromProps,
     path,
-    validate,
+    validate: validate || defaultValidateFunction,
     required,
   })
 
