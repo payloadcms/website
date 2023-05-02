@@ -115,6 +115,7 @@ export const UniqueDomain: React.FC<{
   return (
     <div>
       <Text
+        className={classes.input}
         label={label}
         initialValue={initialSubdomain}
         onChange={setValue}

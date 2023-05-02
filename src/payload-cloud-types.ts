@@ -107,11 +107,6 @@ export interface Project {
     value: string;
     id?: string;
   }[];
-  teamProjectName?: string;
-  infraStatus?: 'notStarted' | 'awaitingDatabase' | 'appCreationError' | 'deploying' | 'deployError' | 'done' | 'error';
-  createdAt: string;
-  updatedAt: string;
-}
 export interface Plan {
   id: string;
   name: string;

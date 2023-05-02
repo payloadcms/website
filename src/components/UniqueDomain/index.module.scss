@@ -18,3 +18,16 @@
     stroke: var(--theme-success-500);
   }
 }
+
+.input {
+  input {
+    // this is ana arbitrary value to make up for the space of the icon plus the `.payloadcms.app` suffix
+    padding-right: 8.25rem;
+  }
+
+  @include small-break {
+    input {
+      padding-right: 9rem;
+    }
+  }
+}
