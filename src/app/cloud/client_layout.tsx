@@ -106,7 +106,7 @@ const DashboardHeader = () => {
 
   const failedToDeployApp =
     project?.infraStatus &&
-    ['appCreationError', 'deployError', 'error'].includes(project.infraStatus)
+    !['notStarted', 'awaitingDatabase', 'deploying'].includes(project.infraStatus)
 
   return (
     <Fragment>
