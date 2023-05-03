@@ -26,6 +26,7 @@ import { useInstallationSelector } from '@components/InstallationSelector'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { usePlanSelector } from '@components/PlanSelector'
 import { TeamSelector } from '@components/TeamSelector'
+import { UniqueDomain } from '@components/UniqueDomain'
 import { UniqueRepoName } from '@components/UniqueRepoName'
 import { cloudSlug } from '@root/app/cloud/client_layout'
 import { Plan, Project, Team } from '@root/payload-cloud-types'
@@ -325,6 +326,12 @@ const Checkout: React.FC<{
                   <BranchSelector
                     repositoryFullName={project?.repositoryFullName}
                     initialValue={project?.deploymentBranch}
+                  />
+                  <UniqueDomain
+                    initialSubdomain={`${
+                      typeof project?.team === 'string' ? project?.team : project?.team?.slug
+                    }-${project?.slug}`}
+                    team={checkoutState?.team}
                   />
                 </div>
                 <hr className={classes.hr} />
