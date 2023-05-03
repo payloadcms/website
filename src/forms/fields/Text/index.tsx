@@ -7,22 +7,10 @@ import { CopyToClipboard } from '@components/CopyToClipboard'
 import { Tooltip } from '@components/Tooltip'
 import { EyeIcon } from '@root/icons/EyeIcon'
 import Error from '../../Error'
-import { Validate } from '../../types'
 import { FieldProps } from '../types'
 import { useField } from '../useField'
 
 import classes from './index.module.scss'
-
-const defaultValidate: Validate = val => {
-  const stringVal = val as string
-  const isValid = stringVal && stringVal.length > 0
-
-  if (isValid) {
-    return true
-  }
-
-  return 'Please enter a value.'
-}
 
 export const Text: React.FC<
   FieldProps<string> & {
@@ -37,7 +25,7 @@ export const Text: React.FC<
   const {
     path,
     required = false,
-    validate = defaultValidate,
+    validate,
     label,
     placeholder,
     type = 'text',
@@ -64,6 +52,21 @@ export const Text: React.FC<
 
   const [isHidden, setIsHidden] = React.useState(type === 'password')
 
+  const defaultValidateFunction = React.useCallback(
+    (fieldValue: boolean): string | true => {
+      if (required && !fieldValue) {
+        return 'Please enter a value.'
+      }
+
+      if (fieldValue && typeof fieldValue !== 'string') {
+        return 'This field can only be a string.'
+      }
+
+      return true
+    },
+    [required],
+  )
+
   const {
     onChange,
     value: valueFromContext,
@@ -73,7 +76,7 @@ export const Text: React.FC<
     initialValue,
     onChange: onChangeFromProps,
     path,
-    validate,
+    validate: validate || defaultValidateFunction,
     required,
   })
 

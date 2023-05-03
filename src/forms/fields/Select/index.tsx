@@ -1,13 +1,13 @@
 'use client'
 
-import React, { useCallback, useEffect, useId, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import ReactSelect from 'react-select'
 import { useTheme } from '@providers/Theme'
 
 import Error from '../../Error'
 import Label from '../../Label'
-import { Validate } from '../../types'
 import { useFormField } from '../../useFormField'
+import { FieldProps } from '../types'
 
 import classes from './index.module.scss'
 
@@ -16,48 +16,21 @@ type Option = {
   value: any
 }
 
-type ValidateOptions = {
-  required?: boolean
+type SelectProps = FieldProps<string> & {
   options: Option[]
-}
-
-const defaultValidate = (value: string, options: ValidateOptions): string | true => {
-  if (
-    typeof value === 'string' &&
-    !options.options.find(option => option && option.value === value)
-  ) {
-    return 'This field has an invalid selection'
-  }
-
-  if (options.required && !value) {
-    return 'This field is required.'
-  }
-
-  return ''
-}
-
-export const Select: React.FC<{
-  path?: string
-  required?: boolean
-  label?: string
-  options: Option[]
-  validate?: Validate
-  onChange?: (value: string | string[]) => void // eslint-disable-line no-unused-vars
-  initialValue?: string | string[]
-  className?: string
   isMulti?: boolean
   components?: {
     [key: string]: React.FC<any>
   }
   selectProps?: any
   value?: string | string[]
-  description?: string
-  disabled?: boolean
-}> = props => {
+}
+
+export const Select: React.FC<SelectProps> = props => {
   const {
     path,
     required,
-    validate = defaultValidate,
+    validate,
     label,
     options,
     onChange,
@@ -75,9 +48,24 @@ export const Select: React.FC<{
   const ref = useRef<any>(null)
   const prevValueFromProps = useRef<string | string[] | undefined>(valueFromProps)
 
+  const defaultValidateFunction = React.useCallback(
+    (fieldValue: string): string | true => {
+      if (required && !fieldValue) {
+        return 'This field is required.'
+      }
+
+      if (fieldValue && !options.find(option => option && option.value === fieldValue)) {
+        return 'This field has an invalid selection'
+      }
+
+      return true
+    },
+    [options, required],
+  )
+
   const fieldFromContext = useFormField<string | string[]>({
     path,
-    validate: required ? validate : undefined,
+    validate: validate || defaultValidateFunction,
     initialValue: initialValueFromProps,
   })
 

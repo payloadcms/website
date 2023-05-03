@@ -68,7 +68,7 @@ export const RenderBlogPost: React.FC<Post> = props => {
       </Gutter>
 
       <div className={classes.mediaGutter}>
-        {typeof image !== 'string' && <Media resource={image} />}
+        {typeof image !== 'string' && <Media resource={image} priority />}
       </div>
 
       <Gutter>

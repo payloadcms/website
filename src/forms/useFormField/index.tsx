@@ -59,12 +59,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
         valid: true,
       }
 
-      const validationResult =
-        typeof validate === 'function'
-          ? await validate(valueToSend, {
-              required,
-            })
-          : true
+      const validationResult = typeof validate === 'function' ? await validate(valueToSend) : true
 
       if (typeof validationResult === 'string' || validationResult === false) {
         fieldToDispatch.errorMessage = validationResult
@@ -75,7 +70,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
 
       dispatchFields(fieldToDispatch)
     },
-    [path, dispatchFields, validate, initialValue, required],
+    [path, dispatchFields, validate, initialValue],
   )
 
   // NOTE: 'internalValue' is NOT debounced
@@ -107,10 +102,10 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
   }, [submitted, field?.value])
 
   useEffect(() => {
-    if (debouncedValue !== undefined || !fieldExists) {
+    if (path && (debouncedValue !== undefined || !fieldExists)) {
       sendField(debouncedValue)
     }
-  }, [debouncedValue, sendField, fieldExists])
+  }, [debouncedValue, sendField, fieldExists, path])
 
   useEffect(
     () => () => {

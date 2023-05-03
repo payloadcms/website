@@ -73,3 +73,10 @@
     }
   }
 }
+
+.checkbox .label {
+  @include body;
+  cursor: pointer;
+  margin-bottom: 0;
+  color: var(--theme-text);
+}

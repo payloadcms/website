@@ -30,8 +30,9 @@ export const TeamSelector: React.FC<{
   allowEmpty?: boolean
   initialValue?: string
   label?: string | false
+  required?: boolean
 }> = props => {
-  const { onChange, value: valueFromProps, className, allowEmpty, initialValue } = props
+  const { onChange, value: valueFromProps, className, allowEmpty, initialValue, required } = props
   const { user } = useAuth()
 
   const teams = user?.teams?.map(({ team }) => team)
@@ -129,6 +130,7 @@ export const TeamSelector: React.FC<{
         components={{
           MenuList: SelectMenuButton,
         }}
+        required={required}
       />
       <TeamDrawer
         onCreate={newTeam => {

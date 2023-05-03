@@ -251,8 +251,9 @@ const Checkout: React.FC<{
                         value: 'eu-west',
                       },
                     ]}
+                    required
                   />
-                  <Text label="Project name" path="name" initialValue={project?.name} />
+                  <Text label="Project name" path="name" initialValue={project?.name} required />
                   <TeamSelector
                     onChange={handleTeamChange}
                     className={classes.teamSelector}
@@ -263,6 +264,7 @@ const Checkout: React.FC<{
                         ? project?.team?.id
                         : ''
                     }
+                    required
                   />
                   {isClone && (
                     <Fragment>
@@ -284,6 +286,7 @@ const Checkout: React.FC<{
                             value: template.id,
                           })),
                         ]}
+                        required
                       />
                       <UniqueRepoName
                         repositoryOwner={selectedInstall?.account?.login}
@@ -306,16 +309,19 @@ const Checkout: React.FC<{
                     label="Install Command"
                     path="installScript"
                     initialValue={project?.installScript || 'yarn'}
+                    required
                   />
                   <Text
                     label="Build Command"
                     path="buildScript"
                     initialValue={project?.buildScript || 'yarn build'}
+                    required
                   />
                   <Text
                     label="Serve Command"
                     path="runScript"
                     initialValue={project?.runScript || 'yarn serve'}
+                    required
                   />
                   <BranchSelector
                     repositoryFullName={project?.repositoryFullName}

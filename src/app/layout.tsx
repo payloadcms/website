@@ -25,6 +25,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link rel="icon" href="/images/favicon.svg" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
         <GoogleAnalytics />
+        <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_CLOUD_CMS_URL} />
       </head>
       <body
         className={[
