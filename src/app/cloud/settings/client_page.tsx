@@ -129,37 +129,45 @@ export const SettingsPage = () => {
     [updateUser],
   )
 
-  const deleteAccount = React.useCallback(async ({ data }) => {
-    if (user) {
-      try {
-        const confirmedUser = await login({
-          email: data.modalEmail as string,
-          password: data.modalPassword as string,
-        })
-
-        if (confirmedUser && confirmedUser.id === user.id) {
-          try {
-            const req = await fetch(
-              `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/${user.id}`,
-              {
-                method: 'DELETE',
-                credentials: 'include',
-              },
-            )
-
-            if (req.status === 200) {
-              toast.success('Your account was successfully deleted.')
-              router.push('/logout')
-            }
-          } catch (e) {
-            toast.error('There was an issue deleting your account. Please try again.')
-          }
+  const deleteAccount = React.useCallback(
+    async ({ data }) => {
+      if (user) {
+        if (data.modalEmail !== user.email) {
+          toast.error('Email provided does not match your account, please try again.')
+          return undefined
         }
-      } catch (e) {
-        toast.error('Incorrect email or password.')
+
+        try {
+          const confirmedUser = await login({
+            email: data.modalEmail as string,
+            password: data.modalPassword as string,
+          })
+
+          if (confirmedUser && confirmedUser.id === user.id) {
+            try {
+              const req = await fetch(
+                `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/${user.id}`,
+                {
+                  method: 'DELETE',
+                  credentials: 'include',
+                },
+              )
+
+              if (req.status === 200) {
+                toast.success('Your account was successfully deleted.')
+                router.push('/logout')
+              }
+            } catch (e) {
+              toast.error('There was an issue deleting your account. Please try again.')
+            }
+          }
+        } catch (e) {
+          toast.error('Incorrect email or password.')
+        }
       }
-    }
-  }, [])
+    },
+    [login, router, user],
+  )
 
   return (
     <Gutter className={classes.content}>
@@ -258,23 +266,27 @@ export const SettingsPage = () => {
                   }}
                 />
               )}
-              <Submit label="Save" className={classes.submit} />
+              <div className={classes.buttonWrap}>
+                <Submit label="Save" className={classes.submit} />
+                <Button label="Log out" appearance="secondary" href="/logout" el="link" />
+              </div>
             </div>
           </Form>
         </Cell>
       </Grid>
       <hr className={classes.hr} />
-      <div className={classes.buttonWrap}>
-        <Button label="Log out" appearance="secondary" href="/logout" el="link" />
-        <Button
-          className={classes.deleteAccount}
-          label="Delete account"
-          appearance="danger"
-          onClick={() => {
-            openModal(modalSlug)
-          }}
-        />
-      </div>
+      <Heading element="h2" as="h6">
+        Delete account
+      </Heading>
+      <p>Deleting your account is permanent and cannot be undone.</p>
+      <Button
+        className={classes.deleteAccount}
+        label="Delete account"
+        appearance="danger"
+        onClick={() => {
+          openModal(modalSlug)
+        }}
+      />
       <ModalWindow className={classes.modal} slug={modalSlug}>
         <Form onSubmit={deleteAccount}>
           <ModalContent />
