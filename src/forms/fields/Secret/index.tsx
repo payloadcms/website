@@ -4,25 +4,13 @@ import React, { Fragment } from 'react'
 import Label from '@forms/Label'
 
 import { CopyToClipboard } from '@components/CopyToClipboard'
-import { TooltipButton } from '@components/TooltipButton'
+import { Tooltip } from '@components/Tooltip'
 import { EyeIcon } from '@root/icons/EyeIcon'
 import Error from '../../Error'
-import { Validate } from '../../types'
 import { FieldProps } from '../types'
 import { useField } from '../useField'
 
 import classes from './index.module.scss'
-
-const defaultValidate: Validate = val => {
-  const stringVal = val as string
-  const isValid = stringVal && stringVal.length > 0
-
-  if (isValid) {
-    return true
-  }
-
-  return 'Please enter a value.'
-}
 
 type SecretProps = FieldProps<string> & {
   loadSecret: () => Promise<string>
@@ -32,7 +20,7 @@ export const Secret: React.FC<SecretProps> = props => {
   const {
     path,
     required = false,
-    validate = defaultValidate,
+    validate,
     label,
     placeholder,
     onChange: onChangeFromProps,
@@ -45,6 +33,21 @@ export const Secret: React.FC<SecretProps> = props => {
   const [isValueLoaded, setIsValueLoaded] = React.useState(false)
   const [isHidden, setIsHidden] = React.useState(true)
 
+  const defaultValidateFunction = React.useCallback(
+    (fieldValue: boolean): string | true => {
+      if (required && !fieldValue) {
+        return 'Please enter a value.'
+      }
+
+      if (fieldValue && typeof fieldValue !== 'string') {
+        return 'This field can only be a string.'
+      }
+
+      return true
+    },
+    [required],
+  )
+
   const {
     onChange,
     value = '',
@@ -54,7 +57,7 @@ export const Secret: React.FC<SecretProps> = props => {
     initialValue,
     onChange: onChangeFromProps,
     path,
-    validate,
+    validate: validate || defaultValidateFunction,
     required,
   })
 
@@ -107,13 +110,13 @@ export const Secret: React.FC<SecretProps> = props => {
         required={required}
         actionsSlot={
           <Fragment>
-            <TooltipButton
+            <Tooltip
               text={isHidden ? 'show' : 'hide'}
               onClick={toggleVisibility}
               className={classes.tooltipButton}
             >
               <EyeIcon closed={isHidden} size="large" />
-            </TooltipButton>
+            </Tooltip>
             <CopyToClipboard value={isValueLoaded ? value : loadExternalValue} />
           </Fragment>
         }

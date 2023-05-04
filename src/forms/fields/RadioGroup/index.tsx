@@ -4,7 +4,6 @@ import React, { useId } from 'react'
 
 import Error from '../../Error'
 import Label from '../../Label'
-import { Validate } from '../../types'
 import { FieldProps } from '../types'
 import { useField } from '../useField'
 
@@ -15,42 +14,55 @@ export type Option = {
   value: string
 }
 
-const defaultValidate: Validate = val => {
-  const isValid = Boolean(val)
-
-  if (isValid) return true
-
-  return 'Please make a selection.'
-}
-
 const RadioGroup: React.FC<
   FieldProps<string> & {
     options: Option[]
     layout?: 'vertical' | 'horizontal'
+    hidden?: boolean
   }
 > = props => {
   const {
     path,
     required = false,
-    validate = defaultValidate,
+    validate,
     label,
     options,
     onChange: onChangeFromProps,
     initialValue,
+    layout,
+    hidden,
+    onClick,
   } = props
 
   const id = useId()
+
+  const defaultValidateFunction = React.useCallback(
+    (fieldValue: string): string | true => {
+      if (required && !fieldValue) {
+        return 'Please make a selection.'
+      }
+
+      if (fieldValue && !options.find(option => option && option.value === fieldValue)) {
+        return 'This field has an invalid selection'
+      }
+
+      return true
+    },
+    [required, options],
+  )
 
   const { onChange, value, showError, errorMessage } = useField<string>({
     initialValue,
     onChange: onChangeFromProps,
     path,
-    validate,
+    validate: validate || defaultValidateFunction,
     required,
   })
 
   return (
-    <div className={classes.wrap}>
+    <div
+      className={[classes.wrap, layout && classes[`layout--${layout}`]].filter(Boolean).join(' ')}
+    >
       <Error showError={showError} message={errorMessage} />
       <Label htmlFor={path} label={label} required={required} />
       <ul className={classes.ul}>
@@ -60,7 +72,7 @@ const RadioGroup: React.FC<
 
           return (
             <li key={index} className={classes.li}>
-              <label htmlFor={optionId} className={classes.radioWrap}>
+              <label htmlFor={optionId} className={classes.radioWrap} onClick={onClick}>
                 <input
                   id={optionId}
                   type="radio"
@@ -70,7 +82,11 @@ const RadioGroup: React.FC<
                   }}
                 />
                 <span
-                  className={[classes.radio, isSelected && classes.selected]
+                  className={[
+                    classes.radio,
+                    isSelected && classes.selected,
+                    hidden && classes.hidden,
+                  ]
                     .filter(Boolean)
                     .join(' ')}
                 />

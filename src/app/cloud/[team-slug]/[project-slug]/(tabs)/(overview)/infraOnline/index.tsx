@@ -31,14 +31,14 @@ export const InfraOnline: React.FC = () => {
     reqStatus,
     reload: reloadDeployments,
   } = useGetProjectDeployments({
-    projectID: project.id,
+    projectID: project?.id,
   })
   const latestDeployment = deployments?.[0]
 
   const [activeDeployment, setActiveDeployment] = React.useState<Deployment | null | undefined>()
 
   const triggerDeployment = React.useCallback(() => {
-    fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project.id}/deploy`, {
+    fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/deploy`, {
       method: 'POST',
       credentials: 'include',
     }).then(res => {
@@ -54,7 +54,7 @@ export const InfraOnline: React.FC = () => {
 
       return toast.error('Failed to deploy')
     })
-  }, [project.id, reloadDeployments])
+  }, [project?.id, reloadDeployments])
 
   //
   // poll deployments every 10 seconds
@@ -80,7 +80,7 @@ export const InfraOnline: React.FC = () => {
           and: [
             {
               project: {
-                equals: project.id,
+                equals: project?.id,
               },
             },
             {
@@ -123,11 +123,11 @@ export const InfraOnline: React.FC = () => {
         fetchLastActiveDeployment()
       }
     }
-  }, [latestDeployment, deployments, project.id])
+  }, [latestDeployment, deployments, project?.id])
 
   const projectDomains = [
     ...(project?.domains || []).map(domain => domain.domain),
-    project.defaultDomain,
+    project?.defaultDomain,
   ]
 
   return (
@@ -139,8 +139,8 @@ export const InfraOnline: React.FC = () => {
             <Grid>
               <Cell start={1} cols={4} colsM={8}>
                 <Label>URL</Label>
-                {projectDomains.map(domain => (
-                  <div key={domain} className={classes.textMask} title={domain}>
+                {projectDomains.map((domain, index) => (
+                  <div key={`${domain}-${index}`} className={classes.textMask} title={domain}>
                     <a
                       className={[classes.detail, classes.domainLink].filter(Boolean).join(' ')}
                       href={`https://${domain}`}
@@ -197,7 +197,7 @@ export const InfraOnline: React.FC = () => {
                   <div className={classes.deployDetails}>
                     <div className={classes.iconAndLabel}>
                       <BranchIcon />
-                      <p>{project.deploymentBranch}</p>
+                      <p>{project?.deploymentBranch}</p>
                     </div>
                     <div className={classes.iconAndLabel}>
                       <CommitIcon />

@@ -47,6 +47,7 @@ const ModalContent: React.FC<ModalContentProps> = ({ confirmSlug }) => {
         onChange={value => {
           setIsDisabled(value.toLowerCase() !== confirmSlug.toLowerCase())
         }}
+        required
       />
 
       <div className={classes.modalActions}>
@@ -71,7 +72,7 @@ export const ProjectPlanPage = () => {
 
       try {
         const req = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project.id}`,
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}`,
           {
             method: 'DELETE',
             credentials: 'include',

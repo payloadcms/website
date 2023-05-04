@@ -8,8 +8,8 @@ import { CMSForm } from '@components/CMSForm'
 import { Gutter } from '@components/Gutter'
 import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'
+import { CheckIcon } from '@root/icons/CheckIcon'
 import { Page } from '@root/payload-types'
-import { CheckmarkIcon } from '../../../graphics/CheckmarkIcon'
 
 import classes from './index.module.scss'
 
@@ -53,7 +53,7 @@ export const FormHero: React.FC<FormHeroProps> = props => {
                       return (
                         <li key={`list-item-${index}`} className={classes.li}>
                           <div className={classes.bullet}>
-                            <CheckmarkIcon />
+                            <CheckIcon size="medium" bold />
                           </div>
                           <Serialize content={children} />
                         </li>

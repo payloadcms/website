@@ -1,0 +1,88 @@
+@use '@scss/common' as *;
+
+.topBar {  
+  position: fixed;
+  top: 0;
+  height: var(--top-bar-height);
+  width: 100%;
+  z-index: var(--z-nav);
+  background: var(--color-base-1000);
+  color: var(--color-base-100);
+
+  .wrap {
+    position: relative;
+    padding: 0 calc((var(--gutter-h) / 2));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--base);
+    width: 100%;
+    height: 100%;
+    pointer-events: all;
+    color: var(--text-color);
+    transition: color 300ms ease;
+    font-size: 16px;
+  }
+
+  .star {
+    font-size: 13px;
+    margin-right: 3px;
+    display: flex;
+  }
+
+  .starWrap {
+    display: flex;
+    flex-direction: row;
+    gap: calc(var(--base) * 0.25);
+  }
+
+  .starCount {
+    font-weight: 900;
+  }
+
+  .mobileText {
+    display: none;
+  }
+
+  .richText {
+    & a {
+      color: var(--text-color);
+      transition: all 0.2s ease;
+
+      &:visited {
+        color: var(--text-color);
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  @include large-break {
+    .wrap {
+      padding-left: var(--gutter-h);
+      padding-right: var(--gutter-h);
+      font-size: 14px;
+    }
+  }
+  
+  @include mid-break {
+    .richText {
+      display: none;
+    }
+  
+    .mobileText {
+      display: unset;
+
+      & a {
+        color: var(--text-color);
+  
+        &:visited {
+          color: var(--text-color);
+        }
+      }
+    }
+  }
+}
+

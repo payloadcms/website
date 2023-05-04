@@ -4,6 +4,8 @@ import React, { useCallback, useState } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
+import FormProcessing from '@forms/FormProcessing'
+import FormSubmissionError from '@forms/FormSubmissionError'
 import Submit from '@forms/Submit'
 import { InitialState, OnSubmit } from '@forms/types'
 import Link from 'next/link'
@@ -15,6 +17,7 @@ import { Heading } from '@components/Heading'
 import { Highlight } from '@components/Highlight'
 import { useAuth } from '@root/providers/Auth'
 import canUseDom from '@root/utilities/can-use-dom'
+import { getCookie } from '@root/utilities/get-cookie'
 
 import classes from './index.module.scss'
 
@@ -43,8 +46,6 @@ export const Signup: React.FC = () => {
   const searchParams = useSearchParams()
   const { user } = useAuth()
 
-  const [error, setError] = React.useState<string | null>(null)
-
   const [successfullySubmitted, setSuccessfullySubmitted] = useState(false)
 
   const createAccount: OnSubmit = useCallback(async ({ data: formData, dispatchFields }) => {
@@ -71,6 +72,9 @@ export const Signup: React.FC = () => {
     }
 
     try {
+      const hubspotCookie = getCookie('hubspotutk')
+      const pageUri = `${process.env.NEXT_PUBLIC_SITE_URL}/signup`
+      const pageName = 'Cloud Sign Up'
       const req = await fetch(
         `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql${
           formData?.redirect ? `?redirect=${formData.redirect}` : ''
@@ -86,6 +90,9 @@ export const Signup: React.FC = () => {
               email
             }
           }`,
+            hubspotCookie,
+            pageUri,
+            pageName,
           }),
         },
       )
@@ -107,7 +114,7 @@ export const Signup: React.FC = () => {
       }
     } catch (e) {
       console.error(e) // eslint-disable-line no-console
-      setError(e?.message || 'An error occurred')
+      throw new Error(e.message)
     }
   }, [])
 
@@ -172,7 +179,8 @@ export const Signup: React.FC = () => {
             {'.'}
           </div>
           <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>
-            {error && <div className={classes.error}>{error}</div>}
+            <FormSubmissionError />
+            <FormProcessing message="Signing up, one moment..." />
             <Text
               path="email"
               label="Email"

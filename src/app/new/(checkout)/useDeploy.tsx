@@ -1,38 +1,38 @@
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { OnSubmit } from '@forms/types'
 import { CardElement as StripeCardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-// eslint-disable-next-line import/named
-import { PaymentIntent, StripeCardElement as StripeCardElementType } from '@stripe/stripe-js'
+import {
+  PaymentIntent, // eslint-disable-line import/named
+  StripeCardElement as StripeCardElementType, // eslint-disable-line import/named
+} from '@stripe/stripe-js'
 
 import { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { CheckoutState } from './reducer'
+import { useConfirmCardSetup } from './useConfirmCardSetup'
 import { PayloadStripeSubscription, useCreateSubscription } from './useCreateSubscription'
 
 export const useDeploy = (args: {
-  project: Project
+  project: Project | null | undefined
   checkoutState: CheckoutState
   installID?: string
   onDeploy?: (project: Project) => void
-}): {
-  projectID?: string
-  errorDeploying: string | null
-  isDeploying: boolean
-  deploy: OnSubmit
-} => {
+}): OnSubmit => {
   const { checkoutState, installID, project, onDeploy } = args
   const { user } = useAuth()
-  const [error, setError] = useState<string | null>(null)
-  const [isDeploying, setIsDeploying] = useState(false)
   const stripe = useStripe()
   const elements = useElements()
 
-  const { createSubscription } = useCreateSubscription({
+  const createSubscription = useCreateSubscription({
     project,
     checkoutState,
   })
 
-  const makePayment = useCallback(
+  const confirmCardSetup = useConfirmCardSetup({
+    team: checkoutState?.team,
+  })
+
+  const confirmCardPayment = useCallback(
     async (subscription: PayloadStripeSubscription): Promise<PaymentIntent | null> => {
       if (!subscription) {
         throw new Error('No subscription')
@@ -43,38 +43,38 @@ export const useDeploy = (args: {
       }
 
       const { paid, client_secret: clientSecret } = subscription
-      const { plan, paymentMethod } = checkoutState
+      const { paymentMethod } = checkoutState
 
-      if (paid) {
-        return null
+      if (!paid && !clientSecret) {
+        throw new Error(`Could not confirm payment, no client secret`)
       }
 
-      if (!plan || !clientSecret) {
-        throw new Error('No plan selected or client secret')
+      // free trials never return a client secret because their initial $0 invoice is pre-paid
+      // this is the case for both existing payment methods as well as new cards
+      if (!paid && clientSecret) {
+        const stripePayment = await stripe.confirmCardPayment(clientSecret, {
+          payment_method:
+            !paymentMethod || paymentMethod.startsWith('new-card')
+              ? {
+                  card: elements.getElement(StripeCardElement) as StripeCardElementType,
+                }
+              : paymentMethod,
+        })
+
+        if (stripePayment.error) {
+          throw new Error(stripePayment.error.message)
+        }
+
+        return stripePayment.paymentIntent
       }
 
-      const stripePayment = await stripe.confirmCardPayment(clientSecret, {
-        payment_method:
-          !paymentMethod || paymentMethod.startsWith('new-card')
-            ? {
-                card: elements.getElement(StripeCardElement) as StripeCardElementType,
-              }
-            : paymentMethod,
-      })
-
-      if (stripePayment.error) {
-        throw new Error(stripePayment.error.message)
-      }
-
-      return stripePayment.paymentIntent
+      return null
     },
     [elements, stripe, checkoutState],
   )
 
   const deploy: OnSubmit = useCallback(
     async ({ unflattenedData: formState }) => {
-      setTimeout(() => window.scrollTo(0, 0), 0)
-
       try {
         if (!installID) {
           throw new Error(`No installation ID was found for this project.`)
@@ -84,16 +84,25 @@ export const useDeploy = (args: {
           throw new Error(`You must be logged in to deploy a project.`)
         }
 
-        setIsDeploying(true)
-        setError(null)
+        if (!checkoutState?.plan) {
+          throw new Error(`No plan selected`)
+        }
 
-        // first create the subscription
-        const subscription = await createSubscription()
+        setTimeout(() => window.scrollTo(0, 0), 0)
 
-        // then make the payment
-        await makePayment(subscription)
+        // first create a setup intent and confirm it
+        // this will ensure that payment methods are supplied even for trials
+        await confirmCardSetup(checkoutState.paymentMethod)
 
-        // finally attempt to deploy the project
+        // only scroll-to-top after the card has been confirmed
+        // Stripe automatically scrolls to the `CardElement` if an error occurs
+        // this gets interrupted if this scroll-to-top is fired immediately
+        // afaik there's no way to prevent this behavior, so instead we'll just scroll after
+        // this also means that we need to scroll in the catch block as well
+        setTimeout(() => window.scrollTo(0, 0), 0)
+
+        // attempt to deploy the project
+        // do not create the subscription yet to ensure the project will deploy
         const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deploy`, {
           credentials: 'include',
           method: 'POST',
@@ -107,7 +116,6 @@ export const useDeploy = (args: {
               ...formState,
               installID,
             },
-            subscription: subscription?.subscription,
           }),
         })
 
@@ -118,34 +126,34 @@ export const useDeploy = (args: {
         } = await req.json()
 
         if (req.ok) {
-          const {
-            doc: { team },
-          } = res
-
-          if (!user.teams || user.teams.length === 0) {
-            throw new Error('No teams found')
-          }
+          // once the project is deployed successfully, create the subscription
+          // also confirm card payment at this time
+          const subscription = await createSubscription()
+          await confirmCardPayment(subscription)
 
           if (typeof onDeploy === 'function') {
             onDeploy(res.doc)
           }
         } else {
-          setIsDeploying(false)
-          setError(res.error)
+          throw new Error(res.error || res.message)
         }
       } catch (err: unknown) {
-        console.error(err) // eslint-disable-line no-console
+        setTimeout(() => window.scrollTo(0, 0), 0)
         const message = err instanceof Error ? err.message : 'Unknown error'
-        setError(message)
-        setIsDeploying(false)
+        throw new Error(`Error deploying project: ${message}`)
       }
     },
-    [user, makePayment, installID, checkoutState, project, onDeploy, createSubscription],
+    [
+      user,
+      installID,
+      checkoutState,
+      project,
+      onDeploy,
+      createSubscription,
+      confirmCardSetup,
+      confirmCardPayment,
+    ],
   )
 
-  return {
-    errorDeploying: error,
-    isDeploying,
-    deploy,
-  }
+  return deploy
 }

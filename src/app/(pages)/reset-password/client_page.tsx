@@ -4,6 +4,8 @@ import React, { useCallback, useEffect } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
+import FormProcessing from '@forms/FormProcessing'
+import FormSubmissionError from '@forms/FormSubmissionError'
 import Submit from '@forms/Submit'
 import { redirect, useSearchParams } from 'next/navigation'
 
@@ -22,7 +24,6 @@ export const ResetPassword: React.FC = () => {
 
   const { user, resetPassword } = useAuth()
   const { setHeaderColor } = useHeaderTheme()
-  const [error, setError] = React.useState<string | null>(null)
 
   useEffect(() => {
     const implicitPreference = getImplicitPreference()
@@ -38,7 +39,7 @@ export const ResetPassword: React.FC = () => {
           token: token as string,
         })
       } catch (e: any) {
-        setError(e.message)
+        throw new Error(e.message)
       }
     },
     [resetPassword, token],
@@ -74,7 +75,8 @@ export const ResetPassword: React.FC = () => {
               },
             }}
           >
-            {error && <div className={classes.error}>{error}</div>}
+            <FormSubmissionError />
+            <FormProcessing message="Resetting password, one moment..." />
             <Text path="password" type="password" label="New Password" required />
             <Text path="passwordConfirm" type="password" label="Confirm Password" required />
             <div>

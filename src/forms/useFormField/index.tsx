@@ -12,7 +12,6 @@ import { FormField, SetValue } from './types'
 // 2. debounces its value and sends it to the form context
 // 3. runs field-level validation
 // 4. returns form state and field-level errors
-
 export const useFormField = <T extends Value>(options): FormField<T> => {
   const { path, validate, initialValue: initialValueFromProps, required } = options
 
@@ -60,14 +59,9 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
         valid: true,
       }
 
-      const validationResult =
-        typeof validate === 'function'
-          ? await validate(valueToSend, {
-              required,
-            })
-          : true
+      const validationResult = typeof validate === 'function' ? await validate(valueToSend) : true
 
-      if (typeof validationResult === 'string') {
+      if (typeof validationResult === 'string' || validationResult === false) {
         fieldToDispatch.errorMessage = validationResult
         fieldToDispatch.valid = false
       }
@@ -76,7 +70,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
 
       dispatchFields(fieldToDispatch)
     },
-    [path, dispatchFields, validate, initialValue, required],
+    [path, dispatchFields, validate, initialValue],
   )
 
   // NOTE: 'internalValue' is NOT debounced
@@ -108,10 +102,10 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
   }, [submitted, field?.value])
 
   useEffect(() => {
-    if (debouncedValue !== undefined || !fieldExists) {
+    if (path && (debouncedValue !== undefined || !fieldExists)) {
       sendField(debouncedValue)
     }
-  }, [debouncedValue, sendField, fieldExists])
+  }, [debouncedValue, sendField, fieldExists, path])
 
   useEffect(
     () => () => {
@@ -128,6 +122,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
     showError,
     errorMessage: field?.errorMessage || apiError?.message,
     value: internalValue,
+    debouncedValue: field?.value,
     formSubmitted: submitted,
     formProcessing: processing,
     setValue,

@@ -4,7 +4,7 @@
   
   .logTabs {
     position: sticky;
-    top: var(--header-height);
+    top: calc(var(--top-bar-height) + var(--header-height));
     background: var(--theme-bg);
   }
 }

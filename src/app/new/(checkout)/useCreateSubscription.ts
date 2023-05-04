@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 
 import type { CheckoutState } from '@root/app/new/(checkout)/reducer'
 import type { Project } from '@root/payload-cloud-types'
@@ -11,49 +11,47 @@ export interface PayloadStripeSubscription {
 }
 
 export const useCreateSubscription = (args: {
-  project: Project
+  project: Project | null | undefined
   checkoutState: CheckoutState
-}): {
-  error?: string
-  createSubscription: () => Promise<PayloadStripeSubscription>
-  subscription: PayloadStripeSubscription | null
-} => {
+}): (() => Promise<PayloadStripeSubscription>) => {
   const { project, checkoutState } = args
 
-  const [subscription, setSubscription] = useState<PayloadStripeSubscription | null>(null)
-  const [error, setError] = useState<string | undefined>('')
   const isRequesting = React.useRef<boolean>(false)
 
   const createSubscription = useCallback(async (): Promise<PayloadStripeSubscription> => {
     const { paymentMethod, freeTrial, plan, team } = checkoutState
 
-    const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/payment-intent`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        project: {
-          ...project,
-          plan,
-          team,
+    try {
+      const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/create-subscription`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        paymentMethod,
-        freeTrial,
-      }),
-    })
+        body: JSON.stringify({
+          project: {
+            ...project,
+            plan,
+            team,
+          },
+          paymentMethod,
+          freeTrial,
+        }),
+      })
 
-    const res: PayloadStripeSubscription = await req.json()
+      const res: PayloadStripeSubscription = await req.json()
+      isRequesting.current = false
 
-    if (req.ok) {
-      setSubscription(res)
-    } else {
-      setError(res.error)
+      if (!req.ok) {
+        throw new Error(res.error)
+      }
+
+      isRequesting.current = false
+      return res
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Unknown error'
+      throw new Error(`Could not create subscription: ${message}`)
     }
-
-    isRequesting.current = false
-    return res
   }, [project, checkoutState])
 
-  return { error, createSubscription, subscription }
+  return createSubscription
 }

@@ -1,12 +1,14 @@
 'use client'
 
-import React, { Fragment, useCallback } from 'react'
+import React, { Fragment, useCallback, useMemo } from 'react'
 import { toast } from 'react-toastify'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
+import FormProcessing from '@forms/FormProcessing'
+import FormSubmissionError from '@forms/FormSubmissionError'
 import Label from '@forms/Label'
 import Submit from '@forms/Submit'
 import { Elements } from '@stripe/react-stripe-js'
@@ -24,9 +26,10 @@ import { useInstallationSelector } from '@components/InstallationSelector'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { usePlanSelector } from '@components/PlanSelector'
 import { TeamSelector } from '@components/TeamSelector'
+import { UniqueDomain } from '@components/UniqueDomain'
+import { UniqueRepoName } from '@components/UniqueRepoName'
 import { cloudSlug } from '@root/app/cloud/client_layout'
 import { Plan, Project, Team } from '@root/payload-cloud-types'
-import { useAuth } from '@root/providers/Auth'
 import { useGlobals } from '@root/providers/Globals'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
@@ -49,13 +52,12 @@ const title = 'Configure your project'
 // this is to avoid making more Stripe records than necessary
 // a new one is needed each time the plan (including trial), card, or team changes
 const Checkout: React.FC<{
-  project: Project
+  project: Project | null | undefined
   draftProjectID: string
 }> = props => {
   const { project, draftProjectID } = props
 
   const router = useRouter()
-  const { user } = useAuth()
   const { templates } = useGlobals()
 
   const isBeta = new Date().getTime() < new Date('2023-07-01').getTime()
@@ -83,28 +85,14 @@ const Checkout: React.FC<{
     })
   }, [])
 
-  const handleTrialChange = useCallback((incomingStatus: boolean) => {
-    dispatchCheckoutState({
-      type: 'SET_FREE_TRIAL',
-      payload: incomingStatus,
-    })
+  const handleTeamChange = useCallback((incomingTeam: Team) => {
+    if (incomingTeam) {
+      dispatchCheckoutState({
+        type: 'SET_TEAM',
+        payload: incomingTeam,
+      })
+    }
   }, [])
-
-  const handleTeamChange = useCallback(
-    (incomingTeam: string) => {
-      const selectedTeam = user?.teams?.find(
-        ({ team }) => typeof team === 'object' && team !== null && team?.id === incomingTeam,
-      )?.team
-
-      if (selectedTeam && typeof selectedTeam !== 'string') {
-        dispatchCheckoutState({
-          type: 'SET_TEAM',
-          payload: selectedTeam,
-        })
-      }
-    },
-    [user],
-  )
 
   const [PlanSelector] = usePlanSelector({
     onChange: handlePlanChange,
@@ -128,7 +116,7 @@ const Checkout: React.FC<{
     [router],
   )
 
-  const { isDeploying, errorDeploying, deploy } = useDeploy({
+  const deploy = useDeploy({
     onDeploy,
     project,
     checkoutState,
@@ -157,7 +145,7 @@ const Checkout: React.FC<{
 
       if (response.ok) {
         router.push(`/${cloudSlug}`)
-        toast.success('Draft project cancelled successfully.')
+        toast.success('Draft project canceled successfully.')
       } else {
         setDeleting(false)
         setErrorDeleting('There was an error deleting your project.')
@@ -172,15 +160,15 @@ const Checkout: React.FC<{
   const isClone = Boolean(!project?.repositoryID)
 
   return (
-    <Fragment>
+    <Form onSubmit={deploy}>
       <Gutter>
-        <div className={classes.errors}>
-          {errorDeploying && <p>{errorDeploying}</p>}
-          {installsError && <p>{installsError}</p>}
-          {errorDeleting && <p>{errorDeleting}</p>}
+        <div className={classes.formState}>
+          <FormProcessing message="Deploying project, one moment..." />
+          <FormSubmissionError />
+          {installsError && <p className={classes.error}>{installsError}</p>}
+          {errorDeleting && <p className={classes.error}>{errorDeleting}</p>}
+          {deleting && <p>Deleting draft project, one moment...</p>}
         </div>
-        {isDeploying && <p className={classes.submitting}>Submitting, one moment...</p>}
-        {deleting && <p className={classes.submitting}>Deleting draft project, one moment...</p>}
         <Grid>
           <Cell cols={3} colsM={8} className={classes.sidebarCell}>
             <div className={classes.sidebar}>
@@ -226,106 +214,71 @@ const Checkout: React.FC<{
               <LoadingShimmer number={3} />
             ) : (
               <Fragment>
-                <Form
-                  onSubmit={deploy}
-                  initialState={{
-                    name: {
-                      initialValue: project?.name,
-                      value: project?.name,
-                    },
-                    template: {
-                      initialValue:
-                        typeof project?.template === 'object' &&
-                        project?.template !== null &&
-                        'id' in project?.template
-                          ? project?.template?.id
-                          : project?.template,
-                      value:
-                        typeof project?.template === 'object' &&
-                        project?.template !== null &&
-                        'id' in project?.template
-                          ? project?.template?.id
-                          : project?.template,
-                    },
-                    installScript: {
-                      initialValue: project?.installScript || 'yarn',
-                      value: project?.installScript || 'yarn',
-                    },
-                    buildScript: {
-                      initialValue: project?.buildScript || 'yarn build',
-                      value: project?.buildScript || 'yarn build',
-                    },
-                    runScript: {
-                      initialValue: project?.runScript || 'yarn serve',
-                      value: project?.runScript || 'yarn serve',
-                    },
-                    environmentVariables: {
-                      initialValue: project?.environmentVariables || [],
-                    },
-                    agreeToTerms: {
-                      initialValue: false,
-                      value: false,
-                      valid: false,
-                      errorMessage:
-                        'You must agree to the terms of service to deploy your project.',
-                    },
-                  }}
-                >
-                  <div>
-                    <Heading element="h5" marginTop={false}>
-                      Select your plan
-                    </Heading>
-                    <div className={classes.plans}>
-                      <PlanSelector />
-                      {isBeta && (
-                        <p className={classes.trialDescription}>
-                          All plans are free during beta. You will not be charged until after July
-                          1st. You can cancel anytime.
-                        </p>
-                      )}
-                    </div>
+                <div>
+                  <Heading element="h5" marginTop={false}>
+                    Select your plan
+                  </Heading>
+                  <div className={classes.plans}>
+                    <PlanSelector />
+                    {isBeta && (
+                      <p className={classes.trialDescription}>
+                        All plans are free during beta. You will not be charged until after July
+                        1st. You can cancel anytime.
+                      </p>
+                    )}
                   </div>
-                  <hr className={classes.hr} />
-                  <div className={classes.projectDetails}>
-                    <Heading element="h5" marginTop={false} marginBottom={false}>
-                      Project Details
-                    </Heading>
-                    <Select
-                      label="Region"
-                      path="region"
-                      initialValue="us-east"
-                      options={[
-                        {
-                          label: 'US East',
-                          value: 'us-east',
-                        },
-                        {
-                          label: 'US West',
-                          value: 'us-west',
-                        },
-                        {
-                          label: 'EU West',
-                          value: 'eu-west',
-                        },
-                      ]}
-                    />
-                    <Text label="Project name" path="name" />
-                    <TeamSelector
-                      onChange={handleTeamChange}
-                      className={classes.teamSelector}
-                      initialValue={
-                        typeof project?.team === 'object' &&
-                        project?.team !== null &&
-                        'id' in project?.team
-                          ? project?.team?.id
-                          : ''
-                      }
-                    />
-                    {isClone && (
+                </div>
+                <hr className={classes.hr} />
+                <div className={classes.projectDetails}>
+                  <Heading element="h5" marginTop={false} marginBottom={false}>
+                    Project Details
+                  </Heading>
+                  <Select
+                    label="Region"
+                    path="region"
+                    initialValue="us-east"
+                    options={[
+                      {
+                        label: 'US East',
+                        value: 'us-east',
+                      },
+                      {
+                        label: 'US West',
+                        value: 'us-west',
+                      },
+                      {
+                        label: 'EU West',
+                        value: 'eu-west',
+                      },
+                    ]}
+                    required
+                  />
+                  <Text label="Project name" path="name" initialValue={project?.name} required />
+                  <TeamSelector
+                    onChange={handleTeamChange}
+                    className={classes.teamSelector}
+                    initialValue={
+                      typeof project?.team === 'object' &&
+                      project?.team !== null &&
+                      'id' in project?.team
+                        ? project?.team?.id
+                        : ''
+                    }
+                    required
+                  />
+                  {isClone && (
+                    <Fragment>
                       <Select
                         label="Template"
                         path="template"
                         disabled={Boolean(project?.repositoryID)}
+                        initialValue={
+                          typeof project?.template === 'object' &&
+                          project?.template !== null &&
+                          'id' in project?.template
+                            ? project?.template?.id
+                            : project?.template
+                        }
                         options={[
                           { label: 'None', value: '' },
                           ...(templates || [])?.map(template => ({
@@ -333,70 +286,112 @@ const Checkout: React.FC<{
                             value: template.id,
                           })),
                         ]}
+                        required
                       />
-                    )}
-                  </div>
-                  <hr className={classes.hr} />
-                  <div className={classes.buildSettings}>
-                    <Heading element="h5" marginTop={false} marginBottom={false}>
-                      Build Settings
-                    </Heading>
-                    <Text label="Install Command" path="installScript" />
-                    <Text label="Build Command" path="buildScript" />
-                    <Text label="Serve Command" path="runScript" />
-                    <BranchSelector
-                      repositoryFullName={project?.repositoryFullName}
-                      initialValue={project?.deploymentBranch}
-                    />
-                  </div>
-                  <hr className={classes.hr} />
-                  <EnvVars className={classes.envVars} />
-                  <hr className={classes.hr} />
-                  <div>
-                    <h5>Payment Info</h5>
-                    {checkoutState?.team && (
-                      <CreditCardSelector
-                        initialValue={checkoutState?.paymentMethod}
-                        team={checkoutState?.team}
-                        onChange={handleCardChange}
+                      <UniqueRepoName
+                        repositoryOwner={selectedInstall?.account?.login}
+                        initialValue={project?.repositoryName}
                       />
-                    )}
-                  </div>
-                  <hr className={classes.hr} />
-                  <Checkbox
-                    path="agreeToTerms"
-                    label={
-                      <Fragment>
-                        {'I agree to the '}
-                        <Link href="/cloud-terms" target="_blank">
-                          Terms of Service
-                        </Link>
-                      </Fragment>
-                    }
+                      <Checkbox
+                        path="makePrivate"
+                        label="Create private Git repository"
+                        initialValue={project?.makePrivate || false}
+                      />
+                    </Fragment>
+                  )}
+                </div>
+                <hr className={classes.hr} />
+                <div className={classes.buildSettings}>
+                  <Heading element="h5" marginTop={false} marginBottom={false}>
+                    Build Settings
+                  </Heading>
+                  <Text
+                    label="Install Command"
+                    path="installScript"
+                    initialValue={project?.installScript || 'yarn'}
                     required
-                    className={classes.agreeToTerms}
                   />
-                  <div className={classes.submit}>
-                    <Submit label="Deploy now" />
-                  </div>
-                </Form>
+                  <Text
+                    label="Build Command"
+                    path="buildScript"
+                    initialValue={project?.buildScript || 'yarn build'}
+                    required
+                  />
+                  <Text
+                    label="Serve Command"
+                    path="runScript"
+                    initialValue={project?.runScript || 'yarn serve'}
+                    required
+                  />
+                  <BranchSelector
+                    repositoryFullName={project?.repositoryFullName}
+                    initialValue={project?.deploymentBranch}
+                  />
+                  <UniqueDomain
+                    initialSubdomain={`${
+                      typeof project?.team === 'string' ? project?.team : project?.team?.slug
+                    }-${project?.slug}`}
+                    team={checkoutState?.team}
+                  />
+                </div>
+                <hr className={classes.hr} />
+                <EnvVars className={classes.envVars} />
+                <hr className={classes.hr} />
+                <div>
+                  <h5>Payment Info</h5>
+                  {checkoutState?.team && (
+                    <CreditCardSelector
+                      initialValue={checkoutState?.paymentMethod}
+                      team={checkoutState?.team}
+                      onChange={handleCardChange}
+                      enableInlineSave={false}
+                      showTeamLink={false}
+                    />
+                  )}
+                </div>
+                <hr className={classes.hr} />
+                <Checkbox
+                  path="agreeToTerms"
+                  label={
+                    <Fragment>
+                      {'I agree to the '}
+                      <Link href="/cloud-terms" target="_blank">
+                        Terms of Service
+                      </Link>
+                    </Fragment>
+                  }
+                  required
+                  className={classes.agreeToTerms}
+                  initialValue={false}
+                  validate={(value: boolean) => {
+                    return !value
+                      ? 'You must agree to the terms of service to deploy your project.'
+                      : true
+                  }}
+                />
+                <div className={classes.submit}>
+                  <Submit label="Deploy now" />
+                </div>
               </Fragment>
             )}
           </Cell>
         </Grid>
       </Gutter>
-    </Fragment>
+    </Form>
   )
 }
 
+// The `CheckoutProvider`
+// 1. verifies GitHub authorization
+// 2. initializes Stripe Elements provider
+// 3. Loads the initial Payload project
+// 4. handles 404s and redirects
+// 5. simplifies initial state and loading
 const CheckoutProvider: React.FC<{
   draftProjectID: string
+  tokenLoading: boolean
 }> = props => {
-  const { draftProjectID } = props
-
-  useAuthRedirect()
-
-  const { tokenLoading } = useGitAuthRedirect()
+  const { draftProjectID, tokenLoading } = props
 
   const { result: project, isLoading: projectLoading } = useGetProject({
     projectID: draftProjectID,
@@ -420,14 +415,21 @@ const CheckoutProvider: React.FC<{
             items={[
               {
                 label: 'New',
-                url: '/new',
+                url: `/new${project?.team?.slug ? `?team=${project?.team?.slug}` : ''}`,
               },
               ...(isClone
-                ? [{ label: 'Template', url: '/new/clone' }]
+                ? [
+                    {
+                      label: 'Template',
+                      url: `/new/clone${project?.team?.slug ? `?team=${project?.team?.slug}` : ''}`,
+                    },
+                  ]
                 : [
                     {
                       label: 'Import',
-                      url: '/new/import',
+                      url: `/new/import${
+                        project?.team?.slug ? `?team=${project?.team?.slug}` : ''
+                      }`,
                     },
                   ]),
               {
@@ -453,4 +455,22 @@ const CheckoutProvider: React.FC<{
   )
 }
 
-export default CheckoutProvider
+// We need to memoize the `CheckoutProvider` so that it doesn't re-render
+// when the user object changes. This happens after creating a new team
+// during checkout, for instance, where the entire view would be re-rendered.
+// Both the `useAuthRedirect` and `useGitAuthRedirect  hooks depend on the `user` object
+// so those both should be called here, before the memoization.
+const CheckoutAuthentication: React.FC<{
+  draftProjectID: string
+}> = ({ draftProjectID }) => {
+  useAuthRedirect()
+  const { tokenLoading } = useGitAuthRedirect()
+
+  const memoizedCheckoutProvider = useMemo(() => {
+    return <CheckoutProvider draftProjectID={draftProjectID} tokenLoading={tokenLoading} />
+  }, [draftProjectID, tokenLoading])
+
+  return memoizedCheckoutProvider
+}
+
+export default CheckoutAuthentication

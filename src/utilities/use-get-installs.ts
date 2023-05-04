@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useMemo } from 'react'
 import type { Endpoints } from '@octokit/types'
 
-import { useAuth } from '@root/providers/Auth'
-
 type GitHubResponse = Endpoints['GET /user/installations']['response']
 
 export type Install = GitHubResponse['data']['installations'][0]
@@ -41,7 +39,6 @@ export const useGetInstalls: UseGetInstalls = () => {
   const [error, setError] = React.useState<string | undefined>()
   const [installsLoading, setInstallsLoading] = React.useState(true)
   const [installs, dispatchInstalls] = React.useReducer(installReducer, [])
-  const { user } = useAuth()
   const hasRequested = React.useRef(false)
 
   const loadInstalls = useCallback(async (): Promise<Install[]> => {
@@ -68,31 +65,29 @@ export const useGetInstalls: UseGetInstalls = () => {
   useEffect(() => {
     let timeout: NodeJS.Timeout
 
-    if (user) {
-      const getInstalls = async (): Promise<void> => {
-        if (!hasRequested.current) {
-          hasRequested.current = true
+    const getInstalls = async (): Promise<void> => {
+      if (!hasRequested.current) {
+        hasRequested.current = true
 
-          timeout = setTimeout(() => {
-            setInstallsLoading(true)
-          }, 250)
+        timeout = setTimeout(() => {
+          setInstallsLoading(true)
+        }, 250)
 
-          const installations = await loadInstalls()
-          clearTimeout(timeout)
-          dispatchInstalls({ type: 'set', payload: installations })
-          setInstallsLoading(false)
+        const installations = await loadInstalls()
+        clearTimeout(timeout)
+        dispatchInstalls({ type: 'set', payload: installations })
+        setInstallsLoading(false)
 
-          hasRequested.current = false
-        }
+        hasRequested.current = false
       }
-
-      getInstalls()
     }
+
+    getInstalls()
 
     return () => {
       clearTimeout(timeout)
     }
-  }, [user, loadInstalls])
+  }, [loadInstalls])
 
   const reload = useCallback(async () => {
     const installations = await loadInstalls()

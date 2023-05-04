@@ -7,6 +7,7 @@ import type {
   MainMenu,
   Page,
   Post,
+  TopBar,
 } from '../payload-types'
 import { ANNOUNCEMENT_FIELDS } from './announcement'
 import { CASE_STUDIES, CASE_STUDY } from './case-studies'
@@ -25,6 +26,7 @@ const next = {
 export const fetchGlobals = async (): Promise<{
   mainMenu: MainMenu
   footer: Footer
+  topBar: TopBar
   templates: Template[]
 }> => {
   const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?globals`, {
@@ -55,6 +57,7 @@ export const fetchGlobals = async (): Promise<{
   return {
     mainMenu: data.MainMenu,
     footer: data.Footer,
+    topBar: data.TopBar,
     templates: templatesData?.Templates?.docs,
   }
 }

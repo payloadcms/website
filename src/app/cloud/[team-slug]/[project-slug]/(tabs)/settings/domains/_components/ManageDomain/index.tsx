@@ -29,9 +29,9 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
 
   const { openModal, closeModal } = useModal()
   const { project, reloadProject } = useRouteData()
-  const projectID = project.id
+  const projectID = project?.id
   const projectDomains = project?.domains
-  const cnameRecord = project.defaultDomain
+  const cnameRecord = project?.defaultDomain
 
   const patchDomains = React.useCallback(
     async (domains: Props['domain'][]) => {

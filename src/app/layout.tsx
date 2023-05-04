@@ -1,12 +1,12 @@
 import React from 'react'
-import { fetchAnnouncements, fetchGlobals } from '@graphql'
+import { fetchGlobals } from '@graphql'
 import { Providers } from '@providers'
 import { Metadata } from 'next'
 
 import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics'
 import { GoogleTagManager } from '@components/Analytics/GoogleTagManager'
-import { Announcements } from '@components/Announcements'
 import { HeaderObserver } from '@components/HeaderObserver'
+import { TopBar } from '@components/TopBar'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
@@ -17,8 +17,7 @@ import '../css/app.scss'
 import classes from './layout.module.scss'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { mainMenu, footer, templates } = await fetchGlobals()
-  const { announcements } = await fetchAnnouncements()
+  const { mainMenu, footer, topBar, templates } = await fetchGlobals()
 
   return (
     <html lang="en">
@@ -26,6 +25,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link rel="icon" href="/images/favicon.svg" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
         <GoogleAnalytics />
+        <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_CLOUD_CMS_URL} />
       </head>
       <body
         className={[
@@ -37,13 +37,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       >
         <GoogleTagManager />
         <Providers templates={templates}>
+          <TopBar {...topBar} />
           <Header {...mainMenu} />
           <div className={classes.layout}>
             <HeaderObserver pullUp>{children}</HeaderObserver>
             <Footer {...footer} />
             <div id="docsearch" />
           </div>
-          <Announcements announcements={announcements} />
         </Providers>
       </body>
     </html>

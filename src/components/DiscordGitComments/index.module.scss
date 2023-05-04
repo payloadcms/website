@@ -63,11 +63,12 @@
 
 .answerHeader {
   display: flex;
-  gap: 10px;
+  gap: calc(var(--base) / 1.5);
   padding: calc(var(--base) * .75) calc(var(--base) * 1.5);
   width: 100%;
   background: var(--theme-success-50);
   border-bottom: 1px solid var(--theme-success-150);
+  align-items: center;
 
   & label {
     @include label;
@@ -77,14 +78,12 @@
   .checkmark {
     border: 1px solid currentColor;
     border-radius: 100%;
-    height: 15px;
-    width: auto;
+    height: calc(var(--base) * 1.5);
+    width: calc(var(--base) * 1.5);
     display: flex;
+    justify-content: center;
+    align-items: center;
     align-self: center;
-
-    & path {
-      stroke-width: 2px;
-    }
   }
 
   .selectedBy {

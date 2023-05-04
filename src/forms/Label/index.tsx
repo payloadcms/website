@@ -5,10 +5,10 @@ import { Props } from './types'
 import classes from './index.module.scss'
 
 const LabelOnly: React.FC<Props> = props => {
-  const { htmlFor, required, label } = props
+  const { htmlFor, required, label, className } = props
 
   return (
-    <label htmlFor={htmlFor} className={classes.label}>
+    <label htmlFor={htmlFor} className={[classes.label, className].filter(Boolean).join(' ')}>
       {label}
       {required && <span className={classes.required}>*</span>}
     </label>

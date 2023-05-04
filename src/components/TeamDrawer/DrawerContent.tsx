@@ -2,10 +2,11 @@ import React, { useCallback } from 'react'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
+import FormProcessing from '@forms/FormProcessing'
+import FormSubmissionError from '@forms/FormSubmissionError'
 import Submit from '@forms/Submit'
-import { useRouter } from 'next/navigation'
 
-import { UniqueProjectSlug, UniqueTeamSlug } from '@components/UniqueSlug'
+import { UniqueTeamSlug } from '@components/UniqueSlug'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { InviteTeammates } from '../InviteTeammates'
@@ -16,18 +17,14 @@ import classes from './DrawerContent.module.scss'
 export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
   drawerSlug,
   onCreate,
-  redirectAfterCreate,
   closeDrawer,
 }) => {
-  const router = useRouter()
   const { user, setUser } = useAuth()
-  const [error, setError] = React.useState<{
+  const [errors, setErrors] = React.useState<{
     message: string
     name: string
     data: { message: string; field: string }[]
   }>()
-  const [loading, setLoading] = React.useState<boolean>(false)
-  const [success, setSuccess] = React.useState<boolean>(false)
 
   const { modalState } = useModal()
 
@@ -43,8 +40,6 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
             modalRef.scrollTop = 0
           }, 0)
         }
-
-        setLoading(true)
 
         const newTeam: Team = {
           ...(unflattenedData || {}),
@@ -77,13 +72,10 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
         } = await req.json()
 
         if (!req.ok) {
-          setError(response?.errors?.[0])
-          setLoading(false)
-          return
+          setErrors(response?.errors?.[0])
+          throw new Error(response?.errors?.[0]?.message)
         }
 
-        setLoading(false)
-        setSuccess(true)
         setUser({
           ...user,
           teams: [
@@ -99,13 +91,10 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
 
         if (typeof onCreate === 'function') onCreate(response?.doc)
 
-        if (redirectAfterCreate) router.push(`/cloud/${response?.doc?.slug}`)
-        else {
-          closeDrawer()
-        }
+        closeDrawer()
       }
     },
-    [onCreate, user, drawerSlug, router, closeDrawer, redirectAfterCreate, setUser],
+    [onCreate, user, drawerSlug, closeDrawer, setUser],
   )
 
   const isOpen = modalState[drawerSlug]?.isOpen
@@ -114,23 +103,14 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
 
   return (
     <div className="list-drawer__content">
-      <div className={classes.formState}>
-        {success && <p className="">Team created successfully, now redirecting...</p>}
-        {error && <p className={classes.error}>{error?.message}</p>}
-        {loading && <p className="">Creating team...</p>}
-      </div>
       <Form
         onSubmit={handleSubmit}
         className={classes.form}
-        errors={error?.data}
+        errors={errors?.data}
         initialState={{
           name: {
             initialValue: 'My Team',
             value: 'My Team',
-          },
-          slug: {
-            initialValue: '',
-            value: '',
           },
           sendEmailInvitationsTo: {
             initialValue: [
@@ -142,8 +122,10 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
           },
         }}
       >
+        <FormProcessing message="Creating team..." />
+        <FormSubmissionError />
         <Text path="name" required label="Name" />
-        <UniqueTeamSlug />
+        <UniqueTeamSlug initialValue="" />
         <hr className={classes.hr} />
         <InviteTeammates />
         <hr className={classes.hr} />

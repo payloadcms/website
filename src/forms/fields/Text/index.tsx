@@ -4,25 +4,13 @@ import React, { Fragment, useEffect } from 'react'
 import Label from '@forms/Label'
 
 import { CopyToClipboard } from '@components/CopyToClipboard'
-import { TooltipButton } from '@components/TooltipButton'
+import { Tooltip } from '@components/Tooltip'
 import { EyeIcon } from '@root/icons/EyeIcon'
 import Error from '../../Error'
-import { Validate } from '../../types'
 import { FieldProps } from '../types'
 import { useField } from '../useField'
 
 import classes from './index.module.scss'
-
-const defaultValidate: Validate = val => {
-  const stringVal = val as string
-  const isValid = stringVal && stringVal.length > 0
-
-  if (isValid) {
-    return true
-  }
-
-  return 'Please enter a value.'
-}
 
 export const Text: React.FC<
   FieldProps<string> & {
@@ -30,16 +18,19 @@ export const Text: React.FC<
     copy?: boolean
     elementAttributes?: React.InputHTMLAttributes<HTMLInputElement>
     value?: string
+    customOnChange?: (e: any) => void
+    suffix?: React.ReactNode
   }
 > = props => {
   const {
     path,
     required = false,
-    validate = defaultValidate,
+    validate,
     label,
     placeholder,
     type = 'text',
     onChange: onChangeFromProps,
+    customOnChange,
     initialValue,
     className,
     copy = false,
@@ -51,12 +42,30 @@ export const Text: React.FC<
     },
     description,
     value: valueFromProps,
+    showError: showErrorFromProps,
+    icon,
     fullWidth = true,
+    suffix,
   } = props
 
   const prevValueFromProps = React.useRef(valueFromProps)
 
   const [isHidden, setIsHidden] = React.useState(type === 'password')
+
+  const defaultValidateFunction = React.useCallback(
+    (fieldValue: boolean): string | true => {
+      if (required && !fieldValue) {
+        return 'Please enter a value.'
+      }
+
+      if (fieldValue && typeof fieldValue !== 'string') {
+        return 'This field can only be a string.'
+      }
+
+      return true
+    },
+    [required],
+  )
 
   const {
     onChange,
@@ -67,14 +76,18 @@ export const Text: React.FC<
     initialValue,
     onChange: onChangeFromProps,
     path,
-    validate,
+    validate: validate || defaultValidateFunction,
     required,
   })
 
   const value = valueFromProps || valueFromContext
 
   useEffect(() => {
-    if (valueFromProps !== undefined && valueFromProps !== valueFromContext) {
+    if (
+      valueFromProps !== undefined &&
+      valueFromProps !== prevValueFromProps.current &&
+      valueFromProps !== valueFromContext
+    ) {
       prevValueFromProps.current = valueFromProps
       onChange(valueFromProps)
     }
@@ -84,8 +97,8 @@ export const Text: React.FC<
     <div
       className={[
         className,
-        classes.wrap,
-        showError && classes.showError,
+        classes.component,
+        (showError || showErrorFromProps) && classes.showError,
         classes[`type--${type}`],
         fullWidth && classes.fullWidth,
       ]
@@ -97,22 +110,37 @@ export const Text: React.FC<
         This is so tabs go to the input before the label actions slot
       */}
       {description && <p className={classes.description}>{description}</p>}
-      <input
-        {...elementAttributes}
-        disabled={disabled}
-        className={classes.input}
-        value={value || ''}
-        onChange={e => {
-          onChange(e.target.value)
-        }}
-        placeholder={placeholder}
-        type={type === 'password' && !isHidden ? 'text' : type}
-        id={path}
-        name={path}
-      />
+      <div className={classes.inputWrap}>
+        <input
+          {...elementAttributes}
+          disabled={disabled}
+          className={classes.input}
+          value={value || ''}
+          onChange={
+            customOnChange
+              ? customOnChange
+              : e => {
+                  onChange(e.target.value)
+                }
+          }
+          placeholder={placeholder}
+          type={type === 'password' && !isHidden ? 'text' : type}
+          id={path}
+          name={path}
+        />
+        {(icon || suffix) && (
+          <div className={classes.iconWrapper}>
+            {suffix && <div className={classes.suffix}>{suffix}</div>}
+            {icon && <div className={classes.icon}>{icon}</div>}
+          </div>
+        )}
+      </div>
       {type !== 'hidden' && (
         <>
-          <Error showError={showError} message={errorMessage} />
+          <Error
+            showError={Boolean((showError || showErrorFromProps) && errorMessage)}
+            message={errorMessage}
+          />
           <Label
             htmlFor={path}
             label={label}
@@ -121,13 +149,13 @@ export const Text: React.FC<
               <Fragment>
                 {copy && <CopyToClipboard value={value} />}
                 {type === 'password' && (
-                  <TooltipButton
+                  <Tooltip
                     text={isHidden ? 'show' : 'hide'}
                     onClick={() => setIsHidden(h => !h)}
                     className={classes.tooltipButton}
                   >
                     <EyeIcon closed={isHidden} size="large" />
-                  </TooltipButton>
+                  </Tooltip>
                 )}
               </Fragment>
             }

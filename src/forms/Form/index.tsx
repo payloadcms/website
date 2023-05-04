@@ -1,6 +1,14 @@
 'use client'
 
-import React, { ChangeEvent, useCallback, useEffect, useReducer, useRef, useState } from 'react'
+import React, {
+  ChangeEvent,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from 'react'
 
 import { Data, Field, IFormContext, InitialState, OnSubmit } from '../types'
 import {
@@ -18,7 +26,7 @@ const defaultInitialState = {}
 
 export type FormProps = {
   onSubmit?: OnSubmit
-  children: React.ReactNode
+  children: React.ReactNode | ((context: IFormContext) => React.ReactNode)
   initialState?: InitialState
   method?: 'GET' | 'POST'
   action?: string
@@ -29,7 +37,7 @@ export type FormProps = {
   }[]
 }
 
-const Form: React.FC<FormProps> = props => {
+const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
   const {
     onSubmit,
     children,
@@ -44,6 +52,7 @@ const Form: React.FC<FormProps> = props => {
   const [isModified, setIsModified] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [errorFromSubmit, setErrorFromSubmit] = useState<string>()
 
   const contextRef = useRef<IFormContext>(initialContext)
 
@@ -55,6 +64,7 @@ const Form: React.FC<FormProps> = props => {
       e.preventDefault()
       e.stopPropagation()
       setHasSubmitted(true)
+      setErrorFromSubmit(undefined)
 
       const formIsValid = contextRef.current.validateForm()
 
@@ -69,11 +79,17 @@ const Form: React.FC<FormProps> = props => {
       }
 
       if (typeof onSubmit === 'function') {
-        await onSubmit({
-          data: reduceFieldsToValues(fields, false),
-          unflattenedData: reduceFieldsToValues(fields, true),
-          dispatchFields: contextRef.current.dispatchFields,
-        })
+        try {
+          await onSubmit({
+            data: reduceFieldsToValues(fields, false),
+            unflattenedData: reduceFieldsToValues(fields, true),
+            dispatchFields: contextRef.current.dispatchFields,
+          })
+        } catch (err: unknown) {
+          const message = err instanceof Error ? err.message : 'Unknown error'
+          console.error(message) // eslint-disable-line no-console
+          setErrorFromSubmit(message)
+        }
       }
 
       setIsProcessing(false)
@@ -86,8 +102,8 @@ const Form: React.FC<FormProps> = props => {
   const getFields = useCallback(() => contextRef.current.fields, [contextRef])
 
   const getField = useCallback(
-    (path: string): Field => {
-      return contextRef.current.fields[path]
+    (path: string): Field | undefined => {
+      return path ? contextRef.current.fields[path] : undefined
     },
     [contextRef],
   )
@@ -125,23 +141,27 @@ const Form: React.FC<FormProps> = props => {
       noValidate
       onSubmit={contextRef.current.handleSubmit}
       className={className}
+      ref={ref}
     >
       <FormContext.Provider
         value={{
           ...contextRef.current,
           apiErrors: errorsFromProps,
+          submissionError: errorFromSubmit,
         }}
       >
         <FieldContext.Provider value={contextRef.current}>
           <FormSubmittedContext.Provider value={hasSubmitted}>
             <ProcessingContext.Provider value={isProcessing}>
-              <ModifiedContext.Provider value={isModified}>{children}</ModifiedContext.Provider>
+              <ModifiedContext.Provider value={isModified}>
+                {typeof children === 'function' ? children(contextRef.current) : children}
+              </ModifiedContext.Provider>
             </ProcessingContext.Provider>
           </FormSubmittedContext.Provider>
         </FieldContext.Provider>
       </FormContext.Provider>
     </form>
   )
-}
+})
 
 export default Form

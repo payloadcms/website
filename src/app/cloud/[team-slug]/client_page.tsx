@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { NewProjectBlock } from '@blocks/NewProject'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
@@ -10,34 +10,45 @@ import { Button } from '@components/Button'
 import { ProjectCard } from '@components/cards/ProjectCard'
 import { Gutter } from '@components/Gutter'
 import { LoadingShimmer } from '@components/LoadingShimmer'
+import { Pagination } from '@components/Pagination'
 import { useGetProjects } from '@root/utilities/use-cloud-api'
+import useDebounce from '@root/utilities/use-debounce'
 import { useRouteData } from '../context'
 
 import classes from './index.module.scss'
 
 export const TeamPage = () => {
   const { team } = useRouteData()
-  const [hasLoaded, setHasLoaded] = React.useState<boolean>(false)
-
+  const [page, setPage] = React.useState<number>(1)
   const [search, setSearch] = React.useState<string>('')
+  const debouncedSearch = useDebounce(search, 100)
+  const [searchedTerm, setSearchedTerm] = React.useState<string>(search)
+  const [hasLoadedInitial, setHasLoadedInitial] = useState(false)
+  const [renderNewProjectBlock, setRenderNewProject] = useState(false)
 
-  const {
-    isLoading,
-    error,
-    result: projects,
-  } = useGetProjects({
-    teams: [typeof team === 'object' && team !== null ? team.id : team],
-    search,
-    delay: 500,
+  const { isLoading, error, result } = useGetProjects({
+    teams: team ? [typeof team === 'object' && team !== null ? team.id : team] : undefined,
+    search: debouncedSearch,
+    page,
   })
 
-  React.useEffect(() => {
+  // this will avoid rendering race conditions
+  // where the `NewProjectBlock` will flash on the screen
+  // and conflict with the `useGetProjects` loading state
+  useEffect(() => {
     if (isLoading === false) {
-      setHasLoaded(true)
+      setSearchedTerm(debouncedSearch)
     }
-  }, [isLoading])
+  }, [isLoading, debouncedSearch])
 
-  if (!hasLoaded) {
+  useEffect(() => {
+    if (isLoading === false && !hasLoadedInitial) {
+      setRenderNewProject(result?.docs?.length === 0)
+      setHasLoadedInitial(true)
+    }
+  }, [isLoading, result, hasLoadedInitial])
+
+  if (!hasLoadedInitial) {
     return (
       <Gutter>
         <LoadingShimmer number={3} />
@@ -45,8 +56,15 @@ export const TeamPage = () => {
     )
   }
 
-  if (hasLoaded && projects && projects.length === 0) {
-    return <NewProjectBlock cardLeader="New" headingElement="h2" />
+  if (renderNewProjectBlock) {
+    return (
+      <NewProjectBlock
+        heading={`Team '${team?.name}' has no projects yet`}
+        cardLeader="New"
+        headingElement="h4"
+        teamSlug={team?.slug}
+      />
+    )
   }
 
   return (
@@ -63,31 +81,23 @@ export const TeamPage = () => {
         />
         <Button
           appearance="primary"
-          href="/new"
+          href={`/new${team?.slug ? `?team=${team.slug}` : ''}`}
           el="link"
           className={classes.createButton}
           label="Create new project"
         />
       </div>
-      {isLoading ? (
-        <LoadingShimmer number={3} />
-      ) : (
+      {isLoading && <LoadingShimmer number={3} />}
+      {!isLoading && (
         <div className={classes.content}>
-          {projects && projects.length === 0 && (!search || search.length === 0) && (
-            <p className={classes.noProjects}>
-              {"You don't have any projects yet, "}
-              <Link href="/new">create a new project</Link>
-              {' to get started.'}
-            </p>
-          )}
-          {projects && projects.length === 0 && search?.length > 0 && (
+          {result?.docs.length === 0 && searchedTerm?.length > 0 && (
             <p className={classes.noResults}>
               {"Your search didn't return any results, please try again."}
             </p>
           )}
-          {Array.isArray(projects) && projects.length > 0 && (
+          {result?.docs.length > 0 && (
             <Grid className={classes.projects}>
-              {projects.map((project, index) => (
+              {result.docs.map((project, index) => (
                 <Cell key={index} cols={4}>
                   <ProjectCard project={project} className={classes.projectCard} />
                 </Cell>
@@ -95,6 +105,9 @@ export const TeamPage = () => {
             </Grid>
           )}
         </div>
+      )}
+      {result?.totalPages > 1 && (
+        <Pagination page={page} totalPages={result?.totalPages} setPage={setPage} />
       )}
     </Gutter>
   )

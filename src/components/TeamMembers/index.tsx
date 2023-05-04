@@ -8,7 +8,7 @@ import { TeamMemberRow } from './TeamMemberRow'
 import classes from './index.module.scss'
 
 export const TeamMembers: React.FC<{
-  team: Team
+  team: Team | null | undefined
   className?: string
 }> = ({ className, team }) => {
   return (

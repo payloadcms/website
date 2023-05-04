@@ -6,6 +6,8 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
+import FormProcessing from '@forms/FormProcessing'
+import FormSubmissionError from '@forms/FormSubmissionError'
 import Submit from '@forms/Submit'
 import { OnSubmit } from '@forms/types'
 import { useRouter } from 'next/navigation'
@@ -69,16 +71,11 @@ export const SettingsPage = () => {
   const { openModal } = useModal()
   const [loading, setLoading] = React.useState<boolean>(false)
   const [formToShow, setFormToShow] = React.useState<'account' | 'password'>('account')
-  const [error, setError] = React.useState<string | null>(null)
   const [success, setSuccess] = React.useState<string | null>(null)
   const router = useRouter()
 
   const handleSubmit: OnSubmit = useCallback(
     async ({ data, dispatchFields }): Promise<void> => {
-      const loadingTimer = setTimeout(() => {
-        setLoading(true)
-      }, 250)
-
       setTimeout(() => {
         window.scrollTo(0, 0)
       }, 0)
@@ -109,21 +106,12 @@ export const SettingsPage = () => {
           password: data.password,
         })
 
-        clearTimeout(loadingTimer)
-        setError(null)
         setSuccess('Your account has been updated')
       } catch (err) {
-        clearTimeout(loadingTimer)
         const message = err?.message || `An error occurred while attempting to update your account`
         console.error(message) // eslint-disable-line no-console
         setSuccess(null)
-        setError(message)
-      }
-
-      // @ts-expect-error
-      return () => {
-        clearTimeout(loadingTimer)
-        setLoading(false)
+        throw new Error(message)
       }
     },
     [updateUser],
@@ -174,9 +162,6 @@ export const SettingsPage = () => {
       <Heading marginTop={false} marginBottom={false} element="h1" as="h6">
         Account Settings
       </Heading>
-      <div className={classes.formState}>
-        <Message error={error} success={success} warning={loading ? 'Loading...' : undefined} />
-      </div>
       <Grid>
         <Cell cols={6} colsM={8}>
           <p>
@@ -238,6 +223,9 @@ export const SettingsPage = () => {
             }}
             onSubmit={handleSubmit}
           >
+            <Message success={success} />
+            <FormSubmissionError />
+            <FormProcessing message="Updating profile, one moment" />
             {formToShow === 'account' && (
               <>
                 <Text path="name" label="Your Full Name" />

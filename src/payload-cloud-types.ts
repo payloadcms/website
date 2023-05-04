@@ -107,8 +107,8 @@ export interface Project {
     value: string;
     id?: string;
   }[];
-  teamProjectName?: string;
   infraStatus?: 'notStarted' | 'awaitingDatabase' | 'appCreationError' | 'deploying' | 'deployError' | 'done' | 'error';
+  lastSuccessfulDeployment?: string | Deployment;
   createdAt: string;
   updatedAt: string;
 }
@@ -234,6 +234,8 @@ export interface Deployment {
     | 'SUPERSEDED'
     | 'ERROR'
     | 'CANCELED';
+  deployStepStatus?: 'UNKNOWN' | 'PENDING' | 'RUNNING' | 'ERROR' | 'SUCCESS';
+  buildStepStatus?: 'UNKNOWN' | 'PENDING' | 'RUNNING' | 'ERROR' | 'SUCCESS';
   createdAt: string;
   updatedAt: string;
 }

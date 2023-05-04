@@ -15,5 +15,16 @@ export const GLOBALS = `
         }
       }  
     }
+
+    TopBar {
+      starText {
+        desktop
+        mobile
+      }
+      announcement {   
+        name
+        content
+      }
+    }
   }
 `
