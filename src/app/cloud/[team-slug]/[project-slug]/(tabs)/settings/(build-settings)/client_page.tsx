@@ -80,6 +80,13 @@ export const ProjectBuildSettingsPage = () => {
           initialValue={project?.runScript}
           required
         />
+        <Text
+          label="Repository"
+          initialValue={project?.repositoryFullName}
+          required
+          disabled
+          description="This was set when your project was first deployed."
+        />
         <BranchSelector
           repositoryFullName={project?.repositoryFullName}
           initialValue={project?.deploymentBranch}
