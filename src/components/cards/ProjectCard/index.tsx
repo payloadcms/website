@@ -42,13 +42,15 @@ export const ProjectCard: React.FC<{
         {repositoryFullName && (
           <div className={classes.projectRepo}>
             <GitHubIcon className={classes.githubIcon} />
-            {repositoryFullName}
+            <p>{repositoryFullName}</p>
           </div>
         )}
         {deploymentBranch && (
           <div className={classes.projectBranch}>
-            <BranchIcon className={classes.branchIcon} />
-            {deploymentBranch}
+            <div className={classes.branchIcon}>
+              <BranchIcon size="full" />
+            </div>
+            <p>{deploymentBranch}</p>
           </div>
         )}
       </div>
