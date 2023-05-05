@@ -2,9 +2,9 @@ import React, { Fragment } from 'react'
 import Link from 'next/link'
 
 import { cloudSlug } from '@root/app/cloud/client_layout'
-import { BranchIcon } from '@root/graphics/BranchIcon'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { BranchIcon } from '@root/icons/BranchIcon'
 import { Project } from '@root/payload-cloud-types'
 
 import classes from './index.module.scss'
