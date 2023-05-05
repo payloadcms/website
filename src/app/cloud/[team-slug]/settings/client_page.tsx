@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { toast } from 'react-toastify'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
@@ -30,8 +31,6 @@ export const TeamSettingsPage = () => {
     name: string
     data: { message: string; field: string }[]
   }>()
-
-  const [success, setSuccess] = React.useState<boolean>(false)
 
   const handleSubmit: OnSubmit = React.useCallback(
     async ({ unflattenedData, dispatchFields }): Promise<void> => {
@@ -76,17 +75,19 @@ export const TeamSettingsPage = () => {
       } = await req.json()
 
       if (!req.ok) {
+        toast.error(`Failed up update settings: ${response?.errors?.[0]}`)
         setError(response?.errors?.[0])
         return
       }
 
       setError(undefined)
-      setSuccess(true)
       setTeam(response.doc)
+      toast.success('Settings updated successfully.')
 
       // if the team slug has changed, redirect to the new URL
       if (response.doc.slug !== team?.slug) {
         router.push(`/cloud/${response.doc.slug}/settings`)
+        return
       }
 
       // TODO: update the form state with the new team data
@@ -101,25 +102,11 @@ export const TeamSettingsPage = () => {
   return (
     <React.Fragment>
       <SectionHeader title="Team Settings" />
-      {(success || error) && (
-        <div className={classes.formState}>
-          {success && <p className={classes.success}>Team updated successfully!</p>}
-          {error && <p className={classes.error}>{error?.message}</p>}
-        </div>
-      )}
       <Form
         onSubmit={handleSubmit}
         className={classes.form}
         errors={error?.data}
         initialState={{
-          name: {
-            initialValue: team?.name,
-            value: team?.name,
-          },
-          billingEmail: {
-            initialValue: team?.billingEmail,
-            value: team?.billingEmail,
-          },
           sendEmailInvitationsTo: {
             initialValue: [
               {
@@ -132,9 +119,14 @@ export const TeamSettingsPage = () => {
       >
         <FormSubmissionError />
         <FormProcessing message="Updating team, one moment..." />
-        <Text path="name" label="Team Name" required />
+        <Text path="name" label="Team Name" required initialValue={team?.name} />
         <UniqueTeamSlug teamID={team?.id} initialValue={team?.slug} />
-        <Text path="billingEmail" label="Billing Email" required />
+        <Text
+          path="billingEmail"
+          label="Billing Email"
+          required
+          initialValue={team?.billingEmail}
+        />
         <Text
           value={team?.id}
           label="Team ID"
