@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
-import { useCheckToken } from '@root/utilities/use-check-token'
+import { useCheckToken } from '@root/app/new/authorize/useCheckToken'
 import useDebounce from '@root/utilities/use-debounce'
 
 export const useGitAuthRedirect = (args?: {

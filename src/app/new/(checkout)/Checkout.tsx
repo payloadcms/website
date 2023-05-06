@@ -28,6 +28,7 @@ import { usePlanSelector } from '@components/PlanSelector'
 import { TeamSelector } from '@components/TeamSelector'
 import { UniqueDomain } from '@components/UniqueDomain'
 import { UniqueRepoName } from '@components/UniqueRepoName'
+import { UniqueProjectSlug } from '@components/UniqueSlug'
 import { cloudSlug } from '@root/app/cloud/client_layout'
 import { Plan, Project, Team } from '@root/payload-cloud-types'
 import { useGlobals } from '@root/providers/Globals'
@@ -254,6 +255,11 @@ const Checkout: React.FC<{
                     required
                   />
                   <Text label="Project name" path="name" initialValue={project?.name} required />
+                  <UniqueProjectSlug
+                    initialValue={project?.slug}
+                    teamID={typeof project?.team === 'string' ? project?.team : project?.team?.id}
+                    projectID={project?.id}
+                  />
                   <TeamSelector
                     onChange={handleTeamChange}
                     className={classes.teamSelector}
@@ -327,12 +333,7 @@ const Checkout: React.FC<{
                     repositoryFullName={project?.repositoryFullName}
                     initialValue={project?.deploymentBranch}
                   />
-                  <UniqueDomain
-                    initialSubdomain={`${
-                      typeof project?.team === 'string' ? project?.team : project?.team?.slug
-                    }-${project?.slug}`}
-                    team={checkoutState?.team}
-                  />
+                  <UniqueDomain initialSubdomain={project?.slug} team={checkoutState?.team} />
                 </div>
                 <hr className={classes.hr} />
                 <EnvVars className={classes.envVars} />
