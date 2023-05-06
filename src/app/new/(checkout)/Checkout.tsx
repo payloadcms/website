@@ -333,12 +333,7 @@ const Checkout: React.FC<{
                     repositoryFullName={project?.repositoryFullName}
                     initialValue={project?.deploymentBranch}
                   />
-                  <UniqueDomain
-                    initialSubdomain={`${
-                      typeof project?.team === 'string' ? project?.team : project?.team?.slug
-                    }-${project?.slug}`}
-                    team={checkoutState?.team}
-                  />
+                  <UniqueDomain initialSubdomain={project?.slug} team={checkoutState?.team} />
                 </div>
                 <hr className={classes.hr} />
                 <EnvVars className={classes.envVars} />
