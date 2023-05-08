@@ -131,12 +131,6 @@
     @include extra-large-break {
         @include h6;
     }
-
-    @include mid-break {
-        font-size: small;
-        line-height: 1.25;
-        font-weight: bold;
-    }
 }
 
 .arrow {

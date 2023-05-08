@@ -47,11 +47,28 @@
     margin-top: calc(var(--base) / 2);
 }
 
+.projectBranch,
+.projectRepo {
+    display: flex;
+    gap: calc(var(--base) / 2);
+    align-items: center;
+
+    p {
+        margin: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+
 .githubIcon ,
 .branchIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 15px;
     height: 15px;
-    margin-right: calc(var(--base) / 2);
+    flex-shrink: 0;
 }
 
 .arrowIcon {

@@ -23,6 +23,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en">
       <head>
         <link rel="icon" href="/images/favicon.svg" />
+        <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_CLOUD_CMS_URL} />
+        <link rel="dns-prefetch" href="https://api.github.com/repos/payloadcms/payload" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
         <GoogleAnalytics />
       </head>

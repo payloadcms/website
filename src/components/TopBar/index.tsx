@@ -8,7 +8,7 @@ import type { TopBar as TopBarType } from '../../payload-types'
 import classes from './index.module.scss'
 
 export const TopBar: React.FC<TopBarType> = ({ starText, announcement }) => {
-  const [starCount, setStarCount] = React.useState(0)
+  const [starCount, setStarCount] = React.useState<number | undefined>()
 
   React.useEffect(() => {
     async function getStarCount() {
@@ -23,7 +23,7 @@ export const TopBar: React.FC<TopBarType> = ({ starText, announcement }) => {
 
   return (
     <div className={classes.topBar}>
-      {starCount && (
+      {typeof starCount === 'number' && (
         <div className={classes.wrap}>
           <div className={classes.starWrap}>
             <span className={classes.star}>&#11088;</span>
