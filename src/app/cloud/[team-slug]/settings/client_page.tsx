@@ -75,7 +75,7 @@ export const TeamSettingsPage = () => {
       } = await req.json()
 
       if (!req.ok) {
-        toast.error(`Failed up update settings: ${response?.errors?.[0]}`)
+        toast.error(`Failed to update settings: ${response?.errors?.[0]}`)
         setError(response?.errors?.[0])
         return
       }
@@ -102,21 +102,7 @@ export const TeamSettingsPage = () => {
   return (
     <React.Fragment>
       <SectionHeader title="Team Settings" />
-      <Form
-        onSubmit={handleSubmit}
-        className={classes.form}
-        errors={error?.data}
-        initialState={{
-          sendEmailInvitationsTo: {
-            initialValue: [
-              {
-                email: '',
-                roles: ['user'],
-              },
-            ],
-          },
-        }}
-      >
+      <Form onSubmit={handleSubmit} className={classes.form} errors={error?.data}>
         <FormSubmissionError />
         <FormProcessing message="Updating team, one moment..." />
         <Text path="name" label="Team Name" required initialValue={team?.name} />

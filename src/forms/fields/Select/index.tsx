@@ -16,7 +16,7 @@ type Option = {
   value: any
 }
 
-type SelectProps = FieldProps<string> & {
+type SelectProps = FieldProps<string | string[]> & {
   options: Option[]
   isMulti?: boolean
   components?: {
@@ -49,13 +49,19 @@ export const Select: React.FC<SelectProps> = props => {
   const prevValueFromProps = useRef<string | string[] | undefined>(valueFromProps)
 
   const defaultValidateFunction = React.useCallback(
-    (fieldValue: string): string | true => {
-      if (required && !fieldValue) {
+    (fieldValue: Option | Option[]): string | true => {
+      if (required && (!fieldValue || (Array.isArray(fieldValue) && !fieldValue.length))) {
         return 'This field is required.'
       }
 
-      if (fieldValue && !options.find(option => option && option.value === fieldValue)) {
-        return 'This field has an invalid selection'
+      const isValid = Array.isArray(fieldValue)
+        ? fieldValue.every(v => options.find(item => item.value === v.value))
+        : options.find(
+            item => item.value === (typeof fieldValue === 'string' ? fieldValue : fieldValue.value),
+          )
+
+      if (!isValid) {
+        return 'Selected value is not valid option.'
       }
 
       return true
@@ -73,8 +79,18 @@ export const Select: React.FC<SelectProps> = props => {
 
   const [internalState, setInternalState] = useState<Option | Option[] | null>(() => {
     const initialValue = valueFromContext || initialValueFromProps
-    if (Array.isArray(initialValue)) {
-      return options?.filter(item => initialValue?.some(item.value)) || []
+
+    if (initialValue && Array.isArray(initialValue)) {
+      return (
+        options?.filter(item => {
+          // `item.value` could be string or array, i.e. `isMulti`
+          if (Array.isArray(item.value)) {
+            return item.value.find(x => initialValue.find(y => y === x))
+          }
+
+          return initialValue.find(x => x === item.value)
+        }) || []
+      )
     }
 
     return options?.find(item => item.value === initialValue) || null
