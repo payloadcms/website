@@ -50,9 +50,6 @@ export const CreditCardElement: React.FC = () => {
           ':-webkit-autofill': {
             color: autoFillColor,
           },
-          webkitAutofill: {
-            color: `${autoFillColor} !important`,
-          },
           '::placeholder': {
             color: lightColor,
           },
