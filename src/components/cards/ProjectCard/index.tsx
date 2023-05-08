@@ -2,9 +2,9 @@ import React, { Fragment } from 'react'
 import Link from 'next/link'
 
 import { cloudSlug } from '@root/app/cloud/client_layout'
-import { BranchIcon } from '@root/graphics/BranchIcon'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { BranchIcon } from '@root/icons/BranchIcon'
 import { Project } from '@root/payload-cloud-types'
 
 import classes from './index.module.scss'
@@ -42,13 +42,15 @@ export const ProjectCard: React.FC<{
         {repositoryFullName && (
           <div className={classes.projectRepo}>
             <GitHubIcon className={classes.githubIcon} />
-            {repositoryFullName}
+            <p>{repositoryFullName}</p>
           </div>
         )}
         {deploymentBranch && (
           <div className={classes.projectBranch}>
-            <BranchIcon className={classes.branchIcon} />
-            {deploymentBranch}
+            <div className={classes.branchIcon}>
+              <BranchIcon size="full" />
+            </div>
+            <p>{deploymentBranch}</p>
           </div>
         )}
       </div>

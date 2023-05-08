@@ -1,4 +1,5 @@
 @use "../shared.scss";
+@use '@scss/common' as *;
 
 .component {
   position: relative;
@@ -37,14 +38,27 @@
   display: none;
 }
 
+.iconWrapper {
+  position: absolute;
+  top: 50%;
+  right: calc(var(--base) / 1);
+  transform: translate3d(0, -50%, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--base) / 2);
+}
+
 .icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 50%;
-  right: calc(var(--base) / 1.5);
-  width: calc(var(--base) / 2);
   height: calc(var(--base) / 2);
-  transform: translate3d(-50%, -50%, 0);
+  width: calc(var(--base) / 2);
+}
+
+.suffix {
+  @include small;
+  display: flex;
+  color: var(--theme-elevation-500);
 }
