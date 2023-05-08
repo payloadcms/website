@@ -9,17 +9,16 @@ import { slugValidationReducer, SlugValidationResult } from './reducer'
 
 import classes from './index.module.scss'
 
-// checks Payload to ensure that the given slug is unique
-// displays a success message if the slug is available
-// warns the user if the slug is taken
+// checks Payload to ensure that the given slug is unique and ensures only the validated slug is used
+// displays a success message if the slug is available, warns the user if the slug is taken
 export const UniqueSlug: React.FC<{
   initialValue?: string
   path?: 'slug' | 'createTeamFromSlug'
   collection: 'projects' | 'teams'
   teamID?: string
   label?: string
-  id?: string
-}> = ({ initialValue, collection = 'teams', path = 'slug', label = 'Slug', teamID, id }) => {
+  docID?: string
+}> = ({ initialValue, collection = 'teams', path = 'slug', label = 'Slug', teamID, docID }) => {
   const [value, setValue] = React.useState(initialValue)
   const debouncedValue = useDebounce(value, 100)
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -27,7 +26,7 @@ export const UniqueSlug: React.FC<{
   const [error, setError] = React.useState<string | null>(null)
 
   const [slugValidation, dispatchSlugValidation] = React.useReducer(slugValidationReducer, {
-    slug: initialValue || '',
+    slug: '',
     isUnique: undefined,
   })
 
@@ -56,8 +55,8 @@ export const UniqueSlug: React.FC<{
                 body: JSON.stringify({
                   slug: debouncedValue,
                   collection,
-                  team: collection === 'projects' ? teamID : undefined,
-                  id,
+                  team: teamID,
+                  id: docID,
                 }),
               },
             )
@@ -93,7 +92,7 @@ export const UniqueSlug: React.FC<{
     return () => {
       clearTimeout(timer)
     }
-  }, [debouncedValue, collection, teamID, initialValue, id])
+  }, [debouncedValue, collection, teamID, initialValue, docID])
 
   const validatedSlug = slugValidation?.slug
   const slugIsValid = validatedSlug && slugValidation?.isUnique
@@ -149,22 +148,24 @@ export const UniqueTeamSlug: React.FC<{
       label="Team Slug"
       path={path}
       collection="teams"
-      id={teamID}
+      docID={teamID}
       initialValue={initialValue}
     />
   )
 }
 
 export const UniqueProjectSlug: React.FC<{
-  teamID: string
+  teamID?: string
+  projectID?: string
   initialValue?: string
-}> = ({ teamID, initialValue }) => {
+}> = ({ teamID, projectID, initialValue }) => {
   return (
     <UniqueSlug
       label="Project Slug"
       path="slug"
       collection="projects"
       teamID={teamID}
+      docID={projectID}
       initialValue={initialValue}
     />
   )

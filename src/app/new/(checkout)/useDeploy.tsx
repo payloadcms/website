@@ -119,11 +119,6 @@ export const useDeploy = (args: {
           }),
         })
 
-        // once the project is deployed successfully, create the subscription
-        // also confirm card payment at this time
-        const subscription = await createSubscription()
-        await confirmCardPayment(subscription)
-
         const res: {
           doc: Project
           message: string
@@ -131,9 +126,10 @@ export const useDeploy = (args: {
         } = await req.json()
 
         if (req.ok) {
-          if (!user.teams || user.teams.length === 0) {
-            throw new Error('No teams found')
-          }
+          // once the project is deployed successfully, create the subscription
+          // also confirm card payment at this time
+          const subscription = await createSubscription()
+          await confirmCardPayment(subscription)
 
           if (typeof onDeploy === 'function') {
             onDeploy(res.doc)

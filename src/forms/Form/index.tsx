@@ -102,8 +102,8 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
   const getFields = useCallback(() => contextRef.current.fields, [contextRef])
 
   const getField = useCallback(
-    (path: string): Field => {
-      return contextRef.current.fields[path]
+    (path: string): Field | undefined => {
+      return path ? contextRef.current.fields[path] : undefined
     },
     [contextRef],
   )

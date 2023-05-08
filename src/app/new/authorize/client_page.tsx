@@ -6,11 +6,11 @@ import { redirect, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
+import { useCheckToken } from '@root/app/new/authorize/useCheckToken'
+import { useExchangeCode } from '@root/app/new/authorize/useExchangeCode'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
-import { useCheckToken } from '@root/utilities/use-check-token'
-import { useExchangeCode } from '@root/utilities/use-exchange-code'
 import { usePopupWindow } from '@root/utilities/use-popup-window'
 
 import classes from './index.module.scss'
