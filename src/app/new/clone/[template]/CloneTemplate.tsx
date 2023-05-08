@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useCallback } from 'react'
+import { cloudSlug } from '@cloud/client_layout'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
 import Form from '@forms/Form'
@@ -40,9 +41,12 @@ export const CloneTemplate: React.FC<{
     installID: selectedInstall?.id,
     templateID: template?.id,
     teamID: matchedTeam?.id, // the first team is used as a fallback
-    onSubmit: ({ id: draftProjectID }) => {
-      router.push(`/new/clone/configure/${draftProjectID}`)
-    },
+    onSubmit: ({ slug: draftProjectSlug, team }) =>
+      router.push(
+        `/${cloudSlug}/${
+          typeof team === 'string' ? team : team?.slug
+        }/${draftProjectSlug}/configure`,
+      ),
   })
 
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer()

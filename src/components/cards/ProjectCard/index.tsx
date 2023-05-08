@@ -20,11 +20,7 @@ export const ProjectCard: React.FC<{
   const teamSlug = typeof team === 'string' ? team : team.slug
   return (
     <Link
-      href={
-        status === 'draft'
-          ? `/new/configure/${project.id}`
-          : `/${cloudSlug}/${teamSlug}/${project.slug}`
-      }
+      href={`/${cloudSlug}/${teamSlug}/${project.slug}${status === 'draft' ? '/configure' : ''}`}
       className={[className, classes.project].filter(Boolean).join(' ')}
     >
       <div className={classes.leader}>
