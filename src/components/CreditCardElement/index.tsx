@@ -28,6 +28,8 @@ export const CreditCardElement: React.FC = () => {
       theme === 'dark' ? '--color-base-150' : '--color-base-750',
     )
 
+    const autoFillColor = documentStyle.getPropertyValue('--color-base-750')
+
     const errorColor = documentStyle.getPropertyValue('--color-error-500')?.trim()
 
     const lightColor = documentStyle
@@ -46,7 +48,10 @@ export const CreditCardElement: React.FC = () => {
           fontSize: '16px',
           fontSmoothing: 'antialiased',
           ':-webkit-autofill': {
-            color: color,
+            color: autoFillColor,
+          },
+          webkitAutofill: {
+            color: `${autoFillColor} !important`,
           },
           '::placeholder': {
             color: lightColor,
