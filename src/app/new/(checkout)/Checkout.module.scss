@@ -49,7 +49,7 @@
 
 .sidebar {
     position: sticky;
-    top: calc(var(--base) * 5);
+    top: var(--page-padding-top);
     gap: var(--base);
     display: flex;
     flex-direction: column;
