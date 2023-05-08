@@ -8,8 +8,4 @@
     },
     "editor.formatOnSave": true,
   },
-  "workbench.colorCustomizations": {
-    "titleBar.activeBackground": "#192e22",
-    "titleBar.inactiveBackground": "#192e2299",
-  },
 }
