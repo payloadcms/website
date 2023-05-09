@@ -29,7 +29,10 @@ const MobileNavItems = ({ navItems }: NavItems) => {
       {(navItems || []).map((item, index) => {
         return <CMSLink className={classes.mobileMenuItem} key={index} {...item.link} />
       })}
-      <Link className={classes.mobileMenuItem} href="/new">
+      <Link
+        className={[classes.newProject, classes.mobileMenuItem].filter(Boolean).join(' ')}
+        href="/new"
+      >
         New project
       </Link>
       {!user && (
@@ -37,6 +40,14 @@ const MobileNavItems = ({ navItems }: NavItems) => {
           Login
         </Link>
       )}
+      <a
+        className={[classes.discord, classes.mobileMenuItem].filter(Boolean).join(' ')}
+        href="https://discord.com/invite/r6sCXqVk3v"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <DiscordIcon />
+      </a>
     </ul>
   )
 }
