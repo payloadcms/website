@@ -3,9 +3,11 @@
 .header {
   position: fixed;
   top: var(--top-bar-height);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
   width: 100%;
   z-index: var(--z-nav);
-  padding: var(--base) 0;
   transition: color 300ms ease;
 
   &:before {
@@ -35,18 +37,10 @@
     transition: opacity 500ms ease-out;
   }
 
-  @include large-break {
-    padding: var(--base) 0;
-  }
-
   @include mobile-header-break {
     &:before, &:after {
       transition: opacity 200ms ease;
     }
-  }
-
-  @include mid-break {
-    padding: calc(var(--base) * .75) 0;
   }
 }
 
