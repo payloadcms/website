@@ -46,7 +46,7 @@ export const TeamMembersPage = () => {
         ...(unflattenedData || {}),
         sendEmailInvitationsTo: unflattenedData?.sendEmailInvitationsTo?.map(invite => ({
           email: invite?.email,
-          roles: invite?.roles?.map(role => role),
+          roles: invite?.roles,
         })),
       }
 
@@ -85,7 +85,7 @@ export const TeamMembersPage = () => {
           ...(team?.invitations || []),
           ...(response.doc?.sendEmailInvitationsTo?.map(invite => ({
             email: invite?.email,
-            roles: invite?.roles?.map(role => role),
+            roles: invite?.roles,
             invitedOn: new Date().toISOString(),
           })) || []),
         ],

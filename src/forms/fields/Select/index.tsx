@@ -50,14 +50,24 @@ export const Select: React.FC<SelectProps> = props => {
 
   const defaultValidateFunction = React.useCallback(
     (fieldValue: Option | Option[]): string | true => {
-      if (required && (!fieldValue || (Array.isArray(fieldValue) && !fieldValue.length))) {
+      // need to check all types of values here, strings, arrays, and objects
+      if (
+        required &&
+        (!fieldValue ||
+          (Array.isArray(fieldValue)
+            ? !fieldValue.length
+            : !(typeof fieldValue === 'string' ? fieldValue : fieldValue?.value)))
+      ) {
         return 'This field is required.'
       }
 
       const isValid = Array.isArray(fieldValue)
-        ? fieldValue.every(v => options.find(item => item.value === v))
+        ? fieldValue.every(v =>
+            options.find(item => item.value === (typeof v === 'string' ? v : v?.value)),
+          ) // eslint-disable-line function-paren-newline
         : options.find(
-            item => item.value === (typeof fieldValue === 'string' ? fieldValue : fieldValue),
+            item =>
+              item.value === (typeof fieldValue === 'string' ? fieldValue : fieldValue?.value),
           )
 
       if (!isValid) {
@@ -158,6 +168,7 @@ export const Select: React.FC<SelectProps> = props => {
   const handleChange = useCallback(
     (incomingSelection: Option | Option[]) => {
       let selectedOption
+
       if (Array.isArray(incomingSelection)) {
         selectedOption = incomingSelection
       } else {

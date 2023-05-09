@@ -91,8 +91,10 @@ function fieldReducer(state: Fields, action: Action): Fields {
       fields.forEach(field => {
         newState[field.path] = {
           ...(newState[field.path] || {}),
+          initialValue: field.initialValue,
           value: field.value,
           valid: field.valid,
+          errorMessage: field.errorMessage,
         }
       })
 

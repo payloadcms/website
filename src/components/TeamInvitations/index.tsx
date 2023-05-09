@@ -60,7 +60,7 @@ export const TeamInvitations: React.FC<{
 
   return (
     <div ref={ref} className={[classes.invitations, className].filter(Boolean).join(' ')}>
-      <Heading element="h6" marginTop={false}>
+      <Heading element="h6" marginTop={false} marginBottom={false}>
         Current invitations
       </Heading>
       {error && <p className={classes.error}>{error}</p>}
@@ -70,8 +70,8 @@ export const TeamInvitations: React.FC<{
         <TeamMemberRow
           key={`${invite?.id}-${index}`}
           leader={`Invite ${(index + 1).toString()}`}
-          email={typeof invite?.email === 'string' ? invite?.email : ''}
-          roles={invite?.roles}
+          initialEmail={typeof invite?.email === 'string' ? invite?.email : ''}
+          initialRoles={invite?.roles}
           footer={
             <Fragment>
               {invite?.invitedOn && (

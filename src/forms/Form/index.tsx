@@ -75,6 +75,7 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
       if (!formIsValid) {
         e.preventDefault()
         setIsProcessing(false)
+        setErrorFromSubmit('Please fix the errors below and try again.')
         return false
       }
 
@@ -94,6 +95,7 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
 
       setIsProcessing(false)
       setIsModified(false)
+      setHasSubmitted(false)
       return false
     },
     [onSubmit, setHasSubmitted, setIsProcessing, setIsModified, fields],

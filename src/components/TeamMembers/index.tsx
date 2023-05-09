@@ -13,7 +13,7 @@ export const TeamMembers: React.FC<{
 }> = ({ className, team }) => {
   return (
     <div className={[classes.members, className].filter(Boolean).join(' ')}>
-      <Heading element="h6" marginTop={false}>
+      <Heading element="h6" marginTop={false} marginBottom={false}>
         Team members
       </Heading>
       {team?.members?.map((member, index) => {
@@ -21,8 +21,8 @@ export const TeamMembers: React.FC<{
           <TeamMemberRow
             key={index}
             leader={`Member ${(index + 1).toString()}`}
-            email={typeof member?.user === 'string' ? member?.user : member?.user?.email}
-            roles={member?.roles}
+            initialEmail={typeof member?.user === 'string' ? member?.user : member?.user?.email}
+            initialRoles={member?.roles}
             footer={
               <Fragment>
                 {`Joined On ${formatDate({
