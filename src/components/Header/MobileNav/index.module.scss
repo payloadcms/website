@@ -99,12 +99,15 @@
   @include mobile-header-break {
     gap: calc(var(--base) * 1.25);
   }
+
+  @include small-break {
+    gap: var(--base);
+  }
 }
 
 .mobileMenuItem {
   @include h3;
   margin: 0;
-  font-weight: bold;
   text-decoration: none;
 
   @include small-break {
