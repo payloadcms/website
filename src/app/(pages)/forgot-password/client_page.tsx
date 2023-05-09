@@ -51,7 +51,7 @@ export const ForgotPassword: React.FC = () => {
 
         dispatchFields({
           type: 'REPLACE_STATE',
-          state: initialFormState,
+          payload: initialFormState,
         })
 
         setSuccessfullySubmitted(true)

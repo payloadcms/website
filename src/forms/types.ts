@@ -53,7 +53,7 @@ export interface SetSubmitted {
 
 interface REPLACE_STATE {
   type: 'REPLACE_STATE'
-  state: Fields
+  payload: Fields
 }
 
 interface REMOVE {
@@ -76,7 +76,12 @@ interface UPDATE {
   valid: boolean
 }
 
-export type Action = REPLACE_STATE | REMOVE | REMOVE_ROW | UPDATE
+interface UPDATE_MANY {
+  type: 'UPDATE_MANY'
+  payload: Partial<Fields>
+}
+
+export type Action = REPLACE_STATE | REMOVE | REMOVE_ROW | UPDATE | UPDATE_MANY
 
 export interface IFormContext {
   initialState: InitialState

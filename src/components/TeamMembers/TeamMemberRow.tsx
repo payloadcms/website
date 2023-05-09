@@ -3,7 +3,6 @@ import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 
 import { userTeamRoles } from '@components/InviteTeammates'
-import { BorderBox } from '@root/app/_components/BorderBox'
 
 import classes from './TeamMemberRow.module.scss'
 
@@ -16,13 +15,13 @@ export const TeamMemberRow: React.FC<{
   const { email, leader, footer, roles } = props
 
   return (
-    <BorderBox className={classes.member}>
+    <div className={classes.member}>
       {leader && <p className={classes.leader}>{leader}</p>}
       <div className={classes.memberFields}>
         <Text disabled value={email} label="Email" />
         <Select isMulti disabled value={roles} label="Roles" options={userTeamRoles} />
       </div>
       <div className={classes.footer}>{footer}</div>
-    </BorderBox>
+    </div>
   )
 }

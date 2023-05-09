@@ -15,6 +15,10 @@ const sidebarNavRoutes = [
     label: 'General',
   },
   {
+    label: 'Members',
+    slug: 'members',
+  },
+  {
     label: 'Billing',
     slug: 'billing',
   },

@@ -99,10 +99,6 @@ const DashboardHeader = () => {
         tabLabel: 'Settings',
         href: `/${team?.slug}/${project?.slug}/settings`,
       },
-      configure: {
-        tabLabel: 'Configure',
-        href: `/${team?.slug}/${project?.slug}/configure`,
-      },
     }
 
     isSettingsRoute = segments[3] === 'settings'
