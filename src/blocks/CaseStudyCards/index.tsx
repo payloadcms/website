@@ -31,6 +31,7 @@ export const CaseStudyCards: React.FC<Props> = props => {
                       href={`/case-studies/${card.caseStudy.slug}`}
                       key={i}
                       className={classes.card}
+                      prefetch={false}
                     >
                       <RichText className={classes.content} content={card.richText} />
                       <div className={classes.media}>

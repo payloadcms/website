@@ -44,6 +44,7 @@ export const CommunityHelp: React.FC = () => {
                         className={classes.postContent}
                         href={`/community-help/${platform.toLowerCase()}/${slug}`}
                         style={{ textDecoration: 'none' }}
+                        prefetch={false}
                       >
                         <div>
                           <h5 className={classes.title}>{name}</h5>

@@ -43,7 +43,7 @@ export const DropdownMenu: React.FC<{
       <div className={classes.dropdown} ref={ref}>
         <div>
           <p className={classes.dropdownLabel}>Personal account</p>
-          <Link href={`/${cloudSlug}`} className={classes.profileLink}>
+          <Link href={`/${cloudSlug}`} className={classes.profileLink} prefetch={false}>
             <div className={classes.profileAvatar}>
               <div className={classes.userInitial}>{user?.email?.charAt(0).toUpperCase()}</div>
             </div>
@@ -52,7 +52,7 @@ export const DropdownMenu: React.FC<{
         </div>
         <div>
           <p className={classes.dropdownLabel}>Teams</p>
-          <Link href={`/${cloudSlug}`} className={classes.profileLink}>
+          <Link href={`/${cloudSlug}`} className={classes.profileLink} prefetch={false}>
             <div className={classes.profileAvatar}>
               <div className={classes.userInitial}>T</div>
             </div>

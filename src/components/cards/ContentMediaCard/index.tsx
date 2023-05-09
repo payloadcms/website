@@ -12,7 +12,7 @@ export const ContentMediaCard: React.FC<BlogCardProps> = props => {
   return (
     <div className={[classes.blogCard, className && className].filter(Boolean).join(' ')}>
       {typeof media !== 'string' && (
-        <Link href={href}>
+        <Link href={href} prefetch={false}>
           <Media
             resource={media}
             className={classes.media}
@@ -21,7 +21,7 @@ export const ContentMediaCard: React.FC<BlogCardProps> = props => {
         </Link>
       )}
 
-      <Link href={href} className={classes.title}>
+      <Link href={href} className={classes.title} prefetch={false}>
         {title}
       </Link>
 

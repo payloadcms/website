@@ -57,7 +57,7 @@ const DiscordGitCTA: React.FC = () => {
           <br />
           <p className={classes.license}>
             Get help straight from the Payload team with an{' '}
-            <Link className={classes.button} href="/for-enterprise">
+            <Link className={classes.button} href="/for-enterprise" prefetch={false}>
               Enterprise License
             </Link>
             .

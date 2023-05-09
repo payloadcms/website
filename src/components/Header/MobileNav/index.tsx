@@ -29,11 +29,11 @@ const MobileNavItems = ({ navItems }: NavItems) => {
       {(navItems || []).map((item, index) => {
         return <CMSLink className={classes.mobileMenuItem} key={index} {...item.link} />
       })}
-      <Link className={classes.mobileMenuItem} href="/new">
+      <Link className={classes.mobileMenuItem} href="/new" prefetch={false}>
         New project
       </Link>
       {!user && (
-        <Link className={classes.mobileMenuItem} href="/login">
+        <Link className={classes.mobileMenuItem} href="/login" prefetch={false}>
           Login
         </Link>
       )}
@@ -87,14 +87,20 @@ export const MobileNav: React.FC<NavItems> = props => {
         <Gutter>
           <Grid>
             <Cell className={classes.menuBarContainer}>
-              <Link href="/" className={classes.logo}>
+              <Link href="/" className={classes.logo} prefetch={false}>
                 <FullLogo />
               </Link>
 
               <div className={classes.icons}>
                 <div className={classes.cloudNewProject}>
-                  <Link href="/new">New project</Link>
-                  {!user && <Link href="/login">Login</Link>}
+                  <Link href="/new" prefetch={false}>
+                    New project
+                  </Link>
+                  {!user && (
+                    <Link href="/login" prefetch={false}>
+                      Login
+                    </Link>
+                  )}
                 </div>
                 {user && <Avatar className={classes.mobileAvatar} />}
                 <DocSearch />

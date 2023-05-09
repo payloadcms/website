@@ -3,6 +3,7 @@
 .mobileNav {
   display: none;
   visibility: hidden;
+  width: 100%;
 
   @include mobile-header-break {
     display: block;
