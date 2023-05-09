@@ -4,12 +4,15 @@ import * as React from 'react'
 import { usePathname } from 'next/navigation'
 import Script from 'next/script'
 
+import { usePrivacy } from '@root/providers/Privacy'
 import { analyticsEvent } from '@root/utilities/analytics'
 
 const gaMeasurementID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
 export const GoogleAnalytics: React.FC = () => {
   const pathname = usePathname()
+
+  const { cookieConsent } = usePrivacy()
 
   React.useEffect(() => {
     if (!gaMeasurementID || !window?.location?.href) return
@@ -21,7 +24,7 @@ export const GoogleAnalytics: React.FC = () => {
     })
   }, [pathname])
 
-  if (!gaMeasurementID) return null
+  if (!cookieConsent || !gaMeasurementID) return null
 
   return (
     <React.Fragment>

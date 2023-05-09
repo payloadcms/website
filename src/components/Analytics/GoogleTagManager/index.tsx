@@ -3,10 +3,14 @@
 import React, { Fragment } from 'react'
 import Script from 'next/script'
 
+import { usePrivacy } from '@root/providers/Privacy'
+
 const gtmMeasurementID = process.env.NEXT_PUBLIC_GTM_MEASUREMENT_ID
 
 export const GoogleTagManager: React.FC = () => {
-  if (!gtmMeasurementID) return null
+  const { cookieConsent } = usePrivacy()
+
+  if (!cookieConsent || !gtmMeasurementID) return null
 
   return (
     <Fragment>

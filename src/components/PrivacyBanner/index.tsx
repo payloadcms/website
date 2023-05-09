@@ -1,18 +1,18 @@
+'use client'
+
 import * as React from 'react'
 import Link from 'next/link'
 
 import { Button } from '@components/Button'
-import { Gutter } from '@components/Gutter'
+import { usePrivacy } from '@root/providers/Privacy'
 
 import classes from './index.module.scss'
 
-export const PrivacyBanner: React.FC<{ accept: () => void }> = ({
-  accept,
-}: {
-  accept: () => void
-}) => {
+export const PrivacyBanner: React.FC = () => {
   const [closeBanner, setCloseBanner] = React.useState(false)
   const [animateOut, setAnimateOut] = React.useState(false)
+
+  const { showConsent, updateCookieConsent } = usePrivacy()
 
   const handleCloseBanner = () => {
     setAnimateOut(true)
@@ -26,12 +26,12 @@ export const PrivacyBanner: React.FC<{ accept: () => void }> = ({
     }
   }, [animateOut])
 
-  if (closeBanner) {
+  if (!showConsent || closeBanner) {
     return null
   }
 
   return (
-    <Gutter
+    <div
       className={[classes.privacyBanner, animateOut && classes.animateOut]
         .filter(Boolean)
         .join(' ')}
@@ -47,21 +47,24 @@ export const PrivacyBanner: React.FC<{ accept: () => void }> = ({
         <div className={classes.buttonWrap}>
           <Button
             appearance="secondary"
-            label="REJECT ALL"
+            label="Dismiss"
             className={classes.rejectButton}
-            onClick={handleCloseBanner}
+            onClick={() => {
+              updateCookieConsent(false, true)
+              handleCloseBanner()
+            }}
           />
           <Button
-            appearance="secondary"
-            label="ACCEPT ALL"
+            appearance="primary"
+            label="Accept"
             className={classes.acceptButton}
             onClick={() => {
-              accept()
+              updateCookieConsent(true, false)
               handleCloseBanner()
             }}
           />
         </div>
       </div>
-    </Gutter>
+    </div>
   )
 }

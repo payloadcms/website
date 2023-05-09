@@ -1,13 +1,14 @@
+'use client'
+
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
-import { PrivacyBanner } from '@components/PrivacyBanner'
 import canUseDom from '@root/utilities/can-use-dom'
 import { locate, LocateResponse } from '../../../functions-api'
 
 type Privacy = {
   showConsent?: boolean
   cookieConsent?: boolean
-  updateCookieConsent: (accepted: boolean) => void
+  updateCookieConsent: (accepted: boolean, rejected: boolean) => void
   country?: string
 }
 
@@ -20,15 +21,17 @@ const Context = createContext<Privacy>({
 
 type CookieConsent = {
   accepted: boolean
+  rejected: boolean
   at: string
   country: string
 }
 
 const getLocaleStorage = (): CookieConsent =>
   canUseDom && JSON.parse(window.localStorage.getItem('cookieConsent') || 'null')
-const setLocaleStorage = (accepted: boolean, country: string) => {
+const setLocaleStorage = (accepted: boolean, rejected: boolean, country: string) => {
   const cookieConsent: CookieConsent = {
     accepted,
+    rejected,
     country,
     at: new Date().toISOString(),
   }
@@ -44,8 +47,6 @@ const getGDPR = async (): Promise<LocateResponse> => {
   return { isGDPR: true }
 }
 
-const usePrivacy = (): Privacy => useContext(Context)
-
 type PrivacyProviderProps = {
   children: React.ReactNode
 }
@@ -57,9 +58,9 @@ const PrivacyProvider: React.FC<PrivacyProviderProps> = props => {
   const [country, setCountry] = useState<string | undefined>()
 
   const updateCookieConsent = useCallback(
-    (accepted: boolean) => {
+    (accepted: boolean, rejected: boolean) => {
       setCookieConsent(accepted)
-      setLocaleStorage(accepted, country || '')
+      setLocaleStorage(accepted, rejected, country || '')
     },
     [country],
   )
@@ -78,7 +79,7 @@ const PrivacyProvider: React.FC<PrivacyProviderProps> = props => {
       }
       if (!gdpr.isGDPR) {
         setCookieConsent(true)
-        updateCookieConsent(true)
+        updateCookieConsent(true, false)
       }
       setShowConsent(gdpr?.isGDPR || false)
     })()
@@ -106,9 +107,10 @@ const PrivacyProvider: React.FC<PrivacyProviderProps> = props => {
       }}
     >
       {children}
-      {showConsent && <PrivacyBanner accept={() => updateCookieConsent(true)} />}
     </Context.Provider>
   )
 }
+
+const usePrivacy = (): Privacy => useContext(Context)
 
 export { PrivacyProvider, usePrivacy }
