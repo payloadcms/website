@@ -7,7 +7,7 @@ import { ArrowIcon } from '@root/icons/ArrowIcon'
 
 import classes from './index.module.scss'
 
-const gitURL = 'https://github.com/payloadcms'
+const gitURL = 'https://github.com/payloadcms/payload'
 
 const discordURL = 'https://discord.gg/FSn5QRdsbC'
 

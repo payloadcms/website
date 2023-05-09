@@ -27,7 +27,16 @@ export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
   const theme = useTheme()
 
   React.useEffect(() => {
-    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0
+    const isMac =
+      // @ts-ignore (newer browsers only)
+      (navigator?.userAgentData?.platform &&
+        // @ts-ignore
+        navigator.userAgentData.platform.toUpperCase().indexOf('MAC') >= 0) ||
+      // @ts-ignore (older browsers only)
+      navigator.userAgent.toUpperCase().indexOf('MAC') >= 0 ||
+      // @ts-ignore (older browsers only)
+      (navigator?.platform && navigator.platform.toUpperCase().indexOf('MAC') >= 0)
+
     setOS(isMac ? '⌘' : 'CTRL')
   }, [])
 
