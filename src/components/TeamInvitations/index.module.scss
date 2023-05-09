@@ -26,3 +26,13 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+.formState {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) / 2);
+
+  & > * {
+      margin: 0;
+  }
+}

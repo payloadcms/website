@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import { toast } from 'react-toastify'
 
 import { Heading } from '@components/Heading'
 import { TeamMemberRow } from '@components/TeamMembers/TeamMemberRow'
@@ -14,10 +15,11 @@ export const TeamInvitations: React.FC<{
   const ref = React.useRef<HTMLDivElement>(null)
   const [error, setError] = React.useState<string | null>(null)
   const [loading, setLoading] = React.useState<boolean>(false)
-  const [success, setSuccess] = React.useState<boolean>(false)
 
   const resendEmail = React.useCallback(
     async email => {
+      let timer: NodeJS.Timeout | null = null
+
       setTimeout(() => {
         window.scrollTo(0, ref?.current?.offsetTop || 0)
       }, 0)
@@ -25,6 +27,10 @@ export const TeamInvitations: React.FC<{
       if (!team || !email) {
         return
       }
+
+      timer = setTimeout(() => {
+        setLoading(true)
+      }, 500)
 
       try {
         const res = await fetch(
@@ -41,18 +47,25 @@ export const TeamInvitations: React.FC<{
           },
         )
 
+        if (timer) clearTimeout(timer)
+        setLoading(false)
+
         if (res.ok) {
           const { data, error } = await res.json()
           if (error) setError(error)
           else {
             setError(null)
-            setSuccess(true)
+            toast.success('Invitation resent')
           }
         } else {
-          setError('Invalid response from server')
+          throw new Error('Invalid response from server')
         }
       } catch (e) {
         setError(`Error sending invitation: ${e.message}`)
+      }
+
+      return () => {
+        if (timer) clearTimeout(timer)
       }
     },
     [team],
@@ -63,9 +76,10 @@ export const TeamInvitations: React.FC<{
       <Heading element="h6" marginTop={false} marginBottom={false}>
         Current invitations
       </Heading>
-      {error && <p className={classes.error}>{error}</p>}
-      {success && <p className={classes.success}>Invitation resent!</p>}
-      {loading && <p className={classes.loading}>Resending invitation...</p>}
+      <div className={classes.formState}>
+        {error && <p className={classes.error}>{error}</p>}
+        {loading && <p className={classes.loading}>Your invitation is being sent, one moment...</p>}
+      </div>
       {team?.invitations?.map((invite, index) => (
         <TeamMemberRow
           key={`${invite?.id}-${index}`}
