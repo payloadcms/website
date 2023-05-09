@@ -68,15 +68,19 @@ export const TeamInvitations: React.FC<{
       {loading && <p className={classes.loading}>Resending invitation...</p>}
       {team?.invitations?.map((invite, index) => (
         <TeamMemberRow
-          key={invite?.id}
-          leader={`Invite ${(index + 1).toString().padStart(2, '0')}`}
+          key={`${invite?.id}-${index}`}
+          leader={`Invite ${(index + 1).toString()}`}
           email={typeof invite?.email === 'string' ? invite?.email : ''}
           roles={invite?.roles}
           footer={
             <Fragment>
-              {`Invited On `}
-              {formatDate({ date: invite?.invitedOn || '' })}
-              {'—'}
+              {invite?.invitedOn && (
+                <Fragment>
+                  {`Invited On `}
+                  {formatDate({ date: invite.invitedOn })}
+                  {'—'}
+                </Fragment>
+              )}
               <button
                 className={classes.resendEmail}
                 type="button"

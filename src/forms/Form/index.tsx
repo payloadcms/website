@@ -129,8 +129,8 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
   useEffect(() => {
     contextRef.current = { ...initialContext }
     dispatchFields({
-      type: 'REPLACE_STATE',
-      state: initialState,
+      type: 'RESET',
+      payload: initialState,
     })
   }, [initialState])
 

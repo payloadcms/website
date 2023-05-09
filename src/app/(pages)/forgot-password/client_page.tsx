@@ -50,7 +50,7 @@ export const ForgotPassword: React.FC = () => {
         const res = await req.json()
 
         dispatchFields({
-          type: 'REPLACE_STATE',
+          type: 'RESET',
           payload: initialFormState,
         })
 

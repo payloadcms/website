@@ -83,19 +83,22 @@ export const SettingsPage = () => {
       if (data?.password && data.password !== data.passwordConfirm) {
         dispatchFields({
           type: 'UPDATE',
-          path: 'passwordConfirm',
-          errorMessage: 'Passwords do not match',
-          valid: false,
-          value: data.passwordConfirm,
+          payload: [
+            {
+              path: 'passwordConfirm',
+              errorMessage: 'Passwords do not match',
+              valid: false,
+              value: data.passwordConfirm,
+            },
+            {
+              path: 'password',
+              errorMessage: 'Passwords do not match',
+              valid: false,
+              value: data.password,
+            },
+          ],
         })
 
-        dispatchFields({
-          type: 'UPDATE',
-          path: 'password',
-          errorMessage: 'Passwords do not match',
-          valid: false,
-          value: data.password,
-        })
         return
       }
 

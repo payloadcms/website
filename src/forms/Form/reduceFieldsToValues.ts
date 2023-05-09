@@ -9,7 +9,7 @@ export const reduceFieldsToValues = (fields: Fields, unflatten: boolean): Proper
 
   Object.keys(fields).forEach(key => {
     if (fields[key].value !== undefined) {
-      data[key] = fields[key].value
+      data[key] = typeof fields[key] === 'object' ? fields[key]?.value : fields[key]
     }
   })
 

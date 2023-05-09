@@ -68,9 +68,11 @@ const Invites: React.FC<{
   )
 }
 
-export const InviteTeammates = () => {
+export const InviteTeammates = (props: { clearCount?: number }) => {
+  const { clearCount } = props
+
   return (
-    <ArrayProvider instantiateEmpty>
+    <ArrayProvider instantiateEmpty clearCount={clearCount}>
       <Invites />
     </ArrayProvider>
   )

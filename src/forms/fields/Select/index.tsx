@@ -55,9 +55,9 @@ export const Select: React.FC<SelectProps> = props => {
       }
 
       const isValid = Array.isArray(fieldValue)
-        ? fieldValue.every(v => options.find(item => item.value === v.value))
+        ? fieldValue.every(v => options.find(item => item.value === v))
         : options.find(
-            item => item.value === (typeof fieldValue === 'string' ? fieldValue : fieldValue.value),
+            item => item.value === (typeof fieldValue === 'string' ? fieldValue : fieldValue),
           )
 
       if (!isValid) {
@@ -77,11 +77,11 @@ export const Select: React.FC<SelectProps> = props => {
 
   const { value: valueFromContext, showError, setValue, errorMessage } = fieldFromContext
 
-  const [internalState, setInternalState] = useState<Option | Option[] | null>(() => {
+  const [internalState, setInternalState] = useState<Option | Option[] | undefined>(() => {
     const initialValue = valueFromContext || initialValueFromProps
 
     if (initialValue && Array.isArray(initialValue)) {
-      return (
+      const matchedOption =
         options?.filter(item => {
           // `item.value` could be string or array, i.e. `isMulti`
           if (Array.isArray(item.value)) {
@@ -90,10 +90,11 @@ export const Select: React.FC<SelectProps> = props => {
 
           return initialValue.find(x => x === item.value)
         }) || []
-      )
+
+      return matchedOption
     }
 
-    return options?.find(item => item.value === initialValue) || null
+    return options?.find(item => item.value === initialValue) || undefined
   })
 
   const setFormattedValue = useCallback(
@@ -127,14 +128,14 @@ export const Select: React.FC<SelectProps> = props => {
       }
 
       if (incomingSelection !== undefined && isDifferent) {
-        let newValue: Option | Option[] | null = null
+        let newValue: Option | Option[] | undefined = undefined
 
         if (Array.isArray(incomingSelection)) {
           newValue = options?.filter(item => incomingSelection.find(x => x === item.value)) || []
         }
 
         if (typeof incomingSelection === 'string') {
-          newValue = options?.find(item => item.value === incomingSelection) || null
+          newValue = options?.find(item => item.value === incomingSelection) || undefined
         }
 
         setInternalState(newValue)

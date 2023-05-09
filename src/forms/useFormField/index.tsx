@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import useDebounce from '@utilities/use-debounce'
 
 import { useForm, useFormModified, useFormProcessing, useFormSubmitted } from '../Form/context'
-import { Action, Value } from '../types'
+import { Action, FieldWithPath, Value } from '../types'
 import { FormField, SetValue } from './types'
 
 // this hook:
@@ -52,8 +52,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
         return
       }
 
-      const fieldToDispatch: Action = {
-        type: 'UPDATE',
+      const fieldToDispatch: FieldWithPath = {
         path,
         value: valueToSend,
         valid: true,
@@ -68,7 +67,10 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
 
       fieldToDispatch.initialValue = initialValue
 
-      dispatchFields(fieldToDispatch)
+      dispatchFields({
+        type: 'UPDATE',
+        payload: fieldToDispatch,
+      })
     },
     [path, dispatchFields, validate, initialValue],
   )

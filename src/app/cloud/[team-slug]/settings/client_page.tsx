@@ -62,7 +62,7 @@ export const TeamSettingsPage = () => {
       } = await req.json()
 
       if (!req.ok) {
-        toast.error(`Failed to update settings: ${response?.errors?.[0]}`)
+        toast.error(`Failed to update settings: ${response?.errors?.[0]?.message}`)
         setError(response?.errors?.[0])
         return
       }
@@ -76,12 +76,6 @@ export const TeamSettingsPage = () => {
         router.push(`/cloud/${response.doc.slug}/settings`)
         return
       }
-
-      // TODO: update the form state with the new team data
-      // dispatchFields({
-      //   type: 'REPLACE_STATE',
-      //   state:
-      // })
     },
     [user, team, setTeam, router],
   )

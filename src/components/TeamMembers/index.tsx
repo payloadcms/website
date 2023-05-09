@@ -20,7 +20,7 @@ export const TeamMembers: React.FC<{
         return (
           <TeamMemberRow
             key={index}
-            leader={`Member ${(index + 1).toString().padStart(2, '0')}`}
+            leader={`Member ${(index + 1).toString()}`}
             email={typeof member?.user === 'string' ? member?.user : member?.user?.email}
             roles={member?.roles}
             footer={
