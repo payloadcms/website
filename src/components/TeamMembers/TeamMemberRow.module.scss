@@ -11,6 +11,10 @@
   & > * {
       flex: 1;
   }
+
+  @include small-break {
+      flex-direction: column;
+  }
 }
 
 .footer {

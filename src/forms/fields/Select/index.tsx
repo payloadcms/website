@@ -170,7 +170,7 @@ export const Select: React.FC<SelectProps> = props => {
       let selectedOption
 
       if (Array.isArray(incomingSelection)) {
-        selectedOption = incomingSelection
+        selectedOption = incomingSelection.map(item => item.value)
       } else {
         selectedOption = incomingSelection.value
       }
