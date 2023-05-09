@@ -26,6 +26,7 @@ export const ProjectCard: React.FC<{
           : `/${cloudSlug}/${teamSlug}/${project.slug}`
       }
       className={[className, classes.project].filter(Boolean).join(' ')}
+      prefetch={false}
     >
       <div className={classes.leader}>
         {status === 'draft' && <span className={classes.draft}>Draft</span>}

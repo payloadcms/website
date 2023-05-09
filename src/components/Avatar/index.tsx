@@ -26,7 +26,7 @@ export const Avatar: React.FC<{ className?: string }> = ({ className }) => {
         </div>
       </button>
       <DropdownMenu isOpen={isOpen} onChange={setIsOpen} /> */}
-      <Link href={`/${cloudSlug}`}>
+      <Link href={`/${cloudSlug}`} prefetch={false}>
         <div className={classes.primaryUser}>
           <div className={classes.userInitial}>{user?.email?.charAt(0).toUpperCase()}</div>
         </div>

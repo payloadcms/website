@@ -20,7 +20,7 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
     <Gutter className={classes.desktopNav}>
       <Grid className={classes.grid}>
         <Cell className={classes.content}>
-          <Link href="/" className={classes.logo}>
+          <Link href="/" className={classes.logo} prefetch={false}>
             <FullLogo />
           </Link>
 
@@ -31,7 +31,9 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
           </div>
 
           <div className={classes.secondaryNavItems}>
-            <Link href="/new">New project</Link>
+            <Link href="/new" prefetch={false}>
+              New project
+            </Link>
 
             {user ? <Avatar className={classes.avatar} /> : <Link href="/login">Login</Link>}
 
