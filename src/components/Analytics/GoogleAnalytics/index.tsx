@@ -25,13 +25,10 @@ export const GoogleAnalytics: React.FC = () => {
 
   return (
     <React.Fragment>
+      <Script defer src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementID}`} />
       <Script
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementID}`}
-      />
-      <Script
+        defer
         id="google-analytics"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
