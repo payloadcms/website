@@ -238,6 +238,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 id: "${user?.id}",
                 data: {
                   ${Object.entries(incomingUser)
+                    .filter(([key, value]) => value !== undefined)
                     .map(([key, value]) => `${key}: "${value}"`)
                     .join(', ')}
                 }
