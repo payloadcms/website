@@ -110,7 +110,7 @@ export const ImportProject: React.FC = () => {
             </p>
           )}
           <FormProcessing message="Creating project, one moment..." />
-          <FormSubmissionError />
+          <FormSubmissionError margin={false} />
         </div>
         <Grid>
           <Cell cols={4} colsM={8} className={classes.sidebarCell}>

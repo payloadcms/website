@@ -13,7 +13,8 @@ export const Message: React.FC<{
   error?: string | null
   warning?: string | null
   className?: string
-}> = ({ error, success, warning, className }) => {
+  margin?: boolean
+}> = ({ error, success, warning, className, margin }) => {
   // const type = error ? 'error' : success ? 'success' : 'warning'
   // const Icon = icons[type]
 
@@ -28,6 +29,7 @@ export const Message: React.FC<{
           success && classes.success,
           warning && classes.warning,
           className,
+          margin === false && classes.noMargin,
         ]
           .filter(Boolean)
           .join(' ')}
