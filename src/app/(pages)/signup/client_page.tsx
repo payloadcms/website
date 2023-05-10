@@ -56,18 +56,22 @@ export const Signup: React.FC = () => {
     if (formData.password !== formData.passwordConfirm) {
       dispatchFields({
         type: 'UPDATE',
-        path: 'passwordConfirm',
-        errorMessage: 'Passwords do not match',
-        valid: false,
-        value: formData.passwordConfirm,
+        payload: [
+          {
+            path: 'passwordConfirm',
+            errorMessage: 'Passwords do not match',
+            valid: false,
+            value: formData.passwordConfirm,
+          },
+          {
+            path: 'password',
+            errorMessage: 'Passwords do not match',
+            valid: false,
+            value: formData.password,
+          },
+        ],
       })
-      dispatchFields({
-        type: 'UPDATE',
-        path: 'password',
-        errorMessage: 'Passwords do not match',
-        valid: false,
-        value: formData.password,
-      })
+
       return
     }
 

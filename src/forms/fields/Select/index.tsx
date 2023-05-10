@@ -16,7 +16,7 @@ type Option = {
   value: any
 }
 
-type SelectProps = FieldProps<string> & {
+type SelectProps = FieldProps<string | string[]> & {
   options: Option[]
   isMulti?: boolean
   components?: {
@@ -49,13 +49,29 @@ export const Select: React.FC<SelectProps> = props => {
   const prevValueFromProps = useRef<string | string[] | undefined>(valueFromProps)
 
   const defaultValidateFunction = React.useCallback(
-    (fieldValue: string): string | true => {
-      if (required && !fieldValue) {
+    (fieldValue: Option | Option[]): string | true => {
+      // need to check all types of values here, strings, arrays, and objects
+      if (
+        required &&
+        (!fieldValue ||
+          (Array.isArray(fieldValue)
+            ? !fieldValue.length
+            : !(typeof fieldValue === 'string' ? fieldValue : fieldValue?.value)))
+      ) {
         return 'This field is required.'
       }
 
-      if (fieldValue && !options.find(option => option && option.value === fieldValue)) {
-        return 'This field has an invalid selection'
+      const isValid = Array.isArray(fieldValue)
+        ? fieldValue.every(v =>
+            options.find(item => item.value === (typeof v === 'string' ? v : v?.value)),
+          ) // eslint-disable-line function-paren-newline
+        : options.find(
+            item =>
+              item.value === (typeof fieldValue === 'string' ? fieldValue : fieldValue?.value),
+          )
+
+      if (!isValid) {
+        return 'Selected value is not valid option.'
       }
 
       return true
@@ -71,13 +87,24 @@ export const Select: React.FC<SelectProps> = props => {
 
   const { value: valueFromContext, showError, setValue, errorMessage } = fieldFromContext
 
-  const [internalState, setInternalState] = useState<Option | Option[] | null>(() => {
+  const [internalState, setInternalState] = useState<Option | Option[] | undefined>(() => {
     const initialValue = valueFromContext || initialValueFromProps
-    if (Array.isArray(initialValue)) {
-      return options?.filter(item => initialValue?.some(item.value)) || []
+
+    if (initialValue && Array.isArray(initialValue)) {
+      const matchedOption =
+        options?.filter(item => {
+          // `item.value` could be string or array, i.e. `isMulti`
+          if (Array.isArray(item.value)) {
+            return item.value.find(x => initialValue.find(y => y === x))
+          }
+
+          return initialValue.find(x => x === item.value)
+        }) || []
+
+      return matchedOption
     }
 
-    return options?.find(item => item.value === initialValue) || null
+    return options?.find(item => item.value === initialValue) || undefined
   })
 
   const setFormattedValue = useCallback(
@@ -111,14 +138,14 @@ export const Select: React.FC<SelectProps> = props => {
       }
 
       if (incomingSelection !== undefined && isDifferent) {
-        let newValue: Option | Option[] | null = null
+        let newValue: Option | Option[] | undefined = undefined
 
         if (Array.isArray(incomingSelection)) {
           newValue = options?.filter(item => incomingSelection.find(x => x === item.value)) || []
         }
 
         if (typeof incomingSelection === 'string') {
-          newValue = options?.find(item => item.value === incomingSelection) || null
+          newValue = options?.find(item => item.value === incomingSelection) || undefined
         }
 
         setInternalState(newValue)
@@ -141,8 +168,9 @@ export const Select: React.FC<SelectProps> = props => {
   const handleChange = useCallback(
     (incomingSelection: Option | Option[]) => {
       let selectedOption
+
       if (Array.isArray(incomingSelection)) {
-        selectedOption = incomingSelection
+        selectedOption = incomingSelection.map(item => item.value)
       } else {
         selectedOption = incomingSelection.value
       }

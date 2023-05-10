@@ -54,9 +54,8 @@ const title = 'Configure your project'
 // a new one is needed each time the plan (including trial), card, or team changes
 const Checkout: React.FC<{
   project: Project | null | undefined
-  draftProjectID: string
 }> = props => {
-  const { project, draftProjectID } = props
+  const { project } = props
 
   const router = useRouter()
   const { templates } = useGlobals()
@@ -134,7 +133,7 @@ const Checkout: React.FC<{
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${draftProjectID}`,
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.slug}`,
         {
           method: 'DELETE',
           credentials: 'include',
@@ -156,7 +155,7 @@ const Checkout: React.FC<{
       setDeleting(false)
       setErrorDeleting(`There was an error deleting your project: ${error?.message || 'Unknown'}`)
     }
-  }, [draftProjectID, router])
+  }, [project, router])
 
   const isClone = Boolean(!project?.repositoryID)
 
@@ -389,13 +388,15 @@ const Checkout: React.FC<{
 // 4. handles 404s and redirects
 // 5. simplifies initial state and loading
 const CheckoutProvider: React.FC<{
-  draftProjectID: string
+  teamSlug: string
+  projectSlug: string
   tokenLoading: boolean
 }> = props => {
-  const { draftProjectID, tokenLoading } = props
+  const { teamSlug, projectSlug, tokenLoading } = props
 
   const { result: project, isLoading: projectLoading } = useGetProject({
-    projectID: draftProjectID,
+    teamSlug,
+    projectSlug,
   })
 
   if (projectLoading === false && !project) {
@@ -406,38 +407,10 @@ const CheckoutProvider: React.FC<{
     redirect(`/${cloudSlug}/${project?.team?.slug}/${project.slug}`)
   }
 
-  const isClone = Boolean(!project?.repositoryID)
-
   return (
     <Fragment>
       <Gutter>
         <div className={classes.header}>
-          <Breadcrumbs
-            items={[
-              {
-                label: 'New',
-                url: `/new${project?.team?.slug ? `?team=${project?.team?.slug}` : ''}`,
-              },
-              ...(isClone
-                ? [
-                    {
-                      label: 'Template',
-                      url: `/new/clone${project?.team?.slug ? `?team=${project?.team?.slug}` : ''}`,
-                    },
-                  ]
-                : [
-                    {
-                      label: 'Import',
-                      url: `/new/import${
-                        project?.team?.slug ? `?team=${project?.team?.slug}` : ''
-                      }`,
-                    },
-                  ]),
-              {
-                label: 'Configure',
-              },
-            ]}
-          />
           <Heading element="h1" marginTop={false}>
             {title}
           </Heading>
@@ -449,7 +422,7 @@ const CheckoutProvider: React.FC<{
         </Gutter>
       ) : (
         <Elements stripe={Stripe}>
-          <Checkout project={project} draftProjectID={draftProjectID} />
+          <Checkout project={project} />
         </Elements>
       )}
     </Fragment>
@@ -462,14 +435,17 @@ const CheckoutProvider: React.FC<{
 // Both the `useAuthRedirect` and `useGitAuthRedirect  hooks depend on the `user` object
 // so those both should be called here, before the memoization.
 const CheckoutAuthentication: React.FC<{
-  draftProjectID: string
-}> = ({ draftProjectID }) => {
+  teamSlug: string
+  projectSlug: string
+}> = ({ teamSlug, projectSlug }) => {
   useAuthRedirect()
   const { tokenLoading } = useGitAuthRedirect()
 
   const memoizedCheckoutProvider = useMemo(() => {
-    return <CheckoutProvider draftProjectID={draftProjectID} tokenLoading={tokenLoading} />
-  }, [draftProjectID, tokenLoading])
+    return (
+      <CheckoutProvider teamSlug={teamSlug} projectSlug={projectSlug} tokenLoading={tokenLoading} />
+    )
+  }, [teamSlug, projectSlug, tokenLoading])
 
   return memoizedCheckoutProvider
 }

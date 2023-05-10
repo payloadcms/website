@@ -44,12 +44,16 @@ const Invites: React.FC<{
                   <Text
                     label="Email address"
                     path={`sendEmailInvitationsTo.${index}.email`}
+                    initialValue=""
+                    required
                     className={classes.field}
                   />
                   <Select
                     label="Roles"
                     path={`sendEmailInvitationsTo.${index}.roles`}
+                    required
                     options={userTeamRoles}
+                    initialValue={['user']}
                     isMulti
                     className={classes.field}
                   />
@@ -64,9 +68,11 @@ const Invites: React.FC<{
   )
 }
 
-export const InviteTeammates = () => {
+export const InviteTeammates = (props: { clearCount?: number }) => {
+  const { clearCount } = props
+
   return (
-    <ArrayProvider instantiateEmpty>
+    <ArrayProvider instantiateEmpty clearCount={clearCount}>
       <Invites />
     </ArrayProvider>
   )

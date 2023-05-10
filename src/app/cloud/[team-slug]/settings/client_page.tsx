@@ -10,9 +10,6 @@ import Submit from '@forms/Submit'
 import { OnSubmit } from '@forms/types'
 import { useRouter } from 'next/navigation'
 
-import { InviteTeammates } from '@components/InviteTeammates'
-import { TeamInvitations } from '@components/TeamInvitations'
-import { TeamMembers } from '@components/TeamMembers'
 import { UniqueTeamSlug } from '@components/UniqueSlug'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
@@ -33,7 +30,7 @@ export const TeamSettingsPage = () => {
   }>()
 
   const handleSubmit: OnSubmit = React.useCallback(
-    async ({ unflattenedData, dispatchFields }): Promise<void> => {
+    async ({ data, dispatchFields }): Promise<void> => {
       setTimeout(() => {
         window.scrollTo(0, 0)
       }, 0)
@@ -45,23 +42,13 @@ export const TeamSettingsPage = () => {
 
       setError(undefined)
 
-      const updatedTeam: Partial<Team> = {
-        ...(unflattenedData || {}),
-        // flatten `roles` to an array of values
-        // there's probably a better way to do this like using `flattenedData` or modifying the API handler
-        sendEmailInvitationsTo: unflattenedData?.sendEmailInvitationsTo?.map(invite => ({
-          email: invite?.email,
-          roles: invite?.roles?.map(role => role?.value),
-        })),
-      }
-
       const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}`, {
         method: 'PATCH',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedTeam),
+        body: JSON.stringify(data),
       })
 
       const response: {
@@ -75,7 +62,7 @@ export const TeamSettingsPage = () => {
       } = await req.json()
 
       if (!req.ok) {
-        toast.error(`Failed up update settings: ${response?.errors?.[0]}`)
+        toast.error(`Failed to update settings: ${response?.errors?.[0]?.message}`)
         setError(response?.errors?.[0])
         return
       }
@@ -89,12 +76,6 @@ export const TeamSettingsPage = () => {
         router.push(`/cloud/${response.doc.slug}/settings`)
         return
       }
-
-      // TODO: update the form state with the new team data
-      // dispatchFields({
-      //   type: 'REPLACE_STATE',
-      //   state:
-      // })
     },
     [user, team, setTeam, router],
   )
@@ -102,21 +83,7 @@ export const TeamSettingsPage = () => {
   return (
     <React.Fragment>
       <SectionHeader title="Team Settings" />
-      <Form
-        onSubmit={handleSubmit}
-        className={classes.form}
-        errors={error?.data}
-        initialState={{
-          sendEmailInvitationsTo: {
-            initialValue: [
-              {
-                email: '',
-                roles: ['user'],
-              },
-            ],
-          },
-        }}
-      >
+      <Form onSubmit={handleSubmit} className={classes.form} errors={error?.data}>
         <FormSubmissionError />
         <FormProcessing message="Updating team, one moment..." />
         <Text path="name" label="Team Name" required initialValue={team?.name} />
@@ -133,12 +100,6 @@ export const TeamSettingsPage = () => {
           disabled
           description="This is your team's ID within Payload"
         />
-        <hr className={classes.hr} />
-        <TeamMembers team={team} />
-        {team?.invitations && team?.invitations?.length > 0 && <TeamInvitations team={team} />}
-        <hr className={classes.hr} />
-        <InviteTeammates />
-        <hr className={classes.hr} />
         <Submit label="Save" className={classes.submit} />
       </Form>
     </React.Fragment>
