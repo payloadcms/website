@@ -19,8 +19,9 @@ export const useArray = () => React.useContext(ArrayContext)
 export const ArrayProvider: React.FC<{
   children: React.ReactNode
   instantiateEmpty?: boolean
+  clearCount?: number // increment this to clear the array
 }> = props => {
-  const { children, instantiateEmpty } = props
+  const { children, instantiateEmpty, clearCount } = props
 
   const [uuids, setUUIDs] = React.useState<string[]>(instantiateEmpty ? [] : [uuid()])
 
@@ -40,8 +41,14 @@ export const ArrayProvider: React.FC<{
   )
 
   const clearRows = React.useCallback(() => {
-    setUUIDs([uuid()])
-  }, [])
+    setUUIDs(instantiateEmpty ? [] : [uuid()])
+  }, [instantiateEmpty])
+
+  React.useEffect(() => {
+    if (typeof clearCount === 'number' && clearCount > 0) {
+      clearRows()
+    }
+  }, [clearCount, clearRows])
 
   return (
     <ArrayContext.Provider

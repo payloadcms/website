@@ -150,7 +150,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
 
   if (el === 'link') {
     return (
-      <Link href={href} legacyBehavior passHref>
+      <Link href={href} prefetch={false} legacyBehavior passHref>
         <a
           className={className}
           {...newTabProps}

@@ -1,0 +1,116 @@
+@use '@scss/common' as *;
+
+.privacyBanner {
+  position: fixed;
+  bottom: var(--base);
+  right: var(--gutter-h);
+  width: max-content;
+  z-index: var(--z-nav);
+  transition: transform 0.3s ease-out;
+  margin-left: calc(var(--gutter-h) / -2);
+  margin-right: calc(var(--gutter-h) / -2);
+
+  @include large-break {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  @include small-break {
+    right: unset;
+    width: 100%;
+    padding-left: var(--gutter-h);
+    padding-right: var(--gutter-h);
+  }
+}
+
+.animateOut {
+  transform: translateY(100%);
+}
+
+.contentWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  background: black;
+  padding: calc(var(--base) * 1.5);
+
+  @include large-break {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  @include small-break {
+    flex-direction: column;
+  }
+
+  @include extra-small-break {
+    align-items: flex-start;
+  }
+}
+
+.content {
+  margin: 0;
+
+  & a {
+    text-decoration: none;
+    color: var(--text-color);
+    border-bottom: 1px dotted currentColor;
+    transition: all 0.2s ease;
+
+    &:visited {
+      color: var(--text-color);
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+.privacyLink {
+  &:hover {
+    color: var(--color-purple-600);
+  }
+}
+
+.buttonWrap {
+  display: flex;
+  margin-top: calc(var(--base) * 1.5);
+  gap: var(--base);
+  width: 100%;
+
+  button {
+    width: 50%;
+  }
+
+  @include small-break {
+    margin-top: var(--base);
+  }
+}
+
+:global([data-theme="light"]) {
+  .content {
+    color: var(--color-base-0);
+  }
+
+  .rejectButton {
+    color: var(--color-base-0);
+
+    &:hover {
+      border-color: var(--color-base-0);
+    }
+  }
+
+  .acceptButton {
+    background: white;
+    border-color: white;
+    color: black;
+
+    &:hover {
+      background: var(--color-base-300);
+      border-color: var(--color-base-300);
+    }
+  }
+}

@@ -67,7 +67,9 @@ export const AuthorizePage: React.FC = () => {
       <div className={classes.footer}>
         <p>
           {`Don't see your Git provider available? More Git providers are on their way. `}
-          <Link href="/contact">Send us a message</Link>
+          <Link href="/contact" prefetch={false}>
+            Send us a message
+          </Link>
           {` and we'll see what we can do to expedite it.`}
         </p>
       </div>

@@ -54,7 +54,7 @@ export const ProjectBuildSettingsPage = () => {
         } = await req.json()
 
         if (!req.ok) {
-          toast.error(`Failed up update settings: ${response?.errors?.[0]}`)
+          toast.error(`Failed to update settings: ${response?.errors?.[0]?.message}`)
           setError(response?.errors?.[0])
           return
         }

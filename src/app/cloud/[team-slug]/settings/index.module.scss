@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   position: sticky;
-  top: calc(var(--header-height) + var(--base));
+  top: var(--page-padding-top);
 
   @include small-break {
     margin-bottom: var(--base);

@@ -11,7 +11,7 @@ import classes from './index.module.scss'
 
 export type LinkGridProps = Extract<Page['layout'][0], { blockType: 'linkGrid' }>
 
-const Link: React.FC<LinkGridProps['linkGridFields']['links'][0]['link']> = props => {
+const LinkGridItem: React.FC<LinkGridProps['linkGridFields']['links'][0]['link']> = props => {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
@@ -54,7 +54,7 @@ export const LinkGrid: React.FC<
         {hasLinks && (
           <div className={classes.links}>
             {links.map(({ link }, index) => {
-              return <Link {...link} key={index} />
+              return <LinkGridItem {...link} key={index} />
             })}
           </div>
         )}

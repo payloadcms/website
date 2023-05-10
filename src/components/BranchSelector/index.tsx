@@ -82,7 +82,7 @@ export const BranchSelector: React.FC<{
             value: branch,
           }))}
           required
-          initialValue={branches[0]}
+          initialValue={initialValue || branches[0]}
         />
       ) : (
         <Text

@@ -14,6 +14,7 @@ export const DefaultCard: React.FC<DefaultCardProps> = props => {
   return (
     <Link
       href={href || ''}
+      prefetch={false}
       className={[classes.defaultCard, className && className].filter(Boolean).join(' ')}
     >
       <div className={classes.content}>

@@ -15,6 +15,10 @@ const sidebarNavRoutes = [
     label: 'General',
   },
   {
+    label: 'Members',
+    slug: 'members',
+  },
+  {
     label: 'Billing',
     slug: 'billing',
   },
@@ -38,32 +42,34 @@ export default ({ children }: ProjectSettingsLayoutType) => {
     <Gutter>
       <Grid className={classes.gridWrap}>
         <Cell cols={3} start={1} colsS={8}>
-          <EdgeScroll className={classes.sidebarNav} mobileOnly>
-            {sidebarNavRoutes.map((route, index) => {
-              const isActive = settingSlug === route?.slug
+          <div className={classes.sidebarNav}>
+            <EdgeScroll mobileOnly>
+              {sidebarNavRoutes.map((route, index) => {
+                const isActive = settingSlug === route?.slug
 
-              return (
-                <p
-                  key={route.label}
-                  className={[
-                    classes.sidebarNavItem,
-                    isActive && classes.active,
-                    index === sidebarNavRoutes.length - 1 && classes.lastItem,
-                  ]
-                    .filter(Boolean)
-                    .join(' ')}
-                >
-                  <Link
-                    href={`/${home}/${teamSlug}/${settingsTab}${
-                      route?.slug ? `/${route.slug}` : ''
-                    }`}
+                return (
+                  <p
+                    key={route.label}
+                    className={[
+                      classes.sidebarNavItem,
+                      isActive && classes.active,
+                      index === sidebarNavRoutes.length - 1 && classes.lastItem,
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
                   >
-                    {route.label}
-                  </Link>
-                </p>
-              )
-            })}
-          </EdgeScroll>
+                    <Link
+                      href={`/${home}/${teamSlug}/${settingsTab}${
+                        route?.slug ? `/${route.slug}` : ''
+                      }`}
+                    >
+                      {route.label}
+                    </Link>
+                  </p>
+                )
+              })}
+            </EdgeScroll>
+          </div>
         </Cell>
         <Cell start={4} cols={9} startS={1}>
           {children}
