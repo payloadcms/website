@@ -28,7 +28,9 @@ export const useGetRepos = (props: {
   setPage: React.Dispatch<React.SetStateAction<number>>
 } => {
   const { selectedInstall, delay = 250, perPage = 30 } = props
+  const prevSelectedInstall = React.useRef<number | undefined>(selectedInstall?.id)
   const [page, setPage] = React.useState<number>(1)
+  const prevPage = React.useRef<number>(page)
   const [error, setError] = React.useState<string | undefined>()
   const [loading, setLoading] = React.useState<boolean>(true)
   const [results, setResults] = React.useState<Results>({
@@ -41,7 +43,25 @@ export const useGetRepos = (props: {
   useEffect(() => {
     let timeout: NodeJS.Timeout
 
-    if (user && selectedInstall) {
+    let pageToUse = page
+
+    // have to track `prevPage` here because we need fire `setPage` from within the effect
+    // and we don't want to trigger the effect again
+    const scopeChanged = prevSelectedInstall.current !== selectedInstall?.id
+    const pageChanged = prevPage.current !== page
+
+    if (user && selectedInstall && (scopeChanged || pageChanged)) {
+      prevPage.current = page
+      prevSelectedInstall.current = selectedInstall.id
+
+      // when changing installs, reset page to 1
+      // this is to prevent the user from being on page 2 of one install
+      // and then switching to another install and being on page 2 of that install
+      if (scopeChanged) {
+        pageToUse = 1
+        setPage(1)
+      }
+
       setLoading(true)
       setError(undefined)
 
@@ -51,7 +71,7 @@ export const useGetRepos = (props: {
 
           const query = qs.stringify({
             per_page: perPage,
-            page,
+            page: pageToUse,
           })
 
           const reposReq = await fetch(
