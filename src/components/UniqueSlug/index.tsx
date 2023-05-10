@@ -63,24 +63,23 @@ export const UniqueSlug: React.FC<{
 
             clearTimeout(timer)
 
-            if (!validityReq.ok) {
+            if (validityReq.ok) {
+              const newValidation: SlugValidationResult = await validityReq.json()
+              dispatchSlugValidation({ type: 'RESET', payload: newValidation })
+            } else {
               const message = `Error validating slug: ${validityReq.statusText}`
               console.error(message) // eslint-disable-line no-console
               setError(message)
               dispatchSlugValidation({ type: 'SET_UNIQUE', payload: false })
-              setIsLoading(false)
-              return
             }
-
-            const newValidation: SlugValidationResult = await validityReq.json()
-            dispatchSlugValidation({ type: 'RESET', payload: newValidation })
           } catch (e) {
             const message = `Error validating slug: ${e.message}`
             console.error(message) // eslint-disable-line no-console
             setError(message)
             dispatchSlugValidation({ type: 'SET_UNIQUE', payload: false })
-            setIsLoading(false)
           }
+
+          setIsLoading(false)
         }
 
         validateSlug()
