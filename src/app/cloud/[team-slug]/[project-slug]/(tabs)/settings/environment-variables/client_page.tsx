@@ -11,6 +11,7 @@ import { NoData } from '../_layoutComponents/NoData'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'
 import { AddEnvs } from './_components/AddEnvs'
 import { ManageEnv } from './_components/ManageEnv'
+import { Secret } from './_components/Secret'
 
 export const ProjectEnvPage = () => {
   const { project } = useRouteData()
@@ -40,6 +41,11 @@ export const ProjectEnvPage = () => {
           </div>
         </CollapsibleGroup>
       )}
+
+      <Divider />
+
+      <SectionHeader title="Payload Secret" />
+      <Secret />
     </MaxWidth>
   )
 }
