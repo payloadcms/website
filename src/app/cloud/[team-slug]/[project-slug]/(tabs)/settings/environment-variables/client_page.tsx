@@ -23,12 +23,14 @@ export const ProjectEnvPage = () => {
     <MaxWidth>
       <SectionHeader title="Environment Variables" className={classes.header} />
       <div className={classes.description}>
-        Environmental variables are used to isolate sensitive data from your application. For
-        security and safety reasons, any variables you wish to provide to the Admin panel must be
-        prefixed with <code>PAYLOAD_PUBLIC</code>.{' '}
+        {`For security and safety reasons, any variables you wish to provide to the Admin panel must
+        be prefixed with `}
+        <code>PAYLOAD_PUBLIC_</code>
+        {'. '}
         <Link href="/docs/admin/webpack#admin-environment-vars" className={classes.link}>
-          Learn more.
+          Learn more
         </Link>
+        {'.'}
       </div>
       <CollapsibleGroup transTime={250} transCurve="ease">
         <Collapsible openOnInit>
@@ -37,9 +39,7 @@ export const ProjectEnvPage = () => {
           </Accordion>
         </Collapsible>
       </CollapsibleGroup>
-
       <Divider />
-
       {(project?.environmentVariables || []).length === 0 ? (
         <NoData message="This project currently has no environment variables." />
       ) : (
@@ -51,16 +51,15 @@ export const ProjectEnvPage = () => {
           </div>
         </CollapsibleGroup>
       )}
-
       <Divider />
-
       <SectionHeader title="Payload Secret" className={classes.header} />
       <div className={classes.description}>
-        This is a secure string used to authenticate with Payload. It was automatically generated
-        for you when this project was created.{' '}
+        {`This is a secure string used to authenticate with Payload. It was automatically generated
+        for you when this project was created. `}
         <Link href="/docs/getting-started/installation#doc" className={classes.link}>
-          Learn more.
+          Learn more
         </Link>
+        {'.'}
       </div>
       <Secret />
     </MaxWidth>
