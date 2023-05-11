@@ -1,0 +1,16 @@
+@use '@scss/common.scss' as *;
+
+.header {
+  margin-bottom: var(--base);
+}
+
+.description {
+  margin-bottom: calc(var(--base) * 1.5);
+}
+
+.link {
+  transition: all 0.2s ease;
+  &:hover {
+    color: var(--color-purple-600);
+  }
+}
