@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 
 import { Avatar } from '@components/Avatar'
 import { Gutter } from '@components/Gutter'
+import { DiscordIcon } from '@root/graphics/DiscordIcon'
 import { MainMenu } from '@root/payload-types'
 import { useAuth } from '@root/providers/Auth'
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver'
@@ -103,7 +104,6 @@ export const MobileNav: React.FC<NavItems> = props => {
               <Link href="/" className={classes.logo} prefetch={false}>
                 <FullLogo />
               </Link>
-
               <div className={classes.icons}>
                 <div className={classes.cloudNewProject}>
                   <Link href="/new" prefetch={false}>
@@ -125,7 +125,6 @@ export const MobileNav: React.FC<NavItems> = props => {
           </Grid>
         </Gutter>
       </div>
-
       <MobileMenuModal {...props} />
     </div>
   )
