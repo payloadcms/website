@@ -54,8 +54,8 @@ const unflattenRowsFromState = (
 
 function fieldReducer(state: Fields, action: Action): Fields {
   switch (action.type) {
-    case 'REPLACE_STATE': {
-      return action.state || {}
+    case 'RESET': {
+      return action.payload || {}
     }
 
     case 'REMOVE': {
@@ -81,19 +81,28 @@ function fieldReducer(state: Fields, action: Action): Fields {
       }
     }
 
-    case 'UPDATE':
-    default: {
-      const newField = {
-        value: action.value,
-        valid: action.valid,
-        errorMessage: action.errorMessage,
-        initialValue: action.initialValue,
-      }
+    // send either a single `Field` or an array of `Field[]` to have it/them either added or replaced in `state`
+    case 'UPDATE': {
+      const { payload } = action
+      const fields = Array.isArray(payload) ? payload : [payload]
 
-      return {
-        ...state,
-        [action.path]: newField,
-      }
+      const newState = { ...state }
+
+      fields.forEach(field => {
+        newState[field.path] = {
+          ...(newState[field.path] || {}),
+          initialValue: field.initialValue,
+          value: field.value,
+          valid: field.valid,
+          errorMessage: field.errorMessage,
+        }
+      })
+
+      return newState
+    }
+
+    default: {
+      return state
     }
   }
 }

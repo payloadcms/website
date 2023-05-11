@@ -3,16 +3,20 @@
 import React, { Fragment } from 'react'
 import Script from 'next/script'
 
+import { usePrivacy } from '@root/providers/Privacy'
+
 const gtmMeasurementID = process.env.NEXT_PUBLIC_GTM_MEASUREMENT_ID
 
 export const GoogleTagManager: React.FC = () => {
-  if (!gtmMeasurementID) return null
+  const { cookieConsent } = usePrivacy()
+
+  if (!cookieConsent || !gtmMeasurementID) return null
 
   return (
     <Fragment>
       <Script
         id="google-tag-manager"
-        strategy="lazyOnload"
+        defer
         dangerouslySetInnerHTML={{
           __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

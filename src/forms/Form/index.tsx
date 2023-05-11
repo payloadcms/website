@@ -75,6 +75,7 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
       if (!formIsValid) {
         e.preventDefault()
         setIsProcessing(false)
+        setErrorFromSubmit('Please fix the errors below and try again.')
         return false
       }
 
@@ -85,15 +86,18 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
             unflattenedData: reduceFieldsToValues(fields, true),
             dispatchFields: contextRef.current.dispatchFields,
           })
+
+          setHasSubmitted(false)
+          setIsModified(false)
+          setIsProcessing(false)
         } catch (err: unknown) {
           const message = err instanceof Error ? err.message : 'Unknown error'
           console.error(message) // eslint-disable-line no-console
+          setIsProcessing(false)
           setErrorFromSubmit(message)
         }
       }
 
-      setIsProcessing(false)
-      setIsModified(false)
       return false
     },
     [onSubmit, setHasSubmitted, setIsProcessing, setIsModified, fields],
@@ -102,8 +106,8 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
   const getFields = useCallback(() => contextRef.current.fields, [contextRef])
 
   const getField = useCallback(
-    (path: string): Field => {
-      return contextRef.current.fields[path]
+    (path: string): Field | undefined => {
+      return path ? contextRef.current.fields[path] : undefined
     },
     [contextRef],
   )
@@ -129,8 +133,8 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
   useEffect(() => {
     contextRef.current = { ...initialContext }
     dispatchFields({
-      type: 'REPLACE_STATE',
-      state: initialState,
+      type: 'RESET',
+      payload: initialState,
     })
   }, [initialState])
 

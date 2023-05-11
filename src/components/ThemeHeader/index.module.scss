@@ -1,0 +1,58 @@
+.headerObserver {
+  position: relative;
+  height: 100%;
+}
+
+.observerContainer {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.stickyObserver {
+  --observer-variance: 1px;
+  --center-of-header: calc(var(--top-bar-height) + calc(var(--header-height) * .5));
+  position: sticky;
+  top: calc(var(--center-of-header) - var(--observer-variance));
+  margin-bottom: calc(var(--center-of-header) + var(--observer-variance));
+  height: 0px;
+  width: 100%;
+  z-index: 1;
+}
+
+.debug .observerContainer {
+  background-color: var(--color-red-500);
+  z-index: 10000;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right:0;
+    bottom: 0;
+    left: 0;
+    opacity: .55;
+    background-color: lightcyan;
+  }
+}
+
+.debug .stickyObserver {
+  background-color: var(--color-blue-500);
+  z-index: 10000;
+  height: 2px;
+
+  &:after {
+    // mimics margin-bottom of stickyObserver
+    content: '';
+    position: absolute;
+    top: 100%;
+    height: calc(var(--center-of-header) + var(--observer-variance));
+    background-color: red;
+    width: 100%;
+    opacity: .15;
+    z-index: inherit;
+  }
+}

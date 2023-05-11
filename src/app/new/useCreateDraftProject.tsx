@@ -36,28 +36,32 @@ export const useCreateDraftProject = ({
       }
 
       try {
+        const draftProject: Partial<Project> = {
+          name: projectName || repo?.name || 'Untitled Project',
+          installID: installID ? installID.toString() : undefined,
+          team:
+            teamID ||
+            // fallback to first team
+            (typeof user.teams?.[0]?.team === 'string'
+              ? user.teams?.[0]?.team
+              : user.teams?.[0]?.team?.id),
+          defaultDomain: undefined,
+          repositoryID: repo?.id ? repo.id.toString() : undefined, // only applies to the `import` flow
+          repositoryName: repo?.name,
+          repositoryFullName: repo?.full_name,
+          template: templateID,
+          makePrivate,
+          // `buildScript`, `installScript`, and `runScript` are automatically set by the API based on any `package-lock.json` found in the repo
+          // the user can change these later to whatever they want, but this prevents the user from having `yarn` commands set on an `npm` project, for example
+        }
+
         const projectReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects`, {
           method: 'POST',
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            name: projectName || repo?.name || 'Untitled Project',
-            installID,
-            team:
-              teamID ||
-              // fallback to first team
-              (typeof user.teams?.[0]?.team === 'string'
-                ? user.teams?.[0]?.team
-                : user.teams?.[0]?.team?.id),
-            defaultDomain: undefined,
-            repositoryID: repo?.id, // only applies to the `import` flow
-            repositoryName: repo?.name,
-            repositoryFullName: repo?.full_name,
-            template: templateID,
-            makePrivate,
-          }),
+          body: JSON.stringify(draftProject),
         })
 
         const { doc: project, errors: projectErrs } = await projectReq.json()

@@ -6,11 +6,11 @@ import { redirect, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
+import { useCheckToken } from '@root/app/new/authorize/useCheckToken'
+import { useExchangeCode } from '@root/app/new/authorize/useExchangeCode'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
-import { useCheckToken } from '@root/utilities/use-check-token'
-import { useExchangeCode } from '@root/utilities/use-exchange-code'
 import { usePopupWindow } from '@root/utilities/use-popup-window'
 
 import classes from './index.module.scss'
@@ -67,7 +67,9 @@ export const AuthorizePage: React.FC = () => {
       <div className={classes.footer}>
         <p>
           {`Don't see your Git provider available? More Git providers are on their way. `}
-          <Link href="/contact">Send us a message</Link>
+          <Link href="/contact" prefetch={false}>
+            Send us a message
+          </Link>
           {` and we'll see what we can do to expedite it.`}
         </p>
       </div>

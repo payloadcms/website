@@ -112,14 +112,6 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
             initialValue: 'My Team',
             value: 'My Team',
           },
-          sendEmailInvitationsTo: {
-            initialValue: [
-              {
-                email: '',
-                roles: ['user'],
-              },
-            ],
-          },
         }}
       >
         <FormProcessing message="Creating team..." />

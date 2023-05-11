@@ -49,6 +49,7 @@ export const NewProjectBlock: React.FC<{
                 <Link
                   href={`/new/import${teamSlug ? `?team=${teamSlug}` : ''}`}
                   className={classes.import}
+                  prefetch={false}
                 >
                   import an existing Git codebase
                 </Link>

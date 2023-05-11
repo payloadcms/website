@@ -12,8 +12,6 @@ import { redirect, useSearchParams } from 'next/navigation'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { useAuth } from '@root/providers/Auth'
-import { useHeaderTheme } from '@root/providers/HeaderTheme'
-import { getImplicitPreference } from '@root/providers/Theme/shared'
 
 import classes from './index.module.scss'
 
@@ -23,12 +21,6 @@ export const ResetPassword: React.FC = () => {
   const token = searchParams?.get('token')
 
   const { user, resetPassword } = useAuth()
-  const { setHeaderColor } = useHeaderTheme()
-
-  useEffect(() => {
-    const implicitPreference = getImplicitPreference()
-    setHeaderColor(implicitPreference ?? 'light')
-  }, [setHeaderColor])
 
   const handleSubmit = useCallback(
     async ({ data }) => {

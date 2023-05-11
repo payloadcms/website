@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
+import { cloudSlug } from '@cloud/client_layout'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import RadioGroup from '@forms/fields/RadioGroup'
 import Form from '@forms/Form'
@@ -51,10 +52,12 @@ export const ImportProject: React.FC = () => {
   const createDraftProject = useCreateDraftProject({
     teamID: matchedTeam?.id,
     installID: selectedInstall?.id,
-    onSubmit: async ({ id: draftProjectID }) =>
-      new Promise<void>(() => {
-        router.push(`/new/configure/${draftProjectID}`)
-      }),
+    onSubmit: ({ slug: draftProjectSlug, team }) =>
+      router.push(
+        `/${cloudSlug}/${
+          typeof team === 'string' ? team : team?.slug
+        }/${draftProjectSlug}/configure`,
+      ),
   })
 
   const {

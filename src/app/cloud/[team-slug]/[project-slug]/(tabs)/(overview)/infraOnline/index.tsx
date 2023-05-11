@@ -7,12 +7,12 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
-import { Heading } from '@components/Heading'
 import { Label } from '@components/Label'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 import { Indicator } from '@root/app/_components/Indicator'
-import { BranchIcon } from '@root/graphics/BranchIcon'
 import { CommitIcon } from '@root/graphics/CommitIcon'
+import { GitHubIcon } from '@root/graphics/GitHub'
+import { BranchIcon } from '@root/icons/BranchIcon'
 import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon'
 import { Deployment } from '@root/payload-cloud-types'
 import { formatDate } from '@root/utilities/format-date-time'
@@ -26,6 +26,7 @@ const finalDeploymentStages: Deployment['deploymentStatus'][] = ['ACTIVE', 'SUPE
 
 export const InfraOnline: React.FC = () => {
   const { project } = useRouteData()
+
   const {
     result: deployments,
     reqStatus,
@@ -33,6 +34,7 @@ export const InfraOnline: React.FC = () => {
   } = useGetProjectDeployments({
     projectID: project?.id,
   })
+
   const latestDeployment = deployments?.[0]
 
   const [activeDeployment, setActiveDeployment] = React.useState<Deployment | null | undefined>()
@@ -153,16 +155,14 @@ export const InfraOnline: React.FC = () => {
                   </div>
                 ))}
               </Cell>
-
               <Cell start={5} cols={3} startM={1} colsM={8}>
                 <Label>Deployment Created At</Label>
                 <p className={classes.detail}>
                   {activeDeployment
                     ? formatDate({ date: activeDeployment.createdAt, format: 'dateAndTime' })
-                    : ''}
+                    : 'No deployments'}
                 </p>
               </Cell>
-
               <Cell start={9} cols={4} startM={1} colsM={8}>
                 <Label>Status</Label>
                 <div className={classes.statusDetail}>
@@ -177,7 +177,7 @@ export const InfraOnline: React.FC = () => {
                   />
                   <p className={classes.detail}>
                     {activeDeployment === undefined
-                      ? ''
+                      ? 'No status'
                       : finalDeploymentStages.includes(activeDeployment?.deploymentStatus)
                       ? 'Online'
                       : 'Offline'}
@@ -187,30 +187,60 @@ export const InfraOnline: React.FC = () => {
             </Grid>
           }
           lowerChildren={
-            <Grid>
-              <Cell className={classes.reTriggerBackground} start={1}>
-                <div>
-                  <Button appearance="text" onClick={triggerDeployment} label="Trigger Redeploy" />
-                </div>
-
-                {activeDeployment?.commitMessage && (
-                  <div className={classes.deployDetails}>
-                    <div className={classes.iconAndLabel}>
-                      <BranchIcon />
-                      <p>{project?.deploymentBranch}</p>
-                    </div>
-                    <div className={classes.iconAndLabel}>
-                      <CommitIcon />
-                      <p>{activeDeployment?.commitMessage}</p>
-                    </div>
+            <div className={classes.reTriggerBackground}>
+              <div>
+                <Button appearance="text" onClick={triggerDeployment} label="Trigger Redeploy" />
+              </div>
+              <div className={classes.deployDetails}>
+                {!project?.repositoryFullName && (
+                  <div className={classes.iconAndLabel}>
+                    <GitHubIcon />
+                    <p>No repository connected</p>
                   </div>
                 )}
-              </Cell>
-            </Grid>
+                {project?.repositoryFullName && !project?.deploymentBranch && (
+                  <a
+                    className={classes.iconAndLabel}
+                    href={`https://github.com/${project?.repositoryFullName}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <GitHubIcon />
+                    <p>{project?.repositoryFullName}</p>
+                  </a>
+                )}
+                {project?.repositoryFullName && project?.deploymentBranch && (
+                  <a
+                    className={classes.iconAndLabel}
+                    href={`https://github.com/${project?.repositoryFullName}/tree/${project?.deploymentBranch}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <BranchIcon />
+                    <p>{project?.deploymentBranch}</p>
+                  </a>
+                )}
+                {project?.repositoryFullName && activeDeployment?.commitSha ? (
+                  <a
+                    className={classes.iconAndLabel}
+                    href={`https://github.com/${project?.repositoryFullName}/commit/${activeDeployment?.commitSha}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <CommitIcon />
+                    <p>{activeDeployment?.commitMessage || 'No commit message'}</p>
+                  </a>
+                ) : (
+                  <div className={classes.iconAndLabel}>
+                    <CommitIcon />
+                    <p>{activeDeployment?.commitMessage || 'No commit message'}</p>
+                  </div>
+                )}
+              </div>
+            </div>
           }
         />
       </Gutter>
-
       {deployments?.length > 0 && <DeploymentLogs deployment={latestDeployment} />}
     </React.Fragment>
   )

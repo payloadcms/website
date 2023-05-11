@@ -1,5 +1,8 @@
+'use client'
+
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
+import { ThemeHeader } from '@components/ThemeHeader'
 import { defaultTheme, getImplicitPreference, themeLocalStorageKey } from './shared'
 import { Theme, themeIsValid, ThemePreferenceContextType } from './types'
 
@@ -11,15 +14,27 @@ export const ThemeProvider: React.FC<{
   theme?: Theme | null
   children: React.ReactNode
   className?: string
-}> = ({ theme, children, className }) => {
+  affectsHeader?: boolean
+}> = ({ theme, children, className, affectsHeader }) => {
+  const fallbackTheme = useTheme()
+  const themeToUse = theme || fallbackTheme
+
   return (
-    <ThemeContext.Provider value={theme}>
+    <ThemeContext.Provider value={themeToUse}>
       <div
-        className={[theme ? classes[`theme--${theme}`] : classes.loading, className]
+        className={[
+          themeToUse ? classes[`theme--${themeToUse}`] : classes.loading,
+          affectsHeader && classes.themedHeader,
+          className,
+        ]
           .filter(Boolean)
           .join(' ')}
       >
-        {children}
+        {affectsHeader && themeToUse ? (
+          <ThemeHeader theme={themeToUse}>{children}</ThemeHeader>
+        ) : (
+          children
+        )}
       </div>
     </ThemeContext.Provider>
   )

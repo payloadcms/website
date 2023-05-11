@@ -26,7 +26,9 @@ import { useInstallationSelector } from '@components/InstallationSelector'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { usePlanSelector } from '@components/PlanSelector'
 import { TeamSelector } from '@components/TeamSelector'
+import { UniqueDomain } from '@components/UniqueDomain'
 import { UniqueRepoName } from '@components/UniqueRepoName'
+import { UniqueProjectSlug } from '@components/UniqueSlug'
 import { cloudSlug } from '@root/app/cloud/client_layout'
 import { Plan, Project, Team } from '@root/payload-cloud-types'
 import { useGlobals } from '@root/providers/Globals'
@@ -52,9 +54,8 @@ const title = 'Configure your project'
 // a new one is needed each time the plan (including trial), card, or team changes
 const Checkout: React.FC<{
   project: Project | null | undefined
-  draftProjectID: string
 }> = props => {
-  const { project, draftProjectID } = props
+  const { project } = props
 
   const router = useRouter()
   const { templates } = useGlobals()
@@ -132,7 +133,7 @@ const Checkout: React.FC<{
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${draftProjectID}`,
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.slug}`,
         {
           method: 'DELETE',
           credentials: 'include',
@@ -154,7 +155,7 @@ const Checkout: React.FC<{
       setDeleting(false)
       setErrorDeleting(`There was an error deleting your project: ${error?.message || 'Unknown'}`)
     }
-  }, [draftProjectID, router])
+  }, [project, router])
 
   const isClone = Boolean(!project?.repositoryID)
 
@@ -253,6 +254,11 @@ const Checkout: React.FC<{
                     required
                   />
                   <Text label="Project name" path="name" initialValue={project?.name} required />
+                  <UniqueProjectSlug
+                    initialValue={project?.slug}
+                    teamID={typeof project?.team === 'string' ? project?.team : project?.team?.id}
+                    projectID={project?.id}
+                  />
                   <TeamSelector
                     onChange={handleTeamChange}
                     className={classes.teamSelector}
@@ -307,25 +313,29 @@ const Checkout: React.FC<{
                   <Text
                     label="Install Command"
                     path="installScript"
-                    initialValue={project?.installScript || 'yarn'}
+                    initialValue={project?.installScript}
                     required
+                    description="Example: `yarn install` or `npm install`"
                   />
                   <Text
                     label="Build Command"
                     path="buildScript"
-                    initialValue={project?.buildScript || 'yarn build'}
+                    initialValue={project?.buildScript}
                     required
+                    description="Example: `yarn build` or `npm run build`"
                   />
                   <Text
                     label="Serve Command"
                     path="runScript"
-                    initialValue={project?.runScript || 'yarn serve'}
+                    initialValue={project?.runScript}
                     required
+                    description="Example: `yarn serve` or `npm run serve`"
                   />
                   <BranchSelector
                     repositoryFullName={project?.repositoryFullName}
                     initialValue={project?.deploymentBranch}
                   />
+                  <UniqueDomain initialSubdomain={project?.slug} team={checkoutState?.team} />
                 </div>
                 <hr className={classes.hr} />
                 <EnvVars className={classes.envVars} />
@@ -348,7 +358,7 @@ const Checkout: React.FC<{
                   label={
                     <Fragment>
                       {'I agree to the '}
-                      <Link href="/cloud-terms" target="_blank">
+                      <Link href="/cloud-terms" target="_blank" prefetch={false}>
                         Terms of Service
                       </Link>
                     </Fragment>
@@ -381,13 +391,15 @@ const Checkout: React.FC<{
 // 4. handles 404s and redirects
 // 5. simplifies initial state and loading
 const CheckoutProvider: React.FC<{
-  draftProjectID: string
+  teamSlug: string
+  projectSlug: string
   tokenLoading: boolean
 }> = props => {
-  const { draftProjectID, tokenLoading } = props
+  const { teamSlug, projectSlug, tokenLoading } = props
 
   const { result: project, isLoading: projectLoading } = useGetProject({
-    projectID: draftProjectID,
+    teamSlug,
+    projectSlug,
   })
 
   if (projectLoading === false && !project) {
@@ -398,38 +410,10 @@ const CheckoutProvider: React.FC<{
     redirect(`/${cloudSlug}/${project?.team?.slug}/${project.slug}`)
   }
 
-  const isClone = Boolean(!project?.repositoryID)
-
   return (
     <Fragment>
       <Gutter>
         <div className={classes.header}>
-          <Breadcrumbs
-            items={[
-              {
-                label: 'New',
-                url: `/new${project?.team?.slug ? `?team=${project?.team?.slug}` : ''}`,
-              },
-              ...(isClone
-                ? [
-                    {
-                      label: 'Template',
-                      url: `/new/clone${project?.team?.slug ? `?team=${project?.team?.slug}` : ''}`,
-                    },
-                  ]
-                : [
-                    {
-                      label: 'Import',
-                      url: `/new/import${
-                        project?.team?.slug ? `?team=${project?.team?.slug}` : ''
-                      }`,
-                    },
-                  ]),
-              {
-                label: 'Configure',
-              },
-            ]}
-          />
           <Heading element="h1" marginTop={false}>
             {title}
           </Heading>
@@ -441,7 +425,7 @@ const CheckoutProvider: React.FC<{
         </Gutter>
       ) : (
         <Elements stripe={Stripe}>
-          <Checkout project={project} draftProjectID={draftProjectID} />
+          <Checkout project={project} />
         </Elements>
       )}
     </Fragment>
@@ -454,14 +438,17 @@ const CheckoutProvider: React.FC<{
 // Both the `useAuthRedirect` and `useGitAuthRedirect  hooks depend on the `user` object
 // so those both should be called here, before the memoization.
 const CheckoutAuthentication: React.FC<{
-  draftProjectID: string
-}> = ({ draftProjectID }) => {
+  teamSlug: string
+  projectSlug: string
+}> = ({ teamSlug, projectSlug }) => {
   useAuthRedirect()
   const { tokenLoading } = useGitAuthRedirect()
 
   const memoizedCheckoutProvider = useMemo(() => {
-    return <CheckoutProvider draftProjectID={draftProjectID} tokenLoading={tokenLoading} />
-  }, [draftProjectID, tokenLoading])
+    return (
+      <CheckoutProvider teamSlug={teamSlug} projectSlug={projectSlug} tokenLoading={tokenLoading} />
+    )
+  }, [teamSlug, projectSlug, tokenLoading])
 
   return memoizedCheckoutProvider
 }

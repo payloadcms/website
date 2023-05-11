@@ -5,7 +5,6 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
-import { HeaderObserver } from '@components/HeaderObserver'
 import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
 

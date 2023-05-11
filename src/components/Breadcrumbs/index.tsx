@@ -24,7 +24,9 @@ export const Breadcrumbs: React.FC<Props> = ({ items }) => {
           return (
             <React.Fragment key={index}>
               <label className={classes.label}>
-                <Link href={item.url}>{item.label}</Link>
+                <Link href={item.url} prefetch={false}>
+                  {item.label}
+                </Link>
               </label>
               {!isLast && (
                 <label className={classes.label}>

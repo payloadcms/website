@@ -4,6 +4,10 @@
   display: none;
 }
 
+.themedHeader {
+  height: 100%;
+}
+
 .theme--light {
   --theme-success-50: var(--color-success-50);
   --theme-success-100: var(--color-success-100);

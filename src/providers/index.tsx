@@ -10,10 +10,10 @@ import { ScrollInfoProvider } from '@faceless-ui/scroll-info'
 import { WindowInfoProvider } from '@faceless-ui/window-info'
 
 import { Template } from '@root/payload-cloud-types'
+import { HeaderIntersectionObserver } from '@root/providers/HeaderIntersectionObserver'
 import { AuthProvider } from './Auth'
 import { ComputedCSSValuesProvider } from './ComputedCSSValues'
 import { GlobalsProvider } from './Globals'
-import HeaderThemeProvider from './HeaderTheme'
 import { PageTransition } from './PageTransition'
 import { ThemePreferenceProvider } from './Theme'
 
@@ -63,7 +63,7 @@ export const Providers: React.FC<{
                     <ComputedCSSValuesProvider>
                       <ModalProvider transTime={0} zIndex="var(--z-modal)">
                         <PageTransition>
-                          <HeaderThemeProvider>
+                          <HeaderIntersectionObserver>
                             {children}
                             <ModalContainer />
                             <ToastContainer
@@ -71,7 +71,7 @@ export const Providers: React.FC<{
                               transition={Slide}
                               icon={false}
                             />
-                          </HeaderThemeProvider>
+                          </HeaderIntersectionObserver>
                         </PageTransition>
                       </ModalProvider>
                     </ComputedCSSValuesProvider>

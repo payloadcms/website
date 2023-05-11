@@ -1,0 +1,28 @@
+@use '@scss/common.scss' as *;
+
+.description {
+  a {
+    color: var(--theme-blue-500);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+.fields {
+  margin-bottom: calc(var(--base) * 2);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) / 2);
+
+  @include mid-break {
+    margin-bottom: var(--base);
+  }
+}
+
+.hr {
+  margin: calc(var(--base) * 1.5) 0;
+
+  @include mid-break {
+    margin: var(--base) 0;
+  }
+}

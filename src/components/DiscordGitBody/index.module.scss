@@ -25,6 +25,7 @@
 
 .body {
   margin-top: var(--base);
+  overflow-wrap: anywhere;
 
   :global(.ts) {
     display: block;

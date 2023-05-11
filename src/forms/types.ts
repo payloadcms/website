@@ -51,32 +51,32 @@ export interface SetSubmitted {
   (submitted: boolean): void
 }
 
-interface REPLACE_STATE {
-  type: 'REPLACE_STATE'
-  state: Fields
+export interface RESET {
+  type: 'RESET'
+  payload: Fields
 }
 
-interface REMOVE {
+export interface REMOVE {
   type: 'REMOVE'
   path: string
 }
 
-interface REMOVE_ROW {
+export interface REMOVE_ROW {
   type: 'REMOVE_ROW'
   path: string
   rowIndex: number
 }
 
-interface UPDATE {
-  type: 'UPDATE'
+export interface FieldWithPath extends Field {
   path: string
-  value: Value
-  initialValue?: Value
-  errorMessage?: string
-  valid: boolean
 }
 
-export type Action = REPLACE_STATE | REMOVE | REMOVE_ROW | UPDATE
+export interface UPDATE {
+  type: 'UPDATE'
+  payload: FieldWithPath | FieldWithPath[]
+}
+
+export type Action = RESET | REMOVE | REMOVE_ROW | UPDATE
 
 export interface IFormContext {
   initialState: InitialState

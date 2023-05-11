@@ -14,19 +14,13 @@
 
 .sidebar {
     position: sticky;
-    top: calc(var(--base) * 5);
-
-    > *:not(:last-child) {
-        margin-bottom: calc(var(--base) * 2);
-    }
+    top: var(--page-padding-top);
+    gap: calc(var(--base) * 2);
 
     @include mid-break {
         position: static;
         top: unset;
-
-        > *:not(:last-child) {
-            margin-bottom: var(--base);
-        }
+        gap: var(--base);
     }
 }
 

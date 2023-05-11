@@ -37,7 +37,7 @@ export const DiscordGitIntro: React.FC<Props> = ({
   return (
     <Fragment>
       <div className={classes.breadcrumbWrap}>
-        <Link className={classes.breadcrumb} href="/community-help">
+        <Link className={classes.breadcrumb} href="/community-help" prefetch={false}>
           Community Help
         </Link>
       </div>

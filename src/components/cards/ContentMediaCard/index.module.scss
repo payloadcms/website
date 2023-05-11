@@ -9,8 +9,13 @@
   @include h6;
 
   @include mid-break {
+    @include h5;
+  }
+
+  @include small-break {
     @include h3;
   }
+
   text-decoration: none;
 
   &:hover {
