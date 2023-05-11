@@ -101,7 +101,7 @@ export const UniqueRepoName: React.FC<{
     icon = <CloseIcon className={classes.error} size="medium" bold />
 
   return (
-    <div>
+    <div className={classes.uniqueRepoName}>
       <Text
         label="Repository name"
         path="repositoryName"

@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 
 import { Avatar } from '@components/Avatar'
 import { Gutter } from '@components/Gutter'
+import { DiscordIcon } from '@root/graphics/DiscordIcon'
 import { MainMenu } from '@root/payload-types'
 import { useAuth } from '@root/providers/Auth'
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver'
@@ -30,7 +31,10 @@ const MobileNavItems = ({ navItems }: NavItems) => {
       {(navItems || []).map((item, index) => {
         return <CMSLink className={classes.mobileMenuItem} key={index} {...item.link} />
       })}
-      <Link className={classes.mobileMenuItem} href="/new" prefetch={false}>
+      <Link
+        className={[classes.newProject, classes.mobileMenuItem].filter(Boolean).join(' ')}
+        href="/new"
+      >
         New project
       </Link>
       {!user && (
@@ -38,6 +42,14 @@ const MobileNavItems = ({ navItems }: NavItems) => {
           Login
         </Link>
       )}
+      <a
+        className={[classes.discord, classes.mobileMenuItem].filter(Boolean).join(' ')}
+        href="https://discord.com/invite/r6sCXqVk3v"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <DiscordIcon />
+      </a>
     </ul>
   )
 }
@@ -92,7 +104,6 @@ export const MobileNav: React.FC<NavItems> = props => {
               <Link href="/" className={classes.logo} prefetch={false}>
                 <FullLogo />
               </Link>
-
               <div className={classes.icons}>
                 <div className={classes.cloudNewProject}>
                   <Link href="/new" prefetch={false}>
@@ -114,7 +125,6 @@ export const MobileNav: React.FC<NavItems> = props => {
           </Grid>
         </Gutter>
       </div>
-
       <MobileMenuModal {...props} />
     </div>
   )

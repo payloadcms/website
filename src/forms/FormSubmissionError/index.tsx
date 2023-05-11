@@ -6,8 +6,9 @@ import classes from './index.module.scss'
 const FormSubmissionError: React.FC<{
   className?: string
   message?: string
+  margin?: boolean
 }> = props => {
-  const { className, message } = props
+  const { className, message, margin } = props
 
   const { submissionError } = useForm()
   const hasSubmitted = useFormSubmitted()
@@ -15,7 +16,11 @@ const FormSubmissionError: React.FC<{
 
   if (hasSubmitted && submissionError && !isProcessing) {
     return (
-      <p className={[className, classes.formSubmissionError].filter(Boolean).join(' ')}>
+      <p
+        className={[className, classes.formSubmissionError, margin === false && classes.noMargin]
+          .filter(Boolean)
+          .join(' ')}
+      >
         {message || submissionError}
       </p>
     )
