@@ -5,7 +5,6 @@ import { Metadata } from 'next'
 
 import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics'
 import { GoogleTagManager } from '@components/Analytics/GoogleTagManager'
-import { HeaderObserver } from '@components/HeaderObserver'
 import { PrivacyBanner } from '@components/PrivacyBanner'
 import { TopBar } from '@components/TopBar'
 import { PrivacyProvider } from '@root/providers/Privacy'
@@ -46,7 +45,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <TopBar {...topBar} />
             <Header {...mainMenu} />
             <div className={classes.layout}>
-              <HeaderObserver pullUp>{children}</HeaderObserver>
+              {children}
               <Footer {...footer} />
               <div id="docsearch" />
               <PrivacyBanner />

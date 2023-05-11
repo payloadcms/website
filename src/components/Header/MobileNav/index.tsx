@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Modal, useModal } from '@faceless-ui/modal'
-import { HeaderColors, useHeaderTheme } from '@providers/HeaderTheme'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -9,7 +8,9 @@ import { Avatar } from '@components/Avatar'
 import { Gutter } from '@components/Gutter'
 import { MainMenu } from '@root/payload-types'
 import { useAuth } from '@root/providers/Auth'
-import { DiscordIcon } from '../../../graphics/DiscordIcon'
+import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver'
+import { useTheme } from '@root/providers/Theme'
+import { Theme } from '@root/providers/Theme/types'
 import { FullLogo } from '../../../graphics/FullLogo'
 import { MenuIcon } from '../../../graphics/MenuIcon'
 import { CMSLink } from '../../CMSLink'
@@ -60,8 +61,9 @@ const MobileMenuModal: React.FC<NavItems> = ({ navItems }) => {
 
 export const MobileNav: React.FC<NavItems> = props => {
   const { isModalOpen, openModal, closeModal, closeAllModals } = useModal()
-  const { headerColor, setHeaderColor } = useHeaderTheme()
-  const headerColorRef = React.useRef<HeaderColors | null | undefined>(undefined)
+  const { headerTheme, setHeaderTheme } = useHeaderObserver()
+  const pageTheme = useTheme()
+  const themeBeforeOpenRef = React.useRef<Theme | null | undefined>(pageTheme)
   const { user } = useAuth()
 
   const pathname = usePathname()
@@ -73,10 +75,10 @@ export const MobileNav: React.FC<NavItems> = props => {
   function toggleModal() {
     if (isModalOpen(modalSlug)) {
       closeModal(modalSlug)
-      setHeaderColor(headerColorRef.current)
+      setHeaderTheme(themeBeforeOpenRef?.current || pageTheme)
     } else {
-      headerColorRef.current = headerColor
-      setHeaderColor('dark')
+      themeBeforeOpenRef.current = headerTheme
+      setHeaderTheme('dark')
       openModal(modalSlug)
     }
   }

@@ -20,7 +20,7 @@ import { ThemeLightIcon } from '@root/graphics/ThemeLightIcon'
 import { TwitterIcon } from '@root/graphics/TwitterIcon'
 import { YoutubeIcon } from '@root/graphics/YoutubeIcon'
 import { ChevronUpDownIcon } from '@root/icons/ChevronUpDownIcon'
-import { useHeaderTheme } from '@root/providers/HeaderTheme'
+import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver'
 import { useThemePreference } from '@root/providers/Theme'
 import { getImplicitPreference, themeLocalStorageKey } from '@root/providers/Theme/shared'
 import { Theme } from '@root/providers/Theme/types'
@@ -32,7 +32,7 @@ export const Footer: React.FC<FooterType> = props => {
   const { columns } = props
   const [itemsUnderLogo, documentationItems] = columns ?? []
   const { setTheme, theme } = useThemePreference()
-  const { setHeaderColor } = useHeaderTheme()
+  const { setHeaderTheme } = useHeaderObserver()
   const selectRef = React.useRef<HTMLSelectElement>(null)
 
   const [buttonClicked, setButtonClicked] = React.useState(false)
@@ -70,11 +70,11 @@ export const Footer: React.FC<FooterType> = props => {
   const onThemeChange = (themeToSet: Theme & 'auto') => {
     if (themeToSet === 'auto') {
       const implicitPreference = getImplicitPreference()
-      setHeaderColor(implicitPreference ?? 'light')
+      setHeaderTheme(implicitPreference ?? 'light')
       setTheme(null)
     } else {
       setTheme(themeToSet)
-      setHeaderColor(themeToSet)
+      setHeaderTheme(themeToSet)
     }
   }
 
