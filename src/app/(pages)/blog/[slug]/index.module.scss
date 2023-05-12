@@ -84,4 +84,12 @@
 
 .excerpt {
   margin-bottom: calc(var(--base) * 2);
+
+  @include mid-break {
+    margin-bottom: var(--base);
+  }
+
+  @include small-break {
+    margin-bottom: 0
+  }
 }
