@@ -53,7 +53,7 @@ const Content: React.FC<FormBlockProps> = props => {
         </Gutter>
       </div>
       <Gutter className={classes.gutter}>
-        <Grid>
+        <Grid className={classes.richTextGrid}>
           <Cell cols={6} colsM={8} startM={1} className={classes.richTextCell}>
             {richText && <RichText content={richText} />}
           </Cell>

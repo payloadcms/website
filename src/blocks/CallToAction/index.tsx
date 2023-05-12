@@ -36,14 +36,14 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
               </div>
             </Gutter>
           </div>
-          <Grid className={classes.content}>
+          <Grid className={classes.contentWrap}>
             <Cell cols={6} colsM={8}>
-              <RichText content={richText} />
+              <RichText content={richText} className={classes.content} />
             </Cell>
             <Cell cols={5} start={8} colsM={8} startM={1}>
               {feature === 'cpa' && (
                 <Fragment>
-                  <Label>Get started in one line</Label>
+                  <Label className={classes.label}>Get started in one line</Label>
                   <CreatePayloadApp background={false} className={classes.cpa} />
                 </Fragment>
               )}
