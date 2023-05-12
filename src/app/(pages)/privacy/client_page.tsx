@@ -5,9 +5,10 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import RadioGroup from '@forms/fields/RadioGroup'
 import FormComponent from '@forms/Form'
 
-import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { usePrivacy } from '@root/providers/Privacy'
+
+import classes from './index.module.scss'
 
 export const PrivacyClientPage: React.FC = () => {
   const [trackingCookies, setTrackingCookies] = React.useState<string | null>(null)
@@ -22,9 +23,15 @@ export const PrivacyClientPage: React.FC = () => {
     }
   }, [cookieConsent])
 
+  const handleCookieConsentChange = (newValue: string) => {
+    const newConsent = newValue === 'true'
+    updateCookieConsent(newConsent, !newConsent)
+    setTrackingCookies(newValue)
+  }
+
   return (
     <React.Fragment>
-      <Gutter>
+      <Gutter className={classes.privacyWrap}>
         <Grid>
           <Cell cols={8} colsM={8}>
             <h2>Privacy Policy</h2>
@@ -695,7 +702,8 @@ export const PrivacyClientPage: React.FC = () => {
             <div>
               <FormComponent>
                 <RadioGroup
-                  label="Radio Group"
+                  onChange={handleCookieConsentChange}
+                  initialValue={trackingCookies as string}
                   options={[
                     {
                       label: 'Disabled',
@@ -706,6 +714,7 @@ export const PrivacyClientPage: React.FC = () => {
                       value: 'true',
                     },
                   ]}
+                  className={classes.radioGroup}
                 />
               </FormComponent>
               <p>

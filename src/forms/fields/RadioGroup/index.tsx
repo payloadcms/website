@@ -32,6 +32,7 @@ const RadioGroup: React.FC<
     layout,
     hidden,
     onClick,
+    className,
   } = props
 
   const id = useId()
@@ -61,7 +62,9 @@ const RadioGroup: React.FC<
 
   return (
     <div
-      className={[classes.wrap, layout && classes[`layout--${layout}`]].filter(Boolean).join(' ')}
+      className={[className, classes.wrap, layout && classes[`layout--${layout}`]]
+        .filter(Boolean)
+        .join(' ')}
     >
       <Error showError={showError} message={errorMessage} />
       <Label htmlFor={path} label={label} required={required} />
