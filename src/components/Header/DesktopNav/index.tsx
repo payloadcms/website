@@ -20,7 +20,7 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
     <Gutter className={classes.desktopNav}>
       <Grid className={classes.grid}>
         <Cell className={classes.content}>
-          <Link href="/" className={classes.logo} prefetch={false}>
+          <Link href="/" className={classes.logo} prefetch={false} aria-label="Full Payload Logo">
             <FullLogo />
           </Link>
 
@@ -43,6 +43,7 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
                 href="https://discord.com/invite/r6sCXqVk3v"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="Payload's Discord"
               >
                 <DiscordIcon />
               </a>

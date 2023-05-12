@@ -77,15 +77,16 @@ export const MobileNav: React.FC<NavItems> = props => {
   const pageTheme = useTheme()
   const themeBeforeOpenRef = React.useRef<Theme | null | undefined>(pageTheme)
   const { user } = useAuth()
-
   const pathname = usePathname()
+
+  const isMenuOpen = isModalOpen(modalSlug)
 
   React.useEffect(() => {
     closeAllModals()
   }, [pathname, closeAllModals])
 
-  function toggleModal() {
-    if (isModalOpen(modalSlug)) {
+  const toggleModal = React.useCallback(() => {
+    if (isMenuOpen) {
       closeModal(modalSlug)
       setHeaderTheme(themeBeforeOpenRef?.current || pageTheme)
     } else {
@@ -93,7 +94,7 @@ export const MobileNav: React.FC<NavItems> = props => {
       setHeaderTheme('dark')
       openModal(modalSlug)
     }
-  }
+  }, [isMenuOpen, closeModal, openModal, setHeaderTheme, headerTheme, pageTheme])
 
   return (
     <div className={classes.mobileNav}>
@@ -101,7 +102,12 @@ export const MobileNav: React.FC<NavItems> = props => {
         <Gutter>
           <Grid>
             <Cell className={classes.menuBarContainer}>
-              <Link href="/" className={classes.logo} prefetch={false}>
+              <Link
+                href="/"
+                className={classes.logo}
+                prefetch={false}
+                aria-label="Full Payload Logo"
+              >
                 <FullLogo />
               </Link>
               <div className={classes.icons}>
@@ -117,7 +123,12 @@ export const MobileNav: React.FC<NavItems> = props => {
                 </div>
                 {user && <Avatar className={classes.mobileAvatar} />}
                 <DocSearch />
-                <button type="button" className={classes.modalToggler} onClick={toggleModal}>
+                <button
+                  type="button"
+                  className={classes.modalToggler}
+                  onClick={toggleModal}
+                  aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+                >
                   <MenuIcon />
                 </button>
               </div>

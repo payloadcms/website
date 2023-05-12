@@ -230,6 +230,7 @@ export const Footer: React.FC<FooterType> = props => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={classes.socialIconLink}
+                  aria-label="Payload's Instagram page"
                 >
                   <InstagramIcon />
                 </a>
@@ -238,6 +239,7 @@ export const Footer: React.FC<FooterType> = props => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={classes.socialIconLink}
+                  aria-label="Payload's YouTube channel"
                 >
                   <YoutubeIcon />
                 </a>
@@ -246,6 +248,7 @@ export const Footer: React.FC<FooterType> = props => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={classes.socialIconLink}
+                  aria-label="Payload's Twitter page"
                 >
                   <TwitterIcon />
                 </a>
@@ -254,6 +257,7 @@ export const Footer: React.FC<FooterType> = props => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={classes.socialIconLink}
+                  aria-label="Payload's Facebook page"
                 >
                   <FacebookIcon />
                 </a>
