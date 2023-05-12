@@ -311,8 +311,16 @@ const Checkout: React.FC<{
                     Build Settings
                   </Heading>
                   <Text
+                    label="Root Directory"
+                    placeholder="/"
+                    path="rootDirectory"
+                    initialValue={project?.rootDirectory}
+                    required
+                  />
+                  <Text
                     label="Install Command"
                     path="installScript"
+                    placeholder="yarn install"
                     initialValue={project?.installScript}
                     required
                     description="Example: `yarn install` or `npm install`"
@@ -320,6 +328,7 @@ const Checkout: React.FC<{
                   <Text
                     label="Build Command"
                     path="buildScript"
+                    placeholder="yarn build"
                     initialValue={project?.buildScript}
                     required
                     description="Example: `yarn build` or `npm run build`"
@@ -327,6 +336,7 @@ const Checkout: React.FC<{
                   <Text
                     label="Serve Command"
                     path="runScript"
+                    placeholder="yarn serve"
                     initialValue={project?.runScript}
                     required
                     description="Example: `yarn serve` or `npm run serve`"

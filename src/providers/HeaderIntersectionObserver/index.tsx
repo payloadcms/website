@@ -6,6 +6,8 @@ import { useWindowInfo } from '@faceless-ui/window-info'
 import { useTheme } from '@root/providers/Theme'
 import { Theme } from '@root/providers/Theme/types'
 
+import classes from './index.module.scss'
+
 type ContextT = {
   addObservable: (el: HTMLElement, isAttached: boolean) => void
   headerTheme?: Theme | null
@@ -107,7 +109,10 @@ export const HeaderIntersectionObserver: React.FC<HeaderIntersectionObserverProp
         setHeaderTheme,
       }}
     >
-      {children}
+      <>
+        {debug && <div className={classes.intersectionObserverDebugger} />}
+        {children}
+      </>
     </Context.Provider>
   )
 }
