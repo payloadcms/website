@@ -6,10 +6,23 @@ import classes from './index.module.scss'
 
 export const GenerateRequest = ({ req, row }) => {
   if (!req) return null
+
   const reqBody = req.body
     ? Object.entries(req.body).map(([key, value]) => {
-        return `
-          ${key}: "${value}"`
+        let body = `
+      ${key}: "${value}"`
+
+        if (typeof value === 'object' && value) {
+          const nestedValue = Object.entries(value).map(([key, value]) => {
+            return `
+        ${key}: "${value}"`
+          })
+          body = `
+      ${key}: {${nestedValue}
+      },`
+        }
+
+        return body
       })
     : ''
 
@@ -25,17 +38,17 @@ const stringifiedQuery = qs.stringify({
 `
 
   const body = `{
-        method: "${row.method}",
-        headers: {
-          "Content-Type": "application/json",
-        },${
-          req.body
-            ? `
-        body: JSON.stringify({${reqBody}
-        }),`
-            : ``
-        }
-      }`
+    method: "${row.method}",
+    headers: {
+      "Content-Type": "application/json",
+    },${
+      req.body
+        ? `
+    body: JSON.stringify({${reqBody}
+    }),`
+        : ``
+    }
+  }`
 
   const request = `const req = await fetch('{cms-url}${row.path}${
     req.query ? `/{stringifiedQuery}'` : `'`
@@ -46,19 +59,16 @@ const stringifiedQuery = qs.stringify({
       ? `${query}
 `
       : ``
-  }const ${row.example.slug} = async () => {
-    try {
-      ${request}
-      const data = await req.json()
-      return data
-    } catch (err) {
-      console.log(err)
-    }
+  }try {
+  ${request}
+  const data = await req.json()
+} catch (err) {
+  console.log(err)
 }`
 
   return (
     <>
-      <h5>Request</h5>
+      <h6>Request</h6>
       <Code className={classes.code}>{fullRequest}</Code>
     </>
   )

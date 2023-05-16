@@ -5,7 +5,7 @@
   @include label;
   display: flex;
   margin-left: auto;
-  background-color: var(--color-base-950);
+  background-color: var(--color-base-750);
   border-radius: 3px;
   padding: calc(var(--base)*0.25) var(--base);
   transition: opacity 200ms linear;
@@ -24,8 +24,13 @@
   }
 }
 
+.drawerContent {
+  margin-top: var(--base);
+}
+
 @include mid-break {
   .toggle {
+    color: var(--color-base-100);
     padding: calc(var(--base)*0.5);
 
     .arrow {

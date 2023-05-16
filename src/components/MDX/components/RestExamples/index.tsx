@@ -10,7 +10,7 @@ import { Data, Example, Props } from './types'
 import classes from './index.module.scss'
 
 const ExampleCell: React.FC<{ example: Example; row: Data }> = ({ example, row }) => {
-  const { req, res } = example
+  const { req, res, drawerContent } = example
   const drawerRow = [{ ...row, example: false }] as any
   const slug = row?.example?.slug
 
@@ -22,11 +22,11 @@ const ExampleCell: React.FC<{ example: Example; row: Data }> = ({ example, row }
         <span className={classes.label}>Example</span>
         <ArrowIcon className={classes.arrow} />
       </DrawerToggler>
-      <Drawer slug={slug}>
-        <h3>{row.description || row.operation}</h3>
+      <Drawer slug={slug} title={row.description || row.operation} size="s">
         <RestExamples data={drawerRow} inDrawer />
         <GenerateRequest req={req} row={row} />
         <GenerateResponse res={res} />
+        {drawerContent && <div className={classes.drawerContent}>{drawerContent}</div>}
       </Drawer>
     </>
   )

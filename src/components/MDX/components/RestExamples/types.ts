@@ -9,6 +9,7 @@ export interface Example {
     paginated?: boolean
     data?: any
   }
+  drawerContent?: React.ReactNode | string
 }
 
 export interface Data {

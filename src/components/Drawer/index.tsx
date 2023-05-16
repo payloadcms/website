@@ -33,7 +33,14 @@ export const DrawerToggler: React.FC<TogglerProps> = ({
   )
 }
 
-export const Drawer: React.FC<Props> = ({ slug, children, className, header, title }) => {
+export const Drawer: React.FC<Props> = ({
+  slug,
+  children,
+  className,
+  header,
+  title,
+  size = 'l',
+}) => {
   const { closeModal, modalState } = useModal()
   const [isOpen, setIsOpen] = useState(false)
   const [animateIn, setAnimateIn] = useState(false)
@@ -50,7 +57,12 @@ export const Drawer: React.FC<Props> = ({ slug, children, className, header, tit
     return (
       <Modal
         slug={slug}
-        className={[className, classes.drawer, animateIn && classes.isOpen]
+        className={[
+          className,
+          classes.drawer,
+          animateIn && classes.isOpen,
+          size && classes[`size-${size}`],
+        ]
           .filter(Boolean)
           .join(' ')}
       >
@@ -60,9 +72,6 @@ export const Drawer: React.FC<Props> = ({ slug, children, className, header, tit
           id={`close-drawer__${slug}`}
           type="button"
           onClick={() => closeModal(slug)}
-          style={{
-            width: 'var(--gutter-h)',
-          }}
           aria-label="Close"
         />
         <div className={classes.content}>
