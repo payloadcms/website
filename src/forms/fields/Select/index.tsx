@@ -2,7 +2,6 @@
 
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import ReactSelect from 'react-select'
-import { useTheme } from '@providers/Theme'
 
 import Error from '../../Error'
 import Label from '../../Label'
@@ -187,18 +186,9 @@ export const Select: React.FC<SelectProps> = props => {
     [onChange, setValue],
   )
 
-  const theme = useTheme()
-
   return (
     <div
-      className={[
-        className,
-        classes.select,
-        showError && classes.error,
-        theme && classes[`theme-${theme}`],
-      ]
-        .filter(Boolean)
-        .join(' ')}
+      className={[className, classes.select, showError && classes.error].filter(Boolean).join(' ')}
     >
       <Error showError={showError} message={errorMessage} />
       <Label htmlFor={path} label={label} required={required} />
@@ -215,6 +205,7 @@ export const Select: React.FC<SelectProps> = props => {
         // @ts-expect-error
         selectProps={selectProps}
         isDisabled={disabled}
+        menuIsOpen
       />
       {description && <div className={classes.description}>{description}</div>}
     </div>

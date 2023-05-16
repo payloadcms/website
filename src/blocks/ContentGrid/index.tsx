@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { ThemeProvider } from '@providers/Theme'
 
 import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
@@ -45,11 +44,11 @@ export const ContentGrid: React.FC<ContentGridProps> = props => {
 
   if (contentGridFields.forceDarkBackground) {
     return (
-      <ThemeProvider theme="dark">
+      <div data-theme="dark">
         <div className={classes.bgExtension}>
           <Cells {...contentGridFields} darkBackground />
         </div>
-      </ThemeProvider>
+      </div>
     )
   }
 
