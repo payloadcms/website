@@ -86,3 +86,7 @@
   }
 }
 
+.mobileNavOpen {
+  z-index: calc(var(--z-nav) + 11);
+}
+
