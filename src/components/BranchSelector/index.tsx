@@ -88,7 +88,7 @@ export const BranchSelector: React.FC<{
         <Text
           label="Branch to deploy"
           path="deploymentBranch"
-          placeholder="Enter the branch to deploy"
+          placeholder="main"
           initialValue={initialValue}
           required
         />

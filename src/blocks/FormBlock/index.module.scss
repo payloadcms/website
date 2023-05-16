@@ -33,10 +33,20 @@
 
 .richTextCell {
   position: relative;
+
+  @include mid-break {
+    padding-left: var(--base);
+    padding-right: var(--base);
+  }
 }
 
-.formCellWrapper {
+.formCell {
   position: relative;
+
+  @include mid-break {
+    padding-left: var(--base);
+    padding-right: var(--base);
+  }
 }
 
 .formCellContent {

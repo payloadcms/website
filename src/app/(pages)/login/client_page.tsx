@@ -86,8 +86,13 @@ export const Login: React.FC = () => {
       <Grid>
         <Cell cols={5} colsM={8}>
           <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
-            <Message error={errorParam} success={successParam} warning={warningParam} />
-            <FormSubmissionError />
+            <Message
+              error={errorParam}
+              success={successParam}
+              warning={warningParam}
+              margin={false}
+            />
+            <FormSubmissionError margin={false} />
             <FormProcessing message="Logging in, one moment..." />
             <Text
               path="email"

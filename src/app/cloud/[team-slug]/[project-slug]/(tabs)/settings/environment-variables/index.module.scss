@@ -1,0 +1,13 @@
+@use '@scss/common.scss' as *;
+
+.header {
+  margin-bottom: var(--base);
+}
+
+.description {
+  margin-bottom: calc(var(--base) * 1.5);
+}
+
+.link {
+  color: var(--color-blue-500);
+}

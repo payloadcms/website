@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 
 import { Avatar } from '@components/Avatar'
 import { Gutter } from '@components/Gutter'
+import { DiscordIcon } from '@root/graphics/DiscordIcon'
 import { MainMenu } from '@root/payload-types'
 import { useAuth } from '@root/providers/Auth'
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver'
@@ -30,7 +31,10 @@ const MobileNavItems = ({ navItems }: NavItems) => {
       {(navItems || []).map((item, index) => {
         return <CMSLink className={classes.mobileMenuItem} key={index} {...item.link} />
       })}
-      <Link className={classes.mobileMenuItem} href="/new" prefetch={false}>
+      <Link
+        className={[classes.newProject, classes.mobileMenuItem].filter(Boolean).join(' ')}
+        href="/new"
+      >
         New project
       </Link>
       {!user && (
@@ -38,6 +42,14 @@ const MobileNavItems = ({ navItems }: NavItems) => {
           Login
         </Link>
       )}
+      <a
+        className={[classes.discord, classes.mobileMenuItem].filter(Boolean).join(' ')}
+        href="https://discord.com/invite/r6sCXqVk3v"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <DiscordIcon />
+      </a>
     </ul>
   )
 }
@@ -65,15 +77,16 @@ export const MobileNav: React.FC<NavItems> = props => {
   const pageTheme = useTheme()
   const themeBeforeOpenRef = React.useRef<Theme | null | undefined>(pageTheme)
   const { user } = useAuth()
-
   const pathname = usePathname()
+
+  const isMenuOpen = isModalOpen(modalSlug)
 
   React.useEffect(() => {
     closeAllModals()
   }, [pathname, closeAllModals])
 
-  function toggleModal() {
-    if (isModalOpen(modalSlug)) {
+  const toggleModal = React.useCallback(() => {
+    if (isMenuOpen) {
       closeModal(modalSlug)
       setHeaderTheme(themeBeforeOpenRef?.current || pageTheme)
     } else {
@@ -81,7 +94,7 @@ export const MobileNav: React.FC<NavItems> = props => {
       setHeaderTheme('dark')
       openModal(modalSlug)
     }
-  }
+  }, [isMenuOpen, closeModal, openModal, setHeaderTheme, headerTheme, pageTheme])
 
   return (
     <div className={classes.mobileNav}>
@@ -89,10 +102,14 @@ export const MobileNav: React.FC<NavItems> = props => {
         <Gutter>
           <Grid>
             <Cell className={classes.menuBarContainer}>
-              <Link href="/" className={classes.logo} prefetch={false}>
+              <Link
+                href="/"
+                className={classes.logo}
+                prefetch={false}
+                aria-label="Full Payload Logo"
+              >
                 <FullLogo />
               </Link>
-
               <div className={classes.icons}>
                 <div className={classes.cloudNewProject}>
                   <Link href="/new" prefetch={false}>
@@ -106,7 +123,12 @@ export const MobileNav: React.FC<NavItems> = props => {
                 </div>
                 {user && <Avatar className={classes.mobileAvatar} />}
                 <DocSearch />
-                <button type="button" className={classes.modalToggler} onClick={toggleModal}>
+                <button
+                  type="button"
+                  className={classes.modalToggler}
+                  onClick={toggleModal}
+                  aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+                >
                   <MenuIcon />
                 </button>
               </div>
@@ -114,7 +136,6 @@ export const MobileNav: React.FC<NavItems> = props => {
           </Grid>
         </Gutter>
       </div>
-
       <MobileMenuModal {...props} />
     </div>
   )

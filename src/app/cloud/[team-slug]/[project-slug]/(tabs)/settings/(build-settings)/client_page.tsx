@@ -95,22 +95,32 @@ export const ProjectBuildSettingsPage = () => {
           initialValue={project?.slug}
         />
         <Text
+          label="Root Directory"
+          placeholder="/"
+          path="rootDirectory"
+          initialValue={project?.rootDirectory || '/'}
+          required
+        />
+        <Text
           label="Install Command"
-          placeholder="Enter the command to install your project dependencies"
+          placeholder="yarn install"
+          description="Example: `yarn install` or `npm install`"
           path="installScript"
           initialValue={project?.installScript}
           required
         />
         <Text
           label="Build Command"
-          placeholder="Enter the command to build your project"
+          placeholder="yarn build"
+          description="Example: `yarn build` or `npm run build`"
           path="buildScript"
           initialValue={project?.buildScript}
           required
         />
         <Text
           label="Serve Command"
-          placeholder="Enter the command to serve your project"
+          placeholder="yarn serve"
+          description="Example: `yarn serve` or `npm run serve`"
           path="runScript"
           initialValue={project?.runScript}
           required
