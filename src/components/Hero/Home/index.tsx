@@ -2,7 +2,6 @@
 
 import React from 'react'
 import Marquee from 'react-fast-marquee'
-import { ThemeProvider } from '@providers/Theme'
 import Image from 'next/image'
 
 import { CMSLink } from '@components/CMSLink'
@@ -23,7 +22,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
 }) => {
   return (
     <div className={classes.homeHero}>
-      <ThemeProvider theme="dark" className={classes.wrap} affectsHeader>
+      <div data-theme="dark" className={classes.wrap}>
         <div className={classes.bg}>
           <Marquee gradient={false}>
             <div className={classes.bgImage}>
@@ -85,7 +84,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
             </Gutter>
           )}
         </div>
-      </ThemeProvider>
+      </div>
 
       {typeof media === 'object' && media !== null && (
         <Gutter className={classes.mediaGutter}>

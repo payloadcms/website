@@ -22,15 +22,7 @@ export const ThemeProvider: React.FC<{
 
   return (
     <ThemeContext.Provider value={themeToUse}>
-      <div
-        className={[
-          themeToUse ? classes[`theme--${themeToUse}`] : classes.loading,
-          affectsHeader && classes.themedHeader,
-          className,
-        ]
-          .filter(Boolean)
-          .join(' ')}
-      >
+      <div className={[affectsHeader && classes.themedHeader, className].filter(Boolean).join(' ')}>
         {affectsHeader && themeToUse ? (
           <ThemeHeader theme={themeToUse}>{children}</ThemeHeader>
         ) : (
@@ -51,16 +43,16 @@ const initialContext: ThemePreferenceContextType = {
 const ThemePreferenceContext = createContext(initialContext)
 
 export const ThemePreferenceProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme | null>(() => {
-    return canUseDom ? (document.documentElement.getAttribute('data-theme') as Theme) : defaultTheme
-  })
+  const [theme, setThemeState] = useState<Theme>(
+    canUseDom ? (document.documentElement.getAttribute('data-theme') as Theme) : defaultTheme,
+  )
 
   const setTheme = useCallback((themeToSet: Theme | null) => {
     if (themeToSet === null) {
       window.localStorage.removeItem(themeLocalStorageKey)
       const implicitPreference = getImplicitPreference()
       document.documentElement.setAttribute('data-theme', implicitPreference || '')
-      setThemeState(implicitPreference)
+      if (implicitPreference) setThemeState(implicitPreference)
     } else {
       setThemeState(themeToSet)
       window.localStorage.setItem(themeLocalStorageKey, themeToSet)

@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { ThemeProvider } from '@providers/Theme'
 
 import { CMSForm } from '@components/CMSForm'
 import { Gutter } from '@components/Gutter'
@@ -21,7 +20,7 @@ export const FormHero: React.FC<FormHeroProps> = props => {
   if (typeof form === 'string') return null
 
   return (
-    <ThemeProvider theme="dark">
+    <div data-theme="dark">
       <div className={classes.formHero}>
         <div className={classes.bgWrapper}>
           <Gutter disableMobile className={classes.bgGutter}>
@@ -71,6 +70,6 @@ export const FormHero: React.FC<FormHeroProps> = props => {
           </Grid>
         </Gutter>
       </div>
-    </ThemeProvider>
+    </div>
   )
 }

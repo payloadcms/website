@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { ArrowIcon } from '@icons/ArrowIcon'
-import { useTheme } from '@providers/Theme'
 import Link from 'next/link'
 import { MDXRemote } from 'next-mdx-remote'
 
@@ -23,8 +22,6 @@ type Props = {
 export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
   const { content, headings, title } = doc
   const [OS, setOS] = React.useState('⌘')
-
-  const theme = useTheme()
 
   React.useEffect(() => {
     const isMac =
@@ -56,7 +53,7 @@ export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
           </div>
           {next && (
             <Link
-              className={classes[`next--${theme}`]}
+              className={classes.next}
               href={`/docs/${next.topic.toLowerCase()}/${next.slug}`}
               data-algolia-no-crawl
             >
