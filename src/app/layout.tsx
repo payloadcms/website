@@ -1,7 +1,9 @@
 import React from 'react'
 import { fetchGlobals } from '@graphql'
 import { Providers } from '@providers'
+import { defaultTheme, themeLocalStorageKey } from '@providers/Theme/shared'
 import { Metadata } from 'next'
+import Script from 'next/script'
 
 import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics'
 import { GoogleTagManager } from '@components/Analytics/GoogleTagManager'
@@ -30,6 +32,46 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
           <link rel="preconnect" href="https://www.googletagmanager.com" />
           <link rel="preconnect" href="https://www.google-analytics.com" />
+          {/* eslint-disable-next-line @next/next/no-before-interactive-script-outside-document */}
+          <Script
+            id="theme-script"
+            strategy="beforeInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+            (function () {          
+              function getImplicitPreference() {
+                var mediaQuery = '(prefers-color-scheme: dark)'
+                var mql = window.matchMedia(mediaQuery)
+                var hasImplicitPreference = typeof mql.matches === 'boolean'
+          
+                if (hasImplicitPreference) {
+                  return mql.matches ? 'dark' : 'light'
+                }
+          
+                return null
+              }
+          
+              function themeIsValid(theme) {
+                return theme === 'light' || theme === 'dark'
+              }
+          
+              var themeToSet = '${defaultTheme}'
+              var preference = window.localStorage.getItem('${themeLocalStorageKey}')
+          
+              if (themeIsValid(preference)) {
+                themeToSet = preference
+              } else {
+                var implicitPreference = getImplicitPreference()
+          
+                if (implicitPreference) {
+                  themeToSet = implicitPreference
+                }
+              }
+              console.log('themeToSet', themeToSet)
+              document.documentElement.setAttribute('data-theme', themeToSet)
+            })()`,
+            }}
+          />
           <GoogleAnalytics />
         </head>
         <body

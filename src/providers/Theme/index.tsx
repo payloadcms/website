@@ -3,6 +3,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
 import { ThemeHeader } from '@components/ThemeHeader'
+import canUseDom from '@root/utilities/can-use-dom'
 import { defaultTheme, getImplicitPreference, themeLocalStorageKey } from './shared'
 import { Theme, themeIsValid, ThemePreferenceContextType } from './types'
 
@@ -50,7 +51,9 @@ const initialContext: ThemePreferenceContextType = {
 const ThemePreferenceContext = createContext(initialContext)
 
 export const ThemePreferenceProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme | null>(null)
+  const [theme, setThemeState] = useState<Theme | null>(() => {
+    return canUseDom ? (document.documentElement.getAttribute('data-theme') as Theme) : defaultTheme
+  })
 
   const setTheme = useCallback((themeToSet: Theme | null) => {
     if (themeToSet === null) {
