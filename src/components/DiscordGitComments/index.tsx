@@ -88,7 +88,7 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
           }
 
           const avatarImg = comment.authorAvatar
-            ? `https://cdn.discordapp.com/avatars/${comment.authorID}/${comment.authorAvatar}.png?size=256`
+            ? `https://cdn.discordapp.com/avatars/${comment.authorID}/${comment.authorAvatar}.png?size=48`
             : 'https://cdn.discordapp.com/embed/avatars/0.png'
 
           const hasFileAttachments =

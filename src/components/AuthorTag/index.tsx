@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 import { Pill } from '@components/Pill'
 import { CommentsIcon } from '@root/graphics/CommentsIcon'
@@ -40,20 +41,21 @@ const AuthorTag: React.FC<Props> = ({
   return (
     <div className={[classes.authorTag, className].filter(Boolean).join(' ')}>
       <div className={classes.authorCell}>
-        <div className={classes.authorImageWrap}>
-          {teamMember ? (
-            <a
-              className={classes.authorLink}
-              href={`https://twitter.com/${teamMember}`}
-              target="_blank"
-            >
-              <img src={image} /> {/* eslint-disable-line @next/next/no-img-element */}
-            </a>
-          ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={image} />
-          )}
-        </div>
+        {image && (
+          <div className={classes.authorImageWrap}>
+            {teamMember ? (
+              <a
+                className={classes.authorLink}
+                href={`https://twitter.com/${teamMember}`}
+                target="_blank"
+              >
+                <Image src={image} width={45} height={45} alt="discord user avatar" />
+              </a>
+            ) : (
+              <Image src={image} width={45} height={45} alt="default discord avatar" />
+            )}
+          </div>
+        )}
 
         <div className={classes.authorDetails}>
           <div className={classes.authorName}>

@@ -67,7 +67,7 @@ export const DiscordThreadPage: React.FC<ThreadProps> = props => {
 
   const author = intro.authorName
 
-  const selectedAuthorAvatar = `https://cdn.discordapp.com/avatars/${intro.authorID}/${intro.authorAvatar}.png?size=256`
+  const selectedAuthorAvatar = `https://cdn.discordapp.com/avatars/${intro.authorID}/${intro.authorAvatar}.png?size=48`
   const defaultAuthorAvatar = 'https://cdn.discordapp.com/embed/avatars/0.png'
   const authorAvatarImg = intro.authorAvatar ? selectedAuthorAvatar : defaultAuthorAvatar
 
