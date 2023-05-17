@@ -21,11 +21,11 @@ export const TopBar: React.FC<TopBarType> = ({ starText, announcement }) => {
         .filter(Boolean)
         .join(' ')}
     >
-      {typeof starCount === 'number' && (
+      {typeof starCount === 'string' && (
         <div className={classes.wrap}>
           <div className={classes.starWrap}>
             <span className={classes.star}>&#11088;</span>
-            <span className={classes.starCount}>{starCount.toLocaleString()}</span>
+            <span className={classes.starCount}>{starCount}</span>
             <span>&#8212;</span>
             <RichText className={classes.richText} content={starText?.desktop} />
             <RichText className={classes.mobileText} content={starText?.mobile} />
