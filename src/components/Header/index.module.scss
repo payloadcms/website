@@ -9,6 +9,7 @@
   width: 100%;
   z-index: var(--z-nav);
   transition: color 300ms ease;
+  opacity: 0;
 
   &:before {
     content: '';
@@ -42,6 +43,10 @@
       transition: opacity 200ms ease;
     }
   }
+}
+
+.header.hasTheme {
+  opacity: 1;
 }
 
 .header.hideBackground {

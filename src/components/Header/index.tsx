@@ -3,7 +3,6 @@
 import * as React from 'react'
 import { useModal } from '@faceless-ui/modal'
 import { useScrollInfo } from '@faceless-ui/scroll-info'
-import { ThemeProvider } from '@providers/Theme'
 
 import { MainMenu } from '@root/payload-types'
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver'
@@ -28,12 +27,13 @@ export const Header: React.FC<MainMenu> = ({ navItems }) => {
   }, [y, isMobileNavOpen])
 
   return (
-    <ThemeProvider theme={headerTheme}>
+    <div data-theme={headerTheme}>
       <header
         className={[
           classes.header,
           hideBackground && classes.hideBackground,
           isMobileNavOpen && classes.mobileNavOpen,
+          headerTheme && classes.hasTheme,
         ]
           .filter(Boolean)
           .join(' ')}
@@ -41,6 +41,6 @@ export const Header: React.FC<MainMenu> = ({ navItems }) => {
         <DesktopNav navItems={navItems} />
         <MobileNav navItems={navItems} />
       </header>
-    </ThemeProvider>
+    </div>
   )
 }

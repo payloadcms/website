@@ -2,12 +2,9 @@
 
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
-import { ThemeHeader } from '@components/ThemeHeader'
 import canUseDom from '@root/utilities/can-use-dom'
 import { defaultTheme, getImplicitPreference, themeLocalStorageKey } from './shared'
 import { Theme, themeIsValid, ThemePreferenceContextType } from './types'
-
-import classes from './index.module.scss'
 
 const ThemeContext = createContext<Theme | null | undefined>(undefined)
 
@@ -15,20 +12,13 @@ export const ThemeProvider: React.FC<{
   theme?: Theme | null
   children: React.ReactNode
   className?: string
-  affectsHeader?: boolean
-}> = ({ theme, children, className, affectsHeader }) => {
+}> = ({ theme, children, className }) => {
   const fallbackTheme = useTheme()
   const themeToUse = theme || fallbackTheme
 
   return (
     <ThemeContext.Provider value={themeToUse}>
-      <div className={[affectsHeader && classes.themedHeader, className].filter(Boolean).join(' ')}>
-        {affectsHeader && themeToUse ? (
-          <ThemeHeader theme={themeToUse}>{children}</ThemeHeader>
-        ) : (
-          children
-        )}
-      </div>
+      <div className={className}>{children}</div>
     </ThemeContext.Provider>
   )
 }

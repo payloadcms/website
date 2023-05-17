@@ -61,7 +61,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                   themeToSet = implicitPreference
                 }
               }
-              console.log('themeToSet', themeToSet)
+
               document.documentElement.setAttribute('data-theme', themeToSet)
             })()`,
             }}
