@@ -4,7 +4,7 @@ import * as cheerio from 'cheerio'
 import AuthorTag from '@components/AuthorTag'
 import { DiscordGitBody } from '@components/DiscordGitBody'
 import { FileAttachments } from '@components/FileAttachment'
-import { Messages } from '@root/app/community-help/discord/[slug]/client_page'
+import { Messages } from '@root/app/community-help/(posts)/discord/[slug]/client_page'
 import { Answer, Comment } from '@root/app/community-help/github/[slug]/client_page'
 import { CheckIcon } from '@root/icons/CheckIcon'
 

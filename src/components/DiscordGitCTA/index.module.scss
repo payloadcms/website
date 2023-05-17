@@ -11,12 +11,13 @@
   position: sticky;
   width: 430px;
   min-width: 430px;
-  margin: calc(var(--gutter-h) * 0.25) calc(var(--gutter-h) * 0.5) 0 0;
-  top: calc(var(--gutter-h) * 0.5);
+  margin-right: calc(var(--gutter-h) * 0.5);
+  padding-top: calc(var(--base) * 2.5);
+  top: calc(var(--header-height) + var(--top-bar-height) + calc(var(--base) * 2));
 }
 
 .bg {
-  top: calc(var(--gutter-h) * -0.5);
+  top: 0;
   right: calc(var(--gutter-h) * -0.5);
   left: calc(var(--gutter-h) * 0.5);
   height: 75%;
@@ -27,6 +28,7 @@
 .cta {
   @include btnReset;
   @include shadow-lg;
+  text-decoration: none;
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -84,10 +86,12 @@
   justify-content: space-between;
   margin: var(--base) 0 0 0;
   width: 100%;
+  align-items: center;
+  height: 26px;
 
   & img {
-    border-radius: 5px;
-    height: 28px;
+    border-radius: .25em; // matches github button
+    height: 26px;
   }
 }
 
@@ -122,7 +126,7 @@
 
 @include large-break {
   .ctaWrap {
-    top: calc(var(--gutter-h) * 1.5);
+    top: calc(var(--header-height) + var(--top-bar-height) + calc(var(--gutter-h) * 1.5));
   }
 
   .bg {

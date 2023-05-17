@@ -4,7 +4,7 @@ import Link from 'next/link'
 import AuthorTag from '@components/AuthorTag'
 import { DiscordGitBody } from '@components/DiscordGitBody'
 import { FileAttachments } from '@components/FileAttachment'
-import { Attachments } from '@root/app/community-help/discord/[slug]/client_page'
+import { Attachments } from '@root/app/community-help/(posts)/discord/[slug]/client_page'
 
 import classes from './index.module.scss'
 

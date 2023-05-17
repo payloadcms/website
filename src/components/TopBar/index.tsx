@@ -5,6 +5,7 @@ import { useModal } from '@faceless-ui/modal'
 
 import { modalSlug } from '@components/Header/MobileNav'
 import { RichText } from '@components/RichText'
+import { useStarCount } from '@root/utilities/use-star-count'
 import type { TopBar as TopBarType } from '../../payload-types'
 
 import classes from './index.module.scss'
@@ -12,18 +13,7 @@ import classes from './index.module.scss'
 export const TopBar: React.FC<TopBarType> = ({ starText, announcement }) => {
   const { isModalOpen } = useModal()
   const isMobileNavOpen = isModalOpen(modalSlug)
-  const [starCount, setStarCount] = React.useState<number | undefined>()
-
-  React.useEffect(() => {
-    async function getStarCount() {
-      const { stargazers_count: totalStars } = await fetch(
-        'https://api.github.com/repos/payloadcms/payload',
-      ).then(res => res.json())
-      setStarCount(totalStars)
-    }
-
-    getStarCount()
-  }, [])
+  const starCount = useStarCount()
 
   return (
     <div

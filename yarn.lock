@@ -2541,11 +2541,6 @@ get-tsconfig@^4.5.0:
   resolved "https://registry.yarnpkg.com/get-tsconfig/-/get-tsconfig-4.5.0.tgz#6d52d1c7b299bd3ee9cd7638561653399ac77b0f"
   integrity sha512-MjhiaIWCJ1sAU4pIQ5i5OfOuHHxVo1oYeNsWTON7jxYkod8pHocXeh+SSbmu5OZZZK73B6cbJ2XADzXehLyovQ==
 
-github-buttons@^2.22.0:
-  version "2.27.0"
-  resolved "https://registry.yarnpkg.com/github-buttons/-/github-buttons-2.27.0.tgz#bbebea3d1c4f8c302b7d8432fd25a679242597e2"
-  integrity sha512-PmfRMI2Rttg/2jDfKBeSl621sEznrsKF019SuoLdoNlO7qRUZaOyEI5Li4uW+79pVqnDtKfIEVuHTIJ5lgy64w==
-
 github-from-package@0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/github-from-package/-/github-from-package-0.0.0.tgz#97fb5d96bfde8973313f20e8288ef9a167fa64ce"
@@ -4431,13 +4426,6 @@ react-fast-marquee@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/react-fast-marquee/-/react-fast-marquee-1.5.2.tgz#6cc037363c6b7cb65a16f19ea00500e164196977"
   integrity sha512-gb66X3crBlOdaoY9u6nawsXnU3v7s0UC0PKy9ApuAzE/F/pMWuvnUrQqoRseOyoXSo+DzMdjQC8Mcs4lftzYxA==
-
-react-github-btn@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/react-github-btn/-/react-github-btn-1.4.0.tgz#92654107e92658e60dd977c7a92b212f806da78d"
-  integrity sha512-lV4FYClAfjWnBfv0iNlJUGhamDgIq6TayD0kPZED6VzHWdpcHmPfsYOZ/CFwLfPv4Zp+F4m8QKTj0oy2HjiGXg==
-  dependencies:
-    github-buttons "^2.22.0"
 
 react-instantsearch-core@6.39.1:
   version "6.39.1"
