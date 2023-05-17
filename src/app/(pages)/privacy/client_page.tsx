@@ -697,29 +697,31 @@ export const PrivacyClientPage: React.FC = () => {
             </p>
             <p>We use targeting/advertising cookies on our site.</p>
           </Cell>
-          <Cell cols={8} colsM={8}>
-            <h5>Cookie Preferences</h5>
-            <div>
-              <FormComponent>
-                <RadioGroup
-                  onChange={handleCookieConsentChange}
-                  initialValue={trackingCookies as string}
-                  options={[
-                    {
-                      label: 'Disabled',
-                      value: 'false',
-                    },
-                    {
-                      label: 'Enabled',
-                      value: 'true',
-                    },
-                  ]}
-                  className={classes.radioGroup}
-                />
-              </FormComponent>
-              <p>
-                Read our <a href="#cookies">Cookie Policy</a> to learn more.
-              </p>
+          <Cell cols={4} colsM={8}>
+            <div className={classes.cookiePreferencesWrap}>
+              <div>
+                <h5>Cookie Preferences</h5>
+                <FormComponent>
+                  <RadioGroup
+                    onChange={handleCookieConsentChange}
+                    initialValue={trackingCookies as string}
+                    options={[
+                      {
+                        label: 'Disabled',
+                        value: 'false',
+                      },
+                      {
+                        label: 'Enabled',
+                        value: 'true',
+                      },
+                    ]}
+                    className={classes.radioGroup}
+                  />
+                </FormComponent>
+                <p>
+                  Read our <a href="#cookies">Cookie Policy</a> to learn more.
+                </p>
+              </div>
             </div>
           </Cell>
         </Grid>
