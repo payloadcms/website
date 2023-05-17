@@ -1,5 +1,4 @@
 import React from 'react'
-import GitHubButton from 'react-github-btn'
 import Image from 'next/image'
 import Link from 'next/link'
 
