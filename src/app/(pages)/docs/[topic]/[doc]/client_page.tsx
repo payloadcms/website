@@ -56,6 +56,7 @@ export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
               className={classes.next}
               href={`/docs/${next.topic.toLowerCase()}/${next.slug}`}
               data-algolia-no-crawl
+              prefetch={false}
             >
               <div className={classes.nextLabel}>
                 Next <ArrowIcon />

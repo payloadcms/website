@@ -34,6 +34,7 @@ const MobileNavItems = ({ navItems }: NavItems) => {
       <Link
         className={[classes.newProject, classes.mobileMenuItem].filter(Boolean).join(' ')}
         href="/new"
+        prefetch={false}
       >
         New project
       </Link>

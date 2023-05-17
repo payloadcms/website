@@ -122,6 +122,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
                             className={[classes.doc, isDocActive && classes['doc--active']]
                               .filter(Boolean)
                               .join(' ')}
+                            prefetch={false}
                           >
                             {doc.label}
                           </Link>

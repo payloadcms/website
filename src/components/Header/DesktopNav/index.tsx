@@ -35,7 +35,13 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
               New project
             </Link>
 
-            {user ? <Avatar className={classes.avatar} /> : <Link href="/login">Login</Link>}
+            {user ? (
+              <Avatar className={classes.avatar} />
+            ) : (
+              <Link prefetch={false} href="/login">
+                Login
+              </Link>
+            )}
 
             <div className={classes.icons}>
               <a
