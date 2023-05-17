@@ -31,8 +31,8 @@ export const HeaderIntersectionObserver: React.FC<HeaderIntersectionObserverProp
   debug = false,
 }) => {
   const { height: windowHeight, width: windowWidth } = useWindowInfo()
-  const [headerTheme, setHeaderTheme] = React.useState<Theme | null | undefined>(null)
   const siteTheme = useTheme()
+  const [headerTheme, setHeaderTheme] = React.useState<Theme | null | undefined>(null)
   const [observer, setObserver] = React.useState<IntersectionObserver | undefined>(undefined)
   const [tick, setTick] = React.useState<number | undefined>(undefined)
 
@@ -97,6 +97,8 @@ export const HeaderIntersectionObserver: React.FC<HeaderIntersectionObserverProp
       if (tickTimeout) clearTimeout(tickTimeout)
       if (observerRef) {
         observerRef.disconnect()
+      } else {
+        setHeaderTheme(siteTheme)
       }
     }
   }, [windowWidth, windowHeight, siteTheme, tick])

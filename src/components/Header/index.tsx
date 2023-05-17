@@ -16,7 +16,7 @@ export const Header: React.FC<MainMenu> = ({ navItems }) => {
   const isMobileNavOpen = isModalOpen(mobileNavModalSlug)
   const { headerTheme } = useHeaderObserver()
   const { y } = useScrollInfo()
-  const [hideBackground, setHideBackground] = React.useState(false)
+  const [hideBackground, setHideBackground] = React.useState(true)
 
   React.useEffect(() => {
     if (isMobileNavOpen) {
@@ -33,7 +33,7 @@ export const Header: React.FC<MainMenu> = ({ navItems }) => {
           classes.header,
           hideBackground && classes.hideBackground,
           isMobileNavOpen && classes.mobileNavOpen,
-          headerTheme && classes.hasTheme,
+          headerTheme && classes.themeIsSet,
         ]
           .filter(Boolean)
           .join(' ')}
