@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { QuoteIcon } from '@icons/QuoteIcon'
-import { ThemeProvider } from '@providers/Theme'
 import { formatDate } from '@utilities/format-date-time'
 
 import { RichText } from '@components/RichText'
@@ -13,12 +12,12 @@ type Props = NonNullable<
 >[0]
 export const QuoteCard: React.FC<Props> = ({ richText, quoteDate }) => {
   return (
-    <ThemeProvider theme="dark" className={classes.quoteCard}>
+    <div data-theme="dark" className={classes.quoteCard}>
       <QuoteIcon className={classes.icon} />
       <RichText className={classes.richText} content={richText} />
       <time className={classes.date} dateTime={quoteDate}>
         {formatDate({ date: quoteDate, format: 'shortDateStamp' })}
       </time>
-    </ThemeProvider>
+    </div>
   )
 }

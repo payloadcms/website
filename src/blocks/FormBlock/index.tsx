@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { ThemeProvider, useTheme } from '@providers/Theme'
 
 import { BlockSpacing } from '@components/BlockSpacing'
 import { CMSForm } from '@components/CMSForm'
@@ -17,8 +16,6 @@ export type FormBlockProps = Extract<Page['layout'][0], { blockType: 'form' }>
 
 const Content: React.FC<FormBlockProps> = props => {
   const { formFields: { container, richText, form } = {} } = props
-
-  const theme = useTheme()
 
   if (typeof form === 'string') return null
 
@@ -40,11 +37,7 @@ const Content: React.FC<FormBlockProps> = props => {
           <Grid className={classes.bg2Grid}>
             <Cell start={7} cols={6} startM={2} colsM={7} className={classes.bg2Cell}>
               <div
-                className={[
-                  classes.bg2,
-                  container && classes.containerize,
-                  theme === 'dark' && classes.dark,
-                ]
+                className={[classes.bg2, container && classes.containerize]
                   .filter(Boolean)
                   .join(' ')}
               />
@@ -73,9 +66,9 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
 
   if (container) {
     return (
-      <ThemeProvider theme="dark">
+      <div data-theme="dark">
         <Content {...props} />
-      </ThemeProvider>
+      </div>
     )
   }
 

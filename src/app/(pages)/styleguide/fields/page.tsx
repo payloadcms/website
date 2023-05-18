@@ -1,7 +1,6 @@
 import React from 'react'
 import { Checkbox } from '@forms/fields/Checkbox'
 import { NumberInput } from '@forms/fields/Number'
-import { Phone } from '@forms/fields/Phone'
 import RadioGroup from '@forms/fields/RadioGroup'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
@@ -55,8 +54,6 @@ const Fields: React.FC = () => {
         />
         <br />
         <Textarea label="Textarea Field" placeholder="Message" />
-        <br />
-        <Phone label="Phone Field" placeholder="555-555-5555" />
         <br />
         <NumberInput label="Number Field" placeholder="1234" />
         <br />

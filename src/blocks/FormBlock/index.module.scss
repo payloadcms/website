@@ -138,17 +138,8 @@
   background-color: var(--color-base-0);
   box-shadow: 0px 44px 84px -40px #00000040, 0px 4px 44px 0px #0000000F;
 
-  &.dark {
-    background-color: var(--color-base-900);
-    box-shadow: 0px 44px 84px -40px #00000093, 0px 4px 44px 0px #00000029;
-  }
-
   &.containerize {
     box-shadow: none;
     background-color: var(--color-base-900);
-
-    // &.dark {
-
-    // }
   }
 }

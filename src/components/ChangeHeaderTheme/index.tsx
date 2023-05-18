@@ -9,7 +9,7 @@ type ThemeHeaderProps = {
   children?: React.ReactNode
   theme: Theme
 }
-export const ThemeHeader: React.FC<ThemeHeaderProps> = ({ children, theme }) => {
+export const ChangeHeaderTheme: React.FC<ThemeHeaderProps> = ({ children, theme }) => {
   const observableRef = React.useRef<HTMLDivElement>(null)
   const { addObservable, debug } = useHeaderObserver()
 

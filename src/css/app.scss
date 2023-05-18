@@ -5,6 +5,7 @@
 @import "./colors.scss";
 @import './docsearch.scss';
 @import "./toastify.scss";
+@import "./theme.scss";
 
 :root {
   --base: 24px;
@@ -71,6 +72,12 @@ html {
   background: var(--theme-bg);
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
+  opacity: 0;
+
+  &[data-theme=dark],
+  &[data-theme=light] {
+    opacity: initial;
+  }
 
   &[data-theme=dark] {
     background: var(--color-base-900);

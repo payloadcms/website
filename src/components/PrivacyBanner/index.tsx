@@ -39,7 +39,7 @@ export const PrivacyBanner: React.FC = () => {
       <div className={classes.contentWrap}>
         <p className={classes.content}>
           {`We use `}
-          <Link href="/privacy" className={classes.privacyLink}>
+          <Link href="/privacy" className={classes.privacyLink} prefetch={false}>
             cookies
           </Link>
           {' so we can build a better product.'}

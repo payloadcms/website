@@ -4,8 +4,8 @@ import * as cheerio from 'cheerio'
 import AuthorTag from '@components/AuthorTag'
 import { DiscordGitBody } from '@components/DiscordGitBody'
 import { FileAttachments } from '@components/FileAttachment'
-import { Messages } from '@root/app/community-help/discord/[slug]/client_page'
-import { Answer, Comment } from '@root/app/community-help/github/[slug]/client_page'
+import { Messages } from '@root/app/community-help/(posts)/discord/[slug]/client_page'
+import { Answer, Comment } from '@root/app/community-help/(posts)/github/[slug]/client_page'
 import { CheckIcon } from '@root/icons/CheckIcon'
 
 import classes from './index.module.scss'
@@ -88,7 +88,7 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
           }
 
           const avatarImg = comment.authorAvatar
-            ? `https://cdn.discordapp.com/avatars/${comment.authorID}/${comment.authorAvatar}.png?size=256`
+            ? `https://cdn.discordapp.com/avatars/${comment.authorID}/${comment.authorAvatar}.png?size=48`
             : 'https://cdn.discordapp.com/embed/avatars/0.png'
 
           const hasFileAttachments =

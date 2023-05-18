@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { ThemeProvider } from '@providers/Theme'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
@@ -80,10 +79,10 @@ export const MediaContent: React.FC<MediaContentProps> = props => {
 
   if (container) {
     return (
-      <ThemeProvider theme="dark" className={classes.withContainer}>
+      <div data-theme="dark" className={classes.withContainer}>
         <MediaContentBlock {...props} />
         <div className={classes.background} />
-      </ThemeProvider>
+      </div>
     )
   }
 

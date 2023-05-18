@@ -1,7 +1,8 @@
 import React from 'react'
-import GitHubButton from 'react-github-btn'
 import Link from 'next/link'
 
+import { DiscordUsersPill } from '@components/DiscordUsersPill'
+import { GithubStarsPill } from '@components/GithubStarsPill'
 import { PixelBackground } from '@components/PixelBackground'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 
@@ -15,42 +16,30 @@ const DiscordGitCTA: React.FC = () => {
   return (
     <div className={classes.container}>
       <div className={classes.ctaWrap}>
-        <button onClick={() => window.open(gitURL, '_blank')} className={classes.cta}>
+        <Link href={gitURL} target="_blank" className={classes.cta}>
           <div className={classes.message}>
             Like what we're doing?
             <br />
             Star us on GitHub!
           </div>
           <div className={classes.gitButton}>
-            <GitHubButton
-              href="https://github.com/payloadcms/payload"
-              data-color-scheme="dark"
-              data-icon="octicon-star"
-              data-size="large"
-              data-show-count="true"
-              aria-label="Star Payload on GitHub"
-            >
-              Star
-            </GitHubButton>
+            <GithubStarsPill className={classes.ctaPill} />
             <ArrowIcon className={classes.arrow} />
           </div>
-        </button>
+        </Link>
 
-        <button
-          onClick={() => window.open(discordURL, '_blank')}
+        <Link
+          href={discordURL}
+          target="_blank"
           aria-label="Connect with the Payload Community on Discord"
           className={classes.cta}
         >
           <div className={classes.message}>Connect with the Payload Community on Discord</div>
           <div className={classes.discordButton}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              alt="Discord"
-              src="https://img.shields.io/discord/967097582721572934?label=Discord&color=5865F2&style=flat-square"
-            />
+            <DiscordUsersPill className={classes.ctaPill} />
             <ArrowIcon className={classes.arrow} />
           </div>
-        </button>
+        </Link>
 
         <div className={classes.enterpriseCTA}>
           <strong>Can&apos;t find what you&apos;re looking for?</strong>

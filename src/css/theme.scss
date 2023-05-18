@@ -1,14 +1,4 @@
-@use '@scss/type.scss' as *;
-
-.loading {
-  display: none;
-}
-
-.themedHeader {
-  height: 100%;
-}
-
-.theme--light {
+[data-theme=light] {
   --theme-success-50: var(--color-success-50);
   --theme-success-100: var(--color-success-100);
   --theme-success-150: var(--color-success-150);
@@ -139,6 +129,12 @@
   color-scheme: light;
   color: var(--theme-text);
 
+  --highlight-default-bg-color: var(--theme-success-400);
+  --highlight-default-text-color: var(--theme-text);
+
+  --highlight-danger-bg-color: var(--theme-error-150);
+  --highlight-danger-text-color: var(--theme-text);
+
   h1 a,
   h2 a,
   h3 a,
@@ -161,7 +157,7 @@
   }
 }
 
-.theme--dark {
+[data-theme=dark] {
   --theme-elevation-0: var(--color-base-1000);
   --theme-elevation-50: var(--color-base-950);
   --theme-elevation-100: var(--color-base-900);
@@ -291,6 +287,12 @@
 
   color-scheme: dark;
   color: var(--theme-text);
+
+  --highlight-default-bg-color: var(--theme-success-100);
+  --highlight-default-text-color: var(--theme-success-600);
+
+  --highlight-danger-bg-color: var(--theme-error-100);
+  --highlight-danger-text-color: var(--theme-error-550);
 
   h1 a,
   h2 a,

@@ -1,5 +1,4 @@
 import React, { Fragment, useRef } from 'react'
-import { useTheme } from '@providers/Theme'
 import useIntersection from '@utilities/useIntersection'
 
 import classes from './index.module.scss'
@@ -30,8 +29,6 @@ export const Highlight: React.FC<{
     rootMargin: '-75px',
   })
 
-  const theme = useTheme()
-
   if (text) {
     const words = text.trim().split(' ')
 
@@ -39,12 +36,7 @@ export const Highlight: React.FC<{
       return (
         <span
           ref={ref}
-          className={[
-            classes.highlightWrapper,
-            className,
-            theme === 'dark' && classes.darkMode,
-            classes[appearance],
-          ]
+          className={[classes.highlightWrapper, className, classes[appearance]]
             .filter(Boolean)
             .join(' ')}
         >

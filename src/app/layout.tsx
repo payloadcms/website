@@ -1,7 +1,9 @@
 import React from 'react'
 import { fetchGlobals } from '@graphql'
 import { Providers } from '@providers'
+import { defaultTheme, themeLocalStorageKey } from '@providers/Theme/shared'
 import { Metadata } from 'next'
+import Script from 'next/script'
 
 import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics'
 import { GoogleTagManager } from '@components/Analytics/GoogleTagManager'
@@ -21,9 +23,49 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { mainMenu, footer, topBar, templates } = await fetchGlobals()
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <PrivacyProvider>
         <head>
+          {/* eslint-disable-next-line @next/next/no-before-interactive-script-outside-document */}
+          <Script
+            id="theme-script"
+            strategy="beforeInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+            (function () {          
+              function getImplicitPreference() {
+                var mediaQuery = '(prefers-color-scheme: dark)'
+                var mql = window.matchMedia(mediaQuery)
+                var hasImplicitPreference = typeof mql.matches === 'boolean'
+          
+                if (hasImplicitPreference) {
+                  return mql.matches ? 'dark' : 'light'
+                }
+          
+                return null
+              }
+          
+              function themeIsValid(theme) {
+                return theme === 'light' || theme === 'dark'
+              }
+          
+              var themeToSet = '${defaultTheme}'
+              var preference = window.localStorage.getItem('${themeLocalStorageKey}')
+          
+              if (themeIsValid(preference)) {
+                themeToSet = preference
+              } else {
+                var implicitPreference = getImplicitPreference()
+          
+                if (implicitPreference) {
+                  themeToSet = implicitPreference
+                }
+              }
+
+              document.documentElement.setAttribute('data-theme', themeToSet)
+            })()`,
+            }}
+          />
           <link rel="icon" href="/images/favicon.svg" />
           <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_CLOUD_CMS_URL} />
           <link rel="dns-prefetch" href="https://api.github.com/repos/payloadcms/payload" />

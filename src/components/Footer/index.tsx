@@ -31,7 +31,7 @@ import classes from './index.module.scss'
 export const Footer: React.FC<FooterType> = props => {
   const { columns } = props
   const [itemsUnderLogo, documentationItems] = columns ?? []
-  const { setTheme, theme } = useThemePreference()
+  const { setTheme } = useThemePreference()
   const { setHeaderTheme } = useHeaderObserver()
   const selectRef = React.useRef<HTMLSelectElement>(null)
 
@@ -69,9 +69,10 @@ export const Footer: React.FC<FooterType> = props => {
 
   const onThemeChange = (themeToSet: Theme & 'auto') => {
     if (themeToSet === 'auto') {
-      const implicitPreference = getImplicitPreference()
-      setHeaderTheme(implicitPreference ?? 'light')
-      setTheme(null)
+      const implicitPreference = getImplicitPreference() ?? 'light'
+      setHeaderTheme(implicitPreference)
+      setTheme(implicitPreference)
+      if (selectRef.current) selectRef.current.value = 'auto'
     } else {
       setTheme(themeToSet)
       setHeaderTheme(themeToSet)
@@ -84,7 +85,6 @@ export const Footer: React.FC<FooterType> = props => {
       selectRef.current.value = preference ?? 'auto'
     }
   }, [])
-
   const router = useRouter()
 
   const pathname = usePathname()
@@ -273,11 +273,13 @@ export const Footer: React.FC<FooterType> = props => {
             <Cell cols={2} colsM={8} className={classes.themeCell}>
               <div className={classes.selectContainer}>
                 <label htmlFor="theme">
-                  <div className={`${classes.switcherIcon} ${classes.themeIcon}`}>
-                    {!theme && <ThemeAutoIcon />}
-                    {theme === 'light' && <ThemeLightIcon />}
-                    {theme === 'dark' && <ThemeDarkIcon />}
-                  </div>
+                  {selectRef?.current && (
+                    <div className={`${classes.switcherIcon} ${classes.themeIcon}`}>
+                      {selectRef.current.value === 'auto' && <ThemeAutoIcon />}
+                      {selectRef.current.value === 'light' && <ThemeLightIcon />}
+                      {selectRef.current.value === 'dark' && <ThemeDarkIcon />}
+                    </div>
+                  )}
 
                   <select
                     id="theme"

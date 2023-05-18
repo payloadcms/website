@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { ThemeProvider } from '@providers/Theme'
 import { formatDate } from '@utilities/format-date-time'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
@@ -31,7 +30,7 @@ export const LivestreamHero: React.FC<{
   const isLive = today >= liveDate
 
   return (
-    <ThemeProvider theme="dark">
+    <div data-theme="dark">
       <div className={classes.livestreamHero}>
         <div className={classes.bgWrapper}>
           <Gutter disableMobile className={classes.bgGutter}>
@@ -115,6 +114,6 @@ export const LivestreamHero: React.FC<{
           </Grid>
         </Gutter>
       </div>
-    </ThemeProvider>
+    </div>
   )
 }
