@@ -9,7 +9,6 @@
   width: 100%;
   z-index: var(--z-nav);
   transition: color 300ms ease;
-  opacity: 0;
 
   &.themeIsSet {
     &:before {
@@ -46,10 +45,6 @@
       transition: opacity 200ms ease;
     }
   }
-}
-
-.header.themeIsSet {
-  opacity: 1;
 }
 
 .header.hideBackground {
