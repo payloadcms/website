@@ -46,11 +46,8 @@ const DashboardHeader = () => {
     },
   }
 
-  // we know it's a team route if the second segment is not a base route
-  // i.e. /cloud/teams is a team route, /cloud/settings is not
-  // we can do the same for project routes one level deeper
-  const isTeamRoute = segments.length > 1 && routes[segments[1]] === undefined
-
+  const isTeamRoute = team?.slug && segments?.[1] && segments[1] === team.slug
+  const isProjectRoute = isTeamRoute && project?.slug && segments?.[2] === project.slug
   let isSettingsRoute = false
   let maxCrumbs = 3
 
@@ -69,8 +66,6 @@ const DashboardHeader = () => {
 
     isSettingsRoute = segments[2] === 'settings'
   }
-
-  const isProjectRoute = isTeamRoute && segments.length > 2 && routes[segments[2]] === undefined
 
   if (isProjectRoute) {
     routes = {
