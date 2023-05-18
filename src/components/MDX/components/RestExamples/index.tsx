@@ -11,10 +11,8 @@ import classes from './index.module.scss'
 
 const ExampleCell: React.FC<{ example: Example; row: Data }> = ({ example, row }) => {
   const { req, res, drawerContent } = example
-  const drawerRow = [{ ...row, example: false }] as any
+  const drawerRow = [{ ...row, example: false, operation: false }] as any
   const slug = row?.example?.slug
-
-  if (!example || !row) return null
 
   return (
     <>
@@ -22,8 +20,8 @@ const ExampleCell: React.FC<{ example: Example; row: Data }> = ({ example, row }
         <span className={classes.label}>Example</span>
         <ArrowIcon className={classes.arrow} />
       </DrawerToggler>
-      <Drawer slug={slug} title={row.description || row.operation} size="s">
-        <RestExamples data={drawerRow} inDrawer />
+      <Drawer slug={slug} title={row.operation} size="s">
+        <Table data={drawerRow} columns={columns.slice(1)} />
         <GenerateRequest req={req} row={row} />
         <GenerateResponse res={res} />
         {drawerContent && <div className={classes.drawerContent}>{drawerContent}</div>}
@@ -58,11 +56,14 @@ const columns = [
     accessor: 'example',
     components: {
       Heading: '',
-      renderCell: (row, data) => <ExampleCell row={row} example={data} />,
+      renderCell: (row, data) => {
+        if (!data || !row) return null
+        return <ExampleCell row={row} example={data} />
+      },
     },
   },
 ]
 
-export const RestExamples: React.FC<Props> = ({ data, inDrawer }) => {
-  return <Table data={data} columns={columns} inDrawer={inDrawer} />
+export const RestExamples: React.FC<Props> = ({ data }) => {
+  return <Table data={data} columns={columns} />
 }
