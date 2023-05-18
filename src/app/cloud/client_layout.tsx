@@ -46,7 +46,7 @@ const DashboardHeader = () => {
     },
   }
 
-  const isTeamRoute = team?.slug && segments?.[1] && segments[1] === team.slug
+  const isTeamRoute = team?.slug && segments?.[1] === team.slug
   const isProjectRoute = isTeamRoute && project?.slug && segments?.[2] === project.slug
   let isSettingsRoute = false
   let maxCrumbs = 3
