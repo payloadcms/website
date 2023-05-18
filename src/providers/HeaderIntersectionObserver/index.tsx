@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { useWindowInfo } from '@faceless-ui/window-info'
 
-import { useTheme } from '@root/providers/Theme'
+import { useThemePreference } from '@root/providers/Theme'
 import { Theme } from '@root/providers/Theme/types'
 
 import classes from './index.module.scss'
@@ -31,7 +31,7 @@ export const HeaderIntersectionObserver: React.FC<HeaderIntersectionObserverProp
   debug = false,
 }) => {
   const { height: windowHeight, width: windowWidth } = useWindowInfo()
-  const siteTheme = useTheme()
+  const { theme } = useThemePreference()
   const [headerTheme, setHeaderTheme] = React.useState<Theme | null | undefined>(null)
   const [observer, setObserver] = React.useState<IntersectionObserver | undefined>(undefined)
   const [tick, setTick] = React.useState<number | undefined>(undefined)
@@ -78,7 +78,7 @@ export const HeaderIntersectionObserver: React.FC<HeaderIntersectionObserverProp
           if (intersectingElement) {
             setHeaderTheme(intersectingElement.target.getAttribute('data-theme') as Theme)
           } else {
-            setHeaderTheme(siteTheme)
+            setHeaderTheme(theme)
           }
         },
         {
@@ -98,10 +98,10 @@ export const HeaderIntersectionObserver: React.FC<HeaderIntersectionObserverProp
       if (observerRef) {
         observerRef.disconnect()
       } else {
-        setHeaderTheme(siteTheme)
+        setHeaderTheme(theme)
       }
     }
-  }, [windowWidth, windowHeight, siteTheme, tick])
+  }, [windowWidth, windowHeight, theme, tick])
 
   return (
     <Context.Provider

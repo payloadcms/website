@@ -10,7 +10,7 @@ import { DiscordIcon } from '@root/graphics/DiscordIcon'
 import { MainMenu } from '@root/payload-types'
 import { useAuth } from '@root/providers/Auth'
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver'
-import { useTheme } from '@root/providers/Theme'
+import { useThemePreference } from '@root/providers/Theme'
 import { Theme } from '@root/providers/Theme/types'
 import { FullLogo } from '../../../graphics/FullLogo'
 import { MenuIcon } from '../../../graphics/MenuIcon'
@@ -75,8 +75,8 @@ const MobileMenuModal: React.FC<NavItems> = ({ navItems }) => {
 export const MobileNav: React.FC<NavItems> = props => {
   const { isModalOpen, openModal, closeModal, closeAllModals } = useModal()
   const { headerTheme, setHeaderTheme } = useHeaderObserver()
-  const pageTheme = useTheme()
-  const themeBeforeOpenRef = React.useRef<Theme | null | undefined>(pageTheme)
+  const { theme } = useThemePreference()
+  const themeBeforeOpenRef = React.useRef<Theme | null | undefined>(theme)
   const { user } = useAuth()
   const pathname = usePathname()
 
@@ -89,13 +89,13 @@ export const MobileNav: React.FC<NavItems> = props => {
   const toggleModal = React.useCallback(() => {
     if (isMenuOpen) {
       closeModal(modalSlug)
-      setHeaderTheme(themeBeforeOpenRef?.current || pageTheme)
+      setHeaderTheme(themeBeforeOpenRef?.current || theme)
     } else {
       themeBeforeOpenRef.current = headerTheme
       setHeaderTheme('dark')
       openModal(modalSlug)
     }
-  }, [isMenuOpen, closeModal, openModal, setHeaderTheme, headerTheme, pageTheme])
+  }, [isMenuOpen, closeModal, openModal, setHeaderTheme, headerTheme, theme])
 
   return (
     <div className={classes.mobileNav}>

@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { GithubButton } from '@components/GithubButton'
@@ -17,17 +16,15 @@ const DiscordGitCTA: React.FC = () => {
     <div className={classes.container}>
       <div className={classes.ctaWrap}>
         <Link href={gitURL} target="_blank" className={classes.cta}>
-          <>
-            <div className={classes.message}>
-              Like what we're doing?
-              <br />
-              Star us on GitHub!
-            </div>
-            <div className={classes.gitButton}>
-              <GithubButton />
-              <ArrowIcon className={classes.arrow} />
-            </div>
-          </>
+          <div className={classes.message}>
+            Like what we're doing?
+            <br />
+            Star us on GitHub!
+          </div>
+          <div className={classes.gitButton}>
+            <GithubButton />
+            <ArrowIcon className={classes.arrow} />
+          </div>
         </Link>
 
         <Link
@@ -38,12 +35,8 @@ const DiscordGitCTA: React.FC = () => {
         >
           <div className={classes.message}>Connect with the Payload Community on Discord</div>
           <div className={classes.discordButton}>
-            <Image
-              alt="Discord"
-              src="https://img.shields.io/discord/967097582721572934?label=Discord&color=5865F2&style=flat-square"
-              width={156}
-              height={26}
-            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="https://img.shields.io/discord/967097582721572934?label=Discord&color=5865F2&style=flat-square" />
             <ArrowIcon className={classes.arrow} />
           </div>
         </Link>
