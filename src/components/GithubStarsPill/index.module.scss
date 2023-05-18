@@ -16,6 +16,10 @@
   display: flex;
   gap: calc(var(--base) * .5);
   height: 28px;
+
+  svg {
+    height: auto;
+  }
   
   p {
     @include small;
@@ -23,6 +27,8 @@
     line-height: 1;
     color: currentColor;
     font-weight: bold;
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -31,8 +37,9 @@
   position: relative;
   margin: 0;
   padding: calc(var(--base) * .25) calc(var(--base) * .5);
-  border-radius: 0 2px 2px 0;
   background-color: var(--color-base-950);
   color: white;
   height: 28px;
+  display: flex;
+  align-items: center;
 }

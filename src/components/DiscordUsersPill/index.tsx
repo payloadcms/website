@@ -4,7 +4,7 @@ import { isNumber } from '@root/utilities/isNumber'
 
 import classes from './index.module.scss'
 
-export const DiscordUsersPill: React.FC = ({ className }: { className: string }) => {
+export const DiscordUsersPill: React.FC<{ className: string }> = ({ className }) => {
   const [discordOnlineUserCount, setDiscordOnlineUserCount] = React.useState<string>()
 
   React.useEffect(() => {

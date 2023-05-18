@@ -187,6 +187,12 @@
   }
 
   .container {
-    top: calc(var(--base) * -1.5);
+    top: calc(var(--base) * -4);
+  }
+
+  :global([data-theme="light"]) {
+    .ctaPill {
+      border-color: var(--color-base-600);
+    }
   }
 }

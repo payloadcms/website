@@ -19,6 +19,8 @@
   line-height: 1;
   font-weight: bold;
   border-right: 1px solid var(--color-base-650);
+  display: flex;
+  align-items: center;
 }
 
 .userCount {
@@ -26,8 +28,9 @@
   position: relative;
   margin: 0;
   padding: calc(var(--base) * .25) calc(var(--base) * .5);
-  border-radius: 0 2px 2px 0;
   background-color: #5865F2; // discord color https://discord.com/branding
   color: var(--color-base-0);
   height: 28px;
+  display: flex;
+  align-items: center;
 }

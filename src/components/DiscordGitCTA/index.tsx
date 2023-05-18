@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 
-import { DiscordUsersPill } from '@components/DiscordUserCount'
+import { DiscordUsersPill } from '@components/DiscordUsersPill'
 import { GithubStarsPill } from '@components/GithubStarsPill'
 import { PixelBackground } from '@components/PixelBackground'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
@@ -23,7 +23,7 @@ const DiscordGitCTA: React.FC = () => {
             Star us on GitHub!
           </div>
           <div className={classes.gitButton}>
-            <GithubStarsPill />
+            <GithubStarsPill className={classes.ctaPill} />
             <ArrowIcon className={classes.arrow} />
           </div>
         </Link>
@@ -36,7 +36,7 @@ const DiscordGitCTA: React.FC = () => {
         >
           <div className={classes.message}>Connect with the Payload Community on Discord</div>
           <div className={classes.discordButton}>
-            <DiscordUsersPill />
+            <DiscordUsersPill className={classes.ctaPill} />
             <ArrowIcon className={classes.arrow} />
           </div>
         </Link>
