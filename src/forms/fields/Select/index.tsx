@@ -205,7 +205,6 @@ export const Select: React.FC<SelectProps> = props => {
         // @ts-expect-error
         selectProps={selectProps}
         isDisabled={disabled}
-        menuIsOpen
       />
       {description && <div className={classes.description}>{description}</div>}
     </div>
