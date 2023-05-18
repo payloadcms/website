@@ -184,10 +184,11 @@
     width: 100%;
     min-width: unset;
     margin: 0;
+    padding-top: 0;
   }
 
   .container {
-    top: calc(var(--base) * -4);
+    top: calc(var(--base) * -1.25);
   }
 
   :global([data-theme="light"]) {
