@@ -2,11 +2,11 @@ import { useStarCount } from '@root/utilities/use-star-count'
 
 import classes from './index.module.scss'
 
-export const GithubButton: React.FC = ({ className }: { className: string }) => {
+export const GithubStarsPill: React.FC = ({ className }: { className: string }) => {
   const starCount = useStarCount()
 
   return (
-    <div className={[classes.githubButton, className].filter(Boolean).join(' ')}>
+    <div className={[classes.pill, className].filter(Boolean).join(' ')}>
       <div className={classes.leftPill}>
         <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
           <path
