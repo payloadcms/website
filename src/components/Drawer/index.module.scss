@@ -89,7 +89,7 @@
 }
 
 .title {
-  margin: 0;
+  margin: 0 var(--base) 0 0;
   flex-grow: 1;
 }
 
@@ -100,7 +100,8 @@
   cursor: pointer;
   overflow: hidden;
   position: relative;
-  top: 14px;
+  top: 10px;
+  min-width: fit-content;
 
   &:focus-visible {
     @include outline;
@@ -108,5 +109,31 @@
   
   @include mid-break {
     top: 2px;
+  }
+}
+
+.size-l {
+  .close {
+    width: var(--gutter-h);
+  }
+}
+
+.size-m {
+  .close {
+    width: calc(var(--gutter-h)*2);
+  }
+}
+
+.size-s {
+  .close {
+    width: calc(var(--gutter-h)*3);
+  }
+}
+
+@include small-break {
+  .size-l, .size-m, .size-s {
+    .close {
+      width: var(--gutter-h);
+    }
   }
 }

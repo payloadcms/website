@@ -1,0 +1,75 @@
+import React from 'react'
+
+import Code from '@components/Code'
+
+import classes from './index.module.scss'
+
+export const GenerateRequest = ({ req, row }) => {
+  if (!req) return null
+
+  const reqBody = req.body
+    ? Object.entries(req.body).map(([key, value]) => {
+        let body = `
+      ${key}: "${value}"`
+
+        if (typeof value === 'object' && value) {
+          const nestedValue = Object.entries(value).map(([key, value]) => {
+            return `
+        ${key}: "${value}"`
+          })
+          body = `
+      ${key}: {${nestedValue}
+      },`
+        }
+
+        return body
+      })
+    : ''
+
+  const query = `import qs from "qs";
+
+const stringifiedQuery = qs.stringify({
+  where: {
+    title: {
+      contains: "New",
+    },
+  },
+},{ addQueryPrefix: true });
+`
+
+  const body = `{
+    method: "${row.method}",
+    headers: {
+      "Content-Type": "application/json",
+    },${
+      req.body
+        ? `
+    body: JSON.stringify({${reqBody}
+    }),`
+        : ``
+    }
+  }`
+
+  const request = `const req = await fetch('{cms-url}${row.path}${
+    req.query ? `/{stringifiedQuery}'` : `'`
+  }${req.headers || req.body ? `, ${body})` : ')'}`
+
+  const fullRequest = `${
+    req.query
+      ? `${query}
+`
+      : ``
+  }try {
+  ${request}
+  const data = await req.json()
+} catch (err) {
+  console.log(err)
+}`
+
+  return (
+    <>
+      <h6>Request</h6>
+      <Code className={classes.code}>{fullRequest}</Code>
+    </>
+  )
+}
