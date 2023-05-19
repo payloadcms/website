@@ -7,15 +7,13 @@
   margin-left: auto;
   background-color: var(--color-base-750);
   border-radius: 3px;
-  padding: calc(var(--base)*0.25) var(--base);
+  padding: calc(var(--base)*0.25);
   transition: opacity 200ms linear;
   cursor: pointer;
+  color: var(--color-base-100);
 
   &:hover {
     opacity: 0.8;
-  }
-  .arrow {
-    display: none;
   }
 
   .label {
@@ -37,28 +35,29 @@
 @include mid-break {
   .toggle {
     color: var(--color-base-100);
-    padding: calc(var(--base)*0.5);
+    padding: calc(var(--base)*0.35);
+  }
 
-    .arrow {
-      display: unset;
-    }
+  .table {
+    font-size: 12px;
 
-    .label {
-      display: none;
+    & th {
+      &:first-child {
+        padding-left: 0;
+      }
     }
   }
 }
 
 .code {
   background-color: var(--color-base-900);
-  padding-bottom: calc(var(--base)*2.5);
   -webkit-overflow-scrolling: touch;
   overflow-x: scroll;
   pointer-events: all;
 
   @include mid-break {
-    padding-bottom: calc(var(--base)*1.5);
-    font-size: calc(var(--base) * .65);
-    line-height: var(--base);
+    padding: calc(var(--base)*0.75);
+    font-size: calc(var(--base) * .55);
+    line-height: 1.2;
   }
 }

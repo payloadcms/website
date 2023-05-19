@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Drawer, DrawerToggler } from '@components/Drawer'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { CodeIcon } from '@root/icons/CodeIcon'
 import CustomTable from '../CustomTable'
 import { GenerateRequest } from './generateRequest'
 import { GenerateResponse } from './generateResponse'
@@ -17,8 +17,7 @@ const ExampleCell: React.FC<{ example: Example; row: Data }> = ({ example, row }
   return (
     <>
       <DrawerToggler slug={slug} className={classes.toggle}>
-        <span className={classes.label}>Example</span>
-        <ArrowIcon className={classes.arrow} />
+        <CodeIcon className={classes.icon} size="medium" />
       </DrawerToggler>
       <Drawer slug={slug} title={row.operation} size="s">
         <CustomTable className={classes.table} data={drawerRow} columns={columns.slice(1)} />

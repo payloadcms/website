@@ -36,7 +36,7 @@
   z-index: 1;
   overflow: auto;
   height: 100%;
-  padding:  calc(var(--base) * 4) calc(var(--base) * 4);
+  padding: calc(var(--base) * 4);
 
   @include mid-break {
     padding:  calc(var(--base) * 2) var(--base) 0;
@@ -121,7 +121,7 @@
 
 .size-m {
   .contentChildren {
-    padding: calc(var(--base) * 3) calc(var(--base) * 3);
+    padding: calc(var(--base) * 3);
   }
 
   .close {
@@ -131,11 +131,21 @@
 
 .size-s {  
   .contentChildren {
-    padding: calc(var(--base) * 2) calc(var(--base) * 2);
+    padding: calc(var(--base) * 2);
   }
 
   .close {
     width: calc(var(--gutter-h)*3);
+  }
+
+  @include mid-break {
+    .contentChildren {
+      padding: calc(var(--base) * 1);
+    }
+
+    .header {
+      margin-bottom: calc(var(--base) * 1);
+    }
   }
 }
 
