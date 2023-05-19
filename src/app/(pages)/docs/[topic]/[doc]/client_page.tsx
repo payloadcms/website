@@ -66,25 +66,27 @@ export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
           )}
         </div>
         <aside className={classes.aside}>
-          <TableOfContents headings={headings} />
-          <Button
-            appearance="default"
-            el="a"
-            href="https://discord.com/invite/r6sCXqVk3v"
-            newTab
-            label="Join us on Discord"
-            labelStyle="mono"
-            icon="arrow"
-          />
-          <Button
-            className={classes.search}
-            onClick={openSearch}
-            appearance="default"
-            el="button"
-            label={`Press ${OS}+K to search`}
-            labelStyle="mono"
-            icon="search"
-          />
+          <div className={classes.asideStickyContent}>
+            <TableOfContents headings={headings} />
+            <Button
+              appearance="default"
+              el="a"
+              href="https://discord.com/invite/r6sCXqVk3v"
+              newTab
+              label="Join us on Discord"
+              labelStyle="mono"
+              icon="arrow"
+            />
+            <Button
+              className={classes.search}
+              onClick={openSearch}
+              appearance="default"
+              el="button"
+              label={`Press ${OS}+K to search`}
+              labelStyle="mono"
+              icon="search"
+            />
+          </div>
         </aside>
       </div>
     </JumplistProvider>

@@ -71,7 +71,6 @@ html {
   @include body;
   background: var(--theme-bg);
   -webkit-font-smoothing: antialiased;
-  scroll-behavior: smooth;
   opacity: 0;
 
   &[data-theme=dark],

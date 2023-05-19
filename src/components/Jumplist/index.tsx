@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useEffect, useReducer, useRef, useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 import { IContext, NodeProps, Props, Reducer } from './types'
 
@@ -31,23 +33,30 @@ export const useJumplist = (): IContext => useContext(Context)
 
 export const Jumplist: React.FC<Props> = ({ list, className, injectProps }) => {
   const { items, lastActive } = useJumplist()
+  const pathname = usePathname()
 
   return (
     <ul className={className}>
       {list.map(({ id, Component }) => (
         <li key={id}>
-          <a href={`#${id}`}>
+          <Link href={`${pathname}/#${id}`} scroll={false} replace>
             <Component active={items[id] || lastActive === id} {...(injectProps || {})} />
-          </a>
+          </Link>
         </li>
       ))}
     </ul>
   )
 }
 
-export const JumplistNode: React.FC<NodeProps> = ({ children, id }) => {
+const elements = {
+  h2: 'h2',
+  h3: 'h3',
+}
+
+export const JumplistNode: React.FC<NodeProps> = ({ children, id, type }) => {
   const ref = useRef<HTMLDivElement>(null)
   const { dispatch, setLastActive } = useJumplist()
+  const pathname = usePathname()
 
   useEffect(() => {
     if (ref?.current) {
@@ -74,9 +83,14 @@ export const JumplistNode: React.FC<NodeProps> = ({ children, id }) => {
     return () => null
   }, [dispatch, id, setLastActive])
 
+  const Element: any = elements[type]
+
   return (
-    <div ref={ref} id={id} className={classes.node}>
-      {children}
-    </div>
+    <Link href={`${pathname}/#${id}`} scroll={false} replace className={classes.node} id={id}>
+      <Element ref={ref}>
+        <div className={classes.hashMark}>#</div>
+        {children}
+      </Element>
+    </Link>
   )
 }

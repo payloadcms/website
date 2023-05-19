@@ -1,3 +1,26 @@
+@use "@scss/common" as *;
+
 .node {
-  scroll-margin-top: calc(var(--base) * 8);
+  scroll-margin-top: calc(var(--top-bar-height) + var(--header-height) + var(--base));
+  position: relative;
+
+  * {
+    color: var(--theme-text);
+  }
+
+  &:hover {
+    .hashMark {
+      opacity: 1;
+    }
+  }
+}
+
+.hashMark {
+  position: absolute;
+  transform: scale(0.65) translateX(calc(-100% - var(--base)));
+  opacity: .25;
+
+  @include small-break {
+    transform: scale(0.75) translateX(calc(-100% - var(--base) * .5));
+  }
 }
