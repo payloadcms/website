@@ -2,48 +2,11 @@ import React from 'react'
 
 import classes from './index.module.scss'
 
-export type Column = {
-  accessor: string
-  components: {
-    Heading: React.ReactNode
-    renderCell: (row: any, data: any) => React.ReactNode
-  }
-}
-
-export type Props = {
-  data: any[]
-  columns: Column[]
-  inDrawer?: boolean
-}
-
-const Table: React.FC<Props> = ({ data, columns, inDrawer }) => {
+// TODO: Needed to stub this out to be able to build
+const Table: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <div className={[classes.table, inDrawer && classes.inDrawer].filter(Boolean).join(' ')}>
-      <table cellPadding="0" cellSpacing="0">
-        <thead>
-          <tr>
-            {columns?.map((col, i) => (
-              <th key={i} id={`heading-${col.accessor}`}>
-                {col.components.Heading}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data &&
-            data.map((row: any, rowIndex) => (
-              <tr key={rowIndex} className={`row-${rowIndex + 1}`}>
-                {columns.map((col, colIndex) => {
-                  return (
-                    <td key={colIndex} className={`cell-${col.accessor}`}>
-                      {col.components.renderCell(row, row[col.accessor])}
-                    </td>
-                  )
-                })}
-              </tr>
-            ))}
-        </tbody>
-      </table>
+    <div className={classes.wrap}>
+      <table>{children}</table>
     </div>
   )
 }

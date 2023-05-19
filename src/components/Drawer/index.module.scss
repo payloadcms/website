@@ -102,6 +102,7 @@
   position: relative;
   top: 10px;
   min-width: fit-content;
+  color: var(--theme-elevation-950);
 
   &:focus-visible {
     @include outline;
@@ -119,12 +120,20 @@
 }
 
 .size-m {
+  .contentChildren {
+    padding: calc(var(--base) * 3) calc(var(--base) * 3);
+  }
+
   .close {
     width: calc(var(--gutter-h)*2);
   }
 }
 
-.size-s {
+.size-s {  
+  .contentChildren {
+    padding: calc(var(--base) * 2) calc(var(--base) * 2);
+  }
+
   .close {
     width: calc(var(--gutter-h)*3);
   }

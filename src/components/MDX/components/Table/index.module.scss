@@ -1,78 +1,56 @@
 @use "@scss/common" as *;
 
-.table {
-  margin-bottom: var(--base);
+.wrap {
+  width: 100%;
   overflow: auto;
-  max-width: 100%;
 
-  & table {
-    width: 100%;
-  }
+  :global {
+    table {
+      margin-bottom: var(--base);
+      overflow: auto;
+      max-width: 100%;
+      width: 100%;
+      border-spacing: 0px;
+      border-collapse: collapse;
 
-  thead {
-    th {
-      font-weight: normal;
-      text-align: left;
-      color: var(--theme-elevation-500);
-    }
-  }
+      thead {
+        color: var(--theme-elevation-500);
 
-  th,
-  td {
-    padding: var(--base);
-    min-width: 60px;
-  }
+        th {
+          font-weight: normal;
+          text-align: left;
+        }
+      }
 
-  tbody {
-    tr {
-      &:nth-child(odd) {
-        background: var(--theme-elevation-150);
+      th, td {
+        padding: calc(var(--base) * .75);
+        min-width: 150px;
+        vertical-align: top;
+      }
+
+      tbody {
+        tr {
+          &:nth-child(odd) {
+            background: var(--theme-elevation-50);
+          }
+        }
+      }
+
+      @include mid-break {
+        th, td {
+          max-width: 70vw;
+          padding: calc(var(--base) * .5);
+        }
       }
     }
   }
 
-  & label {
-    @include label;
-    color: var(--theme-elevation-500);
-  }
-  
   @include mid-break {
-    th,
-    td {
-      padding: calc(var(--base)*0.5);
-      min-width: 40px;
-    }
-  }
-}
-
-.inDrawer {
-  tbody {
-    tr {
-      &:nth-child(odd) {
-        background: var(--theme-elevation-100);
-      }
-    }
-  }
-}
-
-[data-theme=light] {
-  .table {
-    tbody {
-      tr {
-        &:nth-child(odd) {
-          background: var(--theme-elevation-50);
-        }
-      }
-    }
-  }
-
-  .inDrawer {
-    tbody {
-      tr {
-        &:nth-child(odd) {
-          background: var(--theme-elevation-100);
-        }
-      }
-    }
+    margin-left: calc(var(--gutter-h) * -1);
+    margin-right: calc(var(--gutter-h) * -1);
+    padding-left: calc(var(--gutter-h) * .5);
+    padding-right: calc(var(--gutter-h) * .5);
+    width: calc(100% + (var(--gutter-h) * 2));
+    max-width: calc(100% + (var(--gutter-h) * 2));
   }
 }

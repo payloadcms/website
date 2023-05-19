@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Drawer, DrawerToggler } from '@components/Drawer'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
-import Table from '../Table'
+import CustomTable from '../CustomTable'
 import { GenerateRequest } from './generateRequest'
 import { GenerateResponse } from './generateResponse'
 import { Data, Example, Props } from './types'
@@ -21,7 +21,7 @@ const ExampleCell: React.FC<{ example: Example; row: Data }> = ({ example, row }
         <ArrowIcon className={classes.arrow} />
       </DrawerToggler>
       <Drawer slug={slug} title={row.operation} size="s">
-        <Table data={drawerRow} columns={columns.slice(1)} />
+        <CustomTable className={classes.table} data={drawerRow} columns={columns.slice(1)} />
         <GenerateRequest req={req} row={row} />
         <GenerateResponse res={res} />
         {drawerContent && <div className={classes.drawerContent}>{drawerContent}</div>}
@@ -65,5 +65,5 @@ const columns = [
 ]
 
 export const RestExamples: React.FC<Props> = ({ data }) => {
-  return <Table data={data} columns={columns} />
+  return <CustomTable className={classes.table} data={data} columns={columns} />
 }

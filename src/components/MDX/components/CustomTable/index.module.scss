@@ -1,0 +1,78 @@
+@use "@scss/common" as *;
+
+.table {
+  margin-bottom: var(--base);
+  overflow: auto;
+  max-width: 100%;
+
+  & table {
+    width: 100%;
+  }
+
+  thead {
+    th {
+      font-weight: normal;
+      text-align: left;
+      color: var(--theme-elevation-500);
+    }
+  }
+
+  th,
+  td {
+    padding: var(--base);
+    min-width: 60px;
+  }
+
+  tbody {
+    tr {
+      &:nth-child(odd) {
+        background: var(--theme-elevation-150);
+      }
+    }
+  }
+
+  & label {
+    @include label;
+    color: var(--theme-elevation-500);
+  }
+  
+  @include mid-break {
+    th,
+    td {
+      padding: calc(var(--base)*0.5);
+      min-width: 40px;
+    }
+  }
+}
+
+.inDrawer {
+  tbody {
+    tr {
+      &:nth-child(odd) {
+        background: var(--theme-elevation-100);
+      }
+    }
+  }
+}
+
+[data-theme=light] {
+  .table {
+    tbody {
+      tr {
+        &:nth-child(odd) {
+          background: var(--theme-elevation-50);
+        }
+      }
+    }
+  }
+
+  .inDrawer {
+    tbody {
+      tr {
+        &:nth-child(odd) {
+          background: var(--theme-elevation-100);
+        }
+      }
+    }
+  }
+}

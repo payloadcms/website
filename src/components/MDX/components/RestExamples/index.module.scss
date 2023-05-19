@@ -24,6 +24,12 @@
   }
 }
 
+.table {
+  & td {
+    white-space: nowrap;
+  }
+}
+
 .drawerContent {
   margin-top: var(--base);
 }
@@ -46,6 +52,9 @@
 .code {
   background-color: var(--color-base-900);
   padding-bottom: calc(var(--base)*2.5);
+  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+  pointer-events: all;
 
   @include mid-break {
     padding-bottom: calc(var(--base)*1.5);
