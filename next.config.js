@@ -20,6 +20,7 @@ const nextConfig = withBundleAnalyzer({
       'cms.local.payloadcms.com',
       'stage.cms.payloadcms.com',
       'cdn.discordapp.com',
+      'avatars.githubusercontent.com',
     ],
   },
   experimental: {
