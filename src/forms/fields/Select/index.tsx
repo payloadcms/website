@@ -23,6 +23,7 @@ type SelectProps = FieldProps<string | string[]> & {
   }
   selectProps?: any
   value?: string | string[]
+  onMenuScrollToBottom?: () => void
 }
 
 export const Select: React.FC<SelectProps> = props => {
@@ -41,6 +42,7 @@ export const Select: React.FC<SelectProps> = props => {
     value: valueFromProps, // allow external control
     description,
     disabled,
+    onMenuScrollToBottom,
   } = props
 
   const id = useId()
@@ -205,6 +207,7 @@ export const Select: React.FC<SelectProps> = props => {
         // @ts-expect-error
         selectProps={selectProps}
         isDisabled={disabled}
+        onMenuScrollToBottom={onMenuScrollToBottom}
       />
       {description && <div className={classes.description}>{description}</div>}
     </div>

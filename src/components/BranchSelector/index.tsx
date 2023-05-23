@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useReducer, useRef, useState } from 'react'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import Label from '@forms/Label'
@@ -6,6 +6,7 @@ import type { Endpoints } from '@octokit/types'
 
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Project } from '@root/payload-cloud-types'
+import { branchReducer } from './reducer'
 
 type GitHubResponse = Endpoints['GET /repos/{owner}/{repo}/branches']['response']
 
@@ -14,13 +15,29 @@ export const BranchSelector: React.FC<{
   initialValue?: string
 }> = props => {
   const { repositoryFullName, initialValue = 'main' } = props
-  const [branches, setBranches] = useState<string[]>([])
+
+  const [page, dispatchPage] = useReducer((state: number, action: 'INCREMENT') => {
+    switch (action) {
+      case 'INCREMENT':
+        return state + 1
+      default:
+        return state
+    }
+  }, 1)
+
+  const [result, dispatchResult] = useReducer(branchReducer, {
+    branches: [],
+  })
+
   // if we know the `repositoryFullName` then we need to load their branches
   // otherwise, we render a text field for the user to explicitly define
+  const [isInitializing, setIsInitializing] = useState<boolean>(Boolean(repositoryFullName))
   const [isLoading, setIsLoading] = useState<boolean>(Boolean(repositoryFullName))
+  const [hasMore, setHasMore] = useState<boolean>(true)
+  const hasInitialized = useRef(false)
   const isRequesting = useRef(false)
 
-  useEffect(() => {
+  const getBranches = useCallback(async () => {
     if (repositoryFullName && !isRequesting.current) {
       isRequesting.current = true
       setIsLoading(true)
@@ -28,41 +45,63 @@ export const BranchSelector: React.FC<{
       const owner = repositoryFullName?.split('/')?.[0]
       const repo = repositoryFullName?.split('/')?.[1]
 
-      const getBranches = async () => {
-        try {
-          const branchesReq = await fetch(
-            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`,
-            {
-              method: 'POST',
-              credentials: 'include',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                route: `GET /repos/${owner}/${repo}/branches`,
-              }),
+      try {
+        const branchesReq = await fetch(
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`,
+          {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
             },
-          )
+            body: JSON.stringify({
+              route: `GET /repos/${owner}/${repo}/branches?page=${page}`,
+            }),
+          },
+        )
 
-          const branchesRes: GitHubResponse = await branchesReq.json()
+        const branchesRes: GitHubResponse = await branchesReq.json()
 
-          if (branchesRes?.data?.length > 0) {
-            setBranches(branchesRes.data.map((branch: any) => branch.name))
-          }
-
-          setIsLoading(false)
-          isRequesting.current = false
-        } catch (err: unknown) {
-          setIsLoading(false)
-          isRequesting.current = false
+        if (branchesRes?.data?.length > 0) {
+          dispatchResult({
+            type: 'ADD',
+            payload: branchesRes.data.map(branch => branch.name),
+          })
         }
+
+        // The GitHub API returns no properties that indicate total count, current page, or total pages
+        // So we need to keep track of the page number ourselves and assume `hasMore` based on the results
+        setHasMore(branchesRes?.data?.length > 0)
+        setIsLoading(false)
+      } catch (err: unknown) {
+        setIsLoading(false)
       }
 
+      isRequesting.current = false
+      setIsInitializing(false)
+    }
+  }, [repositoryFullName, page])
+
+  useEffect(() => {
+    if (!hasInitialized.current) {
+      hasInitialized.current = true
       getBranches()
     }
-  }, [repositoryFullName])
+  }, [getBranches])
 
-  if (isLoading) {
+  useEffect(() => {
+    if (page > 1) {
+      getBranches()
+    }
+  }, [page, getBranches])
+
+  const onMenuScrollToBottom = useCallback(() => {
+    if (!isLoading && hasMore) {
+      dispatchPage('INCREMENT')
+    }
+  }, [isLoading, hasMore])
+
+  if (isInitializing) {
     return (
       <div>
         <Label label="Branch to deploy" />
@@ -73,16 +112,21 @@ export const BranchSelector: React.FC<{
 
   return (
     <Fragment>
-      {branches?.length > 0 ? (
+      {result?.branches?.length > 0 ? (
         <Select
           label="Branch to deploy"
           path="deploymentBranch"
-          options={branches?.map(branch => ({
+          options={result?.branches?.map(branch => ({
             label: branch,
             value: branch,
           }))}
           required
-          initialValue={initialValue || branches[0]}
+          initialValue={
+            result?.branches.some(branch => branch === initialValue)
+              ? initialValue
+              : result?.branches[0]
+          }
+          onMenuScrollToBottom={onMenuScrollToBottom}
         />
       ) : (
         <Text
