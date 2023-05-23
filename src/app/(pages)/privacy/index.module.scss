@@ -17,20 +17,6 @@
   }
 }
 
-.cookiePreferencesWrap {
-  position: sticky;
-  top: calc(var(--header-height) * 1.75);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-
-  @include mid-break {
-    position: unset;
-    top: unset;
-    display: block;
-  }
-}
-
 .radioGroup {
   margin-bottom: var(--base);
 }
