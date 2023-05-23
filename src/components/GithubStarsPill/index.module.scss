@@ -1,0 +1,45 @@
+@use '@scss/common' as *;
+
+.pill {
+  height: calc(var(--base) * 2);
+  display: flex;
+  align-items: center;
+  height: 30px;
+  border-radius: 2px;
+  border: 1px solid var(--color-base-650);
+}
+
+.leftPill {
+  padding: calc(var(--base) * .25) calc(var(--base) * .5);
+  background-color: var(--color-base-850);
+  color: var(--color-base-200);
+  display: flex;
+  gap: calc(var(--base) * .5);
+  height: 28px;
+
+  svg {
+    height: auto;
+  }
+  
+  p {
+    @include small;
+    margin: 0;
+    line-height: 1;
+    color: currentColor;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.starCount {
+  @include small;
+  position: relative;
+  margin: 0;
+  padding: calc(var(--base) * .25) calc(var(--base) * .5);
+  background-color: var(--color-base-950);
+  color: white;
+  height: 28px;
+  display: flex;
+  align-items: center;
+}

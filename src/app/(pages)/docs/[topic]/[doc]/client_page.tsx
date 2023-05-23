@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { ArrowIcon } from '@icons/ArrowIcon'
-import { useTheme } from '@providers/Theme'
 import Link from 'next/link'
 import { MDXRemote } from 'next-mdx-remote'
 
@@ -23,8 +22,6 @@ type Props = {
 export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
   const { content, headings, title } = doc
   const [OS, setOS] = React.useState('⌘')
-
-  const theme = useTheme()
 
   React.useEffect(() => {
     const isMac =
@@ -56,9 +53,10 @@ export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
           </div>
           {next && (
             <Link
-              className={classes[`next--${theme}`]}
+              className={classes.next}
               href={`/docs/${next.topic.toLowerCase()}/${next.slug}`}
               data-algolia-no-crawl
+              prefetch={false}
             >
               <div className={classes.nextLabel}>
                 Next <ArrowIcon />
@@ -68,25 +66,27 @@ export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
           )}
         </div>
         <aside className={classes.aside}>
-          <TableOfContents headings={headings} />
-          <Button
-            appearance="default"
-            el="a"
-            href="https://discord.com/invite/r6sCXqVk3v"
-            newTab
-            label="Join us on Discord"
-            labelStyle="mono"
-            icon="arrow"
-          />
-          <Button
-            className={classes.search}
-            onClick={openSearch}
-            appearance="default"
-            el="button"
-            label={`Press ${OS}+K to search`}
-            labelStyle="mono"
-            icon="search"
-          />
+          <div className={classes.asideStickyContent}>
+            <TableOfContents headings={headings} />
+            <Button
+              appearance="default"
+              el="a"
+              href="https://discord.com/invite/r6sCXqVk3v"
+              newTab
+              label="Join us on Discord"
+              labelStyle="mono"
+              icon="arrow"
+            />
+            <Button
+              className={classes.search}
+              onClick={openSearch}
+              appearance="default"
+              el="button"
+              label={`Press ${OS}+K to search`}
+              labelStyle="mono"
+              icon="search"
+            />
+          </div>
         </aside>
       </div>
     </JumplistProvider>

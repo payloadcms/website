@@ -1,4 +1,11 @@
-import { BANNER, BLOG_CONTENT, BLOG_MARKDOWN, CODE_BLOCK, MEDIA_BLOCK } from './blocks'
+import {
+  BANNER,
+  BLOG_CONTENT,
+  BLOG_MARKDOWN,
+  CODE_BLOCK,
+  MEDIA_BLOCK,
+  REUSABLE_CONTENT_BLOCK,
+} from './blocks'
 import { MEDIA_FIELDS } from './media'
 import { META_FIELDS } from './meta'
 
@@ -57,6 +64,7 @@ export const POST = `
           ${BANNER}
           ${CODE_BLOCK}
           ${MEDIA_BLOCK}
+          ${REUSABLE_CONTENT_BLOCK}
         }
         meta ${META_FIELDS}
       }

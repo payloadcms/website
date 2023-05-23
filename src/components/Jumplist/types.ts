@@ -38,4 +38,5 @@ export interface IContext {
 export interface NodeProps {
   id: string
   children: React.ReactNode
+  type: 'h2' | 'h3'
 }

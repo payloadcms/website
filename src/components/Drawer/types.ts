@@ -6,6 +6,8 @@ export interface Props {
   className?: string
   title?: string
   header?: React.ReactNode
+
+  size?: 's' | 'm' | 'l'
 }
 
 export type TogglerProps = HTMLAttributes<HTMLButtonElement> & {

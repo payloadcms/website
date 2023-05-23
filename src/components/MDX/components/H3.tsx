@@ -13,8 +13,8 @@ const H3: React.FC<{ children: string }> = ({ children }) => {
   }, [addHeading, anchor, children])
 
   return (
-    <JumplistNode id={anchor}>
-      <h3>{children}</h3>
+    <JumplistNode id={anchor} type="h3">
+      {children}
     </JumplistNode>
   )
 }

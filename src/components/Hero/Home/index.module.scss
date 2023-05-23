@@ -163,6 +163,10 @@
   margin-bottom: var(--block-spacing);
 }
 
+.adjectives.placeholder {
+  opacity: 0;
+}
+
 .adjective {
   display: block;
   font-size: 288px;

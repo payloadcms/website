@@ -10,7 +10,6 @@ import { Label } from '@components/Label'
 import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
-import { ThemeProvider } from '@root/providers/Theme'
 
 import classes from './index.module.scss'
 
@@ -26,7 +25,7 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
   return (
     <BlockSpacing>
       <Gutter className={classes.callToAction}>
-        <ThemeProvider theme="dark">
+        <div data-theme="dark">
           <div className={classes.bgWrapper}>
             <Gutter disableMobile className={classes.bgGutter}>
               <div className={classes.bg1}>
@@ -59,7 +58,7 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
               )}
             </Cell>
           </Grid>
-        </ThemeProvider>
+        </div>
       </Gutter>
     </BlockSpacing>
   )

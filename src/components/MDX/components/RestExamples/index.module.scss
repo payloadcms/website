@@ -1,0 +1,97 @@
+@use "@scss/common" as *;
+
+.toggle {
+  @include btnReset;
+  @include label;
+  display: flex;
+  margin-right: auto;
+  background-color: var(--color-base-750);
+  border-radius: 3px;
+  padding: calc(var(--base)*0.35);
+  transition: opacity 200ms linear;
+  cursor: pointer;
+  color: var(--color-base-100);
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  .label {
+    @include label;
+    color: var(--color-base-100);
+  }
+}
+
+.table {
+  & td {
+    white-space: nowrap;
+  }
+}
+
+.drawerTable {
+  & th {
+    display: none;
+  }
+  & td {
+    background-color: var(--theme-elevation-100);
+  }
+}
+
+.drawerContent {
+  margin-top: var(--base);
+  z-index: 99;
+}
+
+.code {
+  background-color: var(--color-base-900);
+  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+  pointer-events: all;
+  padding-bottom: calc(var(--base)*2);
+}
+
+@include large-break {
+  .toggle {
+    padding: calc(var(--base)*0.25);
+  }
+
+  .table {
+    & td, & th {
+      padding: calc(var(--base)*0.5);
+    }
+  }
+
+  .drawerTable, .table {
+    font-size: 14px;
+
+    & label {
+      font-size: 11px;
+    }
+  }
+}
+
+@include mid-break {
+  .toggle {
+    padding: calc(var(--base)*0.15);
+  }
+
+  .drawerTable, .table {
+    font-size: 12px;
+
+    & label {
+      font-size: 10px;
+    }
+
+    & th {
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+  }
+
+  .code {
+    padding-bottom: calc(var(--base)*1.25);
+    font-size: 11px;
+  }
+}
+

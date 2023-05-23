@@ -52,14 +52,13 @@
 }
 
 .aside {
-  position: sticky;
   flex-shrink: 0;
-  top: var(--page-padding-top);
   max-height: calc(100vh - var(--page-padding-top));
-  overflow-y: auto;
   padding: 0 0 calc(var(--base) * 2);
   margin-left: 7%;
   width: calc(var(--base) * 12);
+  position: sticky;
+  top: 0;
 
   &::-webkit-scrollbar {
     background-color: transparent;
@@ -86,44 +85,56 @@
   }
 }
 
-.next {
-  display: block;
-  padding: var(--base);
-  margin-top: calc(var(--base) * 2);
-  text-decoration: none;
+.asideStickyContent {
+  position: sticky;
+  top: var(--page-padding-top);
+}
 
-  h4 {
-    margin: 0;
+:global([data-theme="dark"]) {
+  .next {
+    background: var(--theme-purple-100);
+    border-bottom: 1px solid var(--theme-purple-500);
+    color: var(--theme-purple-800);
+    display: block;
+    padding: var(--base);
+    margin-top: calc(var(--base) * 2);
+    text-decoration: none;
+  
+    h4 {
+      margin: 0;
+    }
+  
+    &:hover {
+      background: var(--theme-purple-150);
+    }
+  
+    &:active, &:focus {
+      background: var(--theme-purple-200);
+    }
   }
 }
 
-.next--dark {
-  composes: next;
-  background: var(--theme-purple-100);
-  border-bottom: 1px solid var(--theme-purple-500);
-  color: var(--theme-purple-800);
-
-  &:hover {
-    background: var(--theme-purple-150);
-  }
-
-  &:active, &:focus {
+:global([data-theme="light"]) {
+  .next {
     background: var(--theme-purple-200);
-  }
-}
-
-.next--light {
-  composes: next;
-  background: var(--theme-purple-200);
-  border-bottom: 1px solid var(--theme-purple-600);
-  color: var(--theme-purple-800);
-
-  &:hover {
-    background: var(--theme-purple-250);
-  }
-
-  &:active, &:focus {
-    background: var(--theme-purple-300);
+    border-bottom: 1px solid var(--theme-purple-600);
+    color: var(--theme-purple-800);
+    display: block;
+    padding: var(--base);
+    margin-top: calc(var(--base) * 2);
+    text-decoration: none;
+  
+    h4 {
+      margin: 0;
+    }
+  
+    &:hover {
+      background: var(--theme-purple-250);
+    }
+  
+    &:active, &:focus {
+      background: var(--theme-purple-300);
+    }
   }
 }
 

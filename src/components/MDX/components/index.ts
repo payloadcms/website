@@ -7,17 +7,19 @@ import h2 from './H2'
 import h3 from './H3'
 import HR from './HR'
 import InlineCode from './InlineCode'
-import table from './Table'
+import { RestExamples } from './RestExamples'
+import Table from './Table'
 
 export default {
   h1,
   h2,
   h3,
   Banner,
-  table,
   pre: Code,
   code: InlineCode,
   HR,
   BlogImage,
   YouTube,
+  RestExamples,
+  table: Table,
 }

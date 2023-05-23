@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { CardElement as StripeCardElement } from '@stripe/react-stripe-js'
 
-import { useTheme } from '@root/providers/Theme'
+import { useThemePreference } from '@root/providers/Theme'
 
 import classes from './index.module.scss'
 
 export const CreditCardElement: React.FC = () => {
   const [error, setError] = useState(null)
   const [disableChangeHandler, setDisableChangeHandler] = useState(true)
-  const theme = useTheme()
+  const { theme } = useThemePreference()
   const [style, setStyle] = useState<{ style: Record<string, unknown> }>()
 
   const handleChange = async event => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import NextImage from 'next/image'
 
-import { Attachments } from '@root/app/community-help/discord/[slug]/client_page'
+import { Attachments } from '@root/app/community-help/(posts)/discord/[slug]/client_page'
 import { DownloadIcon } from '@root/graphics/DownloadIcon'
 
 import classes from './index.module.scss'

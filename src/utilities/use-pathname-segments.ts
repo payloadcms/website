@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 export const usePathnameSegments = (): string[] => {
   let pathname = usePathname()
 
-  if (!pathname) {
+  if (!pathname || pathname === '/') {
     return []
   }
 

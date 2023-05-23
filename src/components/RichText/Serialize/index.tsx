@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import escapeHTML from 'escape-html'
-import { Text } from 'slate'
 
 import { CMSLink, Reference } from '@components/CMSLink'
 import { Highlight } from '../../Highlight'
@@ -30,11 +29,14 @@ type SerializeFunction = React.FC<{
   customRenderers?: CustomRenderers
 }>
 
+const isText = (value: any): boolean =>
+  typeof value === 'object' && value !== null && typeof value.text === 'string'
+
 export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
   return (
     <Fragment>
       {content?.map((node, i) => {
-        if (Text.isText(node)) {
+        if (isText(node)) {
           let text = <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />
 
           if (node.bold) {

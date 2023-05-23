@@ -26,7 +26,6 @@
     .rs__value-container {
       padding: 0;
 
-
       > * {
         margin-top: 0;
         margin-bottom: 0;
@@ -76,7 +75,7 @@
 
     .rs__menu {
       color: var(--theme-text);
-      background-color: var(--theme-elevation-50);
+      background-color: var(--theme-elevation-0);
       z-index: 2;
       border-radius: 0;
       box-shadow: 0 4px 11px hsl(0deg 0% 0% / 10%);
@@ -84,6 +83,7 @@
 
     .rs__menu-list {
       padding: calc(var(--base) / 4) 0;
+      border: 1px solid var(--theme-border-color);
     }
 
     .rs__group-heading {
@@ -131,10 +131,10 @@
   }
 }
 
-.theme-light {
-  :global {
+:global([data-theme="dark"]) {
+  .select {
     .rs__menu {
-      background-color: var(--theme-bg);
+      background-color: var(--theme-elevation-50);
     }
   }
 }
