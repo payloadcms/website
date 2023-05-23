@@ -4,10 +4,10 @@
   @include btnReset;
   @include label;
   display: flex;
-  margin-left: auto;
+  margin-right: auto;
   background-color: var(--color-base-750);
   border-radius: 3px;
-  padding: calc(var(--base)*0.25);
+  padding: calc(var(--base)*0.35);
   transition: opacity 200ms linear;
   cursor: pointer;
   color: var(--color-base-100);
@@ -28,25 +28,18 @@
   }
 }
 
-.drawerContent {
-  margin-top: var(--base);
+.drawerTable {
+  & th {
+    display: none;
+  }
+  & td {
+    background-color: var(--theme-elevation-100);
+  }
 }
 
-@include mid-break {
-  .toggle {
-    color: var(--color-base-100);
-    padding: calc(var(--base)*0.35);
-  }
-
-  .table {
-    font-size: 12px;
-
-    & th {
-      &:first-child {
-        padding-left: 0;
-      }
-    }
-  }
+.drawerContent {
+  margin-top: var(--base);
+  z-index: 99;
 }
 
 .code {
@@ -54,10 +47,51 @@
   -webkit-overflow-scrolling: touch;
   overflow-x: scroll;
   pointer-events: all;
+  padding-bottom: calc(var(--base)*2);
+}
 
-  @include mid-break {
-    padding: calc(var(--base)*0.75);
-    font-size: calc(var(--base) * .55);
-    line-height: 1.2;
+@include large-break {
+  .toggle {
+    padding: calc(var(--base)*0.25);
+  }
+
+  .table {
+    & td, & th {
+      padding: calc(var(--base)*0.5);
+    }
+  }
+
+  .drawerTable, .table {
+    font-size: 14px;
+
+    & label {
+      font-size: 11px;
+    }
   }
 }
+
+@include mid-break {
+  .toggle {
+    padding: calc(var(--base)*0.15);
+  }
+
+  .drawerTable, .table {
+    font-size: 12px;
+
+    & label {
+      font-size: 10px;
+    }
+
+    & th {
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+  }
+
+  .code {
+    padding-bottom: calc(var(--base)*1.25);
+    font-size: 11px;
+  }
+}
+
