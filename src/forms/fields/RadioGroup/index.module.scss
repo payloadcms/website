@@ -10,6 +10,7 @@
   margin: 0;
   list-style: none;
   display: flex;
+  gap: var(--base);
 }
 
 .layout--vertical {
@@ -26,7 +27,6 @@
 
 .li {
   display: flex;
-  gap: var(--base);
 }
 
 .radioWrap {
