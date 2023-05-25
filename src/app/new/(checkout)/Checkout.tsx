@@ -133,7 +133,7 @@ const Checkout: React.FC<{
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.slug}`,
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}`,
         {
           method: 'DELETE',
           credentials: 'include',
