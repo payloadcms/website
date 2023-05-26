@@ -15,7 +15,7 @@
     &:before {
       content: '$';
       margin-right: calc(var(--base) * .75);
-      color: white;
+      color: var(--color-base-100);
     }
   }
 }

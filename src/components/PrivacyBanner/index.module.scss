@@ -92,20 +92,20 @@
 
 :global([data-theme="light"]) {
   .content {
-    color: var(--color-base-0);
+    color: var(--color-base-100);
   }
 
   .rejectButton {
-    color: var(--color-base-0);
+    color: var(--color-base-100);
 
     &:hover {
-      border-color: var(--color-base-0);
+      border-color: var(--color-base-200);
     }
   }
 
   .acceptButton {
-    background: white;
-    border-color: white;
+    background: var(--color-base-100);
+    border-color: var(--color-base-100);
     color: black;
 
     &:hover {

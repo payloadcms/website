@@ -3,7 +3,7 @@
 .formHero {
   position: relative;
   margin-top: calc(var(--base) * -2);
-  color: var(--color-base-0);
+  color: var(--color-base-100);
 
   @include mid-break {
     margin-top: calc(var(--base) * -1);
