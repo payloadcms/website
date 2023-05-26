@@ -131,69 +131,7 @@
 }
 
 @include mid-break {
-  .bg {
-    display: none;
-  }
-
   .container {
-    height: unset;
-  }
-
-  .ctaWrap {
-    position: unset;
-    display: flex;
-    justify-content: flex-end;
-    margin: 0 var(--gutter-h) 0 0;
-  }
-
-  .cta {
-    width: fit-content;
-    padding: 0;
-    border: none;
-    background-color: transparent;
-    box-shadow: none;
-
-    &:first-child {
-      margin: 0 var(--base) 0 0;
-    }
-  }
-
-  .message,
-  .arrow {
     display: none;
-  }
-
-  .gitButton,
-  .discordButton {
-    margin: 0;
-    max-width: unset;
-  }
-
-  .enterpriseCTA {
-    display: none;
-  }
-}
-
-@include small-break {
-  .container {
-    left: var(--gutter-h);
-  }
-
-  .ctaWrap {
-    justify-content: flex-start;
-    width: 100%;
-    min-width: unset;
-    margin: 0;
-    padding-top: 0;
-  }
-
-  .container {
-    top: calc(var(--base) * -1.25);
-  }
-
-  :global([data-theme="light"]) {
-    .ctaPill {
-      border-color: var(--color-base-600);
-    }
   }
 }
