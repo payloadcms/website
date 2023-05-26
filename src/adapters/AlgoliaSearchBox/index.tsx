@@ -5,6 +5,8 @@ import useDebounce from '@root/utilities/use-debounce'
 
 import classes from './index.module.scss'
 
+const minValueLength = 3
+
 export const AlgoliaSearchBox: React.FC<{
   className?: string
 }> = props => {
@@ -13,12 +15,12 @@ export const AlgoliaSearchBox: React.FC<{
   const {
     query,
     refine,
-    // clear,
+    clear,
     // isSearchStalled
   } = useSearchBox()
 
   const [value, setValue] = React.useState(query)
-  const debouncedInput = useDebounce(value, 150)
+  const debouncedInput = useDebounce(value, 700)
 
   // TODO: allow outside changes to update this field (search modal)
   useEffect(() => {
@@ -38,10 +40,12 @@ export const AlgoliaSearchBox: React.FC<{
   )
 
   useEffect(() => {
-    if (debouncedInput.length >= 0) {
+    if (debouncedInput.length >= minValueLength) {
       refine(debouncedInput)
+    } else if (debouncedInput.length < minValueLength) {
+      clear()
     }
-  }, [debouncedInput, refine])
+  }, [debouncedInput, refine, clear])
 
   return (
     <input
