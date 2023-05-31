@@ -30,27 +30,27 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
-  const page = await fetchPage(slug)
+// export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
+//   const page = await fetchPage(slug)
 
-  const ogImage =
-    typeof page?.meta?.image === 'object' &&
-    page?.meta?.image !== null &&
-    'url' in page?.meta?.image &&
-    `${process.env.NEXT_PUBLIC_CMS_URL}${page.meta.image.url}`
+//   const ogImage =
+//     typeof page?.meta?.image === 'object' &&
+//     page?.meta?.image !== null &&
+//     'url' in page?.meta?.image &&
+//     `${process.env.NEXT_PUBLIC_CMS_URL}${page.meta.image.url}`
 
-  return {
-    title: page?.meta?.title || 'Payload CMS',
-    description: page?.meta?.description,
-    openGraph: mergeOpenGraph({
-      url: Array.isArray(slug) ? slug.join('/') : '/',
-      images: ogImage
-        ? [
-            {
-              url: ogImage,
-            },
-          ]
-        : undefined,
-    }),
-  }
-}
+//   return {
+//     title: page?.meta?.title || 'Payload CMS',
+//     description: page?.meta?.description,
+//     openGraph: mergeOpenGraph({
+//       url: Array.isArray(slug) ? slug.join('/') : '/',
+//       images: ogImage
+//         ? [
+//             {
+//               url: ogImage,
+//             },
+//           ]
+//         : undefined,
+//     }),
+//   }
+// }
