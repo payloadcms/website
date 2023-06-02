@@ -385,6 +385,11 @@ const Checkout: React.FC<{
                 <div className={classes.submit}>
                   <Submit label="Deploy now" />
                 </div>
+                {isBeta && (
+                  <p className={classes.submitDescription}>
+                    You will not be charged until after July 1st. You can cancel anytime.
+                  </p>
+                )}
               </Fragment>
             )}
           </Cell>
