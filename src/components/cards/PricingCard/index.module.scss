@@ -73,7 +73,7 @@
     height: var(--base);
 }
 
-@include desktop-large-break {
+@include two-extra-large-break {
     .card {
         aspect-ratio: 9/10;
     }

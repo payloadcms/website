@@ -40,8 +40,8 @@
   }
 }
 
-@mixin desktop-large-break {
-  @media (max-width: $breakpoint-dl-width) {
+@mixin two-extra-large-break {
+  @media (max-width: $breakpoint-2xl-width) {
     @content;
   }
 }
