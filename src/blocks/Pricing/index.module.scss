@@ -10,8 +10,8 @@
     top: 0;
     left: 0;
     width: calc(100% + var(--gutter-h));
-    height: calc(100% - var(--gutter-h));
-    margin: var(--gutter-h) 0 0 calc(var(--gutter-h) / -2);
+    height: calc(100% - calc(var(--base) * 3.5));
+    margin: calc(var(--gutter-h) * 0.35) 0 0 calc(var(--gutter-h) / -2);
     overflow: hidden;
 
     &:before {
@@ -116,8 +116,8 @@
 
 @include extra-large-break {
     .bg {
-        margin-top: calc(var(--gutter-h)*0.5);
-        height: calc(100% - calc(var(--gutter-h)*0.5));
+        margin-top: calc(var(--gutter-h) * 0.5);
+        height: calc(100% - calc(var(--gutter-h) * 0.5));
     }
 }
 
