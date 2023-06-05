@@ -73,6 +73,30 @@
     height: var(--base);
 }
 
+@include desktop-large-break {
+    .card {
+        aspect-ratio: 9/10;
+    }
+
+    .title,
+    .price {
+        @include h3;
+        margin: var(--base) 0 0 0;
+    }
+}
+
+@include extra-large-break {
+    .card {
+        aspect-ratio: 1/1;
+    }
+
+    .title,
+    .price {
+        @include h1;
+        margin: var(--base) 0 0 0;
+    }
+}
+
 @include extra-large-break {
     .description {
         font-size: unset;

@@ -39,3 +39,9 @@
     @content;
   }
 }
+
+@mixin desktop-large-break {
+  @media (max-width: $breakpoint-dl-width) {
+    @content;
+  }
+}
