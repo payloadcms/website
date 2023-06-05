@@ -39,3 +39,9 @@
     @content;
   }
 }
+
+@mixin two-extra-large-break {
+  @media (max-width: $breakpoint-2xl-width) {
+    @content;
+  }
+}
