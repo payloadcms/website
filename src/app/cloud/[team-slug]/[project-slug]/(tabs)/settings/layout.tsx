@@ -23,6 +23,10 @@ const sidebarNavRoutes = [
     slug: 'domains',
   },
   {
+    label: 'Email',
+    slug: 'email',
+  },
+  {
     label: 'Ownership',
     slug: 'ownership',
   },

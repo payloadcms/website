@@ -65,6 +65,11 @@ const deploymentStates: DeploymentStates = {
     status: 'error',
     label: 'Failed to create the application',
   },
+  infraCreationError: {
+    step: 0,
+    status: 'error',
+    label: 'Failed to create the infrastructure',
+  },
 }
 
 const initialDeploymentPhases: DeploymentPhases[] = ['notStarted', 'awaitingDatabase', 'deploying']
@@ -128,7 +133,7 @@ export const InfraOffline: React.FC = () => {
               <div className={classes.details}>
                 <div className={classes.indicationLine}>
                   <Indicator
-                    status={deploymentStep.status}
+                    status={deploymentStep?.status}
                     spinner={initialDeploymentPhases.includes(infraStatus)}
                   />
                   <Label>initial Deployment {failedDeployment ? 'failed' : 'in progress'}</Label>
@@ -138,7 +143,7 @@ export const InfraOffline: React.FC = () => {
                   className={[
                     classes.progressBar,
                     classes[`step--${deploymentStep.step}`],
-                    classes[`status--${deploymentStep.status}`],
+                    classes[`status--${deploymentStep?.status}`],
                   ]
                     .filter(Boolean)
                     .join(' ')}
