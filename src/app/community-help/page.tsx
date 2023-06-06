@@ -19,6 +19,8 @@ export const metadata: Metadata = {
     'Find what you need faster. The Payload Community Help archive is a great place to start.',
   openGraph: mergeOpenGraph({
     title: 'Community Help | Payload CMS',
+    description:
+      'Find what you need faster. The Payload Community Help archive is a great place to start.',
     url: '/community-help',
   }),
 }

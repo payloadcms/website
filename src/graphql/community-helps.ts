@@ -19,6 +19,7 @@ export const COMMUNITY_HELP = `
         discordID
         communityHelpJSON
         slug
+        introDescription
       }
     }
   }
