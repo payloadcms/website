@@ -10,6 +10,7 @@ export default props => {
 export const metadata: Metadata = {
   title: 'My Account',
   openGraph: mergeOpenGraph({
+    title: 'My Account',
     url: `/cloud/settings`,
   }),
 }

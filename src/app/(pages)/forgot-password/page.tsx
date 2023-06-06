@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: 'Forgot Password | Payload Cloud',
   description: 'If you forgot your password, reset it',
   openGraph: mergeOpenGraph({
+    title: 'Forgot Password | Payload Cloud',
     url: '/forgot-password',
   }),
 }

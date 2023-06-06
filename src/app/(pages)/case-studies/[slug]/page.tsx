@@ -38,6 +38,7 @@ export async function generateMetadata({ params: { slug } }): Promise<Metadata> 
     title: page?.meta?.title,
     description: page?.meta?.description,
     openGraph: mergeOpenGraph({
+      title: page?.meta?.title,
       url: `/case-studies/${slug}`,
       description: page?.meta?.description,
       images: ogImage

@@ -21,6 +21,7 @@ export async function generateMetadata({
   return {
     title: 'Checkout | Payload Cloud',
     openGraph: {
+      title: 'Checkout | Payload Cloud',
       url: `/cloud/${teamSlug}/${projectSlug}/configure`,
     },
   }

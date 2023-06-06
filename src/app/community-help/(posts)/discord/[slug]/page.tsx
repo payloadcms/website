@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 
 import { fetchCommunityHelp, fetchCommunityHelps } from '@root/graphql'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { slugToText } from '@root/utilities/slug-to-text'
 import { DiscordThreadPage, Messages } from './client_page'
 
 const isThreadData = (
@@ -64,8 +65,9 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
   return {
-    title: 'Discord Thread',
+    title: slugToText(slug),
     openGraph: mergeOpenGraph({
+      title: slugToText(slug),
       url: `/community-help/discord/${slug}`,
     }),
   }
