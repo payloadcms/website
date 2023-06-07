@@ -19,7 +19,7 @@ export const ProjectEmailPage = () => {
   const { project } = useRouteData()
 
   const ResendAPIKey = React.useCallback(async () => {
-    const { value } = await fetch(
+    const value = await fetch(
       `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}`,
       {
         credentials: 'include',
@@ -27,9 +27,11 @@ export const ProjectEmailPage = () => {
           'Content-Type': 'application/json',
         },
       },
-    ).then(res => res.json())
+    )
 
-    return value.resendAPIKey
+    const res = await value.json()
+
+    return res.resendAPIKey
   }, [project?.id])
 
   return (
@@ -44,7 +46,7 @@ export const ProjectEmailPage = () => {
         for you to take advantage of Resend’s platform.
       </p>
       {project?.resendAPIKey ? (
-        <Secret label="Resend API Key" path="resendAPIKey" loadSecret={ResendAPIKey} />
+        <Secret label="Resend API Key" loadSecret={ResendAPIKey} />
       ) : (
         <Text label="Resend API Key" disabled placeholder="Resend API key not found" />
       )}
