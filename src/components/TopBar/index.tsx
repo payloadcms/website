@@ -32,7 +32,10 @@ export const TopBar: React.FC<TopBarType> = ({ starText, announcement }) => {
           </div>
           {announcement && (
             <div>
-              <RichText className={classes.richText} content={announcement?.content} />
+              <RichText
+                className={classes.richText}
+                content={typeof announcement === 'string' ? announcement : announcement?.content}
+              />
             </div>
           )}
         </div>
