@@ -17,28 +17,28 @@ const generateUUID = () => {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
 
-const domainFieldPath = 'newDomain'
+const emailDomainFieldPath = 'newEmailDomain'
 
 export const AddEmailDomain: React.FC = () => {
   const { project, reloadProject } = useRouteData()
   const [fieldKey, setFieldKey] = React.useState(generateUUID())
 
   const projectID = project?.id
-  const projectDomains = project?.domains
+  const projectEmailDomains = project?.customEmailDomains
 
-  const saveDomain = React.useCallback<OnSubmit>(
+  const saveEmailDomain = React.useCallback<OnSubmit>(
     async ({ data }) => {
       // The type `Project.domains[0]` -> does not work because the array is not required - Payload type issue?
-      const newDomain: {
+      const newEmailDomain: {
         domain: string
         cloudflareID?: string
         id?: string
       } = {
-        domain: data[domainFieldPath] as string,
+        domain: data[emailDomainFieldPath] as string,
       }
 
-      const domainExists = projectDomains?.find(
-        projectDomain => projectDomain.domain === newDomain.domain,
+      const domainExists = projectEmailDomains?.find(
+        projectEmailDomains => projectEmailDomains.domain === newEmailDomain.domain,
       )
 
       // TODO - toast messages
@@ -54,7 +54,7 @@ export const AddEmailDomain: React.FC = () => {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                domains: [newDomain, ...(projectDomains || [])],
+                customEmailDomains: [newEmailDomain, ...(projectEmailDomains || [])],
               }),
             },
           )
@@ -71,18 +71,19 @@ export const AddEmailDomain: React.FC = () => {
         }
       } else {
         setFieldKey(generateUUID())
+        toast.error('Domain already exists.')
       }
     },
-    [projectID, reloadProject, projectDomains],
+    [projectID, reloadProject, projectEmailDomains],
   )
 
   return (
-    <Form className={classes.formContent} onSubmit={saveDomain}>
+    <Form className={classes.formContent} onSubmit={saveEmailDomain}>
       <Text
         key={fieldKey}
         required
         label="Domain"
-        path={domainFieldPath}
+        path={emailDomainFieldPath}
         validate={validateDomain}
       />
 
