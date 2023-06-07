@@ -43,19 +43,26 @@
 
   th,
   td {
-    padding-right: calc(var(--base) * 2);
+    padding-right: calc(var(--base));
     vertical-align: top;
     white-space: nowrap;
   }
-
+  
   th {
     font-weight: normal;
     text-align: left;
+    font-size: 14px;
   }
 
   td {
-    color: var(--theme-text)
+    color: var(--theme-text);
+    
+    button {
+      display: inline;
+      margin-right: calc(var(--base)* .25);
+    }
   }
+
 }
 
 .domainActions {

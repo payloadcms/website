@@ -17,6 +17,7 @@ import { Project } from '@root/payload-cloud-types'
 
 // import { Project } from '@root/payload-cloud-types'
 import classes from './index.module.scss'
+import { CopyToClipboard } from '@components/CopyToClipboard'
 
 const domainValueFieldPath = 'domain'
 
@@ -33,6 +34,65 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
   const projectID = project?.id
   const projectEmailDomains = project?.customEmailDomains
 
+  const patchEmailDomains = React.useCallback(
+    async (emailDomains: Props['emailDomain'][]) => {
+      try {
+        const req = await fetch(
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}`,
+          {
+            method: 'PATCH',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ customEmailDomains: emailDomains }),
+          },
+        )
+
+        if (req.status === 200) {
+          const res = await req.json()
+          reloadProject()
+          return res
+        }
+      } catch (e) {
+        console.error(e) // eslint-disable-line no-console
+      }
+
+      return null
+    },
+    [projectID, reloadProject],
+  )
+
+  const updateEmailDomain = React.useCallback(
+    async ({ data }) => {
+      const newEmailDomainValue = data[domainValueFieldPath]
+
+      if (typeof newEmailDomainValue === 'string' && id) {
+        const updatedDomains = (projectEmailDomains || []).map(exisistingDomain => {
+          if (exisistingDomain.id === id) {
+            return {
+              ...exisistingDomain,
+              domain: newEmailDomainValue,
+            }
+          }
+
+          return exisistingDomain
+        })
+
+        await patchEmailDomains(updatedDomains)
+      }
+    },
+    [id, projectEmailDomains, patchEmailDomains],
+  )
+
+  const deleteEmailDomain = React.useCallback(async () => {
+    const remainingDomains = (projectEmailDomains || []).filter(
+      exisistingDomain => exisistingDomain.id !== id,
+    )
+
+    await patchEmailDomains(remainingDomains)
+  }, [id, projectEmailDomains, patchEmailDomains])
+
   return (
     <>
       <Collapsible openOnInit>
@@ -48,7 +108,7 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
             </div>
           }
         >
-          <Form /* onSubmit={updateDomain} */>
+          <Form onSubmit={updateEmailDomain}>
             <div className={classes.domainContent}>
               <Text
                 required
@@ -74,8 +134,14 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
                     ({ recordType, recordName, recordContent, recordPriority }, index: number) => (
                       <tr key={index}>
                         <td>{recordType}</td>
-                        <td>{recordName}</td>
-                        <td>{recordContent}</td>
+                        <td>
+                          <CopyToClipboard value={recordName} />
+                          {recordName}
+                        </td>
+                        <td>
+                          <CopyToClipboard value={recordContent} />
+                          {recordContent}
+                        </td>
                         {recordPriority && <td>{recordPriority}</td>}
                       </tr>
                     ),
@@ -101,147 +167,10 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
           </Heading>
           <div className={classes.modalActions}>
             <Button label="cancel" appearance="secondary" onClick={() => closeModal(modalSlug)} />
-            <Button label="delete" appearance="danger" /* onClick={deleteDomain}*/ />
+            <Button label="delete" appearance="danger" onClick={deleteEmailDomain} />
           </div>
         </div>
       </ModalWindow>
     </>
   )
 }
-// export const ManageEmailDomain: React.FC<Props> = ({ domain }) => {
-//   const { id, domain: domainURL, recordType, recordName, recordContent } = domain
-//   const modalSlug = `delete-domain-${id}`
-
-//   const { openModal, closeModal } = useModal()
-//   const { project, reloadProject } = useRouteData()
-//   const projectID = project?.id
-//   const projectDomains = project?.domains
-//   const cnameRecord = project?.defaultDomain
-
-//   const patchDomains = React.useCallback(
-//     async (domains: Props['domain'][]) => {
-//       try {
-//         const req = await fetch(
-//           `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}`,
-//           {
-//             method: 'PATCH',
-//             credentials: 'include',
-//             headers: {
-//               'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({ domains }),
-//           },
-//         )
-
-//         // TODO: alert user based on status code & message
-
-//         if (req.status === 200) {
-//           const res = await req.json()
-//           reloadProject()
-//           return res
-//         }
-//       } catch (e) {
-//         console.error(e) // eslint-disable-line no-console
-//       }
-
-//       return null
-//     },
-//     [projectID, reloadProject],
-//   )
-
-//   const updateDomain = React.useCallback(
-//     async ({ data }) => {
-//       const newDomainValue = data[domainValueFieldPath]
-
-//       if (typeof newDomainValue === 'string' && id) {
-//         const updatedDomains = (projectDomains || []).map(existingDomain => {
-//           if (existingDomain.id === id) {
-//             return {
-//               ...existingDomain,
-//               domain: newDomainValue,
-//             }
-//           }
-
-//           return existingDomain
-//         })
-
-//         await patchDomains(updatedDomains)
-//       }
-//     },
-//     [id, projectDomains, patchDomains],
-//   )
-
-//   const deleteDomain = React.useCallback(async () => {
-//     const remainingDomains = (projectDomains || []).filter(
-//       existingDomain => existingDomain.id !== id,
-//     )
-
-//     await patchDomains(remainingDomains)
-//     closeModal(modalSlug)
-//   }, [id, closeModal, projectDomains, patchDomains, modalSlug])
-
-//   return (
-//     <>
-//       <Collapsible openOnInit>
-//         <Accordion
-//           className={classes.domainAccordion}
-//           toggleIcon="chevron"
-//           label={
-//             <div className={classes.labelWrap}>
-//               <Link href={`https://${domainURL}`} target="_blank" className={classes.linkedDomain}>
-//                 <div className={classes.domainTitleName}>{domainURL}</div>
-//                 <ExternalLinkIcon className={classes.externalLinkIcon} />
-//               </Link>
-//             </div>
-//           }
-//         >
-//           <Form onSubmit={updateDomain}>
-//             <div className={classes.domainContent}>
-//               <Text
-//                 required
-//                 label="Domain"
-//                 className={classes.domainInput}
-//                 path={domainValueFieldPath}
-//                 initialValue={domainURL}
-//                 validate={validateDomain}
-//               />
-
-//               <p>Add the following record to your DNS provider:</p>
-//               <table className={classes.record}>
-//                 <tr>
-//                   <th>Type</th>
-//                   <th>Name</th>
-//                   <th>Content</th>
-//                 </tr>
-//                 <tr>
-//                   <td>{recordType}</td>
-//                   <td>{recordName}</td>
-//                   <td>{recordContent}</td>
-//                 </tr>
-//               </table>
-
-//               <div className={classes.domainActions}>
-//                 <div className={classes.rightActions}>
-//                   <Button label="delete" appearance="danger" onClick={() => openModal(modalSlug)} />
-//                   <Submit label="save" appearance="secondary" icon={false} />
-//                 </div>
-//               </div>
-//             </div>
-//           </Form>
-//         </Accordion>
-//       </Collapsible>
-
-//       <ModalWindow slug={modalSlug}>
-//         <div className={classes.modalContent}>
-//           <Heading marginTop={false} as="h5">
-//             Are you sure you want to delete this domain?
-//           </Heading>
-//           <div className={classes.modalActions}>
-//             <Button label="cancel" appearance="secondary" onClick={() => closeModal(modalSlug)} />
-//             <Button label="delete" appearance="danger" onClick={deleteDomain} />
-//           </div>
-//         </div>
-//       </ModalWindow>
-//     </>
-//   )
-// }
