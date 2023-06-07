@@ -119,7 +119,7 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
                 validate={validateDomain}
               />
 
-              <p>Add the following record to your DNS provider:</p>
+              <p>Add the following records to your DNS provider:</p>
               <table className={classes.record}>
                 <thead>
                   <tr>
