@@ -130,22 +130,26 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {customDomainResendDNSRecords.map(
-                    ({ recordType, recordName, recordContent, recordPriority }, index: number) => (
-                      <tr key={index}>
-                        <td>{recordType}</td>
-                        <td>
-                          <CopyToClipboard value={recordName} />
-                          {recordName}
-                        </td>
-                        <td>
-                          <CopyToClipboard value={recordContent} />
-                          {recordContent}
-                        </td>
-                        {recordPriority && <td>{recordPriority}</td>}
-                      </tr>
-                    ),
-                  )}
+                  {customDomainResendDNSRecords &&
+                    customDomainResendDNSRecords.map(
+                      (
+                        { recordType, recordName, recordContent, recordPriority },
+                        index: number,
+                      ) => (
+                        <tr key={index}>
+                          <td>{recordType}</td>
+                          <td>
+                            <CopyToClipboard value={recordName} />
+                            {recordName}
+                          </td>
+                          <td>
+                            <CopyToClipboard value={recordContent} />
+                            {recordContent}
+                          </td>
+                          {recordPriority && <td>{recordPriority}</td>}
+                        </tr>
+                      ),
+                    )}
                 </tbody>
               </table>
 
