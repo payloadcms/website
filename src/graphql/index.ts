@@ -20,7 +20,7 @@ import { TEAMS } from './team'
 import { TEMPLATES } from './templates'
 
 const next = {
-  revalidate: 600,
+  revalidate: false,
 }
 
 export const fetchGlobals = async (): Promise<{
