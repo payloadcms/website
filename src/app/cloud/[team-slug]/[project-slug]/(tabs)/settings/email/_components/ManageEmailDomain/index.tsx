@@ -67,15 +67,15 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
       const newEmailDomainValue = data[domainValueFieldPath]
 
       if (typeof newEmailDomainValue === 'string' && id) {
-        const updatedDomains = (projectEmailDomains || []).map(exisistingDomain => {
-          if (exisistingDomain.id === id) {
+        const updatedDomains = (projectEmailDomains || []).map(existingDomain => {
+          if (existingDomain.id === id) {
             return {
-              ...exisistingDomain,
+              ...existingDomain,
               domain: newEmailDomainValue,
             }
           }
 
-          return exisistingDomain
+          return existingDomain
         })
 
         await patchEmailDomains(updatedDomains)
@@ -86,7 +86,7 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
 
   const deleteEmailDomain = React.useCallback(async () => {
     const remainingDomains = (projectEmailDomains || []).filter(
-      exisistingDomain => exisistingDomain.id !== id,
+      existingDomain => existingDomain.id !== id,
     )
 
     await patchEmailDomains(remainingDomains)
