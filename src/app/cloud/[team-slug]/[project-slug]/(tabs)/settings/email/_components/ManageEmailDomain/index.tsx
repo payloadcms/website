@@ -15,7 +15,6 @@ import { useRouteData } from '@root/app/cloud/context'
 import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon'
 import { Project } from '@root/payload-cloud-types'
 
-// import { Project } from '@root/payload-cloud-types'
 import classes from './index.module.scss'
 import { CopyToClipboard } from '@components/CopyToClipboard'
 
