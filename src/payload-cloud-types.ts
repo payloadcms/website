@@ -107,7 +107,15 @@ export interface Project {
     value: string;
     id?: string;
   }[];
-  infraStatus?: 'notStarted' | 'awaitingDatabase' | 'appCreationError' | 'deploying' | 'deployError' | 'done' | 'error';
+    infraStatus?:
+    | 'notStarted'
+    | 'infraCreationError'
+    | 'awaitingDatabase'
+    | 'appCreationError'
+    | 'deploying'
+    | 'deployError'
+    | 'done'
+    | 'error';
   lastSuccessfulDeployment?: string | Deployment;
   createdAt: string;
   updatedAt: string;

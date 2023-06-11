@@ -65,6 +65,11 @@ const deploymentStates: DeploymentStates = {
     status: 'error',
     label: 'Failed to create the application',
   },
+  infraCreationError: {
+    step: 0,
+    status: 'error',
+    label: 'Failed to create the infrastructure',
+  },
 }
 
 const initialDeploymentPhases: DeploymentPhases[] = ['notStarted', 'awaitingDatabase', 'deploying']
