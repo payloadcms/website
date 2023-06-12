@@ -62,7 +62,7 @@ export interface Project {
   rootDirectory?: string;
   cloudflareDNSRecordID?: string;
   defaultDomain?: string;
-  domains: {
+  domains?: {
     domain: string;
     cloudflareID?: string;
     recordType?: 'A' | 'CNAME';
@@ -102,16 +102,17 @@ export interface Project {
   resendAPIKey?: string;
   resendAPIKeyID?: string;
   resendDomainID?: string;
-  defaultDomainResendDNSRecords: {
+  defaultDomainResendDNSRecords?: {
     cloudflareID: string;
     type: 'MX' | 'TXT' | 'CNAME';
     name: string;
     value: string;
     id?: string;
   }[];
-  customEmailDomains: {
+  customEmailDomains?: {
     domain: string;
-    customDomainResendDNSRecords: {
+    resendAPIKey?: string;
+    customDomainResendDNSRecords?: {
       cloudflareID: string;
       recordType: 'MX' | 'TXT' | 'CNAME';
       recordName: string;
@@ -202,6 +203,8 @@ export interface User {
   email?: string;
   resetPasswordToken?: string;
   resetPasswordExpiration?: string;
+  salt?: string;
+  hash?: string;
   _verified?: boolean;
   _verificationToken?: string;
   loginAttempts?: number;
@@ -217,7 +220,7 @@ export interface Template {
   templateRepo: string;
   order?: number;
   image?: string | Media;
-  files: {
+  files?: {
     path: string;
     content?: string;
     id?: string;
