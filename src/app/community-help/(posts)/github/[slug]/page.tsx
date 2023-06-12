@@ -72,7 +72,7 @@ export async function generateMetadata({ params: { slug } }): Promise<Metadata> 
     title: slugToText(slug),
     openGraph: mergeOpenGraph({
       title: slugToText(slug),
-      description: discussion.introDescription,
+      description: discussion?.introDescription,
       url: `/community-help/github/${slug}`,
     }),
   }
