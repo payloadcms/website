@@ -14,9 +14,15 @@ import { ManageEmailDomain } from './_components/ManageEmailDomain'
 import { Secret } from '@forms/fields/Secret'
 import { Text } from '@forms/fields/Text'
 import Code from '@components/Code'
+import { Banner } from '@components/Banner'
+import { Team } from '@root/payload-cloud-types'
 
 export const ProjectEmailPage = () => {
   const { project } = useRouteData()
+  const teamSlug = (project?.team as Team).slug
+  const projectPlan = project?.plan
+
+  const supportsCustomEmail = projectPlan !== 'standard'
 
   const ResendAPIKey = React.useCallback(async () => {
     const value = await fetch(
@@ -43,7 +49,11 @@ export const ProjectEmailPage = () => {
           Resend
         </a>{' '}
         to provide you with email functionality out of the box. Every project comes with an API key
-        for you to take advantage of Resend’s platform.
+        for you to take advantage of Resend’s platform. By default, Payload will send email from
+        your default domain:{' '}
+        <a href={`https://${project?.defaultDomain}`} target="_blank">
+          {project?.defaultDomain}
+        </a>
       </p>
       {project?.resendAPIKey ? (
         <Secret label="Resend API Key" loadSecret={ResendAPIKey} />
@@ -70,40 +80,36 @@ export default buildConfig({
 })
       `}</Code>
       <Divider />
-      <SectionHeader
-        title="Custom Email Domains"
-        intro={
-          <>
-            {project?.defaultDomain && (
-              <p>
-                <strong>Default domain: </strong>
-                <a href={`https://${project.defaultDomain}`} target="_blank">
-                  {project.defaultDomain}
-                </a>
-              </p>
-            )}
-            <p></p>
-          </>
-        }
-      />
-      <CollapsibleGroup transTime={250} transCurve="ease">
-        <Collapsible openOnInit>
-          <Accordion label="New Email Domain" toggleIcon="chevron">
-            <AddEmailDomain />
-          </Accordion>
-        </Collapsible>
-      </CollapsibleGroup>
-      <Divider />
-      {project?.customEmailDomains && project.customEmailDomains.length > 0 ? (
-        <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
-          <div>
-            {project.customEmailDomains.map(emailDomain => (
-              <ManageEmailDomain key={emailDomain.id} emailDomain={emailDomain} />
-            ))}
-          </div>
-        </CollapsibleGroup>
+      <SectionHeader title="Custom Email Domains" />
+      {supportsCustomEmail ? (
+        <Banner type="error">
+          <p>
+            Custom email domains are not supported on the Standard Plan. To use this feature,{' '}
+            <a href={`/cloud/${teamSlug}/${project?.slug}/settings/plan`}>upgrade your plan.</a>
+          </p>
+        </Banner>
       ) : (
-        <NoData message="This project currently has no custom email domains configured." />
+        <>
+          <CollapsibleGroup transTime={250} transCurve="ease">
+            <Collapsible openOnInit>
+              <Accordion label="New Email Domain" toggleIcon="chevron">
+                <AddEmailDomain />
+              </Accordion>
+            </Collapsible>
+          </CollapsibleGroup>
+          <Divider />
+          {project?.customEmailDomains && project.customEmailDomains.length > 0 ? (
+            <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
+              <div>
+                {project.customEmailDomains.map(emailDomain => (
+                  <ManageEmailDomain key={emailDomain.id} emailDomain={emailDomain} />
+                ))}
+              </div>
+            </CollapsibleGroup>
+          ) : (
+            <NoData message="This project currently has no custom email domains configured." />
+          )}
+        </>
       )}
     </MaxWidth>
   )
