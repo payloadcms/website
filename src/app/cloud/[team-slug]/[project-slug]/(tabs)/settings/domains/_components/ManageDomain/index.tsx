@@ -123,16 +123,20 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
 
               <p>Add the following record to your DNS provider:</p>
               <table className={classes.record}>
-                <tr>
-                  <th>Type</th>
-                  <th>Name</th>
-                  <th>Content</th>
-                </tr>
-                <tr>
-                  <td>{recordType}</td>
-                  <td>{recordName}</td>
-                  <td>{recordContent}</td>
-                </tr>
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Content</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{recordType}</td>
+                    <td>{recordName}</td>
+                    <td>{recordContent}</td>
+                  </tr>
+                </tbody>
               </table>
 
               <div className={classes.domainActions}>
