@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { toast } from 'react-toastify'
 import { Collapsible } from '@faceless-ui/collapsibles'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text'
@@ -6,6 +7,7 @@ import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { validateDomain } from '@forms/validations'
 import Link from 'next/link'
+import { Secret } from '@forms/fields/Secret'
 
 import { Button } from '@components/Button'
 import { Heading } from '@components/Heading'
@@ -32,6 +34,7 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
   const { project, reloadProject } = useRouteData()
   const projectID = project?.id
   const projectEmailDomains = project?.customEmailDomains
+  const ResendAPIKey = async () => (await emailDomain?.resendAPIKey) as 'string'
 
   const patchEmailDomains = React.useCallback(
     async (emailDomains: Props['emailDomain'][]) => {
@@ -84,6 +87,30 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
     [id, projectEmailDomains, patchEmailDomains],
   )
 
+  const verifyEmailDomain = React.useCallback(async () => {
+    try {
+      const req = await fetch(
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/verify`,
+        {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ domain: domainURL }),
+        },
+      )
+
+      if (req.status === 200) {
+        const res = await req.json()
+        reloadProject()
+        toast.success(res.message)
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }, [id, projectEmailDomains, patchEmailDomains])
+
   const deleteEmailDomain = React.useCallback(async () => {
     const remainingDomains = (projectEmailDomains || []).filter(
       existingDomain => existingDomain.id !== id,
@@ -109,23 +136,30 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
         >
           <Form onSubmit={updateEmailDomain}>
             <div className={classes.domainContent}>
-              <Text
-                required
-                label="Domain"
-                className={classes.domainInput}
-                path={domainValueFieldPath}
-                initialValue={domainURL}
-                validate={validateDomain}
-              />
-
-              <p>Add the following records to your DNS provider:</p>
-              <table className={classes.record}>
+              <div className={classes.domainInfo}>
+                <Text
+                  required
+                  label="Domain"
+                  className={classes.domainInput}
+                  path={domainValueFieldPath}
+                  initialValue={domainURL}
+                  validate={validateDomain}
+                />
+                {emailDomain.resendAPIKey ?? (
+                  <Secret label="Resend API Key" loadSecret={ResendAPIKey} />
+                )}
+                <p>
+                  To use your custom domain, add the following records to your DNS provider. Once
+                  added, click verify to confirm your domain settings with Resend.
+                </p>
+              </div>
+              <table className={classes.records}>
                 <thead>
                   <tr>
-                    <th>Type</th>
-                    <th>Host/Selector</th>
-                    <th>Value</th>
-                    <th>Priority</th>
+                    <th className={classes.recordType}>Type</th>
+                    <th className={classes.recordName}>Host/Selector</th>
+                    <th className={classes.recordContent}>Value</th>
+                    <th className={classes.recordPriority}>Priority</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -136,27 +170,35 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
                         index: number,
                       ) => (
                         <tr key={index}>
-                          <td>{recordType}</td>
-                          <td>
+                          <td className={classes.recordType}>
+                            <span>{recordType}</span>
+                          </td>
+                          <td className={classes.recordName}>
                             <CopyToClipboard value={recordName} />
-                            {recordName}
+                            <span>{recordName}</span>
                           </td>
-                          <td>
+                          <td className={classes.recordContent}>
                             <CopyToClipboard value={recordContent} />
-                            {recordContent}
+                            <span>{recordContent}</span>
                           </td>
-                          {recordPriority && <td>{recordPriority}</td>}
+                          {recordPriority && (
+                            <td className={classes.recordPriority}>
+                              <span>{recordPriority}</span>
+                            </td>
+                          )}
                         </tr>
                       ),
                     )}
                 </tbody>
               </table>
-
-              <div className={classes.domainActions}>
-                <div className={classes.rightActions}>
-                  <Button label="delete" appearance="danger" onClick={() => openModal(modalSlug)} />
-                  <Submit label="save" appearance="secondary" icon={false} />
-                </div>
+            </div>
+            <div className={classes.domainActions}>
+              <div className={classes.leftActions}>
+                <Button label="Verify" appearance="secondary" onClick={() => verifyEmailDomain()} />
+              </div>
+              <div className={classes.rightActions}>
+                <Button label="delete" appearance="danger" onClick={() => openModal(modalSlug)} />
+                <Submit label="save" appearance="secondary" icon={false} />
               </div>
             </div>
           </Form>

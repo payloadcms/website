@@ -27,42 +27,83 @@
   width: auto;
 }
 
-.domainInput {
+.domainField {
   margin-bottom: var(--base);
+  pointer-events: none;
 }
 
 .domainTitleName {
   color: var(--theme-text);
 }
 
-.record {
+.domainInfo > * {
+  margin-bottom: var(--base);
+}
+
+.records {
+  display: block;
   background: var(--theme-elevation-50);
   padding: var(--base);
-  overflow-x: auto;
-  display: block;
+  overflow: auto;
 
-  th,
-  td {
-    padding-right: calc(var(--base));
-    vertical-align: top;
-    white-space: nowrap;
-  }
-  
   th {
     font-weight: normal;
     text-align: left;
-    font-size: 14px;
+    padding: calc(var(--base) * .25 ) calc(var(--base) * .5 );
   }
 
   td {
+    padding: 0 calc(var(--base) * .5 );
+    white-space: nowrap;
     color: var(--theme-text);
-    
+
+    span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
     button {
-      display: inline;
-      margin-right: calc(var(--base)* .25);
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: calc(var(--base) * .25 );
+
+      span {
+        width: 0;
+      }
     }
   }
 
+  .recordType {
+    width: 4em;
+
+    & > span {
+      width: 2em;
+    }
+  }
+
+  .recordName {
+    width: 11em;
+    
+    & > span {
+      width: 9em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: keep-all;
+      white-space: nowrap;
+    }
+  }
+
+  .recordContent {
+    width: 16em;
+    
+    & > span {
+      width: 14em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: keep-all;
+      white-space: nowrap;
+    }
+  }
 }
 
 .domainActions {
