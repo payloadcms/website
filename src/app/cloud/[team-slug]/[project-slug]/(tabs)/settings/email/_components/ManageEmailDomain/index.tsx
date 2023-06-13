@@ -2,14 +2,15 @@ import * as React from 'react'
 import { toast } from 'react-toastify'
 import { Collapsible } from '@faceless-ui/collapsibles'
 import { useModal } from '@faceless-ui/modal'
+import { Secret } from '@forms/fields/Secret'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { validateDomain } from '@forms/validations'
 import Link from 'next/link'
-import { Secret } from '@forms/fields/Secret'
 
 import { Button } from '@components/Button'
+import { CopyToClipboard } from '@components/CopyToClipboard'
 import { Heading } from '@components/Heading'
 import { ModalWindow } from '@components/ModalWindow'
 import { Accordion } from '@root/app/cloud/_components/Accordion'
@@ -18,7 +19,6 @@ import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon'
 import { Project } from '@root/payload-cloud-types'
 
 import classes from './index.module.scss'
-import { CopyToClipboard } from '@components/CopyToClipboard'
 
 const domainValueFieldPath = 'domain'
 
@@ -165,25 +165,22 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
                 <tbody>
                   {customDomainResendDNSRecords &&
                     customDomainResendDNSRecords.map(
-                      (
-                        { recordType, recordName, recordContent, recordPriority },
-                        index: number,
-                      ) => (
+                      ({ name, type, value, priority }, index: number) => (
                         <tr key={index}>
                           <td className={classes.recordType}>
-                            <span>{recordType}</span>
+                            <span>{type}</span>
                           </td>
                           <td className={classes.recordName}>
-                            <CopyToClipboard value={recordName} />
-                            <span>{recordName}</span>
+                            <CopyToClipboard value={name} />
+                            <span>{name}</span>
                           </td>
                           <td className={classes.recordContent}>
-                            <CopyToClipboard value={recordContent} />
-                            <span>{recordContent}</span>
+                            <CopyToClipboard value={value} />
+                            <span>{value}</span>
                           </td>
-                          {recordPriority && (
+                          {priority && (
                             <td className={classes.recordPriority}>
-                              <span>{recordPriority}</span>
+                              <span>{priority}</span>
                             </td>
                           )}
                         </tr>

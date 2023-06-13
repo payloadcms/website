@@ -2,25 +2,25 @@
 
 import * as React from 'react'
 import { Collapsible, CollapsibleGroup } from '@faceless-ui/collapsibles'
+import { Secret } from '@forms/fields/Secret'
+import { Text } from '@forms/fields/Text'
 
+import { Banner } from '@components/Banner'
+import Code from '@components/Code'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { Accordion } from '@root/app/cloud/_components/Accordion'
 import { Divider } from '@root/app/cloud/_components/SectionDivider'
 import { useRouteData } from '@root/app/cloud/context'
+import { Plan, Team } from '@root/payload-cloud-types'
 import { NoData } from '../_layoutComponents/NoData'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'
 import { AddEmailDomain } from './_components/AddEmailDomain'
 import { ManageEmailDomain } from './_components/ManageEmailDomain'
-import { Secret } from '@forms/fields/Secret'
-import { Text } from '@forms/fields/Text'
-import Code from '@components/Code'
-import { Banner } from '@components/Banner'
-import { Team } from '@root/payload-cloud-types'
 
 export const ProjectEmailPage = () => {
   const { project } = useRouteData()
   const teamSlug = (project?.team as Team).slug
-  const projectPlan = project?.plan
+  const projectPlan = (project?.plan as Plan).slug
 
   const supportsCustomEmail = projectPlan !== 'standard'
 
@@ -81,7 +81,7 @@ export default buildConfig({
       `}</Code>
       <Divider />
       <SectionHeader title="Custom Email Domains" />
-      {supportsCustomEmail ? (
+      {!supportsCustomEmail ? (
         <Banner type="error">
           <p>
             Custom email domains are not supported on the Standard Plan. To use this feature,{' '}

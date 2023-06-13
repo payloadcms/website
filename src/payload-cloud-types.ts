@@ -111,13 +111,14 @@ export interface Project {
   }[];
   customEmailDomains?: {
     domain: string;
+    resendDomainID?: string;
+    resendAPIKeyID?: string;
     resendAPIKey?: string;
     customDomainResendDNSRecords?: {
-      cloudflareID: string;
-      recordType: 'MX' | 'TXT' | 'CNAME';
-      recordName: string;
-      recordContent: string;
-      recordPriority?: number;
+      type: 'MX' | 'TXT' | 'CNAME';
+      name: string;
+      value: string;
+      priority?: number;
       id?: string;
     }[];
     id?: string;
