@@ -24,20 +24,18 @@ export const ProjectEmailPage = () => {
 
   const supportsCustomEmail = projectPlan !== 'standard'
 
-  const ResendAPIKey = React.useCallback(async () => {
-    const value = await fetch(
-      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}`,
+  const loadEmailAPIKey = React.useCallback(async () => {
+    const { value } = await fetch(
+      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/email-api-key`,
       {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
       },
-    )
+    ).then(res => res.json())
 
-    const res = await value.json()
-
-    return res.resendAPIKey
+    return value
   }, [project?.id])
 
   return (
@@ -55,8 +53,8 @@ export const ProjectEmailPage = () => {
           {project?.defaultDomain}
         </a>
       </p>
-      {project?.resendAPIKey ? (
-        <Secret label="Resend API Key" loadSecret={ResendAPIKey} />
+      {project?.resendDomainID ? (
+        <Secret label="Resend API Key" loadSecret={loadEmailAPIKey} />
       ) : (
         <Text label="Resend API Key" disabled placeholder="Resend API key not found" />
       )}
@@ -90,14 +88,6 @@ export default buildConfig({
         </Banner>
       ) : (
         <>
-          <CollapsibleGroup transTime={250} transCurve="ease">
-            <Collapsible openOnInit>
-              <Accordion label="New Email Domain" toggleIcon="chevron">
-                <AddEmailDomain />
-              </Accordion>
-            </Collapsible>
-          </CollapsibleGroup>
-          <Divider />
           {project?.customEmailDomains && project.customEmailDomains.length > 0 ? (
             <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
               <div>
@@ -109,6 +99,14 @@ export default buildConfig({
           ) : (
             <NoData message="This project currently has no custom email domains configured." />
           )}
+          <Divider />
+          <CollapsibleGroup transTime={250} transCurve="ease">
+            <Collapsible openOnInit>
+              <Accordion label="New Email Domain" toggleIcon="chevron">
+                <AddEmailDomain />
+              </Accordion>
+            </Collapsible>
+          </CollapsibleGroup>
         </>
       )}
     </MaxWidth>

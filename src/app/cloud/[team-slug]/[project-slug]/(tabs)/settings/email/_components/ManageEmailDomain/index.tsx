@@ -36,6 +36,23 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
   const projectEmailDomains = project?.customEmailDomains
   const ResendAPIKey = async () => (await emailDomain?.resendAPIKey) as 'string'
 
+  const loadCustomDomainEmailAPIKey = React.useCallback(
+    async (domainId: string) => {
+      const { value } = await fetch(
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/email-api-key?domainId=${domainId}`,
+        {
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      ).then(res => res.json())
+
+      return value
+    },
+    [project?.id],
+  )
+
   const patchEmailDomains = React.useCallback(
     async (emailDomains: Props['emailDomain'][]) => {
       try {
@@ -145,8 +162,17 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
                   initialValue={domainURL}
                   validate={validateDomain}
                 />
-                {emailDomain.resendAPIKey ?? (
-                  <Secret label="Resend API Key" loadSecret={ResendAPIKey} />
+                {(emailDomain.resendAPIKey && typeof emailDomain.resendDomainID === 'string') ?? (
+                  <Secret
+                    label="Resend API Key"
+                    loadSecret={() =>
+                      loadCustomDomainEmailAPIKey(
+                        typeof emailDomain.resendDomainID === 'string'
+                          ? emailDomain.resendDomainID
+                          : '',
+                      )
+                    }
+                  />
                 )}
                 <p>
                   To use your custom domain, add the following records to your DNS provider. Once
