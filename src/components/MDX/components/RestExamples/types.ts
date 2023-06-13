@@ -4,6 +4,7 @@ export interface Example {
     headers?: boolean | string
     body?: any
     query?: boolean | string
+    credentials?: boolean
   }
   res: {
     paginated?: boolean

@@ -38,7 +38,12 @@ const stringifiedQuery = qs.stringify({
 `
 
   const body = `{
-    method: "${row.method}",
+    method: "${row.method}", ${
+    req.credentials
+      ? `
+    credentials: 'include',`
+      : ``
+  }
     headers: {
       "Content-Type": "application/json",
     },${
