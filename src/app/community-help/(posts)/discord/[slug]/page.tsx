@@ -69,7 +69,7 @@ export async function generateMetadata({ params: { slug } }): Promise<Metadata> 
     title: slugToText(slug),
     openGraph: mergeOpenGraph({
       title: slugToText(slug),
-      description: thread.introDescription,
+      description: thread?.introDescription,
       url: `/community-help/discord/${slug}`,
     }),
   }
