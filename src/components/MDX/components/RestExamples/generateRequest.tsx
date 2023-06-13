@@ -41,7 +41,7 @@ const stringifiedQuery = qs.stringify({
     method: "${row.method}", ${
     req.credentials
       ? `
-    credentials: 'include',`
+    credentials: "include",`
       : ``
   }
     headers: {
