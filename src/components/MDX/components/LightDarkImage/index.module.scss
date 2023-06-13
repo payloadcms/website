@@ -1,0 +1,39 @@
+@use "@scss/common" as *;
+
+.imageWrap {
+  margin: calc(var(--base) * 2.5) 0;
+
+  .caption {
+    font-style: italic;
+    padding: calc(var(--base) * .75) 0 0;
+  }
+
+  @include large-break {
+    margin: calc(var(--base) * 2) 0;
+  }
+
+  @include small-break {
+    margin: calc(var(--base) * 1.5) 0;
+  }
+}
+
+
+[data-theme=light] {
+  .imgLight {
+    display: block;
+  }
+
+  .imgDark {
+    display: none;
+  }
+}
+
+[data-theme=dark] {
+  .imgLight {
+    display: none;
+  }
+
+  .imgDark {
+    display: block;
+  }
+}
