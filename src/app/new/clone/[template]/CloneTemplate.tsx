@@ -30,7 +30,10 @@ export const CloneTemplate: React.FC<{
   const { user } = useAuth()
   const { template } = props
   const router = useRouter()
-  const [InstallationSelector, { value: selectedInstall }] = useInstallationSelector()
+
+  const [InstallationSelector, { value: selectedInstall }] = useInstallationSelector({
+    permissions: 'write',
+  })
 
   const matchedTeam = user?.teams?.find(
     ({ team }) => typeof team !== 'string' && team?.slug === teamParam,

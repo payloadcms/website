@@ -175,7 +175,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
   )
 }
 
-type UseInstallationSelectorArgs = {
+type UseInstallationSelectorArgs = Parameters<UseGetInstalls>[0] & {
   initialInstallID?: string
 }
 
@@ -191,9 +191,9 @@ export const useInstallationSelector = (
     description?: string
   },
 ] => {
-  const { initialInstallID } = args
+  const { initialInstallID, permissions } = args
   const [value, setValue] = React.useState<Install | undefined>(undefined)
-  const installsData = useGetInstalls()
+  const installsData = useGetInstalls({ permissions })
   const { error, installs, reload, loading } = installsData
 
   const debouncedLoading = useDebounce(loading, 250)
