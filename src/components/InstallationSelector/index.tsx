@@ -4,10 +4,14 @@ import { Select } from '@forms/fields/Select'
 import Label from '@forms/Label'
 import { v4 as uuid } from 'uuid'
 
+import {
+  Install,
+  UseGetInstalls,
+  useGetInstalls,
+} from '@components/InstallationSelector/useGetInstalls'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import useDebounce from '@root/utilities/use-debounce'
-import { Install, UseGetInstalls, useGetInstalls } from '@root/utilities/use-get-installs'
 import { usePopupWindow } from '@root/utilities/use-popup-window'
 
 import classes from './index.module.scss'

@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import type { Endpoints } from '@octokit/types'
 
 import { useAuth } from '@root/providers/Auth'
+import type { Install } from '../components/InstallationSelector/useGetInstalls'
 import { qs } from './qs'
-import type { Install } from './use-get-installs'
 
 type GitHubResponse =
   Endpoints['GET /user/installations/{installation_id}/repositories']['response']

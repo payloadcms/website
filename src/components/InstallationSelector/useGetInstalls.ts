@@ -1,9 +1,13 @@
 import React, { useCallback, useEffect, useMemo } from 'react'
 import type { Endpoints } from '@octokit/types'
 
-type GitHubResponse = Endpoints['GET /user/installations']['response']
+type GitHubInstallationsResponse = Endpoints['GET /user/installations']['response']
 
-export type Install = GitHubResponse['data']['installations'][0]
+export type Install = GitHubInstallationsResponse['data']['installations'][0]
+
+export type GitHubOrgsResponse = Endpoints['GET /user/memberships/orgs']['response']
+
+export type GitHubOrg = GitHubOrgsResponse['data'][0]
 
 interface Add {
   type: 'add'
@@ -29,7 +33,7 @@ const installReducer = (state: Install[], action: Action): Install[] => {
 }
 
 export type UseGetInstalls = (args?: {
-  permissions?: 'read' | 'write' | Array<'read' | 'write'>
+  permissions?: Install['permissions']['administration']
 }) => {
   error: string | undefined
   loading: boolean
@@ -56,21 +60,15 @@ export const useGetInstalls: UseGetInstalls = args => {
       }),
     })
 
-    const res: GitHubResponse = await installsReq.json()
+    const res: GitHubInstallationsResponse = await installsReq.json()
 
     if (!installsReq.ok) {
       setError(`Error getting installations: ${res.status}`)
     }
 
+    // filter these based on the given permissions and user role
     const installationsWithPermission = res.data?.installations.filter(install => {
-      const installationPermissions = install.permissions?.contents
-      if (!permissions || !installationPermissions) return true
-
-      if (Array.isArray(permissions)) {
-        return permissions.every(permission => installationPermissions === permission)
-      }
-
-      return installationPermissions === permissions
+      return permissions ? permissions === install.permissions?.administration : true
     })
 
     return installationsWithPermission
