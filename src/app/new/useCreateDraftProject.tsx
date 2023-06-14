@@ -74,9 +74,8 @@ export const useCreateDraftProject = ({
           throw new Error(projectErrs[0].message)
         }
       } catch (err: unknown) {
-        const message = `Error creating project: ${err}`
-        console.error(message) // eslint-disable-line no-console
-        throw new Error(message)
+        console.error(err) // eslint-disable-line no-console
+        throw new Error(err instanceof Error ? err.message : 'Something went wrong')
       }
     },
     [projectName, templateID, onSubmit, user, installID, teamID],

@@ -17,7 +17,6 @@ import Link from 'next/link'
 import { redirect, useRouter } from 'next/navigation'
 
 import { BranchSelector } from '@components/BranchSelector'
-import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Button } from '@components/Button'
 import { CreditCardSelector } from '@components/CreditCardSelector'
 import { Gutter } from '@components/Gutter'
