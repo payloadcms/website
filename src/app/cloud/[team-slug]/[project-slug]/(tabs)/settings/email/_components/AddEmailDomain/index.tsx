@@ -59,6 +59,9 @@ export const AddEmailDomain: React.FC = () => {
             reloadProject()
             setFieldKey(generateUUID())
             toast.success('Domain added successfully.')
+          } else {
+            const body = await req.json()
+            toast.error(body.errors?.[0]?.message ?? 'Something went wrong.')
           }
 
           return

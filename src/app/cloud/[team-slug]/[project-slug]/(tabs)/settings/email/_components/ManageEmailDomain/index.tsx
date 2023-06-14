@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import { Collapsible } from '@faceless-ui/collapsibles'
 import { useModal } from '@faceless-ui/modal'
@@ -26,17 +26,45 @@ type Props = {
   emailDomain: NonNullable<Project['customEmailDomains']>[0]
 }
 
+type VerificationStatus = 'not_started' | 'pending' | 'verified'
+
 export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
-  const { id, domain: domainURL, customDomainResendDNSRecords } = emailDomain
+  const { id, domain: domainURL, customDomainResendDNSRecords, resendDomainID } = emailDomain
   const modalSlug = `delete-emailDomain-${id}`
 
   const { openModal, closeModal } = useModal()
   const { project, reloadProject } = useRouteData()
+  const [verificationStatus, setVerificationStatus] = useState<VerificationStatus>('not_started')
   const projectID = project?.id
   const projectEmailDomains = project?.customEmailDomains
-  const ResendAPIKey = async () => (await emailDomain?.resendAPIKey) as 'string'
+  const hasInitialized = useRef(false)
 
-  const loadCustomDomainEmailAPIKey = React.useCallback(
+  const getDomainVerificationStatus = useCallback(
+    async (domainId: string) => {
+      console.log('verificationStatus', verificationStatus)
+      const { status } = await fetch(
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/email-verification?domainId=${domainId}`,
+        {
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      ).then(res => res.json())
+      console.log('received status from payload api', status)
+      setVerificationStatus(status)
+    },
+    [project?.id, verificationStatus],
+  )
+
+  useEffect(() => {
+    if (!hasInitialized.current) {
+      hasInitialized.current = true
+      if (resendDomainID) getDomainVerificationStatus(resendDomainID)
+    }
+  }, [getDomainVerificationStatus, resendDomainID])
+
+  const loadCustomDomainEmailAPIKey = useCallback(
     async (domainId: string) => {
       const { value } = await fetch(
         `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/email-api-key?domainId=${domainId}`,
@@ -53,7 +81,7 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
     [project?.id],
   )
 
-  const patchEmailDomains = React.useCallback(
+  const patchEmailDomains = useCallback(
     async (emailDomains: Props['emailDomain'][]) => {
       try {
         const req = await fetch(
@@ -82,7 +110,7 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
     [projectID, reloadProject],
   )
 
-  const updateEmailDomain = React.useCallback(
+  const updateEmailDomain = useCallback(
     async ({ data }) => {
       const newEmailDomainValue = data[domainValueFieldPath]
 
@@ -104,37 +132,53 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
     [id, projectEmailDomains, patchEmailDomains],
   )
 
-  const verifyEmailDomain = React.useCallback(async () => {
-    try {
-      const req = await fetch(
-        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/verify`,
-        {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
+  const verifyEmailDomain = useCallback(
+    async (domainId: string) => {
+      try {
+        const req = await fetch(
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/verify-email-domain?domainId=${domainId}`,
+          {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ domain: domainURL }),
           },
-          body: JSON.stringify({ domain: domainURL }),
-        },
-      )
+        )
 
-      if (req.status === 200) {
-        const res = await req.json()
-        reloadProject()
-        toast.success(res.message)
+        if (req.status === 200) {
+          const res = await req.json()
+          reloadProject()
+          toast.success(res.message)
+        }
+      } catch (e) {
+        console.error(e)
       }
-    } catch (e) {
-      console.error(e)
-    }
-  }, [id, projectEmailDomains, patchEmailDomains])
+    },
+    [domainURL, projectID, reloadProject],
+  )
 
-  const deleteEmailDomain = React.useCallback(async () => {
+  const deleteEmailDomain = useCallback(async () => {
     const remainingDomains = (projectEmailDomains || []).filter(
       existingDomain => existingDomain.id !== id,
     )
 
     await patchEmailDomains(remainingDomains)
   }, [id, projectEmailDomains, patchEmailDomains])
+
+  const formatVerificationStatus = (status: VerificationStatus) => {
+    switch (status) {
+      case 'not_started':
+        return 'Verify'
+      case 'pending':
+        return 'Pending'
+      case 'verified':
+        return 'Verified'
+      default:
+        return 'Verify'
+    }
+  }
 
   return (
     <>
@@ -217,7 +261,17 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
             </div>
             <div className={classes.domainActions}>
               <div className={classes.leftActions}>
-                <Button label="Verify" appearance="secondary" onClick={() => verifyEmailDomain()} />
+                <Button
+                  label={formatVerificationStatus(verificationStatus)}
+                  appearance={
+                    verificationStatus === 'not_started'
+                      ? 'success'
+                      : verificationStatus === 'pending'
+                      ? 'warning'
+                      : 'secondary'
+                  }
+                  onClick={() => verifyEmailDomain(emailDomain.resendDomainID as string)}
+                />
               </div>
               <div className={classes.rightActions}>
                 <Button label="delete" appearance="danger" onClick={() => openModal(modalSlug)} />
