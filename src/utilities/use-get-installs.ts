@@ -28,14 +28,17 @@ const installReducer = (state: Install[], action: Action): Install[] => {
   }
 }
 
-export type UseGetInstalls = () => {
+export type UseGetInstalls = (args?: {
+  permissions?: 'read' | 'write' | Array<'read' | 'write'>
+}) => {
   error: string | undefined
   loading: boolean
   installs: Install[]
   reload: () => void
 }
 
-export const useGetInstalls: UseGetInstalls = () => {
+export const useGetInstalls: UseGetInstalls = args => {
+  const { permissions } = args || {}
   const [error, setError] = React.useState<string | undefined>()
   const [installsLoading, setInstallsLoading] = React.useState(true)
   const [installs, dispatchInstalls] = React.useReducer(installReducer, [])
@@ -59,8 +62,19 @@ export const useGetInstalls: UseGetInstalls = () => {
       setError(`Error getting installations: ${res.status}`)
     }
 
-    return res.data?.installations
-  }, [])
+    const installationsWithPermission = res.data?.installations.filter(install => {
+      const installationPermissions = install.permissions?.contents
+      if (!permissions || !installationPermissions) return true
+
+      if (Array.isArray(permissions)) {
+        return permissions.every(permission => installationPermissions === permission)
+      }
+
+      return installationPermissions === permissions
+    })
+
+    return installationsWithPermission
+  }, [permissions])
 
   useEffect(() => {
     let timeout: NodeJS.Timeout

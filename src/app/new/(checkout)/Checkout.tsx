@@ -56,6 +56,7 @@ const Checkout: React.FC<{
   project: Project | null | undefined
 }> = props => {
   const { project } = props
+  const isClone = Boolean(!project?.repositoryID)
 
   const router = useRouter()
   const { templates } = useGlobals()
@@ -101,7 +102,10 @@ const Checkout: React.FC<{
   const [
     InstallationSelector,
     { value: selectedInstall, loading: installsLoading, error: installsError },
-  ] = useInstallationSelector({ initialInstallID: project?.installID })
+  ] = useInstallationSelector({
+    initialInstallID: project?.installID,
+    permissions: isClone ? 'write' : undefined,
+  })
 
   const onDeploy = useCallback(
     (project: Project) => {
@@ -156,8 +160,6 @@ const Checkout: React.FC<{
       setErrorDeleting(`There was an error deleting your project: ${error?.message || 'Unknown'}`)
     }
   }, [project, router])
-
-  const isClone = Boolean(!project?.repositoryID)
 
   return (
     <Form onSubmit={deploy}>
