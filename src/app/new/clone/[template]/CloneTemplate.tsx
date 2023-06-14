@@ -79,8 +79,10 @@ export const CloneTemplate: React.FC<{
             {'.'}
           </p>
         )}
-        <FormProcessing />
-        <FormSubmissionError />
+        <div className={classes.formState}>
+          <FormProcessing message="Cloning template, one moment..." />
+          <FormSubmissionError banner />
+        </div>
         <Grid>
           <Cell cols={4} colsM={8} className={classes.sidebarCell}>
             <div className={classes.sidebar}>
