@@ -65,15 +65,27 @@ export const UniqueDomain: React.FC<{
           clearTimeout(timer)
 
           if (!validityReq.ok) {
-            const message = `Error validating domain: ${validityReq.statusText}`
-            console.error(message) // eslint-disable-line no-console
-            setError(message)
+            const responseBody = await validityReq.json()
+
+            let errorMessage = `Error validating domain: ${validityReq.statusText}`
+
+            if (responseBody.error === 'Subdomain can be a maximum of 49 characters.') {
+              errorMessage = 'Subdomain can be a maximum of 49 characters.'
+            }
+
+            if (responseBody.error === 'No subdomain provided.') {
+              errorMessage = 'Please input a subdomain.'
+            }
+
+            console.error(errorMessage) // eslint-disable-line no-console
+            setError(errorMessage)
             dispatchValidatedDomain({ type: 'SET_UNIQUE', payload: false })
             setIsLoading(false)
             return
           }
 
           const newValidation: ValidatedDomainResult = await validityReq.json()
+          setError(null)
           dispatchValidatedDomain({ type: 'RESET', payload: newValidation })
         } catch (e) {
           const message = `Error validating domain: ${e.message}`
@@ -98,11 +110,22 @@ export const UniqueDomain: React.FC<{
   const domainIsValid = validatedDomain && validatedDomain?.isUnique
 
   let description = 'Choose a domain'
-  if (!theValidatedDomain) description = 'Choose a domain'
-  if (error) description = error
-  if (!domainIsValid)
+
+  if (!theValidatedDomain) {
+    description = 'Choose a domain'
+  } else if (error) {
+    description = error
+  } else if (!domainIsValid) {
     description = `'${theValidatedDomain}' is not available. Please choose another.`
-  if (domainIsValid) description = `'${theValidatedDomain}' is available`
+  } else if (domainIsValid) {
+    description = `'${theValidatedDomain}' is available`
+  }
+
+  // if (!theValidatedDomain) description = 'Choose a domain'
+  // if (error) description = error
+  // if (!domainIsValid)
+  //   description = `'${theValidatedDomain}' is not available. Please choose another.`
+  // if (domainIsValid) description = `'${theValidatedDomain}' is available`
 
   let icon: React.ReactNode = null
   if (isLoading) icon = <Spinner />
