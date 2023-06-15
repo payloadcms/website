@@ -121,12 +121,6 @@ export const UniqueDomain: React.FC<{
     description = `'${theValidatedDomain}' is available`
   }
 
-  // if (!theValidatedDomain) description = 'Choose a domain'
-  // if (error) description = error
-  // if (!domainIsValid)
-  //   description = `'${theValidatedDomain}' is not available. Please choose another.`
-  // if (domainIsValid) description = `'${theValidatedDomain}' is available`
-
   let icon: React.ReactNode = null
   if (isLoading) icon = <Spinner />
   if (domainIsValid) icon = <CheckIcon className={classes.check} size="medium" bold />
