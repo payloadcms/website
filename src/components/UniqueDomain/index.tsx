@@ -67,11 +67,8 @@ export const UniqueDomain: React.FC<{
           if (!validityReq.ok) {
             const responseBody = await validityReq.json()
 
-            let errorMessage = `Error validating domain: ${validityReq.statusText}`
-
-            if (responseBody.error === 'Subdomain can be a maximum of 49 characters.') {
-              errorMessage = 'Subdomain can be a maximum of 49 characters.'
-            }
+            let errorMessage =
+              responseBody?.error || `Error validating domain: ${validityReq.statusText}`
 
             if (responseBody.error === 'No subdomain provided.') {
               errorMessage = 'Please input a subdomain.'
