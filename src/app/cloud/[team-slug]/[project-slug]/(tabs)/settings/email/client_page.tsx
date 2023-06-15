@@ -54,7 +54,7 @@ export const ProjectEmailPage = () => {
         </a>
       </p>
       {project?.resendDomainID ? (
-        <Secret label="Resend API Key" loadSecret={loadEmailAPIKey} />
+        <Secret label="Resend API Key" loadSecret={loadEmailAPIKey} readOnly />
       ) : (
         <Text label="Resend API Key" disabled placeholder="Resend API key not found" />
       )}

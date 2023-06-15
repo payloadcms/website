@@ -20,6 +20,7 @@ export const Text: React.FC<
     value?: string
     customOnChange?: (e: any) => void
     suffix?: React.ReactNode
+    readOnly?: boolean
   }
 > = props => {
   const {
@@ -35,6 +36,7 @@ export const Text: React.FC<
     className,
     copy = false,
     disabled,
+    readOnly,
     elementAttributes = {
       autoComplete: 'off',
       autoCorrect: 'off',
@@ -105,7 +107,7 @@ export const Text: React.FC<
         .filter(Boolean)
         .join(' ')}
     >
-      {/* 
+      {/*
         This field is display flex in column-reverse, so the html structure is opposite of other fields
         This is so tabs go to the input before the label actions slot
       */}
@@ -127,6 +129,7 @@ export const Text: React.FC<
           type={type === 'password' && !isHidden ? 'text' : type}
           id={path}
           name={path}
+          readOnly={readOnly}
         />
         {(icon || suffix) && (
           <div className={classes.iconWrapper}>

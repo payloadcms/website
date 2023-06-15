@@ -198,14 +198,17 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
           <Form onSubmit={updateEmailDomain}>
             <div className={classes.domainContent}>
               <div className={classes.domainInfo}>
-                <Text
-                  required
-                  label="Domain"
-                  className={classes.domainInput}
-                  path={domainValueFieldPath}
-                  initialValue={domainURL}
-                  validate={validateDomain}
-                />
+                {!emailDomain.resendDomainID && (
+                  <Text
+                    required
+                    label="Domain"
+                    className={classes.domainInput}
+                    path={domainValueFieldPath}
+                    initialValue={domainURL}
+                    validate={validateDomain}
+                    readOnly={Boolean(emailDomain.resendDomainID)}
+                  />
+                )}
                 {(emailDomain.resendAPIKey && typeof emailDomain.resendDomainID === 'string') ?? (
                   <Secret
                     label="Resend API Key"
@@ -216,12 +219,15 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
                           : '',
                       )
                     }
+                    readOnly
                   />
                 )}
-                <p>
-                  To use your custom domain, add the following records to your DNS provider. Once
-                  added, click verify to confirm your domain settings with Resend.
-                </p>
+                {emailDomain.resendDomainID && verificationStatus !== 'verified' && (
+                  <p>
+                    To use your custom domain, add the following records to your DNS provider. Once
+                    added, click verify to confirm your domain settings with Resend.
+                  </p>
+                )}
               </div>
               <table className={classes.records}>
                 <thead>
@@ -275,7 +281,9 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
               </div>
               <div className={classes.rightActions}>
                 <Button label="delete" appearance="danger" onClick={() => openModal(modalSlug)} />
-                <Submit label="save" appearance="secondary" icon={false} />
+                {!Boolean(emailDomain.resendDomainID) && (
+                  <Submit label="save" appearance="secondary" icon={false} />
+                )}
               </div>
             </div>
           </Form>
