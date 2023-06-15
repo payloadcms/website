@@ -82,6 +82,7 @@ export const ProjectFileStoragePage = () => {
               path="cognitoPassword"
               className={classes.secretInput}
               loadSecret={loadPassword}
+              readOnly
             />
           </div>
         }

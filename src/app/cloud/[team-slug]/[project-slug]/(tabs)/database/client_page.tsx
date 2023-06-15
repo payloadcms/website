@@ -33,7 +33,7 @@ export const ProjectDatabasePage = () => {
           <ExtendedBackground
             pixels
             upperChildren={
-              <Secret label="Mongo Connection String" loadSecret={loadConnectionString} />
+              <Secret label="Mongo Connection String" loadSecret={loadConnectionString} readOnly />
             }
           />
           <Banner>
