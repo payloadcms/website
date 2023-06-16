@@ -13,6 +13,7 @@ export async function generateMetadata({
   return {
     title: 'Environment Variables',
     openGraph: mergeOpenGraph({
+      title: 'Environment Variables',
       url: `/cloud/${teamSlug}/${projectSlug}/settings/environment-variables`,
     }),
   }

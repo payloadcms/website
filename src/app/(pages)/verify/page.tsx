@@ -52,6 +52,7 @@ export default async ({ searchParams }) => {
 export const metadata: Metadata = {
   title: 'Verify Email | Payload Cloud',
   openGraph: mergeOpenGraph({
+    title: 'Verify Email | Payload Cloud',
     url: '/verify',
   }),
 }

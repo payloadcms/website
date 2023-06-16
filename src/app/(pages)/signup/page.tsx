@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: 'Signup | Payload Cloud',
   description: 'Signup for Payload Cloud',
   openGraph: mergeOpenGraph({
+    title: 'Signup | Payload Cloud',
     url: '/signup',
   }),
 }

@@ -72,6 +72,7 @@ export async function generateMetadata({ params: { topic: topicSlug, doc: docSlu
     title: `${doc?.title ? `${doc.title} | ` : ''}Documentation | Payload CMS`,
     description: doc?.desc || `Payload CMS ${topicSlug} Documentation`,
     openGraph: mergeOpenGraph({
+      title: `${doc?.title ? `${doc.title} | ` : ''}Documentation | Payload CMS`,
       url: `/docs/${topicSlug}/${docSlug}`,
       images: [
         {

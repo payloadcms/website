@@ -10,6 +10,7 @@ export default props => {
 export const metadata: Metadata = {
   title: 'Thanks for Subscribing | Payload CMS',
   openGraph: mergeOpenGraph({
+    title: 'Thanks for Subscribing | Payload CMS',
     url: '/thanks-for-subscribing',
   }),
 }

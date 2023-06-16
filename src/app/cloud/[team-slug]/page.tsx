@@ -11,6 +11,7 @@ export async function generateMetadata({ params: { 'team-slug': teamSlug } }): P
   return {
     title: `${teamSlug} - Team Projects`,
     openGraph: mergeOpenGraph({
+      title: `${teamSlug} - Team Projects`,
       url: `/cloud/${teamSlug}`,
     }),
   }

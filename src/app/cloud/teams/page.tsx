@@ -10,6 +10,7 @@ export default props => {
 export const metadata: Metadata = {
   title: `My Teams`,
   openGraph: mergeOpenGraph({
+    title: `My Teams`,
     url: `/cloud/teams`,
   }),
 }

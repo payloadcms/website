@@ -13,6 +13,7 @@ export async function generateMetadata({
   return {
     title: 'Domains',
     openGraph: mergeOpenGraph({
+      title: 'Domains',
       url: `/cloud/${teamSlug}/${projectSlug}/settings/domains`,
     }),
   }

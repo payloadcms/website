@@ -10,6 +10,7 @@ export async function generateMetadata({ params: { 'team-slug': teamSlug } }): P
   return {
     title: `${teamSlug} - Team Invoices`,
     openGraph: {
+      title: `${teamSlug} - Team Invoices`,
       url: `/cloud/${teamSlug}/invoices`,
     },
   }

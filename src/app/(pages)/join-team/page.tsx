@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: 'Join Team | Payload Cloud',
   description: 'Join a Payload team',
   openGraph: mergeOpenGraph({
+    title: 'Join Team | Payload Cloud',
     url: '/join-team',
   }),
 }

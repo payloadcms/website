@@ -13,6 +13,7 @@ export default ProjectFromTemplate
 export const metadata: Metadata = {
   title: 'Clone Template | Payload Cloud',
   openGraph: mergeOpenGraph({
+    title: 'Clone Template | Payload Cloud',
     url: '/new/clone',
   }),
 }

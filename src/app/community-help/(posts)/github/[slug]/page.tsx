@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 
 import { fetchCommunityHelp, fetchCommunityHelps } from '@root/graphql'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { slugToText } from '@root/utilities/slug-to-text'
 import { Answer, Author, Comment, GithubDiscussionPage } from './client_page'
 
 type DateFromSource = string
@@ -66,9 +67,12 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
+  const discussion = await fetchCommunityHelp(slug)
   return {
-    title: 'Github Discussion',
+    title: slugToText(slug),
     openGraph: mergeOpenGraph({
+      title: slugToText(slug),
+      description: discussion?.introDescription,
       url: `/community-help/github/${slug}`,
     }),
   }

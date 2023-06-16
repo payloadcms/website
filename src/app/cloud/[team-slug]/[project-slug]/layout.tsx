@@ -16,6 +16,7 @@ export async function generateMetadata({
       default: 'Project',
     },
     openGraph: mergeOpenGraph({
+      title: `${teamSlug} / ${projectSlug} | %s`,
       url: `/cloud/${teamSlug}/${projectSlug}`,
     }),
   }

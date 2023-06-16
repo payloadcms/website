@@ -13,6 +13,7 @@ export default NewProjectPage
 export const metadata: Metadata = {
   title: 'New Project | Payload Cloud',
   openGraph: mergeOpenGraph({
+    title: 'New Project | Payload Cloud',
     url: '/new',
   }),
 }
