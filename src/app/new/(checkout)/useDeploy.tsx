@@ -24,7 +24,6 @@ export const useDeploy = (args: {
   const elements = useElements()
 
   const createSubscription = useCreateSubscription({
-    project,
     checkoutState,
   })
 
@@ -128,7 +127,7 @@ export const useDeploy = (args: {
         if (req.ok) {
           // once the project is deployed successfully, create the subscription
           // also confirm card payment at this time
-          const subscription = await createSubscription()
+          const subscription = await createSubscription(res.doc)
           await confirmCardPayment(subscription)
 
           if (typeof onDeploy === 'function') {
