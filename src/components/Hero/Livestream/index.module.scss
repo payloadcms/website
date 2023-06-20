@@ -118,6 +118,13 @@
   position: absolute;
   top: 0;
   left: 0;
+
+  .bgGutter {
+    @include mid-break {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
 }
 
 .bgGutter {
@@ -159,7 +166,8 @@
   left: 0;
 
   @include mid-break {
-    opacity: 0;
+    height: calc(100% - (var(--base) * 4));
+    top: calc(var(--base) * 2);
   }
 }
 
