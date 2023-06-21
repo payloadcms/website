@@ -54,6 +54,7 @@ const topicOrder = [
   'Email',
   'TypeScript',
   'Plugins',
+  'Integrations',
 ]
 
 const headers = {
@@ -75,7 +76,7 @@ async function getHeadings(source) {
 
 const fetchDocs = async () => {
   if (!process.env.GITHUB_ACCESS_TOKEN) {
-    console.log('No GitHub access token found - skipping docs retrieval')
+    console.log('No GitHub access token found - skipping docs retrieval') // eslint-disable-line no-console
     process.exit(0)
   }
 
@@ -131,9 +132,9 @@ const fetchDocs = async () => {
 
   fs.writeFile(docsFilename, data, err => {
     if (err) {
-      console.error(err)
+      console.error(err) // eslint-disable-line no-console
     } else {
-      console.log(`Docs successfully written to ${docsFilename}`)
+      console.log(`Docs successfully written to ${docsFilename}`) // eslint-disable-line no-console
     }
     process.exit(0)
   })
