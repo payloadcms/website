@@ -14,6 +14,7 @@ import classes from './index.module.scss'
 
 type SecretProps = FieldProps<string> & {
   loadSecret: () => Promise<string>
+  readOnly?: boolean
 }
 
 export const Secret: React.FC<SecretProps> = props => {
@@ -28,6 +29,7 @@ export const Secret: React.FC<SecretProps> = props => {
     className,
     loadSecret: loadValue,
     description,
+    readOnly,
   } = props
 
   const [isValueLoaded, setIsValueLoaded] = React.useState(false)
@@ -85,7 +87,7 @@ export const Secret: React.FC<SecretProps> = props => {
         .filter(Boolean)
         .join(' ')}
     >
-      {/* 
+      {/*
         This field is display flex in column-reverse, so the html structure is opposite of other fields
         This is so tabs go to the input before the label actions slot
       */}
@@ -102,6 +104,7 @@ export const Secret: React.FC<SecretProps> = props => {
         type="text"
         value={isHidden ? '••••••••••••••••••••••••••••••' : value || ''}
         tabIndex={isHidden ? -1 : 0}
+        readOnly={readOnly}
       />
       <Error showError={showError} message={errorMessage} />
       <Label

@@ -26,16 +26,16 @@ export interface AtlasOrg {
   atlasOrgID?: string;
   atlasProjects?: string[] | AtlasProject[];
   projectCount?: number;
-  createdAt: string;
   updatedAt: string;
+  createdAt: string;
 }
 export interface AtlasProject {
   id: string;
   atlasProjectID?: string;
   projects?: string[] | Project[];
   projectCount?: number;
-  createdAt: string;
   updatedAt: string;
+  createdAt: string;
 }
 export interface Project {
   id: string;
@@ -100,6 +100,8 @@ export interface Project {
     | 'unpaid'
     | 'paused';
   resendAPIKey?: string;
+  resendAPIKeyID?: string;
+  resendDomainID?: string;
   defaultDomainResendDNSRecords?: {
     cloudflareID: string;
     type: 'MX' | 'TXT' | 'CNAME';
@@ -107,7 +109,21 @@ export interface Project {
     value: string;
     id?: string;
   }[];
-    infraStatus?:
+  customEmailDomains?: {
+    domain: string;
+    resendDomainID?: string;
+    resendAPIKeyID?: string;
+    resendAPIKey?: string;
+    customDomainResendDNSRecords?: {
+      type: 'MX' | 'TXT' | 'CNAME';
+      name: string;
+      value: string;
+      priority?: number;
+      id?: string;
+    }[];
+    id?: string;
+  }[];
+  infraStatus?:
     | 'notStarted'
     | 'infraCreationError'
     | 'awaitingDatabase'
@@ -116,9 +132,8 @@ export interface Project {
     | 'deployError'
     | 'done'
     | 'error';
-  lastSuccessfulDeployment?: string | Deployment;
-  createdAt: string;
   updatedAt: string;
+  createdAt: string;
 }
 export interface Plan {
   id: string;
@@ -135,8 +150,8 @@ export interface Plan {
     | boolean
     | null;
   order?: number;
-  createdAt: string;
   updatedAt: string;
+  createdAt: string;
 }
 export interface Team {
   id: string;
@@ -165,8 +180,8 @@ export interface Team {
   stripeCustomerID?: string;
   skipSync?: boolean;
   createdBy?: string | User;
-  createdAt: string;
   updatedAt: string;
+  createdAt: string;
 }
 export interface User {
   id: string;
@@ -184,15 +199,17 @@ export interface User {
   githubAccessTokenExpiration?: number;
   githubRefreshToken?: string;
   githubRefreshTokenExpiration?: number;
+  updatedAt: string;
+  createdAt: string;
   email?: string;
   resetPasswordToken?: string;
   resetPasswordExpiration?: string;
+  salt?: string;
+  hash?: string;
   _verified?: boolean;
   _verificationToken?: string;
   loginAttempts?: number;
   lockUntil?: string;
-  createdAt: string;
-  updatedAt: string;
   password?: string;
 }
 export interface Template {
@@ -209,20 +226,20 @@ export interface Template {
     content?: string;
     id?: string;
   }[];
-  createdAt: string;
   updatedAt: string;
+  createdAt: string;
 }
 export interface Media {
   id: string;
   alt: string;
+  updatedAt: string;
+  createdAt: string;
   url?: string;
   filename?: string;
   mimeType?: string;
   filesize?: number;
   width?: number;
   height?: number;
-  createdAt: string;
-  updatedAt: string;
 }
 export interface Deployment {
   id: string;
@@ -244,8 +261,8 @@ export interface Deployment {
     | 'CANCELED';
   deployStepStatus?: 'UNKNOWN' | 'PENDING' | 'RUNNING' | 'ERROR' | 'SUCCESS';
   buildStepStatus?: 'UNKNOWN' | 'PENDING' | 'RUNNING' | 'ERROR' | 'SUCCESS';
-  createdAt: string;
   updatedAt: string;
+  createdAt: string;
 }
 export interface Job {
   id: string;
@@ -268,12 +285,12 @@ export interface Job {
     | number
     | boolean
     | null;
-  createdAt: string;
   updatedAt: string;
+  createdAt: string;
 }
 export interface TeardownError {
   id: string;
-  project?: {
+  project: {
     projectID?: string;
     name: string;
     teamName?: string;
@@ -284,6 +301,6 @@ export interface TeardownError {
     error?: string;
     id?: string;
   }[];
-  createdAt: string;
   updatedAt: string;
+  createdAt: string;
 }

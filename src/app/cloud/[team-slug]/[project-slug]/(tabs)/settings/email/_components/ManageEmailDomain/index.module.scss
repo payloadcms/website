@@ -1,0 +1,135 @@
+@use '@scss/common' as *;
+
+:global([data-theme="light"]) {
+  .configureDomain {
+    background: var(--theme-elevation-100);
+  }
+
+  .pendingDomainAlert {
+    color: var(--theme-error-550);
+    background: var(--theme-error-100);
+  }
+}
+
+.pending {
+  border-left: 1px solid var(--theme-error-500);
+}
+
+.linkedDomain {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  text-decoration: none;
+}
+
+.externalLinkIcon {
+  height: 22px;
+  width: auto;
+}
+
+.domainField {
+  margin-bottom: var(--base);
+  pointer-events: none;
+}
+
+.domainTitleName {
+  color: var(--theme-text);
+}
+
+.domainInfo > * {
+  margin-bottom: var(--base);
+}
+
+.records {
+  display: block;
+  background: var(--theme-elevation-50);
+  padding: var(--base);
+  overflow: auto;
+
+  th {
+    font-weight: normal;
+    text-align: left;
+    padding: calc(var(--base) * .25 ) calc(var(--base) * .5 );
+  }
+
+  td {
+    padding: 0 calc(var(--base) * .5 );
+    white-space: nowrap;
+    color: var(--theme-text);
+
+    span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    button {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: calc(var(--base) * .25 );
+
+      span {
+        width: 0;
+      }
+    }
+  }
+
+  .recordType {
+    width: 4em;
+
+    & > span {
+      width: 2em;
+    }
+  }
+
+  .recordName {
+    width: 11em;
+    
+    & > span {
+      width: 9em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: keep-all;
+      white-space: nowrap;
+    }
+  }
+
+  .recordContent {
+    width: 16em;
+    
+    & > span {
+      width: 14em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: keep-all;
+      white-space: nowrap;
+    }
+  }
+}
+
+.domainActions {
+  display: flex;
+  gap: var(--base);
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: var(--base);
+  padding-top: var(--base);
+  border-top: 1px solid var(--theme-border-color);
+
+  .leftActions {
+    margin-right: auto;
+  }
+
+  .rightActions {
+    display: flex;
+    gap: inherit;
+  }
+}
+
+.modalActions {
+  display: flex;
+  gap: var(--base);
+  justify-content: flex-end;
+  width: 100%;
+  padding-top: var(--base);
+  border-top: 1px solid var(--theme-border-color);
+}

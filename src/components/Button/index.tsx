@@ -15,7 +15,7 @@ import { LinkType, Reference } from '../CMSLink'
 import classes from './index.module.scss'
 
 export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
-  appearance?: 'default' | 'text' | 'primary' | 'secondary' | 'danger'
+  appearance?: 'default' | 'text' | 'primary' | 'secondary' | 'danger' | 'success' | 'warning'
   el?: 'button' | 'link' | 'a' | 'div'
   href?: string
   newTab?: boolean
