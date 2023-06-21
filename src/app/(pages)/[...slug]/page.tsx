@@ -44,6 +44,7 @@ export async function generateMetadata({ params: { slug } }): Promise<Metadata> 
     description: page?.meta?.description,
     openGraph: mergeOpenGraph({
       title: page?.meta?.title || 'Payload CMS',
+      description: page?.meta?.description,
       url: Array.isArray(slug) ? slug.join('/') : '/',
       images: ogImage
         ? [
