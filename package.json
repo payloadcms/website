@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "fetchDocs": "node scripts/fetch-docs.mjs",
+    "fetchDocs:local": "node scripts/fetch-docs-local.mjs",
     "dev": "next dev",
     "nodocs:build": "next build",
     "build": "yarn fetchDocs && next build",

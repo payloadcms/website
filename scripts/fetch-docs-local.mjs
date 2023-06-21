@@ -57,6 +57,7 @@ const topicOrder = [
   'Email',
   'TypeScript',
   'Plugins',
+  'Integrations',
 ]
 
 const headers = {
