@@ -189,7 +189,11 @@ export const InfraOnline: React.FC = () => {
           lowerChildren={
             <div className={classes.reTriggerBackground}>
               <div>
-                <Button appearance="text" onClick={triggerDeployment} label="Trigger Redeploy" />
+                <Button
+                  appearance="secondary"
+                  onClick={triggerDeployment}
+                  label="Trigger Redeploy"
+                />
               </div>
               <div className={classes.deployDetails}>
                 {!project?.repositoryFullName && (
