@@ -32,6 +32,16 @@
       width: 15px;
       height: 15px;
     }
+
+    .commitSha {
+      font-family: var(--font-mono);
+    }
+
+    .commitMessage {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
   }
 }
 
@@ -81,7 +91,7 @@
     width: 10px;
     height: 10px;
     position: relative;
-    
+
     &.status--offline {
       background-color: var(--theme-error-500);
     }
@@ -89,7 +99,7 @@
     &.status--online {
       background-color: var(--theme-success-500);
     }
-  }  
+  }
 }
 
 .consoleHeading {
