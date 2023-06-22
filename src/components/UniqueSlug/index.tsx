@@ -95,17 +95,28 @@ export const UniqueSlug: React.FC<{
 
   const validatedSlug = slugValidation?.slug
   const slugIsValid = validatedSlug && slugValidation?.isUnique
+  const slugIsFetched = slugValidation?.fetched
 
-  let description = 'Choose a team slug'
-  if (!validatedSlug) description = 'Choose a slug'
-  if (error) description = error
-  if (!slugIsValid) description = `'${validatedSlug}' is not available. Please choose another.`
-  if (slugIsValid) description = `'${validatedSlug}' is available`
+  let description
+  let isError = Boolean(error || !slugIsValid)
+
+  if (!slugValidation.fetched) {
+    description = 'Checking slug availability...'
+  } else if (!validatedSlug) {
+    description = 'Please input a slug'
+    isError = true
+  } else if (error) {
+    description = error
+  } else if (!slugIsValid) {
+    description = `'${validatedSlug}' is not available. Please choose another.`
+  } else if (slugIsValid) {
+    description = `'${validatedSlug}' is available`
+  }
 
   let icon: React.ReactNode = null
   if (isLoading) icon = <Spinner />
   if (slugIsValid) icon = <CheckIcon className={classes.check} size="medium" bold />
-  if (error || !slugIsValid) icon = <CloseIcon className={classes.error} size="medium" bold />
+  if (slugIsFetched && isError) icon = <CloseIcon className={classes.error} size="medium" bold />
 
   // two fields are rendered here, the first is controlled, user-facing and not debounced
   // the other is a hidden field that has been validated
@@ -115,8 +126,11 @@ export const UniqueSlug: React.FC<{
       <Text
         label={label}
         initialValue={initialValue}
-        onChange={setValue}
-        showError={Boolean(error || !slugIsValid)}
+        onChange={newSlug => {
+          setValue(newSlug)
+          dispatchSlugValidation({ type: 'SET_SLUG', payload: newSlug })
+        }}
+        showError={slugIsFetched && isError}
         icon={icon}
         required
       />
@@ -124,7 +138,7 @@ export const UniqueSlug: React.FC<{
       <div
         className={[
           classes.description,
-          (error || !slugIsValid) && !isLoading && classes.error,
+          slugIsFetched && isError && !isLoading && classes.error,
           slugIsValid && !isLoading && classes.success,
         ]
           .filter(Boolean)
