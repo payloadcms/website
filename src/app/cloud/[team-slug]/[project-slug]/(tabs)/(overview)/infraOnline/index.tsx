@@ -246,7 +246,7 @@ export const InfraOnline: React.FC = () => {
           }
           lowerChildren={
             <div className={classes.reTriggerBackground}>
-              <Grid>
+              <Grid className={classes.reTriggerGrid}>
                 <Cell start={1} cols={4} colsM={8}>
                   <div>
                     <Button
