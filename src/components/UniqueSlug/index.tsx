@@ -18,12 +18,22 @@ export const UniqueSlug: React.FC<{
   teamID?: string
   label?: string
   docID?: string
-}> = ({ initialValue, collection = 'teams', path = 'slug', label = 'Slug', teamID, docID }) => {
+  shouldValidate?: boolean
+}> = ({
+  initialValue,
+  collection = 'teams',
+  path = 'slug',
+  label = 'Slug',
+  teamID,
+  docID,
+  shouldValidate = true,
+}) => {
   const [value, setValue] = React.useState(initialValue)
   const debouncedValue = useDebounce(value, 100)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const isRequesting = React.useRef(false)
   const [error, setError] = React.useState<string | null>(null)
+  const [userInteracted, setUserInteracted] = React.useState(false)
 
   const [slugValidation, dispatchSlugValidation] = React.useReducer(slugValidationReducer, {
     slug: '',
@@ -31,6 +41,10 @@ export const UniqueSlug: React.FC<{
   })
 
   useEffect(() => {
+    if (!shouldValidate && !userInteracted) {
+      return
+    }
+
     let timer: NodeJS.Timeout
 
     if (!isRequesting.current) {
@@ -91,7 +105,7 @@ export const UniqueSlug: React.FC<{
     return () => {
       clearTimeout(timer)
     }
-  }, [debouncedValue, collection, teamID, initialValue, docID])
+  }, [shouldValidate, userInteracted, debouncedValue, collection, teamID, initialValue, docID])
 
   const validatedSlug = slugValidation?.slug
   const slugIsValid = validatedSlug && slugValidation?.isUnique
@@ -100,8 +114,10 @@ export const UniqueSlug: React.FC<{
   let description
   let isError = Boolean(error || !slugIsValid)
 
-  if (!slugValidation.fetched) {
-    description = 'Fetching slug...'
+  if (!shouldValidate && !userInteracted) {
+    description = ''
+  } else if (!slugValidation.fetched) {
+    description = 'Checking slug availability...'
   } else if (!validatedSlug) {
     description = 'Please input a slug'
     isError = true
@@ -129,6 +145,7 @@ export const UniqueSlug: React.FC<{
         onChange={newSlug => {
           setValue(newSlug)
           dispatchSlugValidation({ type: 'SET_SLUG', payload: newSlug })
+          setUserInteracted(true)
         }}
         showError={slugIsFetched && isError}
         icon={icon}
@@ -171,7 +188,8 @@ export const UniqueProjectSlug: React.FC<{
   teamID?: string
   projectID?: string
   initialValue?: string
-}> = ({ teamID, projectID, initialValue }) => {
+  shouldValidate?: boolean
+}> = ({ teamID, projectID, initialValue, shouldValidate }) => {
   return (
     <UniqueSlug
       label="Project Slug"
@@ -180,6 +198,7 @@ export const UniqueProjectSlug: React.FC<{
       teamID={teamID}
       docID={projectID}
       initialValue={initialValue}
+      shouldValidate={shouldValidate}
     />
   )
 }
