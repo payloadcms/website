@@ -44,7 +44,9 @@ export const checkoutReducer = (state: CheckoutState, action: Action): CheckoutS
       return {
         ...state,
         plan: action.payload,
-        // freeTrial: action.payload?.slug !== 'standard' ? false : state?.freeTrial, // uncomment to enforce trial for only specific plans
+        // free trials are only available for the standard plan
+        // automatically uncheck this field when switching to a different plan
+        freeTrial: action.payload?.slug !== 'standard' ? false : true,
       }
     case 'SET_TEAM':
       return {

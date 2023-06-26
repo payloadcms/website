@@ -12,6 +12,7 @@
   cursor: pointer;
   // font-family: $fontBody;
   font-size: 1rem;
+  color: var(--color-text);
 
   &:disabled {
     color: var(--theme-elevation-500);
@@ -78,5 +79,4 @@
   @include body;
   cursor: pointer;
   margin-bottom: 0;
-  color: var(--theme-text);
 }
