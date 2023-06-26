@@ -45,13 +45,22 @@ const formatOptions: { [key: string]: Intl.DateTimeFormatOptions } = {
     day: 'numeric',
     hour: 'numeric',
     timeZoneName: 'short',
-    timeZone: 'America/Los_Angeles',
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+  },
+  dateAndTimeWithMinutes: {
+    year: undefined,
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    timeZoneName: 'short',
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
   },
 }
 
 interface Args {
   date: string | Date
-  format?: 'longDateStamp' | 'shortDateStamp' | 'dateAndTime'
+  format?: 'longDateStamp' | 'shortDateStamp' | 'dateAndTime' | 'dateAndTimeWithMinutes'
   timeZone?: string
 }
 export function formatDate(args: Args): string {

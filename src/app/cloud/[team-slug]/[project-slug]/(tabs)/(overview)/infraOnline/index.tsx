@@ -10,6 +10,7 @@ import { Gutter } from '@components/Gutter'
 import { Label } from '@components/Label'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 import { Indicator } from '@root/app/_components/Indicator'
+import { ClockIcon } from '@root/graphics/ClockIcon'
 import { CommitIcon } from '@root/graphics/CommitIcon'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { BranchIcon } from '@root/icons/BranchIcon'
@@ -37,7 +38,7 @@ export const InfraOnline: React.FC = () => {
 
   const latestDeployment = deployments?.[0]
 
-  const [activeDeployment, setActiveDeployment] = React.useState<Deployment | null | undefined>()
+  const [liveDeployment, setLiveDeployment] = React.useState<Deployment | null | undefined>()
 
   const triggerDeployment = React.useCallback(() => {
     fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/deploy`, {
@@ -58,8 +59,7 @@ export const InfraOnline: React.FC = () => {
     })
   }, [project?.id, reloadDeployments])
 
-  //
-  // poll deployments every 10 seconds
+  // Poll deployments every 10 seconds
   React.useEffect(() => {
     let interval
     if (reqStatus && reqStatus < 400) {
@@ -73,10 +73,9 @@ export const InfraOnline: React.FC = () => {
     }
   }, [reqStatus, reloadDeployments])
 
-  //
-  // set/fetch last active deployment (for top banner card rendering)
+  // Set/fetch last successful deployment (for top banner card rendering)
   React.useEffect(() => {
-    const fetchLastActiveDeployment = async () => {
+    const fetchLiveDeployment = async () => {
       const query = qs.stringify({
         where: {
           and: [
@@ -108,21 +107,21 @@ export const InfraOnline: React.FC = () => {
       const json = await req.json()
 
       if (json.docs?.[0]) {
-        setActiveDeployment(json.docs[0])
+        setLiveDeployment(json.docs[0])
       }
     }
 
     if (latestDeployment?.deploymentStatus === 'ACTIVE') {
-      setActiveDeployment(latestDeployment)
+      setLiveDeployment(latestDeployment)
     } else {
-      const lastActiveDeployment = deployments?.find(deployment => {
+      const liveDeployment = deployments?.find(deployment => {
         return finalDeploymentStages.includes(deployment.deploymentStatus)
       })
 
-      if (lastActiveDeployment) {
-        setActiveDeployment(lastActiveDeployment)
+      if (liveDeployment) {
+        setLiveDeployment(liveDeployment)
       } else {
-        fetchLastActiveDeployment()
+        fetchLiveDeployment()
       }
     }
   }, [latestDeployment, deployments, project?.id])
@@ -156,29 +155,88 @@ export const InfraOnline: React.FC = () => {
                 ))}
               </Cell>
               <Cell start={5} cols={3} startM={1} colsM={8}>
-                <Label>Deployment Created At</Label>
-                <p className={classes.detail}>
-                  {activeDeployment
-                    ? formatDate({ date: activeDeployment.createdAt, format: 'dateAndTime' })
-                    : 'No deployments'}
-                </p>
+                <Label>Deployment Details</Label>
+                <div className={classes.deployDetails}>
+                  {liveDeployment && (
+                    <div className={classes.iconAndLabel}>
+                      <ClockIcon />
+                      <p>
+                        {formatDate({
+                          date: liveDeployment.createdAt,
+                          format: 'dateAndTimeWithMinutes',
+                        })}
+                      </p>
+                    </div>
+                  )}
+                  {!project?.repositoryFullName && (
+                    <div className={classes.iconAndLabel}>
+                      <GitHubIcon />
+                      <p>No repository connected</p>
+                    </div>
+                  )}
+                  {project?.repositoryFullName && !project?.deploymentBranch && (
+                    <a
+                      className={classes.iconAndLabel}
+                      href={`https://github.com/${project?.repositoryFullName}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <GitHubIcon />
+                      <p>{project?.repositoryFullName}</p>
+                    </a>
+                  )}
+                  {project?.repositoryFullName && project?.deploymentBranch && (
+                    <a
+                      className={classes.iconAndLabel}
+                      href={`https://github.com/${project?.repositoryFullName}/tree/${project?.deploymentBranch}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <BranchIcon />
+                      <p>{project?.deploymentBranch}</p>
+                    </a>
+                  )}
+                  {project?.repositoryFullName && liveDeployment?.commitSha ? (
+                    <a
+                      className={classes.iconAndLabel}
+                      href={`https://github.com/${project?.repositoryFullName}/commit/${liveDeployment?.commitSha}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <CommitIcon />
+                      <p className={classes.commitSha}>
+                        {liveDeployment?.commitSha?.substring(0, 7)}
+                      </p>
+                      <p className={classes.commitMessage}>
+                        {liveDeployment?.commitMessage || 'No commit message'}
+                      </p>
+                    </a>
+                  ) : (
+                    <div className={classes.iconAndLabel}>
+                      <CommitIcon />
+                      <p className={classes.commitMessage}>
+                        {liveDeployment?.commitMessage || 'No commit message'}
+                      </p>
+                    </div>
+                  )}
+                </div>
               </Cell>
               <Cell start={9} cols={4} startM={1} colsM={8}>
                 <Label>Status</Label>
                 <div className={classes.statusDetail}>
                   <Indicator
                     status={
-                      activeDeployment === undefined
+                      liveDeployment === undefined
                         ? 'info'
-                        : finalDeploymentStages.includes(activeDeployment?.deploymentStatus)
+                        : finalDeploymentStages.includes(liveDeployment?.deploymentStatus)
                         ? 'success'
                         : 'error'
                     }
                   />
                   <p className={classes.detail}>
-                    {activeDeployment === undefined
+                    {liveDeployment === undefined
                       ? 'No status'
-                      : finalDeploymentStages.includes(activeDeployment?.deploymentStatus)
+                      : finalDeploymentStages.includes(liveDeployment?.deploymentStatus)
                       ? 'Online'
                       : 'Offline'}
                   </p>
@@ -188,60 +246,118 @@ export const InfraOnline: React.FC = () => {
           }
           lowerChildren={
             <div className={classes.reTriggerBackground}>
-              <div>
-                <Button appearance="text" onClick={triggerDeployment} label="Trigger Redeploy" />
-              </div>
-              <div className={classes.deployDetails}>
-                {!project?.repositoryFullName && (
-                  <div className={classes.iconAndLabel}>
-                    <GitHubIcon />
-                    <p>No repository connected</p>
+              <Grid className={classes.reTriggerGrid}>
+                <Cell start={1} cols={4} colsM={8}>
+                  <div>
+                    <Button
+                      appearance="secondary"
+                      onClick={triggerDeployment}
+                      label="Trigger Redeploy"
+                    />
                   </div>
-                )}
-                {project?.repositoryFullName && !project?.deploymentBranch && (
-                  <a
-                    className={classes.iconAndLabel}
-                    href={`https://github.com/${project?.repositoryFullName}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <GitHubIcon />
-                    <p>{project?.repositoryFullName}</p>
-                  </a>
-                )}
-                {project?.repositoryFullName && project?.deploymentBranch && (
-                  <a
-                    className={classes.iconAndLabel}
-                    href={`https://github.com/${project?.repositoryFullName}/tree/${project?.deploymentBranch}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <BranchIcon />
-                    <p>{project?.deploymentBranch}</p>
-                  </a>
-                )}
-                {project?.repositoryFullName && activeDeployment?.commitSha ? (
-                  <a
-                    className={classes.iconAndLabel}
-                    href={`https://github.com/${project?.repositoryFullName}/commit/${activeDeployment?.commitSha}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <CommitIcon />
-                    <p>{activeDeployment?.commitMessage || 'No commit message'}</p>
-                  </a>
-                ) : (
-                  <div className={classes.iconAndLabel}>
-                    <CommitIcon />
-                    <p>{activeDeployment?.commitMessage || 'No commit message'}</p>
-                  </div>
-                )}
-              </div>
+                </Cell>
+                <Cell start={5} cols={3} startM={1} colsM={8}>
+                  {!finalDeploymentStages.includes(latestDeployment?.deploymentStatus) &&
+                    project?.repositoryFullName && (
+                      <div className={classes.deployDetails}>
+                        {project?.deploymentBranch && (
+                          <a
+                            className={classes.iconAndLabel}
+                            href={`https://github.com/${project?.repositoryFullName}/tree/${project?.deploymentBranch}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <DeploymentIndicator deployment={latestDeployment} />
+                          </a>
+                        )}
+                        {project?.deploymentBranch && (
+                          <a
+                            className={classes.iconAndLabel}
+                            href={`https://github.com/${project?.repositoryFullName}/tree/${project?.deploymentBranch}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <BranchIcon />
+                            <p>{project?.deploymentBranch}</p>
+                          </a>
+                        )}
+                        {latestDeployment?.commitSha ? (
+                          <a
+                            className={classes.iconAndLabel}
+                            href={`https://github.com/${project?.repositoryFullName}/commit/${latestDeployment?.commitSha}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <CommitIcon />
+                            <p className={classes.commitSha}>
+                              {latestDeployment?.commitSha?.substring(0, 7)}
+                            </p>
+                            <p className={classes.commitMessage}>
+                              {latestDeployment?.commitMessage || 'No commit message'}
+                            </p>
+                          </a>
+                        ) : (
+                          <div className={classes.iconAndLabel}>
+                            <CommitIcon />
+                            <p className={classes.commitMessage}>
+                              {latestDeployment?.commitMessage || 'No commit message'}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                </Cell>
+              </Grid>
             </div>
           }
         />
       </Gutter>
       {deployments?.length > 0 && <DeploymentLogs deployment={latestDeployment} />}
     </React.Fragment>
+  )
+}
+
+const DeploymentIndicator: React.FC<{ deployment: Deployment }> = ({ deployment }) => {
+  let status: React.ComponentProps<typeof Indicator>['status'] = 'info'
+  let spinner = false
+
+  if (finalDeploymentStages.includes(deployment?.deploymentStatus)) {
+    status = 'success'
+  } else if (
+    deployment?.deploymentStatus === 'CANCELED' ||
+    deployment?.deploymentStatus === 'ERROR'
+  ) {
+    status = 'error'
+  } else if (
+    deployment?.deploymentStatus === 'PENDING_BUILD' ||
+    deployment?.deploymentStatus === 'PENDING_DEPLOY'
+  ) {
+    status = 'info'
+    spinner = true
+  } else if (
+    deployment?.deploymentStatus === 'BUILDING' ||
+    deployment?.deploymentStatus === 'DEPLOYING'
+  ) {
+    status = 'success'
+    spinner = true
+  } else {
+    status = 'info'
+  }
+
+  const titleCase = (str: Deployment['deploymentStatus']) => {
+    return (
+      str
+        ?.toLowerCase()
+        .split('_')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ') || ''
+    )
+  }
+
+  return (
+    <>
+      <Indicator status={status} spinner={spinner} />
+      <p>{titleCase(deployment?.deploymentStatus)}</p>
+    </>
   )
 }
