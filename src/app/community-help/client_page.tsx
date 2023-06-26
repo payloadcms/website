@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { useHits } from 'react-instantsearch-hooks-web'
+import { useInstantSearch } from 'react-instantsearch-hooks-web'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import Link from 'next/link'
 
@@ -21,9 +21,11 @@ import { ArchiveSearchBar } from './ArchiveSearchBar'
 import classes from './index.module.scss'
 
 export const CommunityHelp: React.FC = () => {
-  const { hits }: { hits: Array<any> } = useHits()
+  const { results } = useInstantSearch()
 
-  const hasResults = hits && Array.isArray(hits) && hits.length > 0
+  const hasResults = results.hits && Array.isArray(results.hits) && results.hits.length > 0
+
+  const hasQuery = results.query && results.query.length > 0
 
   return (
     <>
@@ -36,49 +38,52 @@ export const CommunityHelp: React.FC = () => {
             <ArchiveSearchBar className={classes.searchBar} />
             {hasResults && (
               <ul className={classes.postsWrap}>
-                {hits.map((hit, i) => {
-                  const { name, author, createdAt, platform, slug } = hit
-                  return (
-                    <li key={i} className={classes.post}>
-                      <Link
-                        className={classes.postContent}
-                        href={`/community-help/${platform.toLowerCase()}/${slug}`}
-                        style={{ textDecoration: 'none' }}
-                        prefetch={false}
-                      >
-                        <div>
-                          <h5 className={classes.title}>{name}</h5>
-                          <div className={classes.titleMeta}>
-                            <span className={classes.platform}>
-                              {platform === 'Discord' && <DiscordIcon className={classes.icon} />}
-                              {platform === 'Github' && (
-                                <GithubIcon className={classes.icon} />
-                              )}{' '}
-                            </span>
-                            <span className={classes.author}>{author}</span>
-                            <span>—</span>
-                            <span className={classes.date}>&nbsp;{getRelativeDate(createdAt)}</span>
+                {hasResults &&
+                  results.hits.map((hit, i) => {
+                    const { name, author, createdAt, platform, slug } = hit
+                    return (
+                      <li key={i} className={classes.post}>
+                        <Link
+                          className={classes.postContent}
+                          href={`/community-help/${platform.toLowerCase()}/${slug}`}
+                          style={{ textDecoration: 'none' }}
+                          prefetch={false}
+                        >
+                          <div>
+                            <h5 className={classes.title}>{name}</h5>
+                            <div className={classes.titleMeta}>
+                              <span className={classes.platform}>
+                                {platform === 'Discord' && <DiscordIcon className={classes.icon} />}
+                                {platform === 'Github' && (
+                                  <GithubIcon className={classes.icon} />
+                                )}{' '}
+                              </span>
+                              <span className={classes.author}>{author}</span>
+                              <span>—</span>
+                              <span className={classes.date}>
+                                &nbsp;{getRelativeDate(createdAt)}
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                        <div className={classes.upvotes}>
-                          {hit.upvotes > 0 && (
-                            <span>
-                              <ArrowIcon rotation={-45} /> {hit.upvotes || ''}
-                            </span>
-                          )}
-                          {hit.messageCount > 0 && (
-                            <span>
-                              <CommentsIcon /> {hit.messageCount}
-                            </span>
-                          )}
-                        </div>
-                      </Link>
-                    </li>
-                  )
-                })}
+                          <div className={classes.upvotes}>
+                            {hit.upvotes > 0 && (
+                              <span>
+                                <ArrowIcon rotation={-45} /> {hit.upvotes || ''}
+                              </span>
+                            )}
+                            {hit.messageCount > 0 && (
+                              <span>
+                                <CommentsIcon /> {hit.messageCount}
+                              </span>
+                            )}
+                          </div>
+                        </Link>
+                      </li>
+                    )
+                  })}
               </ul>
             )}
-            {!hasResults && (
+            {!hasResults && hasQuery && (
               <>
                 <Banner type="warning">
                   <h5>Sorry, no results were found...</h5>
