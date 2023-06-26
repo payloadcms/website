@@ -64,28 +64,6 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
     [projectID, reloadProject],
   )
 
-  const updateDomain = React.useCallback(
-    async ({ data }) => {
-      const newDomainValue = data[domainValueFieldPath]
-
-      if (typeof newDomainValue === 'string' && id) {
-        const updatedDomains = (projectDomains || []).map(existingDomain => {
-          if (existingDomain.id === id) {
-            return {
-              ...existingDomain,
-              domain: newDomainValue,
-            }
-          }
-
-          return existingDomain
-        })
-
-        await patchDomains(updatedDomains)
-      }
-    },
-    [id, projectDomains, patchDomains],
-  )
-
   const deleteDomain = React.useCallback(async () => {
     const remainingDomains = (projectDomains || []).filter(
       existingDomain => existingDomain.id !== id,
@@ -110,43 +88,40 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
             </div>
           }
         >
-          <Form onSubmit={updateDomain}>
-            <div className={classes.domainContent}>
-              <Text
-                required
-                label="Domain"
-                className={classes.domainInput}
-                path={domainValueFieldPath}
-                initialValue={domainURL}
-                validate={validateDomain}
-              />
+          <div className={classes.domainContent}>
+            <Text
+              required
+              label="Domain"
+              className={classes.domainInput}
+              path={domainValueFieldPath}
+              initialValue={domainURL}
+              validate={validateDomain}
+            />
 
-              <p>Add the following record to your DNS provider:</p>
-              <table className={classes.record}>
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Content</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{recordType}</td>
-                    <td>{recordName}</td>
-                    <td>{recordContent}</td>
-                  </tr>
-                </tbody>
-              </table>
+            <p>Add the following record to your DNS provider:</p>
+            <table className={classes.record}>
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Name</th>
+                  <th>Content</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{recordType}</td>
+                  <td>{recordName}</td>
+                  <td>{recordContent}</td>
+                </tr>
+              </tbody>
+            </table>
 
-              <div className={classes.domainActions}>
-                <div className={classes.rightActions}>
-                  <Button label="delete" appearance="danger" onClick={() => openModal(modalSlug)} />
-                  <Submit label="save" appearance="secondary" icon={false} />
-                </div>
+            <div className={classes.domainActions}>
+              <div className={classes.rightActions}>
+                <Button label="delete" appearance="danger" onClick={() => openModal(modalSlug)} />
               </div>
             </div>
-          </Form>
+          </div>
         </Accordion>
       </Collapsible>
 
