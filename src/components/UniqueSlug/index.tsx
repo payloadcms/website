@@ -5,7 +5,7 @@ import { Spinner } from '@root/app/_components/Spinner'
 import { CheckIcon } from '@root/icons/CheckIcon'
 import { CloseIcon } from '@root/icons/CloseIcon'
 import useDebounce from '@root/utilities/use-debounce'
-import { slugValidationReducer, SlugValidationResult } from './reducer'
+import { SlugValidationResult, stateReducer } from './reducer'
 
 import classes from './index.module.scss'
 
@@ -18,7 +18,7 @@ export const UniqueSlug: React.FC<{
   teamID?: string
   label?: string
   docID?: string
-  shouldValidate?: boolean
+  validateOnInit?: boolean
 }> = ({
   initialValue,
   collection = 'teams',
@@ -26,22 +26,22 @@ export const UniqueSlug: React.FC<{
   label = 'Slug',
   teamID,
   docID,
-  shouldValidate = true,
+  validateOnInit = true,
 }) => {
-  const [value, setValue] = React.useState(initialValue)
-  const debouncedValue = useDebounce(value, 100)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const isRequesting = React.useRef(false)
   const [error, setError] = React.useState<string | null>(null)
   const [userInteracted, setUserInteracted] = React.useState(false)
 
-  const [slugValidation, dispatchSlugValidation] = React.useReducer(slugValidationReducer, {
-    slug: '',
+  const [slugValidation, dispatchSlugValidation] = React.useReducer(stateReducer, {
+    slug: initialValue || '',
     isUnique: undefined,
   })
 
+  const debouncedSlug = useDebounce(slugValidation.slug, 100)
+
   useEffect(() => {
-    if (!shouldValidate && !userInteracted) {
+    if (!validateOnInit && !userInteracted) {
       return
     }
 
@@ -50,7 +50,7 @@ export const UniqueSlug: React.FC<{
     if (!isRequesting.current) {
       isRequesting.current = true
 
-      if (debouncedValue) {
+      if (debouncedSlug) {
         const validateSlug = async () => {
           // only show loading state if the request is slow
           // this will prevent flickering on fast networks
@@ -67,7 +67,7 @@ export const UniqueSlug: React.FC<{
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  slug: debouncedValue,
+                  slug: debouncedSlug,
                   collection,
                   team: teamID,
                   id: docID,
@@ -105,7 +105,7 @@ export const UniqueSlug: React.FC<{
     return () => {
       clearTimeout(timer)
     }
-  }, [shouldValidate, userInteracted, debouncedValue, collection, teamID, initialValue, docID])
+  }, [validateOnInit, userInteracted, debouncedSlug, collection, teamID, initialValue, docID])
 
   const validatedSlug = slugValidation?.slug
   const slugIsValid = validatedSlug && slugValidation?.isUnique
@@ -114,9 +114,9 @@ export const UniqueSlug: React.FC<{
   let description
   let isError = Boolean(error || !slugIsValid)
 
-  if (!shouldValidate && !userInteracted) {
+  if (!validateOnInit && !userInteracted) {
     description = ''
-  } else if (!slugValidation.fetched) {
+  } else if (!slugValidation.fetched && (validateOnInit || userInteracted)) {
     description = 'Checking slug availability...'
   } else if (!validatedSlug) {
     description = 'Please input a slug'
@@ -143,7 +143,6 @@ export const UniqueSlug: React.FC<{
         label={label}
         initialValue={initialValue}
         onChange={newSlug => {
-          setValue(newSlug)
           dispatchSlugValidation({ type: 'SET_SLUG', payload: newSlug })
           setUserInteracted(true)
         }}
@@ -188,8 +187,8 @@ export const UniqueProjectSlug: React.FC<{
   teamID?: string
   projectID?: string
   initialValue?: string
-  shouldValidate?: boolean
-}> = ({ teamID, projectID, initialValue, shouldValidate }) => {
+  validateOnInit?: boolean
+}> = ({ teamID, projectID, initialValue, validateOnInit }) => {
   return (
     <UniqueSlug
       label="Project Slug"
@@ -198,7 +197,7 @@ export const UniqueProjectSlug: React.FC<{
       teamID={teamID}
       docID={projectID}
       initialValue={initialValue}
-      shouldValidate={shouldValidate}
+      validateOnInit={validateOnInit}
     />
   )
 }

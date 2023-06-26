@@ -18,7 +18,7 @@ type SlugValidationAction =
       payload: SlugValidationResult
     }
 
-export const slugValidationReducer = (
+export const stateReducer = (
   state: SlugValidationResult,
   action: SlugValidationAction,
 ): SlugValidationResult => {
