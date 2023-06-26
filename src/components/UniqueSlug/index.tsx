@@ -101,7 +101,7 @@ export const UniqueSlug: React.FC<{
   let isError = Boolean(error || !slugIsValid)
 
   if (!slugValidation.fetched) {
-    description = 'Checking slug availability...'
+    description = 'Fetching slug...'
   } else if (!validatedSlug) {
     description = 'Please input a slug'
     isError = true
