@@ -9,7 +9,7 @@ import Submit from '@forms/Submit'
 import { validateDomain } from '@forms/validations'
 import Link from 'next/link'
 
-import { Button } from '@components/Button'
+import { Button, ButtonProps } from '@components/Button'
 import { CopyToClipboard } from '@components/CopyToClipboard'
 import { Heading } from '@components/Heading'
 import { ModalWindow } from '@components/ModalWindow'
@@ -41,7 +41,6 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
 
   const getDomainVerificationStatus = useCallback(
     async (domainId: string) => {
-      console.log('verificationStatus', verificationStatus)
       const { status } = await fetch(
         `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/email-verification?domainId=${domainId}`,
         {
@@ -51,7 +50,6 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
           },
         },
       ).then(res => res.json())
-      console.log('received status from payload api', status)
       setVerificationStatus(status)
     },
     [project?.id, verificationStatus],
@@ -180,6 +178,19 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
     }
   }
 
+  const verificationStatusColor = (status: VerificationStatus): ButtonProps['appearance'] => {
+    switch (status) {
+      case 'not_started':
+        return 'secondary'
+      case 'pending':
+        return 'warning'
+      case 'verified':
+        return 'success'
+      default:
+        return 'secondary'
+    }
+  }
+
   return (
     <>
       <Collapsible openOnInit>
@@ -269,13 +280,7 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
               <div className={classes.leftActions}>
                 <Button
                   label={formatVerificationStatus(verificationStatus)}
-                  appearance={
-                    verificationStatus === 'not_started'
-                      ? 'success'
-                      : verificationStatus === 'pending'
-                      ? 'warning'
-                      : 'secondary'
-                  }
+                  appearance={verificationStatusColor(verificationStatus)}
                   onClick={() => verifyEmailDomain(emailDomain.resendDomainID as string)}
                 />
               </div>

@@ -7,6 +7,7 @@ import { Checkbox } from '@forms/fields/Checkbox'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
+import { useForm, useFormFields } from '@forms/Form/context'
 import FormProcessing from '@forms/FormProcessing'
 import FormSubmissionError from '@forms/FormSubmissionError'
 import Label from '@forms/Label'
@@ -60,15 +61,17 @@ const Checkout: React.FC<{
   const router = useRouter()
   const { templates } = useGlobals()
 
-  const isBeta = new Date().getTime() < new Date('2023-07-01').getTime()
   const [deleting, setDeleting] = React.useState(false)
   const [errorDeleting, setErrorDeleting] = React.useState('')
 
   const [checkoutState, dispatchCheckoutState] = React.useReducer(checkoutReducer, {
     plan: project?.plan,
     team: project?.team,
-    freeTrial: isBeta,
     paymentMethod: '',
+    freeTrial:
+      project?.plan && typeof project?.plan !== 'string' && project?.plan?.slug === 'standard'
+        ? true
+        : false,
   } as CheckoutState)
 
   const handleCardChange = useCallback((incomingPaymentMethod: string) => {
@@ -160,6 +163,19 @@ const Checkout: React.FC<{
     }
   }, [project, router])
 
+  const handleTrialChange = useCallback(value => {
+    dispatchCheckoutState({
+      type: 'SET_FREE_TRIAL',
+      payload: value,
+    })
+  }, [])
+
+  const isStandardPlan =
+    typeof checkoutState?.plan === 'object' &&
+    checkoutState?.plan !== null &&
+    'slug' in checkoutState?.plan &&
+    checkoutState?.plan?.slug === 'standard'
+
   return (
     <Form onSubmit={deploy}>
       <Gutter>
@@ -197,7 +213,7 @@ const Checkout: React.FC<{
                             : '',
                         )}
                       </p>
-                      {checkoutState?.freeTrial && <p>Free during beta—ends July 1st</p>}
+                      {checkoutState?.freeTrial && <p>Free for 14 days.</p>}
                     </div>
                   )}
                   <Button
@@ -221,11 +237,17 @@ const Checkout: React.FC<{
                   </Heading>
                   <div className={classes.plans}>
                     <PlanSelector />
-                    {isBeta && (
-                      <p className={classes.trialDescription}>
-                        All plans are free during beta. You will not be charged until after July
-                        1st. You can cancel anytime.
-                      </p>
+                    {isStandardPlan && (
+                      <Checkbox
+                        className={classes.trialCheckbox}
+                        label={`Start a 14 day free trial. Cancel anytime.${
+                          isStandardPlan ? '' : ' (Only available on the Standard plan)'
+                        }`}
+                        initialValue={checkoutState?.freeTrial}
+                        checked={checkoutState?.freeTrial}
+                        onChange={handleTrialChange}
+                        disabled={!isStandardPlan}
+                      />
                     )}
                   </div>
                 </div>
@@ -384,11 +406,13 @@ const Checkout: React.FC<{
                   }}
                 />
                 <div className={classes.submit}>
-                  <Submit label="Deploy now" />
+                  <Submit label={checkoutState?.freeTrial ? 'Start free trial' : 'Deploy now'} />
                 </div>
-                {isBeta && (
-                  <p className={classes.submitDescription}>
-                    You will not be charged until after July 1st. You can cancel anytime.
+                <br />
+                {checkoutState?.freeTrial && (
+                  <p>
+                    You are starting a 14 day free trial. You will not be charged until after 14
+                    days. We'll remind you 7 days before your trial ends. Cancel anytime.
                   </p>
                 )}
               </Fragment>
