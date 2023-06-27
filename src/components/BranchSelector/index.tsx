@@ -8,7 +8,8 @@ import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Project } from '@root/payload-cloud-types'
 import { branchReducer } from './reducer'
 
-type GitHubResponse = Endpoints['GET /repos/{owner}/{repo}/branches']['response']
+type GitHubListBranchesResponse = Endpoints['GET /repos/{owner}/{repo}/branches']['response']
+type GitHubFullRepoResponse = Endpoints['GET /repos/{owner}/{repo}']['response']
 
 export const BranchSelector: React.FC<{
   repositoryFullName: Project['repositoryFullName']
@@ -27,6 +28,7 @@ export const BranchSelector: React.FC<{
 
   const [result, dispatchResult] = useReducer(branchReducer, {
     branches: [],
+    defaultBranch: '',
   })
 
   // if we know the `repositoryFullName` then we need to load their branches
@@ -60,12 +62,34 @@ export const BranchSelector: React.FC<{
           },
         )
 
-        const branchesRes: GitHubResponse = await branchesReq.json()
-
+        const branchesRes: GitHubListBranchesResponse = await branchesReq.json()
         if (branchesRes?.data?.length > 0) {
+          let defaultBranch = result?.defaultBranch
+
+          if (!defaultBranch) {
+            const fullRepo = await fetch(
+              `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`,
+              {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  route: `GET /repos/${owner}/${repo}`,
+                }),
+              },
+            )
+            const fullRepoRes: GitHubFullRepoResponse = await fullRepo.json()
+            defaultBranch = fullRepoRes.data.default_branch
+          }
+
           dispatchResult({
             type: 'ADD',
-            payload: branchesRes.data.map(branch => branch.name),
+            payload: {
+              defaultBranch,
+              branches: branchesRes.data.map(branch => branch.name),
+            },
           })
         }
 
@@ -80,7 +104,7 @@ export const BranchSelector: React.FC<{
       isRequesting.current = false
       setIsInitializing(false)
     }
-  }, [repositoryFullName, page])
+  }, [repositoryFullName, page, result?.defaultBranch])
 
   useEffect(() => {
     if (!hasInitialized.current) {
@@ -121,11 +145,7 @@ export const BranchSelector: React.FC<{
             value: branch,
           }))}
           required
-          initialValue={
-            result?.branches.some(branch => branch === initialValue)
-              ? initialValue
-              : result?.branches[0]
-          }
+          initialValue={result?.defaultBranch}
           onMenuScrollToBottom={onMenuScrollToBottom}
         />
       ) : (

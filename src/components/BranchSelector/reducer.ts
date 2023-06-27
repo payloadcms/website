@@ -1,10 +1,14 @@
 interface BranchState {
+  defaultBranch: string
   branches: string[]
 }
 
 interface BranchAction {
   type: 'ADD'
-  payload: BranchState['branches']
+  payload: {
+    defaultBranch: string
+    branches: BranchState['branches']
+  }
 }
 
 export const branchReducer = (state: BranchState, action: BranchAction): BranchState => {
@@ -12,7 +16,8 @@ export const branchReducer = (state: BranchState, action: BranchAction): BranchS
     case 'ADD': {
       return {
         ...state,
-        branches: [...(state.branches || []), ...(action?.payload || [])],
+        defaultBranch: action.payload.defaultBranch || state.defaultBranch,
+        branches: [...(state.branches || []), ...(action.payload.branches || [])],
       }
     }
     default:
