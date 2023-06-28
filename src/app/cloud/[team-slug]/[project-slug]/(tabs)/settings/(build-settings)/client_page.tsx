@@ -93,7 +93,6 @@ export const ProjectBuildSettingsPage = () => {
           teamID={typeof project?.team === 'string' ? project?.team : project?.team?.id}
           projectID={project?.id}
           initialValue={project?.slug}
-          validateOnInit={false}
         />
         <Text
           label="Root Directory"

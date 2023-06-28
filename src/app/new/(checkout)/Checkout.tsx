@@ -281,6 +281,7 @@ const Checkout: React.FC<{
                     initialValue={project?.slug}
                     teamID={typeof project?.team === 'string' ? project?.team : project?.team?.id}
                     projectID={project?.id}
+                    validateOnInit={true}
                   />
                   <TeamSelector
                     onChange={handleTeamChange}
