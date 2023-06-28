@@ -17,12 +17,12 @@
 .backupsList {
   .backup {
     &:nth-child(even) {
-      [data-component="top-background"] {
+      [data-component="top-container"] {
         background-color: transparent
       }
     }
 
-    + .backup [data-component="top-background"] {
+    + .backup [data-component="top-container"] {
       border-top: none;
     }
   }

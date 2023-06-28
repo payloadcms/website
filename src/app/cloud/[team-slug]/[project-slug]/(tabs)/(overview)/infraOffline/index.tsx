@@ -127,6 +127,7 @@ export const InfraOffline: React.FC = () => {
     <>
       <Gutter>
         <ExtendedBackground
+          borderHighlight
           pixels
           upperChildren={
             <React.Fragment>
@@ -229,6 +230,7 @@ export const InfraOffline: React.FC = () => {
               )}
             </React.Fragment>
           }
+          lowerChildren={<div>Hello from below</div>}
         />
       </Gutter>
 
