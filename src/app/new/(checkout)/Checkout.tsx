@@ -23,6 +23,7 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { useInstallationSelector } from '@components/InstallationSelector'
 import { LoadingShimmer } from '@components/LoadingShimmer'
+import { Message } from '@components/Message'
 import { PlanSelector } from '@components/PlanSelector'
 import { TeamSelector } from '@components/TeamSelector'
 import { UniqueDomain } from '@components/UniqueDomain'
@@ -195,7 +196,7 @@ const Checkout: React.FC<{
                             : '',
                         )}
                       </p>
-                      {checkoutState?.freeTrial && <p>Free for 14 days.</p>}
+                      {checkoutState?.freeTrial && <p>Free for 14 days</p>}
                     </div>
                   )}
                   <Button
@@ -345,6 +346,9 @@ const Checkout: React.FC<{
                 <hr className={classes.hr} />
                 <div>
                   <h5>Payment Info</h5>
+                  {checkoutState?.freeTrial && (
+                    <Message success="We require a card on file to prevent fraud and abuse. You will not be charged until your 14 day free trial is over.  We’ll remind you 7 days before your trial ends. Cancel anytime." />
+                  )}
                   {checkoutState?.team && (
                     <CreditCardSelector
                       initialValue={checkoutState?.paymentMethod}
@@ -378,13 +382,6 @@ const Checkout: React.FC<{
                 <div className={classes.submit}>
                   <Submit label={checkoutState?.freeTrial ? 'Start free trial' : 'Deploy now'} />
                 </div>
-                <br />
-                {checkoutState?.freeTrial && (
-                  <p>
-                    You are starting a 14 day free trial. You will not be charged until after 14
-                    days. We'll remind you 7 days before your trial ends. Cancel anytime.
-                  </p>
-                )}
               </Fragment>
             )}
           </Cell>
