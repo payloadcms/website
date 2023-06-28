@@ -19,8 +19,8 @@ import { PROJECTS } from './project'
 import { TEAMS } from './team'
 import { TEMPLATES } from './templates'
 
-const next: { revalidate: false } = {
-  revalidate: false,
+const next = {
+  revalidate: 600,
 }
 
 export const fetchGlobals = async (): Promise<{
