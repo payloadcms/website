@@ -23,7 +23,8 @@ import { DeploymentLogs } from '../DeploymentLogs'
 
 import classes from './index.module.scss'
 
-const finalDeploymentStages: Deployment['deploymentStatus'][] = ['ACTIVE', 'SUPERSEDED']
+type FinalDeploymentStages = Extract<Deployment['deploymentStatus'], 'ACTIVE' | 'SUPERSEDED'>
+const finalDeploymentStages: FinalDeploymentStages[] = ['ACTIVE', 'SUPERSEDED']
 
 export const InfraOnline: React.FC = () => {
   const { project } = useRouteData()
@@ -115,7 +116,7 @@ export const InfraOnline: React.FC = () => {
       setLiveDeployment(latestDeployment)
     } else {
       const liveDeployment = deployments?.find(deployment => {
-        return finalDeploymentStages.includes(deployment.deploymentStatus)
+        return finalDeploymentStages.includes(deployment.deploymentStatus as FinalDeploymentStages)
       })
 
       if (liveDeployment) {
@@ -228,7 +229,9 @@ export const InfraOnline: React.FC = () => {
                     status={
                       liveDeployment === undefined
                         ? 'info'
-                        : finalDeploymentStages.includes(liveDeployment?.deploymentStatus)
+                        : finalDeploymentStages.includes(
+                            liveDeployment?.deploymentStatus as FinalDeploymentStages,
+                          )
                         ? 'success'
                         : 'error'
                     }
@@ -236,7 +239,9 @@ export const InfraOnline: React.FC = () => {
                   <p className={classes.detail}>
                     {liveDeployment === undefined
                       ? 'No status'
-                      : finalDeploymentStages.includes(liveDeployment?.deploymentStatus)
+                      : finalDeploymentStages.includes(
+                          liveDeployment?.deploymentStatus as FinalDeploymentStages,
+                        )
                       ? 'Online'
                       : 'Offline'}
                   </p>
@@ -257,7 +262,9 @@ export const InfraOnline: React.FC = () => {
                   </div>
                 </Cell>
                 <Cell start={5} cols={3} startM={1} colsM={8}>
-                  {!finalDeploymentStages.includes(latestDeployment?.deploymentStatus) &&
+                  {!finalDeploymentStages.includes(
+                    latestDeployment?.deploymentStatus as FinalDeploymentStages,
+                  ) &&
                     project?.repositoryFullName && (
                       <div className={classes.deployDetails}>
                         {project?.deploymentBranch && (
@@ -321,7 +328,7 @@ const DeploymentIndicator: React.FC<{ deployment: Deployment }> = ({ deployment 
   let status: React.ComponentProps<typeof Indicator>['status'] = 'info'
   let spinner = false
 
-  if (finalDeploymentStages.includes(deployment?.deploymentStatus)) {
+  if (finalDeploymentStages.includes(deployment?.deploymentStatus as FinalDeploymentStages)) {
     status = 'success'
   } else if (
     deployment?.deploymentStatus === 'CANCELED' ||

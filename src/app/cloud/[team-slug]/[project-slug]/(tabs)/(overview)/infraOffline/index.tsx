@@ -230,7 +230,6 @@ export const InfraOffline: React.FC = () => {
               )}
             </React.Fragment>
           }
-          lowerChildren={<div>Hello from below</div>}
         />
       </Gutter>
 
