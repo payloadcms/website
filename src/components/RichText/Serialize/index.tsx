@@ -152,7 +152,6 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
                 key={i}
                 type={node.linkType === 'internal' ? 'reference' : 'custom'}
                 url={node.url}
-                newTab={node.newTab as boolean | undefined}
                 reference={node.doc as Reference}
                 newTab={node?.newTab}
               >
