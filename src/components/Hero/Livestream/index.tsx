@@ -7,7 +7,6 @@ import { formatDate } from '@utilities/format-date-time'
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
-import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'
 import { Video } from '@components/RichText/Video'
 import { Page } from '@root/payload-types'
@@ -34,11 +33,7 @@ export const LivestreamHero: React.FC<{
       <div className={classes.livestreamHero}>
         <div className={classes.bgWrapper}>
           <Gutter disableMobile className={classes.bgGutter}>
-            <div className={classes.bg1}>
-              <div className={classes.pixelBG}>
-                <PixelBackground />
-              </div>
-            </div>
+            <div className={classes.bg1}></div>
           </Gutter>
         </div>
         <div className={classes.bg2Wrapper}>
@@ -97,8 +92,6 @@ export const LivestreamHero: React.FC<{
             {isLive && youtubeID && (
               <Cell cols={6} start={8} colsM={8} startM={1} className={classes.videoCell}>
                 <div className={classes.videoWrap}>
-                  <label>Watch the stream</label>
-                  &nbsp;
                   <Video platform="youtube" id={youtubeID} />
                   <Button
                     className={[classes.link, classes[`link--default`]].join(' ')}

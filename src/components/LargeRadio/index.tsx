@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 
+import { Pill } from '@components/Pill'
 import { CheckIcon } from '@root/icons/CheckIcon'
 
 import classes from './index.module.scss'
@@ -13,8 +14,9 @@ export const LargeRadio: React.FC<{
   onChange?: (value?: any) => void // eslint-disable-line no-unused-vars
   price?: string
   label: string | React.ReactNode
+  pillLabel?: string
 }> = props => {
-  const { checked, name, disabled, onChange, value, price, id, label } = props
+  const { checked, name, disabled, onChange, value, price, id, label, pillLabel } = props
 
   return (
     <Fragment key={value}>
@@ -42,7 +44,10 @@ export const LargeRadio: React.FC<{
           />
         </div>
         <div className={classes.content}>
-          <h6 className={classes.name}>{label}</h6>
+          <h6 className={classes.name}>
+            {label}
+            {pillLabel && <Pill className={classes.pill} text={pillLabel} />}
+          </h6>
           {price && <p className={classes.price}>{price}</p>}
         </div>
       </label>
