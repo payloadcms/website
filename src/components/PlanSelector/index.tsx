@@ -5,7 +5,7 @@ import { LargeRadio } from '@components/LargeRadio'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Plan } from '@root/payload-cloud-types'
 import { priceFromJSON } from '@root/utilities/price-from-json'
-import { UseCloudAPI, useGetPlans } from '@root/utilities/use-cloud-api'
+import { useGetPlans } from '@root/utilities/use-cloud-api'
 import useDebounce from '@root/utilities/use-debounce'
 
 import classes from './index.module.scss'
@@ -18,10 +18,9 @@ type PlanSelectorProps = {
   error: string | undefined
   initialSelection?: Plan
   onFreeTrialChange?: (value?: boolean) => void // eslint-disable-line no-unused-vars
-  freeTrial?: boolean
 }
 
-export const PlanSelector: React.FC<PlanSelectorProps> = props => {
+const Selector: React.FC<PlanSelectorProps> = props => {
   const { onChange, value: valueFromProps, loading, error, plans, initialSelection } = props
 
   const hasInitializedSelection = React.useRef(false)
@@ -83,6 +82,7 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
                     price={price}
                     onChange={setSelectedPlan}
                     label={name}
+                    pillLabel={plan.slug === 'standard' ? '14 Day Free Trial' : undefined}
                   />
                 )
               })}
@@ -93,29 +93,12 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
   )
 }
 
-export const usePlanSelector = (args: {
-  onChange?: (value: Plan) => void // eslint-disable-line no-unused-vars
-}): [React.FC, ReturnType<UseCloudAPI<Plan[]>>] => {
-  const { onChange } = args
+export const PlanSelector: React.FC<
+  Omit<PlanSelectorProps, 'plans' | 'loading' | 'error'>
+> = props => {
+  const { result: plans, error, isLoading } = useGetPlans()
 
-  const plansData = useGetPlans()
-  const debouncedLoading = useDebounce(plansData.isLoading, 250)
+  const debouncedLoading = useDebounce(isLoading, 250)
 
-  const MemoizedPlanSelector = useMemo(
-    () => () => {
-      const { error, result: plans } = plansData
-
-      return (
-        <PlanSelector
-          loading={Boolean(debouncedLoading)}
-          error={error}
-          plans={plans}
-          onChange={onChange}
-        />
-      )
-    },
-    [debouncedLoading, plansData, onChange],
-  )
-
-  return [MemoizedPlanSelector, plansData]
+  return <Selector {...props} loading={Boolean(debouncedLoading)} error={error} plans={plans} />
 }
