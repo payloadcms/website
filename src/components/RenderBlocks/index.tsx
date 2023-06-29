@@ -71,9 +71,13 @@ export const RenderBlocks: React.FC<Props> = props => {
           if (blockType && blockType in blockComponents) {
             const Block = blockComponents[blockType]
 
-            const hasSpacing = !['banner', 'blogContent', 'blogMarkdown', 'code'].includes(
-              blockType,
-            )
+            const hasSpacing = ![
+              'banner',
+              'blogContent',
+              'blogMarkdown',
+              'code',
+              'reusableContentBlock',
+            ].includes(blockType)
 
             let topSpacing = hasSpacing
             let bottomSpacing = hasSpacing
