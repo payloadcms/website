@@ -127,6 +127,7 @@ export const InfraOffline: React.FC = () => {
     <>
       <Gutter>
         <ExtendedBackground
+          borderHighlight={!failedDeployment}
           pixels
           upperChildren={
             <React.Fragment>

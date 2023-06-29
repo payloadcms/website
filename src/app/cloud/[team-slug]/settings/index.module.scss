@@ -20,9 +20,11 @@
   margin: 0;
   color: var(--theme-elevation-300);
   margin-right: calc(var(--base) * .75);
+  margin-bottom: calc(var(--base) * 0.25);
 
   &.lastItem {
     margin-right: 0;
+    margin-bottom: 0;
   }
 
   &.active {
@@ -30,12 +32,17 @@
     a,
     a:hover {
       color: var(--theme-text);
+      font-weight: bold;
     }
   }
 
   a {
     &:hover {
       color: var(--theme-text);
+    }
+
+    &:focus {
+      opacity: 1;
     }
 
     @include underline-on-focus;

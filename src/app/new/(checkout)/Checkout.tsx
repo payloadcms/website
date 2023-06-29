@@ -7,7 +7,6 @@ import { Checkbox } from '@forms/fields/Checkbox'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
-import { useForm, useFormFields } from '@forms/Form/context'
 import FormProcessing from '@forms/FormProcessing'
 import FormSubmissionError from '@forms/FormSubmissionError'
 import Label from '@forms/Label'
@@ -24,7 +23,8 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { useInstallationSelector } from '@components/InstallationSelector'
 import { LoadingShimmer } from '@components/LoadingShimmer'
-import { usePlanSelector } from '@components/PlanSelector'
+import { Message } from '@components/Message'
+import { PlanSelector } from '@components/PlanSelector'
 import { TeamSelector } from '@components/TeamSelector'
 import { UniqueDomain } from '@components/UniqueDomain'
 import { UniqueRepoName } from '@components/UniqueRepoName'
@@ -97,10 +97,6 @@ const Checkout: React.FC<{
     }
   }, [])
 
-  const [PlanSelector] = usePlanSelector({
-    onChange: handlePlanChange,
-  })
-
   const [
     InstallationSelector,
     { value: selectedInstall, loading: installsLoading, error: installsError },
@@ -163,19 +159,6 @@ const Checkout: React.FC<{
     }
   }, [project, router])
 
-  const handleTrialChange = useCallback(value => {
-    dispatchCheckoutState({
-      type: 'SET_FREE_TRIAL',
-      payload: value,
-    })
-  }, [])
-
-  const isStandardPlan =
-    typeof checkoutState?.plan === 'object' &&
-    checkoutState?.plan !== null &&
-    'slug' in checkoutState?.plan &&
-    checkoutState?.plan?.slug === 'standard'
-
   return (
     <Form onSubmit={deploy}>
       <Gutter>
@@ -213,7 +196,7 @@ const Checkout: React.FC<{
                             : '',
                         )}
                       </p>
-                      {checkoutState?.freeTrial && <p>Free for 14 days.</p>}
+                      {checkoutState?.freeTrial && <p>Free for 14 days</p>}
                     </div>
                   )}
                   <Button
@@ -236,19 +219,7 @@ const Checkout: React.FC<{
                     Select your plan
                   </Heading>
                   <div className={classes.plans}>
-                    <PlanSelector />
-                    {isStandardPlan && (
-                      <Checkbox
-                        className={classes.trialCheckbox}
-                        label={`Start a 14 day free trial. Cancel anytime.${
-                          isStandardPlan ? '' : ' (Only available on the Standard plan)'
-                        }`}
-                        initialValue={checkoutState?.freeTrial}
-                        checked={checkoutState?.freeTrial}
-                        onChange={handleTrialChange}
-                        disabled={!isStandardPlan}
-                      />
-                    )}
+                    <PlanSelector onChange={handlePlanChange} />
                   </div>
                 </div>
                 <hr className={classes.hr} />
@@ -375,6 +346,9 @@ const Checkout: React.FC<{
                 <hr className={classes.hr} />
                 <div>
                   <h5>Payment Info</h5>
+                  {checkoutState?.freeTrial && (
+                    <Message success="We require a card on file to prevent fraud and abuse. You will not be charged until your 14 day free trial is over.  We’ll remind you 7 days before your trial ends. Cancel anytime." />
+                  )}
                   {checkoutState?.team && (
                     <CreditCardSelector
                       initialValue={checkoutState?.paymentMethod}
@@ -408,13 +382,6 @@ const Checkout: React.FC<{
                 <div className={classes.submit}>
                   <Submit label={checkoutState?.freeTrial ? 'Start free trial' : 'Deploy now'} />
                 </div>
-                <br />
-                {checkoutState?.freeTrial && (
-                  <p>
-                    You are starting a 14 day free trial. You will not be charged until after 14
-                    days. We'll remind you 7 days before your trial ends. Cancel anytime.
-                  </p>
-                )}
               </Fragment>
             )}
           </Cell>
