@@ -1,5 +1,9 @@
 @use '@scss/common' as *;
 
+.cardElement {
+    width: 100%;
+}
+
 .error {
     color: var(--theme-error-500);
 }
