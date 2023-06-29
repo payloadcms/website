@@ -21,8 +21,8 @@ export const AlgoliaPagination: React.FC<{
 
   const hasPages = pages && Array.isArray(pages) && pages.length > 0
   const [indexToShow, setIndexToShow] = React.useState([0, 1, 2, 3, 4])
-  const showFirstPage = nbPages > 5 && currentRefinement > 2
-  const showLastPage = nbPages > 5 && currentRefinement < nbPages - 3
+  const showFirstPage = nbPages > 5 && currentRefinement >= 2
+  const showLastPage = nbPages > 5 && currentRefinement <= nbPages - 3
 
   React.useEffect(() => {
     if (showFirstPage && showLastPage) {
