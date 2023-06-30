@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { ChevronIconV2 } from '@root/graphics/ChevronIconV2'
+import { ChevronIcon } from '@root/icons/ChevronIcon'
 
 import classes from './index.module.scss'
 
@@ -100,7 +100,7 @@ export const Pagination: React.FC<{
         }}
         className={[classes.button, page - 1 < 1 && classes.disabled].filter(Boolean).join(' ')}
       >
-        <ChevronIconV2 rotation={180} />
+        <ChevronIcon rotation={180} />
       </button>
       <button
         disabled={page + 1 > totalPages}
@@ -114,7 +114,7 @@ export const Pagination: React.FC<{
           .filter(Boolean)
           .join(' ')}
       >
-        <ChevronIconV2 />
+        <ChevronIcon />
       </button>
     </div>
   )

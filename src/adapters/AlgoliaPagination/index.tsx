@@ -1,7 +1,7 @@
 import React from 'react'
 import { usePagination } from 'react-instantsearch-hooks-web'
 
-import { ChevronIconV2 } from '@root/graphics/ChevronIconV2'
+import { ChevronIcon } from '@root/icons/ChevronIcon'
 
 import classes from './index.module.scss'
 
@@ -112,7 +112,7 @@ export const AlgoliaPagination: React.FC<{
         }}
         disabled={currentRefinement === 0}
       >
-        <ChevronIconV2 rotation={180} />
+        <ChevronIcon rotation={180} />
       </button>
       <div className={classes.nextPrev}>
         <button
@@ -126,7 +126,7 @@ export const AlgoliaPagination: React.FC<{
           }}
           disabled={currentRefinement >= nbPages - 1}
         >
-          <ChevronIconV2 />
+          <ChevronIcon />
         </button>
       </div>
     </div>
