@@ -5,7 +5,7 @@ import { Spinner } from '@root/app/_components/Spinner'
 import { CheckIcon } from '@root/icons/CheckIcon'
 import { CloseIcon } from '@root/icons/CloseIcon'
 import useDebounce from '@root/utilities/use-debounce'
-import { slugValidationReducer, SlugValidationResult } from './reducer'
+import { SlugValidationResult, stateReducer } from './reducer'
 
 import classes from './index.module.scss'
 
@@ -18,31 +18,51 @@ export const UniqueSlug: React.FC<{
   teamID?: string
   label?: string
   docID?: string
-}> = ({ initialValue, collection = 'teams', path = 'slug', label = 'Slug', teamID, docID }) => {
-  const [value, setValue] = React.useState(initialValue)
-  const debouncedValue = useDebounce(value, 100)
+  validateOnInit?: boolean
+}> = ({
+  initialValue,
+  collection = 'teams',
+  path = 'slug',
+  label = 'Slug',
+  teamID,
+  docID,
+  validateOnInit = false,
+}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const isRequesting = React.useRef(false)
   const [error, setError] = React.useState<string | null>(null)
 
-  const [slugValidation, dispatchSlugValidation] = React.useReducer(slugValidationReducer, {
-    slug: '',
+  const [state, dispatchState] = React.useReducer(stateReducer, {
+    slug: initialValue || '',
     isUnique: undefined,
+    userInteracted: false,
   })
+
+  const debouncedSlug = useDebounce(state.slug, 100)
 
   useEffect(() => {
     let timer: NodeJS.Timeout
 
-    if (!isRequesting.current) {
+    if (!isRequesting.current && (validateOnInit || state.userInteracted)) {
       isRequesting.current = true
 
-      if (debouncedValue) {
+      if (debouncedSlug) {
+        const slugRegex = /^[a-zA-Z0-9_-]+$/
+        if (!slugRegex.test(debouncedSlug)) {
+          setError('The slug can only contain alphanumeric characters, hyphens, and underscores.')
+          dispatchState({ type: 'SET_UNIQUE', payload: false })
+          isRequesting.current = false
+          return // Exit early to prevent the request from being sent
+        }
+
         const validateSlug = async () => {
           // only show loading state if the request is slow
           // this will prevent flickering on fast networks
           timer = setTimeout(() => {
             setIsLoading(true)
           }, 200)
+
+          setError(null)
 
           try {
             const validityReq = await fetch(
@@ -53,7 +73,7 @@ export const UniqueSlug: React.FC<{
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  slug: debouncedValue,
+                  slug: debouncedSlug,
                   collection,
                   team: teamID,
                   id: docID,
@@ -65,18 +85,21 @@ export const UniqueSlug: React.FC<{
 
             if (validityReq.ok) {
               const newValidation: SlugValidationResult = await validityReq.json()
-              dispatchSlugValidation({ type: 'RESET', payload: newValidation })
+              dispatchState({ type: 'RESET', payload: newValidation })
             } else {
-              const message = `Error validating slug: ${validityReq.statusText}`
+              const message =
+                validityReq.status === 400
+                  ? 'The slug can only contain alphanumeric characters, hyphens, and underscores.'
+                  : `Error validating slug: ${validityReq.statusText}`
               console.error(message) // eslint-disable-line no-console
               setError(message)
-              dispatchSlugValidation({ type: 'SET_UNIQUE', payload: false })
+              dispatchState({ type: 'SET_UNIQUE', payload: false })
             }
           } catch (e) {
             const message = `Error validating slug: ${e.message}`
             console.error(message) // eslint-disable-line no-console
             setError(message)
-            dispatchSlugValidation({ type: 'SET_UNIQUE', payload: false })
+            dispatchState({ type: 'SET_UNIQUE', payload: false })
           }
 
           setIsLoading(false)
@@ -91,21 +114,34 @@ export const UniqueSlug: React.FC<{
     return () => {
       clearTimeout(timer)
     }
-  }, [debouncedValue, collection, teamID, initialValue, docID])
+  }, [validateOnInit, state.userInteracted, debouncedSlug, collection, teamID, initialValue, docID])
 
-  const validatedSlug = slugValidation?.slug
-  const slugIsValid = validatedSlug && slugValidation?.isUnique
+  const validatedSlug = state?.slug
+  const slugIsValid = validatedSlug && state?.isUnique
+  const slugIsFetched = state?.fetched
 
-  let description = 'Choose a team slug'
-  if (!validatedSlug) description = 'Choose a slug'
-  if (error) description = error
-  if (!slugIsValid) description = `'${validatedSlug}' is not available. Please choose another.`
-  if (slugIsValid) description = `'${validatedSlug}' is available`
+  let description
+  let isError = Boolean(error || !slugIsValid)
+
+  if (!validateOnInit && !state.userInteracted) {
+    description = ''
+  } else if (!state.fetched && (validateOnInit || state.userInteracted)) {
+    description = 'Checking slug availability...'
+  } else if (!validatedSlug) {
+    description = 'Please input a slug'
+    isError = true
+  } else if (error) {
+    description = error
+  } else if (!slugIsValid) {
+    description = `'${validatedSlug}' is not available. Please choose another.`
+  } else if (slugIsValid) {
+    description = `'${validatedSlug}' is available`
+  }
 
   let icon: React.ReactNode = null
   if (isLoading) icon = <Spinner />
   if (slugIsValid) icon = <CheckIcon className={classes.check} size="medium" bold />
-  if (error || !slugIsValid) icon = <CloseIcon className={classes.error} size="medium" bold />
+  if (slugIsFetched && isError) icon = <CloseIcon className={classes.error} size="medium" bold />
 
   // two fields are rendered here, the first is controlled, user-facing and not debounced
   // the other is a hidden field that has been validated
@@ -115,8 +151,11 @@ export const UniqueSlug: React.FC<{
       <Text
         label={label}
         initialValue={initialValue}
-        onChange={setValue}
-        showError={Boolean(error || !slugIsValid)}
+        onChange={newSlug => {
+          dispatchState({ type: 'SET_SLUG', payload: newSlug })
+          dispatchState({ type: 'SET_USER_INTERACTED' })
+        }}
+        showError={slugIsFetched && isError}
         icon={icon}
         required
       />
@@ -124,7 +163,7 @@ export const UniqueSlug: React.FC<{
       <div
         className={[
           classes.description,
-          (error || !slugIsValid) && !isLoading && classes.error,
+          slugIsFetched && isError && !isLoading && classes.error,
           slugIsValid && !isLoading && classes.success,
         ]
           .filter(Boolean)
@@ -157,7 +196,8 @@ export const UniqueProjectSlug: React.FC<{
   teamID?: string
   projectID?: string
   initialValue?: string
-}> = ({ teamID, projectID, initialValue }) => {
+  validateOnInit?: boolean
+}> = ({ teamID, projectID, initialValue, validateOnInit }) => {
   return (
     <UniqueSlug
       label="Project Slug"
@@ -166,6 +206,7 @@ export const UniqueProjectSlug: React.FC<{
       teamID={teamID}
       docID={projectID}
       initialValue={initialValue}
+      validateOnInit={validateOnInit}
     />
   )
 }

@@ -1,6 +1,8 @@
 export interface SlugValidationResult {
   isUnique?: boolean
   slug: string
+  fetched?: boolean
+  userInteracted?: boolean
 }
 
 type SlugValidationAction =
@@ -9,11 +11,18 @@ type SlugValidationAction =
       payload: boolean
     }
   | {
+      type: 'SET_SLUG'
+      payload: string
+    }
+  | {
       type: 'RESET'
       payload: SlugValidationResult
     }
+  | {
+      type: 'SET_USER_INTERACTED'
+    }
 
-export const slugValidationReducer = (
+export const stateReducer = (
   state: SlugValidationResult,
   action: SlugValidationAction,
 ): SlugValidationResult => {
@@ -22,9 +31,24 @@ export const slugValidationReducer = (
       return {
         ...state,
         isUnique: action.payload,
+        fetched: true,
+      }
+    case 'SET_SLUG':
+      return {
+        ...state,
+        slug: action.payload,
       }
     case 'RESET':
-      return action.payload
+      return {
+        ...state,
+        ...action.payload,
+        fetched: true,
+      }
+    case 'SET_USER_INTERACTED':
+      return {
+        ...state,
+        userInteracted: true,
+      }
     default:
       return state
   }
