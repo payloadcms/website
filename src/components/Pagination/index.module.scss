@@ -11,12 +11,72 @@
 }
 
 .button {
-  background: var(--theme-elevation-500);
-  border: 0;
-  outline: none;
-  line-height: inherit;
-  font-size: inherit;
-  font-family: inherit;
+  all: unset;
   cursor: pointer;
-  padding: 0 calc(var(--base) / 2);
+  width: calc(var(--base) * 3);
+  height: calc(var(--base) * 3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+  border-color: transparent;
+  margin-right: calc(var(--base) * 0.5);
+
+  svg {
+    width: var(--base);
+    height: var(--base);
+  }
+
+  &:hover {
+    border-color: #3C3C3C;
+  }
+
+  &.disabled {
+    cursor: default;
+
+    &:hover {
+      border-color: transparent;
+    }
+  }
+
+  @include small-break {
+    width: calc(var(--base) * 2);
+    height: calc(var(--base) * 2);
+    margin-right: calc(var(--base) * 0.25);
+  }
+}
+
+.paginationButton {
+  all: unset;
+  cursor: pointer;
+  width: calc(var(--base) * 3);
+  height: calc(var(--base) * 3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+  border-color: transparent;
+  margin-right: calc(var(--base) * 0.5);
+
+  &:hover {
+    border-color: #3C3C3C;
+  }
+
+  @include small-break {
+    width: calc(var(--base) * 2);
+    height: calc(var(--base) * 2);
+    margin-right: calc(var(--base) * 0.25);
+  }
+}
+
+.paginationButtonActive {
+  border: 1px solid #3C3C3C;
+}
+
+.dash {
+  margin-right: calc(var(--base) * 0.5);
+}
+
+.disabled {
+  pointer-events: none;
 }
