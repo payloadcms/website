@@ -55,6 +55,7 @@ const topicOrder = [
   'TypeScript',
   'Plugins',
   'Integrations',
+  'Cloud',
 ]
 
 const headers = {
