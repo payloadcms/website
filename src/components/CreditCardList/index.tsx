@@ -83,40 +83,33 @@ const List: React.FC<CreditCardListType> = props => {
                   </div>
                 )}
               </div>
-              {(paymentMethods.length > 1 || (paymentMethods.length === 1 && !isDefault)) && (
-                // hide the menu if no items will appear in the list
-                // i.e. if there is only one card, we are preventing it's deletion
-                // but if it's not default, we still want to show the "make default" button
+              {paymentMethods.length > 1 && !isDefault && (
+                // hide the menu if it is the only card or the default card
+                // the user has to make another card the default before they can delete the current default
                 <DropdownMenu
                   menu={
                     <Fragment>
-                      {paymentMethods.length > 1 && (
-                        // do not allow the user to delete the last card
-                        // only show the delete button if there are multiple cards
-                        <button
-                          type="button"
-                          className={classes.deleteCard}
-                          disabled={paymentMethods.length === 1}
-                          onClick={() => {
-                            paymentMethodToDelete.current = paymentMethod
-                            openModal(modalSlug)
-                          }}
-                        >
-                          Delete
-                        </button>
-                      )}
-                      {!isDefault && (
-                        <button
-                          type="button"
-                          className={classes.makeDefault}
-                          onClick={() => {
-                            if (typeof setDefaultPaymentMethod === 'function')
-                              setDefaultPaymentMethod(paymentMethod.id)
-                          }}
-                        >
-                          Make default
-                        </button>
-                      )}
+                      <button
+                        type="button"
+                        className={classes.deleteCard}
+                        disabled={paymentMethods.length === 1}
+                        onClick={() => {
+                          paymentMethodToDelete.current = paymentMethod
+                          openModal(modalSlug)
+                        }}
+                      >
+                        Delete
+                      </button>
+                      <button
+                        type="button"
+                        className={classes.makeDefault}
+                        onClick={() => {
+                          if (typeof setDefaultPaymentMethod === 'function')
+                            setDefaultPaymentMethod(paymentMethod.id)
+                        }}
+                      >
+                        Make default
+                      </button>
                     </Fragment>
                   }
                   className={classes.tooltipButton}
