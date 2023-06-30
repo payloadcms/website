@@ -68,8 +68,8 @@ export const GithubDiscussionPage: React.FC<DiscussionProps> = props => {
           <Cell cols={10} colsL={9} className={classes.post}>
             <DiscordGitIntro
               postName={title}
-              author={author.name}
-              image={author.avatar ? author.avatar : '/images/avatars/default.png'}
+              author={author?.name}
+              image={author?.avatar ? author?.avatar : '/images/avatars/default.png'}
               date={createdAt}
               messageCount={commentTotal}
               upvotes={upvotes}
