@@ -52,6 +52,7 @@ export const AlgoliaPagination: React.FC<{
               className={classes.paginationButton}
               onClick={() => {
                 refine(0)
+                window.scrollTo({ top: 0, behavior: 'smooth' })
               }}
             >
               1
@@ -76,6 +77,7 @@ export const AlgoliaPagination: React.FC<{
                       .join(' ')}
                     onClick={() => {
                       refine(page)
+                      window.scrollTo({ top: 0, behavior: 'smooth' })
                     }}
                   >
                     {page + 1}
@@ -91,6 +93,7 @@ export const AlgoliaPagination: React.FC<{
               className={classes.paginationButton}
               onClick={() => {
                 refine(nbPages - 1)
+                window.scrollTo({ top: 0, behavior: 'smooth' })
               }}
             >
               {nbPages}
@@ -105,6 +108,7 @@ export const AlgoliaPagination: React.FC<{
           .join(' ')}
         onClick={() => {
           refine(currentRefinement - 1)
+          window.scrollTo({ top: 0, behavior: 'smooth' })
         }}
         disabled={currentRefinement === 0}
       >
@@ -118,6 +122,7 @@ export const AlgoliaPagination: React.FC<{
             .join(' ')}
           onClick={() => {
             refine(currentRefinement + 1)
+            window.scrollTo({ top: 0, behavior: 'smooth' })
           }}
           disabled={currentRefinement >= nbPages - 1}
         >
