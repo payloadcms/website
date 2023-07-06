@@ -13,13 +13,13 @@ export const CommitIcon: React.FC<Props> = ({ className }) => {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      stroke-width="1"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
     >
-      <path d="M4.75 12.75H8.25" />
-      <circle cx="12.25" cy="12.75" r="3.5" />
-      <path d="M16.25 12.75H19.75" />
+      <circle cx="12" cy="12" r="4"></circle>
+      <line x1="1.05" y1="12" x2="7" y2="12"></line>
+      <line x1="17.01" y1="12" x2="22.96" y2="12"></line>
     </svg>
   )
 }

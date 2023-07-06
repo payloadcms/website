@@ -78,10 +78,6 @@ const DashboardHeader = () => {
         crumbLabel: project?.slug,
         href: `/${team?.slug}/${project?.slug}`,
       },
-      deployments: {
-        tabLabel: 'Deployments',
-        href: `/${team?.slug}/${project?.slug}/deployments`,
-      },
       database: {
         tabLabel: 'Database',
         href: `/${team?.slug}/${project?.slug}/database`,
