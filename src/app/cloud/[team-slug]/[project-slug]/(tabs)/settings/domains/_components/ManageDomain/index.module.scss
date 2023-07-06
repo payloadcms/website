@@ -47,8 +47,11 @@
   }
 
   th {
+    @include label;
     font-weight: normal;
+    font-family: var(--font-mono);
     text-align: left;
+    padding: calc(var(--base) * .25 ) calc(var(--base) * .5 );
   }
 
   td {
