@@ -96,6 +96,7 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
               path={domainValueFieldPath}
               initialValue={domainURL}
               validate={validateDomain}
+              readOnly
             />
 
             <p>Add the following record to your DNS provider:</p>
