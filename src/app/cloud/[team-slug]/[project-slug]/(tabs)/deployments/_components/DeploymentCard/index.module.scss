@@ -1,0 +1,153 @@
+@use '@scss/common' as *;
+
+.deploymentCard {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: calc(var(--base) * .75) calc(var(--base) * 2);
+  gap: calc(var(--base) * 2.5);
+  border-radius: calc(var(--base) * .5);
+  color: var(--theme-elevation-800);
+
+  &:nth-child(odd) {
+    &:global([data-theme="light"]) {
+      background-color: rgba(221, 221, 221, 0.5);
+    }
+    background-color: rgba(34, 34, 34, 0.5);
+  }
+
+  &:hover {
+    background-color: var(--theme-elevation-150);
+    color: var(--theme-elevation-1000);
+  }
+
+  @include mid-break {
+    flex-wrap: wrap;
+    padding: calc(var(--base) * 1.25) calc(var(--base) * .75);
+    gap: calc(var(--base) * .875);
+    justify-content: space-between;
+  }
+}
+
+.deploymentCard__date {
+  display: inline;
+  font-size: 18px;
+  @include mid-break {
+    width: 100%;
+  }
+}
+
+.deploymentCard__commit {
+  display: flex;
+  align-items: center;
+  gap: var(--base);
+  font-family: var(--font-mono);
+  flex-grow: 1;
+  @include small;
+
+  @include mid-break {
+    flex-wrap: wrap;
+    width: 100%;
+    gap: calc(var(--base) * .5);
+  }
+}
+.deploymentCard__branch, .deploymentCard__hash {
+  display: flex;
+  gap: calc(var(--base) * .25);
+  align-items: center;
+  justify-content: center;
+}
+
+.deploymentCard__message {
+  color: var(--theme-elevation-500);
+  @include mid-break {
+    width: 100%;
+  }
+}
+
+.deploymentCard__status {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * .375);
+  padding: 0 calc(var(--base) * .5);
+  border-radius: calc(var(--base) * .25);
+  height: min-content;
+  color: var(--theme-text);
+
+  svg {
+    width: calc(var(--base) * 1.5);
+    height: calc(var(--base) * 1.5);
+  }
+
+  &.success {
+    background-color: var(--theme-success-150);
+
+    div {
+      background-color: var(--theme-success-500);
+      display: block;
+      width: calc(var(--base) * .375);
+      height: calc(var(--base) * .375);
+      border-radius: calc(var(--base) * .1875);
+    }
+  }
+
+  &.inProgress {
+    background-color: var(--theme-warning-150);
+
+    div {
+      background-color: var(--theme-warning-500);
+      display: block;
+      width: calc(var(--base) * .375);
+      height: calc(var(--base) * .375);
+      border-radius: calc(var(--base) * .1875);
+    }
+  }
+
+  &.cancelled {
+    background-color: var(--theme-elevation-250);
+
+    div {
+      background-color: var(--theme-elevation-500);
+      display: block;
+      width: calc(var(--base) * .375);
+      height: calc(var(--base) * .375);
+      border-radius: calc(var(--base) * .1875);
+    }
+  }
+
+  &.failed {
+    background-color: var(--theme-error-150);
+
+    div {
+      background-color: var(--theme-error-500);
+      display: block;
+      width: calc(var(--base) * .375);
+      height: calc(var(--base) * .375);
+      border-radius: calc(var(--base) * .1875);
+    }
+  }
+}
+
+.deploymentCard__viewLogs {
+  align-items: center;
+  height: min-content;
+  color: var(--theme-text);
+  display: flex;
+  gap: calc(var(--base) * .75);
+  font-size: var(--body-font-size);
+  text-decoration: none;
+  text-decoration-thickness: 1px;
+  color: var(--theme-elevation-500);
+
+  svg {
+    width: calc(var(--base) * .75);
+    height: calc(var(--base) * .75);
+  }
+
+  &:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    color: var(--theme-elevation-1000);
+  }
+}
