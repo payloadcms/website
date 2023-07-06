@@ -108,28 +108,6 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
     [projectID, reloadProject],
   )
 
-  const updateEmailDomain = useCallback(
-    async ({ data }) => {
-      const newEmailDomainValue = data[domainValueFieldPath]
-
-      if (typeof newEmailDomainValue === 'string' && id) {
-        const updatedDomains = (projectEmailDomains || []).map(existingDomain => {
-          if (existingDomain.id === id) {
-            return {
-              ...existingDomain,
-              domain: newEmailDomainValue,
-            }
-          }
-
-          return existingDomain
-        })
-
-        await patchEmailDomains(updatedDomains)
-      }
-    },
-    [id, projectEmailDomains, patchEmailDomains],
-  )
-
   const verifyEmailDomain = useCallback(
     async (domainId: string) => {
       try {
@@ -206,92 +184,87 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
             </div>
           }
         >
-          <Form onSubmit={updateEmailDomain}>
-            <div className={classes.domainContent}>
-              <div className={classes.domainInfo}>
-                {!emailDomain.resendDomainID && (
-                  <Text
-                    required
-                    label="Domain"
-                    className={classes.domainInput}
-                    path={domainValueFieldPath}
-                    initialValue={domainURL}
-                    validate={validateDomain}
-                    readOnly={Boolean(emailDomain.resendDomainID)}
-                  />
-                )}
-                {(emailDomain.resendAPIKey && typeof emailDomain.resendDomainID === 'string') ?? (
-                  <Secret
-                    label="Resend API Key"
-                    loadSecret={() =>
-                      loadCustomDomainEmailAPIKey(
-                        typeof emailDomain.resendDomainID === 'string'
-                          ? emailDomain.resendDomainID
-                          : '',
-                      )
-                    }
-                    readOnly
-                  />
-                )}
-                {emailDomain.resendDomainID && verificationStatus !== 'verified' && (
-                  <p>
-                    To use your custom domain, add the following records to your DNS provider. Once
-                    added, click verify to confirm your domain settings with Resend.
-                  </p>
-                )}
-              </div>
-              <table className={classes.records}>
-                <thead>
-                  <tr>
-                    <th className={classes.recordType}>Type</th>
-                    <th className={classes.recordName}>Host/Selector</th>
-                    <th className={classes.recordContent}>Value</th>
-                    <th className={classes.recordPriority}>Priority</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {customDomainResendDNSRecords &&
-                    customDomainResendDNSRecords.map(
-                      ({ name, type, value, priority }, index: number) => (
-                        <tr key={index}>
-                          <td className={classes.recordType}>
-                            <span>{type}</span>
-                          </td>
-                          <td className={classes.recordName}>
-                            <CopyToClipboard value={name} />
-                            <span>{name}</span>
-                          </td>
-                          <td className={classes.recordContent}>
-                            <CopyToClipboard value={value} />
-                            <span>{value}</span>
-                          </td>
-                          {priority && (
-                            <td className={classes.recordPriority}>
-                              <span>{priority}</span>
-                            </td>
-                          )}
-                        </tr>
-                      ),
-                    )}
-                </tbody>
-              </table>
-            </div>
-            <div className={classes.domainActions}>
-              <div className={classes.leftActions}>
-                <Button
-                  label={formatVerificationStatus(verificationStatus)}
-                  appearance={verificationStatusColor(verificationStatus)}
-                  onClick={() => verifyEmailDomain(emailDomain.resendDomainID as string)}
+          <div className={classes.domainContent}>
+            <div className={classes.domainInfo}>
+              {!emailDomain.resendDomainID && (
+                <Text
+                  required
+                  label="Domain"
+                  className={classes.domainInput}
+                  path={domainValueFieldPath}
+                  initialValue={domainURL}
+                  validate={validateDomain}
+                  readOnly={true}
                 />
-              </div>
-              <div className={classes.rightActions}>
-                <Button label="delete" appearance="danger" onClick={() => openModal(modalSlug)} />
-                {!Boolean(emailDomain.resendDomainID) && (
-                  <Submit label="save" appearance="secondary" icon={false} />
-                )}
-              </div>
+              )}
+              {(emailDomain.resendAPIKey && typeof emailDomain.resendDomainID === 'string') ?? (
+                <Secret
+                  label="Resend API Key"
+                  loadSecret={() =>
+                    loadCustomDomainEmailAPIKey(
+                      typeof emailDomain.resendDomainID === 'string'
+                        ? emailDomain.resendDomainID
+                        : '',
+                    )
+                  }
+                  readOnly
+                />
+              )}
+              {emailDomain.resendDomainID && verificationStatus !== 'verified' && (
+                <p>
+                  To use your custom domain, add the following records to your DNS provider. Once
+                  added, click verify to confirm your domain settings with Resend.
+                </p>
+              )}
             </div>
-          </Form>
+            <table className={classes.records}>
+              <thead>
+                <tr>
+                  <th className={classes.recordType}>Type</th>
+                  <th className={classes.recordName}>Host/Selector</th>
+                  <th className={classes.recordContent}>Value</th>
+                  <th className={classes.recordPriority}>Priority</th>
+                </tr>
+              </thead>
+              <tbody>
+                {customDomainResendDNSRecords &&
+                  customDomainResendDNSRecords.map(
+                    ({ name, type, value, priority }, index: number) => (
+                      <tr key={index}>
+                        <td className={classes.recordType}>
+                          <span>{type}</span>
+                        </td>
+                        <td className={classes.recordName}>
+                          <CopyToClipboard value={name} />
+                          <span>{name}</span>
+                        </td>
+                        <td className={classes.recordContent}>
+                          <CopyToClipboard value={value} />
+                          <span>{value}</span>
+                        </td>
+                        {priority && (
+                          <td className={classes.recordPriority}>
+                            <span>{priority}</span>
+                          </td>
+                        )}
+                      </tr>
+                    ),
+                  )}
+              </tbody>
+            </table>
+          </div>
+          <div className={classes.domainActions}>
+            <div className={classes.leftActions}>
+              <Button
+                label={formatVerificationStatus(verificationStatus)}
+                appearance={verificationStatusColor(verificationStatus)}
+                onClick={() => verifyEmailDomain(emailDomain.resendDomainID as string)}
+              />
+            </div>
+            <div className={classes.rightActions}>
+              <Button label="delete" appearance="danger" onClick={() => openModal(modalSlug)} />
+            </div>
+          </div>
         </Accordion>
       </Collapsible>
 
