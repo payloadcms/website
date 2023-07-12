@@ -8,6 +8,7 @@ import { MDXRemote } from 'next-mdx-remote'
 import { Button } from '@components/Button'
 import { JumplistProvider } from '@components/Jumplist'
 import components from '@components/MDX/components'
+import { RelatedDiscordGitList } from '@components/RelatedDiscordGitList'
 import TableOfContents from '@components/TableOfContents'
 import slugify from '@root/utilities/slugify'
 import { Doc, NextDoc } from '../../types'
@@ -51,6 +52,7 @@ export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
           <div className={classes.mdx}>
             <MDXRemote {...content} components={components} />
           </div>
+          <RelatedDiscordGitList />
           {next && (
             <Link
               className={classes.next}
