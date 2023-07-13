@@ -98,32 +98,36 @@ const fetchDocs = async () => {
 
       const parsedDocs = await Promise.all(
         docSlugs.map(async docFilename => {
-          // const json = await fetch(`${githubAPI}/contents/docs/${topicSlug}/${docFilename}`, {
-          //   headers,
-          // }).then(res => res.json())
-          const rawDoc = fs.readFileSync(
-            `${docsDirectory}/${topicSlug.toLowerCase()}/${docFilename}`,
-            'utf8',
-          )
+          try {
+            // const json = await fetch(`${githubAPI}/contents/docs/${topicSlug}/${docFilename}`, {
+            //   headers,
+            // }).then(res => res.json())
+            const rawDoc = fs.readFileSync(
+              `${docsDirectory}/${topicSlug.toLowerCase()}/${docFilename}`,
+              'utf8',
+            )
 
-          const parsedDoc = matter(rawDoc)
+            const parsedDoc = matter(rawDoc)
 
-          const doc = {
-            content: await serialize(parsedDoc.content, {
-              mdxOptions: {
-                remarkPlugins: [remarkGfm],
-              },
-            }),
-            title: parsedDoc.data.title,
-            slug: docFilename.replace('.mdx', ''),
-            label: parsedDoc.data.label,
-            order: parsedDoc.data.order,
-            desc: parsedDoc.data.desc || '',
-            keywords: parsedDoc.data.keywords || '',
-            headings: await getHeadings(parsedDoc.content),
+            const doc = {
+              content: await serialize(parsedDoc.content, {
+                mdxOptions: {
+                  remarkPlugins: [remarkGfm],
+                },
+              }),
+              title: parsedDoc.data.title,
+              slug: docFilename.replace('.mdx', ''),
+              label: parsedDoc.data.label,
+              order: parsedDoc.data.order,
+              desc: parsedDoc.data.desc || '',
+              keywords: parsedDoc.data.keywords || '',
+              headings: await getHeadings(parsedDoc.content),
+            }
+
+            return doc
+          } catch (error) {
+            console.error(error) // eslint-disable-line no-console
           }
-
-          return doc
         }),
       )
 
