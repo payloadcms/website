@@ -2,7 +2,7 @@ export const priceFromJSON = (priceJSON = '{}', showFree = true): string => {
   let price = ''
 
   try {
-    const parsed = JSON.parse(priceJSON)?.data?.[0]
+    const parsed = JSON.parse(priceJSON)
 
     const priceValue = parsed?.unit_amount
     const priceType = parsed?.type
