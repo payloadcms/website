@@ -126,7 +126,8 @@ const fetchDocs = async () => {
 
             return doc
           } catch (error) {
-            console.error(error) // eslint-disable-line no-console
+            const msg = err instanceof Error ? err.message : err || 'Unknown error'
+            console.error(`Error fetching ${docFilename}: ${msg}`) // eslint-disable-line no-console
           }
         }),
       )
