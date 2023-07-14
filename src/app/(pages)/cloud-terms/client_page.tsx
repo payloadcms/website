@@ -71,7 +71,7 @@ export const TermsClientPage: React.FC = () => {
             </li>
             <li>
               You must not access the Payload website through automated methods, including any use
-              of robots or other computer code which calls Payoad’s website.
+              of robots or other computer code which calls Payload’s website.
             </li>
             <li>
               You shall not send unsolicited messages or use the Services to send unsolicited
@@ -84,7 +84,7 @@ export const TermsClientPage: React.FC = () => {
             </li>
             <li>
               You must not interfere with or disrupt the Services or create an undue burden on
-              Payoad’s website or the networks or services connected to Payload’s website.
+              Payload’s website or the networks or services connected to Payload’s website.
             </li>
             <li>
               You must not perform any benchmark tests or analyses relating to Payload’s website or
