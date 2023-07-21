@@ -66,7 +66,6 @@ export const RenderBlogPost: React.FC<Post> = props => {
         </Grid>
       </Gutter>
       <RenderBlocks blocks={content} />
-      <div>Related Posts</div>
     </React.Fragment>
   )
 }
