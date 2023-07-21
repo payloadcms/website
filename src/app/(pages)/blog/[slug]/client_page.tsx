@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { CalendarIcon } from '@graphics/CalendarIcon'
 import { formatDate } from '@utilities/format-date-time'
@@ -8,15 +8,15 @@ import { formatDate } from '@utilities/format-date-time'
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Post } from '@root/payload-types'
 import { Gutter } from '../../../../components/Gutter'
-import { Label } from '../../../../components/Label'
 import { Media } from '../../../../components/Media'
 import { RenderBlocks } from '../../../../components/RenderBlocks'
 import { RichText } from '../../../../components/RichText'
+import { AuthorsList } from './AuthorsList'
 
 import classes from './index.module.scss'
 
 export const RenderBlogPost: React.FC<Post> = props => {
-  const { title, authors, publishedOn, image, excerpt, content } = props
+  const { title, publishedOn, image, excerpt, content } = props
 
   return (
     <React.Fragment>
@@ -45,24 +45,7 @@ export const RenderBlogPost: React.FC<Post> = props => {
             startS={1}
             colsS={8}
           >
-            {authors && authors?.length > 0 && (
-              <div className={classes.authorSlot}>
-                {authors?.map((author, index) => (
-                  <Fragment key={index}>
-                    {author && typeof author !== 'string' && (
-                      <div className={classes.author}>
-                        <Label>
-                          {`${author?.firstName || 'Unknown'} ${author?.lastName || 'Author'}`}
-                        </Label>
-                        {typeof author?.photo !== 'string' && (
-                          <Media className={classes.authorImage} resource={author?.photo} />
-                        )}
-                      </div>
-                    )}
-                  </Fragment>
-                ))}
-              </div>
-            )}
+            <AuthorsList authors={props.authors} />
             {publishedOn && (
               <div className={classes.dateSlot}>
                 <time dateTime={publishedOn}>{formatDate({ date: publishedOn })}</time>

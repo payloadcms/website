@@ -39,6 +39,7 @@ export const AUTHOR_FIELDS = `{
   firstName
   lastName
   email
+  twitter
   photo {
     alt
     url
