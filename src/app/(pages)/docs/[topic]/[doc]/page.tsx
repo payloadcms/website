@@ -50,6 +50,7 @@ type Param = {
   topic: string
   doc: string
 }
+
 export async function generateStaticParams() {
   const topics = await getTopics()
 
