@@ -1,0 +1,6 @@
+@use '@scss/common' as *;
+
+.title {
+  margin: 0;
+  margin-bottom: calc(var(--base) * 2);
+}

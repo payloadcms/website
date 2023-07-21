@@ -18,6 +18,7 @@ import { LinkGrid } from '@blocks/LinkGrid'
 import { MediaBlock } from '@blocks/MediaBlock'
 import { MediaContent } from '@blocks/MediaContent'
 import { Pricing } from '@blocks/Pricing'
+import { RelatedPosts, RelatedPostsBlock } from '@blocks/RelatedPosts'
 import { ReusableContentBlock } from '@blocks/ReusableContent'
 import { Slider } from '@blocks/Slider'
 import { Steps } from '@blocks/Steps'
@@ -51,10 +52,11 @@ const blockComponents = {
   linkGrid: LinkGrid,
   reusableContentBlock: ReusableContentBlock,
   pricing: Pricing,
+  relatedPosts: RelatedPosts,
 }
 
 type Props = {
-  blocks: (ReusableContent['layout'][0] | ReusableContentBlockType)[]
+  blocks: (ReusableContent['layout'][0] | ReusableContentBlockType | RelatedPostsBlock)[]
   disableOuterSpacing?: true
 }
 

@@ -13,9 +13,10 @@ export interface SquareCardProps extends SharedProps {
   link?: CMSLinkType
 }
 
-export interface BlogCardProps extends SharedProps {
+export interface ContentMediaCardProps extends SharedProps {
   media: Media | string
   href: string
+  orientation?: 'horizontal' | 'vertical'
 }
 
 export interface PricingCardProps extends SharedProps {
