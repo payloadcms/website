@@ -43,18 +43,23 @@
 
 .authorSlot {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   padding: var(--base) 0;
   border-top: 1px solid var(--theme-text);
+
+  @include mid-break {
+    padding: calc(var(--base) * .5) 0;
+  }
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   p {
     margin: 0;
     line-height: 1;
-  }
-
-  @include mid-break {
-    padding: calc(var(--base) * .5) 0;
   }
 }
 

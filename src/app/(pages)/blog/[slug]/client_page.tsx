@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { CalendarIcon } from '@graphics/CalendarIcon'
 import { formatDate } from '@utilities/format-date-time'
@@ -16,7 +16,7 @@ import { RichText } from '../../../../components/RichText'
 import classes from './index.module.scss'
 
 export const RenderBlogPost: React.FC<Post> = props => {
-  const { title, author, publishedOn, image, excerpt, content } = props
+  const { title, authors, publishedOn, image, excerpt, content } = props
 
   return (
     <React.Fragment>
@@ -29,13 +29,11 @@ export const RenderBlogPost: React.FC<Post> = props => {
           ]}
         />
       </Gutter>
-
       <Gutter className={classes.blogHeader}>
         <Grid>
           <Cell start={1} cols={9} colsL={8} colsM={5} colsS={12}>
             <h1 className={classes.title}>{title}</h1>
           </Cell>
-
           <Cell
             className={classes.authorTimeSlots}
             start={10}
@@ -47,16 +45,24 @@ export const RenderBlogPost: React.FC<Post> = props => {
             startS={1}
             colsS={8}
           >
-            {author && typeof author !== 'string' && (
+            {authors && authors?.length > 0 && (
               <div className={classes.authorSlot}>
-                <Label>{`${author?.firstName || 'Unknown'} ${author?.lastName || 'Author'}`}</Label>
-
-                {typeof author?.photo !== 'string' && (
-                  <Media className={classes.authorImage} resource={author?.photo} />
-                )}
+                {authors?.map((author, index) => (
+                  <Fragment key={index}>
+                    {author && typeof author !== 'string' && (
+                      <div className={classes.author}>
+                        <Label>
+                          {`${author?.firstName || 'Unknown'} ${author?.lastName || 'Author'}`}
+                        </Label>
+                        {typeof author?.photo !== 'string' && (
+                          <Media className={classes.authorImage} resource={author?.photo} />
+                        )}
+                      </div>
+                    )}
+                  </Fragment>
+                ))}
               </div>
             )}
-
             {publishedOn && (
               <div className={classes.dateSlot}>
                 <time dateTime={publishedOn}>{formatDate({ date: publishedOn })}</time>
@@ -66,11 +72,9 @@ export const RenderBlogPost: React.FC<Post> = props => {
           </Cell>
         </Grid>
       </Gutter>
-
       <div className={classes.mediaGutter}>
         {typeof image !== 'string' && <Media resource={image} priority />}
       </div>
-
       <Gutter>
         <Grid>
           <Cell start={2} cols={10} startM={1} colsM={8} startL={2} colsL={10}>
@@ -78,8 +82,8 @@ export const RenderBlogPost: React.FC<Post> = props => {
           </Cell>
         </Grid>
       </Gutter>
-
       <RenderBlocks blocks={content} />
+      <div>Related Posts</div>
     </React.Fragment>
   )
 }
