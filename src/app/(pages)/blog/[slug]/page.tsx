@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { fetchBlogPost, fetchPosts } from '../../../../graphql'
-import { RenderBlogPost } from './client_page'
+import { BlogPost } from './BlogPost'
 
 const Post = async ({ params }) => {
   const { slug } = params
@@ -12,7 +12,7 @@ const Post = async ({ params }) => {
 
   if (!blogPost) return notFound()
 
-  return <RenderBlogPost {...blogPost} />
+  return <BlogPost {...blogPost} />
 }
 
 export default Post

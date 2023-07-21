@@ -70,6 +70,12 @@ export const POST = `
           ${REUSABLE_CONTENT_BLOCK}
         }
         meta ${META_FIELDS}
+        relatedPosts {
+          title
+          slug
+          image ${MEDIA_FIELDS}
+          meta ${META_FIELDS}
+        }
       }
     }
   }

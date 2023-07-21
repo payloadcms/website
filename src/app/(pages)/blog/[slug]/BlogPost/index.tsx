@@ -7,16 +7,20 @@ import { formatDate } from '@utilities/format-date-time'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Post } from '@root/payload-types'
-import { Gutter } from '../../../../components/Gutter'
-import { Media } from '../../../../components/Media'
-import { RenderBlocks } from '../../../../components/RenderBlocks'
-import { RichText } from '../../../../components/RichText'
-import { AuthorsList } from './AuthorsList'
+import { Gutter } from '../../../../../components/Gutter'
+import { Media } from '../../../../../components/Media'
+import { RenderBlocks } from '../../../../../components/RenderBlocks'
+import { RichText } from '../../../../../components/RichText'
+import { AuthorsList } from '../AuthorsList'
 
 import classes from './index.module.scss'
 
-export const RenderBlogPost: React.FC<Post> = props => {
-  const { title, publishedOn, image, excerpt, content } = props
+export const BlogPost: React.FC<
+  Post & {
+    relatedPosts?: Post[]
+  }
+> = props => {
+  const { title, publishedOn, image, excerpt, content, relatedPosts } = props
 
   return (
     <React.Fragment>
@@ -65,9 +69,16 @@ export const RenderBlogPost: React.FC<Post> = props => {
           </Cell>
         </Grid>
       </Gutter>
-      <RenderBlocks blocks={content} />
+      <RenderBlocks
+        blocks={[
+          ...(content || []),
+          {
+            blockType: 'relatedPosts',
+            blockName: 'Related Posts',
+            relatedPosts: relatedPosts || [],
+          },
+        ]}
+      />
     </React.Fragment>
   )
 }
-
-export default RenderBlogPost
