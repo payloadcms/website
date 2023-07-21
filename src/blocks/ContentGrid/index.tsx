@@ -26,7 +26,7 @@ const Cells: React.FC<CellsProps> = ({
       {useLeadingHeader && <RichText className={classes.leadingHeader} content={leadingHeader} />}
 
       <Grid>
-        {cells.map((cell, i) => {
+        {cells?.map((cell, i) => {
           return (
             <Cell className={classes.cell} cols={4} colsS={8} key={i}>
               <RichText className={classes.richText} content={cell.content} />

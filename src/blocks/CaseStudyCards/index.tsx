@@ -15,7 +15,7 @@ type Props = Extract<Page['layout'][0], { blockType: 'caseStudyCards' }>
 export const CaseStudyCards: React.FC<Props> = props => {
   const { caseStudyCardFields } = props
 
-  if (caseStudyCardFields.cards.length > 0) {
+  if (caseStudyCardFields?.cards && caseStudyCardFields?.cards?.length > 0) {
     return (
       <BlockSpacing className={classes.caseStudyCards}>
         <Gutter>
