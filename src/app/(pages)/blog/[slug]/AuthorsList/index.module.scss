@@ -1,0 +1,53 @@
+@use '@scss/common' as *;
+
+.authorSlot {
+  display: flex;
+  flex-direction: column;
+  padding: var(--base) 0;
+  border-top: 1px solid var(--theme-text);
+  gap: calc(var(--base) * .25);
+
+  @include mid-break {
+    padding: calc(var(--base) * .5) 0;
+  }
+}
+
+.authorLink {
+  text-decoration: none;
+
+  &:focus {
+    outline: none;
+    text-decoration: underline;
+  }
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  p {
+    margin: 0;
+    line-height: 1;
+  }
+}
+
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.twitter {
+  @include small;
+  color: var(--theme-elevation-500);
+}
+
+.authorImage {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  overflow: hidden;
+  margin-left: var(--base);
+  flex-shrink: 0;
+}

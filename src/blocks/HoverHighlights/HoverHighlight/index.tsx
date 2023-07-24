@@ -13,8 +13,13 @@ import classes from './index.module.scss'
 
 type HoverHighlightProps = Extract<Page['layout'][0], { blockType: 'hoverHighlights' }>
 
+type Highlight = Exclude<
+  HoverHighlightProps['hoverHighlightsFields']['highlights'],
+  undefined
+>[number]
+
 export const HoverHighlight: React.FC<
-  HoverHighlightProps['hoverHighlightsFields']['highlights'][0] & {
+  Highlight & {
     index: number
     addRowNumbers?: boolean
     isLast?: boolean

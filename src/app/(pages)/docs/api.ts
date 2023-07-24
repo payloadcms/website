@@ -5,16 +5,16 @@ export async function getTopics(): Promise<Topic[]> {
   return content.map(topic => ({
     slug: topic.slug,
     docs: topic.docs.map(doc => ({
-      title: doc.title,
-      label: doc.label,
-      slug: doc.slug,
-      order: doc.order,
+      title: doc?.title || '',
+      label: doc?.label || '',
+      slug: doc?.slug || '',
+      order: doc?.order || 0,
     })),
   }))
 }
 
 export async function getDoc({ topic: topicSlug, doc: docSlug }: DocPath): Promise<Doc | null> {
   const matchedTopic = content.find(topic => topic.slug.toLowerCase() === topicSlug)
-  const matchedDoc = matchedTopic?.docs?.find(doc => doc.slug === docSlug) || null
+  const matchedDoc = matchedTopic?.docs?.find(doc => doc?.slug === docSlug) || null
   return matchedDoc
 }

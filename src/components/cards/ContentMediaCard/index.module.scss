@@ -1,7 +1,9 @@
 @use '@scss/common' as *;
 
 .blogCard {
-  margin-bottom: calc(var(--base) * 2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
 }
 
 .title {
@@ -16,6 +18,7 @@
     @include h3;
   }
 
+  margin: 0 !important;
   text-decoration: none;
 
   &:hover {
@@ -25,4 +28,36 @@
 
 .media {
   @include shadow-lg;
+}
+
+.mediaLink {
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) / 2);
+}
+
+.horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: calc(var(--base) * 2);
+
+  &:local() {
+    .mediaLink {
+      width: 33.33%;
+    }
+  }
+
+  @include small-break {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--base);
+  }
 }
