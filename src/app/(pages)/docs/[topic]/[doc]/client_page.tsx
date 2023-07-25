@@ -10,6 +10,7 @@ import { JumplistProvider } from '@components/Jumplist'
 import components from '@components/MDX/components'
 import { RelatedHelpList } from '@components/RelatedHelpList'
 import TableOfContents from '@components/TableOfContents'
+import { CommunityHelp } from '@root/payload-types'
 import slugify from '@root/utilities/slugify'
 import { Doc, NextDoc } from '../../types'
 
@@ -18,11 +19,15 @@ import classes from './index.module.scss'
 type Props = {
   doc: Doc
   next?: NextDoc | null
+  relatedThreads?: CommunityHelp[]
 }
 
-export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
+export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads }) => {
   const { content, headings, title } = doc
   const [OS, setOS] = React.useState('⌘')
+
+  const hasRelatedThreads =
+    relatedThreads && Array.isArray(relatedThreads) && relatedThreads.length > 0
 
   React.useEffect(() => {
     const isMac =
@@ -52,7 +57,7 @@ export const RenderDoc: React.FC<Props> = ({ doc, next }) => {
           <div className={classes.mdx}>
             <MDXRemote {...content} components={components} />
           </div>
-          <RelatedHelpList />
+          {hasRelatedThreads && <RelatedHelpList relatedThreads={relatedThreads} />}
           {next && (
             <Link
               className={classes.next}

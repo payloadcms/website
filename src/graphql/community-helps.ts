@@ -24,3 +24,18 @@ export const COMMUNITY_HELP = `
     }
   }
 `
+
+export const HELPFUL_THREADS = `
+  query HelpfulThreads {
+    CommunityHelps(limit: 0, where: { helpful: { equals: true} }) {
+      docs {
+        title
+        communityHelpType
+        slug
+        relatedDocs {
+          title
+        }
+      }
+    }
+  }
+`

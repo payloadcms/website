@@ -1,6 +1,7 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
 
+import { fetchHelpfulThreads } from '@root/graphql'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { getDoc, getTopics } from '../../api'
 import { NextDoc } from '../../types'
@@ -10,6 +11,16 @@ const Doc = async ({ params }) => {
   const { topic, doc: docSlug } = params
   const doc = await getDoc({ topic, doc: docSlug })
   const topics = await getTopics()
+
+  const helpfulThreads = await fetchHelpfulThreads()
+
+  const relatedThreads = helpfulThreads.filter(
+    thread =>
+      Array.isArray(thread.relatedDocs) &&
+      thread.relatedDocs.some(relatedDoc => relatedDoc.title === doc?.title),
+  )
+
+  const limitedRelatedThreads = relatedThreads.slice(0, 5)
 
   const parentTopicIndex = topics.findIndex(
     ({ slug: topicSlug }) => topicSlug.toLowerCase() === topic,
@@ -41,7 +52,7 @@ const Doc = async ({ params }) => {
 
   if (!doc) notFound()
 
-  return <RenderDoc doc={doc} next={next} />
+  return <RenderDoc doc={doc} next={next} relatedThreads={limitedRelatedThreads} />
 }
 
 export default Doc
