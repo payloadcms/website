@@ -1,7 +1,9 @@
 'use client'
 
 import * as React from 'react'
+import { Checkbox } from '@forms/fields/Checkbox'
 import FormComponent from '@forms/Form'
+import Label from '@forms/Label'
 import Submit from '@forms/Submit'
 import { usePathname, useRouter } from 'next/navigation'
 
@@ -21,6 +23,7 @@ const RenderForm = ({ form }: { form: Form }) => {
     redirect: formRedirect,
     confirmationMessage,
     leader,
+    enableGDPR,
   } = form
 
   const [isLoading, setIsLoading] = React.useState(false)
@@ -33,6 +36,8 @@ const RenderForm = ({ form }: { form: Form }) => {
 
   const pathname = usePathname()
 
+  // const [isProductUpdatesChecked, setProductUpdatesChecked] = React.useState(false)
+
   const onSubmit = React.useCallback(
     ({ data }) => {
       let loadingTimerID: NodeJS.Timer
@@ -44,6 +49,17 @@ const RenderForm = ({ form }: { form: Form }) => {
           field: name,
           value,
         }))
+
+        // const dataToSend = [
+        //   ...Object.entries(data).map(([name, value]) => ({
+        //     field: name,
+        //     value,
+        //   })),
+        //   {
+        //     field: 'productUpdates',
+        //     value: isProductUpdatesChecked,
+        //   },
+        // ]
 
         // delay loading indicator by 1s
         loadingTimerID = setTimeout(() => {
@@ -150,6 +166,20 @@ const RenderForm = ({ form }: { form: Form }) => {
                 }
                 return null
               })}
+              {enableGDPR && (
+                <Width width={100}>
+                  <div className={classes.checkboxWrapper}>
+                    <Checkbox
+                      path="productUpdates"
+                      // onChange={isChecked => setProductUpdatesChecked(isChecked)}
+                    />
+                    <Label
+                      className={classes.label}
+                      label="Stay in the loop with periodic product updates from Payload. (You can unsubscribe at any time)"
+                    />
+                  </div>
+                </Width>
+              )}
             </div>
             <Submit processing={isLoading} label={submitButtonLabel} />
           </FormComponent>

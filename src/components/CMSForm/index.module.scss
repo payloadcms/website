@@ -58,3 +58,13 @@
     }
   }
 }
+
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  margin: 0 0 0 calc(var(--base) * 0.5);
+  align-self: unset;
+}
