@@ -364,12 +364,12 @@ const Checkout: React.FC<{
                 <Checkbox
                   path="agreeToTerms"
                   label={
-                    <div>
+                    <Fragment>
                       {'I agree to the '}
                       <Link href="/cloud-terms" target="_blank" prefetch={false}>
                         Terms of Service
                       </Link>
-                    </div>
+                    </Fragment>
                   }
                   required
                   className={classes.agreeToTerms}

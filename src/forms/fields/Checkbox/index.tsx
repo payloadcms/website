@@ -100,29 +100,31 @@ export const Checkbox: React.FC<
       <div className={classes.errorWrap}>
         <Error showError={showError} message={errorMessage} />
       </div>
-      <input
-        className={classes.htmlInput}
-        type="checkbox"
-        name={path}
-        id={path}
-        checked={Boolean(checked)}
-        readOnly
-        disabled={disabled}
-        tabIndex={-1}
-      />
-      <button
-        type="button"
-        className={classes.button}
-        onClick={() => {
-          if (!disabled) onChange(!checked)
-        }}
-        disabled={disabled}
-      >
-        <span className={classes.input}>
-          <CheckIcon className={classes.icon} size="medium" bold />
-        </span>
-        <Label className={classes.label} htmlFor={path} label={label} required={required} />
-      </button>
+      <div className={classes.inputWrapper}>
+        <input
+          className={classes.htmlInput}
+          type="checkbox"
+          name={path}
+          id={path}
+          checked={Boolean(checked)}
+          readOnly
+          disabled={disabled}
+          tabIndex={-1}
+        />
+        <button
+          type="button"
+          className={classes.button}
+          onClick={() => {
+            if (!disabled) onChange(!checked)
+          }}
+          disabled={disabled}
+        >
+          <span className={classes.input}>
+            <CheckIcon className={classes.icon} size="medium" bold />
+          </span>
+          <Label className={classes.label} htmlFor={path} label={label} required={required} />
+        </button>
+      </div>
     </div>
   )
 }

@@ -2,12 +2,10 @@
 
 import React, { useCallback, useState } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import { Checkbox } from '@forms/fields/Checkbox'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
 import FormSubmissionError from '@forms/FormSubmissionError'
-import Label from '@forms/Label'
 import Submit from '@forms/Submit'
 import { InitialState, OnSubmit } from '@forms/types'
 import Link from 'next/link'
@@ -42,12 +40,6 @@ const initialFormState: InitialState = {
     initialValue: undefined,
     errorMessage: 'Please confirm your password',
   },
-  // productUpdates: {
-  //   value: false,
-  //   valid: true,
-  //   initialValue: undefined,
-  //   errorMessage: '',
-  // },
 }
 
 export const Signup: React.FC = () => {
@@ -204,13 +196,6 @@ export const Signup: React.FC = () => {
             {typeof redirectParam === 'string' && (
               <Text path="redirect" type="hidden" value={redirectParam} />
             )}
-            {/* <div className={classes.checkboxWrapper}>
-              <Checkbox path="productUpdates" />
-              <Label
-                className={classes.label}
-                label="Stay in the loop with periodic product updates from Payload. (You can unsubscribe at any time)"
-              />
-            </div> */}
             <div>
               <Submit label="Signup" className={classes.submit} />
             </div>

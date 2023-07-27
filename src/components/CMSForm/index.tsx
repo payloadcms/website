@@ -2,20 +2,19 @@
 
 import * as React from 'react'
 import { Checkbox } from '@forms/fields/Checkbox'
-import FormComponent from '@forms/Form'
-import Label from '@forms/Label'
+import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { RichText } from '@components/RichText'
-import { Form } from '@root/payload-types'
+import { Form as FormType } from '@root/payload-types'
 import { getCookie } from '@root/utilities/get-cookie'
 import { fields } from './fields'
 import { Width } from './Width'
 
 import classes from './index.module.scss'
 
-const RenderForm = ({ form }: { form: Form }) => {
+const RenderForm = ({ form }: { form: FormType }) => {
   const {
     id: formID,
     submitButtonLabel,
@@ -36,7 +35,9 @@ const RenderForm = ({ form }: { form: Form }) => {
 
   const pathname = usePathname()
 
-  // const [isProductUpdatesChecked, setProductUpdatesChecked] = React.useState(false)
+  const [isStoredDataChecked, setStoredDataChecked] = React.useState(false)
+
+  const [isProductUpdatesChecked, setProductUpdatesChecked] = React.useState(false)
 
   const onSubmit = React.useCallback(
     ({ data }) => {
@@ -49,17 +50,6 @@ const RenderForm = ({ form }: { form: Form }) => {
           field: name,
           value,
         }))
-
-        // const dataToSend = [
-        //   ...Object.entries(data).map(([name, value]) => ({
-        //     field: name,
-        //     value,
-        //   })),
-        //   {
-        //     field: 'productUpdates',
-        //     value: isProductUpdatesChecked,
-        //   },
-        // ]
 
         // delay loading indicator by 1s
         loadingTimerID = setTimeout(() => {
@@ -83,6 +73,8 @@ const RenderForm = ({ form }: { form: Form }) => {
               hubspotCookie,
               pageUri,
               pageName,
+              isStoredDataChecked,
+              isProductUpdatesChecked,
             }),
           })
 
@@ -134,7 +126,15 @@ const RenderForm = ({ form }: { form: Form }) => {
 
       submitForm()
     },
-    [router, formID, formRedirect, confirmationType, pathname],
+    [
+      router,
+      formID,
+      formRedirect,
+      confirmationType,
+      pathname,
+      isStoredDataChecked,
+      isProductUpdatesChecked,
+    ],
   )
 
   if (!form?.id) return null
@@ -149,7 +149,7 @@ const RenderForm = ({ form }: { form: Form }) => {
       {!hasSubmitted && (
         <React.Fragment>
           {leader && <RichText className={classes.leader} content={leader} />}
-          <FormComponent onSubmit={onSubmit}>
+          <Form onSubmit={onSubmit}>
             <div className={classes.fieldWrap}>
               {form.fields?.map((field, index) => {
                 const Field: React.FC<any> = fields?.[field.blockType]
@@ -167,22 +167,26 @@ const RenderForm = ({ form }: { form: Form }) => {
                 return null
               })}
               {enableGDPR && (
-                <Width width={100}>
-                  <div className={classes.checkboxWrapper}>
+                <div className={classes.checkboxWrapper}>
+                  <Width width={100}>
                     <Checkbox
-                      path="productUpdates"
-                      // onChange={isChecked => setProductUpdatesChecked(isChecked)}
+                      path="agreeToStoreData"
+                      label="I agree to allow Payload to store and process my personal data."
+                      onChange={isChecked => setStoredDataChecked(isChecked)}
+                      required
                     />
-                    <Label
-                      className={classes.label}
-                      label="Stay in the loop with periodic product updates from Payload. (You can unsubscribe at any time)"
+                  </Width>
+                  <Width width={100}>
+                    <Checkbox
+                      label="Stay in the loop with periodic product & marketing updates from Payload. (You can unsubscribe at any time)"
+                      onChange={isChecked => setProductUpdatesChecked(isChecked)}
                     />
-                  </div>
-                </Width>
+                  </Width>
+                </div>
               )}
             </div>
             <Submit processing={isLoading} label={submitButtonLabel} />
-          </FormComponent>
+          </Form>
         </React.Fragment>
       )}
     </div>
@@ -190,7 +194,7 @@ const RenderForm = ({ form }: { form: Form }) => {
 }
 
 export const CMSForm: React.FC<{
-  form?: string | Form
+  form?: string | FormType
 }> = props => {
   const { form } = props
 
