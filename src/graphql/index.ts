@@ -11,7 +11,7 @@ import type {
 } from '../payload-types'
 import { ANNOUNCEMENT_FIELDS } from './announcement'
 import { CASE_STUDIES, CASE_STUDY } from './case-studies'
-import { COMMUNITY_HELP, COMMUNITY_HELPS, HELPFUL_THREADS } from './community-helps'
+import { COMMUNITY_HELP, COMMUNITY_HELPS, RELATED_THREADS } from './community-helps'
 import { GLOBALS } from './globals'
 import { PAGE, PAGES } from './pages'
 import { POST, POST_SLUGS, POSTS } from './posts'
@@ -295,7 +295,7 @@ export const fetchCommunityHelp = async (slug: string): Promise<CommunityHelp> =
   return data?.CommunityHelps?.docs[0]
 }
 
-export const fetchHelpfulThreads = async (): Promise<CommunityHelp[]> => {
+export const fetchRelatedThreads = async (): Promise<CommunityHelp[]> => {
   const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?communityHelps`, {
     method: 'POST',
     headers: {
@@ -303,7 +303,7 @@ export const fetchHelpfulThreads = async (): Promise<CommunityHelp[]> => {
     },
     next,
     body: JSON.stringify({
-      query: HELPFUL_THREADS,
+      query: RELATED_THREADS,
     }),
   }).then(res => res.json())
 

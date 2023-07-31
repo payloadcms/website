@@ -25,9 +25,9 @@ export const COMMUNITY_HELP = `
   }
 `
 
-export const HELPFUL_THREADS = `
+export const RELATED_THREADS = `
   query HelpfulThreads {
-    CommunityHelps(limit: 0, where: { helpful: { equals: true} }) {
+    CommunityHelps(limit: 0, where: { relatedDocs: { not_equals: null} }) {
       docs {
         title
         communityHelpType
