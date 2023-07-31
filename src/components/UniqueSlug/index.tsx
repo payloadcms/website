@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Text } from '@forms/fields/Text'
 
 import { Spinner } from '@root/app/_components/Spinner'
@@ -40,8 +40,12 @@ export const UniqueSlug: React.FC<{
 
   const debouncedSlug = useDebounce(state.slug, 100)
 
+  const slugRef = useRef(debouncedSlug)
+
   useEffect(() => {
     let timer: NodeJS.Timeout
+
+    slugRef.current = debouncedSlug
 
     if (!isRequesting.current && (validateOnInit || state.userInteracted)) {
       isRequesting.current = true
@@ -84,8 +88,10 @@ export const UniqueSlug: React.FC<{
             clearTimeout(timer)
 
             if (validityReq.ok) {
-              const newValidation: SlugValidationResult = await validityReq.json()
-              dispatchState({ type: 'RESET', payload: newValidation })
+              if (slugRef.current === debouncedSlug) {
+                const newValidation: SlugValidationResult = await validityReq.json()
+                dispatchState({ type: 'RESET', payload: newValidation })
+              }
             } else {
               const message =
                 validityReq.status === 400
