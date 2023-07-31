@@ -159,6 +159,7 @@ export const ImportProject: React.FC = () => {
                           label="Import"
                           appearance="primary"
                           className={classes.importButton}
+                          onClick={() => createDraftProject({ repo })}
                         />
                         <LineDraw align="bottom" active={isHovered} />
                       </div>
