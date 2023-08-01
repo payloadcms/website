@@ -5,13 +5,19 @@ export const getTeamTwitter = (teamMember?: string): string => {
     DanRibbens: 'DanielRibbens',
     dribbens: 'DanielRibbens',
     zubricks: 'SeanZubrickas',
+    seanzubrickas: 'SeanZubrickas',
     JarrodMFlesch: 'JarrodMFlesch',
-    Jarrod: 'JarrodMFlesch',
+    jarrod_not_jared: 'JarrodMFlesch',
     jacobsfletch: 'payloadcms',
     JessChowdhury: 'JessMarieChow',
     jesschow: 'JessMarieChow',
     PatrikKozak: 'PatKozak4',
     patrikkozak: 'PatKozak4',
+    alessiogr: 'AlessioGr',
+    AlessioGr: 'AlessioGr',
+    tylandavis: 'tylan___davis',
+    sarahwoj: 'sarah_wojc',
+    ncaminata: 'nate_caminata',
   }
 
   return twitterHandles?.[teamMember || '']
