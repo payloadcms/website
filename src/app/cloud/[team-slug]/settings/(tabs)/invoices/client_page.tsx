@@ -85,11 +85,7 @@ export const TeamInvoicesPage = () => {
                           >
                             {`${priceFromJSON(
                               JSON.stringify({
-                                data: [
-                                  {
-                                    unit_amount: total,
-                                  },
-                                ],
+                                unit_amount: total,
                               }),
                             )}`}
                           </Heading>

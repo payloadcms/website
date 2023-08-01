@@ -4,10 +4,8 @@ export const priceFromJSON = (priceJSON = '{}', showFree = true): string => {
   try {
     const parsed = JSON.parse(priceJSON)
 
-    const priceValue = parsed?.data[0].unit_amount
-    const priceType = parsed?.data[0].type
-    const interval = parsed?.data[0].recurring?.interval
-    const intervalCount = parsed?.data[0].recurring?.interval_count
+    const priceValue = parsed?.unit_amount
+    const priceType = parsed?.type
 
     if (priceValue === undefined && !showFree) {
       return price
@@ -19,9 +17,10 @@ export const priceFromJSON = (priceJSON = '{}', showFree = true): string => {
     })
 
     if (priceType === 'recurring') {
-      price += ` per ${
-        intervalCount === 1 ? interval : `${intervalCount} ${interval}s`
-      }`
+      price += ` per ${parsed.recurring.interval_count > 1
+          ? `${parsed.recurring.interval_count} ${parsed.recurring.interval}`
+          : parsed.recurring.interval
+        }`
     }
   } catch (e: unknown) {
     console.error(`Cannot parse priceJSON`) // eslint-disable-line no-console
