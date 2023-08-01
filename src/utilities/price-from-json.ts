@@ -17,10 +17,11 @@ export const priceFromJSON = (priceJSON = '{}', showFree = true): string => {
     })
 
     if (priceType === 'recurring') {
-      price += ` per ${parsed.recurring.interval_count > 1
+      price += ` per ${
+        parsed.recurring.interval_count > 1
           ? `${parsed.recurring.interval_count} ${parsed.recurring.interval}`
           : parsed.recurring.interval
-        }`
+      }`
     }
   } catch (e: unknown) {
     console.error(`Cannot parse priceJSON`) // eslint-disable-line no-console
