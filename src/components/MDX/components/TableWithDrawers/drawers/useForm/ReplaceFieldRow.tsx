@@ -23,6 +23,8 @@ export const CustomArrayManager = () => {
       data: {
         textField: "updated text",
       },
+      // blockType: "yourBlockSlug",
+      // ^ if managing a block array, you need to specify the block type
     })
   }
 
