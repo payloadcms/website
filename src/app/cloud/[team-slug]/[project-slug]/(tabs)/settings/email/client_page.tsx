@@ -87,27 +87,31 @@ export default buildConfig({
           </p>
         </Banner>
       ) : (
-        <>
-          {project?.customEmailDomains && project.customEmailDomains.length > 0 ? (
-            <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
-              <div>
-                {project.customEmailDomains.map(emailDomain => (
-                  <ManageEmailDomain key={emailDomain.id} emailDomain={emailDomain} />
-                ))}
-              </div>
-            </CollapsibleGroup>
-          ) : (
-            <NoData message="This project currently has no custom email domains configured." />
-          )}
-          <Divider />
+        <React.Fragment>
           <CollapsibleGroup transTime={250} transCurve="ease">
             <Collapsible openOnInit>
-              <Accordion label="New Email Domain" toggleIcon="chevron">
+              <Accordion label="Add New Email Domain" toggleIcon="chevron">
                 <AddEmailDomain />
               </Accordion>
             </Collapsible>
           </CollapsibleGroup>
-        </>
+
+          {project?.customEmailDomains && project.customEmailDomains.length > 0 ? (
+            <React.Fragment>
+              <Divider />
+              <SectionHeader title="Manage Email Domains" />
+              <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
+                <div>
+                  {project.customEmailDomains.map(emailDomain => (
+                    <ManageEmailDomain key={emailDomain.id} emailDomain={emailDomain} />
+                  ))}
+                </div>
+              </CollapsibleGroup>
+            </React.Fragment>
+          ) : (
+            <NoData message="This project currently has no custom email domains configured." />
+          )}
+        </React.Fragment>
       )}
     </MaxWidth>
   )

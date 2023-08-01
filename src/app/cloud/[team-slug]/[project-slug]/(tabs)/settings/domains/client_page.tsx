@@ -41,16 +41,18 @@ export const ProjectDomainsPage = () => {
         </Collapsible>
       </CollapsibleGroup>
 
-      <Divider />
-
       {project?.domains && project.domains.length > 0 ? (
-        <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
-          <div>
-            {project.domains.map(domain => (
-              <ManageDomain key={domain.id} domain={domain} />
-            ))}
-          </div>
-        </CollapsibleGroup>
+        <React.Fragment>
+          <Divider />
+          <SectionHeader title="Manage Domains" />
+          <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
+            <div>
+              {project.domains.map(domain => (
+                <ManageDomain key={domain.id} domain={domain} />
+              ))}
+            </div>
+          </CollapsibleGroup>
+        </React.Fragment>
       ) : (
         <NoData message="This project currently has no custom domains configured." />
       )}

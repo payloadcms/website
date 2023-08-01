@@ -8,6 +8,7 @@ import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { validateDomain } from '@forms/validations'
 import Link from 'next/link'
+import * as React from 'react'
 
 import { Button, ButtonProps } from '@components/Button'
 import { CopyToClipboard } from '@components/CopyToClipboard'
@@ -170,7 +171,7 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
   }
 
   return (
-    <>
+    <React.Fragment>
       <Collapsible openOnInit>
         <Accordion
           className={classes.domainAccordion}
@@ -186,17 +187,6 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
         >
           <div className={classes.domainContent}>
             <div className={classes.domainInfo}>
-              {!emailDomain.resendDomainID && (
-                <Text
-                  required
-                  label="Domain"
-                  className={classes.domainInput}
-                  path={domainValueFieldPath}
-                  initialValue={domainURL}
-                  validate={validateDomain}
-                  readOnly={true}
-                />
-              )}
               {(emailDomain.resendAPIKey && typeof emailDomain.resendDomainID === 'string') ?? (
                 <Secret
                   label="Resend API Key"
@@ -279,6 +269,6 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
           </div>
         </div>
       </ModalWindow>
-    </>
+    </React.Fragment>
   )
 }
