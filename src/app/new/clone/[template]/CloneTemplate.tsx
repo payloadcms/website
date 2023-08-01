@@ -80,7 +80,7 @@ export const CloneTemplate: React.FC<{
           </p>
         )}
         <div className={classes.formState}>
-          <FormProcessing message="Cloning template, one moment..." />
+          <FormProcessing message="Cloning template, this process may take a few minutes..." />
           <FormSubmissionError banner />
         </div>
         <Grid>
