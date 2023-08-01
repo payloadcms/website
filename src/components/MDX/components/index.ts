@@ -10,6 +10,8 @@ import InlineCode from './InlineCode'
 import LightDarkImage from './LightDarkImage'
 import { RestExamples } from './RestExamples'
 import Table from './Table'
+import { TableWithDrawers } from './TableWithDrawers'
+import tableDrawers from './TableWithDrawers/drawers'
 
 export default {
   h1,
@@ -24,4 +26,6 @@ export default {
   RestExamples,
   table: Table,
   LightDarkImage,
+  TableWithDrawers,
+  ...tableDrawers,
 }

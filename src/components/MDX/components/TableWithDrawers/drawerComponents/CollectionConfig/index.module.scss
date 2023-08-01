@@ -1,0 +1,27 @@
+@use '@scss/common.scss' as *;
+
+.collectionConfig {
+  margin-bottom: calc(var(--base) * 2);
+}
+
+.toggleTitle {
+  margin: 0;
+}
+
+.toggler {
+  all: unset;
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * 1.5);
+  margin-bottom: calc(var(--base) * .5);
+
+  &:focus-visible {
+    @include outline;
+
+    @media (pointer: fine) {
+      outline-offset: 5px;
+    }
+  }
+}
