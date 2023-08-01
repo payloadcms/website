@@ -23,12 +23,14 @@ export const RelatedPosts: React.FC<{ relatedPosts: Post[] }> = props => {
   let cellProps: Partial<CellProps> = {
     start: 1,
     cols: 12,
+    colsM: 8,
   }
 
   if (relatedPosts.length >= 3) {
     cellProps = {
       cols: 4,
-      colsM: 6,
+      colsM: 4,
+      colsS: 8,
     }
   }
 
