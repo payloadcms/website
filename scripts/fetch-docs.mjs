@@ -93,28 +93,33 @@ const fetchDocs = async () => {
 
       const parsedDocs = await Promise.all(
         docFilenames.map(async docFilename => {
-          const json = await fetch(`${githubAPI}/contents/docs/${topicSlug}/${docFilename}`, {
-            headers,
-          }).then(res => res.json())
+          try {
+            const json = await fetch(`${githubAPI}/contents/docs/${topicSlug}/${docFilename}`, {
+              headers,
+            }).then(res => res.json())
 
-          const parsedDoc = matter(decodeBase64(json.content))
+            const parsedDoc = matter(decodeBase64(json.content))
 
-          const doc = {
-            content: await serialize(parsedDoc.content, {
-              mdxOptions: {
-                remarkPlugins: [remarkGfm],
-              },
-            }),
-            title: parsedDoc.data.title,
-            slug: docFilename.replace('.mdx', ''),
-            label: parsedDoc.data.label,
-            order: parsedDoc.data.order,
-            desc: parsedDoc.data.desc || '',
-            keywords: parsedDoc.data.keywords || '',
-            headings: await getHeadings(parsedDoc.content),
+            const doc = {
+              content: await serialize(parsedDoc.content, {
+                mdxOptions: {
+                  remarkPlugins: [remarkGfm],
+                },
+              }),
+              title: parsedDoc.data.title,
+              slug: docFilename.replace('.mdx', ''),
+              label: parsedDoc.data.label,
+              order: parsedDoc.data.order,
+              desc: parsedDoc.data.desc || '',
+              keywords: parsedDoc.data.keywords || '',
+              headings: await getHeadings(parsedDoc.content),
+            }
+
+            return doc
+          } catch (err) {
+            const msg = err instanceof Error ? err.message : err || 'Unknown error'
+            console.error(`Error fetching ${docFilename}: ${msg}`) // eslint-disable-line no-console
           }
-
-          return doc
         }),
       )
 

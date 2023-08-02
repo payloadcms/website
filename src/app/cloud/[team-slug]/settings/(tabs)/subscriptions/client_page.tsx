@@ -114,7 +114,7 @@ const Page = (props: {
                               />
                             </div>
                             <Heading element="h6" marginBottom={false} marginTop={false}>
-                              {`${priceFromJSON(JSON.stringify({ data: [item.price] }))}`}
+                              {`${priceFromJSON(JSON.stringify(item.price))}`}
                             </Heading>
                             {status === 'trialing' && trial_end && (
                               <div>

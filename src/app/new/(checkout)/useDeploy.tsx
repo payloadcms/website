@@ -111,6 +111,10 @@ export const useDeploy = (args: {
           body: JSON.stringify({
             project: {
               id: project?.id,
+              template:
+                project?.template && typeof project.template !== 'string'
+                  ? project.template.id
+                  : project?.template,
               ...checkoutState,
               ...formState,
               installID,

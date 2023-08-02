@@ -2,6 +2,7 @@ import React from 'react'
 import { notFound } from 'next/navigation'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { fetchRelatedThreads } from '../../../../../graphql'
 import { getDoc, getTopics } from '../../api'
 import { NextDoc } from '../../types'
 import { RenderDoc } from './client_page'
@@ -10,6 +11,14 @@ const Doc = async ({ params }) => {
   const { topic, doc: docSlug } = params
   const doc = await getDoc({ topic, doc: docSlug })
   const topics = await getTopics()
+
+  const relatedThreads = await fetchRelatedThreads()
+
+  const filteredRelatedThreads = relatedThreads.filter(
+    thread =>
+      Array.isArray(thread.relatedDocs) &&
+      thread.relatedDocs.some(relatedDoc => relatedDoc.title === doc?.title),
+  )
 
   const parentTopicIndex = topics.findIndex(
     ({ slug: topicSlug }) => topicSlug.toLowerCase() === topic,
@@ -41,7 +50,7 @@ const Doc = async ({ params }) => {
 
   if (!doc) notFound()
 
-  return <RenderDoc doc={doc} next={next} />
+  return <RenderDoc doc={doc} next={next} relatedThreads={filteredRelatedThreads} />
 }
 
 export default Doc
@@ -50,6 +59,7 @@ type Param = {
   topic: string
   doc: string
 }
+
 export async function generateStaticParams() {
   const topics = await getTopics()
 

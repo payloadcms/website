@@ -12,10 +12,14 @@ import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
-type Props = Extract<
-  Page['layout'][0],
-  { blockType: 'stickyHighlights' }
->['stickyHighlightsFields']['highlights'][0] & { yDirection?: 'up' | 'down'; midBreak: boolean }
+export type StickyHighlightsProps = Extract<Page['layout'][0], { blockType: 'stickyHighlights' }>
+
+type Fields = Exclude<StickyHighlightsProps['stickyHighlightsFields'], undefined>
+
+type Props = Exclude<Fields['highlights'], undefined>[number] & {
+  yDirection?: 'up' | 'down'
+  midBreak: boolean
+}
 
 export const StickyHighlight: React.FC<Props> = React.memo(
   ({ richText, enableLink, link, type, code, media, yDirection, midBreak }) => {

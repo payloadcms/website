@@ -35,6 +35,21 @@ export const POST_SLUGS = `
   }
 `
 
+export const AUTHOR_FIELDS = `{
+  firstName
+  lastName
+  email
+  twitter
+  photo {
+    alt
+    url
+    height
+    width
+    filename
+    mimeType
+  }
+}`
+
 export const POST = `
   query Post($slug: String ) {
     Posts(where: { slug: { equals: $slug} }, draft: true) {
@@ -43,19 +58,7 @@ export const POST = `
         title
         image ${MEDIA_FIELDS}
         excerpt
-        author {
-          firstName
-          lastName
-          email
-          photo {
-            alt
-            url
-            height
-            width
-            filename
-            mimeType
-          }
-        }
+        authors ${AUTHOR_FIELDS}
         createdAt
         publishedOn
         content {
@@ -67,6 +70,12 @@ export const POST = `
           ${REUSABLE_CONTENT_BLOCK}
         }
         meta ${META_FIELDS}
+        relatedPosts {
+          title
+          slug
+          image ${MEDIA_FIELDS}
+          meta ${META_FIELDS}
+        }
       }
     }
   }

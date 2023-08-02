@@ -41,31 +41,6 @@
   }
 }
 
-.authorSlot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--base) 0;
-  border-top: 1px solid var(--theme-text);
-
-  p {
-    margin: 0;
-    line-height: 1;
-  }
-
-  @include mid-break {
-    padding: calc(var(--base) * .5) 0;
-  }
-}
-
-.authorImage {
-  width: 32px;
-  height: 32px;
-  border-radius: 100%;
-  overflow: hidden;
-  margin-left: var(--base);
-}
-
 .dateSlot {
   border-top: 1px solid var(--theme-text);
   padding: calc(var(--base) * 1.25) 0 0;
@@ -88,4 +63,8 @@
   @include mid-break {
     margin-bottom: var(--base);
   }
+}
+
+.relatedPosts {
+  margin-top: var(--block-spacing);
 }

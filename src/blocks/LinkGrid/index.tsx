@@ -11,7 +11,11 @@ import classes from './index.module.scss'
 
 export type LinkGridProps = Extract<Page['layout'][0], { blockType: 'linkGrid' }>
 
-const LinkGridItem: React.FC<LinkGridProps['linkGridFields']['links'][0]['link']> = props => {
+type Fields = Exclude<LinkGridProps['linkGridFields'], undefined>
+
+type Props = Exclude<Fields['links'], undefined>[number]['link']
+
+const LinkGridItem: React.FC<Props> = props => {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
@@ -35,13 +39,9 @@ export const LinkGrid: React.FC<
     bottomMargin?: boolean
   }
 > = props => {
-  const {
-    className,
-    topMargin,
-    bottomMargin,
-    linkGridFields: { links },
-  } = props
+  const { className, topMargin, bottomMargin, linkGridFields } = props
 
+  const links = linkGridFields?.links
   const hasLinks = Array.isArray(links) && links.length > 0
 
   return (

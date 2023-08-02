@@ -11,7 +11,7 @@ import classes from './index.module.scss'
 type Props = Extract<Page['layout'][0], { blockType: 'stickyHighlights' }>
 
 export const StickyHighlights: React.FC<Props> = ({ stickyHighlightsFields }) => {
-  const { highlights } = stickyHighlightsFields
+  const { highlights } = stickyHighlightsFields || {}
   const { yDirection } = useScrollInfo()
   const {
     breakpoints: { m },
@@ -19,7 +19,7 @@ export const StickyHighlights: React.FC<Props> = ({ stickyHighlightsFields }) =>
 
   return (
     <Gutter className={classes.stickyHighlights}>
-      {highlights.map((highlight, i) => {
+      {highlights?.map((highlight, i) => {
         return <StickyHighlight yDirection={yDirection} midBreak={m} key={i} {...highlight} />
       })}
     </Gutter>

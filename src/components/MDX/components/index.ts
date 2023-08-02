@@ -7,6 +7,7 @@ import h2 from './H2'
 import h3 from './H3'
 import HR from './HR'
 import InlineCode from './InlineCode'
+import LightDarkImage from './LightDarkImage'
 import { RestExamples } from './RestExamples'
 import Table from './Table'
 
@@ -22,4 +23,5 @@ export default {
   YouTube,
   RestExamples,
   table: Table,
+  LightDarkImage,
 }
