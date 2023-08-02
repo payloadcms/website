@@ -39,6 +39,7 @@ export const Drawer: React.FC<Props> = ({
   className,
   header,
   title,
+  description,
   size = 'l',
 }) => {
   const { closeModal, modalState } = useModal()
@@ -79,7 +80,10 @@ export const Drawer: React.FC<Props> = ({
             {header && header}
             {header === undefined && (
               <div className={classes.header}>
-                <h3 className={classes.title}>{title}</h3>
+                <div className={classes.headerContent}>
+                  {title && <h3 className={classes.title}>{title}</h3>}
+                  {description && <p className={classes.description}>{description}</p>}
+                </div>
                 <button
                   className={classes.headerClose}
                   id={`close-drawer__${slug}`}

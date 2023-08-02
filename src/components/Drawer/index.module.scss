@@ -88,6 +88,19 @@
   width: 100%;
 }
 
+.headerContent {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  gap: var(--base);
+}
+
+.description {
+  color: var(--theme-elevation-500);
+  margin: 0;
+}
+
 .title {
   margin: 0 var(--base) 0 0;
   flex-grow: 1;
