@@ -107,7 +107,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   if (!appearance) {
     const hrefIsLocal = ['tel:', 'mailto:', '/'].some(prefix => href.startsWith(prefix))
 
-    if (!hrefIsLocal) {
+    if (!hrefIsLocal && href !== '#') {
       try {
         const objectURL = new URL(href)
         if (objectURL.origin === process.env.NEXT_PUBLIC_SITE_URL) {
