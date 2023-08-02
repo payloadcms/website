@@ -42,7 +42,7 @@ export const TableWithDrawers: React.FC<Props> = ({ columns, rows }) => {
                   return (
                     <td key={cellIndex}>
                       <DrawerToggler className={classes.drawerToggler} slug={drawerSlug}>
-                        {value || <ChevronIcon bold />}
+                        {value || <ChevronIcon />}
                       </DrawerToggler>
                       <Drawer
                         slug={drawerSlug}
