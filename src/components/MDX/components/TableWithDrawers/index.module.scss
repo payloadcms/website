@@ -10,6 +10,8 @@
   justify-content: center;
   opacity: .5;
   transition: opacity var(--duration) ease;
+  outline: 2px solid;
+  border-radius: 50%;
 
   &:hover {
     opacity: 1;
@@ -68,5 +70,19 @@
     padding-right: calc(var(--gutter-h) * .5);
     width: calc(100% + (var(--gutter-h) * 2));
     max-width: calc(100% + (var(--gutter-h) * 2));
+  }
+}
+
+.mdxDrawer {
+  :global {
+    table {
+      tbody {
+        tr {
+          &:nth-child(odd) {
+            background: var(--theme-elevation-150);
+          }
+        }
+      }
+    }
   }
 }

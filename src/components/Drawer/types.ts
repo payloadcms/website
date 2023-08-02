@@ -5,6 +5,7 @@ export interface Props {
   children: React.ReactNode
   className?: string
   title?: string
+  description?: string
   header?: React.ReactNode
 
   size?: 's' | 'm' | 'l'

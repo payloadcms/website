@@ -1,5 +1,5 @@
 import { Drawer, DrawerToggler } from '@components/Drawer'
-import { InfoIcon } from '@root/graphics/InfoIcon'
+import { ChevronIcon } from '@root/icons/ChevronIcon'
 
 import classes from './index.module.scss'
 
@@ -11,6 +11,7 @@ type Props = {
         drawerSlug?: string
         drawerContent?: React.ReactNode
         drawerTitle?: string
+        drawerDescription?: string
         value?: string
       },
     ],
@@ -34,23 +35,29 @@ export const TableWithDrawers: React.FC<Props> = ({ columns, rows }) => {
         <tbody>
           {rows.map((row, rowIndex) => (
             <tr key={rowIndex} className={`row-${rowIndex + 1}`}>
-              {row.map(cell => {
-                const { drawerSlug, drawerContent, drawerTitle, value } = cell
+              {row.map((cell, cellIndex) => {
+                const { drawerSlug, drawerContent, drawerTitle, drawerDescription, value } = cell
 
                 if (drawerSlug && drawerContent) {
                   return (
-                    <td>
+                    <td key={cellIndex}>
                       <DrawerToggler className={classes.drawerToggler} slug={drawerSlug}>
-                        {value || <InfoIcon />}
+                        {value || <ChevronIcon bold />}
                       </DrawerToggler>
-                      <Drawer slug={drawerSlug} title={drawerTitle} size="s">
+                      <Drawer
+                        slug={drawerSlug}
+                        size="s"
+                        title={drawerTitle}
+                        description={drawerDescription}
+                        className={classes.mdxDrawer}
+                      >
                         {drawerContent}
                       </Drawer>
                     </td>
                   )
                 }
 
-                return <td>{value}</td>
+                return <td key={cellIndex}>{value}</td>
               })}
             </tr>
           ))}
