@@ -74,7 +74,7 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
   }, [id, closeModal, projectDomains, patchDomains, modalSlug])
 
   return (
-    <>
+    <React.Fragment>
       <Collapsible openOnInit>
         <Accordion
           className={classes.domainAccordion}
@@ -89,15 +89,6 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
           }
         >
           <div className={classes.domainContent}>
-            <Text
-              required
-              label="Domain"
-              className={classes.domainInput}
-              path={domainValueFieldPath}
-              initialValue={domainURL}
-              validate={validateDomain}
-            />
-
             <p>Add the following record to your DNS provider:</p>
             <table className={classes.record}>
               <thead>
@@ -136,6 +127,6 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
           </div>
         </div>
       </ModalWindow>
-    </>
+    </React.Fragment>
   )
 }

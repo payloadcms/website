@@ -47,12 +47,18 @@
   }
 
   th {
+    @include label;
     font-weight: normal;
+    font-family: var(--font-mono);
     text-align: left;
+    padding: calc(var(--base) * .25 ) calc(var(--base) * .5 );
   }
 
   td {
-    color: var(--theme-text)
+    font-size: 18px;
+    padding: 0 calc(var(--base) * .5 );
+    white-space: nowrap;
+    color: var(--theme-text);
   }
 }
 
