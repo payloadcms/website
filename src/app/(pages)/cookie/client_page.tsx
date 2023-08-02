@@ -33,7 +33,7 @@ export const CookieClientPage: React.FC = () => {
     <React.Fragment>
       <Gutter className={classes.cookieWrap}>
         <Grid>
-          <Cell cols={8} colsM={8}>
+          <Cell cols={10} colsM={8}>
             <h2>Cookie Policy</h2>
             <p>Effective as of May TODO, 2023.</p>
             <p>
@@ -117,119 +117,123 @@ export const CookieClientPage: React.FC = () => {
             </p>
             <div className={classes.tableWrap}>
               <table>
-                <tr>
-                  <th>Name of the cookie</th>
-                  <th>Category and purpose</th>
-                  <th>Duration of the cookie</th>
-                  <th>Who serves the cookie</th>
-                  <th>How to control the cookie</th>
-                </tr>
-                <tr>
-                  <td>_hstc</td>
-                  <td>Targeting/advertising: to store time of visit.</td>
-                  <td>1 year after the user’s visit</td>
-                  <td>HubSpot</td>
-                  <td>
-                    You can read more about how HubSpot manages data{' '}
-                    <a href="https://knowledge.hubspot.com/privacy-and-consent/what-cookies-does-hubspot-set-in-a-visitor-s-browser">
-                      here
-                    </a>
-                    . See your choices' section below.
-                  </td>
-                </tr>
-                <tr>
-                  <td>_hssc</td>
-                  <td>Functional: to store aggregated statistics.</td>
-                  <td>Session cookie (expires when the user closes the browser)</td>
-                  <td>HubSpot</td>
-                  <td>
-                    You can read more about how HubSpot manages data{' '}
-                    <a href="https://knowledge.hubspot.com/privacy-and-consent/what-cookies-does-hubspot-set-in-a-visitor-s-browser">
-                      here
-                    </a>
-                    . See your choices' section below.
-                  </td>
-                </tr>
-                <tr>
-                  <td>_hssrc</td>
-                  <td>Performance: to store a unique session ID.</td>
-                  <td>Session cookie (expires when the user closes the browser)</td>
-                  <td>HubSpot</td>
-                  <td>
-                    You can read more about how HubSpot manages data{' '}
-                    <a href="https://knowledge.hubspot.com/privacy-and-consent/what-cookies-does-hubspot-set-in-a-visitor-s-browser">
-                      here
-                    </a>
-                    . See your choices' section below.
-                  </td>
-                </tr>
-                <tr>
-                  <td>hubspotutk</td>
-                  <td>Targeting/advertising: to store and track a visitor's identity.</td>
-                  <td>1 year and a half after the user’s visit</td>
-                  <td>HubSpot</td>
-                  <td>
-                    You can read more about how HubSpot manages data{' '}
-                    <a href="https://knowledge.hubspot.com/privacy-and-consent/what-cookies-does-hubspot-set-in-a-visitor-s-browser">
-                      here
-                    </a>
-                    . See your choices' section below.
-                  </td>
-                </tr>
-                <tr>
-                  <td>_ga</td>
-                  <td>Performance: to store and count pageviews.</td>
-                  <td>2 years after the user’s visit</td>
-                  <td>Google</td>
-                  <td>
-                    You can find out more information about Google Analytics cookies{' '}
-                    <a href="https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage">
-                      here
-                    </a>{' '}
-                    and about how Google protects your data{' '}
-                    <a href="https://marketingplatform.google.com/about/">here</a>. You can prevent
-                    the use of Google Analytics relating to your use of our Sites by downloading and
-                    installing a browser plugin available{' '}
-                    <a href="https://tools.google.com/dlpage/gaoptout?hl=en-GB">here</a>. See your
-                    choices’ section below.
-                  </td>
-                </tr>
-                <tr>
-                  <td>_gcl_au</td>
-                  <td>Targeting/advertising: to store and track conversions.</td>
-                  <td>1 year after the user’s visit</td>
-                  <td>Google</td>
-                  <td>
-                    You can find out more information about Google Analytics cookies{' '}
-                    <a href="https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage">
-                      here
-                    </a>{' '}
-                    and about how Google protects your data{' '}
-                    <a href="https://marketingplatform.google.com/about/">here</a>. You can prevent
-                    the use of Google Analytics relating to your use of our Sites by downloading and
-                    installing a browser plugin available{' '}
-                    <a href="https://tools.google.com/dlpage/gaoptout?hl=en-GB">here</a>. See your
-                    choices’ section below.
-                  </td>
-                </tr>
-                <tr>
-                  <td>_gat_FLQ5THRMZQ</td>
-                  <td>TODO</td>
-                  <td>Session cookie (expires when the user closes the browser)</td>
-                  <td>Google</td>
-                  <td>
-                    You can find out more information about Google Analytics cookies{' '}
-                    <a href="https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage">
-                      here
-                    </a>{' '}
-                    and about how Google protects your data{' '}
-                    <a href="https://marketingplatform.google.com/about/">here</a>. You can prevent
-                    the use of Google Analytics relating to your use of our Sites by downloading and
-                    installing a browser plugin available{' '}
-                    <a href="https://tools.google.com/dlpage/gaoptout?hl=en-GB">here</a>. See your
-                    choices’ section below.
-                  </td>
-                </tr>
+                <thead>
+                  <tr>
+                    <th>Name of the cookie</th>
+                    <th>Category and purpose</th>
+                    <th>Duration of the cookie</th>
+                    <th>Who serves the cookie</th>
+                    <th>How to control the cookie</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>_hstc</td>
+                    <td>Targeting/advertising: to store time of visit.</td>
+                    <td>1 year after the user’s visit</td>
+                    <td>HubSpot</td>
+                    <td>
+                      You can read more about how HubSpot manages data{' '}
+                      <a href="https://knowledge.hubspot.com/privacy-and-consent/what-cookies-does-hubspot-set-in-a-visitor-s-browser">
+                        here
+                      </a>
+                      . See your choices' section below.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>_hssc</td>
+                    <td>Functional: to store aggregated statistics.</td>
+                    <td>Session cookie (expires when the user closes the browser)</td>
+                    <td>HubSpot</td>
+                    <td>
+                      You can read more about how HubSpot manages data{' '}
+                      <a href="https://knowledge.hubspot.com/privacy-and-consent/what-cookies-does-hubspot-set-in-a-visitor-s-browser">
+                        here
+                      </a>
+                      . See your choices' section below.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>_hssrc</td>
+                    <td>Performance: to store a unique session ID.</td>
+                    <td>Session cookie (expires when the user closes the browser)</td>
+                    <td>HubSpot</td>
+                    <td>
+                      You can read more about how HubSpot manages data{' '}
+                      <a href="https://knowledge.hubspot.com/privacy-and-consent/what-cookies-does-hubspot-set-in-a-visitor-s-browser">
+                        here
+                      </a>
+                      . See your choices' section below.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>hubspotutk</td>
+                    <td>Targeting/advertising: to store and track a visitor's identity.</td>
+                    <td>1 year and a half after the user’s visit</td>
+                    <td>HubSpot</td>
+                    <td>
+                      You can read more about how HubSpot manages data{' '}
+                      <a href="https://knowledge.hubspot.com/privacy-and-consent/what-cookies-does-hubspot-set-in-a-visitor-s-browser">
+                        here
+                      </a>
+                      . See your choices' section below.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>_ga</td>
+                    <td>Performance: to store and count pageviews.</td>
+                    <td>2 years after the user’s visit</td>
+                    <td>Google</td>
+                    <td>
+                      You can find out more information about Google Analytics cookies{' '}
+                      <a href="https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage">
+                        here
+                      </a>{' '}
+                      and about how Google protects your data{' '}
+                      <a href="https://marketingplatform.google.com/about/">here</a>. You can
+                      prevent the use of Google Analytics relating to your use of our Sites by
+                      downloading and installing a browser plugin available{' '}
+                      <a href="https://tools.google.com/dlpage/gaoptout?hl=en-GB">here</a>. See your
+                      choices’ section below.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>_gcl_au</td>
+                    <td>Targeting/advertising: to store and track conversions.</td>
+                    <td>1 year after the user’s visit</td>
+                    <td>Google</td>
+                    <td>
+                      You can find out more information about Google Analytics cookies{' '}
+                      <a href="https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage">
+                        here
+                      </a>{' '}
+                      and about how Google protects your data{' '}
+                      <a href="https://marketingplatform.google.com/about/">here</a>. You can
+                      prevent the use of Google Analytics relating to your use of our Sites by
+                      downloading and installing a browser plugin available{' '}
+                      <a href="https://tools.google.com/dlpage/gaoptout?hl=en-GB">here</a>. See your
+                      choices’ section below.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>_gat_FLQ5THRMZQ</td>
+                    <td>TODO</td>
+                    <td>Session cookie (expires when the user closes the browser)</td>
+                    <td>Google</td>
+                    <td>
+                      You can find out more information about Google Analytics cookies{' '}
+                      <a href="https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage">
+                        here
+                      </a>{' '}
+                      and about how Google protects your data{' '}
+                      <a href="https://marketingplatform.google.com/about/">here</a>. You can
+                      prevent the use of Google Analytics relating to your use of our Sites by
+                      downloading and installing a browser plugin available{' '}
+                      <a href="https://tools.google.com/dlpage/gaoptout?hl=en-GB">here</a>. See your
+                      choices’ section below.
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             </div>
             <h4>Other technologies</h4>
