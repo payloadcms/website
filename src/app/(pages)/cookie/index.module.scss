@@ -1,0 +1,22 @@
+@use '@scss/common' as *;
+
+.cookieWrap {
+  & a {
+    text-decoration: none;
+    color: var(--color-purple-600);
+    border-bottom: 1px dotted currentColor;
+    transition: all 0.2s ease;
+
+    &:visited {
+      color: var(--color-purple-600);
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+.radioGroup {
+  margin-bottom: var(--base);
+}
