@@ -60,7 +60,7 @@ export default Thread
 
 export async function generateStaticParams() {
   const fetchedThreads = await fetchCommunityHelps('discord')
-  return fetchedThreads?.map(({ slug }) => ({ slug })) ?? []
+  return fetchedThreads?.map(({ slug }) => ({ slug: slug || '404' })) ?? []
 }
 
 export async function generateMetadata({ params: { slug } }): Promise<Metadata> {

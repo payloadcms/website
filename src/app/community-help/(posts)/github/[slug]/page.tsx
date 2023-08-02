@@ -63,7 +63,7 @@ export default Discussion
 
 export async function generateStaticParams() {
   const discussions = await fetchCommunityHelps('github')
-  return discussions?.map(({ slug }) => ({ slug })) ?? []
+  return discussions?.map(({ slug }) => ({ slug: slug || '404' })) ?? []
 }
 
 export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
