@@ -21,7 +21,6 @@ type CreditCardSelectorType = {
   initialValue?: string
   onChange?: (method?: string) => void // eslint-disable-line no-unused-vars
   enableInlineSave?: boolean
-  showTeamLink?: boolean
   customer: ReturnType<typeof useCustomer>['result']
   customerLoading: ReturnType<typeof useCustomer>['isLoading']
   onPaymentMethodChange: (paymentMethod: string) => Promise<void>
@@ -34,7 +33,6 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
     team,
     enableInlineSave = true,
     customer,
-    showTeamLink = true,
     customerLoading,
     onPaymentMethodChange,
   } = props
@@ -119,15 +117,6 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
 
   return (
     <div className={classes.creditCardSelector}>
-      {showTeamLink && (
-        <p className={classes.description}>
-          {`To manage your team's billing and payment information, go to your `}
-          <Link href={`/cloud/${team.slug}/settings/billing`} prefetch={false}>
-            team billing page
-          </Link>
-          {`.`}
-        </p>
-      )}
       <div ref={scrollRef} className={classes.scrollRef} />
       <div className={classes.formState}>
         {error && <p className={classes.error}>{error}</p>}

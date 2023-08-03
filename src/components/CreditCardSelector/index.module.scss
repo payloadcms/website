@@ -17,14 +17,6 @@
     color: var(--theme-success-500);
 }
 
-.description {  
-  a {
-    color: var(--theme-blue-500);
-    cursor: pointer;
-    text-decoration: underline;
-  }
-}
-
 .cards {
     display: flex;
     flex-direction: column;

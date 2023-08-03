@@ -5,6 +5,7 @@ import { useRouteData } from '@cloud/context'
 import { Text } from '@forms/fields/Text'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
+import Link from 'next/link'
 
 import { CreditCardSelector } from '@components/CreditCardSelector'
 import { Heading } from '@components/Heading'
@@ -79,6 +80,13 @@ export const ProjectBillingPage = () => {
                 <Heading marginBottom={false} element="h6">
                   Payment Method
                 </Heading>
+                <p className={classes.description}>
+                  {`Select which card to use for this project. If none selected, your team's default payment method will be used. To set your team's default payment method or manage your cards, please visit the `}
+                  <Link href={`/cloud/${team.slug}/settings/billing`} prefetch={false}>
+                    team billing page
+                  </Link>
+                  {`.`}
+                </p>
                 <Elements stripe={Stripe}>
                   <CreditCardSelector
                     team={team}
