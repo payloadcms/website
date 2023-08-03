@@ -53,7 +53,11 @@ const List: React.FC<CreditCardListType> = props => {
     }
   }, [paymentMethods, newCardID])
 
-  const defaultPaymentMethod = customer?.invoice_settings?.default_payment_method
+  const defaultPaymentMethod = customer
+    ? typeof customer?.invoice_settings?.default_payment_method === 'object'
+      ? customer?.invoice_settings?.default_payment_method?.id
+      : customer?.invoice_settings?.default_payment_method
+    : undefined
 
   // don't show the loading messages unless it the requests take longer than 500ms
   const debouncedLoadingPaymentMethods = useDebounce(isLoading, 500)
@@ -210,7 +214,7 @@ export const CreditCardList: React.FC<
     setDefaultPaymentMethod,
     isLoading: customerLoading,
   } = useCustomer({
-    stripeCustomerID: team.stripeCustomerID,
+    team,
   })
 
   if (customer === null) {

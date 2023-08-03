@@ -29,7 +29,7 @@ export const TeamInvoicesPage = () => {
     isLoading,
     loadMoreInvoices,
   } = useInvoices({
-    stripeCustomerID: team?.stripeCustomerID,
+    team,
   })
 
   return (

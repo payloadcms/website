@@ -24,6 +24,7 @@ type CreditCardSelectorType = {
   customer: ReturnType<typeof useCustomer>['result']
   customerLoading: ReturnType<typeof useCustomer>['isLoading']
   onPaymentMethodChange: (paymentMethod: string) => Promise<void>
+  defaultPaymentMethod?: string
 }
 
 const Selector: React.FC<CreditCardSelectorType> = props => {
@@ -35,6 +36,7 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
     customer,
     customerLoading,
     onPaymentMethodChange,
+    defaultPaymentMethod,
   } = props
 
   const newCardID = React.useRef<string>(`new-card-${uuid()}`)
@@ -110,7 +112,6 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
   }, [saveNewPaymentMethod, onPaymentMethodChange])
 
   const isNewCard = internalState === newCardID.current
-  const defaultPaymentMethod = customer?.invoice_settings?.default_payment_method
 
   // don't show the loading messages unless it the requests take longer than 500ms
   const debouncedCustomerLoading = useDebounce(customerLoading, 500)
@@ -223,7 +224,7 @@ export const CreditCardSelector: React.FC<
     error: customerError,
     isLoading: customerLoading,
   } = useCustomer({
-    stripeCustomerID: team.stripeCustomerID,
+    team,
   })
 
   const {
@@ -231,6 +232,7 @@ export const CreditCardSelector: React.FC<
     error: subscriptionError,
     updateSubscription,
   } = useSubscription({
+    team,
     stripeSubscriptionID,
   })
 
@@ -264,15 +266,20 @@ export const CreditCardSelector: React.FC<
     )
   }
 
+  const defaultPaymentMethod = customer
+    ? typeof customer?.invoice_settings?.default_payment_method === 'object'
+      ? customer?.invoice_settings?.default_payment_method?.id
+      : customer?.invoice_settings?.default_payment_method
+    : undefined
+
   return (
     <Selector
       {...props}
       customer={customer}
       customerLoading={customerLoading}
       onPaymentMethodChange={onSubscriptionChange}
-      initialValue={
-        subscription?.default_payment_method || customer?.invoice_settings?.default_payment_method
-      }
+      defaultPaymentMethod={defaultPaymentMethod}
+      initialValue={subscription?.default_payment_method || defaultPaymentMethod}
     />
   )
 }

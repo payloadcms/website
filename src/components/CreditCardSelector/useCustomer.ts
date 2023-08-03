@@ -1,14 +1,21 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 
+import type { Team } from '@root/payload-cloud-types'
+
 // TODO: type this using Stripe module
 export interface Customer {
-  invoice_settings: {
-    default_payment_method: string
+  deleted: boolean
+  invoice_settings?: {
+    default_payment_method:
+      | string
+      | {
+          id?: string
+        }
   }
 }
 
-export type UseCustomer = (args: { stripeCustomerID?: string; delay?: number }) => {
+export type UseCustomer = (args: { team?: Team; delay?: number }) => {
   result: Customer | null
   isLoading: boolean | null
   error: string
@@ -16,14 +23,16 @@ export type UseCustomer = (args: { stripeCustomerID?: string; delay?: number }) 
   setDefaultPaymentMethod: (paymentMethodID: string) => void
 }
 
-export const useCustomer: UseCustomer = ({ stripeCustomerID, delay }) => {
+export const useCustomer: UseCustomer = ({ team, delay }) => {
+  const { stripeCustomerID, id: teamID } = team || {}
+
   const isRequesting = useRef(false)
   const isUpdatingDefault = useRef(false)
   const [result, setResult] = useState<Customer | null>(null)
   const [isLoading, setIsLoading] = useState<boolean | null>(null)
   const [error, setError] = useState('')
 
-  const getPaymentMethods = useCallback(async () => {
+  const getCustomer = useCallback(async () => {
     let timer: NodeJS.Timeout
 
     if (!stripeCustomerID) {
@@ -38,30 +47,25 @@ export const useCustomer: UseCustomer = ({ stripeCustomerID, delay }) => {
     setError('')
 
     try {
-      const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/stripe/rest`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
+      const req = await fetch(
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${teamID}/customer`,
+        {
+          method: 'GET',
+          credentials: 'include',
         },
-        body: JSON.stringify({
-          stripeMethod: 'customers.retrieve',
-          stripeArgs: [stripeCustomerID],
-        }),
-      })
+      )
 
-      const json: {
-        data: Customer
+      const json: Customer & {
+        message?: string
       } = await req.json()
 
       if (req.ok) {
         setTimeout(() => {
-          setResult(json?.data)
+          setResult(json)
           setError('')
           setIsLoading(false)
         }, delay)
       } else {
-        // @ts-expect-error
         throw new Error(json?.message)
       }
     } catch (err: unknown) {
@@ -77,15 +81,15 @@ export const useCustomer: UseCustomer = ({ stripeCustomerID, delay }) => {
     return () => {
       clearTimeout(timer)
     }
-  }, [delay, stripeCustomerID])
+  }, [delay, stripeCustomerID, teamID])
 
   useEffect(() => {
-    getPaymentMethods()
-  }, [getPaymentMethods])
+    getCustomer()
+  }, [getCustomer])
 
   const refreshCustomer = useCallback(() => {
-    getPaymentMethods()
-  }, [getPaymentMethods])
+    getCustomer()
+  }, [getCustomer])
 
   const setDefaultPaymentMethod = useCallback(
     async (paymentMethodID: string) => {
@@ -96,35 +100,32 @@ export const useCustomer: UseCustomer = ({ stripeCustomerID, delay }) => {
       setError('')
 
       try {
-        const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/stripe/rest`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
+        const req = await fetch(
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${teamID}/customer`,
+          {
+            method: 'PATCH',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              invoice_settings: { default_payment_method: paymentMethodID },
+            }),
           },
-          body: JSON.stringify({
-            stripeMethod: 'customers.update',
-            stripeArgs: [
-              stripeCustomerID,
-              { invoice_settings: { default_payment_method: paymentMethodID } },
-            ],
-          }),
-        })
+        )
 
-        const json: {
-          data: Customer
-        } = await req.json()
+        const customer: Customer = await req.json()
 
         if (req.ok) {
           setTimeout(() => {
-            setResult(json?.data)
+            setResult(customer)
             setError('')
             toast.success(`Default payment method updated successfully`)
             setIsLoading(false)
           }, delay)
         } else {
           // @ts-expect-error
-          throw new Error(json?.message)
+          throw new Error(customer?.message)
         }
       } catch (err: unknown) {
         const message = (err as Error)?.message || 'Something went wrong'
@@ -135,7 +136,7 @@ export const useCustomer: UseCustomer = ({ stripeCustomerID, delay }) => {
 
       isUpdatingDefault.current = false
     },
-    [delay, stripeCustomerID],
+    [delay, teamID],
   )
 
   const memoizedState = useMemo(
