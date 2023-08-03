@@ -1,27 +1,23 @@
 'use client'
 
 import { Fragment } from 'react'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
-import { Message } from '@components/Message'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
+import { RenderParams } from '../_components/RenderParams'
 import { Tabs } from './_components/Tabs'
 import { RouteDataProvider, useRouteData } from './context'
 
 export const cloudSlug = 'cloud'
 
 const DashboardHeader = () => {
-  const searchParams = useSearchParams()
   const { team, project } = useRouteData()
   const pathname = usePathname()
   let segments = usePathnameSegments()
 
-  const successParam = searchParams?.get('success')
-  const errorParam = searchParams?.get('error')
-  const warningParam = searchParams?.get('warning')
   let renderTabs = true
 
   // optional `tabLabel` and `crumbLabel` properties determine
@@ -111,7 +107,7 @@ const DashboardHeader = () => {
   return (
     <Fragment>
       <Gutter>
-        <Message error={errorParam} success={successParam} warning={warningParam} />
+        <RenderParams />
         <Breadcrumbs
           items={segments.reduce((acc: Breadcrumb[], segment, index) => {
             const lowercaseSegment = segment.toLowerCase()
