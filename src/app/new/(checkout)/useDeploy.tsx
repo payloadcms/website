@@ -8,9 +8,9 @@ import {
 
 import { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
+import { createSubscription, PayloadStripeSubscription } from './createSubscription'
 import { CheckoutState } from './reducer'
 import { useConfirmCardSetup } from './useConfirmCardSetup'
-import { PayloadStripeSubscription, useCreateSubscription } from './useCreateSubscription'
 
 export const useDeploy = (args: {
   project: Project | null | undefined
@@ -22,10 +22,6 @@ export const useDeploy = (args: {
   const { user } = useAuth()
   const stripe = useStripe()
   const elements = useElements()
-
-  const createSubscription = useCreateSubscription({
-    checkoutState,
-  })
 
   const confirmCardSetup = useConfirmCardSetup({
     team: checkoutState?.team,
@@ -131,7 +127,11 @@ export const useDeploy = (args: {
         if (req.ok) {
           // once the project is deployed successfully, create the subscription
           // also confirm card payment at this time
-          const subscription = await createSubscription(res.doc)
+          const subscription = await createSubscription({
+            checkoutState,
+            project: res.doc,
+          })
+
           await confirmCardPayment(subscription)
 
           if (typeof onDeploy === 'function') {
@@ -146,16 +146,7 @@ export const useDeploy = (args: {
         throw new Error(`Error deploying project: ${message}`)
       }
     },
-    [
-      user,
-      installID,
-      checkoutState,
-      project,
-      onDeploy,
-      createSubscription,
-      confirmCardSetup,
-      confirmCardPayment,
-    ],
+    [user, installID, checkoutState, project, onDeploy, confirmCardSetup, confirmCardPayment],
   )
 
   return deploy
