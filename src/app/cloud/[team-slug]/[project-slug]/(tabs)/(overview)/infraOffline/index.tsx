@@ -155,8 +155,9 @@ export const InfraOffline: React.FC = () => {
                     <Error
                       showError
                       message={`There was an error deploying your app. Push another commit to your repository to re-trigger a deployment.${
-                        (buildSuccess || deploySuccess) &&
-                        ' Check the logs below for more information.'
+                        buildSuccess || deploySuccess
+                          ? ' Check the logs below for more information.'
+                          : ''
                       }`}
                     ></Error>
                   </div>
