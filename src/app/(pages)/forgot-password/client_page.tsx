@@ -9,11 +9,12 @@ import FormSubmissionError from '@forms/FormSubmissionError'
 import Submit from '@forms/Submit'
 import { InitialState, OnSubmit } from '@forms/types'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
-import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { Highlight } from '@components/Highlight'
+import { RenderParams } from '@root/app/_components/RenderParams'
 import { useAuth } from '@root/providers/Auth'
 import canUseDom from '@root/utilities/can-use-dom'
 
@@ -29,7 +30,7 @@ const initialFormState: InitialState = {
 }
 
 export const ForgotPassword: React.FC = () => {
-  const { user, logout } = useAuth()
+  const { user } = useAuth()
   const [successfullySubmitted, setSuccessfullySubmitted] = React.useState(false)
 
   const handleSubmit: OnSubmit = useCallback(
@@ -63,24 +64,13 @@ export const ForgotPassword: React.FC = () => {
     [setSuccessfullySubmitted],
   )
 
+  if (user === undefined) return null
+
   if (user) {
-    return (
-      <Gutter>
-        <Grid>
-          <Cell cols={5} colsM={8}>
-            <Heading marginTop={false} element="h2" as="h2">
-              <Highlight text="Hang on" appearance="danger" />
-            </Heading>
-            <Heading marginTop={false} element="p" as="h6">
-              You are already logged in.
-            </Heading>
-            <div className={classes.buttonWrap}>
-              <Button label="Log out" onClick={logout} appearance="primary" />
-              <Button label="Dashboard" href="/cloud" appearance="secondary" />
-            </div>
-          </Cell>
-        </Grid>
-      </Gutter>
+    redirect(
+      `/cloud/settings?error=${encodeURIComponent(
+        'Cannot reset password while logged in. To change your password, you may use your account settings below or log out and try again.',
+      )}`,
     )
   }
 
@@ -112,6 +102,7 @@ export const ForgotPassword: React.FC = () => {
 
   return (
     <Gutter>
+      <RenderParams />
       <Heading marginTop={false} element="h1">
         Forgot password
       </Heading>
