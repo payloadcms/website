@@ -6,7 +6,7 @@ import type {
 } from '@stripe/stripe-js'
 
 import type { Team } from '@root/payload-cloud-types'
-import { useCreateSetupIntent } from './useCreateSetupIntent'
+import { createSetupIntent } from './createSetupIntent'
 
 type ConfirmCardSetup = (paymentMethod: string) => Promise<SetupIntentResult | null>
 
@@ -16,14 +16,11 @@ export const useConfirmCardSetup: UseConfirmCardSetup = args => {
   const { team } = args
   const stripe = useStripe()
   const elements = useElements()
-  const createSetupIntent = useCreateSetupIntent({
-    team,
-  })
 
   const confirmCardSetup: ConfirmCardSetup = useCallback(
     async paymentMethod => {
       // first create the setup intent, then confirm the card setup
-      const setupIntent = await createSetupIntent()
+      const setupIntent = await createSetupIntent({ team })
 
       if (!setupIntent) {
         throw new Error('No setup intent')
@@ -54,7 +51,7 @@ export const useConfirmCardSetup: UseConfirmCardSetup = args => {
 
       return stripePayment
     },
-    [elements, stripe, createSetupIntent],
+    [elements, stripe, team],
   )
 
   return confirmCardSetup
