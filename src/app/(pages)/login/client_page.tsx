@@ -13,7 +13,7 @@ import { redirect, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
-import { Message } from '@components/Message'
+import { RenderParams } from '@root/app/_components/RenderParams'
 import { cloudSlug } from '@root/app/cloud/client_layout'
 import { useAuth } from '@root/providers/Auth'
 import canUseDom from '@root/utilities/can-use-dom'
@@ -37,10 +37,6 @@ const initialFormState: InitialState = {
 
 export const Login: React.FC = () => {
   const searchParams = useSearchParams()
-  const successParam = searchParams?.get('success')
-  const errorParam = searchParams?.get('error')
-  const warningParam = searchParams?.get('warning')
-
   const { user, login } = useAuth()
   const [redirectTo, setRedirectTo] = useState(cloudSlug)
 
@@ -80,18 +76,13 @@ export const Login: React.FC = () => {
 
   return (
     <Gutter>
+      <RenderParams />
       <Heading marginTop={false} element="h1">
         Log in
       </Heading>
       <Grid>
         <Cell cols={5} colsM={8}>
           <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
-            <Message
-              error={errorParam}
-              success={successParam}
-              warning={warningParam}
-              margin={false}
-            />
             <FormSubmissionError margin={false} />
             <FormProcessing message="Logging in, one moment..." />
             <Text

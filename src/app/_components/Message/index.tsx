@@ -9,16 +9,17 @@ import classes from './index.module.scss'
 // }
 
 export const Message: React.FC<{
+  message?: string | null
   success?: string | null
   error?: string | null
   warning?: string | null
   className?: string
   margin?: boolean
-}> = ({ error, success, warning, className, margin }) => {
+}> = ({ error, success, warning, message, className, margin }) => {
   // const type = error ? 'error' : success ? 'success' : 'warning'
   // const Icon = icons[type]
 
-  const label = error || success || warning
+  const label = error || success || warning || message
 
   if (label) {
     return (
