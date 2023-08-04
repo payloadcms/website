@@ -63,6 +63,11 @@
           padding: calc(var(--base) * .5);
         }
       }
+
+      @include small-break {
+        min-width: 900px;
+        overflow: scroll;
+      }
     }
   }
 
