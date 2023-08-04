@@ -231,6 +231,13 @@ dialog {
   color: currentColor;
 }
 
+// discord emojis
+.d-emoji {
+  width: 20px;
+  height: 20px;
+  margin: 0!important;
+}
+
 .payload__modal-item {
   min-height: 100%;
   background: transparent;

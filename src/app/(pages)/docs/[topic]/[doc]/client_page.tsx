@@ -57,7 +57,6 @@ export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads }) => {
           <div className={classes.mdx}>
             <MDXRemote {...content} components={components} />
           </div>
-          {hasRelatedThreads && <RelatedHelpList relatedThreads={relatedThreads} />}
           {next && (
             <Link
               className={classes.next}
@@ -71,6 +70,7 @@ export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads }) => {
               <h4>{next.title}</h4>
             </Link>
           )}
+          {hasRelatedThreads && <RelatedHelpList relatedThreads={relatedThreads} />}
         </div>
         <aside className={classes.aside}>
           <div className={classes.asideStickyContent}>

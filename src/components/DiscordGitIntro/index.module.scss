@@ -12,6 +12,7 @@
 .title {
   @include h3;
   text-decoration: none;
+  word-break: break-all;
 }
 
 .authorDetails {
