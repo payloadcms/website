@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
+import { Configure, InstantSearch, RefinementList } from 'react-instantsearch-hooks-web'
 import algoliasearch, { SearchClient } from 'algoliasearch/lite'
 import { IndexUiState } from 'instantsearch.js'
 
@@ -29,12 +29,17 @@ export const AlgoliaProvider: React.FC<{
             configure: {
               hitsPerPage: algoliaPerPage,
               facetingAfterDistinct: true,
+              facetFilters: [['helpful:true']],
             },
             ...initialURLState,
           },
         }}
       >
-        <Configure hitsPerPage={algoliaPerPage} facetingAfterDistinct />
+        <Configure
+          hitsPerPage={algoliaPerPage}
+          facetingAfterDistinct
+          facetFilters={['helpful:true']}
+        />
         {children && children}
       </InstantSearch>
     )

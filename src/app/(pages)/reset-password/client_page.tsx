@@ -37,12 +37,18 @@ export const ResetPassword: React.FC = () => {
     [resetPassword, token],
   )
 
+  if (user === undefined) return null
+
   if (user) {
     redirect(
-      `/cloud/settings?success=${encodeURIComponent(
-        `Your password has been reset. You may now log in.`,
+      `/cloud/settings?error=${encodeURIComponent(
+        'Cannot reset password while logged in. To change your password, you may use your account settings below or log out and try again.',
       )}`,
     )
+  }
+
+  if (!token) {
+    redirect(`/forgot-password?error=${encodeURIComponent('Missing token')}`)
   }
 
   return (

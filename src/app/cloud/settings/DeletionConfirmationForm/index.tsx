@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 
 import { Button } from '@components/Button'
 import { Heading } from '@components/Heading'
-import { Message } from '@components/Message'
+import { Message } from '@root/app/_components/Message'
 import { useAuth } from '@root/providers/Auth'
 
 import classes from './page.module.scss'
