@@ -53,8 +53,15 @@ export const LinkGrid: React.FC<
       <Gutter>
         {hasLinks && (
           <div className={classes.links}>
-            {links.map(({ link }, index) => {
-              return <LinkGridItem {...link} key={index} />
+            {links.map((link, index) => {
+              return (
+                <LinkGridItem
+                  key={index}
+                  {...(link?.link || {
+                    label: 'Untitled',
+                  })}
+                />
+              )
             })}
           </div>
         )}

@@ -21,10 +21,10 @@ type CreditCardSelectorType = {
   initialValue?: string
   onChange?: (method?: string) => void // eslint-disable-line no-unused-vars
   enableInlineSave?: boolean
-  showTeamLink?: boolean
   customer: ReturnType<typeof useCustomer>['result']
   customerLoading: ReturnType<typeof useCustomer>['isLoading']
   onPaymentMethodChange: (paymentMethod: string) => Promise<void>
+  defaultPaymentMethod?: string
 }
 
 const Selector: React.FC<CreditCardSelectorType> = props => {
@@ -34,9 +34,9 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
     team,
     enableInlineSave = true,
     customer,
-    showTeamLink = true,
     customerLoading,
     onPaymentMethodChange,
+    defaultPaymentMethod,
   } = props
 
   const newCardID = React.useRef<string>(`new-card-${uuid()}`)
@@ -112,22 +112,12 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
   }, [saveNewPaymentMethod, onPaymentMethodChange])
 
   const isNewCard = internalState === newCardID.current
-  const defaultPaymentMethod = customer?.invoice_settings?.default_payment_method
 
   // don't show the loading messages unless it the requests take longer than 500ms
   const debouncedCustomerLoading = useDebounce(customerLoading, 500)
 
   return (
     <div className={classes.creditCardSelector}>
-      {showTeamLink && (
-        <p className={classes.description}>
-          {`To manage your team's billing and payment information, go to your `}
-          <Link href={`/cloud/${team.slug}/settings/billing`} prefetch={false}>
-            team billing page
-          </Link>
-          {`.`}
-        </p>
-      )}
       <div ref={scrollRef} className={classes.scrollRef} />
       <div className={classes.formState}>
         {error && <p className={classes.error}>{error}</p>}
@@ -234,7 +224,7 @@ export const CreditCardSelector: React.FC<
     error: customerError,
     isLoading: customerLoading,
   } = useCustomer({
-    stripeCustomerID: team.stripeCustomerID,
+    team,
   })
 
   const {
@@ -242,6 +232,7 @@ export const CreditCardSelector: React.FC<
     error: subscriptionError,
     updateSubscription,
   } = useSubscription({
+    team,
     stripeSubscriptionID,
   })
 
@@ -275,15 +266,20 @@ export const CreditCardSelector: React.FC<
     )
   }
 
+  const defaultPaymentMethod = customer
+    ? typeof customer?.invoice_settings?.default_payment_method === 'object'
+      ? customer?.invoice_settings?.default_payment_method?.id
+      : customer?.invoice_settings?.default_payment_method
+    : undefined
+
   return (
     <Selector
       {...props}
       customer={customer}
       customerLoading={customerLoading}
       onPaymentMethodChange={onSubscriptionChange}
-      initialValue={
-        subscription?.default_payment_method || customer?.invoice_settings?.default_payment_method
-      }
+      defaultPaymentMethod={defaultPaymentMethod}
+      initialValue={subscription?.default_payment_method || defaultPaymentMethod}
     />
   )
 }

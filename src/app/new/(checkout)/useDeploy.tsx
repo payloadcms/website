@@ -1,16 +1,13 @@
 import { useCallback } from 'react'
 import { OnSubmit } from '@forms/types'
-import { CardElement as StripeCardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import {
-  PaymentIntent, // eslint-disable-line import/named
-  StripeCardElement as StripeCardElementType, // eslint-disable-line import/named
-} from '@stripe/stripe-js'
+import { useElements, useStripe } from '@stripe/react-stripe-js'
 
 import { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
+import { confirmCardPayment } from './confirmCardPayment'
+import { createSubscription, PayloadStripeSubscription } from './createSubscription'
 import { CheckoutState } from './reducer'
 import { useConfirmCardSetup } from './useConfirmCardSetup'
-import { PayloadStripeSubscription, useCreateSubscription } from './useCreateSubscription'
 
 export const useDeploy = (args: {
   project: Project | null | undefined
@@ -23,54 +20,9 @@ export const useDeploy = (args: {
   const stripe = useStripe()
   const elements = useElements()
 
-  const createSubscription = useCreateSubscription({
-    checkoutState,
-  })
-
   const confirmCardSetup = useConfirmCardSetup({
     team: checkoutState?.team,
   })
-
-  const confirmCardPayment = useCallback(
-    async (subscription: PayloadStripeSubscription): Promise<PaymentIntent | null> => {
-      if (!subscription) {
-        throw new Error('No subscription')
-      }
-
-      if (!checkoutState || !stripe || !elements) {
-        throw new Error('No payment intent or checkout state')
-      }
-
-      const { paid, client_secret: clientSecret } = subscription
-      const { paymentMethod } = checkoutState
-
-      if (!paid && !clientSecret) {
-        throw new Error(`Could not confirm payment, no client secret`)
-      }
-
-      // free trials never return a client secret because their initial $0 invoice is pre-paid
-      // this is the case for both existing payment methods as well as new cards
-      if (!paid && clientSecret) {
-        const stripePayment = await stripe.confirmCardPayment(clientSecret, {
-          payment_method:
-            !paymentMethod || paymentMethod.startsWith('new-card')
-              ? {
-                  card: elements.getElement(StripeCardElement) as StripeCardElementType,
-                }
-              : paymentMethod,
-        })
-
-        if (stripePayment.error) {
-          throw new Error(stripePayment.error.message)
-        }
-
-        return stripePayment.paymentIntent
-      }
-
-      return null
-    },
-    [elements, stripe, checkoutState],
-  )
 
   const deploy: OnSubmit = useCallback(
     async ({ unflattenedData: formState }) => {
@@ -131,8 +83,12 @@ export const useDeploy = (args: {
         if (req.ok) {
           // once the project is deployed successfully, create the subscription
           // also confirm card payment at this time
-          const subscription = await createSubscription(res.doc)
-          await confirmCardPayment(subscription)
+          const subscription = await createSubscription({
+            checkoutState,
+            project: res.doc,
+          })
+
+          await confirmCardPayment({ subscription, elements, stripe, checkoutState })
 
           if (typeof onDeploy === 'function') {
             onDeploy(res.doc)
@@ -146,16 +102,7 @@ export const useDeploy = (args: {
         throw new Error(`Error deploying project: ${message}`)
       }
     },
-    [
-      user,
-      installID,
-      checkoutState,
-      project,
-      onDeploy,
-      createSubscription,
-      confirmCardSetup,
-      confirmCardPayment,
-    ],
+    [user, installID, checkoutState, project, onDeploy, confirmCardSetup, elements, stripe],
   )
 
   return deploy

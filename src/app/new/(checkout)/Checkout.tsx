@@ -356,7 +356,6 @@ const Checkout: React.FC<{
                       team={checkoutState?.team}
                       onChange={handleCardChange}
                       enableInlineSave={false}
-                      showTeamLink={false}
                     />
                   )}
                 </div>

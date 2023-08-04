@@ -2,13 +2,13 @@ import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'r
 import { toast } from 'react-toastify'
 import QueryString from 'qs'
 
-import type { Project } from '@root/payload-cloud-types'
+import type { Project, Team } from '@root/payload-cloud-types'
 import type { Subscription, SubscriptionsResult } from './reducer'
 import { subscriptionsReducer } from './reducer'
 
 export const useSubscriptions = (args: {
   delay?: number
-  stripeCustomerID?: string
+  team?: Team | null
 }): {
   result: SubscriptionsResult | null
   isLoading: 'loading' | 'updating' | 'deleting' | false | null
@@ -18,7 +18,8 @@ export const useSubscriptions = (args: {
   cancelSubscription: (subscriptionID: string) => void
   loadMoreSubscriptions: () => void
 } => {
-  const { delay, stripeCustomerID } = args
+  const { delay, team } = args
+
   const isRequesting = useRef(false)
   const isDeleting = useRef(false)
   const isUpdating = useRef(false)
@@ -39,27 +40,21 @@ export const useSubscriptions = (args: {
       try {
         setIsLoading('loading')
 
-        const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/stripe/rest`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
+        const req = await fetch(
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/subscriptions`,
+          {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              starting_after,
+            }),
           },
-          body: JSON.stringify({
-            stripeMethod: 'subscriptions.list',
-            stripeArgs: [
-              {
-                customer: stripeCustomerID,
-                starting_after,
-                limit: 10,
-              },
-            ],
-          }),
-        })
+        )
 
-        const json: {
-          data: SubscriptionsResult
-        } = await req.json()
+        const subscription: SubscriptionsResult = await req.json()
 
         if (req.ok) {
           let projects: Project[] | null = null
@@ -70,7 +65,7 @@ export const useSubscriptions = (args: {
             const query = QueryString.stringify({
               where: {
                 stripeSubscriptionID: {
-                  in: json.data.data.map(sub => sub.id),
+                  in: subscription.data.map(sub => sub.id),
                 },
               },
               limit: 100,
@@ -105,7 +100,7 @@ export const useSubscriptions = (args: {
             dispatchResult({
               type: starting_after ? 'add' : 'reset',
               payload: {
-                subscriptions: json.data,
+                subscriptions: subscription,
                 projects,
               },
             })
@@ -117,7 +112,7 @@ export const useSubscriptions = (args: {
           }, delay)
         } else {
           // @ts-expect-error
-          throw new Error(json?.message)
+          throw new Error(subscription?.message)
         }
       } catch (err: unknown) {
         const message = (err as Error)?.message || 'Something went wrong'
@@ -132,7 +127,7 @@ export const useSubscriptions = (args: {
         clearTimeout(timer)
       }
     },
-    [delay, stripeCustomerID],
+    [delay, team],
   )
 
   useEffect(() => {
@@ -162,27 +157,25 @@ export const useSubscriptions = (args: {
       try {
         setIsLoading('updating')
 
-        const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/stripe/rest`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
+        const req = await fetch(
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/subscriptions/${stripeSubscriptionID}`,
+          {
+            method: 'PATCH',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newSubscription),
           },
-          body: JSON.stringify({
-            stripeMethod: 'subscriptions.update',
-            stripeArgs: [stripeSubscriptionID, newSubscription],
-          }),
-        })
+        )
 
-        const json: {
-          data: Subscription
-        } = await req.json()
+        const subscription: Subscription = await req.json()
 
         if (req.ok) {
           await refreshSubscriptions('Subscription updated successfully')
         } else {
           // @ts-expect-error
-          throw new Error(json?.message)
+          throw new Error(subscription?.message)
         }
       } catch (err: unknown) {
         const message = (err as Error)?.message || 'Something went wrong'
@@ -197,7 +190,7 @@ export const useSubscriptions = (args: {
         clearTimeout(timer)
       }
     },
-    [refreshSubscriptions],
+    [refreshSubscriptions, team],
   )
 
   const cancelSubscription = useCallback(
@@ -216,33 +209,21 @@ export const useSubscriptions = (args: {
       try {
         setIsLoading('deleting')
 
-        const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/stripe/rest`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
+        const req = await fetch(
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/subscriptions/${stripeSubscriptionID}`,
+          {
+            method: 'DELETE',
+            credentials: 'include',
           },
-          body: JSON.stringify({
-            stripeMethod: 'subscriptions.del',
-            stripeArgs: [
-              stripeSubscriptionID,
-              {
-                invoice_now: true,
-                prorate: true,
-              },
-            ],
-          }),
-        })
+        )
 
-        const json: {
-          data: Subscription
-        } = await req.json()
+        const subscription: Subscription = await req.json()
 
         if (req.ok) {
           await refreshSubscriptions('Subscription cancelled successfully')
         } else {
           // @ts-expect-error
-          throw new Error(json?.message)
+          throw new Error(subscription?.message)
         }
       } catch (err: unknown) {
         const message = (err as Error)?.message || 'Something went wrong'
@@ -257,7 +238,7 @@ export const useSubscriptions = (args: {
         clearTimeout(timer)
       }
     },
-    [refreshSubscriptions],
+    [refreshSubscriptions, team],
   )
 
   const loadMoreSubscriptions = useCallback(() => {

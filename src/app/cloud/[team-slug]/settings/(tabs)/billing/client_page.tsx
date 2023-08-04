@@ -54,6 +54,10 @@ export const TeamBillingPage = () => {
           {isCurrentTeamOwner && (
             <React.Fragment>
               <h6>Payment Methods</h6>
+              <p>
+                The following payment methods are available for this team. Projects that do not
+                specify a payment method will use the default payment method set for this team.
+              </p>
               <Elements stripe={Stripe}>
                 <CreditCardList team={team} />
               </Elements>

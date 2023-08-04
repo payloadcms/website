@@ -17,7 +17,7 @@ import { useAuth } from '@root/providers/Auth'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
 import { formatDate } from '@root/utilities/format-date-time'
 import { priceFromJSON } from '@root/utilities/price-from-json'
-import { useProducts } from './useProducts'
+import { useGetPlans } from '@root/utilities/use-cloud-api'
 import { useSubscriptions } from './useSubscriptions'
 
 import classes from './page.module.scss'
@@ -25,10 +25,10 @@ import classes from './page.module.scss'
 const modalSlug = 'cancel-subscription'
 
 const Page = (props: {
-  products: ReturnType<typeof useProducts>['result']
+  plans: ReturnType<typeof useGetPlans>['result']
   team: Team | null | undefined
 }) => {
-  const { products, team } = props
+  const { plans, team } = props
   const { user } = useAuth()
   const { closeModal, openModal } = useModal()
   const subscriptionToDelete = React.useRef<string | null>(null)
@@ -43,7 +43,7 @@ const Page = (props: {
     loadMoreSubscriptions,
     error: subscriptionsError,
   } = useSubscriptions({
-    stripeCustomerID: team?.stripeCustomerID,
+    team,
   })
 
   return (
@@ -66,19 +66,15 @@ const Page = (props: {
                     {subscriptions?.data?.map(subscription => {
                       const { id: subscriptionID, project, status, trial_end } = subscription
                       const [item] = subscription.items.data
-                      const matchingProduct = products?.find(
-                        product => product.id === item.price.product,
-                      )
+                      const plan = plans?.find(p => p.stripeProductID === item.price.product)
 
                       const trialEndDate = new Date(trial_end * 1000)
 
                       return (
                         <li key={subscriptionID} className={classes.subscription}>
                           <div className={classes.subscriptionDetails}>
-                            {matchingProduct?.name && (
-                              <div className={classes.productName}>
-                                {`${matchingProduct?.name}`}
-                              </div>
+                            {plan?.name && (
+                              <div className={classes.productName}>{`${plan?.name} Plan`}</div>
                             )}
                             <div className={classes.subscriptionTitleWrapper}>
                               <div className={classes.subscriptionTitle}>
@@ -181,7 +177,7 @@ const Page = (props: {
 
 export const TeamSubscriptionsPage = () => {
   const { team } = useRouteData()
-  const { result: products } = useProducts()
+  const { result: plans } = useGetPlans()
 
   const hasCustomerID = team?.stripeCustomerID
 
@@ -200,7 +196,7 @@ export const TeamSubscriptionsPage = () => {
           </React.Fragment>
         }
       />
-      {products === null ? <LoadingShimmer number={3} /> : <Page products={products} team={team} />}
+      {plans === null ? <LoadingShimmer number={3} /> : <Page plans={plans} team={team} />}
     </React.Fragment>
   )
 }
