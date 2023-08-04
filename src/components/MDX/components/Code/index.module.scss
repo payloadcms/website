@@ -1,8 +1,7 @@
 @use "@scss/common" as *;
 
-.code .codeComponent {
+.code {
   margin: 0 0 var(--base);
-  background-color: var(--color-base-900);
 
   @include mid-break {
     margin-left: calc(var(--gutter-h) * -1);

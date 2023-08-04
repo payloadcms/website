@@ -17,11 +17,7 @@ const CodeMarkdown: React.FC<{ children: React.ReactNode; className: string }> =
 
   if (childrenToRender === null) return null
 
-  return (
-    <div className={classes.code}>
-      <Code className={classes.codeComponent}>{childrenToRender}</Code>
-    </div>
-  )
+  return <Code className={`${classes.code} mdx-code`}>{childrenToRender.trim()}</Code>
 }
 
 export default CodeMarkdown
