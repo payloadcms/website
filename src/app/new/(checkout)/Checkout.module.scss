@@ -39,14 +39,11 @@
     margin-top: var(--base);
 }
 
-.hr {
-    margin: calc(var(--base) * 2) 0;
-    border: 0.5px solid var(--theme-elevation-500);
-    
-    @include mid-break {
-        margin: calc(var(--base) * 1.5) 0;
-    }
-}   
+.fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--base);
+} 
 
 .sidebarCell {
     position: relative;
@@ -102,6 +99,12 @@
     gap: var(--base);
 }
 
+.paymentInformation {
+    display: flex;
+    flex-direction: column;
+    gap: var(--base);
+}
+
 .envAdd {
     background-color: transparent;
     border: none;
@@ -114,6 +117,8 @@
 }
 
 .agreeToTerms {
+    margin-top: calc(var(--base) * 2);
+
     a {
         color: var(--theme-blue-500);
         text-decoration: underline;

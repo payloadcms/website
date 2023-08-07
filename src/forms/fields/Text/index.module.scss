@@ -5,6 +5,7 @@
   position: relative;
   display: inline-flex;
   flex-direction: column-reverse;
+  gap: calc(var(--base) / 2);
 }
 
 .fullWidth {
@@ -26,7 +27,7 @@
 }
 
 .description {
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .tooltipButton {

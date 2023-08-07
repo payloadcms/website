@@ -147,7 +147,7 @@ export const UniqueSlug: React.FC<{
   // the other is a hidden field that has been validated
   // this field is the only one that is we need sent through the form state
   return (
-    <div>
+    <div className={classes.uniqueSlug}>
       <Text
         label={label}
         initialValue={initialValue}

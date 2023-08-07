@@ -28,6 +28,7 @@ import { TeamSelector } from '@components/TeamSelector'
 import { UniqueDomain } from '@components/UniqueDomain'
 import { UniqueRepoName } from '@components/UniqueRepoName'
 import { UniqueProjectSlug } from '@components/UniqueSlug'
+import { Accordion } from '@root/app/_components/Accordion'
 import { Message } from '@root/app/_components/Message'
 import { cloudSlug } from '@root/app/cloud/client_layout'
 import { Plan, Project, Team } from '@root/payload-cloud-types'
@@ -213,7 +214,7 @@ const Checkout: React.FC<{
             {installsLoading ? (
               <LoadingShimmer number={3} />
             ) : (
-              <Fragment>
+              <div>
                 <div>
                   <Heading element="h5" marginTop={false}>
                     Select your plan
@@ -222,167 +223,176 @@ const Checkout: React.FC<{
                     <PlanSelector onChange={handlePlanChange} />
                   </div>
                 </div>
-                <hr className={classes.hr} />
-                <div className={classes.projectDetails}>
-                  <Heading element="h5" marginTop={false} marginBottom={false}>
-                    Project Details
-                  </Heading>
-                  <Select
-                    label="Region"
-                    path="region"
-                    initialValue="us-east"
-                    options={[
-                      {
-                        label: 'US East',
-                        value: 'us-east',
-                      },
-                      {
-                        label: 'US West',
-                        value: 'us-west',
-                      },
-                      {
-                        label: 'EU West',
-                        value: 'eu-west',
-                      },
-                    ]}
-                    required
-                  />
-                  <Text label="Project name" path="name" initialValue={project?.name} required />
-                  <UniqueProjectSlug
-                    initialValue={project?.slug}
-                    teamID={typeof project?.team === 'string' ? project?.team : project?.team?.id}
-                    projectID={project?.id}
-                    validateOnInit={true}
-                  />
-                  <TeamSelector
-                    onChange={handleTeamChange}
-                    className={classes.teamSelector}
-                    initialValue={
-                      typeof project?.team === 'object' &&
-                      project?.team !== null &&
-                      'id' in project?.team
-                        ? project?.team?.id
-                        : ''
-                    }
-                    required
-                  />
-                  {isClone && (
-                    <Fragment>
+                <Heading element="h5">Configure your project</Heading>
+                <div className={classes.fields}>
+                  <Accordion label={<p>Project Details</p>} openOnInit>
+                    <div className={classes.projectDetails}>
                       <Select
-                        label="Template"
-                        path="template"
-                        disabled={Boolean(project?.repositoryID)}
-                        initialValue={
-                          typeof project?.template === 'object' &&
-                          project?.template !== null &&
-                          'id' in project?.template
-                            ? project?.template?.id
-                            : project?.template
-                        }
+                        label="Region"
+                        path="region"
+                        initialValue="us-east"
                         options={[
-                          { label: 'None', value: '' },
-                          ...(templates || [])?.map(template => ({
-                            label: template.name || '',
-                            value: template.id,
-                          })),
+                          {
+                            label: 'US East',
+                            value: 'us-east',
+                          },
+                          {
+                            label: 'US West',
+                            value: 'us-west',
+                          },
+                          {
+                            label: 'EU West',
+                            value: 'eu-west',
+                          },
                         ]}
                         required
                       />
-                      <UniqueRepoName
-                        repositoryOwner={selectedInstall?.account?.login}
-                        initialValue={project?.repositoryName}
+                      <Text
+                        label="Project name"
+                        path="name"
+                        initialValue={project?.name}
+                        required
                       />
-                      <Checkbox
-                        path="makePrivate"
-                        label="Create private Git repository"
-                        initialValue={project?.makePrivate || false}
+                      <UniqueProjectSlug
+                        initialValue={project?.slug}
+                        teamID={
+                          typeof project?.team === 'string' ? project?.team : project?.team?.id
+                        }
+                        projectID={project?.id}
+                        validateOnInit={true}
                       />
-                    </Fragment>
-                  )}
-                </div>
-                <hr className={classes.hr} />
-                <div className={classes.buildSettings}>
-                  <Heading element="h5" marginTop={false} marginBottom={false}>
-                    Build Settings
-                  </Heading>
-                  <Text
-                    label="Root Directory"
-                    placeholder="/"
-                    path="rootDirectory"
-                    initialValue={project?.rootDirectory}
-                    required
-                  />
-                  <Text
-                    label="Install Command"
-                    path="installScript"
-                    placeholder="yarn install"
-                    initialValue={project?.installScript}
-                    required
-                    description="Example: `yarn install` or `npm install`"
-                  />
-                  <Text
-                    label="Build Command"
-                    path="buildScript"
-                    placeholder="yarn build"
-                    initialValue={project?.buildScript}
-                    required
-                    description="Example: `yarn build` or `npm run build`"
-                  />
-                  <Text
-                    label="Serve Command"
-                    path="runScript"
-                    placeholder="yarn serve"
-                    initialValue={project?.runScript}
-                    required
-                    description="Example: `yarn serve` or `npm run serve`"
-                  />
-                  <BranchSelector
-                    repositoryFullName={project?.repositoryFullName}
-                    initialValue={project?.deploymentBranch}
-                  />
-                  <UniqueDomain initialSubdomain={project?.slug} team={checkoutState?.team} />
-                </div>
-                <hr className={classes.hr} />
-                <EnvVars className={classes.envVars} />
-                <hr className={classes.hr} />
-                <div>
-                  <h5>Payment Info</h5>
-                  {checkoutState?.freeTrial && (
-                    <Message success="We require a card on file to prevent fraud and abuse. You will not be charged until your 14 day free trial is over.  We’ll remind you 7 days before your trial ends. Cancel anytime." />
-                  )}
-                  {checkoutState?.team && (
-                    <CreditCardSelector
-                      initialValue={checkoutState?.paymentMethod}
-                      team={checkoutState?.team}
-                      onChange={handleCardChange}
-                      enableInlineSave={false}
-                    />
-                  )}
-                </div>
-                <hr className={classes.hr} />
-                <Checkbox
-                  path="agreeToTerms"
-                  label={
-                    <div>
-                      {'I agree to the '}
-                      <Link href="/cloud-terms" target="_blank" prefetch={false}>
-                        Terms of Service
-                      </Link>
+                      <TeamSelector
+                        onChange={handleTeamChange}
+                        className={classes.teamSelector}
+                        initialValue={
+                          typeof project?.team === 'object' &&
+                          project?.team !== null &&
+                          'id' in project?.team
+                            ? project?.team?.id
+                            : ''
+                        }
+                        required
+                      />
+                      {isClone && (
+                        <Fragment>
+                          <Select
+                            label="Template"
+                            path="template"
+                            disabled={Boolean(project?.repositoryID)}
+                            initialValue={
+                              typeof project?.template === 'object' &&
+                              project?.template !== null &&
+                              'id' in project?.template
+                                ? project?.template?.id
+                                : project?.template
+                            }
+                            options={[
+                              { label: 'None', value: '' },
+                              ...(templates || [])?.map(template => ({
+                                label: template.name || '',
+                                value: template.id,
+                              })),
+                            ]}
+                            required
+                          />
+                          <UniqueRepoName
+                            repositoryOwner={selectedInstall?.account?.login}
+                            initialValue={project?.repositoryName}
+                          />
+                          <Checkbox
+                            path="makePrivate"
+                            label="Create private Git repository"
+                            initialValue={project?.makePrivate || false}
+                          />
+                        </Fragment>
+                      )}
                     </div>
-                  }
-                  required
-                  className={classes.agreeToTerms}
-                  initialValue={false}
-                  validate={(value: boolean) => {
-                    return !value
-                      ? 'You must agree to the terms of service to deploy your project.'
-                      : true
-                  }}
-                />
-                <div className={classes.submit}>
-                  <Submit label={checkoutState?.freeTrial ? 'Start free trial' : 'Deploy now'} />
+                  </Accordion>
+                  <Accordion label={<p>Build Settings</p>}>
+                    <div className={classes.buildSettings}>
+                      <Text
+                        label="Root Directory"
+                        placeholder="/"
+                        path="rootDirectory"
+                        initialValue={project?.rootDirectory}
+                        required
+                      />
+                      <Text
+                        label="Install Command"
+                        path="installScript"
+                        placeholder="yarn install"
+                        initialValue={project?.installScript}
+                        required
+                        description="Example: `yarn install` or `npm install`"
+                      />
+                      <Text
+                        label="Build Command"
+                        path="buildScript"
+                        placeholder="yarn build"
+                        initialValue={project?.buildScript}
+                        required
+                        description="Example: `yarn build` or `npm run build`"
+                      />
+                      <Text
+                        label="Serve Command"
+                        path="runScript"
+                        placeholder="yarn serve"
+                        initialValue={project?.runScript}
+                        required
+                        description="Example: `yarn serve` or `npm run serve`"
+                      />
+                      <BranchSelector
+                        repositoryFullName={project?.repositoryFullName}
+                        initialValue={project?.deploymentBranch}
+                      />
+                      <UniqueDomain initialSubdomain={project?.slug} team={checkoutState?.team} />
+                    </div>
+                  </Accordion>
+                  <Accordion label="Environment Variables">
+                    <EnvVars className={classes.envVars} />
+                  </Accordion>
+                  <Accordion label="Payment Information">
+                    <div className={classes.paymentInformation}>
+                      {checkoutState?.freeTrial && (
+                        <Message
+                          margin={false}
+                          success="You will not be charged until your 14 day free trial is over. Projects without a payment method will be deleted after 4 consecutive failed payment attempts. We’ll remind you 7 days before your trial ends. Cancel anytime."
+                        />
+                      )}
+                      {checkoutState?.team && (
+                        <CreditCardSelector
+                          initialValue={checkoutState?.paymentMethod}
+                          team={checkoutState?.team}
+                          onChange={handleCardChange}
+                          enableInlineSave={false}
+                        />
+                      )}
+                    </div>
+                  </Accordion>
+                  <Checkbox
+                    path="agreeToTerms"
+                    label={
+                      <div>
+                        {'I agree to the '}
+                        <Link href="/cloud-terms" target="_blank" prefetch={false}>
+                          Terms of Service
+                        </Link>
+                      </div>
+                    }
+                    required
+                    className={classes.agreeToTerms}
+                    initialValue={false}
+                    validate={(value: boolean) => {
+                      return !value
+                        ? 'You must agree to the terms of service to deploy your project.'
+                        : true
+                    }}
+                  />
+                  <div className={classes.submit}>
+                    <Submit label={checkoutState?.freeTrial ? 'Start free trial' : 'Deploy now'} />
+                  </div>
                 </div>
-              </Fragment>
+              </div>
             )}
           </Cell>
         </Grid>

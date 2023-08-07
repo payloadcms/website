@@ -127,7 +127,7 @@ export const UniqueDomain: React.FC<{
   // the other is a hidden field that has been validated
   // this field is the only one that is we need sent through the form state
   return (
-    <div>
+    <div className={classes.uniqueDomain}>
       <Text
         className={classes.input}
         label={label}

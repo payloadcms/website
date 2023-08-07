@@ -1,5 +1,10 @@
 @use "@scss/common" as *;
 
+.uniqueRepoName {
+  display: flex;
+  flex-direction: column;
+}
+
 .error {
   color: var(--theme-error-500)
 }
@@ -16,10 +21,4 @@
   path {
     stroke: var(--theme-success-500);
   }
-}
-
-.uniqueRepoName {
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--base) / 2);
 }

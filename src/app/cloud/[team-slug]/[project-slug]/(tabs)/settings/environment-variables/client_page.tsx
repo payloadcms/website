@@ -36,11 +36,9 @@ export const ProjectEnvPage = () => {
         </a>
         {'.'}
       </div>
-      <CollapsibleGroup transTime={250} transCurve="ease">
-        <Accordion openOnInit label="New variables">
-          <AddEnvs />
-        </Accordion>
-      </CollapsibleGroup>
+      <Accordion openOnInit label="New variables">
+        <AddEnvs />
+      </Accordion>
       <Divider />
       {(project?.environmentVariables || []).length === 0 ? (
         <NoData message="This project currently has no environment variables." />

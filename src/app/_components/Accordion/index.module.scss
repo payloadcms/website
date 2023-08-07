@@ -2,7 +2,6 @@
 
 .accordion {
   border: 1px solid var(--theme-border-color);
-  margin-bottom: var(--base);
   color: var(--theme-elevation-650);
 }
 
@@ -97,6 +96,6 @@
 }
 
 .collapsibleContent {
-  padding: calc(var(--base) * .75) calc(var(--base) * 1);
+  padding: calc(var(--base) * 1);
   border-top: 1px solid var(--theme-border-color);
 }
