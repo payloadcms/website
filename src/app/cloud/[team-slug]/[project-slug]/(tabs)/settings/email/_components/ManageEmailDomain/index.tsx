@@ -1,20 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import * as React from 'react'
 import { toast } from 'react-toastify'
-import { Collapsible } from '@faceless-ui/collapsibles'
 import { useModal } from '@faceless-ui/modal'
 import { Secret } from '@forms/fields/Secret'
-import { Text } from '@forms/fields/Text'
-import Form from '@forms/Form'
-import Submit from '@forms/Submit'
-import { validateDomain } from '@forms/validations'
 import Link from 'next/link'
 
 import { Button, ButtonProps } from '@components/Button'
 import { CopyToClipboard } from '@components/CopyToClipboard'
 import { Heading } from '@components/Heading'
 import { ModalWindow } from '@components/ModalWindow'
-import { Accordion } from '@root/app/cloud/_components/Accordion'
+import { Accordion } from '@root/app/_components/Accordion'
 import { useRouteData } from '@root/app/cloud/context'
 import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon'
 import { Project } from '@root/payload-cloud-types'
@@ -172,92 +167,89 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
 
   return (
     <React.Fragment>
-      <Collapsible openOnInit>
-        <Accordion
-          className={classes.domainAccordion}
-          toggleIcon="chevron"
-          label={
-            <div className={classes.labelWrap}>
-              <Link href={`https://${domainURL}`} target="_blank" className={classes.linkedDomain}>
-                <div className={classes.domainTitleName}>{domainURL}</div>
-                <ExternalLinkIcon className={classes.externalLinkIcon} />
-              </Link>
-            </div>
-          }
-        >
-          <div className={classes.domainContent}>
-            <div className={classes.domainInfo}>
-              {(emailDomain.resendAPIKey && typeof emailDomain.resendDomainID === 'string') ?? (
-                <Secret
-                  label="Resend API Key"
-                  loadSecret={() =>
-                    loadCustomDomainEmailAPIKey(
-                      typeof emailDomain.resendDomainID === 'string'
-                        ? emailDomain.resendDomainID
-                        : '',
-                    )
-                  }
-                  readOnly
-                />
-              )}
-              {emailDomain.resendDomainID && verificationStatus !== 'verified' && (
-                <p>
-                  To use your custom domain, add the following records to your DNS provider. Once
-                  added, click verify to confirm your domain settings with Resend.
-                </p>
-              )}
-            </div>
-            <table className={classes.records}>
-              <thead>
-                <tr>
-                  <th className={classes.recordType}>Type</th>
-                  <th className={classes.recordName}>Host/Selector</th>
-                  <th className={classes.recordContent}>Value</th>
-                  <th className={classes.recordPriority}>Priority</th>
-                </tr>
-              </thead>
-              <tbody>
-                {customDomainResendDNSRecords &&
-                  customDomainResendDNSRecords.map(
-                    ({ name, type, value, priority }, index: number) => (
-                      <tr key={index}>
-                        <td className={classes.recordType}>
-                          <span>{type}</span>
-                        </td>
-                        <td className={classes.recordName}>
-                          <CopyToClipboard value={name} />
-                          <span>{name}</span>
-                        </td>
-                        <td className={classes.recordContent}>
-                          <CopyToClipboard value={value} />
-                          <span>{value}</span>
-                        </td>
-                        {priority && (
-                          <td className={classes.recordPriority}>
-                            <span>{priority}</span>
-                          </td>
-                        )}
-                      </tr>
-                    ),
-                  )}
-              </tbody>
-            </table>
+      <Accordion
+        className={classes.domainAccordion}
+        openOnInit
+        label={
+          <div className={classes.labelWrap}>
+            <Link href={`https://${domainURL}`} target="_blank" className={classes.linkedDomain}>
+              <div className={classes.domainTitleName}>{domainURL}</div>
+              <ExternalLinkIcon className={classes.externalLinkIcon} />
+            </Link>
           </div>
-          <div className={classes.domainActions}>
-            <div className={classes.leftActions}>
-              <Button
-                label={formatVerificationStatus(verificationStatus)}
-                appearance={verificationStatusColor(verificationStatus)}
-                onClick={() => verifyEmailDomain(emailDomain.resendDomainID as string)}
+        }
+      >
+        <div className={classes.domainContent}>
+          <div className={classes.domainInfo}>
+            {(emailDomain.resendAPIKey && typeof emailDomain.resendDomainID === 'string') ?? (
+              <Secret
+                label="Resend API Key"
+                loadSecret={() =>
+                  loadCustomDomainEmailAPIKey(
+                    typeof emailDomain.resendDomainID === 'string'
+                      ? emailDomain.resendDomainID
+                      : '',
+                  )
+                }
+                readOnly
               />
-            </div>
-            <div className={classes.rightActions}>
-              <Button label="delete" appearance="danger" onClick={() => openModal(modalSlug)} />
-            </div>
+            )}
+            {emailDomain.resendDomainID && verificationStatus !== 'verified' && (
+              <p>
+                To use your custom domain, add the following records to your DNS provider. Once
+                added, click verify to confirm your domain settings with Resend.
+              </p>
+            )}
           </div>
-        </Accordion>
-      </Collapsible>
-
+          <table className={classes.records}>
+            <thead>
+              <tr>
+                <th className={classes.recordType}>Type</th>
+                <th className={classes.recordName}>Host/Selector</th>
+                <th className={classes.recordContent}>Value</th>
+                <th className={classes.recordPriority}>Priority</th>
+              </tr>
+            </thead>
+            <tbody>
+              {customDomainResendDNSRecords &&
+                customDomainResendDNSRecords.map(
+                  ({ name, type, value, priority }, index: number) => (
+                    <tr key={index}>
+                      <td className={classes.recordType}>
+                        <span>{type}</span>
+                      </td>
+                      <td className={classes.recordName}>
+                        <CopyToClipboard value={name} />
+                        <span>{name}</span>
+                      </td>
+                      <td className={classes.recordContent}>
+                        <CopyToClipboard value={value} />
+                        <span>{value}</span>
+                      </td>
+                      {priority && (
+                        <td className={classes.recordPriority}>
+                          <span>{priority}</span>
+                        </td>
+                      )}
+                    </tr>
+                  ),
+                )}
+            </tbody>
+          </table>
+        </div>
+        <div className={classes.domainActions}>
+          <div className={classes.leftActions}>
+            <Button
+              label={formatVerificationStatus(verificationStatus)}
+              appearance={verificationStatusColor(verificationStatus)}
+              onClick={() => verifyEmailDomain(emailDomain.resendDomainID as string)}
+            />
+          </div>
+          <div className={classes.rightActions}>
+            <Button label="delete" appearance="danger" onClick={() => openModal(modalSlug)} />
+          </div>
+        </div>
+      </Accordion>
       <ModalWindow slug={modalSlug}>
         <div className={classes.modalContent}>
           <Heading marginTop={false} as="h5">

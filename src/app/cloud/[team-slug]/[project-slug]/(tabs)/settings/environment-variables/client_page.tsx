@@ -1,11 +1,10 @@
 'use client'
 
 import * as React from 'react'
-import { Collapsible, CollapsibleGroup } from '@faceless-ui/collapsibles'
-import Link from 'next/link'
+import { CollapsibleGroup } from '@faceless-ui/collapsibles'
 
+import { Accordion } from '@root/app/_components/Accordion'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
-import { Accordion } from '@root/app/cloud/_components/Accordion'
 import { Divider } from '@root/app/cloud/_components/SectionDivider'
 import { useRouteData } from '@root/app/cloud/context'
 import { NoData } from '../_layoutComponents/NoData'
@@ -38,11 +37,9 @@ export const ProjectEnvPage = () => {
         {'.'}
       </div>
       <CollapsibleGroup transTime={250} transCurve="ease">
-        <Collapsible openOnInit>
-          <Accordion label="New variables" toggleIcon="chevron">
-            <AddEnvs />
-          </Accordion>
-        </Collapsible>
+        <Accordion openOnInit label="New variables">
+          <AddEnvs />
+        </Accordion>
       </CollapsibleGroup>
       <Divider />
       {(project?.environmentVariables || []).length === 0 ? (

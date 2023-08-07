@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Collapsible } from '@faceless-ui/collapsibles'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text'
 import { Textarea } from '@forms/fields/Textarea'
@@ -9,11 +8,10 @@ import Submit from '@forms/Submit'
 import { Button } from '@components/Button'
 import { Heading } from '@components/Heading'
 import { ModalWindow } from '@components/ModalWindow'
-import { Accordion } from '@root/app/cloud/_components/Accordion'
+import { Accordion } from '@root/app/_components/Accordion'
 import { useRouteData } from '@root/app/cloud/context'
 import { validateKey, validateValue } from '../validations'
 
-// import { Project } from '@root/payload-cloud-types'
 import classes from './index.module.scss'
 
 const envKeyFieldPath = 'envKey'
@@ -27,6 +25,7 @@ type Props = {
     id?: string
   }
 }
+
 export const ManageEnv: React.FC<Props> = ({ env: { key, id } }) => {
   const modalSlug = `delete-env-${id}`
   const [fetchedEnvValue, setFetchedEnvValue] = React.useState<string | undefined>(undefined)
@@ -130,47 +129,45 @@ export const ManageEnv: React.FC<Props> = ({ env: { key, id } }) => {
 
   return (
     <>
-      <Collapsible>
-        <Accordion
-          onToggle={async () => {
-            if (!fetchedEnvValue && key) {
-              const envValue = await fetchEnv()
-              if (envValue) setFetchedEnvValue(envValue)
-            }
-          }}
-          label={
-            <>
-              <p>{key}</p>
-              <div>••••••••••••</div>
-            </>
+      <Accordion
+        onToggle={async () => {
+          if (!fetchedEnvValue && key) {
+            const envValue = await fetchEnv()
+            if (envValue) setFetchedEnvValue(envValue)
           }
-        >
-          <Form className={classes.accordionFormContent} onSubmit={updateEnv}>
-            <Text
-              required
-              label="Key"
-              path={envKeyFieldPath}
-              initialValue={key}
-              validate={(keyValue: string) => validateKey(keyValue, existingEnvKeys)}
-            />
+        }}
+        label={
+          <>
+            <p>{key}</p>
+            <div>••••••••••••</div>
+          </>
+        }
+        toggleIcon="eye"
+      >
+        <Form className={classes.accordionFormContent} onSubmit={updateEnv}>
+          <Text
+            required
+            label="Key"
+            path={envKeyFieldPath}
+            initialValue={key}
+            validate={(keyValue: string) => validateKey(keyValue, existingEnvKeys)}
+          />
 
-            <Textarea
-              copy
-              required
-              label="Value"
-              path={envValueFieldPath}
-              initialValue={fetchedEnvValue}
-              validate={validateValue}
-            />
+          <Textarea
+            copy
+            required
+            label="Value"
+            path={envValueFieldPath}
+            initialValue={fetchedEnvValue}
+            validate={validateValue}
+          />
 
-            <div className={classes.actionFooter}>
-              <Button label="Remove" appearance="danger" onClick={() => openModal(modalSlug)} />
-              <Submit label="Update" icon={false} />
-            </div>
-          </Form>
-        </Accordion>
-      </Collapsible>
-
+          <div className={classes.actionFooter}>
+            <Button label="Remove" appearance="danger" onClick={() => openModal(modalSlug)} />
+            <Submit label="Update" icon={false} />
+          </div>
+        </Form>
+      </Accordion>
       <ModalWindow slug={modalSlug}>
         <div className={classes.modalContent}>
           <Heading marginTop={false} as="h5">

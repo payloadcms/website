@@ -32,6 +32,8 @@
   --gutter-h: calc(var(--base) * 16);
   --block-spacing: calc(var(--base) * 7);
 
+  --trans-default: 150ms;
+
   @include extra-large-break {
     --gutter-h: calc(var(--base) * 12);
     --font-body-size: 18px;

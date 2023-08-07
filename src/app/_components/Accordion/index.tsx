@@ -1,5 +1,10 @@
 import * as React from 'react'
-import { CollapsibleContent, CollapsibleToggler, useCollapsible } from '@faceless-ui/collapsibles'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleToggler,
+  useCollapsible,
+} from '@faceless-ui/collapsibles'
 
 import { ChevronIcon } from '@root/graphics/ChevronIcon'
 import { EyeIcon } from '@root/icons/EyeIcon'
@@ -27,7 +32,8 @@ type HeaderProps = {
   onToggle?: () => void
   toggleIcon?: 'eye' | 'chevron'
 }
-const Header: React.FC<HeaderProps> = ({ label, onToggle, toggleIcon = 'eye' }) => {
+
+const Header: React.FC<HeaderProps> = ({ label, onToggle, toggleIcon = 'chevron' }) => {
   return (
     <div className={classes.header} data-accordion-header>
       <div className={classes.labelContent} data-accordion-header-content>
@@ -61,12 +67,21 @@ const Content: React.FC<ContentProps> = ({ children }) => {
 type AccordionProps = HeaderProps &
   ContentProps & {
     className?: string
+    openOnInit?: boolean
   }
-export const Accordion: React.FC<AccordionProps> = ({ children, className, ...rest }) => {
+
+export const Accordion: React.FC<AccordionProps> = ({
+  children,
+  className,
+  openOnInit,
+  ...rest
+}) => {
   return (
-    <div className={[classes.accordion, className].filter(Boolean).join(' ')}>
-      <Header {...rest} />
-      <Content>{children}</Content>
-    </div>
+    <Collapsible openOnInit={openOnInit}>
+      <div className={[classes.accordion, className].filter(Boolean).join(' ')}>
+        <Header {...rest} />
+        <Content>{children}</Content>
+      </div>
+    </Collapsible>
   )
 }

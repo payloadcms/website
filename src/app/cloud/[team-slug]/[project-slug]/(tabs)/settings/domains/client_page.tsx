@@ -1,10 +1,10 @@
 'use client'
 
 import * as React from 'react'
-import { Collapsible, CollapsibleGroup } from '@faceless-ui/collapsibles'
+import { CollapsibleGroup } from '@faceless-ui/collapsibles'
 
+import { Accordion } from '@root/app/_components/Accordion'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
-import { Accordion } from '@root/app/cloud/_components/Accordion'
 import { Divider } from '@root/app/cloud/_components/SectionDivider'
 import { useRouteData } from '@root/app/cloud/context'
 import { NoData } from '../_layoutComponents/NoData'
@@ -34,11 +34,9 @@ export const ProjectDomainsPage = () => {
       />
 
       <CollapsibleGroup transTime={250} transCurve="ease">
-        <Collapsible openOnInit>
-          <Accordion label="New Domain" toggleIcon="chevron">
-            <AddDomain />
-          </Accordion>
-        </Collapsible>
+        <Accordion label="New Domain" openOnInit>
+          <AddDomain />
+        </Accordion>
       </CollapsibleGroup>
 
       {project?.domains && project.domains.length > 0 ? (

@@ -1,21 +1,15 @@
 import * as React from 'react'
-import { Collapsible } from '@faceless-ui/collapsibles'
 import { useModal } from '@faceless-ui/modal'
-import { Text } from '@forms/fields/Text'
-import Form from '@forms/Form'
-import Submit from '@forms/Submit'
-import { validateDomain } from '@forms/validations'
 import Link from 'next/link'
 
 import { Button } from '@components/Button'
 import { Heading } from '@components/Heading'
 import { ModalWindow } from '@components/ModalWindow'
-import { Accordion } from '@root/app/cloud/_components/Accordion'
+import { Accordion } from '@root/app/_components/Accordion'
 import { useRouteData } from '@root/app/cloud/context'
 import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon'
 import { Project } from '@root/payload-cloud-types'
 
-// import { Project } from '@root/payload-cloud-types'
 import classes from './index.module.scss'
 
 const domainValueFieldPath = 'domain'
@@ -75,47 +69,43 @@ export const ManageDomain: React.FC<Props> = ({ domain }) => {
 
   return (
     <React.Fragment>
-      <Collapsible openOnInit>
-        <Accordion
-          className={classes.domainAccordion}
-          toggleIcon="chevron"
-          label={
-            <div className={classes.labelWrap}>
-              <Link href={`https://${domainURL}`} target="_blank" className={classes.linkedDomain}>
-                <div className={classes.domainTitleName}>{domainURL}</div>
-                <ExternalLinkIcon className={classes.externalLinkIcon} />
-              </Link>
-            </div>
-          }
-        >
-          <div className={classes.domainContent}>
-            <p>Add the following record to your DNS provider:</p>
-            <table className={classes.record}>
-              <thead>
-                <tr>
-                  <th>Type</th>
-                  <th>Name</th>
-                  <th>Content</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{recordType}</td>
-                  <td>{recordName}</td>
-                  <td>{recordContent}</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div className={classes.domainActions}>
-              <div className={classes.rightActions}>
-                <Button label="delete" appearance="danger" onClick={() => openModal(modalSlug)} />
-              </div>
+      <Accordion
+        className={classes.domainAccordion}
+        openOnInit
+        label={
+          <div className={classes.labelWrap}>
+            <Link href={`https://${domainURL}`} target="_blank" className={classes.linkedDomain}>
+              <div className={classes.domainTitleName}>{domainURL}</div>
+              <ExternalLinkIcon className={classes.externalLinkIcon} />
+            </Link>
+          </div>
+        }
+      >
+        <div className={classes.domainContent}>
+          <p>Add the following record to your DNS provider:</p>
+          <table className={classes.record}>
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Content</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{recordType}</td>
+                <td>{recordName}</td>
+                <td>{recordContent}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div className={classes.domainActions}>
+            <div className={classes.rightActions}>
+              <Button label="delete" appearance="danger" onClick={() => openModal(modalSlug)} />
             </div>
           </div>
-        </Accordion>
-      </Collapsible>
-
+        </div>
+      </Accordion>
       <ModalWindow slug={modalSlug}>
         <div className={classes.modalContent}>
           <Heading marginTop={false} as="h5">

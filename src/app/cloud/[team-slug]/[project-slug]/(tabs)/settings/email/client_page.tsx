@@ -1,14 +1,14 @@
 'use client'
 
 import * as React from 'react'
-import { Collapsible, CollapsibleGroup } from '@faceless-ui/collapsibles'
+import { CollapsibleGroup } from '@faceless-ui/collapsibles'
 import { Secret } from '@forms/fields/Secret'
 import { Text } from '@forms/fields/Text'
 
 import { Banner } from '@components/Banner'
 import Code from '@components/Code'
+import { Accordion } from '@root/app/_components/Accordion'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
-import { Accordion } from '@root/app/cloud/_components/Accordion'
 import { Divider } from '@root/app/cloud/_components/SectionDivider'
 import { useRouteData } from '@root/app/cloud/context'
 import { Plan, Team } from '@root/payload-cloud-types'
@@ -89,11 +89,9 @@ export default buildConfig({
       ) : (
         <React.Fragment>
           <CollapsibleGroup transTime={250} transCurve="ease">
-            <Collapsible openOnInit>
-              <Accordion label="Add New Email Domain" toggleIcon="chevron">
-                <AddEmailDomain />
-              </Accordion>
-            </Collapsible>
+            <Accordion openOnInit label="Add New Email Domain">
+              <AddEmailDomain />
+            </Accordion>
           </CollapsibleGroup>
 
           {project?.customEmailDomains && project.customEmailDomains.length > 0 ? (

@@ -16,6 +16,7 @@ type HeaderProps = {
   onToggle?: () => void
   toggleIcon?: 'eye' | 'chevron'
 }
+
 const Header: React.FC<HeaderProps> = ({ label, onToggle, toggleIcon = 'eye' }) => {
   const IconToRender = Icons[toggleIcon]
 
