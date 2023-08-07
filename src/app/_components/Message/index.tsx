@@ -9,10 +9,10 @@ import classes from './index.module.scss'
 // }
 
 export const Message: React.FC<{
-  message?: string | null
-  success?: string | null
-  error?: string | null
-  warning?: string | null
+  message?: React.ReactNode
+  success?: React.ReactNode
+  error?: React.ReactNode
+  warning?: React.ReactNode
   className?: string
   margin?: boolean
 }> = ({ error, success, warning, message, className, margin }) => {
