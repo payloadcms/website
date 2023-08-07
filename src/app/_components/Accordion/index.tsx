@@ -35,19 +35,12 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ label, onToggle, toggleIcon = 'chevron' }) => {
   return (
-    <div className={classes.header} data-accordion-header>
-      <div className={classes.labelContent} data-accordion-header-content>
-        {label}
-      </div>
-
-      <CollapsibleToggler
-        className={[classes.toggler, classes[`icon--${toggleIcon}`]].filter(Boolean).join(' ')}
-        onClick={onToggle}
-        data-accordion-header-toggle
-      >
+    <CollapsibleToggler className={classes.toggler}>
+      <div className={classes.labelContent}>{label}</div>
+      <div className={[classes.icon, classes[`icon--${toggleIcon}`]].filter(Boolean).join(' ')}>
         <IconToRender icon={toggleIcon} />
-      </CollapsibleToggler>
-    </div>
+      </div>
+    </CollapsibleToggler>
   )
 }
 
@@ -77,7 +70,7 @@ export const Accordion: React.FC<AccordionProps> = ({
   ...rest
 }) => {
   return (
-    <Collapsible openOnInit={openOnInit}>
+    <Collapsible openOnInit={openOnInit} transTime={250} transCurve="ease">
       <div className={[classes.accordion, className].filter(Boolean).join(' ')}>
         <Header {...rest} />
         <Content>{children}</Content>
