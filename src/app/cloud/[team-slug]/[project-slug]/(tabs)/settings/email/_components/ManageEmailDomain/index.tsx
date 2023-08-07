@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import * as React from 'react'
 import { toast } from 'react-toastify'
 import { Collapsible } from '@faceless-ui/collapsibles'
 import { useModal } from '@faceless-ui/modal'
@@ -8,7 +9,6 @@ import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { validateDomain } from '@forms/validations'
 import Link from 'next/link'
-import * as React from 'react'
 
 import { Button, ButtonProps } from '@components/Button'
 import { CopyToClipboard } from '@components/CopyToClipboard'
@@ -53,7 +53,7 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
       ).then(res => res.json())
       setVerificationStatus(status)
     },
-    [project?.id, verificationStatus],
+    [project?.id],
   )
 
   useEffect(() => {
@@ -130,7 +130,7 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain }) => {
           toast.success(res.message)
         }
       } catch (e) {
-        console.error(e)
+        console.error(e) // eslint-disable-line no-console
       }
     },
     [domainURL, projectID, reloadProject],

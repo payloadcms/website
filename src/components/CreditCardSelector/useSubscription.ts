@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
+import type { Team } from '@root/payload-cloud-types'
+
 // TODO: type this using the Stripe module
 export interface Subscription {
   default_payment_method: string
@@ -7,6 +9,7 @@ export interface Subscription {
 
 export const useSubscription = (args: {
   stripeSubscriptionID?: string
+  team: Team
   delay?: number
 }): {
   result: Subscription | null
@@ -15,7 +18,7 @@ export const useSubscription = (args: {
   refreshSubscription: () => void
   updateSubscription: (subscription: Subscription) => void
 } => {
-  const { stripeSubscriptionID, delay } = args
+  const { stripeSubscriptionID, team, delay } = args
   const isRequesting = useRef(false)
   const [result, setResult] = useState<Subscription | null>(null)
   const [isLoading, setIsLoading] = useState<boolean | null>(null)
@@ -37,25 +40,19 @@ export const useSubscription = (args: {
       try {
         setIsLoading(true)
 
-        const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/stripe/rest`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
+        const req = await fetch(
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/subscriptions/${stripeSubscriptionID}`,
+          {
+            method: 'GET',
+            credentials: 'include',
           },
-          body: JSON.stringify({
-            stripeMethod: 'subscriptions.retrieve',
-            stripeArgs: [stripeSubscriptionID],
-          }),
-        })
+        )
 
-        const json: {
-          data: Subscription
-        } = await req.json()
+        const subscription: Subscription = await req.json()
 
         if (req.ok) {
           setTimeout(() => {
-            setResult(json?.data)
+            setResult(subscription)
             setError('')
             setIsLoading(false)
           }, delay)
@@ -78,7 +75,7 @@ export const useSubscription = (args: {
     return () => {
       clearTimeout(timer)
     }
-  }, [delay, stripeSubscriptionID])
+  }, [delay, stripeSubscriptionID, team?.id])
 
   useEffect(() => {
     getSubscriptions()
@@ -105,25 +102,23 @@ export const useSubscription = (args: {
         try {
           setIsLoading(true)
 
-          const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/stripe/rest`, {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
+          const req = await fetch(
+            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/subscriptions/${stripeSubscriptionID}`,
+            {
+              method: 'PATCH',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(newSubscription),
             },
-            body: JSON.stringify({
-              stripeMethod: 'subscriptions.update',
-              stripeArgs: [stripeSubscriptionID, newSubscription],
-            }),
-          })
+          )
 
-          const json: {
-            data: Subscription
-          } = await req.json()
+          const subscription: Subscription = await req.json()
 
           if (req.ok) {
             setTimeout(() => {
-              setResult(json?.data)
+              setResult(subscription)
               setError('')
               setIsLoading(false)
             }, delay)
@@ -147,7 +142,7 @@ export const useSubscription = (args: {
         clearTimeout(timer)
       }
     },
-    [delay, stripeSubscriptionID],
+    [delay, stripeSubscriptionID, team?.id],
   )
 
   const memoizedState = useMemo(

@@ -23,18 +23,17 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
           <Link href="/" className={classes.logo} prefetch={false} aria-label="Full Payload Logo">
             <FullLogo />
           </Link>
-
           <div className={classes.navItems}>
             {(navItems || []).map((item, index) => {
               return <CMSLink className={classes.navItem} key={index} {...item.link} />
             })}
           </div>
-
-          <div className={classes.secondaryNavItems}>
+          <div
+            className={[classes.secondaryNavItems, user !== undefined && classes.show].join(' ')}
+          >
             <Link href="/new" prefetch={false}>
               New project
             </Link>
-
             {user ? (
               <Avatar className={classes.avatar} />
             ) : (
@@ -42,7 +41,6 @@ export const DesktopNav: React.FC<Pick<MainMenu, 'navItems'>> = ({ navItems }) =
                 Login
               </Link>
             )}
-
             <div className={classes.icons}>
               <a
                 className={classes.discord}

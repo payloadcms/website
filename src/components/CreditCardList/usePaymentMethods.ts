@@ -45,33 +45,22 @@ export const usePaymentMethods = (args: {
       try {
         setIsLoading('loading')
 
-        const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/stripe/rest`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
+        const req = await fetch(
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team.id}/payment-methods`,
+          {
+            method: 'GET',
+            credentials: 'include',
           },
-          body: JSON.stringify({
-            stripeMethod: 'customers.listPaymentMethods',
-            stripeArgs: [
-              team?.stripeCustomerID,
-              {
-                type: 'card',
-                limit: 100, // TODO: paginate this
-              },
-            ],
-          }),
-        })
+        )
 
         const json: {
-          data: {
-            data: PaymentMethod[]
-          }
+          data: PaymentMethod[]
+          message?: string
         } = await req.json()
 
         if (req.ok) {
           setTimeout(() => {
-            setResult(json?.data?.data || null)
+            setResult(json?.data || null)
             setError('')
             setIsLoading(false)
             if (successMessage) {
@@ -79,7 +68,6 @@ export const usePaymentMethods = (args: {
             }
           }, delay)
         } else {
-          // @ts-expect-error
           throw new Error(json?.message)
         }
       } catch (err: unknown) {
@@ -95,7 +83,7 @@ export const usePaymentMethods = (args: {
         clearTimeout(timer)
       }
     },
-    [delay, team?.stripeCustomerID],
+    [delay, team?.stripeCustomerID, team?.id],
   )
 
   useEffect(() => {
@@ -118,28 +106,22 @@ export const usePaymentMethods = (args: {
       setIsLoading('deleting')
 
       try {
-        const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/stripe/rest`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
+        const req = await fetch(
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/payment-methods/${paymentMethod}`,
+          {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+            },
           },
-          body: JSON.stringify({
-            stripeMethod: 'paymentMethods.detach',
-            stripeArgs: [paymentMethod],
-          }),
-        })
+        )
 
-        const json: {
-          data: {
-            data: PaymentMethod[]
-          }
-        } = await req.json()
+        const json = await req.json()
 
         if (req.ok) {
           await getPaymentMethods('Payment method deleted successfully')
         } else {
-          // @ts-expect-error
           throw new Error(json?.message)
         }
       } catch (err: unknown) {
@@ -155,7 +137,7 @@ export const usePaymentMethods = (args: {
         clearTimeout(timer)
       }
     },
-    [getPaymentMethods],
+    [getPaymentMethods, team?.id],
   )
 
   const saveNewPaymentMethod: ReturnType<UseConfirmCardSetup> = useCallback(
