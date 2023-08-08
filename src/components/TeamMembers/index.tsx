@@ -10,12 +10,15 @@ import classes from './index.module.scss'
 export const TeamMembers: React.FC<{
   team: Team | null | undefined
   className?: string
-}> = ({ className, team }) => {
+  renderHeader?: boolean
+}> = ({ className, team, renderHeader }) => {
   return (
     <div className={[classes.members, className].filter(Boolean).join(' ')}>
-      <Heading element="h6" marginTop={false} marginBottom={false}>
-        Team members
-      </Heading>
+      {renderHeader && (
+        <Heading element="h6" marginTop={false} marginBottom={false}>
+          Team members
+        </Heading>
+      )}
       {team?.members?.map((member, index) => {
         return (
           <TeamMemberRow

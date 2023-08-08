@@ -1,9 +1,25 @@
+import { fetchProject } from '@cloud/_api/fetchProject'
+import { fetchTeam } from '@cloud/_api/fetchTeam'
 import { Metadata } from 'next'
 
-import { ProjectOverviewPage } from './client_page'
+import { InfraOffline } from './InfraOffline'
+import { InfraOnline } from './InfraOnline'
 
-export default props => {
-  return <ProjectOverviewPage {...props} />
+export default async function ProjectPageWrapper({
+  params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
+}) {
+  const team = await fetchTeam(teamSlug)
+
+  const project = await fetchProject({
+    teamID: team.id,
+    projectSlug,
+  })
+
+  if (project?.infraStatus === 'done') {
+    return <InfraOnline project={project} />
+  }
+
+  return <InfraOffline project={project} team={team} />
 }
 
 export const metadata: Metadata = {

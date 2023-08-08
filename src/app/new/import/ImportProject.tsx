@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react'
-import { cloudSlug } from '@cloud/client_layout'
+import { cloudSlug } from '@cloud/_components/DashboardHeader'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import RadioGroup from '@forms/fields/RadioGroup'
 import Form from '@forms/Form'

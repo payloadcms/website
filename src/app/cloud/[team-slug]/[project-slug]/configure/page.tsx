@@ -1,5 +1,4 @@
 import React from 'react'
-import { cloudSlug } from '@cloud/client_layout'
 import { Metadata } from 'next'
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 

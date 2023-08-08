@@ -1,9 +1,11 @@
+import { fetchTeam } from '@cloud/_api/fetchTeam'
 import { Metadata } from 'next'
 
-import { TeamInvoicesPage } from './client_page'
+import { TeamInvoicesPage } from './page_client'
 
-export default props => {
-  return <TeamInvoicesPage {...props} />
+export default async function TeamInvoicesWrapper({ params: { 'team-slug': teamSlug } }) {
+  const team = await fetchTeam(teamSlug)
+  return <TeamInvoicesPage team={team} />
 }
 
 export async function generateMetadata({ params: { 'team-slug': teamSlug } }): Promise<Metadata> {

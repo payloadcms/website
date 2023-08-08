@@ -18,10 +18,11 @@ export const useCloudAPI = <R>(args: {
   method?: 'GET' | 'POST'
   body?: string
   interval?: number
+  initialState?: R
 }): ReturnType<UseCloudAPI<R>> => {
-  const { url, delay = 250, interval, method = 'GET', body } = args
+  const { url, delay = 250, interval, method = 'GET', body, initialState } = args
   const isRequesting = useRef(false)
-  const [result, setResult] = useState<R>(undefined as unknown as R)
+  const [result, setResult] = useState<R>(initialState as unknown as R)
   const [isLoading, setIsLoading] = useState<boolean | null>(null)
   const [error, setError] = useState('')
   const [requestTicker, dispatchRequestTicker] = useReducer((state: number) => state + 1, 0)
@@ -134,10 +135,11 @@ export const useGetProjects: UseCloudAPI<
     search?: string
     delay?: number
     page?: number
+    initialState?: ProjectsData
   }
 > = args => {
   const { user } = useAuth()
-  const { teams: teamsFromArgs, search, delay, page } = args || {}
+  const { teams: teamsFromArgs, search, delay, page, initialState } = args || {}
 
   const teamsWithoutNone = teamsFromArgs?.filter(team => team !== 'none') || []
 
@@ -167,6 +169,7 @@ export const useGetProjects: UseCloudAPI<
   return useCloudAPI<ProjectsData>({
     url: `/api/projects${query ? `?${query}` : ''}`,
     delay,
+    initialState,
   })
 }
 

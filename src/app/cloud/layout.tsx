@@ -1,7 +1,8 @@
 import { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { CloudLayout } from './client_layout'
+import { fetchMe } from './_api/fetchMe'
+import { DashboardHeader } from './_components/DashboardHeader'
 
 export const metadata: Metadata = {
   title: {
@@ -19,5 +20,16 @@ export const metadata: Metadata = {
 }
 
 export default async ({ children }) => {
-  return <CloudLayout>{children}</CloudLayout>
+  await fetchMe({
+    nullUserRedirect: `/login?error=${encodeURIComponent(
+      'You must be logged in to visit this page',
+    )}`,
+  })
+
+  return (
+    <>
+      <DashboardHeader />
+      {children}
+    </>
+  )
 }

@@ -8,7 +8,7 @@ import { EdgeScroll } from '@components/EdgeScroll'
 import { Gutter } from '@components/Gutter'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
 
-import classes from './index.module.scss'
+import classes from './layout.module.scss'
 
 const sidebarNavRoutes = [
   {
@@ -79,7 +79,6 @@ export default ({ children }: ProjectSettingsLayoutType) => {
             </EdgeScroll>
           </div>
         </Cell>
-
         <Cell start={4} cols={9} startS={1}>
           {children}
         </Cell>

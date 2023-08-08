@@ -1,9 +1,11 @@
+import { fetchTeam } from '@cloud/_api/fetchTeam'
 import { Metadata } from 'next'
 
-import { TeamSubscriptionsPage } from './client_page'
+import { TeamSubscriptionsPage } from './page_client'
 
-export default props => {
-  return <TeamSubscriptionsPage {...props} />
+export default async function TeamSubscriptionsWrapper({ params: { 'team-slug': teamSlug } }) {
+  const team = await fetchTeam(teamSlug)
+  return <TeamSubscriptionsPage team={team} />
 }
 
 export async function generateMetadata({ params: { 'team-slug': teamSlug } }): Promise<Metadata> {

@@ -1,10 +1,9 @@
 import { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { ProjectLayout } from './client_layout'
 
 export default props => {
-  return <ProjectLayout {...props} />
+  return props.children
 }
 
 export async function generateMetadata({

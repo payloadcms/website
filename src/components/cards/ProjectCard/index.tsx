@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react'
+import { cloudSlug } from '@cloud/_components/DashboardHeader'
 import Link from 'next/link'
 
-import { cloudSlug } from '@root/app/cloud/client_layout'
+import { LoadingShimmer } from '@components/LoadingShimmer'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { BranchIcon } from '@root/icons/BranchIcon'
@@ -12,28 +13,37 @@ import classes from './index.module.scss'
 export const ProjectCard: React.FC<{
   project: Project
   className?: string
+  isLoading?: boolean | null
 }> = props => {
-  const { project, className } = props
+  const { project, className, isLoading } = props
 
-  const { team, status, deploymentBranch, repositoryFullName } = project
+  const { team, status, deploymentBranch, repositoryFullName } = project || {}
 
-  const teamSlug = typeof team === 'string' ? team : team.slug
+  const teamSlug = team && typeof team === 'object' ? team?.slug : team
+
+  if (isLoading) {
+    // match the card height in css
+    return <LoadingShimmer heightPercent={100} shimmerClassName={classes.shimmer} />
+  }
+
   return (
     <Link
       href={`/${cloudSlug}/${teamSlug}/${project.slug}${status === 'draft' ? '/configure' : ''}`}
       className={[className, classes.project].filter(Boolean).join(' ')}
       prefetch={false}
     >
-      <div className={classes.leader}>
-        {status === 'draft' && <span className={classes.draft}>Draft</span>}
-        {status !== 'draft' && project.plan && (
-          <div className={classes.plan}>
-            {typeof project.plan === 'object' && project.plan !== null && (
-              <Fragment>{project.plan.name}</Fragment>
-            )}
-          </div>
-        )}
-      </div>
+      {status && (
+        <div className={classes.leader}>
+          {status === 'draft' && <span className={classes.draft}>Draft</span>}
+          {status !== 'draft' && project.plan && (
+            <div className={classes.plan}>
+              {typeof project.plan === 'object' && project.plan !== null && (
+                <Fragment>{project.plan.name}</Fragment>
+              )}
+            </div>
+          )}
+        </div>
+      )}
       <h6 className={classes.title}>{project.name}</h6>
       <div className={classes.details}>
         {repositoryFullName && (

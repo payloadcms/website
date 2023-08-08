@@ -33,6 +33,7 @@
 
   &.disabled {
     cursor: default;
+    color: var(--theme-elevation-500);
 
     &:hover {
       border-color: transparent;
@@ -70,7 +71,7 @@
 }
 
 .paginationButtonActive {
-  border: 1px solid #3C3C3C;
+  border: 1px solid currentColor;
 }
 
 .dash {

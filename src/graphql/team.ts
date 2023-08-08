@@ -1,20 +1,32 @@
-export const TEAMS = `
+export const TEAM = `id
+name
+slug
+stripeCustomerID
+billingEmail
+members {
+  user {
+    id
+    email
+  }
+  roles
+  joinedOn
+}`
+
+export const TEAM_QUERY = `
   query Team($slug: String) {
-    Teams(where: { slug: { equals: $slug} }) {
+    Teams(where: { slug: { equals: $slug } }) {
       docs {
-        id
-        name
-        slug
-        stripeCustomerID
-        stripeSubscriptionStatus
-        members {
-          user {
-            id
-            email
-          }
-          roles
-          joinedOn
-        }
+        ${TEAM}
+      }
+    }
+  }
+`
+
+export const TEAMS = `
+  query Teams {
+    Teams {
+      docs {
+        ${TEAM}
       }
     }
   }

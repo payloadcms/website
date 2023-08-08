@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { toast } from 'react-toastify'
-import { useRouteData } from '@cloud/context'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Button } from '@components/Button'
@@ -15,7 +14,7 @@ import { CommitIcon } from '@root/graphics/CommitIcon'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { BranchIcon } from '@root/icons/BranchIcon'
 import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon'
-import { Deployment } from '@root/payload-cloud-types'
+import { Deployment, Project } from '@root/payload-cloud-types'
 import { formatDate } from '@root/utilities/format-date-time'
 import { qs } from '@root/utilities/qs'
 import { useGetProjectDeployments } from '@root/utilities/use-cloud-api'
@@ -26,8 +25,10 @@ import classes from './index.module.scss'
 type FinalDeploymentStages = Extract<Deployment['deploymentStatus'], 'ACTIVE' | 'SUPERSEDED'>
 const finalDeploymentStages: FinalDeploymentStages[] = ['ACTIVE', 'SUPERSEDED']
 
-export const InfraOnline: React.FC = () => {
-  const { project } = useRouteData()
+export const InfraOnline: React.FC<{
+  project: Project
+}> = props => {
+  const { project } = props
 
   const {
     result: deployments,

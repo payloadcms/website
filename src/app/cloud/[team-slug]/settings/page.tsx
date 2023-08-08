@@ -1,9 +1,12 @@
+import { fetchTeam } from '@cloud/_api/fetchTeam'
 import { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { TeamSettingsPage } from './client_page'
-export default props => {
-  return <TeamSettingsPage {...props} />
+import { TeamSettingsPage } from './page_client'
+
+export default async function TeamSettingsWrapper({ params: { 'team-slug': teamSlug } }) {
+  const team = await fetchTeam(teamSlug)
+  return <TeamSettingsPage team={team} />
 }
 
 export async function generateMetadata({ params: { 'team-slug': teamSlug } }): Promise<Metadata> {

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useCallback, useEffect, useState } from 'react'
+import { cloudSlug } from '@cloud/_components/DashboardHeader'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
@@ -14,7 +15,6 @@ import { redirect, useSearchParams } from 'next/navigation'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { RenderParams } from '@root/app/_components/RenderParams'
-import { cloudSlug } from '@root/app/cloud/client_layout'
 import { useAuth } from '@root/providers/Auth'
 import canUseDom from '@root/utilities/can-use-dom'
 

@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { useRouteData } from '@cloud/context'
+import { fetchProjectClient } from '@cloud/_api/fetchProjects'
 import Error from '@forms/Error'
 import Link from 'next/link'
 
@@ -10,7 +10,7 @@ import { Gutter } from '@components/Gutter'
 import { Label } from '@components/Label'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 import { Indicator } from '@root/app/_components/Indicator'
-import { Project } from '@root/payload-cloud-types'
+import { Project, Team } from '@root/payload-cloud-types'
 import { RequireField } from '@root/ts-helpers/requireField'
 import { useGetProjectDeployments } from '@root/utilities/use-cloud-api'
 import { DeploymentLogs } from '../DeploymentLogs'
@@ -74,8 +74,22 @@ const deploymentStates: DeploymentStates = {
 
 const initialDeploymentPhases: DeploymentPhases[] = ['notStarted', 'awaitingDatabase', 'deploying']
 
-export const InfraOffline: React.FC = () => {
-  const { project, reloadProject, team } = useRouteData()
+export const InfraOffline: React.FC<{
+  project: Project
+  team: Team
+}> = props => {
+  const { project: initialProject, team } = props
+  const [project, setProject] = React.useState(initialProject)
+
+  const reloadProject = React.useCallback(async () => {
+    const project = await fetchProjectClient({
+      teamID: team.id,
+      projectSlug: initialProject.slug,
+    })
+
+    setProject(project)
+  }, [initialProject, team])
+
   const infraStatus = project?.infraStatus || 'notStarted'
   const failedDeployment = ['error', 'deployError', 'appCreationError'].includes(infraStatus)
   const deploymentStep = deploymentStates[infraStatus]
@@ -92,7 +106,6 @@ export const InfraOffline: React.FC = () => {
   })
   const latestDeployment = deployments?.[0]
 
-  //
   // poll project for updates every 10 seconds
   React.useEffect(() => {
     let projectInterval

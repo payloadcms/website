@@ -1,10 +1,20 @@
-import { Metadata } from 'next'
+import { fetchProject } from '@cloud/_api/fetchProject'
+import { fetchTeam } from '@cloud/_api/fetchTeam'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { ProjectEmailPage } from './client_page'
+import { ProjectEmailPage } from './page_client'
 
-export default props => {
-  return <ProjectEmailPage {...props} />
+export default async function ProjectEmailPageWrapper({
+  params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
+}) {
+  const team = await fetchTeam(teamSlug)
+
+  const project = await fetchProject({
+    teamID: team.id,
+    projectSlug,
+  })
+
+  return <ProjectEmailPage project={project} team={team} />
 }
 
 export async function generateMetadata({

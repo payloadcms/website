@@ -8,14 +8,14 @@ import { EdgeScroll } from '@components/EdgeScroll'
 import { Gutter } from '@components/Gutter'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
 
-import classes from './index.module.scss'
+import classes from './layout.module.scss'
 
 const sidebarNavRoutes = [
   {
     label: 'General',
   },
   {
-    label: 'Members',
+    label: 'Team Members',
     slug: 'members',
   },
   {
@@ -35,6 +35,7 @@ const sidebarNavRoutes = [
 type ProjectSettingsLayoutType = {
   children: React.ReactNode
 }
+
 export default ({ children }: ProjectSettingsLayoutType) => {
   const [home, teamSlug, settingsTab, settingSlug] = usePathnameSegments()
 

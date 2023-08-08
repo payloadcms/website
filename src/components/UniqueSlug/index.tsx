@@ -160,17 +160,19 @@ export const UniqueSlug: React.FC<{
         required
       />
       <Text path={path} initialValue={initialValue} value={validatedSlug} required type="hidden" />
-      <div
-        className={[
-          classes.description,
-          slugIsFetched && isError && !isLoading && classes.error,
-          slugIsValid && !isLoading && classes.success,
-        ]
-          .filter(Boolean)
-          .join(' ')}
-      >
-        {description}
-      </div>
+      {description && (
+        <div
+          className={[
+            classes.description,
+            slugIsFetched && isError && !isLoading && classes.error,
+            slugIsValid && !isLoading && classes.success,
+          ]
+            .filter(Boolean)
+            .join(' ')}
+        >
+          {description}
+        </div>
+      )}
     </div>
   )
 }

@@ -3,6 +3,8 @@
 .project {
     width: 100%;
     height: 100%;
+    // match the loading card height
+    aspect-ratio: 1/1;
     display: flex;
     flex-direction: column;
     padding: calc(var(--base) * 2);
@@ -10,6 +12,10 @@
     background-color: var(--theme-elevation-50);
     position: relative;
     text-decoration: none;
+
+    &:focus {
+        text-decoration: none;
+    }
 
     &:hover {
         border-color: var(--theme-elevation-300);
@@ -24,6 +30,12 @@
     @include mid-break {
         padding: var(--base);
     }
+}
+
+.shimmer {
+    // match the card height
+    aspect-ratio: 1/1;
+    height: 100%;
 }
 
 .leader {
@@ -45,6 +57,10 @@
 .details {
     color: var(--theme-elevation-800);
     margin-top: calc(var(--base) / 2);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex-grow: 1;
 }
 
 .projectBranch,
