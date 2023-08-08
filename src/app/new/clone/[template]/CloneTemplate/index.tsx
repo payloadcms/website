@@ -13,6 +13,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { useInstallationSelector } from '@components/InstallationSelector'
+import { Install } from '@components/InstallationSelector/useGetInstalls'
 import { useTeamDrawer } from '@components/TeamDrawer'
 import { UniqueRepoName } from '@components/UniqueRepoName'
 import { useCreateDraftProject } from '@root/app/new/useCreateDraftProject'
@@ -20,18 +21,20 @@ import { PayloadIcon } from '@root/graphics/PayloadIcon'
 import { Team, Template } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 
-import classes from './CloneTemplate.module.scss'
+import classes from './index.module.scss'
 
 export const CloneTemplate: React.FC<{
   template?: Template
+  installs?: Install[]
 }> = props => {
   const searchParams = useSearchParams()
   const teamParam = searchParams?.get('team')
   const { user } = useAuth()
-  const { template } = props
+  const { template, installs: initialInstalls } = props
   const router = useRouter()
 
   const [InstallationSelector, { value: selectedInstall }] = useInstallationSelector({
+    installs: initialInstalls,
     permissions: 'write',
   })
 
