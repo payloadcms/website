@@ -1,5 +1,4 @@
-import { fetchProject } from '@cloud/_api/fetchProject'
-import { fetchTeam } from '@cloud/_api/fetchTeam'
+import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
 import { Metadata } from 'next'
 
 import { InfraOffline } from './InfraOffline'
@@ -8,12 +7,7 @@ import { InfraOnline } from './InfraOnline'
 export default async function ProjectPageWrapper({
   params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
 }) {
-  const team = await fetchTeam(teamSlug)
-
-  const project = await fetchProject({
-    teamID: team.id,
-    projectSlug,
-  })
+  const { team, project } = await fetchProjectAndRedirect({ teamSlug, projectSlug })
 
   if (project?.infraStatus === 'done') {
     return <InfraOnline project={project} />

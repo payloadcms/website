@@ -36,6 +36,7 @@ export const useCustomer: UseCustomer = ({ team, delay }) => {
     let timer: NodeJS.Timeout
 
     if (!stripeCustomerID) {
+      console.error('No customer ID') // eslint-disable-line no-console
       setError('No customer ID')
       return
     }

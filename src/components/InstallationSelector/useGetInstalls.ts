@@ -34,6 +34,7 @@ const installReducer = (state: Install[], action: Action): Install[] => {
 
 export type UseGetInstalls = (args?: {
   permissions?: Install['permissions']['administration']
+  installs?: Install[]
 }) => {
   error: string | undefined
   loading: boolean
@@ -42,10 +43,10 @@ export type UseGetInstalls = (args?: {
 }
 
 export const useGetInstalls: UseGetInstalls = args => {
-  const { permissions } = args || {}
+  const { permissions, installs: initialInstalls } = args || {}
   const [error, setError] = React.useState<string | undefined>()
-  const [installsLoading, setInstallsLoading] = React.useState(true)
-  const [installs, dispatchInstalls] = React.useReducer(installReducer, [])
+  const [installsLoading, setInstallsLoading] = React.useState(false)
+  const [installs, dispatchInstalls] = React.useReducer(installReducer, initialInstalls || [])
   const hasRequested = React.useRef(false)
 
   const loadInstalls = useCallback(async (): Promise<Install[]> => {
@@ -77,29 +78,31 @@ export const useGetInstalls: UseGetInstalls = args => {
   useEffect(() => {
     let timeout: NodeJS.Timeout
 
-    const getInstalls = async (): Promise<void> => {
-      if (!hasRequested.current) {
-        hasRequested.current = true
+    if (!initialInstalls) {
+      const loadInitialInstalls = async (): Promise<void> => {
+        if (!hasRequested.current) {
+          hasRequested.current = true
 
-        timeout = setTimeout(() => {
-          setInstallsLoading(true)
-        }, 250)
+          timeout = setTimeout(() => {
+            setInstallsLoading(true)
+          }, 250)
 
-        const installations = await loadInstalls()
-        clearTimeout(timeout)
-        dispatchInstalls({ type: 'set', payload: installations })
-        setInstallsLoading(false)
+          const installations = await loadInstalls()
+          clearTimeout(timeout)
+          dispatchInstalls({ type: 'set', payload: installations })
+          setInstallsLoading(false)
 
-        hasRequested.current = false
+          hasRequested.current = false
+        }
       }
-    }
 
-    getInstalls()
+      loadInitialInstalls()
+    }
 
     return () => {
       clearTimeout(timeout)
     }
-  }, [loadInstalls])
+  }, [loadInstalls, initialInstalls])
 
   const reload = useCallback(async () => {
     const installations = await loadInstalls()

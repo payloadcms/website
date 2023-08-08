@@ -1,6 +1,10 @@
 export const priceFromJSON = (priceJSON = '{}', showFree = true): string => {
   let price = ''
 
+  if (!priceJSON || priceJSON === '{}') {
+    return ''
+  }
+
   try {
     const parsed = JSON.parse(priceJSON)
 

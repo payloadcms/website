@@ -1,7 +1,9 @@
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 import { PROJECT_QUERY } from '@root/graphql/project'
-import type { Project } from '@root/payload-cloud-types'
+import type { Project, Team } from '@root/payload-cloud-types'
+import { fetchTeam } from './fetchTeam'
 
 export const fetchProject = async (args: {
   teamID?: string
@@ -31,4 +33,25 @@ export const fetchProject = async (args: {
     })
 
   return doc
+}
+
+export const fetchProjectAndRedirect = async (args: {
+  teamSlug?: string
+  projectSlug?: string
+}): Promise<{
+  team: Team
+  project: Project
+}> => {
+  const { teamSlug, projectSlug } = args || {}
+  const team = await fetchTeam(teamSlug)
+  const project = await fetchProject({ teamID: team.id, projectSlug })
+
+  if (!project) {
+    redirect('/404')
+  }
+
+  return {
+    team,
+    project,
+  }
 }

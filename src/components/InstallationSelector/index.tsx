@@ -195,9 +195,9 @@ export const useInstallationSelector = (
     description?: string
   },
 ] => {
-  const { initialInstallID, permissions } = args
+  const { initialInstallID, permissions, installs: initialInstalls } = args
   const [value, setValue] = React.useState<Install | undefined>(undefined)
-  const installsData = useGetInstalls({ permissions })
+  const installsData = useGetInstalls({ permissions, installs: initialInstalls })
   const { error, installs, reload, loading } = installsData
 
   const debouncedLoading = useDebounce(loading, 250)

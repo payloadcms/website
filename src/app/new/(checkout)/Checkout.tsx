@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment, useCallback, useMemo } from 'react'
+import React, { Fragment, useCallback } from 'react'
 import { toast } from 'react-toastify'
 import { cloudSlug } from '@cloud/_components/DashboardHeader'
 import { Cell, Grid } from '@faceless-ui/css-grid'
@@ -23,7 +23,7 @@ import { CreditCardSelector } from '@components/CreditCardSelector'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { useInstallationSelector } from '@components/InstallationSelector'
-import { LoadingShimmer } from '@components/LoadingShimmer'
+import { Install } from '@components/InstallationSelector/useGetInstalls'
 import { PlanSelector } from '@components/PlanSelector'
 import { TeamSelector } from '@components/TeamSelector'
 import { UniqueDomain } from '@components/UniqueDomain'
@@ -34,9 +34,6 @@ import { Message } from '@root/app/_components/Message'
 import { Plan, Project, Team } from '@root/payload-cloud-types'
 import { useGlobals } from '@root/providers/Globals'
 import { priceFromJSON } from '@root/utilities/price-from-json'
-import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
-import { useGetProject } from '@root/utilities/use-cloud-api'
-import { useGitAuthRedirect } from '../authorize/useGitAuthRedirect'
 import { EnvVars } from './EnvVars'
 import { checkoutReducer, CheckoutState } from './reducer'
 import { useDeploy } from './useDeploy'
@@ -55,8 +52,10 @@ const title = 'Configure your project'
 // a new one is needed each time the plan (including trial), card, or team changes
 const Checkout: React.FC<{
   project: Project | null | undefined
+  plans: Plan[]
+  installs: Install[]
 }> = props => {
-  const { project } = props
+  const { project, plans, installs } = props
   const isClone = Boolean(!project?.repositoryID)
 
   const router = useRouter()
@@ -98,13 +97,12 @@ const Checkout: React.FC<{
     }
   }, [])
 
-  const [
-    InstallationSelector,
-    { value: selectedInstall, loading: installsLoading, error: installsError },
-  ] = useInstallationSelector({
-    initialInstallID: project?.installID,
-    permissions: isClone ? 'write' : undefined,
-  })
+  const [InstallationSelector, { value: selectedInstall, error: installsError }] =
+    useInstallationSelector({
+      initialInstallID: project?.installID,
+      permissions: isClone ? 'write' : undefined,
+      installs,
+    })
 
   const onDeploy = useCallback(
     (project: Project) => {
@@ -173,227 +171,214 @@ const Checkout: React.FC<{
         <Grid>
           <Cell cols={3} colsM={8} className={classes.sidebarCell}>
             <div className={classes.sidebar}>
-              {installsLoading ? (
-                <LoadingShimmer number={1} />
-              ) : (
-                <Fragment>
-                  {isClone && (
-                    <InstallationSelector description={`Select where to create this repository.`} />
-                  )}
-                  {!isClone && (
-                    <div>
-                      <Text label="Repository" value={project?.repositoryFullName} disabled />
-                    </div>
-                  )}
-                  {checkoutState?.plan && (
-                    <div className={classes.totalPriceSection}>
-                      <Label label="Total cost" htmlFor="" />
-                      <p className={classes.totalPrice}>
-                        {priceFromJSON(
-                          typeof checkoutState?.plan === 'object' &&
-                            checkoutState?.plan !== null &&
-                            'priceJSON' in checkoutState?.plan
-                            ? checkoutState?.plan?.priceJSON?.toString()
-                            : '',
-                        )}
-                      </p>
-                      {checkoutState?.freeTrial && <p>Free for 14 days</p>}
-                    </div>
-                  )}
-                  <Button
-                    onClick={deleteProject}
-                    label="Cancel"
-                    appearance="text"
-                    className={classes.cancel}
-                  />
-                </Fragment>
-              )}
+              <Fragment>
+                {isClone && (
+                  <InstallationSelector description={`Select where to create this repository.`} />
+                )}
+                {!isClone && (
+                  <div>
+                    <Text label="Repository" value={project?.repositoryFullName} disabled />
+                  </div>
+                )}
+                <div className={classes.totalPriceSection}>
+                  <Label label="Total cost" htmlFor="" />
+                  <p className={classes.totalPrice}>
+                    {priceFromJSON(
+                      typeof checkoutState?.plan === 'object' &&
+                        checkoutState?.plan !== null &&
+                        'priceJSON' in checkoutState?.plan
+                        ? checkoutState?.plan?.priceJSON?.toString()
+                        : '',
+                    )}
+                  </p>
+                  {checkoutState?.freeTrial && <p>Free for 14 days</p>}
+                </div>
+                <Button
+                  onClick={deleteProject}
+                  label="Cancel"
+                  appearance="text"
+                  className={classes.cancel}
+                />
+              </Fragment>
             </div>
           </Cell>
           <Cell cols={9} colsM={8}>
-            {installsLoading ? (
-              <LoadingShimmer number={3} />
-            ) : (
+            <div>
               <div>
-                <div>
-                  <Heading element="h5" marginTop={false}>
-                    Select your plan
-                  </Heading>
-                  <div className={classes.plans}>
-                    <PlanSelector onChange={handlePlanChange} />
-                  </div>
-                </div>
-                <Heading element="h5">Configure your project</Heading>
-                <div className={classes.fields}>
-                  <Accordion label={<p>Project Details</p>} openOnInit>
-                    <div className={classes.projectDetails}>
-                      <Select
-                        label="Region"
-                        path="region"
-                        initialValue="us-east"
-                        options={[
-                          {
-                            label: 'US East',
-                            value: 'us-east',
-                          },
-                          {
-                            label: 'US West',
-                            value: 'us-west',
-                          },
-                          {
-                            label: 'EU West',
-                            value: 'eu-west',
-                          },
-                        ]}
-                        required
-                      />
-                      <Text
-                        label="Project name"
-                        path="name"
-                        initialValue={project?.name}
-                        required
-                      />
-                      <UniqueProjectSlug
-                        initialValue={project?.slug}
-                        teamID={
-                          typeof project?.team === 'string' ? project?.team : project?.team?.id
-                        }
-                        projectID={project?.id}
-                        validateOnInit={true}
-                      />
-                      <TeamSelector
-                        onChange={handleTeamChange}
-                        className={classes.teamSelector}
-                        initialValue={
-                          typeof project?.team === 'object' &&
-                          project?.team !== null &&
-                          'id' in project?.team
-                            ? project?.team?.id
-                            : ''
-                        }
-                        required
-                      />
-                      {isClone && (
-                        <Fragment>
-                          <Select
-                            label="Template"
-                            path="template"
-                            disabled={Boolean(project?.repositoryID)}
-                            initialValue={
-                              typeof project?.template === 'object' &&
-                              project?.template !== null &&
-                              'id' in project?.template
-                                ? project?.template?.id
-                                : project?.template
-                            }
-                            options={[
-                              { label: 'None', value: '' },
-                              ...(templates || [])?.map(template => ({
-                                label: template.name || '',
-                                value: template.id,
-                              })),
-                            ]}
-                            required
-                          />
-                          <UniqueRepoName
-                            repositoryOwner={selectedInstall?.account?.login}
-                            initialValue={project?.repositoryName}
-                          />
-                          <Checkbox
-                            path="makePrivate"
-                            label="Create private Git repository"
-                            initialValue={project?.makePrivate || false}
-                          />
-                        </Fragment>
-                      )}
-                    </div>
-                  </Accordion>
-                  <Accordion label={<p>Build Settings</p>}>
-                    <div className={classes.buildSettings}>
-                      <Text
-                        label="Root Directory"
-                        placeholder="/"
-                        path="rootDirectory"
-                        initialValue={project?.rootDirectory}
-                        required
-                      />
-                      <Text
-                        label="Install Command"
-                        path="installScript"
-                        placeholder="yarn install"
-                        initialValue={project?.installScript}
-                        required
-                        description="Example: `yarn install` or `npm install`"
-                      />
-                      <Text
-                        label="Build Command"
-                        path="buildScript"
-                        placeholder="yarn build"
-                        initialValue={project?.buildScript}
-                        required
-                        description="Example: `yarn build` or `npm run build`"
-                      />
-                      <Text
-                        label="Serve Command"
-                        path="runScript"
-                        placeholder="yarn serve"
-                        initialValue={project?.runScript}
-                        required
-                        description="Example: `yarn serve` or `npm run serve`"
-                      />
-                      <BranchSelector
-                        repositoryFullName={project?.repositoryFullName}
-                        initialValue={project?.deploymentBranch}
-                      />
-                      <UniqueDomain initialSubdomain={project?.slug} team={checkoutState?.team} />
-                    </div>
-                  </Accordion>
-                  <Accordion label="Environment Variables">
-                    <EnvVars className={classes.envVars} />
-                  </Accordion>
-                  <Accordion label="Payment Information">
-                    <div className={classes.paymentInformation}>
-                      {checkoutState?.freeTrial && (
-                        <Message
-                          margin={false}
-                          success="You will not be charged until your 14 day free trial is over. Projects without a payment method will be deleted after 4 consecutive failed payment attempts. We’ll remind you 7 days before your trial ends. Cancel anytime."
-                        />
-                      )}
-                      {checkoutState?.team && (
-                        <CreditCardSelector
-                          initialValue={checkoutState?.paymentMethod}
-                          team={checkoutState?.team}
-                          onChange={handleCardChange}
-                          enableInlineSave={false}
-                        />
-                      )}
-                    </div>
-                  </Accordion>
-                  <Checkbox
-                    path="agreeToTerms"
-                    label={
-                      <div>
-                        {'I agree to the '}
-                        <Link href="/cloud-terms" target="_blank" prefetch={false}>
-                          Terms of Service
-                        </Link>
-                      </div>
-                    }
-                    required
-                    className={classes.agreeToTerms}
-                    initialValue={false}
-                    validate={(value: boolean) => {
-                      return !value
-                        ? 'You must agree to the terms of service to deploy your project.'
-                        : true
-                    }}
+                <Heading element="h5" marginTop={false}>
+                  Select your plan
+                </Heading>
+                <div className={classes.plans}>
+                  <PlanSelector
+                    plans={plans}
+                    onChange={handlePlanChange}
+                    initialSelection={project?.plan}
                   />
-                  <div className={classes.submit}>
-                    <Submit label={checkoutState?.freeTrial ? 'Start free trial' : 'Deploy now'} />
-                  </div>
                 </div>
               </div>
-            )}
+              <Heading element="h5">Configure your project</Heading>
+              <div className={classes.fields}>
+                <Accordion label={<p>Project Details</p>} openOnInit>
+                  <div className={classes.projectDetails}>
+                    <Select
+                      label="Region"
+                      path="region"
+                      initialValue="us-east"
+                      options={[
+                        {
+                          label: 'US East',
+                          value: 'us-east',
+                        },
+                        {
+                          label: 'US West',
+                          value: 'us-west',
+                        },
+                        {
+                          label: 'EU West',
+                          value: 'eu-west',
+                        },
+                      ]}
+                      required
+                    />
+                    <Text label="Project name" path="name" initialValue={project?.name} required />
+                    <UniqueProjectSlug
+                      initialValue={project?.slug}
+                      teamID={typeof project?.team === 'string' ? project?.team : project?.team?.id}
+                      projectID={project?.id}
+                      validateOnInit={true}
+                    />
+                    <TeamSelector
+                      onChange={handleTeamChange}
+                      className={classes.teamSelector}
+                      initialValue={
+                        typeof project?.team === 'object' &&
+                        project?.team !== null &&
+                        'id' in project?.team
+                          ? project?.team?.id
+                          : ''
+                      }
+                      required
+                    />
+                    {isClone && (
+                      <Fragment>
+                        <Select
+                          label="Template"
+                          path="template"
+                          disabled={Boolean(project?.repositoryID)}
+                          initialValue={
+                            typeof project?.template === 'object' &&
+                            project?.template !== null &&
+                            'id' in project?.template
+                              ? project?.template?.id
+                              : project?.template
+                          }
+                          options={[
+                            { label: 'None', value: '' },
+                            ...(templates || [])?.map(template => ({
+                              label: template.name || '',
+                              value: template.id,
+                            })),
+                          ]}
+                          required
+                        />
+                        <UniqueRepoName
+                          repositoryOwner={selectedInstall?.account?.login}
+                          initialValue={project?.repositoryName}
+                        />
+                        <Checkbox
+                          path="makePrivate"
+                          label="Create private Git repository"
+                          initialValue={project?.makePrivate || false}
+                        />
+                      </Fragment>
+                    )}
+                  </div>
+                </Accordion>
+                <Accordion label={<p>Build Settings</p>}>
+                  <div className={classes.buildSettings}>
+                    <Text
+                      label="Root Directory"
+                      placeholder="/"
+                      path="rootDirectory"
+                      initialValue={project?.rootDirectory}
+                      required
+                    />
+                    <Text
+                      label="Install Command"
+                      path="installScript"
+                      placeholder="yarn install"
+                      initialValue={project?.installScript}
+                      required
+                      description="Example: `yarn install` or `npm install`"
+                    />
+                    <Text
+                      label="Build Command"
+                      path="buildScript"
+                      placeholder="yarn build"
+                      initialValue={project?.buildScript}
+                      required
+                      description="Example: `yarn build` or `npm run build`"
+                    />
+                    <Text
+                      label="Serve Command"
+                      path="runScript"
+                      placeholder="yarn serve"
+                      initialValue={project?.runScript}
+                      required
+                      description="Example: `yarn serve` or `npm run serve`"
+                    />
+                    <BranchSelector
+                      repositoryFullName={project?.repositoryFullName}
+                      initialValue={project?.deploymentBranch}
+                    />
+                    <UniqueDomain initialSubdomain={project?.slug} team={checkoutState?.team} />
+                  </div>
+                </Accordion>
+                <Accordion label="Environment Variables">
+                  <EnvVars className={classes.envVars} />
+                </Accordion>
+                <Accordion label="Payment Information">
+                  <div className={classes.paymentInformation}>
+                    {checkoutState?.freeTrial && (
+                      <Message
+                        margin={false}
+                        success="You will not be charged until your 14 day free trial is over. Projects without a payment method will be deleted after 4 consecutive failed payment attempts. We’ll remind you 7 days before your trial ends. Cancel anytime."
+                      />
+                    )}
+                    {checkoutState?.team && (
+                      <CreditCardSelector
+                        initialValue={checkoutState?.paymentMethod}
+                        team={checkoutState?.team}
+                        onChange={handleCardChange}
+                        enableInlineSave={false}
+                      />
+                    )}
+                  </div>
+                </Accordion>
+                <Checkbox
+                  path="agreeToTerms"
+                  label={
+                    <div>
+                      {'I agree to the '}
+                      <Link href="/cloud-terms" target="_blank" prefetch={false}>
+                        Terms of Service
+                      </Link>
+                    </div>
+                  }
+                  required
+                  className={classes.agreeToTerms}
+                  initialValue={false}
+                  validate={(value: boolean) => {
+                    return !value
+                      ? 'You must agree to the terms of service to deploy your project.'
+                      : true
+                  }}
+                />
+                <div className={classes.submit}>
+                  <Submit label={checkoutState?.freeTrial ? 'Start free trial' : 'Deploy now'} />
+                </div>
+              </div>
+            </div>
           </Cell>
         </Grid>
       </Gutter>
@@ -401,30 +386,29 @@ const Checkout: React.FC<{
   )
 }
 
-// The `CheckoutProvider`
-// 1. verifies GitHub authorization
-// 2. initializes Stripe Elements provider
-// 3. Loads the initial Payload project
-// 4. handles 404s and redirects
-// 5. simplifies initial state and loading
 const CheckoutProvider: React.FC<{
-  teamSlug: string
-  projectSlug: string
-  tokenLoading: boolean
+  team: Team
+  project: Project
+  plans: Plan[]
+  token: string | null
+  installs: Install[]
 }> = props => {
-  const { teamSlug, projectSlug, tokenLoading } = props
+  const { team, project, token, plans, installs } = props
 
-  const { result: project, isLoading: projectLoading } = useGetProject({
-    teamSlug,
-    projectSlug,
-  })
-
-  if (projectLoading === false && !project) {
+  if (!project) {
     redirect('/404')
   }
 
-  if (projectLoading === false && project?.status === 'published') {
-    redirect(`/${cloudSlug}/${project?.team?.slug}/${project.slug}`)
+  if (project?.status === 'published') {
+    redirect(`/${cloudSlug}/${team?.slug}/${project.slug}`)
+  }
+
+  if (!token) {
+    redirect(
+      `/new/authorize?redirect=${encodeURIComponent(
+        `/cloud/${team.slug}/${project.slug}/configure`,
+      )}`,
+    )
   }
 
   return (
@@ -436,38 +420,11 @@ const CheckoutProvider: React.FC<{
           </Heading>
         </div>
       </Gutter>
-      {tokenLoading || projectLoading ? (
-        <Gutter>
-          <LoadingShimmer number={3} />
-        </Gutter>
-      ) : (
-        <Elements stripe={Stripe}>
-          <Checkout project={project} />
-        </Elements>
-      )}
+      <Elements stripe={Stripe}>
+        <Checkout project={project} plans={plans} installs={installs} />
+      </Elements>
     </Fragment>
   )
 }
 
-// We need to memoize the `CheckoutProvider` so that it doesn't re-render
-// when the user object changes. This happens after creating a new team
-// during checkout, for instance, where the entire view would be re-rendered.
-// Both the `useAuthRedirect` and `useGitAuthRedirect  hooks depend on the `user` object
-// so those both should be called here, before the memoization.
-const CheckoutAuthentication: React.FC<{
-  teamSlug: string
-  projectSlug: string
-}> = ({ teamSlug, projectSlug }) => {
-  useAuthRedirect()
-  const { tokenLoading } = useGitAuthRedirect()
-
-  const memoizedCheckoutProvider = useMemo(() => {
-    return (
-      <CheckoutProvider teamSlug={teamSlug} projectSlug={projectSlug} tokenLoading={tokenLoading} />
-    )
-  }, [teamSlug, projectSlug, tokenLoading])
-
-  return memoizedCheckoutProvider
-}
-
-export default CheckoutAuthentication
+export default CheckoutProvider

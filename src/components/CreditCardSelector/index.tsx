@@ -253,10 +253,6 @@ export const CreditCardSelector: React.FC<
     [stripeSubscriptionID, updateSubscription],
   )
 
-  if (customer === null || (stripeSubscriptionID && subscription === null)) {
-    return <LoadingShimmer number={3} />
-  }
-
   if (customerError || (stripeSubscriptionID && subscriptionError)) {
     return (
       <Fragment>
@@ -264,6 +260,10 @@ export const CreditCardSelector: React.FC<
         {subscriptionError && <p className={classes.error}>{subscriptionError}</p>}
       </Fragment>
     )
+  }
+
+  if (customer === null || (stripeSubscriptionID && subscription === null)) {
+    return <LoadingShimmer number={3} />
   }
 
   const defaultPaymentMethod = customer

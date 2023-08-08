@@ -1,20 +1,34 @@
+import { PLAN } from './plans'
+import { TEAM } from './team'
+
 const PROJECT = `
   id
   slug
   status
   team {
-    id
-    slug
-    name
+    ${TEAM}
   }
+  region
   name
-  installScript
-  buildScript
   repositoryFullName
-  deploymentBranch
+  makePrivate
   stripeSubscriptionStatus
-  plan {
+  installID
+  repositoryID
+  deploymentBranch
+  outputDirectory
+  buildScript
+  installScript
+  runScript
+  rootDirectory
+  defaultDomain
+  template {
+    id
     name
+    slug
+  }
+  plan {
+    ${PLAN}
   }
   environmentVariables {
     id

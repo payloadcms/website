@@ -11,7 +11,7 @@ import { Heading } from '@components/Heading'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { ModalWindow } from '@components/ModalWindow'
 import { Pill } from '@components/Pill'
-import { Team } from '@root/payload-cloud-types'
+import { Plan, Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
 import { formatDate } from '@root/utilities/format-date-time'
@@ -174,9 +174,8 @@ const Page = (props: {
   )
 }
 
-export const TeamSubscriptionsPage: React.FC<{ team: Team }> = props => {
-  const { team } = props
-  const { result: plans } = useGetPlans()
+export const TeamSubscriptionsPage: React.FC<{ team: Team; plans: Plan[] }> = props => {
+  const { team, plans } = props
 
   const hasCustomerID = team?.stripeCustomerID
 
@@ -195,7 +194,7 @@ export const TeamSubscriptionsPage: React.FC<{ team: Team }> = props => {
           </React.Fragment>
         }
       />
-      {plans === null ? <LoadingShimmer number={3} /> : <Page plans={plans} team={team} />}
+      <Page plans={plans} team={team} />
     </React.Fragment>
   )
 }
