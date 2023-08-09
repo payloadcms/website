@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
@@ -13,7 +13,7 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { useAuth } from '@root/providers/Auth'
 
-import classes from './index.module.scss'
+import classes from './page.module.scss'
 
 export const ResetPassword: React.FC = () => {
   const searchParams = useSearchParams()

@@ -18,7 +18,7 @@ import { RenderParams } from '@root/app/_components/RenderParams'
 import { useAuth } from '@root/providers/Auth'
 import canUseDom from '@root/utilities/can-use-dom'
 
-import classes from './index.module.scss'
+import classes from './page.module.scss'
 
 const initialFormState: InitialState = {
   email: {

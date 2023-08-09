@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 
 import { ME_QUERY } from '../../../graphql/me'
 import type { User } from '../../../payload-cloud-types'
+import { payloadCloudToken } from './token'
 
 export const fetchMe = async (args?: {
   nullUserRedirect?: string
@@ -13,7 +14,7 @@ export const fetchMe = async (args?: {
 }> => {
   const { nullUserRedirect, userRedirect } = args || {}
   const cookieStore = cookies()
-  const token = cookieStore.get('payload-cloud-token')?.value
+  const token = cookieStore.get(payloadCloudToken)?.value
 
   const meUserReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
     method: 'POST',
@@ -26,12 +27,9 @@ export const fetchMe = async (args?: {
     }),
   })
 
-  const {
-    data,
-    // errors
-  } = await meUserReq.json()
+  const json = await meUserReq.json()
 
-  const user = data?.meUser?.user
+  const user = json?.data?.meUser?.user
 
   if (userRedirect && meUserReq.ok && user) {
     redirect(userRedirect)

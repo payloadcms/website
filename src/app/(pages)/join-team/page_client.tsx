@@ -7,7 +7,7 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 
-import classes from './index.module.scss'
+import classes from './page.module.scss'
 
 export const JoinTeam: React.FC = () => {
   useAuthRedirect()

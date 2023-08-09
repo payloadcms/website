@@ -1,8 +1,10 @@
 import { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { JoinTeam } from './client_page'
+import { JoinTeam } from './page_client'
 
+// TODO: server render the `JoinTeam` page
+// see the `verify` page for an example
 export default props => {
   return <JoinTeam {...props} />
 }

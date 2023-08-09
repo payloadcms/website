@@ -8,7 +8,7 @@ import FormComponent from '@forms/Form'
 import { Gutter } from '@components/Gutter'
 import { usePrivacy } from '@root/providers/Privacy'
 
-import classes from './index.module.scss'
+import classes from './page.module.scss'
 
 export const PrivacyClientPage: React.FC = () => {
   const [trackingCookies, setTrackingCookies] = React.useState<string | null>(null)

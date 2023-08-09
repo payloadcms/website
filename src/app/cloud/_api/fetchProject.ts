@@ -4,13 +4,14 @@ import { redirect } from 'next/navigation'
 import { PROJECT_QUERY } from '@root/graphql/project'
 import type { Project, Team } from '@root/payload-cloud-types'
 import { fetchTeam } from './fetchTeam'
+import { payloadCloudToken } from './token'
 
 export const fetchProject = async (args: {
   teamID?: string
   projectSlug?: string
 }): Promise<Project> => {
   const { teamID, projectSlug } = args || {}
-  const token = cookies().get('payload-cloud-token')?.value ?? null
+  const token = cookies().get(payloadCloudToken)?.value ?? null
 
   const doc: Project = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
     method: 'POST',

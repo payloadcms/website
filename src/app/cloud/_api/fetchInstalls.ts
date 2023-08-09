@@ -2,11 +2,12 @@
 import { cookies } from 'next/headers'
 
 import type { Install } from '@components/InstallationSelector/useGetInstalls'
+import { payloadCloudToken } from './token'
 
 // type GitHubInstallationsResponse = Endpoints['GET /user/installations']['response']
 
 export const fetchInstalls = async (): Promise<Install[]> => {
-  const token = cookies().get('payload-cloud-token')?.value ?? null
+  const token = cookies().get(payloadCloudToken)?.value ?? null
 
   const docs: Install[] = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
     method: 'POST',

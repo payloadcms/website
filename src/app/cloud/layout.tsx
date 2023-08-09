@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 }
 
 export default async ({ children }) => {
-  await fetchMe({
+  const { user } = await fetchMe({
     nullUserRedirect: `/login?error=${encodeURIComponent(
       'You must be logged in to visit this page',
     )}`,

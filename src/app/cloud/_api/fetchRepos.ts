@@ -1,6 +1,7 @@
 import type { Endpoints } from '@octokit/types'
 
 import type { Install } from '@components/InstallationSelector/useGetInstalls'
+import { payloadCloudToken } from './token'
 
 type GitHubResponse =
   Endpoints['GET /user/installations/{installation_id}/repositories']['response']
@@ -17,7 +18,7 @@ export const fetchRepos = async (args: {
   const { install, per_page, page } = args
   const installID = install && typeof install === 'object' ? install.id : install
   const { cookies } = await import('next/headers')
-  const token = cookies().get('payload-cloud-token')?.value ?? null
+  const token = cookies().get(payloadCloudToken)?.value ?? null
 
   const docs: RepoResults = await fetch(
     `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`,

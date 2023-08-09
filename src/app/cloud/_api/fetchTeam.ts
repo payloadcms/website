@@ -1,10 +1,11 @@
 import { TEAM_QUERY } from '@root/graphql/team'
 import type { Team } from '@root/payload-cloud-types'
+import { payloadCloudToken } from './token'
 
 export const fetchTeam = async (teamSlug?: string): Promise<Team> => {
   const { cookies } = await import('next/headers')
 
-  const token = cookies().get('payload-cloud-token')?.value ?? null
+  const token = cookies().get(payloadCloudToken)?.value ?? null
 
   const doc: Team = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
     method: 'POST',

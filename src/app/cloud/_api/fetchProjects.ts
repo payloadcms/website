@@ -1,5 +1,6 @@
 import { PROJECT_QUERY, PROJECTS_QUERY } from '@root/graphql/project'
 import type { Project } from '@root/payload-cloud-types'
+import { payloadCloudToken } from './token'
 
 export interface ProjectsRes {
   docs: Project[]
@@ -12,7 +13,7 @@ export interface ProjectsRes {
 
 export const fetchProjects = async (teamID?: string): Promise<ProjectsRes> => {
   const { cookies } = await import('next/headers')
-  const token = cookies().get('payload-cloud-token')?.value ?? null
+  const token = cookies().get(payloadCloudToken)?.value ?? null
 
   const res: ProjectsRes = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
     method: 'POST',

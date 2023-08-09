@@ -1,10 +1,18 @@
+import { fetchMe } from '@cloud/_api/fetchMe'
 import { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { Signup } from './client_page'
+import { Signup } from './page_client'
 
-export default props => {
-  return <Signup {...props} />
+export default async () => {
+  const { user } = await fetchMe()
+
+  if (user) {
+    redirect(`/cloud?warning=${encodeURIComponent('You must be logged out to sign up')}`)
+  }
+
+  return <Signup />
 }
 
 export const metadata: Metadata = {
