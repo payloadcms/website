@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { NewProjectBlock } from '@blocks/NewProject'
 import { Metadata } from 'next'
 
+import { Gutter } from '@components/Gutter'
+import { RenderParams } from '@root/app/_components/RenderParams'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 
 const ProjectFromTemplate: React.FC = () => {
-  return <NewProjectBlock />
+  return (
+    <Fragment>
+      <Gutter>
+        <RenderParams />
+      </Gutter>
+      <NewProjectBlock headingElement="h1" />
+    </Fragment>
+  )
 }
 
 export default ProjectFromTemplate

@@ -26,6 +26,7 @@ export const TeamPage: React.FC<{
   const [page, setPage] = React.useState<number>(initialState?.page || 1)
   const [search, setSearch] = React.useState<string>('')
   const debouncedSearch = useDebounce(search, debounce)
+  const searchRef = React.useRef<string>(debouncedSearch)
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const [error, setError] = React.useState<string>('')
   const [enableSearch, setEnableSearch] = React.useState<boolean>(false)
@@ -45,6 +46,10 @@ export const TeamPage: React.FC<{
     if (enableSearch) {
       setIsLoading(true)
 
+      // if the search changed, reset the page back to 1
+      const searchChanged = searchRef.current !== debouncedSearch
+      if (searchChanged) searchRef.current = debouncedSearch
+
       const doFetch = async () => {
         // give the illusion of loading, so that fast network connections appear to flash
         // this gives the user a visual indicator that something is happening
@@ -54,7 +59,7 @@ export const TeamPage: React.FC<{
           requestRef.current = setTimeout(async () => {
             const projectsRes = await fetchProjectsClient({
               teamIDs: [team.id],
-              page: page,
+              page: searchChanged ? 1 : page,
               search: debouncedSearch,
             })
 

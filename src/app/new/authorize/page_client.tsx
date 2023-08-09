@@ -6,6 +6,7 @@ import { redirect, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
+import { RenderParams } from '@root/app/_components/RenderParams'
 import { useCheckToken } from '@root/app/new/authorize/useCheckToken'
 import { useExchangeCode } from '@root/app/new/authorize/useExchangeCode'
 import { GitHubIcon } from '@root/graphics/GitHub'
@@ -13,7 +14,7 @@ import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import { usePopupWindow } from '@root/utilities/use-popup-window'
 
-import classes from './index.module.scss'
+import classes from './page.module.scss'
 
 export const AuthorizePage: React.FC = () => {
   useAuthRedirect()
@@ -52,6 +53,7 @@ export const AuthorizePage: React.FC = () => {
   return (
     <Gutter>
       <div className={classes.header}>
+        <RenderParams />
         <Heading element="h1" as="h2" marginTop={false}>
           {params?.get('title') || 'Authorize your Git provider'}
         </Heading>

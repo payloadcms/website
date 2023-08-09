@@ -46,6 +46,7 @@ export const CloudPage: React.FC<{
     if (requestRef.current) clearTimeout(requestRef.current)
 
     // only perform searches after the user has engaged with the search field or pagination
+    // this will ensure this effect is accidentally run on initial load, etc
     // the only stable way of doing this is to explicitly set the `enableSearch` flag on these event handlers
     if (enableSearch) {
       setIsLoading(true)
@@ -92,6 +93,9 @@ export const CloudPage: React.FC<{
     }
   }, [page, debouncedSearch, selectedTeam, enableSearch, user])
 
+  // this will prevent layout shift, where we display loading card states on the screen in place of real data
+  // to do this, we'll map an array of loading cards for the exactly number of cards that we expect to render
+  // starting with the number of results from the API, the falling back to the limit used in the request
   const cardArray = isLoading
     ? Array.from(Array(result?.docs?.length || result?.limit).keys())
     : result?.docs || []

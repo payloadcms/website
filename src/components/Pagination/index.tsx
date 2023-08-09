@@ -8,7 +8,8 @@ export const Pagination: React.FC<{
   page: number
   setPage: (page: number) => void
   totalPages: number
-}> = ({ page, setPage, totalPages }) => {
+  className?: string
+}> = ({ page, setPage, totalPages, className }) => {
   const [indexToShow, setIndexToShow] = React.useState([0, 1, 2, 3, 4])
   const showFirstPage = totalPages > 5 && page >= 2
   const showLastPage = totalPages > 5 && page <= totalPages - 3
@@ -32,7 +33,7 @@ export const Pagination: React.FC<{
   }, [showFirstPage, showLastPage])
 
   return (
-    <div className={classes.pagination}>
+    <div className={[classes.pagination, className].filter(Boolean).join(' ')}>
       {showFirstPage && (
         <>
           <button

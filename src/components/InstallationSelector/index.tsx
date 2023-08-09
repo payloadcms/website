@@ -72,6 +72,7 @@ type InstallationSelectorProps = {
   error?: string
   description?: string
   disabled?: boolean
+  hideLabel?: boolean
 }
 
 export const InstallationSelector: React.FC<InstallationSelectorProps> = props => {
@@ -84,18 +85,22 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
     loading,
     description,
     disabled,
+    hideLabel,
   } = props
 
-  const hasInitializedSelection = React.useRef(false)
   const selectAfterLoad = React.useRef<Install['id']>()
-  const [selection, setSelection] = React.useState<Install | undefined>()
 
-  useEffect(() => {
-    if (hasInitializedSelection && valueFromProps !== undefined && !selection && installs?.length) {
-      const newSelection = installs.find(install => install.id === valueFromProps)
-      setSelection(newSelection)
+  const [selection, setSelection] = React.useState<Install | undefined>(() => {
+    if (installs?.length) {
+      if (valueFromProps !== undefined) {
+        const idFromProps =
+          typeof valueFromProps === 'string' ? parseInt(valueFromProps, 10) : valueFromProps
+        return installs.find(install => install.id === idFromProps)
+      } else {
+        return installs[0]
+      }
     }
-  }, [valueFromProps, installs, selection])
+  })
 
   const { openPopupWindow } = usePopupWindow({
     href,
@@ -109,13 +114,6 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
   })
 
   useEffect(() => {
-    if (installs?.length && !hasInitializedSelection.current && !valueFromProps) {
-      hasInitializedSelection.current = true
-      setSelection(installs[installs.length - 1])
-    }
-  }, [installs, valueFromProps])
-
-  useEffect(() => {
     if (selectAfterLoad.current) {
       const newSelection = installs?.find(install => install.id === selectAfterLoad.current)
       setSelection(newSelection)
@@ -123,30 +121,27 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
     }
   }, [installs])
 
-  useEffect(() => {
-    if (typeof onChange === 'function') {
-      onChange(selection)
-    }
-  }, [selection, onChange])
-
   return (
     <div>
       {error && <p>{error}</p>}
       {loading && (
         <Fragment>
-          <Label label="GitHub Scope" htmlFor="github-installation" />
+          {!hideLabel && <Label label="GitHub Scope" htmlFor="github-installation" />}
           <LoadingShimmer />
         </Fragment>
       )}
       {!loading && (
         <Select
-          label="GitHub Scope"
+          label={!hideLabel ? 'GitHub Scope' : undefined}
           value={selection?.account?.login}
           initialValue={installs?.[0]?.account?.login}
           onChange={option => {
             if (Array.isArray(option)) return
             const newSelection = installs?.find(install => install?.account?.login === option)
             setSelection(newSelection)
+            if (typeof onChange === 'function') {
+              onChange(newSelection)
+            }
           }}
           options={[
             ...(installs && installs.length > 0
@@ -181,6 +176,8 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
 
 type UseInstallationSelectorArgs = Parameters<UseGetInstalls>[0] & {
   initialInstallID?: string
+  onChange?: (value?: Install) => void
+  hideLabel?: boolean
 }
 
 export const useInstallationSelector = (
@@ -189,14 +186,15 @@ export const useInstallationSelector = (
   React.FC<{
     description?: string
     disabled?: boolean
+    hideLabel?: boolean
   }>,
   ReturnType<UseGetInstalls> & {
     value?: Install
     description?: string
   },
 ] => {
-  const { initialInstallID, permissions, installs: initialInstalls } = args
-  const [value, setValue] = React.useState<Install | undefined>(undefined)
+  const { initialInstallID, permissions, installs: initialInstalls, onChange } = args
+  const [value, setValue] = React.useState<Install | undefined>(initialInstalls?.[0])
   const installsData = useGetInstalls({ permissions, installs: initialInstalls })
   const { error, installs, reload, loading } = installsData
 
@@ -204,7 +202,7 @@ export const useInstallationSelector = (
 
   const MemoizedInstallationSelector = useMemo(
     () =>
-      ({ description, disabled }) => {
+      ({ description, disabled, hideLabel }) => {
         return (
           <InstallationSelector
             value={initialInstallID ? Number(initialInstallID) : undefined}
@@ -212,13 +210,19 @@ export const useInstallationSelector = (
             error={error}
             installs={installs}
             reloadInstalls={reload}
-            onChange={setValue}
+            hideLabel={hideLabel}
+            onChange={(setV: Install) => {
+              setValue(setV)
+              if (typeof onChange === 'function') {
+                onChange(setV)
+              }
+            }}
             description={description}
             disabled={disabled}
           />
         )
       },
-    [error, installs, reload, debouncedLoading, initialInstallID],
+    [error, installs, reload, debouncedLoading, initialInstallID, onChange],
   )
 
   return [

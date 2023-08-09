@@ -1,10 +1,20 @@
+import { fetchToken } from '@cloud/_api/fetchToken'
 import { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { AuthorizePage } from './client_page'
+import { AuthorizePage } from './page_client'
 
-export default props => {
-  return <AuthorizePage {...props} />
+export default async function NewProjectAuthorizePage() {
+  const token = await fetchToken()
+
+  if (token) {
+    // TODO: redirect back to the `?redirect=` param
+    // search params are not available on the server though
+    redirect(`/new?success=${encodeURIComponent('You are already authorized with GitHub')}`)
+  }
+
+  return <AuthorizePage />
 }
 
 export const metadata: Metadata = {

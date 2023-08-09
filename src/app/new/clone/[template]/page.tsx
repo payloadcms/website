@@ -13,9 +13,7 @@ import { CloneTemplate } from './CloneTemplate'
 
 const title = `Create new from template`
 
-export default async function ProjectFromTemplatePageWrapper({
-  params: { template: templateSlug },
-}) {
+export default async function ProjectFromTemplatePage({ params: { template: templateSlug } }) {
   const template = await fetchTemplate(templateSlug)
 
   if (!template) {
@@ -28,8 +26,8 @@ export default async function ProjectFromTemplatePageWrapper({
     redirect(
       `/new/authorize?redirect=${encodeURIComponent(
         `/new/clone/${templateSlug}`,
-      )}&message=${encodeURIComponent(
-        'You must first authorize GitHub before you can clone this template',
+      )}&warning=${encodeURIComponent(
+        'You must first authorize GitHub before you can clone a template.',
       )}`,
     )
   }
