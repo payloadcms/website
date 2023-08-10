@@ -8,6 +8,7 @@ import { payloadCloudToken } from './token'
 
 export const fetchInstalls = async (): Promise<Install[]> => {
   const token = cookies().get(payloadCloudToken)?.value ?? null
+  if (!token) throw new Error('No token provided')
 
   const docs: Install[] = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
     method: 'POST',

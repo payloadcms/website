@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
-import QueryString from 'qs'
+import type { Subscription, SubscriptionsResult } from '@cloud/_api/fetchSubscriptions'
+import { fetchSubscriptionsClient } from '@cloud/_api/fetchSubscriptions'
 
-import type { Project, Team } from '@root/payload-cloud-types'
-import type { Subscription, SubscriptionsResult } from './reducer'
+import type { Team } from '@root/payload-cloud-types'
 import { subscriptionsReducer } from './reducer'
 
 export const useSubscriptions = (args: {
   delay?: number
   team?: Team | null
+  initialSubscriptions?: SubscriptionsResult | null
 }): {
   result: SubscriptionsResult | null
   isLoading: 'loading' | 'updating' | 'deleting' | false | null
@@ -18,12 +19,12 @@ export const useSubscriptions = (args: {
   cancelSubscription: (subscriptionID: string) => void
   loadMoreSubscriptions: () => void
 } => {
-  const { delay, team } = args
+  const { delay, team, initialSubscriptions } = args
 
   const isRequesting = useRef(false)
   const isDeleting = useRef(false)
   const isUpdating = useRef(false)
-  const [result, dispatchResult] = useReducer(subscriptionsReducer, null)
+  const [result, dispatchResult] = useReducer(subscriptionsReducer, initialSubscriptions || null)
   const [isLoading, setIsLoading] = useState<'loading' | 'updating' | 'deleting' | false | null>(
     null,
   )
@@ -40,80 +41,22 @@ export const useSubscriptions = (args: {
       try {
         setIsLoading('loading')
 
-        const req = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/subscriptions`,
-          {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              starting_after,
-            }),
-          },
-        )
+        const subscriptions = await fetchSubscriptionsClient({
+          team,
+          starting_after,
+        })
 
-        const subscription: SubscriptionsResult = await req.json()
-
-        if (req.ok) {
-          let projects: Project[] | null = null
-
-          try {
-            // need to also fetch the projects for associated with the subscriptions
-            // then match them up to the corresponding subscription in the reducer
-            const query = QueryString.stringify({
-              where: {
-                stripeSubscriptionID: {
-                  in: subscription.data.map(sub => sub.id),
-                },
-              },
-              limit: 100,
-            })
-
-            const projectsReq = await fetch(
-              `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects?${query}`,
-              {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-              },
-            )
-
-            const projectsJson: {
-              docs: Project[]
-            } = await projectsReq.json()
-
-            if (projectsReq.ok) {
-              projects = projectsJson.docs
-            } else {
-              // @ts-expect-error
-              throw new Error(projectsJson?.message)
-            }
-          } catch (err: unknown) {
-            throw new Error((err as Error)?.message || 'Something went wrong')
+        setTimeout(() => {
+          dispatchResult({
+            type: starting_after ? 'add' : 'reset',
+            payload: subscriptions,
+          })
+          setError('')
+          setIsLoading(false)
+          if (successMessage) {
+            toast.success(successMessage)
           }
-
-          setTimeout(() => {
-            dispatchResult({
-              type: starting_after ? 'add' : 'reset',
-              payload: {
-                subscriptions: subscription,
-                projects,
-              },
-            })
-            setError('')
-            setIsLoading(false)
-            if (successMessage) {
-              toast.success(successMessage)
-            }
-          }, delay)
-        } else {
-          // @ts-expect-error
-          throw new Error(subscription?.message)
-        }
+        }, delay)
       } catch (err: unknown) {
         const message = (err as Error)?.message || 'Something went wrong'
         setError(message)

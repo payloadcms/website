@@ -4,8 +4,8 @@ import { payloadCloudToken } from './token'
 
 export const fetchTeam = async (teamSlug?: string): Promise<Team> => {
   const { cookies } = await import('next/headers')
-
   const token = cookies().get(payloadCloudToken)?.value ?? null
+  if (!token) throw new Error('No token provided')
 
   const doc: Team = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
     method: 'POST',

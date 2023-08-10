@@ -19,6 +19,7 @@ export const fetchRepos = async (args: {
   const installID = install && typeof install === 'object' ? install.id : install
   const { cookies } = await import('next/headers')
   const token = cookies().get(payloadCloudToken)?.value ?? null
+  if (!token) throw new Error('No token provided')
 
   const docs: RepoResults = await fetch(
     `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`,

@@ -1,18 +1,16 @@
 'use client'
 
 import * as React from 'react'
-import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
+import { SubscriptionsResult } from '@cloud/_api/fetchSubscriptions'
 import { useModal } from '@faceless-ui/modal'
 import Link from 'next/link'
 
 import { Button } from '@components/Button'
 import { CircleIconButton } from '@components/CircleIconButton'
 import { Heading } from '@components/Heading'
-import { LoadingShimmer } from '@components/LoadingShimmer'
 import { ModalWindow } from '@components/ModalWindow'
 import { Pill } from '@components/Pill'
-import { Plan, Team } from '@root/payload-cloud-types'
-import { useAuth } from '@root/providers/Auth'
+import { Team, User } from '@root/payload-cloud-types'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
 import { formatDate } from '@root/utilities/format-date-time'
 import { priceFromJSON } from '@root/utilities/price-from-json'
@@ -23,12 +21,13 @@ import classes from './page.module.scss'
 
 const modalSlug = 'cancel-subscription'
 
-const Page = (props: {
+export const TeamSubscriptionsPage = (props: {
   plans: ReturnType<typeof useGetPlans>['result']
   team: Team | null | undefined
+  subscriptions: SubscriptionsResult
+  user: User
 }) => {
-  const { plans, team } = props
-  const { user } = useAuth()
+  const { plans, team, user, subscriptions: initialSubscriptions } = props
   const { closeModal, openModal } = useModal()
   const subscriptionToDelete = React.useRef<string | null>(null)
 
@@ -43,6 +42,7 @@ const Page = (props: {
     error: subscriptionsError,
   } = useSubscriptions({
     team,
+    initialSubscriptions,
   })
 
   return (
@@ -55,10 +55,12 @@ const Page = (props: {
             </p>
           )}
           {subscriptionsError && <p className={classes.error}>{subscriptionsError}</p>}
-          {subscriptions === null && <LoadingShimmer number={3} />}
           {subscriptions !== null && (
             <React.Fragment>
               {isLoading === 'deleting' && <p>Canceling subscription...</p>}
+              {Array.isArray(subscriptions?.data) && subscriptions?.data?.length === 0 && (
+                <p>No subscriptions found.</p>
+              )}
               {Array.isArray(subscriptions?.data) && subscriptions?.data?.length > 0 && (
                 <React.Fragment>
                   <ul className={classes.list}>
@@ -170,31 +172,6 @@ const Page = (props: {
           </div>
         </div>
       </ModalWindow>
-    </React.Fragment>
-  )
-}
-
-export const TeamSubscriptionsPage: React.FC<{ team: Team; plans: Plan[] }> = props => {
-  const { team, plans } = props
-
-  const hasCustomerID = team?.stripeCustomerID
-
-  return (
-    <React.Fragment>
-      <SectionHeader
-        title="Subscriptions"
-        intro={
-          <React.Fragment>
-            {!hasCustomerID && (
-              <p className={classes.error}>
-                This team does not have a billing account. Please contact support to resolve this
-                issue.
-              </p>
-            )}
-          </React.Fragment>
-        }
-      />
-      <Page plans={plans} team={team} />
     </React.Fragment>
   )
 }

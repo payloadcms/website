@@ -1,40 +1,9 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
+import type { InvoicesResult } from '@cloud/_api/fetchInvoices'
+import { fetchInvoicesClient } from '@cloud/_api/fetchInvoices'
 
 import type { Team } from '@root/payload-cloud-types'
-
-// TODO: type this using the Stripe module
-export interface Invoice {
-  id: string
-  status: string
-
-  created: number
-  total: number
-  lines: {
-    url: string
-    data: [
-      {
-        id: string
-        description: string
-        period: {
-          start: number
-          end: number
-        }
-        plan: {
-          id: string
-        }
-        price: {
-          id: string
-        }
-      },
-    ]
-  }
-}
-
-interface InvoicesResult {
-  data: Invoice[]
-  has_more: boolean
-}
 
 const reducer = (
   state: InvoicesResult | null,
@@ -60,6 +29,7 @@ const reducer = (
 export const useInvoices = (args: {
   delay?: number
   team?: Team | null
+  initialInvoices?: InvoicesResult | null
 }): {
   result: InvoicesResult | null
   isLoading: 'loading' | false | null
@@ -67,10 +37,10 @@ export const useInvoices = (args: {
   refreshInvoices: () => void
   loadMoreInvoices: () => void
 } => {
-  const { delay, team } = args
+  const { delay, team, initialInvoices } = args
 
   const isRequesting = useRef(false)
-  const [result, dispatchResult] = useReducer(reducer, null)
+  const [result, dispatchResult] = useReducer(reducer, initialInvoices || null)
   const [isLoading, setIsLoading] = useState<'loading' | false | null>(null)
   const [error, setError] = useState('')
 
@@ -85,40 +55,23 @@ export const useInvoices = (args: {
       try {
         setIsLoading('loading')
 
-        const req = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/invoices`,
-          {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              starting_after,
-            }),
-          },
-        )
+        const invoicesRes = await fetchInvoicesClient({
+          team,
+          starting_after,
+        })
 
-        const json: InvoicesResult & {
-          message?: string
-        } = await req.json()
+        setTimeout(() => {
+          dispatchResult({
+            type: starting_after ? 'add' : 'reset',
+            payload: invoicesRes,
+          })
 
-        if (req.ok) {
-          setTimeout(() => {
-            dispatchResult({
-              type: starting_after ? 'add' : 'reset',
-              payload: json,
-            })
-
-            setError('')
-            setIsLoading(false)
-            if (successMessage) {
-              toast.success(successMessage)
-            }
-          }, delay)
-        } else {
-          throw new Error(json?.message)
-        }
+          setError('')
+          setIsLoading(false)
+          if (successMessage) {
+            toast.success(successMessage)
+          }
+        }, delay)
       } catch (err: unknown) {
         const message = (err as Error)?.message || 'Something went wrong'
         setError(message)
@@ -132,7 +85,7 @@ export const useInvoices = (args: {
         clearTimeout(timer)
       }
     },
-    [delay, team?.id],
+    [delay, team],
   )
 
   useEffect(() => {

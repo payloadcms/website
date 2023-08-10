@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
@@ -15,9 +15,12 @@ export const Logout: React.FC = () => {
   const { user, logout } = useAuth()
   const [isLoggingOut, setLoggingOut] = useState(false)
   const [hasLoggedOut, setLoggedOut] = useState(false)
+  const isRequesting = useRef(false)
 
   useEffect(() => {
-    if (user) {
+    if (user && !isRequesting.current) {
+      isRequesting.current = true
+
       const doLogout = async () => {
         setLoggingOut(true)
 
@@ -38,6 +41,8 @@ export const Logout: React.FC = () => {
         } catch (e) {
           console.error(e) // eslint-disable-line no-console
         }
+
+        isRequesting.current = false
       }
 
       doLogout()

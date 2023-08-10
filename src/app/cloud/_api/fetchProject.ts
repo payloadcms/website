@@ -12,6 +12,7 @@ export const fetchProject = async (args: {
 }): Promise<Project> => {
   const { teamID, projectSlug } = args || {}
   const token = cookies().get(payloadCloudToken)?.value ?? null
+  if (!token) throw new Error('No token provided')
 
   const doc: Project = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
     method: 'POST',

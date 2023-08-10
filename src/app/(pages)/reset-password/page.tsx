@@ -9,9 +9,7 @@ export default async props => {
   const { user } = await fetchMe()
 
   if (user) {
-    redirect(
-      `/cloud?warning=${encodeURIComponent('You must be logged out to reset your password')}`,
-    )
+    redirect(`/cloud?error=${encodeURIComponent('You must be logged out to reset your password')}`)
   }
 
   return <ResetPassword {...props} />

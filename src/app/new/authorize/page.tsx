@@ -1,4 +1,4 @@
-import { fetchToken } from '@cloud/_api/fetchToken'
+import { fetchToken } from '@cloud/_api/fetchGitHubToken'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 

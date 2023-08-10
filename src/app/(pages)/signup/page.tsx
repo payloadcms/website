@@ -9,7 +9,7 @@ export default async () => {
   const { user } = await fetchMe()
 
   if (user) {
-    redirect(`/cloud?warning=${encodeURIComponent('You must be logged out to sign up')}`)
+    redirect(`/cloud?error=${encodeURIComponent('You must be logged out to sign up')}`)
   }
 
   return <Signup />

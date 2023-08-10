@@ -11,7 +11,7 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
 
   return (
     <Gutter>
-      <h2>Something went wrong!</h2>
+      <h2>Something went wrong</h2>
     </Gutter>
   )
 }

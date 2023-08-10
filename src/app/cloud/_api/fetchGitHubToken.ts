@@ -5,8 +5,9 @@ import { payloadCloudToken } from './token'
 
 type GitHubResponse = Endpoints['GET /user']['response']
 
-export const fetchToken = async (): Promise<string | null> => {
+export const fetchGitHubToken = async (): Promise<string | null> => {
   const token = cookies().get(payloadCloudToken)?.value ?? null
+  if (!token) throw new Error('No token provided')
 
   const reposReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
     method: 'POST',

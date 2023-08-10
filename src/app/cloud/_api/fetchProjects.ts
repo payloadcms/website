@@ -14,6 +14,7 @@ export interface ProjectsRes {
 export const fetchProjects = async (teamID?: string): Promise<ProjectsRes> => {
   const { cookies } = await import('next/headers')
   const token = cookies().get(payloadCloudToken)?.value ?? null
+  if (!token) throw new Error('No token provided')
 
   const res: ProjectsRes = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
     method: 'POST',

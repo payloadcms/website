@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { fetchInstalls } from '@cloud/_api/fetchInstalls'
 import { fetchTemplate } from '@cloud/_api/fetchTemplate'
-import { fetchToken } from '@cloud/_api/fetchToken'
+import { fetchToken } from '@cloud/_api/fetchGitHubToken'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
@@ -23,13 +23,7 @@ export default async function ProjectFromTemplatePage({ params: { template: temp
   const token = await fetchToken()
 
   if (!token) {
-    redirect(
-      `/new/authorize?redirect=${encodeURIComponent(
-        `/new/clone/${templateSlug}`,
-      )}&warning=${encodeURIComponent(
-        'You must first authorize GitHub before you can clone a template.',
-      )}`,
-    )
+    redirect(`/new/authorize?redirect=${encodeURIComponent(`/new/clone/${templateSlug}`)}`)
   }
 
   const installs = await fetchInstalls()
