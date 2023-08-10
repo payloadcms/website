@@ -1,5 +1,24 @@
 @use "@scss/common" as *;
 
+.teamSelector {
+    position: relative;
+}
+
+.loading {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.select {
+    &.hidden {
+        visibility: hidden;
+        opacity: 0;
+    }
+}
+
 .teamDrawerToggler {
     display: block;
     background-color: transparent;

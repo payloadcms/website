@@ -14,33 +14,29 @@
     align-items: flex-end;
     position: relative;
     padding: calc(var(--base) * 2)  0;
-
-    & > *:not(:last-child) {
-        margin-right: var(--base);
-    }
+    gap: var(--base);
 
     @include mid-break {
         margin-bottom: var(--base);
         padding: calc(var(--base) * 1.5) 0;
         flex-wrap: wrap;
-
-        & > * {
-            width: 100%;
-
-            &:not(:last-child) {
-                margin-right: 0;
-                margin-bottom: var(--base);
-            }
-        }
     }
 }
 
 .search {
-    flex-grow: 2;
+    flex-grow: 1;
+
+    @include small-break {
+        width: 100%;
+    }
 }
 
 .teamSelector {
-    flex-grow: 1;
+    width: 33.33%;
+
+    @include small-break {
+        width: 100%;
+    }
 }
 
 .createButton {
@@ -62,4 +58,8 @@
         left: calc(var(--gutter-h) * -1);
         right: calc(var(--gutter-h) * -1);
     }
+}
+
+.pagination {
+    margin-top: calc(var(--base) * 2);
 }

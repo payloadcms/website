@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from 'react'
 import { components } from 'react-select'
 import { Select } from '@forms/fields/Select'
 
+import { LoadingShimmer } from '@components/LoadingShimmer'
 import { useTeamDrawer } from '@components/TeamDrawer'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
@@ -76,10 +77,8 @@ export const TeamSelector: React.FC<{
     }
   }, [user])
 
-  if (!user) return null
-
   const options = (
-    user.teams && user.teams?.length > 0
+    user?.teams && user.teams?.length > 0
       ? ([
           ...user?.teams
             ?.map(({ team }) => {
@@ -110,28 +109,32 @@ export const TeamSelector: React.FC<{
 
   return (
     <Fragment>
-      <Select
-        className={className}
-        label={props.label !== false ? 'Team' : ''}
-        value={selectedTeam}
-        initialValue={selectedTeam}
-        onChange={option => {
-          if (Array.isArray(option)) return
-          setSelectedTeam(option)
-        }}
-        options={[...(allowEmpty ? [{ label: 'All teams', value: 'none' }] : []), ...options]}
-        selectProps={{
-          TeamDrawerToggler: (
-            <TeamDrawerToggler className={classes.teamDrawerToggler}>
-              Create new team
-            </TeamDrawerToggler>
-          ),
-        }}
-        components={{
-          MenuList: SelectMenuButton,
-        }}
-        required={required}
-      />
+      <div className={[classes.teamSelector, className].filter(Boolean).join(' ')}>
+        <Select
+          label={props.label !== false ? 'Team' : ''}
+          value={selectedTeam}
+          className={[classes.select, user === null && classes.hidden].filter(Boolean).join(' ')}
+          initialValue={selectedTeam}
+          disabled={user === null}
+          onChange={option => {
+            if (Array.isArray(option)) return
+            setSelectedTeam(option)
+          }}
+          options={[...(allowEmpty ? [{ label: 'All teams', value: 'none' }] : []), ...options]}
+          selectProps={{
+            TeamDrawerToggler: (
+              <TeamDrawerToggler className={classes.teamDrawerToggler}>
+                Create new team
+              </TeamDrawerToggler>
+            ),
+          }}
+          components={{
+            MenuList: SelectMenuButton,
+          }}
+          required={required}
+        />
+        {user === null && <LoadingShimmer heightPercent={100} className={classes.loading} />}
+      </div>
       <TeamDrawer
         onCreate={newTeam => {
           teamToSelectAfterUserUpdates.current = newTeam.id

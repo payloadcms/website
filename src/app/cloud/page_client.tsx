@@ -26,11 +26,13 @@ export const CloudPage: React.FC<{
 }> = ({ initialState }) => {
   const { user } = useAuth()
   const [selectedTeam, setSelectedTeam] = React.useState<string | 'none'>()
+  const prevSelectedTeam = React.useRef<string | 'none' | undefined>(selectedTeam)
 
   const [result, setResult] = React.useState<ProjectsRes>(initialState)
   const [page, setPage] = React.useState<number>(initialState?.page || 1)
   const [search, setSearch] = React.useState<string>('')
   const debouncedSearch = useDebounce(search, debounce)
+  const prevSearch = React.useRef<string>(debouncedSearch)
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const [error, setError] = React.useState<string>('')
   const [enableSearch, setEnableSearch] = React.useState<boolean>(false)
@@ -51,6 +53,12 @@ export const CloudPage: React.FC<{
     if (enableSearch) {
       setIsLoading(true)
 
+      // reset the page back to 1 if the team or search has changed
+      const searchChanged = prevSearch.current !== debouncedSearch
+      if (searchChanged) prevSearch.current = debouncedSearch
+      const teamChanged = prevSelectedTeam.current !== selectedTeam
+      if (teamChanged) prevSelectedTeam.current = selectedTeam
+
       const doFetch = async () => {
         // give the illusion of loading, so that fast network connections appear to flash
         // this gives the user a visual indicator that something is happening
@@ -70,7 +78,7 @@ export const CloudPage: React.FC<{
           requestRef.current = setTimeout(async () => {
             const projectsRes = await fetchProjectsClient({
               teamIDs: teams,
-              page: page,
+              page: searchChanged || teamChanged ? 1 : page,
               search: debouncedSearch,
             })
 
@@ -171,7 +179,8 @@ export const CloudPage: React.FC<{
       </div>
       {result?.totalPages > 1 && (
         <Pagination
-          page={page}
+          className={classes.pagination}
+          page={result?.page}
           totalPages={result?.totalPages}
           setPage={page => {
             setPage(page)

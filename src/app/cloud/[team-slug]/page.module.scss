@@ -64,3 +64,7 @@
     position: relative;
     margin: 0 0 calc(var(--base) * 2) 0;
 }
+
+.pagination {
+    margin-top: calc(var(--base) * 2);
+}

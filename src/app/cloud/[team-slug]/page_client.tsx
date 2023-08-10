@@ -141,7 +141,8 @@ export const TeamPage: React.FC<{
       </div>
       {result?.totalPages > 1 && (
         <Pagination
-          page={page}
+          className={classes.pagination}
+          page={result?.page}
           totalPages={result?.totalPages}
           setPage={page => {
             setPage(page)
