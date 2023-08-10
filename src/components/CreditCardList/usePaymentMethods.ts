@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
-import type { PaymentMethod } from '@stripe/stripe-js'
+import { useElements, useStripe } from '@stripe/react-stripe-js'
+import type { PaymentMethod, SetupIntentResult } from '@stripe/stripe-js'
 
-import type { UseConfirmCardSetup } from '@root/app/new/(checkout)/useConfirmCardSetup'
-import { useConfirmCardSetup } from '@root/app/new/(checkout)/useConfirmCardSetup'
 import type { Team } from '@root/payload-cloud-types'
+import { confirmCardSetup } from '../../app/new/(checkout)/confirmCardSetup'
 
 export const usePaymentMethods = (args: {
   team?: Team
@@ -15,7 +15,7 @@ export const usePaymentMethods = (args: {
   error?: string
   deletePaymentMethod: (paymentMethod: string) => void
   getPaymentMethods: () => void
-  saveNewPaymentMethod: ReturnType<UseConfirmCardSetup>
+  saveNewPaymentMethod: (paymentMethod: string) => Promise<SetupIntentResult | null>
 } => {
   const { team, delay } = args
   const isRequesting = useRef(false)
@@ -24,10 +24,8 @@ export const usePaymentMethods = (args: {
   const [result, setResult] = useState<PaymentMethod[] | null | undefined>(undefined)
   const [isLoading, setIsLoading] = useState<'loading' | 'saving' | 'deleting' | false | null>(null)
   const [error, setError] = useState<string | undefined>('')
-
-  const confirmCardSetup = useConfirmCardSetup({
-    team,
-  })
+  const stripe = useStripe()
+  const elements = useElements()
 
   const getPaymentMethods = useCallback(
     async (successMessage?: string) => {
@@ -140,8 +138,8 @@ export const usePaymentMethods = (args: {
     [getPaymentMethods, team?.id],
   )
 
-  const saveNewPaymentMethod: ReturnType<UseConfirmCardSetup> = useCallback(
-    async paymentMethod => {
+  const saveNewPaymentMethod = useCallback(
+    async (paymentMethod): Promise<SetupIntentResult | null> => {
       if (isRequesting.current) {
         return null
       }
@@ -151,7 +149,13 @@ export const usePaymentMethods = (args: {
       setIsLoading('saving')
 
       try {
-        const setupIntent = await confirmCardSetup(paymentMethod)
+        const setupIntent = await confirmCardSetup({
+          team,
+          stripe,
+          elements,
+          paymentMethod,
+        })
+
         await getPaymentMethods('Payment method saved successfully')
         return setupIntent
       } catch (err: unknown) {
@@ -163,7 +167,7 @@ export const usePaymentMethods = (args: {
       isSavingNew.current = false
       return null
     },
-    [confirmCardSetup, getPaymentMethods],
+    [getPaymentMethods, team, elements, stripe],
   )
 
   const memoizedState = useMemo(

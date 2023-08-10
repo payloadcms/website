@@ -1,6 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useRef } from 'react'
 import { toast } from 'react-toastify'
-import Link from 'next/link'
 import { v4 as uuid } from 'uuid'
 
 import { CircleIconButton } from '@components/CircleIconButton'
@@ -54,16 +53,15 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
     team,
   })
 
-  // if the initial value is unset or invalid, preselect the first card if possible
-  // otherwise show the new card option with a newly generated unique id, prefixed with `new-card`
-  // this will allow us to differentiate from a saved card in the checkout process
   const initializeState = useCallback(() => {
     if (paymentMethods) {
       if (!initialValue || !paymentMethods?.find(method => method?.id === initialValue)) {
+        // setShowNewCard(true)
+        // to preselect the first card, do this instead:
         const firstCard = paymentMethods?.[0]?.id
-        newCardID.current = `new-card-${uuid()}`
+        // if no card, show the new card option with a newly generated unique id prefixed with `new-card`
+        // this will allow us to differentiate from a saved card in the checkout process
         setShowNewCard(!firstCard)
-        setInternalState(firstCard || newCardID.current)
       } else {
         setShowNewCard(false)
         setInternalState(initialValue)
@@ -71,7 +69,7 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
 
       hasInitialized.current = true
     }
-  }, [paymentMethods, newCardID, initialValue])
+  }, [paymentMethods, initialValue])
 
   useEffect(() => {
     if (!hasInitialized.current) {
@@ -160,8 +158,8 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
         })}
         {showNewCard && (
           <LargeRadio
-            value={newCardID}
-            checked={isNewCard}
+            value={newCardID.current}
+            checked={internalState === newCardID.current}
             onChange={handleChange}
             label={<CreditCardElement />}
             name="card"
@@ -282,7 +280,6 @@ export const CreditCardSelector: React.FC<
       customerLoading={customerLoading}
       onPaymentMethodChange={onSubscriptionChange}
       defaultPaymentMethod={defaultPaymentMethod}
-      initialValue={subscription?.default_payment_method || defaultPaymentMethod}
     />
   )
 }

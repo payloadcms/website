@@ -13,7 +13,6 @@ export default async function CheckoutPageWrapper({
   params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
 }) {
   const { team, project } = await fetchProjectAndRedirect({ teamSlug, projectSlug })
-
   if (project.status === 'published') {
     redirect(`/cloud/${team.slug}/${project.slug}`)
   }

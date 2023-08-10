@@ -52,6 +52,10 @@ export const fetchProjectAndRedirect = async (args: {
     redirect('/404')
   }
 
+  if (project?.status === 'draft') {
+    redirect(`/cloud/${team.slug}/${project.slug}/configure`)
+  }
+
   return {
     team,
     project,

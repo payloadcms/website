@@ -5,9 +5,9 @@ import { useElements, useStripe } from '@stripe/react-stripe-js'
 import { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { confirmCardPayment } from './confirmCardPayment'
-import { createSubscription, PayloadStripeSubscription } from './createSubscription'
+import { confirmCardSetup } from './confirmCardSetup'
+import { createSubscription } from './createSubscription'
 import { CheckoutState } from './reducer'
-import { useConfirmCardSetup } from './useConfirmCardSetup'
 
 export const useDeploy = (args: {
   project: Project | null | undefined
@@ -19,10 +19,6 @@ export const useDeploy = (args: {
   const { user } = useAuth()
   const stripe = useStripe()
   const elements = useElements()
-
-  const confirmCardSetup = useConfirmCardSetup({
-    team: checkoutState?.team,
-  })
 
   const deploy: OnSubmit = useCallback(
     async ({ unflattenedData: formState }) => {
@@ -36,14 +32,28 @@ export const useDeploy = (args: {
         }
 
         if (!checkoutState?.plan) {
-          throw new Error(`No plan selected`)
+          throw new Error(`You must select a plan to deploy a project.`)
+        }
+
+        if (!checkoutState.paymentMethod && !checkoutState.freeTrial) {
+          throw new Error(
+            `You must supply a payment method to deploy a paid project that is not on a free trial.`,
+          )
         }
 
         setTimeout(() => window.scrollTo(0, 0), 0)
 
-        // first create a setup intent and confirm it
-        // this will ensure that payment methods are supplied even for trials
-        await confirmCardSetup(checkoutState.paymentMethod)
+        // if a card was supplied, first create a `SetupIntent` (to confirm it later, see below)
+        // confirming card setup now will ensure that the card is valid and has sufficient funds
+        // this will ensure that even free trials that have a card selected will be validated
+        if (checkoutState.paymentMethod) {
+          const intent = await confirmCardSetup({
+            paymentMethod: checkoutState.paymentMethod,
+            stripe,
+            elements,
+            team: checkoutState.team,
+          })
+        }
 
         // only scroll-to-top after the card has been confirmed
         // Stripe automatically scrolls to the `CardElement` if an error occurs
@@ -69,6 +79,10 @@ export const useDeploy = (args: {
                   : project?.template,
               ...checkoutState,
               ...formState,
+              // remove all empty environment variables
+              environmentVariables: formState.environmentVariables?.filter(
+                ({ key, value }) => key && value,
+              ),
               installID,
             },
           }),
@@ -82,13 +96,27 @@ export const useDeploy = (args: {
 
         if (req.ok) {
           // once the project is deployed successfully, create the subscription
-          // also confirm card payment at this time
+          // this will ensure everything worked before the customer pays for it
           const subscription = await createSubscription({
             checkoutState,
             project: res.doc,
           })
 
-          await confirmCardPayment({ subscription, elements, stripe, checkoutState })
+          // confirm the `SetupIntent` if a payment method was supplied
+          // the `setupIntent` has already determined that the card is valid an has sufficient funds
+          // free trials will mark the subscription as paid immediately
+          const payment = await confirmCardPayment({
+            subscription,
+            elements,
+            stripe,
+            checkoutState,
+          })
+
+          // update the subscription with the payment method
+          // if the customer selected an existing card, it will already be attached
+          // but if this is a new card, it can only be attached after the payment intent is confirmed
+          if (checkoutState.paymentMethod) {
+          }
 
           if (typeof onDeploy === 'function') {
             onDeploy(res.doc)
@@ -99,10 +127,10 @@ export const useDeploy = (args: {
       } catch (err: unknown) {
         setTimeout(() => window.scrollTo(0, 0), 0)
         const message = err instanceof Error ? err.message : 'Unknown error'
-        throw new Error(`Error deploying project: ${message}`)
+        throw new Error(message)
       }
     },
-    [user, installID, checkoutState, project, onDeploy, confirmCardSetup, elements, stripe],
+    [user, installID, checkoutState, project, onDeploy, elements, stripe],
   )
 
   return deploy

@@ -29,7 +29,9 @@ export const ProjectCard: React.FC<{
   return (
     <Link
       href={`/${cloudSlug}/${teamSlug}/${project.slug}${status === 'draft' ? '/configure' : ''}`}
-      className={[className, classes.project].filter(Boolean).join(' ')}
+      className={[className, classes.project, status === 'draft' && classes.draft]
+        .filter(Boolean)
+        .join(' ')}
       prefetch={false}
     >
       {status && (

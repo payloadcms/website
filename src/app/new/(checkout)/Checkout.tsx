@@ -24,7 +24,6 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { useInstallationSelector } from '@components/InstallationSelector'
 import { Install } from '@components/InstallationSelector/useGetInstalls'
-import { Pill } from '@components/Pill'
 import { PlanSelector } from '@components/PlanSelector'
 import { TeamSelector } from '@components/TeamSelector'
 import { UniqueDomain } from '@components/UniqueDomain'
@@ -222,7 +221,6 @@ const Checkout: React.FC<{
                 </div>
                 <Checkbox
                   label="Free trial, no credit card required"
-                  path="freeTrial"
                   initialValue={checkoutState?.freeTrial}
                   className={classes.freeTrial}
                   onChange={(value: boolean) => {
@@ -358,21 +356,20 @@ const Checkout: React.FC<{
                 </Accordion>
                 <Accordion label="Payment Information">
                   <div className={classes.paymentInformation}>
-                    <p className={classes.paymentInformationDescription}>
-                      All projects without a payment method will be automatically deleted after 4
-                      consecutive failed payment attempts within 30 days of the due date. Your
-                      team's default payment method will be used if one is not specified for this
-                      project.
-                    </p>
                     {checkoutState?.freeTrial && (
                       <Message
                         margin={false}
                         success="You will not be charged until your 30 day free trial is over. We’ll remind you 7 days before your trial ends. Cancel anytime."
                       />
                     )}
+                    <p className={classes.paymentInformationDescription}>
+                      All projects without a payment method will be automatically deleted after 4
+                      consecutive failed payment attempts within 30 days of the due date. Your
+                      team's default payment method will be used if one is not specified for this
+                      project.
+                    </p>
                     {checkoutState?.team && (
                       <CreditCardSelector
-                        initialValue={checkoutState?.paymentMethod}
                         team={checkoutState?.team}
                         onChange={handleCardChange}
                         enableInlineSave={false}
