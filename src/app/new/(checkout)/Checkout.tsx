@@ -24,6 +24,7 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { useInstallationSelector } from '@components/InstallationSelector'
 import { Install } from '@components/InstallationSelector/useGetInstalls'
+import { Pill } from '@components/Pill'
 import { PlanSelector } from '@components/PlanSelector'
 import { TeamSelector } from '@components/TeamSelector'
 import { UniqueDomain } from '@components/UniqueDomain'
@@ -68,10 +69,7 @@ const Checkout: React.FC<{
     plan: project?.plan,
     team: project?.team,
     paymentMethod: '',
-    freeTrial:
-      project?.plan && typeof project?.plan !== 'string' && project?.plan?.slug === 'standard'
-        ? true
-        : false,
+    freeTrial: true,
   } as CheckoutState)
 
   const handleCardChange = useCallback((incomingPaymentMethod: string) => {
@@ -172,14 +170,16 @@ const Checkout: React.FC<{
           <Cell cols={3} colsM={8} className={classes.sidebarCell}>
             <div className={classes.sidebar}>
               <Fragment>
-                {isClone && (
-                  <InstallationSelector description={`Select where to create this repository.`} />
-                )}
-                {!isClone && (
-                  <div>
-                    <Text label="Repository" value={project?.repositoryFullName} disabled />
-                  </div>
-                )}
+                <div className={classes.installationSelector}>
+                  {isClone && (
+                    <InstallationSelector description={`Select where to create this repository.`} />
+                  )}
+                  {!isClone && (
+                    <div>
+                      <Text label="Repository" value={project?.repositoryFullName} disabled />
+                    </div>
+                  )}
+                </div>
                 <div className={classes.totalPriceSection}>
                   <Label label="Total cost" htmlFor="" />
                   <p className={classes.totalPrice}>
@@ -190,8 +190,13 @@ const Checkout: React.FC<{
                         ? checkoutState?.plan?.priceJSON?.toString()
                         : '',
                     )}
+                    {checkoutState?.freeTrial && (
+                      <Fragment>
+                        <br />
+                        <span className={classes.trialDescription}>Free for 30 days</span>
+                      </Fragment>
+                    )}
                   </p>
-                  {checkoutState?.freeTrial && <p>Free for 14 days</p>}
                 </div>
                 <Button
                   onClick={deleteProject}
@@ -204,7 +209,7 @@ const Checkout: React.FC<{
           </Cell>
           <Cell cols={9} colsM={8}>
             <div>
-              <div>
+              <div className={classes.plansSection}>
                 <Heading element="h5" marginTop={false}>
                   Select your plan
                 </Heading>
@@ -215,8 +220,22 @@ const Checkout: React.FC<{
                     initialSelection={project?.plan}
                   />
                 </div>
+                <Checkbox
+                  label="Free trial, no credit card required"
+                  path="freeTrial"
+                  initialValue={checkoutState?.freeTrial}
+                  className={classes.freeTrial}
+                  onChange={(value: boolean) => {
+                    dispatchCheckoutState({
+                      type: 'SET_FREE_TRIAL',
+                      payload: value,
+                    })
+                  }}
+                />
               </div>
-              <Heading element="h5">Configure your project</Heading>
+              <Heading element="h5" marginTop={false}>
+                Configure your project
+              </Heading>
               <div className={classes.fields}>
                 <Accordion label={<p>Project Details</p>} openOnInit>
                   <div className={classes.projectDetails}>
@@ -288,7 +307,7 @@ const Checkout: React.FC<{
                         <Checkbox
                           path="makePrivate"
                           label="Create private Git repository"
-                          initialValue={project?.makePrivate || false}
+                          initialValue={project?.makePrivate || true}
                         />
                       </Fragment>
                     )}
@@ -339,10 +358,16 @@ const Checkout: React.FC<{
                 </Accordion>
                 <Accordion label="Payment Information">
                   <div className={classes.paymentInformation}>
+                    <p className={classes.paymentInformationDescription}>
+                      All projects without a payment method will be automatically deleted after 4
+                      consecutive failed payment attempts within 30 days of the due date. Your
+                      team's default payment method will be used if one is not specified for this
+                      project.
+                    </p>
                     {checkoutState?.freeTrial && (
                       <Message
                         margin={false}
-                        success="You will not be charged until your 14 day free trial is over. Projects without a payment method will be deleted after 4 consecutive failed payment attempts. We’ll remind you 7 days before your trial ends. Cancel anytime."
+                        success="You will not be charged until your 30 day free trial is over. We’ll remind you 7 days before your trial ends. Cancel anytime."
                       />
                     )}
                     {checkoutState?.team && (

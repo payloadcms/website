@@ -123,7 +123,7 @@ export const CloneTemplate: React.FC<{
             <div className={classes.createPrivate}>
               <Checkbox
                 label="Create private Git repository"
-                initialValue={false}
+                initialValue={true}
                 path="makePrivate"
               />
             </div>

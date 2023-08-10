@@ -1,4 +1,4 @@
-import { fetchToken } from '@cloud/_api/fetchGitHubToken'
+import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
@@ -6,7 +6,7 @@ import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { AuthorizePage } from './page_client'
 
 export default async function NewProjectAuthorizePage() {
-  const token = await fetchToken()
+  const token = await fetchGitHubToken()
 
   if (token) {
     // TODO: redirect back to the `?redirect=` param

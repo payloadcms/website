@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
+import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken'
 import { fetchInstalls } from '@cloud/_api/fetchInstalls'
 import { fetchRepos } from '@cloud/_api/fetchRepos'
-import { fetchToken } from '@cloud/_api/fetchGitHubToken'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
@@ -14,7 +14,7 @@ import { ImportProject } from './ImportProject'
 const title = `Import a codebase`
 
 export default async function ProjectFromImportPage() {
-  const token = await fetchToken()
+  const token = await fetchGitHubToken()
 
   if (!token) {
     redirect(`/new/authorize?redirect=${encodeURIComponent(`/new/import`)}`)

@@ -169,40 +169,43 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
           />
         )}
       </div>
-      <div className={classes.controls}>
-        {showNewCard && enableInlineSave && (
-          <button type="button" className={classes.saveNewCard} onClick={handleSaveNewCard}>
-            {isLoading === 'saving' ? 'Saving...' : 'Save new card'}
-          </button>
-        )}
-        {/* Only show the add/remove new card button if there are existing payment methods */}
-        {paymentMethods && paymentMethods?.length > 0 && (
-          <Fragment>
-            {!showNewCard && (
-              <CircleIconButton
-                onClick={() => {
-                  setShowNewCard(true)
-                  handleChange(newCardID.current)
-                }}
-                label="Add new card"
-                icon="add"
-              />
-            )}
-            {showNewCard && (
-              <button
-                type="button"
-                className={classes.cancelNewCard}
-                onClick={() => {
-                  setShowNewCard(false)
-                  initializeState()
-                }}
-              >
-                Cancel new card
+      {(showNewCard && enableInlineSave) ||
+        (paymentMethods && paymentMethods?.length > 0 && (
+          <div className={classes.controls}>
+            {showNewCard && enableInlineSave && (
+              <button type="button" className={classes.saveNewCard} onClick={handleSaveNewCard}>
+                {isLoading === 'saving' ? 'Saving...' : 'Save new card'}
               </button>
             )}
-          </Fragment>
-        )}
-      </div>
+            {/* Only show the add/remove new card button if there are existing payment methods */}
+            {paymentMethods && paymentMethods?.length > 0 && (
+              <Fragment>
+                {!showNewCard && (
+                  <CircleIconButton
+                    onClick={() => {
+                      setShowNewCard(true)
+                      handleChange(newCardID.current)
+                    }}
+                    label="Add new card"
+                    icon="add"
+                  />
+                )}
+                {showNewCard && (
+                  <button
+                    type="button"
+                    className={classes.cancelNewCard}
+                    onClick={() => {
+                      setShowNewCard(false)
+                      initializeState()
+                    }}
+                  >
+                    Cancel new card
+                  </button>
+                )}
+              </Fragment>
+            )}
+          </div>
+        ))}
     </div>
   )
 }

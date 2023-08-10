@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
+import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken'
 import { fetchInstalls } from '@cloud/_api/fetchInstalls'
 import { fetchTemplate } from '@cloud/_api/fetchTemplate'
-import { fetchToken } from '@cloud/_api/fetchGitHubToken'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
@@ -20,7 +20,7 @@ export default async function ProjectFromTemplatePage({ params: { template: temp
     redirect(`/new/clone?message=${encodeURIComponent('Template not found')}`)
   }
 
-  const token = await fetchToken()
+  const token = await fetchGitHubToken()
 
   if (!token) {
     redirect(`/new/authorize?redirect=${encodeURIComponent(`/new/clone/${templateSlug}`)}`)

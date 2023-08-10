@@ -2,7 +2,6 @@ import React, { Fragment, useEffect } from 'react'
 
 import { LargeRadio } from '@components/LargeRadio'
 import { Plan } from '@root/payload-cloud-types'
-import { priceFromJSON } from '@root/utilities/price-from-json'
 
 import classes from './index.module.scss'
 
@@ -58,9 +57,8 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
           {plans &&
             plans.length > 0 &&
             plans.map(plan => {
-              const { priceJSON, name } = plan || {}
+              const { name } = plan || {}
               const checked = selectedPlan?.id === plan?.id
-              const price = priceFromJSON(priceJSON?.toString(), false)
 
               return (
                 <LargeRadio
@@ -69,10 +67,8 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
                   name={name}
                   id={plan.id}
                   value={plan}
-                  price={price}
                   onChange={setSelectedPlan}
                   label={name}
-                  pillLabel={plan.slug === 'standard' ? '14 Day Free Trial' : undefined}
                 />
               )
             })}

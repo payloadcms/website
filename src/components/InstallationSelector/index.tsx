@@ -73,6 +73,7 @@ type InstallationSelectorProps = {
   description?: string
   disabled?: boolean
   hideLabel?: boolean
+  className?: string
 }
 
 export const InstallationSelector: React.FC<InstallationSelectorProps> = props => {
@@ -86,6 +87,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
     description,
     disabled,
     hideLabel,
+    className,
   } = props
 
   const selectAfterLoad = React.useRef<Install['id']>()
@@ -122,7 +124,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
   }, [installs])
 
   return (
-    <div>
+    <div className={className}>
       {error && <p>{error}</p>}
       {loading && (
         <Fragment>

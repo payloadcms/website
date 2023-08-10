@@ -1,8 +1,8 @@
 import React from 'react'
+import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken'
 import { fetchInstalls } from '@cloud/_api/fetchInstalls'
 import { fetchPlans } from '@cloud/_api/fetchPlans'
 import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
-import { fetchToken } from '@cloud/_api/fetchGitHubToken'
 import { Metadata } from 'next'
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 import { redirect } from 'next/navigation'
@@ -18,7 +18,7 @@ export default async function CheckoutPageWrapper({
     redirect(`/cloud/${team.slug}/${project.slug}`)
   }
 
-  const token = await fetchToken()
+  const token = await fetchGitHubToken()
 
   if (!token) {
     redirect(
