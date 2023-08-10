@@ -2,7 +2,7 @@ import React from 'react'
 import { notFound } from 'next/navigation'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { fetchRelatedThreads } from '../../../../../graphql'
+import { fetchRelatedThreads } from '../../../../_graphql'
 import { getDoc, getTopics } from '../../api'
 import { NextDoc } from '../../types'
 import { RenderDoc } from './client_page'

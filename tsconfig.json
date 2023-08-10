@@ -64,10 +64,10 @@
         "./src/graphics/*"
       ],
       "@graphql": [
-        "./src/graphql"
+        "src/app/graphql"
       ],
       "@graphql/*": [
-        "./src/graphql/*"
+        "src/app/graphql/*"
       ],
     },
     "strictNullChecks": true

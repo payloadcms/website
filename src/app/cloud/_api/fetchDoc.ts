@@ -1,5 +1,5 @@
-import { PAGE } from '@root/graphql/pages'
-import { TEAM } from '@root/graphql/team'
+import { PAGE } from '@root/app/_graphql/pages'
+import { TEAM } from '@root/app/_graphql/team'
 import type { Config } from '../../../payload-types'
 
 const queryMap = {

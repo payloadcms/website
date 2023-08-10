@@ -8,7 +8,7 @@ import type {
   Page,
   Post,
   TopBar,
-} from '../payload-types'
+} from '../../payload-types'
 import { ANNOUNCEMENT_FIELDS } from './announcement'
 import { CASE_STUDIES, CASE_STUDY } from './case-studies'
 import { COMMUNITY_HELP, COMMUNITY_HELPS, RELATED_THREADS } from './community-helps'

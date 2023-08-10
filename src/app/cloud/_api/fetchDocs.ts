@@ -1,6 +1,6 @@
-import { TEAMS } from '@root/graphql/team'
-import { PAGES } from '../../../graphql/pages'
+import { TEAMS } from '@root/app/_graphql/team'
 import type { Config } from '../../../payload-cloud-types'
+import { PAGES } from '../../_graphql/pages'
 
 const queryMap = {
   pages: {

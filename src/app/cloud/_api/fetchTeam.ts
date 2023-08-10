@@ -1,4 +1,4 @@
-import { TEAM_QUERY } from '@root/graphql/team'
+import { TEAM_QUERY } from '@root/app/_graphql/team'
 import type { Team } from '@root/payload-cloud-types'
 import { payloadCloudToken } from './token'
 

@@ -1,4 +1,4 @@
-import { PROJECT_QUERY, PROJECTS_QUERY } from '@root/graphql/project'
+import { PROJECT_QUERY, PROJECTS_QUERY } from '@root/app/_graphql/project'
 import type { Project } from '@root/payload-cloud-types'
 import { payloadCloudToken } from './token'
 

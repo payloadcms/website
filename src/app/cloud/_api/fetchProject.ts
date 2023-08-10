@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-import { PROJECT_QUERY } from '@root/graphql/project'
+import { PROJECT_QUERY } from '@root/app/_graphql/project'
 import type { Project, Team } from '@root/payload-cloud-types'
 import { fetchTeam } from './fetchTeam'
 import { payloadCloudToken } from './token'
