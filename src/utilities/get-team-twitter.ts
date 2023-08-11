@@ -8,7 +8,7 @@ export const getTeamTwitter = (teamMember?: string): string => {
     seanzubrickas: 'SeanZubrickas',
     JarrodMFlesch: 'JarrodMFlesch',
     jarrod_not_jared: 'JarrodMFlesch',
-    jacobsfletch: 'payloadcms',
+    jacobsfletch: 'jacobsfletch',
     JessChowdhury: 'JessMarieChow',
     jesschow: 'JessMarieChow',
     PatrikKozak: 'PatKozak4',

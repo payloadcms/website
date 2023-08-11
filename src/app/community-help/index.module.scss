@@ -57,7 +57,8 @@
 
 .title {
   margin: 0;
-  word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
 
   @include small-break {
     margin-bottom: calc(var(--base)*0.25);

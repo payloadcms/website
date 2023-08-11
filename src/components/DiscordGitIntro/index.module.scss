@@ -12,7 +12,8 @@
 .title {
   @include h3;
   text-decoration: none;
-  word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .authorDetails {
