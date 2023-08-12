@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import { NewProjectBlock } from '@blocks/NewProject'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 
@@ -10,9 +9,10 @@ import { ProjectCard } from '@components/cards/ProjectCard'
 import { Gutter } from '@components/Gutter'
 import { Pagination } from '@components/Pagination'
 import { TeamSelector } from '@components/TeamSelector'
-import { Team, User } from '@root/payload-cloud-types'
+import { Team, Template, User } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import useDebounce from '@root/utilities/use-debounce'
+import { NewProjectBlock } from '../_components/NewProject'
 import { fetchProjectsClient, ProjectsRes } from './_api/fetchProjects'
 
 import classes from './page.module.scss'
@@ -23,7 +23,8 @@ const debounce = 350
 export const CloudPage: React.FC<{
   initialState: ProjectsRes
   user: User
-}> = ({ initialState }) => {
+  templates: Template[]
+}> = ({ initialState, templates }) => {
   const { user } = useAuth()
   const [selectedTeam, setSelectedTeam] = React.useState<string | 'none'>()
   const prevSelectedTeam = React.useRef<string | 'none' | undefined>(selectedTeam)
@@ -37,7 +38,6 @@ export const CloudPage: React.FC<{
   const [error, setError] = React.useState<string>('')
   const [enableSearch, setEnableSearch] = React.useState<boolean>(false)
   const requestRef = React.useRef<NodeJS.Timeout | null>(null)
-
   // on initial load, we'll know whether or not to render the `NewProjectBlock`
   // this will prevent subsequent searches from showing the `NewProjectBlock`
   const [renderNewProjectBlock] = React.useState<boolean>(initialState?.totalDocs === 0)
@@ -121,6 +121,7 @@ export const CloudPage: React.FC<{
         cardLeader="New"
         headingElement="h4"
         teamSlug={matchedTeam?.slug}
+        templates={templates}
       />
     )
   }

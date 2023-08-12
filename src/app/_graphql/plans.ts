@@ -7,7 +7,7 @@ export const PLAN = `
 
 export const PLANS_QUERY = `
 query Plan {
-  Plans {
+  Plans(sort: "order", limit: 300) {
     docs {
       ${PLAN}
     }

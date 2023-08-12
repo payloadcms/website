@@ -102,14 +102,14 @@ export const Login: React.FC = () => {
           <div className={classes.sidebar}>
             <p>
               {`Don't have an account? `}
-              <Link href={`/signup${canUseDom ? window.location.search : ''}`}>
+              <Link href={`/signup${redirectTo ? `?redirect=${redirectTo}` : ''}`}>
                 Register for free
               </Link>
               {'.'}
             </p>
             <p>
               {`Forgot your password? `}
-              <Link href={`/forgot-password${canUseDom ? window.location.search : ''}`}>
+              <Link href={`/forgot-password${redirectTo ? `?redirect=${redirectTo}` : ''}`}>
                 Reset it here
               </Link>
               {'.'}

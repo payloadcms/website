@@ -1,4 +1,3 @@
-import type { Template } from '@root/payload-cloud-types'
 import type {
   Announcement,
   CaseStudy,
@@ -15,7 +14,6 @@ import { COMMUNITY_HELP, COMMUNITY_HELPS, RELATED_THREADS } from './community-he
 import { GLOBALS } from './globals'
 import { PAGE, PAGES } from './pages'
 import { POST, POST_SLUGS, POSTS } from './posts'
-import { TEMPLATES } from './templates'
 
 const next = {
   revalidate: 600,
@@ -25,7 +23,6 @@ export const fetchGlobals = async (): Promise<{
   mainMenu: MainMenu
   footer: Footer
   topBar: TopBar
-  templates: Template[]
 }> => {
   const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?globals`, {
     method: 'POST',
@@ -38,25 +35,10 @@ export const fetchGlobals = async (): Promise<{
     }),
   }).then(res => res.json())
 
-  const { data: templatesData } = await fetch(
-    `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql?templates`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      next,
-      body: JSON.stringify({
-        query: TEMPLATES,
-      }),
-    },
-  ).then(res => res.json())
-
   return {
     mainMenu: data.MainMenu,
     footer: data.Footer,
     topBar: data.TopBar,
-    templates: templatesData?.Templates?.docs,
   }
 }
 

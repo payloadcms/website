@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import { NewProjectBlock } from '@blocks/NewProject'
 import { fetchProjectsClient, ProjectsRes } from '@cloud/_api/fetchProjects'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
@@ -10,7 +9,8 @@ import { Button } from '@components/Button'
 import { ProjectCard } from '@components/cards/ProjectCard'
 import { Gutter } from '@components/Gutter'
 import { Pagination } from '@components/Pagination'
-import { Team } from '@root/payload-cloud-types'
+import { NewProjectBlock } from '@root/app/_components/NewProject'
+import { Team, Template } from '@root/payload-cloud-types'
 import useDebounce from '@root/utilities/use-debounce'
 
 import classes from './page.module.scss'
@@ -21,7 +21,8 @@ const debounce = 350
 export const TeamPage: React.FC<{
   team: Team
   initialState: ProjectsRes
-}> = ({ team, initialState }) => {
+  templates?: Template[]
+}> = ({ team, initialState, templates }) => {
   const [result, setResult] = React.useState<ProjectsRes>(initialState)
   const [page, setPage] = React.useState<number>(initialState?.page || 1)
   const [search, setSearch] = React.useState<string>('')
@@ -93,6 +94,7 @@ export const TeamPage: React.FC<{
         cardLeader="New"
         headingElement="h4"
         teamSlug={team?.slug}
+        templates={templates}
       />
     )
   }

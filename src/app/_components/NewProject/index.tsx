@@ -1,16 +1,12 @@
-'use client'
-
 import React, { Fragment } from 'react'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
 
 import { BlockSpacing } from '@components/BlockSpacing'
 import { DefaultCard } from '@components/cards/DefaultCard'
 import { Gutter } from '@components/Gutter'
 import { Heading, HeadingType } from '@components/Heading'
 import { PixelBackground } from '@components/PixelBackground'
-import { Team } from '@root/payload-cloud-types'
-import { useGlobals } from '@root/providers/Globals'
+import { Team, Template } from '@root/payload-cloud-types'
 
 import classes from './index.module.scss'
 
@@ -20,20 +16,16 @@ export const NewProjectBlock: React.FC<{
   headingElement?: HeadingType
   description?: React.ReactNode
   teamSlug?: Team['slug']
+  templates?: Template[]
 }> = props => {
   const {
     cardLeader,
     headingElement = 'h1',
     heading = 'New project',
     description,
-    teamSlug: teamSlugFromProps,
+    teamSlug,
+    templates,
   } = props
-
-  const searchParams = useSearchParams()
-  const teamParam = searchParams?.get('team')
-  const teamSlug = teamParam || teamSlugFromProps
-
-  const { templates } = useGlobals()
 
   return (
     <Fragment>

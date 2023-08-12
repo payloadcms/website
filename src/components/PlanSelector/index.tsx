@@ -23,8 +23,8 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
       : initialSelection,
   )
 
-  // initialize with the `standard` plan
-  // fallback to the first plan in the list
+  // initialize with the `standard` plan if an initial selection is not provided
+  // fallback to the first plan in the list if `standard` is not available
   useEffect(() => {
     if (plans?.length && !initialSelection && !hasInitializedSelection.current) {
       hasInitializedSelection.current = true

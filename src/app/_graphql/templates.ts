@@ -18,7 +18,7 @@ export const TEMPLATE_FIELDS = `
 
 export const TEMPLATES = `
   query {
-    Templates {
+    Templates(sort: "order", limit: 300) {
       docs {
         ${TEMPLATE_FIELDS}
       }
@@ -37,8 +37,8 @@ export const TEMPLATE_SLUGS = `
 `
 
 export const TEMPLATE = `
-  query Template($slug: String ) {
-    Templates(where: { slug: { equals: $slug} }, draft: true) {
+  query Template($slug: String) {
+    Templates(where: { slug: { equals: $slug} }, draft: true, limit: 1) {
       docs {
         ${TEMPLATE_FIELDS}
       }

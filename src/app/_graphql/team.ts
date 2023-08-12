@@ -14,7 +14,7 @@ members {
 
 export const TEAM_QUERY = `
   query Team($slug: String) {
-    Teams(where: { slug: { equals: $slug } }) {
+    Teams(where: { slug: { equals: $slug } }, limit: 1) {
       docs {
         ${TEAM}
       }
@@ -24,7 +24,7 @@ export const TEAM_QUERY = `
 
 export const TEAMS = `
   query Teams {
-    Teams {
+    Teams(limit: 300) {
       docs {
         ${TEAM}
       }

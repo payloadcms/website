@@ -179,7 +179,9 @@ export const Signup: React.FC = () => {
         <Cell cols={5} colsM={8}>
           <div className={classes.links}>
             {`Already have an account? `}
-            <Link href={`/login${canUseDom ? window.location.search : ''}`}>Log in now</Link>
+            <Link href={`/login${redirectParam ? `?redirect=${redirectParam}` : ''}`}>
+              Log in now
+            </Link>
             {'.'}
           </div>
           <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>

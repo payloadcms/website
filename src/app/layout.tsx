@@ -20,7 +20,7 @@ import '../css/app.scss'
 import classes from './layout.module.scss'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { mainMenu, footer, topBar, templates } = await fetchGlobals()
+  const { mainMenu, footer, topBar } = await fetchGlobals()
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -83,7 +83,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           ].join(' ')}
         >
           <GoogleTagManager />
-          <Providers templates={templates}>
+          <Providers>
             <TopBar {...topBar} />
             <Header {...mainMenu} />
             <div className={classes.layout}>

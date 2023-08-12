@@ -3,12 +3,15 @@ import { Metadata } from 'next'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { fetchMe } from './_api/fetchMe'
 import { fetchProjects } from './_api/fetchProjects'
+import { fetchTemplates } from './_api/fetchTemplates'
 import { CloudPage } from './page_client'
 
 export default async function CloudPageWrapper() {
   const { user } = await fetchMe()
   const projectsRes = await fetchProjects()
-  return <CloudPage initialState={projectsRes} user={user} />
+  const templates = await fetchTemplates()
+
+  return <CloudPage initialState={projectsRes} templates={templates} user={user} />
 }
 
 export const metadata: Metadata = {

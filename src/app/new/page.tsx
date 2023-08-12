@@ -1,23 +1,24 @@
 import React, { Fragment } from 'react'
-import { NewProjectBlock } from '@blocks/NewProject'
+import { fetchTemplates } from '@cloud/_api/fetchTemplates'
 import { Metadata } from 'next'
 
 import { Gutter } from '@components/Gutter'
+import { NewProjectBlock } from '@root/app/_components/NewProject'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { RenderParams } from '../_components/RenderParams'
 
-const NewProjectPage: React.FC = () => {
+export default async function NewProjectPage() {
+  const templates = await fetchTemplates()
+
   return (
     <Fragment>
       <Gutter>
         <RenderParams />
       </Gutter>
-      <NewProjectBlock headingElement="h1" />
+      <NewProjectBlock headingElement="h1" templates={templates} />
     </Fragment>
   )
 }
-
-export default NewProjectPage
 
 export const metadata: Metadata = {
   title: 'New Project | Payload Cloud',

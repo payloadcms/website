@@ -3,6 +3,7 @@ import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken'
 import { fetchInstalls } from '@cloud/_api/fetchInstalls'
 import { fetchPlans } from '@cloud/_api/fetchPlans'
 import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
+import { fetchTemplates } from '@cloud/_api/fetchTemplates'
 import { Metadata } from 'next'
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 import { redirect } from 'next/navigation'
@@ -29,8 +30,18 @@ export default async function CheckoutPageWrapper({
 
   const plans = await fetchPlans()
   const installs = await fetchInstalls()
+  const templates = await fetchTemplates()
 
-  return <Checkout team={team} project={project} token={token} plans={plans} installs={installs} />
+  return (
+    <Checkout
+      team={team}
+      project={project}
+      token={token}
+      plans={plans}
+      installs={installs}
+      templates={templates}
+    />
+  )
 }
 
 export async function generateMetadata({

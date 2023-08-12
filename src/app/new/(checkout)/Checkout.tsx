@@ -2,6 +2,7 @@
 
 import React, { Fragment, useCallback } from 'react'
 import { toast } from 'react-toastify'
+import { fetchTemplates } from '@cloud/_api/fetchTemplates'
 import { cloudSlug } from '@cloud/_components/DashboardHeader'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
@@ -31,8 +32,7 @@ import { UniqueRepoName } from '@components/UniqueRepoName'
 import { UniqueProjectSlug } from '@components/UniqueSlug'
 import { Accordion } from '@root/app/_components/Accordion'
 import { Message } from '@root/app/_components/Message'
-import { Plan, Project, Team } from '@root/payload-cloud-types'
-import { useGlobals } from '@root/providers/Globals'
+import { Plan, Project, Team, Template } from '@root/payload-cloud-types'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import { EnvVars } from './EnvVars'
 import { checkoutReducer, CheckoutState } from './reducer'
@@ -54,12 +54,12 @@ const Checkout: React.FC<{
   project: Project | null | undefined
   plans: Plan[]
   installs: Install[]
+  templates: Template[]
 }> = props => {
-  const { project, plans, installs } = props
+  const { project, plans, installs, templates } = props
   const isClone = Boolean(!project?.repositoryID)
 
   const router = useRouter()
-  const { templates } = useGlobals()
 
   const [deleting, setDeleting] = React.useState(false)
   const [errorDeleting, setErrorDeleting] = React.useState('')
@@ -414,8 +414,9 @@ const CheckoutProvider: React.FC<{
   plans: Plan[]
   token: string | null
   installs: Install[]
+  templates: Template[]
 }> = props => {
-  const { team, project, token, plans, installs } = props
+  const { team, project, token, plans, installs, templates } = props
 
   if (!project) {
     redirect('/404')
@@ -443,7 +444,7 @@ const CheckoutProvider: React.FC<{
         </div>
       </Gutter>
       <Elements stripe={Stripe}>
-        <Checkout project={project} plans={plans} installs={installs} />
+        <Checkout project={project} plans={plans} installs={installs} templates={templates} />
       </Elements>
     </Fragment>
   )
