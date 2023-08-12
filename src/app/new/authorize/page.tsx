@@ -17,15 +17,11 @@ export default async function NewProjectAuthorizePage() {
     )
   }
 
-  const token = await fetchGitHubToken()
+  // NOTE: cannot redirect here because we need to know the `redirect` param
+  // instead, pass the token to the client and redirect there
+  const githubToken = await fetchGitHubToken()
 
-  if (token) {
-    // TODO: redirect back to the `?redirect=` param
-    // search params are not available on the server though
-    redirect(`/new?success=${encodeURIComponent('You are already authorized with GitHub')}`)
-  }
-
-  return <AuthorizePage />
+  return <AuthorizePage githubToken={githubToken} />
 }
 
 export const metadata: Metadata = {

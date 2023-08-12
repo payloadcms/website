@@ -10,7 +10,7 @@
 .repo {
     display: flex;
     align-items: center;
-    padding: calc(var(--base) * 1.5) 0;
+    padding: calc(var(--base) * 2) 0;
     position: relative;
 
     @include small-break {
@@ -38,6 +38,7 @@
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
+    gap: calc(var(--base) / 4);
 
     @include small-break {
         height: auto;

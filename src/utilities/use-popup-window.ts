@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import type { ReadonlyURLSearchParams } from 'next/navigation'
 
 export interface PopupMessage {
@@ -20,6 +20,7 @@ export const usePopupWindow = (props: {
   openPopupWindow: (e: React.MouseEvent<HTMLAnchorElement>) => void
 } => {
   const { href, onMessage, eventType } = props
+  const isReceivingMessage = useRef(false)
 
   useEffect(() => {
     const receiveMessage = async (event: MessageEvent): Promise<void> => {
@@ -28,8 +29,14 @@ export const usePopupWindow = (props: {
         return
       }
 
-      if (typeof onMessage === 'function' && event.data?.type === eventType) {
+      if (
+        typeof onMessage === 'function' &&
+        event.data?.type === eventType &&
+        !isReceivingMessage.current
+      ) {
+        isReceivingMessage.current = true
         await onMessage(event.data?.searchParams)
+        isReceivingMessage.current = false
       }
     }
 
