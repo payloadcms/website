@@ -5,12 +5,10 @@ import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
-import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 
 import classes from './page.module.scss'
 
 export const JoinTeam: React.FC = () => {
-  useAuthRedirect()
   const router = useRouter()
 
   const searchParams = useSearchParams()

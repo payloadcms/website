@@ -11,14 +11,11 @@ import { useCheckToken } from '@root/app/new/authorize/useCheckToken'
 import { useExchangeCode } from '@root/app/new/authorize/useExchangeCode'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { useAuthRedirect } from '@root/utilities/use-auth-redirect'
 import { usePopupWindow } from '@root/utilities/use-popup-window'
 
 import classes from './page.module.scss'
 
 export const AuthorizePage: React.FC = () => {
-  useAuthRedirect()
-
   const params = useSearchParams()
   const { error: exchangeError, hasExchangedCode, exchangeCode } = useExchangeCode()
 

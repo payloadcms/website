@@ -1,12 +1,24 @@
+import { fetchMe } from '@cloud/_api/fetchMe'
 import { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { JoinTeam } from './page_client'
 
 // TODO: server render the `JoinTeam` page
 // see the `verify` page for an example
-export default props => {
-  return <JoinTeam {...props} />
+export default async function JoinTeamPage(props) {
+  const { user } = await fetchMe()
+
+  if (!user) {
+    redirect(
+      `/login?redirect=${encodeURIComponent(`/join-team`)}?error=${encodeURIComponent(
+        'You must be logged in to join a team',
+      )}`,
+    )
+  }
+
+  return <JoinTeam {...props} user={user} />
 }
 
 export const metadata: Metadata = {
