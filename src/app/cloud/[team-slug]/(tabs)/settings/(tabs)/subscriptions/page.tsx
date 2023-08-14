@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { fetchMe } from '@cloud/_api/fetchMe'
 import { fetchPlans } from '@cloud/_api/fetchPlans'
 import { fetchSubscriptions } from '@cloud/_api/fetchSubscriptions'
-import { fetchTeam, fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 import { Metadata } from 'next'
 

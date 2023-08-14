@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
+import type { Install } from '@cloud/_api/fetchInstalls'
 import { fetchReposClient } from '@cloud/_api/fetchRepos'
 import type { Endpoints } from '@octokit/types'
 
-import type { Install } from '@components/InstallationSelector/useGetInstalls'
 import { useAuth } from '@root/providers/Auth'
 
 type GitHubResponse =

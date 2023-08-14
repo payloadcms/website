@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
-import { useTeamDrawer } from '@components/TeamDrawer'
+import { useTeamDrawer } from '@cloud/_components/TeamDrawer'
 import { Team } from '@root/payload-cloud-types'
 
 import classes from './page.module.scss'

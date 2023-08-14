@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect } from 'react'
+import { TeamSelector } from '@cloud/_components/TeamSelector'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 
@@ -8,7 +9,6 @@ import { Button } from '@components/Button'
 import { ProjectCard } from '@components/cards/ProjectCard'
 import { Gutter } from '@components/Gutter'
 import { Pagination } from '@components/Pagination'
-import { TeamSelector } from '@components/TeamSelector'
 import { Team, Template, User } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import useDebounce from '@root/utilities/use-debounce'

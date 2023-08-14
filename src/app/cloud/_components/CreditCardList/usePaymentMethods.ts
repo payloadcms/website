@@ -4,7 +4,7 @@ import { useElements, useStripe } from '@stripe/react-stripe-js'
 import type { PaymentMethod, SetupIntentResult } from '@stripe/stripe-js'
 
 import type { Team } from '@root/payload-cloud-types'
-import { confirmCardSetup } from '../../app/new/(checkout)/confirmCardSetup'
+import { confirmCardSetup } from '../../../new/(checkout)/confirmCardSetup'
 
 export const usePaymentMethods = (args: {
   team?: Team

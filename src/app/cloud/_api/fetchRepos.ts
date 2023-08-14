@@ -1,6 +1,6 @@
 import type { Endpoints } from '@octokit/types'
 
-import type { Install } from '@components/InstallationSelector/useGetInstalls'
+import type { Install } from './fetchInstalls'
 import { payloadCloudToken } from './token'
 
 type GitHubResponse =

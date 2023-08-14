@@ -3,8 +3,8 @@
 import { cloudSlug } from '@cloud/slug'
 import { usePathname } from 'next/navigation'
 
-import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
+import { Breadcrumb, Breadcrumbs } from '../../../../components/Breadcrumbs'
 
 export type Routes = {
   [key: string]: Breadcrumb

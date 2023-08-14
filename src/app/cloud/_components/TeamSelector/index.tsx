@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect } from 'react'
 import { components } from 'react-select'
+import { useTeamDrawer } from '@cloud/_components/TeamDrawer'
 import { Select } from '@forms/fields/Select'
 
 import { LoadingShimmer } from '@components/LoadingShimmer'
-import { useTeamDrawer } from '@components/TeamDrawer'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 

@@ -1,21 +1,28 @@
+'use client'
+
 import React, { Fragment, useEffect } from 'react'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { CreditCardElement } from '@cloud/_components/CreditCardElement'
 import { useModal } from '@faceless-ui/modal'
+import { Elements } from '@stripe/react-stripe-js'
 import type { PaymentMethod } from '@stripe/stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
 import { v4 as uuid } from 'uuid'
 
 import { Button } from '@components/Button'
 import { CircleIconButton } from '@components/CircleIconButton'
-import { CreditCardElement } from '@components/CreditCardElement'
-import { useCustomer } from '@components/CreditCardSelector/useCustomer'
 import { DropdownMenu } from '@components/DropdownMenu'
 import { Heading } from '@components/Heading'
 import { ModalWindow } from '@components/ModalWindow'
 import { Pill } from '@components/Pill'
 import useDebounce from '@root/utilities/use-debounce'
+import { useCustomer } from '../CreditCardSelector/useCustomer'
 import { usePaymentMethods } from './usePaymentMethods'
 
 import classes from './index.module.scss'
+
+const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
+const Stripe = loadStripe(apiKey)
 
 type CreditCardListType = {
   team: TeamWithCustomer
@@ -206,5 +213,13 @@ export const CreditCardList: React.FC<CreditCardListType> = props => {
         </div>
       </ModalWindow>
     </div>
+  )
+}
+
+export const CreditCardListWithElements: React.FC<CreditCardListType> = props => {
+  return (
+    <Elements stripe={Stripe}>
+      <CreditCardList {...props} />
+    </Elements>
   )
 }

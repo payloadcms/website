@@ -2,13 +2,13 @@
 
 import * as React from 'react'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { CreditCardSelector } from '@cloud/_components/CreditCardSelector'
 import { cloudSlug } from '@cloud/slug'
 import { Text } from '@forms/fields/Text'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import Link from 'next/link'
 
-import { CreditCardSelector } from '@components/CreditCardSelector'
 import { Heading } from '@components/Heading'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
 import { Project, Team } from '@root/payload-cloud-types'

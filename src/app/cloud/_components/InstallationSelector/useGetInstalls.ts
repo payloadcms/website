@@ -1,9 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from 'react'
+import type { Install } from '@cloud/_api/fetchInstalls'
+import { fetchInstallsClient } from '@cloud/_api/fetchInstalls'
 import type { Endpoints } from '@octokit/types'
-
-type GitHubInstallationsResponse = Endpoints['GET /user/installations']['response']
-
-export type Install = GitHubInstallationsResponse['data']['installations'][0]
 
 export type GitHubOrgsResponse = Endpoints['GET /user/memberships/orgs']['response']
 
@@ -50,29 +48,20 @@ export const useGetInstalls: UseGetInstalls = args => {
   const hasRequested = React.useRef(false)
 
   const loadInstalls = useCallback(async (): Promise<Install[]> => {
-    const installsReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        route: `GET /user/installations`,
-      }),
-    })
+    try {
+      const installations = await fetchInstallsClient()
 
-    const res: GitHubInstallationsResponse = await installsReq.json()
+      // filter these based on the given permissions and user role
+      const installationsWithPermission = installations.filter(install => {
+        return permissions ? permissions === install.permissions?.administration : true
+      })
 
-    if (!installsReq.ok) {
-      setError(`Error getting installations: ${res.status}`)
+      return installationsWithPermission
+    } catch (err: unknown) {
+      setError(`Error getting installations: ${err}`)
     }
 
-    // filter these based on the given permissions and user role
-    const installationsWithPermission = res.data?.installations.filter(install => {
-      return permissions ? permissions === install.permissions?.administration : true
-    })
-
-    return installationsWithPermission
+    return []
   }, [permissions])
 
   useEffect(() => {

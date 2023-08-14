@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 
 import type { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
-import type { Repo } from '../../utilities/use-get-repos'
+import type { Repo } from './useGetRepos'
 
 export const useCreateDraftProject = ({
   projectName,

@@ -6,10 +6,10 @@ import FormProcessing from '@forms/FormProcessing'
 import FormSubmissionError from '@forms/FormSubmissionError'
 import Submit from '@forms/Submit'
 
-import { UniqueTeamSlug } from '@components/UniqueSlug'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { InviteTeammates } from '../InviteTeammates'
+import { UniqueTeamSlug } from '../UniqueSlug'
 import { TeamDrawerProps } from './types'
 
 import classes from './DrawerContent.module.scss'

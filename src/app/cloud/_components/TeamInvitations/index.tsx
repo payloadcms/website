@@ -2,9 +2,9 @@ import React, { Fragment } from 'react'
 import { toast } from 'react-toastify'
 
 import { Heading } from '@components/Heading'
-import { TeamMemberRow } from '@components/TeamMembers/TeamMemberRow'
 import { Team } from '@root/payload-cloud-types'
 import { formatDate } from '@root/utilities/format-date-time'
+import { TeamMemberRow } from '../TeamMembers/TeamMemberRow'
 
 import classes from './index.module.scss'
 

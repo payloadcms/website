@@ -2,7 +2,7 @@ import React from 'react'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 
-import { userTeamRoles } from '@components/InviteTeammates'
+import { userTeamRoles } from '../InviteTeammates'
 
 import classes from './TeamMemberRow.module.scss'
 
