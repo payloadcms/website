@@ -2,7 +2,8 @@
 
 import React, { Fragment, useCallback } from 'react'
 import { toast } from 'react-toastify'
-import { Cell, Grid } from '@faceless-ui/css-grid'
+import { HR } from '@root/app/_components/HR'
+import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
@@ -80,89 +81,81 @@ export const SettingsPage: React.FC<{
 
   return (
     <Gutter className={classes.content}>
-      <Heading marginTop={false} marginBottom={false} element="h1" as="h6">
-        Account Settings
-      </Heading>
-      <Grid>
-        <Cell cols={6} colsM={8}>
-          <p className={classes.description}>
-            {formToShow === 'account' && (
-              <Fragment>
-                {'To change your password, '}
-                <button
-                  className={classes.viewButton}
-                  type="button"
-                  onClick={() => {
-                    setFormToShow('password')
-                  }}
-                >
-                  click here
-                </button>
-                {'.'}
-              </Fragment>
-            )}
-            {formToShow === 'password' && (
-              <Fragment>
-                {'Change your password below, or '}
-                <button
-                  className={classes.viewButton}
-                  type="button"
-                  onClick={() => {
-                    setFormToShow('account')
-                  }}
-                >
-                  cancel
-                </button>
-                {'.'}
-              </Fragment>
-            )}
-          </p>
-          <Form className={classes.form} onSubmit={handleSubmit}>
-            <FormSubmissionError />
-            <FormProcessing message="Updating profile, one moment" />
-            {formToShow === 'account' && (
-              <>
-                <Text path="name" label="Your Full Name" initialValue={user?.name} />
-                <Text path="email" label="Email" required initialValue={user?.email} />
-                <Text
-                  value={user?.id}
-                  label="User ID"
-                  disabled
-                  description="This is your user's ID within Payload"
-                />
-              </>
-            )}
-            {formToShow === 'password' && (
-              <>
-                <Text type="password" path="password" label="Password" required initialValue="" />
-                <Text
-                  type="password"
-                  path="passwordConfirm"
-                  label="Password Confirm"
-                  required
-                  initialValue=""
-                />
-              </>
-            )}
-            <div className={classes.buttonWrap}>
-              {formToShow === 'password' && (
-                <Button
-                  label="Cancel"
-                  appearance="secondary"
-                  onClick={() => {
-                    setFormToShow('account')
-                  }}
-                />
-              )}
-              <div className={classes.buttonWrap}>
-                <Submit label="Save" className={classes.submit} />
-                <Button label="Log out" appearance="secondary" href="/logout" el="link" />
-              </div>
-            </div>
-          </Form>
-        </Cell>
-      </Grid>
-      <hr className={classes.hr} />
+      <SectionHeader title="Account Settings" />
+      <p className={classes.description}>
+        {formToShow === 'account' && (
+          <Fragment>
+            {'To change your password, '}
+            <button
+              className={classes.viewButton}
+              type="button"
+              onClick={() => {
+                setFormToShow('password')
+              }}
+            >
+              click here
+            </button>
+            {'.'}
+          </Fragment>
+        )}
+        {formToShow === 'password' && (
+          <Fragment>
+            {'Change your password below, or '}
+            <button
+              className={classes.viewButton}
+              type="button"
+              onClick={() => {
+                setFormToShow('account')
+              }}
+            >
+              cancel
+            </button>
+            {'.'}
+          </Fragment>
+        )}
+      </p>
+      <Form className={classes.form} onSubmit={handleSubmit}>
+        <FormSubmissionError />
+        <FormProcessing message="Updating profile, one moment" />
+        {formToShow === 'account' && (
+          <>
+            <Text path="name" label="Your Full Name" initialValue={user?.name} />
+            <Text path="email" label="Email" required initialValue={user?.email} />
+          </>
+        )}
+        {formToShow === 'password' && (
+          <>
+            <Text type="password" path="password" label="Password" required initialValue="" />
+            <Text
+              type="password"
+              path="passwordConfirm"
+              label="Password Confirm"
+              required
+              initialValue=""
+            />
+          </>
+        )}
+        <div className={classes.buttonWrap}>
+          {formToShow === 'password' && (
+            <Button
+              label="Cancel"
+              appearance="secondary"
+              onClick={() => {
+                setFormToShow('account')
+              }}
+            />
+          )}
+          <Submit label="Save" />
+        </div>
+      </Form>
+      <HR />
+      <Text
+        value={user?.id}
+        label="User ID"
+        disabled
+        description="This is your user's ID within Payload"
+      />
+      <HR />
       <Heading element="h2" as="h6" marginTop={false} marginBottom={false}>
         Delete account
       </Heading>

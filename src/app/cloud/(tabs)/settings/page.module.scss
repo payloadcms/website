@@ -3,7 +3,6 @@
 .buttonWrap {
     display: flex;
     gap: var(--base);
-    justify-content: space-between;
 }
 
 .form {
@@ -18,7 +17,6 @@
 .password {
     @include label;
 }
-
 
 .viewButton {
     background-color: transparent;
@@ -48,13 +46,5 @@
 
     & > *:last-child {
         margin-bottom: 0;
-    }
-}
-
-.hr {
-    margin: calc(var(--base) * 3) 0;
-
-    @include mid-break {
-        margin: calc(var(--base) * 2) 0;
     }
 }

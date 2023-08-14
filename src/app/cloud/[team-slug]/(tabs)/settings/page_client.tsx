@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { toast } from 'react-toastify'
+import { HR } from '@root/app/_components/HR'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
@@ -95,14 +96,15 @@ export const TeamSettingsPage: React.FC<{
           required
           initialValue={team?.billingEmail}
         />
-        <Text
-          value={team?.id}
-          label="Team ID"
-          disabled
-          description="This is your team's ID within Payload"
-        />
         <Submit label="Save" className={classes.submit} />
       </Form>
+      <HR />
+      <Text
+        value={team?.id}
+        label="Team ID"
+        disabled
+        description="This is your team's ID within Payload"
+      />
     </React.Fragment>
   )
 }

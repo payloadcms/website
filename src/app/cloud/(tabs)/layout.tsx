@@ -10,14 +10,14 @@ export default async props => {
         tabs={{
           [cloudSlug]: {
             href: `/${cloudSlug}`,
-            label: 'All Projects',
+            label: 'Projects',
           },
           teams: {
             label: 'Teams',
             href: `/${cloudSlug}/teams`,
           },
           settings: {
-            label: 'Account',
+            label: 'Settings',
             href: `/${cloudSlug}/settings`,
           },
         }}

@@ -20,7 +20,7 @@ const baseRoutes: Routes = {
     url: `/${cloudSlug}/teams`,
   },
   settings: {
-    label: 'Account',
+    label: 'Settings',
     url: `/${cloudSlug}/settings`,
   },
 }

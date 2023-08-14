@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { toast } from 'react-toastify'
+import { HR } from '@root/app/_components/HR'
 import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
@@ -119,15 +120,15 @@ export const TeamMembersPage: React.FC<{
         <FormSubmissionError />
         <FormProcessing message="Updating team, one moment..." />
         <TeamMembers team={team} renderHeader={false} />
-        <hr className={classes.hr} />
+        <HR />
         {team?.invitations && team?.invitations?.length > 0 && (
           <React.Fragment>
             <TeamInvitations team={team} />
-            <hr className={classes.hr} />
+            <HR />
           </React.Fragment>
         )}
         <InviteTeammates clearCount={clearCount} />
-        <hr className={classes.hr} />
+        <HR />
         <Submit label="Save" className={classes.submit} />
       </Form>
     </React.Fragment>

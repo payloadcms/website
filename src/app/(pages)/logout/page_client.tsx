@@ -83,6 +83,7 @@ export const Logout: React.FC = () => {
       <Heading as="h3" marginTop={false}>
         Logging out...
       </Heading>
+      <p>Please wait while we log you out, this should only take a moment.</p>
     </Gutter>
   )
 }

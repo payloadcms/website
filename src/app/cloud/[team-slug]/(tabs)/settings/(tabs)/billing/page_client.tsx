@@ -7,6 +7,7 @@ import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 
 import { CreditCardList } from '@components/CreditCardList'
+import { HR } from '@root/app/_components/HR'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
@@ -49,6 +50,7 @@ export const TeamBillingPage: React.FC<{
               description="This value was automatically generated when this team was created."
             />
           </div>
+          <HR />
           {!isCurrentTeamOwner && (
             <p className={classes.error}>You must be an owner of this team to manage billing.</p>
           )}
