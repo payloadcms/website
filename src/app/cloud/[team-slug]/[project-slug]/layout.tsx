@@ -1,5 +1,6 @@
 import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
 import { DashboardTabs } from '@cloud/_components/DashboardTabs'
+import { hasBadSubscription } from '@cloud/_utilities/hasBadSubscription'
 import { cloudSlug } from '@cloud/slug'
 import { Metadata } from 'next'
 
@@ -17,10 +18,7 @@ export default async function ProjectPage(props) {
   const { project } = await fetchProjectAndRedirect({ teamSlug, projectSlug })
 
   // display an error if the project has a bad subscription status
-  const subscriptionsStatus = project?.stripeSubscriptionStatus
-  const hasBadSubscriptionStatus = ['incomplete', 'incomplete_expired', 'past_due', 'unpaid'].some(
-    status => status === subscriptionsStatus,
-  )
+  const hasBadSubscriptionStatus = hasBadSubscription(project?.stripeSubscriptionStatus)
 
   // disable some tabs when the `infraStatus` is not active
   // if infra failed, enable settings tab

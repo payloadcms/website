@@ -6,7 +6,7 @@ import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 
 import { Button } from '@components/Button'
-import { ProjectCard } from '@components/cards/ProjectCard'
+import { ProjectCard } from '@cloud/_components/ProjectCard'
 import { Gutter } from '@components/Gutter'
 import { Pagination } from '@components/Pagination'
 import { Team, Template, User } from '@root/payload-cloud-types'
