@@ -40,6 +40,10 @@
   width: 100%;
 }
 
+.fill {
+  fill: currentColor;
+}
+
 .bold {
   &:local() {
     .stroke {

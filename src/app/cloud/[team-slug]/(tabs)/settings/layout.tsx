@@ -1,78 +1,59 @@
-'use client'
-
 import * as React from 'react'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { Sidebar } from '@cloud/_components/Sidebar'
+import { cloudSlug } from '@cloud/slug'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import Link from 'next/link'
 
-import { EdgeScroll } from '@components/EdgeScroll'
 import { Gutter } from '@components/Gutter'
-import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
+import { Message } from '@root/app/_components/Message'
+import { MissingDefaultPaymentMethod } from './(tabs)/MissingDefaultPaymentMethod'
 
 import classes from './layout.module.scss'
 
-const sidebarNavRoutes = [
-  {
-    label: 'General',
-  },
-  {
-    label: 'Team Members',
-    slug: 'members',
-  },
-  {
-    label: 'Billing',
-    slug: 'billing',
-  },
-  {
-    label: 'Subscriptions',
-    slug: 'subscriptions',
-  },
-  {
-    label: 'Invoices',
-    slug: 'invoices',
-  },
-]
+export default async function ProjectSettingsLayout({
+  params: { 'team-slug': teamSlug },
+  children,
+}) {
+  // Note: this fetch will get deduped by the page
+  // each page within this layout calls this same function
+  // Next.js will only call it once
+  const team = await fetchTeamWithCustomer(teamSlug)
 
-type ProjectSettingsLayoutType = {
-  children: React.ReactNode
-}
-
-export default ({ children }: ProjectSettingsLayoutType) => {
-  const [home, teamSlug, settingsTab, settingSlug] = usePathnameSegments()
+  // display an error to the user if the team has no default payment method
+  const defaultPaymentMethod = team?.stripeCustomer?.invoice_settings?.default_payment_method
 
   return (
     <Gutter>
       <Grid className={classes.gridWrap}>
         <Cell cols={3} start={1} colsS={8}>
-          <div className={classes.sidebarNav}>
-            <EdgeScroll mobileOnly>
-              {sidebarNavRoutes.map((route, index) => {
-                const isActive = settingSlug === route?.slug
-
-                return (
-                  <p
-                    key={route.label}
-                    className={[
-                      classes.sidebarNavItem,
-                      isActive && classes.active,
-                      index === sidebarNavRoutes.length - 1 && classes.lastItem,
-                    ]
-                      .filter(Boolean)
-                      .join(' ')}
-                  >
-                    <Link
-                      href={`/${home}/${teamSlug}/${settingsTab}${
-                        route?.slug ? `/${route.slug}` : ''
-                      }`}
-                    >
-                      {route.label}
-                    </Link>
-                  </p>
-                )
-              })}
-            </EdgeScroll>
-          </div>
+          <Sidebar
+            routes={[
+              {
+                label: 'General',
+                url: `/${cloudSlug}/${teamSlug}/settings`,
+              },
+              {
+                label: 'Team Members',
+                url: `/${cloudSlug}/${teamSlug}/settings/members`,
+              },
+              {
+                label: 'Billing',
+                url: `/${cloudSlug}/${teamSlug}/settings/billing`,
+              },
+              {
+                label: 'Subscriptions',
+                url: `/${cloudSlug}/${teamSlug}/settings/subscriptions`,
+              },
+              {
+                label: 'Invoices',
+                url: `/${cloudSlug}/${teamSlug}/settings/invoices`,
+              },
+            ]}
+          />
         </Cell>
         <Cell start={4} cols={9} startS={1}>
+          {!defaultPaymentMethod && <MissingDefaultPaymentMethod teamSlug={teamSlug} />}
           {children}
         </Cell>
       </Grid>

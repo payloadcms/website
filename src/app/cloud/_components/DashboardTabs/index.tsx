@@ -2,31 +2,35 @@
 
 import { usePathname } from 'next/navigation'
 
-import { Tabs } from '../Tabs'
+import { Tab, Tabs } from '../Tabs'
 
 export const cloudSlug = 'cloud'
 
-export type Tabs = {
+export type TabsType = {
   [key: string]: {
     label?: string
     href?: string
     subpaths?: string[]
+    error?: boolean
   }
 }
 
 export const DashboardTabs: React.FC<{
-  tabs: Tabs
+  tabs: TabsType
 }> = ({ tabs }) => {
   const pathname = usePathname()
 
-  const formattedTabs = Object.entries(tabs).reduce((acc: any[], [, tab]) => {
+  const formattedTabs = Object.entries(tabs).reduce((acc: Tab[], [, tab]) => {
     if (tab.label) {
-      const onTabPath = pathname && (pathname === tab.href || tab?.subpaths?.includes(pathname))
+      const onTabPath = Boolean(
+        pathname && (pathname === tab.href || tab?.subpaths?.includes(pathname)),
+      )
 
       acc.push({
         label: tab.label,
         url: tab.href,
         isActive: onTabPath,
+        error: tab.error,
       })
     }
 

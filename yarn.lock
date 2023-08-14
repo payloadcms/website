@@ -401,10 +401,10 @@
     react-animate-height "^3.0.4"
     react-transition-group "^4.4.2"
 
-"@faceless-ui/css-grid@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@faceless-ui/css-grid/-/css-grid-1.2.0.tgz#53d3301f89151a0022d68e60d2d2794662504be4"
-  integrity sha512-MY+63ItIoY9J+Lnmku9tzgKfSwh1r8QaW0m4OQDEKvtrY7Kv0zQ3AtmOGIWDZoZeLhbmpy2MoTyzLvrSDUdn7g==
+"@faceless-ui/css-grid@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@faceless-ui/css-grid/-/css-grid-1.2.1.tgz#675093c5f3f68ec8381570d14cf33509850cb99e"
+  integrity sha512-NE5dnzV2Jj2WzQ4gsQUU/Dzlz33kE/3R2hdW227zFU2Y16vyyrqDAD07AeC+JL8HhZtVmsxjxs1Du/Jc41LsdQ==
 
 "@faceless-ui/modal@^2.0.1":
   version "2.0.1"

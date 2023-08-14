@@ -29,6 +29,9 @@
   padding-bottom: calc(var(--base) * 1.5);
   position: relative;
   color: var(--theme-elevation-300);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) / 2);
 
   &.lastTab {
     margin-right: 0;
@@ -56,7 +59,31 @@
 
   &.active {
     color: var(--theme-text);
+
+    &.error {
+      color: var(--theme-error-500);
+    }
   }
+  
+  &.error {
+    color: var(--theme-error-300);
+  }
+}
+
+.errorIconWrapper {
+  position: relative;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  width: calc(var(--base) * 1.25);
+  height: calc(var(--base) * 1.25);
+  flex-shrink: 0;
+}
+
+.errorIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
 }
 
 .buttonTab {
