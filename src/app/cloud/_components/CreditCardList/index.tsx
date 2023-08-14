@@ -101,23 +101,20 @@ export const CreditCardList: React.FC<CreditCardListType> = props => {
                   </div>
                 )}
               </div>
-              {paymentMethods.length > 1 && !isDefault && (
-                // hide the menu if it is the only card or the default card
-                // the user has to make another card the default before they can delete the current default
-                <DropdownMenu
-                  menu={
-                    <Fragment>
-                      <button
-                        type="button"
-                        className={classes.deleteCard}
-                        disabled={paymentMethods.length === 1}
-                        onClick={() => {
-                          paymentMethodToDelete.current = paymentMethod
-                          openModal(modalSlug)
-                        }}
-                      >
-                        Delete
-                      </button>
+              <DropdownMenu
+                menu={
+                  <Fragment>
+                    <button
+                      type="button"
+                      className={classes.deleteCard}
+                      onClick={() => {
+                        paymentMethodToDelete.current = paymentMethod
+                        openModal(modalSlug)
+                      }}
+                    >
+                      Delete
+                    </button>
+                    {!isDefault && (
                       <button
                         type="button"
                         className={classes.makeDefault}
@@ -128,11 +125,11 @@ export const CreditCardList: React.FC<CreditCardListType> = props => {
                       >
                         Make default
                       </button>
-                    </Fragment>
-                  }
-                  className={classes.tooltipButton}
-                />
-              )}
+                    )}
+                  </Fragment>
+                }
+                className={classes.tooltipButton}
+              />
             </div>
           )
         })}

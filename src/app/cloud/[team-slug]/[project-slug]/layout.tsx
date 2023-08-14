@@ -1,14 +1,26 @@
+import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
 import { DashboardTabs } from '@cloud/_components/DashboardTabs'
 import { cloudSlug } from '@cloud/slug'
 import { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 
-export default props => {
+export default async function ProjectPage(props) {
   const {
     children,
     params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
   } = props
+
+  // Note: this fetch will get deduped by the page
+  // each page within this layout calls this same function
+  // Next.js will only call it once
+  const { project } = await fetchProjectAndRedirect({ teamSlug, projectSlug })
+
+  // display an error if the project has a bad subscription status
+  const subscriptionsStatus = project?.stripeSubscriptionStatus
+  const hasBadSubscriptionStatus = ['incomplete', 'incomplete_expired', 'past_due', 'unpaid'].some(
+    status => status === subscriptionsStatus,
+  )
 
   return (
     <>
@@ -33,6 +45,7 @@ export default props => {
           settings: {
             label: 'Settings',
             href: `/${cloudSlug}/${teamSlug}/${projectSlug}/settings`,
+            error: hasBadSubscriptionStatus,
             subpaths: [
               `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/billing`,
               `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/domains`,

@@ -24,7 +24,7 @@ export const MissingDefaultPaymentMethod: React.FC<{
           {isOnBillingPage ? (
             <React.Fragment>{'select a payment method below '}</React.Fragment>
           ) : (
-            <Link href={`/${cloudSlug}/${teamSlug}/settings/billing`}>select a payment method</Link>
+            <Link href={billingPath}>select a payment method</Link>
           )}
           {' as default to avoid risk of service interruption.'}
         </React.Fragment>
