@@ -6,7 +6,7 @@ import { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 
-export default async function ProjectPage(props) {
+export default async props => {
   const {
     children,
     params: { 'team-slug': teamSlug, 'project-slug': projectSlug },

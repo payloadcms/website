@@ -11,9 +11,7 @@ import { redirect } from 'next/navigation'
 
 import Checkout from '@root/app/new/(checkout)/Checkout'
 
-export default async function CheckoutPageWrapper({
-  params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
-}) {
+export default async ({ params: { 'team-slug': teamSlug, 'project-slug': projectSlug } }) => {
   const team = await fetchTeamWithCustomer(teamSlug)
   const project = await fetchProject({ teamID: team.id, projectSlug })
 

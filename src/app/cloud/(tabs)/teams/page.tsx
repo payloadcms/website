@@ -6,7 +6,7 @@ import { Team } from '@root/payload-cloud-types'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { TeamsPage } from './page_client'
 
-export default async function TeamPageWrapper() {
+export default async () => {
   const { token } = await fetchMe()
   const teams = await fetchDocs<Team>('teams', token)
   return <TeamsPage teams={teams} />

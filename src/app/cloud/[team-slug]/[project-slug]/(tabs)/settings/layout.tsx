@@ -11,10 +11,10 @@ import classes from './layout.module.scss'
 
 const settingsSlug = 'settings'
 
-export default async function ProjectSettingsLayout({
+export default async ({
   params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
   children,
-}) {
+}) => {
   // Note: this fetch will get deduped by the page
   // each page within this layout calls this same function
   // Next.js will only call it once

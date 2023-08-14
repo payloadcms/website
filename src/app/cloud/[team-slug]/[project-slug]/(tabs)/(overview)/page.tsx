@@ -4,9 +4,7 @@ import { Metadata } from 'next'
 import { InfraOffline } from './InfraOffline'
 import { InfraOnline } from './InfraOnline'
 
-export default async function ProjectPageWrapper({
-  params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
-}) {
+export default async ({ params: { 'team-slug': teamSlug, 'project-slug': projectSlug } }) => {
   const { team, project } = await fetchProjectAndRedirect({ teamSlug, projectSlug })
 
   if (project?.infraStatus === 'done') {

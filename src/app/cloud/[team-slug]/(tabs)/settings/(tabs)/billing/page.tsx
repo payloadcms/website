@@ -11,7 +11,7 @@ import { checkTeamRoles } from '@root/utilities/check-team-roles'
 
 import classes from './page.module.scss'
 
-export default async function TeamBillingWrapper({ params: { 'team-slug': teamSlug } }) {
+export default async ({ params: { 'team-slug': teamSlug } }) => {
   const { user } = await fetchMe()
   const team = await fetchTeamWithCustomer(teamSlug)
 

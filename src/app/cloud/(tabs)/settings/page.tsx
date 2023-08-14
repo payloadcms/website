@@ -4,7 +4,7 @@ import { Metadata } from 'next'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { SettingsPage } from './page_client'
 
-export default async function SettingsPageWrapper() {
+export default async () => {
   const { user } = await fetchMe()
   return <SettingsPage user={user} />
 }

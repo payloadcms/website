@@ -3,9 +3,7 @@ import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { ProjectEnvPage } from './page_client'
 
-export default async function ProjectEnvPageWrapper({
-  params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
-}) {
+export default async ({ params: { 'team-slug': teamSlug, 'project-slug': projectSlug } }) => {
   const { team, project } = await fetchProjectAndRedirect({ teamSlug, projectSlug })
   return <ProjectEnvPage project={project} team={team} />
 }

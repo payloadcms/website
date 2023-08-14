@@ -81,6 +81,7 @@
 
 .errorIconWrapper {
   position: relative;
+  top: 2px;
   border: 1px solid currentColor;
   border-radius: 50%;
   width: calc(var(--base) * 1.25);

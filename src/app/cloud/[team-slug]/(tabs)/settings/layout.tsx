@@ -9,7 +9,7 @@ import { MissingDefaultPaymentMethod } from './(tabs)/MissingDefaultPaymentMetho
 
 import classes from './layout.module.scss'
 
-export default async function TeamSettingsLayout({ params: { 'team-slug': teamSlug }, children }) {
+export default async ({ params: { 'team-slug': teamSlug }, children }) => {
   // Note: this fetch will get deduped by the page
   // each page within this layout calls this same function
   // Next.js will only call it once

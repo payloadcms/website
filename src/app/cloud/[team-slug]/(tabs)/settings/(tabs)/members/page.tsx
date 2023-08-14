@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 
 import { TeamMembersPage } from './page_client'
 
-export default async function TeamMembersWrapper({ params: { 'team-slug': teamSlug } }) {
+export default async ({ params: { 'team-slug': teamSlug } }) => {
   const team = await fetchTeamWithCustomer(teamSlug)
   return <TeamMembersPage team={team} />
 }

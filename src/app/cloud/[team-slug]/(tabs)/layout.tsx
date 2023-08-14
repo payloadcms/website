@@ -2,7 +2,7 @@ import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { DashboardTabs } from '@cloud/_components/DashboardTabs'
 import { cloudSlug } from '@cloud/slug'
 
-export default async function TeamDashboard(props) {
+export default async props => {
   const {
     children,
     params: { 'team-slug': teamSlug },

@@ -9,7 +9,7 @@ import { Metadata } from 'next'
 import { Message } from '@root/app/_components/Message'
 import { TeamSubscriptionsPage } from './page_client'
 
-export default async function TeamSubscriptionsWrapper({ params: { 'team-slug': teamSlug } }) {
+export default async ({ params: { 'team-slug': teamSlug } }) => {
   const { user } = await fetchMe()
   const team = await fetchTeamWithCustomer(teamSlug)
   const plans = await fetchPlans()

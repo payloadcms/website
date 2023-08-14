@@ -3,11 +3,11 @@
 import React, { useEffect } from 'react'
 import { fetchProjectsClient, ProjectsRes } from '@cloud/_api/fetchProjects'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { ProjectCard } from '@cloud/_components/ProjectCard'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 
 import { Button } from '@components/Button'
-import { ProjectCard } from '@cloud/_components/ProjectCard'
 import { Gutter } from '@components/Gutter'
 import { Pagination } from '@components/Pagination'
 import { NewProjectBlock } from '@root/app/_components/NewProject'

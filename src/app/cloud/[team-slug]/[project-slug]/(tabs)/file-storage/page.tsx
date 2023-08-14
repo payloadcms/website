@@ -3,9 +3,7 @@ import { Metadata } from 'next'
 
 import { ProjectFileStoragePage } from './page_client'
 
-export default async function ProjectFileStoragePageWrapper({
-  params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
-}) {
+export default async ({ params: { 'team-slug': teamSlug, 'project-slug': projectSlug } }) => {
   const { team, project } = await fetchProjectAndRedirect({ teamSlug, projectSlug })
   return <ProjectFileStoragePage project={project} team={team} />
 }

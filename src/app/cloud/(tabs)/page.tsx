@@ -6,7 +6,7 @@ import { fetchProjects } from '../_api/fetchProjects'
 import { fetchTemplates } from '../_api/fetchTemplates'
 import { CloudPage } from './page_client'
 
-export default async function CloudPageWrapper() {
+export default async () => {
   const { user } = await fetchMe()
   const projectsRes = await fetchProjects()
   const templates = await fetchTemplates()
