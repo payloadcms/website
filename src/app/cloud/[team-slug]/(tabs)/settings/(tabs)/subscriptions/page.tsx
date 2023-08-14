@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { fetchMe } from '@cloud/_api/fetchMe'
 import { fetchPlans } from '@cloud/_api/fetchPlans'
 import { fetchSubscriptions } from '@cloud/_api/fetchSubscriptions'
-import { fetchTeam } from '@cloud/_api/fetchTeam'
+import { fetchTeam, fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 import { Metadata } from 'next'
 
@@ -11,7 +11,7 @@ import { TeamSubscriptionsPage } from './page_client'
 
 export default async function TeamSubscriptionsWrapper({ params: { 'team-slug': teamSlug } }) {
   const { user } = await fetchMe()
-  const team = await fetchTeam(teamSlug)
+  const team = await fetchTeamWithCustomer(teamSlug)
   const plans = await fetchPlans()
   const subscriptions = await fetchSubscriptions(team)
 

@@ -1,8 +1,8 @@
 import * as React from 'react'
+import { cloudSlug } from '@cloud/slug'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { cloudSlug } from '@cloud/_components/DashboardBreadcrumbs'
 import { useAuth } from '@root/providers/Auth'
 import useClickAway from '@root/utilities/use-click-away'
 

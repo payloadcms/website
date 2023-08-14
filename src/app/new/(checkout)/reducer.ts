@@ -1,6 +1,8 @@
 // project reducer
 
-import type { Plan, Team } from '@root/payload-cloud-types'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+
+import type { Plan } from '@root/payload-cloud-types'
 
 interface SET_PLAN {
   type: 'SET_PLAN'
@@ -9,7 +11,7 @@ interface SET_PLAN {
 
 interface SET_TEAM {
   type: 'SET_TEAM'
-  payload: Team
+  payload: TeamWithCustomer
 }
 
 interface UPDATE_STATE {
@@ -30,7 +32,7 @@ interface SET_FREE_TRIAL {
 type Action = UPDATE_STATE | SET_PLAN | SET_TEAM | SET_PAYMENT_METHOD | SET_FREE_TRIAL
 
 export interface CheckoutState {
-  team: Team
+  team: TeamWithCustomer
   plan: Plan
   paymentMethod: string
   freeTrial: boolean

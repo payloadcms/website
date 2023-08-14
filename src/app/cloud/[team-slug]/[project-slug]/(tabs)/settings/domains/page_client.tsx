@@ -4,8 +4,8 @@ import * as React from 'react'
 import { CollapsibleGroup } from '@faceless-ui/collapsibles'
 
 import { Accordion } from '@root/app/_components/Accordion'
+import { HR } from '@root/app/_components/HR'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
-import { Divider } from '@root/app/cloud/_components/SectionDivider'
 import { Project, Team } from '@root/payload-cloud-types'
 import { NoData } from '../_layoutComponents/NoData'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'
@@ -40,12 +40,12 @@ export const ProjectDomainsPage: React.FC<{
       </CollapsibleGroup>
       {project?.domains && project.domains.length > 0 ? (
         <React.Fragment>
-          <Divider />
+          <HR />
           <SectionHeader title="Manage Domains" />
           <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
             <div>
               {project.domains.map(domain => (
-                <ManageDomain key={domain.id} domain={domain} />
+                <ManageDomain key={domain.id} domain={domain} project={project} team={team} />
               ))}
             </div>
           </CollapsibleGroup>

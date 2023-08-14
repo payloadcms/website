@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { SubscriptionsResult } from '@cloud/_api/fetchSubscriptions'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { useModal } from '@faceless-ui/modal'
 import Link from 'next/link'
 
@@ -10,7 +11,7 @@ import { CircleIconButton } from '@components/CircleIconButton'
 import { Heading } from '@components/Heading'
 import { ModalWindow } from '@components/ModalWindow'
 import { Pill } from '@components/Pill'
-import { Team, User } from '@root/payload-cloud-types'
+import { User } from '@root/payload-cloud-types'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
 import { formatDate } from '@root/utilities/format-date-time'
 import { priceFromJSON } from '@root/utilities/price-from-json'
@@ -23,7 +24,7 @@ const modalSlug = 'cancel-subscription'
 
 export const TeamSubscriptionsPage = (props: {
   plans: ReturnType<typeof useGetPlans>['result']
-  team: Team | null | undefined
+  team: TeamWithCustomer
   subscriptions: SubscriptionsResult
   user: User
 }) => {

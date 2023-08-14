@@ -1,13 +1,12 @@
 import React, { Fragment, useCallback, useEffect, useRef } from 'react'
 import { toast } from 'react-toastify'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { v4 as uuid } from 'uuid'
 
 import { CircleIconButton } from '@components/CircleIconButton'
 import { CreditCardElement } from '@components/CreditCardElement'
 import { LargeRadio } from '@components/LargeRadio'
-import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Pill } from '@components/Pill'
-import { Team } from '@root/payload-cloud-types'
 import useDebounce from '@root/utilities/use-debounce'
 import { usePaymentMethods } from '../CreditCardList/usePaymentMethods'
 import { useCustomer } from './useCustomer'
@@ -16,33 +15,30 @@ import { useSubscription } from './useSubscription'
 import classes from './index.module.scss'
 
 type CreditCardSelectorType = {
-  team: Team
+  team: TeamWithCustomer
   initialValue?: string
   onChange?: (method?: string) => void // eslint-disable-line no-unused-vars
   enableInlineSave?: boolean
-  customer: ReturnType<typeof useCustomer>['result']
-  customerLoading: ReturnType<typeof useCustomer>['isLoading']
   onPaymentMethodChange: (paymentMethod: string) => Promise<void>
-  defaultPaymentMethod?: string
 }
 
 const Selector: React.FC<CreditCardSelectorType> = props => {
-  const {
-    onChange,
-    initialValue,
-    team,
-    enableInlineSave = true,
-    customer,
-    customerLoading,
-    onPaymentMethodChange,
-    defaultPaymentMethod,
-  } = props
+  const { onChange, initialValue, team, enableInlineSave = true, onPaymentMethodChange } = props
 
   const newCardID = React.useRef<string>(`new-card-${uuid()}`)
   const [internalState, setInternalState] = React.useState(initialValue)
   const [showNewCard, setShowNewCard] = React.useState(false)
   const scrollRef = React.useRef<HTMLDivElement>(null)
   const hasInitialized = useRef(false)
+
+  const {
+    result: customer,
+    error: customerError,
+    isLoading: customerLoading,
+  } = useCustomer({
+    initialCustomer: team?.stripeCustomer,
+    team,
+  })
 
   const {
     result: paymentMethods,
@@ -114,10 +110,17 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
   // don't show the loading messages unless it the requests take longer than 500ms
   const debouncedCustomerLoading = useDebounce(customerLoading, 500)
 
+  const defaultPaymentMethod = customer
+    ? typeof customer?.invoice_settings?.default_payment_method === 'object'
+      ? customer?.invoice_settings?.default_payment_method?.id
+      : customer?.invoice_settings?.default_payment_method
+    : undefined
+
   return (
     <div className={classes.creditCardSelector}>
       <div ref={scrollRef} className={classes.scrollRef} />
       <div className={classes.formState}>
+        {customerError && <p className={classes.error}>{customerError}</p>}
         {error && <p className={classes.error}>{error}</p>}
         {debouncedCustomerLoading && <p className={classes.loading}>Loading...</p>}
       </div>
@@ -211,7 +214,7 @@ const Selector: React.FC<CreditCardSelectorType> = props => {
 // Need to first load the customer so we can know their default payment method
 // Optionally pass a subscription to load its default payment method as priority
 export const CreditCardSelector: React.FC<
-  Omit<CreditCardSelectorType, 'customer' | 'customerLoading' | 'onPaymentMethodChange'> & {
+  Omit<CreditCardSelectorType, 'customerLoading' | 'onPaymentMethodChange'> & {
     // if one is provided, we'll use it to fetch the subscription
     // will also be used to update the subscription when a new card is saved
     // or when a different card is selected
@@ -219,14 +222,6 @@ export const CreditCardSelector: React.FC<
   }
 > = props => {
   const { team, stripeSubscriptionID } = props
-
-  const {
-    result: customer,
-    error: customerError,
-    isLoading: customerLoading,
-  } = useCustomer({
-    team,
-  })
 
   const {
     result: subscription,
@@ -254,32 +249,5 @@ export const CreditCardSelector: React.FC<
     [stripeSubscriptionID, updateSubscription],
   )
 
-  if (customerError || (stripeSubscriptionID && subscriptionError)) {
-    return (
-      <Fragment>
-        {customerError && <p className={classes.error}>{customerError}</p>}
-        {subscriptionError && <p className={classes.error}>{subscriptionError}</p>}
-      </Fragment>
-    )
-  }
-
-  if (customer === null || (stripeSubscriptionID && subscription === null)) {
-    return <LoadingShimmer number={3} />
-  }
-
-  const defaultPaymentMethod = customer
-    ? typeof customer?.invoice_settings?.default_payment_method === 'object'
-      ? customer?.invoice_settings?.default_payment_method?.id
-      : customer?.invoice_settings?.default_payment_method
-    : undefined
-
-  return (
-    <Selector
-      {...props}
-      customer={customer}
-      customerLoading={customerLoading}
-      onPaymentMethodChange={onSubscriptionChange}
-      defaultPaymentMethod={defaultPaymentMethod}
-    />
-  )
+  return <Selector {...props} onPaymentMethodChange={onSubscriptionChange} />
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useCallback } from 'react'
-import { cloudSlug } from '@cloud/_components/DashboardBreadcrumbs'
+import { cloudSlug } from '@cloud/slug'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
 import Form from '@forms/Form'

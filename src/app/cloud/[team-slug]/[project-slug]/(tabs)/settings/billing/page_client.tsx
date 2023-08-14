@@ -1,6 +1,8 @@
 'use client'
 
 import * as React from 'react'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { cloudSlug } from '@cloud/slug'
 import { Text } from '@forms/fields/Text'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
@@ -33,7 +35,7 @@ const statusLabels = {
 
 export const ProjectBillingPage: React.FC<{
   project: Project
-  team: Team
+  team: TeamWithCustomer
 }> = ({ project, team }) => {
   const { user } = useAuth()
 
@@ -84,7 +86,7 @@ export const ProjectBillingPage: React.FC<{
                 </Heading>
                 <p className={classes.description}>
                   {`Select which card to use for this project. If your payment fails, we will attempt to bill your team's default payment method (if different). To set your team's default payment method or manage your cards, please visit the `}
-                  <Link href={`/cloud/${team.slug}/settings/billing`} prefetch={false}>
+                  <Link href={`/${cloudSlug}/${team.slug}/settings/billing`} prefetch={false}>
                     team billing page
                   </Link>
                   {`.`}

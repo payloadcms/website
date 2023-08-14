@@ -2,8 +2,8 @@
 
 import React, { Fragment, useCallback } from 'react'
 import { toast } from 'react-toastify'
-import { fetchTemplates } from '@cloud/_api/fetchTemplates'
-import { cloudSlug } from '@cloud/_components/DashboardBreadcrumbs'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { cloudSlug } from '@cloud/slug'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
 import { Select } from '@forms/fields/Select'
@@ -86,10 +86,14 @@ const Checkout: React.FC<{
   }, [])
 
   const handleTeamChange = useCallback((incomingTeam: Team) => {
+    // TODO: query the team's customer and attach it here
+    // just make a simple fetch to `/api/teams/customer` and append it to the team
+    const teamWithCustomer = incomingTeam as TeamWithCustomer
+
     if (incomingTeam) {
       dispatchCheckoutState({
         type: 'SET_TEAM',
-        payload: incomingTeam,
+        payload: teamWithCustomer,
       })
     }
   }, [])
@@ -409,7 +413,7 @@ const Checkout: React.FC<{
 }
 
 const CheckoutProvider: React.FC<{
-  team: Team
+  team: TeamWithCustomer
   project: Project
   plans: Plan[]
   token: string | null

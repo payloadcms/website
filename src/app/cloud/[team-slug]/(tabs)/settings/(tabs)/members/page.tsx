@@ -1,10 +1,10 @@
-import { fetchTeam } from '@cloud/_api/fetchTeam'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { Metadata } from 'next'
 
 import { TeamMembersPage } from './page_client'
 
 export default async function TeamMembersWrapper({ params: { 'team-slug': teamSlug } }) {
-  const team = await fetchTeam(teamSlug)
+  const team = await fetchTeamWithCustomer(teamSlug)
   return <TeamMembersPage team={team} />
 }
 

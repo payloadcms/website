@@ -4,8 +4,8 @@ import * as React from 'react'
 import { CollapsibleGroup } from '@faceless-ui/collapsibles'
 
 import { Accordion } from '@root/app/_components/Accordion'
+import { HR } from '@root/app/_components/HR'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
-import { Divider } from '@root/app/cloud/_components/SectionDivider'
 import { Project, Team } from '@root/payload-cloud-types'
 import { NoData } from '../_layoutComponents/NoData'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'
@@ -40,7 +40,7 @@ export const ProjectEnvPage: React.FC<{
       <Accordion openOnInit label="New variables">
         <AddEnvs project={project} />
       </Accordion>
-      <Divider />
+      <HR />
       {(project?.environmentVariables || []).length === 0 ? (
         <NoData message="This project currently has no environment variables." />
       ) : (
@@ -52,7 +52,7 @@ export const ProjectEnvPage: React.FC<{
           </div>
         </CollapsibleGroup>
       )}
-      <Divider />
+      <HR />
       <SectionHeader title="Payload Secret" className={classes.header} />
       <div className={classes.description}>
         {`This is a secure string used to authenticate with Payload. It was automatically generated

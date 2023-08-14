@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { cloudSlug } from '@cloud/slug'
 import { CollapsibleGroup } from '@faceless-ui/collapsibles'
 import { Secret } from '@forms/fields/Secret'
 import { Text } from '@forms/fields/Text'
@@ -8,8 +9,8 @@ import { Text } from '@forms/fields/Text'
 import { Banner } from '@components/Banner'
 import Code from '@components/Code'
 import { Accordion } from '@root/app/_components/Accordion'
+import { HR } from '@root/app/_components/HR'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
-import { Divider } from '@root/app/cloud/_components/SectionDivider'
 import { Plan, Project, Team } from '@root/payload-cloud-types'
 import { NoData } from '../_layoutComponents/NoData'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'
@@ -78,13 +79,15 @@ export default buildConfig({
   // rest of config
 })
       `}</Code>
-      <Divider />
+      <HR />
       <SectionHeader title="Custom Email Domains" />
       {!supportsCustomEmail ? (
         <Banner type="error">
           <p>
             Custom email domains are not supported on the Standard Plan. To use this feature,{' '}
-            <a href={`/cloud/${teamSlug}/${project?.slug}/settings/plan`}>upgrade your plan.</a>
+            <a href={`/${cloudSlug}/${teamSlug}/${project?.slug}/settings/plan`}>
+              upgrade your plan.
+            </a>
           </p>
         </Banner>
       ) : (
@@ -97,7 +100,7 @@ export default buildConfig({
 
           {project?.customEmailDomains && project.customEmailDomains.length > 0 ? (
             <React.Fragment>
-              <Divider />
+              <HR />
               <SectionHeader title="Manage Email Domains" />
               <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
                 <div>

@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useCallback, useEffect, useReducer } from 'react'
+import React, { useCallback, useReducer } from 'react'
 import { RepoResults } from '@cloud/_api/fetchRepos'
-import { cloudSlug } from '@cloud/_components/DashboardBreadcrumbs'
+import { cloudSlug } from '@cloud/slug'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import RadioGroup from '@forms/fields/RadioGroup'
 import Form from '@forms/Form'

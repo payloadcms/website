@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react'
 import { fetchProjectsClient, ProjectsRes } from '@cloud/_api/fetchProjects'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 
@@ -10,7 +11,7 @@ import { ProjectCard } from '@components/cards/ProjectCard'
 import { Gutter } from '@components/Gutter'
 import { Pagination } from '@components/Pagination'
 import { NewProjectBlock } from '@root/app/_components/NewProject'
-import { Team, Template } from '@root/payload-cloud-types'
+import { Template } from '@root/payload-cloud-types'
 import useDebounce from '@root/utilities/use-debounce'
 
 import classes from './page.module.scss'
@@ -19,7 +20,7 @@ const delay = 500
 const debounce = 350
 
 export const TeamPage: React.FC<{
-  team: Team
+  team: TeamWithCustomer
   initialState: ProjectsRes
   templates?: Template[]
 }> = ({ team, initialState, templates }) => {

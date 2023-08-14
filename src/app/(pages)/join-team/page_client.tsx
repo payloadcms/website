@@ -22,7 +22,7 @@ export const JoinTeam: React.FC = () => {
     if (team) {
       setLoading(true)
 
-      const fetchTeam = async () => {
+      const acceptInvitation = async () => {
         try {
           const res = await fetch(
             `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team}/accept-invitation`,
@@ -52,7 +52,7 @@ export const JoinTeam: React.FC = () => {
         }
       }
 
-      fetchTeam()
+      acceptInvitation()
     }
   }, [team, router])
 

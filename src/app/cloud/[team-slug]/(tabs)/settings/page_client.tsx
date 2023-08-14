@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { toast } from 'react-toastify'
-import { HR } from '@root/app/_components/HR'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
@@ -12,6 +12,7 @@ import { OnSubmit } from '@forms/types'
 import { useRouter } from 'next/navigation'
 
 import { UniqueTeamSlug } from '@components/UniqueSlug'
+import { HR } from '@root/app/_components/HR'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { SectionHeader } from '../../[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
@@ -19,7 +20,7 @@ import { SectionHeader } from '../../[project-slug]/(tabs)/settings/_layoutCompo
 import classes from './page.module.scss'
 
 export const TeamSettingsPage: React.FC<{
-  team: Team
+  team: TeamWithCustomer
 }> = props => {
   const { team } = props
 

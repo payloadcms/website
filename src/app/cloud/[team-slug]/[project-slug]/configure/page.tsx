@@ -2,8 +2,8 @@ import React from 'react'
 import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken'
 import { fetchInstalls } from '@cloud/_api/fetchInstalls'
 import { fetchPlans } from '@cloud/_api/fetchPlans'
-import { fetchProject, fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
-import { fetchTeam } from '@cloud/_api/fetchTeam'
+import { fetchProject } from '@cloud/_api/fetchProject'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { fetchTemplates } from '@cloud/_api/fetchTemplates'
 import { Metadata } from 'next'
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
@@ -14,7 +14,7 @@ import Checkout from '@root/app/new/(checkout)/Checkout'
 export default async function CheckoutPageWrapper({
   params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
 }) {
-  const team = await fetchTeam(teamSlug)
+  const team = await fetchTeamWithCustomer(teamSlug)
   const project = await fetchProject({ teamID: team.id, projectSlug })
 
   if (project.status === 'published') {

@@ -2,8 +2,9 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { PROJECT_QUERY } from '@root/app/_graphql/project'
-import type { Project, Team } from '@root/payload-cloud-types'
-import { fetchTeam } from './fetchTeam'
+import type { Project } from '@root/payload-cloud-types'
+import type { TeamWithCustomer } from './fetchTeam'
+import { fetchTeamWithCustomer } from './fetchTeam'
 import { payloadCloudToken } from './token'
 
 export const fetchProject = async (args: {
@@ -41,12 +42,12 @@ export const fetchProjectAndRedirect = async (args: {
   teamSlug?: string
   projectSlug?: string
 }): Promise<{
-  team: Team
+  team: TeamWithCustomer
   project: Project
 }> => {
   const { teamSlug, projectSlug } = args || {}
-  const team = await fetchTeam(teamSlug)
-  const project = await fetchProject({ teamID: team.id, projectSlug })
+  const team = await fetchTeamWithCustomer(teamSlug)
+  const project = await fetchProject({ teamID: team?.id, projectSlug })
 
   if (!project) {
     redirect('/404')

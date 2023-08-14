@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { toast } from 'react-toastify'
-import { HR } from '@root/app/_components/HR'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
@@ -13,13 +13,14 @@ import { OnSubmit } from '@forms/types'
 import { InviteTeammates } from '@components/InviteTeammates'
 import { TeamInvitations } from '@components/TeamInvitations'
 import { TeamMembers } from '@components/TeamMembers'
+import { HR } from '@root/app/_components/HR'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 
 import classes from './page.module.scss'
 
 export const TeamMembersPage: React.FC<{
-  team: Team
+  team: TeamWithCustomer
 }> = ({ team: initialTeam }) => {
   const [team, setTeam] = React.useState<Team>(initialTeam)
   const { user } = useAuth()

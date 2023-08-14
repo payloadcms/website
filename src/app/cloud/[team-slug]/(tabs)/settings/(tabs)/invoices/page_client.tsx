@@ -2,11 +2,12 @@
 
 import * as React from 'react'
 import { InvoicesResult } from '@cloud/_api/fetchInvoices'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 
 import { CircleIconButton } from '@components/CircleIconButton'
 import { Heading } from '@components/Heading'
 import { Pill } from '@components/Pill'
-import { Team, User } from '@root/payload-cloud-types'
+import { User } from '@root/payload-cloud-types'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
 import { formatDate } from '@root/utilities/format-date-time'
 import { priceFromJSON } from '@root/utilities/price-from-json'
@@ -15,7 +16,7 @@ import { useInvoices } from './useInvoices'
 import classes from './page.module.scss'
 
 export const TeamInvoicesPage: React.FC<{
-  team: Team
+  team: TeamWithCustomer
   invoices: InvoicesResult
   user: User
 }> = ({ team, invoices: initialInvoices, user }) => {

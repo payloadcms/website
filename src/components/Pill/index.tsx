@@ -5,7 +5,7 @@ import classes from './index.module.scss'
 export const Pill: React.FC<{
   className?: string
   text: string
-  color: 'default' | 'success' | 'error' | 'warning'
+  color?: 'default' | 'success' | 'error' | 'warning'
 }> = ({ className, text, color }) => {
   return (
     <div

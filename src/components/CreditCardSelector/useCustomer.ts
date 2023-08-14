@@ -1,34 +1,27 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
+import type { Customer } from '@cloud/_api/fetchTeam'
 
 import type { Team } from '@root/payload-cloud-types'
 
-// TODO: type this using Stripe module
-export interface Customer {
-  deleted: boolean
-  invoice_settings?: {
-    default_payment_method:
-      | string
-      | {
-          id?: string
-        }
-  }
-}
-
-export type UseCustomer = (args: { team?: Team; delay?: number }) => {
-  result: Customer | null
+export type UseCustomer = (args: {
+  team?: Team
+  delay?: number
+  initialCustomer?: Customer | null | undefined
+}) => {
+  result: Customer | null | undefined
   isLoading: boolean | null
   error: string
   refreshCustomer: () => void
   setDefaultPaymentMethod: (paymentMethodID: string) => void
 }
 
-export const useCustomer: UseCustomer = ({ team, delay }) => {
+export const useCustomer: UseCustomer = ({ team, delay, initialCustomer }) => {
   const { stripeCustomerID, id: teamID } = team || {}
 
   const isRequesting = useRef(false)
   const isUpdatingDefault = useRef(false)
-  const [result, setResult] = useState<Customer | null>(null)
+  const [result, setResult] = useState<Customer | null | undefined>(initialCustomer)
   const [isLoading, setIsLoading] = useState<boolean | null>(null)
   const [error, setError] = useState('')
 
@@ -85,8 +78,9 @@ export const useCustomer: UseCustomer = ({ team, delay }) => {
   }, [delay, stripeCustomerID, teamID])
 
   useEffect(() => {
+    if (initialCustomer) return
     getCustomer()
-  }, [getCustomer])
+  }, [getCustomer, initialCustomer])
 
   const refreshCustomer = useCallback(() => {
     getCustomer()

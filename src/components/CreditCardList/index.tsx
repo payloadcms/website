@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect } from 'react'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { useModal } from '@faceless-ui/modal'
 import type { PaymentMethod } from '@stripe/stripe-js'
 import { v4 as uuid } from 'uuid'
@@ -9,31 +10,36 @@ import { CreditCardElement } from '@components/CreditCardElement'
 import { useCustomer } from '@components/CreditCardSelector/useCustomer'
 import { DropdownMenu } from '@components/DropdownMenu'
 import { Heading } from '@components/Heading'
-import { LoadingShimmer } from '@components/LoadingShimmer'
 import { ModalWindow } from '@components/ModalWindow'
 import { Pill } from '@components/Pill'
-import { Team } from '@root/payload-cloud-types'
 import useDebounce from '@root/utilities/use-debounce'
 import { usePaymentMethods } from './usePaymentMethods'
 
 import classes from './index.module.scss'
 
 type CreditCardListType = {
-  team: Team
-  customer: ReturnType<typeof useCustomer>['result']
-  setDefaultPaymentMethod: ReturnType<typeof useCustomer>['setDefaultPaymentMethod']
-  customerLoading: ReturnType<typeof useCustomer>['isLoading']
+  team: TeamWithCustomer
 }
 
 const modalSlug = 'confirm-delete-payment-method'
 
-const List: React.FC<CreditCardListType> = props => {
-  const { team, customer, setDefaultPaymentMethod, customerLoading } = props
+export const CreditCardList: React.FC<CreditCardListType> = props => {
+  const { team } = props
   const scrollRef = React.useRef<HTMLDivElement>(null)
   const newCardID = React.useRef<string>(`new-card-${uuid()}`)
   const [showNewCard, setShowNewCard] = React.useState(false)
   const paymentMethodToDelete = React.useRef<PaymentMethod | null>(null)
   const { closeModal, openModal } = useModal()
+
+  const {
+    result: customer,
+    error: customerError,
+    setDefaultPaymentMethod,
+    isLoading: customerLoading,
+  } = useCustomer({
+    initialCustomer: team?.stripeCustomer,
+    team,
+  })
 
   const {
     result: paymentMethods,
@@ -67,6 +73,7 @@ const List: React.FC<CreditCardListType> = props => {
     <div className={classes.creditCardList}>
       <div ref={scrollRef} className={classes.scrollRef} />
       <div className={classes.formState}>
+        {customerError && <p className={classes.error}>{customerError}</p>}
         {paymentMethodsError && <p className={classes.error}>{paymentMethodsError}</p>}
         {debouncedLoadingPaymentMethods === 'deleting' && (
           <p className={classes.deleting}>Deleting card...</p>
@@ -199,38 +206,5 @@ const List: React.FC<CreditCardListType> = props => {
         </div>
       </ModalWindow>
     </div>
-  )
-}
-
-// Need to first load the customer so we can know their default payment method
-export const CreditCardList: React.FC<
-  Omit<CreditCardListType, 'customer' | 'setDefaultPaymentMethod' | 'customerLoading'>
-> = props => {
-  const { team } = props
-
-  const {
-    result: customer,
-    error: customerError,
-    setDefaultPaymentMethod,
-    isLoading: customerLoading,
-  } = useCustomer({
-    team,
-  })
-
-  if (customer === null) {
-    return <LoadingShimmer number={3} />
-  }
-
-  if (customerError) {
-    return <Fragment>{customerError && <p className={classes.error}>{customerError}</p>}</Fragment>
-  }
-
-  return (
-    <List
-      {...props}
-      customer={customer}
-      setDefaultPaymentMethod={setDefaultPaymentMethod}
-      customerLoading={customerLoading}
-    />
   )
 }

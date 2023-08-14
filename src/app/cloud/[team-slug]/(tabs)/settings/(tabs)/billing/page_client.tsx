@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 import { Text } from '@forms/fields/Text'
 import { Elements } from '@stripe/react-stripe-js'
@@ -8,7 +9,6 @@ import { loadStripe } from '@stripe/stripe-js'
 
 import { CreditCardList } from '@components/CreditCardList'
 import { HR } from '@root/app/_components/HR'
-import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
 
@@ -18,7 +18,7 @@ const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
 const Stripe = loadStripe(apiKey)
 
 export const TeamBillingPage: React.FC<{
-  team: Team
+  team: TeamWithCustomer
 }> = ({ team }) => {
   const { user } = useAuth()
 
