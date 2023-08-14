@@ -1,8 +1,11 @@
+import { Fragment } from 'react'
 import { Metadata } from 'next'
 
+import { Gutter } from '@components/Gutter'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { RenderParams } from '../_components/RenderParams'
 import { fetchMe } from './_api/fetchMe'
-import { DashboardHeader } from './_components/DashboardHeader'
+import { DashboardBreadcrumbs } from './_components/DashboardBreadcrumbs'
 
 export const metadata: Metadata = {
   title: {
@@ -19,17 +22,22 @@ export const metadata: Metadata = {
   openGraph: mergeOpenGraph(),
 }
 
-export default async ({ children }) => {
-  const { user } = await fetchMe({
+export default async props => {
+  const { children } = props
+
+  await fetchMe({
     nullUserRedirect: `/login?error=${encodeURIComponent(
       'You must be logged in to visit this page',
     )}`,
   })
 
   return (
-    <>
-      <DashboardHeader />
+    <Fragment>
+      <Gutter>
+        <RenderParams />
+        <DashboardBreadcrumbs />
+      </Gutter>
       {children}
-    </>
+    </Fragment>
   )
 }

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { cloudSlug } from '@cloud/_components/DashboardHeader'
+import { cloudSlug } from '@cloud/slug'
 import Link from 'next/link'
 
 import { useAuth } from '@root/providers/Auth'

@@ -7,7 +7,26 @@
   color: var(--color-success-500);
   border-radius: 19px;
   padding: 4px calc(var(--base) * 0.5);
-  margin-right: calc(var(--base) * 0.4);
+}
+
+.color--default {
+  background-color: var(--theme-elevation-150);
+  color: var(--theme-elevation-800);
+}
+
+.color--success {
+  background-color: var(--theme-success-100);
+  color: var(--color-success-500);
+}
+
+.color--error {
+  background-color: var(--theme-error-100);
+  color: var(--color-error-500);
+}
+
+.color--warning {
+  background-color: var(--theme-warning-100);
+  color: var(--color-warning-500);
 }
 
 .text {

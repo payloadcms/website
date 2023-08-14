@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useCallback, useEffect, useState } from 'react'
-import { cloudSlug } from '@cloud/_components/DashboardHeader'
+import { cloudSlug } from '@cloud/slug'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'

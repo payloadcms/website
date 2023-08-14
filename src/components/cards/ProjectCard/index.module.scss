@@ -32,10 +32,31 @@
     }
 }
 
+.error {
+    border-color: var(--theme-error-200);
+    background-color: var(--theme-error-50);
+
+    &:hover {
+        border-color: var(--theme-error-300);
+
+        &:local() {
+            .arrowIcon {
+                color: var(--theme-error-600);
+            }
+        }
+    }
+}
+
 .shimmer {
     // match the card height
     aspect-ratio: 1/1;
     height: 100%;
+}
+
+.pills {
+    display: flex;
+    gap: calc(var(--base) / 4);
+    margin-bottom: calc(var(--base) / 2);
 }
 
 .leader {
@@ -49,9 +70,8 @@
     padding-right: calc(var(--base) * 2);
 }
 
-.plan {
-    @include small;
-    margin: 0;
+.pill {
+    display: inline-flex;
 }
 
 .details {

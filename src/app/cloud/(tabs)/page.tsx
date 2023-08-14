@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { fetchMe } from './_api/fetchMe'
-import { fetchProjects } from './_api/fetchProjects'
-import { fetchTemplates } from './_api/fetchTemplates'
+import { fetchMe } from '../_api/fetchMe'
+import { fetchProjects } from '../_api/fetchProjects'
+import { fetchTemplates } from '../_api/fetchTemplates'
 import { CloudPage } from './page_client'
 
 export default async function CloudPageWrapper() {

@@ -3,7 +3,7 @@
 import React, { Fragment, useCallback } from 'react'
 import { toast } from 'react-toastify'
 import { fetchTemplates } from '@cloud/_api/fetchTemplates'
-import { cloudSlug } from '@cloud/_components/DashboardHeader'
+import { cloudSlug } from '@cloud/_components/DashboardBreadcrumbs'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
 import { Select } from '@forms/fields/Select'

@@ -12,8 +12,8 @@ import { TeamSelector } from '@components/TeamSelector'
 import { Team, Template, User } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import useDebounce from '@root/utilities/use-debounce'
-import { NewProjectBlock } from '../_components/NewProject'
-import { fetchProjectsClient, ProjectsRes } from './_api/fetchProjects'
+import { NewProjectBlock } from '../../_components/NewProject'
+import { fetchProjectsClient, ProjectsRes } from '../_api/fetchProjects'
 
 import classes from './page.module.scss'
 

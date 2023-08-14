@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation'
 import { UniqueTeamSlug } from '@components/UniqueSlug'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
-import { SectionHeader } from '../[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
+import { SectionHeader } from '../../[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 
 import classes from './page.module.scss'
 
