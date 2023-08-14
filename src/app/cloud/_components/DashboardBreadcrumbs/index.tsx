@@ -7,19 +7,21 @@ import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
 
 export type Routes = {
-  [key: string]: {
-    label?: string
-    href?: string
-  }
+  [key: string]: Breadcrumb
 }
 
 const baseRoutes: Routes = {
-  [cloudSlug]: {},
+  cloud: {
+    label: 'Cloud',
+    url: `/${cloudSlug}`,
+  },
   teams: {
-    href: '/teams',
+    label: 'Teams',
+    url: `/${cloudSlug}/teams`,
   },
   settings: {
-    href: '/settings',
+    label: 'Account',
+    url: `/${cloudSlug}/settings`,
   },
 }
 
@@ -35,13 +37,20 @@ export const DashboardBreadcrumbs = () => {
   const isTeamRoute = segments?.[1] && !routes.hasOwnProperty(segments[1])
 
   if (isTeamRoute) {
+    const teamSlug = segments?.[1]
+
     routes = {
-      [segments?.[1]]: {
-        label: segments?.[1],
-        href: `/${segments?.[1]}`,
+      [cloudSlug]: {
+        label: 'Cloud',
+        url: `/${cloudSlug}`,
+      },
+      [teamSlug]: {
+        label: teamSlug,
+        url: `/${cloudSlug}/${teamSlug}`,
       },
       settings: {
-        href: `/${segments?.[1]}/settings`,
+        label: 'Settings',
+        url: `/${cloudSlug}/${teamSlug}/settings`,
       },
     }
 
@@ -55,27 +64,33 @@ export const DashboardBreadcrumbs = () => {
     const projectSlug = segments?.[2]
 
     routes = {
+      [cloudSlug]: {
+        label: 'Cloud',
+        url: `/${cloudSlug}`,
+      },
       [teamSlug]: {
         label: teamSlug,
-        href: `/${teamSlug}`,
+        url: `/${cloudSlug}/${teamSlug}`,
       },
       [projectSlug]: {
         label: projectSlug,
-        href: `/${teamSlug}/${projectSlug}`,
+        url: `/${cloudSlug}/${teamSlug}/${projectSlug}`,
       },
       database: {
-        href: `/${teamSlug}/${projectSlug}/database`,
+        label: 'Database',
+        url: `/${cloudSlug}/${teamSlug}/${projectSlug}/database`,
       },
       'file-storage': {
         label: 'Storage',
-        href: `/${teamSlug}/${projectSlug}/file-storage`,
+        url: `/${cloudSlug}/${teamSlug}/${projectSlug}/file-storage`,
       },
       logs: {
-        href: `/${teamSlug}/${projectSlug}/logs`,
+        label: 'Logs',
+        url: `/${cloudSlug}/${teamSlug}/${projectSlug}/logs`,
       },
       settings: {
         label: 'Settings',
-        href: `/${teamSlug}/${projectSlug}/settings`,
+        url: `/${cloudSlug}/${teamSlug}/${projectSlug}/settings`,
       },
     }
 
@@ -93,10 +108,7 @@ export const DashboardBreadcrumbs = () => {
         const lowercaseSegment = segment.toLowerCase()
 
         if (index + 1 <= maxCrumbs) {
-          acc.push({
-            label: lowercaseSegment === 'cloud' ? 'Cloud' : routes[lowercaseSegment]?.label,
-            url: `/${cloudSlug}${routes[lowercaseSegment]?.href || ''}`,
-          })
+          acc.push(routes[lowercaseSegment])
         }
 
         return acc
