@@ -14,6 +14,24 @@ export type Tab = {
   error?: boolean
   url?: string
   onClick?: never
+  disabled?: boolean
+}
+
+const TabContents: React.FC<Tab> = props => {
+  const { label, error } = props
+
+  return (
+    <React.Fragment>
+      <Heading element="h5" margin={false}>
+        {label}
+      </Heading>
+      {error && (
+        <div className={classes.errorIconWrapper}>
+          <ErrorIcon size="medium" className={classes.errorIcon} />
+        </div>
+      )}
+    </React.Fragment>
+  )
 }
 
 export const Tabs: React.FC<{
@@ -27,39 +45,37 @@ export const Tabs: React.FC<{
       <Gutter>
         <EdgeScroll className={classes.tabs}>
           {tabs?.map((tab, index) => {
-            const { label, url: tabURL, onClick, isActive, error } = tab
+            const { url: tabURL, onClick, isActive, error, disabled } = tab
 
-            const RenderTab = (
-              <Link
-                key={index}
-                href={tabURL || ''}
-                className={[
-                  classes.tab,
-                  isActive && classes.active,
-                  error && classes.error,
-                  index === tabs.length - 1 && classes.lastTab,
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
-              >
-                <Heading element="h5" margin={false}>
-                  {label}
-                </Heading>
-                {error && (
-                  <div className={classes.errorIconWrapper}>
-                    <ErrorIcon size="medium" className={classes.errorIcon} />
-                  </div>
-                )}
-              </Link>
-            )
+            const classList = [
+              classes.tab,
+              isActive && classes.active,
+              error && classes.error,
+              disabled && classes.disabled,
+              index === tabs.length - 1 && classes.lastTab,
+            ]
+              .filter(Boolean)
+              .join(' ')
 
-            if (onClick) {
+            if (onClick || disabled) {
               return (
-                <button key={index} onClick={onClick} type="button" className={classes.buttonTab}>
-                  {RenderTab}
+                <button
+                  key={index}
+                  onClick={onClick}
+                  type="button"
+                  className={classList}
+                  disabled={disabled}
+                >
+                  <TabContents {...tab} />
                 </button>
               )
             }
+
+            const RenderTab = (
+              <Link key={index} href={tabURL || ''} className={classList}>
+                <TabContents {...tab} />
+              </Link>
+            )
 
             return RenderTab
           })}

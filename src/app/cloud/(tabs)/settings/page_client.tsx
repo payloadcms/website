@@ -2,7 +2,6 @@
 
 import React, { Fragment, useCallback } from 'react'
 import { toast } from 'react-toastify'
-import { HR } from '@root/app/_components/HR'
 import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text'
@@ -13,9 +12,9 @@ import Submit from '@forms/Submit'
 import { OnSubmit } from '@forms/types'
 
 import { Button } from '@components/Button'
-import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { ModalWindow } from '@components/ModalWindow'
+import { HR } from '@root/app/_components/HR'
 import { User } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { DeletionConfirmationForm } from './DeletionConfirmationForm'
@@ -80,7 +79,7 @@ export const SettingsPage: React.FC<{
   )
 
   return (
-    <Gutter className={classes.content}>
+    <Fragment>
       <SectionHeader title="Account Settings" />
       <p className={classes.description}>
         {formToShow === 'account' && (
@@ -173,6 +172,6 @@ export const SettingsPage: React.FC<{
       <ModalWindow className={classes.modal} slug={modalSlug}>
         <DeletionConfirmationForm modalSlug={modalSlug} />
       </ModalWindow>
-    </Gutter>
+    </Fragment>
   )
 }

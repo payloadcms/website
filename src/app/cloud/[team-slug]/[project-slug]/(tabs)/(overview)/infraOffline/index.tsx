@@ -48,7 +48,7 @@ const deploymentStates: DeploymentStates = {
   done: {
     step: 4,
     status: 'success',
-    label: 'Deployment complete!',
+    label: 'Deployment complete, reloading page',
   },
   error: {
     step: 0,
@@ -82,12 +82,18 @@ export const InfraOffline: React.FC<{
   const [project, setProject] = React.useState(initialProject)
 
   const reloadProject = React.useCallback(async () => {
-    const project = await fetchProjectClient({
+    const newProject = await fetchProjectClient({
       teamID: team.id,
       projectSlug: initialProject.slug,
     })
 
-    setProject(project)
+    setProject(newProject)
+
+    if (newProject.infraStatus === 'done') {
+      // reload the page because the layout conditionally renders tabs based on `infraStatus`
+      // there is no state in server components, so we have to reload so that Next.js will recompile
+      window.location.reload()
+    }
   }, [initialProject, team])
 
   const infraStatus = project?.infraStatus || 'notStarted'
@@ -104,6 +110,7 @@ export const InfraOffline: React.FC<{
   } = useGetProjectDeployments({
     projectID: project?.id,
   })
+
   const latestDeployment = deployments?.[0]
 
   // poll project for updates every 10 seconds
@@ -121,7 +128,6 @@ export const InfraOffline: React.FC<{
     }
   }, [reloadProject, infraStatus])
 
-  //
   // poll deployments every 10 seconds
   React.useEffect(() => {
     let deploymentInterval

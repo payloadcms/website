@@ -12,6 +12,7 @@ export type TabsType = {
     href?: string
     subpaths?: string[]
     error?: boolean
+    disabled?: boolean
   }
 }
 
@@ -31,6 +32,7 @@ export const DashboardTabs: React.FC<{
         url: tab.href,
         isActive: onTabPath,
         error: tab.error,
+        disabled: tab.disabled,
       })
     }
 

@@ -22,6 +22,10 @@
 }
 
 .tabs .tab {
+  background-color: transparent;
+  border-radius: none;
+  border: none;
+  outline: none;
   text-decoration: none;
   white-space: nowrap;
   margin: 0;
@@ -67,6 +71,11 @@
   
   &.error {
     color: var(--theme-error-300);
+  }
+
+  &:disabled {
+    color: var(--theme-elevation-200);
+    cursor: not-allowed;
   }
 }
 

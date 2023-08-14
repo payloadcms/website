@@ -22,6 +22,7 @@ const PROJECT = `
   runScript
   rootDirectory
   defaultDomain
+  infraStatus
   template {
     id
     name

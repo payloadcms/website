@@ -22,6 +22,13 @@ export default async function ProjectPage(props) {
     status => status === subscriptionsStatus,
   )
 
+  // disable some tabs when the `infraStatus` is not active
+  // if infra failed, enable settings tab
+  // i.e. db creation was successful, but the app failed to deploy, or is deploying
+  const enableAllTabs =
+    (project?.infraStatus && !['notStarted', 'awaitingDatabase'].includes(project.infraStatus)) ||
+    project?.infraStatus === 'done'
+
   return (
     <>
       <DashboardTabs
@@ -30,18 +37,22 @@ export default async function ProjectPage(props) {
             label: 'Overview',
             href: `/${cloudSlug}/${teamSlug}/${projectSlug}`,
           },
-          database: {
-            label: 'Database',
-            href: `/${cloudSlug}/${teamSlug}/${projectSlug}/database`,
-          },
-          'file-storage': {
-            label: 'File Storage',
-            href: `/${cloudSlug}/${teamSlug}/${projectSlug}/file-storage`,
-          },
-          logs: {
-            label: 'Logs',
-            href: `/${cloudSlug}/${teamSlug}/${projectSlug}/logs`,
-          },
+          ...(enableAllTabs
+            ? {
+                database: {
+                  label: 'Database',
+                  href: `/${cloudSlug}/${teamSlug}/${projectSlug}/database`,
+                },
+                'file-storage': {
+                  label: 'File Storage',
+                  href: `/${cloudSlug}/${teamSlug}/${projectSlug}/file-storage`,
+                },
+                logs: {
+                  label: 'Logs',
+                  href: `/${cloudSlug}/${teamSlug}/${projectSlug}/logs`,
+                },
+              }
+            : {}),
           settings: {
             label: 'Settings',
             href: `/${cloudSlug}/${teamSlug}/${projectSlug}/settings`,
