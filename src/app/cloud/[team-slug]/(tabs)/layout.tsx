@@ -1,5 +1,6 @@
 import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { DashboardTabs } from '@cloud/_components/DashboardTabs'
+import { isMissingDefaultPaymentMethod } from '@cloud/_utilities/isMissingDefaultPaymentMethod'
 import { cloudSlug } from '@cloud/slug'
 
 export default async props => {
@@ -13,9 +14,6 @@ export default async props => {
   // Next.js will only call it once
   const team = await fetchTeamWithCustomer(teamSlug)
 
-  // display an error to the user if the team has no default payment method
-  const defaultPaymentMethod = team?.stripeCustomer?.invoice_settings?.default_payment_method
-
   return (
     <>
       <DashboardTabs
@@ -27,7 +25,7 @@ export default async props => {
           settings: {
             label: 'Team Settings',
             href: `/${cloudSlug}/${teamSlug}/settings`,
-            error: !defaultPaymentMethod,
+            error: isMissingDefaultPaymentMethod(team),
             subpaths: [
               `/${cloudSlug}/${teamSlug}/settings/members`,
               `/${cloudSlug}/${teamSlug}/settings/subscriptions`,

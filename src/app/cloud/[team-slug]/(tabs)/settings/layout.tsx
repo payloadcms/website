@@ -1,11 +1,12 @@
 import * as React from 'react'
 import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { Sidebar } from '@cloud/_components/Sidebar'
+import { isMissingDefaultPaymentMethod } from '@cloud/_utilities/isMissingDefaultPaymentMethod'
 import { cloudSlug } from '@cloud/slug'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Gutter } from '@components/Gutter'
-import { MissingDefaultPaymentMethod } from './(tabs)/MissingDefaultPaymentMethod'
+import { MissingDefaultPaymentMethod } from './MissingDefaultPaymentMethod'
 
 import classes from './layout.module.scss'
 
@@ -14,9 +15,6 @@ export default async ({ params: { 'team-slug': teamSlug }, children }) => {
   // each page within this layout calls this same function
   // Next.js will only call it once
   const team = await fetchTeamWithCustomer(teamSlug)
-
-  // display an error to the user if the team has no default payment method
-  const defaultPaymentMethod = team?.stripeCustomer?.invoice_settings?.default_payment_method
 
   return (
     <Gutter>
@@ -48,7 +46,9 @@ export default async ({ params: { 'team-slug': teamSlug }, children }) => {
           />
         </Cell>
         <Cell start={4} cols={9} startS={1}>
-          {!defaultPaymentMethod && <MissingDefaultPaymentMethod teamSlug={teamSlug} />}
+          {isMissingDefaultPaymentMethod(team) && (
+            <MissingDefaultPaymentMethod teamSlug={teamSlug} />
+          )}
           {children}
         </Cell>
       </Grid>

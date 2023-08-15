@@ -3,6 +3,7 @@ import type { Team } from '@root/payload-cloud-types'
 import { payloadCloudToken } from './token'
 
 export type TeamWithCustomer = Team & {
+  hasPublishedProjects: boolean
   stripeCustomer: Customer | null | undefined
 }
 
