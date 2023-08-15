@@ -27,6 +27,10 @@ export const TrialMessage: React.FC<{
 
   const billingHref = `/cloud/${team?.slug}/${project?.slug}/settings/billing`
   const isOnBillingPage = pathname === billingHref
+
+  const planHref = `/cloud/${team?.slug}/${project?.slug}/settings/plan`
+  const isOnPlanPage = pathname === planHref
+
   let severity = 'message'
   if (hasPaymentError) severity = daysLeft < 3 ? 'error' : daysLeft < 7 ? 'warning' : 'message'
 
@@ -39,18 +43,28 @@ export const TrialMessage: React.FC<{
             <b> {` ${daysLeft} day${daysLeft === 1 ? '' : 's'}`}</b> {` left in your free trial.`}
             {!projectHasPaymentMethod && !teamHasDefaultPaymentMethod ? (
               <Fragment>
-                {' Please '}
+                {' '}
                 {!isOnBillingPage ? (
-                  <Link href={billingHref}>select or add a payment method</Link>
+                  <Link href={billingHref}>Add a payment method</Link>
                 ) : (
-                  'select or add a payment method below'
+                  'Add a payment method below'
                 )}
                 {' to ensure '}
                 <b>{project?.slug}</b>
                 {` remains online.`}
               </Fragment>
             ) : (
-              ` You will be charged at the end of your trial on ${trialEndDate}.`
+              <Fragment>
+                {` We will charge your payment method on ${trialEndDate}. `}
+                {!isOnPlanPage ? (
+                  <Link href={`/cloud/${team?.slug}/${project?.slug}/settings/plan`}>
+                    Cancel anytime
+                  </Link>
+                ) : (
+                  'Cancel anytime'
+                )}
+                {'.'}
+              </Fragment>
             )}
           </Fragment>
         ),
