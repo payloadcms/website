@@ -13,7 +13,7 @@ import { CloneTemplate } from './CloneTemplate'
 
 const title = `Create new from template`
 
-export default async function ProjectFromTemplatePage({ params: { template: templateSlug } }) {
+export default async ({ params: { template: templateSlug } }) => {
   const template = await fetchTemplate(templateSlug)
 
   if (!template) {

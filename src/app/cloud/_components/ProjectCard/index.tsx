@@ -30,14 +30,6 @@ export const ProjectCard: React.FC<{
     return <LoadingShimmer heightPercent={100} shimmerClassName={classes.shimmer} />
   }
 
-  let pill: {
-    text: string
-    color: 'default' | 'success' | 'warning' | 'error'
-  } = {
-    text: '',
-    color: 'default',
-  }
-
   //   <div className={classes.pills}>
   //   {isPro && !isTrialing && <Pill text="Pro" color="success" />}
   //   {isTrialing && <Pill text={`${isPro ? `Pro ` : ''} Trial`} color="default" />}
@@ -48,6 +40,21 @@ export const ProjectCard: React.FC<{
     project?.plan && typeof project?.plan === 'object' ? project?.plan?.slug === 'pro' : false
   const isTrialing = stripeSubscriptionStatus === 'trialing'
   const hasBadSubscriptionStatus = hasBadSubscription(project?.stripeSubscriptionStatus)
+
+  let pill: {
+    text: string
+    color: 'default' | 'success' | 'warning' | 'error'
+  } = {
+    text: '',
+    color: 'default',
+  }
+
+  if (project?.status === 'draft') {
+    pill = {
+      text: 'Draft',
+      color: 'default',
+    }
+  }
 
   if (isPro && !isTrialing) {
     pill = {
@@ -91,9 +98,7 @@ export const ProjectCard: React.FC<{
       <div className={classes.titleWrapper}>
         <h6 className={classes.title}>
           <span className={classes.projectName}>{project.name || 'Project Name'}</span>
-          <span className={classes.pill}>
-            <Pill {...pill} />
-          </span>
+          <span className={classes.pill}>{pill?.text && <Pill {...pill} />}</span>
         </h6>
         {team && typeof team === 'object' && (
           <div className={classes.teamName}>

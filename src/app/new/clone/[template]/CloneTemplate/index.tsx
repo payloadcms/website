@@ -9,7 +9,6 @@ import { cloudSlug } from '@cloud/slug'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
 import Form from '@forms/Form'
-import FormProcessing from '@forms/FormProcessing'
 import FormSubmissionError from '@forms/FormSubmissionError'
 import Label from '@forms/Label'
 import Submit from '@forms/Submit'
@@ -20,6 +19,7 @@ import { useCreateDraftProject } from '@root/app/new/useCreateDraftProject'
 import { PayloadIcon } from '@root/graphics/PayloadIcon'
 import { Team, Template } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
+import { CloneProgress } from '../CloneProgress'
 
 import classes from './index.module.scss'
 
@@ -32,6 +32,7 @@ export const CloneTemplate: React.FC<{
   const { user } = useAuth()
   const { template, installs: initialInstalls } = props
   const router = useRouter()
+  const cloneProgressScrollRef = React.useRef<HTMLDivElement>(null)
 
   const [InstallationSelector, { value: selectedInstall }] = useInstallationSelector({
     installs: initialInstalls,
@@ -60,12 +61,22 @@ export const CloneTemplate: React.FC<{
 
   const handleSubmit = useCallback(
     async ({ unflattenedData }) => {
-      await createDraftProject({
-        repo: {
-          name: unflattenedData?.repositoryName,
-        },
-        makePrivate: unflattenedData?.makePrivate,
-      })
+      setTimeout(() => {
+        if (cloneProgressScrollRef.current)
+          cloneProgressScrollRef.current?.scrollIntoView({ behavior: 'smooth' })
+      }, 0)
+
+      try {
+        await createDraftProject({
+          repo: {
+            name: unflattenedData?.repositoryName,
+          },
+          makePrivate: unflattenedData?.makePrivate,
+        })
+      } catch (error) {
+        window.scrollTo(0, 0)
+        console.error(error) // eslint-disable-line no-console
+      }
     },
     [createDraftProject],
   )
@@ -83,7 +94,6 @@ export const CloneTemplate: React.FC<{
           </p>
         )}
         <div className={classes.formState}>
-          <FormProcessing message="Cloning template, this process may take a few minutes..." />
           <FormSubmissionError banner />
         </div>
         <Grid>
@@ -102,32 +112,44 @@ export const CloneTemplate: React.FC<{
             </div>
           </Cell>
           <Cell cols={8} colsM={8}>
-            <Grid className={classes.projectInfo}>
-              <Cell cols={4}>
-                <InstallationSelector description="Select where to create this repository." />
-              </Cell>
-              <Cell cols={4}>
-                <UniqueRepoName
-                  repositoryOwner={selectedInstall?.account?.login}
-                  initialValue={template?.slug}
+            <div className={classes.wrapper}>
+              <Grid>
+                <Cell cols={4}>
+                  <InstallationSelector description="Select where to create this repository." />
+                </Cell>
+                <Cell cols={4}>
+                  <UniqueRepoName
+                    repositoryOwner={selectedInstall?.account?.login}
+                    initialValue={template?.slug}
+                  />
+                </Cell>
+              </Grid>
+              <p className={classes.appPermissions}>
+                {`Don't see your organization? `}
+                <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
+                  Adjust your GitHub app permissions
+                </a>
+                {'.'}
+              </p>
+              <div>
+                <Checkbox
+                  label="Create private Git repository"
+                  initialValue={true}
+                  path="makePrivate"
                 />
-              </Cell>
-            </Grid>
-            <p className={classes.appPermissions}>
-              {`Don't see your organization? `}
-              <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
-                Adjust your GitHub app permissions
-              </a>
-              {'.'}
-            </p>
-            <div className={classes.createPrivate}>
-              <Checkbox
-                label="Create private Git repository"
-                initialValue={true}
-                path="makePrivate"
-              />
+              </div>
+              <div className={classes.submit}>
+                <Submit label="Clone Template" appearance="primary" />
+              </div>
+              <div>
+                <CloneProgress
+                  ref={cloneProgressScrollRef}
+                  id="clone-progress"
+                  template={template}
+                  destination={selectedInstall?.account?.login}
+                />
+              </div>
             </div>
-            <Submit label="Create Project" appearance="primary" />
           </Cell>
         </Grid>
       </Gutter>

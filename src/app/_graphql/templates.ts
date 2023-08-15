@@ -4,6 +4,8 @@ export const TEMPLATE_FIELDS = `
   slug
   description
   templateRepo
+  templateOwner
+  templatePath
   order
   image {
     mimeType

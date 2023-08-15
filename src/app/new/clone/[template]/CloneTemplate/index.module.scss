@@ -38,6 +38,8 @@
 }
 
 .appPermissions {
+    margin: 0;
+
     a {
         color: var(--theme-blue-500);
         text-decoration: underline;
@@ -47,18 +49,6 @@
 .noTeams {
     margin-bottom: calc(var(--base) * 2);
     color: var(--theme-error-500);
-}
-
-.projectInfo {
-    margin-bottom: calc(var(--base) * 2);
-}
-
-.createPrivate {
-    margin: calc(var(--base) * 2) 0;
-    padding: calc(var(--base) * 2) 0;
-    border: 0;
-    border-top: 0.5px solid var(--theme-elevation-250);
-    border-bottom: 0.5px solid var(--theme-elevation-250);
 }
 
 .template {
@@ -91,4 +81,14 @@
     padding: 0;
     color: inherit;
     text-decoration: underline;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--base) * 2);
+}
+
+.submit {
+    align-self: flex-start;
 }
