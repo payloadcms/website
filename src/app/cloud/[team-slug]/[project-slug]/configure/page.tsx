@@ -1,9 +1,9 @@
 import React from 'react'
 import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken'
 import { fetchInstalls } from '@cloud/_api/fetchInstalls'
+import { fetchMe } from '@cloud/_api/fetchMe'
 import { fetchPlans } from '@cloud/_api/fetchPlans'
-import { fetchProject } from '@cloud/_api/fetchProject'
-import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { fetchProjectWithSubscription } from '@cloud/_api/fetchProject'
 import { fetchTemplates } from '@cloud/_api/fetchTemplates'
 import { Metadata } from 'next'
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
@@ -12,11 +12,11 @@ import { redirect } from 'next/navigation'
 import Checkout from '@root/app/new/(checkout)/Checkout'
 
 export default async ({ params: { 'team-slug': teamSlug, 'project-slug': projectSlug } }) => {
-  const team = await fetchTeamWithCustomer(teamSlug)
-  const project = await fetchProject({ teamID: team.id, projectSlug })
+  const { user } = await fetchMe()
+  const project = await fetchProjectWithSubscription({ teamSlug, projectSlug })
 
   if (project.status === 'published') {
-    redirect(`/cloud/${team.slug}/${project.slug}`)
+    redirect(`/cloud/${teamSlug}/${projectSlug}`)
   }
 
   const token = await fetchGitHubToken()
@@ -24,7 +24,7 @@ export default async ({ params: { 'team-slug': teamSlug, 'project-slug': project
   if (!token) {
     redirect(
       `/new/authorize?redirect=${encodeURIComponent(
-        `/cloud/${team.slug}/${project.slug}/configure`,
+        `/cloud/${teamSlug}/${projectSlug}/configure`,
       )}`,
     )
   }
@@ -35,12 +35,13 @@ export default async ({ params: { 'team-slug': teamSlug, 'project-slug': project
 
   return (
     <Checkout
-      team={team}
+      team={project.team}
       project={project}
       token={token}
       plans={plans}
       installs={installs}
       templates={templates}
+      user={user}
     />
   )
 }

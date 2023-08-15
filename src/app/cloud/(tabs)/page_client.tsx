@@ -1,12 +1,12 @@
 'use client'
 
 import React, { useEffect } from 'react'
+import { ProjectCard } from '@cloud/_components/ProjectCard'
 import { TeamSelector } from '@cloud/_components/TeamSelector'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 
 import { Button } from '@components/Button'
-import { ProjectCard } from '@cloud/_components/ProjectCard'
 import { Gutter } from '@components/Gutter'
 import { Pagination } from '@components/Pagination'
 import { Team, Template, User } from '@root/payload-cloud-types'
@@ -150,6 +150,7 @@ export const CloudPage: React.FC<{
           initialValue="none"
           allowEmpty
           label={false}
+          user={user}
         />
         <Button
           appearance="primary"

@@ -32,7 +32,7 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { Accordion } from '@root/app/_components/Accordion'
 import { Message } from '@root/app/_components/Message'
-import { Plan, Project, Team, Template } from '@root/payload-cloud-types'
+import { Plan, Project, Team, Template, User } from '@root/payload-cloud-types'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import { EnvVars } from './EnvVars'
 import { checkoutReducer, CheckoutState } from './reducer'
@@ -55,8 +55,9 @@ const Checkout: React.FC<{
   plans: Plan[]
   installs: Install[]
   templates: Template[]
+  user: User | null | undefined
 }> = props => {
-  const { project, plans, installs, templates } = props
+  const { project, plans, installs, templates, user } = props
   const isClone = Boolean(!project?.repositoryID)
 
   const router = useRouter()
@@ -279,6 +280,7 @@ const Checkout: React.FC<{
                           : ''
                       }
                       required
+                      user={user}
                     />
                     {isClone && (
                       <Fragment>
@@ -419,8 +421,9 @@ const CheckoutProvider: React.FC<{
   token: string | null
   installs: Install[]
   templates: Template[]
+  user: User | null | undefined
 }> = props => {
-  const { team, project, token, plans, installs, templates } = props
+  const { team, project, token, plans, installs, templates, user } = props
 
   if (!project) {
     redirect('/404')
@@ -448,7 +451,13 @@ const CheckoutProvider: React.FC<{
         </div>
       </Gutter>
       <Elements stripe={Stripe}>
-        <Checkout project={project} plans={plans} installs={installs} templates={templates} />
+        <Checkout
+          project={project}
+          plans={plans}
+          installs={installs}
+          templates={templates}
+          user={user}
+        />
       </Elements>
     </Fragment>
   )

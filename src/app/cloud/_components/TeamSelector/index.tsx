@@ -4,8 +4,7 @@ import { useTeamDrawer } from '@cloud/_components/TeamDrawer'
 import { Select } from '@forms/fields/Select'
 
 import { LoadingShimmer } from '@components/LoadingShimmer'
-import { Team } from '@root/payload-cloud-types'
-import { useAuth } from '@root/providers/Auth'
+import { Team, User } from '@root/payload-cloud-types'
 
 import classes from './index.module.scss'
 
@@ -32,11 +31,19 @@ export const TeamSelector: React.FC<{
   initialValue?: string
   label?: string | false
   required?: boolean
+  user?: User | null
 }> = props => {
-  const { onChange, value: valueFromProps, className, allowEmpty, initialValue, required } = props
-  const { user } = useAuth()
+  const {
+    onChange,
+    value: valueFromProps,
+    className,
+    allowEmpty,
+    initialValue,
+    required,
+    user,
+  } = props
 
-  const teams = user?.teams?.map(({ team }) => team)
+  const teams = user && user?.teams?.map(({ team }) => team)
   const [selectedTeam, setSelectedTeam] = React.useState<Team['id'] | 'none' | undefined>(
     initialValue || 'none',
   )

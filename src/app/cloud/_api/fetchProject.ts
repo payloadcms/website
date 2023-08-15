@@ -3,8 +3,8 @@ import { redirect } from 'next/navigation'
 
 import { PROJECT_QUERY } from '@root/app/_graphql/project'
 import type { Project } from '@root/payload-cloud-types'
-import type { TeamWithCustomer } from './fetchTeam'
-import { fetchTeamWithCustomer } from './fetchTeam'
+import type { Subscription } from './fetchSubscriptions'
+import type { Customer, TeamWithCustomer } from './fetchTeam'
 import { payloadCloudToken } from './token'
 
 export const fetchProject = async (args: {
@@ -46,19 +46,55 @@ export const fetchProjectAndRedirect = async (args: {
   project: Project
 }> => {
   const { teamSlug, projectSlug } = args || {}
-  const team = await fetchTeamWithCustomer(teamSlug)
-  const project = await fetchProject({ teamID: team?.id, projectSlug })
+  const project = await fetchProjectWithSubscription({ teamSlug, projectSlug })
 
   if (!project) {
     redirect('/404')
   }
 
   if (project?.status === 'draft') {
-    redirect(`/cloud/${team.slug}/${project.slug}/configure`)
+    redirect(`/cloud/${teamSlug}/${projectSlug}/configure`)
   }
 
   return {
-    team,
+    team: project?.team,
     project,
   }
+}
+
+export const fetchProjectWithSubscription = async (args: {
+  teamSlug?: string
+  projectSlug?: string
+}): Promise<
+  Project & {
+    team: TeamWithCustomer
+    customer: Customer
+    subscription: Subscription
+  }
+> => {
+  const { teamSlug, projectSlug } = args || {}
+  const token = cookies().get(payloadCloudToken)?.value ?? null
+  if (!token) throw new Error('No token provided')
+
+  const projectWithSubscription = await fetch(
+    `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectSlug}/with-subscription`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `JWT ${token}` } : {}),
+      },
+      body: JSON.stringify({
+        teamSlug,
+        projectSlug,
+      }),
+    },
+  )
+    ?.then(res => res.json())
+    ?.then(res => {
+      if (res.errors) throw new Error(res?.errors?.[0]?.message ?? 'Error fetching doc')
+      return res
+    })
+
+  return projectWithSubscription
 }
