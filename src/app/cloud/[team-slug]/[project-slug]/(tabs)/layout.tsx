@@ -5,6 +5,7 @@ import { cloudSlug } from '@cloud/slug'
 import { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { ProjectBillingMessages } from './ProjectBillingMessages'
 
 export default async props => {
   const {
@@ -15,7 +16,7 @@ export default async props => {
   // Note: this fetch will get deduped by the page
   // each page within this layout calls this same function
   // Next.js will only call it once
-  const { project } = await fetchProjectAndRedirect({ teamSlug, projectSlug })
+  const { team, project } = await fetchProjectAndRedirect({ teamSlug, projectSlug })
 
   // display an error if the project has a bad subscription status
   const hasBadSubscriptionStatus = hasBadSubscription(project?.stripeSubscriptionStatus)
@@ -66,6 +67,7 @@ export default async props => {
           },
         }}
       />
+      <ProjectBillingMessages team={team} project={project} />
       {children}
     </>
   )

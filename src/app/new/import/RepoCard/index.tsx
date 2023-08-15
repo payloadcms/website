@@ -1,9 +1,9 @@
 import React from 'react'
+import { Repo } from '@cloud/_api/fetchRepos'
 
 import { Button } from '@components/Button'
 import { LineDraw } from '@components/LineDraw'
 import { LoadingShimmer } from '@components/LoadingShimmer'
-import { Repo } from '../useGetRepos'
 
 import classes from './index.module.scss'
 

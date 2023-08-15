@@ -1,6 +1,8 @@
 'use client'
 
 import React from 'react'
+import { ProjectWithSubscription } from '@cloud/_api/fetchProject'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { cloudSlug } from '@cloud/slug'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -8,15 +10,16 @@ import { usePathname } from 'next/navigation'
 import { Message } from '@root/app/_components/Message'
 import { Project } from '@root/payload-cloud-types'
 
-export const BadSubscriptionStatus: React.FC<{
-  subscriptionStatus: Project['stripeSubscriptionStatus']
-  teamSlug: string
-  projectSlug: string
+export const BadSubscriptionMessage: React.FC<{
+  team: TeamWithCustomer
+  project: ProjectWithSubscription
 }> = props => {
-  const { subscriptionStatus, teamSlug, projectSlug } = props
+  const { team, project } = props
+  const subscriptionStatus = project?.stripeSubscriptionStatus
+
   const pathname = usePathname()
 
-  const billingPath = `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/billing`
+  const billingPath = `/${cloudSlug}/${team?.slug}/${project?.slug}/settings/billing`
   const isOnBillingPage = pathname === billingPath
 
   return (
@@ -27,11 +30,11 @@ export const BadSubscriptionStatus: React.FC<{
           <strong>{subscriptionStatus}</strong>
           {'. Please '}
           {isOnBillingPage ? (
-            <React.Fragment>{'update your payment methods below'}</React.Fragment>
+            <React.Fragment>{'update your payment method below'}</React.Fragment>
           ) : (
-            <Link href={billingPath}>update your payment methods</Link>
+            <Link href={billingPath}>update your payment method</Link>
           )}
-          {' to avoid risk of service interruption.'}
+          {' to ensure your projects remain online.'}
         </React.Fragment>
       }
     />

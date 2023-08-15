@@ -1,6 +1,6 @@
 import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { DashboardTabs } from '@cloud/_components/DashboardTabs'
-import { isMissingDefaultPaymentMethod } from '@cloud/_utilities/isMissingDefaultPaymentMethod'
+import { hasDefaultPaymentMethod } from '@cloud/_utilities/hasDefaultPaymentMethod'
 import { cloudSlug } from '@cloud/slug'
 
 export default async props => {
@@ -25,7 +25,7 @@ export default async props => {
           settings: {
             label: 'Team Settings',
             href: `/${cloudSlug}/${teamSlug}/settings`,
-            error: isMissingDefaultPaymentMethod(team),
+            error: !hasDefaultPaymentMethod(team) && team?.hasPublishedProjects,
             subpaths: [
               `/${cloudSlug}/${teamSlug}/settings/members`,
               `/${cloudSlug}/${teamSlug}/settings/subscriptions`,

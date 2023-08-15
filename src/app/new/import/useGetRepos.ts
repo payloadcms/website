@@ -1,16 +1,9 @@
 import React, { useEffect } from 'react'
 import type { Install } from '@cloud/_api/fetchInstalls'
+import type { Repo, RepoResults } from '@cloud/_api/fetchRepos'
 import { fetchReposClient } from '@cloud/_api/fetchRepos'
-import type { Endpoints } from '@octokit/types'
 
 import { useAuth } from '@root/providers/Auth'
-
-type GitHubResponse =
-  Endpoints['GET /user/installations/{installation_id}/repositories']['response']
-
-export type Repo = GitHubResponse['data']['repositories'][0]
-
-export type RepoResults = {} & Pick<GitHubResponse['data'], 'total_count' | 'repositories'>
 
 export const useGetRepos = (props: {
   selectedInstall: Install | undefined

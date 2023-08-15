@@ -37,7 +37,7 @@ export const useDeploy = (args: {
 
         if (!checkoutState.paymentMethod && !checkoutState.freeTrial) {
           throw new Error(
-            `You must supply a payment method to deploy a paid project that is not on a free trial.`,
+            `No payment method was provided. Please add a payment method or select "free trial" and try again.`,
           )
         }
 

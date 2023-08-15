@@ -13,6 +13,7 @@ export type TabsType = {
     subpaths?: string[]
     error?: boolean
     disabled?: boolean
+    warning?: boolean
   }
 }
 
@@ -33,6 +34,7 @@ export const DashboardTabs: React.FC<{
         isActive: onTabPath,
         error: tab.error,
         disabled: tab.disabled,
+        warning: tab.warning,
       })
     }
 

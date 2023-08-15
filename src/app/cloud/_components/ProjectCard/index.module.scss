@@ -32,6 +32,20 @@
     }
 }
 
+.draft {
+    background-color: var(--theme-bg);
+
+    &:local() {
+        .details {
+            color: var(--theme-elevation-250);
+        }
+
+        .teamName {
+            color: var(--theme-elevation-500);
+        }
+    }
+}
+
 .error {
     border-color: var(--theme-error-200);
     background-color: var(--theme-error-50);
@@ -81,6 +95,10 @@
 
 .projectName {
     margin-right: calc(var(--base) / 2);
+}
+
+.teamName {
+    color: var(--theme-elevation-800);
 }
 
 .details {

@@ -64,11 +64,19 @@
   &.active {
     color: var(--theme-text);
 
+    &.warning {
+      color: var(--theme-warning-500);
+    }
+    
     &.error {
       color: var(--theme-error-500);
     }
   }
   
+  &.warning {
+    color: var(--theme-warning-300);
+  }
+
   &.error {
     color: var(--theme-error-300);
   }
@@ -79,7 +87,7 @@
   }
 }
 
-.errorIconWrapper {
+.iconWrapper {
   position: relative;
   top: 2px;
   border: 1px solid currentColor;
@@ -89,7 +97,7 @@
   flex-shrink: 0;
 }
 
-.errorIcon {
+.icon {
   position: absolute;
   top: 50%;
   left: 50%;

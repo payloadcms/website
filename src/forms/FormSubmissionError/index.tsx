@@ -1,17 +1,13 @@
 import React from 'react'
 import { useForm, useFormProcessing, useFormSubmitted } from '@forms/Form/context'
 
-import { Banner } from '@components/Banner'
-
-import classes from './index.module.scss'
+import { Message } from '@root/app/_components/Message'
 
 const FormSubmissionError: React.FC<{
   className?: string
   message?: string
-  margin?: boolean
-  banner?: boolean
 }> = props => {
-  const { className, message, margin, banner } = props
+  const { className, message } = props
 
   const { submissionError } = useForm()
   const hasSubmitted = useFormSubmitted()
@@ -20,19 +16,7 @@ const FormSubmissionError: React.FC<{
   const messageToUse = message || submissionError
 
   if (hasSubmitted && submissionError && !isProcessing) {
-    if (banner) {
-      return <Banner type="error">{messageToUse}</Banner>
-    }
-
-    return (
-      <p
-        className={[className, classes.formSubmissionError, margin === false && classes.noMargin]
-          .filter(Boolean)
-          .join(' ')}
-      >
-        {messageToUse}
-      </p>
-    )
+    return <Message className={className} error={messageToUse} />
   }
 
   return null

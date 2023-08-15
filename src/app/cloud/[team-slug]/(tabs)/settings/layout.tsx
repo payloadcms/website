@@ -1,12 +1,11 @@
 import * as React from 'react'
 import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { Sidebar } from '@cloud/_components/Sidebar'
-import { isMissingDefaultPaymentMethod } from '@cloud/_utilities/isMissingDefaultPaymentMethod'
 import { cloudSlug } from '@cloud/slug'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Gutter } from '@components/Gutter'
-import { MissingDefaultPaymentMethod } from './MissingDefaultPaymentMethod'
+import { TeamBillingMessages } from './TeamBillingMessages'
 
 import classes from './layout.module.scss'
 
@@ -46,9 +45,7 @@ export default async ({ params: { 'team-slug': teamSlug }, children }) => {
           />
         </Cell>
         <Cell start={4} cols={9} startS={1}>
-          {isMissingDefaultPaymentMethod(team) && (
-            <MissingDefaultPaymentMethod teamSlug={teamSlug} />
-          )}
+          <TeamBillingMessages team={team} />
           {children}
         </Cell>
       </Grid>

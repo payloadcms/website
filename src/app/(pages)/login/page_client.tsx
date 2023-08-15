@@ -83,7 +83,7 @@ export const Login: React.FC = () => {
       <Grid>
         <Cell cols={5} colsM={8}>
           <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
-            <FormSubmissionError margin={false} />
+            <FormSubmissionError />
             <FormProcessing message="Logging in, one moment..." />
             <Text
               path="email"

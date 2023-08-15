@@ -1,8 +1,8 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
+import { Repo } from '@cloud/_api/fetchRepos'
 
 import type { Project } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
-import type { Repo } from './useGetRepos'
 
 export const useCreateDraftProject = ({
   projectName,

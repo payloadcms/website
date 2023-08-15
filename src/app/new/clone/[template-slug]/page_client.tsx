@@ -93,7 +93,7 @@ export const CloneTemplate: React.FC<{
           </p>
         )}
         <div className={classes.formState}>
-          <FormSubmissionError banner />
+          <FormSubmissionError />
         </div>
         <Grid>
           <Cell cols={4} colsM={8} className={classes.sidebarCell}>

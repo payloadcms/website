@@ -12,13 +12,14 @@ export type Tab = {
   label: string | React.ReactNode
   isActive?: boolean
   error?: boolean
+  warning?: boolean
   url?: string
-  onClick?: never
+  onClick?: () => void
   disabled?: boolean
 }
 
 const TabContents: React.FC<Tab> = props => {
-  const { label, error } = props
+  const { label, error, warning } = props
 
   return (
     <React.Fragment>
@@ -26,8 +27,13 @@ const TabContents: React.FC<Tab> = props => {
         {label}
       </Heading>
       {error && (
-        <div className={classes.errorIconWrapper}>
-          <ErrorIcon size="medium" className={classes.errorIcon} />
+        <div className={[classes.iconWrapper, classes.error].filter(Boolean).join(' ')}>
+          <ErrorIcon size="medium" className={classes.icon} />
+        </div>
+      )}
+      {!error && warning && (
+        <div className={[classes.iconWrapper, classes.warning].filter(Boolean).join(' ')}>
+          <ErrorIcon size="medium" className={classes.icon} />
         </div>
       )}
     </React.Fragment>
@@ -45,12 +51,13 @@ export const Tabs: React.FC<{
       <Gutter>
         <EdgeScroll className={classes.tabs}>
           {tabs?.map((tab, index) => {
-            const { url: tabURL, onClick, isActive, error, disabled } = tab
+            const { url: tabURL, onClick, isActive, error, disabled, warning } = tab
 
             const classList = [
               classes.tab,
               isActive && classes.active,
               error && classes.error,
+              warning && classes.warning,
               disabled && classes.disabled,
               index === tabs.length - 1 && classes.lastTab,
             ]

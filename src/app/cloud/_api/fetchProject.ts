@@ -7,6 +7,10 @@ import type { Subscription } from './fetchSubscriptions'
 import type { Customer, TeamWithCustomer } from './fetchTeam'
 import { payloadCloudToken } from './token'
 
+export type ProjectWithSubscription = Project & {
+  stripeSubscription: Subscription
+}
+
 export const fetchProject = async (args: {
   teamID?: string
   projectSlug?: string
@@ -43,7 +47,7 @@ export const fetchProjectAndRedirect = async (args: {
   projectSlug?: string
 }): Promise<{
   team: TeamWithCustomer
-  project: Project
+  project: ProjectWithSubscription
 }> => {
   const { teamSlug, projectSlug } = args || {}
   const project = await fetchProjectWithSubscription({ teamSlug, projectSlug })
@@ -66,10 +70,9 @@ export const fetchProjectWithSubscription = async (args: {
   teamSlug?: string
   projectSlug?: string
 }): Promise<
-  Project & {
+  ProjectWithSubscription & {
     team: TeamWithCustomer
     customer: Customer
-    subscription: Subscription
   }
 > => {
   const { teamSlug, projectSlug } = args || {}
