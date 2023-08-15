@@ -41,8 +41,6 @@ export const useDeploy = (args: {
           )
         }
 
-        setTimeout(() => window.scrollTo(0, 0), 0)
-
         // if a card was supplied, first create a `SetupIntent` (to confirm it later, see below)
         // confirming card setup now will ensure that the card is valid and has sufficient funds
         // this will ensure that even free trials that have a card selected will be validated
@@ -54,13 +52,6 @@ export const useDeploy = (args: {
             team: checkoutState.team,
           })
         }
-
-        // only scroll-to-top after the card has been confirmed
-        // Stripe automatically scrolls to the `CardElement` if an error occurs
-        // this gets interrupted if this scroll-to-top is fired immediately
-        // afaik there's no way to prevent this behavior, so instead we'll just scroll after
-        // this also means that we need to scroll in the catch block as well
-        setTimeout(() => window.scrollTo(0, 0), 0)
 
         // attempt to deploy the project
         // do not create the subscription yet to ensure the project will deploy

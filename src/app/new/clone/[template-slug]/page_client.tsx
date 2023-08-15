@@ -15,6 +15,7 @@ import Submit from '@forms/Submit'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
+import { HR } from '@root/app/_components/HR'
 import { useCreateDraftProject } from '@root/app/new/useCreateDraftProject'
 import { PayloadIcon } from '@root/graphics/PayloadIcon'
 import { Team, Template, User } from '@root/payload-cloud-types'
@@ -140,15 +141,14 @@ export const CloneTemplate: React.FC<{
               <div className={classes.submit}>
                 <Submit label="Clone Template" appearance="primary" />
               </div>
-              <div>
-                <CloneProgress
-                  ref={cloneProgressScrollRef}
-                  id="clone-progress"
-                  template={template}
-                  destination={selectedInstall?.account?.login}
-                />
-              </div>
             </div>
+            <HR />
+            <CloneProgress
+              ref={cloneProgressScrollRef}
+              id="clone-progress"
+              template={template}
+              destination={selectedInstall?.account?.login}
+            />
           </Cell>
         </Grid>
       </Gutter>

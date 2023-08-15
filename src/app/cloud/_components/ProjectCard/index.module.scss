@@ -8,7 +8,8 @@
     display: flex;
     flex-direction: column;
     padding: calc(var(--base) * 2);
-    border: var(--theme-elevation-150) 1px solid;
+    border: 0.5px solid;
+    border-color: var(--theme-elevation-150);
     background-color: var(--theme-elevation-50);
     position: relative;
     text-decoration: none;
@@ -24,6 +25,10 @@
             .arrowIcon {
                 opacity: 1;
             }
+
+            .draft {
+                border-color: var(--theme-elevation-500);
+            }
         }
     }
 
@@ -33,11 +38,12 @@
 }
 
 .draft {
-    background-color: var(--theme-bg);
+    background-color: var(--theme-elevation-150);
+    border-color: var(--theme-elevation-250);
 
     &:local() {
         .details {
-            color: var(--theme-elevation-250);
+            color: var(--theme-elevation-500);
         }
 
         .teamName {

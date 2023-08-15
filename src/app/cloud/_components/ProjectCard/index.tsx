@@ -36,14 +36,20 @@ export const ProjectCard: React.FC<{
   //   {isPastDue && <Pill text="Past Due" color="error" />}
   // </div>
 
-  const isPro =
-    project?.plan && typeof project?.plan === 'object' ? project?.plan?.slug === 'pro' : false
+  const plan =
+    project?.plan && typeof project?.plan === 'object' ? project?.plan?.slug : project?.plan
+
+  const isPro = plan === 'pro'
+  const isStandard = plan === 'standard'
+  const isDraft = project?.status === 'draft'
+
   const isTrialing = stripeSubscriptionStatus === 'trialing'
+
   const hasBadSubscriptionStatus = hasBadSubscription(project?.stripeSubscriptionStatus)
 
   let pill: {
     text: string
-    color: 'default' | 'success' | 'warning' | 'error'
+    color: 'default' | 'success' | 'warning' | 'error' | 'blue'
   } = {
     text: '',
     color: 'default',
@@ -56,9 +62,16 @@ export const ProjectCard: React.FC<{
     }
   }
 
-  if (isPro && !isTrialing) {
+  if (isPro && !isTrialing && !isDraft) {
     pill = {
       text: 'Pro',
+      color: 'blue',
+    }
+  }
+
+  if (isStandard && !isTrialing && !isDraft) {
+    pill = {
+      text: 'Standard',
       color: 'success',
     }
   }
@@ -66,7 +79,7 @@ export const ProjectCard: React.FC<{
   if (isTrialing) {
     pill = {
       text: `${isPro ? `Pro ` : ''} Trial`,
-      color: 'default',
+      color: 'warning',
     }
   }
 

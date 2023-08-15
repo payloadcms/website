@@ -10,13 +10,18 @@
 }
 
 .color--default {
-  background-color: var(--theme-elevation-150);
+  background-color: var(--theme-elevation-250);
   color: var(--theme-elevation-800);
 }
 
 .color--success {
   background-color: var(--theme-success-100);
   color: var(--color-success-500);
+}
+
+.color--blue {
+  background-color: var(--theme-blue-100);
+  color: var(--color-blue-500);
 }
 
 .color--error {
@@ -40,6 +45,10 @@
   .pill {
     background-color: var(--theme-success-450);
     color: black;
+  }
+
+  .color--default {
+    background-color: var(--theme-elevation-50);
   }
 }
 

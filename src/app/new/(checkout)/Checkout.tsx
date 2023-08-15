@@ -18,7 +18,6 @@ import { Checkbox } from '@forms/fields/Checkbox'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
-import FormProcessing from '@forms/FormProcessing'
 import FormSubmissionError from '@forms/FormSubmissionError'
 import Label from '@forms/Label'
 import Submit from '@forms/Submit'
@@ -31,9 +30,11 @@ import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { Accordion } from '@root/app/_components/Accordion'
+import { HR } from '@root/app/_components/HR'
 import { Message } from '@root/app/_components/Message'
 import { Plan, Project, Team, Template, User } from '@root/payload-cloud-types'
 import { priceFromJSON } from '@root/utilities/price-from-json'
+import { DeployProgress } from './DeployProgress'
 import { EnvVars } from './EnvVars'
 import { checkoutReducer, CheckoutState } from './reducer'
 import { useDeploy } from './useDeploy'
@@ -172,7 +173,6 @@ const Checkout: React.FC<{
       <Form onSubmit={deploy}>
         <Gutter>
           <div className={classes.formState}>
-            <FormProcessing message="Deploying project, one moment..." />
             <FormSubmissionError />
             {(installsError || errorDeleting) && <Message error={installsError || errorDeleting} />}
           </div>
@@ -421,6 +421,8 @@ const Checkout: React.FC<{
                     <Submit label={checkoutState?.freeTrial ? 'Start free trial' : 'Deploy now'} />
                   </div>
                 </div>
+                <HR />
+                <DeployProgress repositoryFullName={project?.repositoryFullName} />
               </div>
             </Cell>
           </Grid>
