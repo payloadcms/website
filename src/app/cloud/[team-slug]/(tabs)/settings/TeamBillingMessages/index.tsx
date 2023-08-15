@@ -28,9 +28,9 @@ export const TeamBillingMessages: React.FC<{
           <React.Fragment>
             {'This team does not have a default payment method set. Please '}
             {isOnBillingPage ? (
-              <React.Fragment>{'select a payment method below '}</React.Fragment>
+              <React.Fragment>{'add or select a payment method below '}</React.Fragment>
             ) : (
-              <Link href={billingPath}>select a payment method</Link>
+              <Link href={billingPath}>add or select a payment method</Link>
             )}
             {' as default to ensure your projects stay online.'}
           </React.Fragment>

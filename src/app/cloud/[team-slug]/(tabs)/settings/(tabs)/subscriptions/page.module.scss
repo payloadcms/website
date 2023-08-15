@@ -27,7 +27,7 @@
 
   &:not(:last-child) {
     margin-bottom: calc(var(--base) * 2);
-    border-bottom: 1px solid var(--theme-elevation-500);
+    border-bottom: 1px solid var(--theme-border-color);
     padding-bottom: calc(var(--base) * 2);
   }
 

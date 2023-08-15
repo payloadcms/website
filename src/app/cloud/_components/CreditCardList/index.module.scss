@@ -54,8 +54,8 @@
 
 .card,
 .newCard {
-    border: 1px solid;
-    border-color: var(--theme-elevation-250);
+    border: 0.5px solid;
+    border-color: var(--theme-border-color);
     padding: var(--base);
     display: flex;
     align-items: center;
@@ -133,5 +133,5 @@
   justify-content: flex-end;
   width: 100%;
   padding-top: var(--base);
-  border-top: 1px solid var(--theme-border-color);
+  border-top: 0.5px solid var(--theme-border-color);
 }

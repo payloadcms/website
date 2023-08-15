@@ -28,7 +28,7 @@ export const usePaymentMethods = (args: {
   const elements = useElements()
 
   const getPaymentMethods = useCallback(
-    async (successMessage?: string) => {
+    async (successMessage?: string, doToast = true) => {
       let timer: NodeJS.Timeout
 
       if (!team?.stripeCustomerID) {
@@ -61,7 +61,7 @@ export const usePaymentMethods = (args: {
             setResult(json?.data || null)
             setError('')
             setIsLoading(false)
-            if (successMessage) {
+            if (successMessage && doToast) {
               toast.success(successMessage)
             }
           }, delay)
@@ -139,7 +139,7 @@ export const usePaymentMethods = (args: {
   )
 
   const saveNewPaymentMethod = useCallback(
-    async (paymentMethod): Promise<SetupIntentResult | null> => {
+    async (paymentMethod, doToast = true): Promise<SetupIntentResult | null> => {
       if (isRequesting.current) {
         return null
       }
@@ -156,7 +156,7 @@ export const usePaymentMethods = (args: {
           paymentMethod,
         })
 
-        await getPaymentMethods('Payment method saved successfully')
+        await getPaymentMethods('Payment method saved successfully', doToast)
         return setupIntent
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : 'Unknown error'

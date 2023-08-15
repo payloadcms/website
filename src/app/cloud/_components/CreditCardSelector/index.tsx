@@ -1,5 +1,4 @@
 import React, { Fragment, useCallback, useEffect, useRef } from 'react'
-import { ProjectWithSubscription } from '@cloud/_api/fetchProject'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { CreditCardElement } from '@cloud/_components/CreditCardElement'
 import { v4 as uuid } from 'uuid'
@@ -83,6 +82,7 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
   // after saving a new card, auto select it
   const handleSaveNewCard = useCallback(async () => {
     const setupIntent = await saveNewPaymentMethod(newCardID.current)
+
     const newPaymentMethod =
       typeof setupIntent?.setupIntent?.payment_method === 'string'
         ? setupIntent?.setupIntent?.payment_method

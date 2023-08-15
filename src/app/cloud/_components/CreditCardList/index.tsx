@@ -1,7 +1,9 @@
 'use client'
 
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { updateCustomer } from '@cloud/_api/updateCustomer'
 import { CreditCardElement } from '@cloud/_components/CreditCardElement'
 import { useModal } from '@faceless-ui/modal'
 import { Elements } from '@stripe/react-stripe-js'
@@ -16,7 +18,6 @@ import { Heading } from '@components/Heading'
 import { ModalWindow } from '@components/ModalWindow'
 import { Pill } from '@components/Pill'
 import useDebounce from '@root/utilities/use-debounce'
-import { useCustomer } from '../CreditCardSelector/useCustomer'
 import { usePaymentMethods } from './usePaymentMethods'
 
 import classes from './index.module.scss'
@@ -32,21 +33,13 @@ const modalSlug = 'confirm-delete-payment-method'
 
 export const CreditCardList: React.FC<CreditCardListType> = props => {
   const { team } = props
+  const [customer, setCustomer] = useState(team?.stripeCustomer)
   const scrollRef = React.useRef<HTMLDivElement>(null)
   const newCardID = React.useRef<string>(`new-card-${uuid()}`)
   const [showNewCard, setShowNewCard] = React.useState(false)
   const paymentMethodToDelete = React.useRef<PaymentMethod | null>(null)
   const { closeModal, openModal } = useModal()
-
-  const {
-    result: customer,
-    error: customerError,
-    setDefaultPaymentMethod,
-    isLoading: customerLoading,
-  } = useCustomer({
-    initialCustomer: team?.stripeCustomer,
-    team,
-  })
+  const [error, setError] = useState<string | null>(null)
 
   const {
     result: paymentMethods,
@@ -66,6 +59,24 @@ export const CreditCardList: React.FC<CreditCardListType> = props => {
     }
   }, [paymentMethods, newCardID])
 
+  const setDefaultPaymentMethod = useCallback(
+    async (paymentMethodID: string) => {
+      try {
+        const updatedCustomer = await updateCustomer(team, {
+          invoice_settings: { default_payment_method: paymentMethodID },
+        })
+
+        setCustomer(updatedCustomer)
+        toast.success(`Default payment method updated successfully`)
+      } catch (err: unknown) {
+        const message = (err as Error)?.message || 'Something went wrong'
+        console.error(message) // eslint-disable-line no-console
+        setError(message)
+      }
+    },
+    [team],
+  )
+
   const defaultPaymentMethod = customer
     ? typeof customer?.invoice_settings?.default_payment_method === 'object'
       ? customer?.invoice_settings?.default_payment_method?.id
@@ -74,27 +85,29 @@ export const CreditCardList: React.FC<CreditCardListType> = props => {
 
   // don't show the loading messages unless it the requests take longer than 500ms
   const debouncedLoadingPaymentMethods = useDebounce(isLoading, 500)
-  const debouncedCustomerLoading = useDebounce(customerLoading, 500)
 
   return (
     <div className={classes.creditCardList}>
       <div ref={scrollRef} className={classes.scrollRef} />
       <div className={classes.formState}>
-        {customerError && <p className={classes.error}>{customerError}</p>}
         {paymentMethodsError && <p className={classes.error}>{paymentMethodsError}</p>}
-        {debouncedLoadingPaymentMethods === 'deleting' && (
-          <p className={classes.deleting}>Deleting card...</p>
-        )}
-        {debouncedCustomerLoading && <p className={classes.loading}>Loading...</p>}
+        {error && <p className={classes.error}>{error}</p>}
       </div>
       <div className={classes.cards}>
         {paymentMethods?.map((paymentMethod, index) => {
           const isDefault = defaultPaymentMethod === paymentMethod.id
+          const isDeleting = paymentMethodToDelete.current?.id === paymentMethod.id
 
           return (
-            <div className={classes.card} key={index}>
+            <div
+              className={[classes.card, isDeleting && classes.isDeleting].filter(Boolean).join(' ')}
+              key={index}
+            >
               <div className={classes.cardBrand}>
-                <div>{`${paymentMethod?.card?.brand} ending in ${paymentMethod?.card?.last4}`}</div>
+                <div>
+                  {`${paymentMethod?.card?.brand} ending in ${paymentMethod?.card?.last4}`}
+                  {isDeleting && <span className={classes.deleting}>{`, now deleting...`}</span>}
+                </div>
                 {isDefault && (
                   <div className={classes.default}>
                     <Pill text="Default" />
@@ -119,8 +132,7 @@ export const CreditCardList: React.FC<CreditCardListType> = props => {
                         type="button"
                         className={classes.makeDefault}
                         onClick={() => {
-                          if (typeof setDefaultPaymentMethod === 'function')
-                            setDefaultPaymentMethod(paymentMethod.id)
+                          setDefaultPaymentMethod(paymentMethod.id)
                         }}
                       >
                         Make default
