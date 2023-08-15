@@ -3,7 +3,8 @@
 import React, { Fragment } from 'react'
 import { ProjectWithSubscription } from '@cloud/_api/fetchProject'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
-import { hasDefaultPaymentMethod } from '@cloud/_utilities/hasDefaultPaymentMethod'
+import { projectHasPaymentMethod } from '@cloud/_utilities/projectHasPaymentMethod'
+import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -20,12 +21,9 @@ export const TrialMessage: React.FC<{
       (1000 * 3600 * 24),
   )
 
-  const projectHasPaymentMethod = Boolean(project?.stripeSubscription?.default_payment_method)
-  const teamHasDefaultPaymentMethod = hasDefaultPaymentMethod(team)
-
   const trialEndDate = new Date(project?.stripeSubscription?.trial_end * 1000).toLocaleDateString()
 
-  const hasPaymentError = !projectHasPaymentMethod && !teamHasDefaultPaymentMethod
+  const hasPaymentError = !projectHasPaymentMethod(project) && !teamHasDefaultPaymentMethod(team)
 
   const billingHref = `/cloud/${team?.slug}/${project?.slug}/settings/billing`
   const isOnBillingPage = pathname === billingHref

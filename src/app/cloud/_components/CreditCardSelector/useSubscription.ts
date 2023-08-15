@@ -11,16 +11,17 @@ export const useSubscription = (args: {
   stripeSubscriptionID?: string
   team: Team
   delay?: number
+  initialValue?: Subscription | null
 }): {
-  result: Subscription | null
+  result: Subscription | null | undefined
   isLoading: boolean | null
   error: string
   refreshSubscription: () => void
   updateSubscription: (subscription: Subscription) => void
 } => {
-  const { stripeSubscriptionID, team, delay } = args
+  const { stripeSubscriptionID, team, delay, initialValue } = args
   const isRequesting = useRef(false)
-  const [result, setResult] = useState<Subscription | null>(null)
+  const [result, setResult] = useState<Subscription | null | undefined>(initialValue)
   const [isLoading, setIsLoading] = useState<boolean | null>(null)
   const [error, setError] = useState('')
 
@@ -78,8 +79,9 @@ export const useSubscription = (args: {
   }, [delay, stripeSubscriptionID, team?.id])
 
   useEffect(() => {
+    if (initialValue) return
     getSubscriptions()
-  }, [getSubscriptions])
+  }, [getSubscriptions, initialValue])
 
   const refreshSubscription = useCallback(() => {
     getSubscriptions()

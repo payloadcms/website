@@ -1,22 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { CardElement as StripeCardElement } from '@stripe/react-stripe-js'
+import { type StripeCardElementChangeEvent } from '@stripe/stripe-js'
 
 import { useThemePreference } from '@root/providers/Theme'
 
 import classes from './index.module.scss'
 
-export const CreditCardElement: React.FC = () => {
+export const CreditCardElement: React.FC<{
+  onChange?: (StripeCardElementChangeEvent) => void
+}> = ({ onChange }) => {
   const [error, setError] = useState(null)
   const [disableChangeHandler, setDisableChangeHandler] = useState(true)
   const { theme } = useThemePreference()
   const [style, setStyle] = useState<{ style: Record<string, unknown> }>()
 
-  const handleChange = async event => {
+  const handleChange = useCallback(async event => {
     // listen for changes in the `CardElement` and display any errors as they occur
     // prevent this from firing when the input is empty so the error does not show when first focusing the input
     setDisableChangeHandler(event.empty)
     setError(event.error ? event.error.message : '')
-  }
+  }, [])
 
   // css vars and `inherit` do not work here because of the iframe
   // so we need to get their computed values
@@ -76,6 +79,7 @@ export const CreditCardElement: React.FC = () => {
           // `onChange` here acts more like `onError` where it does not fire when the value changes
           // instead, it only fires when Stripe revalidates the field, i.e. on focus, blur, complete, submit, etc
           if (!disableChangeHandler) handleChange(e)
+          if (typeof onChange === 'function') onChange(e)
         }}
         className={classes.element}
       />

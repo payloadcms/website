@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
-import { hasDefaultPaymentMethod } from '@cloud/_utilities/hasDefaultPaymentMethod'
+import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod'
 import { cloudSlug } from '@cloud/slug'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -20,7 +20,7 @@ export const TeamBillingMessages: React.FC<{
   const billingPath = `/${cloudSlug}/${team?.slug}/settings/billing`
   const isOnBillingPage = pathname === billingPath
 
-  if (!hasDefaultPaymentMethod(team) && team?.hasPublishedProjects) {
+  if (!teamHasDefaultPaymentMethod(team) && team?.hasPublishedProjects) {
     return (
       <Message
         className={classes.billingMessages}
