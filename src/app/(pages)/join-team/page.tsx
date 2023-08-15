@@ -12,7 +12,7 @@ export default async function JoinTeamPage(props) {
 
   if (!user) {
     redirect(
-      `/login?redirect=${encodeURIComponent(`/join-team`)}?error=${encodeURIComponent(
+      `/login?redirect=${encodeURIComponent(`/join-team`)}&error=${encodeURIComponent(
         'You must be logged in to join a team',
       )}`,
     )

@@ -15,9 +15,7 @@ import { usePopupWindow } from '@root/utilities/use-popup-window'
 
 import classes from './page.module.scss'
 
-export const AuthorizePage: React.FC<{
-  githubToken: string | null
-}> = ({ githubToken }) => {
+export const AuthorizePage: React.FC = () => {
   const router = useRouter()
   const params = useSearchParams()
   const redirectParam = params?.get('redirect')
@@ -28,11 +26,6 @@ export const AuthorizePage: React.FC<{
   const redirectRef = React.useRef(
     `${redirectParam}` || `/new${teamParam ? `?team=${teamParam}` : ''}`,
   )
-
-  // immediately redirect if we have a token
-  if (githubToken) {
-    redirect(redirectRef.current)
-  }
 
   const href = `https://github.com/login/oauth/authorize?client_id=${
     process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID

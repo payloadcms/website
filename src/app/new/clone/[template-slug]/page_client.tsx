@@ -17,20 +17,19 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Gutter } from '@components/Gutter'
 import { useCreateDraftProject } from '@root/app/new/useCreateDraftProject'
 import { PayloadIcon } from '@root/graphics/PayloadIcon'
-import { Team, Template } from '@root/payload-cloud-types'
-import { useAuth } from '@root/providers/Auth'
-import { CloneProgress } from '../CloneProgress'
+import { Team, Template, User } from '@root/payload-cloud-types'
+import { CloneProgress } from './CloneProgress'
 
-import classes from './index.module.scss'
+import classes from './page.module.scss'
 
 export const CloneTemplate: React.FC<{
   template?: Template
   installs?: Install[]
+  user: User | null | undefined
 }> = props => {
   const searchParams = useSearchParams()
   const teamParam = searchParams?.get('team')
-  const { user } = useAuth()
-  const { template, installs: initialInstalls } = props
+  const { template, installs: initialInstalls, user } = props
   const router = useRouter()
   const cloneProgressScrollRef = React.useRef<HTMLDivElement>(null)
 

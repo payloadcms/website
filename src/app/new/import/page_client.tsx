@@ -17,11 +17,11 @@ import { Gutter } from '@components/Gutter'
 import { Pagination } from '@components/Pagination'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
-import { useCreateDraftProject } from '../../useCreateDraftProject'
+import { useCreateDraftProject } from '../useCreateDraftProject'
 import { RepoCard } from './RepoCard'
 import { useGetRepos } from './useGetRepos'
 
-import classes from './index.module.scss'
+import classes from './page.module.scss'
 
 const perPage = 30
 

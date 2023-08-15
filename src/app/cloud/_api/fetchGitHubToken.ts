@@ -8,6 +8,7 @@ export const fetchGitHubToken = async (): Promise<string | null> => {
 
   const reposReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
     method: 'POST',
+    cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `JWT ${token}`,

@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken'
 import { fetchInstalls } from '@cloud/_api/fetchInstalls'
+import { fetchMe } from '@cloud/_api/fetchMe'
 import { fetchRepos } from '@cloud/_api/fetchRepos'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
@@ -9,11 +10,21 @@ import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { ImportProject } from './ImportProject'
+import { ImportProject } from './page_client'
 
 const title = `Import a codebase`
 
-export default async function ProjectFromImportPage() {
+export default async () => {
+  const { user } = await fetchMe()
+
+  if (!user) {
+    redirect(
+      `/login?redirect=${encodeURIComponent('/new/import')}&warning=${encodeURIComponent(
+        'You must first login to import a repository',
+      )}`,
+    )
+  }
+
   const token = await fetchGitHubToken()
 
   if (!token) {

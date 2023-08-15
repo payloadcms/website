@@ -6,22 +6,24 @@ import { redirect } from 'next/navigation'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { AuthorizePage } from './page_client'
 
-export default async function NewProjectAuthorizePage() {
+export default async ({ searchParams: { redirect: redirectParam } }) => {
   const { user } = await fetchMe()
 
   if (!user) {
     redirect(
-      `/login?redirect=${encodeURIComponent(`/new/authorize`)}?error=${encodeURIComponent(
-        'You must be logged in to authorize with GitHub',
-      )}`,
+      `/login?redirect=${encodeURIComponent(
+        `/new/authorize?redirect=${redirectParam}`,
+      )}&error=${encodeURIComponent('You must be logged in to authorize with GitHub')}`,
     )
   }
 
-  // NOTE: cannot redirect here because we need to know the `redirect` param
-  // instead, pass the token to the client and redirect there
   const githubToken = await fetchGitHubToken()
 
-  return <AuthorizePage githubToken={githubToken} />
+  if (githubToken) {
+    redirect(redirectParam || '/new')
+  }
+
+  return <AuthorizePage />
 }
 
 export const metadata: Metadata = {
