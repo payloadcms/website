@@ -6,7 +6,7 @@ import { ProjectWithSubscription } from '@cloud/_api/fetchProject'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { updateSubscription } from '@cloud/_api/updateSubscription'
 import { Elements } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
+import { loadStripe, type PaymentMethod } from '@stripe/stripe-js'
 
 import { CreditCardSelector } from '.'
 
@@ -16,8 +16,9 @@ const Stripe = loadStripe(apiKey)
 export const ProjectCardSelector: React.FC<{
   team: TeamWithCustomer
   project: ProjectWithSubscription
+  initialPaymentMethods?: PaymentMethod[] | null
 }> = props => {
-  const { team, project } = props
+  const { team, project, initialPaymentMethods } = props
 
   const onPaymentMethodChange = useCallback(
     async (newPaymentMethod: string) => {
@@ -43,6 +44,7 @@ export const ProjectCardSelector: React.FC<{
         team={team}
         initialValue={project?.stripeSubscription?.default_payment_method}
         enableInlineSave
+        initialPaymentMethods={initialPaymentMethods}
       />
     </Elements>
   )

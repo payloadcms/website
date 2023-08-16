@@ -34,7 +34,10 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
 
   const newCardID = React.useRef<string>(`new-card-${uuid()}`)
   const [internalState, setInternalState] = React.useState(initialValue)
-  const [showNewCard, setShowNewCard] = React.useState<boolean>(Boolean(!initialValue))
+  const [showNewCard, setShowNewCard] = React.useState<boolean>(() => {
+    return !initialValue && (!initialPaymentMethods || initialPaymentMethods?.length === 0)
+  })
+
   const scrollRef = React.useRef<HTMLDivElement>(null)
   const hasInitialized = useRef(false)
 
@@ -108,8 +111,6 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
       setShowNewCard(false)
     }
   }, [saveNewPaymentMethod, onPaymentMethodChange])
-
-  const isNewCard = internalState === newCardID.current
 
   return (
     <div className={classes.creditCardSelector}>

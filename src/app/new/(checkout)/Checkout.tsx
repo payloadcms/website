@@ -21,7 +21,7 @@ import Form from '@forms/Form'
 import FormSubmissionError from '@forms/FormSubmissionError'
 import Label from '@forms/Label'
 import Submit from '@forms/Submit'
-import { Elements } from '@stripe/react-stripe-js'
+import { Elements, useElements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe, type PaymentMethod } from '@stripe/stripe-js'
 import Link from 'next/link'
 import { redirect, useRouter } from 'next/navigation'
@@ -34,10 +34,10 @@ import { HR } from '@root/app/_components/HR'
 import { Message } from '@root/app/_components/Message'
 import { Plan, Project, Team, Template, User } from '@root/payload-cloud-types'
 import { priceFromJSON } from '@root/utilities/price-from-json'
+import { deploy } from './deploy'
 import { DeployProgress } from './DeployProgress'
 import { EnvVars } from './EnvVars'
 import { checkoutReducer, CheckoutState } from './reducer'
-import { useDeploy } from './useDeploy'
 
 import classes from './Checkout.module.scss'
 
@@ -61,6 +61,8 @@ const Checkout: React.FC<{
 }> = props => {
   const { project, plans, installs, templates, user, initialPaymentMethods } = props
   const isClone = Boolean(!project?.repositoryID)
+  const stripe = useStripe()
+  const elements = useElements()
 
   const router = useRouter()
 
@@ -121,13 +123,6 @@ const Checkout: React.FC<{
     [router],
   )
 
-  const deploy = useDeploy({
-    onDeploy,
-    project,
-    checkoutState,
-    installID: selectedInstall?.id.toString() || project?.installID,
-  })
-
   const deleteProject = useCallback(async () => {
     setTimeout(() => {
       window.scrollTo(0, 0)
@@ -162,6 +157,22 @@ const Checkout: React.FC<{
     }
   }, [project, router])
 
+  const handleSubmit = useCallback(
+    async ({ unflattenedData }) => {
+      await deploy({
+        project,
+        checkoutState,
+        onDeploy,
+        user,
+        stripe,
+        elements,
+        unflattenedData,
+        installID: selectedInstall?.id.toString() || project?.installID,
+      })
+    },
+    [checkoutState, onDeploy, project, selectedInstall, user, stripe, elements],
+  )
+
   return (
     <Fragment>
       <Gutter>
@@ -171,7 +182,7 @@ const Checkout: React.FC<{
           </Heading>
         </div>
       </Gutter>
-      <Form onSubmit={deploy}>
+      <Form onSubmit={handleSubmit}>
         <Gutter>
           <div className={classes.formState}>
             <FormSubmissionError />

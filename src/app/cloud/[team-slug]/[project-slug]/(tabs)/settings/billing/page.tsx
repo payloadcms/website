@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { fetchMe } from '@cloud/_api/fetchMe'
+import { fetchPaymentMethods } from '@cloud/_api/fetchPaymentMethods'
 import { fetchProjectAndRedirect, ProjectWithSubscription } from '@cloud/_api/fetchProject'
 import { ProjectCardSelector } from '@cloud/_components/CreditCardSelector/ProjectCardSelector'
 import { cloudSlug } from '@cloud/slug'
@@ -35,6 +36,10 @@ export default async ({ params: { 'team-slug': teamSlug, 'project-slug': project
   const isCurrentTeamOwner = checkTeamRoles(user, team, ['owner'])
   const hasCustomerID = team?.stripeCustomerID
   const hasSubscriptionID = project?.stripeSubscriptionID
+
+  const paymentMethods = await fetchPaymentMethods({
+    team,
+  })
 
   return (
     <MaxWidth>
@@ -84,7 +89,11 @@ export default async ({ params: { 'team-slug': teamSlug, 'project-slug': project
                   </Link>
                   {`.`}
                 </p>
-                <ProjectCardSelector team={team} project={project} />
+                <ProjectCardSelector
+                  team={team}
+                  project={project}
+                  initialPaymentMethods={paymentMethods}
+                />
               </React.Fragment>
             )}
           </React.Fragment>
