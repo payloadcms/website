@@ -73,3 +73,14 @@
     }
   }
 }
+
+html[data-theme="light"] {
+  .videoDrawerToggler {
+    background: var(--theme-elevation-100);
+    border-bottom: 2px solid var(--theme-elevation-400);
+
+    &:hover {
+      background: var(--theme-elevation-150);
+    }
+  }
+}

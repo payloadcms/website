@@ -26,7 +26,7 @@ export const VideoDrawer: React.FC<Props> = ({ id, label, drawerTitle }) => {
             <Image
               src={`https://img.youtube.com/vi/${id}/mqdefault.jpg`}
               alt={drawerTitle || label || 'Video Thumbnail'}
-              style={{ objectFit: 'cover', objectPosition: 'left', opacity: 0.75 }}
+              style={{ objectFit: 'cover', objectPosition: 'left', opacity: 0.85 }}
               fill
             />
             <PlayIcon className={classes.playIcon} size="large" />
