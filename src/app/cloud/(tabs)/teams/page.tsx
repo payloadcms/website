@@ -1,14 +1,17 @@
-import { fetchDocs } from '@cloud/_api/fetchDocs'
 import { fetchMe } from '@cloud/_api/fetchMe'
+import { fetchTeams } from '@cloud/_api/fetchTeam'
 import { Metadata } from 'next'
 
-import { Team } from '@root/payload-cloud-types'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { TeamsPage } from './page_client'
 
 export default async () => {
-  const { token } = await fetchMe()
-  const teams = await fetchDocs<Team>('teams', token)
+  const { user } = await fetchMe()
+
+  const teams = await fetchTeams(
+    user?.teams?.map(({ team }) => (team && typeof team === 'object' ? team.id : team || '')) || [],
+  )
+
   return <TeamsPage teams={teams} />
 }
 

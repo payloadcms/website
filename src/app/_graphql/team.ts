@@ -22,9 +22,9 @@ export const TEAM_QUERY = `
   }
 `
 
-export const TEAMS = `
-  query Teams {
-    Teams(limit: 300) {
+export const TEAMS_QUERY = `
+  query Team($teamIDs: [String!], $page: Int, $limit: Int, $search: String) {
+    Teams(where: { AND: [{ id: { in: $teamIDs } }], OR: [{ name: { like: $search } }, { slug: { like: $search } }] }, limit: $limit, page: $page) {
       docs {
         ${TEAM}
       }

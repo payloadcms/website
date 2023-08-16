@@ -1,4 +1,4 @@
-import { TEAM_QUERY } from '@root/app/_graphql/team'
+import { TEAM_QUERY, TEAMS_QUERY } from '@root/app/_graphql/team'
 import type { Team } from '@root/payload-cloud-types'
 import { payloadCloudToken } from './token'
 
@@ -17,6 +17,35 @@ export interface Customer {
           id?: string
         }
   }
+}
+
+export const fetchTeams = async (teamIDs: string[]): Promise<Team[]> => {
+  const { cookies } = await import('next/headers')
+  const token = cookies().get(payloadCloudToken)?.value ?? null
+  if (!token) throw new Error('No token provided')
+
+  const res: Team[] = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `JWT ${token}` } : {}),
+    },
+    body: JSON.stringify({
+      query: TEAMS_QUERY,
+      variables: {
+        teamIDs: teamIDs.filter(Boolean),
+        limit: 50,
+        page: 1,
+      },
+    }),
+  })
+    ?.then(r => r.json())
+    ?.then(data => {
+      if (data.errors) throw new Error(data?.errors?.[0]?.message ?? 'Error fetching doc')
+      return data?.data?.Teams?.docs
+    })
+
+  return res
 }
 
 export const fetchTeam = async (teamSlug?: string): Promise<Team> => {

@@ -2,12 +2,12 @@
 
 import * as React from 'react'
 import { LinkGrid } from '@blocks/LinkGrid'
+import { useTeamDrawer } from '@cloud/_components/TeamDrawer'
 import { cloudSlug } from '@cloud/slug'
 import { useRouter } from 'next/navigation'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
-import { useTeamDrawer } from '@cloud/_components/TeamDrawer'
 import { Team } from '@root/payload-cloud-types'
 
 import classes from './page.module.scss'

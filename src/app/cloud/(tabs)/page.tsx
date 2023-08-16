@@ -8,7 +8,11 @@ import { CloudPage } from './page_client'
 
 export default async () => {
   const { user } = await fetchMe()
-  const projectsRes = await fetchProjects()
+
+  const projectsRes = await fetchProjects(
+    user?.teams?.map(({ team }) => (team && typeof team === 'object' ? team.id : team || '')) || [],
+  )
+
   const templates = await fetchTemplates()
 
   return <CloudPage initialState={projectsRes} templates={templates} user={user} />

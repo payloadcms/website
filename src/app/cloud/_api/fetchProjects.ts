@@ -11,7 +11,7 @@ export interface ProjectsRes {
   limit: number
 }
 
-export const fetchProjects = async (teamID?: string): Promise<ProjectsRes> => {
+export const fetchProjects = async (teamIDs: string[]): Promise<ProjectsRes> => {
   const { cookies } = await import('next/headers')
   const token = cookies().get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
@@ -25,7 +25,7 @@ export const fetchProjects = async (teamID?: string): Promise<ProjectsRes> => {
     body: JSON.stringify({
       query: PROJECTS_QUERY,
       variables: {
-        teamID,
+        teamIDs: teamIDs.filter(Boolean),
         limit: 9,
         page: 1,
       },

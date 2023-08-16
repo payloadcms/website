@@ -8,7 +8,8 @@ import { TeamPage } from './page_client'
 
 export default async ({ params: { 'team-slug': teamSlug } }) => {
   const team = await fetchTeamWithCustomer(teamSlug)
-  const projectsRes = await fetchProjects(team?.id)
+  const projectsRes = await fetchProjects([team?.id])
+
   const templates = await fetchTemplates()
 
   return <TeamPage team={team} initialState={projectsRes} templates={templates} />
