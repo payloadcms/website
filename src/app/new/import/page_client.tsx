@@ -17,7 +17,7 @@ import { Gutter } from '@components/Gutter'
 import { Pagination } from '@components/Pagination'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
-import { useCreateDraftProject } from '../useCreateDraftProject'
+import { createDraftProject } from '../createDraftProject'
 import { RepoCard } from './RepoCard'
 import { useGetRepos } from './useGetRepos'
 
@@ -64,16 +64,15 @@ export const ImportProject: React.FC<{
     ({ team }) => typeof team !== 'string' && team?.slug === teamParam,
   )?.team as Team //eslint-disable-line function-paren-newline
 
-  const createDraftProject = useCreateDraftProject({
-    teamID: matchedTeam?.id,
-    installID: selectedInstall?.id,
-    onSubmit: ({ slug: draftProjectSlug, team }) =>
+  const onDraftProjectCreate = useCallback(
+    ({ slug: draftProjectSlug, team }) =>
       router.push(
         `/${cloudSlug}/${
           typeof team === 'string' ? team : team?.slug
         }/${draftProjectSlug}/configure`,
       ),
-  })
+    [router],
+  )
 
   const handleSubmit = useCallback(
     async ({ unflattenedData }) => {
@@ -87,9 +86,13 @@ export const ImportProject: React.FC<{
 
       await createDraftProject({
         repo: foundRepo,
+        teamID: matchedTeam?.id,
+        installID: selectedInstall?.id,
+        onSubmit: onDraftProjectCreate,
+        user,
       })
     },
-    [createDraftProject, results],
+    [results, selectedInstall, matchedTeam, user, onDraftProjectCreate],
   )
 
   // automatically submit the form when a repo is selected
@@ -179,6 +182,10 @@ export const ImportProject: React.FC<{
                         onClick={repo => {
                           createDraftProject({
                             repo,
+                            teamID: matchedTeam?.id,
+                            installID: selectedInstall?.id,
+                            onSubmit: onDraftProjectCreate,
+                            user,
                           })
                         }}
                       />

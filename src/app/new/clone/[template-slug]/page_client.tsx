@@ -17,7 +17,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { HR } from '@root/app/_components/HR'
-import { useCreateDraftProject } from '@root/app/new/useCreateDraftProject'
+import { createDraftProject } from '@root/app/new/createDraftProject'
 import { PayloadIcon } from '@root/graphics/PayloadIcon'
 import { Team, Template, User } from '@root/payload-cloud-types'
 import { CloneProgress } from './CloneProgress'
@@ -44,7 +44,7 @@ export const CloneTemplate: React.FC<{
     ({ team }) => typeof team !== 'string' && team?.slug === teamParam,
   )?.team as Team //eslint-disable-line function-paren-newline
 
-  const onDraftCreate = useCallback(
+  const onDraftCreateProject = useCallback(
     ({ slug: draftProjectSlug, team }) => {
       toast.success('Template cloned successfully')
 
@@ -56,14 +56,6 @@ export const CloneTemplate: React.FC<{
     },
     [router],
   )
-
-  const createDraftProject = useCreateDraftProject({
-    projectName: template?.name,
-    installID: selectedInstall?.id,
-    templateID: template?.id,
-    teamID: matchedTeam?.id, // the first team is used as a fallback
-    onSubmit: onDraftCreate,
-  })
 
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer()
   const noTeams = !user?.teams || user?.teams.length === 0
@@ -81,13 +73,19 @@ export const CloneTemplate: React.FC<{
             name: unflattenedData?.repositoryName,
           },
           makePrivate: unflattenedData?.makePrivate,
+          projectName: template?.name,
+          installID: selectedInstall?.id,
+          templateID: template?.id,
+          teamID: matchedTeam?.id, // the first team is used as a fallback
+          onSubmit: onDraftCreateProject,
+          user,
         })
       } catch (error) {
         window.scrollTo(0, 0)
         console.error(error) // eslint-disable-line no-console
       }
     },
-    [createDraftProject],
+    [user, template, selectedInstall, matchedTeam, onDraftCreateProject],
   )
 
   return (
