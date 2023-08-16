@@ -1,9 +1,7 @@
 'use client'
 
-import React, { Fragment, useCallback, useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
+import React, { Fragment, useEffect, useState } from 'react'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
-import { updateCustomer } from '@cloud/_api/updateCustomer'
 import { CreditCardElement } from '@cloud/_components/CreditCardElement'
 import { useModal } from '@faceless-ui/modal'
 import { Elements } from '@stripe/react-stripe-js'
@@ -27,19 +25,18 @@ const Stripe = loadStripe(apiKey)
 
 type CreditCardListType = {
   team: TeamWithCustomer
+  initialPaymentMethods?: PaymentMethod[] | null
 }
 
 const modalSlug = 'confirm-delete-payment-method'
 
-export const CreditCardList: React.FC<CreditCardListType> = props => {
-  const { team } = props
-  const [customer, setCustomer] = useState(team?.stripeCustomer)
+const CardList: React.FC<CreditCardListType> = props => {
+  const { team, initialPaymentMethods } = props
   const scrollRef = React.useRef<HTMLDivElement>(null)
   const newCardID = React.useRef<string>(`new-card-${uuid()}`)
   const [showNewCard, setShowNewCard] = React.useState(false)
   const paymentMethodToDelete = React.useRef<PaymentMethod | null>(null)
   const { closeModal, openModal } = useModal()
-  const [error, setError] = useState<string | null>(null)
 
   const {
     result: paymentMethods,
@@ -47,8 +44,11 @@ export const CreditCardList: React.FC<CreditCardListType> = props => {
     deletePaymentMethod,
     saveNewPaymentMethod,
     isLoading,
+    defaultPaymentMethod,
+    setDefaultPaymentMethod,
   } = usePaymentMethods({
     team,
+    initialValue: initialPaymentMethods,
   })
 
   useEffect(() => {
@@ -59,30 +59,6 @@ export const CreditCardList: React.FC<CreditCardListType> = props => {
     }
   }, [paymentMethods, newCardID])
 
-  const setDefaultPaymentMethod = useCallback(
-    async (paymentMethodID: string) => {
-      try {
-        const updatedCustomer = await updateCustomer(team, {
-          invoice_settings: { default_payment_method: paymentMethodID },
-        })
-
-        setCustomer(updatedCustomer)
-        toast.success(`Default payment method updated successfully`)
-      } catch (err: unknown) {
-        const message = (err as Error)?.message || 'Something went wrong'
-        console.error(message) // eslint-disable-line no-console
-        setError(message)
-      }
-    },
-    [team],
-  )
-
-  const defaultPaymentMethod = customer
-    ? typeof customer?.invoice_settings?.default_payment_method === 'object'
-      ? customer?.invoice_settings?.default_payment_method?.id
-      : customer?.invoice_settings?.default_payment_method
-    : undefined
-
   // don't show the loading messages unless it the requests take longer than 500ms
   const debouncedLoadingPaymentMethods = useDebounce(isLoading, 500)
 
@@ -91,7 +67,6 @@ export const CreditCardList: React.FC<CreditCardListType> = props => {
       <div ref={scrollRef} className={classes.scrollRef} />
       <div className={classes.formState}>
         {paymentMethodsError && <p className={classes.error}>{paymentMethodsError}</p>}
-        {error && <p className={classes.error}>{error}</p>}
       </div>
       <div className={classes.cards}>
         {paymentMethods?.map((paymentMethod, index) => {
@@ -105,8 +80,9 @@ export const CreditCardList: React.FC<CreditCardListType> = props => {
             >
               <div className={classes.cardBrand}>
                 <div>
-                  {`${paymentMethod?.card?.brand} ending in ${paymentMethod?.card?.last4}`}
-                  {isDeleting && <span className={classes.deleting}>{`, now deleting...`}</span>}
+                  {isDeleting
+                    ? 'Deleting...'
+                    : `${paymentMethod?.card?.brand} ending in ${paymentMethod?.card?.last4}`}
                 </div>
                 {isDefault && (
                   <div className={classes.default}>
@@ -225,10 +201,10 @@ export const CreditCardList: React.FC<CreditCardListType> = props => {
   )
 }
 
-export const CreditCardListWithElements: React.FC<CreditCardListType> = props => {
+export const CreditCardList: React.FC<CreditCardListType> = props => {
   return (
     <Elements stripe={Stripe}>
-      <CreditCardList {...props} />
+      <CardList {...props} />
     </Elements>
   )
 }

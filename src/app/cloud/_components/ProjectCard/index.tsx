@@ -46,6 +46,7 @@ export const ProjectCard: React.FC<{
   const isTrialing = stripeSubscriptionStatus === 'trialing'
 
   const hasBadSubscriptionStatus = hasBadSubscription(project?.stripeSubscriptionStatus)
+  const isDeleted = project?.status === 'deleted'
 
   let pill: {
     text: string
@@ -90,6 +91,13 @@ export const ProjectCard: React.FC<{
     }
   }
 
+  if (isDeleted) {
+    pill = {
+      text: 'Deleted',
+      color: 'error',
+    }
+  }
+
   // link the card directly to the billing page if the subscription is past due
   let href = `/${cloudSlug}/${teamSlug}/${project.slug}${status === 'draft' ? '/configure' : ''}`
   if (status == 'published' && hasBadSubscriptionStatus)
@@ -102,7 +110,7 @@ export const ProjectCard: React.FC<{
         className,
         classes.project,
         status === 'draft' && classes.draft,
-        hasBadSubscriptionStatus && classes.error,
+        (hasBadSubscriptionStatus || isDeleted) && classes.error,
       ]
         .filter(Boolean)
         .join(' ')}

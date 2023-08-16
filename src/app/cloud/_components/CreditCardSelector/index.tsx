@@ -1,6 +1,7 @@
 import React, { Fragment, useCallback, useEffect, useRef } from 'react'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { CreditCardElement } from '@cloud/_components/CreditCardElement'
+import { type PaymentMethod } from '@stripe/stripe-js'
 import { v4 as uuid } from 'uuid'
 
 import { CircleIconButton } from '@components/CircleIconButton'
@@ -16,16 +17,24 @@ type CreditCardSelectorType = {
   onChange?: (method?: string) => void // eslint-disable-line no-unused-vars
   enableInlineSave?: boolean
   onPaymentMethodChange?: (paymentMethod: string) => Promise<void>
+  initialPaymentMethods?: PaymentMethod[] | null
 }
 
 export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
-  const { onChange, initialValue, team, enableInlineSave = true, onPaymentMethodChange } = props
+  const {
+    onChange,
+    initialValue,
+    initialPaymentMethods,
+    team,
+    enableInlineSave = true,
+    onPaymentMethodChange,
+  } = props
 
   const customer = team?.stripeCustomer
 
   const newCardID = React.useRef<string>(`new-card-${uuid()}`)
   const [internalState, setInternalState] = React.useState(initialValue)
-  const [showNewCard, setShowNewCard] = React.useState(false)
+  const [showNewCard, setShowNewCard] = React.useState<boolean>(Boolean(!initialValue))
   const scrollRef = React.useRef<HTMLDivElement>(null)
   const hasInitialized = useRef(false)
 
@@ -34,8 +43,10 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
     error,
     isLoading,
     saveNewPaymentMethod,
+    defaultPaymentMethod,
   } = usePaymentMethods({
     team,
+    initialValue: initialPaymentMethods,
   })
 
   const initializeState = useCallback(() => {
@@ -57,10 +68,10 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
   }, [paymentMethods, initialValue])
 
   useEffect(() => {
-    if (!hasInitialized.current) {
+    if (!initialValue && !hasInitialized.current) {
       initializeState()
     }
-  }, [initializeState])
+  }, [initializeState, initialValue])
 
   useEffect(() => {
     if (typeof onChange === 'function') {
@@ -80,13 +91,14 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
   )
 
   // after saving a new card, auto select it
+  // the `saveNewPaymentMethod` function will also update the team's default, if needed
   const handleSaveNewCard = useCallback(async () => {
     const setupIntent = await saveNewPaymentMethod(newCardID.current)
 
     const newPaymentMethod =
-      typeof setupIntent?.setupIntent?.payment_method === 'string'
-        ? setupIntent?.setupIntent?.payment_method
-        : setupIntent?.setupIntent?.payment_method?.id
+      typeof setupIntent?.payment_method === 'string'
+        ? setupIntent?.payment_method
+        : setupIntent?.payment_method?.id
 
     if (newPaymentMethod) {
       if (typeof onPaymentMethodChange === 'function') {
@@ -98,12 +110,6 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
   }, [saveNewPaymentMethod, onPaymentMethodChange])
 
   const isNewCard = internalState === newCardID.current
-
-  const defaultPaymentMethod = customer
-    ? typeof customer?.invoice_settings?.default_payment_method === 'object'
-      ? customer?.invoice_settings?.default_payment_method?.id
-      : customer?.invoice_settings?.default_payment_method
-    : undefined
 
   return (
     <div className={classes.creditCardSelector}>

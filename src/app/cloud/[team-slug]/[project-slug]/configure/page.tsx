@@ -2,6 +2,7 @@ import React from 'react'
 import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken'
 import { fetchInstalls } from '@cloud/_api/fetchInstalls'
 import { fetchMe } from '@cloud/_api/fetchMe'
+import { fetchPaymentMethods } from '@cloud/_api/fetchPaymentMethods'
 import { fetchPlans } from '@cloud/_api/fetchPlans'
 import { fetchProjectWithSubscription } from '@cloud/_api/fetchProject'
 import { fetchTemplates } from '@cloud/_api/fetchTemplates'
@@ -32,6 +33,9 @@ export default async ({ params: { 'team-slug': teamSlug, 'project-slug': project
   const plans = await fetchPlans()
   const installs = await fetchInstalls()
   const templates = await fetchTemplates()
+  const paymentMethods = await fetchPaymentMethods({
+    team: project.team,
+  })
 
   return (
     <Checkout
@@ -42,6 +46,7 @@ export default async ({ params: { 'team-slug': teamSlug, 'project-slug': project
       installs={installs}
       templates={templates}
       user={user}
+      initialPaymentMethods={paymentMethods}
     />
   )
 }

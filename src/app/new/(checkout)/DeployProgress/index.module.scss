@@ -25,15 +25,12 @@
 
 .header {
     display: flex;
+    flex-direction: column;
+    text-align: center;
     align-items: center;
     justify-content: center;
     gap: calc(var(--base) / 2);
     width: 100%;
-
-    @include small-break {
-        flex-direction: column;
-        text-align: center;
-    }
 }
 
 .icons {

@@ -2,6 +2,8 @@ import React, { forwardRef } from 'react'
 import { useFormProcessing } from '@forms/Form/context'
 
 import { GithubIcon } from '@root/graphics/GithubIcon'
+import { PayloadIcon } from '@root/graphics/PayloadIcon'
+import { FolderIcon } from '@root/icons/FolderIcon'
 import { Project } from '@root/payload-cloud-types'
 
 import classes from './index.module.scss'
@@ -39,6 +41,9 @@ export const DeployProgress = forwardRef<
             <div>
               <div />
             </div>
+          </div>
+          <div className={classes.headerIcon}>
+            <PayloadIcon />
           </div>
         </div>
         <div>{`Deploying ${repositoryFullName}`}</div>

@@ -22,7 +22,7 @@ import FormSubmissionError from '@forms/FormSubmissionError'
 import Label from '@forms/Label'
 import Submit from '@forms/Submit'
 import { Elements } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
+import { loadStripe, type PaymentMethod } from '@stripe/stripe-js'
 import Link from 'next/link'
 import { redirect, useRouter } from 'next/navigation'
 
@@ -57,8 +57,9 @@ const Checkout: React.FC<{
   installs: Install[]
   templates: Template[]
   user: User | null | undefined
+  initialPaymentMethods?: PaymentMethod[] | null
 }> = props => {
-  const { project, plans, installs, templates, user } = props
+  const { project, plans, installs, templates, user, initialPaymentMethods } = props
   const isClone = Boolean(!project?.repositoryID)
 
   const router = useRouter()
@@ -394,6 +395,7 @@ const Checkout: React.FC<{
                           team={checkoutState?.team}
                           onChange={handleCardChange}
                           enableInlineSave={false}
+                          initialPaymentMethods={initialPaymentMethods}
                         />
                       )}
                     </div>
@@ -440,8 +442,9 @@ const CheckoutProvider: React.FC<{
   installs: Install[]
   templates: Template[]
   user: User | null | undefined
+  initialPaymentMethods?: PaymentMethod[] | null
 }> = props => {
-  const { team, project, token, plans, installs, templates, user } = props
+  const { team, project, token, plans, installs, templates, user, initialPaymentMethods } = props
 
   if (!project) {
     redirect('/404')
@@ -467,6 +470,7 @@ const CheckoutProvider: React.FC<{
         installs={installs}
         templates={templates}
         user={user}
+        initialPaymentMethods={initialPaymentMethods}
       />
     </Elements>
   )

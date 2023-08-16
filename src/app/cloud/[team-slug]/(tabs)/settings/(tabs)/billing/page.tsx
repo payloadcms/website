@@ -1,7 +1,8 @@
 import React from 'react'
 import { fetchMe } from '@cloud/_api/fetchMe'
+import { fetchPaymentMethods } from '@cloud/_api/fetchPaymentMethods'
 import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
-import { CreditCardListWithElements } from '@cloud/_components/CreditCardList'
+import { CreditCardList } from '@cloud/_components/CreditCardList'
 import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 import { Text } from '@forms/fields/Text'
 import { Metadata } from 'next'
@@ -17,6 +18,8 @@ export default async ({ params: { 'team-slug': teamSlug } }) => {
 
   const isCurrentTeamOwner = checkTeamRoles(user, team, ['owner'])
   const hasCustomerID = team?.stripeCustomerID
+
+  const paymentMethods = await fetchPaymentMethods({ team })
 
   return (
     <React.Fragment>
@@ -43,9 +46,9 @@ export default async ({ params: { 'team-slug': teamSlug } }) => {
               <h6>Payment Methods</h6>
               <p>
                 The following payment methods are available for this team. Projects that do not
-                specify a payment method will use the default payment method set for this team.
+                specify a payment method will use this team's default payment method (if any).
               </p>
-              <CreditCardListWithElements team={team} />
+              <CreditCardList team={team} initialPaymentMethods={paymentMethods} />
             </React.Fragment>
           )}
           <HR />

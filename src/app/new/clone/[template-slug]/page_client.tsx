@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useCallback } from 'react'
+import { toast } from 'react-toastify'
 import { Install } from '@cloud/_api/fetchInstalls'
 import { useInstallationSelector } from '@cloud/_components/InstallationSelector'
 import { useTeamDrawer } from '@cloud/_components/TeamDrawer'
@@ -43,17 +44,25 @@ export const CloneTemplate: React.FC<{
     ({ team }) => typeof team !== 'string' && team?.slug === teamParam,
   )?.team as Team //eslint-disable-line function-paren-newline
 
+  const onDraftCreate = useCallback(
+    ({ slug: draftProjectSlug, team }) => {
+      toast.success('Template cloned successfully')
+
+      router.push(
+        `/${cloudSlug}/${
+          typeof team === 'string' ? team : team?.slug
+        }/${draftProjectSlug}/configure`,
+      )
+    },
+    [router],
+  )
+
   const createDraftProject = useCreateDraftProject({
     projectName: template?.name,
     installID: selectedInstall?.id,
     templateID: template?.id,
     teamID: matchedTeam?.id, // the first team is used as a fallback
-    onSubmit: ({ slug: draftProjectSlug, team }) =>
-      router.push(
-        `/${cloudSlug}/${
-          typeof team === 'string' ? team : team?.slug
-        }/${draftProjectSlug}/configure`,
-      ),
+    onSubmit: onDraftCreate,
   })
 
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer()

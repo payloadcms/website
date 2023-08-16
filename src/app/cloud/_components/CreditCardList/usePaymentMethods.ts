@@ -1,31 +1,64 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
+import { fetchPaymentMethod } from '@cloud/_api/fetchPaymentMethod'
+import { fetchPaymentMethodsClient } from '@cloud/_api/fetchPaymentMethods'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { updateCustomer } from '@cloud/_api/updateCustomer'
 import { useElements, useStripe } from '@stripe/react-stripe-js'
-import type { PaymentMethod, SetupIntentResult } from '@stripe/stripe-js'
+import type { PaymentMethod, SetupIntent } from '@stripe/stripe-js'
 
-import type { Team } from '@root/payload-cloud-types'
 import { confirmCardSetup } from '../../../new/(checkout)/confirmCardSetup'
+import { cardReducer } from './reducer'
+
+type SaveNewPaymentMethod = (paymentMethodID: string) => Promise<SetupIntent | null | undefined>
 
 export const usePaymentMethods = (args: {
-  team?: Team
+  team?: TeamWithCustomer
   delay?: number
+  initialValue?: PaymentMethod[] | null | undefined
 }): {
   result: PaymentMethod[] | null | undefined
   isLoading: 'loading' | 'saving' | 'deleting' | false | null
   error?: string
   deletePaymentMethod: (paymentMethod: string) => void
   getPaymentMethods: () => void
-  saveNewPaymentMethod: (paymentMethod: string) => Promise<SetupIntentResult | null>
+  saveNewPaymentMethod: SaveNewPaymentMethod
+  defaultPaymentMethod: string | undefined
+  setDefaultPaymentMethod: React.Dispatch<React.SetStateAction<string | undefined>>
 } => {
-  const { team, delay } = args
+  const { team, delay, initialValue } = args
+  const [defaultPaymentMethod, setDefault] = useState<string | undefined>(() => {
+    const teamDefault = team?.stripeCustomer?.invoice_settings?.default_payment_method
+    return typeof teamDefault === 'string' ? teamDefault : teamDefault?.id
+  })
+
   const isRequesting = useRef(false)
   const isSavingNew = useRef(false)
   const isDeleting = useRef(false)
-  const [result, setResult] = useState<PaymentMethod[] | null | undefined>(undefined)
+  const [result, dispatchResult] = useReducer(cardReducer, initialValue || [])
   const [isLoading, setIsLoading] = useState<'loading' | 'saving' | 'deleting' | false | null>(null)
   const [error, setError] = useState<string | undefined>('')
   const stripe = useStripe()
   const elements = useElements()
+
+  const setDefaultPaymentMethod = useCallback(
+    async (paymentMethodID: string) => {
+      try {
+        const updatedCustomer = await updateCustomer(team, {
+          invoice_settings: { default_payment_method: paymentMethodID },
+        })
+
+        const newDefault = updatedCustomer?.invoice_settings?.default_payment_method
+        setDefault(typeof newDefault === 'string' ? newDefault : newDefault?.id)
+        toast.success(`Default payment method updated successfully`)
+      } catch (err: unknown) {
+        const message = (err as Error)?.message || 'Something went wrong'
+        console.error(message) // eslint-disable-line no-console
+        setError(message)
+      }
+    },
+    [team],
+  )
 
   const getPaymentMethods = useCallback(
     async (successMessage?: string, doToast = true) => {
@@ -43,31 +76,16 @@ export const usePaymentMethods = (args: {
       try {
         setIsLoading('loading')
 
-        const req = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team.id}/payment-methods`,
-          {
-            method: 'GET',
-            credentials: 'include',
-          },
-        )
+        const paymentMethods = await fetchPaymentMethodsClient({ team })
 
-        const json: {
-          data: PaymentMethod[]
-          message?: string
-        } = await req.json()
-
-        if (req.ok) {
-          setTimeout(() => {
-            setResult(json?.data || null)
-            setError('')
-            setIsLoading(false)
-            if (successMessage && doToast) {
-              toast.success(successMessage)
-            }
-          }, delay)
-        } else {
-          throw new Error(json?.message)
-        }
+        setTimeout(() => {
+          dispatchResult({ type: 'RESET_CARDS', payload: paymentMethods || [] })
+          setError('')
+          setIsLoading(false)
+          if (successMessage && doToast) {
+            toast.success(successMessage)
+          }
+        }, delay)
       } catch (err: unknown) {
         const message = (err as Error)?.message || 'Something went wrong'
         setError(message)
@@ -81,18 +99,19 @@ export const usePaymentMethods = (args: {
         clearTimeout(timer)
       }
     },
-    [delay, team?.stripeCustomerID, team?.id],
+    [delay, team],
   )
 
   useEffect(() => {
+    if (initialValue) return
     getPaymentMethods()
-  }, [getPaymentMethods])
+  }, [getPaymentMethods, initialValue])
 
   const deletePaymentMethod = useCallback(
-    async (paymentMethod: string) => {
+    async (paymentMethodID: string) => {
       let timer: NodeJS.Timeout
 
-      if (!paymentMethod) {
+      if (!paymentMethodID) {
         setError('No payment method')
         return
       }
@@ -104,8 +123,8 @@ export const usePaymentMethods = (args: {
       setIsLoading('deleting')
 
       try {
-        const req = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/payment-methods/${paymentMethod}`,
+        await fetch(
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/payment-methods/${paymentMethodID}`,
           {
             method: 'DELETE',
             credentials: 'include',
@@ -113,15 +132,39 @@ export const usePaymentMethods = (args: {
               'Content-Type': 'application/json',
             },
           },
-        )
+        )?.then(res => {
+          const json = res.json()
+          // @ts-expect-error
+          if (!res.ok) throw new Error(json?.message)
+          return json
+        })
 
-        const json = await req.json()
+        // if this was the default payment method, we need to update the customer
+        // only if the customer has another payment method on file
+        if (defaultPaymentMethod === paymentMethodID) {
+          const withoutDeleted = result?.filter(pm => pm.id !== paymentMethodID)
 
-        if (req.ok) {
-          await getPaymentMethods('Payment method deleted successfully')
-        } else {
-          throw new Error(json?.message)
+          const updatedCustomer = await updateCustomer(team, {
+            invoice_settings: {
+              default_payment_method: withoutDeleted?.[0]?.id || '',
+            },
+          })
+
+          const newDefaultPaymentMethod = updatedCustomer?.invoice_settings?.default_payment_method
+
+          setDefault(
+            typeof newDefaultPaymentMethod === 'string'
+              ? newDefaultPaymentMethod
+              : newDefaultPaymentMethod?.id,
+          )
         }
+
+        dispatchResult({
+          type: 'DELETE_CARD',
+          payload: paymentMethodID,
+        })
+
+        toast.success(`Payment method deleted successfully`)
       } catch (err: unknown) {
         const message = (err as Error)?.message || 'Something went wrong'
         setError(message)
@@ -135,11 +178,11 @@ export const usePaymentMethods = (args: {
         clearTimeout(timer)
       }
     },
-    [getPaymentMethods, team?.id],
+    [team, result, defaultPaymentMethod],
   )
 
-  const saveNewPaymentMethod = useCallback(
-    async (paymentMethod, doToast = true): Promise<SetupIntentResult | null> => {
+  const saveNewPaymentMethod: SaveNewPaymentMethod = useCallback(
+    async paymentMethodID => {
       if (isRequesting.current) {
         return null
       }
@@ -149,14 +192,45 @@ export const usePaymentMethods = (args: {
       setIsLoading('saving')
 
       try {
-        const setupIntent = await confirmCardSetup({
+        const { setupIntent } = await confirmCardSetup({
           team,
           stripe,
           elements,
-          paymentMethod,
+          paymentMethod: paymentMethodID,
         })
 
-        await getPaymentMethods('Payment method saved successfully', doToast)
+        const pmID =
+          typeof setupIntent?.payment_method === 'string'
+            ? setupIntent?.payment_method
+            : setupIntent?.payment_method?.id || ''
+
+        if (!defaultPaymentMethod) {
+          const updatedCustomer = await updateCustomer(team, {
+            invoice_settings: {
+              default_payment_method: pmID,
+            },
+          })
+
+          const newDefaultPaymentMethod = updatedCustomer?.invoice_settings?.default_payment_method
+
+          setDefault(
+            typeof newDefaultPaymentMethod === 'string'
+              ? newDefaultPaymentMethod
+              : newDefaultPaymentMethod?.id,
+          )
+        }
+
+        const newPaymentMethod = await fetchPaymentMethod({ team, paymentMethodID: pmID })
+
+        if (!newPaymentMethod) throw new Error('Could not retrieve new payment method')
+
+        dispatchResult({
+          type: 'ADD_CARD',
+          payload: newPaymentMethod,
+        })
+
+        toast.success(`Payment method added successfully`)
+
         return setupIntent
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : 'Unknown error'
@@ -167,7 +241,7 @@ export const usePaymentMethods = (args: {
       isSavingNew.current = false
       return null
     },
-    [getPaymentMethods, team, elements, stripe],
+    [team, elements, stripe, defaultPaymentMethod],
   )
 
   const memoizedState = useMemo(
@@ -178,8 +252,19 @@ export const usePaymentMethods = (args: {
       deletePaymentMethod,
       getPaymentMethods,
       saveNewPaymentMethod,
+      defaultPaymentMethod,
+      setDefaultPaymentMethod,
     }),
-    [result, isLoading, error, deletePaymentMethod, getPaymentMethods, saveNewPaymentMethod],
+    [
+      result,
+      isLoading,
+      error,
+      deletePaymentMethod,
+      getPaymentMethods,
+      saveNewPaymentMethod,
+      defaultPaymentMethod,
+      setDefaultPaymentMethod,
+    ],
   )
 
   return memoizedState

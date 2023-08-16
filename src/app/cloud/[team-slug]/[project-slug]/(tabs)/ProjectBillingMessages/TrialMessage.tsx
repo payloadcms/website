@@ -31,6 +31,8 @@ export const TrialMessage: React.FC<{
   const planHref = `/cloud/${team?.slug}/${project?.slug}/settings/plan`
   const isOnPlanPage = pathname === planHref
 
+  // ensure that new projects don't show a warning message so that users do not think they made a mistake
+  // we still need to display a message to the user, but not a warning message
   let severity = 'message'
   if (hasPaymentError) severity = daysLeft < 3 ? 'error' : daysLeft < 7 ? 'warning' : 'message'
 
@@ -41,7 +43,7 @@ export const TrialMessage: React.FC<{
           <Fragment>
             {`There ${daysLeft === 1 ? 'is' : 'are'} `}
             <b> {` ${daysLeft} day${daysLeft === 1 ? '' : 's'}`}</b> {` left in your free trial.`}
-            {!projectHasPaymentMethod && !teamHasDefaultPaymentMethod ? (
+            {hasPaymentError ? (
               <Fragment>
                 {' '}
                 {!isOnBillingPage ? (
@@ -55,14 +57,10 @@ export const TrialMessage: React.FC<{
               </Fragment>
             ) : (
               <Fragment>
-                {` We will charge your payment method on ${trialEndDate}. `}
-                {!isOnPlanPage ? (
-                  <Link href={`/cloud/${team?.slug}/${project?.slug}/settings/plan`}>
-                    Cancel anytime
-                  </Link>
-                ) : (
-                  'Cancel anytime'
-                )}
+                {` We will attempt to charge `}
+                <Link href={billingHref}>your payment method(s)</Link>
+                {` on ${trialEndDate}. `}
+                {!isOnPlanPage ? <Link href={planHref}>Cancel anytime</Link> : 'Cancel anytime'}
                 {'.'}
               </Fragment>
             )}
