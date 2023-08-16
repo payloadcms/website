@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import Image from 'next/image'
 
@@ -39,7 +38,7 @@ export const VideoDrawer: React.FC<Props> = ({ id, label, drawerTitle }) => {
       </DrawerToggler>
 
       <Drawer slug={drawerSlug} size="m" title={drawerTitle}>
-        <YouTube id={id} title={drawerTitle || ''} />
+        <YouTube id={`${id}?autoplay=1`} title={drawerTitle || ''} />
       </Drawer>
     </>
   )

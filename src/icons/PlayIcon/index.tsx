@@ -26,7 +26,7 @@ export const PlayIcon: React.FC<IconProps> = props => {
         transform: rotation ? `rotate(${rotation}deg)` : undefined,
       }}
     >
-      <path d="M0.470703 25V0L22.5293 12.8676L0.470703 25Z" fill="white" fill-opacity="0.75" />
+      <path d="M0.470703 25V0L22.5293 12.8676L0.470703 25Z" fill="white" fillOpacity="0.75" />
     </svg>
   )
 }
