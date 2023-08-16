@@ -134,7 +134,7 @@ const fetchDocs = async () => {
 
       const topic = {
         slug: unsanitizedTopicSlug,
-        docs: parsedDocs.sort((a, b) => a.order - b.order),
+        docs: parsedDocs.filter(Boolean).sort((a, b) => a.order - b.order),
       }
 
       return topic

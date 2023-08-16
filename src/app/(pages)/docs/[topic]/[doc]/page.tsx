@@ -67,10 +67,16 @@ export async function generateStaticParams() {
 
   const result = topics.reduce((params: Param[], topic) => {
     return params.concat(
-      topic.docs.map(doc => ({
-        topic: topic.slug.toLowerCase(),
-        doc: doc.slug,
-      })),
+      topic.docs
+        .map(doc => {
+          if (!doc.slug) return null as any
+
+          return {
+            topic: topic.slug.toLowerCase(),
+            doc: doc.slug,
+          }
+        })
+        .filter(Boolean),
     )
   }, [])
 
