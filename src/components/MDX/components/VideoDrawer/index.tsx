@@ -33,7 +33,7 @@ export const VideoDrawer: React.FC<Props> = ({ id, label, drawerTitle }) => {
           </div>
           <div className={classes.labelWrap}>
             <strong>{label}</strong>
-            <ArrowIcon className={classes.arrow} size="medium" />
+            <ArrowIcon className={classes.arrow} />
           </div>
         </div>
       </DrawerToggler>
