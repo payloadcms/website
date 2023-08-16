@@ -11,6 +11,7 @@ import LightDarkImage from './LightDarkImage'
 import { RestExamples } from './RestExamples'
 import Table from './Table'
 import { TableWithDrawers } from './TableWithDrawers'
+import { VideoDrawer } from './VideoDrawer'
 
 export default {
   h1,
@@ -26,4 +27,5 @@ export default {
   table: Table,
   LightDarkImage,
   TableWithDrawers,
+  VideoDrawer,
 }

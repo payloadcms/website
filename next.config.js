@@ -21,6 +21,7 @@ const nextConfig = withBundleAnalyzer({
       'stage.cms.payloadcms.com',
       'cdn.discordapp.com',
       'avatars.githubusercontent.com',
+      'img.youtube.com',
     ],
   },
   experimental: {
