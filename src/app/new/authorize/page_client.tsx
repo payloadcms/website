@@ -3,7 +3,7 @@
 import React, { useCallback } from 'react'
 import { fetchGithubTokenClient } from '@cloud/_api/fetchGitHubToken'
 import Link from 'next/link'
-import { redirect, useRouter, useSearchParams } from 'next/navigation'
+import Router, { redirect, useRouter, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
@@ -17,6 +17,7 @@ import classes from './page.module.scss'
 
 export const AuthorizePage: React.FC = () => {
   const router = useRouter()
+  const routerRef = React.useRef(router)
   const params = useSearchParams()
   const redirectParam = params?.get('redirect')
   const teamParam = params?.get('team')
@@ -35,36 +36,33 @@ export const AuthorizePage: React.FC = () => {
 
   const [exchangeError, setExchangeError] = React.useState<string | null>(null)
 
-  const handleMessage = useCallback(
-    async ({ code }) => {
-      if (isRequesting.current) {
-        return
-      }
+  const handleMessage = useCallback(async ({ code }) => {
+    if (isRequesting.current) {
+      return
+    }
 
-      isRequesting.current = true
-      setRedirecting(true)
+    isRequesting.current = true
+    setRedirecting(true)
 
-      try {
-        const codeExchanged = await exchangeCode(code)
+    try {
+      const codeExchanged = await exchangeCode(code)
 
-        if (codeExchanged) {
-          const token = await fetchGithubTokenClient()
+      if (codeExchanged) {
+        const token = await fetchGithubTokenClient()
 
-          if (token) {
-            router.push(redirectRef.current)
-          } else {
-            throw new Error(`Code exchange succeeded but token fetch failed`)
-          }
+        if (token) {
+          routerRef.current.push(redirectRef.current)
         } else {
-          throw new Error(`Code exchange failed`)
+          throw new Error(`Code exchange succeeded but token fetch failed`)
         }
-      } catch (error) {
-        setExchangeError(`There was an error exchanging your code for a token: ${error.message}`)
-        setRedirecting(false)
+      } else {
+        throw new Error(`Code exchange failed`)
       }
-    },
-    [router],
-  )
+    } catch (error) {
+      setExchangeError(`There was an error exchanging your code for a token: ${error.message}`)
+      setRedirecting(false)
+    }
+  }, [])
 
   const { openPopupWindow } = usePopupWindow({
     href,

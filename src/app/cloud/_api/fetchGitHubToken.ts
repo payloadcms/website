@@ -6,6 +6,10 @@ export const fetchGitHubToken = async (): Promise<string | null> => {
   const { cookies } = await import('next/headers')
   const token = cookies().get('payload-cloud-token')?.value ?? null
 
+  if (!token) {
+    return null
+  }
+
   const reposReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
     method: 'POST',
     cache: 'no-store',
