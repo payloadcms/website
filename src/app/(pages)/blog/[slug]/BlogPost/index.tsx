@@ -31,6 +31,7 @@ export const BlogPost: React.FC<
               label: 'Blog Post',
             },
           ]}
+          ellipsis={false}
         />
       </Gutter>
       <Gutter className={classes.blogHeader}>

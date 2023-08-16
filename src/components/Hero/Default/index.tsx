@@ -25,7 +25,7 @@ export const DefaultHero: React.FC<
   return (
     <Gutter>
       <div className={classes.defaultHero}>
-        {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
+        {breadcrumbs && <Breadcrumbs items={breadcrumbs} ellipsis={false} />}
         <Grid>
           <Cell cols={withoutSidebar ? 10 : 8} colsM={withoutSidebar ? 7 : 5} colsS={8}>
             <RichText className={classes.richText} content={richText} />
