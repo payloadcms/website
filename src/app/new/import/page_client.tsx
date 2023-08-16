@@ -179,14 +179,19 @@ export const ImportProject: React.FC<{
                         isLoading={loadingRepos}
                         onMouseEnter={() => setHoverIndex(index)}
                         onMouseLeave={() => setHoverIndex(undefined)}
-                        onClick={repo => {
-                          createDraftProject({
-                            repo,
-                            teamID: matchedTeam?.id,
-                            installID: selectedInstall?.id,
-                            onSubmit: onDraftProjectCreate,
-                            user,
-                          })
+                        onClick={async repo => {
+                          try {
+                            await createDraftProject({
+                              repo,
+                              teamID: matchedTeam?.id,
+                              installID: selectedInstall?.id,
+                              onSubmit: onDraftProjectCreate,
+                              user,
+                            })
+                          } catch (error) {
+                            window.scrollTo(0, 0)
+                            console.error(error) // eslint-disable-line no-console
+                          }
                         }}
                       />
                     ),

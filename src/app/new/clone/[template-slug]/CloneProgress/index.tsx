@@ -1,25 +1,31 @@
-import React, { forwardRef } from 'react'
+'use client'
+
+import React, { useEffect, useRef } from 'react'
 import { useForm, useFormProcessing } from '@forms/Form/context'
 
 import { GithubIcon } from '@root/graphics/GithubIcon'
 import { FolderIcon } from '@root/icons/FolderIcon'
-import { Project, Template } from '@root/payload-cloud-types'
+import { Template } from '@root/payload-cloud-types'
 
 import classes from './index.module.scss'
 
-export const CloneProgress = forwardRef<
-  HTMLDivElement,
-  {
-    template?: Template
-    destination?: string
-    id?: string
-  }
->((props, ref) => {
+export const CloneProgress: React.FC<{
+  template?: Template
+  destination?: string
+  id?: string
+}> = props => {
   const { template, destination, id } = props
   const formProcessing = useFormProcessing()
   const { templateOwner, templateRepo, templatePath } = template || {}
 
   const { fields } = useForm()
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (ref.current && formProcessing) {
+      ref.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [ref, formProcessing])
 
   return (
     <div
@@ -56,4 +62,4 @@ export const CloneProgress = forwardRef<
       </div>
     </div>
   )
-})
+}

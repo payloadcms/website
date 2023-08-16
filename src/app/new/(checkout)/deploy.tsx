@@ -140,7 +140,7 @@ export const deploy = async (args: {
       throw new Error(res.error || res.message)
     }
   } catch (err: unknown) {
-    setTimeout(() => window.scrollTo(0, 0), 0)
+    window.scrollTo(0, 0)
     const message = err instanceof Error ? err.message : 'Unknown error'
     throw new Error(message)
   }

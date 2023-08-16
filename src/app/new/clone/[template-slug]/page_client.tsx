@@ -33,7 +33,6 @@ export const CloneTemplate: React.FC<{
   const teamParam = searchParams?.get('team')
   const { template, installs: initialInstalls, user } = props
   const router = useRouter()
-  const cloneProgressScrollRef = React.useRef<HTMLDivElement>(null)
 
   const [InstallationSelector, { value: selectedInstall }] = useInstallationSelector({
     installs: initialInstalls,
@@ -62,11 +61,6 @@ export const CloneTemplate: React.FC<{
 
   const handleSubmit = useCallback(
     async ({ unflattenedData }) => {
-      setTimeout(() => {
-        if (cloneProgressScrollRef.current)
-          cloneProgressScrollRef.current?.scrollIntoView({ behavior: 'smooth' })
-      }, 0)
-
       try {
         await createDraftProject({
           repo: {
@@ -151,7 +145,6 @@ export const CloneTemplate: React.FC<{
             </div>
             <HR />
             <CloneProgress
-              ref={cloneProgressScrollRef}
               id="clone-progress"
               template={template}
               destination={selectedInstall?.account?.login}

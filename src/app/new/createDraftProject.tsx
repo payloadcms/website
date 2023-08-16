@@ -21,10 +21,6 @@ export const createDraftProject = async ({
   repo: Partial<Repo>
   makePrivate?: boolean
 }): Promise<void> => {
-  setTimeout(() => {
-    window.scrollTo(0, 0)
-  }, 0)
-
   if (!user) {
     throw new Error('You must be logged in to create a project')
   }

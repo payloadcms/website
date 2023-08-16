@@ -1,23 +1,28 @@
-import React, { forwardRef } from 'react'
+'use client'
+
+import React, { useEffect } from 'react'
 import { useFormProcessing } from '@forms/Form/context'
 
 import { GithubIcon } from '@root/graphics/GithubIcon'
 import { PayloadIcon } from '@root/graphics/PayloadIcon'
-import { FolderIcon } from '@root/icons/FolderIcon'
 import { Project } from '@root/payload-cloud-types'
 
 import classes from './index.module.scss'
 
-export const DeployProgress = forwardRef<
-  HTMLDivElement,
-  {
-    repositoryFullName?: Project['repositoryFullName']
-    destination?: string
-    id?: string
-  }
->((props, ref) => {
+export const DeployProgress: React.FC<{
+  repositoryFullName?: Project['repositoryFullName']
+  destination?: string
+  id?: string
+}> = props => {
   const { id, repositoryFullName } = props
   const formProcessing = useFormProcessing()
+  const ref = React.useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (ref.current && formProcessing) {
+      ref.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [ref, formProcessing])
 
   return (
     <div
@@ -50,4 +55,4 @@ export const DeployProgress = forwardRef<
       </div>
     </div>
   )
-})
+}
