@@ -61,6 +61,8 @@ type Param = {
 }
 
 export async function generateStaticParams() {
+  if (process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS) return []
+
   const topics = await getTopics()
 
   const result = topics.reduce((params: Param[], topic) => {

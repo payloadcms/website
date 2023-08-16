@@ -59,6 +59,7 @@ const Thread = async ({ params }) => {
 export default Thread
 
 export async function generateStaticParams() {
+  if (process.env.NEXT_PUBLIC_SKIP_BUILD_HELPS) return []
   const fetchedThreads = await fetchCommunityHelps('discord')
   return fetchedThreads?.map(({ slug }) => ({ slug: slug || '404' })) ?? []
 }

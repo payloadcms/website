@@ -62,6 +62,8 @@ const Discussion = async ({ params }) => {
 export default Discussion
 
 export async function generateStaticParams() {
+  if (process.env.NEXT_PUBLIC_SKIP_BUILD_HELPS) return []
+
   const discussions = await fetchCommunityHelps('github')
   return discussions?.map(({ slug }) => ({ slug: slug || '404' })) ?? []
 }
