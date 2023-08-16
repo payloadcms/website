@@ -1,24 +1,44 @@
 import * as React from 'react'
+import Link from 'next/link'
 
 import { EdgeScroll } from '@components/EdgeScroll'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
+import { ErrorIcon } from '@root/icons/ErrorIcon'
 
 import classes from './index.module.scss'
 
 export type Tab = {
   label: string | React.ReactNode
   isActive?: boolean
-} & (
-  | {
-      url: string
-      onClick?: never
-    }
-  | {
-      url?: never
-      onClick: () => void
-    }
-)
+  error?: boolean
+  warning?: boolean
+  url?: string
+  onClick?: () => void
+  disabled?: boolean
+}
+
+const TabContents: React.FC<Tab> = props => {
+  const { label, error, warning } = props
+
+  return (
+    <React.Fragment>
+      <Heading element="h5" margin={false}>
+        {label}
+      </Heading>
+      {error && (
+        <div className={[classes.iconWrapper, classes.error].filter(Boolean).join(' ')}>
+          <ErrorIcon size="medium" className={classes.icon} />
+        </div>
+      )}
+      {!error && warning && (
+        <div className={[classes.iconWrapper, classes.warning].filter(Boolean).join(' ')}>
+          <ErrorIcon size="medium" className={classes.icon} />
+        </div>
+      )}
+    </React.Fragment>
+  )
+}
 
 export const Tabs: React.FC<{
   tabs?: Tab[]
@@ -30,31 +50,39 @@ export const Tabs: React.FC<{
     <div className={[classes.tabsContainer, className].filter(Boolean).join(' ')}>
       <Gutter>
         <EdgeScroll className={classes.tabs}>
-          {tabs?.map(({ url: tabURL, onClick, label, isActive }, index) => {
-            const RenderTab = (
-              <Heading
-                key={index}
-                className={[
-                  classes.tab,
-                  isActive && classes.active,
-                  index === tabs.length - 1 && classes.lastTab,
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
-                href={tabURL}
-                element="h5"
-              >
-                {label}
-              </Heading>
-            )
+          {tabs?.map((tab, index) => {
+            const { url: tabURL, onClick, isActive, error, disabled, warning } = tab
 
-            if (onClick) {
+            const classList = [
+              classes.tab,
+              isActive && classes.active,
+              error && classes.error,
+              warning && classes.warning,
+              disabled && classes.disabled,
+              index === tabs.length - 1 && classes.lastTab,
+            ]
+              .filter(Boolean)
+              .join(' ')
+
+            if (onClick || disabled) {
               return (
-                <button key={index} onClick={onClick} type="button" className={classes.buttonTab}>
-                  {RenderTab}
+                <button
+                  key={index}
+                  onClick={onClick}
+                  type="button"
+                  className={classList}
+                  disabled={disabled}
+                >
+                  <TabContents {...tab} />
                 </button>
               )
             }
+
+            const RenderTab = (
+              <Link key={index} href={tabURL || ''} className={classList}>
+                <TabContents {...tab} />
+              </Link>
+            )
 
             return RenderTab
           })}

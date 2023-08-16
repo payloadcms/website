@@ -1,85 +1,55 @@
-'use client'
-
 import * as React from 'react'
+import { Sidebar } from '@cloud/_components/Sidebar'
+import { cloudSlug } from '@cloud/slug'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import Link from 'next/link'
 
-import { EdgeScroll } from '@components/EdgeScroll'
 import { Gutter } from '@components/Gutter'
-import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
 
-import classes from './index.module.scss'
+import classes from './layout.module.scss'
 
-const sidebarNavRoutes = [
-  {
-    label: 'Build Settings',
-  },
-  {
-    label: 'Environment Variables',
-    slug: 'environment-variables',
-  },
-  {
-    label: 'Domains',
-    slug: 'domains',
-  },
-  {
-    label: 'Email',
-    slug: 'email',
-  },
-  {
-    label: 'Ownership',
-    slug: 'ownership',
-  },
-  {
-    label: 'Plan',
-    slug: 'plan',
-  },
-  {
-    label: 'Billing',
-    slug: 'billing',
-  },
-]
+const settingsSlug = 'settings'
 
-type ProjectSettingsLayoutType = {
-  children: React.ReactNode
-}
-export default ({ children }: ProjectSettingsLayoutType) => {
-  const [home, teamSlug, projectSlug, settingsTab, settingSlug] = usePathnameSegments()
-
+export default async ({
+  params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
+  children,
+}) => {
   return (
     <Gutter>
       <Grid className={classes.gridWrap}>
         <Cell cols={3} start={1} colsS={8}>
-          <div className={classes.sidebarNav}>
-            <EdgeScroll mobileOnly>
-              {sidebarNavRoutes.map((route, index) => {
-                const isActive = settingSlug === route?.slug
-
-                return (
-                  <p
-                    key={route.label}
-                    className={[
-                      classes.sidebarNavItem,
-                      isActive && classes.active,
-                      index === sidebarNavRoutes.length - 1 && classes.lastItem,
-                    ]
-                      .filter(Boolean)
-                      .join(' ')}
-                  >
-                    <Link
-                      href={`/${home}/${teamSlug}/${projectSlug}/${settingsTab}${
-                        route?.slug ? `/${route.slug}` : ''
-                      }`}
-                    >
-                      {route.label}
-                    </Link>
-                  </p>
-                )
-              })}
-            </EdgeScroll>
-          </div>
+          <Sidebar
+            routes={[
+              {
+                label: 'General',
+                url: `/${cloudSlug}/${teamSlug}/${projectSlug}/${settingsSlug}`,
+              },
+              {
+                label: 'Environment Variables',
+                url: `/${cloudSlug}/${teamSlug}/${projectSlug}/${settingsSlug}/environment-variables`,
+              },
+              {
+                label: 'Domains',
+                url: `/${cloudSlug}/${teamSlug}/${projectSlug}/${settingsSlug}/domains`,
+              },
+              {
+                label: 'Email',
+                url: `/${cloudSlug}/${teamSlug}/${projectSlug}/${settingsSlug}/email`,
+              },
+              {
+                label: 'Ownership',
+                url: `/${cloudSlug}/${teamSlug}/${projectSlug}/${settingsSlug}/ownership`,
+              },
+              {
+                label: 'Plan',
+                url: `/${cloudSlug}/${teamSlug}/${projectSlug}/${settingsSlug}/plan`,
+              },
+              {
+                label: 'Billing',
+                url: `/${cloudSlug}/${teamSlug}/${projectSlug}/${settingsSlug}/billing`,
+              },
+            ]}
+          />
         </Cell>
-
         <Cell start={4} cols={9} startS={1}>
           {children}
         </Cell>

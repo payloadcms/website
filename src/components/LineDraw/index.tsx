@@ -8,13 +8,14 @@ export const LineDraw: React.FC<{
   className?: string
   active?: Boolean | null
   align?: 'top' | 'bottom'
-}> = ({ className, active: isHovered, align = 'top' }) => {
+  disabled?: Boolean | null
+}> = ({ className, active: isHovered, align = 'top', disabled }) => {
   return (
     <div
       className={[
         classes.lineDraw,
         className,
-        isHovered && classes.isHovered,
+        !disabled && isHovered && classes.isHovered,
         align && classes[align],
       ]
         .filter(Boolean)

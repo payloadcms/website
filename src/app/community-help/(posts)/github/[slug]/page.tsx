@@ -2,7 +2,7 @@ import React from 'react'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { fetchCommunityHelp, fetchCommunityHelps } from '@root/graphql'
+import { fetchCommunityHelp, fetchCommunityHelps } from '@root/app/_graphql'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { slugToText } from '@root/utilities/slug-to-text'
 import { Answer, Author, Comment, GithubDiscussionPage } from './client_page'
@@ -62,6 +62,8 @@ const Discussion = async ({ params }) => {
 export default Discussion
 
 export async function generateStaticParams() {
+  if (process.env.NEXT_PUBLIC_SKIP_BUILD_HELPS) return []
+
   const discussions = await fetchCommunityHelps('github')
   return discussions?.map(({ slug }) => ({ slug: slug || '404' })) ?? []
 }

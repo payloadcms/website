@@ -148,6 +148,7 @@ export const Text: React.FC<
             htmlFor={path}
             label={label}
             required={required}
+            margin={false}
             actionsSlot={
               <Fragment>
                 {copy && <CopyToClipboard value={value} />}

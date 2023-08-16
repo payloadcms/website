@@ -1,0 +1,5 @@
+@use '@scss/common.scss' as *;
+
+.billingMessages {
+    margin-bottom: calc(var(--base) * 2);
+}

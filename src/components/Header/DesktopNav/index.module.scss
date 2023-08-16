@@ -89,7 +89,7 @@
   gap: calc(var(--base) * 1.25);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 150ms linear;
+  transition: opacity var(--trans-default) linear;
 }
 
 .show {

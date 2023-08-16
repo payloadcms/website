@@ -1,0 +1,5 @@
+@use '@scss/common.scss' as *;
+
+.gridWrap {
+  margin-bottom: calc(var(--base) * 4);
+}

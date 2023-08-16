@@ -32,6 +32,8 @@
   --gutter-h: calc(var(--base) * 16);
   --block-spacing: calc(var(--base) * 7);
 
+  --trans-default: 150ms;
+
   @include extra-large-break {
     --gutter-h: calc(var(--base) * 12);
     --font-body-size: 18px;
@@ -194,6 +196,7 @@ strong {
 
 b {
   font-family: var(--font-body-bold);
+  font-weight: 600;
 }
 
 em {
@@ -220,7 +223,7 @@ html[data-theme="dark"] {
 
 hr {
   border: none;
-  border-top: 1px solid var(--theme-elevation-400);
+  border-top: 1px solid var(--theme-elevation-200);
   margin: var(--block-spacing) 0;
 }
 

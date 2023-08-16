@@ -2,7 +2,7 @@
 
 .borderBox {
   padding: calc(var(--base) * 1.5);
-  border: 1px solid var(--theme-border-color); 
+  border: 0.5px solid var(--theme-border-color); 
 
   @include mid-break {
     padding: calc(var(--base) * .75);

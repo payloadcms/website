@@ -1,0 +1,50 @@
+@use '@scss/common.scss' as *;
+
+.buttonWrap {
+    display: flex;
+    gap: var(--base);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.description {
+    margin: var(--base) 0;
+}
+
+.password {
+    @include label;
+}
+
+.viewButton {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    line-height: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    color: var(--theme-blue-500);
+    text-decoration: underline;
+}
+
+.error {
+    color: var(--theme-error-500);
+}
+
+.success {
+    color: var(--theme-success-500);
+}
+
+.form {
+    & > * {
+        margin-bottom: var(--base);
+    }
+
+    & > *:last-child {
+        margin-bottom: 0;
+    }
+}

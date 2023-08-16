@@ -1,9 +1,17 @@
+import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
 import { Metadata } from 'next'
 
-import { ProjectOverviewPage } from './client_page'
+import { InfraOffline } from './InfraOffline'
+import { InfraOnline } from './InfraOnline'
 
-export default props => {
-  return <ProjectOverviewPage {...props} />
+export default async ({ params: { 'team-slug': teamSlug, 'project-slug': projectSlug } }) => {
+  const { team, project } = await fetchProjectAndRedirect({ teamSlug, projectSlug })
+
+  if (project?.infraStatus === 'done') {
+    return <InfraOnline project={project} />
+  }
+
+  return <InfraOffline project={project} team={team} />
 }
 
 export const metadata: Metadata = {

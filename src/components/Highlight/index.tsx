@@ -1,3 +1,5 @@
+'use client'
+
 import React, { Fragment, useRef } from 'react'
 import useIntersection from '@utilities/useIntersection'
 

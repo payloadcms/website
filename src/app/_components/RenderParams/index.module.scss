@@ -1,0 +1,5 @@
+@use '@scss/common.scss' as *;
+
+.renderParams {
+  margin-bottom: calc(var(--base) * 2);
+}

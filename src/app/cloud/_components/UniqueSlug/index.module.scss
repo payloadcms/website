@@ -1,0 +1,25 @@
+@use "@scss/common" as *;
+
+.uniqueSlug {
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  color: var(--theme-error-500)
+}
+
+.success {
+  color: var(--theme-success-500)
+}
+
+.description {
+  @include small;
+  margin-top: calc(var(--base) / 2);
+}
+
+.check {
+  path {
+    stroke: var(--theme-success-500);
+  }
+}

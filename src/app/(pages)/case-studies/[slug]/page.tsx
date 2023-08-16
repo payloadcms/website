@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { fetchCaseStudies, fetchCaseStudy } from '../../../../graphql'
+import { fetchCaseStudies, fetchCaseStudy } from '../../../_graphql'
 import { CaseStudy } from './client_page'
 
 const CaseStudyBySlug = async ({ params }) => {
