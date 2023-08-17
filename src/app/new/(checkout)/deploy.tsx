@@ -90,7 +90,11 @@ export const deploy = async (args: {
             project?.template && typeof project.template !== 'string'
               ? project.template.id
               : project?.template,
-          ...checkoutState,
+          paymentMethod: checkoutState.paymentMethod,
+          freeTrial: checkoutState.freeTrial,
+          // reduce large payloads to only the ID, i.e. plan and team
+          plan: typeof checkoutState.plan === 'string' ? checkoutState.plan : checkoutState.plan.id,
+          team: typeof checkoutState.team === 'string' ? checkoutState.team : checkoutState.team.id,
           ...formState,
           // remove all empty environment variables
           environmentVariables: formState.environmentVariables?.filter(

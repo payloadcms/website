@@ -26,8 +26,11 @@ export const createSubscription = async (args: {
       body: JSON.stringify({
         project: {
           ...project,
-          plan,
-          team,
+          // flatten relationships to only the ID
+          plan: typeof plan === 'string' ? plan : plan.id,
+          team: typeof team === 'string' ? team : team.id,
+          template:
+            typeof project?.template === 'string' ? project.template : project?.template?.id,
         },
         paymentMethod,
         freeTrial,
