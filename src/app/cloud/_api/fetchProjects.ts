@@ -22,6 +22,7 @@ export const fetchProjects = async (teamIDs: string[]): Promise<ProjectsRes> => 
       'Content-Type': 'application/json',
       ...(token ? { Authorization: `JWT ${token}` } : {}),
     },
+    next: { tags: ['projects'] },
     body: JSON.stringify({
       query: PROJECTS_QUERY,
       variables: {

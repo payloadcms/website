@@ -98,8 +98,8 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
         if (redirectOnCreate) {
           toast.success('Team created successfully, you are now being redirected...')
 
-          // revalidate this path so that next visit to this page it will be up to date
-          revalidateCache({
+          // revalidate this tag so that the next client-side navigation to this page is up to date
+          await revalidateCache({
             tag: 'teams',
           })
 

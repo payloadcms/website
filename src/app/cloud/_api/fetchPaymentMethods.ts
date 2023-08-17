@@ -7,7 +7,7 @@ export const fetchPaymentMethods = async (args: {
   team: Team | null | undefined
 }): Promise<PaymentMethod[] | null> => {
   const { team } = args
-  if (!team) throw new Error('Cannot fetch payment method without team')
+  if (!team) return null
 
   const { cookies } = await import('next/headers')
   const token = cookies().get(payloadCloudToken)?.value ?? null

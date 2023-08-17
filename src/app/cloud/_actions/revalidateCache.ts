@@ -3,7 +3,9 @@
 import { revalidatePath, revalidateTag } from 'next/cache'
 
 // this will invalidate the Next.js `Client-Side Router Cache`
-// according to their docs, this is only possible using `Server Actions`
+// this type of cache is store during the user's session for client-side navigation
+// this means that Server Components are not rebuilt when navigating between pages
+// according to their docs, it is possible to purge this using a `Server Action`
 // https://nextjs.org/docs/app/building-your-application/caching#router-cache
 // https://nextjs.org/docs/app/building-your-application/caching#invalidation-1
 export async function revalidateCache(args: { tag?: string; path?: string }): Promise<void> {

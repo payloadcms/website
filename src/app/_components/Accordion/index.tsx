@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from 'react'
 import {
   Collapsible,
@@ -29,11 +31,10 @@ const IconToRender: React.FC<{ icon: 'eye' | 'chevron' }> = ({ icon }) => {
 
 type HeaderProps = {
   label: React.ReactNode
-  onToggle?: () => void
   toggleIcon?: 'eye' | 'chevron'
 }
 
-const Header: React.FC<HeaderProps> = ({ label, onToggle, toggleIcon = 'chevron' }) => {
+const Header: React.FC<HeaderProps> = ({ label, toggleIcon = 'chevron' }) => {
   return (
     <CollapsibleToggler className={classes.toggler}>
       <div className={classes.labelContent}>{label}</div>
@@ -61,16 +62,27 @@ type AccordionProps = HeaderProps &
   ContentProps & {
     className?: string
     openOnInit?: boolean
+    onToggle?: () => void
   }
 
 export const Accordion: React.FC<AccordionProps> = ({
   children,
   className,
   openOnInit,
+  onToggle,
   ...rest
 }) => {
   return (
-    <Collapsible openOnInit={openOnInit} transTime={250} transCurve="ease">
+    <Collapsible
+      openOnInit={openOnInit}
+      transTime={250}
+      transCurve="ease"
+      onToggle={() => {
+        if (typeof onToggle === 'function') {
+          onToggle()
+        }
+      }}
+    >
       <div className={[classes.accordion, className].filter(Boolean).join(' ')}>
         <Header {...rest} />
         <Content>{children}</Content>

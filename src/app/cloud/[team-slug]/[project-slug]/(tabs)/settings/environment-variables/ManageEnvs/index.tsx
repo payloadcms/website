@@ -1,4 +1,9 @@
+'use client'
+
 import * as React from 'react'
+import { toast } from 'react-toastify'
+import { revalidateCache } from '@cloud/_actions/revalidateCache'
+import { CollapsibleGroup } from '@faceless-ui/collapsibles'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text'
 import { Textarea } from '@forms/fields/Textarea'
@@ -18,7 +23,8 @@ const envKeyFieldPath = 'envKey'
 const envValueFieldPath = 'envValue'
 
 type Props = {
-  project: Project
+  envs: Project['environmentVariables']
+  projectID: Project['id']
   // env: Project['environmentVariables'][0]
   env: {
     key?: string
@@ -27,20 +33,16 @@ type Props = {
   }
 }
 
-export const ManageEnv: React.FC<Props> = ({ project, env: { key, id } }) => {
+export const ManageEnv: React.FC<Props> = ({ envs, projectID, env: { key, id } }) => {
   const modalSlug = `delete-env-${id}`
   const [fetchedEnvValue, setFetchedEnvValue] = React.useState<string | undefined>(undefined)
   const { closeModal, openModal } = useModal()
-  const projectID = project?.id
-  const existingEnvKeys = (project?.environmentVariables || []).reduce(
-    (acc: string[], { key: existingKey }) => {
-      if (existingKey && existingKey !== key) {
-        acc.push(existingKey)
-      }
-      return acc
-    },
-    [],
-  )
+  const existingEnvKeys = (envs || []).reduce((acc: string[], { key: existingKey }) => {
+    if (existingKey && existingKey !== key) {
+      acc.push(existingKey)
+    }
+    return acc
+  }, [])
 
   const fetchEnv = React.useCallback(async (): Promise<string | null> => {
     try {
@@ -56,7 +58,6 @@ export const ManageEnv: React.FC<Props> = ({ project, env: { key, id } }) => {
 
       if (req.status === 200) {
         const res = await req.json()
-
         return res.value
       }
     } catch (e) {
@@ -85,11 +86,22 @@ export const ManageEnv: React.FC<Props> = ({ project, env: { key, id } }) => {
             },
           )
 
-          // TODO: alert user based on status code & message
+          const res = await req.json()
+
+          if (!req.ok) {
+            toast.error(res.message)
+            return
+          }
 
           if (req.status === 200) {
-            const res = await req.json()
-            // reloadProject()
+            toast.success('Environment variable updated successfully')
+
+            // TODO: set in state
+
+            await revalidateCache({
+              tag: `project_${projectID}`,
+            })
+
             return res.value
           }
         } catch (e) {
@@ -185,5 +197,22 @@ export const ManageEnv: React.FC<Props> = ({ project, env: { key, id } }) => {
         </div>
       </ModalWindow>
     </>
+  )
+}
+
+export const ManageEnvs: React.FC<{
+  envs: Project['environmentVariables']
+  projectID: Project['id']
+}> = props => {
+  const { envs, projectID } = props
+
+  return (
+    <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
+      <div className={classes.envs}>
+        {envs?.map(env => (
+          <ManageEnv key={env.id} env={env} envs={envs} projectID={projectID} />
+        ))}
+      </div>
+    </CollapsibleGroup>
   )
 }

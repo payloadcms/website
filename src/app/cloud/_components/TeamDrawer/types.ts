@@ -6,7 +6,7 @@ import type { Team } from '@root/payload-cloud-types'
 export interface TeamDrawerProps {
   drawerSlug: string
   team?: Team
-  onCreate?: (team: Team, closeDrawer: () => void) => Promise<void>
+  onCreate?: (team: Team, closeDrawer: () => void) => void | Promise<void>
   redirectOnCreate?: boolean
 }
 

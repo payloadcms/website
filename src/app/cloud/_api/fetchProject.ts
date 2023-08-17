@@ -25,6 +25,7 @@ export const fetchProject = async (args: {
       'Content-Type': 'application/json',
       ...(token ? { Authorization: `JWT ${token}` } : {}),
     },
+    next: { tags: [`project_${projectSlug}`] },
     body: JSON.stringify({
       query: PROJECT_QUERY,
       variables: {

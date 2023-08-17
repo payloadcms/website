@@ -1,6 +1,8 @@
 'use client'
 
 import * as React from 'react'
+import { toast } from 'react-toastify'
+import { revalidateCache } from '@cloud/_actions/revalidateCache'
 import { AddArrayRow, ArrayRow } from '@forms/fields/Array'
 import { ArrayProvider, useArray } from '@forms/fields/Array/context'
 import { Text } from '@forms/fields/Text'
@@ -13,14 +15,17 @@ import { validateKey, validateValue } from '../validations'
 
 import classes from './index.module.scss'
 
-export const EnvManagement: React.FC<{
-  project: Project
-}> = ({ project }) => {
-  const { uuids, clearRows } = useArray()
-  // const { project, reloadProject } = useRouteData()
-  const projectID = project?.id
+type AddEnvsProps = {
+  projectID: Project['id']
+  envs: Project['environmentVariables']
+}
 
-  const existingEnvKeys = (project?.environmentVariables || []).map(({ key }) => key || '')
+export const AddEnvsComponent: React.FC<AddEnvsProps> = props => {
+  const { envs, projectID } = props
+
+  const { uuids, clearRows } = useArray()
+
+  const existingEnvKeys = (envs || []).map(({ key }) => key || '')
 
   const handleSubmit: OnSubmit = React.useCallback(
     async ({ unflattenedData }) => {
@@ -50,9 +55,21 @@ export const EnvManagement: React.FC<{
             },
           )
 
+          const res = await req.json()
+
+          if (!req.ok) {
+            toast.error(res.message)
+            return
+          }
+
           if (req.status === 200) {
+            toast.success('Environment variable added successfully')
+
             clearRows()
-            // reloadProject()
+
+            await revalidateCache({
+              tag: `project_${projectID}`,
+            })
           }
 
           return
@@ -95,12 +112,10 @@ export const EnvManagement: React.FC<{
   )
 }
 
-export const AddEnvs: React.FC<{
-  project: Project
-}> = ({ project }) => {
+export const AddEnvs: React.FC<AddEnvsProps> = props => {
   return (
     <ArrayProvider>
-      <EnvManagement project={project} />
+      <AddEnvsComponent {...props} />
     </ArrayProvider>
   )
 }

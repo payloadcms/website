@@ -28,3 +28,9 @@
   padding-top: var(--base);
   border-top: 1px solid var(--theme-border-color);
 }
+
+.envs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+}

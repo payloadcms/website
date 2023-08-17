@@ -2,6 +2,7 @@
 
 import React, { Fragment, useCallback } from 'react'
 import { toast } from 'react-toastify'
+import { revalidateCache } from '@cloud/_actions/revalidateCache'
 import { Install } from '@cloud/_api/fetchInstalls'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { BranchSelector } from '@cloud/_components/BranchSelector'
@@ -144,7 +145,12 @@ const Checkout: React.FC<{
       )
 
       if (response.ok) {
+        await revalidateCache({
+          tag: `projects`,
+        })
+
         router.push(`/${cloudSlug}`)
+
         toast.success('Draft project canceled successfully.')
       } else {
         setDeleting(false)
