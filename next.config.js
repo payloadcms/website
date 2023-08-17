@@ -25,6 +25,7 @@ const nextConfig = withBundleAnalyzer({
   },
   experimental: {
     appDir: true,
+    serverActions: true,
   },
   webpack: config => {
     const configCopy = { ...config }

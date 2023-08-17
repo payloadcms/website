@@ -30,6 +30,7 @@ export const fetchTeams = async (teamIDs: string[]): Promise<Team[]> => {
       'Content-Type': 'application/json',
       ...(token ? { Authorization: `JWT ${token}` } : {}),
     },
+    next: { tags: ['teams'] },
     body: JSON.stringify({
       query: TEAMS_QUERY,
       variables: {

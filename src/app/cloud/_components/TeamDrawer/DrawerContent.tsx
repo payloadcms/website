@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react'
 import { toast } from 'react-toastify'
+import { revalidateCache } from '@cloud/_actions/revalidateCache'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
@@ -95,10 +96,17 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
         })
 
         if (redirectOnCreate) {
-          toast.success('Team created successfully, redirecting you to your new team...')
+          toast.success('Team created successfully, you are now being redirected...')
+
+          // revalidate this path so that next visit to this page it will be up to date
+          revalidateCache({
+            tag: 'teams',
+          })
+
+          // automatically redirect to the new team
           router.push(`/cloud/${response?.doc?.slug}`)
         } else if (typeof onCreate === 'function') {
-          // don't close the drawer here, this is redirects are not async
+          // don't close the drawer here, this is bc redirects are not async
           // i.e. if you wanted to redirect yourself in the callback, the drawer would close before the redirect
           // so instead, pass it back to them to call when/if they want
           await onCreate(response?.doc, () => {
