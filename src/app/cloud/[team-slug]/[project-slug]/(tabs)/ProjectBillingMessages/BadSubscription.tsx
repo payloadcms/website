@@ -30,9 +30,9 @@ export const BadSubscriptionMessage: React.FC<{
           <strong>{subscriptionStatus}</strong>
           {'. Please '}
           {isOnBillingPage ? (
-            <React.Fragment>{'update your payment method below'}</React.Fragment>
+            <React.Fragment>{'update the payment method(s) below'}</React.Fragment>
           ) : (
-            <Link href={billingPath}>update your payment method</Link>
+            <Link href={billingPath}>update your payment method(s)</Link>
           )}
           {' to ensure your projects remain online.'}
         </React.Fragment>

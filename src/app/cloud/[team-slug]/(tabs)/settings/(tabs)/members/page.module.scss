@@ -8,21 +8,16 @@
   }
 }
 
-.fields {
-  margin-bottom: calc(var(--base) * 2);
+.form {
   display: flex;
   flex-direction: column;
-  gap: calc(var(--base) / 2);
+  gap: var(--base);
 
   @include mid-break {
     margin-bottom: var(--base);
   }
 }
 
-.hr {
-  margin: calc(var(--base) * 1.5) 0;
-
-  @include mid-break {
-    margin: var(--base) 0;
-  }
+.submit {
+  align-self: flex-start;
 }

@@ -15,7 +15,6 @@ import { DropdownMenu } from '@components/DropdownMenu'
 import { Heading } from '@components/Heading'
 import { ModalWindow } from '@components/ModalWindow'
 import { Pill } from '@components/Pill'
-import useDebounce from '@root/utilities/use-debounce'
 import { usePaymentMethods } from './usePaymentMethods'
 
 import classes from './index.module.scss'
@@ -58,9 +57,6 @@ const CardList: React.FC<CreditCardListType> = props => {
       setShowNewCard(!firstCard)
     }
   }, [paymentMethods, newCardID])
-
-  // don't show the loading messages unless it the requests take longer than 500ms
-  const debouncedLoadingPaymentMethods = useDebounce(isLoading, 500)
 
   return (
     <div className={classes.creditCardList}>

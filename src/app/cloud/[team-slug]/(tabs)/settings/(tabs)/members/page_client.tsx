@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { toast } from 'react-toastify'
+import { revalidateCache } from '@cloud/_actions/revalidateCache'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { InviteTeammates } from '@cloud/_components/InviteTeammates'
 import { TeamInvitations } from '@cloud/_components/TeamInvitations'
@@ -109,7 +110,11 @@ export const TeamMembersPage: React.FC<{
       // this is not tied into form state but in the future we should do this
       dispatchClearCount()
 
-      toast.success('Settings updated successfully.')
+      toast.success('Team updated successfully.')
+
+      await revalidateCache({
+        tag: `team_${team?.id}`,
+      })
     },
     [user, team, setTeam],
   )
@@ -121,7 +126,7 @@ export const TeamMembersPage: React.FC<{
         <FormSubmissionError />
         <FormProcessing message="Updating team, one moment..." />
         <TeamMembers team={team} renderHeader={false} />
-        <HR />
+        <HR margin="small" />
         {team?.invitations && team?.invitations?.length > 0 && (
           <React.Fragment>
             <TeamInvitations team={team} />
@@ -129,7 +134,7 @@ export const TeamMembersPage: React.FC<{
           </React.Fragment>
         )}
         <InviteTeammates clearCount={clearCount} />
-        <HR />
+        <HR margin="small" />
         <Submit label="Save" className={classes.submit} />
       </Form>
     </React.Fragment>

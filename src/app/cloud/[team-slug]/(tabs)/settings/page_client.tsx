@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { toast } from 'react-toastify'
+import { revalidateCache } from '@cloud/_actions/revalidateCache'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { UniqueTeamSlug } from '@cloud/_components/UniqueSlug'
 import { Text } from '@forms/fields/Text'
@@ -72,7 +73,12 @@ export const TeamSettingsPage: React.FC<{
       }
 
       setError(undefined)
-      toast.success('Settings updated successfully.')
+
+      toast.success(`Team settings updated successfully.`)
+
+      await revalidateCache({
+        tag: `team_${team?.id}`,
+      })
 
       // if the team slug has changed, redirect to the new URL
       if (response.doc.slug !== team?.slug) {

@@ -58,7 +58,11 @@ export const TrialMessage: React.FC<{
             ) : (
               <Fragment>
                 {` We will attempt to charge `}
-                <Link href={billingHref}>your payment method(s)</Link>
+                {!isOnBillingPage ? (
+                  <Link href={billingHref}>your payment method(s)</Link>
+                ) : (
+                  'the payment method(s) below'
+                )}
                 {` on ${trialEndDate}. `}
                 {!isOnPlanPage ? <Link href={planHref}>Cancel anytime</Link> : 'Cancel anytime'}
                 {'.'}

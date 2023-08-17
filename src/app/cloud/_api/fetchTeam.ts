@@ -114,6 +114,7 @@ export const fetchTeamWithCustomer = async (slug?: string): Promise<TeamWithCust
         'Content-Type': 'application/json',
         ...(token ? { Authorization: `JWT ${token}` } : {}),
       },
+      next: { tags: [`team_${slug}`] },
     },
   )
     ?.then(res => {

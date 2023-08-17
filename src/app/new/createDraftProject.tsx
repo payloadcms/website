@@ -1,3 +1,4 @@
+import { revalidateCache } from '@cloud/_actions/revalidateCache'
 import { Repo } from '@cloud/_api/fetchRepos'
 
 import type { Project, User } from '@root/payload-cloud-types'
@@ -61,6 +62,10 @@ export const createDraftProject = async ({
     const { doc: project, errors: projectErrs } = await projectReq.json()
 
     if (projectReq.ok) {
+      await revalidateCache({
+        tag: 'projects',
+      })
+
       if (typeof onSubmit === 'function') {
         await onSubmit(project)
       }
