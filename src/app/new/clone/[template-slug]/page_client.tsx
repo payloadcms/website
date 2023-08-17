@@ -45,7 +45,7 @@ export const CloneTemplate: React.FC<{
 
   const onDraftCreateProject = useCallback(
     ({ slug: draftProjectSlug, team }) => {
-      toast.success('Template cloned successfully, now redirecting')
+      toast.success('Template cloned successfully, redirecting you to the configuration page...')
 
       router.push(
         `/${cloudSlug}/${

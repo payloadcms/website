@@ -6,8 +6,8 @@ import type { Team } from '@root/payload-cloud-types'
 export interface TeamDrawerProps {
   drawerSlug: string
   team?: Team
-  onCreate?: (team: Team) => void
-  closeDrawer: () => void
+  onCreate?: (team: Team, closeDrawer: () => void) => Promise<void>
+  redirectOnCreate?: boolean
 }
 
 export type TeamDrawerTogglerProps = HTMLAttributes<HTMLButtonElement> & {
@@ -24,7 +24,6 @@ export type UseTeamDrawer = (args?: { team?: Team }) => [
     drawerSlug: string
     isDrawerOpen: boolean
     toggleDrawer: () => void
-    closeDrawer: () => void
     openDrawer: () => void
   },
 ]

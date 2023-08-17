@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react'
 
 import { BlockSpacing } from '@components/BlockSpacing'

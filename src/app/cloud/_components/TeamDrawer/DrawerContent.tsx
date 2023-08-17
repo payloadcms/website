@@ -1,11 +1,14 @@
 import React, { useCallback } from 'react'
+import { toast } from 'react-toastify'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
 import FormSubmissionError from '@forms/FormSubmissionError'
 import Submit from '@forms/Submit'
+import { useRouter } from 'next/navigation'
 
+import { HR } from '@root/app/_components/HR'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import { InviteTeammates } from '../InviteTeammates'
@@ -17,16 +20,18 @@ import classes from './DrawerContent.module.scss'
 export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
   drawerSlug,
   onCreate,
-  closeDrawer,
+  redirectOnCreate,
 }) => {
   const { user, setUser } = useAuth()
+  const router = useRouter()
+
   const [errors, setErrors] = React.useState<{
     message: string
     name: string
     data: { message: string; field: string }[]
   }>()
 
-  const { modalState } = useModal()
+  const { modalState, closeModal } = useModal()
 
   const handleSubmit = useCallback(
     async ({ unflattenedData }) => {
@@ -89,12 +94,22 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
           ],
         })
 
-        if (typeof onCreate === 'function') onCreate(response?.doc)
-
-        closeDrawer()
+        if (redirectOnCreate) {
+          toast.success('Team created successfully, redirecting you to your new team...')
+          router.push(`/cloud/${response?.doc?.slug}`)
+        } else if (typeof onCreate === 'function') {
+          // don't close the drawer here, this is redirects are not async
+          // i.e. if you wanted to redirect yourself in the callback, the drawer would close before the redirect
+          // so instead, pass it back to them to call when/if they want
+          await onCreate(response?.doc, () => {
+            closeModal(drawerSlug)
+          })
+        } else {
+          closeModal(drawerSlug)
+        }
       }
     },
-    [onCreate, user, drawerSlug, closeDrawer, setUser],
+    [onCreate, user, drawerSlug, setUser, closeModal, redirectOnCreate, router],
   )
 
   const isOpen = modalState[drawerSlug]?.isOpen
@@ -118,9 +133,9 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
         <FormSubmissionError />
         <Text path="name" required label="Name" />
         <UniqueTeamSlug initialValue="" />
-        <hr className={classes.hr} />
+        <HR margin="small" />
         <InviteTeammates />
-        <hr className={classes.hr} />
+        <HR margin="small" />
         <div>
           <Submit label="Create Team" className={classes.submit} />
         </div>
