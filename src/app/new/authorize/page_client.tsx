@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useCallback } from 'react'
+import { revalidateCache } from '@cloud/_actions/revalidateCache'
 import { fetchGithubTokenClient } from '@cloud/_api/fetchGitHubToken'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -51,11 +52,12 @@ export const AuthorizePage: React.FC = () => {
           const token = await fetchGithubTokenClient()
 
           if (token) {
-            // NOTE: call `router.refresh()` instead of `router.push(redirectRef.current)`
-            // redirecting was not working no matter how hard I tried
-            // but refreshing the page still works because the redirect is handled on the server
-            // this is obviously not ideal but it's the best I can do for now
-            router.refresh()
+            await revalidateCache({
+              tag: 'user',
+            })
+
+            router.push(redirectRef.current)
+          } else {
             throw new Error(`Code exchange succeeded but token fetch failed`)
           }
         } else {

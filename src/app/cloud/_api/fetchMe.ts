@@ -22,6 +22,7 @@ export const fetchMe = async (args?: {
       Authorization: `JWT ${token}`,
       'Content-Type': 'application/json',
     },
+    next: { tags: ['user'] },
     body: JSON.stringify({
       query: ME_QUERY,
     }),
