@@ -2,6 +2,7 @@
 
 import React, { Fragment, useCallback } from 'react'
 import { toast } from 'react-toastify'
+import { revalidateCache } from '@cloud/_actions/revalidateCache'
 import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text'
@@ -68,7 +69,12 @@ export const SettingsPage: React.FC<{
         })
 
         toast.success('Your account has been updated successfully.')
+
         setFormToShow('account')
+
+        await revalidateCache({
+          tag: 'user',
+        })
       } catch (err) {
         const message = err?.message || `An error occurred while attempting to update your account`
         console.error(message) // eslint-disable-line no-console
