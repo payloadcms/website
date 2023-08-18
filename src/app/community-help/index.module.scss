@@ -1,6 +1,11 @@
 @use '@scss/common' as *;
 
 .communityHelpWrap {
+  height: 100%;
+  position: relative;
+}
+
+.algoliaSearchWrap {
   max-width: 1200px;
   margin-right: calc(var(--base) * 8);
 
