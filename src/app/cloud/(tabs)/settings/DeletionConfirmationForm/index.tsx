@@ -48,7 +48,7 @@ export const DeletionConfirmationForm: React.FC<{
               )
 
               if (req.status === 200) {
-                toast.success('Your account was successfully deleted.')
+                toast.success('Your account has been deleted successfully.')
                 router.push('/logout')
               }
             } catch (e) {

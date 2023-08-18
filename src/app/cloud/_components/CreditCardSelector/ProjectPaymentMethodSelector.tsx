@@ -13,7 +13,7 @@ import { CreditCardSelector } from '.'
 const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
 const Stripe = loadStripe(apiKey)
 
-export const ProjectCardSelector: React.FC<{
+export const ProjectPaymentMethodSelector: React.FC<{
   team: TeamWithCustomer
   project: ProjectWithSubscription
   initialPaymentMethods?: PaymentMethod[] | null
@@ -27,10 +27,10 @@ export const ProjectCardSelector: React.FC<{
           await updateSubscription(team, project, {
             default_payment_method: newPaymentMethod,
           })
-          toast.success('Payment method updated')
+          toast.success('Payment method updated successfully.')
         } catch (error) {
           console.error(error) // eslint-disable-line no-console
-          toast.error('Error updating payment method')
+          toast.error('Error updating payment method.')
         }
       }
     },
