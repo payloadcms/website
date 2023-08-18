@@ -51,6 +51,7 @@ export const deploy = async (args: {
     // if a card was supplied, first create a `SetupIntent` (to confirm it later, see below)
     // confirming card setup now will ensure that the card is valid and has sufficient funds
     // this will ensure that even free trials that have a card selected will be validated
+    // `confirmCardSetup` will throw its own errors, no need to catch them here
     if (checkoutState.paymentMethod) {
       const { setupIntent } = await confirmCardSetup({
         paymentMethod: checkoutState.paymentMethod,
@@ -124,18 +125,12 @@ export const deploy = async (args: {
       // confirm the `SetupIntent` if a payment method was supplied
       // the `setupIntent` has already determined that the card is valid an has sufficient funds
       // free trials will mark the subscription as paid immediately
-      const payment = await confirmCardPayment({
+      await confirmCardPayment({
         subscription,
         elements,
         stripe,
         checkoutState,
       })
-
-      // update the subscription with the payment method
-      // if the customer selected an existing card, it will already be attached
-      // but if this is a new card, it can only be attached after the payment intent is confirmed
-      if (checkoutState.paymentMethod) {
-      }
 
       if (typeof onDeploy === 'function') {
         onDeploy(res.doc)

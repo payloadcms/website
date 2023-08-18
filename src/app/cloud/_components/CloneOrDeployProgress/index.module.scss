@@ -1,6 +1,6 @@
 @use '@scss/common' as *;
 
-.cloneProgress {
+.deployProgress {
     color: var(--theme-elevation-250);
     padding: calc(var(--base) * 2);
     background-color: var(--theme-elevation-50);
@@ -26,7 +26,14 @@
     
     &:local() {
         .dots > div > div {
-            animation: dots 1s infinite;
+            animation: dots infinite;
+            animation-duration: 1.5s;
+        }
+
+        @include small-break {
+            .dots > div > div {
+                animation-duration: 0.75s;
+            }
         }
     }
 }
@@ -34,10 +41,9 @@
 .header {
     display: flex;
     flex-direction: column;
-    align-items: center;
     text-align: center;
+    align-items: center;
     justify-content: center;
-    gap: calc(var(--base) / 2);
     width: 100%;
     flex-grow: 1;
 }
@@ -45,15 +51,26 @@
 .icons {
     display: flex;
     align-items: center;
-    gap: calc(var(--base) / 2);
+    gap: var(--base);
+    margin-bottom: calc(var(--base));
+
+    @include small-break {
+        gap: calc(var(--base) / 2);
+        margin-bottom: var(--base);
+    }
 }
 
 .headerIcon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: calc(var(--base));
-    height: calc(var(--base));
+    width: calc(var(--base) * 1.5);
+    height: calc(var(--base) * 1.5);
+
+    @include small-break {
+        width: var(--base);
+        height: var(--base);
+    }
 }
 
 .dots {
@@ -83,6 +100,21 @@
         &:nth-child(3) > div {
             animation-delay: 0.5s;
         }
+
+        &:nth-child(4) > div {
+            animation-delay: 0.75s;
+        }
+
+        &:nth-child(5) > div {
+            animation-delay: 1s;
+        }
+
+        @include small-break {
+            &:nth-child(4),
+            &:nth-child(5) {
+                display: none;
+            }
+        }
     }
 }
 
@@ -96,4 +128,12 @@
     100% {
         background-color: currentColor;
     }
+}
+
+.label {
+    word-break: break-word;
+}
+
+.progress {
+    margin: 0;
 }

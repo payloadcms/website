@@ -22,7 +22,7 @@ export const FolderIcon: React.FC<IconProps> = props => {
     >
       <path
         d="M11 5h13v17h-24v-20h8l3 3zm-10-2v18h22v-15h-12.414l-3-3h-6.586z"
-        className={classes.stroke}
+        className={classes.fill}
       />
     </svg>
   )

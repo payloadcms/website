@@ -3,6 +3,7 @@
 import React, { useCallback } from 'react'
 import { toast } from 'react-toastify'
 import { Install } from '@cloud/_api/fetchInstalls'
+import { CloneOrDeployProgress } from '@cloud/_components/CloneOrDeployProgress'
 import { useInstallationSelector } from '@cloud/_components/InstallationSelector'
 import { useTeamDrawer } from '@cloud/_components/TeamDrawer'
 import { UniqueRepoName } from '@cloud/_components/UniqueRepoName'
@@ -17,10 +18,10 @@ import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { HR } from '@root/app/_components/HR'
+import { Message } from '@root/app/_components/Message'
 import { createDraftProject } from '@root/app/new/createDraftProject'
 import { PayloadIcon } from '@root/graphics/PayloadIcon'
 import { Team, Template, User } from '@root/payload-cloud-types'
-import { CloneProgress } from './CloneProgress'
 
 import classes from './page.module.scss'
 
@@ -32,7 +33,10 @@ export const CloneTemplate: React.FC<{
   const searchParams = useSearchParams()
   const teamParam = searchParams?.get('team')
   const { template, installs: initialInstalls, user } = props
+  const { templateOwner, templateRepo, templatePath } = template || {}
+
   const router = useRouter()
+  const [cloneError, setCloneError] = React.useState<string | null>(null)
 
   const [InstallationSelector, { value: selectedInstall }] = useInstallationSelector({
     installs: initialInstalls,
@@ -74,9 +78,11 @@ export const CloneTemplate: React.FC<{
           onSubmit: onDraftCreateProject,
           user,
         })
-      } catch (error) {
+      } catch (err) {
         window.scrollTo(0, 0)
-        console.error(error) // eslint-disable-line no-console
+        const msg = err instanceof Error ? err.message : 'An unknown error occurred.'
+        setCloneError(msg)
+        console.error(msg) // eslint-disable-line no-console
       }
     },
     [user, template, selectedInstall, matchedTeam, onDraftCreateProject],
@@ -96,6 +102,7 @@ export const CloneTemplate: React.FC<{
         )}
         <div className={classes.formState}>
           <FormSubmissionError />
+          {cloneError && <Message error={cloneError} />}
         </div>
         <Grid>
           <Cell cols={4} colsM={8} className={classes.sidebarCell}>
@@ -144,10 +151,10 @@ export const CloneTemplate: React.FC<{
               </div>
             </div>
             <HR />
-            <CloneProgress
-              id="clone-progress"
+            <CloneOrDeployProgress
+              type="clone"
               template={template}
-              destination={selectedInstall?.account?.login}
+              selectedInstall={selectedInstall}
             />
           </Cell>
         </Grid>
