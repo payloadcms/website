@@ -67,7 +67,7 @@ export const SettingsPage: React.FC<{
           password: data?.password,
         })
 
-        toast.success('Your account has been updated')
+        toast.success('Your account has been updated successfully.')
         setFormToShow('account')
       } catch (err) {
         const message = err?.message || `An error occurred while attempting to update your account`

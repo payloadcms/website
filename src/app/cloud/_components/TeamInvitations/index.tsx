@@ -55,7 +55,7 @@ export const TeamInvitations: React.FC<{
           if (error) setError(error)
           else {
             setError(null)
-            toast.success('Invitation resent')
+            toast.success('Invitation resent.')
           }
         } else {
           throw new Error('Invalid response from server')

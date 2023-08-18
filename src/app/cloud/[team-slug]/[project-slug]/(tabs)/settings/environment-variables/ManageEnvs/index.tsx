@@ -94,7 +94,7 @@ export const ManageEnv: React.FC<Props> = ({ envs, projectID, env: { key, id } }
           }
 
           if (req.status === 200) {
-            toast.success('Environment variable updated successfully')
+            toast.success('Environment variable updated successfully.')
 
             // TODO: set in state
 

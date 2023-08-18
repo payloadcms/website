@@ -27,7 +27,17 @@
             }
 
             .draft {
-                border-color: var(--theme-elevation-500);
+                border-color: var(--theme-elevation-150);
+            }
+        }
+
+        @include mid-break {    
+            border-color: var(--theme-elevation-300);
+
+            &:local() {
+                .arrowIcon {
+                    opacity: 0;
+                }
             }
         }
     }
@@ -65,6 +75,16 @@
             }
         }
     }
+
+    @include mid-break {
+        &:hover {
+            &:local() {
+                .arrowIcon {
+                    color: var(--theme-error-600);
+                }
+            }
+        }
+    }
 }
 
 .shimmer {
@@ -91,6 +111,10 @@
 .title {
     margin: 0;
     padding-right: calc(var(--base) * 2);
+
+    @include mid-break {
+        padding-right: 0;
+    }
 }
 
 .pill {
@@ -105,6 +129,13 @@
 
 .teamName {
     color: var(--theme-elevation-800);
+
+    & > p {
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;   
+        text-overflow: ellipsis;
+    }
 }
 
 .details {

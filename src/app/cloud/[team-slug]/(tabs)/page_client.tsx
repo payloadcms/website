@@ -136,6 +136,7 @@ export const TeamPage: React.FC<{
                   project={project}
                   className={classes.projectCard}
                   isLoading={isLoading}
+                  showTeamName={false}
                 />
               </Cell>
             ))}

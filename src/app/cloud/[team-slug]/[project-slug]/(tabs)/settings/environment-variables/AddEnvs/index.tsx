@@ -63,7 +63,7 @@ export const AddEnvsComponent: React.FC<AddEnvsProps> = props => {
           }
 
           if (req.status === 200) {
-            toast.success('Environment variable added successfully')
+            toast.success('Environment variable added successfully.')
 
             clearRows()
 

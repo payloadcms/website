@@ -17,8 +17,9 @@ export const ProjectCard: React.FC<{
   project: Project
   className?: string
   isLoading?: boolean | null
+  showTeamName?: boolean
 }> = props => {
-  const { project, className, isLoading } = props
+  const { project, className, isLoading, showTeamName } = props
 
   const { team, status, deploymentBranch, repositoryFullName, stripeSubscriptionStatus } =
     project || {}
@@ -121,11 +122,11 @@ export const ProjectCard: React.FC<{
           <span className={classes.projectName}>{project.name || 'Project Name'}</span>
           <span className={classes.pill}>{pill?.text && <Pill {...pill} />}</span>
         </h6>
-        {team && typeof team === 'object' && (
-          <div className={classes.teamName}>
-            <p>{team?.name || 'Team Name'}</p>
-          </div>
-        )}
+        <div className={classes.teamName}>
+          <p>{`${(showTeamName && team && typeof team === 'object' && `${team?.slug}/`) || ''}${
+            project?.slug
+          }`}</p>
+        </div>
       </div>
       <div className={classes.details}>
         {repositoryFullName && (

@@ -51,7 +51,7 @@ export const usePaymentMethods = (args: {
 
         const newDefault = updatedCustomer?.invoice_settings?.default_payment_method
         setDefault(typeof newDefault === 'string' ? newDefault : newDefault?.id)
-        toast.success(`Default payment method updated successfully`)
+        toast.success(`Default payment method updated successfully.`)
       } catch (err: unknown) {
         const message = (err as Error)?.message || 'Something went wrong'
         console.error(message) // eslint-disable-line no-console
@@ -165,7 +165,7 @@ export const usePaymentMethods = (args: {
           payload: paymentMethodID,
         })
 
-        toast.success(`Payment method deleted successfully`)
+        toast.success(`Payment method deleted successfully.`)
 
         await revalidateCache({
           tag: `team_${team?.slug}`,
@@ -234,7 +234,7 @@ export const usePaymentMethods = (args: {
           payload: newPaymentMethod,
         })
 
-        toast.success(`Payment method added successfully`)
+        toast.success(`Payment method added successfully.`)
 
         await revalidateCache({
           tag: `team_${team?.slug}`,

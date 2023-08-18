@@ -49,7 +49,7 @@ export const InfraOnline: React.FC<{
     }).then(res => {
       if (res.status === 200) {
         reloadDeployments()
-        return toast.success('New deployment triggered successfully')
+        return toast.success('New deployment triggered successfully.')
       }
       if (res.status === 429) {
         return toast.error(

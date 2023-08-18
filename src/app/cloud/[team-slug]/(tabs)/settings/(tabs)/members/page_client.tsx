@@ -40,7 +40,7 @@ export const TeamMembersPage: React.FC<{
       }, 0)
 
       if (!user) {
-        toast.error('You must be logged in to update a team')
+        toast.error('You must be logged in to update a team.')
         return
       }
 

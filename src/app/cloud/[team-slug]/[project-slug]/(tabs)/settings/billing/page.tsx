@@ -2,7 +2,7 @@ import * as React from 'react'
 import { fetchMe } from '@cloud/_api/fetchMe'
 import { fetchPaymentMethods } from '@cloud/_api/fetchPaymentMethods'
 import { fetchProjectAndRedirect, ProjectWithSubscription } from '@cloud/_api/fetchProject'
-import { ProjectCardSelector } from '@cloud/_components/CreditCardSelector/ProjectCardSelector'
+import { ProjectPaymentMethodSelector } from '@cloud/_components/CreditCardSelector/ProjectPaymentMethodSelector'
 import { cloudSlug } from '@cloud/slug'
 import { Text } from '@forms/fields/Text'
 import { Metadata } from 'next'
@@ -89,7 +89,7 @@ export default async ({ params: { 'team-slug': teamSlug, 'project-slug': project
                   </Link>
                   {`.`}
                 </p>
-                <ProjectCardSelector
+                <ProjectPaymentMethodSelector
                   team={team}
                   project={project}
                   initialPaymentMethods={paymentMethods}
