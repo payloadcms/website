@@ -2,14 +2,15 @@
 
 import * as React from 'react'
 import { fetchProjectClient } from '@cloud/_api/fetchProjects'
-import Error from '@forms/Error'
 import Link from 'next/link'
 
 import { Banner } from '@components/Banner'
 import { Gutter } from '@components/Gutter'
+import { Heading } from '@components/Heading'
 import { Label } from '@components/Label'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 import { Indicator } from '@root/app/_components/Indicator'
+import { Message } from '@root/app/_components/Message'
 import { Project, Team } from '@root/payload-cloud-types'
 import { RequireField } from '@root/ts-helpers/requireField'
 import { useGetProjectDeployments } from '@root/utilities/use-cloud-api'
@@ -149,8 +150,8 @@ export const InfraOffline: React.FC<{
           borderHighlight={!failedDeployment}
           pixels
           upperChildren={
-            <React.Fragment>
-              <div className={classes.details}>
+            <div className={classes.content}>
+              <div className={classes.indication}>
                 <div className={classes.indicationLine}>
                   <Indicator
                     status={deploymentStep?.status}
@@ -158,7 +159,6 @@ export const InfraOffline: React.FC<{
                   />
                   <Label>initial Deployment {failedDeployment ? 'failed' : 'in progress'}</Label>
                 </div>
-
                 <div
                   className={[
                     classes.progressBar,
@@ -168,18 +168,26 @@ export const InfraOffline: React.FC<{
                     .filter(Boolean)
                     .join(' ')}
                 />
-
                 {failedDeployment ? (
-                  <div>
-                    <Error
-                      showError
-                      message={`There was an error deploying your app. Push another commit to your repository to re-trigger a deployment.${
-                        buildSuccess || deploySuccess
-                          ? ' Check the logs below for more information.'
-                          : ''
-                      }`}
-                    ></Error>
-                  </div>
+                  <Message
+                    error={
+                      <React.Fragment>
+                        {`There was an error deploying your app. Push another commit `}
+                        <Link
+                          href={`https://github.com/${project?.repositoryFullName}`}
+                          rel="noopener"
+                          target="_blank"
+                        >
+                          to your repository
+                        </Link>
+                        {` to re-trigger a deployment.${
+                          buildSuccess || deploySuccess
+                            ? ' Check the logs below for more information.'
+                            : ''
+                        }`}
+                      </React.Fragment>
+                    }
+                  />
                 ) : (
                   <div className={classes.statusLine}>
                     <p>Status:</p>
@@ -190,11 +198,12 @@ export const InfraOffline: React.FC<{
                   </div>
                 )}
               </div>
-
               {failedDeployment && (!buildSuccess || !deploySuccess) && (
                 <React.Fragment>
                   <div className={classes.tips}>
-                    <h4>Troubleshooting help</h4>
+                    <Heading element="h4" marginTop={false}>
+                      Troubleshooting help
+                    </Heading>
                     {!buildSuccess && (
                       <>
                         <h6>
@@ -215,7 +224,6 @@ export const InfraOffline: React.FC<{
                         </p>
                       </>
                     )}
-
                     {buildSuccess && !deploySuccess && (
                       <>
                         <h6>Required ENV variables</h6>
@@ -238,7 +246,6 @@ export const InfraOffline: React.FC<{
                       </>
                     )}
                   </div>
-
                   <Banner type="default" margin={false}>
                     Still running into trouble? Connect with us on{' '}
                     <a href="https://discord.com/invite/r6sCXqVk3v" target="_blank">
@@ -248,11 +255,10 @@ export const InfraOffline: React.FC<{
                   </Banner>
                 </React.Fragment>
               )}
-            </React.Fragment>
+            </div>
           }
         />
       </Gutter>
-
       {latestDeployment && (
         <DeploymentLogs
           deployment={latestDeployment}

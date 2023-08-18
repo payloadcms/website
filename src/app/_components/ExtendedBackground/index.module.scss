@@ -66,6 +66,10 @@
   padding: calc(var(--base) * 1.5) calc(var(--bg-extension) / 2);
   margin-right: 2px;
   margin-bottom: 2px;
+
+  @include small-break {
+    padding: calc(var(--base) * 1) calc(var(--bg-extension) / 2);
+  }
 }
 
 .lowerBackground {
