@@ -6,11 +6,19 @@
     background-color: var(--theme-elevation-50);
     position: relative;
     border: 0.5px solid var(--theme-border-color);
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+
+    @include mid-break {
+        min-height: 300px;
+        padding: var(--base);
+    }
 }
 
 .scrollTarget {
     position: absolute;
-    top: calc(var(--header-height) * -2);
+    top: calc(var(--header-height) * -3.5);
 }
 
 .active {
@@ -31,6 +39,7 @@
     justify-content: center;
     gap: calc(var(--base) / 2);
     width: 100%;
+    flex-grow: 1;
 }
 
 .icons {
