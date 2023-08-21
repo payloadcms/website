@@ -28,10 +28,10 @@ export const CommunityHelp: React.FC = () => {
   const hasQuery = results.query && results.query.length > 0
 
   return (
-    <>
+    <div className={classes.communityHelpWrap}>
       <Gutter>
         <Grid>
-          <Cell cols={10} colsL={9} className={classes.communityHelpWrap}>
+          <Cell cols={10} colsL={9} className={classes.algoliaSearchWrap}>
             <Heading className={classes.heading} element="h1">
               Community Help
             </Heading>
@@ -102,7 +102,7 @@ export const CommunityHelp: React.FC = () => {
       </Gutter>
 
       <DiscordGitCTA />
-    </>
+    </div>
   )
 }
 

@@ -8,10 +8,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   border-left: 1px solid;
   border-color: var(--theme-elevation-500);
   display: flex;
-
-  @include mid-break {
-    margin-bottom: var(--base);
-  }
 }
 
 .error {

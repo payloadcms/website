@@ -35,8 +35,8 @@ import { HR } from '@root/app/_components/HR'
 import { Message } from '@root/app/_components/Message'
 import { Plan, Project, Team, Template, User } from '@root/payload-cloud-types'
 import { priceFromJSON } from '@root/utilities/price-from-json'
+import { CloneOrDeployProgress } from '../../cloud/_components/CloneOrDeployProgress'
 import { deploy } from './deploy'
-import { DeployProgress } from './DeployProgress'
 import { EnvVars } from './EnvVars'
 import { checkoutReducer, CheckoutState } from './reducer'
 
@@ -441,7 +441,11 @@ const Checkout: React.FC<{
                   </div>
                 </div>
                 <HR />
-                <DeployProgress repositoryFullName={project?.repositoryFullName} />
+                <CloneOrDeployProgress
+                  type="deploy"
+                  repositoryFullName={project?.repositoryFullName}
+                  destination={project?.slug}
+                />
               </div>
             </Cell>
           </Grid>
