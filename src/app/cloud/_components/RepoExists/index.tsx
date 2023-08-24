@@ -86,8 +86,8 @@ export const RepoExists: React.FC<{
   if (!debouncedValue) description = 'Please enter a repository name'
   if (error) description = error
   if (debouncedValue && repoExists === false)
-    description = `'${debouncedValue}' was not found. Please choose another.`
-  if (debouncedValue && repoExists) description = `'${debouncedValue}' was found`
+    description = `Repository '${debouncedValue}' was not found. Please choose another.`
+  if (debouncedValue && repoExists) description = `Repository '${debouncedValue}' was found`
 
   let icon: React.ReactNode = null
   if (isLoading) icon = <Spinner />

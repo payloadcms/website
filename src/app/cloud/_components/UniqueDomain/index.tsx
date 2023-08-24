@@ -116,9 +116,9 @@ export const UniqueDomain: React.FC<{
   } else if (error) {
     description = error
   } else if (!domainIsValid) {
-    description = `'${theValidatedDomain}' is not available. Please choose another.`
+    description = `Domain '${theValidatedDomain}' is not available. Please choose another.`
   } else if (domainIsValid) {
-    description = `'${theValidatedDomain}' is available`
+    description = `Domain '${theValidatedDomain}' is available`
   }
 
   let icon: React.ReactNode = null

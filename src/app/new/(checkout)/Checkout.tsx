@@ -398,30 +398,32 @@ const Checkout: React.FC<{
                       </Accordion>
                     </Fragment>
                   )}
-                  <Accordion label="Payment Information">
-                    <div className={classes.paymentInformation}>
-                      {checkoutState?.freeTrial && (
-                        <Message
-                          margin={false}
-                          success="You will not be charged until your 30 day free trial is over. We’ll remind you 7 days before your trial ends. Cancel anytime."
-                        />
-                      )}
-                      <p className={classes.paymentInformationDescription}>
-                        All projects without a payment method will be automatically deleted after 4
-                        consecutive failed payment attempts within 30 days. If a payment method is
-                        not specified for this project, we will attempt to charge your team's
-                        default payment method (if any).
-                      </p>
-                      {checkoutState?.team && (
-                        <CreditCardSelector
-                          team={checkoutState?.team}
-                          onChange={handleCardChange}
-                          enableInlineSave={false}
-                          initialPaymentMethods={initialPaymentMethods}
-                        />
-                      )}
-                    </div>
-                  </Accordion>
+                  {!checkoutState?.freeTrial && (
+                    <Accordion label="Payment Information">
+                      <div className={classes.paymentInformation}>
+                        {checkoutState?.freeTrial && (
+                          <Message
+                            margin={false}
+                            success="You will not be charged until your 30 day free trial is over. We’ll remind you 7 days before your trial ends. Cancel anytime."
+                          />
+                        )}
+                        <p className={classes.paymentInformationDescription}>
+                          All projects without a payment method will be automatically deleted after
+                          4 consecutive failed payment attempts within 30 days. If a payment method
+                          is not specified for this project, we will attempt to charge your team's
+                          default payment method (if any).
+                        </p>
+                        {checkoutState?.team && (
+                          <CreditCardSelector
+                            team={checkoutState?.team}
+                            onChange={handleCardChange}
+                            enableInlineSave={false}
+                            initialPaymentMethods={initialPaymentMethods}
+                          />
+                        )}
+                      </div>
+                    </Accordion>
+                  )}
                   <Checkbox
                     path="agreeToTerms"
                     label={
