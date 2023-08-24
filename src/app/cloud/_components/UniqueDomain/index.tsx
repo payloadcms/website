@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Text } from '@forms/fields/Text'
 
 import { Spinner } from '@root/app/_components/Spinner'
 import { CheckIcon } from '@root/icons/CheckIcon'
 import { CloseIcon } from '@root/icons/CloseIcon'
-import { Team } from '@root/payload-cloud-types'
+import { Project, Team } from '@root/payload-cloud-types'
 import useDebounce from '@root/utilities/use-debounce'
 import { validatedDomainReducer, ValidatedDomainResult } from './reducer'
 
@@ -12,15 +12,18 @@ import classes from './index.module.scss'
 
 // checks Payload to ensure that the given domain is unique and ensures only the validated domain is used
 // displays a success message if the domain is available, warns the user if the domain is taken
-// `initialValue` should not include the `.payloadcms.app` suffix, this will be added automatically
+// `initialValue` includes the `.payloadcms.app` suffix, so we need to strip that off
 export const UniqueDomain: React.FC<{
-  initialSubdomain: string | undefined
+  initialValue: Project['defaultDomain']
   team: Team
   path?: 'defaultDomain'
   label?: string
   id: string | undefined
-}> = ({ initialSubdomain, label = 'Default domain', id, path = 'defaultDomain', team }) => {
-  const [value, setValue] = React.useState<string | undefined>(initialSubdomain)
+}> = ({ initialValue, label = 'Default domain', id, path = 'defaultDomain', team }) => {
+  const initialSubdomain = useRef<string | undefined>(initialValue?.replace('.payloadcms.app', ''))
+
+  const [value, setValue] = React.useState<string | undefined>(initialSubdomain.current)
+
   const prevValue = React.useRef<string | undefined>(undefined)
   const debouncedValue = useDebounce(value, 100)
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -131,7 +134,7 @@ export const UniqueDomain: React.FC<{
       <Text
         className={classes.input}
         label={label}
-        initialValue={initialSubdomain}
+        initialValue={initialSubdomain.current}
         onChange={setValue}
         showError={Boolean(error || !domainIsValid)}
         icon={icon}

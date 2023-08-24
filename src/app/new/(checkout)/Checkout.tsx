@@ -339,7 +339,7 @@ const Checkout: React.FC<{
                           />
                           <RepoExists initialValue={project?.repositoryFullName} />
                           <UniqueDomain
-                            initialSubdomain={project?.defaultDomain}
+                            initialValue={project?.defaultDomain}
                             team={checkoutState?.team}
                             id={project?.id}
                           />
@@ -390,11 +390,6 @@ const Checkout: React.FC<{
                           <BranchSelector
                             repositoryFullName={project?.repositoryFullName}
                             initialValue={project?.deploymentBranch}
-                          />
-                          <UniqueDomain
-                            initialSubdomain={project?.slug}
-                            team={checkoutState?.team}
-                            id={project?.id}
                           />
                         </div>
                       </Accordion>

@@ -5,6 +5,7 @@ import type { Endpoints } from '@octokit/types'
 import { Spinner } from '@root/app/_components/Spinner'
 import { CheckIcon } from '@root/icons/CheckIcon'
 import { CloseIcon } from '@root/icons/CloseIcon'
+import { Project } from '@root/payload-cloud-types'
 import useDebounce from '@root/utilities/use-debounce'
 
 import classes from './index.module.scss'
@@ -16,10 +17,10 @@ type GitHubResponse = Endpoints['GET /repos/{owner}/{repo}']['response']
 // warns the user if the name is taken
 export const UniqueRepoName: React.FC<{
   repositoryOwner?: string // i.e. `trouble`
-  initialValue?: string
+  initialValue?: Project['repositoryFullName']
   onChange?: (value: string) => void
 }> = props => {
-  const { repositoryOwner, initialValue = 'main', onChange } = props
+  const { repositoryOwner, initialValue = '', onChange } = props
   const [value, setValue] = React.useState(initialValue)
   const debouncedValue = useDebounce(value, 200)
   const [isLoading, setIsLoading] = useState<boolean>(false)
