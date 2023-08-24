@@ -1,0 +1,86 @@
+@use "@scss/common" as *;
+
+.videoDrawerToggler {
+  @include btnReset;
+  width: 100%;
+  margin: calc(var(--base) * .5) 0 calc(var(--base) * 1.5) 0;
+  background: var(--theme-elevation-150);
+  transition: all 200ms ease-in-out;
+  border-bottom: 2px solid var(--theme-elevation-700);
+
+  &:hover {
+    background: var(--theme-elevation-200);
+    cursor: pointer;
+
+    .playIcon {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+  }
+
+  .wrap {
+    display: flex;
+  }
+
+  .thumbnail {
+    position: relative;
+    flex-shrink: 0;
+    height: auto;
+    width: calc(var(--base) * 6);
+  }
+
+  .playIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 200ms ease-in-out;
+  }
+
+  .arrow {
+    margin-left: var(--base);
+  }
+
+  .labelWrap {
+    width: 100%;
+    padding: calc(var(--base)*1.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  @include large-break {
+    .labelWrap {
+      padding: calc(var(--base) * 1);
+    }
+  }
+
+  @include mid-break {
+    .thumbnail {
+      width: calc(var(--base) * 4);
+    }
+  }
+
+  @include extra-small-break {
+    .labelWrap {
+      display: inline-block;
+    }
+
+    .arrow { 
+      margin-left: calc(var(--base) * 0.5);
+      width: calc(var(--base) * 0.5);
+      height: calc(var(--base) * 0.5);
+    }
+  }
+}
+
+html[data-theme="light"] {
+  .videoDrawerToggler {
+    background: var(--theme-elevation-100);
+    border-bottom: 2px solid var(--theme-elevation-400);
+
+    &:hover {
+      background: var(--theme-elevation-150);
+    }
+  }
+}
