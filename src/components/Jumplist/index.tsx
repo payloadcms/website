@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useReducer, useRef, useSta
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+import { ChainLinkIcon } from '@root/icons/ChainLinkIcon'
 import { IContext, NodeProps, Props, Reducer } from './types'
 
 import classes from './index.module.scss'
@@ -39,7 +40,7 @@ export const Jumplist: React.FC<Props> = ({ list, className, injectProps }) => {
     <ul className={className}>
       {list.map(({ id, Component }) => (
         <li key={id}>
-          <Link href={`${pathname}/#${id}`} scroll={false} replace>
+          <Link href={`${pathname}/#${id}`} replace>
             <Component active={items[id] || lastActive === id} {...(injectProps || {})} />
           </Link>
         </li>
@@ -86,9 +87,9 @@ export const JumplistNode: React.FC<NodeProps> = ({ children, id, type }) => {
   const Element: any = elements[type]
 
   return (
-    <Link href={`${pathname}/#${id}`} scroll={false} replace className={classes.node} id={id}>
+    <Link href={`${pathname}/#${id}`} replace className={classes.node} id={id}>
       <Element ref={ref}>
-        <div className={classes.hashMark}>#</div>
+        <ChainLinkIcon size="large" className={classes.linkedHeading} />
         {children}
       </Element>
     </Link>
