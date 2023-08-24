@@ -1,0 +1,25 @@
+@use "@scss/common" as *;
+
+.uniqueRepoName {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) / 2);
+}
+
+.error {
+  color: var(--theme-error-500)
+}
+
+.success {
+  color: var(--theme-text-success);
+}
+
+.description {
+  @include small;
+}
+
+.check {
+  path {
+    stroke: var(--theme-text-success);
+  }
+}

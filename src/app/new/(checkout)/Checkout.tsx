@@ -9,9 +9,9 @@ import { BranchSelector } from '@cloud/_components/BranchSelector'
 import { CreditCardSelector } from '@cloud/_components/CreditCardSelector'
 import { useInstallationSelector } from '@cloud/_components/InstallationSelector'
 import { PlanSelector } from '@cloud/_components/PlanSelector'
+import { RepoExists } from '@cloud/_components/RepoExists'
 import { TeamSelector } from '@cloud/_components/TeamSelector'
 import { UniqueDomain } from '@cloud/_components/UniqueDomain'
-import { UniqueRepoName } from '@cloud/_components/UniqueRepoName'
 import { UniqueProjectSlug } from '@cloud/_components/UniqueSlug'
 import { cloudSlug } from '@cloud/slug'
 import { Cell, Grid } from '@faceless-ui/css-grid'
@@ -337,11 +337,7 @@ const Checkout: React.FC<{
                             ]}
                             required
                           />
-                          <Text
-                            disabled
-                            initialValue={project?.repositoryFullName}
-                            label="Repository name"
-                          />
+                          <RepoExists initialValue={project?.repositoryFullName} />
                           <UniqueDomain
                             initialSubdomain={project?.defaultDomain}
                             team={checkoutState?.team}
