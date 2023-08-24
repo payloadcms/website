@@ -20,6 +20,15 @@ export const ProjectBillingMessages: React.FC<{
     project?.stripeSubscriptionStatus === 'trialing' && project?.stripeSubscription?.trial_end,
   )
 
+  // check if this plan is free, and do not show a message if it is
+  // some plans are have pricing that is different than what is offered in the UI
+  // so instead of checking `project.plan` we check the amount of the `stripeSubscription`
+  const isFreeTier = !project.stripeSubscription?.plan?.amount // could be `0` or `null`
+
+  if (isFreeTier) {
+    return null
+  }
+
   const hasBadSubscriptionStatus = hasBadSubscription(project?.stripeSubscriptionStatus)
 
   const hasPaymentError = !projectHasPaymentMethod(project) && !teamHasDefaultPaymentMethod(team)
