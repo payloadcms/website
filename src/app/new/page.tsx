@@ -7,7 +7,9 @@ import { NewProjectBlock } from '@root/app/_components/NewProject'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { RenderParams } from '../_components/RenderParams'
 
-export default async function NewProjectPage() {
+export const dynamic = 'force-dynamic'
+
+export default async function NewProjectPage({ searchParams: { team: teamSlug } }) {
   const templates = await fetchTemplates()
 
   return (
@@ -15,7 +17,7 @@ export default async function NewProjectPage() {
       <Gutter>
         <RenderParams />
       </Gutter>
-      <NewProjectBlock headingElement="h1" templates={templates} />
+      <NewProjectBlock headingElement="h1" templates={templates} teamSlug={teamSlug} />
     </Fragment>
   )
 }
