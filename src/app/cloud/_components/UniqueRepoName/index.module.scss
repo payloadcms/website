@@ -11,7 +11,7 @@
 }
 
 .success {
-  color: var(--theme-success-500)
+  color: var(--theme-text-success);
 }
 
 .description {
@@ -20,6 +20,6 @@
 
 .check {
   path {
-    stroke: var(--theme-success-500);
+    stroke: var(--theme-text-success);
   }
 }
