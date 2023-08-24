@@ -61,7 +61,7 @@ const Checkout: React.FC<{
   initialPaymentMethods?: PaymentMethod[] | null
 }> = props => {
   const { project, plans, installs, templates, user, initialPaymentMethods } = props
-  const isClone = Boolean(!project?.repositoryID)
+  const isClone = Boolean(project?.template)
   const stripe = useStripe()
   const elements = useElements()
 
@@ -341,6 +341,11 @@ const Checkout: React.FC<{
                             repositoryOwner={selectedInstall?.account?.login}
                             initialValue={project?.repositoryName}
                           />
+                          <UniqueDomain
+                            initialSubdomain={project?.slug}
+                            team={checkoutState?.team}
+                            id={project?.id}
+                          />
                           <Checkbox
                             path="makePrivate"
                             label="Create private Git repository"
@@ -350,53 +355,57 @@ const Checkout: React.FC<{
                       )}
                     </div>
                   </Accordion>
-                  <Accordion label={<p>Build Settings</p>}>
-                    <div className={classes.buildSettings}>
-                      <Text
-                        label="Root Directory"
-                        placeholder="/"
-                        path="rootDirectory"
-                        initialValue={project?.rootDirectory}
-                        required
-                      />
-                      <Text
-                        label="Install Command"
-                        path="installScript"
-                        placeholder="yarn install"
-                        initialValue={project?.installScript}
-                        required
-                        description="Example: `yarn install` or `npm install`"
-                      />
-                      <Text
-                        label="Build Command"
-                        path="buildScript"
-                        placeholder="yarn build"
-                        initialValue={project?.buildScript}
-                        required
-                        description="Example: `yarn build` or `npm run build`"
-                      />
-                      <Text
-                        label="Serve Command"
-                        path="runScript"
-                        placeholder="yarn serve"
-                        initialValue={project?.runScript}
-                        required
-                        description="Example: `yarn serve` or `npm run serve`"
-                      />
-                      <BranchSelector
-                        repositoryFullName={project?.repositoryFullName}
-                        initialValue={project?.deploymentBranch}
-                      />
-                      <UniqueDomain
-                        initialSubdomain={project?.slug}
-                        team={checkoutState?.team}
-                        id={project?.id}
-                      />
-                    </div>
-                  </Accordion>
-                  <Accordion label="Environment Variables">
-                    <EnvVars className={classes.envVars} />
-                  </Accordion>
+                  {!isClone && (
+                    <Fragment>
+                      <Accordion label={<p>Build Settings</p>}>
+                        <div className={classes.buildSettings}>
+                          <Text
+                            label="Root Directory"
+                            placeholder="/"
+                            path="rootDirectory"
+                            initialValue={project?.rootDirectory}
+                            required
+                          />
+                          <Text
+                            label="Install Command"
+                            path="installScript"
+                            placeholder="yarn install"
+                            initialValue={project?.installScript}
+                            required
+                            description="Example: `yarn install` or `npm install`"
+                          />
+                          <Text
+                            label="Build Command"
+                            path="buildScript"
+                            placeholder="yarn build"
+                            initialValue={project?.buildScript}
+                            required
+                            description="Example: `yarn build` or `npm run build`"
+                          />
+                          <Text
+                            label="Serve Command"
+                            path="runScript"
+                            placeholder="yarn serve"
+                            initialValue={project?.runScript}
+                            required
+                            description="Example: `yarn serve` or `npm run serve`"
+                          />
+                          <BranchSelector
+                            repositoryFullName={project?.repositoryFullName}
+                            initialValue={project?.deploymentBranch}
+                          />
+                          <UniqueDomain
+                            initialSubdomain={project?.slug}
+                            team={checkoutState?.team}
+                            id={project?.id}
+                          />
+                        </div>
+                      </Accordion>
+                      <Accordion label="Environment Variables">
+                        <EnvVars className={classes.envVars} />
+                      </Accordion>
+                    </Fragment>
+                  )}
                   <Accordion label="Payment Information">
                     <div className={classes.paymentInformation}>
                       {checkoutState?.freeTrial && (
