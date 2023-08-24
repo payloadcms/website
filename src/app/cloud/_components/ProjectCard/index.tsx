@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Pill } from '@components/Pill'
 import { GitHubIcon } from '@root/graphics/GitHub'
-import { GithubIcon } from '@root/graphics/GithubIcon'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { BranchIcon } from '@root/icons/BranchIcon'
 import { Project } from '@root/payload-cloud-types'
@@ -14,7 +13,7 @@ import { Project } from '@root/payload-cloud-types'
 import classes from './index.module.scss'
 
 export const ProjectCard: React.FC<{
-  project: Project
+  project: Partial<Project>
   className?: string
   isLoading?: boolean | null
   showTeamName?: boolean
@@ -74,7 +73,7 @@ export const ProjectCard: React.FC<{
   if (isStandard && !isTrialing && !isDraft) {
     pill = {
       text: 'Standard',
-      color: 'success',
+      color: 'default',
     }
   }
 

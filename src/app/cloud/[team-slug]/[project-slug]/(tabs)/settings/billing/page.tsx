@@ -10,6 +10,7 @@ import Link from 'next/link'
 
 import { Heading } from '@components/Heading'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
+import { Message } from '@root/app/_components/Message'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'
@@ -40,6 +41,11 @@ export default async ({ params: { 'team-slug': teamSlug, 'project-slug': project
   const paymentMethods = await fetchPaymentMethods({
     team,
   })
+
+  // check if this plan is free, and do not show a message if it is
+  // some plans are have pricing that is different than what is offered in the UI
+  // so instead of checking `project.plan` we check the amount of the `stripeSubscription`
+  const isFreeTier = !project.stripeSubscription?.plan?.amount // could be `0` or `null`
 
   return (
     <MaxWidth>
@@ -82,6 +88,11 @@ export default async ({ params: { 'team-slug': teamSlug, 'project-slug': project
                 <Heading marginBottom={false} element="h6">
                   Payment Method
                 </Heading>
+                {isFreeTier && (
+                  <Message
+                    success={`This project is on a free tier. No billing information is required.`}
+                  />
+                )}
                 <p className={classes.description}>
                   {`Select which card to use for this project. If your payment fails, we will attempt to bill your team's default payment method (if any). To set your team's default payment method or manage all payment methods on file, please visit the `}
                   <Link href={`/${cloudSlug}/${team.slug}/settings/billing`} prefetch={false}>

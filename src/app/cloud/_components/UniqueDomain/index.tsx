@@ -14,11 +14,11 @@ import classes from './index.module.scss'
 // displays a success message if the domain is available, warns the user if the domain is taken
 // `initialValue` should not include the `.payloadcms.app` suffix, this will be added automatically
 export const UniqueDomain: React.FC<{
-  initialSubdomain?: string
-  team?: Team
+  initialSubdomain: string | undefined
+  team: Team
   path?: 'defaultDomain'
   label?: string
-  id?: string
+  id: string | undefined
 }> = ({ initialSubdomain, label = 'Default domain', id, path = 'defaultDomain', team }) => {
   const [value, setValue] = React.useState<string | undefined>(initialSubdomain)
   const prevValue = React.useRef<string | undefined>(undefined)

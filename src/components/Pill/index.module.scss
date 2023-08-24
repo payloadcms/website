@@ -3,7 +3,6 @@
 .pill {
   display: flex;
   align-items: center;
-  background-color: var(--theme-success-100);
   color: var(--color-success-500);
   border-radius: 19px;
   padding: 4px calc(var(--base) * 0.5);
@@ -43,7 +42,6 @@
 
 :global([data-theme="light"]) {
   .pill {
-    background-color: var(--theme-success-450);
     color: black;
   }
 

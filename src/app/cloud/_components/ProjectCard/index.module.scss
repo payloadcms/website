@@ -1,6 +1,12 @@
 @use '@scss/common' as *;
 
 .project {
+    --background-color: var(--theme-elevation-50);
+    --border-color: var(--theme-elevation-50);
+    --border-color-hover: var(--theme-elevation-350);
+    --icon-color: currentColor;
+    --secondary-text-color: var(--theme-elevation-800);
+
     width: 100%;
     height: 100%;
     // match the loading card height
@@ -9,8 +15,9 @@
     flex-direction: column;
     padding: calc(var(--base) * 2);
     border: 0.5px solid;
-    border-color: var(--theme-elevation-150);
-    background-color: var(--theme-elevation-50);
+    // no border for the default card until hover, match background color
+    border-color: var(--border-color);
+    background-color: var(--background-color);
     position: relative;
     text-decoration: none;
 
@@ -19,20 +26,17 @@
     }
 
     &:hover {
-        border-color: var(--theme-elevation-300);
+        border-color: var(--border-color-hover);
 
         &:local() {
             .arrowIcon {
                 opacity: 1;
             }
-
-            .draft {
-                border-color: var(--theme-elevation-150);
-            }
         }
 
+        // turn off hover effects on mobile
         @include mid-break {    
-            border-color: var(--theme-elevation-300);
+            border-color: var(--border-color);
 
             &:local() {
                 .arrowIcon {
@@ -48,43 +52,38 @@
 }
 
 .draft {
-    background-color: var(--theme-elevation-150);
-    border-color: var(--theme-elevation-250);
+    --background-color: var(--theme-elevation-0);
+    --border-color: var(--theme-elevation-200);
+    --border-color-hover: var(--theme-elevation-500);
+    --secondary-text-color: var(--theme-elevation-500);
+}
 
-    &:local() {
-        .details {
-            color: var(--theme-elevation-500);
-        }
+:global([data-theme="dark"]) {
+    .project {
+        --background-color: var(--theme-elevation-50);
+        --border-color: var(--theme-elevation-50);
+        --border-color-hover: var(--theme-elevation-250);
+    }
 
-        .teamName {
-            color: var(--theme-elevation-500);
-        }
+    .draft {
+        --background-color: var(--theme-elevation-100);
+        --border-color: var(--theme-elevation-200);
+        --border-color-hover: var(--theme-elevation-250);
+    }
+
+    .error {
+        --background-color: var(--theme-error-50);
+        --border-color: var(--theme-error-200);
+        --border-color-hover: var(--theme-error-250);
+        --icon-color: var(--theme-error-800);
     }
 }
 
 .error {
-    border-color: var(--theme-error-200);
-    background-color: var(--theme-error-50);
-
-    &:hover {
-        border-color: var(--theme-error-300);
-
-        &:local() {
-            .arrowIcon {
-                color: var(--theme-error-600);
-            }
-        }
-    }
-
-    @include mid-break {
-        &:hover {
-            &:local() {
-                .arrowIcon {
-                    color: var(--theme-error-600);
-                }
-            }
-        }
-    }
+    --background-color: var(--theme-error-50);
+    --border-color: var(--theme-error-200);
+    --border-color-hover: var(--theme-error-500);
+    --icon-color: var(--theme-error-600);
 }
 
 .shimmer {
@@ -128,7 +127,7 @@
 }
 
 .teamName {
-    color: var(--theme-elevation-800);
+    color: var(--secondary-text-color);
 
     & > p {
         margin: 0;
@@ -139,7 +138,7 @@
 }
 
 .details {
-    color: var(--theme-elevation-800);
+    color: var(--secondary-text-color);
     margin-top: calc(var(--base) / 2);
     display: flex;
     flex-direction: column;
@@ -161,7 +160,7 @@
     }
 }
 
-.githubIcon ,
+.githubIcon,
 .branchIcon {
     display: flex;
     align-items: center;
@@ -172,6 +171,7 @@
 }
 
 .arrowIcon {
+    color: var(--icon-color);
     opacity: 0;
     position: absolute;
     top: calc(var(--base) * 2);

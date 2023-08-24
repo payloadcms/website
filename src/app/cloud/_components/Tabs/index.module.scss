@@ -13,7 +13,7 @@
     left: calc(-1 * var(--gutter-h));
     height: 1px;
     bottom: 3px;
-    background-color: var(--theme-elevation-200)
+    background-color: var(--theme-border-color);
   }
 
   @include mid-break {

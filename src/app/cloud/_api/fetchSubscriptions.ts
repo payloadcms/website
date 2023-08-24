@@ -8,6 +8,7 @@ export interface Subscription {
   plan: {
     id: string
     nickname: string
+    amount: number
   }
   status: string
   trial_end: number
