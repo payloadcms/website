@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { ProjectCard } from '@cloud/_components/ProjectCard'
 import { TeamSelector } from '@cloud/_components/TeamSelector'
 import { Cell, Grid } from '@faceless-ui/css-grid'
@@ -38,9 +38,13 @@ export const CloudPage: React.FC<{
   const [error, setError] = React.useState<string>('')
   const [enableSearch, setEnableSearch] = React.useState<boolean>(false)
   const requestRef = React.useRef<NodeJS.Timeout | null>(null)
+
   // on initial load, we'll know whether or not to render the `NewProjectBlock`
   // this will prevent subsequent searches from showing the `NewProjectBlock`
-  const [renderNewProjectBlock] = React.useState<boolean>(initialState?.totalDocs === 0)
+  // this will also prevent content flash if using `projectRes.docs.length` to conditionally render
+  const [renderNewProjectBlock, setRenderNewProjectBlock] = React.useState<boolean>(
+    initialState?.totalDocs === 0,
+  )
 
   useEffect(() => {
     // keep a timer reference so that we can cancel the old request
@@ -90,6 +94,7 @@ export const CloudPage: React.FC<{
               await new Promise(resolve => setTimeout(resolve, delay - diff))
             }
 
+            setRenderNewProjectBlock(!debouncedSearch && projectsRes?.totalDocs === 0)
             setResult(projectsRes)
             setIsLoading(false)
           }, 0)
@@ -112,7 +117,7 @@ export const CloudPage: React.FC<{
     typeof team === 'string' ? team === selectedTeam : team?.id === selectedTeam,
   )?.team as Team //eslint-disable-line function-paren-newline
 
-  if (renderNewProjectBlock) {
+  if (initialState?.totalDocs === 0) {
     return (
       <NewProjectBlock
         heading={
@@ -127,69 +132,86 @@ export const CloudPage: React.FC<{
   }
 
   return (
-    <Gutter>
-      {error && <p className={classes.error}>{error}</p>}
-      <div className={classes.controls}>
-        <div className={classes.controlsBG} />
-        <Text
-          placeholder="Search projects"
-          initialValue={search}
-          onChange={(value: string) => {
-            setSearch(value)
-            setEnableSearch(true)
-          }}
-          className={classes.search}
-          fullWidth={false}
-        />
-        <TeamSelector
-          onChange={incomingTeam => {
-            setSelectedTeam(incomingTeam?.id)
-            setEnableSearch(true)
-          }}
-          className={classes.teamSelector}
-          initialValue="none"
-          allowEmpty
-          label={false}
-          user={user}
-        />
-        <Button
-          appearance="primary"
-          href={`/new${matchedTeam?.slug ? `?team=${matchedTeam?.slug}` : ''}`}
-          label="New project"
-          el="link"
-          className={classes.createButton}
-        />
-      </div>
-      <div className={classes.content}>
-        {!isLoading && debouncedSearch && result?.totalDocs === 0 ? (
-          <p className={classes.description}>
-            {"Your search didn't return any results, please try again."}
-          </p>
-        ) : (
-          <Grid className={classes.projects}>
-            {cardArray?.map((project, index) => (
-              <Cell key={index} cols={4}>
-                <ProjectCard
-                  project={project}
-                  className={classes.projectCard}
-                  isLoading={isLoading}
-                />
-              </Cell>
-            ))}
-          </Grid>
-        )}
-      </div>
-      {result?.totalPages > 1 && (
-        <Pagination
-          className={classes.pagination}
-          page={result?.page}
-          totalPages={result?.totalPages}
-          setPage={page => {
-            setPage(page)
-            setEnableSearch(true)
-          }}
+    <Fragment>
+      <Gutter>
+        {error && <p className={classes.error}>{error}</p>}
+        <div className={classes.controls}>
+          <div className={classes.controlsBG} />
+          <Text
+            placeholder="Search projects"
+            initialValue={search}
+            onChange={(value: string) => {
+              setSearch(value)
+              setEnableSearch(true)
+            }}
+            className={classes.search}
+            fullWidth={false}
+          />
+          <TeamSelector
+            onChange={incomingTeam => {
+              setSelectedTeam(incomingTeam?.id)
+              setEnableSearch(true)
+            }}
+            className={classes.teamSelector}
+            initialValue="none"
+            allowEmpty
+            label={false}
+            user={user}
+          />
+          <Button
+            appearance="primary"
+            href={`/new${matchedTeam?.slug ? `?team=${matchedTeam?.slug}` : ''}`}
+            label="New project"
+            el="link"
+            className={classes.createButton}
+          />
+        </div>
+      </Gutter>
+      {renderNewProjectBlock && !isLoading && (
+        <NewProjectBlock
+          heading={
+            selectedTeam ? `Team '${matchedTeam?.name}' has no projects` : `You have no projects`
+          }
+          cardLeader="New"
+          headingElement="h4"
+          teamSlug={matchedTeam?.slug}
+          templates={templates}
         />
       )}
-    </Gutter>
+      {(!renderNewProjectBlock || isLoading) && (
+        <Gutter>
+          <div className={classes.content}>
+            {!isLoading && debouncedSearch && result?.totalDocs === 0 ? (
+              <p className={classes.description}>
+                {"Your search didn't return any results, please try again."}
+              </p>
+            ) : (
+              <Grid className={classes.projects}>
+                {cardArray?.map((project, index) => (
+                  <Cell key={index} cols={4}>
+                    <ProjectCard
+                      project={project}
+                      className={classes.projectCard}
+                      isLoading={isLoading}
+                    />
+                  </Cell>
+                ))}
+              </Grid>
+            )}
+          </div>
+          {result?.totalPages > 1 && (
+            <Pagination
+              className={classes.pagination}
+              page={result?.page}
+              totalPages={result?.totalPages}
+              setPage={page => {
+                setPage(page)
+                setEnableSearch(true)
+              }}
+            />
+          )}
+        </Gutter>
+      )}
+    </Fragment>
   )
 }
