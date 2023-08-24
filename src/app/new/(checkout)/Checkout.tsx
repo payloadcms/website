@@ -342,7 +342,7 @@ const Checkout: React.FC<{
                             initialValue={project?.repositoryName}
                           />
                           <UniqueDomain
-                            initialSubdomain={project?.slug}
+                            initialSubdomain={project?.defaultDomain}
                             team={checkoutState?.team}
                             id={project?.id}
                           />
