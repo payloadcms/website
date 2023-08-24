@@ -20,7 +20,7 @@ export const Breadcrumbs: React.FC<Props> = ({ items, ellipsis = true }) => {
     <EdgeScroll element="nav" className={classes.breadcrumbs}>
       {items?.map((item, index) => {
         const isLast = index === items.length - 1
-        const doEllipsis = ellipsis && (item?.label || '')?.length > 8
+        const doEllipsis = ellipsis && (item?.label || '')?.length > 8 && !isLast
 
         if (item?.url && typeof item.url === 'string' && !isLast) {
           return (
