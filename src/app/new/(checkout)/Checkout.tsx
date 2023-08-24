@@ -337,9 +337,10 @@ const Checkout: React.FC<{
                             ]}
                             required
                           />
-                          <UniqueRepoName
-                            repositoryOwner={selectedInstall?.account?.login}
-                            initialValue={project?.repositoryName}
+                          <Text
+                            disabled
+                            initialValue={project?.repositoryFullName}
+                            label="Repository name"
                           />
                           <UniqueDomain
                             initialSubdomain={project?.defaultDomain}
