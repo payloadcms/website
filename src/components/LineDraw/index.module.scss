@@ -4,7 +4,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .lineDraw {
   position: relative;
-  background-color: var(--theme-elevation-250);
+  background-color: var(--theme-border-color);
   height: 1px;
   width: 100%;
   position: absolute;

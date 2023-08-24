@@ -387,7 +387,11 @@ const Checkout: React.FC<{
                         repositoryFullName={project?.repositoryFullName}
                         initialValue={project?.deploymentBranch}
                       />
-                      <UniqueDomain initialSubdomain={project?.slug} team={checkoutState?.team} />
+                      <UniqueDomain
+                        initialSubdomain={project?.slug}
+                        team={checkoutState?.team}
+                        id={project?.id}
+                      />
                     </div>
                   </Accordion>
                   <Accordion label="Environment Variables">
