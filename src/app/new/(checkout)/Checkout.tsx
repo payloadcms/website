@@ -7,7 +7,6 @@ import { Install } from '@cloud/_api/fetchInstalls'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { BranchSelector } from '@cloud/_components/BranchSelector'
 import { CreditCardSelector } from '@cloud/_components/CreditCardSelector'
-import { useInstallationSelector } from '@cloud/_components/InstallationSelector'
 import { PlanSelector } from '@cloud/_components/PlanSelector'
 import { RepoExists } from '@cloud/_components/RepoExists'
 import { TeamSelector } from '@cloud/_components/TeamSelector'
@@ -104,13 +103,6 @@ const Checkout: React.FC<{
     }
   }, [])
 
-  const [InstallationSelector, { value: selectedInstall, error: installsError }] =
-    useInstallationSelector({
-      initialInstallID: project?.installID,
-      permissions: isClone ? 'write' : undefined,
-      installs,
-    })
-
   const onDeploy = useCallback(
     (project: Project) => {
       const redirectURL =
@@ -173,10 +165,9 @@ const Checkout: React.FC<{
         stripe,
         elements,
         unflattenedData,
-        installID: selectedInstall?.id.toString() || project?.installID,
       })
     },
-    [checkoutState, onDeploy, project, selectedInstall, user, stripe, elements],
+    [checkoutState, onDeploy, project, user, stripe, elements],
   )
 
   return (
@@ -192,23 +183,26 @@ const Checkout: React.FC<{
         <Gutter>
           <div className={classes.formState}>
             <FormSubmissionError />
-            {(installsError || errorDeleting) && <Message error={installsError || errorDeleting} />}
+            {errorDeleting && <Message error={errorDeleting} />}
           </div>
           <Grid>
             <Cell cols={3} colsM={8} className={classes.sidebarCell}>
               <div className={classes.sidebar}>
                 <Fragment>
                   <div className={classes.installationSelector}>
-                    {isClone && (
-                      <InstallationSelector
-                        description={`Select where to create this repository.`}
-                      />
-                    )}
-                    {!isClone && (
-                      <div>
-                        <Text label="Repository" value={project?.repositoryFullName} disabled />
-                      </div>
-                    )}
+                    <TeamSelector
+                      onChange={handleTeamChange}
+                      className={classes.teamSelector}
+                      initialValue={
+                        typeof project?.team === 'object' &&
+                        project?.team !== null &&
+                        'id' in project?.team
+                          ? project?.team?.id
+                          : ''
+                      }
+                      required
+                      user={user}
+                    />
                   </div>
                   <div className={classes.totalPriceSection}>
                     <Label label="Total cost" htmlFor="" />
@@ -302,49 +296,34 @@ const Checkout: React.FC<{
                         projectID={project?.id}
                         validateOnInit={true}
                       />
-                      <TeamSelector
-                        onChange={handleTeamChange}
-                        className={classes.teamSelector}
-                        initialValue={
-                          typeof project?.team === 'object' &&
-                          project?.team !== null &&
-                          'id' in project?.team
-                            ? project?.team?.id
-                            : ''
-                        }
-                        required
-                        user={user}
-                      />
                       {isClone && (
-                        <Fragment>
-                          <Select
-                            label="Template"
-                            path="template"
-                            disabled={Boolean(project?.repositoryID)}
-                            initialValue={
-                              typeof project?.template === 'object' &&
-                              project?.template !== null &&
-                              'id' in project?.template
-                                ? project?.template?.id
-                                : project?.template
-                            }
-                            options={[
-                              { label: 'None', value: '' },
-                              ...(templates || [])?.map(template => ({
-                                label: template.name || '',
-                                value: template.id,
-                              })),
-                            ]}
-                            required
-                          />
-                          <RepoExists initialValue={project?.repositoryFullName} />
-                          <UniqueDomain
-                            initialValue={project?.defaultDomain}
-                            team={checkoutState?.team}
-                            id={project?.id}
-                          />
-                        </Fragment>
+                        <Select
+                          label="Template"
+                          path="template"
+                          disabled
+                          initialValue={
+                            typeof project?.template === 'object' &&
+                            project?.template !== null &&
+                            'id' in project?.template
+                              ? project?.template?.id
+                              : project?.template
+                          }
+                          options={[
+                            { label: 'None', value: '' },
+                            ...(templates || [])?.map(template => ({
+                              label: template.name || '',
+                              value: template.id,
+                            })),
+                          ]}
+                          required
+                        />
                       )}
+                      <RepoExists initialValue={project?.repositoryFullName} disabled />
+                      <UniqueDomain
+                        initialValue={project?.defaultDomain}
+                        team={checkoutState?.team}
+                        id={project?.id}
+                      />
                     </div>
                   </Accordion>
                   {!isClone && (
@@ -394,7 +373,7 @@ const Checkout: React.FC<{
                     </Fragment>
                   )}
                   {!checkoutState?.freeTrial && (
-                    <Accordion label="Payment Information">
+                    <Accordion label="Payment Information" openOnInit>
                       <div className={classes.paymentInformation}>
                         {checkoutState?.freeTrial && (
                           <Message

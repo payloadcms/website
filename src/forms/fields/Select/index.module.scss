@@ -17,6 +17,20 @@
       line-height: 1;
       display: flex !important;
       align-items: center !important;
+
+      &--is-disabled {
+        cursor: not-allowed;
+
+          :global {
+            .rs__single-value {
+              color: var(--theme-elevation-400);
+            }
+
+            .rs__indicators {
+              display: none;
+            }
+          }
+      }
     }
 
     .rs__input-container {

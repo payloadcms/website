@@ -18,8 +18,9 @@ type GitHubResponse = Endpoints['GET /repos/{owner}/{repo}']['response']
 export const RepoExists: React.FC<{
   initialValue?: Project['repositoryFullName']
   onChange?: (value: string) => void
+  disabled?: boolean
 }> = props => {
-  const { initialValue = 'main', onChange } = props
+  const { initialValue = 'main', onChange, disabled } = props
   const [value, setValue] = React.useState(initialValue)
   const debouncedValue = useDebounce(value, 200)
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -101,6 +102,7 @@ export const RepoExists: React.FC<{
         label="Repository name"
         path="repositoryName"
         initialValue={initialValue}
+        disabled={disabled}
         onChange={setValue}
         placeholder="scope/repo"
         required
