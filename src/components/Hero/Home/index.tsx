@@ -29,7 +29,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
       <div data-theme="dark" className={classes.wrap}>
         <ChangeHeaderTheme theme="dark">
           <div className={classes.bg}>
-            <Marquee gradient={false}>
+            <Marquee gradient={false} speed={35}>
               <div className={classes.bgImage}>
                 <Image
                   priority
@@ -79,7 +79,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
                 <span className={classes.adjective}>sean sean</span>
               </div>
             )}
-            {Array.isArray(adjectives) ? (
+            {Array.isArray(adjectives) && (
               <Marquee gradient={false} speed={70} className={classes.adjectives}>
                 {adjectives.map(({ adjective }, i) => (
                   <span key={i} className={classes.adjective}>
@@ -87,8 +87,6 @@ export const HomeHero: React.FC<Page['hero']> = ({
                   </span>
                 ))}
               </Marquee>
-            ) : (
-              <p>test</p>
             )}
 
             {typeof media === 'object' && media !== null && (

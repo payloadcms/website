@@ -2,6 +2,12 @@
 
 .homeHero {
   margin-top: calc(-1 * var(--page-padding-top));
+
+  @media (prefers-reduced-motion) {
+    :global(.marquee) {
+      animation: none;
+    }
+  }
 }
 
 .wrap {
