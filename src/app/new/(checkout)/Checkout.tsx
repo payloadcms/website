@@ -165,6 +165,7 @@ const Checkout: React.FC<{
         stripe,
         elements,
         unflattenedData,
+        installID: project?.installID,
       })
     },
     [checkoutState, onDeploy, project, user, stripe, elements],
