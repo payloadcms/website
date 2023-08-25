@@ -343,11 +343,6 @@ const Checkout: React.FC<{
                             team={checkoutState?.team}
                             id={project?.id}
                           />
-                          <Checkbox
-                            path="makePrivate"
-                            label="Create private Git repository"
-                            initialValue={project?.makePrivate || true}
-                          />
                         </Fragment>
                       )}
                     </div>
