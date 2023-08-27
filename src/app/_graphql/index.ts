@@ -86,7 +86,10 @@ export const fetchPage = async (
         'Content-Type': 'application/json',
         ...(token?.value && draft ? { Authorization: `JWT ${token.value}` } : {}),
       },
-      next,
+      next: {
+        ...next,
+        tags: [`pages_${slug}`],
+      },
       body: JSON.stringify({
         query: PAGE,
         variables: {
