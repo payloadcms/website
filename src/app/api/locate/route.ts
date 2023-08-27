@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import { NextResponse } from 'next/server'
 
 const gdprCountryCodes = [
   // -----[ EU 28 ]-----
@@ -86,8 +86,9 @@ const gdprCountryCodes = [
 const locate = (countryCode: string | null = null): boolean =>
   countryCode ? gdprCountryCodes.indexOf(countryCode) > -1 : true
 
-export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
+export async function GET(req: Request): Promise<NextResponse> {
   const country =
     typeof req.headers['x-vercel-ip-country'] === 'string' ? req.headers['x-vercel-ip-country'] : ''
-  res.status(200).json({ isGDPR: locate(country), country })
+
+  return NextResponse.json({ isGDPR: locate(country), country })
 }
