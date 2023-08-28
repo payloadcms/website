@@ -73,6 +73,17 @@
   }
 }
 
+.navOverlay {
+  display: block;
+  position: sticky;
+  width: 100%;
+  height: calc(var(--base) * 2);
+  bottom: calc(var(--base) * -2);
+  left: 0;
+  background: linear-gradient(180deg, transparent 0%, var(--theme-bg) 100%);
+  pointer-events: none;
+}
+
 .navHidden {
   opacity: 0;
 }
