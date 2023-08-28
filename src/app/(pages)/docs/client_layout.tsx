@@ -134,6 +134,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
               </React.Fragment>
             )
           })}
+          <div className={classes.navOverlay} />
         </nav>
         <div className={classes.content}>{children}</div>
         <button
