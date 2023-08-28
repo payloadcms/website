@@ -1,3 +1,5 @@
+import type { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
+
 import type {
   Announcement,
   CaseStudy,
@@ -14,6 +16,7 @@ import { COMMUNITY_HELP, COMMUNITY_HELPS, RELATED_THREADS } from './community-he
 import { GLOBALS } from './globals'
 import { PAGE, PAGES } from './pages'
 import { POST, POST_SLUGS, POSTS } from './posts'
+import { payloadToken } from './token'
 
 const next = {
   revalidate: 600,
@@ -61,21 +64,37 @@ export const fetchAnnouncements = async (): Promise<{
   }
 }
 
-export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page | null> => {
+export const fetchPage = async (
+  incomingSlugSegments?: string[],
+  draft?: boolean,
+): Promise<Page | null> => {
   const slugSegments = incomingSlugSegments || ['home']
   const slug = slugSegments.at(-1)
+
+  let token: RequestCookie | undefined
+
+  if (draft) {
+    const { cookies } = await import('next/headers')
+    token = cookies().get(payloadToken)
+  }
+
   const { data, errors } = await fetch(
     `${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?page=${slug}`,
     {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        ...(token?.value && draft ? { Authorization: `JWT ${token.value}` } : {}),
       },
-      next,
+      next: {
+        ...next,
+        tags: [`pages_${slug}`],
+      },
       body: JSON.stringify({
         query: PAGE,
         variables: {
           slug,
+          draft,
         },
       }),
     },
@@ -162,17 +181,29 @@ export const fetchBlogPosts = async (): Promise<Post[]> => {
   return data?.Posts?.docs
 }
 
-export const fetchBlogPost = async (slug: string): Promise<Post> => {
+export const fetchBlogPost = async (slug: string, draft?: boolean): Promise<Post> => {
+  let token: RequestCookie | undefined
+
+  if (draft) {
+    const { cookies } = await import('next/headers')
+    token = cookies().get(payloadToken)
+  }
+
   const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?post=${slug}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      ...(token?.value && draft ? { Authorization: `JWT ${token.value}` } : {}),
     },
-    next,
+    next: {
+      ...next,
+      tags: [`posts_${slug}`],
+    },
     body: JSON.stringify({
       query: POST,
       variables: {
         slug,
+        draft,
       },
     }),
   }).then(res => res.json())

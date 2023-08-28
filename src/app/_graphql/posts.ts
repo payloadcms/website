@@ -51,8 +51,8 @@ export const AUTHOR_FIELDS = `{
 }`
 
 export const POST = `
-  query Post($slug: String ) {
-    Posts(where: { slug: { equals: $slug} }, draft: true, limit: 1) {
+  query Post($slug: String, $draft: Boolean) {
+    Posts(where: { slug: { equals: $slug} }, draft: $draft, limit: 1) {
       docs {
         id
         title

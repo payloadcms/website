@@ -1,5 +1,6 @@
 import React from 'react'
 import { Metadata } from 'next'
+import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
@@ -8,7 +9,10 @@ import { BlogPost } from './BlogPost'
 
 const Post = async ({ params }) => {
   const { slug } = params
-  const blogPost = await fetchBlogPost(slug)
+
+  const { isEnabled: isDraftMode } = draftMode()
+
+  const blogPost = await fetchBlogPost(slug, isDraftMode)
 
   if (!blogPost) return notFound()
 
