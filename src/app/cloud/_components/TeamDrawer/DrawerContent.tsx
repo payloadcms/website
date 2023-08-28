@@ -140,7 +140,7 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
         <FormProcessing message="Creating team..." />
         <FormSubmissionError />
         <Text path="name" required label="Name" />
-        <UniqueTeamSlug initialValue="" />
+        <UniqueTeamSlug initialValue="my-team" />
         <HR margin="small" />
         <InviteTeammates />
         <HR margin="small" />
