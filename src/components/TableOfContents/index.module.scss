@@ -8,7 +8,7 @@
   a {
     text-decoration: none;
   }
-  
+
 }
 
 .tocTitle {
@@ -21,7 +21,7 @@
 .heading {
   transition: all 400ms;
   position: relative;
-  line-height: calc(var(--base) * .875);
+  line-height: 1.375;
   margin-bottom: calc(var(--base) * .75);
   margin-right: var(--base);
 
