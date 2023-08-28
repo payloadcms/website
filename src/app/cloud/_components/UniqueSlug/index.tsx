@@ -47,6 +47,13 @@ export const UniqueSlug: React.FC<{
       isRequesting.current = true
 
       if (debouncedSlug) {
+        if (debouncedSlug.length < 3) {
+          setError('The slug must be at least 3 characters long.')
+          dispatchState({ type: 'SET_UNIQUE', payload: false })
+          isRequesting.current = false
+          return // Exit early to prevent the request from being sent
+        }
+
         const slugRegex = /^[a-zA-Z0-9_-]+$/
         if (!slugRegex.test(debouncedSlug)) {
           setError('The slug can only contain alphanumeric characters, hyphens, and underscores.')
@@ -129,6 +136,9 @@ export const UniqueSlug: React.FC<{
     description = 'Checking slug availability...'
   } else if (!validatedSlug) {
     description = 'Please input a slug'
+    isError = true
+  } else if (validatedSlug.length < 3) {
+    description = 'The slug must be at least 3 characters long.'
     isError = true
   } else if (error) {
     description = error
