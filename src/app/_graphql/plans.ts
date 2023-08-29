@@ -3,6 +3,7 @@ export const PLAN = `
   slug
   name
   priceJSON
+  description
 `
 
 export const PLANS_QUERY = `

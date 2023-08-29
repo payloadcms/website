@@ -4,4 +4,17 @@
     & > *:not(:last-child) {
         margin-bottom: var(--base);
     }
+
+    .plan {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        & button {
+            @include btnReset;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
 }
