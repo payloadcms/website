@@ -1,0 +1,23 @@
+@use '@scss/common.scss' as *;
+
+.description {
+  a {
+    color: var(--theme-blue-500);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+
+  @include mid-break {
+    margin-bottom: var(--base);
+  }
+}
+
+.submit {
+  align-self: flex-start;
+}

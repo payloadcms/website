@@ -18,7 +18,7 @@
   "dependencies": {
     "@docsearch/js": "^3.3.0",
     "@faceless-ui/collapsibles": "^1.1.5",
-    "@faceless-ui/css-grid": "^1.2.0",
+    "@faceless-ui/css-grid": "^1.2.1",
     "@faceless-ui/modal": "^2.0.1",
     "@faceless-ui/mouse-info": "^1.3.0",
     "@faceless-ui/scroll-info": "^1.3.0",
@@ -38,7 +38,7 @@
     "graphql": "^16.6.0",
     "gray-matter": "^4.0.3",
     "instantsearch.js": "^4.51.1",
-    "next": "^13.4.5",
+    "next": "^13.4.19",
     "next-mdx-remote": "4.2.0",
     "next-sitemap": "^4.0.6",
     "node-fetch": "^3.3.1",

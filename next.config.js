@@ -21,10 +21,12 @@ const nextConfig = withBundleAnalyzer({
       'stage.cms.payloadcms.com',
       'cdn.discordapp.com',
       'avatars.githubusercontent.com',
+      'img.youtube.com',
     ],
   },
   experimental: {
     appDir: true,
+    serverActions: true,
   },
   webpack: config => {
     const configCopy = { ...config }

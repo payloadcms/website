@@ -31,9 +31,10 @@
     display: block;
   }
 
-  img {
+  img, video {
     @include shadow-lg;
     margin: 20px 0;
+    max-width: 100%;
   }
 
   &>* {
@@ -125,6 +126,12 @@
   & strong {
     @include small-break {
       word-wrap: break-word;
+    }
+  }
+
+  details {
+    & path {
+      fill: var(--theme-elevation-900);
     }
   }
 }

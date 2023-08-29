@@ -1,14 +1,17 @@
 import React from 'react'
 import { Metadata } from 'next'
+import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 
 import { Hero } from '@components/Hero'
 import { RenderBlocks } from '@components/RenderBlocks'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { fetchPage, fetchPages } from '../../../graphql'
+import { fetchPage, fetchPages } from '../../_graphql'
 
 const Page = async ({ params: { slug } }) => {
-  const page = await fetchPage(slug)
+  const { isEnabled: isDraftMode } = draftMode()
+
+  const page = await fetchPage(slug, isDraftMode)
 
   if (!page) return notFound()
 

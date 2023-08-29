@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
 import NextImage, { StaticImageData } from 'next/image'
 
 import cssVariables from '../../../../cssVariables'
@@ -23,7 +25,7 @@ export const Image: React.FC<Props> = props => {
     height: heightFromProps,
   } = props
 
-  const [isLoading, setIsLoading] = React.useState(true)
+  const [isLoading, setIsLoading] = useState(true)
 
   let width: number | undefined = widthFromProps
   let height: number | undefined = heightFromProps

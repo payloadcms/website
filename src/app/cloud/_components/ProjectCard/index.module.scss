@@ -1,0 +1,181 @@
+@use '@scss/common' as *;
+
+.project {
+    --background-color: var(--theme-elevation-50);
+    --border-color: var(--theme-elevation-50);
+    --border-color-hover: var(--theme-elevation-350);
+    --icon-color: currentColor;
+    --secondary-text-color: var(--theme-elevation-800);
+
+    width: 100%;
+    height: 100%;
+    // match the loading card height
+    aspect-ratio: 1/1;
+    display: flex;
+    flex-direction: column;
+    padding: calc(var(--base) * 2);
+    border: 0.5px solid;
+    // no border for the default card until hover, match background color
+    border-color: var(--border-color);
+    background-color: var(--background-color);
+    position: relative;
+    text-decoration: none;
+
+    &:focus {
+        text-decoration: none;
+    }
+
+    &:hover {
+        border-color: var(--border-color-hover);
+
+        &:local() {
+            .arrowIcon {
+                opacity: 1;
+            }
+        }
+
+        // turn off hover effects on mobile
+        @include mid-break {    
+            border-color: var(--border-color);
+
+            &:local() {
+                .arrowIcon {
+                    opacity: 0;
+                }
+            }
+        }
+    }
+
+    @include mid-break {
+        padding: var(--base);
+    }
+}
+
+.draft {
+    --background-color: var(--theme-elevation-0);
+    --border-color: var(--theme-elevation-200);
+    --border-color-hover: var(--theme-elevation-500);
+    --secondary-text-color: var(--theme-elevation-500);
+}
+
+:global([data-theme="dark"]) {
+    .project {
+        --background-color: var(--theme-elevation-50);
+        --border-color: var(--theme-elevation-50);
+        --border-color-hover: var(--theme-elevation-250);
+    }
+
+    .draft {
+        --background-color: var(--theme-elevation-100);
+        --border-color: var(--theme-elevation-200);
+        --border-color-hover: var(--theme-elevation-250);
+    }
+
+    .error {
+        --background-color: var(--theme-error-50);
+        --border-color: var(--theme-error-200);
+        --border-color-hover: var(--theme-error-250);
+        --icon-color: var(--theme-error-800);
+    }
+}
+
+.error {
+    --background-color: var(--theme-error-50);
+    --border-color: var(--theme-error-200);
+    --border-color-hover: var(--theme-error-500);
+    --icon-color: var(--theme-error-600);
+}
+
+.shimmer {
+    // match the card height
+    aspect-ratio: 1/1;
+    height: 100%;
+}
+
+.pills {
+    display: flex;
+    gap: calc(var(--base) / 4);
+    margin-bottom: calc(var(--base) / 2);
+}
+
+.leader {
+    @include label;
+    margin-bottom: calc(var(--base) / 2);
+}
+
+.titleWrapper {
+    margin-bottom: calc(var(--base) / 2);
+}
+
+.title {
+    margin: 0;
+    padding-right: calc(var(--base) * 2);
+
+    @include mid-break {
+        padding-right: 0;
+    }
+}
+
+.pill {
+    display: inline-flex;
+    position: relative;
+    top: -4px;
+}
+
+.projectName {
+    margin-right: calc(var(--base) / 2);
+}
+
+.teamName {
+    color: var(--secondary-text-color);
+
+    & > p {
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;   
+        text-overflow: ellipsis;
+    }
+}
+
+.details {
+    color: var(--secondary-text-color);
+    margin-top: calc(var(--base) / 2);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+.projectBranch,
+.projectRepo {
+    display: flex;
+    gap: calc(var(--base) / 2);
+    align-items: center;
+
+    p {
+        margin: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+
+.githubIcon,
+.branchIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+}
+
+.arrowIcon {
+    color: var(--icon-color);
+    opacity: 0;
+    position: absolute;
+    top: calc(var(--base) * 2);
+    right: calc(var(--base) * 2);
+    width: var(--base);
+    height: var(--base);
+}

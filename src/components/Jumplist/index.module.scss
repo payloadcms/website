@@ -9,18 +9,22 @@
   }
 
   &:hover {
-    .hashMark {
-      opacity: 1;
+    .linkedHeading {
+      opacity: .75;
     }
   }
 }
 
-.hashMark {
+.node .linkedHeading {
   position: absolute;
-  transform: scale(0.65) translateX(calc(-100% - var(--base)));
+  transform: translate(-50%, -50%);
+  transition: opacity 200ms ease;
   opacity: .25;
+  top: 50%;
+  left: calc(var(--base) * -1.15);
 
   @include small-break {
-    transform: scale(0.75) translateX(calc(-100% - var(--base) * .5));
+    transform: translate(-50%, -50%) scale(.65);
+    left: calc(var(--base) * -.5);
   }
 }

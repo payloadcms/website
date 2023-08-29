@@ -1,0 +1,49 @@
+@use '@scss/common.scss' as *;
+
+.introContent {
+  border-bottom: 1px solid var(--theme-border-color);
+  padding-bottom: calc(var(--base) * 2);
+
+  @include small-break {
+    padding-bottom: calc(var(--base) * 1.5);
+  }
+
+  > * {
+    margin: 0;
+  }
+}
+
+.linkGrid {
+  margin-bottom: calc(var(--base) * 2.5);
+
+  @include small-break {
+    margin-bottom: calc(var(--base) * 1.5);
+  }
+}
+
+.createTeamLink {
+  background-color: transparent;
+  line-height: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  text-decoration: underline;
+  color: var(--theme-blue-500);
+  
+  &:focus-visible {
+    @include outline;
+  }
+}
+
+.teamDrawerToggler {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}

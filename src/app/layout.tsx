@@ -1,5 +1,4 @@
 import React from 'react'
-import { fetchGlobals } from '@graphql'
 import { Providers } from '@providers'
 import { defaultTheme, themeLocalStorageKey } from '@providers/Theme/shared'
 import { Metadata } from 'next'
@@ -9,6 +8,7 @@ import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics'
 import { GoogleTagManager } from '@components/Analytics/GoogleTagManager'
 import { PrivacyBanner } from '@components/PrivacyBanner'
 import { TopBar } from '@components/TopBar'
+import { fetchGlobals } from '@root/app/_graphql'
 import { PrivacyProvider } from '@root/providers/Privacy'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { Footer } from '../components/Footer'
@@ -20,7 +20,7 @@ import '../css/app.scss'
 import classes from './layout.module.scss'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { mainMenu, footer, topBar, templates } = await fetchGlobals()
+  const { mainMenu, footer, topBar } = await fetchGlobals()
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -83,7 +83,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           ].join(' ')}
         >
           <GoogleTagManager />
-          <Providers templates={templates}>
+          <Providers>
             <TopBar {...topBar} />
             <Header {...mainMenu} />
             <div className={classes.layout}>

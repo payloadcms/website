@@ -2,6 +2,7 @@
 
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 
+import { ME_QUERY, USER } from '@root/app/_graphql/me'
 import { User } from '../../payload-cloud-types'
 
 // eslint-disable-next-line no-unused-vars
@@ -28,22 +29,6 @@ type AuthContext = {
   resetPassword: ResetPassword
   forgotPassword: ForgotPassword
 }
-
-const USER = `
-  id
-  name
-  email
-  roles
-  teams {
-    team {
-      id
-      name
-      slug
-      stripeCustomerID
-    }
-    roles
-  }
-`
 
 const Context = createContext({} as AuthContext)
 
@@ -125,14 +110,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            query: `query {
-              meUser {
-                user {
-                  ${USER}
-                }
-                exp
-              }
-            }`,
+            query: ME_QUERY,
           }),
         })
 

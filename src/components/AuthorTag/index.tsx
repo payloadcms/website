@@ -95,7 +95,7 @@ const AuthorTag: React.FC<Props> = ({
           </span>
         )}
 
-        {messageCount && messageCount > 0 && (
+        {messageCount !== undefined && messageCount > 0 && (
           <span>
             <CommentsIcon className={classes.messageIcon} /> {messageCount}
           </span>

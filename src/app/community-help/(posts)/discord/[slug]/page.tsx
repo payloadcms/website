@@ -2,7 +2,7 @@ import React from 'react'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { fetchCommunityHelp, fetchCommunityHelps } from '@root/graphql'
+import { fetchCommunityHelp, fetchCommunityHelps } from '@root/app/_graphql'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { slugToText } from '@root/utilities/slug-to-text'
 import { DiscordThreadPage, Messages } from './client_page'
@@ -59,8 +59,9 @@ const Thread = async ({ params }) => {
 export default Thread
 
 export async function generateStaticParams() {
+  if (process.env.NEXT_PUBLIC_SKIP_BUILD_HELPS) return []
   const fetchedThreads = await fetchCommunityHelps('discord')
-  return fetchedThreads?.map(({ slug }) => ({ slug })) ?? []
+  return fetchedThreads?.map(({ slug }) => ({ slug: slug || '404' })) ?? []
 }
 
 export async function generateMetadata({ params: { slug } }): Promise<Metadata> {

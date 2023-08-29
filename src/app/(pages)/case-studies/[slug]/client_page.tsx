@@ -29,6 +29,7 @@ export const CaseStudy: React.FC<CaseStudyT> = props => {
               label: title,
             },
           ]}
+          ellipsis={false}
         />
         <Grid>
           <Cell cols={9}>

@@ -1,6 +1,11 @@
 @use '@scss/common' as *;
 
 .communityHelpWrap {
+  height: 100%;
+  position: relative;
+}
+
+.algoliaSearchWrap {
   max-width: 1200px;
   margin-right: calc(var(--base) * 8);
 
@@ -57,6 +62,8 @@
 
 .title {
   margin: 0;
+  word-break: break-word;
+  hyphens: auto;
 
   @include small-break {
     margin-bottom: calc(var(--base)*0.25);

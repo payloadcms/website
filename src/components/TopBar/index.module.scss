@@ -20,7 +20,7 @@
     height: 100%;
     pointer-events: all;
     color: var(--text-color);
-    transition: color 300ms ease;
+    transition: color var(--trans-default) ease;
     font-size: 16px;
   }
 
@@ -47,7 +47,6 @@
   .richText {
     & a {
       color: var(--text-color);
-      transition: all 0.2s ease;
 
       &:visited {
         color: var(--text-color);

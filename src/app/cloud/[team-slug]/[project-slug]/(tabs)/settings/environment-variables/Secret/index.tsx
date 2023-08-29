@@ -1,15 +1,17 @@
+'use client'
+
 import * as React from 'react'
-import { Collapsible } from '@faceless-ui/collapsibles'
 import { Text } from '@forms/fields/Text'
 
+import { Accordion } from '@root/app/_components/Accordion'
 import { Spinner } from '@root/app/_components/Spinner'
-import { Accordion } from '@root/app/cloud/_components/Accordion'
-import { useRouteData } from '@root/app/cloud/context'
+import { Project } from '@root/payload-cloud-types'
 
-export const Secret: React.FC = () => {
+export const Secret: React.FC<{
+  project: Project
+}> = ({ project }) => {
   const [fetchedSecret, setFetchedSecret] = React.useState<string | undefined>(undefined)
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const { project } = useRouteData()
   const projectID = project?.id
 
   const fetchSecret = React.useCallback(async (): Promise<string | null> => {
@@ -50,24 +52,21 @@ export const Secret: React.FC = () => {
   if (isLoading) icon = <Spinner />
 
   return (
-    <>
-      <Collapsible>
-        <Accordion
-          onToggle={async () => {
-            if (!fetchedSecret) {
-              const secretValue = await fetchSecret()
-              if (secretValue) setFetchedSecret(secretValue)
-            }
-          }}
-          label={
-            <>
-              <div>••••••••••••</div>
-            </>
-          }
-        >
-          <Text value={fetchedSecret} disabled icon={icon} />
-        </Accordion>
-      </Collapsible>
-    </>
+    <Accordion
+      onToggle={async () => {
+        if (!fetchedSecret) {
+          const secretValue = await fetchSecret()
+          if (secretValue) setFetchedSecret(secretValue)
+        }
+      }}
+      label={
+        <>
+          <div>••••••••••••</div>
+        </>
+      }
+      toggleIcon="eye"
+    >
+      <Text value={fetchedSecret} disabled icon={icon} />
+    </Accordion>
   )
 }

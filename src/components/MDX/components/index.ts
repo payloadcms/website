@@ -7,8 +7,11 @@ import h2 from './H2'
 import h3 from './H3'
 import HR from './HR'
 import InlineCode from './InlineCode'
+import LightDarkImage from './LightDarkImage'
 import { RestExamples } from './RestExamples'
 import Table from './Table'
+import { TableWithDrawers } from './TableWithDrawers'
+import { VideoDrawer } from './VideoDrawer'
 
 export default {
   h1,
@@ -22,4 +25,7 @@ export default {
   YouTube,
   RestExamples,
   table: Table,
+  LightDarkImage,
+  TableWithDrawers,
+  VideoDrawer,
 }

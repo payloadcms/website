@@ -5,4 +5,5 @@ export interface Props extends HTMLAttributes<HTMLLabelElement> {
   required?: boolean
   actionsSlot?: React.ReactNode
   htmlFor?: string
+  margin?: boolean
 }

@@ -177,7 +177,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
         type={htmlButtonType}
         className={className}
         {...newTabProps}
-        href={href}
+        href={href || null}
         onClick={onClick}
         onMouseEnter={() => {
           setIsHovered(true)

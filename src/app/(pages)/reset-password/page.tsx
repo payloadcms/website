@@ -1,9 +1,17 @@
+import { fetchMe } from '@cloud/_api/fetchMe'
 import { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { ResetPassword } from './client_page'
+import { ResetPassword } from './page_client'
 
-export default props => {
+export default async props => {
+  const { user } = await fetchMe()
+
+  if (user) {
+    redirect(`/cloud?error=${encodeURIComponent('You must be logged out to reset your password')}`)
+  }
+
   return <ResetPassword {...props} />
 }
 

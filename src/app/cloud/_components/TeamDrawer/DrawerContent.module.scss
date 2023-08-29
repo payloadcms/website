@@ -1,0 +1,11 @@
+@use "@scss/common" as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+}
+
+.error {
+  color: var(--theme-error-500);
+}

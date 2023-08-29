@@ -1,0 +1,9 @@
+.modalActions {
+  display: flex;
+  gap: var(--base);
+  justify-content: flex-end;
+  width: 100%;
+  padding-top: var(--base);
+  border-top: 1px solid var(--theme-border-color);
+  margin-top: var(--base);
+}

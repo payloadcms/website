@@ -29,7 +29,7 @@ export const LargeRadio: React.FC<{
         <div className={classes.checkmark}>
           {checked && <CheckIcon size="medium" bold />}
           <input
-            type="radio"
+            type="checkbox"
             name={name}
             id={id}
             checked={checked}

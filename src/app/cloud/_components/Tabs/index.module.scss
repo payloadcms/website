@@ -13,7 +13,7 @@
     left: calc(-1 * var(--gutter-h));
     height: 1px;
     bottom: 3px;
-    background-color: var(--theme-elevation-200)
+    background-color: var(--theme-border-color);
   }
 
   @include mid-break {
@@ -22,6 +22,10 @@
 }
 
 .tabs .tab {
+  background-color: transparent;
+  border-radius: none;
+  border: none;
+  outline: none;
   text-decoration: none;
   white-space: nowrap;
   margin: 0;
@@ -29,6 +33,9 @@
   padding-bottom: calc(var(--base) * 1.5);
   position: relative;
   color: var(--theme-elevation-300);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) / 2);
 
   &.lastTab {
     margin-right: 0;
@@ -56,7 +63,45 @@
 
   &.active {
     color: var(--theme-text);
+
+    &.warning {
+      color: var(--theme-warning-500);
+    }
+    
+    &.error {
+      color: var(--theme-error-500);
+    }
   }
+  
+  &.warning {
+    color: var(--theme-warning-300);
+  }
+
+  &.error {
+    color: var(--theme-error-300);
+  }
+
+  &:disabled {
+    color: var(--theme-elevation-200);
+    cursor: not-allowed;
+  }
+}
+
+.iconWrapper {
+  position: relative;
+  top: 2px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  width: calc(var(--base) * 1.25);
+  height: calc(var(--base) * 1.25);
+  flex-shrink: 0;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
 }
 
 .buttonTab {

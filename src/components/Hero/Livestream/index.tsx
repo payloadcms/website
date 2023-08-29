@@ -48,7 +48,9 @@ export const LivestreamHero: React.FC<{
         <Gutter className={classes.gutter}>
           <Grid>
             <Cell cols={6} colsM={8} startM={1}>
-              {breadcrumbs && !hideBreadcrumbs && <Breadcrumbs items={breadcrumbs} />}
+              {breadcrumbs && !hideBreadcrumbs && (
+                <Breadcrumbs items={breadcrumbs} ellipsis={false} />
+              )}
               {richText && <RichText content={richText} />}
               {guests &&
                 Array.isArray(guests) &&

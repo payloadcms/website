@@ -87,6 +87,14 @@
   align-items: center;
   white-space: nowrap;
   gap: calc(var(--base) * 1.25);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--trans-default) linear;
+}
+
+.show {
+  opacity: 1;
+  visibility: visible;
 }
 
 .payload {

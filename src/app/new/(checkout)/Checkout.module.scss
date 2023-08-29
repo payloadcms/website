@@ -39,14 +39,11 @@
     margin-top: var(--base);
 }
 
-.hr {
-    margin: calc(var(--base) * 2) 0;
-    border: 0.5px solid var(--theme-elevation-500);
-    
-    @include mid-break {
-        margin: calc(var(--base) * 1.5) 0;
-    }
-}   
+.fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--base);
+} 
 
 .sidebarCell {
     position: relative;
@@ -59,6 +56,7 @@
     gap: var(--base);
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 
     @include mid-break {
         gap: calc(var(--base) / 2);
@@ -67,11 +65,22 @@
     }
 }
 
+.trialDescription {
+    margin: 0;
+    color: var(--theme-text-success);
+}
+
 .totalPrice {
     margin: 0;
 }
 
+.installationSelector {
+    width: 100%;
+}
+
 .totalPriceSection {
+    align-items: flex-start;
+
     > *:last-child {
         margin-bottom: 0;
     }
@@ -85,9 +94,8 @@
     color: var(--theme-elevation-500);
 }
 
-.trialCheckbox {
-    margin-top: var(--base);
-    margin-bottom: 0;
+.plansSection {
+    margin-bottom: calc(var(--base) * 2);
 }
 
 .projectDetails {
@@ -102,6 +110,16 @@
     gap: var(--base);
 }
 
+.paymentInformation {
+    display: flex;
+    flex-direction: column;
+    gap: var(--base);
+}
+
+.paymentInformationDescription {
+    margin-bottom: 0;
+}
+
 .envAdd {
     background-color: transparent;
     border: none;
@@ -114,6 +132,8 @@
 }
 
 .agreeToTerms {
+    margin-top: calc(var(--base) * 2);
+
     a {
         color: var(--theme-blue-500);
         text-decoration: underline;
