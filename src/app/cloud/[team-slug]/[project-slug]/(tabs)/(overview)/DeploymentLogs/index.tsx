@@ -2,86 +2,57 @@ import * as React from 'react'
 import { Tab, Tabs } from '@cloud/_components/Tabs'
 
 import { Gutter } from '@components/Gutter'
-import { Indicator } from '@root/app/_components/Indicator'
+import { Indicator, IndicatorProps } from '@root/app/_components/Indicator'
 import { formatLogData, Log, SimpleLogs } from '@root/app/_components/SimpleLogs'
 import { Deployment } from '@root/payload-cloud-types'
 import { useWebSocket } from '@root/utilities/use-websocket'
 
 import classes from './index.module.scss'
 
-const buildLogStates = [
-  'BUILDING',
-  'PENDING_DEPLOY',
-  'DEPLOYING',
-  'ACTIVE',
-  'SUPERSEDED',
-  'ERROR',
-  'CANCELLED',
+const defaultBuildLogs: Log[] = [
+  {
+    message: 'Waiting for build logs...',
+    timestamp: new Date().toISOString(),
+    service: 'Info',
+  },
 ]
 
-const deployLogStates = ['DEPLOYING', 'ACTIVE', 'SUPERSEDED', 'ERROR', 'CANCELLED']
+const defaultDeployLogs: Log[] = [
+  {
+    message: 'Waiting for deploy logs...',
+    timestamp: new Date().toISOString(),
+    service: 'Info',
+  },
+]
 
-const defaultBuildLogs = (): Log[] => {
-  return [
-    {
-      message: 'Waiting for build logs...',
-      timestamp: new Date().toISOString(),
-      service: 'Info',
-    },
-  ]
-}
+const LiveLogs = ({
+  active,
+  deploymentID,
+  type,
+}: {
+  active: boolean
+  deploymentID: string
+  type: 'BUILD' | 'DEPLOY'
+}) => {
+  const [logs, setLogs] = React.useState<Log[] | undefined>(
+    type === 'BUILD' ? defaultBuildLogs : defaultDeployLogs,
+  )
 
-const defaultDeployLogs = (): Log[] => {
-  return [
-    {
-      message: 'Waiting for deploy logs...',
-      timestamp: new Date().toISOString(),
-      service: 'Info',
-    },
-  ]
-}
-
-type Props = {
-  deployment: Deployment
-  setBuilt?: React.Dispatch<React.SetStateAction<boolean>>
-  setDeployed?: React.Dispatch<React.SetStateAction<boolean>>
-}
-export const DeploymentLogs: React.FC<Props> = ({ deployment, setBuilt, setDeployed }) => {
-  const [buildLogs, setBuildLogs] = React.useState<Log[] | undefined>(defaultBuildLogs())
-  const [deployLogs, setDeployLogs] = React.useState<Log[] | undefined>(defaultDeployLogs())
-  const [activeTab, setActiveTab] = React.useState<'build' | 'deploy'>('build')
-  const lastDeploymentID = React.useRef<string>()
-
-  const onLogMessage = React.useCallback((event: MessageEvent, type: 'build' | 'deploy') => {
+  const onLogMessage = React.useCallback((event: MessageEvent) => {
     const message = event?.data
 
     try {
-      const parsedMessage = JSON.parse(message)
-      const incomingLogData = parsedMessage?.data
+      const { data, logType } = JSON.parse(message) || {}
 
-      if (incomingLogData) {
-        const formattedLogs = formatLogData(incomingLogData)
+      if (data) {
+        const formattedLogs = formatLogData(data)
 
-        if (parsedMessage?.logType === 'historic') {
+        if (logType === 'historic') {
           // historic logs - replace
-          switch (type) {
-            case 'build':
-              setBuildLogs(formattedLogs)
-              break
-            case 'deploy':
-              setDeployLogs(formattedLogs)
-              break
-          }
+          setLogs(formattedLogs)
         } else {
           // live log - append
-          switch (type) {
-            case 'build':
-              setBuildLogs(existingLogs => [...(existingLogs || []), ...formattedLogs])
-              break
-            case 'deploy':
-              setDeployLogs(existingLogs => [...(existingLogs || []), ...formattedLogs])
-              break
-          }
+          setLogs(existingLogs => [...(existingLogs || []), ...formattedLogs])
         }
       }
     } catch (e) {
@@ -89,66 +60,59 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment, setBuilt, setDeplo
     }
   }, [])
 
-  const hasBuildLog = deployment?.deploymentStatus
-    ? buildLogStates.includes(deployment.deploymentStatus)
-    : false
-
   useWebSocket({
-    url: hasBuildLog
-      ? `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/deployments/${deployment.id}/logs?logType=BUILD`.replace(
-          'http',
-          'ws',
-        )
-      : '',
-    onMessage: e => onLogMessage(e, 'build'),
+    url: `${`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}`.replace(
+      'http',
+      'ws',
+    )}/api/deployments/${deploymentID}/logs?logType=${type}`,
+    onMessage: e => onLogMessage(e),
   })
 
-  const hasDeployLog = deployment?.deploymentStatus
-    ? deployLogStates.includes(deployment.deploymentStatus)
-    : false
-  useWebSocket({
-    url: hasDeployLog
-      ? `${(process.env.NEXT_PUBLIC_CLOUD_CMS_URL || '').replace('http', 'ws')}/api/deployments/${
-          deployment.id
-        }/logs?logType=DEPLOY`
-      : '',
-    onMessage: e => onLogMessage(e, 'deploy'),
-  })
+  if (!logs || !active) return null
+
+  return <SimpleLogs logs={logs} />
+}
+
+type Props = {
+  deployment?: Deployment
+}
+export const DeploymentLogs: React.FC<Props> = ({ deployment }) => {
+  const [activeTab, setActiveTab] = React.useState<'build' | 'deploy'>('build')
+  const prevBuildStep = React.useRef('info')
+
+  let buildTabStatus: IndicatorProps['status'] = 'info'
+  if (deployment && 'buildStepStatus' in deployment) {
+    if (deployment.buildStepStatus !== 'PENDING') {
+      buildTabStatus = 'success'
+    }
+    if (deployment.buildStepStatus === 'ERROR') {
+      buildTabStatus = 'error'
+    }
+  }
+
+  let deployTabStatus: IndicatorProps['status'] = 'info'
+  if (deployment && 'deployStepStatus' in deployment) {
+    if (deployment.deployStepStatus !== 'PENDING') {
+      deployTabStatus = 'success'
+    }
+    if (deployment.deployStepStatus === 'ERROR') {
+      deployTabStatus = 'error'
+    }
+  }
+
+  const enableDeployTab =
+    deployment &&
+    (deployment.deploymentStatus === 'PENDING_DEPLOY' ||
+      deployment.deploymentStatus === 'DEPLOYING' ||
+      deployment.deploymentStatus === 'ACTIVE' ||
+      deployment.deploymentStatus === 'SUPERSEDED')
 
   React.useEffect(() => {
-    if (hasDeployLog) {
-      setBuilt?.(true)
-
-      if (
-        deployment.deploymentStatus === 'ACTIVE' ||
-        deployment.deploymentStatus === 'SUPERSEDED'
-      ) {
-        setDeployed?.(true)
-      } else {
-        setDeployed?.(false)
-      }
-    } else {
-      setBuilt?.(false)
-      setDeployed?.(false)
-    }
-
-    // automatically switch to deploy logs if both are available
-    if (hasBuildLog && hasDeployLog && deployment?.deploymentStatus !== 'ERROR') {
+    if (buildTabStatus === 'success' && prevBuildStep.current === 'info') {
       setActiveTab('deploy')
+      prevBuildStep.current = 'success'
     }
-
-    return () => {
-      setActiveTab('build')
-    }
-  }, [deployment.deploymentStatus, setBuilt, setDeployed, hasBuildLog, hasDeployLog])
-
-  React.useEffect(() => {
-    if (!lastDeploymentID.current || lastDeploymentID.current !== deployment.id) {
-      setBuildLogs(defaultBuildLogs())
-      setDeployLogs(defaultDeployLogs())
-      lastDeploymentID.current = deployment.id
-    }
-  }, [deployment.id])
+  }, [buildTabStatus])
 
   return (
     <div className={classes.deploymentLogs}>
@@ -156,53 +120,52 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment, setBuilt, setDeplo
         className={classes.logTabs}
         tabs={
           [
-            hasBuildLog &&
-              buildLogs && {
-                label: (
-                  <div className={classes.tabLabel}>
-                    <Indicator
-                      className={[activeTab !== 'build' ? classes.inactiveIndicator : '']
-                        .filter(Boolean)
-                        .join(' ')}
-                      status={deployment.buildStepStatus === 'ERROR' ? 'error' : 'success'}
-                      spinner={deployment.buildStepStatus === 'RUNNING'}
-                    />
-                    Build Logs
-                  </div>
-                ),
-                isActive: activeTab === 'build',
-                onClick: () => {
-                  setActiveTab('build')
-                },
+            {
+              label: (
+                <div className={classes.tabLabel}>
+                  <Indicator
+                    className={[activeTab !== 'build' ? classes.inactiveIndicator : '']
+                      .filter(Boolean)
+                      .join(' ')}
+                    status={buildTabStatus}
+                    spinner={deployment?.buildStepStatus === 'RUNNING'}
+                  />
+                  Build Logs
+                </div>
+              ),
+              isActive: activeTab === 'build',
+              onClick: () => {
+                setActiveTab('build')
               },
-            hasDeployLog &&
-              deployLogs &&
-              deployment.buildStepStatus !== 'ERROR' && {
-                label: (
-                  <div className={classes.tabLabel}>
-                    <Indicator
-                      className={[activeTab !== 'deploy' ? classes.inactiveIndicator : '']
-                        .filter(Boolean)
-                        .join(' ')}
-                      status={deployment.deployStepStatus === 'ERROR' ? 'error' : 'success'}
-                      spinner={deployment.deployStepStatus === 'RUNNING'}
-                    />
-                    Deploy Logs
-                  </div>
-                ),
-                isActive: activeTab === 'deploy',
-                onClick: () => {
+            },
+            {
+              label: (
+                <div className={classes.tabLabel}>
+                  <Indicator
+                    className={[activeTab !== 'deploy' ? classes.inactiveIndicator : '']
+                      .filter(Boolean)
+                      .join(' ')}
+                    status={deployTabStatus}
+                    spinner={deployment?.deployStepStatus === 'RUNNING'}
+                  />
+                  Deploy Logs
+                </div>
+              ),
+              isActive: activeTab === 'deploy',
+              onClick: () => {
+                if (enableDeployTab) {
                   setActiveTab('deploy')
-                },
+                }
               },
+            },
           ].filter(Boolean) as Tab[]
         }
       />
 
-      {(hasBuildLog || hasDeployLog) && (
-        <Gutter rightGutter={false}>
-          {buildLogs && activeTab === 'build' && <SimpleLogs logs={buildLogs} />}
-          {deployLogs && activeTab === 'deploy' && <SimpleLogs logs={deployLogs} />}
+      {deployment?.id && (
+        <Gutter key={deployment.id}>
+          <LiveLogs type="BUILD" active={activeTab === 'build'} deploymentID={deployment.id} />
+          <LiveLogs type="DEPLOY" active={activeTab === 'deploy'} deploymentID={deployment.id} />
         </Gutter>
       )}
     </div>

@@ -320,7 +320,9 @@ export const InfraOnline: React.FC<{
           }
         />
       </Gutter>
-      {deployments?.length > 0 && <DeploymentLogs deployment={latestDeployment} />}
+      {deployments?.length > 0 && (
+        <DeploymentLogs key={latestDeployment.id} deployment={latestDeployment} />
+      )}
     </React.Fragment>
   )
 }

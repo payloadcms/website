@@ -101,9 +101,6 @@ export const InfraOffline: React.FC<{
   const failedDeployment = ['error', 'deployError', 'appCreationError'].includes(infraStatus)
   const deploymentStep = deploymentStates[infraStatus]
 
-  const [buildSuccess, setBuilt] = React.useState(false)
-  const [deploySuccess, setDeployed] = React.useState(false)
-
   const {
     result: deployments,
     reqStatus,
@@ -143,6 +140,17 @@ export const InfraOffline: React.FC<{
     }
   }, [reqStatus, reloadDeployments])
 
+  const unsuccessfulDeployment =
+    latestDeployment &&
+    (latestDeployment.deploymentStatus === 'DEPLOYING' ||
+      latestDeployment.deploymentStatus === 'CANCELED' ||
+      latestDeployment.deploymentStatus === 'ERROR')
+
+  const hasDeployedBefore =
+    latestDeployment &&
+    (latestDeployment.deploymentStatus === 'ACTIVE' ||
+      latestDeployment.deploymentStatus === 'SUPERSEDED')
+
   return (
     <>
       <Gutter>
@@ -181,7 +189,7 @@ export const InfraOffline: React.FC<{
                           to your repository
                         </Link>
                         {` to re-trigger a deployment.${
-                          buildSuccess || deploySuccess
+                          unsuccessfulDeployment || hasDeployedBefore
                             ? ' Check the logs below for more information.'
                             : ''
                         }`}
@@ -198,13 +206,13 @@ export const InfraOffline: React.FC<{
                   </div>
                 )}
               </div>
-              {failedDeployment && (!buildSuccess || !deploySuccess) && (
+              {failedDeployment && (!unsuccessfulDeployment || !hasDeployedBefore) && (
                 <React.Fragment>
                   <div className={classes.tips}>
                     <Heading element="h4" marginTop={false}>
                       Troubleshooting help
                     </Heading>
-                    {!buildSuccess && (
+                    {!unsuccessfulDeployment && (
                       <>
                         <h6>
                           Does the branch <code>{project?.deploymentBranch}</code> exist?
@@ -224,7 +232,7 @@ export const InfraOffline: React.FC<{
                         </p>
                       </>
                     )}
-                    {buildSuccess && !deploySuccess && (
+                    {unsuccessfulDeployment && !hasDeployedBefore && (
                       <>
                         <h6>Required ENV variables</h6>
                         <p className={classes.helpText}>
@@ -260,11 +268,7 @@ export const InfraOffline: React.FC<{
         />
       </Gutter>
       {latestDeployment && (
-        <DeploymentLogs
-          deployment={latestDeployment}
-          setBuilt={setBuilt}
-          setDeployed={setDeployed}
-        />
+        <DeploymentLogs key={latestDeployment.deployStepStatus} deployment={latestDeployment} />
       )}
     </>
   )
