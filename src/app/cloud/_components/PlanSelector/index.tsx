@@ -1,8 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
 
-import { Drawer, DrawerToggler } from '@components/Drawer'
 import { LargeRadio } from '@components/LargeRadio'
-import { RichText } from '@components/RichText'
 import { Plan } from '@root/payload-cloud-types'
 
 import classes from './index.module.scss'
@@ -18,10 +16,6 @@ type PlanSelectorProps = {
 export const PlanSelector: React.FC<PlanSelectorProps> = props => {
   const { onChange, value: valueFromProps, plans, initialSelection } = props
 
-  const [planPreview, setPlanPreview] = React.useState({
-    name: '',
-    description: {},
-  })
   const hasInitializedSelection = React.useRef(false)
   const [selectedPlan, setSelectedPlan] = React.useState<Plan | undefined | null>(
     typeof initialSelection === 'string'
@@ -75,33 +69,13 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
                     id={plan.id}
                     value={plan}
                     onChange={setSelectedPlan}
-                    label={
-                      <div className={classes.plan}>
-                        {name}
-                        <DrawerToggler
-                          slug={`planPreview`}
-                          onClick={() =>
-                            setPlanPreview({
-                              name: plan.name,
-                              description: plan.description ?? '',
-                            })
-                          }
-                        >
-                          {/* Add icon here */}
-                          info
-                        </DrawerToggler>
-                      </div>
-                    }
+                    label={<div className={classes.plan}>{name}</div>}
                   />
                 </>
               )
             })}
         </div>
       </div>
-
-      <Drawer slug={`planPreview`} title={planPreview.name} size="s">
-        {planPreview.description && <RichText content={planPreview.description} />}
-      </Drawer>
     </Fragment>
   )
 }

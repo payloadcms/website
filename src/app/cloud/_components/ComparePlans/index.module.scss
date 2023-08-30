@@ -1,0 +1,93 @@
+@use '@scss/common' as *;
+
+.drawerToggle {
+  display: flex;
+  gap: calc(var(--base) / 2);
+  align-items: center;
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--theme-text);
+  font-size: var(--font-body-size);
+  background: none;
+  border: none;
+}
+
+.compareTable {
+  display: flex;
+  gap: calc(var(--base) * 2);
+  width: 100%;
+
+  @include mid-break {
+    flex-direction: column;
+  }
+}
+
+.planCard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.pricingCard {
+  aspect-ratio: unset;
+  min-height: calc(var(--base) * 15);
+
+  @include small-break {
+    aspect-ratio: unset;
+    & > span {
+      padding: var(--base);
+    }
+  }
+}
+
+.highlight {
+  color: var(--color-base-950);
+  border-color: var(--color-base-950);
+  background-color: var(--color-success-400);
+}
+
+.features {
+  list-style: none;
+  margin: calc(var(--base) * 2.5) 0;
+  color: var(--color-base-100);
+
+  .feature {
+    margin: var(--base) 0;
+    display: flex;
+  }
+
+  .check,
+  .x {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    flex-shrink: 0;
+    width: calc(var(--base) * 1.5);
+    height: calc(var(--base) * 1.5);
+    margin-right: calc(var(--base) * 1.5);
+    justify-items: center;
+  }
+
+  .check {
+    border: 1px solid var(--color-success-500);
+
+    & svg {
+      color: var(--color-success-500);
+    }
+  }
+
+  .x {
+    border: 1px solid var(--color-error-500);
+
+    & svg {
+      color: var(--color-error-500);
+      width: 80%;
+      height: 80%;
+
+      & rect {
+        height: 1.5px;
+      }
+    }
+  }
+}
