@@ -6,6 +6,7 @@ type WebSocketHookArgs = {
   onError?: (error: Event) => void
   onOpen?: () => void
   onClose?: () => void
+  retryOnClose?: boolean
 }
 
 export const useWebSocket = ({
@@ -14,6 +15,7 @@ export const useWebSocket = ({
   onMessage,
   onError,
   onClose,
+  retryOnClose,
 }: WebSocketHookArgs): void => {
   const socketRef = React.useRef<WebSocket | null>()
 
@@ -43,11 +45,16 @@ export const useWebSocket = ({
         if (onClose) {
           onClose()
         }
+
+        if (retryOnClose && socketRef?.current) {
+          socketRef.current.close()
+          setupWebSocket(newURL)
+        }
       }
 
       socketRef.current = webSocket
     },
-    [onOpen, onMessage, onError, onClose],
+    [onOpen, onMessage, onError, onClose, retryOnClose],
   )
 
   React.useEffect(() => {
