@@ -11,7 +11,11 @@ export const TeamMembers: React.FC<{
   team: Team | null | undefined
   className?: string
   renderHeader?: boolean
-}> = ({ className, team, renderHeader }) => {
+  onUpdateRoles?: (index: number, newRoles: ('owner' | 'admin' | 'user')[]) => void
+}> = ({ className, team, renderHeader, onUpdateRoles }) => {
+  const handleUpdateRoles = (index: number) => (newRoles: ('owner' | 'admin' | 'user')[]) => {
+    onUpdateRoles && onUpdateRoles(index, newRoles)
+  }
   return (
     <div className={[classes.members, className].filter(Boolean).join(' ')}>
       {renderHeader && (
@@ -33,6 +37,7 @@ export const TeamMembers: React.FC<{
                 })}`}
               </Fragment>
             }
+            onUpdateRoles={handleUpdateRoles(index)}
           />
         )
       })}

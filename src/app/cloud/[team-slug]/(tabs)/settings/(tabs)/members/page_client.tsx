@@ -33,6 +33,49 @@ export const TeamMembersPage: React.FC<{
     data: { message: string; field: string }[]
   }>()
 
+  const handleUpdateRoles = async (index: number, newRoles: ('owner' | 'admin' | 'user')[]) => {
+    if (!user) {
+      toast.error('You must be logged in to update roles.')
+      return
+    }
+
+    const updatedUser = {
+      ...user,
+      teams:
+        user.teams &&
+        user.teams.map((userTeam, i) => {
+          const teamId = typeof userTeam.team === 'string' ? userTeam.team : userTeam.team?.id
+          return i === index ? { ...userTeam, roles: newRoles, team: teamId } : userTeam
+        }),
+    }
+
+    const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/${user.id}`, {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedUser),
+    })
+
+    const response = await req.json()
+
+    if (!req.ok) {
+      toast.error(`Failed to update roles: ${response?.errors?.[0]?.message}`)
+      setError(response?.errors?.[0])
+      return
+    }
+
+    setTeam({
+      ...team,
+      members:
+        team.members &&
+        team.members.map((member, i) => (i === index ? { ...member, roles: newRoles } : member)),
+    })
+
+    toast.success('Roles updated successfully.')
+  }
+
   const handleSubmit: OnSubmit = React.useCallback(
     async ({ unflattenedData, dispatchFields }): Promise<void> => {
       setTimeout(() => {
@@ -125,7 +168,7 @@ export const TeamMembersPage: React.FC<{
       <Form onSubmit={handleSubmit} className={classes.form} errors={error?.data}>
         <FormSubmissionError />
         <FormProcessing message="Updating team, one moment..." />
-        <TeamMembers team={team} renderHeader={false} />
+        <TeamMembers team={team} onUpdateRoles={handleUpdateRoles} renderHeader={false} />
         <HR margin="small" />
         {team?.invitations && team?.invitations?.length > 0 && (
           <React.Fragment>
