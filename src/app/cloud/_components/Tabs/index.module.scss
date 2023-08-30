@@ -36,12 +36,14 @@
   display: flex;
   align-items: center;
   gap: calc(var(--base) / 2);
+  cursor: pointer;
 
   &.lastTab {
     margin-right: 0;
   }
 
-  &:after {
+  &:not(:disabled):after,
+  &.active:after {
     // text underline
     content: '';
     position: absolute;
@@ -102,11 +104,6 @@
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
-}
-
-.buttonTab {
-  all: unset;
-  cursor: pointer;
 }
 
 .tabsContainer {

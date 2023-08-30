@@ -4,14 +4,14 @@ import { Spinner } from '../Spinner'
 
 import classes from './index.module.scss'
 
-type IndicatorProps = {
-  status: 'success' | 'error' | 'warning' | 'info'
+export type IndicatorProps = {
+  status?: 'UNKNOWN' | 'PENDING' | 'RUNNING' | 'ERROR' | 'SUCCESS'
   spinner?: boolean
   className?: string
 }
 
 export const Indicator: React.FC<IndicatorProps> = ({
-  status = 'success',
+  status = 'UNKNOWN',
   spinner = false,
   className,
 }) => {
