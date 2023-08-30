@@ -4,6 +4,11 @@ export const PLAN = `
   name
   priceJSON
   description
+  highlight
+  features {
+    icon
+    feature
+  }
 `
 
 export const PLANS_QUERY = `
