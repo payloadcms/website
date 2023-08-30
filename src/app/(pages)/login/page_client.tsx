@@ -40,10 +40,26 @@ export const Login: React.FC = () => {
   const { user, login } = useAuth()
   const [redirectTo, setRedirectTo] = useState(cloudSlug)
 
+  const trustedRoutes = [
+    "/"
+    // ... add more routes or external links
+  ]
+
   useEffect(() => {
     const redirectParam = searchParams?.get('redirect')
     if (redirectParam) {
-      setRedirectTo(redirectParam)
+      // Check if the provided 'redirectParam' is among the trusted routes
+      const isTrustedRoute = trustedRoutes.includes(redirectParam)
+
+      // If the 'redirectParam' is trusted, update the redirection target
+      if (isTrustedRoute){
+        setRedirectTo(redirectParam)
+      }
+
+      // If the 'redirectParam' is not trusted, redirect to the default 'cloudSlug'
+      else{
+        setRedirectTo(cloudSlug)
+      }
     }
   }, [searchParams])
 
