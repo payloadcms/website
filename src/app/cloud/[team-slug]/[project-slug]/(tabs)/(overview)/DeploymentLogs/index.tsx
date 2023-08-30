@@ -128,6 +128,7 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment }) => {
                   Build Logs
                 </div>
               ),
+              disabled: !deployment?.id,
               isActive: activeTab === 'build',
               onClick: () => {
                 setActiveTab('build')
@@ -146,6 +147,7 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment }) => {
                   Deploy Logs
                 </div>
               ),
+              disabled: !deployment?.id,
               isActive: activeTab === 'deploy',
               onClick: () => {
                 if (enableDeployTab) {

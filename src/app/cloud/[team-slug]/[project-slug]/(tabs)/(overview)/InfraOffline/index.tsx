@@ -269,7 +269,7 @@ export const InfraOffline: React.FC<{
       </Gutter>
 
       {deploymentStep.status !== 'ERROR' && (
-        <DeploymentLogs key={latestDeployment.id} deployment={latestDeployment} />
+        <DeploymentLogs key={latestDeployment?.id} deployment={latestDeployment} />
       )}
     </>
   )
