@@ -229,12 +229,12 @@ export const InfraOnline: React.FC<{
                   <Indicator
                     status={
                       liveDeployment === undefined
-                        ? 'info'
+                        ? undefined
                         : finalDeploymentStages.includes(
                             liveDeployment?.deploymentStatus as FinalDeploymentStages,
                           )
-                        ? 'success'
-                        : 'error'
+                        ? 'SUCCESS'
+                        : 'ERROR'
                     }
                   />
                   <p className={classes.detail}>
@@ -320,6 +320,7 @@ export const InfraOnline: React.FC<{
           }
         />
       </Gutter>
+
       {deployments?.length > 0 && (
         <DeploymentLogs key={latestDeployment.id} deployment={latestDeployment} />
       )}
@@ -328,30 +329,30 @@ export const InfraOnline: React.FC<{
 }
 
 const DeploymentIndicator: React.FC<{ deployment: Deployment }> = ({ deployment }) => {
-  let status: React.ComponentProps<typeof Indicator>['status'] = 'info'
+  let status: React.ComponentProps<typeof Indicator>['status'] = 'UNKNOWN'
   let spinner = false
 
   if (finalDeploymentStages.includes(deployment?.deploymentStatus as FinalDeploymentStages)) {
-    status = 'success'
+    status = 'SUCCESS'
   } else if (
     deployment?.deploymentStatus === 'CANCELED' ||
     deployment?.deploymentStatus === 'ERROR'
   ) {
-    status = 'error'
+    status = 'ERROR'
   } else if (
     deployment?.deploymentStatus === 'PENDING_BUILD' ||
     deployment?.deploymentStatus === 'PENDING_DEPLOY'
   ) {
-    status = 'info'
+    status = 'UNKNOWN'
     spinner = true
   } else if (
     deployment?.deploymentStatus === 'BUILDING' ||
     deployment?.deploymentStatus === 'DEPLOYING'
   ) {
-    status = 'success'
+    status = 'SUCCESS'
     spinner = true
   } else {
-    status = 'info'
+    status = 'UNKNOWN'
   }
 
   const titleCase = (str: Deployment['deploymentStatus']) => {

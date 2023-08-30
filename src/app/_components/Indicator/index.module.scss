@@ -4,20 +4,19 @@
   height: 10px;
   position: relative;
   flex-shrink: 0;
+  background-color: var(--theme-elevation-500);
 }
 
-.status--success {
+.status--SUCCESS,
+.status--RUNNING {
   background-color: var(--theme-success-500);
 }
 
-.status--warning {
-  background-color: var(--theme-warning-500);
-}
-
-.status--error {
+.status--ERROR {
   background-color: var(--theme-error-500);
 }
 
-.status--info {
+.status--UNKNOWN,
+.status--PENDING {
   background-color: var(--theme-elevation-500);
 }

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Tab, Tabs } from '@cloud/_components/Tabs'
 
 import { Gutter } from '@components/Gutter'
-import { Indicator, IndicatorProps } from '@root/app/_components/Indicator'
+import { Indicator } from '@root/app/_components/Indicator'
 import { formatLogData, Log, SimpleLogs } from '@root/app/_components/SimpleLogs'
 import { Deployment } from '@root/payload-cloud-types'
 import { useWebSocket } from '@root/utilities/use-websocket'
@@ -37,6 +37,7 @@ const LiveLogs = ({
   const [logs, setLogs] = React.useState<Log[] | undefined>(
     type === 'BUILD' ? defaultBuildLogs : defaultDeployLogs,
   )
+  const [wsStatus, setWsStatus] = React.useState<'CONNECTING' | 'OPEN' | 'CLOSED'>('CLOSED')
 
   const onLogMessage = React.useCallback((event: MessageEvent) => {
     const message = event?.data
@@ -61,12 +62,27 @@ const LiveLogs = ({
   }, [])
 
   useWebSocket({
-    url: `${`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}`.replace(
-      'http',
-      'ws',
-    )}/api/deployments/${deploymentID}/logs?logType=${type}`,
+    url:
+      wsStatus === 'CONNECTING'
+        ? `${`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}`.replace(
+            'http',
+            'ws',
+          )}/api/deployments/${deploymentID}/logs?logType=${type}`
+        : '',
     onMessage: e => onLogMessage(e),
+    onClose: () => {
+      setWsStatus('CLOSED')
+    },
+    onError: () => {
+      setWsStatus('CLOSED')
+    },
   })
+
+  React.useEffect(() => {
+    if (active && wsStatus === 'CLOSED') {
+      setWsStatus('CONNECTING')
+    }
+  }, [active, wsStatus])
 
   if (!logs || !active) return null
 
@@ -78,41 +94,20 @@ type Props = {
 }
 export const DeploymentLogs: React.FC<Props> = ({ deployment }) => {
   const [activeTab, setActiveTab] = React.useState<'build' | 'deploy'>('build')
-  const prevBuildStep = React.useRef('info')
+  const prevBuildStep = React.useRef('')
 
-  let buildTabStatus: IndicatorProps['status'] = 'info'
-  if (deployment && 'buildStepStatus' in deployment) {
-    if (deployment.buildStepStatus !== 'PENDING') {
-      buildTabStatus = 'success'
-    }
-    if (deployment.buildStepStatus === 'ERROR') {
-      buildTabStatus = 'error'
-    }
-  }
-
-  let deployTabStatus: IndicatorProps['status'] = 'info'
-  if (deployment && 'deployStepStatus' in deployment) {
-    if (deployment.deployStepStatus !== 'PENDING') {
-      deployTabStatus = 'success'
-    }
-    if (deployment.deployStepStatus === 'ERROR') {
-      deployTabStatus = 'error'
-    }
-  }
-
-  const enableDeployTab =
-    deployment &&
-    (deployment.deploymentStatus === 'PENDING_DEPLOY' ||
-      deployment.deploymentStatus === 'DEPLOYING' ||
-      deployment.deploymentStatus === 'ACTIVE' ||
-      deployment.deploymentStatus === 'SUPERSEDED')
+  const enableDeployTab = deployment && deployment.buildStepStatus === 'SUCCESS'
 
   React.useEffect(() => {
-    if (buildTabStatus === 'success' && prevBuildStep.current === 'info') {
-      setActiveTab('deploy')
-      prevBuildStep.current = 'success'
+    const buildStepStatus = deployment?.buildStepStatus
+    if (buildStepStatus) {
+      if (buildStepStatus === 'SUCCESS' && prevBuildStep.current === 'RUNNING') {
+        setActiveTab('deploy')
+      }
+
+      prevBuildStep.current = buildStepStatus
     }
-  }, [buildTabStatus])
+  }, [deployment?.buildStepStatus])
 
   return (
     <div className={classes.deploymentLogs}>
@@ -127,7 +122,7 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment }) => {
                     className={[activeTab !== 'build' ? classes.inactiveIndicator : '']
                       .filter(Boolean)
                       .join(' ')}
-                    status={buildTabStatus}
+                    status={deployment?.buildStepStatus}
                     spinner={deployment?.buildStepStatus === 'RUNNING'}
                   />
                   Build Logs
@@ -145,7 +140,7 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment }) => {
                     className={[activeTab !== 'deploy' ? classes.inactiveIndicator : '']
                       .filter(Boolean)
                       .join(' ')}
-                    status={deployTabStatus}
+                    status={deployment?.deployStepStatus}
                     spinner={deployment?.deployStepStatus === 'RUNNING'}
                   />
                   Deploy Logs
@@ -163,7 +158,7 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment }) => {
       />
 
       {deployment?.id && (
-        <Gutter key={deployment.id}>
+        <Gutter>
           <LiveLogs type="BUILD" active={activeTab === 'build'} deploymentID={deployment.id} />
           <LiveLogs type="DEPLOY" active={activeTab === 'deploy'} deploymentID={deployment.id} />
         </Gutter>

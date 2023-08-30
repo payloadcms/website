@@ -21,7 +21,7 @@ import classes from './index.module.scss'
 type DeploymentPhases = RequireField<Project, 'infraStatus'>['infraStatus']
 type DeploymentStates = {
   [key in DeploymentPhases]: {
-    status: 'success' | 'error' | 'warning'
+    status: 'SUCCESS' | 'ERROR'
     label: string
     timeframe?: string
     step?: number
@@ -31,44 +31,44 @@ type DeploymentStates = {
 const deploymentStates: DeploymentStates = {
   notStarted: {
     step: 0,
-    status: 'success',
+    status: 'SUCCESS',
     label: 'Setting up your project',
   },
   awaitingDatabase: {
     step: 1,
-    status: 'success',
+    status: 'SUCCESS',
     label: 'Deploying project database',
     timeframe: '1 to 3 min',
   },
   deploying: {
     step: 2,
-    status: 'success',
+    status: 'SUCCESS',
     label: 'Deploying your project',
     timeframe: '5 to 10 min',
   },
   done: {
     step: 4,
-    status: 'success',
+    status: 'SUCCESS',
     label: 'Deployment complete, reloading page',
   },
   error: {
     step: 0,
-    status: 'error',
+    status: 'ERROR',
     label: 'Deployment failed',
   },
   deployError: {
     step: 0,
-    status: 'error',
+    status: 'ERROR',
     label: 'Deployment failed',
   },
   appCreationError: {
     step: 0,
-    status: 'error',
+    status: 'ERROR',
     label: 'Failed to create the application',
   },
   infraCreationError: {
     step: 0,
-    status: 'error',
+    status: 'ERROR',
     label: 'Failed to create the infrastructure',
   },
 }
@@ -267,8 +267,9 @@ export const InfraOffline: React.FC<{
           }
         />
       </Gutter>
-      {latestDeployment && (
-        <DeploymentLogs key={latestDeployment.deployStepStatus} deployment={latestDeployment} />
+
+      {deploymentStep.status !== 'ERROR' && (
+        <DeploymentLogs key={latestDeployment.id} deployment={latestDeployment} />
       )}
     </>
   )

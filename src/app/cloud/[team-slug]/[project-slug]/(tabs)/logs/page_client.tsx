@@ -18,7 +18,7 @@ type Log = {
 export const ProjectLogsPage: React.FC<{
   project: Project
   team: Team
-}> = ({ project, team }) => {
+}> = ({ project }) => {
   const [runtimeLogs, setRuntimeLogs] = React.useState<Log[]>([])
 
   const onMessage = React.useCallback(event => {
@@ -41,17 +41,12 @@ export const ProjectLogsPage: React.FC<{
     }
   }, [])
 
-  const onClose = React.useCallback(() => {
-    setRuntimeLogs([])
-  }, [])
-
   useWebSocket({
     url: `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/logs`.replace(
       'http',
       'ws',
     ),
     onMessage,
-    onClose,
   })
 
   return (
