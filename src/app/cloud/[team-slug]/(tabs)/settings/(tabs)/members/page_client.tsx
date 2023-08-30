@@ -33,7 +33,24 @@ export const TeamMembersPage: React.FC<{
     data: { message: string; field: string }[]
   }>()
 
+  const isUserOwner = (user, teamId) => {
+    if (!user || !user.teams) return false
+
+    const userTeam = user.teams.find(
+      t => (typeof t.team === 'string' ? t.team : t.team?.id) === teamId,
+    )
+
+    return userTeam && userTeam.roles.includes('owner')
+  }
+
+  const isOwner = isUserOwner(user, team?.id)
+
   const handleUpdateRoles = async (index: number, newRoles: ('owner' | 'admin' | 'user')[]) => {
+    if (!isOwner) {
+      toast.error('You must be an owner to update roles.')
+      return
+    }
+
     if (!user) {
       toast.error('You must be logged in to update roles.')
       return
@@ -50,7 +67,7 @@ export const TeamMembersPage: React.FC<{
     }
 
     const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/${user.id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
@@ -168,7 +185,12 @@ export const TeamMembersPage: React.FC<{
       <Form onSubmit={handleSubmit} className={classes.form} errors={error?.data}>
         <FormSubmissionError />
         <FormProcessing message="Updating team, one moment..." />
-        <TeamMembers team={team} onUpdateRoles={handleUpdateRoles} renderHeader={false} />
+        <TeamMembers
+          team={team}
+          onUpdateRoles={handleUpdateRoles}
+          renderHeader={false}
+          isOwner={isOwner}
+        />
         <HR margin="small" />
         {team?.invitations && team?.invitations?.length > 0 && (
           <React.Fragment>

@@ -12,7 +12,8 @@ export const TeamMembers: React.FC<{
   className?: string
   renderHeader?: boolean
   onUpdateRoles?: (index: number, newRoles: ('owner' | 'admin' | 'user')[]) => void
-}> = ({ className, team, renderHeader, onUpdateRoles }) => {
+  isOwner: boolean
+}> = ({ className, team, renderHeader, onUpdateRoles, isOwner }) => {
   const handleUpdateRoles = (index: number) => (newRoles: ('owner' | 'admin' | 'user')[]) => {
     onUpdateRoles && onUpdateRoles(index, newRoles)
   }
@@ -38,6 +39,7 @@ export const TeamMembers: React.FC<{
               </Fragment>
             }
             onUpdateRoles={handleUpdateRoles(index)}
+            isOwner={isOwner}
           />
         )
       })}

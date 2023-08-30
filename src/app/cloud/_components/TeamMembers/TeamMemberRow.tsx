@@ -12,8 +12,9 @@ export const TeamMemberRow: React.FC<{
   initialRoles?: ('owner' | 'admin' | 'user')[]
   footer?: React.ReactNode
   onUpdateRoles?: (newRoles: ('owner' | 'admin' | 'user')[]) => void
+  isOwner: boolean
 }> = props => {
-  const { initialEmail, leader, footer, initialRoles, onUpdateRoles } = props
+  const { initialEmail, leader, footer, initialRoles, onUpdateRoles, isOwner } = props
 
   const [roles, setRoles] = React.useState(initialRoles)
 
@@ -29,7 +30,7 @@ export const TeamMemberRow: React.FC<{
         <Text disabled initialValue={initialEmail} label="Email" />
         <Select
           isMulti
-          disabled={!onUpdateRoles}
+          disabled={!onUpdateRoles || !isOwner}
           initialValue={initialRoles}
           value={roles}
           onChange={handleRolesChange}
