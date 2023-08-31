@@ -31,6 +31,7 @@
 .pricingCard {
   aspect-ratio: unset;
   min-height: calc(var(--base) * 15);
+  cursor: pointer;
 
   @include small-break {
     aspect-ratio: unset;
