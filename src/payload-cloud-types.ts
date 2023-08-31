@@ -143,6 +143,7 @@ export interface Plan {
   id: string;
   name: string;
   slug: string;
+  description?: string;
   stripeProductID?: string;
   priceJSON?:
     | {
@@ -154,6 +155,12 @@ export interface Plan {
     | boolean
     | null;
   order?: number;
+  highlight?: boolean;
+  features?: {
+    icon?: 'check' | 'x';
+    feature?: string;
+    id?: string;
+  }[];
   updatedAt: string;
   createdAt: string;
 }
@@ -230,6 +237,7 @@ export interface Template {
   files?: {
     path: string;
     content?: string;
+    encoding?: string;
     id?: string;
   }[];
   updatedAt: string;
