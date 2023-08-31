@@ -61,7 +61,7 @@ export const UpdateRolesConfirmationForm: React.FC<UpdateRolesConfirmationFormPr
     }
 
     const req = await fetch(
-      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/${userID}/change-roles`,
+      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/${userID}/change-team-roles`,
       {
         method: 'PATCH',
         credentials: 'include',
@@ -69,19 +69,9 @@ export const UpdateRolesConfirmationForm: React.FC<UpdateRolesConfirmationFormPr
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          teams:
-            selectedMember.user &&
-            typeof selectedMember.user !== 'string' &&
-            selectedMember.user.teams
-              ? selectedMember.user.teams.map(userTeam => {
-                  const teamId =
-                    typeof userTeam.team === 'string' ? userTeam.team : userTeam.team?.id
-                  if (teamId === team.id) {
-                    return { ...userTeam, roles: newRoles, team: teamId }
-                  }
-                  return userTeam
-                })
-              : [],
+          team: team.id,
+          roles: newRoles,
+          id: userID,
         }),
       },
     )
