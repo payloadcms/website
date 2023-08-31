@@ -6,17 +6,20 @@ import { revalidateCache } from '@cloud/_actions/revalidateCache'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { InviteTeammates } from '@cloud/_components/InviteTeammates'
 import { TeamInvitations } from '@cloud/_components/TeamInvitations'
-import { TeamMembers } from '@cloud/_components/TeamMembers'
+import { Member, TeamMembers } from '@cloud/_components/TeamMembers'
 import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
+import { useModal } from '@faceless-ui/modal'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
 import FormSubmissionError from '@forms/FormSubmissionError'
 import Submit from '@forms/Submit'
 import { OnSubmit } from '@forms/types'
 
+import { ModalWindow } from '@components/ModalWindow'
 import { HR } from '@root/app/_components/HR'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
+import { UpdateRolesConfirmationForm } from './UpdateRolesConfirmationForm'
 
 import classes from './page.module.scss'
 
@@ -26,6 +29,16 @@ export const TeamMembersPage: React.FC<{
   const [team, setTeam] = React.useState<Team>(initialTeam)
   const { user } = useAuth()
   const [clearCount, dispatchClearCount] = React.useReducer((state: number) => state + 1, 0)
+
+  const { openModal } = useModal()
+  const [selectedMemberIndex, setSelectedMemberIndex] = React.useState<number | null>(null)
+  const [selectedNewRoles, setSelectedNewRoles] = React.useState<
+    ('owner' | 'admin' | 'user')[] | null
+  >(null)
+  const [selectedMember, setSelectedMember] = React.useState<Member | null>(null)
+  const [roles, setRoles] = React.useState<('owner' | 'admin' | 'user')[][]>(
+    (team?.members ?? []).map(member => member.roles ?? []),
+  ) // eslint-disable-line
 
   const [error, setError] = React.useState<{
     message: string
@@ -45,7 +58,11 @@ export const TeamMembersPage: React.FC<{
 
   const isOwner = isUserOwner(user, team?.id)
 
-  const handleUpdateRoles = async (index: number, newRoles: ('owner' | 'admin' | 'user')[]) => {
+  const handleUpdateRoles = async (
+    index: number,
+    newRoles: ('owner' | 'admin' | 'user')[],
+    member: Member,
+  ) => {
     if (!isOwner) {
       toast.error('You must be an owner to update roles.')
       return
@@ -56,41 +73,14 @@ export const TeamMembersPage: React.FC<{
       return
     }
 
-    const updatedUser = {
-      ...user,
-      teams:
-        user.teams &&
-        user.teams.map((userTeam, i) => {
-          const teamId = typeof userTeam.team === 'string' ? userTeam.team : userTeam.team?.id
-          return i === index ? { ...userTeam, roles: newRoles, team: teamId } : userTeam
-        }),
-    }
+    const newRolesArray = [...roles]
+    newRolesArray[index] = newRoles
+    setRoles(newRolesArray)
 
-    const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/${user.id}`, {
-      method: 'PATCH',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedUser),
-    })
-
-    const response = await req.json()
-
-    if (!req.ok) {
-      toast.error(`Failed to update roles: ${response?.errors?.[0]?.message}`)
-      setError(response?.errors?.[0])
-      return
-    }
-
-    setTeam({
-      ...team,
-      members:
-        team.members &&
-        team.members.map((member, i) => (i === index ? { ...member, roles: newRoles } : member)),
-    })
-
-    toast.success('Roles updated successfully.')
+    setSelectedMemberIndex(index)
+    setSelectedNewRoles(newRoles)
+    setSelectedMember(member)
+    openModal('updateRoles')
   }
 
   const handleSubmit: OnSubmit = React.useCallback(
@@ -190,6 +180,7 @@ export const TeamMembersPage: React.FC<{
           onUpdateRoles={handleUpdateRoles}
           renderHeader={false}
           isOwner={isOwner}
+          roles={roles}
         />
         <HR margin="small" />
         {team?.invitations && team?.invitations?.length > 0 && (
@@ -202,6 +193,19 @@ export const TeamMembersPage: React.FC<{
         <HR margin="small" />
         <Submit label="Save" className={classes.submit} />
       </Form>
+      <ModalWindow className={classes.modal} slug="updateRoles">
+        {selectedMember && (
+          <UpdateRolesConfirmationForm
+            modalSlug="updateRoles"
+            user={user!}
+            team={team}
+            memberIndex={selectedMemberIndex}
+            newRoles={selectedNewRoles}
+            selectedMember={selectedMember}
+            setRoles={setRoles}
+          />
+        )}
+      </ModalWindow>
     </React.Fragment>
   )
 }

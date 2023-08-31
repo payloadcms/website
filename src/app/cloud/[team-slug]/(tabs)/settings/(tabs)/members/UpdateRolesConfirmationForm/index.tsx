@@ -1,0 +1,131 @@
+import React from 'react'
+import { toast } from 'react-toastify'
+import { revalidateCache } from '@cloud/_actions/revalidateCache'
+import { Member } from '@cloud/_components/TeamMembers'
+import { useModal } from '@faceless-ui/modal'
+import Form from '@forms/Form'
+import Submit from '@forms/Submit'
+
+import { Button } from '@components/Button'
+import { Heading } from '@components/Heading'
+import { Team, User } from '@root/payload-cloud-types'
+
+import classes from './page.module.scss'
+
+interface UpdateRolesConfirmationFormProps {
+  modalSlug: string
+  user: User
+  team: Team
+  memberIndex: number | null
+  newRoles: ('owner' | 'admin' | 'user')[] | null
+  selectedMember: Member
+  setRoles: any
+}
+
+export const UpdateRolesConfirmationForm: React.FC<UpdateRolesConfirmationFormProps> = ({
+  modalSlug,
+  team,
+  memberIndex,
+  newRoles,
+  selectedMember,
+  setRoles,
+}) => {
+  const { closeModal } = useModal()
+
+  const userEmail =
+    selectedMember && selectedMember.user
+      ? typeof selectedMember.user === 'string'
+        ? selectedMember.user
+        : selectedMember.user.email
+      : ''
+
+  const userName =
+    selectedMember && selectedMember.user
+      ? typeof selectedMember.user === 'string'
+        ? selectedMember.user
+        : selectedMember.user.name
+      : ''
+
+  const userID =
+    selectedMember && selectedMember.user
+      ? typeof selectedMember.user === 'string'
+        ? selectedMember.user
+        : selectedMember.user.id
+      : ''
+
+  const confirmUpdateRoles = async () => {
+    if (memberIndex === null || newRoles === null) {
+      toast.error('An error occurred. Please try again.')
+      closeModal(modalSlug)
+      return
+    }
+
+    const req = await fetch(
+      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/${userID}/change-roles`,
+      {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          teams:
+            selectedMember.user &&
+            typeof selectedMember.user !== 'string' &&
+            selectedMember.user.teams
+              ? selectedMember.user.teams.map(userTeam => {
+                  const teamId =
+                    typeof userTeam.team === 'string' ? userTeam.team : userTeam.team?.id
+                  if (teamId === team.id) {
+                    return { ...userTeam, roles: newRoles, team: teamId }
+                  }
+                  return userTeam
+                })
+              : [],
+        }),
+      },
+    )
+
+    const response = await req.json()
+
+    if (!req.ok) {
+      toast.error(`Failed to update roles: ${response?.errors?.[0]?.message}`)
+      closeModal(modalSlug)
+      return
+    }
+
+    revalidateCache({
+      tag: `team_${team.id}`,
+    })
+
+    toast.success('Roles updated successfully.')
+    closeModal(modalSlug)
+  }
+
+  const handleCancel = () => {
+    const initialRolesArray = (team?.members ?? []).map(member => member.roles ?? [])
+    setRoles(initialRolesArray)
+    closeModal(modalSlug)
+  }
+
+  return (
+    <Form onSubmit={confirmUpdateRoles}>
+      <Heading marginTop={false} as="h5">
+        Are you sure you want to update the member roles of <b>{userName ? userName : userEmail}</b>
+        ?
+      </Heading>
+      {newRoles && (
+        <p>
+          You are about to change the roles to{' '}
+          <b>{newRoles.length === 1 ? newRoles[0] : newRoles.slice(0, -1).join(', ')}</b>
+          {newRoles.length > 1 && ' and '}
+          {newRoles.length > 1 && <b>{newRoles[newRoles.length - 1]}</b>}.
+        </p>
+      )}
+      <div className={classes.modalActions}>
+        <Button label="Cancel" appearance="secondary" onClick={handleCancel} />
+        <Submit label="Confirm" appearance="primary" />
+      </div>
+    </Form>
+  )
+}

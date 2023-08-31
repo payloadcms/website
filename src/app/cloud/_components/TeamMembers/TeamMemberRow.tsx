@@ -16,10 +16,7 @@ export const TeamMemberRow: React.FC<{
 }> = props => {
   const { initialEmail, leader, footer, initialRoles, onUpdateRoles, isOwner } = props
 
-  const [roles, setRoles] = React.useState(initialRoles)
-
   const handleRolesChange = (newRoles: any) => {
-    setRoles(newRoles)
     onUpdateRoles && onUpdateRoles(newRoles)
   }
 
@@ -32,7 +29,7 @@ export const TeamMemberRow: React.FC<{
           isMulti
           disabled={!onUpdateRoles || !isOwner}
           initialValue={initialRoles}
-          value={roles}
+          value={initialRoles}
           onChange={handleRolesChange}
           label="Roles"
           options={userTeamRoles}
