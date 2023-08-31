@@ -12,10 +12,17 @@ import classes from './index.module.scss'
 
 type ComparePlansProps = {
   plans: Plan[]
+  handlePlanChange: (value?: Plan | null) => void // eslint-disable-line no-unused-vars
 }
 
 export const ComparePlans: React.FC<ComparePlansProps> = props => {
-  const { plans } = props
+  const { plans, handlePlanChange } = props
+  const { closeModal } = useModal()
+
+  const handleSelect = (plan: Plan) => {
+    handlePlanChange(plan)
+    closeModal(`comparePlans`)
+  }
 
   return (
     <Fragment>
@@ -41,7 +48,7 @@ export const ComparePlans: React.FC<ComparePlansProps> = props => {
             const highlight = plan.highlight ? classes.highlight : ''
 
             return (
-              <div key={i} className={classes.planCard}>
+              <div key={i} className={classes.planCard} onClick={() => handleSelect(plan)}>
                 <PricingCard
                   key={plan.name}
                   leader={plan.name}

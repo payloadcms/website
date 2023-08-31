@@ -240,13 +240,13 @@ const Checkout: React.FC<{
                     <Heading element="h5" marginTop={false}>
                       Select your plan
                     </Heading>
-                    <ComparePlans plans={plans} />
+                    <ComparePlans plans={plans} handlePlanChange={handlePlanChange} />
                   </div>
                   <div className={classes.plans}>
                     <PlanSelector
                       plans={plans}
                       onChange={handlePlanChange}
-                      initialSelection={project?.plan}
+                      selectedPlan={checkoutState?.plan}
                     />
                   </div>
                   <Checkbox
