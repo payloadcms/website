@@ -143,6 +143,7 @@ export interface Plan {
   id: string;
   name: string;
   slug: string;
+  description?: string;
   stripeProductID?: string;
   priceJSON?:
     | {
@@ -154,7 +155,6 @@ export interface Plan {
     | boolean
     | null;
   order?: number;
-  description?: string;
   highlight?: boolean;
   features?: {
     icon?: 'check' | 'x';
