@@ -18,8 +18,9 @@ type Log = {
 export const ProjectLogsPage: React.FC<{
   project: Project
   team: Team
-}> = ({ project, team }) => {
+}> = ({ project }) => {
   const [runtimeLogs, setRuntimeLogs] = React.useState<Log[]>([])
+  const previousLogs = React.useRef<Log[]>([])
 
   const onMessage = React.useCallback(event => {
     const message = event?.data
@@ -27,22 +28,23 @@ export const ProjectLogsPage: React.FC<{
       const parsedMessage = JSON.parse(message)
       if (parsedMessage?.data) {
         const [service, timestamp, ...rest] = parsedMessage.data.split(' ')
-        setRuntimeLogs(messages => [
-          ...messages,
-          {
-            service,
-            timestamp,
-            message: rest.join(' ').trim(),
-          },
-        ])
+        setRuntimeLogs(messages => {
+          const newLogs = [
+            ...messages,
+            {
+              service,
+              timestamp,
+              message: rest.join(' ').trim(),
+            },
+          ]
+          previousLogs.current =
+            previousLogs.current?.length > newLogs.length ? previousLogs.current : newLogs
+          return newLogs
+        })
       }
     } catch (e) {
       // fail silently
     }
-  }, [])
-
-  const onClose = React.useCallback(() => {
-    setRuntimeLogs([])
   }, [])
 
   useWebSocket({
@@ -50,9 +52,13 @@ export const ProjectLogsPage: React.FC<{
       'http',
       'ws',
     ),
+    onOpen: () => setRuntimeLogs([]),
     onMessage,
-    onClose,
+    retryOnClose: true,
   })
+
+  const logsToShow =
+    previousLogs.current.length > runtimeLogs.length ? previousLogs.current : runtimeLogs
 
   return (
     <Gutter>
@@ -60,7 +66,7 @@ export const ProjectLogsPage: React.FC<{
         Project Runtime logs
       </Heading>
 
-      <ExtendedBackground pixels upperChildren={<SimpleLogs logs={runtimeLogs} />} />
+      <ExtendedBackground pixels upperChildren={<SimpleLogs logs={logsToShow} />} />
     </Gutter>
   )
 }

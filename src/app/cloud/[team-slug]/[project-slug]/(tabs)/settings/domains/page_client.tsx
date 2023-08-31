@@ -38,9 +38,9 @@ export const ProjectDomainsPage: React.FC<{
           <AddDomain project={project} team={team} />
         </Accordion>
       </CollapsibleGroup>
+      <HR />
       {project?.domains && project.domains.length > 0 ? (
         <React.Fragment>
-          <HR />
           <SectionHeader title="Manage Domains" />
           <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
             <div>

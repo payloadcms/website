@@ -21,7 +21,7 @@ import classes from './index.module.scss'
 type DeploymentPhases = RequireField<Project, 'infraStatus'>['infraStatus']
 type DeploymentStates = {
   [key in DeploymentPhases]: {
-    status: 'success' | 'error' | 'warning'
+    status: 'SUCCESS' | 'ERROR'
     label: string
     timeframe?: string
     step?: number
@@ -31,44 +31,44 @@ type DeploymentStates = {
 const deploymentStates: DeploymentStates = {
   notStarted: {
     step: 0,
-    status: 'success',
+    status: 'SUCCESS',
     label: 'Setting up your project',
   },
   awaitingDatabase: {
     step: 1,
-    status: 'success',
+    status: 'SUCCESS',
     label: 'Deploying project database',
     timeframe: '1 to 3 min',
   },
   deploying: {
     step: 2,
-    status: 'success',
+    status: 'SUCCESS',
     label: 'Deploying your project',
     timeframe: '5 to 10 min',
   },
   done: {
     step: 4,
-    status: 'success',
+    status: 'SUCCESS',
     label: 'Deployment complete, reloading page',
   },
   error: {
     step: 0,
-    status: 'error',
+    status: 'ERROR',
     label: 'Deployment failed',
   },
   deployError: {
     step: 0,
-    status: 'error',
+    status: 'ERROR',
     label: 'Deployment failed',
   },
   appCreationError: {
     step: 0,
-    status: 'error',
+    status: 'ERROR',
     label: 'Failed to create the application',
   },
   infraCreationError: {
     step: 0,
-    status: 'error',
+    status: 'ERROR',
     label: 'Failed to create the infrastructure',
   },
 }
@@ -100,9 +100,6 @@ export const InfraOffline: React.FC<{
   const infraStatus = project?.infraStatus || 'notStarted'
   const failedDeployment = ['error', 'deployError', 'appCreationError'].includes(infraStatus)
   const deploymentStep = deploymentStates[infraStatus]
-
-  const [buildSuccess, setBuilt] = React.useState(false)
-  const [deploySuccess, setDeployed] = React.useState(false)
 
   const {
     result: deployments,
@@ -143,6 +140,17 @@ export const InfraOffline: React.FC<{
     }
   }, [reqStatus, reloadDeployments])
 
+  const unsuccessfulDeployment =
+    latestDeployment &&
+    (latestDeployment.deploymentStatus === 'DEPLOYING' ||
+      latestDeployment.deploymentStatus === 'CANCELED' ||
+      latestDeployment.deploymentStatus === 'ERROR')
+
+  const hasDeployedBefore =
+    latestDeployment &&
+    (latestDeployment.deploymentStatus === 'ACTIVE' ||
+      latestDeployment.deploymentStatus === 'SUPERSEDED')
+
   return (
     <>
       <Gutter>
@@ -181,7 +189,7 @@ export const InfraOffline: React.FC<{
                           to your repository
                         </Link>
                         {` to re-trigger a deployment.${
-                          buildSuccess || deploySuccess
+                          unsuccessfulDeployment || hasDeployedBefore
                             ? ' Check the logs below for more information.'
                             : ''
                         }`}
@@ -198,13 +206,13 @@ export const InfraOffline: React.FC<{
                   </div>
                 )}
               </div>
-              {failedDeployment && (!buildSuccess || !deploySuccess) && (
+              {failedDeployment && (!unsuccessfulDeployment || !hasDeployedBefore) && (
                 <React.Fragment>
                   <div className={classes.tips}>
                     <Heading element="h4" marginTop={false}>
                       Troubleshooting help
                     </Heading>
-                    {!buildSuccess && (
+                    {!unsuccessfulDeployment && (
                       <>
                         <h6>
                           Does the branch <code>{project?.deploymentBranch}</code> exist?
@@ -224,7 +232,7 @@ export const InfraOffline: React.FC<{
                         </p>
                       </>
                     )}
-                    {buildSuccess && !deploySuccess && (
+                    {unsuccessfulDeployment && !hasDeployedBefore && (
                       <>
                         <h6>Required ENV variables</h6>
                         <p className={classes.helpText}>
@@ -259,12 +267,9 @@ export const InfraOffline: React.FC<{
           }
         />
       </Gutter>
-      {latestDeployment && (
-        <DeploymentLogs
-          deployment={latestDeployment}
-          setBuilt={setBuilt}
-          setDeployed={setDeployed}
-        />
+
+      {deploymentStep.status !== 'ERROR' && (
+        <DeploymentLogs key={latestDeployment?.id} deployment={latestDeployment} />
       )}
     </>
   )
