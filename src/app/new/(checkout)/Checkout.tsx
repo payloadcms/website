@@ -6,6 +6,7 @@ import { revalidateCache } from '@cloud/_actions/revalidateCache'
 import { Install } from '@cloud/_api/fetchInstalls'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { BranchSelector } from '@cloud/_components/BranchSelector'
+import { ComparePlans } from '@cloud/_components/ComparePlans'
 import { CreditCardSelector } from '@cloud/_components/CreditCardSelector'
 import { PlanSelector } from '@cloud/_components/PlanSelector'
 import { RepoExists } from '@cloud/_components/RepoExists'
@@ -235,14 +236,17 @@ const Checkout: React.FC<{
             <Cell cols={9} colsM={8}>
               <div>
                 <div className={classes.plansSection}>
-                  <Heading element="h5" marginTop={false}>
-                    Select your plan
-                  </Heading>
+                  <div className={classes.plansSectionHeader}>
+                    <Heading element="h5" marginTop={false}>
+                      Select your plan
+                    </Heading>
+                    <ComparePlans plans={plans} handlePlanChange={handlePlanChange} />
+                  </div>
                   <div className={classes.plans}>
                     <PlanSelector
                       plans={plans}
                       onChange={handlePlanChange}
-                      initialSelection={project?.plan}
+                      selectedPlan={checkoutState?.plan}
                     />
                   </div>
                   <Checkbox
