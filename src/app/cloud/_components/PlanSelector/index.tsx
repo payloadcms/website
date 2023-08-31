@@ -7,48 +7,12 @@ import classes from './index.module.scss'
 
 type PlanSelectorProps = {
   plans: Plan[]
-  value?: string
   onChange?: (value?: Plan | null) => void // eslint-disable-line no-unused-vars
-  initialSelection?: Plan | string
-  onFreeTrialChange?: (value?: boolean) => void // eslint-disable-line no-unused-vars
+  selectedPlan?: Plan | null
 }
 
 export const PlanSelector: React.FC<PlanSelectorProps> = props => {
-  const { onChange, value: valueFromProps, plans, initialSelection } = props
-
-  const hasInitializedSelection = React.useRef(false)
-  const [selectedPlan, setSelectedPlan] = React.useState<Plan | undefined | null>(
-    typeof initialSelection === 'string'
-      ? plans?.find(plan => plan.id === initialSelection)
-      : initialSelection,
-  )
-
-  // initialize with the `standard` plan if an initial selection is not provided
-  // fallback to the first plan in the list if `standard` is not available
-  useEffect(() => {
-    if (plans?.length && !initialSelection && !hasInitializedSelection.current) {
-      hasInitializedSelection.current = true
-      setSelectedPlan(plans?.find(plan => plan.slug === 'standard') || plans?.[0])
-    }
-  }, [plans, initialSelection])
-
-  useEffect(() => {
-    if (
-      hasInitializedSelection &&
-      valueFromProps !== undefined &&
-      valueFromProps !== selectedPlan?.id &&
-      plans?.length
-    ) {
-      const newSelection = plans.find(plan => plan.id === valueFromProps)
-      setSelectedPlan(newSelection)
-    }
-  }, [valueFromProps, plans, selectedPlan])
-
-  useEffect(() => {
-    if (typeof onChange === 'function') {
-      onChange(selectedPlan)
-    }
-  }, [onChange, selectedPlan])
+  const { onChange, plans, selectedPlan } = props
 
   return (
     <Fragment>
@@ -68,7 +32,7 @@ export const PlanSelector: React.FC<PlanSelectorProps> = props => {
                     name={name}
                     id={plan.id}
                     value={plan}
-                    onChange={setSelectedPlan}
+                    onChange={onChange}
                     label={<div className={classes.plan}>{name}</div>}
                   />
                 </>
