@@ -12,9 +12,9 @@ export const TeamMemberRow: React.FC<{
   initialRoles?: ('owner' | 'admin' | 'user')[]
   footer?: React.ReactNode
   onUpdateRoles?: (newRoles: ('owner' | 'admin' | 'user')[]) => void
-  isOwner: boolean
+  isOwnerOrGlobalAdmin: boolean
 }> = props => {
-  const { initialEmail, leader, footer, initialRoles, onUpdateRoles, isOwner } = props
+  const { initialEmail, leader, footer, initialRoles, onUpdateRoles, isOwnerOrGlobalAdmin } = props
 
   const handleRolesChange = (newRoles: any) => {
     onUpdateRoles && onUpdateRoles(newRoles)
@@ -27,7 +27,7 @@ export const TeamMemberRow: React.FC<{
         <Text disabled initialValue={initialEmail} label="Email" />
         <Select
           isMulti
-          disabled={!onUpdateRoles || !isOwner}
+          disabled={!onUpdateRoles || !isOwnerOrGlobalAdmin}
           initialValue={initialRoles}
           value={initialRoles}
           onChange={handleRolesChange}

@@ -46,25 +46,23 @@ export const TeamMembersPage: React.FC<{
     data: { message: string; field: string }[]
   }>()
 
-  const isUserOwner = (user, teamId) => {
-    if (!user || !user.teams) return false
-
-    const userTeam = user.teams.find(
-      t => (typeof t.team === 'string' ? t.team : t.team?.id) === teamId,
-    )
-
-    return userTeam && userTeam.roles.includes('owner')
-  }
-
-  const isOwner = isUserOwner(user, team?.id)
+  const isOwnerOrGlobalAdmin = React.useMemo(() => {
+    const isGlobalAdmin = user?.roles?.includes('admin')
+    const currentUserRoles = roles.find((_, index) => {
+      const currentUser = team?.members?.[index]?.user
+      return typeof currentUser === 'object' && currentUser?.id === user?.id
+    })
+    const isTeamOwner = currentUserRoles?.includes('owner')
+    return isTeamOwner || isGlobalAdmin || false
+  }, [roles, team?.members, user?.id, user?.roles])
 
   const handleUpdateRoles = async (
     index: number,
     newRoles: ('owner' | 'admin' | 'user')[],
     member: Member,
   ) => {
-    if (!isOwner) {
-      toast.error('You must be an owner to update roles.')
+    if (!isOwnerOrGlobalAdmin) {
+      toast.error('You must be an owner or global admin to update roles.')
       return
     }
 
@@ -179,7 +177,7 @@ export const TeamMembersPage: React.FC<{
           team={team}
           onUpdateRoles={handleUpdateRoles}
           renderHeader={false}
-          isOwner={isOwner}
+          isOwnerOrGlobalAdmin={isOwnerOrGlobalAdmin}
           roles={roles}
         />
         <HR margin="small" />
@@ -203,6 +201,11 @@ export const TeamMembersPage: React.FC<{
             newRoles={selectedNewRoles}
             selectedMember={selectedMember}
             setRoles={setRoles}
+            onRolesUpdated={newRoles => {
+              const newRolesArray = [...roles]
+              newRolesArray[selectedMemberIndex!] = newRoles
+              setRoles(newRolesArray)
+            }}
           />
         )}
       </ModalWindow>

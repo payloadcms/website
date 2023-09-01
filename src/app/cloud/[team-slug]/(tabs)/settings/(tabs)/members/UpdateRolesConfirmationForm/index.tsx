@@ -20,6 +20,7 @@ interface UpdateRolesConfirmationFormProps {
   newRoles: ('owner' | 'admin' | 'user')[] | null
   selectedMember: Member
   setRoles: any
+  onRolesUpdated: (newRoles: ('owner' | 'admin' | 'user')[]) => void
 }
 
 export const UpdateRolesConfirmationForm: React.FC<UpdateRolesConfirmationFormProps> = ({
@@ -29,6 +30,7 @@ export const UpdateRolesConfirmationForm: React.FC<UpdateRolesConfirmationFormPr
   newRoles,
   selectedMember,
   setRoles,
+  onRolesUpdated,
 }) => {
   const { closeModal } = useModal()
 
@@ -83,6 +85,8 @@ export const UpdateRolesConfirmationForm: React.FC<UpdateRolesConfirmationFormPr
       closeModal(modalSlug)
       return
     }
+
+    onRolesUpdated(newRoles)
 
     revalidateCache({
       tag: `team_${team.id}`,
