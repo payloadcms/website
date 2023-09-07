@@ -22,6 +22,8 @@ export const ProjectLogsPage: React.FC<{
   const [runtimeLogs, setRuntimeLogs] = React.useState<Log[]>([])
   const previousLogs = React.useRef<Log[]>([])
 
+  const hasSuccessfullyDeployed = project?.infraStatus === 'done'
+
   const onMessage = React.useCallback(event => {
     const message = event?.data
     try {
@@ -48,10 +50,12 @@ export const ProjectLogsPage: React.FC<{
   }, [])
 
   useWebSocket({
-    url: `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/logs`.replace(
-      'http',
-      'ws',
-    ),
+    url: hasSuccessfullyDeployed
+      ? `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/logs`.replace(
+          'http',
+          'ws',
+        )
+      : '',
     onOpen: () => setRuntimeLogs([]),
     onMessage,
     retryOnClose: true,
@@ -63,10 +67,13 @@ export const ProjectLogsPage: React.FC<{
   return (
     <Gutter>
       <Heading element="h5" marginTop={false}>
-        Project Runtime logs
+        Runtime logs
+        {!hasSuccessfullyDeployed && ' will be available after a successful deploy - hang tight!'}
       </Heading>
 
-      <ExtendedBackground pixels upperChildren={<SimpleLogs logs={logsToShow} />} />
+      {hasSuccessfullyDeployed && (
+        <ExtendedBackground pixels upperChildren={<SimpleLogs logs={logsToShow} />} />
+      )}
     </Gutter>
   )
 }
