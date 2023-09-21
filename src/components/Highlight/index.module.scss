@@ -27,7 +27,7 @@
     bottom: 0;
     left: 50%;
     transform: translate3d(-50%, 0, 0);
-    background-color: var(--highlight-default-bg-color);
+    background-color: var(--highlight-success-bg-color);
     transition: height cubic-bezier(0.4, 0, 0.2, 1) 500ms;
     transition-delay: 250ms;
   }
@@ -48,7 +48,7 @@
 
 .doHighlight {
   .label {
-    color: var(--highlight-default-text-color);
+    color: var(--highlight-success-text-color);
   }
 
   &::before {
