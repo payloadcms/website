@@ -30,9 +30,10 @@
   }
 }
   
-.lineInfo {
+.logTimestamp {
   margin-bottom: 0;
   flex-shrink: 0;
+  color: var(--theme-elevation-500);
 }
   
 .lineMessage {
@@ -41,4 +42,41 @@
   @include mid-break {
     white-space: nowrap;
   }
+}
+
+.lineType--error,
+.lineType--success,
+.lineType--warning {
+  .logText,
+  .logTimestamp {
+    color: inherit;
+  }
+  .logTimestamp {
+    opacity: .5;
+  }
+}
+.lineType--error {
+  background-color: var(--theme-error-50);
+  color: var(--theme-error-450);
+}
+.lineType--success {
+  background-color: var(--theme-success-50);
+  color: var(--theme-success-500);
+}
+.lineType--warning {
+  background-color: var(--theme-warning-50);
+  color: var(--theme-warning-450);
+}
+.lineType--info {
+  background-color: var(--theme-elevation-150);
+}
+
+.logText {
+  color: var(--theme-elevation-500)
+}
+.logTextAppearance--style {
+  color: var(--theme-elevation-500);
+}
+.logTextAppearance--text {
+  color: var(--theme-elevation-900);
 }

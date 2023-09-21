@@ -3,13 +3,13 @@ import { Tab, Tabs } from '@cloud/_components/Tabs'
 
 import { Gutter } from '@components/Gutter'
 import { Indicator } from '@root/app/_components/Indicator'
-import { formatLogData, Log, SimpleLogs } from '@root/app/_components/SimpleLogs'
+import { formatLogData, LogLine, SimpleLogs } from '@root/app/_components/SimpleLogs'
 import { Deployment } from '@root/payload-cloud-types'
 import { useWebSocket } from '@root/utilities/use-websocket'
 
 import classes from './index.module.scss'
 
-const defaultBuildLogs: Log[] = [
+const defaultBuildLogs: LogLine[] = [
   {
     message: 'Waiting for build logs...',
     timestamp: new Date().toISOString(),
@@ -17,7 +17,7 @@ const defaultBuildLogs: Log[] = [
   },
 ]
 
-const defaultDeployLogs: Log[] = [
+const defaultDeployLogs: LogLine[] = [
   {
     message: 'Waiting for deploy logs...',
     timestamp: new Date().toISOString(),
@@ -34,7 +34,7 @@ const LiveLogs = ({
   deploymentID: string
   type: 'BUILD' | 'DEPLOY'
 }) => {
-  const [logs, setLogs] = React.useState<Log[] | undefined>(
+  const [logs, setLogs] = React.useState<LogLine[] | undefined>(
     type === 'BUILD' ? defaultBuildLogs : defaultDeployLogs,
   )
   const [wsStatus, setWsStatus] = React.useState<'CONNECTING' | 'OPEN' | 'CLOSED'>('CLOSED')
