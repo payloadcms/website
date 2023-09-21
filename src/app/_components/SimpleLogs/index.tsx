@@ -38,9 +38,17 @@ const LogLine = ({ logLine }: { logLine: LogLine }) => {
 
   if (message.startsWith('│  ✔')) {
     lineType = 'success'
-  } else if (message.startsWith('│  ✖') || message.startsWith('error')) {
+  } else if (
+    message.startsWith('│  ✘') ||
+    message.startsWith('error') ||
+    message.startsWith('│ error')
+  ) {
     lineType = 'error'
-  } else if (message.startsWith(' ›') || message.startsWith('│ Done')) {
+  } else if (
+    message.startsWith(' ›') ||
+    message.startsWith('│ Done') ||
+    message.startsWith('│ $')
+  ) {
     lineType = 'info'
   } else if (message.startsWith('│ warning') || message.startsWith('warning')) {
     lineType = 'warning'
