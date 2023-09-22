@@ -12,14 +12,18 @@
   text-align: center;
 }
 
+.navigationWrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .tabNavigation {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: fit-content;
   border-bottom: solid 1px var(--theme-elevation-200);
-  overflow: scroll;
 
   button {
     padding: var(--base) var(--base);
