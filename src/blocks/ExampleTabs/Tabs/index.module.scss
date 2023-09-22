@@ -1,0 +1,46 @@
+@use "@scss/common" as *;
+
+.tabsContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: calc(var(--base) * 2);
+}
+
+.content {
+  text-align: center;
+}
+
+.tabNavigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-bottom: solid 1px var(--theme-elevation-200);
+  overflow: scroll;
+
+  button {
+    padding: var(--base) var(--base);
+    border: none;
+    background-color: transparent;
+    font-size: var(--font-body);
+    color: var(--theme-elevation-500);
+    cursor: pointer;
+    border-bottom: solid 2px transparent;
+
+    &:hover {
+      color: var(--theme-text);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &.active {
+      color: var(--theme-text);
+      border-bottom: solid 2px var(--theme-text);
+    }
+  }
+}
