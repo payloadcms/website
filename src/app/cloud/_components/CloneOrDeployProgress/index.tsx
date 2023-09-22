@@ -56,67 +56,72 @@ export const CloneOrDeployProgress: React.FC<
   }, [ref, formProcessing])
 
   return (
-    <div
-      className={[classes.deployProgress, formProcessing && classes.active]
-        .filter(Boolean)
-        .join(' ')}
-    >
-      <div ref={ref} className={classes.scrollTarget} id={id} />
-      <div className={classes.header}>
-        <div className={classes.icons}>
-          <div className={classes.headerIcon}>
-            {type === 'deploy' && <GithubIcon />}
-            {type === 'clone' && <FolderIcon size="full" />}
-          </div>
-          <div className={classes.dots}>
-            <div>
-              <div />
+    <div className={classes.deployProgressContainer}>
+      <div className={classes.backgroundContainer}>
+        {formProcessing && <div className={classes.borderHighlight} />}
+        <div
+          className={[classes.deployProgress, formProcessing && classes.active]
+            .filter(Boolean)
+            .join(' ')}
+        >
+          <div ref={ref} className={classes.scrollTarget} id={id} />
+          <div className={classes.header}>
+            <div className={classes.icons}>
+              <div className={classes.headerIcon}>
+                {type === 'deploy' && <GithubIcon />}
+                {type === 'clone' && <FolderIcon size="full" />}
+              </div>
+              <div className={classes.dots}>
+                <div>
+                  <div />
+                </div>
+                <div>
+                  <div />
+                </div>
+                <div>
+                  <div />
+                </div>
+                <div>
+                  <div />
+                </div>
+                <div>
+                  <div />
+                </div>
+              </div>
+              <div className={classes.headerIcon}>
+                {type === 'deploy' && <PayloadIcon />}
+                {type === 'clone' && <GithubIcon />}
+              </div>
             </div>
-            <div>
-              <div />
+            <div className={classes.label}>
+              {type === 'clone' && (
+                <Fragment>
+                  {'Cloning '}
+                  <b>{`${props?.template?.templateOwner}/${props?.template?.templateRepo}${
+                    props?.template?.templatePath ? `/${props?.template?.templatePath}` : ''
+                  }`}</b>
+                  {' into '}
+                  <b>{`${props?.selectedInstall?.account?.login}/${fields?.repositoryName?.value}`}</b>
+                </Fragment>
+              )}
+              {type === 'deploy' && (
+                <Fragment>
+                  {'Deploying '}
+                  <b>{props?.repositoryFullName}</b>
+                </Fragment>
+              )}
             </div>
-            <div>
-              <div />
-            </div>
-            <div>
-              <div />
-            </div>
-            <div>
-              <div />
-            </div>
-          </div>
-          <div className={classes.headerIcon}>
-            {type === 'deploy' && <PayloadIcon />}
-            {type === 'clone' && <GithubIcon />}
+            {progress >= 10 && (
+              <p className={classes.progress}>
+                <Fragment>
+                  {progress >= 10 && progress < 20 && 'Almost there, please wait...'}
+                  {progress >= 20 && progress < 30 && 'Still working, please wait...'}
+                  {progress >= 30 && 'This is taking longer than expected, please wait...'}
+                </Fragment>
+              </p>
+            )}
           </div>
         </div>
-        <div className={classes.label}>
-          {type === 'clone' && (
-            <Fragment>
-              {'Cloning '}
-              <b>{`${props?.template?.templateOwner}/${props?.template?.templateRepo}${
-                props?.template?.templatePath ? `/${props?.template?.templatePath}` : ''
-              }`}</b>
-              {' into '}
-              <b>{`${props?.selectedInstall?.account?.login}/${fields?.repositoryName?.value}`}</b>
-            </Fragment>
-          )}
-          {type === 'deploy' && (
-            <Fragment>
-              {'Deploying '}
-              <b>{props?.repositoryFullName}</b>
-            </Fragment>
-          )}
-        </div>
-        {progress >= 10 && (
-          <p className={classes.progress}>
-            <Fragment>
-              {progress >= 10 && progress < 20 && 'Almost there, please wait...'}
-              {progress >= 20 && progress < 30 && 'Still working, please wait...'}
-              {progress >= 30 && 'This is taking longer than expected, please wait...'}
-            </Fragment>
-          </p>
-        )}
       </div>
     </div>
   )
