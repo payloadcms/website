@@ -2005,7 +2005,6 @@ export interface ExampleTabsBlock {
   blockType: 'exampleTabs';
 }
 export interface CodeExampleBlock {
-  route?: string;
   code: string;
   id?: string;
   blockName?: string;

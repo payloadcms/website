@@ -147,7 +147,6 @@ export const CONTENT_GRID = `
 
 export const CODE_EXAMPLE = `
 ... on CodeExampleBlock {
-  route
   code
   id
   blockType
