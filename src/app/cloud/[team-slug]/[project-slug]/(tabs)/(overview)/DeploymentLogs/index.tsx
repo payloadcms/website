@@ -160,7 +160,7 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment }) => {
       />
 
       {deployment?.id && (
-        <Gutter>
+        <Gutter key={deployment.id}>
           <LiveLogs type="BUILD" active={activeTab === 'build'} deploymentID={deployment.id} />
           <LiveLogs type="DEPLOY" active={activeTab === 'deploy'} deploymentID={deployment.id} />
         </Gutter>

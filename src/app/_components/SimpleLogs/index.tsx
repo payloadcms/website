@@ -36,17 +36,19 @@ const LogLine = ({ logLine }: { logLine: LogLine }) => {
     ]
   }
 
-  if (message.startsWith('│  ✔')) {
+  if (message.startsWith('│  ✔') || message.trim().startsWith('✔')) {
     lineType = 'success'
   } else if (
     message.startsWith('│  ✘') ||
+    message.trim().startsWith('✘') ||
     message.startsWith('error') ||
     message.startsWith('│ error')
   ) {
     lineType = 'error'
   } else if (
-    message.startsWith(' ›') ||
     message.startsWith('│ Done') ||
+    message.trim().startsWith('›') ||
+    message.trim().startsWith('$') ||
     message.startsWith('│ $')
   ) {
     lineType = 'info'
@@ -56,7 +58,7 @@ const LogLine = ({ logLine }: { logLine: LogLine }) => {
 
   return (
     <tr className={[classes.logLine, classes[`lineType--${lineType}`]].join(' ')}>
-      {timestamp && <td className={classes.logTimestamp}>[{timestamp}]</td>}
+      {timestamp && <td className={classes.logTimestamp}>{`[${timestamp.split('.')[0]}]`}</td>}
       {messageChunks.length > 0 && (
         <td>
           {messageChunks.map((chunk, i) => (
@@ -79,30 +81,56 @@ type Props = {
   logs: LogLine[]
 }
 export const SimpleLogs: React.FC<Props> = ({ logs }) => {
+  const scrollContainer = React.useRef<HTMLDivElement>(null)
+  const scrollContent = React.useRef<HTMLTableSectionElement>(null)
+  const pinnedScroll = React.useRef(true)
+
+  const scrollToBottom = React.useCallback(() => {
+    if (!scrollContainer.current || !pinnedScroll.current) return
+    scrollContainer.current.scrollTop = scrollContainer.current.scrollHeight
+  }, [])
+
+  React.useEffect(() => {
+    if (!scrollContainer.current || !scrollContent.current) return
+
+    const observer = new MutationObserver((mutationsList, observer) => {
+      const containerHeightChanged = mutationsList.some(mutation => {
+        return mutation.type === 'childList' && mutation.target === scrollContent.current
+      })
+
+      if (containerHeightChanged) {
+        scrollToBottom()
+      }
+    })
+    observer.observe(scrollContent.current, { childList: true, subtree: true })
+    scrollToBottom()
+  }, [scrollToBottom])
+
+  React.useEffect(() => {
+    if (!scrollContainer.current) return
+
+    const onScroll = e => {
+      const scrollBottom = e.target.scrollTop + e.target.clientHeight
+      const scrollHeight = Math.ceil(e.target.scrollHeight - 1)
+
+      if (scrollBottom < scrollHeight) {
+        pinnedScroll.current = false
+      } else if (scrollBottom >= scrollHeight) {
+        pinnedScroll.current = true
+      }
+    }
+
+    scrollContainer.current.addEventListener('scroll', onScroll)
+  }, [])
+
   return (
-    <div className={classes.console}>
+    <div className={classes.console} ref={scrollContainer}>
       <div className={classes.logLines}>
         <table>
-          <tbody>
+          <tbody ref={scrollContent}>
             {logs.map((logLine, index) => {
               if (logLine) {
-                let timestamp = logLine?.timestamp
-                try {
-                  const date = new Date(`${timestamp}`)
-                  timestamp = date.toISOString().slice(0, -5)
-                } catch (error) {
-                  // ignore
-                }
-
-                return (
-                  <LogLine key={index} logLine={logLine} />
-                  // <tr key={index} className={classes.logLine}>
-                  //   {timestamp && <td className={classes.lineInfo}>[{timestamp}]</td>}
-                  //   {message && (
-                  //     <td className={messageClasses.filter(Boolean).join(' ')}>{message}</td>
-                  //   )}
-                  // </tr>
-                )
+                return <LogLine key={index} logLine={logLine} />
               }
 
               return null
@@ -119,10 +147,9 @@ export function formatLogData(logData: string): LogLine[] {
   const logLines: string[] = logData.split('\n')
   const formattedLogs = logLines?.map(line => {
     const [service, timestamp, ...rest] = line.split(' ')
-
     return {
       service,
-      timestamp,
+      timestamp: timestamp,
       message: rest.join(' ').trim().replace(microTimestampPattern, ''),
     }
   })

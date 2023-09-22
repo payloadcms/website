@@ -2,7 +2,7 @@
 
 .console {
   overflow: auto;
-  max-height: 800px;
+  max-height: min(800px, 60vh);
 
   code {
     background-color: unset;

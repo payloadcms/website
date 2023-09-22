@@ -143,17 +143,18 @@ export const InfraOnline: React.FC<{
               <Cell start={1} cols={4} colsM={8}>
                 <Label>URL</Label>
                 {projectDomains.map((domain, index) => (
-                  <div key={`${domain}-${index}`} className={classes.textMask} title={domain}>
-                    <a
-                      className={[classes.detail, classes.domainLink].filter(Boolean).join(' ')}
-                      href={`https://${domain}`}
-                      target="_blank"
-                    >
-                      <span>{domain}</span>
+                  <a
+                    key={`${domain}-${index}`}
+                    title={domain}
+                    className={[classes.detail, classes.domainLink].filter(Boolean).join(' ')}
+                    href={`https://${domain}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span className={classes.ellipseText}>{domain}</span>
 
-                      <ExternalLinkIcon className={classes.externalLinkIcon} />
-                    </a>
-                  </div>
+                    <ExternalLinkIcon className={classes.externalLinkIcon} />
+                  </a>
                 ))}
               </Cell>
               <Cell start={5} cols={3} startM={1} colsM={8}>
@@ -182,6 +183,7 @@ export const InfraOnline: React.FC<{
                       href={`https://github.com/${project?.repositoryFullName}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      title={project?.repositoryFullName}
                     >
                       <GitHubIcon />
                       <p>{project?.repositoryFullName}</p>
@@ -193,9 +195,10 @@ export const InfraOnline: React.FC<{
                       href={`https://github.com/${project?.repositoryFullName}/tree/${project?.deploymentBranch}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      title={project?.deploymentBranch}
                     >
                       <BranchIcon />
-                      <p>{project?.deploymentBranch}</p>
+                      <p className={classes.ellipseText}>{project?.deploymentBranch}</p>
                     </a>
                   )}
                   {project?.repositoryFullName && liveDeployment?.commitSha ? (
@@ -204,19 +207,17 @@ export const InfraOnline: React.FC<{
                       href={`https://github.com/${project?.repositoryFullName}/commit/${liveDeployment?.commitSha}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      title={liveDeployment?.commitMessage || 'No commit message'}
                     >
                       <CommitIcon />
-                      <p className={classes.commitSha}>
-                        {liveDeployment?.commitSha?.substring(0, 7)}
-                      </p>
-                      <p className={classes.commitMessage}>
+                      <p className={classes.ellipseText}>
                         {liveDeployment?.commitMessage || 'No commit message'}
                       </p>
                     </a>
                   ) : (
                     <div className={classes.iconAndLabel}>
                       <CommitIcon />
-                      <p className={classes.commitMessage}>
+                      <p className={classes.ellipseText}>
                         {liveDeployment?.commitMessage || 'No commit message'}
                       </p>
                     </div>
@@ -284,9 +285,10 @@ export const InfraOnline: React.FC<{
                             href={`https://github.com/${project?.repositoryFullName}/tree/${project?.deploymentBranch}`}
                             target="_blank"
                             rel="noopener noreferrer"
+                            title={project?.deploymentBranch}
                           >
                             <BranchIcon />
-                            <p>{project?.deploymentBranch}</p>
+                            <p className={classes.ellipseText}>{project?.deploymentBranch}</p>
                           </a>
                         )}
                         {latestDeployment?.commitSha ? (
@@ -295,19 +297,17 @@ export const InfraOnline: React.FC<{
                             href={`https://github.com/${project?.repositoryFullName}/commit/${latestDeployment?.commitSha}`}
                             target="_blank"
                             rel="noopener noreferrer"
+                            title={latestDeployment?.commitMessage || 'No commit message'}
                           >
                             <CommitIcon />
-                            <p className={classes.commitSha}>
-                              {latestDeployment?.commitSha?.substring(0, 7)}
-                            </p>
-                            <p className={classes.commitMessage}>
+                            <p className={classes.ellipseText}>
                               {latestDeployment?.commitMessage || 'No commit message'}
                             </p>
                           </a>
                         ) : (
                           <div className={classes.iconAndLabel}>
                             <CommitIcon />
-                            <p className={classes.commitMessage}>
+                            <p className={classes.ellipseText}>
                               {latestDeployment?.commitMessage || 'No commit message'}
                             </p>
                           </div>
