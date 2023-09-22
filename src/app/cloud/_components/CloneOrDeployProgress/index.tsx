@@ -4,6 +4,7 @@ import React, { Fragment, useEffect } from 'react'
 import { Install } from '@cloud/_api/fetchInstalls'
 import { useForm, useFormProcessing } from '@forms/Form/context'
 
+import { BorderHighlight } from '@root/app/_components/BorderHighlight'
 import { GithubIcon } from '@root/graphics/GithubIcon'
 import { PayloadIcon } from '@root/graphics/PayloadIcon'
 import { FolderIcon } from '@root/icons/FolderIcon'
@@ -56,9 +57,9 @@ export const CloneOrDeployProgress: React.FC<
   }, [ref, formProcessing])
 
   return (
-    <div className={classes.deployProgressContainer}>
-      <div className={classes.backgroundContainer}>
-        {formProcessing && <div className={classes.borderHighlight} />}
+    <BorderHighlight
+      borderHighlight={formProcessing}
+      children={
         <div
           className={[classes.deployProgress, formProcessing && classes.active]
             .filter(Boolean)
@@ -122,7 +123,7 @@ export const CloneOrDeployProgress: React.FC<
             )}
           </div>
         </div>
-      </div>
-    </div>
+      }
+    />
   )
 }

@@ -1,57 +1,13 @@
 @use '@scss/common' as *;
 
-.deployProgressContainer {
-    position: relative;
-}
-
-.backgroundContainer {
-    position: relative;
-    margin: 0 calc(-1 * var(--bg-extension) / 2);
-    border: 1px solid var(--theme-border-color);
-    background-color: var(--theme-bg);
-    overflow: hidden;
-  
-    + .backgroundContainer {
-        border-top: 0;
-    }
-}
-
-.borderHighlight {
-    background: conic-gradient(var(--theme-elevation-950), transparent, transparent);
-    position: absolute;
-    top: 50%;
-    right: 0;
-    bottom: 0;
-    left: 50%;
-    filter: blur(10px);
-    width: 110%;
-    animation: 7s rotateColor infinite linear;
-}
-  
-@keyframes rotateColor {
-    0% {
-        transform: translate(-50%, -50%) rotate(0deg) skew(10deg, 10deg);
-    }
-    100% {
-        transform: translate(-50%, -50%) rotate(360deg) skew(10deg, 10deg);
-    }
-}
-
 .deployProgress {
     position: relative;
-    top: 1px;
-    right: 1px;
-    bottom: 1px;
-    left: 1px;
-    inset: 1px;
     min-height: 400px;
     display: flex;
     flex-direction: column;
     color: var(--theme-elevation-250);
     background-color: var(--theme-elevation-50);
     padding: calc(var(--base) * 2);
-    margin-right: 2px;
-    margin-bottom: 2px;
 
     @include mid-break {
         min-height: 300px;
