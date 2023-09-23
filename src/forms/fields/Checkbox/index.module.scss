@@ -6,11 +6,11 @@
 }
 
 .button {
+  position: relative;
   all: unset;
   display: flex;
   align-items: center;
   cursor: pointer;
-  // font-family: $fontBody;
   font-size: 1rem;
   color: var(--color-text);
 
@@ -38,6 +38,15 @@
   }
 }
 
+.errorWrap {
+  position: relative;
+  margin-bottom: calc(var(--base) * 0.5);
+}
+
+.inputWrapper {
+  position: relative;
+}
+
 .htmlInput {
   position: absolute;
   top: 0;
@@ -45,18 +54,15 @@
   opacity: 0;
 }
 
-.errorWrap {
-  position: relative;
-}
-
 .input {
   @include shared.formInput;
+  position: absolute;
+  top: 0;
+  left: 0;
   padding: 0;
   line-height: 0;
-  position: relative;
   width: calc(var(--base) * 1.25);
   height: calc(var(--base) * 1.25);
-  margin-right: calc(var(--base) / 2);
   margin-bottom: 0;
   display: flex;
   align-items: center;
@@ -75,8 +81,12 @@
   }
 }
 
-.checkbox .label {
+.checkbox {
   @include body;
   cursor: pointer;
   margin-bottom: 0;
+}
+
+.label {
+  margin-left: calc(var(--base) * 2);
 }

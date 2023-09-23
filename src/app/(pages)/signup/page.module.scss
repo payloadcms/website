@@ -1,12 +1,11 @@
 @use '@scss/common' as *;
 @use "../../../forms/fields/shared.scss";
 
-.submit {
-  margin-top: var(--base);
-
-  @include mid-break {
-    margin-top: calc(var(--base) / 4);
-  }
+.buttonWrap {
+  margin-top: calc(var(--base) * 2);
+  display: flex;
+  align-items: center;
+  gap: var(--base);
 }
 
 .links {
@@ -28,9 +27,10 @@
   }
 }
 
-.buttonWrap {
-  margin-top: calc(var(--base) * 2);
-  display: flex;
-  align-items: center;
-  gap: var(--base);
+.submit {
+  margin-top: var(--base);
+
+  @include mid-break {
+    margin-top: calc(var(--base) / 4);
+  }
 }

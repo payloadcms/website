@@ -1,19 +1,20 @@
 'use client'
 
 import * as React from 'react'
-import FormComponent from '@forms/Form'
+import { Checkbox } from '@forms/fields/Checkbox'
+import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { RichText } from '@components/RichText'
-import { Form } from '@root/payload-types'
+import { Form as FormType } from '@root/payload-types'
 import { getCookie } from '@root/utilities/get-cookie'
 import { fields } from './fields'
 import { Width } from './Width'
 
 import classes from './index.module.scss'
 
-const RenderForm = ({ form }: { form: Form }) => {
+const RenderForm = ({ form }: { form: FormType }) => {
   const {
     id: formID,
     submitButtonLabel,
@@ -21,6 +22,7 @@ const RenderForm = ({ form }: { form: Form }) => {
     redirect: formRedirect,
     confirmationMessage,
     leader,
+    enableGDPR,
   } = form
 
   const [isLoading, setIsLoading] = React.useState(false)
@@ -32,6 +34,10 @@ const RenderForm = ({ form }: { form: Form }) => {
   const router = useRouter()
 
   const pathname = usePathname()
+
+  const [isStoredDataChecked, setStoredDataChecked] = React.useState(false)
+
+  const [isProductUpdatesChecked, setProductUpdatesChecked] = React.useState(false)
 
   const onSubmit = React.useCallback(
     ({ data }) => {
@@ -67,6 +73,8 @@ const RenderForm = ({ form }: { form: Form }) => {
               hubspotCookie,
               pageUri,
               pageName,
+              isStoredDataChecked,
+              isProductUpdatesChecked,
             }),
           })
 
@@ -118,7 +126,15 @@ const RenderForm = ({ form }: { form: Form }) => {
 
       submitForm()
     },
-    [router, formID, formRedirect, confirmationType, pathname],
+    [
+      router,
+      formID,
+      formRedirect,
+      confirmationType,
+      pathname,
+      isStoredDataChecked,
+      isProductUpdatesChecked,
+    ],
   )
 
   if (!form?.id) return null
@@ -133,7 +149,7 @@ const RenderForm = ({ form }: { form: Form }) => {
       {!hasSubmitted && (
         <React.Fragment>
           {leader && <RichText className={classes.leader} content={leader} />}
-          <FormComponent onSubmit={onSubmit}>
+          <Form onSubmit={onSubmit}>
             <div className={classes.fieldWrap}>
               {form.fields?.map((field, index) => {
                 const Field: React.FC<any> = fields?.[field.blockType]
@@ -150,9 +166,27 @@ const RenderForm = ({ form }: { form: Form }) => {
                 }
                 return null
               })}
+              {enableGDPR && (
+                <div className={classes.checkboxWrapper}>
+                  <Width width={100}>
+                    <Checkbox
+                      path="agreeToStoreData"
+                      label="I agree to allow Payload to store and process my personal data."
+                      onChange={isChecked => setStoredDataChecked(isChecked)}
+                      required
+                    />
+                  </Width>
+                  <Width width={100}>
+                    <Checkbox
+                      label="Stay in the loop with periodic product & marketing updates from Payload. (You can unsubscribe at any time)"
+                      onChange={isChecked => setProductUpdatesChecked(isChecked)}
+                    />
+                  </Width>
+                </div>
+              )}
             </div>
             <Submit processing={isLoading} label={submitButtonLabel} />
-          </FormComponent>
+          </Form>
         </React.Fragment>
       )}
     </div>
@@ -160,7 +194,7 @@ const RenderForm = ({ form }: { form: Form }) => {
 }
 
 export const CMSForm: React.FC<{
-  form?: string | Form
+  form?: string | FormType
 }> = props => {
   const { form } = props
 

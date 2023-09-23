@@ -48,10 +48,6 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
   // Should only be used internally
   const sendField = useCallback(
     async (valueToSend?: Value) => {
-      if (valueToSend === undefined) {
-        return
-      }
-
       const fieldToDispatch: FieldWithPath = {
         path,
         value: valueToSend,

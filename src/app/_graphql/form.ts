@@ -48,4 +48,5 @@ export const FORM_FIELDS = `{
     url
    }
    leader
+   enableGDPR
 }`
