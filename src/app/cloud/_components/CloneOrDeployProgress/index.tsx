@@ -59,6 +59,7 @@ export const CloneOrDeployProgress: React.FC<
   return (
     <BorderHighlight
       borderHighlight={formProcessing}
+      highlightColor="default"
       children={
         <div
           className={[classes.deployProgress, formProcessing && classes.active]

@@ -1,18 +1,9 @@
 @use '@scss/common.scss' as *;
 
-.container {
-  position: relative;
-}
-
 .backgroundContainer {
   position: relative;
   border: 1px solid var(--theme-border-color);
-  background-color: var(--theme-bg);
   overflow: hidden;
-
-  + .backgroundContainer {
-    border-top: 0;
-  }
 }
 
 .borderHighlight {
@@ -25,6 +16,16 @@
   filter: blur(10px);
   width: 110%;
   animation: 7s rotateColor infinite linear;
+}
+
+.successColor {
+  background: conic-gradient(var(--theme-success-750), transparent, transparent);
+}
+
+:global([data-theme="dark"]) {
+  .successColor {
+    background: conic-gradient(var(--theme-success-450), transparent, transparent);
+  }
 }
 
 @keyframes rotateColor {
