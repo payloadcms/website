@@ -19,6 +19,10 @@
   align-items: center;
   gap: calc(var(--base) * 2);
   margin-top: calc(var(--base) * 2);
+
+  @include small-break {
+    gap: var(--base);
+  }
 }
 
 .commandLine {
@@ -95,9 +99,14 @@
   background: linear-gradient(180deg,var(--theme-elevation-50) 0%, var(--theme-elevation-100) 50%, var(--theme-bg) 50%);
 
   div:global(.child) div {
-    box-shadow: 0px 44px 84px -40px rgba(0, 0, 0, 0.25), 0px 4px 44px 0px rgba(0, 0, 0, 0.06);
-    margin: calc(var(--base) * 4) calc(var(--base) * 1);
+    @include shadow-lg;
+    margin: calc(var(--base) * 4) var(--base);
+
+    @include small-break {
+      margin: calc(var(--base) * 2) calc(var(--base) / 2);
+    }
   }
+
 
   img {
     display: block;
