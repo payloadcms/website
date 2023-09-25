@@ -3,21 +3,13 @@
 .examples {
   width: 100%;
   position: relative;
-  gap: calc(var(--base) * 2);
-
-  @include mid-break {
-    gap: var(--base);
-  }
-  @include small-break {
-    flex-direction: column;
-  }
 
   .codeExample {
     display: flex;
     width: 100%;
     height: 100%;
     max-height: min-content;
-    box-shadow: 0px 44px 84px -40px rgba(0, 0, 0, 0.25), 0px 4px 44px 0px rgba(0, 0, 0, 0.06);
+    @include shadow-lg;
     aspect-ratio: 16/9;
   }
 
@@ -35,7 +27,8 @@
   .mediaExample {
     display: block;
     width: 100%;
-    box-shadow: 0px 44px 84px -40px rgba(0, 0, 0, 0.25), 0px 4px 44px 0px rgba(0, 0, 0, 0.06);
+    background-color: var(--theme-bg);
+    @include shadow-lg;
   }
 }
 
@@ -51,6 +44,7 @@
 
     @include mid-break {
         margin-left: calc(var(--gutter-h) * -1);
+        margin-top: calc(var(--gutter-h) * 2);
         width: calc(100% + (var(--gutter-h) * 2));
     }
 }
