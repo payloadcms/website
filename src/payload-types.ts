@@ -634,9 +634,7 @@ export interface Page {
         id?: string;
       }[];
     };
-    commandLine?: {
-      command?: string;
-    };
+    commandLine?: string;
     richText?: {
       [k: string]: unknown;
     }[];

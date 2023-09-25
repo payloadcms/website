@@ -25,7 +25,7 @@ export const CenteredCarouselHero: React.FC<Page['hero']> = ({
         <div className={classes.wrap}>
           {commandLine && (
             <div className={classes.commandLine}>
-              {commandLine?.command} <CopyToClipboard value={commandLine?.command ?? ''} />
+              {commandLine} <CopyToClipboard value={commandLine ?? ''} />
             </div>
           )}
           <RichText className={classes.richText} content={richText} />

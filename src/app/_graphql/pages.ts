@@ -45,9 +45,7 @@ export const PAGE = `
         title
         hero {
           type
-          commandLine {
-            command
-          }
+          commandLine
           richText
           sidebarContent
           links {
