@@ -13,7 +13,7 @@ type Props = {
 
 export const CodeExample: React.FC<CodeExampleBlock> = ({ code }) => {
   return (
-    <Cell cols={6} colsM={8} className={classes.codeExample}>
+    <Cell cols={6} colsM={4} colsS={8} className={classes.codeExample}>
       <div className={classes.codeWrap}>{code && <Code>{code}</Code>}</div>
     </Cell>
   )
@@ -21,7 +21,7 @@ export const CodeExample: React.FC<CodeExampleBlock> = ({ code }) => {
 
 export const MediaExample: React.FC<MediaExampleBlock> = ({ media }) => {
   return (
-    <Cell cols={6} colsM={8} className={classes.mediaExample}>
+    <Cell cols={6} colsM={4} colsS={8} className={classes.mediaExample}>
       {media && typeof media !== 'string' && <Media resource={media} />}
     </Cell>
   )

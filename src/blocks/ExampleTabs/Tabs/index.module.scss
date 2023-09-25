@@ -25,6 +25,10 @@
   width: fit-content;
   border-bottom: solid 1px var(--theme-elevation-200);
 
+  @include extra-small-break {
+    justify-content: flex-start;
+  }
+
   button {
     padding: var(--base) var(--base);
     border: none;
