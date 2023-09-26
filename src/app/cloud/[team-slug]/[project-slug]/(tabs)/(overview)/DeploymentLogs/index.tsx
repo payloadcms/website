@@ -3,7 +3,7 @@ import { Tab, Tabs } from '@cloud/_components/Tabs'
 
 import { Gutter } from '@components/Gutter'
 import { Indicator } from '@root/app/_components/Indicator'
-import { formatLogData, LogLine, SimpleLogs } from '@root/app/_components/SimpleLogs'
+import { LogLine, SimpleLogs, styleLogs } from '@root/app/_components/SimpleLogs'
 import { Deployment } from '@root/payload-cloud-types'
 import { useWebSocket } from '@root/utilities/use-websocket'
 
@@ -54,16 +54,14 @@ const LiveLogs = ({
 
     try {
       const { data, logType } = JSON.parse(message) || {}
-
       if (data) {
-        const formattedLogs = formatLogData(data)
-
+        const styledLogs = styleLogs(data)
         if (logType === 'historic') {
           // historic logs - replace
-          setLogs(formattedLogs)
+          setLogs(styledLogs)
         } else {
           // live log - append
-          setLogs(existingLogs => [...(existingLogs || []), ...formattedLogs])
+          setLogs(existingLogs => [...(existingLogs || []), ...styledLogs])
         }
       }
     } catch (e) {

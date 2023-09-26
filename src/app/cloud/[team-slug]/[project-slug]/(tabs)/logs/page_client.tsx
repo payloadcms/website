@@ -23,9 +23,9 @@ export const ProjectLogsPage: React.FC<{
     try {
       const parsedMessage = JSON.parse(message)
       if (parsedMessage?.data) {
-        const formattedLogLine = styleLogLine(parsedMessage.data)
+        const styledLogLine = styleLogLine(parsedMessage.data)
         setRuntimeLogs(logs => {
-          const newLogs = [...logs, formattedLogLine]
+          const newLogs = [...logs, styledLogLine]
           previousLogs.current =
             previousLogs.current?.length > newLogs.length ? previousLogs.current : newLogs
           return newLogs

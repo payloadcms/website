@@ -108,26 +108,6 @@ export function styleLogLine(logLine: string): LogLine {
   let message = rest.join(' ').trim().replace(microTimestampPattern, '')
   const lowerCaseMessage = message.toLowerCase()
 
-  let messageChunks: MessageChunk[] = []
-
-  if (message.startsWith('╰') || message.startsWith('╭')) {
-    messageChunks[0].appearance = 'style'
-  }
-
-  if (message.startsWith('│')) {
-    const text = message.substring(1)
-    messageChunks = [
-      {
-        appearance: 'style',
-        text: '│',
-      },
-      {
-        appearance: 'text',
-        text,
-      },
-    ] as MessageChunk[]
-  }
-
   let lineType: LogLine['lineType'] = 'default'
 
   const keyword = '(payload):'
@@ -159,12 +139,27 @@ export function styleLogLine(logLine: string): LogLine {
     lineType = 'warning'
   }
 
-  messageChunks = [
-    {
-      appearance: 'text',
-      text: message,
-    },
-  ]
+  let messageChunks: MessageChunk[] = []
+  if (message.startsWith('│')) {
+    const text = message.substring(1)
+    messageChunks = [
+      {
+        appearance: 'style',
+        text: '│',
+      },
+      {
+        appearance: 'text',
+        text,
+      },
+    ] as MessageChunk[]
+  } else {
+    messageChunks = [
+      {
+        appearance: message.startsWith('╰') || message.startsWith('╭') ? 'style' : 'text',
+        text: message,
+      },
+    ]
+  }
 
   return {
     service,
@@ -174,9 +169,9 @@ export function styleLogLine(logLine: string): LogLine {
   }
 }
 
-export function formatLogData(logData: string): LogLine[] {
+export function styleLogs(logData: string): LogLine[] {
   const logLines: string[] = logData.split('\n')
-  const formattedLogs = logLines?.map(line => styleLogLine(line))
+  const styledLogs = logLines?.map(line => styleLogLine(line))
 
-  return formattedLogs
+  return styledLogs
 }
