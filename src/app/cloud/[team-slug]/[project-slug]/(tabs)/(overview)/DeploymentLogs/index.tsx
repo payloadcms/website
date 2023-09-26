@@ -11,7 +11,12 @@ import classes from './index.module.scss'
 
 const defaultBuildLogs: LogLine[] = [
   {
-    message: 'Waiting for build logs...',
+    messageChunks: [
+      {
+        appearance: 'text',
+        text: 'Waiting for build logs...',
+      },
+    ],
     timestamp: new Date().toISOString(),
     service: 'Info',
   },
@@ -19,7 +24,12 @@ const defaultBuildLogs: LogLine[] = [
 
 const defaultDeployLogs: LogLine[] = [
   {
-    message: 'Waiting for deploy logs...',
+    messageChunks: [
+      {
+        appearance: 'text',
+        text: 'Waiting for deploy logs...',
+      },
+    ],
     timestamp: new Date().toISOString(),
     service: 'Info',
   },

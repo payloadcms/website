@@ -5,22 +5,16 @@ import * as React from 'react'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
-import { SimpleLogs } from '@root/app/_components/SimpleLogs'
+import { LogLine, SimpleLogs, styleLogLine } from '@root/app/_components/SimpleLogs'
 import { Project, Team } from '@root/payload-cloud-types'
 import { useWebSocket } from '@root/utilities/use-websocket'
-
-type Log = {
-  service: string
-  timestamp: string
-  message: string
-}
 
 export const ProjectLogsPage: React.FC<{
   project: Project
   team: Team
 }> = ({ project }) => {
-  const [runtimeLogs, setRuntimeLogs] = React.useState<Log[]>([])
-  const previousLogs = React.useRef<Log[]>([])
+  const [runtimeLogs, setRuntimeLogs] = React.useState<LogLine[]>([])
+  const previousLogs = React.useRef<LogLine[]>([])
 
   const hasSuccessfullyDeployed = project?.infraStatus === 'done'
 
@@ -29,16 +23,9 @@ export const ProjectLogsPage: React.FC<{
     try {
       const parsedMessage = JSON.parse(message)
       if (parsedMessage?.data) {
-        const [service, timestamp, ...rest] = parsedMessage.data.split(' ')
-        setRuntimeLogs(messages => {
-          const newLogs = [
-            ...messages,
-            {
-              service,
-              timestamp,
-              message: rest.join(' ').trim(),
-            },
-          ]
+        const formattedLogLine = styleLogLine(parsedMessage.data)
+        setRuntimeLogs(logs => {
+          const newLogs = [...logs, formattedLogLine]
           previousLogs.current =
             previousLogs.current?.length > newLogs.length ? previousLogs.current : newLogs
           return newLogs

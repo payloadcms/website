@@ -2,59 +2,19 @@ import React from 'react'
 
 import classes from './index.module.scss'
 
+type MessageChunk = {
+  appearance: 'style' | 'text'
+  text: string
+}
 export type LogLine = {
   service: string
   timestamp: string
-  message: string
+  messageChunks: MessageChunk[]
+  lineType?: 'default' | 'success' | 'error' | 'info' | 'warning'
 }
 
 const LogLine = ({ logLine }: { logLine: LogLine }) => {
-  const { service, timestamp, message } = logLine || {}
-  let lineType = 'default'
-  let messageChunks = [
-    {
-      appearance: 'text',
-      text: message,
-    },
-  ]
-
-  if (message.startsWith('╰') || message.startsWith('╭')) {
-    messageChunks[0].appearance = 'style'
-  }
-
-  if (message.startsWith('│')) {
-    const text = message.substring(1)
-    messageChunks = [
-      {
-        appearance: 'style',
-        text: '│',
-      },
-      {
-        appearance: 'text',
-        text,
-      },
-    ]
-  }
-
-  if (message.startsWith('│  ✔') || message.trim().startsWith('✔')) {
-    lineType = 'success'
-  } else if (
-    message.startsWith('│  ✘') ||
-    message.trim().startsWith('✘') ||
-    message.startsWith('error') ||
-    message.startsWith('│ error')
-  ) {
-    lineType = 'error'
-  } else if (
-    message.startsWith('│ Done') ||
-    message.trim().startsWith('›') ||
-    message.trim().startsWith('$') ||
-    message.startsWith('│ $')
-  ) {
-    lineType = 'info'
-  } else if (message.startsWith('│ warning') || message.startsWith('warning')) {
-    lineType = 'warning'
-  }
+  const { timestamp, messageChunks, lineType } = logLine || {}
 
   return (
     <tr className={[classes.logLine, classes[`lineType--${lineType}`]].join(' ')}>
@@ -142,17 +102,81 @@ export const SimpleLogs: React.FC<Props> = ({ logs }) => {
   )
 }
 
+const microTimestampPattern = /\x1B\[[0-9;]*[a-zA-Z]/g
+export function styleLogLine(logLine: string): LogLine {
+  const [service, timestamp, ...rest] = logLine.split(' ')
+  let message = rest.join(' ').trim().replace(microTimestampPattern, '')
+  const lowerCaseMessage = message.toLowerCase()
+
+  let messageChunks: MessageChunk[] = []
+
+  if (message.startsWith('╰') || message.startsWith('╭')) {
+    messageChunks[0].appearance = 'style'
+  }
+
+  if (message.startsWith('│')) {
+    const text = message.substring(1)
+    messageChunks = [
+      {
+        appearance: 'style',
+        text: '│',
+      },
+      {
+        appearance: 'text',
+        text,
+      },
+    ] as MessageChunk[]
+  }
+
+  let lineType: LogLine['lineType'] = 'default'
+
+  const keyword = '(payload):'
+  const payloadLogIndex = message.indexOf(keyword)
+
+  if (payloadLogIndex > -1) {
+    message = message.substring(payloadLogIndex, message.length)
+    lineType = 'info'
+  }
+
+  if (lowerCaseMessage.startsWith('│  ✔') || lowerCaseMessage.trim().startsWith('✔')) {
+    lineType = 'success'
+  } else if (
+    lowerCaseMessage.startsWith('│  ✘') ||
+    lowerCaseMessage.trim().startsWith('✘') ||
+    lowerCaseMessage.startsWith('error') ||
+    lowerCaseMessage.startsWith('│ error') ||
+    lowerCaseMessage.indexOf('error:') > -1
+  ) {
+    lineType = 'error'
+  } else if (
+    message.startsWith('│ Done') ||
+    message.trim().startsWith('›') ||
+    message.trim().startsWith('$') ||
+    message.startsWith('│ $')
+  ) {
+    lineType = 'info'
+  } else if (message.startsWith('│ warning') || message.startsWith('warning')) {
+    lineType = 'warning'
+  }
+
+  messageChunks = [
+    {
+      appearance: 'text',
+      text: message,
+    },
+  ]
+
+  return {
+    service,
+    timestamp: timestamp,
+    messageChunks,
+    lineType,
+  }
+}
+
 export function formatLogData(logData: string): LogLine[] {
-  const microTimestampPattern = /\x1B\[[0-9;]*[a-zA-Z]/g
   const logLines: string[] = logData.split('\n')
-  const formattedLogs = logLines?.map(line => {
-    const [service, timestamp, ...rest] = line.split(' ')
-    return {
-      service,
-      timestamp: timestamp,
-      message: rest.join(' ').trim().replace(microTimestampPattern, ''),
-    }
-  })
+  const formattedLogs = logLines?.map(line => styleLogLine(line))
 
   return formattedLogs
 }
