@@ -1,0 +1,15 @@
+.exampleTabsBlock {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 2);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  p {
+    max-width: 840px;
+  }
+}

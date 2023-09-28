@@ -145,6 +145,37 @@ export const CONTENT_GRID = `
 }
 `
 
+export const CODE_EXAMPLE = `
+... on CodeExampleBlock {
+  code
+  id
+  blockType
+}
+`
+
+export const MEDIA_EXAMPLE = `
+... on MediaExampleBlock {
+  media ${MEDIA_FIELDS}
+  id
+  blockType
+}
+`
+
+export const EXAMPLE_TABS = `
+...on ExampleTabsBlock {
+  blockType
+  content
+  tabs {
+    label
+    content
+    examples {
+      ${CODE_EXAMPLE}
+      ${MEDIA_EXAMPLE}
+    }
+  }
+}
+`
+
 export const FORM_BLOCK = `
 ...on FormBlock {
   blockType
@@ -297,6 +328,7 @@ export const REUSABLE_CONTENT_BLOCK = `
         ${CODE_FEATURE}
         ${CONTENT}
         ${CONTENT_GRID}
+        ${EXAMPLE_TABS}
         ${FORM_BLOCK}
         ${HOVER_HIGHLIGHTS}
         ${LINK_GRID}

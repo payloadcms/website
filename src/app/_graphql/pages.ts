@@ -6,6 +6,7 @@ import {
   CODE_FEATURE,
   CONTENT,
   CONTENT_GRID,
+  EXAMPLE_TABS,
   FORM_BLOCK,
   HOVER_HIGHLIGHTS,
   LINK_GRID,
@@ -44,6 +45,7 @@ export const PAGE = `
         title
         hero {
           type
+          commandLine
           richText
           sidebarContent
           links {
@@ -57,9 +59,18 @@ export const PAGE = `
           }
           media ${MEDIA_FIELDS}
           adjectives {
-            adjective 
+            adjective
           }
           form ${FORM_FIELDS}
+          logoGroup {
+            label
+            logos {
+              logo ${MEDIA_FIELDS}
+            }
+          }
+          carousel {
+            image ${MEDIA_FIELDS}
+          }
           livestream {
             id
             date
@@ -82,6 +93,7 @@ export const PAGE = `
           ${CODE_FEATURE}
           ${CONTENT}
           ${CONTENT_GRID}
+          ${EXAMPLE_TABS}
           ${FORM_BLOCK}
           ${HOVER_HIGHLIGHTS}
           ${LINK_GRID}

@@ -12,6 +12,7 @@ import { CodeBlock } from '@blocks/CodeBlock'
 import { CodeFeature } from '@blocks/CodeFeature'
 import { ContentBlock } from '@blocks/Content'
 import { ContentGrid } from '@blocks/ContentGrid'
+import { ExampleTabs } from '@blocks/ExampleTabs'
 import { FormBlock } from '@blocks/FormBlock'
 import { HoverHighlights } from '@blocks/HoverHighlights'
 import { LinkGrid } from '@blocks/LinkGrid'
@@ -53,6 +54,7 @@ const blockComponents = {
   reusableContentBlock: ReusableContentBlock,
   pricing: Pricing,
   relatedPosts: RelatedPosts,
+  exampleTabs: ExampleTabs,
 }
 
 type Props = {

@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Page } from '@root/payload-types'
+import { CenteredCarouselHero } from './CenteredCarousel'
 import { ContentMediaHero } from './ContentMedia'
 import { DefaultHero } from './Default'
 import { FormHero } from './FormHero'
@@ -13,6 +14,7 @@ const heroes = {
   home: HomeHero,
   form: FormHero,
   livestream: LivestreamHero,
+  centeredCarousel: CenteredCarouselHero,
 }
 
 export const Hero: React.FC<{

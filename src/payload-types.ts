@@ -619,7 +619,7 @@ export interface Page {
   title: string;
   fullTitle?: string;
   hero: {
-    type: 'default' | 'contentMedia' | 'form' | 'home' | 'livestream';
+    type: 'default' | 'contentMedia' | 'form' | 'home' | 'livestream' | 'centeredCarousel';
     livestream?: {
       id?: string;
       date: string;
@@ -634,6 +634,7 @@ export interface Page {
         id?: string;
       }[];
     };
+    commandLine?: string;
     richText?: {
       [k: string]: unknown;
     }[];
@@ -714,6 +715,17 @@ export interface Page {
       id?: string;
     }[];
     form?: string | Form;
+    logoGroup?: {
+      label?: string;
+      logos?: {
+        logo: string | Media;
+        id?: string;
+      }[];
+    };
+    carousel?: {
+      image: string | Media;
+      id?: string;
+    }[];
   };
   layout: (
     | {
@@ -1275,6 +1287,7 @@ export interface Page {
         blockName?: string;
         blockType: 'stickyHighlights';
       }
+    | ExampleTabsBlock
   )[];
   slug?: string;
   meta?: {
@@ -1361,9 +1374,9 @@ export interface Post {
         blockType: 'reusableContentBlock';
       }
   )[];
+  relatedPosts?: string[] | Post[];
   slug?: string;
   authors: string[] | User[];
-  author?: string | User;
   publishedOn: string;
   meta?: {
     title?: string;
@@ -1606,6 +1619,7 @@ export interface ReusableContent {
         blockName?: string;
         blockType: 'contentGrid';
       }
+    | ExampleTabsBlock
     | {
         formFields: {
           container?: boolean;
@@ -1971,6 +1985,34 @@ export interface ReusableContent {
   )[];
   updatedAt: string;
   createdAt: string;
+}
+export interface ExampleTabsBlock {
+  content?: {
+    [k: string]: unknown;
+  }[];
+  tabs: {
+    label: string;
+    content?: {
+      [k: string]: unknown;
+    }[];
+    examples: (CodeExampleBlock | MediaExampleBlock)[];
+    id?: string;
+  }[];
+  id?: string;
+  blockName?: string;
+  blockType: 'exampleTabs';
+}
+export interface CodeExampleBlock {
+  code: string;
+  id?: string;
+  blockName?: string;
+  blockType: 'CodeExampleBlock';
+}
+export interface MediaExampleBlock {
+  media: string | Media;
+  id?: string;
+  blockName?: string;
+  blockType: 'MediaExampleBlock';
 }
 export interface Form {
   id: string;
