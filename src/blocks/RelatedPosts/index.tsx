@@ -10,7 +10,7 @@ import classes from './index.module.scss'
 export type RelatedPostsBlock = {
   blockType: 'relatedPosts'
   blockName: string
-  relatedPosts: Post[]
+  relatedPosts: Post[] | string[]
 }
 
 export const RelatedPosts: React.FC<{ relatedPosts: Post[] }> = props => {
@@ -38,17 +38,20 @@ export const RelatedPosts: React.FC<{ relatedPosts: Post[] }> = props => {
     <Gutter className={classes.relatedPosts}>
       <h4 className={classes.title}>Related Posts</h4>
       <Grid>
-        {relatedPosts.map((post, key) => (
-          <Cell key={key} {...cellProps}>
-            <ContentMediaCard
-              title={post.title}
-              description={post?.meta?.description}
-              href={`/blog/${post.slug}`}
-              media={post.image}
-              orientation={relatedPosts.length < 3 ? 'horizontal' : undefined}
-            />
-          </Cell>
-        ))}
+        {relatedPosts.map(
+          (post, key) =>
+            typeof post !== 'string' && (
+              <Cell key={key} {...cellProps}>
+                <ContentMediaCard
+                  title={post.title}
+                  description={post?.meta?.description}
+                  href={`/blog/${post.slug}`}
+                  media={post.image}
+                  orientation={relatedPosts.length < 3 ? 'horizontal' : undefined}
+                />
+              </Cell>
+            ),
+        )}
       </Grid>
     </Gutter>
   )

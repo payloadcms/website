@@ -17,7 +17,7 @@ import classes from './index.module.scss'
 
 export const BlogPost: React.FC<
   Post & {
-    relatedPosts?: Post[]
+    relatedPosts?: Post[] | string[]
   }
 > = props => {
   const { title, publishedOn, image, excerpt, content, relatedPosts } = props
