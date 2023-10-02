@@ -1,7 +1,7 @@
 @use './vars.scss' as *;
 
 ////////////////////////////
-// MEDIA QUERIES
+// MEDIA QUERIES (WIDTH)
 /////////////////////////////
 
 @mixin extra-small-break {
@@ -42,6 +42,16 @@
 
 @mixin two-extra-large-break {
   @media (max-width: $breakpoint-2xl-width) {
+    @content;
+  }
+}
+
+////////////////////////////
+// MEDIA QUERIES (HEIGHT)
+/////////////////////////////
+
+@mixin small-break-ht {
+  @media (max-height: $breakpoint-s-height) {
     @content;
   }
 }

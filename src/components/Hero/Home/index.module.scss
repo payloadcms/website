@@ -8,6 +8,18 @@
       animation: none;
     }
   }
+
+  @include small-break-ht {
+    margin-top: calc(1 * var(--page-padding-top) * 0.25);
+
+    @include large-break {
+      margin-top: calc(-1 * var(--page-padding-top) * 0.25);
+    }
+
+    @include mid-break {
+      margin-top: calc(-1 * var(--page-padding-top));
+    }
+  }
 }
 
 .wrap {
