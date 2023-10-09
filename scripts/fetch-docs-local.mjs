@@ -42,8 +42,11 @@ const githubAPI = 'https://api.github.com/repos/payloadcms/payload'
 const topicOrder = [
   'Getting-Started',
   'Configuration',
+  'Database',
   'Fields',
   'Admin',
+  'Rich-Text',
+  'Live-Preview',
   'Access-Control',
   'Hooks',
   'Authentication',
@@ -58,6 +61,7 @@ const topicOrder = [
   'TypeScript',
   'Plugins',
   'Integrations',
+  'Cloud',
 ]
 
 const headers = {

@@ -39,8 +39,11 @@ const githubAPI = 'https://api.github.com/repos/payloadcms/payload'
 const topicOrder = [
   'Getting-Started',
   'Configuration',
+  'Database',
   'Fields',
   'Admin',
+  'Rich-Text',
+  'Live-Preview',
   'Access-Control',
   'Hooks',
   'Authentication',
