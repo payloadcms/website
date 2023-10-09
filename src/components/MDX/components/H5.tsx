@@ -13,7 +13,7 @@ const H5: React.FC<{ children: string }> = ({ children }) => {
   }, [addHeading, anchor, children])
 
   return (
-    <JumplistNode id={anchor} type="h4">
+    <JumplistNode id={anchor} type="h5">
       {children}
     </JumplistNode>
   )
