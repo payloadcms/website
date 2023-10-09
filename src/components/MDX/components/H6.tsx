@@ -4,7 +4,7 @@ import slugify from '../../../utilities/slugify'
 import { JumplistNode } from '../../Jumplist'
 import { useMDX } from '../context'
 
-const H4: React.FC<{ children: string }> = ({ children }) => {
+const H6: React.FC<{ children: string }> = ({ children }) => {
   const anchor = slugify(children)
   const { addHeading } = useMDX()
 
@@ -13,10 +13,10 @@ const H4: React.FC<{ children: string }> = ({ children }) => {
   }, [addHeading, anchor, children])
 
   return (
-    <JumplistNode id={anchor} type="h4">
+    <JumplistNode id={anchor} type="h6">
       {children}
     </JumplistNode>
   )
 }
 
-export default H4
+export default H6
