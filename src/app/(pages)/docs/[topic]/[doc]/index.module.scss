@@ -53,7 +53,6 @@
 
 .aside {
   flex-shrink: 0;
-  max-height: calc(100vh - var(--page-padding-top));
   padding: 0 0 calc(var(--base) * 2);
   margin-left: 7%;
   width: calc(var(--base) * 12);
@@ -88,6 +87,13 @@
 .asideStickyContent {
   position: sticky;
   top: var(--page-padding-top);
+  max-height: calc(100vh - var(--page-padding-top));
+  overflow: scroll;
+
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    width: 0;
+  }
 }
 
 :global([data-theme="dark"]) {

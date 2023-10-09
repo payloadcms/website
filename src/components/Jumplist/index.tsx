@@ -52,6 +52,9 @@ export const Jumplist: React.FC<Props> = ({ list, className, injectProps }) => {
 const elements = {
   h2: 'h2',
   h3: 'h3',
+  h4: 'h4',
+  h5: 'h5',
+  h6: 'h6',
 }
 
 export const JumplistNode: React.FC<NodeProps> = ({ children, id, type }) => {
