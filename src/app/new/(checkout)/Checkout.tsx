@@ -370,6 +370,12 @@ const Checkout: React.FC<{
                             repositoryFullName={project?.repositoryFullName}
                             initialValue={project?.deploymentBranch}
                           />
+                          <Text
+                            label="Dockerfile Path"
+                            path="dockerfilePath"
+                            initialValue={project?.dockerfilePath}
+                            description="Example: A Dockerfile in a src directory would require `src/Dockerfile`"
+                          />
                         </div>
                       </Accordion>
                       <Accordion label="Environment Variables">
