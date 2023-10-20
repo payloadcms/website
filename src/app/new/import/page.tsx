@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken'
 import { fetchInstalls } from '@cloud/_api/fetchInstalls'
 import { fetchMe } from '@cloud/_api/fetchMe'
-import { fetchRepos } from '@cloud/_api/fetchRepos'
+import { fetchRepos, Repo, RepoResults } from '@cloud/_api/fetchRepos'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
@@ -10,6 +10,7 @@ import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { uuid as generateUUID } from '@root/utilities/uuid'
 import { ImportProject } from './page_client'
 
 const title = `Import a codebase`
@@ -33,9 +34,15 @@ export default async () => {
 
   const installs = await fetchInstalls()
 
-  const repos = await fetchRepos({
-    install: installs[0],
-  })
+  let repos: RepoResults | undefined
+
+  if (Array.isArray(installs) && installs.length > 0) {
+    repos = await fetchRepos({
+      install: installs[0],
+    })
+  }
+
+  const uuid = generateUUID()
 
   return (
     <Fragment>
@@ -57,7 +64,7 @@ export default async () => {
           </Heading>
         </div>
       </Gutter>
-      <ImportProject installs={installs} repos={repos} />
+      <ImportProject installs={installs} repos={repos} uuid={uuid} user={user} />
     </Fragment>
   )
 }

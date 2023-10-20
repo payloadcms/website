@@ -1,0 +1,23 @@
+@use '@scss/common' as *;
+
+.option {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.githubIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(var(--base) * 1);
+    height: calc(var(--base) * 1);
+    margin-right: calc(var(--base) * 0.5);
+    flex-shrink: 0;
+}
+
+.optionLabel {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
