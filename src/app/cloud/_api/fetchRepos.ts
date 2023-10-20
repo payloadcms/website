@@ -29,6 +29,9 @@ export const fetchRepos = async (args: {
         'Content-Type': 'application/json',
         ...(token ? { Authorization: `JWT ${token}` } : {}),
       },
+      next: {
+        tags: ['repos'],
+      },
       body: JSON.stringify({
         route: `GET /user/installations/${installID}/repositories?${new URLSearchParams({
           per_page: per_page?.toString() ?? '30',
@@ -38,7 +41,7 @@ export const fetchRepos = async (args: {
     },
   )
     ?.then(res => {
-      if (!res.ok) throw new Error(`Error getting repositories: ${res.status}`)
+      if (!res.ok) throw new Error(`Error getting repositories: ${res.status} ${res.statusText}`)
       return res.json()
     })
     ?.then(res => {

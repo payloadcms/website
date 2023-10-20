@@ -10,6 +10,7 @@ import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { uuid as generateUUID } from '@root/utilities/uuid'
 import { CloneTemplate } from './page_client'
 
 const title = `Create new from template`
@@ -39,6 +40,8 @@ export default async ({ params: { 'template-slug': templateSlug } }) => {
 
   const installs = await fetchInstalls()
 
+  const uuid = generateUUID()
+
   return (
     <Fragment>
       <Gutter>
@@ -61,7 +64,7 @@ export default async ({ params: { 'template-slug': templateSlug } }) => {
           {title}
         </Heading>
       </Gutter>
-      {<CloneTemplate template={template} installs={installs} user={user} />}
+      {<CloneTemplate template={template} installs={installs} user={user} uuid={uuid} />}
     </Fragment>
   )
 }

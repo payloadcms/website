@@ -1,10 +1,10 @@
 'use client'
 
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { toast } from 'react-toastify'
-import { Install } from '@cloud/_api/fetchInstalls'
+import { fetchInstalls, Install } from '@cloud/_api/fetchInstalls'
 import { CloneOrDeployProgress } from '@cloud/_components/CloneOrDeployProgress'
-import { useInstallationSelector } from '@cloud/_components/InstallationSelector'
+import { InstallationSelector } from '@cloud/_components/InstallationSelector'
 import { useTeamDrawer } from '@cloud/_components/TeamDrawer'
 import { UniqueRepoName } from '@cloud/_components/UniqueRepoName'
 import { cloudSlug } from '@cloud/slug'
@@ -29,19 +29,25 @@ export const CloneTemplate: React.FC<{
   template?: Template
   installs?: Install[]
   user: User | null | undefined
+  uuid: string
 }> = props => {
   const searchParams = useSearchParams()
   const teamParam = searchParams?.get('team')
-  const { template, installs: initialInstalls, user } = props
-  const { templateOwner, templateRepo, templatePath } = template || {}
+  const { template, installs: initialInstalls, user, uuid } = props
 
   const router = useRouter()
   const [cloneError, setCloneError] = React.useState<string | null>(null)
 
-  const [InstallationSelector, { value: selectedInstall }] = useInstallationSelector({
-    installs: initialInstalls,
-    permissions: 'write',
-  })
+  const [installs, setInstalls] = React.useState<Install[]>(initialInstalls || [])
+
+  const [selectedInstall, setSelectedInstall] = React.useState<Install | undefined>(
+    installs?.[0] || undefined,
+  )
+
+  const onInstall = useCallback(async () => {
+    const freshInstalls = await fetchInstalls()
+    setInstalls(freshInstalls)
+  }, [])
 
   const matchedTeam = user?.teams?.find(
     ({ team }) => typeof team !== 'string' && team?.slug === teamParam,
@@ -123,7 +129,13 @@ export const CloneTemplate: React.FC<{
             <div className={classes.wrapper}>
               <Grid>
                 <Cell cols={4}>
-                  <InstallationSelector description="Select where to create this repository." />
+                  <InstallationSelector
+                    description="Select where to create this repository."
+                    installs={installs}
+                    onChange={setSelectedInstall}
+                    onInstall={onInstall}
+                    uuid={uuid}
+                  />
                 </Cell>
                 <Cell cols={4}>
                   <UniqueRepoName

@@ -1,25 +1,23 @@
-import React, { useMemo } from 'react'
-import { v4 as uuid } from 'uuid'
+import React, { useState } from 'react'
 
 import { usePopupWindow } from '@root/utilities/use-popup-window'
 
 import classes from './index.module.scss'
 
-// generate an id to use for the state
-// this will be validated after the the redirect back
-const id = uuid()
-const href = `https://github.com/apps/payload-cms/installations/new?state=${id}`
-
 export const InstallationButton: React.FC<{
-  onInstallation?: (installationId: number) => void // eslint-disable-line no-unused-vars
+  onInstall?: (installationId: number) => void // eslint-disable-line no-unused-vars
   label?: string
-}> = ({ onInstallation, label }) => {
+  uuid: string
+}> = ({ onInstall, label, uuid }) => {
+  // this will be validated after the redirect back
+  const [href] = useState(`https://github.com/apps/payload-cms/installations/new?state=${uuid}`)
+
   const { openPopupWindow } = usePopupWindow({
     href,
     eventType: 'github',
     onMessage: async (searchParams: { state: string; installation_id: string }) => {
-      if (searchParams.state === id && typeof onInstallation === 'function') {
-        onInstallation(parseInt(searchParams.installation_id, 10))
+      if (searchParams.state === uuid && typeof onInstall === 'function') {
+        onInstall(parseInt(searchParams.installation_id, 10))
       }
     },
   })
@@ -30,20 +28,4 @@ export const InstallationButton: React.FC<{
       {label || 'Install the Payload App'}
     </a>
   )
-}
-
-export const useInstallationButton = (args?: {
-  onInstallation: (installationId: number) => void // eslint-disable-line no-unused-vars
-  label?: string
-}): [React.FC] => {
-  const { onInstallation, label } = args || {}
-
-  const MemoizedInstallationButton = useMemo(
-    () => () => {
-      return <InstallationButton onInstallation={onInstallation} label={label} />
-    },
-    [onInstallation, label],
-  )
-
-  return [MemoizedInstallationButton]
 }
