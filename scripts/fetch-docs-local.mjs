@@ -13,7 +13,11 @@ dotenv.config()
 
 const __dirname = path.resolve()
 
-const docsDirectory = path.join(process.cwd(), './node_modules/payload/docs')
+const docsDirectory = process.env.DOCS_DIR
+  ? path.resolve(process.env.DOCS_DIR)
+  : path.join(process.cwd(), './node_modules/payload/docs')
+
+console.log(`Fetching docs from: ${docsDirectory}`)
 
 const decodeBase64 = string => {
   const buff = Buffer.from(string, 'base64')
