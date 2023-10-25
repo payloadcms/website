@@ -26,7 +26,7 @@ export interface PricingCardProps extends SharedProps {
 
 export interface DefaultCardProps extends SharedProps {
   leader?: string
-  adminOnly?: boolean
+  pill?: string
   media?: Media | string
   href?: string
   onClick?: () => void
