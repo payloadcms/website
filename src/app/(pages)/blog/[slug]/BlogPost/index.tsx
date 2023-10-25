@@ -23,7 +23,7 @@ export const BlogPost: React.FC<
   const { title, publishedOn, image, excerpt, content, relatedPosts } = props
 
   return (
-    <React.Fragment>
+    <div id="blog">
       <Gutter className={classes.pageType}>
         <Breadcrumbs
           items={[
@@ -80,6 +80,6 @@ export const BlogPost: React.FC<
           },
         ]}
       />
-    </React.Fragment>
+    </div>
   )
 }
