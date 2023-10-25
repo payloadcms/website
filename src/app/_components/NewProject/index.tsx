@@ -65,6 +65,7 @@ export const NewProjectBlock: React.FC<{
                   title={template.name}
                   description={template.description}
                   media={template.image}
+                  adminOnly={template.adminOnly}
                 />
               ))}
             </div>
