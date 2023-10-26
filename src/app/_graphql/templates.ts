@@ -16,6 +16,7 @@ export const TEMPLATE_FIELDS = `
     width
     height
   }
+  adminOnly
 `
 
 export const TEMPLATES = `

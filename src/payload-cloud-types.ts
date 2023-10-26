@@ -250,6 +250,7 @@ export interface Template {
     encoding?: string;
     id?: string;
   }[];
+  adminOnly?: boolean;
   updatedAt: string;
   createdAt: string;
 }
