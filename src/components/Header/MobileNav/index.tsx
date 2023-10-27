@@ -57,7 +57,7 @@ const MobileNavItems = ({ navItems }: NavItems) => {
 
 const MobileMenuModal: React.FC<NavItems> = ({ navItems }) => {
   return (
-    <Modal slug={modalSlug} className={classes.mobileMenuModal}>
+    <Modal slug={modalSlug} className={classes.mobileMenuModal} trapFocus={false}>
       <Gutter>
         <Grid>
           <Cell>
