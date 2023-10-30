@@ -46,3 +46,7 @@ The locally running app must run on `local.payloadcms.com:3000` because of http-
 ```
 
 > On Mac you can find the hosts file at `/etc/hosts`. On Windows, it's at `C:\Windows\System32\drivers\etc\hosts`:
+
+### License
+
+The Payload website is available as open source under the terms of the [MIT license](https://github.com/payloadcms/website/blob/main/LICENSE).
