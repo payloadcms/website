@@ -49,4 +49,4 @@ The locally running app must run on `local.payloadcms.com:3000` because of http-
 
 ### License
 
-The Payload CMS website is available as open source under the terms of the [MIT license](https://github.com/payloadcms/website/blob/main/LICENSE).
+The Payload website is available as open source under the terms of the [MIT license](https://github.com/payloadcms/website/blob/main/LICENSE).
