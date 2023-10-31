@@ -14,7 +14,7 @@ export const PrivacyClientPage: React.FC = () => {
         <Grid>
           <Cell cols={10} colsM={8}>
             <h2>Privacy Policy</h2>
-            <p>Effective as of TODO.</p>
+            <p>Effective as of November 3, 2023.</p>
             <p>
               This Privacy Policy describes how Payload CMS, Inc. ("<b>Payload</b>," "<b>we</b>", “
               <b>us</b>” or "<b>our</b>") processes personal information that we collect through our
@@ -528,10 +528,10 @@ export const PrivacyClientPage: React.FC = () => {
             <h3 id="contactUs">How to contact us</h3>
             <ul>
               <li>
-                <b>Email</b>: legal@payloadcms.com TODO
+                <b>Email</b>: legal@payloadcms.com
               </li>
               <li>
-                <b>Mail</b>: 624 Stocking NW. Grand Rapids, MI 49504 TODO
+                <b>Mail</b>: 624 Stocking NW. Grand Rapids, MI 49504
               </li>
             </ul>
             <h3 id="EuropeanUsers">Notice to European users</h3>
@@ -563,19 +563,43 @@ export const PrivacyClientPage: React.FC = () => {
                 href="https://www.gov.uk/government/publications/data-protection-law-eu-exit"
                 target="_blank"
               >
-                UK GDPR TODO
+                UK GDPR
               </a>
               ’ (as and where applicable, the “<b>GDPR</b>”)). See the ‘How to contact us’ section
               above for our contact details.
             </p>
+            <h5>General Data Protection Regulation (GDPR)</h5>
             <p>
-              <b>Representatives</b>. We have appointed the following representatives in the EEA/UK
-              as required by the GDPR – you can also contact them directly should you wish:
+              <b>European Representative</b>. Pursuant to Article 27 of the General Data Protection
+              Regulation (GDPR), Payload CMS, INC has appointed European Data Protection Office
+              (EDPO) as its GDPR Representative in the EU. You can contact EDPO regarding matters
+              pertaining to the GDPR:
+              <ul>
+                <li>
+                  by using EDPO’s online request form:{' '}
+                  <a href="https://edpo.com/gdpr-data-request/" target="_blank">
+                    https://edpo.com/uk-gdpr-data-request
+                  </a>
+                </li>
+                <li>by writing to EDPO at Avenue Huart Hamoir 71, 1030 Brussels, Belgium</li>
+              </ul>
             </p>
-            <p>TODO</p>
+            <h5>UK General Data Protection Regulation (GDPR)</h5>
             <p>
-              We have appointed a Data Protection Officer (or “<b>DPO</b>”), whose contact
-              information is: TODO.
+              <b>UK Representative</b>. Pursuant to Article 27 of the UK GDPR, Payload CMS, INC has
+              appointed EDPO UK Ltd as its UK GDPR representative in the UK. You can contact EDPO UK
+              regarding matters pertaining to the UK GDPR:
+              <ul>
+                <li>
+                  by using EDPO’s online request form:{' '}
+                  <a href="https://edpo.com/uk-gdpr-data-request/" target="_blank">
+                    https://edpo.com/uk-gdpr-data-request
+                  </a>
+                </li>
+                <li>
+                  by writing to EDPO UK at 8 Northumberland Avenue, London WC2N 5BY, United Kingdom
+                </li>
+              </ul>
             </p>
             <h5>Our legal bases for processing</h5>
             <p>
@@ -837,12 +861,12 @@ export const PrivacyClientPage: React.FC = () => {
             </ul>
             <p>
               <b>Exercising These Rights</b>. You may submit these requests by email to
-              [legal@payloadcms.com] TODO or our postal address provided above. We may request
-              specific information from you to help us confirm your identity and process your
-              request. Whether or not we are required to fulfill any request you make will depend on
-              a number of factors (e.g., why and how we are processing your personal information),
-              if we reject any request you may make (whether in whole or in part) we will let you
-              know our grounds for doing so at the time, subject to any legal restrictions.
+              [legal@payloadcms.com] or our postal address provided above. We may request specific
+              information from you to help us confirm your identity and process your request.
+              Whether or not we are required to fulfill any request you make will depend on a number
+              of factors (e.g., why and how we are processing your personal information), if we
+              reject any request you may make (whether in whole or in part) we will let you know our
+              grounds for doing so at the time, subject to any legal restrictions.
             </p>
             <p>
               <b>Your Right to Lodge a Complaint with your Supervisory Authority</b>. In addition to
