@@ -9,3 +9,25 @@
     margin:0;
   }
 }
+
+.blogResult {
+  :global(.DocSearch-Hit-path) {
+    color: inherit;
+
+    &::before {
+      content: 'Blog - ';
+    }
+  }
+
+  :global(.DocSearch-Hit-icon) {
+    &::before {
+      content: "\25B2";
+      display: flex;
+      align-items: center;
+    }
+
+    & svg { 
+      display: none;
+    }
+  }
+}
