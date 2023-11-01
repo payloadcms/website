@@ -21,9 +21,11 @@
 
   :global(.DocSearch-Hit-icon) {
     &::before {
-      content: "\25B2";
+      content: "\2636";
+      font-size: 25px;
       display: flex;
       align-items: center;
+      transform: translateY(2px);
     }
 
     & svg { 
