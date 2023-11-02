@@ -1,5 +1,5 @@
 import content from '../../docs.json'
-import type { Doc, DocMeta, DocPath, Topic } from './types'
+import type { Doc, DocMeta, DocOrTopic, DocPath, Topic } from './types'
 
 export async function getTopics(): Promise<Topic[]> {
   return content.map(topic => ({
@@ -10,7 +10,7 @@ export async function getTopics(): Promise<Topic[]> {
       label: doc?.label || '',
       slug: doc?.slug || '',
       order: doc?.order || 0,
-      docs: (doc?.docs as DocMeta[]) || null,
+      docs: ((doc as any)?.docs as DocMeta[]) || null,
       path: doc?.path || '/',
     })),
   }))
@@ -27,14 +27,14 @@ export async function getDoc({
   if (!matchedTopic) return null
 
   // Recursive function to find a doc by slug within a topic or sub-docs
-  function findDoc(docs: Doc[], pathAndSlug: string): Doc | null {
+  function findDoc(docs: DocOrTopic[], pathAndSlug: string): Doc | null {
     for (const doc of docs) {
       // Check if the current doc matches the slug
-      if (doc && (doc.path || '/') + (doc.slug || '/') === pathAndSlug) {
+      if (doc && (doc.path || '/') + (doc.slug || '/') === pathAndSlug && !('docs' in doc)) {
         return doc
       }
       // If the current doc has subdocs, search within them recursively
-      if (doc.docs && doc.docs.length > 0) {
+      if ('docs' in doc && doc?.docs && doc.docs.length > 0) {
         const subDoc = findDoc(doc.docs, pathAndSlug.toLowerCase())
         if (subDoc) {
           return subDoc

@@ -5,17 +5,31 @@ export interface Heading {
 }
 
 export interface Doc {
-  content?: any // eslint-disable-line
-  order?: number
-  title?: string
-  label?: string
-  desc?: string
-  keywords?: string
-  headings?: Heading[]
-  docs?: Doc[]
+  content: any // eslint-disable-line
+  order: number
+  title: string
+  label: string
+  desc: string
+  keywords: string
+  headings: Heading[]
   slug?: string
   path?: string
 }
+
+export type DocOrTopic =
+  | Doc
+  | {
+      content?: any // eslint-disable-line
+      order?: number
+      title?: string
+      label?: string
+      desc?: string
+      keywords?: string
+      headings?: Heading[]
+      docs: Doc[]
+      slug?: string
+      path?: string
+    }
 
 export interface NextDoc {
   slug: string
