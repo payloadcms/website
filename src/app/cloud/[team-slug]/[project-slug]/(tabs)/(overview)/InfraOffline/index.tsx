@@ -236,9 +236,12 @@ export const InfraOffline: React.FC<{
                       <>
                         <h6>Required ENV variables</h6>
                         <p className={classes.helpText}>
-                          Your <code>payload.init()</code> function must use{' '}
-                          <code>MONGODB_URI</code> and <code>PAYLOAD_SECRET</code> variables.
-                          Payload Cloud provides these for you. Ensure your spelling is correct.
+                          A <code>PAYLOAD_SECRET</code> environment variable is required for all
+                          projects. If you are using <strong>Payload 2.x</strong>, you will also
+                          need a <code>DATABASE_URI</code> environment variable. If you are using{' '}
+                          <strong>Payload 1.x or lower</strong>, you will need a{' '}
+                          <code>MONGODB_URI</code> environment variable. Payload Cloud provides
+                          these for you. Ensure your spelling is correct.
                         </p>
 
                         <h6>Are you specifying a port correctly?</h6>
