@@ -14,7 +14,7 @@ export interface Doc {
   headings?: Heading[]
   docs?: Doc[]
   slug?: string
-  fullSlug?: string
+  path?: string
 }
 
 export interface NextDoc {
@@ -35,11 +35,13 @@ export interface DocMeta {
   slug: string
   order: number
   docs?: DocMeta[]
-  fullSlug?: string
+  /** Path, not including the slug, ends with "/" **/
+  path?: string
 }
 
 export interface Topic {
   docs: DocMeta[]
   slug: string
-  fullSlug?: string
+  /** Path, not including the slug, ends with "/" **/
+  path?: string
 }

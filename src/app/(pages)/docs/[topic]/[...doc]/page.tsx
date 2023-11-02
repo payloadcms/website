@@ -9,8 +9,8 @@ import { RenderDoc } from './client_page'
 
 const Doc = async ({ params }) => {
   const { topic, doc: docSlugs } = params
-  const fullDocSlug = topic + '/' + docSlugs.join('/')
-  const doc = await getDoc({ topic, doc: fullDocSlug })
+  const docPathWithSlug = topic + '/' + docSlugs.join('/')
+  const doc = await getDoc({ topic, doc: docPathWithSlug })
   const topics = await getTopics()
 
   const relatedThreads = await fetchRelatedThreads()
@@ -31,7 +31,7 @@ const Doc = async ({ params }) => {
 
   if (parentTopic) {
     const docIndex = parentTopic?.docs.findIndex(
-      ({ fullSlug, slug }) => slug === fullDocSlug || fullSlug === fullDocSlug,
+      ({ path, slug }) => path + slug === docPathWithSlug,
     )
 
     if (parentTopic?.docs?.[docIndex + 1]) {
@@ -89,15 +89,15 @@ export async function generateStaticParams() {
   return result
 }
 export async function generateMetadata({ params: { topic: topicSlug, doc: docSlugs } }) {
-  const fullSlug = topicSlug + '/' + docSlugs.join('/')
-  const doc = await getDoc({ topic: topicSlug, doc: fullSlug })
+  const docPathWithSlug = topicSlug + docSlugs.join('/')
+  const doc = await getDoc({ topic: topicSlug, doc: docPathWithSlug })
 
   return {
     title: `${doc?.title ? `${doc.title} | ` : ''}Documentation | Payload CMS`,
     description: doc?.desc || `Payload CMS ${topicSlug} Documentation`,
     openGraph: mergeOpenGraph({
       title: `${doc?.title ? `${doc.title} | ` : ''}Documentation | Payload CMS`,
-      url: `/docs/${topicSlug}/${fullSlug}`,
+      url: `/docs/${docPathWithSlug}`,
       images: [
         {
           url: `/api/og?topic=${topicSlug}&title=${doc?.title}`,

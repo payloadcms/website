@@ -88,7 +88,7 @@ export async function parseDocs(fileNames, topicSlugs, topicDirectory) {
           )
           const subTopic = {
             slug: docFilename,
-            fullSlug: `${topicSlugs.join('/')}/${docFilename}`,
+            path: topicSlugs.join('/')+'/',
             docs: subDocs.filter(Boolean).sort((a, b) => a.order - b.order),
           }
           return subTopic
@@ -108,7 +108,7 @@ export async function parseDocs(fileNames, topicSlugs, topicDirectory) {
             }),
             title: parsedDoc.data.title,
             slug: docFilename.replace('.mdx', ''),
-            fullSlug: `${topicSlugs.join('/')}/${docFilename.replace('.mdx', '')}`,
+            path: topicSlugs.join('/')+'/',
             label: parsedDoc.data.label,
             order: parsedDoc.data.order,
             desc: parsedDoc.data.desc || '',
@@ -140,7 +140,7 @@ const fetchDocs = async () => {
 
       const topic = {
         slug: unsanitizedTopicSlug,
-        fullSlug: unsanitizedTopicSlug,
+        path: '/',
         docs: parsedDocs.filter(Boolean).sort((a, b) => a.order - b.order),
       }
 

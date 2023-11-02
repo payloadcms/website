@@ -13,7 +13,7 @@ import { DocMeta, Topic } from './types'
 
 import classes from './index.module.scss'
 
-const openTopicsLocalStorageKey = 'docs-open-topics'
+const openTopicsLocalStorageKey = 'docs-open-topics' as const
 
 type Props = {
   topics: Topic[]
@@ -35,13 +35,14 @@ export const RenderSidebarTopics: React.FC<RenderSidebarProps> = ({
   nesting,
 }) => {
   const [currentTopicIsOpen, setCurrentTopicIsOpen] = useState(true)
-  const [topicParam, docParam, subDocParam] = useSelectedLayoutSegments()
+  const [...params] = useSelectedLayoutSegments()
+  const middleParams = params[1].split('/')
 
   return (
     <>
       {topics.map(topic => {
         const topicSlug = topic.slug.toLowerCase()
-        const isCurrentTopic = topicParam === topicSlug || docParam === topicSlug
+        const isCurrentTopic = params[0] === topicSlug || params[1] === topicSlug
         const isActive =
           openTopicPreferences?.includes(topicSlug) || (isCurrentTopic && currentTopicIsOpen)
 
@@ -88,7 +89,12 @@ export const RenderSidebarTopics: React.FC<RenderSidebarProps> = ({
             <AnimateHeight height={isActive ? 'auto' : 0} duration={init ? 200 : 0}>
               <ul className={classes.docs}>
                 {topic.docs.map((doc: DocMeta) => {
-                  const isDocActive = docParam === doc.slug && topicParam === topicSlug
+                  // Check if doc slug matches, and if topic matches
+                  const isDocActive =
+                    params.join('/') === doc.path + doc.slug &&
+                    (middleParams.length >= 2
+                      ? middleParams[middleParams.length - 2]
+                      : params[0] === topicSlug)
 
                   if ('docs' in doc && doc?.docs) {
                     return (
@@ -105,7 +111,7 @@ export const RenderSidebarTopics: React.FC<RenderSidebarProps> = ({
                   return (
                     <li key={doc.slug}>
                       <Link
-                        href={`/docs/${topic?.fullSlug}/${doc.slug}`}
+                        href={`/docs/${doc?.path + doc?.slug}`}
                         className={[classes.doc, isDocActive && classes['doc--active']]
                           .filter(Boolean)
                           .join(' ')}
@@ -126,7 +132,7 @@ export const RenderSidebarTopics: React.FC<RenderSidebarProps> = ({
 }
 
 export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
-  const [topicParam, docParam, subDocParam] = useSelectedLayoutSegments()
+  const [topicParam] = useSelectedLayoutSegments()
   const [openTopicPreferences, setOpenTopicPreferences] = useState<string[]>()
   const [init, setInit] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
@@ -184,6 +190,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
           {navOpen && <CloseIcon size="large" />}
         </button>
       </div>
+      ;
     </MDXProvider>
   )
 }
