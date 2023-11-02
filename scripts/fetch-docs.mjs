@@ -35,6 +35,7 @@ function slugify(string) {
 }
 
 const githubAPI = 'https://api.github.com/repos/payloadcms/payload'
+const branch = 'main'
 
 const topicOrder = [
   'Getting-Started',
@@ -78,6 +79,66 @@ async function getHeadings(source) {
   })
 }
 
+export async function parseDocs(docFilenames, topicSlugs, topicURL) {
+  const parsedDocs = await Promise.all(
+    docFilenames.map(async docFilename => {
+      try {
+        const path = `${topicURL}/${docFilename}`
+        const isDirectory = docFilename.includes('.md') ? false : true
+        if(isDirectory) {
+          const subDocs = await fetch(`${path}?ref=${branch}`, {
+            headers,
+          }).then(res => res.json())
+          const subDocFilenames = subDocs.map(({ name }) => name)
+
+          const parsedSubDocs = await parseDocs(
+            subDocFilenames,
+            topicSlugs.concat(docFilename),
+            path
+          )
+
+          const subTopic = {
+            slug: docFilename,
+            path: topicSlugs.concat(docFilename).join('/')+'/',
+            docs: parsedSubDocs.filter(Boolean).sort((a, b) => a.order - b.order),
+          }
+          return subTopic
+        } else {
+          const json = await fetch(`${path}?ref=${branch}`, {
+            headers,
+          }).then(res => res.json())
+
+          const parsedDoc = matter(decodeBase64(json.content))
+
+
+          const doc = {
+            content: await serialize(parsedDoc.content, {
+              mdxOptions: {
+                remarkPlugins: [remarkGfm],
+              },
+            }),
+            title: parsedDoc.data.title,
+            slug: docFilename.replace('.mdx', ''),
+            path: topicSlugs.join('/')+'/',
+            label: parsedDoc.data.label,
+            order: parsedDoc.data.order,
+            desc: parsedDoc.data.desc || '',
+            keywords: parsedDoc.data.keywords || '',
+            headings: await getHeadings(parsedDoc.content),
+          }
+
+          return doc
+        }
+
+      } catch (error) {
+        const msg = error instanceof Error ? error.message : error || 'Unknown error'
+        console.error(`Error fetching ${docFilename}: ${msg}`) // eslint-disable-line no-console
+      }
+    }),
+  )
+  return parsedDocs
+}
+
 const fetchDocs = async () => {
   if (!process.env.GITHUB_ACCESS_TOKEN) {
     console.log('No GitHub access token found - skipping docs retrieval') // eslint-disable-line no-console
@@ -88,52 +149,25 @@ const fetchDocs = async () => {
     topicOrder.map(async unsanitizedTopicSlug => {
       const topicSlug = unsanitizedTopicSlug.toLowerCase()
 
-      const docs = await fetch(`${githubAPI}/contents/docs/${topicSlug}`, {
+      const docs = await fetch(`${githubAPI}/contents/docs/${topicSlug}?ref=${branch}`, {
         headers,
       }).then(res => res.json())
-
       const docFilenames = docs.map(({ name }) => name)
 
-      const parsedDocs = await Promise.all(
-        docFilenames.map(async docFilename => {
-          try {
-            const json = await fetch(`${githubAPI}/contents/docs/${topicSlug}/${docFilename}`, {
-              headers,
-            }).then(res => res.json())
+      const topicURL = `${githubAPI}/contents/docs/${topicSlug}`
 
-            const parsedDoc = matter(decodeBase64(json.content))
-
-            const doc = {
-              content: await serialize(parsedDoc.content, {
-                mdxOptions: {
-                  remarkPlugins: [remarkGfm],
-                },
-              }),
-              title: parsedDoc.data.title,
-              slug: docFilename.replace('.mdx', ''),
-              label: parsedDoc.data.label,
-              order: parsedDoc.data.order,
-              desc: parsedDoc.data.desc || '',
-              keywords: parsedDoc.data.keywords || '',
-              headings: await getHeadings(parsedDoc.content),
-            }
-
-            return doc
-          } catch (err) {
-            const msg = err instanceof Error ? err.message : err || 'Unknown error'
-            console.error(`Error fetching ${docFilename}: ${msg}`) // eslint-disable-line no-console
-          }
-        }),
-      )
+      const parsedDocs = await parseDocs(docFilenames, [topicSlug], topicURL)
 
       const topic = {
         slug: unsanitizedTopicSlug,
+        path: '/',
         docs: parsedDocs.filter(Boolean).sort((a, b) => a.order - b.order),
       }
 
       return topic
     }),
   )
+
 
   const data = JSON.stringify(topics, null, 2)
 

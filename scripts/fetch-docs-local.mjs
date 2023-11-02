@@ -88,7 +88,7 @@ export async function parseDocs(fileNames, topicSlugs, topicDirectory) {
           )
           const subTopic = {
             slug: docFilename,
-            path: topicSlugs.join('/')+'/',
+            path: topicSlugs.concat(docFilename).join('/')+'/',
             docs: subDocs.filter(Boolean).sort((a, b) => a.order - b.order),
           }
           return subTopic
