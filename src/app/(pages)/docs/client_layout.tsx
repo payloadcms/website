@@ -20,9 +20,108 @@ type Props = {
   children: React.ReactNode
 }
 
-export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
-  const [topicParam, docParam] = useSelectedLayoutSegments()
+type RenderSidebarProps = {
+  topics: Topic[]
+  openTopicPreferences?: string[]
+  setOpenTopicPreferences: (topics: string[]) => void
+  init?: boolean
+}
+export const RenderSidebarTopics: React.FC<RenderSidebarProps> = ({
+  topics,
+  setOpenTopicPreferences,
+  openTopicPreferences,
+  init,
+}) => {
   const [currentTopicIsOpen, setCurrentTopicIsOpen] = useState(true)
+  const [topicParam, docParam, subDocParam] = useSelectedLayoutSegments()
+
+  return (
+    <>
+      {topics.map(topic => {
+        const topicSlug = topic.slug.toLowerCase()
+        const isCurrentTopic = topicParam === topicSlug || docParam === topicSlug
+        const isActive =
+          openTopicPreferences?.includes(topicSlug) || (isCurrentTopic && currentTopicIsOpen)
+
+        return (
+          <React.Fragment key={topic.slug}>
+            <button
+              type="button"
+              className={[classes.topic, isActive && classes['topic--open']]
+                .filter(Boolean)
+                .join(' ')}
+              onClick={() => {
+                if (isCurrentTopic) {
+                  if (openTopicPreferences?.includes(topicSlug) && currentTopicIsOpen) {
+                    const newState = [...openTopicPreferences]
+                    newState.splice(newState.indexOf(topicSlug), 1)
+
+                    setOpenTopicPreferences(newState)
+                    window.localStorage.setItem(openTopicsLocalStorageKey, JSON.stringify(newState))
+                  }
+                  setCurrentTopicIsOpen(state => !state)
+                } else {
+                  const newState = [...(openTopicPreferences || [])]
+
+                  if (!newState.includes(topicSlug)) {
+                    newState.push(topicSlug)
+                  } else {
+                    newState.splice(newState.indexOf(topicSlug), 1)
+                  }
+
+                  setOpenTopicPreferences(newState)
+                  window.localStorage.setItem(openTopicsLocalStorageKey, JSON.stringify(newState))
+                }
+              }}
+            >
+              <ChevronIcon
+                className={[classes.toggleChevron, isActive && classes.activeToggleChevron]
+                  .filter(Boolean)
+                  .join(' ')}
+              />
+              {topic.slug.replace('-', ' ')}
+            </button>
+            <AnimateHeight height={isActive ? 'auto' : 0} duration={init ? 200 : 0}>
+              <ul className={classes.docs}>
+                {topic.docs.map((doc: DocMeta) => {
+                  const isDocActive = docParam === doc.slug && topicParam === topicSlug
+
+                  if ('docs' in doc && doc?.docs) {
+                    return (
+                      <RenderSidebarTopics
+                        topics={[doc as Topic]}
+                        setOpenTopicPreferences={setOpenTopicPreferences}
+                        openTopicPreferences={openTopicPreferences}
+                        init={init}
+                        key={doc.slug}
+                      />
+                    )
+                  }
+                  return (
+                    <li key={doc.slug}>
+                      <Link
+                        href={`/docs/${topicSlug}/${doc.slug}`}
+                        className={[classes.doc, isDocActive && classes['doc--active']]
+                          .filter(Boolean)
+                          .join(' ')}
+                        prefetch={false}
+                      >
+                        {doc.label}
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+            </AnimateHeight>
+          </React.Fragment>
+        )
+      })}
+    </>
+  )
+}
+
+export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
+  const [topicParam, docParam, subDocParam] = useSelectedLayoutSegments()
   const [openTopicPreferences, setOpenTopicPreferences] = useState<string[]>()
   const [init, setInit] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
@@ -60,80 +159,12 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
             .filter(Boolean)
             .join(' ')}
         >
-          {topics.map(topic => {
-            const topicSlug = topic.slug.toLowerCase()
-            const isCurrentTopic = topicParam === topicSlug
-            const isActive =
-              openTopicPreferences?.includes(topicSlug) || (isCurrentTopic && currentTopicIsOpen)
-
-            return (
-              <React.Fragment key={topic.slug}>
-                <button
-                  type="button"
-                  className={[classes.topic, isActive && classes['topic--open']]
-                    .filter(Boolean)
-                    .join(' ')}
-                  onClick={() => {
-                    if (isCurrentTopic) {
-                      if (openTopicPreferences?.includes(topicSlug) && currentTopicIsOpen) {
-                        const newState = [...openTopicPreferences]
-                        newState.splice(newState.indexOf(topicSlug), 1)
-
-                        setOpenTopicPreferences(newState)
-                        window.localStorage.setItem(
-                          openTopicsLocalStorageKey,
-                          JSON.stringify(newState),
-                        )
-                      }
-                      setCurrentTopicIsOpen(state => !state)
-                    } else {
-                      const newState = [...(openTopicPreferences || [])]
-
-                      if (!newState.includes(topicSlug)) {
-                        newState.push(topicSlug)
-                      } else {
-                        newState.splice(newState.indexOf(topicSlug), 1)
-                      }
-
-                      setOpenTopicPreferences(newState)
-                      window.localStorage.setItem(
-                        openTopicsLocalStorageKey,
-                        JSON.stringify(newState),
-                      )
-                    }
-                  }}
-                >
-                  <ChevronIcon
-                    className={[classes.toggleChevron, isActive && classes.activeToggleChevron]
-                      .filter(Boolean)
-                      .join(' ')}
-                  />
-                  {topic.slug.replace('-', ' ')}
-                </button>
-                <AnimateHeight height={isActive ? 'auto' : 0} duration={init ? 200 : 0}>
-                  <ul className={classes.docs}>
-                    {topic.docs.map((doc: DocMeta) => {
-                      const isDocActive = docParam === doc.slug && topicParam === topicSlug
-
-                      return (
-                        <li key={doc.slug}>
-                          <Link
-                            href={`/docs/${topicSlug}/${doc.slug}`}
-                            className={[classes.doc, isDocActive && classes['doc--active']]
-                              .filter(Boolean)
-                              .join(' ')}
-                            prefetch={false}
-                          >
-                            {doc.label}
-                          </Link>
-                        </li>
-                      )
-                    })}
-                  </ul>
-                </AnimateHeight>
-              </React.Fragment>
-            )
-          })}
+          <RenderSidebarTopics
+            topics={topics}
+            setOpenTopicPreferences={setOpenTopicPreferences}
+            openTopicPreferences={openTopicPreferences}
+            init={init}
+          />
           <div className={classes.navOverlay} />
         </nav>
         <div className={classes.content}>{children}</div>
