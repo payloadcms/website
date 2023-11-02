@@ -25,12 +25,14 @@ type RenderSidebarProps = {
   openTopicPreferences?: string[]
   setOpenTopicPreferences: (topics: string[]) => void
   init?: boolean
+  nesting: number
 }
 export const RenderSidebarTopics: React.FC<RenderSidebarProps> = ({
   topics,
   setOpenTopicPreferences,
   openTopicPreferences,
   init,
+  nesting,
 }) => {
   const [currentTopicIsOpen, setCurrentTopicIsOpen] = useState(true)
   const [topicParam, docParam, subDocParam] = useSelectedLayoutSegments()
@@ -50,6 +52,7 @@ export const RenderSidebarTopics: React.FC<RenderSidebarProps> = ({
               className={[classes.topic, isActive && classes['topic--open']]
                 .filter(Boolean)
                 .join(' ')}
+              style={nesting >= 1 ? { marginLeft: 8, marginTop: 5 } : {}}
               onClick={() => {
                 if (isCurrentTopic) {
                   if (openTopicPreferences?.includes(topicSlug) && currentTopicIsOpen) {
@@ -75,6 +78,7 @@ export const RenderSidebarTopics: React.FC<RenderSidebarProps> = ({
               }}
             >
               <ChevronIcon
+                style={nesting >= 1 ? { marginRight: 3 } : {}}
                 className={[classes.toggleChevron, isActive && classes.activeToggleChevron]
                   .filter(Boolean)
                   .join(' ')}
@@ -94,13 +98,14 @@ export const RenderSidebarTopics: React.FC<RenderSidebarProps> = ({
                         openTopicPreferences={openTopicPreferences}
                         init={init}
                         key={doc.slug}
+                        nesting={nesting + 1}
                       />
                     )
                   }
                   return (
                     <li key={doc.slug}>
                       <Link
-                        href={`/docs/${topicSlug}/${doc.slug}`}
+                        href={`/docs/${topic?.fullSlug}/${doc.slug}`}
                         className={[classes.doc, isDocActive && classes['doc--active']]
                           .filter(Boolean)
                           .join(' ')}
@@ -164,6 +169,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
             setOpenTopicPreferences={setOpenTopicPreferences}
             openTopicPreferences={openTopicPreferences}
             init={init}
+            nesting={0}
           />
           <div className={classes.navOverlay} />
         </nav>

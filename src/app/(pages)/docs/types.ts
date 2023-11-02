@@ -13,6 +13,7 @@ export interface Doc {
   keywords?: string
   headings?: Heading[]
   docs?: Doc[]
+  slug?: string
   fullSlug?: string
 }
 
@@ -34,9 +35,11 @@ export interface DocMeta {
   slug: string
   order: number
   docs?: DocMeta[]
+  fullSlug?: string
 }
 
 export interface Topic {
   docs: DocMeta[]
   slug: string
+  fullSlug?: string
 }

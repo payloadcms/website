@@ -72,7 +72,7 @@ async function getHeadings(source) {
   })
 }
 
-export async function parseDocs(fileNames, topicSlug, topicDirectory) {
+export async function parseDocs(fileNames, topicSlugs, topicDirectory) {
   const parsedDocs = await Promise.all(
     fileNames.map(async docFilename => {
       try {
@@ -83,16 +83,16 @@ export async function parseDocs(fileNames, topicSlug, topicDirectory) {
 
           const subDocs = await parseDocs(
             subDocSlugs,
-            docFilename,
+            topicSlugs.concat(docFilename),
             path
           )
           const subTopic = {
             slug: docFilename,
-            fullSlug: `${topicSlug}/${docFilename}`,
+            fullSlug: `${topicSlugs.join('/')}/${docFilename}`,
             docs: subDocs.filter(Boolean).sort((a, b) => a.order - b.order),
           }
           return subTopic
-        }else {
+        } else {
           const rawDoc = fs.readFileSync(
             path,
             'utf8',
@@ -108,6 +108,7 @@ export async function parseDocs(fileNames, topicSlug, topicDirectory) {
             }),
             title: parsedDoc.data.title,
             slug: docFilename.replace('.mdx', ''),
+            fullSlug: `${topicSlugs.join('/')}/${docFilename.replace('.mdx', '')}`,
             label: parsedDoc.data.label,
             order: parsedDoc.data.order,
             desc: parsedDoc.data.desc || '',
@@ -135,7 +136,7 @@ const fetchDocs = async () => {
       const topicDirectory = path.join(docsDirectory, `./${topicSlug}`)
       const docSlugs = fs.readdirSync(topicDirectory)
 
-      const parsedDocs = await parseDocs(docSlugs, topicSlug, `${docsDirectory}/${topicSlug}`)
+      const parsedDocs = await parseDocs(docSlugs, [topicSlug], `${docsDirectory}/${topicSlug}`)
 
       const topic = {
         slug: unsanitizedTopicSlug,
