@@ -234,11 +234,20 @@ export const InfraOffline: React.FC<{
                     )}
                     {unsuccessfulDeployment && !hasDeployedBefore && (
                       <>
+                        <h6>Ensure Local Build</h6>
+                        <p className={classes.helpText}>Ensure that your project builds locally.</p>
+
+                        <h6>Check Run Script</h6>
+                        <p className={classes.helpText}>
+                          Check that your Project's Run Script is the correct command for the script
+                          in your package.json
+                        </p>
+
                         <h6>Required ENV variables</h6>
                         <p className={classes.helpText}>
-                          Your <code>payload.init()</code> function must use{' '}
-                          <code>MONGODB_URI</code> and <code>PAYLOAD_SECRET</code> variables.
-                          Payload Cloud provides these for you. Ensure your spelling is correct.
+                          Your Payload config must use <code>MONGODB_URI/DATABASE_URI</code> and{' '}
+                          <code>PAYLOAD_SECRET</code> variables. Payload Cloud provides these for
+                          you. Ensure your spelling is correct.
                         </p>
 
                         <h6>Are you specifying a port correctly?</h6>
@@ -259,7 +268,8 @@ export const InfraOffline: React.FC<{
                     <a href="https://discord.com/invite/r6sCXqVk3v" target="_blank">
                       discord.
                     </a>{' '}
-                    We would love to help!
+                    We would love to help! Please provide your issue and Project ID from Settings
+                    -&gt; Billing.
                   </Banner>
                 </React.Fragment>
               )}
