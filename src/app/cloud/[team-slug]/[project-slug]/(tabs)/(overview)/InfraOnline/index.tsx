@@ -271,7 +271,9 @@ export const InfraOnline: React.FC<{
                       <div className={classes.deployDetails}>
                         {project?.deploymentBranch && (
                           <a
-                            className={classes.iconAndLabel}
+                            className={[classes.iconAndLabel, classes.deploymentIndicator].join(
+                              ' ',
+                            )}
                             href={`https://github.com/${project?.repositoryFullName}/tree/${project?.deploymentBranch}`}
                             target="_blank"
                             rel="noopener noreferrer"

@@ -43,6 +43,10 @@
       font-family: var(--font-mono);
     }
   }
+
+  .deploymentIndicator {
+    gap: calc((var(--base) * 0.5) + 5px);
+  }
 }
 
 .ellipseText {
