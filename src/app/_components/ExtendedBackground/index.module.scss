@@ -1,6 +1,6 @@
 @use '@scss/common.scss' as *;
 
-.container {
+.extendedBackgroundWrap {
   --bg-extension: calc(var(--gutter-h) * .5);
   --pixel-bg-extension: calc(var(--bg-extension) * 2);
   --pixel-padding: calc(var(--bg-extension) / 2);
@@ -18,67 +18,37 @@
   &.withPixels {
    padding-bottom: var(--pixel-padding);
   }
-}
 
-.backgroundContainer {
-  position: relative;
-  margin: 0 calc(-1 * var(--bg-extension) / 2);
-  border: 1px solid var(--theme-border-color);
-  background-color: var(--theme-bg);
-  overflow: hidden;
-
-  + .backgroundContainer {
-    border-top: 0;
+  [data-background-container] {
+    margin: 0 calc(-1 * var(--bg-extension) / 2);
+    background-color: var(--theme-bg);
   }
-}
 
-.borderHighlight {
-  background: conic-gradient(var(--theme-success-750), transparent, transparent);
-  position: absolute;
-  top: 50%;
-  right: 0;
-  bottom: 0;
-  left: 50%;
-  filter: blur(10px);
-  width: 100%;
-  animation: 7s rotateColor infinite linear;
-}
-
-:global([data-theme="dark"]) {
-  .borderHighlight {
-    background: conic-gradient(var(--theme-success-450), transparent, transparent);
+  [data-border-highlight] {
+    width: 100%;
   }
-}
 
-@keyframes rotateColor {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg) skew(10deg, 10deg);
+  [data-container-content] {
+    padding: calc(var(--base) * 1.5) calc(var(--bg-extension) / 2);
+  
+    @include small-break {
+      padding: calc(var(--base) * 1) calc(var(--bg-extension) / 2);
+    }
   }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg) skew(10deg, 10deg);
-  }
+
+  .lowerBackground {
+    [data-container-content] {
+      padding: calc(var(--base) * 1.5) calc(var(--bg-extension) / 2);
+      top: -1px;
+    
+      @include small-break {
+        padding: calc(var(--base) * 1) calc(var(--bg-extension) / 2);
+      }
+    }
+  }  
 }
 
-.containerContent {
-  position: relative;
-  top: 1px;
-  right: 1px;
-  bottom: 1px;
-  left: 1px;
-  inset: 1px;
-  background-color: var(--theme-bg);
-  padding: calc(var(--base) * 1.5) calc(var(--bg-extension) / 2);
-  margin-right: 2px;
-  margin-bottom: 2px;
 
-  @include small-break {
-    padding: calc(var(--base) * 1) calc(var(--bg-extension) / 2);
-  }
-}
-
-.lowerBackground {
-  top: -1px;
-}
 
 .pixelBackground {
   z-index: -2;

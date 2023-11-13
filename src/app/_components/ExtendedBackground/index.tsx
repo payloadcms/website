@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { BorderHighlight } from '../BorderHighlight'
+
 import classes from './index.module.scss'
 
 export const ExtendedBackground: React.FC<{
@@ -11,21 +13,29 @@ export const ExtendedBackground: React.FC<{
 }> = ({ lowerChildren, upperChildren, pixels, className, borderHighlight: borderHighlight }) => {
   return (
     <div
-      className={[classes.container, pixels && classes.withPixels, className]
+      className={[classes.extendedBackgroundWrap, pixels && classes.withPixels, className]
         .filter(Boolean)
         .join(' ')}
     >
-      <div data-component="top-container" className={classes.backgroundContainer}>
-        {borderHighlight && <div className={classes.borderHighlight} />}
-        <div className={classes.containerContent}>{upperChildren}</div>
-      </div>
+      <BorderHighlight
+        data-component="top-container"
+        borderHighlight={borderHighlight}
+        highlightColor="success"
+      >
+        {upperChildren}
+      </BorderHighlight>
 
       {lowerChildren && (
-        <div data-component="bottom-container" className={classes.backgroundContainer}>
+        <BorderHighlight
+          data-component="bottom-container"
+          borderHighlight={false}
+          highlightColor="default"
+          className={classes.lowerBackground}
+        >
           <div className={`${classes.containerContent} ${classes.lowerBackground}`}>
             {lowerChildren}
           </div>
-        </div>
+        </BorderHighlight>
       )}
 
       {pixels && <div data-component="pixels" className={classes.pixelBackground} />}

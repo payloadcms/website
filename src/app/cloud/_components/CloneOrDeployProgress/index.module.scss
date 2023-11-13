@@ -1,14 +1,13 @@
 @use '@scss/common' as *;
 
 .deployProgress {
-    color: var(--theme-elevation-250);
-    padding: calc(var(--base) * 2);
-    background-color: var(--theme-elevation-50);
     position: relative;
-    border: 0.5px solid var(--theme-border-color);
     min-height: 400px;
     display: flex;
     flex-direction: column;
+    color: var(--theme-elevation-250);
+    background-color: var(--theme-elevation-50);
+    padding: calc(var(--base) * 2);
 
     @include mid-break {
         min-height: 300px;
