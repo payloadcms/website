@@ -22,6 +22,11 @@ export const usePopupWindow = (props: {
   const { href, onMessage, eventType } = props
   const isReceivingMessage = useRef(false)
 
+  // NOTE: GitHub allows multiple redirect URIs to be set in the App Settings, one for each environment using this App
+  // But there is a known issue when working locally where GitHub will redirect back to the first valid redirect URI in the list
+  // This is likely because the local domain is insecure (http://local.payloadcms.com), and so it's falling back (https://payloadcms.com)
+  // This means that locally installing the GitHub app will not properly redirect you, the page will simply remain as-is
+  // Instead of expecting a redirect, you'll just need to refresh the page after installing the app
   useEffect(() => {
     const receiveMessage = async (event: MessageEvent): Promise<void> => {
       if (event.origin !== window.location.origin) {

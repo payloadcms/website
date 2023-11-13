@@ -3,13 +3,14 @@ import Link from 'next/link'
 
 import { Heading } from '@components/Heading'
 import { Media } from '@components/Media'
+import { Pill } from '@components/Pill'
 import { PlusIcon } from '@root/icons/PlusIcon'
 import { DefaultCardProps } from '../types'
 
 import classes from './index.module.scss'
 
 export const DefaultCard: React.FC<DefaultCardProps> = props => {
-  const { description, href, media, title, className, leader } = props
+  const { pill, description, href, media, title, className, leader } = props
 
   return (
     <Link
@@ -18,7 +19,14 @@ export const DefaultCard: React.FC<DefaultCardProps> = props => {
       className={[classes.defaultCard, className && className].filter(Boolean).join(' ')}
     >
       <div className={classes.content}>
-        {leader && <div className={classes.leader}>{leader}</div>}
+        <div className={classes.leaderWrapper}>
+          {leader && <div className={classes.leader}>{leader}</div>}
+          {pill && (
+            <span className={classes.pill}>
+              <Pill color="warning" text={pill} />
+            </span>
+          )}
+        </div>
         <Heading element="h2" as="h5" marginTop={false}>
           {title}
         </Heading>

@@ -1,7 +1,7 @@
 @use 'sass:math';
 
 //////////////////////////////
-// BREAKPOINTS
+// BREAKPOINTS (WIDTH)
 //////////////////////////////
 
 $breakpoint-xs-width: 400px;
@@ -11,6 +11,12 @@ $breakpoint-mh-width: 1170px;
 $breakpoint-l-width: 1600px;
 $breakpoint-xl-width: 1920px;
 $breakpoint-2xl-width: 2250px;
+
+//////////////////////////////
+// BREAKPOINTS (HEIGHT)
+//////////////////////////////
+
+$breakpoint-s-height: 750px;
 
 //////////////////////////////
 // SHADOWS

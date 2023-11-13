@@ -19,13 +19,14 @@
   flex-direction: column;
   gap: calc(var(--base) * .5);
   justify-content: center;
-
+  
   p {
     margin: 0;
   }
-
+  
   .iconAndLabel {
     @include small;
+    line-height: 16px;
     display: flex;
     align-items: center;
     color: var(--theme-elevation-500);
@@ -35,18 +36,23 @@
       color: var(--theme-elevation-400);
       width: 15px;
       height: 15px;
+      flex-shrink: 0;
     }
 
     .commitSha {
       font-family: var(--font-mono);
     }
-
-    .commitMessage {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    }
   }
+
+  .deploymentIndicator {
+    gap: calc((var(--base) * 0.5) + 5px);
+  }
+}
+
+.ellipseText {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .detail {
@@ -58,31 +64,17 @@
 
 .domainLink {
   text-decoration: none;
+  display: flex;
+  align-items: center;
 
   &:hover {
     text-decoration: underline;
   }
 }
 
-.textMask {
-  text-overflow: ellipsis;
-  overflow: hidden;
-
-  a {
-    display: flex;
-    align-items: center;
-  }
-
-  span {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-
-  .externalLinkIcon {
-    flex-shrink: 0;
-    margin-left: calc(var(--base) / 2);
-  }
+.externalLinkIcon {
+  flex-shrink: 0;
+  margin-left: calc(var(--base) / 2);
 }
 
 .statusDetail {

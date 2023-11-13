@@ -17,13 +17,13 @@ import classes from './index.module.scss'
 
 export const BlogPost: React.FC<
   Post & {
-    relatedPosts?: Post[]
+    relatedPosts?: Post[] | string[]
   }
 > = props => {
   const { title, publishedOn, image, excerpt, content, relatedPosts } = props
 
   return (
-    <React.Fragment>
+    <div id="blog">
       <Gutter className={classes.pageType}>
         <Breadcrumbs
           items={[
@@ -80,6 +80,6 @@ export const BlogPost: React.FC<
           },
         ]}
       />
-    </React.Fragment>
+    </div>
   )
 }

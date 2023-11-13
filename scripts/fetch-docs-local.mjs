@@ -5,7 +5,6 @@ import dotenv from 'dotenv'
 import fs from 'fs'
 import matter from 'gray-matter'
 import { serialize } from 'next-mdx-remote/serialize'
-import fetch from 'node-fetch'
 import path from 'path'
 import remarkGfm from 'remark-gfm'
 
@@ -13,12 +12,11 @@ dotenv.config()
 
 const __dirname = path.resolve()
 
-const docsDirectory = path.join(process.cwd(), './node_modules/payload/docs')
+const docsDirectory = process.env.DOCS_DIR
+  ? path.resolve(process.env.DOCS_DIR)
+  : path.join(process.cwd(), './node_modules/payload/docs')
 
-const decodeBase64 = string => {
-  const buff = Buffer.from(string, 'base64')
-  return buff.toString('utf8')
-}
+console.log(`Fetching docs from: ${docsDirectory}`)
 
 function slugify(string) {
   const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
@@ -37,13 +35,14 @@ function slugify(string) {
     .replace(/-+$/, '') // Trim - from end of text
 }
 
-const githubAPI = 'https://api.github.com/repos/payloadcms/payload'
-
 const topicOrder = [
   'Getting-Started',
   'Configuration',
+  'Database',
   'Fields',
   'Admin',
+  'Rich-Text',
+  'Live-Preview',
   'Access-Control',
   'Hooks',
   'Authentication',
@@ -58,12 +57,8 @@ const topicOrder = [
   'TypeScript',
   'Plugins',
   'Integrations',
+  'Cloud',
 ]
-
-const headers = {
-  Accept: 'application/vnd.github.v3+json.html',
-  Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}`,
-}
 
 async function getHeadings(source) {
   const headingLines = source.split('\n').filter(line => {
@@ -78,20 +73,9 @@ async function getHeadings(source) {
 }
 
 const fetchDocs = async () => {
-  if (!process.env.GITHUB_ACCESS_TOKEN) {
-    console.log('No GitHub access token found - skipping docs retrieval')
-    process.exit(0)
-  }
-
   const topics = await Promise.all(
     topicOrder.map(async unsanitizedTopicSlug => {
       const topicSlug = unsanitizedTopicSlug.toLowerCase()
-
-      // const docs = await fetch(`${githubAPI}/contents/docs/${topicSlug}`, {
-      //   headers,
-      // }).then(res => res.json())
-
-      // const docFilenames = docs.map(({ name }) => name)
 
       const topicDirectory = path.join(docsDirectory, `./${topicSlug}`)
       const docSlugs = fs.readdirSync(topicDirectory)
@@ -99,9 +83,6 @@ const fetchDocs = async () => {
       const parsedDocs = await Promise.all(
         docSlugs.map(async docFilename => {
           try {
-            // const json = await fetch(`${githubAPI}/contents/docs/${topicSlug}/${docFilename}`, {
-            //   headers,
-            // }).then(res => res.json())
             const rawDoc = fs.readFileSync(
               `${docsDirectory}/${topicSlug.toLowerCase()}/${docFilename}`,
               'utf8',

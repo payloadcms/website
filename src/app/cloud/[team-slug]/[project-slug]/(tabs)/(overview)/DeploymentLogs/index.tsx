@@ -3,23 +3,33 @@ import { Tab, Tabs } from '@cloud/_components/Tabs'
 
 import { Gutter } from '@components/Gutter'
 import { Indicator } from '@root/app/_components/Indicator'
-import { formatLogData, Log, SimpleLogs } from '@root/app/_components/SimpleLogs'
+import { LogLine, SimpleLogs, styleLogs } from '@root/app/_components/SimpleLogs'
 import { Deployment } from '@root/payload-cloud-types'
 import { useWebSocket } from '@root/utilities/use-websocket'
 
 import classes from './index.module.scss'
 
-const defaultBuildLogs: Log[] = [
+const defaultBuildLogs: LogLine[] = [
   {
-    message: 'Waiting for build logs...',
+    messageChunks: [
+      {
+        appearance: 'text',
+        text: 'Waiting for build logs...',
+      },
+    ],
     timestamp: new Date().toISOString(),
     service: 'Info',
   },
 ]
 
-const defaultDeployLogs: Log[] = [
+const defaultDeployLogs: LogLine[] = [
   {
-    message: 'Waiting for deploy logs...',
+    messageChunks: [
+      {
+        appearance: 'text',
+        text: 'Waiting for deploy logs...',
+      },
+    ],
     timestamp: new Date().toISOString(),
     service: 'Info',
   },
@@ -34,7 +44,7 @@ const LiveLogs = ({
   deploymentID: string
   type: 'BUILD' | 'DEPLOY'
 }) => {
-  const [logs, setLogs] = React.useState<Log[] | undefined>(
+  const [logs, setLogs] = React.useState<LogLine[] | undefined>(
     type === 'BUILD' ? defaultBuildLogs : defaultDeployLogs,
   )
   const [wsStatus, setWsStatus] = React.useState<'CONNECTING' | 'OPEN' | 'CLOSED'>('CLOSED')
@@ -44,16 +54,14 @@ const LiveLogs = ({
 
     try {
       const { data, logType } = JSON.parse(message) || {}
-
       if (data) {
-        const formattedLogs = formatLogData(data)
-
+        const styledLogs = styleLogs(data)
         if (logType === 'historic') {
           // historic logs - replace
-          setLogs(formattedLogs)
+          setLogs(styledLogs)
         } else {
           // live log - append
-          setLogs(existingLogs => [...(existingLogs || []), ...formattedLogs])
+          setLogs(existingLogs => [...(existingLogs || []), ...styledLogs])
         }
       }
     } catch (e) {
@@ -160,7 +168,7 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment }) => {
       />
 
       {deployment?.id && (
-        <Gutter>
+        <Gutter key={deployment.id}>
           <LiveLogs type="BUILD" active={activeTab === 'build'} deploymentID={deployment.id} />
           <LiveLogs type="DEPLOY" active={activeTab === 'deploy'} deploymentID={deployment.id} />
         </Gutter>

@@ -130,11 +130,17 @@
   color-scheme: light;
   color: var(--theme-text);
 
-  --highlight-default-bg-color: var(--theme-success-400);
-  --highlight-default-text-color: var(--theme-text);
+  --highlight-success-bg-color: var(--theme-success-400);
+  --highlight-success-text-color: var(--theme-success-850);
+
+  --highlight-warning-bg-color: var(--theme-warning-400);
+  --highlight-warning-text-color: var(--theme-warning-850);
 
   --highlight-danger-bg-color: var(--theme-error-150);
-  --highlight-danger-text-color: var(--theme-text);
+  --highlight-danger-text-color: var(--theme-850);
+
+  --highlight-info-bg-color: var(--theme-elevation-100);
+  --highlight-info-text-color: var(--theme-elevation-850);
 
   h1 a,
   h2 a,
@@ -290,11 +296,17 @@
   color-scheme: dark;
   color: var(--theme-text);
 
-  --highlight-default-bg-color: var(--theme-success-100);
-  --highlight-default-text-color: var(--theme-success-600);
+  --highlight-success-bg-color: var(--theme-success-100);
+  --highlight-success-text-color: var(--theme-success-600);
+
+  --highlight-warning-bg-color: var(--theme-warning-100);
+  --highlight-warning-text-color: var(--theme-warning-600);
 
   --highlight-danger-bg-color: var(--theme-error-100);
   --highlight-danger-text-color: var(--theme-error-550);
+
+  --highlight-info-bg-color: var(--theme-elevation-150);
+  --highlight-info-text-color: var(--theme-elevation-850);
 
   h1 a,
   h2 a,

@@ -63,6 +63,7 @@ export interface Project {
   installScript?: string;
   runScript?: string;
   rootDirectory?: string;
+  dockerfilePath?: string;
   cloudflareCacheKey?: string;
   cloudflareDNSRecordID?: string;
   defaultDomain?: string;
@@ -95,14 +96,14 @@ export interface Project {
   }[];
   stripeSubscriptionID?: string;
   stripeSubscriptionStatus?:
-    | 'active'
-    | 'canceled'
-    | 'incomplete'
-    | 'incomplete_expired'
-    | 'past_due'
-    | 'trialing'
-    | 'unpaid'
-    | 'paused';
+  | 'active'
+  | 'canceled'
+  | 'incomplete'
+  | 'incomplete_expired'
+  | 'past_due'
+  | 'trialing'
+  | 'unpaid'
+  | 'paused';
   resendAPIKey?: string;
   resendAPIKeyID?: string;
   resendDomainID?: string;
@@ -128,14 +129,15 @@ export interface Project {
     id?: string;
   }[];
   infraStatus?:
-    | 'notStarted'
-    | 'infraCreationError'
-    | 'awaitingDatabase'
-    | 'appCreationError'
-    | 'deploying'
-    | 'deployError'
-    | 'done'
-    | 'error';
+  | 'notStarted'
+  | 'infraCreationError'
+  | 'awaitingDatabase'
+  | 'appCreationError'
+  | 'deploying'
+  | 'deployError'
+  | 'done'
+  | 'error';
+  createdBy?: string | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -143,18 +145,18 @@ export interface Plan {
   id: string;
   name: string;
   slug: string;
-  description?: string;
   stripeProductID?: string;
   priceJSON?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
+  | {
+    [k: string]: unknown;
+  }
+  | unknown[]
+  | string
+  | number
+  | boolean
+  | null;
   order?: number;
+  description?: string;
   highlight?: boolean;
   features?: {
     icon?: 'check' | 'x';
@@ -205,6 +207,14 @@ export interface User {
     joinedOn?: string;
     id?: string;
   }[];
+  sentEmails?: {
+    email?: {
+      emailType?: 'successfulDeploymentEmail' | 'checkingInEmail' | 'projectDeletedEmail';
+      sentAt?: string;
+      deliveryStatus?: 'sent' | 'failed';
+    };
+    id?: string;
+  }[];
   roles?: ('admin' | 'user')[];
   githubAccessToken?: string;
   githubAccessTokenExpiration?: number;
@@ -240,6 +250,7 @@ export interface Template {
     encoding?: string;
     id?: string;
   }[];
+  adminOnly?: boolean;
   updatedAt: string;
   createdAt: string;
 }
@@ -264,15 +275,15 @@ export interface Deployment {
   commitMessage?: string;
   lastSync?: string;
   deploymentStatus?:
-    | 'UNKNOWN'
-    | 'PENDING_BUILD'
-    | 'BUILDING'
-    | 'PENDING_DEPLOY'
-    | 'DEPLOYING'
-    | 'ACTIVE'
-    | 'SUPERSEDED'
-    | 'ERROR'
-    | 'CANCELED';
+  | 'UNKNOWN'
+  | 'PENDING_BUILD'
+  | 'BUILDING'
+  | 'PENDING_DEPLOY'
+  | 'DEPLOYING'
+  | 'ACTIVE'
+  | 'SUPERSEDED'
+  | 'ERROR'
+  | 'CANCELED';
   deployStepStatus?: 'UNKNOWN' | 'PENDING' | 'RUNNING' | 'ERROR' | 'SUCCESS';
   buildStepStatus?: 'UNKNOWN' | 'PENDING' | 'RUNNING' | 'ERROR' | 'SUCCESS';
   updatedAt: string;
@@ -291,14 +302,14 @@ export interface Job {
   };
   hasError?: boolean;
   error?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
+  | {
+    [k: string]: unknown;
+  }
+  | unknown[]
+  | string
+  | number
+  | boolean
+  | null;
   updatedAt: string;
   createdAt: string;
 }

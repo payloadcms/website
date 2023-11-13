@@ -10,11 +10,12 @@ import classes from './index.module.scss'
 export type RelatedPostsBlock = {
   blockType: 'relatedPosts'
   blockName: string
-  relatedPosts: Post[]
+  relatedPosts: Post[] | string[]
+  id?: string
 }
 
-export const RelatedPosts: React.FC<{ relatedPosts: Post[] }> = props => {
-  const { relatedPosts } = props
+export const RelatedPosts: React.FC<RelatedPostsBlock> = props => {
+  const { relatedPosts, id = '' } = props
 
   if (!relatedPosts || relatedPosts?.length === 0) {
     return null
@@ -35,21 +36,26 @@ export const RelatedPosts: React.FC<{ relatedPosts: Post[] }> = props => {
   }
 
   return (
-    <Gutter className={classes.relatedPosts}>
-      <h4 className={classes.title}>Related Posts</h4>
-      <Grid>
-        {relatedPosts.map((post, key) => (
-          <Cell key={key} {...cellProps}>
-            <ContentMediaCard
-              title={post.title}
-              description={post?.meta?.description}
-              href={`/blog/${post.slug}`}
-              media={post.image}
-              orientation={relatedPosts.length < 3 ? 'horizontal' : undefined}
-            />
-          </Cell>
-        ))}
-      </Grid>
+    <Gutter>
+      <div className={classes.relatedPosts} id={id}>
+        <h4 className={classes.title}>Related Posts</h4>
+        <Grid>
+          {relatedPosts.map(
+            (post, key) =>
+              typeof post !== 'string' && (
+                <Cell key={key} {...cellProps}>
+                  <ContentMediaCard
+                    title={post.title}
+                    description={post?.meta?.description}
+                    href={`/blog/${post.slug}`}
+                    media={post.image}
+                    orientation={relatedPosts.length < 3 ? 'horizontal' : undefined}
+                  />
+                </Cell>
+              ),
+          )}
+        </Grid>
+      </div>
     </Gutter>
   )
 }

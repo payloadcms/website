@@ -2,7 +2,7 @@
 
 .console {
   overflow: auto;
-  max-height: 800px;
+  max-height: min(800px, 60vh);
 
   code {
     background-color: unset;
@@ -24,15 +24,17 @@
   gap: 5px;
   letter-spacing: -0.5px;
   color: var(--theme-elevation-500);
+  position: relative;
 
   p {
     margin-bottom: 0;
   }
 }
   
-.lineInfo {
+.logTimestamp {
   margin-bottom: 0;
   flex-shrink: 0;
+  color: var(--theme-elevation-500);
 }
   
 .lineMessage {
@@ -41,4 +43,43 @@
   @include mid-break {
     white-space: nowrap;
   }
+}
+
+.lineType--error,
+.lineType--success,
+.lineType--warning {
+  .logText,
+  .logTimestamp {
+    color: inherit;
+  }
+  .logTimestamp {
+    opacity: .5;
+  }
+}
+
+.lineType--info {
+  background-color: var(--highlight-info-bg-color);
+  color: var(--highlight-info-text-color);
+}
+.lineType--error {
+  background-color: var(--highlight-danger-bg-color);
+  color: var(--highlight-danger-text-color);
+}
+.lineType--success {
+  background-color: var(--highlight-success-bg-color);
+  color: var(--highlight-success-text-color);
+}
+.lineType--warning {
+  background-color: var(--highlight-warning-bg-color);
+  color: var(--highlight-warning-text-color);
+}
+
+.logText {
+  color: var(--theme-elevation-500)
+}
+.logTextAppearance--style {
+  color: var(--theme-elevation-500);
+}
+.logTextAppearance--text {
+  color: var(--theme-elevation-900);
 }

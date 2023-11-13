@@ -17,6 +17,9 @@ export const fetchInstalls = async (): Promise<Install[]> => {
       'Content-Type': 'application/json',
       ...(token ? { Authorization: `JWT ${token}` } : {}),
     },
+    next: {
+      tags: ['installs'],
+    },
     body: JSON.stringify({
       route: `GET /user/installations`,
     }),

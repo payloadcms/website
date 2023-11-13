@@ -137,6 +137,12 @@ export const ProjectBuildSettingsPage: React.FC<{
           repositoryFullName={project?.repositoryFullName}
           initialValue={project?.deploymentBranch}
         />
+        <Text
+          label="Dockerfile Path"
+          path="dockerfilePath"
+          initialValue={project?.dockerfilePath}
+          description="Example: A Dockerfile in a src directory would require `src/Dockerfile`"
+        />
         <div>
           <Submit label="Update" />
         </div>

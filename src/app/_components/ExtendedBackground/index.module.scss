@@ -26,6 +26,10 @@
   border: 1px solid var(--theme-border-color);
   background-color: var(--theme-bg);
   overflow: hidden;
+
+  + .backgroundContainer {
+    border-top: 0;
+  }
 }
 
 .borderHighlight {
