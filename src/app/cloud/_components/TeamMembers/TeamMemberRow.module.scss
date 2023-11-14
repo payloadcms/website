@@ -17,6 +17,14 @@
   }
 }
 
+.disabledRoleRemoval {
+  :global {
+    .rs__multi-value__remove {
+      display: none;
+    }
+  }
+}
+
 .footer {
   @include small;
   margin-top: calc(var(--base) / 2);

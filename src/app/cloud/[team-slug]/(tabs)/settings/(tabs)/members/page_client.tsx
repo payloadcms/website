@@ -31,6 +31,7 @@ export const TeamMembersPage: React.FC<{
   const [clearCount, dispatchClearCount] = React.useReducer((state: number) => state + 1, 0)
 
   const { openModal } = useModal()
+  const [originalRoles, setOriginalRoles] = React.useState<('owner' | 'admin' | 'user')[][]>([])
   const [selectedMemberIndex, setSelectedMemberIndex] = React.useState<number | null>(null)
   const [selectedNewRoles, setSelectedNewRoles] = React.useState<
     ('owner' | 'admin' | 'user')[] | null
@@ -74,6 +75,8 @@ export const TeamMembersPage: React.FC<{
     const newRolesArray = [...roles]
     newRolesArray[index] = newRoles
     setRoles(newRolesArray)
+
+    setOriginalRoles(roles)
 
     setSelectedMemberIndex(index)
     setSelectedNewRoles(newRoles)
@@ -206,6 +209,7 @@ export const TeamMembersPage: React.FC<{
               newRolesArray[selectedMemberIndex!] = newRoles
               setRoles(newRolesArray)
             }}
+            originalRoles={originalRoles}
           />
         )}
       </ModalWindow>

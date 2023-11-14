@@ -19,7 +19,7 @@ export const TeamMembers: React.FC<{
   className?: string
   renderHeader?: boolean
   onUpdateRoles?: (index: number, newRoles: ('owner' | 'admin' | 'user')[], member: Member) => void
-  isOwnerOrGlobalAdmin: boolean
+  isOwnerOrGlobalAdmin?: boolean
   roles: ('owner' | 'admin' | 'user')[][]
 }> = ({ className, team, renderHeader, onUpdateRoles, isOwnerOrGlobalAdmin, roles }) => {
   const handleUpdateRoles =

@@ -21,6 +21,7 @@ interface UpdateRolesConfirmationFormProps {
   selectedMember: Member
   setRoles: any
   onRolesUpdated: (newRoles: ('owner' | 'admin' | 'user')[]) => void
+  originalRoles: ('owner' | 'admin' | 'user')[][]
 }
 
 export const UpdateRolesConfirmationForm: React.FC<UpdateRolesConfirmationFormProps> = ({
@@ -31,6 +32,7 @@ export const UpdateRolesConfirmationForm: React.FC<UpdateRolesConfirmationFormPr
   selectedMember,
   setRoles,
   onRolesUpdated,
+  originalRoles,
 }) => {
   const { closeModal } = useModal()
 
@@ -97,8 +99,7 @@ export const UpdateRolesConfirmationForm: React.FC<UpdateRolesConfirmationFormPr
   }
 
   const handleCancel = () => {
-    const initialRolesArray = (team?.members ?? []).map(member => member.roles ?? [])
-    setRoles(initialRolesArray)
+    setRoles(originalRoles)
     closeModal(modalSlug)
   }
 

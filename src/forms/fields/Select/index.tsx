@@ -18,6 +18,7 @@ type Option = {
 type SelectProps = FieldProps<string | string[]> & {
   options: Option[]
   isMulti?: boolean
+  isClearable?: boolean
   components?: {
     [key: string]: React.FC<any>
   }
@@ -37,6 +38,7 @@ export const Select: React.FC<SelectProps> = props => {
     className,
     initialValue: initialValueFromProps, // allow external control
     isMulti,
+    isClearable,
     components,
     selectProps,
     value: valueFromProps, // allow external control
@@ -197,6 +199,7 @@ export const Select: React.FC<SelectProps> = props => {
       <ReactSelect
         ref={ref}
         isMulti={isMulti}
+        isClearable={isClearable}
         instanceId={id}
         onChange={handleChange}
         options={options}
@@ -208,6 +211,7 @@ export const Select: React.FC<SelectProps> = props => {
         selectProps={selectProps}
         isDisabled={disabled}
         onMenuScrollToBottom={onMenuScrollToBottom}
+        noOptionsMessage={() => 'No options'}
       />
       {description && <div className={classes.description}>{description}</div>}
     </div>
