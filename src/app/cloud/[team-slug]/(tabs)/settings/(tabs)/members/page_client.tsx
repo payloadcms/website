@@ -6,17 +6,20 @@ import { revalidateCache } from '@cloud/_actions/revalidateCache'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { InviteTeammates } from '@cloud/_components/InviteTeammates'
 import { TeamInvitations } from '@cloud/_components/TeamInvitations'
-import { TeamMembers } from '@cloud/_components/TeamMembers'
+import { Member, TeamMembers } from '@cloud/_components/TeamMembers'
 import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
+import { useModal } from '@faceless-ui/modal'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
 import FormSubmissionError from '@forms/FormSubmissionError'
 import Submit from '@forms/Submit'
 import { OnSubmit } from '@forms/types'
 
+import { ModalWindow } from '@components/ModalWindow'
 import { HR } from '@root/app/_components/HR'
 import { Team } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
+import { UpdateRolesConfirmationForm } from './UpdateRolesConfirmationForm'
 
 import classes from './page.module.scss'
 
@@ -27,11 +30,63 @@ export const TeamMembersPage: React.FC<{
   const { user } = useAuth()
   const [clearCount, dispatchClearCount] = React.useReducer((state: number) => state + 1, 0)
 
+  const { openModal } = useModal()
+
+  const [originalRoles, setOriginalRoles] = React.useState<('owner' | 'admin' | 'user')[][]>([])
+  const [selectedMemberIndex, setSelectedMemberIndex] = React.useState<number | null>(null)
+  const [selectedNewRoles, setSelectedNewRoles] = React.useState<
+    ('owner' | 'admin' | 'user')[] | null
+  >(null)
+  const [selectedMember, setSelectedMember] = React.useState<Member | null>(null)
+
+  const [roles, setRoles] = React.useState<('owner' | 'admin' | 'user')[][]>(
+    (team?.members ?? []).map(member => member.roles ?? []),
+  ) // eslint-disable-line
+
   const [error, setError] = React.useState<{
     message: string
     name: string
     data: { message: string; field: string }[]
   }>()
+
+  // Determines if the current user is either a global admin or a team owner.
+  const isOwnerOrGlobalAdmin = React.useMemo(() => {
+    const isGlobalAdmin = user?.roles?.includes('admin')
+    const currentUserRoles = roles.find((_, index) => {
+      const currentUser = team?.members?.[index]?.user
+      return typeof currentUser === 'object' && currentUser?.id === user?.id
+    })
+    const isTeamOwner = currentUserRoles?.includes('owner')
+    return isTeamOwner || isGlobalAdmin || false
+  }, [roles, team?.members, user?.id, user?.roles])
+
+  // Triggers when a user tries to update roles of a team member.
+  const handleUpdateRoles = async (
+    index: number,
+    newRoles: ('owner' | 'admin' | 'user')[],
+    member: Member,
+  ) => {
+    if (!isOwnerOrGlobalAdmin) {
+      toast.error('You must be an owner or global admin to update roles.')
+      return
+    }
+
+    if (!user) {
+      toast.error('You must be logged in to update roles.')
+      return
+    }
+
+    const newRolesArray = [...roles]
+    newRolesArray[index] = newRoles
+    setRoles(newRolesArray)
+
+    setOriginalRoles(roles)
+
+    setSelectedMemberIndex(index)
+    setSelectedNewRoles(newRoles)
+    setSelectedMember(member)
+    openModal('updateRoles')
+  }
 
   const handleSubmit: OnSubmit = React.useCallback(
     async ({ unflattenedData, dispatchFields }): Promise<void> => {
@@ -125,7 +180,13 @@ export const TeamMembersPage: React.FC<{
       <Form onSubmit={handleSubmit} className={classes.form} errors={error?.data}>
         <FormSubmissionError />
         <FormProcessing message="Updating team, one moment..." />
-        <TeamMembers team={team} renderHeader={false} />
+        <TeamMembers
+          team={team}
+          onUpdateRoles={handleUpdateRoles}
+          renderHeader={false}
+          isOwnerOrGlobalAdmin={isOwnerOrGlobalAdmin}
+          roles={roles}
+        />
         <HR margin="small" />
         {team?.invitations && team?.invitations?.length > 0 && (
           <React.Fragment>
@@ -137,6 +198,25 @@ export const TeamMembersPage: React.FC<{
         <HR margin="small" />
         <Submit label="Save" className={classes.submit} />
       </Form>
+      <ModalWindow className={classes.modal} slug="updateRoles">
+        {selectedMember && (
+          <UpdateRolesConfirmationForm
+            modalSlug="updateRoles"
+            user={user!}
+            team={team}
+            memberIndex={selectedMemberIndex}
+            newRoles={selectedNewRoles}
+            selectedMember={selectedMember}
+            setRoles={setRoles}
+            onRolesUpdated={newRoles => {
+              const newRolesArray = [...roles]
+              newRolesArray[selectedMemberIndex!] = newRoles
+              setRoles(newRolesArray)
+            }}
+            originalRoles={originalRoles}
+          />
+        )}
+      </ModalWindow>
     </React.Fragment>
   )
 }

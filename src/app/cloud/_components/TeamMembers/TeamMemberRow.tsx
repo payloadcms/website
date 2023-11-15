@@ -11,8 +11,17 @@ export const TeamMemberRow: React.FC<{
   initialEmail?: string
   initialRoles?: ('owner' | 'admin' | 'user')[]
   footer?: React.ReactNode
+  onUpdateRoles?: (newRoles: ('owner' | 'admin' | 'user')[]) => void
+  isOwnerOrGlobalAdmin?: boolean
 }> = props => {
-  const { initialEmail, leader, footer, initialRoles } = props
+  const { initialEmail, leader, footer, initialRoles, onUpdateRoles, isOwnerOrGlobalAdmin } = props
+
+  // Called when there's a change in the roles of the team member. It triggers the onUpdateRoles prop.
+  const handleRolesChange = (newRoles: any) => {
+    onUpdateRoles && onUpdateRoles(newRoles)
+  }
+
+  const isRoleClearable = initialRoles && initialRoles.length > 1
 
   return (
     <div className={classes.member}>
@@ -21,10 +30,20 @@ export const TeamMemberRow: React.FC<{
         <Text disabled initialValue={initialEmail} label="Email" />
         <Select
           isMulti
-          disabled
+          isClearable={false}
+          disabled={!onUpdateRoles || !isOwnerOrGlobalAdmin}
           initialValue={initialRoles}
+          value={initialRoles}
+          onChange={handleRolesChange}
           label="Roles"
           options={userTeamRoles}
+          className={[
+            classes.memberSelect,
+            (!onUpdateRoles || !isOwnerOrGlobalAdmin || !isRoleClearable) &&
+              classes.disabledRoleRemoval,
+          ]
+            .filter(Boolean)
+            .join(' ')}
         />
       </div>
       <div className={classes.footer}>{footer}</div>

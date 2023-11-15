@@ -53,7 +53,7 @@
     "react-instantsearch-dom": "^6.39.0",
     "react-instantsearch-hooks-web": "^6.40.1",
     "react-markdown": "^8.0.3",
-    "react-select": "^5.7.0",
+    "react-select": "^5.8.0",
     "react-toastify": "^9.1.2",
     "react-transition-group": "^4.4.5",
     "remark-gfm": "^3.0.1",
