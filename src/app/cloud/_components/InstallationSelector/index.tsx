@@ -75,11 +75,13 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
       {!loading && (
         <Select
           label={!hideLabel ? 'GitHub Scope' : undefined}
-          value={selection?.account?.login}
-          initialValue={installs?.[0]?.account?.login}
+          value={(selection?.account as { login: string }).login}
+          initialValue={(installs?.[0]?.account as { login: string }).login}
           onChange={option => {
             if (Array.isArray(option)) return
-            const newSelection = installs?.find(install => install?.account?.login === option)
+            const newSelection = installs?.find(
+              install => (install?.account as { login: string }).login === option,
+            )
             setSelection(newSelection)
             if (typeof onChange === 'function') {
               onChange(newSelection)
@@ -89,8 +91,8 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
             ...(installs && installs.length > 0
               ? [
                   ...installs.map(install => ({
-                    label: install?.account?.login || 'Untitled',
-                    value: install?.account?.login || '',
+                    label: (install?.account as { login: string }).login || 'Untitled',
+                    value: (install?.account as { login: string }).login || '',
                   })),
                 ]
               : [

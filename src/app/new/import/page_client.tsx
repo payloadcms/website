@@ -221,7 +221,9 @@ export const ImportProject: React.FC<{
                       No repositories found
                     </Heading>
                     <p className={classes.appPermissions}>
-                      {`No repositories were found in the account "${selectedInstall?.account?.login}". Create a new repository or `}
+                      {`No repositories were found in the account "${
+                        (selectedInstall?.account as { login: string }).login
+                      }". Create a new repository or `}
                       <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
                         adjust your GitHub app permissions
                       </a>

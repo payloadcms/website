@@ -139,7 +139,7 @@ export const CloneTemplate: React.FC<{
                 </Cell>
                 <Cell cols={4}>
                   <UniqueRepoName
-                    repositoryOwner={selectedInstall?.account?.login}
+                    repositoryOwner={(selectedInstall?.account as { login: string }).login}
                     initialValue={template?.slug}
                   />
                 </Cell>
