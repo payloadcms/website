@@ -62,6 +62,20 @@ const Cards: React.FC = () => {
           <Cell cols={4} colsS={4}>
             <ProjectCard
               project={{
+                name: 'Enterprise Project Title',
+                repositoryFullName: 'github.com/owner/repo',
+                deploymentBranch: 'main',
+                slug: 'enterprise-slug',
+                // @ts-expect-error
+                plan: {
+                  slug: 'enterprise',
+                },
+              }}
+            />
+          </Cell>
+          <Cell cols={4} colsS={4}>
+            <ProjectCard
+              project={{
                 name: 'Past Due Project Title',
                 repositoryFullName: 'github.com/owner/repo',
                 deploymentBranch: 'main',

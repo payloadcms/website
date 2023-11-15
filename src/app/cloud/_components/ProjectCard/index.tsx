@@ -39,6 +39,7 @@ export const ProjectCard: React.FC<{
   const plan =
     project?.plan && typeof project?.plan === 'object' ? project?.plan?.slug : project?.plan
 
+  const isEnterprise = plan === 'enterprise'
   const isPro = plan === 'pro'
   const isStandard = plan === 'standard'
   const isDraft = project?.status === 'draft'
@@ -48,10 +49,7 @@ export const ProjectCard: React.FC<{
   const hasBadSubscriptionStatus = hasBadSubscription(project?.stripeSubscriptionStatus)
   const isDeleted = project?.status === 'deleted'
 
-  let pill: {
-    text: string
-    color: 'default' | 'success' | 'warning' | 'error' | 'blue'
-  } = {
+  let pill: Pick<Parameters<typeof Pill>[0], 'color' | 'text'> = {
     text: '',
     color: 'default',
   }
@@ -63,17 +61,22 @@ export const ProjectCard: React.FC<{
     }
   }
 
-  if (isPro && !isTrialing && !isDraft) {
-    pill = {
-      text: 'Pro',
-      color: 'blue',
-    }
-  }
-
-  if (isStandard && !isTrialing && !isDraft) {
-    pill = {
-      text: 'Standard',
-      color: 'default',
+  if (!isTrialing && !isDraft) {
+    if (isEnterprise) {
+      pill = {
+        text: 'Enterprise',
+        color: 'blue',
+      }
+    } else if (isPro) {
+      pill = {
+        text: 'Pro',
+        color: 'blue',
+      }
+    } else if (isStandard) {
+      pill = {
+        text: 'Standard',
+        color: 'default',
+      }
     }
   }
 
