@@ -75,7 +75,6 @@ export const UpdateRolesConfirmationForm: React.FC<UpdateRolesConfirmationFormPr
         body: JSON.stringify({
           teamID: team.id,
           roles: newRoles,
-          userID,
         }),
       },
     )
