@@ -31,12 +31,14 @@ export const TeamMembersPage: React.FC<{
   const [clearCount, dispatchClearCount] = React.useReducer((state: number) => state + 1, 0)
 
   const { openModal } = useModal()
+
   const [originalRoles, setOriginalRoles] = React.useState<('owner' | 'admin' | 'user')[][]>([])
   const [selectedMemberIndex, setSelectedMemberIndex] = React.useState<number | null>(null)
   const [selectedNewRoles, setSelectedNewRoles] = React.useState<
     ('owner' | 'admin' | 'user')[] | null
   >(null)
   const [selectedMember, setSelectedMember] = React.useState<Member | null>(null)
+
   const [roles, setRoles] = React.useState<('owner' | 'admin' | 'user')[][]>(
     (team?.members ?? []).map(member => member.roles ?? []),
   ) // eslint-disable-line
@@ -47,6 +49,7 @@ export const TeamMembersPage: React.FC<{
     data: { message: string; field: string }[]
   }>()
 
+  // Determines if the current user is either a global admin or a team owner.
   const isOwnerOrGlobalAdmin = React.useMemo(() => {
     const isGlobalAdmin = user?.roles?.includes('admin')
     const currentUserRoles = roles.find((_, index) => {
@@ -57,6 +60,7 @@ export const TeamMembersPage: React.FC<{
     return isTeamOwner || isGlobalAdmin || false
   }, [roles, team?.members, user?.id, user?.roles])
 
+  // Triggers when a user tries to update roles of a team member.
   const handleUpdateRoles = async (
     index: number,
     newRoles: ('owner' | 'admin' | 'user')[],

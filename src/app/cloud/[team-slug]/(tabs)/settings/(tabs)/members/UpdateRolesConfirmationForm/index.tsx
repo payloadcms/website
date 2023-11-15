@@ -73,9 +73,9 @@ export const UpdateRolesConfirmationForm: React.FC<UpdateRolesConfirmationFormPr
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          team: team.id,
+          teamID: team.id,
           roles: newRoles,
-          id: userID,
+          userID,
         }),
       },
     )
@@ -83,7 +83,8 @@ export const UpdateRolesConfirmationForm: React.FC<UpdateRolesConfirmationFormPr
     const response = await req.json()
 
     if (!req.ok) {
-      toast.error(`Failed to update roles: ${response?.errors?.[0]?.message}`)
+      const message = response.message || response?.errors?.[0]?.message
+      toast.error(`Failed to update roles: ${message}`)
       closeModal(modalSlug)
       return
     }

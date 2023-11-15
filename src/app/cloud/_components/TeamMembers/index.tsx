@@ -22,6 +22,9 @@ export const TeamMembers: React.FC<{
   isOwnerOrGlobalAdmin?: boolean
   roles: ('owner' | 'admin' | 'user')[][]
 }> = ({ className, team, renderHeader, onUpdateRoles, isOwnerOrGlobalAdmin, roles }) => {
+  // Responsible for handling role updates at the team level.
+  // When rendering each TeamMemberRow, handleUpdateRoles is called with the index and member information.
+  // This call returns a new function, which is then passed down to the TeamMemberRow component as the onUpdateRoles prop.
   const handleUpdateRoles =
     (index: number, member: Member) => (newRoles: ('owner' | 'admin' | 'user')[]) => {
       onUpdateRoles && onUpdateRoles(index, newRoles, member)
@@ -34,6 +37,7 @@ export const TeamMembers: React.FC<{
         </Heading>
       )}
       {team?.members?.map((member, index) => {
+        // Rendering each team member in a row with their details.
         return (
           <TeamMemberRow
             key={index}
