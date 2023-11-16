@@ -54,7 +54,7 @@ export const TeamDrawerContent: React.FC<TeamDrawerProps> = ({
           // there's probably a better way to do this like using `flattenedData` or modifying the API handler
           sendEmailInvitationsTo: unflattenedData?.sendEmailInvitationsTo?.map(invite => ({
             email: invite?.email,
-            roles: invite?.roles?.map(role => role?.value),
+            roles: invite?.roles,
           })),
         }
 
