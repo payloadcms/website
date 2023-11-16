@@ -60,8 +60,14 @@ export default Thread
 
 export async function generateStaticParams() {
   if (process.env.NEXT_PUBLIC_SKIP_BUILD_HELPS) return []
-  const fetchedThreads = await fetchCommunityHelps('discord')
-  return fetchedThreads?.map(({ slug }) => ({ slug: slug || '404' })) ?? []
+
+  try {
+    const fetchedThreads = await fetchCommunityHelps('discord')
+    return fetchedThreads?.map(({ slug }) => ({ slug: slug || '404' })) ?? []
+  } catch (error) {
+    console.error(error) // eslint-disable-line no-console
+    return []
+  }
 }
 
 export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
