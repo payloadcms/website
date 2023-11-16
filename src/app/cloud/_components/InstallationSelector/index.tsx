@@ -80,7 +80,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
           onChange={option => {
             if (Array.isArray(option)) return
             const newSelection = installs?.find(
-              install => (install?.account as { login: string }).login === option,
+              install => (install?.account as { login: string })?.login === option,
             )
             setSelection(newSelection)
             if (typeof onChange === 'function') {
@@ -91,8 +91,8 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
             ...(installs && installs.length > 0
               ? [
                   ...installs.map(install => ({
-                    label: (install?.account as { login: string }).login || 'Untitled',
-                    value: (install?.account as { login: string }).login || '',
+                    label: (install?.account as { login: string })?.login || 'Untitled',
+                    value: (install?.account as { login: string })?.login || '',
                   })),
                 ]
               : [

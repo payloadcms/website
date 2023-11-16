@@ -98,7 +98,7 @@ export const CloneOrDeployProgress: React.FC<
                 props?.template?.templatePath ? `/${props?.template?.templatePath}` : ''
               }`}</b>
               {' into '}
-              <b>{`${(props?.selectedInstall?.account as { login: string }).login}/${
+              <b>{`${(props?.selectedInstall?.account as { login: string })?.login}/${
                 fields?.repositoryName?.value
               }`}</b>
             </Fragment>
