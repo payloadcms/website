@@ -84,7 +84,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         >
           <GoogleTagManager />
           <Providers>
-            <TopBar {...topBar} />
+        
             <Header {...mainMenu} />
             <div className={classes.layout}>
               {children}
@@ -107,3 +107,4 @@ export const metadata: Metadata = {
   },
   openGraph: mergeOpenGraph(),
 }
+
