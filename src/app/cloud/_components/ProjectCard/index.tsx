@@ -80,7 +80,7 @@ export const ProjectCard: React.FC<{
     }
   }
 
-  if (isTrialing) {
+  if (isTrialing && !isEnterprise) {
     pill = {
       text: `${isPro ? `Pro ` : ''} Trial`,
       color: 'warning',
