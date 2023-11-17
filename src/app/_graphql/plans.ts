@@ -5,6 +5,7 @@ export const PLAN = `
   priceJSON
   description
   highlight
+  private
   features {
     icon
     feature
@@ -13,7 +14,7 @@ export const PLAN = `
 
 export const PLANS_QUERY = `
 query Plan {
-  Plans(sort: "order", limit: 300) {
+  Plans(sort: "order", limit: 300, where: { private: { not_equals: true } } ) {
     docs {
       ${PLAN}
     }

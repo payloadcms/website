@@ -42,6 +42,10 @@ export const deploy = async (args: {
       throw new Error(`You must select a plan to deploy a project.`)
     }
 
+    if (checkoutState?.plan?.private) {
+      throw new Error(`This plan cannot be deployed through the checkout.`)
+    }
+
     if (!checkoutState.paymentMethod && !checkoutState.freeTrial) {
       throw new Error(
         `No payment method was provided. Please add a payment method or select "free trial" and try again.`,
