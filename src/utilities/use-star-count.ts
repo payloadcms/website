@@ -5,9 +5,9 @@ export const useStarCount = (): string | undefined => {
 
   React.useEffect(() => {
     const getStarCount = async (): Promise<void> => {
-      const { stargazers_count: totalStars } = await fetch(
-        'https://api.github.com/repos/payloadcms/payload',
-      ).then(res => res.json())
+      const { totalStars } = await fetch('/api/star-count', { next: { revalidate: 900 } }).then(
+        res => res.json(),
+      )
       if (totalStars) setStarCount(totalStars.toLocaleString())
     }
 
