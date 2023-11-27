@@ -62,12 +62,7 @@ export const ProjectCard: React.FC<{
   }
 
   if (!isTrialing && !isDraft) {
-    if (isEnterprise) {
-      pill = {
-        text: 'Enterprise',
-        color: 'blue',
-      }
-    } else if (isPro) {
+    if (isPro) {
       pill = {
         text: 'Pro',
         color: 'blue',
@@ -80,7 +75,7 @@ export const ProjectCard: React.FC<{
     }
   }
 
-  if (isTrialing && !isEnterprise) {
+  if (isTrialing) {
     pill = {
       text: `${isPro ? `Pro ` : ''} Trial`,
       color: 'warning',
@@ -98,6 +93,14 @@ export const ProjectCard: React.FC<{
     pill = {
       text: 'Deleted',
       color: 'error',
+    }
+  }
+
+  // Always show the enterprise pill if the project is enterprise
+  if (isEnterprise) {
+    pill = {
+      text: 'Enterprise',
+      color: 'blue',
     }
   }
 
