@@ -1,6 +1,8 @@
+import { toast } from 'react-toastify'
 import { updateCustomer } from '@cloud/_api/updateCustomer'
 import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod'
 import { type Stripe, type StripeElements } from '@stripe/stripe-js'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 import { Project, User } from '@root/payload-cloud-types'
 import { confirmCardPayment } from './confirmCardPayment'
@@ -17,6 +19,7 @@ export const deploy = async (args: {
   stripe: Stripe | null | undefined
   elements: StripeElements | null | undefined
   unflattenedData: any
+  router: AppRouterInstance
 }): Promise<void> => {
   const {
     checkoutState,
@@ -27,6 +30,7 @@ export const deploy = async (args: {
     stripe,
     elements,
     unflattenedData: formState,
+    router,
   } = args
 
   try {
@@ -114,6 +118,7 @@ export const deploy = async (args: {
       doc: Project
       message: string
       error
+      status: number
     } = await req.json()
 
     if (req.ok) {
@@ -140,6 +145,20 @@ export const deploy = async (args: {
         onDeploy(res.doc)
       }
     } else {
+      if (res.status === 409) {
+        const message = res.error
+          ? `${res.error} Now redirecting...`
+          : `This project has already been deployed. Now redirecting...`
+
+        toast.error(message)
+
+        if (project?.team && typeof project?.team !== 'string') {
+          router.push(`/cloud/${project.team.slug}/${project?.slug}`)
+        }
+
+        throw new Error(message)
+      }
+
       throw new Error(res.error || res.message)
     }
   } catch (err: unknown) {

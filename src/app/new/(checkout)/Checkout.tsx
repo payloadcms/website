@@ -167,9 +167,10 @@ const Checkout: React.FC<{
         elements,
         unflattenedData,
         installID: project?.installID,
+        router,
       })
     },
-    [checkoutState, onDeploy, project, user, stripe, elements],
+    [checkoutState, onDeploy, project, user, stripe, elements, router],
   )
 
   return (

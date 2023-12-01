@@ -51,6 +51,7 @@ export const InfraOnline: React.FC<{
         reloadDeployments()
         return toast.success('New deployment triggered successfully.')
       }
+
       if (res.status === 429) {
         return toast.error(
           'You can only manually deploy once per minute. Please wait and try again.',
