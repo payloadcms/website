@@ -12,6 +12,8 @@ import { redirect } from 'next/navigation'
 
 import Checkout from '@root/app/new/(checkout)/Checkout'
 
+export const dynamic = 'force-dynamic'
+
 export default async ({ params: { 'team-slug': teamSlug, 'project-slug': projectSlug } }) => {
   const { user } = await fetchMe()
   const project = await fetchProjectWithSubscription({ teamSlug, projectSlug })
