@@ -118,7 +118,6 @@ export const deploy = async (args: {
       doc: Project
       message: string
       error
-      status: number
     } = await req.json()
 
     if (req.ok) {
@@ -145,7 +144,7 @@ export const deploy = async (args: {
         onDeploy(res.doc)
       }
     } else {
-      if (res.status === 409) {
+      if (req.status === 409) {
         const message = res.error
           ? `${res.error} Now redirecting...`
           : `This project has already been deployed. Now redirecting...`
