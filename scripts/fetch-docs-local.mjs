@@ -72,6 +72,62 @@ async function getHeadings(source) {
   })
 }
 
+export async function parseDocs(fileNames, topicSlugs, topicDirectory) {
+  const parsedDocs = await Promise.all(
+    fileNames.map(async docFilename => {
+      try {
+        const path = `${topicDirectory}/${docFilename}`
+
+        if(fs.lstatSync(path).isDirectory()) {
+          const subDocSlugs = fs.readdirSync(path)
+
+          const subDocs = await parseDocs(
+            subDocSlugs,
+            topicSlugs.concat(docFilename),
+            path
+          )
+          const subTopic = {
+            slug: docFilename,
+            path: topicSlugs.concat(docFilename).join('/')+'/',
+            docs: subDocs.filter(Boolean).sort((a, b) => a.order - b.order),
+          }
+          return subTopic
+        } else {
+          const rawDoc = fs.readFileSync(
+            path,
+            'utf8',
+          )
+
+          const parsedDoc = matter(rawDoc)
+
+          const doc = {
+            content: await serialize(parsedDoc.content, {
+              mdxOptions: {
+                remarkPlugins: [remarkGfm],
+              },
+            }),
+            title: parsedDoc.data.title,
+            slug: docFilename.replace('.mdx', ''),
+            path: topicSlugs.join('/')+'/',
+            label: parsedDoc.data.label,
+            order: parsedDoc.data.order,
+            desc: parsedDoc.data.desc || '',
+            keywords: parsedDoc.data.keywords || '',
+            headings: await getHeadings(parsedDoc.content),
+          }
+
+          return doc
+        }
+
+      } catch (error) {
+        const msg = error instanceof Error ? error.message : error || 'Unknown error'
+        console.error(`Error fetching ${docFilename}: ${msg}`) // eslint-disable-line no-console
+      }
+    }),
+  )
+  return parsedDocs
+}
+
 const fetchDocs = async () => {
   const topics = await Promise.all(
     topicOrder.map(async unsanitizedTopicSlug => {
@@ -80,41 +136,11 @@ const fetchDocs = async () => {
       const topicDirectory = path.join(docsDirectory, `./${topicSlug}`)
       const docSlugs = fs.readdirSync(topicDirectory)
 
-      const parsedDocs = await Promise.all(
-        docSlugs.map(async docFilename => {
-          try {
-            const rawDoc = fs.readFileSync(
-              `${docsDirectory}/${topicSlug.toLowerCase()}/${docFilename}`,
-              'utf8',
-            )
-
-            const parsedDoc = matter(rawDoc)
-
-            const doc = {
-              content: await serialize(parsedDoc.content, {
-                mdxOptions: {
-                  remarkPlugins: [remarkGfm],
-                },
-              }),
-              title: parsedDoc.data.title,
-              slug: docFilename.replace('.mdx', ''),
-              label: parsedDoc.data.label,
-              order: parsedDoc.data.order,
-              desc: parsedDoc.data.desc || '',
-              keywords: parsedDoc.data.keywords || '',
-              headings: await getHeadings(parsedDoc.content),
-            }
-
-            return doc
-          } catch (error) {
-            const msg = err instanceof Error ? err.message : err || 'Unknown error'
-            console.error(`Error fetching ${docFilename}: ${msg}`) // eslint-disable-line no-console
-          }
-        }),
-      )
+      const parsedDocs = await parseDocs(docSlugs, [topicSlug], `${docsDirectory}/${topicSlug}`)
 
       const topic = {
         slug: unsanitizedTopicSlug,
+        path: '/',
         docs: parsedDocs.filter(Boolean).sort((a, b) => a.order - b.order),
       }
 

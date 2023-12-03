@@ -8,8 +8,9 @@ import { NextDoc } from '../../types'
 import { RenderDoc } from './client_page'
 
 const Doc = async ({ params }) => {
-  const { topic, doc: docSlug } = params
-  const doc = await getDoc({ topic, doc: docSlug })
+  const { topic, doc: docSlugs } = params
+  const docPathWithSlug = topic + '/' + docSlugs.join('/')
+  const doc = await getDoc({ topic, doc: docPathWithSlug })
   const topics = await getTopics()
 
   const relatedThreads = await fetchRelatedThreads()
@@ -29,7 +30,9 @@ const Doc = async ({ params }) => {
   let next: NextDoc | null = null
 
   if (parentTopic) {
-    const docIndex = parentTopic?.docs.findIndex(({ slug }) => slug === docSlug)
+    const docIndex = parentTopic?.docs.findIndex(
+      ({ path, slug }) => path + slug === docPathWithSlug,
+    )
 
     if (parentTopic?.docs?.[docIndex + 1]) {
       next = {
@@ -57,7 +60,7 @@ export default Doc
 
 type Param = {
   topic: string
-  doc: string
+  doc: string[]
 }
 
 export async function generateStaticParams() {
@@ -65,33 +68,36 @@ export async function generateStaticParams() {
 
   const topics = await getTopics()
 
-  const result = topics.reduce((params: Param[], topic) => {
-    return params.concat(
-      topic.docs
-        .map(doc => {
-          if (!doc.slug) return null as any
+  function extractParams(docs, topicSlug: string, parentSlugs: string[] = []): Param[] {
+    return docs.flatMap(doc => {
+      // If doc has subdocs, recursively call extractParams
+      if (doc.docs && doc.docs.length > 0) {
+        return extractParams(doc.docs, topicSlug, [...parentSlugs, doc.slug])
+      } else if (doc.slug) {
+        // If there are no subdocs, add the doc (including parent slugs if any)
+        return [{ topic: topicSlug.toLowerCase(), doc: [...parentSlugs, doc.slug] }]
+      }
+      return [] // If doc has no slug, return an empty array to avoid null values
+    })
+  }
 
-          return {
-            topic: topic.slug.toLowerCase(),
-            doc: doc.slug,
-          }
-        })
-        .filter(Boolean),
-    )
-  }, [])
+  const result = topics.reduce((params: Param[], topic) => {
+    const topicParams = extractParams(topic.docs, topic.slug)
+    return params.concat(topicParams)
+  }, [] as Param[])
 
   return result
 }
-
-export async function generateMetadata({ params: { topic: topicSlug, doc: docSlug } }) {
-  const doc = await getDoc({ topic: topicSlug, doc: docSlug })
+export async function generateMetadata({ params: { topic: topicSlug, doc: docSlugs } }) {
+  const docPathWithSlug = topicSlug + docSlugs.join('/')
+  const doc = await getDoc({ topic: topicSlug, doc: docPathWithSlug })
 
   return {
     title: `${doc?.title ? `${doc.title} | ` : ''}Documentation | Payload CMS`,
     description: doc?.desc || `Payload CMS ${topicSlug} Documentation`,
     openGraph: mergeOpenGraph({
       title: `${doc?.title ? `${doc.title} | ` : ''}Documentation | Payload CMS`,
-      url: `/docs/${topicSlug}/${docSlug}`,
+      url: `/docs/${docPathWithSlug}`,
       images: [
         {
           url: `/api/og?topic=${topicSlug}&title=${doc?.title}`,

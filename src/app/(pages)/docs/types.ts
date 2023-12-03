@@ -12,7 +12,24 @@ export interface Doc {
   desc: string
   keywords: string
   headings: Heading[]
+  slug?: string
+  path?: string
 }
+
+export type DocOrTopic =
+  | Doc
+  | {
+      content?: any // eslint-disable-line
+      order?: number
+      title?: string
+      label?: string
+      desc?: string
+      keywords?: string
+      headings?: Heading[]
+      docs: Doc[]
+      slug?: string
+      path?: string
+    }
 
 export interface NextDoc {
   slug: string
@@ -31,9 +48,14 @@ export interface DocMeta {
   label: string
   slug: string
   order: number
+  docs?: DocMeta[]
+  /** Path, not including the slug, ends with "/" **/
+  path?: string
 }
 
 export interface Topic {
   docs: DocMeta[]
   slug: string
+  /** Path, not including the slug, ends with "/" **/
+  path?: string
 }
