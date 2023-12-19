@@ -220,7 +220,7 @@ const Checkout: React.FC<{
                       {checkoutState?.freeTrial && (
                         <Fragment>
                           <br />
-                          <span className={classes.trialDescription}>Free for 30 days</span>
+                          <span className={classes.trialDescription}>Free for 7 days</span>
                         </Fragment>
                       )}
                     </p>
