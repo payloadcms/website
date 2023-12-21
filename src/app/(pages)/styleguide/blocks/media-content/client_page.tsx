@@ -43,7 +43,6 @@ const data: MediaContentProps = {
     ],
     enableLink: true,
     link: {
-      // @ts-expect-error
       reference: null,
       type: 'custom',
       url: '/case-studies',
