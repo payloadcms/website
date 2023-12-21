@@ -15,11 +15,19 @@ import { LinkType, Reference } from '../CMSLink'
 import classes from './index.module.scss'
 
 export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
-  appearance?: 'default' | 'text' | 'primary' | 'secondary' | 'danger' | 'success' | 'warning'
+  appearance?:
+    | 'default'
+    | 'text'
+    | 'primary'
+    | 'secondary'
+    | 'danger'
+    | 'success'
+    | 'warning'
+    | null
   el?: 'button' | 'link' | 'a' | 'div'
-  href?: string
-  newTab?: boolean
-  label?: string
+  href?: string | null
+  newTab?: boolean | null
+  label?: string | null
   labelStyle?: 'mono' | 'regular'
   icon?: false | 'arrow' | 'search' | 'github' | 'plus'
   fullWidth?: boolean
@@ -30,7 +38,7 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
   size?: 'pill' | 'default'
   disabled?: boolean
   disableLineBlip?: boolean
-  url?: string
+  url?: string | null
 }
 
 const icons = {
@@ -42,7 +50,7 @@ const icons = {
 
 type GenerateSlugType = {
   type?: LinkType
-  url?: string
+  url?: string | null
   reference?: Reference
 }
 const generateHref = (args: GenerateSlugType): string => {

@@ -17,7 +17,9 @@ const Doc = async ({ params }) => {
   const filteredRelatedThreads = relatedThreads.filter(
     thread =>
       Array.isArray(thread.relatedDocs) &&
-      thread.relatedDocs.some(relatedDoc => relatedDoc.title === doc?.title),
+      thread.relatedDocs.some(
+        relatedDoc => typeof relatedDoc !== 'string' && relatedDoc.title === doc?.title,
+      ),
   )
 
   const parentTopicIndex = topics.findIndex(

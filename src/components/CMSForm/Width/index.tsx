@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import classes from './index.module.scss'
 
-export const Width: React.FC<{ width?: number; children: React.ReactNode }> = ({
+export const Width: React.FC<{ width?: number | null; children: React.ReactNode }> = ({
   width,
   children,
 }) => {

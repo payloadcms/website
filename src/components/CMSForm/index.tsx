@@ -160,7 +160,7 @@ const RenderForm = ({ form }: { form: Form }) => {
 }
 
 export const CMSForm: React.FC<{
-  form?: string | Form
+  form?: string | Form | null
 }> = props => {
   const { form } = props
 

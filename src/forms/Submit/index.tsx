@@ -6,7 +6,7 @@ import { Button, ButtonProps } from '@components/Button'
 import { useFormProcessing } from '../Form/context'
 
 type SubmitProps = ButtonProps & {
-  label?: string
+  label?: string | null
   processing?: boolean
 }
 

@@ -24,16 +24,16 @@ type CaseStudyReference = {
   relationTo: (typeof relationSlugs)['case_studies']
 }
 
-export type LinkType = 'reference' | 'custom'
-export type Reference = PageReference | PostsReference | CaseStudyReference
+export type LinkType = 'reference' | 'custom' | null
+export type Reference = PageReference | PostsReference | CaseStudyReference | null
 
 export type CMSLinkType = {
-  type?: LinkType
-  newTab?: boolean
-  reference?: Reference
-  url?: string
-  label?: string
-  appearance?: 'default' | 'primary' | 'secondary'
+  type?: LinkType | null
+  newTab?: boolean | null
+  reference?: Reference | null
+  url?: string | null
+  label?: string | null
+  appearance?: 'default' | 'primary' | 'secondary' | null
   children?: React.ReactNode
   fullWidth?: boolean
   mobileFullWidth?: boolean
@@ -44,9 +44,9 @@ export type CMSLinkType = {
 }
 
 type GenerateSlugType = {
-  type?: LinkType
-  url?: string
-  reference?: Reference
+  type?: LinkType | null
+  url?: string | null
+  reference?: Reference | null
 }
 const generateHref = (args: GenerateSlugType): string => {
   const { reference, url, type } = args
@@ -55,7 +55,12 @@ const generateHref = (args: GenerateSlugType): string => {
     return url
   }
 
-  if (type === 'reference' && reference?.value && typeof reference.value !== 'string') {
+  if (
+    type === 'reference' &&
+    reference?.value &&
+    typeof reference.value !== 'string' &&
+    reference.value.slug
+  ) {
     if (reference.relationTo === 'pages') {
       const value = reference.value as Page
       const breadcrumbs = value?.breadcrumbs
@@ -140,7 +145,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
 
     return (
       <a
-        href={url}
+        href={href}
         {...newTabProps}
         className={className}
         onMouseEnter={onMouseEnter}

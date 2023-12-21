@@ -15,11 +15,7 @@ import { AuthorsList } from '../AuthorsList'
 
 import classes from './index.module.scss'
 
-export const BlogPost: React.FC<
-  Post & {
-    relatedPosts?: Post[] | string[]
-  }
-> = props => {
+export const BlogPost: React.FC<Post> = props => {
   const { title, publishedOn, image, excerpt, content, relatedPosts } = props
 
   return (

@@ -10,7 +10,7 @@ import classes from './index.module.scss'
 export type RelatedPostsBlock = {
   blockType: 'relatedPosts'
   blockName: string
-  relatedPosts: Post[] | string[]
+  relatedPosts: (Post | string)[] | null
   id?: string
 }
 

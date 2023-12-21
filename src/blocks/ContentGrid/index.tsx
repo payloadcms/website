@@ -42,7 +42,7 @@ const Cells: React.FC<CellsProps> = ({
 export const ContentGrid: React.FC<ContentGridProps> = props => {
   const { contentGridFields } = props
 
-  if (contentGridFields.forceDarkBackground) {
+  if (contentGridFields && contentGridFields.forceDarkBackground) {
     return (
       <div data-theme="dark">
         <div className={classes.bgExtension}>

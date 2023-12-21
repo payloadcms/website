@@ -6,12 +6,12 @@ import { EdgeScroll } from '@components/EdgeScroll'
 import classes from './index.module.scss'
 
 export type Breadcrumb = {
-  label?: string
-  url?: string
+  label?: string | null
+  url?: string | null
 }
 
 export type Props = {
-  items?: Array<Breadcrumb>
+  items?: Array<Breadcrumb> | null
   ellipsis?: boolean
 }
 

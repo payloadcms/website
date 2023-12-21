@@ -27,10 +27,10 @@ export const Image: React.FC<Props> = props => {
 
   const [isLoading, setIsLoading] = useState(true)
 
-  let width: number | undefined = widthFromProps
-  let height: number | undefined = heightFromProps
+  let width: number | undefined | null = widthFromProps
+  let height: number | undefined | null = heightFromProps
   let alt = altFromProps
-  let src: StaticImageData | string | undefined = srcFromProps
+  let src: StaticImageData | string | undefined | null = srcFromProps
 
   const hasDarkModeFallback =
     resource?.darkModeFallback &&
@@ -75,8 +75,8 @@ export const Image: React.FC<Props> = props => {
           }
         }}
         fill={fill}
-        width={!fill ? width : undefined}
-        height={!fill ? height : undefined}
+        width={!fill ? width ?? undefined : undefined}
+        height={!fill ? height ?? undefined : undefined}
         sizes={sizes}
         priority={priority}
       />
@@ -95,8 +95,8 @@ export const Image: React.FC<Props> = props => {
               }
             }}
             fill={fill}
-            width={!fill ? width : undefined}
-            height={!fill ? height : undefined}
+            width={!fill ? width ?? undefined : undefined}
+            height={!fill ? height ?? undefined : undefined}
             sizes={sizes}
             priority={priority}
           />
