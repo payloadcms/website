@@ -16,7 +16,6 @@ import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { RenderParams } from '@root/app/_components/RenderParams'
 import { useAuth } from '@root/providers/Auth'
-import canUseDom from '@root/utilities/can-use-dom'
 
 import classes from './page.module.scss'
 
@@ -40,10 +39,7 @@ export const Login: React.FC = () => {
   const { user, login } = useAuth()
   const [redirectTo, setRedirectTo] = useState(cloudSlug)
 
-  const trustedRoutes = [
-    "/"
-    // ... add more routes or external links
-  ]
+  const trustedRoutes = ['/'] // .. add more routes or external links
 
   useEffect(() => {
     const redirectParam = searchParams?.get('redirect')
@@ -52,12 +48,12 @@ export const Login: React.FC = () => {
       const isTrustedRoute = trustedRoutes.includes(redirectParam)
 
       // If the 'redirectParam' is trusted, update the redirection target
-      if (isTrustedRoute){
+      if (isTrustedRoute) {
         setRedirectTo(redirectParam)
       }
 
       // If the 'redirectParam' is not trusted, redirect to the default 'cloudSlug'
-      else{
+      else {
         setRedirectTo(cloudSlug)
       }
     }

@@ -16,7 +16,7 @@ export type StickyHighlightsProps = Extract<Page['layout'][0], { blockType: 'sti
 
 type Fields = Exclude<StickyHighlightsProps['stickyHighlightsFields'], undefined>
 
-type Props = Exclude<Fields['highlights'], undefined>[number] & {
+type Props = Exclude<Fields['highlights'], undefined | null>[number] & {
   yDirection?: 'up' | 'down'
   midBreak: boolean
 }

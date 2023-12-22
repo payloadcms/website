@@ -2,9 +2,9 @@ import type { CMSLinkType } from '@components/CMSLink'
 import type { Media } from '@root/payload-types'
 
 export interface SharedProps {
-  price?: string
-  title?: string
-  description?: string
+  price?: string | null
+  title?: string | null
+  description?: string | null
   className?: string
 }
 
@@ -27,7 +27,7 @@ export interface PricingCardProps extends SharedProps {
 export interface DefaultCardProps extends SharedProps {
   leader?: string
   pill?: string
-  media?: Media | string
+  media?: Media | string | null
   href?: string
   onClick?: () => void
 }

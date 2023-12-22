@@ -35,7 +35,7 @@ export const Banner: React.FC<Props> = ({
 
   return (
     <div
-      className={[classes.banner, 'banner', classes[type], !margin && classes.noMargin]
+      className={[classes.banner, 'banner', type && classes[type], !margin && classes.noMargin]
         .filter(Boolean)
         .join(' ')}
     >

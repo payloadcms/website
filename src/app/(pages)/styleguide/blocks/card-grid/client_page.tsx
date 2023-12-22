@@ -27,7 +27,6 @@ const data: CardGridProps = {
         link: {
           type: 'custom',
           url: '/',
-          // @ts-expect-error
           reference: null,
         },
         id: '6364168102eff70ff444ba0b',
@@ -39,7 +38,6 @@ const data: CardGridProps = {
         link: {
           type: 'custom',
           url: '/',
-          // @ts-expect-error
           reference: null,
         },
         id: '636416ab02eff70ff444ba0c',
@@ -51,7 +49,6 @@ const data: CardGridProps = {
         link: {
           type: 'custom',
           url: '/',
-          // @ts-expect-error
           reference: null,
         },
         id: '636416b702eff70ff444ba0d',
@@ -63,7 +60,6 @@ const data: CardGridProps = {
         link: {
           type: 'custom',
           url: '/',
-          // @ts-expect-error
           reference: null,
         },
         id: '636416ca02eff70ff444ba0e',
@@ -75,7 +71,6 @@ const data: CardGridProps = {
         link: {
           type: 'custom',
           url: '/',
-          // @ts-expect-error
           reference: null,
         },
         id: '636416de02eff70ff444ba0f',
@@ -87,7 +82,6 @@ const data: CardGridProps = {
         link: {
           type: 'custom',
           url: '/',
-          // @ts-expect-error
           reference: null,
         },
         id: '636416eb02eff70ff444ba10',
@@ -99,7 +93,6 @@ const data: CardGridProps = {
         link: {
           type: 'custom',
           url: '/',
-          // @ts-expect-error
           reference: null,
         },
         id: '636416f702eff70ff444ba11',
@@ -111,7 +104,6 @@ const data: CardGridProps = {
         link: {
           type: 'custom',
           url: '/',
-          // @ts-expect-error
           reference: null,
         },
         id: '6364170c02eff70ff444ba12',

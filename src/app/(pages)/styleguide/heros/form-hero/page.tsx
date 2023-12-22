@@ -7,7 +7,6 @@ import { StyleguidePageContent } from '../../PageContent'
 
 const hero: Page['hero'] = {
   type: 'form',
-  // @ts-expect-error
   media: null,
   richText: [
     {

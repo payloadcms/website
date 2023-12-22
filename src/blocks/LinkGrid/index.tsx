@@ -15,7 +15,7 @@ export type LinkGridProps = Extract<Page['layout'][0], { blockType: 'linkGrid' }
 
 type Fields = Exclude<LinkGridProps['linkGridFields'], undefined>
 
-type Props = Exclude<Fields['links'], undefined>[number]['link']
+type Props = Exclude<Fields['links'], undefined | null>[number]['link']
 
 const LinkGridItem: React.FC<Props> = props => {
   const [isHovered, setIsHovered] = useState(false)
