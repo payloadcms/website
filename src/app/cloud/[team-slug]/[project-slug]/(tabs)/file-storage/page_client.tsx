@@ -58,7 +58,7 @@ export const ProjectFileStoragePage: React.FC<{
               <p>
                 Payload Cloud uses AWS Cognito for authentication to your S3 bucket. The{' '}
                 <a
-                  href="https://github.com/payloadcms/payload/tree/main/packages/plugin-cloud"
+                  href="https://github.com/payloadcms/payload/tree/main/packages/plugin-cloud#accessing-file-storage-from-local-environment"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
