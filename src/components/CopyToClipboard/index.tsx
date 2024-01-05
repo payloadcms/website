@@ -8,8 +8,13 @@ import classes from './index.module.scss'
 type CopyToClipboardProps = {
   value: (() => Promise<string | null>) | string | null
   className?: string
+  hoverText?: string
 }
-export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ value, className }) => {
+export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
+  value,
+  className,
+  hoverText,
+}) => {
   const [copied, setCopied] = React.useState(false)
   const [showTooltip, setShowTooltip] = React.useState(false)
   const ref = React.useRef<any>(null)
@@ -39,7 +44,7 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ value, classNa
   return (
     <Tooltip
       onClick={copy}
-      text={copied ? 'copied' : 'copy'}
+      text={copied ? 'copied' : hoverText || 'copy'}
       setIsVisible={setShowTooltip}
       isVisible={showTooltip || copied}
       className={className}

@@ -2,13 +2,34 @@
 
 import * as React from 'react'
 import { Secret } from '@forms/fields/Secret'
+import Label from '@forms/Label'
 
 import { Banner } from '@components/Banner'
+import { CopyToClipboard } from '@components/CopyToClipboard'
 import { Gutter } from '@components/Gutter'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 import { Project, Team } from '@root/payload-cloud-types'
 
 import classes from './page.module.scss'
+
+/**
+ * Copy values in .env file format
+ */
+const formatEnvVars = (project: Project): string => {
+  return `PAYLOAD_CLOUD=true
+PAYLOAD_CLOUD_ENVIRONMENT=prod
+PAYLOAD_CLOUD_COGNITO_USER_POOL_CLIENT_ID=${project.cognitoUserPoolClientID}
+PAYLOAD_CLOUD_COGNITO_USER_POOL_ID=${project.cognitoUserPoolID}
+PAYLOAD_CLOUD_COGNITO_IDENTITY_POOL_ID=${project.cognitoIdentityPoolID}
+PAYLOAD_CLOUD_CACHE_KEY=${project.cloudflareCacheKey}
+PAYLOAD_CLOUD_PROJECT_ID=${project.id}
+PAYLOAD_CLOUD_BUCKET=${project.s3Bucket}
+PAYLOAD_CLOUD_BUCKET_REGION=${project.s3BucketRegion}
+
+# Copy this value from 'Cognito Password' field on File Storage page
+PAYLOAD_CLOUD_COGNITO_PASSWORD=
+`
+}
 
 export const ProjectFileStoragePage: React.FC<{
   project: Project
@@ -38,16 +59,23 @@ export const ProjectFileStoragePage: React.FC<{
               <p>
                 Payload Cloud uses AWS Cognito for authentication to your S3 bucket. The{' '}
                 <a
-                  href="https://github.com/payloadcms/plugin-cloud"
+                  href="https://github.com/payloadcms/payload/tree/main/packages/plugin-cloud"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   Payload Cloud Plugin
                 </a>{' '}
                 will automatically pick up these values. These values are only if you'd like to
-                access your files directly, outside of Payload Cloud.
+                access your files directly, outside of Payload Cloud. Use copy to clipboard below
+                for .env formatted values. Paste in Cognito Password separately.
               </p>
             </Banner>
+            <Label
+              label={' '}
+              actionsSlot={
+                <CopyToClipboard value={formatEnvVars(project)} hoverText="Copy as .env" />
+              }
+            />
             <ul className={classes.meta}>
               <li>
                 <strong>Cognito User Pool ID</strong>
