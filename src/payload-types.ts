@@ -156,6 +156,7 @@ export interface CaseStudy {
         | {
             codeFeatureFields: {
               disableBlockSpacing?: boolean | null;
+              disableIndent?: boolean | null;
               heading: string;
               richText: {
                 [k: string]: unknown;
@@ -455,6 +456,7 @@ export interface CaseStudy {
                       | {
                           codeFeatureFields: {
                             disableBlockSpacing?: boolean | null;
+                            disableIndent?: boolean | null;
                             heading: string;
                             richText: {
                               [k: string]: unknown;
@@ -776,6 +778,7 @@ export interface Page {
         }[]
       | null;
     media?: string | Media | null;
+    mediaWidth?: ('normal' | 'wide') | null;
     adjectives?:
       | {
           adjective: string;
@@ -897,6 +900,7 @@ export interface Page {
       }
     | {
         caseStudyCardFields?: {
+          pixels?: boolean | null;
           cards?:
             | {
                 richText: {
@@ -925,6 +929,7 @@ export interface Page {
     | {
         codeFeatureFields: {
           disableBlockSpacing?: boolean | null;
+          disableIndent?: boolean | null;
           heading: string;
           richText: {
             [k: string]: unknown;
@@ -1224,6 +1229,7 @@ export interface Page {
                   | {
                       codeFeatureFields: {
                         disableBlockSpacing?: boolean | null;
+                        disableIndent?: boolean | null;
                         heading: string;
                         richText: {
                           [k: string]: unknown;
@@ -1644,6 +1650,7 @@ export interface ReusableContent {
       }
     | {
         caseStudyCardFields?: {
+          pixels?: boolean | null;
           cards?:
             | {
                 richText: {
@@ -1681,6 +1688,7 @@ export interface ReusableContent {
     | {
         codeFeatureFields: {
           disableBlockSpacing?: boolean | null;
+          disableIndent?: boolean | null;
           heading: string;
           richText: {
             [k: string]: unknown;
@@ -1973,6 +1981,7 @@ export interface ReusableContent {
                   | {
                       codeFeatureFields: {
                         disableBlockSpacing?: boolean | null;
+                        disableIndent?: boolean | null;
                         heading: string;
                         richText: {
                           [k: string]: unknown;
