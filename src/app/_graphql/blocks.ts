@@ -45,6 +45,7 @@ export const CODE_FEATURE = `
   blockType
   codeFeatureFields {
     disableBlockSpacing
+    disableIndent
     heading
     richText
     enableLink
@@ -106,6 +107,7 @@ export const CASE_STUDY_CARDS = `
 ...on CaseStudyCards {
   blockType
   caseStudyCardFields {
+    pixels
     cards {
       richText
       caseStudy {

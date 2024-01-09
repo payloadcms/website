@@ -13,14 +13,14 @@ import { Page } from '@root/payload-types'
 import classes from './index.module.scss'
 
 export const ContentMediaHero: React.FC<
-  Pick<Page['hero'], 'richText' | 'media' | 'links'> & {
+  Pick<Page['hero'], 'richText' | 'media' | 'mediaWidth' | 'links'> & {
     breadcrumbs?: Page['breadcrumbs']
   }
-> = ({ richText, media, breadcrumbs, links }) => {
+> = ({ richText, media, mediaWidth, breadcrumbs, links }) => {
   return (
     <Gutter>
-      <Grid className={classes.grid}>
-        <Cell cols={7} colsM={8}>
+      <Grid className={mediaWidth === 'wide' ? classes.wideGrid : classes.grid}>
+        <Cell start={1} cols={mediaWidth === 'wide' ? 5 : 7} colsM={8}>
           <Breadcrumbs items={breadcrumbs} />
           <RichText content={richText} />
           {Array.isArray(links) &&
@@ -29,9 +29,21 @@ export const ContentMediaHero: React.FC<
             })}
         </Cell>
         {typeof media === 'object' && media !== null && (
-          <Cell cols={5} start={8} colsM={8} startM={1}>
-            <div className={classes.media}>
-              <Media resource={media} sizes="(max-width: 768px) 100vw, 33vw" />
+          <Cell
+            start={mediaWidth === 'wide' ? 4 : 8}
+            startL={mediaWidth === 'wide' ? 6 : 8}
+            startM={1}
+            cols={mediaWidth === 'wide' ? 11 : 5}
+            colsL={mediaWidth === 'wide' ? 9 : 6}
+            colsM={8}
+          >
+            <div className={mediaWidth === 'wide' ? classes.wideMedia : classes.media}>
+              <Media
+                resource={media}
+                sizes={`${
+                  mediaWidth === 'wide' ? '(max-width: 1920px)' : '(max-width: 768px)'
+                } 100vw, 33vw`}
+              />
             </div>
           </Cell>
         )}

@@ -1,5 +1,34 @@
+@use '../../../css/queries.scss' as *;
+
 .grid {
   align-items: center;
+}
+
+.wideGrid {
+  // align-items: top;
+
+  & > div {
+    grid-row-start: 0;
+    grid-row-end: 1;
+  }
+
+  @include mid-break {
+    & > div {
+      grid-row-start: auto;
+      grid-row-end: auto;
+    }
+  }
+
+  & > div:first-child {
+    padding-top: calc(var(--base) * 2);
+    z-index: 1;
+  }
+
+  & > div:last-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  }
 }
 
 .media {
@@ -7,6 +36,16 @@
   max-width: 800px;
 }
 
+.wideMedia {
+  width: calc(100% + var(--gutter-h));
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
 .link {
-  margin: var(--base) 0 !important;
+  margin: var(--base);
+  margin-left: 0;
 }

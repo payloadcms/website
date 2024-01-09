@@ -23,6 +23,7 @@
   justify-content: center;
   align-items: center;
   width: fit-content;
+  min-width: 100%;
   border-bottom: solid 1px var(--theme-elevation-200);
 
   @include extra-small-break {
