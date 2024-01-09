@@ -14,7 +14,7 @@ import classes from './index.module.scss'
 type Props = Extract<Page['layout'][0], { blockType: 'codeFeature' }>
 
 export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
-  const { heading, richText, enableLink, link, code, label, disableBlockSpacing } =
+  const { heading, richText, enableLink, link, code, label, disableBlockSpacing, disableIndent } =
     codeFeatureFields
 
   let Spacer: React.ComponentType | 'div' = React.Fragment
@@ -34,7 +34,7 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
             <Cell cols={6} colsM={8}>
               <h2 className={classes.heading}>{heading}</h2>
               <Grid>
-                <Cell cols={4} start={2} colsM={8} startM={1}>
+                <Cell cols={4} start={disableIndent ? 1 : 2} colsM={8} startM={1}>
                   <RichText content={richText} className={classes.richText} />
                   {enableLink && <CMSLink {...link} />}
                 </Cell>
