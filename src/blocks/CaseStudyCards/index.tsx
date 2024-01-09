@@ -21,9 +21,11 @@ export const CaseStudyCards: React.FC<Props> = props => {
         <Gutter>
           {caseStudyCardFields?.cards?.length > 0 && (
             <div className={classes.cards}>
-              <div className={classes.bg}>
-                <PixelBackground className={classes.pixels} />
-              </div>
+              {caseStudyCardFields.pixels && (
+                <div className={classes.bg}>
+                  <PixelBackground className={classes.pixels} />
+                </div>
+              )}
               {caseStudyCardFields.cards.map((card, i) => {
                 if (typeof card.caseStudy === 'object' && card.caseStudy !== null) {
                   return (
