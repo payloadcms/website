@@ -40,9 +40,9 @@ export const ContentMediaHero: React.FC<
             <div className={mediaWidth === 'wide' ? classes.wideMedia : classes.media}>
               <Media
                 resource={media}
-                sizes={`${
-                  mediaWidth === 'wide' ? '(max-width: 1920px)' : '(max-width: 768px)'
-                } 100vw, 33vw`}
+                sizes={`100vw, (max-width: 1920px) ${
+                  mediaWidth === 'wide' ? '50vw' : '75vw'
+                }, (max-width: 1024px) 100vw`}
               />
             </div>
           </Cell>
