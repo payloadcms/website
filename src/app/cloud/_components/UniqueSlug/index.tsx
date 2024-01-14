@@ -40,11 +40,22 @@ export const UniqueSlug: React.FC<{
 
   const debouncedSlug = useDebounce(state.slug, 100)
 
+  const currentSlug = React.useRef(initialValue || '')
+
   useEffect(() => {
     let timer: NodeJS.Timeout
 
     if (!isRequesting.current && (validateOnInit || state.userInteracted)) {
       isRequesting.current = true
+
+      const slug = currentSlug.current
+
+      if (!slug) {
+        setError('Please input a slug')
+        dispatchState({ type: 'SET_UNIQUE', payload: false })
+        isRequesting.current = false
+        return
+      }
 
       if (debouncedSlug) {
         if (debouncedSlug.length < 3) {
@@ -134,18 +145,18 @@ export const UniqueSlug: React.FC<{
     description = ''
   } else if (!state.fetched && (validateOnInit || state.userInteracted)) {
     description = 'Checking slug availability...'
-  } else if (!validatedSlug) {
+  } else if (!currentSlug.current) {
     description = 'Please input a slug'
     isError = true
-  } else if (validatedSlug.length < 3) {
+  } else if (currentSlug.current.length < 3) {
     description = 'The slug must be at least 3 characters long.'
     isError = true
   } else if (error) {
     description = error
   } else if (!slugIsValid) {
-    description = `'${validatedSlug}' is not available. Please choose another.`
+    description = `'${currentSlug.current}' is not available. Please choose another.`
   } else if (slugIsValid) {
-    description = `'${validatedSlug}' is available`
+    description = `'${currentSlug.current}' is available`
   }
 
   let icon: React.ReactNode = null
@@ -162,6 +173,7 @@ export const UniqueSlug: React.FC<{
         label={label}
         initialValue={initialValue}
         onChange={newSlug => {
+          currentSlug.current = newSlug
           dispatchState({ type: 'SET_SLUG', payload: newSlug })
           dispatchState({ type: 'SET_USER_INTERACTED' })
         }}
