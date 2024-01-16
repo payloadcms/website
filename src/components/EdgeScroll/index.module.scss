@@ -46,10 +46,15 @@
     left: 0;
     background: linear-gradient(90deg, var(--theme-bg), transparent);
   }
-  
+
   &.right {
-    left: 0;
-    background: linear-gradient(-90deg, var(--theme-bg), transparent);
-    margin-left: auto;
+    display: none;
+
+    @include mid-break {
+      display: block;
+      left: 0;
+      background: linear-gradient(-90deg, var(--theme-bg), transparent);
+      margin-left: auto;
+    }
   }
 }
