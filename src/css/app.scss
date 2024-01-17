@@ -24,7 +24,7 @@
   --header-height: 90px;
   --top-bar-height: 46px;
 
-  --font-body-size: 21px;
+  --font-body-size: var(--base);
 
   --z-popup: 10;
   --z-status: 30;
@@ -38,8 +38,8 @@
 
   @include extra-large-break {
     --gutter-h: calc(var(--base) * 12);
-    --font-body-size: 18px;
     --base: 20px;
+    --font-body-size: var(--base);
   }
 
   @include large-break {
@@ -139,10 +139,11 @@ h6 {
 }
 
 p {
-  margin: 0 0 var(--base);
+  margin: calc(var(--base) * 1.8) 0 calc(var(--base) * 1.8);
 
-  @include small-break {
-    margin: 0 0 calc(var(--base) / 2);
+  & ~ p {
+    // If a paragraph follows another paragraph, reduce the margin
+    margin: calc(var(--base) * 0.6 * -1) 0 calc(var(--base) * 1.8);
   }
 }
 
