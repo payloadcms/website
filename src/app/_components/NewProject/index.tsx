@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-import { fetchFeatureFlags } from '@cloud/_api/fetchFeatureFlags'
 import Link from 'next/link'
 
 import { Banner } from '@components/Banner'
@@ -9,6 +8,7 @@ import { Gutter } from '@components/Gutter'
 import { Heading, HeadingType } from '@components/Heading'
 import { PixelBackground } from '@components/PixelBackground'
 import { Team, Template } from '@root/payload-cloud-types'
+import { FeatureFlag } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
@@ -19,7 +19,7 @@ export const NewProjectBlock: React.FC<{
   description?: React.ReactNode
   teamSlug?: Team['slug']
   templates?: Template[]
-}> = async props => {
+}> = props => {
   const {
     cardLeader,
     headingElement = 'h1',
@@ -29,7 +29,7 @@ export const NewProjectBlock: React.FC<{
     templates,
   } = props
 
-  const { disableProjectCreation } = await fetchFeatureFlags()
+  const disableProjectCreation = true
 
   return (
     <Fragment>
