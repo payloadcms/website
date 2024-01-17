@@ -1,0 +1,87 @@
+@use 'queries.scss' as q;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-row-gap: 4rem;
+  grid-column-gap: calc(var(--base) * 3);
+
+  @include q.large-break {
+    grid-row-gap: 2rem;
+    grid-column-gap: calc(var(--base) * 2);
+  }
+
+  @include q.mid-break {
+    grid-template-columns: repeat(8, 1fr);
+    grid-row-gap: 1rem;
+    grid-column-gap: calc(var(--base) * 2);
+  }
+
+  @include q.small-break {
+    grid-template-columns: repeat(8, 1fr);
+    grid-row-gap: 1rem;
+    grid-column-gap: var(--base);
+  }
+}
+
+// Grid column classes
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    grid-column-end: span #{$i};
+  }
+
+  @include q.small-break {
+    .col-s-#{$i} {
+      grid-column-end: span #{$i};
+    }
+  }
+
+  @include q.mid-break {
+    .col-m-#{$i} {
+      grid-column-end: span #{$i};
+    }
+  }
+
+  @include q.large-break {
+    .col-l-#{$i} {
+      grid-column-end: span #{$i};
+    }
+  }
+
+  @include q.extra-large-break {
+    .col-xl-#{$i} {
+      grid-column-end: span #{$i};
+    }
+  }
+}
+
+// Start positioning classes
+@for $i from 1 through 12 {
+  .start-#{$i} {
+    grid-column-start: #{$i};
+  }
+  
+  @include q.small-break {
+    .start-s-#{$i} {
+      grid-column-start: #{$i};
+    }
+  }
+
+  @include q.mid-break {
+    .start-m-#{$i} {
+      grid-column-start: #{$i};
+    }
+  }
+
+  @include q.large-break {
+    .start-l-#{$i} {
+      grid-column-start: #{$i};
+    }
+  }
+
+  @include q.extra-large-break {
+    .start-xl-#{$i} {
+      grid-column-start: #{$i};
+    }
+  }
+}
