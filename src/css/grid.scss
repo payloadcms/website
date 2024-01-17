@@ -55,31 +55,41 @@
   }
 }
 
-// Start positioning classes
+
+// Define general start classes
 @for $i from 1 through 12 {
   .start-#{$i} {
     grid-column-start: #{$i};
   }
-  
-  @include q.small-break {
+}
+
+// Define breakpoint-specific start classes
+@include q.small-break {
+  @for $i from 1 through 12 {
     .start-s-#{$i} {
       grid-column-start: #{$i};
     }
   }
+}
 
-  @include q.mid-break {
+@include q.mid-break {
+  @for $i from 1 through 12 {
     .start-m-#{$i} {
       grid-column-start: #{$i};
     }
   }
+}
 
-  @include q.large-break {
+@include q.large-break {
+  @for $i from 1 through 12 {
     .start-l-#{$i} {
       grid-column-start: #{$i};
     }
   }
+}
 
-  @include q.extra-large-break {
+@include q.extra-large-break {
+  @for $i from 1 through 12 {
     .start-xl-#{$i} {
       grid-column-start: #{$i};
     }

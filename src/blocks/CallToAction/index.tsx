@@ -38,7 +38,7 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
             <div className={'col-6 col-m-8'}>
               <RichText content={richText} className={classes.content} />
             </div>
-            <div className={'col-5 start-1 col-m-8 start-m-1'}>
+            <div className={'col-5 start-8 col-m-8 start-m-1'}>
               {feature === 'cpa' && (
                 <Fragment>
                   <Label className={classes.label}>Get started in one line</Label>
