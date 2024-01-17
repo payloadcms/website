@@ -41,7 +41,11 @@ export const NewProjectBlock: React.FC<{
             </Heading>
             {disableProjectCreation ? (
               <Banner type={'warning'}>
-                Project creation temporarily disabled. Please check back soon.
+                Project creation temporarily disabled.{' '}
+                <a href="https://status.mongodb.com/">
+                  MongoDB Atlas is currently experiencing an outage
+                </a>
+                . Project creation will return once the outage is resolved.
               </Banner>
             ) : (
               description || (
