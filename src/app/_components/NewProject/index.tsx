@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react'
+import { fetchFeatureFlags } from '@cloud/_api/fetchFeatureFlags'
 import Link from 'next/link'
 
+import { Banner } from '@components/Banner'
 import { BlockSpacing } from '@components/BlockSpacing'
 import { DefaultCard } from '@components/cards/DefaultCard'
 import { Gutter } from '@components/Gutter'
@@ -17,7 +19,7 @@ export const NewProjectBlock: React.FC<{
   description?: React.ReactNode
   teamSlug?: Team['slug']
   templates?: Template[]
-}> = props => {
+}> = async props => {
   const {
     cardLeader,
     headingElement = 'h1',
@@ -27,6 +29,8 @@ export const NewProjectBlock: React.FC<{
     templates,
   } = props
 
+  const { disableProjectCreation } = await fetchFeatureFlags()
+
   return (
     <Fragment>
       <Gutter>
@@ -35,18 +39,24 @@ export const NewProjectBlock: React.FC<{
             <Heading element={headingElement} marginTop={false}>
               {heading}
             </Heading>
-            {description || (
-              <p className={classes.description}>
-                {'Create a project from a template, or '}
-                <Link
-                  href={`/new/import${teamSlug ? `?team=${teamSlug}` : ''}`}
-                  className={classes.import}
-                  prefetch={false}
-                >
-                  import an existing Git codebase
-                </Link>
-                {'.'}
-              </p>
+            {disableProjectCreation ? (
+              <Banner type={'warning'}>
+                Project creation temporarily disabled. Please check back soon.
+              </Banner>
+            ) : (
+              description || (
+                <p className={classes.description}>
+                  {'Create a project from a template, or '}
+                  <Link
+                    href={`/new/import${teamSlug ? `?team=${teamSlug}` : ''}`}
+                    className={classes.import}
+                    prefetch={false}
+                  >
+                    import an existing Git codebase
+                  </Link>
+                  {'.'}
+                </p>
+              )
             )}
           </div>
         </div>
@@ -56,18 +66,19 @@ export const NewProjectBlock: React.FC<{
               <PixelBackground />
             </div>
             <div className={classes.templates}>
-              {templates?.map((template, index) => (
-                <DefaultCard
-                  key={template.slug}
-                  className={classes.card}
-                  leader={cardLeader || (index + 1).toString().padStart(2, '0')}
-                  href={`/new/clone/${template.slug}${teamSlug ? `?team=${teamSlug}` : ''}`}
-                  title={template.name}
-                  description={template.description}
-                  media={template.image}
-                  pill={template.adminOnly ? 'Admin' : undefined}
-                />
-              ))}
+              {!disableProjectCreation &&
+                templates?.map((template, index) => (
+                  <DefaultCard
+                    key={template.slug}
+                    className={classes.card}
+                    leader={cardLeader || (index + 1).toString().padStart(2, '0')}
+                    href={`/new/clone/${template.slug}${teamSlug ? `?team=${teamSlug}` : ''}`}
+                    title={template.name}
+                    description={template.description}
+                    media={template.image}
+                    pill={template.adminOnly ? 'Admin' : undefined}
+                  />
+                ))}
             </div>
           </div>
         </BlockSpacing>

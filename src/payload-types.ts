@@ -27,6 +27,7 @@ export interface Config {
     footer: Footer;
     'main-menu': MainMenu;
     'top-bar': TopBar;
+    'feature-flags': FeatureFlag
   };
 }
 export interface Announcement {
@@ -2542,4 +2543,10 @@ export interface TopBar {
   announcement?: (string | null) | Announcement;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+export interface FeatureFlag {
+  id: string
+  disableProjectCreation?: boolean
+  updatedAt?: string
+  createdAt?: string
 }
