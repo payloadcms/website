@@ -139,7 +139,8 @@
 
   &--open {
     color: var(--theme-text);
-    font-family: var(--font-body-bold);
+    font-family: var(--font-body);
+    font-weight: 700;
 
     svg {
       transform: rotate(90deg);
@@ -194,7 +195,8 @@
   }
 
   &--active {
-    font-family: var(--font-body-bold);
+    font-family: var(--font-body);
+    font-weight: 700;
     color: var(--theme-text);
   }
 

@@ -13,7 +13,7 @@ import { PrivacyProvider } from '@root/providers/Privacy'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
-import { neueMontrealBold, neueMontrealItalic, neueMontrealRegular, robotoMono } from './fonts'
+import { robotoMono, untitledSans } from './fonts'
 
 import '../css/app.scss'
 
@@ -32,31 +32,31 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             strategy="beforeInteractive"
             dangerouslySetInnerHTML={{
               __html: `
-            (function () {          
+            (function () {
               function getImplicitPreference() {
                 var mediaQuery = '(prefers-color-scheme: dark)'
                 var mql = window.matchMedia(mediaQuery)
                 var hasImplicitPreference = typeof mql.matches === 'boolean'
-          
+
                 if (hasImplicitPreference) {
                   return mql.matches ? 'dark' : 'light'
                 }
-          
+
                 return null
               }
-          
+
               function themeIsValid(theme) {
                 return theme === 'light' || theme === 'dark'
               }
-          
+
               var themeToSet = '${defaultTheme}'
               var preference = window.localStorage.getItem('${themeLocalStorageKey}')
-          
+
               if (themeIsValid(preference)) {
                 themeToSet = preference
               } else {
                 var implicitPreference = getImplicitPreference()
-          
+
                 if (implicitPreference) {
                   themeToSet = implicitPreference
                 }
@@ -74,14 +74,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <link rel="preconnect" href="https://www.google-analytics.com" />
           <GoogleAnalytics />
         </head>
-        <body
-          className={[
-            robotoMono.variable,
-            neueMontrealRegular.variable,
-            neueMontrealBold.variable,
-            neueMontrealItalic.variable,
-          ].join(' ')}
-        >
+        <body className={[robotoMono.variable, untitledSans.variable].join(' ')}>
           <GoogleTagManager />
           <Providers>
             <TopBar {...topBar} />

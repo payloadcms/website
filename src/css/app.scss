@@ -195,16 +195,18 @@ svg {
 }
 
 strong {
-  font-family: var(--font-body-bold);
+  font-family: var(--font-body);
+  font-weight: 600;
 }
 
 b {
-  font-family: var(--font-body-bold);
+  font-family: var(--font-body);
   font-weight: 600;
 }
 
 em {
-  font-family: var(--font-body-italic);
+  font-family: var(--font-body);
+  font-style: italic;
 }
 
 code {

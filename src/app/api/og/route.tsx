@@ -6,8 +6,8 @@ export const runtime = 'edge'
 export async function GET(req: NextRequest): Promise<ImageResponse> {
   try {
     // Make sure the font exists in the specified path:
-    const neueMontrealFont = await fetch(
-      new URL('../../../../public/fonts/PPNeueMontreal-Regular.woff', import.meta.url),
+    const untitledSansFont = await fetch(
+      new URL('../../../../public/fonts/UntitledSans-Regular.woff', import.meta.url),
     ).then(res => res.arrayBuffer())
 
     const robotoFont = await fetch(
@@ -15,7 +15,7 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
     ).then(res => res.arrayBuffer())
 
     const { searchParams } = new URL(req.url)
-    const neueMontreal = await neueMontrealFont
+    const untitledSans = await untitledSansFont
     const roboto = await robotoFont
 
     const hasTitle = searchParams.has('title')
@@ -36,7 +36,7 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
             backgroundColor: '#000',
             color: '#fff',
             padding: '100px',
-            fontFamily: 'NeueMontreal',
+            fontFamily: 'UntiledSans',
           }}
         >
           <div
@@ -119,8 +119,8 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
         height: 630,
         fonts: [
           {
-            name: 'NeueMontreal',
-            data: neueMontreal,
+            name: 'UntitledSans',
+            data: untitledSans,
           },
           {
             name: 'Roboto',
