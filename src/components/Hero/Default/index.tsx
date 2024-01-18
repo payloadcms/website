@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
@@ -26,17 +25,27 @@ export const DefaultHero: React.FC<
     <Gutter>
       <div className={classes.defaultHero}>
         {breadcrumbs && <Breadcrumbs items={breadcrumbs} ellipsis={false} />}
-        <Grid>
-          <Cell cols={withoutSidebar ? 10 : 8} colsM={withoutSidebar ? 7 : 5} colsS={8}>
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div
+            className={[
+              `cols-${withoutSidebar ? 12 : 10}`,
+              `cols-m-${withoutSidebar ? 7 : 5}`,
+              'cols-s-8',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+          >
             <RichText className={classes.richText} content={richText} />
-          </Cell>
+          </div>
 
           {!withoutSidebar && (
-            <Cell start={10} cols={4} startM={6} colsS={12} startS={1}>
+            <div
+              className={['cols-4 start-12 start-m-6 cols-s-8 start-s-1'].filter(Boolean).join(' ')}
+            >
               <RichText content={sidebarContent} />
-            </Cell>
+            </div>
           )}
-        </Grid>
+        </div>
       </div>
     </Gutter>
   )

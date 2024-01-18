@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { CMSLink } from '@components/CMSLink'
@@ -19,23 +18,34 @@ export const ContentMediaHero: React.FC<
 > = ({ richText, media, mediaWidth, breadcrumbs, links }) => {
   return (
     <Gutter>
-      <Grid className={mediaWidth === 'wide' ? classes.wideGrid : classes.grid}>
-        <Cell start={1} cols={mediaWidth === 'wide' ? 5 : 7} colsM={8}>
+      <div
+        className={[mediaWidth === 'wide' ? classes.wideGrid : classes.grid, 'grid']
+          .filter(Boolean)
+          .join(' ')}
+      >
+        <div
+          className={[`cols-${mediaWidth === 'wide' ? 6 : 8}`, 'start-1 cols-m-8']
+            .filter(Boolean)
+            .join(' ')}
+        >
           <Breadcrumbs items={breadcrumbs} />
           <RichText content={richText} />
           {Array.isArray(links) &&
             links.map(({ link }, i) => {
               return <CMSLink key={i} {...link} className={classes.link} />
             })}
-        </Cell>
+        </div>
         {typeof media === 'object' && media !== null && (
-          <Cell
-            start={mediaWidth === 'wide' ? 4 : 8}
-            startL={mediaWidth === 'wide' ? 6 : 8}
-            startM={1}
-            cols={mediaWidth === 'wide' ? 11 : 5}
-            colsL={mediaWidth === 'wide' ? 9 : 6}
-            colsM={8}
+          <div
+            className={[
+              `start-${mediaWidth === 'wide' ? 7 : 10}`,
+              `start-l-${mediaWidth === 'wide' ? 7 : 10}`,
+              `cols-${mediaWidth === 'wide' ? 7 : 9}`,
+              `cols-l-${mediaWidth === 'wide' ? 7 : 9}`,
+              'cols-m-8 start-m-1',
+            ]
+              .filter(Boolean)
+              .join(' ')}
           >
             <div className={mediaWidth === 'wide' ? classes.wideMedia : classes.media}>
               <Media
@@ -45,9 +55,9 @@ export const ContentMediaHero: React.FC<
                 }, (max-width: 1024px) 100vw`}
               />
             </div>
-          </Cell>
+          </div>
         )}
-      </Grid>
+      </div>
       <div className={classes.defaultHero}></div>
     </Gutter>
   )
