@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { CalendarIcon } from '@graphics/CalendarIcon'
 import { formatDate } from '@utilities/format-date-time'
 
@@ -31,20 +30,24 @@ export const BlogPost: React.FC<Post> = props => {
         />
       </Gutter>
       <Gutter className={classes.blogHeader}>
-        <Grid>
-          <Cell start={1} cols={9} colsL={8} colsM={5} colsS={12}>
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div
+            start={1}
+            cols={9}
+            colsL={8}
+            colsM={5}
+            colsS={12}
+            className={['cols-14 start-1 cols-l-10 cols-m-5 cols-s-8'].filter(Boolean).join(' ')}
+          >
             <h1 className={classes.title}>{title}</h1>
-          </Cell>
-          <Cell
-            className={classes.authorTimeSlots}
-            start={10}
-            cols={3}
-            startL={9}
-            colsL={4}
-            startM={6}
-            colsM={3}
-            startS={1}
-            colsS={8}
+          </div>
+          <div
+            className={[
+              classes.authorTimeSlots,
+              'cols-4 start-13 cols-l-4 start-l-13 cols-m-2 star-m-5 cols-s-8 start-s-1',
+            ]
+              .filter(Boolean)
+              .join(' ')}
           >
             <AuthorsList authors={props.authors} />
             {publishedOn && (
@@ -53,18 +56,18 @@ export const BlogPost: React.FC<Post> = props => {
                 <CalendarIcon />
               </div>
             )}
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       </Gutter>
       <div className={classes.mediaGutter}>
         {typeof image !== 'string' && <Media resource={image} priority />}
       </div>
       <Gutter>
-        <Grid>
-          <Cell start={2} cols={10} startM={1} colsM={8} startL={2} colsL={10}>
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div className={['cols-11 start-3 cols-m-8 start-m-1'].filter(Boolean).join(' ')}>
             <RichText content={excerpt} className={classes.excerpt} />
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       </Gutter>
       <RenderBlocks
         blocks={[
