@@ -29,7 +29,7 @@ export const NewProjectBlock: React.FC<{
     templates,
   } = props
 
-  const disableProjectCreation = true
+  const disableProjectCreation = false
 
   return (
     <Fragment>
