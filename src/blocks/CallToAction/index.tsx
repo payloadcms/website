@@ -35,10 +35,10 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
             </Gutter>
           </div>
           <div className={[classes.contentWrap, 'grid'].filter(Boolean).join(' ')}>
-            <div className={'col-6 col-m-8'}>
+            <div className={'cols-6 cols-m-8'}>
               <RichText content={richText} className={classes.content} />
             </div>
-            <div className={'col-5 start-8 col-m-8 start-m-1'}>
+            <div className={'cols-5 start-8 cols-m-8 start-m-1'}>
               {feature === 'cpa' && (
                 <Fragment>
                   <Label className={classes.label}>Get started in one line</Label>

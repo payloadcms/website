@@ -26,30 +26,30 @@
 
 // Grid column classes
 @for $i from 1 through 12 {
-  .col-#{$i} {
+  .cols-#{$i} {
     grid-column-end: span #{$i};
   }
 
   @include q.small-break {
-    .col-s-#{$i} {
+    .cols-s-#{$i} {
       grid-column-end: span #{$i};
     }
   }
 
   @include q.mid-break {
-    .col-m-#{$i} {
+    .cols-m-#{$i} {
       grid-column-end: span #{$i};
     }
   }
 
   @include q.large-break {
-    .col-l-#{$i} {
+    .cols-l-#{$i} {
       grid-column-end: span #{$i};
     }
   }
 
   @include q.extra-large-break {
-    .col-xl-#{$i} {
+    .cols-xl-#{$i} {
       grid-column-end: span #{$i};
     }
   }
