@@ -1,5 +1,4 @@
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { CMSLink } from '@components/CMSLink'
 import Code from '@components/Code'
@@ -30,17 +29,17 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
     <div className={classes.codeFeature}>
       <Spacer {...spacerProps}>
         <Gutter>
-          <Grid className={classes.grid}>
-            <Cell cols={6} colsM={8}>
+          <div className={[classes.codeFeatureGrid, 'grid'].filter(Boolean).join(' ')}>
+            <div className={'cols-8 cols-m-8'}>
               <h2 className={classes.heading}>{heading}</h2>
-              <Grid>
-                <Cell cols={4} start={disableIndent ? 1 : 2} colsM={8} startM={1}>
+              <div className={[classes.innerCodeFeatureGrid, 'grid'].filter(Boolean).join(' ')}>
+                <div className={`cols-6 start-${disableIndent ? 1 : 2} cols-m-8 start-m-1`}>
                   <RichText content={richText} className={classes.richText} />
                   {enableLink && <CMSLink {...link} />}
-                </Cell>
-              </Grid>
-            </Cell>
-            <Cell cols={6} colsM={8} className={classes.code}>
+                </div>
+              </div>
+            </div>
+            <div className={[classes.code, 'cols-8 cols-m-8'].filter(Boolean).join(' ')}>
               <div className={classes.code}>
                 {label && (
                   <div className={classes.labelWrap}>
@@ -51,19 +50,27 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
               `}</Code>
               </div>
 
-              <Grid className={[classes.mobile, classes.pixelGrid].filter(Boolean).join(' ')}>
-                <Cell className={classes.pixelCell} startM={5} colsM={5}>
+              <div
+                className={[classes.mobile, classes.pixelGrid, 'grid'].filter(Boolean).join(' ')}
+              >
+                <div
+                  className={[classes.pixelCell, 'cols-16 start-m-7 cols-m-7']
+                    .filter(Boolean)
+                    .join(' ')}
+                >
                   <PixelBackground className={classes.pixels} />
-                </Cell>
-              </Grid>
-            </Cell>
-          </Grid>
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <Grid className={[classes.desktop, classes.pixelGrid].filter(Boolean).join(' ')}>
-            <Cell className={classes.pixelCell} cols={5} start={8}>
+          <div className={[classes.desktop, classes.pixelGrid, 'grid'].filter(Boolean).join(' ')}>
+            <div
+              className={[classes.pixelCell, 'cols-7 start-10 start-m-5'].filter(Boolean).join(' ')}
+            >
               <PixelBackground className={classes.pixels} />
-            </Cell>
-          </Grid>
+            </div>
+          </div>
         </Gutter>
       </Spacer>
     </div>

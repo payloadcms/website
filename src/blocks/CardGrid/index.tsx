@@ -1,5 +1,4 @@
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { BlockSpacing } from '@components/BlockSpacing'
 import { SquareCard } from '@components/cards/SquareCard'
@@ -26,12 +25,12 @@ export const CardGrid: React.FC<CardGridProps> = props => {
       <Gutter>
         <hr className={classes.hr} />
         {richText && (
-          <Grid className={classes.intro}>
-            <Cell cols={8} colsM={8}>
+          <div className={[classes.intro, 'grid'].filter(Boolean).join(' ')}>
+            <div className={'cols-10 cols-m-8'}>
               <RichText className={classes.richText} content={richText} />
-            </Cell>
+            </div>
             {hasLinks && (
-              <Cell cols={3} colsL={4} start={10} startL={9} startM={1} colsM={8}>
+              <div className={'cols-4 start-13 cols-l-5 start-l-12 cols-m-8 start-m-1'}>
                 {links.map(({ link }, index) => {
                   return (
                     <CMSLink
@@ -45,20 +44,20 @@ export const CardGrid: React.FC<CardGridProps> = props => {
                     />
                   )
                 })}
-              </Cell>
+              </div>
             )}
-          </Grid>
+          </div>
         )}
         {hasCards && (
           <div className={classes.cards}>
             <div className={classes.bg}>
               <PixelBackground />
             </div>
-            <Grid>
+            <div className={'grid'}>
               {cards.map((card, index) => {
                 const { title, description, link } = card
                 return (
-                  <Cell key={index} cols={4}>
+                  <div key={index} className={'cols-4'}>
                     <SquareCard
                       leader={(index + 1).toString().padStart(2, '0')}
                       className={classes.card}
@@ -66,10 +65,10 @@ export const CardGrid: React.FC<CardGridProps> = props => {
                       description={description}
                       link={link}
                     />
-                  </Cell>
+                  </div>
                 )
               })}
-            </Grid>
+            </div>
           </div>
         )}
       </Gutter>

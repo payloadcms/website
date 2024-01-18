@@ -1,5 +1,4 @@
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
@@ -10,11 +9,11 @@ type Props = Extract<ReusableContent['layout'][0], { blockType: 'blogContent' }>
 export const BlogContent: React.FC<Props> = ({ blogContentFields }) => {
   return (
     <Gutter>
-      <Grid>
-        <Cell start={3} cols={8} startM={2} colsM={6} startS={1} colsS={8}>
+      <div className={'grid'}>
+        <div className={'cols-8 start-5 cols-m-6 start-m-2 cols-s-8 start-s-1'}>
           <RichText content={blogContentFields.richText} />
-        </Cell>
-      </Grid>
+        </div>
+      </div>
     </Gutter>
   )
 }
