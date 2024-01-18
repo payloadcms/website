@@ -18,6 +18,12 @@ export const RelatedPosts: React.FC<RelatedPostsBlock> = props => {
     return null
   }
 
+  const colStart = {
+    0: 'start-1',
+    1: 'start-6',
+    2: 'start-11',
+  }
+
   return (
     <Gutter>
       <div className={classes.relatedPosts} id={id}>
@@ -31,7 +37,8 @@ export const RelatedPosts: React.FC<RelatedPostsBlock> = props => {
                   className={[
                     relatedPosts.length >= 3
                       ? 'cols-4 cols-m-4 cols-s-8'
-                      : 'cols-12 start-1 cols-m-8',
+                      : 'cols-16 start-1 cols-m-8',
+                    `${colStart[key]} start-m-1`,
                   ]
                     .filter(Boolean)
                     .join(' ')}

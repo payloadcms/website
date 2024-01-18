@@ -100,7 +100,7 @@ export const StickyHighlight: React.FC<Props> = React.memo(
         ].join(' ')}
       >
         <div className={[classes.minHeight, 'grid'].filter(Boolean).join(' ')}>
-          <div className={'cols-5 cols-m-8'}>
+          <div className={'cols-7 cols-m-12'}>
             <RichText content={richText} className={classes.richText} />
             {enableLink && <CMSLink {...link} appearance="default" mobileFullWidth />}
           </div>
@@ -112,7 +112,7 @@ export const StickyHighlight: React.FC<Props> = React.memo(
                 <PixelBackground className={classes.pixels} />
                 <div className={['grid'].filter(Boolean).join(' ')}>
                   <div
-                    className={[classes.bg, 'cols-6 start-7 cols-m-8 start-m-8']
+                    className={[classes.bg, 'cols-8 start-9 cols-m-8 start-m-8']
                       .filter(Boolean)
                       .join(' ')}
                   >

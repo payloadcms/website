@@ -19,14 +19,14 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
           // media-content
           <React.Fragment>
             <div
-              className={[classes.media, classes.left, 'cols-6 cols-m-12 start-1']
+              className={[classes.media, classes.left, 'cols-8 cols-m-8 start-1']
                 .filter(Boolean)
                 .join(' ')}
             >
               <Media resource={typeof media !== 'string' ? media : undefined} />
             </div>
             <div
-              className={[classes.content, classes.right, 'cols-5 start-8 start-m-1 cols-m-12']
+              className={[classes.content, classes.right, 'cols-6 start-11 start-m-1 cols-m-8']
                 .filter(Boolean)
                 .join(' ')}
             >
@@ -42,7 +42,7 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
           // content-media
           <React.Fragment>
             <div
-              className={[classes.content, classes.left, 'cols-5 start-1 cols-m-12']
+              className={[classes.content, classes.left, 'cols-6 start-1 cols-m-8']
                 .filter(Boolean)
                 .join(' ')}
             >
@@ -54,7 +54,7 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
               )}
             </div>
             <div
-              className={[classes.media, classes.right, 'cols-6 start-7 cols-m-12 start-m-1']
+              className={[classes.media, classes.right, 'cols-8 start-11 cols-m-8 start-m-1']
                 .filter(Boolean)
                 .join(' ')}
             >

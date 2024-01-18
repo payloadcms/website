@@ -72,7 +72,7 @@ export const SliderBlock: React.FC<Props> = ({ sliderFields }) => {
       {withPixelBackground && (
         <Gutter className={classes.pixelContainer}>
           <div className={['grid'].filter(Boolean).join(' ')}>
-            <div className={[classes.pixelCell, 'cols-9 start-4'].filter(Boolean).join(' ')}>
+            <div className={[classes.pixelCell, 'cols-12 start-5'].filter(Boolean).join(' ')}>
               <PixelBackground />
             </div>
           </div>

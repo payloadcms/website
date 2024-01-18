@@ -39,6 +39,13 @@ export const Pricing: React.FC<Props> = ({ pricingFields }) => {
     )
   }
 
+  const colsStart = {
+    0: 'start-1 start-m-1',
+    1: 'start-5 start-m-1',
+    2: 'start-9 start-m-1',
+    3: 'start-12 start-m-1',
+  }
+
   return (
     <BlockSpacing className={classes.pricingBlock}>
       <Gutter>
@@ -55,7 +62,9 @@ export const Pricing: React.FC<Props> = ({ pricingFields }) => {
                 return (
                   <div
                     key={i}
-                    className={[classes.planWrap, 'cols-4 cols-m-8'].filter(Boolean).join(' ')}
+                    className={[classes.planWrap, 'cols-4 cols-m-8', colsStart[i]]
+                      .filter(Boolean)
+                      .join(' ')}
                   >
                     <PricingCard
                       leader={name}
