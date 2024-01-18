@@ -112,7 +112,7 @@ export const StickyHighlight: React.FC<Props> = React.memo(
                 <PixelBackground className={classes.pixels} />
                 <div className={['grid'].filter(Boolean).join(' ')}>
                   <div
-                    className={[classes.bg, 'cols-8 start-9 cols-m-8 start-m-8']
+                    className={[classes.bg, 'cols-8 start-9 cols-m-8 start-m-1']
                       .filter(Boolean)
                       .join(' ')}
                   >
@@ -130,7 +130,7 @@ export const StickyHighlight: React.FC<Props> = React.memo(
             )}
             {type === 'media' && typeof media === 'object' && media !== null && (
               <div className={['grid'].filter(Boolean).join(' ')}>
-                <div className={'cols-6 start-7 cols-m-8 start-m-1'}>
+                <div className={'cols-8 start-9 cols-m-8 start-m-1'}>
                   <div className={codeMediaClasses} ref={codeMediaWrapRef}>
                     <div className={classes.codeMediaInner} ref={codeMediaInnerRef}>
                       <div className={classes.media}>
