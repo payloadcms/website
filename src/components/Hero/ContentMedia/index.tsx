@@ -19,7 +19,7 @@ export const ContentMediaHero: React.FC<
   return (
     <Gutter>
       <div
-        className={[mediaWidth === 'wide' ? classes.wideGrid : classes.grid, 'grid']
+        className={[mediaWidth === 'wide' ? classes.wideGrid : classes.normalGrid, 'grid']
           .filter(Boolean)
           .join(' ')}
       >
