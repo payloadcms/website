@@ -54,7 +54,7 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
               )}
             </div>
             <div
-              className={[classes.media, classes.right, 'cols-8 start-11 cols-m-8 start-m-1']
+              className={[classes.media, classes.right, 'cols-8 start-9 cols-m-8 start-m-1']
                 .filter(Boolean)
                 .join(' ')}
             >
