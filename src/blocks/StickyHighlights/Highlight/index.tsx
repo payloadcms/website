@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { CMSLink } from '@components/CMSLink'
 import Code from '@components/Code'
@@ -100,19 +99,23 @@ export const StickyHighlight: React.FC<Props> = React.memo(
           classes[`scroll-direction--${init ? yDirection : 'down'}`],
         ].join(' ')}
       >
-        <Grid className={classes.minHeight}>
-          <Cell cols={5} colsM={8}>
+        <div className={[classes.minHeight, 'grid'].filter(Boolean).join(' ')}>
+          <div className={'cols-5 cols-m-8'}>
             <RichText content={richText} className={classes.richText} />
             {enableLink && <CMSLink {...link} appearance="default" mobileFullWidth />}
-          </Cell>
-        </Grid>
+          </div>
+        </div>
         <CSSTransition in={visible} timeout={750} classNames="animate">
           <Gutter className={classes.codeMediaPosition}>
             {type === 'code' && (
               <React.Fragment>
                 <PixelBackground className={classes.pixels} />
-                <Grid>
-                  <Cell cols={6} start={7} colsM={8} startM={1} className={classes.bg}>
+                <div className={['grid'].filter(Boolean).join(' ')}>
+                  <div
+                    className={[classes.bg, 'cols-6 start-7 cols-m-8 start-m-8']
+                      .filter(Boolean)
+                      .join(' ')}
+                  >
                     <div className={codeMediaClasses} ref={codeMediaWrapRef}>
                       <div className={classes.codeMediaInner} ref={codeMediaInnerRef}>
                         <div className={classes.code}>
@@ -121,13 +124,13 @@ export const StickyHighlight: React.FC<Props> = React.memo(
                         </div>
                       </div>
                     </div>
-                  </Cell>
-                </Grid>
+                  </div>
+                </div>
               </React.Fragment>
             )}
             {type === 'media' && typeof media === 'object' && media !== null && (
-              <Grid>
-                <Cell cols={6} start={7} colsM={8} startM={1}>
+              <div className={['grid'].filter(Boolean).join(' ')}>
+                <div className={'cols-6 start-7 cols-m-8 start-m-1'}>
                   <div className={codeMediaClasses} ref={codeMediaWrapRef}>
                     <div className={classes.codeMediaInner} ref={codeMediaInnerRef}>
                       <div className={classes.media}>
@@ -139,8 +142,8 @@ export const StickyHighlight: React.FC<Props> = React.memo(
                       </div>
                     </div>
                   </div>
-                </Cell>
-              </Grid>
+                </div>
+              </div>
             )}
           </Gutter>
         </CSSTransition>

@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
@@ -15,24 +14,21 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
 
   return (
     <Gutter>
-      <Grid>
+      <div className={['grid'].filter(Boolean).join(' ')}>
         {alignment === 'mediaContent' ? (
           // media-content
           <React.Fragment>
-            <Cell
-              start={1}
-              cols={6}
-              colsM={12}
-              className={[classes.media, classes.left].filter(Boolean).join(' ')}
+            <div
+              className={[classes.media, classes.left, 'cols-6 cols-m-12 start-1']
+                .filter(Boolean)
+                .join(' ')}
             >
               <Media resource={typeof media !== 'string' ? media : undefined} />
-            </Cell>
-            <Cell
-              start={8}
-              cols={5}
-              startM={1}
-              colsM={12}
-              className={[classes.content, classes.right].filter(Boolean).join(' ')}
+            </div>
+            <div
+              className={[classes.content, classes.right, 'cols-5 start-8 start-m-1 cols-m-12']
+                .filter(Boolean)
+                .join(' ')}
             >
               <RichText content={richText} />
               {enableLink && link && (
@@ -40,16 +36,15 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
                   <Button {...link} labelStyle="mono" icon="arrow" el="link" />
                 </div>
               )}
-            </Cell>
+            </div>
           </React.Fragment>
         ) : (
           // content-media
           <React.Fragment>
-            <Cell
-              start={1}
-              cols={5}
-              colsM={12}
-              className={[classes.content, classes.left].filter(Boolean).join(' ')}
+            <div
+              className={[classes.content, classes.left, 'cols-5 start-1 cols-m-12']
+                .filter(Boolean)
+                .join(' ')}
             >
               <RichText content={richText} />
               {enableLink && link && (
@@ -57,19 +52,17 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
                   <Button {...link} labelStyle="mono" icon="arrow" el="link" />
                 </div>
               )}
-            </Cell>
-            <Cell
-              start={7}
-              cols={6}
-              startM={1}
-              colsM={12}
-              className={[classes.media, classes.right].filter(Boolean).join(' ')}
+            </div>
+            <div
+              className={[classes.media, classes.right, 'cols-6 start-7 cols-m-12 start-m-1']
+                .filter(Boolean)
+                .join(' ')}
             >
               <Media resource={typeof media !== 'string' ? media : undefined} />
-            </Cell>
+            </div>
           </React.Fragment>
         )}
-      </Grid>
+      </div>
     </Gutter>
   )
 }

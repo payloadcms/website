@@ -25,13 +25,13 @@ export const MediaBlock: React.FC<Props> = ({ mediaBlockFields }) => {
       />
 
       {caption && (
-        <Grid>
-          <Cell className={classes.caption}>
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div className={[classes.caption, 'cols-4 cols-m-8'].filter(Boolean).join(' ')}>
             <small>
               <RichText content={caption} />
             </small>
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       )}
     </Gutter>
   )
