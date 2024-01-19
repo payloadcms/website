@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import RadioGroup from '@forms/fields/RadioGroup'
 import FormComponent from '@forms/Form'
 
@@ -32,8 +31,8 @@ export const PrivacyClientPage: React.FC = () => {
   return (
     <React.Fragment>
       <Gutter className={classes.privacyWrap}>
-        <Grid>
-          <Cell cols={8} colsM={8}>
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div className={['cols-10 cols-m-8'].filter(Boolean).join(' ')}>
             <h2>Privacy Policy</h2>
             <p>
               Your privacy is important to us. It is Payload CMS, LLC's policy to respect your
@@ -696,8 +695,8 @@ export const PrivacyClientPage: React.FC = () => {
               service.
             </p>
             <p>We use targeting/advertising cookies on our site.</p>
-          </Cell>
-          <Cell cols={8}>
+          </div>
+          <div className={['cols-10'].filter(Boolean).join(' ')}>
             <h5>Cookie Preferences</h5>
             <FormComponent>
               <RadioGroup
@@ -719,8 +718,8 @@ export const PrivacyClientPage: React.FC = () => {
             <p>
               Read our <a href="#cookies">Cookie Policy</a> to learn more.
             </p>
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       </Gutter>
     </React.Fragment>
   )

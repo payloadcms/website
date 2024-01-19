@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useCallback } from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
@@ -56,8 +55,8 @@ export const ResetPassword: React.FC = () => {
       <Heading marginTop={false} element="h1">
         Reset password
       </Heading>
-      <Grid>
-        <Cell cols={5} colsM={8}>
+      <div className={['grid'].filter(Boolean).join(' ')}>
+        <div className={['cols-5 cols-m-8'].filter(Boolean).join(' ')}>
           <Form
             onSubmit={handleSubmit}
             className={classes.form}
@@ -81,8 +80,8 @@ export const ResetPassword: React.FC = () => {
               <Submit label="Reset Password" className={classes.submit} />
             </div>
           </Form>
-        </Cell>
-      </Grid>
+        </div>
+      </div>
     </Gutter>
   )
 }
