@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
@@ -15,8 +14,8 @@ export const TermsClientPage: React.FC = () => {
       <Heading marginTop={false} element="h4">
         Last updated April 2, 2023
       </Heading>
-      <Grid>
-        <Cell cols={8} colsM={8}>
+      <div className={['grid'].filter(Boolean).join(' ')}>
+        <div className={['cols-8 cols-m-8'].filter(Boolean).join(' ')}>
           <h2>Introduction</h2>
           <p>
             Thank you for choosing Payload CMS and our cloud offering to serve your content
@@ -306,8 +305,8 @@ export const TermsClientPage: React.FC = () => {
             that Payload sends to you electronically will satisfy any legal communication
             requirements, including that such communications be in writing.
           </p>
-        </Cell>
-      </Grid>
+        </div>
+      </div>
     </Gutter>
   )
 }
