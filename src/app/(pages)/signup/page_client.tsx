@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useCallback, useState } from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
@@ -127,8 +126,8 @@ export const Signup: React.FC = () => {
   if (user) {
     return (
       <Gutter>
-        <Grid>
-          <Cell cols={5} colsM={8}>
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div className={['cols-5 cols-m-8'].filter(Boolean).join(' ')}>
             <Heading marginTop={false} element="h2" as="h2">
               <Highlight text="Already logged in" appearance="success" />
             </Heading>
@@ -139,8 +138,8 @@ export const Signup: React.FC = () => {
               <Button label="Log out" href="/logout" appearance="primary" el="link" />
               <Button label="Dashboard" href="/cloud" appearance="secondary" el="link" />
             </div>
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       </Gutter>
     )
   }
@@ -151,8 +150,8 @@ export const Signup: React.FC = () => {
         <Heading marginTop={false} element="h2" as="h2">
           <Highlight text="Verify your account" />
         </Heading>
-        <Grid>
-          <Cell cols={5} colsM={8}>
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div className={['cols-5 cols-m-8'].filter(Boolean).join(' ')}>
             <Heading marginTop={false} element="p" as="h6">
               Your account has been created. Please check your email to verify your account and
               login.
@@ -164,8 +163,8 @@ export const Signup: React.FC = () => {
                 {'.'}
               </p>
             </div>
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       </Gutter>
     )
   }
@@ -175,8 +174,8 @@ export const Signup: React.FC = () => {
       <Heading marginTop={false} element="h1">
         Create an account
       </Heading>
-      <Grid>
-        <Cell cols={5} colsM={8}>
+      <div className={['grid'].filter(Boolean).join(' ')}>
+        <div className={['cols-5 cols-m-8'].filter(Boolean).join(' ')}>
           <div className={classes.links}>
             {`Already have an account? `}
             <Link href={`/login${redirectParam ? `?redirect=${redirectParam}` : ''}`}>
@@ -202,8 +201,8 @@ export const Signup: React.FC = () => {
               <Submit label="Signup" className={classes.submit} />
             </div>
           </Form>
-        </Cell>
-      </Grid>
+        </div>
+      </div>
     </Gutter>
   )
 }

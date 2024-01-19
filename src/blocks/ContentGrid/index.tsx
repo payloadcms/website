@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
@@ -25,15 +24,15 @@ const Cells: React.FC<CellsProps> = ({
     <Gutter className={[classes.contentGrid, className && className].filter(Boolean).join(' ')}>
       {useLeadingHeader && <RichText className={classes.leadingHeader} content={leadingHeader} />}
 
-      <Grid>
+      <div className={'grid'}>
         {cells?.map((cell, i) => {
           return (
-            <Cell className={classes.cell} cols={4} colsS={8} key={i}>
+            <div className={[classes.cell, 'cols-4 cols-s-8'].filter(Boolean).join(' ')} key={i}>
               <RichText className={classes.richText} content={cell.content} />
-            </Cell>
+            </div>
           )
         })}
-      </Grid>
+      </div>
       {darkBackground && <div className={classes.darkBg} />}
     </Gutter>
   )

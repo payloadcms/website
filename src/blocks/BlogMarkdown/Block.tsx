@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import remarkGFM from 'remark-gfm'
 
 import { Gutter } from '@components/Gutter'
@@ -18,15 +17,15 @@ type Props = Extract<ReusableContent['layout'][0], { blockType: 'blogMarkdown' }
 const BlogMarkdown: React.FC<Props> = ({ blogMarkdownFields: { markdown } }) => {
   return (
     <Gutter>
-      <Grid>
-        <Cell start={3} cols={8} startM={2} colsM={6} startS={1} colsS={8}>
+      <div className={'grid'}>
+        <div className={'cols-8 start-5 cols-m-6 start-m-2 cols-s-8 start-s-1'}>
           <ReactMarkdown
             children={markdown}
             remarkPlugins={remarkPlugins}
             components={components}
           />
-        </Cell>
-      </Grid>
+        </div>
+      </div>
     </Gutter>
   )
 }

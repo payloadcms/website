@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { BlockSpacing } from '@components/BlockSpacing'
 import { ContentMediaCard } from '@components/cards/ContentMediaCard'
@@ -29,20 +28,20 @@ export const RenderBlogArchive: React.FC<{ posts: Post[] }> = ({ posts }) => {
       />
       <Gutter>
         <BlockSpacing>
-          <Grid>
+          <div className={['grid'].filter(Boolean).join(' ')}>
             {(posts || []).map(blogPost => {
               return (
-                <Cell key={blogPost.id} cols={4} colsS={8}>
+                <div key={blogPost.id} className={['cols-4 cols-s-8'].filter(Boolean).join(' ')}>
                   <ContentMediaCard
                     title={blogPost.title}
                     description={blogPost?.meta?.description}
                     href={`/blog/${blogPost.slug}`}
                     media={blogPost.image}
                   />
-                </Cell>
+                </div>
               )
             })}
-          </Grid>
+          </div>
         </BlockSpacing>
       </Gutter>
     </React.Fragment>

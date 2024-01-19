@@ -2,7 +2,6 @@
 
 import React, { useCallback, useEffect, useState } from 'react'
 import { cloudSlug } from '@cloud/slug'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
@@ -92,8 +91,8 @@ export const Login: React.FC = () => {
       <Heading marginTop={false} element="h1">
         Log in
       </Heading>
-      <Grid>
-        <Cell cols={5} colsM={8}>
+      <div className={['grid'].filter(Boolean).join(' ')}>
+        <div className={['cols-6 cols-m-8'].filter(Boolean).join(' ')}>
           <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
             <FormSubmissionError />
             <FormProcessing message="Logging in, one moment..." />
@@ -109,8 +108,8 @@ export const Login: React.FC = () => {
               <Submit label="Log in" className={classes.submit} />
             </div>
           </Form>
-        </Cell>
-        <Cell cols={4} start={8} startM={1} colsM={8}>
+        </div>
+        <div className={['cols-6 start-10 cols-m-8 start-m-1'].filter(Boolean).join(' ')}>
           <div className={classes.sidebar}>
             <p>
               {`Don't have an account? `}
@@ -127,8 +126,8 @@ export const Login: React.FC = () => {
               {'.'}
             </p>
           </div>
-        </Cell>
-      </Grid>
+        </div>
+      </div>
     </Gutter>
   )
 }
