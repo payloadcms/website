@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import FormComponent from '@forms/Form'
 import { validateEmail } from '@forms/validations'
@@ -155,8 +154,8 @@ export const Footer: React.FC<FooterType> = props => {
     return (
       <footer className={classes.footer}>
         <Gutter>
-          <Grid>
-            <Cell cols={3} colsM={4}>
+          <div className={['grid'].filter(Boolean).join(' ')}>
+            <div className={['cols-4 cols-m-4'].filter(Boolean).join(' ')}>
               <div className={classes.colHeader}>
                 <div className={classes.payloadIcon}>
                   <PayloadIcon />
@@ -168,9 +167,9 @@ export const Footer: React.FC<FooterType> = props => {
                   return <CMSLink key={index} className={classes.link} {...link} />
                 })}
               </div>
-            </Cell>
+            </div>
 
-            <Cell cols={4} colsM={4}>
+            <div className={['cols-6 cols-m-4'].filter(Boolean).join(' ')}>
               <p className={classes.colHeader}>Documentation</p>
               <div className={classes.col2Items}>
                 {documentationItems?.navItems.map(({ link }, index) => {
@@ -181,9 +180,9 @@ export const Footer: React.FC<FooterType> = props => {
                   )
                 })}
               </div>
-            </Cell>
+            </div>
 
-            <Cell cols={5} colsM={6} colsS={8}>
+            <div className={['cols-6 cols-m-6 cols-s-8'].filter(Boolean).join(' ')}>
               <p className={`${classes.colHeader} ${classes.thirdColumn}`}>Stay connected</p>
               <div>
                 {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
@@ -219,11 +218,11 @@ export const Footer: React.FC<FooterType> = props => {
                   </div>
                 </FormComponent>
               </div>
-            </Cell>
-          </Grid>
+            </div>
+          </div>
 
-          <Grid className={classes.footerMeta}>
-            <Cell cols={3} colsM={5}>
+          <div className={[classes.footerMeta, 'grid'].filter(Boolean).join(' ')}>
+            <div className={['cols-4 cols-m-5'].filter(Boolean).join(' ')}>
               <div className={classes.socialLinks}>
                 <a
                   href="https://www.instagram.com/payloadcms/"
@@ -262,15 +261,15 @@ export const Footer: React.FC<FooterType> = props => {
                   <FacebookIcon />
                 </a>
               </div>
-            </Cell>
+            </div>
 
-            <Cell cols={4} colsM={8}>
+            <div className={['cols-6 cols-m-8'].filter(Boolean).join(' ')}>
               <p
                 className={classes.copyright}
               >{`Copyright ${new Date().getFullYear()} Payload CMS, Inc.`}</p>
-            </Cell>
+            </div>
 
-            <Cell cols={2} colsM={8} className={classes.themeCell}>
+            <div className={[classes.themeCell, 'cols-2 cols-m-8'].filter(Boolean).join(' ')}>
               <div className={classes.selectContainer}>
                 <label htmlFor="theme">
                   {selectRef?.current && (
@@ -296,8 +295,8 @@ export const Footer: React.FC<FooterType> = props => {
                   />
                 </label>
               </div>
-            </Cell>
-          </Grid>
+            </div>
+          </div>
         </Gutter>
       </footer>
     )
