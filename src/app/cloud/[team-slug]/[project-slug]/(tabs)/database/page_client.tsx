@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Secret } from '@forms/fields/Secret'
 
 import { Banner } from '@components/Banner'
@@ -29,8 +28,8 @@ export const ProjectDatabasePage: React.FC<{
 
   return (
     <Gutter>
-      <Grid>
-        <Cell start={1} colsXL={12} colsL={12}>
+      <div className={['grid'].filter(Boolean).join(' ')}>
+        <div className={['start-1 cols-16 cols-xl-16 cols-l-16'].filter(Boolean).join(' ')}>
           <ExtendedBackground
             pixels
             upperChildren={
@@ -44,8 +43,8 @@ export const ProjectDatabasePage: React.FC<{
               connection string above.
             </p>
           </Banner>
-        </Cell>
-      </Grid>
+        </div>
+      </div>
     </Gutter>
   )
 }

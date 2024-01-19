@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { DiscordGitComments } from '@components/DiscordGitComments'
 import DiscordGitCTA from '@components/DiscordGitCTA'
@@ -64,8 +63,12 @@ export const GithubDiscussionPage: React.FC<DiscussionProps> = props => {
   return (
     <>
       <Gutter>
-        <Grid>
-          <Cell cols={10} colsL={9} className={classes.post}>
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div
+            className={[classes.post, 'cols-12 cols-l-10'].filter(Boolean).join(' ')}
+            cols={10}
+            colsL={9}
+          >
             <DiscordGitIntro
               postName={title}
               author={author?.name}
@@ -78,8 +81,8 @@ export const GithubDiscussionPage: React.FC<DiscussionProps> = props => {
             />
             <DiscordGitComments answer={answer} comments={comments} platform="GitHub" />
             <OpenPost url={url} platform="GitHub" />
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       </Gutter>
       <DiscordGitCTA />
     </>

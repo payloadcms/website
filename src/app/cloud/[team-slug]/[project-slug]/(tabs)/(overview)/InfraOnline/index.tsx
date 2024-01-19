@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { toast } from 'react-toastify'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
@@ -140,8 +139,13 @@ export const InfraOnline: React.FC<{
         <ExtendedBackground
           pixels
           upperChildren={
-            <Grid>
-              <Cell start={1} cols={4} colsM={8}>
+            <div className={['grid'].filter(Boolean).join(' ')}>
+              <div
+                start={1}
+                cols={4}
+                colsM={8}
+                className={['start-1 cols-5 cols-m-8'].filter(Boolean).join(' ')}
+              >
                 <Label>URL</Label>
                 {projectDomains.map((domain, index) => (
                   <a
@@ -157,8 +161,14 @@ export const InfraOnline: React.FC<{
                     <ExternalLinkIcon className={classes.externalLinkIcon} />
                   </a>
                 ))}
-              </Cell>
-              <Cell start={5} cols={3} startM={1} colsM={8}>
+              </div>
+              <div
+                start={5}
+                cols={3}
+                startM={1}
+                colsM={8}
+                className={['start-6 cols-4 start-m-1 cols-m-8'].filter(Boolean).join(' ')}
+              >
                 <Label>Deployment Details</Label>
                 <div className={classes.deployDetails}>
                   {liveDeployment && (
@@ -224,8 +234,14 @@ export const InfraOnline: React.FC<{
                     </div>
                   )}
                 </div>
-              </Cell>
-              <Cell start={9} cols={4} startM={1} colsM={8}>
+              </div>
+              <div
+                start={9}
+                cols={4}
+                startM={1}
+                colsM={8}
+                className={['start-12 cols-4 start-m-1 cols-m-8'].filter(Boolean).join(' ')}
+              >
                 <Label>Status</Label>
                 <div className={classes.statusDetail}>
                   <Indicator
@@ -249,13 +265,18 @@ export const InfraOnline: React.FC<{
                       : 'Offline'}
                   </p>
                 </div>
-              </Cell>
-            </Grid>
+              </div>
+            </div>
           }
           lowerChildren={
             <div className={classes.reTriggerBackground}>
-              <Grid className={classes.reTriggerGrid}>
-                <Cell start={1} cols={4} colsM={8}>
+              <div className={[classes.reTriggerGrid, 'grid'].filter(Boolean).join(' ')}>
+                <div
+                  start={1}
+                  cols={4}
+                  colsM={8}
+                  className={['cols-5 start-1 cols-m-8'].filter(Boolean).join(' ')}
+                >
                   <div>
                     <Button
                       appearance="secondary"
@@ -263,8 +284,14 @@ export const InfraOnline: React.FC<{
                       label="Trigger Redeploy"
                     />
                   </div>
-                </Cell>
-                <Cell start={5} cols={3} startM={1} colsM={8}>
+                </div>
+                <div
+                  start={5}
+                  cols={3}
+                  startM={1}
+                  colsM={8}
+                  className={['cols-4 start-6 start-m-1 cols-m-8'].filter(Boolean).join(' ')}
+                >
                   {!finalDeploymentStages.includes(
                     latestDeployment?.deploymentStatus as FinalDeploymentStages,
                   ) &&
@@ -317,8 +344,8 @@ export const InfraOnline: React.FC<{
                         )}
                       </div>
                     )}
-                </Cell>
-              </Grid>
+                </div>
+              </div>
             </div>
           }
         />

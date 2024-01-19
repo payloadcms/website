@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import * as cheerio from 'cheerio'
 
 import { DiscordGitComments } from '@components/DiscordGitComments'
@@ -87,8 +86,12 @@ export const DiscordThreadPage: React.FC<ThreadProps> = props => {
   return (
     <>
       <Gutter>
-        <Grid>
-          <Cell cols={10} colsL={9} className={classes.post}>
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div
+            className={[classes.post, 'cols-12 cols-l-10'].filter(Boolean).join(' ')}
+            cols={10}
+            colsL={9}
+          >
             <DiscordGitIntro
               postName={info.name}
               author={author}
@@ -101,8 +104,8 @@ export const DiscordThreadPage: React.FC<ThreadProps> = props => {
             />
             <DiscordGitComments comments={messages} platform="Discord" />
             <OpenPost url={postUrl} platform="Discord" />
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       </Gutter>
       <DiscordGitCTA />
     </>

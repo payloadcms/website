@@ -1,8 +1,6 @@
-import * as React from 'react'
 import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { Sidebar } from '@cloud/_components/Sidebar'
 import { cloudSlug } from '@cloud/slug'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Gutter } from '@components/Gutter'
 import { TeamBillingMessages } from './TeamBillingMessages'
@@ -17,8 +15,13 @@ export default async ({ params: { 'team-slug': teamSlug }, children }) => {
 
   return (
     <Gutter>
-      <Grid className={classes.gridWrap}>
-        <Cell cols={3} start={1} colsS={8}>
+      <div className={[classes.gridWrap, 'grid'].filter(Boolean).join(' ')}>
+        <div
+          cols={3}
+          start={1}
+          colsS={8}
+          className={['cols-4 start-1 cols-s-8'].filter(Boolean).join(' ')}
+        >
           <Sidebar
             routes={[
               {
@@ -43,12 +46,17 @@ export default async ({ params: { 'team-slug': teamSlug }, children }) => {
               },
             ]}
           />
-        </Cell>
-        <Cell start={4} cols={9} startS={1}>
+        </div>
+        <div
+          start={4}
+          cols={9}
+          startS={1}
+          className={['start-5 cols-10 start-s-1'].filter(Boolean).join(' ')}
+        >
           <TeamBillingMessages team={team} />
           {children}
-        </Cell>
-      </Grid>
+        </div>
+      </div>
     </Gutter>
   )
 }

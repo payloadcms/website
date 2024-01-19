@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { cloudSlug } from '@cloud/slug'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -33,8 +32,13 @@ export default ({ children }: ProjectSettingsLayoutType) => {
 
   return (
     <Gutter>
-      <Grid className={classes.gridWrap}>
-        <Cell cols={3} start={1} colsS={8}>
+      <div className={[classes.gridWrap, 'grid'].filter(Boolean).join(' ')}>
+        <div
+          cols={3}
+          start={1}
+          colsS={8}
+          className={['cols-4 start-1 cols-s-8'].filter(Boolean).join(' ')}
+        >
           <div className={classes.sidebarNav}>
             <EdgeScroll mobileOnly>
               {sidebarNavRoutes.map((route, index) => {
@@ -57,11 +61,16 @@ export default ({ children }: ProjectSettingsLayoutType) => {
               })}
             </EdgeScroll>
           </div>
-        </Cell>
-        <Cell start={4} cols={9} startS={1}>
+        </div>
+        <div
+          start={4}
+          cols={9}
+          startS={1}
+          className={['cols-10 start-6 start-s-1'].filter(Boolean).join(' ')}
+        >
           {children}
-        </Cell>
-      </Grid>
+        </div>
+      </div>
     </Gutter>
   )
 }

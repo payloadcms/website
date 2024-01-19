@@ -3,7 +3,6 @@
 import React, { Fragment, useEffect } from 'react'
 import { ProjectCard } from '@cloud/_components/ProjectCard'
 import { TeamSelector } from '@cloud/_components/TeamSelector'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 
 import { Button } from '@components/Button'
@@ -186,17 +185,17 @@ export const CloudPage: React.FC<{
                 {"Your search didn't return any results, please try again."}
               </p>
             ) : (
-              <Grid className={classes.projects}>
+              <div className={[classes.projects, 'grid'].filter(Boolean).join(' ')}>
                 {cardArray?.map((project, index) => (
-                  <Cell key={index} cols={4}>
+                  <div key={index} cols={4} className={['cols-4'].filter(Boolean).join(' ')}>
                     <ProjectCard
                       project={project}
                       className={classes.projectCard}
                       isLoading={isLoading}
                     />
-                  </Cell>
+                  </div>
                 ))}
-              </Grid>
+              </div>
             )}
           </div>
           {result?.totalPages > 1 && (

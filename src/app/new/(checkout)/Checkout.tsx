@@ -14,7 +14,6 @@ import { TeamSelector } from '@cloud/_components/TeamSelector'
 import { UniqueDomain } from '@cloud/_components/UniqueDomain'
 import { UniqueProjectSlug } from '@cloud/_components/UniqueSlug'
 import { cloudSlug } from '@cloud/slug'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
 import { Select } from '@forms/fields/Select'
 import { Text } from '@forms/fields/Text'
@@ -188,8 +187,12 @@ const Checkout: React.FC<{
             <FormSubmissionError />
             {errorDeleting && <Message error={errorDeleting} />}
           </div>
-          <Grid>
-            <Cell cols={3} colsM={8} className={classes.sidebarCell}>
+          <div className={['grid'].filter(Boolean).join(' ')}>
+            <div
+              cols={3}
+              colsM={8}
+              className={[classes.sidebarCell, 'cols-4 cols-m-8'].filter(Boolean).join(' ')}
+            >
               <div className={classes.sidebar}>
                 <Fragment>
                   <div className={classes.installationSelector}>
@@ -233,8 +236,8 @@ const Checkout: React.FC<{
                   />
                 </Fragment>
               </div>
-            </Cell>
-            <Cell cols={9} colsM={8}>
+            </div>
+            <div cols={9} colsM={8} className={['cols-10 cols-m-8'].filter(Boolean).join(' ')}>
               <div>
                 <div className={classes.plansSection}>
                   <div className={classes.plansSectionHeader}>
@@ -440,8 +443,8 @@ const Checkout: React.FC<{
                   destination={project?.slug}
                 />
               </div>
-            </Cell>
-          </Grid>
+            </div>
+          </div>
         </Gutter>
       </Form>
     </Fragment>

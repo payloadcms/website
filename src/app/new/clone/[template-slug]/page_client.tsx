@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 import { toast } from 'react-toastify'
 import { fetchInstalls, Install } from '@cloud/_api/fetchInstalls'
 import { CloneOrDeployProgress } from '@cloud/_components/CloneOrDeployProgress'
@@ -8,7 +8,6 @@ import { InstallationSelector } from '@cloud/_components/InstallationSelector'
 import { useTeamDrawer } from '@cloud/_components/TeamDrawer'
 import { UniqueRepoName } from '@cloud/_components/UniqueRepoName'
 import { cloudSlug } from '@cloud/slug'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
 import Form from '@forms/Form'
 import FormSubmissionError from '@forms/FormSubmissionError'
@@ -110,8 +109,12 @@ export const CloneTemplate: React.FC<{
           <FormSubmissionError />
           {cloneError && <Message error={cloneError} />}
         </div>
-        <Grid>
-          <Cell cols={4} colsM={8} className={classes.sidebarCell}>
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div
+            cols={4}
+            colsM={8}
+            className={[classes.sidebarCell, 'cols-4 cols-m-8'].filter(Boolean).join(' ')}
+          >
             <div className={classes.sidebar}>
               <div>
                 <Label label="Selected Template" htmlFor="" />
@@ -124,11 +127,11 @@ export const CloneTemplate: React.FC<{
               </div>
               {template?.description && <p>{template?.description}</p>}
             </div>
-          </Cell>
-          <Cell cols={8} colsM={8}>
+          </div>
+          <div cols={8} colsM={8} className={['cols-9 cols-m-8'].filter(Boolean).join(' ')}>
             <div className={classes.wrapper}>
-              <Grid>
-                <Cell cols={4}>
+              <div className={['grid'].filter(Boolean).join(' ')}>
+                <div cols={4} className={['cols-4'].filter(Boolean).join(' ')}>
                   <InstallationSelector
                     description="Select where to create this repository."
                     installs={installs}
@@ -136,14 +139,14 @@ export const CloneTemplate: React.FC<{
                     onInstall={onInstall}
                     uuid={uuid}
                   />
-                </Cell>
-                <Cell cols={4}>
+                </div>
+                <div cols={4} className={['cols-4'].filter(Boolean).join(' ')}>
                   <UniqueRepoName
                     repositoryOwner={(selectedInstall?.account as { login: string })?.login}
                     initialValue={template?.slug}
                   />
-                </Cell>
-              </Grid>
+                </div>
+              </div>
               <p className={classes.appPermissions}>
                 {`Don't see your organization? `}
                 <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
@@ -168,8 +171,8 @@ export const CloneTemplate: React.FC<{
               template={template}
               selectedInstall={selectedInstall}
             />
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       </Gutter>
       <TeamDrawer />
     </Form>

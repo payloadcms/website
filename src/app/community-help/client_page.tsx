@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { useInstantSearch } from 'react-instantsearch-hooks-web'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import Link from 'next/link'
 
 import { Banner } from '@components/Banner'
@@ -30,8 +29,10 @@ export const CommunityHelp: React.FC = () => {
   return (
     <div className={classes.communityHelpWrap}>
       <Gutter>
-        <Grid>
-          <Cell cols={10} colsL={9} className={classes.algoliaSearchWrap}>
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div
+            className={[classes.algoliaSearchWrap, 'cols-12 cols-l-10'].filter(Boolean).join(' ')}
+          >
             <Heading className={classes.heading} element="h1">
               Community Help
             </Heading>
@@ -97,8 +98,8 @@ export const CommunityHelp: React.FC = () => {
               </>
             )}
             {hasResults && <AlgoliaPagination />}
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       </Gutter>
 
       <DiscordGitCTA />

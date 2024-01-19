@@ -1,13 +1,12 @@
 'use client'
 
-import React, { Fragment, useCallback, useReducer, useState } from 'react'
+import React, { Fragment, useCallback, useReducer } from 'react'
 import { fetchInstalls, Install } from '@cloud/_api/fetchInstalls'
 import { RepoResults } from '@cloud/_api/fetchRepos'
 import { InstallationButton } from '@cloud/_components/InstallationButton'
 import { InstallationSelector } from '@cloud/_components/InstallationSelector'
 import { useTeamDrawer } from '@cloud/_components/TeamDrawer'
 import { cloudSlug } from '@cloud/slug'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import RadioGroup from '@forms/fields/RadioGroup'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
@@ -133,8 +132,12 @@ export const ImportProject: React.FC<{
           <FormProcessing message="Creating project, one moment..." />
           <FormSubmissionError />
         </div>
-        <Grid>
-          <Cell cols={4} colsM={8} className={classes.sidebarCell}>
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div
+            cols={4}
+            colsM={8}
+            className={[classes.sidebarCell, 'cols-4 cols-m-8'].filter(Boolean).join(' ')}
+          >
             <div className={classes.sidebar}>
               <InstallationSelector
                 description="Select the org or user to import from."
@@ -152,8 +155,8 @@ export const ImportProject: React.FC<{
                 {'.'}
               </p>
             </div>
-          </Cell>
-          <Cell cols={8} colsM={8}>
+          </div>
+          <div cols={8} colsM={8} className={['cols-9 cols-m-8'].filter(Boolean).join(' ')}>
             {installs?.length === 0 && (
               <div className={classes.noRepos}>
                 <Heading marginTop={false} element="h6">
@@ -242,8 +245,8 @@ export const ImportProject: React.FC<{
                 className={classes.pagination}
               />
             )}
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       </Gutter>
       <TeamDrawer />
       <button

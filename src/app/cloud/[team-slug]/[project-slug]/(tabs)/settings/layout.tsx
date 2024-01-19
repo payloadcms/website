@@ -1,7 +1,5 @@
-import * as React from 'react'
 import { Sidebar } from '@cloud/_components/Sidebar'
 import { cloudSlug } from '@cloud/slug'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Gutter } from '@components/Gutter'
 
@@ -15,8 +13,8 @@ export default async ({
 }) => {
   return (
     <Gutter>
-      <Grid className={classes.gridWrap}>
-        <Cell cols={3} start={1} colsS={8}>
+      <div className={[classes.gridWrap, 'grid'].filter(Boolean).join(' ')}>
+        <div className={['cols-4 start-1 cols-s-8'].filter(Boolean).join(' ')}>
           <Sidebar
             routes={[
               {
@@ -49,11 +47,9 @@ export default async ({
               },
             ]}
           />
-        </Cell>
-        <Cell start={4} cols={9} startS={1}>
-          {children}
-        </Cell>
-      </Grid>
+        </div>
+        <div className={['cols-12 start-6 start-s-1'].filter(Boolean).join(' ')}>{children}</div>
+      </div>
     </Gutter>
   )
 }
