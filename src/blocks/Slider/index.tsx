@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Slide, SliderNav, SliderProvider, SliderTrack } from '@faceless-ui/slider'
 
 import { Gutter } from '@components/Gutter'
@@ -72,11 +71,11 @@ export const SliderBlock: React.FC<Props> = ({ sliderFields }) => {
 
       {withPixelBackground && (
         <Gutter className={classes.pixelContainer}>
-          <Grid>
-            <Cell start={4} cols={9} className={classes.pixelCell}>
+          <div className={['grid'].filter(Boolean).join(' ')}>
+            <div className={[classes.pixelCell, 'cols-12 start-5'].filter(Boolean).join(' ')}>
               <PixelBackground />
-            </Cell>
-          </Grid>
+            </div>
+          </div>
         </Gutter>
       )}
     </div>

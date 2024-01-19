@@ -1,5 +1,4 @@
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
@@ -25,13 +24,13 @@ export const MediaBlock: React.FC<Props> = ({ mediaBlockFields }) => {
       />
 
       {caption && (
-        <Grid>
-          <Cell className={classes.caption}>
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div className={[classes.caption, 'cols-5 cols-m-8'].filter(Boolean).join(' ')}>
             <small>
               <RichText content={caption} />
             </small>
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       )}
     </Gutter>
   )

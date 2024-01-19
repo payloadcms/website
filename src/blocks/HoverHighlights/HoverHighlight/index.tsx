@@ -1,7 +1,6 @@
 'use client'
 
 import React, { CSSProperties, Fragment } from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { useMouseInfo } from '@faceless-ui/mouse-info'
 
 import { CMSLink } from '@components/CMSLink'
@@ -53,30 +52,33 @@ export const HoverHighlight: React.FC<
           setIsHovered(false)
         }}
       >
-        <Grid>
-          <Cell
-            cols={addRowNumbers ? 12 : 11}
-            start={addRowNumbers ? 2 : undefined}
-            colsM={8}
-            startM={1}
-            className={classes.blipCell}
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div
+            className={[
+              classes.blipCell,
+              `cols-${addRowNumbers ? 16 : 15}`,
+              `start-${addRowNumbers ? 2 : 1}`,
+              'cols-m-8 start-m-1',
+            ]
+              .filter(Boolean)
+              .join(' ')}
           >
             <LineDraw active={isHovered} />
-          </Cell>
-        </Grid>
-        <Grid className={classes.highlight}>
+          </div>
+        </div>
+        <div className={[classes.highlight, 'grid'].filter(Boolean).join(' ')}>
           {addRowNumbers && (
-            <Cell cols={1} className={classes.rowNumber}>
+            <div className={[classes.rowNumber, 'cols-1'].filter(Boolean).join(' ')}>
               {(index + 1).toString().padStart(2, '0')}
-            </Cell>
+            </div>
           )}
-          <Cell cols={3} colsM={8}>
+          <div className={['cols-5 cols-m-8'].filter(Boolean).join(' ')}>
             <h3 className={classes.title}>{title}</h3>
-          </Cell>
-          <Cell cols={addRowNumbers ? 5 : 6} colsM={8}>
+          </div>
+          <div className={[`cols-${addRowNumbers ? 7 : 8}`, 'cols-m-8'].filter(Boolean).join(' ')}>
             <p className={classes.description}>{description}</p>
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       </CMSLink>
       {typeof media === 'object' && media !== null && (
         <div

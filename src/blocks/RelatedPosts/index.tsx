@@ -1,6 +1,3 @@
-import { Cell, Grid } from '@faceless-ui/css-grid'
-import { CellProps } from '@faceless-ui/css-grid/dist/Cell'
-
 import { ContentMediaCard } from '@components/cards/ContentMediaCard'
 import { Gutter } from '@components/Gutter'
 import { Post } from '@root/payload-types'
@@ -21,29 +18,31 @@ export const RelatedPosts: React.FC<RelatedPostsBlock> = props => {
     return null
   }
 
-  let cellProps: Partial<CellProps> = {
-    start: 1,
-    cols: 12,
-    colsM: 8,
-  }
-
-  if (relatedPosts.length >= 3) {
-    cellProps = {
-      cols: 4,
-      colsM: 4,
-      colsS: 8,
-    }
+  const colStart = {
+    0: 'start-1',
+    1: 'start-6',
+    2: 'start-11',
   }
 
   return (
     <Gutter>
       <div className={classes.relatedPosts} id={id}>
         <h4 className={classes.title}>Related Posts</h4>
-        <Grid>
+        <div className={['grid'].filter(Boolean).join(' ')}>
           {relatedPosts.map(
             (post, key) =>
               typeof post !== 'string' && (
-                <Cell key={key} {...cellProps}>
+                <div
+                  key={key}
+                  className={[
+                    relatedPosts.length >= 3
+                      ? 'cols-4 cols-m-4 cols-s-8'
+                      : 'cols-16 start-1 cols-m-8',
+                    `${colStart[key]} start-m-1`,
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                >
                   <ContentMediaCard
                     title={post.title}
                     description={post?.meta?.description}
@@ -51,10 +50,10 @@ export const RelatedPosts: React.FC<RelatedPostsBlock> = props => {
                     media={post.image}
                     orientation={relatedPosts.length < 3 ? 'horizontal' : undefined}
                   />
-                </Cell>
+                </div>
               ),
           )}
-        </Grid>
+        </div>
       </div>
     </Gutter>
   )
