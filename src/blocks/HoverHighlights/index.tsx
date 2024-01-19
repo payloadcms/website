@@ -1,5 +1,4 @@
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Gutter } from '@components/Gutter'
 import { PixelBackground } from '@components/PixelBackground'
@@ -20,11 +19,11 @@ export const HoverHighlights: React.FC<HoverHighlightProps> = props => {
 
   return (
     <Gutter className={classes.hoverHighlights}>
-      <Grid className={classes.richTextGrid}>
-        <Cell cols={8}>
+      <div className={[classes.richTextGrid, 'grid'].filter(Boolean).join(' ')}>
+        <div className={['cols-12'].filter(Boolean).join(' ')}>
           <RichText content={richText} />
-        </Cell>
-      </Grid>
+        </div>
+      </div>
       <div className={classes.content}>
         <div className={classes.pixelBG}>
           <PixelBackground />
@@ -41,16 +40,19 @@ export const HoverHighlights: React.FC<HoverHighlightProps> = props => {
               />
             )
           })}
-        <Grid>
-          <Cell
-            cols={addRowNumbers ? 12 : 11}
-            start={addRowNumbers ? 2 : undefined}
-            colsM={8}
-            startM={1}
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div
+            className={[
+              `cols-${addRowNumbers ? 16 : 15}`,
+              `start-${addRowNumbers ? 2 : 1}`,
+              'cols-m-8 start-m-1',
+            ]
+              .filter(Boolean)
+              .join(' ')}
           >
             <hr className={classes.hr} />
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       </div>
     </Gutter>
   )

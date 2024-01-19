@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useCallback } from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
@@ -80,8 +79,8 @@ export const ForgotPassword: React.FC = () => {
         <Heading marginTop={false} element="h2" as="h2">
           <Highlight text="Success" />
         </Heading>
-        <Grid>
-          <Cell cols={5} colsM={8}>
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div className={['cols-6 cols-m-8'].filter(Boolean).join(' ')}>
             <Heading marginTop={false} element="p" as="h6">
               We have sent you an email with a link to reset your password. Please check your inbox.
             </Heading>
@@ -94,8 +93,8 @@ export const ForgotPassword: React.FC = () => {
                 {'.'}
               </p>
             </div>
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       </Gutter>
     )
   }
@@ -106,8 +105,8 @@ export const ForgotPassword: React.FC = () => {
       <Heading marginTop={false} element="h1">
         Forgot password
       </Heading>
-      <Grid>
-        <Cell cols={5} colsM={8}>
+      <div className={['grid'].filter(Boolean).join(' ')}>
+        <div className={['cols-6 cols-m-8'].filter(Boolean).join(' ')}>
           <div className={classes.links}>
             <p>
               {`Know your password? `}
@@ -125,8 +124,8 @@ export const ForgotPassword: React.FC = () => {
               <Submit label="Recover" className={classes.submit} />
             </div>
           </Form>
-        </Cell>
-      </Grid>
+        </div>
+      </div>
     </Gutter>
   )
 }

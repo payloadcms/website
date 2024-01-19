@@ -1,4 +1,5 @@
 @use './github.scss' as *;
+@use './grid.scss' as *;
 @use './vars.scss' as *;
 @use './queries.scss' as *;
 @use './type.scss' as *;
@@ -31,13 +32,13 @@
   --z-nav: 40;
   --z-modal: 50;
 
-  --gutter-h: calc(var(--base) * 16);
+  --gutter-h: calc(var(--base) * 12);
   --block-spacing: calc(var(--base) * 7);
 
   --trans-default: 150ms;
 
   @include extra-large-break {
-    --gutter-h: calc(var(--base) * 12);
+    --gutter-h: calc(var(--base) * 8);
     --base: 20px;
     --font-body-size: var(--base);
   }

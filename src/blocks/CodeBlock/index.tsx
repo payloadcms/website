@@ -1,5 +1,4 @@
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import Code from '@components/Code'
 import { Gutter } from '@components/Gutter'
@@ -17,20 +16,16 @@ export const CodeBlock: React.FC<Props> = ({ codeFields }) => {
 
   return (
     <Gutter>
-      <Grid>
-        <Cell
-          start={3}
-          cols={8}
-          startM={2}
-          colsM={6}
-          startS={1}
-          colsS={8}
-          className={classes.codeBlock}
+      <div className={'grid'}>
+        <div
+          className={[classes.codeBlock, 'cols-8 start-5 cols-m-6 start-m-2 cols-s-8 start-s-1']
+            .filter(Boolean)
+            .join(' ')}
         >
           <Code>{`${code}
           `}</Code>
-        </Cell>
-      </Grid>
+        </div>
+      </div>
     </Gutter>
   )
 }

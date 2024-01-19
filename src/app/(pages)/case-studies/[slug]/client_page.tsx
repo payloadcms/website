@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Button } from '@components/Button'
@@ -31,12 +30,16 @@ export const CaseStudy: React.FC<CaseStudyT> = props => {
           ]}
           ellipsis={false}
         />
-        <Grid>
-          <Cell cols={9}>
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div className={['cols-10 cols-m-8'].filter(Boolean).join(' ')}>
             <RichText content={introContent} className={classes.introContent} />
-          </Cell>
+          </div>
 
-          <Cell start={10} cols={3} startS={1} colsS={8} className={classes.visitSiteLink}>
+          <div
+            className={[classes.visitSiteLink, 'cols-4 start-12 start-s-1 cols-s-8']
+              .filter(Boolean)
+              .join(' ')}
+          >
             <Button
               appearance="default"
               el="a"
@@ -47,8 +50,8 @@ export const CaseStudy: React.FC<CaseStudyT> = props => {
               icon="arrow"
               fullWidth
             />
-          </Cell>
-        </Grid>
+          </div>
+        </div>
 
         {typeof featuredImage !== 'string' && (
           <div className={classes.featuredMediaWrap}>

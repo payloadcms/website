@@ -1,6 +1,5 @@
 import React from 'react'
 import { Collapsible, CollapsibleContent, CollapsibleToggler } from '@faceless-ui/collapsibles'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { BlockSpacing } from '@components/BlockSpacing'
 import { PricingCard } from '@components/cards/PricingCard'
@@ -40,6 +39,13 @@ export const Pricing: React.FC<Props> = ({ pricingFields }) => {
     )
   }
 
+  const colsStart = {
+    0: 'start-1 start-m-1',
+    1: 'start-5 start-m-1',
+    2: 'start-9 start-m-1',
+    3: 'start-12 start-m-1',
+  }
+
   return (
     <BlockSpacing className={classes.pricingBlock}>
       <Gutter>
@@ -48,13 +54,18 @@ export const Pricing: React.FC<Props> = ({ pricingFields }) => {
             <div className={classes.bg}>
               <PixelBackground />
             </div>
-            <Grid>
+            <div className={['grid'].filter(Boolean).join(' ')}>
               {plans.map((plan, i) => {
                 const { name, title, price, description, link, features } = plan
                 const isToggled = toggledPlan === name
 
                 return (
-                  <Cell className={classes.planWrap} key={i} cols={4} colsM={8}>
+                  <div
+                    key={i}
+                    className={[classes.planWrap, 'cols-4 cols-m-8', colsStart[i]]
+                      .filter(Boolean)
+                      .join(' ')}
+                  >
                     <PricingCard
                       leader={name}
                       className={classes.card}
@@ -87,17 +98,17 @@ export const Pricing: React.FC<Props> = ({ pricingFields }) => {
                         </CollapsibleToggler>
                       </Collapsible>
                     </div>
-                  </Cell>
+                  </div>
                 )
               })}
               {disclaimer && (
-                <Cell>
+                <div className={[].filter(Boolean).join(' ')}>
                   <div className={classes.disclaimer}>
                     <i>{disclaimer}</i>
                   </div>
-                </Cell>
+                </div>
               )}
-            </Grid>
+            </div>
           </div>
         )}
       </Gutter>

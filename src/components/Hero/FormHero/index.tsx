@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { CMSForm } from '@components/CMSForm'
 import { Gutter } from '@components/Gutter'
@@ -33,16 +32,24 @@ export const FormHero: React.FC<FormHeroProps> = props => {
         </div>
         <div className={classes.bg2Wrapper}>
           <Gutter className={classes.bgGutter}>
-            <Grid className={classes.bg2Grid}>
-              <Cell start={7} cols={6} startM={2} colsM={7} className={classes.bg2Cell}>
+            <div className={[classes.bg2Grid, 'grid'].filter(Boolean).join(' ')}>
+              <div
+                className={[classes.bg2Cell, 'cols-8 start-9 cols-m-7 start-m-2']
+                  .filter(Boolean)
+                  .join(' ')}
+              >
                 <div className={classes.bg2} />
-              </Cell>
-            </Grid>
+              </div>
+            </div>
           </Gutter>
         </div>
         <Gutter className={classes.gutter}>
-          <Grid>
-            <Cell cols={6} colsM={8} startM={1} className={classes.richTextCell}>
+          <div className={['grid'].filter(Boolean).join(' ')}>
+            <div
+              className={[classes.richTextCell, 'cols-8 cols-m-8 start-m-1']
+                .filter(Boolean)
+                .join(' ')}
+            >
               {richText && (
                 <RichText
                   className={classes.richText}
@@ -61,13 +68,17 @@ export const FormHero: React.FC<FormHeroProps> = props => {
                   }}
                 />
               )}
-            </Cell>
-            <Cell cols={6} start={8} colsM={8} startM={1} className={classes.formCell}>
+            </div>
+            <div
+              className={[classes.formCell, 'cols-8 start-10 cols-m-8 start-m-1']
+                .filter(Boolean)
+                .join(' ')}
+            >
               <div className={classes.formCellContent}>
                 <CMSForm form={form} />
               </div>
-            </Cell>
-          </Grid>
+            </div>
+          </div>
         </Gutter>
       </div>
     </div>

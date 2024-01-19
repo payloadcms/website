@@ -1,5 +1,3 @@
-import { Cell, Grid } from '@faceless-ui/css-grid'
-
 import Code from '@components/Code'
 import { Media } from '@components/Media'
 import { PixelBackground } from '@components/PixelBackground'
@@ -13,17 +11,17 @@ type Props = {
 
 export const CodeExample: React.FC<CodeExampleBlock> = ({ code }) => {
   return (
-    <Cell cols={6} colsM={4} colsS={8} className={classes.codeExample}>
+    <div className={[classes.codeExample, 'cols-8 cols-m-4 cols-s-8'].filter(Boolean).join(' ')}>
       <div className={classes.codeWrap}>{code && <Code>{code}</Code>}</div>
-    </Cell>
+    </div>
   )
 }
 
 export const MediaExample: React.FC<MediaExampleBlock> = ({ media }) => {
   return (
-    <Cell cols={6} colsM={4} colsS={8} className={classes.mediaExample}>
+    <div className={[classes.mediaExample, 'cols-8 cols-m-4 cols-s-8'].filter(Boolean).join(' ')}>
       {media && typeof media !== 'string' && <Media resource={media} />}
-    </Cell>
+    </div>
   )
 }
 
@@ -31,7 +29,7 @@ export const Examples: React.FC<Props> = props => {
   const { examples } = props
 
   return (
-    <Grid className={classes.examples}>
+    <div className={[classes.examples, 'grid'].filter(Boolean).join(' ')}>
       {Array.isArray(examples) &&
         examples.map((example, i) => {
           if (example.blockType === 'CodeExampleBlock') {
@@ -43,6 +41,6 @@ export const Examples: React.FC<Props> = props => {
       <div className={classes.bg}>
         <PixelBackground />
       </div>
-    </Grid>
+    </div>
   )
 }

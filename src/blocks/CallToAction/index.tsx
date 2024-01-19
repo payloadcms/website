@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { ArrowIcon } from '@icons/ArrowIcon'
 
 import { BlockSpacing } from '@components/BlockSpacing'
@@ -35,11 +34,11 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
               </div>
             </Gutter>
           </div>
-          <Grid className={classes.contentWrap}>
-            <Cell cols={6} colsM={8}>
+          <div className={[classes.contentWrap, 'grid'].filter(Boolean).join(' ')}>
+            <div className={'cols-8 cols-m-8'}>
               <RichText content={richText} className={classes.content} />
-            </Cell>
-            <Cell cols={5} start={8} colsM={8} startM={1}>
+            </div>
+            <div className={'cols-7 start-11 start-l-10 cols-m-8 start-m-1'}>
               {feature === 'cpa' && (
                 <Fragment>
                   <Label className={classes.label}>Get started in one line</Label>
@@ -56,8 +55,8 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
                   ))}
                 </div>
               )}
-            </Cell>
-          </Grid>
+            </div>
+          </div>
         </div>
       </Gutter>
     </BlockSpacing>

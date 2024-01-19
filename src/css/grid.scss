@@ -1,0 +1,109 @@
+@use 'queries.scss' as q;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+
+  grid-row-gap: 0;
+  grid-column-gap: 0;
+
+  @include q.large-break {
+    grid-template-columns: repeat(16, 1fr);
+  }
+
+  @include q.mid-break {
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  @include q.small-break {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
+////////////////////////////
+// GRID COLUMN CLASSES
+////////////////////////////
+
+// Define general column classes
+@for $i from 1 through 16 {
+  .cols-#{$i} {
+    grid-column-end: span #{$i};
+  }
+}
+
+// Define breakpoint-specific column classes
+@include q.extra-large-break {
+  @for $i from 1 through 16 {
+    .cols-xl-#{$i} {
+      grid-column-end: span #{$i};
+    }
+  }
+}
+
+@include q.large-break {
+  @for $i from 1 through 16 {
+    .cols-l-#{$i} {
+      grid-column-end: span #{$i};
+    }
+  }
+}
+
+@include q.mid-break {
+  @for $i from 1 through 8 {
+    .cols-m-#{$i} {
+      grid-column-end: span #{$i};
+    }
+  }
+}
+
+@include q.small-break {
+  @for $i from 1 through 8 {
+    .cols-s-#{$i} {
+      grid-column-end: span #{$i};
+    }
+  }
+}
+
+///////////////////////////////////
+// GRID COLUMN START CLASSES
+///////////////////////////////////
+
+// Define general start classes
+@for $i from 1 through 16 {
+  .start-#{$i} {
+    grid-column-start: #{$i};
+  }
+}
+
+// Define breakpoint-specific start classes
+@include q.extra-large-break {
+  @for $i from 1 through 16 {
+    .start-xl-#{$i} {
+      grid-column-start: #{$i};
+    }
+  }
+}
+
+@include q.large-break {
+  @for $i from 1 through 16 {
+    .start-l-#{$i} {
+      grid-column-start: #{$i};
+    }
+  }
+}
+
+@include q.mid-break {
+  @for $i from 1 through 8 {
+    .start-m-#{$i} {
+      grid-column-start: #{$i};
+    }
+  }
+}
+
+@include q.small-break {
+  @for $i from 1 through 8 {
+    .start-s-#{$i} {
+      grid-column-start: #{$i};
+    }
+  }
+}

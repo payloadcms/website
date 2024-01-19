@@ -1,5 +1,4 @@
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Banner, Props as BannerProps } from '@components/Banner'
 import { Gutter } from '@components/Gutter'
@@ -16,11 +15,11 @@ export const BannerBlock: React.FC<BannerBlockProps> = ({ bannerFields }) => {
 
   return (
     <Gutter>
-      <Grid>
-        <Cell start={3} cols={8} startM={2} colsM={6} startS={1} colsS={8}>
+      <div className={'grid'}>
+        <div className={'cols-8 start-5 cols-m-6 start-m-2 cols-s-8 start-s-1'}>
           <Banner {...bannerProps} />
-        </Cell>
-      </Grid>
+        </div>
+      </div>
     </Gutter>
   )
 }

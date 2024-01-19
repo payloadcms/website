@@ -9,7 +9,7 @@
   padding-bottom: var(--block-spacing);
 }
 
-.grid {
+.codeFeatureGrid {
   align-items: center;
 }
 
@@ -26,6 +26,10 @@
 
 .heading {
   margin-top: 0;
+}
+
+.innerCodeFeatureGrid {
+  grid-template-columns: repeat(8, 1fr);
 }
 
 .richText {
