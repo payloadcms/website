@@ -106,7 +106,7 @@ export const ForgotPassword: React.FC = () => {
         Forgot password
       </Heading>
       <div className={['grid'].filter(Boolean).join(' ')}>
-        <div className={['cols-6 cols--8'].filter(Boolean).join(' ')}>
+        <div className={['cols-6 cols-m-8'].filter(Boolean).join(' ')}>
           <div className={classes.links}>
             <p>
               {`Know your password? `}

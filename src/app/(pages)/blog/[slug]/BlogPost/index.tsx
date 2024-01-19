@@ -32,11 +32,6 @@ export const BlogPost: React.FC<Post> = props => {
       <Gutter className={classes.blogHeader}>
         <div className={['grid'].filter(Boolean).join(' ')}>
           <div
-            start={1}
-            cols={9}
-            colsL={8}
-            colsM={5}
-            colsS={12}
             className={['cols-14 start-1 cols-l-10 cols-m-5 cols-s-8'].filter(Boolean).join(' ')}
           >
             <h1 className={classes.title}>{title}</h1>
