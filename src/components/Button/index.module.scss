@@ -2,6 +2,8 @@
 
 $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
 
+$curve: cubic-bezier(.165, .84, .44, 1);
+
 .button {
   all: unset;
   cursor: pointer;
@@ -73,8 +75,45 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   &--default {
     display: inline-flex;
     min-width: calc(var(--base) * 12);
+    border: 1px solid var(--theme-elevation-250);
+    background-color: var(--theme-elevation-50);
+    position: relative;
+    overflow: hidden;
     padding: unset;
-    padding-top: calc(var(--base) * 0.75);
+    color: var(--theme-elevation-950);
+    height: unset;
+
+    background-image: linear-gradient(to right, var(--theme-elevation-950) 50%, var(--theme-elevation-50) 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: background-position 550ms $curve;
+
+    .content {
+      padding: calc(var(--base) * 1.5) var(--base);
+      .label {
+        color: var(--theme-elevation-950);
+        transition: color 750ms $curve;
+        margin: 0;
+      }
+    }
+
+    &:hover {
+      background-position: left bottom;
+      color: var(--theme-elevation-50);
+
+      .content {
+        .label {
+          color: var(--theme-elevation-50);
+          transition: color 150ms $curve;
+        }
+      }
+
+      .icon--arrow {
+        transform: none;
+      }
+
+      transition: background-position 550ms $curve, color 550ms $curve;
+    }
   }
 
   &--primary {

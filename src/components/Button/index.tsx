@@ -1,6 +1,6 @@
 'use client'
 
-import React, { forwardRef, HTMLAttributes, useState } from 'react'
+import React, { forwardRef, HTMLAttributes, useEffect, useState } from 'react'
 import Link from 'next/link'
 
 import { LineBlip } from '@components/LineBlip'
@@ -142,6 +142,42 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
   const href = hrefFromProps || generateHref({ type, reference, url })
   const [isHovered, setIsHovered] = useState(false)
 
+  const [isAnimating, setIsAnimating] = useState(false)
+  const [isAnimatingIn, setIsAnimatingIn] = useState(false)
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false)
+
+  let animationDuration = 750
+
+  useEffect(() => {
+    let outTimer, inTimer
+
+    if (isHovered) {
+      setIsAnimating(true)
+      setIsAnimatingIn(true)
+
+      inTimer = setTimeout(() => {
+        setIsAnimating(false)
+        setIsAnimatingIn(false)
+      }, animationDuration)
+
+      setIsAnimatingOut(false)
+    } else {
+      setIsAnimating(true)
+      setIsAnimatingIn(false)
+      setIsAnimatingOut(true)
+
+      outTimer = setTimeout(() => {
+        setIsAnimating(false)
+        setIsAnimatingOut(false)
+      }, animationDuration)
+    }
+
+    return () => {
+      clearTimeout(inTimer)
+      clearTimeout(outTimer)
+    }
+  }, [isHovered, animationDuration])
+
   const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
 
   const className = [
@@ -152,6 +188,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     mobileFullWidth && classes['mobile-full-width'],
     size && classes[`size--${size}`],
     isHovered && classes.isHovered,
+    isAnimatingIn && classes.isAnimatingIn,
+    isAnimatingOut && classes.animatingOut,
+    isAnimating && classes.isAnimating,
   ]
     .filter(Boolean)
     .join(' ')
@@ -169,7 +208,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
             setIsHovered(false)
           }}
         >
-          {appearance === 'default' && !disableLineBlip && <LineBlip active={isHovered} />}
+          {/* {appearance === 'default' && !disableLineBlip && <LineBlip active={isHovered} />} */}
           <ButtonContent {...props} />
         </a>
       </Link>
