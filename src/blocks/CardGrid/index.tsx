@@ -1,10 +1,11 @@
 import React from 'react'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BackgroundScanline } from '@components/BackgroundScanline'
 import { BlockSpacing } from '@components/BlockSpacing'
 import { SquareCard } from '@components/cards/SquareCard'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
-import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
 
@@ -23,35 +24,41 @@ export const CardGrid: React.FC<CardGridProps> = props => {
   return (
     <BlockSpacing className={classes.cardGrid}>
       <Gutter>
-        <hr className={classes.hr} />
-        {richText && (
-          <div className={[classes.intro, 'grid'].filter(Boolean).join(' ')}>
-            <div className={'cols-10 cols-m-8'}>
-              <RichText className={classes.richText} content={richText} />
-            </div>
-            {hasLinks && (
-              <div className={'cols-4 start-13 cols-l-5 start-l-12 cols-m-8 start-m-1'}>
-                {links.map(({ link }, index) => {
-                  return (
-                    <CMSLink
-                      {...link}
-                      key={index}
-                      appearance="default"
-                      fullWidth
-                      buttonProps={{
-                        icon: 'arrow',
-                      }}
-                    />
-                  )
-                })}
+        <BackgroundGrid />
+        <div className={classes.introWrapper}>
+          <div className={[classes.introWrapper, 'grid'].filter(Boolean).join(' ')}>
+            <div className={[classes.emptyCard, 'cols-4'].filter(Boolean).join(' ')}></div>
+            {richText && (
+              <div className={[classes.richTextWrapper, 'grid'].filter(Boolean).join(' ')}>
+                <div className={['cols-10 cols-m-8'].filter(Boolean).join(' ')}>
+                  <RichText content={richText} />
+                </div>
+                {hasLinks && (
+                  <div className={'cols-4 start-13 cols-l-5 start-l-13 cols-m-8 start-m-1'}>
+                    {links.map(({ link }, index) => {
+                      return (
+                        <CMSLink
+                          {...link}
+                          key={index}
+                          appearance="default"
+                          fullWidth
+                          buttonProps={{
+                            icon: 'arrow',
+                          }}
+                        />
+                      )
+                    })}
+                  </div>
+                )}
               </div>
             )}
           </div>
-        )}
+        </div>
+
         {hasCards && (
           <div className={classes.cards}>
             <div className={classes.bg}>
-              <PixelBackground />
+              <BackgroundScanline />
             </div>
             <div className={'grid'}>
               {cards.map((card, index) => {

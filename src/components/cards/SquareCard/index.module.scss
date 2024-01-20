@@ -1,18 +1,24 @@
 @use '@scss/common.scss' as *;
 
 .card {
-    border: 1px solid var(--theme-elevation-500);
+    border: 1px solid var(--theme-elevation-200);
     aspect-ratio: 1/1;
     background-color: var(--theme-bg);
     position: relative;
     overflow: hidden;
+    box-sizing: content-box;
 
     @include mid-break {
         color: var(--color-base-100);
     }
 
     &:hover {
-        color: var(--color-base-100);
+        //color: var(--color-base-100);
+
+        & .scanline {
+          opacity: 0.08;
+          transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
 
         &:local() {
             .content {
@@ -46,7 +52,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    background-color: var(--color-base-950);
+    //background-color: var(--color-base-950);
     transform: translate3d(0, var(--base), 0);
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     opacity: 0;
@@ -55,6 +61,10 @@
         transform: translate3d(0, 0, 0);
         opacity: 1;
     }
+}
+
+.scanline {
+  opacity: 0;
 }
 
 .content {
@@ -80,6 +90,7 @@
 .leader {
     position: relative;
     @include label;
+    margin: 0;
 
     @include mid-break {
         opacity: 0;
@@ -129,7 +140,7 @@
     margin: 0 !important;
 
     @include extra-large-break {
-        @include h6;
+        @include h4;
     }
 }
 
@@ -139,7 +150,7 @@
     will-change: opacity;
 
     path {
-        stroke: var(--color-success-500);
+        stroke: var(--theme-text);
     }
 
     @include mid-break {
