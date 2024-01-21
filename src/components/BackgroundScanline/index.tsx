@@ -3,6 +3,9 @@ import React from 'react'
 import classes from './index.module.scss'
 
 interface Props {
+  /**
+   * Adds top and bottom borders to the scanline
+   */
   enableBorders?: boolean
   className?: string
 }

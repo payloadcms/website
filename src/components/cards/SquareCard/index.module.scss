@@ -76,7 +76,7 @@
     transform: translate3d(0, -100%, 0);
     will-change: opacity, transform;
     transition: all 0.3s ease-in-out;
-    padding: calc(var(--base) * 2);
+    padding: calc(var(--base) * 3);
 
     @include mid-break {
         top: 0;
@@ -97,7 +97,7 @@
 
 .spacer {
     flex-grow: 1;
-    height: calc(var(--base) * 2);
+    height: calc(var(--base) * 3);
     flex-shrink: 0;
 }
 
@@ -105,7 +105,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: calc(var(--base) * 2);
+    padding: calc(var(--base) * 3);
     text-decoration: none;
 
     @include mid-break {
@@ -114,7 +114,7 @@
 }
 
 .description {
-    margin-top: calc(var(--base) / 2);
+    margin-top: calc(var(--base) * 1.5);
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
     will-change: opacity;
@@ -134,11 +134,15 @@
 }
 
 .title {
-    @include h5;
+    @include h4;
     margin: 0 !important;
 
     @include extra-large-break {
         @include h4;
+    }
+
+    @include mid-break {
+        @include h5;
     }
 }
 
