@@ -2,6 +2,8 @@
 
 $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
 
+$curve: cubic-bezier(.165, .84, .44, 1);
+
 .button {
   all: unset;
   cursor: pointer;
@@ -73,8 +75,50 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   &--default {
     display: inline-flex;
     min-width: calc(var(--base) * 12);
+    border: 1px solid var(--theme-elevation-250);
+    position: relative;
+    overflow: hidden;
     padding: unset;
-    padding-top: calc(var(--base) * 0.75);
+    color: var(--theme-elevation-1000);
+    height: unset;
+    background-image: linear-gradient(to right, var(--theme-elevation-1000) 50%, var(--theme-elevation-100) 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: background-position 550ms $curve;
+
+    .content {
+      padding: calc(var(--base) * 1.5) var(--base);
+
+      .label {
+        color: transparent;
+        background-image: linear-gradient(to right, var(--theme-elevation-100) 50%, var(--theme-elevation-1000) 50%);
+        background-size: 200% 100%;
+        background-position: right bottom;
+        -webkit-background-clip: text;
+        background-clip: text;
+        transition: background-position 450ms $curve;
+        margin: 0;
+      }
+
+      .icon--arrow {
+        transition: background-position 550ms $curve, color 550ms $curve;
+      }
+    }
+
+    &:hover {
+      background-position: left bottom;
+      color: var(--theme-elevation-100);
+
+      .content {
+        .label, .icon--arrow {
+          background-position: left bottom;
+        }
+      }
+
+      .icon--arrow {
+        transform: none;
+      }
+    }
   }
 
   &--primary {
@@ -87,23 +131,6 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
       border-color: currentColor;
       background-color: var(--theme-elevation-700);
     }
-
-    // background-image: linear-gradient(90deg, var(--theme-success-500) 0%, var(--theme-success-900) 50%, var(--theme-elevation-900) 50%, var(--theme-elevation-900) 100%);
-    // background-position: 100% 100%;
-    // background-repeat: no-repeat;
-    // background-size: 200% 100%;
-
-    // &.isHovered {
-    //   background-position: 0% 100%;
-    // }
-
-    // &--animating-out,
-    // &.isHovered {
-    //   transition: background-position 250ms $transCurve;
-    // }
-    // &--animating-out {
-    //   background-position: 100% 100%;
-    // }
   }
 
   &--secondary {
@@ -243,4 +270,17 @@ $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
   transition-timing-function: $transCurve;
   flex-shrink: 0;
   transform: translate3d(0, 0, 0);
+}
+
+:global([data-theme="light"]) {
+  .appearance {
+    &--default {
+      background-image: linear-gradient(to right, var(--theme-elevation-900) 50%, var(--theme-elevation-0) 50%);
+      color: var(--theme-elevation-900);
+
+      &:hover {
+        color: var(--theme-elevation-0);
+      }
+    }
+  }
 }

@@ -87,7 +87,6 @@ export const LivestreamHero: React.FC<{
                           className={[classes.link, appearance && classes[`link--${appearance}`]]
                             .filter(Boolean)
                             .join(' ')}
-                          disableLineBlip
                           el="a"
                           href={url}
                           icon="arrow"
@@ -112,7 +111,6 @@ export const LivestreamHero: React.FC<{
                     href={`https://www.youtube.com/watch?v=${youtubeID}`}
                     label="Go watch on youtube"
                     icon="arrow"
-                    disableLineBlip
                   />
                 </div>
               </div>
