@@ -8,7 +8,6 @@ export const BackgroundGrid: React.FC = () => {
       <div className={[classes.column, 'cols-4'].filter(Boolean).join(' ')}></div>
       <div className={[classes.column, 'cols-4'].filter(Boolean).join(' ')}></div>
       <div className={[classes.column, 'cols-4'].filter(Boolean).join(' ')}></div>
-      <div className={[classes.column, 'cols-4'].filter(Boolean).join(' ')}></div>
     </div>
   )
 }
