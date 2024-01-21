@@ -2,7 +2,7 @@
 
 .cardGrid {
     position: relative;
-    padding-bottom: 6rem;
+    padding-bottom: calc(var(--base) * 6);
 }
 
 .hr {
@@ -20,13 +20,6 @@
   align-items: center;
   justify-content: center;
   display: grid;
-
-  @include mid-break {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-  }
 }
 
 .bg {
@@ -51,9 +44,4 @@
   aspect-ratio: 1/1;
   grid-row: 1/1;
   grid-area: 1/1/1/5;
-}
-
-.afterContent {
-  position: relative;
-  padding-bottom: 6rem;
 }
