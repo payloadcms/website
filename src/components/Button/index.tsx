@@ -3,7 +3,6 @@
 import React, { forwardRef, HTMLAttributes, useEffect, useState } from 'react'
 import Link from 'next/link'
 
-import { LineBlip } from '@components/LineBlip'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { PlusIcon } from '@root/icons/PlusIcon'
@@ -37,7 +36,6 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
   htmlButtonType?: 'button' | 'submit'
   size?: 'pill' | 'default'
   disabled?: boolean
-  disableLineBlip?: boolean
   url?: string | null
 }
 
@@ -135,7 +133,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     size = 'default',
     disabled,
     href: hrefFromProps,
-    disableLineBlip,
     url,
   } = props
 
@@ -208,7 +205,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
             setIsHovered(false)
           }}
         >
-          {/* {appearance === 'default' && !disableLineBlip && <LineBlip active={isHovered} />} */}
           <ButtonContent {...props} />
         </a>
       </Link>
@@ -234,9 +230,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
         }}
         disabled={disabled}
       >
-        {size !== 'pill' && appearance === 'default' && !disableLineBlip && (
-          <LineBlip active={isHovered} />
-        )}
         <ButtonContent {...props} />
       </Element>
     )
