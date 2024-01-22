@@ -109,7 +109,7 @@
     padding: calc(var(--base) * 3);
     text-decoration: none;
 
-    @include mid-break {
+    @include large-break {
         padding: var(--base);
     }
 }

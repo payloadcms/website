@@ -15,6 +15,15 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   --button-padding: calc(var(--base) * 0.5) var(--base);
   height: calc(var(--base) * 2.5); // match input height
 
+   &::before {
+    content: '';
+    width: calc(100% - 2px);
+    position: absolute;
+    height:100%;
+    left: 1px;
+    top:0;
+  }
+
   &:focus-visible {
     @include outline;
   }
@@ -81,10 +90,14 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     padding: unset;
     color: var(--theme-elevation-1000);
     height: unset;
-    //background-image: linear-gradient(to right, var(--theme-elevation-1000) 50%, var(--theme-elevation-100) 50%);
-    background-size: 200% 100%;
-    background-position: right bottom;
     transition: background-position 550ms $curve;
+
+    &::before {
+      background-image: linear-gradient(to right, var(--theme-elevation-1000) 50%, var(--theme-elevation-100) 50%);
+      background-size: 200% 100%;
+      background-position: right bottom;
+      transition: background-position 550ms $curve;
+    }
 
     .content {
       padding: calc(var(--base) * 1.5) var(--base);
@@ -106,7 +119,9 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     }
 
     &:hover {
-      background-position: left bottom;
+      &::before {
+        background-position: left bottom;
+      }
       color: var(--theme-elevation-100);
 
       .content {
