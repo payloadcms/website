@@ -1,7 +1,7 @@
 @use '@scss/common.scss' as *;
 
 .card {
-    border: 1px solid var(--theme-elevation-200);
+    border-bottom: 1px solid var(--theme-elevation-200);
     aspect-ratio: 1/1;
     background-color: var(--theme-bg);
     position: relative;
@@ -13,10 +13,7 @@
     }
 
     &:hover {
-        & .scanline {
-          opacity: 0.08;
-          transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        }
+      background-color: transparent;
 
         &:local() {
             .content {
@@ -77,6 +74,10 @@
     will-change: opacity, transform;
     transition: all 0.3s ease-in-out;
     padding: calc(var(--base) * 3);
+
+    @include large-break {
+        padding: calc(var(--base) * 1.5);
+    }
 
     @include mid-break {
         top: 0;
@@ -141,7 +142,7 @@
         @include h4;
     }
 
-    @include mid-break {
+    @include large-break {
         @include h5;
     }
 }

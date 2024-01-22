@@ -1,7 +1,6 @@
 import React from 'react'
 import { ArrowIcon } from '@icons/ArrowIcon'
 
-import { BackgroundScanline } from '@components/BackgroundScanline'
 import { CMSLink } from '@components/CMSLink'
 import { SquareCardProps } from '../types'
 
@@ -17,7 +16,6 @@ export const SquareCard: React.FC<SquareCardProps> = props => {
       className={[className, classes.card, !hasLink && classes.noLink].filter(Boolean).join(' ')}
     >
       <CMSLink className={classes.link} {...props.link}>
-        <BackgroundScanline className={classes.scanline} />
         <div className={classes.bg} />
         {leader && <span className={classes.leader}>{leader}</span>}
         <div className={classes.spacer} />

@@ -34,7 +34,7 @@ export const CardGrid: React.FC<CardGridProps> = props => {
                   <RichText content={richText} />
                 </div>
                 {hasLinks && (
-                  <div className={'cols-4 start-13 cols-l-5 start-l-13 cols-m-4 start-m-1'}>
+                  <div className={'cols-4 start-13 cols-l-4 start-l-1 cols-m-4 cols-s-8'}>
                     {links.map(({ link }, index) => {
                       return (
                         <CMSLink
@@ -44,6 +44,7 @@ export const CardGrid: React.FC<CardGridProps> = props => {
                           fullWidth
                           buttonProps={{
                             icon: 'arrow',
+                            hideHorizontalBorders: true,
                           }}
                         />
                       )
@@ -60,7 +61,8 @@ export const CardGrid: React.FC<CardGridProps> = props => {
             <div className={classes.bg}>
               <BackgroundScanline enableBorders={true} />
             </div>
-            <div className={['grid'].filter(Boolean).join(' ')}>
+            <div className={['grid', classes.cardsWrapper].filter(Boolean).join(' ')}>
+              <BackgroundGrid className={classes.backgroundGrid} ignoreGutter />
               {cards.map((card, index) => {
                 const { title, description, link } = card
                 return (
