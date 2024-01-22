@@ -81,7 +81,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     padding: unset;
     color: var(--theme-elevation-1000);
     height: unset;
-    background-image: linear-gradient(to right, var(--theme-elevation-1000) 50%, var(--theme-elevation-100) 50%);
+    //background-image: linear-gradient(to right, var(--theme-elevation-1000) 50%, var(--theme-elevation-100) 50%);
     background-size: 200% 100%;
     background-position: right bottom;
     transition: background-position 550ms $curve;
@@ -233,6 +233,11 @@ $curve: cubic-bezier(.165, .84, .44, 1);
       }
     }
   }
+}
+
+.hideHorizontalBorders {
+  border-right: none;
+  border-left: none;
 }
 
 .content {
