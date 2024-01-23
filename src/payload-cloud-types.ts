@@ -147,6 +147,8 @@ export interface Project {
   | 'deployError'
   | 'done'
   | 'error'
+  | 'reinstating'
+  | 'suspended'
   createdBy?: string | User
   updatedAt: string
   createdAt: string

@@ -34,6 +34,11 @@ const deploymentStates: DeploymentStates = {
     status: 'SUCCESS',
     label: 'Setting up your project',
   },
+  reinstating: {
+    step: 0,
+    status: 'SUCCESS',
+    label: 'Reinstating your project',
+  },
   awaitingDatabase: {
     step: 1,
     status: 'SUCCESS',
@@ -50,6 +55,11 @@ const deploymentStates: DeploymentStates = {
     step: 4,
     status: 'SUCCESS',
     label: 'Deployment complete, reloading page',
+  },
+  suspended: {
+    step: 0,
+    status: 'ERROR',
+    label: 'Project has been suspended',
   },
   error: {
     step: 0,
