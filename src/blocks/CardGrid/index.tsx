@@ -34,7 +34,7 @@ export const CardGrid: React.FC<CardGridProps> = props => {
                   <RichText content={richText} />
                 </div>
                 {hasLinks && (
-                  <div className={'cols-4 start-13 cols-l-4 start-l-1 cols-m-4 cols-s-8'}>
+                  <div className={'cols-4 start-13 cols-l-4 cols-m-8 start-m-1'}>
                     {links.map(({ link }, index) => {
                       return (
                         <CMSLink

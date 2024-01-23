@@ -11,7 +11,7 @@ import { MobileNav, modalSlug as mobileNavModalSlug } from './MobileNav'
 
 import classes from './index.module.scss'
 
-export const Header: React.FC<MainMenu> = ({ navItems }) => {
+export const Header: React.FC<MainMenu> = ({ tabs }) => {
   const { isModalOpen } = useModal()
   const isMobileNavOpen = isModalOpen(mobileNavModalSlug)
   const { headerTheme } = useHeaderObserver()
@@ -38,8 +38,9 @@ export const Header: React.FC<MainMenu> = ({ navItems }) => {
           .filter(Boolean)
           .join(' ')}
       >
-        <DesktopNav navItems={navItems} />
-        <MobileNav navItems={navItems} />
+        <DesktopNav tabs={tabs} hideBackground={hideBackground} />
+        {/* TODO: style and animate mobile nav */}
+        <MobileNav tabs={tabs} />
       </header>
     </div>
   )

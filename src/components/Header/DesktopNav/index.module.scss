@@ -22,16 +22,41 @@
   }
 }
 
+.background {
+  height: var(--header-height);
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  margin: 0 calc(var(--gutter-h) * -1);
+  transition: height var(--trans-default) linear;
+
+  &:before, &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    transition: opacity var(--trans-default) ease-out;
+  }
+
+  &:before {
+    background: var(--theme-bg);
+    opacity: 0.85;
+  }
+  
+  &:after {
+    backdrop-filter: blur(5px);
+    opacity: 1;
+  }
+}
+
 .content {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   position: relative;
   width: 100%;
-
-  @include large-break {
-    justify-content: unset;
-  }
 }
 
 .authNav {
@@ -48,40 +73,55 @@
 }
 
 .logo {
-  height: 100%;
   display: flex;
-  justify-content: flex-start;
-  position: absolute;
-  top: -2px;
-  left: calc(-1*var(--base));
-  width: calc(var(--gutter-h) / 2 - var(--base));
-  transform: translateX(-100%);
-
+  height: 100%;
 
   svg {
     height: auto;
   }
+}
 
-  @include large-break {
-    width: auto;
-    margin-right: var(--base);
-    position: relative;
-    transform: none;
-    left: 0;
-  }
+.tabs {
+  position: relative;
+  padding: 0;  
+  flex-grow: 1;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+  gap: calc(var(--base) * 1.5);
+}
+
+.tab {
+  @include btnReset;
+  cursor: pointer;
+  padding: calc(var(--base) * 1.75) 0;
+  margin: 0 calc(var(--base) * .75);
+}
+
+.underline {
+  position: absolute;
+  bottom: 0;
+  transition: all var(--trans-default) linear;
+}
+
+.underlineFill {
+  height: 2px;
+  background-color: var(--theme-elevation-800);
 }
 
 .navItems {
+  position: absolute;
+  top: var(--header-height);
+  left: 0;
+  width: 100%;
+  padding: calc(var(--base) * 2) 0;
   display: flex;
-  flex-grow: 1;
-  white-space: nowrap;
-
-  :local(.navItem) {
-    margin-right: calc(var(--base) * .75);
-  }
+  flex-direction: column;
+  gap: calc(var(--base) * 2);
 }
 
 .secondaryNavItems {
+  height: 100%; 
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -106,39 +146,14 @@
 }
 
 .icons {
-  width: calc(var(--gutter-h) / 2 - var(--base));
-  position: absolute;
-  right: calc(-1 * var(--base));
   display: flex;
-  justify-content: flex-end;
-  transform: translateX(100%);
-  top: 0;
   align-items: center;
-  height: 100%;
   
   > * {
     margin-right: var(--base);
-    line-height: 1;
     
     &:last-child {
       margin-right: 0;
-    }
-  }
-
-  @include extra-large-break {
-    > * {
-      margin-right: calc(var(--base) * 0.75);
-    }
-  }
-
-  @include large-break {
-    position: static;
-    right: 0;
-    transform: unset;
-    width: auto;
-
-    > * {
-      margin-right: calc(var(--base) * 0.5);
     }
   }
 }

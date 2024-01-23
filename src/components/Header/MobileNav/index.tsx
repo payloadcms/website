@@ -21,16 +21,26 @@ import classes from './index.module.scss'
 
 export const modalSlug = 'mobile-nav'
 
-type NavItems = Pick<MainMenu, 'navItems'>
+type NavItems = Pick<MainMenu, 'tabs'>
 
-const MobileNavItems = ({ navItems }: NavItems) => {
+const MobileNavItems = ({ tabs }: NavItems) => {
   const { user } = useAuth()
 
   return (
     <ul className={classes.mobileMenuItems}>
-      {(navItems || []).map((item, index) => {
-        return <CMSLink className={classes.mobileMenuItem} key={index} {...item.link} />
+      {(tabs || []).map((tab, index) => {
+        return (
+          <div key={index}>
+            <button className={[classes.tab].filter(Boolean).join(' ')} key={index}>
+              {tab.label}
+            </button>
+            {(tab.navItems || []).map((item, index) => {
+              return <CMSLink className={classes.mobileMenuItem} key={index} {...item.link} />
+            })}
+          </div>
+        )
       })}
+
       <Link
         className={[classes.newProject, classes.mobileMenuItem].filter(Boolean).join(' ')}
         href="/new"
@@ -55,14 +65,14 @@ const MobileNavItems = ({ navItems }: NavItems) => {
   )
 }
 
-const MobileMenuModal: React.FC<NavItems> = ({ navItems }) => {
+const MobileMenuModal: React.FC<NavItems> = ({ tabs }) => {
   return (
     <Modal slug={modalSlug} className={classes.mobileMenuModal} trapFocus={false}>
       <Gutter>
         <Grid>
           <Cell>
             <div className={classes.mobileMenu}>
-              <MobileNavItems navItems={navItems} />
+              <MobileNavItems tabs={tabs} />
             </div>
           </Cell>
         </Grid>
