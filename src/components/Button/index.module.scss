@@ -83,7 +83,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .appearance {
   &--default {
     display: inline-flex;
-    min-width: calc(var(--base) * 12);
     border: 1px solid var(--theme-elevation-250);
     position: relative;
     overflow: hidden;
