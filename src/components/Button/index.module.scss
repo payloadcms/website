@@ -133,6 +133,12 @@ $curve: cubic-bezier(.165, .84, .44, 1);
         transform: none;
       }
     }
+
+    @include mid-break {
+      .content {
+        padding: var(--base);
+      }
+    }
   }
 
   &--primary {
@@ -294,7 +300,10 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 :global([data-theme="light"]) {
   .appearance {
     &--default {
-      background-image: linear-gradient(to right, var(--theme-elevation-900) 50%, var(--theme-elevation-0) 50%);
+      &::before {
+        background-image: linear-gradient(to right, var(--theme-elevation-900) 50%, var(--theme-elevation-0) 50%);
+      }
+      
       color: var(--theme-elevation-900);
 
       &:hover {
