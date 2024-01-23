@@ -25,35 +25,36 @@ export const CardGrid: React.FC<CardGridProps> = props => {
     <BlockSpacing className={classes.cardGrid}>
       <Gutter>
         <BackgroundGrid />
-        <div className={classes.introWrapper}>
-          <div className={[classes.introWrapper, 'grid'].filter(Boolean).join(' ')}>
-            <div className={[classes.emptyCard, 'cols-4'].filter(Boolean).join(' ')}></div>
-            {richText && (
-              <div className={[classes.richTextWrapper, 'grid'].filter(Boolean).join(' ')}>
-                <div className={['cols-10 cols-m-8'].filter(Boolean).join(' ')}>
-                  <RichText content={richText} />
-                </div>
-                {hasLinks && (
-                  <div className={'cols-4 start-13 cols-l-4 cols-m-8 start-m-1'}>
-                    {links.map(({ link }, index) => {
-                      return (
-                        <CMSLink
-                          {...link}
-                          key={index}
-                          appearance="default"
-                          fullWidth
-                          buttonProps={{
-                            icon: 'arrow',
-                            hideHorizontalBorders: true,
-                          }}
-                        />
-                      )
-                    })}
-                  </div>
-                )}
+        <div className={[classes.introWrapper, 'grid'].filter(Boolean).join(' ')}>
+          {richText && (
+            <div className={[classes.richTextWrapper, 'grid'].filter(Boolean).join(' ')}>
+              <div className={[classes.richText, 'cols-10 cols-m-8'].filter(Boolean).join(' ')}>
+                <RichText content={richText} />
               </div>
-            )}
-          </div>
+              {hasLinks && (
+                <div
+                  className={[classes.linksWrapper, 'cols-4 start-13 cols-l-4 cols-m-8 start-m-1']
+                    .filter(Boolean)
+                    .join(' ')}
+                >
+                  {links.map(({ link }, index) => {
+                    return (
+                      <CMSLink
+                        {...link}
+                        key={index}
+                        appearance="default"
+                        fullWidth
+                        buttonProps={{
+                          icon: 'arrow',
+                          hideHorizontalBorders: true,
+                        }}
+                      />
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {hasCards && (
