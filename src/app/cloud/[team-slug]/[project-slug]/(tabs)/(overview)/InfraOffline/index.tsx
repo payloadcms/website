@@ -305,7 +305,7 @@ export const InfraOffline: React.FC<{
         />
       </Gutter>
 
-      {latestDeployment && (
+      {latestDeployment && infraStatus !== 'suspended' && (
         <DeploymentLogs key={latestDeployment?.id} deployment={latestDeployment} />
       )}
     </>
