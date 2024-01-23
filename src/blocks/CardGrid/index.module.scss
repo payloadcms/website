@@ -2,17 +2,27 @@
 
 .cardGrid {
     position: relative;
-    padding-bottom: calc(var(--base) * 6);
-}
+    padding-bottom: calc(var(--base) * 8);
 
-.hr {
-    margin: 0;
-    margin-bottom: calc(var(--base) * 4);
-    border-color: currentColor;
+    @include large-break {
+      padding-bottom: calc(var(--base) * 6);
+    }
 
     @include mid-break {
-        margin-bottom: calc(var(--base) * 2);
+      padding-bottom: calc(var(--base) * 4);
     }
+}
+
+.introWrapper {
+  padding: calc(var(--base) * 8) 0;
+
+  @include large-break {
+    padding: calc(var(--base) * 6) 0;
+  }
+
+  @include mid-break {
+    padding: calc(var(--base) * 4) 0 calc(var(--base) * 3) 0;
+  }
 }
 
 .richTextWrapper {
@@ -20,6 +30,22 @@
   align-items: center;
   justify-content: center;
   display: grid;
+}
+
+.richText {
+  @include mid-break {
+    padding-bottom: calc(var(--base) * 2);
+  }
+
+  @include small-break {
+    h2 {
+      font-size: calc(var(--base) * 1.4);
+    }
+  }
+}
+
+.cards {
+  position: relative;
 }
 
 .bg {
@@ -31,19 +57,9 @@
   margin-left: calc(var(--gutter-h) / -1);
 }
 
-.cards {
-  position: relative;
-}
-
 .card {
     height: 100%;
     position: relative;
-}
-
-.emptyCard {
-  aspect-ratio: 1/1;
-  grid-row: 1/1;
-  grid-area: 1/1/1/5;
 }
 
 .cardsWrapper {
