@@ -92,6 +92,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   onMouseLeave,
   fullWidth = false,
   mobileFullWidth = false,
+  buttonProps: buttonPropsFromProps,
 }) => {
   let href = generateHref({ type, url, reference })
 
@@ -153,6 +154,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   }
 
   const buttonProps: ButtonProps = {
+    ...buttonPropsFromProps,
     newTab,
     href,
     appearance,

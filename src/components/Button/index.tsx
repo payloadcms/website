@@ -37,6 +37,10 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
   size?: 'pill' | 'default'
   disabled?: boolean
   url?: string | null
+  /**
+   * Hides the horizontal borders of the button, useful for buttons in grids
+   */
+  hideHorizontalBorders?: boolean
 }
 
 const icons = {
@@ -134,6 +138,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     disabled,
     href: hrefFromProps,
     url,
+    hideHorizontalBorders,
   } = props
 
   const href = hrefFromProps || generateHref({ type, reference, url })
@@ -188,6 +193,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     isAnimatingIn && classes.isAnimatingIn,
     isAnimatingOut && classes.animatingOut,
     isAnimating && classes.isAnimating,
+    hideHorizontalBorders && classes.hideHorizontalBorders,
   ]
     .filter(Boolean)
     .join(' ')

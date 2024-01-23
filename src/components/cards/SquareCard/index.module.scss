@@ -1,18 +1,19 @@
 @use '@scss/common.scss' as *;
 
 .card {
-    border: 1px solid var(--theme-elevation-500);
+    border-bottom: 1px solid var(--theme-elevation-200);
     aspect-ratio: 1/1;
     background-color: var(--theme-bg);
     position: relative;
     overflow: hidden;
+    box-sizing: border-box;
 
     @include mid-break {
         color: var(--color-base-100);
     }
 
     &:hover {
-        color: var(--color-base-100);
+      background-color: transparent;
 
         &:local() {
             .content {
@@ -46,7 +47,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    background-color: var(--color-base-950);
+    //background-color: var(--color-base-950);
     transform: translate3d(0, var(--base), 0);
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     opacity: 0;
@@ -55,6 +56,10 @@
         transform: translate3d(0, 0, 0);
         opacity: 1;
     }
+}
+
+.scanline {
+  opacity: 0;
 }
 
 .content {
@@ -68,7 +73,11 @@
     transform: translate3d(0, -100%, 0);
     will-change: opacity, transform;
     transition: all 0.3s ease-in-out;
-    padding: calc(var(--base) * 2);
+    padding: calc(var(--base) * 3);
+
+    @include large-break {
+        padding: calc(var(--base) * 1.5);
+    }
 
     @include mid-break {
         top: 0;
@@ -79,7 +88,8 @@
 
 .leader {
     position: relative;
-    @include label;
+    @include h6;
+    margin: 0;
 
     @include mid-break {
         opacity: 0;
@@ -88,7 +98,7 @@
 
 .spacer {
     flex-grow: 1;
-    height: calc(var(--base) * 2);
+    height: calc(var(--base) * 3);
     flex-shrink: 0;
 }
 
@@ -96,8 +106,12 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: calc(var(--base) * 2);
+    padding: calc(var(--base) * 3);
     text-decoration: none;
+
+    @include large-break {
+        padding: calc(var(--base) * 1.5);
+    }
 
     @include mid-break {
         padding: var(--base);
@@ -105,12 +119,18 @@
 }
 
 .description {
-    margin-top: calc(var(--base) / 2);
+    @include small;
+    line-height: 1.4;
+    margin-top: calc(var(--base) * 1.5);
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
     will-change: opacity;
     position: absolute;
     top: 100%;
+
+    @include large-break {
+        margin-top: calc(var(--base) * 1);
+    }
 
     @include mid-break {
         opacity: 1;
@@ -125,11 +145,15 @@
 }
 
 .title {
-    @include h5;
+    @include h4;
     margin: 0 !important;
 
     @include extra-large-break {
-        @include h6;
+        @include h4;
+    }
+
+    @include large-break {
+        @include h5;
     }
 }
 
@@ -139,7 +163,7 @@
     will-change: opacity;
 
     path {
-        stroke: var(--color-success-500);
+        stroke: var(--theme-text);
     }
 
     @include mid-break {
