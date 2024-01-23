@@ -273,3 +273,14 @@ dialog {
   background: var(--color-warning-500);
   color: var(--color-base-1000);
 }
+
+.background-scanline {
+  background-image: url('/images/scanline-dark.png');
+  background-repeat: repeat;
+  opacity: 0.08;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+
+  [data-theme="dark"]  & {
+    background-image: url('/images/scanline-light.png');
+  }
+}

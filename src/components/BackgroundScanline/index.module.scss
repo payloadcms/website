@@ -1,0 +1,24 @@
+@use "@scss/common" as *;
+
+
+.backgroundScanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/scanline-dark.png');
+  background-repeat: repeat;
+  opacity: 0.08;
+  box-sizing: border-box;
+
+
+  [data-theme="dark"]  & {
+    background-image: url('/images/scanline-light.png');
+  }
+}
+
+.enableBorders {
+  border-top: 1px solid var(--theme-elevation-900);
+  border-bottom: 1px solid var(--theme-elevation-900);
+}
