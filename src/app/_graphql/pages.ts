@@ -11,6 +11,7 @@ import {
   HOVER_HIGHLIGHTS,
   LINK_GRID,
   MEDIA_BLOCK,
+  MEDIA_CAROUSEL,
   MEDIA_CONTENT,
   PRICING_BLOCK,
   REUSABLE_CONTENT_BLOCK,
@@ -99,6 +100,7 @@ export const PAGE = `
           ${HOVER_HIGHLIGHTS}
           ${LINK_GRID}
           ${MEDIA_BLOCK}
+          ${MEDIA_CAROUSEL}
           ${MEDIA_CONTENT}
           ${PRICING_BLOCK}
           ${REUSABLE_CONTENT_BLOCK}

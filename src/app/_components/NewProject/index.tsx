@@ -8,7 +8,6 @@ import { Gutter } from '@components/Gutter'
 import { Heading, HeadingType } from '@components/Heading'
 import { PixelBackground } from '@components/PixelBackground'
 import { Team, Template } from '@root/payload-cloud-types'
-import { FeatureFlag } from '@root/payload-types'
 
 import classes from './index.module.scss'
 

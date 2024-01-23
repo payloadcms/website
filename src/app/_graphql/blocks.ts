@@ -228,6 +228,25 @@ export const MEDIA_BLOCK = `
 }
 `
 
+export const MEDIA_CAROUSEL = `
+...on MediaCarouselBlock {
+  blockType
+  mediaCarouselBlockFields {
+    alignment
+    leader
+    title
+    description
+    links {
+      link ${LINK_FIELDS({ disableAppearance: true })}
+    }
+    mediaSlides {
+      image ${MEDIA_FIELDS}
+      link ${LINK_FIELDS({ disableAppearance: true })}
+    } 
+  }
+}
+`
+
 export const MEDIA_CONTENT = `
 ...on MediaContent {
   blockType
@@ -335,6 +354,7 @@ export const REUSABLE_CONTENT_BLOCK = `
         ${HOVER_HIGHLIGHTS}
         ${LINK_GRID}
         ${MEDIA_BLOCK}
+        ${MEDIA_CAROUSEL}
         ${MEDIA_CONTENT}
         ${SLIDER}
         ${STEPS}
