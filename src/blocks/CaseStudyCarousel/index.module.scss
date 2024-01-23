@@ -1,108 +1,73 @@
 @use '@scss/common' as *;
 
-.caseStudyCards {
-  position: relative;
-}
-
 .cards {
   position: relative;
-  padding: calc(var(--base) * 4) 0;
-
-  @include mid-break {
-    padding: calc(var(--base) * 2) 0;
-  }
 }
 
 .card {
   position: relative;
-  border: 1px solid var(--theme-elevation-200);
-  display: flex;
-  text-decoration: none;
-  background-color: var(--theme-bg);
-  transition: border 200ms ease-out;
+  padding-top:  calc(var(--base) * 12);
+  padding-top:  calc(var(--base) * 12);
+}
 
-  &:not(:last-child) {
-    margin-bottom: calc(var(--base) * 2);
-  }
+.stickyBlock {
+  position: sticky;
+  top: calc(30%);
+}
 
-  &:hover {
-    border: 1px solid var(--theme-text);
-    .media {
-      img {
-        transform: scale(1.05) rotate(-1deg);
-      }
-      &:after {
-        opacity: .5;
-      }
-    }
-  }
+.stickyBlockItem {
+  grid-column: 1/8;
+  grid-row: 1/1;
+  opacity: 0;
 
-  @include small-break {
-    flex-direction: column;
+  &.isVisible {
+    opacity: 1;
   }
 }
 
-.content {
-  padding: calc(var(--base) * 4) calc(var(--base) * 3);
-  width: auto;
-  flex-shrink: 0;
-  flex: 1;
+.quote {
+  font-size: calc(var(--base) * 2);
+  font-weight: 500;
+  line-height: 1.2;
+}
 
-  @include large-break {
-    padding: calc(var(--base) * 3) calc(var(--base) * 1.5);
-  }
+.mainTrack {
+  margin-top: calc(-330px - var(--base) * 12);
+  scroll-snap-type: y proximity;
 
-  @include small-break {
-    padding: calc(var(--base) * 1.5) var(--base);
-  }
-
-  * {
-    margin-top: 0;
+  & .media {
+    margin-right: calc(var(--gutter-h) / -1);
   }
 }
 
 .media {
   position: relative;
-  width: 50%;
-  flex-shrink: 0;
-  min-height: 150px;
-  overflow: hidden;
 
-  &:after {
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: var(--theme-elevation-700);
-    opacity: 0;
-    mix-blend-mode: hard-light;
-    transition: opacity .25s ease;
-  }
-
-  img {
+  & img {
     object-fit: cover;
-    transition: 300ms ease transform;
-  }
-
-  @include small-break {
-    width: 100%;
-
-    &:after {
-      display: none;
-    }
+    position: relative;
   }
 }
 
-.bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: calc(100% + var(--gutter-h));
-  height: 100%;
-  margin-left: calc(var(--gutter-h) / -2);
+.authorWrapper {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * 2);
 
-  @include mid-break {
-    margin-left: calc(var(--gutter-h) * -1);
-    width: calc(100% + (var(--gutter-h) * 2));
-  }
+}
+
+.author {
+  opacity: 0.8;
+}
+
+.nav {
+  position: sticky;
+  bottom: 0;
+  background-color: var(--theme-bg);
+  margin-left: calc(var(--gutter-h) / -1);
+  margin-right: calc(var(--gutter-h) / -1);
+}
+
+.navButton {
+  width: 100%;
 }

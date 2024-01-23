@@ -119,6 +119,24 @@ export const CASE_STUDY_CARDS = `
 }
 `
 
+export const CASE_STUDY_CAROUSEL = `
+...on CaseStudyCarousel {
+  blockType
+  caseStudyCarouselFields {
+    cards {
+      quote
+      author
+      tabLabel
+      logo ${MEDIA_FIELDS}
+      previewImage ${MEDIA_FIELDS}
+      caseStudy {
+        slug
+      }
+    }
+  }
+}
+`
+
 export const CONTENT = `
 ...on Content {
   blockType
