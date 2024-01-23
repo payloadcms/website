@@ -110,6 +110,10 @@
     text-decoration: none;
 
     @include large-break {
+        padding: calc(var(--base) * 1.5);
+    }
+
+    @include mid-break {
         padding: var(--base);
     }
 }
@@ -123,6 +127,10 @@
     will-change: opacity;
     position: absolute;
     top: 100%;
+
+    @include large-break {
+        margin-top: calc(var(--base) * 1);
+    }
 
     @include mid-break {
         opacity: 1;
