@@ -11,15 +11,26 @@
 
 .card {
   position: relative;
-  padding-top:  calc(var(--base) * 12);
-  padding-bottom:  calc(var(--base) * 8);
+  padding-top:  calc(var(--base) * 4);
+
+  &.isFirst {
+    grid-column: 1/16;
+    grid-row: 1/1;
+  }
+
+  & .media {
+    margin-right: calc(var(--gutter-h) / -1);
+  }
 }
 
 .stickyBlock {
   position: sticky;
   top: calc(30%);
-  z-index: 30;
+  z-index: 6;
+  grid-column: 1/16;
+  grid-row: 1/1;
   pointer-events: none;
+  align-items: center;
 }
 
 .stickyBlockItem {
@@ -45,16 +56,17 @@
 }
 
 .mainTrack {
-  margin-top: calc(-330px - var(--base) * 12);
   scroll-snap-type: y mandatory;
+  position: relative;
   scroll-snap-align: center;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   overflow: visible;
+  row-gap: calc(var(--base) * 12);
 
-  & .media {
-    margin-right: calc(var(--gutter-h) / -1);
-  }
+  padding-top:  calc(var(--base) * 6);
+  padding-bottom:  calc(var(--base) * 5);
+
+  margin-bottom: -700px;
 }
 
 .media {
@@ -70,20 +82,31 @@
   display: flex;
   align-items: center;
   gap: calc(var(--base) * 2);
-margin-bottom: calc(var(--base) * 2);
+  margin-bottom: calc(var(--base) * 2);
 }
 
 .author {
   opacity: 0.8;
 }
 
-.nav {
+.navWrapper{
   position: sticky;
+  height: 800px;
   bottom: 0;
-  border-top: 1px solid var(--theme-elevation-200);
-  background-color: var(--theme-bg);
+  z-index: 7;
+  display: flex;
+  align-items: end;
   margin-left: calc(var(--gutter-h) / -1);
   margin-right: calc(var(--gutter-h) / -1);
+  pointer-events: none;
+}
+
+.nav {
+  position: relative;
+  border-top: 1px solid var(--theme-elevation-200);
+  background-color: var(--theme-bg);
+  width: 100%;
+  pointer-events: all;
 }
 
 .navBackgroundGrid {

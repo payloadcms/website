@@ -92,6 +92,10 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
         intersectionObserver.observe(card)
       })
     }
+
+    return () => {
+      intersectionObserver.disconnect()
+    }
   }, [containerRef, cardsRef])
 
   const handleTabClick =
@@ -112,9 +116,8 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
         <Gutter className={classes.mainGutter}>
           <BackgroundGrid />
 
-          <QuoteStickyBlock currentIndex={index} {...props} />
-
           <div className={classes.mainTrack} ref={containerRef}>
+            <QuoteStickyBlock currentIndex={index} {...props} />
             {caseStudyCarouselFields?.cards.map((card, index) => {
               return (
                 <div
@@ -122,7 +125,9 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
                   ref={el => (cardsRef.current[index] = el)}
                   key={index}
                   data-index={index}
-                  className={[classes.card, 'grid'].filter(Boolean).join(' ')}
+                  className={[classes.card, 'grid ', index === 0 ? classes.isFirst : 'cols-16']
+                    .filter(Boolean)
+                    .join(' ')}
                 >
                   <div className={[classes.media, 'cols-8 start-9'].filter(Boolean).join(' ')}>
                     {typeof card.previewImage !== 'string' && (
@@ -137,29 +142,31 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
             })}
           </div>
 
-          <div className={[classes.nav].filter(Boolean).join(' ')}>
-            <BackgroundGrid className={classes.navBackgroundGrid} />
-            <Gutter className="grid">
-              {caseStudyCarouselFields?.cards.map((card, index) => {
-                return (
-                  <div
-                    key={index}
-                    className={[classes.navItem, `cols-4`].filter(Boolean).join(' ')}
-                  >
-                    {typeof card.caseStudy !== 'string' && (
-                      <Button
-                        icon="arrow"
-                        label={card.tabLabel}
-                        hideHorizontalBorders
-                        className={[classes.navButton].filter(Boolean).join(' ')}
-                        el="button"
-                        onClick={handleTabClick(index)}
-                      />
-                    )}
-                  </div>
-                )
-              })}
-            </Gutter>
+          <div className={classes.navWrapper}>
+            <div className={[classes.nav].filter(Boolean).join(' ')}>
+              <BackgroundGrid className={classes.navBackgroundGrid} />
+              <Gutter className="grid">
+                {caseStudyCarouselFields?.cards.map((card, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className={[classes.navItem, `cols-4`].filter(Boolean).join(' ')}
+                    >
+                      {typeof card.caseStudy !== 'string' && (
+                        <Button
+                          icon="arrow"
+                          label={card.tabLabel}
+                          hideHorizontalBorders
+                          className={[classes.navButton].filter(Boolean).join(' ')}
+                          el="button"
+                          onClick={handleTabClick(index)}
+                        />
+                      )}
+                    </div>
+                  )
+                })}
+              </Gutter>
+            </div>
           </div>
         </Gutter>
       </BlockSpacing>
