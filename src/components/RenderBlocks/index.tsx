@@ -8,6 +8,7 @@ import { CallToAction } from '@blocks/CallToAction'
 import { CardGrid } from '@blocks/CardGrid'
 import { CaseStudiesHighlightBlock } from '@blocks/CaseStudiesHighlight'
 import { CaseStudyCards } from '@blocks/CaseStudyCards'
+import { CaseStudyCarousel } from '@blocks/CaseStudyCarousel'
 import { CodeBlock } from '@blocks/CodeBlock'
 import { CodeFeature } from '@blocks/CodeFeature'
 import { ContentBlock } from '@blocks/Content'
@@ -37,6 +38,7 @@ const blockComponents = {
   blogMarkdown: BlogMarkdown,
   caseStudiesHighlight: CaseStudiesHighlightBlock,
   caseStudyCards: CaseStudyCards,
+  caseStudyCarousel: CaseStudyCarousel,
   mediaBlock: MediaBlock,
   code: CodeBlock,
   content: ContentBlock,

@@ -20,6 +20,7 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
     return (
       <BlockSpacing className={classes.caseStudyCards}>
         <Gutter>
+          test:
           <SliderProvider slidesToShow={1}>
             <SliderTrack>
               {caseStudyCarouselFields?.cards?.length > 0 && (
