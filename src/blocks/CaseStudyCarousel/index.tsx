@@ -1,9 +1,7 @@
 'use client'
 import * as React from 'react'
-import { useState } from 'react'
-import { Slide, SliderProgress, SliderProvider, SliderTrack, useSlider } from '@faceless-ui/slider'
-import Link from 'next/link'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BlockSpacing } from '@components/BlockSpacing'
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
@@ -14,9 +12,13 @@ import classes from './index.module.scss'
 
 type Props = Extract<Page['layout'][0], { blockType: 'caseStudyCarousel' }>
 
-export const QuoteStickyBlock: React.FC<Props> = props => {
-  const { caseStudyCarouselFields } = props
-  const slider = useSlider()
+type StickyBlockProps = Props & {
+  currentIndex: number
+}
+
+export const QuoteStickyBlock: React.FC<StickyBlockProps> = props => {
+  const { caseStudyCarouselFields, currentIndex } = props
+  /* const slider = useSlider() */
 
   if (caseStudyCarouselFields?.cards && caseStudyCarouselFields?.cards?.length > 0) {
     return (
@@ -27,7 +29,7 @@ export const QuoteStickyBlock: React.FC<Props> = props => {
               key={index}
               className={[
                 classes.stickyBlockItem,
-                slider.currentSlideIndex === index && classes.isVisible,
+                currentIndex === index && classes.isVisible,
                 'cols-8',
               ]
                 .filter(Boolean)
@@ -63,66 +65,102 @@ export const QuoteStickyBlock: React.FC<Props> = props => {
 
 export const CaseStudyCarousel: React.FC<Props> = props => {
   const { caseStudyCarouselFields } = props
-  const [index, setIndex] = useState<number>(0)
+  const [index, setIndex] = React.useState<number>(0)
+  const containerRef = React.useRef<HTMLDivElement>(null)
+  const cardsRef = React.useRef<HTMLDivElement[]>([])
+  const id = React.useId()
+
+  React.useEffect(() => {
+    let intersectionObserver: IntersectionObserver
+
+    if (cardsRef.current?.length) {
+      intersectionObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && entry.target instanceof HTMLElement) {
+              setIndex(entry.target.dataset.index ? parseInt(entry.target.dataset.index) : 0)
+            }
+          })
+        },
+        {
+          rootMargin: '0px',
+          threshold: 0.75,
+        },
+      )
+
+      cardsRef.current.forEach(card => {
+        intersectionObserver.observe(card)
+      })
+    }
+  }, [containerRef, cardsRef])
+
+  const handleTabClick =
+    (index: number): React.MouseEventHandler<HTMLButtonElement> =>
+    event => {
+      if (cardsRef.current?.length) {
+        cardsRef.current[index]?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest',
+        })
+      }
+    }
 
   if (caseStudyCarouselFields?.cards && caseStudyCarouselFields?.cards?.length > 0) {
     return (
       <BlockSpacing className={classes.caseStudyCards}>
-        <Gutter>
-          <SliderProvider slidesToShow={1} currentSlideIndex={index}>
-            <QuoteStickyBlock {...props} />
-            <SliderTrack
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                overflow: 'visible',
-                //alignItems: 'center',
-                //marginBottom: '10px',
-              }}
-              className={classes.mainTrack}
-            >
+        <Gutter className={classes.mainGutter}>
+          <BackgroundGrid />
+
+          <QuoteStickyBlock currentIndex={index} {...props} />
+
+          <div className={classes.mainTrack} ref={containerRef}>
+            {caseStudyCarouselFields?.cards.map((card, index) => {
+              return (
+                <div
+                  id={`${id}${index}`}
+                  ref={el => (cardsRef.current[index] = el)}
+                  key={index}
+                  data-index={index}
+                  className={[classes.card, 'grid'].filter(Boolean).join(' ')}
+                >
+                  <div className={[classes.media, 'cols-8 start-9'].filter(Boolean).join(' ')}>
+                    {typeof card.previewImage !== 'string' && (
+                      <>
+                        <Media resource={card.previewImage} fill />
+                        <Media resource={card.previewImage} />
+                      </>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          <div className={[classes.nav].filter(Boolean).join(' ')}>
+            <BackgroundGrid className={classes.navBackgroundGrid} />
+            <Gutter className="grid">
               {caseStudyCarouselFields?.cards.map((card, index) => {
                 return (
-                  <Slide index={index} className={[classes.card, 'grid'].filter(Boolean).join(' ')}>
-                    <div className={[classes.media, 'cols-8 start-9'].filter(Boolean).join(' ')}>
-                      {typeof card.previewImage !== 'string' && (
-                        <>
-                          <Media resource={card.previewImage} fill />
-                          <Media resource={card.previewImage} />
-                        </>
-                      )}
-                    </div>
-                  </Slide>
+                  <div
+                    key={index}
+                    className={[classes.navItem, `cols-4`].filter(Boolean).join(' ')}
+                  >
+                    {typeof card.caseStudy !== 'string' && (
+                      <Button
+                        icon="arrow"
+                        label={card.tabLabel}
+                        hideHorizontalBorders
+                        className={[classes.navButton].filter(Boolean).join(' ')}
+                        el="button"
+                        onClick={handleTabClick(index)}
+                      />
+                    )}
+                  </div>
                 )
               })}
-            </SliderTrack>
-
-            <div className={[classes.nav].filter(Boolean).join(' ')}>
-              <Gutter className="grid">
-                {caseStudyCarouselFields?.cards.map((card, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className={[classes.navItem, `cols-4`].filter(Boolean).join(' ')}
-                    >
-                      {typeof card.caseStudy !== 'string' && (
-                        <Button
-                          icon="arrow"
-                          label={card.tabLabel}
-                          hideHorizontalBorders
-                          className={[classes.navButton].filter(Boolean).join(' ')}
-                          el="button"
-                          onClick={() => {
-                            setIndex(index)
-                          }}
-                        />
-                      )}
-                    </div>
-                  )
-                })}
-              </Gutter>
-            </div>
-          </SliderProvider>
+            </Gutter>
+          </div>
         </Gutter>
       </BlockSpacing>
     )

@@ -4,24 +4,36 @@
   position: relative;
 }
 
+.mainGutter {
+  position: relative;
+
+}
+
 .card {
   position: relative;
   padding-top:  calc(var(--base) * 12);
-  padding-top:  calc(var(--base) * 12);
+  padding-bottom:  calc(var(--base) * 8);
 }
 
 .stickyBlock {
   position: sticky;
   top: calc(30%);
+  z-index: 30;
+  pointer-events: none;
 }
 
 .stickyBlockItem {
   grid-column: 1/8;
   grid-row: 1/1;
   opacity: 0;
+  transition: all 0.35s;
+  visibility: hidden;
 
   &.isVisible {
+    pointer-events: all;
     opacity: 1;
+    transition: all 0.35s;
+    visibility: visible;
   }
 }
 
@@ -29,11 +41,16 @@
   font-size: calc(var(--base) * 2);
   font-weight: 500;
   line-height: 1.2;
+  margin-bottom: calc(var(--base) * 2);
 }
 
 .mainTrack {
   margin-top: calc(-330px - var(--base) * 12);
-  scroll-snap-type: y proximity;
+  scroll-snap-type: y mandatory;
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
 
   & .media {
     margin-right: calc(var(--gutter-h) / -1);
@@ -53,7 +70,7 @@
   display: flex;
   align-items: center;
   gap: calc(var(--base) * 2);
-
+margin-bottom: calc(var(--base) * 2);
 }
 
 .author {
@@ -63,11 +80,17 @@
 .nav {
   position: sticky;
   bottom: 0;
+  border-top: 1px solid var(--theme-elevation-200);
   background-color: var(--theme-bg);
   margin-left: calc(var(--gutter-h) / -1);
   margin-right: calc(var(--gutter-h) / -1);
 }
 
+.navBackgroundGrid {
+  z-index: 5;
+}
+
 .navButton {
+  border-top: none;
   width: 100%;
 }
