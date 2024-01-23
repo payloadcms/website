@@ -2498,30 +2498,36 @@ export interface Footer {
 }
 export interface MainMenu {
   id: string;
-  navItems?:
-  | {
-    link: {
-      type?: ('reference' | 'custom') | null;
-      newTab?: boolean | null;
-      reference?:
-      | ({
-        relationTo: 'pages';
-        value: string | Page;
-      } | null)
-      | ({
-        relationTo: 'posts';
-        value: string | Post;
-      } | null)
-      | ({
-        relationTo: 'case-studies';
-        value: string | CaseStudy;
-      } | null);
-      url?: string | null;
-      label: string;
-    };
-    id?: string | null;
-  }[]
-  | null;
+  tabs?:
+    | {
+        label: string;
+        navItems?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: string | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: string | Post;
+                    } | null)
+                  | ({
+                      relationTo: 'case-studies';
+                      value: string | CaseStudy;
+                    } | null);
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
