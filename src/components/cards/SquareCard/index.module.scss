@@ -88,7 +88,7 @@
 
 .leader {
     position: relative;
-    @include label;
+    @include h6;
     margin: 0;
 
     @include mid-break {
@@ -115,6 +115,8 @@
 }
 
 .description {
+    @include small;
+    line-height: 1.4;
     margin-top: calc(var(--base) * 1.5);
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
