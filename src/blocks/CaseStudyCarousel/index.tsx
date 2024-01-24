@@ -2,10 +2,12 @@
 import * as React from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BackgroundScanline } from '@components/BackgroundScanline'
 import { BlockSpacing } from '@components/BlockSpacing'
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
+import { QuoteIconAlt } from '@root/icons/QuoteIconAlt'
 import { Page } from '@root/payload-types'
 import { useResize } from '@root/utilities/use-resize'
 
@@ -17,6 +19,58 @@ type StickyBlockProps = Props & {
   currentIndex: number
 }
 
+type QuoteProps = {
+  card: any
+  isVisible?: boolean
+  className?: string
+}
+
+export const QuoteBlock: React.FC<QuoteProps> = props => {
+  const { isVisible, card, className } = props
+  return (
+    <div
+      className={[isVisible && classes.isVisible, 'cols-8 grid', className]
+        .filter(Boolean)
+        .join(' ')}
+      aria-hidden={!isVisible}
+    >
+      <QuoteIconAlt className={classes.quoteIcon} />
+      <div
+        aria-hidden={!isVisible}
+        className={[classes.quote, 'cols-16'].filter(Boolean).join(' ')}
+      >
+        {card.quote}”
+      </div>
+
+      <div
+        aria-hidden={!isVisible}
+        className={[classes.authorWrapper, 'cols-16'].filter(Boolean).join(' ')}
+      >
+        <div className={classes.media}>
+          {typeof card.logo !== 'string' && <Media resource={card.logo} />}
+        </div>
+        <div className={classes.author}>{card.author}</div>
+      </div>
+
+      {typeof card.caseStudy !== 'string' && (
+        <div className={['cols-8 cols-m-4 cols-s-8'].filter(Boolean).join(' ')}>
+          <Button
+            label={'Read the case study'}
+            hideHorizontalBorders
+            appearance={'default'}
+            icon="arrow"
+            className={classes.caseStudyButton}
+            href={`/case-studies/${card.caseStudy.slug}`}
+            el="a"
+            aria-hidden={!isVisible}
+            disabled={!isVisible}
+          />
+        </div>
+      )}
+    </div>
+  )
+}
+
 export const QuoteStickyBlock: React.FC<StickyBlockProps> = props => {
   const { caseStudyCarouselFields, currentIndex } = props
 
@@ -24,37 +78,10 @@ export const QuoteStickyBlock: React.FC<StickyBlockProps> = props => {
     return (
       <div className={[classes.stickyBlock, 'grid'].filter(Boolean).join(' ')}>
         {caseStudyCarouselFields?.cards.map((card, index) => {
+          const isVisible = index === currentIndex
+
           return (
-            <div
-              key={index}
-              className={[
-                classes.stickyBlockItem,
-                currentIndex === index && classes.isVisible,
-                'cols-8',
-              ]
-                .filter(Boolean)
-                .join(' ')}
-            >
-              <div className={classes.quote}>{card.quote}</div>
-
-              <div className={classes.authorWrapper}>
-                <div className={classes.media}>
-                  {typeof card.logo !== 'string' && <Media resource={card.logo} />}
-                </div>
-                <div className={classes.author}>{card.author}</div>
-              </div>
-
-              {typeof card.caseStudy !== 'string' && (
-                <Button
-                  label={'Read the case study'}
-                  hideHorizontalBorders
-                  appearance={'primary'}
-                  className="isHovered"
-                  href={`/case-studies/${card.caseStudy.slug}`}
-                  el="a"
-                />
-              )}
-            </div>
+            <QuoteBlock isVisible={isVisible} card={card} className={classes.stickyBlockItem} />
           )
         })}
       </div>
@@ -67,6 +94,7 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
   const { caseStudyCarouselFields } = props
   const [activeIndex, setActiveIndex] = React.useState<number>(0)
   const [scrollProgress, setScrollProgress] = React.useState<number>(0)
+  const [delayNavScroll, setDelayNavScroll] = React.useState<boolean>(false)
   const containerRef = React.useRef<HTMLDivElement>(null)
   const cardsRef = React.useRef<HTMLDivElement[]>([])
   const navGridRef = React.useRef<HTMLDivElement>(null)
@@ -94,16 +122,23 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
         setActiveIndex(newIndex)
 
         if (navButtonsRef.current?.length && navGridRef.current) {
-          /* This logic is in a timeout so that on mobile scroll() doesnt block the other scrollIntoView function */
-          setTimeout(() => {
+          if (delayNavScroll) {
+            /* This logic is in a timeout so that on mobile scroll() doesnt block the other scrollIntoView function */
+            setTimeout(() => {
+              const target = navButtonsRef.current[newIndex]
+              const offset = target.offsetLeft > 0 ? target.offsetLeft : 0
+              navGridRef.current?.scroll(offset, 0)
+              setDelayNavScroll(false)
+            }, 500)
+          } else {
             const target = navButtonsRef.current[newIndex]
             const offset = target.offsetLeft > 0 ? target.offsetLeft : 0
             navGridRef.current?.scroll(offset, 0)
-          }, 500)
+          }
         }
       }
     }
-  }, [scrollProgress, navButtonsRef, navGridRef])
+  }, [scrollProgress, navButtonsRef, navGridRef, delayNavScroll])
 
   React.useEffect(() => {
     let intersectionObserver: IntersectionObserver
@@ -160,6 +195,7 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
     (index: number): React.MouseEventHandler<HTMLButtonElement> =>
     event => {
       if (cardsRef.current?.length) {
+        setDelayNavScroll(true)
         cardsRef.current[index]?.scrollIntoView({
           behavior: 'smooth',
           block: 'center',
@@ -175,7 +211,13 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
       <BlockSpacing className={classes.caseStudyCards}>
         <Gutter className={classes.mainGutter}>
           <BackgroundGrid />
-
+          <div
+            className={[classes.scanlineWrapper, 'grid cols-8 start-9'].filter(Boolean).join(' ')}
+          >
+            <BackgroundScanline
+              className={[classes.scanline, 'cols-8 start-11'].filter(Boolean).join(' ')}
+            />
+          </div>
           <div className={classes.mainTrack} ref={containerRef}>
             <QuoteStickyBlock currentIndex={activeIndex} {...props} />
             {caseStudyCarouselFields?.cards.map((card, index) => {
@@ -197,13 +239,18 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
                     .filter(Boolean)
                     .join(' ')}
                 >
-                  <div className={[classes.media, 'cols-8 start-9'].filter(Boolean).join(' ')}>
+                  <div
+                    className={[classes.media, 'cols-8 start-9 start-m-1']
+                      .filter(Boolean)
+                      .join(' ')}
+                  >
                     {typeof card.previewImage !== 'string' && (
                       <>
                         <Media resource={card.previewImage} />
                       </>
                     )}
                   </div>
+                  <QuoteBlock className={classes.mobileQuoteItem} card={card} />
                 </div>
               )
             })}

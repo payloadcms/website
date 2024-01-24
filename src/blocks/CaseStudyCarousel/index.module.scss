@@ -13,14 +13,6 @@
   position: relative;
   padding-top:  calc(var(--base) * 4);
 
-  @include mid-break {
-    opacity: 0;
-
-    &.isVisible {
-      opacity: 1;
-    }
-  }
-
   &.isFirst {
     grid-column: 1/16;
     grid-row: 1/1;
@@ -28,29 +20,55 @@
 
   & .media {
     margin-right: calc(var(--gutter-h) / -1);
+    overflow: hidden;
+
+    img {
+      right: -10px;
+
+      @include mid-break {
+        right: unset;
+      }
+    }
+
+     @include mid-break {
+      margin-right: 0;
+     }
   }
 
   &:last-of-type {
     padding-bottom: calc(var(--base) * 4);
+
+    @include mid-break {
+    padding-bottom:  calc(var(--base) * 0);
+  }
   }
 }
 
 .stickyBlock {
   position: sticky;
-  top: calc(var(--base) * 8);
+  top: 18vh;
   z-index: 6;
   grid-column: 1/16;
   grid-row: 1/1;
   pointer-events: none;
   align-items: center;
+
+  @include large-break {
+    top: 30vh;
+  }
+
+  @include mid-break {
+    display: none;
+  }
 }
 
 .stickyBlockItem {
-  grid-column: 1/8;
+  grid-column: 1/9;
   grid-row: 1/1;
   opacity: 0;
   transition: all 0.35s;
   visibility: hidden;
+  position: relative;
 
   &.isVisible {
     pointer-events: all;
@@ -60,11 +78,72 @@
   }
 }
 
+.quoteIcon {
+  position: absolute;
+  width:  calc(var(--base) * 8);
+  height: auto;
+  color: var(--theme-bg);
+  left: calc(var(--base) * -4);
+  top: calc(var(--base) * -4);
+
+  @include large-break {
+    left: calc(var(--base) * -3);
+    top: calc(var(--base) * -3.5);
+    width:  calc(var(--base) * 6);
+  }
+
+  @include mid-break {
+    display: none;
+  }
+
+  & path {
+    stroke: var(--theme-elevation-200);
+    stroke-width: 1px;
+    vector-effect: non-scaling-stroke;
+  }
+}
+
 .quote {
   font-size: calc(var(--base) * 2);
   font-weight: 500;
   line-height: 1.2;
   margin-bottom: calc(var(--base) * 2);
+  position: relative;
+
+  &::before {
+    content: '“';
+    position: absolute;
+    left: calc(var(--base) * -1.2);
+
+    @include mid-break {
+      left: calc(var(--base) * -0.8);
+    }
+  }
+
+  @include large-break {
+    font-size: calc(var(--base) * 1.5);
+  }
+
+  @include small-break {
+    font-size: calc(var(--base) * 1);
+  }
+}
+
+.scanlineWrapper {
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+
+  @include mid-break {
+    display: none;
+  }
+}
+
+.scanline {
+
 }
 
 .mainTrack {
@@ -78,7 +157,14 @@
   padding-top:  calc(var(--base) * 6);
   padding-bottom:  calc(var(--base) * 5);
 
-  margin-bottom: -700px;
+  margin-bottom: -80vh;
+
+  @include mid-break {
+    margin-bottom: -50vh;
+    row-gap: calc(var(--base) * 4);
+    padding-top:  calc(var(--base) * 1);
+    padding-bottom:  calc(var(--base) * 3);
+  }
 }
 
 .media {
@@ -90,6 +176,19 @@
   }
 }
 
+.mobileQuoteItem {
+  display: none;
+  margin-top: calc(var(--base) * 2);
+
+  @include mid-break {
+    display: grid;
+  }
+}
+
+.caseStudyButton {
+  width: 100%;
+}
+
 .authorWrapper {
   display: flex;
   align-items: center;
@@ -99,11 +198,12 @@
 
 .author {
   opacity: 0.8;
+  line-height: 1.2;
 }
 
 .navWrapper{
   position: sticky;
-  height: 800px;
+  height: 80vh;
   bottom: 0;
   z-index: 7;
   display: flex;
@@ -111,6 +211,11 @@
   margin-left: calc(var(--gutter-h) / -1);
   margin-right: calc(var(--gutter-h) / -1);
   pointer-events: none;
+
+  @include mid-break {
+    height: auto;
+    min-height: 60vh;
+  }
 }
 
 .nav {
@@ -151,6 +256,12 @@
 }
 .navBackgroundGrid {
   z-index: 5;
+
+  @include mid-break {
+    & > *:first-of-type {
+      display: none;
+    }
+  }
 }
 
 .navItem {
