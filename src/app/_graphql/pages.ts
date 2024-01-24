@@ -3,7 +3,7 @@ import {
   CARD_GRID,
   CASE_STUDIES_HIGHLIGHT,
   CASE_STUDY_CARDS,
-  CASE_STUDY_CAROUSEL,
+  CASE_STUDY_PARALLAX,
   CODE_FEATURE,
   CONTENT,
   CONTENT_GRID,
@@ -92,7 +92,7 @@ export const PAGE = `
           ${CARD_GRID}
           ${CASE_STUDIES_HIGHLIGHT}
           ${CASE_STUDY_CARDS}
-          ${CASE_STUDY_CAROUSEL}
+          ${CASE_STUDY_PARALLAX}
           ${CODE_FEATURE}
           ${CONTENT}
           ${CONTENT_GRID}

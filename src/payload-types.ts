@@ -927,7 +927,7 @@ export interface Page {
         blockType: 'caseStudiesHighlight';
       }
     | {
-        caseStudyCarouselFields?: {
+        caseStudyParallaxFields?: {
           cards?:
             | {
                 tabLabel: string;
@@ -942,7 +942,7 @@ export interface Page {
         };
         id?: string | null;
         blockName?: string | null;
-        blockType: 'caseStudyCarousel';
+        blockType: 'caseStudyParallax';
       }
     | {
         codeFeatureFields: {

@@ -13,7 +13,7 @@ import { useResize } from '@root/utilities/use-resize'
 
 import classes from './index.module.scss'
 
-type Props = Extract<Page['layout'][0], { blockType: 'caseStudyCarousel' }>
+type Props = Extract<Page['layout'][0], { blockType: 'caseStudyParallaxFields' }>
 
 type StickyBlockProps = Props & {
   currentIndex: number
@@ -72,12 +72,12 @@ export const QuoteBlock: React.FC<QuoteProps> = props => {
 }
 
 export const QuoteStickyBlock: React.FC<StickyBlockProps> = props => {
-  const { caseStudyCarouselFields, currentIndex } = props
+  const { caseStudyParallaxFields, currentIndex } = props
 
-  if (caseStudyCarouselFields?.cards && caseStudyCarouselFields?.cards?.length > 0) {
+  if (caseStudyParallaxFields?.cards && caseStudyParallaxFields?.cards?.length > 0) {
     return (
       <div className={[classes.stickyBlock, 'grid'].filter(Boolean).join(' ')}>
-        {caseStudyCarouselFields?.cards.map((card, index) => {
+        {caseStudyParallaxFields?.cards.map((card, index) => {
           const isVisible = index === currentIndex
 
           return (
@@ -90,8 +90,8 @@ export const QuoteStickyBlock: React.FC<StickyBlockProps> = props => {
   return null
 }
 
-export const CaseStudyCarousel: React.FC<Props> = props => {
-  const { caseStudyCarouselFields } = props
+export const CaseStudyParallax: React.FC<Props> = props => {
+  const { caseStudyParallaxFields } = props
   const [activeIndex, setActiveIndex] = React.useState<number>(0)
   const [scrollProgress, setScrollProgress] = React.useState<number>(0)
   const [delayNavScroll, setDelayNavScroll] = React.useState<boolean>(false)
@@ -206,7 +206,7 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
 
   const variableStyle = { '--progress-width': `${scrollProgress}%` } as React.CSSProperties
 
-  if (caseStudyCarouselFields?.cards && caseStudyCarouselFields?.cards?.length > 0) {
+  if (caseStudyParallaxFields?.cards && caseStudyParallaxFields?.cards?.length > 0) {
     return (
       <BlockSpacing className={classes.caseStudyCards}>
         <Gutter className={classes.mainGutter}>
@@ -220,7 +220,7 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
           </div>
           <div className={classes.mainTrack} ref={containerRef}>
             <QuoteStickyBlock currentIndex={activeIndex} {...props} />
-            {caseStudyCarouselFields?.cards.map((card, index) => {
+            {caseStudyParallaxFields?.cards.map((card, index) => {
               const isVisible = index === activeIndex
               return (
                 <div
@@ -266,7 +266,7 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
                   ref={navGridRef}
                 >
                   <div className={[classes.progressIndicator].filter(Boolean).join(' ')} />
-                  {caseStudyCarouselFields?.cards.map((card, index) => {
+                  {caseStudyParallaxFields?.cards.map((card, index) => {
                     return (
                       <div
                         key={index}

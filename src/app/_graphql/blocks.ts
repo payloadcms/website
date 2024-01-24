@@ -119,10 +119,10 @@ export const CASE_STUDY_CARDS = `
 }
 `
 
-export const CASE_STUDY_CAROUSEL = `
-...on CaseStudyCarousel {
+export const CASE_STUDY_PARALLAX = `
+...on CaseStudyParallax {
   blockType
-  caseStudyCarouselFields {
+  caseStudyParallaxFields {
     cards {
       quote
       author
