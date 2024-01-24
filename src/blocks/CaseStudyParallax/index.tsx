@@ -13,7 +13,7 @@ import { useResize } from '@root/utilities/use-resize'
 
 import classes from './index.module.scss'
 
-type Props = Extract<Page['layout'][0], { blockType: 'caseStudyParallaxFields' }>
+type Props = Extract<Page['layout'][0], { blockType: 'caseStudyParallax' }>
 
 type StickyBlockProps = Props & {
   currentIndex: number

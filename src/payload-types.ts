@@ -930,11 +930,11 @@ export interface Page {
         caseStudyParallaxFields?: {
           cards?:
             | {
-                tabLabel: string;
                 quote: string;
                 author?: string | null;
                 logo: string | Media;
                 previewImage: string | Media;
+                tabLabel: string;
                 caseStudy: string | CaseStudy;
                 id?: string | null;
               }[]
@@ -1693,6 +1693,24 @@ export interface ReusableContent {
         id?: string | null;
         blockName?: string | null;
         blockType: 'caseStudiesHighlight';
+      }
+    | {
+        caseStudyParallaxFields?: {
+          cards?:
+            | {
+                quote: string;
+                author?: string | null;
+                logo: string | Media;
+                previewImage: string | Media;
+                tabLabel: string;
+                caseStudy: string | CaseStudy;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'caseStudyParallax';
       }
     | {
         codeFields: {
