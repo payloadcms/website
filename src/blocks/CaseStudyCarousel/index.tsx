@@ -94,9 +94,11 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
         setActiveIndex(newIndex)
 
         if (navButtonsRef.current?.length && navGridRef.current) {
-          const target = navButtonsRef.current[newIndex]
-          const offset = target.offsetLeft > 0 ? target.offsetLeft : 0
-          navGridRef.current.scroll(offset, 0)
+          setTimeout(() => {
+            const target = navButtonsRef.current[newIndex]
+            const offset = target.offsetLeft > 0 ? target.offsetLeft : 0
+            navGridRef.current?.scroll(offset, 0)
+          }, 500)
         }
       }
     }
@@ -149,6 +151,7 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
 
     return () => {
       intersectionObserver.disconnect()
+      window.removeEventListener('scroll', handleScroll)
     }
   }, [containerRef, containerWidth])
 
@@ -175,6 +178,7 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
           <div className={classes.mainTrack} ref={containerRef}>
             <QuoteStickyBlock currentIndex={activeIndex} {...props} />
             {caseStudyCarouselFields?.cards.map((card, index) => {
+              const isVisible = index === activeIndex
               return (
                 <div
                   id={`${id}${index}`}
@@ -183,7 +187,12 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
                   }}
                   key={index}
                   data-index={index}
-                  className={[classes.card, 'grid ', index === 0 ? classes.isFirst : 'cols-16']
+                  className={[
+                    classes.card,
+                    'grid ',
+                    isVisible && classes.isVisible,
+                    index === 0 ? classes.isFirst : 'cols-16',
+                  ]
                     .filter(Boolean)
                     .join(' ')}
                 >

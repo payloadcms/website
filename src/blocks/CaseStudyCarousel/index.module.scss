@@ -13,6 +13,14 @@
   position: relative;
   padding-top:  calc(var(--base) * 4);
 
+  @include mid-break {
+    opacity: 0;
+
+    &.isVisible {
+      opacity: 1;
+    }
+  }
+
   &.isFirst {
     grid-column: 1/16;
     grid-row: 1/1;
