@@ -69,25 +69,38 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
   const [scrollProgress, setScrollProgress] = React.useState<number>(0)
   const containerRef = React.useRef<HTMLDivElement>(null)
   const cardsRef = React.useRef<HTMLDivElement[]>([])
+  const navGridRef = React.useRef<HTMLDivElement>(null)
+  const navButtonsRef = React.useRef<HTMLDivElement[]>([])
   const id = React.useId()
   const containerWidth = useResize(containerRef)
 
   React.useEffect(() => {
     if (scrollProgress) {
+      let newIndex = 0
       if (scrollProgress < 25) {
-        setActiveIndex(0)
+        newIndex = 0
       }
       if (scrollProgress > 25 && scrollProgress < 50) {
-        setActiveIndex(1)
+        newIndex = 1
       }
       if (scrollProgress > 50 && scrollProgress < 75) {
-        setActiveIndex(2)
+        newIndex = 2
       }
       if (scrollProgress > 75) {
-        setActiveIndex(3)
+        newIndex = 3
+      }
+
+      if (newIndex !== activeIndex) {
+        setActiveIndex(newIndex)
+
+        if (navButtonsRef.current?.length && navGridRef.current) {
+          const target = navButtonsRef.current[newIndex]
+          const offset = target.offsetLeft > 0 ? target.offsetLeft : 0
+          navGridRef.current.scroll(offset, 0)
+        }
       }
     }
-  }, [scrollProgress])
+  }, [scrollProgress, navButtonsRef, navGridRef])
 
   React.useEffect(() => {
     let intersectionObserver: IntersectionObserver
@@ -190,30 +203,41 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
             <div className={[classes.nav].filter(Boolean).join(' ')} style={variableStyle}>
               <BackgroundGrid className={classes.navBackgroundGrid} />
 
-              <Gutter className={[classes.navGrid, 'grid'].filter(Boolean).join(' ')}>
-                <div className={[classes.progressIndicator].filter(Boolean).join(' ')} />
-                {caseStudyCarouselFields?.cards.map((card, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className={[classes.navItem, `cols-4`].filter(Boolean).join(' ')}
-                    >
-                      {typeof card.caseStudy !== 'string' && (
-                        <Button
-                          icon="arrow"
-                          label={card.tabLabel}
-                          hideHorizontalBorders
-                          className={[classes.navButton, activeIndex === index && classes.isActive]
-                            .filter(Boolean)
-                            .join(' ')}
-                          el="button"
-                          labelClassName={classes.navButtonLabel}
-                          onClick={handleTabClick(index)}
-                        />
-                      )}
-                    </div>
-                  )
-                })}
+              <Gutter>
+                <div
+                  className={[classes.navGrid, 'grid'].filter(Boolean).join(' ')}
+                  ref={navGridRef}
+                >
+                  <div className={[classes.progressIndicator].filter(Boolean).join(' ')} />
+                  {caseStudyCarouselFields?.cards.map((card, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className={[classes.navItem, `cols-4 cols-m-8`].filter(Boolean).join(' ')}
+                        ref={el => {
+                          if (el) navButtonsRef.current[index] = el
+                        }}
+                      >
+                        {typeof card.caseStudy !== 'string' && (
+                          <Button
+                            icon="arrow"
+                            label={card.tabLabel}
+                            hideHorizontalBorders
+                            className={[
+                              classes.navButton,
+                              activeIndex === index && classes.isActive,
+                            ]
+                              .filter(Boolean)
+                              .join(' ')}
+                            el="button"
+                            labelClassName={classes.navButtonLabel}
+                            onClick={handleTabClick(index)}
+                          />
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
               </Gutter>
             </div>
           </div>
