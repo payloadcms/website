@@ -94,6 +94,7 @@ export const CaseStudyCarousel: React.FC<Props> = props => {
         setActiveIndex(newIndex)
 
         if (navButtonsRef.current?.length && navGridRef.current) {
+          /* This logic is in a timeout so that on mobile scroll() doesnt block the other scrollIntoView function */
           setTimeout(() => {
             const target = navButtonsRef.current[newIndex]
             const offset = target.offsetLeft > 0 ? target.offsetLeft : 0
