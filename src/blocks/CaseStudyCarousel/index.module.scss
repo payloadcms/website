@@ -21,11 +21,15 @@
   & .media {
     margin-right: calc(var(--gutter-h) / -1);
   }
+
+  &:last-of-type {
+    padding-bottom: calc(var(--base) * 4);
+  }
 }
 
 .stickyBlock {
   position: sticky;
-  top: calc(30%);
+  top: calc(var(--base) * 8);
   z-index: 6;
   grid-column: 1/16;
   grid-row: 1/1;
@@ -95,7 +99,7 @@
   bottom: 0;
   z-index: 7;
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   margin-left: calc(var(--gutter-h) / -1);
   margin-right: calc(var(--gutter-h) / -1);
   pointer-events: none;
@@ -107,8 +111,30 @@
   background-color: var(--theme-bg);
   width: 100%;
   pointer-events: all;
+
 }
 
+.navGrid {
+  position: relative;
+}
+
+.progressIndicator {
+  grid-column: 1 / -1;
+  position: relative;
+
+
+  &::before {
+    content: '';
+    height: 1px;
+    background: var(--theme-elevation-1000);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 7;
+    transition: width 0.05s linear;
+    width: calc(var(--progress-width));
+  }
+}
 .navBackgroundGrid {
   z-index: 5;
 }
@@ -116,4 +142,21 @@
 .navButton {
   border-top: none;
   width: 100%;
+
+  &:hover {
+  & .navButtonLabel {
+    opacity: 1;
+  }
+  }
+
+  & .navButtonLabel {
+    opacity: 0.5;
+  }
+
+
+  &.isActive {
+    & .navButtonLabel {
+    opacity: 1;
+  }
+  }
 }
