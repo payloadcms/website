@@ -178,6 +178,25 @@ export const EXAMPLE_TABS = `
 }
 `
 
+export const FEATURED_MEDIA_GALLERY = `
+...on FeaturedMediaGallery {
+  blockType
+  featuredMediaGalleryFields {
+    alignment
+    leader
+    title
+    description
+    links {
+      link ${LINK_FIELDS({ disableAppearance: true })}
+    }
+    featuredMediaTabs {
+      imageLabel
+      image ${MEDIA_FIELDS}
+    } 
+  }
+}
+`
+
 export const FORM_BLOCK = `
 ...on FormBlock {
   blockType
@@ -224,25 +243,6 @@ export const MEDIA_BLOCK = `
     position
     media ${MEDIA_FIELDS}
     caption
-  }
-}
-`
-
-export const MEDIA_CAROUSEL = `
-...on MediaCarouselBlock {
-  blockType
-  mediaCarouselBlockFields {
-    alignment
-    leader
-    title
-    description
-    links {
-      link ${LINK_FIELDS({ disableAppearance: true })}
-    }
-    mediaSlides {
-      image ${MEDIA_FIELDS}
-      link ${LINK_FIELDS({ disableAppearance: true })}
-    } 
   }
 }
 `
@@ -350,11 +350,11 @@ export const REUSABLE_CONTENT_BLOCK = `
         ${CONTENT}
         ${CONTENT_GRID}
         ${EXAMPLE_TABS}
+        ${FEATURED_MEDIA_GALLERY}
         ${FORM_BLOCK}
         ${HOVER_HIGHLIGHTS}
         ${LINK_GRID}
         ${MEDIA_BLOCK}
-        ${MEDIA_CAROUSEL}
         ${MEDIA_CONTENT}
         ${SLIDER}
         ${STEPS}

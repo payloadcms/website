@@ -13,11 +13,11 @@ import { CodeFeature } from '@blocks/CodeFeature'
 import { ContentBlock } from '@blocks/Content'
 import { ContentGrid } from '@blocks/ContentGrid'
 import { ExampleTabs } from '@blocks/ExampleTabs'
+import { FeaturedMediaGallery } from '@blocks/FeaturedMediaGallery'
 import { FormBlock } from '@blocks/FormBlock'
 import { HoverHighlights } from '@blocks/HoverHighlights'
 import { LinkGrid } from '@blocks/LinkGrid'
 import { MediaBlock } from '@blocks/MediaBlock'
-import { MediaCarouselBlock } from '@blocks/MediaCarousel'
 import { MediaContent } from '@blocks/MediaContent'
 import { Pricing } from '@blocks/Pricing'
 import { RelatedPosts, RelatedPostsBlock } from '@blocks/RelatedPosts'
@@ -56,7 +56,7 @@ const blockComponents = {
   pricing: Pricing,
   relatedPosts: RelatedPosts,
   exampleTabs: ExampleTabs,
-  mediaCarouselBlock: MediaCarouselBlock,
+  featuredMediaGallery: FeaturedMediaGallery,
 }
 
 type Props = {

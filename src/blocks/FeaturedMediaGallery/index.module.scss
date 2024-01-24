@@ -1,0 +1,80 @@
+@use '@scss/common' as *;
+
+.leader {
+  @include label;
+}
+
+.title {
+  @include h3;
+  margin-bottom: calc(var(--base) * 5);
+}
+
+.description {
+  @include body;
+  color: var(--theme-elevation-500);
+  margin-bottom: calc(var(--base) * 2);
+}
+
+.tabs {
+  list-style: none;
+  padding: 0;
+  margin-bottom: calc(var(--base) * 5);
+}
+
+.links {
+  list-style: none;
+  padding: 0;
+
+  li:not(:last-child) .linkButton {
+    border-bottom: none;
+  }
+}
+
+.tabButton {
+  @include btnReset;
+  cursor: pointer;
+  width: 100%;
+  text-align: unset;
+  padding: calc(var(--base) * 1) 0;
+  border-bottom: 1px solid var(--theme-elevation-250);
+  position: relative;
+}
+
+@keyframes fillBar {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.progressBar {
+  height: 1px;
+  background-color: var(--color-success-650);
+  animation: fillBar 5s linear;
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+}
+
+// .mediaWrapper {
+//   position: relative;
+//   overflow: hidden;
+
+//   .mediaContent {
+//     position: absolute;
+//     width: 100%;
+//     height: 100%;
+//     transition: opacity 0.5s ease-in-out;
+//     opacity: 0;  // Default state is faded out
+//   }
+
+//   .fadeIn {
+//     opacity: 1;
+//   }
+
+//   .fadeOut {
+//     opacity: 0;
+//   }
+// }

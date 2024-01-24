@@ -1108,8 +1108,8 @@ export interface Page {
       blockType: 'mediaBlock';
     }
     | {
-      mediaCarouselBlockFields: {
-        alignment?: ('contentMediaCarousel' | 'mediaCarouselContent') | null;
+      featuredMediaGalleryFields: {
+        alignment?: ('contentMediaGallery' | 'mediaGalleryContent') | null;
         leader?: string | null;
         title: string;
         description: {
@@ -1139,35 +1139,17 @@ export interface Page {
           id?: string | null;
         }[]
         | null;
-        mediaSlides?:
+        featuredMediaTabs?:
         | {
+          imageLabel: string;
           image: string | Media;
-          link: {
-            type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?:
-            | ({
-              relationTo: 'pages';
-              value: string | Page;
-            } | null)
-            | ({
-              relationTo: 'posts';
-              value: string | Post;
-            } | null)
-            | ({
-              relationTo: 'case-studies';
-              value: string | CaseStudy;
-            } | null);
-            url?: string | null;
-            label: string;
-          };
           id?: string | null;
         }[]
         | null;
       };
       id?: string | null;
       blockName?: string | null;
-      blockType: 'mediaCarouselBlock';
+      blockType: 'featuredMediaGallery';
     }
     | {
       mediaContentFields: {
@@ -1930,8 +1912,8 @@ export interface ReusableContent {
       blockType: 'mediaBlock';
     }
     | {
-      mediaCarouselBlockFields: {
-        alignment?: ('contentMediaCarousel' | 'mediaCarouselContent') | null;
+      featuredMediaGalleryFields: {
+        alignment?: ('contentMediaGallery' | 'mediaGalleryContent') | null;
         leader?: string | null;
         title: string;
         description: {
@@ -1961,35 +1943,17 @@ export interface ReusableContent {
           id?: string | null;
         }[]
         | null;
-        mediaSlides?:
+        featuredMediaTabs?:
         | {
+          imageLabel: string;
           image: string | Media;
-          link: {
-            type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?:
-            | ({
-              relationTo: 'pages';
-              value: string | Page;
-            } | null)
-            | ({
-              relationTo: 'posts';
-              value: string | Post;
-            } | null)
-            | ({
-              relationTo: 'case-studies';
-              value: string | CaseStudy;
-            } | null);
-            url?: string | null;
-            label: string;
-          };
           id?: string | null;
         }[]
         | null;
       };
       id?: string | null;
       blockName?: string | null;
-      blockType: 'mediaCarouselBlock';
+      blockType: 'featuredMediaGallery';
     }
     | {
       mediaContentFields: {
