@@ -1142,8 +1142,9 @@ export interface Page {
         | null;
         featuredMediaTabs?:
         | {
-          imageLabel: string;
-          image: string | Media;
+          mediaLabel: string;
+          mediaAlignment?: ('center' | 'fill') | null;
+          media: string | Media;
           id?: string | null;
         }[]
         | null;
@@ -1947,8 +1948,9 @@ export interface ReusableContent {
         | null;
         featuredMediaTabs?:
         | {
-          imageLabel: string;
-          image: string | Media;
+          mediaLabel: string;
+          mediaAlignment?: ('center' | 'fill') | null;
+          media: string | Media;
           id?: string | null;
         }[]
         | null;

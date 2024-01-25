@@ -81,12 +81,15 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
                         classes.imageContainer,
                         classes.leftImageAlignment,
                         activeTabIndex === index ? classes.activeImage : '',
+                        tab.mediaAlignment === 'fill'
+                          ? classes.filledImageContainerHeight
+                          : classes.centeredImageContainerHeight,
                       ]
                         .filter(Boolean)
                         .join(' ')}
                     >
-                      {typeof tab.image === 'object' && tab.image !== null && (
-                        <Media resource={tab.image} />
+                      {typeof tab.media === 'object' && tab.media !== null && (
+                        <Media resource={tab.media} />
                       )}
                     </div>
                   ))}
@@ -99,12 +102,36 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
                 {leader && <div className={classes.leader}>{leader}</div>}
                 {title && <div className={classes.title}>{title}</div>}
                 {description && <RichText className={classes.description} content={description} />}
+                <div className={[classes.mobileMediaTabs].filter(Boolean).join(' ')}>
+                  <div className={classes.aspectRatioWrapper}>
+                    {hasFeaturedMediaTabs &&
+                      featuredMediaTabs.map((tab, index) => (
+                        <div
+                          key={tab.id || index}
+                          className={[
+                            classes.imageContainer,
+                            classes.rightImageAlignment,
+                            activeTabIndex === index ? classes.activeImage : '',
+                            tab.mediaAlignment === 'fill'
+                              ? classes.filledImageContainerHeight
+                              : classes.centeredImageContainerHeight,
+                          ]
+                            .filter(Boolean)
+                            .join(' ')}
+                        >
+                          {typeof tab.media === 'object' && tab.media !== null && (
+                            <Media resource={tab.media} />
+                          )}
+                        </div>
+                      ))}
+                  </div>
+                </div>
                 {featuredMediaTabs && (
                   <ul className={classes.tabs}>
                     {featuredMediaTabs.map((tab, index) => (
                       <li key={tab.id || index}>
                         <button className={classes.tabButton} onClick={() => switchTab(index)}>
-                          {tab.imageLabel}
+                          {tab.mediaLabel}
                           {index === activeTabIndex && <div className={classes.progressBar}></div>}
                         </button>
                       </li>
@@ -147,12 +174,36 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
                 {leader && <div className={classes.leader}>{leader}</div>}
                 {title && <div className={classes.title}>{title}</div>}
                 {description && <RichText className={classes.description} content={description} />}
+                <div className={[classes.mobileMediaTabs].filter(Boolean).join(' ')}>
+                  <div className={classes.aspectRatioWrapper}>
+                    {hasFeaturedMediaTabs &&
+                      featuredMediaTabs.map((tab, index) => (
+                        <div
+                          key={tab.id || index}
+                          className={[
+                            classes.imageContainer,
+                            classes.rightImageAlignment,
+                            activeTabIndex === index ? classes.activeImage : '',
+                            tab.mediaAlignment === 'fill'
+                              ? classes.filledImageContainerHeight
+                              : classes.centeredImageContainerHeight,
+                          ]
+                            .filter(Boolean)
+                            .join(' ')}
+                        >
+                          {typeof tab.media === 'object' && tab.media !== null && (
+                            <Media resource={tab.media} />
+                          )}
+                        </div>
+                      ))}
+                  </div>
+                </div>
                 {featuredMediaTabs && (
                   <ul className={classes.tabs}>
                     {featuredMediaTabs.map((tab, index) => (
                       <li key={tab.id || index}>
                         <button className={classes.tabButton} onClick={() => switchTab(index)}>
-                          {tab.imageLabel}
+                          {tab.mediaLabel}
                           {index === activeTabIndex && <div className={classes.progressBar}></div>}
                         </button>
                       </li>
@@ -199,12 +250,15 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
                         classes.imageContainer,
                         classes.rightImageAlignment,
                         activeTabIndex === index ? classes.activeImage : '',
+                        tab.mediaAlignment === 'fill'
+                          ? classes.filledImageContainerHeight
+                          : classes.centeredImageContainerHeight,
                       ]
                         .filter(Boolean)
                         .join(' ')}
                     >
-                      {typeof tab.image === 'object' && tab.image !== null && (
-                        <Media resource={tab.image} />
+                      {typeof tab.media === 'object' && tab.media !== null && (
+                        <Media resource={tab.media} />
                       )}
                     </div>
                   ))}

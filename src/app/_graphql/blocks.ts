@@ -191,8 +191,9 @@ export const FEATURED_MEDIA_GALLERY = `
       link ${LINK_FIELDS({ disableAppearance: true })}
     }
     featuredMediaTabs {
-      imageLabel
-      image ${MEDIA_FIELDS}
+      mediaLabel
+      mediaAlignment
+      media ${MEDIA_FIELDS}
     } 
   }
 }

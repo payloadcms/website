@@ -2,15 +2,7 @@
 
 .featuredMediaGallery {
   position: relative;
-    padding: calc(var(--base) * 8) 0;
-
-    @include large-break {
-      padding: calc(var(--base) * 6) 0;
-    }
-
-    @include mid-break {
-      padding: calc(var(--base) * 4) 0;
-    }
+  padding: var(--new-block-spacing) 0;
 }
 
 .blackBg {
@@ -35,12 +27,21 @@
   @include label;
   margin-top: 0;
   margin-bottom: calc(var(--base) * 1);
+  color: var(--color-success-650);
 }
 
 .title {
   @include h2;
   margin-top: 0;
   margin-bottom: calc(var(--base) * 3);
+
+  @include large-break {
+    margin-bottom: calc(var(--base) * 2);
+  }
+
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 1);
+  }
 }
 
 .description {
@@ -52,7 +53,11 @@
 .tabs {
   list-style: none;
   padding: 0;
-  margin-bottom: calc(var(--base) * 3);
+  margin-bottom: calc(var(--base) * 2);
+
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 2.5);
+  }
 }
 
 .links {
@@ -103,6 +108,10 @@
   position: relative;
   width: 100%;
   height: 100%;
+
+  @include mid-break {
+    display: none;
+  }
 }
   
 .imageContainer {
@@ -110,7 +119,6 @@
   top: 50%;
   transform: translateY(-50%);
   width: calc(100% + var(--gutter-h));
-  height: 100%;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 
@@ -123,18 +131,60 @@
       height: 100%;
     }
   }
+
+  @include mid-break {
+    left: 1px;
+    right: 1px;
+    width: calc(100% - 1px);
+  }
+}
+
+.centeredImageContainerHeight {
+  height: 100%;
+}
+
+.filledImageContainerHeight {
+  height: calc(100% + calc(var(--new-block-spacing) * 2));
+
+  @include mid-break {
+    height: 100%;
+  }
 }
 
 .leftImageAlignment {
   right: 0;
+
+  @include mid-break {
+    right: 1px;
+  }
 }
 
 .rightImageAlignment {
   left: 0;
+
+  @include mid-break {
+    left: 1px;
+  }
 }
 
 .activeImage {
   opacity: 1;
+}
+
+.mobileMediaTabs {
+  display: none;
+   
+  @include mid-break {
+    display: block;
+    width: calc(100% - 2px);
+    margin-bottom: calc(var(--base) * 2);
+  }
+
+  .aspectRatioWrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+  }
 }
 
 :global([data-theme="light"]) {
