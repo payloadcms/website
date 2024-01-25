@@ -81,7 +81,12 @@ export const QuoteStickyBlock: React.FC<StickyBlockProps> = props => {
           const isVisible = index === currentIndex
 
           return (
-            <QuoteBlock isVisible={isVisible} card={card} className={classes.stickyBlockItem} />
+            <QuoteBlock
+              key={index}
+              isVisible={isVisible}
+              card={card}
+              className={classes.stickyBlockItem}
+            />
           )
         })}
       </div>
