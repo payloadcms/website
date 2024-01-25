@@ -23,16 +23,17 @@
     overflow: hidden;
 
     img {
-      right: -10px;
+      right: calc(var(--base) * -0.5);
 
       @include mid-break {
         right: unset;
       }
     }
 
-     @include mid-break {
-      margin-right: 0;
-     }
+    @include mid-break {
+      margin-right: 1px;
+      margin-left: 1px;
+    }
   }
 
   &:last-of-type {
