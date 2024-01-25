@@ -123,7 +123,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
 
         if (navButtonsRef.current?.length && navGridRef.current) {
           if (delayNavScroll) {
-            /* This logic is in a timeout so that on mobile scroll() doesnt block the other scrollIntoView function */
+            /* This logic is in a timeout so that on mobile scroll() doesn't block the other scrollIntoView function */
             setTimeout(() => {
               const target = navButtonsRef.current[newIndex]
               const offset = target.offsetLeft > 0 ? target.offsetLeft : 0
@@ -138,6 +138,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scrollProgress, navButtonsRef, navGridRef, delayNavScroll])
 
   React.useEffect(() => {
