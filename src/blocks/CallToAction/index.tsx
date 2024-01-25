@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react'
 import { ArrowIcon } from '@icons/ArrowIcon'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BackgroundScanline } from '@components/BackgroundScanline'
 import { BlockSpacing } from '@components/BlockSpacing'
 import { CMSLink } from '@components/CMSLink'
 import CreatePayloadApp from '@components/CreatePayloadApp'
 import { Gutter } from '@components/Gutter'
 import { Label } from '@components/Label'
-import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
 
@@ -24,12 +25,24 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
   return (
     <BlockSpacing>
       <Gutter className={classes.callToAction}>
-        <div>
-          <div className={[classes.contentWrap, 'grid'].filter(Boolean).join(' ')}>
-            <div className={'cols-8 cols-m-8'}>
+        <div className={[classes.wrapper].filter(Boolean).join(' ')}>
+          <BackgroundGrid ignoreGutter />
+          <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>
+            <div className={[classes.contentWrapper, 'cols-7 cols-m-8'].filter(Boolean).join(' ')}>
               <RichText content={richText} className={classes.content} />
             </div>
-            <div className={'cols-7 start-11 start-l-10 cols-m-8 start-m-1'}>
+            <div
+              className={[classes.linksContainer, 'cols-8 start-9 cols-m-8 start-m-1 grid']
+                .filter(Boolean)
+                .join(' ')}
+            >
+              <BackgroundScanline
+                className={[classes.scanline, 'cols-16 start-4 start-l-3 cols-m-8 start-m-1']
+                  .filter(Boolean)
+                  .join(' ')}
+              />
+              {/* Double printing the BackgroundGrid component here so that it displays above the scanline */}
+              <BackgroundGrid ignoreGutter />
               {feature === 'cpa' && (
                 <Fragment>
                   <Label className={classes.label}>Get started in one line</Label>
@@ -37,14 +50,17 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
                 </Fragment>
               )}
               {hasLinks && (
-                <div className={classes.links}>
+                <div className={[classes.links, 'cols-16 cols-m-8'].filter(Boolean).join(' ')}>
                   {links.map(({ link }, index) => (
                     <CMSLink
                       {...link}
                       key={index}
                       appearance={'default'}
-                      buttonProps={{ appearance: 'default' }}
-                      className={classes.button}
+                      buttonProps={{
+                        appearance: 'default',
+                        hideBorders: true,
+                      }}
+                      className={[classes.button].filter(Boolean).join(' ')}
                     >
                       <ArrowIcon className={classes.buttonIcon} />
                     </CMSLink>

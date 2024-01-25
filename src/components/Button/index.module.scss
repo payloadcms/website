@@ -255,9 +255,18 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   }
 }
 
+.hideBorders {
+  border: none;
+}
+
 .hideHorizontalBorders {
   border-right: none;
   border-left: none;
+}
+
+.hideVerticalBorders {
+  border-top: none;
+  border-bottom: none;
 }
 
 .content {
@@ -303,7 +312,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
       &::before {
         background-image: linear-gradient(to right, var(--theme-elevation-900) 50%, var(--theme-elevation-0) 50%);
       }
-      
+
       color: var(--theme-elevation-900);
 
       &:hover {

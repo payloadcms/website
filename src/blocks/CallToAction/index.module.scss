@@ -1,43 +1,43 @@
 @use '@scss/common.scss' as *;
 
-.callToAction {
+.wrapper {
   position: relative;
 }
 
-.bgWrapper {
-    width: 100%;
-    height: 100%;
-    position: absolute;
+.container {
+  position: relative;
+  padding-top: calc(var(--base) * 10);
+  padding-bottom: calc(var(--base) * 10);
+
+  @include mid-break {
+    row-gap: calc(var(--base) * 3);
+  }
+}
+
+.linksContainer {
+  position: relative;
+
+}
+
+.scanline {
+  top: -20%;
+  height: 140%;
+  margin-right: calc(var(--gutter-h) * -1);
+  width: calc(100% + var(--gutter-h));
+  z-index: -1;
+
+  @include mid-break {
     top: 0;
-    left: 0;
-}
-
-.bgGutter {
-    width: 100%;
     height: 100%;
+    width: calc(100% + var(--gutter-h) * 2);
+    margin-left: calc(var(--gutter-h) * -1);
+    margin-right: calc(var(--gutter-h) * -2);
+  }
 }
 
-.bg1 {
-    position: relative;
-    height: 100%;
-    margin-left: calc(var(--gutter-h) / -2);
-    margin-right: calc(var(--gutter-h) / -2);
-    width: calc(100% + var(--gutter-h));
-    background-color: var(--color-base-950);
-
-    @include mid-break {
-        margin: 0;
-        width: 100%;
-    }
-}
-
-.contentWrap {
-    position: relative;
-    padding: calc(var(--base) * 4) 0;
-
-    @include mid-break {
-        padding: calc(var(--base) * 2) 0 var(--base);
-    }
+.contentWrapper {
+  display: flex;
+  align-items: center;
 }
 
 .content, .cpa, .label {
@@ -51,43 +51,21 @@
     justify-content: flex-start;
 }
 
-/* .links {
+.links {
     position: relative;
-    padding: calc(var(--base) * 3) 0 0 calc(var(--base) * 3);
-
-    @include mid-break {
-        padding: calc(var(--base) * 1) 0 var(--base) var(--base);
-    }
-} */
-
-/* .button {
-    @include label;
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    position: relative;
-    background-color: var(--color-base-900);
-    padding: calc(var(--base) * 2);
-    text-decoration: none;
+    flex-direction: column;
 
-    svg path {
-        stroke: var(--color-success-500);
+    > *:first-of-type {
+      border-top: 1px solid var(--theme-elevation-200);
+      border-bottom: 1px solid var(--theme-elevation-200);
     }
 
-    @include mid-break {
-        padding: var(--base);
-    }
-} */
-
-.pixelBG {
-    width: calc(100% + var(--gutter-h) / 2);
-    height: calc(100% + var(--base) * 4);
-
-    @include mid-break {
-        width: calc(100% + var(--gutter-h));
-        height: calc(100% + var(--base));
+    > * {
+      border-bottom: 1px solid var(--theme-elevation-200);
     }
 }
+
 
 .buttonIcon {
     margin-left: var(--base);
