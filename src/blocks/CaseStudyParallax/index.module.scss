@@ -40,8 +40,8 @@
     padding-bottom: calc(var(--base) * 4);
 
     @include mid-break {
-    padding-bottom:  calc(var(--base) * 0);
-  }
+      padding-bottom:  0;
+    }
   }
 }
 
