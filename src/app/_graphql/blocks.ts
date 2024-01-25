@@ -182,6 +182,7 @@ export const FEATURED_MEDIA_GALLERY = `
 ...on FeaturedMediaGallery {
   blockType
   featuredMediaGalleryFields {
+    background
     alignment
     leader
     title

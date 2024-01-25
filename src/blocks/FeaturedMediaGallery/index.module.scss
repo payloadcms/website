@@ -1,12 +1,46 @@
 @use '@scss/common' as *;
 
+.featuredMediaGallery {
+  position: relative;
+    padding: calc(var(--base) * 8) 0;
+
+    @include large-break {
+      padding: calc(var(--base) * 6) 0;
+    }
+
+    @include mid-break {
+      padding: calc(var(--base) * 4) 0;
+    }
+}
+
+.blackBg {
+  background-color: var(--theme-elevation-0);
+}
+
+.darkBg {
+  background-color: var(--theme-elevation-100);
+}
+
+.backgroundGrid {
+  z-index: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .leader {
   @include label;
+  margin-top: 0;
+  margin-bottom: calc(var(--base) * 1);
 }
 
 .title {
-  @include h3;
-  margin-bottom: calc(var(--base) * 5);
+  @include h2;
+  margin-top: 0;
+  margin-bottom: calc(var(--base) * 3);
 }
 
 .description {
@@ -18,15 +52,22 @@
 .tabs {
   list-style: none;
   padding: 0;
-  margin-bottom: calc(var(--base) * 5);
+  margin-bottom: calc(var(--base) * 3);
 }
 
 .links {
   list-style: none;
   padding: 0;
+  margin: 0;
 
   li:not(:last-child) .linkButton {
     border-bottom: none;
+  }
+}
+
+.blackButtonBg {
+  &::before {
+    background-image: linear-gradient(to right, var(--theme-elevation-1000) 50%, var(--theme-elevation-0) 50%);
   }
 }
 
@@ -35,7 +76,7 @@
   cursor: pointer;
   width: 100%;
   text-align: unset;
-  padding: calc(var(--base) * 1) 0;
+  padding: calc(var(--base) * 0.75) 0;
   border-bottom: 1px solid var(--theme-elevation-250);
   position: relative;
 }
@@ -58,23 +99,46 @@
   left: 0;
 }
 
-// .mediaWrapper {
-//   position: relative;
-//   overflow: hidden;
+.mediaTabs {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+  
+.imageContainer {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(100% + var(--gutter-h));
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 
-//   .mediaContent {
-//     position: absolute;
-//     width: 100%;
-//     height: 100%;
-//     transition: opacity 0.5s ease-in-out;
-//     opacity: 0;  // Default state is faded out
-//   }
+  > div {
+    height: 100%;
 
-//   .fadeIn {
-//     opacity: 1;
-//   }
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
 
-//   .fadeOut {
-//     opacity: 0;
-//   }
-// }
+.leftImageAlignment {
+  right: 0;
+}
+
+.rightImageAlignment {
+  left: 0;
+}
+
+.activeImage {
+  opacity: 1;
+}
+
+:global([data-theme="light"]) {
+  .darkBg {
+    background-color: var(--theme-elevation-0);
+  }
+}

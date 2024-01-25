@@ -1109,6 +1109,7 @@ export interface Page {
     }
     | {
       featuredMediaGalleryFields: {
+        background?: ('black' | 'dark') | null;
         alignment?: ('contentMediaGallery' | 'mediaGalleryContent') | null;
         leader?: string | null;
         title: string;
@@ -1913,6 +1914,7 @@ export interface ReusableContent {
     }
     | {
       featuredMediaGalleryFields: {
+        background?: ('black' | 'dark') | null;
         alignment?: ('contentMediaGallery' | 'mediaGalleryContent') | null;
         leader?: string | null;
         title: string;
