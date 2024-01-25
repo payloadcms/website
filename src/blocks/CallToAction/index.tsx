@@ -24,16 +24,7 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
   return (
     <BlockSpacing>
       <Gutter className={classes.callToAction}>
-        <div data-theme="dark">
-          <div className={classes.bgWrapper}>
-            <Gutter disableMobile className={classes.bgGutter}>
-              <div className={classes.bg1}>
-                {/* <div className={classes.pixelBG}>
-              <PixelBackground />
-            </div> */}
-              </div>
-            </Gutter>
-          </div>
+        <div>
           <div className={[classes.contentWrap, 'grid'].filter(Boolean).join(' ')}>
             <div className={'cols-8 cols-m-8'}>
               <RichText content={richText} className={classes.content} />
@@ -47,9 +38,14 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
               )}
               {hasLinks && (
                 <div className={classes.links}>
-                  <PixelBackground className={classes.pixelBG} />
                   {links.map(({ link }, index) => (
-                    <CMSLink {...link} key={index} className={classes.button}>
+                    <CMSLink
+                      {...link}
+                      key={index}
+                      appearance={'default'}
+                      buttonProps={{ appearance: 'default' }}
+                      className={classes.button}
+                    >
                       <ArrowIcon className={classes.buttonIcon} />
                     </CMSLink>
                   ))}

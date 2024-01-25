@@ -51,16 +51,16 @@
     justify-content: flex-start;
 }
 
-.links {
+/* .links {
     position: relative;
     padding: calc(var(--base) * 3) 0 0 calc(var(--base) * 3);
 
     @include mid-break {
         padding: calc(var(--base) * 1) 0 var(--base) var(--base);
     }
-}
+} */
 
-.button {
+/* .button {
     @include label;
     display: flex;
     justify-content: space-between;
@@ -77,7 +77,7 @@
     @include mid-break {
         padding: var(--base);
     }
-}
+} */
 
 .pixelBG {
     width: calc(100% + var(--gutter-h) / 2);
