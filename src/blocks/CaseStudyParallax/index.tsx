@@ -237,7 +237,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
                   key={index}
                   data-index={index}
                   className={[
-                    classes.item,
+                    classes.card,
                     'grid ',
                     isVisible && classes.isVisible,
                     index === 0 ? classes.isFirst : 'cols-16',
