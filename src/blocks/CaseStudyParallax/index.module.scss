@@ -47,7 +47,7 @@
 
 .stickyBlock {
   position: sticky;
-  top: 18vh;
+  top: 18%;
   z-index: 6;
   grid-column: 1/16;
   grid-row: 1/1;
@@ -55,7 +55,7 @@
   align-items: center;
 
   @include large-break {
-    top: 30vh;
+    top: 23%;
   }
 
   @include mid-break {
@@ -81,16 +81,17 @@
 
 .quoteIcon {
   position: absolute;
-  width:  calc(var(--base) * 8);
+  width:  calc(var(--base) * 10);
   height: auto;
   color: var(--theme-bg);
-  left: calc(var(--base) * -4);
-  top: calc(var(--base) * -4);
+  left: calc(var(--base) * -2.4);
+  top: calc(var(--base) * -5.6);
+
 
   @include large-break {
-    left: calc(var(--base) * -3);
-    top: calc(var(--base) * -3.5);
-    width:  calc(var(--base) * 6);
+    left: calc(var(--base) * -1.8);
+    top: calc(var(--base) * -4.5);
+    width:  calc(var(--base) * 8);
   }
 
   @include mid-break {
@@ -101,6 +102,7 @@
     stroke: var(--theme-elevation-200);
     stroke-width: 1px;
     vector-effect: non-scaling-stroke;
+    fill: none;
   }
 }
 
@@ -153,7 +155,7 @@
   row-gap: calc(var(--base) * 12);
 
   padding-top:  calc(var(--base) * 6);
-  padding-bottom:  calc(var(--base) * 5);
+  padding-bottom:  calc(var(--base) * 10);
 
   margin-bottom: -80vh;
 

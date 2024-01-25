@@ -37,14 +37,14 @@ export const QuoteBlock: React.FC<QuoteProps> = props => {
       <QuoteIconAlt className={classes.quoteIcon} />
       <div
         aria-hidden={!isVisible}
-        className={[classes.quote, 'cols-16'].filter(Boolean).join(' ')}
+        className={[classes.quote, 'cols-12'].filter(Boolean).join(' ')}
       >
         {card.quote}”
       </div>
 
       <div
         aria-hidden={!isVisible}
-        className={[classes.authorWrapper, 'cols-16'].filter(Boolean).join(' ')}
+        className={[classes.authorWrapper, 'cols-12'].filter(Boolean).join(' ')}
       >
         <div className={classes.media}>
           {typeof card.logo !== 'string' && <Media resource={card.logo} />}
