@@ -23,7 +23,7 @@
     overflow: hidden;
 
     img {
-      right: calc(var(--base) * -0.5);
+      right: -1px;
 
       @include mid-break {
         right: unset;
