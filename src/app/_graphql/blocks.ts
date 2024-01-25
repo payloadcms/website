@@ -123,7 +123,7 @@ export const CASE_STUDY_PARALLAX = `
 ...on CaseStudyParallax {
   blockType
   caseStudyParallaxFields {
-    cards {
+    items {
       quote
       author
       tabLabel

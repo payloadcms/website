@@ -20,13 +20,13 @@ type StickyBlockProps = Props & {
 }
 
 type QuoteProps = {
-  card: any
+  item: any
   isVisible?: boolean
   className?: string
 }
 
 export const QuoteBlock: React.FC<QuoteProps> = props => {
-  const { isVisible, card, className } = props
+  const { isVisible, item, className } = props
   return (
     <div
       className={[isVisible && classes.isVisible, 'cols-8 grid', className]
@@ -39,7 +39,7 @@ export const QuoteBlock: React.FC<QuoteProps> = props => {
         aria-hidden={!isVisible}
         className={[classes.quote, 'cols-12'].filter(Boolean).join(' ')}
       >
-        {card.quote}”
+        {item.quote}”
       </div>
 
       <div
@@ -47,12 +47,12 @@ export const QuoteBlock: React.FC<QuoteProps> = props => {
         className={[classes.authorWrapper, 'cols-12'].filter(Boolean).join(' ')}
       >
         <div className={classes.media}>
-          {typeof card.logo !== 'string' && <Media resource={card.logo} />}
+          {typeof item.logo !== 'string' && <Media resource={item.logo} />}
         </div>
-        <div className={classes.author}>{card.author}</div>
+        <div className={classes.author}>{item.author}</div>
       </div>
 
-      {typeof card.caseStudy !== 'string' && (
+      {typeof item.caseStudy !== 'string' && (
         <div className={['cols-8 cols-m-4 cols-s-8'].filter(Boolean).join(' ')}>
           <Button
             label={'Read the case study'}
@@ -60,7 +60,7 @@ export const QuoteBlock: React.FC<QuoteProps> = props => {
             appearance={'default'}
             icon="arrow"
             className={classes.caseStudyButton}
-            href={`/case-studies/${card.caseStudy.slug}`}
+            href={`/case-studies/${item.caseStudy.slug}`}
             el="a"
             aria-hidden={!isVisible}
             disabled={!isVisible}
@@ -74,17 +74,17 @@ export const QuoteBlock: React.FC<QuoteProps> = props => {
 export const QuoteStickyBlock: React.FC<StickyBlockProps> = props => {
   const { caseStudyParallaxFields, currentIndex } = props
 
-  if (caseStudyParallaxFields?.cards && caseStudyParallaxFields?.cards?.length > 0) {
+  if (caseStudyParallaxFields?.items && caseStudyParallaxFields?.items?.length > 0) {
     return (
       <div className={[classes.stickyBlock, 'grid'].filter(Boolean).join(' ')}>
-        {caseStudyParallaxFields?.cards.map((card, index) => {
+        {caseStudyParallaxFields?.items.map((item, index) => {
           const isVisible = index === currentIndex
 
           return (
             <QuoteBlock
               key={index}
               isVisible={isVisible}
-              card={card}
+              item={item}
               className={classes.stickyBlockItem}
             />
           )
@@ -212,7 +212,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
 
   const variableStyle = { '--progress-width': `${scrollProgress}%` } as React.CSSProperties
 
-  if (caseStudyParallaxFields?.cards && caseStudyParallaxFields?.cards?.length > 0) {
+  if (caseStudyParallaxFields?.items && caseStudyParallaxFields?.items?.length > 0) {
     return (
       <BlockSpacing className={classes.caseStudyCards}>
         <Gutter className={classes.mainGutter}>
@@ -226,7 +226,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
           </div>
           <div className={classes.mainTrack} ref={containerRef}>
             <QuoteStickyBlock currentIndex={activeIndex} {...props} />
-            {caseStudyParallaxFields?.cards.map((card, index) => {
+            {caseStudyParallaxFields?.items.map((item, index) => {
               const isVisible = index === activeIndex
               return (
                 <div
@@ -237,7 +237,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
                   key={index}
                   data-index={index}
                   className={[
-                    classes.card,
+                    classes.item,
                     'grid ',
                     isVisible && classes.isVisible,
                     index === 0 ? classes.isFirst : 'cols-16',
@@ -250,13 +250,13 @@ export const CaseStudyParallax: React.FC<Props> = props => {
                       .filter(Boolean)
                       .join(' ')}
                   >
-                    {typeof card.previewImage !== 'string' && (
+                    {typeof item.previewImage !== 'string' && (
                       <>
-                        <Media resource={card.previewImage} />
+                        <Media resource={item.previewImage} />
                       </>
                     )}
                   </div>
-                  <QuoteBlock className={classes.mobileQuoteItem} card={card} />
+                  <QuoteBlock className={classes.mobileQuoteItem} item={item} />
                 </div>
               )
             })}
@@ -272,7 +272,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
                   ref={navGridRef}
                 >
                   <div className={[classes.progressIndicator].filter(Boolean).join(' ')} />
-                  {caseStudyParallaxFields?.cards.map((card, index) => {
+                  {caseStudyParallaxFields?.items.map((item, index) => {
                     return (
                       <div
                         key={index}
@@ -281,10 +281,10 @@ export const CaseStudyParallax: React.FC<Props> = props => {
                           if (el) navButtonsRef.current[index] = el
                         }}
                       >
-                        {typeof card.caseStudy !== 'string' && (
+                        {typeof item.caseStudy !== 'string' && (
                           <Button
                             icon="arrow"
-                            label={card.tabLabel}
+                            label={item.tabLabel}
                             hideHorizontalBorders
                             className={[
                               classes.navButton,

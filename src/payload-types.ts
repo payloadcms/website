@@ -928,7 +928,7 @@ export interface Page {
       }
     | {
         caseStudyParallaxFields?: {
-          cards?:
+          items?:
             | {
                 quote: string;
                 author?: string | null;
@@ -1696,7 +1696,7 @@ export interface ReusableContent {
       }
     | {
         caseStudyParallaxFields?: {
-          cards?:
+          items?:
             | {
                 quote: string;
                 author?: string | null;
@@ -2584,9 +2584,4 @@ export interface TopBar {
   announcement?: (string | null) | Announcement;
   updatedAt?: string | null;
   createdAt?: string | null;
-}
-
-
-declare module 'payload' {
-  export interface GeneratedTypes extends Config {}
 }
