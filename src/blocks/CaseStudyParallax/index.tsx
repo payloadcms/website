@@ -76,7 +76,7 @@ export const QuoteStickyBlock: React.FC<StickyBlockProps> = props => {
 
   if (caseStudyParallaxFields?.items && caseStudyParallaxFields?.items?.length > 0) {
     return (
-      <div className={[classes.stickyBlock, 'grid'].filter(Boolean).join(' ')}>
+      <div className={[classes.stickyBlock, 'grid cols-16 cols-m-8'].filter(Boolean).join(' ')}>
         {caseStudyParallaxFields?.items.map((item, index) => {
           const isVisible = index === currentIndex
 
