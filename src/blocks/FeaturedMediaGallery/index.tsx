@@ -87,6 +87,7 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
                       ]
                         .filter(Boolean)
                         .join(' ')}
+                      aria-hidden={activeTabIndex !== index ? 'true' : 'false'}
                     >
                       {typeof tab.media === 'object' && tab.media !== null && (
                         <Media resource={tab.media} />
@@ -100,7 +101,7 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
                   .join(' ')}
               >
                 {leader && <div className={classes.leader}>{leader}</div>}
-                {title && <div className={classes.title}>{title}</div>}
+                {title && <h2 className={classes.title}>{title}</h2>}
                 {description && <RichText className={classes.description} content={description} />}
                 <div className={[classes.mobileMediaTabs].filter(Boolean).join(' ')}>
                   <div className={classes.aspectRatioWrapper}>
@@ -118,6 +119,7 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
                           ]
                             .filter(Boolean)
                             .join(' ')}
+                          aria-hidden={activeTabIndex !== index ? 'true' : 'false'}
                         >
                           {typeof tab.media === 'object' && tab.media !== null && (
                             <Media resource={tab.media} />
@@ -130,7 +132,15 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
                   <ul className={classes.tabs}>
                     {featuredMediaTabs.map((tab, index) => (
                       <li key={tab.id || index}>
-                        <button className={classes.tabButton} onClick={() => switchTab(index)}>
+                        <button
+                          className={[
+                            classes.tabButton,
+                            index === activeTabIndex ? classes.activeButton : '',
+                          ]
+                            .filter(Boolean)
+                            .join(' ')}
+                          onClick={() => switchTab(index)}
+                        >
                           {tab.mediaLabel}
                           {index === activeTabIndex && <div className={classes.progressBar}></div>}
                         </button>
@@ -172,7 +182,7 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
                 className={[classes.content, 'cols-4 start-1 cols-m-8'].filter(Boolean).join(' ')}
               >
                 {leader && <div className={classes.leader}>{leader}</div>}
-                {title && <div className={classes.title}>{title}</div>}
+                {title && <h2 className={classes.title}>{title}</h2>}
                 {description && <RichText className={classes.description} content={description} />}
                 <div className={[classes.mobileMediaTabs].filter(Boolean).join(' ')}>
                   <div className={classes.aspectRatioWrapper}>
@@ -190,6 +200,7 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
                           ]
                             .filter(Boolean)
                             .join(' ')}
+                          aria-hidden={activeTabIndex !== index ? 'true' : 'false'}
                         >
                           {typeof tab.media === 'object' && tab.media !== null && (
                             <Media resource={tab.media} />
@@ -202,7 +213,15 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
                   <ul className={classes.tabs}>
                     {featuredMediaTabs.map((tab, index) => (
                       <li key={tab.id || index}>
-                        <button className={classes.tabButton} onClick={() => switchTab(index)}>
+                        <button
+                          className={[
+                            classes.tabButton,
+                            index === activeTabIndex ? classes.activeButton : '',
+                          ]
+                            .filter(Boolean)
+                            .join(' ')}
+                          onClick={() => switchTab(index)}
+                        >
                           {tab.mediaLabel}
                           {index === activeTabIndex && <div className={classes.progressBar}></div>}
                         </button>
@@ -256,6 +275,7 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
                       ]
                         .filter(Boolean)
                         .join(' ')}
+                      aria-hidden={activeTabIndex !== index ? 'true' : 'false'}
                     >
                       {typeof tab.media === 'object' && tab.media !== null && (
                         <Media resource={tab.media} />

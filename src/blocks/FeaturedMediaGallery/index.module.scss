@@ -84,6 +84,16 @@
   padding: calc(var(--base) * 0.75) 0;
   border-bottom: 1px solid var(--theme-elevation-250);
   position: relative;
+  color: var(--theme-elevation-500);
+  transition: color 0.3s ease-in-out;
+
+  &:hover {
+    color: var(--theme-text);
+  }
+}
+
+.activeButton {
+  color: var(--theme-text);
 }
 
 @keyframes fillBar {
