@@ -8,11 +8,13 @@ import { CallToAction } from '@blocks/CallToAction'
 import { CardGrid } from '@blocks/CardGrid'
 import { CaseStudiesHighlightBlock } from '@blocks/CaseStudiesHighlight'
 import { CaseStudyCards } from '@blocks/CaseStudyCards'
+import { CaseStudyParallax } from '@blocks/CaseStudyParallax'
 import { CodeBlock } from '@blocks/CodeBlock'
 import { CodeFeature } from '@blocks/CodeFeature'
 import { ContentBlock } from '@blocks/Content'
 import { ContentGrid } from '@blocks/ContentGrid'
 import { ExampleTabs } from '@blocks/ExampleTabs'
+import { FeaturedMediaGallery } from '@blocks/FeaturedMediaGallery'
 import { FormBlock } from '@blocks/FormBlock'
 import { HoverHighlights } from '@blocks/HoverHighlights'
 import { LinkGrid } from '@blocks/LinkGrid'
@@ -37,6 +39,7 @@ const blockComponents = {
   blogMarkdown: BlogMarkdown,
   caseStudiesHighlight: CaseStudiesHighlightBlock,
   caseStudyCards: CaseStudyCards,
+  caseStudyParallax: CaseStudyParallax,
   mediaBlock: MediaBlock,
   code: CodeBlock,
   content: ContentBlock,
@@ -55,6 +58,7 @@ const blockComponents = {
   pricing: Pricing,
   relatedPosts: RelatedPosts,
   exampleTabs: ExampleTabs,
+  featuredMediaGallery: FeaturedMediaGallery,
 }
 
 type Props = {

@@ -17,7 +17,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
    &::before {
     content: '';
-    width: calc(100% - 2px);
+    width: calc(100%);
     position: absolute;
     height:100%;
     left: 1px;
@@ -92,7 +92,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     transition: background-position 550ms $curve;
 
     &::before {
-      background-image: linear-gradient(to right, var(--theme-elevation-1000) 50%, var(--theme-elevation-100) 50%);
+      background-image: linear-gradient(to right, var(--theme-elevation-1000)  calc(50% - 1px), var(--theme-elevation-100) calc(50% - 1px));
       background-size: 200% 100%;
       background-position: right bottom;
       transition: background-position 550ms $curve;
@@ -310,7 +310,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   .appearance {
     &--default {
       &::before {
-        background-image: linear-gradient(to right, var(--theme-elevation-900) 50%, var(--theme-elevation-0) 50%);
+        background-image: linear-gradient(to right, var(--theme-elevation-900) calc(50% - 1px), var(--theme-elevation-0) calc(50% - 1px));
       }
 
       color: var(--theme-elevation-900);

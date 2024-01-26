@@ -28,6 +28,7 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
   newTab?: boolean | null
   label?: string | null
   labelStyle?: 'mono' | 'regular'
+  labelClassName?: string
   icon?: false | 'arrow' | 'search' | 'github' | 'plus'
   fullWidth?: boolean
   mobileFullWidth?: boolean
@@ -95,7 +96,7 @@ const generateHref = (args: GenerateSlugType): string => {
 }
 
 const ButtonContent: React.FC<ButtonProps> = props => {
-  const { icon, label, labelStyle = 'mono' } = props
+  const { icon, label, labelStyle = 'mono', labelClassName } = props
 
   const Icon = icon ? icons[icon] : null
 
@@ -107,6 +108,7 @@ const ButtonContent: React.FC<ButtonProps> = props => {
             classes.label,
             !icon && classes['label-centered'],
             classes[`label-${labelStyle}`],
+            labelClassName,
           ]
             .filter(Boolean)
             .join(' ')}
@@ -149,6 +151,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     hideBorders,
     hideHorizontalBorders,
     hideVerticalBorders,
+    labelClassName,
   } = props
 
   const href = hrefFromProps || generateHref({ type, reference, url })

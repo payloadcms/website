@@ -3,10 +3,12 @@ import {
   CARD_GRID,
   CASE_STUDIES_HIGHLIGHT,
   CASE_STUDY_CARDS,
+  CASE_STUDY_PARALLAX,
   CODE_FEATURE,
   CONTENT,
   CONTENT_GRID,
   EXAMPLE_TABS,
+  FEATURED_MEDIA_GALLERY,
   FORM_BLOCK,
   HOVER_HIGHLIGHTS,
   LINK_GRID,
@@ -91,10 +93,12 @@ export const PAGE = `
           ${CARD_GRID}
           ${CASE_STUDIES_HIGHLIGHT}
           ${CASE_STUDY_CARDS}
+          ${CASE_STUDY_PARALLAX}
           ${CODE_FEATURE}
           ${CONTENT}
           ${CONTENT_GRID}
           ${EXAMPLE_TABS}
+          ${FEATURED_MEDIA_GALLERY}
           ${FORM_BLOCK}
           ${HOVER_HIGHLIGHTS}
           ${LINK_GRID}
