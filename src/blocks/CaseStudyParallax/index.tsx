@@ -237,7 +237,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
               className={[classes.scanline, 'cols-8 start-11'].filter(Boolean).join(' ')}
             />
           </div>
-          <div className={classes.mainTrack} ref={containerRef}>
+          <div className={[classes.mainTrack, 'grid'].filter(Boolean).join(' ')} ref={containerRef}>
             <QuoteStickyBlock currentIndex={activeIndex.current} {...props} />
             {caseStudyParallaxFields?.items.map((item, index) => {
               const isVisible = index === activeIndex.current
@@ -253,7 +253,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
                     classes.card,
                     'grid ',
                     isVisible && classes.isVisible,
-                    index === 0 ? classes.isFirst : 'cols-16',
+                    index === 0 ? classes.isFirst : 'cols-16 cols-m-8',
                   ]
                     .filter(Boolean)
                     .join(' ')}

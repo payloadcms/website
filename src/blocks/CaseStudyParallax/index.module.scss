@@ -14,7 +14,7 @@
   padding-top:  calc(var(--base) * 4);
 
   &.isFirst {
-    grid-column: 1/17;
+    grid-column: 1/-1;
     grid-row: 1/1;
   }
 
@@ -151,7 +151,7 @@
   scroll-snap-type: y mandatory;
   position: relative;
   scroll-snap-align: center;
-  display: grid;
+  //display: grid;
   overflow: visible;
   row-gap: calc(var(--base) * 12);
 
