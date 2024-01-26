@@ -97,7 +97,6 @@ export const QuoteStickyBlock: React.FC<StickyBlockProps> = props => {
 
 export const CaseStudyParallax: React.FC<Props> = props => {
   const { caseStudyParallaxFields } = props
-  //const [activeIndex, setActiveIndex] = React.useState<number>(0)
   const activeIndex = React.useRef(0)
   const [scrollProgress, setScrollProgress] = React.useState<number>(0)
   const [delayNavScroll, setDelayNavScroll] = React.useState<boolean>(false)
