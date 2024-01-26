@@ -10,7 +10,7 @@ interface Resize {
   size?: Size
 }
 
-export const useResize = (ref: React.MutableRefObject<null>): Resize => {
+export const useResize = <T>(ref: React.MutableRefObject<T | null>): Resize => {
   const [size, setSize] = useState<Size>()
 
   useEffect(() => {
