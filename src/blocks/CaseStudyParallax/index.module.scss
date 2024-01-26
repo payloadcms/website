@@ -67,9 +67,11 @@
   grid-column: 1/9;
   grid-row: 1/1;
   opacity: 0;
-  transition: all 0.35s;
   visibility: hidden;
   position: relative;
+  will-change: opacity, visibility;
+  transition: opacity 0.35s ease-in-out, visibility 0.35s ease-in-out;
+
 
   &.isVisible {
     pointer-events: all;
