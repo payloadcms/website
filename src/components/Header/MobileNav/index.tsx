@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Modal, useModal } from '@faceless-ui/modal'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -7,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { Avatar } from '@components/Avatar'
 import { Gutter } from '@components/Gutter'
 import { DiscordIcon } from '@root/graphics/DiscordIcon'
+import { ChevronIcon } from '@root/icons/ChevronIcon'
 import { MainMenu } from '@root/payload-types'
 import { useAuth } from '@root/providers/Auth'
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver'
@@ -20,23 +20,31 @@ import { DocSearch } from '../Docsearch'
 import classes from './index.module.scss'
 
 export const modalSlug = 'mobile-nav'
+export const subMenuSlug = 'mobile-sub-menu'
 
 type NavItems = Pick<MainMenu, 'tabs'>
 
-const MobileNavItems = ({ tabs }: NavItems) => {
+const MobileNavItems = ({ tabs, setActiveTab }) => {
   const { user } = useAuth()
+  const { openModal } = useModal()
+
+  const handleOnClick = index => {
+    openModal(subMenuSlug)
+    setActiveTab(index)
+  }
 
   return (
     <ul className={classes.mobileMenuItems}>
       {(tabs || []).map((tab, index) => {
         return (
           <div key={index}>
-            <button className={[classes.tab].filter(Boolean).join(' ')} key={index}>
+            <button
+              className={classes.mobileMenuItem}
+              key={index}
+              onClick={() => handleOnClick(index)}
+            >
               {tab.label}
             </button>
-            {(tab.navItems || []).map((item, index) => {
-              return <CMSLink className={classes.mobileMenuItem} key={index} {...item.link} />
-            })}
           </div>
         )
       })}
@@ -65,17 +73,54 @@ const MobileNavItems = ({ tabs }: NavItems) => {
   )
 }
 
-const MobileMenuModal: React.FC<NavItems> = ({ tabs }) => {
+const MobileMenuModal: React.FC<
+  NavItems & {
+    setActiveTab: (index: number) => void
+  }
+> = ({ tabs, setActiveTab }) => {
   return (
     <Modal slug={modalSlug} className={classes.mobileMenuModal} trapFocus={false}>
       <Gutter>
-        <Grid>
-          <Cell>
-            <div className={classes.mobileMenu}>
-              <MobileNavItems tabs={tabs} />
+        <div className={classes.mobileMenu}>
+          <MobileNavItems tabs={tabs} setActiveTab={setActiveTab} />
+        </div>
+      </Gutter>
+      <div className={classes.modalBlur} />
+    </Modal>
+  )
+}
+
+const SubMenuModal: React.FC<
+  NavItems & {
+    activeTab: number | undefined
+  }
+> = ({ tabs, activeTab }) => {
+  const { closeModal } = useModal()
+
+  return (
+    <Modal slug={subMenuSlug} className={classes.mobileMenuModal} trapFocus={false}>
+      <Gutter className={classes.mobileSubMenu}>
+        {(tabs || []).map((tab, index) => {
+          if (index !== activeTab) return null
+
+          return (
+            <div key={index}>
+              <div className={classes.subMenuHeader}>
+                <button className={classes.backButton} onClick={() => closeModal(subMenuSlug)}>
+                  <ChevronIcon rotation={180} />
+                  Back
+                </button>
+                <span className={classes.mobileMenuItem}>{tab.label}</span>
+              </div>
+
+              <div className={classes.subMenuItems}>
+                {(tab.navItems || []).map((item, index) => {
+                  return <CMSLink key={index} {...item.link} className={classes.subMenuItem} />
+                })}
+              </div>
             </div>
-          </Cell>
-        </Grid>
+          )
+        })}
       </Gutter>
       <div className={classes.modalBlur} />
     </Modal>
@@ -89,6 +134,7 @@ export const MobileNav: React.FC<NavItems> = props => {
   const themeBeforeOpenRef = React.useRef<Theme | null | undefined>(theme)
   const { user } = useAuth()
   const pathname = usePathname()
+  const [activeTab, setActiveTab] = React.useState<number | undefined>()
 
   const isMenuOpen = isModalOpen(modalSlug)
 
@@ -98,21 +144,21 @@ export const MobileNav: React.FC<NavItems> = props => {
 
   const toggleModal = React.useCallback(() => {
     if (isMenuOpen) {
-      closeModal(modalSlug)
+      closeAllModals()
       setHeaderTheme(themeBeforeOpenRef?.current || theme)
     } else {
       themeBeforeOpenRef.current = headerTheme
       setHeaderTheme('dark')
       openModal(modalSlug)
     }
-  }, [isMenuOpen, closeModal, openModal, setHeaderTheme, headerTheme, theme])
+  }, [isMenuOpen, closeAllModals, openModal, setHeaderTheme, headerTheme, theme])
 
   return (
     <div className={classes.mobileNav}>
       <div className={classes.menuBar}>
         <Gutter>
-          <Grid>
-            <Cell className={classes.menuBarContainer}>
+          <div className={'grid'}>
+            <div className={[classes.menuBarContainer, 'cols-16'].filter(Boolean).join(' ')}>
               <Link
                 href="/"
                 className={classes.logo}
@@ -136,18 +182,21 @@ export const MobileNav: React.FC<NavItems> = props => {
                 <DocSearch />
                 <button
                   type="button"
-                  className={classes.modalToggler}
+                  className={[classes.modalToggler, isMenuOpen ? classes.open : '']
+                    .filter(Boolean)
+                    .join(' ')}
                   onClick={toggleModal}
                   aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
                 >
                   <MenuIcon />
                 </button>
               </div>
-            </Cell>
-          </Grid>
+            </div>
+          </div>
         </Gutter>
       </div>
-      <MobileMenuModal {...props} />
+      <MobileMenuModal {...props} setActiveTab={setActiveTab} />
+      <SubMenuModal {...props} activeTab={activeTab} />
     </div>
   )
 }
