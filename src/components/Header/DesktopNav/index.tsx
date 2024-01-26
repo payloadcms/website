@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Avatar } from '@components/Avatar'
 import { Gutter } from '@components/Gutter'
 import { DiscordIcon } from '@root/graphics/DiscordIcon'
+import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { MainMenu } from '@root/payload-types'
 import { useAuth } from '@root/providers/Auth'
 import { FullLogo } from '../../../graphics/FullLogo'
@@ -16,7 +17,7 @@ type DesktopNavType = Pick<MainMenu, 'tabs'> & { hideBackground?: boolean }
 export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) => {
   const { user } = useAuth()
   const [activeTab, setActiveTab] = React.useState<number | undefined>()
-  const [activeDropdown, setActiveDropdown] = React.useState<boolean | undefined>(undefined)
+  const [activeDropdown, setActiveDropdown] = React.useState<boolean | undefined>(false)
   const [backgroundStyles, setBackgroundStyles] = React.useState<any>({ height: '0px' })
   const [underlineStyles, setUnderlineStyles] = React.useState<any>({})
 
@@ -29,11 +30,11 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
       setBackgroundStyles({
         top: hideBackground ? 0 : undefined,
         height: hideBackground
-          ? `${dropdownRef.current.offsetHeight + 90}px`
+          ? `${dropdownRef.current.offsetHeight + 100}px`
           : `${dropdownRef.current.offsetHeight}px`,
       })
     }
-  }, [activeDropdown, activeTab, dropdownRef, hideBackground])
+  }, [activeTab, dropdownRef, hideBackground])
 
   const handleHoverEnter = index => {
     setActiveTab(index)
@@ -67,37 +68,57 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
   return (
     <Gutter className={classes.desktopNav}>
       <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')}>
-        <div className={'cols-3'}>
+        <div className={[classes.logo, 'cols-4'].filter(Boolean).join(' ')}>
           <Link href="/" className={classes.logo} prefetch={false} aria-label="Full Payload Logo">
             <FullLogo />
           </Link>
         </div>
-        <div className={[classes.content, 'cols-9'].filter(Boolean).join(' ')}>
-          <div className={classes.tabs} onMouseLeave={resetHoverStyles}>
-            {(tabs || []).map((tab, index) => {
+        <div className={[classes.content, 'cols-8'].filter(Boolean).join(' ')}>
+          <div className={classes.tabs}>
+            {(tabs || []).map((tab, tabIndex) => {
+              const isActive = tabIndex === activeTab
               return (
-                <div key={index}>
+                <div key={tabIndex}>
                   <button
-                    className={[classes.tab, index === activeTab && classes.active]
-                      .filter(Boolean)
-                      .join(' ')}
-                    key={index}
-                    onMouseEnter={() => handleHoverEnter(index)}
-                    onFocus={() => handleHoverEnter(index)}
-                    ref={ref => (menuItemRefs[index] = ref)}
+                    className={[classes.tab].filter(Boolean).join(' ')}
+                    key={tabIndex}
+                    onMouseEnter={() => handleHoverEnter(tabIndex)}
+                    onFocus={() => handleHoverEnter(tabIndex)}
+                    ref={ref => (menuItemRefs[tabIndex] = ref)}
                   >
                     {tab.label}
                   </button>
-                  {index === activeTab && (
+                  {isActive && (
                     <div
-                      className={classes.navItems}
-                      onMouseEnter={() => handleHoverEnter(index)}
-                      onFocus={() => handleHoverEnter(index)}
-                      onMouseLeave={resetHoverStyles}
+                      className={[classes.dropdown, 'grid'].join(' ')}
+                      onMouseEnter={() => handleHoverEnter(tabIndex)}
+                      onFocus={() => handleHoverEnter(tabIndex)}
                       ref={dropdownRef}
                     >
+                      <div className={[classes.description, 'cols-4'].join(' ')}>
+                        {tab.description}
+                      </div>
                       {(tab.navItems || []).map((item, index) => {
-                        return <CMSLink className={classes.navItem} key={index} {...item.link} />
+                        const totalItems = tab.navItems?.length || 0
+                        const columnSpan = 12 / totalItems
+
+                        return (
+                          <div
+                            className={[`cols-${columnSpan}`, classes.dropdownItem].join(' ')}
+                            key={index}
+                            onClick={resetHoverStyles}
+                          >
+                            <CMSLink
+                              className={[classes.dropdownItemLink].filter(Boolean).join(' ')}
+                              {...item.link}
+                            >
+                              <div className={classes.dropdownItemDescription}>
+                                {item.description}
+                                <ArrowIcon />
+                              </div>
+                            </CMSLink>
+                          </div>
+                        )
                       })}
                     </div>
                   )}

@@ -5,8 +5,10 @@ export const GLOBALS = `
     MainMenu {
       tabs {
         label
+        description
         navItems {
           link ${LINK_FIELDS({ disableAppearance: true })}
+          description
         }
       }
     }

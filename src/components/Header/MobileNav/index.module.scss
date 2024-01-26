@@ -20,6 +20,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: var(--base) 0;
 }
 
 .icons {
@@ -107,7 +108,9 @@
 }
 
 .mobileMenuItem {
-  @include h3;
+  @include h2;
+  @include btnReset;
+  padding: calc(var(--base) *  .25) 0;
   margin: 0;
   text-decoration: none;
 
@@ -119,6 +122,31 @@
     margin: 0;
     color: var(--color-base-100);
   }
+}
+
+.subMenuHeader {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * .5);
+  margin: calc(var(--base) * 1.5) 0;
+}
+
+.backButton {
+  @include btnReset;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * .5);
+  cursor: pointer;
+}
+
+.subMenuItems {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * .5);
+}
+
+.subMenuItem {
+  text-decoration: none;
 }
 
 .newProject {
