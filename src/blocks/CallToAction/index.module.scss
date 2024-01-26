@@ -17,6 +17,13 @@
 .linksContainer {
   position: relative;
 
+  :global(.crosshair) {
+    display: block;
+
+    @include mid-break {
+      display: none;
+    }
+  }
 }
 
 .scanline {
@@ -38,6 +45,8 @@
 .contentWrapper {
   display: flex;
   align-items: center;
+
+
 }
 
 .content, .cpa, .label {
@@ -72,4 +81,36 @@
     flex-shrink: 0;
     top: 4px;
     position: relative;
+}
+
+.crosshairTopLeft {
+  position: absolute;
+  width: calc(var(--base) * 1);
+  height: auto;
+  z-index: 5;
+  color: var(--theme-elevation-1000);
+  opacity: 0.5;
+  top: calc(var(--base) * -0.5);
+  left: calc(var(--base) * -0.5);
+  display: none;
+
+  @include mid-break {
+    display: block;
+  }
+}
+
+.crosshairBottomRight {
+  position: absolute;
+  width: calc(var(--base) * 1);
+  height: auto;
+  z-index: 5;
+  color: var(--theme-elevation-1000);
+  opacity: 0.5;
+  bottom: calc(var(--base) * -0.5);
+  right: calc(var(--base) * -0.5);
+  display: none;
+
+  @include mid-break {
+    display: block;
+  }
 }

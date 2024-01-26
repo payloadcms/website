@@ -9,6 +9,7 @@ import CreatePayloadApp from '@components/CreatePayloadApp'
 import { Gutter } from '@components/Gutter'
 import { Label } from '@components/Label'
 import { RichText } from '@components/RichText'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon'
 import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
@@ -40,9 +41,12 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
                 className={[classes.scanline, 'cols-16 start-4 start-l-3 cols-m-8 start-m-1']
                   .filter(Boolean)
                   .join(' ')}
+                crosshairs={['top-left', 'bottom-left']}
               />
               {/* Double printing the BackgroundGrid component here so that it displays above the scanline */}
               <BackgroundGrid ignoreGutter />
+              <CrosshairIcon className={[classes.crosshairTopLeft].filter(Boolean).join(' ')} />
+              <CrosshairIcon className={[classes.crosshairBottomRight].filter(Boolean).join(' ')} />
               {feature === 'cpa' && (
                 <Fragment>
                   <Label className={classes.label}>Get started in one line</Label>
