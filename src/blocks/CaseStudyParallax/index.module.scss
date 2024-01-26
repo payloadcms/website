@@ -260,6 +260,7 @@
     left: 0;
     z-index: 7;
     transition: width 0.05s linear;
+    will-change: width;
     width: calc(var(--progress-width));
   }
 }
