@@ -97,7 +97,8 @@ export const QuoteStickyBlock: React.FC<StickyBlockProps> = props => {
 
 export const CaseStudyParallax: React.FC<Props> = props => {
   const { caseStudyParallaxFields } = props
-  const [activeIndex, setActiveIndex] = React.useState<number>(0)
+  //const [activeIndex, setActiveIndex] = React.useState<number>(0)
+  const activeIndex = React.useRef(0)
   const [scrollProgress, setScrollProgress] = React.useState<number>(0)
   const [delayNavScroll, setDelayNavScroll] = React.useState<boolean>(false)
   const containerRef = React.useRef<HTMLDivElement>(null)
@@ -123,8 +124,8 @@ export const CaseStudyParallax: React.FC<Props> = props => {
         newIndex = 3
       }
 
-      if (newIndex !== activeIndex) {
-        setActiveIndex(newIndex)
+      if (newIndex !== activeIndex.current) {
+        activeIndex.current = newIndex
 
         if (navButtonsRef.current?.length && navGridRef.current) {
           if (delayNavScroll) {
@@ -225,9 +226,9 @@ export const CaseStudyParallax: React.FC<Props> = props => {
             />
           </div>
           <div className={classes.mainTrack} ref={containerRef}>
-            <QuoteStickyBlock currentIndex={activeIndex} {...props} />
+            <QuoteStickyBlock currentIndex={activeIndex.current} {...props} />
             {caseStudyParallaxFields?.items.map((item, index) => {
-              const isVisible = index === activeIndex
+              const isVisible = index === activeIndex.current
               return (
                 <div
                   id={`${id}${index}`}
@@ -288,7 +289,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
                             hideHorizontalBorders
                             className={[
                               classes.navButton,
-                              activeIndex === index && classes.isActive,
+                              activeIndex.current === index && classes.isActive,
                             ]
                               .filter(Boolean)
                               .join(' ')}
