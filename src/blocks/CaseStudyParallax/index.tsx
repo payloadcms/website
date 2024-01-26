@@ -149,8 +149,9 @@ export const CaseStudyParallax: React.FC<Props> = props => {
 
   React.useEffect(() => {
     let intersectionObserver: IntersectionObserver
+    let scheduledAnimationFrame = false
 
-    const handleScroll = () => {
+    const updateScrollProgress = () => {
       if (containerRef.current) {
         const { scrollHeight } = containerRef.current
         const totalScrollableDistance = containerRef.current.getBoundingClientRect().bottom
@@ -171,6 +172,17 @@ export const CaseStudyParallax: React.FC<Props> = props => {
         if (totalScrollableDistance < totalDocScrollLength) {
         }
       }
+
+      scheduledAnimationFrame = false
+    }
+
+    const handleScroll = () => {
+      if (scheduledAnimationFrame) {
+        return
+      }
+
+      scheduledAnimationFrame = true
+      requestAnimationFrame(updateScrollProgress)
     }
 
     if (containerRef.current) {
