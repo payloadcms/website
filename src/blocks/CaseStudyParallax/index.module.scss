@@ -188,6 +188,10 @@
 
 .caseStudyButton {
   width: 100%;
+
+   @include small-break {
+    width: calc(100% - 1px);
+  }
 }
 
 .authorWrapper {
