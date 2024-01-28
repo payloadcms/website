@@ -81,6 +81,16 @@ const deploymentStates: DeploymentStates = {
     status: 'ERROR',
     label: 'Failed to create infrastructure',
   },
+  reinstatingError: {
+    step: 0,
+    status: 'ERROR',
+    label: 'Failed to reinstate project',
+  },
+  suspendingError: {
+    step: 0,
+    status: 'ERROR',
+    label: 'Failed to suspend project',
+  },
 }
 
 const initialDeploymentPhases: DeploymentPhases[] = [
@@ -174,6 +184,8 @@ export const InfraOffline: React.FC<{
   let label = ''
   if (infraStatus === 'suspended') {
     label = 'Project has been suspended'
+  } else if (infraStatus === 'reinstating') {
+    label = 'Reinstating in progress'
   } else {
     label = `Initial Deployment ${failedDeployment ? 'failed' : 'in progress'}`
   }

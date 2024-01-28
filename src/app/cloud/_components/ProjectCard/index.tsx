@@ -48,6 +48,7 @@ export const ProjectCard: React.FC<{
 
   const hasBadSubscriptionStatus = hasBadSubscription(project?.stripeSubscriptionStatus)
   const isDeleted = project?.status === 'deleted'
+  const isSuspended = project?.status === 'suspended'
 
   let pill: Pick<Parameters<typeof Pill>[0], 'color' | 'text'> = {
     text: '',
@@ -92,6 +93,13 @@ export const ProjectCard: React.FC<{
   if (isDeleted) {
     pill = {
       text: 'Deleted',
+      color: 'error',
+    }
+  }
+
+  if (isSuspended) {
+    pill = {
+      text: 'Suspended',
       color: 'error',
     }
   }
