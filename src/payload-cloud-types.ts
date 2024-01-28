@@ -41,7 +41,7 @@ export interface AtlasProject {
 export interface Project {
   id: string
   slug: string
-  status?: 'draft' | 'published' | 'deleted'
+  status?: 'draft' | 'published' | 'deleted' | 'suspended'
   deletedOn?: string
   skipSync?: boolean
   troubleshoot?: boolean
@@ -138,6 +138,8 @@ export interface Project {
     id?: string
   }[]
   warnedAt?: string
+  trialEndsAt?: string
+  suspendedAt?: string
   infraStatus?:
   | 'notStarted'
   | 'infraCreationError'
@@ -148,7 +150,9 @@ export interface Project {
   | 'done'
   | 'error'
   | 'reinstating'
+  | 'reinstatingError'
   | 'suspended'
+  | 'suspendingError'
   createdBy?: string | User
   updatedAt: string
   createdAt: string
@@ -255,6 +259,7 @@ export interface Template {
   templateRepo: string
   templateBranch?: string
   templatePath?: string
+  sha?: string
   order?: number
   image?: string | Media
   files?: {
