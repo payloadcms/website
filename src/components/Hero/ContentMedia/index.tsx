@@ -13,47 +13,67 @@ import { Page } from '@root/payload-types'
 import classes from './index.module.scss'
 
 export const ContentMediaHero: React.FC<
-  Pick<Page['hero'], 'richText' | 'media' | 'mediaWidth' | 'links'> & {
+  Pick<Page['hero'], 'richText' | 'media' | 'mediaWidth' | 'links' | 'sidebarContent'> & {
     breadcrumbs?: Page['breadcrumbs']
   }
-> = ({ richText, media, mediaWidth, breadcrumbs, links }) => {
+> = ({ richText, media, mediaWidth, links, sidebarContent }) => {
   return (
     <Gutter>
       <div
-        className={[mediaWidth === 'wide' ? classes.wideGrid : classes.normalGrid, 'grid']
+        className={[
+          classes.wrapper,
+          mediaWidth === 'wide' ? classes.wideGrid : classes.normalGrid,
+          'grid',
+        ]
           .filter(Boolean)
           .join(' ')}
       >
         <BackgroundGrid ignoreGutter />
-        <div className={[`cols-8`, 'start-1 cols-m-8 grid'].filter(Boolean).join(' ')}>
-          {/* <Breadcrumbs items={breadcrumbs} /> */}
+        <div
+          className={[
+            `cols-${mediaWidth === 'wide' ? 4 : 7}`,
+            `cols-l-${mediaWidth === 'wide' ? 4 : 7}`,
+            'cols-m-8 start-1',
+            'grid',
+          ]
+            .filter(Boolean)
+            .join(' ')}
+        >
           <RichText
             content={richText}
             className={[classes.richText, 'cols-8 start-1'].filter(Boolean).join(' ')}
           />
 
-          <div className="cols-8 start-1">description goes here</div>
-          {Array.isArray(links) &&
-            links.map(({ link }, i) => {
-              return (
-                <CMSLink
-                  key={i}
-                  {...link}
-                  buttonProps={{
-                    hideHorizontalBorders: true,
-                  }}
-                  className={[classes.link, 'cols-12 start-1'].filter(Boolean).join(' ')}
-                />
-              )
-            })}
+          <div
+            className={[classes.linksWrapper, 'cols-16 cols-m-8 start-1'].filter(Boolean).join(' ')}
+          >
+            <RichText
+              content={sidebarContent}
+              className={[classes.sidebarContent, 'cols-8 start-1'].filter(Boolean).join(' ')}
+            />
+
+            {Array.isArray(links) &&
+              links.map(({ link }, i) => {
+                return (
+                  <CMSLink
+                    key={i}
+                    {...link}
+                    buttonProps={{
+                      hideHorizontalBorders: true,
+                    }}
+                    className={[classes.link, 'cols-12 start-1'].filter(Boolean).join(' ')}
+                  />
+                )
+              })}
+          </div>
         </div>
         {typeof media === 'object' && media !== null && (
           <div
             className={[
               `start-${mediaWidth === 'wide' ? 7 : 10}`,
               `start-l-${mediaWidth === 'wide' ? 7 : 10}`,
-              `cols-${mediaWidth === 'wide' ? 7 : 9}`,
-              `cols-l-${mediaWidth === 'wide' ? 7 : 9}`,
+              `cols-${mediaWidth === 'wide' ? 10 : 7}`,
+              `cols-l-${mediaWidth === 'wide' ? 10 : 7}`,
               'cols-m-8 start-m-1',
             ]
               .filter(Boolean)
