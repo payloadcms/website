@@ -21,7 +21,7 @@
 }
 
 .richText {
-  margin-bottom: calc(var(--base) * 11.5);
+  margin-bottom: calc(var(--base) * 9);
 
   @include large-break {
     margin-bottom: calc(var(--base) * 6);
