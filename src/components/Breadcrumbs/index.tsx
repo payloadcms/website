@@ -13,11 +13,15 @@ export type Breadcrumb = {
 export type Props = {
   items?: Array<Breadcrumb> | null
   ellipsis?: boolean
+  className?: string
 }
 
-export const Breadcrumbs: React.FC<Props> = ({ items, ellipsis = true }) => {
+export const Breadcrumbs: React.FC<Props> = ({ items, ellipsis = true, className }) => {
   return (
-    <EdgeScroll element="nav" className={classes.breadcrumbs}>
+    <EdgeScroll
+      element="nav"
+      className={[classes.breadcrumbs, className].filter(Boolean).join(' ')}
+    >
       {items?.map((item, index) => {
         const isLast = index === items.length - 1
         const doEllipsis = ellipsis && (item?.label || '')?.length > 8 && !isLast

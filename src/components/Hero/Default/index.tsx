@@ -2,6 +2,7 @@
 
 import React from 'react'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
@@ -24,24 +25,17 @@ export const DefaultHero: React.FC<
   return (
     <Gutter>
       <div className={classes.defaultHero}>
-        {breadcrumbs && <Breadcrumbs items={breadcrumbs} ellipsis={false} />}
-        <div className={['grid'].filter(Boolean).join(' ')}>
-          <div
-            className={[
-              `cols-${withoutSidebar ? 12 : 10}`,
-              `cols-m-${withoutSidebar ? 7 : 5}`,
-              'cols-s-8',
-            ]
-              .filter(Boolean)
-              .join(' ')}
-          >
+        <BackgroundGrid ignoreGutter />
+        <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>
+          <div className={[`cols-8 start-1`, `cols-m-8`, 'cols-s-8'].filter(Boolean).join(' ')}>
+            {breadcrumbs && (
+              <Breadcrumbs items={breadcrumbs} ellipsis={false} className={classes.label} />
+            )}
             <RichText className={classes.richText} content={richText} />
           </div>
 
           {!withoutSidebar && (
-            <div
-              className={['cols-4 start-12 start-m-6 cols-s-8 start-s-1'].filter(Boolean).join(' ')}
-            >
+            <div className={['cols-4 start-13 cols-m-8 start-m-1'].filter(Boolean).join(' ')}>
               <RichText content={sidebarContent} />
             </div>
           )}
