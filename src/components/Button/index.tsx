@@ -161,7 +161,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
   const [isAnimatingIn, setIsAnimatingIn] = useState(false)
   const [isAnimatingOut, setIsAnimatingOut] = useState(false)
 
-  let animationDuration = 750
+  let animationDuration = 550
 
   useEffect(() => {
     let outTimer, inTimer

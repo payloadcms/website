@@ -17,11 +17,23 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
    &::before {
     content: '';
-    width: calc(100%);
+    width: calc(100% - 2px);
     position: absolute;
     height:100%;
     left: 1px;
     top:0;
+    z-index: -1;
+  }
+
+  &::after {
+    content: '';
+    width: 0%;
+    position: absolute;
+    height:100%;
+    left: 1px;
+    top:0;
+    z-index: 2;
+    box-shadow: 0px 10px 40px -12.67px rgba(0, 2, 4, 0.05), 0px 10px 40px -5.068px rgba(0, 2, 4, 0.05);
   }
 
   &:focus-visible {
@@ -85,17 +97,18 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     display: inline-flex;
     border: 1px solid var(--theme-elevation-250);
     position: relative;
-    overflow: hidden;
     padding: unset;
     color: var(--theme-elevation-1000);
     height: unset;
     transition: background-position 550ms $curve;
 
     &::before {
-      background-image: linear-gradient(to right, var(--theme-elevation-1000)  calc(50% - 1px), var(--theme-elevation-100) calc(50% - 1px));
-      background-size: 200% 100%;
-      background-position: right bottom;
-      transition: background-position 550ms $curve;
+      background-color: var(--theme-elevation-100);
+    }
+
+    &::after {
+      transition: width 550ms $curve;
+      background-color: var(--theme-elevation-1000);
     }
 
     .content {
@@ -118,9 +131,10 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     }
 
     &:hover {
-      &::before {
-        background-position: left bottom;
+      &::after {
+        width: calc(100% - 1px);
       }
+
       color: var(--theme-elevation-100);
 
       .content {
@@ -274,6 +288,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   display: flex;
   align-items: center;
   width: 100%;
+  z-index: 6;
 }
 
 .label {
@@ -310,13 +325,22 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   .appearance {
     &--default {
       &::before {
-        background-image: linear-gradient(to right, var(--theme-elevation-900) calc(50% - 1px), var(--theme-elevation-0) calc(50% - 1px));
+        background-color: var(--theme-elevation-0);
+      }
+
+      &::after {
+        transition: width 550ms $curve;
+        background-color: var(--theme-elevation-1000);
       }
 
       color: var(--theme-elevation-900);
 
       &:hover {
-        color: var(--theme-elevation-0);
+        color: var(--theme-elevation-100);
+
+        /* & .label {
+          color: var(--theme-elevation-100);
+        } */
       }
     }
   }
