@@ -2,6 +2,7 @@
 
 import React from 'react'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
@@ -23,16 +24,27 @@ export const ContentMediaHero: React.FC<
           .filter(Boolean)
           .join(' ')}
       >
-        <div
-          className={[`cols-${mediaWidth === 'wide' ? 6 : 8}`, 'start-1 cols-m-8']
-            .filter(Boolean)
-            .join(' ')}
-        >
-          <Breadcrumbs items={breadcrumbs} />
-          <RichText content={richText} />
+        <BackgroundGrid ignoreGutter />
+        <div className={[`cols-8`, 'start-1 cols-m-8 grid'].filter(Boolean).join(' ')}>
+          {/* <Breadcrumbs items={breadcrumbs} /> */}
+          <RichText
+            content={richText}
+            className={[classes.richText, 'cols-8 start-1'].filter(Boolean).join(' ')}
+          />
+
+          <div className="cols-8 start-1">description goes here</div>
           {Array.isArray(links) &&
             links.map(({ link }, i) => {
-              return <CMSLink key={i} {...link} className={classes.link} />
+              return (
+                <CMSLink
+                  key={i}
+                  {...link}
+                  buttonProps={{
+                    hideHorizontalBorders: true,
+                  }}
+                  className={[classes.link, 'cols-12 start-1'].filter(Boolean).join(' ')}
+                />
+              )
             })}
         </div>
         {typeof media === 'object' && media !== null && (

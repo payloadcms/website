@@ -1,25 +1,27 @@
 @use '../../../css/queries.scss' as *;
 
 .normalGrid {
-  align-items: center;
+  /* align-items: center; */
+  position: relative;
 }
 
 .wideGrid {
+  position: relative;
   // align-items: top;
 
-  & > div {
+  /* & > div {
     grid-row-start: 0;
     grid-row-end: 1;
-  }
+  } */
 
-  @include mid-break {
+  /* @include mid-break {
     & > div {
       grid-row-start: auto;
       grid-row-end: auto;
     }
-  }
+  } */
 
-  & > div:first-child {
+  /* & > div:first-child {
     padding-top: calc(var(--base) * 2);
     z-index: 1;
   }
@@ -28,7 +30,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  }
+  } */
+}
+
+.richText {
+  display: inline-flex;
 }
 
 .media {
@@ -46,6 +52,7 @@
 }
 
 .link {
-  margin: var(--base);
-  margin-left: 0;
+  display: inline-flex;
+  //grid-column: 1/9;
 }
+
