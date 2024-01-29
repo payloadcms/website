@@ -46,11 +46,7 @@ export const ContentMediaHero: React.FC<
           </div>
         </div>
         {typeof media === 'object' && media !== null && (
-          <div
-            className={[`start-7`, `start-l-7`, `cols-10`, `cols-l-10`, 'cols-m-8 start-m-1']
-              .filter(Boolean)
-              .join(' ')}
-          >
+          <div className={[`start-7`, `cols-10`, 'cols-m-8 start-m-1'].filter(Boolean).join(' ')}>
             <div className={classes.media}>
               <Media
                 resource={media}
