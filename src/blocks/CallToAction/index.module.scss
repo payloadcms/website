@@ -39,6 +39,8 @@
     width: calc(100% + var(--gutter-h) * 2);
     margin-left: calc(var(--gutter-h) * -1);
     margin-right: calc(var(--gutter-h) * -2);
+    border-top: 1px solid var(--theme-elevation-200);
+    border-bottom: 1px solid var(--theme-elevation-200);
   }
 }
 
