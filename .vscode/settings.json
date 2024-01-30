@@ -4,8 +4,9 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
-      "source.fixAll": true,
+      "source.fixAll": "explicit"
     },
     "editor.formatOnSave": true,
   },
+  "cssrem.rootFontSize": 20,
 }
