@@ -14,8 +14,9 @@
 .label {
   margin-bottom: calc(var(--base) * 2);
 
-  @include small-break {
-    margin-bottom: calc(var(--base) * 0.8);
+  label {
+    margin-top: 0;
+    margin-bottom: 0;
   }
 }
 

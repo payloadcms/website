@@ -15,7 +15,7 @@ export const DefaultHero: React.FC<
     breadcrumbs?: Page['breadcrumbs']
   }
 > = ({ richText, description, breadcrumbs }) => {
-  const withoutSidebar =
+  const withoutDescription =
     !description ||
     (description.length === 1 &&
       Array.isArray(description[0].children) &&
@@ -34,7 +34,7 @@ export const DefaultHero: React.FC<
             <RichText className={classes.richText} content={richText} />
           </div>
 
-          {!withoutSidebar && (
+          {!withoutDescription && (
             <div className={['cols-4 start-13 cols-m-8 start-m-1'].filter(Boolean).join(' ')}>
               <RichText content={description} />
             </div>
