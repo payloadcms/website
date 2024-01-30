@@ -39,9 +39,17 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
   disabled?: boolean
   url?: string | null
   /**
+   * Hides all borders
+   */
+  hideBorders?: boolean
+  /**
    * Hides the horizontal borders of the button, useful for buttons in grids
    */
   hideHorizontalBorders?: boolean
+  /**
+   * Hides the horizontal borders of the button, useful for stacked buttons
+   */
+  hideVerticalBorders?: boolean
 }
 
 const icons = {
@@ -140,7 +148,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     disabled,
     href: hrefFromProps,
     url,
+    hideBorders,
     hideHorizontalBorders,
+    hideVerticalBorders,
     labelClassName,
   } = props
 
@@ -151,7 +161,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
   const [isAnimatingIn, setIsAnimatingIn] = useState(false)
   const [isAnimatingOut, setIsAnimatingOut] = useState(false)
 
-  let animationDuration = 750
+  let animationDuration = 550
 
   useEffect(() => {
     let outTimer, inTimer
@@ -197,6 +207,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     isAnimatingOut && classes.animatingOut,
     isAnimating && classes.isAnimating,
     hideHorizontalBorders && classes.hideHorizontalBorders,
+    hideVerticalBorders && classes.hideVerticalBorders,
+    hideBorders && classes.hideBorders,
   ]
     .filter(Boolean)
     .join(' ')

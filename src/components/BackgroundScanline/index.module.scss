@@ -1,5 +1,12 @@
 @use "@scss/common" as *;
 
+.wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 
 .backgroundScanline {
   position: absolute;
@@ -21,4 +28,32 @@
 .enableBorders {
   border-top: 1px solid var(--theme-elevation-900);
   border-bottom: 1px solid var(--theme-elevation-900);
+}
+
+.crosshair {
+  position: absolute;
+  width: calc(var(--base) * 1);
+  height: auto;
+  color: var(--theme-elevation-1000);
+  opacity: 0.5;
+}
+
+.crosshairTopLeft {
+  top: calc(var(--base) * -0.5);
+  left: calc(var(--base) * -0.5);
+}
+
+.crosshairBottomLeft {
+  bottom: calc(var(--base) * -0.5);
+  left: calc(var(--base) * -0.5);
+}
+
+.crosshairTopRight {
+  top: calc(var(--base) * -0.5);
+  right: calc(var(--base) * -0.5);
+}
+
+.crosshairBottomRight {
+  top: calc(var(--base) * -0.5);
+  right: calc(var(--base) * -0.5);
 }

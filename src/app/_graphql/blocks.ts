@@ -62,7 +62,6 @@ export const CALL_TO_ACTION = `
   blockType
   ctaFields {
     richText
-    feature
     links {
       link ${LINK_FIELDS({ disableAppearance: true })}
     }
@@ -212,7 +211,7 @@ export const FEATURED_MEDIA_GALLERY = `
       mediaLabel
       mediaAlignment
       media ${MEDIA_FIELDS}
-    } 
+    }
   }
 }
 `
