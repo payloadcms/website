@@ -43,7 +43,6 @@ export const CenteredContent: React.FC<
                       hideHorizontalBorders: true,
                       hideBottomBorderExceptLast: true,
                     }}
-                    className={[classes.link, 'cols-12 start-1'].filter(Boolean).join(' ')}
                   />
                 )
               })}
