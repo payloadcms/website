@@ -38,7 +38,7 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
                 .join(' ')}
             >
               <BackgroundScanline
-                className={[classes.scanline, 'cols-16 start-4 start-l-3 cols-m-8 start-m-1']
+                className={[classes.scanline, 'cols-16 start-5 cols-m-8 start-m-1']
                   .filter(Boolean)
                   .join(' ')}
                 crosshairs={['top-left', 'bottom-left']}

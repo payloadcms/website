@@ -11,6 +11,9 @@
 
   @include mid-break {
     row-gap: calc(var(--base) * 3);
+
+    padding-top: calc(var(--base) * 3);
+    padding-bottom: calc(var(--base) * 3);
   }
 }
 
@@ -27,8 +30,8 @@
 }
 
 .scanline {
-  top: -20%;
-  height: 140%;
+  top: -25%;
+  height: 150%;
   margin-right: calc(var(--gutter-h) * -1);
   width: calc(100% + var(--gutter-h));
   z-index: -1;
@@ -47,19 +50,6 @@
 .contentWrapper {
   display: flex;
   align-items: center;
-
-
-}
-
-.content, .cpa, .label {
-    @include mid-break {
-        padding: 0 var(--base);
-    }
-}
-
-.cpa {
-    margin-bottom: calc(var(--base) * 2);
-    justify-content: flex-start;
 }
 
 .links {
