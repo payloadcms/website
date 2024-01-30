@@ -25,7 +25,6 @@ const data: CallToActionProps = {
         ],
       },
     ],
-    feature: 'cpa',
     links: [
       {
         link: {

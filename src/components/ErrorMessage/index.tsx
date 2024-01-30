@@ -31,7 +31,6 @@ export const ErrorMessage: React.FC<{ error?: string }> = ({ error }) => {
               ],
             },
           ],
-          feature: 'none',
           links: [
             {
               link: {
