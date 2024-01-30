@@ -1,24 +1,33 @@
 @use '@scss/common' as *;
 
 .defaultHero {
-  margin-bottom: calc(var(--base) * -3);
+  position: relative;
+  padding-top: calc(var(--base) * 5.4);
+  padding-bottom: calc(var(--base) * 5.4);
 
-  @include large-break {
-    margin-bottom: calc(var(--base) * -2);
+  @include small-break {
+    padding-top: calc(var(--base) * 3);
+    padding-bottom: calc(var(--base) * 3);
   }
+}
+
+.label {
+  margin-bottom: calc(var(--base) * 2);
 
   @include mid-break {
-    margin-bottom: calc(var(--base) * -1);
+    margin-bottom: calc(var(--base) * 1);
+  }
+
+  label {
+    margin-top: 0;
+    margin-bottom: 0;
   }
 }
 
-.pageLabel {
-  margin-bottom: calc(var(--base) * 1);
-  display: block;
-}
+.container {
+  align-items: center;
 
-.richText {
-  @include small-break {
-    margin-bottom: var(--base);
+  @include mid-break {
+    row-gap:  calc(var(--base) * 2);
   }
 }
