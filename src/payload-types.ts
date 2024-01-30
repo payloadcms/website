@@ -780,21 +780,13 @@ export interface Page {
     }[]
     | null;
     media?: string | Media | null;
-    adjectives?:
+    form?: (string | null) | Form;
+    logos?:
     | {
-      adjective: string;
+      logo: string | Media;
       id?: string | null;
     }[]
     | null;
-    form?: (string | null) | Form;
-    logoGroup?: {
-      logos?:
-      | {
-        logo: string | Media;
-        id?: string | null;
-      }[]
-      | null;
-    };
   };
   layout: (
     | {

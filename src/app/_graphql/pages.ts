@@ -60,14 +60,9 @@ export const PAGE = `
             link ${LINK_FIELDS()}
           }
           media ${MEDIA_FIELDS}
-          adjectives {
-            adjective
-          }
           form ${FORM_FIELDS}
-          logoGroup {
-            logos {
-              logo ${MEDIA_FIELDS}
-            }
+          logos {
+            logo ${MEDIA_FIELDS}
           }
           livestream {
             id

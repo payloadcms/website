@@ -10,86 +10,97 @@ interface LogoItem {
   id?: string | null
 }
 
-interface PositionedLogo extends LogoItem {
+interface PositionedLogo {
+  logo: LogoItem
   position: number
   isVisible: boolean
 }
 
-interface LogoGroup {
-  logos?: LogoItem[] | null
+interface Props {
+  logos: LogoItem[] | null | undefined
 }
 
-interface Props {
-  logoGroup?: LogoGroup
-  className?: string
-}
+const TOTAL_CELLS = 12
+const ANIMATION_DURATION = 1000 // Duration for fade-out and fade-in in milliseconds
+const ANIMATION_DELAY = 3000 // Delay between animations in milliseconds
 
 const getRandomPosition = (excludePositions: number[]) => {
   let newPos
   do {
-    newPos = Math.floor(Math.random() * 12) // 12 grid positions
+    newPos = Math.floor(Math.random() * TOTAL_CELLS)
   } while (excludePositions.includes(newPos))
   return newPos
 }
 
-export const LogoGrid: React.FC<Props> = ({ logoGroup }) => {
+export const LogoGrid: React.FC<Props> = ({ logos }) => {
   const [logoPositions, setLogoPositions] = useState<PositionedLogo[]>([])
+  const [currentAnimatingIndex, setCurrentAnimatingIndex] = useState<number | null>(null)
 
   useEffect(() => {
-    if (logoGroup?.logos) {
-      // Initialize logos in random positions
+    if (logos) {
       let occupiedPositions: number[] = []
-      const initialPositions = logoGroup.logos.map(logo => {
+      const initialPositions = logos.map(logo => {
         const position = getRandomPosition(occupiedPositions)
         occupiedPositions.push(position)
-        return { ...logo, position, isVisible: true }
+        return { logo, position, isVisible: true }
       })
       setLogoPositions(initialPositions)
-
-      // Sequentially update each logo's position
-      const updateLogoPositions = () => {
-        logoGroup.logos.forEach((_, index) => {
-          setTimeout(() => {
-            setLogoPositions(prev => {
-              const newPositions = [...prev]
-              const newPosition = getRandomPosition(
-                newPositions
-                  .map(item => item.position)
-                  .filter(p => p !== newPositions[index].position),
-              )
-              newPositions[index] = {
-                ...newPositions[index],
-                position: newPosition,
-                isVisible: false,
-              }
-
-              setTimeout(() => {
-                newPositions[index].isVisible = true
-                setLogoPositions(newPositions)
-              }, 1000) // Delay for fade-in
-
-              return newPositions
-            })
-          }, 3000 * index) // Stagger the timing for each logo
-        })
-      }
-
-      updateLogoPositions()
     }
-  }, [logoGroup?.logos])
+  }, [logos])
+
+  useEffect(() => {
+    if (!logos || logos.length === 0 || logos.length > TOTAL_CELLS) return
+
+    const animateLogo = () => {
+      const logoIndex =
+        currentAnimatingIndex !== null ? (currentAnimatingIndex + 1) % logos.length : 0
+      setCurrentAnimatingIndex(logoIndex)
+
+      const newPositions = [...logoPositions]
+      newPositions[logoIndex].isVisible = false // Start fade-out
+      setLogoPositions(newPositions)
+
+      setTimeout(() => {
+        const newPosition = getRandomPosition(
+          newPositions
+            .map(item => item.position)
+            .filter(pos => pos !== newPositions[logoIndex].position),
+        )
+        newPositions[logoIndex] = {
+          ...newPositions[logoIndex],
+          position: newPosition,
+          isVisible: false,
+        } // Move to new position but keep invisible
+        setLogoPositions(newPositions)
+
+        setTimeout(() => {
+          newPositions[logoIndex].isVisible = true // Start fade-in
+          setLogoPositions(newPositions)
+        }, ANIMATION_DURATION / 2)
+      }, ANIMATION_DURATION)
+    }
+
+    const interval = setInterval(animateLogo, ANIMATION_DELAY + ANIMATION_DURATION)
+    return () => clearInterval(interval)
+  }, [logoPositions, currentAnimatingIndex, logos])
 
   return (
     <div className={classes.logoGrid}>
-      {Array.from({ length: 12 }).map((_, gridIndex) => (
-        <div className={classes.logoGridItem} key={gridIndex}>
+      {Array.from({ length: TOTAL_CELLS }).map((_, index) => (
+        <div className={classes.logoGridItem} key={index}>
           {logoPositions
-            .filter(item => item.position === gridIndex)
-            .map(logo => (
+            .filter(item => item.position === index)
+            .map(({ logo, isVisible }, idx) => (
               <div
-                key={logo.id}
-                style={{ opacity: logo.isVisible ? 1 : 0, transition: 'opacity 1s ease' }}
+                key={idx}
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transition: `opacity ${ANIMATION_DURATION}ms ease`,
+                }}
               >
-                <Media resource={logo.logo} />
+                {typeof logo.logo === 'object' && logo.logo !== null && (
+                  <Media resource={logo.logo} />
+                )}
               </div>
             ))}
         </div>

@@ -24,23 +24,11 @@
 .bg {
   position: absolute;
   z-index: 1;
-  top: 0;
+  top: calc(var(--header-height) * 2);
   right: 0;
   bottom: 0;
   left: 0;
   overflow: hidden;
-  
-
-  // &:after {
-  //   content: ' ';
-  //   position: absolute;
-  //   z-index: 1;
-  //   background: linear-gradient(180deg, rgba(20,20,20,.9) 0%, rgba(50,50,50,0.5) 100%);
-  //   top: 0;
-  //   right: 0;
-  //   bottom: 0;
-  //   left: 0;
-  // }
 }
 
 .bgImage {
@@ -81,18 +69,11 @@
   margin-bottom: calc(var(--base) * 2);
 }
 
-.sidebar {
-}
-
 .primaryButtons,
 .secondaryButtons {
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-.padForMedia {
-  padding-top: 28.125%; // half of 16x9 ratio
 }
 
 .mediaGutter {
