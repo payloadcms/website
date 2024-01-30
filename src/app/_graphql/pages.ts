@@ -49,7 +49,7 @@ export const PAGE = `
           type
           commandLine
           richText
-          sidebarContent
+          description
           links {
             link ${LINK_FIELDS()}
           }

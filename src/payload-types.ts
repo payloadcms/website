@@ -698,7 +698,7 @@ export interface Page {
           [k: string]: unknown;
         }[]
       | null;
-    sidebarContent?:
+    description?:
       | {
           [k: string]: unknown;
         }[]

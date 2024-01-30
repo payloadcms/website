@@ -11,16 +11,16 @@ import { Page } from '@root/payload-types'
 import classes from './index.module.scss'
 
 export const DefaultHero: React.FC<
-  Pick<Page['hero'], 'richText' | 'sidebarContent'> & {
+  Pick<Page['hero'], 'richText' | 'description'> & {
     breadcrumbs?: Page['breadcrumbs']
   }
-> = ({ richText, sidebarContent, breadcrumbs }) => {
+> = ({ richText, description, breadcrumbs }) => {
   const withoutSidebar =
-    !sidebarContent ||
-    (sidebarContent.length === 1 &&
-      Array.isArray(sidebarContent[0].children) &&
-      sidebarContent[0].children?.length === 1 &&
-      !sidebarContent[0].children[0].text)
+    !description ||
+    (description.length === 1 &&
+      Array.isArray(description[0].children) &&
+      description[0].children?.length === 1 &&
+      !description[0].children[0].text)
 
   return (
     <Gutter>
@@ -36,7 +36,7 @@ export const DefaultHero: React.FC<
 
           {!withoutSidebar && (
             <div className={['cols-4 start-13 cols-m-8 start-m-1'].filter(Boolean).join(' ')}>
-              <RichText content={sidebarContent} />
+              <RichText content={description} />
             </div>
           )}
         </div>
