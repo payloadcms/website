@@ -52,7 +52,6 @@ export interface CaseStudy {
         richText: {
           [k: string]: unknown;
         }[];
-        feature: 'none' | 'cpa';
         links?:
         | {
           link: {
@@ -781,7 +780,12 @@ export interface Page {
     }[]
     | null;
     media?: string | Media | null;
-    mediaWidth?: ('normal' | 'wide') | null;
+    adjectives?:
+    | {
+      adjective: string;
+      id?: string | null;
+    }[]
+    | null;
     form?: (string | null) | Form;
     logoGroup?: {
       logos?:
@@ -798,7 +802,6 @@ export interface Page {
         richText: {
           [k: string]: unknown;
         }[];
-        feature: 'none' | 'cpa';
         links?:
         | {
           link: {
@@ -1612,7 +1615,6 @@ export interface ReusableContent {
         richText: {
           [k: string]: unknown;
         }[];
-        feature: 'none' | 'cpa';
         links?:
         | {
           link: {

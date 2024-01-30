@@ -1,6 +1,10 @@
 import React from 'react'
 
+import { CrosshairIcon } from '@root/icons/CrosshairIcon'
+
 import classes from './index.module.scss'
+
+const crosshairPositions = ['top-left', 'bottom-left', 'top-right', 'bottom-right'] as const
 
 interface Props {
   /**
@@ -8,13 +12,56 @@ interface Props {
    */
   enableBorders?: boolean
   className?: string
+  crosshairs?: 'all' | (typeof crosshairPositions)[number][]
 }
-export const BackgroundScanline: React.FC<Props> = ({ className, enableBorders }: Props) => {
+export const BackgroundScanline: React.FC<Props> = ({
+  className,
+  enableBorders,
+  crosshairs,
+}: Props) => {
   return (
     <div
-      className={[classes.backgroundScanline, className, enableBorders && classes.enableBorders]
+      aria-hidden="true"
+      className={[classes.wrapper, className, enableBorders && classes.enableBorders]
         .filter(Boolean)
         .join(' ')}
-    ></div>
+    >
+      <div className={[classes.backgroundScanline].filter(Boolean).join(' ')}></div>
+      {crosshairs && (
+        <>
+          {(crosshairs === 'all' || crosshairs.includes('top-left')) && (
+            <CrosshairIcon
+              className={[classes.crosshair, classes.crosshairTopLeft, 'crosshair']
+                .filter(Boolean)
+                .join(' ')}
+            />
+          )}
+
+          {(crosshairs === 'all' || crosshairs.includes('bottom-left')) && (
+            <CrosshairIcon
+              className={[classes.crosshair, classes.crosshairBottomLeft, 'crosshair']
+                .filter(Boolean)
+                .join(' ')}
+            />
+          )}
+
+          {(crosshairs === 'all' || crosshairs.includes('top-right')) && (
+            <CrosshairIcon
+              className={[classes.crosshair, classes.crosshairTopRight, 'crosshair']
+                .filter(Boolean)
+                .join(' ')}
+            />
+          )}
+
+          {(crosshairs === 'all' || crosshairs.includes('bottom-right')) && (
+            <CrosshairIcon
+              className={[classes.crosshair, classes.crosshairBottomRight, 'crosshair']
+                .filter(Boolean)
+                .join(' ')}
+            />
+          )}
+        </>
+      )}
+    </div>
   )
 }

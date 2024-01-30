@@ -1,97 +1,117 @@
 @use '@scss/common.scss' as *;
 
-.callToAction {
+.wrapper {
   position: relative;
 }
 
-.bgWrapper {
-    width: 100%;
-    height: 100%;
-    position: absolute;
+.container {
+  position: relative;
+  padding-top: calc(var(--base) * 10);
+  padding-bottom: calc(var(--base) * 10);
+
+  @include large-break {
+    padding-top: calc(var(--base) * 8);
+    padding-bottom: calc(var(--base) * 8);
+  }
+
+  @include mid-break {
+    row-gap: calc(var(--base) * 3);
+
+    padding-top: calc(var(--base) * 3);
+    padding-bottom: calc(var(--base) * 3);
+  }
+}
+
+.linksContainer {
+  position: relative;
+
+  :global(.crosshair) {
+    display: block;
+
+    @include mid-break {
+      display: none;
+    }
+  }
+}
+
+.scanline {
+  top: -25%;
+  height: 150%;
+  margin-right: calc(var(--gutter-h) * -1);
+  width: calc(100% + var(--gutter-h));
+  z-index: -1;
+
+  @include mid-break {
     top: 0;
-    left: 0;
-}
-
-.bgGutter {
-    width: 100%;
     height: 100%;
+    width: calc(100% + var(--gutter-h) * 2);
+    margin-left: calc(var(--gutter-h) * -1);
+    margin-right: calc(var(--gutter-h) * -2);
+    border-top: 1px solid var(--theme-elevation-200);
+    border-bottom: 1px solid var(--theme-elevation-200);
+  }
 }
 
-.bg1 {
-    position: relative;
-    height: 100%;
-    margin-left: calc(var(--gutter-h) / -2);
-    margin-right: calc(var(--gutter-h) / -2);
-    width: calc(100% + var(--gutter-h));
-    background-color: var(--color-base-950);
-
-    @include mid-break {
-        margin: 0;
-        width: 100%;
-    }
-}
-
-.contentWrap {
-    position: relative;
-    padding: calc(var(--base) * 4) 0;
-
-    @include mid-break {
-        padding: calc(var(--base) * 2) 0 var(--base);
-    }
-}
-
-.content, .cpa, .label {
-    @include mid-break {
-        padding: 0 var(--base);
-    }
-}
-
-.cpa {
-    margin-bottom: calc(var(--base) * 2);
-    justify-content: flex-start;
+.contentWrapper {
+  display: flex;
+  align-items: center;
 }
 
 .links {
     position: relative;
-    padding: calc(var(--base) * 3) 0 0 calc(var(--base) * 3);
-
-    @include mid-break {
-        padding: calc(var(--base) * 1) 0 var(--base) var(--base);
-    }
-}
-
-.button {
-    @include label;
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    position: relative;
-    background-color: var(--color-base-900);
-    padding: calc(var(--base) * 2);
-    text-decoration: none;
+    flex-direction: column;
 
-    svg path {
-        stroke: var(--color-success-500);
+    a {
+      width: calc(100% - 1px);
     }
 
-    @include mid-break {
-        padding: var(--base);
+    > *:first-of-type {
+      border-top: 1px solid var(--theme-elevation-200);
+      border-bottom: 1px solid var(--theme-elevation-200);
     }
-}
 
-.pixelBG {
-    width: calc(100% + var(--gutter-h) / 2);
-    height: calc(100% + var(--base) * 4);
-
-    @include mid-break {
-        width: calc(100% + var(--gutter-h));
-        height: calc(100% + var(--base));
+    > * {
+      border-bottom: 1px solid var(--theme-elevation-200);
     }
 }
+
 
 .buttonIcon {
     margin-left: var(--base);
     flex-shrink: 0;
     top: 4px;
     position: relative;
+}
+
+.crosshairTopLeft {
+  position: absolute;
+  width: calc(var(--base) * 1);
+  height: auto;
+  z-index: 5;
+  color: var(--theme-elevation-1000);
+  opacity: 0.5;
+  top: calc(var(--base) * -0.5);
+  left: calc(var(--base) * -0.5);
+  display: none;
+
+  @include mid-break {
+    display: block;
+  }
+}
+
+.crosshairBottomRight {
+  position: absolute;
+  width: calc(var(--base) * 1);
+  height: auto;
+  z-index: 5;
+  color: var(--theme-elevation-1000);
+  opacity: 0.5;
+  bottom: calc(var(--base) * -0.5);
+  right: calc(var(--base) * -0.5);
+  display: none;
+
+  @include mid-break {
+    display: block;
+  }
 }

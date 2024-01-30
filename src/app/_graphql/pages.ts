@@ -60,7 +60,9 @@ export const PAGE = `
             link ${LINK_FIELDS()}
           }
           media ${MEDIA_FIELDS}
-          mediaWidth
+          adjectives {
+            adjective
+          }
           form ${FORM_FIELDS}
           logoGroup {
             logos {
