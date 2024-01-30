@@ -20,7 +20,11 @@ export const CenteredContent: React.FC<
     <Gutter>
       <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>
         <BackgroundGrid ignoreGutter />
-        <div className={[classes.content, 'cols-8 start-5 start-m-1 cols-m-8'].filter(Boolean).join(' ')}>
+        <div
+          className={[classes.content, 'cols-8 start-5 start-m-1 cols-m-8']
+            .filter(Boolean)
+            .join(' ')}
+        >
           {breadcrumbs && (
             <Breadcrumbs items={breadcrumbs} ellipsis={false} className={classes.label} />
           )}
@@ -37,6 +41,7 @@ export const CenteredContent: React.FC<
                     {...link}
                     buttonProps={{
                       hideHorizontalBorders: true,
+                      hideBottomBorderExceptLast: true,
                     }}
                     className={[classes.link, 'cols-12 start-1'].filter(Boolean).join(' ')}
                   />

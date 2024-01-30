@@ -2,11 +2,32 @@
 
 .container {
   position: relative;
+  padding-top: calc(var(--base) * 8.65);
+  padding-bottom: calc(var(--base) * 8.65);
+
+  @include large-break {
+    padding-top: calc(var(--base) * 6);
+    padding-bottom: calc(var(--base) * 6);
+  }
+
+  @include mid-break {
+    padding-top: calc(var(--base) * 4);
+    padding-bottom: calc(var(--base) * 4);
+  }
+}
+
+.content {
+  /* Provides space for the overflow of content over the grid lines */
+  padding-left: 1px;
 }
 
 .label {
-  margin-bottom: calc(var(--base) * 1);
+  margin-bottom: calc(var(--base) * 2);
   display: block;
+
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 1);
+  }
 
    & label {
       margin-top: 0;
@@ -25,8 +46,4 @@
 .links {
   display: flex;
   flex-direction: column;
-
-  :not(:last-of-type) {
-    border-bottom: none;
-  }
 }
