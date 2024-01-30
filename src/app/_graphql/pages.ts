@@ -47,32 +47,25 @@ export const PAGE = `
         title
         hero {
           type
-          commandLine
           richText
-          sidebarContent
-          links {
-            link ${LINK_FIELDS()}
-          }
-          actions {
+          primaryButtons {
             link ${LINK_FIELDS({ disableAppearance: true })}
           }
-          buttons {
+          sidebarContent
+          secondaryContent
+          secondaryButtons {
+            link ${LINK_FIELDS({ disableAppearance: true })}
+          }
+          links {
             link ${LINK_FIELDS()}
           }
           media ${MEDIA_FIELDS}
           mediaWidth
-          adjectives {
-            adjective
-          }
           form ${FORM_FIELDS}
           logoGroup {
-            label
             logos {
               logo ${MEDIA_FIELDS}
             }
-          }
-          carousel {
-            image ${MEDIA_FIELDS}
           }
           livestream {
             id

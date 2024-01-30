@@ -1,0 +1,69 @@
+@use "@scss/common" as *;
+
+.logoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); // 4 columns
+  grid-template-rows: repeat(3, 1fr); // 3 rows
+  position: relative;
+  width: 100%;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: 
+      linear-gradient(to right, var(--theme-elevation-200) 1px, transparent 1px) 0 0 / 25% 100% repeat-x,
+      linear-gradient(var(--theme-elevation-200) 1px, transparent 1px) 0 0 / 100% 33.333% repeat-y;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px; // Align with the bottom of the last row
+    border-bottom: 1px solid var(--theme-elevation-200);
+  }
+}
+
+.logoGridItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::after {
+    content: '';
+    display: block;
+    padding-top: 100%; // Keeps the aspect ratio of the cell as a square
+  }
+
+  > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 1s; // Smooth transition for opacity
+  }
+
+  &:nth-child(2), &:nth-child(6), &:nth-child(10) {
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -1px; // Adjust to cover the right border
+      bottom: 0;
+      width: 1px;
+      background: var(--theme-bg); // Background color of the grid
+      z-index: 2;
+    }
+  }
+}

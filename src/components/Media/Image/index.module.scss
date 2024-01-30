@@ -2,11 +2,11 @@
   background-color: var(--theme-elevation-50);
 }
 
-[data-theme=dark] {
-  .hasDarkModeFallback.themeLight {
-    display: none;
-  }
-}
+// [data-theme=dark] {
+//   .hasDarkModeFallback.themeLight {
+//     display: none;
+//   }
+// }
 
 [data-theme=light] {
   .themeDark {

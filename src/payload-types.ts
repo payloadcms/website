@@ -673,7 +673,7 @@ export interface Page {
   title: string;
   fullTitle?: string | null;
   hero: {
-    type: 'default' | 'contentMedia' | 'form' | 'home' | 'livestream' | 'centeredCarousel';
+    type: 'default' | 'contentMedia' | 'form' | 'home' | 'livestream';
     livestream?: {
       id?: string | null;
       date: string;
@@ -692,13 +692,41 @@ export interface Page {
       }[]
       | null;
     };
-    commandLine?: string | null;
     richText?:
     | {
       [k: string]: unknown;
     }[]
     | null;
     sidebarContent?:
+    | {
+      [k: string]: unknown;
+    }[]
+    | null;
+    primaryButtons?:
+    | {
+      link: {
+        type?: ('reference' | 'custom') | null;
+        newTab?: boolean | null;
+        reference?:
+        | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+        | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+        | ({
+          relationTo: 'case-studies';
+          value: string | CaseStudy;
+        } | null);
+        url?: string | null;
+        label: string;
+      };
+      id?: string | null;
+    }[]
+    | null;
+    secondaryContent?:
     | {
       [k: string]: unknown;
     }[]
@@ -728,7 +756,7 @@ export interface Page {
       id?: string | null;
     }[]
     | null;
-    actions?:
+    secondaryButtons?:
     | {
       link: {
         type?: ('reference' | 'custom') | null;
@@ -748,46 +776,14 @@ export interface Page {
         } | null);
         url?: string | null;
         label: string;
-      };
-      id?: string | null;
-    }[]
-    | null;
-    buttons?:
-    | {
-      link: {
-        type?: ('reference' | 'custom') | null;
-        newTab?: boolean | null;
-        reference?:
-        | ({
-          relationTo: 'pages';
-          value: string | Page;
-        } | null)
-        | ({
-          relationTo: 'posts';
-          value: string | Post;
-        } | null)
-        | ({
-          relationTo: 'case-studies';
-          value: string | CaseStudy;
-        } | null);
-        url?: string | null;
-        label: string;
-        appearance?: ('primary' | 'secondary') | null;
       };
       id?: string | null;
     }[]
     | null;
     media?: string | Media | null;
     mediaWidth?: ('normal' | 'wide') | null;
-    adjectives?:
-    | {
-      adjective: string;
-      id?: string | null;
-    }[]
-    | null;
     form?: (string | null) | Form;
     logoGroup?: {
-      label?: string | null;
       logos?:
       | {
         logo: string | Media;
@@ -795,12 +791,6 @@ export interface Page {
       }[]
       | null;
     };
-    carousel?:
-    | {
-      image: string | Media;
-      id?: string | null;
-    }[]
-    | null;
   };
   layout: (
     | {
