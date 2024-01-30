@@ -18,7 +18,7 @@ export type CallToActionProps = Extract<Page['layout'][0], { blockType: 'cta' }>
 
 export const CallToAction: React.FC<CallToActionProps> = props => {
   const {
-    ctaFields: { richText, feature, links },
+    ctaFields: { richText, links },
   } = props
 
   const hasLinks = links && links.length > 0
@@ -47,12 +47,7 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
               <BackgroundGrid ignoreGutter />
               <CrosshairIcon className={[classes.crosshairTopLeft].filter(Boolean).join(' ')} />
               <CrosshairIcon className={[classes.crosshairBottomRight].filter(Boolean).join(' ')} />
-              {feature === 'cpa' && (
-                <Fragment>
-                  <Label className={classes.label}>Get started in one line</Label>
-                  <CreatePayloadApp background={false} className={classes.cpa} />
-                </Fragment>
-              )}
+
               {hasLinks && (
                 <div className={[classes.links, 'cols-16 cols-m-8'].filter(Boolean).join(' ')}>
                   {links.map(({ link }, index) => (

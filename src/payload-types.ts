@@ -52,7 +52,6 @@ export interface CaseStudy {
               richText: {
                 [k: string]: unknown;
               }[];
-              feature: 'none' | 'cpa';
               links?:
                 | {
                     link: {
@@ -807,7 +806,6 @@ export interface Page {
           richText: {
             [k: string]: unknown;
           }[];
-          feature: 'none' | 'cpa';
           links?:
             | {
                 link: {
@@ -1621,7 +1619,6 @@ export interface ReusableContent {
           richText: {
             [k: string]: unknown;
           }[];
-          feature: 'none' | 'cpa';
           links?:
             | {
                 link: {
