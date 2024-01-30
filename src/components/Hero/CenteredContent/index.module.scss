@@ -46,4 +46,9 @@
 .links {
   display: flex;
   flex-direction: column;
+  max-width: 50%;
+
+  @include large-break {
+    max-width: none;
+  }
 }
