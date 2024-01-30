@@ -9,6 +9,11 @@
   padding-top: calc(var(--base) * 10);
   padding-bottom: calc(var(--base) * 10);
 
+  @include large-break {
+    padding-top: calc(var(--base) * 8);
+    padding-bottom: calc(var(--base) * 8);
+  }
+
   @include mid-break {
     row-gap: calc(var(--base) * 3);
 
