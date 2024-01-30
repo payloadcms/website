@@ -33,7 +33,7 @@
 }
 
 .media {
-  width: calc(100% + var(--gutter-h));
+  width: calc(100% + calc(var(--gutter-h) * 0.5));
 
   @include mid-break {
     width: calc(100% - 2px);
