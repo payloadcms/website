@@ -16,6 +16,7 @@ type Props = Extract<Page['layout'][0], { blockType: 'codeFeature' }>
 export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [indicatorStyle, setIndicatorStyle] = useState({ width: '0', left: '0' })
+  const tabWrapperRef = useRef<HTMLDivElement>(null)
   const activeTabRef = useRef<HTMLButtonElement>(null)
   const { heading, richText, forceDarkBackground, codeTabs, links } = codeFeatureFields
   const id = useId()
@@ -26,8 +27,9 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
         width: `${activeTabRef.current.clientWidth}px`,
         left: `${activeTabRef.current.offsetLeft}px`,
       })
+      tabWrapperRef.current?.scroll(activeTabRef.current.offsetLeft - 20, 0)
     }
-  }, [activeIndex, activeTabRef.current])
+  }, [activeIndex])
 
   return (
     <div
@@ -56,11 +58,12 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
             </div>
           </div>
           <div
-            className={[classes.tabsWrapper, 'cols-10 start-7 cols-m-8'].filter(Boolean).join(' ')}
+            className={[classes.tabsWrapper, 'cols-10 start-7 cols-m-8 start-m-1']
+              .filter(Boolean)
+              .join(' ')}
           >
-            <div className={classes.tabs}>
-              {codeTabs?.length &&
-                codeTabs.length > 1 &&
+            <div className={classes.tabs} ref={tabWrapperRef}>
+              {codeTabs?.length && codeTabs.length > 1 ? (
                 codeTabs?.map((code, index) => {
                   const isActive = activeIndex === index
                   return (
@@ -78,7 +81,12 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
                       {code.label}
                     </button>
                   )
-                })}
+                })
+              ) : (
+                <div className={classes.hiddenTab} id={`codefeature${id}-tab-0`}>
+                  {codeTabs?.[0].label}
+                </div>
+              )}
               <div className={classes.tabIndicator} style={indicatorStyle} aria-hidden={true} />
             </div>
             {codeTabs?.map((code, index) => {

@@ -287,3 +287,7 @@ dialog {
     background-image: url('/images/scanline-light.png');
   }
 }
+
+.visually-hidden {
+  @include visually-hidden;
+}
