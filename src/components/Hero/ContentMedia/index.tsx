@@ -13,10 +13,10 @@ import { Page } from '@root/payload-types'
 import classes from './index.module.scss'
 
 export const ContentMediaHero: React.FC<
-  Pick<Page['hero'], 'richText' | 'media' | 'links' | 'sidebarContent'> & {
+  Pick<Page['hero'], 'richText' | 'media' | 'links' | 'description'> & {
     breadcrumbs?: Page['breadcrumbs']
   }
-> = ({ richText, media, links, sidebarContent }) => {
+> = ({ richText, media, links, description }) => {
   return (
     <Gutter>
       <div className={[classes.wrapper, 'grid'].filter(Boolean).join(' ')}>
@@ -26,8 +26,8 @@ export const ContentMediaHero: React.FC<
 
           <div className={[classes.linksWrapper].filter(Boolean).join(' ')}>
             <RichText
-              content={sidebarContent}
-              className={[classes.sidebarContent].filter(Boolean).join(' ')}
+              content={description}
+              className={[classes.description].filter(Boolean).join(' ')}
             />
 
             {Array.isArray(links) &&

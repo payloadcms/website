@@ -47,9 +47,13 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
    */
   hideHorizontalBorders?: boolean
   /**
-   * Hides the horizontal borders of the button, useful for stacked buttons
+   * Hides the horizontal borders of the button
    */
   hideVerticalBorders?: boolean
+  /**
+   * Hides the bottom border except for the last of type
+   */
+  hideBottomBorderExceptLast?: boolean
 }
 
 const icons = {
@@ -151,6 +155,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     hideBorders,
     hideHorizontalBorders,
     hideVerticalBorders,
+    hideBottomBorderExceptLast,
     labelClassName,
   } = props
 
@@ -209,6 +214,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     hideHorizontalBorders && classes.hideHorizontalBorders,
     hideVerticalBorders && classes.hideVerticalBorders,
     hideBorders && classes.hideBorders,
+    hideBottomBorderExceptLast && classes.hideBottomBorderExceptLast,
   ]
     .filter(Boolean)
     .join(' ')

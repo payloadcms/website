@@ -51,11 +51,11 @@ export const PAGE = `
           primaryButtons {
             link ${LINK_FIELDS({ disableAppearance: true })}
           }
-          sidebarContent
           secondaryContent
           secondaryButtons {
             link ${LINK_FIELDS({ disableAppearance: true })}
           }
+          description
           links {
             link ${LINK_FIELDS()}
           }

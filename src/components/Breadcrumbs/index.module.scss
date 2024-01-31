@@ -6,7 +6,8 @@
 }
 
 .label {
-  @include label;
+  @include h5;
+  opacity: 0.5;
   display: flex;
   align-items: center;
   white-space: nowrap;
