@@ -2,7 +2,7 @@
 
 .homeHero {
   position: relative;
-  background: var(--theme-bg);
+  background: linear-gradient(to top, var(--theme-elevation-0) 60%, transparent 100%);
   padding-bottom: calc(var(--base) * 5);
 }
 

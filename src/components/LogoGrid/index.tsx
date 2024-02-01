@@ -22,14 +22,15 @@ interface Props {
 }
 
 const TOTAL_CELLS = 12
-const ANIMATION_DURATION = 1000 // Duration for fade-out and fade-in in milliseconds
-const ANIMATION_DELAY = 3000 // Delay between animations in milliseconds
+const ANIMATION_DURATION = 500 // Duration for fade-out and fade-in in milliseconds
+const ANIMATION_DELAY = 1500 // Delay between animations in milliseconds
 
 const getRandomPosition = (excludePositions: number[]) => {
   let newPos
+  const excludedCells = [0, 11] // Exclude first and last cells
   do {
     newPos = Math.floor(Math.random() * TOTAL_CELLS)
-  } while (excludePositions.includes(newPos))
+  } while (excludePositions.includes(newPos) || excludedCells.includes(newPos))
   return newPos
 }
 
