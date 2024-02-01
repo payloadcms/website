@@ -52,34 +52,39 @@ export const LogoGrid: React.FC<Props> = ({ logos }) => {
   useEffect(() => {
     if (!logos || logos.length === 0 || logos.length > TOTAL_CELLS) return
 
+    /* eslint-disable function-paren-newline */
     const animateLogo = () => {
       const logoIndex =
         currentAnimatingIndex !== null ? (currentAnimatingIndex + 1) % logos.length : 0
       setCurrentAnimatingIndex(logoIndex)
 
-      const newPositions = [...logoPositions]
-      newPositions[logoIndex].isVisible = false // Start fade-out
-      setLogoPositions(newPositions)
+      setLogoPositions(prevPositions =>
+        prevPositions.map((pos, idx) => (idx === logoIndex ? { ...pos, isVisible: false } : pos)),
+      )
 
       setTimeout(() => {
-        const newPosition = getRandomPosition(
-          newPositions
-            .map(item => item.position)
-            .filter(pos => pos !== newPositions[logoIndex].position),
-        )
-        newPositions[logoIndex] = {
-          ...newPositions[logoIndex],
-          position: newPosition,
-          isVisible: false,
-        }
-        setLogoPositions(newPositions)
+        setLogoPositions(prevPositions => {
+          const occupiedPositions = prevPositions.map(p => p.position)
+          let newPosition
+          do {
+            newPosition = getRandomPosition(occupiedPositions)
+          } while (newPosition === prevPositions[logoIndex].position)
+
+          return prevPositions.map((pos, idx) =>
+            idx === logoIndex ? { ...pos, position: newPosition, isVisible: false } : pos,
+          )
+        })
 
         setTimeout(() => {
-          newPositions[logoIndex].isVisible = true // Start fade-in
-          setLogoPositions(newPositions)
-        }, ANIMATION_DURATION / 2)
-      }, ANIMATION_DURATION)
+          setLogoPositions(prevPositions =>
+            prevPositions.map((pos, idx) =>
+              idx === logoIndex ? { ...pos, isVisible: true } : pos,
+            ),
+          )
+        }, 100)
+      }, ANIMATION_DURATION + 500)
     }
+    /* eslint-enable function-paren-newline */
 
     const interval = setInterval(animateLogo, ANIMATION_DELAY + ANIMATION_DURATION)
     return () => clearInterval(interval)

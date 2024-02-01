@@ -66,14 +66,15 @@
       left: calc(var(--base) * 1);
       right: calc(var(--base) * 1);
     }
-  }
 
-  > div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 1s ease;
-  }
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 1s ease;
+      opacity: 0;
+    }
+  }  
 }
 
 .crosshair {
