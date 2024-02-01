@@ -12,14 +12,18 @@
 
 .container {
   position: relative;
-  padding-top: calc(var(--base) * 13);
-  padding-bottom: calc(var(--base) * 13);
   align-items: center;
   row-gap: calc(var(--base) * 3);
+
+  @include mid-break {
+    padding-top: calc(var(--base) * 3);
+    padding-bottom: calc(var(--base) * 3);
+  }
 }
 
 .content {
   position: relative;
+  z-index: 1;
 }
 
 .labelWrap {
@@ -39,6 +43,14 @@
 
 .richText {
   margin-bottom: calc(var(--base) * 1.5);
+}
+
+.links {
+  width: 100%;
+
+  > * {
+    width: 100%;
+  }
 }
 
 .tabsWrapper {

@@ -27,6 +27,12 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
         width: `${activeTabRef.current.clientWidth}px`,
         left: `${activeTabRef.current.offsetLeft}px`,
       })
+    }
+  }, [activeIndex])
+
+  useEffect(() => {
+    // Scroll logic has to sit in a separate useEffect because the wrapperWidth blocks the smooth scroll
+    if (activeTabRef.current) {
       tabWrapperRef.current?.scroll(activeTabRef.current.offsetLeft - 20, 0)
     }
   }, [activeIndex])
@@ -51,7 +57,18 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
 
                 <div className={classes.links}>
                   {links?.map((link, index) => {
-                    return <CMSLink key={index} {...link} />
+                    return (
+                      <CMSLink
+                        key={index}
+                        appearance={'default'}
+                        buttonProps={{
+                          appearance: 'default',
+                          hideHorizontalBorders: true,
+                          hideBottomBorderExceptLast: true,
+                        }}
+                        {...link.link}
+                      />
+                    )
                   })}
                 </div>
               </div>
