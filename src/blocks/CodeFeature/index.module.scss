@@ -14,6 +14,8 @@
   position: relative;
   align-items: center;
   row-gap: calc(var(--base) * 3);
+  padding-top: calc(var(--base) * 11.5);
+  padding-bottom: calc(var(--base) * 11.5);
 
   @include mid-break {
     padding-top: calc(var(--base) * 3);
@@ -105,7 +107,54 @@
   }
 }
 
+.scanlineWrapper {
+  position: absolute;
+  height: 100%;
+  top: calc(var(--base) * 5.75);
+  height: calc(100% - var(--base) * 11.5);
+  width: 100%;
+
+  @include mid-break {
+    display: none;
+  }
+}
+
+.crosshairTopRight, .crosshairBottomRight {
+  position: absolute;
+  width: calc(var(--base) * 1);
+  height: auto;
+  color: var(--theme-elevation-1000);
+  opacity: 0.5;
+}
+
+.crosshairTopRight {
+  top: calc(var(--base) * -0.5);
+  right: calc(var(--base) * -0.5);
+}
+
+.crosshairBottomRight {
+  bottom: calc(var(--base) * -0.5);
+  right: calc(var(--base) * -0.5);
+}
+
+.scanlineDesktop {
+  width: calc(100% + var(--gutter-h) * 1);
+  margin-right: calc(var(--gutter-h) * -1);
+}
+
+.scanlineMobile {
+  display: none;
+
+  @include mid-break {
+    display: block;
+    width: calc(100% + var(--gutter-h) * 2);
+    margin-left: calc(var(--gutter-h) * -1);
+    margin-right: calc(var(--gutter-h) * -1);
+  }
+}
+
 .codeBlock {
+  position: relative;
   display: none;
 
   &.isActive {

@@ -1,12 +1,14 @@
 import React, { useEffect, useId, useMemo, useRef, useState } from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BackgroundScanline } from '@components/BackgroundScanline'
 import { CMSLink } from '@components/CMSLink'
 import Code from '@components/Code'
 import { Gutter } from '@components/Gutter'
 import { Label } from '@components/Label'
 import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon'
 import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
@@ -48,6 +50,16 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
       <Gutter>
         <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>
           <BackgroundGrid ignoreGutter className={classes.backgroundGrid} />
+          <div className={[classes.scanlineWrapper, 'start-9 cols-8'].filter(Boolean).join(' ')}>
+            <BackgroundScanline
+              className={[classes.scanlineDesktop].filter(Boolean).join(' ')}
+              crosshairs={['top-left', 'bottom-left']}
+            />
+            {/* <CrosshairIcon className={[classes.crosshairTopLeft].filter(Boolean).join(' ')} /> */}
+            <CrosshairIcon className={[classes.crosshairTopRight].filter(Boolean).join(' ')} />
+            {/* <CrosshairIcon className={[classes.crosshairBottomLeft].filter(Boolean).join(' ')} /> */}
+            <CrosshairIcon className={[classes.crosshairBottomRight].filter(Boolean).join(' ')} />
+          </div>
           <div className={[classes.content, 'cols-4 cols-m-8'].filter(Boolean).join(' ')}>
             <h2 className={classes.heading}>{heading}</h2>
             {forceDarkBackground}
@@ -79,6 +91,9 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
               .filter(Boolean)
               .join(' ')}
           >
+            <BackgroundScanline
+              className={[classes.scanlineMobile, ''].filter(Boolean).join(' ')}
+            />
             <div className={classes.tabs} ref={tabWrapperRef}>
               {codeTabs?.length && codeTabs.length > 1 ? (
                 codeTabs?.map((code, index) => {
