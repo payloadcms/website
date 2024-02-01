@@ -3,6 +3,7 @@
 .desktopNav {
   position: relative;
   width: 100%;
+  height: var(--header-height);
 
   &:local() {
     a {
@@ -17,6 +18,8 @@
 }
 
 .grid {
+  height: 100%;
+
   :local(a) {
     text-decoration: none;
   }
@@ -94,7 +97,7 @@
 .tab {
   @include btnReset;
   cursor: pointer;
-  padding: calc(var(--base) * 1.75) 0;
+  height: 100%;
 }
 
 .underline {
