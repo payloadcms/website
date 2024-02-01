@@ -1,44 +1,27 @@
 @use '@scss/common.scss' as *;
 
 .homeHero {
-  margin-top: calc(-1 * var(--page-padding-top));
-
-  @include small-break-ht {
-    margin-top: calc(1 * var(--page-padding-top) * 0.25);
-
-    @include large-break {
-      margin-top: calc(-1 * var(--page-padding-top) * 0.25);
-    }
-
-    @include mid-break {
-      margin-top: calc(-1 * var(--page-padding-top));
-    }
-  }
-}
-
-.wrap {
   position: relative;
   background: var(--theme-bg);
+  padding-bottom: calc(var(--base) * 5);
 }
 
 .bg {
   position: absolute;
   z-index: 1;
-  top: calc(var(--header-height) * 2);
+  top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   overflow: hidden;
-}
 
-.bgImage {
-  pointer-events: none;
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
-
-  img {
+  img, video {
     object-fit: cover;
+    width: 100%;
+  }
+
+  @include mid-break {
+    display: none;
   }
 }
 
@@ -50,23 +33,73 @@
   position: relative;
   z-index: 2;
   grid-template-rows: auto min-content;
-  align-items: end;
-  min-height: 72vh;
+  padding-top: calc(var(--base) * 3);
 
   @include mid-break {
-    padding-top: calc(var(--base) * 6);
-    min-height: initial;
-    display: block;
+    padding-top: calc(var(--base) * 1.5);
   }
 }
 
 .secondaryContentWrap {
   position: relative;
   z-index: 2;
+  align-items: center;
+  padding-top: calc(var(--base) * 8);
+
+  @include large-break {
+    padding-top: calc(var(--base) * 6);
+  }
+
+  @include mid-break {
+    padding-top: calc(var(--base) * 1.5);
+  }
 }
 
-.richText {
+.secondaryContent {
+  @include mid-break {
+    order: 1;
+    margin-top: calc(var(--base) * 2);
+  }
+
+  @include small-break {
+    margin-top: calc(var(--base) * 1.5);
+  }
+}
+
+.logoWrapper {
+  @include mid-break {
+    order: 0;
+  }
+}
+
+.richTextHeading {
   margin-bottom: calc(var(--base) * 2);
+
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 1.5);
+  }
+}
+
+.secondaryRichTextHeading {
+  margin-bottom: calc(var(--base) * 1.5);
+}
+
+.richTextHeading, .secondaryRichTextHeading {
+  max-width: 75%;
+
+  @include mid-break {
+    max-width: 100%;
+  }
+}
+
+.richTextDescription, .secondaryRichTextDescription {
+  max-width: 50%;
+  margin-bottom: calc(var(--base) * 2);
+
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 1.5);
+    max-width: 100%;
+  }
 }
 
 .primaryButtons,
@@ -74,16 +107,30 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  max-width: 50%;
+
+  @include mid-break {
+    max-width: 100%;
+  }
+}
+
+.primaryButtons {
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 2);
+  }
 }
 
 .mediaGutter {
-  position: relative;
+  display: none;
+
+  @include mid-break {
+    display: block;
+    position: relative;
+  }
 }
 
-.voidSpaceBelowMedia {
-  position: absolute;
-  height: 50%;
-  width: 100%;
-  left: 0;
-  bottom: 0;
+.mobileMedia {
+  position: relative;
+  z-index: 2;
+  margin-top: -28.125%; // half of 16x9 ratio
 }

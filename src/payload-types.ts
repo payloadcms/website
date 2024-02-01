@@ -725,7 +725,12 @@ export interface Page {
       id?: string | null;
     }[]
     | null;
-    secondaryContent?:
+    secondaryHeading?:
+    | {
+      [k: string]: unknown;
+    }[]
+    | null;
+    secondaryDescription?:
     | {
       [k: string]: unknown;
     }[]

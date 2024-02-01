@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { Media } from '@components/Media'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon'
 import { Media as MediaType } from '@root/payload-types'
 
 import classes from './index.module.scss'
@@ -70,7 +71,7 @@ export const LogoGrid: React.FC<Props> = ({ logos }) => {
           ...newPositions[logoIndex],
           position: newPosition,
           isVisible: false,
-        } // Move to new position but keep invisible
+        }
         setLogoPositions(newPositions)
 
         setTimeout(() => {
@@ -86,25 +87,58 @@ export const LogoGrid: React.FC<Props> = ({ logos }) => {
 
   return (
     <div className={classes.logoGrid}>
+      <div
+        className={[classes.horizontalLine, classes.topHorizontalLine].filter(Boolean).join(' ')}
+      />
+      {[...Array(2)].map((_, idx) => (
+        <div
+          key={`h-line-${idx}`}
+          className={classes.horizontalLine}
+          style={{ top: `${(idx + 1) * 33.333}%` }}
+        />
+      ))}
+      {[...Array(3)].map((_, idx) => {
+        if (idx === 1) return null // Skip the line at left: 50%
+        return (
+          <div
+            key={`v-line-${idx}`}
+            className={classes.verticalLine}
+            style={{ left: `${(idx + 1) * 25}%` }}
+          />
+        )
+      })}
+      <div
+        className={[classes.horizontalLine, classes.bottomHorizontalLine].filter(Boolean).join(' ')}
+      />
       {Array.from({ length: TOTAL_CELLS }).map((_, index) => (
         <div className={classes.logoGridItem} key={index}>
-          {logoPositions
-            .filter(item => item.position === index)
-            .map(({ logo, isVisible }, idx) => (
-              <div
-                key={idx}
-                style={{
-                  opacity: isVisible ? 1 : 0,
-                  transition: `opacity ${ANIMATION_DURATION}ms ease`,
-                }}
-              >
-                {typeof logo.logo === 'object' && logo.logo !== null && (
-                  <Media resource={logo.logo} />
-                )}
-              </div>
-            ))}
+          <div className={classes.contentWrapper}>
+            {logoPositions
+              .filter(item => item.position === index)
+              .map(({ logo, isVisible }, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    opacity: isVisible ? 1 : 0,
+                    transition: `opacity ${ANIMATION_DURATION}ms ease`,
+                  }}
+                >
+                  {typeof logo.logo === 'object' && logo.logo !== null && (
+                    <Media resource={logo.logo} />
+                  )}
+                </div>
+              ))}
+          </div>
         </div>
       ))}
+      <CrosshairIcon className={[classes.crosshair, classes.crosshairBottomLeft].join(' ')} />
+      <CrosshairIcon className={[classes.crosshair, classes.crosshairTopRight].join(' ')} />
+      <CrosshairIcon className={[classes.crosshair, classes.crosshairFirstCell].join(' ')} />
+      <CrosshairIcon
+        className={[classes.crosshair, classes.crosshairSecondRowThirdCell].join(' ')}
+      />
     </div>
   )
 }
+
+export default LogoGrid

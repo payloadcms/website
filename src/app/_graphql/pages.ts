@@ -48,14 +48,15 @@ export const PAGE = `
         hero {
           type
           richText
+          description
           primaryButtons {
             link ${LINK_FIELDS({ disableAppearance: true })}
           }
-          secondaryContent
+          secondaryHeading
+          secondaryDescription
           secondaryButtons {
             link ${LINK_FIELDS({ disableAppearance: true })}
           }
-          description
           links {
             link ${LINK_FIELDS()}
           }
