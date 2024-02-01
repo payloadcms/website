@@ -1,9 +1,50 @@
 @use "@scss/common" as *;
 
 .logoGrid {
+  position: relative;
+  padding: var(--new-block-spacing) 0;
+}
+
+.logoGridContentWrapper {
+  align-items: center;
+}
+
+.richTextWrapper {
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 2);
+  }
+
+  @include small-break {
+    margin-bottom: calc(var(--base) * 1.5);
+  }
+}
+
+.richText {
+  max-width: 75%;
+  margin-bottom: calc(var(--base) * 3);
+
+  @include mid-break {
+    max-width: 100%;
+    margin-bottom: calc(var(--base) * 2);
+  }
+
+  @include small-break {
+    margin-bottom: calc(var(--base) * 1.5);
+  }
+}
+
+.link {
+  max-width: 50%;
+
+  @include mid-break {
+    max-width: 100%;
+  }
+}
+
+.logoShowcase {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   position: relative;
   width: 100%;
 
@@ -27,18 +68,16 @@
 
   .topHorizontalLine {
     top: 0;
-    left: 25%;
-    width: 75%;
+    width: 100%;
   }
 
   .bottomHorizontalLine {
     bottom: 0;
-    right: 25%;
-    width: 75%;
+    width: 100%;
   }
 }
 
-.logoGridItem {
+.logoShowcaseItem {
   position: relative;
   display: flex;
   align-items: center;
@@ -86,22 +125,12 @@
   opacity: 0.5;
 }
 
-.crosshairBottomLeft {
-  left: calc(var(--base) * -0.5);
-  bottom: calc(var(--base) * -0.5);
-}
-
-.crosshairTopRight {
-  right: calc(var(--base) * -0.5);
-  top: calc(var(--base) * -0.5);
-}
-
-.crosshairFirstCell {
+.crosshairLeft {
   left: calc(25% + var(--base) * -0.5);
-  bottom: calc(66.666% + var(--base) * -0.5);
+  bottom: calc(50% + var(--base) * -0.5);
 }
 
-.crosshairSecondRowThirdCell {
+.crosshairRight {
   left: calc(75% + var(--base) * -0.5);
-  bottom: calc(33.333% + var(--base) * -0.5);
+  bottom: calc(50% + var(--base) * -0.5);
 }

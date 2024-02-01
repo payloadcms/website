@@ -255,6 +255,20 @@ export const LINK_GRID = `
 }
 `
 
+export const LOGO_GRID = `
+...on LogoGrid {
+  blockType
+  logoGridFields {
+    richText
+    enableLink
+    link ${LINK_FIELDS({ disableAppearance: true })}
+    logos {
+      logo ${MEDIA_FIELDS}
+    }
+  }
+}
+`
+
 export const MEDIA_BLOCK = `
 ...on MediaBlock {
   blockType
@@ -373,6 +387,7 @@ export const REUSABLE_CONTENT_BLOCK = `
         ${FORM_BLOCK}
         ${HOVER_HIGHLIGHTS}
         ${LINK_GRID}
+        ${LOGO_GRID}
         ${MEDIA_BLOCK}
         ${MEDIA_CONTENT}
         ${SLIDER}

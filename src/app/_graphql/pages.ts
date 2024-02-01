@@ -12,6 +12,7 @@ import {
   FORM_BLOCK,
   HOVER_HIGHLIGHTS,
   LINK_GRID,
+  LOGO_GRID,
   MEDIA_BLOCK,
   MEDIA_CONTENT,
   PRICING_BLOCK,
@@ -93,6 +94,7 @@ export const PAGE = `
           ${FORM_BLOCK}
           ${HOVER_HIGHLIGHTS}
           ${LINK_GRID}
+          ${LOGO_GRID}
           ${MEDIA_BLOCK}
           ${MEDIA_CONTENT}
           ${PRICING_BLOCK}

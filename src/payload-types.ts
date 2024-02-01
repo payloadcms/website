@@ -1102,6 +1102,42 @@ export interface Page {
       blockType: 'linkGrid';
     }
     | {
+      logoGridFields: {
+        richText: {
+          [k: string]: unknown;
+        }[];
+        enableLink?: boolean | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+          | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+          | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null)
+          | ({
+            relationTo: 'case-studies';
+            value: string | CaseStudy;
+          } | null);
+          url?: string | null;
+          label: string;
+        };
+        logos?:
+        | {
+          logo: string | Media;
+          id?: string | null;
+        }[]
+        | null;
+      };
+      id?: string | null;
+      blockName?: string | null;
+      blockType: 'logoGrid';
+    }
+    | {
       mediaBlockFields: {
         position?: ('default' | 'wide') | null;
         media: string | Media;
@@ -1923,6 +1959,42 @@ export interface ReusableContent {
       id?: string | null;
       blockName?: string | null;
       blockType: 'linkGrid';
+    }
+    | {
+      logoGridFields: {
+        richText: {
+          [k: string]: unknown;
+        }[];
+        enableLink?: boolean | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+          | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+          | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null)
+          | ({
+            relationTo: 'case-studies';
+            value: string | CaseStudy;
+          } | null);
+          url?: string | null;
+          label: string;
+        };
+        logos?:
+        | {
+          logo: string | Media;
+          id?: string | null;
+        }[]
+        | null;
+      };
+      id?: string | null;
+      blockName?: string | null;
+      blockType: 'logoGrid';
     }
     | {
       mediaBlockFields: {

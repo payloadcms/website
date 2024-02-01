@@ -34,7 +34,7 @@ const getRandomPosition = (excludePositions: number[]) => {
   return newPos
 }
 
-export const LogoGrid: React.FC<Props> = ({ logos }) => {
+export const LogoShowcase: React.FC<Props> = ({ logos }) => {
   const [logoPositions, setLogoPositions] = useState<PositionedLogo[]>([])
   const [currentAnimatingIndex, setCurrentAnimatingIndex] = useState<number | null>(null)
 
@@ -92,7 +92,7 @@ export const LogoGrid: React.FC<Props> = ({ logos }) => {
   }, [logoPositions, currentAnimatingIndex, logos])
 
   return (
-    <div className={classes.logoGrid}>
+    <div className={classes.logoShowcase}>
       <div
         className={[classes.horizontalLine, classes.topHorizontalLine].filter(Boolean).join(' ')}
       />
@@ -117,7 +117,7 @@ export const LogoGrid: React.FC<Props> = ({ logos }) => {
         className={[classes.horizontalLine, classes.bottomHorizontalLine].filter(Boolean).join(' ')}
       />
       {Array.from({ length: TOTAL_CELLS }).map((_, index) => (
-        <div className={classes.logoGridItem} key={index}>
+        <div className={classes.logoShowcaseItem} key={index}>
           <div className={classes.contentWrapper}>
             {logoPositions
               .filter(item => item.position === index)
@@ -147,4 +147,4 @@ export const LogoGrid: React.FC<Props> = ({ logos }) => {
   )
 }
 
-export default LogoGrid
+export default LogoShowcase

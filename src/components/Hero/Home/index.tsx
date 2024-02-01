@@ -5,7 +5,7 @@ import React from 'react'
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
-import { LogoGrid } from '@components/LogoGrid'
+import { LogoShowcase } from '@components/LogoShowcase'
 import { Media } from '@components/Media'
 import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
@@ -92,7 +92,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
           <div
             className={[classes.logoWrapper, 'cols-8 start-9 start-m-1'].filter(Boolean).join(' ')}
           >
-            <LogoGrid logos={logos} />
+            <LogoShowcase logos={logos} />
           </div>
         </div>
       </Gutter>
