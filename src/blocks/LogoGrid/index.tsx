@@ -122,10 +122,7 @@ export const LogoGrid: React.FC<LogoGridProps> = ({ logoGridFields }) => {
           >
             <div className={classes.logoShowcase}>
               <div className={[classes.horizontalLine, classes.topHorizontalLine].join(' ')} />
-              {/* Adjust to only one horizontal line for a 2-row grid */}
               <div className={classes.horizontalLine} style={{ top: '50%' }} />
-
-              {/* Vertical lines remain the same as they divide columns, not rows */}
               {[...Array(3)].map((_, idx) => (
                 <div
                   key={`v-line-${idx}`}
