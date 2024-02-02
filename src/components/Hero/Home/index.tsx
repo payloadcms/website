@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { CMSLink } from '@components/CMSLink'
@@ -22,16 +22,54 @@ export const HomeHero: React.FC<Page['hero']> = ({
   media,
   logos,
 }) => {
+  const mediaRef = useRef<HTMLDivElement>(null)
+  const [maskStyle, setMaskStyle] = useState<React.CSSProperties>({})
+
+  useEffect(() => {
+    const updateMaskStyle = () => {
+      const screenWidth = window.innerWidth
+      if (screenWidth <= 1024) {
+        setMaskStyle({ maskImage: 'none' })
+        return
+      }
+
+      if (mediaRef.current && mediaRef.current.parentElement) {
+        const mediaRect = mediaRef.current.getBoundingClientRect()
+        const containerRect = mediaRef.current.parentElement.getBoundingClientRect()
+        let startPercentage = 0
+
+        let endPercentage
+        if (screenWidth <= 1200) {
+          endPercentage = ((mediaRect.bottom - containerRect.top) / containerRect.height) * 100 + 30
+        } else if (screenWidth <= 1600) {
+          endPercentage = ((mediaRect.bottom - containerRect.top) / containerRect.height) * 100 + 20
+        } else {
+          endPercentage = ((mediaRect.bottom - containerRect.top) / containerRect.height) * 100
+        }
+
+        setMaskStyle({
+          maskImage: `linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) ${startPercentage}%, rgba(0,0,0,0) ${endPercentage}%, rgba(0,0,0,0) 100%)`,
+        })
+      }
+    }
+
+    updateMaskStyle()
+    window.addEventListener('resize', updateMaskStyle)
+    return () => window.removeEventListener('resize', updateMaskStyle)
+  }, [])
+
   return (
     <div className={classes.homeHero}>
       {typeof media === 'object' && media !== null && (
         <div className={classes.bg}>
-          <Media resource={media} className={classes.media} />
+          <div ref={mediaRef}>
+            <Media resource={media} className={classes.media} />
+          </div>
           <div className={classes.blackBg} />
         </div>
       )}
       <Gutter>
-        <BackgroundGrid className={classes.backgroundGrid} />
+        <BackgroundGrid className={classes.backgroundGrid} style={maskStyle} />
         <div className={[classes.contentWrap, 'grid'].filter(Boolean).join(' ')}>
           <div className={['cols-8 start-1'].filter(Boolean).join(' ')}>
             <RichText className={classes.richTextHeading} content={richText} />
@@ -47,7 +85,6 @@ export const HomeHero: React.FC<Page['hero']> = ({
                         fullWidth
                         buttonProps={{
                           icon: 'arrow',
-                          hideHorizontalBorders: true,
                         }}
                       />
                     </li>
@@ -57,7 +94,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
             )}
             {typeof media === 'object' && media !== null && (
               <Gutter className={classes.mediaGutter}>
-                <Media resource={media} className={classes.media} />
+                <Media resource={media} className={classes.mobileMedia} />
               </Gutter>
             )}
           </div>
