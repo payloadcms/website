@@ -199,6 +199,10 @@ $breakpoint-s-height: 750px;
     border-radius: 0px;
     cursor: pointer;
   }
+
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
 }
 
 @mixin underline-on-focus {
