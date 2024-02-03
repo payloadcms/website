@@ -55,16 +55,16 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
               className={[classes.scanlineDesktop].filter(Boolean).join(' ')}
               crosshairs={['top-left', 'bottom-left']}
             />
-            {/* <CrosshairIcon className={[classes.crosshairTopLeft].filter(Boolean).join(' ')} /> */}
+
             <CrosshairIcon className={[classes.crosshairTopRight].filter(Boolean).join(' ')} />
-            {/* <CrosshairIcon className={[classes.crosshairBottomLeft].filter(Boolean).join(' ')} /> */}
+
             <CrosshairIcon className={[classes.crosshairBottomRight].filter(Boolean).join(' ')} />
           </div>
           <div className={[classes.content, 'cols-4 cols-m-8'].filter(Boolean).join(' ')}>
             <h2 className={classes.heading}>{heading}</h2>
-            {forceDarkBackground}
-            <div className={[''].filter(Boolean).join(' ')}>
-              <div className={''}>
+
+            <div>
+              <div>
                 <RichText content={richText} className={classes.richText} />
 
                 <div className={classes.links}>
@@ -94,7 +94,15 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
             <BackgroundScanline
               className={[classes.scanlineMobile, ''].filter(Boolean).join(' ')}
             />
-            <div className={classes.tabs} ref={tabWrapperRef}>
+            <div
+              className={[
+                classes.tabs,
+                codeTabs?.length && codeTabs.length > 1 && classes.hasMultiple,
+              ]
+                .filter(Boolean)
+                .join(' ')}
+              ref={tabWrapperRef}
+            >
               {codeTabs?.length && codeTabs.length > 1 ? (
                 codeTabs?.map((code, index) => {
                   const isActive = activeIndex === index
