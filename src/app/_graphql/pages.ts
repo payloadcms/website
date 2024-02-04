@@ -1,5 +1,6 @@
 import {
   CALL_TO_ACTION,
+  CALLOUT,
   CARD_GRID,
   CASE_STUDIES_HIGHLIGHT,
   CASE_STUDY_CARDS,
@@ -88,6 +89,7 @@ export const PAGE = `
           }
         }
         layout {
+          ${CALLOUT}
           ${CALL_TO_ACTION}
           ${CARD_GRID}
           ${CASE_STUDIES_HIGHLIGHT}

@@ -672,7 +672,7 @@ export interface Page {
   title: string;
   fullTitle?: string | null;
   hero: {
-    type: 'default' | 'contentMedia' | 'form' | 'home' | 'livestream' | 'centeredCarousel';
+    type: 'default' | 'contentMedia' | 'centeredContent' | 'form' | 'home' | 'livestream' | 'centeredCarousel';
     livestream?: {
       id?: string | null;
       date: string;
@@ -801,6 +801,47 @@ export interface Page {
       | null;
   };
   layout: (
+    | {
+        calloutFields: {
+          style?: ('default' | 'quote') | null;
+          quote?: string | null;
+          author?: string | null;
+          logo?: string | Media | null;
+          richText?:
+            | {
+                [k: string]: unknown;
+              }[]
+            | null;
+          links?:
+            | {
+                link: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'case-studies';
+                        value: string | CaseStudy;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                };
+                id?: string | null;
+              }[]
+            | null;
+          media: string | Media;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'callout';
+      }
     | {
         ctaFields: {
           richText: {
@@ -1613,6 +1654,47 @@ export interface ReusableContent {
         id?: string | null;
         blockName?: string | null;
         blockType: 'blogMarkdown';
+      }
+    | {
+        calloutFields: {
+          style?: ('default' | 'quote') | null;
+          quote?: string | null;
+          author?: string | null;
+          logo?: string | Media | null;
+          richText?:
+            | {
+                [k: string]: unknown;
+              }[]
+            | null;
+          links?:
+            | {
+                link: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'case-studies';
+                        value: string | CaseStudy;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                };
+                id?: string | null;
+              }[]
+            | null;
+          media: string | Media;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'callout';
       }
     | {
         ctaFields: {

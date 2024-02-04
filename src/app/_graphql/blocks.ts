@@ -57,6 +57,23 @@ export const CODE_FEATURE = `
 }
 `
 
+export const CALLOUT = `
+...on Callout {
+  blockType
+  calloutFields {
+    links {
+      link ${LINK_FIELDS({ disableAppearance: true })}
+    }
+    style
+    richText
+    quote
+    author
+    logo ${MEDIA_FIELDS}
+    media ${MEDIA_FIELDS}
+  }
+}
+`
+
 export const CALL_TO_ACTION = `
 ...on Cta {
   blockType
@@ -360,6 +377,7 @@ export const REUSABLE_CONTENT_BLOCK = `
         ${BANNER}
         ${BLOG_CONTENT}
         ${BLOG_MARKDOWN}
+        ${CALLOUT}
         ${CALL_TO_ACTION}
         ${CARD_GRID}
         ${CASE_STUDIES_HIGHLIGHT}

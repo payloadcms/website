@@ -4,6 +4,7 @@ import React, { Fragment } from 'react'
 import { BannerBlock } from '@blocks/Banner'
 import { BlogContent } from '@blocks/BlogContent'
 import { BlogMarkdown } from '@blocks/BlogMarkdown'
+import { Callout } from '@blocks/Callout'
 import { CallToAction } from '@blocks/CallToAction'
 import { CardGrid } from '@blocks/CardGrid'
 import { CaseStudiesHighlightBlock } from '@blocks/CaseStudiesHighlight'
@@ -41,6 +42,7 @@ const blockComponents = {
   caseStudyCards: CaseStudyCards,
   caseStudyParallax: CaseStudyParallax,
   mediaBlock: MediaBlock,
+  callout: Callout,
   code: CodeBlock,
   content: ContentBlock,
   contentGrid: ContentGrid,

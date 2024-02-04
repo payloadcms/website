@@ -1,0 +1,35 @@
+@use '@scss/common.scss' as *;
+
+.wrapper {
+  position: relative;
+  background: var(--theme-elevation-50);
+  padding-top: calc(var(--base) * 10);
+  padding-bottom: calc(var(--base) * 10);
+
+  @include large-break {
+    padding-top: calc(var(--base) * 8);
+    padding-bottom: calc(var(--base) * 8);
+  }
+
+  @include mid-break {
+    padding-top: calc(var(--base) * 3);
+    padding-bottom: calc(var(--base) * 3);
+  }
+}
+
+.container {
+  position: relative;
+  align-items: center;
+  padding-top: calc(var(--base) * 5);
+  padding-bottom: calc(var(--base) * 5);
+  background: var(--theme-elevation-0);
+}
+
+.backgroundGrid {
+  z-index: 0;
+}
+
+.media {
+  width: calc(100% + var(--gutter-h) * 0.5);
+  margin-right: calc(var(--gutter-h) * -0.5);
+}
