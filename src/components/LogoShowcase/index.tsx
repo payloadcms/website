@@ -6,18 +6,18 @@ import { Media as MediaType } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
-interface LogoItem {
-  logo: string | MediaType
+type LogoItem = {
+  logoMedia: string | MediaType
   id?: string | null
 }
 
-interface PositionedLogo {
+type PositionedLogo = {
   logo: LogoItem
   position: number
   isVisible: boolean
 }
 
-interface Props {
+type Props = {
   logos: LogoItem[] | null | undefined
 }
 
@@ -116,27 +116,40 @@ export const LogoShowcase: React.FC<Props> = ({ logos }) => {
       <div
         className={[classes.horizontalLine, classes.bottomHorizontalLine].filter(Boolean).join(' ')}
       />
-      {Array.from({ length: TOTAL_CELLS }).map((_, index) => (
-        <div className={classes.logoShowcaseItem} key={index}>
-          <div className={classes.contentWrapper}>
-            {logoPositions
-              .filter(item => item.position === index)
-              .map(({ logo, isVisible }, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    opacity: isVisible ? 1 : 0,
-                    transition: `opacity ${ANIMATION_DURATION}ms ease`,
-                  }}
-                >
-                  {typeof logo.logo === 'object' && logo.logo !== null && (
-                    <Media resource={logo.logo} />
-                  )}
-                </div>
-              ))}
+      {Array.from({ length: TOTAL_CELLS }).map((_, index) => {
+        const hasLogo = logoPositions.some(item => item.position === index && item.isVisible)
+        // Determine if the current cell is the first or last cell
+        const isEdgeCell = index === 0 || index === TOTAL_CELLS - 1
+        return (
+          <div
+            className={[
+              classes.logoShowcaseItem,
+              hasLogo ? classes.logoPresent : isEdgeCell ? classes.noScanline : '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+            key={index}
+          >
+            <div className={classes.contentWrapper}>
+              {logoPositions
+                .filter(item => item.position === index)
+                .map(({ logo, isVisible }, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      opacity: isVisible ? 1 : 0,
+                      transition: `opacity ${ANIMATION_DURATION}ms ease`,
+                    }}
+                  >
+                    {typeof logo.logoMedia === 'object' && logo.logoMedia !== null && (
+                      <Media resource={logo.logoMedia} />
+                    )}
+                  </div>
+                ))}
+            </div>
           </div>
-        </div>
-      ))}
+        )
+      })}
       <CrosshairIcon className={[classes.crosshair, classes.crosshairBottomLeft].join(' ')} />
       <CrosshairIcon className={[classes.crosshair, classes.crosshairTopRight].join(' ')} />
       <CrosshairIcon className={[classes.crosshair, classes.crosshairFirstCell].join(' ')} />

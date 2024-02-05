@@ -13,7 +13,7 @@ import { Media as MediaType, Page } from '@root/payload-types'
 import classes from './index.module.scss'
 
 type LogoItem = {
-  logo: string | MediaType
+  logoMedia: string | MediaType
   id?: string | null
 }
 
@@ -132,27 +132,37 @@ export const LogoGrid: React.FC<LogoGridProps> = ({ logoGridFields }) => {
               ))}
 
               <div className={[classes.horizontalLine, classes.bottomHorizontalLine].join(' ')} />
-              {Array.from({ length: TOTAL_CELLS }).map((_, index) => (
-                <div className={classes.logoShowcaseItem} key={index}>
-                  <div className={classes.contentWrapper}>
-                    {logoPositions
-                      .filter(item => item.position === index)
-                      .map(({ logo, isVisible }, idx) => (
-                        <div
-                          key={idx}
-                          style={{
-                            opacity: isVisible ? 1 : 0,
-                            transition: `opacity ${ANIMATION_DURATION}ms ease`,
-                          }}
-                        >
-                          {typeof logo.logo === 'object' && logo.logo !== null && (
-                            <Media resource={logo.logo} />
-                          )}
-                        </div>
-                      ))}
+              {Array.from({ length: TOTAL_CELLS }).map((_, index) => {
+                const hasLogo = logoPositions.some(
+                  item => item.position === index && item.isVisible,
+                )
+                return (
+                  <div
+                    className={[classes.logoShowcaseItem, hasLogo ? classes.logoPresent : '']
+                      .filter(Boolean)
+                      .join(' ')}
+                    key={index}
+                  >
+                    <div className={classes.contentWrapper}>
+                      {logoPositions
+                        .filter(item => item.position === index)
+                        .map(({ logo, isVisible }, idx) => (
+                          <div
+                            key={idx}
+                            style={{
+                              opacity: isVisible ? 1 : 0,
+                              transition: `opacity ${ANIMATION_DURATION}ms ease`,
+                            }}
+                          >
+                            {typeof logo.logoMedia === 'object' && logo.logoMedia !== null && (
+                              <Media resource={logo.logoMedia} />
+                            )}
+                          </div>
+                        ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
               <CrosshairIcon className={[classes.crosshair, classes.crosshairLeft].join(' ')} />
               <CrosshairIcon className={[classes.crosshair, classes.crosshairRight].join(' ')} />
             </div>

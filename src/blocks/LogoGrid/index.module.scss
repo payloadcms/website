@@ -83,6 +83,23 @@
   align-items: center;
   justify-content: center;
 
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/scanline-dark.png');
+    background-repeat: repeat;
+    opacity: 0.08;
+    z-index: 0;
+
+    [data-theme="dark"]  & {
+      background-image: url('/images/scanline-light.png');
+    }
+  }
+
   &::after {
     content: '';
     display: block;
@@ -114,6 +131,26 @@
       opacity: 0;
     }
   }  
+}
+
+.logoPresent {
+  &::before {
+    background-image: none;
+
+    [data-theme="dark"]  & {
+      background-image: none;
+    }
+  }
+}
+
+.noScanline {
+  &::before {
+    background-image: none;
+
+    [data-theme="dark"]  & {
+      background-image: none;
+    }
+  }
 }
 
 .crosshair {

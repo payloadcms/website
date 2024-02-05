@@ -265,7 +265,7 @@ export const LOGO_GRID = `
     enableLink
     link ${LINK_FIELDS({ disableAppearance: true })}
     logos {
-      logo ${MEDIA_FIELDS}
+      logoMedia ${MEDIA_FIELDS}
     }
   }
 }

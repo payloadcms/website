@@ -802,7 +802,7 @@ export interface Page {
     form?: (string | null) | Form;
     logos?:
     | {
-      logo: string | Media;
+      logoMedia: string | Media;
       id?: string | null;
     }[]
     | null;
@@ -1149,7 +1149,7 @@ export interface Page {
         };
         logos?:
         | {
-          logo: string | Media;
+          logoMedia: string | Media;
           id?: string | null;
         }[]
         | null;
@@ -2022,7 +2022,7 @@ export interface ReusableContent {
         };
         logos?:
         | {
-          logo: string | Media;
+          logoMedia: string | Media;
           id?: string | null;
         }[]
         | null;

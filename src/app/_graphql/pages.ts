@@ -64,7 +64,7 @@ export const PAGE = `
           media ${MEDIA_FIELDS}
           form ${FORM_FIELDS}
           logos {
-            logo ${MEDIA_FIELDS}
+            logoMedia ${MEDIA_FIELDS}
           }
           livestream {
             id
