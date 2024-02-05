@@ -18,11 +18,53 @@ type Props = Extract<Page['layout'][0], { blockType: 'codeFeature' }>
 export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [indicatorStyle, setIndicatorStyle] = useState({ width: '0', left: '0' })
+  const [tabWrapperWidth, setTabWrapperWidth] = useState(0)
   const tabWrapperRef = useRef<HTMLDivElement>(null)
   const activeTabRef = useRef<HTMLButtonElement>(null)
   const { heading, richText, forceDarkBackground, codeTabs, links } = codeFeatureFields
   const hasLinks = Boolean(links?.length && links.length > 0)
   const id = useId()
+
+  useEffect(() => {
+    let observer
+    let ref = tabWrapperRef.current
+
+    if (ref) {
+      observer = new ResizeObserver(entries => {
+        entries.forEach(entry => {
+          const {
+            contentBoxSize,
+            contentRect, // for Safari iOS compatibility, will be deprecated eventually (see https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserverEntry/contentRect)
+          } = entry
+
+          let newWidth = 0
+
+          if (contentBoxSize) {
+            const newSize = Array.isArray(contentBoxSize) ? contentBoxSize[0] : contentBoxSize
+
+            if (newSize) {
+              const { inlineSize, blockSize } = newSize
+              newWidth = inlineSize
+            }
+          } else if (contentRect) {
+            // see note above for why this block is needed
+            const { width, height } = contentRect
+            newWidth = width
+          }
+
+          setTabWrapperWidth(newWidth)
+        })
+      })
+
+      observer.observe(ref)
+    }
+
+    return () => {
+      if (observer) {
+        observer.unobserve(ref)
+      }
+    }
+  }, [tabWrapperRef])
 
   useEffect(() => {
     if (activeTabRef.current) {
@@ -31,10 +73,10 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
         left: `${activeTabRef.current.offsetLeft}px`,
       })
     }
-  }, [activeIndex])
+  }, [activeIndex, tabWrapperWidth])
 
   useEffect(() => {
-    // Scroll logic has to sit in a separate useEffect because the wrapperWidth blocks the smooth scroll
+    // Scroll logic has to sit in a separate useEffect because the setIndicatorStyle state change blocks the smooth scroll
     if (activeTabRef.current) {
       tabWrapperRef.current?.scroll(activeTabRef.current.offsetLeft - 20, 0)
     }
