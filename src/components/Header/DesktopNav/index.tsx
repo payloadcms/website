@@ -34,7 +34,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
           : `${dropdownRef.current.offsetHeight}px`,
       })
     }
-  }, [activeTab, dropdownRef, hideBackground])
+  }, [activeTab, hideBackground])
 
   const handleHoverEnter = index => {
     setActiveTab(index)
@@ -74,27 +74,23 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
           </Link>
         </div>
         <div className={[classes.content, 'cols-8'].filter(Boolean).join(' ')}>
-          <div className={classes.tabs}>
+          <div className={classes.tabs} onMouseLeave={resetHoverStyles}>
             {(tabs || []).map((tab, tabIndex) => {
               const isActive = tabIndex === activeTab
               return (
-                <div key={tabIndex}>
+                <div
+                  key={tabIndex}
+                  onMouseEnter={() => handleHoverEnter(tabIndex)}
+                  onFocus={() => handleHoverEnter(tabIndex)}
+                >
                   <button
                     className={[classes.tab].filter(Boolean).join(' ')}
-                    key={tabIndex}
-                    onMouseEnter={() => handleHoverEnter(tabIndex)}
-                    onFocus={() => handleHoverEnter(tabIndex)}
                     ref={ref => (menuItemRefs[tabIndex] = ref)}
                   >
                     {tab.label}
                   </button>
                   {isActive && (
-                    <div
-                      className={[classes.dropdown, 'grid'].join(' ')}
-                      onMouseEnter={() => handleHoverEnter(tabIndex)}
-                      onFocus={() => handleHoverEnter(tabIndex)}
-                      ref={dropdownRef}
-                    >
+                    <div className={[classes.dropdown, 'grid'].join(' ')} ref={dropdownRef}>
                       <div className={[classes.description, 'cols-4'].join(' ')}>
                         {tab.description}
                       </div>
