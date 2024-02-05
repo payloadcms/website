@@ -199,6 +199,10 @@ $breakpoint-s-height: 750px;
     border-radius: 0px;
     cursor: pointer;
   }
+
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
 }
 
 @mixin underline-on-focus {
@@ -207,4 +211,14 @@ $breakpoint-s-height: 750px;
   &:focus {
     text-decoration: underline;
   }
+}
+
+@mixin visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
