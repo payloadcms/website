@@ -72,6 +72,7 @@
   background: var(--color-base-900);
   overflow-x: auto;
   scroll-behavior: smooth;
+  @include dark-custom-scrollbar;
 
   &.hasMultiple {
     border-bottom: 1px solid var(--color-base-600);
@@ -156,11 +157,24 @@
   }
 }
 
+.codeBlockWrapper {
+  position: relative;
+  background-color: var(--color-base-900);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  overflow-x: auto;
+  @include dark-custom-scrollbar;
+}
+
 .codeBlock {
   position: relative;
-  display: none;
+  display: block;
+  visibility: hidden;
+  grid-column: 1/1;
+  grid-row: 1/1;
 
   &.isActive {
-    display: block;
+    visibility: visible;
   }
 }

@@ -129,22 +129,27 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
               )}
               <div className={classes.tabIndicator} style={indicatorStyle} aria-hidden={true} />
             </div>
-            {codeTabs?.map((code, index) => {
-              return (
-                <div
-                  key={index}
-                  className={[classes.codeBlock, activeIndex === index && classes.isActive]
-                    .filter(Boolean)
-                    .join(' ')}
-                  aria-hidden={activeIndex !== index}
-                  aria-describedby={`codefeature${id}-tab-${index}`}
-                  id={`codefeature${id}-code-${index}`}
-                >
-                  <Code>{`${code.code}
+            <div className={classes.codeBlockWrapper}>
+              {codeTabs?.map((code, index) => {
+                return (
+                  <div
+                    key={index}
+                    className={[classes.codeBlock, activeIndex === index && classes.isActive]
+                      .filter(Boolean)
+                      .join(' ')}
+                    aria-hidden={activeIndex !== index}
+                    aria-describedby={`codefeature${id}-tab-${index}`}
+                    id={`codefeature${id}-code-${index}`}
+                    // types have not been updated yet for the inert attribute
+                    // @ts-expect-error
+                    inert={activeIndex !== index ? '' : false}
+                  >
+                    <Code>{`${code.code}
                   `}</Code>
-                </div>
-              )
-            })}
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </div>
       </Gutter>

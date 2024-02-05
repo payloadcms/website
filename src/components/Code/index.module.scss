@@ -5,7 +5,6 @@
   font-size: calc(var(--base) * .65);
   line-height: var(--base);
   min-height: calc(var(--base) * 24);
-  max-height: calc(var(--base) * 28);
   background-color: var(--color-base-900);
   color: var(--color-base-100);
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
@@ -126,7 +125,6 @@
     font-size: calc(var(--base) * .75);
     line-height: calc(var(--base) * 1);
     min-height: calc(var(--base) * 20);
-    max-height: calc(var(--base) * 24);
 
     :global {
       .highlight-line {
