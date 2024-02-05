@@ -44,15 +44,17 @@ export const CODE_FEATURE = `
 ...on CodeFeature {
   blockType
   codeFeatureFields {
-    disableBlockSpacing
-    disableIndent
+    forceDarkBackground
     heading
     richText
-    enableLink
-    link ${LINK_FIELDS()}
-    language
-    label
-    code
+    links {
+      link ${LINK_FIELDS({ disableAppearance: true })}
+    }
+    codeTabs {
+      language
+      label
+      code
+    }
   }
 }
 `
