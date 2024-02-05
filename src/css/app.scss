@@ -9,7 +9,7 @@
 @import "./theme.scss";
 
 :root {
-  --base: 24px;
+  --base: 20px;
   --breakpoint-xs-width: $breakpoint-xs-width;
   --breakpoint-s-width: $breakpoint-s-width;
   --breakpoint-m-width: $breakpoint-m-width;
@@ -32,7 +32,7 @@
   --z-nav: 40;
   --z-modal: 50;
 
-  --gutter-h: calc(var(--base) * 12);
+  --gutter-h: calc(var(--base) * 10);
   --block-spacing: calc(var(--base) * 7);
   --new-block-spacing: calc(var(--base) * 8);
 
@@ -40,15 +40,16 @@
 
   @include extra-large-break {
     --gutter-h: calc(var(--base) * 8);
-    --base: 20px;
     --font-body-size: var(--base);
   }
 
   @include large-break {
+    --base: 16px;
     --gutter-h: calc(var(--base) * 4);
     --block-spacing: calc(var(--base) * 5);
     --new-block-spacing: calc(var(--base) * 6);
     --header-height: 76px;
+    --font-body-size: calc(var(--base) * 1.125);
   }
 
   @include mobile-header-break {
