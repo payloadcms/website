@@ -5,8 +5,6 @@ import { BackgroundScanline } from '@components/BackgroundScanline'
 import { CMSLink } from '@components/CMSLink'
 import Code from '@components/Code'
 import { Gutter } from '@components/Gutter'
-import { Label } from '@components/Label'
-import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon'
 import { Page } from '@root/payload-types'
@@ -43,12 +41,12 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
             const newSize = Array.isArray(contentBoxSize) ? contentBoxSize[0] : contentBoxSize
 
             if (newSize) {
-              const { inlineSize, blockSize } = newSize
+              const { inlineSize } = newSize
               newWidth = inlineSize
             }
           } else if (contentRect) {
             // see note above for why this block is needed
-            const { width, height } = contentRect
+            const { width } = contentRect
             newWidth = width
           }
 
