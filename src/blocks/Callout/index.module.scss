@@ -23,13 +23,129 @@
   padding-top: calc(var(--base) * 5);
   padding-bottom: calc(var(--base) * 5);
   background: var(--theme-elevation-0);
+  box-shadow: 0px 14px 40px 0px rgba(0, 0, 0, 0.25);
 }
 
 .backgroundGrid {
   z-index: 0;
 }
 
+.contentWrapper {
+  @include mid-break {
+    padding: calc(var(--base) * 2);
+  }
+}
+
+.linksContainer {
+  // calculation is equal to 4 columns
+  width: calc(100% / 6 * 4);
+
+  @include mid-break {
+    width: 100%;
+  }
+}
+
+.content {
+  margin-bottom: calc(var(--base) * 2);
+}
+
+.link {
+  width: 100%;
+}
+
 .media {
   width: calc(100% + var(--gutter-h) * 0.5);
+
   margin-right: calc(var(--gutter-h) * -0.5);
+
+  @include mid-break {
+    margin-right: auto;
+    width: 100%;
+  }
+}
+
+.quoteContent {
+  position: relative;
+  padding-top: calc(var(--base) * 6);
+
+  @include mid-break {
+    padding: calc(var(--base) * 2);
+  }
+}
+
+.quoteIcon {
+  position: absolute;
+  width:  calc(var(--base) * 10);
+  height: auto;
+  color: var(--theme-bg);
+  left: calc(var(--base) * -2.4);
+  top: calc(var(--base) * -5.6);
+
+
+  @include large-break {
+    left: calc(var(--base) * -1.8);
+    top: calc(var(--base) * -4.5);
+    width:  calc(var(--base) * 8);
+  }
+
+  @include mid-break {
+    display: none;
+  }
+
+  & path {
+    stroke: var(--theme-elevation-200);
+    stroke-width: 1px;
+    vector-effect: non-scaling-stroke;
+  }
+}
+
+.quoteContainer {
+  position: relative;
+}
+
+.quote {
+  font-size: calc(var(--base) * 2);
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: calc(var(--base) * 2);
+  position: relative;
+
+  &::before {
+    content: '“';
+    position: absolute;
+    left: calc(var(--base) * -1.2);
+
+    @include mid-break {
+      left: calc(var(--base) * -0.8);
+    }
+  }
+
+  @include large-break {
+    font-size: calc(var(--base) * 1.5);
+  }
+
+  @include small-break {
+    font-size: calc(var(--base) * 1);
+    margin-bottom: calc(var(--base) * 1);
+  }
+}
+
+.authorWrapper {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * 2);
+  margin-bottom: calc(var(--base) * 2);
+
+  @include small-break {
+    margin-bottom: calc(var(--base) * 1);
+  }
+}
+
+.author {
+  opacity: 0.8;
+  line-height: 1.2;
+
+  @include small-break {
+    font-size: calc(var(--base) * 0.65);
+  }
 }
