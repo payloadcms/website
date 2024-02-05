@@ -21,6 +21,7 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
   const tabWrapperRef = useRef<HTMLDivElement>(null)
   const activeTabRef = useRef<HTMLButtonElement>(null)
   const { heading, richText, forceDarkBackground, codeTabs, links } = codeFeatureFields
+  const hasLinks = Boolean(links?.length && links.length > 0)
   const id = useId()
 
   useEffect(() => {
@@ -48,7 +49,11 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
       id={id}
     >
       <Gutter>
-        <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>
+        <div
+          className={[classes.container, hasLinks && classes.hasLinks, 'grid']
+            .filter(Boolean)
+            .join(' ')}
+        >
           <BackgroundGrid ignoreGutter className={classes.backgroundGrid} />
           <div className={[classes.scanlineWrapper, 'start-9 cols-8'].filter(Boolean).join(' ')}>
             <BackgroundScanline
@@ -142,7 +147,7 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
                     id={`codefeature${id}-code-${index}`}
                     // types have not been updated yet for the inert attribute
                     // @ts-expect-error
-                    inert={activeIndex !== index ? '' : false}
+                    inert={activeIndex !== index ? '' : undefined}
                   >
                     <Code>{`${code.code}
                   `}</Code>
