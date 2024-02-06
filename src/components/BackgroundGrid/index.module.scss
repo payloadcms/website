@@ -6,7 +6,6 @@
   left: calc(var(--gutter-h));
   width: calc(100% - var(--gutter-h) * 2);
   height: 100%;
-  z-index: -1;
   border-left: 1px solid var(--theme-elevation-200);
   border-right: 1px solid var(--theme-elevation-200);
   box-sizing: border-box;

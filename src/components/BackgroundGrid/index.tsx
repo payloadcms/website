@@ -5,16 +5,20 @@ import classes from './index.module.scss'
 interface Props {
   className?: string
   ignoreGutter?: boolean
-  style?: React.CSSProperties
+  zIndex?: number
 }
-export const BackgroundGrid: React.FC<Props> = ({ className, ignoreGutter, style }: Props) => {
+export const BackgroundGrid: React.FC<Props> = ({
+  className,
+  ignoreGutter,
+  zIndex = -1,
+}: Props) => {
   return (
     <div
       aria-hidden={true}
       className={[classes.backgroundGrid, 'grid', ignoreGutter && classes.ignoreGutter, className]
         .filter(Boolean)
         .join(' ')}
-      style={style}
+      style={{ zIndex: zIndex }}
     >
       <div className={[classes.column, 'cols-4'].filter(Boolean).join(' ')}></div>
       <div className={[classes.column, 'cols-4'].filter(Boolean).join(' ')}></div>
