@@ -231,11 +231,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
 
   if (caseStudyParallaxFields?.items && caseStudyParallaxFields?.items?.length > 0) {
     return (
-      <BlockWrapper
-        settings={caseStudyParallaxFields.settings}
-        padding={padding}
-        className={[classes.wrapper].filter(Boolean).join(' ')}
-      >
+      <BlockWrapper settings={caseStudyParallaxFields.settings} padding={padding}>
         <BackgroundGrid />
         <Gutter className={classes.mainGutter}>
           <Gutter
@@ -285,7 +281,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
 
           <div className={classes.navWrapper}>
             <div className={[classes.nav].filter(Boolean).join(' ')} style={variableStyle}>
-              <BackgroundGrid className={classes.navBackgroundGrid} />
+              <BackgroundGrid zIndex={0} className={classes.navBackgroundGrid} />
 
               <Gutter>
                 <div

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useCallback, useState } from 'react'
 import { BannerBlock } from '@blocks/Banner'
 import { BlogContent } from '@blocks/BlogContent'
 import { BlogMarkdown } from '@blocks/BlogMarkdown'
@@ -88,6 +88,64 @@ export const RenderBlocks: React.FC<Props> = props => {
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
   const { theme } = useThemePreference()
 
+  const getPaddingProps = useCallback(
+    (block: (typeof blocks)[number], index: number) => {
+      const isFirst = index === 0
+
+      let topPadding: PaddingProps['top']
+      let bottomPadding: PaddingProps['bottom']
+
+      let previousBlock = !isFirst ? blocks[index - 1] : null
+      let previousBlockKey, previousBlockSettings
+
+      let nextBlock =
+        index + 1 < blocks.length ? blocks[Math.min(index + 1, blocks.length - 1)] : null
+      let nextBlockKey, nextBlockSettings
+
+      let currentBlockSettings: Settings = block[getFieldsKeyFromBlock(block)]?.settings
+      let currentBlockTheme
+
+      currentBlockTheme = currentBlockSettings?.theme ?? theme
+
+      if (previousBlock) {
+        previousBlockKey = getFieldsKeyFromBlock(previousBlock)
+        previousBlockSettings = previousBlock[previousBlockKey]?.settings
+      }
+
+      if (nextBlock) {
+        nextBlockKey = getFieldsKeyFromBlock(nextBlock)
+        nextBlockSettings = nextBlock[nextBlockKey]?.settings
+      }
+
+      // If first block in the layout, add top padding based on the hero
+      if (isFirst) {
+        if (heroTheme) {
+          topPadding = heroTheme === currentBlockTheme ? 'small' : 'large'
+        } else {
+          topPadding = theme === currentBlockTheme ? 'small' : 'large'
+        }
+      } else {
+        if (previousBlockSettings?.theme) {
+          topPadding = currentBlockTheme === previousBlockSettings?.theme ? 'small' : 'large'
+        } else {
+          topPadding = theme === currentBlockTheme ? 'small' : 'large'
+        }
+      }
+
+      if (nextBlockSettings?.theme) {
+        bottomPadding = currentBlockTheme === nextBlockSettings?.theme ? 'small' : 'large'
+      } else {
+        bottomPadding = theme === currentBlockTheme ? 'small' : 'large'
+      }
+
+      return {
+        top: topPadding ?? undefined,
+        bottom: bottomPadding ?? undefined,
+      }
+    },
+    [theme, heroTheme, blocks],
+  )
+
   if (hasBlocks) {
     return (
       <Fragment>
@@ -96,53 +154,6 @@ export const RenderBlocks: React.FC<Props> = props => {
 
           if (blockType && blockType in blockComponents) {
             const Block = blockComponents[blockType]
-            const isFirst = index === 0
-
-            let topPadding: PaddingProps['top']
-            let bottomPadding: PaddingProps['bottom']
-
-            let previousBlock = !isFirst ? blocks[index - 1] : null
-            let previousBlockKey, previousBlockSettings
-
-            let nextBlock =
-              index + 1 < blocks.length ? blocks[Math.min(index + 1, blocks.length - 1)] : null
-            let nextBlockKey, nextBlockSettings
-
-            let currentBlockSettings: Settings = block[getFieldsKeyFromBlock(block)]?.settings
-            let currentBlockTheme
-
-            currentBlockTheme = currentBlockSettings?.theme ?? theme
-
-            if (previousBlock) {
-              previousBlockKey = getFieldsKeyFromBlock(previousBlock)
-              previousBlockSettings = previousBlock[previousBlockKey]?.settings
-            }
-
-            if (nextBlock) {
-              nextBlockKey = getFieldsKeyFromBlock(nextBlock)
-              nextBlockSettings = nextBlock[nextBlockKey]?.settings
-            }
-
-            // If first block in the layout, add top padding based on the hero
-            if (isFirst) {
-              if (heroTheme) {
-                topPadding = heroTheme === currentBlockTheme ? 'small' : 'large'
-              } else {
-                topPadding = theme === currentBlockTheme ? 'small' : 'large'
-              }
-            } else {
-              if (previousBlockSettings?.theme) {
-                topPadding = currentBlockTheme === previousBlockSettings?.theme ? 'small' : 'large'
-              } else {
-                topPadding = theme === currentBlockTheme ? 'small' : 'large'
-              }
-            }
-
-            if (nextBlockSettings?.theme) {
-              bottomPadding = currentBlockTheme === nextBlockSettings?.theme ? 'small' : 'large'
-            } else {
-              bottomPadding = theme === currentBlockTheme ? 'small' : 'large'
-            }
 
             // Keeping this here for now in case it's needed in the future
             /* const hasSpacing = ![
@@ -159,7 +170,7 @@ export const RenderBlocks: React.FC<Props> = props => {
                   key={index}
                   id={toKebabCase(blockName)}
                   {...block}
-                  padding={{ top: topPadding, bottom: bottomPadding }}
+                  padding={getPaddingProps(block, index)}
                 />
               )
             }
