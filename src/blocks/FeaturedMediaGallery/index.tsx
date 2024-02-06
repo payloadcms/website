@@ -74,7 +74,7 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
         .join(' ')}
     >
       <Gutter>
-        <BackgroundGrid className={classes.backgroundGrid} />
+        <BackgroundGrid zIndex={0} />
         <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>
           {alignment === 'mediaGalleryContent' ? (
             <Fragment>
