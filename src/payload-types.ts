@@ -1278,6 +1278,7 @@ export interface Page {
             | null;
           featuredMediaTabs?:
             | {
+                mediaScanline?: boolean | null;
                 mediaLabel: string;
                 mediaAlignment?: ('center' | 'fill') | null;
                 media: string | Media;
@@ -2214,6 +2215,7 @@ export interface ReusableContent {
             | null;
           featuredMediaTabs?:
             | {
+                mediaScanline?: boolean | null;
                 mediaLabel: string;
                 mediaAlignment?: ('center' | 'fill') | null;
                 media: string | Media;
