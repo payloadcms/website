@@ -17,6 +17,95 @@
   z-index: 0;
 }
 
+.container {
+  position: relative;
+}
+
+.scanlineWrapperLeft, .scanlineWrapperRight {
+  position: absolute;
+  height: calc(100% + var(--new-block-spacing));
+  top: calc(-1 * (var(--new-block-spacing) / 2));
+  width: 100%;
+
+  @include mid-break {
+    display: none;
+  }
+}
+
+.scanlineWrapperLeft {
+  right: 0;
+}
+
+.scanlineDesktopLeft, .scanlineDesktopRight {
+  width: calc(100% + var(--gutter-h) * 1);
+}
+
+.scanlineDesktopLeft {
+  margin-left: calc(var(--gutter-h) * -1);
+}
+
+.crosshairTopLeftOne, .crosshairTopLeftTwo, .crosshairBottomLeftOne, .crosshairBottomLeftTwo {
+  position: absolute;
+  width: calc(var(--base) * 1);
+  height: auto;
+  color: var(--theme-elevation-1000);
+  opacity: 0.5;
+}
+
+.crosshairTopLeftOne {
+  top: calc(var(--base) * -0.5);
+  left: calc(var(--base) * -0.5);
+}
+
+.crosshairTopLeftTwo {
+  top: calc(var(--base) * -0.5);
+  right: calc(var(--base) * -0.5);
+}
+
+.crosshairBottomLeftOne {
+  bottom: calc(var(--base) * -0.5);
+  left: calc(var(--base) * -0.5);
+}
+
+.crosshairBottomLeftTwo {
+  bottom: calc(var(--base) * -0.5);
+  right: calc(var(--base) * -0.5);
+}
+
+
+.scanlineDesktopRight {
+  margin-right: calc(var(--gutter-h) * -1);
+}
+
+.crosshairTopRight, .crosshairBottomRight {
+  position: absolute;
+  width: calc(var(--base) * 1);
+  height: auto;
+  color: var(--theme-elevation-1000);
+  opacity: 0.5;
+}
+
+.crosshairTopRight {
+  top: calc(var(--base) * -0.5);
+  right: calc(var(--base) * -0.5);
+}
+
+.crosshairBottomRight {
+  bottom: calc(var(--base) * -0.5);
+  right: calc(var(--base) * -0.5);
+}
+
+.scanlineMobile {
+  display: none;
+
+  @include mid-break {
+    display: block;
+    width: calc(100% + var(--gutter-h) * 2);
+    margin-left: calc(var(--gutter-h) * -1);
+    margin-right: calc(var(--gutter-h) * -1);
+  }
+}
+
 .content {
   display: flex;
   flex-direction: column;
@@ -183,10 +272,10 @@
 
 .mobileMediaTabs {
   display: none;
-   
+
   @include mid-break {
+    position: relative;
     display: block;
-    width: calc(100% - 2px);
     margin-bottom: calc(var(--base) * 2);
   }
 
