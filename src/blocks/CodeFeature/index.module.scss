@@ -14,12 +14,12 @@
   position: relative;
   align-items: center;
   row-gap: calc(var(--base) * 3);
-  padding-top: calc(var(--base) * 11.5);
-  padding-bottom: calc(var(--base) * 11.5);
+  /* padding-top: calc(var(--base) * 11.5);
+  padding-bottom: calc(var(--base) * 11.5); */
 
   @include mid-break {
-    padding-top: calc(var(--base) * 3);
-    padding-bottom: calc(var(--base) * 3);
+    /* padding-top: calc(var(--base) * 3);
+    padding-bottom: calc(var(--base) * 3); */
     row-gap: calc(var(--base) * 0);
 
     &.hasLinks {

@@ -18,7 +18,7 @@ const Page = async ({ params: { slug } }) => {
   return (
     <React.Fragment>
       <Hero page={page} />
-      <RenderBlocks blocks={page.layout} />
+      <RenderBlocks blocks={page.layout} heroTheme={page.hero.theme} />
     </React.Fragment>
   )
 }

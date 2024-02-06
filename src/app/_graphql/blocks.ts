@@ -2,6 +2,11 @@ import { FORM_FIELDS } from './form'
 import { LINK_FIELDS } from './link'
 import { MEDIA_FIELDS } from './media'
 
+const SETTINGS = `{
+  theme
+}
+`
+
 export const BANNER = `
 ...on Banner {
   blockType
@@ -44,6 +49,7 @@ export const CODE_FEATURE = `
 ...on CodeFeature {
   blockType
   codeFeatureFields {
+    settings ${SETTINGS}
     forceDarkBackground
     heading
     richText
@@ -63,6 +69,7 @@ export const CALL_TO_ACTION = `
 ...on Cta {
   blockType
   ctaFields {
+    settings ${SETTINGS}
     richText
     links {
       link ${LINK_FIELDS({ disableAppearance: true })}
@@ -74,6 +81,7 @@ export const CARD_GRID = `
 ...on CardGrid {
   blockType
   cardGridFields {
+    settings ${SETTINGS}
     richText
     links {
       link ${LINK_FIELDS({ disableAppearance: true })}
@@ -92,6 +100,7 @@ export const CASE_STUDIES_HIGHLIGHT = `
 ...on CaseStudiesHighlight {
   blockType
   caseStudiesHighlightFields {
+    settings ${SETTINGS}
     richText
     caseStudies {
       slug
@@ -108,6 +117,7 @@ export const CASE_STUDY_CARDS = `
 ...on CaseStudyCards {
   blockType
   caseStudyCardFields {
+    settings ${SETTINGS}
     pixels
     cards {
       richText
@@ -124,6 +134,7 @@ export const CASE_STUDY_PARALLAX = `
 ...on CaseStudyParallax {
   blockType
   caseStudyParallaxFields {
+    settings ${SETTINGS}
     items {
       quote
       author

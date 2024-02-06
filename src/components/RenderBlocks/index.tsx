@@ -28,8 +28,10 @@ import { Steps } from '@blocks/Steps'
 import { StickyHighlights } from '@blocks/StickyHighlights'
 import { toKebabCase } from '@utilities/to-kebab-case'
 
-import { BlockSpacing } from '@components/BlockSpacing'
+import { PaddingProps, Settings } from '@components/BlockWrapper'
 import { Page, ReusableContent } from '@root/payload-types'
+import { useThemePreference } from '@root/providers/Theme'
+import { Theme } from '@root/providers/Theme/types'
 
 type ReusableContentBlockType = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 
@@ -64,11 +66,27 @@ const blockComponents = {
 type Props = {
   blocks: (ReusableContent['layout'][0] | ReusableContentBlockType | RelatedPostsBlock)[]
   disableOuterSpacing?: true
+  heroTheme?: Page['hero']['theme']
+}
+
+function getFieldsKeyFromBlock(
+  block: ReusableContent['layout'][0] | ReusableContentBlockType | RelatedPostsBlock,
+) {
+  if (!block) return ''
+
+  const keys = Object.keys(block)
+
+  const key = keys.find(value => {
+    return value.endsWith('Fields')
+  })
+
+  return key ?? ''
 }
 
 export const RenderBlocks: React.FC<Props> = props => {
-  const { blocks, disableOuterSpacing } = props
+  const { blocks, disableOuterSpacing, heroTheme } = props
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
+  const { theme } = useThemePreference()
 
   if (hasBlocks) {
     return (
@@ -78,28 +96,77 @@ export const RenderBlocks: React.FC<Props> = props => {
 
           if (blockType && blockType in blockComponents) {
             const Block = blockComponents[blockType]
+            const isFirst = index === 0
 
-            const hasSpacing = ![
+            let topPadding: PaddingProps['top']
+            let bottomPadding: PaddingProps['bottom']
+
+            let previousBlock = !isFirst ? blocks[index - 1] : null
+            let previousBlockKey, previousBlockSettings
+
+            let nextBlock =
+              index + 1 < blocks.length ? blocks[Math.min(index + 1, blocks.length - 1)] : null
+            let nextBlockKey, nextBlockSettings
+
+            let currentBlockSettings: Settings = block[getFieldsKeyFromBlock(block)]?.settings
+            let currentBlockTheme
+
+            currentBlockTheme = currentBlockSettings?.theme ?? theme
+
+            if (previousBlock) {
+              previousBlockKey = getFieldsKeyFromBlock(previousBlock)
+              previousBlockSettings = previousBlock[previousBlockKey]?.settings
+            }
+
+            if (nextBlock) {
+              nextBlockKey = getFieldsKeyFromBlock(nextBlock)
+              nextBlockSettings = nextBlock[nextBlockKey]?.settings
+            }
+
+            // If first block in the layout, add top padding based on the hero
+            if (isFirst) {
+              if (heroTheme) {
+                topPadding = heroTheme === currentBlockTheme ? 'small' : 'large'
+              } else {
+                topPadding = theme === currentBlockTheme ? 'small' : 'large'
+              }
+            } else {
+              if (previousBlockSettings?.theme) {
+                topPadding = currentBlockTheme === previousBlockSettings?.theme ? 'small' : 'large'
+              } else {
+                topPadding = theme === currentBlockTheme ? 'small' : 'large'
+              }
+            }
+
+            console.log('nextBlockSettings', blockType, currentBlockTheme, nextBlockSettings, theme)
+            if (nextBlockSettings?.theme) {
+              bottomPadding = currentBlockTheme === nextBlockSettings?.theme ? 'small' : 'large'
+            } else {
+              bottomPadding = theme === currentBlockTheme ? 'small' : 'large'
+            }
+
+            console.log('type', blockType, bottomPadding)
+
+            // Keeping this here for now in case it's needed in the future
+            /* const hasSpacing = ![
               'banner',
               'blogContent',
               'blogMarkdown',
               'code',
               'reusableContentBlock',
-            ].includes(blockType)
-
-            let topSpacing = hasSpacing
-            let bottomSpacing = hasSpacing
-
-            if (disableOuterSpacing && hasSpacing) {
-              if (index === 0) topSpacing = false
-              if (index === blocks.length - 1) bottomSpacing = false
-            }
+            ].includes(blockType) */
 
             if (Block) {
               return (
-                <BlockSpacing key={index} top={topSpacing} bottom={bottomSpacing}>
-                  <Block id={toKebabCase(blockName)} {...block} />
-                </BlockSpacing>
+                <Block
+                  key={index}
+                  id={toKebabCase(blockName)}
+                  {...block}
+                  padding={{
+                    top: topPadding,
+                    bottom: bottomPadding,
+                  }}
+                />
               )
             }
           }

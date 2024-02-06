@@ -46,6 +46,7 @@ export const PAGE = `
         id
         title
         hero {
+          theme
           type
           commandLine
           richText

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
-import { BlockSpacing } from '@components/BlockSpacing'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { SquareCard } from '@components/cards/SquareCard'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
@@ -11,18 +11,25 @@ import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
-export type CardGridProps = Extract<Page['layout'][0], { blockType: 'cardGrid' }>
+export type CardGridProps = Extract<Page['layout'][0], { blockType: 'cardGrid' }> & {
+  padding: PaddingProps
+}
 
 export const CardGrid: React.FC<CardGridProps> = props => {
   const {
-    cardGridFields: { richText, cards, links },
+    cardGridFields: { richText, cards, links, settings },
+    padding,
   } = props
 
   const hasCards = Array.isArray(cards) && cards.length > 0
   const hasLinks = Array.isArray(links) && links.length > 0
 
   return (
-    <BlockSpacing className={classes.cardGrid}>
+    <BlockWrapper
+      settings={settings}
+      padding={padding}
+      className={[classes.cardGrid].filter(Boolean).join(' ')}
+    >
       <Gutter>
         <BackgroundGrid />
         <div className={[classes.introWrapper, 'grid'].filter(Boolean).join(' ')}>
@@ -82,6 +89,6 @@ export const CardGrid: React.FC<CardGridProps> = props => {
           </div>
         )}
       </Gutter>
-    </BlockSpacing>
+    </BlockWrapper>
   )
 }
