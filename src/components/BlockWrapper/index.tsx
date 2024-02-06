@@ -1,8 +1,7 @@
 'use client'
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import { Page } from '@root/payload-types'
-import { useThemePreference } from '@root/providers/Theme'
 
 import classes from './index.module.scss'
 

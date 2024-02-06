@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { BannerBlock } from '@blocks/Banner'
 import { BlogContent } from '@blocks/BlogContent'
 import { BlogMarkdown } from '@blocks/BlogMarkdown'
@@ -138,14 +138,11 @@ export const RenderBlocks: React.FC<Props> = props => {
               }
             }
 
-            console.log('nextBlockSettings', blockType, currentBlockTheme, nextBlockSettings, theme)
             if (nextBlockSettings?.theme) {
               bottomPadding = currentBlockTheme === nextBlockSettings?.theme ? 'small' : 'large'
             } else {
               bottomPadding = theme === currentBlockTheme ? 'small' : 'large'
             }
-
-            console.log('type', blockType, bottomPadding)
 
             // Keeping this here for now in case it's needed in the future
             /* const hasSpacing = ![
@@ -162,10 +159,7 @@ export const RenderBlocks: React.FC<Props> = props => {
                   key={index}
                   id={toKebabCase(blockName)}
                   {...block}
-                  padding={{
-                    top: topPadding,
-                    bottom: bottomPadding,
-                  }}
+                  padding={{ top: topPadding, bottom: bottomPadding }}
                 />
               )
             }

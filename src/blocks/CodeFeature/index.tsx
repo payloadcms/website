@@ -91,13 +91,13 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, pad
       className={[classes.wrapper, className].filter(Boolean).join(' ')}
       id={id}
     >
+      <BackgroundGrid zIndex={0} className={classes.backgroundGrid} />
       <Gutter>
         <div
           className={[classes.container, hasLinks && classes.hasLinks, 'grid']
             .filter(Boolean)
             .join(' ')}
         >
-          <BackgroundGrid ignoreGutter className={classes.backgroundGrid} />
           <div className={[classes.scanlineWrapper, 'start-9 cols-8'].filter(Boolean).join(' ')}>
             <BackgroundScanline
               className={[classes.scanlineDesktop].filter(Boolean).join(' ')}

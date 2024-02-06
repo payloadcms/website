@@ -27,9 +27,9 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
 
   return (
     <BlockWrapper settings={settings} padding={padding}>
+      <BackgroundGrid zIndex={0} />
       <Gutter className={classes.callToAction}>
         <div className={[classes.wrapper].filter(Boolean).join(' ')}>
-          <BackgroundGrid ignoreGutter />
           <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>
             <div className={[classes.contentWrapper, 'cols-7 cols-m-8'].filter(Boolean).join(' ')}>
               <RichText content={richText} className={classes.content} />

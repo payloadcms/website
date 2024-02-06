@@ -30,8 +30,8 @@ export const CardGrid: React.FC<CardGridProps> = props => {
       padding={padding}
       className={[classes.cardGrid].filter(Boolean).join(' ')}
     >
+      <BackgroundGrid zIndex={0} />
       <Gutter>
-        <BackgroundGrid />
         <div className={[classes.introWrapper, 'grid'].filter(Boolean).join(' ')}>
           {richText && (
             <div className={[classes.richTextWrapper, 'grid'].filter(Boolean).join(' ')}>
@@ -54,6 +54,7 @@ export const CardGrid: React.FC<CardGridProps> = props => {
                         buttonProps={{
                           icon: 'arrow',
                           hideHorizontalBorders: true,
+                          hideBottomBorderExceptLast: true,
                         }}
                       />
                     )
