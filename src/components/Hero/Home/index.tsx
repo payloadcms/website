@@ -23,6 +23,8 @@ export const HomeHero: React.FC<Page['hero']> = ({
   logos,
 }) => {
   const mediaRef = useRef<HTMLDivElement>(null)
+  const backgroundRef = useRef<HTMLDivElement>(null)
+  const [blackBackgroundStyle, setBlackBackgroundStyle] = useState<React.CSSProperties>({})
   const [maskStyle, setMaskStyle] = useState<React.CSSProperties>({})
 
   useEffect(() => {
@@ -58,19 +60,40 @@ export const HomeHero: React.FC<Page['hero']> = ({
     return () => window.removeEventListener('resize', updateMaskStyle)
   }, [])
 
+  useEffect(() => {
+    const updateBlackBgHeight = () => {
+      if (backgroundRef.current && mediaRef.current) {
+        const backgroundHeight = backgroundRef.current.offsetHeight
+        const mediaHeight = mediaRef.current.offsetHeight
+        const blackBackgroundHeight = backgroundHeight - mediaHeight
+
+        setBlackBackgroundStyle({
+          height: `${blackBackgroundHeight}px`,
+        })
+      }
+    }
+
+    updateBlackBgHeight()
+    window.addEventListener('resize', updateBlackBgHeight)
+
+    return () => {
+      window.removeEventListener('resize', updateBlackBgHeight)
+    }
+  }, [])
+
   return (
     <div className={classes.homeHero}>
       {typeof media === 'object' && media !== null && (
-        <div className={classes.bg}>
+        <div className={classes.background} ref={backgroundRef}>
           <div ref={mediaRef}>
             <Media resource={media} className={classes.media} />
           </div>
-          <div className={classes.blackBg} />
+          <div className={classes.blackBackground} style={blackBackgroundStyle} />
         </div>
       )}
       <Gutter>
         <BackgroundGrid className={classes.backgroundGrid} style={maskStyle} />
-        <div className={[classes.contentWrap, 'grid'].filter(Boolean).join(' ')}>
+        <div data-theme="light" className={[classes.contentWrap, 'grid'].filter(Boolean).join(' ')}>
           <div className={['cols-8 start-1'].filter(Boolean).join(' ')}>
             <RichText className={classes.richTextHeading} content={richText} />
             <RichText className={classes.richTextDescription} content={description} />
@@ -85,6 +108,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
                         fullWidth
                         buttonProps={{
                           icon: 'arrow',
+                          hideHorizontalBorders: true,
                         }}
                       />
                     </li>
@@ -99,7 +123,10 @@ export const HomeHero: React.FC<Page['hero']> = ({
             )}
           </div>
         </div>
-        <div className={[classes.secondaryContentWrap, 'grid'].filter(Boolean).join(' ')}>
+        <div
+          data-theme="dark"
+          className={[classes.secondaryContentWrap, 'grid'].filter(Boolean).join(' ')}
+        >
           <div className={[classes.secondaryContent, 'cols-8 start-1'].filter(Boolean).join(' ')}>
             <RichText className={classes.secondaryRichTextHeading} content={secondaryHeading} />
             <RichText

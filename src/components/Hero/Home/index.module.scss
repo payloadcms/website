@@ -2,11 +2,11 @@
 
 .homeHero {
   position: relative;
-  background: linear-gradient(to top, var(--theme-elevation-0) 60%, transparent 100%);
   padding-bottom: calc(var(--base) * 5);
+  background: var(--color-base-0);
 }
 
-.bg {
+.background {
   position: absolute;
   z-index: 1;
   top: 0;
@@ -22,6 +22,10 @@
 
   @include mid-break {
     display: none;
+  }
+
+  .blackBackground {
+    background: var(--color-base-1000);
   }
 }
 
