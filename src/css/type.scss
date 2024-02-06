@@ -36,14 +36,6 @@
   font-weight: 500;
   letter-spacing: -0.05em;
 
-  @include large-break {
-    font-size: calc(var(--base) * 3.5);
-  }
-
-  @include mid-break {
-    font-size: calc(var(--base) * 3);
-  }
-
   @include small-break {
     font-size: calc(var(--base) * 2.5);
   }
@@ -56,16 +48,8 @@
   font-weight: 500;
   letter-spacing: -0.05em;
 
-  @include extra-large-break {
-    font-size: calc(var(--base) * 2.4);
-  }
-
-  @include mid-break {
-    font-size: calc(var(--base) * 1.8);
-  }
-
   @include small-break {
-    font-size: calc(var(--base) * 1.4);
+    font-size: calc(var(--base) * 1.75);
   }
 }
 
@@ -76,12 +60,8 @@
   font-weight: 500;
   letter-spacing: -0.05em;
 
-  @include mid-break {
-    font-size: calc(var(--base) * 1.6);
-  }
-
   @include small-break {
-    font-size: calc(var(--base) * 1.2);
+    font-size: calc(var(--base) * 1.5);
   }
 }
 
@@ -92,12 +72,12 @@
   font-weight: 500;
   letter-spacing: -0.05em;
 
-  @include mid-break {
-    font-size: calc(var(--base) * 1.2);
+  @include large-break {
+    font-size: calc(var(--base) * 1.5);
   }
 
   @include small-break {
-    font-size: calc(var(--base) * 0.9);
+    font-size: calc(var(--base) * 1.125);
   }
 }
 
@@ -108,8 +88,12 @@
   font-weight: 500;
   letter-spacing: -0.05rem;
 
+  @include large-break {
+    font-size: calc(var(--base) * 1.25);
+  }
+
   @include small-break {
-    font-size: calc(var(--base) * 0.7);
+    font-size: var(--base);
   }
 }
 
@@ -118,8 +102,12 @@
   font-size: calc(var(--base) * 0.65);
   line-height: 1;
   font-weight: 400;
-  letter-spacing: -0.05em;
+  letter-spacing: .25em;
   text-transform: uppercase;
+
+  @include large-break {
+    font-size: calc(var(--base) * 0.8125);
+  }
 }
 
 /////////////////////////////
