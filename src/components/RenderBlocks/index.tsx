@@ -86,11 +86,13 @@ function getFieldsKeyFromBlock(
 export const RenderBlocks: React.FC<Props> = props => {
   const { blocks, disableOuterSpacing, heroTheme } = props
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
-  const { theme } = useThemePreference()
+  const { theme: themeFromContext } = useThemePreference()
 
   const getPaddingProps = useCallback(
     (block: (typeof blocks)[number], index: number) => {
       const isFirst = index === 0
+
+      const theme = themeFromContext ?? 'light'
 
       let topPadding: PaddingProps['top']
       let bottomPadding: PaddingProps['bottom']
@@ -143,7 +145,7 @@ export const RenderBlocks: React.FC<Props> = props => {
         bottom: bottomPadding ?? undefined,
       }
     },
-    [theme, heroTheme, blocks],
+    [themeFromContext, heroTheme, blocks],
   )
 
   if (hasBlocks) {
