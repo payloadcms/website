@@ -212,6 +212,7 @@ export const FEATURED_MEDIA_GALLERY = `
 ...on FeaturedMediaGallery {
   blockType
   featuredMediaGalleryFields {
+    settings ${SETTINGS}
     background
     alignment
     leader

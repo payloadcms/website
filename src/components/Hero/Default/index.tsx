@@ -31,8 +31,8 @@ export const DefaultHero: React.FC<
   return (
     <BlockWrapper settings={{ theme }} padding={padding}>
       <Gutter>
+        <BackgroundGrid zIndex={0} />
         <div className={classes.defaultHero}>
-          <BackgroundGrid ignoreGutter />
           <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>
             <div className={[`cols-8 start-1`, `cols-m-8`, 'cols-s-8'].filter(Boolean).join(' ')}>
               {breadcrumbs && (
