@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment, useCallback, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import { BannerBlock } from '@blocks/Banner'
 import { BlogContent } from '@blocks/BlogContent'
 import { BlogMarkdown } from '@blocks/BlogMarkdown'
@@ -87,12 +87,17 @@ export const RenderBlocks: React.FC<Props> = props => {
   const { blocks, disableOuterSpacing, heroTheme } = props
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
   const { theme: themeFromContext } = useThemePreference()
+  const [themeState, setThemeState] = useState<Theme>()
+
+  useEffect(() => {
+    if (themeFromContext) setThemeState(themeFromContext)
+  }, [themeFromContext])
 
   const getPaddingProps = useCallback(
     (block: (typeof blocks)[number], index: number) => {
       const isFirst = index === 0
 
-      const theme = themeFromContext ?? 'light'
+      const theme = themeState
 
       let topPadding: PaddingProps['top']
       let bottomPadding: PaddingProps['bottom']
@@ -145,7 +150,7 @@ export const RenderBlocks: React.FC<Props> = props => {
         bottom: bottomPadding ?? undefined,
       }
     },
-    [themeFromContext, heroTheme, blocks],
+    [themeState, heroTheme, blocks],
   )
 
   if (hasBlocks) {
