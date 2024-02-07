@@ -56,11 +56,15 @@ const Code: React.FC<Props> = props => {
             const shouldExclude = highlightLine(line, lineProps)
             return !shouldExclude ? (
               <div {...lineProps} key={i}>
-                <span className={classes.lineNumber}>{++i}</span>
-                {line.map((token, index) => {
-                  const { key, ...rest } = getTokenProps({ token, key: index })
-                  return <span key={key} {...rest} />
-                })}
+                <>
+                  <span className={classes.lineNumber}>{++i}</span>
+                  <span>
+                    {line.map((token, i) => {
+                      const { key, ...rest } = getTokenProps({ token, key: i })
+                      return <span key={key} {...rest} />
+                    })}
+                  </span>
+                </>
               </div>
             ) : null
           })}
