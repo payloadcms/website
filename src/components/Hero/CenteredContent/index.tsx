@@ -12,10 +12,10 @@ import { Page } from '@root/payload-types'
 import classes from './index.module.scss'
 
 export const CenteredContent: React.FC<
-  Pick<Page['hero'], 'richText' | 'links'> & {
+  Pick<Page['hero'], 'richText' | 'links' | 'theme'> & {
     breadcrumbs?: Page['breadcrumbs']
   }
-> = ({ richText, links, breadcrumbs }) => {
+> = ({ richText, links, breadcrumbs, theme }) => {
   return (
     <Gutter>
       <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>

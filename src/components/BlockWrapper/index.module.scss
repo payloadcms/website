@@ -20,7 +20,7 @@
     }
 
     &-small {
-      --wrapper-padding-top: calc(var(--base) * 1);
+      --wrapper-padding-top: calc(var(--base) * 2.5);
       padding-top: var(--wrapper-padding-top);
     }
   }
@@ -32,28 +32,8 @@
     }
 
     &-small {
-      --wrapper-padding-bottom: calc(var(--base) * 1);
+      --wrapper-padding-bottom: calc(var(--base) * 2.5);
       padding-bottom: var(--wrapper-padding-bottom);
     }
   }
 }
-
-/* .padding-top {
-  &-large {
-    padding-top: calc(var(--base) * 8);
-  }
-
-  &-small {
-    padding-top: calc(var(--base) * 1);
-  }
-}
-
-.padding-bottom {
-  &-large {
-    padding-bottom: calc(var(--base) * 8);
-  }
-
-  &-small {
-    padding-bottom: calc(var(--base) * 1);
-  }
-} */

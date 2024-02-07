@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { BannerBlock } from '@blocks/Banner'
 import { BlogContent } from '@blocks/BlogContent'
 import { BlogMarkdown } from '@blocks/BlogMarkdown'
@@ -29,6 +29,7 @@ import { StickyHighlights } from '@blocks/StickyHighlights'
 import { toKebabCase } from '@utilities/to-kebab-case'
 
 import { PaddingProps, Settings } from '@components/BlockWrapper'
+import { getFieldsKeyFromBlock } from '@components/RenderBlocks/utilities'
 import { Page, ReusableContent } from '@root/payload-types'
 import { useThemePreference } from '@root/providers/Theme'
 import { Theme } from '@root/providers/Theme/types'
@@ -63,24 +64,12 @@ const blockComponents = {
   featuredMediaGallery: FeaturedMediaGallery,
 }
 
+export type BlocksProp = ReusableContent['layout'][0] | ReusableContentBlockType | RelatedPostsBlock
+
 type Props = {
-  blocks: (ReusableContent['layout'][0] | ReusableContentBlockType | RelatedPostsBlock)[]
+  blocks: BlocksProp[]
   disableOuterSpacing?: true
   heroTheme?: Page['hero']['theme']
-}
-
-function getFieldsKeyFromBlock(
-  block: ReusableContent['layout'][0] | ReusableContentBlockType | RelatedPostsBlock,
-) {
-  if (!block) return ''
-
-  const keys = Object.keys(block)
-
-  const key = keys.find(value => {
-    return value.endsWith('Fields')
-  })
-
-  return key ?? ''
 }
 
 export const RenderBlocks: React.FC<Props> = props => {
@@ -94,9 +83,22 @@ export const RenderBlocks: React.FC<Props> = props => {
     if (themeFromContext) setThemeState(themeFromContext)
   }, [themeFromContext])
 
+  const paddingExceptions = useMemo(
+    () => [
+      'banner',
+      'blogContent',
+      'blogMarkdown',
+      'code',
+      'reusableContentBlock',
+      'caseStudyParallax',
+    ],
+    [],
+  )
+
   const getPaddingProps = useCallback(
     (block: (typeof blocks)[number], index: number) => {
       const isFirst = index === 0
+      const isLast = index + 1 === blocks.length
 
       const theme = themeState
 
@@ -146,12 +148,16 @@ export const RenderBlocks: React.FC<Props> = props => {
         bottomPadding = theme === currentBlockTheme ? 'small' : 'large'
       }
 
+      if (isLast) bottomPadding = 'large'
+
+      if (paddingExceptions.includes(block.blockType)) bottomPadding = 'large'
+
       return {
         top: topPadding ?? undefined,
         bottom: bottomPadding ?? undefined,
       }
     },
-    [themeState, heroTheme, blocks],
+    [themeState, heroTheme, blocks, paddingExceptions],
   )
 
   if (hasBlocks) {
@@ -162,15 +168,6 @@ export const RenderBlocks: React.FC<Props> = props => {
 
           if (blockType && blockType in blockComponents) {
             const Block = blockComponents[blockType]
-
-            // Keeping this here for now in case it's needed in the future
-            /* const hasSpacing = ![
-              'banner',
-              'blogContent',
-              'blogMarkdown',
-              'code',
-              'reusableContentBlock',
-            ].includes(blockType) */
 
             if (Block) {
               return (
