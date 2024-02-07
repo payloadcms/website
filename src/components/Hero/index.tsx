@@ -1,5 +1,6 @@
 import React from 'react'
 
+import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar'
 import { BlocksProp } from '@components/RenderBlocks'
 import { Page } from '@root/payload-types'
 import { CenteredCarouselHero } from './CenteredCarousel'
@@ -28,7 +29,7 @@ export const Hero: React.FC<{
     page: {
       hero,
       breadcrumbs,
-      hero: { type },
+      hero: { type, enableBreadcrumbsBar },
     },
     firstContentBlock,
   } = props
@@ -37,7 +38,11 @@ export const Hero: React.FC<{
 
   if (HeroToRender) {
     return (
-      <HeroToRender {...hero} firstContentBlock={firstContentBlock} breadcrumbs={breadcrumbs} />
+      <>
+        {enableBreadcrumbsBar && <BreadcrumbsBar hero={hero} breadcrumbs={breadcrumbs} />}
+
+        <HeroToRender {...hero} firstContentBlock={firstContentBlock} breadcrumbs={breadcrumbs} />
+      </>
     )
   }
 

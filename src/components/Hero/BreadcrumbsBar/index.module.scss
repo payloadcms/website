@@ -1,0 +1,29 @@
+.wrapper {
+  position: relative;
+
+  &[data-theme='dark'] {
+    background-color: var(--color-base-1000);
+  }
+}
+
+.container {
+  border-top: 1px solid var(--theme-elevation-200);
+  border-bottom: 1px solid var(--theme-elevation-200);
+  padding: calc(var(--base) * 1.5) 0;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.links {
+  display: flex;
+   gap: calc(var(--base) * 1.85);
+}
+
+.link {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

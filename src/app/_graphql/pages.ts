@@ -47,6 +47,10 @@ export const PAGE = `
         title
         hero {
           theme
+          enableBreadcrumbsBar
+          breadcrumbsBarLinks {
+            link ${LINK_FIELDS({ disableAppearance: true })}
+          }
           type
           commandLine
           richText

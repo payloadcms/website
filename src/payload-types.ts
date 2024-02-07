@@ -748,6 +748,32 @@ export interface Page {
   hero: {
     type: 'default' | 'contentMedia' | 'centeredContent' | 'form' | 'home' | 'livestream' | 'centeredCarousel';
     theme?: ('light' | 'dark') | null;
+    enableBreadcrumbsBar?: boolean | null;
+    breadcrumbsBarLinks?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null)
+              | ({
+                  relationTo: 'case-studies';
+                  value: string | CaseStudy;
+                } | null);
+            url?: string | null;
+            label: string;
+            appearance?: ('default' | 'primary' | 'secondary') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
     livestream?: {
       id?: string | null;
       date: string;
