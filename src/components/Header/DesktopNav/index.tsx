@@ -21,26 +21,15 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
   const [backgroundStyles, setBackgroundStyles] = React.useState<any>({ height: '0px' })
   const [underlineStyles, setUnderlineStyles] = React.useState<any>({})
 
-  const dropdownRef = React.useRef<HTMLDivElement>(null)
-
   const menuItemRefs = [] as (HTMLButtonElement | null)[]
-
-  React.useEffect(() => {
-    if (dropdownRef.current && activeTab !== undefined) {
-      setBackgroundStyles({
-        top: hideBackground ? 0 : undefined,
-        height: hideBackground
-          ? `${dropdownRef.current.offsetHeight + 100}px`
-          : `${dropdownRef.current.offsetHeight}px`,
-      })
-    }
-  }, [activeTab, hideBackground])
+  const dropdownMenuRefs = [] as (HTMLDivElement | null)[]
 
   const handleHoverEnter = index => {
     setActiveTab(index)
     setActiveDropdown(true)
 
     const hoveredMenuItem = menuItemRefs[index]
+    const hoveredDropdownMenu = dropdownMenuRefs[index]
 
     if (hoveredMenuItem) {
       setUnderlineStyles({
@@ -49,12 +38,12 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
       })
     }
 
-    if (dropdownRef.current) {
+    if (hoveredDropdownMenu) {
       setBackgroundStyles({
         top: hideBackground ? 0 : undefined,
         height: hideBackground
-          ? `${dropdownRef.current.offsetHeight + 90}px`
-          : `${dropdownRef.current.offsetHeight}px`,
+          ? `${hoveredDropdownMenu.clientHeight + 90}px`
+          : `${hoveredDropdownMenu.clientHeight}px`,
       })
     }
   }
@@ -66,62 +55,55 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
   }
 
   return (
-    <Gutter className={classes.desktopNav}>
-      <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')}>
-        <div className={[classes.logo, 'cols-4'].filter(Boolean).join(' ')}>
+    <Gutter
+      className={[classes.desktopNav, activeDropdown && classes.active].filter(Boolean).join(' ')}
+    >
+      <div className={[classes.grid, 'grid'].join(' ')}>
+        <div className={[classes.logo, 'cols-4'].join(' ')}>
           <Link href="/" className={classes.logo} prefetch={false} aria-label="Full Payload Logo">
             <FullLogo />
           </Link>
         </div>
-        <div className={[classes.content, 'cols-8'].filter(Boolean).join(' ')}>
+        <div className={[classes.content, 'cols-8'].join(' ')}>
           <div className={classes.tabs} onMouseLeave={resetHoverStyles}>
-            {(tabs || []).map((tab, tabIndex) => {
-              const isActive = tabIndex === activeTab
-              return (
+            {(tabs || []).map((tab, tabIndex) => (
+              <div
+                key={tabIndex}
+                onMouseEnter={() => handleHoverEnter(tabIndex)}
+                onFocus={() => handleHoverEnter(tabIndex)}
+              >
+                <button className={classes.tab} ref={ref => (menuItemRefs[tabIndex] = ref)}>
+                  {tab.label}
+                </button>
                 <div
-                  key={tabIndex}
-                  onMouseEnter={() => handleHoverEnter(tabIndex)}
-                  onFocus={() => handleHoverEnter(tabIndex)}
+                  className={['grid', classes.dropdown, tabIndex === activeTab && classes.activeTab]
+                    .filter(Boolean)
+                    .join(' ')}
+                  ref={ref => (dropdownMenuRefs[tabIndex] = ref)}
                 >
-                  <button
-                    className={[classes.tab].filter(Boolean).join(' ')}
-                    ref={ref => (menuItemRefs[tabIndex] = ref)}
-                  >
-                    {tab.label}
-                  </button>
-                  {isActive && (
-                    <div className={[classes.dropdown, 'grid'].join(' ')} ref={dropdownRef}>
-                      <div className={[classes.description, 'cols-4'].join(' ')}>
-                        {tab.description}
-                      </div>
-                      {(tab.navItems || []).map((item, index) => {
-                        const totalItems = tab.navItems?.length || 0
-                        const columnSpan = 12 / totalItems
+                  <div className={[classes.description, 'cols-4'].join(' ')}>{tab.description}</div>
+                  {(tab.navItems || []).map((item, index) => {
+                    const totalItems = tab.navItems?.length || 0
+                    const columnSpan = 12 / totalItems
 
-                        return (
-                          <div
-                            className={[`cols-${columnSpan}`, classes.dropdownItem].join(' ')}
-                            key={index}
-                            onClick={resetHoverStyles}
-                          >
-                            <CMSLink
-                              className={[classes.dropdownItemLink].filter(Boolean).join(' ')}
-                              {...item.link}
-                            >
-                              <div className={classes.dropdownItemDescription}>
-                                {item.description}
-                                <ArrowIcon />
-                              </div>
-                            </CMSLink>
+                    return (
+                      <div
+                        className={[`cols-${columnSpan}`, classes.dropdownItem].join(' ')}
+                        onClick={resetHoverStyles}
+                        key={index}
+                      >
+                        <CMSLink className={classes.dropdownItemLink} {...item.link}>
+                          <div className={classes.dropdownItemDescription}>
+                            {item.description}
+                            <ArrowIcon className={classes.arrow} />
                           </div>
-                        )
-                      })}
-                    </div>
-                  )}
+                        </CMSLink>
+                      </div>
+                    )
+                  })}
                 </div>
-              )
-            })}
-
+              </div>
+            ))}
             <div
               className={classes.underline}
               style={{ ...underlineStyles, opacity: activeDropdown ? 1 : 0 }}
@@ -160,12 +142,11 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
           </div>
         </div>
       </div>
-
       <div
         className={classes.background}
         onMouseEnter={() => setActiveDropdown(true)}
         onMouseLeave={() => setActiveDropdown(false)}
-        style={backgroundStyles}
+        style={activeDropdown ? backgroundStyles : { height: '0px', transition: 'all 0.3s linear' }}
       />
     </Gutter>
   )
