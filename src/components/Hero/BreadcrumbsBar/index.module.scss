@@ -1,8 +1,18 @@
+@use '@scss/common' as *;
+
 .wrapper {
   position: relative;
 
+  & .dropdownContent {
+    background-color: var(--color-base-0);
+  }
+
   &[data-theme='dark'] {
     background-color: var(--color-base-1000);
+
+    & .dropdownContent {
+      background-color: var(--color-base-1000);
+    }
   }
 }
 
@@ -13,6 +23,10 @@
 
   display: flex;
   justify-content: space-between;
+
+  @include mid-break {
+    display: none;
+  }
 }
 
 .links {
@@ -26,4 +40,52 @@
   &:hover {
     text-decoration: underline;
   }
+}
+
+.containerMobile {
+  border-top: 1px solid var(--theme-elevation-200);
+  border-bottom: 1px solid var(--theme-elevation-200);
+  padding: calc(var(--base) * 1.5) 0;
+  display: none;
+
+  @include mid-break {
+    display: block;
+  }
+}
+
+.dropdown {
+  position: relative;
+
+  & summary {
+    border: none;
+    list-style: none;
+
+    &::marker {
+      display: none;
+      appearance: none;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    & .icon {
+      transition: transform 0.1s ease-in-out;
+    }
+  }
+
+  &[open] .icon {
+    transform: rotate(90deg);
+  }
+}
+
+.dropdownContent {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  padding: calc(var(--base) * 1);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 1);
 }
