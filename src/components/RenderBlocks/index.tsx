@@ -89,6 +89,7 @@ export const RenderBlocks: React.FC<Props> = props => {
   const { theme: themeFromContext } = useThemePreference()
   const [themeState, setThemeState] = useState<Theme>()
 
+  // This is needed to avoid hydration errors when the theme is not yet available
   useEffect(() => {
     if (themeFromContext) setThemeState(themeFromContext)
   }, [themeFromContext])
