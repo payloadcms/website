@@ -17,10 +17,10 @@ import classes from './index.module.scss'
 export const ContentMediaHero: React.FC<
   Pick<Page['hero'], 'richText' | 'media' | 'links' | 'description' | 'theme'> & {
     breadcrumbs?: Page['breadcrumbs']
-    firstContentBlock: BlocksProp
+    firstContentBlock?: BlocksProp
   }
 > = ({ richText, media, links, description, theme, firstContentBlock }) => {
-  const padding = useGetHeroPadding(firstContentBlock, theme)
+  const padding = useGetHeroPadding(theme, firstContentBlock)
 
   return (
     <BlockWrapper settings={{ theme }} padding={padding}>

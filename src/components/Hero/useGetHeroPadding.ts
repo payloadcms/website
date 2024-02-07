@@ -8,8 +8,8 @@ import { useThemePreference } from '@root/providers/Theme'
 import type { Theme } from '@root/providers/Theme/types'
 
 export const useGetHeroPadding = (
-  block: BlocksProp,
   theme: Page['hero']['theme'],
+  block?: BlocksProp,
 ): PaddingProps => {
   const { theme: themeFromContext } = useThemePreference()
   const [themeState, setThemeState] = useState<Theme>()
@@ -21,6 +21,8 @@ export const useGetHeroPadding = (
   const padding = useMemo((): PaddingProps => {
     let topPadding: PaddingProps['top'] = 'small'
     let bottomPadding: PaddingProps['bottom'] = 'large'
+
+    if (!block) return { top: topPadding, bottom: bottomPadding }
 
     let blockKey = getFieldsKeyFromBlock(block)
     let blockSettings: Settings = block[blockKey]?.settings

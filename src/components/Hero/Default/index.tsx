@@ -16,7 +16,7 @@ import classes from './index.module.scss'
 export const DefaultHero: React.FC<
   Pick<Page['hero'], 'richText' | 'description' | 'theme'> & {
     breadcrumbs?: Page['breadcrumbs']
-    firstContentBlock: BlocksProp
+    firstContentBlock?: BlocksProp
   }
 > = ({ richText, description, breadcrumbs, theme, firstContentBlock }) => {
   const withoutDescription =
@@ -26,7 +26,7 @@ export const DefaultHero: React.FC<
       description[0].children?.length === 1 &&
       !description[0].children[0].text)
 
-  const padding = useGetHeroPadding(firstContentBlock, theme)
+  const padding = useGetHeroPadding(theme, firstContentBlock)
 
   return (
     <BlockWrapper settings={{ theme }} padding={padding}>

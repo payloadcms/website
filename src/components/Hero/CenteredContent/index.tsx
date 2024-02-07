@@ -17,10 +17,10 @@ import classes from './index.module.scss'
 export const CenteredContent: React.FC<
   Pick<Page['hero'], 'richText' | 'links' | 'theme'> & {
     breadcrumbs?: Page['breadcrumbs']
-    firstContentBlock: BlocksProp
+    firstContentBlock?: BlocksProp
   }
 > = ({ richText, links, breadcrumbs, theme, firstContentBlock }) => {
-  const padding = useGetHeroPadding(firstContentBlock, theme)
+  const padding = useGetHeroPadding(theme, firstContentBlock)
 
   return (
     <BlockWrapper settings={{ theme }} padding={padding}>

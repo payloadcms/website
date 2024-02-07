@@ -22,7 +22,7 @@ const heroes = {
 
 export const Hero: React.FC<{
   page: Page
-  firstContentBlock: BlocksProp
+  firstContentBlock?: BlocksProp
 }> = props => {
   const {
     page: {
