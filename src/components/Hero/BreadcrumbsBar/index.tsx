@@ -25,7 +25,7 @@ const BreadcrumbsBar: React.FC<Props> = ({ hero, breadcrumbs: breadcrumbsProps }
     <div className={classes.wrapper} {...(theme ? { 'data-theme': theme } : {})}>
       <Gutter>
         <div className={classes.container}>
-          {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
+          <div>{breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}</div>
 
           <div className={classes.links}>
             {Array.isArray(breadcrumbsBarLinks) &&

@@ -45,7 +45,7 @@
 .containerMobile {
   border-top: 1px solid var(--theme-elevation-200);
   border-bottom: 1px solid var(--theme-elevation-200);
-  padding: calc(var(--base) * 1.5) 0;
+  padding: calc(var(--base) * 1) 0;
   display: none;
 
   @include mid-break {
@@ -59,6 +59,9 @@
   & summary {
     border: none;
     list-style: none;
+    display: flex;
+    justify-content: space-between;
+    padding: calc(var(--base) * 0.5) 0;
 
     &::marker {
       display: none;
@@ -71,11 +74,14 @@
 
     & .icon {
       transition: transform 0.1s ease-in-out;
+      transform: rotate(90deg);
+      height: auto;
+      width: calc(var(--base) * 0.3);
     }
   }
 
   &[open] .icon {
-    transform: rotate(90deg);
+    transform: rotate(0deg);
   }
 }
 
@@ -83,8 +89,9 @@
   position: absolute;
   top: 100%;
   left: 0;
+  width: 100%;
   z-index: 1;
-  padding: calc(var(--base) * 1);
+  padding: calc(var(--base) * 2) calc(var(--base) * 0) calc(var(--base) * 2);
   display: flex;
   flex-direction: column;
   gap: calc(var(--base) * 1);
