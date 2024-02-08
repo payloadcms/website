@@ -24,11 +24,12 @@
   --breakpoint-2xl-height: $breakpoint-2xl-height;
 
   --scrollbar-width: 17px;
-  --page-padding-top: calc(var(--top-bar-height) + var(--header-height) + var(--base) * 2);
+  --page-padding-top: calc(var(--top-bar-height) + var(--header-height));
   --header-height: 90px;
   --top-bar-height: 46px;
 
   --font-body-size: var(--base);
+  --font-header-size: 20px;
 
   --z-popup: 10;
   --z-status: 30;
@@ -47,6 +48,7 @@
   @include extra-large-break {
     --gutter-h: calc(var(--base) * 8);
     --font-body-size: var(--base);
+    --font-header-size: 18px;
   }
 
   @include large-break {
@@ -56,6 +58,7 @@
     --new-block-spacing: calc(var(--base) * 6);
     --header-height: 76px;
     --font-body-size: calc(var(--base) * 1.125);
+    --font-header-size: 16px;
   }
 
   @include mobile-header-break {
