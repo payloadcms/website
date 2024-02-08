@@ -23,7 +23,7 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, pad
   const [tabWrapperWidth, setTabWrapperWidth] = useState(0)
   const tabWrapperRef = useRef<HTMLDivElement>(null)
   const activeTabRef = useRef<HTMLButtonElement>(null)
-  const { heading, richText, forceDarkBackground, codeTabs, links, settings } = codeFeatureFields
+  const { heading, richText, codeTabs, links, settings } = codeFeatureFields
   const hasLinks = Boolean(links?.length && links.length > 0)
   const id = useId()
 
@@ -179,6 +179,10 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, pad
             </div>
             <div className={classes.codeBlockWrapper}>
               {codeTabs?.map((code, index) => {
+                const hasFeatures = Boolean(
+                  code.codeFeatures?.length && code.codeFeatures.length > 0,
+                )
+
                 return (
                   <div
                     key={index}
@@ -192,7 +196,7 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, pad
                     // @ts-expect-error
                     inert={activeIndex !== index ? '' : undefined}
                   >
-                    <Code>{`${code.code}
+                    <Code codeFeatures={code.codeFeatures}>{`${code.code}
                   `}</Code>
                   </div>
                 )

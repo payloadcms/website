@@ -41,6 +41,10 @@ export const CODE_BLOCK = `
   codeFields {
     language
     code
+    codeFeatures {
+      row
+      feature
+    }
   }
 }
 `
@@ -60,6 +64,10 @@ export const CODE_FEATURE = `
       language
       label
       code
+      codeFeatures {
+        row
+        feature
+      }
     }
   }
 }

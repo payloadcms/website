@@ -137,15 +137,62 @@
   }
 }
 
+.lineCodeWrapper {
+  position: relative;
+  display: inline-block;
+}
+
 .lineNumber {
   user-select: none;
   opacity: 0.3;
   display: table-cell;
   text-align: right;
   color: hsla(var(--hsla-offwhite-2), 0.3);
-  padding-right:  calc(var(--base) * 2);
+  padding-right: calc(var(--base) * 2);
 
   @include mid-break {
     display: none;
   }
+}
+
+.line {
+  position: relative;
+}
+
+.codeFeature {
+  //position: absolute;
+  right: calc(var(--base) * -2);
+  bottom: 0;
+  z-index: 1;
+
+
+
+  & .content {
+    position: absolute;
+    visibility: hidden;
+    width: max-content;
+    min-width: fit-content;
+    padding: calc(var(--base) * 1);
+    background: var(--theme-elevation-0);
+    max-width: max(400%, calc(var(--base) * 20));
+    left: 0;
+    z-index: 3;
+
+    @include small-break {
+      max-width: max(90vw, calc(var(--base) * 4));
+    }
+
+    &.active {
+      visibility: visible;
+    }
+  }
+}
+
+.codeFeatureButton {
+  @include btnReset;
+  padding: calc(var(--base) * 0.5);
+  background: red;
+  border-radius: 100%;
+
+  &:hover {cursor: pointer;}
 }

@@ -1,8 +1,9 @@
 /* eslint-disable no-param-reassign */
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 
-import { Props } from './types'
+import { RichText } from '@components/RichText'
+import { CodeFeature, Props } from './types'
 
 import classes from './index.module.scss'
 
@@ -43,24 +44,55 @@ const highlightLine = (lineArray: { content: string }[], lineProps: { className:
   return shouldExclude
 }
 
+const CodeFeature: React.FC<{ feature: CodeFeature }> = ({ feature }) => {
+  const [active, setActive] = useState(false)
+
+  return (
+    <>
+      <button onClick={() => setActive(!active)} className={classes.codeFeatureButton}>
+        <span className="visually-hidden">Code feature</span>
+        <span></span>
+      </button>
+      <div className={classes.codeFeature}>
+        <div className={[classes.content, active && classes.active].filter(Boolean).join(' ')}>
+          <RichText content={feature.feature} />
+        </div>
+      </div>
+    </>
+  )
+}
+
 const Code: React.FC<Props> = props => {
-  const { children, className } = props
+  const { children, className, codeFeatures } = props
   const classNames = [classes.code, className && className].filter(Boolean).join(' ')
+
+  const getCodeFeature = useCallback(
+    (rowNumber: number) => {
+      if (!codeFeatures) return null
+      return codeFeatures.find(feature => feature.row === rowNumber) ?? null
+    },
+    [codeFeatures],
+  )
 
   return (
     <Highlight {...defaultProps} theme={undefined} code={children} language="jsx">
       {({ style, tokens, getLineProps, getTokenProps }) => (
         <div className={classNames} style={style}>
           {tokens.map((line, i) => {
-            const lineProps = getLineProps({ line, key: i })
+            const lineProps = getLineProps({ line, key: i, className: classes.line })
             const shouldExclude = highlightLine(line, lineProps)
+            const rowNumber = i + 1
+            const codeFeature = getCodeFeature(rowNumber)
             return !shouldExclude ? (
               <div {...lineProps} key={i}>
-                <span className={classes.lineNumber}>{++i}</span>
-                {line.map((token, index) => {
-                  const { key, ...rest } = getTokenProps({ token, key: index })
-                  return <span key={key} {...rest} />
-                })}
+                <span className={classes.lineNumber}>{rowNumber}</span>
+                <div className={classes.lineCodeWrapper}>
+                  {line.map((token, index) => {
+                    const { key, ...rest } = getTokenProps({ token, key: index })
+                    return <span key={key} {...rest} />
+                  })}
+                  {codeFeature ? <CodeFeature feature={codeFeature} /> : null}
+                </div>
               </div>
             ) : null
           })}
