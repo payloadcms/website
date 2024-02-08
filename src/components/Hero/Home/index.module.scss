@@ -2,8 +2,8 @@
 
 .homeHero {
   position: relative;
-  padding-bottom: calc(var(--base) * 5);
   background: var(--color-base-0);
+  margin-top: calc(-1 * var(--page-padding-top));
 }
 
 .background {
@@ -15,7 +15,7 @@
   left: 0;
   overflow: hidden;
 
-  img, video {
+  img {
     object-fit: cover;
     width: 100%;
   }
@@ -23,24 +23,160 @@
   @include mid-break {
     display: none;
   }
+}
 
-  .blackBackground {
-    background: var(--color-base-1000);
+.imagesContainerWrapper {
+  position: relative;
+  height: 100%;
+}
+
+.laptopMedia {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+
+  @include mid-break {
+    left: calc(-1 * var(--base) * 10);
+    width: calc(100% + var(--base) * 10);
+  }
+
+  @include small-break {
+    left: calc(-1 * var(--base) * 6);
+    width: calc(100% + var(--base) * 8);
   }
 }
 
-.backgroundGrid {
+.pedestalMaskedImage {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  mask-image: url('/images/pedestal-mask.svg');
+  mask-mode: alpha;
+  mask-size: cover;
+  mask-position: center;
+  mask-repeat: no-repeat;
   z-index: 2;
+
+  @include mid-break {
+    left: calc(-1 * var(--base) * 10);
+    width: calc(100% + var(--base) * 10);
+  }
+
+  @include small-break {
+    left: calc(-1 * var(--base) * 6);
+    width: calc(100% + var(--base) * 8);
+  }
 }
 
-.contentWrap {
+.featureVideoMask {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  mask-image: url('/images/screen-mask.svg');
+  mask-mode: alpha;
+  mask-size: cover;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  z-index: 0;
+
+  video {
+    transform: rotate(-8deg) skew(-9deg) scale(0.425, 0.455) translate(39%, -38.5%);
+  }
+
+  @include mid-break {
+    left: calc(-1 * var(--base) * 10);
+    width: calc(100% + var(--base) * 10);
+  }
+
+  @include small-break {
+    left: calc(-1 * var(--base) * 6);
+    width: calc(100% + var(--base) * 8);
+  }
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--base) * 8);
+
+  @include large-break {
+    gap: calc(var(--base) * 6);
+  }
+
+  @include large-mid-break {
+    gap: calc(var(--base) * 3);
+  }
+
+  @include mid-break {
+    gap: unset;
+  }
+}
+
+.primaryContentWrap {
+  display: flex;
+  align-items: center;
+  min-height: 85vh;
+
+  @include two-extra-large-break {
+    min-height: 90vh;
+  }
+
+  @include extra-large-break {
+    min-height: 75vh;
+  }
+
+  @include large-break {
+    min-height: 60vh;
+  }
+
+  @include large-mid-break {
+    min-height: 55vh;
+  }
+
+  @include mid-break {
+    min-height: unset;
+    padding-top: calc(var(--base) * 7.5);
+  }
+
+  @include extra-large-break-ht {
+    @include two-extra-large-break {
+      min-height: 120vh;
+    }
+
+    @include extra-large-break {
+      min-height: 100vh;
+    }
+
+    @include large-break {
+      min-height: 85vh;
+    }
+
+    @include large-mid-break {
+      min-height: 80vh;
+    }
+
+    @include mid-break {
+      min-height: unset;
+    }
+  }
+}
+
+.primaryContent {
   position: relative;
   z-index: 2;
   grid-template-rows: auto min-content;
-  padding-top: calc(var(--base) * 3);
+
+  @include large-mid-break {
+    padding-top: calc(var(--base) * 4);
+  }
 
   @include mid-break {
-    padding-top: calc(var(--base) * 1.5);
+    padding-top: 0;
   }
 }
 
@@ -48,25 +184,50 @@
   position: relative;
   z-index: 2;
   align-items: center;
-  padding-top: calc(var(--base) * 8);
-
-  @include large-break {
-    padding-top: calc(var(--base) * 6);
-  }
 
   @include mid-break {
-    padding-top: calc(var(--base) * 1.5);
+    margin-top: calc(-1 * (var(--base) * 12));
+  }
+
+  @include small-break {
+    margin-top: calc(-1 * (var(--base) * 10));
+  }
+
+  @include extra-small-break {
+    margin-top: calc(-1 * (var(--base) * 8));
+  }
+}
+
+.mobileSecondaryBackgroundGrid {
+  display: none;
+
+  @include mid-break {
+    display: grid;
+    width: 100%;
+    left: 0;
+  }
+}
+
+.mobileSecondaryBackground {
+  display: none;
+
+  @include mid-break {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: calc(var(--gutter-h) * -1);
+    height: 100%;
+    width: calc(100% + (var(--gutter-h) * 2));
+    background: linear-gradient(to top, rgba(0, 0, 0) 0%, rgba(0, 0, 0) 90%, rgba(0, 0, 0, 0) 100%);
+    z-index: -1;
   }
 }
 
 .secondaryContent {
   @include mid-break {
     order: 1;
+    z-index: 1;
     margin-top: calc(var(--base) * 2);
-  }
-
-  @include small-break {
-    margin-top: calc(var(--base) * 1.5);
   }
 }
 
@@ -78,6 +239,18 @@
 
 .richTextHeading {
   margin-bottom: calc(var(--base) * 2);
+
+  @include extra-large-break {
+    h1 {
+      font-size: calc(var(--base) * 3);
+    }
+  }
+
+  @include large-break {
+    h1 {
+      font-size: calc(var(--base) * 3);
+    }
+  }
 
   @include mid-break {
     margin-bottom: calc(var(--base) * 1.5);
@@ -101,7 +274,6 @@
   margin-bottom: calc(var(--base) * 2);
 
   @include mid-break {
-    margin-bottom: calc(var(--base) * 1.5);
     max-width: 100%;
   }
 }
@@ -124,11 +296,30 @@
   }
 }
 
-.mediaGutter {
+.mobileMediaWrapper {
   display: none;
 
   @include mid-break {
     display: block;
     position: relative;
+    overflow: hidden;
+    width: calc(100% + (var(--gutter-h) * 2));
+    left: calc(var(--gutter-h) * -1);
+
+    img, video {
+      height: 100%;
+    }
+  }
+}
+
+.mobilePedestalBackgroundGrid {
+  @include mid-break {
+    left: calc(calc(var(--base) * 10) + var(--gutter-h));
+    width: calc(calc(100% - var(--base) * 10) - var(--gutter-h) * 2)
+  }
+
+  @include small-break {
+    left: calc(calc(var(--base) * 6) + var(--gutter-h));
+    width: calc(calc(100% - var(--base) * 8) - var(--gutter-h) * 2)
   }
 }

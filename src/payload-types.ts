@@ -799,6 +799,8 @@ export interface Page {
         }[]
       | null;
     media?: string | Media | null;
+    secondaryMedia?: string | Media | null;
+    featureVideo?: string | Media | null;
     form?: (string | null) | Form;
     logos?:
       | {

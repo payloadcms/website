@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
+import { ChangeHeaderTheme } from '@components/ChangeHeaderTheme'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
 import { LogoShowcase } from '@components/LogoShowcase'
@@ -20,146 +21,183 @@ export const HomeHero: React.FC<Page['hero']> = ({
   secondaryDescription,
   secondaryButtons,
   media,
+  secondaryMedia,
+  featureVideo,
   logos,
 }) => {
-  const mediaRef = useRef<HTMLDivElement>(null)
-  const backgroundRef = useRef<HTMLDivElement>(null)
-  const [blackBackgroundStyle, setBlackBackgroundStyle] = useState<React.CSSProperties>({})
-  const [maskStyle, setMaskStyle] = useState<React.CSSProperties>({})
+  const laptopMediaRef = useRef<HTMLDivElement | null>(null)
+  const mobileLaptopMediaRef = useRef<HTMLDivElement | null>(null)
+  const [laptopMediaHeight, setLaptopMediaHeight] = useState(0)
+  const [mobileMediaWrapperHeight, setMobileMediaWrapperHeight] = useState(0)
 
   useEffect(() => {
-    const updateMaskStyle = () => {
-      const screenWidth = window.innerWidth
-      if (screenWidth <= 1024) {
-        setMaskStyle({ maskImage: 'none' })
-        return
-      }
-
-      if (mediaRef.current && mediaRef.current.parentElement) {
-        const mediaRect = mediaRef.current.getBoundingClientRect()
-        const containerRect = mediaRef.current.parentElement.getBoundingClientRect()
-        let startPercentage = 0
-
-        let endPercentage
-        if (screenWidth <= 1200) {
-          endPercentage = ((mediaRect.bottom - containerRect.top) / containerRect.height) * 100 + 30
-        } else if (screenWidth <= 1600) {
-          endPercentage = ((mediaRect.bottom - containerRect.top) / containerRect.height) * 100 + 20
-        } else {
-          endPercentage = ((mediaRect.bottom - containerRect.top) / containerRect.height) * 100
-        }
-
-        setMaskStyle({
-          maskImage: `linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) ${startPercentage}%, rgba(0,0,0,0) ${endPercentage}%, rgba(0,0,0,0) 100%)`,
-        })
-      }
+    const updateLaptopMediaHeight = () => {
+      const newVideoHeight = laptopMediaRef.current ? laptopMediaRef.current.offsetHeight : 0
+      setLaptopMediaHeight(newVideoHeight)
     }
+    updateLaptopMediaHeight()
+    window.addEventListener('resize', updateLaptopMediaHeight)
 
-    updateMaskStyle()
-    window.addEventListener('resize', updateMaskStyle)
-    return () => window.removeEventListener('resize', updateMaskStyle)
+    return () => window.removeEventListener('resize', updateLaptopMediaHeight)
   }, [])
 
   useEffect(() => {
-    const updateBlackBgHeight = () => {
-      if (backgroundRef.current && mediaRef.current) {
-        const backgroundHeight = backgroundRef.current.offsetHeight
-        const mediaHeight = mediaRef.current.offsetHeight
-        const blackBackgroundHeight = backgroundHeight - mediaHeight
-
-        setBlackBackgroundStyle({
-          height: `${blackBackgroundHeight}px`,
-        })
-      }
+    const updateMobileMediaWrapperHeight = () => {
+      const newMobileHeight = mobileLaptopMediaRef.current
+        ? mobileLaptopMediaRef.current.offsetHeight
+        : 0
+      setMobileMediaWrapperHeight(newMobileHeight)
     }
+    updateMobileMediaWrapperHeight()
+    window.addEventListener('resize', updateMobileMediaWrapperHeight)
 
-    updateBlackBgHeight()
-    window.addEventListener('resize', updateBlackBgHeight)
-
-    return () => {
-      window.removeEventListener('resize', updateBlackBgHeight)
-    }
+    return () => window.removeEventListener('resize', updateMobileMediaWrapperHeight)
   }, [])
 
   return (
     <div className={classes.homeHero}>
-      {typeof media === 'object' && media !== null && (
-        <div className={classes.background} ref={backgroundRef}>
-          <div ref={mediaRef}>
-            <Media resource={media} className={classes.media} />
-          </div>
-          <div className={classes.blackBackground} style={blackBackgroundStyle} />
-        </div>
-      )}
-      <Gutter>
-        <BackgroundGrid className={classes.backgroundGrid} style={maskStyle} />
-        <div data-theme="light" className={[classes.contentWrap, 'grid'].filter(Boolean).join(' ')}>
-          <div className={['cols-8 start-1'].filter(Boolean).join(' ')}>
-            <RichText className={classes.richTextHeading} content={richText} />
-            <RichText className={classes.richTextDescription} content={description} />
-            {Array.isArray(primaryButtons) && (
-              <ul className={[classes.primaryButtons].filter(Boolean).join(' ')}>
-                {primaryButtons.map(({ link }, i) => {
-                  return (
-                    <li key={i}>
-                      <CMSLink
-                        {...link}
-                        appearance="default"
-                        fullWidth
-                        buttonProps={{
-                          icon: 'arrow',
-                          hideHorizontalBorders: true,
-                        }}
-                      />
-                    </li>
-                  )
-                })}
-              </ul>
-            )}
+      <ChangeHeaderTheme theme="light">
+        <div className={classes.background}>
+          <div className={classes.imagesContainerWrapper}>
             {typeof media === 'object' && media !== null && (
-              <Gutter className={classes.mediaGutter}>
-                <Media resource={media} className={classes.mobileMedia} />
-              </Gutter>
+              <Media
+                ref={laptopMediaRef}
+                resource={media}
+                className={classes.laptopMedia}
+                priority
+              />
+            )}
+            {typeof secondaryMedia === 'object' && secondaryMedia !== null && (
+              <div className={classes.pedestalMaskedImage}>
+                <BackgroundGrid zIndex={1} />
+                <Media resource={secondaryMedia} className={classes.pedestalImage} priority />
+              </div>
+            )}
+            {typeof featureVideo === 'object' && featureVideo !== null && (
+              <div className={classes.featureVideoMask} style={{ height: laptopMediaHeight }}>
+                <Media resource={featureVideo} className={classes.featureVideo} priority />
+              </div>
             )}
           </div>
         </div>
-        <div
-          data-theme="dark"
-          className={[classes.secondaryContentWrap, 'grid'].filter(Boolean).join(' ')}
-        >
-          <div className={[classes.secondaryContent, 'cols-8 start-1'].filter(Boolean).join(' ')}>
-            <RichText className={classes.secondaryRichTextHeading} content={secondaryHeading} />
-            <RichText
-              className={classes.secondaryRichTextDescription}
-              content={secondaryDescription}
-            />
-            {Array.isArray(secondaryButtons) && (
-              <ul className={classes.secondaryButtons}>
-                {secondaryButtons.map(({ link }, i) => {
-                  return (
-                    <li key={i}>
-                      <CMSLink
-                        {...link}
-                        appearance="default"
-                        fullWidth
-                        buttonProps={{
-                          icon: 'arrow',
-                          hideHorizontalBorders: true,
+        <Gutter className={classes.contentWrapper}>
+          <div className={classes.primaryContentWrap} data-theme="light">
+            <BackgroundGrid zIndex={0} />
+            <div className={[classes.primaryContent, 'grid'].filter(Boolean).join(' ')}>
+              <div className={['cols-8 start-1'].filter(Boolean).join(' ')}>
+                <RichText className={classes.richTextHeading} content={richText} />
+                <RichText className={classes.richTextDescription} content={description} />
+                {Array.isArray(primaryButtons) && (
+                  <ul className={[classes.primaryButtons].filter(Boolean).join(' ')}>
+                    {primaryButtons.map(({ link }, i) => {
+                      return (
+                        <li key={i}>
+                          <CMSLink
+                            {...link}
+                            appearance="default"
+                            fullWidth
+                            buttonProps={{
+                              icon: 'arrow',
+                              hideHorizontalBorders: true,
+                            }}
+                          />
+                        </li>
+                      )
+                    })}
+                  </ul>
+                )}
+                {/* Mobile media - only rendered starting at mid-break */}
+                <div
+                  className={classes.mobileMediaWrapper}
+                  style={{ height: mobileMediaWrapperHeight }}
+                >
+                  {typeof media === 'object' && media !== null && (
+                    <Media
+                      ref={mobileLaptopMediaRef}
+                      resource={media}
+                      className={classes.laptopMedia}
+                    />
+                  )}
+                  {typeof secondaryMedia === 'object' && secondaryMedia !== null && (
+                    <div className={classes.pedestalMaskedImage}>
+                      <BackgroundGrid
+                        className={classes.mobilePedestalBackgroundGrid}
+                        gridLineStyles={{
+                          0: {
+                            background: 'var(--grid-line-dark)',
+                          },
+                          1: {
+                            background: 'var(--grid-line-dark)',
+                          },
+                          2: {
+                            background: 'var(--grid-line-dark)',
+                          },
+                          3: {
+                            background: 'var(--grid-line-dark)',
+                          },
+                          4: {
+                            background: 'var(--grid-line-dark)',
+                          },
                         }}
+                        zIndex={1}
                       />
-                    </li>
-                  )
-                })}
-              </ul>
-            )}
+                      <Media resource={secondaryMedia} className={classes.pedestalImage} />
+                    </div>
+                  )}
+                  {typeof featureVideo === 'object' && featureVideo !== null && (
+                    <div
+                      className={classes.featureVideoMask}
+                      style={{ height: mobileMediaWrapperHeight }}
+                    >
+                      <Media resource={featureVideo} className={classes.featureVideo} priority />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
           <div
-            className={[classes.logoWrapper, 'cols-8 start-9 start-m-1'].filter(Boolean).join(' ')}
+            data-theme="dark"
+            className={[classes.secondaryContentWrap, 'grid'].filter(Boolean).join(' ')}
           >
-            <LogoShowcase logos={logos} />
+            <BackgroundGrid className={classes.mobileSecondaryBackgroundGrid} zIndex={1} />
+            <div className={classes.mobileSecondaryBackground} />
+            <div className={[classes.secondaryContent, 'cols-8 start-1'].filter(Boolean).join(' ')}>
+              <RichText className={classes.secondaryRichTextHeading} content={secondaryHeading} />
+              <RichText
+                className={classes.secondaryRichTextDescription}
+                content={secondaryDescription}
+              />
+              {Array.isArray(secondaryButtons) && (
+                <ul className={classes.secondaryButtons}>
+                  {secondaryButtons.map(({ link }, i) => {
+                    return (
+                      <li key={i}>
+                        <CMSLink
+                          {...link}
+                          appearance="default"
+                          fullWidth
+                          buttonProps={{
+                            icon: 'arrow',
+                            hideHorizontalBorders: true,
+                          }}
+                        />
+                      </li>
+                    )
+                  })}
+                </ul>
+              )}
+            </div>
+            <div
+              className={[classes.logoWrapper, 'cols-8 start-9 start-m-1']
+                .filter(Boolean)
+                .join(' ')}
+            >
+              <LogoShowcase logos={logos} />
+            </div>
           </div>
-        </div>
-      </Gutter>
+        </Gutter>
+      </ChangeHeaderTheme>
     </div>
   )
 }

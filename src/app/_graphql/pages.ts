@@ -62,6 +62,8 @@ export const PAGE = `
             link ${LINK_FIELDS()}
           }
           media ${MEDIA_FIELDS}
+          featureVideo ${MEDIA_FIELDS}
+          secondaryMedia ${MEDIA_FIELDS}
           form ${FORM_FIELDS}
           logos {
             logoMedia ${MEDIA_FIELDS}

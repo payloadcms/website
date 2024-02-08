@@ -9,7 +9,6 @@
 
   .horizontalLine, .verticalLine {
     position: absolute;
-    background: var(--theme-elevation-200);
     z-index: 1;
   }
 
@@ -88,8 +87,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity 1s ease;
+      transition: opacity 1s ease, filter 1s ease;
       opacity: 0;
+      filter: blur(0px);
     }
   }  
 }
@@ -141,4 +141,21 @@
 .crosshairSecondRowThirdCell {
   left: calc(75% + var(--base) * -0.5);
   bottom: calc(33.333% + var(--base) * -0.5);
+}
+
+:global([data-theme="dark"]) {
+  .logoShowcase {
+    .horizontalLine, .verticalLine {
+      background: var(--grid-line-dark);
+    }
+  }
+}
+  
+
+:global([data-theme="light"]) {
+  .logoShowcase {
+    .horizontalLine, .verticalLine {
+      background: var(--grid-line-light);
+    }
+  }
 }

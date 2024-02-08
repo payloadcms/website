@@ -22,8 +22,8 @@ type Props = {
 }
 
 const TOTAL_CELLS = 12
-const ANIMATION_DURATION = 500 // Duration for fade-out and fade-in in milliseconds
-const ANIMATION_DELAY = 1500 // Delay between animations in milliseconds
+const ANIMATION_DURATION = 750 // Duration for fade-out and fade-in in milliseconds
+const ANIMATION_DELAY = 1000 // Delay between animations in milliseconds
 
 const getRandomPosition = (excludePositions: number[]) => {
   let newPos
@@ -138,7 +138,8 @@ export const LogoShowcase: React.FC<Props> = ({ logos }) => {
                     key={idx}
                     style={{
                       opacity: isVisible ? 1 : 0,
-                      transition: `opacity ${ANIMATION_DURATION}ms ease`,
+                      transition: `opacity ${ANIMATION_DURATION}ms ease, filter ${ANIMATION_DURATION}ms ease`,
+                      filter: isVisible ? 'blur(0px)' : 'blur(8px)',
                     }}
                   >
                     {typeof logo.logoMedia === 'object' && logo.logoMedia !== null && (
