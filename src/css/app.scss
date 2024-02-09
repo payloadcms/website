@@ -14,11 +14,14 @@
   --breakpoint-s-width: $breakpoint-s-width;
   --breakpoint-m-width: $breakpoint-m-width;
   --breakpoint-mh-width: $breakpoint-mh-width;
+  --breakpoint-lm-width: $breakpoint-lm-width;
   --breakpoint-l-width: $breakpoint-l-width;
   --breakpoint-xl-width: $breakpoint-xl-width;
   --breakpoint-2xl-width: $breakpoint-2xl-width;
 
   --breakpoint-s-height: $breakpoint-s-height;
+  --breakpoint-xl-height: $breakpoint-xl-height;
+  --breakpoint-2xl-height: $breakpoint-2xl-height;
 
   --scrollbar-width: 17px;
   --page-padding-top: calc(var(--top-bar-height) + var(--header-height));
@@ -32,6 +35,9 @@
   --z-status: 30;
   --z-nav: 40;
   --z-modal: 50;
+
+  --grid-line-dark: rgba(255, 255, 255, 0.1);
+  --grid-line-light: rgba(0, 0, 0, 0.1);
 
   --gutter-h: calc(var(--base) * 10);
   --block-spacing: calc(var(--base) * 7);

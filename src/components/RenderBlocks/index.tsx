@@ -18,6 +18,7 @@ import { FeaturedMediaGallery } from '@blocks/FeaturedMediaGallery'
 import { FormBlock } from '@blocks/FormBlock'
 import { HoverHighlights } from '@blocks/HoverHighlights'
 import { LinkGrid } from '@blocks/LinkGrid'
+import { LogoGrid } from '@blocks/LogoGrid'
 import { MediaBlock } from '@blocks/MediaBlock'
 import { MediaContent } from '@blocks/MediaContent'
 import { Pricing } from '@blocks/Pricing'
@@ -54,6 +55,7 @@ const blockComponents = {
   codeFeature: CodeFeature,
   cta: CallToAction,
   linkGrid: LinkGrid,
+  logoGrid: LogoGrid,
   reusableContentBlock: ReusableContentBlock,
   pricing: Pricing,
   relatedPosts: RelatedPosts,

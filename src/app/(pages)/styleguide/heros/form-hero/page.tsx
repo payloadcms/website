@@ -56,9 +56,6 @@ const hero: Page['hero'] = {
     },
   ],
   links: [],
-  actions: [],
-  buttons: [],
-  adjectives: [],
   form: {
     id: '636270638500b86c17b16b40',
     title: 'Contact',
