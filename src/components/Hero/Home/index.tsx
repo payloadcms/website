@@ -69,7 +69,26 @@ export const HomeHero: React.FC<Page['hero']> = ({
             )}
             {typeof secondaryMedia === 'object' && secondaryMedia !== null && (
               <div className={classes.pedestalMaskedImage}>
-                <BackgroundGrid zIndex={1} />
+                <BackgroundGrid
+                  zIndex={1}
+                  gridLineStyles={{
+                    0: {
+                      background: 'var(--grid-line-dark)',
+                    },
+                    1: {
+                      background: 'var(--grid-line-dark)',
+                    },
+                    2: {
+                      background: 'var(--grid-line-dark)',
+                    },
+                    3: {
+                      background: 'var(--grid-line-dark)',
+                    },
+                    4: {
+                      background: 'var(--grid-line-dark)',
+                    },
+                  }}
+                />
                 <Media resource={secondaryMedia} className={classes.pedestalImage} priority />
               </div>
             )}
