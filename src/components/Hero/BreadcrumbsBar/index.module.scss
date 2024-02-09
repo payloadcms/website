@@ -2,6 +2,9 @@
 
 .wrapper {
   position: relative;
+  background-color: var(--color-base-0);
+  margin-top: calc(var(--page-padding-top) * -1);
+  padding-top: var(--page-padding-top);
 
   & .dropdownContent {
     background-color: var(--color-base-0);
@@ -13,12 +16,16 @@
     & .dropdownContent {
       background-color: var(--color-base-1000);
     }
+
+    & .container {
+      border-bottom-color: var(--grid-line-dark);
+    }
   }
 }
 
+
 .container {
-  border-top: 1px solid var(--theme-elevation-200);
-  border-bottom: 1px solid var(--theme-elevation-200);
+  border-bottom: 1px solid var(--grid-line-light);
   padding: calc(var(--base) * 1.5) 0;
 
   display: flex;

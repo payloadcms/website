@@ -22,7 +22,10 @@ const BreadcrumbsBar: React.FC<Props> = ({ hero, breadcrumbs: breadcrumbsProps }
   }, [breadcrumbsProps])
 
   return (
-    <div className={classes.wrapper} {...(theme ? { 'data-theme': theme } : {})}>
+    <div
+      className={[classes.wrapper].filter(Boolean).join(' ')}
+      {...(theme ? { 'data-theme': theme } : {})}
+    >
       <Gutter>
         <div className={classes.container}>
           <div>{breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}</div>

@@ -24,9 +24,9 @@ export const ContentMediaHero: React.FC<
 
   return (
     <BlockWrapper settings={{ theme }} padding={padding}>
+      <BackgroundGrid zIndex={0} />
       <Gutter>
         <div className={[classes.wrapper, 'grid'].filter(Boolean).join(' ')}>
-          <BackgroundGrid zIndex={0} />
           <div
             className={[classes.sidebar, `cols-4`, 'cols-m-8 start-1'].filter(Boolean).join(' ')}
           >
