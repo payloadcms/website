@@ -35,9 +35,6 @@ export const DefaultHero: React.FC<
         <div className={classes.defaultHero}>
           <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>
             <div className={[`cols-8 start-1`, `cols-m-8`, 'cols-s-8'].filter(Boolean).join(' ')}>
-              {breadcrumbs && (
-                <Breadcrumbs items={breadcrumbs} ellipsis={false} className={classes.label} />
-              )}
               <RichText className={classes.richText} content={richText} />
             </div>
 

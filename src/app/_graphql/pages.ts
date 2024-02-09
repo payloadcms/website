@@ -47,6 +47,10 @@ export const PAGE = `
         id
         title
         hero {
+          enableBreadcrumbsBar
+          breadcrumbsBarLinks {
+            link ${LINK_FIELDS({ disableAppearance: true })}
+          }
           theme
           type
           richText
