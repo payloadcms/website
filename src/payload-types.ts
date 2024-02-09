@@ -1020,7 +1020,12 @@ export interface Page {
                 quote: string;
                 author?: string | null;
                 logo: string | Media;
-                previewImage: string | Media;
+                images?:
+                  | {
+                      image: string | Media;
+                      id?: string | null;
+                    }[]
+                  | null;
                 tabLabel: string;
                 caseStudy: string | CaseStudy;
                 id?: string | null;
@@ -1944,7 +1949,12 @@ export interface ReusableContent {
                 quote: string;
                 author?: string | null;
                 logo: string | Media;
-                previewImage: string | Media;
+                images?:
+                  | {
+                      image: string | Media;
+                      id?: string | null;
+                    }[]
+                  | null;
                 tabLabel: string;
                 caseStudy: string | CaseStudy;
                 id?: string | null;

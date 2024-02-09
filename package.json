@@ -37,6 +37,7 @@
     "escape-html": "^1.0.3",
     "eslint-config-next": "^14.0.2",
     "flatley": "^5.2.0",
+    "framer-motion": "^11.0.3",
     "graphql": "^16.6.0",
     "gray-matter": "^4.0.3",
     "instantsearch.js": "^4.51.1",

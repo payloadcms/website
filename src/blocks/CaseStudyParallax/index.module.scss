@@ -2,6 +2,7 @@
 
 .wrapper {
   position: relative;
+  scroll-timeline: --my-scroller;
 }
 
 .cards {
@@ -10,7 +11,6 @@
 
 .mainGutter {
   position: relative;
-
 }
 
 .card {
@@ -322,5 +322,18 @@
     & .navButtonLabel {
     opacity: 1;
   }
+  }
+}
+
+.parallaxMedia {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+
+
+  & .parallaxItem  {
+    grid-row: 1/2;
+    grid-column: 1/2;
   }
 }

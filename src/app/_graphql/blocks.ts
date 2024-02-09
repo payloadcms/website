@@ -140,7 +140,9 @@ export const CASE_STUDY_PARALLAX = `
       author
       tabLabel
       logo ${MEDIA_FIELDS}
-      previewImage ${MEDIA_FIELDS}
+      images {
+        image ${MEDIA_FIELDS}
+      }
       caseStudy {
         slug
       }
