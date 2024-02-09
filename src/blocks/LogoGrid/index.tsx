@@ -123,14 +123,16 @@ export const LogoGrid: React.FC<LogoGridProps> = ({ logoGridFields }) => {
             <div className={classes.logoShowcase}>
               <div className={[classes.horizontalLine, classes.topHorizontalLine].join(' ')} />
               <div className={classes.horizontalLine} style={{ top: '50%' }} />
-              {[...Array(3)].map((_, idx) => (
-                <div
-                  key={`v-line-${idx}`}
-                  className={classes.verticalLine}
-                  style={{ left: `${(idx + 1) * 25}%` }}
-                />
-              ))}
-
+              {[...Array(3)].map((_, idx) => {
+                if (idx === 1) return null
+                return (
+                  <div
+                    key={`v-line-${idx}`}
+                    className={classes.verticalLine}
+                    style={{ left: `${(idx + 1) * 25}%` }}
+                  />
+                )
+              })}
               <div className={[classes.horizontalLine, classes.bottomHorizontalLine].join(' ')} />
               {Array.from({ length: TOTAL_CELLS }).map((_, index) => {
                 const hasLogo = logoPositions.some(
