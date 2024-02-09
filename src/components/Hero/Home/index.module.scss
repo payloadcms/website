@@ -259,6 +259,10 @@
 
 .secondaryRichTextHeading {
   margin-bottom: calc(var(--base) * 1.5);
+
+  h2 {
+    @include h3;
+  }
 }
 
 .richTextHeading, .secondaryRichTextHeading {
