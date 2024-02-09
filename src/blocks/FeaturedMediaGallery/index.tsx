@@ -2,6 +2,7 @@ import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
@@ -14,12 +15,15 @@ import classes from './index.module.scss'
 export type FeaturedMediaGalleryProps = Extract<
   Page['layout'][0],
   { blockType: 'featuredMediaGallery' }
->
+> & {
+  padding: PaddingProps
+}
 
 export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
   featuredMediaGalleryFields,
+  padding,
 }) => {
-  const { background, alignment, leader, title, description, links, featuredMediaTabs } =
+  const { background, settings, alignment, leader, title, description, links, featuredMediaTabs } =
     featuredMediaGalleryFields || {}
 
   const hasLinks = Array.isArray(links) && links.length > 0
@@ -65,7 +69,9 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
   }, [featuredMediaTabs, activeTabIndex, hasFeaturedMediaTabs])
 
   return (
-    <div
+    <BlockWrapper
+      settings={settings}
+      padding={padding}
       className={[
         classes.featuredMediaGallery,
         background === 'dark' ? classes.darkBg : classes.blackBg,
@@ -348,6 +354,6 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
           )}
         </div>
       </Gutter>
-    </div>
+    </BlockWrapper>
   )
 }

@@ -49,6 +49,9 @@ export interface CaseStudy {
     | (
         | {
             ctaFields: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
               richText: {
                 [k: string]: unknown;
               }[];
@@ -83,6 +86,9 @@ export interface CaseStudy {
           }
         | {
             cardGridFields: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
               richText: {
                 [k: string]: unknown;
               }[];
@@ -143,6 +149,9 @@ export interface CaseStudy {
           }
         | {
             caseStudiesHighlightFields: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
               richText: {
                 [k: string]: unknown;
               }[];
@@ -154,6 +163,9 @@ export interface CaseStudy {
           }
         | {
             codeFeatureFields: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
               forceDarkBackground?: boolean | null;
               heading: string;
               richText: {
@@ -198,6 +210,9 @@ export interface CaseStudy {
           }
         | {
             contentFields: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
               useLeadingHeader?: boolean | null;
               leadingHeader?:
                 | {
@@ -225,6 +240,9 @@ export interface CaseStudy {
           }
         | {
             contentGridFields?: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
               forceDarkBackground?: boolean | null;
               useLeadingHeader?: boolean | null;
               leadingHeader?:
@@ -247,6 +265,9 @@ export interface CaseStudy {
           }
         | {
             formFields: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
               container?: boolean | null;
               richText: {
                 [k: string]: unknown;
@@ -259,6 +280,9 @@ export interface CaseStudy {
           }
         | {
             hoverHighlightsFields: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
               richText: {
                 [k: string]: unknown;
               }[];
@@ -297,6 +321,9 @@ export interface CaseStudy {
           }
         | {
             linkGridFields?: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
               links?:
                 | {
                     link: {
@@ -328,6 +355,9 @@ export interface CaseStudy {
           }
         | {
             mediaBlockFields: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
               position?: ('default' | 'wide') | null;
               media: string | Media;
               caption?:
@@ -342,6 +372,9 @@ export interface CaseStudy {
           }
         | {
             mediaContentFields: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
               alignment?: ('contentMedia' | 'mediaContent') | null;
               container?: boolean | null;
               richText: {
@@ -375,6 +408,9 @@ export interface CaseStudy {
           }
         | {
             pricingFields?: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
               plans?:
                 | {
                     name: string;
@@ -419,6 +455,9 @@ export interface CaseStudy {
           }
         | {
             reusableContentBlockFields: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
               reusableContent: string | ReusableContent;
             };
             id?: string | null;
@@ -427,6 +466,9 @@ export interface CaseStudy {
           }
         | {
             sliderFields: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
               useLeadingHeader?: boolean | null;
               leadingHeader?:
                 | {
@@ -456,11 +498,17 @@ export interface CaseStudy {
           }
         | {
             stepsFields: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
               steps: {
                 layout?:
                   | (
                       | {
                           codeFeatureFields: {
+                            settings?: {
+                              theme?: ('light' | 'dark') | null;
+                            };
                             forceDarkBackground?: boolean | null;
                             heading: string;
                             richText: {
@@ -505,6 +553,9 @@ export interface CaseStudy {
                         }
                       | {
                           contentFields: {
+                            settings?: {
+                              theme?: ('light' | 'dark') | null;
+                            };
                             useLeadingHeader?: boolean | null;
                             leadingHeader?:
                               | {
@@ -534,6 +585,9 @@ export interface CaseStudy {
                         }
                       | {
                           hoverHighlightsFields: {
+                            settings?: {
+                              theme?: ('light' | 'dark') | null;
+                            };
                             richText: {
                               [k: string]: unknown;
                             }[];
@@ -572,6 +626,9 @@ export interface CaseStudy {
                         }
                       | {
                           stickyHighlightsFields?: {
+                            settings?: {
+                              theme?: ('light' | 'dark') | null;
+                            };
                             highlights?:
                               | {
                                   richText: {
@@ -619,6 +676,9 @@ export interface CaseStudy {
           }
         | {
             stickyHighlightsFields?: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
               highlights?:
                 | {
                     richText: {
@@ -687,6 +747,7 @@ export interface Page {
   fullTitle?: string | null;
   hero: {
     type: 'default' | 'contentMedia' | 'centeredContent' | 'form' | 'home' | 'livestream';
+    theme?: ('light' | 'dark') | null;
     livestream?: {
       id?: string | null;
       date: string;
@@ -812,6 +873,9 @@ export interface Page {
   layout: (
     | {
         ctaFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           richText: {
             [k: string]: unknown;
           }[];
@@ -846,6 +910,9 @@ export interface Page {
       }
     | {
         cardGridFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           richText: {
             [k: string]: unknown;
           }[];
@@ -906,6 +973,9 @@ export interface Page {
       }
     | {
         caseStudyCardFields?: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           pixels?: boolean | null;
           cards?:
             | {
@@ -923,6 +993,9 @@ export interface Page {
       }
     | {
         caseStudiesHighlightFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           richText: {
             [k: string]: unknown;
           }[];
@@ -934,6 +1007,9 @@ export interface Page {
       }
     | {
         caseStudyParallaxFields?: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           items?:
             | {
                 quote: string;
@@ -952,6 +1028,9 @@ export interface Page {
       }
     | {
         codeFeatureFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           forceDarkBackground?: boolean | null;
           heading: string;
           richText: {
@@ -996,6 +1075,9 @@ export interface Page {
       }
     | {
         contentFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           useLeadingHeader?: boolean | null;
           leadingHeader?:
             | {
@@ -1023,6 +1105,9 @@ export interface Page {
       }
     | {
         contentGridFields?: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           forceDarkBackground?: boolean | null;
           useLeadingHeader?: boolean | null;
           leadingHeader?:
@@ -1045,6 +1130,9 @@ export interface Page {
       }
     | {
         formFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           container?: boolean | null;
           richText: {
             [k: string]: unknown;
@@ -1057,6 +1145,9 @@ export interface Page {
       }
     | {
         hoverHighlightsFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           richText: {
             [k: string]: unknown;
           }[];
@@ -1095,6 +1186,9 @@ export interface Page {
       }
     | {
         linkGridFields?: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           links?:
             | {
                 link: {
@@ -1126,6 +1220,9 @@ export interface Page {
       }
     | {
         logoGridFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           richText: {
             [k: string]: unknown;
           }[];
@@ -1162,6 +1259,9 @@ export interface Page {
       }
     | {
         mediaBlockFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           position?: ('default' | 'wide') | null;
           media: string | Media;
           caption?:
@@ -1176,6 +1276,9 @@ export interface Page {
       }
     | {
         featuredMediaGalleryFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           background?: ('black' | 'dark') | null;
           alignment?: ('contentMediaGallery' | 'mediaGalleryContent') | null;
           leader?: string | null;
@@ -1223,6 +1326,9 @@ export interface Page {
       }
     | {
         mediaContentFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           alignment?: ('contentMedia' | 'mediaContent') | null;
           container?: boolean | null;
           richText: {
@@ -1256,6 +1362,9 @@ export interface Page {
       }
     | {
         pricingFields?: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           plans?:
             | {
                 name: string;
@@ -1300,6 +1409,9 @@ export interface Page {
       }
     | {
         reusableContentBlockFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           reusableContent: string | ReusableContent;
         };
         id?: string | null;
@@ -1308,6 +1420,9 @@ export interface Page {
       }
     | {
         sliderFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           useLeadingHeader?: boolean | null;
           leadingHeader?:
             | {
@@ -1337,11 +1452,17 @@ export interface Page {
       }
     | {
         stepsFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           steps: {
             layout?:
               | (
                   | {
                       codeFeatureFields: {
+                        settings?: {
+                          theme?: ('light' | 'dark') | null;
+                        };
                         forceDarkBackground?: boolean | null;
                         heading: string;
                         richText: {
@@ -1386,6 +1507,9 @@ export interface Page {
                     }
                   | {
                       contentFields: {
+                        settings?: {
+                          theme?: ('light' | 'dark') | null;
+                        };
                         useLeadingHeader?: boolean | null;
                         leadingHeader?:
                           | {
@@ -1415,6 +1539,9 @@ export interface Page {
                     }
                   | {
                       hoverHighlightsFields: {
+                        settings?: {
+                          theme?: ('light' | 'dark') | null;
+                        };
                         richText: {
                           [k: string]: unknown;
                         }[];
@@ -1453,6 +1580,9 @@ export interface Page {
                     }
                   | {
                       stickyHighlightsFields?: {
+                        settings?: {
+                          theme?: ('light' | 'dark') | null;
+                        };
                         highlights?:
                           | {
                               richText: {
@@ -1500,6 +1630,9 @@ export interface Page {
       }
     | {
         stickyHighlightsFields?: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           highlights?:
             | {
                 richText: {
@@ -1567,6 +1700,9 @@ export interface Post {
   content: (
     | {
         bannerFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           type?: ('default' | 'success' | 'warning' | 'error') | null;
           addCheckmark?: boolean | null;
           content: {
@@ -1579,6 +1715,9 @@ export interface Post {
       }
     | {
         blogContentFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           richText: {
             [k: string]: unknown;
           }[];
@@ -1589,6 +1728,9 @@ export interface Post {
       }
     | {
         codeFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           language?: ('none' | 'js' | 'ts') | null;
           code: string;
         };
@@ -1598,6 +1740,9 @@ export interface Post {
       }
     | {
         blogMarkdownFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           markdown: string;
         };
         id?: string | null;
@@ -1606,6 +1751,9 @@ export interface Post {
       }
     | {
         mediaBlockFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           position?: ('default' | 'wide') | null;
           media: string | Media;
           caption?:
@@ -1620,6 +1768,9 @@ export interface Post {
       }
     | {
         reusableContentBlockFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           reusableContent: string | ReusableContent;
         };
         id?: string | null;
@@ -1646,6 +1797,9 @@ export interface ReusableContent {
   layout: (
     | {
         bannerFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           type?: ('default' | 'success' | 'warning' | 'error') | null;
           addCheckmark?: boolean | null;
           content: {
@@ -1658,6 +1812,9 @@ export interface ReusableContent {
       }
     | {
         blogContentFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           richText: {
             [k: string]: unknown;
           }[];
@@ -1668,6 +1825,9 @@ export interface ReusableContent {
       }
     | {
         blogMarkdownFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           markdown: string;
         };
         id?: string | null;
@@ -1676,6 +1836,9 @@ export interface ReusableContent {
       }
     | {
         ctaFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           richText: {
             [k: string]: unknown;
           }[];
@@ -1710,6 +1873,9 @@ export interface ReusableContent {
       }
     | {
         cardGridFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           richText: {
             [k: string]: unknown;
           }[];
@@ -1770,6 +1936,9 @@ export interface ReusableContent {
       }
     | {
         caseStudyCardFields?: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           pixels?: boolean | null;
           cards?:
             | {
@@ -1787,6 +1956,9 @@ export interface ReusableContent {
       }
     | {
         caseStudiesHighlightFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           richText: {
             [k: string]: unknown;
           }[];
@@ -1798,6 +1970,9 @@ export interface ReusableContent {
       }
     | {
         caseStudyParallaxFields?: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           items?:
             | {
                 quote: string;
@@ -1816,6 +1991,9 @@ export interface ReusableContent {
       }
     | {
         codeFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           language?: ('none' | 'js' | 'ts') | null;
           code: string;
         };
@@ -1825,6 +2003,9 @@ export interface ReusableContent {
       }
     | {
         codeFeatureFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           forceDarkBackground?: boolean | null;
           heading: string;
           richText: {
@@ -1869,6 +2050,9 @@ export interface ReusableContent {
       }
     | {
         contentFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           useLeadingHeader?: boolean | null;
           leadingHeader?:
             | {
@@ -1896,6 +2080,9 @@ export interface ReusableContent {
       }
     | {
         contentGridFields?: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           forceDarkBackground?: boolean | null;
           useLeadingHeader?: boolean | null;
           leadingHeader?:
@@ -1919,6 +2106,9 @@ export interface ReusableContent {
     | ExampleTabsBlock
     | {
         formFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           container?: boolean | null;
           richText: {
             [k: string]: unknown;
@@ -1931,6 +2121,9 @@ export interface ReusableContent {
       }
     | {
         hoverHighlightsFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           richText: {
             [k: string]: unknown;
           }[];
@@ -1969,6 +2162,9 @@ export interface ReusableContent {
       }
     | {
         linkGridFields?: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           links?:
             | {
                 link: {
@@ -2000,6 +2196,9 @@ export interface ReusableContent {
       }
     | {
         logoGridFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           richText: {
             [k: string]: unknown;
           }[];
@@ -2036,6 +2235,9 @@ export interface ReusableContent {
       }
     | {
         mediaBlockFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           position?: ('default' | 'wide') | null;
           media: string | Media;
           caption?:
@@ -2050,6 +2252,9 @@ export interface ReusableContent {
       }
     | {
         featuredMediaGalleryFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           background?: ('black' | 'dark') | null;
           alignment?: ('contentMediaGallery' | 'mediaGalleryContent') | null;
           leader?: string | null;
@@ -2097,6 +2302,9 @@ export interface ReusableContent {
       }
     | {
         mediaContentFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           alignment?: ('contentMedia' | 'mediaContent') | null;
           container?: boolean | null;
           richText: {
@@ -2130,6 +2338,9 @@ export interface ReusableContent {
       }
     | {
         pricingFields?: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           plans?:
             | {
                 name: string;
@@ -2174,6 +2385,9 @@ export interface ReusableContent {
       }
     | {
         sliderFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           useLeadingHeader?: boolean | null;
           leadingHeader?:
             | {
@@ -2203,11 +2417,17 @@ export interface ReusableContent {
       }
     | {
         stepsFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           steps: {
             layout?:
               | (
                   | {
                       codeFeatureFields: {
+                        settings?: {
+                          theme?: ('light' | 'dark') | null;
+                        };
                         forceDarkBackground?: boolean | null;
                         heading: string;
                         richText: {
@@ -2252,6 +2472,9 @@ export interface ReusableContent {
                     }
                   | {
                       contentFields: {
+                        settings?: {
+                          theme?: ('light' | 'dark') | null;
+                        };
                         useLeadingHeader?: boolean | null;
                         leadingHeader?:
                           | {
@@ -2281,6 +2504,9 @@ export interface ReusableContent {
                     }
                   | {
                       hoverHighlightsFields: {
+                        settings?: {
+                          theme?: ('light' | 'dark') | null;
+                        };
                         richText: {
                           [k: string]: unknown;
                         }[];
@@ -2319,6 +2545,9 @@ export interface ReusableContent {
                     }
                   | {
                       stickyHighlightsFields?: {
+                        settings?: {
+                          theme?: ('light' | 'dark') | null;
+                        };
                         highlights?:
                           | {
                               richText: {
@@ -2366,6 +2595,9 @@ export interface ReusableContent {
       }
     | {
         stickyHighlightsFields?: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
           highlights?:
             | {
                 richText: {

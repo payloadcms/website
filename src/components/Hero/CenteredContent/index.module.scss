@@ -2,18 +2,6 @@
 
 .container {
   position: relative;
-  padding-top: calc(var(--base) * 8.65);
-  padding-bottom: calc(var(--base) * 8.65);
-
-  @include large-break {
-    padding-top: calc(var(--base) * 6);
-    padding-bottom: calc(var(--base) * 6);
-  }
-
-  @include mid-break {
-    padding-top: calc(var(--base) * 3);
-    padding-bottom: calc(var(--base) * 3);
-  }
 }
 
 .content {

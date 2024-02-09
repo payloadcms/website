@@ -1,7 +1,8 @@
-import React, { useEffect, useId, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useId, useRef, useState } from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { CMSLink } from '@components/CMSLink'
 import Code from '@components/Code'
 import { Gutter } from '@components/Gutter'
@@ -11,15 +12,18 @@ import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
-type Props = Extract<Page['layout'][0], { blockType: 'codeFeature' }>
+type Props = Extract<Page['layout'][0], { blockType: 'codeFeature' }> & {
+  className?: string
+  padding: PaddingProps
+}
 
-export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
+export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, padding }) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [indicatorStyle, setIndicatorStyle] = useState({ width: '0', left: '0' })
   const [tabWrapperWidth, setTabWrapperWidth] = useState(0)
   const tabWrapperRef = useRef<HTMLDivElement>(null)
   const activeTabRef = useRef<HTMLButtonElement>(null)
-  const { heading, richText, forceDarkBackground, codeTabs, links } = codeFeatureFields
+  const { heading, richText, forceDarkBackground, codeTabs, links, settings } = codeFeatureFields
   const hasLinks = Boolean(links?.length && links.length > 0)
   const id = useId()
 
@@ -81,20 +85,19 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
   }, [activeIndex])
 
   return (
-    <div
-      className={[classes.wrapper, forceDarkBackground && classes.darkTheme]
-        .filter(Boolean)
-        .join(' ')}
-      {...(forceDarkBackground ? { 'data-theme': 'dark' } : {})}
+    <BlockWrapper
+      settings={settings}
+      padding={padding}
+      className={[classes.wrapper, className].filter(Boolean).join(' ')}
       id={id}
     >
+      <BackgroundGrid zIndex={0} className={classes.backgroundGrid} />
       <Gutter>
         <div
           className={[classes.container, hasLinks && classes.hasLinks, 'grid']
             .filter(Boolean)
             .join(' ')}
         >
-          <BackgroundGrid ignoreGutter className={classes.backgroundGrid} />
           <div className={[classes.scanlineWrapper, 'start-9 cols-8'].filter(Boolean).join(' ')}>
             <BackgroundScanline
               className={[classes.scanlineDesktop].filter(Boolean).join(' ')}
@@ -198,6 +201,6 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
           </div>
         </div>
       </Gutter>
-    </div>
+    </BlockWrapper>
   )
 }

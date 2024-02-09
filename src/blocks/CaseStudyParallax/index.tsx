@@ -3,7 +3,7 @@ import * as React from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
-import { BlockSpacing } from '@components/BlockSpacing'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
@@ -13,9 +13,14 @@ import { useResize } from '@root/utilities/use-resize'
 
 import classes from './index.module.scss'
 
-type Props = Extract<Page['layout'][0], { blockType: 'caseStudyParallax' }>
+type ContentProps = Extract<Page['layout'][0], { blockType: 'caseStudyParallax' }>
 
-type StickyBlockProps = Props & {
+type Props = ContentProps & {
+  className?: string
+  padding: PaddingProps
+}
+
+type StickyBlockProps = ContentProps & {
   currentIndex: number
 }
 
@@ -96,7 +101,7 @@ export const QuoteStickyBlock: React.FC<StickyBlockProps> = props => {
 }
 
 export const CaseStudyParallax: React.FC<Props> = props => {
-  const { caseStudyParallaxFields } = props
+  const { caseStudyParallaxFields, padding } = props
   const activeIndex = React.useRef(0)
   const [scrollProgress, setScrollProgress] = React.useState<number>(0)
   const [delayNavScroll, setDelayNavScroll] = React.useState<boolean>(false)
@@ -226,16 +231,16 @@ export const CaseStudyParallax: React.FC<Props> = props => {
 
   if (caseStudyParallaxFields?.items && caseStudyParallaxFields?.items?.length > 0) {
     return (
-      <BlockSpacing className={classes.caseStudyCards}>
+      <BlockWrapper settings={caseStudyParallaxFields.settings} padding={padding}>
+        <BackgroundGrid />
         <Gutter className={classes.mainGutter}>
-          <BackgroundGrid />
-          <div
+          <Gutter
             className={[classes.scanlineWrapper, 'grid cols-8 start-9'].filter(Boolean).join(' ')}
           >
             <BackgroundScanline
               className={[classes.scanline, 'cols-8 start-11'].filter(Boolean).join(' ')}
             />
-          </div>
+          </Gutter>
           <div className={[classes.mainTrack, 'grid'].filter(Boolean).join(' ')} ref={containerRef}>
             <QuoteStickyBlock currentIndex={activeIndex.current} {...props} />
             {caseStudyParallaxFields?.items.map((item, index) => {
@@ -276,7 +281,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
 
           <div className={classes.navWrapper}>
             <div className={[classes.nav].filter(Boolean).join(' ')} style={variableStyle}>
-              <BackgroundGrid className={classes.navBackgroundGrid} />
+              <BackgroundGrid zIndex={0} className={classes.navBackgroundGrid} />
 
               <Gutter>
                 <div
@@ -317,7 +322,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
             </div>
           </div>
         </Gutter>
-      </BlockSpacing>
+      </BlockWrapper>
     )
   }
 

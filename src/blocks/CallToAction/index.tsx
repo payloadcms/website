@@ -1,33 +1,35 @@
-import React, { Fragment } from 'react'
+'use client'
+import React from 'react'
 import { ArrowIcon } from '@icons/ArrowIcon'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
-import { BlockSpacing } from '@components/BlockSpacing'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { CMSLink } from '@components/CMSLink'
-import CreatePayloadApp from '@components/CreatePayloadApp'
 import { Gutter } from '@components/Gutter'
-import { Label } from '@components/Label'
 import { RichText } from '@components/RichText'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon'
 import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
-export type CallToActionProps = Extract<Page['layout'][0], { blockType: 'cta' }>
+export type CallToActionProps = Extract<Page['layout'][0], { blockType: 'cta' }> & {
+  padding?: PaddingProps
+}
 
 export const CallToAction: React.FC<CallToActionProps> = props => {
   const {
-    ctaFields: { richText, links },
+    ctaFields: { richText, links, settings },
+    padding,
   } = props
 
   const hasLinks = links && links.length > 0
 
   return (
-    <BlockSpacing>
+    <BlockWrapper settings={settings} padding={padding}>
+      <BackgroundGrid zIndex={0} />
       <Gutter className={classes.callToAction}>
         <div className={[classes.wrapper].filter(Boolean).join(' ')}>
-          <BackgroundGrid ignoreGutter />
           <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>
             <div className={[classes.contentWrapper, 'cols-7 cols-m-8'].filter(Boolean).join(' ')}>
               <RichText content={richText} className={classes.content} />
@@ -70,6 +72,6 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
           </div>
         </div>
       </Gutter>
-    </BlockSpacing>
+    </BlockWrapper>
   )
 }

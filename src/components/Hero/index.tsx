@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { BlocksProp } from '@components/RenderBlocks'
 import { Page } from '@root/payload-types'
 import { CenteredContent } from './CenteredContent'
 import { ContentMediaHero } from './ContentMedia'
@@ -19,6 +20,7 @@ const heroes = {
 
 export const Hero: React.FC<{
   page: Page
+  firstContentBlock?: BlocksProp
 }> = props => {
   const {
     page: {
@@ -26,12 +28,15 @@ export const Hero: React.FC<{
       breadcrumbs,
       hero: { type },
     },
+    firstContentBlock,
   } = props
 
   const HeroToRender = heroes[type] as any
 
   if (HeroToRender) {
-    return <HeroToRender {...hero} breadcrumbs={breadcrumbs} />
+    return (
+      <HeroToRender {...hero} firstContentBlock={firstContentBlock} breadcrumbs={breadcrumbs} />
+    )
   }
 
   return null

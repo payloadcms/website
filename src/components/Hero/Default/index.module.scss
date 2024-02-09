@@ -2,13 +2,6 @@
 
 .defaultHero {
   position: relative;
-  padding-top: calc(var(--base) * 5.4);
-  padding-bottom: calc(var(--base) * 5.4);
-
-  @include small-break {
-    padding-top: calc(var(--base) * 3);
-    padding-bottom: calc(var(--base) * 3);
-  }
 }
 
 .label {
