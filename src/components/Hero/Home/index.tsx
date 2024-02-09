@@ -3,17 +3,24 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BlockWrapper } from '@components/BlockWrapper'
 import { ChangeHeaderTheme } from '@components/ChangeHeaderTheme'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
+import { useGetHeroPadding } from '@components/Hero/useGetHeroPadding'
 import { LogoShowcase } from '@components/LogoShowcase'
 import { Media } from '@components/Media'
+import { BlocksProp } from '@components/RenderBlocks'
 import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
-export const HomeHero: React.FC<Page['hero']> = ({
+export const HomeHero: React.FC<
+  Page['hero'] & {
+    firstContentBlock?: BlocksProp
+  }
+> = ({
   richText,
   description,
   primaryButtons,
@@ -24,11 +31,13 @@ export const HomeHero: React.FC<Page['hero']> = ({
   secondaryMedia,
   featureVideo,
   logos,
+  firstContentBlock,
 }) => {
   const laptopMediaRef = useRef<HTMLDivElement | null>(null)
   const mobileLaptopMediaRef = useRef<HTMLDivElement | null>(null)
   const [laptopMediaHeight, setLaptopMediaHeight] = useState(0)
   const [mobileMediaWrapperHeight, setMobileMediaWrapperHeight] = useState(0)
+  const padding = useGetHeroPadding('light', firstContentBlock)
 
   useEffect(() => {
     const updateLaptopMediaHeight = () => {
@@ -55,8 +64,8 @@ export const HomeHero: React.FC<Page['hero']> = ({
   }, [])
 
   return (
-    <div className={classes.homeHero}>
-      <ChangeHeaderTheme theme="light">
+    <ChangeHeaderTheme theme="light">
+      <BlockWrapper settings={{ theme: 'light' }} padding={padding} className={classes.homeHero}>
         <div className={classes.background}>
           <div className={classes.imagesContainerWrapper}>
             {typeof media === 'object' && media !== null && (
@@ -103,7 +112,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
           <div className={classes.primaryContentWrap} data-theme="light">
             <BackgroundGrid zIndex={0} />
             <div className={[classes.primaryContent, 'grid'].filter(Boolean).join(' ')}>
-              <div className={['cols-8 start-1'].filter(Boolean).join(' ')}>
+              <div className={['cols-8 stthemeart-1'].filter(Boolean).join(' ')}>
                 <RichText className={classes.richTextHeading} content={richText} />
                 <RichText className={classes.richTextDescription} content={description} />
                 {Array.isArray(primaryButtons) && (
@@ -216,7 +225,7 @@ export const HomeHero: React.FC<Page['hero']> = ({
             </div>
           </div>
         </Gutter>
-      </ChangeHeaderTheme>
-    </div>
+      </BlockWrapper>
+    </ChangeHeaderTheme>
   )
 }
