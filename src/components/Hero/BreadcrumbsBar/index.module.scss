@@ -20,6 +20,10 @@
     & .container {
       border-bottom-color: var(--grid-line-dark);
     }
+
+    & .containerMobile {
+      border-bottom-color: var(--grid-line-dark);
+    }
   }
 }
 
@@ -50,8 +54,7 @@
 }
 
 .containerMobile {
-  border-top: 1px solid var(--theme-elevation-200);
-  border-bottom: 1px solid var(--theme-elevation-200);
+  border-bottom: 1px solid var(--grid-line-light);
   padding: calc(var(--base) * 1) 0;
   display: none;
 
@@ -83,7 +86,8 @@
       transition: transform 0.1s ease-in-out;
       transform: rotate(90deg);
       height: auto;
-      width: calc(var(--base) * 0.3);
+      width: calc(var(--base) * 0.4);
+      margin-right: calc(var(--base) * 0.4);
     }
   }
 
