@@ -28,15 +28,14 @@ type StickyBlockProps = ContentProps & {
 type ParallaxProps = {
   media: { image: string | MediaType }[]
   className?: string
-  scrollRef?: React.RefObject<HTMLElement>
 }
 
-export const MediaParallax: React.FC<ParallaxProps> = ({ media, className, scrollRef }) => {
+export const MediaParallax: React.FC<ParallaxProps> = ({ media, className }) => {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const [scrollValue, setScrollValue] = React.useState(0)
   const { scrollY, scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['center start', 'end end'],
+    offset: ['end start', 'start end'],
   })
 
   React.useEffect(() => {
@@ -55,10 +54,8 @@ export const MediaParallax: React.FC<ParallaxProps> = ({ media, className, scrol
       className={[classes.parallaxMedia, className].filter(Boolean).join(' ')}
     >
       {media?.map((image, index) => {
-        const isEven = index === 0 || index % 2 === 0
-        const multiplier = Math.min(index > 1 ? 1 + index / 10 : 1, 1.5)
-        const transformerDown = transform([0, 1], [-10 * multiplier, 30 * multiplier])
-        const transformerUp = transform([0, 1], [30 * multiplier, -20 * multiplier])
+        const MULTIPLIER = Math.min(1 + index / 5, 2)
+        const transformer = transform([0, 1], [-50 * MULTIPLIER, 50 * MULTIPLIER])
 
         return (
           <motion.div
@@ -68,7 +65,7 @@ export const MediaParallax: React.FC<ParallaxProps> = ({ media, className, scrol
               ...(index === 0
                 ? {}
                 : {
-                    translateY: isEven ? transformerUp(scrollValue) : transformerDown(scrollValue),
+                    translateY: transformer(scrollValue),
                   }),
             }}
           >
@@ -332,7 +329,6 @@ export const CaseStudyParallax: React.FC<Props> = props => {
                       className={[classes.media, 'cols-8 start-9 start-m-1']
                         .filter(Boolean)
                         .join(' ')}
-                      scrollRef={containerRef}
                     />
                   ) : null}
                   {/* <div
