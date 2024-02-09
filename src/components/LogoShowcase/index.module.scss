@@ -150,12 +150,11 @@
     }
   }
 }
-  
 
 :global([data-theme="light"]) {
   .logoShowcase {
     .horizontalLine, .verticalLine {
-      background: var(--grid-line-light);
+      background: var(--grid-line-dark);
     }
   }
 }
