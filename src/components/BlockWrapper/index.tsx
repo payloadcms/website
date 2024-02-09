@@ -11,7 +11,7 @@ export type Settings = Extract<
 >['cardGridFields']['settings']
 
 export type PaddingProps = {
-  top?: 'large' | 'small'
+  top?: 'large' | 'small' | 'hero'
   bottom?: 'large' | 'small'
 }
 
