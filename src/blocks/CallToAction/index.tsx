@@ -45,7 +45,7 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
                   .join(' ')}
                 crosshairs={['top-left', 'bottom-left']}
               />
-              {/* Double printing the BackgroundGrid component here so that it displays above the scanline */}
+
               <CrosshairIcon className={[classes.crosshairTopLeft].filter(Boolean).join(' ')} />
               <CrosshairIcon className={[classes.crosshairBottomRight].filter(Boolean).join(' ')} />
 
