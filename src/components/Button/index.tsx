@@ -131,7 +131,10 @@ const ButtonContent: React.FC<ButtonProps> = props => {
             <Icon className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')} />
           )}
         </div>
-        <div className={[classes.content, classes.hoverLabel].filter(Boolean).join(' ')}>
+        <div
+          aria-hidden={true}
+          className={[classes.content, classes.hoverLabel].filter(Boolean).join(' ')}
+        >
           {label && (
             <div
               className={[
