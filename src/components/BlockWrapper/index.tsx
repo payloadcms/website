@@ -20,6 +20,12 @@ type Props = {
   className?: string
   children: React.ReactNode
   padding?: PaddingProps
+  /**
+   * Controls whether or not to set the padding or just provide the css variables
+   *
+   * Useful for complex components that need to set padding on a child element
+   */
+  setPadding?: boolean
 } & React.HTMLAttributes<HTMLDivElement>
 
 export const BlockWrapper: React.FC<Props> = ({
@@ -27,6 +33,7 @@ export const BlockWrapper: React.FC<Props> = ({
   className,
   children,
   padding,
+  setPadding = true,
   ...rest
 }) => {
   const theme = settings?.theme
@@ -38,6 +45,7 @@ export const BlockWrapper: React.FC<Props> = ({
         theme && classes[`theme-${theme}`],
         padding?.top && classes[`padding-top-${padding?.top}`],
         padding?.bottom && classes[`padding-bottom-${padding?.bottom}`],
+        setPadding && classes.setPadding,
         className,
       ]
         .filter(Boolean)
