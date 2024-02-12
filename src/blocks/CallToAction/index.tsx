@@ -46,7 +46,6 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
                 crosshairs={['top-left', 'bottom-left']}
               />
               {/* Double printing the BackgroundGrid component here so that it displays above the scanline */}
-              <BackgroundGrid ignoreGutter />
               <CrosshairIcon className={[classes.crosshairTopLeft].filter(Boolean).join(' ')} />
               <CrosshairIcon className={[classes.crosshairBottomRight].filter(Boolean).join(' ')} />
 
@@ -59,7 +58,9 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
                       appearance={'default'}
                       buttonProps={{
                         appearance: 'default',
-                        hideBorders: true,
+                        hideHorizontalBorders: true,
+                        hideBottomBorderExceptLast: true,
+                        forceBackground: true,
                       }}
                       className={[classes.button].filter(Boolean).join(' ')}
                     >
