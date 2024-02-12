@@ -15,27 +15,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   --button-padding: calc(var(--base) * 0.5) var(--base);
   height: calc(var(--base) * 2.5); // match input height
 
-   &::before {
-    content: '';
-    width: calc(100% - 2px);
-    position: absolute;
-    height:100%;
-    left: 1px;
-    top:0;
-    z-index: -1;
-  }
-
-  &::after {
-    content: '';
-    width: 0%;
-    position: absolute;
-    height:100%;
-    left: 1px;
-    top:0;
-    z-index: 2;
-    box-shadow: 0px 10px 40px -12.67px rgba(255, 255, 255, 0.15);
-  }
-
   &:focus-visible {
     @include outline;
   }
@@ -43,14 +22,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   &:disabled {
     cursor: not-allowed;
     opacity: .25;
-  }
-}
-
-:global([data-theme="light"]) {
-  .button {
-    &::after {
-      box-shadow: 0px 10px 40px -12.67px rgba(0, 2, 4, 0.5);
-    }
   }
 }
 
@@ -103,34 +74,73 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .appearance {
   &--default {
     display: inline-flex;
-    border: 1px solid var(--theme-elevation-250);
+    border: 1px solid var(--grid-line-dark);
     position: relative;
     padding: unset;
     color: var(--theme-elevation-1000);
     height: unset;
-    transition: background-position 550ms $curve;
+    transition: background-position 300ms $curve;
+    overflow: hidden;
 
-    &::before {
-      background-color: var(--theme-elevation-100);
+    & .contentWrapper {
+      width: 100%;
     }
 
-    &::after {
-      transition: width 550ms $curve;
+    & .defaultLabel {
+      position: relative;
+      padding: calc(var(--base) * 1.5) var(--base);
+      width: 100%;
+      transition: transform 300ms $curve;
+
+      & .label {
+        transform: rotate(0);
+        transition: transform 300ms 150ms $curve;
+        transform-origin: bottom left;
+        color: var(--theme-elevation-1000);
+      }
+    }
+
+    &.forceBackground {
+      & .defaultLabel {
+        &::before {
+          content: '';
+          width: calc(100% - 2px);
+          position: absolute;
+          height:100%;
+          left: 1px;
+          top:0;
+          z-index: -1;
+          background-color: var(--theme-elevation-0);
+        }
+      }
+    }
+
+    & .hoverLabel {
+      padding: calc(var(--base) * 1.5) var(--base);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: calc(100% + 2px);
+      transform: translateY(100%);
+      transition: transform 300ms $curve;
+      color: var(--theme-elevation-0);
       background-color: var(--theme-elevation-1000);
+
+      & .label {
+        transform: rotate(3deg);
+        transition: transform 300ms 150ms $curve;
+        transform-origin: bottom left;
+        color: var(--theme-elevation-0);
+      }
     }
 
     .content {
       padding: calc(var(--base) * 1.5) var(--base);
 
       .label {
-        color: transparent;
-        background-image: linear-gradient(to right, var(--theme-elevation-100) 50%, var(--theme-elevation-1000) 50%);
-        background-size: 200% 100%;
-        background-position: right bottom;
-        -webkit-background-clip: text;
-        background-clip: text;
-        transition: background-position 450ms $curve;
         margin: 0;
+
       }
 
       .icon--arrow {
@@ -139,25 +149,31 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     }
 
     &:hover {
-      &::after {
-        width: calc(100% - 1px);
-      }
+      .defaultLabel {
+        transform: translateY(-100%);
 
-      color: var(--theme-elevation-100);
-
-      .content {
-        .label, .icon--arrow {
-          background-position: left bottom;
+        .label {
+          transform: rotate(-3deg);
         }
       }
 
-      .icon--arrow {
-        transform: none;
+      .hoverLabel {
+        transform: translateY(0);
+
+        .label {
+          transform: rotate(0deg);
+        }
       }
+
+      color: var(--theme-elevation-0);
     }
 
     @include mid-break {
       .content {
+        padding: var(--base);
+      }
+
+      & .defaultLabel, & .hoverLabel  {
         padding: var(--base);
       }
     }
@@ -338,20 +354,16 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 :global([data-theme="light"]) {
   .appearance {
     &--default {
-      &::before {
-        background-color: var(--theme-elevation-0);
-      }
+      border-color: var(--grid-line-light);
 
-      &::after {
-        transition: width 550ms $curve;
-        background-color: var(--theme-elevation-1000);
-      }
+    }
+  }
+}
 
-      color: var(--theme-elevation-900);
-
-      &:hover {
-        color: var(--theme-elevation-100);
-      }
+:global([data-theme="dark"]) {
+  .appearance {
+    &--default {
+      border-color: var(--grid-line-dark);
     }
   }
 }

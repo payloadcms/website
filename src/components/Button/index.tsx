@@ -54,6 +54,10 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
    * Hides the bottom border except for the last of type
    */
   hideBottomBorderExceptLast?: boolean
+  /**
+   * Forces a background on the default button appearance
+   */
+  forceBackground?: boolean
 }
 
 const icons = {
@@ -100,9 +104,56 @@ const generateHref = (args: GenerateSlugType): string => {
 }
 
 const ButtonContent: React.FC<ButtonProps> = props => {
-  const { icon, label, labelStyle = 'mono', labelClassName } = props
+  const { icon, label, labelStyle = 'mono', labelClassName, appearance } = props
 
   const Icon = icon ? icons[icon] : null
+
+  if (appearance === 'default') {
+    return (
+      <div className={[classes.contentWrapper].filter(Boolean).join(' ')}>
+        <div className={[classes.content, classes.defaultLabel].filter(Boolean).join(' ')}>
+          {label && (
+            <div
+              className={[
+                classes.label,
+                !icon && classes['label-centered'],
+                classes[`label-${labelStyle}`],
+                labelClassName,
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            >
+              {label}
+            </div>
+          )}
+          {Icon && label && <div className={classes.spacer} />}
+          {Icon && (
+            <Icon className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')} />
+          )}
+        </div>
+        <div className={[classes.content, classes.hoverLabel].filter(Boolean).join(' ')}>
+          {label && (
+            <div
+              className={[
+                classes.label,
+                !icon && classes['label-centered'],
+                classes[`label-${labelStyle}`],
+                labelClassName,
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            >
+              {label}
+            </div>
+          )}
+          {Icon && label && <div className={classes.spacer} />}
+          {Icon && (
+            <Icon className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')} />
+          )}
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className={classes.content}>
@@ -157,6 +208,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     hideVerticalBorders,
     hideBottomBorderExceptLast,
     labelClassName,
+    forceBackground,
   } = props
 
   const href = hrefFromProps || generateHref({ type, reference, url })
@@ -215,6 +267,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     hideVerticalBorders && classes.hideVerticalBorders,
     hideBorders && classes.hideBorders,
     hideBottomBorderExceptLast && classes.hideBottomBorderExceptLast,
+    forceBackground && classes.forceBackground,
   ]
     .filter(Boolean)
     .join(' ')
@@ -257,7 +310,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
         }}
         disabled={disabled}
       >
-        <ButtonContent {...props} />
+        <ButtonContent appearance={appearance} {...props} />
       </Element>
     )
   }
