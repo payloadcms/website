@@ -79,7 +79,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     padding: unset;
     color: var(--theme-elevation-1000);
     height: unset;
-    transition: background-position 300ms $curve;
+    transition: background-position 450ms $curve;
     overflow: hidden;
 
     & .contentWrapper {
@@ -90,11 +90,11 @@ $curve: cubic-bezier(.165, .84, .44, 1);
       position: relative;
       padding: calc(var(--base) * 1.5) var(--base);
       width: 100%;
-      transition: transform 300ms $curve;
+      transition: transform 450ms $curve;
 
       & .label {
         transform: rotate(0);
-        transition: transform 300ms 150ms $curve;
+        transition: transform 450ms 150ms $curve;
         transform-origin: bottom left;
         color: var(--theme-elevation-1000);
       }
@@ -123,13 +123,13 @@ $curve: cubic-bezier(.165, .84, .44, 1);
       width: 100%;
       height: calc(100% + 2px);
       transform: translateY(100%);
-      transition: transform 300ms $curve;
+      transition: transform 450ms $curve;
       color: var(--theme-elevation-0);
       background-color: var(--theme-elevation-1000);
 
       & .label {
         transform: rotate(3deg);
-        transition: transform 300ms 150ms $curve;
+        transition: transform 450ms 150ms $curve;
         transform-origin: bottom left;
         color: var(--theme-elevation-0);
       }
