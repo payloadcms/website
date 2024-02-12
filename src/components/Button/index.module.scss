@@ -73,13 +73,14 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .appearance {
   &--default {
+    --animation-speed: 450ms;
     display: inline-flex;
     border: 1px solid var(--grid-line-dark);
     position: relative;
     padding: unset;
     color: var(--theme-elevation-1000);
     height: unset;
-    transition: background-position 450ms $curve;
+    transition: background-position var(--animation-speed) $curve;
     overflow: hidden;
 
     & .contentWrapper {
@@ -90,11 +91,11 @@ $curve: cubic-bezier(.165, .84, .44, 1);
       position: relative;
       padding: calc(var(--base) * 1.5) var(--base);
       width: 100%;
-      transition: transform 450ms $curve;
+      transition: transform var(--animation-speed) $curve;
 
       & .label {
         transform: rotate(0);
-        transition: transform 450ms 150ms $curve;
+        transition: transform var(--animation-speed) 150ms $curve;
         transform-origin: bottom left;
         color: var(--theme-elevation-1000);
       }
@@ -123,13 +124,13 @@ $curve: cubic-bezier(.165, .84, .44, 1);
       width: 100%;
       height: calc(100% + 2px);
       transform: translateY(100%);
-      transition: transform 450ms $curve;
+      transition: transform var(--animation-speed) $curve;
       color: var(--theme-elevation-0);
       background-color: var(--theme-elevation-1000);
 
       & .label {
         transform: rotate(3deg);
-        transition: transform 450ms 150ms $curve;
+        transition: transform var(--animation-speed) 150ms $curve;
         transform-origin: bottom left;
         color: var(--theme-elevation-0);
       }
@@ -151,6 +152,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     &:hover {
       .defaultLabel {
         transform: translateY(-100%);
+        transition-duration: calc(var(--animation-speed) * 2);
 
         .label {
           transform: rotate(-3deg);
