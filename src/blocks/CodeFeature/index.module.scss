@@ -115,8 +115,8 @@
 .scanlineWrapper {
   position: absolute;
   height: 100%;
-  top: calc(var(--base) * 5.75);
-  height: calc(100% - var(--base) * 11.5);
+  top: calc(var(--wrapper-padding-top) / -2);
+  height: calc(100% + var(--wrapper-padding-top) / 2 + var(--wrapper-padding-bottom) / 2);
   width: 100%;
 
   @include mid-break {
