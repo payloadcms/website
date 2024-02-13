@@ -3,6 +3,8 @@ import React, { useCallback, useState } from 'react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 
 import { RichText } from '@components/RichText'
+import { GradientBorderIcon } from '@root/icons/GradientBorderIcon'
+import { InfoIcon } from '@root/icons/InfoIcon'
 import { CodeFeature, Props } from './types'
 
 import classes from './index.module.scss'
@@ -51,7 +53,9 @@ const CodeFeature: React.FC<{ feature: CodeFeature }> = ({ feature }) => {
     <>
       <button onClick={() => setActive(!active)} className={classes.codeFeatureButton}>
         <span className="visually-hidden">Code feature</span>
-        <span></span>
+        <InfoIcon />
+        <GradientBorderIcon className={classes.border} />
+        <GradientBorderIcon className={classes.pulse} />
       </button>
       <div className={classes.codeFeature}>
         <div className={[classes.content, active && classes.active].filter(Boolean).join(' ')}>

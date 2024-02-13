@@ -44,6 +44,7 @@ export const CODE_BLOCK = `
     codeFeatures {
       row
       feature
+      label
     }
   }
 }
@@ -67,6 +68,7 @@ export const CODE_FEATURE = `
       codeFeatures {
         row
         feature
+        label
       }
     }
   }

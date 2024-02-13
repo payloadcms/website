@@ -203,6 +203,7 @@ export interface CaseStudy {
                     codeFeatures?:
                       | {
                           row: number;
+                          label: string;
                           feature: {
                             [k: string]: unknown;
                           }[];
@@ -559,6 +560,7 @@ export interface CaseStudy {
                                   codeFeatures?:
                                     | {
                                         row: number;
+                                        label: string;
                                         feature: {
                                           [k: string]: unknown;
                                         }[];
@@ -1120,6 +1122,7 @@ export interface Page {
                 codeFeatures?:
                   | {
                       row: number;
+                      label: string;
                       feature: {
                         [k: string]: unknown;
                       }[];
@@ -1565,6 +1568,7 @@ export interface Page {
                               codeFeatures?:
                                 | {
                                     row: number;
+                                    label: string;
                                     feature: {
                                       [k: string]: unknown;
                                     }[];
@@ -1810,6 +1814,7 @@ export interface Post {
           codeFeatures?:
             | {
                 row: number;
+                label: string;
                 feature: {
                   [k: string]: unknown;
                 }[];
@@ -2087,6 +2092,7 @@ export interface ReusableContent {
           codeFeatures?:
             | {
                 row: number;
+                label: string;
                 feature: {
                   [k: string]: unknown;
                 }[];
@@ -2140,6 +2146,7 @@ export interface ReusableContent {
                 codeFeatures?:
                   | {
                       row: number;
+                      label: string;
                       feature: {
                         [k: string]: unknown;
                       }[];
@@ -2575,6 +2582,7 @@ export interface ReusableContent {
                               codeFeatures?:
                                 | {
                                     row: number;
+                                    label: string;
                                     feature: {
                                       [k: string]: unknown;
                                     }[];

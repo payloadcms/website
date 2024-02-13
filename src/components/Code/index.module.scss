@@ -1,5 +1,7 @@
 @use '@scss/common.scss' as *;
 
+$curve: cubic-bezier(.165, .84, .44, 1);
+
 .code {
   padding: calc(var(--base) * 2);
   font-size: calc(var(--base) * .65);
@@ -190,9 +192,76 @@
 
 .codeFeatureButton {
   @include btnReset;
-  padding: calc(var(--base) * 0.5);
-  background: red;
+  aspect-ratio: 1 / 1;
+  width: auto;
+  height: auto;
+  padding: calc(var(--base) * 0.75);
   border-radius: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: calc(var(--base) * -0.75);
+  right: calc(var(--base) * -2);
+  z-index: 2;
+  transition: all 350ms $curve;
 
-  &:hover {cursor: pointer;}
+  & .border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 350ms $curve;
+    pointer-events: none;
+  }
+
+  & .pulse {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 350ms $curve;
+    pointer-events: none;
+    animation: Pulse 2s $curve infinite;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    border-radius: 100%;
+    transition: opacity 350ms $curve;
+    background: linear-gradient(rgba(0, 127, 174, 1), rgba(87, 138, 156, 1), rgba(223, 193, 152, 1));
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    &::before {
+      opacity: 0.9;
+    }
+  }
+
+  svg {
+    width: calc(var(--base) * 1.25);
+    height: auto;
+  }
+}
+
+
+@keyframes Pulse {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
 }
