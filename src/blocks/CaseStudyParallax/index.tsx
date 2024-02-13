@@ -7,6 +7,7 @@ import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
+import MediaParallax from '@components/MediaParallax'
 import { QuoteIconAlt } from '@root/icons/QuoteIconAlt'
 import { Page } from '@root/payload-types'
 import { useResize } from '@root/utilities/use-resize'
@@ -231,7 +232,11 @@ export const CaseStudyParallax: React.FC<Props> = props => {
 
   if (caseStudyParallaxFields?.items && caseStudyParallaxFields?.items?.length > 0) {
     return (
-      <BlockWrapper settings={caseStudyParallaxFields.settings} padding={padding}>
+      <BlockWrapper
+        settings={caseStudyParallaxFields.settings}
+        padding={padding}
+        className={classes.wrapper}
+      >
         <BackgroundGrid />
         <Gutter className={classes.mainGutter}>
           <Gutter
@@ -262,17 +267,15 @@ export const CaseStudyParallax: React.FC<Props> = props => {
                     .filter(Boolean)
                     .join(' ')}
                 >
-                  <div
-                    className={[classes.media, 'cols-8 start-9 start-m-1']
-                      .filter(Boolean)
-                      .join(' ')}
-                  >
-                    {typeof item.previewImage !== 'string' && (
-                      <>
-                        <Media resource={item.previewImage} />
-                      </>
-                    )}
-                  </div>
+                  {item.images?.length && item.images.length > 0 ? (
+                    <MediaParallax
+                      media={item.images}
+                      className={[classes.media, 'cols-8 start-9 start-m-1']
+                        .filter(Boolean)
+                        .join(' ')}
+                    />
+                  ) : null}
+
                   <QuoteBlock className={classes.mobileQuoteItem} item={item} />
                 </div>
               )

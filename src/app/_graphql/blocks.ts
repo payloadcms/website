@@ -148,7 +148,9 @@ export const CASE_STUDY_PARALLAX = `
       author
       tabLabel
       logo ${MEDIA_FIELDS}
-      previewImage ${MEDIA_FIELDS}
+      images {
+        image ${MEDIA_FIELDS}
+      }
       caseStudy {
         slug
       }
@@ -278,6 +280,20 @@ export const LINK_GRID = `
 }
 `
 
+export const LOGO_GRID = `
+...on LogoGrid {
+  blockType
+  logoGridFields {
+    richText
+    enableLink
+    link ${LINK_FIELDS({ disableAppearance: true })}
+    logos {
+      logoMedia ${MEDIA_FIELDS}
+    }
+  }
+}
+`
+
 export const MEDIA_BLOCK = `
 ...on MediaBlock {
   blockType
@@ -294,11 +310,12 @@ export const MEDIA_CONTENT = `
   blockType
   mediaContentFields {
     alignment
-    container
     richText
     enableLink
     link ${LINK_FIELDS({ disableAppearance: true })}
-    media ${MEDIA_FIELDS}
+    images {
+      image ${MEDIA_FIELDS}
+    }
   }
 }
 `
@@ -396,6 +413,7 @@ export const REUSABLE_CONTENT_BLOCK = `
         ${FORM_BLOCK}
         ${HOVER_HIGHLIGHTS}
         ${LINK_GRID}
+        ${LOGO_GRID}
         ${MEDIA_BLOCK}
         ${MEDIA_CONTENT}
         ${SLIDER}

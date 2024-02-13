@@ -32,9 +32,6 @@ export const CenteredContent: React.FC<
               .filter(Boolean)
               .join(' ')}
           >
-            {breadcrumbs && (
-              <Breadcrumbs items={breadcrumbs} ellipsis={false} className={classes.label} />
-            )}
             <div className={classes.richText}>
               <RichText content={richText} />
             </div>

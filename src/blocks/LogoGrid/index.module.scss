@@ -1,0 +1,189 @@
+@use "@scss/common" as *;
+
+.logoGrid {
+  position: relative;
+  padding: var(--new-block-spacing) 0;
+}
+
+.logoGridContentWrapper {
+  align-items: center;
+}
+
+.richTextWrapper {
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 2);
+  }
+
+  @include small-break {
+    margin-bottom: calc(var(--base) * 1.5);
+  }
+}
+
+.richText {
+  max-width: 75%;
+  margin-bottom: calc(var(--base) * 3);
+
+  @include mid-break {
+    max-width: 100%;
+    margin-bottom: calc(var(--base) * 2);
+  }
+
+  @include small-break {
+    margin-bottom: calc(var(--base) * 1.5);
+  }
+}
+
+.link {
+  max-width: 50%;
+
+  @include mid-break {
+    max-width: 100%;
+  }
+}
+
+.logoShowcase {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  position: relative;
+  width: 100%;
+
+  .horizontalLine, .verticalLine {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .horizontalLine {
+    left: 0;
+    right: 0;
+    height: 1px;
+  }
+
+  .verticalLine {
+    top: 0;
+    bottom: 0;
+    width: 1px;
+  }
+
+  .topHorizontalLine {
+    top: 0;
+    width: 100%;
+  }
+
+  .bottomHorizontalLine {
+    bottom: 0;
+    width: 100%;
+  }
+}
+
+.logoShowcaseItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/scanline-dark.png');
+    background-repeat: repeat;
+    opacity: 0.08;
+    z-index: 0;
+
+    [data-theme="dark"]  & {
+      background-image: url('/images/scanline-light.png');
+    }
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+
+  .contentWrapper {
+    position: absolute;
+    top: calc(var(--base) * 1.5);
+    bottom: calc(var(--base) * 1.5);
+    left: calc(var(--base) * 1.5);
+    right: calc(var(--base) * 1.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include small-break {
+      top: calc(var(--base) * 1);
+      bottom: calc(var(--base) * 1);
+      left: calc(var(--base) * 1);
+      right: calc(var(--base) * 1);
+    }
+
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 1s ease, filter 1s ease;
+      opacity: 0;
+      filter: blur(0px);
+    }
+  }  
+}
+
+.logoPresent {
+  &::before {
+    background-image: none;
+
+    [data-theme="dark"]  & {
+      background-image: none;
+    }
+  }
+}
+
+.noScanline {
+  &::before {
+    background-image: none;
+
+    [data-theme="dark"]  & {
+      background-image: none;
+    }
+  }
+}
+
+.crosshair {
+  position: absolute;
+  width: calc(var(--base) * 1);
+  height: auto;
+  z-index: 5;
+  color: var(--theme-elevation-1000);
+  opacity: 0.5;
+}
+
+.crosshairLeft {
+  left: calc(25% + var(--base) * -0.5);
+  bottom: calc(50% + var(--base) * -0.5);
+}
+
+.crosshairRight {
+  left: calc(75% + var(--base) * -0.5);
+  bottom: calc(50% + var(--base) * -0.5);
+}
+
+:global([data-theme="dark"]) {
+  .logoShowcase {
+    .horizontalLine, .verticalLine {
+      background: var(--grid-line-dark);
+    }
+  }
+}
+
+:global([data-theme="light"]) {
+  .logoShowcase {
+    .horizontalLine, .verticalLine {
+      background: var(--grid-line-light);
+    }
+  }
+}
