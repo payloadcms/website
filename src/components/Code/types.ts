@@ -2,15 +2,13 @@ import type { Page } from '@root/payload-types'
 
 type CodeFeatureBlock = Extract<Page['layout'][0], { blockType: 'codeFeature' }>
 
-type CodeFeatures = NonNullable<
-  CodeFeatureBlock['codeFeatureFields']['codeTabs']
->[number]['codeFeatures']
+type CodeBlips = NonNullable<CodeFeatureBlock['codeFeatureFields']['codeTabs']>[number]['codeBlips']
 
-export type CodeFeature = NonNullable<CodeFeatures>[number]
+export type CodeBlip = NonNullable<CodeBlips>[number]
 
 export interface Props {
   className?: string
   title?: string
   children: string
-  codeFeatures?: CodeFeatures
+  codeBlips?: CodeBlips
 }

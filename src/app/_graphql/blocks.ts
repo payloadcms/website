@@ -41,7 +41,7 @@ export const CODE_BLOCK = `
   codeFields {
     language
     code
-    codeFeatures {
+    codeBlips {
       row
       feature
       label
@@ -65,7 +65,7 @@ export const CODE_FEATURE = `
       language
       label
       code
-      codeFeatures {
+      codeBlips {
         row
         feature
         label

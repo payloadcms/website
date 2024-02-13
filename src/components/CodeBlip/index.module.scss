@@ -1,0 +1,124 @@
+@use '@scss/common.scss' as *;
+
+$curve: cubic-bezier(.165, .84, .44, 1);
+
+:global(.group-active) {
+  .button {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.button {
+  @include btnReset;
+  aspect-ratio: 1 / 1;
+  width: auto;
+  height: auto;
+  padding: calc(var(--base) * 1);
+  //border: 1px solid var(--color-base-0);
+  border-radius: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: calc(var(--base) * -0.5);
+  right: calc(var(--base) * -3.5);
+  z-index: 2;
+  transform: scale(0);
+  opacity: 0;
+  transition: all 350ms $curve;
+
+  & .border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    display: none;
+  }
+
+  & .pulse {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    animation: Pulse 2s $curve infinite;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 4px;
+    width: 4px;
+    opacity: 0;
+    border-radius: 100%;
+    transition: transform 350ms $curve;
+    opacity: 0.9;
+    transform: scale(1);
+    background: linear-gradient(rgba(0, 127, 174, 1), rgba(87, 138, 156, 1), rgba(223, 193, 152, 1));
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    &::before {
+      transform: scale(1.1);
+    }
+  }
+
+  svg {
+    width: calc(var(--base) * 1.875);
+    height: auto;
+
+    path:nth-of-type(1) {
+      display: none;
+    }
+  }
+}
+
+
+@keyframes Pulse {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.codeFeature {
+  position: absolute;
+  right: calc(var(--base) * -2);
+  bottom: 0;
+  z-index: 1;
+
+
+
+  & .content {
+    position: absolute;
+    visibility: hidden;
+    width: max-content;
+    min-width: fit-content;
+    padding: calc(var(--base) * 1);
+    background: var(--theme-elevation-0);
+    max-width: max(400%, calc(var(--base) * 20));
+    left: 0;
+    z-index: 3;
+
+    @include small-break {
+      max-width: max(90vw, calc(var(--base) * 4));
+    }
+
+    &.active {
+      visibility: visible;
+    }
+  }
+}
+

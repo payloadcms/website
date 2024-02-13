@@ -179,14 +179,16 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, pad
             </div>
             <div className={classes.codeBlockWrapper}>
               {codeTabs?.map((code, index) => {
-                const hasFeatures = Boolean(
-                  code.codeFeatures?.length && code.codeFeatures.length > 0,
-                )
+                const hasFeatures = Boolean(code.codeBlips?.length && code.codeBlips.length > 0)
 
                 return (
                   <div
                     key={index}
-                    className={[classes.codeBlock, activeIndex === index && classes.isActive]
+                    className={[
+                      classes.codeBlock,
+                      activeIndex === index && classes.isActive,
+                      activeIndex === index && 'group-active',
+                    ]
                       .filter(Boolean)
                       .join(' ')}
                     aria-hidden={activeIndex !== index}
@@ -196,7 +198,7 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, pad
                     // @ts-expect-error
                     inert={activeIndex !== index ? '' : undefined}
                   >
-                    <Code codeFeatures={code.codeFeatures}>{`${code.code}
+                    <Code codeBlips={code.codeBlips}>{`${code.code}
                   `}</Code>
                   </div>
                 )

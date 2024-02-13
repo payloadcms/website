@@ -16,7 +16,7 @@ export const GradientBorderIcon: React.FC<IconProps> = props => {
       fill="none"
       className={[className, classes.icon, size && classes[size]].filter(Boolean).join(' ')}
     >
-      <circle cx="34.5" cy="34.5" r="33.5" stroke="url(#paint0_linear_4502_439)" stroke-width="2" />
+      <circle cx="34.5" cy="34.5" r="33.5" stroke="url(#paint0_linear_4502_439)" strokeWidth="2" />
       <defs>
         <linearGradient
           id="paint0_linear_4502_439"

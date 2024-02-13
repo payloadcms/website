@@ -1,11 +1,10 @@
+'use client'
 /* eslint-disable no-param-reassign */
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 
-import { RichText } from '@components/RichText'
-import { GradientBorderIcon } from '@root/icons/GradientBorderIcon'
-import { InfoIcon } from '@root/icons/InfoIcon'
-import { CodeFeature, Props } from './types'
+import CodeBlip from '@components/CodeBlip'
+import { Props } from './types'
 
 import classes from './index.module.scss'
 
@@ -46,36 +45,16 @@ const highlightLine = (lineArray: { content: string }[], lineProps: { className:
   return shouldExclude
 }
 
-const CodeFeature: React.FC<{ feature: CodeFeature }> = ({ feature }) => {
-  const [active, setActive] = useState(false)
-
-  return (
-    <>
-      <button onClick={() => setActive(!active)} className={classes.codeFeatureButton}>
-        <span className="visually-hidden">Code feature</span>
-        <InfoIcon />
-        <GradientBorderIcon className={classes.border} />
-        <GradientBorderIcon className={classes.pulse} />
-      </button>
-      <div className={classes.codeFeature}>
-        <div className={[classes.content, active && classes.active].filter(Boolean).join(' ')}>
-          <RichText content={feature.feature} />
-        </div>
-      </div>
-    </>
-  )
-}
-
 const Code: React.FC<Props> = props => {
-  const { children, className, codeFeatures } = props
+  const { children, className, codeBlips } = props
   const classNames = [classes.code, className && className].filter(Boolean).join(' ')
 
-  const getCodeFeature = useCallback(
+  const getCodeBlip = useCallback(
     (rowNumber: number) => {
-      if (!codeFeatures) return null
-      return codeFeatures.find(feature => feature.row === rowNumber) ?? null
+      if (!codeBlips) return null
+      return codeBlips.find(blip => blip.row === rowNumber) ?? null
     },
-    [codeFeatures],
+    [codeBlips],
   )
 
   return (
@@ -86,17 +65,19 @@ const Code: React.FC<Props> = props => {
             const lineProps = getLineProps({ line, key: i, className: classes.line })
             const shouldExclude = highlightLine(line, lineProps)
             const rowNumber = i + 1
-            const codeFeature = getCodeFeature(rowNumber)
+            const codeBlip = getCodeBlip(rowNumber)
             return !shouldExclude ? (
               <div {...lineProps} key={i}>
-                <span className={classes.lineNumber}>{rowNumber}</span>
-                <div className={classes.lineCodeWrapper}>
-                  {line.map((token, index) => {
-                    const { key, ...rest } = getTokenProps({ token, key: index })
-                    return <span key={key} {...rest} />
-                  })}
-                  {codeFeature ? <CodeFeature feature={codeFeature} /> : null}
-                </div>
+                <>
+                  <span className={classes.lineNumber}>{rowNumber}</span>
+                  <div className={classes.lineCodeWrapper}>
+                    {line.map((token, index) => {
+                      const { key, ...rest } = getTokenProps({ token, key: index })
+                      return <span key={key} {...rest} />
+                    })}
+                    {codeBlip ? <CodeBlip blip={codeBlip} /> : null}
+                  </div>
+                </>
               </div>
             ) : null
           })}

@@ -200,7 +200,7 @@ export interface CaseStudy {
                     language?: ('none' | 'js' | 'ts') | null;
                     label: string;
                     code: string;
-                    codeFeatures?:
+                    codeBlips?:
                       | {
                           row: number;
                           label: string;
@@ -557,7 +557,7 @@ export interface CaseStudy {
                                   language?: ('none' | 'js' | 'ts') | null;
                                   label: string;
                                   code: string;
-                                  codeFeatures?:
+                                  codeBlips?:
                                     | {
                                         row: number;
                                         label: string;
@@ -1119,7 +1119,7 @@ export interface Page {
                 language?: ('none' | 'js' | 'ts') | null;
                 label: string;
                 code: string;
-                codeFeatures?:
+                codeBlips?:
                   | {
                       row: number;
                       label: string;
@@ -1565,7 +1565,7 @@ export interface Page {
                               language?: ('none' | 'js' | 'ts') | null;
                               label: string;
                               code: string;
-                              codeFeatures?:
+                              codeBlips?:
                                 | {
                                     row: number;
                                     label: string;
@@ -1811,7 +1811,7 @@ export interface Post {
           };
           language?: ('none' | 'js' | 'ts') | null;
           code: string;
-          codeFeatures?:
+          codeBlips?:
             | {
                 row: number;
                 label: string;
@@ -2089,7 +2089,7 @@ export interface ReusableContent {
           };
           language?: ('none' | 'js' | 'ts') | null;
           code: string;
-          codeFeatures?:
+          codeBlips?:
             | {
                 row: number;
                 label: string;
@@ -2143,7 +2143,7 @@ export interface ReusableContent {
                 language?: ('none' | 'js' | 'ts') | null;
                 label: string;
                 code: string;
-                codeFeatures?:
+                codeBlips?:
                   | {
                       row: number;
                       label: string;
@@ -2579,7 +2579,7 @@ export interface ReusableContent {
                               language?: ('none' | 'js' | 'ts') | null;
                               label: string;
                               code: string;
-                              codeFeatures?:
+                              codeBlips?:
                                 | {
                                     row: number;
                                     label: string;
