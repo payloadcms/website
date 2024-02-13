@@ -2,7 +2,6 @@ import React from 'react'
 
 import { BlocksProp } from '@components/RenderBlocks'
 import { Page } from '@root/payload-types'
-import { CenteredCarouselHero } from './CenteredCarousel'
 import { CenteredContent } from './CenteredContent'
 import { ContentMediaHero } from './ContentMedia'
 import { DefaultHero } from './Default'
@@ -16,7 +15,6 @@ const heroes = {
   home: HomeHero,
   form: FormHero,
   livestream: LivestreamHero,
-  centeredCarousel: CenteredCarouselHero,
   centeredContent: CenteredContent,
 }
 
