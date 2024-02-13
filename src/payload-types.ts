@@ -376,7 +376,6 @@ export interface CaseStudy {
                 theme?: ('light' | 'dark') | null;
               };
               alignment?: ('contentMedia' | 'mediaContent') | null;
-              container?: boolean | null;
               richText: {
                 [k: string]: unknown;
               }[];
@@ -400,7 +399,12 @@ export interface CaseStudy {
                 url?: string | null;
                 label: string;
               };
-              media: string | Media;
+              images?:
+                | {
+                    image: string | Media;
+                    id?: string | null;
+                  }[]
+                | null;
             };
             id?: string | null;
             blockName?: string | null;
@@ -1335,7 +1339,6 @@ export interface Page {
             theme?: ('light' | 'dark') | null;
           };
           alignment?: ('contentMedia' | 'mediaContent') | null;
-          container?: boolean | null;
           richText: {
             [k: string]: unknown;
           }[];
@@ -1359,7 +1362,12 @@ export interface Page {
             url?: string | null;
             label: string;
           };
-          media: string | Media;
+          images?:
+            | {
+                image: string | Media;
+                id?: string | null;
+              }[]
+            | null;
         };
         id?: string | null;
         blockName?: string | null;
@@ -2316,7 +2324,6 @@ export interface ReusableContent {
             theme?: ('light' | 'dark') | null;
           };
           alignment?: ('contentMedia' | 'mediaContent') | null;
-          container?: boolean | null;
           richText: {
             [k: string]: unknown;
           }[];
@@ -2340,7 +2347,12 @@ export interface ReusableContent {
             url?: string | null;
             label: string;
           };
-          media: string | Media;
+          images?:
+            | {
+                image: string | Media;
+                id?: string | null;
+              }[]
+            | null;
         };
         id?: string | null;
         blockName?: string | null;

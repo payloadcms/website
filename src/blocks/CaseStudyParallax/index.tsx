@@ -1,6 +1,5 @@
 'use client'
 import * as React from 'react'
-import { motion, transform, useScroll, useTransform } from 'framer-motion'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
@@ -8,8 +7,9 @@ import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
+import MediaParallax from '@components/MediaParallax'
 import { QuoteIconAlt } from '@root/icons/QuoteIconAlt'
-import { Media as MediaType, Page } from '@root/payload-types'
+import { Page } from '@root/payload-types'
 import { useResize } from '@root/utilities/use-resize'
 
 import classes from './index.module.scss'
@@ -23,62 +23,6 @@ type Props = ContentProps & {
 
 type StickyBlockProps = ContentProps & {
   currentIndex: number
-}
-
-type ParallaxProps = {
-  media: { image: string | MediaType }[]
-  className?: string
-}
-
-export const MediaParallax: React.FC<ParallaxProps> = ({ media, className }) => {
-  const containerRef = React.useRef<HTMLDivElement>(null)
-  const [scrollValue, setScrollValue] = React.useState(0)
-  const { scrollY, scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['end start', 'start end'],
-  })
-
-  React.useEffect(() => {
-    scrollYProgress.on('change', () => {
-      setScrollValue(scrollYProgress.get())
-    })
-
-    return () => {
-      scrollYProgress.clearListeners()
-    }
-  }, [])
-
-  return (
-    <motion.div
-      ref={containerRef}
-      className={[classes.parallaxMedia, className].filter(Boolean).join(' ')}
-    >
-      {media?.map((image, index) => {
-        const MULTIPLIER = Math.min(1 + index / 5, 2)
-        const transformer = transform([0, 1], [-50 * MULTIPLIER, 50 * MULTIPLIER])
-
-        return (
-          <motion.div
-            key={index}
-            className={classes.parallaxItem}
-            style={{
-              ...(index === 0
-                ? {}
-                : {
-                    translateY: transformer(scrollValue),
-                  }),
-            }}
-          >
-            {typeof image.image !== 'string' && (
-              <>
-                <Media resource={image.image} />
-              </>
-            )}
-          </motion.div>
-        )
-      })}
-    </motion.div>
-  )
 }
 
 type QuoteProps = {
@@ -331,25 +275,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
                         .join(' ')}
                     />
                   ) : null}
-                  {/* <div
-                    className={[classes.media, classes.parallaxMedia, 'cols-8 start-9 start-m-1']
-                      .filter(Boolean)
-                      .join(' ')}
-                  >
-                    {item.images?.length && item.images.length > 0
-                      ? item.images?.map((image, index) => {
-                          return (
-                            <div className={classes.parallaxItem}>
-                              {typeof image.image !== 'string' && (
-                                <>
-                                  <Media resource={image.image} />
-                                </>
-                              )}
-                            </div>
-                          )
-                        })
-                      : null}
-                  </div> */}
+
                   <QuoteBlock className={classes.mobileQuoteItem} item={item} />
                 </div>
               )

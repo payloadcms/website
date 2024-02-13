@@ -302,11 +302,12 @@ export const MEDIA_CONTENT = `
   blockType
   mediaContentFields {
     alignment
-    container
     richText
     enableLink
     link ${LINK_FIELDS({ disableAppearance: true })}
-    media ${MEDIA_FIELDS}
+    images {
+      image ${MEDIA_FIELDS}
+    }
   }
 }
 `
