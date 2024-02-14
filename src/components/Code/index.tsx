@@ -57,6 +57,8 @@ const Code: React.FC<Props> = props => {
     [codeBlips],
   )
 
+  let blipCounter = 0
+
   return (
     <Highlight {...defaultProps} theme={undefined} code={children} language="jsx">
       {({ style, tokens, getLineProps, getTokenProps }) => (
@@ -66,6 +68,7 @@ const Code: React.FC<Props> = props => {
             const shouldExclude = highlightLine(line, lineProps)
             const rowNumber = i + 1
             const codeBlip = getCodeBlip(rowNumber)
+            if (codeBlip) blipCounter = blipCounter + 1
             return !shouldExclude ? (
               <div {...lineProps} key={i}>
                 <>
@@ -75,7 +78,7 @@ const Code: React.FC<Props> = props => {
                       const { key, ...rest } = getTokenProps({ token, key: index })
                       return <span key={key} {...rest} />
                     })}
-                    {codeBlip ? <CodeBlip blip={codeBlip} /> : null}
+                    {codeBlip ? <CodeBlip.Button index={blipCounter} blip={codeBlip} /> : null}
                   </div>
                 </>
               </div>

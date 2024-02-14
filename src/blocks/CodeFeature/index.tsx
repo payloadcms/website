@@ -1,11 +1,12 @@
 import React, { useEffect, useId, useRef, useState } from 'react'
+import { useAnimate, usePresence } from 'framer-motion'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
 import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { CMSLink } from '@components/CMSLink'
 import Code from '@components/Code'
-import { CodeBlipProvider, useCodeBlip } from '@components/CodeBlip'
+import CodeBlip from '@components/CodeBlip'
 import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon'
@@ -31,7 +32,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
   const { heading, richText, codeTabs, links, settings } = codeFeatureFields
   const hasLinks = Boolean(links?.length && links.length > 0)
   const id = useId()
-  const { isOpen, openModal, closeModal } = useCodeBlip()
+  const { data, isOpen } = CodeBlip.useCodeBlip()
 
   useEffect(() => {
     let observer
@@ -148,11 +149,8 @@ export const CodeFeatureComponent: React.FC<Props> = ({
             <BackgroundScanline
               className={[classes.scanlineMobile, ''].filter(Boolean).join(' ')}
             />
-            {isOpen && (
-              <dialog open={isOpen} className={classes.blipModal}>
-                hello
-              </dialog>
-            )}
+            {/* {isOpen && data?.label && <CodeBlip.Modal />} */}
+            <CodeBlip.Modal />
             <div
               className={[
                 classes.tabs,
@@ -161,6 +159,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                 .filter(Boolean)
                 .join(' ')}
               ref={tabWrapperRef}
+              {...(isOpen ? { inert: '' } : {})}
             >
               {codeTabs?.length && codeTabs.length > 1 ? (
                 codeTabs?.map((code, index) => {
@@ -188,10 +187,8 @@ export const CodeFeatureComponent: React.FC<Props> = ({
               )}
               <div className={classes.tabIndicator} style={indicatorStyle} aria-hidden={true} />
             </div>
-            <div className={classes.codeBlockWrapper}>
+            <div className={classes.codeBlockWrapper} {...(isOpen ? { inert: '' } : {})}>
               {codeTabs?.map((code, index) => {
-                const hasBlips = Boolean(code.codeBlips?.length && code.codeBlips.length > 0)
-
                 return (
                   <div
                     key={index}
@@ -223,7 +220,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
 }
 
 export const CodeFeature: React.FC<Props> = props => (
-  <CodeBlipProvider>
+  <CodeBlip.Provider>
     <CodeFeatureComponent {...props} />
-  </CodeBlipProvider>
+  </CodeBlip.Provider>
 )

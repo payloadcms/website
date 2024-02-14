@@ -9,10 +9,11 @@ export const CloseIcon: React.FC<IconProps> = props => {
 
   return (
     <svg
-      width="100%"
-      height="100%"
-      viewBox="0 0 15 15"
       xmlns="http://www.w3.org/2000/svg"
+      width="30"
+      height="30"
+      viewBox="0 0 30 30"
+      fill="none"
       className={[
         classes.icon,
         color && classes[color],
@@ -24,8 +25,11 @@ export const CloseIcon: React.FC<IconProps> = props => {
         .join(' ')}
       style={{ transform: rotation ? `rotate(${rotation}deg)` : undefined }}
     >
-      <line className={classes.stroke} x1="2" y1="2" x2="13" y2="13" />
-      <line className={classes.stroke} x1="13" y1="2" x2="2" y2="13" />
+      <g clip-path="url(#clip0_4622_426)">
+        <line x1="0.646447" y1="28.9316" x2="28.9307" y2="0.647332" stroke="currentColor" />
+        <line x1="1.35355" y1="0.931603" x2="29.6378" y2="29.2159" stroke="currentColor" />
+      </g>
     </svg>
   )
 }
+;``
