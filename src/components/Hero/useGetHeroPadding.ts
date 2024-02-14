@@ -19,7 +19,7 @@ export const useGetHeroPadding = (
   }, [themeFromContext])
 
   const padding = useMemo((): PaddingProps => {
-    let topPadding: PaddingProps['top'] = 'small'
+    let topPadding: PaddingProps['top'] = 'hero'
     let bottomPadding: PaddingProps['bottom'] = 'large'
 
     if (!block) return { top: topPadding, bottom: bottomPadding }

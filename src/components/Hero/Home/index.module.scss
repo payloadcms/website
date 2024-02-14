@@ -326,3 +326,11 @@
     width: calc(calc(100% - var(--base) * 8) - var(--gutter-h) * 2)
   }
 }
+
+// Need to fake this padding so that it doesn't mess with the positioning of the rest of the component
+.paddingBottom {
+  position: relative;
+  background: black;
+  margin-top: -1px;
+  height: var(--wrapper-padding-bottom);
+}
