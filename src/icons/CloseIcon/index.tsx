@@ -25,7 +25,7 @@ export const CloseIcon: React.FC<IconProps> = props => {
         .join(' ')}
       style={{ transform: rotation ? `rotate(${rotation}deg)` : undefined }}
     >
-      <g clip-path="url(#clip0_4622_426)">
+      <g clipPath="url(#clip0_4622_426)">
         <line x1="0.646447" y1="28.9316" x2="28.9307" y2="0.647332" stroke="currentColor" />
         <line x1="1.35355" y1="0.931603" x2="29.6378" y2="29.2159" stroke="currentColor" />
       </g>

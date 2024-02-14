@@ -27,6 +27,11 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   opacity: 0;
   transition: all 350ms $curve;
 
+  &.hidden {
+    transform: scale(0);
+    opacity: 0;
+  }
+
   & .border {
     position: absolute;
     top: 0;
@@ -47,6 +52,20 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     pointer-events: none;
     animation: Pulse 2s $curve infinite;
     display: none;
+  }
+
+  & .hoverBg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    border-radius: 100%;
+    transition: all 350ms $curve;
+    opacity: 0.125;
+    transform: scale(0);
+    background: linear-gradient(rgba(0, 127, 174, 1), rgba(87, 138, 156, 1), rgba(223, 193, 152, 1));
   }
 
   &::before {
@@ -89,6 +108,10 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
   &:hover {
     cursor: pointer;
+
+    & .hoverBg {
+      transform: scale(1);
+    }
 
     &::before {
       transform: scale(1.1);

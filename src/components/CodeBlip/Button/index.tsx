@@ -13,16 +13,21 @@ const CodeBlipButton: React.FC<{ blip: CodeBlip; index?: number; delay?: number 
   index = 1,
   delay: delayFromProps = 500,
 }) => {
-  const { openModal } = useCodeBlip()
+  const { isOpen, openModal } = useCodeBlip()
 
   const style = { '--animation-delay': `${delayFromProps * index}ms` } as React.CSSProperties
 
   return (
-    <button onClick={() => openModal(blip)} className={classes.button} style={style}>
+    <button
+      onClick={() => openModal(blip)}
+      className={[classes.button, isOpen && classes.hidden].filter(Boolean).join(' ')}
+      style={style}
+    >
       <span className="visually-hidden">Code feature</span>
       <InfoIcon />
       <GradientBorderIcon className={classes.border} />
       <GradientBorderIcon className={classes.pulse} />
+      <span className={classes.hoverBg} />
     </button>
   )
 }
