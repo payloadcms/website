@@ -13,7 +13,7 @@ export type Settings = Extract<
 >['cardGridFields']['settings']
 
 export type PaddingProps = {
-  top?: 'large' | 'small'
+  top?: 'large' | 'small' | 'hero'
   bottom?: 'large' | 'small'
 }
 
@@ -22,6 +22,12 @@ type Props = {
   className?: string
   children: React.ReactNode
   padding?: PaddingProps
+  /**
+   * Controls whether or not to set the padding or just provide the css variables
+   *
+   * Useful for complex components that need to set padding on a child element
+   */
+  setPadding?: boolean
 } & React.HTMLAttributes<HTMLDivElement>
 
 export const BlockWrapper: React.FC<Props> = ({
@@ -29,6 +35,7 @@ export const BlockWrapper: React.FC<Props> = ({
   className,
   children,
   padding,
+  setPadding = true,
   ...rest
 }) => {
   const [themeState, setThemeState] = useState<Page['hero']['theme']>(settings?.theme)
