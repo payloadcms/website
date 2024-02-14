@@ -5,7 +5,7 @@ import { IconProps } from '../types'
 import classes from '../index.module.scss'
 
 export const GradientBorderIcon: React.FC<IconProps> = props => {
-  const { size, className } = props
+  const { size, className, style } = props
 
   return (
     <svg
@@ -14,6 +14,7 @@ export const GradientBorderIcon: React.FC<IconProps> = props => {
       height="69"
       viewBox="0 0 69 69"
       fill="none"
+      style={style}
       className={[className, classes.icon, size && classes[size]].filter(Boolean).join(' ')}
     >
       <circle cx="34.5" cy="34.5" r="33.5" stroke="url(#paint0_linear_4502_439)" strokeWidth="4" />

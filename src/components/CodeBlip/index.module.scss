@@ -60,8 +60,10 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     border-radius: 100%;
     transition: all 350ms $curve;
     animation: PulseAlt 2s $curve infinite;
+    animation-fill-mode: forwards;
+    animation-delay: var(--animation-delay);
     opacity: 0.125;
-    transform: scale(1);
+    transform: scale(0.35);
     background: linear-gradient(rgba(0, 127, 174, 1), rgba(87, 138, 156, 1), rgba(223, 193, 152, 1));
   }
 
@@ -76,8 +78,10 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     border-radius: 100%;
     transition: transform 350ms $curve;
     opacity: 0.25;
-    transform: scale(1);
+    transform: scale(0);
     animation: Pulse 2s $curve infinite;
+    animation-fill-mode: forwards;
+    animation-delay: var(--animation-delay);
     pointer-events: none;
     z-index: -1;
     background: linear-gradient(rgba(0, 127, 174, 1), rgba(87, 138, 156, 1), rgba(223, 193, 152, 1));

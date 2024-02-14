@@ -45,23 +45,31 @@ export const useCodeBlip = () => {
   return { isOpen, openModal, closeModal }
 }
 
-const CodeBlip: React.FC<{ blip: CodeBlip }> = ({ blip }) => {
+function getRandomInt(min: number, max: number) {
+  const minCeiled = Math.ceil(min)
+  const maxFloored = Math.floor(max)
+  return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled)
+}
+
+const CodeBlip: React.FC<{ blip: CodeBlip; delay?: number }> = ({
+  blip,
+  delay: delayFromProps = 0,
+}) => {
   const [active, setActive] = useState(false)
   const { openModal } = useCodeBlip()
 
+  const delay = `${getRandomInt(1000, 7000)}ms`
+
+  const style = { '--animation-delay': delay } as React.CSSProperties
+
   return (
     <>
-      <button onClick={() => openModal()} className={classes.button}>
+      <button onClick={() => openModal()} className={classes.button} style={style}>
         <span className="visually-hidden">Code feature</span>
         <InfoIcon />
         <GradientBorderIcon className={classes.border} />
         <GradientBorderIcon className={classes.pulse} />
       </button>
-      <div className={classes.codeFeature}>
-        <div className={[classes.content, active && classes.active].filter(Boolean).join(' ')}>
-          <RichText content={blip.feature} />
-        </div>
-      </div>
     </>
   )
 }
