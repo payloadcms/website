@@ -14,26 +14,47 @@
 
 
   &.padding-top {
+    &-hero {
+      --wrapper-padding-top: calc(var(--base) * 2.5);
+
+      &.setPadding {
+        margin-top: calc(var(--page-padding-top) * -1);
+        padding-top: calc(var(--wrapper-padding-top) + var(--page-padding-top));
+      }
+    }
+
     &-large {
       --wrapper-padding-top: calc(var(--base) * 8);
-      padding-top: var(--wrapper-padding-top);
+
+      &.setPadding {
+        padding-top: var(--wrapper-padding-top);
+      }
     }
 
     &-small {
       --wrapper-padding-top: calc(var(--base) * 2.5);
-      padding-top: var(--wrapper-padding-top);
+
+      &.setPadding {
+        padding-top: var(--wrapper-padding-top);
+      }
     }
   }
 
   &.padding-bottom {
     &-large {
       --wrapper-padding-bottom: calc(var(--base) * 8);
-      padding-bottom: var(--wrapper-padding-bottom);
+
+      &.setPadding {
+        padding-bottom: var(--wrapper-padding-bottom);
+      }
     }
 
     &-small {
       --wrapper-padding-bottom: calc(var(--base) * 2.5);
-      padding-bottom: var(--wrapper-padding-bottom);
+
+      &.setPadding {
+        padding-bottom: var(--wrapper-padding-bottom);
+      }
     }
   }
 }

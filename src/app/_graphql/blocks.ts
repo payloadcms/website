@@ -171,6 +171,7 @@ export const CONTENT = `
     columnOne
     columnTwo
     columnThree
+    settings ${SETTINGS}
   }
 }
 `
@@ -311,6 +312,7 @@ export const MEDIA_CONTENT = `
 ...on MediaContent {
   blockType
   mediaContentFields {
+    settings ${SETTINGS}
     alignment
     richText
     enableLink

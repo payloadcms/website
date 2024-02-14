@@ -9,6 +9,7 @@ import Code from '@components/Code'
 import CodeBlip from '@components/CodeBlip'
 import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
+import SplitAnimate from '@components/SplitAnimate'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon'
 import { Page } from '@root/payload-types'
 
@@ -116,7 +117,9 @@ export const CodeFeatureComponent: React.FC<Props> = ({
             <CrosshairIcon className={[classes.crosshairBottomRight].filter(Boolean).join(' ')} />
           </div>
           <div className={[classes.content, 'cols-4 cols-m-8'].filter(Boolean).join(' ')}>
-            <h2 className={classes.heading}>{heading}</h2>
+            <h2 className={classes.heading}>
+              <SplitAnimate text={heading} />
+            </h2>
 
             <div>
               <div>

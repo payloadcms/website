@@ -15,10 +15,9 @@ import classes from './index.module.scss'
 
 export const DefaultHero: React.FC<
   Pick<Page['hero'], 'richText' | 'description' | 'theme'> & {
-    breadcrumbs?: Page['breadcrumbs']
     firstContentBlock?: BlocksProp
   }
-> = ({ richText, description, breadcrumbs, theme, firstContentBlock }) => {
+> = ({ richText, description, theme, firstContentBlock }) => {
   const withoutDescription =
     !description ||
     (description.length === 1 &&

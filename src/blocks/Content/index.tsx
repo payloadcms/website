@@ -1,15 +1,19 @@
 import React from 'react'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
-type Props = Extract<Page['layout'][0], { blockType: 'content' }>
+type Props = Extract<Page['layout'][0], { blockType: 'content' }> & {
+  padding: PaddingProps
+}
 
-const Columns: React.FC<Props> = ({ contentFields }) => {
-  const { layout, columnOne, columnTwo, columnThree } = contentFields
+const Columns: React.FC<Props> = ({ contentFields, padding }) => {
+  const { layout, columnOne, columnTwo, columnThree, settings } = contentFields
 
   switch (layout) {
     case 'oneColumn': {
@@ -72,15 +76,19 @@ const Columns: React.FC<Props> = ({ contentFields }) => {
 
 export const ContentBlock: React.FC<Props> = props => {
   const {
-    contentFields: { useLeadingHeader, leadingHeader },
+    contentFields: { useLeadingHeader, leadingHeader, settings },
+    padding,
   } = props
 
   return (
-    <Gutter className={classes.contentBlock}>
-      {useLeadingHeader && <RichText className={classes.leadingHeader} content={leadingHeader} />}
-      <div className={'grid'}>
-        <Columns {...props} />
-      </div>
-    </Gutter>
+    <BlockWrapper padding={padding} settings={settings}>
+      <BackgroundGrid zIndex={0} />
+      <Gutter className={classes.contentBlock}>
+        {useLeadingHeader && <RichText className={classes.leadingHeader} content={leadingHeader} />}
+        <div className={'grid'}>
+          <Columns {...props} />
+        </div>
+      </Gutter>
+    </BlockWrapper>
   )
 }
