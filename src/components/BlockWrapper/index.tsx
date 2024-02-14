@@ -1,7 +1,9 @@
 'use client'
 import React, { useEffect, useMemo, useState } from 'react'
 
+import { ChangeHeaderTheme } from '@components/ChangeHeaderTheme'
 import { Page } from '@root/payload-types'
+import { useThemePreference } from '@root/providers/Theme'
 
 import classes from './index.module.scss'
 
@@ -36,24 +38,34 @@ export const BlockWrapper: React.FC<Props> = ({
   setPadding = true,
   ...rest
 }) => {
+  const [themeState, setThemeState] = useState<Page['hero']['theme']>(settings?.theme)
+  const { theme: themeFromContext } = useThemePreference()
   const theme = settings?.theme
 
+  useEffect(() => {
+    if (settings?.theme) setThemeState(settings.theme)
+    else {
+      if (themeFromContext) setThemeState(themeFromContext)
+    }
+  }, [settings, themeFromContext])
+
   return (
-    <div
-      className={[
-        classes.blockWrapper,
-        theme && classes[`theme-${theme}`],
-        padding?.top && classes[`padding-top-${padding?.top}`],
-        padding?.bottom && classes[`padding-bottom-${padding?.bottom}`],
-        setPadding && classes.setPadding,
-        className,
-      ]
-        .filter(Boolean)
-        .join(' ')}
-      {...rest}
-      {...(theme ? { 'data-theme': theme } : {})}
-    >
-      {children}
-    </div>
+    <ChangeHeaderTheme theme={themeState ?? 'light'}>
+      <div
+        className={[
+          classes.blockWrapper,
+          theme && classes[`theme-${theme}`],
+          padding?.top && classes[`padding-top-${padding?.top}`],
+          padding?.bottom && classes[`padding-bottom-${padding?.bottom}`],
+          className,
+        ]
+          .filter(Boolean)
+          .join(' ')}
+        {...rest}
+        {...(theme ? { 'data-theme': theme } : {})}
+      >
+        {children}
+      </div>
+    </ChangeHeaderTheme>
   )
 }
