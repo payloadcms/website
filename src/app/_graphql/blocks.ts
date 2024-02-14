@@ -140,7 +140,9 @@ export const CASE_STUDY_PARALLAX = `
       author
       tabLabel
       logo ${MEDIA_FIELDS}
-      previewImage ${MEDIA_FIELDS}
+      images {
+        image ${MEDIA_FIELDS}
+      }
       caseStudy {
         slug
       }
@@ -300,11 +302,12 @@ export const MEDIA_CONTENT = `
   blockType
   mediaContentFields {
     alignment
-    container
     richText
     enableLink
     link ${LINK_FIELDS({ disableAppearance: true })}
-    media ${MEDIA_FIELDS}
+    images {
+      image ${MEDIA_FIELDS}
+    }
   }
 }
 `

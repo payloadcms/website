@@ -7,6 +7,10 @@ import { StyleguidePageContent } from '../../PageContent'
 
 const data: MediaContentProps = {
   blockType: 'mediaContent',
+  padding: {
+    top: 'large',
+    bottom: 'large',
+  },
   mediaContentFields: {
     alignment: 'mediaContent',
     richText: [
@@ -48,18 +52,23 @@ const data: MediaContentProps = {
       url: '/case-studies',
       label: 'Case Studies',
     },
-    media: {
-      id: '6364286ddfa8dcdc3a66ff75',
-      alt: 'Screenshot of hope websites teal homepage overlaying a screenshot of the Payload CMS admin panel, used as an example to show what editing a page on the backend can produce content-wise for the frontend website.',
-      filename: 'hope-media-content-1.png',
-      mimeType: 'image/png',
-      filesize: 337060,
-      width: 968,
-      height: 787,
-      createdAt: '2022-11-03T20:45:33.742Z',
-      updatedAt: '2022-11-03T20:45:33.742Z',
-      url: '/media/hope-media-content-1.png',
-    },
+    images: [
+      {
+        id: '6364286ddfa8dcdc3a66ff75',
+        image: {
+          id: '6364286ddfa8dcdc3a66ff75',
+          alt: 'Screenshot of hope websites teal homepage overlaying a screenshot of the Payload CMS admin panel, used as an example to show what editing a page on the backend can produce content-wise for the frontend website.',
+          filename: 'hope-media-content-1.png',
+          mimeType: 'image/png',
+          filesize: 337060,
+          width: 968,
+          height: 787,
+          createdAt: '2022-11-03T20:45:33.742Z',
+          updatedAt: '2022-11-03T20:45:33.742Z',
+          url: '/media/hope-media-content-1.png',
+        },
+      },
+    ],
   },
 }
 
@@ -67,7 +76,6 @@ const dataWithContainer: MediaContentProps = {
   ...data,
   mediaContentFields: {
     ...data.mediaContentFields,
-    container: true,
   },
 }
 

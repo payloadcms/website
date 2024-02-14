@@ -1,16 +1,21 @@
 import * as React from 'react'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
+import MediaParallax from '@components/MediaParallax'
 import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
-export type MediaContentProps = Extract<Page['layout'][0], { blockType: 'mediaContent' }>
-export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFields }) => {
-  const { link, media, richText, alignment, enableLink } = mediaContentFields
+export type MediaContentProps = Extract<Page['layout'][0], { blockType: 'mediaContent' }> & {
+  padding: PaddingProps
+}
+export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFields, padding }) => {
+  const { link, images, richText, alignment, enableLink, settings } = mediaContentFields
 
   return (
     <Gutter>
@@ -23,7 +28,7 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
                 .filter(Boolean)
                 .join(' ')}
             >
-              <Media resource={typeof media !== 'string' ? media : undefined} />
+              {images?.length && images.length > 0 ? <MediaParallax media={images} /> : null}
             </div>
             <div
               className={[classes.content, classes.right, 'cols-6 start-11 start-m-1 cols-m-8']
@@ -58,7 +63,7 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
                 .filter(Boolean)
                 .join(' ')}
             >
-              <Media resource={typeof media !== 'string' ? media : undefined} />
+              {images?.length && images.length > 0 ? <MediaParallax media={images} /> : null}
             </div>
           </React.Fragment>
         )}
@@ -68,16 +73,13 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
 }
 
 export const MediaContent: React.FC<MediaContentProps> = props => {
-  const { container } = props.mediaContentFields
+  const { settings } = props.mediaContentFields
 
-  if (container) {
-    return (
-      <div data-theme="dark" className={classes.withContainer}>
-        <MediaContentBlock {...props} />
-        <div className={classes.background} />
-      </div>
-    )
-  }
-
-  return <MediaContentBlock {...props} />
+  return (
+    <BlockWrapper padding={props.padding} settings={settings}>
+      <BackgroundGrid />
+      <MediaContentBlock {...props} />
+      <div className={classes.background} />
+    </BlockWrapper>
+  )
 }
