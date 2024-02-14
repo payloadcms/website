@@ -5,6 +5,7 @@ import { BackgroundScanline } from '@components/BackgroundScanline'
 import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { CMSLink } from '@components/CMSLink'
 import Code from '@components/Code'
+import { CodeBlipProvider, useCodeBlip } from '@components/CodeBlip'
 import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon'
@@ -17,7 +18,11 @@ type Props = Extract<Page['layout'][0], { blockType: 'codeFeature' }> & {
   padding: PaddingProps
 }
 
-export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, padding }) => {
+export const CodeFeatureComponent: React.FC<Props> = ({
+  codeFeatureFields,
+  className,
+  padding,
+}) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [indicatorStyle, setIndicatorStyle] = useState({ width: '0', left: '0' })
   const [tabWrapperWidth, setTabWrapperWidth] = useState(0)
@@ -26,6 +31,7 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, pad
   const { heading, richText, codeTabs, links, settings } = codeFeatureFields
   const hasLinks = Boolean(links?.length && links.length > 0)
   const id = useId()
+  const { isOpen, openModal, closeModal } = useCodeBlip()
 
   useEffect(() => {
     let observer
@@ -142,6 +148,11 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, pad
             <BackgroundScanline
               className={[classes.scanlineMobile, ''].filter(Boolean).join(' ')}
             />
+            {isOpen && (
+              <dialog open={isOpen} className={classes.blipModal}>
+                hello
+              </dialog>
+            )}
             <div
               className={[
                 classes.tabs,
@@ -179,7 +190,7 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, pad
             </div>
             <div className={classes.codeBlockWrapper}>
               {codeTabs?.map((code, index) => {
-                const hasFeatures = Boolean(code.codeBlips?.length && code.codeBlips.length > 0)
+                const hasBlips = Boolean(code.codeBlips?.length && code.codeBlips.length > 0)
 
                 return (
                   <div
@@ -210,3 +221,9 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, pad
     </BlockWrapper>
   )
 }
+
+export const CodeFeature: React.FC<Props> = props => (
+  <CodeBlipProvider>
+    <CodeFeatureComponent {...props} />
+  </CodeBlipProvider>
+)

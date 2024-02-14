@@ -14,8 +14,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   aspect-ratio: 1 / 1;
   width: auto;
   height: auto;
-  padding: calc(var(--base) * 1);
-  //border: 1px solid var(--color-base-0);
+  padding: calc(var(--base) * 0.75);
   border-radius: 100%;
   display: inline-flex;
   justify-content: center;
@@ -35,7 +34,8 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     width: 100%;
     height: 100%;
     pointer-events: none;
-    display: none;
+    opacity: 0.25;
+    transform: scale(0.35);
   }
 
   & .pulse {
@@ -46,6 +46,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     height: 100%;
     pointer-events: none;
     animation: Pulse 2s $curve infinite;
+    display: none;
   }
 
   &::before {
@@ -53,13 +54,32 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     position: absolute;
     left: 0;
     top: 0;
-    height: 4px;
-    width: 4px;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    border-radius: 100%;
+    transition: all 350ms $curve;
+    animation: PulseAlt 2s $curve infinite;
+    opacity: 0.125;
+    transform: scale(1);
+    background: linear-gradient(rgba(0, 127, 174, 1), rgba(87, 138, 156, 1), rgba(223, 193, 152, 1));
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
     opacity: 0;
     border-radius: 100%;
     transition: transform 350ms $curve;
-    opacity: 0.9;
+    opacity: 0.25;
     transform: scale(1);
+    animation: Pulse 2s $curve infinite;
+    pointer-events: none;
+    z-index: -1;
     background: linear-gradient(rgba(0, 127, 174, 1), rgba(87, 138, 156, 1), rgba(223, 193, 152, 1));
   }
 
@@ -68,11 +88,12 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
     &::before {
       transform: scale(1.1);
+      opacity: 0.25;
     }
   }
 
   svg {
-    width: calc(var(--base) * 1.875);
+    width: calc(var(--base) * 1.25);
     height: auto;
 
     path:nth-of-type(1) {
@@ -81,14 +102,27 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   }
 }
 
+@keyframes PulseAlt {
+  0% {
+    transform: scale(0.35);
+    opacity: 0.125;
+  }
+  /* 50% {
+    opacity: 0;
+  } */
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
 
 @keyframes Pulse {
-  from {
+  0% {
     transform: scale(1);
-    opacity: 1;
+    opacity: 0.25;
   }
-  to {
-    transform: scale(2.5);
+  100% {
+    transform: scale(2);
     opacity: 0;
   }
 }
