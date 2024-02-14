@@ -57,6 +57,7 @@ export const BlockWrapper: React.FC<Props> = ({
           theme && classes[`theme-${theme}`],
           padding?.top && classes[`padding-top-${padding?.top}`],
           padding?.bottom && classes[`padding-bottom-${padding?.bottom}`],
+          setPadding && classes.setPadding,
           className,
         ]
           .filter(Boolean)

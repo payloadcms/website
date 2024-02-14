@@ -15,7 +15,7 @@
 
   &.padding-top {
     &-hero {
-      --wrapper-padding-top: calc(var(--base) * 2.5);
+      --wrapper-padding-top: calc(var(--base) * 2);
 
       &.setPadding {
         margin-top: calc(var(--page-padding-top) * -1);
