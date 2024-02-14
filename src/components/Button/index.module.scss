@@ -353,19 +353,14 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   transform: translate3d(0, 0, 0);
 }
 
-:global([data-theme="light"]) {
-  .appearance {
+.appearance {
+  @include data-theme-selector('light') {
     &--default {
       border-color: var(--grid-line-light);
-
     }
   }
-}
 
-:global([data-theme="dark"]) {
-  .appearance {
-    &--default {
-      border-color: var(--grid-line-dark);
-    }
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
   }
 }
