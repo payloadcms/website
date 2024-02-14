@@ -17,8 +17,6 @@ import { robotoMono, untitledSans } from './fonts'
 
 import '../css/app.scss'
 
-import classes from './layout.module.scss'
-
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { mainMenu, footer, topBar } = await fetchGlobals()
 
@@ -79,7 +77,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Providers>
             <TopBar {...topBar} />
             <Header {...mainMenu} />
-            <div className={classes.layout}>
+            <div>
               {children}
               <Footer {...footer} />
               <div id="docsearch" />

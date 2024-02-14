@@ -71,11 +71,12 @@ export type BlocksProp = ReusableContent['layout'][0] | ReusableContentBlockType
 type Props = {
   blocks: BlocksProp[]
   disableOuterSpacing?: true
-  heroTheme?: Page['hero']['theme']
+  hero?: Page['hero']
 }
 
 export const RenderBlocks: React.FC<Props> = props => {
-  const { blocks, disableOuterSpacing, heroTheme } = props
+  const { blocks, disableOuterSpacing, hero } = props
+  const heroTheme = hero?.type === 'home' ? 'dark' : hero?.theme
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
   const { theme: themeFromContext } = useThemePreference()
   const [themeState, setThemeState] = useState<Theme>()

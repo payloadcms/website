@@ -1,3 +1,5 @@
+@use '@scss/common.scss' as *;
+
 .placeholder {
   background-color: var(--theme-elevation-50);
 }
@@ -11,5 +13,12 @@
 [data-theme=light] {
   .themeDark {
     display: none;
+  }
+}
+
+// Specific rule to handle the home hero exception, to be reviewed if it's a problem with other blocks
+[data-theme='light'] [data-theme='dark'] {
+  .hasDarkModeFallback.themeDark {
+    display: block;
   }
 }
