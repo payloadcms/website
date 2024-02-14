@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import escapeHTML from 'escape-html'
 
 import { CMSLink, Reference } from '@components/CMSLink'
+import HoverHighlight from '@components/HoverHighlight'
 import SplitAnimate from '@components/SplitAnimate'
 import { Highlight } from '../../Highlight'
 import { Label } from '../../Label'
@@ -72,6 +73,11 @@ export const Serialize: SerializeFunction = ({ content, customRenderers, textInS
 
           if (textInSplitAnimate && typeof node.text === 'string') {
             text = <SplitAnimate text={node.text} />
+          }
+
+          if (node.hoverHighlight && typeof node.text === 'string') {
+            console.log('node', node)
+            text = <HoverHighlight>{node.text}</HoverHighlight>
           }
 
           return <Fragment key={i}>{text}</Fragment>
