@@ -7,6 +7,7 @@ import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
 import { RichText } from '@components/RichText'
+import SplitAnimate from '@components/SplitAnimate'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon'
 import { Page } from '@root/payload-types'
 
@@ -140,7 +141,11 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
                   .join(' ')}
               >
                 {leader && <div className={classes.leader}>{leader}</div>}
-                {title && <h2 className={classes.title}>{title}</h2>}
+                {title && (
+                  <h2 className={classes.title}>
+                    <SplitAnimate text={title} />
+                  </h2>
+                )}
                 {description && <RichText className={classes.description} content={description} />}
                 <div className={[classes.mobileMediaTabs].filter(Boolean).join(' ')}>
                   {showScanline && (
