@@ -331,12 +331,15 @@
 .paddingTopWrapper {
   background: var(--color-base-0);
   padding-top: var(--page-padding-top);
+
+  @include small-break {
+    padding-top: 0;
+  }
 }
 
 .paddingTop {
   position: relative;
   height: calc(var(--wrapper-padding-top));
-
 }
 
 .paddingBottom {
