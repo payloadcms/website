@@ -69,6 +69,7 @@ export const CALLOUT = `
 ...on Callout {
   blockType
   calloutFields {
+    settings ${SETTINGS}
     richText
     role
     author

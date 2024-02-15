@@ -34,7 +34,7 @@
   }
 
   @include data-theme-selector('light') {
-    border-color: var(--grid-line-dark);
+    border-color: var(--grid-line-light);
   }
 }
 
