@@ -152,7 +152,6 @@ export const CodeFeatureComponent: React.FC<Props> = ({
             <BackgroundScanline
               className={[classes.scanlineMobile, ''].filter(Boolean).join(' ')}
             />
-            {/* {isOpen && data?.label && <CodeBlip.Modal />} */}
             <CodeBlip.Modal />
             <div
               className={[
