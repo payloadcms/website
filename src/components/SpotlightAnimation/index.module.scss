@@ -53,7 +53,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     -webkit-text-fill-color: currentcolor;
   }
 
-  & em {
+  & em, strong, a {
     color: var(--theme-text);
     background-clip: border-box;
     -webkit-background-clip: border-box;

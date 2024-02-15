@@ -4,6 +4,7 @@ import escapeHTML from 'escape-html'
 import { CMSLink, Reference } from '@components/CMSLink'
 import SplitAnimate from '@components/SplitAnimate'
 import SpotlightAnimation from '@components/SpotlightAnimation'
+import { AS } from '@components/SpotlightAnimation/types'
 import { Highlight } from '../../Highlight'
 import { Label } from '../../Label'
 import { LargeBody } from '../../LargeBody'
@@ -216,10 +217,9 @@ export const Serialize: SerializeFunction = ({
           case 'spotlight': {
             const { element } = node
 
-            const as = (element as string) ?? 'h2'
+            const as: AS = (element as AS) ?? 'h2'
 
             return (
-              // @ts-expect-error
               <SpotlightAnimation key={i} as={as} richTextChildren={node.children}>
                 <Serialize content={node.children} skipSpan customRenderers={customRenderers} />
               </SpotlightAnimation>

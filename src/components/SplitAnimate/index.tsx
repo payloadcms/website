@@ -2,9 +2,9 @@
 import React, { useMemo } from 'react'
 import { cubicBezier, motion, stagger, useAnimate, useInView } from 'framer-motion'
 
-import classes from './index.module.scss'
+import { AS } from '@components/SpotlightAnimation/types'
 
-type AS = Extract<keyof JSX.IntrinsicElements, 'p' | 'span' | 'h1' | 'h2' | 'h3'>
+import classes from './index.module.scss'
 
 interface Props {
   text: string
@@ -12,7 +12,13 @@ interface Props {
   as?: AS
   callback?: () => void
 }
-const SplitAnimate: React.FC<Props> = ({ text, className, as: Element = 'span', callback }) => {
+const SplitAnimate: React.FC<Props> = ({
+  text,
+  className,
+  as: Element = 'span',
+  callback,
+  ...props
+}) => {
   const [scope, animate] = useAnimate()
   const isInView = useInView(scope)
   const easing = cubicBezier(0.165, 0.84, 0.44, 1)
@@ -37,7 +43,7 @@ const SplitAnimate: React.FC<Props> = ({ text, className, as: Element = 'span', 
   }, [isInView, callback])
 
   return (
-    <Element ref={scope} className={(classes.element, className)}>
+    <Element ref={scope} className={(classes.element, className)} {...props}>
       {textArray.map((text, index) => {
         return (
           <span className={[classes.word, 'word'].filter(Boolean).join(' ')} key={index}>

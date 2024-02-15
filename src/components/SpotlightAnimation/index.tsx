@@ -2,16 +2,16 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 
 import SplitAnimate from '@components/SplitAnimate'
+import { AS } from '@components/SpotlightAnimation/types'
 
 import classes from './index.module.scss'
-
-type AS = Extract<keyof JSX.IntrinsicElements, 'p' | 'span' | 'h1' | 'h2' | 'h3'>
 
 interface Props {
   children: React.ReactNode
   as?: AS
   /**
    * Gets an array from rich text which it can loop through and get a string text
+   * Required for SplitAnimate to work
    */
   richTextChildren?: any[]
 }
@@ -64,7 +64,9 @@ const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 
       })
     }
 
-    if (containerRef.current && ready) {
+    const canAnimate = hasFadeIn ? ready : true
+
+    if (containerRef.current && canAnimate) {
       intersectionObserver = new IntersectionObserver(
         entries => {
           entries.forEach(entry => {
@@ -87,7 +89,7 @@ const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 
       if (intersectionObserver) intersectionObserver.disconnect()
       window.removeEventListener('mousemove', handleMouseMovement)
     }
-  }, [containerRef, ready])
+  }, [containerRef, ready, hasFadeIn])
 
   const getBackgroundOrigin = useMemo(() => {
     return `calc(${mousePosition.x}px - 100vw) calc(${mousePosition.y}px - 100vh)`
@@ -115,6 +117,7 @@ const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 
           className={[classes.splitAnimate, ready && classes.ready].filter(Boolean).join(' ')}
           as={as}
           aria-hidden={true}
+          // inert needs to be destructured due to React type errors
           {...{ inert: '' }}
           text={contentsAsString}
         />
