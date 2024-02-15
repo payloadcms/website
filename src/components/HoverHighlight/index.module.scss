@@ -1,10 +1,11 @@
 .container {
-  display: block;
+  display: inline-block;
   position: relative;
-  background: radial-gradient(circle at center, #DFEDF4 0%, #628699 10%, #628699 100%);
+  background: radial-gradient(circle at center, #DFEDF4 0%, #628699 20%, #628699 100%);
   background-repeat: no-repeat;
   background-position: right;
   background-size: 200vw 200vh;
+  overflow: hidden;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -18,16 +19,11 @@
     position: relative;
   }
 
-  span, em {
-    background: none;
+  &.highlight {
     color: white;
     background-clip: border-box;
     -webkit-background-clip: border-box;
-    -webkit-text-fill-color: white;
-
-    &::selection {
-      color: black;
-      -webkit-text-fill-color: currentcolor;
-    }
+    -webkit-text-fill-color: currentcolor;
+    background: none;
   }
 }

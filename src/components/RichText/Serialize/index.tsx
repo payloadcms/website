@@ -77,7 +77,9 @@ export const Serialize: SerializeFunction = ({ content, customRenderers, textInS
 
           if (node.hoverHighlight && typeof node.text === 'string') {
             console.log('node', node)
-            text = <HoverHighlight>{node.text}</HoverHighlight>
+            text = (
+              <HoverHighlight /* highlight={Boolean(node.italic)} */>{node.text}</HoverHighlight>
+            )
           }
 
           return <Fragment key={i}>{text}</Fragment>

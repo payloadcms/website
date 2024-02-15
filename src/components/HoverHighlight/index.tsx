@@ -5,9 +5,10 @@ import classes from './index.module.scss'
 
 interface Props {
   children: React.ReactNode
+  highlight?: boolean
 }
 
-const HoverHighlight: React.FC<Props> = ({ children }) => {
+const HoverHighlight: React.FC<Props> = ({ children, highlight = false }) => {
   const containerRef = useRef<HTMLSpanElement>(null)
 
   const [mousePosition, setMousePosition] = useState({
@@ -74,7 +75,7 @@ const HoverHighlight: React.FC<Props> = ({ children }) => {
   return (
     <span
       style={{ backgroundPosition: getBackgroundOrigin }}
-      className={classes.container}
+      className={[classes.container, highlight && classes.highlight].filter(Boolean).join(' ')}
       ref={containerRef}
     >
       {children}
