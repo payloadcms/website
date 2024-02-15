@@ -3,18 +3,23 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 
 import classes from './index.module.scss'
 
+type AS = Extract<keyof JSX.IntrinsicElements, 'p' | 'span' | 'h1' | 'h2' | 'h3'>
+
 interface Props {
   children: React.ReactNode
   highlight?: boolean
+  as?: AS
 }
 
-const HoverHighlight: React.FC<Props> = ({ children, highlight = false }) => {
-  const containerRef = useRef<HTMLSpanElement>(null)
+const HoverHighlight: React.FC<Props> = ({ children, highlight = false, as = 'h2' }) => {
+  const containerRef = useRef<HTMLElement>(null)
 
   const [mousePosition, setMousePosition] = useState({
     x: 0,
     y: 0,
   })
+
+  const Element = as
 
   useEffect(() => {
     let intersectionObserver: IntersectionObserver
@@ -73,13 +78,14 @@ const HoverHighlight: React.FC<Props> = ({ children, highlight = false }) => {
   }, [mousePosition])
 
   return (
-    <span
+    <Element
       style={{ backgroundPosition: getBackgroundOrigin }}
       className={[classes.container, highlight && classes.highlight].filter(Boolean).join(' ')}
+      // @ts-expect-error sorry
       ref={containerRef}
     >
       {children}
-    </span>
+    </Element>
   )
 }
 

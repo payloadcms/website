@@ -1,5 +1,7 @@
-span.container {
-  display: inline-flex;
+@use "@scss/common" as *;
+
+.container {
+  display: inline-block;
   flex-wrap: wrap;
   position: relative;
   background: radial-gradient(circle at center, #DFEDF4 0%, #628699 20%, #628699 100%);
@@ -10,7 +12,26 @@ span.container {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  white-space: break-spaces !important;
+
+  @include data-theme-selector('dark') {
+    background: radial-gradient(circle at center, #DFEDF4 0%, #628699 20%, #628699 100%);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 200vw 200vh;
+    background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  }
+
+  @include data-theme-selector('light') {
+    background: radial-gradient(circle at center, #004a6e 0%, #628699 20%, #628699 100%);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 200vw 200vh;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
 
   &::selection {
@@ -18,16 +39,20 @@ span.container {
     -webkit-text-fill-color: currentcolor;
   }
 
-  > * {
-    position: relative;
-    white-space: break-spaces;
-  }
-
-  &.highlight {
-    color: white;
+  & em {
+    color: var(--theme-text);
     background-clip: border-box;
     -webkit-background-clip: border-box;
     -webkit-text-fill-color: currentcolor;
     background: none;
+    display: inline;
+    font-style: normal;
+
+    @include data-theme-selector('dark') {
+      color: white;
+    }
+    @include data-theme-selector('light') {
+      color: black;
+    }
   }
 }

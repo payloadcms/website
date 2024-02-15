@@ -30,17 +30,27 @@ type SerializeFunction = React.FC<{
   content?: Node[]
   customRenderers?: CustomRenderers
   textInSplitAnimate?: boolean
+  skipSpan?: boolean
 }>
 
 const isText = (value: any): boolean =>
   typeof value === 'object' && value !== null && typeof value.text === 'string'
 
-export const Serialize: SerializeFunction = ({ content, customRenderers, textInSplitAnimate }) => {
+export const Serialize: SerializeFunction = ({
+  content,
+  customRenderers,
+  textInSplitAnimate,
+  skipSpan,
+}) => {
   return (
     <Fragment>
       {content?.map((node, i) => {
         if (isText(node)) {
-          let text = <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />
+          let text = skipSpan ? (
+            <>{escapeHTML(node.text)}</>
+          ) : (
+            <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />
+          )
 
           if (node.bold) {
             text = <strong key={i}>{text}</strong>
@@ -72,13 +82,13 @@ export const Serialize: SerializeFunction = ({ content, customRenderers, textInS
           }
 
           if (textInSplitAnimate && typeof node.text === 'string') {
-            text = <SplitAnimate text={node.text} />
+            text = <SplitAnimate key={i} text={node.text} />
           }
 
-          if (node.hoverHighlight && typeof node.text === 'string') {
+          /* if (node.hoverHighlight && typeof node.text === 'string') {
             console.log('node', node)
             text = <HoverHighlight highlight={Boolean(node.italic)}>{node.text}</HoverHighlight>
-          }
+          } */
 
           return <Fragment key={i}>{text}</Fragment>
         }
@@ -206,6 +216,18 @@ export const Serialize: SerializeFunction = ({ content, customRenderers, textInS
             }
 
             return null
+          }
+
+          case 'spotlight': {
+            console.log('spotlight', node)
+            const { element } = node
+            const Element = (element as React.ReactNode) ?? ('p' as React.ReactNode)
+
+            return (
+              <HoverHighlight key={i} highlight={Boolean(node.italic)}>
+                <Serialize content={node.children} skipSpan customRenderers={customRenderers} />
+              </HoverHighlight>
+            )
           }
 
           default:
