@@ -2,6 +2,11 @@ import { FORM_FIELDS } from './form'
 import { LINK_FIELDS } from './link'
 import { MEDIA_FIELDS } from './media'
 
+const SETTINGS = `{
+  theme
+}
+`
+
 export const BANNER = `
 ...on Banner {
   blockType
@@ -44,15 +49,18 @@ export const CODE_FEATURE = `
 ...on CodeFeature {
   blockType
   codeFeatureFields {
-    disableBlockSpacing
-    disableIndent
+    settings ${SETTINGS}
+    forceDarkBackground
     heading
     richText
-    enableLink
-    link ${LINK_FIELDS()}
-    language
-    label
-    code
+    links {
+      link ${LINK_FIELDS({ disableAppearance: true })}
+    }
+    codeTabs {
+      language
+      label
+      code
+    }
   }
 }
 `
@@ -78,6 +86,7 @@ export const CALL_TO_ACTION = `
 ...on Cta {
   blockType
   ctaFields {
+    settings ${SETTINGS}
     richText
     links {
       link ${LINK_FIELDS({ disableAppearance: true })}
@@ -89,6 +98,7 @@ export const CARD_GRID = `
 ...on CardGrid {
   blockType
   cardGridFields {
+    settings ${SETTINGS}
     richText
     links {
       link ${LINK_FIELDS({ disableAppearance: true })}
@@ -107,6 +117,7 @@ export const CASE_STUDIES_HIGHLIGHT = `
 ...on CaseStudiesHighlight {
   blockType
   caseStudiesHighlightFields {
+    settings ${SETTINGS}
     richText
     caseStudies {
       slug
@@ -123,6 +134,7 @@ export const CASE_STUDY_CARDS = `
 ...on CaseStudyCards {
   blockType
   caseStudyCardFields {
+    settings ${SETTINGS}
     pixels
     cards {
       richText
@@ -139,12 +151,15 @@ export const CASE_STUDY_PARALLAX = `
 ...on CaseStudyParallax {
   blockType
   caseStudyParallaxFields {
+    settings ${SETTINGS}
     items {
       quote
       author
       tabLabel
       logo ${MEDIA_FIELDS}
-      previewImage ${MEDIA_FIELDS}
+      images {
+        image ${MEDIA_FIELDS}
+      }
       caseStudy {
         slug
       }
@@ -163,6 +178,7 @@ export const CONTENT = `
     columnOne
     columnTwo
     columnThree
+    settings ${SETTINGS}
   }
 }
 `
@@ -216,6 +232,7 @@ export const FEATURED_MEDIA_GALLERY = `
 ...on FeaturedMediaGallery {
   blockType
   featuredMediaGalleryFields {
+    settings ${SETTINGS}
     background
     alignment
     leader
@@ -225,6 +242,7 @@ export const FEATURED_MEDIA_GALLERY = `
       link ${LINK_FIELDS({ disableAppearance: true })}
     }
     featuredMediaTabs {
+      mediaScanline
       mediaLabel
       mediaAlignment
       media ${MEDIA_FIELDS}
@@ -272,6 +290,20 @@ export const LINK_GRID = `
 }
 `
 
+export const LOGO_GRID = `
+...on LogoGrid {
+  blockType
+  logoGridFields {
+    richText
+    enableLink
+    link ${LINK_FIELDS({ disableAppearance: true })}
+    logos {
+      logoMedia ${MEDIA_FIELDS}
+    }
+  }
+}
+`
+
 export const MEDIA_BLOCK = `
 ...on MediaBlock {
   blockType
@@ -287,12 +319,14 @@ export const MEDIA_CONTENT = `
 ...on MediaContent {
   blockType
   mediaContentFields {
+    settings ${SETTINGS}
     alignment
-    container
     richText
     enableLink
     link ${LINK_FIELDS({ disableAppearance: true })}
-    media ${MEDIA_FIELDS}
+    images {
+      image ${MEDIA_FIELDS}
+    }
   }
 }
 `
@@ -391,6 +425,7 @@ export const REUSABLE_CONTENT_BLOCK = `
         ${FORM_BLOCK}
         ${HOVER_HIGHLIGHTS}
         ${LINK_GRID}
+        ${LOGO_GRID}
         ${MEDIA_BLOCK}
         ${MEDIA_CONTENT}
         ${SLIDER}

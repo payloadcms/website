@@ -1,10 +1,11 @@
 @use '@scss/common.scss' as *;
 
 .code {
-  padding: calc(var(--base) * 1.5);
+  padding: calc(var(--base) * 2);
   font-size: calc(var(--base) * .65);
   line-height: var(--base);
-  background-color: var(--color-base-950);
+  min-height: calc(var(--base) * 24);
+  background-color: var(--color-base-900);
   color: var(--color-base-100);
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   white-space: pre;
@@ -89,6 +90,10 @@
       cursor: help;
     }
 
+    .token-line {
+      display: table-row;
+    }
+
     .token-line:not(:last-child) {
       height: initial;
       min-height: 1rem;
@@ -117,8 +122,9 @@
 
   @include mid-break {
     padding: var(--base);
-    font-size: calc(var(--base) * .5);
-    line-height: calc(var(--base) * .625);
+    font-size: calc(var(--base) * .75);
+    line-height: calc(var(--base) * 1);
+    min-height: calc(var(--base) * 20);
 
     :global {
       .highlight-line {
@@ -128,5 +134,18 @@
         }
       }
     }
+  }
+}
+
+.lineNumber {
+  user-select: none;
+  opacity: 0.3;
+  display: table-cell;
+  text-align: right;
+  color: hsla(var(--hsla-offwhite-2), 0.3);
+  padding-right:  calc(var(--base) * 2);
+
+  @include mid-break {
+    display: none;
   }
 }

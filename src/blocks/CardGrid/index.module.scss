@@ -2,26 +2,17 @@
 
 .cardGrid {
     position: relative;
-    padding-bottom: calc(var(--base) * 8);
-
-    @include large-break {
-      padding-bottom: calc(var(--base) * 6);
-    }
-
-    @include mid-break {
-      padding-bottom: calc(var(--base) * 4);
-    }
 }
 
 .introWrapper {
-  padding: calc(var(--base) * 8) 0;
+  padding-bottom: calc(var(--base) * 8);
 
   @include large-break {
-    padding: calc(var(--base) * 6) 0;
+    padding-bottom: calc(var(--base) * 6);
   }
 
   @include mid-break {
-    padding: calc(var(--base) * 4) 0 calc(var(--base) * 3) 0;
+    padding-bottom: calc(var(--base) * 3);
   }
 }
 

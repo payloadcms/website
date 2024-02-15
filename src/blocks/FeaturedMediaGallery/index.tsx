@@ -1,10 +1,14 @@
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BackgroundScanline } from '@components/BackgroundScanline'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
 import { RichText } from '@components/RichText'
+import SplitAnimate from '@components/SplitAnimate'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon'
 import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
@@ -12,12 +16,15 @@ import classes from './index.module.scss'
 export type FeaturedMediaGalleryProps = Extract<
   Page['layout'][0],
   { blockType: 'featuredMediaGallery' }
->
+> & {
+  padding: PaddingProps
+}
 
 export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
   featuredMediaGalleryFields,
+  padding,
 }) => {
-  const { background, alignment, leader, title, description, links, featuredMediaTabs } =
+  const { background, settings, alignment, leader, title, description, links, featuredMediaTabs } =
     featuredMediaGalleryFields || {}
 
   const hasLinks = Array.isArray(links) && links.length > 0
@@ -25,6 +32,7 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
 
   const [activeTabIndex, setActiveTabIndex] = useState(0)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [showScanline, setShowScanline] = useState(false)
 
   const switchTab = index => {
     setActiveTabIndex(index)
@@ -54,8 +62,17 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
     }
   }, [resetAutoplayTimer, activeTabIndex])
 
+  useEffect(() => {
+    if (featuredMediaTabs && hasFeaturedMediaTabs) {
+      const activeTab = featuredMediaTabs[activeTabIndex]
+      setShowScanline(!!activeTab?.mediaScanline)
+    }
+  }, [featuredMediaTabs, activeTabIndex, hasFeaturedMediaTabs])
+
   return (
-    <div
+    <BlockWrapper
+      settings={settings}
+      padding={padding}
       className={[
         classes.featuredMediaGallery,
         background === 'dark' ? classes.darkBg : classes.blackBg,
@@ -64,10 +81,33 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
         .join(' ')}
     >
       <Gutter>
-        <BackgroundGrid className={classes.backgroundGrid} />
-        <div className={['grid'].filter(Boolean).join(' ')}>
+        <BackgroundGrid zIndex={0} />
+        <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>
           {alignment === 'mediaGalleryContent' ? (
             <Fragment>
+              {showScanline && (
+                <div
+                  className={[classes.scanlineWrapperLeft, 'start-1 cols-8']
+                    .filter(Boolean)
+                    .join(' ')}
+                >
+                  <BackgroundScanline
+                    className={[classes.scanlineDesktopLeft].filter(Boolean).join(' ')}
+                  />
+                  <CrosshairIcon
+                    className={[classes.crosshairTopLeftOne].filter(Boolean).join(' ')}
+                  />
+                  <CrosshairIcon
+                    className={[classes.crosshairTopLeftTwo].filter(Boolean).join(' ')}
+                  />
+                  <CrosshairIcon
+                    className={[classes.crosshairBottomLeftOne].filter(Boolean).join(' ')}
+                  />
+                  <CrosshairIcon
+                    className={[classes.crosshairBottomLeftTwo].filter(Boolean).join(' ')}
+                  />
+                </div>
+              )}
               <div
                 className={[classes.mediaTabs, 'cols-10 start-1 cols-m-8 start-m-1']
                   .filter(Boolean)
@@ -101,9 +141,18 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
                   .join(' ')}
               >
                 {leader && <div className={classes.leader}>{leader}</div>}
-                {title && <h2 className={classes.title}>{title}</h2>}
+                {title && (
+                  <h2 className={classes.title}>
+                    <SplitAnimate text={title} />
+                  </h2>
+                )}
                 {description && <RichText className={classes.description} content={description} />}
                 <div className={[classes.mobileMediaTabs].filter(Boolean).join(' ')}>
+                  {showScanline && (
+                    <BackgroundScanline
+                      className={[classes.scanlineMobile, ''].filter(Boolean).join(' ')}
+                    />
+                  )}
                   <div className={classes.aspectRatioWrapper}>
                     {hasFeaturedMediaTabs &&
                       featuredMediaTabs.map((tab, index) => (
@@ -178,6 +227,24 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
             </Fragment>
           ) : (
             <Fragment>
+              {showScanline && (
+                <div
+                  className={[classes.scanlineWrapperRight, 'start-9 cols-8']
+                    .filter(Boolean)
+                    .join(' ')}
+                >
+                  <BackgroundScanline
+                    className={[classes.scanlineDesktopRight].filter(Boolean).join(' ')}
+                    crosshairs={['top-left', 'bottom-left']}
+                  />
+                  <CrosshairIcon
+                    className={[classes.crosshairTopRight].filter(Boolean).join(' ')}
+                  />
+                  <CrosshairIcon
+                    className={[classes.crosshairBottomRight].filter(Boolean).join(' ')}
+                  />
+                </div>
+              )}
               <div
                 className={[classes.content, 'cols-4 start-1 cols-m-8'].filter(Boolean).join(' ')}
               >
@@ -185,6 +252,11 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
                 {title && <h2 className={classes.title}>{title}</h2>}
                 {description && <RichText className={classes.description} content={description} />}
                 <div className={[classes.mobileMediaTabs].filter(Boolean).join(' ')}>
+                  {showScanline && (
+                    <BackgroundScanline
+                      className={[classes.scanlineMobile, ''].filter(Boolean).join(' ')}
+                    />
+                  )}
                   <div className={classes.aspectRatioWrapper}>
                     {hasFeaturedMediaTabs &&
                       featuredMediaTabs.map((tab, index) => (
@@ -287,6 +359,6 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
           )}
         </div>
       </Gutter>
-    </div>
+    </BlockWrapper>
   )
 }

@@ -1,78 +1,209 @@
-import React from 'react'
+import React, { useEffect, useId, useRef, useState } from 'react'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BackgroundScanline } from '@components/BackgroundScanline'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { CMSLink } from '@components/CMSLink'
 import Code from '@components/Code'
 import { Gutter } from '@components/Gutter'
-import { Label } from '@components/Label'
-import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'
+import SplitAnimate from '@components/SplitAnimate'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon'
 import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
-type Props = Extract<Page['layout'][0], { blockType: 'codeFeature' }>
+type Props = Extract<Page['layout'][0], { blockType: 'codeFeature' }> & {
+  className?: string
+  padding: PaddingProps
+}
 
-export const CodeFeature: React.FC<Props> = ({ codeFeatureFields }) => {
-  const { heading, richText, enableLink, link, code, label, disableBlockSpacing, disableIndent } =
-    codeFeatureFields
+export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, padding }) => {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [indicatorStyle, setIndicatorStyle] = useState({ width: '0', left: '0' })
+  const [tabWrapperWidth, setTabWrapperWidth] = useState(0)
+  const tabWrapperRef = useRef<HTMLDivElement>(null)
+  const activeTabRef = useRef<HTMLButtonElement>(null)
+  const { heading, richText, forceDarkBackground, codeTabs, links, settings } = codeFeatureFields
+  const hasLinks = Boolean(links?.length && links.length > 0)
+  const id = useId()
 
-  let Spacer: React.ComponentType | 'div' = React.Fragment
+  useEffect(() => {
+    let observer
+    let ref = tabWrapperRef.current
 
-  const spacerProps: { className?: string } = {}
+    if (ref) {
+      observer = new ResizeObserver(entries => {
+        entries.forEach(entry => {
+          const {
+            contentBoxSize,
+            contentRect, // for Safari iOS compatibility, will be deprecated eventually (see https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserverEntry/contentRect)
+          } = entry
 
-  if (!disableBlockSpacing) {
-    Spacer = 'div'
-    spacerProps.className = classes.blockSpacing
-  }
+          let newWidth = 0
+
+          if (contentBoxSize) {
+            const newSize = Array.isArray(contentBoxSize) ? contentBoxSize[0] : contentBoxSize
+
+            if (newSize) {
+              const { inlineSize } = newSize
+              newWidth = inlineSize
+            }
+          } else if (contentRect) {
+            // see note above for why this block is needed
+            const { width } = contentRect
+            newWidth = width
+          }
+
+          setTabWrapperWidth(newWidth)
+        })
+      })
+
+      observer.observe(ref)
+    }
+
+    return () => {
+      if (observer) {
+        observer.unobserve(ref)
+      }
+    }
+  }, [tabWrapperRef])
+
+  useEffect(() => {
+    if (activeTabRef.current) {
+      setIndicatorStyle({
+        width: `${activeTabRef.current.clientWidth}px`,
+        left: `${activeTabRef.current.offsetLeft}px`,
+      })
+    }
+  }, [activeIndex, tabWrapperWidth])
+
+  useEffect(() => {
+    // Scroll logic has to sit in a separate useEffect because the setIndicatorStyle state change blocks the smooth scroll
+    if (activeTabRef.current) {
+      tabWrapperRef.current?.scroll(activeTabRef.current.offsetLeft - 20, 0)
+    }
+  }, [activeIndex])
 
   return (
-    <div className={classes.codeFeature}>
-      <Spacer {...spacerProps}>
-        <Gutter>
-          <div className={[classes.codeFeatureGrid, 'grid'].filter(Boolean).join(' ')}>
-            <div className={'cols-8 cols-m-8'}>
-              <h2 className={classes.heading}>{heading}</h2>
-              <div className={[classes.innerCodeFeatureGrid, 'grid'].filter(Boolean).join(' ')}>
-                <div className={`cols-6 start-${disableIndent ? 1 : 2} cols-m-8 start-m-1`}>
-                  <RichText content={richText} className={classes.richText} />
-                  {enableLink && <CMSLink {...link} />}
-                </div>
-              </div>
-            </div>
-            <div className={[classes.code, 'cols-8 cols-m-8'].filter(Boolean).join(' ')}>
-              <div className={classes.code}>
-                {label && (
-                  <div className={classes.labelWrap}>
-                    <Label className={classes.label}>{label}</Label>
-                  </div>
-                )}
-                <Code>{`${code}
-              `}</Code>
-              </div>
+    <BlockWrapper
+      settings={settings}
+      padding={padding}
+      className={[classes.wrapper, className].filter(Boolean).join(' ')}
+      id={id}
+    >
+      <BackgroundGrid zIndex={0} className={classes.backgroundGrid} />
+      <Gutter>
+        <div
+          className={[classes.container, hasLinks && classes.hasLinks, 'grid']
+            .filter(Boolean)
+            .join(' ')}
+        >
+          <div className={[classes.scanlineWrapper, 'start-9 cols-8'].filter(Boolean).join(' ')}>
+            <BackgroundScanline
+              className={[classes.scanlineDesktop].filter(Boolean).join(' ')}
+              crosshairs={['top-left', 'bottom-left']}
+            />
 
-              <div
-                className={[classes.mobile, classes.pixelGrid, 'grid'].filter(Boolean).join(' ')}
-              >
-                <div
-                  className={[classes.pixelCell, 'cols-16 start-m-7 cols-m-7']
-                    .filter(Boolean)
-                    .join(' ')}
-                >
-                  <PixelBackground className={classes.pixels} />
+            <CrosshairIcon className={[classes.crosshairTopRight].filter(Boolean).join(' ')} />
+
+            <CrosshairIcon className={[classes.crosshairBottomRight].filter(Boolean).join(' ')} />
+          </div>
+          <div className={[classes.content, 'cols-4 cols-m-8'].filter(Boolean).join(' ')}>
+            <h2 className={classes.heading}>
+              <SplitAnimate text={heading} />
+            </h2>
+
+            <div>
+              <div>
+                <RichText content={richText} className={classes.richText} />
+
+                <div className={classes.links}>
+                  {links?.map((link, index) => {
+                    return (
+                      <CMSLink
+                        key={index}
+                        appearance={'default'}
+                        buttonProps={{
+                          appearance: 'default',
+                          hideHorizontalBorders: true,
+                          hideBottomBorderExceptLast: true,
+                        }}
+                        {...link.link}
+                      />
+                    )
+                  })}
                 </div>
               </div>
             </div>
           </div>
-
-          <div className={[classes.desktop, classes.pixelGrid, 'grid'].filter(Boolean).join(' ')}>
+          <div
+            className={[classes.tabsWrapper, 'cols-10 start-7 cols-m-8 start-m-1']
+              .filter(Boolean)
+              .join(' ')}
+          >
+            <BackgroundScanline
+              className={[classes.scanlineMobile, ''].filter(Boolean).join(' ')}
+            />
             <div
-              className={[classes.pixelCell, 'cols-7 start-10 start-m-5'].filter(Boolean).join(' ')}
+              className={[
+                classes.tabs,
+                codeTabs?.length && codeTabs.length > 1 && classes.hasMultiple,
+              ]
+                .filter(Boolean)
+                .join(' ')}
+              ref={tabWrapperRef}
             >
-              <PixelBackground className={classes.pixels} />
+              {codeTabs?.length && codeTabs.length > 1 ? (
+                codeTabs?.map((code, index) => {
+                  const isActive = activeIndex === index
+                  return (
+                    <button
+                      key={index}
+                      className={[classes.tab, activeIndex === index && classes.isActive]
+                        .filter(Boolean)
+                        .join(' ')}
+                      onClick={() => setActiveIndex(index)}
+                      aria-pressed={activeIndex === index}
+                      id={`codefeature${id}-tab-${index}`}
+                      aria-controls={`codefeature${id}-code-${index}`}
+                      {...(isActive ? { ref: activeTabRef } : {})}
+                    >
+                      {code.label}
+                    </button>
+                  )
+                })
+              ) : (
+                <div className={classes.hiddenTab} id={`codefeature${id}-tab-0`}>
+                  {codeTabs?.[0].label}
+                </div>
+              )}
+              <div className={classes.tabIndicator} style={indicatorStyle} aria-hidden={true} />
+            </div>
+            <div className={classes.codeBlockWrapper}>
+              {codeTabs?.map((code, index) => {
+                return (
+                  <div
+                    key={index}
+                    className={[classes.codeBlock, activeIndex === index && classes.isActive]
+                      .filter(Boolean)
+                      .join(' ')}
+                    aria-hidden={activeIndex !== index}
+                    aria-describedby={`codefeature${id}-tab-${index}`}
+                    id={`codefeature${id}-code-${index}`}
+                    // types have not been updated yet for the inert attribute
+                    // @ts-expect-error
+                    inert={activeIndex !== index ? '' : undefined}
+                  >
+                    <Code>{`${code.code}
+                  `}</Code>
+                  </div>
+                )
+              })}
             </div>
           </div>
-        </Gutter>
-      </Spacer>
-    </div>
+        </div>
+      </Gutter>
+    </BlockWrapper>
   )
 }

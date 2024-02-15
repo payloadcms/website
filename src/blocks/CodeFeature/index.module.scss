@@ -1,16 +1,32 @@
 @use '@scss/common' as *;
 
-.codeFeature {
+.wrapper {
+  &.darkTheme {
+    background: var(--color-base-950);
+
+    & .backgroundGrid {
+      z-index: 0;
+    }
+  }
+}
+
+.container {
   position: relative;
-}
-
-.blockSpacing {
-  padding-top: var(--block-spacing);
-  padding-bottom: var(--block-spacing);
-}
-
-.codeFeatureGrid {
   align-items: center;
+  row-gap: calc(var(--base) * 3);
+
+  @include mid-break {
+    row-gap: calc(var(--base) * 0);
+
+    &.hasLinks {
+      row-gap: calc(var(--base) * 2);
+    }
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 1;
 }
 
 .labelWrap {
@@ -28,86 +44,138 @@
   margin-top: 0;
 }
 
-.innerCodeFeatureGrid {
-  grid-template-columns: repeat(8, 1fr);
-}
-
 .richText {
   margin-bottom: calc(var(--base) * 1.5);
 }
 
+.links {
+  width: 100%;
+
+  > * {
+    width: 100%;
+  }
+}
+
+.tabsWrapper {
+  position: relative;
+  border: 1px solid var(--theme-elevation-200);
+}
+
 .code {
   position: relative;
+}
 
-  &:before {
-    content: ' ';
-    background: var(--color-base-950);
-    display: block;
-    position: absolute;
-    z-index: -1;
-    top: calc(var(--base) * -1);
-    right: calc(var(--gutter-h) * -1);
-    bottom: calc(var(--base) * -1);
-    left: calc(var(--base) * -1);
+.tabs {
+  position: relative;
+  display: flex;
+  gap: calc(var(--base) * 2);
+  padding: 0 calc(var(--base) * 2);
+  background: var(--color-base-900);
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  @include dark-custom-scrollbar;
+
+  &.hasMultiple {
+    border-bottom: 1px solid var(--color-base-600);
   }
 
   @include mid-break {
-    margin-top: var(--base);
-
-    &:before {
-      top: 0;
-      left: 0;
-      bottom: 0;
-    }
+    padding: 0 calc(var(--base) * 1);
   }
 }
 
-.pixelGrid {
+.hiddenTab {
+  @include visually-hidden;
+}
+
+.tabIndicator {
   position: absolute;
-  pointer-events: none;
-  height: 100%;
+  left: 0;
+  height: 2px;
   width: 100%;
-  top: 0;
-  right: 0;
+  bottom: 0px;
+  background: var(--color-base-200);
+  transition: width var(--trans-default) linear, left var(--trans-default) linear ;
+}
 
-  &.desktop {
-    padding: 0 var(--gutter-h);
-    opacity: 1;
-    @include mid-break {
-      opacity: 0;
-    }
-  }
+.tab {
+  @include btnReset;
+  cursor: pointer;
+  padding: calc(var(--base) * 1) 0;
+  @include body;
+  font-size: calc(var(--base) * 0.9);
+  color: var(--color-base-300);
+  white-space: nowrap;
 
-  &.mobile {
-    opacity: 0;
-    @include mid-break {
-      opacity: 1;
-    }
+  &.isActive, &:hover {
+    color: var(--color-base-50);
   }
 }
 
-.blockSpacing {
-  .pixelGrid {
-    top: var(--block-spacing);
-    bottom: var(--block-spacing);
-    height: initial;
-
-    &.mobile {
-      height: 100%;
-      top: 0;
-      bottom: 0;
-    }
-  }
-}
-
-.pixelCell {
-  position: relative;
+.scanlineWrapper {
+  position: absolute;
   height: 100%;
-  z-index: -2;
+  top: calc(var(--wrapper-padding-top) / -2);
+  height: calc(100% + var(--wrapper-padding-top) / 2 + var(--wrapper-padding-bottom) / 2);
+  width: 100%;
+
+  @include mid-break {
+    display: none;
+  }
 }
 
-.pixels {
-  top: calc(var(--block-spacing) * -1) !important;
-  height:calc(100% + (var(--block-spacing) * 2));
-  width: calc(100% + var(--gutter-h));
+.crosshairTopRight, .crosshairBottomRight {
+  position: absolute;
+  width: calc(var(--base) * 1);
+  height: auto;
+  color: var(--theme-elevation-1000);
+  opacity: 0.5;
+}
+
+.crosshairTopRight {
+  top: calc(var(--base) * -0.5);
+  right: calc(var(--base) * -0.5);
+}
+
+.crosshairBottomRight {
+  bottom: calc(var(--base) * -0.5);
+  right: calc(var(--base) * -0.5);
+}
+
+.scanlineDesktop {
+  width: calc(100% + var(--gutter-h) * 1);
+  margin-right: calc(var(--gutter-h) * -1);
+}
+
+.scanlineMobile {
+  display: none;
+
+  @include mid-break {
+    display: block;
+    width: calc(100% + var(--gutter-h) * 2);
+    margin-left: calc(var(--gutter-h) * -1);
+    margin-right: calc(var(--gutter-h) * -1);
+  }
+}
+
+.codeBlockWrapper {
+  position: relative;
+  background-color: var(--color-base-900);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  overflow-x: auto;
+  @include dark-custom-scrollbar;
+}
+
+.codeBlock {
+  position: relative;
+  display: block;
+  visibility: hidden;
+  grid-column: 1/1;
+  grid-row: 1/1;
+
+  &.isActive {
+    visibility: visible;
+  }
 }

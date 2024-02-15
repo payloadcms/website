@@ -1,0 +1,14 @@
+@use '@scss/common' as *;
+
+.parallaxMedia {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+
+
+  & .parallaxItem  {
+    grid-row: 1/2;
+    grid-column: 1/2;
+  }
+}

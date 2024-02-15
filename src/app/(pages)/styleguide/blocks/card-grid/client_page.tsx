@@ -7,6 +7,10 @@ import { StyleguidePageContent } from '../../PageContent'
 
 const data: CardGridProps = {
   blockType: 'cardGrid',
+  padding: {
+    top: 'large',
+    bottom: 'large',
+  },
   cardGridFields: {
     richText: [
       {

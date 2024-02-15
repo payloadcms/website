@@ -13,6 +13,7 @@ import {
   FORM_BLOCK,
   HOVER_HIGHLIGHTS,
   LINK_GRID,
+  LOGO_GRID,
   MEDIA_BLOCK,
   MEDIA_CONTENT,
   PRICING_BLOCK,
@@ -47,32 +48,31 @@ export const PAGE = `
         id
         title
         hero {
+          enableBreadcrumbsBar
+          breadcrumbsBarLinks {
+            link ${LINK_FIELDS({ disableAppearance: true })}
+          }
+          theme
           type
-          commandLine
           richText
           description
+          primaryButtons {
+            link ${LINK_FIELDS({ disableAppearance: true })}
+          }
+          secondaryHeading
+          secondaryDescription
+          secondaryButtons {
+            link ${LINK_FIELDS({ disableAppearance: true })}
+          }
           links {
             link ${LINK_FIELDS()}
           }
-          actions {
-            link ${LINK_FIELDS({ disableAppearance: true })}
-          }
-          buttons {
-            link ${LINK_FIELDS()}
-          }
           media ${MEDIA_FIELDS}
-          adjectives {
-            adjective
-          }
+          featureVideo ${MEDIA_FIELDS}
+          secondaryMedia ${MEDIA_FIELDS}
           form ${FORM_FIELDS}
-          logoGroup {
-            label
-            logos {
-              logo ${MEDIA_FIELDS}
-            }
-          }
-          carousel {
-            image ${MEDIA_FIELDS}
+          logos {
+            logoMedia ${MEDIA_FIELDS}
           }
           livestream {
             id
@@ -103,6 +103,7 @@ export const PAGE = `
           ${FORM_BLOCK}
           ${HOVER_HIGHLIGHTS}
           ${LINK_GRID}
+          ${LOGO_GRID}
           ${MEDIA_BLOCK}
           ${MEDIA_CONTENT}
           ${PRICING_BLOCK}

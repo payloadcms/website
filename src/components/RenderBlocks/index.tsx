@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment } from 'react'
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { BannerBlock } from '@blocks/Banner'
 import { BlogContent } from '@blocks/BlogContent'
 import { BlogMarkdown } from '@blocks/BlogMarkdown'
@@ -19,6 +19,7 @@ import { FeaturedMediaGallery } from '@blocks/FeaturedMediaGallery'
 import { FormBlock } from '@blocks/FormBlock'
 import { HoverHighlights } from '@blocks/HoverHighlights'
 import { LinkGrid } from '@blocks/LinkGrid'
+import { LogoGrid } from '@blocks/LogoGrid'
 import { MediaBlock } from '@blocks/MediaBlock'
 import { MediaContent } from '@blocks/MediaContent'
 import { Pricing } from '@blocks/Pricing'
@@ -29,8 +30,11 @@ import { Steps } from '@blocks/Steps'
 import { StickyHighlights } from '@blocks/StickyHighlights'
 import { toKebabCase } from '@utilities/to-kebab-case'
 
-import { BlockSpacing } from '@components/BlockSpacing'
+import { PaddingProps, Settings } from '@components/BlockWrapper'
+import { getFieldsKeyFromBlock } from '@components/RenderBlocks/utilities'
 import { Page, ReusableContent } from '@root/payload-types'
+import { useThemePreference } from '@root/providers/Theme'
+import { Theme } from '@root/providers/Theme/types'
 
 type ReusableContentBlockType = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 
@@ -56,6 +60,7 @@ const blockComponents = {
   codeFeature: CodeFeature,
   cta: CallToAction,
   linkGrid: LinkGrid,
+  logoGrid: LogoGrid,
   reusableContentBlock: ReusableContentBlock,
   pricing: Pricing,
   relatedPosts: RelatedPosts,
@@ -63,14 +68,102 @@ const blockComponents = {
   featuredMediaGallery: FeaturedMediaGallery,
 }
 
+export type BlocksProp = ReusableContent['layout'][0] | ReusableContentBlockType | RelatedPostsBlock
+
 type Props = {
-  blocks: (ReusableContent['layout'][0] | ReusableContentBlockType | RelatedPostsBlock)[]
+  blocks: BlocksProp[]
   disableOuterSpacing?: true
+  hero?: Page['hero']
 }
 
 export const RenderBlocks: React.FC<Props> = props => {
-  const { blocks, disableOuterSpacing } = props
+  const { blocks, disableOuterSpacing, hero } = props
+  const heroTheme = hero?.type === 'home' ? 'dark' : hero?.theme
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
+  const { theme: themeFromContext } = useThemePreference()
+  const [themeState, setThemeState] = useState<Theme>()
+
+  // This is needed to avoid hydration errors when the theme is not yet available
+  useEffect(() => {
+    if (themeFromContext) setThemeState(themeFromContext)
+  }, [themeFromContext])
+
+  const paddingExceptions = useMemo(
+    () => [
+      'banner',
+      'blogContent',
+      'blogMarkdown',
+      'code',
+      'reusableContentBlock',
+      'caseStudyParallax',
+    ],
+    [],
+  )
+
+  const getPaddingProps = useCallback(
+    (block: (typeof blocks)[number], index: number) => {
+      const isFirst = index === 0
+      const isLast = index + 1 === blocks.length
+
+      const theme = themeState
+
+      let topPadding: PaddingProps['top']
+      let bottomPadding: PaddingProps['bottom']
+
+      let previousBlock = !isFirst ? blocks[index - 1] : null
+      let previousBlockKey, previousBlockSettings
+
+      let nextBlock =
+        index + 1 < blocks.length ? blocks[Math.min(index + 1, blocks.length - 1)] : null
+      let nextBlockKey, nextBlockSettings
+
+      let currentBlockSettings: Settings = block[getFieldsKeyFromBlock(block)]?.settings
+      let currentBlockTheme
+
+      currentBlockTheme = currentBlockSettings?.theme ?? theme
+
+      if (previousBlock) {
+        previousBlockKey = getFieldsKeyFromBlock(previousBlock)
+        previousBlockSettings = previousBlock[previousBlockKey]?.settings
+      }
+
+      if (nextBlock) {
+        nextBlockKey = getFieldsKeyFromBlock(nextBlock)
+        nextBlockSettings = nextBlock[nextBlockKey]?.settings
+      }
+
+      // If first block in the layout, add top padding based on the hero
+      if (isFirst) {
+        if (heroTheme) {
+          topPadding = heroTheme === currentBlockTheme ? 'small' : 'large'
+        } else {
+          topPadding = theme === currentBlockTheme ? 'small' : 'large'
+        }
+      } else {
+        if (previousBlockSettings?.theme) {
+          topPadding = currentBlockTheme === previousBlockSettings?.theme ? 'small' : 'large'
+        } else {
+          topPadding = theme === currentBlockTheme ? 'small' : 'large'
+        }
+      }
+
+      if (nextBlockSettings?.theme) {
+        bottomPadding = currentBlockTheme === nextBlockSettings?.theme ? 'small' : 'large'
+      } else {
+        bottomPadding = theme === currentBlockTheme ? 'small' : 'large'
+      }
+
+      if (isLast) bottomPadding = 'large'
+
+      if (paddingExceptions.includes(block.blockType)) bottomPadding = 'large'
+
+      return {
+        top: topPadding ?? undefined,
+        bottom: bottomPadding ?? undefined,
+      }
+    },
+    [themeState, heroTheme, blocks, paddingExceptions],
+  )
 
   if (hasBlocks) {
     return (
@@ -81,27 +174,14 @@ export const RenderBlocks: React.FC<Props> = props => {
           if (blockType && blockType in blockComponents) {
             const Block = blockComponents[blockType]
 
-            const hasSpacing = ![
-              'banner',
-              'blogContent',
-              'blogMarkdown',
-              'code',
-              'reusableContentBlock',
-            ].includes(blockType)
-
-            let topSpacing = hasSpacing
-            let bottomSpacing = hasSpacing
-
-            if (disableOuterSpacing && hasSpacing) {
-              if (index === 0) topSpacing = false
-              if (index === blocks.length - 1) bottomSpacing = false
-            }
-
             if (Block) {
               return (
-                <BlockSpacing key={index} top={topSpacing} bottom={bottomSpacing}>
-                  <Block id={toKebabCase(blockName)} {...block} />
-                </BlockSpacing>
+                <Block
+                  key={index}
+                  id={toKebabCase(blockName)}
+                  {...block}
+                  padding={getPaddingProps(block, index)}
+                />
               )
             }
           }

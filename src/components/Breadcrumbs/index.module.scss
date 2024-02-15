@@ -2,12 +2,9 @@
 
 .breadcrumbs {
   display: flex;
-  margin-bottom: calc(var(--base) * 1.5);
 }
 
 .label {
-  @include h5;
-  opacity: 0.5;
   display: flex;
   align-items: center;
   white-space: nowrap;
@@ -24,6 +21,11 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .divider {

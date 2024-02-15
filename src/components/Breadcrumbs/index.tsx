@@ -18,15 +18,15 @@ export type Props = {
 
 export const Breadcrumbs: React.FC<Props> = ({ items, ellipsis = true, className }) => {
   return (
-    <EdgeScroll
-      element="nav"
+    <nav
+      aria-label="Breadcrumbs navigation"
       className={[classes.breadcrumbs, className].filter(Boolean).join(' ')}
     >
       {items?.map((item, index) => {
         const isLast = index === items.length - 1
         const doEllipsis = ellipsis && (item?.label || '')?.length > 8 && !isLast
 
-        if (item?.url && typeof item.url === 'string' && !isLast) {
+        if (item?.url && typeof item.url === 'string') {
           return (
             <React.Fragment key={index}>
               <label
@@ -54,6 +54,6 @@ export const Breadcrumbs: React.FC<Props> = ({ items, ellipsis = true, className
           </React.Fragment>
         )
       })}
-    </EdgeScroll>
+    </nav>
   )
 }

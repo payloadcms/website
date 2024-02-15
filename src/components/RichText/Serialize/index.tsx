@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import escapeHTML from 'escape-html'
 
 import { CMSLink, Reference } from '@components/CMSLink'
+import SplitAnimate from '@components/SplitAnimate'
 import { Highlight } from '../../Highlight'
 import { Label } from '../../Label'
 import { LargeBody } from '../../LargeBody'
@@ -27,12 +28,13 @@ export type CustomRenderers = {
 type SerializeFunction = React.FC<{
   content?: Node[]
   customRenderers?: CustomRenderers
+  textInSplitAnimate?: boolean
 }>
 
 const isText = (value: any): boolean =>
   typeof value === 'object' && value !== null && typeof value.text === 'string'
 
-export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
+export const Serialize: SerializeFunction = ({ content, customRenderers, textInSplitAnimate }) => {
   return (
     <Fragment>
       {content?.map((node, i) => {
@@ -68,6 +70,10 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
             )
           }
 
+          if (textInSplitAnimate && typeof node.text === 'string') {
+            text = <SplitAnimate text={node.text} />
+          }
+
           return <Fragment key={i}>{text}</Fragment>
         }
 
@@ -89,13 +95,21 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
           case 'h1':
             return (
               <h1 key={i}>
-                <Serialize content={node.children} customRenderers={customRenderers} />
+                <Serialize
+                  content={node.children}
+                  customRenderers={customRenderers}
+                  textInSplitAnimate
+                />
               </h1>
             )
           case 'h2':
             return (
               <h2 key={i}>
-                <Serialize content={node.children} customRenderers={customRenderers} />
+                <Serialize
+                  content={node.children}
+                  customRenderers={customRenderers}
+                  textInSplitAnimate
+                />
               </h2>
             )
           case 'h3':

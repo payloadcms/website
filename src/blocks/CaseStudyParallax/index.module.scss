@@ -1,12 +1,15 @@
 @use '@scss/common' as *;
 
+.wrapper {
+  position: relative;
+}
+
 .cards {
   position: relative;
 }
 
 .mainGutter {
   position: relative;
-
 }
 
 .card {
@@ -320,3 +323,4 @@
   }
   }
 }
+
