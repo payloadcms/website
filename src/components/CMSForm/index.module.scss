@@ -68,6 +68,25 @@
   > * {
     width: 100%;
   }
+
+  .crosshair {
+    position: absolute;
+    width: calc(var(--base) * 1);
+    height: auto;
+    z-index: 5;
+    color: var(--theme-elevation-1000);
+    opacity: 0.5;
+  }
+  
+  .crosshairLeft {
+    top: calc(0% + var(--base) * -0.5);
+    left: calc(0% + var(--base) * -0.5);
+  }
+  
+  .crosshairRight {
+    right: calc(0% + var(--base) * -0.5);
+    bottom: calc(0% + var(--base) * -0.5);
+  }
 }
 
 :global([data-theme="light"]) {

@@ -31,6 +31,10 @@
   left: calc(100% - var(--gutter-h));
   bottom: 0;
   width: 100%;
+
+  @include mid-break {
+    display: none;
+  }
 }
 
 .outerBackgroundSection {
@@ -46,6 +50,10 @@
   right: 0;
   width: calc(75% - calc(var(--gutter-h) * 1.5));
   height: 100%;
+
+  @include mid-break {
+    display: none;
+  }
 }
 
 .gradientWrap {
@@ -54,6 +62,19 @@
   left: calc(calc(var(--gutter-h) / 2) + 25%);
   width: calc(75% - calc(var(--gutter-h) * 1.5));
   height: 100%;
+
+  @include mid-break {
+    display: none;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .leftGradientOverlay, .rightGradientOverlay {
@@ -63,36 +84,43 @@
   filter: blur(240px);
   position: absolute;
   width: 100vw;
-  height: 100%;
+  height: 100vw;
   z-index: -2;
+  animation: spin 10s linear infinite;
 }
 
 .leftGradientOverlay {
-  top: 50%;
-  left: 50%;
-  transform: translate(-75%, -75%);
+  bottom: 0;
+  left: 0;
+  transform: translate(-50%, 50%);
+  z-index: -2;
 }
 
 .rightGradientOverlay {
-  bottom: 50%;
-  right: 50%;
-  transform: translate(75%, 75%);
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 50%);
+  z-index: -2;
 }
 
 .section {
   position: relative;
   width: 33.3333%;
+  z-index: -1;
 }
 
 .formCell {
   position: relative;
-
-  &>*:not(:last-child) {
-    margin-bottom: var(--base);
-  }
-
-  @include mid-break {
-    margin-top: calc(var(--base) / 2);
+  
+  &::before {
+    content: '';
+    width: calc(100% - 2px);
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 1px;
+    z-index: 0;
+    background-color: #0A0A0A;
   }
 }
 
@@ -100,17 +128,7 @@
   position: relative;
 
   @include mid-break {
-    padding-left: var(--base);
-    padding-right: var(--base);
-  }
-}
-
-.formCell {
-  position: relative;
-
-  @include mid-break {
-    padding-left: var(--base);
-    padding-right: var(--base);
+    margin-bottom: calc(var(--base) * 2)
   }
 }
 

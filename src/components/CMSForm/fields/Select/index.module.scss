@@ -130,6 +130,7 @@
       z-index: 2;
       border-radius: 0;
       box-shadow: 0 4px 11px hsl(0deg 0% 0% / 10%);
+      width: calc(100% - calc(var(--base) * 4));
     }
 
     .rs__menu-list {

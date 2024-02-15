@@ -8,7 +8,6 @@ import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { CMSForm } from '@components/CMSForm'
 import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
-import { StripeOverlay } from '@root/graphics/StripeOverlay'
 import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
@@ -49,15 +48,12 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
           .join(' ')}
       >
         <div className={classes.section} ref={sectionRef}>
-          {/* <StripeOverlay /> */}
           <Image src="/images/stripe-overlay.png" fill alt="Stripe Overlay" />
         </div>
         <div className={classes.section}>
-          {/* <StripeOverlay /> */}
           <Image src="/images/stripe-overlay.png" fill alt="Stripe Overlay" />
         </div>
         <div className={classes.section}>
-          {/* <StripeOverlay /> */}
           <Image src="/images/stripe-overlay.png" fill alt="Stripe Overlay" />
         </div>
       </div>
@@ -75,14 +71,11 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
               .filter(Boolean)
               .join(' ')}
           >
-            <div className={classes.formCellContent}>
-              <CMSForm form={form} />
-            </div>
+            <CMSForm form={form} />
           </div>
         </div>
       </Gutter>
       <div className={classes.outerBackgroundSectionWrap}>
-        {/* <StripeOverlay /> */}
         <div className={classes.outerBackgroundSection} style={{ width: sectionWidth }}>
           <Image src="/images/stripe-overlay.png" fill alt="Stripe Overlay" />
         </div>

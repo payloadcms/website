@@ -5,6 +5,7 @@ import Form from '@forms/Form'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { RichText } from '@components/RichText'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon'
 import { Form as FormType } from '@root/payload-types'
 import { getCookie } from '@root/utilities/get-cookie'
 import { fields } from './fields'
@@ -170,6 +171,8 @@ const RenderForm = ({ form }: { form: FormType }) => {
                 }
                 return null
               })}
+              <CrosshairIcon className={[classes.crosshair, classes.crosshairLeft].join(' ')} />
+              <CrosshairIcon className={[classes.crosshair, classes.crosshairRight].join(' ')} />
             </div>
             <Submit
               className={[classes.submitButton, classes.hideTopBorder].filter(Boolean).join(' ')}

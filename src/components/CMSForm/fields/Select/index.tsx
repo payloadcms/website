@@ -4,9 +4,9 @@ import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 
 import ReactSelect from 'react-select'
 import Error from '@forms/Error'
 import { FieldProps } from '@forms/fields/types'
-import Label from '@forms/Label'
 import { useFormField } from '@forms/useFormField'
 
+import Label from '@components/CMSForm/Label'
 import { countryOptions } from './countries'
 import { stateOptions } from './states'
 

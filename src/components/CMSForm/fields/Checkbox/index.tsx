@@ -4,8 +4,8 @@ import React, { useEffect } from 'react'
 import Error from '@forms/Error'
 import { FieldProps } from '@forms/fields/types'
 import { useField } from '@forms/fields/useField'
-import Label from '@forms/Label'
 
+import Label from '@components/CMSForm/Label'
 import { CheckIcon } from '@root/icons/CheckIcon'
 
 import classes from './index.module.scss'
