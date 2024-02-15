@@ -79,11 +79,3 @@
     padding: calc(var(--base) * 1.75) calc(var(--base) * 2) calc(var(--base) * 1.25) calc(var(--base) * 2);
   }
 }
-
-:global([data-theme="light"]) {
-  .wrap {
-    .textareaLabel {
-      color: var(--text-light);
-    }
-  }
-}

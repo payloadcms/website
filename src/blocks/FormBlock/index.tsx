@@ -36,7 +36,12 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
   if (typeof form === 'string') return null
 
   return (
-    <BlockWrapper settings={settings} padding={padding} className={classes.formBlock}>
+    <BlockWrapper
+      data-theme="dark"
+      settings={settings}
+      padding={padding}
+      className={classes.formBlock}
+    >
       <BackgroundGrid zIndex={0} />
       <div className={classes.gradientWrap}>
         <div className={classes.leftGradientOverlay} />

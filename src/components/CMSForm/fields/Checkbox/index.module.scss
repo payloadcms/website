@@ -107,21 +107,3 @@
     }
   }
 }
-
-:global([data-theme="light"]) {
-  .checked {
-    :local() {
-      .input {
-        border-color: var(--color-base-1000);
-  
-        .icon {
-          opacity: 1 !important;
-        }
-      }
-  
-      .label {
-        color: var(--color-base-1000);
-      }
-    }
-  }
-}

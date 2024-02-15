@@ -95,7 +95,15 @@
   }
 
   .fieldWrap {
-    border-top: 1px solid var(--grid-line-light);
-    border-bottom: 1px solid var(--grid-line-light);
+    border-top: 1px solid var(--grid-line-dark);
+    border-bottom: 1px solid var(--grid-line-dark);
+  }
+
+  .hideTopBorder {
+    border-top: 0;
+  }
+
+  .hideBottomBorder {
+    border-bottom: 0;
   }
 }
