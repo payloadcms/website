@@ -1,5 +1,6 @@
-.container {
-  display: inline-block;
+span.container {
+  display: inline-flex;
+  flex-wrap: wrap;
   position: relative;
   background: radial-gradient(circle at center, #DFEDF4 0%, #628699 20%, #628699 100%);
   background-repeat: no-repeat;
@@ -9,6 +10,8 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  white-space: break-spaces !important;
+
 
   &::selection {
     color: black;
@@ -17,6 +20,7 @@
 
   > * {
     position: relative;
+    white-space: break-spaces;
   }
 
   &.highlight {
