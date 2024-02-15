@@ -85,11 +85,6 @@ export const Serialize: SerializeFunction = ({
             text = <SplitAnimate key={i} text={node.text} />
           }
 
-          /* if (node.hoverHighlight && typeof node.text === 'string') {
-            console.log('node', node)
-            text = <HoverHighlight highlight={Boolean(node.italic)}>{node.text}</HoverHighlight>
-          } */
-
           return <Fragment key={i}>{text}</Fragment>
         }
 
@@ -219,12 +214,8 @@ export const Serialize: SerializeFunction = ({
           }
 
           case 'spotlight': {
-            console.log('spotlight', node)
-            const { element } = node
-            const Element = (element as React.ReactNode) ?? ('p' as React.ReactNode)
-
             return (
-              <HoverHighlight key={i} highlight={Boolean(node.italic)}>
+              <HoverHighlight key={i} richTextChildren={node.children}>
                 <Serialize content={node.children} skipSpan customRenderers={customRenderers} />
               </HoverHighlight>
             )

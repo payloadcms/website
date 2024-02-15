@@ -1,18 +1,24 @@
 'use client'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 
+import SplitAnimate from '@components/SplitAnimate'
+
 import classes from './index.module.scss'
 
 type AS = Extract<keyof JSX.IntrinsicElements, 'p' | 'span' | 'h1' | 'h2' | 'h3'>
 
 interface Props {
   children: React.ReactNode
-  highlight?: boolean
   as?: AS
+  /**
+   * Gets an array from rich text which it can loop through and get a string text
+   */
+  richTextChildren?: any[]
 }
 
-const HoverHighlight: React.FC<Props> = ({ children, highlight = false, as = 'h2' }) => {
+const HoverHighlight: React.FC<Props> = ({ children, richTextChildren, as = 'h2' }) => {
   const containerRef = useRef<HTMLElement>(null)
+  const [ready, setReady] = useState(false)
 
   const [mousePosition, setMousePosition] = useState({
     x: 0,
@@ -20,6 +26,15 @@ const HoverHighlight: React.FC<Props> = ({ children, highlight = false, as = 'h2
   })
 
   const Element = as
+
+  const contentsAsString = useMemo(() => {
+    if (!richTextChildren) return null
+    const items = richTextChildren.map(node => {
+      return node.text
+    })
+
+    return items.join('')
+  }, [richTextChildren])
 
   useEffect(() => {
     let intersectionObserver: IntersectionObserver
@@ -77,15 +92,30 @@ const HoverHighlight: React.FC<Props> = ({ children, highlight = false, as = 'h2
     return `calc(${mousePosition.x}px - 100vw) calc(${mousePosition.y}px - 100vh)`
   }, [mousePosition])
 
+  const handlePostAnimation = () => {
+    setReady(true)
+  }
+
   return (
-    <Element
-      style={{ backgroundPosition: getBackgroundOrigin }}
-      className={[classes.container, highlight && classes.highlight].filter(Boolean).join(' ')}
-      // @ts-expect-error sorry
-      ref={containerRef}
-    >
-      {children}
-    </Element>
+    <div className={[classes.wrapper].filter(Boolean).join(' ')}>
+      <Element
+        style={{ backgroundPosition: getBackgroundOrigin }}
+        className={[classes.container, ready && classes.ready].filter(Boolean).join(' ')}
+        // @ts-expect-error sorry
+        ref={containerRef}
+      >
+        {children}
+      </Element>
+      {contentsAsString && (
+        <SplitAnimate
+          callback={handlePostAnimation}
+          className={[classes.splitAnimate, ready && classes.ready].filter(Boolean).join(' ')}
+          // @ts-expect-error sorry
+          as={as}
+          text={contentsAsString}
+        />
+      )}
+    </div>
   )
 }
 

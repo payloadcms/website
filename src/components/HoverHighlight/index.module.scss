@@ -1,5 +1,11 @@
 @use "@scss/common" as *;
 
+$curve: cubic-bezier(.165, .84, .44, 1);
+
+.wrapper {
+  position: relative;
+}
+
 .container {
   display: inline-block;
   flex-wrap: wrap;
@@ -12,6 +18,12 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  opacity: 0;
+  transition: opacity 2350ms $curve;
+
+  &.ready {
+    opacity: 1;
+  }
 
   @include data-theme-selector('dark') {
     background: radial-gradient(circle at center, #DFEDF4 0%, #628699 20%, #628699 100%);
@@ -54,5 +66,20 @@
     @include data-theme-selector('light') {
       color: black;
     }
+  }
+}
+
+.splitAnimate {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 0;
+  color: #004a6e;
+  //z-index: -1;
+  opacity: 1;
+  transition: opacity 2350ms $curve;
+
+  &.ready {
+    opacity: 0;
   }
 }

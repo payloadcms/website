@@ -6,9 +6,11 @@ import classes from './index.module.scss'
 
 interface Props {
   text: string
+  className?: string
   as?: 'h1' | 'h2' | 'span'
+  callback?: () => void
 }
-const SplitAnimate: React.FC<Props> = ({ text, as: Element = 'span' }) => {
+const SplitAnimate: React.FC<Props> = ({ text, className, as: Element = 'span', callback }) => {
   const [scope, animate] = useAnimate()
   const isInView = useInView(scope)
   const easing = cubicBezier(0.165, 0.84, 0.44, 1)
@@ -26,12 +28,14 @@ const SplitAnimate: React.FC<Props> = ({ text, as: Element = 'span' }) => {
         innerWorldSelector,
         { y: '0%', rotate: 0 },
         { duration: 1.125, delay: stagger(0.075), ease: easing },
-      )
+      ).then(() => {
+        if (callback) callback()
+      })
     }
-  }, [isInView])
+  }, [isInView, callback])
 
   return (
-    <Element ref={scope}>
+    <Element ref={scope} className={className}>
       {textArray.map((text, index) => {
         return (
           <span className={classes.word} key={index}>
