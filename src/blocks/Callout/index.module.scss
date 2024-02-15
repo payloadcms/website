@@ -9,7 +9,12 @@
   align-items: center;
   padding-top: calc(var(--base) * 5);
   padding-bottom: calc(var(--base) * 5);
-  box-shadow: 0px 14px 40px 0px rgba(0, 0, 0, 0.25);
+  background: var(--theme-bg);
+
+  @include mid-break {
+    padding-top: calc(var(--base) * 2);
+    padding-bottom: calc(var(--base) * 2);
+  }
 }
 
 .backgroundGrid {
@@ -22,17 +27,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-top: calc(var(--base) * 3);
+
+
   @include mid-break {
     padding: calc(var(--base) * 2);
-  }
-}
-
-.linksContainer {
-  // calculation is equal to 4 columns
-  width: calc(100% / 6 * 4);
-
-  @include mid-break {
-    width: 100%;
   }
 }
 
@@ -42,9 +41,9 @@
 
 
 .media {
-  width: calc(100% + var(--gutter-h) * 0.5);
+  width: calc(100% + var(--gutter-h));
 
-  margin-right: calc(var(--gutter-h) * -0.5);
+  margin-right: calc(var(--gutter-h));
 
   @include mid-break {
     margin-right: auto;
@@ -52,13 +51,9 @@
   }
 }
 
-.quoteContent {
-  position: relative;
-  padding-top: calc(var(--base) * 6);
-
-  @include mid-break {
-    padding: calc(var(--base) * 2);
-  }
+.scanline {
+  border-left: 1px solid;
+  border-right: 1px solid;
 }
 
 .quoteIcon {
@@ -67,17 +62,16 @@
   height: auto;
   color: var(--theme-text);
   left: 0;
-  top: calc(var(--base) * -3);
+  top: 0;
 
 
   @include large-break {
-    left: 0;
-    top: calc(var(--base) * -4.5);
     width:  calc(var(--base) * 1);
   }
 
   @include mid-break {
-    display: none;
+    left: calc(var(--base) * 2);
+    //display: none;
   }
 
   & path {

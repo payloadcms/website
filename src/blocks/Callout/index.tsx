@@ -27,11 +27,11 @@ export const Callout: React.FC<CalloutProps> = props => {
 
   return (
     <BlockWrapper settings={settings} padding={padding}>
+      <BackgroundGrid className={classes.backgroundGrid} zIndex={0} />
       <div className={classes.wrapper}>
         <Gutter>
-          <BackgroundGrid className={classes.backgroundGrid} />
           <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>
-            <BackgroundScanline enableBorders crosshairs={'all'} />
+            <BackgroundScanline className={classes.scanline} enableBorders crosshairs={'all'} />
             <div
               className={[classes.contentWrapper, 'cols-7 start-2 cols-m-8 start-m-1']
                 .filter(Boolean)
