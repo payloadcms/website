@@ -16,7 +16,7 @@ interface Props {
   richTextChildren?: any[]
 }
 
-const HoverHighlight: React.FC<Props> = ({ children, richTextChildren, as = 'h2' }) => {
+const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 'h2' }) => {
   const containerRef = useRef<HTMLElement>(null)
   const [ready, setReady] = useState(false)
 
@@ -123,4 +123,4 @@ const HoverHighlight: React.FC<Props> = ({ children, richTextChildren, as = 'h2'
   )
 }
 
-export default HoverHighlight
+export default SpotlightAnimation

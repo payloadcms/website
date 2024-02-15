@@ -2,8 +2,8 @@ import React, { Fragment } from 'react'
 import escapeHTML from 'escape-html'
 
 import { CMSLink, Reference } from '@components/CMSLink'
-import HoverHighlight from '@components/HoverHighlight'
 import SplitAnimate from '@components/SplitAnimate'
+import SpotlightAnimation from '@components/SpotlightAnimation'
 import { Highlight } from '../../Highlight'
 import { Label } from '../../Label'
 import { LargeBody } from '../../LargeBody'
@@ -220,9 +220,9 @@ export const Serialize: SerializeFunction = ({
 
             return (
               // @ts-expect-error
-              <HoverHighlight key={i} as={as} richTextChildren={node.children}>
+              <SpotlightAnimation key={i} as={as} richTextChildren={node.children}>
                 <Serialize content={node.children} skipSpan customRenderers={customRenderers} />
-              </HoverHighlight>
+              </SpotlightAnimation>
             )
           }
 
