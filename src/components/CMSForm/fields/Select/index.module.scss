@@ -3,10 +3,47 @@
 
 .select {
   position: relative;
+
+  &::before {
+    content: '';
+    width: calc(100% - 2px);
+    position: absolute;
+    height:100%;
+    left: 1px;
+    top:0;
+    z-index: -1;
+    background-color: var(--theme-input-bg);
+  }
+
+  .errorAndLabel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: calc(var(--base) * 2);
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+
+  .selectLabel, .errorLabel {
+    width: fit-content;
+    margin: 0;
+  }
+
+  .selectLabel {
+    transition: all 0.3s ease;
+    pointer-events: none;
+    font-weight: 400;
+    color: var(--text-dark);
+    margin-right: calc(var(--base) * 0.75);
+    z-index: 1;
+  }
 }
 
 .reactSelect {
   display: flex;
+  padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
 
   :global {
     div.rs__control {
@@ -39,6 +76,10 @@
 
     .rs__value-container {
       padding: 0;
+
+      .rs__placeholder {
+        display: none;
+      }
 
       > * {
         margin-top: 0;
@@ -141,6 +182,31 @@
   }
 }
 
+.description {
+    @include small;
+    margin-top: calc(var(--base) / 2);
+    color: var(--theme-elevation-400);
+}
+
+.focused {
+  .errorAndLabel {
+    top: 25%;
+    transform: translateY(-25%);
+  }
+
+  .selectLabel, .errorLabel {
+    font-size: 12px;
+  }
+
+  .selectLabel {
+    margin-right: calc(var(--base) * 0.5);
+  }
+
+  .reactSelect {
+    padding: calc(var(--base) * 1.85) calc(var(--base) * 2) calc(var(--base) * 1.15) calc(var(--base) * 2);
+  }
+}
+
 :global([data-theme="dark"]) {
   .select {
     .rs__menu {
@@ -149,8 +215,10 @@
   }
 }
 
-.description {
-    @include small;
-    margin-top: calc(var(--base) / 2);
-    color: var(--theme-elevation-400);
+:global([data-theme="light"]) {
+  .select {
+    .selectLabel {
+      color: var(--text-light);
+    }
+  }
 }

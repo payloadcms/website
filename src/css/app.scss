@@ -36,8 +36,10 @@
   --z-nav: 40;
   --z-modal: 50;
 
-  --grid-line-dark: rgba(255, 255, 255, 0.1);
-  --grid-line-light: rgba(0, 0, 0, 0.1);
+  --grid-line-dark: rgba(255, 255, 255, 0.15);
+  --grid-line-light: rgba(0, 0, 0, 0.15);
+  --text-dark: rgba(255, 255, 255, 0.5);
+  --text-light: rgba(0, 0, 0, 0.5);
 
   --gutter-h: calc(var(--base) * 10);
   --block-spacing: calc(var(--base) * 7);
@@ -99,7 +101,7 @@ html {
   }
 
   &[data-theme=dark] {
-    background: var(--color-base-900);
+    background: var(--color-base-1000);
     color-scheme: dark;
   }
 }

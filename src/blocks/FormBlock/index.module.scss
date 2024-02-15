@@ -2,10 +2,86 @@
 
 .formBlock {
   position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    width: calc(25% + var(--gutter-h) * 0.5);
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-color: #0A0A0A;
+  }
 }
 
-.formWrap {
+.gutter {
   position: relative;
+}
+
+.formBlockGrid {
+  position: relative;
+  align-items: center;
+}
+
+.outerBackgroundSectionWrap {
+  position: absolute;
+  top: 0;
+  left: calc(100% - var(--gutter-h));
+  bottom: 0;
+  width: 100%;
+}
+
+.outerBackgroundSection {
+  position: relative;
+  height: 100%;
+}
+
+.backgroundSectionWrap {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: calc(calc(var(--gutter-h) / 2) + 25%);
+  right: 0;
+  width: calc(75% - calc(var(--gutter-h) * 1.5));
+  height: 100%;
+}
+
+.gradientWrap {
+  position: absolute;
+  top: 0;
+  left: calc(calc(var(--gutter-h) / 2) + 25%);
+  width: calc(75% - calc(var(--gutter-h) * 1.5));
+  height: 100%;
+}
+
+.leftGradientOverlay, .rightGradientOverlay {
+  border-radius: 100vw;
+  border: 1px solid #FFF;
+  background: radial-gradient(50% 50% at 50% 50%, #0A0A0A 34.5%, rgba(10, 10, 10, 0.00) 100%), conic-gradient(from 180deg at 50% 50%, #007FAE 0deg, #000 90deg, #F4AC4F 180deg, #000 270deg, #007FAE 360deg);
+  filter: blur(240px);
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  z-index: -2;
+}
+
+.leftGradientOverlay {
+  top: 50%;
+  left: 50%;
+  transform: translate(-75%, -75%);
+}
+
+.rightGradientOverlay {
+  bottom: 50%;
+  right: 50%;
+  transform: translate(75%, 75%);
+}
+
+.section {
+  position: relative;
+  width: 33.3333%;
 }
 
 .formCell {
@@ -17,17 +93,6 @@
 
   @include mid-break {
     margin-top: calc(var(--base) / 2);
-  }
-}
-
-.gutter {
-  position: relative;
-  padding-top: calc(var(--base) * 12);
-  padding-bottom: calc(var(--base) * 12);
-
-  @include mid-break {
-    padding-top: calc(var(--base) * 4);
-    padding-bottom: calc(var(--base) * 4);
   }
 }
 
@@ -52,93 +117,5 @@
 .formCellContent {
   & label {
     @include label;
-  }
-}
-
-// .formCellContent {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   height: 100%;
-// }
-
-.bgWrapper {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.bgGutter {
-  width: 100%;
-  height: 100%;
-}
-
-.bg1 {
-  position: relative;
-  height: 100%;
-  margin-left: calc(var(--gutter-h) / -2);
-  margin-right: calc(var(--gutter-h) / -2);
-  width: calc(100% + var(--gutter-h));
-
-  &.containerize {
-    background-color: var(--color-base-950);
-  }
-
-  @include mid-break {
-    margin: 0;
-    width: 100%;
-  }
-}
-
-.pixelBG {
-  position: absolute;
-  height: 100%;
-  width: calc(var(--base) * 16);
-  right: 0;
-  left: auto;
-
-  @include mid-break {
-    width: calc(var(--base) * 10);
-  }
-}
-
-.bg2Wrapper {
-  width: 100%;
-  height: calc(100% - (var(--base) * 12));
-  top: calc(var(--base) * 6);
-  position: absolute;
-  left: 0;
-
-  @include mid-break {
-    height: calc(100% - (var(--base) * 4));
-    top: calc(var(--base) * 2);
-  }
-}
-
-.bg2Grid {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.bg2Cell {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.bg2 {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: calc(100% + var(--gutter-h));
-  height: 100%;
-  background-color: var(--color-base-900);
-  box-shadow: 0px 44px 84px -40px #00000040, 0px 4px 44px 0px #0000000F;
-
-  &.containerize {
-    box-shadow: none;
   }
 }
