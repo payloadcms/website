@@ -26,8 +26,16 @@
 }
 
 .enableBorders {
-  border-top: 1px solid var(--theme-elevation-900);
-  border-bottom: 1px solid var(--theme-elevation-900);
+  border-top: 1px solid var(--grid-line-light);
+  border-bottom: 1px solid var(--grid-line-light);
+
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
+  }
+
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-dark);
+  }
 }
 
 .crosshair {
@@ -54,6 +62,6 @@
 }
 
 .crosshairBottomRight {
-  top: calc(var(--base) * -0.5);
+  bottom: calc(var(--base) * -0.5);
   right: calc(var(--base) * -0.5);
 }

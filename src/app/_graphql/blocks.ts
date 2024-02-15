@@ -69,15 +69,13 @@ export const CALLOUT = `
 ...on Callout {
   blockType
   calloutFields {
-    links {
-      link ${LINK_FIELDS({ disableAppearance: true })}
-    }
-    style
     richText
-    quote
+    role
     author
     logo ${MEDIA_FIELDS}
-    media ${MEDIA_FIELDS}
+    images {
+      image ${MEDIA_FIELDS}
+    }
   }
 }
 `

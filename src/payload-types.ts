@@ -905,40 +905,18 @@ export interface Page {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
-          style?: ('default' | 'quote') | null;
-          quote?: string | null;
+          richText: {
+            [k: string]: unknown;
+          }[];
+          logo: string | Media;
           author?: string | null;
-          logo?: string | Media | null;
-          richText?:
+          role?: string | null;
+          images?:
             | {
-                [k: string]: unknown;
-              }[]
-            | null;
-          links?:
-            | {
-                link: {
-                  type?: ('reference' | 'custom') | null;
-                  newTab?: boolean | null;
-                  reference?:
-                    | ({
-                        relationTo: 'pages';
-                        value: string | Page;
-                      } | null)
-                    | ({
-                        relationTo: 'posts';
-                        value: string | Post;
-                      } | null)
-                    | ({
-                        relationTo: 'case-studies';
-                        value: string | CaseStudy;
-                      } | null);
-                  url?: string | null;
-                  label: string;
-                };
+                image: string | Media;
                 id?: string | null;
               }[]
             | null;
-          media: string | Media;
         };
         id?: string | null;
         blockName?: string | null;
@@ -1921,40 +1899,18 @@ export interface ReusableContent {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
-          style?: ('default' | 'quote') | null;
-          quote?: string | null;
+          richText: {
+            [k: string]: unknown;
+          }[];
+          logo: string | Media;
           author?: string | null;
-          logo?: string | Media | null;
-          richText?:
+          role?: string | null;
+          images?:
             | {
-                [k: string]: unknown;
-              }[]
-            | null;
-          links?:
-            | {
-                link: {
-                  type?: ('reference' | 'custom') | null;
-                  newTab?: boolean | null;
-                  reference?:
-                    | ({
-                        relationTo: 'pages';
-                        value: string | Page;
-                      } | null)
-                    | ({
-                        relationTo: 'posts';
-                        value: string | Post;
-                      } | null)
-                    | ({
-                        relationTo: 'case-studies';
-                        value: string | CaseStudy;
-                      } | null);
-                  url?: string | null;
-                  label: string;
-                };
+                image: string | Media;
                 id?: string | null;
               }[]
             | null;
-          media: string | Media;
         };
         id?: string | null;
         blockName?: string | null;

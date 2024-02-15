@@ -2,19 +2,6 @@
 
 .wrapper {
   position: relative;
-  background: var(--theme-elevation-50);
-  padding-top: calc(var(--base) * 10);
-  padding-bottom: calc(var(--base) * 10);
-
-  @include large-break {
-    padding-top: calc(var(--base) * 8);
-    padding-bottom: calc(var(--base) * 8);
-  }
-
-  @include mid-break {
-    padding-top: calc(var(--base) * 3);
-    padding-bottom: calc(var(--base) * 3);
-  }
 }
 
 .container {
@@ -22,7 +9,6 @@
   align-items: center;
   padding-top: calc(var(--base) * 5);
   padding-bottom: calc(var(--base) * 5);
-  background: var(--theme-elevation-0);
   box-shadow: 0px 14px 40px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -31,6 +17,11 @@
 }
 
 .contentWrapper {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   @include mid-break {
     padding: calc(var(--base) * 2);
   }
@@ -49,9 +40,6 @@
   margin-bottom: calc(var(--base) * 2);
 }
 
-.link {
-  width: 100%;
-}
 
 .media {
   width: calc(100% + var(--gutter-h) * 0.5);
@@ -75,17 +63,17 @@
 
 .quoteIcon {
   position: absolute;
-  width:  calc(var(--base) * 10);
+  width:  calc(var(--base) * 1.125);
   height: auto;
-  color: var(--theme-bg);
-  left: calc(var(--base) * -2.4);
-  top: calc(var(--base) * -5.6);
+  color: var(--theme-text);
+  left: 0;
+  top: calc(var(--base) * -3);
 
 
   @include large-break {
-    left: calc(var(--base) * -1.8);
+    left: 0;
     top: calc(var(--base) * -4.5);
-    width:  calc(var(--base) * 8);
+    width:  calc(var(--base) * 1);
   }
 
   @include mid-break {
@@ -93,9 +81,8 @@
   }
 
   & path {
-    stroke: var(--theme-elevation-200);
-    stroke-width: 1px;
-    vector-effect: non-scaling-stroke;
+    stroke: var(--theme-text);
+    stroke-width: 0px;
   }
 }
 
@@ -134,18 +121,19 @@
   display: flex;
   align-items: center;
   gap: calc(var(--base) * 2);
-  margin-bottom: calc(var(--base) * 2);
-
-  @include small-break {
-    margin-bottom: calc(var(--base) * 1);
-  }
 }
 
 .author {
-  opacity: 0.8;
-  line-height: 1.2;
+  line-height: 1;
+}
 
-  @include small-break {
-    font-size: calc(var(--base) * 0.65);
+.logo {
+  img {
+    height: calc(var(--base) * 2.4);
+    width: auto;
   }
+}
+
+.name {
+  font-weight: bold;
 }
