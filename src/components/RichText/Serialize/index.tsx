@@ -214,8 +214,13 @@ export const Serialize: SerializeFunction = ({
           }
 
           case 'spotlight': {
+            const { element } = node
+
+            const as = (element as string) ?? 'h2'
+
             return (
-              <HoverHighlight key={i} richTextChildren={node.children}>
+              // @ts-expect-error
+              <HoverHighlight key={i} as={as} richTextChildren={node.children}>
                 <Serialize content={node.children} skipSpan customRenderers={customRenderers} />
               </HoverHighlight>
             )

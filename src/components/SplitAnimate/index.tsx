@@ -4,10 +4,12 @@ import { cubicBezier, motion, stagger, useAnimate, useInView } from 'framer-moti
 
 import classes from './index.module.scss'
 
+type AS = Extract<keyof JSX.IntrinsicElements, 'p' | 'span' | 'h1' | 'h2' | 'h3'>
+
 interface Props {
   text: string
   className?: string
-  as?: 'h1' | 'h2' | 'span'
+  as?: AS
   callback?: () => void
 }
 const SplitAnimate: React.FC<Props> = ({ text, className, as: Element = 'span', callback }) => {
@@ -35,11 +37,14 @@ const SplitAnimate: React.FC<Props> = ({ text, className, as: Element = 'span', 
   }, [isInView, callback])
 
   return (
-    <Element ref={scope} className={className}>
+    <Element ref={scope} className={(classes.element, className)}>
       {textArray.map((text, index) => {
         return (
-          <span className={classes.word} key={index}>
-            <motion.span initial={{ y: '150%', rotate: 10 }} className={classes.innerWord}>
+          <span className={[classes.word, 'word'].filter(Boolean).join(' ')} key={index}>
+            <motion.span
+              initial={{ y: '150%', rotate: 10 }}
+              className={[classes.innerWord, 'inner-word'].filter(Boolean).join(' ')}
+            >
               {text}
             </motion.span>
           </span>

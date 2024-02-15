@@ -26,6 +26,7 @@ const HoverHighlight: React.FC<Props> = ({ children, richTextChildren, as = 'h2'
   })
 
   const Element = as
+  const hasFadeIn = ['h1', 'h2', 'h3'].includes(as)
 
   const contentsAsString = useMemo(() => {
     if (!richTextChildren) return null
@@ -63,7 +64,7 @@ const HoverHighlight: React.FC<Props> = ({ children, richTextChildren, as = 'h2'
       })
     }
 
-    if (containerRef.current) {
+    if (containerRef.current && ready) {
       intersectionObserver = new IntersectionObserver(
         entries => {
           entries.forEach(entry => {
@@ -83,10 +84,10 @@ const HoverHighlight: React.FC<Props> = ({ children, richTextChildren, as = 'h2'
     }
 
     return () => {
-      intersectionObserver.disconnect()
+      if (intersectionObserver) intersectionObserver.disconnect()
       window.removeEventListener('mousemove', handleMouseMovement)
     }
-  }, [containerRef])
+  }, [containerRef, ready])
 
   const getBackgroundOrigin = useMemo(() => {
     return `calc(${mousePosition.x}px - 100vw) calc(${mousePosition.y}px - 100vh)`
@@ -100,18 +101,21 @@ const HoverHighlight: React.FC<Props> = ({ children, richTextChildren, as = 'h2'
     <div className={[classes.wrapper].filter(Boolean).join(' ')}>
       <Element
         style={{ backgroundPosition: getBackgroundOrigin }}
-        className={[classes.container, ready && classes.ready].filter(Boolean).join(' ')}
+        className={[classes.container, hasFadeIn && classes.hasFadeIn, ready && classes.ready]
+          .filter(Boolean)
+          .join(' ')}
         // @ts-expect-error sorry
         ref={containerRef}
       >
         {children}
       </Element>
-      {contentsAsString && (
+      {contentsAsString && hasFadeIn && (
         <SplitAnimate
           callback={handlePostAnimation}
           className={[classes.splitAnimate, ready && classes.ready].filter(Boolean).join(' ')}
-          // @ts-expect-error sorry
           as={as}
+          aria-hidden={true}
+          {...{ inert: '' }}
           text={contentsAsString}
         />
       )}
