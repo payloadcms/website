@@ -47,5 +47,4 @@ export const FORM_FIELDS = `{
    redirect {
     url
    }
-   leader
 }`

@@ -66,6 +66,31 @@ export const HomeHero: React.FC<
   return (
     <ChangeHeaderTheme theme="light">
       <BlockWrapper setPadding={false} settings={{ theme: 'light' }} padding={padding}>
+        <div className={classes.paddingTopWrapper}>
+          <div className={classes.paddingTop}>
+            <BackgroundGrid
+              className={classes.paddingBottomGrid}
+              gridLineStyles={{
+                0: {
+                  background: 'var(--grid-line-light)',
+                },
+                1: {
+                  background: 'var(--grid-line-light)',
+                },
+                2: {
+                  background: 'var(--grid-line-light)',
+                },
+                3: {
+                  background: 'var(--grid-line-light)',
+                },
+                4: {
+                  background: 'var(--grid-line-light)',
+                },
+              }}
+              zIndex={1}
+            />
+          </div>
+        </div>
         <div className={classes.homeHero}>
           <div className={classes.background}>
             <div className={classes.imagesContainerWrapper}>

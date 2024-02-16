@@ -4,6 +4,7 @@ import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'reac
 import { BannerBlock } from '@blocks/Banner'
 import { BlogContent } from '@blocks/BlogContent'
 import { BlogMarkdown } from '@blocks/BlogMarkdown'
+import { Callout } from '@blocks/Callout'
 import { CallToAction } from '@blocks/CallToAction'
 import { CardGrid } from '@blocks/CardGrid'
 import { CaseStudiesHighlightBlock } from '@blocks/CaseStudiesHighlight'
@@ -45,6 +46,7 @@ const blockComponents = {
   caseStudyCards: CaseStudyCards,
   caseStudyParallax: CaseStudyParallax,
   mediaBlock: MediaBlock,
+  callout: Callout,
   code: CodeBlock,
   content: ContentBlock,
   contentGrid: ContentGrid,
@@ -71,11 +73,12 @@ export type BlocksProp = ReusableContent['layout'][0] | ReusableContentBlockType
 type Props = {
   blocks: BlocksProp[]
   disableOuterSpacing?: true
-  heroTheme?: Page['hero']['theme']
+  hero?: Page['hero']
 }
 
 export const RenderBlocks: React.FC<Props> = props => {
-  const { blocks, disableOuterSpacing, heroTheme } = props
+  const { blocks, disableOuterSpacing, hero } = props
+  const heroTheme = hero?.type === 'home' ? 'dark' : hero?.theme
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
   const { theme: themeFromContext } = useThemePreference()
   const [themeState, setThemeState] = useState<Theme>()

@@ -1,0 +1,41 @@
+@use '@scss/common' as *;
+
+.label {
+  display: block;
+  margin-bottom: calc(var(--base) * 0.5);
+  color: var(--theme-elevation-650);
+  line-height: 1;
+  font-size: var(--base);
+  align-self: flex-end;
+  display: flex;
+  width: 100%;
+}
+
+.required {
+  color: var(--color-error-500);
+  margin: 0 calc(var(--base) * 0.25);
+}
+
+.labelWithActions {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: calc(var(--base) * 0.5);
+  display: inline-flex;
+  width: 100%;
+
+  label {
+    margin: 0;
+  }
+}
+
+.actions {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  gap: calc(var(--base) * .5);
+}
+
+.noMargin {
+  margin: 0;
+}

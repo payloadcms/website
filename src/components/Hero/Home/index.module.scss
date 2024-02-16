@@ -328,9 +328,23 @@
 }
 
 // Need to fake this padding so that it doesn't mess with the positioning of the rest of the component
+.paddingTopWrapper {
+  background: var(--color-base-0);
+  padding-top: var(--page-padding-top);
+
+  @include small-break {
+    padding-top: 0;
+  }
+}
+
+.paddingTop {
+  position: relative;
+  height: calc(var(--wrapper-padding-top));
+}
+
 .paddingBottom {
   position: relative;
-  background: black;
+  background: var(--color-base-1000);
   margin-top: -1px;
   height: var(--wrapper-padding-bottom);
 }
