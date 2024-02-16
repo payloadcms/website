@@ -2,13 +2,23 @@
 import React, { useMemo } from 'react'
 import { cubicBezier, motion, stagger, useAnimate, useInView } from 'framer-motion'
 
+import { AllowedElements } from '@components/SpotlightAnimation/types'
+
 import classes from './index.module.scss'
 
 interface Props {
   text: string
-  as?: 'h1' | 'h2' | 'span'
+  className?: string
+  as?: AllowedElements
+  callback?: () => void
 }
-const SplitAnimate: React.FC<Props> = ({ text, as: Element = 'span' }) => {
+const SplitAnimate: React.FC<Props> = ({
+  text,
+  className,
+  as: Element = 'span',
+  callback,
+  ...props
+}) => {
   const [scope, animate] = useAnimate()
   const isInView = useInView(scope)
   const easing = cubicBezier(0.165, 0.84, 0.44, 1)
@@ -26,16 +36,21 @@ const SplitAnimate: React.FC<Props> = ({ text, as: Element = 'span' }) => {
         innerWorldSelector,
         { y: '0%', rotate: 0 },
         { duration: 1.125, delay: stagger(0.075), ease: easing },
-      )
+      ).then(() => {
+        if (callback) callback()
+      })
     }
-  }, [isInView])
+  }, [isInView, callback])
 
   return (
-    <Element ref={scope}>
+    <Element ref={scope} className={(classes.element, className)} {...props}>
       {textArray.map((text, index) => {
         return (
-          <span className={classes.word} key={index}>
-            <motion.span initial={{ y: '150%', rotate: 10 }} className={classes.innerWord}>
+          <span className={[classes.word, 'word'].filter(Boolean).join(' ')} key={index}>
+            <motion.span
+              initial={{ y: '150%', rotate: 10 }}
+              className={[classes.innerWord, 'inner-word'].filter(Boolean).join(' ')}
+            >
               {text}
             </motion.span>
           </span>

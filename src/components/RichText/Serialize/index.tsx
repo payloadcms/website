@@ -3,6 +3,8 @@ import escapeHTML from 'escape-html'
 
 import { CMSLink, Reference } from '@components/CMSLink'
 import SplitAnimate from '@components/SplitAnimate'
+import SpotlightAnimation from '@components/SpotlightAnimation'
+import { AllowedElements } from '@components/SpotlightAnimation/types'
 import { Highlight } from '../../Highlight'
 import { Label } from '../../Label'
 import { LargeBody } from '../../LargeBody'
@@ -29,17 +31,27 @@ type SerializeFunction = React.FC<{
   content?: Node[]
   customRenderers?: CustomRenderers
   textInSplitAnimate?: boolean
+  skipSpan?: boolean
 }>
 
 const isText = (value: any): boolean =>
   typeof value === 'object' && value !== null && typeof value.text === 'string'
 
-export const Serialize: SerializeFunction = ({ content, customRenderers, textInSplitAnimate }) => {
+export const Serialize: SerializeFunction = ({
+  content,
+  customRenderers,
+  textInSplitAnimate,
+  skipSpan,
+}) => {
   return (
     <Fragment>
       {content?.map((node, i) => {
         if (isText(node)) {
-          let text = <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />
+          let text = skipSpan ? (
+            <>{escapeHTML(node.text)}</>
+          ) : (
+            <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />
+          )
 
           if (node.bold) {
             text = <strong key={i}>{text}</strong>
@@ -71,7 +83,7 @@ export const Serialize: SerializeFunction = ({ content, customRenderers, textInS
           }
 
           if (textInSplitAnimate && typeof node.text === 'string') {
-            text = <SplitAnimate text={node.text} />
+            text = <SplitAnimate key={i} text={node.text} />
           }
 
           return <Fragment key={i}>{text}</Fragment>
@@ -200,6 +212,18 @@ export const Serialize: SerializeFunction = ({ content, customRenderers, textInS
             }
 
             return null
+          }
+
+          case 'spotlight': {
+            const { element } = node
+
+            const as: AllowedElements = (element as AllowedElements) ?? 'h2'
+
+            return (
+              <SpotlightAnimation key={i} as={as} richTextChildren={node.children}>
+                <Serialize content={node.children} skipSpan customRenderers={customRenderers} />
+              </SpotlightAnimation>
+            )
           }
 
           default:

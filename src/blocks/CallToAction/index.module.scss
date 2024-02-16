@@ -51,6 +51,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 
@@ -91,4 +92,8 @@
   @include mid-break {
     display: block;
   }
+}
+
+.content{
+  display: flex;
 }

@@ -1,0 +1,102 @@
+@use "@scss/common" as *;
+
+$curve: cubic-bezier(.165, .84, .44, 1);
+
+.wrapper {
+  position: relative;
+}
+
+.container {
+  display: inline-block;
+  position: relative;
+  background: radial-gradient(circle at center, #DFEDF4 0%, #628699 20%, #628699 100%);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 200vw 200vh;
+  overflow: hidden;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: opacity 2350ms $curve;
+
+  &.hasFadeIn {
+    opacity: 0;
+  }
+
+  &.ready {
+    opacity: 1;
+  }
+
+  @include data-theme-selector('dark') {
+    background: radial-gradient(circle at center, #DFEDF4 0%, #628699 20%, #628699 100%);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 200vw 200vh;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @include data-theme-selector('light') {
+    background: radial-gradient(circle at center, #004a6e 0%, #628699 20%, #628699 100%);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 200vw 200vh;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+
+  &::selection {
+    color: black;
+    -webkit-text-fill-color: currentcolor;
+  }
+
+  & em, strong, a {
+    color: var(--theme-text);
+    background-clip: border-box;
+    -webkit-background-clip: border-box;
+    -webkit-text-fill-color: currentcolor;
+    background: none;
+    display: inline;
+    font-style: normal;
+
+    @include data-theme-selector('dark') {
+      color: white;
+    }
+    @include data-theme-selector('light') {
+      color: black;
+    }
+  }
+}
+
+.splitAnimate {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 0;
+  color: #628699;
+  opacity: 1;
+  transition: opacity 2350ms $curve;
+  pointer-events: none;
+  display: inline-flex;
+  flex-wrap: wrap;
+  column-gap: 0.16em;
+
+  @include data-theme-selector('dark') {
+    color: #688ca0;
+  }
+
+  @include data-theme-selector('light') {
+    color: #004a6e;
+  }
+
+  &.ready {
+    opacity: 0;
+  }
+
+  & :global(.word) {
+    margin-right: 0;
+  }
+}
