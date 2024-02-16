@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import { Metadata } from 'next'
 
 import { Gutter } from '@components/Gutter'
@@ -6,6 +5,8 @@ import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { RenderParams } from '../_components/RenderParams'
 import { fetchMe } from './_api/fetchMe'
 import { DashboardBreadcrumbs } from './_components/DashboardBreadcrumbs'
+
+import classes from './layout.module.scss'
 
 export const metadata: Metadata = {
   title: {
@@ -32,12 +33,12 @@ export default async props => {
   })
 
   return (
-    <Fragment>
+    <div className={classes.layout}>
       <Gutter>
         <RenderParams />
         <DashboardBreadcrumbs />
       </Gutter>
       {children}
-    </Fragment>
+    </div>
   )
 }
