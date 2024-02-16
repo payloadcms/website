@@ -5,6 +5,10 @@ import { StyleguidePageContent } from '../../PageContent'
 
 const data: FormBlockProps = {
   blockType: 'form',
+  padding: {
+    top: 'large',
+    bottom: 'large',
+  },
   formFields: {
     richText: [
       { children: [{ text: 'Interested in learning more?' }], type: 'h2' },
@@ -24,11 +28,6 @@ const data: FormBlockProps = {
     form: {
       id: '636270638500b86c17b16b40',
       title: 'Contact',
-      leader: [
-        {
-          text: 'For Enterprise',
-        },
-      ],
       fields: [
         {
           name: 'name',
@@ -62,19 +61,11 @@ const data: FormBlockProps = {
     },
   },
 }
-const dataWithContainer: FormBlockProps = {
-  ...data,
-  formFields: {
-    ...data.formFields,
-    container: true,
-  },
-}
 
 export const FormBlockPage: React.FC = () => {
   return (
     <StyleguidePageContent title="Form Block">
       <FormBlock {...data} />
-      <FormBlock {...dataWithContainer} />
     </StyleguidePageContent>
   )
 }
