@@ -4,4 +4,5 @@ export interface IconProps {
   bold?: boolean
   className?: string
   rotation?: number
+  style?: React.CSSProperties
 }
