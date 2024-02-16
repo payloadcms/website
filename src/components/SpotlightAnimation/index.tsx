@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 
 import SplitAnimate from '@components/SplitAnimate'
 import { AS } from '@components/SpotlightAnimation/types'
+import { useResize } from '@root/utilities/use-resize'
 
 import classes from './index.module.scss'
 
@@ -19,6 +20,7 @@ interface Props {
 const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 'h2' }) => {
   const containerRef = useRef<HTMLElement>(null)
   const [ready, setReady] = useState(false)
+  const containerSize = useResize(containerRef)
 
   const [mousePosition, setMousePosition] = useState({
     x: 0,
@@ -89,7 +91,7 @@ const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 
       if (intersectionObserver) intersectionObserver.disconnect()
       window.removeEventListener('mousemove', handleMouseMovement)
     }
-  }, [containerRef, ready, hasFadeIn])
+  }, [containerRef, ready, hasFadeIn, containerSize])
 
   const getBackgroundOrigin = useMemo(() => {
     return `calc(${mousePosition.x}px - 100vw) calc(${mousePosition.y}px - 100vh)`
