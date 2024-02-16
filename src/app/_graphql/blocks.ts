@@ -254,7 +254,6 @@ export const FORM_BLOCK = `
 ...on FormBlock {
   blockType
   formFields {
-    container
     richText
     form ${FORM_FIELDS}
   }

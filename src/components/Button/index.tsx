@@ -58,6 +58,7 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
    * Forces a background on the default button appearance
    */
   forceBackground?: boolean
+  iconRotation?: number
 }
 
 const icons = {
@@ -104,9 +105,11 @@ const generateHref = (args: GenerateSlugType): string => {
 }
 
 const ButtonContent: React.FC<ButtonProps> = props => {
-  const { icon, label, labelStyle = 'mono', labelClassName, appearance } = props
+  const { icon, label, labelStyle = 'mono', labelClassName, appearance, iconRotation } = props
 
   const Icon = icon ? icons[icon] : null
+
+  const iconProps = icon === 'arrow' ? { rotation: iconRotation } : {}
 
   if (appearance === 'default') {
     return (
@@ -128,7 +131,10 @@ const ButtonContent: React.FC<ButtonProps> = props => {
           )}
           {Icon && label && <div className={classes.spacer} />}
           {Icon && (
-            <Icon className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')} />
+            <Icon
+              className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')}
+              {...iconProps}
+            />
           )}
         </div>
         <div
@@ -151,7 +157,40 @@ const ButtonContent: React.FC<ButtonProps> = props => {
           )}
           {Icon && label && <div className={classes.spacer} />}
           {Icon && (
-            <Icon className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')} />
+            <Icon
+              className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')}
+              {...iconProps}
+            />
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  if (appearance === 'primary') {
+    return (
+      <div className={[classes.contentWrapper].filter(Boolean).join(' ')}>
+        <div className={[classes.content, classes.defaultLabel].filter(Boolean).join(' ')}>
+          {label && (
+            <div
+              className={[
+                classes.label,
+                !icon && classes['label-centered'],
+                classes[`label-${labelStyle}`],
+                labelClassName,
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            >
+              {label}
+            </div>
+          )}
+          {Icon && label && <div className={classes.spacer} />}
+          {Icon && (
+            <Icon
+              className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')}
+              {...iconProps}
+            />
           )}
         </div>
       </div>
@@ -176,7 +215,10 @@ const ButtonContent: React.FC<ButtonProps> = props => {
       )}
       {Icon && label && <div className={classes.spacer} />}
       {Icon && (
-        <Icon className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')} />
+        <Icon
+          className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')}
+          {...iconProps}
+        />
       )}
     </div>
   )

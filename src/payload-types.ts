@@ -268,7 +268,6 @@ export interface CaseStudy {
               settings?: {
                 theme?: ('light' | 'dark') | null;
               };
-              container?: boolean | null;
               richText: {
                 [k: string]: unknown;
               }[];
@@ -1189,7 +1188,6 @@ export interface Page {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
-          container?: boolean | null;
           richText: {
             [k: string]: unknown;
           }[];
@@ -2196,7 +2194,6 @@ export interface ReusableContent {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
-          container?: boolean | null;
           richText: {
             [k: string]: unknown;
           }[];
@@ -2888,9 +2885,6 @@ export interface Form {
         id?: string | null;
       }[]
     | null;
-  leader: {
-    [k: string]: unknown;
-  }[];
   hubSpotFormID?: string | null;
   updatedAt: string;
   createdAt: string;

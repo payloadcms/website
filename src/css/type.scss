@@ -145,8 +145,7 @@
   margin: calc(var(--base) * 1.2) 0;
   font-size: calc(var(--base) * 1);
   line-height: 1.2;
-  color: var(--theme-elevation-500);
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: -0.05em;
 
   @include mid-break {

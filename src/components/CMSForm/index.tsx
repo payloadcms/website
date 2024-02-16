@@ -1,26 +1,40 @@
 'use client'
 
 import * as React from 'react'
-import FormComponent from '@forms/Form'
-import Submit from '@forms/Submit'
+import Form from '@forms/Form'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { RichText } from '@components/RichText'
-import { Form } from '@root/payload-types'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon'
+import { Form as FormType } from '@root/payload-types'
 import { getCookie } from '@root/utilities/get-cookie'
 import { fields } from './fields'
-import { Width } from './Width'
+import Submit from './Submit'
 
 import classes from './index.module.scss'
 
-const RenderForm = ({ form }: { form: Form }) => {
+const buildInitialState = fields => {
+  const state = {}
+
+  fields.forEach(field => {
+    state[field.name] = {
+      value: '',
+      valid: !field.required,
+      initialValue: undefined,
+      errorMessage: 'This field is required.',
+    }
+  })
+
+  return state
+}
+
+const RenderForm = ({ form }: { form: FormType }) => {
   const {
     id: formID,
     submitButtonLabel,
     confirmationType,
     redirect: formRedirect,
     confirmationMessage,
-    leader,
   } = form
 
   const [isLoading, setIsLoading] = React.useState(false)
@@ -28,6 +42,8 @@ const RenderForm = ({ form }: { form: Form }) => {
   const [hasSubmitted, setHasSubmitted] = React.useState<boolean>()
 
   const [error, setError] = React.useState<{ status?: string; message: string } | undefined>()
+
+  const initialState = buildInitialState(form.fields)
 
   const router = useRouter()
 
@@ -132,27 +148,39 @@ const RenderForm = ({ form }: { form: Form }) => {
       {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
       {!hasSubmitted && (
         <React.Fragment>
-          {leader && <RichText className={classes.leader} content={leader} />}
-          <FormComponent onSubmit={onSubmit}>
-            <div className={classes.fieldWrap}>
+          <Form onSubmit={onSubmit} initialState={initialState}>
+            <div className={classes.formFieldsWrap}>
               {form.fields?.map((field, index) => {
                 const Field: React.FC<any> = fields?.[field.blockType]
+                const isLastField = index === (form.fields?.length ?? 0) - 1
                 if (Field) {
                   return (
-                    <Width key={index} width={'width' in field ? field.width : 100}>
+                    <div
+                      key={index}
+                      className={[classes.fieldWrap, !isLastField ? classes.hideBottomBorder : '']
+                        .filter(Boolean)
+                        .join(' ')}
+                    >
                       <Field
                         path={'name' in field ? field.name : undefined}
                         form={form}
                         {...field}
                       />
-                    </Width>
+                    </div>
                   )
                 }
                 return null
               })}
+              <CrosshairIcon className={[classes.crosshair, classes.crosshairLeft].join(' ')} />
+              <CrosshairIcon className={[classes.crosshair, classes.crosshairRight].join(' ')} />
             </div>
-            <Submit processing={isLoading} label={submitButtonLabel} />
-          </FormComponent>
+            <Submit
+              className={[classes.submitButton, classes.hideTopBorder].filter(Boolean).join(' ')}
+              processing={isLoading}
+              label={submitButtonLabel}
+              iconRotation={45}
+            />
+          </Form>
         </React.Fragment>
       )}
     </div>
@@ -160,7 +188,7 @@ const RenderForm = ({ form }: { form: Form }) => {
 }
 
 export const CMSForm: React.FC<{
-  form?: string | Form | null
+  form?: string | FormType | null
 }> = props => {
   const { form } = props
 
