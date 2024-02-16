@@ -7,7 +7,26 @@
     position: relative;
     border-top: 1px solid var(--grid-line-dark);
     border-bottom: 1px solid var(--grid-line-dark);
+    overflow: hidden;
 
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(to top, #007FAE, #F4AC4F);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    &:focus-within {
+      &::before {
+        opacity: 1;
+      }
+    }
+    
     :global {
       div.rs__control  {
         border: none;
@@ -18,6 +37,10 @@
     input, textarea {
       border: none;
       background: none;
+
+      &:focus {
+        outline: none;
+      }
     }
   }
 
