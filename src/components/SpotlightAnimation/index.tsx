@@ -2,14 +2,14 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 
 import SplitAnimate from '@components/SplitAnimate'
-import { AS } from '@components/SpotlightAnimation/types'
+import { AllowedElements } from '@components/SpotlightAnimation/types'
 import { useResize } from '@root/utilities/use-resize'
 
 import classes from './index.module.scss'
 
 interface Props {
   children: React.ReactNode
-  as?: AS
+  as?: AllowedElements
   /**
    * Gets an array from rich text which it can loop through and get a string text
    * Required for SplitAnimate to work
@@ -108,7 +108,7 @@ const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 
         className={[classes.container, hasFadeIn && classes.hasFadeIn, ready && classes.ready]
           .filter(Boolean)
           .join(' ')}
-        // @ts-expect-error sorry
+        // @ts-expect-error
         ref={containerRef}
       >
         {children}

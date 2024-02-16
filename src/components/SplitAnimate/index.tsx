@@ -2,14 +2,14 @@
 import React, { useMemo } from 'react'
 import { cubicBezier, motion, stagger, useAnimate, useInView } from 'framer-motion'
 
-import { AS } from '@components/SpotlightAnimation/types'
+import { AllowedElements } from '@components/SpotlightAnimation/types'
 
 import classes from './index.module.scss'
 
 interface Props {
   text: string
   className?: string
-  as?: AS
+  as?: AllowedElements
   callback?: () => void
 }
 const SplitAnimate: React.FC<Props> = ({
