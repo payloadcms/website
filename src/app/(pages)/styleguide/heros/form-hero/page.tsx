@@ -99,15 +99,6 @@ const hero: Page['hero'] = {
     redirect: {
       url: '',
     },
-    leader: [
-      {
-        children: [
-          {
-            text: 'Get in Touch to Learn More',
-          },
-        ],
-      },
-    ],
   },
 }
 

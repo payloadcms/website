@@ -200,6 +200,16 @@ export interface CaseStudy {
                     language?: ('none' | 'js' | 'ts') | null;
                     label: string;
                     code: string;
+                    codeBlips?:
+                      | {
+                          row: number;
+                          label: string;
+                          feature: {
+                            [k: string]: unknown;
+                          }[];
+                          id?: string | null;
+                        }[]
+                      | null;
                     id?: string | null;
                   }[]
                 | null;
@@ -268,7 +278,6 @@ export interface CaseStudy {
               settings?: {
                 theme?: ('light' | 'dark') | null;
               };
-              container?: boolean | null;
               richText: {
                 [k: string]: unknown;
               }[];
@@ -547,6 +556,16 @@ export interface CaseStudy {
                                   language?: ('none' | 'js' | 'ts') | null;
                                   label: string;
                                   code: string;
+                                  codeBlips?:
+                                    | {
+                                        row: number;
+                                        label: string;
+                                        feature: {
+                                          [k: string]: unknown;
+                                        }[];
+                                        id?: string | null;
+                                      }[]
+                                    | null;
                                   id?: string | null;
                                 }[]
                               | null;
@@ -901,6 +920,28 @@ export interface Page {
   };
   layout: (
     | {
+        calloutFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
+          richText: {
+            [k: string]: unknown;
+          }[];
+          logo: string | Media;
+          author?: string | null;
+          role?: string | null;
+          images?:
+            | {
+                image: string | Media;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'callout';
+      }
+    | {
         ctaFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
@@ -1099,6 +1140,16 @@ export interface Page {
                 language?: ('none' | 'js' | 'ts') | null;
                 label: string;
                 code: string;
+                codeBlips?:
+                  | {
+                      row: number;
+                      label: string;
+                      feature: {
+                        [k: string]: unknown;
+                      }[];
+                      id?: string | null;
+                    }[]
+                  | null;
                 id?: string | null;
               }[]
             | null;
@@ -1167,7 +1218,6 @@ export interface Page {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
-          container?: boolean | null;
           richText: {
             [k: string]: unknown;
           }[];
@@ -1535,6 +1585,16 @@ export interface Page {
                               language?: ('none' | 'js' | 'ts') | null;
                               label: string;
                               code: string;
+                              codeBlips?:
+                                | {
+                                    row: number;
+                                    label: string;
+                                    feature: {
+                                      [k: string]: unknown;
+                                    }[];
+                                    id?: string | null;
+                                  }[]
+                                | null;
                               id?: string | null;
                             }[]
                           | null;
@@ -1771,6 +1831,16 @@ export interface Post {
           };
           language?: ('none' | 'js' | 'ts') | null;
           code: string;
+          codeBlips?:
+            | {
+                row: number;
+                label: string;
+                feature: {
+                  [k: string]: unknown;
+                }[];
+                id?: string | null;
+              }[]
+            | null;
         };
         id?: string | null;
         blockName?: string | null;
@@ -1871,6 +1941,28 @@ export interface ReusableContent {
         id?: string | null;
         blockName?: string | null;
         blockType: 'blogMarkdown';
+      }
+    | {
+        calloutFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
+          richText: {
+            [k: string]: unknown;
+          }[];
+          logo: string | Media;
+          author?: string | null;
+          role?: string | null;
+          images?:
+            | {
+                image: string | Media;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'callout';
       }
     | {
         ctaFields: {
@@ -2039,6 +2131,16 @@ export interface ReusableContent {
           };
           language?: ('none' | 'js' | 'ts') | null;
           code: string;
+          codeBlips?:
+            | {
+                row: number;
+                label: string;
+                feature: {
+                  [k: string]: unknown;
+                }[];
+                id?: string | null;
+              }[]
+            | null;
         };
         id?: string | null;
         blockName?: string | null;
@@ -2083,6 +2185,16 @@ export interface ReusableContent {
                 language?: ('none' | 'js' | 'ts') | null;
                 label: string;
                 code: string;
+                codeBlips?:
+                  | {
+                      row: number;
+                      label: string;
+                      feature: {
+                        [k: string]: unknown;
+                      }[];
+                      id?: string | null;
+                    }[]
+                  | null;
                 id?: string | null;
               }[]
             | null;
@@ -2152,7 +2264,6 @@ export interface ReusableContent {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
-          container?: boolean | null;
           richText: {
             [k: string]: unknown;
           }[];
@@ -2509,6 +2620,16 @@ export interface ReusableContent {
                               language?: ('none' | 'js' | 'ts') | null;
                               label: string;
                               code: string;
+                              codeBlips?:
+                                | {
+                                    row: number;
+                                    label: string;
+                                    feature: {
+                                      [k: string]: unknown;
+                                    }[];
+                                    id?: string | null;
+                                  }[]
+                                | null;
                               id?: string | null;
                             }[]
                           | null;
@@ -2844,9 +2965,6 @@ export interface Form {
         id?: string | null;
       }[]
     | null;
-  leader: {
-    [k: string]: unknown;
-  }[];
   hubSpotFormID?: string | null;
   updatedAt: string;
   createdAt: string;

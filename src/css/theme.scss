@@ -122,7 +122,7 @@
   --theme-elevation-1000: var(--color-base-1000);
 
   --theme-bg: var(--theme-elevation-0);
-  --theme-input-bg: var(--theme-elevation-50);
+  --theme-input-bg: #EFEFEF;
   --theme-text: var(--theme-elevation-750);
   --theme-text-success: var(--theme-success-650);
   --theme-border-color: var(--theme-elevation-150);
@@ -287,10 +287,10 @@
   --theme-purple-900: var(--color-purple-100);
   --theme-purple-950: var(--color-purple-50);
 
-  --theme-bg: var(--theme-elevation-100);
-  --theme-text: var(--theme-elevation-900);
+  --theme-bg: var(--theme-elevation-0);
+  --theme-text: var(--theme-elevation-1000);
   --theme-text-success: var(--theme-success-500);
-  --theme-input-bg: var(--theme-elevation-150);
+  --theme-input-bg: #101010;
   --theme-border-color: var(--theme-elevation-250);
 
   color-scheme: dark;

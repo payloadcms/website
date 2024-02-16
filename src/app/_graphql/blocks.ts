@@ -41,6 +41,11 @@ export const CODE_BLOCK = `
   codeFields {
     language
     code
+    codeBlips {
+      row
+      feature
+      label
+    }
   }
 }
 `
@@ -60,6 +65,27 @@ export const CODE_FEATURE = `
       language
       label
       code
+      codeBlips {
+        row
+        feature
+        label
+      }
+    }
+  }
+}
+`
+
+export const CALLOUT = `
+...on Callout {
+  blockType
+  calloutFields {
+    settings ${SETTINGS}
+    richText
+    role
+    author
+    logo ${MEDIA_FIELDS}
+    images {
+      image ${MEDIA_FIELDS}
     }
   }
 }
@@ -238,7 +264,6 @@ export const FORM_BLOCK = `
 ...on FormBlock {
   blockType
   formFields {
-    container
     richText
     form ${FORM_FIELDS}
   }
@@ -394,6 +419,7 @@ export const REUSABLE_CONTENT_BLOCK = `
         ${BANNER}
         ${BLOG_CONTENT}
         ${BLOG_MARKDOWN}
+        ${CALLOUT}
         ${CALL_TO_ACTION}
         ${CARD_GRID}
         ${CASE_STUDIES_HIGHLIGHT}

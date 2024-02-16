@@ -1,5 +1,7 @@
 @use '@scss/common.scss' as *;
 
+$curve: cubic-bezier(.165, .84, .44, 1);
+
 .code {
   padding: calc(var(--base) * 2);
   font-size: calc(var(--base) * .65);
@@ -7,7 +9,7 @@
   min-height: calc(var(--base) * 24);
   background-color: var(--color-base-900);
   color: var(--color-base-100);
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-family: var(--font-mono), Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
@@ -137,15 +139,25 @@
   }
 }
 
+.lineCodeWrapper {
+  position: relative;
+  display: inline-block;
+}
+
 .lineNumber {
   user-select: none;
   opacity: 0.3;
   display: table-cell;
   text-align: right;
   color: hsla(var(--hsla-offwhite-2), 0.3);
-  padding-right:  calc(var(--base) * 2);
+  padding-right: calc(var(--base) * 2);
 
   @include mid-break {
     display: none;
   }
 }
+
+.line {
+  position: relative;
+}
+

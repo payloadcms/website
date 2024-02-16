@@ -1,7 +1,9 @@
+'use client'
 /* eslint-disable no-param-reassign */
-import React from 'react'
+import React, { useCallback } from 'react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 
+import CodeBlip from '@components/CodeBlip'
 import { Props } from './types'
 
 import classes from './index.module.scss'
@@ -44,26 +46,40 @@ const highlightLine = (lineArray: { content: string }[], lineProps: { className:
 }
 
 const Code: React.FC<Props> = props => {
-  const { children, className } = props
+  const { children, className, codeBlips } = props
   const classNames = [classes.code, className && className].filter(Boolean).join(' ')
+
+  const getCodeBlip = useCallback(
+    (rowNumber: number) => {
+      if (!codeBlips) return null
+      return codeBlips.find(blip => blip.row === rowNumber) ?? null
+    },
+    [codeBlips],
+  )
+
+  let blipCounter = 0
 
   return (
     <Highlight {...defaultProps} theme={undefined} code={children} language="jsx">
       {({ style, tokens, getLineProps, getTokenProps }) => (
         <div className={classNames} style={style}>
           {tokens.map((line, i) => {
-            const lineProps = getLineProps({ line, key: i })
+            const lineProps = getLineProps({ line, key: i, className: classes.line })
             const shouldExclude = highlightLine(line, lineProps)
+            const rowNumber = i + 1
+            const codeBlip = getCodeBlip(rowNumber)
+            if (codeBlip) blipCounter = blipCounter + 1
             return !shouldExclude ? (
               <div {...lineProps} key={i}>
                 <>
-                  <span className={classes.lineNumber}>{++i}</span>
-                  <span>
-                    {line.map((token, i) => {
-                      const { key, ...rest } = getTokenProps({ token, key: i })
+                  <span className={classes.lineNumber}>{rowNumber}</span>
+                  <div className={classes.lineCodeWrapper}>
+                    {line.map((token, index) => {
+                      const { key, ...rest } = getTokenProps({ token, key: index })
                       return <span key={key} {...rest} />
                     })}
-                  </span>
+                    {codeBlip ? <CodeBlip.Button index={blipCounter} blip={codeBlip} /> : null}
+                  </div>
                 </>
               </div>
             ) : null
