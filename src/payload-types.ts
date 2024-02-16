@@ -200,6 +200,16 @@ export interface CaseStudy {
                     language?: ('none' | 'js' | 'ts') | null;
                     label: string;
                     code: string;
+                    codeBlips?:
+                      | {
+                          row: number;
+                          label: string;
+                          feature: {
+                            [k: string]: unknown;
+                          }[];
+                          id?: string | null;
+                        }[]
+                      | null;
                     id?: string | null;
                   }[]
                 | null;
@@ -546,6 +556,16 @@ export interface CaseStudy {
                                   language?: ('none' | 'js' | 'ts') | null;
                                   label: string;
                                   code: string;
+                                  codeBlips?:
+                                    | {
+                                        row: number;
+                                        label: string;
+                                        feature: {
+                                          [k: string]: unknown;
+                                        }[];
+                                        id?: string | null;
+                                      }[]
+                                    | null;
                                   id?: string | null;
                                 }[]
                               | null;
@@ -1120,6 +1140,16 @@ export interface Page {
                 language?: ('none' | 'js' | 'ts') | null;
                 label: string;
                 code: string;
+                codeBlips?:
+                  | {
+                      row: number;
+                      label: string;
+                      feature: {
+                        [k: string]: unknown;
+                      }[];
+                      id?: string | null;
+                    }[]
+                  | null;
                 id?: string | null;
               }[]
             | null;
@@ -1555,6 +1585,16 @@ export interface Page {
                               language?: ('none' | 'js' | 'ts') | null;
                               label: string;
                               code: string;
+                              codeBlips?:
+                                | {
+                                    row: number;
+                                    label: string;
+                                    feature: {
+                                      [k: string]: unknown;
+                                    }[];
+                                    id?: string | null;
+                                  }[]
+                                | null;
                               id?: string | null;
                             }[]
                           | null;
@@ -1791,6 +1831,16 @@ export interface Post {
           };
           language?: ('none' | 'js' | 'ts') | null;
           code: string;
+          codeBlips?:
+            | {
+                row: number;
+                label: string;
+                feature: {
+                  [k: string]: unknown;
+                }[];
+                id?: string | null;
+              }[]
+            | null;
         };
         id?: string | null;
         blockName?: string | null;
@@ -2081,6 +2131,16 @@ export interface ReusableContent {
           };
           language?: ('none' | 'js' | 'ts') | null;
           code: string;
+          codeBlips?:
+            | {
+                row: number;
+                label: string;
+                feature: {
+                  [k: string]: unknown;
+                }[];
+                id?: string | null;
+              }[]
+            | null;
         };
         id?: string | null;
         blockName?: string | null;
@@ -2125,6 +2185,16 @@ export interface ReusableContent {
                 language?: ('none' | 'js' | 'ts') | null;
                 label: string;
                 code: string;
+                codeBlips?:
+                  | {
+                      row: number;
+                      label: string;
+                      feature: {
+                        [k: string]: unknown;
+                      }[];
+                      id?: string | null;
+                    }[]
+                  | null;
                 id?: string | null;
               }[]
             | null;
@@ -2550,6 +2620,16 @@ export interface ReusableContent {
                               language?: ('none' | 'js' | 'ts') | null;
                               label: string;
                               code: string;
+                              codeBlips?:
+                                | {
+                                    row: number;
+                                    label: string;
+                                    feature: {
+                                      [k: string]: unknown;
+                                    }[];
+                                    id?: string | null;
+                                  }[]
+                                | null;
                               id?: string | null;
                             }[]
                           | null;

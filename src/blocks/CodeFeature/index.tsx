@@ -1,10 +1,12 @@
 import React, { useEffect, useId, useRef, useState } from 'react'
+import { useAnimate, usePresence } from 'framer-motion'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
 import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { CMSLink } from '@components/CMSLink'
 import Code from '@components/Code'
+import CodeBlip from '@components/CodeBlip'
 import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
 import SplitAnimate from '@components/SplitAnimate'
@@ -18,15 +20,20 @@ type Props = Extract<Page['layout'][0], { blockType: 'codeFeature' }> & {
   padding: PaddingProps
 }
 
-export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, padding }) => {
+export const CodeFeatureComponent: React.FC<Props> = ({
+  codeFeatureFields,
+  className,
+  padding,
+}) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [indicatorStyle, setIndicatorStyle] = useState({ width: '0', left: '0' })
   const [tabWrapperWidth, setTabWrapperWidth] = useState(0)
   const tabWrapperRef = useRef<HTMLDivElement>(null)
   const activeTabRef = useRef<HTMLButtonElement>(null)
-  const { heading, richText, forceDarkBackground, codeTabs, links, settings } = codeFeatureFields
+  const { heading, richText, codeTabs, links, settings } = codeFeatureFields
   const hasLinks = Boolean(links?.length && links.length > 0)
   const id = useId()
+  const { data, isOpen } = CodeBlip.useCodeBlip()
 
   useEffect(() => {
     let observer
@@ -145,6 +152,7 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, pad
             <BackgroundScanline
               className={[classes.scanlineMobile, ''].filter(Boolean).join(' ')}
             />
+            <CodeBlip.Modal />
             <div
               className={[
                 classes.tabs,
@@ -153,6 +161,7 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, pad
                 .filter(Boolean)
                 .join(' ')}
               ref={tabWrapperRef}
+              {...(isOpen ? { inert: '' } : {})}
             >
               {codeTabs?.length && codeTabs.length > 1 ? (
                 codeTabs?.map((code, index) => {
@@ -180,12 +189,16 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, pad
               )}
               <div className={classes.tabIndicator} style={indicatorStyle} aria-hidden={true} />
             </div>
-            <div className={classes.codeBlockWrapper}>
+            <div className={classes.codeBlockWrapper} {...(isOpen ? { inert: '' } : {})}>
               {codeTabs?.map((code, index) => {
                 return (
                   <div
                     key={index}
-                    className={[classes.codeBlock, activeIndex === index && classes.isActive]
+                    className={[
+                      classes.codeBlock,
+                      activeIndex === index && classes.isActive,
+                      activeIndex === index && 'group-active',
+                    ]
                       .filter(Boolean)
                       .join(' ')}
                     aria-hidden={activeIndex !== index}
@@ -195,7 +208,7 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, pad
                     // @ts-expect-error
                     inert={activeIndex !== index ? '' : undefined}
                   >
-                    <Code>{`${code.code}
+                    <Code codeBlips={code.codeBlips}>{`${code.code}
                   `}</Code>
                   </div>
                 )
@@ -207,3 +220,9 @@ export const CodeFeature: React.FC<Props> = ({ codeFeatureFields, className, pad
     </BlockWrapper>
   )
 }
+
+export const CodeFeature: React.FC<Props> = props => (
+  <CodeBlip.Provider>
+    <CodeFeatureComponent {...props} />
+  </CodeBlip.Provider>
+)
