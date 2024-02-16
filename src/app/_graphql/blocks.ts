@@ -65,6 +65,22 @@ export const CODE_FEATURE = `
 }
 `
 
+export const CALLOUT = `
+...on Callout {
+  blockType
+  calloutFields {
+    settings ${SETTINGS}
+    richText
+    role
+    author
+    logo ${MEDIA_FIELDS}
+    images {
+      image ${MEDIA_FIELDS}
+    }
+  }
+}
+`
+
 export const CALL_TO_ACTION = `
 ...on Cta {
   blockType
@@ -393,6 +409,7 @@ export const REUSABLE_CONTENT_BLOCK = `
         ${BANNER}
         ${BLOG_CONTENT}
         ${BLOG_MARKDOWN}
+        ${CALLOUT}
         ${CALL_TO_ACTION}
         ${CARD_GRID}
         ${CASE_STUDIES_HIGHLIGHT}

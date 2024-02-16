@@ -900,6 +900,28 @@ export interface Page {
   };
   layout: (
     | {
+        calloutFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
+          richText: {
+            [k: string]: unknown;
+          }[];
+          logo: string | Media;
+          author?: string | null;
+          role?: string | null;
+          images?:
+            | {
+                image: string | Media;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'callout';
+      }
+    | {
         ctaFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
@@ -1869,6 +1891,28 @@ export interface ReusableContent {
         id?: string | null;
         blockName?: string | null;
         blockType: 'blogMarkdown';
+      }
+    | {
+        calloutFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
+          richText: {
+            [k: string]: unknown;
+          }[];
+          logo: string | Media;
+          author?: string | null;
+          role?: string | null;
+          images?:
+            | {
+                image: string | Media;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'callout';
       }
     | {
         ctaFields: {
