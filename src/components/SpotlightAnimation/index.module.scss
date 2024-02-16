@@ -76,7 +76,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   top: 0;
   left: 0;
   margin-top: 0;
-  color: #004a6e;
+  color: #628699;
   opacity: 1;
   transition: opacity 2350ms $curve;
   pointer-events: none;
@@ -85,7 +85,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   column-gap: 0.16em;
 
   @include data-theme-selector('dark') {
-    color: white;
+    color: #688ca0;
   }
 
   @include data-theme-selector('light') {
