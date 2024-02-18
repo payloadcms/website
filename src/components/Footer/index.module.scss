@@ -1,12 +1,35 @@
 @use '@scss/common' as *;
 
+$curve: cubic-bezier(.165, .84, .44, 1);
+
 .footer {
-  margin: var(--block-spacing) 0 calc(var(--base) * 4) 0;
+  position: relative;
+  background: var(--color-base-1000);
+  padding-top: calc(var(--base) * 7.5);
+  padding-bottom: calc(var(--base) * 7.5);
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% + 300px);
+
+  & img {
+    object-fit: cover;
+    height: 100%;
+  }
+}
+
+.container {
+  position: relative;
 }
 
 .colHeader {
+  @include h6;
   margin-bottom: calc(var(--base) * 4.5);
-  height: 35px;
   display: inline-flex;
   align-items: flex-end;
 
@@ -15,23 +38,11 @@
   }
 }
 
-.payloadIcon {
-  width: calc(var(--base) * 2);
-  position: relative;
-}
-
-.colHeader.thirdColumn {
-  @include mid-break {
-    margin-top: calc(var(--base) * 2);
-  }
-}
-
 .footer .link {
   display: block;
   margin-bottom: calc(var(--base) * .15);
-  width: 50%;
   font-size: calc(var(--font-body-size) * 0.925);
-  color: var(--theme-elevation-500);
+  color: var(--color-base-0);
 
   &:hover {
     color: var(--theme-elevation-800)
@@ -44,60 +55,63 @@
   }
 }
 
-.col2Items {
+.colItems {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-
-  @include mid-break {
-    max-height: unset;
-  }
 }
 
 .subscribeAction {
   display: flex;
   margin-top: calc(var(--base) * 1);
+  margin-bottom: calc(var(--base) * 2);
 }
 
 .subscribeDesc {
-  color: var(--theme-elevation-500);
-  font-size: calc(var(--font-body-size) * 0.925);
+  color: var(--color-base-0);
+  margin: 0;
+  font-size: calc(var(--font-body-size) * 0.9);
 }
 
 .inputWrap {
   position: relative;
+
+  &:hover {
+    .inputArrow {
+      transform: translateX(6px) rotate(45deg);
+      transition: transform 350ms $curve;
+    }
+  }
 }
 
 .emailInput input {
   padding-right: calc(var(--base) * 2);
+  background: transparent;
+  border-color: var(--grid-line-dark);
+  border-left: none;
+  border-right: none;
+
+  &::placeholder {
+    color: var(--color-base-300);
+  }
 }
 
 .inputArrow {
-  position: absolute;
-  right: var(--base);
-  top: 50%;
-  transform: translateY(-50%);
   z-index: 1;
-  color: var(--theme-text);
-  transform: translateY(-50%) rotate(45deg);
+  color: var(--color-base-300);
+  transform: rotate(45deg);
+  transition: transform 350ms $curve;
+  height: calc(var(--base) * 0.6);
+  width: auto;
 }
 
-.invalidEmailArrow {
-  top: 68%;
-}
-
-.ok {
+.submitButton {
+  @include btnReset;
   cursor: pointer;
-  height: calc(var(--base) * 3);
-  width: calc(var(--base) * 3);
-  border-radius: 50%;
-  color: var(--theme-text);
-  border: 1px solid currentColor;
-  background-color: var(--theme-bg);
-  position: relative;
-  isolation: isolate;
-  flex-shrink: 0;
-  margin-left: calc(var(--base) * 1.5);
+  display: block;
+  position: absolute;
+  right: calc(var(--base) * 0.5);
+  top: calc(50% - var(--base) * 0.6);
 
   &:hover {
     background-color: var(--theme-text);
@@ -123,6 +137,11 @@
   display: inline-flex;
   border-radius: 50%;
   margin-right: var(--base);
+}
+
+.twitterIcon {
+  color: var(--color-base-1000);
+  background:  var(--color-base-0);
 }
 
 .copyright,
