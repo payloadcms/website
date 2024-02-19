@@ -182,70 +182,14 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   }
 
   &--primary {
-    --animation-speed: 450ms;
-    display: inline-flex;
-    border: 1px solid var(--grid-line-dark);
-    position: relative;
-    padding: unset;
-    color: var(--theme-elevation-1000);
-    height: unset;
-    overflow: hidden;
+    border: 1px solid var(--theme-elevation-900);
+    color: var(--theme-bg);
+    background-color: var(--theme-elevation-950);
 
-    & .contentWrapper {
-      width: 100%;
-    }
-
-    & .defaultLabel {
-      position: relative;
-      padding: calc(var(--base) * 1.5) var(--base);
-      width: 100%;
-
-      & .label {
-        color: var(--theme-elevation-1000);
-      }
-    }
-
-    &.forceBackground {
-      & .defaultLabel {
-        &::before {
-          content: '';
-          width: calc(100% - 2px);
-          position: absolute;
-          height:100%;
-          left: 1px;
-          top:0;
-          z-index: -1;
-          background-color: var(--theme-elevation-0);
-        }
-      }
-    }
-
-    .content {
-      padding: calc(var(--base) * 1.5) var(--base);
-
-      .label {
-        margin: 0;
-
-      }
-    }
-
-    &:hover {
-      background-color: var(--theme-elevation-1000);
-      color: var(--theme-elevation-0);
-
-      & .label {
-        color: var(--theme-elevation-0);
-      }
-    }
-
-    @include mid-break {
-      .content {
-        padding: var(--base);
-      }
-
-      & .defaultLabel {
-        padding: var(--base);
-      }
+    &:focus-visible, &:hover {
+      color: var(--theme-bg);
+      border-color: currentColor;
+      background-color: var(--theme-elevation-700);
     }
   }
 

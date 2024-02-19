@@ -167,36 +167,6 @@ const ButtonContent: React.FC<ButtonProps> = props => {
     )
   }
 
-  if (appearance === 'primary') {
-    return (
-      <div className={[classes.contentWrapper].filter(Boolean).join(' ')}>
-        <div className={[classes.content, classes.defaultLabel].filter(Boolean).join(' ')}>
-          {label && (
-            <div
-              className={[
-                classes.label,
-                !icon && classes['label-centered'],
-                classes[`label-${labelStyle}`],
-                labelClassName,
-              ]
-                .filter(Boolean)
-                .join(' ')}
-            >
-              {label}
-            </div>
-          )}
-          {Icon && label && <div className={classes.spacer} />}
-          {Icon && (
-            <Icon
-              className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')}
-              {...iconProps}
-            />
-          )}
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className={classes.content}>
       {label && (

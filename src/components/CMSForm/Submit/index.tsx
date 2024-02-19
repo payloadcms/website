@@ -15,7 +15,7 @@ const Submit = forwardRef<HTMLButtonElement, SubmitProps>((props, ref) => {
     label,
     processing: processingFromProps,
     className,
-    appearance = 'primary',
+    appearance = 'default',
     size = 'default',
     icon = 'arrow',
     disabled,
