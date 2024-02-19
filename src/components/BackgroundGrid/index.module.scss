@@ -49,32 +49,13 @@
   &:nth-of-type(5) {
     grid-area: 1/17/1/17;
   }
-}
 
-:global([data-theme="dark"]) {
-  .column {
+   @include data-theme-selector('light') {
+    background: var(--grid-line-light);
+  }
+
+  @include data-theme-selector('dark') {
     background: var(--grid-line-dark);
   }
 }
 
-
-:global([data-theme="light"]) {
-  .column {
-    background: var(--grid-line-light);
-  }
-}
-
-
-// These rules are needed to avoid situations where blocks with forced themes dont have the correct colours
-:global([data-theme="dark"]:not(:has([data-theme="light"]))) {
-  .column {
-    background: var(--grid-line-dark);
-  }
-}
-
-
-:global([data-theme="light"]:not(:has([data-theme="dark"]))) {
-  .column {
-    background: var(--grid-line-light);
-  }
-}
