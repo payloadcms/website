@@ -7,6 +7,7 @@ import { CenteredContent } from './CenteredContent'
 import { ContentMediaHero } from './ContentMedia'
 import { DefaultHero } from './Default'
 import { FormHero } from './FormHero'
+import { GradientHero } from './Gradient'
 import { HomeHero } from './Home'
 import { LivestreamHero } from './Livestream'
 
@@ -17,6 +18,7 @@ const heroes = {
   form: FormHero,
   livestream: LivestreamHero,
   centeredContent: CenteredContent,
+  gradient: GradientHero,
 }
 
 export const Hero: React.FC<{
