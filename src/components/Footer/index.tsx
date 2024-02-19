@@ -6,14 +6,13 @@ import FormComponent from '@forms/Form'
 import { validateEmail } from '@forms/validations'
 import { ArrowIcon } from '@icons/ArrowIcon'
 import { Footer as FooterType } from '@types'
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
-import { Demo } from '@components/Payload3D'
+import Payload3D from '@components/Payload3D'
 import { FacebookIcon } from '@root/graphics/FacebookIcon'
 import { InstagramIcon } from '@root/graphics/InstagramIcon'
 import { ThemeAutoIcon } from '@root/graphics/ThemeAutoIcon'
@@ -38,9 +37,6 @@ export const Footer: React.FC<FooterType> = props => {
   const wrapperRef = React.useRef<HTMLElement>(null)
   const backgroundRef = React.useRef<HTMLDivElement>(null)
   const selectRef = React.useRef<HTMLSelectElement>(null)
-  const { scrollYProgress } = useScroll()
-  const translateYRaw = useTransform(scrollYProgress, [0, 1], [-300, 0], { clamp: true })
-  const translateY = useSpring(translateYRaw, { bounce: 0 })
 
   const [buttonClicked, setButtonClicked] = React.useState(false)
 
@@ -160,14 +156,9 @@ export const Footer: React.FC<FooterType> = props => {
 
   return (
     <footer ref={wrapperRef} className={classes.footer} data-theme="dark">
-      <motion.div
-        ref={backgroundRef}
-        className={classes.background}
-        initial={{ y: -300 }}
-        style={{ y: translateY }}
-      >
-        <Image alt="" src="/images/footer-bg.jpg" width={1920} height={1068} />
-      </motion.div>
+      <div ref={backgroundRef} className={classes.background}>
+        <Image alt="" src="/images/footer-bg-large.jpg" width={3840} height={1920} />
+      </div>
       <BackgroundGrid zIndex={0} />
       <Gutter className={classes.container}>
         <div className={['grid'].filter(Boolean).join(' ')}>
@@ -305,7 +296,7 @@ export const Footer: React.FC<FooterType> = props => {
             </div>
           </div>
         </div>
-        {/* <Demo /> */}
+        <Payload3D />
       </Gutter>
     </footer>
   )

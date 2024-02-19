@@ -5,9 +5,14 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .footer {
   position: relative;
   background: var(--color-base-1000);
-  padding-top: calc(var(--base) * 7.5);
+  padding-top: calc(var(--base) * 11.5);
   padding-bottom: calc(var(--base) * 7.5);
   overflow: hidden;
+
+  @include mid-break {
+    padding-top: calc(var(--base) * 7.5);
+    padding-bottom: calc(var(--base) * 7.5);
+  }
 }
 
 .background {
@@ -15,7 +20,8 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(100% + 300px);
+  height: calc(100%);
+  //display: none;
 
   & img {
     object-fit: cover;
@@ -57,8 +63,9 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .colItems {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
+  gap: calc(var(--base) * 1);
 }
 
 .subscribeAction {
@@ -131,6 +138,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .socialLinks {
   display: flex;
   align-items: center;
+  margin-bottom: calc(var(--base) * 3);
 }
 
 .socialIconLink {
@@ -165,21 +173,25 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   align-items: center;
   color: var(--theme-elevation-500);
   cursor: pointer;
+  width: 100%;
 
   label {
     all: unset;
     font-size: calc(var(--font-body-size) * 0.75);
     display: flex;
     align-items: center;
+    width: 100%;
   }
 
   select {
     all: unset;
-    border: 1px solid var(--theme-elevation-300);
+    border-top: 1px solid var(--grid-line-dark);
+    border-bottom: 1px solid var(--grid-line-dark);
     font-size: calc(var(--font-body-size) * 0.925);
     padding-top: calc(var(--base) * .25);
     padding-bottom: calc(var(--base) * .25);
     padding-left: var(--theme-icon-width);
+    width: 100%;
     padding-right: var(--theme-switcher-icon-width);
   }
 }
