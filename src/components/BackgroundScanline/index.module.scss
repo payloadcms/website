@@ -19,8 +19,12 @@
   opacity: 0.08;
   box-sizing: border-box;
 
+  @include data-theme-selector('light') {
+    background-image: url('/images/scanline-dark.png');
+  }
 
-  [data-theme="dark"]  & {
+
+  @include data-theme-selector('dark') {
     background-image: url('/images/scanline-light.png');
   }
 }
