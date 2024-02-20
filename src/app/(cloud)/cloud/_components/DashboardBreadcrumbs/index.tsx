@@ -2,9 +2,11 @@
 
 import { usePathname } from 'next/navigation'
 
+import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
 import { cloudSlug } from '@root/app/(cloud)/cloud/slug'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
-import { Breadcrumb, Breadcrumbs } from '../../../../../components/Breadcrumbs'
+
+import classes from './index.module.scss'
 
 export type Routes = {
   [key: string]: Breadcrumb
@@ -104,6 +106,7 @@ export const DashboardBreadcrumbs = () => {
 
   return (
     <Breadcrumbs
+      className={classes.dashboardBreadcrumbs}
       items={segments.reduce((acc: Breadcrumb[], segment, index) => {
         const lowercaseSegment = segment.toLowerCase()
 

@@ -51,7 +51,7 @@
     height: 100%;
     left: calc(var(--base) * -2);
     right: calc(var(--base) * -2);
-    background-color: var(--theme-elevation-50);
+    background-color: var(--theme-elevation-100);
 
     @include mid-break {
         width: calc(100% + calc(var(--gutter-h) * 2));
@@ -62,4 +62,10 @@
 
 .pagination {
     margin-top: calc(var(--base) * 2);
+}
+
+:global([data-theme="light"]) {
+    .controlsBG {
+        background-color: var(--theme-elevation-50);
+    }
 }

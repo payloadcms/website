@@ -1,9 +1,9 @@
 import { Fragment } from 'react'
-import { fetchProjectAndRedirect } from '@root/app/(cloud)/cloud/_api/fetchProject'
 
 import { Accordion } from '@root/app/_components/Accordion'
 import { HR } from '@root/app/_components/HR'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
+import { fetchProjectAndRedirect } from '@root/app/(cloud)/cloud/_api/fetchProject'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { NoData } from '../_layoutComponents/NoData'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'

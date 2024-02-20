@@ -109,7 +109,11 @@ export const Login: React.FC = () => {
             </div>
           </Form>
         </div>
-        <div className={['cols-6 start-10 cols-m-8 start-m-1'].filter(Boolean).join(' ')}>
+        <div
+          className={[classes.sidebarWrap, 'cols-6 start-10 cols-m-8 start-m-1']
+            .filter(Boolean)
+            .join(' ')}
+        >
           <div className={classes.sidebar}>
             <p>
               {`Don't have an account? `}

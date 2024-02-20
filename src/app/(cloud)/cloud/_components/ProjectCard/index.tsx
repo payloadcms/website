@@ -1,10 +1,10 @@
 import React from 'react'
-import { hasBadSubscription } from '@root/app/(cloud)/cloud/_utilities/hasBadSubscription'
-import { cloudSlug } from '@root/app/(cloud)/cloud/slug'
 import Link from 'next/link'
 
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Pill } from '@components/Pill'
+import { hasBadSubscription } from '@root/app/(cloud)/cloud/_utilities/hasBadSubscription'
+import { cloudSlug } from '@root/app/(cloud)/cloud/slug'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { BranchIcon } from '@root/icons/BranchIcon'
@@ -127,6 +127,7 @@ export const ProjectCard: React.FC<{
           <span className={classes.projectName}>{project.name || 'Project Name'}</span>
           <span className={classes.pill}>{pill?.text && <Pill {...pill} />}</span>
         </h6>
+        <span className={classes.mobilePill}>{pill?.text && <Pill {...pill} />}</span>
         <div className={classes.teamName}>
           <p>{`${(showTeamName && team && typeof team === 'object' && `${team?.slug}/`) || ''}${
             project?.slug

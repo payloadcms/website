@@ -8,7 +8,7 @@ import { fetchPaymentMethod } from '@root/app/(cloud)/cloud/_api/fetchPaymentMet
 import { fetchPaymentMethodsClient } from '@root/app/(cloud)/cloud/_api/fetchPaymentMethods'
 import type { TeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
 import { updateCustomer } from '@root/app/(cloud)/cloud/_api/updateCustomer'
-import { confirmCardSetup } from '../../../../new/(checkout)/confirmCardSetup'
+import { confirmCardSetup } from '../../../new/(checkout)/confirmCardSetup'
 import { cardReducer } from './reducer'
 
 type SaveNewPaymentMethod = (paymentMethodID: string) => Promise<SetupIntent | null | undefined>

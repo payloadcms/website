@@ -65,7 +65,7 @@ export const DeletionConfirmationForm: React.FC<{
 
   return (
     <Form onSubmit={deleteAccount}>
-      <Heading marginTop={false} as="h5">
+      <Heading marginTop={false} as="h3">
         Are you sure you want to delete your account?
       </Heading>
       <Message className={classes.warning} error={'Deleting your account cannot be undone.'} />
@@ -94,8 +94,8 @@ export const DeletionConfirmationForm: React.FC<{
         }}
       />
       <div className={classes.modalActions}>
-        <Button label="cancel" appearance="secondary" onClick={() => closeModal(modalSlug)} />
-        <Submit label="delete my account" appearance="danger" disabled={!(hasEmail && hasPW)} />
+        <Button label="Cancel" appearance="secondary" onClick={() => closeModal(modalSlug)} />
+        <Submit label="Delete my account" appearance="danger" disabled={!(hasEmail && hasPW)} />
       </div>
     </Form>
   )

@@ -2,18 +2,6 @@
 
 import React, { Fragment, useCallback } from 'react'
 import { toast } from 'react-toastify'
-import { revalidateCache } from '@cloud/_actions/revalidateCache'
-import { Install } from '@cloud/_api/fetchInstalls'
-import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
-import { BranchSelector } from '@cloud/_components/BranchSelector'
-import { ComparePlans } from '@cloud/_components/ComparePlans'
-import { CreditCardSelector } from '@cloud/_components/CreditCardSelector'
-import { PlanSelector } from '@cloud/_components/PlanSelector'
-import { RepoExists } from '@cloud/_components/RepoExists'
-import { TeamSelector } from '@cloud/_components/TeamSelector'
-import { UniqueDomain } from '@cloud/_components/UniqueDomain'
-import { UniqueProjectSlug } from '@cloud/_components/UniqueSlug'
-import { cloudSlug } from '@cloud/slug'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
 import { Select } from '@forms/fields/Select'
@@ -33,6 +21,18 @@ import { Heading } from '@components/Heading'
 import { Accordion } from '@root/app/_components/Accordion'
 import { HR } from '@root/app/_components/HR'
 import { Message } from '@root/app/_components/Message'
+import { revalidateCache } from '@root/app/(cloud)/cloud/_actions/revalidateCache'
+import { Install } from '@root/app/(cloud)/cloud/_api/fetchInstalls'
+import { TeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
+import { BranchSelector } from '@root/app/(cloud)/cloud/_components/BranchSelector'
+import { ComparePlans } from '@root/app/(cloud)/cloud/_components/ComparePlans'
+import { CreditCardSelector } from '@root/app/(cloud)/cloud/_components/CreditCardSelector'
+import { PlanSelector } from '@root/app/(cloud)/cloud/_components/PlanSelector'
+import { RepoExists } from '@root/app/(cloud)/cloud/_components/RepoExists'
+import { TeamSelector } from '@root/app/(cloud)/cloud/_components/TeamSelector'
+import { UniqueDomain } from '@root/app/(cloud)/cloud/_components/UniqueDomain'
+import { UniqueProjectSlug } from '@root/app/(cloud)/cloud/_components/UniqueSlug'
+import { cloudSlug } from '@root/app/(cloud)/cloud/slug'
 import { Plan, Project, Team, Template, User } from '@root/payload-cloud-types'
 import { priceFromJSON } from '@root/utilities/price-from-json'
 import { CloneOrDeployProgress } from '../../cloud/_components/CloneOrDeployProgress'
@@ -238,7 +238,7 @@ const Checkout: React.FC<{
               <div>
                 <div className={classes.plansSection}>
                   <div className={classes.plansSectionHeader}>
-                    <Heading element="h5" marginTop={false}>
+                    <Heading element="h4" marginTop={false}>
                       Select your plan
                     </Heading>
                     <ComparePlans plans={plans} handlePlanChange={handlePlanChange} />
@@ -262,7 +262,7 @@ const Checkout: React.FC<{
                     }}
                   />
                 </div>
-                <Heading element="h5" marginTop={false}>
+                <Heading element="h4" marginTop={false}>
                   Configure your project
                 </Heading>
                 <div className={classes.fields}>

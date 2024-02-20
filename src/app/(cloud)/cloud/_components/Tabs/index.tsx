@@ -23,7 +23,7 @@ const TabContents: React.FC<Tab> = props => {
 
   return (
     <React.Fragment>
-      <Heading element="h5" margin={false}>
+      <Heading element="h4" margin={false}>
         {label}
       </Heading>
       {error && (

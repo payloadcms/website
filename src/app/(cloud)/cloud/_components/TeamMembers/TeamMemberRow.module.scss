@@ -1,6 +1,7 @@
 @use "@scss/common" as *;
 
 .leader {
+  margin-top: 0;
   margin-bottom: calc(var(--base) / 4);
 }
 

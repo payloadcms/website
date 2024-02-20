@@ -3,9 +3,9 @@
 .project {
     --background-color: var(--theme-elevation-50);
     --border-color: var(--theme-elevation-50);
-    --border-color-hover: var(--theme-elevation-350);
+    --border-color-hover: var(--theme-elevation-250);
     --icon-color: currentColor;
-    --secondary-text-color: var(--theme-elevation-800);
+    --secondary-text-color: var(--theme-elevation-1000);
 
     width: 100%;
     height: 100%;
@@ -60,15 +60,15 @@
 
 :global([data-theme="dark"]) {
     .project {
-        --background-color: var(--theme-elevation-50);
-        --border-color: var(--theme-elevation-50);
+        --background-color: var(--theme-elevation-100);
+        --border-color: var(--theme-elevation-100);
         --border-color-hover: var(--theme-elevation-250);
     }
 
     .draft {
-        --background-color: var(--theme-elevation-100);
-        --border-color: var(--theme-elevation-200);
-        --border-color-hover: var(--theme-elevation-250);
+        --background-color: var(--theme-elevation-0);
+        --border-color: var(--theme-elevation-150);
+        --border-color-hover: var(--theme-elevation-150);
     }
 
     .error {
@@ -114,15 +114,34 @@
     @include mid-break {
         padding-right: 0;
     }
+
+    @include small-break {
+        margin-bottom: calc(var(--base) * 0.5);
+    }
 }
 
 .pill {
     display: inline-flex;
     position: relative;
     top: -4px;
+
+    @include small-break {
+        display: none;
+    }
+}
+
+.mobilePill {
+    display: none;
+
+    @include small-break {
+        display: block;
+        width: fit-content;
+        margin-bottom: calc(var(--base) * 0.25);
+    }
 }
 
 .projectName {
+    @include h5;
     margin-right: calc(var(--base) / 2);
 }
 

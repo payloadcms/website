@@ -1,5 +1,5 @@
 @use '@scss/common' as *;
-@use "../../../../forms/fields/shared.scss";
+@use "../../../../../forms/fields/shared.scss";
 
 .formState {
     & > * {
@@ -91,4 +91,8 @@
 
 .submit {
     align-self: flex-start;
+}
+
+.breadcrumbsWrap {
+    margin-bottom: calc(var(--base) * 2);
 }

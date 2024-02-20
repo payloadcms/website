@@ -1,17 +1,19 @@
 import { Fragment } from 'react'
-import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken'
-import { fetchInstalls } from '@cloud/_api/fetchInstalls'
-import { fetchMe } from '@cloud/_api/fetchMe'
-import { fetchTemplate } from '@cloud/_api/fetchTemplate'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
+import { fetchGitHubToken } from '@root/app/(cloud)/cloud/_api/fetchGitHubToken'
+import { fetchInstalls } from '@root/app/(cloud)/cloud/_api/fetchInstalls'
+import { fetchMe } from '@root/app/(cloud)/cloud/_api/fetchMe'
+import { fetchTemplate } from '@root/app/(cloud)/cloud/_api/fetchTemplate'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { uuid as generateUUID } from '@root/utilities/uuid'
 import { CloneTemplate } from './page_client'
+
+import classes from './page.module.scss'
 
 const title = `Create new from template`
 
@@ -46,6 +48,7 @@ export default async ({ params: { 'template-slug': templateSlug } }) => {
     <Fragment>
       <Gutter>
         <Breadcrumbs
+          className={classes.breadcrumbsWrap}
           items={[
             {
               label: 'New',

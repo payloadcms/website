@@ -2,12 +2,6 @@
 
 import React, { useCallback, useState } from 'react'
 import { toast } from 'react-toastify'
-import { fetchInstalls, Install } from '@cloud/_api/fetchInstalls'
-import { CloneOrDeployProgress } from '@cloud/_components/CloneOrDeployProgress'
-import { InstallationSelector } from '@cloud/_components/InstallationSelector'
-import { useTeamDrawer } from '@cloud/_components/TeamDrawer'
-import { UniqueRepoName } from '@cloud/_components/UniqueRepoName'
-import { cloudSlug } from '@cloud/slug'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox'
 import Form from '@forms/Form'
@@ -19,7 +13,13 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Gutter } from '@components/Gutter'
 import { HR } from '@root/app/_components/HR'
 import { Message } from '@root/app/_components/Message'
-import { createDraftProject } from '@root/app/new/createDraftProject'
+import { fetchInstalls, Install } from '@root/app/(cloud)/cloud/_api/fetchInstalls'
+import { CloneOrDeployProgress } from '@root/app/(cloud)/cloud/_components/CloneOrDeployProgress'
+import { InstallationSelector } from '@root/app/(cloud)/cloud/_components/InstallationSelector'
+import { useTeamDrawer } from '@root/app/(cloud)/cloud/_components/TeamDrawer'
+import { UniqueRepoName } from '@root/app/(cloud)/cloud/_components/UniqueRepoName'
+import { cloudSlug } from '@root/app/(cloud)/cloud/slug'
+import { createDraftProject } from '@root/app/(cloud)/new/createDraftProject'
 import { PayloadIcon } from '@root/graphics/PayloadIcon'
 import { Team, Template, User } from '@root/payload-cloud-types'
 
@@ -36,11 +36,11 @@ export const CloneTemplate: React.FC<{
   const { template, installs: initialInstalls, user, uuid } = props
 
   const router = useRouter()
-  const [cloneError, setCloneError] = React.useState<string | null>(null)
+  const [cloneError, setCloneError] = useState<string | null>(null)
 
-  const [installs, setInstalls] = React.useState<Install[]>(initialInstalls || [])
+  const [installs, setInstalls] = useState<Install[]>(initialInstalls || [])
 
-  const [selectedInstall, setSelectedInstall] = React.useState<Install | undefined>(
+  const [selectedInstall, setSelectedInstall] = useState<Install | undefined>(
     installs?.[0] || undefined,
   )
 

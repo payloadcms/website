@@ -1,8 +1,8 @@
-import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken'
-import { fetchMe } from '@cloud/_api/fetchMe'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
+import { fetchGitHubToken } from '@root/app/(cloud)/cloud/_api/fetchGitHubToken'
+import { fetchMe } from '@root/app/(cloud)/cloud/_api/fetchMe'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { AuthorizePage } from './page_client'
 

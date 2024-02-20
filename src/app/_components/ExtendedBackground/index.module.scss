@@ -85,10 +85,15 @@
   position: absolute;
   bottom: 0;
   max-height: calc(50% + var(--pixel-padding));
-  background-image: url('/images/dot.png');
+  background-image: url('/images/scanline-dark.png');
   background-repeat: repeat;
   background-position-x: 5px; // half image width
   left: calc(-1 * var(--pixel-bg-extension) / 2);
   width: calc(100% + var(--pixel-bg-extension));
   height: 100%;
+  opacity: 0.08;
+
+  [data-theme="dark"]  & {
+    background-image: url('/images/scanline-light.png');
+  }
 }

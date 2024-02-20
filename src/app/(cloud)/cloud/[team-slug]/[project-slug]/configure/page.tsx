@@ -10,7 +10,7 @@ import { fetchPaymentMethods } from '@root/app/(cloud)/cloud/_api/fetchPaymentMe
 import { fetchPlans } from '@root/app/(cloud)/cloud/_api/fetchPlans'
 import { fetchProjectWithSubscription } from '@root/app/(cloud)/cloud/_api/fetchProject'
 import { fetchTemplates } from '@root/app/(cloud)/cloud/_api/fetchTemplates'
-import Checkout from '@root/app/new/(checkout)/Checkout'
+import Checkout from '@root/app/(cloud)/new/(checkout)/Checkout'
 
 export const dynamic = 'force-dynamic'
 

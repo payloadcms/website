@@ -1,4 +1,4 @@
-import type { CheckoutState } from '@root/app/new/(checkout)/reducer'
+import type { CheckoutState } from '@root/app/(cloud)/new/(checkout)/reducer'
 import type { Project } from '@root/payload-cloud-types'
 
 export interface PayloadStripeSubscription {

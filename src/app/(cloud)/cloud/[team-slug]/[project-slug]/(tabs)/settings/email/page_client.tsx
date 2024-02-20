@@ -17,6 +17,8 @@ import { SectionHeader } from '../_layoutComponents/SectionHeader'
 import { AddEmailDomain } from './AddEmailDomain'
 import { ManageEmailDomain } from './ManageEmailDomain'
 
+import classes from './index.module.scss'
+
 export const ProjectEmailPage: React.FC<{
   project: Project
   team: Team
@@ -65,13 +67,16 @@ export const ProjectEmailPage: React.FC<{
         To use Resend’s email delivery in your Payload Cloud project, add the Payload Cloud plugin
         to your project:
       </p>
-      <Code>{`yarn add @payloadcms/plugin-cloud
+      <Code className={classes.codeWrap} showLineNumbers={false}>{`yarn add @payloadcms/plugin-cloud
       `}</Code>
       <p></p>
       <p>
         <code>payload.config.js</code>:
       </p>
-      <Code>{`import { payloadCloud } from '@payloadcms/plugin-cloud'
+      <Code
+        className={classes.codeWrap}
+        showLineNumbers={false}
+      >{`import { payloadCloud } from '@payloadcms/plugin-cloud'
 import { buildConfig } from 'payload/config'
 
 export default buildConfig({

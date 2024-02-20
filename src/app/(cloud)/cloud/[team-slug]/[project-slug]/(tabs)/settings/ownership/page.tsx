@@ -1,5 +1,4 @@
 import { fetchProjectAndRedirect } from '@root/app/(cloud)/cloud/_api/fetchProject'
-
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { ProjectOwnershipPage } from './page_client'
 

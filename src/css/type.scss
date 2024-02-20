@@ -103,7 +103,6 @@
   line-height: 1;
   font-weight: 400;
   letter-spacing: .25em;
-  text-transform: uppercase;
 
   @include large-break {
     font-size: calc(var(--base) * 0.8125);

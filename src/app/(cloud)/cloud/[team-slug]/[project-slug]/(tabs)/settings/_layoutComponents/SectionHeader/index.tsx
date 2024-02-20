@@ -15,7 +15,7 @@ export const SectionHeader: React.FC<Props> = ({ title, link, intro, className }
   return (
     <div className={[classes.sectionHeader, className].filter(Boolean).join(' ')}>
       <div className={classes.titleAndLink}>
-        <Heading element="h2" as="h4" margin={false}>
+        <Heading element="h2" as="h3" margin={false}>
           {title}
         </Heading>
 
