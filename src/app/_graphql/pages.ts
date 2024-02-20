@@ -60,6 +60,7 @@ export const PAGE = `
           primaryButtons {
             link ${LINK_FIELDS({ disableAppearance: true })}
           }
+          fullBackground
           secondaryHeading
           secondaryDescription
           secondaryButtons {
@@ -67,6 +68,9 @@ export const PAGE = `
           }
           links {
             link ${LINK_FIELDS()}
+          }
+          images {
+            image ${MEDIA_FIELDS}
           }
           media ${MEDIA_FIELDS}
           featureVideo ${MEDIA_FIELDS}

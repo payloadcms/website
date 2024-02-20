@@ -769,7 +769,8 @@ export interface Page {
   title: string;
   fullTitle?: string | null;
   hero: {
-    type: 'default' | 'contentMedia' | 'centeredContent' | 'form' | 'home' | 'livestream';
+    type: 'default' | 'contentMedia' | 'centeredContent' | 'form' | 'home' | 'livestream' | 'gradient';
+    fullBackground?: boolean | null;
     theme?: ('light' | 'dark') | null;
     enableBreadcrumbsBar?: boolean | null;
     breadcrumbsBarLinks?:
@@ -904,6 +905,12 @@ export interface Page {
             url?: string | null;
             label: string;
           };
+          id?: string | null;
+        }[]
+      | null;
+    images?:
+      | {
+          image: string | Media;
           id?: string | null;
         }[]
       | null;
