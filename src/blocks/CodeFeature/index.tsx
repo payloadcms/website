@@ -178,13 +178,13 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                       aria-controls={`codefeature${id}-code-${index}`}
                       {...(isActive ? { ref: activeTabRef } : {})}
                     >
-                      {code.label}
+                      {code?.label}
                     </button>
                   )
                 })
               ) : (
                 <div className={classes.hiddenTab} id={`codefeature${id}-tab-0`}>
-                  {codeTabs?.[0].label}
+                  {codeTabs?.[0]?.label}
                 </div>
               )}
               <div className={classes.tabIndicator} style={indicatorStyle} aria-hidden={true} />

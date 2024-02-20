@@ -30,7 +30,7 @@ export const CardGrid: React.FC<CardGridProps> = props => {
       padding={padding}
       className={[classes.cardGrid].filter(Boolean).join(' ')}
     >
-      <BackgroundGrid zIndex={0} />
+      <BackgroundGrid zIndex={1} />
       <Gutter>
         <div className={[classes.introWrapper, 'grid'].filter(Boolean).join(' ')}>
           {richText && (
