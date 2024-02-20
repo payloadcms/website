@@ -37,7 +37,7 @@ export const GradientHero: React.FC<
           height={1080}
         />
       )}
-      <BackgroundGrid zIndex={0} />
+      <BackgroundGrid className={classes.backgroundGrid} zIndex={0} />
       <Gutter>
         <div className={[classes.wrapper, 'grid'].filter(Boolean).join(' ')}>
           <div

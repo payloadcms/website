@@ -9,10 +9,15 @@
   align-items: center;
 }
 
+.backgroundGrid {
+  top: var(--page-padding-top);
+  height: calc(100% - var(--page-padding-top));
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .richText {
