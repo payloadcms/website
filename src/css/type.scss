@@ -155,3 +155,15 @@
     font-size: calc(var(--base) * 1);
   }
 }
+
+
+@mixin uppercaseLabel {
+  color: var(--theme-elevation-900);
+  font-size: calc(var(--base) * 0.55);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 2.75px;
+  text-transform: uppercase;
+  margin: 0 0 calc(var(--base) * 0.75) 0; 
+}
