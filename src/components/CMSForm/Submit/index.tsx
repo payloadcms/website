@@ -38,6 +38,7 @@ const Submit = forwardRef<HTMLButtonElement, SubmitProps>((props, ref) => {
       disabled={isProcessing || disabled}
       fullWidth
       hideHorizontalBorders
+      isCMSFormSubmitButton
     />
   )
 })

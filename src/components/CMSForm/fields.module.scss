@@ -13,4 +13,8 @@
     z-index: -1;
     background-color: var(--theme-input-bg);
   }
+
+  @include mid-break {
+    padding: calc(var(--base) * 1.5) calc(var(--base) * 1);
+  }
 }
