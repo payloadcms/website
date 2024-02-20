@@ -154,6 +154,14 @@
   }
 }
 
+.description {
+  @include h4;
+  font-weight: 400;
+  line-height: 1.2; 
+  letter-spacing: -0.66px;
+  margin: 0;
+}
+
 .activeTab {
   pointer-events: all;
   opacity: 1;
@@ -171,13 +179,13 @@
   }
 }
 
-.dropdownItemLink, .dropdownItemDescription {
+.defaultLink, .defaultLinkDescription {
   display: flex;
   flex-direction: column;
   gap: calc(var(--base) * 2.5);
 }
 
-.dropdownItemLink {
+.defaultLink {
   @include h4;
   margin: 0;
   height: 100%;
@@ -189,15 +197,55 @@
   }
 }
 
-.dropdownItemDescription {
-  font-weight: normal;
+.defaultLinkDescription {
+  min-height: calc(var(--base) * 2);
   font-size: calc(var(--base) * 0.8);
-  letter-spacing: normal;
   line-height: 1.5;
 }
 
 .tab, .secondaryNavItems {
   font-size: var(--font-header-size);
+}
+
+.linkList, .featuredLink {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 1.5);
+}
+
+.listLabel {
+  @include uppercaseLabel;
+}
+
+.link {
+  @include body;
+  font-weight: 500;
+}
+
+.featuredLinks, .descriptionLink {
+  @include body;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: row;
+  gap: var(--base);
+  line-height: 1;
+}
+
+.descriptionLink {
+  width: 100%;
+}
+
+.featuredLinkWrap {
+  display: flex;
+  flex-direction: row;
+  gap: calc(var(--base) * 2);
+}
+
+.descriptionLinks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  padding: calc(var(--base) * 2) 0;
 }
 
 .secondaryNavItems {
