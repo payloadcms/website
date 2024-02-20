@@ -16,6 +16,7 @@ export type Props = {
   checkmark?: boolean
   icon?: 'checkmark'
   margin?: boolean
+  marginAdjustment?: any
 }
 
 const Icons = {
@@ -29,6 +30,7 @@ export const Banner: React.FC<Props> = ({
   type = 'default',
   checkmark,
   margin = true,
+  marginAdjustment = {},
 }) => {
   let Icon = icon && Icons[icon]
   if (!Icon && checkmark) Icon = Icons.checkmark
@@ -38,6 +40,7 @@ export const Banner: React.FC<Props> = ({
       className={[classes.banner, 'banner', type && classes[type], !margin && classes.noMargin]
         .filter(Boolean)
         .join(' ')}
+      style={marginAdjustment}
     >
       {Icon && <Icon className={classes.icon} />}
 

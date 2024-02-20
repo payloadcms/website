@@ -1,7 +1,7 @@
 @use '@scss/common.scss' as *;
 
 .banner {
-  padding: var(--base);
+  padding: calc(var(--base) * 2);
   margin: calc(var(--base) * 1.5) 0;
   display: flex;
 
