@@ -49,8 +49,7 @@ const Discussion = async ({ params }) => {
   const { slug } = params
 
   const discussion = await fetchCommunityHelp(slug)
-
-  if (!discussion) return notFound()
+  if (!discussion || !discussion.helpful) return notFound()
 
   if (!isDiscussionData(discussion)) {
     throw new Error('Unexpected github discussion thread data')
