@@ -1,12 +1,12 @@
-import React, { Fragment, useCallback, useEffect, useRef } from 'react'
-import { TeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
-import { CreditCardElement } from '@root/app/(cloud)/cloud/_components/CreditCardElement'
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { type PaymentMethod } from '@stripe/stripe-js'
 import { v4 as uuid } from 'uuid'
 
 import { CircleIconButton } from '@components/CircleIconButton'
 import { LargeRadio } from '@components/LargeRadio'
 import { Pill } from '@components/Pill'
+import { TeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
+import { CreditCardElement } from '@root/app/(cloud)/cloud/_components/CreditCardElement'
 import { usePaymentMethods } from '../CreditCardList/usePaymentMethods'
 
 import classes from './index.module.scss'
@@ -32,13 +32,13 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
 
   const customer = team?.stripeCustomer
 
-  const newCardID = React.useRef<string>(`new-card-${uuid()}`)
-  const [internalState, setInternalState] = React.useState(initialValue)
-  const [showNewCard, setShowNewCard] = React.useState<boolean>(() => {
+  const newCardID = useRef<string>(`new-card-${uuid()}`)
+  const [internalState, setInternalState] = useState(initialValue)
+  const [showNewCard, setShowNewCard] = useState<boolean>(() => {
     return !initialValue && (!initialPaymentMethods || initialPaymentMethods?.length === 0)
   })
 
-  const scrollRef = React.useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
   const hasInitialized = useRef(false)
 
   const {
@@ -83,7 +83,7 @@ export const CreditCardSelector: React.FC<CreditCardSelectorType> = props => {
   }, [onChange, internalState])
 
   // save the selected payment method to the subscription
-  const handleChange = React.useCallback(
+  const handleChange = useCallback(
     async (incomingValue: string) => {
       if (!incomingValue?.startsWith('new-card') && typeof onPaymentMethodChange === 'function') {
         await onPaymentMethodChange(incomingValue)

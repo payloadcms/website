@@ -43,7 +43,7 @@ export default async ({ params: { 'team-slug': teamSlug } }) => {
           )}
           {isCurrentTeamOwner && (
             <React.Fragment>
-              <h5>Payment Methods</h5>
+              <h4>Payment Methods</h4>
               <p>
                 The following payment methods are available for this team. Projects that do not
                 specify a payment method will use this team's default payment method (if any).

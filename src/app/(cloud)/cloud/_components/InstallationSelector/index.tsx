@@ -1,9 +1,9 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import { Install } from '@root/app/(cloud)/cloud/_api/fetchInstalls'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { Select } from '@forms/fields/Select'
 import Label from '@forms/Label'
 
 import { LoadingShimmer } from '@components/LoadingShimmer'
+import { Install } from '@root/app/(cloud)/cloud/_api/fetchInstalls'
 import { usePopupWindow } from '@root/utilities/use-popup-window'
 import { MenuList } from './components/MenuList'
 import { Option } from './components/Option'
@@ -30,9 +30,9 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
   // this will be validated after the redirect back
   const [href] = useState(`https://github.com/apps/payload-cms/installations/new?state=${uuid}`)
 
-  const selectAfterLoad = React.useRef<Install['id']>()
+  const selectAfterLoad = useRef<Install['id']>()
 
-  const [selection, setSelection] = React.useState<Install | undefined>(() => {
+  const [selection, setSelection] = useState<Install | undefined>(() => {
     if (installs?.length) {
       if (valueFromProps !== undefined) {
         const idFromProps =

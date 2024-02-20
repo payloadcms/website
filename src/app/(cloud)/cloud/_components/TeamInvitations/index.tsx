@@ -73,7 +73,7 @@ export const TeamInvitations: React.FC<{
 
   return (
     <div ref={ref} className={[classes.invitations, className].filter(Boolean).join(' ')}>
-      <Heading element="h6" marginTop={false} marginBottom={false}>
+      <Heading element="h4" marginTop={false} marginBottom={false}>
         Current invitations
       </Heading>
       <div className={classes.formState}>

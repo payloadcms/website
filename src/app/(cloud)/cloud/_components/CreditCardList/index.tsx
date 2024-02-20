@@ -1,8 +1,6 @@
 'use client'
 
-import React, { Fragment, useEffect, useState } from 'react'
-import { TeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
-import { CreditCardElement } from '@root/app/(cloud)/cloud/_components/CreditCardElement'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { useModal } from '@faceless-ui/modal'
 import { Elements } from '@stripe/react-stripe-js'
 import type { PaymentMethod } from '@stripe/stripe-js'
@@ -15,6 +13,8 @@ import { DropdownMenu } from '@components/DropdownMenu'
 import { Heading } from '@components/Heading'
 import { ModalWindow } from '@components/ModalWindow'
 import { Pill } from '@components/Pill'
+import { TeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
+import { CreditCardElement } from '@root/app/(cloud)/cloud/_components/CreditCardElement'
 import { usePaymentMethods } from './usePaymentMethods'
 
 import classes from './index.module.scss'
@@ -31,10 +31,10 @@ const modalSlug = 'confirm-delete-payment-method'
 
 const CardList: React.FC<CreditCardListType> = props => {
   const { team, initialPaymentMethods } = props
-  const scrollRef = React.useRef<HTMLDivElement>(null)
-  const newCardID = React.useRef<string>(`new-card-${uuid()}`)
-  const [showNewCard, setShowNewCard] = React.useState(false)
-  const paymentMethodToDelete = React.useRef<PaymentMethod | null>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const newCardID = useRef<string>(`new-card-${uuid()}`)
+  const [showNewCard, setShowNewCard] = useState(false)
+  const paymentMethodToDelete = useRef<PaymentMethod | null>(null)
   const { closeModal, openModal } = useModal()
 
   const {

@@ -34,7 +34,7 @@ const Invites: React.FC<{
     <div className={[classes.teamInvites, className].filter(Boolean).join(' ')}>
       {hasInvites && (
         <div>
-          <Heading element="h5" marginTop={false}>
+          <Heading element="h4" marginTop={false}>
             Invite your teammates
           </Heading>
           <div className={classes.invites}>
