@@ -1,6 +1,6 @@
+import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
 import { Metadata } from 'next'
 
-import { fetchProjectAndRedirect } from '@root/app/(cloud)/cloud/_api/fetchProject'
 import { ProjectDatabasePage } from './page_client'
 
 export default async ({ params: { 'team-slug': teamSlug, 'project-slug': projectSlug } }) => {

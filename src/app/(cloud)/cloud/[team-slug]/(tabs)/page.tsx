@@ -1,8 +1,8 @@
+import { fetchProjects } from '@cloud/_api/fetchProjects'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { fetchTemplates } from '@cloud/_api/fetchTemplates'
 import { Metadata } from 'next'
 
-import { fetchProjects } from '@root/app/(cloud)/cloud/_api/fetchProjects'
-import { fetchTeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
-import { fetchTemplates } from '@root/app/(cloud)/cloud/_api/fetchTemplates'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { TeamPage } from './page_client'
 

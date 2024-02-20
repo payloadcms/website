@@ -1,6 +1,8 @@
 'use client'
 
 import React, { Fragment, useEffect, useRef, useState } from 'react'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { CreditCardElement } from '@cloud/_components/CreditCardElement'
 import { useModal } from '@faceless-ui/modal'
 import { Elements } from '@stripe/react-stripe-js'
 import type { PaymentMethod } from '@stripe/stripe-js'
@@ -13,8 +15,6 @@ import { DropdownMenu } from '@components/DropdownMenu'
 import { Heading } from '@components/Heading'
 import { ModalWindow } from '@components/ModalWindow'
 import { Pill } from '@components/Pill'
-import { TeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
-import { CreditCardElement } from '@root/app/(cloud)/cloud/_components/CreditCardElement'
 import { usePaymentMethods } from './usePaymentMethods'
 
 import classes from './index.module.scss'

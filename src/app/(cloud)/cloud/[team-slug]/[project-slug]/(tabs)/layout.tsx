@@ -1,9 +1,9 @@
+import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
+import { DashboardTabs } from '@cloud/_components/DashboardTabs'
+import { hasBadSubscription } from '@cloud/_utilities/hasBadSubscription'
+import { cloudSlug } from '@cloud/slug'
 import { Metadata } from 'next'
 
-import { fetchProjectAndRedirect } from '@root/app/(cloud)/cloud/_api/fetchProject'
-import { DashboardTabs } from '@root/app/(cloud)/cloud/_components/DashboardTabs'
-import { hasBadSubscription } from '@root/app/(cloud)/cloud/_utilities/hasBadSubscription'
-import { cloudSlug } from '@root/app/(cloud)/cloud/slug'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { ProjectBillingMessages } from './ProjectBillingMessages'
 

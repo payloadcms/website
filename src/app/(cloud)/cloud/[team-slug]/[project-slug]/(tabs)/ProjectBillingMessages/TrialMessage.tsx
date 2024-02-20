@@ -1,14 +1,14 @@
 'use client'
 
 import React, { Fragment } from 'react'
+import { ProjectWithSubscription } from '@cloud/_api/fetchProject'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { projectHasPaymentMethod } from '@cloud/_utilities/projectHasPaymentMethod'
+import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { Message } from '@root/app/_components/Message'
-import { ProjectWithSubscription } from '@root/app/(cloud)/cloud/_api/fetchProject'
-import { TeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
-import { projectHasPaymentMethod } from '@root/app/(cloud)/cloud/_utilities/projectHasPaymentMethod'
-import { teamHasDefaultPaymentMethod } from '@root/app/(cloud)/cloud/_utilities/teamHasDefaultPaymentMethod'
 
 export const TrialMessage: React.FC<{
   project: ProjectWithSubscription

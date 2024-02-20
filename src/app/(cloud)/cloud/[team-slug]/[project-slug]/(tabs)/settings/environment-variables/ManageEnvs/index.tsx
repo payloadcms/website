@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { toast } from 'react-toastify'
-import { revalidateCache } from '@root/app/(cloud)/cloud/_actions/revalidateCache'
+import { revalidateCache } from '@cloud/_actions/revalidateCache'
 import { CollapsibleGroup } from '@faceless-ui/collapsibles'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text'

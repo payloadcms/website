@@ -1,14 +1,14 @@
 'use client'
 
 import React, { Fragment, useEffect } from 'react'
+import { ProjectCard } from '@cloud/_components/ProjectCard'
+import { TeamSelector } from '@cloud/_components/TeamSelector'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Pagination } from '@components/Pagination'
-import { ProjectCard } from '@root/app/(cloud)/cloud/_components/ProjectCard'
-import { TeamSelector } from '@root/app/(cloud)/cloud/_components/TeamSelector'
 import { Team, Template, User } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import useDebounce from '@root/utilities/use-debounce'

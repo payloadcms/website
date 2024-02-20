@@ -1,9 +1,9 @@
 import * as React from 'react'
+import { Sidebar } from '@cloud/_components/Sidebar'
+import { cloudSlug } from '@cloud/slug'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Gutter } from '@components/Gutter'
-import { Sidebar } from '@root/app/(cloud)/cloud/_components/Sidebar'
-import { cloudSlug } from '@root/app/(cloud)/cloud/slug'
 
 import classes from './layout.module.scss'
 

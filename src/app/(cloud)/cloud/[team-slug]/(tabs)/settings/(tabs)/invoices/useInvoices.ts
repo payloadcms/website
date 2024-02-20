@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
+import type { InvoicesResult } from '@cloud/_api/fetchInvoices'
+import { fetchInvoicesClient } from '@cloud/_api/fetchInvoices'
 
-import type { InvoicesResult } from '@root/app/(cloud)/cloud/_api/fetchInvoices'
-import { fetchInvoicesClient } from '@root/app/(cloud)/cloud/_api/fetchInvoices'
 import type { Team } from '@root/payload-cloud-types'
 
 const reducer = (

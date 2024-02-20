@@ -1,12 +1,12 @@
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { CreditCardElement } from '@cloud/_components/CreditCardElement'
 import { type PaymentMethod } from '@stripe/stripe-js'
 import { v4 as uuid } from 'uuid'
 
 import { CircleIconButton } from '@components/CircleIconButton'
 import { LargeRadio } from '@components/LargeRadio'
 import { Pill } from '@components/Pill'
-import { TeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
-import { CreditCardElement } from '@root/app/(cloud)/cloud/_components/CreditCardElement'
 import { usePaymentMethods } from '../CreditCardList/usePaymentMethods'
 
 import classes from './index.module.scss'

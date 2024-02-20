@@ -1,6 +1,6 @@
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { Metadata } from 'next'
 
-import { fetchTeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { TeamSettingsPage } from './page_client'
 

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useCallback, useEffect, useState } from 'react'
+import { cloudSlug } from '@cloud/slug'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
@@ -13,7 +14,6 @@ import { redirect, useSearchParams } from 'next/navigation'
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { RenderParams } from '@root/app/_components/RenderParams'
-import { cloudSlug } from '@root/app/(cloud)/cloud/slug'
 import { useAuth } from '@root/providers/Auth'
 
 import classes from './page.module.scss'

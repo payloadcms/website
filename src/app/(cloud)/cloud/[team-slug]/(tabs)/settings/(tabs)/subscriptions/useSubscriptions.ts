@@ -1,11 +1,8 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
+import type { Subscription, SubscriptionsResult } from '@cloud/_api/fetchSubscriptions'
+import { fetchSubscriptionsClient } from '@cloud/_api/fetchSubscriptions'
 
-import type {
-  Subscription,
-  SubscriptionsResult,
-} from '@root/app/(cloud)/cloud/_api/fetchSubscriptions'
-import { fetchSubscriptionsClient } from '@root/app/(cloud)/cloud/_api/fetchSubscriptions'
 import type { Team } from '@root/payload-cloud-types'
 import { subscriptionsReducer } from './reducer'
 

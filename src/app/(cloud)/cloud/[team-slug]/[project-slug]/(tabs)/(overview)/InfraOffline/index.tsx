@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { fetchProjectClient } from '@cloud/_api/fetchProjects'
 import Link from 'next/link'
 
 import { Banner } from '@components/Banner'
@@ -10,7 +11,6 @@ import { Label } from '@components/Label'
 import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 import { Indicator } from '@root/app/_components/Indicator'
 import { Message } from '@root/app/_components/Message'
-import { fetchProjectClient } from '@root/app/(cloud)/cloud/_api/fetchProjects'
 import { Project, Team } from '@root/payload-cloud-types'
 import { RequireField } from '@root/ts-helpers/requireField'
 import { useGetProjectDeployments } from '@root/utilities/use-cloud-api'

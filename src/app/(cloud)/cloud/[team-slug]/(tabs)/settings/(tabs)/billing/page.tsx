@@ -1,13 +1,13 @@
 import React from 'react'
+import { fetchMe } from '@cloud/_api/fetchMe'
+import { fetchPaymentMethods } from '@cloud/_api/fetchPaymentMethods'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { CreditCardList } from '@cloud/_components/CreditCardList'
+import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 import { Text } from '@forms/fields/Text'
 import { Metadata } from 'next'
 
 import HR from '@components/MDX/components/HR'
-import { fetchMe } from '@root/app/(cloud)/cloud/_api/fetchMe'
-import { fetchPaymentMethods } from '@root/app/(cloud)/cloud/_api/fetchPaymentMethods'
-import { fetchTeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
-import { CreditCardList } from '@root/app/(cloud)/cloud/_components/CreditCardList'
-import { SectionHeader } from '@root/app/(cloud)/cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
 
 import classes from './page.module.scss'

@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react'
+import { fetchTemplates } from '@cloud/_api/fetchTemplates'
 import { Metadata } from 'next'
 
 import { Gutter } from '@components/Gutter'
 import { NewProjectBlock } from '@root/app/_components/NewProject'
-import { fetchTemplates } from '@root/app/(cloud)/cloud/_api/fetchTemplates'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { RenderParams } from '../../_components/RenderParams'
 

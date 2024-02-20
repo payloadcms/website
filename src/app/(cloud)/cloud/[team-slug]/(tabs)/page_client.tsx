@@ -1,6 +1,9 @@
 'use client'
 
 import React, { useEffect } from 'react'
+import { fetchProjectsClient, ProjectsRes } from '@cloud/_api/fetchProjects'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { ProjectCard } from '@cloud/_components/ProjectCard'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 
@@ -8,9 +11,6 @@ import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Pagination } from '@components/Pagination'
 import { NewProjectBlock } from '@root/app/_components/NewProject'
-import { fetchProjectsClient, ProjectsRes } from '@root/app/(cloud)/cloud/_api/fetchProjects'
-import { TeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
-import { ProjectCard } from '@root/app/(cloud)/cloud/_components/ProjectCard'
 import { Template } from '@root/payload-cloud-types'
 import useDebounce from '@root/utilities/use-debounce'
 

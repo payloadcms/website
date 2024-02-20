@@ -1,11 +1,11 @@
+import { fetchMe } from '@cloud/_api/fetchMe'
+import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
 import { Metadata } from 'next'
 
 import { Heading } from '@components/Heading'
 import { Highlight } from '@components/Highlight'
 import { canUserMangeProject } from '@root/access'
 import { MaxWidth } from '@root/app/_components/MaxWidth'
-import { fetchMe } from '@root/app/(cloud)/cloud/_api/fetchMe'
-import { fetchProjectAndRedirect } from '@root/app/(cloud)/cloud/_api/fetchProject'
 import { Plan } from '@root/payload-cloud-types'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { isExpandedDoc } from '@root/utilities/is-expanded-doc'

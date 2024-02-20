@@ -1,7 +1,7 @@
-import { fetchTeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
-import { DashboardTabs } from '@root/app/(cloud)/cloud/_components/DashboardTabs'
-import { teamHasDefaultPaymentMethod } from '@root/app/(cloud)/cloud/_utilities/teamHasDefaultPaymentMethod'
-import { cloudSlug } from '@root/app/(cloud)/cloud/slug'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { DashboardTabs } from '@cloud/_components/DashboardTabs'
+import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod'
+import { cloudSlug } from '@cloud/slug'
 
 export default async props => {
   const {

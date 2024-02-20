@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify'
+import { updateCustomer } from '@cloud/_api/updateCustomer'
+import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod'
 import { type Stripe, type StripeElements } from '@stripe/stripe-js'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-import { updateCustomer } from '@root/app/(cloud)/cloud/_api/updateCustomer'
-import { teamHasDefaultPaymentMethod } from '@root/app/(cloud)/cloud/_utilities/teamHasDefaultPaymentMethod'
 import { Project, User } from '@root/payload-cloud-types'
 import { confirmCardPayment } from './confirmCardPayment'
 import { confirmCardSetup } from './confirmCardSetup'

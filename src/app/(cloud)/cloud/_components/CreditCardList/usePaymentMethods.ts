@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
+import { revalidateCache } from '@cloud/_actions/revalidateCache'
+import { fetchPaymentMethod } from '@cloud/_api/fetchPaymentMethod'
+import { fetchPaymentMethodsClient } from '@cloud/_api/fetchPaymentMethods'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { updateCustomer } from '@cloud/_api/updateCustomer'
 import { useElements, useStripe } from '@stripe/react-stripe-js'
 import type { PaymentMethod, SetupIntent } from '@stripe/stripe-js'
 
-import { revalidateCache } from '@root/app/(cloud)/cloud/_actions/revalidateCache'
-import { fetchPaymentMethod } from '@root/app/(cloud)/cloud/_api/fetchPaymentMethod'
-import { fetchPaymentMethodsClient } from '@root/app/(cloud)/cloud/_api/fetchPaymentMethods'
-import type { TeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
-import { updateCustomer } from '@root/app/(cloud)/cloud/_api/updateCustomer'
 import { confirmCardSetup } from '../../../new/(checkout)/confirmCardSetup'
 import { cardReducer } from './reducer'
 

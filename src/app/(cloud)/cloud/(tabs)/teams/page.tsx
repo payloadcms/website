@@ -1,13 +1,13 @@
 import React from 'react'
 import { LinkGrid } from '@blocks/LinkGrid'
+import { fetchMe } from '@cloud/_api/fetchMe'
+import { fetchTeams } from '@cloud/_api/fetchTeam'
+import { TeamDrawer, TeamDrawerToggler } from '@cloud/_components/TeamDrawer'
+import { cloudSlug } from '@cloud/slug'
 import { Metadata } from 'next'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
-import { fetchMe } from '@root/app/(cloud)/cloud/_api/fetchMe'
-import { fetchTeams } from '@root/app/(cloud)/cloud/_api/fetchTeam'
-import { TeamDrawer, TeamDrawerToggler } from '@root/app/(cloud)/cloud/_components/TeamDrawer'
-import { cloudSlug } from '@root/app/(cloud)/cloud/slug'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 
 import classes from './page.module.scss'

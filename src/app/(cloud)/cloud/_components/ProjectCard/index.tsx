@@ -1,10 +1,10 @@
 import React from 'react'
+import { hasBadSubscription } from '@cloud/_utilities/hasBadSubscription'
+import { cloudSlug } from '@cloud/slug'
 import Link from 'next/link'
 
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Pill } from '@components/Pill'
-import { hasBadSubscription } from '@root/app/(cloud)/cloud/_utilities/hasBadSubscription'
-import { cloudSlug } from '@root/app/(cloud)/cloud/slug'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { BranchIcon } from '@root/icons/BranchIcon'

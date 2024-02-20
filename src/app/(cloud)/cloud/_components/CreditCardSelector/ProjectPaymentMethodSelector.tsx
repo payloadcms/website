@@ -2,9 +2,9 @@
 
 import React, { useCallback } from 'react'
 import { toast } from 'react-toastify'
-import { ProjectWithSubscription } from '@root/app/(cloud)/cloud/_api/fetchProject'
-import { TeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
-import { updateSubscription } from '@root/app/(cloud)/cloud/_api/updateSubscription'
+import { ProjectWithSubscription } from '@cloud/_api/fetchProject'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { updateSubscription } from '@cloud/_api/updateSubscription'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe, type PaymentMethod } from '@stripe/stripe-js'
 

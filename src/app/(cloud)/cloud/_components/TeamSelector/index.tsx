@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
 import { components } from 'react-select'
-import { useTeamDrawer } from '@root/app/(cloud)/cloud/_components/TeamDrawer'
+import { useTeamDrawer } from '@cloud/_components/TeamDrawer'
 import { Select } from '@forms/fields/Select'
 
 import { LoadingShimmer } from '@components/LoadingShimmer'

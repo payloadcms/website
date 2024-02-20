@@ -1,13 +1,13 @@
 import React from 'react'
 import { toast } from 'react-toastify'
+import { revalidateCache } from '@cloud/_actions/revalidateCache'
+import { Member } from '@cloud/_components/TeamMembers'
 import { useModal } from '@faceless-ui/modal'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 
 import { Button } from '@components/Button'
 import { Heading } from '@components/Heading'
-import { revalidateCache } from '@root/app/(cloud)/cloud/_actions/revalidateCache'
-import { Member } from '@root/app/(cloud)/cloud/_components/TeamMembers'
 import { Team, User } from '@root/payload-cloud-types'
 
 import classes from './page.module.scss'

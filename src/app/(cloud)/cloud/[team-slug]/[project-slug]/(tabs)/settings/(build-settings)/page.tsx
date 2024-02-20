@@ -1,6 +1,6 @@
+import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
 import { Metadata } from 'next'
 
-import { fetchProjectAndRedirect } from '@root/app/(cloud)/cloud/_api/fetchProject'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { ProjectBuildSettingsPage } from './page_client'
 

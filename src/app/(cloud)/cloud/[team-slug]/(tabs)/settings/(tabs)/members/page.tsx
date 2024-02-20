@@ -1,6 +1,6 @@
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { Metadata } from 'next'
 
-import { fetchTeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
 import { TeamMembersPage } from './page_client'
 
 export default async ({ params: { 'team-slug': teamSlug } }) => {

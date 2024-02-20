@@ -1,13 +1,13 @@
 'use client'
 
 import React from 'react'
+import { ProjectWithSubscription } from '@cloud/_api/fetchProject'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { cloudSlug } from '@cloud/slug'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { Message } from '@root/app/_components/Message'
-import { ProjectWithSubscription } from '@root/app/(cloud)/cloud/_api/fetchProject'
-import { TeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
-import { cloudSlug } from '@root/app/(cloud)/cloud/slug'
 import { Project } from '@root/payload-cloud-types'
 
 export const BadSubscriptionMessage: React.FC<{

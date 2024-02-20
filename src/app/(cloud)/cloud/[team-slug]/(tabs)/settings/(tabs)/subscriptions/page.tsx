@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
+import { fetchMe } from '@cloud/_api/fetchMe'
+import { fetchPlans } from '@cloud/_api/fetchPlans'
+import { fetchSubscriptions } from '@cloud/_api/fetchSubscriptions'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 import { Metadata } from 'next'
 
 import { Message } from '@root/app/_components/Message'
-import { fetchMe } from '@root/app/(cloud)/cloud/_api/fetchMe'
-import { fetchPlans } from '@root/app/(cloud)/cloud/_api/fetchPlans'
-import { fetchSubscriptions } from '@root/app/(cloud)/cloud/_api/fetchSubscriptions'
-import { fetchTeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
-import { SectionHeader } from '@root/app/(cloud)/cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
 import { TeamSubscriptionsPage } from './page_client'
 
 export default async ({ params: { 'team-slug': teamSlug } }) => {

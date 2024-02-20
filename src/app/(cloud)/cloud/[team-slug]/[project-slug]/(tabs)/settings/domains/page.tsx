@@ -1,4 +1,5 @@
-import { fetchProjectAndRedirect } from '@root/app/(cloud)/cloud/_api/fetchProject'
+import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
+
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { ProjectDomainsPage } from './page_client'
 

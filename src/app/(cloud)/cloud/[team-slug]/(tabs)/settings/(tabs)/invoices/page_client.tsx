@@ -1,12 +1,12 @@
 'use client'
 
 import * as React from 'react'
+import { InvoicesResult } from '@cloud/_api/fetchInvoices'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 
 import { CircleIconButton } from '@components/CircleIconButton'
 import { Heading } from '@components/Heading'
 import { Pill } from '@components/Pill'
-import { InvoicesResult } from '@root/app/(cloud)/cloud/_api/fetchInvoices'
-import { TeamWithCustomer } from '@root/app/(cloud)/cloud/_api/fetchTeam'
 import { User } from '@root/payload-cloud-types'
 import { checkTeamRoles } from '@root/utilities/check-team-roles'
 import { formatDate } from '@root/utilities/format-date-time'

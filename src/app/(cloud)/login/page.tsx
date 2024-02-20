@@ -1,7 +1,7 @@
+import { fetchMe } from '@cloud/_api/fetchMe'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
-import { fetchMe } from '@root/app/(cloud)/cloud/_api/fetchMe'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { Login } from './page_client'
 

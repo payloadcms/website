@@ -1,14 +1,14 @@
 'use client'
 
 import React, { useCallback } from 'react'
+import { revalidateCache } from '@cloud/_actions/revalidateCache'
+import { fetchGithubTokenClient } from '@cloud/_api/fetchGitHubToken'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
 import { RenderParams } from '@root/app/_components/RenderParams'
-import { revalidateCache } from '@root/app/(cloud)/cloud/_actions/revalidateCache'
-import { fetchGithubTokenClient } from '@root/app/(cloud)/cloud/_api/fetchGitHubToken'
 import { exchangeCode } from '@root/app/(cloud)/new/authorize/exchangeCode'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'

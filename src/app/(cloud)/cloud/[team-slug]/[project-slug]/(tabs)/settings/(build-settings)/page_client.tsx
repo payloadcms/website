@@ -2,14 +2,14 @@
 
 import * as React from 'react'
 import { toast } from 'react-toastify'
+import { BranchSelector } from '@cloud/_components/BranchSelector'
+import { UniqueProjectSlug } from '@cloud/_components/UniqueSlug'
 import { Text } from '@forms/fields/Text'
 import Form from '@forms/Form'
 import Submit from '@forms/Submit'
 import { useRouter } from 'next/navigation'
 
 import { MaxWidth } from '@root/app/_components/MaxWidth'
-import { BranchSelector } from '@root/app/(cloud)/cloud/_components/BranchSelector'
-import { UniqueProjectSlug } from '@root/app/(cloud)/cloud/_components/UniqueSlug'
 import { Project, Team } from '@root/payload-cloud-types'
 import { SectionHeader } from '../_layoutComponents/SectionHeader'
 

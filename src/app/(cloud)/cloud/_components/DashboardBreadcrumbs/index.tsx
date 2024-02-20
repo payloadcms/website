@@ -1,9 +1,9 @@
 'use client'
 
+import { cloudSlug } from '@cloud/slug'
 import { usePathname } from 'next/navigation'
 
 import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
-import { cloudSlug } from '@root/app/(cloud)/cloud/slug'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
 
 import classes from './index.module.scss'

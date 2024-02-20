@@ -1,9 +1,9 @@
 import * as React from 'react'
+import { Tab, Tabs } from '@cloud/_components/Tabs'
 
 import { Gutter } from '@components/Gutter'
 import { Indicator } from '@root/app/_components/Indicator'
 import { LogLine, SimpleLogs, styleLogs } from '@root/app/_components/SimpleLogs'
-import { Tab, Tabs } from '@root/app/(cloud)/cloud/_components/Tabs'
 import { Deployment } from '@root/payload-cloud-types'
 import { useWebSocket } from '@root/utilities/use-websocket'
 

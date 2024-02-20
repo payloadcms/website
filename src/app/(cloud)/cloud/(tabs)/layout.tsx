@@ -1,5 +1,5 @@
-import { DashboardTabs } from '@root/app/(cloud)/cloud/_components/DashboardTabs'
-import { cloudSlug } from '@root/app/(cloud)/cloud/slug'
+import { DashboardTabs } from '@cloud/_components/DashboardTabs'
+import { cloudSlug } from '@cloud/slug'
 
 export default async props => {
   const { children } = props
