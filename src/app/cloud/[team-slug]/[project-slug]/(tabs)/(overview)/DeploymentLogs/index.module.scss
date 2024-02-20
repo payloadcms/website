@@ -1,10 +1,10 @@
 .deploymentLogs {
   margin-top: calc(var(--base) * 4);
   isolation: isolate;
-  
+
   .logTabs {
     position: sticky;
-    top: calc(var(--top-bar-height) + var(--header-height));
+    top: calc(var(--header-height));
     z-index: 1;
 
     > div {
@@ -17,7 +17,7 @@
         height: 100%;
         left: 0;
       }
-  
+
       &:after {
         content: '';
         position: absolute;
