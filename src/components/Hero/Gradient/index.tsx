@@ -27,7 +27,7 @@ export const GradientHero: React.FC<
   const padding = useGetHeroPadding(theme, firstContentBlock)
 
   return (
-    <BlockWrapper settings={{ theme }} padding={{ ...padding, bottom: 'large' }}>
+    <BlockWrapper settings={{ theme: 'dark' }} padding={{ ...padding, bottom: 'large' }}>
       {Boolean(fullBackground) && (
         <Media
           className={[classes.bgFull].filter(Boolean).join(' ')}
