@@ -53,7 +53,7 @@ export const QuoteBlock: React.FC<QuoteProps> = props => {
         className={[classes.authorWrapper, 'cols-12'].filter(Boolean).join(' ')}
       >
         <div className={classes.media}>
-          {typeof item.logo !== 'string' && <Media resource={item.logo} />}
+          {typeof item.logo !== 'string' && <Media className={classes.logo} resource={item.logo} />}
         </div>
         <div className={classes.author}>{item.author}</div>
       </div>
