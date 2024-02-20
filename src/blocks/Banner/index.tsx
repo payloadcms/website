@@ -9,7 +9,7 @@ export type BannerBlockProps = Extract<ReusableContent['layout'][0], { blockType
 export const BannerBlock: React.FC<{
   bannerFields: BannerBlockProps['bannerFields']
   marginAdjustment?: boolean
-  disableGutter: boolean
+  disableGutter?: boolean
 }> = ({ bannerFields, disableGutter, marginAdjustment }) => {
   const bannerProps: BannerProps = {
     type: bannerFields.type,
