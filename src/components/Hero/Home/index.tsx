@@ -37,7 +37,7 @@ export const HomeHero: React.FC<
   const mobileLaptopMediaRef = useRef<HTMLDivElement | null>(null)
   const [laptopMediaHeight, setLaptopMediaHeight] = useState(0)
   const [mobileMediaWrapperHeight, setMobileMediaWrapperHeight] = useState(0)
-  const padding = useGetHeroPadding('light', firstContentBlock)
+  const padding = useGetHeroPadding('dark', firstContentBlock)
 
   useEffect(() => {
     const updateLaptopMediaHeight = () => {
@@ -64,27 +64,30 @@ export const HomeHero: React.FC<
   }, [])
 
   return (
-    <ChangeHeaderTheme theme="light">
-      <BlockWrapper setPadding={false} settings={{ theme: 'light' }} padding={padding}>
+    <ChangeHeaderTheme theme="dark">
+      <BlockWrapper setPadding={false} settings={{ theme: 'dark' }} padding={padding}>
+        <div className={classes.bgFull}>
+          <Media src="/images/hero-gradient.jpg" alt="" width={1920} height={1644} priority />
+        </div>
         <div className={classes.paddingTopWrapper}>
           <div className={classes.paddingTop}>
             <BackgroundGrid
               className={classes.paddingBottomGrid}
               gridLineStyles={{
                 0: {
-                  background: 'var(--grid-line-light)',
+                  background: 'var(--grid-line-dark)',
                 },
                 1: {
-                  background: 'var(--grid-line-light)',
+                  background: 'var(--grid-line-dark)',
                 },
                 2: {
-                  background: 'var(--grid-line-light)',
+                  background: 'var(--grid-line-dark)',
                 },
                 3: {
-                  background: 'var(--grid-line-light)',
+                  background: 'var(--grid-line-dark)',
                 },
                 4: {
-                  background: 'var(--grid-line-light)',
+                  background: 'var(--grid-line-dark)',
                 },
               }}
               zIndex={1}
@@ -135,10 +138,10 @@ export const HomeHero: React.FC<
             </div>
           </div>
           <Gutter className={classes.contentWrapper}>
-            <div className={classes.primaryContentWrap} data-theme="light">
+            <div className={classes.primaryContentWrap} data-theme="dark">
               <BackgroundGrid zIndex={0} />
               <div className={[classes.primaryContent, 'grid'].filter(Boolean).join(' ')}>
-                <div className={['cols-8 stthemeart-1'].filter(Boolean).join(' ')}>
+                <div className={['cols-8 start-1'].filter(Boolean).join(' ')}>
                   <RichText className={classes.richTextHeading} content={richText} />
                   <RichText className={classes.richTextDescription} content={description} />
                   {Array.isArray(primaryButtons) && (
