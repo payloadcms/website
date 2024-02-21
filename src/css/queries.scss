@@ -62,6 +62,12 @@
   }
 }
 
+@mixin large-break-ht {
+  @media (max-height: $breakpoint-l-height) {
+    @content;
+  }
+}
+
 @mixin extra-large-break-ht {
   @media (max-height: $breakpoint-xl-height) {
     @content;
