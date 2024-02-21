@@ -11,6 +11,7 @@ import {
   EXAMPLE_TABS,
   FEATURED_MEDIA_GALLERY,
   FORM_BLOCK,
+  HOVER_CARDS,
   HOVER_HIGHLIGHTS,
   LINK_GRID,
   LOGO_GRID,
@@ -105,6 +106,7 @@ export const PAGE = `
           ${EXAMPLE_TABS}
           ${FEATURED_MEDIA_GALLERY}
           ${FORM_BLOCK}
+          ${HOVER_CARDS}
           ${HOVER_HIGHLIGHTS}
           ${LINK_GRID}
           ${LOGO_GRID}

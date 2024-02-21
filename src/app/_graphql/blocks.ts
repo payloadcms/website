@@ -270,6 +270,21 @@ export const FORM_BLOCK = `
 }
 `
 
+export const HOVER_CARDS = `
+...on HoverCards {
+  blockType
+  hoverCardsFields {
+    settings ${SETTINGS}
+    richText
+    cards {
+      title
+      description
+      link ${LINK_FIELDS({ disableAppearance: true, disableLabel: true })}
+    }
+  }
+}
+`
+
 export const HOVER_HIGHLIGHTS = `
 ...on HoverHighlights {
   blockType
