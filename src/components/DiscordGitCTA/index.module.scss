@@ -1,41 +1,16 @@
 @use '@scss/common' as *;
 
-.container {
-  position: absolute;
-  height: 100%;
-  right: 0;
-  top: 0;
-
-  .bg {
-    top: 0;
-    right: calc(var(--gutter-h) * -0.5);
-    left: calc(var(--gutter-h) * 0.5);
-    height: 70%;
-    position: absolute;
-    z-index: -1;
-  }
-}
-
-.ctaWrap {
-  position: sticky;
-  width: 430px;
-  min-width: 430px;
-  margin-right: calc(var(--gutter-h) * 0.5);
-  padding-top: calc(var(--base) * 2.5);
-  top: calc(var(--header-height) + calc(var(--base) * 2));
-}
-
 .cta {
   @include btnReset;
-  @include shadow-lg;
   text-decoration: none;
   display: flex;
   flex-direction: column;
   text-align: left;
   justify-content: space-between;
-  padding: calc(var(--base) * 1.75);
-  background-color: var(--color-base-1000);
-  border-bottom: 1px solid var(--color-base-100);
+  padding: calc(var(--base)*1.5) var(--base);
+  margin: 0;
+  background-color: transparent;
+  border-bottom: 1px solid var(--theme-border-color);
   position: relative;
   width: 100%;
 
@@ -48,10 +23,6 @@
     left: 0;
     transition: all 300ms ease-in-out;
     background-color: var(--theme-success-600);
-  }
-
-  &:first-child {
-    margin-bottom: calc(var(--base) * 2.5);
   }
 
   &:hover {
@@ -70,14 +41,22 @@
 }
 
 .message {
-  color: var(--color-base-100);
-  font-size: calc(var(--base) * 1.25);
+  @include h5;
+  color: var(--theme-text-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
 }
 
 .arrow {
-  width: 16px;
-  height: 16px;
-  color: var(--color-base-100);
+  width: 12px;
+  height: 12px;
+  color: var(--theme-text-color);
+
+  & path {
+    stroke-width: 1.5px;
+  }
 }
 
 .gitButton,
@@ -99,16 +78,14 @@
   display: flex;
   flex-direction: column;
   line-height: 1.2;
-  margin-top: calc(var(--base) * 2.5);
+  padding: calc(var(--base)*1.5) var(--base);
 
   .license {
-    margin-bottom: 0;
+    margin: 0;
     color: var(--theme-elevation-450);
   }
 
   .button {
-    text-decoration: none;
-    color: var(--theme-blue-500);
     transition: opacity 0.2s ease-in-out;
 
     &:hover {
@@ -117,51 +94,8 @@
   }
 }
 
-
-.minimal {
-  .cta {
-    padding: calc(var(--base)*1.5) var(--base);
-    margin: 0;
-    background-color: transparent;
-    border-bottom: 1px solid var(--theme-border-color);
-
-    &:hover {
-      .message {
-        color: var(--theme-text-color);
-        opacity: 0.85;
-      }
-    }
-  }
-
-  .message {
-    @include h5;
-    color: var(--theme-text-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0;
-  }
-
-  .arrow {
-    width: 12px;
-    height: 12px;
-    color: var(--theme-text-color);
-
-    & path {
-      stroke-width: 1.5px;
-    }
-  }
-}
-
-@include extra-large-break {
-  .ctaWrap {
-    width: 350px;
-    min-width: 350px;
-  }
-}
-
 @include mid-break {
-  .container {
+  .ctaWrap {
     display: none;
   }
 }
