@@ -54,21 +54,6 @@
       z-index: 0;
       background-color: var(--theme-input-bg);
     }
-
-    &:focus-visible, &:hover {
-      color: var(--theme-elevation-0);
-
-      &::before {
-        content: '';
-        width: calc(100% - 2px);
-        position: absolute;
-        height:100%;
-        left: 1px;
-        top:0;
-        z-index: 0;
-        background-color: var(--theme-elevation-1000);
-      }
-    }
   }
 
   .hideTopBorder {

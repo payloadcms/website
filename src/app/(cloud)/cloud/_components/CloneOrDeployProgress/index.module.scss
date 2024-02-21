@@ -1,0 +1,139 @@
+@use '@scss/common' as *;
+
+.deployProgress {
+    color: var(--theme-elevation-400);
+    padding: calc(var(--base) * 2);
+    background-color: var(--theme-elevation-100);
+    position: relative;
+    border: 0.5px solid var(--theme-border-color);
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+
+    @include mid-break {
+        min-height: 300px;
+        padding: var(--base);
+    }
+}
+
+.scrollTarget {
+    position: absolute;
+    top: calc(var(--header-height) * -3.5);
+}
+
+.active {
+    color: var(--theme-text);
+    
+    &:local() {
+        .dots > div > div {
+            animation: dots infinite;
+            animation-duration: 1.5s;
+        }
+
+        @include small-break {
+            .dots > div > div {
+                animation-duration: 0.75s;
+            }
+        }
+    }
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    gap: var(--base);
+    margin-bottom: calc(var(--base));
+
+    @include small-break {
+        gap: calc(var(--base) / 2);
+        margin-bottom: var(--base);
+    }
+}
+
+.headerIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(var(--base) * 1.5);
+    height: calc(var(--base) * 1.5);
+
+    @include small-break {
+        width: var(--base);
+        height: var(--base);
+    }
+}
+
+.dots {
+    display: flex;
+    gap: 4px;
+
+    & > div {
+        position: relative;
+
+        & > div {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+            background-color: currentColor;
+            transition: background-color 0.25s linear;
+        }
+
+        &:nth-child(1) > div {
+            animation-delay: 0s;
+        }
+
+        &:nth-child(2) > div {
+            animation-delay: 0.25s;
+        }
+
+        &:nth-child(3) > div {
+            animation-delay: 0.5s;
+        }
+
+        &:nth-child(4) > div {
+            animation-delay: 0.75s;
+        }
+
+        &:nth-child(5) > div {
+            animation-delay: 1s;
+        }
+
+        @include small-break {
+            &:nth-child(4),
+            &:nth-child(5) {
+                display: none;
+            }
+        }
+    }
+}
+
+@keyframes dots {
+    0% {
+        background-color: currentColor;
+    }
+    50% {
+        background-color: var(--theme-elevation-250);
+    }
+    100% {
+        background-color: currentColor;
+    }
+}
+
+.label {
+    word-break: break-word;
+}
+
+.progress {
+    margin: 0;
+}

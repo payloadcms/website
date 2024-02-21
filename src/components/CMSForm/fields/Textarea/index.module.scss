@@ -27,6 +27,10 @@
     transition: all 0.3s ease;
     color: var(--text-dark);
     pointer-events: none;
+
+    @include mid-break {
+      left: calc(var(--base) * 1);
+    }
   }
 
   .textareaLabel, .errorLabel {
@@ -52,6 +56,10 @@
     &.error {
       background-color: var(--theme-failure-500);
     }
+
+    @include mid-break {
+      padding: calc(var(--base) * 1.5) calc(var(--base) * 1);
+    }
   }
   
   .showError {
@@ -63,8 +71,8 @@
 
 .focused {
   .errorAndLabel {
-    top: 12.5%;
-    transform: translateY(-12.5%);
+    top: 15%;
+    transform: translateY(-15%);
   }
 
   .textareaLabel, .errorLabel {
@@ -76,6 +84,10 @@
   }
 
   .textarea {
-    padding: calc(var(--base) * 1.75) calc(var(--base) * 2) calc(var(--base) * 1.25) calc(var(--base) * 2);
+    padding: calc(var(--base) * 2) calc(var(--base) * 2) calc(var(--base) * 1) calc(var(--base) * 2);
+
+    @include mid-break {
+      padding: calc(var(--base) * 2) calc(var(--base) * 1) calc(var(--base) * 1) calc(var(--base) * 1);
+    }
   }
 }

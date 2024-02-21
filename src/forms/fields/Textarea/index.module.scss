@@ -18,3 +18,9 @@
     background-color: var(--theme-failure-500);
   }
 }
+
+:global([data-theme="light"]) {
+  .textarea {
+    background: var(--theme-elevation-50);
+  }
+}
