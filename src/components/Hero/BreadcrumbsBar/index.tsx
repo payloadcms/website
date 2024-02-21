@@ -31,6 +31,7 @@ const BreadcrumbsBar: React.FC<Props> = ({ hero, breadcrumbs: breadcrumbsProps }
       if (theme) setThemeState(theme)
       else if (themeFromContext) setThemeState(themeFromContext)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [themeFromContext, theme])
 
   const breadcrumbs = useMemo(() => {
