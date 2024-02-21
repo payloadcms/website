@@ -63,6 +63,7 @@ export const HoverCards: React.FC<HoverCardsProps> = props => {
         {gradients.map(gradient => {
           return (
             <Image
+              key={gradient}
               alt=""
               className={[classes.bg, activeGradient === gradient && classes.activeBg]
                 .filter(Boolean)

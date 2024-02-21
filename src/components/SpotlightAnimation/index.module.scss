@@ -80,9 +80,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   opacity: 1;
   transition: opacity 2350ms $curve;
   pointer-events: none;
-  display: inline-flex;
-  flex-wrap: wrap;
-  column-gap: 0.16em;
 
   @include data-theme-selector('dark') {
     color: #688ca0;
@@ -97,6 +94,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   }
 
   & :global(.word) {
-    margin-right: 0;
+    margin-right: 0.16em;
   }
 }
