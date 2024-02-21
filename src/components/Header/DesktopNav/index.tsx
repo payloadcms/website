@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { Avatar } from '@components/Avatar'
 import { Gutter } from '@components/Gutter'
+import { RichText } from '@components/RichText'
 import { DiscordIcon } from '@root/graphics/DiscordIcon'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { MainMenu } from '@root/payload-types'
@@ -81,26 +82,85 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
                     .join(' ')}
                   ref={ref => (dropdownMenuRefs[tabIndex] = ref)}
                 >
-                  <div className={[classes.description, 'cols-4'].join(' ')}>{tab.description}</div>
-                  {(tab.navItems || []).map((item, index) => {
-                    const totalItems = tab.navItems?.length || 0
-                    const columnSpan = 12 / totalItems
-
-                    return (
-                      <div
-                        className={[`cols-${columnSpan}`, classes.dropdownItem].join(' ')}
-                        onClick={resetHoverStyles}
-                        key={index}
-                      >
-                        <CMSLink className={classes.dropdownItemLink} {...item.link}>
-                          <div className={classes.dropdownItemDescription}>
-                            {item.description}
-                            <ArrowIcon className={classes.arrow} />
-                          </div>
-                        </CMSLink>
+                  <div className={[classes.description, 'cols-4'].join(' ')}>
+                    {tab.description}
+                    {tab.descriptionLinks && (
+                      <div className={classes.descriptionLinks}>
+                        {tab.descriptionLinks.map((link, linkIndex) => (
+                          <CMSLink
+                            className={classes.descriptionLink}
+                            key={linkIndex}
+                            {...link.link}
+                          >
+                            <ArrowIcon size="medium" />
+                          </CMSLink>
+                        ))}
                       </div>
-                    )
-                  })}
+                    )}
+                  </div>
+                  {tab.navItems &&
+                    tab.navItems?.map((item, index) => {
+                      let columnSpan = 12 / (tab.navItems?.length || 1)
+                      const containsFeatured = tab.navItems?.some(
+                        navItem => navItem.style === 'featured',
+                      )
+
+                      if (containsFeatured) {
+                        columnSpan = item.style === 'featured' ? 6 : 3
+                      }
+                      return (
+                        <div
+                          className={[`cols-${columnSpan}`, classes.dropdownItem].join(' ')}
+                          onClick={resetHoverStyles}
+                          key={index}
+                        >
+                          {item.style === 'default' && item.defaultLink && (
+                            <CMSLink className={classes.defaultLink} {...item.defaultLink.link}>
+                              <div className={classes.defaultLinkDescription}>
+                                {item.defaultLink.description}
+                                <ArrowIcon size="medium" />
+                              </div>
+                            </CMSLink>
+                          )}
+                          {item.style === 'list' && item.listLinks && (
+                            <div className={classes.linkList}>
+                              <div className={classes.listLabel}>{item.listLinks.tag}</div>
+                              {item.listLinks.links &&
+                                item.listLinks.links.map((link, linkIndex) => (
+                                  <CMSLink
+                                    className={classes.link}
+                                    key={linkIndex}
+                                    {...link.link}
+                                  />
+                                ))}
+                            </div>
+                          )}
+                          {item.style === 'featured' && item.featuredLink && (
+                            <div className={classes.featuredLink}>
+                              <div className={classes.listLabel}>{item.featuredLink.tag}</div>
+                              {item.featuredLink?.label && (
+                                <RichText
+                                  className={classes.featuredLinkLabel}
+                                  content={item.featuredLink.label}
+                                />
+                              )}
+                              <div className={classes.featuredLinkWrap}>
+                                {item.featuredLink.links &&
+                                  item.featuredLink.links.map((link, linkIndex) => (
+                                    <CMSLink
+                                      className={classes.featuredLinks}
+                                      key={linkIndex}
+                                      {...link.link}
+                                    >
+                                      <ArrowIcon size="medium" />
+                                    </CMSLink>
+                                  ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )
+                    })}
                 </div>
               </div>
             ))}

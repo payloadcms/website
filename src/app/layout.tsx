@@ -75,7 +75,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <body className={[robotoMono.variable, untitledSans.variable].join(' ')}>
           <GoogleTagManager />
           <Providers>
-            <TopBar {...topBar} />
             <Header {...mainMenu} />
             <div>
               {children}

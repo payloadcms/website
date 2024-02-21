@@ -324,3 +324,7 @@
   }
 }
 
+.logo {
+  max-width: calc(var(--base) * 6);
+  height: auto;
+}

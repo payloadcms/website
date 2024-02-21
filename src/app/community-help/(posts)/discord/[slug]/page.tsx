@@ -47,7 +47,7 @@ const Thread = async ({ params }) => {
 
   const thread = await fetchCommunityHelp(slug)
 
-  if (!thread) return notFound()
+  if (!thread || !thread.helpful) return notFound()
 
   if (!isThreadData(thread)) {
     throw new Error('Unexpected thread data')

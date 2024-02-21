@@ -27,7 +27,7 @@ export const DefaultCard: React.FC<DefaultCardProps> = props => {
             </span>
           )}
         </div>
-        <Heading element="h2" as="h5" marginTop={false}>
+        <Heading element="h2" as="h4" marginTop={false}>
           {title}
         </Heading>
         <div className={classes.plusIcon}>

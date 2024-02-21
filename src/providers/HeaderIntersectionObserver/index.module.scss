@@ -1,5 +1,5 @@
 .intersectionObserverDebugger {
-  --center-of-header: calc(var(--top-bar-height) + calc(var(--header-height) * .5));
+  --center-of-header: calc(calc(var(--header-height) * .5));
   position: fixed;
   height: var(--center-of-header);
   width: 100%;

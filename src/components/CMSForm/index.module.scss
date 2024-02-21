@@ -8,6 +8,24 @@
     border-top: 1px solid var(--grid-line-dark);
     border-bottom: 1px solid var(--grid-line-dark);
 
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(to top, #007FAE, #F4AC4F);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    &:focus-within {
+      &::before {
+        opacity: 1;
+      }
+    }
+    
     :global {
       div.rs__control  {
         border: none;
@@ -18,6 +36,10 @@
     input, textarea {
       border: none;
       background: none;
+
+      &:focus {
+        outline: none;
+      }
     }
   }
 
@@ -31,21 +53,6 @@
       top:0;
       z-index: 0;
       background-color: var(--theme-input-bg);
-    }
-
-    &:focus-visible, &:hover {
-      color: var(--theme-elevation-0);
-
-      &::before {
-        content: '';
-        width: calc(100% - 2px);
-        position: absolute;
-        height:100%;
-        left: 1px;
-        top:0;
-        z-index: 0;
-        background-color: var(--theme-elevation-1000);
-      }
     }
   }
 

@@ -6,9 +6,28 @@ export const GLOBALS = `
       tabs {
         label
         description
-        navItems {
+        descriptionLinks {
           link ${LINK_FIELDS({ disableAppearance: true })}
-          description
+        }
+        navItems {
+          style
+          listLinks {
+            tag
+            links {
+              link ${LINK_FIELDS({ disableAppearance: true })}
+            }
+          }
+          defaultLink {
+            description
+            link ${LINK_FIELDS({ disableAppearance: true })}
+          }
+          featuredLink {
+            tag
+            label
+            links {
+              link ${LINK_FIELDS({ disableAppearance: true })}
+            }
+          }
         }
       }
     }

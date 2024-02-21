@@ -115,67 +115,65 @@ export const Text: React.FC<
         .join(' ')}
     >
       {description && <p className={classes.description}>{description}</p>}
-      <div className={classes.inputWrap}>
-        {type !== 'hidden' && (
-          <div className={[classes.errorAndLabel].filter(Boolean).join(' ')}>
-            <Label
-              actionsClassName={[!copy && type !== 'password' && classes.actionsLabel]
-                .filter(Boolean)
-                .join(' ')}
-              className={[classes.textLabel].filter(Boolean).join(' ')}
-              htmlFor={path}
-              label={label}
-              required={required}
-              margin={false}
-              actionsSlot={
-                <Fragment>
-                  {copy && <CopyToClipboard value={value} />}
-                  {type === 'password' && (
-                    <Tooltip
-                      text={isHidden ? 'show' : 'hide'}
-                      onClick={() => setIsHidden(h => !h)}
-                      className={classes.tooltipButton}
-                    >
-                      <EyeIcon closed={isHidden} size="large" />
-                    </Tooltip>
-                  )}
-                </Fragment>
+      {type !== 'hidden' && (
+        <div className={[classes.errorAndLabel].filter(Boolean).join(' ')}>
+          <Label
+            actionsClassName={[!copy && type !== 'password' && classes.actionsLabel]
+              .filter(Boolean)
+              .join(' ')}
+            className={[classes.textLabel].filter(Boolean).join(' ')}
+            htmlFor={path}
+            label={label}
+            required={required}
+            margin={false}
+            actionsSlot={
+              <Fragment>
+                {copy && <CopyToClipboard value={value} />}
+                {type === 'password' && (
+                  <Tooltip
+                    text={isHidden ? 'show' : 'hide'}
+                    onClick={() => setIsHidden(h => !h)}
+                    className={classes.tooltipButton}
+                  >
+                    <EyeIcon closed={isHidden} size="large" />
+                  </Tooltip>
+                )}
+              </Fragment>
+            }
+          />
+          <Error
+            className={classes.error}
+            showError={Boolean((showError || showErrorFromProps) && errorMessage)}
+            message={errorMessage}
+          />
+        </div>
+      )}
+      <input
+        {...elementAttributes}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        disabled={disabled}
+        className={[classes.input].filter(Boolean).join(' ')}
+        value={value || ''}
+        onChange={
+          customOnChange
+            ? customOnChange
+            : e => {
+                onChange(e.target.value)
               }
-            />
-            <Error
-              className={classes.error}
-              showError={Boolean((showError || showErrorFromProps) && errorMessage)}
-              message={errorMessage}
-            />
-          </div>
-        )}
-        <input
-          {...elementAttributes}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          disabled={disabled}
-          className={[classes.input].filter(Boolean).join(' ')}
-          value={value || ''}
-          onChange={
-            customOnChange
-              ? customOnChange
-              : e => {
-                  onChange(e.target.value)
-                }
-          }
-          placeholder={placeholder}
-          type={type === 'password' && !isHidden ? 'text' : type}
-          id={path}
-          name={path}
-          readOnly={readOnly}
-        />
-        {(icon || suffix) && (
-          <div className={classes.iconWrapper}>
-            {suffix && <div className={classes.suffix}>{suffix}</div>}
-            {icon && <div className={classes.icon}>{icon}</div>}
-          </div>
-        )}
-      </div>
+        }
+        placeholder={placeholder}
+        type={type === 'password' && !isHidden ? 'text' : type}
+        id={path}
+        name={path}
+        readOnly={readOnly}
+      />
+      {(icon || suffix) && (
+        <div className={classes.iconWrapper}>
+          {suffix && <div className={classes.suffix}>{suffix}</div>}
+          {icon && <div className={classes.icon}>{icon}</div>}
+        </div>
+      )}
     </div>
   )
 }

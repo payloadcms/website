@@ -1,0 +1,38 @@
+@use "@scss/common" as *;
+
+.leader {
+  margin-top: 0;
+  margin-bottom: calc(var(--base) / 4);
+}
+
+.memberFields {
+  display: flex;
+  gap: var(--base);
+
+  & > * {
+      flex: 1;
+  }
+
+  @include small-break {
+      flex-direction: column;
+  }
+}
+
+.disabledRoleRemoval {
+  :global {
+    .rs__multi-value__remove {
+      display: none;
+    }
+  }
+}
+
+.footer {
+  @include small;
+  margin-top: calc(var(--base) / 2);
+  color: var(--theme-elevation-500);
+
+   > a, button {
+      color: var(--theme-blue-500);
+      text-decoration: underline;
+   }
+}
