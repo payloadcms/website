@@ -157,7 +157,7 @@ export const Footer: React.FC<FooterType> = props => {
     <footer ref={wrapperRef} className={classes.footer} data-theme="dark">
       <BackgroundGrid zIndex={0} />
       <Gutter className={classes.container}>
-        <div className={['grid'].filter(Boolean).join(' ')}>
+        <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')}>
           <div className={['cols-4 cols-m-4 cols-s-8'].filter(Boolean).join(' ')}>
             <p className={classes.colHeader}>Products</p>
             <div className={classes.colItems}>

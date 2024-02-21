@@ -13,19 +13,9 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     padding-top: calc(var(--base) * 7.5);
     padding-bottom: calc(var(--base) * 7.5);
   }
-}
 
-.background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: calc(100%);
-  //display: none;
-
-  & img {
-    object-fit: cover;
-    height: 100%;
+  .grid {
+    grid-row-gap: calc(var(--base) * 3);
   }
 }
 
