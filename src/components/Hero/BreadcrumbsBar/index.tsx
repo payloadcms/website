@@ -1,5 +1,5 @@
 'use client'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import { ChangeHeaderTheme } from '@components/ChangeHeaderTheme'
@@ -7,6 +7,8 @@ import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
 import { ChevronIcon } from '@root/icons/ChevronIcon'
 import { Page } from '@root/payload-types'
+import { useThemePreference } from '@root/providers/Theme'
+import { Theme } from '@root/providers/Theme/types'
 
 import classes from './index.module.scss'
 
@@ -17,16 +19,23 @@ interface Props {
 
 const BreadcrumbsBar: React.FC<Props> = ({ hero, breadcrumbs: breadcrumbsProps }) => {
   const { breadcrumbsBarLinks, theme, enableBreadcrumbsBar } = hero
+  const { theme: themeFromContext } = useThemePreference()
+  const [themeState, setThemeState] = useState<Page['hero']['theme']>(theme)
+
+  useEffect(() => {
+    if (theme) setThemeState(theme)
+    else if (themeFromContext) setThemeState(themeFromContext)
+  }, [themeFromContext, theme])
 
   const breadcrumbs = useMemo(() => {
     return breadcrumbsProps?.slice(0, breadcrumbsProps.length - 1) ?? []
   }, [breadcrumbsProps])
 
   return (
-    <ChangeHeaderTheme theme={theme ?? 'light'}>
+    <ChangeHeaderTheme theme={themeState ?? 'light'}>
       <div
         className={[classes.wrapper].filter(Boolean).join(' ')}
-        {...(theme ? { 'data-theme': theme } : {})}
+        {...(themeState ? { 'data-theme': themeState } : {})}
       >
         <Gutter>
           {enableBreadcrumbsBar ? (
