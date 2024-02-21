@@ -82,7 +82,7 @@
   z-index: 0;
 
   video {
-    transform: rotate(-8deg) skew(-9deg) scale(0.425, 0.455) translate(39%, -38.5%);
+    transform: rotate(-8deg) skew(-8deg) scale(0.42, 0.455) translate(40%, -38.5%);
   }
 
   @include mid-break {
@@ -122,19 +122,19 @@
   min-height: 85vh;
 
   @include two-extra-large-break {
-    min-height: 90vh;
+    min-height: 80vh;
   }
 
   @include extra-large-break {
-    min-height: 75vh;
-  }
-
-  @include large-break {
     min-height: 60vh;
   }
 
+  @include large-break {
+    min-height: 48vh;
+  }
+
   @include large-mid-break {
-    min-height: 55vh;
+    min-height: 45vh;
   }
 
   @include mid-break {
@@ -144,19 +144,41 @@
 
   @include extra-large-break-ht {
     @include two-extra-large-break {
-      min-height: 120vh;
+      min-height: 95vh;
     }
 
     @include extra-large-break {
-      min-height: 100vh;
+      min-height: 68vh;
     }
 
     @include large-break {
-      min-height: 85vh;
+      min-height: 55vh;
     }
 
     @include large-mid-break {
-      min-height: 80vh;
+      min-height: 55vh;
+    }
+
+    @include mid-break {
+      min-height: unset;
+    }
+  }
+
+  @include large-break-ht {
+    @include two-extra-large-break {
+      min-height: 110vh;
+    }
+
+    @include extra-large-break {
+      min-height: 75vh;
+    }
+
+    @include large-break {
+      min-height: 65vh;
+    }
+
+    @include large-mid-break {
+      min-height: 60vh;
     }
 
     @include mid-break {
