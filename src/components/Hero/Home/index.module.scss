@@ -371,9 +371,9 @@
 .bgFull {
   position: absolute;
   left: 0;
-  top: calc(0px - var(--header-height));
+  top: calc(0px - var(--header-height) - 1px);
   width: 100%;
-  height: calc(100% + var(--header-height));
+  height: calc(100% + var(--header-height) + 1px);
   z-index: 0;
   backdrop-filter: blur(4px);
 

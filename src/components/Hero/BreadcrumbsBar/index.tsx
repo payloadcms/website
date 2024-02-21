@@ -22,19 +22,23 @@ const BreadcrumbsBar: React.FC<Props> = ({ hero, breadcrumbs: breadcrumbsProps }
   const { theme: themeFromContext } = useThemePreference()
   const [themeState, setThemeState] = useState<Page['hero']['theme']>(theme)
 
+  const hasBackground = !Boolean(['home'].includes(type))
+
   useEffect(() => {
-    if (theme) setThemeState(theme)
-    else if (themeFromContext) setThemeState(themeFromContext)
+    if (!hasBackground) {
+      setThemeState('dark')
+    } else {
+      if (theme) setThemeState(theme)
+      else if (themeFromContext) setThemeState(themeFromContext)
+    }
   }, [themeFromContext, theme])
 
   const breadcrumbs = useMemo(() => {
     return breadcrumbsProps?.slice(0, breadcrumbsProps.length - 1) ?? []
   }, [breadcrumbsProps])
 
-  const hasBackground = !Boolean(['home'].includes(type))
-
   return (
-    <ChangeHeaderTheme theme={themeState ?? 'light'}>
+    <ChangeHeaderTheme theme={themeState ?? !hasBackground ? 'dark' : 'light'}>
       <div
         className={[classes.wrapper, hasBackground && classes.hasBackground]
           .filter(Boolean)
