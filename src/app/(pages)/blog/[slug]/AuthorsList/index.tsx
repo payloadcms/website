@@ -18,13 +18,13 @@ const AuthorContent: React.FC<{
 
   return (
     <div className={classes.author}>
+      {author?.photo && typeof author?.photo !== 'string' && (
+        <Media className={classes.authorImage} resource={author?.photo} />
+      )}
       <div className={classes.authorInfo}>
         <Label>{`${author?.firstName || 'Unknown'} ${author?.lastName || 'Author'}`}</Label>
         {author?.twitter && <div className={classes.twitter}>{`@${author?.twitter}`}</div>}
       </div>
-      {author?.photo && typeof author?.photo !== 'string' && (
-        <Media className={classes.authorImage} resource={author?.photo} />
-      )}
     </div>
   )
 }
@@ -40,6 +40,7 @@ export const AuthorsList: React.FC<{
 
   return (
     <div className={classes.authorSlot}>
+      <span className={classes.label}>Author{`${authors.length > 1 ? 's' : ''}`}</span>
       {authors?.map((author, index) => (
         <Fragment key={index}>
           {author && typeof author !== 'string' && (

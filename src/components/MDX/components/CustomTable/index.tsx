@@ -18,11 +18,20 @@ export type Props = {
 }
 
 const CustomTable: React.FC<Props> = ({ className, data, columns, inDrawer }) => {
+  const [padding, setPadding] = React.useState(0)
+  const paddingRef = React.useRef<HTMLDivElement>(null)
+
+  React.useEffect(() => {
+    if (paddingRef.current?.offsetWidth === undefined) return
+    setPadding(Math.round(paddingRef.current?.offsetWidth / 8) - 1)
+  }, [paddingRef.current?.offsetWidth])
+
   return (
     <div
       className={[classes.table, inDrawer && classes.inDrawer, className && className]
         .filter(Boolean)
         .join(' ')}
+      ref={paddingRef}
     >
       <table cellPadding="0" cellSpacing="0">
         <thead>
@@ -45,6 +54,13 @@ const CustomTable: React.FC<Props> = ({ className, data, columns, inDrawer }) =>
                     </td>
                   )
                 })}
+                <div
+                  className={classes.cellBG}
+                  style={{
+                    marginLeft: padding / -1,
+                    marginRight: padding / -1,
+                  }}
+                />
               </tr>
             ))}
         </tbody>

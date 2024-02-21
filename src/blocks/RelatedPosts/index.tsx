@@ -9,10 +9,11 @@ export type RelatedPostsBlock = {
   blockName: string
   relatedPosts: (Post | string)[] | null
   id?: string
+  disableGutter?: boolean
 }
 
 export const RelatedPosts: React.FC<RelatedPostsBlock> = props => {
-  const { relatedPosts, id = '' } = props
+  const { relatedPosts, id = '', disableGutter } = props
 
   if (!relatedPosts || relatedPosts?.length === 0) {
     return null
@@ -25,7 +26,7 @@ export const RelatedPosts: React.FC<RelatedPostsBlock> = props => {
   }
 
   return (
-    <Gutter>
+    <Gutter leftGutter={!disableGutter} rightGutter={!disableGutter}>
       <div className={classes.relatedPosts} id={id}>
         <h4 className={classes.title}>Related Posts</h4>
         <div className={['grid'].filter(Boolean).join(' ')}>

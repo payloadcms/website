@@ -1,5 +1,12 @@
 @use "@scss/common" as *;
 
+.codeWrap {
+  @include mid-break {
+    margin: 0 calc(var(--base)*-1)!important;
+    width: 100vw;
+  }
+}
+
 .code {
   margin: 0 0 var(--base);
 

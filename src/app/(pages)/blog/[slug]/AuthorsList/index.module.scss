@@ -3,13 +3,15 @@
 .authorSlot {
   display: flex;
   flex-direction: column;
-  padding: var(--base) 0;
-  border-top: 1px solid var(--theme-text);
   gap: calc(var(--base) * .25);
 
   @include mid-break {
-    padding: calc(var(--base) * .5) 0;
+    padding: 0;
   }
+}
+
+.label {
+  @include uppercaseLabel;
 }
 
 .authorLink {
@@ -24,9 +26,11 @@
 .author {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  padding: 0 0 calc(var(--base) * 0.5) 0;
 
   p {
+    font-size: calc(var(--base) * 0.8);
+    color: var(--theme-elevation-900);
     margin: 0;
     line-height: 1;
   }
@@ -44,10 +48,10 @@
 }
 
 .authorImage {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 100%;
   overflow: hidden;
-  margin-left: var(--base);
+  margin-right: calc(var(--base) * 0.75);
   flex-shrink: 0;
 }

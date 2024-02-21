@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
 import { RichText } from '@components/RichText'
@@ -7,31 +9,58 @@ import { ReusableContent } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
-type Props = Extract<ReusableContent['layout'][0], { blockType: 'mediaBlock' }>
+type Props = Extract<ReusableContent['layout'][0], { blockType: 'mediaBlock' }> & {
+  padding: PaddingProps
+}
 
-export const MediaBlock: React.FC<Props> = ({ mediaBlockFields }) => {
-  const { media, caption, position } = mediaBlockFields
+export const MediaBlock: React.FC<Props & { disableGutter?: boolean; marginAdjustment?: any }> = ({
+  mediaBlockFields,
+  disableGutter,
+  marginAdjustment = {},
+  padding,
+}) => {
+  const { media, caption, position, settings } = mediaBlockFields
 
   if (typeof media === 'string') return null
 
   return (
-    <Gutter>
-      <Media
-        resource={media}
-        className={[classes.mediaResource, classes[`position--${position}`]]
-          .filter(Boolean)
-          .join(' ')}
-      />
+    <BlockWrapper settings={settings} padding={padding}>
+      <div
+        className={classes.mediaBlock}
+        style={{
+          marginRight: marginAdjustment.marginRight,
+          marginLeft: marginAdjustment.marginLeft,
+        }}
+      >
+        <BackgroundGrid />
+        {disableGutter ? (
+          <Media
+            resource={media}
+            className={[classes.mediaResource, classes[`position--${position}`]]
+              .filter(Boolean)
+              .join(' ')}
+          />
+        ) : (
+          <Gutter>
+            <Media
+              resource={media}
+              className={[classes.mediaResource, classes[`position--${position}`]]
+                .filter(Boolean)
+                .join(' ')}
+            />
 
-      {caption && (
-        <div className={['grid'].filter(Boolean).join(' ')}>
-          <div className={[classes.caption, 'cols-5 cols-m-8'].filter(Boolean).join(' ')}>
-            <small>
-              <RichText content={caption} />
-            </small>
-          </div>
-        </div>
-      )}
-    </Gutter>
+            {caption && (
+              <div className={['grid'].filter(Boolean).join(' ')}>
+                <div className={[classes.caption, 'cols-8 cols-m-8'].filter(Boolean).join(' ')}>
+                  <small>
+                    <RichText content={caption} />
+                  </small>
+                </div>
+              </div>
+            )}
+          </Gutter>
+        )}
+      </div>
+    </BlockWrapper>
   )
 }

@@ -2,8 +2,6 @@
 
 .table {
   margin-bottom: var(--base);
-  overflow: auto;
-  max-width: 100%;
 
   & table {
     width: 100%;
@@ -25,8 +23,19 @@
 
   tbody {
     tr {
+      position: relative;
+
       &:nth-child(odd) {
         background: var(--theme-elevation-150);
+
+        .cellBG {
+          position: absolute;
+          height: 100%;
+          left: 0;
+          right: 0;
+          background: var(--theme-elevation-150);
+          z-index: -1;
+        }
       }
     }
   }
@@ -61,6 +70,10 @@
       tr {
         &:nth-child(odd) {
           background: var(--theme-elevation-50);
+
+          .cellBG {
+            background: var(--theme-elevation-50);
+          }
         }
       }
     }
