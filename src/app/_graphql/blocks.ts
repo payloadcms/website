@@ -279,7 +279,6 @@ export const HOVER_CARDS = `
     cards {
       title
       description
-      enableLink
       link ${LINK_FIELDS({ disableAppearance: true, disableLabel: true })}
     }
   }

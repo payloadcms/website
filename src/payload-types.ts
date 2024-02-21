@@ -1246,7 +1246,6 @@ export interface Page {
             | {
                 title: string;
                 description?: string | null;
-                enableLink?: boolean | null;
                 link?: {
                   type?: ('reference' | 'custom') | null;
                   newTab?: boolean | null;
@@ -2331,7 +2330,6 @@ export interface ReusableContent {
             | {
                 title: string;
                 description?: string | null;
-                enableLink?: boolean | null;
                 link?: {
                   type?: ('reference' | 'custom') | null;
                   newTab?: boolean | null;

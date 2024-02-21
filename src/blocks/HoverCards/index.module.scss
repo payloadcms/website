@@ -1,5 +1,7 @@
 @use "@scss/common" as *;
 
+$curve: cubic-bezier(.165, .84, .44, 1);
+
 .wrapper {
     position: relative;
 }
@@ -39,21 +41,76 @@
   position: relative;
 }
 
-.bg {
-  height: 100%;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 
 .card {
+  aspect-ratio: 1/1;
+  text-decoration: none;
+  position: relative;
+  padding-top: calc(var(--base) * 2);
+  padding-bottom: calc(var(--base) * 2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @include mid-break {
+    border-bottom: 1px solid var(--grid-line-dark);
+  }
+
+  @include small-break {
     height: 100%;
-    position: relative;
+    aspect-ratio: unset;
+    row-gap: calc(var(--base) * 2);
+  }
+
+  &::before {
+    content:'';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 1px;
+    width: 0%;
+    background: linear-gradient(270deg, #007FAE 0%, #578A9C 50.94%, #DFC198 101.87%);
+    transition: width 350ms $curve;
+  }
+
+  &:hover {
+    &::before {
+      width: 100%;
+    }
+
+    .cardTitle {
+      background: linear-gradient(270deg, #007FAE 0%, #578A9C 50.94%, #DFC198 101.87%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+}
+
+.cardCrosshair {
+  position: absolute;
+  top: calc(var(--base) * -0.5 - 1px);
+  left: calc(var(--base) * -0.5);
+  width: calc(var(--base) * 1);
+  height: auto;
+  opacity: 0.5;
+}
+
+.cardWrapper {
+  position: relative;
+  transition: opacity 350ms $curve;
 }
 
 .cardsWrapper {
   position: relative;
-  border-top: 1px solid var(--theme-elevation-200);
+  border-top: 1px solid var(--grid-line-dark);
+  border-bottom: 1px solid var(--grid-line-dark);
+
+  &:hover {
+    .cardWrapper:not(:has(:hover)) {
+      opacity: 0.5;
+    }
+  }
 
   & .backgroundGrid {
     z-index: 5;
@@ -66,6 +123,13 @@
 
 .cardTitle {
   @include h4;
+  position: relative;
+  transition: all 350ms $curve;
+}
+
+.description {
+  text-decoration: none;
+  margin-bottom: 0;
 }
 
 .noiseWrapper {
@@ -75,6 +139,9 @@
   height: 100%;
   width: 100%;
   backdrop-filter: blur(4px);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
 
   &::before {
     content:'';
@@ -84,5 +151,23 @@
     height: 100%;
     width: 100%;
     background: url('/images/noise.png') repeat;
+  }
+}
+
+
+.bg {
+  height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  grid-column: 1/1;
+  position: relative;
+  grid-row: 1/1;
+  z-index: -1;
+  transition: all 1850ms $curve;
+
+  &.activeBg {
+    opacity: 1;
   }
 }
