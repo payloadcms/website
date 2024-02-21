@@ -18,7 +18,7 @@ interface Props {
 }
 
 const BreadcrumbsBar: React.FC<Props> = ({ hero, breadcrumbs: breadcrumbsProps }) => {
-  const { breadcrumbsBarLinks, theme, enableBreadcrumbsBar } = hero
+  const { breadcrumbsBarLinks, theme, enableBreadcrumbsBar, type } = hero
   const { theme: themeFromContext } = useThemePreference()
   const [themeState, setThemeState] = useState<Page['hero']['theme']>(theme)
 
@@ -31,10 +31,14 @@ const BreadcrumbsBar: React.FC<Props> = ({ hero, breadcrumbs: breadcrumbsProps }
     return breadcrumbsProps?.slice(0, breadcrumbsProps.length - 1) ?? []
   }, [breadcrumbsProps])
 
+  const hasBackground = !Boolean(['home'].includes(type))
+
   return (
     <ChangeHeaderTheme theme={themeState ?? 'light'}>
       <div
-        className={[classes.wrapper].filter(Boolean).join(' ')}
+        className={[classes.wrapper, hasBackground && classes.hasBackground]
+          .filter(Boolean)
+          .join(' ')}
         {...(themeState ? { 'data-theme': themeState } : {})}
       >
         <Gutter>
