@@ -117,6 +117,42 @@
   }
 }
 
+
+.minimal {
+  .cta {
+    padding: calc(var(--base)*1.5) var(--base);
+    margin: 0;
+    background-color: transparent;
+    border-bottom: 1px solid var(--theme-border-color);
+
+    &:hover {
+      .message {
+        color: var(--theme-text-color);
+        opacity: 0.85;
+      }
+    }
+  }
+
+  .message {
+    @include h5;
+    color: var(--theme-text-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+  }
+
+  .arrow {
+    width: 12px;
+    height: 12px;
+    color: var(--theme-text-color);
+
+    & path {
+      stroke-width: 1.5px;
+    }
+  }
+}
+
 @include extra-large-break {
   .ctaWrap {
     width: 350px;
