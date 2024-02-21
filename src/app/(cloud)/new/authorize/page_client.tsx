@@ -88,7 +88,7 @@ export const AuthorizePage: React.FC = () => {
       </div>
       <a className={classes.ghLink} href={href} type="button" onClick={openPopupWindow}>
         <GitHubIcon className={classes.ghIcon} />
-        <Heading element="h2" as="h5" margin={false} className={classes.ghTitle}>
+        <Heading element="h2" as="h4" margin={false} className={classes.ghTitle}>
           Continue with GitHub
         </Heading>
         <ArrowIcon size="large" />

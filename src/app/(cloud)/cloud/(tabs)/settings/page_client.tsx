@@ -161,7 +161,7 @@ export const SettingsPage: React.FC<{
         description="This is your user's ID within Payload"
       />
       <HR />
-      <Heading element="h2" as="h6" marginTop={false} marginBottom={false}>
+      <Heading element="h2" as="h4" marginTop={false} marginBottom={false}>
         Delete account
       </Heading>
       <p className={classes.description}>

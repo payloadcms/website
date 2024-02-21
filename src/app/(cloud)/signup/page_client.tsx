@@ -131,7 +131,7 @@ export const Signup: React.FC = () => {
             <Heading marginTop={false} element="h2" as="h2">
               <Highlight text="Already logged in" appearance="success" />
             </Heading>
-            <Heading marginTop={false} element="p" as="h6">
+            <Heading marginTop={false} element="p" as="h4">
               You must first logout to create another account.
             </Heading>
             <div className={classes.buttonWrap}>
@@ -152,7 +152,7 @@ export const Signup: React.FC = () => {
         </Heading>
         <div className={['grid'].filter(Boolean).join(' ')}>
           <div className={['cols-5 cols-m-8'].filter(Boolean).join(' ')}>
-            <Heading marginTop={false} element="p" as="h6">
+            <Heading marginTop={false} element="p" as="h4">
               Your account has been created. Please check your email to verify your account and
               login.
             </Heading>

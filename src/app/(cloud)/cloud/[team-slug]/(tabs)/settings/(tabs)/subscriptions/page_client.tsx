@@ -143,7 +143,7 @@ export const TeamSubscriptionsPage = (props: {
       )}
       <ModalWindow slug={modalSlug}>
         <div className={classes.modalContent}>
-          <Heading marginTop={false} as="h5">
+          <Heading marginTop={false} as="h4">
             Are you sure you want to cancel this subscription?
           </Heading>
           <p>

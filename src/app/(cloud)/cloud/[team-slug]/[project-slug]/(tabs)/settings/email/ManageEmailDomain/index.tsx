@@ -252,7 +252,7 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain, project, team 
       </Accordion>
       <ModalWindow slug={modalSlug}>
         <div className={classes.modalContent}>
-          <Heading marginTop={false} as="h5">
+          <Heading marginTop={false} as="h4">
             Are you sure you want to delete this domain?
           </Heading>
           <div className={classes.modalActions}>

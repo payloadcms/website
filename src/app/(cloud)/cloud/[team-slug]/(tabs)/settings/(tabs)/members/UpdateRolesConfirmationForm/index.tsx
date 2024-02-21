@@ -105,7 +105,7 @@ export const UpdateRolesConfirmationForm: React.FC<UpdateRolesConfirmationFormPr
 
   return (
     <Form onSubmit={confirmUpdateRoles}>
-      <Heading marginTop={false} as="h5">
+      <Heading marginTop={false} as="h4">
         Are you sure you want to update the member roles of <b>{userName ? userName : userEmail}</b>
         ?
       </Heading>

@@ -81,7 +81,7 @@ export const ForgotPassword: React.FC = () => {
         </Heading>
         <div className={['grid'].filter(Boolean).join(' ')}>
           <div className={['cols-6 cols-m-8'].filter(Boolean).join(' ')}>
-            <Heading marginTop={false} element="p" as="h6">
+            <Heading marginTop={false} element="p" as="h4">
               We have sent you an email with a link to reset your password. Please check your inbox.
             </Heading>
             <div className={classes.links}>

@@ -56,7 +56,7 @@ export const DeletePlanModal: React.FC<DeletePlanModalProps> = props => {
     <ModalWindow slug={deletePlanModalSlug}>
       <Form onSubmit={deleteProject}>
         <div className={classes.modalContent}>
-          <Heading marginTop={false} as="h5">
+          <Heading marginTop={false} as="h4">
             Are you sure you want to delete this project?
           </Heading>
           <p>

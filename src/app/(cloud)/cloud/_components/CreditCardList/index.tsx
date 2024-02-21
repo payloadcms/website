@@ -163,7 +163,7 @@ const CardList: React.FC<CreditCardListType> = props => {
       </div>
       <ModalWindow slug={modalSlug}>
         <div className={classes.modalContent}>
-          <Heading marginTop={false} as="h5">
+          <Heading marginTop={false} as="h4">
             {`You are about to delete `}
             <b>{`${paymentMethodToDelete?.current?.card?.brand}`}</b>
             {` ending in `}

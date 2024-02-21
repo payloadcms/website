@@ -182,7 +182,7 @@ export const ManageEnv: React.FC<Props> = ({ envs, projectID, env: { key, id } }
       </Accordion>
       <ModalWindow slug={modalSlug}>
         <div className={classes.modalContent}>
-          <Heading marginTop={false} as="h5">
+          <Heading marginTop={false} as="h4">
             Are you sure you want to delete this environment variable?
           </Heading>
           <p>
