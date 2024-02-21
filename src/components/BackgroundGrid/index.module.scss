@@ -51,6 +51,28 @@
   }
 }
 
+.wideGrid {
+  .column {
+    &:nth-of-type(2) {
+      grid-area: 1/4/1/9;
+      @include mid-break {
+        grid-area: 1/5/1/9;
+      }
+    }
+
+    &:nth-of-type(3) {
+      grid-area: 1/14/1/17;    
+      @include mid-break {
+        display: unset;
+      }
+    }
+
+    &:nth-of-type(4) {
+      grid-area: 1/17/1/17;
+    }
+  }
+}
+
 :global([data-theme="dark"]) {
   .column {
     background: var(--grid-line-dark);

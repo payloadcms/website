@@ -5,7 +5,8 @@ import { ArrowIcon } from '@icons/ArrowIcon'
 import Link from 'next/link'
 import { MDXRemote } from 'next-mdx-remote'
 
-import { Button } from '@components/Button'
+import { BackgroundScanline } from '@components/BackgroundScanline'
+import DiscordGitCTA from '@components/DiscordGitCTA'
 import { JumplistProvider } from '@components/Jumplist'
 import components from '@components/MDX/components'
 import { RelatedHelpList } from '@components/RelatedHelpList'
@@ -24,77 +25,61 @@ type Props = {
 
 export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads }) => {
   const { content, headings, title } = doc
-  const [OS, setOS] = React.useState('⌘')
+  const [docPadding, setDocPadding] = React.useState(0)
+  const docRef = React.useRef<HTMLDivElement>(null)
 
   const hasRelatedThreads =
     relatedThreads && Array.isArray(relatedThreads) && relatedThreads.length > 0
 
   React.useEffect(() => {
-    const isMac =
-      // @ts-ignore (newer browsers only)
-      (navigator?.userAgentData?.platform &&
-        // @ts-ignore
-        navigator.userAgentData.platform.toUpperCase().indexOf('MAC') >= 0) ||
-      // @ts-ignore (older browsers only)
-      navigator.userAgent.toUpperCase().indexOf('MAC') >= 0 ||
-      // @ts-ignore (older browsers only)
-      (navigator?.platform && navigator.platform.toUpperCase().indexOf('MAC') >= 0)
-
-    setOS(isMac ? '⌘' : 'CTRL')
-  }, [])
-
-  const openSearch = React.useCallback(() => {
-    document?.querySelector<HTMLButtonElement>('.DocSearch-Button')?.click()
-  }, [])
+    if (docRef.current?.offsetWidth === undefined) return
+    setDocPadding(Math.round(docRef.current?.offsetWidth / 8) - 2)
+  }, [docRef.current?.offsetWidth])
 
   return (
     <JumplistProvider>
-      <div className={classes.doc}>
-        <div className={classes.content} id="doc">
-          <h1 id={slugify(title)} className={classes.title}>
-            {title}
-          </h1>
-          <div className={classes.mdx}>
-            <MDXRemote {...content} components={components} />
-          </div>
-          {next && (
-            <Link
-              className={classes.next}
-              href={`/docs/${next.topic.toLowerCase()}/${next.slug}`}
-              data-algolia-no-crawl
-              prefetch={false}
-            >
-              <div className={classes.nextLabel}>
-                Next <ArrowIcon />
-              </div>
-              <h4>{next.title}</h4>
-            </Link>
-          )}
-          {hasRelatedThreads && <RelatedHelpList relatedThreads={relatedThreads} />}
+      <div
+        className={['cols-8 start-5 start-m-1', classes.content].join(' ')}
+        id="doc"
+        ref={docRef}
+      >
+        <h1 id={slugify(title)} className={classes.title}>
+          {title}
+        </h1>
+        <div className={classes.mdx}>
+          <MDXRemote {...content} components={components} />
         </div>
-        <aside className={classes.aside}>
-          <div className={classes.asideStickyContent}>
-            <TableOfContents headings={headings} />
-            <Button
-              appearance="default"
-              el="a"
-              href="https://discord.com/invite/r6sCXqVk3v"
-              newTab
-              label="Join us on Discord"
-              labelStyle="mono"
-              icon="arrow"
-            />
-            <Button
-              className={classes.search}
-              onClick={openSearch}
-              appearance="default"
-              el="button"
-              label={`Press ${OS}+K to search`}
-              labelStyle="mono"
-              icon="search"
-            />
+        {next && (
+          <Link
+            className={[classes.next, hasRelatedThreads && classes.hasRelatedThreads]
+              .filter(Boolean)
+              .join(' ')}
+            href={`/docs/${next.topic.toLowerCase()}/${next.slug}`}
+            data-algolia-no-crawl
+            prefetch={false}
+            style={{
+              margin: `0px ${docPadding / -1 - 1}px`,
+              paddingLeft: docPadding,
+              paddingRight: docPadding,
+            }}
+          >
+            <div className={classes.nextLabel}>
+              Next <ArrowIcon />
+            </div>
+            <h3>{next.title}</h3>
+
+            <BackgroundScanline crosshairs="all" />
+          </Link>
+        )}
+        {hasRelatedThreads && <RelatedHelpList relatedThreads={relatedThreads} />}
+      </div>
+      <div className={['cols-3 start-14', classes.aside].join(' ')}>
+        <div className={classes.asideStickyContent}>
+          <TableOfContents headings={headings} />
+          <div className={classes.discordGitWrap}>
+            <DiscordGitCTA style="minimal" />
           </div>
-        </aside>
+        </div>
       </div>
     </JumplistProvider>
   )

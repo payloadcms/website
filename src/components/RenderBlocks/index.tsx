@@ -76,14 +76,19 @@ type Props = {
   blocks: BlocksProp[]
   disableOuterSpacing?: true
   hero?: Page['hero']
+  disableGutter?: boolean
+  heroTheme?: Page['hero']['theme']
+  layout?: 'page' | 'post'
 }
 
 export const RenderBlocks: React.FC<Props> = props => {
-  const { blocks, disableOuterSpacing, hero } = props
+  const { blocks, disableOuterSpacing, disableGutter, hero, layout } = props
   const heroTheme = hero?.type === 'home' ? 'dark' : hero?.theme
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
   const { theme: themeFromContext } = useThemePreference()
   const [themeState, setThemeState] = useState<Theme>()
+  const [docPadding, setDocPadding] = React.useState(0)
+  const docRef = React.useRef<HTMLDivElement>(null)
 
   // This is needed to avoid hydration errors when the theme is not yet available
   useEffect(() => {
@@ -167,28 +172,44 @@ export const RenderBlocks: React.FC<Props> = props => {
     [themeState, heroTheme, blocks, paddingExceptions],
   )
 
+  React.useEffect(() => {
+    if (docRef.current?.offsetWidth === undefined) return
+    setDocPadding(layout === 'post' ? Math.round(docRef.current?.offsetWidth / 8) - 2 : 0)
+  }, [docRef.current?.offsetWidth, layout])
+
+  const marginAdjustment = {
+    marginLeft: `${docPadding / -1 - 1}px`,
+    marginRight: `${docPadding / -1 - 1}px`,
+    paddingLeft: docPadding,
+    paddingRight: docPadding,
+  }
+
   if (hasBlocks) {
     return (
       <Fragment>
-        {blocks.map((block, index) => {
-          const { blockName, blockType } = block
+        <div ref={docRef}>
+          {blocks.map((block, index) => {
+            const { blockName, blockType } = block
 
-          if (blockType && blockType in blockComponents) {
-            const Block = blockComponents[blockType]
+            if (blockType && blockType in blockComponents) {
+              const Block = blockComponents[blockType]
 
-            if (Block) {
-              return (
-                <Block
-                  key={index}
-                  id={toKebabCase(blockName)}
-                  {...block}
-                  padding={getPaddingProps(block, index)}
-                />
-              )
+              if (Block) {
+                return (
+                  <Block
+                    key={index}
+                    id={toKebabCase(blockName)}
+                    {...block}
+                    padding={getPaddingProps(block, index)}
+                    marginAdjustment={marginAdjustment}
+                    disableGutter={disableGutter}
+                  />
+                )
+              }
             }
-          }
-          return null
-        })}
+            return null
+          })}
+        </div>
       </Fragment>
     )
   }

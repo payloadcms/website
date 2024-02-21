@@ -9,29 +9,47 @@ import classes from './index.module.scss'
 
 type Props = Extract<ReusableContent['layout'][0], { blockType: 'mediaBlock' }>
 
-export const MediaBlock: React.FC<Props> = ({ mediaBlockFields }) => {
+export const MediaBlock: React.FC<Props & { disableGutter?: boolean; marginAdjustment?: any }> = ({
+  mediaBlockFields,
+  disableGutter,
+  marginAdjustment = {},
+}) => {
   const { media, caption, position } = mediaBlockFields
 
   if (typeof media === 'string') return null
 
   return (
-    <Gutter>
-      <Media
-        resource={media}
-        className={[classes.mediaResource, classes[`position--${position}`]]
-          .filter(Boolean)
-          .join(' ')}
-      />
+    <div
+      className={classes.mediaBlock}
+      style={{ marginRight: marginAdjustment.marginRight, marginLeft: marginAdjustment.marginLeft }}
+    >
+      {disableGutter ? (
+        <Media
+          resource={media}
+          className={[classes.mediaResource, classes[`position--${position}`]]
+            .filter(Boolean)
+            .join(' ')}
+        />
+      ) : (
+        <Gutter>
+          <Media
+            resource={media}
+            className={[classes.mediaResource, classes[`position--${position}`]]
+              .filter(Boolean)
+              .join(' ')}
+          />
 
-      {caption && (
-        <div className={['grid'].filter(Boolean).join(' ')}>
-          <div className={[classes.caption, 'cols-5 cols-m-8'].filter(Boolean).join(' ')}>
-            <small>
-              <RichText content={caption} />
-            </small>
-          </div>
-        </div>
+          {caption && (
+            <div className={['grid'].filter(Boolean).join(' ')}>
+              <div className={[classes.caption, 'cols-5 cols-m-8'].filter(Boolean).join(' ')}>
+                <small>
+                  <RichText content={caption} />
+                </small>
+              </div>
+            </div>
+          )}
+        </Gutter>
       )}
-    </Gutter>
+    </div>
   )
 }
