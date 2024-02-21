@@ -11,4 +11,5 @@ export interface Props {
   title?: string
   children: string
   codeBlips?: CodeBlips
+  showLineNumbers?: boolean
 }

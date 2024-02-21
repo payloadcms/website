@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
 import Link from 'next/link'
 
+import { BackgroundScanline } from '@components/BackgroundScanline'
 import { Banner } from '@components/Banner'
 import { BlockSpacing } from '@components/BlockSpacing'
 import { DefaultCard } from '@components/cards/DefaultCard'
 import { Gutter } from '@components/Gutter'
 import { Heading, HeadingType } from '@components/Heading'
-import { PixelBackground } from '@components/PixelBackground'
 import { Team, Template } from '@root/payload-cloud-types'
 
 import classes from './index.module.scss'
@@ -66,7 +66,7 @@ export const NewProjectBlock: React.FC<{
         <BlockSpacing top={false}>
           <div className={classes.templatesWrapper}>
             <div className={classes.bg}>
-              <PixelBackground />
+              <BackgroundScanline />
             </div>
             <div className={classes.templates}>
               {!disableProjectCreation &&

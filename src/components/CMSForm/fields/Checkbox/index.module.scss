@@ -5,7 +5,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
+  padding: calc(var(--base) * 1.75) calc(var(--base) * 2);
   
   &::before {
     content: '';
@@ -89,6 +89,10 @@
     color: var(--text-dark);
     margin-right: calc(var(--base) * 0.75);
     transition: all 0.3s ease;
+  }
+
+  @include mid-break {
+    padding: calc(var(--base) * 1.75) calc(var(--base) * 1);
   }
 }
 
