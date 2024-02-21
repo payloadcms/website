@@ -54,11 +54,12 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
    * Hides the bottom border except for the last of type
    */
   hideBottomBorderExceptLast?: boolean
-  /**
-   * Forces a background on the default button appearance
-   */
   forceBackground?: boolean
   iconRotation?: number
+  /**
+   * Additional content to be rendered inside the button
+   * */
+  additionalContent?: React.ReactNode
 }
 
 const icons = {
@@ -105,7 +106,15 @@ const generateHref = (args: GenerateSlugType): string => {
 }
 
 const ButtonContent: React.FC<ButtonProps> = props => {
-  const { icon, label, labelStyle = 'mono', labelClassName, appearance, iconRotation } = props
+  const {
+    additionalContent,
+    icon,
+    label,
+    labelStyle = 'mono',
+    labelClassName,
+    appearance,
+    iconRotation,
+  } = props
 
   const Icon = icon ? icons[icon] : null
 
@@ -198,28 +207,32 @@ const ButtonContent: React.FC<ButtonProps> = props => {
   }
 
   return (
-    <div className={classes.content}>
-      {label && (
-        <div
-          className={[
-            classes.label,
-            !icon && classes['label-centered'],
-            classes[`label-${labelStyle}`],
-            labelClassName,
-          ]
-            .filter(Boolean)
-            .join(' ')}
-        >
-          {label}
-        </div>
-      )}
-      {Icon && label && <div className={classes.spacer} />}
-      {Icon && (
-        <Icon
-          className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')}
-          {...iconProps}
-        />
-      )}
+    <div className={classes.wrap}>
+      <div className={classes.content}>
+        {label && (
+          <div
+            className={[
+              classes.label,
+              !icon && classes['label-centered'],
+              classes[`label-${labelStyle}`],
+              labelClassName,
+            ]
+              .filter(Boolean)
+              .join(' ')}
+          >
+            {label}
+          </div>
+        )}
+        {Icon && label && <div className={classes.spacer} />}
+        {Icon && (
+          <Icon
+            className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')}
+            {...iconProps}
+          />
+        )}
+      </div>
+
+      {additionalContent && React.isValidElement(additionalContent) && <>{additionalContent}</>}
     </div>
   )
 }
@@ -238,6 +251,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     type,
     reference,
     newTab,
+    additionalContent,
     appearance = 'default',
     className: classNameFromProps,
     onClick,

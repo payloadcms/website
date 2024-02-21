@@ -136,7 +136,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
       }
     }
 
-    .content {
+    .wrap {
       padding: calc(var(--base) * 1.5) var(--base);
 
       .label {
@@ -153,9 +153,14 @@ $curve: cubic-bezier(.165, .84, .44, 1);
       .defaultLabel {
         transform: translateY(-100%);
         transition-duration: calc(var(--animation-speed) * 2);
+        color: var(--theme-elevation-100);
 
         .label {
           transform: rotate(-3deg);
+        }
+      .wrap {
+        .label, .icon--arrow {
+          background-position: left bottom;
         }
       }
 
@@ -239,7 +244,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     }
 
     @include mid-break {
-      .content {
+      .wrap {
         padding: var(--base);
       }
 
@@ -371,12 +376,19 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   }
 }
 
-.content {
+.wrap {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  width: 100%;
+  z-index: 6;
+}
+
+.content {
   display: flex;
   align-items: center;
   width: 100%;
-  z-index: 6;
 }
 
 .label {
@@ -421,4 +433,5 @@ $curve: cubic-bezier(.165, .84, .44, 1);
       border-color: var(--grid-line-dark);
     }
   }
+}
 }
