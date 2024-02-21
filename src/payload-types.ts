@@ -1235,6 +1235,44 @@ export interface Page {
         blockType: 'form';
       }
     | {
+        hoverCardsFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
+          richText: {
+            [k: string]: unknown;
+          }[];
+          cards?:
+            | {
+                title: string;
+                description?: string | null;
+                link?: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'case-studies';
+                        value: string | CaseStudy;
+                      } | null);
+                  url?: string | null;
+                };
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'hoverCards';
+      }
+    | {
         hoverHighlightsFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
@@ -2279,6 +2317,44 @@ export interface ReusableContent {
         id?: string | null;
         blockName?: string | null;
         blockType: 'form';
+      }
+    | {
+        hoverCardsFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
+          richText: {
+            [k: string]: unknown;
+          }[];
+          cards?:
+            | {
+                title: string;
+                description?: string | null;
+                link?: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'case-studies';
+                        value: string | CaseStudy;
+                      } | null);
+                  url?: string | null;
+                };
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'hoverCards';
       }
     | {
         hoverHighlightsFields: {

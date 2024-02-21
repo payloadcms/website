@@ -17,6 +17,7 @@ import { ContentGrid } from '@blocks/ContentGrid'
 import { ExampleTabs } from '@blocks/ExampleTabs'
 import { FeaturedMediaGallery } from '@blocks/FeaturedMediaGallery'
 import { FormBlock } from '@blocks/FormBlock'
+import { HoverCards } from '@blocks/HoverCards'
 import { HoverHighlights } from '@blocks/HoverHighlights'
 import { LinkGrid } from '@blocks/LinkGrid'
 import { LogoGrid } from '@blocks/LogoGrid'
@@ -56,6 +57,7 @@ const blockComponents = {
   mediaContent: MediaContent,
   steps: Steps,
   stickyHighlights: StickyHighlights,
+  hoverCards: HoverCards,
   hoverHighlights: HoverHighlights,
   codeFeature: CodeFeature,
   cta: CallToAction,
