@@ -8,6 +8,7 @@ import { SquareCard } from '@components/cards/SquareCard'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
+import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
@@ -21,9 +22,14 @@ const Card: React.FC<{
   card: NonNullable<HoverCardsProps['hoverCardsFields']['cards']>[number]
 }> = ({ card, leader }) => {
   return (
-    <>
-      {card.title} {leader}
-    </>
+    <div>
+      <CMSLink className={classes.link} {...card.link}>
+        <p className={classes.leader}>0{leader}</p>
+        <h3 className={classes.cardTitle}>{card.title}</h3>
+        <p className={classes.description}>{card.description}</p>
+        <ArrowIcon className={classes.arrow} />
+      </CMSLink>
+    </div>
   )
 }
 
@@ -43,7 +49,13 @@ export const HoverCards: React.FC<HoverCardsProps> = props => {
     >
       <BackgroundGrid zIndex={1} />
       <div className={classes.noiseWrapper}>
-        <Image alt="" width={1920} height={946} src="/images/gradients/1.jpg" />
+        <Image
+          alt=""
+          className={classes.bg}
+          width={1920}
+          height={946}
+          src="/images/gradients/1.jpg"
+        />
       </div>
       <Gutter>
         <div className={[classes.introWrapper, 'grid'].filter(Boolean).join(' ')}>

@@ -40,12 +40,10 @@
 }
 
 .bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: calc(100% + var(--gutter-h) * 2);
   height: 100%;
-  margin-left: calc(var(--gutter-h) / -1);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .card {
@@ -60,6 +58,14 @@
   & .backgroundGrid {
     z-index: 5;
   }
+}
+
+.leader {
+  @include h6;
+}
+
+.cardTitle {
+  @include h4;
 }
 
 .noiseWrapper {
