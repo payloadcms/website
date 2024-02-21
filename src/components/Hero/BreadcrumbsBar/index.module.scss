@@ -2,16 +2,21 @@
 
 .wrapper {
   position: relative;
-  background-color: var(--color-base-0);
-  margin-top: calc(var(--page-padding-top) * -1);
   padding-top: var(--page-padding-top);
+  z-index: 1;
+
+  &.hasBackground {
+    background-color: var(--color-base-0);
+  }
 
   & .dropdownContent {
     background-color: var(--color-base-0);
   }
 
   &[data-theme='dark'] {
-    background-color: var(--color-base-1000);
+    &.hasBackground {
+      background-color: var(--color-base-1000);
+    }
 
     & .dropdownContent {
       background-color: var(--color-base-1000);
@@ -29,7 +34,17 @@
 
 
 .container {
+  border-top: 1px solid var(--grid-line-light);
   border-bottom: 1px solid var(--grid-line-light);
+
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-light);
+  }
+
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
+  }
+
   padding: calc(var(--base) * 1.5) 0;
 
   display: flex;
@@ -106,4 +121,17 @@
   display: flex;
   flex-direction: column;
   gap: calc(var(--base) * 1);
+}
+
+.emptyBar {
+  width: 100%;
+  border-bottom: 1px solid var(--grid-line-dark);
+
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-light);
+  }
+
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
+  }
 }
