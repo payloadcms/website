@@ -38,6 +38,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   margin-bottom: calc(var(--base) * 4.5);
   display: inline-flex;
   align-items: flex-end;
+  text-transform: uppercase;
 
   @include mid-break {
     margin-bottom: calc(var(--base) * 2);

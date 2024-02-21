@@ -6,7 +6,6 @@ import FormComponent from '@forms/Form'
 import { validateEmail } from '@forms/validations'
 import { ArrowIcon } from '@icons/ArrowIcon'
 import { Footer as FooterType } from '@types'
-import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
@@ -156,9 +155,6 @@ export const Footer: React.FC<FooterType> = props => {
 
   return (
     <footer ref={wrapperRef} className={classes.footer} data-theme="dark">
-      <div ref={backgroundRef} className={classes.background}>
-        <Image alt="" src="/images/footer-bg-large.jpg" width={3840} height={1920} />
-      </div>
       <BackgroundGrid zIndex={0} />
       <Gutter className={classes.container}>
         <div className={['grid'].filter(Boolean).join(' ')}>
