@@ -10,8 +10,8 @@
 }
 
 .backgroundGrid {
-  top: var(--page-padding-top);
-  height: calc(100% - var(--page-padding-top));
+  top: 0;
+  height: calc(100%);
 }
 
 .sidebar {
