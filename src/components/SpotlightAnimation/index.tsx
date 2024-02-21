@@ -117,7 +117,7 @@ const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 
         <SplitAnimate
           callback={handlePostAnimation}
           className={[classes.splitAnimate, ready && classes.ready].filter(Boolean).join(' ')}
-          as={as}
+          as={Element}
           aria-hidden={true}
           // inert needs to be destructured due to React type errors
           {...{ inert: '' }}

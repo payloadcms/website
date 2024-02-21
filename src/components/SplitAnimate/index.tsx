@@ -25,7 +25,7 @@ const SplitAnimate: React.FC<Props> = ({
 
   const textArray = useMemo(() => {
     if (text === '') return []
-    return text.split(' ')
+    return text.trim().split(' ')
   }, [text])
 
   const innerWorldSelector = `.${classes.innerWord}`
