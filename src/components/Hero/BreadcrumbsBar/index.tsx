@@ -22,7 +22,7 @@ const BreadcrumbsBar: React.FC<Props> = ({ hero, breadcrumbs: breadcrumbsProps }
   const { theme: themeFromContext } = useThemePreference()
   const [themeState, setThemeState] = useState<Page['hero']['theme']>(theme)
 
-  const hasBackground = !Boolean(['home'].includes(type))
+  const hasBackground = !Boolean(['home', 'gradient'].includes(type))
 
   useEffect(() => {
     if (!hasBackground) {
