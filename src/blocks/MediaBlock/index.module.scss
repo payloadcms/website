@@ -8,10 +8,5 @@
 .caption {
   display: flex;
   justify-content: center;
-  margin: calc(var(--base) * .75) calc(var(--base) * 1.5);
-  margin-bottom: 0;
-}
-
-.mediaResource {
-  @include shadow-lg;
+  padding-top: calc(var(--base) * 1.25);
 }
