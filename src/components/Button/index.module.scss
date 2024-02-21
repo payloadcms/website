@@ -149,6 +149,10 @@ $curve: cubic-bezier(.165, .84, .44, 1);
       }
     }
 
+    .cmsFormSubmitButtonContent {
+      padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
+    }
+
     &:hover {
       .defaultLabel {
         transform: translateY(-100%);
@@ -183,18 +187,17 @@ $curve: cubic-bezier(.165, .84, .44, 1);
       & .defaultLabel, & .hoverLabel  {
         padding: var(--base);
       }
+
+      .cmsFormSubmitButtonContent {
+        padding: calc(var(--base) * 1.5) calc(var(--base) * 1);
+      }
     }
   }
 
   &--primary {
-    --animation-speed: 450ms;
-    display: inline-flex;
-    border: 1px solid var(--grid-line-dark);
-    position: relative;
-    padding: unset;
-    color: var(--theme-elevation-1000);
-    height: unset;
-    overflow: hidden;
+    border: 1px solid var(--theme-elevation-900);
+    color: var(--theme-bg);
+    background-color: var(--theme-elevation-950);
 
     & .contentWrapper {
       width: 100%;
@@ -251,6 +254,11 @@ $curve: cubic-bezier(.165, .84, .44, 1);
       & .defaultLabel {
         padding: var(--base);
       }
+
+    &:focus-visible, &:hover {
+      color: var(--theme-bg);
+      border-color: currentColor;
+      background-color: var(--theme-elevation-700);
     }
   }
 
@@ -389,6 +397,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   display: flex;
   align-items: center;
   width: 100%;
+  z-index: 1;
 }
 
 .label {
@@ -433,5 +442,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
       border-color: var(--grid-line-dark);
     }
   }
+}
 }
 }

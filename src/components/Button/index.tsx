@@ -60,6 +60,7 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
    * Additional content to be rendered inside the button
    * */
   additionalContent?: React.ReactNode
+  isCMSFormSubmitButton?: boolean
 }
 
 const icons = {
@@ -114,6 +115,7 @@ const ButtonContent: React.FC<ButtonProps> = props => {
     labelClassName,
     appearance,
     iconRotation,
+    isCMSFormSubmitButton,
   } = props
 
   const Icon = icon ? icons[icon] : null
@@ -123,7 +125,15 @@ const ButtonContent: React.FC<ButtonProps> = props => {
   if (appearance === 'default') {
     return (
       <div className={[classes.contentWrapper].filter(Boolean).join(' ')}>
-        <div className={[classes.content, classes.defaultLabel].filter(Boolean).join(' ')}>
+        <div
+          className={[
+            classes.content,
+            classes.defaultLabel,
+            isCMSFormSubmitButton && classes.cmsFormSubmitButtonContent,
+          ]
+            .filter(Boolean)
+            .join(' ')}
+        >
           {label && (
             <div
               className={[
@@ -150,36 +160,6 @@ const ButtonContent: React.FC<ButtonProps> = props => {
           aria-hidden={true}
           className={[classes.content, classes.hoverLabel].filter(Boolean).join(' ')}
         >
-          {label && (
-            <div
-              className={[
-                classes.label,
-                !icon && classes['label-centered'],
-                classes[`label-${labelStyle}`],
-                labelClassName,
-              ]
-                .filter(Boolean)
-                .join(' ')}
-            >
-              {label}
-            </div>
-          )}
-          {Icon && label && <div className={classes.spacer} />}
-          {Icon && (
-            <Icon
-              className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')}
-              {...iconProps}
-            />
-          )}
-        </div>
-      </div>
-    )
-  }
-
-  if (appearance === 'primary') {
-    return (
-      <div className={[classes.contentWrapper].filter(Boolean).join(' ')}>
-        <div className={[classes.content, classes.defaultLabel].filter(Boolean).join(' ')}>
           {label && (
             <div
               className={[
@@ -268,6 +248,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     hideBottomBorderExceptLast,
     labelClassName,
     forceBackground,
+    isCMSFormSubmitButton,
   } = props
 
   const href = hrefFromProps || generateHref({ type, reference, url })

@@ -44,10 +44,10 @@ export const LargeRadio: React.FC<{
           />
         </div>
         <div className={classes.content}>
-          <h6 className={classes.name}>
+          <h5 className={classes.name}>
             {label}
             {pillLabel && <Pill className={classes.pill} text={pillLabel} />}
-          </h6>
+          </h5>
           {price && <p className={classes.price}>{price}</p>}
         </div>
       </label>

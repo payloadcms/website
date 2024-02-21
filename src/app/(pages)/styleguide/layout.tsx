@@ -1,5 +1,7 @@
 import { Metadata } from 'next'
 
+import classes from './layout.module.scss'
+
 export const metadata: Metadata = {
   title: {
     absolute: 'Styleguide',
@@ -21,5 +23,5 @@ export const metadata: Metadata = {
 }
 
 export default async ({ children }) => {
-  return <>{children}</>
+  return <div className={classes.layout}>{children}</div>
 }

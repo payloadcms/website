@@ -18,6 +18,7 @@ export type FormBlockProps = Extract<Page['layout'][0], { blockType: 'form' }> &
 
 export const FormBlock: React.FC<FormBlockProps> = props => {
   const { formFields: { richText, form, settings } = {}, padding } = props
+  const [imageLoaded, setImageLoaded] = useState(false)
 
   const sectionRef = useRef<HTMLDivElement | null>(null)
   const [sectionWidth, setSectionWidth] = useState(0)
@@ -43,7 +44,10 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
       className={classes.formBlock}
     >
       <BackgroundGrid zIndex={0} />
-      <div className={classes.gradientWrap}>
+      <div
+        className={classes.gradientWrap}
+        style={{ visibility: imageLoaded ? 'visible' : 'hidden' }}
+      >
         <div className={classes.leftGradientOverlay} />
         <div className={classes.rightGradientOverlay} />
       </div>
@@ -53,13 +57,28 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
           .join(' ')}
       >
         <div className={classes.section} ref={sectionRef}>
-          <Image src="/images/stripe-overlay.png" fill alt="Stripe Overlay" />
+          <Image
+            src="/images/stripe-overlay.png"
+            fill
+            alt="Stripe Overlay"
+            onLoad={() => setImageLoaded(true)}
+          />
         </div>
         <div className={classes.section}>
-          <Image src="/images/stripe-overlay.png" fill alt="Stripe Overlay" />
+          <Image
+            src="/images/stripe-overlay.png"
+            fill
+            alt="Stripe Overlay"
+            onLoad={() => setImageLoaded(true)}
+          />
         </div>
         <div className={classes.section}>
-          <Image src="/images/stripe-overlay.png" fill alt="Stripe Overlay" />
+          <Image
+            src="/images/stripe-overlay.png"
+            fill
+            alt="Stripe Overlay"
+            onLoad={() => setImageLoaded(true)}
+          />
         </div>
       </div>
       <Gutter className={classes.gutter}>
@@ -82,7 +101,12 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
       </Gutter>
       <div className={classes.outerBackgroundSectionWrap}>
         <div className={classes.outerBackgroundSection} style={{ width: sectionWidth }}>
-          <Image src="/images/stripe-overlay.png" fill alt="Stripe Overlay" />
+          <Image
+            src="/images/stripe-overlay.png"
+            fill
+            alt="Stripe Overlay"
+            onLoad={() => setImageLoaded(true)}
+          />
         </div>
       </div>
     </BlockWrapper>

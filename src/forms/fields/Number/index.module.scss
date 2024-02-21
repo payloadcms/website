@@ -12,3 +12,9 @@
     background-color: var(--theme-failure-500);
   }
 }
+
+:global([data-theme="light"]) {
+  .input {
+    background: var(--theme-elevation-50);
+  }
+}

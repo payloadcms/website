@@ -24,6 +24,10 @@
     align-items: center;
     pointer-events: none;
     transition: all 0.3s ease;
+
+    @include mid-break {
+      left: calc(var(--base) * 1);
+    }
   }
 
   .selectLabel, .errorLabel {
@@ -43,11 +47,15 @@
 
 .reactSelect {
   display: flex;
-  padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
 
   :global {
     div.rs__control {
       @include shared.formInput;
+      padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
+
+      @include mid-break {
+        padding: calc(var(--base) * 1.5) calc(var(--base) * 1);
+      }
     }
 
     .rs__control {
@@ -91,16 +99,22 @@
 
     .rs__single-value {
       color: var(--color-base-0);
+      margin: 0;
+      overflow: unset;
     }
 
     .rs__indicators {
       position: absolute;
       top: 50%;
-      right: var(--base);
+      right: calc(var(--base) * 2);
       transform: translate3d(0, -50%, 0);
       
       .arrow {
         transform: rotate(90deg);
+      }
+
+      @include mid-break {
+        right: var(--base);
       }
     }
 
@@ -124,15 +138,17 @@
 
     .rs__menu {
       color: var(--text-dark);
-      background-color: var(--theme-elevation-0);
+      background-color: #101010;
       z-index: 2;
       border-radius: 0;
       box-shadow: 0 4px 11px hsl(0deg 0% 0% / 10%);
-      width: calc(100% - calc(var(--base) * 4));
+      width: 100%;
+      margin-top: 0;
+      margin-bottom: 0;
     }
 
     .rs__menu-list {
-      padding: calc(var(--base) / 4) 0;
+      padding: 0;
       border: 1px solid var(--theme-border-color);
     }
 
@@ -142,22 +158,27 @@
 
     .rs__option {
       font-size: 1rem;
-      padding: calc(var(--base) / 2) var(--base);
+      padding: calc(var(--base) * 1) calc(var(--base) * 2);
+      background-color: #101010;
 
       &--is-focused {
-        background-color: var(--theme-elevation-100);
+        background-color: var(--color-base-900);
         color: var(--color-base-0);
       }
 
       &--is-selected {
-        background-color: var(--theme-elevation-200);
+        background-color: var(--color-base-800);
         color: var(--color-base-0);
+      }
+
+      @include mid-break {
+        padding: calc(var(--base) * 1) calc(var(--base) * 1);
       }
     }
 
     .rs__multi-value {
       padding: 0;
-      background: var(--theme-elevation-200);
+      background: var(--color-base-800);
     }
 
     .rs__multi-value__label {
@@ -171,7 +192,7 @@
 
       &:hover {
         color: var(--color-base-0);
-        background: var(--theme-elevation-100);
+        background: var(--color-base-900);
       }
     }
 
@@ -202,14 +223,22 @@
   }
 
   .reactSelect {
-    padding: calc(var(--base) * 1.85) calc(var(--base) * 2) calc(var(--base) * 1.15) calc(var(--base) * 2);
+    :global {
+      div.rs__control {
+        padding: calc(var(--base) * 2) calc(var(--base) * 2) calc(var(--base) * 1) calc(var(--base) * 2);
+  
+        @include mid-break {
+          padding: calc(var(--base) * 2) calc(var(--base) * 1) calc(var(--base) * 1) calc(var(--base) * 1);
+        }
+      }
+    }
   }
 }
 
 :global([data-theme="dark"]) {
   .select {
     .rs__menu {
-      background-color: var(--theme-elevation-50);
+      background-color: #101010;
     }
   }
 }

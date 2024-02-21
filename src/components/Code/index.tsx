@@ -46,7 +46,7 @@ const highlightLine = (lineArray: { content: string }[], lineProps: { className:
 }
 
 const Code: React.FC<Props> = props => {
-  const { children, className, codeBlips, disableMinHeight } = props
+  const { children, className, codeBlips, disableMinHeight, showLineNumbers = true } = props
   const classNames = [classes.code, className && className].filter(Boolean).join(' ')
 
   const getCodeBlip = useCallback(
@@ -77,7 +77,7 @@ const Code: React.FC<Props> = props => {
               return !shouldExclude ? (
                 <div {...lineProps} key={i}>
                   <>
-                    <span className={classes.lineNumber}>{rowNumber}</span>
+                    {showLineNumbers && <span className={classes.lineNumber}>{rowNumber}</span>}
                     <div className={classes.lineCodeWrapper}>
                       {line.map((token, index) => {
                         const { key, ...rest } = getTokenProps({ token, key: index })

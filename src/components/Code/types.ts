@@ -12,4 +12,5 @@ export interface Props {
   children: string
   codeBlips?: CodeBlips
   disableMinHeight?: boolean
+  showLineNumbers?: boolean
 }

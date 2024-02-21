@@ -28,6 +28,10 @@
     align-items: center;
     pointer-events: none;
     transition: all 0.3s ease;
+
+    @include mid-break {
+      left: calc(var(--base) * 1);
+    }
   }
 
   .error, .textLabel {
@@ -53,14 +57,14 @@
     width: 100%;
   }
   
-  .inputWrap {
-    position: relative;
-    padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
-  }
-  
   .input {
     @include shared.formInput;
     color: var(--color-base-0);
+    padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
+
+    @include mid-break {
+      padding: calc(var(--base) * 1.5) calc(var(--base) * 1);
+    }
   }
   
   .showError {
@@ -122,7 +126,11 @@
     margin-right: calc(var(--base) * 0.5);
   }
 
-  .inputWrap {
-    padding: calc(var(--base) * 1.85) calc(var(--base) * 2) calc(var(--base) * 1.15) calc(var(--base) * 2);
+  .input {
+    padding: calc(var(--base) * 2) calc(var(--base) * 2) calc(var(--base) * 1) calc(var(--base) * 2);
+
+    @include mid-break {
+      padding: calc(var(--base) * 2) calc(var(--base) * 1) calc(var(--base) * 1) calc(var(--base) * 1);
+    }
   }
 }
