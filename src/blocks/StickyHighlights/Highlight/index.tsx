@@ -1,12 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 
+import { BackgroundScanline } from '@components/BackgroundScanline'
 import { CMSLink } from '@components/CMSLink'
 import Code from '@components/Code'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
-import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon'
 import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
@@ -116,40 +117,46 @@ export const StickyHighlight: React.FC<Props> = React.memo(
           </div>
         </div>
         <CSSTransition in={visible} timeout={750} classNames="animate">
-          <Gutter className={classes.codeMediaPosition}>
+          <Gutter className={[classes.codeMediaPosition, 'grid'].filter(Boolean).join(' ')}>
             {type === 'code' && (
-              <React.Fragment>
-                <PixelBackground className={classes.pixels} />
-                <div className={['grid'].filter(Boolean).join(' ')}>
-                  <div
-                    className={[classes.bg, 'cols-10 start-7 cols-m-8 start-m-1']
-                      .filter(Boolean)
-                      .join(' ')}
-                  >
-                    <div className={codeMediaClasses} ref={codeMediaWrapRef}>
-                      <div className={classes.codeMediaInner} ref={codeMediaInnerRef}>
-                        <div className={classes.code}>
-                          <Code>{`${code}
+              <Fragment>
+                <div
+                  className={[classes.scanlineWrapper, 'start-9 cols-8'].filter(Boolean).join(' ')}
+                >
+                  <BackgroundScanline
+                    className={[classes.scanlineDesktop].filter(Boolean).join(' ')}
+                    crosshairs={['top-left', 'bottom-left']}
+                  />
+
+                  <CrosshairIcon
+                    className={[classes.crosshairTopRight].filter(Boolean).join(' ')}
+                  />
+
+                  <CrosshairIcon
+                    className={[classes.crosshairBottomRight].filter(Boolean).join(' ')}
+                  />
+                </div>
+                <div className={['cols-10 start-7 cols-m-8 start-m-1'].filter(Boolean).join(' ')}>
+                  <BackgroundScanline
+                    className={[classes.scanlineMobile, ''].filter(Boolean).join(' ')}
+                  />
+                  <div className={codeMediaClasses} ref={codeMediaWrapRef}>
+                    <div className={classes.codeMediaInner} ref={codeMediaInnerRef}>
+                      <div className={classes.codeWrapper}>
+                        <Code parentClassName={classes.code} className={classes.innerCode}>{`${code}
                           `}</Code>
-                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </React.Fragment>
+              </Fragment>
             )}
             {type === 'media' && typeof media === 'object' && media !== null && (
-              <div className={['grid'].filter(Boolean).join(' ')}>
-                <div className={'cols-10 start-7 cols-m-8 start-m-1'}>
-                  <div className={codeMediaClasses} ref={codeMediaWrapRef}>
-                    <div className={classes.codeMediaInner} ref={codeMediaInnerRef}>
-                      <div className={classes.media}>
-                        <Media
-                          resource={media}
-                          sizes="(max-width: 768px) 100vw,
-                            50vw"
-                        />
-                      </div>
+              <div className={'cols-10 start-7 cols-m-8 start-m-1'}>
+                <div className={codeMediaClasses} ref={codeMediaWrapRef}>
+                  <div className={classes.mediaInner} ref={codeMediaInnerRef}>
+                    <div className={classes.media}>
+                      <Media resource={media} />
                     </div>
                   </div>
                 </div>

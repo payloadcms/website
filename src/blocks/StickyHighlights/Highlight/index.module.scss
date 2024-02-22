@@ -79,13 +79,60 @@
   }
 }
 
+.scanlineColumns {
+  position: relative;
+}
+
+.scanlineWrapper {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+  @include mid-break {
+    display: none;
+  }
+}
+
+.crosshairTopRight, .crosshairBottomRight {
+  position: absolute;
+  width: calc(var(--base) * 1);
+  height: auto;
+  color: var(--theme-elevation-1000);
+  opacity: 0.5;
+}
+
+.crosshairTopRight {
+  top: calc(var(--base) * -0.5);
+  right: calc(var(--base) * -0.5);
+}
+
+.crosshairBottomRight {
+  bottom: calc(var(--base) * -0.5);
+  right: calc(var(--base) * -0.5);
+}
+
+.scanlineDesktop {
+  width: calc(100% + var(--gutter-h) * 1);
+  margin-right: calc(var(--gutter-h) * -1);
+}
+
+.scanlineMobile {
+  display: none;
+
+  @include mid-break {
+    display: block;
+    width: calc(100% + var(--gutter-h) * 2);
+    margin-left: calc(var(--gutter-h) * -1);
+    margin-right: calc(var(--gutter-h) * -1);
+  }
+}
+
 .richText {
   margin-bottom: calc(var(--base) * 1.5);
 }
 
 .codeMediaPosition {
   position: fixed;
-  pointer-events: none;
   z-index: 3;
   top: 15vh;
   right: 0;
@@ -107,28 +154,8 @@
   }
 }
 
-.bg {
-  &:before {
-    content: ' ';
-    background: var(--color-base-950);
-    display: block;
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    right: 0;
-    width: 50vw;
-    bottom: 0;
-  }
-
-  @include mid-break {
-    &:before {
-      content: none;
-    }
-  }
-}
-
 .codeMedia {
-  height: 70vh;
+  height: 100%;
 
   @include mid-break {
     margin: 0;
@@ -140,11 +167,25 @@
   width: 100%;
 }
 
-.code {
+.codeWrap {
   position: relative;
+  height: 100%;
+  background: var(--color-base-900);
+}
+
+.code {
+  margin: 0 !important;
+}
+
+.innerCode {
+  height: 640px;
 
   @include mid-break {
-    width: calc(100% + var(--gutter-h));
+    height: 500px;
+  }
+
+  @include small-break {
+    height: 400px;
   }
 }
 
@@ -157,20 +198,14 @@
   }
 }
 
-.pixels {
-  z-index: -2;
-  top: calc(var(--block-spacing) * -1) !important;
-  bottom: calc(var(--block-spacing) * -1);
-  left: auto !important;
-  width: calc(50vw - var(--block-spacing)) !important;
-  right: 0;
-  height: auto !important;
-
-  @include mid-break {
-    right: calc(var(--gutter-h) * -1);
-  }
+.mediaInner {
+  display: flex;
+  width: 100%;
+  height: calc(100% - calc(var(--wrapper-padding-top) / 2 + var(--wrapper-padding-bottom) / 2));
 }
 
 .media {
-  width: calc(100% + var(--gutter-h));
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
