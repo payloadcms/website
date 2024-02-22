@@ -20,6 +20,8 @@ const MediaParallax: React.FC<ParallaxProps> = ({ media, className }) => {
   })
 
   React.useEffect(() => {
+    setScrollValue(scrollYProgress.get())
+
     scrollYProgress.on('change', () => {
       setScrollValue(scrollYProgress.get())
     })
