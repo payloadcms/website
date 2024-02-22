@@ -71,7 +71,6 @@ export const CardGrid: React.FC<CardGridProps> = props => {
               <BackgroundScanline enableBorders={true} />
             </div>
             <div className={['grid', classes.cardsWrapper].filter(Boolean).join(' ')}>
-              <BackgroundGrid className={classes.backgroundGrid} ignoreGutter />
               {cards.map((card, index) => {
                 const { title, description, link } = card
                 return (
