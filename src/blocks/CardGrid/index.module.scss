@@ -5,15 +5,7 @@
 }
 
 .introWrapper {
-  padding-bottom: calc(var(--base) * 8);
-
-  @include large-break {
-    padding-bottom: calc(var(--base) * 6);
-  }
-
-  @include mid-break {
-    padding-bottom: calc(var(--base) * 3);
-  }
+  padding-bottom: var(--wrapper-padding-top);
 }
 
 .richTextWrapper {
