@@ -1,0 +1,82 @@
+@use '@scss/common' as *;
+
+$curve: cubic-bezier(.165, .84, .44, 1);
+
+.container {
+  position: relative;
+  padding-top: calc(var(--base) * 12.5);
+  margin-bottom: calc(var(--base) * -14.5);
+
+  @include mid-break {
+    padding-top: calc(var(--base) * 10);
+    margin-bottom: calc(var(--base) * -12);
+  }
+
+  @include small-break {
+    padding-top: calc(var(--base) * 6);
+    margin-bottom: calc(var(--base) * -10);
+  }
+}
+
+
+.mask {
+  width: 100%;
+  background: #111111;
+  aspect-ratio: 1600/436;
+  mask-image: url('/images/payload-mask.svg');
+  mask-size: cover;
+  mask-repeat: no-repeat;
+  image-rendering: crisp-edges;
+  position: relative;
+  transition: all 1s $curve;
+  transform-origin: bottom;
+}
+
+.gradient {
+  position: absolute;
+  filter: blur(100px);
+  top: -100%;
+  left: -100%;
+  width: 14rem;
+  height: 14rem;
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+  opacity: .25;
+  transition: opacity 1s $curve;
+  background: conic-gradient(from 180deg at 50% 50%, #F4AC4F 180deg, #007FAE 360deg);
+  animation: Spin 25s infinite linear;
+}
+
+@keyframes Spin {
+  from {
+    transform: rotate(0deg)
+  } to {
+    transform: rotate(360deg)
+  }
+}
+
+.image {
+  position: relative;
+}
+
+.payload {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  fill: none;
+
+  path {
+    fill: none;
+  }
+  z-index: 6;
+}
+
+.noise {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('/images/noise.png') repeat;
+  z-index: 5;
+}

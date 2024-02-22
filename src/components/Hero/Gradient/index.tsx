@@ -23,11 +23,20 @@ export const GradientHero: React.FC<
     breadcrumbs?: Page['breadcrumbs']
     firstContentBlock?: BlocksProp
   }
-> = ({ richText, images, fullBackground, links, description, theme, firstContentBlock }) => {
+> = ({
+  richText,
+  images,
+  fullBackground,
+  links,
+  description,
+  theme: themeFromProps,
+  firstContentBlock,
+}) => {
+  const theme = fullBackground ? 'dark' : themeFromProps
   const padding = useGetHeroPadding(theme, firstContentBlock)
 
   return (
-    <BlockWrapper settings={{ theme: 'dark' }} padding={{ ...padding, bottom: 'large' }}>
+    <BlockWrapper settings={{ theme }} padding={{ ...padding, bottom: 'large' }}>
       {Boolean(fullBackground) && (
         <Media
           className={[classes.bgFull].filter(Boolean).join(' ')}

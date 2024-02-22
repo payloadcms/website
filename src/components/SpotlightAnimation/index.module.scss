@@ -18,6 +18,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: opacity 2350ms $curve;
+  margin-bottom: 0;
 
   &.hasFadeIn {
     opacity: 0;
@@ -91,9 +92,5 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
   &.ready {
     opacity: 0;
-  }
-
-  & :global(.word) {
-    margin-right: 0.16em;
   }
 }

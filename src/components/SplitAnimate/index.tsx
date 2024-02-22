@@ -25,7 +25,10 @@ const SplitAnimate: React.FC<Props> = ({
 
   const textArray = useMemo(() => {
     if (text === '') return []
-    return text.trim().split(' ')
+    return text
+      .trim()
+      .replace(/&#8232;/g, ' ') // Replaces figma inserted character, see: https://forum.figma.com/t/creating-new-line-via-shift-enter-adds-a-l-sep-symbol/2856/4
+      .split(' ')
   }, [text])
 
   const innerWorldSelector = `.${classes.innerWord}`
@@ -40,11 +43,13 @@ const SplitAnimate: React.FC<Props> = ({
         if (callback) callback()
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isInView, callback])
 
   return (
     <Element ref={scope} className={(classes.element, className)} {...props}>
       {textArray.map((text, index) => {
+        const isLast = index + 1 === textArray.length
         return (
           <span className={[classes.word, 'word'].filter(Boolean).join(' ')} key={index}>
             <motion.span
@@ -52,6 +57,7 @@ const SplitAnimate: React.FC<Props> = ({
               className={[classes.innerWord, 'inner-word'].filter(Boolean).join(' ')}
             >
               {text}
+              {isLast ? '' : ' '}
             </motion.span>
           </span>
         )

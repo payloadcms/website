@@ -8,33 +8,9 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .introWrapper {
   padding-bottom: calc(var(--base) * 8);
-
-  @include large-break {
-    padding-bottom: calc(var(--base) * 6);
-  }
-
-  @include mid-break {
-    padding-bottom: calc(var(--base) * 3);
-  }
-}
-
-.richTextWrapper {
-  grid-area: 1 / 1 / 1 / -1;
-  align-items: flex-start;
-  justify-content: center;
-  display: grid;
-}
-
-.richText {
-  @include mid-break {
-    padding-bottom: calc(var(--base) * 2);
-  }
-
-  @include small-break {
-    h2 {
-      font-size: calc(var(--base) * 1.4);
-    }
-  }
+  align-items: center;
+  align-content: center;
+  padding-bottom: var(--wrapper-padding-top);
 }
 
 .cards {
