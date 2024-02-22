@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion, transform, useScroll, useTransform } from 'framer-motion'
+import { motion, transform, useScroll } from 'framer-motion'
 
 import { Media } from '@components/Media'
 import { Media as MediaType } from '@root/payload-types'
@@ -42,6 +42,7 @@ const MediaParallax: React.FC<ParallaxProps> = ({ media, className }) => {
           <motion.div
             key={index}
             className={classes.parallaxItem}
+            initial={{ translateY: -50 * MULTIPLIER }}
             style={{
               ...(index === 0
                 ? {}
