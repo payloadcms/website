@@ -18,8 +18,8 @@ const Payload3D: React.FC<Payload3DProps> = props => {
     const updateMousePosition = e => {
       if (containerRef.current) {
         const boundingRect = containerRef.current.getBoundingClientRect()
-        const x = e.clientX - boundingRect.left - 160
-        const y = e.clientY - boundingRect.top - 350
+        const x = e.clientX - boundingRect.left - 140
+        const y = e.clientY - boundingRect.top - 370
 
         mousePositionX.set(x)
         mousePositionY.set(y)
