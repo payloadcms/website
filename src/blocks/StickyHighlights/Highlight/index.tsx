@@ -100,9 +100,19 @@ export const StickyHighlight: React.FC<Props> = React.memo(
         ].join(' ')}
       >
         <div className={[classes.minHeight, 'grid'].filter(Boolean).join(' ')}>
-          <div className={'cols-7 cols-m-12'}>
+          <div className={'cols-4 cols-m-8'}>
             <RichText content={richText} className={classes.richText} />
-            {enableLink && <CMSLink {...link} appearance="default" mobileFullWidth />}
+            {enableLink && (
+              <CMSLink
+                {...link}
+                appearance="default"
+                fullWidth
+                buttonProps={{
+                  icon: 'arrow',
+                  hideHorizontalBorders: true,
+                }}
+              />
+            )}
           </div>
         </div>
         <CSSTransition in={visible} timeout={750} classNames="animate">
@@ -112,7 +122,7 @@ export const StickyHighlight: React.FC<Props> = React.memo(
                 <PixelBackground className={classes.pixels} />
                 <div className={['grid'].filter(Boolean).join(' ')}>
                   <div
-                    className={[classes.bg, 'cols-8 start-9 cols-m-8 start-m-1']
+                    className={[classes.bg, 'cols-10 start-7 cols-m-8 start-m-1']
                       .filter(Boolean)
                       .join(' ')}
                   >
@@ -130,7 +140,7 @@ export const StickyHighlight: React.FC<Props> = React.memo(
             )}
             {type === 'media' && typeof media === 'object' && media !== null && (
               <div className={['grid'].filter(Boolean).join(' ')}>
-                <div className={'cols-8 start-9 cols-m-8 start-m-1'}>
+                <div className={'cols-10 start-7 cols-m-8 start-m-1'}>
                   <div className={codeMediaClasses} ref={codeMediaWrapRef}>
                     <div className={classes.codeMediaInner} ref={codeMediaInnerRef}>
                       <div className={classes.media}>
