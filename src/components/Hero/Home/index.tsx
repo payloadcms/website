@@ -69,31 +69,6 @@ export const HomeHero: React.FC<
         <div className={classes.bgFull}>
           <Media src="/images/hero-gradient.jpg" alt="" width={1920} height={1644} priority />
         </div>
-        <div className={classes.paddingTopWrapper}>
-          <div className={classes.paddingTop}>
-            <BackgroundGrid
-              className={classes.paddingBottomGrid}
-              gridLineStyles={{
-                0: {
-                  background: 'var(--grid-line-dark)',
-                },
-                1: {
-                  background: 'var(--grid-line-dark)',
-                },
-                2: {
-                  background: 'var(--grid-line-dark)',
-                },
-                3: {
-                  background: 'var(--grid-line-dark)',
-                },
-                4: {
-                  background: 'var(--grid-line-dark)',
-                },
-              }}
-              zIndex={1}
-            />
-          </div>
-        </div>
         <div className={classes.homeHero}>
           <div className={classes.background}>
             <div className={classes.imagesContainerWrapper}>

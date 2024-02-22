@@ -121,7 +121,7 @@
   min-height: 85vh;
 
   @include two-extra-large-break {
-    min-height: 80vh;
+    min-height: 85vh;
   }
 
   @include extra-large-break {
@@ -129,7 +129,7 @@
   }
 
   @include large-break {
-    min-height: 48vh;
+    min-height: 50vh;
   }
 
   @include large-mid-break {
@@ -142,7 +142,7 @@
 
   @include extra-large-break-ht {
     @include two-extra-large-break {
-      min-height: 95vh;
+      min-height: 97vh;
     }
 
     @include extra-large-break {
@@ -154,7 +154,7 @@
     }
 
     @include large-mid-break {
-      min-height: 55vh;
+      min-height: 52vh;
     }
 
     @include mid-break {
@@ -172,11 +172,11 @@
     }
 
     @include large-break {
-      min-height: 65vh;
+      min-height: 68vh;
     }
 
     @include large-mid-break {
-      min-height: 60vh;
+      min-height: 65vh;
     }
 
     @include mid-break {
@@ -195,7 +195,11 @@
   }
 
   @include mid-break {
-    padding-top: 0;
+    padding-top: calc(var(--base) * 2);
+  }
+
+  @include small-break {
+    padding-top: calc(var(--base) * 1);
   }
 }
 
@@ -345,20 +349,6 @@
     left: calc(calc(var(--base) * 6) + var(--gutter-h));
     width: calc(calc(100% - var(--base) * 8) - var(--gutter-h) * 2)
   }
-}
-
-// Need to fake this padding so that it doesn't mess with the positioning of the rest of the component
-.paddingTopWrapper {
-  background: var(--color-base-0);
-
-  @include small-break {
-    padding-top: var(--header-height);
-  }
-}
-
-.paddingTop {
-  position: relative;
-  height: calc(var(--wrapper-padding-top));
 }
 
 .paddingBottom {
