@@ -10,7 +10,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
   @include mid-break {
     margin: 0 var(--base)!important;
-    width: 100vw;
   }
 }
 
@@ -142,8 +141,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   @include mid-break {
     padding: var(--base);
     font-size: calc(var(--base) * .75);
-    line-height: calc(var(--base) * 1);
-    min-height: calc(var(--base) * 20);
 
     :global {
       .highlight-line {

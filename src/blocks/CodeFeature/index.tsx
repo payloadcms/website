@@ -1,5 +1,4 @@
 import React, { useEffect, useId, useRef, useState } from 'react'
-import { useAnimate, usePresence } from 'framer-motion'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
@@ -122,25 +121,23 @@ export const CodeFeatureComponent: React.FC<Props> = ({
             </h2>
 
             <div>
-              <div>
-                <RichText content={richText} className={classes.richText} />
+              <RichText content={richText} className={classes.richText} />
 
-                <div className={classes.links}>
-                  {links?.map((link, index) => {
-                    return (
-                      <CMSLink
-                        key={index}
-                        appearance={'default'}
-                        buttonProps={{
-                          appearance: 'default',
-                          hideHorizontalBorders: true,
-                          hideBottomBorderExceptLast: true,
-                        }}
-                        {...link.link}
-                      />
-                    )
-                  })}
-                </div>
+              <div className={classes.links}>
+                {links?.map((link, index) => {
+                  return (
+                    <CMSLink
+                      key={index}
+                      appearance={'default'}
+                      buttonProps={{
+                        appearance: 'default',
+                        hideHorizontalBorders: true,
+                        hideBottomBorderExceptLast: true,
+                      }}
+                      {...link.link}
+                    />
+                  )
+                })}
               </div>
             </div>
           </div>
@@ -208,7 +205,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                     // @ts-expect-error
                     inert={activeIndex !== index ? '' : undefined}
                   >
-                    <Code codeBlips={code.codeBlips}>{`${code.code}
+                    <Code parentClassName={classes.code} codeBlips={code.codeBlips}>{`${code.code}
                   `}</Code>
                   </div>
                 )

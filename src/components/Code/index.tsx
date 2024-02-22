@@ -46,7 +46,14 @@ const highlightLine = (lineArray: { content: string }[], lineProps: { className:
 }
 
 const Code: React.FC<Props> = props => {
-  const { children, className, codeBlips, disableMinHeight, showLineNumbers = true } = props
+  const {
+    children,
+    className,
+    codeBlips,
+    disableMinHeight,
+    showLineNumbers = true,
+    parentClassName,
+  } = props
   const classNames = [classes.code, className && className].filter(Boolean).join(' ')
 
   const getCodeBlip = useCallback(
@@ -61,7 +68,11 @@ const Code: React.FC<Props> = props => {
 
   return (
     <div
-      className={[classes.codeWrap, disableMinHeight && classes.disableMinHeight]
+      className={[
+        classes.codeWrap,
+        disableMinHeight && classes.disableMinHeight,
+        parentClassName && parentClassName,
+      ]
         .filter(Boolean)
         .join(' ')}
     >
