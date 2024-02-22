@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useId } from 'react'
 import { Text } from '@forms/fields/Text'
 import FormComponent from '@forms/Form'
 import { validateEmail } from '@forms/validations'
@@ -90,6 +90,9 @@ export const Footer: React.FC<FooterType> = props => {
   const router = useRouter()
 
   const pathname = usePathname()
+
+  const themeId = useId()
+  const newsletterId = useId()
 
   const onSubmit = React.useCallback(() => {
     setButtonClicked(false)
@@ -203,9 +206,12 @@ export const Footer: React.FC<FooterType> = props => {
               {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
               <FormComponent onSubmit={onSubmit}>
                 <div className={classes.inputWrap}>
+                  <label className="visually-hidden" htmlFor={newsletterId}>
+                    Subscribe to our newsletter
+                  </label>
                   <Text
                     type="text"
-                    path="email"
+                    path={newsletterId}
                     value={formData.email}
                     customOnChange={handleChange}
                     required
@@ -215,6 +221,7 @@ export const Footer: React.FC<FooterType> = props => {
                   />
                   <button ref={submitButtonRef} className={classes.submitButton} type="submit">
                     <ArrowIcon className={[classes.inputArrow].filter(Boolean).join(' ')} />
+                    <span className="visually-hidden">Submit</span>
                   </button>
                 </div>
 
@@ -266,29 +273,30 @@ export const Footer: React.FC<FooterType> = props => {
             </div>
 
             <div className={classes.selectContainer}>
-              <label htmlFor="theme">
-                {selectRef?.current && (
-                  <div className={`${classes.switcherIcon} ${classes.themeIcon}`}>
-                    {selectRef.current.value === 'auto' && <ThemeAutoIcon />}
-                    {selectRef.current.value === 'light' && <ThemeLightIcon />}
-                    {selectRef.current.value === 'dark' && <ThemeDarkIcon />}
-                  </div>
-                )}
-
-                <select
-                  id="theme"
-                  onChange={e => onThemeChange(e.target.value as Theme & 'auto')}
-                  ref={selectRef}
-                >
-                  <option value="auto">Auto</option>
-                  <option value="light">Light</option>
-                  <option value="dark">Dark</option>
-                </select>
-
-                <ChevronUpDownIcon
-                  className={`${classes.switcherIcon} ${classes.upDownChevronIcon}`}
-                />
+              <label className="visually-hidden" htmlFor={themeId}>
+                Switch themes
               </label>
+              {selectRef?.current && (
+                <div className={`${classes.switcherIcon} ${classes.themeIcon}`}>
+                  {selectRef.current.value === 'auto' && <ThemeAutoIcon />}
+                  {selectRef.current.value === 'light' && <ThemeLightIcon />}
+                  {selectRef.current.value === 'dark' && <ThemeDarkIcon />}
+                </div>
+              )}
+
+              <select
+                id={themeId}
+                onChange={e => onThemeChange(e.target.value as Theme & 'auto')}
+                ref={selectRef}
+              >
+                <option value="auto">Auto</option>
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+              </select>
+
+              <ChevronUpDownIcon
+                className={`${classes.switcherIcon} ${classes.upDownChevronIcon}`}
+              />
             </div>
           </div>
         </div>

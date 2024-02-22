@@ -249,7 +249,11 @@ export const FeaturedMediaGallery: React.FC<FeaturedMediaGalleryProps> = ({
                 className={[classes.content, 'cols-4 start-1 cols-m-8'].filter(Boolean).join(' ')}
               >
                 {leader && <div className={classes.leader}>{leader}</div>}
-                {title && <h2 className={classes.title}>{title}</h2>}
+                {title && (
+                  <h2 className={classes.title}>
+                    <SplitAnimate text={title} />
+                  </h2>
+                )}
                 {description && <RichText className={classes.description} content={description} />}
                 <div className={[classes.mobileMediaTabs].filter(Boolean).join(' ')}>
                   {showScanline && (

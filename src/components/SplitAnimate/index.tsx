@@ -56,8 +56,7 @@ const SplitAnimate: React.FC<Props> = ({
               initial={{ y: '150%', rotate: 10 }}
               className={[classes.innerWord, 'inner-word'].filter(Boolean).join(' ')}
             >
-              {text}
-              {isLast ? '' : ' '}
+              {isLast ? text : text + ' '}
             </motion.span>
           </span>
         )
