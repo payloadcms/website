@@ -108,7 +108,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   cursor: pointer;
   display: block;
   position: absolute;
-  right: calc(var(--base) * 0.5);
+  right: calc(var(--base) * 0.75);
   top: calc(50% - var(--base) * 0.6);
 
   &:hover {
@@ -175,14 +175,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   color: var(--theme-elevation-500);
   cursor: pointer;
   width: 100%;
-
-  label {
-    all: unset;
-    font-size: calc(var(--font-body-size) * 0.75);
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
 
   select {
     all: unset;
