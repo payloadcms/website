@@ -1,7 +1,9 @@
 .word {
   display: inline-flex;
   overflow: hidden;
-  margin-right: 0.16em;
+  min-height: 1.1em;
+  margin-bottom: -1.1em;
+  margin-right: 0.2em;
 }
 
 .innerWord {

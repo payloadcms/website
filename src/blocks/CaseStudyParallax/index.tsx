@@ -237,7 +237,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
         padding={padding}
         className={classes.wrapper}
       >
-        <BackgroundGrid />
+        <BackgroundGrid zIndex={0} />
         <Gutter className={classes.mainGutter}>
           <Gutter
             className={[classes.scanlineWrapper, 'grid cols-8 start-9'].filter(Boolean).join(' ')}

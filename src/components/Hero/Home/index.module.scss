@@ -2,7 +2,6 @@
 
 .homeHero {
   position: relative;
-  background: var(--color-base-0);
 }
 
 .background {
@@ -139,7 +138,6 @@
 
   @include mid-break {
     min-height: unset;
-    padding-top: calc(var(--base) * 7.5);
   }
 
   @include extra-large-break-ht {
@@ -352,10 +350,9 @@
 // Need to fake this padding so that it doesn't mess with the positioning of the rest of the component
 .paddingTopWrapper {
   background: var(--color-base-0);
-  padding-top: var(--page-padding-top);
 
   @include small-break {
-    padding-top: 0;
+    padding-top: var(--header-height);
   }
 }
 
@@ -369,4 +366,36 @@
   background: var(--color-base-1000);
   margin-top: -1px;
   height: var(--wrapper-padding-bottom);
+}
+
+.bgFull {
+  position: absolute;
+  left: 0;
+  top: calc(0px - var(--header-height) - 1px);
+  width: 100%;
+  height: calc(100% + var(--header-height) + 1px);
+  z-index: 0;
+  backdrop-filter: blur(4px);
+
+  &::before {
+    content:'';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: url('/images/noise.png') repeat;
+  }
+
+  & div {
+    @include mid-break {
+      height: 100%;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }

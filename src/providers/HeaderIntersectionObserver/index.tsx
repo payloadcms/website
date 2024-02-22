@@ -48,10 +48,6 @@ export const HeaderIntersectionObserver: React.FC<HeaderIntersectionObserverProp
   React.useEffect(() => {
     let observerRef: IntersectionObserver | undefined
 
-    const topBarHeight = parseInt(
-      getComputedStyle(document.documentElement).getPropertyValue('--top-bar-height'),
-      10,
-    )
     const cssHeaderHeight = parseInt(
       getComputedStyle(document.documentElement).getPropertyValue('--header-height'),
       10,
@@ -69,7 +65,7 @@ export const HeaderIntersectionObserver: React.FC<HeaderIntersectionObserverProp
     }
 
     if (windowHeight) {
-      const halfHeaderHeight = windowHeight - topBarHeight - Math.ceil(cssHeaderHeight / 2)
+      const halfHeaderHeight = windowHeight - Math.ceil(cssHeaderHeight / 2)
 
       observerRef = new IntersectionObserver(
         entries => {

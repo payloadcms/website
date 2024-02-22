@@ -7,7 +7,7 @@ import classes from './index.module.scss'
 
 export const AlgoliaPagination: React.FC<{
   className?: string
-}> = () => {
+}> = props => {
   const {
     pages,
     currentRefinement,
@@ -18,6 +18,7 @@ export const AlgoliaPagination: React.FC<{
     refine,
     // createURL
   } = usePagination({ padding: 2 })
+  const { className } = props
 
   const hasPages = pages && Array.isArray(pages) && pages.length > 0
   const [indexToShow, setIndexToShow] = React.useState([0, 1, 2, 3, 4])
@@ -43,7 +44,7 @@ export const AlgoliaPagination: React.FC<{
   }, [showFirstPage, showLastPage])
 
   return (
-    <div className={classes.pagination}>
+    <div className={[classes.pagination, className && className].filter(Boolean).join(' ')}>
       <div className={classes.pages}>
         {showFirstPage && (
           <>

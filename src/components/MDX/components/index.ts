@@ -1,5 +1,5 @@
-import { Banner } from '../../Banner'
 import YouTube from '../../YouTube'
+import { Banner } from './Banner'
 import BlogImage from './BlogImage'
 import Code from './Code'
 import h1 from './H1'

@@ -12,6 +12,7 @@ type Props = {
   style?: React.CSSProperties
   zIndex?: number
   gridLineStyles?: GridLineStyles
+  wideGrid?: boolean
 }
 
 export const BackgroundGrid: React.FC<Props> = ({
@@ -20,16 +21,23 @@ export const BackgroundGrid: React.FC<Props> = ({
   style,
   zIndex = -1,
   gridLineStyles = {},
+  wideGrid,
 }: Props) => {
   return (
     <div
       aria-hidden="true"
-      className={[classes.backgroundGrid, 'grid', ignoreGutter && classes.ignoreGutter, className]
+      className={[
+        classes.backgroundGrid,
+        'grid',
+        ignoreGutter && classes.ignoreGutter,
+        className,
+        wideGrid && classes.wideGrid,
+      ]
         .filter(Boolean)
         .join(' ')}
       style={{ ...style, zIndex }}
     >
-      {[...Array(5)].map((_, index) => (
+      {[...Array(wideGrid ? 4 : 5)].map((_, index) => (
         <div
           key={index}
           className={[classes.column, 'cols-4'].join(' ')}

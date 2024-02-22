@@ -29,7 +29,7 @@ export const Hero: React.FC<{
     page: {
       hero,
       breadcrumbs,
-      hero: { type, enableBreadcrumbsBar },
+      hero: { type },
     },
     firstContentBlock,
   } = props
@@ -39,7 +39,7 @@ export const Hero: React.FC<{
   if (HeroToRender) {
     return (
       <>
-        {enableBreadcrumbsBar && <BreadcrumbsBar hero={hero} breadcrumbs={breadcrumbs} />}
+        <BreadcrumbsBar hero={hero} breadcrumbs={breadcrumbs} />
 
         <HeroToRender {...hero} firstContentBlock={firstContentBlock} breadcrumbs={breadcrumbs} />
       </>
