@@ -24,6 +24,7 @@ export const Callout: React.FC<CalloutProps> = props => {
     calloutFields: { richText, role, author, logo, images, settings },
     padding,
   } = props
+  const hasImages = images?.length && images.length > 0
 
   return (
     <BlockWrapper settings={settings} padding={padding}>
@@ -33,7 +34,12 @@ export const Callout: React.FC<CalloutProps> = props => {
           <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>
             <BackgroundScanline className={classes.scanline} enableBorders crosshairs={'all'} />
             <div
-              className={[classes.contentWrapper, 'cols-7 start-2 cols-m-8 start-m-1']
+              className={[
+                classes.contentWrapper,
+                hasImages
+                  ? 'cols-7 start-2 cols-m-8 start-m-1'
+                  : 'cols-14 start-2 cols-m-8 start-m-1',
+              ]
                 .filter(Boolean)
                 .join(' ')}
             >
@@ -58,7 +64,7 @@ export const Callout: React.FC<CalloutProps> = props => {
                 .filter(Boolean)
                 .join(' ')}
             >
-              {images?.length && images.length > 0 ? <MediaParallax media={images} /> : null}
+              {hasImages ? <MediaParallax media={images} /> : null}
             </div>
           </div>
         </Gutter>
