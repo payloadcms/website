@@ -8,7 +8,6 @@ import { Gutter } from '@components/Gutter'
 import { ChevronIcon } from '@root/icons/ChevronIcon'
 import { Page } from '@root/payload-types'
 import { useThemePreference } from '@root/providers/Theme'
-import { Theme } from '@root/providers/Theme/types'
 
 import classes from './index.module.scss'
 
@@ -22,15 +21,20 @@ const BreadcrumbsBar: React.FC<Props> = ({ hero, breadcrumbs: breadcrumbsProps }
   const { theme: themeFromContext } = useThemePreference()
   const [themeState, setThemeState] = useState<Page['hero']['theme']>(theme)
 
-  const hasBackground = !Boolean(['home', 'gradient'].includes(type))
+  const hasBackground = () => {
+    switch (type) {
+      case 'home':
+        return true
+      case 'gradient':
+        return Boolean(hero.fullBackground)
+      default:
+        return false
+    }
+  }
 
   useEffect(() => {
-    if (!hasBackground) {
-      setThemeState('dark')
-    } else {
-      if (theme) setThemeState(theme)
-      else if (themeFromContext) setThemeState(themeFromContext)
-    }
+    if (theme) setThemeState(theme)
+    else if (themeFromContext) setThemeState(themeFromContext)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [themeFromContext, theme])
 
@@ -38,13 +42,15 @@ const BreadcrumbsBar: React.FC<Props> = ({ hero, breadcrumbs: breadcrumbsProps }
     return breadcrumbsProps?.slice(0, breadcrumbsProps.length - 1) ?? []
   }, [breadcrumbsProps])
 
+  const useTheme = hasBackground() ? 'dark' : themeState ?? 'dark'
+
   return (
-    <ChangeHeaderTheme theme={themeState ?? !hasBackground ? 'dark' : 'light'}>
+    <ChangeHeaderTheme theme={useTheme}>
       <div
-        className={[classes.wrapper, hasBackground && classes.hasBackground]
+        className={[classes.wrapper, !hasBackground() && classes.hasBackground]
           .filter(Boolean)
           .join(' ')}
-        {...(themeState ? { 'data-theme': themeState } : {})}
+        {...(useTheme ? { 'data-theme': useTheme } : {})}
       >
         <Gutter>
           {enableBreadcrumbsBar ? (
