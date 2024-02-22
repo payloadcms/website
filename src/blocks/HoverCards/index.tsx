@@ -55,7 +55,7 @@ export const HoverCards: React.FC<HoverCardsProps> = props => {
   return (
     <BlockWrapper
       settings={{ theme: 'dark' }}
-      padding={padding}
+      padding={{ bottom: 'large', top: 'large' }}
       className={[classes.wrapper].filter(Boolean).join(' ')}
     >
       <BackgroundGrid zIndex={1} />
@@ -77,7 +77,12 @@ export const HoverCards: React.FC<HoverCardsProps> = props => {
       </div>
       <Gutter>
         <div className={[classes.introWrapper, 'grid'].filter(Boolean).join(' ')}>
-          {richText && <RichText className="cols-12 cols-m-8" content={richText} />}
+          {richText && (
+            <RichText
+              className={[classes.richText, 'cols-12 cols-m-8'].filter(Boolean).join(' ')}
+              content={richText}
+            />
+          )}
         </div>
 
         {hasCards && (
