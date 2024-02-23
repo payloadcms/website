@@ -134,6 +134,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
         transition: transform var(--animation-speed) 150ms $curve;
         transform-origin: bottom left;
         color: var(--theme-elevation-0);
+        font-weight: 500;
       }
     }
 

@@ -73,10 +73,15 @@
 .minHeight {
   height: 100vh;
   align-items: center;
+  pointer-events: none;
 
   @include mid-break {
     height: auto;
   }
+}
+
+.leftContentWrapper {
+  pointer-events: all;
 }
 
 .scanlineColumns {
@@ -87,6 +92,11 @@
   position: absolute;
   height: 100%;
   width: 100%;
+
+  @include large-break-ht {
+    top: calc(var(--wrapper-padding-top) / -2);
+    height: calc(100% + var(--base) * 4);
+  }
 
   @include mid-break {
     display: none;
@@ -133,12 +143,18 @@
 
 .codeMediaPosition {
   position: fixed;
-  top: 15vh;
+  top: calc(15vh + var(--header-height) / 4);
   right: 0;
   bottom: 15vh;
   left: 0;
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
+
+  @include large-break-ht {
+    top: 18vh;
+    bottom: 12vh;
+  }
 
   @include mid-break {
     position: relative;
@@ -151,6 +167,10 @@
     padding: 0 !important;
     margin: calc(var(--base) * 2) 0 0;
   }
+}
+
+.rightContentWrapper {
+  pointer-events: all;
 }
 
 .codeMedia {
@@ -177,14 +197,34 @@
 }
 
 .innerCode {
-  height: 640px;
+  height: calc(var(--base) * 32);
+
+  @include large-break {
+    height: calc(var(--base) * 40);
+  }
 
   @include mid-break {
-    height: 500px;
+    height: calc(var(--base) * 25);
   }
 
   @include small-break {
-    height: 400px;
+    height: calc(var(--base) * 22);
+  }
+
+  @include large-break-ht {
+    height: calc(var(--base) * 28);
+
+    @include large-break {
+      height: calc(var(--base) * 32);
+    }
+
+    @include mid-break {
+      height: calc(var(--base) * 25);
+    }
+  
+    @include small-break {
+      height: calc(var(--base) * 22);
+    }
   }
 }
 
