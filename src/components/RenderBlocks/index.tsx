@@ -27,6 +27,7 @@ import { Pricing } from '@blocks/Pricing'
 import { RelatedPosts, RelatedPostsBlock } from '@blocks/RelatedPosts'
 import { ReusableContentBlock } from '@blocks/ReusableContent'
 import { Slider } from '@blocks/Slider'
+import { Statement } from '@blocks/Statement'
 import { Steps } from '@blocks/Steps'
 import { StickyHighlights } from '@blocks/StickyHighlights'
 import { toKebabCase } from '@utilities/to-kebab-case'
@@ -68,6 +69,7 @@ const blockComponents = {
   relatedPosts: RelatedPosts,
   exampleTabs: ExampleTabs,
   featuredMediaGallery: FeaturedMediaGallery,
+  statement: Statement,
 }
 
 export type BlocksProp = ReusableContent['layout'][0] | ReusableContentBlockType | RelatedPostsBlock

@@ -20,6 +20,7 @@ import {
   PRICING_BLOCK,
   REUSABLE_CONTENT_BLOCK,
   SLIDER,
+  STATEMENT,
   STEPS,
   STICKY_HIGHLIGHTS,
 } from './blocks'
@@ -115,6 +116,7 @@ export const PAGE = `
           ${PRICING_BLOCK}
           ${REUSABLE_CONTENT_BLOCK}
           ${SLIDER}
+          ${STATEMENT}
           ${STEPS}
           ${STICKY_HIGHLIGHTS}
         }
