@@ -48,6 +48,28 @@ export interface CaseStudy {
   layout?:
     | (
         | {
+            calloutFields: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
+              richText: {
+                [k: string]: unknown;
+              }[];
+              logo: string | Media;
+              author?: string | null;
+              role?: string | null;
+              images?:
+                | {
+                    image: string | Media;
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'callout';
+          }
+        | {
             ctaFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
@@ -148,6 +170,26 @@ export interface CaseStudy {
             blockType: 'cardGrid';
           }
         | {
+            caseStudyCardFields?: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
+              pixels?: boolean | null;
+              cards?:
+                | {
+                    richText: {
+                      [k: string]: unknown;
+                    }[];
+                    caseStudy: string | CaseStudy;
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'caseStudyCards';
+          }
+        | {
             caseStudiesHighlightFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
@@ -160,6 +202,32 @@ export interface CaseStudy {
             id?: string | null;
             blockName?: string | null;
             blockType: 'caseStudiesHighlight';
+          }
+        | {
+            caseStudyParallaxFields?: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
+              items?:
+                | {
+                    quote: string;
+                    author?: string | null;
+                    logo: string | Media;
+                    images?:
+                      | {
+                          image: string | Media;
+                          id?: string | null;
+                        }[]
+                      | null;
+                    tabLabel: string;
+                    caseStudy: string | CaseStudy;
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'caseStudyParallax';
           }
         | {
             codeFeatureFields: {
@@ -288,6 +356,44 @@ export interface CaseStudy {
             blockType: 'form';
           }
         | {
+            hoverCardsFields: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
+              richText: {
+                [k: string]: unknown;
+              }[];
+              cards?:
+                | {
+                    title: string;
+                    description?: string | null;
+                    link?: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null)
+                        | ({
+                            relationTo: 'case-studies';
+                            value: string | CaseStudy;
+                          } | null);
+                      url?: string | null;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hoverCards';
+          }
+        | {
             hoverHighlightsFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
@@ -363,6 +469,45 @@ export interface CaseStudy {
             blockType: 'linkGrid';
           }
         | {
+            logoGridFields: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
+              richText: {
+                [k: string]: unknown;
+              }[];
+              enableLink?: boolean | null;
+              link?: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: string | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: string | Post;
+                    } | null)
+                  | ({
+                      relationTo: 'case-studies';
+                      value: string | CaseStudy;
+                    } | null);
+                url?: string | null;
+                label: string;
+              };
+              logos?:
+                | {
+                    logoMedia: string | Media;
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'logoGrid';
+          }
+        | {
             mediaBlockFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
@@ -378,6 +523,56 @@ export interface CaseStudy {
             id?: string | null;
             blockName?: string | null;
             blockType: 'mediaBlock';
+          }
+        | {
+            featuredMediaGalleryFields: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
+              background?: ('black' | 'dark') | null;
+              alignment?: ('contentMediaGallery' | 'mediaGalleryContent') | null;
+              leader?: string | null;
+              title: string;
+              description: {
+                [k: string]: unknown;
+              }[];
+              links?:
+                | {
+                    link: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null)
+                        | ({
+                            relationTo: 'case-studies';
+                            value: string | CaseStudy;
+                          } | null);
+                      url?: string | null;
+                      label: string;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+              featuredMediaTabs?:
+                | {
+                    mediaScanline?: boolean | null;
+                    mediaLabel: string;
+                    mediaAlignment?: ('center' | 'fill') | null;
+                    media: string | Media;
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'featuredMediaGallery';
           }
         | {
             mediaContentFields: {
@@ -508,6 +703,44 @@ export interface CaseStudy {
             id?: string | null;
             blockName?: string | null;
             blockType: 'slider';
+          }
+        | {
+            statementFields: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
+              heading: string;
+              richText: {
+                [k: string]: unknown;
+              }[];
+              links?:
+                | {
+                    link: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null)
+                        | ({
+                            relationTo: 'case-studies';
+                            value: string | CaseStudy;
+                          } | null);
+                      url?: string | null;
+                      label: string;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'statement';
           }
         | {
             stepsFields: {
@@ -738,6 +971,7 @@ export interface CaseStudy {
             blockName?: string | null;
             blockType: 'stickyHighlights';
           }
+        | ExampleTabsBlock
       )[]
     | null;
   slug?: string | null;
@@ -1582,6 +1816,44 @@ export interface Page {
         id?: string | null;
         blockName?: string | null;
         blockType: 'slider';
+      }
+    | {
+        statementFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
+          heading: string;
+          richText: {
+            [k: string]: unknown;
+          }[];
+          links?:
+            | {
+                link: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'case-studies';
+                        value: string | CaseStudy;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                };
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'statement';
       }
     | {
         stepsFields: {
@@ -2655,6 +2927,44 @@ export interface ReusableContent {
         id?: string | null;
         blockName?: string | null;
         blockType: 'slider';
+      }
+    | {
+        statementFields: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
+          heading: string;
+          richText: {
+            [k: string]: unknown;
+          }[];
+          links?:
+            | {
+                link: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'case-studies';
+                        value: string | CaseStudy;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                };
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'statement';
       }
     | {
         stepsFields: {

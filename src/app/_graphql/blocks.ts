@@ -103,6 +103,7 @@ export const CALL_TO_ACTION = `
   }
 }
 `
+
 export const CARD_GRID = `
 ...on CardGrid {
   blockType
@@ -393,6 +394,20 @@ export const SLIDER = `
   }
 }`
 
+export const STATEMENT = `
+...on Statement {
+  blockType
+  statementFields {
+    settings ${SETTINGS}
+    heading
+    richText
+    links {
+      link ${LINK_FIELDS({ disableAppearance: true })}
+    }
+  }
+}
+`
+
 export const STICKY_HIGHLIGHTS = `
 ...on StickyHighlights {
   blockType
@@ -452,6 +467,7 @@ export const REUSABLE_CONTENT_BLOCK = `
         ${MEDIA_BLOCK}
         ${MEDIA_CONTENT}
         ${SLIDER}
+        ${STATEMENT}
         ${STEPS}
         ${STICKY_HIGHLIGHTS}
       }

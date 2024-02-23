@@ -12,6 +12,7 @@ import {
   MEDIA_CONTENT,
   REUSABLE_CONTENT_BLOCK,
   SLIDER,
+  STATEMENT,
   STEPS,
   STICKY_HIGHLIGHTS,
 } from './blocks'
@@ -55,6 +56,7 @@ export const CASE_STUDY = `
           ${MEDIA_CONTENT}
           ${REUSABLE_CONTENT_BLOCK}
           ${SLIDER}
+          ${STATEMENT}
           ${STEPS}
           ${STICKY_HIGHLIGHTS}
         }
