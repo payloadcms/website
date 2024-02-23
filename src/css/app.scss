@@ -42,7 +42,7 @@
   --text-dark: rgba(255, 255, 255, 0.5);
   --text-light: rgba(0, 0, 0, 0.5);
 
-  --gutter-h: calc(var(--base) * 10);
+  --gutter-h: calc(50vw - (var(--base) * 40));
   --block-spacing: calc(var(--base) * 7);
   --new-block-spacing: calc(var(--base) * 8);
 
