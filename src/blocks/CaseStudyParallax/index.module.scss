@@ -22,7 +22,7 @@
   }
 
   & .media {
-    margin-right: calc(var(--gutter-h) / -1);
+    margin-right: calc(var(--gutter-h) / -1 + 1px);
 
     img {
       right: -1px;
