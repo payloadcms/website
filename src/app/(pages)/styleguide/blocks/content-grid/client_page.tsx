@@ -8,8 +8,199 @@ import { StyleguidePageContent } from '../../PageContent'
 const data: ContentGridProps = {
   blockType: 'contentGrid',
   contentGridFields: {
-    useLeadingHeader: false,
-    leadingHeader: null,
+    content: [
+      {
+        children: [
+          {
+            text: '01',
+          },
+        ],
+        type: 'label',
+      },
+      {
+        children: [
+          {
+            text: '',
+          },
+          {
+            type: 'link',
+            linkType: 'internal',
+            url: '',
+            doc: {
+              value: {
+                id: '6362c3ee5b4dcb5b5c7f3a81',
+                updatedAt: '2022-11-02T19:25:14.726Z',
+                createdAt: '2022-11-01T15:42:11.111Z',
+                title: 'Hullbot',
+                introContent: [
+                  {
+                    children: [
+                      {
+                        text: 'A Hullbot website with every feature in the book.',
+                      },
+                    ],
+                    type: 'h2',
+                  },
+                ],
+                featuredImage: {
+                  id: '63613e44ac92f4d422f93b0a',
+                  alt: 'Screenshot of the hopenetwork.org homepage',
+                  filename: 'hope-network-homepage.jpg',
+                  mimeType: 'image/jpeg',
+                  filesize: 1177885,
+                  width: 1762,
+                  height: 997,
+                  createdAt: '2022-11-01T15:41:56.904Z',
+                  updatedAt: '2022-11-01T15:41:56.904Z',
+                  url: '/media/hope-network-homepage.jpg',
+                },
+                layout: [
+                  {
+                    contentFields: {
+                      layout: 'oneColumn',
+                      columnOne: [
+                        {
+                          children: [
+                            {
+                              text: 'Payload has delivered Hope Network with a truly enterprise-tier website CMS.',
+                            },
+                          ],
+                          type: 'h4',
+                        },
+                      ],
+                    },
+                    id: '63618ad31011a841528d5421',
+                    blockType: 'content',
+                  },
+                  {
+                    contentFields: {
+                      layout: 'twoColumns',
+                      columnOne: [
+                        {
+                          children: [
+                            {
+                              text: 'And thanks to Payload’s code-based nature, this is only the beginning. Over time, Hope will add more and more functionality to its site, which will allow it to continue to provide ROI to the organization for years to come.',
+                            },
+                          ],
+                        },
+                      ],
+                      columnTwo: [
+                        {
+                          children: [
+                            {
+                              text: 'The organization consists of 8 “service lines” and hundreds of pages of content. Among the content models are Subsites, Forms, Housing, Locations, People, Redirects, and much more.',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    id: '63618d251011a841528d5422',
+                    blockType: 'content',
+                  },
+                  {
+                    contentFields: {
+                      layout: 'oneColumn',
+                      columnOne: [
+                        {
+                          children: [
+                            {
+                              text: 'Multi-tenant, “subsite”-based access control',
+                            },
+                          ],
+                          type: 'h2',
+                        },
+                      ],
+                    },
+                    id: '636193221011a841528d5423',
+                    blockType: 'content',
+                  },
+                  {
+                    sliderFields: {
+                      sliderType: 'imageSlider',
+                      imageSlides: [
+                        {
+                          image: {
+                            id: '635a86bd45c951f3f9132c03',
+                            alt: 'Dark textured card that reads: Launch week (and building our site in public)',
+                            filename: 'launch-week.webp',
+                            mimeType: 'image/webp',
+                            filesize: 31768,
+                            width: 1920,
+                            height: 1079,
+                            createdAt: '2022-10-27T13:25:17.760Z',
+                            updatedAt: '2022-10-27T13:25:17.760Z',
+                            url: '/media/launch-week.webp',
+                          },
+                          id: '63613dda246cb1b8ea11ba1c',
+                        },
+                        {
+                          image: {
+                            id: '635a86bd45c951f3f9132c03',
+                            alt: 'Dark textured card that reads: Launch week (and building our site in public)',
+                            filename: 'launch-week.webp',
+                            mimeType: 'image/webp',
+                            filesize: 31768,
+                            width: 1920,
+                            height: 1079,
+                            createdAt: '2022-10-27T13:25:17.760Z',
+                            updatedAt: '2022-10-27T13:25:17.760Z',
+                            url: '/media/launch-week.webp',
+                          },
+                          id: '63613ddd246cb1b8ea11ba1d',
+                        },
+                        {
+                          image: {
+                            id: '635a86bd45c951f3f9132c03',
+                            alt: 'Dark textured card that reads: Launch week (and building our site in public)',
+                            filename: 'launch-week.webp',
+                            mimeType: 'image/webp',
+                            filesize: 31768,
+                            width: 1920,
+                            height: 1079,
+                            createdAt: '2022-10-27T13:25:17.760Z',
+                            updatedAt: '2022-10-27T13:25:17.760Z',
+                            url: '/media/launch-week.webp',
+                          },
+                          id: '63613ddf246cb1b8ea11ba1e',
+                        },
+                      ],
+                      quoteSlides: [],
+                    },
+                    id: '63613dd5246cb1b8ea11ba1b',
+                    blockName: 'Image Slider',
+                    blockType: 'slider',
+                  },
+                ],
+                slug: 'hullbot',
+                link: {
+                  type: 'custom',
+                  url: 'https://hopenetwork.org/',
+                },
+                _status: 'published',
+                meta: {},
+              },
+              relationTo: 'case-studies',
+            },
+            children: [
+              {
+                text: 'Website',
+              },
+            ],
+          },
+          {
+            text: '',
+          },
+        ],
+        type: 'h4',
+      },
+      {
+        children: [
+          {
+            text: 'Payload powers content for websites both large and small in an extremely fast, manageable and scalable manner.',
+          },
+        ],
+      },
+    ],
     cells: [
       {
         content: [
@@ -388,7 +579,6 @@ const dataWithContainer: ContentGridProps = {
   ...data,
   contentGridFields: {
     ...data.contentGridFields,
-    forceDarkBackground: true,
   },
 }
 
