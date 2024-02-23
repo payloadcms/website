@@ -317,15 +317,37 @@ export interface CaseStudy {
             blockType: 'content';
           }
         | {
-            contentGridFields?: {
+            contentGridFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
               };
-              forceDarkBackground?: boolean | null;
-              useLeadingHeader?: boolean | null;
-              leadingHeader?:
+              style?: ('gridBelow' | 'sideBySide') | null;
+              showNumbers?: boolean | null;
+              content: {
+                [k: string]: unknown;
+              }[];
+              links?:
                 | {
-                    [k: string]: unknown;
+                    link: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null)
+                        | ({
+                            relationTo: 'case-studies';
+                            value: string | CaseStudy;
+                          } | null);
+                      url?: string | null;
+                      label: string;
+                    };
+                    id?: string | null;
                   }[]
                 | null;
               cells?:
@@ -1430,15 +1452,37 @@ export interface Page {
         blockType: 'content';
       }
     | {
-        contentGridFields?: {
+        contentGridFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
-          forceDarkBackground?: boolean | null;
-          useLeadingHeader?: boolean | null;
-          leadingHeader?:
+          style?: ('gridBelow' | 'sideBySide') | null;
+          showNumbers?: boolean | null;
+          content: {
+            [k: string]: unknown;
+          }[];
+          links?:
             | {
-                [k: string]: unknown;
+                link: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'case-studies';
+                        value: string | CaseStudy;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                };
+                id?: string | null;
               }[]
             | null;
           cells?:
@@ -2551,15 +2595,37 @@ export interface ReusableContent {
         blockType: 'content';
       }
     | {
-        contentGridFields?: {
+        contentGridFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
-          forceDarkBackground?: boolean | null;
-          useLeadingHeader?: boolean | null;
-          leadingHeader?:
+          style?: ('gridBelow' | 'sideBySide') | null;
+          showNumbers?: boolean | null;
+          content: {
+            [k: string]: unknown;
+          }[];
+          links?:
             | {
-                [k: string]: unknown;
+                link: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'case-studies';
+                        value: string | CaseStudy;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                };
+                id?: string | null;
               }[]
             | null;
           cells?:

@@ -1,57 +1,33 @@
 @use '@scss/common' as  *;
 
-.bgExtension {
-  --container-extension: calc(var(--base) * 5);
-  position: relative;
-  padding-top: var(--container-extension);
-  padding-bottom: var(--container-extension);
-  margin-top: var(--block-spacing);
-  margin-bottom: var(--block-spacing);
-  isolation: isolate;
-
-  @include large-break {
-    --container-extension: calc(var(--base) * 3);
-  }
-
-  @include small-break {
-    padding-top: var(--block-spacing);
-    padding-bottom: var(--block-spacing);
+.wrapper {
+  &.gridBelow {
+    align-items: center;
   }
 }
 
-.darkBg {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  background-color: var(--color-base-950);
-  margin-left: calc(var(--gutter-h) / -2);
-  width: calc(100% - var(--gutter-h));
-  z-index: -1;
+.topContent {
+  align-items: center;
+  row-gap: calc(var(--base) * 2);
 
-  @include large-break {
-    margin-left: calc(var(--gutter-h) * -1);
-    width: 100%;
+  &.gridBelow {
+    margin-bottom: calc(var(--base) * 6);
+  }
+
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 3);
   }
 }
 
-.leadingHeader {
-  margin-bottom: calc(var(--base) * 2);
-  max-width: 1400px;
+.leader {
+  @include h6;
+}
 
-  @include extra-large-break {
-    max-width: 1200px;
-  }
-
-  @include large-break {
-    max-width: 900px;
-  }
+.cellGrid {
+  row-gap: calc(var(--base) * 2.5);
+  align-items: center;
 }
 
 .cell {
-  margin-top: var(--base);
-  margin-bottom: var(--base);
-
-  @include small-break {
-    margin-top: 0;
-  }
+  padding-right: 15%;
 }
