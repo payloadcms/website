@@ -12,6 +12,10 @@
 
   &.gridBelow {
     margin-bottom: calc(var(--base) * 6);
+
+    @include mid-break {
+      margin-bottom: calc(var(--base) * 3);
+    }
   }
 
   @include mid-break {
@@ -21,6 +25,8 @@
 
 .leader {
   @include h6;
+  opacity: 0.75;
+  margin-top: 0;
 }
 
 .cellGrid {
@@ -30,4 +36,10 @@
 
 .cell {
   padding-right: 15%;
+}
+
+.cellRichText {
+  p {
+    opacity: 0.75;
+  }
 }

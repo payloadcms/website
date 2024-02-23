@@ -35,7 +35,7 @@ const Cells: React.FC<CellsProps> = ({ cells, className, showNumbers, style: sty
             key={i}
           >
             {showNumbers && <p className={classes.leader}>0{++i}</p>}
-            <RichText className={classes.richText} content={cell.content} />
+            <RichText className={classes.cellRichText} content={cell.content} />
           </div>
         )
       })}
