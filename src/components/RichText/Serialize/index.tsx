@@ -48,7 +48,7 @@ export const Serialize: SerializeFunction = ({
       {content?.map((node, i) => {
         if (isText(node)) {
           let text = skipSpan ? (
-            <>{escapeHTML(node.text)}</>
+            <>{escapeHTML(node.text).replace('-', '‑')}</>
           ) : (
             <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />
           )

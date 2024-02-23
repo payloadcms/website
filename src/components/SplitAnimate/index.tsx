@@ -27,6 +27,7 @@ const SplitAnimate: React.FC<Props> = ({
     if (text === '') return []
     return text
       .trim()
+      .replace('-', '‑')
       .replace(/&#8232;/g, ' ') // Replaces figma inserted character, see: https://forum.figma.com/t/creating-new-line-via-shift-enter-adds-a-l-sep-symbol/2856/4
       .split(' ')
   }, [text])
