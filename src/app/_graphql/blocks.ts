@@ -197,9 +197,13 @@ export const CONTENT_GRID = `
 ...on ContentGrid {
   blockType
   contentGridFields {
-    forceDarkBackground
-    useLeadingHeader
-    leadingHeader
+    settings ${SETTINGS}
+    style
+    content
+    showNumbers
+    links {
+      link ${LINK_FIELDS({ disableAppearance: true })}
+    }
     cells {
       content
     }
