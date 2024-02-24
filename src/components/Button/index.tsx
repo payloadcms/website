@@ -35,7 +35,7 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
   type?: LinkType
   reference?: Reference
   htmlButtonType?: 'button' | 'submit'
-  size?: 'pill' | 'default'
+  size?: 'pill' | 'default' | 'large'
   disabled?: boolean
   url?: string | null
   /**
@@ -114,11 +114,15 @@ const ButtonContent: React.FC<ButtonProps> = props => {
     appearance,
     iconRotation,
     isCMSFormSubmitButton,
+    size,
   } = props
 
   const Icon = icon ? icons[icon] : null
 
-  const iconProps = icon === 'arrow' ? { rotation: iconRotation } : {}
+  const iconProps = {
+    size: size === 'large' ? 'large' : 'default',
+    rotation: icon === 'arrow' ? iconRotation : undefined,
+  }
 
   if (appearance === 'default') {
     return (
