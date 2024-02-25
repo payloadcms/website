@@ -1,6 +1,7 @@
 import React from 'react'
 import { ArrowIcon } from '@icons/ArrowIcon'
 
+import { BackgroundScanline } from '@components/BackgroundScanline'
 import { CMSLink } from '@components/CMSLink'
 import { SquareCardProps } from '../types'
 
@@ -12,21 +13,16 @@ export const SquareCard: React.FC<SquareCardProps> = props => {
   const hasLink = link.url || link.reference
 
   return (
-    <div
-      className={[className, classes.card, !hasLink && classes.noLink].filter(Boolean).join(' ')}
-    >
-      <CMSLink className={classes.link} {...props.link}>
-        <div className={classes.bg} />
-        {leader && <span className={classes.leader}>{leader}</span>}
-        <div className={classes.spacer} />
-        <div className={classes.content}>
-          <div className={classes.titleWrapper}>
-            <h3 className={classes.title}>{title}</h3>
-            {description && <div className={classes.description}>{description}</div>}
-          </div>
-        </div>
-        <ArrowIcon className={classes.arrow} />
-      </CMSLink>
-    </div>
+    <CMSLink className={[className, classes.card].filter(Boolean).join(' ')} {...props.link}>
+      <div className={classes.leader}>
+        <h6 className={classes.leaderText}>{leader}</h6>
+        <ArrowIcon className={classes.icon} />
+      </div>
+      <h4 className={classes.title}>{title}</h4>
+      <div className={classes.descriptionWrapper}>
+        <p className={classes.description}>{description}</p>
+      </div>
+      <BackgroundScanline className={classes.scanlines} />
+    </CMSLink>
   )
 }
