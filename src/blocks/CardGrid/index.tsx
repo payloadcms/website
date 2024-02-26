@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
@@ -17,9 +19,11 @@ export type CardGridProps = Extract<Page['layout'][0], { blockType: 'cardGrid' }
 
 export const CardGrid: React.FC<CardGridProps> = props => {
   const {
-    cardGridFields: { richText, cards, links, settings },
+    cardGridFields: { richText, cards, links, settings, revealDescription },
     padding,
   } = props
+
+  const [index, setIndex] = useState(0)
 
   const hasCards = Array.isArray(cards) && cards.length > 0
   const hasLinks = Array.isArray(links) && links.length > 0
@@ -67,20 +71,27 @@ export const CardGrid: React.FC<CardGridProps> = props => {
 
         {hasCards && (
           <div className={classes.cards}>
-            <div className={classes.bg}>
-              <BackgroundScanline enableBorders={true} />
+            <div className={classes.margins}>
+              <BackgroundScanline enableBorders={true} className={classes.marginLeft} />
+              <BackgroundScanline enableBorders={true} className={classes.marginRight} />
             </div>
             <div className={['grid', classes.cardsWrapper].filter(Boolean).join(' ')}>
               {cards.map((card, index) => {
                 const { title, description, link } = card
                 return (
-                  <div key={index} className={'cols-4'}>
+                  <div
+                    key={index}
+                    className={'cols-4'}
+                    onMouseEnter={() => setIndex(index + 1)}
+                    onMouseLeave={() => setIndex(0)}
+                  >
                     <SquareCard
                       leader={(index + 1).toString().padStart(2, '0')}
                       className={classes.card}
                       title={title}
                       description={description}
                       link={link}
+                      revealDescription={revealDescription}
                     />
                   </div>
                 )

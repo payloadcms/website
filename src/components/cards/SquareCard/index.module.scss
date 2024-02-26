@@ -3,13 +3,12 @@
 .card {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: var(--base);
   padding: calc(var(--base) * 1.5);
   padding-bottom: 0;
   text-decoration: none;
   aspect-ratio: 1 / 1;
-  background-color: var(--color-base-1000);
-  transition: background-color, gap;
+  transition: background-color, gap, padding-bottom;
   transition-duration: .4s;
   transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
   border-bottom: 1px solid var(--grid-line-light);
@@ -28,8 +27,7 @@
   }
 
   &:hover {
-    background-color: var(--color-base-950);
-    gap: calc(var(--base) * 1.5);
+    padding-bottom: var(--base);
 
     .title {
       margin-bottom: 0;
@@ -53,6 +51,22 @@
       opacity: 1;
     }
   }
+}
+
+.revealCard {
+  gap: 0;
+  padding-bottom: 0;
+
+  &:hover {
+    gap: var(--base);
+    padding-bottom: calc(var(--base) * 1.5);
+
+    .revealDescriptionWrapper {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+  }
+
 }
 
 .leader {
@@ -87,21 +101,38 @@
 
 .descriptionWrapper {
   display: grid;
+  grid-template-rows: 1fr;
+  opacity: 1;
+
+  .description {
+    opacity: 1;
+    height: 7em;
+    pointer-events: none;
+    padding: 0;
+    margin: 0;
+    padding-bottom: calc(var(--base) * 1.5);
+  }
+}
+
+.revealDescriptionWrapper {
+  display: grid;
   grid-template-rows: 0fr;
   opacity: 0;
   transition-property: grid-template-rows, opacity;
   transition-duration: .4s;
   transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+
+  .description {
+    overflow: hidden;
+    color: var(--theme-elevation-750);
+    pointer-events: none;
+    padding: 0;
+    margin: 0;
+    height: auto;
+    padding-bottom: calc(var(--base) * 1.5);
+  }
 }
 
-.description {
-  overflow: hidden;
-  color: var(--color-base-250);
-  pointer-events: none;
-  padding: 0;
-  margin: 0;
-  padding-bottom: calc(var(--base) * 1.5);
-}
 
 .scanlines {
   opacity: 0;
