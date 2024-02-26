@@ -29,7 +29,7 @@
   --header-height: 90px;
   --top-bar-height: 46px;
 
-  --font-body-size: var(--base);
+  --font-body-size: calc(var(--base) * .9);
   --font-header-size: 20px;
 
   --z-popup: 10;
@@ -37,8 +37,8 @@
   --z-nav: 40;
   --z-modal: 50;
 
-  --grid-line-dark: rgba(255, 255, 255, 0.15);
-  --grid-line-light: rgba(0, 0, 0, 0.15);
+  --grid-line-dark: rgba(255, 255, 255, 0.125);
+  --grid-line-light: rgba(0, 0, 0, 0.125);
   --text-dark: rgba(255, 255, 255, 0.5);
   --text-light: rgba(0, 0, 0, 0.5);
 
@@ -50,7 +50,6 @@
 
   @include extra-large-break {
     --gutter-h: calc(var(--base) * 8);
-    --font-body-size: var(--base);
     --font-header-size: 18px;
   }
 

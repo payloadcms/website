@@ -110,6 +110,7 @@ export const CARD_GRID = `
   cardGridFields {
     settings ${SETTINGS}
     richText
+    revealDescription
     links {
       link ${LINK_FIELDS({ disableAppearance: true })}
     }
