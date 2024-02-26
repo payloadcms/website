@@ -35,7 +35,7 @@ export const SquareCard: React.FC<SquareCardProps> = props => {
     </CMSLink>
   ) : (
     <div
-      className={[className, classes.card, revealDescription ? '' : classes.revealCard]
+      className={[className, classes.card, revealDescription ? classes.revealCard : '']
         .filter(Boolean)
         .join(' ')}
     >
