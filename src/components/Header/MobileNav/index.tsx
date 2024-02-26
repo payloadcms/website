@@ -173,7 +173,7 @@ const SubMenuModal: React.FC<
                                   key={linkIndex}
                                   {...link.link}
                                 >
-                                  <ArrowIcon size="medium" />
+                                  <ArrowIcon />
                                 </CMSLink>
                               ))}
                           </div>
@@ -250,7 +250,7 @@ export const MobileNav: React.FC<NavItems> = props => {
                 <DocSearch />
                 <button
                   type="button"
-                  className={[classes.modalToggler, isMenuOpen ? classes.open : '']
+                  className={[classes.modalToggler, isMenuOpen ? classes.hamburgerOpen : '']
                     .filter(Boolean)
                     .join(' ')}
                   onClick={toggleModal}

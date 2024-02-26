@@ -72,6 +72,38 @@
   all: unset;
   cursor: pointer;
   margin-left: var(--base);
+
+  & svg {
+    & > * {
+      transition: all var(--trans-default) ease; 
+    }
+  }
+}
+
+.hamburgerOpen {
+ & svg { 
+  & > * {
+    transition: all var(--trans-default) ease; 
+  }
+
+  & rect {
+    &:nth-child(1) {
+      transform: translateX(5px) rotate(45deg);
+      top: 0;
+      transform-origin: top left;
+    }
+  
+    &:nth-child(2) {
+      opacity: 0;
+    }
+  
+    &:nth-child(3) {
+      bottom: 0;
+      transform: translateX(5px) rotate(-45deg);
+      transform-origin: bottom left;
+    }
+  }
+ }
 }
 
 .modalBlur {
@@ -89,6 +121,7 @@
 .mobileMenuModal {
   all: unset;
   width: 100%;
+  max-width: 100vw;
   height: 100%;
   padding-top: var(--page-padding-top);
   display: none;

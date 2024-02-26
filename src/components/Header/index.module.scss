@@ -8,6 +8,7 @@
   width: 100%;
   z-index: var(--z-nav);
   transition: color 300ms ease;
+  max-width: 100vw;
 
   &.themeIsSet {
     &:before {
