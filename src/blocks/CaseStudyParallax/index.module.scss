@@ -261,7 +261,7 @@
     height: 1px;
     background: var(--theme-elevation-1000);
     position: absolute;
-    top: 0;
+    top: -1px;
     left: 0;
     z-index: 7;
     transition: width 0.05s linear;
