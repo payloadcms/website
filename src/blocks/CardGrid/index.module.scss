@@ -64,12 +64,35 @@
   position: relative;
   border-top: 1px solid var(--grid-line-light);
 
+  &::after {
+    content: '';
+    width: calc(25% * var(--excess-length-large));
+    height: 1px;
+    background: var(--grid-line-light);
+    position: absolute;
+    bottom: 0;
+    left: calc(100% - 25% * var(--excess-length-large));
+
+    @include mid-break {
+      width: calc(50% * var(--excess-length-mid));
+      left: calc(50% * var(--excess-length-large));
+    }
+  }
+
   @include data-theme-selector('dark') {
     border-color: var(--grid-line-dark);
+
+    &::after {
+      background: var(--grid-line-dark);
+    }
   }
 
   @include data-theme-selector('light') {
     border-color: var(--grid-line-light);
+
+    &::after {
+      background: var(--grid-line-light);
+    }
   }
 
   & .backgroundGrid {
