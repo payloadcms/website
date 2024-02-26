@@ -39,7 +39,6 @@ export const Header: React.FC<MainMenu> = ({ tabs }) => {
           .join(' ')}
       >
         <DesktopNav tabs={tabs} hideBackground={hideBackground} />
-        {/* TODO: style and animate mobile nav */}
         <MobileNav tabs={tabs} />
       </header>
     </div>

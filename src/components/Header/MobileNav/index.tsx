@@ -8,13 +8,11 @@ import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
 import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
-import { DiscordIcon } from '@root/graphics/DiscordIcon'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon'
 import { MainMenu } from '@root/payload-types'
 import { useAuth } from '@root/providers/Auth'
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver'
-import { useThemePreference } from '@root/providers/Theme'
 import { Theme } from '@root/providers/Theme/types'
 import { FullLogo } from '../../../graphics/FullLogo'
 import { MenuIcon } from '../../../graphics/MenuIcon'
@@ -47,7 +45,7 @@ const MobileNavItems = ({ tabs, setActiveTab }) => {
             onClick={() => handleOnClick(index)}
           >
             {tab.label}
-            <ArrowIcon size="large" rotation={45} />
+            <ArrowIcon size="medium" rotation={45} />
           </button>
         )
       })}
@@ -64,14 +62,6 @@ const MobileNavItems = ({ tabs, setActiveTab }) => {
           Login
         </Link>
       )}
-      <a
-        className={[classes.discord, classes.mobileMenuItem].filter(Boolean).join(' ')}
-        href="https://discord.com/invite/r6sCXqVk3v"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <DiscordIcon />
-      </a>
       <CrosshairIcon
         className={[classes.crosshair, classes.crosshairTopLeft].filter(Boolean).join(' ')}
         size="large"
@@ -87,18 +77,21 @@ const MobileNavItems = ({ tabs, setActiveTab }) => {
 const MobileMenuModal: React.FC<
   NavItems & {
     setActiveTab: (index: number) => void
+    theme?: Theme | null
   }
-> = ({ tabs, setActiveTab }) => {
+> = ({ tabs, setActiveTab, theme }) => {
   return (
     <Modal slug={modalSlug} className={classes.mobileMenuModal} trapFocus={false}>
-      <Gutter className={classes.mobileMenuWrap} rightGutter={false}>
-        <div className={classes.mobileMenu}>
-          <MobileNavItems tabs={tabs} setActiveTab={setActiveTab} />
-        </div>
-        <BackgroundGrid zIndex={0} />
-        <BackgroundScanline />
-        <div className={classes.modalBlur} />
-      </Gutter>
+      <div data-theme={theme} style={{ height: '100%' }}>
+        <Gutter className={classes.mobileMenuWrap} rightGutter={false}>
+          <div className={classes.mobileMenu}>
+            <MobileNavItems tabs={tabs} setActiveTab={setActiveTab} />
+          </div>
+          <BackgroundGrid zIndex={0} />
+          <BackgroundScanline />
+          <div className={classes.modalBlur} />
+        </Gutter>
+      </div>
     </Modal>
   )
 }
@@ -106,8 +99,9 @@ const MobileMenuModal: React.FC<
 const SubMenuModal: React.FC<
   NavItems & {
     activeTab: number | undefined
+    theme?: Theme | null
   }
-> = ({ tabs, activeTab }) => {
+> = ({ tabs, activeTab, theme }) => {
   const { closeModal } = useModal()
   return (
     <Modal
@@ -115,95 +109,100 @@ const SubMenuModal: React.FC<
       className={[classes.mobileMenuModal, classes.mobileSubMenu].join(' ')}
       trapFocus={false}
     >
-      <Gutter className={classes.subMenuWrap}>
-        {(tabs || []).map((tab, tabIndex) => {
-          if (tabIndex !== activeTab) return null
-          return (
-            <div className={classes.subMenuItems}>
-              <button className={classes.backButton} onClick={() => closeModal(subMenuSlug)}>
-                <ArrowIcon size="medium" rotation={225} />
-                Back
+      <div data-theme={theme} style={{ height: '100%' }}>
+        <Gutter className={classes.subMenuWrap}>
+          {(tabs || []).map((tab, tabIndex) => {
+            if (tabIndex !== activeTab) return null
+            return (
+              <div className={classes.subMenuItems}>
+                <button className={classes.backButton} onClick={() => closeModal(subMenuSlug)}>
+                  <ArrowIcon size="medium" rotation={225} />
+                  Back
+                  <CrosshairIcon
+                    className={[classes.crosshair, classes.crosshairTopLeft]
+                      .filter(Boolean)
+                      .join(' ')}
+                    size="large"
+                  />
+                </button>
+                {(tab.navItems || []).map((item, index) => {
+                  return (
+                    <div className={classes.linkWrap} key={index}>
+                      {item.style === 'default' && item.defaultLink && (
+                        <CMSLink
+                          className={classes.defaultLink}
+                          {...item.defaultLink.link}
+                          label=""
+                        >
+                          <div className={classes.listLabelWrap}>
+                            <div className={classes.listLabel}>
+                              {item.defaultLink.link.label}
+                              <ArrowIcon size="medium" rotation={0} />
+                            </div>
+                            <div className={classes.itemDescription}>
+                              {item.defaultLink.description}
+                            </div>
+                          </div>
+                        </CMSLink>
+                      )}
+                      {item.style === 'list' && item.listLinks && (
+                        <div className={classes.linkList}>
+                          <div className={classes.tag}>{item.listLinks.tag}</div>
+                          <div className={classes.listWrap}>
+                            {item.listLinks.links &&
+                              item.listLinks.links.map((link, linkIndex) => (
+                                <CMSLink className={classes.link} key={linkIndex} {...link.link} />
+                              ))}
+                          </div>
+                        </div>
+                      )}
+                      {item.style === 'featured' && item.featuredLink && (
+                        <div className={classes.featuredLink}>
+                          <div className={classes.tag}>{item.featuredLink.tag}</div>
+                          {item.featuredLink?.label && (
+                            <RichText
+                              className={classes.featuredLinkLabel}
+                              content={item.featuredLink.label}
+                            />
+                          )}
+                          <div className={classes.featuredLinkWrap}>
+                            {item.featuredLink.links &&
+                              item.featuredLink.links.map((link, linkIndex) => (
+                                <CMSLink
+                                  className={classes.featuredLinks}
+                                  key={linkIndex}
+                                  {...link.link}
+                                >
+                                  <ArrowIcon size="medium" />
+                                </CMSLink>
+                              ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
                 <CrosshairIcon
-                  className={[classes.crosshair, classes.crosshairTopLeft]
+                  className={[classes.crosshair, classes.crosshairBottomLeft]
                     .filter(Boolean)
                     .join(' ')}
                   size="large"
                 />
-              </button>
-              {(tab.navItems || []).map((item, index) => {
-                return (
-                  <div className={classes.linkWrap} key={index}>
-                    {item.style === 'default' && item.defaultLink && (
-                      <CMSLink className={classes.defaultLink} {...item.defaultLink.link} label="">
-                        <div className={classes.listLabelWrap}>
-                          <div className={classes.listLabel}>
-                            {item.defaultLink.link.label}
-                            <ArrowIcon size="medium" rotation={45} />
-                          </div>
-                          <div className={classes.itemDescription}>
-                            {item.defaultLink.description}
-                          </div>
-                        </div>
-                      </CMSLink>
-                    )}
-                    {item.style === 'list' && item.listLinks && (
-                      <div className={classes.linkList}>
-                        <div className={classes.tag}>{item.listLinks.tag}</div>
-                        <div className={classes.listWrap}>
-                          {item.listLinks.links &&
-                            item.listLinks.links.map((link, linkIndex) => (
-                              <CMSLink className={classes.link} key={linkIndex} {...link.link} />
-                            ))}
-                        </div>
-                      </div>
-                    )}
-                    {item.style === 'featured' && item.featuredLink && (
-                      <div className={classes.featuredLink}>
-                        <div className={classes.tag}>{item.featuredLink.tag}</div>
-                        {item.featuredLink?.label && (
-                          <RichText
-                            className={classes.featuredLinkLabel}
-                            content={item.featuredLink.label}
-                          />
-                        )}
-                        <div className={classes.featuredLinkWrap}>
-                          {item.featuredLink.links &&
-                            item.featuredLink.links.map((link, linkIndex) => (
-                              <CMSLink
-                                className={classes.featuredLinks}
-                                key={linkIndex}
-                                {...link.link}
-                              >
-                                <ArrowIcon size="medium" rotation={45} />
-                              </CMSLink>
-                            ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
-              <CrosshairIcon
-                className={[classes.crosshair, classes.crosshairBottomLeft]
-                  .filter(Boolean)
-                  .join(' ')}
-                size="large"
-              />
-            </div>
-          )
-        })}
-        <BackgroundScanline />
-        <BackgroundGrid zIndex={0} />
-      </Gutter>
+              </div>
+            )
+          })}
+          <BackgroundScanline />
+          <BackgroundGrid zIndex={0} />
+          <div className={classes.modalBlur} />
+        </Gutter>
+      </div>
     </Modal>
   )
 }
 
 export const MobileNav: React.FC<NavItems> = props => {
   const { isModalOpen, openModal, closeModal, closeAllModals } = useModal()
-  const { headerTheme, setHeaderTheme } = useHeaderObserver()
-  const { theme } = useThemePreference()
-  const themeBeforeOpenRef = React.useRef<Theme | null | undefined>(theme)
+  const { headerTheme } = useHeaderObserver()
   const { user } = useAuth()
   const pathname = usePathname()
   const [activeTab, setActiveTab] = React.useState<number | undefined>()
@@ -217,20 +216,17 @@ export const MobileNav: React.FC<NavItems> = props => {
   const toggleModal = React.useCallback(() => {
     if (isMenuOpen) {
       closeAllModals()
-      setHeaderTheme(themeBeforeOpenRef?.current || theme)
     } else {
-      themeBeforeOpenRef.current = headerTheme
-      setHeaderTheme('dark')
       openModal(modalSlug)
     }
-  }, [isMenuOpen, closeAllModals, openModal, setHeaderTheme, headerTheme, theme])
+  }, [isMenuOpen, closeAllModals, openModal])
 
   return (
     <div className={classes.mobileNav}>
       <div className={classes.menuBar}>
         <Gutter>
           <div className={'grid'}>
-            <div className={[classes.menuBarContainer, 'cols-16'].filter(Boolean).join(' ')}>
+            <div className={[classes.menuBarContainer, 'cols-8'].filter(Boolean).join(' ')}>
               <Link
                 href="/"
                 className={classes.logo}
@@ -267,8 +263,8 @@ export const MobileNav: React.FC<NavItems> = props => {
           </div>
         </Gutter>
       </div>
-      <MobileMenuModal {...props} setActiveTab={setActiveTab} />
-      <SubMenuModal {...props} activeTab={activeTab} />
+      <MobileMenuModal {...props} setActiveTab={setActiveTab} theme={headerTheme} />
+      <SubMenuModal {...props} activeTab={activeTab} theme={headerTheme} />
     </div>
   )
 }

@@ -77,12 +77,12 @@
 .modalBlur {
   content: '';
   position: absolute;
-  top: 0;
+  top: 2px;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--color-base-900);
-  opacity: .85;
+  background-color: var(--theme-bg);
+  opacity: 1;
   z-index: -1;
 }
 
@@ -103,9 +103,7 @@
 .mobileMenuWrap {
   position: relative;
   height: 100%;
-  border-top: 1px solid var(--theme-border-color);
   padding-top: var(--gutter-h);
-  background-color: var(--theme-bg);
 }
 
 .mobileMenuItems {
@@ -115,15 +113,10 @@
   margin: 0;
   padding: 0;
   z-index: 1;
-
-  @include mobile-header-break {
-    gap: 0;
-  }
 }
 
 .mobileSubMenu {
   z-index: 2;
-  border-top: 1px solid var(--theme-border-color);
   background-color: var(--theme-bg);
 }
 
@@ -138,9 +131,10 @@
 }
 
 .mobileMenuItem {
-  @include h2;
   @include btnReset;
-  padding: var(--base) calc(var(--base) * 2);
+  font-family: var(--font-body);
+  font-size: calc(var(--base)*1.25);
+  padding: calc(var(--base)*1.25);
   margin: 0;
   text-decoration: none;
   background-color: var(--theme-bg);
@@ -182,7 +176,7 @@
     position: relative;
     border: 1px solid var(--theme-border-color);
     border-top: 0;
-    padding: calc(var(--base) * 1.25) var(--base);
+    padding: calc(var(--base) * 1.25);
     background-color: var(--theme-bg);
     z-index: 1;
   }
@@ -217,7 +211,6 @@
   height: 100%;
   max-height: calc(100vh - var(--page-padding-top));
   overflow-y: scroll;
-  border-top: 1px solid var(--theme-border-color);
 }
 
 .newProject {
@@ -240,10 +233,16 @@
 }
 
 .featuredLinks {
+  font-size: calc(var(--base) * 1.25);
   text-decoration: none;
   display: flex;
-  gap: calc(var(--base) * 0.5);
+  gap: calc(var(--base) * 0.75);
   align-items: center;
+
+  & svg {
+    width: calc(var(--base) * 0.85);
+    height: calc(var(--base) * 0.85);
+  }
 }
 
 .listLabelWrap {
@@ -262,10 +261,11 @@
 .listWrap {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .link {
-  width: 50%;
+  width: 47%;
   text-decoration: none;
   font-weight: 500;
   margin-bottom: calc(var(--base) * .5);
@@ -282,25 +282,4 @@
   font-weight: normal;
   text-transform: uppercase;
   letter-spacing: 2.75px;
-}
-
-.discord {
-  display: flex;
-
-  svg {
-    @include large-break {
-      width: calc(var(--base) * 2.25);
-      height: 48px;
-    }
-
-    @include mid-break {
-      width: calc(var(--base) * 2);
-      height: 40px;
-    }
-
-    @include small-break {
-      width: calc(var(--base) * 1.5);
-      height: 32px;
-    }
-  }
 }
