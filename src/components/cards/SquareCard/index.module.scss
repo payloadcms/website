@@ -13,6 +13,10 @@
   transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
   border-bottom: 1px solid var(--grid-line-light);
 
+  @include small-break {
+    aspect-ratio: unset;
+  }
+
   @include data-theme-selector('dark') {
     border-color: var(--grid-line-dark);
   }
@@ -96,6 +100,10 @@
 
   @include mid-break {
     font-size: calc(var(--base) * 1.5);
+  }
+
+  @include small-break {
+    font-size: calc(var(--base) * 1.25);
   }
 }
 

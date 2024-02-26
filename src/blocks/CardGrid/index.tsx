@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { CSSProperties, useState } from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
@@ -25,8 +25,15 @@ export const CardGrid: React.FC<CardGridProps> = props => {
 
   const [index, setIndex] = useState(0)
 
-  const hasCards = Array.isArray(cards) && cards.length > 0
+  const cardLength = cards?.length ?? 0
+  const hasCards = Array.isArray(cards) && cardLength > 0
   const hasLinks = Array.isArray(links) && links.length > 0
+  const excessLength = cardLength > 4 ? 8 - cardLength : 4 - cardLength
+
+  const wrapperStyle: CSSProperties = {
+    '--excess-length-large': excessLength,
+    '--excess-length-mid': cardLength % 2 === 0 ? 0 : 1,
+  } as CSSProperties
 
   return (
     <BlockWrapper
@@ -75,7 +82,10 @@ export const CardGrid: React.FC<CardGridProps> = props => {
               <BackgroundScanline enableBorders={true} className={classes.marginLeft} />
               <BackgroundScanline enableBorders={true} className={classes.marginRight} />
             </div>
-            <div className={['grid', classes.cardsWrapper].filter(Boolean).join(' ')}>
+            <div
+              className={['grid', classes.cardsWrapper].filter(Boolean).join(' ')}
+              style={wrapperStyle}
+            >
               {cards.map((card, index) => {
                 const { title, description, link } = card
                 return (
