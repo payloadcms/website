@@ -87,15 +87,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   }
 }
 
-.cardCrosshair {
-  position: absolute;
-  top: calc(var(--base) * -0.5 - 1px);
-  left: calc(var(--base) * -0.5);
-  width: calc(var(--base) * 1);
-  height: auto;
-  opacity: 0.5;
-}
-
 .cardWrapper {
   position: relative;
   transition: opacity 350ms $curve;
