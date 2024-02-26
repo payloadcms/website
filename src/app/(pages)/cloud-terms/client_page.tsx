@@ -12,7 +12,7 @@ export const TermsClientPage: React.FC = () => {
   return (
     <Gutter className={classes.termsOfServiceWrap}>
       <Heading element="h2">Payload Cloud - Terms of Service</Heading>
-      <Heading element="h5">Last Revised: TODO, 2023</Heading>
+      <Heading element="h5">Last Revised: February 26, 2024</Heading>
       <Grid>
         <Cell cols={10} colsM={8}>
           <p>
@@ -115,10 +115,10 @@ export const TermsClientPage: React.FC = () => {
                   noncompliance with the foregoing.
                 </li>
                 <li>
-                  <b>Service Levels and Support</b>. During the Subscription Term and for
-                  [enterprise-tier subscription Customer’s only] TODO, Payload will make the Service
-                  available in accordance with and provide the support set forth in the Service
-                  Level Agreement located at [insert link] TODO (the “
+                  <b>Service Levels and Support</b>. During the Subscription Term, unless under a
+                  seperate signed agremeent, Payload will make the Service available in accordance
+                  with and provide the support set forth in the Service Level Agreement located at
+                  <a href="/sla"></a> (the “
                   <i>
                     <b>SLA</b>
                   </i>
@@ -189,8 +189,8 @@ export const TermsClientPage: React.FC = () => {
                     <b>Account Information</b>
                   </i>
                   ”) in accordance with Payload’s privacy notices and privacy policy located at
-                  [insert link] TODO as may be updated by Payload from time to time in its sole
-                  discretion (“
+                  <a href="/privacy">payloadcms.com/privacy</a> as may be updated by Payload from
+                  time to time in its sole discretion (“
                   <i>
                     <b>Privacy Policy</b>
                   </i>
@@ -208,46 +208,6 @@ export const TermsClientPage: React.FC = () => {
                   unauthorized use of any Account or any other known or suspected breach of
                   security.
                 </li>
-                <li>
-                  <b>Third-Party Accounts</b>. The Service may allow Customer to link their Account
-                  with a third-party service provider that provides single-sign on functionality, as
-                  permitted by Payload (each account, a “
-                  <i>
-                    <b>Third-Party Account</b>
-                  </i>
-                  ”), to authenticate Customer’s Account and provide access to the Service. Customer
-                  represents that they are entitled to disclose Third-Party Account login
-                  information to Payload and/or grant Payload access to Customer’s Third-Party
-                  Account without breach by Customer of any of the terms and conditions that govern
-                  Customer’s use of the applicable Third-Party Account, and without obligating
-                  Payload to pay any fees or make Payload subject to any usage limitations imposed
-                  by such third-party service providers. Customer understands that by granting
-                  Payload access to Customer’s Third-Party Account, Payload may access, make
-                  available, and store any information, data, text, or other materials that Customer
-                  has provided to and stored in their Third-Party Account (“
-                  <i>
-                    <b>SSO Content</b>
-                  </i>
-                  ”), so that Customer may be able to access the Service through the Third-Party
-                  Account. Unless otherwise specified in this Agreement, all SSO Content is
-                  considered to be owned by the Customer. Depending on Customer’s Third-Party
-                  Accounts and their privacy settings, Customer’s personally identifiable
-                  information stored on their Third-Party Accounts may be available on and through
-                  Customer’s Account on the Service. If a Third-Party Account or associated service
-                  becomes unavailable, or Payload’s access to such Third-Party Account is terminated
-                  by the third-party service provider or Customer, then SSO Content will no longer
-                  be available on and through the Service. Customer will have the ability to disable
-                  the connection between their Account and their Third-Party Accounts at any time by
-                  accessing the [“Settings”] TODO section of the Dashboard. CUSTOMER’S RELATIONSHIP
-                  WITH THE THIRD-PARTY SERVICE PROVIDERS ASSOCIATED WITH CUSTOMER’S THIRD-PARTY
-                  ACCOUNTS IS GOVERNED SOLELY BY CUSTOMER'S AGREEMENT(S) WITH SUCH THIRD-PARTY
-                  SERVICE PROVIDERS, AND PAYLOAD DISCLAIMS ANY LIABILITY FOR PERSONALLY IDENTIFIABLE
-                  INFORMATION OR DATA THAT MAY BE PROVIDED TO IT BY SUCH THIRD-PARTY SERVICE
-                  PROVIDERS IN VIOLATION OF THE PRIVACY SETTINGS THAT CUSTOMER’S MAY HAVE SET IN
-                  SUCH THIRD-PARTY ACCOUNTS. Payload makes no effort to review any SSO Content for
-                  any purpose, including but not limited to, for accuracy, legality or
-                  noninfringement, and Payload is not responsible for any SSO Content.
-                </li>
               </ol>
             </li>
             <li>
@@ -260,16 +220,16 @@ export const TermsClientPage: React.FC = () => {
                     <b>Fees</b>
                   </i>
                   ”). For a description of Payload’s current standard rates and pricing, please
-                  visit [Insert link] TODO. Payload offers the Service on a subscription basis with
-                  different service tiers to choose. Customer will pay for any excess usage beyond
-                  any usage limitations or metrics on which Fees are based at the rates set forth in
-                  the Order, or, if no such rates are set forth on the Order, then at Payload’s
-                  then-current standard rates for such usage. Unless otherwise set forth in an
-                  Order, Fees for access to and use of the Service will be invoiced in advance on a
-                  monthly basis for cloud subscription Customers, and on a quarterly basis for
-                  enterprise tier Customers. In order to purchase a Subscription, Customer must
-                  provide a valid payment method of the type requested or permitted by Payload (the
-                  “
+                  visit <a href="/cloud-pricing">https://payloadcms.com/cloud-pricing</a>. Payload
+                  offers the Service on a subscription basis with different service tiers to choose.
+                  Customer will pay for any excess usage beyond any usage limitations or metrics on
+                  which Fees are based at the rates set forth in the Order, or, if no such rates are
+                  set forth on the Order, then at Payload’s then-current standard rates for such
+                  usage. Unless otherwise set forth in an Order, Fees for access to and use of the
+                  Service will be invoiced in advance on a monthly basis for cloud subscription
+                  Customers, and on a quarterly basis for enterprise tier Customers. In order to
+                  purchase a Subscription, Customer must provide a valid payment method of the type
+                  requested or permitted by Payload (the “
                   <i>
                     <b>Payment Method</b>
                   </i>
@@ -310,9 +270,11 @@ export const TermsClientPage: React.FC = () => {
                     <b>Subscription Term</b>
                   </i>
                   .” Customer may cancel the Subscription prior to the start of a Renewal
-                  Subscription Period by logging into the Account and going to the [“Account
-                  Settings”] TODO page. Customer agrees that any termination of a Subscription will
-                  be effective as of the end of the then-current Subscription Period.
+                  Subscription Period by deleting the project. To delete a project, log into the
+                  Account, click the project to cancel, then click "Settings", then "Plan" and
+                  follow instructions to delete the project. Customer agrees that any termination of
+                  a Subscription will be effective as of the end of the then-current Subscription
+                  Period.
                 </li>
                 <li>
                   <b>Subscription Upgrades</b>. If Customer chooses to upgrade its Subscription in
@@ -521,14 +483,14 @@ export const TermsClientPage: React.FC = () => {
                   <b>Notice</b>. Any notice or communication required or permitted under this
                   Agreement shall be in writing to the parties at: (a) if to Customer, the email
                   address provided by Customer during the Account registration process (or as
-                  otherwise later changed by Customer in its Account); and (b) if to Payload, [Email
-                  Address] TODO, or to Payload’s physical address located at [office/mail address]
-                  TODO. The written communication shall be deemed to have been received by the
-                  addressee; (i) if given by hand, immediately upon receipt; (ii) if given by
-                  overnight courier service, the first business day following dispatch; (iii) if
-                  given by registered or certified mail, postage prepaid and return receipt
-                  requested, the third business day after such notice is deposited in the mail; or
-                  (iv) if given by email, upon sending of an email.
+                  otherwise later changed by Customer in its Account); and (b) if to Payload,
+                  info@payloadcms.com, or to Payload’s physical address located at 624 Stocking Ave.
+                  NW. Grand Rapids, Michigan 49504. The written communication shall be deemed to
+                  have been received by the addressee; (i) if given by hand, immediately upon
+                  receipt; (ii) if given by overnight courier service, the first business day
+                  following dispatch; (iii) if given by registered or certified mail, postage
+                  prepaid and return receipt requested, the third business day after such notice is
+                  deposited in the mail; or (iv) if given by email, upon sending of an email.
                 </li>
                 <li>
                   <b>Updates to this Agreement; Waivers</b>. Payload may supplement, amend or

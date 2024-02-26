@@ -35,7 +35,7 @@ export const CookieClientPage: React.FC = () => {
         <Grid>
           <Cell cols={10} colsM={8}>
             <h2>Cookie Policy</h2>
-            <p>Effective as of May TODO, 2023.</p>
+            <p>Effective as of March 27, 2023.</p>
             <p>
               This cookie policy explains how Payload CMS, LLC and our subsidiaries and affiliates
               ("<b>Payload</b>," "<b>we</b>", “<b>us</b>” or "<b>our</b>") use cookies to help
@@ -217,7 +217,7 @@ export const CookieClientPage: React.FC = () => {
                   </tr>
                   <tr>
                     <td>_gat_FLQ5THRMZQ</td>
-                    <td>TODO</td>
+                    <td>Performance: to read and filter requests from bots</td>
                     <td>Session cookie (expires when the user closes the browser)</td>
                     <td>Google</td>
                     <td>
@@ -284,8 +284,8 @@ export const CookieClientPage: React.FC = () => {
             <p>
               You can change the cookie settings when you visit our Sites via our cookie banner that
               is displayed to you when you first visit our Sites, or at any time by visiting the
-              cookie preference centre TODO. Our cookie banner and cookie preference center allow
-              you to accept, refuse or manage the setting of all or some cookies:
+              cookie preferences below. Our cookie banner and cookie preference center allow you to
+              accept, refuse or manage the setting of all or some cookies:
             </p>
             <ul>
               <li>Strictly necessary cookies do not require your consent.</li>
@@ -359,7 +359,7 @@ export const CookieClientPage: React.FC = () => {
             </p>
             <p>
               For more information about how we collect, use and share your information, see our
-              Privacy Policy TODO.
+              <a href="/privacy">Privacy Policy</a>.
             </p>
             <h4>Changes</h4>
             <p>
@@ -369,7 +369,7 @@ export const CookieClientPage: React.FC = () => {
             <h4>Questions</h4>
             <p>
               If you have any questions about this cookie policy, please contact us by email at
-              [email address] TODO.
+              <a href="mailto:info@payloadcms.com">info@payloadcms.com</a>.
             </p>
           </Cell>
           <Cell cols={8}>
