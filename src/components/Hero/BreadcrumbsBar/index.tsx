@@ -11,35 +11,61 @@ import { useThemePreference } from '@root/providers/Theme'
 
 import classes from './index.module.scss'
 
-interface Props {
+interface HeroProps {
   hero: Page['hero']
-  breadcrumbs: Page['breadcrumbs']
+  links?: never
 }
 
-const BreadcrumbsBar: React.FC<Props> = ({ hero, breadcrumbs: breadcrumbsProps }) => {
-  const { breadcrumbsBarLinks, theme, enableBreadcrumbsBar, type } = hero
+interface LinksProps {
+  hero?: never
+  links: {
+    url: string
+    label: string
+    newTab?: boolean
+    icon?: 'arrow'
+  }[]
+}
+
+type Conditional = HeroProps | LinksProps
+
+type Props = {
+  breadcrumbs: Page['breadcrumbs']
+} & Conditional
+
+const BreadcrumbsBar: React.FC<Props> = ({
+  hero,
+  breadcrumbs: breadcrumbsProps,
+  links: linksFromProps,
+}) => {
   const { theme: themeFromContext } = useThemePreference()
-  const [themeState, setThemeState] = useState<Page['hero']['theme']>(theme)
+  const [themeState, setThemeState] = useState<Page['hero']['theme']>(hero?.theme)
 
   const hasBackground = () => {
-    switch (type) {
-      case 'home':
-        return true
-      case 'gradient':
-        return Boolean(hero.fullBackground)
-      default:
-        return false
+    if (hero) {
+      switch (hero.type) {
+        case 'home':
+          return true
+        case 'gradient':
+          return Boolean(hero.fullBackground)
+        default:
+          return false
+      }
+    } else {
+      return false
     }
   }
 
+  const links = hero?.breadcrumbsBarLinks ?? linksFromProps
+  const enableBreadcrumbsBar = linksFromProps ?? hero.enableBreadcrumbsBar
+
   useEffect(() => {
-    if (theme) setThemeState(theme)
+    if (hero?.theme) setThemeState(hero.theme)
     else if (themeFromContext) setThemeState(themeFromContext)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [themeFromContext, theme])
+  }, [themeFromContext, hero])
 
   const breadcrumbs = useMemo(() => {
-    return breadcrumbsProps?.slice(0, breadcrumbsProps.length - 1) ?? []
+    return breadcrumbsProps ?? []
   }, [breadcrumbsProps])
 
   const useTheme = hasBackground() ? 'dark' : themeState ?? 'dark'
@@ -59,17 +85,23 @@ const BreadcrumbsBar: React.FC<Props> = ({ hero, breadcrumbs: breadcrumbsProps }
                 <div>{breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}</div>
 
                 <div className={classes.links}>
-                  {Array.isArray(breadcrumbsBarLinks) &&
-                    breadcrumbsBarLinks.map(({ link }, i) => {
-                      return (
-                        <CMSLink
-                          className={classes.link}
-                          key={i}
-                          {...link}
-                          appearance={undefined}
-                        />
-                      )
-                    })}
+                  {Array.isArray(links) &&
+                    links
+                      .filter(link => Boolean('url' in link && link.url))
+                      .map((link, i) => {
+                        return (
+                          <CMSLink
+                            className={classes.link}
+                            key={i}
+                            {...link}
+                            appearance={'text'}
+                            buttonProps={{
+                              icon: ('icon' in link && link.icon) ?? undefined,
+                              labelStyle: 'regular',
+                            }}
+                          />
+                        )
+                      })}
                 </div>
               </div>
 
@@ -81,28 +113,36 @@ const BreadcrumbsBar: React.FC<Props> = ({ hero, breadcrumbs: breadcrumbsProps }
                   </summary>
                   <div className={classes.dropdownContent}>
                     {Array.isArray(breadcrumbs) &&
-                      breadcrumbs.map(({ url, label }, i) => {
-                        return (
-                          <CMSLink
-                            className={classes.link}
-                            key={i}
-                            url={url}
-                            label={label}
-                            appearance={undefined}
-                          />
-                        )
-                      })}
-                    {Array.isArray(breadcrumbsBarLinks) &&
-                      breadcrumbsBarLinks.map(({ link }, i) => {
-                        return (
-                          <CMSLink
-                            className={classes.link}
-                            key={i}
-                            {...link}
-                            appearance={undefined}
-                          />
-                        )
-                      })}
+                      breadcrumbs
+                        .filter(link => Boolean(link.url))
+                        .map(({ url, label }, i) => {
+                          return (
+                            <CMSLink
+                              className={classes.link}
+                              key={i}
+                              url={url}
+                              label={label}
+                              appearance={undefined}
+                            />
+                          )
+                        })}
+                    {Array.isArray(links) &&
+                      links
+                        .filter(link => Boolean('url' in link && link.url))
+                        .map((link, i) => {
+                          return (
+                            <CMSLink
+                              className={classes.link}
+                              key={i}
+                              {...link}
+                              appearance={'text'}
+                              buttonProps={{
+                                icon: ('icon' in link && link.icon) ?? undefined,
+                                labelStyle: 'regular',
+                              }}
+                            />
+                          )
+                        })}
                   </div>
                 </details>
               </div>
