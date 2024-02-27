@@ -44,6 +44,8 @@ export interface CaseStudy {
   introContent: {
     [k: string]: unknown;
   }[];
+  industry?: string | null;
+  useCase?: string | null;
   featuredImage: string | Media;
   layout?:
     | (
@@ -3560,6 +3562,7 @@ export interface Footer {
   id: string;
   columns?:
     | {
+        label: string;
         navItems?:
           | {
               link: {

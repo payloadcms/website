@@ -5,12 +5,12 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .footer {
   position: relative;
   background: var(--color-base-1000);
-  padding-top: calc(var(--base) * 11.5);
+  padding-top: calc(var(--base) * 8);
   padding-bottom: calc(var(--base) * 7.5);
   overflow: hidden;
 
   @include mid-break {
-    padding-top: calc(var(--base) * 7.5);
+    padding-top: calc(var(--base) * 4);
     padding-bottom: calc(var(--base) * 7.5);
   }
 
@@ -36,9 +36,9 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 }
 
 .footer .link {
+  @include body;
   display: block;
   margin-bottom: calc(var(--base) * .15);
-  font-size: calc(var(--font-body-size) * 0.925);
   color: var(--color-base-0);
 
   &:hover {
@@ -83,7 +83,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 }
 
 .emailInput input {
-  padding-right: calc(var(--base) * 2);
+  padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
   background: transparent;
   border-color: var(--grid-line-dark);
   border-left: none;
@@ -186,6 +186,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     padding-left: var(--theme-icon-width);
     width: 100%;
     padding-right: var(--theme-switcher-icon-width);
+    padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
   }
 }
 

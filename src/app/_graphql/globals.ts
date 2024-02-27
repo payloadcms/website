@@ -37,10 +37,11 @@ export const GLOBALS = `
 
     Footer {
       columns {
+        label
         navItems {
           link ${LINK_FIELDS({ disableAppearance: true })}
         }
-      }  
+      }
     }
 
     TopBar {
@@ -48,7 +49,7 @@ export const GLOBALS = `
         desktop
         mobile
       }
-      announcement {   
+      announcement {
         name
         content
       }
