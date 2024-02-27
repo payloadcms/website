@@ -29,7 +29,7 @@ export const Breadcrumbs: React.FC<Props> = ({ items, ellipsis = true, className
         if (item?.url && typeof item.url === 'string') {
           return (
             <React.Fragment key={index}>
-              <label
+              <div
                 className={[classes.label, doEllipsis && classes.ellipsis]
                   .filter(Boolean)
                   .join(' ')}
@@ -37,7 +37,7 @@ export const Breadcrumbs: React.FC<Props> = ({ items, ellipsis = true, className
                 <Link href={item.url} prefetch={false} className={classes.labelContent}>
                   {item.label}
                 </Link>
-              </label>
+              </div>
               {!isLast && <p className={classes.divider}>&nbsp;&#47;&nbsp;</p>}
             </React.Fragment>
           )
@@ -45,11 +45,11 @@ export const Breadcrumbs: React.FC<Props> = ({ items, ellipsis = true, className
 
         return (
           <React.Fragment key={index}>
-            <label
+            <div
               className={[classes.label, doEllipsis && classes.ellipsis].filter(Boolean).join(' ')}
             >
               <div className={classes.labelContent}>{item.label}</div>
-            </label>
+            </div>
             {!isLast && <p className={classes.divider}>&nbsp;/&nbsp;</p>}
           </React.Fragment>
         )
