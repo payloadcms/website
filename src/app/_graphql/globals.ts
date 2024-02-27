@@ -6,6 +6,7 @@ export const GLOBALS = `
       tabs {
         label
         enableDirectLink
+        enableDropdown
         link ${LINK_FIELDS({ disableAppearance: true, disableLabel: true })}
         description
         descriptionLinks {

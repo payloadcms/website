@@ -75,30 +75,24 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
           <div className={[classes.content, 'cols-8'].join(' ')}>
             <div className={classes.tabs} onMouseLeave={resetHoverStyles}>
               {(tabs || []).map((tab, tabIndex) => {
-                if (tab.enableDirectLink)
-                  return (
-                    <div
-                      key={tabIndex}
-                      onMouseEnter={() => handleHoverEnter(tabIndex)}
-                      onFocus={() => handleHoverEnter(tabIndex)}
-                    >
-                      <button className={classes.tab} ref={ref => (menuItemRefs[tabIndex] = ref)}>
+                return (
+                  <div
+                    key={tabIndex}
+                    onMouseEnter={() => handleHoverEnter(tabIndex)}
+                    onFocus={() => handleHoverEnter(tabIndex)}
+                  >
+                    <button className={classes.tab} ref={ref => (menuItemRefs[tabIndex] = ref)}>
+                      {tab.enableDirectLink ? (
                         <CMSLink className={classes.directLink} {...tab.link} label={tab.label}>
-                          <ArrowIcon size="medium" className={classes.tabArrow} />
+                          {!tab.enableDropdown && (
+                            <ArrowIcon size="medium" className={classes.tabArrow} />
+                          )}
                         </CMSLink>
-                      </button>
-                    </div>
-                  )
-                else
-                  return (
-                    <div
-                      key={tabIndex}
-                      onMouseEnter={() => handleHoverEnter(tabIndex)}
-                      onFocus={() => handleHoverEnter(tabIndex)}
-                    >
-                      <button className={classes.tab} ref={ref => (menuItemRefs[tabIndex] = ref)}>
-                        {tab.label}
-                      </button>
+                      ) : (
+                        <>{tab.label}</>
+                      )}
+                    </button>
+                    {tab.enableDropdown && (
                       <div
                         className={[
                           'grid',
@@ -203,8 +197,9 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
                             )
                           })}
                       </div>
-                    </div>
-                  )
+                    )}
+                  </div>
+                )
               })}
               <div
                 className={classes.underline}
