@@ -5,13 +5,21 @@
 }
 
 .hasDarkModeFallback.themeLight {
-  @include data-theme-selector('dark', true) {
+  [data-theme='dark'] & {
     display: none;
+
+    [data-theme='light'] & {
+      display: block;
+    }
   }
 }
 
 .themeDark {
-  @include data-theme-selector('light', true) {
+  [data-theme='light'] & {
     display: none;
+
+    [data-theme='dark'] & {
+      display: block;
+    }
   }
 }
