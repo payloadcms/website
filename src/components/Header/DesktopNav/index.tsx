@@ -75,6 +75,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
           <div className={[classes.content, 'cols-8'].join(' ')}>
             <div className={classes.tabs} onMouseLeave={resetHoverStyles}>
               {(tabs || []).map((tab, tabIndex) => {
+                const { enableDirectLink = false, enableDropdown = false } = tab
                 return (
                   <div
                     key={tabIndex}
@@ -82,17 +83,17 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
                     onFocus={() => handleHoverEnter(tabIndex)}
                   >
                     <button className={classes.tab} ref={ref => (menuItemRefs[tabIndex] = ref)}>
-                      {tab.enableDirectLink ? (
+                      {enableDirectLink ? (
                         <CMSLink className={classes.directLink} {...tab.link} label={tab.label}>
                           {tab.link?.newTab && tab.link.type === 'custom' && (
-                            <ArrowIcon size="medium" className={classes.tabArrow} />
+                            <ArrowIcon className={classes.tabArrow} />
                           )}
                         </CMSLink>
                       ) : (
                         <>{tab.label}</>
                       )}
                     </button>
-                    {tab.enableDropdown && (
+                    {enableDropdown && (
                       <div
                         className={[
                           'grid',
