@@ -1,6 +1,5 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
-import { motion, useMotionValue } from 'framer-motion'
+import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 
 import classes from './index.module.scss'
 
@@ -8,8 +7,11 @@ interface Payload3DProps {}
 
 const Payload3D: React.FC<Payload3DProps> = props => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const mousePositionX = useMotionValue(0)
-  const mousePositionY = useMotionValue(0)
+  const defaultStyles = {
+    '--mouse-x': 0,
+    '--mouse-y': 0,
+  } as CSSProperties
+  const [gradientStyles, setGradientStyle] = useState<CSSProperties>(defaultStyles)
 
   useEffect(() => {
     let intersectionObserver: IntersectionObserver
@@ -18,11 +20,15 @@ const Payload3D: React.FC<Payload3DProps> = props => {
     const updateMousePosition = e => {
       if (containerRef.current) {
         const boundingRect = containerRef.current.getBoundingClientRect()
-        const x = e.clientX - boundingRect.left - 140
-        const y = e.clientY - boundingRect.top - 370
+        const x = e.clientX - boundingRect.left
+        const y = e.clientY - boundingRect.top
 
-        mousePositionX.set(x)
-        mousePositionY.set(y)
+        const styles = {
+          '--mouse-x': x,
+          '--mouse-y': y,
+        } as CSSProperties
+
+        setGradientStyle(styles)
       }
       scheduledAnimationFrame = false
     }
@@ -84,10 +90,7 @@ const Payload3D: React.FC<Payload3DProps> = props => {
 
       <div className={classes.mask}>
         <div className={classes.noise} />
-        <motion.div
-          className={classes.gradient}
-          style={{ left: mousePositionX, top: mousePositionY }}
-        />
+        <div className={classes.gradient} style={gradientStyles} />
       </div>
     </div>
   )

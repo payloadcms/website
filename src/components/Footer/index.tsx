@@ -9,6 +9,7 @@ import { Footer as FooterType } from '@types'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
+import { Select } from '@components/CMSForm/fields/Select'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
 import Payload3D from '@components/Payload3D'
@@ -161,8 +162,8 @@ export const Footer: React.FC<FooterType> = props => {
       <BackgroundGrid zIndex={0} />
       <Gutter className={classes.container}>
         <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')}>
-          <div className={['cols-4 cols-m-4 cols-s-8'].filter(Boolean).join(' ')}>
-            <p className={classes.colHeader}>Products</p>
+          <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
+            <p className={classes.colHeader}>{products.label}</p>
             <div className={classes.colItems}>
               {products?.navItems?.map(({ link }, index) => {
                 return (
@@ -174,8 +175,8 @@ export const Footer: React.FC<FooterType> = props => {
             </div>
           </div>
 
-          <div className={['cols-4 cols-m-4 cols-s-8'].filter(Boolean).join(' ')}>
-            <p className={classes.colHeader}>Documentation</p>
+          <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
+            <p className={classes.colHeader}>{developers.label}</p>
             <div className={classes.colItems}>
               {developers?.navItems?.map(({ link }, index) => {
                 return (
@@ -187,8 +188,8 @@ export const Footer: React.FC<FooterType> = props => {
             </div>
           </div>
 
-          <div className={['cols-4 cols-m-4 cols-s-8'].filter(Boolean).join(' ')}>
-            <p className={classes.colHeader}>Company</p>
+          <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
+            <p className={classes.colHeader}>{company.label}</p>
             <div className={classes.colItems}>
               {company?.navItems?.map(({ link }, index) => {
                 return (
@@ -212,6 +213,7 @@ export const Footer: React.FC<FooterType> = props => {
                   <Text
                     type="text"
                     path={newsletterId}
+                    name="email"
                     value={formData.email}
                     customOnChange={handleChange}
                     required

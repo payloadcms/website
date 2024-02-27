@@ -1,5 +1,6 @@
 import {
   CALL_TO_ACTION,
+  CALLOUT,
   CARD_GRID,
   CASE_STUDIES_HIGHLIGHT,
   CODE_FEATURE,
@@ -46,6 +47,7 @@ export const CASE_STUDY = `
         url
         layout {
           ${CALL_TO_ACTION}
+          ${CALLOUT}
           ${CARD_GRID}
           ${CASE_STUDIES_HIGHLIGHT}
           ${CODE_FEATURE}

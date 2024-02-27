@@ -2,6 +2,7 @@ import type { Validate } from '../types'
 
 export interface FieldProps<T> {
   path?: string
+  name?: string
   required?: boolean
   validate?: Validate
   label?: string | React.ReactNode
