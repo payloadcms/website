@@ -4,21 +4,14 @@
   background-color: var(--theme-elevation-50);
 }
 
-[data-theme=dark] {
-  .hasDarkModeFallback.themeLight {
+.hasDarkModeFallback.themeLight {
+  @include data-theme-selector('dark', true) {
     display: none;
   }
 }
 
-[data-theme=light] {
-  .themeDark {
+.themeDark {
+  @include data-theme-selector('light', true) {
     display: none;
-  }
-}
-
-// Specific rule to handle the home hero exception, to be reviewed if it's a problem with other blocks
-[data-theme='light'] [data-theme='dark'] {
-  .hasDarkModeFallback.themeDark {
-    display: block;
   }
 }
