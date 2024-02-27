@@ -84,7 +84,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
                     <button className={classes.tab} ref={ref => (menuItemRefs[tabIndex] = ref)}>
                       {tab.enableDirectLink ? (
                         <CMSLink className={classes.directLink} {...tab.link} label={tab.label}>
-                          {!tab.enableDropdown && (
+                          {tab.link?.newTab && tab.link.type === 'custom' && (
                             <ArrowIcon size="medium" className={classes.tabArrow} />
                           )}
                         </CMSLink>
