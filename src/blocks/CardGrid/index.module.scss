@@ -75,7 +75,7 @@
 
     @include mid-break {
       width: calc(50% * var(--excess-length-mid));
-      left: calc(50% * var(--excess-length-large));
+      left: calc(50% * var(--excess-length-mid));
     }
   }
 
