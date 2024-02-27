@@ -3595,7 +3595,8 @@ export interface MainMenu {
   tabs?:
     | {
         label: string;
-        directLink?: boolean | null;
+        enableDirectLink?: boolean | null;
+        enableDropdown?: boolean | null;
         link?: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
@@ -3613,7 +3614,6 @@ export interface MainMenu {
                 value: string | CaseStudy;
               } | null);
           url?: string | null;
-          label: string;
         };
         description?: string | null;
         descriptionLinks?:
