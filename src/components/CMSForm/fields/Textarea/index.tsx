@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Error from '@forms/Error'
 import { FieldProps } from '@forms/fields/types'
 import { useField } from '@forms/fields/useField'
@@ -35,7 +35,7 @@ export const Textarea: React.FC<
     },
     showError: showErrorFromProps,
   } = props
-
+  const inputRef = useRef<HTMLTextAreaElement>(null)
   const [isFocused, setIsFocused] = React.useState(false)
 
   const handleFocus = () => setIsFocused(true)
@@ -66,6 +66,19 @@ export const Textarea: React.FC<
     required,
   })
 
+  useEffect(() => {
+    if (inputRef.current) {
+      if (value && value !== '') {
+        inputRef.current.style.setProperty(
+          '--intrinsic-height',
+          String(inputRef.current.scrollHeight ?? 100),
+        )
+      } else {
+        inputRef.current.style.setProperty('--intrinsic-height', String(100))
+      }
+    }
+  }, [inputRef, value])
+
   return (
     <div
       className={[
@@ -93,6 +106,7 @@ export const Textarea: React.FC<
       </div>
       <textarea
         {...elementAttributes}
+        ref={inputRef}
         rows={rows}
         className={[classes.textarea].filter(Boolean).join(' ')}
         value={value || ''}

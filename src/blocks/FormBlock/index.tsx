@@ -40,7 +40,7 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
     <BlockWrapper
       data-theme="dark"
       settings={settings}
-      padding={padding}
+      padding={{ top: 'large', bottom: 'large' }}
       className={classes.formBlock}
     >
       <BackgroundGrid zIndex={0} />
