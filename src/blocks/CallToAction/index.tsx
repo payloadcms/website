@@ -58,14 +58,13 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
                       appearance={'default'}
                       buttonProps={{
                         appearance: 'default',
+                        size: 'large',
                         hideHorizontalBorders: true,
                         hideBottomBorderExceptLast: true,
                         forceBackground: true,
                       }}
                       className={[classes.button].filter(Boolean).join(' ')}
-                    >
-                      <ArrowIcon className={classes.buttonIcon} />
-                    </CMSLink>
+                    />
                   ))}
                 </div>
               )}
