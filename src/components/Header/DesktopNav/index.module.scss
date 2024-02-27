@@ -7,16 +7,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   width: 100%;
   height: var(--header-height);
 
-  &:local() {
-    a {
-      text-decoration: none;
-
-      &:hover {
-        opacity: 0.5;
-      }
-    }
-  }
-
   @include mobile-header-break {
     display: none;
     visibility: hidden;
@@ -127,6 +117,23 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   @include headerText;
   cursor: pointer;
   height: 100%;
+  text-decoration: none;
+}
+
+.directLink {
+  height: 100%;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+
+  &:hover, &:focus {
+    opacity: 1;
+    text-decoration: none;
+  }
+}
+
+.tabArrow {
+  margin-left: calc(var(--base) * 0.5);
 }
 
 .underline {
@@ -172,12 +179,20 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   &:last-child {
     padding-right: 0;
   }
+
+  & svg {
+    transition: all var(--trans-default) $curve;
+  }
 }
 
-.activeDropdownItem {
+.showUnderline {
   &:before {
     transition: all var(--trans-default) $curve;
     width: 100%;
+  }
+  & svg {
+    transition: all var(--trans-default) $curve;
+    transform: translate3d(10px, -10px, 0);
   }
 }
 
@@ -187,6 +202,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .description {
   @include headerText;
+  font-size: calc(var(--base)*1.1);
 }
 
 .activeTab {
@@ -248,6 +264,12 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .link {
   @include body;
   font-weight: 500;
+  transition: all var(--trans-default) $curve;
+
+  &:hover {
+    transition: all var(--trans-default) $curve;
+    opacity: 0.8;
+  }
 }
 
 .featuredLinks, .descriptionLink {
@@ -257,6 +279,12 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   flex-direction: row;
   gap: var(--base);
   line-height: 1;
+  transition: all var(--trans-default) $curve;
+  
+  &:hover {
+    transition: all var(--trans-default) $curve;
+    opacity: 0.8;
+  }
 }
 
 .descriptionLink {

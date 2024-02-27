@@ -5,6 +5,8 @@ export const GLOBALS = `
     MainMenu {
       tabs {
         label
+        enableDirectLink
+        link ${LINK_FIELDS({ disableAppearance: true, disableLabel: true })}
         description
         descriptionLinks {
           link ${LINK_FIELDS({ disableAppearance: true })}

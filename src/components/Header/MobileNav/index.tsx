@@ -38,6 +38,12 @@ const MobileNavItems = ({ tabs, setActiveTab }) => {
   return (
     <ul className={classes.mobileMenuItems}>
       {(tabs || []).map((tab, index) => {
+        if (tab.enableDirectLink)
+          return (
+            <CMSLink key={index} className={classes.mobileMenuItem} {...tab.link} label={tab.label}>
+              <ArrowIcon size="medium" rotation={45} />
+            </CMSLink>
+          )
         return (
           <button
             className={classes.mobileMenuItem}

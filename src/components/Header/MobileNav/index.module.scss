@@ -168,6 +168,8 @@
   font-family: var(--font-body);
   font-size: calc(var(--base)*1.25);
   padding: calc(var(--base)*1.25);
+  font-weight: 500;
+  letter-spacing: -0.03em;
   margin: 0;
   text-decoration: none;
   background-color: var(--theme-bg);
@@ -181,6 +183,10 @@
 
   &:first-child {
     border-top: 1px solid var(--theme-border-color);
+  }
+
+  &:hover, &:focus {
+    text-decoration: none;
   }
   
   @include mobile-header-break {
