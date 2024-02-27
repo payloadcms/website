@@ -734,7 +734,6 @@ export interface CaseStudy {
               settings?: {
                 theme?: ('light' | 'dark') | null;
               };
-              heading: string;
               richText: {
                 [k: string]: unknown;
               }[];
@@ -1870,7 +1869,6 @@ export interface Page {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
-          heading: string;
           richText: {
             [k: string]: unknown;
           }[];
@@ -3004,7 +3002,6 @@ export interface ReusableContent {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
-          heading: string;
           richText: {
             [k: string]: unknown;
           }[];

@@ -17,7 +17,7 @@ export type StatementProps = Extract<Page['layout'][0], { blockType: 'statement'
 
 export const Statement: React.FC<StatementProps> = props => {
   const {
-    statementFields: { heading, richText, links, settings },
+    statementFields: { richText, links, settings },
     padding,
   } = props
 
@@ -33,9 +33,6 @@ export const Statement: React.FC<StatementProps> = props => {
               .filter(Boolean)
               .join(' ')}
           >
-            <h2 className={classes.heading}>
-              <SplitAnimate text={heading} />
-            </h2>
             <RichText content={richText} className={classes.content} />
             {hasLinks && (
               <ul className={[classes.links].filter(Boolean).join(' ')}>

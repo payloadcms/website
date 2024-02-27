@@ -404,7 +404,6 @@ export const STATEMENT = `
   blockType
   statementFields {
     settings ${SETTINGS}
-    heading
     richText
     links {
       link ${LINK_FIELDS({ disableAppearance: true })}
