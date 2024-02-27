@@ -4,22 +4,27 @@
   background-color: var(--theme-elevation-50);
 }
 
-.hasDarkModeFallback.themeLight {
-  [data-theme='dark'] & {
+[data-theme='dark'] {
+  .hasDarkModeFallback.themeLight {
     display: none;
-
-    [data-theme='light'] & {
-      display: block;
-    }
   }
 }
 
-.themeDark {
-  [data-theme='light'] & {
-    display: none;
+[data-theme='dark'] [data-theme='light'] {
+  .hasDarkModeFallback.themeLight {
+    display: block;
+  }
+}
 
-    [data-theme='dark'] & {
-      display: block;
-    }
+
+[data-theme='light'] {
+  .themeDark {
+    display: none;
+  }
+}
+
+[data-theme='light'] [data-theme='dark'] {
+  .themeDark {
+    display: block;
   }
 }
