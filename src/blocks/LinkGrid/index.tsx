@@ -14,7 +14,7 @@ import { Page } from '@root/payload-types'
 import classes from './index.module.scss'
 
 export type LinkGridProps = Extract<Page['layout'][0], { blockType: 'linkGrid' }> & {
-  padding: PaddingProps
+  padding?: PaddingProps
 }
 
 type Fields = Exclude<LinkGridProps['linkGridFields'], undefined>

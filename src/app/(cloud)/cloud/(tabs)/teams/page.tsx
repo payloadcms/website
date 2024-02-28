@@ -54,8 +54,6 @@ export default async () => {
           <LinkGrid
             blockType="linkGrid"
             className={classes.linkGrid}
-            topMargin={false}
-            bottomMargin={false}
             linkGridFields={{
               links:
                 teams?.map((team, index) => {
