@@ -20,7 +20,9 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
   const { user } = useAuth()
   const [activeTab, setActiveTab] = React.useState<number | undefined>()
   const [activeDropdown, setActiveDropdown] = React.useState<boolean | undefined>(false)
-  const [backgroundStyles, setBackgroundStyles] = React.useState<any>({ height: '0px' })
+  const [backgroundStyles, setBackgroundStyles] = React.useState<any>({
+    height: '0px',
+  })
   const [underlineStyles, setUnderlineStyles] = React.useState<any>({})
   const { headerTheme } = useHeaderObserver()
   const [activeDropdownItem, setActiveDropdownItem] = React.useState<number | undefined>(undefined)
@@ -34,6 +36,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
 
     const hoveredMenuItem = menuItemRefs[index]
     const hoveredDropdownMenu = dropdownMenuRefs[index]
+    const bgHeight = hoveredDropdownMenu?.clientHeight || 0
 
     if (hoveredMenuItem) {
       setUnderlineStyles({
@@ -41,12 +44,16 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
         left: hoveredMenuItem.offsetLeft,
       })
     }
-    const bgHeight = hoveredDropdownMenu?.clientHeight || 0
 
-    setBackgroundStyles({
-      top: hideBackground ? 0 : undefined,
-      height: hideBackground ? `${bgHeight + 90}px` : `${bgHeight}px`,
-    })
+    if (bgHeight === 0) {
+      setBackgroundStyles({ height: '0px' })
+      setActiveDropdown(undefined)
+    } else {
+      setBackgroundStyles({
+        height: hideBackground ? `${bgHeight + 90}px` : `${bgHeight}px`,
+      })
+    }
+
     setActiveDropdownItem(undefined)
   }
 
@@ -114,7 +121,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
                                   key={linkIndex}
                                   {...link.link}
                                 >
-                                  <ArrowIcon size="medium" />
+                                  <ArrowIcon className={classes.linkArrow} />
                                 </CMSLink>
                               ))}
                             </div>
@@ -192,7 +199,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
                                             key={linkIndex}
                                             {...link.link}
                                           >
-                                            <ArrowIcon size="medium" />
+                                            <ArrowIcon className={classes.linkArrow} />
                                           </CMSLink>
                                         ))}
                                     </div>
@@ -248,9 +255,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
           className={classes.background}
           onMouseEnter={() => setActiveDropdown(true)}
           onMouseLeave={() => setActiveDropdown(false)}
-          style={
-            activeDropdown ? backgroundStyles : { height: '0px', transition: 'all 0.3s linear' }
-          }
+          style={{ ...backgroundStyles, top: hideBackground ? '0px' : '90px' }}
         />
       </Gutter>
     </div>
