@@ -648,6 +648,7 @@ export interface CaseStudy {
                 | {
                     name: string;
                     hasPrice?: boolean | null;
+                    enableCreatePayload?: boolean | null;
                     price?: string | null;
                     title?: string | null;
                     description?: string | null;
@@ -669,6 +670,7 @@ export interface CaseStudy {
                             value: string | CaseStudy;
                           } | null);
                       url?: string | null;
+                      label: string;
                     };
                     features?:
                       | {
@@ -1783,6 +1785,7 @@ export interface Page {
             | {
                 name: string;
                 hasPrice?: boolean | null;
+                enableCreatePayload?: boolean | null;
                 price?: string | null;
                 title?: string | null;
                 description?: string | null;
@@ -1804,6 +1807,7 @@ export interface Page {
                         value: string | CaseStudy;
                       } | null);
                   url?: string | null;
+                  label: string;
                 };
                 features?:
                   | {
@@ -2927,6 +2931,7 @@ export interface ReusableContent {
             | {
                 name: string;
                 hasPrice?: boolean | null;
+                enableCreatePayload?: boolean | null;
                 price?: string | null;
                 title?: string | null;
                 description?: string | null;
@@ -2948,6 +2953,7 @@ export interface ReusableContent {
                         value: string | CaseStudy;
                       } | null);
                   url?: string | null;
+                  label: string;
                 };
                 features?:
                   | {

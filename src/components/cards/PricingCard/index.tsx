@@ -7,7 +7,7 @@ import { PricingCardProps } from '../types'
 import classes from './index.module.scss'
 
 export const PricingCard: React.FC<PricingCardProps> = props => {
-  const { title, price, className, leader, description } = props
+  const { title, price, className, leader, description, hasPrice } = props
 
   const link = props.link || {}
 
@@ -17,15 +17,12 @@ export const PricingCard: React.FC<PricingCardProps> = props => {
     <div
       className={[className, classes.card, !hasLink && classes.noLink].filter(Boolean).join(' ')}
     >
-      <CMSLink className={classes.link} {...props.link}>
-        {leader && <span className={classes.leader}>{leader}</span>}
-        <div className={classes.content}>
-          {price && <h3 className={classes.price}>{price}</h3>}
-          {title && <h3 className={classes.title}>{title}</h3>}
-          {description && <div className={classes.description}>{description}</div>}
-        </div>
-        <ArrowIcon className={classes.arrow} />
-      </CMSLink>
+      {leader && <span className={classes.leader}>{leader}</span>}
+      <div className={classes.content}>
+        {price && hasPrice && <h3 className={classes.price}>{price}</h3>}
+        {title && !hasPrice && <h3 className={classes.title}>{title}</h3>}
+        {description && <div className={classes.description}>{description}</div>}
+      </div>
     </div>
   )
 }

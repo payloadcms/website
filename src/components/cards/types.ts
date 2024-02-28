@@ -23,6 +23,7 @@ export interface ContentMediaCardProps extends SharedProps {
 export interface PricingCardProps extends SharedProps {
   leader?: string
   link?: CMSLinkType
+  hasPrice?: boolean | null
 }
 
 export interface DefaultCardProps extends SharedProps {

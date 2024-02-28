@@ -367,11 +367,12 @@ export const PRICING_BLOCK = `
     plans {
       name
       hasPrice
+      enableCreatePayload
       price
       title
       description
       enableLink
-      link ${LINK_FIELDS({ disableAppearance: true, disableLabel: true })}
+      link ${LINK_FIELDS({ disableAppearance: true })}
       features {
         icon
         feature
