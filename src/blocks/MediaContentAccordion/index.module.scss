@@ -1,0 +1,22 @@
+@use '@scss/common' as *;
+
+.mediaContentAccordion {
+  position: relative;
+  overflow: hidden;
+}
+
+.desktop {
+  display: grid;
+  
+  @include mid-break {
+    display: none;
+  }
+}
+
+.mobile {
+  display: none;
+
+  @include mid-break {
+    display: grid;
+  }
+}

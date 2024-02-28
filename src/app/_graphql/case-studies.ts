@@ -11,6 +11,7 @@ import {
   LINK_GRID,
   MEDIA_BLOCK,
   MEDIA_CONTENT,
+  MEDIA_CONTENT_ACCORDION,
   REUSABLE_CONTENT_BLOCK,
   SLIDER,
   STATEMENT,
@@ -58,6 +59,7 @@ export const CASE_STUDY = `
           ${LINK_GRID}
           ${MEDIA_BLOCK}
           ${MEDIA_CONTENT}
+          ${MEDIA_CONTENT_ACCORDION}
           ${REUSABLE_CONTENT_BLOCK}
           ${SLIDER}
           ${STATEMENT}

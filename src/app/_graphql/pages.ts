@@ -17,6 +17,7 @@ import {
   LOGO_GRID,
   MEDIA_BLOCK,
   MEDIA_CONTENT,
+  MEDIA_CONTENT_ACCORDION,
   PRICING_BLOCK,
   REUSABLE_CONTENT_BLOCK,
   SLIDER,
@@ -113,6 +114,7 @@ export const PAGE = `
           ${LOGO_GRID}
           ${MEDIA_BLOCK}
           ${MEDIA_CONTENT}
+          ${MEDIA_CONTENT_ACCORDION}
           ${PRICING_BLOCK}
           ${REUSABLE_CONTENT_BLOCK}
           ${SLIDER}

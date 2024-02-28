@@ -134,13 +134,13 @@
 }
 
 .crosshairFirstCell {
-  left: calc(25% + var(--base) * -0.5);
-  bottom: calc(66.666% + var(--base) * -0.5);
+  left: calc(25% + var(--base) * -0.45);
+  bottom: calc(66.666% + var(--base) * -0.55)
 }
 
 .crosshairSecondRowThirdCell {
-  left: calc(75% + var(--base) * -0.5);
-  bottom: calc(33.333% + var(--base) * -0.5);
+  left: calc(75% + var(--base) * -0.45);
+  bottom: calc(33.333% + var(--base) * -0.55);
 }
 
 :global([data-theme="dark"]) {
