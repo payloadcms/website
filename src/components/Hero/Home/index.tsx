@@ -67,7 +67,7 @@ export const HomeHero: React.FC<
     <ChangeHeaderTheme theme="dark">
       <BlockWrapper setPadding={false} settings={{ theme: 'dark' }} padding={padding}>
         <div className={classes.bgFull}>
-          <Media src="/images/hero-gradient.jpg" alt="" width={1920} height={1644} priority />
+          <Media src="/images/hero-shapes.jpg" alt="" width={1920} height={1644} priority />
         </div>
         <div className={classes.homeHero}>
           <div className={classes.background}>
@@ -114,7 +114,31 @@ export const HomeHero: React.FC<
           </div>
           <Gutter className={classes.contentWrapper}>
             <div className={classes.primaryContentWrap} data-theme="dark">
-              <BackgroundGrid zIndex={0} />
+              <BackgroundGrid
+                zIndex={0}
+                gridLineStyles={{
+                  0: {
+                    background:
+                      'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 50%, rgba(0, 0, 0, 0) 80%)',
+                  },
+                  1: {
+                    background:
+                      'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 50%, rgba(0, 0, 0, 0) 80%)',
+                  },
+                  2: {
+                    background:
+                      'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 75%, rgba(0, 0, 0, 0) 95%)',
+                  },
+                  3: {
+                    background:
+                      'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 20%, rgba(0, 0, 0, 0) 60%)',
+                  },
+                  4: {
+                    background:
+                      'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 60%, rgba(0, 0, 0, 0) 90%)',
+                  },
+                }}
+              />
               <div className={[classes.primaryContent, 'grid'].filter(Boolean).join(' ')}>
                 <div className={['cols-8 start-1'].filter(Boolean).join(' ')}>
                   <RichText className={classes.richTextHeading} content={richText} />

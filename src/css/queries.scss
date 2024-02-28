@@ -74,7 +74,7 @@
   }
 }
 
-@mixin two-extra-large-break {
+@mixin two-extra-large-break-ht {
   @media (max-height: $breakpoint-2xl-height) {
     @content;
   }

@@ -1,5 +1,26 @@
 @use '@scss/common.scss' as *;
 
+.bgFull {
+  position: absolute;
+  left: 0;
+  top: calc(0px - var(--header-height) - 1px);
+  width: 100%;
+  height: calc(100% + var(--header-height) + 1px);
+  z-index: 0;
+
+  & div {
+    @include mid-break {
+      height: 100%;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
 .homeHero {
   position: relative;
 }
@@ -118,10 +139,10 @@
 .primaryContentWrap {
   display: flex;
   align-items: center;
-  min-height: 85vh;
+  min-height: 105vh;
 
   @include two-extra-large-break {
-    min-height: 85vh;
+    min-height: 80vh;
   }
 
   @include extra-large-break {
@@ -141,8 +162,9 @@
   }
 
   @include extra-large-break-ht {
+    min-height: 110vh;
     @include two-extra-large-break {
-      min-height: 97vh;
+      min-height: 95vh;
     }
 
     @include extra-large-break {
@@ -163,8 +185,9 @@
   }
 
   @include large-break-ht {
+    min-height: 130vh;
     @include two-extra-large-break {
-      min-height: 110vh;
+      min-height: 105vh;
     }
 
     @include extra-large-break {
@@ -356,36 +379,4 @@
   background: var(--color-base-1000);
   margin-top: -1px;
   height: var(--wrapper-padding-bottom);
-}
-
-.bgFull {
-  position: absolute;
-  left: 0;
-  top: calc(0px - var(--header-height) - 1px);
-  width: 100%;
-  height: calc(100% + var(--header-height) + 1px);
-  z-index: 0;
-  backdrop-filter: blur(4px);
-
-  &::before {
-    content:'';
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    background: url('/images/noise.png') repeat;
-  }
-
-  & div {
-    @include mid-break {
-      height: 100%;
-    }
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 }
