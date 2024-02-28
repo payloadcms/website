@@ -11,6 +11,7 @@ import { Gutter } from '@components/Gutter'
 import { ChevronIcon } from '@root/graphics/ChevronIcon'
 import { CheckIcon } from '@root/icons/CheckIcon'
 import { CloseIcon } from '@root/icons/CloseIcon'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon'
 import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
@@ -53,7 +54,7 @@ export const Pricing: React.FC<Props> = ({ pricingFields, padding }) => {
 
   return (
     <BlockWrapper settings={settings} padding={padding} className={classes.pricingBlock}>
-      <BackgroundGrid />
+      <BackgroundGrid zIndex={1} />
       <Gutter className={classes.gutter}>
         <BackgroundScanline className={classes.scanline} enableBorders />
         {hasPlans && (
@@ -71,14 +72,19 @@ export const Pricing: React.FC<Props> = ({ pricingFields, padding }) => {
                 enableCreatePayload,
               } = plan
               const isToggled = toggledPlan === name
+              const isLast = i + 1 === plans.length
 
               return (
                 <div
                   key={i}
-                  className={[classes.planWrap, 'cols-4 cols-m-8', colsStart[i]]
+                  className={[classes.plan, 'cols-4 cols-m-8', colsStart[i]]
                     .filter(Boolean)
                     .join(' ')}
                 >
+                  <CrosshairIcon className={classes.crosshairTopLeft} />
+
+                  {isLast && <CrosshairIcon className={classes.crosshairTopRight} />}
+
                   <PricingCard
                     leader={name}
                     className={classes.card}
@@ -99,7 +105,6 @@ export const Pricing: React.FC<Props> = ({ pricingFields, padding }) => {
                       }}
                       open={isToggled}
                     >
-                      <CollapsibleContent>{featureList(features)}</CollapsibleContent>
                       <CollapsibleToggler className={classes.toggler}>
                         What's included
                         <ChevronIcon
@@ -108,6 +113,7 @@ export const Pricing: React.FC<Props> = ({ pricingFields, padding }) => {
                             .join(' ')}
                         />
                       </CollapsibleToggler>
+                      <CollapsibleContent>{featureList(features)}</CollapsibleContent>
                     </Collapsible>
                   </div>
 

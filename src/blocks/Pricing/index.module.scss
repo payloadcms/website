@@ -10,7 +10,55 @@
 
 .wrapper {
   position: relative;
-  row-gap: calc(var(--base) * 2);
+  grid-template-rows: auto auto auto;
+}
+
+.plan {
+  display: grid;
+  position: relative;
+  grid-template-columns: 1fr;
+  grid-template-rows: subgrid;
+  grid-row: span 4;
+  background: var(--theme-bg);
+  border-bottom: 1px solid var(--grid-line-dark);
+
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 2);
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
+  }
+
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-light);
+  }
+}
+
+.crosshairTopLeft {
+  position: absolute;
+  top: calc(var(--base) * -.5);
+  left: calc(var(--base) * -.5);
+  width: calc(var(--base) * 1);
+  height: auto;
+  opacity: 0.15;
+}
+
+.crosshairTopRight {
+  position: absolute;
+  top: calc(var(--base) * -.5);
+  right: calc(var(--base) * -.5);
+  width: calc(var(--base) * 1);
+  height: auto;
+  opacity: 0.15;
+
+  @include mid-break {
+    display: none;
+  }
 }
 
 .disclaimer {
@@ -22,12 +70,16 @@
   padding: calc(var(--base) * 1.5);
   width: 100%;
   font-size: calc(var(--base) * 0.8);
+
+  @include mid-break {
+    padding: calc(var(--base) * 1);
+  }
 }
 
 .ctaWrapper {
   display: flex;
-  border-bottom: 1px solid var(--grid-line-dark);
   height: calc(var(--base) * 4.2);
+  border-bottom: 1px solid var(--grid-line-dark);
 
   @include data-theme-selector('dark') {
     border-color: var(--grid-line-dark);
@@ -36,6 +88,11 @@
   @include data-theme-selector('light') {
     border-color: var(--grid-line-light);
   }
+
+  @include mid-break {
+    border-top: 1px solid;
+    border-bottom: none;
+  }
 }
 
 .link {
@@ -43,46 +100,66 @@
 }
 
 .features {
-    list-style: none;
-    margin: calc(var(--base) * 1.5);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  padding: calc(var(--base) * 1.5);
+
+  @include mid-break {
     padding: 0;
+    padding-left: calc(var(--base) * 1);
+    padding-right: calc(var(--base) * 1);
+  }
 
-    .feature {
-        margin: var(--base) 0;
-        display: flex;
+  .feature {
+    margin-bottom: calc(var(--base) * 1.5);
+    display: flex;
+    align-items: center;
+
+    &:last-of-type {
+      margin-bottom: 0;
     }
 
-    .check,
-    .x {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        width: calc(var(--base) * 1.5);
-        height: calc(var(--base) * 1.5);
-        margin-right: calc(var(--base) * 0.8);
-        justify-items: center;
+    @include mid-break {
+      margin-bottom: calc(var(--base) * 0.4);
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
     }
+  }
 
-    .check {
-        & svg {
-            color: rgba(81, 191, 246, 1);
-        }
+  .check,
+  .x {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: calc(var(--base) * 1.5);
+    height: calc(var(--base) * 1.5);
+    margin-right: calc(var(--base) * 0.8);
+    justify-items: center;
+  }
+
+  .check {
+    & svg {
+      color: rgba(81, 191, 246, 1);
     }
+  }
 
-    .x {
-        border: 1px solid var(--color-error-500);
+  .x {
+    border: 1px solid var(--color-error-500);
 
-        & svg {
-            color: var(--color-error-500);
-            width: 80%;
-            height: 80%;
+    & svg {
+      color: var(--color-error-500);
+      width: 80%;
+      height: 80%;
 
-            & rect {
-                height: 1.5px;
-            }
-        }
+      & rect {
+        height: 1.5px;
+      }
     }
+  }
 }
 
 .list {
@@ -94,18 +171,20 @@
 .toggler {
   display: none;
   width: 100%;
-  padding: calc(var(--base) * 1.5);
+  padding: calc(var(--base) * 1.5) calc(var(--base) * 1);
   align-items: center;
   justify-content: space-between;
+  border: none;
+  @include body;
+  font-weight: bold;
+  cursor: pointer;
+
 
   @include mid-break {
-    @include label;
     margin: 0;
     display: flex;
-    color: var(--color-base-100);
     background-color: transparent;
-    border: none;
-    cursor: pointer;
+    padding: calc(var(--base) * 1);
   }
 
   svg {
@@ -115,14 +194,14 @@
 }
 
 .collapsibleList {
-    display: none;
+  display: none;
 }
 
 .chevron {
   transform: rotate(90deg);
 
   & path {
-      stroke-width: 1px;
+    stroke-width: 1px;
   }
 }
 

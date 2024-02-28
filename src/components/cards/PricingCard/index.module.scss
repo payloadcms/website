@@ -6,6 +6,10 @@
   border-bottom: 1px solid var(--grid-line-dark);
   padding: calc(var(--base) * 3) calc(var(--base) * 1.5);
 
+  @include mid-break {
+    padding: calc(var(--base) * 2) calc(var(--base) * 1);
+  }
+
   & path {
     opacity: 0.35;
   }
@@ -50,6 +54,7 @@
 .description {
     @include body;
     margin-bottom: 0;
+    opacity: 0.75;
 }
 
 .arrow {
