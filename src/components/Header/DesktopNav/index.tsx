@@ -167,7 +167,11 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
                                           className={classes.link}
                                           key={linkIndex}
                                           {...link.link}
-                                        />
+                                        >
+                                          {link.link?.newTab && link.link?.type === 'custom' && (
+                                            <ArrowIcon className={classes.linkArrow} />
+                                          )}
+                                        </CMSLink>
                                       ))}
                                   </div>
                                 )}
