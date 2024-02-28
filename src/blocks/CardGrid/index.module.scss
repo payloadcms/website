@@ -31,13 +31,28 @@
   position: relative;
 }
 
-.bg {
+.margins {
+  display: flex;
+  justify-content: space-between;
   position: absolute;
   top: 0;
-  left: 0;
+  left: calc(var(--gutter-h) * -1);
   width: calc(100% + var(--gutter-h) * 2);
   height: 100%;
-  margin-left: calc(var(--gutter-h) / -1);
+
+  & > * {
+    position: relative;
+  }
+}
+
+.marginLeft {
+  width: var(--gutter-h);
+  display: block;
+}
+
+.marginRight {
+  width: var(--gutter-h);
+  display: block;
 }
 
 .card {
@@ -47,7 +62,38 @@
 
 .cardsWrapper {
   position: relative;
-  border-top: 1px solid var(--theme-elevation-200);
+  border-top: 1px solid var(--grid-line-light);
+
+  &::after {
+    content: '';
+    width: calc(25% * var(--excess-length-large));
+    height: 1px;
+    background: var(--grid-line-light);
+    position: absolute;
+    bottom: 0;
+    left: calc(100% - 25% * var(--excess-length-large));
+
+    @include mid-break {
+      width: calc(50% * var(--excess-length-mid));
+      left: calc(50% * var(--excess-length-mid));
+    }
+  }
+
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
+
+    &::after {
+      background: var(--grid-line-dark);
+    }
+  }
+
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-light);
+
+    &::after {
+      background: var(--grid-line-light);
+    }
+  }
 
   & .backgroundGrid {
     z-index: 5;

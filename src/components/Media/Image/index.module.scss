@@ -4,21 +4,27 @@
   background-color: var(--theme-elevation-50);
 }
 
-[data-theme=dark] {
+[data-theme='dark'] {
   .hasDarkModeFallback.themeLight {
     display: none;
   }
 }
 
-[data-theme=light] {
+[data-theme='dark'] [data-theme='light'] {
+  .hasDarkModeFallback.themeLight {
+    display: block;
+  }
+}
+
+
+[data-theme='light'] {
   .themeDark {
     display: none;
   }
 }
 
-// Specific rule to handle the home hero exception, to be reviewed if it's a problem with other blocks
 [data-theme='light'] [data-theme='dark'] {
-  .hasDarkModeFallback.themeDark {
+  .themeDark {
     display: block;
   }
 }

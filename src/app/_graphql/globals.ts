@@ -5,6 +5,9 @@ export const GLOBALS = `
     MainMenu {
       tabs {
         label
+        enableDirectLink
+        enableDropdown
+        link ${LINK_FIELDS({ disableAppearance: true, disableLabel: true })}
         description
         descriptionLinks {
           link ${LINK_FIELDS({ disableAppearance: true })}
@@ -34,10 +37,11 @@ export const GLOBALS = `
 
     Footer {
       columns {
+        label
         navItems {
           link ${LINK_FIELDS({ disableAppearance: true })}
         }
-      }  
+      }
     }
 
     TopBar {
@@ -45,7 +49,7 @@ export const GLOBALS = `
         desktop
         mobile
       }
-      announcement {   
+      announcement {
         name
         content
       }

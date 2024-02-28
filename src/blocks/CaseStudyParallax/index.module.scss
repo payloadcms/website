@@ -17,6 +17,7 @@
   padding-top:  calc(var(--base) * 4);
 
   &.isFirst {
+    margin-top: calc(var(--base) * -12);
     grid-column: 1/-1;
     grid-row: 1/1;
   }
@@ -49,16 +50,13 @@
 
 .stickyBlock {
   position: sticky;
-  top: 18%;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 6;
   grid-column: 1/-1;
   grid-row: 1/1;
   pointer-events: none;
   align-items: center;
-
-  @include large-break {
-    top: 23%;
-  }
 
   @include mid-break {
     display: none;
@@ -115,6 +113,7 @@
   line-height: 1.2;
   margin-bottom: calc(var(--base) * 2);
   position: relative;
+  letter-spacing: -0.04em;
 
   &::before {
     content: '“';
@@ -156,7 +155,7 @@
   overflow: visible;
   row-gap: calc(var(--base) * 12);
 
-  padding-top:  calc(var(--base) * 6);
+  padding-top:  calc(var(--base) * 16);
   padding-bottom:  calc(var(--base) * 10);
 
   margin-bottom: -80vh;
@@ -261,7 +260,7 @@
     height: 1px;
     background: var(--theme-elevation-1000);
     position: absolute;
-    top: 0;
+    top: -1px;
     left: 0;
     z-index: 7;
     transition: width 0.05s linear;
@@ -306,12 +305,13 @@
   width: 100%;
 
   &:hover {
-  & .navButtonLabel {
-    opacity: 1;
-  }
+    & .navButtonLabel {
+      opacity: 1;
+    }
   }
 
   & .navButtonLabel {
+    padding: calc(var(--base) * 0.5) 0;
     opacity: 0.6;
   }
 

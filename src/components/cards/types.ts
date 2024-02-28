@@ -11,6 +11,7 @@ export interface SharedProps {
 export interface SquareCardProps extends SharedProps {
   leader?: string
   link?: CMSLinkType
+  revealDescription?: boolean | null
 }
 
 export interface ContentMediaCardProps extends SharedProps {

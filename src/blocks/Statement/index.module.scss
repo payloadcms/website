@@ -15,15 +15,6 @@
   }
 }
 
-.heading {
-  margin-top: 0;
-  margin-bottom: calc(var(--base) * 2);
-
-  @include mid-break {
-    margin-bottom: calc(var(--base) * 1.5);
-  }
-}
-
 .content {
   margin-bottom: calc(var(--base) * 2);
 

@@ -33,7 +33,7 @@ export type CMSLinkType = {
   reference?: Reference | null
   url?: string | null
   label?: string | null
-  appearance?: 'default' | 'primary' | 'secondary' | null
+  appearance?: 'default' | 'primary' | 'secondary' | 'text' | null
   children?: React.ReactNode
   fullWidth?: boolean
   mobileFullWidth?: boolean

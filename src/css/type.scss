@@ -167,3 +167,12 @@
   text-transform: uppercase;
   margin: 0 0 calc(var(--base) * 0.75) 0; 
 }
+
+@mixin headerText {
+  color: var(--theme-elevation-900);
+  font-size: var(--font-header-size);
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.2em;
+  letter-spacing: -.04em
+}

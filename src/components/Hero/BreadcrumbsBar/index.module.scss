@@ -62,6 +62,7 @@
 
 .link {
   text-decoration: none;
+  width: max-content;
 
   &:hover {
     text-decoration: underline;
@@ -86,7 +87,7 @@
     list-style: none;
     display: flex;
     justify-content: space-between;
-    padding: calc(var(--base) * 0.5) 0;
+    padding: calc(var(--base) * 0.5) 0 calc(var(--base) * 1);
 
     &::marker {
       display: none;
@@ -114,13 +115,22 @@
 .dropdownContent {
   position: absolute;
   top: 100%;
-  left: 0;
-  width: 100%;
+  left: calc(var(--gutter-h) * -1);
+  width: calc(100% + var(--gutter-h) * 2);
   z-index: 1;
-  padding: calc(var(--base) * 2) calc(var(--base) * 0) calc(var(--base) * 2);
+  padding: calc(var(--base) * 1.5) var(--gutter-h) calc(var(--base) * 1.5);
   display: flex;
   flex-direction: column;
   gap: calc(var(--base) * 1);
+  border-bottom: 1px solid var(--grid-line-light);
+
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
+  }
+
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-light);
+  }
 }
 
 .emptyBar {

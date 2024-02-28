@@ -1,5 +1,6 @@
 import {
   CALL_TO_ACTION,
+  CALLOUT,
   CARD_GRID,
   CASE_STUDIES_HIGHLIGHT,
   CODE_FEATURE,
@@ -40,11 +41,14 @@ export const CASE_STUDY = `
         id
         title
         introContent
+        industry
+        useCase
         featuredImage ${MEDIA_FIELDS}
         slug
         url
         layout {
           ${CALL_TO_ACTION}
+          ${CALLOUT}
           ${CARD_GRID}
           ${CASE_STUDIES_HIGHLIGHT}
           ${CODE_FEATURE}

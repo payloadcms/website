@@ -25,6 +25,7 @@ export const Text: React.FC<
 > = props => {
   const {
     path,
+    name,
     required = false,
     validate,
     label,
@@ -128,7 +129,7 @@ export const Text: React.FC<
           placeholder={placeholder}
           type={type === 'password' && !isHidden ? 'text' : type}
           id={path}
-          name={path}
+          name={name ?? path}
           readOnly={readOnly}
         />
         {(icon || suffix) && (

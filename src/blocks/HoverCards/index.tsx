@@ -28,10 +28,9 @@ const Card: React.FC<{
       onMouseEnter={() => setHover(++leader)}
       onMouseLeave={() => setHover(1)}
     >
-      <CrosshairIcon className={classes.cardCrosshair} />
       <CMSLink className={classes.card} {...card.link}>
+        <p className={classes.leader}>0{leader}</p>
         <div className={classes.cardContent}>
-          <p className={classes.leader}>0{leader}</p>
           <h3 className={classes.cardTitle}>{card.title}</h3>
           <p className={classes.description}>{card.description}</p>
         </div>

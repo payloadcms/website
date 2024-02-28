@@ -1,14 +1,23 @@
 @use '@scss/common.scss' as *;
 
+$curve: cubic-bezier(.165, .84, .44, 1);
+
 .desktopNav {
   position: relative;
   width: 100%;
   height: var(--header-height);
 
-  &:local() {
-    a {
-      text-decoration: none;
-    }
+  &:before, &:after {
+    content: '';
+    pointer-events: none;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -5;
+    transition: all var(--trans-default) $curve;
   }
 
   @include mobile-header-break {
@@ -17,44 +26,14 @@
   }
 }
 
-.active {
-  &:before, &:after {
-    content: '';
-    display: block;
-    position: fixed;
-    top: var(--page-padding-top);
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -5;
-    transition: opacity var(--trans-default) ease-out;
-  }
-
-  &:before {
-    background: var(--theme-elevation-800);
-    opacity: 0.35;
-  }
-
-  .dropdown {
-    z-index: 1;
-  }
-}
-
-.grid {
-  height: 100%;
-
-  :local(a) {
-    text-decoration: none;
-  }
-}
-
 .background {
   height: var(--header-height);
+  top: 0;
   position: absolute;
   z-index: -1;
   width: 100%;
   margin: 0 calc(var(--gutter-h) * -1);
-  transition: all var(--trans-default) linear;
+  transition: all var(--trans-default) $curve;
 
   &:before, &:after {
     content: '';
@@ -65,17 +44,43 @@
     width: 100%;
     height: 100%;
     z-index: -1;
-    transition: all var(--trans-default) linear;
+    transition: all var(--trans-default) $curve;
   }
 
   &:before {
     background: var(--theme-bg);
-    opacity: 0.95;
+    opacity: 0.9;
   }
   
   &:after {
     backdrop-filter: blur(5px);
-    opacity: 1;
+    opacity: 0;
+  }
+}
+
+.active {
+  &:before {
+    background: var(--theme-elevation-800);
+    opacity: 0.15;
+    pointer-events: all;
+  }
+
+  .dropdown {
+    z-index: 1;
+  }
+
+  .background {
+    &:after {
+      opacity: 1;
+    }
+  }
+}
+
+.grid {
+  height: 100%;
+
+  :local(a) {
+    text-decoration: none;
   }
 }
 
@@ -118,14 +123,34 @@
 
 .tab {
   @include btnReset;
+  @include headerText;
   cursor: pointer;
   height: 100%;
+  text-decoration: none;
+}
+
+.directLink {
+  height: 100%;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+
+  &:hover, &:focus {
+    opacity: 1;
+    text-decoration: none;
+  }
+}
+
+.tabArrow, .linkArrow {
+  margin-left: calc(var(--base) * 0.5);
+  width: calc(var(--base) * 0.5);
+  height: calc(var(--base) * 0.5);
 }
 
 .underline {
   position: absolute;
   bottom: 0;
-  transition: all var(--trans-default) linear;
+  transition: all var(--trans-default) $curve;
 }
 
 .underlineFill {
@@ -139,26 +164,55 @@
   width: 100%;
   pointer-events: none;
   z-index: -10;
-  padding: calc(var(--base) * 2.5) var(--gutter-h);
+  padding: calc(var(--base) * 2.5) var(--gutter-h) 0 var(--gutter-h);
 }
 
 .dropdownItem, .description {
   text-wrap: wrap;
-  padding-right: calc(var(--base) * 2);
+  margin-right: calc(var(--base) * 2);
+  padding-bottom: calc(var(--base) * 2.5);
   opacity: 0;
-  transform: translateY(-15px);
+
+  &:before {
+    transition: all var(--trans-default) $curve;
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    background-color: var(--theme-elevation-1000);
+    height: 1px;
+    opacity: 1;
+  }
 
   &:last-child {
     padding-right: 0;
   }
+
+  & svg {
+    transition: all var(--trans-default) $curve;
+  }
+}
+
+.showUnderline {
+  &:before {
+    transition: all var(--trans-default) $curve;
+    width: 100%;
+  }
+  & svg {
+    transition: all var(--trans-default) $curve;
+    transform: translate3d(10px, -10px, 0);
+  }
+}
+
+.dropdownWrap {
+  position: relative;
 }
 
 .description {
-  @include h4;
-  font-weight: 400;
-  line-height: 1.2; 
-  letter-spacing: -0.66px;
-  margin: 0;
+  @include headerText;
+  font-size: calc(var(--base)*1.1);
 }
 
 .activeTab {
@@ -171,7 +225,7 @@
 
     @for $i from 1 through 5 {
       &:nth-child(#{$i}n) {
-        transition: all var(--trans-default) linear;
+        transition: all var(--trans-default) $curve;
         transition-delay: #{($i * 0.1)}s;
       }
     }
@@ -181,25 +235,26 @@
 .defaultLink, .defaultLinkDescription {
   display: flex;
   flex-direction: column;
-  gap: calc(var(--base) * 2.5);
+  gap: var(--base);
+  justify-content: space-between;
 }
 
 .defaultLink {
+  flex: 1;
+  height: 100%;
+  transition: opacity var(--trans-default) $curve;
+}
+
+.defaultLinkLabel {
   @include h4;
   margin: 0;
-  height: 100%;
-  justify-content: space-between;
-  transition: opacity var(--trans-default) linear;
-
-  &:hover {
-    opacity: 0.8;
-  }
+  flex-grow: 1;
 }
 
 .defaultLinkDescription {
-  min-height: calc(var(--base) * 2);
-  font-size: calc(var(--base) * 0.8);
-  line-height: 1.5;
+  @include headerText;
+  font-size: calc(var(--base)*0.8);
+  min-height: calc(var(--base) * 5);
 }
 
 .tab, .secondaryNavItems {
@@ -209,25 +264,37 @@
 .linkList, .featuredLink {
   display: flex;
   flex-direction: column;
-  gap: calc(var(--base) * 1.5);
+  gap: var(--base);
 }
 
 .listLabel {
-  @include uppercaseLabel;
+  @include h6;
+  margin: 0;
+  text-transform: uppercase;
 }
 
 .link {
   @include body;
   font-weight: 500;
+  transition: all var(--trans-default) $curve;
+
+  &:hover {
+    transition: all var(--trans-default) $curve;
+    opacity: 0.8;
+  }
 }
 
 .featuredLinks, .descriptionLink {
   @include body;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   flex-direction: row;
-  gap: var(--base);
-  line-height: 1;
+  transition: all var(--trans-default) $curve;
+  
+  &:hover {
+    transition: all var(--trans-default) $curve;
+    opacity: 0.8;
+  }
 }
 
 .descriptionLink {
@@ -256,7 +323,7 @@
   gap: calc(var(--base) * 1.25);
   opacity: 0;
   visibility: hidden;
-  transition: all var(--trans-default) linear;
+  transition: all var(--trans-default) $curve;
 }
 
 .show {
@@ -289,12 +356,13 @@
   display: flex;
 }
 
-html[data-theme="dark"] {
+.dark {
   .background {
     &:before {
       opacity: 0.9;
     }
   }
+
   .active {
     &:before {
       background: var(--theme-elevation-50);

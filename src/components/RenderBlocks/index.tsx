@@ -182,8 +182,8 @@ export const RenderBlocks: React.FC<Props> = props => {
   }, [docRef.current?.offsetWidth, layout])
 
   const marginAdjustment = {
-    marginLeft: `${docPadding / -1 - 1}px`,
-    marginRight: `${docPadding / -1 - 1}px`,
+    marginLeft: `${docPadding / -1}px`,
+    marginRight: `${docPadding / -1}px`,
     paddingLeft: docPadding,
     paddingRight: docPadding,
   }

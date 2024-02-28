@@ -31,6 +31,24 @@ const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 
     let intersectionObserver: IntersectionObserver
     let scheduledAnimationFrame = false
 
+    const resetPosition = () => {
+      setMousePosition({
+        x: 0,
+        y: 0,
+      })
+    }
+
+    const handleWindowResize = e => {
+      if (scheduledAnimationFrame) {
+        return
+      }
+
+      scheduledAnimationFrame = true
+      requestAnimationFrame(function () {
+        resetPosition()
+      })
+    }
+
     const updateMousePosition = e => {
       if (containerRef.current) {
         const boundingRect = containerRef.current.getBoundingClientRect()
@@ -60,8 +78,10 @@ const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               window.addEventListener('mousemove', handleMouseMovement)
+              window.addEventListener('resize', handleWindowResize)
             } else {
               window.removeEventListener('mousemove', handleMouseMovement)
+              window.removeEventListener('resize', handleWindowResize)
             }
           })
         },
@@ -76,6 +96,7 @@ const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 
     return () => {
       if (intersectionObserver) intersectionObserver.disconnect()
       window.removeEventListener('mousemove', handleMouseMovement)
+      window.removeEventListener('resize', handleWindowResize)
     }
   }, [containerRef, containerSize])
 

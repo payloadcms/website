@@ -22,12 +22,14 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   aspect-ratio: 1/1;
   text-decoration: none;
   position: relative;
-  padding-top: calc(var(--base) * 2);
-  padding-bottom: calc(var(--base) * 2);
+  padding: calc(var(--base) * 2);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   row-gap: calc(var(--base) * 1.5);
+
+  &:active {
+    text-decoration: none;
+  }
 
   @include large-break {
     padding-top: calc(var(--base) * 3);
@@ -36,8 +38,8 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
   @include mid-break {
     border-bottom: 1px solid var(--grid-line-dark);
-    padding-top: calc(var(--base) * 4);
-    padding-bottom: calc(var(--base) * 4);
+    padding-top: calc(var(--base) * 2);
+    padding-bottom: calc(var(--base) * 2);
   }
 
   @include small-break {
@@ -49,16 +51,22 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     content:'';
     position: absolute;
     left: 0;
-    top: 0;
+    bottom: -1px;
     height: 1px;
     width: 0%;
-    background: linear-gradient(270deg, #007FAE 0%, #578A9C 50.94%, #DFC198 101.87%);
+    background: var(--color-base-0);
     transition: width 350ms $curve;
   }
 
-  &:hover {
+
+  &:hover, &:focus {
+    text-decoration: none;
     &::before {
       width: 100%;
+    }
+
+    .description {
+      opacity: 1;
     }
 
     .cardTitle {
@@ -67,21 +75,30 @@ $curve: cubic-bezier(.165, .84, .44, 1);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-  }
-}
 
-.cardCrosshair {
-  position: absolute;
-  top: calc(var(--base) * -0.5 - 1px);
-  left: calc(var(--base) * -0.5);
-  width: calc(var(--base) * 1);
-  height: auto;
-  opacity: 0.5;
+    .cardContent {
+      transform: translateY(0px);
+    }
+
+    .arrow {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 .cardWrapper {
   position: relative;
   transition: opacity 350ms $curve;
+}
+
+.arrow {
+  position: absolute;
+  top: calc(var(--base) * 2);
+  right: calc(var(--base) * 2);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 350ms $curve;
 }
 
 .cardsWrapper {
@@ -102,22 +119,40 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .leader {
   @include h6;
+  margin-top: 0;
+  margin-bottom: calc(var(--base) * 4);
+
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 7);
+  }
+
+  @include small-break {
+    margin-bottom: calc(var(--base) * 4);
+  }
 }
 
 .cardTitle {
   @include h4;
   position: relative;
   transition: all 350ms $curve;
+  margin-bottom: calc(var(--base) * 1);
+  text-decoration: none;
 }
 
 .description {
   text-decoration: none;
-  margin-bottom: 0;
-  max-width: 75%;
+  margin: 0;
+  opacity: 0.75;
 
   @include mid-break {
     max-width: 100%;
   }
+}
+
+.cardContent {
+  transform: translateY(10px);
+  transition: all 350ms $curve;
+  text-decoration: none;
 }
 
 .noiseWrapper {
