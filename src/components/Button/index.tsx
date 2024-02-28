@@ -58,6 +58,7 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
    * Forces a background on the default button appearance
    */
   forceBackground?: boolean
+  arrowClassName?: string
   iconRotation?: number
   isCMSFormSubmitButton?: boolean
 }
@@ -115,6 +116,7 @@ const ButtonContent: React.FC<ButtonProps> = props => {
     iconRotation,
     isCMSFormSubmitButton,
     size,
+    arrowClassName,
   } = props
 
   const Icon = icon ? icons[icon] : null
@@ -153,7 +155,9 @@ const ButtonContent: React.FC<ButtonProps> = props => {
           {Icon && label && <div className={classes.spacer} />}
           {Icon && (
             <Icon
-              className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')}
+              className={[classes.icon, arrowClassName, classes[`icon--${icon}`]]
+                .filter(Boolean)
+                .join(' ')}
               {...iconProps}
             />
           )}
@@ -179,7 +183,9 @@ const ButtonContent: React.FC<ButtonProps> = props => {
           {Icon && label && <div className={classes.spacer} />}
           {Icon && (
             <Icon
-              className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')}
+              className={[classes.icon, arrowClassName, classes[`icon--${icon}`]]
+                .filter(Boolean)
+                .join(' ')}
               {...iconProps}
             />
           )}
@@ -245,6 +251,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     hideBottomBorderExceptLast,
     labelClassName,
     forceBackground,
+    arrowClassName,
     isCMSFormSubmitButton,
   } = props
 
