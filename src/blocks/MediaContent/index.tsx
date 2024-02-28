@@ -38,7 +38,14 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
               <RichText content={richText} />
               {enableLink && link && (
                 <div className={classes.button}>
-                  <Button {...link} labelStyle="mono" icon="arrow" el="link" />
+                  <Button
+                    {...link}
+                    appearance={'default'}
+                    labelStyle="mono"
+                    hideHorizontalBorders
+                    icon="arrow"
+                    el="link"
+                  />
                 </div>
               )}
             </div>
@@ -54,7 +61,14 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
               <RichText content={richText} />
               {enableLink && link && (
                 <div className={classes.button}>
-                  <Button {...link} labelStyle="mono" icon="arrow" el="link" />
+                  <Button
+                    {...link}
+                    appearance={'default'}
+                    hideHorizontalBorders
+                    labelStyle="mono"
+                    icon="arrow"
+                    el="link"
+                  />
                 </div>
               )}
             </div>
@@ -77,7 +91,7 @@ export const MediaContent: React.FC<MediaContentProps> = props => {
 
   return (
     <BlockWrapper padding={props.padding} settings={settings}>
-      <BackgroundGrid />
+      <BackgroundGrid zIndex={0} />
       <MediaContentBlock {...props} />
       <div className={classes.background} />
     </BlockWrapper>

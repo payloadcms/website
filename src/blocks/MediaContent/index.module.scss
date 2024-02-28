@@ -36,7 +36,11 @@
 .button {
   display: block;
   margin-top: calc(var(--base) * 2);
-  max-width: 400px;
+  width: calc(4/6 * 100%);
+
+  a {
+    width: 100%;
+  }
 
   @include mid-break {
     width: 100%;
