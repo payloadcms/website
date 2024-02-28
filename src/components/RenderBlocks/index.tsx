@@ -23,6 +23,7 @@ import { LinkGrid } from '@blocks/LinkGrid'
 import { LogoGrid } from '@blocks/LogoGrid'
 import { MediaBlock } from '@blocks/MediaBlock'
 import { MediaContent } from '@blocks/MediaContent'
+import { MediaContentAccordion } from '@blocks/MediaContentAccordion'
 import { Pricing } from '@blocks/Pricing'
 import { RelatedPosts, RelatedPostsBlock } from '@blocks/RelatedPosts'
 import { ReusableContentBlock } from '@blocks/ReusableContent'
@@ -56,6 +57,7 @@ const blockComponents = {
   slider: Slider,
   cardGrid: CardGrid,
   mediaContent: MediaContent,
+  mediaContentAccordion: MediaContentAccordion,
   steps: Steps,
   stickyHighlights: StickyHighlights,
   hoverCards: HoverCards,

@@ -163,13 +163,13 @@
 }
 
 .crosshairLeft {
-  left: calc(25% + var(--base) * -0.5);
-  bottom: calc(50% + var(--base) * -0.5);
+  left: calc(25% + var(--base) * -0.45);
+  bottom: calc(50% + var(--base) * -0.55);
 }
 
 .crosshairRight {
-  left: calc(75% + var(--base) * -0.5);
-  bottom: calc(50% + var(--base) * -0.5);
+  left: calc(75% + var(--base) * -0.45);
+  bottom: calc(50% + var(--base) * -0.55);
 }
 
 :global([data-theme="dark"]) {

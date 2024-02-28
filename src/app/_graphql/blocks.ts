@@ -359,6 +359,27 @@ export const MEDIA_CONTENT = `
 }
 `
 
+export const MEDIA_CONTENT_ACCORDION = `
+...on MediaContentAccordion {
+  blockType
+  mediaContentAccordionFields {
+    settings ${SETTINGS}
+    alignment
+    leader
+    heading
+    accordion {
+      position
+      background
+      mediaLabel
+      mediaDescription
+      enableLink
+      link ${LINK_FIELDS({ disableAppearance: true })}
+      media ${MEDIA_FIELDS}
+    }
+  }
+}
+`
+
 export const PRICING_BLOCK = `
 ...on Pricing {
   blockType
@@ -470,6 +491,7 @@ export const REUSABLE_CONTENT_BLOCK = `
         ${LOGO_GRID}
         ${MEDIA_BLOCK}
         ${MEDIA_CONTENT}
+        ${MEDIA_CONTENT_ACCORDION}
         ${SLIDER}
         ${STATEMENT}
         ${STEPS}

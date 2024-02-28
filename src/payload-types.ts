@@ -637,6 +637,51 @@ export interface CaseStudy {
             blockType: 'mediaContent';
           }
         | {
+            mediaContentAccordionFields?: {
+              settings?: {
+                theme?: ('light' | 'dark') | null;
+              };
+              alignment?: ('contentMedia' | 'mediaContent') | null;
+              leader?: string | null;
+              heading?: string | null;
+              accordion?:
+                | {
+                    position?: ('normal' | 'inset' | 'wide') | null;
+                    background?: ('none' | 'gradient' | 'scanlines') | null;
+                    mediaLabel: string;
+                    mediaDescription: {
+                      [k: string]: unknown;
+                    }[];
+                    enableLink?: boolean | null;
+                    link?: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null)
+                        | ({
+                            relationTo: 'case-studies';
+                            value: string | CaseStudy;
+                          } | null);
+                      url?: string | null;
+                      label: string;
+                    };
+                    media: string | Media;
+                    id?: string | null;
+                  }[]
+                | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'mediaContentAccordion';
+          }
+        | {
             pricingFields?: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
@@ -1770,6 +1815,51 @@ export interface Page {
         id?: string | null;
         blockName?: string | null;
         blockType: 'mediaContent';
+      }
+    | {
+        mediaContentAccordionFields?: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
+          alignment?: ('contentMedia' | 'mediaContent') | null;
+          leader?: string | null;
+          heading?: string | null;
+          accordion?:
+            | {
+                position?: ('normal' | 'inset' | 'wide') | null;
+                background?: ('none' | 'gradient' | 'scanlines') | null;
+                mediaLabel: string;
+                mediaDescription: {
+                  [k: string]: unknown;
+                }[];
+                enableLink?: boolean | null;
+                link?: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'case-studies';
+                        value: string | CaseStudy;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                };
+                media: string | Media;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'mediaContentAccordion';
       }
     | {
         pricingFields?: {
@@ -2914,6 +3004,51 @@ export interface ReusableContent {
         id?: string | null;
         blockName?: string | null;
         blockType: 'mediaContent';
+      }
+    | {
+        mediaContentAccordionFields?: {
+          settings?: {
+            theme?: ('light' | 'dark') | null;
+          };
+          alignment?: ('contentMedia' | 'mediaContent') | null;
+          leader?: string | null;
+          heading?: string | null;
+          accordion?:
+            | {
+                position?: ('normal' | 'inset' | 'wide') | null;
+                background?: ('none' | 'gradient' | 'scanlines') | null;
+                mediaLabel: string;
+                mediaDescription: {
+                  [k: string]: unknown;
+                }[];
+                enableLink?: boolean | null;
+                link?: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'case-studies';
+                        value: string | CaseStudy;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                };
+                media: string | Media;
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'mediaContentAccordion';
       }
     | {
         pricingFields?: {
