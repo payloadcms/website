@@ -53,7 +53,7 @@ export const Callout: React.FC<CalloutProps> = props => {
                   {logo && typeof logo !== 'string' && <Media resource={logo} />}
                 </div>
                 <div className={classes.author}>
-                  <span className={classes.name}>{author}</span>{' '}
+                  <span className={classes.name}>{author}</span>
                   {role ? <span className={classes.role}>{', ' + role}</span> : ''}
                 </div>
               </div>

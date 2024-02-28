@@ -44,7 +44,7 @@ const MediaParallax: React.FC<ParallaxProps> = ({ media, className }) => {
           <motion.div
             key={index}
             className={classes.parallaxItem}
-            initial={{ translateY: -50 * MULTIPLIER }}
+            initial={{ ...(index === 0 ? {} : { translateY: -50 * MULTIPLIER }) }}
             style={{
               ...(index === 0
                 ? {}
