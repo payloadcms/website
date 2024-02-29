@@ -4,6 +4,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .wrapper {
     position: relative;
+    height: 100%;
 }
 
 .introWrapper {
@@ -19,7 +20,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 
 .card {
-  aspect-ratio: 1/1;
+  height: 100%;
   text-decoration: none;
   position: relative;
   padding: calc(var(--base) * 2);
@@ -52,7 +53,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     position: absolute;
     left: 0;
     bottom: -1px;
-    height: 1px;
+    height: 2px;
     width: 0%;
     background: var(--color-base-0);
     transition: width 350ms $curve;
@@ -69,13 +70,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
       opacity: 1;
     }
 
-    .cardTitle {
-      background: linear-gradient(270deg, #007FAE 0%, #578A9C 50.94%, #DFC198 101.87%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
     .cardContent {
       transform: translateY(0px);
     }
@@ -90,6 +84,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .cardWrapper {
   position: relative;
   transition: opacity 350ms $curve;
+  height: 100%;
 }
 
 .arrow {
@@ -127,7 +122,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   }
 
   @include small-break {
-    margin-bottom: calc(var(--base) * 4);
+    margin-bottom: calc(var(--base) * 2);
   }
 }
 
