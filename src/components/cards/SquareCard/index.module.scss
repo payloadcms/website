@@ -93,6 +93,7 @@
 .title {
   font-size: calc(var(--base) * 1.5);
   line-height: 1.2em;
+  min-height: 2lh;
 
   @include large-mid-break {
     font-size: calc(var(--base) * 1.4);
@@ -114,7 +115,7 @@
 
   .description {
     opacity: 1;
-    height: 7em;
+    min-height: 3lh;
     pointer-events: none;
     padding: 0;
     margin: 0;

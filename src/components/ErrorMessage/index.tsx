@@ -11,6 +11,7 @@ export const ErrorMessage: React.FC<{ error?: string }> = ({ error }) => {
       <DefaultHero />
       <CallToAction
         blockType="cta"
+        padding={{ bottom: 'large' }}
         ctaFields={{
           richText: [
             {

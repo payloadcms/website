@@ -1,7 +1,16 @@
+import React from 'react'
 import { Metadata } from 'next'
 
+import { Gutter } from '@components/Gutter'
+import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar'
+
 export default async ({ children }) => {
-  return children
+  return (
+    <React.Fragment>
+      <BreadcrumbsBar hero={{ type: 'default' }} breadcrumbs={[]} />
+      {children}
+    </React.Fragment>
+  )
 }
 
 export const metadata: Metadata = {
