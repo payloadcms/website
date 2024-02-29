@@ -232,7 +232,9 @@ export const MobileNav: React.FC<NavItems> = props => {
       <div className={classes.menuBar}>
         <Gutter>
           <div className={'grid'}>
-            <div className={[classes.menuBarContainer, 'cols-8'].filter(Boolean).join(' ')}>
+            <div
+              className={[classes.menuBarContainer, 'cols-16 cols-m-8'].filter(Boolean).join(' ')}
+            >
               <Link
                 href="/"
                 className={classes.logo}
