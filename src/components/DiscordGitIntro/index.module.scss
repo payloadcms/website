@@ -5,7 +5,8 @@
 }
 
 .breadcrumb {
-  @include label;
+  @include h6;
+  text-transform: uppercase;
   text-decoration: none;
 }
 
@@ -14,6 +15,17 @@
   text-decoration: none;
   word-break: break-word;
   hyphens: auto;
+}
+
+.divider {
+  height: 1px;
+  margin: calc(var(--base) * 4) calc(var(--base) * -4);
+  background-color: var(--theme-border-color);
+
+
+  @include mid-break {
+    margin: calc(var(--base) * 2) calc(var(--base) * -1);
+  }
 }
 
 .authorDetails {

@@ -86,6 +86,7 @@
   }
 
   .button {
+    color: var(--theme-elevation-900);
     transition: opacity 0.2s ease-in-out;
 
     &:hover {

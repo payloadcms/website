@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { BackgroundScanline } from '@components/BackgroundScanline'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 
 import classes from './index.module.scss'
@@ -7,10 +8,11 @@ import classes from './index.module.scss'
 const OpenPost: React.FC<{ url: string; platform: 'GitHub' | 'Discord' }> = ({ url, platform }) => {
   return (
     <a className={classes.next} href={url} rel="noopener noreferrer" target="_blank">
+      <BackgroundScanline className={classes.crosshairs} crosshairs="all" />
       <div className={classes.nextLabel}>
-        Open the post <ArrowIcon />
+        Open <ArrowIcon />
       </div>
-      <h5>Continue the discussion in {platform}</h5>
+      <h3>Continue the discussion in {platform}</h3>
     </a>
   )
 }

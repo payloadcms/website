@@ -30,7 +30,7 @@ export const CommunityHelp: React.FC = () => {
 
   return (
     <div className={classes.communityHelpWrap}>
-      <BackgroundGrid />
+      <BackgroundGrid className={classes.bg} />
       <Gutter>
         <div className={['grid', classes.grid].join(' ')}>
           <div className={'start-1 cols-12'}>

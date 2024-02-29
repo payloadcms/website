@@ -2,6 +2,7 @@ import React from 'react'
 import * as cheerio from 'cheerio'
 
 import AuthorTag from '@components/AuthorTag'
+import { BackgroundScanline } from '@components/BackgroundScanline'
 import { DiscordGitBody } from '@components/DiscordGitBody'
 import { FileAttachments } from '@components/FileAttachment'
 import { Messages } from '@root/app/community-help/(posts)/discord/[slug]/client_page'
@@ -27,12 +28,9 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
             .join(' ')}
         >
           <div className={classes.answerHeader}>
-            <div className={classes.checkmark}>
-              <CheckIcon size="medium" bold />
-            </div>
-            <label>Selected Answer</label>
+            <h6>Selected Answer</h6>
+            <BackgroundScanline crosshairs={['top-left', 'top-right']} />
           </div>
-
           <div className={classes.answerBody}>
             <AuthorTag
               className={classes.answerAuthor}
@@ -42,12 +40,16 @@ export const DiscordGitComments: React.FC<CommentProps> = ({ answer, comments, p
               isAnswer
             />
             <DiscordGitBody body={answer?.body} platform={platform} />
+            {answerReplies && (
+              <div className={classes.replyCount}>
+                {answerReplies} repl{answerReplies > 1 ? 'ies' : 'y'}
+              </div>
+            )}
           </div>
-          {answerReplies && (
-            <div className={classes.replyCount}>
-              {answerReplies} repl{answerReplies > 1 ? 'ies' : 'y'}
-            </div>
-          )}
+          <BackgroundScanline
+            className={classes.crosshairs}
+            crosshairs={['bottom-left', 'bottom-right']}
+          />
         </li>
       )}
 

@@ -1,14 +1,45 @@
 @use '@scss/common' as *;
 
-.post {
-  max-width: 1200px;
-  margin-right: calc(var(--base) * 8);
+.wrap {
+  position: relative;
+  margin-top: var(--page-padding-top);
+  border-top: 1px solid var(--theme-border-color);
+}
 
-  @include mid-break {
-    margin: 0;
+.openPostWrap {
+  margin: 0 calc(var(--base) * -4);
+}
+
+.post {
+  height: 100%;
+  padding-top: var(--base);
+  margin: var(--base) calc(var(--base) * 4);
+}
+
+.ctaWrap {
+  margin-top: calc(var(--base) * 5);
+  border-top: 1px solid var(--theme-border-color);
+}
+
+.bg {
+  & > div {
+    &:nth-child(2), &:nth-child(3) {
+      display: none;
+    }
+  }
+}
+
+
+@include mid-break {
+  .post {
+    margin: var(--base);
   }
 
-  @include small-break {
-    margin-top: var(--base);
+  .wrap {
+    padding-bottom: calc(var(--base) * 1.5);
+  }
+
+  .openPostWrap {
+    margin: 0 calc(var(--base) * -1);
   }
 }

@@ -134,3 +134,11 @@
     border-top: 1px solid var(--theme-border-color);
   }
 }
+
+.bg {
+  & > div {
+    &:nth-child(2), &:nth-child(3) {
+      display: none;
+    }
+  }
+}

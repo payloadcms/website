@@ -53,6 +53,7 @@ export const DiscordGitIntro: React.FC<Props> = ({
       </div>
       <DiscordGitBody body={content} platform={platform} />
       {hasFileAttachments && <FileAttachments attachments={attachments} />}
+      <div className={classes.divider} />
     </Fragment>
   )
 }
