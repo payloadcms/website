@@ -10,9 +10,17 @@
   padding: calc(var(--base)*1.5) var(--base);
   margin: 0;
   background-color: transparent;
-  border-bottom: 1px solid var(--theme-border-color);
+  border-bottom: 1px solid var(--grid-line-dark);
   position: relative;
   width: 100%;
+
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
+  }
+
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-light);
+  }
 
   &:before {
     position: absolute;
