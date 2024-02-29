@@ -1,7 +1,10 @@
 import * as React from 'react'
 import Link from 'next/link'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BackgroundScanline } from '@components/BackgroundScanline'
 import { BlockSpacing } from '@components/BlockSpacing'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
 import { PixelBackground } from '@components/PixelBackground'
@@ -10,22 +13,25 @@ import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
-type Props = Extract<Page['layout'][0], { blockType: 'caseStudyCards' }>
+type Props = Extract<Page['layout'][0], { blockType: 'caseStudyCards' }> & {
+  padding?: PaddingProps
+}
 
 export const CaseStudyCards: React.FC<Props> = props => {
-  const { caseStudyCardFields } = props
+  const { caseStudyCardFields, padding } = props
 
   if (caseStudyCardFields?.cards && caseStudyCardFields?.cards?.length > 0) {
     return (
-      <BlockSpacing className={classes.caseStudyCards}>
-        <Gutter>
+      <BlockWrapper
+        className={classes.caseStudyCards}
+        settings={caseStudyCardFields.settings}
+        padding={padding}
+      >
+        <BackgroundGrid />
+        <Gutter className={classes.gutter}>
+          <BackgroundScanline className={classes.scanline} />
           {caseStudyCardFields?.cards?.length > 0 && (
             <div className={classes.cards}>
-              {caseStudyCardFields.pixels && (
-                <div className={classes.bg}>
-                  <PixelBackground className={classes.pixels} />
-                </div>
-              )}
               {caseStudyCardFields.cards.map((card, i) => {
                 if (typeof card.caseStudy === 'object' && card.caseStudy !== null) {
                   return (
@@ -50,7 +56,7 @@ export const CaseStudyCards: React.FC<Props> = props => {
             </div>
           )}
         </Gutter>
-      </BlockSpacing>
+      </BlockWrapper>
     )
   }
 
