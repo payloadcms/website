@@ -116,7 +116,6 @@
 @mixin body {
   font-size: var(--font-body-size);
   line-height: 1.4;
-  letter-spacing: -0.03em;
 }
 
 @mixin small {
@@ -165,7 +164,7 @@
   line-height: 100%;
   letter-spacing: 2.75px;
   text-transform: uppercase;
-  margin: 0 0 calc(var(--base) * 0.75) 0; 
+  margin: 0 0 calc(var(--base) * 0.75) 0;
 }
 
 @mixin headerText {
