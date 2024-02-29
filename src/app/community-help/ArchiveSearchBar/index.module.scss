@@ -23,7 +23,7 @@
   height: calc(var(--base) * 2);
   margin-right: calc(var(--base) * 0.5);
   text-transform: none;
-  
+
   &::placeholder {
     color: black;
   }
@@ -56,22 +56,22 @@
   }
 
   &:nth-child(3) {
-    transform: translate(-50%, -50%);
+    transform: translate(calc(-50% - 1px), calc(-50% - 1px));
     top: 0;
     left: 0;
   }
   &:nth-child(4) {
-    transform: translate(50%, -50%);
+    transform: translate(calc(50% + 1px), calc(-50% - 1px));
     top: 0;
     right: 0;
   }
   &:nth-child(5) {
-    transform: translate(-50%, 50%);
+    transform: translate(calc(-50% - 1px), calc(50% + 1px));
     bottom: 0;
     left: 0;
   }
   &:nth-child(6) {
-    transform: translate(50%, 50%);
+    transform: translate(calc(50% + 1px), calc(50% + 1px));
     bottom: 0;
     right: 0;
   }

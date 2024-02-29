@@ -39,7 +39,15 @@
 }
 
 .post {
-  border-bottom: 1px solid var(--theme-border-color);
+  border-bottom: 1px solid var(--grid-line-dark);
+
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
+  }
+
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-light);
+  }
 }
 
 .postContent {
