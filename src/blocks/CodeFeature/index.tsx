@@ -116,13 +116,13 @@ export const CodeFeatureComponent: React.FC<Props> = ({
             <CrosshairIcon className={[classes.crosshairBottomRight].filter(Boolean).join(' ')} />
           </div>
           <div className={[classes.content, 'cols-4 cols-m-8'].filter(Boolean).join(' ')}>
-            <h2 className={classes.heading}>
-              <SplitAnimate text={heading} />
-            </h2>
-
+            {heading && (
+              <h2 className={classes.heading}>
+                <SplitAnimate text={heading} />
+              </h2>
+            )}
             <div>
               <RichText content={richText} className={classes.richText} />
-
               <div className={classes.links}>
                 {links?.map((link, index) => {
                   return (
