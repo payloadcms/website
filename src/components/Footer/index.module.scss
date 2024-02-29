@@ -84,7 +84,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .emailInput input {
   @include body;
-  padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
+  padding: var(--base) calc(var(--base) * 1.5);
   background: transparent;
   border-color: var(--grid-line-dark);
   border-left: none;
@@ -183,12 +183,9 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     all: unset;
     border-top: 1px solid var(--grid-line-dark);
     border-bottom: 1px solid var(--grid-line-dark);
-    padding-top: calc(var(--base) * .25);
-    padding-bottom: calc(var(--base) * .25);
-    padding-left: var(--theme-icon-width);
     width: 100%;
-    padding-right: var(--theme-switcher-icon-width);
-    padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
+    padding: var(--base) calc(var(--base) * 1.5);
+    padding-left: var(--theme-switcher-icon-width);
   }
 }
 
