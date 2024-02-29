@@ -49,6 +49,8 @@ export const RelatedPosts: React.FC<RelatedPostsBlock> = props => {
                     description={post?.meta?.description}
                     href={`/blog/${post.slug}`}
                     media={post.image}
+                    publishedOn={post.publishedOn}
+                    authors={post.authors}
                     orientation={relatedPosts.length < 3 ? 'horizontal' : undefined}
                   />
                 </div>
