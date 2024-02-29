@@ -13,11 +13,13 @@ interface Props {
   enableBorders?: boolean
   className?: string
   crosshairs?: 'all' | (typeof crosshairPositions)[number][]
+  style?: React.CSSProperties
 }
 export const BackgroundScanline: React.FC<Props> = ({
   className,
   enableBorders,
   crosshairs,
+  style,
 }: Props) => {
   return (
     <div
@@ -25,6 +27,7 @@ export const BackgroundScanline: React.FC<Props> = ({
       className={[classes.wrapper, className, enableBorders && classes.enableBorders]
         .filter(Boolean)
         .join(' ')}
+      style={style}
     >
       <div className={[classes.backgroundScanline].filter(Boolean).join(' ')}></div>
       {crosshairs && (
