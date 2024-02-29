@@ -1,22 +1,21 @@
 @use '@scss/common' as *;
 
 .blogCard {
+  display: block;
+  text-decoration: none;
+}
+
+.contentWrapper {
   display: flex;
-  flex-direction: column;
-  gap: var(--base);
+
+  @include small-break {
+    flex-direction: column;
+  }
 }
 
 .title {
   display: block;
-  @include h6;
-
-  @include mid-break {
-    @include h5;
-  }
-
-  @include small-break {
-    @include h3;
-  }
+  @include h4;
 
   margin: 0 !important;
   text-decoration: none;
@@ -27,7 +26,36 @@
 }
 
 .media {
-  @include shadow-lg;
+  max-width: 50%;
+
+  @include small-break {
+    width: 100%;
+    padding: 0;
+    margin-bottom: calc(var(--base) * 2);
+    max-width: 100%;
+  }
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * 1);
+  opacity: 0.5;
+  margin-bottom: calc(var(--base) * 1.2);
+
+  @include small-break {
+    margin-bottom: calc(var(--base) * 0.6);
+  }
+
+  time {
+    @include body;
+    font-size: calc(var(--base) * 0.8);
+  }
+
+  p {
+    margin: 0;
+    font-size: calc(var(--base) * 0.8);
+  }
 }
 
 .mediaLink {
@@ -40,24 +68,13 @@
   display: flex;
   flex-direction: column;
   gap: calc(var(--base) / 2);
-}
-
-.horizontal {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: calc(var(--base) * 2);
-
-  &:local() {
-    .mediaLink {
-      width: 33.33%;
-    }
-  }
+  width: 50%;
+  text-decoration: none;
+  padding-left: calc(var(--base) * 2);
+  padding-right: calc(var(--base) * 2);
 
   @include small-break {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--base);
+    width: 100%;
+    padding: 0;
   }
 }
