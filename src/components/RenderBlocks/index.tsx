@@ -15,7 +15,6 @@ import { CodeFeature } from '@blocks/CodeFeature'
 import { ContentBlock } from '@blocks/Content'
 import { ContentGrid } from '@blocks/ContentGrid'
 import { ExampleTabs } from '@blocks/ExampleTabs'
-import { FeaturedMediaGallery } from '@blocks/FeaturedMediaGallery'
 import { FormBlock } from '@blocks/FormBlock'
 import { HoverCards } from '@blocks/HoverCards'
 import { HoverHighlights } from '@blocks/HoverHighlights'
@@ -70,7 +69,6 @@ const blockComponents = {
   pricing: Pricing,
   relatedPosts: RelatedPosts,
   exampleTabs: ExampleTabs,
-  featuredMediaGallery: FeaturedMediaGallery,
   statement: Statement,
 }
 

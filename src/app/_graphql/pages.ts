@@ -9,7 +9,6 @@ import {
   CONTENT,
   CONTENT_GRID,
   EXAMPLE_TABS,
-  FEATURED_MEDIA_GALLERY,
   FORM_BLOCK,
   HOVER_CARDS,
   HOVER_HIGHLIGHTS,
@@ -106,7 +105,6 @@ export const PAGE = `
           ${CONTENT}
           ${CONTENT_GRID}
           ${EXAMPLE_TABS}
-          ${FEATURED_MEDIA_GALLERY}
           ${FORM_BLOCK}
           ${HOVER_CARDS}
           ${HOVER_HIGHLIGHTS}

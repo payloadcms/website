@@ -550,56 +550,6 @@ export interface CaseStudy {
             blockType: 'mediaBlock';
           }
         | {
-            featuredMediaGalleryFields: {
-              settings?: {
-                theme?: ('light' | 'dark') | null;
-              };
-              background?: ('black' | 'dark') | null;
-              alignment?: ('contentMediaGallery' | 'mediaGalleryContent') | null;
-              leader?: string | null;
-              title: string;
-              description: {
-                [k: string]: unknown;
-              }[];
-              links?:
-                | {
-                    link: {
-                      type?: ('reference' | 'custom') | null;
-                      newTab?: boolean | null;
-                      reference?:
-                        | ({
-                            relationTo: 'pages';
-                            value: string | Page;
-                          } | null)
-                        | ({
-                            relationTo: 'posts';
-                            value: string | Post;
-                          } | null)
-                        | ({
-                            relationTo: 'case-studies';
-                            value: string | CaseStudy;
-                          } | null);
-                      url?: string | null;
-                      label: string;
-                    };
-                    id?: string | null;
-                  }[]
-                | null;
-              featuredMediaTabs?:
-                | {
-                    mediaScanline?: boolean | null;
-                    mediaLabel: string;
-                    mediaAlignment?: ('center' | 'fill') | null;
-                    media: string | Media;
-                    id?: string | null;
-                  }[]
-                | null;
-            };
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'featuredMediaGallery';
-          }
-        | {
             mediaContentFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
@@ -1730,56 +1680,6 @@ export interface Page {
         id?: string | null;
         blockName?: string | null;
         blockType: 'mediaBlock';
-      }
-    | {
-        featuredMediaGalleryFields: {
-          settings?: {
-            theme?: ('light' | 'dark') | null;
-          };
-          background?: ('black' | 'dark') | null;
-          alignment?: ('contentMediaGallery' | 'mediaGalleryContent') | null;
-          leader?: string | null;
-          title: string;
-          description: {
-            [k: string]: unknown;
-          }[];
-          links?:
-            | {
-                link: {
-                  type?: ('reference' | 'custom') | null;
-                  newTab?: boolean | null;
-                  reference?:
-                    | ({
-                        relationTo: 'pages';
-                        value: string | Page;
-                      } | null)
-                    | ({
-                        relationTo: 'posts';
-                        value: string | Post;
-                      } | null)
-                    | ({
-                        relationTo: 'case-studies';
-                        value: string | CaseStudy;
-                      } | null);
-                  url?: string | null;
-                  label: string;
-                };
-                id?: string | null;
-              }[]
-            | null;
-          featuredMediaTabs?:
-            | {
-                mediaScanline?: boolean | null;
-                mediaLabel: string;
-                mediaAlignment?: ('center' | 'fill') | null;
-                media: string | Media;
-                id?: string | null;
-              }[]
-            | null;
-        };
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'featuredMediaGallery';
       }
     | {
         mediaContentFields: {
@@ -2921,56 +2821,6 @@ export interface ReusableContent {
         id?: string | null;
         blockName?: string | null;
         blockType: 'mediaBlock';
-      }
-    | {
-        featuredMediaGalleryFields: {
-          settings?: {
-            theme?: ('light' | 'dark') | null;
-          };
-          background?: ('black' | 'dark') | null;
-          alignment?: ('contentMediaGallery' | 'mediaGalleryContent') | null;
-          leader?: string | null;
-          title: string;
-          description: {
-            [k: string]: unknown;
-          }[];
-          links?:
-            | {
-                link: {
-                  type?: ('reference' | 'custom') | null;
-                  newTab?: boolean | null;
-                  reference?:
-                    | ({
-                        relationTo: 'pages';
-                        value: string | Page;
-                      } | null)
-                    | ({
-                        relationTo: 'posts';
-                        value: string | Post;
-                      } | null)
-                    | ({
-                        relationTo: 'case-studies';
-                        value: string | CaseStudy;
-                      } | null);
-                  url?: string | null;
-                  label: string;
-                };
-                id?: string | null;
-              }[]
-            | null;
-          featuredMediaTabs?:
-            | {
-                mediaScanline?: boolean | null;
-                mediaLabel: string;
-                mediaAlignment?: ('center' | 'fill') | null;
-                media: string | Media;
-                id?: string | null;
-              }[]
-            | null;
-        };
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'featuredMediaGallery';
       }
     | {
         mediaContentFields: {

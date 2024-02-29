@@ -243,29 +243,6 @@ export const EXAMPLE_TABS = `
 }
 `
 
-export const FEATURED_MEDIA_GALLERY = `
-...on FeaturedMediaGallery {
-  blockType
-  featuredMediaGalleryFields {
-    settings ${SETTINGS}
-    background
-    alignment
-    leader
-    title
-    description
-    links {
-      link ${LINK_FIELDS({ disableAppearance: true })}
-    }
-    featuredMediaTabs {
-      mediaScanline
-      mediaLabel
-      mediaAlignment
-      media ${MEDIA_FIELDS}
-    }
-  }
-}
-`
-
 export const FORM_BLOCK = `
 ...on FormBlock {
   blockType
@@ -485,7 +462,6 @@ export const REUSABLE_CONTENT_BLOCK = `
         ${CONTENT}
         ${CONTENT_GRID}
         ${EXAMPLE_TABS}
-        ${FEATURED_MEDIA_GALLERY}
         ${FORM_BLOCK}
         ${HOVER_HIGHLIGHTS}
         ${LINK_GRID}
