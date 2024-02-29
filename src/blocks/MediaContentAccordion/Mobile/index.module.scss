@@ -124,7 +124,7 @@
     }
   }
 
-  [data-theme="light"]  & {
+  @include data-theme-selector('light') {
     border-top: 1px solid var(--grid-line-light);
 
     &:before {
@@ -138,6 +138,24 @@
     &:hover {
       .togglerTitle {
         color: var(--color-base-1000);
+      }
+    }
+  }
+
+  @include data-theme-selector('dark') {
+    border-top: 1px solid var(--grid-line-dark);
+
+    &:before {
+      background: var(--color-base-0);
+    }
+
+    &:last-child {
+      border-bottom: 1px solid var(--grid-line-dark);
+    }
+
+    &:hover {
+      .togglerTitle {
+        color: var(--color-base-0);
       }
     }
   }
@@ -169,10 +187,18 @@
     padding: calc(var(--base) * 1.5) calc(var(--base) * 1);
   }
 
-  [data-theme="light"]  & {
+  @include data-theme-selector('light') {
     &:hover {
       .title {
         color: var(--color-base-1000);
+      }
+    }
+  }
+
+  @include data-theme-selector('dark') {
+    &:hover {
+      .title {
+        color: var(--color-base-0);
       }
     }
   }
@@ -183,8 +209,12 @@
   font-weight: 500;
   transition: color 0.3s ease-in-out;
 
-  [data-theme="light"]  & {
+  @include data-theme-selector('light') {
     color: var(--text-light);
+  }
+
+  @include data-theme-selector('dark') {
+    color: var(--text-dark);
   }
 }
 
@@ -194,11 +224,13 @@
 
   .togglerTitle {
     color: var(--color-base-0);
-  }
 
-  [data-theme="light"]  & {
-    .togglerTitle {
+    @include data-theme-selector('light') {
       color: var(--color-base-1000);
+    }
+
+    @include data-theme-selector('dark') {
+      color: var(--color-base-0);
     }
   }
 }
@@ -222,8 +254,12 @@
   color: var(--text-dark);
   padding: 0 calc(var(--base) * 1.5) calc(var(--base) * 1.5) calc(var(--base) * 1.5);
 
-  [data-theme="light"]  & {
+  @include data-theme-selector('light') {
     color: var(--text-light);
+  }
+
+  @include data-theme-selector('dark') {
+    color: var(--text-dark);
   }
 }
 
@@ -252,12 +288,22 @@
     }
   }
 
-  [data-theme="light"]  & {
+  @include data-theme-selector('light') {
     color: var(--color-base-1000);
 
     .arrowIcon {
       path {
         stroke: var(--color-base-1000);
+      }
+    }
+  }
+
+  @include data-theme-selector('dark') {
+    color: var(--color-base-0);
+
+    .arrowIcon {
+      path {
+        stroke: var(--color-base-0);
       }
     }
   }
