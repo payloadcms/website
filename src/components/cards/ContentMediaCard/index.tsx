@@ -10,8 +10,11 @@ import classes from './index.module.scss'
 export const ContentMediaCard: React.FC<ContentMediaCardProps> = props => {
   const { publishedOn, href, media, title, className, authors } = props
 
-  const author =
-    typeof authors?.[0] === 'string' ? authors[0] : authors[0].firstName + authors[0].lastName
+  const author = authors?.[0]
+    ? typeof authors?.[0] === 'string'
+      ? authors[0]
+      : authors[0].firstName + authors[0].lastName
+    : null
 
   return (
     <Link
@@ -34,7 +37,7 @@ export const ContentMediaCard: React.FC<ContentMediaCardProps> = props => {
                 {formatDate({ date: publishedOn })}
               </time>
             )}
-            <p className={classes.author}>{author}</p>
+            {author && <p className={classes.author}>{author}</p>}
           </div>
 
           <h2 className={classes.title}>{title}</h2>

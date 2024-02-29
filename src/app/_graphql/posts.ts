@@ -76,6 +76,8 @@ export const POST = `
           slug
           image ${MEDIA_FIELDS}
           meta ${META_FIELDS}
+          authors ${AUTHOR_FIELDS}
+          publishedOn
         }
       }
     }

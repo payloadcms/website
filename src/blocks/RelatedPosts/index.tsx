@@ -29,21 +29,11 @@ export const RelatedPosts: React.FC<RelatedPostsBlock> = props => {
     <Gutter leftGutter={!disableGutter} rightGutter={!disableGutter}>
       <div className={classes.relatedPosts} id={id}>
         <h4 className={classes.title}>Related Posts</h4>
-        <div className={['grid'].filter(Boolean).join(' ')}>
+        <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')}>
           {relatedPosts.map(
             (post, key) =>
               typeof post !== 'string' && (
-                <div
-                  key={key}
-                  className={[
-                    relatedPosts.length >= 3
-                      ? 'cols-4 cols-m-4 cols-s-8'
-                      : 'cols-16 start-1 cols-m-8',
-                    `${colStart[key]} start-m-1`,
-                  ]
-                    .filter(Boolean)
-                    .join(' ')}
-                >
+                <div key={key} className={['cols-16 cols-m-8'].filter(Boolean).join(' ')}>
                   <ContentMediaCard
                     title={post.title}
                     description={post?.meta?.description}
