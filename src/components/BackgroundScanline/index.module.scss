@@ -22,11 +22,13 @@
 
   @include data-theme-selector('light') {
     background-image: url('/images/scanline-dark.png');
+    opacity: 0.08;
   }
 
 
   @include data-theme-selector('dark') {
     background-image: url('/images/scanline-light.png');
+    opacity: 0.10;
   }
 }
 
