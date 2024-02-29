@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { createRef, Fragment, useEffect, useRef, useState } from 'react'
 import {
   Collapsible,
   CollapsibleContent,
@@ -32,12 +32,41 @@ export const MobileMediaContentAccordion: React.FC<MediaContentAccordionProps> =
 }) => {
   const { leader, heading, accordion } = mediaContentAccordionFields || {}
 
+  const mediaRefs = useRef<Array<React.RefObject<HTMLDivElement>>>([])
+  const [containerHeight, setContainerHeight] = useState(0)
   const hasAccordion = Array.isArray(accordion) && accordion.length > 0
   const [activeAccordion, setActiveAccordion] = useState<number>(0)
 
   const toggleAccordion = (index: number) => {
     setActiveAccordion(index)
   }
+
+  if (accordion && accordion.length > 0 && mediaRefs.current.length !== accordion.length) {
+    mediaRefs.current = accordion.map((_, i) => mediaRefs.current[i] || createRef())
+  }
+
+  useEffect(() => {
+    const updateContainerHeight = () => {
+      const activeMediaRef = mediaRefs.current[activeAccordion]
+      if (activeMediaRef && activeMediaRef.current) {
+        const activeMediaHeight = activeMediaRef.current.offsetHeight
+        setContainerHeight(activeMediaHeight)
+      }
+    }
+
+    updateContainerHeight()
+
+    const resizeObserver = new ResizeObserver(entries => {
+      updateContainerHeight()
+    })
+
+    const activeMediaRef = mediaRefs.current[activeAccordion]
+    if (activeMediaRef && activeMediaRef.current) {
+      resizeObserver.observe(activeMediaRef.current)
+    }
+
+    return () => resizeObserver.disconnect()
+  }, [activeAccordion])
 
   return (
     <div
@@ -54,7 +83,10 @@ export const MobileMediaContentAccordion: React.FC<MediaContentAccordionProps> =
             </h3>
           )}
         </div>
-        <div className={classes.mediaBackgroundWrapper}>
+        <div
+          className={classes.mediaBackgroundWrapper}
+          style={{ height: `calc(${containerHeight}px + var(--base) * 6)` }}
+        >
           {hasAccordion &&
             accordion.map((item, index) => (
               <Fragment key={item.id || index}>
@@ -111,6 +143,7 @@ export const MobileMediaContentAccordion: React.FC<MediaContentAccordionProps> =
             {hasAccordion &&
               accordion.map((item, index) => (
                 <div
+                  ref={mediaRefs.current[index]}
                   key={item.id || index}
                   className={classes.media}
                   style={{ opacity: index === activeAccordion ? 1 : 0 }}

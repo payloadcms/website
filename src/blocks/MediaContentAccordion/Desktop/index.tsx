@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import React, { createRef, Fragment, useEffect, useRef, useState } from 'react'
 import {
   Collapsible,
   CollapsibleContent,
@@ -32,32 +32,50 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
 }) => {
   const { alignment, leader, heading, accordion } = mediaContentAccordionFields || {}
 
+  const mediaRefs = useRef<Array<React.RefObject<HTMLDivElement>>>([])
+  const [containerHeight, setContainerHeight] = useState(0)
   const contentRef = useRef<HTMLDivElement | null>(null)
   const [contentWidth, setContentWidth] = useState(0)
   const hasAccordion = Array.isArray(accordion) && accordion.length > 0
   const [activeAccordion, setActiveAccordion] = useState<number>(0)
 
-  useEffect(() => {
-    const updateMediaWidth = () => {
-      const newContentWidth = contentRef.current ? contentRef.current.offsetWidth : 0
-      setContentWidth(newContentWidth)
-    }
-    updateMediaWidth()
-
-    window.addEventListener('resize', updateMediaWidth)
-
-    return () => window.removeEventListener('resize', updateMediaWidth)
-  }, [])
-
   const toggleAccordion = (index: number) => {
     setActiveAccordion(index)
   }
 
-  const backgroundPositionClassMap = {
-    normal: classes.normalAspectRatio,
-    inset: classes.insetAspectRatio,
-    wide: classes.wideAspectRatio,
+  if (accordion && accordion.length > 0 && mediaRefs.current.length !== accordion.length) {
+    mediaRefs.current = accordion.map((_, i) => mediaRefs.current[i] || createRef())
   }
+
+  useEffect(() => {
+    const updateContainerHeight = () => {
+      const activeMediaRef = mediaRefs.current[activeAccordion]
+      if (activeMediaRef && activeMediaRef.current) {
+        const activeMediaHeight = activeMediaRef.current.offsetHeight
+        setContainerHeight(activeMediaHeight)
+      }
+    }
+
+    const updateContentWidth = () => {
+      const newContentWidth = contentRef.current ? contentRef.current.offsetWidth : 0
+      setContentWidth(newContentWidth)
+    }
+
+    updateContainerHeight()
+    updateContentWidth()
+
+    const resizeObserver = new ResizeObserver(entries => {
+      updateContainerHeight()
+      updateContentWidth()
+    })
+
+    const activeMediaRef = mediaRefs.current[activeAccordion]
+    if (activeMediaRef && activeMediaRef.current) {
+      resizeObserver.observe(activeMediaRef.current)
+    }
+
+    return () => resizeObserver.disconnect()
+  }, [activeAccordion])
 
   const rightPositionClassMap = {
     normal: 'start-9 cols-8 start-m-1 cols-m-8',
@@ -88,13 +106,11 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                       <div
                         className={[
                           classes.gradientDesktopWrapper,
-                          backgroundPositionClassMap[
-                            item.position as keyof typeof backgroundPositionClassMap
-                          ],
                           'start-1 cols-8 start-m-1 cols-m-8',
                         ]
                           .filter(Boolean)
                           .join(' ')}
+                        style={{ height: `calc(${containerHeight}px + var(--base) * 8)` }}
                       >
                         <Image
                           alt=""
@@ -121,13 +137,11 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                       <div
                         className={[
                           classes.scanlineDesktopWrapper,
-                          backgroundPositionClassMap[
-                            item.position as keyof typeof backgroundPositionClassMap
-                          ],
                           'start-1 cols-8 start-m-1 cols-m-8',
                         ]
                           .filter(Boolean)
                           .join(' ')}
+                        style={{ height: `calc(${containerHeight}px + var(--base) * 8)` }}
                       >
                         <BackgroundScanline
                           className={[classes.scanlineDesktop].filter(Boolean).join(' ')}
@@ -150,13 +164,11 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                       <div
                         className={[
                           classes.transparentDesktopWrapper,
-                          backgroundPositionClassMap[
-                            item.position as keyof typeof backgroundPositionClassMap
-                          ],
                           'start-1 cols-8 start-m-1 cols-m-8',
                         ]
                           .filter(Boolean)
                           .join(' ')}
+                        style={{ height: `calc(${containerHeight}px + var(--base) * 8)` }}
                       >
                         <div className={classes.transparentBg} />
                       </div>
@@ -164,6 +176,7 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                   </>
                 )}
                 <div
+                  ref={mediaRefs.current[index]}
                   className={[
                     classes.mediaDesktopContainer,
                     leftPositionClassMap[item.position as keyof typeof leftPositionClassMap],
@@ -322,13 +335,11 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                       <div
                         className={[
                           classes.gradientDesktopWrapper,
-                          backgroundPositionClassMap[
-                            item.position as keyof typeof backgroundPositionClassMap
-                          ],
                           'start-9 cols-8 start-m-1 cols-m-8',
                         ]
                           .filter(Boolean)
                           .join(' ')}
+                        style={{ height: `calc(${containerHeight}px + var(--base) * 8)` }}
                       >
                         <Image
                           alt=""
@@ -355,13 +366,11 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                       <div
                         className={[
                           classes.scanlineDesktopWrapper,
-                          backgroundPositionClassMap[
-                            item.position as keyof typeof backgroundPositionClassMap
-                          ],
                           'start-9 cols-8 start-m-1 cols-m-8',
                         ]
                           .filter(Boolean)
                           .join(' ')}
+                        style={{ height: `calc(${containerHeight}px + var(--base) * 8)` }}
                       >
                         <BackgroundScanline
                           className={[classes.scanlineDesktop].filter(Boolean).join(' ')}
@@ -384,13 +393,11 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                       <div
                         className={[
                           classes.transparentDesktopWrapper,
-                          backgroundPositionClassMap[
-                            item.position as keyof typeof backgroundPositionClassMap
-                          ],
                           'start-9 cols-8 start-m-1 cols-m-8',
                         ]
                           .filter(Boolean)
                           .join(' ')}
+                        style={{ height: `calc(${containerHeight}px + var(--base) * 8)` }}
                       >
                         <div className={classes.transparentBg} />
                       </div>
@@ -398,6 +405,7 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                   </>
                 )}
                 <div
+                  ref={mediaRefs.current[index]}
                   className={[
                     classes.mediaDesktopContainer,
                     rightPositionClassMap[item.position as keyof typeof rightPositionClassMap],

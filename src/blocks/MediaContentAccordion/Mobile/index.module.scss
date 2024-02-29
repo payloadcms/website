@@ -312,7 +312,7 @@
 .mediaMobileContainer {
   position: relative;
   width: 100%;
-  aspect-ratio: 7/4;
+  height: 100%;
 }
 
 .media {
@@ -322,8 +322,8 @@
   width: 100%;
   transition: opacity 0.5s ease-in-out;
   z-index: 2;
-  margin: 0 calc(var(--gutter-h) * 1);
-  width: calc(100% - var(--gutter-h) * 2);
+  margin: 0 calc(var(--gutter-h) * 2);
+  width: calc(100% - var(--gutter-h) * 4);
 
   > div {
     height: 100%;
