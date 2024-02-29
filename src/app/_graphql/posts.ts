@@ -9,6 +9,21 @@ import {
 import { MEDIA_FIELDS } from './media'
 import { META_FIELDS } from './meta'
 
+export const AUTHOR_FIELDS = `{
+  firstName
+  lastName
+  email
+  twitter
+  photo {
+    alt
+    url
+    height
+    width
+    filename
+    mimeType
+  }
+}`
+
 export const POSTS = `
   query Posts($publishedOn: DateTime) {
     Posts(where: { publishedOn: { less_than_equal: $publishedOn} }, limit: 300 sort: "-publishedOn") {
@@ -17,6 +32,7 @@ export const POSTS = `
         title
         image ${MEDIA_FIELDS}
         meta ${META_FIELDS}
+        authors ${AUTHOR_FIELDS}
         createdAt
         publishedOn
         slug
@@ -34,21 +50,6 @@ export const POST_SLUGS = `
     }
   }
 `
-
-export const AUTHOR_FIELDS = `{
-  firstName
-  lastName
-  email
-  twitter
-  photo {
-    alt
-    url
-    height
-    width
-    filename
-    mimeType
-  }
-}`
 
 export const POST = `
   query Post($slug: String, $draft: Boolean) {
@@ -75,6 +76,8 @@ export const POST = `
           slug
           image ${MEDIA_FIELDS}
           meta ${META_FIELDS}
+          authors ${AUTHOR_FIELDS}
+          publishedOn
         }
       }
     }

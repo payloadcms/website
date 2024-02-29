@@ -4,3 +4,7 @@
   margin: 0;
   margin-bottom: calc(var(--base) * 2);
 }
+
+.grid {
+  row-gap: calc(var(--base) * 2);
+}
