@@ -110,7 +110,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   cursor: pointer;
   display: block;
   position: absolute;
-  right: calc(var(--base) * 0.75);
+  right: calc(var(--base) * 1.5);
   top: calc(50% - var(--base) * 0.6);
 
   &:hover {
@@ -185,7 +185,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     border-bottom: 1px solid var(--grid-line-dark);
     width: 100%;
     padding: var(--base) calc(var(--base) * 1.5);
-    padding-left: var(--theme-switcher-icon-width);
+    padding-left: calc(var(--base) * 1.5 + var(--theme-switcher-icon-width));
   }
 }
 
@@ -194,6 +194,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   height: var(--base);
   justify-content: center;
   position: absolute;
+  margin-left: calc(var(--base) * 1.25);
 }
 
 .themeIcon {
@@ -202,6 +203,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .upDownChevronIcon {
   width: var(--theme-switcher-icon-width);
-  right: 0;
+  right: calc(var(--base) * 0.75);
   pointer-events: none;
 }
