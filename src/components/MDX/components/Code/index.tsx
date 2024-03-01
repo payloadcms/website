@@ -6,7 +6,7 @@ import classes from './index.module.scss'
 
 const CodeMarkdown: React.FC<{ children: React.ReactNode; className: string }> = ({ children }) => {
   let childrenToRender: string | null = null
-  const [blockPadding, setBlockPadding] = React.useState(0)
+  const [blockPadding, setBlockPadding] = React.useState<number>(100)
   const blockRef = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
@@ -27,10 +27,16 @@ const CodeMarkdown: React.FC<{ children: React.ReactNode; className: string }> =
   return (
     <div
       ref={blockRef}
-      style={{
-        marginLeft: blockPadding / -1 - 1,
-        marginRight: blockPadding / -1 - 1,
-      }}
+      style={
+        blockPadding
+          ? {
+              marginLeft: blockPadding / -1 - 1,
+              marginRight: blockPadding / -1 - 2,
+              paddingLeft: blockPadding,
+              paddingRight: blockPadding,
+            }
+          : {}
+      }
       className={classes.codeWrap}
     >
       <Code className={`${classes.code} mdx-code`} disableMinHeight>

@@ -34,7 +34,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
   )
   const [indicatorTop, setIndicatorTop] = useState<number | undefined>(undefined)
 
-  const topicRefs = useRef<(HTMLButtonElement | null)[]>([])
+  const topicRefs = useRef<Record<string, HTMLButtonElement | HTMLLIElement | null>>({})
 
   useEffect(() => {
     setNavOpen(false)
@@ -56,22 +56,19 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
   }, [openTopicPreferences, init])
 
   useEffect(() => {
-    if (topicParam && docParam) {
-      const topicIndex = topics.findIndex(topic => topic.slug.toLowerCase() === topicParam)
-      const docIndex = topics[topicIndex].docs.findIndex(doc => doc.slug === docParam)
-      handleIndicator(topicIndex, docIndex, true)
-    }
+    resetDefaultIndicator()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [openTopicPreferences, topicParam, docParam, topics])
+  }, [topicParam, docParam])
 
-  useEffect(() => {
-    if (resetIndicator) {
-      setIndicatorTop(defaultIndicatorPosition)
-      setResetIndicator(false)
-    }
-  }, [resetIndicator, defaultIndicatorPosition])
+  const resetDefaultIndicator = () => {
+    const topicIndex = topics.findIndex(topic => topic.slug.toLowerCase() === topicParam)
+    const docIndex = topics[topicIndex].docs.findIndex(doc => doc.slug === docParam)
+    const formattedIndex = docIndex || docIndex === 0 ? `${topicIndex}-${docIndex}` : topicIndex
+    const defaultIndicatorPosition = topicRefs?.current[formattedIndex]?.offsetTop || 0
+    setIndicatorTop(defaultIndicatorPosition)
+  }
 
-  const handleMenuItemClick = (topicSlug: string, docIndex: number) => {
+  const handleMenuItemClick = (topicSlug: string) => {
     const isCurrentTopic = topicParam === topicSlug
     if (isCurrentTopic) {
       if (openTopicPreferences?.includes(topicSlug) && currentTopicIsOpen) {
@@ -95,17 +92,18 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
     }
   }
 
-  const handleIndicator = (index: number, docIndex?: number, setDefault?: boolean) => {
-    const topicHeight = topicRefs?.current[index]?.offsetTop || 0
-    const nestedOffset = currentTopicIsOpen && docIndex ? (docIndex + 1) * 28 : 0
-
-    if (setDefault) {
-      setDefaultIndicatorPosition(topicHeight + nestedOffset)
-      setIndicatorTop(topicHeight + nestedOffset)
-    } else {
-      setIndicatorTop(topicHeight + nestedOffset)
-    }
+  const handleIndicator = (index: number | string) => {
+    const offset = topicRefs?.current[index]?.offsetTop || 0
+    setIndicatorTop(offset)
   }
+
+  useEffect(() => {
+    if (resetIndicator) {
+      resetDefaultIndicator()
+      setResetIndicator(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetIndicator])
 
   return (
     <MDXProvider>
@@ -136,8 +134,8 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
                     .filter(Boolean)
                     .join(' ')}
                   ref={ref => (topicRefs.current[index] = ref)}
-                  onClick={() => handleMenuItemClick(topicSlug, index)}
-                  onMouseEnter={() => handleIndicator(index, undefined)}
+                  onClick={() => handleMenuItemClick(topicSlug)}
+                  onMouseEnter={() => handleIndicator(`${index}`)}
                 >
                   {topic.slug.replace('-', ' ')}
                   <div className={classes.chevron}>
@@ -148,15 +146,20 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
                   <ul className={classes.docs}>
                     {topic.docs.map((doc: DocMeta, docIndex) => {
                       const isDocActive = docParam === doc.slug && topicParam === topicSlug
+                      const nestedIndex = `${index}-${docIndex}`
+
                       return (
-                        <li key={doc.slug} onMouseEnter={() => handleIndicator(index, docIndex)}>
+                        <li
+                          key={doc.slug}
+                          onMouseEnter={() => handleIndicator(nestedIndex)}
+                          ref={ref => (topicRefs.current[nestedIndex] = ref)}
+                        >
                           <Link
                             href={`/docs/${topicSlug}/${doc.slug}`}
                             className={[classes.doc, isDocActive && classes['doc--active']]
                               .filter(Boolean)
                               .join(' ')}
                             prefetch={false}
-                            onClick={() => handleIndicator(index, docIndex, true)}
                           >
                             {doc.label}
                           </Link>
