@@ -28,7 +28,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .background {
   height: var(--header-height);
-  top: var(--header-height);
+  top: var(--page-padding-top);
   position: absolute;
   z-index: -1;
   width: 100%;
@@ -162,17 +162,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   background-color: var(--theme-elevation-800);
 }
 
-.showUnderline {
-  &:before {
-    transition: all var(--trans-default) $curve;
-    width: 100%;
-  }
-  & svg {
-    transition: all var(--trans-default) $curve;
-    transform: translate3d(10px, -10px, 0);
-  }
-}
-
 .dropdownWrap {
   position: relative;
 }
@@ -192,6 +181,10 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   transition: opacity var(--trans-default) $curve;
 }
 
+.dropdownItem {
+  position: relative;
+}
+
 .dropdownItem, .description {
   text-wrap: wrap;
   margin-right: calc(var(--base) * 2);
@@ -208,7 +201,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     left: 0;
     width: 0;
     background-color: var(--theme-elevation-1000);
-    height: 1px;
+    height: 2px;
     opacity: 1;
   }
 
@@ -240,6 +233,17 @@ $curve: cubic-bezier(.165, .84, .44, 1);
         transition-delay: #{($i * 0.075)}s;
       }
     }
+  }
+}
+
+.showUnderline {
+  &:before {
+    transition: all var(--trans-default) $curve;
+    width: 100%;
+  }
+  & svg {
+    transition: all var(--trans-default) $curve;
+    transform: translate3d(10px, -10px, 0);
   }
 }
 
