@@ -52,7 +52,7 @@ const Modal: React.FC = ({}) => {
       {data && (
         <motion.div initial={{ x: 20 }} ref={containerRef} className={classes.container}>
           <div className={classes.label}>{data.label}</div>
-          <RichText content={data.feature} />
+          <RichText className={classes.richText} content={data.feature} />
         </motion.div>
       )}
     </dialog>

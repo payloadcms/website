@@ -33,6 +33,24 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .label {
   @include h6;
   margin-bottom: calc(var(--base) * 1.75);
+
+  @include data-theme-selector('dark') {
+    color: var(--color-base-0);
+  }
+
+  @include data-theme-selector('light') {
+    color: var(--color-base-0);
+  }
+}
+
+.richText {
+  @include data-theme-selector('dark') {
+    color: var(--color-base-0);
+  }
+
+  @include data-theme-selector('light') {
+    color: var(--color-base-0);
+  }
 }
 
 .close {
