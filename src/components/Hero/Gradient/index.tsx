@@ -18,7 +18,13 @@ import classes from './index.module.scss'
 export const GradientHero: React.FC<
   Pick<
     Page['hero'],
-    'richText' | 'images' | 'fullBackground' | 'links' | 'description' | 'theme'
+    | 'richText'
+    | 'images'
+    | 'fullBackground'
+    | 'links'
+    | 'description'
+    | 'theme'
+    | 'enableBreadcrumbsBar'
   > & {
     breadcrumbs?: Page['breadcrumbs']
     firstContentBlock?: BlocksProp
@@ -30,6 +36,7 @@ export const GradientHero: React.FC<
   links,
   description,
   theme: themeFromProps,
+  enableBreadcrumbsBar,
   firstContentBlock,
 }) => {
   const theme = fullBackground ? 'dark' : themeFromProps
@@ -39,7 +46,9 @@ export const GradientHero: React.FC<
     <BlockWrapper settings={{ theme }} padding={{ ...padding, bottom: 'large' }}>
       {Boolean(fullBackground) && (
         <Media
-          className={[classes.bgFull].filter(Boolean).join(' ')}
+          className={[classes.bgFull, enableBreadcrumbsBar ? classes.hasBreadcrumbsEnabled : '']
+            .filter(Boolean)
+            .join(' ')}
           src="/images/gradient-wide.jpg"
           alt=""
           width={1920}
