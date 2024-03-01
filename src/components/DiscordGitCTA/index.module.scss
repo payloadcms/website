@@ -38,8 +38,12 @@
 
     .message,
     .arrow {
-      transition: all 300ms ease-in-out;
+      transition: all var(--trans-default) linear;
       color: var(--theme-success-600);
+    }
+
+    .arrow {
+      transform: translate3D(10px, -10px, 0);
     }
 
     &:before {
@@ -63,7 +67,7 @@
   color: var(--theme-text-color);
 
   & path {
-    stroke-width: 1.5px;
+    stroke-width: var(--default-border-width);
   }
 }
 

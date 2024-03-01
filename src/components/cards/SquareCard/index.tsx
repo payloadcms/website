@@ -42,14 +42,22 @@ export const SquareCard: React.FC<SquareCardProps> = props => {
       <div className={classes.leader}>
         <h6 className={classes.leaderText}>{leader}</h6>
       </div>
-      <h4 className={classes.title}>{title}</h4>
-      <div
-        className={
-          revealDescription ? classes.revealDescriptionWrapper : classes.descriptionWrapper
-        }
+      <h4
+        className={[classes.title, description ? '' : classes.noDescription]
+          .filter(Boolean)
+          .join(' ')}
       >
-        <p className={classes.description}>{description}</p>
-      </div>
+        {title}
+      </h4>
+      {description && (
+        <div
+          className={
+            revealDescription ? classes.revealDescriptionWrapper : classes.descriptionWrapper
+          }
+        >
+          <p className={classes.description}>{description}</p>
+        </div>
+      )}
       <BackgroundScanline className={classes.scanlines} />
     </div>
   )

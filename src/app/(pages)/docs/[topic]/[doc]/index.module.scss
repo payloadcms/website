@@ -105,9 +105,21 @@
   padding: calc(var(--base) * 3) 0;
   text-decoration: none;
   border-top: 1px solid var(--theme-border-color);
+  transition: all var(--trans-default) linear;
 
   h3 {
     margin: 0;
+  }
+
+  &:focus, &:hover {
+    text-decoration: none;
+    transition: all var(--trans-default) linear;
+    background-color: var(--theme-elevation-50);
+
+    .nextLabel svg {
+      transition: all var(--trans-default) linear;
+      transform: translate3D(10px, -10px, 0);
+    }
   }
 
   @include mid-break {
@@ -125,6 +137,7 @@
   padding-bottom: calc(var(--base) * 0.5);
 
   svg {
+    transition: all var(--trans-default) linear;
     margin-left: calc(var(--base) * .5);
   }
 }

@@ -33,6 +33,7 @@
   &.disabled {
     cursor: default;
     color: var(--theme-elevation-500);
+    opacity: 0.5;
 
     &:hover {
       border-color: transparent;
@@ -49,17 +50,26 @@
 .paginationButton {
   all: unset;
   cursor: pointer;
-  width: calc(var(--base) * 3);
-  height: calc(var(--base) * 3);
+  width: calc(var(--base) * 4);
+  height: calc(var(--base) * 4);
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid;
   border-color: transparent;
   margin-right: calc(var(--base) * 0.5);
+  position: relative;
 
   &:hover {
-    border-color: #3C3C3C;
+    border-color: var(--grid-line-dark);
+
+    @include data-theme-selector('dark') {
+      border-color: var(--grid-line-dark);
+    }
+
+    @include data-theme-selector('light') {
+      border-color: var(--grid-line-light);
+    }
   }
 
   @include small-break {
@@ -71,6 +81,30 @@
 
 .paginationButtonActive {
   border: 1px solid currentColor;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    background-image: url('/images/scanline-dark.png');
+    background-repeat: repeat;
+    opacity: 0.08;
+    box-sizing: border-box;
+
+    @include data-theme-selector('light') {
+      background-image: url('/images/scanline-dark.png');
+      opacity: 0.08;
+    }
+
+
+    @include data-theme-selector('dark') {
+      background-image: url('/images/scanline-light.png');
+      opacity: 0.10;
+    }
+  }
 }
 
 .dash {

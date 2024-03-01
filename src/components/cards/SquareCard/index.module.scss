@@ -106,6 +106,10 @@
   @include small-break {
     font-size: calc(var(--base) * 1.25);
   }
+
+  &.noDescription {
+    margin-bottom: calc(var(--base) * .5);
+  }
 }
 
 .descriptionWrapper {

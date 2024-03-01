@@ -28,12 +28,12 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .background {
   height: var(--header-height);
-  top: 0;
+  top: var(--page-padding-top);
   position: absolute;
   z-index: -1;
   width: 100%;
   margin: 0 calc(var(--gutter-h) * -1);
-  transition: all var(--trans-default) $curve;
+  transition: all calc(var(--trans-default)*2) $curve;
 
   &:before, &:after {
     content: '';
@@ -44,7 +44,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     width: 100%;
     height: 100%;
     z-index: -1;
-    transition: all var(--trans-default) $curve;
+    transition: all calc(var(--trans-default)*2) $curve;
   }
 
   &:before {
@@ -59,6 +59,10 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 }
 
 .active {
+  &:before, &:after {
+    transition: all var(--trans-default) $curve;
+  }
+  
   &:before {
     background: var(--theme-elevation-800);
     opacity: 0.15;
@@ -158,6 +162,15 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   background-color: var(--theme-elevation-800);
 }
 
+.dropdownWrap {
+  position: relative;
+}
+
+.description {
+  @include headerText;
+  font-size: calc(var(--base)*1.1);
+}
+
 .dropdown {
   position: fixed;
   left: 0;
@@ -165,12 +178,18 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   pointer-events: none;
   z-index: -10;
   padding: calc(var(--base) * 2.5) var(--gutter-h) 0 var(--gutter-h);
+  transition: opacity var(--trans-default) $curve;
+}
+
+.dropdownItem {
+  position: relative;
 }
 
 .dropdownItem, .description {
   text-wrap: wrap;
   margin-right: calc(var(--base) * 2);
   padding-bottom: calc(var(--base) * 2.5);
+  transition: opacity var(--trans-default) $curve;
   opacity: 0;
 
   &:before {
@@ -182,7 +201,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     left: 0;
     width: 0;
     background-color: var(--theme-elevation-1000);
-    height: 1px;
+    height: 2px;
     opacity: 1;
   }
 
@@ -192,6 +211,28 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
   & svg {
     transition: all var(--trans-default) $curve;
+  }
+
+  @for $i from 1 through 5 {
+    &:nth-child(#{$i}n) {
+      transition-delay: #{((6 - $i) * 0.025)}s;
+    }
+  };
+}
+
+.activeTab {
+  pointer-events: all;
+
+  .description, .dropdownItem {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all var(--trans-default) $curve;
+
+    @for $i from 1 through 5 {
+      &:nth-child(#{$i}n) {
+        transition-delay: #{($i * 0.075)}s;
+      }
+    }
   }
 }
 
@@ -206,32 +247,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   }
 }
 
-.dropdownWrap {
-  position: relative;
-}
-
-.description {
-  @include headerText;
-  font-size: calc(var(--base)*1.1);
-}
-
-.activeTab {
-  pointer-events: all;
-  opacity: 1;
-
-  .description, .dropdownItem {
-    opacity: 1;
-    transform: translateY(0);
-
-    @for $i from 1 through 5 {
-      &:nth-child(#{$i}n) {
-        transition: all var(--trans-default) $curve;
-        transition-delay: #{($i * 0.1)}s;
-      }
-    }
-  }
-}
-
 .defaultLink, .defaultLinkDescription {
   display: flex;
   flex-direction: column;
@@ -243,6 +258,10 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   flex: 1;
   height: 100%;
   transition: opacity var(--trans-default) $curve;
+
+  &:focus {
+    text-decoration: none;
+  }
 }
 
 .defaultLinkLabel {

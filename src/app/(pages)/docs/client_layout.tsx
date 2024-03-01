@@ -7,6 +7,7 @@ import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { MenuIcon } from '@root/graphics/MenuIcon'
+import { ChevronIcon } from '@root/icons/ChevronIcon'
 import { CloseIcon } from '@root/icons/CloseIcon'
 import { MDXProvider } from '../../../components/MDX'
 import { DocMeta, Topic } from './types'
@@ -109,7 +110,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
   return (
     <MDXProvider>
       <div className={['grid', classes.wrap].join(' ')}>
-        <BackgroundGrid wideGrid />
+        <BackgroundGrid wideGrid className={classes.backgroundGrid} />
         <nav
           className={[
             'cols-3',
@@ -139,6 +140,9 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
                   onMouseEnter={() => handleIndicator(index, undefined)}
                 >
                   {topic.slug.replace('-', ' ')}
+                  <div className={classes.chevron}>
+                    <ChevronIcon size="medium" rotation={isActive ? 270 : 90} />
+                  </div>
                 </button>
                 <AnimateHeight height={isActive ? 'auto' : 0} duration={init ? 200 : 0}>
                   <ul className={classes.docs}>
