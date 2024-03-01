@@ -714,10 +714,10 @@ export interface CaseStudy {
                 | null;
               quoteSlides?:
                 | {
-                    richText: {
-                      [k: string]: unknown;
-                    }[];
-                    quoteDate: string;
+                    leader?: string | null;
+                    quote: string;
+                    author: string;
+                    role?: string | null;
                     id?: string | null;
                   }[]
                 | null;
@@ -1846,10 +1846,10 @@ export interface Page {
             | null;
           quoteSlides?:
             | {
-                richText: {
-                  [k: string]: unknown;
-                }[];
-                quoteDate: string;
+                leader?: string | null;
+                quote: string;
+                author: string;
+                role?: string | null;
                 id?: string | null;
               }[]
             | null;
@@ -2976,10 +2976,10 @@ export interface ReusableContent {
             | null;
           quoteSlides?:
             | {
-                richText: {
-                  [k: string]: unknown;
-                }[];
-                quoteDate: string;
+                leader?: string | null;
+                quote: string;
+                author: string;
+                role?: string | null;
                 id?: string | null;
               }[]
             | null;

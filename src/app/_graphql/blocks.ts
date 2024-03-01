@@ -392,8 +392,10 @@ export const SLIDER = `
       image ${MEDIA_FIELDS}
     }
     quoteSlides {
-      richText
-      quoteDate
+      leader
+      quote
+      author
+      role
     }
   }
 }`

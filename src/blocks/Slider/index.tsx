@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { Slide, SliderNav, SliderProvider, SliderTrack } from '@faceless-ui/slider'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { Gutter } from '@components/Gutter'
 import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'
@@ -17,10 +19,12 @@ const cardTypes = {
   quoteSlider: QuoteCard,
 }
 
-type Props = Extract<Page['layout'][0], { blockType: 'slider' }>
+type Props = Extract<Page['layout'][0], { blockType: 'slider' }> & {
+  padding?: PaddingProps
+}
 
-export const SliderBlock: React.FC<Props> = ({ sliderFields }) => {
-  const { sliderType, useLeadingHeader, leadingHeader } = sliderFields
+export const SliderBlock: React.FC<Props> = ({ sliderFields, padding }) => {
+  const { sliderType, useLeadingHeader, leadingHeader, settings } = sliderFields
 
   const slides = sliderType === 'imageSlider' ? sliderFields.imageSlides : sliderFields.quoteSlides
 
@@ -30,11 +34,12 @@ export const SliderBlock: React.FC<Props> = ({ sliderFields }) => {
   const withPixelBackground = sliderType === 'quoteSlider'
 
   return (
-    <div
-      className={[classes.slider, withPixelBackground && classes.withPixelBackground]
-        .filter(Boolean)
-        .join(' ')}
+    <BlockWrapper
+      settings={settings}
+      padding={padding}
+      className={[classes.slider].filter(Boolean).join(' ')}
     >
+      <BackgroundGrid zIndex={0} />
       <Gutter>
         {useLeadingHeader && <RichText content={leadingHeader} className={classes.leadingHeader} />}
         <SliderNav
@@ -68,17 +73,7 @@ export const SliderBlock: React.FC<Props> = ({ sliderFields }) => {
         </SliderTrack>
         <div className={classes.progressBarBackground} />
       </div>
-
-      {withPixelBackground && (
-        <Gutter className={classes.pixelContainer}>
-          <div className={['grid'].filter(Boolean).join(' ')}>
-            <div className={[classes.pixelCell, 'cols-12 start-5'].filter(Boolean).join(' ')}>
-              <PixelBackground />
-            </div>
-          </div>
-        </Gutter>
-      )}
-    </div>
+    </BlockWrapper>
   )
 }
 
@@ -86,7 +81,7 @@ export const Slider: React.FC<Props> = props => {
   const { gutterH } = useComputedCSSValues()
 
   return (
-    <SliderProvider slidesToShow={1.5} scrollOffset={gutterH}>
+    <SliderProvider slidesToShow={1.25} scrollOffset={gutterH}>
       <SliderBlock {...props} />
     </SliderProvider>
   )

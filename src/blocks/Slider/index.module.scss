@@ -51,6 +51,7 @@
 }
 
 .sliderTrack {
+  gap: 1px;
   padding-bottom: calc(var(--base) * 2);
 
   @include mid-break {
@@ -103,15 +104,7 @@
 }
 
 .slide {
-  margin-right: calc(var(--base) * 3);
 
-  &:first-child {
-    margin-left: var(--gutter-h);
-  }
-
-  @include mid-break {
-    margin-right: var(--base);
-  }
 }
 
 .pixelContainer {
@@ -144,11 +137,11 @@
 .slideType--quoteSlider {
   min-width: 600px;
   max-width: 900px;
-  
+
   @include extra-large-break {
     max-width: 625px;
   }
-  
+
   @include mid-break {
     min-width: 300px;
   }

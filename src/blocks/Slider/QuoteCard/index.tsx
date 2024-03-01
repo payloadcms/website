@@ -10,14 +10,15 @@ import classes from './index.module.scss'
 type Props = NonNullable<
   Extract<Page['layout'][0], { blockType: 'slider' }>['sliderFields']['quoteSlides']
 >[0]
-export const QuoteCard: React.FC<Props> = ({ richText, quoteDate }) => {
+export const QuoteCard: React.FC<Props> = ({ quote, leader, author, role }) => {
   return (
-    <div data-theme="dark" className={classes.quoteCard}>
+    <div className={classes.quoteCard}>
       <QuoteIcon className={classes.icon} />
-      <RichText className={classes.richText} content={richText} />
-      <time className={classes.date} dateTime={quoteDate}>
-        {formatDate({ date: quoteDate, format: 'shortDateStamp' })}
-      </time>
+      <div>{quote}</div>
+      <div>
+        <p>{author}</p>
+        <p>{role}</p>
+      </div>
     </div>
   )
 }
