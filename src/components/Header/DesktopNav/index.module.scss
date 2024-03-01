@@ -33,7 +33,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   z-index: -1;
   width: 100%;
   margin: 0 calc(var(--gutter-h) * -1);
-  transition: all var(--trans-default) $curve;
 
   &:before, &:after {
     content: '';
@@ -59,6 +58,10 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 }
 
 .active {
+  &:before, &:after {
+    transition: all var(--trans-default) $curve;
+  }
+  
   &:before {
     background: var(--theme-elevation-800);
     opacity: 0.15;
@@ -158,6 +161,26 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   background-color: var(--theme-elevation-800);
 }
 
+.showUnderline {
+  &:before {
+    transition: all var(--trans-default) $curve;
+    width: 100%;
+  }
+  & svg {
+    transition: all var(--trans-default) $curve;
+    transform: translate3d(10px, -10px, 0);
+  }
+}
+
+.dropdownWrap {
+  position: relative;
+}
+
+.description {
+  @include headerText;
+  font-size: calc(var(--base)*1.1);
+}
+
 .dropdown {
   position: fixed;
   left: 0;
@@ -165,12 +188,14 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   pointer-events: none;
   z-index: -10;
   padding: calc(var(--base) * 2.5) var(--gutter-h) 0 var(--gutter-h);
+  transition: all var(--trans-default) $curve;
 }
 
 .dropdownItem, .description {
   text-wrap: wrap;
   margin-right: calc(var(--base) * 2);
   padding-bottom: calc(var(--base) * 2.5);
+  transition: all var(--trans-default) $curve;
   opacity: 0;
 
   &:before {
@@ -193,40 +218,25 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   & svg {
     transition: all var(--trans-default) $curve;
   }
-}
 
-.showUnderline {
-  &:before {
-    transition: all var(--trans-default) $curve;
-    width: 100%;
-  }
-  & svg {
-    transition: all var(--trans-default) $curve;
-    transform: translate3d(10px, -10px, 0);
-  }
-}
-
-.dropdownWrap {
-  position: relative;
-}
-
-.description {
-  @include headerText;
-  font-size: calc(var(--base)*1.1);
+  @for $i from 1 through 5 {
+    &:nth-child(#{$i}n) {
+      transition-delay: #{((6 - $i) * 0.025)}s;
+    }
+  };
 }
 
 .activeTab {
   pointer-events: all;
-  opacity: 1;
 
   .description, .dropdownItem {
     opacity: 1;
     transform: translateY(0);
+    transition: all var(--trans-default) $curve;
 
     @for $i from 1 through 5 {
       &:nth-child(#{$i}n) {
-        transition: all var(--trans-default) $curve;
-        transition-delay: #{($i * 0.1)}s;
+        transition-delay: #{($i * 0.075)}s;
       }
     }
   }

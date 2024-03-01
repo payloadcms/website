@@ -215,7 +215,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
               })}
               <div
                 className={classes.underline}
-                style={{ ...underlineStyles, opacity: activeDropdown ? 1 : 0 }}
+                style={{ ...underlineStyles, opacity: activeDropdown || activeTab ? 1 : 0 }}
                 aria-hidden="true"
               >
                 <div className={classes.underlineFill} />
