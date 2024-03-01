@@ -107,16 +107,7 @@
   width: calc(100% + var(--gutter-h));
 }
 
-.slideType--imageSlider {
-  min-width: 600px;
-  max-width: 800px;
-
-  @include mid-break {
-    min-width: 300px;
-  }
-}
-
-.slideType--quoteSlider {
+.quoteSlide {
   box-sizing: border-box;
   max-width: calc(100% - 4/16 * 100%);
 

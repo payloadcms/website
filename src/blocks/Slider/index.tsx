@@ -11,35 +11,24 @@ import {
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { Gutter } from '@components/Gutter'
-import { PixelBackground } from '@components/PixelBackground'
-import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
 import { ArrowIcon } from '../../icons/ArrowIcon'
 import { useComputedCSSValues } from '../../providers/ComputedCSSValues'
-import { ImageCard } from './ImageCard'
 import { QuoteCard } from './QuoteCard'
 
 import classes from './index.module.scss'
-
-const cardTypes = {
-  imageSlider: ImageCard,
-  quoteSlider: QuoteCard,
-}
 
 type Props = Extract<Page['layout'][0], { blockType: 'slider' }> & {
   padding?: PaddingProps
 }
 
 export const SliderBlock: React.FC<Props> = ({ sliderFields, padding }) => {
-  const { sliderType, settings } = sliderFields
+  const { settings } = sliderFields
   const { currentSlideIndex } = useSlider()
 
-  const slides = sliderType === 'imageSlider' ? sliderFields.imageSlides : sliderFields.quoteSlides
+  const slides = sliderFields.quoteSlides
 
   if (!slides || slides.length === 0) return null
-
-  const CardToRender = cardTypes[sliderType]
-  const withPixelBackground = sliderType === 'quoteSlider'
 
   const isFirst = currentSlideIndex === 0
   const isLast = currentSlideIndex + 1 === slides.length
@@ -75,9 +64,7 @@ export const SliderBlock: React.FC<Props> = ({ sliderFields, padding }) => {
               <Slide
                 key={index}
                 index={index}
-                className={[classes.slide, classes[`slideType--${sliderType}`]]
-                  .filter(Boolean)
-                  .join(' ')}
+                className={[classes.slide, classes.quoteSlide].filter(Boolean).join(' ')}
               >
                 <BackgroundGrid
                   zIndex={1}
@@ -89,7 +76,7 @@ export const SliderBlock: React.FC<Props> = ({ sliderFields, padding }) => {
                     3: { display: 'none' },
                   }}
                 />
-                <CardToRender isActive={isActive} {...slide} />
+                <QuoteCard isActive={isActive} {...slide} />
               </Slide>
             )
           })}

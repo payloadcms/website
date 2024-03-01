@@ -388,11 +388,6 @@ export const SLIDER = `
   blockType
   sliderFields {
     settings ${SETTINGS}
-    leadingHeader
-    sliderType
-    imageSlides {
-      image ${MEDIA_FIELDS}
-    }
     quoteSlides {
       leader
       quote

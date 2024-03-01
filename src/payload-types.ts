@@ -700,22 +700,13 @@ export interface CaseStudy {
               settings?: {
                 theme?: ('light' | 'dark') | null;
               };
-              sliderType: 'quoteSlider' | 'imageSlider';
-              imageSlides?:
-                | {
-                    image: string | Media;
-                    id?: string | null;
-                  }[]
-                | null;
-              quoteSlides?:
-                | {
-                    leader?: string | null;
-                    quote: string;
-                    author: string;
-                    role?: string | null;
-                    id?: string | null;
-                  }[]
-                | null;
+              quoteSlides: {
+                leader?: string | null;
+                quote: string;
+                author: string;
+                role?: string | null;
+                id?: string | null;
+              }[];
             };
             id?: string | null;
             blockName?: string | null;
@@ -1828,22 +1819,13 @@ export interface Page {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
-          sliderType: 'quoteSlider' | 'imageSlider';
-          imageSlides?:
-            | {
-                image: string | Media;
-                id?: string | null;
-              }[]
-            | null;
-          quoteSlides?:
-            | {
-                leader?: string | null;
-                quote: string;
-                author: string;
-                role?: string | null;
-                id?: string | null;
-              }[]
-            | null;
+          quoteSlides: {
+            leader?: string | null;
+            quote: string;
+            author: string;
+            role?: string | null;
+            id?: string | null;
+          }[];
         };
         id?: string | null;
         blockName?: string | null;
@@ -2954,22 +2936,13 @@ export interface ReusableContent {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
-          sliderType: 'quoteSlider' | 'imageSlider';
-          imageSlides?:
-            | {
-                image: string | Media;
-                id?: string | null;
-              }[]
-            | null;
-          quoteSlides?:
-            | {
-                leader?: string | null;
-                quote: string;
-                author: string;
-                role?: string | null;
-                id?: string | null;
-              }[]
-            | null;
+          quoteSlides: {
+            leader?: string | null;
+            quote: string;
+            author: string;
+            role?: string | null;
+            id?: string | null;
+          }[];
         };
         id?: string | null;
         blockName?: string | null;
