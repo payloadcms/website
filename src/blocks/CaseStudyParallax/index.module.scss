@@ -161,10 +161,10 @@
   margin-bottom: -80vh;
 
   @include mid-break {
-    margin-bottom: -50vh;
+    margin-bottom: 0;
     row-gap: calc(var(--base) * 4);
     padding-top:  calc(var(--base) * 1);
-    padding-bottom:  calc(var(--base) * 3);
+    padding-bottom:  0;
   }
 }
 
@@ -226,8 +226,7 @@
   pointer-events: none;
 
   @include mid-break {
-    height: auto;
-    min-height: 60vh;
+    display: none;
   }
 }
 
@@ -237,7 +236,6 @@
   background-color: var(--theme-bg);
   width: 100%;
   pointer-events: all;
-
 }
 
 .navGrid {
