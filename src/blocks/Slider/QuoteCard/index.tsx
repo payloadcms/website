@@ -15,6 +15,7 @@ type Props = NonNullable<
 }
 
 export const QuoteCard: React.FC<Props> = ({ quote, leader, author, role, isActive }) => {
+  if (!quote) return null
   return (
     <div className={[classes.quoteCard, isActive && classes.isActive].filter(Boolean).join(' ')}>
       <div className={classes.leader}>{leader}</div>

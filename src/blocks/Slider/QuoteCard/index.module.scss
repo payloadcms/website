@@ -104,6 +104,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .leader {
   @include h6;
   margin-top: 0;
+  text-transform: uppercase;
   margin-bottom: calc(var(--base) * 1.5);
 }
 
