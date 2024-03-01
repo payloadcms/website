@@ -58,7 +58,7 @@ export const QuoteBlock: React.FC<QuoteProps> = props => {
         <div className={classes.author}>{item.author}</div>
       </div>
 
-      {typeof item.caseStudy !== 'string' && (
+      {typeof item.caseStudy !== 'string' && item?.caseStudy?.slug && (
         <div className={['cols-8 cols-m-4 cols-s-8'].filter(Boolean).join(' ')}>
           <Button
             label={'Read the case study'}
@@ -66,7 +66,7 @@ export const QuoteBlock: React.FC<QuoteProps> = props => {
             appearance={'default'}
             icon="arrow"
             className={classes.caseStudyButton}
-            href={`/case-studies/${item.caseStudy.slug}`}
+            href={`/case-studies/${item?.caseStudy?.slug}`}
             el="a"
             aria-hidden={!isVisible}
             disabled={!isVisible}
