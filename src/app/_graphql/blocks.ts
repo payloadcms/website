@@ -363,6 +363,7 @@ export const PRICING_BLOCK = `
 ...on Pricing {
   blockType
   pricingFields {
+    settings ${SETTINGS}
     plans {
       name
       hasPrice
@@ -386,7 +387,7 @@ export const SLIDER = `
 ...on Slider {
   blockType
   sliderFields {
-    useLeadingHeader
+    settings ${SETTINGS}
     leadingHeader
     sliderType
     imageSlides {

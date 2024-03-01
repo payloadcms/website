@@ -700,12 +700,6 @@ export interface CaseStudy {
               settings?: {
                 theme?: ('light' | 'dark') | null;
               };
-              useLeadingHeader?: boolean | null;
-              leadingHeader?:
-                | {
-                    [k: string]: unknown;
-                  }[]
-                | null;
               sliderType: 'quoteSlider' | 'imageSlider';
               imageSlides?:
                 | {
@@ -1834,12 +1828,6 @@ export interface Page {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
-          useLeadingHeader?: boolean | null;
-          leadingHeader?:
-            | {
-                [k: string]: unknown;
-              }[]
-            | null;
           sliderType: 'quoteSlider' | 'imageSlider';
           imageSlides?:
             | {
@@ -2966,12 +2954,6 @@ export interface ReusableContent {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
-          useLeadingHeader?: boolean | null;
-          leadingHeader?:
-            | {
-                [k: string]: unknown;
-              }[]
-            | null;
           sliderType: 'quoteSlider' | 'imageSlider';
           imageSlides?:
             | {
