@@ -75,6 +75,7 @@ const Code: React.FC<Props> = props => {
       ]
         .filter(Boolean)
         .join(' ')}
+      data-theme={'dark'}
     >
       <Highlight {...defaultProps} theme={undefined} code={children} language="jsx">
         {({ style, tokens, getLineProps, getTokenProps }) => (

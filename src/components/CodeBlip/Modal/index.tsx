@@ -38,7 +38,13 @@ const Modal: React.FC = ({}) => {
   }
 
   return (
-    <dialog style={{ opacity: 0 }} ref={dialogRef} open={isOpen} className={classes.modal}>
+    <dialog
+      style={{ opacity: 0 }}
+      ref={dialogRef}
+      open={isOpen}
+      className={classes.modal}
+      data-theme={'dark'}
+    >
       <button
         ref={closeRef}
         style={{ transform: 'scale(0.5)' }}

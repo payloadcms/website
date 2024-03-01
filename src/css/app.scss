@@ -233,15 +233,12 @@ code {
   font-size: calc(var(--font-body-size) * .825);
   border-radius: 3px;
   padding: 0 5px;
-}
 
-html[data-theme="light"] {
-  code {
+  @include data-theme-selector('light') {
     background: var(--theme-elevation-100);
   }
-}
-html[data-theme="dark"] {
-  code {
+
+  @include data-theme-selector('dark') {
     background: var(--theme-elevation-200);
   }
 }
