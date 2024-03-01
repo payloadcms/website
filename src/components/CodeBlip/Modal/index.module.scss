@@ -32,6 +32,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .label {
   @include h6;
+  text-transform: uppercase;
   margin-bottom: calc(var(--base) * 1.75);
 
   @include data-theme-selector('dark') {
