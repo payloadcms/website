@@ -89,7 +89,7 @@
     justify-content: space-between;
     padding: calc(var(--base) * 0.5) 0 calc(var(--base) * 1);
 
-    &::marker {
+    &::marker, &::-webkit-details-marker {
       display: none;
       appearance: none;
     }

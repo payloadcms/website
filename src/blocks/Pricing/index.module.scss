@@ -109,6 +109,7 @@
     padding: 0;
     padding-left: calc(var(--base) * 1);
     padding-right: calc(var(--base) * 1);
+    padding-bottom: calc(var(--base) * 1.5);
   }
 
   .feature {
@@ -195,6 +196,10 @@
 
 .collapsibleList {
   display: none;
+
+  @include mid-break {
+    display: unset;
+  }
 }
 
 .chevron {
@@ -207,10 +212,4 @@
 
 .chevron.open {
   transform: rotate(-90deg);
-}
-
-.collapsibleList {
-  @include mid-break {
-    display: unset;
-  }
 }
