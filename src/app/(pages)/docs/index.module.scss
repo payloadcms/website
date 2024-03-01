@@ -151,7 +151,6 @@
 .docs {
   list-style: none;
   color: var(--theme-elevation-600);
-  position: relative;
   text-decoration: none;
 }
 
@@ -164,6 +163,10 @@
 
   &:hover {
     color: var(--theme-text);
+  }
+
+  &:focus {
+    text-decoration: none;
   }
 
   &--active {
