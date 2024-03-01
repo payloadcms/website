@@ -28,11 +28,12 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .background {
   height: var(--header-height);
-  top: 0;
+  top: var(--header-height);
   position: absolute;
   z-index: -1;
   width: 100%;
   margin: 0 calc(var(--gutter-h) * -1);
+  transition: all calc(var(--trans-default)*2) $curve;
 
   &:before, &:after {
     content: '';
@@ -43,7 +44,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     width: 100%;
     height: 100%;
     z-index: -1;
-    transition: all var(--trans-default) $curve;
+    transition: all calc(var(--trans-default)*2) $curve;
   }
 
   &:before {
@@ -188,14 +189,14 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   pointer-events: none;
   z-index: -10;
   padding: calc(var(--base) * 2.5) var(--gutter-h) 0 var(--gutter-h);
-  transition: all var(--trans-default) $curve;
+  transition: opacity var(--trans-default) $curve;
 }
 
 .dropdownItem, .description {
   text-wrap: wrap;
   margin-right: calc(var(--base) * 2);
   padding-bottom: calc(var(--base) * 2.5);
-  transition: all var(--trans-default) $curve;
+  transition: opacity var(--trans-default) $curve;
   opacity: 0;
 
   &:before {
@@ -253,6 +254,10 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   flex: 1;
   height: 100%;
   transition: opacity var(--trans-default) $curve;
+
+  &:focus {
+    text-decoration: none;
+  }
 }
 
 .defaultLinkLabel {

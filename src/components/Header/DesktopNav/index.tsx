@@ -23,12 +23,29 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
   const [backgroundStyles, setBackgroundStyles] = React.useState<any>({
     height: '0px',
   })
+  const bgHeight = hideBackground ? { top: '0px' } : ''
   const [underlineStyles, setUnderlineStyles] = React.useState<any>({})
   const { headerTheme } = useHeaderObserver()
   const [activeDropdownItem, setActiveDropdownItem] = React.useState<number | undefined>(undefined)
 
   const menuItemRefs = [] as (HTMLButtonElement | null)[]
   const dropdownMenuRefs = [] as (HTMLDivElement | null)[]
+
+  React.useEffect(() => {
+    if (activeTab !== undefined) {
+      const hoveredDropdownMenu = dropdownMenuRefs[activeTab]
+      const bgHeight = hoveredDropdownMenu?.clientHeight || 0
+      if (bgHeight === 0) {
+        setBackgroundStyles({ height: '0px' })
+        setActiveDropdown(undefined)
+      } else {
+        setBackgroundStyles({
+          height: hideBackground ? `${bgHeight + 90}px` : `${bgHeight}px`,
+        })
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hideBackground])
 
   const handleHoverEnter = index => {
     setActiveTab(index)
@@ -255,7 +272,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
           className={classes.background}
           onMouseEnter={() => setActiveDropdown(true)}
           onMouseLeave={() => setActiveDropdown(false)}
-          style={{ ...backgroundStyles, top: hideBackground ? '0px' : '90px' }}
+          style={{ ...backgroundStyles, ...bgHeight }}
         />
       </Gutter>
     </div>
