@@ -35,23 +35,23 @@ export const Statement: React.FC<StatementProps> = props => {
           >
             <RichText content={richText} className={classes.content} />
             {hasLinks && (
-              <ul className={[classes.links].filter(Boolean).join(' ')}>
+              <div className={[classes.links].filter(Boolean).join(' ')}>
                 {links.map(({ link }, i) => {
                   return (
-                    <li key={i}>
-                      <CMSLink
-                        {...link}
-                        appearance="default"
-                        fullWidth
-                        buttonProps={{
-                          icon: 'arrow',
-                          hideHorizontalBorders: true,
-                        }}
-                      />
-                    </li>
+                    <CMSLink
+                      {...link}
+                      key={i}
+                      appearance="default"
+                      fullWidth
+                      buttonProps={{
+                        icon: 'arrow',
+                        hideHorizontalBorders: true,
+                        hideBottomBorderExceptLast: true,
+                      }}
+                    />
                   )
                 })}
-              </ul>
+              </div>
             )}
           </div>
         </div>
