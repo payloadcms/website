@@ -16,6 +16,7 @@
   --breakpoint-mh-width: $breakpoint-mh-width;
   --breakpoint-lm-width: $breakpoint-lm-width;
   --breakpoint-l-width: $breakpoint-l-width;
+  --breakpoint-lp-width: $breakpoint-lp-width;
   --breakpoint-xl-width: $breakpoint-xl-width;
   --breakpoint-2xl-width: $breakpoint-2xl-width;
 
@@ -45,6 +46,7 @@
   --gutter-h: calc(50vw - (var(--base) * 40));
   --block-spacing: calc(var(--base) * 7);
   --new-block-spacing: calc(var(--base) * 8);
+  --default-border-width: 2px;
 
   --trans-default: 150ms;
 

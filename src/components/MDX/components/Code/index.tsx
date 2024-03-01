@@ -28,8 +28,8 @@ const CodeMarkdown: React.FC<{ children: React.ReactNode; className: string }> =
     <div
       ref={blockRef}
       style={{
-        marginLeft: blockPadding / -1,
-        marginRight: blockPadding / -1,
+        marginLeft: blockPadding / -1 - 1,
+        marginRight: blockPadding / -1 - 1,
       }}
       className={classes.codeWrap}
     >

@@ -57,8 +57,15 @@
 }
 
 .tabsWrapper {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
   border: 1px solid var(--theme-elevation-200);
+
+  @include mid-break {
+    position: relative;
+  }
 }
 
 .code {
@@ -113,10 +120,7 @@
 }
 
 .scanlineWrapper {
-  position: absolute;
-  height: 100%;
-  top: calc(var(--wrapper-padding-top) / -2);
-  height: calc(100% + var(--wrapper-padding-top) / 2 + var(--wrapper-padding-bottom) / 2);
+  position: relative;
   width: 100%;
 
   @include mid-break {
@@ -124,12 +128,22 @@
   }
 }
 
-.crosshairTopRight, .crosshairBottomRight {
+.crosshairTopRight, .crosshairBottomRight, .crosshairTopLeft, .crosshairBottomLeft  {
   position: absolute;
   width: calc(var(--base) * 1);
   height: auto;
   color: var(--theme-elevation-1000);
   opacity: 0.5;
+}
+
+.crosshairTopLeft {
+  top: calc(var(--base) * -0.5);
+  left: calc(var(--base) * -0.5);
+}
+
+.crosshairBottomLeft {
+  bottom: calc(var(--base) * -0.5);
+  left: calc(var(--base) * -0.5);
 }
 
 .crosshairTopRight {
@@ -142,9 +156,16 @@
   right: calc(var(--base) * -0.5);
 }
 
-.scanlineDesktop {
+.scanlineDesktopRight,  .scanlineDesktopLeft {
   width: calc(100% + var(--gutter-h) * 1);
+}
+
+.scanlineDesktopRight {
   margin-right: calc(var(--gutter-h) * -1);
+}
+
+.scanlineDesktopLeft {
+  margin-left: calc(var(--gutter-h) * -1);
 }
 
 .scanlineMobile {
@@ -152,6 +173,9 @@
 
   @include mid-break {
     display: block;
+    top: 50%;
+    transform: translateY(-50%);
+    height: calc(100% + 4px);
     width: calc(100% + var(--gutter-h) * 2);
     margin-left: calc(var(--gutter-h) * -1);
     margin-right: calc(var(--gutter-h) * -1);

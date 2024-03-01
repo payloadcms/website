@@ -40,6 +40,12 @@
   }
 }
 
+@mixin large-plus-break {
+  @media (max-width: $breakpoint-lp-width) {
+    @content;
+  }
+}
+
 @mixin extra-large-break {
   @media (max-width: $breakpoint-xl-width) {
     @content;

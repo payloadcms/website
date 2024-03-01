@@ -56,6 +56,7 @@ export const CODE_FEATURE = `
   codeFeatureFields {
     settings ${SETTINGS}
     forceDarkBackground
+    alignment
     heading
     richText
     links {

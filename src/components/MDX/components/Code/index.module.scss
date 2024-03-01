@@ -8,7 +8,7 @@
 }
 
 .code {
-  margin: 0 0 var(--base);
+  margin: 0 0 calc(var(--base)*2);
 
   @include mid-break {
     margin-left: calc(var(--gutter-h) * -1);

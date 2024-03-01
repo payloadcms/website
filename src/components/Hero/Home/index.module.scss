@@ -185,12 +185,16 @@
   }
 
   @include large-break-ht {
-    min-height: 130vh;
+    min-height: 140vh;
     @include two-extra-large-break {
-      min-height: 105vh;
+      min-height: 110vh;
     }
 
     @include extra-large-break {
+      min-height: 85vh;
+    }
+
+    @include large-plus-break {
       min-height: 75vh;
     }
 

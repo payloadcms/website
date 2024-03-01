@@ -238,6 +238,7 @@ export interface CaseStudy {
                 theme?: ('light' | 'dark') | null;
               };
               forceDarkBackground?: boolean | null;
+              alignment?: ('contentCode' | 'codeContent') | null;
               heading?: string | null;
               richText: {
                 [k: string]: unknown;
@@ -777,6 +778,7 @@ export interface CaseStudy {
                               theme?: ('light' | 'dark') | null;
                             };
                             forceDarkBackground?: boolean | null;
+                            alignment?: ('contentCode' | 'codeContent') | null;
                             heading?: string | null;
                             richText: {
                               [k: string]: unknown;
@@ -1370,6 +1372,7 @@ export interface Page {
             theme?: ('light' | 'dark') | null;
           };
           forceDarkBackground?: boolean | null;
+          alignment?: ('contentCode' | 'codeContent') | null;
           heading?: string | null;
           richText: {
             [k: string]: unknown;
@@ -1909,6 +1912,7 @@ export interface Page {
                           theme?: ('light' | 'dark') | null;
                         };
                         forceDarkBackground?: boolean | null;
+                        alignment?: ('contentCode' | 'codeContent') | null;
                         heading?: string | null;
                         richText: {
                           [k: string]: unknown;
@@ -2510,6 +2514,7 @@ export interface ReusableContent {
             theme?: ('light' | 'dark') | null;
           };
           forceDarkBackground?: boolean | null;
+          alignment?: ('contentCode' | 'codeContent') | null;
           heading?: string | null;
           richText: {
             [k: string]: unknown;
@@ -3039,6 +3044,7 @@ export interface ReusableContent {
                           theme?: ('light' | 'dark') | null;
                         };
                         forceDarkBackground?: boolean | null;
+                        alignment?: ('contentCode' | 'codeContent') | null;
                         heading?: string | null;
                         richText: {
                           [k: string]: unknown;
