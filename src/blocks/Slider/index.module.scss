@@ -27,22 +27,31 @@
 }
 
 .sliderNav {
-  margin-bottom: calc(var(--base) * 1.5);
-  margin-left: 4px;
+  margin-left: calc(var(--base) * 4.5);
+  margin-top: calc(var(--base) * 2);
 
   @include mid-break {
-    display: none;
+    margin-left: calc(var(--base) * 1);
   }
 }
 
 .navButton {
   all: unset;
   cursor: pointer;
-  width:calc(var(--base) * 1);
+  width: calc(var(--base) * 0.6);
+
+  @include mid-break {
+    width: calc(var(--base) * 1);
+  }
 
   svg {
     width: 100%;
     height: auto;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
   }
 }
 
@@ -51,67 +60,33 @@
 }
 
 .sliderTrack {
-  padding-bottom: calc(var(--base) * 2);
-
-  @include mid-break {
-    padding-bottom: var(--base);
-  }
-
   &::-webkit-scrollbar-track {
-    margin-left: var(--gutter-h);
+    display: none;
   }
 
   &::-webkit-scrollbar {
-    background-color: transparent;
-    height: 4px;
-    cursor: pointer;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--theme-text);
-    border-radius: 0px;
-    cursor: pointer;
+    display: none;
   }
 }
 
 .trackWrap {
   position: relative;
-}
+  margin-left: calc(var(--gutter-h));
+  margin-right: calc(var(--gutter-h));
+  background: white;
 
-.progressBarBackground {
-  &:before {
-    content: '';
-    position: absolute;
-    left: var(--gutter-h);
-    width: calc(100% - var(--gutter-h));
-    bottom: 1px;
-    height: 3px;
-    background: var(--theme-elevation-150);
-    z-index: -1;
+  @include data-theme-selector('light') {
+    background: var(--color-base-0);
   }
 
-  &:after {
-    content: '';
-    position: absolute;
-    left: var(--gutter-h);
-    width: calc(100% - var(--gutter-h));
-    background-color: var(--theme-bg);
-    height: 12px;
-    bottom: -4px;
-    z-index: -2;
+  @include data-theme-selector('dark') {
+    background: var(--color-base-1000);
   }
 }
 
 .slide {
-  margin-right: calc(var(--base) * 3);
-
-  &:first-child {
-    margin-left: var(--gutter-h);
-  }
-
-  @include mid-break {
-    margin-right: var(--base);
-  }
+  position: relative;
+  box-sizing: border-box;
 }
 
 .pixelContainer {
@@ -132,24 +107,20 @@
   width: calc(100% + var(--gutter-h));
 }
 
-.slideType--imageSlider {
-  min-width: 600px;
-  max-width: 800px;
+.quoteSlide {
+  box-sizing: border-box;
+  max-width: calc(100% - 4/16 * 100%);
 
   @include mid-break {
-    min-width: 300px;
+    max-width: 100%;
   }
 }
 
-.slideType--quoteSlider {
-  min-width: 600px;
-  max-width: 900px;
-  
-  @include extra-large-break {
-    max-width: 625px;
-  }
-  
+.fakeSlide {
+  width: calc(25% - 1px);
+  flex-shrink: 0;
+
   @include mid-break {
-    min-width: 300px;
+    display: none;
   }
 }
