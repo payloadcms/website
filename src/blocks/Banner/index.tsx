@@ -20,7 +20,9 @@ export const BannerBlock: React.FC<{
 
   return (
     <>
-      {!disableGutter ? (
+      {disableGutter ? (
+        <Banner {...bannerProps} />
+      ) : (
         <Gutter>
           <div className={'grid'}>
             <div className={'cols-8 start-5 cols-m-6 start-m-2 cols-s-8 start-s-1'}>
@@ -28,8 +30,6 @@ export const BannerBlock: React.FC<{
             </div>
           </div>
         </Gutter>
-      ) : (
-        <Banner {...bannerProps} />
       )}
     </>
   )

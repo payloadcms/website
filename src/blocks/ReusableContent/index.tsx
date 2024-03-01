@@ -9,7 +9,7 @@ export const ReusableContentBlock: React.FC<Props> = ({ reusableContentBlockFiel
   const { reusableContent } = reusableContentBlockFields
 
   if (typeof reusableContent === 'object' && reusableContent !== null) {
-    return <RenderBlocks blocks={reusableContent.layout} />
+    return <RenderBlocks blocks={reusableContent.layout} disableGutter />
   }
 
   return null
