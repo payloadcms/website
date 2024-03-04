@@ -2,6 +2,11 @@
 
 .cardGrid {
   position: relative;
+
+  .card {
+    height: 100%;
+    position: relative;
+  }
 }
 
 .introWrapper {
@@ -57,11 +62,6 @@
 .marginRight {
   width: var(--gutter-h);
   display: block;
-}
-
-.card {
-  height: 100%;
-  position: relative;
 }
 
 .cardsWrapper {
