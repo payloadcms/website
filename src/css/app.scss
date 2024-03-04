@@ -171,7 +171,7 @@ small {
 
 ul,
 ol {
-  padding-left: var(--base);
+  padding-left: calc(var(--base) * 2);
   margin: 0 0 var(--base);
 }
 

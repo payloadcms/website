@@ -9,7 +9,11 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   align-items: center;
 
   @include mid-break {
-    margin: 0 var(--base)!important;
+    margin: 0 var(--base);
+
+    :global(.blog-wrap) & {
+      margin: 0;
+    }
   }
 }
 

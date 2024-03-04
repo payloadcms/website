@@ -51,7 +51,7 @@ export const BlogPost: React.FC<Post> = props => {
           </div>
 
           <div
-            className={[classes.blogWrap, 'cols-8 start-5 cols-m-8 start-m-1']
+            className={[classes.blogWrap, 'blog-wrap', 'cols-8 start-5 cols-m-8 start-m-1']
               .filter(Boolean)
               .join(' ')}
           >
