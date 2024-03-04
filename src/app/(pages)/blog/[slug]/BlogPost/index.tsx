@@ -7,6 +7,7 @@ import { BackgroundGrid } from '@components/BackgroundGrid'
 import { Breadcrumbs } from '@components/Breadcrumbs'
 import DiscordGitCTA from '@components/DiscordGitCTA'
 import { Post } from '@root/payload-types'
+import { useResize } from '@root/utilities/use-resize'
 import { Gutter } from '../../../../../components/Gutter'
 import { Media } from '../../../../../components/Media'
 import { RenderBlocks } from '../../../../../components/RenderBlocks'
@@ -18,11 +19,12 @@ export const BlogPost: React.FC<Post> = props => {
   const { title, publishedOn, image, excerpt, content, relatedPosts } = props
   const [docPadding, setDocPadding] = React.useState(0)
   const docRef = React.useRef<HTMLDivElement>(null)
+  const docSize = useResize(docRef)
 
   React.useEffect(() => {
     if (docRef.current?.offsetWidth === undefined) return
     setDocPadding(Math.round(docRef.current?.offsetWidth / 16) - 2)
-  }, [docRef.current?.offsetWidth])
+  }, [docRef.current?.offsetWidth, docSize])
 
   return (
     <div id="blog" className={classes.blog}>
