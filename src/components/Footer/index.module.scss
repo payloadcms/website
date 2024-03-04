@@ -85,11 +85,17 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .emailInput input {
   @include body;
   padding: var(--base) calc(var(--base) * 1.5);
-  background: transparent;
+  background: var(--color-base-1000);
   border-color: var(--grid-line-dark);
   border-left: none;
   border-right: none;
+  margin-left: 1px;
+  width: calc(100% - 2px);
   height: auto;
+
+  @include data-theme-selector('light') {
+    background: var(--color-base-1000);
+  }
 
   &::placeholder {
     color: var(--color-base-300);
