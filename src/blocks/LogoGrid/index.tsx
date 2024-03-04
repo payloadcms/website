@@ -27,7 +27,7 @@ export type LogoGridProps = Extract<Page['layout'][0], { blockType: 'logoGrid' }
 
 const TOTAL_CELLS = 8
 const ANIMATION_DURATION = 750 // Duration for fade-out and fade-in in milliseconds
-const ANIMATION_DELAY = 1000 // Delay between animations in milliseconds
+const ANIMATION_DELAY = 500 // Delay between animations in milliseconds
 
 const getRandomPosition = (excludePositions: number[]) => {
   let newPos
