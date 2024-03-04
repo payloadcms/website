@@ -32,7 +32,7 @@ export const MediaBlock: React.FC<Props & { disableGutter?: boolean; marginAdjus
           marginLeft: marginAdjustment.marginLeft,
         }}
       >
-        <BackgroundGrid />
+        <BackgroundGrid zIndex={0} />
         {disableGutter ? (
           <Media
             resource={media}
@@ -41,7 +41,7 @@ export const MediaBlock: React.FC<Props & { disableGutter?: boolean; marginAdjus
               .join(' ')}
           />
         ) : (
-          <Gutter>
+          <Gutter className={classes.mediaWrapper}>
             <Media
               resource={media}
               className={[classes.mediaResource, classes[`position--${position}`]]
