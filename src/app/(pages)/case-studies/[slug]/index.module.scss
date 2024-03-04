@@ -1,11 +1,5 @@
 @use '@scss/common' as *;
 
-.introContent {
-  h1 {
-    @include h2;
-  }
-}
-
 .featuredMediaWrap {
   margin-top: calc(var(--base) * 4);
   width: calc(100% + var(--gutter-h));
