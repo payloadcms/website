@@ -7,6 +7,15 @@
   }
 
   align-items: center;
+
+  .link {
+    width: 100%;
+    border-bottom: none;
+
+    &:last-of-type {
+      border-bottom: 1px solid var(--theme-elevation-200);
+    }
+  }
 }
 
 .backgroundGrid {
@@ -63,15 +72,6 @@
 
 .description {
   margin-bottom: calc(var(--base) * 2);
-}
-
-.link {
-  width: 100%;
-  border-bottom: none;
-
-  &:last-of-type {
-    border-bottom: 1px solid var(--theme-elevation-200);
-  }
 }
 
 .bgSquare {
