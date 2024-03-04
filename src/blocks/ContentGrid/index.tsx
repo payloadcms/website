@@ -44,7 +44,7 @@ const Cells: React.FC<CellsProps> = ({ cells, className, showNumbers, style: sty
 }
 
 export const ContentGrid: React.FC<ContentGridProps> = ({ contentGridFields, padding }) => {
-  const { settings, style: styleFromProps, content, links } = contentGridFields
+  const { settings, style: styleFromProps, content, links } = contentGridFields || {}
 
   const hasLinks = Array.isArray(links) && links.length > 0
   const style = styleFromProps ?? 'gridBelow'
@@ -63,13 +63,14 @@ export const ContentGrid: React.FC<ContentGridProps> = ({ contentGridFields, pad
             .filter(Boolean)
             .join(' ')}
         >
-          <RichText
-            className={[classes.richText, style === 'sideBySide' ? 'cols-12' : 'cols-8']
-              .filter(Boolean)
-              .join(' ')}
-            content={content}
-          />
-
+          {content && (
+            <RichText
+              className={[classes.richText, style === 'sideBySide' ? 'cols-12' : 'cols-8']
+                .filter(Boolean)
+                .join(' ')}
+              content={content}
+            />
+          )}
           {hasLinks && (
             <div
               className={[

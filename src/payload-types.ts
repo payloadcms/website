@@ -321,15 +321,17 @@ export interface CaseStudy {
             blockType: 'content';
           }
         | {
-            contentGridFields: {
+            contentGridFields?: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
               };
               style?: ('gridBelow' | 'sideBySide') | null;
               showNumbers?: boolean | null;
-              content: {
-                [k: string]: unknown;
-              }[];
+              content?:
+                | {
+                    [k: string]: unknown;
+                  }[]
+                | null;
               links?:
                 | {
                     link: {
@@ -1440,15 +1442,17 @@ export interface Page {
         blockType: 'content';
       }
     | {
-        contentGridFields: {
+        contentGridFields?: {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
           style?: ('gridBelow' | 'sideBySide') | null;
           showNumbers?: boolean | null;
-          content: {
-            [k: string]: unknown;
-          }[];
+          content?:
+            | {
+                [k: string]: unknown;
+              }[]
+            | null;
           links?:
             | {
                 link: {
@@ -2567,15 +2571,17 @@ export interface ReusableContent {
         blockType: 'content';
       }
     | {
-        contentGridFields: {
+        contentGridFields?: {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
           style?: ('gridBelow' | 'sideBySide') | null;
           showNumbers?: boolean | null;
-          content: {
-            [k: string]: unknown;
-          }[];
+          content?:
+            | {
+                [k: string]: unknown;
+              }[]
+            | null;
           links?:
             | {
                 link: {
