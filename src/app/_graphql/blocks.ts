@@ -315,6 +315,7 @@ export const MEDIA_BLOCK = `
 ...on MediaBlock {
   blockType
   mediaBlockFields {
+    settings ${SETTINGS}
     position
     media ${MEDIA_FIELDS}
     caption
