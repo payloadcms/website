@@ -100,6 +100,7 @@
   mask-position: center;
   mask-repeat: no-repeat;
   z-index: 0;
+  background: var(--color-base-1000);
 
   video {
     transform: rotate(-8deg) skew(-8deg) scale(0.42, 0.455) translate(40%, -38.5%);
