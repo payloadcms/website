@@ -21,13 +21,25 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
   const [imageLoaded, setImageLoaded] = useState(false)
 
   const sectionRef = useRef<HTMLDivElement | null>(null)
-  const [sectionWidth, setSectionWidth] = useState(0)
+  const [outerBackgroundStyle, setOuterBackgroundStyle] = useState({})
 
   useEffect(() => {
     const updateOuterBackgroundWidth = () => {
       const newOuterBackgroundWidth = sectionRef.current ? sectionRef.current.offsetWidth : 0
-      setSectionWidth(newOuterBackgroundWidth)
+
+      const largeScreenMatch = window.matchMedia('(min-width: 2390px)')
+
+      if (largeScreenMatch.matches) {
+        setOuterBackgroundStyle({
+          width: 'var(--gutter-h)',
+        })
+      } else {
+        setOuterBackgroundStyle({
+          width: `${newOuterBackgroundWidth}px`,
+        })
+      }
     }
+
     updateOuterBackgroundWidth()
     window.addEventListener('resize', updateOuterBackgroundWidth)
 
@@ -100,7 +112,7 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
         </div>
       </Gutter>
       <div className={classes.outerBackgroundSectionWrap}>
-        <div className={classes.outerBackgroundSection} style={{ width: sectionWidth }}>
+        <div className={classes.outerBackgroundSection} style={outerBackgroundStyle}>
           <Image
             src="/images/stripe-overlay.png"
             fill
