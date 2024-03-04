@@ -6,15 +6,9 @@
   align-items: center;
 
   p {
-    @include label;
     text-transform: initial;
     letter-spacing: 0 !important;
     margin: 0;
-
-    &:before {
-      content: '$';
-      margin-right: calc(var(--base) * .75);
-    }
   }
 }
 
