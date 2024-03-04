@@ -296,28 +296,28 @@
       grid-column: 4/5;
     }
   }
-}
 
-.navButton {
-  border-top: none;
-  width: 100%;
+  .navButton {
+    border-top: none;
+    width: 100%;
 
-  &:hover {
-    & .navButtonLabel {
-      opacity: 1;
+    &:hover {
+      & .navButtonLabel {
+        opacity: 1;
+      }
     }
-  }
 
-  & .navButtonLabel {
-    padding: calc(var(--base) * 0.5) 0;
-    opacity: 0.6;
-  }
-
-
-  &.isActive {
     & .navButtonLabel {
-    opacity: 1;
-  }
+      padding: calc(var(--base) * 0.5) 0;
+      opacity: 0.6;
+    }
+
+
+    &.isActive {
+      & .navButtonLabel {
+        opacity: 1;
+      }
+    }
   }
 }
 

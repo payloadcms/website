@@ -30,6 +30,11 @@
     width: 100%;
   }
 
+  .scanlines {
+    opacity: 0;
+    transition: opacity .4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
   &:hover {
     padding-bottom: var(--base);
 
@@ -147,7 +152,4 @@
 }
 
 
-.scanlines {
-  opacity: 0;
-  transition: opacity .4s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
+
