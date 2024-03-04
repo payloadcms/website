@@ -25,10 +25,8 @@ export const DefaultHero: React.FC<
       description[0].children?.length === 1 &&
       !description[0].children[0].text)
 
-  const padding = useGetHeroPadding(theme, firstContentBlock)
-
   return (
-    <BlockWrapper settings={{ theme }} padding={padding}>
+    <BlockWrapper settings={{ theme }} padding={{ top: 'small', bottom: 'small' }}>
       <Gutter>
         <BackgroundGrid zIndex={0} />
         <div className={classes.defaultHero}>
