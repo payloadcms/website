@@ -86,22 +86,22 @@ const BreadcrumbsBar: React.FC<Props> = ({
 
                 <div className={classes.links}>
                   {Array.isArray(links) &&
-                    links
-                      .filter(link => Boolean('url' in link && link.url))
-                      .map((link, i) => {
-                        return (
-                          <CMSLink
-                            className={classes.link}
-                            key={i}
-                            {...link}
-                            appearance={'text'}
-                            buttonProps={{
-                              icon: ('icon' in link && link.icon) ?? undefined,
-                              labelStyle: 'regular',
-                            }}
-                          />
-                        )
-                      })}
+                    links.map((linkItem, i) => {
+                      const link = 'link' in linkItem ? linkItem.link : linkItem
+
+                      return (
+                        <CMSLink
+                          className={classes.link}
+                          key={i}
+                          {...link}
+                          appearance={'text'}
+                          buttonProps={{
+                            icon: ('icon' in link && link?.icon) ?? undefined,
+                            labelStyle: 'regular',
+                          }}
+                        />
+                      )
+                    })}
                 </div>
               </div>
 
