@@ -70,9 +70,18 @@
 }
 
 .containerMobile {
+  border-top: 1px solid var(--grid-line-light);
   border-bottom: 1px solid var(--grid-line-light);
-  padding: calc(var(--base) * 1) 0;
+  padding: calc(var(--base) * 0.75) 0;
   display: none;
+
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
+  }
+
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-light);
+  }
 
   @include mid-break {
     display: block;
@@ -87,7 +96,7 @@
     list-style: none;
     display: flex;
     justify-content: space-between;
-    padding: calc(var(--base) * 0.5) 0 calc(var(--base) * 1);
+    padding: calc(var(--base) * 0.5) 0 calc(var(--base) * .5);
 
     &::marker, &::-webkit-details-marker {
       display: none;

@@ -97,6 +97,6 @@
 }
 
 .hasBreadcrumbsEnabled {
-  top: calc(0px - var(--header-height) * 2 - 1px);
-  height: calc(100% + var(--header-height) * 2 + 1px);
+  top: calc(0px - var(--header-height) * 2 - 20px - 1px);
+  height: calc(100% + var(--header-height) * 2 + 20px + 1px);
 }
