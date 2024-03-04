@@ -87,7 +87,7 @@ export const CardGrid: React.FC<CardGridProps> = props => {
               style={wrapperStyle}
             >
               {cards.map((card, index) => {
-                const { title, description, link } = card
+                const { title, description, enableLink, link } = card
                 return (
                   <div
                     key={index}
@@ -100,6 +100,7 @@ export const CardGrid: React.FC<CardGridProps> = props => {
                       className={classes.card}
                       title={title}
                       description={description}
+                      enableLink={enableLink}
                       link={link}
                       revealDescription={revealDescription}
                     />

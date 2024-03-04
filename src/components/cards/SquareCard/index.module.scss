@@ -3,7 +3,7 @@
 .card {
   display: flex;
   flex-direction: column;
-  gap: var(--base);
+  gap: calc(var(--base) * 1.5);
   padding: calc(var(--base) * 1.5);
   padding-bottom: 0;
   text-decoration: none;
@@ -35,7 +35,7 @@
     transition: opacity .4s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
-  &:hover {
+  &.link:hover {
     padding-bottom: var(--base);
 
     .title {
@@ -121,14 +121,13 @@
   display: grid;
   grid-template-rows: 1fr;
   opacity: 1;
+  height: 4.2lh;
 
   .description {
     opacity: 1;
-    min-height: 3lh;
     pointer-events: none;
     padding: 0;
     margin: 0;
-    padding-bottom: calc(var(--base) * 1.5);
   }
 }
 

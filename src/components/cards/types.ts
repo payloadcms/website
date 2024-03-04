@@ -1,6 +1,5 @@
 import type { CMSLinkType } from '@components/CMSLink'
-import type { Media } from '@root/payload-types'
-import type { Post } from '@root/payload-types'
+import type { Media, Post } from '@root/payload-types'
 
 export interface SharedProps {
   price?: string | null
@@ -11,6 +10,7 @@ export interface SharedProps {
 
 export interface SquareCardProps extends SharedProps {
   leader?: string
+  enableLink?: boolean | null
   link?: CMSLinkType
   revealDescription?: boolean | null
 }

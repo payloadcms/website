@@ -8,13 +8,18 @@ import { SquareCardProps } from '../types'
 import classes from './index.module.scss'
 
 export const SquareCard: React.FC<SquareCardProps> = props => {
-  const { title, className, leader, description, revealDescription } = props
+  const { title, className, leader, description, revealDescription, enableLink } = props
   const link = props.link || {}
-  const hasLink = link.url || link.reference
+  const hasLink = enableLink
 
   return hasLink ? (
     <CMSLink
-      className={[className, classes.card, revealDescription ? classes.revealCard : '']
+      className={[
+        className,
+        enableLink && classes.link,
+        classes.card,
+        revealDescription ? classes.revealCard : '',
+      ]
         .filter(Boolean)
         .join(' ')}
       {...props.link}
