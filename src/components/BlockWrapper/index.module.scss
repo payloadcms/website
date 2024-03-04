@@ -1,3 +1,5 @@
+@use "@scss/common" as *;
+
 .theme-dark {
   background-color: var(--color-base-1000);
 }
@@ -25,6 +27,10 @@
     &-large {
       --wrapper-padding-top: calc(var(--base) * 8);
 
+      @include mid-break {
+        --wrapper-padding-top: calc(var(--base) * 5);
+      }
+
       &.setPadding {
         padding-top: var(--wrapper-padding-top);
       }
@@ -32,6 +38,10 @@
 
     &-small {
       --wrapper-padding-top: calc(var(--base) * 4);
+
+      @include mid-break {
+        --wrapper-padding-top: calc(var(--base) * 2.5);
+      }
 
       &.setPadding {
         padding-top: var(--wrapper-padding-top);
@@ -43,6 +53,10 @@
     &-large {
       --wrapper-padding-bottom: calc(var(--base) * 8);
 
+      @include mid-break {
+        --wrapper-padding-bottom: calc(var(--base) * 5);
+      }
+
       &.setPadding {
         padding-bottom: var(--wrapper-padding-bottom);
       }
@@ -50,6 +64,10 @@
 
     &-small {
       --wrapper-padding-bottom: calc(var(--base) * 4);
+
+      @include mid-break {
+        --wrapper-padding-bottom: calc(var(--base) * 2.5);
+      }
 
       &.setPadding {
         padding-bottom: var(--wrapper-padding-bottom);
