@@ -203,7 +203,10 @@ export const RenderBlocks: React.FC<Props> = props => {
                     id={toKebabCase(blockName)}
                     {...block}
                     padding={getPaddingProps(block, index)}
-                    marginAdjustment={marginAdjustment}
+                    marginAdjustment={{
+                      ...marginAdjustment,
+                      ...(blockType === 'banner' ? { paddingLeft: 32, paddingRight: 32 } : {}),
+                    }}
                     disableGutter={disableGutter}
                   />
                 )

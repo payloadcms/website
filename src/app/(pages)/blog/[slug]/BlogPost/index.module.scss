@@ -19,11 +19,11 @@
 }
 
 .title {
-  @include h2;
+  @include h1;
   margin: 0;
 
   @include large-break {
-    @include h3;
+    @include h2;
     margin: 0 !important;
   }
 }
@@ -135,7 +135,12 @@
   }
 
   .mobileAuthor {
-    margin-left: calc(var(--base) * 2);
+    margin-top: calc(var(--base) * 2);
+    display: flex;
+
+    > * {
+      width: 50%;
+    }
   }
 
   .breadcrumbs {
@@ -146,6 +151,12 @@
 @include small-break {
   .titleWrap {
     display: unset;
+  }
+
+  .mobileAuthor {
+    margin-top: calc(var(--base) * 2);
+    display: flex;
+    flex-direction: column;
   }
 
   .heroImage {
