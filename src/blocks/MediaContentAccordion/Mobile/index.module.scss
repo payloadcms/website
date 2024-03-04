@@ -14,7 +14,8 @@
 }
 
 .leader {
-  @include label;
+  @include h6;
+  text-transform: uppercase;
   margin-top: 0;
   margin-bottom: calc(var(--base) * 1);
   color: #4D90B2;
