@@ -42,12 +42,15 @@
 
 .media {
   width: calc(100% + var(--gutter-h));
-
   margin-right: calc(var(--gutter-h));
+  margin-top: calc(var(--base) * -2.5);
+  margin-bottom: calc(var(--base) * -2.5);
 
   @include mid-break {
-    margin-right: auto;
-    width: 100%;
+    margin: 0;
+    margin-left: 1px;
+    margin-right: 0;
+    width: calc(100% - 2px);
     margin-bottom: calc(var(--base) * -1);
   }
 }
