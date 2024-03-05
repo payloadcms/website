@@ -159,7 +159,6 @@
   align-items: center;
   justify-content: space-between;
   height: 100%;
-
   padding-top: calc(var(--base) * 9);
 
   @include extra-large-break {
@@ -167,7 +166,19 @@
   }
 
   @include large-mid-break {
-    padding-top: 0;
+    padding-top: calc(var(--base) * 7.5);
+  }
+
+  @include mid-plus-break {
+    padding-top: calc(var(--base) * 6.5);
+  }
+
+  @include mid-break {
+    padding-top: calc(var(--base) * 2);
+  }
+
+  @include small-break {
+    padding-top: calc(var(--base) * 1);
   }
 
   @include mid-break {
@@ -185,18 +196,6 @@
   position: relative;
   z-index: 2;
   grid-template-rows: auto min-content;
-
-  @include large-mid-break {
-    padding-top: calc(var(--base) * 4);
-  }
-
-  @include mid-break {
-    padding-top: calc(var(--base) * 2);
-  }
-
-  @include small-break {
-    padding-top: calc(var(--base) * 1);
-  }
 }
 
 .secondaryContentWrap {
