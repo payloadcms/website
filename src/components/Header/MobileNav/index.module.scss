@@ -134,13 +134,19 @@
 }
 
 .mobileMenuModal {
-  all: unset;
   width: 100%;
   max-width: 100vw;
   height: 100%;
+  max-height: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   padding-top: var(--page-padding-top);
   display: none;
   visibility: hidden;
+
+  ::-webkit-scrollbar {
+    opacity: transparent;
+  }
 
   @include mobile-header-break {
     display: block;
@@ -151,6 +157,7 @@
 .mobileMenuWrap {
   position: relative;
   height: 100%;
+  max-height: 100%;
   padding-top: var(--gutter-h);
 }
 
@@ -161,10 +168,6 @@
   margin: 0;
   padding: 0;
   z-index: 1;
-}
-
-.directLink {
-  text-decoration: none;
 }
 
 .mobileSubMenu {
@@ -224,11 +227,14 @@
   border-top: 1px solid var(--theme-border-color);
 }
 
+.directLink {
+  text-decoration: none;
+}
+
 .subMenuItems {
   position: relative;
   display: flex;
   flex-direction: column;
-  margin-top: var(--base);
 
   & > * {
     position: relative;
@@ -266,10 +272,7 @@
 
 .subMenuWrap {
   position: relative;
-  height: 100%;
-  max-height: calc(100vh - var(--page-padding-top));
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: auto;
+  padding: var(--base) 0;
 }
 
 .newProject {
