@@ -1,6 +1,7 @@
 import React, { useEffect, useId, useRef, useState } from 'react'
 import { cubicBezier, motion, useAnimate } from 'framer-motion'
 
+import { CMSLink } from '@components/CMSLink'
 import { RichText } from '@components/RichText'
 import { CloseIcon } from '@root/icons/CloseIcon'
 import { useCodeBlip } from '../CodeBlipContext'
@@ -59,6 +60,9 @@ const Modal: React.FC = ({}) => {
         <motion.div initial={{ x: 20 }} ref={containerRef} className={classes.container}>
           <div className={classes.label}>{data.label}</div>
           <RichText className={classes.richText} content={data.feature} />
+          {data.enableLink && data.link && (
+            <CMSLink {...data.link} appearance={'text'} buttonProps={{ icon: 'arrow' }} />
+          )}
         </motion.div>
       )}
     </dialog>
