@@ -49,7 +49,7 @@ export const GradientHero: React.FC<
           className={[classes.bgFull, enableBreadcrumbsBar ? classes.hasBreadcrumbsEnabled : '']
             .filter(Boolean)
             .join(' ')}
-          src="/images/hero-shapes.jpg"
+          src="/images/background-shapes.webp"
           alt=""
           width={1920}
           height={1080}
