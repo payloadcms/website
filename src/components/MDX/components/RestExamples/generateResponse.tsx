@@ -23,7 +23,7 @@ export const GenerateResponse = ({ res }) => {
 
     return (
       <>
-        <h6>Response</h6>
+        <h5>Response</h5>
         <Code className={classes.code}>{`${JSON.stringify(paginatedRes, null, 2)}`}</Code>
       </>
     )
@@ -31,7 +31,7 @@ export const GenerateResponse = ({ res }) => {
 
   return (
     <>
-      <h6>Response</h6>
+      <h5>Response</h5>
       <Code className={classes.code}>{JSON.stringify(res, null, 2)}</Code>
     </>
   )

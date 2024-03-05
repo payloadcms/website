@@ -73,7 +73,7 @@ const stringifiedQuery = qs.stringify({
 
   return (
     <>
-      <h6>Request</h6>
+      <h5>Request</h5>
       <Code className={classes.code}>{fullRequest}</Code>
     </>
   )
