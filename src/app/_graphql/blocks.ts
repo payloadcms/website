@@ -452,6 +452,7 @@ export const REUSABLE_CONTENT_BLOCK = `
 ...on ReusableContentBlock {
   blockType
   reusableContentBlockFields {
+    customId
     reusableContent {
       layout {
         ${BANNER}
