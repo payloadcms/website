@@ -269,6 +269,7 @@
   height: 100%;
   max-height: calc(100vh - var(--page-padding-top));
   overflow-y: scroll;
+  -webkit-overflow-scrolling: auto;
 }
 
 .newProject {
