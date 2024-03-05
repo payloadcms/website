@@ -38,6 +38,18 @@ export const HomeHero: React.FC<
   const [laptopMediaHeight, setLaptopMediaHeight] = useState(0)
   const [mobileMediaWrapperHeight, setMobileMediaWrapperHeight] = useState(0)
   const padding = useGetHeroPadding('dark', firstContentBlock)
+  const [windowWidth, setWindowWidth] = useState(0)
+
+  useEffect(() => {
+    setWindowWidth(window.innerWidth)
+
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth)
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     const updateElementHeights = () => {
@@ -62,6 +74,58 @@ export const HomeHero: React.FC<
 
     return () => window.removeEventListener('resize', updateMobileMediaWrapperHeight)
   }, [])
+
+  const getGridLineStyles = () => {
+    if (windowWidth >= 1024) {
+      // For desktop
+      return {
+        0: {
+          background:
+            'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 65%, rgba(0, 0, 0, 0) 80%)',
+        },
+        1: {
+          background:
+            'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 65%, rgba(0, 0, 0, 0) 80%)',
+        },
+        2: {
+          background:
+            'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 75%, rgba(0, 0, 0, 0) 95%)',
+        },
+        3: {
+          background:
+            'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 20%, rgba(0, 0, 0, 0) 60%)',
+        },
+        4: {
+          background:
+            'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 60%, rgba(0, 0, 0, 0) 90%)',
+        },
+      }
+    } else {
+      // For mobile
+      return {
+        0: {
+          background:
+            'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 70%, rgba(0, 0, 0, 0) 100%)',
+        },
+        1: {
+          background:
+            'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 80%, rgba(0, 0, 0, 0) 90%)',
+        },
+        2: {
+          background: 'var(--grid-line-dark)',
+        },
+        3: {
+          background: 'var(--grid-line-dark)',
+        },
+        4: {
+          background:
+            'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 80%, rgba(0, 0, 0, 0) 100%)',
+        },
+      }
+    }
+  }
+
+  const gridLineStyles = getGridLineStyles()
 
   return (
     <ChangeHeaderTheme theme="dark">
@@ -114,31 +178,7 @@ export const HomeHero: React.FC<
           </div>
           <Gutter className={classes.contentWrapper}>
             <div className={classes.primaryContentWrap} data-theme="dark">
-              <BackgroundGrid
-                zIndex={0}
-                gridLineStyles={{
-                  0: {
-                    background:
-                      'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 50%, rgba(0, 0, 0, 0) 80%)',
-                  },
-                  1: {
-                    background:
-                      'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 50%, rgba(0, 0, 0, 0) 80%)',
-                  },
-                  2: {
-                    background:
-                      'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 75%, rgba(0, 0, 0, 0) 95%)',
-                  },
-                  3: {
-                    background:
-                      'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 20%, rgba(0, 0, 0, 0) 60%)',
-                  },
-                  4: {
-                    background:
-                      'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 60%, rgba(0, 0, 0, 0) 90%)',
-                  },
-                }}
-              />
+              <BackgroundGrid zIndex={0} gridLineStyles={gridLineStyles} />
               <div className={[classes.primaryContent, 'grid'].filter(Boolean).join(' ')}>
                 <div className={['cols-8 start-1'].filter(Boolean).join(' ')}>
                   <RichText className={classes.richTextHeading} content={richText} />
