@@ -421,6 +421,11 @@ export const STICKY_HIGHLIGHTS = `
       link ${LINK_FIELDS({ disableAppearance: true })}
       type
       code
+      codeBlips {
+        row
+        feature
+        label
+      }
       media ${MEDIA_FIELDS}
     }
   }

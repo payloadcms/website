@@ -4,6 +4,7 @@ import { CSSTransition } from 'react-transition-group'
 import { BackgroundScanline } from '@components/BackgroundScanline'
 import { CMSLink } from '@components/CMSLink'
 import Code from '@components/Code'
+import CodeBlip from '@components/CodeBlip'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
 import { RichText } from '@components/RichText'
@@ -21,156 +22,175 @@ type Props = Exclude<Fields['highlights'], undefined | null>[number] & {
   midBreak: boolean
 }
 
-export const StickyHighlight: React.FC<Props> = React.memo(
-  ({ richText, enableLink, link, type, code, media, yDirection, midBreak }) => {
-    const [visible, setVisible] = useState(false)
-    const [centerCodeMedia, setCenterCodeMedia] = useState(false)
-    const [init, setInit] = useState(false)
-    const ref = useRef(null)
-    const codeMediaWrapRef = useRef(null)
-    const codeMediaInnerRef = useRef(null)
+export const StickyHighlightComponent: React.FC<Props> = ({
+  richText,
+  enableLink,
+  link,
+  type,
+  code,
+  media,
+  yDirection,
+  midBreak,
+  codeBlips,
+}) => {
+  const [visible, setVisible] = useState(false)
+  const [centerCodeMedia, setCenterCodeMedia] = useState(false)
+  const [init, setInit] = useState(false)
+  const ref = useRef(null)
+  const codeMediaWrapRef = useRef(null)
+  const codeMediaInnerRef = useRef(null)
+  const { data, isOpen } = CodeBlip.useCodeBlip()
 
-    const codeMediaClasses = [
-      classes.codeMedia,
-      centerCodeMedia && classes.centerCodeMedia,
-      visible && classes.visible,
-    ]
-      .filter(Boolean)
-      .join(' ')
+  const codeMediaClasses = [
+    classes.codeMedia,
+    centerCodeMedia && classes.centerCodeMedia,
+    visible && classes.visible,
+    'group-active',
+  ]
+    .filter(Boolean)
+    .join(' ')
 
-    useEffect(() => {
-      if (!midBreak) {
-        const refCopy = ref?.current
-        const codeWrapRefCopy = codeMediaWrapRef?.current
-        let intersectionObserver: IntersectionObserver
-        let resizeObserver: ResizeObserver
+  useEffect(() => {
+    if (!midBreak) {
+      const refCopy = ref?.current
+      const codeWrapRefCopy = codeMediaWrapRef?.current
+      let intersectionObserver: IntersectionObserver
+      let resizeObserver: ResizeObserver
 
-        if (refCopy) {
-          intersectionObserver = new IntersectionObserver(
-            entries => {
-              entries.forEach(entry => {
-                setVisible(entry.isIntersecting)
-              })
-            },
-            {
-              rootMargin: '0px',
-              threshold: 0.5,
-            },
-          )
-
-          intersectionObserver.observe(refCopy)
-        }
-
-        if (codeWrapRefCopy && codeMediaInnerRef?.current) {
-          resizeObserver = new ResizeObserver(entries => {
+      if (refCopy) {
+        intersectionObserver = new IntersectionObserver(
+          entries => {
             entries.forEach(entry => {
-              setCenterCodeMedia(
-                // @ts-expect-error
-                entry.contentRect.height > (codeMediaInnerRef?.current?.clientHeight || 0),
-              )
+              setVisible(entry.isIntersecting)
             })
-          })
+          },
+          {
+            rootMargin: '0px',
+            threshold: 0.5,
+          },
+        )
 
-          resizeObserver.observe(codeWrapRefCopy)
-        }
-
-        return () => {
-          if (refCopy) {
-            intersectionObserver.unobserve(refCopy)
-          }
-
-          if (codeWrapRefCopy) {
-            resizeObserver.unobserve(codeWrapRefCopy)
-          }
-        }
+        intersectionObserver.observe(refCopy)
       }
 
-      return () => null
-    }, [ref, midBreak])
+      if (codeWrapRefCopy && codeMediaInnerRef?.current) {
+        resizeObserver = new ResizeObserver(entries => {
+          entries.forEach(entry => {
+            setCenterCodeMedia(
+              // @ts-expect-error
+              entry.contentRect.height > (codeMediaInnerRef?.current?.clientHeight || 0),
+            )
+          })
+        })
 
-    useEffect(() => {
-      setInit(true)
-    }, [])
+        resizeObserver.observe(codeWrapRefCopy)
+      }
 
-    return (
-      <div
-        ref={ref}
-        className={[
-          classes.stickyHighlight,
-          classes[`scroll-direction--${init ? yDirection : 'down'}`],
-        ].join(' ')}
-      >
-        <div className={[classes.minHeight, 'grid'].filter(Boolean).join(' ')}>
-          <div
-            className={[classes.leftContentWrapper, 'cols-4 cols-m-8'].filter(Boolean).join(' ')}
-          >
-            <RichText content={richText} className={classes.richText} />
-            {enableLink && (
-              <CMSLink
-                {...link}
-                appearance="default"
-                fullWidth
-                buttonProps={{
-                  icon: 'arrow',
-                  hideHorizontalBorders: true,
-                }}
-              />
-            )}
-          </div>
+      return () => {
+        if (refCopy) {
+          intersectionObserver.unobserve(refCopy)
+        }
+
+        if (codeWrapRefCopy) {
+          resizeObserver.unobserve(codeWrapRefCopy)
+        }
+      }
+    }
+
+    return () => null
+  }, [ref, midBreak])
+
+  useEffect(() => {
+    setInit(true)
+  }, [])
+
+  return (
+    <div
+      ref={ref}
+      className={[
+        classes.stickyHighlight,
+        classes[`scroll-direction--${init ? yDirection : 'down'}`],
+      ].join(' ')}
+    >
+      <div className={[classes.minHeight, 'grid'].filter(Boolean).join(' ')}>
+        <div className={[classes.leftContentWrapper, 'cols-4 cols-m-8'].filter(Boolean).join(' ')}>
+          <RichText content={richText} className={classes.richText} />
+          {enableLink && (
+            <CMSLink
+              {...link}
+              appearance="default"
+              fullWidth
+              buttonProps={{
+                icon: 'arrow',
+                hideHorizontalBorders: true,
+              }}
+            />
+          )}
         </div>
-        <CSSTransition in={visible} timeout={750} classNames="animate">
-          <Gutter className={[classes.codeMediaPosition, 'grid'].filter(Boolean).join(' ')}>
-            {type === 'code' && (
-              <Fragment>
-                <div
-                  className={[classes.scanlineWrapper, 'start-9 cols-8'].filter(Boolean).join(' ')}
-                >
-                  <BackgroundScanline
-                    className={[classes.scanlineDesktop].filter(Boolean).join(' ')}
-                    crosshairs={['top-left', 'bottom-left']}
-                  />
+      </div>
+      <CSSTransition in={visible} timeout={750} classNames="animate">
+        <Gutter className={[classes.codeMediaPosition, 'grid'].filter(Boolean).join(' ')}>
+          {type === 'code' && (
+            <Fragment>
+              <div
+                className={[classes.scanlineWrapper, 'start-9 cols-8'].filter(Boolean).join(' ')}
+              >
+                <BackgroundScanline
+                  className={[classes.scanlineDesktop].filter(Boolean).join(' ')}
+                  crosshairs={['top-left', 'bottom-left']}
+                />
 
-                  <CrosshairIcon
-                    className={[classes.crosshairTopRight].filter(Boolean).join(' ')}
-                  />
+                <CrosshairIcon className={[classes.crosshairTopRight].filter(Boolean).join(' ')} />
 
-                  <CrosshairIcon
-                    className={[classes.crosshairBottomRight].filter(Boolean).join(' ')}
-                  />
-                </div>
-                <div
-                  className={[classes.rightContentWrapper, 'cols-10 start-7 cols-m-8 start-m-1']
-                    .filter(Boolean)
-                    .join(' ')}
-                >
-                  <BackgroundScanline
-                    className={[classes.scanlineMobile, ''].filter(Boolean).join(' ')}
-                  />
-                  <div className={codeMediaClasses} ref={codeMediaWrapRef}>
-                    <div className={classes.codeMediaInner} ref={codeMediaInnerRef}>
-                      <div className={classes.codeWrapper}>
-                        <Code parentClassName={classes.code} className={classes.innerCode}>{`${code}
-                          `}</Code>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Fragment>
-            )}
-            {type === 'media' && typeof media === 'object' && media !== null && (
-              <div className={'cols-10 start-7 cols-m-8 start-m-1'}>
+                <CrosshairIcon
+                  className={[classes.crosshairBottomRight].filter(Boolean).join(' ')}
+                />
+              </div>
+              <div
+                className={[classes.rightContentWrapper, 'cols-10 start-7 cols-m-8 start-m-1']
+                  .filter(Boolean)
+                  .join(' ')}
+              >
+                <BackgroundScanline
+                  className={[classes.scanlineMobile, ''].filter(Boolean).join(' ')}
+                />
                 <div className={codeMediaClasses} ref={codeMediaWrapRef}>
-                  <div className={classes.mediaInner} ref={codeMediaInnerRef}>
-                    <div className={classes.media}>
-                      <Media resource={media} />
+                  <div className={classes.codeMediaInner} ref={codeMediaInnerRef}>
+                    <div className={classes.codeWrapper}>
+                      <CodeBlip.Modal />
+                      <Code
+                        parentClassName={classes.code}
+                        codeBlips={codeBlips}
+                        className={classes.innerCode}
+                      >{`${code}
+                          `}</Code>
                     </div>
                   </div>
                 </div>
               </div>
-            )}
-          </Gutter>
-        </CSSTransition>
-      </div>
-    )
-  },
-)
+            </Fragment>
+          )}
+          {type === 'media' && typeof media === 'object' && media !== null && (
+            <div className={'cols-10 start-7 cols-m-8 start-m-1'}>
+              <div className={codeMediaClasses} ref={codeMediaWrapRef}>
+                <div className={classes.mediaInner} ref={codeMediaInnerRef}>
+                  <div className={classes.media}>
+                    <Media resource={media} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </Gutter>
+      </CSSTransition>
+    </div>
+  )
+}
+
+export const StickyHighlight: React.FC<Props> = React.memo(props => {
+  return (
+    <CodeBlip.Provider>
+      <StickyHighlightComponent {...props} />
+    </CodeBlip.Provider>
+  )
+})
