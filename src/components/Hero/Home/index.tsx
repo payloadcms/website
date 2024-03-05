@@ -53,8 +53,10 @@ export const HomeHero: React.FC<
 
   useEffect(() => {
     const updateElementHeights = () => {
-      const newVideoHeight = laptopMediaRef.current ? laptopMediaRef.current.offsetHeight : 0
-      setLaptopMediaHeight(newVideoHeight)
+      const renderedLaptopMediaHeight = laptopMediaRef.current
+        ? laptopMediaRef.current.offsetHeight
+        : 0
+      setLaptopMediaHeight(renderedLaptopMediaHeight)
     }
     updateElementHeights()
     window.addEventListener('resize', updateElementHeights)
