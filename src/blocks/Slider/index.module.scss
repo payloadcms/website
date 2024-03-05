@@ -60,6 +60,7 @@
 }
 
 .sliderTrack {
+  scrollbar-width: none;
   &::-webkit-scrollbar-track {
     display: none;
   }
