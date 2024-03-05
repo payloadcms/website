@@ -29,7 +29,6 @@ type NavItems = Pick<MainMenu, 'tabs'>
 const MobileNavItems = ({ tabs, setActiveTab }) => {
   const { user } = useAuth()
   const { openModal } = useModal()
-
   const handleOnClick = index => {
     openModal(subMenuSlug)
     setActiveTab(index)
@@ -38,19 +37,23 @@ const MobileNavItems = ({ tabs, setActiveTab }) => {
   return (
     <ul className={classes.mobileMenuItems}>
       {(tabs || []).map((tab, index) => {
-        if (tab.enableDirectLink)
-          return (
-            <CMSLink key={index} className={classes.mobileMenuItem} {...tab.link} label={tab.label}>
-              <ArrowIcon size="medium" rotation={45} />
-            </CMSLink>
-          )
+        const { link, label, enableDirectLink } = tab
         return (
           <button
             className={classes.mobileMenuItem}
             key={index}
             onClick={() => handleOnClick(index)}
           >
-            {tab.label}
+            {enableDirectLink ? (
+              <CMSLink
+                className={classes.directLink}
+                {...link}
+                label={label}
+                onClick={e => e.stopPropagation()}
+              />
+            ) : (
+              label
+            )}
             <ArrowIcon size="medium" rotation={45} />
           </button>
         )
@@ -120,7 +123,7 @@ const SubMenuModal: React.FC<
           {(tabs || []).map((tab, tabIndex) => {
             if (tabIndex !== activeTab) return null
             return (
-              <div className={classes.subMenuItems}>
+              <div className={classes.subMenuItems} key={tabIndex}>
                 <button className={classes.backButton} onClick={() => closeModal(subMenuSlug)}>
                   <ArrowIcon size="medium" rotation={225} />
                   Back
@@ -131,6 +134,15 @@ const SubMenuModal: React.FC<
                     size="large"
                   />
                 </button>
+                {tab.descriptionLinks && (
+                  <div className={classes.descriptionLinks}>
+                    {tab.descriptionLinks.map((link, linkIndex) => (
+                      <CMSLink className={classes.descriptionLink} key={linkIndex} {...link.link}>
+                        <ArrowIcon className={classes.linkArrow} />
+                      </CMSLink>
+                    ))}
+                  </div>
+                )}
                 {(tab.navItems || []).map((item, index) => {
                   return (
                     <div className={classes.linkWrap} key={index}>
