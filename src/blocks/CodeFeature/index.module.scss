@@ -68,8 +68,18 @@
   }
 }
 
-.code {
+.parentCodeWrapper {
   align-items: unset;
+
+  @include mid-break {
+    margin: 0;
+  }
+}
+
+.code {
+  @include mid-break {
+    overflow: unset;
+  }
 }
 
 .tabs {

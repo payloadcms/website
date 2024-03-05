@@ -234,7 +234,11 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                       // @ts-expect-error
                       inert={activeIndex !== index ? '' : undefined}
                     >
-                      <Code parentClassName={classes.code} codeBlips={code.codeBlips}>{`${code.code}
+                      <Code
+                        parentClassName={classes.parentCodeWrapper}
+                        className={classes.code}
+                        codeBlips={code.codeBlips}
+                      >{`${code.code}
                   `}</Code>
                     </div>
                   )
@@ -358,7 +362,11 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                       // @ts-expect-error
                       inert={activeIndex !== index ? '' : undefined}
                     >
-                      <Code parentClassName={classes.code} codeBlips={code.codeBlips}>{`${code.code}
+                      <Code
+                        parentClassName={classes.parentCodeWrapper}
+                        className={classes.code}
+                        codeBlips={code.codeBlips}
+                      >{`${code.code}
                   `}</Code>
                     </div>
                   )
