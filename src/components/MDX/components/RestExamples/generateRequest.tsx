@@ -74,7 +74,9 @@ const stringifiedQuery = qs.stringify({
   return (
     <>
       <h5>Request</h5>
-      <Code className={classes.code}>{fullRequest}</Code>
+      <Code className={classes.code} disableMinHeight>
+        {fullRequest}
+      </Code>
     </>
   )
 }
