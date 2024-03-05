@@ -40,14 +40,14 @@ export const HomeHero: React.FC<
   const padding = useGetHeroPadding('dark', firstContentBlock)
 
   useEffect(() => {
-    const updateLaptopMediaHeight = () => {
-      const newVideoHeight = laptopMediaRef.current ? laptopMediaRef.current.offsetHeight : 0
-      setLaptopMediaHeight(newVideoHeight)
+    const updateElementHeights = () => {
+      const renderedLaptopHeight = laptopMediaRef.current ? laptopMediaRef.current.offsetHeight : 0
+      setLaptopMediaHeight(renderedLaptopHeight)
     }
-    updateLaptopMediaHeight()
-    window.addEventListener('resize', updateLaptopMediaHeight)
+    updateElementHeights()
+    window.addEventListener('resize', updateElementHeights)
 
-    return () => window.removeEventListener('resize', updateLaptopMediaHeight)
+    return () => window.removeEventListener('resize', updateElementHeights)
   }, [])
 
   useEffect(() => {

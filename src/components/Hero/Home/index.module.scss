@@ -23,11 +23,6 @@
 
 .homeHero {
   position: relative;
-  margin-top: -15vh;
-
-  @include two-extra-large-break {
-    margin-top: 0;
-  }
 }
 
 .background {
@@ -144,7 +139,8 @@
 
 .primaryContentWrap {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: calc(var(--base) * 10);
   min-height: 105vh;
 
   @include two-extra-large-break {
@@ -152,6 +148,8 @@
   }
 
   @include extra-large-break {
+    padding-top: 0;
+    align-items: center;
     min-height: 60vh;
   }
 
@@ -174,6 +172,8 @@
     }
 
     @include extra-large-break {
+      padding-top: 0;
+      align-items: center;
       min-height: 68vh;
     }
 
@@ -197,6 +197,8 @@
     }
 
     @include extra-large-break {
+      padding-top: 0;
+      align-items: center;
       min-height: 85vh;
     }
 
