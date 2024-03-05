@@ -23,7 +23,7 @@
 
 .homeHero {
   position: relative;
-  margin-top: -15vh;
+  margin-top: calc(-20vh + 5vw);
 
   @include two-extra-large-break {
     margin-top: 0;
