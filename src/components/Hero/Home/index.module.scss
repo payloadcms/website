@@ -23,6 +23,11 @@
 
 .homeHero {
   position: relative;
+  margin-top: -15vh;
+
+  @include two-extra-large-break {
+    margin-top: 0;
+  }
 }
 
 .background {
