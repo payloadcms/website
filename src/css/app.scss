@@ -159,7 +159,7 @@ h6 {
 p {
   margin: calc(var(--base) * 1.8) 0 calc(var(--base) * 1.8);
 
-  & ~ p {
+  & + p {
     // If a paragraph follows another paragraph, reduce the margin
     margin: calc(var(--base) * 0.6 * -1) 0 calc(var(--base) * 1.8);
   }

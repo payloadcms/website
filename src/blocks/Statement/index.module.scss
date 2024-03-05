@@ -5,13 +5,35 @@
 }
 
 .links {
+  display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
-  max-width: 50%;
+
+  a {
+    max-width: 50%;
+  }
+
+  a:first-child {
+    border-bottom: 1px solid var(--grid-line-dark);
+  }
+
+  @include data-theme-selector('light') {
+    a:first-child {
+      border-color: var(--grid-line-light);
+    }
+  }
 
   @include mid-break {
-    max-width: 100%;
+    flex-direction: column;
+
+    a {
+      max-width: none;
+    }
+
+    a:first-child {
+      border-bottom: none;
+    }
   }
 }
 

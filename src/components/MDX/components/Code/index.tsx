@@ -31,9 +31,7 @@ const CodeMarkdown: React.FC<{ children: React.ReactNode; className: string }> =
         blockPadding
           ? {
               marginLeft: blockPadding / -1 - 1,
-              marginRight: blockPadding / -1 - 2,
-              paddingLeft: blockPadding,
-              paddingRight: blockPadding,
+              marginRight: blockPadding / -1 - 1,
             }
           : {}
       }
