@@ -38,16 +38,28 @@ export const HomeHero: React.FC<
   const [laptopMediaHeight, setLaptopMediaHeight] = useState(0)
   const [mobileMediaWrapperHeight, setMobileMediaWrapperHeight] = useState(0)
   const padding = useGetHeroPadding('dark', firstContentBlock)
+  const [windowWidth, setWindowWidth] = useState(0)
 
   useEffect(() => {
-    const updateLaptopMediaHeight = () => {
+    setWindowWidth(window.innerWidth)
+
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth)
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  useEffect(() => {
+    const updateElementHeights = () => {
       const newVideoHeight = laptopMediaRef.current ? laptopMediaRef.current.offsetHeight : 0
       setLaptopMediaHeight(newVideoHeight)
     }
-    updateLaptopMediaHeight()
-    window.addEventListener('resize', updateLaptopMediaHeight)
+    updateElementHeights()
+    window.addEventListener('resize', updateElementHeights)
 
-    return () => window.removeEventListener('resize', updateLaptopMediaHeight)
+    return () => window.removeEventListener('resize', updateElementHeights)
   }, [])
 
   useEffect(() => {
@@ -62,6 +74,61 @@ export const HomeHero: React.FC<
 
     return () => window.removeEventListener('resize', updateMobileMediaWrapperHeight)
   }, [])
+
+  const contentWrapperHeight =
+    windowWidth >= 1024 ? { height: laptopMediaHeight } : { height: '100%' }
+
+  const getGridLineStyles = () => {
+    if (windowWidth >= 1024) {
+      // For desktop
+      return {
+        0: {
+          background:
+            'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 65%, rgba(0, 0, 0, 0) 80%)',
+        },
+        1: {
+          background:
+            'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 65%, rgba(0, 0, 0, 0) 80%)',
+        },
+        2: {
+          background:
+            'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 75%, rgba(0, 0, 0, 0) 95%)',
+        },
+        3: {
+          background:
+            'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 20%, rgba(0, 0, 0, 0) 60%)',
+        },
+        4: {
+          background:
+            'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 60%, rgba(0, 0, 0, 0) 90%)',
+        },
+      }
+    } else {
+      // For mobile
+      return {
+        0: {
+          background:
+            'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 70%, rgba(0, 0, 0, 0) 100%)',
+        },
+        1: {
+          background:
+            'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 80%, rgba(0, 0, 0, 0) 90%)',
+        },
+        2: {
+          background: 'var(--grid-line-dark)',
+        },
+        3: {
+          background: 'var(--grid-line-dark)',
+        },
+        4: {
+          background:
+            'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 80%, rgba(0, 0, 0, 0) 100%)',
+        },
+      }
+    }
+  }
+
+  const gridLineStyles = getGridLineStyles()
 
   return (
     <ChangeHeaderTheme theme="dark">
@@ -112,40 +179,107 @@ export const HomeHero: React.FC<
               )}
             </div>
           </div>
-          <Gutter className={classes.contentWrapper}>
-            <div className={classes.primaryContentWrap} data-theme="dark">
-              <BackgroundGrid
-                zIndex={0}
-                gridLineStyles={{
-                  0: {
-                    background:
-                      'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 50%, rgba(0, 0, 0, 0) 80%)',
-                  },
-                  1: {
-                    background:
-                      'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 50%, rgba(0, 0, 0, 0) 80%)',
-                  },
-                  2: {
-                    background:
-                      'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 75%, rgba(0, 0, 0, 0) 95%)',
-                  },
-                  3: {
-                    background:
-                      'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 20%, rgba(0, 0, 0, 0) 60%)',
-                  },
-                  4: {
-                    background:
-                      'linear-gradient(to top, var(--grid-line-dark) 0%, var(--grid-line-dark) 60%, rgba(0, 0, 0, 0) 90%)',
-                  },
-                }}
-              />
-              <div className={[classes.primaryContent, 'grid'].filter(Boolean).join(' ')}>
-                <div className={['cols-8 start-1'].filter(Boolean).join(' ')}>
-                  <RichText className={classes.richTextHeading} content={richText} />
-                  <RichText className={classes.richTextDescription} content={description} />
-                  {Array.isArray(primaryButtons) && (
-                    <ul className={[classes.primaryButtons].filter(Boolean).join(' ')}>
-                      {primaryButtons.map(({ link }, i) => {
+          <div className={classes.contentWrapper} style={contentWrapperHeight}>
+            <Gutter className={classes.content}>
+              <div className={classes.primaryContentWrap} data-theme="dark">
+                <BackgroundGrid zIndex={0} gridLineStyles={gridLineStyles} />
+                <div className={[classes.primaryContent, 'grid'].filter(Boolean).join(' ')}>
+                  <div className={['cols-8 start-1'].filter(Boolean).join(' ')}>
+                    <RichText className={classes.richTextHeading} content={richText} />
+                    <RichText className={classes.richTextDescription} content={description} />
+                    {Array.isArray(primaryButtons) && (
+                      <ul className={[classes.primaryButtons].filter(Boolean).join(' ')}>
+                        {primaryButtons.map(({ link }, i) => {
+                          return (
+                            <li key={i}>
+                              <CMSLink
+                                {...link}
+                                appearance="default"
+                                fullWidth
+                                buttonProps={{
+                                  icon: 'arrow',
+                                  hideHorizontalBorders: true,
+                                }}
+                              />
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    )}
+                    {/* Mobile media - only rendered starting at mid-break */}
+                    <div
+                      className={classes.mobileMediaWrapper}
+                      style={{ height: mobileMediaWrapperHeight }}
+                    >
+                      {typeof media === 'object' && media !== null && (
+                        <Media
+                          ref={mobileLaptopMediaRef}
+                          resource={media}
+                          className={classes.laptopMedia}
+                        />
+                      )}
+                      {typeof secondaryMedia === 'object' && secondaryMedia !== null && (
+                        <div className={classes.pedestalMaskedImage}>
+                          <BackgroundGrid
+                            className={classes.mobilePedestalBackgroundGrid}
+                            gridLineStyles={{
+                              0: {
+                                background: 'var(--grid-line-dark)',
+                              },
+                              1: {
+                                background: 'var(--grid-line-dark)',
+                              },
+                              2: {
+                                background: 'var(--grid-line-dark)',
+                              },
+                              3: {
+                                background: 'var(--grid-line-dark)',
+                              },
+                              4: {
+                                background: 'var(--grid-line-dark)',
+                              },
+                            }}
+                            zIndex={1}
+                          />
+                          <Media resource={secondaryMedia} className={classes.pedestalImage} />
+                        </div>
+                      )}
+                      {typeof featureVideo === 'object' && featureVideo !== null && (
+                        <div
+                          className={classes.featureVideoMask}
+                          style={{ height: mobileMediaWrapperHeight }}
+                        >
+                          <Media
+                            resource={featureVideo}
+                            className={classes.featureVideo}
+                            priority
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                data-theme="dark"
+                className={[classes.secondaryContentWrap, 'grid'].filter(Boolean).join(' ')}
+              >
+                <BackgroundGrid className={classes.mobileSecondaryBackgroundGrid} zIndex={1} />
+                <div className={classes.mobileSecondaryBackground} />
+                <div
+                  className={[classes.secondaryContent, 'cols-8 start-1'].filter(Boolean).join(' ')}
+                >
+                  <RichText
+                    className={classes.secondaryRichTextHeading}
+                    content={secondaryHeading}
+                  />
+                  <RichText
+                    className={classes.secondaryRichTextDescription}
+                    content={secondaryDescription}
+                  />
+                  {Array.isArray(secondaryButtons) && (
+                    <ul className={classes.secondaryButtons}>
+                      {secondaryButtons.map(({ link }, i) => {
                         return (
                           <li key={i}>
                             <CMSLink
@@ -162,99 +296,17 @@ export const HomeHero: React.FC<
                       })}
                     </ul>
                   )}
-                  {/* Mobile media - only rendered starting at mid-break */}
-                  <div
-                    className={classes.mobileMediaWrapper}
-                    style={{ height: mobileMediaWrapperHeight }}
-                  >
-                    {typeof media === 'object' && media !== null && (
-                      <Media
-                        ref={mobileLaptopMediaRef}
-                        resource={media}
-                        className={classes.laptopMedia}
-                      />
-                    )}
-                    {typeof secondaryMedia === 'object' && secondaryMedia !== null && (
-                      <div className={classes.pedestalMaskedImage}>
-                        <BackgroundGrid
-                          className={classes.mobilePedestalBackgroundGrid}
-                          gridLineStyles={{
-                            0: {
-                              background: 'var(--grid-line-dark)',
-                            },
-                            1: {
-                              background: 'var(--grid-line-dark)',
-                            },
-                            2: {
-                              background: 'var(--grid-line-dark)',
-                            },
-                            3: {
-                              background: 'var(--grid-line-dark)',
-                            },
-                            4: {
-                              background: 'var(--grid-line-dark)',
-                            },
-                          }}
-                          zIndex={1}
-                        />
-                        <Media resource={secondaryMedia} className={classes.pedestalImage} />
-                      </div>
-                    )}
-                    {typeof featureVideo === 'object' && featureVideo !== null && (
-                      <div
-                        className={classes.featureVideoMask}
-                        style={{ height: mobileMediaWrapperHeight }}
-                      >
-                        <Media resource={featureVideo} className={classes.featureVideo} priority />
-                      </div>
-                    )}
-                  </div>
+                </div>
+                <div
+                  className={[classes.logoWrapper, 'cols-8 start-9 start-m-1']
+                    .filter(Boolean)
+                    .join(' ')}
+                >
+                  <LogoShowcase logos={logos} />
                 </div>
               </div>
-            </div>
-            <div
-              data-theme="dark"
-              className={[classes.secondaryContentWrap, 'grid'].filter(Boolean).join(' ')}
-            >
-              <BackgroundGrid className={classes.mobileSecondaryBackgroundGrid} zIndex={1} />
-              <div className={classes.mobileSecondaryBackground} />
-              <div
-                className={[classes.secondaryContent, 'cols-8 start-1'].filter(Boolean).join(' ')}
-              >
-                <RichText className={classes.secondaryRichTextHeading} content={secondaryHeading} />
-                <RichText
-                  className={classes.secondaryRichTextDescription}
-                  content={secondaryDescription}
-                />
-                {Array.isArray(secondaryButtons) && (
-                  <ul className={classes.secondaryButtons}>
-                    {secondaryButtons.map(({ link }, i) => {
-                      return (
-                        <li key={i}>
-                          <CMSLink
-                            {...link}
-                            appearance="default"
-                            fullWidth
-                            buttonProps={{
-                              icon: 'arrow',
-                              hideHorizontalBorders: true,
-                            }}
-                          />
-                        </li>
-                      )
-                    })}
-                  </ul>
-                )}
-              </div>
-              <div
-                className={[classes.logoWrapper, 'cols-8 start-9 start-m-1']
-                  .filter(Boolean)
-                  .join(' ')}
-              >
-                <LogoShowcase logos={logos} />
-              </div>
-            </div>
-          </Gutter>
+            </Gutter>
+          </div>
         </div>
         <div className={classes.paddingBottom}>
           <BackgroundGrid
