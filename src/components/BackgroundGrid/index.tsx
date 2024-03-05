@@ -21,7 +21,7 @@ export const BackgroundGrid: React.FC<Props> = ({
   style,
   zIndex = -1,
   gridLineStyles = {},
-  wideGrid,
+  wideGrid = false,
 }: Props) => {
   return (
     <div

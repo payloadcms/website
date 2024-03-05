@@ -5,7 +5,7 @@ import { IconProps } from '../types'
 import classes from '../index.module.scss'
 
 export const CrosshairIcon: React.FC<IconProps> = props => {
-  const { rotation, size, className, bold } = props
+  const { rotation, size = 'large', className, bold } = props
 
   return (
     <svg
