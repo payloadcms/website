@@ -15,7 +15,7 @@
       visibility: hidden;
       transform: translate3d(0, calc(var(--base) * 4), 0);
     }
-  
+
     .animate-enter-active,
     .animate-enter-done {
       transform: translate3d(0,0,0);
@@ -23,13 +23,13 @@
       visibility: visible;
       transition: all 750ms;
     }
-  
+
     .animate-exit {
       transform: translate3d(0,0,0);
       opacity: 1;
       visibility: visible;
     }
-  
+
     .animate-exit-active {
       opacity: 0;
       visibility: hidden;
@@ -46,7 +46,7 @@
       visibility: hidden;
       transform: translate3d(0, calc(var(--base) * -4), 0);
     }
-  
+
     .animate-enter-active,
     .animate-enter-done {
       transform: translate3d(0,0,0);
@@ -54,13 +54,13 @@
       visibility: visible;
       transition: all 750ms;
     }
-  
+
     .animate-exit {
       transform: translate3d(0,0,0);
       opacity: 1;
       visibility: visible;
     }
-  
+
     .animate-exit-active {
       opacity: 0;
       visibility: hidden;
@@ -175,6 +175,7 @@
 
 .codeMedia {
   height: 100%;
+  position: relative;
 
   @include mid-break {
     margin: 0;
@@ -190,6 +191,10 @@
   position: relative;
   height: 100%;
   background: var(--color-base-900);
+}
+
+.codeWrapper {
+  position: relative;
 }
 
 .code {
@@ -221,7 +226,7 @@
     @include mid-break {
       height: calc(var(--base) * 25);
     }
-  
+
     @include small-break {
       height: calc(var(--base) * 22);
     }
