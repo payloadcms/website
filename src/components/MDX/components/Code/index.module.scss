@@ -3,6 +3,7 @@
 .codeWrap {
   background: var(--color-base-900);
   margin-bottom: calc(var(--base)*2);
+  padding: 0 calc(var(--base) * 2);
 
   @include mid-break {
     margin: 0 calc(var(--base)*-1)!important;
@@ -14,7 +15,7 @@
   padding: calc(var(--base)*2) 0;
   background: none;
 
-    & > * {      
+    & > * {
       &::before {
       content: none!important;
     }

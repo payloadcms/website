@@ -32,7 +32,7 @@
 
   &::-webkit-scrollbar,  &::-webkit-scrollbar-thumb {
     background-color: transparent;
-    
+
   }
 
   @include mid-break {
@@ -152,6 +152,7 @@
   list-style: none;
   color: var(--theme-elevation-600);
   text-decoration: none;
+  padding-left: var(--base);
 }
 
 .doc {

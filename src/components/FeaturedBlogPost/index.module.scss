@@ -84,6 +84,10 @@
   }
 }
 
+.date {
+  @include body;
+}
+
 .crosshair {
   position: absolute;
   height: auto;

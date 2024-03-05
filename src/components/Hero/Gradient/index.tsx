@@ -43,13 +43,13 @@ export const GradientHero: React.FC<
   const padding = useGetHeroPadding(theme, firstContentBlock)
 
   return (
-    <BlockWrapper settings={{ theme }} padding={{ ...padding, bottom: 'large' }}>
+    <BlockWrapper settings={{ theme }} padding={{ top: 'small', bottom: 'small' }}>
       {Boolean(fullBackground) && (
         <Media
           className={[classes.bgFull, enableBreadcrumbsBar ? classes.hasBreadcrumbsEnabled : '']
             .filter(Boolean)
             .join(' ')}
-          src="/images/gradient-wide.jpg"
+          src="/images/hero-shapes.jpg"
           alt=""
           width={1920}
           height={1080}
@@ -59,7 +59,14 @@ export const GradientHero: React.FC<
       <Gutter>
         <div className={[classes.wrapper, 'grid'].filter(Boolean).join(' ')}>
           <div
-            className={[classes.sidebar, `cols-6`, 'cols-m-8 start-1'].filter(Boolean).join(' ')}
+            className={[
+              classes.sidebar,
+              fullBackground && classes.hasFullBackground,
+              `cols-6`,
+              'cols-m-8 start-1',
+            ]
+              .filter(Boolean)
+              .join(' ')}
           >
             <RichText content={richText} className={[classes.richText].filter(Boolean).join(' ')} />
             <div className={classes.contentWrapper}>

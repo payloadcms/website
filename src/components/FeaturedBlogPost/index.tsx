@@ -15,7 +15,7 @@ export const FeaturedBlogPost: React.FC<Post> = props => {
   const href = `/blog/${slug}`
 
   const author =
-    typeof authors?.[0] === 'string' ? authors[0] : authors[0].firstName + authors[0].lastName
+    typeof authors?.[0] === 'string' ? authors[0] : authors[0].firstName + ' ' + authors[0].lastName
 
   return (
     <Link href={href} prefetch={false} className={classes.wrapper}>

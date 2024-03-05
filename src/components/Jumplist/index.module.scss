@@ -1,6 +1,9 @@
 @use "@scss/common" as *;
 
 .node {
+
+  letter-spacing: 0;
+
   scroll-margin-top: calc(var(--header-height) + var(--base));
   position: relative;
 

@@ -91,7 +91,7 @@ export const CardGrid: React.FC<CardGridProps> = props => {
                 return (
                   <div
                     key={index}
-                    className={'cols-4'}
+                    className={'cols-4 cols-s-8'}
                     onMouseEnter={() => setIndex(index + 1)}
                     onMouseLeave={() => setIndex(0)}
                   >
