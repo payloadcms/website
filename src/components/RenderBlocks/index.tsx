@@ -81,10 +81,11 @@ type Props = {
   disableGutter?: boolean
   heroTheme?: Page['hero']['theme']
   layout?: 'page' | 'post'
+  customId?: string | null
 }
 
 export const RenderBlocks: React.FC<Props> = props => {
-  const { blocks, disableOuterSpacing, disableGutter, hero, layout } = props
+  const { blocks, disableOuterSpacing, disableGutter, hero, layout, customId } = props
   const heroTheme = hero?.type === 'home' ? 'dark' : hero?.theme
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
   const { theme: themeFromContext } = useThemePreference()
@@ -189,7 +190,7 @@ export const RenderBlocks: React.FC<Props> = props => {
   if (hasBlocks) {
     return (
       <Fragment>
-        <div ref={docRef}>
+        <div ref={docRef} id={customId ?? undefined}>
           {blocks.map((block, index) => {
             const { blockName, blockType } = block
 

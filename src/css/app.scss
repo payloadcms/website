@@ -93,6 +93,7 @@ html {
   background: var(--theme-bg);
   -webkit-font-smoothing: antialiased;
   opacity: 0;
+  scroll-behavior: smooth;
 
   &[data-theme=dark],
   &[data-theme=light] {

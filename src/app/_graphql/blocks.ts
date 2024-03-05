@@ -7,6 +7,14 @@ const SETTINGS = `{
 }
 `
 
+const CODE_BLIPS = `{
+  row
+  feature
+  label
+  enableLink
+  link ${LINK_FIELDS({ disableAppearance: true })}
+}`
+
 export const BANNER = `
 ...on Banner {
   blockType
@@ -66,11 +74,7 @@ export const CODE_FEATURE = `
       language
       label
       code
-      codeBlips {
-        row
-        feature
-        label
-      }
+      codeBlips ${CODE_BLIPS}
     }
   }
 }
@@ -421,11 +425,7 @@ export const STICKY_HIGHLIGHTS = `
       link ${LINK_FIELDS({ disableAppearance: true })}
       type
       code
-      codeBlips {
-        row
-        feature
-        label
-      }
+      codeBlips ${CODE_BLIPS}
       media ${MEDIA_FIELDS}
     }
   }
@@ -452,6 +452,7 @@ export const REUSABLE_CONTENT_BLOCK = `
 ...on ReusableContentBlock {
   blockType
   reusableContentBlockFields {
+    customId
     reusableContent {
       layout {
         ${BANNER}
