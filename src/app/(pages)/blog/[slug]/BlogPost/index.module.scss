@@ -4,6 +4,7 @@
   border-bottom: 1px solid var(--grid-line-dark);
   position: relative;
   overflow: hidden;
+  padding-bottom: calc(var(--base) * 3);
 
   @include data-theme-selector('dark') {
     border-color: var(--grid-line-dark);
