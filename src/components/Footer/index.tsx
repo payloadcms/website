@@ -13,6 +13,7 @@ import { Select } from '@components/CMSForm/fields/Select'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
 import Payload3D from '@components/Payload3D'
+import { DiscordIcon } from '@root/graphics/DiscordIcon'
 import { FacebookIcon } from '@root/graphics/FacebookIcon'
 import { InstagramIcon } from '@root/graphics/InstagramIcon'
 import { ThemeAutoIcon } from '@root/graphics/ThemeAutoIcon'
@@ -271,6 +272,15 @@ export const Footer: React.FC<FooterType> = props => {
                 aria-label="Payload's Facebook page"
               >
                 <FacebookIcon />
+              </a>
+              <a
+                href="https://discord.com/invite/r6sCXqVk3v"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={classes.socialIconLink}
+                aria-label="Payload's Discord"
+              >
+                <DiscordIcon />
               </a>
             </div>
 

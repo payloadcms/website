@@ -2,11 +2,13 @@ import * as React from 'react'
 
 export const TwitterIconAlt: React.FC = () => {
   return (
-    <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect y="0.570312" width="32" height="32" rx="16" fill="white" />
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21.8496 22.7227H20.2051L9.4668 8.68359H11.2324L21.8496 22.7227Z" fill="white" />
       <path
-        d="M21.5672 7.82031H24.5359L18.0502 15.2331L25.6801 25.3203H19.7059L15.0267 19.2025L9.67263 25.3203H6.70213L13.6393 17.3915L6.31982 7.82031H12.4457L16.6753 13.4122L21.5672 7.82031ZM20.5253 23.5434H22.1703L11.5519 9.5039H9.7866L20.5253 23.5434Z"
-        fill="currentColor"
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M16 32C24.8359 32 32 24.8369 32 16C32 7.16309 24.8359 0 16 0C7.16406 0 0 7.16309 0 16C0 24.8369 7.16406 32 16 32ZM24.2168 7H21.248L16.3555 12.5918L12.125 7H6L13.3203 16.5713L6.38281 24.5H9.35352L14.707 18.3818L19.3867 24.5H25.3594L17.7305 14.4131L24.2168 7Z"
+        fill="white"
       />
     </svg>
   )

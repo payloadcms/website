@@ -136,6 +136,9 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .socialLinks {
   display: flex;
+  flex-wrap: wrap;
+  gap: var(--base);
+  max-width: 100%;
   align-items: center;
   margin-bottom: calc(var(--base) * 3);
 }
@@ -143,17 +146,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .socialIconLink {
   display: inline-flex;
   border-radius: 50%;
-  margin-right: var(--base);
-
-  & svg {
-    height: auto;
-    width: calc( var(--base) * 1.6);
-  }
-}
-
-.twitterIcon {
-  color: var(--color-base-1000);
-  background:  var(--color-base-0);
 
   & svg {
     height: auto;
