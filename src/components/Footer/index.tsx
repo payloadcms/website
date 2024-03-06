@@ -89,8 +89,21 @@ export const Footer: React.FC<FooterType> = props => {
 
   const pathname = usePathname()
 
+  const allowedSegments = [
+    'cloud',
+    'cloud-terms',
+    'forgot-password',
+    'join-team',
+    'login',
+    'logout',
+    'new',
+    'reset-password',
+    'verify',
+    'signup',
+  ]
+
   const pathnameSegments = pathname.split('/').filter(Boolean)
-  const isCloudPage = pathnameSegments.includes('cloud')
+  const isCloudPage = pathnameSegments.some(segment => allowedSegments.includes(segment))
 
   const themeId = useId()
   const newsletterId = useId()
