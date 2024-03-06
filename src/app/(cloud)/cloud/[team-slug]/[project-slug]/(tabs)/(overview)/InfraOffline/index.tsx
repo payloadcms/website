@@ -21,7 +21,7 @@ import classes from './index.module.scss'
 type DeploymentPhases = RequireField<Project, 'infraStatus'>['infraStatus']
 type DeploymentStates = {
   [key in DeploymentPhases]: {
-    status: 'SUCCESS' | 'ERROR'
+    status: 'SUCCESS' | 'ERROR' | 'SUSPENDED'
     label: string
     timeframe?: string
     step?: number
@@ -33,6 +33,11 @@ const deploymentStates: DeploymentStates = {
     step: 0,
     status: 'SUCCESS',
     label: 'Setting up your project',
+  },
+  reinstating: {
+    step: 0,
+    status: 'SUCCESS',
+    label: 'Reinstating your project',
   },
   awaitingDatabase: {
     step: 1,
@@ -51,6 +56,11 @@ const deploymentStates: DeploymentStates = {
     status: 'SUCCESS',
     label: 'Deployment complete, reloading page',
   },
+  suspended: {
+    step: 0,
+    status: 'SUSPENDED',
+    label: 'Suspended. Contact info@payloadcms.com if you think this was a mistake.',
+  },
   error: {
     step: 0,
     status: 'ERROR',
@@ -64,16 +74,31 @@ const deploymentStates: DeploymentStates = {
   appCreationError: {
     step: 0,
     status: 'ERROR',
-    label: 'Failed to create the application',
+    label: 'Failed to create application',
   },
   infraCreationError: {
     step: 0,
     status: 'ERROR',
-    label: 'Failed to create the infrastructure',
+    label: 'Failed to create infrastructure',
+  },
+  reinstatingError: {
+    step: 0,
+    status: 'ERROR',
+    label: 'Failed to reinstate project',
+  },
+  suspendingError: {
+    step: 0,
+    status: 'ERROR',
+    label: 'Failed to suspend project',
   },
 }
 
-const initialDeploymentPhases: DeploymentPhases[] = ['notStarted', 'awaitingDatabase', 'deploying']
+const initialDeploymentPhases: DeploymentPhases[] = [
+  'notStarted',
+  'awaitingDatabase',
+  'deploying',
+  'reinstating',
+]
 
 export const InfraOffline: React.FC<{
   project: Project
@@ -98,7 +123,12 @@ export const InfraOffline: React.FC<{
   }, [initialProject, team])
 
   const infraStatus = project?.infraStatus || 'notStarted'
-  const failedDeployment = ['error', 'deployError', 'appCreationError'].includes(infraStatus)
+  const failedDeployment = [
+    'error',
+    'deployError',
+    'appCreationError',
+    'infraCreationError',
+  ].includes(infraStatus)
   const deploymentStep = deploymentStates[infraStatus]
 
   const {
@@ -151,11 +181,20 @@ export const InfraOffline: React.FC<{
     (latestDeployment.deploymentStatus === 'ACTIVE' ||
       latestDeployment.deploymentStatus === 'SUPERSEDED')
 
+  let label = ''
+  if (infraStatus === 'suspended') {
+    label = 'Project has been suspended'
+  } else if (infraStatus === 'reinstating') {
+    label = 'Reinstating in progress'
+  } else {
+    label = `Initial Deployment ${failedDeployment ? 'failed' : 'in progress'}`
+  }
+
   return (
     <>
       <Gutter>
         <ExtendedBackground
-          borderHighlight={!failedDeployment}
+          borderHighlight={!failedDeployment && infraStatus !== 'suspended'}
           pixels
           upperChildren={
             <div className={classes.content}>
@@ -165,13 +204,13 @@ export const InfraOffline: React.FC<{
                     status={deploymentStep?.status}
                     spinner={initialDeploymentPhases.includes(infraStatus)}
                   />
-                  <Label>initial Deployment {failedDeployment ? 'failed' : 'in progress'}</Label>
+                  <Label>{label}</Label>
                 </div>
                 <div
                   className={[
                     classes.progressBar,
                     classes[`step--${deploymentStep.step}`],
-                    classes[`status--${deploymentStep?.status}`],
+                    classes[`status--${deploymentStep?.status?.toLocaleLowerCase()}`],
                   ]
                     .filter(Boolean)
                     .join(' ')}
@@ -278,7 +317,7 @@ export const InfraOffline: React.FC<{
         />
       </Gutter>
 
-      {latestDeployment && (
+      {latestDeployment && infraStatus !== 'suspended' && (
         <DeploymentLogs key={latestDeployment?.id} deployment={latestDeployment} />
       )}
     </>

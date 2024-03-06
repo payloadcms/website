@@ -5,7 +5,7 @@ import { Spinner } from '../Spinner'
 import classes from './index.module.scss'
 
 export type IndicatorProps = {
-  status?: 'UNKNOWN' | 'PENDING' | 'RUNNING' | 'ERROR' | 'SUCCESS'
+  status?: 'UNKNOWN' | 'PENDING' | 'RUNNING' | 'ERROR' | 'SUCCESS' | 'SUSPENDED'
   spinner?: boolean
   className?: string
 }
