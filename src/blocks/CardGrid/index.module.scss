@@ -54,11 +54,13 @@
   }
 
   .marginLeft {
+    position: relative;
     width: var(--gutter-h);
     display: block;
   }
 
   .marginRight {
+    position: relative;
     width: var(--gutter-h);
     display: block;
   }
