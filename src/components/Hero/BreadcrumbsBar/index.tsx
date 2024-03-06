@@ -88,6 +88,7 @@ const BreadcrumbsBar: React.FC<Props> = ({
                   {Array.isArray(links) &&
                     links.map((linkItem, i) => {
                       const link = 'link' in linkItem ? linkItem.link : linkItem
+                      const newTab = link?.newTab
 
                       return (
                         <CMSLink
@@ -96,7 +97,7 @@ const BreadcrumbsBar: React.FC<Props> = ({
                           {...link}
                           appearance={'text'}
                           buttonProps={{
-                            icon: linkItem.link.newTab && 'arrow',
+                            icon: newTab ? 'arrow' : undefined,
                             labelStyle: 'regular',
                           }}
                         />
@@ -115,6 +116,7 @@ const BreadcrumbsBar: React.FC<Props> = ({
                     {Array.isArray(links) &&
                       links.map((linkItem, i) => {
                         const link = 'link' in linkItem ? linkItem.link : linkItem
+                        const newTab = link?.newTab
 
                         return (
                           <CMSLink
@@ -123,7 +125,7 @@ const BreadcrumbsBar: React.FC<Props> = ({
                             {...link}
                             appearance={'text'}
                             buttonProps={{
-                              icon: linkItem.link.newTab && 'arrow',
+                              icon: newTab ? 'arrow' : undefined,
                               labelStyle: 'regular',
                             }}
                           />
