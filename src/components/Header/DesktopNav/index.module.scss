@@ -169,6 +169,10 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .description {
   @include headerText;
   font-size: calc(var(--base)*1.1);
+
+  @include large-break {
+    font-size: calc(var(--base)*1.25);
+  }
 }
 
 .dropdown {
@@ -309,6 +313,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   align-items: center;
   flex-direction: row;
   transition: all var(--trans-default) $curve;
+  letter-spacing: 0;
 
   &:hover {
     transition: all var(--trans-default) $curve;
