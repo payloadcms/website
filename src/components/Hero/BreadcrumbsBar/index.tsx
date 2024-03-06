@@ -96,7 +96,7 @@ const BreadcrumbsBar: React.FC<Props> = ({
                           {...link}
                           appearance={'text'}
                           buttonProps={{
-                            icon: ('icon' in link && link?.icon) ?? undefined,
+                            icon: linkItem.link.newTab && 'arrow',
                             labelStyle: 'regular',
                           }}
                         />
