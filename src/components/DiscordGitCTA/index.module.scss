@@ -30,7 +30,7 @@
     bottom: 0;
     left: 0;
     transition: all 300ms ease-in-out;
-    background-color: var(--theme-success-600);
+    background-color: var(--theme-elevation-1000);
   }
 
   &:hover {
@@ -39,11 +39,11 @@
     .message,
     .arrow {
       transition: all var(--trans-default) linear;
-      color: var(--theme-success-600);
     }
 
     .arrow {
-      transform: translate3D(10px, -10px, 0);
+      transform: translate3D(0, 0, 0);
+      opacity: 1;
     }
 
     &:before {
@@ -65,10 +65,8 @@
   width: 12px;
   height: 12px;
   color: var(--theme-text-color);
-
-  & path {
-    stroke-width: var(--default-border-width);
-  }
+  opacity: 0;
+  transform: translate3D(-5px, 5px, 0);
 }
 
 .gitButton,
