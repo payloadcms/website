@@ -127,6 +127,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
                           .filter(Boolean)
                           .join(' ')}
                         ref={ref => (dropdownMenuRefs[tabIndex] = ref)}
+                        onClick={resetHoverStyles}
                       >
                         <div className={[classes.description, 'cols-4'].join(' ')}>
                           {tab.description}
@@ -163,7 +164,6 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
                                   classes.dropdownItem,
                                   showUnderline && classes.showUnderline,
                                 ].join(' ')}
-                                onClick={resetHoverStyles}
                                 onMouseEnter={() => setActiveDropdownItem(index)}
                                 key={index}
                               >
@@ -268,12 +268,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
             </div>
           </div>
         </div>
-        <div
-          className={classes.background}
-          onMouseEnter={() => setActiveDropdown(true)}
-          onMouseLeave={() => setActiveDropdown(false)}
-          style={{ ...backgroundStyles, ...bgHeight }}
-        />
+        <div className={classes.background} style={{ ...backgroundStyles, ...bgHeight }} />
       </Gutter>
     </div>
   )

@@ -37,26 +37,41 @@ const MobileNavItems = ({ tabs, setActiveTab }) => {
   return (
     <ul className={classes.mobileMenuItems}>
       {(tabs || []).map((tab, index) => {
-        const { link, label, enableDirectLink } = tab
-        return (
-          <button
-            className={classes.mobileMenuItem}
-            key={index}
-            onClick={() => handleOnClick(index)}
-          >
-            {enableDirectLink ? (
+        const { link, label, enableDirectLink, enableDropdown } = tab
+
+        if (!enableDropdown)
+          return <CMSLink {...link} className={classes.mobileMenuItem} key={index} label={label} />
+
+        if (enableDirectLink)
+          return (
+            <button
+              onClick={() => handleOnClick(index)}
+              className={classes.mobileMenuItem}
+              key={index}
+            >
               <CMSLink
                 className={classes.directLink}
                 {...link}
                 label={label}
-                onClick={e => e.stopPropagation()}
+                onClick={e => {
+                  e.stopPropagation()
+                }}
               />
-            ) : (
-              label
-            )}
-            <ArrowIcon size="medium" rotation={45} />
-          </button>
-        )
+              <ArrowIcon size="medium" rotation={45} />
+            </button>
+          )
+        else
+          return (
+            <CMSLink
+              {...link}
+              className={classes.mobileMenuItem}
+              key={index}
+              label={label}
+              onClick={() => handleOnClick(index)}
+            >
+              <ArrowIcon size="medium" rotation={45} />
+            </CMSLink>
+          )
       })}
 
       <Link
@@ -107,20 +122,27 @@ const SubMenuModal: React.FC<
     theme?: Theme | null
   }
 > = ({ tabs, activeTab, theme }) => {
-  const { closeModal } = useModal()
+  const { closeModal, closeAllModals } = useModal()
 
   return (
     <Modal
       slug={subMenuSlug}
       className={[classes.mobileMenuModal, classes.mobileSubMenu].join(' ')}
       trapFocus={false}
+      onClick={closeAllModals}
     >
       <Gutter className={classes.subMenuWrap} dataTheme={`${theme}`}>
         {(tabs || []).map((tab, tabIndex) => {
           if (tabIndex !== activeTab) return null
           return (
             <div className={classes.subMenuItems} key={tabIndex}>
-              <button className={classes.backButton} onClick={() => closeModal(subMenuSlug)}>
+              <button
+                className={classes.backButton}
+                onClick={e => {
+                  closeModal(subMenuSlug)
+                  e.stopPropagation()
+                }}
+              >
                 <ArrowIcon size="medium" rotation={225} />
                 Back
                 <CrosshairIcon
