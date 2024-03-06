@@ -41,16 +41,8 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   aspect-ratio: 1 / 1;
   border-radius: 100%;
   opacity: .25;
-  transition: opacity 1s cubic-bezier(.165,.84,.44,1), transform 0ms cubic-bezier(.165,.84,.44,1);
+  transition: opacity 1s $curve, transform 0ms $curve;
   background: var(--color-base-0);
-}
-
-@keyframes Spin {
-  from {
-    transform: rotate(0deg)
-  } to {
-    transform: rotate(360deg)
-  }
 }
 
 .image {
