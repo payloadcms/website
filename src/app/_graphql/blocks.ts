@@ -419,6 +419,7 @@ export const STICKY_HIGHLIGHTS = `
 ...on StickyHighlights {
   blockType
   stickyHighlightsFields {
+    settings ${SETTINGS}
     highlights {
       richText
       enableLink
