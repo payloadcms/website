@@ -6,7 +6,14 @@ type Props = {
 
 export const DiscordIcon: React.FC<Props> = ({ className }) => {
   return (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      className={className}
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M11.2129 18.8555C11.5352 19.1025 11.9258 19.248 12.3457 19.248C13.4512 19.248 14.3066 18.2744 14.3242 17.0752C14.3438 15.877 13.4551 14.8936 12.3418 14.8936C11.2285 14.8936 10.3633 15.877 10.3633 17.0752C10.3633 17.8115 10.7012 18.4629 11.2129 18.8555Z"
         fill="white"
