@@ -41,20 +41,21 @@ export const HomeHero: React.FC<
   const [windowWidth, setWindowWidth] = useState(0)
 
   useEffect(() => {
-    setWindowWidth(window.innerWidth)
-
-    const handleResize = () => {
+    const updateWindowSize = () => {
       setWindowWidth(window.innerWidth)
     }
+    window.addEventListener('resize', updateWindowSize)
+    updateWindowSize()
 
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', updateWindowSize)
   }, [])
 
   useEffect(() => {
     const updateElementHeights = () => {
-      const renderedLaptopHeight = laptopMediaRef.current ? laptopMediaRef.current.offsetHeight : 0
-      setLaptopMediaHeight(renderedLaptopHeight)
+      const renderedLaptopMediaHeight = laptopMediaRef.current
+        ? laptopMediaRef.current.offsetHeight
+        : 0
+      setLaptopMediaHeight(renderedLaptopMediaHeight)
     }
     updateElementHeights()
     window.addEventListener('resize', updateElementHeights)
@@ -74,6 +75,27 @@ export const HomeHero: React.FC<
 
     return () => window.removeEventListener('resize', updateMobileMediaWrapperHeight)
   }, [])
+
+  const aspectRatio = 2560 / 1971
+  const dynamicHeight = windowWidth / aspectRatio
+
+  const getContentWrapperHeight = () => {
+    if (windowWidth >= 1024) {
+      return {
+        height: `${dynamicHeight}px`,
+      }
+    } else if (windowWidth < 1024) {
+      return {
+        height: '100%',
+      }
+    } else {
+      return {
+        height: 'unset',
+      }
+    }
+  }
+
+  const contentWrapperHeight = getContentWrapperHeight()
 
   const getGridLineStyles = () => {
     if (windowWidth >= 1024) {
@@ -131,7 +153,22 @@ export const HomeHero: React.FC<
     <ChangeHeaderTheme theme="dark">
       <BlockWrapper setPadding={false} settings={{ theme: 'dark' }} padding={padding}>
         <div className={classes.bgFull}>
-          <Media src="/images/hero-shapes.jpg" alt="" width={1920} height={1644} priority />
+          <Media
+            className={classes.desktopBg}
+            src="/images/hero-shapes.jpg"
+            alt=""
+            width={1920}
+            height={1644}
+            priority
+          />
+          <Media
+            className={classes.mobileBg}
+            src="/images/mobile-hero-shapes.jpg"
+            alt=""
+            width={390}
+            height={800}
+            priority
+          />
         </div>
         <div className={classes.homeHero}>
           <div className={classes.background}>
@@ -142,6 +179,8 @@ export const HomeHero: React.FC<
                   resource={media}
                   className={classes.laptopMedia}
                   priority
+                  width={2560}
+                  height={1971}
                 />
               )}
               {typeof secondaryMedia === 'object' && secondaryMedia !== null && (
@@ -166,7 +205,13 @@ export const HomeHero: React.FC<
                       },
                     }}
                   />
-                  <Media resource={secondaryMedia} className={classes.pedestalImage} priority />
+                  <Media
+                    resource={secondaryMedia}
+                    className={classes.pedestalImage}
+                    priority
+                    width={2560}
+                    height={1199}
+                  />
                 </div>
               )}
               {typeof featureVideo === 'object' && featureVideo !== null && (
@@ -176,16 +221,107 @@ export const HomeHero: React.FC<
               )}
             </div>
           </div>
-          <Gutter className={classes.contentWrapper}>
-            <div className={classes.primaryContentWrap} data-theme="dark">
-              <BackgroundGrid zIndex={0} gridLineStyles={gridLineStyles} />
-              <div className={[classes.primaryContent, 'grid'].filter(Boolean).join(' ')}>
-                <div className={['cols-8 start-1'].filter(Boolean).join(' ')}>
-                  <RichText className={classes.richTextHeading} content={richText} />
-                  <RichText className={classes.richTextDescription} content={description} />
-                  {Array.isArray(primaryButtons) && (
-                    <ul className={[classes.primaryButtons].filter(Boolean).join(' ')}>
-                      {primaryButtons.map(({ link }, i) => {
+          <div className={classes.contentWrapper} style={contentWrapperHeight}>
+            <Gutter className={classes.content}>
+              <div className={classes.primaryContentWrap} data-theme="dark">
+                <BackgroundGrid zIndex={0} gridLineStyles={gridLineStyles} />
+                <div className={[classes.primaryContent, 'grid'].filter(Boolean).join(' ')}>
+                  <div className={['cols-8 start-1'].filter(Boolean).join(' ')}>
+                    <RichText className={classes.richTextHeading} content={richText} />
+                    <RichText className={classes.richTextDescription} content={description} />
+                    {Array.isArray(primaryButtons) && (
+                      <ul className={[classes.primaryButtons].filter(Boolean).join(' ')}>
+                        {primaryButtons.map(({ link }, i) => {
+                          return (
+                            <li key={i}>
+                              <CMSLink
+                                {...link}
+                                appearance="default"
+                                fullWidth
+                                buttonProps={{
+                                  icon: 'arrow',
+                                  hideHorizontalBorders: true,
+                                }}
+                              />
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    )}
+                    {/* Mobile media - only rendered starting at mid-break */}
+                    <div
+                      className={classes.mobileMediaWrapper}
+                      style={{ height: mobileMediaWrapperHeight }}
+                    >
+                      {typeof media === 'object' && media !== null && (
+                        <Media
+                          ref={mobileLaptopMediaRef}
+                          resource={media}
+                          className={classes.laptopMedia}
+                        />
+                      )}
+                      {typeof secondaryMedia === 'object' && secondaryMedia !== null && (
+                        <div className={classes.pedestalMaskedImage}>
+                          <BackgroundGrid
+                            className={classes.mobilePedestalBackgroundGrid}
+                            gridLineStyles={{
+                              0: {
+                                background: 'var(--grid-line-dark)',
+                              },
+                              1: {
+                                background: 'var(--grid-line-dark)',
+                              },
+                              2: {
+                                background: 'var(--grid-line-dark)',
+                              },
+                              3: {
+                                background: 'var(--grid-line-dark)',
+                              },
+                              4: {
+                                background: 'var(--grid-line-dark)',
+                              },
+                            }}
+                            zIndex={1}
+                          />
+                          <Media resource={secondaryMedia} className={classes.pedestalImage} />
+                        </div>
+                      )}
+                      {typeof featureVideo === 'object' && featureVideo !== null && (
+                        <div
+                          className={classes.featureVideoMask}
+                          style={{ height: mobileMediaWrapperHeight }}
+                        >
+                          <Media
+                            resource={featureVideo}
+                            className={classes.featureVideo}
+                            priority
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                data-theme="dark"
+                className={[classes.secondaryContentWrap, 'grid'].filter(Boolean).join(' ')}
+              >
+                <BackgroundGrid className={classes.mobileSecondaryBackgroundGrid} zIndex={1} />
+                <div className={classes.mobileSecondaryBackground} />
+                <div
+                  className={[classes.secondaryContent, 'cols-8 start-1'].filter(Boolean).join(' ')}
+                >
+                  <RichText
+                    className={classes.secondaryRichTextHeading}
+                    content={secondaryHeading}
+                  />
+                  <RichText
+                    className={classes.secondaryRichTextDescription}
+                    content={secondaryDescription}
+                  />
+                  {Array.isArray(secondaryButtons) && (
+                    <ul className={classes.secondaryButtons}>
+                      {secondaryButtons.map(({ link }, i) => {
                         return (
                           <li key={i}>
                             <CMSLink
@@ -202,99 +338,17 @@ export const HomeHero: React.FC<
                       })}
                     </ul>
                   )}
-                  {/* Mobile media - only rendered starting at mid-break */}
-                  <div
-                    className={classes.mobileMediaWrapper}
-                    style={{ height: mobileMediaWrapperHeight }}
-                  >
-                    {typeof media === 'object' && media !== null && (
-                      <Media
-                        ref={mobileLaptopMediaRef}
-                        resource={media}
-                        className={classes.laptopMedia}
-                      />
-                    )}
-                    {typeof secondaryMedia === 'object' && secondaryMedia !== null && (
-                      <div className={classes.pedestalMaskedImage}>
-                        <BackgroundGrid
-                          className={classes.mobilePedestalBackgroundGrid}
-                          gridLineStyles={{
-                            0: {
-                              background: 'var(--grid-line-dark)',
-                            },
-                            1: {
-                              background: 'var(--grid-line-dark)',
-                            },
-                            2: {
-                              background: 'var(--grid-line-dark)',
-                            },
-                            3: {
-                              background: 'var(--grid-line-dark)',
-                            },
-                            4: {
-                              background: 'var(--grid-line-dark)',
-                            },
-                          }}
-                          zIndex={1}
-                        />
-                        <Media resource={secondaryMedia} className={classes.pedestalImage} />
-                      </div>
-                    )}
-                    {typeof featureVideo === 'object' && featureVideo !== null && (
-                      <div
-                        className={classes.featureVideoMask}
-                        style={{ height: mobileMediaWrapperHeight }}
-                      >
-                        <Media resource={featureVideo} className={classes.featureVideo} priority />
-                      </div>
-                    )}
-                  </div>
+                </div>
+                <div
+                  className={[classes.logoWrapper, 'cols-8 start-9 start-m-1']
+                    .filter(Boolean)
+                    .join(' ')}
+                >
+                  <LogoShowcase logos={logos} />
                 </div>
               </div>
-            </div>
-            <div
-              data-theme="dark"
-              className={[classes.secondaryContentWrap, 'grid'].filter(Boolean).join(' ')}
-            >
-              <BackgroundGrid className={classes.mobileSecondaryBackgroundGrid} zIndex={1} />
-              <div className={classes.mobileSecondaryBackground} />
-              <div
-                className={[classes.secondaryContent, 'cols-8 start-1'].filter(Boolean).join(' ')}
-              >
-                <RichText className={classes.secondaryRichTextHeading} content={secondaryHeading} />
-                <RichText
-                  className={classes.secondaryRichTextDescription}
-                  content={secondaryDescription}
-                />
-                {Array.isArray(secondaryButtons) && (
-                  <ul className={classes.secondaryButtons}>
-                    {secondaryButtons.map(({ link }, i) => {
-                      return (
-                        <li key={i}>
-                          <CMSLink
-                            {...link}
-                            appearance="default"
-                            fullWidth
-                            buttonProps={{
-                              icon: 'arrow',
-                              hideHorizontalBorders: true,
-                            }}
-                          />
-                        </li>
-                      )
-                    })}
-                  </ul>
-                )}
-              </div>
-              <div
-                className={[classes.logoWrapper, 'cols-8 start-9 start-m-1']
-                  .filter(Boolean)
-                  .join(' ')}
-              >
-                <LogoShowcase logos={logos} />
-              </div>
-            </div>
-          </Gutter>
+            </Gutter>
+          </div>
         </div>
         <div className={classes.paddingBottom}>
           <BackgroundGrid
