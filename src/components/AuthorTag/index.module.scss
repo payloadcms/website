@@ -14,10 +14,12 @@
 
 .authorName {
   display: flex;
+  align-items: center;
 }
 
 .authorDetails {
   display: flex;
+  align-self: center;
   flex-direction: column;
   color: var(--theme-elevation-900);
 }
@@ -28,12 +30,11 @@
   align-self: center;
 
   & img {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     border-radius: 100%;
     overflow: hidden;
-    margin-right: calc(var(--base) * 0.75);
-    border: 1px solid var(--theme-elevation-100);
+    margin-right: calc(var(--base) * 0.5);
     flex-shrink: 0;
   }
 }
@@ -41,6 +42,7 @@
 .authorLink {
   text-decoration: none;
   display: flex;
+  align-items: center;
   color: var(--theme-text);
 }
 
@@ -50,9 +52,20 @@
   text-decoration: none;
 }
 
+.teamLink {
+  & strong {
+    color: var(--theme-blue-750);
+  }
+}
+
 .twitterIcon {
   display: flex;
-  margin: 0 var(--byline-spacer) 0 var(--byline-spacer);
+  margin: 0 0 0 calc(var(--base) * 0.5);
+  width: 18px;
+
+  & rect {
+    fill: var(--theme-elevation-100)
+  }
 }
 
 .commentMeta {
@@ -61,17 +74,17 @@
   @include label;
 }
 
-.isAnswer {
-  background: transparent;
-  color: var(--theme-success-400);
-  border: 1px solid;
-}
-
 .date {
   @include label;
   font-size: 13px;
   color: var(--theme-elevation-500);
   font-weight: normal;
+  margin: 0;
+
+  &::before {
+    content: "\2014";
+    margin: 0 calc(var(--base) * 0.5);
+  }
 }
 
 .commentMetaStats {

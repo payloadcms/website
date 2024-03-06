@@ -33,11 +33,12 @@ export type CMSLinkType = {
   reference?: Reference | null
   url?: string | null
   label?: string | null
-  appearance?: 'default' | 'primary' | 'secondary' | null
+  appearance?: 'default' | 'primary' | 'secondary' | 'text' | null
   children?: React.ReactNode
   fullWidth?: boolean
   mobileFullWidth?: boolean
   className?: string
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void
   onMouseEnter?: () => void
   onMouseLeave?: () => void
   buttonProps?: ButtonProps
@@ -88,16 +89,23 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   appearance,
   children,
   className,
+  onClick,
   onMouseEnter,
   onMouseLeave,
   fullWidth = false,
   mobileFullWidth = false,
+  buttonProps: buttonPropsFromProps,
 }) => {
   let href = generateHref({ type, url, reference })
 
   if (!href) {
     return (
-      <span className={className} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      <span
+        className={className}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
         {label}
         {children}
       </span>
@@ -128,6 +136,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
           href={href}
           {...newTabProps}
           className={className}
+          onClick={onClick}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
           prefetch={false}
@@ -145,6 +154,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
         className={className}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        onClick={onClick}
       >
         {label && label}
         {children && children}
@@ -153,10 +163,12 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   }
 
   const buttonProps: ButtonProps = {
+    ...buttonPropsFromProps,
     newTab,
     href,
     appearance,
     label,
+    onClick,
     onMouseEnter,
     onMouseLeave,
     fullWidth,

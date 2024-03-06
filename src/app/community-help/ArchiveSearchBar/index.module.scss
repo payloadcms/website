@@ -23,7 +23,7 @@
   height: calc(var(--base) * 2);
   margin-right: calc(var(--base) * 0.5);
   text-transform: none;
-  
+
   &::placeholder {
     color: black;
   }
@@ -45,5 +45,34 @@
     & path {
       stroke: var(--color-base-300);
     }
+  }
+}
+
+.crosshair {
+  position: absolute;
+
+  & path {
+    stroke: var(--theme-elevation-400);
+  }
+
+  &:nth-child(3) {
+    transform: translate(calc(-50% - 1px), calc(-50% - 1px));
+    top: 0;
+    left: 0;
+  }
+  &:nth-child(4) {
+    transform: translate(calc(50% + 1px), calc(-50% - 1px));
+    top: 0;
+    right: 0;
+  }
+  &:nth-child(5) {
+    transform: translate(calc(-50% - 1px), calc(50% + 1px));
+    bottom: 0;
+    left: 0;
+  }
+  &:nth-child(6) {
+    transform: translate(calc(50% + 1px), calc(50% + 1px));
+    bottom: 0;
+    right: 0;
   }
 }

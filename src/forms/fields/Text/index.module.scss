@@ -63,3 +63,13 @@
   display: flex;
   color: var(--theme-elevation-500);
 }
+
+:global([data-theme="light"]) {
+  .input {
+    background: var(--theme-elevation-50);
+
+    &:disabled {
+      background: var(--theme-elevation-200);
+    }
+  }
+}

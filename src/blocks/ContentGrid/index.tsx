@@ -1,56 +1,106 @@
 import * as React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
+import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
-export type ContentGridProps = Extract<Page['layout'][0], { blockType: 'contentGrid' }>
+export type ContentGridProps = Extract<Page['layout'][0], { blockType: 'contentGrid' }> & {
+  padding?: PaddingProps
+}
 
 type CellsProps = ContentGridProps['contentGridFields'] & {
   className?: string
-  darkBackground?: boolean
 }
 
-const Cells: React.FC<CellsProps> = ({
-  cells,
-  className,
-  darkBackground,
-  useLeadingHeader,
-  leadingHeader,
-}) => {
-  return (
-    <Gutter className={[classes.contentGrid, className && className].filter(Boolean).join(' ')}>
-      {useLeadingHeader && <RichText className={classes.leadingHeader} content={leadingHeader} />}
+const Cells: React.FC<CellsProps> = ({ cells, className, showNumbers, style: styleFromProps }) => {
+  const style = styleFromProps ?? 'gridBelow'
 
-      <Grid>
-        {cells?.map((cell, i) => {
-          return (
-            <Cell className={classes.cell} cols={4} colsS={8} key={i}>
-              <RichText className={classes.richText} content={cell.content} />
-            </Cell>
-          )
-        })}
-      </Grid>
-      {darkBackground && <div className={classes.darkBg} />}
-    </Gutter>
+  return (
+    <div
+      className={[classes.cellGrid, 'grid', style === 'gridBelow' ? 'cols-16 cols-m-8' : 'cols-8']
+        .filter(Boolean)
+        .join(' ')}
+    >
+      {cells?.map((cell, i) => {
+        return (
+          <div
+            className={[classes.cell, style === 'sideBySide' ? 'cols-8' : 'cols-4 cols-s-8']
+              .filter(Boolean)
+              .join(' ')}
+            key={i}
+          >
+            {showNumbers && <p className={classes.leader}>0{++i}</p>}
+            <RichText className={classes.cellRichText} content={cell.content} />
+          </div>
+        )
+      })}
+    </div>
   )
 }
 
-export const ContentGrid: React.FC<ContentGridProps> = props => {
-  const { contentGridFields } = props
+export const ContentGrid: React.FC<ContentGridProps> = ({ contentGridFields, padding }) => {
+  const { settings, style: styleFromProps, content, links } = contentGridFields || {}
 
-  if (contentGridFields && contentGridFields.forceDarkBackground) {
-    return (
-      <div data-theme="dark">
-        <div className={classes.bgExtension}>
-          <Cells {...contentGridFields} darkBackground />
+  const hasLinks = Array.isArray(links) && links.length > 0
+  const style = styleFromProps ?? 'gridBelow'
+
+  return (
+    <BlockWrapper settings={settings} padding={{ ...padding, top: 'large' }}>
+      <BackgroundGrid zIndex={0} />
+      <Gutter className={[classes.wrapper, classes[style], 'grid'].filter(Boolean).join(' ')}>
+        <div
+          className={[
+            classes.topContent,
+            classes[style],
+            'grid',
+            style === 'gridBelow' ? 'cols-16 cols-m-8' : 'cols-8',
+          ]
+            .filter(Boolean)
+            .join(' ')}
+        >
+          {content && (
+            <RichText
+              className={[classes.richText, style === 'sideBySide' ? 'cols-12' : 'cols-8']
+                .filter(Boolean)
+                .join(' ')}
+              content={content}
+            />
+          )}
+          {hasLinks && (
+            <div
+              className={[
+                classes.linksWrapper,
+                style === 'sideBySide' ? 'cols-8' : 'cols-4 start-13 cols-l-4 cols-m-8 start-m-1',
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            >
+              {links.map(({ link }, index) => {
+                return (
+                  <CMSLink
+                    {...link}
+                    key={index}
+                    appearance="default"
+                    fullWidth
+                    buttonProps={{
+                      icon: 'arrow',
+                      hideHorizontalBorders: true,
+                      hideBottomBorderExceptLast: true,
+                    }}
+                  />
+                )
+              })}
+            </div>
+          )}
         </div>
-      </div>
-    )
-  }
 
-  return <Cells className={classes.cellsWithCurrentTheme} {...contentGridFields} />
+        <Cells {...contentGridFields} />
+      </Gutter>
+    </BlockWrapper>
+  )
 }

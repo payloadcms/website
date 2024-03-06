@@ -1,0 +1,92 @@
+@use '@scss/common.scss' as *;
+
+$curve: cubic-bezier(.165, .84, .44, 1);
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.51);
+  backdrop-filter: blur(22px);
+  padding: calc(var(--base) * 5);
+  overscroll-behavior: contain;
+  overflow: auto;
+
+  @include mid-break {
+    padding: calc(var(--base) * 2);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    background: linear-gradient(rgba(0, 127, 174, 1), rgba(87, 138, 156, 1), rgba(223, 193, 152, 1));
+    left: 0;
+    top: 0;
+    width: 2px;
+    height: 100%;
+  }
+}
+
+.label {
+  @include h6;
+  text-transform: uppercase;
+  margin-bottom: calc(var(--base) * 1.75);
+
+  @include data-theme-selector('dark') {
+    color: var(--color-base-0);
+  }
+
+  @include data-theme-selector('light') {
+    color: var(--color-base-0);
+  }
+}
+
+.richText {
+  @include data-theme-selector('dark') {
+    color: var(--color-base-0);
+  }
+
+  @include data-theme-selector('light') {
+    color: var(--color-base-0);
+  }
+}
+
+.close {
+  @include btnReset;
+
+  color: var(--color-base-400);
+  position: absolute;
+  right: calc(var(--base) * 3);
+  top: calc(var(--base) * 3);
+  padding: calc(var(--base) * 1.25);
+  border: 1px solid var(--color-base-400);
+  border-radius: 100%;
+  aspect-ratio: 1/1;
+  display: flex;
+  transition: 350ms $curve;
+
+  @include mid-break {
+    right: calc(var(--base) * 2);
+    top: calc(var(--base) * 2);
+    padding: calc(var(--base) * .5);
+
+    svg {
+      height: auto;
+      width: calc(var(--base) * .75);
+    }
+  }
+
+  svg {
+    height: auto;
+    width: calc(var(--base) * 1.25);
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: var(--color-base-200);
+    border-color: var(--color-base-200);
+  }
+}

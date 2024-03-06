@@ -1,15 +1,30 @@
+@use '@scss/common.scss' as *;
+
 .placeholder {
   background-color: var(--theme-elevation-50);
 }
 
-[data-theme=dark] {
+[data-theme='dark'] {
   .hasDarkModeFallback.themeLight {
     display: none;
   }
 }
 
-[data-theme=light] {
+[data-theme='dark'] [data-theme='light'] {
+  .hasDarkModeFallback.themeLight {
+    display: block;
+  }
+}
+
+
+[data-theme='light'] {
   .themeDark {
     display: none;
+  }
+}
+
+[data-theme='light'] [data-theme='dark'] {
+  .themeDark {
+    display: block;
   }
 }

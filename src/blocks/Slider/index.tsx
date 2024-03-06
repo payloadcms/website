@@ -1,85 +1,109 @@
 import * as React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
-import { Slide, SliderNav, SliderProvider, SliderTrack } from '@faceless-ui/slider'
+import {
+  Slide,
+  SliderNav,
+  SliderProgress,
+  SliderProvider,
+  SliderTrack,
+  useSlider,
+} from '@faceless-ui/slider'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { Gutter } from '@components/Gutter'
-import { PixelBackground } from '@components/PixelBackground'
-import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
 import { ArrowIcon } from '../../icons/ArrowIcon'
 import { useComputedCSSValues } from '../../providers/ComputedCSSValues'
-import { ImageCard } from './ImageCard'
 import { QuoteCard } from './QuoteCard'
 
 import classes from './index.module.scss'
 
-const cardTypes = {
-  imageSlider: ImageCard,
-  quoteSlider: QuoteCard,
+type Props = Extract<Page['layout'][0], { blockType: 'slider' }> & {
+  padding?: PaddingProps
 }
 
-type Props = Extract<Page['layout'][0], { blockType: 'slider' }>
+export const SliderBlock: React.FC<Props> = ({ sliderFields, padding }) => {
+  const { settings } = sliderFields
+  const { currentSlideIndex } = useSlider()
 
-export const SliderBlock: React.FC<Props> = ({ sliderFields }) => {
-  const { sliderType, useLeadingHeader, leadingHeader } = sliderFields
-
-  const slides = sliderType === 'imageSlider' ? sliderFields.imageSlides : sliderFields.quoteSlides
+  const slides = sliderFields.quoteSlides
 
   if (!slides || slides.length === 0) return null
 
-  const CardToRender = cardTypes[sliderType]
-  const withPixelBackground = sliderType === 'quoteSlider'
+  const isFirst = currentSlideIndex === 0
+  const isLast = currentSlideIndex + 1 === slides.length
 
   return (
-    <div
-      className={[classes.slider, withPixelBackground && classes.withPixelBackground]
-        .filter(Boolean)
-        .join(' ')}
+    <BlockWrapper
+      settings={settings}
+      padding={padding}
+      className={[classes.slider].filter(Boolean).join(' ')}
     >
-      <Gutter>
-        {useLeadingHeader && <RichText content={leadingHeader} className={classes.leadingHeader} />}
-        <SliderNav
-          className={classes.sliderNav}
-          prevButtonProps={{
-            className: [classes.navButton, classes.prevButton].filter(Boolean).join(' '),
-            children: <ArrowIcon rotation={225} />,
-          }}
-          nextButtonProps={{
-            className: classes.navButton,
-            children: <ArrowIcon rotation={45} />,
-          }}
-        />
-      </Gutter>
+      <BackgroundGrid zIndex={0} />
 
       <div className={classes.trackWrap}>
+        <BackgroundGrid
+          zIndex={5}
+          ignoreGutter
+          gridLineStyles={{
+            1: {
+              display: 'none',
+            },
+            2: {
+              display: 'none',
+            },
+            3: {
+              display: 'none',
+            },
+          }}
+        />
         <SliderTrack className={classes.sliderTrack}>
           {slides.map((slide, index) => {
+            const isActive = currentSlideIndex === index
             return (
               <Slide
                 key={index}
                 index={index}
-                className={[classes.slide, classes[`slideType--${sliderType}`]]
-                  .filter(Boolean)
-                  .join(' ')}
+                className={[classes.slide, classes.quoteSlide].filter(Boolean).join(' ')}
               >
-                <CardToRender {...slide} />
+                <BackgroundGrid
+                  zIndex={1}
+                  ignoreGutter
+                  gridLineStyles={{
+                    0: { display: 'none' },
+                    1: { display: 'none' },
+                    2: { display: 'none' },
+                    3: { display: 'none' },
+                  }}
+                />
+                <QuoteCard isActive={isActive} {...slide} />
               </Slide>
             )
           })}
+          <div className={classes.fakeSlide} />
         </SliderTrack>
         <div className={classes.progressBarBackground} />
       </div>
 
-      {withPixelBackground && (
-        <Gutter className={classes.pixelContainer}>
-          <Grid>
-            <Cell start={4} cols={9} className={classes.pixelCell}>
-              <PixelBackground />
-            </Cell>
-          </Grid>
-        </Gutter>
-      )}
-    </div>
+      <Gutter>
+        <SliderNav
+          className={classes.sliderNav}
+          prevButtonProps={{
+            className: [classes.navButton, classes.prevButton, isFirst && classes.disabled]
+              .filter(Boolean)
+              .join(' '),
+            children: <ArrowIcon rotation={225} />,
+            disabled: isFirst,
+          }}
+          nextButtonProps={{
+            className: [classes.navButton, isLast && classes.disabled].filter(Boolean).join(' '),
+            children: <ArrowIcon rotation={45} />,
+            disabled: isLast,
+          }}
+        />
+      </Gutter>
+      <SliderProgress />
+    </BlockWrapper>
   )
 }
 
@@ -87,7 +111,7 @@ export const Slider: React.FC<Props> = props => {
   const { gutterH } = useComputedCSSValues()
 
   return (
-    <SliderProvider slidesToShow={1.5} scrollOffset={gutterH}>
+    <SliderProvider scrollSnap={true} slideOnSelect={true} slidesToShow={1} scrollOffset={gutterH}>
       <SliderBlock {...props} />
     </SliderProvider>
   )

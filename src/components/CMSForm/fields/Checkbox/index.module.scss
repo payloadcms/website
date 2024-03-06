@@ -1,0 +1,113 @@
+@use "@scss/common" as *;
+@use "../shared.scss";
+
+.checkbox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: calc(var(--base) * 1.75) calc(var(--base) * 2);
+  
+  &::before {
+    content: '';
+    width: calc(100% - 2px);
+    position: absolute;
+    height:100%;
+    left: 1px;
+    top:0;
+    z-index: -1;
+    background-color: var(--theme-input-bg);
+  }
+
+  .button {
+    all: unset;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--color-text);
+  
+    &:disabled {
+      color: var(--theme-elevation-500);
+    }
+  
+    &:focus,
+    &:active {
+      outline: none;
+    }
+  
+    &:focus-visible {
+      .input {
+        @include outline;
+      }
+    }
+  
+    &:hover {
+      :local() {
+        .icon {
+          opacity: 0.2;
+        }
+      }
+    }
+  }
+
+  .errorLabel {
+    margin: 0;
+  }
+  
+  .htmlInput {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+  
+  .input {
+    @include shared.formInput;
+    padding: 0;
+    line-height: 0;
+    position: relative;
+    width: calc(var(--base) * 1);
+    height: calc(var(--base) * 1);
+    min-width: calc(var(--base) * 1);
+    min-height: calc(var(--base) * 1);
+    margin-right: calc(var(--base) / 2);
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  
+  .icon {
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+  
+  .label {
+    cursor: pointer;
+    margin: 0;
+    color: var(--text-dark);
+    margin-right: calc(var(--base) * 0.75);
+    transition: all 0.3s ease;
+  }
+
+  @include mid-break {
+    padding: calc(var(--base) * 1.75) calc(var(--base) * 1);
+  }
+}
+
+.checked {
+  :local() {
+    .input {
+      border-color: var(--color-base-0);
+
+      .icon {
+        opacity: 1 !important;
+      }
+    }
+
+    .label {
+      color: var(--color-base-0);
+    }
+  }
+}

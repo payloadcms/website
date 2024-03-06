@@ -2,11 +2,9 @@
 
 .breadcrumbs {
   display: flex;
-  margin-bottom: calc(var(--base) * 1.5);
 }
 
 .label {
-  @include label;
   display: flex;
   align-items: center;
   white-space: nowrap;
@@ -21,8 +19,14 @@
 
 .labelContent {
   text-overflow: ellipsis;
-  overflow: hidden;
   white-space: nowrap;
+  text-decoration: none;
+}
+
+a.labelContent {
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .divider {

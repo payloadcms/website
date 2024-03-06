@@ -1,9 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
 
-import { Pill } from '@components/Pill'
 import { CommentsIcon } from '@root/graphics/CommentsIcon'
-import { TwitterIconV2 } from '@root/graphics/TwitterIconV2'
+import { TwitterIconAlt } from '@root/graphics/TwitterIconAlt'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import getRelativeDate from '@root/utilities/get-relative-date'
 import { getTeamTwitter } from '@root/utilities/get-team-twitter'
@@ -60,31 +59,26 @@ const AuthorTag: React.FC<Props> = ({
         <div className={classes.authorDetails}>
           <div className={classes.authorName}>
             {teamMember ? (
-              <>
-                <a
-                  className={classes.authorLink}
-                  href={`https://twitter.com/${teamMember}`}
-                  target="_blank"
-                >
-                  <strong>{author}</strong>
-                  <div className={classes.teamTag}>
-                    <span className={classes.twitterIcon}>
-                      <TwitterIconV2 />
-                    </span>
-                  </div>
-                </a>
-
-                <Pill
-                  className={[isAnswer && classes.isAnswer].filter(Boolean).join(' ')}
-                  text="Payload Team"
-                />
-              </>
+              <a
+                className={[classes.authorLink, teamMember && classes.teamLink]
+                  .filter(Boolean)
+                  .join(' ')}
+                href={`https://twitter.com/${teamMember}`}
+                target="_blank"
+              >
+                <strong>{author}</strong>
+                <div className={classes.teamTag}>
+                  <span className={classes.twitterIcon}>
+                    <TwitterIconAlt />
+                  </span>
+                </div>
+              </a>
             ) : (
               <strong>{author}</strong>
             )}
-          </div>
 
-          {date && <Timestamp date={date} />}
+            {date && <Timestamp date={date} />}
+          </div>
         </div>
       </div>
 

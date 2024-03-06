@@ -1,0 +1,244 @@
+@use "@scss/common" as *;
+@use "../shared.scss";
+
+.select {
+  position: relative;
+
+  &::before {
+    content: '';
+    width: calc(100% - 2px);
+    position: absolute;
+    height:100%;
+    left: 1px;
+    top:0;
+    z-index: -1;
+    background-color: var(--theme-input-bg);
+  }
+
+  .errorAndLabel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: calc(var(--base) * 2);
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    transition: all 0.3s ease;
+
+    @include mid-break {
+      left: calc(var(--base) * 1);
+    }
+  }
+
+  .selectLabel, .errorLabel {
+    width: fit-content;
+    margin: 0;
+  }
+
+  .selectLabel {
+    transition: all 0.3s ease;
+    pointer-events: none;
+    font-weight: 400;
+    color: var(--text-dark);
+    margin-right: calc(var(--base) * 0.75);
+    z-index: 1;
+  }
+}
+
+.reactSelect {
+  display: flex;
+
+  :global {
+    div.rs__control {
+      @include shared.formInput;
+      padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
+
+      @include mid-break {
+        padding: calc(var(--base) * 1.5) calc(var(--base) * 1);
+      }
+    }
+
+    .rs__control {
+      line-height: 1;
+      display: flex !important;
+      align-items: center !important;
+
+      &--is-disabled {
+        cursor: not-allowed;
+
+          :global {
+            .rs__single-value {
+              color: var(--theme-elevation-400);
+            }
+
+            .rs__indicators {
+              display: none;
+            }
+          }
+      }
+    }
+
+    .rs__input-container {
+      color: var(--text-dark);
+    }
+
+    .rs__value-container {
+      padding: 0;
+
+      .rs__placeholder {
+        display: none;
+      }
+
+      > * {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+
+    .rs__single-value {
+      color: var(--color-base-0);
+      margin: 0;
+      overflow: unset;
+    }
+
+    .rs__indicators {
+      position: absolute;
+      top: 50%;
+      right: calc(var(--base) * 2);
+      transform: translate3d(0, -50%, 0);
+      
+      .arrow {
+        transform: rotate(90deg);
+      }
+
+      @include mid-break {
+        right: var(--base);
+      }
+    }
+
+    .rs__indicator {
+      padding: 0px 4px;
+      
+      svg path {
+        fill: var(--theme-elevation-700);
+      }
+
+      &:hover {
+        svg path {
+          fill: var(--theme-elevation-700);
+        }
+      }
+    }
+
+    .rs__indicator-separator {
+      display: none;
+    }
+
+    .rs__menu {
+      color: var(--text-dark);
+      background-color: #101010;
+      z-index: 2;
+      border-radius: 0;
+      box-shadow: 0 4px 11px hsl(0deg 0% 0% / 10%);
+      width: 100%;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .rs__menu-list {
+      padding: 0;
+      border: 1px solid var(--theme-border-color);
+    }
+
+    .rs__group-heading {
+      margin-bottom: calc(var(--base) / 2);
+    }
+
+    .rs__option {
+      font-size: 1rem;
+      padding: calc(var(--base) * 1) calc(var(--base) * 2);
+      background-color: #101010;
+
+      &--is-focused {
+        background-color: var(--color-base-900);
+        color: var(--color-base-0);
+      }
+
+      &--is-selected {
+        background-color: var(--color-base-800);
+        color: var(--color-base-0);
+      }
+
+      @include mid-break {
+        padding: calc(var(--base) * 1) calc(var(--base) * 1);
+      }
+    }
+
+    .rs__multi-value {
+      padding: 0;
+      background: var(--color-base-800);
+    }
+
+    .rs__multi-value__label {
+      max-width: 150px;
+      color: var(--color-base-0);
+      padding: calc(var(--base) / 8) calc(var(--base) / 4);
+    }
+
+    .rs__multi-value__remove {
+      cursor: pointer;
+
+      &:hover {
+        color: var(--color-base-0);
+        background: var(--color-base-900);
+      }
+    }
+
+    .rs__clear-indicator {
+      cursor: pointer;
+    }
+  }
+}
+
+.description {
+  @include small;
+  margin-top: calc(var(--base) / 2);
+  color: var(--color-base-0);
+}
+
+.focused {
+  .errorAndLabel {
+    top: 25%;
+    transform: translateY(-25%);
+  }
+
+  .selectLabel, .errorLabel {
+    font-size: 12px;
+  }
+
+  .selectLabel {
+    margin-right: calc(var(--base) * 0.5);
+  }
+
+  .reactSelect {
+    :global {
+      div.rs__control {
+        padding: calc(var(--base) * 2) calc(var(--base) * 2) calc(var(--base) * 1) calc(var(--base) * 2);
+  
+        @include mid-break {
+          padding: calc(var(--base) * 2) calc(var(--base) * 1) calc(var(--base) * 1) calc(var(--base) * 1);
+        }
+      }
+    }
+  }
+}
+
+:global([data-theme="dark"]) {
+  .select {
+    .rs__menu {
+      background-color: #101010;
+    }
+  }
+}

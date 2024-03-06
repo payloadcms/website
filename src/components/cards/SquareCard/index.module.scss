@@ -1,197 +1,154 @@
 @use '@scss/common.scss' as *;
 
 .card {
-    border: 1px solid var(--theme-elevation-500);
-    aspect-ratio: 1/1;
-    background-color: var(--theme-bg);
-    position: relative;
-    overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 1.5);
+  padding: calc(var(--base) * 1.5);
+  padding-bottom: 0;
+  text-decoration: none;
+  aspect-ratio: 1 / 1;
+  transition: background-color, gap, padding-bottom;
+  transition-duration: .4s;
+  transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+  border-bottom: 1px solid var(--grid-line-light);
 
-    @include mid-break {
-        color: var(--color-base-100);
-    }
+  @include small-break {
+    aspect-ratio: unset;
+  }
 
-    &:hover {
-        color: var(--color-base-100);
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
+  }
 
-        &:local() {
-            .content {
-                top: 0;
-                transform: translate3d(0, 0, 0);
-            }
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-light);
+  }
 
-            .description {
-                opacity: 1;
-            }
-
-            .arrow {
-                opacity: 1;
-            }
-
-            .bg {
-                transform: translate3d(0, 0, 0);
-                opacity: 1;
-            }
-
-            .leader {
-                opacity: 0;
-            }
-        }
-    }
-}
-
-.bg {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: var(--color-base-950);
-    transform: translate3d(0, var(--base), 0);
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    opacity: 0;
-
-    @include mid-break {
-        transform: translate3d(0, 0, 0);
-        opacity: 1;
-    }
-}
-
-.content {
-    position: absolute;
-    left: 0;
-    top: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+  & > * {
     margin: 0;
-    transform: translate3d(0, -100%, 0);
-    will-change: opacity, transform;
-    transition: all 0.3s ease-in-out;
-    padding: calc(var(--base) * 2);
+    width: 100%;
+  }
 
-    @include mid-break {
-        top: 0;
-        transform: translate3d(0, 0, 0);
-        padding: var(--base);
+  .scanlines {
+    opacity: 0;
+    transition: opacity .4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  &.link:hover {
+    padding-bottom: var(--base);
+
+    .title {
+      margin-bottom: 0;
     }
+
+    .scanlines {
+      opacity: 1;
+    }
+
+    .leader .icon {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .descriptionWrapper {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+
+    .description {
+      opacity: 1;
+    }
+  }
+}
+
+.revealCard {
+  gap: 0;
+  padding-bottom: 0;
+
+  &:hover {
+    gap: var(--base);
+    padding-bottom: calc(var(--base) * 1.5);
+
+    .revealDescriptionWrapper {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+  }
+
 }
 
 .leader {
-    position: relative;
-    @include label;
+  flex-grow: 1;
+  display: flex;
 
-    @include mid-break {
-        opacity: 0;
-    }
-}
+  .leaderText {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
 
-.spacer {
-    flex-grow: 1;
-    height: calc(var(--base) * 2);
-    flex-shrink: 0;
-}
-
-.link {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: calc(var(--base) * 2);
-    text-decoration: none;
-
-    @include mid-break {
-        padding: var(--base);
-    }
-}
-
-.description {
-    margin-top: calc(var(--base) / 2);
+  .icon {
+    transform: translateY(10px);
     opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    will-change: opacity;
-    position: absolute;
-    top: 100%;
-
-    @include mid-break {
-        opacity: 1;
-        font-size: small;
-        line-height: 1.25;
-        margin-top: calc(var(--base) / 4);
-    }
-}
-
-.titleWrapper {
-    position: relative;
+    transition: transform .4s cubic-bezier(0.165, 0.84, 0.44, 1), opacity .4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
 }
 
 .title {
-    @include h5;
-    margin: 0 !important;
+  font-size: calc(var(--base) * 1.5);
+  line-height: 1.2em;
+  min-height: 2lh;
 
-    @include extra-large-break {
-        @include h6;
-    }
+  @include large-mid-break {
+    font-size: calc(var(--base) * 1.4);
+  }
+
+  @include mid-break {
+    font-size: calc(var(--base) * 1.5);
+  }
+
+  @include small-break {
+    font-size: calc(var(--base) * 1.25);
+  }
+
+  &.noDescription {
+    margin-bottom: calc(var(--base) * .5);
+  }
 }
 
-.arrow {
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    will-change: opacity;
+.descriptionWrapper {
+  display: grid;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  height: 4.2lh;
 
-    path {
-        stroke: var(--color-success-500);
-    }
-
-    @include mid-break {
-        opacity: 1;
-    }
+  .description {
+    opacity: 1;
+    pointer-events: none;
+    padding: 0;
+    margin: 0;
+  }
 }
 
-.noLink {
-    color: var(--color-base-100);
+.revealDescriptionWrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition-property: grid-template-rows, opacity;
+  transition-duration: .4s;
+  transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
 
-    &:local() {
-        .content {
-            top: 0;
-            transform: translate3d(0, calc(var(--base) * 2), 0); // leave room for the leader
-
-            @include mid-break {
-                transform: translate3d(0, var(--base), 0); // leave room for the leader
-            }
-        }
-
-        .description {
-            opacity: 1;
-        }
-
-        .bg {
-            transform: translate3d(0, 0, 0);
-            opacity: 1;
-        }
-
-        .leader {
-            opacity: 1;
-        }
-
-        .arrow {
-            opacity: 0;
-        }
-    }
-
-
-    &:hover {
-        &:local() {
-            .content {
-                transform: translate3d(0, calc(var(--base) * 2), 0); // leave room for the leader
-            }
-
-            .leader {
-                opacity: 1;
-            }
-
-            .arrow {
-                opacity: 0;
-            }
-        }
-    }
+  .description {
+    overflow: hidden;
+    color: var(--theme-elevation-750);
+    pointer-events: none;
+    padding: 0;
+    margin: 0;
+    height: auto;
+    padding-bottom: calc(var(--base) * 1.5);
+  }
 }
+
+
+

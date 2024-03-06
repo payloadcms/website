@@ -1,9 +1,8 @@
 'use client'
 
-import React, { forwardRef, HTMLAttributes, useState } from 'react'
+import React, { forwardRef, HTMLAttributes, useEffect, useState } from 'react'
 import Link from 'next/link'
 
-import { LineBlip } from '@components/LineBlip'
 import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { PlusIcon } from '@root/icons/PlusIcon'
@@ -29,16 +28,39 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
   newTab?: boolean | null
   label?: string | null
   labelStyle?: 'mono' | 'regular'
+  labelClassName?: string
   icon?: false | 'arrow' | 'search' | 'github' | 'plus'
   fullWidth?: boolean
   mobileFullWidth?: boolean
   type?: LinkType
   reference?: Reference
   htmlButtonType?: 'button' | 'submit'
-  size?: 'pill' | 'default'
+  size?: 'pill' | 'default' | 'large'
   disabled?: boolean
-  disableLineBlip?: boolean
   url?: string | null
+  /**
+   * Hides all borders
+   */
+  hideBorders?: boolean
+  /**
+   * Hides the horizontal borders of the button, useful for buttons in grids
+   */
+  hideHorizontalBorders?: boolean
+  /**
+   * Hides the horizontal borders of the button
+   */
+  hideVerticalBorders?: boolean
+  /**
+   * Hides the bottom border except for the last of type
+   */
+  hideBottomBorderExceptLast?: boolean
+  /**
+   * Forces a background on the default button appearance
+   */
+  forceBackground?: boolean
+  arrowClassName?: string
+  iconRotation?: number
+  isCMSFormSubmitButton?: boolean
 }
 
 const icons = {
@@ -85,9 +107,92 @@ const generateHref = (args: GenerateSlugType): string => {
 }
 
 const ButtonContent: React.FC<ButtonProps> = props => {
-  const { icon, label, labelStyle = 'mono' } = props
+  const {
+    icon,
+    label,
+    labelStyle = 'mono',
+    labelClassName,
+    appearance,
+    iconRotation,
+    isCMSFormSubmitButton,
+    size,
+    arrowClassName,
+  } = props
 
   const Icon = icon ? icons[icon] : null
+
+  const iconProps = {
+    size: size === 'large' ? 'large' : 'default',
+    rotation: icon === 'arrow' ? iconRotation : undefined,
+  }
+
+  if (appearance === 'default') {
+    return (
+      <div className={[classes.contentWrapper].filter(Boolean).join(' ')}>
+        <div
+          className={[
+            classes.content,
+            classes.defaultLabel,
+            isCMSFormSubmitButton && classes.cmsFormSubmitButtonContent,
+          ]
+            .filter(Boolean)
+            .join(' ')}
+        >
+          {label && (
+            <div
+              className={[
+                classes.label,
+                !icon && classes['label-centered'],
+                classes[`label-${labelStyle}`],
+                labelClassName,
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            >
+              {label}
+            </div>
+          )}
+          {Icon && label && <div className={classes.spacer} />}
+          {Icon && (
+            <Icon
+              className={[classes.icon, arrowClassName, classes[`icon--${icon}`]]
+                .filter(Boolean)
+                .join(' ')}
+              {...iconProps}
+            />
+          )}
+        </div>
+        <div
+          aria-hidden={true}
+          className={[classes.content, classes.hoverLabel].filter(Boolean).join(' ')}
+        >
+          {label && (
+            <div
+              className={[
+                classes.label,
+                !icon && classes['label-centered'],
+                classes[`label-${labelStyle}`],
+                labelClassName,
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            >
+              {label}
+            </div>
+          )}
+          {Icon && label && <div className={classes.spacer} />}
+          {Icon && (
+            <Icon
+              className={[classes.icon, arrowClassName, classes[`icon--${icon}`]]
+                .filter(Boolean)
+                .join(' ')}
+              {...iconProps}
+            />
+          )}
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className={classes.content}>
@@ -97,6 +202,7 @@ const ButtonContent: React.FC<ButtonProps> = props => {
             classes.label,
             !icon && classes['label-centered'],
             classes[`label-${labelStyle}`],
+            labelClassName,
           ]
             .filter(Boolean)
             .join(' ')}
@@ -106,7 +212,10 @@ const ButtonContent: React.FC<ButtonProps> = props => {
       )}
       {Icon && label && <div className={classes.spacer} />}
       {Icon && (
-        <Icon className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')} />
+        <Icon
+          className={[classes.icon, classes[`icon--${icon}`]].filter(Boolean).join(' ')}
+          {...iconProps}
+        />
       )}
     </div>
   )
@@ -135,12 +244,55 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     size = 'default',
     disabled,
     href: hrefFromProps,
-    disableLineBlip,
     url,
+    hideBorders,
+    hideHorizontalBorders,
+    hideVerticalBorders,
+    hideBottomBorderExceptLast,
+    labelClassName,
+    forceBackground,
+    arrowClassName,
+    isCMSFormSubmitButton,
   } = props
 
   const href = hrefFromProps || generateHref({ type, reference, url })
   const [isHovered, setIsHovered] = useState(false)
+
+  const [isAnimating, setIsAnimating] = useState(false)
+  const [isAnimatingIn, setIsAnimatingIn] = useState(false)
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false)
+
+  let animationDuration = 550
+
+  useEffect(() => {
+    let outTimer, inTimer
+
+    if (isHovered) {
+      setIsAnimating(true)
+      setIsAnimatingIn(true)
+
+      inTimer = setTimeout(() => {
+        setIsAnimating(false)
+        setIsAnimatingIn(false)
+      }, animationDuration)
+
+      setIsAnimatingOut(false)
+    } else {
+      setIsAnimating(true)
+      setIsAnimatingIn(false)
+      setIsAnimatingOut(true)
+
+      outTimer = setTimeout(() => {
+        setIsAnimating(false)
+        setIsAnimatingOut(false)
+      }, animationDuration)
+    }
+
+    return () => {
+      clearTimeout(inTimer)
+      clearTimeout(outTimer)
+    }
+  }, [isHovered, animationDuration])
 
   const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
 
@@ -152,6 +304,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     mobileFullWidth && classes['mobile-full-width'],
     size && classes[`size--${size}`],
     isHovered && classes.isHovered,
+    isAnimatingIn && classes.isAnimatingIn,
+    isAnimatingOut && classes.animatingOut,
+    isAnimating && classes.isAnimating,
+    hideHorizontalBorders && classes.hideHorizontalBorders,
+    hideVerticalBorders && classes.hideVerticalBorders,
+    hideBorders && classes.hideBorders,
+    hideBottomBorderExceptLast && classes.hideBottomBorderExceptLast,
+    forceBackground && classes.forceBackground,
   ]
     .filter(Boolean)
     .join(' ')
@@ -169,7 +329,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
             setIsHovered(false)
           }}
         >
-          {appearance === 'default' && !disableLineBlip && <LineBlip active={isHovered} />}
           <ButtonContent {...props} />
         </a>
       </Link>
@@ -195,10 +354,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
         }}
         disabled={disabled}
       >
-        {size !== 'pill' && appearance === 'default' && !disableLineBlip && (
-          <LineBlip active={isHovered} />
-        )}
-        <ButtonContent {...props} />
+        <ButtonContent appearance={appearance} {...props} />
       </Element>
     )
   }

@@ -1,66 +1,60 @@
 @use '@scss/common.scss' as *;
 
 .card {
-    position: relative;
-    border: 1px solid var(--theme-elevation-500);
-    aspect-ratio: 1/1;
-    background-color: var(--color-base-950);
+  position: relative;
+  border-top: 1px solid var(--grid-line-dark);
+  border-bottom: 1px solid var(--grid-line-dark);
+  padding: calc(var(--base) * 3) calc(var(--base) * 1.5);
 
+  @include mid-break {
+    padding: calc(var(--base) * 2) calc(var(--base) * 1);
+  }
+
+  & path {
+    opacity: 0.35;
+  }
+
+  &:hover {
     & path {
-        opacity: 0.35;
+      opacity: 1;
     }
+  }
 
-    &:hover {
-        & path {
-            opacity: 1;
-        }
-    }
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
+  }
+
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-light);
+  }
 }
-
-.link {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: calc(var(--base) * 2);
-    text-decoration: none;
-
-    &:focus {
-        text-decoration: none;
-    }
-}
-
 
 .leader {
-    @include label;
+  @include h6;
+  text-transform: uppercase;
+  color: #51BFF6;
+  margin-top: 0;
+  margin-bottom: var(--base);
+  display: block;
 }
 
 .content {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+
 }
 
 .title,
 .price {
-    @include h1;
-    position: relative;
-    margin: var(--base) 0 0 0;
-}
+  @include h2;
+  position: relative;
+  margin: 0;
+  margin-bottom: var(--base);
 
-.price {
-    &:after {
-        @include h5;
-        content: '/mo';
-        position: absolute;
-        margin: 0;
-        bottom: 0;
-    }
 }
 
 .description {
-    @include h6;
+    @include body;
     margin-bottom: 0;
+    opacity: 0.75;
 }
 
 .arrow {
@@ -71,60 +65,4 @@
     right: 0;
     width: var(--base);
     height: var(--base);
-}
-
-@include two-extra-large-break {
-    .card {
-        aspect-ratio: 9/10;
-    }
-
-    .title,
-    .price {
-        @include h3;
-        margin: var(--base) 0 0 0;
-    }
-}
-
-@include extra-large-break {
-    .card {
-        aspect-ratio: 1/1;
-    }
-
-    .title,
-    .price {
-        @include h1;
-        margin: var(--base) 0 0 0;
-    }
-}
-
-@include extra-large-break {
-    .description {
-        font-size: unset;
-        line-height: 1.5;
-    }
-}
-
-@include large-break {
-    .card {
-        aspect-ratio: unset;
-        min-height: calc(var(--base) * 20);
-        height: calc(var(--base) * 20);
-    }
-
-    .arrow {
-        width: calc(var(--base) * 0.75);
-        height: calc(var(--base) * 0.75);
-    }
-}
-
-@include mid-break {
-    .card {
-        min-height: unset;
-        height: unset;
-
-    }
-
-    .title {
-        font-size: calc(var(--base)*2.5);
-    }
 }

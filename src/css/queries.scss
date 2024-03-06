@@ -28,6 +28,18 @@
   }
 }
 
+@mixin mid-plus-break {
+  @media (max-width: $breakpoint-mp-width) {
+    @content;
+  }
+}
+
+@mixin large-mid-break {
+  @media (max-width: $breakpoint-lm-width) {
+    @content;
+  }
+}
+
 @mixin large-break {
   @media (max-width: $breakpoint-l-width) {
     @content;
@@ -50,8 +62,8 @@
 // MEDIA QUERIES (HEIGHT)
 /////////////////////////////
 
-@mixin small-break-ht {
-  @media (max-height: $breakpoint-s-height) {
+@mixin large-break-ht {
+  @media (max-height: $breakpoint-l-height) {
     @content;
   }
 }

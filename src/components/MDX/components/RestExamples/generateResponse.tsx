@@ -23,16 +23,22 @@ export const GenerateResponse = ({ res }) => {
 
     return (
       <>
-        <h6>Response</h6>
-        <Code className={classes.code}>{`${JSON.stringify(paginatedRes, null, 2)}`}</Code>
+        <h5>Response</h5>
+        <Code className={classes.code} disableMinHeight>{`${JSON.stringify(
+          paginatedRes,
+          null,
+          2,
+        )}`}</Code>
       </>
     )
   }
 
   return (
     <>
-      <h6>Response</h6>
-      <Code className={classes.code}>{JSON.stringify(res, null, 2)}</Code>
+      <h5>Response</h5>
+      <Code className={classes.code} disableMinHeight>
+        {JSON.stringify(res, null, 2)}
+      </Code>
     </>
   )
 }

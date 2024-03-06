@@ -1,12 +1,13 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import AnimateHeight from 'react-animate-height'
-import { ChevronIcon } from '@graphics/ChevronIcon'
-import { MenuIcon } from '@graphics/MenuIcon'
 import Link from 'next/link'
 import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
+import { MenuIcon } from '@root/graphics/MenuIcon'
+import { ChevronIcon } from '@root/icons/ChevronIcon'
 import { CloseIcon } from '@root/icons/CloseIcon'
 import { MDXProvider } from '../../../components/MDX'
 import { DocMeta, Topic } from './types'
@@ -27,6 +28,13 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
   const [init, setInit] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
   const pathname = usePathname()
+  const [resetIndicator, setResetIndicator] = useState(false)
+  const [defaultIndicatorPosition, setDefaultIndicatorPosition] = useState<number | undefined>(
+    undefined,
+  )
+  const [indicatorTop, setIndicatorTop] = useState<number | undefined>(undefined)
+
+  const topicRefs = useRef<Record<string, HTMLButtonElement | HTMLLIElement | null>>({})
 
   useEffect(() => {
     setNavOpen(false)
@@ -34,7 +42,6 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
 
   useEffect(() => {
     const preference = window.localStorage.getItem(openTopicsLocalStorageKey)
-
     if (preference) {
       setOpenTopicPreferences(JSON.parse(preference))
     } else {
@@ -48,23 +55,76 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
     }
   }, [openTopicPreferences, init])
 
+  useEffect(() => {
+    resetDefaultIndicator()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [topicParam, docParam])
+
+  const resetDefaultIndicator = () => {
+    const topicIndex = topics.findIndex(topic => topic.slug.toLowerCase() === topicParam)
+    const docIndex = topics[topicIndex].docs.findIndex(doc => doc.slug === docParam)
+    const formattedIndex = docIndex || docIndex === 0 ? `${topicIndex}-${docIndex}` : topicIndex
+    const defaultIndicatorPosition = topicRefs?.current[formattedIndex]?.offsetTop || 0
+    setIndicatorTop(defaultIndicatorPosition)
+  }
+
+  const handleMenuItemClick = (topicSlug: string) => {
+    const isCurrentTopic = topicParam === topicSlug
+    if (isCurrentTopic) {
+      if (openTopicPreferences?.includes(topicSlug) && currentTopicIsOpen) {
+        const newState = [...openTopicPreferences]
+        newState.splice(newState.indexOf(topicSlug), 1)
+
+        setOpenTopicPreferences(newState)
+        window.localStorage.setItem(openTopicsLocalStorageKey, JSON.stringify(newState))
+      }
+      setCurrentTopicIsOpen(state => !state)
+    } else {
+      const newState = [...(openTopicPreferences || [])]
+
+      if (!newState.includes(topicSlug)) {
+        newState.push(topicSlug)
+      } else {
+        newState.splice(newState.indexOf(topicSlug), 1)
+      }
+      setOpenTopicPreferences(newState)
+      window.localStorage.setItem(openTopicsLocalStorageKey, JSON.stringify(newState))
+    }
+  }
+
+  const handleIndicator = (index: number | string) => {
+    const offset = topicRefs?.current[index]?.offsetTop || 0
+    setIndicatorTop(offset)
+  }
+
+  useEffect(() => {
+    if (resetIndicator) {
+      resetDefaultIndicator()
+      setResetIndicator(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetIndicator])
+
   return (
     <MDXProvider>
-      <div className={classes.wrap}>
+      <div className={['grid', classes.wrap].join(' ')}>
+        <BackgroundGrid wideGrid className={classes.backgroundGrid} />
         <nav
           className={[
+            'cols-3',
             classes.nav,
             !openTopicPreferences && classes.navHidden,
             navOpen && classes.navOpen,
           ]
             .filter(Boolean)
             .join(' ')}
+          onMouseLeave={() => setResetIndicator(true)}
         >
-          {topics.map(topic => {
+          {topics.map((topic, index) => {
             const topicSlug = topic.slug.toLowerCase()
-            const isCurrentTopic = topicParam === topicSlug
             const isActive =
-              openTopicPreferences?.includes(topicSlug) || (isCurrentTopic && currentTopicIsOpen)
+              openTopicPreferences?.includes(topicSlug) ||
+              (topicParam === topicSlug && currentTopicIsOpen)
 
             return (
               <React.Fragment key={topic.slug}>
@@ -73,50 +133,27 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
                   className={[classes.topic, isActive && classes['topic--open']]
                     .filter(Boolean)
                     .join(' ')}
-                  onClick={() => {
-                    if (isCurrentTopic) {
-                      if (openTopicPreferences?.includes(topicSlug) && currentTopicIsOpen) {
-                        const newState = [...openTopicPreferences]
-                        newState.splice(newState.indexOf(topicSlug), 1)
-
-                        setOpenTopicPreferences(newState)
-                        window.localStorage.setItem(
-                          openTopicsLocalStorageKey,
-                          JSON.stringify(newState),
-                        )
-                      }
-                      setCurrentTopicIsOpen(state => !state)
-                    } else {
-                      const newState = [...(openTopicPreferences || [])]
-
-                      if (!newState.includes(topicSlug)) {
-                        newState.push(topicSlug)
-                      } else {
-                        newState.splice(newState.indexOf(topicSlug), 1)
-                      }
-
-                      setOpenTopicPreferences(newState)
-                      window.localStorage.setItem(
-                        openTopicsLocalStorageKey,
-                        JSON.stringify(newState),
-                      )
-                    }
-                  }}
+                  ref={ref => (topicRefs.current[index] = ref)}
+                  onClick={() => handleMenuItemClick(topicSlug)}
+                  onMouseEnter={() => handleIndicator(`${index}`)}
                 >
-                  <ChevronIcon
-                    className={[classes.toggleChevron, isActive && classes.activeToggleChevron]
-                      .filter(Boolean)
-                      .join(' ')}
-                  />
                   {topic.slug.replace('-', ' ')}
+                  <div className={classes.chevron}>
+                    <ChevronIcon size="medium" rotation={isActive ? 270 : 90} />
+                  </div>
                 </button>
                 <AnimateHeight height={isActive ? 'auto' : 0} duration={init ? 200 : 0}>
                   <ul className={classes.docs}>
-                    {topic.docs.map((doc: DocMeta) => {
+                    {topic.docs.map((doc: DocMeta, docIndex) => {
                       const isDocActive = docParam === doc.slug && topicParam === topicSlug
+                      const nestedIndex = `${index}-${docIndex}`
 
                       return (
-                        <li key={doc.slug}>
+                        <li
+                          key={doc.slug}
+                          onMouseEnter={() => handleIndicator(nestedIndex)}
+                          ref={ref => (topicRefs.current[nestedIndex] = ref)}
+                        >
                           <Link
                             href={`/docs/${topicSlug}/${doc.slug}`}
                             className={[classes.doc, isDocActive && classes['doc--active']]
@@ -134,9 +171,15 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
               </React.Fragment>
             )
           })}
+          {(indicatorTop || defaultIndicatorPosition) && (
+            <div
+              className={classes.indicator}
+              style={{ top: indicatorTop || defaultIndicatorPosition }}
+            />
+          )}
           <div className={classes.navOverlay} />
         </nav>
-        <div className={classes.content}>{children}</div>
+        {children}
         <button
           type="button"
           onClick={() => setNavOpen(open => !open)}

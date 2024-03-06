@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 import { PopupMessage } from '@root/utilities/use-popup-window'
 
-export default () => {
+const Page = () => {
   // do not read `searchParams` prop, see https://github.com/vercel/next.js/issues/43077
   const searchParams = useSearchParams()
 
@@ -28,4 +28,12 @@ export default () => {
   }, [searchParams])
 
   return null
+}
+
+export default () => {
+  return (
+    <Suspense>
+      <Page />
+    </Suspense>
+  )
 }

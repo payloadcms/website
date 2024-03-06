@@ -1,33 +1,56 @@
 @use '@scss/common.scss' as *;
 
-.homeHero {
-  margin-top: calc(-1 * var(--page-padding-top));
+.bgFull {
+  position: absolute;
+  left: 0;
+  top: calc(0px - var(--header-height) - 1px);
+  width: 100%;
+  height: calc(100% + var(--header-height) + 1px);
+  z-index: 0;
 
-  @media (prefers-reduced-motion) {
-    :global(.marquee) {
-      animation: none;
-    }
-  }
-
-  @include small-break-ht {
-    margin-top: calc(1 * var(--page-padding-top) * 0.25);
-
-    @include large-break {
-      margin-top: calc(-1 * var(--page-padding-top) * 0.25);
-    }
-
+  & div {
     @include mid-break {
-      margin-top: calc(-1 * var(--page-padding-top));
+      height: 100%;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    @include small-break {
+      height: unset;
     }
   }
 }
 
-.wrap {
-  position: relative;
-  background: var(--theme-bg);
+.desktopBg {
+  display: block;
+
+  @include small-break {
+    display: none;
+  }
 }
 
-.bg {
+.mobileBg {
+  display: none;
+
+  @include small-break {
+    display: block;
+  }
+}
+
+.homeHero {
+  position: relative;
+  padding-top: calc(var(--base) * 3);
+
+  @include mid-break {
+    padding-top: 0;
+  }
+}
+
+.background {
   position: absolute;
   z-index: 1;
   top: 0;
@@ -36,197 +59,301 @@
   left: 0;
   overflow: hidden;
 
-  &:after {
-    content: ' ';
-    position: absolute;
-    z-index: 1;
-    background: linear-gradient(180deg, rgba(20,20,20,.9) 0%, rgba(50,50,50,0.5) 100%);
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-}
-
-.bgImage {
-  pointer-events: none;
-  height: 100vh;
-  width: 191.22vh;
-  overflow: hidden;
-  position: relative;
-
   img {
     object-fit: cover;
+    width: 100%;
+  }
+
+  @include mid-break {
+    display: none;
   }
 }
 
-.contentWrap {
+.imagesContainerWrapper {
   position: relative;
+  height: 100%;
+}
+
+.laptopMedia {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+
+  @include mid-break {
+    left: calc(-1 * var(--base) * 10);
+    width: calc(100% + var(--base) * 10);
+  }
+
+  @include small-break {
+    left: calc(-1 * var(--base) * 6);
+    width: calc(100% + var(--base) * 8);
+  }
+}
+
+.pedestalMaskedImage {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  mask-image: url('/images/pedestal-mask.svg');
+  mask-mode: alpha;
+  mask-size: cover;
+  mask-position: center;
+  mask-repeat: no-repeat;
   z-index: 2;
 
-  hr {
-    margin-top: calc(var(--base) * 5);
-    margin-bottom: calc(var(--base) * 5);
-    margin-left: calc(-1 * var(--gutter-h) / 2);
-    margin-right: calc(-1 * var(--gutter-h) / 2);
-    width: calc(100% + var(--gutter-h));
+  @include mid-break {
+    left: calc(-1 * var(--base) * 10);
+    width: calc(100% + var(--base) * 10);
+  }
 
-    @include large-break {
-      margin-top: var(--block-spacing);
-      margin-bottom: var(--block-spacing);
-      width: initial;
-      margin-left: 0;
-      margin-right: 0;
-    }
+  @include small-break {
+    left: calc(-1 * var(--base) * 6);
+    width: calc(100% + var(--base) * 8);
+  }
+}
+
+.featureVideoMask {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  mask-image: url('/images/screen-mask.svg');
+  mask-mode: alpha;
+  mask-size: cover;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  z-index: 0;
+  background: var(--color-base-1000);
+
+  video {
+    transform: rotate(-8deg) skew(-8deg) scale(0.42, 0.455) translate(40%, -38.5%);
+    background: var(--color-base-1000);
+  }
+
+  @include mid-break {
+    left: calc(-1 * var(--base) * 10);
+    width: calc(100% + var(--base) * 10);
+  }
+
+  @include small-break {
+    left: calc(-1 * var(--base) * 6);
+    width: calc(100% + var(--base) * 8);
+  }
+}
+
+.contentWrapper {
+  padding-top: calc(1971 / 2560 * 100%);
+
+  @include mid-break {
+    padding-top: unset;
   }
 }
 
 .content {
-  display: flex;
-  min-height: 72vh;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-left: calc(var(--gutter-h) / -2);
-  margin-right: calc(var(--gutter-h) / -2);
-
-  @include large-break {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  @include mid-break {
-    padding-top: calc(var(--base) * 6);
-    min-height: initial;
-    display: block;
-  }
-}
-
-.richText {
-  width: 70%;
-  padding-right: calc(var(--base) * 3);
-
-  h1 {
-    @include jumbo;
-  }
-
-  @include mid-break {
-    width: 100%;
-    margin-bottom: var(--base);
-    padding-right: 0;
-  }
-}
-
-.sidebar {
-  width: 30%;
+  position: absolute;
+  top: 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-between;
+  height: 100%;
+  padding-top: calc(var(--base) * 9);
+
+  @include extra-large-break {
+    padding-top: calc(var(--base) * 8);
+  }
+
+  @include large-mid-break {
+    padding-top: calc(var(--base) * 7.5);
+  }
+
+  @include mid-plus-break {
+    padding-top: calc(var(--base) * 6.5);
+  }
 
   @include mid-break {
-    width: 100%;
+    padding-top: calc(var(--base) * 2);
+  }
+
+  @include small-break {
+    padding-top: calc(var(--base) * 1);
+  }
+
+  @include mid-break {
+    position: unset;
+    top: unset;
   }
 }
 
-.actions,
-.buttons {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.primaryContentWrap {
+  display: flex;
+  align-items: flex-start;
 }
 
-.actions {
-  margin-bottom: calc(var(--base) * 4);
+.primaryContent {
+  position: relative;
+  z-index: 2;
+  grid-template-rows: auto min-content;
+}
 
-  & > *:not(:last-child) {
-    margin-bottom: var(--base);
+.secondaryContentWrap {
+  position: relative;
+  z-index: 2;
+  align-items: center;
+  width: 100%;
+
+  @include mid-break {
+    margin-top: calc(-1 * (var(--base) * 12));
+  }
+
+  @include small-break {
+    margin-top: calc(-1 * (var(--base) * 10));
+  }
+
+  @include extra-small-break {
+    margin-top: calc(-1 * (var(--base) * 8));
+  }
+}
+
+.mobileSecondaryBackgroundGrid {
+  display: none;
+
+  @include mid-break {
+    display: grid;
+    width: 100%;
+    left: 0;
+  }
+}
+
+.mobileSecondaryBackground {
+  display: none;
+
+  @include mid-break {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: calc(var(--gutter-h) * -1);
+    height: 100%;
+    width: calc(100% + (var(--gutter-h) * 2));
+    background: linear-gradient(to top, rgba(0, 0, 0) 0%, rgba(0, 0, 0) 90%, rgba(0, 0, 0, 0) 100%);
+    z-index: -1;
+  }
+}
+
+.secondaryContent {
+  @include mid-break {
+    order: 1;
+    z-index: 1;
+    margin-top: calc(var(--base) * 3);
+  }
+}
+
+.logoWrapper {
+  @include mid-break {
+    order: 0;
+  }
+}
+
+.richTextHeading {
+  margin-bottom: calc(var(--base) * 2);
+
+  @include extra-large-break {
+    h1 {
+      font-size: calc(var(--base) * 3);
+    }
+  }
+
+  @include mid-plus-break {
+    h1 {
+      font-size: calc(var(--base) * 2.5);
+    }
   }
 
   @include mid-break {
     margin-bottom: calc(var(--base) * 1.5);
+
+    h1 {
+      font-size: calc(var(--base) * 3);
+    }
   }
 }
 
-.buttons {
-  display: flex;
-  
-  li {
-    flex: 0 0 50%;
+.secondaryRichTextHeading {
+  margin-bottom: calc(var(--base) * 1.5);
 
-    > * {
-      width: 100%;
-    }
-
-    &:first-child {
-      padding-right: calc(var(--base) / 2);
-    }
-
-    &:last-child {
-      padding-left: calc(var(--base) / 2);
-    }
+  h2 {
+    @include h3;
   }
+}
+
+.richTextHeading, .secondaryRichTextHeading {
+  max-width: 75%;
+
+  @include mid-break {
+    max-width: 100%;
+  }
+}
+
+.richTextDescription, .secondaryRichTextDescription {
+  max-width: 50%;
+  margin-bottom: calc(var(--base) * 2);
+
+  @include mid-break {
+    max-width: 100%;
+  }
+}
+
+.primaryButtons,
+.secondaryButtons {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 50%;
+
+  @include mid-break {
+    max-width: 100%;
+  }
+}
+
+.primaryButtons {
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 2);
+  }
+}
+
+.mobileMediaWrapper {
+  display: none;
 
   @include mid-break {
     display: block;
+    position: relative;
+    overflow: hidden;
+    width: calc(100% + (var(--gutter-h) * 2));
+    left: calc(var(--gutter-h) * -1);
 
-    li {
-      padding: 0 !important;
-      margin-bottom: calc(var(--base) / 2);
+    img, video {
+      height: 100%;
     }
   }
 }
 
-.adjectives {
-  display: flex;
-  pointer-events: none;
-  margin-bottom: var(--block-spacing);
-}
-
-.adjectives.placeholder {
-  opacity: 0;
-}
-
-.adjective {
-  display: block;
-  font-size: 288px;
-  line-height: 1;
-  overflow: hidden;
-
-  &:after {
-    content: '—';
-  }
-
-  @include large-break {
-    font-size: 240px;
-  }
-
+.mobilePedestalBackgroundGrid {
   @include mid-break {
-    font-size: 168px;
+    left: calc(calc(var(--base) * 10) + var(--gutter-h));
+    width: calc(calc(100% - var(--base) * 10) - var(--gutter-h) * 2)
   }
 
   @include small-break {
-    font-size: 96px;
+    left: calc(calc(var(--base) * 6) + var(--gutter-h));
+    width: calc(calc(100% - var(--base) * 8) - var(--gutter-h) * 2)
   }
 }
 
-.padForMedia {
-  padding-top: 28.125%; // half of 16x9 ratio
-}
-
-.mediaGutter {
+.paddingBottom {
   position: relative;
-}
-
-.voidSpaceBelowMedia {
-  position: absolute;
-  height: 50%;
-  width: 100%;
-  left: 0;
-  bottom: 0;
-}
-
-.media {
-  @include shadow-lg;
-  position: relative;
-  z-index: 2;
-  margin-top: -28.125%; // half of 16x9 ratio
+  background: var(--color-base-1000);
+  margin-top: -1px;
+  height: var(--wrapper-padding-bottom);
 }

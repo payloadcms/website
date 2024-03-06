@@ -1,75 +1,100 @@
 'use client'
 
-import * as React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
+import React, { useEffect, useRef, useState } from 'react'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BackgroundScanline } from '@components/BackgroundScanline'
+import { BlockWrapper } from '@components/BlockWrapper'
 import { CMSForm } from '@components/CMSForm'
 import { Gutter } from '@components/Gutter'
-import { PixelBackground } from '@components/PixelBackground'
+import { BlocksProp } from '@components/RenderBlocks'
 import { RichText } from '@components/RichText'
-import { CheckIcon } from '@root/icons/CheckIcon'
 import { Page } from '@root/payload-types'
+import { useGetHeroPadding } from '../useGetHeroPadding'
 
 import classes from './index.module.scss'
 
 export type FormHeroProps = Page['hero']
 
-export const FormHero: React.FC<FormHeroProps> = props => {
-  const { richText, form } = props
+export const FormHero: React.FC<
+  FormHeroProps & {
+    breadcrumbs?: Page['breadcrumbs']
+    firstContentBlock?: BlocksProp
+  }
+> = props => {
+  const { richText, description, form, theme, firstContentBlock } = props
+  const padding = useGetHeroPadding(theme, firstContentBlock)
+
+  const formRef = useRef<HTMLDivElement | null>(null)
+  const [backgroundHeight, setBackgroundHeight] = useState(0)
+
+  useEffect(() => {
+    const updateBackgroundHeight = () => {
+      const newBackgroundHeight = formRef.current ? formRef.current.offsetHeight : 0
+      setBackgroundHeight(newBackgroundHeight)
+    }
+    updateBackgroundHeight()
+    window.addEventListener('resize', updateBackgroundHeight)
+
+    return () => window.removeEventListener('resize', updateBackgroundHeight)
+  }, [])
 
   if (typeof form === 'string') return null
 
   return (
-    <div data-theme="dark">
-      <div className={classes.formHero}>
-        <div className={classes.bgWrapper}>
-          <Gutter disableMobile className={classes.bgGutter}>
-            <div className={classes.bg1}>
-              <div className={classes.pixelBG}>
-                <PixelBackground />
-              </div>
+    <BlockWrapper settings={{ theme }} padding={padding}>
+      <BackgroundGrid zIndex={0} />
+      <Gutter>
+        <div className={[classes.formHero, 'grid'].filter(Boolean).join(' ')}>
+          <div
+            className={[classes.sidebar, 'start-1 cols-6 cols-m-8 start-1']
+              .filter(Boolean)
+              .join(' ')}
+          >
+            <RichText content={richText} className={[classes.richText].filter(Boolean).join(' ')} />
+            <div className={classes.contentWrapper}>
+              <RichText
+                content={description}
+                className={[classes.description].filter(Boolean).join(' ')}
+              />
             </div>
-          </Gutter>
+          </div>
+          <div
+            className={[classes.formWrapper, 'cols-8 start-9 cols-m-8 start-m-1 grid']
+              .filter(Boolean)
+              .join(' ')}
+          >
+            <div
+              className={[classes.scanlineDesktopWrapper, 'cols-16 start-5 cols-m-8 start-m-1']
+                .filter(Boolean)
+                .join(' ')}
+              style={{ height: `calc(${backgroundHeight}px + var(--base) * 10)` }}
+            >
+              <BackgroundScanline
+                className={[classes.scanline].filter(Boolean).join(' ')}
+                crosshairs={['top-left', 'bottom-left']}
+              />
+            </div>
+            <div
+              className={[classes.scanlineMobileWrapper, 'cols-16 start-5 cols-m-8 start-m-1']
+                .filter(Boolean)
+                .join(' ')}
+              style={{ height: `calc(${backgroundHeight}px + 4px)` }}
+            >
+              <BackgroundScanline
+                className={[classes.scanline].filter(Boolean).join(' ')}
+                crosshairs={['top-left', 'bottom-left']}
+              />
+            </div>
+            <div
+              ref={formRef}
+              className={[classes.cmsForm, 'cols-16 cols-m-8'].filter(Boolean).join(' ')}
+            >
+              <CMSForm form={form} />
+            </div>
+          </div>
         </div>
-        <div className={classes.bg2Wrapper}>
-          <Gutter className={classes.bgGutter}>
-            <Grid className={classes.bg2Grid}>
-              <Cell start={7} cols={6} startM={2} colsM={7} className={classes.bg2Cell}>
-                <div className={classes.bg2} />
-              </Cell>
-            </Grid>
-          </Gutter>
-        </div>
-        <Gutter className={classes.gutter}>
-          <Grid>
-            <Cell cols={6} colsM={8} startM={1} className={classes.richTextCell}>
-              {richText && (
-                <RichText
-                  className={classes.richText}
-                  content={richText}
-                  customRenderers={{
-                    li: ({ node: { children }, Serialize, index }) => {
-                      return (
-                        <li key={`list-item-${index}`} className={classes.li}>
-                          <div className={classes.bullet}>
-                            <CheckIcon size="medium" bold />
-                          </div>
-                          <Serialize content={children} />
-                        </li>
-                      )
-                    },
-                  }}
-                />
-              )}
-            </Cell>
-            <Cell cols={6} start={8} colsM={8} startM={1} className={classes.formCell}>
-              <div className={classes.formCellContent}>
-                <CMSForm form={form} />
-              </div>
-            </Cell>
-          </Grid>
-        </Gutter>
-      </div>
-    </div>
+      </Gutter>
+    </BlockWrapper>
   )
 }

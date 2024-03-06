@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { formatDate } from '@utilities/format-date-time'
 
 import { Breadcrumbs } from '@components/Breadcrumbs'
@@ -38,16 +37,20 @@ export const LivestreamHero: React.FC<{
         </div>
         <div className={classes.bg2Wrapper}>
           <Gutter className={classes.bgGutter}>
-            <Grid className={classes.bg2Grid}>
-              <Cell start={7} cols={6} startM={2} colsM={7} className={classes.bg2Cell}>
+            <div className={[classes.bg2Grid, 'grid'].filter(Boolean).join(' ')}>
+              <div
+                className={[classes.bg2Cell, 'cols-8 start-10 cols-m-7 start-m-2']
+                  .filter(Boolean)
+                  .join(' ')}
+              >
                 <div className={classes.bg2} />
-              </Cell>
-            </Grid>
+              </div>
+            </div>
           </Gutter>
         </div>
         <Gutter className={classes.gutter}>
-          <Grid>
-            <Cell cols={6} colsM={8} startM={1}>
+          <div className={['grid'].filter(Boolean).join(' ')}>
+            <div className={['cols-8 cols-m-8 start-m-1'].filter(Boolean).join(' ')}>
               {breadcrumbs && !hideBreadcrumbs && (
                 <Breadcrumbs items={breadcrumbs} ellipsis={false} />
               )}
@@ -64,9 +67,13 @@ export const LivestreamHero: React.FC<{
                     </a>
                   )
                 })}
-            </Cell>
+            </div>
             {!isLive && (
-              <Cell cols={6} start={8} colsM={8} startM={1} className={classes.linkCell}>
+              <div
+                className={[classes.linkCell, 'cols-8 start-10 cols-m-8 start-m-1']
+                  .filter(Boolean)
+                  .join(' ')}
+              >
                 <div className={classes.linksWrap}>
                   {date && <label>Starting {formatDate({ date, format: 'dateAndTime' })}</label>}
                   &nbsp;
@@ -80,7 +87,6 @@ export const LivestreamHero: React.FC<{
                           className={[classes.link, appearance && classes[`link--${appearance}`]]
                             .filter(Boolean)
                             .join(' ')}
-                          disableLineBlip
                           el="a"
                           href={url}
                           icon="arrow"
@@ -89,10 +95,14 @@ export const LivestreamHero: React.FC<{
                       )
                     })}
                 </div>
-              </Cell>
+              </div>
             )}
             {isLive && youtubeID && (
-              <Cell cols={6} start={8} colsM={8} startM={1} className={classes.videoCell}>
+              <div
+                className={[classes.videoCell, 'cols-8 start-10 cols-m-8 start-m-1']
+                  .filter(Boolean)
+                  .join(' ')}
+              >
                 <div className={classes.videoWrap}>
                   <Video platform="youtube" id={youtubeID} />
                   <Button
@@ -101,12 +111,11 @@ export const LivestreamHero: React.FC<{
                     href={`https://www.youtube.com/watch?v=${youtubeID}`}
                     label="Go watch on youtube"
                     icon="arrow"
-                    disableLineBlip
                   />
                 </div>
-              </Cell>
+              </div>
             )}
-          </Grid>
+          </div>
         </Gutter>
       </div>
     </div>

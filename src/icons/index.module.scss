@@ -1,8 +1,8 @@
 @use "@scss/common" as *;
 
 .icon {
-  width: calc(var(--base) * 0.5);
-  height: calc(var(--base) * 0.5);
+  width: calc(var(--base) * 0.6);
+  height: calc(var(--base) * 0.6);
   overflow: visible;
   transition: transform var(--default-trans-time) linear;
   will-change: transform;
@@ -50,4 +50,9 @@
       stroke-width: 2px;
     }
   }
+}
+
+.chevronDown {
+  height: calc(var(--base) * 0.5);
+  width: var(--base);
 }

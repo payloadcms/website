@@ -1,35 +1,5 @@
 @use '@scss/common' as *;
 
-.withContainer {
-  --container-extension: calc(var(--base) * 5);
-  position: relative;
-  padding-top: var(--container-extension);
-  padding-bottom: var(--container-extension);
-  margin-top: var(--block-spacing);
-  margin-bottom: var(--block-spacing);
-  isolation: isolate;
-
-  @include mid-break {
-    padding-top: calc(var(--block-spacing) * .75);
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-}
-
-.background {
-  width: calc(100% - var(--gutter-h));
-  margin-left: calc(var(--gutter-h) / 2);
-  background-color: var(--color-base-950);
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  z-index: -1;
-
-  @include large-break {
-    margin: 0;
-    width: 100%;
-  }
-}
 
 .media {
   img, video {
@@ -66,7 +36,11 @@
 .button {
   display: block;
   margin-top: calc(var(--base) * 2);
-  max-width: 400px;
+  width: calc(4/6 * 100%);
+
+  a {
+    width: 100%;
+  }
 
   @include mid-break {
     width: 100%;

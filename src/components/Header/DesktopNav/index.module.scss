@@ -1,13 +1,23 @@
 @use '@scss/common.scss' as *;
 
+$curve: cubic-bezier(.165, .84, .44, 1);
+
 .desktopNav {
   position: relative;
   width: 100%;
+  height: var(--header-height);
 
-  &:local() {
-    a {
-      text-decoration: none;
-    }
+  &:before, &:after {
+    content: '';
+    pointer-events: none;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -5;
+    transition: all var(--trans-default) $curve;
   }
 
   @include mobile-header-break {
@@ -16,7 +26,63 @@
   }
 }
 
+.background {
+  height: var(--header-height);
+  top: var(--page-padding-top);
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  margin: 0 calc(var(--gutter-h) * -1);
+  transition: all calc(var(--trans-default)*2) $curve;
+
+  &:before, &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    transition: all calc(var(--trans-default)*2) $curve;
+  }
+
+  &:before {
+    background: var(--theme-bg);
+    opacity: 0.9;
+  }
+
+  &:after {
+    backdrop-filter: blur(5px);
+    opacity: 0;
+  }
+}
+
+.active {
+  &:before, &:after {
+    transition: all var(--trans-default) $curve;
+  }
+
+  &:before {
+    background: var(--theme-elevation-800);
+    opacity: 0.15;
+    pointer-events: all;
+  }
+
+  .dropdown {
+    z-index: 1;
+  }
+
+  .background {
+    &:after {
+      opacity: 1;
+    }
+  }
+}
+
 .grid {
+  height: 100%;
+
   :local(a) {
     text-decoration: none;
   }
@@ -24,14 +90,8 @@
 
 .content {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   position: relative;
   width: 100%;
-
-  @include large-break {
-    justify-content: unset;
-  }
 }
 
 .authNav {
@@ -48,40 +108,242 @@
 }
 
 .logo {
-  height: 100%;
   display: flex;
-  justify-content: flex-start;
-  position: absolute;
-  top: -2px;
-  left: calc(-1*var(--base));
-  width: calc(var(--gutter-h) / 2 - var(--base));
-  transform: translateX(-100%);
-
+  height: 100%;
 
   svg {
     height: auto;
   }
+}
 
-  @include large-break {
-    width: auto;
-    margin-right: var(--base);
-    position: relative;
-    transform: none;
-    left: 0;
+.tabs {
+  position: relative;
+  padding: 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  gap: calc(var(--base) * 1.5);
+}
+
+.tab {
+  @include btnReset;
+  @include headerText;
+  cursor: pointer;
+  height: 100%;
+  text-decoration: none;
+}
+
+.directLink {
+  height: 100%;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+
+  &:hover, &:focus {
+    opacity: 1;
+    text-decoration: none;
   }
 }
 
-.navItems {
-  display: flex;
-  flex-grow: 1;
-  white-space: nowrap;
+.tabArrow, .linkArrow {
+  margin-left: calc(var(--base) * 0.5);
+  width: calc(var(--base) * 0.5);
+  height: calc(var(--base) * 0.5);
+}
 
-  :local(.navItem) {
-    margin-right: calc(var(--base) * .75);
+.underline {
+  position: absolute;
+  bottom: 0;
+  transition: all var(--trans-default) $curve;
+}
+
+.underlineFill {
+  height: 2px;
+  background-color: var(--theme-elevation-800);
+}
+
+.dropdownWrap {
+  position: relative;
+}
+
+.description {
+  @include headerText;
+  font-size: calc(var(--base)*1.1);
+
+  @include large-break {
+    font-size: calc(var(--base)*1.25);
   }
+}
+
+.dropdown {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  padding: calc(var(--base) * 2.5) var(--gutter-h) 0 var(--gutter-h);
+  transition: opacity var(--trans-default) $curve;
+}
+
+.dropdownItem {
+  position: relative;
+}
+
+.dropdownItem, .description {
+  text-wrap: wrap;
+  margin-right: calc(var(--base) * 2);
+  padding-bottom: calc(var(--base) * 2.5);
+  transition: opacity var(--trans-default) $curve;
+  opacity: 0;
+
+  &:before {
+    transition: all var(--trans-default) $curve;
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    background-color: var(--theme-elevation-1000);
+    height: 2px;
+    opacity: 1;
+  }
+
+  &:last-child {
+    padding-right: 0;
+  }
+
+  & svg {
+    transition: all var(--trans-default) $curve;
+  }
+
+  @for $i from 1 through 5 {
+    &:nth-child(#{$i}n) {
+      transition-delay: #{((6 - $i) * 0.025)}s;
+    }
+  };
+}
+
+.activeTab {
+  pointer-events: all;
+
+  .description, .dropdownItem {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all var(--trans-default) $curve;
+
+    @for $i from 1 through 5 {
+      &:nth-child(#{$i}n) {
+        transition-delay: #{($i * 0.075)}s;
+      }
+    }
+  }
+}
+
+.showUnderline {
+  &:before {
+    transition: all var(--trans-default) $curve;
+    width: 100%;
+  }
+  & svg {
+    transition: all var(--trans-default) $curve;
+    transform: translate3d(10px, -10px, 0);
+  }
+}
+
+.defaultLink, .defaultLinkDescription {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  justify-content: space-between;
+}
+
+.defaultLink {
+  flex: 1;
+  height: 100%;
+  transition: opacity var(--trans-default) $curve;
+
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+.defaultLinkLabel {
+  @include h4;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.defaultLinkDescription {
+  @include headerText;
+  font-size: calc(var(--base)*0.8);
+  min-height: calc(var(--base) * 5);
+}
+
+.tab, .secondaryNavItems {
+  font-size: var(--font-header-size);
+}
+
+.linkList, .featuredLink {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+}
+
+.listLabel {
+  @include h6;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.link {
+  @include body;
+  font-weight: 500;
+  transition: all var(--trans-default) $curve;
+  text-decoration: none;
+
+  &:focus {
+    text-decoration: none;
+  }
+
+  &:hover {
+    transition: all var(--trans-default) $curve;
+    opacity: 0.8;
+  }
+}
+
+.featuredLinks, .descriptionLink {
+  @include body;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  transition: all var(--trans-default) $curve;
+  letter-spacing: 0;
+
+  &:hover {
+    transition: all var(--trans-default) $curve;
+    opacity: 0.8;
+  }
+}
+
+.descriptionLink {
+  width: 100%;
+}
+
+.featuredLinkWrap {
+  display: flex;
+  flex-direction: row;
+  gap: calc(var(--base) * 2);
+}
+
+.descriptionLinks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  padding: calc(var(--base) * 2) 0;
 }
 
 .secondaryNavItems {
+  height: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -89,7 +351,13 @@
   gap: calc(var(--base) * 1.25);
   opacity: 0;
   visibility: hidden;
-  transition: opacity var(--trans-default) linear;
+  transition: all var(--trans-default) $curve;
+
+  & > a {
+    &:hover {
+      opacity: .8;
+    }
+  }
 }
 
 .show {
@@ -106,43 +374,42 @@
 }
 
 .icons {
-  width: calc(var(--gutter-h) / 2 - var(--base));
-  position: absolute;
-  right: calc(-1 * var(--base));
   display: flex;
-  justify-content: flex-end;
-  transform: translateX(100%);
-  top: 0;
   align-items: center;
-  height: 100%;
-  
+
   > * {
-    margin-right: var(--base);
-    line-height: 1;
-    
+    margin-right: calc(var(--base) * .75);
+
     &:last-child {
       margin-right: 0;
     }
   }
+}
 
-  @include extra-large-break {
-    > * {
-      margin-right: calc(var(--base) * 0.75);
-    }
-  }
+.github {
+  width: calc(var(--base) * 1.25);
+  margin-bottom: calc(var(--base) * 0.125);
 
   @include large-break {
-    position: static;
-    right: 0;
-    transform: unset;
-    width: auto;
+    margin-bottom: calc(var(--base) * 0.25);
+  }
 
-    > * {
-      margin-right: calc(var(--base) * 0.5);
-    }
+  &:hover {
+    opacity: 0.8;
   }
 }
 
-.discord {
-  display: flex;
+.dark {
+  .background {
+    &:before {
+      opacity: 0.9;
+    }
+  }
+
+  .active {
+    &:before {
+      background: var(--theme-elevation-50);
+      opacity: 0.85;
+    }
+  }
 }

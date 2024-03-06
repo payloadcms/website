@@ -1,50 +1,105 @@
 @use "@scss/common" as *;
 
 .cardGrid {
-    position: relative;  
+  position: relative;
+
+  .card {
+    height: 100%;
+    position: relative;
+  }
 }
 
-.hr {
-    margin: 0;
-    margin-bottom: calc(var(--base) * 4);
-    border-color: currentColor;
+.introWrapper {
+  padding-bottom: var(--wrapper-padding-top);
 
-    @include mid-break {
-        margin-bottom: calc(var(--base) * 2);
-    }
+  @include mid-break {
+    padding-bottom: calc(var(--base) * 2);
+  }
+}
+
+.richTextWrapper {
+  grid-area: 1 / 1 / 1 / -1;
+  align-items: flex-start;
+  justify-content: center;
+  display: grid;
 }
 
 .richText {
-    margin-bottom: calc(var(--base) * 3);
-    @include mid-break {
-        margin-bottom: var(--base);
-    }
-}
+  @include mid-break {
+    padding-bottom: calc(var(--base) * 2);
+  }
 
-.bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: calc(100% + var(--gutter-h));
-    height: 100%;
-    margin-left: calc(var(--gutter-h) / -2);
-
-    @include mid-break {
-        margin-left: calc(var(--gutter-h) * -1);
-        width: calc(100% + (var(--gutter-h) * 2));
+  @include small-break {
+    h2 {
+      font-size: calc(var(--base) * 1.4);
     }
+  }
 }
 
 .cards {
-    position: relative;
-    padding: calc(var(--base) * 4) 0;
-
-    @include mid-break {
-        padding: calc(var(--base) * 2) 0;
-    }
+  position: relative;
 }
 
-.card {
-    height: 100%;
+.margins {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  left: calc(var(--gutter-h) * -1);
+  width: calc(100% + var(--gutter-h) * 2);
+  height: 100%;
+
+  & > * {
     position: relative;
+  }
+}
+
+.marginLeft {
+  width: var(--gutter-h);
+  display: block;
+}
+
+.marginRight {
+  width: var(--gutter-h);
+  display: block;
+}
+
+.cardsWrapper {
+  position: relative;
+  border-top: 1px solid var(--grid-line-light);
+
+  &::after {
+    content: '';
+    width: calc(25% * var(--excess-length-large));
+    height: 1px;
+    background: var(--grid-line-light);
+    position: absolute;
+    bottom: 0;
+    left: calc(100% - 25% * var(--excess-length-large));
+
+    @include mid-break {
+      width: calc(50% * var(--excess-length-mid));
+      left: calc(50% * var(--excess-length-mid));
+    }
+  }
+
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
+
+    &::after {
+      background: var(--grid-line-dark);
+    }
+  }
+
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-light);
+
+    &::after {
+      background: var(--grid-line-light);
+    }
+  }
+
+  & .backgroundGrid {
+    z-index: 5;
+  }
 }

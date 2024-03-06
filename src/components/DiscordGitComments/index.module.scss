@@ -1,17 +1,24 @@
 @use '@scss/common' as *;
 
 .comments {
-  margin-top: calc(var(--base) * 3);
-  list-style: none;
   padding: 0;
+  margin-bottom: calc(var(--base) * 4);
+  list-style: none;
+
+  @include mid-break {
+    margin-bottom: calc(var(--base)*2);
+  }
+}
+
+.comment {
+  margin: calc(var(--base) * 2) 0;
 }
 
 .comment,
 .reply {
-  border: 1px solid var(--color-base-650);
-  padding: calc(var(--base) * 1.5);
+  border: 1px solid var(--theme-border-color);
+  padding: calc(var(--base) * 2) calc(var(--base) * 4);
   line-height: 1.5;
-  margin: 0 0 calc(var(--base) * 1.75) 0;
 
   @include mid-break {
     display: flex;
@@ -21,10 +28,6 @@
   }
 }
 
-.comment.answer {
-  padding: 0;
-}
-
 .hasReplies {
   margin: 0;
 }
@@ -32,68 +35,62 @@
 .reply {
   border-top: none;
   background-color: var(--theme-elevation-50);
-  border-left-width: 8px;
   margin-bottom: 0;
+  position: relative;
 
-  &:last-child {
-    margin-bottom: calc(var(--base) * 2);
+  &:before {
+    content: "";
+    position: absolute;
+    background-color: var(--theme-blue-50);
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 100%;
   }
 }
 
 .replyCount {
-  font-size: calc(var(--base) * 0.75);
+  @include uppercaseLabel;
   color: var(--color-base-500);
   padding-top: calc(var(--base) * 1.5);
 }
 
 .answer {
-  background-color: var(--theme-success-100);
-  color: var(--color-success-500);
-  border: 1px solid var(--theme-success-200);
+  position: relative;
+  padding: 0;
 
   & code {
     color: var(--theme-elevation-900);
   }
-
-  .replyCount {
-    padding: calc(var(--base) * 1.5);
-    padding-top: 0;
-  }
 }
 
 .answerHeader {
-  display: flex;
-  gap: calc(var(--base) / 1.5);
-  padding: calc(var(--base) * .75) calc(var(--base) * 1.5);
-  width: 100%;
-  background: var(--theme-success-50);
-  border-bottom: 1px solid var(--theme-success-150);
-  align-items: center;
+  position: relative;
+  padding: calc(var(--base) * 1.5) calc(var(--base) * 4);
+  background-color: var(--theme-blue-100);
 
-  & label {
-    @include label;
-    font-size: 13px;
-  }
-
-  .checkmark {
-    border: 1px solid currentColor;
-    border-radius: 100%;
-    height: calc(var(--base) * 1.5);
-    width: calc(var(--base) * 1.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
+  & h6 {
+    text-transform: uppercase;
+    margin: 0;
   }
 
   .selectedBy {
     font-size: calc(var(--base) * 0.65);
   }
+
+  @include mid-break {
+    padding: calc(var(--base) * 1.5) var(--base);
+  }
 }
 
 .answerBody {
-  padding: calc(var(--base) * 1.5);
+  padding: calc(var(--base) * 1.5) calc(var(--base) * 4);
   color: var(--theme-text);
+  background-color: var(--theme-blue-50);
+
+  @include mid-break {
+    padding: calc(var(--base) * 1.5) var(--base);
+  }
 }
 
 .attachmentWrap {
@@ -105,6 +102,12 @@
   @include large-break {
     grid-template-columns: 1fr;
   }
+}
+
+.crosshairs {
+  height: 0;
+  bottom: 0;
+  top: unset;
 }
 
 :global([data-theme="light"]) {
@@ -126,18 +129,12 @@
     margin: 0;
   }
 
-  .comment,
+  .comment {
+    margin: var(--base) 0;
+  }
+
   .reply {
     padding: var(--base);
-  }
-
-  .replyCount {
-    padding: var(--base) 0 0 0;
-  }
-
-  .answer {
-    .replyCount {
-      padding: 0 calc(var(--base) * 1.5) calc(var(--base) * 1.5) calc(var(--base) * 1.5);
-    }
+    padding-left: calc(var(--base)*1.5);
   }
 }

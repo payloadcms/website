@@ -1,5 +1,9 @@
 @use '@scss/common' as *;
 
+.mediaWrapper {
+  position: relative;
+}
+
 .position--wide {
   margin-left: calc(var(--gutter-h) / -2);
   width: calc(100% + var(--gutter-h));
@@ -8,10 +12,5 @@
 .caption {
   display: flex;
   justify-content: center;
-  margin: calc(var(--base) * .75) calc(var(--base) * 1.5);
-  margin-bottom: 0;
-}
-
-.mediaResource {
-  @include shadow-lg;
+  padding-top: calc(var(--base) * 1.25);
 }

@@ -1,0 +1,195 @@
+@use "@scss/common" as *;
+
+$curve: cubic-bezier(.165, .84, .44, 1);
+
+.wrapper {
+    position: relative;
+    height: 100%;
+}
+
+.introWrapper {
+  padding-bottom: calc(var(--base) * 8);
+  align-items: center;
+  align-content: center;
+  padding-bottom: var(--wrapper-padding-top);
+
+  @include mid-break {
+    padding-bottom: calc(var(--base) * 2);
+  }
+}
+
+.cards {
+  position: relative;
+}
+
+
+.card {
+  height: 100%;
+  text-decoration: none;
+  position: relative;
+  padding: calc(var(--base) * 2);
+  display: flex;
+  flex-direction: column;
+  row-gap: calc(var(--base) * 1.5);
+
+  &:active {
+    text-decoration: none;
+  }
+
+  @include large-break {
+    padding-top: calc(var(--base) * 3);
+    padding-bottom: calc(var(--base) * 3);
+  }
+
+  @include mid-break {
+    border-bottom: 1px solid var(--grid-line-dark);
+    padding-top: calc(var(--base) * 2);
+    padding-bottom: calc(var(--base) * 2);
+  }
+
+  @include small-break {
+    height: 100%;
+    aspect-ratio: unset;
+  }
+
+  &::before {
+    content:'';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 2px;
+    width: 0%;
+    background: var(--color-base-0);
+    transition: width 350ms $curve;
+  }
+
+
+  &:hover, &:focus {
+    text-decoration: none;
+    &::before {
+      width: 100%;
+    }
+
+    .description {
+      opacity: 1;
+    }
+
+    .cardContent {
+      transform: translateY(0px);
+    }
+
+    .arrow {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.cardWrapper {
+  position: relative;
+  transition: opacity 350ms $curve;
+  height: 100%;
+}
+
+.arrow {
+  position: absolute;
+  top: calc(var(--base) * 2);
+  right: calc(var(--base) * 2);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 350ms $curve;
+}
+
+.cardsWrapper {
+  position: relative;
+  border-top: 1px solid var(--grid-line-dark);
+  border-bottom: 1px solid var(--grid-line-dark);
+
+  &:hover {
+    .cardWrapper:not(:has(:hover)) {
+      opacity: 0.5;
+    }
+  }
+
+  & .backgroundGrid {
+    z-index: 5;
+  }
+}
+
+.leader {
+  @include h6;
+  margin-top: 0;
+  margin-bottom: calc(var(--base) * 4);
+
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 7);
+  }
+
+  @include small-break {
+    margin-bottom: calc(var(--base) * 2);
+  }
+}
+
+.cardTitle {
+  @include h4;
+  position: relative;
+  transition: all 350ms $curve;
+  margin-bottom: calc(var(--base) * 1);
+  text-decoration: none;
+}
+
+.description {
+  text-decoration: none;
+  margin: 0;
+  opacity: 0.75;
+
+  @include mid-break {
+    max-width: 100%;
+  }
+}
+
+.cardContent {
+  transform: translateY(10px);
+  transition: all 350ms $curve;
+  text-decoration: none;
+}
+
+.noiseWrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  backdrop-filter: blur(4px);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+
+  &::before {
+    content:'';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: url('/images/noise.png') repeat;
+  }
+}
+
+
+.bg {
+  height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  grid-column: 1/1;
+  position: relative;
+  grid-row: 1/1;
+  z-index: -1;
+  transition: all 1850ms $curve;
+
+  &.activeBg {
+    opacity: 1;
+  }
+}

@@ -20,6 +20,7 @@ export const COMMUNITY_HELP = `
         communityHelpJSON
         slug
         introDescription
+        helpful
       }
     }
   }

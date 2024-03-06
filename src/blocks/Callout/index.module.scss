@@ -1,0 +1,134 @@
+@use '@scss/common.scss' as *;
+
+.wrapper {
+  position: relative;
+}
+
+.container {
+  position: relative;
+  align-items: center;
+  padding-top: calc(var(--base) * 5);
+  padding-bottom: calc(var(--base) * 5);
+  background: var(--theme-bg);
+
+  @include mid-break {
+    padding-top: calc(var(--base) * 2);
+    padding-bottom: 0;
+  }
+}
+
+.backgroundGrid {
+  z-index: 0;
+}
+
+.contentWrapper {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: calc(var(--base) * 3);
+
+
+  @include mid-break {
+    padding: calc(var(--base) * 2);
+  }
+}
+
+.content {
+  margin-bottom: calc(var(--base) * 2);
+}
+
+
+.media {
+  width: calc(100% + var(--gutter-h));
+  margin-right: calc(var(--gutter-h));
+  margin-top: calc(var(--base) * -2.5);
+  margin-bottom: calc(var(--base) * -2.5);
+
+  @include mid-break {
+    margin: 0;
+    margin-left: 1px;
+    margin-right: 0;
+    width: calc(100% - 2px);
+    margin-bottom: calc(var(--base) * -1);
+  }
+}
+
+.scanline {
+  border-left: 1px solid;
+  border-right: 1px solid;
+}
+
+.quoteIcon {
+  position: absolute;
+  width:  calc(var(--base) * 1.125);
+  height: auto;
+  color: var(--theme-text);
+  left: 0;
+  top: 0;
+
+
+  @include large-break {
+    width:  calc(var(--base) * 1);
+  }
+
+  @include mid-break {
+    left: calc(var(--base) * 2);
+  }
+
+  & path {
+    stroke: var(--theme-text);
+    stroke-width: 0px;
+  }
+}
+
+.quoteContainer {
+  position: relative;
+}
+
+.quote {
+  font-size: calc(var(--base) * 2);
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: calc(var(--base) * 2);
+  position: relative;
+
+  &::before {
+    content: '“';
+    position: absolute;
+    left: calc(var(--base) * -1.2);
+
+    @include mid-break {
+      left: calc(var(--base) * -0.8);
+    }
+  }
+
+  @include large-break {
+    font-size: calc(var(--base) * 1.5);
+  }
+
+  @include small-break {
+    font-size: calc(var(--base) * 1);
+    margin-bottom: calc(var(--base) * 1);
+  }
+}
+
+.authorWrapper {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) *1.2);
+}
+
+.author {
+  line-height: 1;
+}
+
+.logo {
+  max-width: calc(var(--base) * 6);
+  height: auto;
+}
+
+.name {
+  font-weight: bold;
+}

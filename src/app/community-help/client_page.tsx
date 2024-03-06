@@ -5,6 +5,7 @@ import { useInstantSearch } from 'react-instantsearch-hooks-web'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import Link from 'next/link'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
 import { Banner } from '@components/Banner'
 import DiscordGitCTA from '@components/DiscordGitCTA'
 import { Gutter } from '@components/Gutter'
@@ -29,13 +30,16 @@ export const CommunityHelp: React.FC = () => {
 
   return (
     <div className={classes.communityHelpWrap}>
+      <BackgroundGrid className={classes.bg} />
       <Gutter>
-        <Grid>
-          <Cell cols={10} colsL={9} className={classes.algoliaSearchWrap}>
+        <div className={['grid', classes.grid].join(' ')}>
+          <div className={'start-1 cols-12'}>
             <Heading className={classes.heading} element="h1">
               Community Help
             </Heading>
-            <ArchiveSearchBar className={classes.searchBar} />
+            <div className={classes.searchBarWrap}>
+              <ArchiveSearchBar className={classes.searchBar} />
+            </div>
             {hasResults && (
               <ul className={classes.postsWrap}>
                 {hasResults &&
@@ -54,9 +58,7 @@ export const CommunityHelp: React.FC = () => {
                             <div className={classes.titleMeta}>
                               <span className={classes.platform}>
                                 {platform === 'Discord' && <DiscordIcon className={classes.icon} />}
-                                {platform === 'Github' && (
-                                  <GithubIcon className={classes.icon} />
-                                )}{' '}
+                                {platform === 'Github' && <GithubIcon className={classes.icon} />}
                               </span>
                               <span className={classes.author}>{author}</span>
                               <span>—</span>
@@ -96,12 +98,13 @@ export const CommunityHelp: React.FC = () => {
                 </Banner>
               </>
             )}
-            {hasResults && <AlgoliaPagination />}
-          </Cell>
-        </Grid>
+            {hasResults && <AlgoliaPagination className={classes.pagination} />}
+          </div>
+          <div className={['start-13 cols-4', classes.ctaWrap].join(' ')}>
+            <DiscordGitCTA style="default" />
+          </div>
+        </div>
       </Gutter>
-
-      <DiscordGitCTA />
     </div>
   )
 }

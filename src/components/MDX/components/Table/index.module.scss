@@ -1,8 +1,8 @@
 @use "@scss/common" as *;
 
 .wrap {
-  width: 100%;
-  overflow: auto;
+  overflow: hidden;
+  margin: 0 auto;
 
   :global {
     table {
@@ -26,19 +26,40 @@
         padding: calc(var(--base) * .75);
         min-width: 150px;
         vertical-align: top;
+        max-width: 1000px;
+        margin: auto;
+
+        &:first-child {
+          padding-left: 0;
+        }
+
+        &:last-child {
+          padding-right: 0;
+        }
       }
 
       tbody {
         tr {
           &:nth-child(odd) {
             background: var(--theme-elevation-50);
+            position: relative;
+
+            &:after {
+              content: '';
+              position: absolute;
+              z-index: -1;
+              top: 0;
+              left: calc(var(--gutter-h) * -1);
+              right: calc(var(--gutter-h) * -1);
+              height: 100%;
+              background: var(--theme-elevation-50);
+            }
           }
         }
       }
 
       @include mid-break {
         th, td {
-          max-width: 70vw;
           padding: calc(var(--base) * .5);
         }
       }
@@ -46,11 +67,13 @@
   }
 
   @include mid-break {
-    margin-left: calc(var(--gutter-h) * -1);
-    margin-right: calc(var(--gutter-h) * -1);
-    padding-left: calc(var(--gutter-h) * .5);
-    padding-right: calc(var(--gutter-h) * .5);
-    width: calc(100% + (var(--gutter-h) * 2));
-    max-width: calc(100% + (var(--gutter-h) * 2));
+    margin: 0 calc(var(--base)*-2)!important;
+    padding: 0!important;
   }
+
+
+@include small-break {
+  margin: 0 calc(var(--base)*-1)!important;
+  padding: 0 var(--base)!important;
+}
 }

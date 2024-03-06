@@ -13,19 +13,23 @@ export type Breadcrumb = {
 export type Props = {
   items?: Array<Breadcrumb> | null
   ellipsis?: boolean
+  className?: string
 }
 
-export const Breadcrumbs: React.FC<Props> = ({ items, ellipsis = true }) => {
+export const Breadcrumbs: React.FC<Props> = ({ items, ellipsis = true, className }) => {
   return (
-    <EdgeScroll element="nav" className={classes.breadcrumbs}>
+    <nav
+      aria-label="Breadcrumbs navigation"
+      className={[classes.breadcrumbs, className].filter(Boolean).join(' ')}
+    >
       {items?.map((item, index) => {
         const isLast = index === items.length - 1
         const doEllipsis = ellipsis && (item?.label || '')?.length > 8 && !isLast
 
-        if (item?.url && typeof item.url === 'string' && !isLast) {
+        if (item?.url && typeof item.url === 'string') {
           return (
             <React.Fragment key={index}>
-              <label
+              <div
                 className={[classes.label, doEllipsis && classes.ellipsis]
                   .filter(Boolean)
                   .join(' ')}
@@ -33,7 +37,7 @@ export const Breadcrumbs: React.FC<Props> = ({ items, ellipsis = true }) => {
                 <Link href={item.url} prefetch={false} className={classes.labelContent}>
                   {item.label}
                 </Link>
-              </label>
+              </div>
               {!isLast && <p className={classes.divider}>&nbsp;&#47;&nbsp;</p>}
             </React.Fragment>
           )
@@ -41,15 +45,15 @@ export const Breadcrumbs: React.FC<Props> = ({ items, ellipsis = true }) => {
 
         return (
           <React.Fragment key={index}>
-            <label
+            <div
               className={[classes.label, doEllipsis && classes.ellipsis].filter(Boolean).join(' ')}
             >
               <div className={classes.labelContent}>{item.label}</div>
-            </label>
+            </div>
             {!isLast && <p className={classes.divider}>&nbsp;/&nbsp;</p>}
           </React.Fragment>
         )
       })}
-    </EdgeScroll>
+    </nav>
   )
 }

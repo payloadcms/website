@@ -1,7 +1,6 @@
 'use client'
 
-import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
+import React, { useId } from 'react'
 import { Text } from '@forms/fields/Text'
 import FormComponent from '@forms/Form'
 import { validateEmail } from '@forms/validations'
@@ -9,15 +8,18 @@ import { ArrowIcon } from '@icons/ArrowIcon'
 import { Footer as FooterType } from '@types'
 import { usePathname, useRouter } from 'next/navigation'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
+import { Select } from '@components/CMSForm/fields/Select'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
+import Payload3D from '@components/Payload3D'
+import { DiscordIcon } from '@root/graphics/DiscordIcon'
 import { FacebookIcon } from '@root/graphics/FacebookIcon'
 import { InstagramIcon } from '@root/graphics/InstagramIcon'
-import { PayloadIcon } from '@root/graphics/PayloadIcon'
 import { ThemeAutoIcon } from '@root/graphics/ThemeAutoIcon'
 import { ThemeDarkIcon } from '@root/graphics/ThemeDarkIcon'
 import { ThemeLightIcon } from '@root/graphics/ThemeLightIcon'
-import { TwitterIcon } from '@root/graphics/TwitterIcon'
+import { TwitterIconAlt } from '@root/graphics/TwitterIconAlt'
 import { YoutubeIcon } from '@root/graphics/YoutubeIcon'
 import { ChevronUpDownIcon } from '@root/icons/ChevronUpDownIcon'
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver'
@@ -30,9 +32,11 @@ import classes from './index.module.scss'
 
 export const Footer: React.FC<FooterType> = props => {
   const { columns } = props
-  const [itemsUnderLogo, documentationItems] = columns ?? []
+  const [products, developers, company] = columns ?? []
   const { setTheme } = useThemePreference()
   const { setHeaderTheme } = useHeaderObserver()
+  const wrapperRef = React.useRef<HTMLElement>(null)
+  const backgroundRef = React.useRef<HTMLDivElement>(null)
   const selectRef = React.useRef<HTMLSelectElement>(null)
 
   const [buttonClicked, setButtonClicked] = React.useState(false)
@@ -88,6 +92,9 @@ export const Footer: React.FC<FooterType> = props => {
   const router = useRouter()
 
   const pathname = usePathname()
+
+  const themeId = useId()
+  const newsletterId = useId()
 
   const onSubmit = React.useCallback(() => {
     setButtonClicked(false)
@@ -151,157 +158,162 @@ export const Footer: React.FC<FooterType> = props => {
     submitForm()
   }, [pathname, formData, router])
 
-  if (Array.isArray(itemsUnderLogo?.navItems) && Array.isArray(documentationItems?.navItems)) {
-    return (
-      <footer className={classes.footer}>
-        <Gutter>
-          <Grid>
-            <Cell cols={3} colsM={4}>
-              <div className={classes.colHeader}>
-                <div className={classes.payloadIcon}>
-                  <PayloadIcon />
-                </div>
-              </div>
+  return (
+    <footer ref={wrapperRef} className={classes.footer} data-theme="dark">
+      <BackgroundGrid zIndex={0} />
+      <Gutter className={classes.container}>
+        <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')}>
+          <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
+            <p className={classes.colHeader}>{products.label}</p>
+            <div className={classes.colItems}>
+              {products?.navItems?.map(({ link }, index) => {
+                return (
+                  <React.Fragment key={index}>
+                    <CMSLink className={classes.link} {...link} />
+                  </React.Fragment>
+                )
+              })}
+            </div>
+          </div>
 
-              <div>
-                {itemsUnderLogo.navItems.map(({ link }, index) => {
-                  return <CMSLink key={index} className={classes.link} {...link} />
-                })}
-              </div>
-            </Cell>
+          <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
+            <p className={classes.colHeader}>{developers.label}</p>
+            <div className={classes.colItems}>
+              {developers?.navItems?.map(({ link }, index) => {
+                return (
+                  <React.Fragment key={index}>
+                    <CMSLink className={classes.link} {...link} />
+                  </React.Fragment>
+                )
+              })}
+            </div>
+          </div>
 
-            <Cell cols={4} colsM={4}>
-              <p className={classes.colHeader}>Documentation</p>
-              <div className={classes.col2Items}>
-                {documentationItems?.navItems.map(({ link }, index) => {
-                  return (
-                    <React.Fragment key={index}>
-                      <CMSLink className={classes.link} {...link} />
-                    </React.Fragment>
-                  )
-                })}
-              </div>
-            </Cell>
+          <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
+            <p className={classes.colHeader}>{company.label}</p>
+            <div className={classes.colItems}>
+              {company?.navItems?.map(({ link }, index) => {
+                return (
+                  <React.Fragment key={index}>
+                    <CMSLink className={classes.link} {...link} />
+                  </React.Fragment>
+                )
+              })}
+            </div>
+          </div>
 
-            <Cell cols={5} colsM={6} colsS={8}>
-              <p className={`${classes.colHeader} ${classes.thirdColumn}`}>Stay connected</p>
-              <div>
-                {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
-                <FormComponent onSubmit={onSubmit}>
-                  <div className={classes.inputWrap}>
-                    <Text
-                      type="text"
-                      path="email"
-                      value={formData.email}
-                      customOnChange={handleChange}
-                      required
-                      validate={validateEmail}
-                      className={classes.emailInput}
-                      placeholder="Enter your email"
-                    />
-                    <ArrowIcon
-                      className={[
-                        classes.inputArrow,
-                        buttonClicked && invalidEmail && classes.invalidEmailArrow,
-                      ]
-                        .filter(Boolean)
-                        .join(' ')}
-                    />
-                  </div>
-
-                  <div className={classes.subscribeAction}>
-                    <p className={classes.subscribeDesc}>
-                      Sign up to receive periodic updates and feature releases to your email.
-                    </p>
-                    <button ref={submitButtonRef} className={classes.ok} type="submit">
-                      OK
-                    </button>
-                  </div>
-                </FormComponent>
-              </div>
-            </Cell>
-          </Grid>
-
-          <Grid className={classes.footerMeta}>
-            <Cell cols={3} colsM={5}>
-              <div className={classes.socialLinks}>
-                <a
-                  href="https://www.instagram.com/payloadcms/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={classes.socialIconLink}
-                  aria-label="Payload's Instagram page"
-                >
-                  <InstagramIcon />
-                </a>
-                <a
-                  href="https://www.youtube.com/channel/UCyrx4Wpd4SBIpqUKlkb6N1Q"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={classes.socialIconLink}
-                  aria-label="Payload's YouTube channel"
-                >
-                  <YoutubeIcon />
-                </a>
-                <a
-                  href="https://twitter.com/payloadcms"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={classes.socialIconLink}
-                  aria-label="Payload's Twitter page"
-                >
-                  <TwitterIcon />
-                </a>
-                <a
-                  href="https://www.facebook.com/payloadcms/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={classes.socialIconLink}
-                  aria-label="Payload's Facebook page"
-                >
-                  <FacebookIcon />
-                </a>
-              </div>
-            </Cell>
-
-            <Cell cols={4} colsM={8}>
-              <p
-                className={classes.copyright}
-              >{`Copyright ${new Date().getFullYear()} Payload CMS, Inc.`}</p>
-            </Cell>
-
-            <Cell cols={2} colsM={8} className={classes.themeCell}>
-              <div className={classes.selectContainer}>
-                <label htmlFor="theme">
-                  {selectRef?.current && (
-                    <div className={`${classes.switcherIcon} ${classes.themeIcon}`}>
-                      {selectRef.current.value === 'auto' && <ThemeAutoIcon />}
-                      {selectRef.current.value === 'light' && <ThemeLightIcon />}
-                      {selectRef.current.value === 'dark' && <ThemeDarkIcon />}
-                    </div>
-                  )}
-
-                  <select
-                    id="theme"
-                    onChange={e => onThemeChange(e.target.value as Theme & 'auto')}
-                    ref={selectRef}
-                  >
-                    <option value="auto">Auto</option>
-                    <option value="light">Light</option>
-                    <option value="dark">Dark</option>
-                  </select>
-
-                  <ChevronUpDownIcon
-                    className={`${classes.switcherIcon} ${classes.upDownChevronIcon}`}
+          <div className={['cols-4 cols-m-4 cols-s-8'].filter(Boolean).join(' ')}>
+            <p className={`${classes.colHeader} ${classes.thirdColumn}`}>Stay connected</p>
+            <div>
+              {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
+              <FormComponent onSubmit={onSubmit}>
+                <div className={classes.inputWrap}>
+                  <label className="visually-hidden" htmlFor={newsletterId}>
+                    Subscribe to our newsletter
+                  </label>
+                  <Text
+                    type="text"
+                    path={newsletterId}
+                    name="email"
+                    value={formData.email}
+                    customOnChange={handleChange}
+                    required
+                    validate={validateEmail}
+                    className={classes.emailInput}
+                    placeholder="Enter your email"
                   />
-                </label>
-              </div>
-            </Cell>
-          </Grid>
-        </Gutter>
-      </footer>
-    )
-  }
+                  <button ref={submitButtonRef} className={classes.submitButton} type="submit">
+                    <ArrowIcon className={[classes.inputArrow].filter(Boolean).join(' ')} />
+                    <span className="visually-hidden">Submit</span>
+                  </button>
+                </div>
 
-  return null
+                <div className={classes.subscribeAction}>
+                  <p className={classes.subscribeDesc}>
+                    Sign up to receive periodic updates and feature releases to your email.
+                  </p>
+                </div>
+              </FormComponent>
+            </div>
+
+            <div className={classes.socialLinks}>
+              <a
+                href="https://www.instagram.com/payloadcms/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={classes.socialIconLink}
+                aria-label="Payload's Instagram page"
+              >
+                <InstagramIcon />
+              </a>
+              <a
+                href="https://www.youtube.com/channel/UCyrx4Wpd4SBIpqUKlkb6N1Q"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={classes.socialIconLink}
+                aria-label="Payload's YouTube channel"
+              >
+                <YoutubeIcon />
+              </a>
+              <a
+                href="https://twitter.com/payloadcms"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${classes.socialIconLink} ${classes.twitterIcon}`}
+                aria-label="Payload's Twitter page"
+              >
+                <TwitterIconAlt />
+              </a>
+              <a
+                href="https://www.facebook.com/payloadcms/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={classes.socialIconLink}
+                aria-label="Payload's Facebook page"
+              >
+                <FacebookIcon />
+              </a>
+              <a
+                href="https://discord.com/invite/r6sCXqVk3v"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={classes.socialIconLink}
+                aria-label="Payload's Discord"
+              >
+                <DiscordIcon />
+              </a>
+            </div>
+
+            <div className={classes.selectContainer}>
+              <label className="visually-hidden" htmlFor={themeId}>
+                Switch themes
+              </label>
+              {selectRef?.current && (
+                <div className={`${classes.switcherIcon} ${classes.themeIcon}`}>
+                  {selectRef.current.value === 'auto' && <ThemeAutoIcon />}
+                  {selectRef.current.value === 'light' && <ThemeLightIcon />}
+                  {selectRef.current.value === 'dark' && <ThemeDarkIcon />}
+                </div>
+              )}
+
+              <select
+                id={themeId}
+                onChange={e => onThemeChange(e.target.value as Theme & 'auto')}
+                ref={selectRef}
+              >
+                <option value="auto">Auto</option>
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+              </select>
+
+              <ChevronUpDownIcon
+                className={`${classes.switcherIcon} ${classes.upDownChevronIcon}`}
+              />
+            </div>
+          </div>
+        </div>
+        <Payload3D />
+      </Gutter>
+    </footer>
+  )
 }

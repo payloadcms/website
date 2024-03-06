@@ -1,9 +1,9 @@
 'use client'
 
 import React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import * as cheerio from 'cheerio'
 
+import { BackgroundGrid } from '@components/BackgroundGrid'
 import { DiscordGitComments } from '@components/DiscordGitComments'
 import DiscordGitCTA from '@components/DiscordGitCTA'
 import { DiscordGitIntro } from '@components/DiscordGitIntro'
@@ -85,10 +85,11 @@ export const DiscordThreadPage: React.FC<ThreadProps> = props => {
   const postUrl = `https://discord.com/channels/${info.guildId}/${info.id}`
 
   return (
-    <>
+    <div className={classes.wrap}>
+      <BackgroundGrid className={classes.bg} />
       <Gutter>
-        <Grid>
-          <Cell cols={10} colsL={9} className={classes.post}>
+        <div className={['grid', classes.grid].join(' ')}>
+          <div className={['start-1 cols-12 ', classes.post].join('')}>
             <DiscordGitIntro
               postName={info.name}
               author={author}
@@ -100,11 +101,15 @@ export const DiscordThreadPage: React.FC<ThreadProps> = props => {
               platform="Discord"
             />
             <DiscordGitComments comments={messages} platform="Discord" />
-            <OpenPost url={postUrl} platform="Discord" />
-          </Cell>
-        </Grid>
+            <div className={classes.openPostWrap}>
+              <OpenPost url={postUrl} platform="Discord" />
+            </div>
+          </div>
+          <div className={['start-13 cols-4', classes.ctaWrap].join(' ')}>
+            <DiscordGitCTA style="default" />
+          </div>
+        </div>
       </Gutter>
-      <DiscordGitCTA />
-    </>
+    </div>
   )
 }

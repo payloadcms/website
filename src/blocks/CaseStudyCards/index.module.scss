@@ -13,13 +13,37 @@
   }
 }
 
+.gutter {
+  position: relative;
+}
+
+.scanline {
+  --margin: min(calc(var(--gutter-h) / 2), calc(var(--base) * 4));
+  margin-left: var(--margin);
+  margin-right: var(--margin);
+  width: calc(100% - var(--margin) * 2);
+
+  @include mid-break {
+    --margin: auto;
+    width: 100%;
+  }
+}
+
 .card {
   position: relative;
-  border: 1px solid var(--theme-elevation-200);
+  border: 1px solid var(--grid-line-dark);
   display: flex;
   text-decoration: none;
   background-color: var(--theme-bg);
   transition: border 200ms ease-out;
+
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
+  }
+
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-light);
+  }
 
   &:not(:last-child) {
     margin-bottom: calc(var(--base) * 2);

@@ -2,6 +2,9 @@ import React, { Fragment } from 'react'
 import escapeHTML from 'escape-html'
 
 import { CMSLink, Reference } from '@components/CMSLink'
+import SplitAnimate from '@components/SplitAnimate'
+import SpotlightAnimation from '@components/SpotlightAnimation'
+import { AllowedElements } from '@components/SpotlightAnimation/types'
 import { Highlight } from '../../Highlight'
 import { Label } from '../../Label'
 import { LargeBody } from '../../LargeBody'
@@ -27,17 +30,28 @@ export type CustomRenderers = {
 type SerializeFunction = React.FC<{
   content?: Node[]
   customRenderers?: CustomRenderers
+  textInSplitAnimate?: boolean
+  skipSpan?: boolean
 }>
 
 const isText = (value: any): boolean =>
   typeof value === 'object' && value !== null && typeof value.text === 'string'
 
-export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
+export const Serialize: SerializeFunction = ({
+  content,
+  customRenderers,
+  textInSplitAnimate,
+  skipSpan,
+}) => {
   return (
     <Fragment>
       {content?.map((node, i) => {
         if (isText(node)) {
-          let text = <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />
+          let text = skipSpan ? (
+            <>{escapeHTML(node.text).replace('-', '‑')}</>
+          ) : (
+            <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />
+          )
 
           if (node.bold) {
             text = <strong key={i}>{text}</strong>
@@ -68,6 +82,10 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
             )
           }
 
+          if (textInSplitAnimate && typeof node.text === 'string') {
+            text = <SplitAnimate key={i} text={node.text} />
+          }
+
           return <Fragment key={i}>{text}</Fragment>
         }
 
@@ -89,13 +107,21 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
           case 'h1':
             return (
               <h1 key={i}>
-                <Serialize content={node.children} customRenderers={customRenderers} />
+                <Serialize
+                  content={node.children}
+                  customRenderers={customRenderers}
+                  textInSplitAnimate
+                />
               </h1>
             )
           case 'h2':
             return (
               <h2 key={i}>
-                <Serialize content={node.children} customRenderers={customRenderers} />
+                <Serialize
+                  content={node.children}
+                  customRenderers={customRenderers}
+                  textInSplitAnimate
+                />
               </h2>
             )
           case 'h3':
@@ -186,6 +212,18 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
             }
 
             return null
+          }
+
+          case 'spotlight': {
+            const { element } = node
+
+            const as: AllowedElements = (element as AllowedElements) ?? 'h2'
+
+            return (
+              <SpotlightAnimation key={i} as={as} richTextChildren={node.children}>
+                <Serialize content={node.children} skipSpan customRenderers={customRenderers} />
+              </SpotlightAnimation>
+            )
           }
 
           default:

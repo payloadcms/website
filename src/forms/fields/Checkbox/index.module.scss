@@ -80,3 +80,9 @@
   cursor: pointer;
   margin-bottom: 0;
 }
+
+:global([data-theme="light"]) {
+  .input {
+    background: var(--theme-elevation-50);
+  }
+}

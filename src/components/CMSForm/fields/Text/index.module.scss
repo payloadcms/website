@@ -1,0 +1,136 @@
+@use "../shared.scss";
+@use '@scss/common' as *;
+
+.component {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column-reverse;
+  gap: calc(var(--base) / 2);
+  width: 100%;
+
+  &::before {
+    content: '';
+    width: calc(100% - 2px);
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 1px;
+    z-index: -1;
+    background-color: var(--theme-input-bg);
+  }
+
+  .errorAndLabel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: calc(var(--base) * 2);
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    transition: all 0.3s ease;
+
+    @include mid-break {
+      left: calc(var(--base) * 1);
+    }
+  }
+
+  .error, .textLabel {
+    width: fit-content;
+    margin: 0;
+  }
+
+  .actionsLabel {
+    display: block;
+    width: unset;
+    pointer-events: none;
+    margin-right: calc(var(--base) * 0.75);
+  }
+
+  .textLabel {
+    transition: all 0.3s ease;
+    pointer-events: none;
+    font-weight: 400;
+    color: var(--text-dark);
+  }
+
+  .fullWidth {
+    width: 100%;
+  }
+  
+  .input {
+    @include shared.formInput;
+    color: var(--color-base-0);
+    padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
+
+    @include mid-break {
+      padding: calc(var(--base) * 1.5) calc(var(--base) * 1);
+    }
+  }
+  
+  .showError {
+    .input {
+      border-left: 2px solid var(--theme-error-500);
+    }
+  }
+  
+  .description {
+    margin: 0;
+  }
+  
+  .tooltipButton {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .type--hidden {
+    display: none;
+  }
+  
+  .iconWrapper {
+    position: absolute;
+    top: 50%;
+    right: calc(var(--base) / 1);
+    transform: translate3d(0, -50%, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--base) / 2);
+  }
+  
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(var(--base) / 2);
+    width: calc(var(--base) / 2);
+  }
+  
+  .suffix {
+    @include small;
+    display: flex;
+    color: var(--theme-elevation-500);
+  }
+}
+
+.focused {
+  .errorAndLabel {
+    top: 25%;
+    transform: translateY(-25%);
+  }
+
+  .error, .textLabel {
+    font-size: 12px;
+  }
+
+  .actionsLabel {
+    margin-right: calc(var(--base) * 0.5);
+  }
+
+  .input {
+    padding: calc(var(--base) * 2) calc(var(--base) * 2) calc(var(--base) * 1) calc(var(--base) * 2);
+
+    @include mid-break {
+      padding: calc(var(--base) * 2) calc(var(--base) * 1) calc(var(--base) * 1) calc(var(--base) * 1);
+    }
+  }
+}

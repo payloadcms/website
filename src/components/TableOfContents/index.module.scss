@@ -1,5 +1,11 @@
 @use "@scss/common" as *;
 
+.wrap {
+  position: relative;
+  padding: 0 var(--base);
+  font-size: calc(var(--base) * .85);
+}
+
 .toc {
   list-style: none;
   padding: 0;
@@ -12,10 +18,11 @@
 }
 
 .tocTitle {
-  @include label;
-  border-top: 1px solid var(--theme-elevation-200);
-  padding-top: var(--base);
-  margin-bottom: var(--base);
+  font-weight: 400;
+  font-size: calc(var(--base) * .55);
+  letter-spacing: 2.75px;
+  text-transform: uppercase;
+  margin: 0 0 var(--base) 0;
 }
 
 .heading {
@@ -24,18 +31,6 @@
   line-height: 1.375;
   margin-bottom: calc(var(--base) * .75);
   margin-right: var(--base);
-
-  &:before {
-    content: ' ';
-    position: absolute;
-    right: calc(100% + var(--base));
-    top: calc(var(--base) * .45);
-    height: 1px;
-    background-color: var(--theme-text);
-    width: calc(var(--base) * .5);;
-    opacity: 0;
-    transition: all 400ms;
-  }
 
   &:hover {
     transform: translate3d(calc(var(--base) * .25), 0, 0);
@@ -50,15 +45,13 @@
   composes: heading;
 }
 
-.active {
-  transform: translate3d(var(--base), 0, 0);
 
-  &:before {
-    opacity: 1;
-    right: calc(100% + var(--base) * .5);
-  }
-
-  &:hover {
-    transform: translate3d(calc(var(--base) * .5), 0, 0);
-  }
+.indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: all var(--trans-default) ease-in-out;
+  height: calc(var(--base) * 1.3);
+  background-color: var(--theme-elevation-800);
+  width: 2px;
 }

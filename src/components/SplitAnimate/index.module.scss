@@ -1,0 +1,11 @@
+.word {
+  display: inline-flex;
+  overflow: hidden;
+  min-height: 1.1em;
+  margin-bottom: -1.1em;
+}
+
+.innerWord {
+  display: inline-block;
+  white-space: pre;
+}

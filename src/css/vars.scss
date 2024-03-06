@@ -8,6 +8,8 @@ $breakpoint-xs-width: 400px;
 $breakpoint-s-width: 768px;
 $breakpoint-m-width: 1024px;
 $breakpoint-mh-width: 1170px;
+$breakpoint-mp-width: 1200px;
+$breakpoint-lm-width: 1400px;
 $breakpoint-l-width: 1600px;
 $breakpoint-xl-width: 1920px;
 $breakpoint-2xl-width: 2250px;
@@ -16,7 +18,7 @@ $breakpoint-2xl-width: 2250px;
 // BREAKPOINTS (HEIGHT)
 //////////////////////////////
 
-$breakpoint-s-height: 750px;
+$breakpoint-l-height: 1000px;
 
 //////////////////////////////
 // SHADOWS
@@ -199,6 +201,10 @@ $breakpoint-s-height: 750px;
     border-radius: 0px;
     cursor: pointer;
   }
+
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
 }
 
 @mixin underline-on-focus {
@@ -206,5 +212,45 @@ $breakpoint-s-height: 750px;
 
   &:focus {
     text-decoration: underline;
+  }
+}
+
+@mixin visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/**
+  * A mixin to apply styles based on the current theme.
+  *
+  * @param {string} 'light' | 'dark' - The theme to apply the styles for.
+  * @param {boolean} - Apply only the complex exclusive :not selector without the generic data-theme one.
+  */
+@mixin data-theme-selector($theme, $exclusive: false) {
+  @if $exclusive == true {
+    @if $theme == 'light' {
+      [data-theme="light"]:not(:has([data-theme="dark"])) & {
+        @content
+      }
+    } @else if $theme == 'dark' {
+      [data-theme="dark"]:not(:has([data-theme="light"])) & {
+        @content
+      }
+    }
+  } @else {
+    @if $theme == 'light' {
+      [data-theme="light"] &, [data-theme="light"]:not(:has([data-theme="dark"])) & {
+        @content
+      }
+    } @else if $theme == 'dark' {
+      [data-theme="dark"] &, [data-theme="dark"]:not(:has([data-theme="light"])) & {
+        @content
+      }
+    }
   }
 }

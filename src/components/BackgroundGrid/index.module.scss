@@ -1,0 +1,83 @@
+@use "@scss/common" as *;
+
+.backgroundGrid {
+  position: absolute;
+  top: 0;
+  left: calc(var(--gutter-h));
+  width: calc(100% - var(--gutter-h) * 2);
+  height: 100%;
+  box-sizing: border-box;
+  pointer-events: none;
+  user-select: none;
+
+  &.ignoreGutter {
+    left: 0;
+    width: 100%;
+  }
+}
+
+
+.column {
+  width: 1px;
+
+  &:nth-of-type(1) {
+    grid-area: 1/1/1/1;
+
+  }
+
+  &:nth-of-type(2) {
+    grid-area: 1/5/1/9;
+
+  }
+
+  &:nth-of-type(3) {
+    grid-area: 1/9/1/13;
+
+    @include mid-break {
+      display: none;
+    }
+  }
+
+  &:nth-of-type(4) {
+    grid-area: 1/13/1/17;
+
+    @include mid-break {
+      display: none;
+    }
+  }
+
+  &:nth-of-type(5) {
+    grid-area: 1/17/1/17;
+  }
+
+  @include data-theme-selector('light') {
+    background: var(--grid-line-light);
+  }
+
+  @include data-theme-selector('dark') {
+    background: var(--grid-line-dark);
+  }
+}
+
+.wideGrid {
+  .column {
+    &:nth-of-type(2) {
+      grid-area: 1/4/1/9;
+      @include mid-break {
+        grid-area: 1/5/1/9;
+      }
+    }
+
+    &:nth-of-type(3) {
+      grid-area: 1/14/1/17;
+      @include mid-break {
+        display: unset;
+      }
+    }
+
+    &:nth-of-type(4) {
+      grid-area: 1/17/1/17;
+    }
+  }
+}
+

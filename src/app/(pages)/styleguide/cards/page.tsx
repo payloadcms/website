@@ -1,9 +1,8 @@
 import React from 'react'
-import { ProjectCard } from '@cloud/_components/ProjectCard'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Metadata } from 'next'
 
 import { Gutter } from '@components/Gutter'
+import { ProjectCard } from '@root/app/(cloud)/cloud/_components/ProjectCard'
 import { StyleguidePageContent } from '../PageContent'
 
 const Cards: React.FC = () => {
@@ -11,8 +10,8 @@ const Cards: React.FC = () => {
     <StyleguidePageContent title="Cards" darkModePadding darkModeMargins>
       <Gutter>
         <p>Project Card</p>
-        <Grid>
-          <Cell cols={4} colsS={4}>
+        <div className={['grid'].filter(Boolean).join(' ')}>
+          <div className={['cols-4 cols-s-4'].filter(Boolean).join(' ')}>
             <ProjectCard
               project={{
                 name: 'Draft Project Title',
@@ -22,8 +21,8 @@ const Cards: React.FC = () => {
                 status: 'draft',
               }}
             />
-          </Cell>
-          <Cell cols={4} colsS={4}>
+          </div>
+          <div className={['cols-4 cols-s-4'].filter(Boolean).join(' ')}>
             <ProjectCard
               project={{
                 name: 'Project Title',
@@ -33,8 +32,8 @@ const Cards: React.FC = () => {
                 status: 'published',
               }}
             />
-          </Cell>
-          <Cell cols={4} colsS={4}>
+          </div>
+          <div className={['cols-4 cols-s-4'].filter(Boolean).join(' ')}>
             <ProjectCard
               project={{
                 name: 'Trial Project Title',
@@ -44,8 +43,8 @@ const Cards: React.FC = () => {
                 stripeSubscriptionStatus: 'trialing',
               }}
             />
-          </Cell>
-          <Cell cols={4} colsS={4}>
+          </div>
+          <div className={['cols-4 cols-s-4'].filter(Boolean).join(' ')}>
             <ProjectCard
               project={{
                 name: 'Pro Project Title',
@@ -58,8 +57,8 @@ const Cards: React.FC = () => {
                 },
               }}
             />
-          </Cell>
-          <Cell cols={4} colsS={4}>
+          </div>
+          <div className={['cols-4 cols-s-4'].filter(Boolean).join(' ')}>
             <ProjectCard
               project={{
                 name: 'Enterprise Project Title',
@@ -72,8 +71,8 @@ const Cards: React.FC = () => {
                 },
               }}
             />
-          </Cell>
-          <Cell cols={4} colsS={4}>
+          </div>
+          <div className={['cols-4 cols-s-4'].filter(Boolean).join(' ')}>
             <ProjectCard
               project={{
                 name: 'Past Due Project Title',
@@ -83,8 +82,8 @@ const Cards: React.FC = () => {
                 stripeSubscriptionStatus: 'past_due',
               }}
             />
-          </Cell>
-          <Cell cols={4} colsS={4}>
+          </div>
+          <div className={['cols-4 cols-s-4'].filter(Boolean).join(' ')}>
             <ProjectCard
               project={{
                 name: 'Unpaid Project Title',
@@ -94,8 +93,8 @@ const Cards: React.FC = () => {
                 stripeSubscriptionStatus: 'unpaid',
               }}
             />
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       </Gutter>
     </StyleguidePageContent>
   )

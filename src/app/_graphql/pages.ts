@@ -1,20 +1,26 @@
 import {
   CALL_TO_ACTION,
+  CALLOUT,
   CARD_GRID,
   CASE_STUDIES_HIGHLIGHT,
   CASE_STUDY_CARDS,
+  CASE_STUDY_PARALLAX,
   CODE_FEATURE,
   CONTENT,
   CONTENT_GRID,
   EXAMPLE_TABS,
   FORM_BLOCK,
+  HOVER_CARDS,
   HOVER_HIGHLIGHTS,
   LINK_GRID,
+  LOGO_GRID,
   MEDIA_BLOCK,
   MEDIA_CONTENT,
+  MEDIA_CONTENT_ACCORDION,
   PRICING_BLOCK,
   REUSABLE_CONTENT_BLOCK,
   SLIDER,
+  STATEMENT,
   STEPS,
   STICKY_HIGHLIGHTS,
 } from './blocks'
@@ -44,33 +50,35 @@ export const PAGE = `
         id
         title
         hero {
+          enableBreadcrumbsBar
+          breadcrumbsBarLinks {
+            link ${LINK_FIELDS({ disableAppearance: true })}
+          }
+          theme
           type
-          commandLine
           richText
-          sidebarContent
+          description
+          primaryButtons {
+            link ${LINK_FIELDS({ disableAppearance: true })}
+          }
+          fullBackground
+          secondaryHeading
+          secondaryDescription
+          secondaryButtons {
+            link ${LINK_FIELDS({ disableAppearance: true })}
+          }
           links {
             link ${LINK_FIELDS()}
           }
-          actions {
-            link ${LINK_FIELDS({ disableAppearance: true })}
-          }
-          buttons {
-            link ${LINK_FIELDS()}
+          images {
+            image ${MEDIA_FIELDS}
           }
           media ${MEDIA_FIELDS}
-          mediaWidth
-          adjectives {
-            adjective
-          }
+          featureVideo ${MEDIA_FIELDS}
+          secondaryMedia ${MEDIA_FIELDS}
           form ${FORM_FIELDS}
-          logoGroup {
-            label
-            logos {
-              logo ${MEDIA_FIELDS}
-            }
-          }
-          carousel {
-            image ${MEDIA_FIELDS}
+          logos {
+            logoMedia ${MEDIA_FIELDS}
           }
           livestream {
             id
@@ -87,22 +95,28 @@ export const PAGE = `
           }
         }
         layout {
+          ${CALLOUT}
           ${CALL_TO_ACTION}
           ${CARD_GRID}
           ${CASE_STUDIES_HIGHLIGHT}
           ${CASE_STUDY_CARDS}
+          ${CASE_STUDY_PARALLAX}
           ${CODE_FEATURE}
           ${CONTENT}
           ${CONTENT_GRID}
           ${EXAMPLE_TABS}
           ${FORM_BLOCK}
+          ${HOVER_CARDS}
           ${HOVER_HIGHLIGHTS}
           ${LINK_GRID}
+          ${LOGO_GRID}
           ${MEDIA_BLOCK}
           ${MEDIA_CONTENT}
+          ${MEDIA_CONTENT_ACCORDION}
           ${PRICING_BLOCK}
           ${REUSABLE_CONTENT_BLOCK}
           ${SLIDER}
+          ${STATEMENT}
           ${STEPS}
           ${STICKY_HIGHLIGHTS}
         }

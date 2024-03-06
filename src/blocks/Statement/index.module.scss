@@ -1,0 +1,50 @@
+@use '@scss/common.scss' as *;
+
+.statementWrap {
+  position: relative;
+}
+
+.links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  a {
+    max-width: 50%;
+  }
+
+  a:first-child {
+    border-bottom: 1px solid var(--grid-line-dark);
+  }
+
+  @include data-theme-selector('light') {
+    a:first-child {
+      border-color: var(--grid-line-light);
+    }
+  }
+
+  @include mid-break {
+    flex-direction: column;
+
+    a {
+      max-width: none;
+    }
+
+    a:first-child {
+      border-bottom: none;
+    }
+  }
+}
+
+.content {
+  margin-bottom: calc(var(--base) * 2);
+
+  @include mid-break {
+    margin-bottom: calc(var(--base) * 1.5);
+  }
+
+  p {
+    margin: 0;
+  }
+}

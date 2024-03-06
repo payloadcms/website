@@ -1,37 +1,45 @@
 @use '@scss/common' as *;
 
+$curve: cubic-bezier(.165, .84, .44, 1);
+
 .footer {
-  margin: var(--block-spacing) 0 calc(var(--base) * 4) 0;
+  position: relative;
+  background: var(--color-base-1000);
+  padding-top: calc(var(--base) * 8);
+  padding-bottom: calc(var(--base) * 7.5);
+  overflow: hidden;
+
+  @include mid-break {
+    padding-top: calc(var(--base) * 4);
+    padding-bottom: calc(var(--base) * 7.5);
+  }
+
+  .grid {
+    grid-row-gap: calc(var(--base) * 3);
+  }
+}
+
+.container {
+  position: relative;
 }
 
 .colHeader {
+  @include h6;
   margin-bottom: calc(var(--base) * 4.5);
-  height: 35px;
   display: inline-flex;
   align-items: flex-end;
+  text-transform: uppercase;
 
   @include mid-break {
     margin-bottom: calc(var(--base) * 2);
   }
 }
 
-.payloadIcon {
-  width: calc(var(--base) * 2);
-  position: relative;
-}
-
-.colHeader.thirdColumn {
-  @include mid-break {
-    margin-top: calc(var(--base) * 2);
-  }
-}
-
 .footer .link {
+  @include body;
   display: block;
   margin-bottom: calc(var(--base) * .15);
-  width: 50%;
-  font-size: calc(var(--font-body-size) * 0.925);
-  color: var(--theme-elevation-500);
+  color: var(--color-base-0);
 
   &:hover {
     color: var(--theme-elevation-800)
@@ -44,60 +52,72 @@
   }
 }
 
-.col2Items {
+.colItems {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
-
-  @include mid-break {
-    max-height: unset;
-  }
+  gap: calc(var(--base) * 1);
 }
 
 .subscribeAction {
   display: flex;
   margin-top: calc(var(--base) * 1);
+  margin-bottom: calc(var(--base) * 2);
 }
 
 .subscribeDesc {
-  color: var(--theme-elevation-500);
-  font-size: calc(var(--font-body-size) * 0.925);
+  color: var(--color-base-0);
+  margin: 0;
+  font-size: calc(var(--font-body-size) * 0.9);
 }
 
 .inputWrap {
   position: relative;
+
+  &:hover {
+    .inputArrow {
+      transform: translateX(6px) rotate(45deg);
+      transition: transform 350ms $curve;
+    }
+  }
 }
 
 .emailInput input {
-  padding-right: calc(var(--base) * 2);
+  @include body;
+  padding: var(--base) calc(var(--base) * 1.5);
+  background: var(--color-base-1000);
+  border-color: var(--grid-line-dark);
+  border-left: none;
+  border-right: none;
+  margin-left: 1px;
+  width: calc(100% - 2px);
+  height: auto;
+
+  @include data-theme-selector('light') {
+    background: var(--color-base-1000);
+  }
+
+  &::placeholder {
+    color: var(--color-base-300);
+  }
 }
 
 .inputArrow {
-  position: absolute;
-  right: var(--base);
-  top: 50%;
-  transform: translateY(-50%);
   z-index: 1;
-  color: var(--theme-text);
-  transform: translateY(-50%) rotate(45deg);
+  color: var(--color-base-300);
+  transform: rotate(45deg);
+  transition: transform 350ms $curve;
+  height: calc(var(--base) * 0.6);
+  width: auto;
 }
 
-.invalidEmailArrow {
-  top: 68%;
-}
-
-.ok {
+.submitButton {
+  @include btnReset;
   cursor: pointer;
-  height: calc(var(--base) * 3);
-  width: calc(var(--base) * 3);
-  border-radius: 50%;
-  color: var(--theme-text);
-  border: 1px solid currentColor;
-  background-color: var(--theme-bg);
-  position: relative;
-  isolation: isolate;
-  flex-shrink: 0;
-  margin-left: calc(var(--base) * 1.5);
+  display: block;
+  position: absolute;
+  right: calc(var(--base) * 1.5);
+  top: calc(50% - var(--base) * 0.6);
 
   &:hover {
     background-color: var(--theme-text);
@@ -116,13 +136,25 @@
 
 .socialLinks {
   display: flex;
+  flex-wrap: wrap;
+  gap: var(--base);
+  max-width: 100%;
   align-items: center;
+  margin-bottom: calc(var(--base) * 3);
 }
 
 .socialIconLink {
   display: inline-flex;
-  border-radius: 50%;
-  margin-right: var(--base);
+  transition: opacity 350ms $curve;
+
+  &:hover {
+    opacity: .75;
+  }
+
+  & svg {
+    height: auto;
+    width: calc( var(--base) * 1.6);
+  }
 }
 
 .copyright,
@@ -146,22 +178,16 @@
   align-items: center;
   color: var(--theme-elevation-500);
   cursor: pointer;
-
-  label {
-    all: unset;
-    font-size: calc(var(--font-body-size) * 0.75);
-    display: flex;
-    align-items: center;
-  }
+  width: 100%;
 
   select {
+    @include body;
     all: unset;
-    border: 1px solid var(--theme-elevation-300);
-    font-size: calc(var(--font-body-size) * 0.925);
-    padding-top: calc(var(--base) * .25);
-    padding-bottom: calc(var(--base) * .25);
-    padding-left: var(--theme-icon-width);
-    padding-right: var(--theme-switcher-icon-width);
+    border-top: 1px solid var(--grid-line-dark);
+    border-bottom: 1px solid var(--grid-line-dark);
+    width: 100%;
+    padding: var(--base) calc(var(--base) * 1.5);
+    padding-left: calc(var(--base) * 1.5 + var(--theme-switcher-icon-width));
   }
 }
 
@@ -170,6 +196,7 @@
   height: var(--base);
   justify-content: center;
   position: absolute;
+  margin-left: calc(var(--base) * 1.25);
 }
 
 .themeIcon {
@@ -178,6 +205,6 @@
 
 .upDownChevronIcon {
   width: var(--theme-switcher-icon-width);
-  right: 0;
+  right: calc(var(--base) * 0.75);
   pointer-events: none;
 }

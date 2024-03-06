@@ -1,65 +1,77 @@
-import React, { Fragment } from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
+'use client'
+import React from 'react'
 import { ArrowIcon } from '@icons/ArrowIcon'
 
-import { BlockSpacing } from '@components/BlockSpacing'
+import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BackgroundScanline } from '@components/BackgroundScanline'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { CMSLink } from '@components/CMSLink'
-import CreatePayloadApp from '@components/CreatePayloadApp'
 import { Gutter } from '@components/Gutter'
-import { Label } from '@components/Label'
-import { PixelBackground } from '@components/PixelBackground'
 import { RichText } from '@components/RichText'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon'
 import { Page } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
-export type CallToActionProps = Extract<Page['layout'][0], { blockType: 'cta' }>
+export type CallToActionProps = Extract<Page['layout'][0], { blockType: 'cta' }> & {
+  padding?: PaddingProps
+}
 
 export const CallToAction: React.FC<CallToActionProps> = props => {
   const {
-    ctaFields: { richText, feature, links },
+    ctaFields: { richText, links, settings },
+    padding,
   } = props
 
   const hasLinks = links && links.length > 0
 
   return (
-    <BlockSpacing>
+    <BlockWrapper settings={settings} padding={padding}>
+      <BackgroundGrid zIndex={0} />
       <Gutter className={classes.callToAction}>
-        <div data-theme="dark">
-          <div className={classes.bgWrapper}>
-            <Gutter disableMobile className={classes.bgGutter}>
-              <div className={classes.bg1}>
-                {/* <div className={classes.pixelBG}>
-              <PixelBackground />
-            </div> */}
-              </div>
-            </Gutter>
-          </div>
-          <Grid className={classes.contentWrap}>
-            <Cell cols={6} colsM={8}>
+        <div className={[classes.wrapper].filter(Boolean).join(' ')}>
+          <div className={[classes.container, 'grid'].filter(Boolean).join(' ')}>
+            <div className={[classes.contentWrapper, 'cols-7 cols-m-8'].filter(Boolean).join(' ')}>
               <RichText content={richText} className={classes.content} />
-            </Cell>
-            <Cell cols={5} start={8} colsM={8} startM={1}>
-              {feature === 'cpa' && (
-                <Fragment>
-                  <Label className={classes.label}>Get started in one line</Label>
-                  <CreatePayloadApp background={false} className={classes.cpa} />
-                </Fragment>
-              )}
+            </div>
+            <div
+              className={[classes.linksContainer, 'cols-8 start-9 cols-m-8 start-m-1 grid']
+                .filter(Boolean)
+                .join(' ')}
+            >
+              <BackgroundScanline
+                className={[classes.scanline, 'cols-16 start-5 cols-m-8 start-m-1']
+                  .filter(Boolean)
+                  .join(' ')}
+                crosshairs={['top-left', 'bottom-left']}
+              />
+
+              <CrosshairIcon className={[classes.crosshairTopLeft].filter(Boolean).join(' ')} />
+              <CrosshairIcon className={[classes.crosshairBottomRight].filter(Boolean).join(' ')} />
+
               {hasLinks && (
-                <div className={classes.links}>
-                  <PixelBackground className={classes.pixelBG} />
+                <div className={[classes.links, 'cols-16 cols-m-8'].filter(Boolean).join(' ')}>
                   {links.map(({ link }, index) => (
-                    <CMSLink {...link} key={index} className={classes.button}>
-                      <ArrowIcon className={classes.buttonIcon} />
-                    </CMSLink>
+                    <CMSLink
+                      {...link}
+                      key={index}
+                      appearance={'default'}
+                      buttonProps={{
+                        appearance: 'default',
+                        size: 'large',
+                        hideHorizontalBorders: true,
+                        hideBottomBorderExceptLast: true,
+                        forceBackground: true,
+                      }}
+                      className={[classes.button].filter(Boolean).join(' ')}
+                    />
                   ))}
                 </div>
               )}
-            </Cell>
-          </Grid>
+            </div>
+          </div>
         </div>
       </Gutter>
-    </BlockSpacing>
+    </BlockWrapper>
   )
 }

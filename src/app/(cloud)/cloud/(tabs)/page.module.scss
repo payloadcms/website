@@ -1,0 +1,71 @@
+@use '@scss/common' as *;
+
+.error {
+    color: var(--theme-error-500);
+}
+
+.tabs {
+    margin-bottom: calc(var(--base) * 2);
+}
+
+.controls {
+    margin-bottom: calc(var(--base) * 2);
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    padding: calc(var(--base) * 2)  0;
+    gap: var(--base);
+
+    @include mid-break {
+        margin-bottom: var(--base);
+        padding: calc(var(--base) * 1.5) 0;
+        flex-wrap: wrap;
+    }
+}
+
+.search {
+    flex-grow: 1;
+
+    @include small-break {
+        width: 100%;
+    }
+}
+
+.teamSelector {
+    width: 33.33%;
+
+    @include small-break {
+        width: 100%;
+    }
+}
+
+.createButton {
+    white-space: nowrap;
+}
+
+.controlsBG {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: calc(100% + calc(var(--base) * 4));
+    height: 100%;
+    left: calc(var(--base) * -2);
+    right: calc(var(--base) * -2);
+    background-color: var(--theme-elevation-100);
+
+    @include mid-break {
+        width: calc(100% + calc(var(--gutter-h) * 2));
+        left: calc(var(--gutter-h) * -1);
+        right: calc(var(--gutter-h) * -1);
+    }
+}
+
+.pagination {
+    margin-top: calc(var(--base) * 2);
+}
+
+:global([data-theme="light"]) {
+    .controlsBG {
+        background-color: var(--theme-elevation-50);
+    }
+}
