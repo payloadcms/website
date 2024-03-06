@@ -53,6 +53,7 @@ export const GradientHero: React.FC<
           alt=""
           width={1920}
           height={1080}
+          priority
         />
       )}
       <BackgroundGrid className={classes.backgroundGrid} zIndex={0} />
@@ -99,6 +100,7 @@ export const GradientHero: React.FC<
               alt=""
               width={800}
               height={800}
+              priority
             />
           )}
           <div
@@ -106,7 +108,7 @@ export const GradientHero: React.FC<
               .filter(Boolean)
               .join(' ')}
           >
-            {images && Array.isArray(images) && <MediaParallax media={images} />}
+            {images && Array.isArray(images) && <MediaParallax media={images} priority />}
           </div>
         </div>
         <div className={classes.defaultHero}></div>

@@ -2,6 +2,7 @@ import React from 'react'
 import { motion, transform, useScroll } from 'framer-motion'
 
 import { Media } from '@components/Media'
+import { Props as MediaProps } from '@components/Media/types'
 import { Media as MediaType } from '@root/payload-types'
 
 import classes from './index.module.scss'
@@ -9,9 +10,11 @@ import classes from './index.module.scss'
 type ParallaxProps = {
   media: { image: string | MediaType }[]
   className?: string
+} & {
+  priority?: MediaProps['priority']
 }
 
-const MediaParallax: React.FC<ParallaxProps> = ({ media, className }) => {
+const MediaParallax: React.FC<ParallaxProps> = ({ media, className, ...mediaProps }) => {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const [scrollValue, setScrollValue] = React.useState(0)
   const { scrollY, scrollYProgress } = useScroll({
@@ -55,7 +58,7 @@ const MediaParallax: React.FC<ParallaxProps> = ({ media, className }) => {
           >
             {typeof image.image !== 'string' && (
               <>
-                <Media resource={image.image} />
+                <Media resource={image.image} {...mediaProps} />
               </>
             )}
           </motion.div>
