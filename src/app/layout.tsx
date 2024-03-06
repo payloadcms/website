@@ -7,7 +7,6 @@ import Script from 'next/script'
 import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics'
 import { GoogleTagManager } from '@components/Analytics/GoogleTagManager'
 import { PrivacyBanner } from '@components/PrivacyBanner'
-import { TopBar } from '@components/TopBar'
 import { fetchGlobals } from '@root/app/_graphql'
 import { PrivacyProvider } from '@root/providers/Privacy'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
@@ -18,7 +17,7 @@ import { robotoMono, untitledSans } from './fonts'
 import '../css/app.scss'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { mainMenu, footer, topBar } = await fetchGlobals()
+  const { mainMenu, footer } = await fetchGlobals()
 
   return (
     <html lang="en" suppressHydrationWarning>

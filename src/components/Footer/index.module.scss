@@ -19,6 +19,10 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   }
 }
 
+.topBorder {
+  border-top: 1px solid var(--grid-line-dark);
+}
+
 .container {
   position: relative;
 }

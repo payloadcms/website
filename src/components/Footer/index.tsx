@@ -9,7 +9,6 @@ import { Footer as FooterType } from '@types'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
-import { Select } from '@components/CMSForm/fields/Select'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
 import Payload3D from '@components/Payload3D'
@@ -36,7 +35,6 @@ export const Footer: React.FC<FooterType> = props => {
   const { setTheme } = useThemePreference()
   const { setHeaderTheme } = useHeaderObserver()
   const wrapperRef = React.useRef<HTMLElement>(null)
-  const backgroundRef = React.useRef<HTMLDivElement>(null)
   const selectRef = React.useRef<HTMLSelectElement>(null)
 
   const [buttonClicked, setButtonClicked] = React.useState(false)
@@ -69,8 +67,6 @@ export const Footer: React.FC<FooterType> = props => {
 
   const [error, setError] = React.useState<{ status?: string; message: string } | undefined>()
 
-  const invalidEmail = validateEmail?.(formData.email) === 'Please enter a valid email address.'
-
   const onThemeChange = (themeToSet: Theme & 'auto') => {
     if (themeToSet === 'auto') {
       const implicitPreference = getImplicitPreference() ?? 'light'
@@ -92,6 +88,9 @@ export const Footer: React.FC<FooterType> = props => {
   const router = useRouter()
 
   const pathname = usePathname()
+
+  const pathnameSegments = pathname.split('/').filter(Boolean)
+  const isCloudPage = pathnameSegments.includes('cloud')
 
   const themeId = useId()
   const newsletterId = useId()
@@ -160,7 +159,12 @@ export const Footer: React.FC<FooterType> = props => {
 
   return (
     <footer ref={wrapperRef} className={classes.footer} data-theme="dark">
-      <BackgroundGrid zIndex={0} />
+      <BackgroundGrid
+        zIndex={0}
+        className={[classes.background, isCloudPage ? classes.topBorder : '']
+          .filter(Boolean)
+          .join(' ')}
+      />
       <Gutter className={classes.container}>
         <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')}>
           <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
