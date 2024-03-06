@@ -122,11 +122,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   position: absolute;
   right: calc(var(--base) * 1.5);
   top: calc(50% - var(--base) * 0.6);
-
-  &:hover {
-    background-color: var(--theme-text);
-    color: var(--theme-bg);
-  }
 }
 
 .footerMeta {

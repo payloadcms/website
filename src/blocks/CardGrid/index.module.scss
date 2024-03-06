@@ -52,17 +52,20 @@
   & > * {
     position: relative;
   }
+
+  .marginLeft {
+    position: relative;
+    width: var(--gutter-h);
+    display: block;
+  }
+
+  .marginRight {
+    position: relative;
+    width: var(--gutter-h);
+    display: block;
+  }
 }
 
-.marginLeft {
-  width: var(--gutter-h);
-  display: block;
-}
-
-.marginRight {
-  width: var(--gutter-h);
-  display: block;
-}
 
 .cardsWrapper {
   position: relative;
