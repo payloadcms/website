@@ -41,7 +41,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   aspect-ratio: 1 / 1;
   border-radius: 100%;
   opacity: .35;
-  transition: opacity 1s $curve, transform 0ms $curve;
+  transition: opacity 1s $curve;
   background: var(--color-base-0);
 }
 
