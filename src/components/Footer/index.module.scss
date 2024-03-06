@@ -145,7 +145,11 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .socialIconLink {
   display: inline-flex;
-  border-radius: 50%;
+  transition: opacity 350ms $curve;
+
+  &:hover {
+    opacity: .75;
+  }
 
   & svg {
     height: auto;
