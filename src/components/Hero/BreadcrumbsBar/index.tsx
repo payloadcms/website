@@ -88,6 +88,7 @@ const BreadcrumbsBar: React.FC<Props> = ({
                   {Array.isArray(links) &&
                     links.map((linkItem, i) => {
                       const link = 'link' in linkItem ? linkItem.link : linkItem
+                      const newTab = link?.newTab
 
                       return (
                         <CMSLink
@@ -96,7 +97,7 @@ const BreadcrumbsBar: React.FC<Props> = ({
                           {...link}
                           appearance={'text'}
                           buttonProps={{
-                            icon: ('icon' in link && link?.icon) ?? undefined,
+                            icon: newTab ? 'arrow' : undefined,
                             labelStyle: 'regular',
                           }}
                         />
@@ -112,37 +113,24 @@ const BreadcrumbsBar: React.FC<Props> = ({
                     <ChevronIcon className={classes.icon} />{' '}
                   </summary>
                   <div className={classes.dropdownContent}>
-                    {Array.isArray(breadcrumbs) &&
-                      breadcrumbs
-                        .filter(link => Boolean(link.url))
-                        .map(({ url, label }, i) => {
-                          return (
-                            <CMSLink
-                              className={classes.link}
-                              key={i}
-                              url={url}
-                              label={label}
-                              appearance={undefined}
-                            />
-                          )
-                        })}
                     {Array.isArray(links) &&
-                      links
-                        .filter(link => Boolean('url' in link && link.url))
-                        .map((link, i) => {
-                          return (
-                            <CMSLink
-                              className={classes.link}
-                              key={i}
-                              {...link}
-                              appearance={'text'}
-                              buttonProps={{
-                                icon: ('icon' in link && link.icon) ?? undefined,
-                                labelStyle: 'regular',
-                              }}
-                            />
-                          )
-                        })}
+                      links.map((linkItem, i) => {
+                        const link = 'link' in linkItem ? linkItem.link : linkItem
+                        const newTab = link?.newTab
+
+                        return (
+                          <CMSLink
+                            className={classes.link}
+                            key={i}
+                            {...link}
+                            appearance={'text'}
+                            buttonProps={{
+                              icon: newTab ? 'arrow' : undefined,
+                              labelStyle: 'regular',
+                            }}
+                          />
+                        )
+                      })}
                   </div>
                 </details>
               </div>

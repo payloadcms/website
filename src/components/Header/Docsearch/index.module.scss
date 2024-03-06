@@ -3,7 +3,7 @@
 .docSearch {
   position: relative;
   min-width: 20px;
-  margin-left: var(--base);
+  margin-left: calc(var(--base) * .75);
   :global(.DocSearch-Button) {
     padding: 0;
     margin:0;
@@ -28,7 +28,7 @@
       transform: translateY(2px);
     }
 
-    & svg { 
+    & svg {
       display: none;
     }
   }

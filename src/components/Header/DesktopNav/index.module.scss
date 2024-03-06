@@ -51,7 +51,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     background: var(--theme-bg);
     opacity: 0.9;
   }
-  
+
   &:after {
     backdrop-filter: blur(5px);
     opacity: 0;
@@ -62,7 +62,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   &:before, &:after {
     transition: all var(--trans-default) $curve;
   }
-  
+
   &:before {
     background: var(--theme-elevation-800);
     opacity: 0.15;
@@ -118,7 +118,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .tabs {
   position: relative;
-  padding: 0;  
+  padding: 0;
   flex-grow: 1;
   display: flex;
   flex-direction: row;
@@ -169,6 +169,10 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .description {
   @include headerText;
   font-size: calc(var(--base)*1.1);
+
+  @include large-break {
+    font-size: calc(var(--base)*1.25);
+  }
 }
 
 .dropdown {
@@ -309,7 +313,8 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   align-items: center;
   flex-direction: row;
   transition: all var(--trans-default) $curve;
-  
+  letter-spacing: 0;
+
   &:hover {
     transition: all var(--trans-default) $curve;
     opacity: 0.8;
@@ -334,7 +339,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 }
 
 .secondaryNavItems {
-  height: 100%; 
+  height: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -343,6 +348,12 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   opacity: 0;
   visibility: hidden;
   transition: all var(--trans-default) $curve;
+
+  & > a {
+    &:hover {
+      opacity: .8;
+    }
+  }
 }
 
 .show {
@@ -361,18 +372,27 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .icons {
   display: flex;
   align-items: center;
-  
+
   > * {
-    margin-right: var(--base);
-    
+    margin-right: calc(var(--base) * .75);
+
     &:last-child {
       margin-right: 0;
     }
   }
 }
 
-.discord {
-  display: flex;
+.github {
+  width: calc(var(--base) * 1.25);
+  margin-bottom: calc(var(--base) * 0.125);
+
+  @include large-break {
+    margin-bottom: calc(var(--base) * 0.25);
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 .dark {

@@ -7,13 +7,38 @@
   text-decoration: none;
   margin-bottom: calc(var(--base) * 5.4);
 
+  .scanline {
+    transition: background-color var(--trans-default) linear;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--theme-elevation-1000);
+    transition: width var(--trans-default) linear;
+  }
+
   @include mid-break {
     padding: calc(var(--base) * 1.5);
+  }
+
+  &:hover {
+    .scanline {
+      background-color: var(--theme-elevation-50);
+    }
+
+    &::after {
+      width: 100%;
+    }
   }
 }
 
 .scanline {
-  width: 100%;
+  width: calc(100% - 2px);
   border-top: 1px solid var(--grid-line-dark);
   border-bottom: 1px solid var(--grid-line-dark);
 

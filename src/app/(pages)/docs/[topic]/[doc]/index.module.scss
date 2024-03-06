@@ -107,6 +107,22 @@
   border-top: 1px solid var(--theme-border-color);
   transition: all var(--trans-default) linear;
 
+  .nextLabel svg {
+    transform: translate3D(-5px, 5px, 0);
+    opacity: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--theme-elevation-1000);
+    transition: width var(--trans-default) linear;
+  }
+
   h3 {
     margin: 0;
   }
@@ -116,9 +132,14 @@
     transition: all var(--trans-default) linear;
     background-color: var(--theme-elevation-50);
 
+    &::after {
+      width: 100%;
+    }
+
     .nextLabel svg {
       transition: all var(--trans-default) linear;
-      transform: translate3D(10px, -10px, 0);
+      transform: translate3D(0,0,0);
+      opacity: 1;
     }
   }
 

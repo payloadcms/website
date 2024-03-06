@@ -4,7 +4,8 @@
   position: relative;
 
   @include mid-break {
-    margin-bottom: var(--block-spacing);
+    margin: var(--block-spacing) 0;
+    padding: calc(var(--block-spacing) / 2) 0;
   }
 }
 

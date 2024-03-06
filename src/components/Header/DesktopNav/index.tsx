@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Avatar } from '@components/Avatar'
 import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
-import { DiscordIcon } from '@root/graphics/DiscordIcon'
+import { GitHubIcon } from '@root/graphics/GitHub'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { MainMenu } from '@root/payload-types'
 import { useAuth } from '@root/providers/Auth'
@@ -255,13 +255,13 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
               )}
               <div className={classes.icons}>
                 <a
-                  className={classes.discord}
-                  href="https://discord.com/invite/r6sCXqVk3v"
+                  className={classes.github}
+                  href="https://github.com/payloadcms/payload"
                   target="_blank"
                   rel="noreferrer"
-                  aria-label="Payload's Discord"
+                  aria-label="Payload's GitHub"
                 >
-                  <DiscordIcon />
+                  <GitHubIcon />
                 </a>
                 <DocSearch />
               </div>
