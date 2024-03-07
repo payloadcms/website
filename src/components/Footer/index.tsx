@@ -173,7 +173,7 @@ export const Footer: React.FC<FooterType> = props => {
   return (
     <footer ref={wrapperRef} className={classes.footer} data-theme="dark">
       <BackgroundGrid
-        zIndex={0}
+        zIndex={2}
         className={[classes.background, isCloudPage ? classes.topBorder : '']
           .filter(Boolean)
           .join(' ')}
@@ -329,6 +329,8 @@ export const Footer: React.FC<FooterType> = props => {
             </div>
           </div>
         </div>
+      </Gutter>
+      <Gutter className={classes.payload3dContainer}>
         <Payload3D />
       </Gutter>
     </footer>
