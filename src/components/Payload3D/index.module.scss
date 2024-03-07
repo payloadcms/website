@@ -35,17 +35,16 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .gradient {
   transform: translate3d(calc(var(--mouse-x, -100%)* 1px - var(--base)* 35), calc(var(--mouse-y, -100%)* 1px - var(--base)* 35), 0px);
   position: absolute;
-  filter: blur(600px);
+  filter: blur(100px);
   width: calc(var(--base)* 70);
   height: calc(var(--base)* 70);
   aspect-ratio: 1 / 1;
   border-radius: 100%;
-  opacity: .35;
   transition: opacity 1s $curve;
   background: var(--color-base-0);
+  background: radial-gradient(circle at center, rgba(255,255,255,0.20), rgba(255,255,255,0.10), rgba(255,255,255,0));
 
   @include mid-break {
-    filter: blur(300px);
     transform: translate3d(calc(var(--mouse-x, -100%)* 1px - var(--base)* 17.5), calc(var(--mouse-y, -100%)* 1px - var(--base)* 17.5), 0px);
     width: calc(var(--base)* 35);
     height: calc(var(--base)* 35);
