@@ -12,6 +12,49 @@
   }
 }
 
+.cta {
+  padding: calc(var(--base) * 1.5);
+  position: relative;
+
+  > * {
+    position: relative;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    height: 100%;
+    width: calc(100% - 1px);
+  }
+
+  &:first {
+    border-top: 1px solid var(--grid-line-dark);
+  }
+
+  &:last-of-type {
+    border-bottom: 1px solid var(--grid-line-dark);
+  }
+
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-light);
+
+    &::before {
+      background: var(--color-base-0);
+    }
+  }
+
+  @include data-theme-selector('dark') {
+    border-color: var(--grid-line-dark);
+
+    &::before {
+      background: var(--color-base-1000);
+    }
+  }
+}
+
 .background {
   background: var(--color-base-900);
   padding: var(--base);
