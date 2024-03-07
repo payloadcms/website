@@ -12,8 +12,8 @@
 
 .post {
   height: 100%;
-  padding-top: var(--base);
-  margin: var(--base) calc(var(--base) * 4);
+  padding: var(--base) 0;
+  margin: var(--base) calc(var(--base) * 4) calc(var(--base) * 2) calc(var(--base) * 4);
 }
 
 .ctaWrap {

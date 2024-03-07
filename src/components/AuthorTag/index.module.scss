@@ -172,3 +172,19 @@
     margin: 0 calc(var(--base) * 0.5);
   }
 }
+
+
+:global([data-theme="light"]) {
+
+  .teamLink {
+    & strong {
+      color: var(--color-blue-600);
+    }
+  }
+  
+  .twitterIcon {
+    & path {
+      fill: var(--color-blue-900);
+    }
+  }
+}

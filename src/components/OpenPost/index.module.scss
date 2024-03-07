@@ -9,8 +9,9 @@
 
 :global([data-theme="light"]) {
   .next {
-    background: var(--theme-warning-200);
-    border-bottom: 1px solid var(--theme-warning-500);
+    background: none;
+    border-top: 1px solid var(--theme-elevation-100);
+    border-bottom: 1px solid var(--theme-elevation-100);
   }
 }
 

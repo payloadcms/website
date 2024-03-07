@@ -2,7 +2,7 @@
 
 .comments {
   padding: 0;
-  margin-bottom: calc(var(--base) * 4);
+  margin-bottom: calc(var(--base) * 2);
   list-style: none;
 
   @include mid-break {
@@ -112,15 +112,23 @@
 
 :global([data-theme="light"]) {
   .answer {
-    background-color: var(--theme-success-350);
-    border-color: var(--theme-success-750);
+    background-color: var(--theme-blue-50);
+    border-color: var(--theme-elevation-100);
     color: var(--theme-text);
   }
 
   .answerHeader {
-    background: var(--theme-success-850);
-    color: var(--theme-success-150);
-    border-bottom: 1px solid var(--theme-success-650);
+    background-color: var(--theme-blue-100);
+    color: var(--theme-elevation-900);
+    border-bottom: 1px solid var(--theme-elevation-100);
+  }
+
+  .crosshairs {
+    color: var(--theme-elevation-100);
+  }
+
+  .reply {
+    background-color: transparent;
   }
 }
 

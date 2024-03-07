@@ -13,9 +13,6 @@ export const ArchiveSearchBar: React.FC<{ className: string }> = ({ className })
       <div className={classes.searchIcon}>
         <SearchIconV2 />
       </div>
-      {Array.from({ length: 4 }).map((_, i) => (
-        <CrosshairIcon key={i} className={classes.crosshair} size="large" />
-      ))}
     </div>
   )
 }

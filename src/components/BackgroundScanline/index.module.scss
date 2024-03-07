@@ -74,3 +74,8 @@
   }
 }
 
+:global([data-theme="light"]) {
+  .crosshair {
+    color: var(--theme-elevation-400);
+  }
+}
