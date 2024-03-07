@@ -7,6 +7,10 @@
     margin: var(--block-spacing) 0;
     padding: calc(var(--block-spacing) / 2) 0;
   }
+
+  :global(.code-block) {
+    overflow: hidden;
+  }
 }
 
 .scroll-direction--down {

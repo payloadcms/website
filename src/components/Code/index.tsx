@@ -54,7 +54,7 @@ const Code: React.FC<Props> = props => {
     showLineNumbers = true,
     parentClassName,
   } = props
-  const classNames = [classes.code, className && className].filter(Boolean).join(' ')
+  const classNames = [classes.code, 'code-block', className && className].filter(Boolean).join(' ')
 
   const getCodeBlip = useCallback(
     (rowNumber: number) => {
