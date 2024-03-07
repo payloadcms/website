@@ -161,7 +161,6 @@
   height: 100%;
   max-height: 100%;
   padding-top: var(--gutter-h);
-  background-color: var(--theme-bg);
 }
 
 .mobileMenuItems {
@@ -280,7 +279,8 @@
 .subMenuWrap {
   position: relative;
   padding: var(--base) 0;
-  height: 100%;
+  top: 0;
+  bottom: 0;
 }
 
 .newProject {
@@ -313,6 +313,12 @@
     width: calc(var(--base) * 0.85);
     height: calc(var(--base) * 0.85);
   }
+}
+
+.linkArrow {
+  margin-left: calc(var(--base) * 0.5);
+  width: calc(var(--base) * 0.5);
+  height: calc(var(--base) * 0.5);
 }
 
 .listLabelWrap {

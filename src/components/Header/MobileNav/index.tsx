@@ -183,7 +183,11 @@ const SubMenuModal: React.FC<
                         <div className={classes.listWrap}>
                           {item.listLinks.links &&
                             item.listLinks.links.map((link, linkIndex) => (
-                              <CMSLink className={classes.link} key={linkIndex} {...link.link} />
+                              <CMSLink className={classes.link} key={linkIndex} {...link.link}>
+                                {link.link?.newTab && link.link?.type === 'custom' && (
+                                  <ArrowIcon className={classes.linkArrow} />
+                                )}
+                              </CMSLink>
                             ))}
                         </div>
                       </div>
