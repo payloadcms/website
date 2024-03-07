@@ -144,7 +144,7 @@
   display: none;
   visibility: hidden;
   position: relative;
-  background-color: var(--theme-bg);
+  background-color: transparent;
 
   ::-webkit-scrollbar {
     opacity: transparent;

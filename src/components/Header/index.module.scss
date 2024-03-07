@@ -62,12 +62,6 @@
   border-bottom: 1px solid var(--theme-border-color);
   
   &:before, &:after {
-    opacity: 0;
-  }
-
-  @include mobile-header-break {
-    &:before, &:after {
-      opacity: 1;
-    }
+    opacity: 1;
   }
 }
