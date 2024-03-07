@@ -376,6 +376,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .icons {
   display: flex;
   align-items: center;
+  font-size: calc(var(--base) * .75);
 
   > * {
     margin-right: calc(var(--base) * .75);
@@ -387,11 +388,16 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 }
 
 .github {
-  width: calc(var(--base) * 1.25);
-  margin-bottom: calc(var(--base) * 0.125);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * 0.5);
+  svg {
+    width: calc(var(--base) * 1.25);
+  }
+
 
   @include large-break {
-    margin-bottom: calc(var(--base) * 0.25);
+      margin-bottom: calc(var(--base) * -0.25);
   }
 
   &:hover {

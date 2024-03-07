@@ -9,6 +9,7 @@ import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { MainMenu } from '@root/payload-types'
 import { useAuth } from '@root/providers/Auth'
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver'
+import { useStarCount } from '@root/utilities/use-star-count'
 import { FullLogo } from '../../../graphics/FullLogo'
 import { CMSLink } from '../../CMSLink'
 import { DocSearch } from '../Docsearch'
@@ -30,6 +31,8 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
 
   const menuItemRefs = [] as (HTMLButtonElement | null)[]
   const dropdownMenuRefs = [] as (HTMLDivElement | null)[]
+
+  const starCount = useStarCount()
 
   React.useEffect(() => {
     if (activeTab !== undefined) {
@@ -262,6 +265,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
                   aria-label="Payload's GitHub"
                 >
                   <GitHubIcon />
+                  {starCount}
                 </a>
                 <DocSearch />
               </div>

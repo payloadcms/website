@@ -8,7 +8,13 @@ export const useStarCount = (): string | undefined => {
       const { totalStars } = await fetch('/api/star-count', { next: { revalidate: 900 } }).then(
         res => res.json(),
       )
-      if (totalStars) setStarCount(totalStars.toLocaleString())
+      if (totalStars) {
+        if (totalStars > 1000) {
+          setStarCount((totalStars / 1000).toFixed(1) + 'k')
+        } else {
+          setStarCount(totalStars.toLocaleString())
+        }
+      }
     }
 
     getStarCount()
