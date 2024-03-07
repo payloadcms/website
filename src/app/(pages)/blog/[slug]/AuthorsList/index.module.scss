@@ -28,11 +28,11 @@
   align-items: center;
   padding: 0 0 calc(var(--base) * 0.5) 0;
 
-  p {
-    font-size: calc(var(--base) * 0.8);
+  span {
     color: var(--theme-elevation-900);
     margin: 0;
     line-height: 1;
+    letter-spacing: 0;
   }
 }
 

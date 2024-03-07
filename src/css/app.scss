@@ -27,8 +27,7 @@
   --header-height: 90px;
   --top-bar-height: 46px;
 
-  --font-body-size: calc(var(--base) * .9);
-  --font-header-size: 20px;
+  --font-body-size: 18px;
 
   --z-popup: 10;
   --z-status: 30;
@@ -48,8 +47,8 @@
   --trans-default: 150ms;
 
   @include extra-large-break {
+    --font-body-size: 16px;
     --gutter-h: calc(var(--base) * 8);
-    --font-header-size: 18px;
   }
 
   @include large-break {
@@ -58,8 +57,6 @@
     --block-spacing: calc(var(--base) * 5);
     --new-block-spacing: calc(var(--base) * 6);
     --header-height: 76px;
-    --font-body-size: calc(var(--base) * 1.125);
-    --font-header-size: 16px;
   }
 
   @include mobile-header-break {
@@ -76,7 +73,6 @@
   @include small-break {
     --block-spacing: calc(var(--base) * 2);
     --gutter-h: calc(var(--base) * 1);
-    --font-body-size: 16px;
   }
 }
 

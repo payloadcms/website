@@ -90,15 +90,15 @@
 
   & svg {
     & > * {
-      transition: all var(--trans-default) ease; 
+      transition: all var(--trans-default) ease;
     }
   }
 }
 
 .hamburgerOpen {
- & svg { 
+ & svg {
   & > * {
-    transition: all var(--trans-default) ease; 
+    transition: all var(--trans-default) ease;
   }
 
   & rect {
@@ -107,11 +107,11 @@
       top: 0;
       transform-origin: top left;
     }
-  
+
     &:nth-child(2) {
       opacity: 0;
     }
-  
+
     &:nth-child(3) {
       bottom: 0;
       transform: translateX(5px) rotate(-45deg);
@@ -194,7 +194,6 @@
   font-size: calc(var(--base)*1.25);
   padding: calc(var(--base)*1.25);
   font-weight: 500;
-  letter-spacing: -0.03em;
   margin: 0;
   text-decoration: none;
   color: var(--theme-text);
@@ -202,7 +201,7 @@
   border-left: 1px solid var(--theme-border-color);
   border-bottom: 1px solid var(--theme-border-color);
   align-items: center;
-  display: flex; 
+  display: flex;
   justify-content: space-between;
   background-color: var(--theme-bg);
 
@@ -213,7 +212,7 @@
   &:hover, &:focus {
     text-decoration: none;
   }
-  
+
   @include mobile-header-break {
     margin: 0;
   }
@@ -265,7 +264,7 @@
   left: 0;
   pointer-events: none;
   border: none;
-  padding: 0;    
+  padding: 0;
 }
 
 .linkWrap {
@@ -303,7 +302,7 @@
 }
 
 .featuredLinks {
-  font-size: calc(var(--base) * 1.25);
+  font-size: var(--font-size-body);
   text-decoration: none;
   display: flex;
   gap: calc(var(--base) * 0.75);
@@ -325,7 +324,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 0 calc(var(--base) * .5) 0; 
+  margin: 0 0 calc(var(--base) * .5) 0;
 }
 
 .listWrap {
@@ -347,9 +346,8 @@
 }
 
 .tag {
-  font-size: 11px;
+  @include h6;
   margin: 0 0 calc(var(--base) * 1.5) 0;
   font-weight: normal;
   text-transform: uppercase;
-  letter-spacing: 2.75px;
 }

@@ -66,8 +66,8 @@
 }
 
 .date {
-  @include label;
-  font-size: calc(var(--base) * 0.8);
+  @include body;
+  letter-spacing: 0;
   color: var(--theme-elevation-900);
   margin: 0;
 }
