@@ -13,6 +13,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   }
 
   @include small-break {
+    pointer-events: none;
     padding-top: calc(var(--base) * 4);
     margin-bottom: calc(var(--base) * -10);
   }
