@@ -9,6 +9,7 @@ import { Footer as FooterType } from '@types'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
+import { ChangeHeaderTheme } from '@components/ChangeHeaderTheme'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
 import Payload3D from '@components/Payload3D'
@@ -171,168 +172,170 @@ export const Footer: React.FC<FooterType> = props => {
   }, [pathname, formData, router])
 
   return (
-    <footer ref={wrapperRef} className={classes.footer} data-theme="dark">
-      <BackgroundGrid
-        zIndex={2}
-        className={[classes.background, isCloudPage ? classes.topBorder : '']
-          .filter(Boolean)
-          .join(' ')}
-      />
-      <Gutter className={classes.container}>
-        <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')}>
-          <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
-            <p className={classes.colHeader}>{products.label}</p>
-            <div className={classes.colItems}>
-              {products?.navItems?.map(({ link }, index) => {
-                return (
-                  <React.Fragment key={index}>
-                    <CMSLink className={classes.link} {...link} />
-                  </React.Fragment>
-                )
-              })}
+    <ChangeHeaderTheme theme="dark">
+      <footer ref={wrapperRef} className={classes.footer} data-theme="dark">
+        <BackgroundGrid
+          zIndex={2}
+          className={[classes.background, isCloudPage ? classes.topBorder : '']
+            .filter(Boolean)
+            .join(' ')}
+        />
+        <Gutter className={classes.container}>
+          <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')}>
+            <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
+              <p className={classes.colHeader}>{products.label}</p>
+              <div className={classes.colItems}>
+                {products?.navItems?.map(({ link }, index) => {
+                  return (
+                    <React.Fragment key={index}>
+                      <CMSLink className={classes.link} {...link} />
+                    </React.Fragment>
+                  )
+                })}
+              </div>
+            </div>
+
+            <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
+              <p className={classes.colHeader}>{developers.label}</p>
+              <div className={classes.colItems}>
+                {developers?.navItems?.map(({ link }, index) => {
+                  return (
+                    <React.Fragment key={index}>
+                      <CMSLink className={classes.link} {...link} />
+                    </React.Fragment>
+                  )
+                })}
+              </div>
+            </div>
+
+            <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
+              <p className={classes.colHeader}>{company.label}</p>
+              <div className={classes.colItems}>
+                {company?.navItems?.map(({ link }, index) => {
+                  return (
+                    <React.Fragment key={index}>
+                      <CMSLink className={classes.link} {...link} />
+                    </React.Fragment>
+                  )
+                })}
+              </div>
+            </div>
+
+            <div className={['cols-4 cols-m-4 cols-s-8'].filter(Boolean).join(' ')}>
+              <p className={`${classes.colHeader} ${classes.thirdColumn}`}>Stay connected</p>
+              <div>
+                {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
+                <FormComponent onSubmit={onSubmit}>
+                  <div className={classes.inputWrap}>
+                    <label className="visually-hidden" htmlFor={newsletterId}>
+                      Subscribe to our newsletter
+                    </label>
+                    <Text
+                      type="text"
+                      path={newsletterId}
+                      name="email"
+                      value={formData.email}
+                      customOnChange={handleChange}
+                      required
+                      validate={validateEmail}
+                      className={classes.emailInput}
+                      placeholder="Enter your email"
+                    />
+                    <button ref={submitButtonRef} className={classes.submitButton} type="submit">
+                      <ArrowIcon className={[classes.inputArrow].filter(Boolean).join(' ')} />
+                      <span className="visually-hidden">Submit</span>
+                    </button>
+                  </div>
+
+                  <div className={classes.subscribeAction}>
+                    <p className={classes.subscribeDesc}>
+                      Sign up to receive periodic updates and feature releases to your email.
+                    </p>
+                  </div>
+                </FormComponent>
+              </div>
+
+              <div className={classes.socialLinks}>
+                <a
+                  href="https://www.instagram.com/payloadcms/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={classes.socialIconLink}
+                  aria-label="Payload's Instagram page"
+                >
+                  <InstagramIcon />
+                </a>
+                <a
+                  href="https://www.youtube.com/channel/UCyrx4Wpd4SBIpqUKlkb6N1Q"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={classes.socialIconLink}
+                  aria-label="Payload's YouTube channel"
+                >
+                  <YoutubeIcon />
+                </a>
+                <a
+                  href="https://twitter.com/payloadcms"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${classes.socialIconLink} ${classes.twitterIcon}`}
+                  aria-label="Payload's Twitter page"
+                >
+                  <TwitterIconAlt />
+                </a>
+                <a
+                  href="https://www.facebook.com/payloadcms/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={classes.socialIconLink}
+                  aria-label="Payload's Facebook page"
+                >
+                  <FacebookIcon />
+                </a>
+                <a
+                  href="https://discord.com/invite/r6sCXqVk3v"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={classes.socialIconLink}
+                  aria-label="Payload's Discord"
+                >
+                  <DiscordIcon />
+                </a>
+              </div>
+
+              <div className={classes.selectContainer}>
+                <label className="visually-hidden" htmlFor={themeId}>
+                  Switch themes
+                </label>
+                {selectRef?.current && (
+                  <div className={`${classes.switcherIcon} ${classes.themeIcon}`}>
+                    {selectRef.current.value === 'auto' && <ThemeAutoIcon />}
+                    {selectRef.current.value === 'light' && <ThemeLightIcon />}
+                    {selectRef.current.value === 'dark' && <ThemeDarkIcon />}
+                  </div>
+                )}
+
+                <select
+                  id={themeId}
+                  onChange={e => onThemeChange(e.target.value as Theme & 'auto')}
+                  ref={selectRef}
+                >
+                  <option value="auto">Auto</option>
+                  <option value="light">Light</option>
+                  <option value="dark">Dark</option>
+                </select>
+
+                <ChevronUpDownIcon
+                  className={`${classes.switcherIcon} ${classes.upDownChevronIcon}`}
+                />
+              </div>
             </div>
           </div>
-
-          <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
-            <p className={classes.colHeader}>{developers.label}</p>
-            <div className={classes.colItems}>
-              {developers?.navItems?.map(({ link }, index) => {
-                return (
-                  <React.Fragment key={index}>
-                    <CMSLink className={classes.link} {...link} />
-                  </React.Fragment>
-                )
-              })}
-            </div>
-          </div>
-
-          <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
-            <p className={classes.colHeader}>{company.label}</p>
-            <div className={classes.colItems}>
-              {company?.navItems?.map(({ link }, index) => {
-                return (
-                  <React.Fragment key={index}>
-                    <CMSLink className={classes.link} {...link} />
-                  </React.Fragment>
-                )
-              })}
-            </div>
-          </div>
-
-          <div className={['cols-4 cols-m-4 cols-s-8'].filter(Boolean).join(' ')}>
-            <p className={`${classes.colHeader} ${classes.thirdColumn}`}>Stay connected</p>
-            <div>
-              {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
-              <FormComponent onSubmit={onSubmit}>
-                <div className={classes.inputWrap}>
-                  <label className="visually-hidden" htmlFor={newsletterId}>
-                    Subscribe to our newsletter
-                  </label>
-                  <Text
-                    type="text"
-                    path={newsletterId}
-                    name="email"
-                    value={formData.email}
-                    customOnChange={handleChange}
-                    required
-                    validate={validateEmail}
-                    className={classes.emailInput}
-                    placeholder="Enter your email"
-                  />
-                  <button ref={submitButtonRef} className={classes.submitButton} type="submit">
-                    <ArrowIcon className={[classes.inputArrow].filter(Boolean).join(' ')} />
-                    <span className="visually-hidden">Submit</span>
-                  </button>
-                </div>
-
-                <div className={classes.subscribeAction}>
-                  <p className={classes.subscribeDesc}>
-                    Sign up to receive periodic updates and feature releases to your email.
-                  </p>
-                </div>
-              </FormComponent>
-            </div>
-
-            <div className={classes.socialLinks}>
-              <a
-                href="https://www.instagram.com/payloadcms/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes.socialIconLink}
-                aria-label="Payload's Instagram page"
-              >
-                <InstagramIcon />
-              </a>
-              <a
-                href="https://www.youtube.com/channel/UCyrx4Wpd4SBIpqUKlkb6N1Q"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes.socialIconLink}
-                aria-label="Payload's YouTube channel"
-              >
-                <YoutubeIcon />
-              </a>
-              <a
-                href="https://twitter.com/payloadcms"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${classes.socialIconLink} ${classes.twitterIcon}`}
-                aria-label="Payload's Twitter page"
-              >
-                <TwitterIconAlt />
-              </a>
-              <a
-                href="https://www.facebook.com/payloadcms/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes.socialIconLink}
-                aria-label="Payload's Facebook page"
-              >
-                <FacebookIcon />
-              </a>
-              <a
-                href="https://discord.com/invite/r6sCXqVk3v"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes.socialIconLink}
-                aria-label="Payload's Discord"
-              >
-                <DiscordIcon />
-              </a>
-            </div>
-
-            <div className={classes.selectContainer}>
-              <label className="visually-hidden" htmlFor={themeId}>
-                Switch themes
-              </label>
-              {selectRef?.current && (
-                <div className={`${classes.switcherIcon} ${classes.themeIcon}`}>
-                  {selectRef.current.value === 'auto' && <ThemeAutoIcon />}
-                  {selectRef.current.value === 'light' && <ThemeLightIcon />}
-                  {selectRef.current.value === 'dark' && <ThemeDarkIcon />}
-                </div>
-              )}
-
-              <select
-                id={themeId}
-                onChange={e => onThemeChange(e.target.value as Theme & 'auto')}
-                ref={selectRef}
-              >
-                <option value="auto">Auto</option>
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
-              </select>
-
-              <ChevronUpDownIcon
-                className={`${classes.switcherIcon} ${classes.upDownChevronIcon}`}
-              />
-            </div>
-          </div>
-        </div>
-      </Gutter>
-      <Gutter className={classes.payload3dContainer}>
-        <Payload3D />
-      </Gutter>
-    </footer>
+        </Gutter>
+        <Gutter className={classes.payload3dContainer}>
+          <Payload3D />
+        </Gutter>
+      </footer>
+    </ChangeHeaderTheme>
   )
 }
