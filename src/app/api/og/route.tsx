@@ -7,7 +7,7 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
   try {
     // Make sure the font exists in the specified path:
     const untitledSansFont = await fetch(
-      new URL('../../../../public/fonts/UntitledSans-Regular.woff2', import.meta.url),
+      new URL('../../../../public/fonts/UntitledSans-Regular.woff', import.meta.url),
     ).then(res => res.arrayBuffer())
 
     const robotoFont = await fetch(
@@ -30,87 +30,159 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
           style={{
             height: '100%',
             width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
             backgroundColor: '#000',
             color: '#fff',
-            padding: '100px',
-            fontFamily: 'UntiledSans',
+            padding: 75,
+            display: 'flex',
+            position: 'relative',
           }}
         >
+          {/* BG lines */}
+          {Array.from({ length: 6 }).map((_, i) => {
+            const linePositions = [
+              { top: 0, bottom: 0, left: 75, width: 1 },
+              { top: 0, bottom: 0, left: '50%', width: 1 },
+              { top: 0, bottom: 0, right: 75, width: 1 },
+              { left: 0, right: 0, top: 75, height: 1 },
+              { left: 0, right: 0, top: '50vh', height: 1 },
+              { left: 0, right: 0, bottom: 75, height: 1 },
+            ]
+
+            return (
+              <div
+                key={i}
+                style={{
+                  position: 'absolute',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  ...linePositions[i],
+                }}
+              />
+            )
+          })}
           <div
             style={{
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: '#000',
+              color: '#fff',
+              display: 'flex',
+              position: 'absolute',
+              backgroundImage: `url(${process.env.NEXT_PUBLIC_SITE_URL}/images/scanline-light.png)`,
+              opacity: 0.08,
+              backgroundRepeat: 'repeat',
+            }}
+          />
+          <div
+            style={{
+              height: '100%',
+              width: '100%',
               display: 'flex',
               flexDirection: 'column',
-              textTransform: 'capitalize',
-              fontSize: 50,
+              justifyContent: 'space-between',
+              padding: 65,
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              fontFamily: 'UntitledSans',
+              backgroundColor: '#000',
+              position: 'relative',
             }}
           >
-            {topic && topic}
             <div
               style={{
                 display: 'flex',
-                flexWrap: 'wrap',
-                fontSize: 90,
-                lineHeight: 1,
-                marginTop: '10px,',
+                flexDirection: 'column',
+                textTransform: 'capitalize',
+                fontSize: 28,
+                letterSpacing: '-0.56px',
+                lineHeight: 1.2,
               }}
             >
-              {titlePerWord?.map((word, i) => {
-                return (
-                  <span
-                    key={i}
-                    style={{
-                      display: 'flex',
-                      position: 'relative',
-                      color: '#B6FFE0',
-                      paddingRight: '15px',
-                    }}
-                  >
+              {topic && topic}
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  fontSize: 72,
+                  lineHeight: 1,
+                  marginTop: 20,
+                  fontWeight: 500,
+                }}
+              >
+                {titlePerWord?.map((word, i) => {
+                  return (
                     <span
+                      key={i}
                       style={{
-                        position: 'absolute',
-                        content: ' ',
-                        top: 55,
-                        bottom: 0,
-                        left: -15,
-                        right: 0,
-                        backgroundColor: '#1B2622',
+                        display: 'flex',
+                        position: 'relative',
+                        paddingRight: '15px',
                       }}
-                    />
-                    {word}
-                  </span>
-                )
-              })}
+                    >
+                      {word}
+                    </span>
+                  )
+                })}
+              </div>
             </div>
-          </div>
-          <div
-            style={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'flex-end',
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={`${process.env.NEXT_PUBLIC_SITE_URL}/images/fullLogo.png`}
-              alt="Payload CMS"
-              width="300"
-              height="70"
-            />
             <div
               style={{
-                textTransform: 'uppercase',
-                letterSpacing: '4px',
-                fontSize: 20,
-                fontFamily: 'Roboto',
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 30,
               }}
             >
-              Documentation
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`${process.env.NEXT_PUBLIC_SITE_URL}/images/favicon-light.svg`}
+                alt="Payload CMS"
+                width="40"
+                height="40"
+              />
+              <div
+                style={{
+                  textTransform: 'uppercase',
+                  letterSpacing: '4px',
+                  fontSize: 20,
+                }}
+              >
+                Documentation
+              </div>
             </div>
+
+            {/* Crosshairs */}
+            {Array.from({ length: 2 }).map((_, i) => {
+              const crosshairPosition =
+                i === 0
+                  ? { top: 0, left: 0, transform: 'translate(-50%, -50%)' }
+                  : { bottom: 0, right: 0, transform: 'translate(50%, 50%)' }
+
+              return (
+                <div
+                  key={i}
+                  style={{
+                    position: 'absolute',
+                    display: 'flex',
+                    opacity: 0.5,
+                    ...crosshairPosition,
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="21"
+                    viewBox="0 0 20 21"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1"
+                  >
+                    <path d="M10 0.332031V20.332" />
+                    <path d="M0 10.332L20 10.332" />
+                  </svg>
+                </div>
+              )
+            })}
           </div>
         </div>
       ),
