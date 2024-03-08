@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
 import { Media } from '@components/Media'
@@ -23,7 +24,9 @@ type PositionedLogo = {
   isVisible: boolean
 }
 
-export type LogoGridProps = Extract<Page['layout'][0], { blockType: 'logoGrid' }>
+export type LogoGridProps = Extract<Page['layout'][0], { blockType: 'logoGrid' }> & {
+  padding?: PaddingProps
+}
 
 const TOTAL_CELLS = 8
 const ANIMATION_DURATION = 650 // Duration for fade-out and fade-in in milliseconds
@@ -37,8 +40,8 @@ const getRandomPosition = (excludePositions: number[]) => {
   return newPos
 }
 
-export const LogoGrid: React.FC<LogoGridProps> = ({ logoGridFields }) => {
-  const { richText, enableLink, link, logos } = logoGridFields
+export const LogoGrid: React.FC<LogoGridProps> = ({ logoGridFields, padding }) => {
+  const { richText, enableLink, link, logos, settings } = logoGridFields
 
   const [logoPositions, setLogoPositions] = useState<PositionedLogo[]>([])
   const [currentAnimatingIndex, setCurrentAnimatingIndex] = useState<number | null>(null)
@@ -97,9 +100,13 @@ export const LogoGrid: React.FC<LogoGridProps> = ({ logoGridFields }) => {
   }, [logoPositions, currentAnimatingIndex, logos])
 
   return (
-    <div className={classes.logoGrid}>
+    <BlockWrapper
+      className={[classes.logoGrid].filter(Boolean).join(' ')}
+      padding={padding}
+      settings={settings}
+    >
       <Gutter>
-        <BackgroundGrid className={classes.backgroundGrid} />
+        <BackgroundGrid className={classes.backgroundGrid} zIndex={0} />
         <div className={[classes.logoGridContentWrapper, 'grid'].filter(Boolean).join(' ')}>
           <div className={[classes.richTextWrapper, 'cols-8 start-1'].filter(Boolean).join(' ')}>
             <RichText className={classes.richText} content={richText} />
@@ -172,6 +179,6 @@ export const LogoGrid: React.FC<LogoGridProps> = ({ logoGridFields }) => {
           </div>
         </div>
       </Gutter>
-    </div>
+    </BlockWrapper>
   )
 }

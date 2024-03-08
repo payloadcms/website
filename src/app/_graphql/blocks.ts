@@ -309,6 +309,7 @@ export const LOGO_GRID = `
 ...on LogoGrid {
   blockType
   logoGridFields {
+    settings ${SETTINGS}
     richText
     enableLink
     link ${LINK_FIELDS({ disableAppearance: true })}
