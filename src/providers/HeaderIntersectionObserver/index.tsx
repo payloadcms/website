@@ -73,6 +73,8 @@ export const HeaderIntersectionObserver: React.FC<HeaderIntersectionObserverProp
 
           if (intersectingElement) {
             setHeaderTheme(intersectingElement.target.getAttribute('data-theme') as Theme)
+          } else {
+            setHeaderTheme(theme)
           }
         },
         {
