@@ -45,7 +45,7 @@ export const QuoteBlock: React.FC<QuoteProps> = props => {
         aria-hidden={!isVisible}
         className={[classes.quote, 'cols-12'].filter(Boolean).join(' ')}
       >
-        {item.quote}”
+        &ldquo;{item.quote}&rdquo;
       </div>
 
       <div

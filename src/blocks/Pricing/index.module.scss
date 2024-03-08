@@ -69,8 +69,7 @@
   display: flex;
   padding: calc(var(--base) * 1.5);
   width: 100%;
-  font-size: calc(var(--base) * .875);
-  font-family: 'Roboto Mono', monospace;
+  @include code;
 
   @include mid-break {
     padding: calc(var(--base) * 1);
@@ -178,7 +177,7 @@
   justify-content: space-between;
   border: none;
   @include body;
-  font-weight: bold;
+  font-weight: 500;
   cursor: pointer;
 
 

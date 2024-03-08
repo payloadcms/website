@@ -127,7 +127,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .tab {
   @include btnReset;
-  @include headerText;
   cursor: pointer;
   height: 100%;
   text-decoration: none;
@@ -167,12 +166,8 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 }
 
 .description {
-  @include headerText;
-  font-size: calc(var(--base)*1.1);
-
-  @include large-break {
-    font-size: calc(var(--base)*1.25);
-  }
+  @include large-body;
+  max-width: 300px;
 }
 
 .dropdown {
@@ -274,13 +269,12 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 }
 
 .defaultLinkDescription {
-  @include headerText;
-  font-size: calc(var(--base)*0.8);
   min-height: calc(var(--base) * 5);
+  @include small;
 }
 
 .tab, .secondaryNavItems {
-  font-size: var(--font-header-size);
+  font-size: var(--font-body-size);
 }
 
 .linkList, .featuredLink {
@@ -376,7 +370,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .icons {
   display: flex;
   align-items: center;
-  font-size: calc(var(--base) * .75);
+  @include small;
 
   > * {
     margin-right: calc(var(--base) * .75);

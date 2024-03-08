@@ -20,13 +20,13 @@
   svg {
     height: auto;
   }
-  
+
   p {
     @include small;
     margin: 0;
     line-height: 1;
     color: currentColor;
-    font-weight: bold;
+    font-weight: 500;
     display: flex;
     align-items: center;
   }

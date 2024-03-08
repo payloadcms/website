@@ -24,8 +24,8 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .code {
   -webkit-text-size-adjust: 100%;
   padding: calc(var(--base) * 2);
-  font-size: calc(var(--base) * .75);
-  letter-spacing: .04em;
+  font-size: 14px;
+  letter-spacing: .1em;
   line-height: 1.5;
   background-color: var(--color-base-900);
   color: var(--color-base-100);
@@ -144,9 +144,13 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     }
   }
 
+  @include large-break {
+    font-size: 13px;
+  }
+
   @include mid-break {
     padding: var(--base);
-    font-size: calc(var(--base) * .75);
+    font-size: 13px;
 
     :global {
       .highlight-line {

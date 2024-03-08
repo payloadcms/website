@@ -22,7 +22,7 @@ const AuthorContent: React.FC<{
         <Media className={classes.authorImage} resource={author?.photo} />
       )}
       <div className={classes.authorInfo}>
-        <Label>{`${author?.firstName || 'Unknown'} ${author?.lastName || 'Author'}`}</Label>
+        <span>{`${author?.firstName || 'Unknown'} ${author?.lastName || 'Author'}`}</span>
         {author?.twitter && <div className={classes.twitter}>{`@${author?.twitter}`}</div>}
       </div>
     </div>

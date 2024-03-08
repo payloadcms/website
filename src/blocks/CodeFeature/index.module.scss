@@ -120,7 +120,6 @@
   cursor: pointer;
   padding: calc(var(--base) * 1) 0;
   @include body;
-  font-size: calc(var(--base) * 0.9);
   color: var(--color-base-300);
   white-space: nowrap;
 

@@ -73,7 +73,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .subscribeDesc {
   color: var(--color-base-0);
   margin: 0;
-  font-size: calc(var(--font-body-size) * 0.9);
+  @include small;
 }
 
 .inputWrap {
@@ -125,15 +125,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   top: calc(50% - var(--base) * 0.6);
 }
 
-.footerMeta {
-  margin-top: calc(var(--base) * 4);
-  align-items: flex-end;
-
-  @include mid-break {
-    margin-top: calc(var(--base) * 2);
-  }
-}
-
 .socialLinks {
   display: flex;
   flex-wrap: wrap;
@@ -154,19 +145,6 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   & svg {
     height: auto;
     width: calc( var(--base) * 1.6);
-  }
-}
-
-.copyright,
-.communityHelp {
-  font-size: calc(var(--font-body-size) * 0.925);
-  color: var(--theme-elevation-500);
-  margin: 0;
-}
-
-.themeCell {
-  @include mid-break {
-    grid-row: 3;
   }
 }
 

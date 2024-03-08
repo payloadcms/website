@@ -125,12 +125,13 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
             const isActive =
               openTopicPreferences?.includes(topicSlug) ||
               (topicParam === topicSlug && currentTopicIsOpen)
+            const childIsCurrent = topicParam === topicSlug && currentTopicIsOpen
 
             return (
               <React.Fragment key={topic.slug}>
                 <button
                   type="button"
-                  className={[classes.topic, isActive && classes['topic--open']]
+                  className={[classes.topic, childIsCurrent && classes['topic--active']]
                     .filter(Boolean)
                     .join(' ')}
                   ref={ref => (topicRefs.current[index] = ref)}
@@ -139,7 +140,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
                 >
                   {topic.slug.replace('-', ' ')}
                   <div className={classes.chevron}>
-                    <ChevronIcon size="medium" rotation={isActive ? 270 : 90} />
+                    <ChevronIcon size="small" rotation={isActive ? 270 : 90} />
                   </div>
                 </button>
                 <AnimateHeight height={isActive ? 'auto' : 0} duration={init ? 200 : 0}>
