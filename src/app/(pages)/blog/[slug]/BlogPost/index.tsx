@@ -105,6 +105,7 @@ export const BlogPost: React.FC<Post> = props => {
                   },
                 ]}
                 disableGutter
+                disableGrid
               />
             </div>
           </div>

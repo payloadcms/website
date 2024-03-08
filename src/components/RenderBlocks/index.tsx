@@ -79,13 +79,14 @@ type Props = {
   disableOuterSpacing?: true
   hero?: Page['hero']
   disableGutter?: boolean
+  disableGrid?: boolean
   heroTheme?: Page['hero']['theme']
   layout?: 'page' | 'post'
   customId?: string | null
 }
 
 export const RenderBlocks: React.FC<Props> = props => {
-  const { blocks, disableOuterSpacing, disableGutter, hero, layout, customId } = props
+  const { blocks, disableOuterSpacing, disableGutter, disableGrid, hero, layout, customId } = props
   const heroTheme = hero?.type === 'home' ? 'dark' : hero?.theme
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
   const { theme: themeFromContext } = useThemePreference()
@@ -209,6 +210,7 @@ export const RenderBlocks: React.FC<Props> = props => {
                       ...(blockType === 'banner' ? { paddingLeft: 32, paddingRight: 32 } : {}),
                     }}
                     disableGutter={disableGutter}
+                    disableGrid={disableGrid}
                   />
                 )
               }

@@ -11,6 +11,7 @@ import classes from './index.module.scss'
 
 type Props = Extract<ReusableContent['layout'][0], { blockType: 'mediaBlock' }> & {
   padding: PaddingProps
+  disableGrid?: boolean
 }
 
 export const MediaBlock: React.FC<Props & { disableGutter?: boolean; marginAdjustment?: any }> = ({
@@ -18,6 +19,7 @@ export const MediaBlock: React.FC<Props & { disableGutter?: boolean; marginAdjus
   disableGutter,
   marginAdjustment = {},
   padding,
+  disableGrid = false,
 }) => {
   const { media, caption, position, settings } = mediaBlockFields
 
@@ -32,7 +34,7 @@ export const MediaBlock: React.FC<Props & { disableGutter?: boolean; marginAdjus
           marginLeft: marginAdjustment.marginLeft,
         }}
       >
-        <BackgroundGrid zIndex={0} />
+        {!disableGrid && <BackgroundGrid zIndex={0} />}
         {disableGutter ? (
           <Media
             resource={media}
