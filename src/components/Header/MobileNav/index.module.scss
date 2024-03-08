@@ -194,7 +194,8 @@
 .mobileMenuItem {
   @include btnReset;
   font-family: var(--font-body);
-  font-size: calc(var(--base)*1.25);
+  @include h4;
+  letter-spacing: -0.02em;
   padding: calc(var(--base)*1.25);
   font-weight: 500;
   margin: 0;

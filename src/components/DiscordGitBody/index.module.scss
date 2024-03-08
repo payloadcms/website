@@ -62,8 +62,7 @@
 
   & code,
   & pre {
-    font-family: var(--font-mono);
-    font-size: calc(var(--font-body-size) * .825);
+    @include code;
     line-height: var(--base);
     -moz-tab-size: 4;
     -o-tab-size: 4;

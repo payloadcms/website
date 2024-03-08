@@ -48,13 +48,12 @@
   }
 
   time {
-    @include body;
-    font-size: calc(var(--base) * 0.8);
+    @include small;
   }
 
   p {
     margin: 0;
-    font-size: calc(var(--base) * 0.8);
+    @include small;
   }
 }
 

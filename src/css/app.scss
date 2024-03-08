@@ -225,10 +225,9 @@ em {
 }
 
 code {
-  font-family: var(--font-mono);
-  font-size: calc(var(--font-body-size) * .825);
+  @include code;
   border-radius: 3px;
-  padding: 0 5px;
+  padding: 0 5px 2px;
 
   @include data-theme-selector('light') {
     background: var(--theme-elevation-100);
