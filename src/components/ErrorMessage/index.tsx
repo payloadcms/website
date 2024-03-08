@@ -3,15 +3,16 @@
 import React from 'react'
 import { CallToAction } from '@blocks/CallToAction'
 
+import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar'
 import { DefaultHero } from '@components/Hero/Default'
 
 export const ErrorMessage: React.FC<{ error?: string }> = ({ error }) => {
   return (
     <>
-      <DefaultHero />
+      <BreadcrumbsBar breadcrumbs={undefined} links={undefined} />
       <CallToAction
         blockType="cta"
-        padding={{ bottom: 'large' }}
+        padding={{ top: 'large', bottom: 'large' }}
         ctaFields={{
           richText: [
             {

@@ -104,6 +104,10 @@ export const CALL_TO_ACTION = `
     richText
     links {
       link ${LINK_FIELDS({ disableAppearance: true })}
+      type
+      npmCta {
+        label
+      }
     }
   }
 }

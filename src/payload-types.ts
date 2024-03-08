@@ -81,7 +81,11 @@ export interface CaseStudy {
               }[];
               links?:
                 | {
-                    link: {
+                    type?: ('link' | 'npmCta') | null;
+                    npmCta?: {
+                      label: string;
+                    };
+                    link?: {
                       type?: ('reference' | 'custom') | null;
                       newTab?: boolean | null;
                       reference?:
@@ -1303,7 +1307,11 @@ export interface Page {
           }[];
           links?:
             | {
-                link: {
+                type?: ('link' | 'npmCta') | null;
+                npmCta?: {
+                  label: string;
+                };
+                link?: {
                   type?: ('reference' | 'custom') | null;
                   newTab?: boolean | null;
                   reference?:
@@ -2532,7 +2540,11 @@ export interface ReusableContent {
           }[];
           links?:
             | {
-                link: {
+                type?: ('link' | 'npmCta') | null;
+                npmCta?: {
+                  label: string;
+                };
+                link?: {
                   type?: ('reference' | 'custom') | null;
                   newTab?: boolean | null;
                   reference?:
