@@ -44,7 +44,6 @@
 
 .icons {
   display: flex;
-  align-items: center;
 
   & path, & rect {
     color: var(--theme-elevation-900);
@@ -87,6 +86,9 @@
   all: unset;
   cursor: pointer;
   margin-left: var(--base);
+  height: 100%;
+  display: flex;
+  align-self: center;
 
   & svg {
     & > * {

@@ -285,8 +285,7 @@ export const MobileNav: React.FC<NavItems> = props => {
                 </div>
                 {user && <Avatar className={classes.mobileAvatar} />}
                 <DocSearch />
-                <button
-                  type="button"
+                <div
                   className={[classes.modalToggler, isMenuOpen ? classes.hamburgerOpen : '']
                     .filter(Boolean)
                     .join(' ')}
@@ -294,7 +293,7 @@ export const MobileNav: React.FC<NavItems> = props => {
                   aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
                 >
                   <MenuIcon />
-                </button>
+                </div>
               </div>
             </div>
           </div>
