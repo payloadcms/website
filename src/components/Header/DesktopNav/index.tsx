@@ -104,11 +104,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
               {(tabs || []).map((tab, tabIndex) => {
                 const { enableDirectLink = false, enableDropdown = false } = tab
                 return (
-                  <div
-                    key={tabIndex}
-                    onMouseEnter={() => handleHoverEnter(tabIndex)}
-                    onFocus={() => handleHoverEnter(tabIndex)}
-                  >
+                  <div key={tabIndex} onMouseEnter={() => handleHoverEnter(tabIndex)}>
                     <button className={classes.tab} ref={ref => (menuItemRefs[tabIndex] = ref)}>
                       {enableDirectLink ? (
                         <CMSLink className={classes.directLink} {...tab.link} label={tab.label}>

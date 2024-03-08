@@ -25,6 +25,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .container {
   position: relative;
+  z-index: 3;
 }
 
 .colHeader {
@@ -182,11 +183,23 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   select {
     @include body;
     all: unset;
+    position: relative;
     border-top: 1px solid var(--grid-line-dark);
     border-bottom: 1px solid var(--grid-line-dark);
     width: 100%;
     padding: var(--base) calc(var(--base) * 1.5);
     padding-left: calc(var(--base) * 1.5 + var(--theme-switcher-icon-width));
+
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 1px;
+    z-index: 0;
+    height: 100%;
+    width: calc(100% - 2px);
+    background: var(--color-base-1000);
   }
 }
 

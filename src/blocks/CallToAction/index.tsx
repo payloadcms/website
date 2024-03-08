@@ -6,6 +6,7 @@ import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
 import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { CMSLink } from '@components/CMSLink'
+import CreatePayloadApp from '@components/CreatePayloadApp'
 import { Gutter } from '@components/Gutter'
 import { RichText } from '@components/RichText'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon'
@@ -51,21 +52,36 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
 
               {hasLinks && (
                 <div className={[classes.links, 'cols-16 cols-m-8'].filter(Boolean).join(' ')}>
-                  {links.map(({ link }, index) => (
-                    <CMSLink
-                      {...link}
-                      key={index}
-                      appearance={'default'}
-                      buttonProps={{
-                        appearance: 'default',
-                        size: 'large',
-                        hideHorizontalBorders: true,
-                        hideBottomBorderExceptLast: true,
-                        forceBackground: true,
-                      }}
-                      className={[classes.button].filter(Boolean).join(' ')}
-                    />
-                  ))}
+                  {links.map(({ link, type: ctaType, npmCta }, index) => {
+                    const type = ctaType ?? 'link'
+
+                    if (type === 'npmCta') {
+                      return (
+                        <CreatePayloadApp
+                          style="cta"
+                          label={npmCta?.label}
+                          className={classes.npmCta}
+                          background={false}
+                        />
+                      )
+                    }
+
+                    return (
+                      <CMSLink
+                        {...link}
+                        key={index}
+                        appearance={'default'}
+                        buttonProps={{
+                          appearance: 'default',
+                          size: 'large',
+                          hideHorizontalBorders: true,
+                          hideBottomBorderExceptLast: true,
+                          forceBackground: true,
+                        }}
+                        className={[classes.button].filter(Boolean).join(' ')}
+                      />
+                    )
+                  })}
                 </div>
               )}
             </div>

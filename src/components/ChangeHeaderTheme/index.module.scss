@@ -14,7 +14,7 @@
 
 .stickyObserver {
   --observer-variance: 1px;
-  --center-of-header: calc(calc(var(--header-height) * .5));
+  --center-of-header: calc(var(--header-height) * .5);
   position: sticky;
   top: calc(var(--center-of-header) - var(--observer-variance));
   margin-bottom: calc(var(--center-of-header) + var(--observer-variance));

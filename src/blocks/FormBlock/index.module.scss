@@ -3,6 +3,8 @@
 .formBlock {
   position: relative;
   overflow: hidden;
+  border-top: 1px solid var(--grid-line-dark);
+  border-bottom: 1px solid var(--grid-line-dark);
 
   &::before {
     content: '';
@@ -24,6 +26,11 @@
     left: calc(25% + var(--gutter-h) * 0.5);
     z-index: -3;
     background-color: var(--theme-elevation-0);
+  }
+
+  @include mid-break {
+    border-top: unset;
+    border-bottom: unset;
   }
 }
 

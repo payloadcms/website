@@ -2,7 +2,7 @@
 import React from 'react'
 
 import { GradientBorderIcon } from '@root/icons/GradientBorderIcon'
-import { InfoIcon } from '@root/icons/InfoIcon'
+import { PlusIcon } from '@root/icons/PlusIcon'
 import { CodeBlip } from '../../Code/types'
 import { useCodeBlip } from '../CodeBlipContext'
 
@@ -20,11 +20,12 @@ const CodeBlipButton: React.FC<{ blip: CodeBlip; index?: number; delay?: number 
   return (
     <button
       onClick={() => openModal(blip)}
+      aria-pressed={isOpen}
       className={[classes.button, isOpen && classes.hidden].filter(Boolean).join(' ')}
       style={style}
     >
       <span className="visually-hidden">Code feature</span>
-      <InfoIcon />
+      <PlusIcon />
       <GradientBorderIcon className={classes.border} />
       <GradientBorderIcon className={classes.pulse} />
       <span className={classes.hoverBg} />

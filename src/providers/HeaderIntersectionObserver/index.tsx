@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { useWindowInfo } from '@faceless-ui/window-info'
+import { usePathname } from 'next/navigation'
 
 import { useThemePreference } from '@root/providers/Theme'
 import { Theme } from '@root/providers/Theme/types'
@@ -32,9 +33,10 @@ export const HeaderIntersectionObserver: React.FC<HeaderIntersectionObserverProp
 }) => {
   const { height: windowHeight, width: windowWidth } = useWindowInfo()
   const { theme } = useThemePreference()
-  const [headerTheme, setHeaderTheme] = React.useState<Theme | null | undefined>(null)
+  const [headerTheme, setHeaderTheme] = React.useState<Theme | null | undefined>(theme)
   const [observer, setObserver] = React.useState<IntersectionObserver | undefined>(undefined)
   const [tick, setTick] = React.useState<number | undefined>(undefined)
+  const pathname = usePathname()
 
   const addObservable = React.useCallback(
     (el: HTMLElement) => {
@@ -73,8 +75,6 @@ export const HeaderIntersectionObserver: React.FC<HeaderIntersectionObserverProp
 
           if (intersectingElement) {
             setHeaderTheme(intersectingElement.target.getAttribute('data-theme') as Theme)
-          } else {
-            setHeaderTheme(theme)
           }
         },
         {
@@ -93,11 +93,13 @@ export const HeaderIntersectionObserver: React.FC<HeaderIntersectionObserverProp
       if (tickTimeout) clearTimeout(tickTimeout)
       if (observerRef) {
         observerRef.disconnect()
-      } else {
-        setHeaderTheme(theme)
       }
     }
   }, [windowWidth, windowHeight, theme, tick])
+
+  React.useEffect(() => {
+    setHeaderTheme(theme)
+  }, [pathname])
 
   return (
     <Context.Provider

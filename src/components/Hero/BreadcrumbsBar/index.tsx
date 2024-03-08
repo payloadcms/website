@@ -18,7 +18,7 @@ interface HeroProps {
 
 interface LinksProps {
   hero?: never
-  links: {
+  links?: {
     url: string
     label: string
     newTab?: boolean
@@ -29,7 +29,7 @@ interface LinksProps {
 type Conditional = HeroProps | LinksProps
 
 type Props = {
-  breadcrumbs: Page['breadcrumbs']
+  breadcrumbs?: Page['breadcrumbs']
 } & Conditional
 
 const BreadcrumbsBar: React.FC<Props> = ({
@@ -56,7 +56,7 @@ const BreadcrumbsBar: React.FC<Props> = ({
   }
 
   const links = hero?.breadcrumbsBarLinks ?? linksFromProps
-  const enableBreadcrumbsBar = linksFromProps ?? hero.enableBreadcrumbsBar
+  const enableBreadcrumbsBar = linksFromProps ?? hero?.enableBreadcrumbsBar
 
   useEffect(() => {
     if (hero?.theme) setThemeState(hero.theme)

@@ -71,7 +71,7 @@ const Payload3D: React.FC<Payload3DProps> = props => {
   }, [containerRef])
 
   return (
-    <div ref={containerRef} className={classes.container} data-theme="light">
+    <div ref={containerRef} className={classes.container} data-theme="dark">
       <div className={classes.mask}>
         <div className={classes.noise} />
         <div className={classes.gradient} style={gradientStyles} />
