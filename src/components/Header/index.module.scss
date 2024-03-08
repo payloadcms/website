@@ -19,7 +19,7 @@
       width: 100%;
       height: 100%;
       background: var(--theme-bg);
-      opacity: 0.9;
+      opacity: 1;
       z-index: -1;
       transition: opacity 500ms ease-out;
     }
@@ -32,7 +32,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      backdrop-filter: blur(5px);
+      // backdrop-filter: blur(5px);
       z-index: -1;
       opacity: 1;
       transition: opacity 500ms ease-out;
@@ -60,7 +60,7 @@
 .header.mobileNavOpen {
   z-index: calc(var(--z-nav) + 11);
   border-bottom: 1px solid var(--theme-border-color);
-  
+
   &:before, &:after {
     opacity: 0;
   }

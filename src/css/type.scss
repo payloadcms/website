@@ -119,6 +119,7 @@
 }
 
 @mixin small {
+  letter-spacing: 0;
   font-size: 16px;
   line-height: 20px;
 

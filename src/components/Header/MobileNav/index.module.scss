@@ -4,6 +4,8 @@
   display: none;
   visibility: hidden;
   width: 100%;
+  -webkit-perspective: 1000;
+-webkit-backface-visibility: hidden;
 
   @include mobile-header-break {
     display: block;
