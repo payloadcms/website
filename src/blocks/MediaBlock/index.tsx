@@ -53,7 +53,11 @@ export const MediaBlock: React.FC<Props & { disableGutter?: boolean; marginAdjus
 
             {caption && (
               <div className={['grid'].filter(Boolean).join(' ')}>
-                <div className={[classes.caption, 'cols-8 cols-m-8'].filter(Boolean).join(' ')}>
+                <div
+                  className={[classes.caption, 'cols-8 start-5 cols-m-8 start-m-1']
+                    .filter(Boolean)
+                    .join(' ')}
+                >
                   <small>
                     <RichText content={caption} />
                   </small>
