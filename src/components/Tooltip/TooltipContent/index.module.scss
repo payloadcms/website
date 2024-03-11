@@ -1,18 +1,22 @@
 @use '@scss/common' as *;
 
 .tooltip {
-  @include label;
+  @include small;
   position: absolute;
   bottom: 100%;
   left: 50%;
   z-index: 2;
-  transform: translate3d(-50%, -20%, 0);
-  padding: calc(var(--base) * .3) calc(var(--base) * .5);
+  transform: translate3d(-50%, -50%, 0);
+  padding: calc(var(--base) * .5) calc(var(--base) * .75);
   color: var(--theme-text);
   line-height: calc(var(--base) * .75);
   font-weight: normal;
   white-space: nowrap;
-  background-color: var(--theme-elevation-150);
+  background-color: var(--theme-elevation-100);
+  @include data-theme-selector('light') {
+    background-color: var(--theme-elevation-0);
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.125);
+  }
 }
 
 .caret {
@@ -23,5 +27,8 @@
   height: 0;
   width: 0;
   border: 10px solid transparent;
-  border-top-color: var(--theme-elevation-150);
+  border-top-color: var(--theme-elevation-100);
+  @include data-theme-selector('light') {
+    border-top-color: var(--theme-elevation-0);
+  }
 }

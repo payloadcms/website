@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { Tooltip } from '@components/Tooltip'
-import Copy from '@root/icons/Copy'
+import { CopyIcon } from '@root/icons/CopyIcon'
 
 import classes from './index.module.scss'
 
@@ -44,12 +44,12 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
   return (
     <Tooltip
       onClick={copy}
-      text={copied ? 'copied' : hoverText || 'copy'}
+      text={copied ? 'Copied!' : hoverText || 'Copy'}
       setIsVisible={setShowTooltip}
       isVisible={showTooltip || copied}
       className={className}
     >
-      <Copy />
+      <CopyIcon size="large" />
       <textarea className={classes.copyTextarea} tabIndex={-1} readOnly ref={ref} />
     </Tooltip>
   )
