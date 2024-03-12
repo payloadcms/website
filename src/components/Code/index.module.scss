@@ -24,10 +24,11 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .code {
   -webkit-text-size-adjust: 100%;
   padding: calc(var(--base) * 2);
+  padding-right: 0;
   font-size: 14px;
-  letter-spacing: .025em;
+  letter-spacing: .1em;
   line-height: 1.5;
-  background-color: var(--color-base-900);
+  background-color: var(--color-base-950);
   color: var(--color-base-100);
   font-family: var(--font-mono), Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   white-space: pre;
@@ -165,15 +166,18 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .lineCodeWrapper {
   position: relative;
-  display: inline-block;
+  display: table-cell;
+
+  span {
+    text-wrap: nowrap;
+  }
 }
 
 .lineNumber {
   user-select: none;
-  opacity: 0.3;
   display: inline-block;
   text-align: right;
-  color: hsla(var(--hsla-offwhite-2), 0.3);
+  color: var(--color-base-750);
   padding-right: calc(var(--base) * 2);
   width: calc(var(--base) * 3);
 
@@ -183,6 +187,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 }
 
 .line {
+  display: inline-block;
   position: relative;
 }
 

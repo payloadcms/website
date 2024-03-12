@@ -1,8 +1,8 @@
 @use '@scss/common.scss' as *;
 
 .banner {
-  padding: calc(var(--base) * 1.5) 0;
-  margin: calc(var(--base) * 1.5) 0 calc(var(--base) * 2) 0;
+  padding: calc(var(--base) * 2) var(--column);
+  margin: 0 calc(var(--column) * -1);
   display: flex;
 
   a,
@@ -16,7 +16,7 @@
   }
 
   @include mid-break {
-    margin: 0 calc(var(--base)*-2);
+    margin: 0 calc(var(--column)*-1);
   }
 }
 
@@ -24,7 +24,7 @@
   color: var(--theme-blue-text);
   background-color: var(--theme-blue-bg);
   border-bottom: 1px solid var(--theme-blue-border);
-  
+
   :local(.icon path) {
     stroke: var(--theme-blue-bg);
   }
@@ -34,7 +34,7 @@
   color: var(--theme-orange-text);
   background-color: var(--theme-orange-bg);
   border-bottom: 1px solid var(--theme-orange-border);
-  
+
   :local(.icon path) {
     stroke: var(--theme-orange-bg);
   }
@@ -44,7 +44,7 @@
   color: var(--theme-red-text);
   background-color: var(--theme-red-bg);
   border-bottom: 1px solid var(--theme-red-border);
-  
+
   :local(.icon path) {
     stroke: var(--theme-red-bg);
   }
@@ -84,7 +84,7 @@
   width: var(--base);
   height: var(--base);
   padding: 4px;
-  
+
   path {
     stroke: var(--color-base-800);
     stroke-width: 2px;

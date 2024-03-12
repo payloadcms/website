@@ -6,13 +6,7 @@ import classes from './index.module.scss'
 
 const CodeMarkdown: React.FC<{ children: React.ReactNode; className: string }> = ({ children }) => {
   let childrenToRender: string | null = null
-  const [blockPadding, setBlockPadding] = React.useState<number>(100)
   const blockRef = React.useRef<HTMLDivElement>(null)
-
-  React.useEffect(() => {
-    if (blockRef.current?.offsetWidth === undefined) return
-    setBlockPadding(Math.round(blockRef.current?.offsetWidth / 10) - 2)
-  }, [blockRef.current?.offsetWidth])
 
   if (typeof children === 'string') {
     childrenToRender = children
@@ -25,18 +19,7 @@ const CodeMarkdown: React.FC<{ children: React.ReactNode; className: string }> =
   if (childrenToRender === null) return null
 
   return (
-    <div
-      ref={blockRef}
-      style={
-        blockPadding
-          ? {
-              marginLeft: blockPadding / -1 - 1,
-              marginRight: blockPadding / -1 - 1,
-            }
-          : {}
-      }
-      className={classes.codeWrap}
-    >
+    <div ref={blockRef} className={classes.codeWrap}>
       <Code className={`${classes.code} mdx-code`} disableMinHeight>
         {childrenToRender.trim()}
       </Code>

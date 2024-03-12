@@ -2,17 +2,17 @@
 
 .codeWrap {
   background: var(--color-base-900);
+  margin: 0 calc(var(--column) * -1);
   margin-bottom: calc(var(--base)*2);
-  padding: 0 calc(var(--base) * 2);
+  padding: 0;
 
   @include mid-break {
-    margin: 0 calc(var(--base)*-1)!important;
-    width: 100vw;
+    margin: 0;
+    margin-bottom: calc(var(--base) * 2);
   }
 }
 
 .code {
-  padding: calc(var(--base)*2) 0;
   background: none;
 
     & > * {
@@ -20,11 +20,5 @@
       content: none!important;
     }
     white-space: pre-wrap;
-  }
-
-  @include mid-break {
-    margin-left: calc(var(--gutter-h) * -1);
-    margin-right: calc(var(--gutter-h) * -1);
-    border-radius: 0;
   }
 }

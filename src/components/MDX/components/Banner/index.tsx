@@ -46,12 +46,6 @@ export const Banner: React.FC<Props> = ({
         className={[classes.banner, 'banner', type && classes[type], !margin && classes.noMargin]
           .filter(Boolean)
           .join(' ')}
-        style={{
-          marginLeft: bannerPadding / -1,
-          marginRight: bannerPadding / -1,
-          paddingLeft: bannerPadding,
-          paddingRight: bannerPadding,
-        }}
       >
         {Icon && <Icon className={classes.icon} />}
 
