@@ -44,9 +44,14 @@
     position: relative;
 }
 
-.content{
+.content {
   display: flex;
   flex-direction: column;
+  gap: var(--base);
+
+  * {
+    margin: 0;
+  }
 }
 
 .scanline {
