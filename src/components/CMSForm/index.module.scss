@@ -89,11 +89,6 @@
     top: calc(0% + var(--base) * -0.5);
     left: calc(0% + var(--base) * -0.5);
   }
-
-  .crosshairRight {
-    right: calc(0% + var(--base) * -0.5);
-    bottom: calc(0% + var(--base) * -0.5);
-  }
 }
 
 :global([data-theme="light"]) {

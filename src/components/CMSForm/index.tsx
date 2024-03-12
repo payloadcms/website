@@ -172,7 +172,6 @@ const RenderForm = ({ form }: { form: FormType }) => {
                 return null
               })}
               <CrosshairIcon className={[classes.crosshair, classes.crosshairLeft].join(' ')} />
-              <CrosshairIcon className={[classes.crosshair, classes.crosshairRight].join(' ')} />
             </div>
             <Submit
               className={[classes.submitButton, classes.hideTopBorder].filter(Boolean).join(' ')}
