@@ -298,6 +298,7 @@ export const LINK_GRID = `
 ...on LinkGrid {
   blockType
   linkGridFields {
+    settings ${SETTINGS}
     links {
       link ${LINK_FIELDS({ disableAppearance: true })}
     }

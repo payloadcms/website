@@ -45,7 +45,7 @@ export const LinkGrid: React.FC<
       padding={padding}
       settings={linkGridFields?.settings}
     >
-      <BackgroundGrid />
+      <BackgroundGrid zIndex={0} />
       <Gutter>
         {hasLinks && (
           <div className={classes.links}>
