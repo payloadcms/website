@@ -1,26 +1,27 @@
 @use '@scss/common' as *;
 
-:global([data-theme="dark"]) {
-  .next {
-    background: var(--theme-warning-100);
-    border-bottom: 1px solid var(--theme-warning-900);
-  }
-}
-
-:global([data-theme="light"]) {
-  .next {
-    background: none;
-    border-top: 1px solid var(--theme-elevation-100);
-    border-bottom: 1px solid var(--theme-elevation-100);
-  }
-}
-
-.next {  
+.next {
   position: relative;
   color: var(--theme-text-color);
   display: block;
   text-decoration: none;
-  padding: calc(var(--base) * 2) calc(var(--base) * 4);
+  padding: calc(var(--base) * 4) calc(var(--base) * 4);
+  border-top: 1px solid var(--theme-border-color);
+  border-bottom: 1px solid var(--theme-border-color);
+  background-color: var(--theme-elevation-0);
+  margin-left: 1px;
+  width: calc(100% - 2px);
+  transition: background-color .3s cubic-bezier(.165, .84, .44, 1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0px;
+    height: 1px;
+    background-color: var(--theme-text);
+  }
 
   h3 {
     margin: calc(var(--base)*0.25) 0 0 0;
@@ -29,13 +30,23 @@
   .crosshairs {
     height: calc(100% + 1px);
   }
-   
-  &:hover {
-    opacity: 0.8;
-  }
 
   @include mid-break {
     padding: calc(var(--base) * 2);
+  }
+
+  &:hover {
+    background-color: var(--theme-elevation-50);
+
+    &::before {
+      width: 100%;
+      transition: width 0.3s;
+    }
+
+    .nextLabel svg {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
   }
 }
 
@@ -46,6 +57,11 @@
   color: var(--theme-warning-1000);
 
   svg {
+    opacity: 0;
     margin-left: calc(var(--base) * .5);
+    transform: translate(-5px, 5px);
+    transition-property: opacity, transform;
+    transition-duration: 0.3s;
+    transition-timing-function: cubic-bezier(.165, .84, .44, 1);
   }
 }
