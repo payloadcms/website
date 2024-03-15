@@ -1,55 +1,71 @@
 @use "@scss/common" as *;
 
 .linkGrid {
-    position: relative;
+  position: relative;
 }
 
 .links {
-    display: flex;
-    flex-direction: column;
-}
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--grid-line-dark);
+  margin: 0 1px;
 
-.linkWrapper {
-    width: 100%;
-    position: relative;
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-light);
+  }
 }
 
 .link {
-    @include h3;
-    justify-content: space-between;
-    width: 100%;
-    text-decoration: none;
-    display: flex;
-    margin: 0;
+  position: relative;
+  @include h3;
+  justify-content: space-between;
+  width: 100%;
+  text-decoration: none;
+  display: flex;
+  align-items: start;
+  margin: 0;
+  padding: calc(var(--base) * 3) calc(var(--base) * 1.5);
+  background-color: var(--theme-elevation-0);
+  border-bottom: 1px solid var(--grid-line-dark);
+  transition: padding-left 0.3s cubic-bezier(.165, .84, .44, 1);
 
-    // NOTE: do not `align-items: center;` here
-    // this is bcc we want the text to wrap without the icon vertically centering
-    // instead, use a static `top` value on the icon
-
-    &:focus {
-        text-decoration: none;
-    }
-
-  .linkLabel {
-    @include h3;
-    padding-top:  calc(var(--base) * 1.5);
-    padding-bottom:  calc(var(--base) * 1.5);
+  @include data-theme-selector('light') {
+    border-color: var(--grid-line-light);
   }
 
-  .linkArrow {
-    width: calc(var(--base) * 1);
-    height: auto;
+  &:focus {
+    text-decoration: none;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0px;
+    height: 2px;
+    background-color: var(--theme-elevation-1000);
+    transition: width 0.6s cubic-bezier(.165, .84, .44, 1);
+  }
+
+  &:hover {
+    padding-left: calc(var(--base) * 2);
+    &::before {
+      width: 100%;
+    }
+
+    .arrow {
+      opacity: 1;
+      transform: translate(0);
+    }
   }
 }
 
-.icon {
-    margin-left: var(--base);
-    top: 8px;
-    position: relative;
+.arrow {
+  transform: translate(calc(var(--base) / -2), calc(var(--base) / 2));
+  transition: transform .3s cubic-bezier(.165, .84, .44, 1);
 
-    @include small-break {
-        top: 5px;
-        width: calc(var(--base) / 1.5) !important;
-        height: calc(var(--base) / 1.5) !important;
-    }
+  @include mid-break {
+    transform: scale(.75);
+  }
 }

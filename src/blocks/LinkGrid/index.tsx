@@ -23,19 +23,9 @@ type Props = Exclude<Fields['links'], undefined | null>[number]['link']
 
 const LinkGridItem: React.FC<Props> = props => {
   return (
-    <CMSLink
-      {...props}
-      className={classes.link}
-      appearance={'default'}
-      buttonProps={{
-        appearance: 'default',
-        labelClassName: classes.linkLabel,
-        hideHorizontalBorders: true,
-        hideBottomBorderExceptLast: true,
-        arrowClassName: classes.linkArrow,
-        forceBackground: true,
-      }}
-    />
+    <CMSLink {...props} className={classes.link}>
+      <ArrowIcon size="large" className={classes.arrow} />
+    </CMSLink>
   )
 }
 
