@@ -7,11 +7,11 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
   try {
     // Make sure the font exists in the specified path:
     const untitledSansRegularFont = await fetch(
-      new URL('../../../../public/fonts/UntitledSans-Regular.woff', import.meta.url),
+      new URL('../../../../public/fonts/UntitledSans-Regular.woff2', import.meta.url),
     ).then(res => res.arrayBuffer())
 
     const untitledSansMediumFont = await fetch(
-      new URL('../../../../public/fonts/UntitledSans-Medium.woff', import.meta.url),
+      new URL('../../../../public/fonts/UntitledSans-Medium.woff2', import.meta.url),
     ).then(res => res.arrayBuffer())
 
     const robotoFont = await fetch(
