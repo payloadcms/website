@@ -7,11 +7,11 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
   try {
     // Make sure the font exists in the specified path:
     const untitledSansRegularFont = await fetch(
-      new URL('../../../../public/fonts/UntitledSans-Regular.woff2', import.meta.url),
+      new URL('../../../../public/fonts/UntitledSans-Regular.woff', import.meta.url),
     ).then(res => res.arrayBuffer())
 
     const untitledSansMediumFont = await fetch(
-      new URL('../../../../public/fonts/UntitledSans-Medium.woff2', import.meta.url),
+      new URL('../../../../public/fonts/UntitledSans-Medium.woff', import.meta.url),
     ).then(res => res.arrayBuffer())
 
     const robotoFont = await fetch(
@@ -88,7 +88,7 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
               justifyContent: 'space-between',
               padding: 65,
               border: '1px solid rgba(255, 255, 255, 0.1)',
-              fontFamily: 'UntitledSans',
+              fontFamily: 'UntitledSansRegular',
               backgroundColor: '#000',
               position: 'relative',
             }}
@@ -108,6 +108,8 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
                 style={{
                   display: 'flex',
                   flexWrap: 'wrap',
+                  fontFamily: 'UntitledSansMedium',
+                  letterSpacing: '-0.05em',
                   fontSize: 72,
                   lineHeight: 1,
                   marginTop: 20,
