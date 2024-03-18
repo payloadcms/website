@@ -6,8 +6,12 @@ export const runtime = 'edge'
 export async function GET(req: NextRequest): Promise<ImageResponse> {
   try {
     // Make sure the font exists in the specified path:
-    const untitledSansFont = await fetch(
+    const untitledSansRegularFont = await fetch(
       new URL('../../../../public/fonts/UntitledSans-Regular.woff', import.meta.url),
+    ).then(res => res.arrayBuffer())
+
+    const untitledSansMediumFont = await fetch(
+      new URL('../../../../public/fonts/UntitledSans-Medium.woff', import.meta.url),
     ).then(res => res.arrayBuffer())
 
     const robotoFont = await fetch(
@@ -15,7 +19,8 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
     ).then(res => res.arrayBuffer())
 
     const { searchParams } = new URL(req.url)
-    const untitledSans = await untitledSansFont
+    const untitledSansRegular = await untitledSansRegularFont
+    const untitledSansMedium = await untitledSansMediumFont
     const roboto = await robotoFont
 
     const hasTitle = searchParams.has('title')
@@ -191,8 +196,14 @@ export async function GET(req: NextRequest): Promise<ImageResponse> {
         height: 630,
         fonts: [
           {
-            name: 'UntitledSans',
-            data: untitledSans,
+            name: 'UntitledSansRegular',
+            data: untitledSansRegular,
+            weight: 400,
+          },
+          {
+            name: 'UntitledSansMedium',
+            data: untitledSansMedium,
+            weight: 500,
           },
           {
             name: 'Roboto',
