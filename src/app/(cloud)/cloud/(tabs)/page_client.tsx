@@ -136,7 +136,6 @@ export const CloudPage: React.FC<{
       <Gutter>
         {error && <p className={classes.error}>{error}</p>}
         <div className={classes.controls}>
-          <div className={classes.controlsBG} />
           <Text
             placeholder="Search projects"
             initialValue={search}
@@ -186,17 +185,15 @@ export const CloudPage: React.FC<{
                 {"Your search didn't return any results, please try again."}
               </p>
             ) : (
-              <Grid className={classes.projects}>
+              <div className={['grid', classes.projects].join(' ')}>
                 {cardArray?.map((project, index) => (
-                  <Cell key={index} cols={4}>
-                    <ProjectCard
-                      project={project}
-                      className={classes.projectCard}
-                      isLoading={isLoading}
-                    />
-                  </Cell>
+                  <ProjectCard
+                    project={project}
+                    className={classes.projectCard}
+                    isLoading={isLoading}
+                  />
                 ))}
-              </Grid>
+              </div>
             )}
           </div>
           {result?.totalPages > 1 && (

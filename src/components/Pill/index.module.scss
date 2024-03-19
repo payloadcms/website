@@ -4,50 +4,39 @@
   display: flex;
   align-items: center;
   color: var(--color-success-500);
-  border-radius: 19px;
-  padding: 4px calc(var(--base) * 0.5);
+  border-radius: 4px;
+  padding: 1px 8px 3px 8px;
+  width: max-content;
 }
 
 .color--default {
-  background-color: var(--theme-elevation-250);
-  color: var(--theme-elevation-800);
+  background-color: var(--theme-elevation-150);
+  color: var(--theme-elevation-1000);
 }
 
 .color--success {
   background-color: var(--theme-success-100);
-  color: var(--color-success-500);
+  color: var(--theme-success-800);
 }
 
 .color--blue {
   background-color: var(--theme-blue-100);
-  color: var(--color-blue-500);
+  color: var(--theme-blue-800);
 }
 
 .color--error {
   background-color: var(--theme-error-100);
-  color: var(--color-error-500);
+  color: var(--theme-error-600);
 }
 
 .color--warning {
   background-color: var(--theme-warning-100);
-  color: var(--color-warning-500);
+  color: var(--theme-warning-700);
 }
 
 .text {
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  line-height: 1;
-}
-
-:global([data-theme="light"]) {
-  .pill {
-    color: black;
-  }
-
-  .color--default {
-    background-color: var(--theme-elevation-50);
-  }
+  font-size: 16px;
+  line-height: 20px;
 }
 
 @include small-break {
