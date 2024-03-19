@@ -9,6 +9,8 @@
   flex-direction: column;
   position: sticky;
   top: var(--page-padding-top);
+  width: 100%;
+  padding-right: calc(var(--base) * 2);
 
   @include small-break {
     margin-bottom: var(--base);

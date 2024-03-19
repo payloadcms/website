@@ -26,29 +26,27 @@ export default async () => {
   return (
     <React.Fragment>
       <div className={classes.teams}>
-        <Gutter>
-          <div className={classes.introContent}>
-            {!hasTeams && (
-              <p>
-                {`You are not a member of any teams. `}
-                <TeamDrawerToggler className={classes.createTeamLink} drawerSlug={drawerSlug}>
-                  Create a new team
-                </TeamDrawerToggler>
-                {' to get started.'}
-              </p>
-            )}
-            {Boolean(teams?.length) && (
-              <p>
-                {`You are a member of ${teams?.length || 0} team${
-                  (teams?.length || 0) > 1 ? 's' : ''
-                }. `}
-                <TeamDrawerToggler className={classes.createTeamLink} drawerSlug={drawerSlug}>
-                  Create a new team
-                </TeamDrawerToggler>
-                {'.'}
-              </p>
-            )}
-          </div>
+        <Gutter className={classes.introContent}>
+          {!hasTeams && (
+            <p>
+              {`You are not a member of any teams. `}
+              <TeamDrawerToggler className={classes.createTeamLink} drawerSlug={drawerSlug}>
+                Create a new team
+              </TeamDrawerToggler>
+              {' to get started.'}
+            </p>
+          )}
+          {Boolean(teams?.length) && (
+            <p>
+              {`You are a member of ${teams?.length || 0} team${
+                (teams?.length || 0) > 1 ? 's' : ''
+              }. `}
+              <TeamDrawerToggler className={classes.createTeamLink} drawerSlug={drawerSlug}>
+                Create a new team
+              </TeamDrawerToggler>
+              {'.'}
+            </p>
+          )}
         </Gutter>
         {hasTeams && (
           <LinkGrid
@@ -70,11 +68,6 @@ export default async () => {
             }}
           />
         )}
-        <Gutter>
-          <TeamDrawerToggler className={classes.teamDrawerToggler} drawerSlug={drawerSlug}>
-            <Button appearance="primary" label="Create new team" el="div" />
-          </TeamDrawerToggler>
-        </Gutter>
       </div>
       <TeamDrawer drawerSlug={drawerSlug} redirectOnCreate />
     </React.Fragment>

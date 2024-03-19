@@ -50,7 +50,7 @@
     width: 100%;
     left: 0;
     bottom: 0;
-    height: 4px;
+    height: 2px;
     background-color: currentColor;
     opacity: 0;
     z-index: 1;
@@ -69,12 +69,12 @@
     &.warning {
       color: var(--theme-warning-500);
     }
-    
+
     &.error {
       color: var(--theme-error-500);
     }
   }
-  
+
   &.warning {
     color: var(--theme-warning-300);
   }
@@ -107,7 +107,7 @@
 }
 
 .tabsContainer {
-  @include mid-break {    
+  @include mid-break {
     .tab {
       padding-bottom: calc(var(--base));
     }

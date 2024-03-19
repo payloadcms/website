@@ -23,9 +23,7 @@ const TabContents: React.FC<Tab> = props => {
 
   return (
     <React.Fragment>
-      <Heading element="h4" margin={false}>
-        {label}
-      </Heading>
+      {label}
       {error && (
         <div className={[classes.iconWrapper, classes.error].filter(Boolean).join(' ')}>
           <ErrorIcon size="medium" className={classes.icon} />
@@ -48,46 +46,44 @@ export const Tabs: React.FC<{
 
   return (
     <div className={[classes.tabsContainer, className].filter(Boolean).join(' ')}>
-      <Gutter>
-        <EdgeScroll className={classes.tabs}>
-          {tabs?.map((tab, index) => {
-            const { url: tabURL, onClick, isActive, error, disabled, warning } = tab
+      <EdgeScroll className={classes.tabs}>
+        {tabs?.map((tab, index) => {
+          const { url: tabURL, onClick, isActive, error, disabled, warning } = tab
 
-            const classList = [
-              classes.tab,
-              isActive && classes.active,
-              error && classes.error,
-              warning && classes.warning,
-              disabled && classes.disabled,
-              index === tabs.length - 1 && classes.lastTab,
-            ]
-              .filter(Boolean)
-              .join(' ')
+          const classList = [
+            classes.tab,
+            isActive && classes.active,
+            error && classes.error,
+            warning && classes.warning,
+            disabled && classes.disabled,
+            index === tabs.length - 1 && classes.lastTab,
+          ]
+            .filter(Boolean)
+            .join(' ')
 
-            if (onClick || disabled) {
-              return (
-                <button
-                  key={index}
-                  onClick={onClick}
-                  type="button"
-                  className={classList}
-                  disabled={disabled}
-                >
-                  <TabContents {...tab} />
-                </button>
-              )
-            }
-
-            const RenderTab = (
-              <Link key={index} href={tabURL || ''} className={classList}>
+          if (onClick || disabled) {
+            return (
+              <button
+                key={index}
+                onClick={onClick}
+                type="button"
+                className={classList}
+                disabled={disabled}
+              >
                 <TabContents {...tab} />
-              </Link>
+              </button>
             )
+          }
 
-            return RenderTab
-          })}
-        </EdgeScroll>
-      </Gutter>
+          const RenderTab = (
+            <Link key={index} href={tabURL || ''} className={classList}>
+              <TabContents {...tab} />
+            </Link>
+          )
+
+          return RenderTab
+        })}
+      </EdgeScroll>
     </div>
   )
 }

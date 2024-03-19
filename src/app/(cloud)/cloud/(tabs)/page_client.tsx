@@ -3,12 +3,13 @@
 import React, { Fragment, useEffect } from 'react'
 import { ProjectCard } from '@cloud/_components/ProjectCard'
 import { TeamSelector } from '@cloud/_components/TeamSelector'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
+import Link from 'next/link'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Pagination } from '@components/Pagination'
+import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { Team, Template, User } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import useDebounce from '@root/utilities/use-debounce'
@@ -132,40 +133,36 @@ export const CloudPage: React.FC<{
   }
 
   return (
-    <Fragment>
-      <Gutter>
-        {error && <p className={classes.error}>{error}</p>}
-        <div className={classes.controls}>
-          <Text
-            placeholder="Search projects"
-            initialValue={search}
-            onChange={(value: string) => {
-              setSearch(value)
-              setEnableSearch(true)
-            }}
-            className={classes.search}
-            fullWidth={false}
-          />
-          <TeamSelector
-            onChange={incomingTeam => {
-              setSelectedTeam(incomingTeam?.id)
-              setEnableSearch(true)
-            }}
-            className={classes.teamSelector}
-            initialValue="none"
-            allowEmpty
-            label={false}
-            user={user}
-          />
-          <Button
-            appearance="primary"
-            href={`/new${matchedTeam?.slug ? `?team=${matchedTeam?.slug}` : ''}`}
-            label="New project"
-            el="link"
-            className={classes.createButton}
-          />
-        </div>
-      </Gutter>
+    <Gutter>
+      {error && <p className={classes.error}>{error}</p>}
+      <div className={['grid', classes.controls].join(' ')}>
+        <Text
+          placeholder="Search projects"
+          initialValue={search}
+          onChange={(value: string) => {
+            setSearch(value)
+            setEnableSearch(true)
+          }}
+          className={['cols-8', classes.search].join(' ')}
+        />
+        <TeamSelector
+          onChange={incomingTeam => {
+            setSelectedTeam(incomingTeam?.id)
+            setEnableSearch(true)
+          }}
+          className={['cols-6', classes.teamSelector].join(' ')}
+          initialValue="none"
+          allowEmpty
+          label={false}
+          user={user}
+        />
+        <Link
+          className={['cols-2', classes.createButton].join(' ')}
+          href={`/new${matchedTeam?.slug ? `?team=${matchedTeam?.slug}` : ''}`}
+        >
+          New Project
+        </Link>
+      </div>
       {renderNewProjectBlock && !isLoading && (
         <NewProjectBlock
           heading={
@@ -178,37 +175,35 @@ export const CloudPage: React.FC<{
         />
       )}
       {(!renderNewProjectBlock || isLoading) && (
-        <Gutter>
-          <div className={classes.content}>
-            {!isLoading && debouncedSearch && result?.totalDocs === 0 ? (
-              <p className={classes.description}>
-                {"Your search didn't return any results, please try again."}
-              </p>
-            ) : (
-              <div className={['grid', classes.projects].join(' ')}>
-                {cardArray?.map((project, index) => (
-                  <ProjectCard
-                    project={project}
-                    className={classes.projectCard}
-                    isLoading={isLoading}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-          {result?.totalPages > 1 && (
-            <Pagination
-              className={classes.pagination}
-              page={result?.page}
-              totalPages={result?.totalPages}
-              setPage={page => {
-                setPage(page)
-                setEnableSearch(true)
-              }}
-            />
+        <div className={classes.content}>
+          {!isLoading && debouncedSearch && result?.totalDocs === 0 ? (
+            <p className={classes.description}>
+              {"Your search didn't return any results, please try again."}
+            </p>
+          ) : (
+            <div className={['grid', classes.projects].join(' ')}>
+              {cardArray?.map((project, index) => (
+                <ProjectCard
+                  project={project}
+                  className={classes.projectCard}
+                  isLoading={isLoading}
+                />
+              ))}
+            </div>
           )}
-        </Gutter>
+        </div>
       )}
-    </Fragment>
+      {result?.totalPages > 1 && (
+        <Pagination
+          className={classes.pagination}
+          page={result?.page}
+          totalPages={result?.totalPages}
+          setPage={page => {
+            setPage(page)
+            setEnableSearch(true)
+          }}
+        />
+      )}
+    </Gutter>
   )
 }

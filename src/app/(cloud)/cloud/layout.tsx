@@ -35,7 +35,6 @@ export default async props => {
     <Fragment>
       <Gutter>
         <RenderParams />
-        <DashboardBreadcrumbs />
       </Gutter>
       {children}
     </Fragment>
