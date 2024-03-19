@@ -2,7 +2,6 @@ import * as React from 'react'
 import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { Sidebar } from '@cloud/_components/Sidebar'
 import { cloudSlug } from '@cloud/slug'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { Gutter } from '@components/Gutter'
 import { TeamBillingMessages } from './TeamBillingMessages'
@@ -16,39 +15,37 @@ export default async ({ params: { 'team-slug': teamSlug }, children }) => {
   const team = await fetchTeamWithCustomer(teamSlug)
 
   return (
-    <Gutter>
-      <Grid className={classes.gridWrap}>
-        <Cell cols={3} start={1} colsS={8}>
-          <Sidebar
-            routes={[
-              {
-                label: 'General',
-                url: `/${cloudSlug}/${teamSlug}/settings`,
-              },
-              {
-                label: 'Team Members',
-                url: `/${cloudSlug}/${teamSlug}/settings/members`,
-              },
-              {
-                label: 'Billing',
-                url: `/${cloudSlug}/${teamSlug}/settings/billing`,
-              },
-              {
-                label: 'Subscriptions',
-                url: `/${cloudSlug}/${teamSlug}/settings/subscriptions`,
-              },
-              {
-                label: 'Invoices',
-                url: `/${cloudSlug}/${teamSlug}/settings/invoices`,
-              },
-            ]}
-          />
-        </Cell>
-        <Cell start={4} cols={9} startS={1}>
-          <TeamBillingMessages team={team} />
-          {children}
-        </Cell>
-      </Grid>
+    <Gutter className="grid">
+      <div className="cols-4 cols-m-8">
+        <Sidebar
+          routes={[
+            {
+              label: 'General',
+              url: `/${cloudSlug}/${teamSlug}/settings`,
+            },
+            {
+              label: 'Team Members',
+              url: `/${cloudSlug}/${teamSlug}/settings/members`,
+            },
+            {
+              label: 'Billing',
+              url: `/${cloudSlug}/${teamSlug}/settings/billing`,
+            },
+            {
+              label: 'Subscriptions',
+              url: `/${cloudSlug}/${teamSlug}/settings/subscriptions`,
+            },
+            {
+              label: 'Invoices',
+              url: `/${cloudSlug}/${teamSlug}/settings/invoices`,
+            },
+          ]}
+        />
+      </div>
+      <div className="cols-12">
+        <TeamBillingMessages team={team} />
+        {children}
+      </div>
     </Gutter>
   )
 }

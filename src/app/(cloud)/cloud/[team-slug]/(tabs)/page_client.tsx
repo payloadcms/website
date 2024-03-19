@@ -129,18 +129,16 @@ export const TeamPage: React.FC<{
             {"Your search didn't return any results, please try again."}
           </p>
         ) : (
-          <Grid className={classes.projects}>
+          <div className={['grid', classes.projects].join(' ')}>
             {cardArray?.map((project, index) => (
-              <Cell key={index} cols={4}>
-                <ProjectCard
-                  project={project}
-                  className={classes.projectCard}
-                  isLoading={isLoading}
-                  showTeamName={false}
-                />
-              </Cell>
+              <ProjectCard
+                project={project}
+                className={['cols-4', classes.projectCard].join(' ')}
+                isLoading={isLoading}
+                showTeamName={false}
+              />
             ))}
-          </Grid>
+          </div>
         )}
       </div>
       {result?.totalPages > 1 && (

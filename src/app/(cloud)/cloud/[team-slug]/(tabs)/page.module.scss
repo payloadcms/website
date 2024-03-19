@@ -68,3 +68,8 @@
 .pagination {
     margin-top: calc(var(--base) * 2);
 }
+
+.projects {
+    border-top: 1px solid var(--theme-border-color);
+    border-left: 1px solid var(--theme-border-color);
+}
