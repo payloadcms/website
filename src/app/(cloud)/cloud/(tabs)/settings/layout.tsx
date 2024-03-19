@@ -2,11 +2,9 @@
 
 import * as React from 'react'
 import { cloudSlug } from '@cloud/slug'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { BackgroundGrid } from '@components/BackgroundGrid'
 import { EdgeScroll } from '@components/EdgeScroll'
 import { Gutter } from '@components/Gutter'
 import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
