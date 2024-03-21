@@ -4,6 +4,7 @@ import { hasBadSubscription } from '@cloud/_utilities/hasBadSubscription'
 import { cloudSlug } from '@cloud/slug'
 import { Metadata } from 'next'
 
+import { Gutter } from '@components/Gutter'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { ProjectBillingMessages } from './ProjectBillingMessages'
 
@@ -30,43 +31,46 @@ export default async props => {
 
   return (
     <>
-      <DashboardTabs
-        tabs={{
-          [`${projectSlug}`]: {
-            label: 'Overview',
-            href: `/${cloudSlug}/${teamSlug}/${projectSlug}`,
-          },
-          ...(enableAllTabs
-            ? {
-                database: {
-                  label: 'Database',
-                  href: `/${cloudSlug}/${teamSlug}/${projectSlug}/database`,
-                },
-                'file-storage': {
-                  label: 'File Storage',
-                  href: `/${cloudSlug}/${teamSlug}/${projectSlug}/file-storage`,
-                },
-                logs: {
-                  label: 'Logs',
-                  href: `/${cloudSlug}/${teamSlug}/${projectSlug}/logs`,
-                },
-              }
-            : {}),
-          settings: {
-            label: 'Settings',
-            href: `/${cloudSlug}/${teamSlug}/${projectSlug}/settings`,
-            error: hasBadSubscriptionStatus,
-            subpaths: [
-              `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/billing`,
-              `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/domains`,
-              `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/email`,
-              `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/environment-variables`,
-              `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/ownership`,
-              `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/plan`,
-            ],
-          },
-        }}
-      />
+      <Gutter>
+        <h3>{project.name}</h3>
+        <DashboardTabs
+          tabs={{
+            [`${projectSlug}`]: {
+              label: 'Overview',
+              href: `/${cloudSlug}/${teamSlug}/${projectSlug}`,
+            },
+            ...(enableAllTabs
+              ? {
+                  database: {
+                    label: 'Database',
+                    href: `/${cloudSlug}/${teamSlug}/${projectSlug}/database`,
+                  },
+                  'file-storage': {
+                    label: 'File Storage',
+                    href: `/${cloudSlug}/${teamSlug}/${projectSlug}/file-storage`,
+                  },
+                  logs: {
+                    label: 'Logs',
+                    href: `/${cloudSlug}/${teamSlug}/${projectSlug}/logs`,
+                  },
+                }
+              : {}),
+            settings: {
+              label: 'Settings',
+              href: `/${cloudSlug}/${teamSlug}/${projectSlug}/settings`,
+              error: hasBadSubscriptionStatus,
+              subpaths: [
+                `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/billing`,
+                `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/domains`,
+                `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/email`,
+                `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/environment-variables`,
+                `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/ownership`,
+                `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/plan`,
+              ],
+            },
+          }}
+        />
+      </Gutter>
       <ProjectBillingMessages team={team} project={project} />
       {children}
     </>

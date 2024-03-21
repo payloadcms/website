@@ -3,6 +3,9 @@
 .console {
   overflow: auto;
   max-height: min(800px, 60vh);
+  padding: calc(var(--base) * 1.5);
+  border: 1px solid var(--theme-border-color);
+  background-color: var(--theme-elevation-50);
 
   code {
     background-color: unset;
@@ -30,13 +33,13 @@
     margin-bottom: 0;
   }
 }
-  
+
 .logTimestamp {
   margin-bottom: 0;
   flex-shrink: 0;
   color: var(--theme-elevation-500);
 }
-  
+
 .lineMessage {
   color: var(--theme-text);
 

@@ -4,7 +4,6 @@ import * as React from 'react'
 
 import { Gutter } from '@components/Gutter'
 import { Heading } from '@components/Heading'
-import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 import { LogLine, SimpleLogs, styleLogLine } from '@root/app/_components/SimpleLogs'
 import { Project, Team } from '@root/payload-cloud-types'
 import { useWebSocket } from '@root/utilities/use-websocket'
@@ -53,14 +52,12 @@ export const ProjectLogsPage: React.FC<{
 
   return (
     <Gutter>
-      <Heading element="h5" marginTop={false}>
+      <Heading element="h4" marginTop={false}>
         Runtime logs
         {!hasSuccessfullyDeployed && ' will be available after a successful deploy - hang tight!'}
       </Heading>
 
-      {hasSuccessfullyDeployed && (
-        <ExtendedBackground pixels upperChildren={<SimpleLogs logs={logsToShow} />} />
-      )}
+      {hasSuccessfullyDeployed && <SimpleLogs logs={logsToShow} />}
     </Gutter>
   )
 }

@@ -14,6 +14,7 @@ import classes from './index.module.scss'
 
 type SecretProps = FieldProps<string> & {
   loadSecret: () => Promise<string>
+  largeLabel?: boolean
   readOnly?: boolean
 }
 
@@ -29,6 +30,7 @@ export const Secret: React.FC<SecretProps> = props => {
     className,
     loadSecret: loadValue,
     description,
+    largeLabel,
     readOnly,
   } = props
 
@@ -111,6 +113,7 @@ export const Secret: React.FC<SecretProps> = props => {
         htmlFor={path}
         label={label}
         required={required}
+        className={largeLabel ? classes.largeLabel : ''}
         actionsSlot={
           <Fragment>
             <Tooltip
