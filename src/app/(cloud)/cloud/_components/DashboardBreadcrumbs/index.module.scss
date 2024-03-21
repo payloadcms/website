@@ -1,5 +1,38 @@
 @use '@scss/common' as *;
 
-.dashboardBreadcrumbs {
-  margin-bottom: calc(var(--base) * 1.5);
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--theme-elevation-750);
+    }
+
+    &:focus {
+      opacity: unset;
+    }
+
+    svg {
+      width: var(--base);
+      height: auto;
+      margin-right: calc(var(--base) / 2);
+    }
+
+    &:not(:last-child) {
+
+      &:after {
+        content: '/';
+        margin: 0 10px;
+        color: var(--theme-elevation-250);
+      }
+    }
+  }
 }

@@ -1,3 +1,4 @@
+import { CloudHeader } from '@cloud/_components/CloudHeader'
 import { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
@@ -22,5 +23,10 @@ export const metadata: Metadata = {
 export default async props => {
   const { children } = props
 
-  return <div className={classes.layout}>{children}</div>
+  return (
+    <div className={classes.layout}>
+      <CloudHeader />
+      {children}
+    </div>
+  )
 }
