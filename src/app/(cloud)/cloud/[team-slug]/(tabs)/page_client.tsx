@@ -4,7 +4,6 @@ import React, { useEffect } from 'react'
 import { fetchProjectsClient, ProjectsRes } from '@cloud/_api/fetchProjects'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { ProjectCard } from '@cloud/_components/ProjectCard'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
 
 import { Button } from '@components/Button'
@@ -133,9 +132,10 @@ export const TeamPage: React.FC<{
             {cardArray?.map((project, index) => (
               <ProjectCard
                 project={project}
-                className={['cols-4', classes.projectCard].join(' ')}
+                className={['cols-4'].join(' ')}
                 isLoading={isLoading}
                 showTeamName={false}
+                key={project.name + index}
               />
             ))}
           </div>
