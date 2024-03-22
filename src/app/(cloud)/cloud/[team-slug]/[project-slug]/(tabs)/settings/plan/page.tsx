@@ -26,9 +26,7 @@ export default async ({ params: { 'team-slug': teamSlug, 'project-slug': project
         <div>
           <SectionHeader title="Current Plan" />
           <div className={classes.borderBox}>
-            <Heading className={classes.highlightHeading} element="p" as="h4" margin={false}>
-              <Highlight text={project.plan.name} />
-            </Heading>
+            <h4>{project.plan.name}</h4>
             <p className={classes.downgradeText}>
               To downgrade or upgrade your plan, please{' '}
               <a href="mailto:info@payloadcms.com?subject=Downgrade/Upgrade Cloud Plan&body=Hi! I would like to change my cloud plan.">
@@ -44,9 +42,7 @@ export default async ({ params: { 'team-slug': teamSlug, 'project-slug': project
         <div>
           <SectionHeader title="Delete Project" />
           <div className={classes.borderBox}>
-            <Heading className={classes.warningHeading} element="p" as="h4" margin={false}>
-              <Highlight appearance="danger" text="Warning" />
-            </Heading>
+            <h4>Warning</h4>
             <p className={classes.downgradeText}>
               Once you delete a project, there is no going back so please be certain. We recommend
               exporting your database before deleting.
