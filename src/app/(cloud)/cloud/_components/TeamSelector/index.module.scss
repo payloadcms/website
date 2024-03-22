@@ -13,6 +13,11 @@
 }
 
 .select {
+    label {
+        @include h4;
+        margin-top: 0;
+        color: var(--theme-text);
+    }
     &.hidden {
         visibility: hidden;
         opacity: 0;

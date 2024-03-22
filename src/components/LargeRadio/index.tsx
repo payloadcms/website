@@ -27,7 +27,7 @@ export const LargeRadio: React.FC<{
         htmlFor={id}
       >
         <div className={classes.checkmark}>
-          {checked && <CheckIcon size="medium" bold />}
+          {checked && <CheckIcon size="medium" />}
           <input
             type="checkbox"
             name={name}
@@ -44,10 +44,10 @@ export const LargeRadio: React.FC<{
           />
         </div>
         <div className={classes.content}>
-          <h5 className={classes.name}>
+          <p className={classes.name}>
             {label}
             {pillLabel && <Pill className={classes.pill} text={pillLabel} />}
-          </h5>
+          </p>
           {price && <p className={classes.price}>{price}</p>}
         </div>
       </label>
