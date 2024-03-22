@@ -183,7 +183,12 @@ export const Signup: React.FC = () => {
             </Link>
             {'.'}
           </div>
-          <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>
+          <Form
+            onSubmit={createAccount}
+            className={classes.form}
+            initialState={initialFormState}
+            formId={'payload_cloud_sign_up'}
+          >
             <FormSubmissionError />
             <FormProcessing message="Signing up, one moment..." />
             <Text
