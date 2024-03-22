@@ -148,7 +148,7 @@ const RenderForm = ({ form }: { form: FormType }) => {
       {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
       {!hasSubmitted && (
         <React.Fragment>
-          <Form onSubmit={onSubmit} initialState={initialState}>
+          <Form onSubmit={onSubmit} initialState={initialState} formId={formID}>
             <div className={classes.formFieldsWrap}>
               {form.fields?.map((field, index) => {
                 const Field: React.FC<any> = fields?.[field.blockType]
