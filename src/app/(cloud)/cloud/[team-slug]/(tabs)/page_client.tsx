@@ -5,8 +5,8 @@ import { fetchProjectsClient, ProjectsRes } from '@cloud/_api/fetchProjects'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { ProjectCard } from '@cloud/_components/ProjectCard'
 import { Text } from '@forms/fields/Text'
+import Link from 'next/link'
 
-import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Pagination } from '@components/Pagination'
 import { NewProjectBlock } from '@root/app/_components/NewProject'
@@ -102,8 +102,7 @@ export const TeamPage: React.FC<{
   return (
     <Gutter>
       {error && <p className={classes.error}>{error}</p>}
-      <div className={classes.controls}>
-        <div className={classes.controlsBG} />
+      <div className={['grid', classes.controls].join(' ')}>
         <Text
           placeholder="Search projects"
           initialValue={search}
@@ -111,16 +110,17 @@ export const TeamPage: React.FC<{
             setSearch(value)
             setEnableSearch(true)
           }}
-          className={classes.search}
+          className={['cols-14', classes.search].join(' ')}
           fullWidth={false}
         />
-        <Button
-          appearance="primary"
-          href={`/new${team?.slug ? `?team=${team.slug}` : ''}`}
-          el="link"
-          className={classes.createButton}
-          label="Create new project"
-        />
+        <div className="cols-2">
+          <Link
+            className={classes.createButton}
+            href={`/new${team?.slug ? `?team=${team?.slug}` : ''}`}
+          >
+            New Project
+          </Link>
+        </div>
       </div>
       <div className={classes.content}>
         {!isLoading && debouncedSearch && result?.totalDocs === 0 ? (

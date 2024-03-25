@@ -1,3 +1,4 @@
+import { CloudFooter } from '@cloud/_components/CloudFooter'
 import { CloudHeader } from '@cloud/_components/CloudHeader'
 import { Metadata } from 'next'
 
@@ -26,7 +27,8 @@ export default async props => {
   return (
     <div className={classes.layout}>
       <CloudHeader />
-      {children}
+      <div className={classes.container}>{children}</div>
+      <CloudFooter />
     </div>
   )
 }

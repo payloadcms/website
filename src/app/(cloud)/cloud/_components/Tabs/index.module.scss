@@ -4,17 +4,7 @@
   position: relative;
   width: 100%;
   margin-bottom: calc(var(--base) * 2);
-
-  &:after {
-    // thin full width line
-    content: '';
-    position: absolute;
-    width: calc(100% + var(--gutter-h));
-    left: calc(-1 * var(--gutter-h));
-    height: 1px;
-    bottom: 0px;
-    background-color: var(--theme-border-color);
-  }
+  border-bottom: 1px solid var(--theme-border-color);
 
   @include mid-break {
     margin-bottom: calc(var(--base) * 1.5);

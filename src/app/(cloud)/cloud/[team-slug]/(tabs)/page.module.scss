@@ -10,14 +10,8 @@
 
 .controls {
     margin-bottom: calc(var(--base) * 2);
-    display: flex;
-    align-items: flex-end;
     position: relative;
     padding: calc(var(--base) * 2)  0;
-
-    & > *:not(:last-child) {
-        margin-right: var(--base);
-    }
 
     @include mid-break {
         margin-bottom: var(--base);
@@ -40,7 +34,22 @@
 }
 
 .createButton {
-    white-space: nowrap;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--base);
+    padding: var(--base) calc(var(--base) * 1.5);
+    line-height: 1;
+    background-color: var(--theme-elevation-100);
+    text-decoration: none;
+    border: 1px solid var(--theme-border-color);
+    border-left-width: 0px;
+
+    &:hover {
+        background-color: var(--theme-elevation-300);
+    }
 }
 
 .controlsBG {

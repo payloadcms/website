@@ -1,0 +1,77 @@
+@use '@scss/common' as *;
+
+.footerWrap {
+  margin-top: calc(var(--base) * 4);
+  padding: 0 var(--gutter-h);
+  @include small;
+}
+
+.footer {
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
+  border-top: 1px solid var(--theme-border-color);
+}
+
+.footerLinks {
+  display: flex;
+  padding: calc(var(--base) * 2) 0;
+  gap: calc(var(--base) * 1.5);
+
+  p {
+    color: var(--theme-elevation-500);
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--theme-elevation-750);
+
+    &:hover {
+      color: var(--theme-elevation-500);
+    }
+  }
+}
+
+.selectContainer {
+  --theme-icon-width: calc(var(--base) * 2);
+  --theme-switcher-icon-width: calc(var(--base) * 2);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--base);
+  color: var(--theme-elevation-500);
+  cursor: pointer;
+
+  select {
+    @include body;
+    all: unset;
+    position: relative;
+
+  }
+  &::before {
+    content: '';
+    top: 0;
+    left: 1px;
+    z-index: 0;
+    height: 100%;
+    width: calc(100% - 2px);
+    background: var(--color-theme-1000);
+  }
+}
+
+.switcherIcon {
+  display: inline-flex;
+  height: var(--base);
+  justify-content: center;
+}
+
+.themeIcon {
+  width: var(--theme-icon-width);
+}
+
+.upDownChevronIcon {
+  width: calc(var(--base) * 1.5);
+  right: 0;
+  pointer-events: none;
+}

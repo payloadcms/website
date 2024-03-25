@@ -156,12 +156,14 @@ export const CloudPage: React.FC<{
           label={false}
           user={user}
         />
-        <Link
-          className={['cols-2', classes.createButton].join(' ')}
-          href={`/new${matchedTeam?.slug ? `?team=${matchedTeam?.slug}` : ''}`}
-        >
-          New Project
-        </Link>
+        <div className="cols-2">
+          <Link
+            className={classes.createButton}
+            href={`/new${matchedTeam?.slug ? `?team=${matchedTeam?.slug}` : ''}`}
+          >
+            New Project
+          </Link>
+        </div>
       </div>
       {renderNewProjectBlock && !isLoading && (
         <NewProjectBlock

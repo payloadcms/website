@@ -62,7 +62,7 @@
       top: 50%;
       right: var(--base);
       transform: translate3d(0, -50%, 0);
-      
+
       .arrow {
         transform: rotate(90deg);
       }
@@ -70,12 +70,12 @@
       @include small-break {
         flex-direction: row;
         align-items: center;
-      }      
+      }
     }
 
     .rs__indicator {
       padding: 0px 4px;
-      
+
       svg path {
         fill: var(--theme-elevation-700);
       }
@@ -102,6 +102,7 @@
     .rs__menu-list {
       padding: calc(var(--base) / 4) 0;
       border: 1px solid var(--theme-border-color);
+
     }
 
     .rs__group-heading {
@@ -171,7 +172,7 @@
     .reactSelect {
       :global {
         div.rs__control {
-          background: var(--theme-elevation-50);
+          background: var(--theme-elevation-0);
         }
       }
     }

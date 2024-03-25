@@ -12,6 +12,14 @@
     margin-bottom: calc(var(--base) * 2);
     position: relative;
 
+    input {
+        border-right-width: 0px;
+
+        &:focus, &:hover {
+            border-right-width: 1px;
+        }
+    }
+
     & > * {
         width: 100%;
      }
@@ -24,9 +32,11 @@
 }
 
 .createButton {
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: var(--base);
     padding: var(--base) calc(var(--base) * 1.5);
     line-height: 1;
