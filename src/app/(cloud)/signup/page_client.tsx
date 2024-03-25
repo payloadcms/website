@@ -152,7 +152,7 @@ export const Signup: React.FC = () => {
         </Heading>
         <div className={['grid'].filter(Boolean).join(' ')}>
           <div className={['cols-5 cols-m-8'].filter(Boolean).join(' ')}>
-            <Heading marginTop={false} element="p" as="h4">
+            <Heading marginTop={false} element="p" as="h4" id="cloud-registered-successfully">
               Your account has been created. Please check your email to verify your account and
               login.
             </Heading>
