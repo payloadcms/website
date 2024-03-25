@@ -5,17 +5,12 @@
   flex-direction: column;
   gap: calc(var(--base) * 1.5);
   padding: calc(var(--base) * 1.5);
-  padding-bottom: 0;
   text-decoration: none;
   aspect-ratio: 1 / 1;
   transition: background-color, gap, padding-bottom;
   transition-duration: .4s;
   transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
   border-bottom: 1px solid var(--grid-line-light);
-
-  @include small-break {
-    aspect-ratio: unset;
-  }
 
   @include data-theme-selector('dark') {
     border-color: var(--grid-line-dark);
@@ -36,7 +31,8 @@
   }
 
   &.link:hover {
-    padding-bottom: var(--base);
+    padding-bottom: calc(var(--base) * 3);
+    gap: var(--base);
 
     .title {
       margin-bottom: 0;
@@ -52,6 +48,7 @@
     }
 
     .descriptionWrapper {
+
       grid-template-rows: 1fr;
       opacity: 1;
     }
@@ -63,23 +60,33 @@
 }
 
 .revealCard {
-  gap: 0;
   padding-bottom: 0;
+  gap: 0;
 
   &:hover {
-    gap: var(--base);
-    padding-bottom: calc(var(--base) * 1.5);
-
     .revealDescriptionWrapper {
       grid-template-rows: 1fr;
       opacity: 1;
+
+      .description {
+        padding-bottom: calc(var(--base) * 1.5);
+      }
     }
+  }
+
+  &.link:hover {
+    padding-bottom: 0;
+    gap: 0;
+  }
+
+  .titleWrapper {
+    padding-bottom: calc(var(--base) * 1.5);
   }
 
 }
 
 .leader {
-  flex-grow: 1;
+  flex: 0 1 0;
   display: flex;
 
   .leaderText {
@@ -95,10 +102,17 @@
   }
 }
 
+.titleWrapper {
+  display: flex;
+  flex: 2 1 0;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 .title {
   font-size: calc(var(--base) * 1.5);
   line-height: 1.2em;
-  min-height: 2lh;
+  margin: 0;
 
   @include large-mid-break {
     font-size: calc(var(--base) * 1.4);
@@ -119,15 +133,16 @@
 
 .descriptionWrapper {
   display: grid;
+  flex: 2 1 0;
   grid-template-rows: 1fr;
   opacity: 1;
-  height: 4.2lh;
 
   .description {
     opacity: 1;
     pointer-events: none;
     padding: 0;
     margin: 0;
+    height: 100%;
   }
 }
 
@@ -146,7 +161,9 @@
     padding: 0;
     margin: 0;
     height: auto;
-    padding-bottom: calc(var(--base) * 1.5);
+    transition-property: padding;
+    transition-duration: .4s;
+    transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 }
 
