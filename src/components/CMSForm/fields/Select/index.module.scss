@@ -19,14 +19,14 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: calc(var(--base) * 2);
+    left: 2rem;
     display: flex;
     align-items: center;
     pointer-events: none;
     transition: all 0.3s ease;
 
     @include mid-break {
-      left: calc(var(--base) * 1);
+      left: 1rem;
     }
   }
 
@@ -40,7 +40,7 @@
     pointer-events: none;
     font-weight: 400;
     color: var(--text-dark);
-    margin-right: calc(var(--base) * 0.75);
+    margin-right: 0.75rem;
     z-index: 1;
   }
 }
@@ -51,10 +51,10 @@
   :global {
     div.rs__control {
       @include shared.formInput;
-      padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
+      padding: 1.5rem 2rem;
 
       @include mid-break {
-        padding: calc(var(--base) * 1.5) calc(var(--base) * 1);
+        padding: 1.5rem 1rem;
       }
     }
 
@@ -106,21 +106,21 @@
     .rs__indicators {
       position: absolute;
       top: 50%;
-      right: calc(var(--base) * 2);
+      right: 2rem;
       transform: translate3d(0, -50%, 0);
-      
+
       .arrow {
         transform: rotate(90deg);
       }
 
       @include mid-break {
-        right: var(--base);
+        right: 1rem;
       }
     }
 
     .rs__indicator {
       padding: 0px 4px;
-      
+
       svg path {
         fill: var(--theme-elevation-700);
       }
@@ -153,12 +153,12 @@
     }
 
     .rs__group-heading {
-      margin-bottom: calc(var(--base) / 2);
+      margin-bottom: 0.5rem;
     }
 
     .rs__option {
       font-size: 1rem;
-      padding: calc(var(--base) * 1) calc(var(--base) * 2);
+      padding: 1rem 2rem;
       background-color: #101010;
 
       &--is-focused {
@@ -172,7 +172,7 @@
       }
 
       @include mid-break {
-        padding: calc(var(--base) * 1) calc(var(--base) * 1);
+        padding: 1rem 1rem;
       }
     }
 
@@ -184,7 +184,7 @@
     .rs__multi-value__label {
       max-width: 150px;
       color: var(--color-base-0);
-      padding: calc(var(--base) / 8) calc(var(--base) / 4);
+      padding: 0.125rem 0.25rem;
     }
 
     .rs__multi-value__remove {
@@ -204,7 +204,7 @@
 
 .description {
   @include small;
-  margin-top: calc(var(--base) / 2);
+  margin-top: 0.5rem;
   color: var(--color-base-0);
 }
 
@@ -219,16 +219,16 @@
   }
 
   .selectLabel {
-    margin-right: calc(var(--base) * 0.5);
+    margin-right: 0.5rem;
   }
 
   .reactSelect {
     :global {
       div.rs__control {
-        padding: calc(var(--base) * 2) calc(var(--base) * 2) calc(var(--base) * 1) calc(var(--base) * 2);
-  
+        padding: 2rem 2rem 1rem 2rem;
+
         @include mid-break {
-          padding: calc(var(--base) * 2) calc(var(--base) * 1) calc(var(--base) * 1) calc(var(--base) * 1);
+          padding: 2rem 1rem 1rem 1rem;
         }
       }
     }

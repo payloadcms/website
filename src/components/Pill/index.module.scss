@@ -5,7 +5,7 @@
   align-items: center;
   color: var(--color-success-500);
   border-radius: 19px;
-  padding: 4px calc(var(--base) * 0.5);
+  padding: 4px 0.5rem;
 }
 
 .color--default {
@@ -52,7 +52,7 @@
 
 @include small-break {
   .pill {
-    padding: calc(var(--base) * 0.25) calc(var(--base) * 0.45);
+    padding: 0.25rem 0.45rem;
     margin: 0;
     max-height: 28px;
   }

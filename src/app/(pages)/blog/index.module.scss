@@ -1,14 +1,14 @@
 @use '@scss/common' as *;
 
 .hero {
-  margin-bottom: calc(var(--base) * 5);
+  margin-bottom: 5rem;
 }
 
 .pageTitle {
   @include h5;
   opacity: 0.5;
   margin: 0;
-  margin-bottom: calc(var(--base) * 2);
+  margin-bottom: 2rem;
 }
 
 
@@ -17,7 +17,7 @@
   margin: 0;
 
   @include mid-break {
-    margin-bottom: calc(var(--base) * 2);
+    margin-bottom: 2rem;
   }
 }
 
@@ -26,9 +26,9 @@
 }
 
 .cardGrid {
-  row-gap: calc(var(--base) * 5);
+  row-gap: 5rem;
 
   @include mid-break {
-    row-gap: calc(var(--base) * 2.5);
+    row-gap: 2.5rem;
   }
 }

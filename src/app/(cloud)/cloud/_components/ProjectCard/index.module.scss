@@ -13,7 +13,7 @@
     aspect-ratio: 1/1;
     display: flex;
     flex-direction: column;
-    padding: calc(var(--base) * 2);
+    padding: 2rem;
     border: 0.5px solid;
     // no border for the default card until hover, match background color
     border-color: var(--border-color);
@@ -35,7 +35,7 @@
         }
 
         // turn off hover effects on mobile
-        @include mid-break {    
+        @include mid-break {
             border-color: var(--border-color);
 
             &:local() {
@@ -47,7 +47,7 @@
     }
 
     @include mid-break {
-        padding: var(--base);
+        padding: 1rem;
     }
 }
 
@@ -94,29 +94,29 @@
 
 .pills {
     display: flex;
-    gap: calc(var(--base) / 4);
-    margin-bottom: calc(var(--base) / 2);
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
 }
 
 .leader {
     @include label;
-    margin-bottom: calc(var(--base) / 2);
+    margin-bottom: 0.5rem;
 }
 
 .titleWrapper {
-    margin-bottom: calc(var(--base) / 2);
+    margin-bottom: 0.5rem;
 }
 
 .title {
     margin: 0;
-    padding-right: calc(var(--base) * 2);
+    padding-right: 2rem;
 
     @include mid-break {
         padding-right: 0;
     }
 
     @include small-break {
-        margin-bottom: calc(var(--base) * 0.5);
+        margin-bottom: 0.5rem;
     }
 }
 
@@ -136,13 +136,13 @@
     @include small-break {
         display: block;
         width: fit-content;
-        margin-bottom: calc(var(--base) * 0.25);
+        margin-bottom: 0.25rem;
     }
 }
 
 .projectName {
     @include h5;
-    margin-right: calc(var(--base) / 2);
+    margin-right: 0.5rem;
 }
 
 .teamName {
@@ -151,14 +151,14 @@
     & > p {
         margin: 0;
         white-space: nowrap;
-        overflow: hidden;   
+        overflow: hidden;
         text-overflow: ellipsis;
     }
 }
 
 .details {
     color: var(--secondary-text-color);
-    margin-top: calc(var(--base) / 2);
+    margin-top: 0.5rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -168,7 +168,7 @@
 .projectBranch,
 .projectRepo {
     display: flex;
-    gap: calc(var(--base) / 2);
+    gap: 0.5rem;
     align-items: center;
 
     p {
@@ -193,8 +193,8 @@
     color: var(--icon-color);
     opacity: 0;
     position: absolute;
-    top: calc(var(--base) * 2);
-    right: calc(var(--base) * 2);
-    width: var(--base);
-    height: var(--base);
+    top: 2rem;
+    right: 2rem;
+    width: 1rem;
+    height: 1rem;
 }

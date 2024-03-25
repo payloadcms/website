@@ -1,21 +1,21 @@
 .plan {
   display: flex;
   flex-direction: column;
-  gap: calc(var(--base) * 3.5);
+  gap: 3.5rem;
 }
 
 .borderBox {
-  padding: calc(var(--base) * 1.25);
+  padding: 1.25rem;
   border: 1px solid var(--theme-border-color);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: calc(var(--base) * 1.25);
+  gap: 1.25rem;
 }
 
 .highlightHeading {
   position: relative;
-  padding-bottom: calc(var(--base) * 1.5);
+  padding-bottom: 1.5rem;
   display: inline-flex;
 
   &:after {

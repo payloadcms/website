@@ -10,9 +10,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: calc(var(--base) * 1);
-    height: calc(var(--base) * 1);
-    margin-right: calc(var(--base) * 0.5);
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
     flex-shrink: 0;
 }
 

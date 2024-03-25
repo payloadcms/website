@@ -1,10 +1,10 @@
 @use "@scss/common" as *;
 
-.vars {  
-  margin-bottom: var(--base);
+.vars {
+  margin-bottom: 1rem;
 
   & > *:not(:last-child) {
-    margin-bottom: var(--base);
+    margin-bottom: 1rem;
   }
 }
 
@@ -15,12 +15,12 @@
 .fields {
   display: flex;
   position: relative;
-  left: calc(var(--base) * -0.5);
-  right: calc(var(--base) * -0.5);
-  width: calc(100% + calc(var(--base)));
+  left: -.5rem;
+  right: -.5rem;
+  width: calc(100% + 1rem);
 
   & > * {
-    margin: 0 calc(var(--base) / 2);
-    width: calc(50% - calc(var(--base) / 2));
+    margin: 0 0.5rem;
+    width: calc(50% - 0.5rem);
   }
 }

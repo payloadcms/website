@@ -19,17 +19,17 @@
 
   .errorAndLabel {
     position: absolute;
-    top: var(--base);
+    top: 1rem;
     display: flex;
     align-items: center;
     transform: translateY(25%);
-    left: calc(var(--base) * 2);
+    left: 2rem;
     transition: all 0.3s ease;
     color: var(--text-dark);
     pointer-events: none;
 
     @include mid-break {
-      left: calc(var(--base) * 1);
+      left: 1rem;
     }
   }
 
@@ -40,13 +40,13 @@
 
   .textareaLabel {
     transition: all 0.3s ease;
-    margin-right: calc(var(--base) * 0.75);
+    margin-right: 0.75rem;
     color: var(--text-dark);
   }
 
   .textarea {
     @include shared.formInput;
-    padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
+    padding: 1.5rem 2rem;
     resize: vertical;
     max-width: 100%;
     min-height: 160px;
@@ -58,7 +58,7 @@
     }
 
     @include mid-break {
-      padding: calc(var(--base) * 3) var(--base) calc(var(--base) * 1.5);
+      padding: 3rem 1rem 1.5rem;
     }
   }
 
@@ -71,8 +71,8 @@
 
 .focused {
   .errorAndLabel {
-    top: min(15%, calc(var(--base) * 0.75));
-    transform: translateY(min(15%, calc(var(--base) * 0.75)));
+    top: min(15%, 0.75rem);
+    transform: translateY(min(15%, 0.75rem));
   }
 
   .textareaLabel, .errorLabel {
@@ -80,13 +80,13 @@
   }
 
   .textareaLabel {
-    margin-right: calc(var(--base) * 0.5);
+    margin-right: 0.5rem;
   }
 
   .textarea {
-    padding: calc(var(--base) * 2) calc(var(--base) * 2) calc(var(--base) * 1) calc(var(--base) * 2);
+    padding: 2rem 2rem 1rem 2rem;
     height: calc(var(--intrinsic-height) * 1px);
-    max-height: calc(var(--base) * 24);
+    max-height: 24rem;
 
     &::-webkit-resizer {
       display: none;
@@ -97,7 +97,7 @@
     }
 
     @include mid-break {
-      padding: calc(var(--base) * 3) var(--base) calc(var(--base) * 1);
+      padding: 3rem 1rem 1rem;
     }
   }
 }

@@ -2,10 +2,10 @@
 
 .reTriggerBackground {
   display: flex;
-  gap: calc(var(--base) * 1.5);
+  gap: 1.5rem;
 
   @include small-break {
-    gap: var(--base);
+    gap: 1rem;
     flex-direction: column-reverse;
   }
 }
@@ -13,7 +13,7 @@
 .deployDetails {
   display: flex;
   flex-direction: column;
-  gap: calc(var(--base) * .5);
+  gap: 0.5rem;
 
   p {
     margin: 0;
@@ -28,7 +28,7 @@
     svg {
       color: var(--theme-elevation-400);
       height: 20px;
-      margin-right: calc(var(--base) * 0.5);
+      margin-right: 0.5rem;
     }
   }
 }
@@ -36,7 +36,7 @@
 .indicationLine {
   display: flex;
   align-items: center;
-  gap: calc(var(--base) * 0.5);
+  gap: 0.5rem;
 
   p {
     margin: 0;
@@ -47,10 +47,10 @@
 .statusLine {
   display: flex;
   align-items: center;
-  gap: calc(var(--base) * 0.5);
+  gap: 0.5rem;
 
   p {
-    font-size: calc(var(--base) * .75);
+    font-size: 0.75rem;
     margin: 0;
     color: var(--theme-elevation-450);
 
@@ -124,7 +124,7 @@
 }
 
 .consoleHeading {
-  padding-top: calc(var(--base) * 2);
+  padding-top: 2rem;
 }
 
 .console {
@@ -155,19 +155,19 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: calc(var(--base) * 2);
+  gap: 2rem;
 
   @include mid-break {
-    gap: var(--base);
+    gap: 1rem;
   }
 }
 
 .indication {
   display: flex;
   flex-direction: column;
-  gap: var(--base);
+  gap: 1rem;
 
   @include small-break {
-    gap: calc(var(--base) / 2);
+    gap: 0.5rem;
   }
 }

@@ -19,12 +19,12 @@
 
 .GitHub {
   & p {
-    margin-bottom: var(--base);
+    margin-bottom: 1rem;
   }
 }
 
 .body {
-  margin-top: var(--base);
+  margin-top: 1rem;
   overflow-wrap: anywhere;
 
   :global(.ts) {
@@ -57,13 +57,13 @@
   }
 
   & hr {
-    margin: var(--base) 0;
+    margin: 1rem 0;
   }
 
   & code,
   & pre {
     @include code;
-    line-height: var(--base);
+    line-height: 1rem;
     -moz-tab-size: 4;
     -o-tab-size: 4;
     tab-size: 4;
@@ -71,12 +71,12 @@
     -moz-hyphens: none;
     -ms-hyphens: none;
     hyphens: none;
-    padding: calc(var(--base) * 0.15);
+    padding: 0.15rem;
   }
 
   & pre {
     background-color: var(--color-base-950);
-    padding: calc(var(--base) * 1.5);
+    padding: 1.5rem;
 
     code {
       background: none;
@@ -100,15 +100,15 @@
   }
 
   & h4 {
-    font-size: calc(var(--base) * 1.35);
+    font-size: 1.35rem;
   }
 
   & h5 {
-    font-size: calc(var(--base) * 1.25);
+    font-size: 1.25rem;
   }
 
   & h6 {
-    font-size: calc(var(--base) * 1.15);
+    font-size: 1.15rem;
   }
 
   & a {
@@ -118,7 +118,7 @@
 
   & blockquote {
     margin-left: 0;
-    padding-left: var(--base);
+    padding-left: 1rem;
     border-left: 2px solid var(--theme-elevation-300);
   }
 

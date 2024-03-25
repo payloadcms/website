@@ -1,6 +1,6 @@
 @use '@scss/common.scss' as *;
 
-$curve: cubic-bezier(.165, .84, .44, 1);
+$curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .desktopNav {
   position: relative;
@@ -99,7 +99,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   align-items: center;
 
   & > *:not(:last-child) {
-    margin-right: calc(var(--base) * 1);
+    margin-right: 1rem;
   }
 }
 
@@ -122,7 +122,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   flex-grow: 1;
   display: flex;
   flex-direction: row;
-  gap: calc(var(--base) * 1.5);
+  gap: 1.5rem;
 }
 
 .tab {
@@ -145,9 +145,9 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 }
 
 .tabArrow, .linkArrow {
-  margin-left: calc(var(--base) * 0.5);
-  width: calc(var(--base) * 0.5);
-  height: calc(var(--base) * 0.5);
+  margin-left: 0.5rem;
+  width: 0.5rem;
+  height: 0.5rem;
 }
 
 .underline {
@@ -175,7 +175,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   left: 0;
   width: 100%;
   pointer-events: none;
-  padding: calc(var(--base) * 2.5) var(--gutter-h) 0 var(--gutter-h);
+  padding: 2.5rem var(--gutter-h) 0 var(--gutter-h);
   transition: opacity var(--trans-default) $curve;
 }
 
@@ -185,8 +185,8 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .dropdownItem, .description {
   text-wrap: wrap;
-  margin-right: calc(var(--base) * 2);
-  padding-bottom: calc(var(--base) * 2.5);
+  margin-right: 2rem;
+  padding-bottom: 2.5rem;
   transition: opacity var(--trans-default) $curve;
   opacity: 0;
 
@@ -248,7 +248,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .defaultLink, .defaultLinkDescription {
   display: flex;
   flex-direction: column;
-  gap: var(--base);
+  gap: 1rem;
   justify-content: space-between;
 }
 
@@ -269,7 +269,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 }
 
 .defaultLinkDescription {
-  min-height: calc(var(--base) * 5);
+  min-height: 5rem;
   @include small;
 }
 
@@ -280,7 +280,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .linkList, .featuredLink {
   display: flex;
   flex-direction: column;
-  gap: var(--base);
+  gap: 1rem;
 }
 
 .listLabel {
@@ -326,14 +326,14 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .featuredLinkWrap {
   display: flex;
   flex-direction: row;
-  gap: calc(var(--base) * 2);
+  gap: 2rem;
 }
 
 .descriptionLinks {
   display: flex;
   flex-direction: column;
-  gap: var(--base);
-  padding: calc(var(--base) * 2) 0;
+  gap: 1rem;
+  padding: 2rem 0;
 }
 
 .secondaryNavItems {
@@ -342,14 +342,14 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   justify-content: flex-end;
   align-items: center;
   white-space: nowrap;
-  gap: calc(var(--base) * 1.25);
+  gap: 1.25rem;
   opacity: 0;
   visibility: hidden;
   transition: all var(--trans-default) $curve;
 
   & > a {
     &:hover {
-      opacity: .8;
+      opacity: 0.8;
     }
   }
 }
@@ -373,7 +373,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   @include small;
 
   > * {
-    margin-right: calc(var(--base) * .75);
+    margin-right: 0.75rem;
 
     &:last-child {
       margin-right: 0;
@@ -384,14 +384,14 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .github {
   display: flex;
   align-items: center;
-  gap: calc(var(--base) * 0.5);
+  gap: 0.5rem;
   svg {
-    width: calc(var(--base) * 1.25);
+    width: 1.25rem;
   }
 
 
   @include large-break {
-      margin-bottom: calc(var(--base) * -0.25);
+      margin-bottom: -.25rem;
   }
 
   &:hover {

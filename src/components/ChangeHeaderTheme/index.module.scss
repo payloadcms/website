@@ -14,7 +14,7 @@
 
 .stickyObserver {
   --observer-variance: 1px;
-  --center-of-header: calc(var(--header-height) * .5);
+  --center-of-header: calc(var(--header-height) * 0.5);
   position: sticky;
   top: calc(var(--center-of-header) - var(--observer-variance));
   margin-bottom: calc(var(--center-of-header) + var(--observer-variance));
@@ -34,7 +34,7 @@
     right:0;
     bottom: 0;
     left: 0;
-    opacity: .55;
+    opacity: 0.55;
   }
 }
 
@@ -51,7 +51,7 @@
     height: calc(var(--center-of-header) + var(--observer-variance));
     background-color: red;
     width: 100%;
-    opacity: .15;
+    opacity: 0.15;
     z-index: inherit;
   }
 }

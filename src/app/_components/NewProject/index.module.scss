@@ -4,7 +4,7 @@
     width: 100%;
     display: flex;
     align-items: flex-end;
-    margin-bottom: calc(var(--base) * 1.5);
+    margin-bottom: 1.5rem;
 
     @include mid-break {
         margin-bottom: 0;
@@ -22,22 +22,22 @@
 
 .headerContent {
     flex-grow: 1;
-    
+
     @include mid-break {
-        margin-bottom: var(--base);
+        margin-bottom: 1rem;
     }
 }
 
 .callToAction {
     @include shadow;
     background-color: var(--theme-elevation-50);
-    padding: calc(var(--base) * 2);
+    padding: 2rem;
     position: relative;
     width: calc(100% + var(--gutter-h));
     left: calc(var(--gutter-h) * -0.5);
 
     @include mid-break {
-        padding: calc(var(--base) * 1.5);
+        padding: 1.5rem;
         width: calc(100% + (var(--gutter-h) * 2));
         left: calc(var(--gutter-h) * -1);
     }
@@ -48,7 +48,7 @@
     bottom: 0;
     left: 0;
     width: calc(100% + var(--gutter-h));
-    height: calc(50% + calc(var(--base) * 3));
+    height: calc(50% + 3rem);
     margin-left: calc(var(--gutter-h) / -2);
 
     @include mid-break {
@@ -69,24 +69,24 @@
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    width: calc(100% + (var(--base) * 2));
-    left: calc(var(--base) * -1);
-    padding-bottom: calc(var(--base) * 6);
+    width: calc(100% + (2rem));
+    left: -1rem;
+    padding-bottom: 6rem;
 
     @include mid-break {
         flex-wrap: wrap;
-        width: calc(100% + var(--base));
-        left: calc(var(--base) * -0.5);
-        padding-bottom: calc(var(--base) * 2);
+        width: calc(100% + 1rem);
+        left: -.5rem;
+        padding-bottom: 2rem;
     }
 }
 
 .card {
-    width: calc(33.333% - (var(--base) * 2));
-    margin: calc(var(--base) * 1);
+    width: calc(33.333% - (2rem));
+    margin: 1rem;
 
     @include mid-break {
-        width: calc(100% - var(--base));
-        margin: calc(var(--base) * 0.5);
+        width: calc(100% - 1rem);
+        margin: 0.5rem;
     }
 }

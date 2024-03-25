@@ -10,14 +10,14 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-bottom: calc(var(--base) * 3);
+  padding-bottom: 3rem;
 }
 
 .leader {
   @include h6;
   text-transform: uppercase;
   margin-top: 0;
-  margin-bottom: calc(var(--base) * 1);
+  margin-bottom: 1rem;
   color: #4D90B2;
 }
 
@@ -29,7 +29,7 @@
 
 .mediaBackgroundWrapper {
   position: relative;
-  margin-bottom: calc(var(--base) * 3);
+  margin-bottom: 3rem;
 }
 
 .gradientBg {
@@ -54,7 +54,7 @@
 
 .crosshairTopOne, .crosshairTopTwo, .crosshairBottomOne, .crosshairBottomTwo {
   position: absolute;
-  width: calc(var(--base) * 1);
+  width: 1rem;
   height: auto;
   color: var(--theme-elevation-1000);
   opacity: 0.5;
@@ -62,41 +62,41 @@
 }
 
 .crosshairTopOne {
-  top: calc(var(--base) * -0.5);
-  left: calc(var(--base) * -0.5);
+  top: -.5rem;
+  left: -.5rem;
 }
 
 .crosshairTopTwo {
-  top: calc(var(--base) * -0.5);
-  right: calc(var(--base) * -0.5);
+  top: -.5rem;
+  right: -.5rem;
 }
 
 .crosshairBottomOne {
-  bottom: calc(var(--base) * -0.5);
-  left: calc(var(--base) * -0.5);
+  bottom: -.5rem;
+  left: -.5rem;
 }
 
 .crosshairBottomTwo {
-  bottom: calc(var(--base) * -0.5);
-  right: calc(var(--base) * -0.5);
+  bottom: -.5rem;
+  right: -.5rem;
 }
 
 .crosshairTopRight, .crosshairBottomRight {
   position: absolute;
-  width: calc(var(--base) * 1);
+  width: 1rem;
   height: auto;
   color: var(--theme-elevation-1000);
   opacity: 0.5;
 }
 
 .crosshairTopRight {
-  top: calc(var(--base) * -0.5);
-  right: calc(var(--base) * -0.5);
+  top: -.5rem;
+  right: -.5rem;
 }
 
 .crosshairBottomRight {
-  bottom: calc(var(--base) * -0.5);
-  right: calc(var(--base) * -0.5);
+  bottom: -.5rem;
+  right: -.5rem;
 }
 
 .collapsibleWrapper {
@@ -173,7 +173,7 @@
   cursor: pointer;
   width: 100%;
   text-align: unset;
-  padding: calc(var(--base) * 1.5);
+  padding: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -185,7 +185,7 @@
   }
 
   @include mid-break {
-    padding: calc(var(--base) * 1.5) calc(var(--base) * 1);
+    padding: 1.5rem 1rem;
   }
 
   @include data-theme-selector('light') {
@@ -253,7 +253,7 @@
   font-size: 16px;
   line-height: 150%;
   color: var(--text-dark);
-  padding: 0 calc(var(--base) * 1.5) calc(var(--base) * 1.5) calc(var(--base) * 1.5);
+  padding: 0 1.5rem 1.5rem 1.5rem;
 
   @include data-theme-selector('light') {
     color: var(--text-light);
@@ -265,21 +265,21 @@
 }
 
 .mediaDescription {
-  padding-bottom: calc(var(--base) * 1);
+  padding-bottom: 1rem;
 }
 
 .link {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  gap: calc(var(--base) * 0.5);
+  gap: 0.5rem;
   color: var(--color-base-0);
   font-weight: 500;
   text-decoration: none;
 
   .arrowIcon {
-    width: calc(var(--base) * 0.75);
-    height: calc(var(--base) * 0.75);
+    width: 0.75rem;
+    height: 0.75rem;
     transition: transform 0.3s ease;
   }
 

@@ -3,14 +3,14 @@
 .fields {
   display: flex;
   flex-direction: column;
-  gap: var(--base);
+  gap: 1rem;
 }
 
 .meta {
   list-style: none;
   padding: 0;
   overflow-wrap: anywhere;
-  
+
   li {
     display: flex;
   }
@@ -21,11 +21,11 @@
 
     @include small-break {
       width: 50%;
-      padding-right: var(--base);
+      padding-right: 1rem;
     }
   }
 }
 
 .secretInput {
-  margin-bottom: calc(var(--base) * 1.5);
+  margin-bottom: 1.5rem;
 }

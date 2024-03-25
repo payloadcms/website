@@ -2,7 +2,7 @@
 
 .buttonWrap {
     display: flex;
-    gap: var(--base);
+    gap: 1rem;
 }
 
 .form {
@@ -11,7 +11,7 @@
 }
 
 .description {
-    margin: var(--base) 0;
+    margin: 1rem 0;
 }
 
 .password {
@@ -41,7 +41,7 @@
 
 .form {
     & > * {
-        margin-bottom: var(--base);
+        margin-bottom: 1rem;
     }
 
     & > *:last-child {

@@ -1,8 +1,8 @@
 @use "@scss/common" as *;
 
 .icon {
-  width: calc(var(--base) * 0.6);
-  height: calc(var(--base) * 0.6);
+  width: 0.6rem;
+  height: 0.6rem;
   overflow: visible;
   transition: transform var(--default-trans-time) linear;
   will-change: transform;
@@ -21,23 +21,23 @@
 }
 
 .extra-small {
-  width: calc(var(--base) * 0.25);
-  height: calc(var(--base) * 0.25);
+  width: 0.25rem;
+  height: 0.25rem;
 }
 
 .small {
-  width: calc(var(--base) * 0.5);
-  height: calc(var(--base) * 0.5);
+  width: 0.5rem;
+  height: 0.5rem;
 }
 
 .medium {
-  height: calc(var(--base) * 0.75);
-  width: calc(var(--base) * 0.75);
+  height: 0.75rem;
+  width: 0.75rem;
 }
 
 .large {
-  height: var(--base);
-  width: var(--base);
+  height: 1rem;
+  width: 1rem;
 }
 
 .full {
@@ -58,6 +58,6 @@
 }
 
 .chevronDown {
-  height: calc(var(--base) * 0.5);
-  width: var(--base);
+  height: 0.5rem;
+  width: 1rem;
 }

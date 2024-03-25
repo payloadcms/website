@@ -2,19 +2,19 @@
 @use "../../../forms/fields/shared.scss";
 
 .submit {
-  margin-top: var(--base);
+  margin-top: 1rem;
 
   @include mid-break {
-    margin-top: calc(var(--base) / 4);
+    margin-top: 0.25rem;
   }
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: calc(var(--base) * 1.25);
+  gap: 1.25rem;
 
   @include mid-break {
-    gap: calc(var(--base) * 1);
+    gap: 1rem;
   }
 }

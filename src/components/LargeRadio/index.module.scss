@@ -4,7 +4,7 @@
     display: flex;
     width: 100%;
     align-items: center;
-    padding: var(--base) var(--base);
+    padding: 1rem 1rem;
     border: 1px solid var(--theme-elevation-200);
     background-color: transparent;
     text-align: left;
@@ -18,7 +18,7 @@
     }
 
     @include mid-break {
-        padding: calc(var(--base) / 1.5);
+        padding: 0.67rem;
 
         &:hover {
             border-color: var(--theme-elevation-200);
@@ -28,7 +28,7 @@
 
 .disabled {
     color: var(--theme-elevation-300);
-    
+
     &:hover {
         border-color: var(--theme-elevation-200);
     }
@@ -52,15 +52,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: calc(var(--base) * 1.5);
-    height: calc(var(--base) * 1.5);
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 100%;
     border: 1px solid var(--theme-elevation-200);
-    margin-right: var(--base);
+    margin-right: 1rem;
     flex-shrink: 0;
 
     @include mid-break {
-        margin-right: calc(var(--base) / 1.5);
+        margin-right: 0.67rem;
     }
 }
 
@@ -80,7 +80,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    gap: calc(var(--base) / 2);
+    gap: 0.5rem;
 
     @include small-break {
         display: flex;
@@ -119,7 +119,7 @@
 
     .checked {
         border-color: var(--theme-success-600);
-        
+
         &:local() {
             .checkmark {
                 border-color: var(--theme-success-700);

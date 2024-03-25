@@ -8,9 +8,9 @@
     color: var(--theme-success-500);
 }
 
-.form {    
+.form {
     & > * {
-        margin-bottom: var(--base);
+        margin-bottom: 1rem;
     }
 
     & > *:last-child {
@@ -19,5 +19,5 @@
 }
 
 .hr {
-    margin: calc(var(--base) * 2) 0;
-}   
+    margin: 2rem 0;
+}

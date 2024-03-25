@@ -12,7 +12,7 @@
 .window {
   background-color: var(--theme-bg);
   border: 1px solid var(--theme-elevation-250);
-  padding: calc(var(--base) * 2);
+  padding: 2rem;
   width: 700px;
   max-width: calc(100% - var(--gutter-h));
   margin: auto;

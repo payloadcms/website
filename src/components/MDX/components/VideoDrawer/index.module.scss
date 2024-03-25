@@ -3,7 +3,7 @@
 .videoDrawerToggler {
   @include btnReset;
   width: 100%;
-  margin: calc(var(--base) * .5) 0 calc(var(--base) * 1.5) 0;
+  margin: 0.5rem 0 1.5rem 0;
   background: var(--theme-elevation-150);
   transition: all 200ms ease-in-out;
   border-bottom: 2px solid var(--theme-elevation-700);
@@ -25,7 +25,7 @@
     position: relative;
     flex-shrink: 0;
     height: auto;
-    width: calc(var(--base) * 6);
+    width: 6rem;
   }
 
   .playIcon {
@@ -37,12 +37,12 @@
   }
 
   .arrow {
-    margin-left: var(--base);
+    margin-left: 1rem;
   }
 
   .labelWrap {
     width: 100%;
-    padding: calc(var(--base)*1.5);
+    padding: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -51,13 +51,13 @@
 
   @include large-break {
     .labelWrap {
-      padding: calc(var(--base) * 1);
+      padding: 1rem;
     }
   }
 
   @include mid-break {
     .thumbnail {
-      width: calc(var(--base) * 4);
+      width: 4rem;
     }
   }
 
@@ -66,10 +66,10 @@
       display: inline-block;
     }
 
-    .arrow { 
-      margin-left: calc(var(--base) * 0.5);
-      width: calc(var(--base) * 0.5);
-      height: calc(var(--base) * 0.5);
+    .arrow {
+      margin-left: 0.5rem;
+      width: 0.5rem;
+      height: 0.5rem;
     }
   }
 }

@@ -1,7 +1,7 @@
 @use "@scss/common" as *;
 
 .message {
-  padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
+  padding: 1.5rem 2rem;
 
   &::before {
     content: '';
@@ -15,6 +15,6 @@
   }
 
   @include mid-break {
-    padding: calc(var(--base) * 1.5) calc(var(--base) * 1);
+    padding: 1.5rem 1rem;
   }
 }

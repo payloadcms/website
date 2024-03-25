@@ -1,7 +1,7 @@
 @use '@scss/common' as *;
 
 .breadcrumbWrap {
-  margin: 0 0 var(--base) 0;
+  margin: 0 0 1rem 0;
 }
 
 .breadcrumb {
@@ -19,22 +19,22 @@
 
 .divider {
   height: 1px;
-  margin: calc(var(--base) * 4) calc(var(--base) * -4);
+  margin: 4rem -4rem;
   background-color: var(--theme-border-color);
 
 
   @include mid-break {
-    margin: calc(var(--base) * 2) calc(var(--base) * -1);
+    margin: 2rem -1rem;
   }
 }
 
 .authorDetails {
   display: flex;
   align-items: center;
-  padding: var(--base) 0 var(--base) 0;
+  padding: 1rem 0 1rem 0;
 
   @include mid-break {
-    padding: calc(var(--base) * 0.5) 0;
+    padding: 0.5rem 0;
   }
 }
 
@@ -42,7 +42,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
-  margin-top: var(--base);
+  margin-top: 1rem;
 
   @include large-break {
     grid-template-columns: 1fr;

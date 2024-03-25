@@ -22,7 +22,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--base) 0;
+  padding: 1rem 0;
 
   & a {
     color: var(--theme-elevation-900);
@@ -32,15 +32,15 @@
 .descriptionLinks {
   display: flex;
   flex-direction: column;
-  gap: var(--base);
-  padding: calc(var(--base) * 2) 0;
+  gap: 1rem;
+  padding: 2rem 0;
 }
 
 .descriptionLink {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: var(--base);
+  gap: 1rem;
   text-decoration: none;
 }
 
@@ -58,7 +58,7 @@
 
   > * {
     text-decoration: none;
-    margin-right: var(--base);
+    margin-right: 1rem;
     line-height: 1;
   }
 
@@ -74,20 +74,20 @@
 
 .mobileAvatar {
   @include mobile-header-break {
-    margin-left: var(--base);
+    margin-left: 1rem;
   }
 }
 
 .searchToggler {
   all: unset;
   cursor: pointer;
-  margin-right: calc(var(--base) *  .5);
+  margin-right: 0.5rem;
 }
 
 .modalToggler {
   all: unset;
   cursor: pointer;
-  margin-left: var(--base);
+  margin-left: 1rem;
   height: 100%;
   display: flex;
   align-self: center;
@@ -196,7 +196,7 @@
   font-family: var(--font-body);
   @include h4;
   letter-spacing: -0.02em;
-  padding: calc(var(--base)*1.25);
+  padding: 1.25rem;
   font-weight: 500;
   margin: 0;
   text-decoration: none;
@@ -227,7 +227,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: var(--base) ;
+  gap: 1rem ;
   cursor: pointer;
   position: relative;
   border-top: 1px solid var(--theme-border-color);
@@ -246,7 +246,7 @@
     position: relative;
     border: 1px solid var(--theme-border-color);
     border-top: 0;
-    padding: calc(var(--base) * 1.25);
+    padding: 1.25rem;
     background-color: var(--theme-bg);
     z-index: 1;
   }
@@ -282,7 +282,7 @@
 
 .subMenuWrap {
   position: relative;
-  padding: var(--base) 0;
+  padding: 1rem 0;
   top: 0;
   bottom: 0;
   min-height: 100%;
@@ -303,27 +303,27 @@
 .featuredLinkWrap {
   @include btnReset;
   display: flex;
-  gap: calc(var(--base) * 2);
-  margin-top: calc(var(--base) * 2);
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
 .featuredLinks {
   font-size: var(--font-size-body);
   text-decoration: none;
   display: flex;
-  gap: calc(var(--base) * 0.75);
+  gap: 0.75rem;
   align-items: center;
 
   & svg {
-    width: calc(var(--base) * 0.85);
-    height: calc(var(--base) * 0.85);
+    width: 0.85rem;
+    height: 0.85rem;
   }
 }
 
 .linkArrow {
-  margin-left: calc(var(--base) * 0.5);
-  width: calc(var(--base) * 0.5);
-  height: calc(var(--base) * 0.5);
+  margin-left: 0.5rem;
+  width: 0.5rem;
+  height: 0.5rem;
 }
 
 .listLabelWrap {
@@ -336,7 +336,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 0 calc(var(--base) * .5) 0;
+  margin: 0 0 0.5rem 0;
 }
 
 .listWrap {
@@ -349,7 +349,7 @@
   width: 47%;
   text-decoration: none;
   font-weight: 500;
-  margin-bottom: calc(var(--base) * .5);
+  margin-bottom: 0.5rem;
 }
 
 .itemDescription {
@@ -359,7 +359,7 @@
 
 .tag {
   @include h6;
-  margin: 0 0 calc(var(--base) * 1.5) 0;
+  margin: 0 0 1.5rem 0;
   font-weight: normal;
   text-transform: uppercase;
 }

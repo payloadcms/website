@@ -1,7 +1,7 @@
 @use '@scss/common' as *;
 
 .authorTag {
-  --byline-spacer: calc(var(--base) * .75);
+  --byline-spacer: 0.75rem;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -34,7 +34,7 @@
     height: 40px;
     border-radius: 100%;
     overflow: hidden;
-    margin-right: calc(var(--base) * 0.5);
+    margin-right: 0.5rem;
     flex-shrink: 0;
   }
 }
@@ -60,7 +60,7 @@
 
 .twitterIcon {
   display: flex;
-  margin: 0 0 0 calc(var(--base) * 0.5);
+  margin: 0 0 0 0.5rem;
   width: 18px;
 
   & rect {
@@ -70,7 +70,7 @@
 
 .commentMeta {
   display: flex;
-  gap: var(--base);
+  gap: 1rem;
   @include label;
 }
 
@@ -83,15 +83,15 @@
 
   &::before {
     content: "\2014";
-    margin: 0 calc(var(--base) * 0.5);
+    margin: 0 0.5rem;
   }
 }
 
 .commentMetaStats {
   display: flex;
-  gap: calc(var(--base) * 0.5);
+  gap: 0.5rem;
   align-items: flex-end;
-  margin-top: calc(var(--base) * 0.5);
+  margin-top: 0.5rem;
 
   >span {
     font-family: var(--font-mono);
@@ -117,12 +117,12 @@
 
 .comments {
   height: 100%;
-  margin-left: calc(var(--base) * 1.25);
+  margin-left: 1.25rem;
   color: var(--color-base-300);
 
   & svg {
-    width: calc(var(--base) * 0.75);
-    margin-right: calc(var(--base) * 0.25);
+    width: 0.75rem;
+    margin-right: 0.25rem;
   }
 
   & span {
@@ -160,16 +160,16 @@
   .authorName {
     flex-wrap: wrap;
     align-items: center;
-    padding-bottom: calc(var(--base) * 0.25);
+    padding-bottom: 0.25rem;
   }
 
   .comments {
-    margin-left: calc(var(--base) * 0.5);
+    margin-left: 0.5rem;
   }
 
   .twitterIcon {
     width: 15px;
-    margin: 0 calc(var(--base) * 0.5);
+    margin: 0 0.5rem;
   }
 }
 
@@ -181,7 +181,7 @@
       color: var(--color-blue-600);
     }
   }
-  
+
   .twitterIcon {
     & path {
       fill: var(--color-blue-900);

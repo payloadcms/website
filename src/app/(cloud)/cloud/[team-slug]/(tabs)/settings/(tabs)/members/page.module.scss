@@ -11,10 +11,10 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: var(--base);
+  gap: 1rem;
 
   @include mid-break {
-    margin-bottom: var(--base);
+    margin-bottom: 1rem;
   }
 }
 

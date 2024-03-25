@@ -46,35 +46,35 @@
 }
 
 .content {
-  padding: calc(var(--base) * 2);
+  padding: 2rem;
   padding-bottom: 0;
 
   @include mid-break {
-    padding: var(--base);
+    padding: 1rem;
     padding-bottom: 0;
   }
 }
 
 .description {
-  margin-bottom: calc(var(--base) * 2);
+  margin-bottom: 2rem;
 
   @include mid-break {
-    margin-bottom: var(--base);
+    margin-bottom: 1rem;
   }
 }
 
 .media {
-  padding-left: calc(var(--base) * 2);
+  padding-left: 2rem;
 
   @include mid-break {
-    padding-left: var(--base);
+    padding-left: 1rem;
   }
 }
 
 .leaderWrapper {
   display: flex;
   align-items: center;
-  gap: calc(var(--base) / 2);
+  gap: 0.5rem;
 }
 
 .leader {
@@ -82,29 +82,29 @@
   @include label;
 
   @include mid-break {
-    margin-bottom: calc(var(--base) / 2);
+    margin-bottom: 0.5rem;
   }
 }
 
 .pill {
   @include mid-break {
-    margin-bottom: calc(var(--base) / 2);
+    margin-bottom: 0.5rem;
   }
 }
 
 .plusIcon {
   position: absolute;
-  top: var(--base);
-  right: var(--base);
-  width: calc(var(--base) * 2.5);
-  height: calc(var(--base) * 2.5);
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
   color: var(--theme-elevation-200);
   transition: 25ms linear color;
 
   @include mid-break {
-    top: calc(var(--base) * 0.5);
-    right: calc(var(--base) * 0.5);
-    width: calc(var(--base) * 2);
-    height: calc(var(--base) * 2);
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 2rem;
+    height: 2rem;
   }
 }

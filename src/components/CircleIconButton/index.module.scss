@@ -27,12 +27,12 @@
 }
 
 .label {
-  margin-left: calc(var(--base) * 0.75);
+  margin-left: 0.75rem;
 }
 
 .iconWrapper {
-  width: calc(var(--base) * 1.5);
-  height: calc(var(--base) * 1.5);
+  width: 1.5rem;
+  height: 1.5rem;
   border: 1px solid currentColor;
   border-radius: 100%;
   display: flex;

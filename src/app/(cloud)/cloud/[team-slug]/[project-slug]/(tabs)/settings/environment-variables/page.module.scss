@@ -1,11 +1,11 @@
 @use '@scss/common.scss' as *;
 
 .header {
-  margin-bottom: var(--base);
+  margin-bottom: 1rem;
 }
 
 .description {
-  margin-bottom: calc(var(--base) * 1.5);
+  margin-bottom: 1.5rem;
 }
 
 .link {

@@ -10,25 +10,25 @@
 
 .richTextWrapper {
   @include mid-break {
-    margin-bottom: calc(var(--base) * 2);
+    margin-bottom: 2rem;
   }
 
   @include small-break {
-    margin-bottom: calc(var(--base) * 1.5);
+    margin-bottom: 1.5rem;
   }
 }
 
 .richText {
   max-width: 75%;
-  margin-bottom: calc(var(--base) * 3);
+  margin-bottom: 3rem;
 
   @include mid-break {
     max-width: 100%;
-    margin-bottom: calc(var(--base) * 2);
+    margin-bottom: 2rem;
   }
 
   @include small-break {
-    margin-bottom: calc(var(--base) * 1.5);
+    margin-bottom: 1.5rem;
   }
 }
 
@@ -106,19 +106,19 @@
 
   .contentWrapper {
     position: absolute;
-    top: calc(var(--base) * 1.5);
-    bottom: calc(var(--base) * 1.5);
-    left: calc(var(--base) * 1.5);
-    right: calc(var(--base) * 1.5);
+    top: 1.5rem;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
 
     @include small-break {
-      top: calc(var(--base) * 1);
-      bottom: calc(var(--base) * 1);
-      left: calc(var(--base) * 1);
-      right: calc(var(--base) * 1);
+      top: 1rem;
+      bottom: 1rem;
+      left: 1rem;
+      right: 1rem;
     }
 
     > div {
@@ -129,7 +129,7 @@
       opacity: 0;
       filter: blur(0px);
     }
-  }  
+  }
 }
 
 .logoPresent {
@@ -154,7 +154,7 @@
 
 .crosshair {
   position: absolute;
-  width: calc(var(--base) * 1);
+  width: 1rem;
   height: auto;
   z-index: 5;
   color: var(--theme-elevation-1000);
@@ -162,13 +162,13 @@
 }
 
 .crosshairLeft {
-  left: calc(25% + var(--base) * -0.45);
-  bottom: calc(50% + var(--base) * -0.55);
+  left: calc(25% + -.45rem);
+  bottom: calc(50% + -.55rem);
 }
 
 .crosshairRight {
-  left: calc(75% + var(--base) * -0.45);
-  bottom: calc(50% + var(--base) * -0.55);
+  left: calc(75% + -.45rem);
+  bottom: calc(50% + -.55rem);
 }
 
 :global([data-theme="dark"]) {

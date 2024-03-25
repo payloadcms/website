@@ -60,9 +60,9 @@
     .rs__indicators {
       position: absolute;
       top: 50%;
-      right: var(--base);
+      right: 1rem;
       transform: translate3d(0, -50%, 0);
-      
+
       .arrow {
         transform: rotate(90deg);
       }
@@ -70,12 +70,12 @@
       @include small-break {
         flex-direction: row;
         align-items: center;
-      }      
+      }
     }
 
     .rs__indicator {
       padding: 0px 4px;
-      
+
       svg path {
         fill: var(--theme-elevation-700);
       }
@@ -100,17 +100,17 @@
     }
 
     .rs__menu-list {
-      padding: calc(var(--base) / 4) 0;
+      padding: 0.25rem 0;
       border: 1px solid var(--theme-border-color);
     }
 
     .rs__group-heading {
-      margin-bottom: calc(var(--base) / 2);
+      margin-bottom: 0.5rem;
     }
 
     .rs__option {
       font-size: 1rem;
-      padding: calc(var(--base) / 2) var(--base);
+      padding: 0.5rem 1rem;
 
       &--is-focused {
         background-color: var(--theme-elevation-100);
@@ -136,7 +136,7 @@
     .rs__multi-value__label {
       max-width: 150px;
       color: var(--theme-text);
-      padding: calc(var(--base) / 8) calc(var(--base) / 4);
+      padding: 0.125rem 0.25rem;
     }
 
     .rs__multi-value__remove {
@@ -180,6 +180,6 @@
 
 .description {
     @include small;
-    margin-top: calc(var(--base) / 2);
+    margin-top: 0.5rem;
     color: var(--theme-elevation-400);
 }

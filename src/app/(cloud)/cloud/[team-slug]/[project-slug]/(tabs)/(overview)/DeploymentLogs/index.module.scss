@@ -1,5 +1,5 @@
 .deploymentLogs {
-  margin-top: calc(var(--base) * 4);
+  margin-top: 4rem;
   isolation: isolate;
 
   .logTabs {
@@ -35,9 +35,9 @@
 .tabLabel {
   display: flex;
   align-items: center;
-  gap: calc(var(--base) * .75);
+  gap: 0.75rem;
 }
 
 .inactiveIndicator {
-  opacity: .25;
+  opacity: 0.25;
 }

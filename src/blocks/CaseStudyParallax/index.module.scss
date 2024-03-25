@@ -10,10 +10,10 @@
 
 .card {
   position: relative;
-  padding-top:  calc(var(--base) * 4);
+  padding-top:  4rem;
 
   &.isFirst {
-    margin-top: calc(var(--base) * -12);
+    margin-top: -12rem;
     grid-column: 1/-1;
     grid-row: 1/1;
   }
@@ -36,7 +36,7 @@
   }
 
   &:last-of-type {
-    padding-bottom: calc(var(--base) * 4);
+    padding-bottom: 4rem;
 
     @include mid-break {
       padding-bottom:  0;
@@ -79,17 +79,17 @@
 
 .quoteIcon {
   position: absolute;
-  width:  calc(var(--base) * 10);
+  width:  10rem;
   height: auto;
   color: var(--theme-bg);
-  left: calc(var(--base) * -2.4);
-  top: calc(var(--base) * -5.6);
+  left: -2.4rem;
+  top: -5.6rem;
 
 
   @include large-break {
-    left: calc(var(--base) * -1.8);
-    top: calc(var(--base) * -4.5);
-    width:  calc(var(--base) * 8);
+    left: -1.8rem;
+    top: -4.5rem;
+    width:  8rem;
   }
 
   @include mid-break {
@@ -107,12 +107,12 @@
   @include h3;
   font-weight: 500;
   line-height: 1.2;
-  margin-bottom: calc(var(--base) * 2);
+  margin-bottom: 2rem;
   position: relative;
   letter-spacing: -0.04em;
 
   @include small-break {
-    margin-bottom: calc(var(--base) * 1);
+    margin-bottom: 1rem;
   }
 }
 
@@ -134,17 +134,17 @@
   position: relative;
   scroll-snap-align: center;
   overflow: visible;
-  row-gap: calc(var(--base) * 12);
+  row-gap: 12rem;
 
-  padding-top:  calc(var(--base) * 16);
-  padding-bottom:  calc(var(--base) * 10);
+  padding-top: 16rem;
+  padding-bottom:  10rem;
 
   margin-bottom: -80vh;
 
   @include mid-break {
     margin-bottom: 0;
-    row-gap: calc(var(--base) * 4);
-    padding-top:  calc(var(--base) * 1);
+    row-gap: 4rem;
+    padding-top:  1rem;
     padding-bottom:  0;
   }
 }
@@ -160,7 +160,7 @@
 
 .mobileQuoteItem {
   display: none;
-  margin-top: calc(var(--base) * 2);
+  margin-top: 2rem;
 
   @include mid-break {
     display: grid;
@@ -178,11 +178,11 @@
 .authorWrapper {
   display: flex;
   align-items: center;
-  gap: calc(var(--base) * 2);
-  margin-bottom: calc(var(--base) * 2);
+  gap: 2rem;
+  margin-bottom: 2rem;
 
   @include small-break {
-    margin-bottom: calc(var(--base) * 1);
+    margin-bottom: 1rem;
   }
 }
 
@@ -289,7 +289,7 @@
     }
 
     & .navButtonLabel {
-      padding: calc(var(--base) * 0.5) 0;
+      padding: 0.5rem 0;
       opacity: 0.6;
     }
 
@@ -303,6 +303,6 @@
 }
 
 .logo {
-  max-width: calc(var(--base) * 6);
+  max-width: 6rem;
   height: auto;
 }

@@ -3,7 +3,7 @@
 .invitations {
   display: flex;
   flex-direction: column;
-  gap: calc(var(--base) / 2);
+  gap: 0.5rem;
 }
 
 .success {
@@ -30,7 +30,7 @@
 .formState {
   display: flex;
   flex-direction: column;
-  gap: calc(var(--base) / 2);
+  gap: 0.5rem;
 
   & > * {
       margin: 0;

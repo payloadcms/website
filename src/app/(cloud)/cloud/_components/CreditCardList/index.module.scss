@@ -4,9 +4,9 @@
     position: relative;
 }
 
-.scrollRef { 
+.scrollRef {
     position: absolute;
-    top: calc(var(--base) * -6);
+    top: -6rem;
 }
 
 .error {
@@ -20,13 +20,13 @@
 .formState {
     display: flex;
     flex-direction: column;
-    gap: var(--base);
+    gap: 1rem;
 
     > * {
         margin: 0;
 
         &:last-child {
-            margin-bottom: var(--base);
+            margin-bottom: 1rem;
         }
     }
 }
@@ -34,8 +34,8 @@
 .cardState {
     display: flex;
     flex-direction: column;
-    gap: var(--base);
-    margin-bottom: calc(var(--base) / 2);
+    gap: 1rem;
+    margin-bottom: 0.5rem;
 
     > * {
         margin: 0;
@@ -45,10 +45,10 @@
 .cards {
     display: flex;
     flex-direction: column;
-    gap: var(--base);
-    
+    gap: 1rem;
+
     @include mid-break {
-        gap: calc(var(--base) / 2);
+        gap: 0.5rem;
     }
 }
 
@@ -56,17 +56,17 @@
 .newCard {
     border: 0.5px solid;
     border-color: var(--theme-border-color);
-    padding: var(--base);
+    padding: 1rem;
     display: flex;
     align-items: center;
-    gap: var(--base);
+    gap: 1rem;
 
     > * {
         margin: 0;
     }
 
     @include mid-break {
-        padding: calc(var(--base) * .75);
+        padding: 0.75rem;
     }
 }
 
@@ -81,10 +81,10 @@
 
 .cardBrand {
     flex-grow: 1;
-    line-height: var(--base);
+    line-height: 1rem;
     display: flex;
     align-items: center;
-    gap: calc(var(--base) / 2);
+    gap: 0.5rem;
 }
 
 .deleteCard,
@@ -97,7 +97,7 @@
     font-size: inherit;
     font-family: inherit;
     outline: none;
-    
+
     &:hover {
         cursor: pointer;
         text-decoration: underline;
@@ -107,8 +107,8 @@
 .controls {
     display: flex;
     align-items: center;
-    margin-top: var(--base);
-    gap: var(--base);
+    margin-top: 1rem;
+    gap: 1rem;
 }
 
 .saveNewCard,
@@ -129,9 +129,9 @@
 
 .modalActions {
   display: flex;
-  gap: var(--base);
+  gap: 1rem;
   justify-content: flex-end;
   width: 100%;
-  padding-top: var(--base);
+  padding-top: 1rem;
   border-top: 0.5px solid var(--theme-border-color);
 }

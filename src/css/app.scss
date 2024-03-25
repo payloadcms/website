@@ -9,6 +9,7 @@
 @import "./theme.scss";
 
 :root {
+  font-size: 20px;
   --base: 20px;
   --breakpoint-xs-width: $breakpoint-xs-width;
   --breakpoint-s-width: $breakpoint-s-width;
@@ -39,23 +40,24 @@
   --text-dark: rgba(255, 255, 255, 0.5);
   --text-light: rgba(0, 0, 0, 0.5);
 
-  --gutter-h: calc(50vw - (var(--base) * 40));
-  --block-spacing: calc(var(--base) * 7);
-  --new-block-spacing: calc(var(--base) * 8);
+  --gutter-h: calc(50vw - 40rem);
+  --block-spacing: 7rem;
+  --new-block-spacing: 8rem;
   --default-border-width: 2px;
 
   --trans-default: 150ms;
 
   @include extra-large-break {
     --font-body-size: 16px;
-    --gutter-h: calc(var(--base) * 8);
+    --gutter-h: 8rem;
   }
 
   @include large-break {
+    font-size: 16px;
     --base: 16px;
-    --gutter-h: calc(var(--base) * 4);
-    --block-spacing: calc(var(--base) * 5);
-    --new-block-spacing: calc(var(--base) * 6);
+    --gutter-h: 4rem;
+    --block-spacing: 5rem;
+    --new-block-spacing: 6rem;
     --header-height: 76px;
   }
 
@@ -64,15 +66,15 @@
   }
 
   @include mid-break {
-    --gutter-h: calc(var(--base) * 2);
-    --block-spacing: calc(var(--base) * 3.5);
-    --new-block-spacing: calc(var(--base) * 4);
+    --gutter-h: 2rem;
+    --block-spacing: 3.5rem;
+    --new-block-spacing: 4rem;
     --page-padding-top: var(--header-height);
   }
 
   @include small-break {
-    --block-spacing: calc(var(--base) * 2);
-    --gutter-h: calc(var(--base) * 1);
+    --block-spacing: 2rem;
+    --gutter-h: 1rem;
   }
 
   --column: calc((100vw - (var(--gutter-h) * 2)) / 16);
@@ -159,11 +161,11 @@ h6 {
 }
 
 p {
-  margin: calc(var(--base) * 1.8) 0 calc(var(--base) * 1.8);
+  margin: 1.8rem 0 1.8rem;
 
   & + p {
     // If a paragraph follows another paragraph, reduce the margin
-    margin: calc(var(--base) * 0.6 * -1) 0 calc(var(--base) * 1.8);
+    margin: -0.6rem 0 1.8rem;
   }
 }
 
@@ -173,8 +175,8 @@ small {
 
 ul,
 ol {
-  padding-left: calc(var(--base) * 2);
-  margin: 0 0 var(--base);
+  padding-left: 2rem;
+  margin: 0 0 1rem;
 }
 
 a {
@@ -183,7 +185,7 @@ a {
   text-underline-offset: 2px;
 
   &:focus {
-    opacity: .8;
+    opacity: 0.8;
     outline: none;
     text-decoration: underline;
   }
@@ -193,7 +195,7 @@ a {
   }
 
   &:active {
-    opacity: .7;
+    opacity: 0.7;
     outline: none;
   }
 

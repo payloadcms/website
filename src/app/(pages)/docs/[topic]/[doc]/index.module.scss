@@ -6,7 +6,7 @@
 }
 
 .content {
-  padding-top: calc(var(--base) * 2);
+  padding-top: 2rem;
   min-width: 0;
   line-height: 1.6;
 
@@ -17,7 +17,7 @@
 
 .mdx {
   @include color-links;
-  padding-bottom: calc(var(--base) * 2);
+  padding-bottom: 2rem;
 
   h2 {
     @include h3;
@@ -67,7 +67,7 @@
   top: var(--page-padding-top);
   max-height: calc(100vh - var(--page-padding-top));
   overflow: scroll;
-  padding: calc(var(--base) * 2) 0;
+  padding: 2rem 0;
 
   &::-webkit-scrollbar {
     background-color: transparent;
@@ -102,7 +102,7 @@
 .next {
   position: relative;
   display: block;
-  padding: calc(var(--base) * 3) 0;
+  padding: 3rem 0;
   text-decoration: none;
   border-top: 1px solid var(--theme-border-color);
   transition: all var(--trans-default) linear;
@@ -144,7 +144,7 @@
   }
 
   @include mid-break {
-    margin: 0 calc(var(--base)*-2)!important;
+    margin: 0 -2rem!important;
   }
 }
 
@@ -155,10 +155,10 @@
 .nextLabel {
   display: flex;
   align-items: center;
-  padding-bottom: calc(var(--base) * 0.5);
+  padding-bottom: 0.5rem;
 
   svg {
     transition: all var(--trans-default) linear;
-    margin-left: calc(var(--base) * .5);
+    margin-left: 0.5rem;
   }
 }

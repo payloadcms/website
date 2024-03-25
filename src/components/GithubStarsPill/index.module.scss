@@ -1,7 +1,7 @@
 @use '@scss/common' as *;
 
 .pill {
-  height: calc(var(--base) * 2);
+  height: 2rem;
   display: flex;
   align-items: center;
   height: 30px;
@@ -10,11 +10,11 @@
 }
 
 .leftPill {
-  padding: calc(var(--base) * .25) calc(var(--base) * .5);
+  padding: 0.25rem 0.5rem;
   background-color: var(--color-base-850);
   color: var(--color-base-200);
   display: flex;
-  gap: calc(var(--base) * .5);
+  gap: 0.5rem;
   height: 28px;
 
   svg {
@@ -36,7 +36,7 @@
   @include small;
   position: relative;
   margin: 0;
-  padding: calc(var(--base) * .25) calc(var(--base) * .5);
+  padding: 0.25rem 0.5rem;
   background-color: var(--color-base-950);
   color: white;
   height: 28px;

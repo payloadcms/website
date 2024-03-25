@@ -4,7 +4,7 @@
 
   letter-spacing: 0;
 
-  scroll-margin-top: calc(var(--header-height) + var(--base));
+  scroll-margin-top: calc(var(--header-height) + 1rem);
   position: relative;
 
   * {
@@ -13,7 +13,7 @@
 
   &:hover {
     .linkedHeading {
-      opacity: .75;
+      opacity: 0.75;
     }
   }
 }
@@ -22,12 +22,12 @@
   position: absolute;
   transform: translate(-50%, -50%);
   transition: opacity 200ms ease;
-  opacity: .25;
+  opacity: 0.25;
   top: 50%;
-  left: calc(var(--base) * -1.15);
+  left: -1.15rem;
 
   @include small-break {
     transform: translate(-50%, -50%) scale(.65);
-    left: calc(var(--base) * -.5);
+    left: -.5rem;
   }
 }
