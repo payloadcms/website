@@ -134,13 +134,13 @@
 }
 
 .crosshairFirstCell {
-  left: calc(25% -.45rem);
-  bottom: calc(66.666% -.55rem)
+  left: calc(25% - .45rem);
+  bottom: calc(66.666% - .55rem)
 }
 
 .crosshairSecondRowThirdCell {
-  left: calc(75% -.45rem);
-  bottom: calc(33.333% -.55rem);
+  left: calc(75% - .45rem);
+  bottom: calc(33.333% - .55rem);
 }
 
 :global([data-theme="dark"]) {
