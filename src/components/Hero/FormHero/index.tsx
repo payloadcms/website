@@ -68,7 +68,7 @@ export const FormHero: React.FC<
               className={[classes.scanlineDesktopWrapper, 'cols-16 start-5 cols-m-8 start-m-1']
                 .filter(Boolean)
                 .join(' ')}
-              style={{ height: `calc(${backgroundHeight}px + var(--base) * 10)` }}
+              style={{ height: `calc(${backgroundHeight}px + 10rem)` }}
             >
               <BackgroundScanline
                 className={[classes.scanline].filter(Boolean).join(' ')}
