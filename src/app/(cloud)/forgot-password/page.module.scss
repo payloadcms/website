@@ -2,15 +2,15 @@
 @use "../../../forms/fields/shared.scss";
 
 .submit {
-  margin-top: var(--base);
+  margin-top: 1rem;
 
   @include mid-break {
-    margin-top: calc(var(--base) / 4);
+    margin-top: 0.25rem;
   }
 }
 
 .links {
-  margin-bottom: calc(var(--base) * 2);
+  margin-bottom: 2rem;
 
   & > * {
     margin: 0;
@@ -25,16 +25,16 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: calc(var(--base) * 1.25);
+  gap: 1.25rem;
 
   @include mid-break {
-    gap: calc(var(--base) * 1);
+    gap: 1rem;
   }
 }
 
 .buttonWrap {
-  margin-top: calc(var(--base) * 2);
+  margin-top: 2rem;
   display: flex;
   align-items: center;
-  gap: var(--base);
+  gap: 1rem;
 }

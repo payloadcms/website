@@ -1,21 +1,21 @@
 @use '@scss/common' as *;
 
-$curve: cubic-bezier(.165, .84, .44, 1);
+$curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .container {
   position: relative;
-  padding-top: calc(var(--base) * 4);
-  margin-bottom: calc(var(--base) * -14.5);
+  padding-top: 4rem;
+  margin-bottom: -14.5rem;
 
   @include mid-break {
-    padding-top: calc(var(--base) * 4);
-    margin-bottom: calc(var(--base) * -12);
+    padding-top: 4rem;
+    margin-bottom: -12rem;
   }
 
   @include small-break {
     pointer-events: none;
-    padding-top: calc(var(--base) * 4);
-    margin-bottom: calc(var(--base) * -10);
+    padding-top: 4rem;
+    margin-bottom: -10rem;
   }
 }
 
@@ -34,11 +34,11 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 }
 
 .gradient {
-  transform: translate3d(calc(var(--mouse-x, -100%)* 1px - var(--base)* 35), calc(var(--mouse-y, -100%)* 1px - var(--base)* 35), 0px);
+  transform: translate3d(calc(var(--mouse-x, -100%)* 1px - 35rem), calc(var(--mouse-y, -100%)* 1px - 35rem), 0px);
   position: absolute;
   filter: blur(100px);
-  width: calc(var(--base)* 70);
-  height: calc(var(--base)* 70);
+  width: 70rem;
+  height: 70rem;
   aspect-ratio: 1 / 1;
   border-radius: 100%;
   transition: opacity 1s $curve;
@@ -46,9 +46,9 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   background: radial-gradient(circle at center, rgba(255,255,255,0.20), rgba(255,255,255,0.10), rgba(255,255,255,0));
 
   @include mid-break {
-    transform: translate3d(calc(var(--mouse-x, -100%)* 1px - var(--base)* 17.5), calc(var(--mouse-y, -100%)* 1px - var(--base)* 17.5), 0px);
-    width: calc(var(--base)* 35);
-    height: calc(var(--base)* 35);
+    transform: translate3d(calc(var(--mouse-x, -100%)* 1px - 17.5rem), calc(var(--mouse-y, -100%)* 1px - 17.5rem), 0px);
+    width: 35rem;
+    height: 35rem;
   }
 }
 

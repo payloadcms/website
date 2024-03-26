@@ -13,7 +13,7 @@
 }
 
 .cta {
-  padding: calc(var(--base) * 1.5);
+  padding: 1.5rem;
   position: relative;
   @include code;
   font-size: 1.125em;
@@ -60,7 +60,7 @@
 
 .background {
   background: var(--color-base-900);
-  padding: var(--base);
+  padding: 1rem;
 }
 
 .copyButton {

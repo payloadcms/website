@@ -1,10 +1,10 @@
 @use '@scss/common' as *;
 
 .borderBox {
-  padding: calc(var(--base) * 1.5);
-  border: 0.5px solid var(--theme-border-color); 
+  padding: 1.5rem;
+  border: 0.5px solid var(--theme-border-color);
 
   @include mid-break {
-    padding: calc(var(--base) * .75);
+    padding: 0.75rem;
   }
 }

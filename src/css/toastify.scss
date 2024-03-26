@@ -3,21 +3,21 @@
 
 .Toastify {
   .Toastify__toast-container {
-    left: calc(var(--base) * 5);
+    left: 5rem;
     transform: none;
-    right: calc(var(--base) * 5);
+    right: 5rem;
     width: auto;
   }
 
   .Toastify__toast {
-    padding: calc(var(--base) * .5) var(--base);
+    padding: 0.5rem 1rem;
     border-radius: 3px;
     font-weight: normal;
   }
 
   .Toastify__close-button {
     align-self: center;
-    opacity: .7;
+    opacity: 0.7;
 
     &:hover {
       opacity: 1;
@@ -52,8 +52,8 @@
 
   @include mid-break {
     .Toastify__toast-container {
-      left: var(--base);
-      right: var(--base);
+      left: 1rem;
+      right: 1rem;
     }
   }
 }

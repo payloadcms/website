@@ -10,7 +10,7 @@
 
   .crosshair {
     position: absolute;
-    width: calc(var(--base) * 1);
+    width: 1rem;
     height: auto;
     color: var(--theme-elevation-1000);
     opacity: 0.5;
@@ -18,23 +18,23 @@
   }
 
   .crosshairTopLeft {
-    top: calc(var(--base) * -0.5);
-    left: calc(var(--base) * -0.5);
+    top: -.5rem;
+    left: -.5rem;
   }
 
   .crosshairBottomLeft {
-    bottom: calc(var(--base) * -0.5);
-    left: calc(var(--base) * -0.5);
+    bottom: -.5rem;
+    left: -.5rem;
   }
 
   .crosshairTopRight {
-    top: calc(var(--base) * -0.5);
-    right: calc(var(--base) * -0.5);
+    top: -.5rem;
+    right: -.5rem;
   }
 
   .crosshairBottomRight {
-    bottom: calc(var(--base) * -0.5);
-    right: calc(var(--base) * -0.5);
+    bottom: -.5rem;
+    right: -.5rem;
   }
 }
 

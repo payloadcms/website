@@ -21,7 +21,7 @@
 
 .poweredByPayload {
   position: absolute;
-  top: calc(var(--base) * 4);
+  top: 4rem;
   z-index: 1;
   width: 100%;
   pointer-events: none;
@@ -29,7 +29,7 @@
   justify-content: center;
 
   @include mid-break {
-    top: var(--base);
+    top: 1rem;
   }
 }
 
@@ -37,20 +37,20 @@
   @include large-body;
   @include shadow-lg;
   background: var(--theme-bg);
-  padding: calc(var(--base) * 1.5) calc(var(--base) * 2.5);
-  margin-top: var(--base);
+  padding: 1.5rem 2.5rem;
+  margin-top: 1rem;
   display: flex;
   align-items: center;
   border-bottom: 4px solid;
 
   svg {
-    margin-right: calc(var(--base) * .75);
-    width: calc(var(--base) * 1.5);
-    height: calc(var(--base) * 1.5)
+    margin-right: 0.75rem;
+    width: 1.5rem;
+    height: 1.5rem
   }
 
   @include mid-break {
-    padding: var(--base) calc(var(--base) * 2);
+    padding: 1rem 2rem;
   }
 }
 
@@ -68,14 +68,14 @@
   &:nth-child(even) {
     left: 20vh;
   }
-  
+
   @include large-break {
     flex-wrap: wrap;
 
     &:nth-child(odd) {
       right: 15vh;
     }
-  
+
     &:nth-child(even) {
       left: 15vh;
     }
@@ -87,7 +87,7 @@
     &:nth-child(odd) {
       right: 5vh;
     }
-  
+
     &:nth-child(even) {
       left: 5vh;
     }
@@ -108,10 +108,10 @@
 
 .imageWrap {
   width: 33.33%;
-  padding: var(--base);
+  padding: 1rem;
 
   @include large-break {
-    padding: calc(var(--base) * .5);
+    padding: 0.5rem;
   }
 
   @include mid-break {
@@ -125,12 +125,12 @@
   padding-top: 56.25%;
   position: relative;
   height: 100%;
-  opacity: .3;
+  opacity: 0.3;
 
   &:hover {
     @include shadow-lg;
     opacity: 1;
-    transform: translate3d(0, calc(var(--base) * -1), 0);
+    transform: translate3d(0, -1rem, 0);
   }
 
   @include mid-break {

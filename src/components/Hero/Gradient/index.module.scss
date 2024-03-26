@@ -3,7 +3,7 @@
 .wrapper {
   position: relative;
   @include mid-break {
-    row-gap: calc(var(--base) * 4);
+    row-gap: 4rem;
   }
 
   align-items: center;
@@ -33,7 +33,7 @@
 }
 
 .richText {
-  margin-bottom: calc(var(--base) * 2);
+  margin-bottom: 2rem;
 }
 
 .contentWrapper {
@@ -74,7 +74,7 @@
 }
 
 .description {
-  margin-bottom: calc(var(--base) * 2);
+  margin-bottom: 2rem;
 }
 
 .bgSquare {

@@ -5,20 +5,20 @@
 }
 
 .tabs {
-    margin-bottom: calc(var(--base) * 2);
+    margin-bottom: 2rem;
 }
 
 .controls {
-    margin-bottom: calc(var(--base) * 2);
+    margin-bottom: 2rem;
     display: flex;
     align-items: flex-end;
     position: relative;
-    padding: calc(var(--base) * 2)  0;
-    gap: var(--base);
+    padding: 2rem  0;
+    gap: 1rem;
 
     @include mid-break {
-        margin-bottom: var(--base);
-        padding: calc(var(--base) * 1.5) 0;
+        margin-bottom: 1rem;
+        padding: 1.5rem 0;
         flex-wrap: wrap;
     }
 }
@@ -47,10 +47,10 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: calc(100% + calc(var(--base) * 4));
+    width: calc(100% + 4rem);
     height: 100%;
-    left: calc(var(--base) * -2);
-    right: calc(var(--base) * -2);
+    left: -2rem;
+    right: -2rem;
     background-color: var(--theme-elevation-100);
 
     @include mid-break {
@@ -61,7 +61,7 @@
 }
 
 .pagination {
-    margin-top: calc(var(--base) * 2);
+    margin-top: 2rem;
 }
 
 :global([data-theme="light"]) {

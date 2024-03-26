@@ -1,6 +1,6 @@
 @use '@scss/common.scss' as *;
 
-$curve: cubic-bezier(.165, .84, .44, 1);
+$curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .modal {
   position: absolute;
@@ -11,12 +11,12 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   height: 100%;
   background: rgba(10, 10, 10, 0.51);
   backdrop-filter: blur(22px);
-  padding: calc(var(--base) * 5);
+  padding: 5rem;
   overscroll-behavior: contain;
   overflow: auto;
 
   @include mid-break {
-    padding: calc(var(--base) * 2);
+    padding: 2rem;
   }
 
   &::before {
@@ -33,7 +33,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .label {
   @include h6;
   text-transform: uppercase;
-  margin-bottom: calc(var(--base) * 1.75);
+  margin-bottom: 1.75rem;
 
   @include data-theme-selector('dark') {
     color: var(--color-base-0);
@@ -59,9 +59,9 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
   color: var(--color-base-400);
   position: absolute;
-  right: calc(var(--base) * 3);
-  top: calc(var(--base) * 3);
-  padding: calc(var(--base) * 1.25);
+  right: 3rem;
+  top: 3rem;
+  padding: 1.25rem;
   border: 1px solid var(--color-base-400);
   border-radius: 100%;
   aspect-ratio: 1/1;
@@ -69,19 +69,19 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   transition: 350ms $curve;
 
   @include mid-break {
-    right: calc(var(--base) * 2);
-    top: calc(var(--base) * 2);
-    padding: calc(var(--base) * .5);
+    right: 2rem;
+    top: 2rem;
+    padding: 0.5rem;
 
     svg {
       height: auto;
-      width: calc(var(--base) * .75);
+      width: 0.75rem;
     }
   }
 
   svg {
     height: auto;
-    width: calc(var(--base) * 1.25);
+    width: 1.25rem;
   }
 
   &:hover {

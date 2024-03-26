@@ -1,7 +1,7 @@
 @use '@scss/common' as *;
 
 .formContent {
-  gap: var(--base);
+  gap: 1rem;
   display: flex;
   flex-direction: column;
 }
@@ -9,8 +9,8 @@
 .actionFooter {
   display: flex;
   justify-content: flex-end;
-  gap: var(--base);
-  margin-top: var(--base);
-  padding-top: var(--base);
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
   border-top: 1px solid var(--theme-border-color);
 }

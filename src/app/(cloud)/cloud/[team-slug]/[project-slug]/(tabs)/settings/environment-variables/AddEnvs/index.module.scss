@@ -1,14 +1,14 @@
 @use '@scss/common' as *;
 
 .formContent {
-  gap: var(--base);
+  gap: 1rem;
   display: flex;
   flex-direction: column;
 }
 
 .newItemRow {
   display: flex;
-  gap: var(--base);
+  gap: 1rem;
   align-items: center;
 
   .trashButton {
@@ -49,8 +49,8 @@
 .actionFooter {
   display: flex;
   justify-content: flex-end;
-  gap: var(--base);
-  padding-top: var(--base);
+  gap: 1rem;
+  padding-top: 1rem;
   border-top: 1px solid var(--theme-border-color);
 }
 
@@ -59,7 +59,7 @@
 }
 
 .addAnotherButton {
-  margin-top: calc(var(--base) * 0.75);
+  margin-top: 0.75rem;
   padding: 0;
   color: var(--theme-elevation-850);
 

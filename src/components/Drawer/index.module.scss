@@ -22,7 +22,7 @@
 
 .content {
   opacity: 0;
-  transform: translateX(#{calc(var(--base) * 4)});
+  transform: translateX(#{4rem});
   position: relative;
   z-index: 2;
   width: 100%;
@@ -36,10 +36,10 @@
   z-index: 1;
   overflow: auto;
   height: 100%;
-  padding: calc(var(--base) * 4);
+  padding: 4rem;
 
   @include mid-break {
-    padding:  calc(var(--base) * 2) var(--base) 0;
+    padding:  2rem 1rem 0;
   }
 }
 
@@ -84,7 +84,7 @@
 .header {
   display: flex;
   align-items: flex-start;
-  margin-bottom: calc(var(--base) * 2);
+  margin-bottom: 2rem;
   width: 100%;
 }
 
@@ -93,7 +93,7 @@
   flex-direction: column;
   flex-grow: 1;
   width: 100%;
-  gap: var(--base);
+  gap: 1rem;
 }
 
 .description {
@@ -102,7 +102,7 @@
 }
 
 .title {
-  margin: 0 var(--base) 0 0;
+  margin: 0 1rem 0 0;
   flex-grow: 1;
 }
 
@@ -120,7 +120,7 @@
   &:focus-visible {
     @include outline;
   }
-  
+
   @include mid-break {
     top: 2px;
   }
@@ -134,7 +134,7 @@
 
 .size-m {
   .contentChildren {
-    padding: calc(var(--base) * 3);
+    padding: 3rem;
   }
 
   .close {
@@ -142,9 +142,9 @@
   }
 }
 
-.size-s {  
+.size-s {
   .contentChildren {
-    padding: calc(var(--base) * 2);
+    padding: 2rem;
   }
 
   .close {
@@ -153,11 +153,11 @@
 
   @include mid-break {
     .contentChildren {
-      padding: calc(var(--base) * 1);
+      padding: 1rem;
     }
 
     .header {
-      margin-bottom: calc(var(--base) * 1);
+      margin-bottom: 1rem;
     }
   }
 }

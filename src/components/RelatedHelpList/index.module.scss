@@ -2,11 +2,11 @@
 
 .relatedHelpList {
   position: relative;
-  padding: calc(var(--base) * 2) 0;
+  padding: 2rem 0;
 
   .titleWrapper {
-    padding-top: calc(var(--base) * 1.5);
-    margin-bottom: var(--base);
+    padding-top: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .title {
@@ -15,16 +15,16 @@
 
   ul {
     display: flex;
-    gap: calc(var(--base) * 0.25);
+    gap: 0.25rem;
     flex-direction: column;
     list-style: none;
     padding-left: 0;
-    margin-bottom: calc(var(--base) * 1.5);
+    margin-bottom: 1.5rem;
   }
 
   li {
     position: relative;
-    padding-left: calc(var(--base) * 1.5);
+    padding-left: 1.5rem;
   }
 
   .itemMarker {

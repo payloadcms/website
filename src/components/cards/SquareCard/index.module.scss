@@ -3,12 +3,12 @@
 .card {
   display: flex;
   flex-direction: column;
-  gap: calc(var(--base) * 1.5);
-  padding: calc(var(--base) * 1.5);
+  gap: 1.5rem;
+  padding: 1.5rem;
   text-decoration: none;
   aspect-ratio: 1 / 1;
   transition: background-color, gap, padding-bottom;
-  transition-duration: .4s;
+  transition-duration: 0.4s;
   transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
   border-bottom: 1px solid var(--grid-line-light);
 
@@ -27,12 +27,12 @@
 
   .scanlines {
     opacity: 0;
-    transition: opacity .4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
   &.link:hover {
-    padding-bottom: calc(var(--base) * 3);
-    gap: var(--base);
+    padding-bottom: 3rem;
+    gap: 1rem;
 
     .title {
       margin-bottom: 0;
@@ -69,7 +69,7 @@
       opacity: 1;
 
       .description {
-        padding-bottom: calc(var(--base) * 1.5);
+        padding-bottom: 1.5rem;
       }
     }
   }
@@ -80,7 +80,7 @@
   }
 
   .titleWrapper {
-    padding-bottom: calc(var(--base) * 1.5);
+    padding-bottom: 1.5rem;
   }
 
 }
@@ -98,7 +98,7 @@
   .icon {
     transform: translateY(10px);
     opacity: 0;
-    transition: transform .4s cubic-bezier(0.165, 0.84, 0.44, 1), opacity .4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 }
 
@@ -110,24 +110,24 @@
 }
 
 .title {
-  font-size: calc(var(--base) * 1.5);
+  font-size: 1.5rem;
   line-height: 1.2em;
   margin: 0;
 
   @include large-mid-break {
-    font-size: calc(var(--base) * 1.4);
+    font-size: 1.4rem;
   }
 
   @include mid-break {
-    font-size: calc(var(--base) * 1.5);
+    font-size: 1.5rem;
   }
 
   @include small-break {
-    font-size: calc(var(--base) * 1.25);
+    font-size: 1.25rem;
   }
 
   &.noDescription {
-    margin-bottom: calc(var(--base) * .5);
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -151,7 +151,7 @@
   grid-template-rows: 0fr;
   opacity: 0;
   transition-property: grid-template-rows, opacity;
-  transition-duration: .4s;
+  transition-duration: 0.4s;
   transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
 
   .description {
@@ -162,7 +162,7 @@
     margin: 0;
     height: auto;
     transition-property: padding;
-    transition-duration: .4s;
+    transition-duration: 0.4s;
     transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 }

@@ -2,7 +2,7 @@
 
 $transCurve: cubic-bezier(0.4, 0, 0.2, 1);
 
-$curve: cubic-bezier(.165, .84, .44, 1);
+$curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .button {
   all: unset;
@@ -12,8 +12,8 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   position: relative;
   padding: var(--button-padding);
 
-  --button-padding: calc(var(--base) * 0.5) var(--base);
-  height: calc(var(--base) * 2.5); // match input height
+  --button-padding: 0.5rem 1rem;
+  height: 2.5rem; // match input height
 
   &:focus-visible {
     @include outline;
@@ -21,20 +21,20 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
   &:disabled {
     cursor: not-allowed;
-    opacity: .25;
+    opacity: 0.25;
   }
 }
 
 .size--pill {
   @include small;
-  line-height: calc(var(--base) * 1.25);
+  line-height: 1.25rem;
   height: unset;
   border-radius: 3px;
   padding: 0 6px;
   font-weight: bold;
 
   .spacer {
-    width: calc(var(--base) * 0.75);
+    width: 0.75rem;
   }
 
   &.appearance--default {
@@ -89,7 +89,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
     & .defaultLabel {
       position: relative;
-      padding: calc(var(--base) * 1.5) var(--base);
+      padding: 1.5rem 1rem;
       width: 100%;
       transition: transform var(--animation-speed) $curve;
 
@@ -118,7 +118,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     }
 
     & .hoverLabel {
-      padding: calc(var(--base) * 1.5) var(--base);
+      padding: 1.5rem 1rem;
       position: absolute;
       left: 0;
       top: 0;
@@ -139,7 +139,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     }
 
     .content {
-      padding: calc(var(--base) * 1.5);
+      padding: 1.5rem;
 
       .label {
         margin: 0;
@@ -152,7 +152,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     }
 
     .cmsFormSubmitButtonContent {
-      padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
+      padding: 1.5rem 2rem;
     }
 
     &:hover {
@@ -178,21 +178,21 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
     @include mid-break {
       .content {
-        padding: calc(var(--base) * 1.5) var(--base);
+        padding: 1.5rem 1rem;
       }
 
       & .defaultLabel, & .hoverLabel  {
-        padding: calc(var(--base) * 1.5) var(--base);
+        padding: 1.5rem 1rem;
       }
 
       .cmsFormSubmitButtonContent {
-        padding: calc(var(--base) * 1.5) calc(var(--base) * 1);
+        padding: 1.5rem 1rem;
       }
     }
   }
 
   &--large {
-    font-size: calc(var(--base) * 2);
+    font-size: 2rem;
   }
 
   &--primary {
@@ -360,8 +360,8 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 }
 
 .spacer {
-  width: calc(var(--base) * .75);
-  height: var(--base);
+  width: 0.75rem;
+  height: 1rem;
 }
 
 .icon {

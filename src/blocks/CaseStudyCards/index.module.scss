@@ -6,10 +6,10 @@
 
 .cards {
   position: relative;
-  padding: calc(var(--base) * 4) 0;
+  padding: 4rem 0;
 
   @include mid-break {
-    padding: calc(var(--base) * 2) 0;
+    padding: 2rem 0;
   }
 }
 
@@ -18,7 +18,7 @@
 }
 
 .scanline {
-  --margin: min(calc(var(--gutter-h) / 2), calc(var(--base) * 4));
+  --margin: min(calc(var(--gutter-h) / 2), 4rem);
   margin-left: var(--margin);
   margin-right: var(--margin);
   width: calc(100% - var(--margin) * 2);
@@ -46,7 +46,7 @@
   }
 
   &:not(:last-child) {
-    margin-bottom: calc(var(--base) * 2);
+    margin-bottom: 2rem;
   }
 
   &:hover {
@@ -56,7 +56,7 @@
         transform: scale(1.05) rotate(-1deg);
       }
       &:after {
-        opacity: .5;
+        opacity: 0.5;
       }
     }
   }
@@ -67,17 +67,17 @@
 }
 
 .content {
-  padding: calc(var(--base) * 4) calc(var(--base) * 3);
+  padding: 4rem 3rem;
   width: auto;
   flex-shrink: 0;
   flex: 1;
 
   @include large-break {
-    padding: calc(var(--base) * 3) calc(var(--base) * 1.5);
+    padding: 3rem 1.5rem;
   }
 
   @include small-break {
-    padding: calc(var(--base) * 1.5) var(--base);
+    padding: 1.5rem 1rem;
   }
 
   * {
@@ -100,7 +100,7 @@
     background-color: var(--theme-elevation-700);
     opacity: 0;
     mix-blend-mode: hard-light;
-    transition: opacity .25s ease;
+    transition: opacity 0.25s ease;
   }
 
   img {

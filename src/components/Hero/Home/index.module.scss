@@ -43,7 +43,7 @@
 
 .homeHero {
   position: relative;
-  padding-top: calc(var(--base) * 3);
+  padding-top: 3rem;
 
   @include mid-break {
     padding-top: 0;
@@ -81,13 +81,13 @@
   z-index: 1;
 
   @include mid-break {
-    left: calc(-1 * var(--base) * 10);
-    width: calc(100% + var(--base) * 10);
+    left: calc(-1 * 10rem);
+    width: calc(100% + 10rem);
   }
 
   @include small-break {
-    left: calc(-1 * var(--base) * 6);
-    width: calc(100% + var(--base) * 8);
+    left: -6rem;
+    width: calc(100% + 8rem);
   }
 }
 
@@ -104,13 +104,13 @@
   z-index: 2;
 
   @include mid-break {
-    left: calc(-1 * var(--base) * 10);
-    width: calc(100% + var(--base) * 10);
+    left: calc(-1 * 10rem);
+    width: calc(100% + 10rem);
   }
 
   @include small-break {
-    left: calc(-1 * var(--base) * 6);
-    width: calc(100% + var(--base) * 8);
+    left: -6rem;
+    width: calc(100% + 8rem);
   }
 }
 
@@ -133,13 +133,13 @@
   }
 
   @include mid-break {
-    left: calc(-1 * var(--base) * 10);
-    width: calc(100% + var(--base) * 10);
+    left: calc(-1 * 10rem);
+    width: calc(100% + 10rem);
   }
 
   @include small-break {
-    left: calc(-1 * var(--base) * 6);
-    width: calc(100% + var(--base) * 8);
+    left: -6rem;
+    width: calc(100% + 8rem);
   }
 }
 
@@ -159,26 +159,26 @@
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  padding-top: calc(var(--base) * 9);
+  padding-top: 9rem;
 
   @include extra-large-break {
-    padding-top: calc(var(--base) * 8);
+    padding-top: 8rem;
   }
 
   @include large-mid-break {
-    padding-top: calc(var(--base) * 7.5);
+    padding-top: 7.5rem;
   }
 
   @include mid-plus-break {
-    padding-top: calc(var(--base) * 6.5);
+    padding-top: 6.5rem;
   }
 
   @include mid-break {
-    padding-top: calc(var(--base) * 2);
+    padding-top: 2rem;
   }
 
   @include small-break {
-    padding-top: calc(var(--base) * 1);
+    padding-top: 1rem;
   }
 
   @include mid-break {
@@ -205,15 +205,15 @@
   width: 100%;
 
   @include mid-break {
-    margin-top: calc(-1 * (var(--base) * 12));
+    margin-top: -12rem;
   }
 
   @include small-break {
-    margin-top: calc(-1 * (var(--base) * 10));
+    margin-top: -10rem;
   }
 
   @include extra-small-break {
-    margin-top: calc(-1 * (var(--base) * 8));
+    margin-top: -8rem;
   }
 }
 
@@ -246,7 +246,7 @@
   @include mid-break {
     order: 1;
     z-index: 1;
-    margin-top: calc(var(--base) * 3);
+    margin-top: 3rem;
   }
 }
 
@@ -257,31 +257,31 @@
 }
 
 .richTextHeading {
-  margin-bottom: calc(var(--base) * 2);
+  margin-bottom: 2rem;
 
   @include extra-large-break {
     h1 {
-      font-size: calc(var(--base) * 3);
+      font-size: 3rem;
     }
   }
 
   @include mid-plus-break {
     h1 {
-      font-size: calc(var(--base) * 2.5);
+      font-size: 2.5rem;
     }
   }
 
   @include mid-break {
-    margin-bottom: calc(var(--base) * 1.5);
+    margin-bottom: 1.5rem;
 
     h1 {
-      font-size: calc(var(--base) * 3);
+      font-size: 3rem;
     }
   }
 }
 
 .secondaryRichTextHeading {
-  margin-bottom: calc(var(--base) * 1.5);
+  margin-bottom: 1.5rem;
 
   h2 {
     @include h3;
@@ -298,7 +298,7 @@
 
 .richTextDescription, .secondaryRichTextDescription {
   max-width: 50%;
-  margin-bottom: calc(var(--base) * 2);
+  margin-bottom: 2rem;
 
   @include mid-break {
     max-width: 100%;
@@ -319,7 +319,7 @@
 
 .primaryButtons {
   @include mid-break {
-    margin-bottom: calc(var(--base) * 2);
+    margin-bottom: 2rem;
   }
 }
 
@@ -341,13 +341,13 @@
 
 .mobilePedestalBackgroundGrid {
   @include mid-break {
-    left: calc(calc(var(--base) * 10) + var(--gutter-h));
-    width: calc(calc(100% - var(--base) * 10) - var(--gutter-h) * 2)
+    left: calc(10rem + var(--gutter-h));
+    width: calc((100% - 10rem) - var(--gutter-h) * 2)
   }
 
   @include small-break {
-    left: calc(calc(var(--base) * 6) + var(--gutter-h));
-    width: calc(calc(100% - var(--base) * 8) - var(--gutter-h) * 2)
+    left: calc(6rem + var(--gutter-h));
+    width: calc((100% - 8rem) - var(--gutter-h) * 2)
   }
 }
 

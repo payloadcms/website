@@ -7,7 +7,7 @@
   margin-right: auto;
   background-color: var(--color-base-750);
   border-radius: 3px;
-  padding: calc(var(--base)*0.35);
+  padding: 0.35rem;
   transition: opacity 200ms linear;
   cursor: pointer;
   color: var(--color-base-100);
@@ -38,7 +38,7 @@
 }
 
 .drawerContent {
-  margin-top: var(--base);
+  margin-top: 1rem;
   z-index: 99;
 }
 
@@ -47,17 +47,17 @@
   -webkit-overflow-scrolling: touch;
   overflow-x: scroll;
   pointer-events: all;
-  padding-bottom: calc(var(--base)*2);
+  padding-bottom: 2rem;
 }
 
 @include large-break {
   .toggle {
-    padding: calc(var(--base)*0.25);
+    padding: 0.25rem;
   }
 
   .table {
     & td, & th {
-      padding: calc(var(--base)*0.5);
+      padding: 0.5rem;
     }
   }
 
@@ -72,7 +72,7 @@
 
 @include mid-break {
   .toggle {
-    padding: calc(var(--base)*0.15);
+    padding: 0.15rem;
   }
 
   .drawerTable, .table {
@@ -90,7 +90,7 @@
   }
 
   .code {
-    padding-bottom: calc(var(--base)*1.25);
+    padding-bottom: 1.25rem;
     font-size: 11px;
   }
 }

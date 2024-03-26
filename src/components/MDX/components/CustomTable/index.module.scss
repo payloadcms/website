@@ -1,7 +1,7 @@
 @use "@scss/common" as *;
 
 .table {
-  margin-bottom: var(--base);
+  margin-bottom: 1rem;
 
   & table {
     width: 100%;
@@ -16,11 +16,11 @@
   }
 
   th {
-    padding: var(--base);
+    padding: 1rem;
   }
 
   td {
-    padding: 0 var(--base);
+    padding: 0 1rem;
     min-width: 60px;
   }
 
@@ -55,7 +55,7 @@
   @include mid-break {
     th,
     td {
-      padding: calc(var(--base)*0.5);
+      padding: 0.5rem;
       min-width: 40px;
     }
   }

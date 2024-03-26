@@ -6,7 +6,7 @@
 
   :global {
     table {
-      margin-bottom: var(--base);
+      margin-bottom: 1rem;
       overflow: auto;
       max-width: 100%;
       width: 100%;
@@ -23,7 +23,7 @@
       }
 
       th, td {
-        padding: calc(var(--base) * .75);
+        padding: 0.75rem;
         min-width: 150px;
         vertical-align: top;
         max-width: 1000px;
@@ -60,20 +60,20 @@
 
       @include mid-break {
         th, td {
-          padding: calc(var(--base) * .5);
+          padding: 0.5rem;
         }
       }
     }
   }
 
   @include mid-break {
-    margin: 0 calc(var(--base)*-2)!important;
+    margin: 0 -2rem !important;
     padding: 0!important;
   }
 
 
 @include small-break {
-  margin: 0 calc(var(--base)*-1)!important;
-  padding: 0 var(--base)!important;
+  margin: 0 -1rem !important;
+  padding: 0 1rem!important;
 }
 }

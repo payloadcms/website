@@ -2,14 +2,14 @@
 
 .wrap {
   position: relative;
-  padding: 0 var(--base);
-  font-size: calc(var(--base) * .85);
+  padding: 0 1rem;
+  font-size: 0.85rem;
 }
 
 .toc {
   list-style: none;
   padding: 0;
-  margin: 0 0 calc(var(--base) * 2);
+  margin: 0 0 2rem;
 
   a {
     text-decoration: none;
@@ -19,21 +19,21 @@
 
 .tocTitle {
   font-weight: 400;
-  font-size: calc(var(--base) * .55);
+  font-size: 0.55rem;
   letter-spacing: 2.75px;
   text-transform: uppercase;
-  margin: 0 0 var(--base) 0;
+  margin: 0 0 1rem 0;
 }
 
 .heading {
   transition: all 400ms;
   position: relative;
   line-height: 1.375;
-  margin-bottom: calc(var(--base) * .75);
-  margin-right: var(--base);
+  margin-bottom: 0.75rem;
+  margin-right: 1rem;
 
   &:hover {
-    transform: translate3d(calc(var(--base) * .25), 0, 0);
+    transform: translate3d(.25rem, 0, 0);
   }
 }
 
@@ -51,7 +51,7 @@
   left: 0;
   top: 0;
   transition: all var(--trans-default) ease-in-out;
-  height: calc(var(--base) * 1.3);
+  height: 1.3rem;
   background-color: var(--theme-elevation-800);
   width: 2px;
 }

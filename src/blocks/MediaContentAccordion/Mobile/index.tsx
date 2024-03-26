@@ -85,7 +85,7 @@ export const MobileMediaContentAccordion: React.FC<MediaContentAccordionProps> =
         </div>
         <div
           className={classes.mediaBackgroundWrapper}
-          style={{ height: `calc(${containerHeight}px + var(--base) * 6)` }}
+          style={{ height: `calc(${containerHeight}px + 6rem)` }}
         >
           {hasAccordion &&
             accordion.map((item, index) => (

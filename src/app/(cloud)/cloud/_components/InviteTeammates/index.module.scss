@@ -1,22 +1,22 @@
 @use "@scss/common" as *;
 
-.invites {  
-  margin-bottom: var(--base);
-  
+.invites {
+  margin-bottom: 1rem;
+
   & > *:not(:last-child) {
-    margin-bottom: var(--base);
+    margin-bottom: 1rem;
   }
 }
 
 .item {
   display: flex;
   position: relative;
-  left: calc(var(--base) * -0.5);
-  width: calc(100% + var(--base));
+  left: -.5rem;
+  width: calc(100% + 1rem);
 
   & > * {
     flex: 1;
-    margin: 0 calc(var(--base) / 2);
+    margin: 0 0.5rem;
   }
 }
 
@@ -28,16 +28,16 @@
 
 @include small-break {
   .fieldWrap {
-    padding: var(--base) 0;
+    padding: 1rem 0;
     position: relative;
 
     &:before {
       position: absolute;
       content: '';
       width: 1px;
-      height: calc(100% - calc(var(--base)*2));
-      top: var(--base);
-      left: calc(var(--base) * -1);
+      height: calc(100% - 2rem);
+      top: 1rem;
+      left: -1rem;
       background-color: var(--theme-border-color);
     }
 

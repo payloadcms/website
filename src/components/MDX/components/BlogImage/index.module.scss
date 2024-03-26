@@ -2,7 +2,7 @@
 
 .blogImage {
   max-width: unset !important;
-  margin: calc(var(--base) * 2.5) auto;
+  margin: 2.5rem auto;
 
   >div {
     vertical-align: middle;
@@ -15,19 +15,19 @@
   }
 
   @include large-break {
-    margin: calc(var(--base) * 2) auto;
+    margin: 2rem auto;
   }
 
   @include small-break {
-    margin: calc(var(--base) * 1.5) auto;
+    margin: 1.5rem auto;
   }
 }
 
 .caption {
   text-align: center;
   font-style: italic;
-  padding: calc(var(--base) * .75) 0 0;
-  max-width: calc(var(--base) * 25);
+  padding: 0.75rem 0 0;
+  max-width: 25rem;
   margin-left: auto;
   margin-right: auto;
 }
@@ -35,6 +35,6 @@
 
 .shadow {
   img {
-    box-shadow: 0 0 150px rgba(0, 0, 0, .125);
+    box-shadow: 0 0 150px rgba(0, 0, 0, 0.125);
   }
 }

@@ -3,9 +3,9 @@
 .wrapper {
   display: block;
   position: relative;
-  padding: calc(var(--base) * 2.5);
+  padding: 2.5rem;
   text-decoration: none;
-  margin-bottom: calc(var(--base) * 5.4);
+  margin-bottom: 5.4rem;
 
   .scanline {
     transition: background-color var(--trans-default) linear;
@@ -23,7 +23,7 @@
   }
 
   @include mid-break {
-    padding: calc(var(--base) * 1.5);
+    padding: 1.5rem;
   }
 
   &:hover {
@@ -73,15 +73,15 @@
 
 .title {
   margin: 0;
-  margin-bottom: calc(var(--base) * 1.2);
+  margin-bottom: 1.2rem;
 }
 
 .meta {
   display: flex;
   align-items: center;
-  gap: calc(var(--base) * 1);
+  gap: 1rem;
   opacity: 0.5;
-  margin-bottom: calc(var(--base) * 1.2);
+  margin-bottom: 1.2rem;
 
   time {
     @include body;
@@ -99,12 +99,12 @@
 .media {
   flex-shrink: 1;
   max-width: 50%;
-  padding-right: calc(var(--base) * 2.5);
+  padding-right: 2.5rem;
 
   @include mid-break {
     width: 100%;
     padding: 0;
-    margin-bottom: calc(var(--base) * 2.5);
+    margin-bottom: 2.5rem;
     max-width: 100%;
   }
 }
@@ -116,26 +116,26 @@
 .crosshair {
   position: absolute;
   height: auto;
-  width: calc(var(--base) * 1.25);
+  width: 1.25rem;
   opacity: 0.75;
 }
 
 .crosshairTopLeft {
-  top: calc(var(--base) * -0.625);
-  left: calc(var(--base) * -0.625);
+  top: -.625rem;
+  left: -.625rem;
 }
 
 .crosshairTopRight {
-  top: calc(var(--base) * -0.625);
-  right: calc(var(--base) * -0.625);
+  top: -.625rem;
+  right: -.625rem;
 }
 
 .crosshairBottomLeft {
-  bottom: calc(var(--base) * -0.625);
-  left: calc(var(--base) * -0.625);
+  bottom: -.625rem;
+  left: -.625rem;
 }
 
 .crosshairBottomRight {
-  bottom: calc(var(--base) * -0.625);
-  right: calc(var(--base) * -0.625);
+  bottom: -.625rem;
+  right: -.625rem;
 }

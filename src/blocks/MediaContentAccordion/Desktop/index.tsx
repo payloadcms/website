@@ -110,7 +110,7 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                         ]
                           .filter(Boolean)
                           .join(' ')}
-                        style={{ height: `calc(${containerHeight}px + var(--base) * 8)` }}
+                        style={{ height: `calc(${containerHeight}px + 8rem)` }}
                       >
                         <Image
                           alt=""
@@ -141,7 +141,7 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                         ]
                           .filter(Boolean)
                           .join(' ')}
-                        style={{ height: `calc(${containerHeight}px + var(--base) * 8)` }}
+                        style={{ height: `calc(${containerHeight}px + 8rem)` }}
                       >
                         <BackgroundScanline
                           className={[classes.scanlineDesktop].filter(Boolean).join(' ')}
@@ -168,7 +168,7 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                         ]
                           .filter(Boolean)
                           .join(' ')}
-                        style={{ height: `calc(${containerHeight}px + var(--base) * 8)` }}
+                        style={{ height: `calc(${containerHeight}px + 8rem)` }}
                       >
                         <div className={classes.transparentBg} />
                       </div>
@@ -339,7 +339,7 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                         ]
                           .filter(Boolean)
                           .join(' ')}
-                        style={{ height: `calc(${containerHeight}px + var(--base) * 8)` }}
+                        style={{ height: `calc(${containerHeight}px + 8rem)` }}
                       >
                         <Image
                           alt=""
@@ -370,7 +370,7 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                         ]
                           .filter(Boolean)
                           .join(' ')}
-                        style={{ height: `calc(${containerHeight}px + var(--base) * 8)` }}
+                        style={{ height: `calc(${containerHeight}px + 8rem)` }}
                       >
                         <BackgroundScanline
                           className={[classes.scanlineDesktop].filter(Boolean).join(' ')}
@@ -397,7 +397,7 @@ export const DesktopMediaContentAccordion: React.FC<MediaContentAccordionProps> 
                         ]
                           .filter(Boolean)
                           .join(' ')}
-                        style={{ height: `calc(${containerHeight}px + var(--base) * 8)` }}
+                        style={{ height: `calc(${containerHeight}px + 8rem)` }}
                       >
                         <div className={classes.transparentBg} />
                       </div>

@@ -18,7 +18,7 @@
     .animate-enter {
       opacity: 0;
       visibility: hidden;
-      transform: translate3d(0, calc(var(--base) * 4), 0);
+      transform: translate3d(0, 4rem, 0);
     }
 
     .animate-enter-active,
@@ -38,7 +38,7 @@
     .animate-exit-active {
       opacity: 0;
       visibility: hidden;
-      transform: translate3d(0, calc(var(--base) * -4), 0);
+      transform: translate3d(0, -4rem, 0);
       transition: all 750ms;
     }
   }
@@ -49,7 +49,7 @@
     .animate-enter {
       opacity: 0;
       visibility: hidden;
-      transform: translate3d(0, calc(var(--base) * -4), 0);
+      transform: translate3d(0, -4rem, 0);
     }
 
     .animate-enter-active,
@@ -69,7 +69,7 @@
     .animate-exit-active {
       opacity: 0;
       visibility: hidden;
-      transform: translate3d(0, calc(var(--base) * 4), 0);
+      transform: translate3d(0, 4rem, 0);
       transition: all 750ms;
     }
   }
@@ -100,7 +100,7 @@
 
   @include large-break-ht {
     top: calc(var(--wrapper-padding-top) / -2);
-    height: calc(100% + var(--base) * 4);
+    height: calc(100% + 4rem);
   }
 
   @include mid-break {
@@ -110,20 +110,20 @@
 
 .crosshairTopRight, .crosshairBottomRight {
   position: absolute;
-  width: calc(var(--base) * 1);
+  width: 1rem;
   height: auto;
   color: var(--theme-elevation-1000);
   opacity: 0.5;
 }
 
 .crosshairTopRight {
-  top: calc(var(--base) * -0.5);
-  right: calc(var(--base) * -0.5);
+  top: -.5rem;
+  right: -.5rem;
 }
 
 .crosshairBottomRight {
-  bottom: calc(var(--base) * -0.5);
-  right: calc(var(--base) * -0.5);
+  bottom: -.5rem;
+  right: -.5rem;
 }
 
 .scanlineDesktop {
@@ -143,7 +143,7 @@
 }
 
 .richText {
-  margin-bottom: calc(var(--base) * 1.5);
+  margin-bottom: 1.5rem;
 }
 
 .codeMediaPosition {
@@ -170,7 +170,7 @@
     opacity: 1 !important;
     visibility: visible !important;
     padding: 0 !important;
-    margin: calc(var(--base) * 2) 0 0;
+    margin: 2rem 0 0;
   }
 }
 
@@ -207,33 +207,33 @@
 }
 
 .innerCode {
-  height: calc(var(--base) * 32);
+  height: 32rem;
 
   @include large-break {
-    height: calc(var(--base) * 40);
+    height: 40rem;
   }
 
   @include mid-break {
-    height: calc(var(--base) * 25);
+    height: 25rem;
   }
 
   @include small-break {
-    height: calc(var(--base) * 22);
+    height: 22rem;
   }
 
   @include large-break-ht {
-    height: calc(var(--base) * 28);
+    height: 28rem;
 
     @include large-break {
-      height: calc(var(--base) * 32);
+      height: 32rem;
     }
 
     @include mid-break {
-      height: calc(var(--base) * 25);
+      height: 25rem;
     }
 
     @include small-break {
-      height: calc(var(--base) * 22);
+      height: 22rem;
     }
   }
 }

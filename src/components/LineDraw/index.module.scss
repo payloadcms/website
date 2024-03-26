@@ -1,6 +1,6 @@
 @use '@scss/common.scss' as *;
 
-$curve: cubic-bezier(.165, .84, .44, 1);
+$curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .lineDraw {
   position: relative;
@@ -28,7 +28,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     transform-origin: bottom right;
     transition: transform 500ms ease-out;
   }
-  
+
   &.isHovered {
     &::after {
       transform: scaleX(1);

@@ -128,7 +128,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
               ]
                 .filter(Boolean)
                 .join(' ')}
-              style={{ height: `calc(${backgroundHeight}px + var(--base) * 10)` }}
+              style={{ height: `calc(${backgroundHeight}px + 10rem)` }}
             >
               <BackgroundScanline
                 className={[classes.scanlineDesktopLeft].filter(Boolean).join(' ')}
@@ -286,7 +286,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
               className={[classes.scanlineWrapper, 'start-9 cols-8 start-m-1 cols-m-8']
                 .filter(Boolean)
                 .join(' ')}
-              style={{ height: `calc(${backgroundHeight}px + var(--base) * 10)` }}
+              style={{ height: `calc(${backgroundHeight}px + 10rem)` }}
             >
               <BackgroundScanline
                 className={[classes.scanlineDesktopRight].filter(Boolean).join(' ')}

@@ -1,18 +1,18 @@
 @use "@scss/common" as *;
 
 .imageWrap {
-  margin: calc(var(--base) * 2.5) 0;
+  margin: 2.5rem 0;
 
   .caption {
     font-style: italic;
-    padding: calc(var(--base) * .75) 0 0;
+    padding: 0.75rem 0 0;
   }
 
   @include large-break {
-    margin: calc(var(--base) * 2) 0;
+    margin: 2rem 0;
   }
 
   @include small-break {
-    margin: calc(var(--base) * 1.5) 0;
+    margin: 1.5rem 0;
   }
 }

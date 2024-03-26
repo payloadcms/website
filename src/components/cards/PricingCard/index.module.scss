@@ -4,10 +4,10 @@
   position: relative;
   border-top: 1px solid var(--grid-line-dark);
   border-bottom: 1px solid var(--grid-line-dark);
-  padding: calc(var(--base) * 3) calc(var(--base) * 1.5);
+  padding: 3rem 1.5rem;
 
   @include mid-break {
-    padding: calc(var(--base) * 2) calc(var(--base) * 1);
+    padding: 2rem 1rem;
   }
 
   & path {
@@ -34,7 +34,7 @@
   text-transform: uppercase;
   color: #51BFF6;
   margin-top: 0;
-  margin-bottom: var(--base);
+  margin-bottom: 1rem;
   display: block;
 }
 
@@ -47,7 +47,7 @@
   @include h2;
   position: relative;
   margin: 0;
-  margin-bottom: var(--base);
+  margin-bottom: 1rem;
 
 }
 
@@ -60,9 +60,9 @@
 .arrow {
     position: absolute;
     opacity: 1;
-    margin: calc(var(--base) * 2);
+    margin: 2rem;
     top: 0;
     right: 0;
-    width: var(--base);
-    height: var(--base);
+    width: 1rem;
+    height: 1rem;
 }

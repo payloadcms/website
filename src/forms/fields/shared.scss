@@ -9,9 +9,9 @@
   border: 1px solid var(--theme-border-color);
   background: var(--theme-elevation-150);
   color: var(--theme-elevation-800);
-  height: calc(var(--base) * 2.65);
-  line-height: var(--base);
-  padding: calc(var(--base) * 1);
+  height: 2.65rem;
+  line-height: 1rem;
+  padding: 1rem;
 
   &::-moz-placeholder,
   &::-webkit-input-placeholder {
@@ -41,7 +41,7 @@
 
 .description {
   @include small;
-  margin-top: calc(var(--base) / 2);
+  margin-top: 0.5rem;
   color: var(--theme-elevation-400);
 }
 

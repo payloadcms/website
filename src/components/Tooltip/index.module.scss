@@ -18,7 +18,7 @@
 
   .tip {
     opacity: 0;
-    transition: opacity .15s cubic-bezier(.165, .84, .44, 1);
+    transition: opacity 0.15s cubic-bezier(.165, 0.84, 0.44, 1);
     pointer-events: none;
   }
 

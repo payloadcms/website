@@ -2,7 +2,7 @@
 
 .privacyBanner {
   position: fixed;
-  bottom: var(--base);
+  bottom: 1rem;
   right: var(--gutter-h);
   width: max-content;
   z-index: var(--z-nav);
@@ -34,7 +34,7 @@
   align-items: center;
   position: relative;
   background: black;
-  padding: calc(var(--base) * 1.5);
+  padding: 1.5rem;
 
   @include large-break {
     margin-left: 0;
@@ -77,8 +77,8 @@
 
 .buttonWrap {
   display: flex;
-  margin-top: calc(var(--base) * 1.5);
-  gap: var(--base);
+  margin-top: 1.5rem;
+  gap: 1rem;
   width: 100%;
 
   button {
@@ -86,7 +86,7 @@
   }
 
   @include small-break {
-    margin-top: var(--base);
+    margin-top: 1rem;
   }
 }
 

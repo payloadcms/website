@@ -15,7 +15,7 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: calc(var(--base) / 2);
+  gap: 0.5rem;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -26,18 +26,18 @@
   align-items: flex-start;
 
   &:not(:last-child) {
-    margin-bottom: calc(var(--base) * 2);
+    margin-bottom: 2rem;
     border-bottom: 1px solid var(--theme-border-color);
-    padding-bottom: calc(var(--base) * 2);
+    padding-bottom: 2rem;
   }
 
   @include small-break {
     flex-direction: column;
-    gap: calc(var(--base) / 2);
+    gap: 0.5rem;
 
     &:not(:last-child) {
-      margin-bottom: var(--base);
-      padding-bottom: var(--base);
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
     }
   }
 }
@@ -48,19 +48,19 @@
 
 .subscriptionTitleWrapper {
   display: flex;
-  gap: calc(var(--base) / 2);
+  gap: 0.5rem;
   align-items: center;
 
   @include small-break {
     flex-direction: column;
     align-items: flex-start;
-    gap: calc(var(--base) / 2);
+    gap: 0.5rem;
   }
 }
 
 .subscriptionTitle {
   display: flex;
-  gap: calc(var(--base) / 2);
+  gap: 0.5rem;
   align-items: center;
   flex-grow: 1;
   flex-wrap: wrap;
@@ -70,7 +70,7 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: calc(var(--base) / 2);
+  gap: 0.5rem;
 }
 
 .subscriptionCancel {
@@ -78,21 +78,21 @@
 }
 
 .subscriptionContent {
-  margin-top: calc(var(--base) / 2);
+  margin-top: 0.5rem;
   display: flex;
-  gap: calc(var(--base) / 2);
+  gap: 0.5rem;
   flex-direction: column;
 }
 
 .loadMore {
-  margin-top: calc(var(--base) * 2);
+  margin-top: 2rem;
 }
 
 .modalActions {
   display: flex;
-  gap: var(--base);
+  gap: 1rem;
   justify-content: flex-end;
   width: 100%;
-  padding-top: var(--base);
+  padding-top: 1rem;
   border-top: 1px solid var(--theme-border-color);
 }

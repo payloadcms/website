@@ -1,6 +1,6 @@
 @use "@scss/common" as *;
 
-$curve: cubic-bezier(.165, .84, .44, 1);
+$curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .wrapper {
     position: relative;
@@ -8,7 +8,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 }
 
 .introWrapper {
-  padding-bottom: calc(var(--base) * 8);
+  padding-bottom: 8rem;
   align-items: center;
   align-content: center;
   padding-bottom: var(--wrapper-padding-top);
@@ -18,7 +18,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   }
 
   @include mid-break {
-    padding-bottom: calc(var(--base) * 2);
+    padding-bottom: 2rem;
   }
 }
 
@@ -31,24 +31,24 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   height: 100%;
   text-decoration: none;
   position: relative;
-  padding: calc(var(--base) * 2);
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  row-gap: calc(var(--base) * 1.5);
+  row-gap: 1.5rem;
 
   &:active {
     text-decoration: none;
   }
 
   @include large-break {
-    padding-top: calc(var(--base) * 3);
-    padding-bottom: calc(var(--base) * 3);
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
 
   @include mid-break {
     border-bottom: 1px solid var(--grid-line-dark);
-    padding-top: calc(var(--base) * 2);
-    padding-bottom: calc(var(--base) * 2);
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 
   @include small-break {
@@ -97,8 +97,8 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .arrow {
   position: absolute;
-  top: calc(var(--base) * 2);
-  right: calc(var(--base) * 2);
+  top: 2rem;
+  right: 2rem;
   opacity: 0;
   transform: translateY(10px);
   transition: all 350ms $curve;
@@ -123,14 +123,14 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .leader {
   @include h6;
   margin-top: 0;
-  margin-bottom: calc(var(--base) * 4);
+  margin-bottom: 4rem;
 
   @include mid-break {
-    margin-bottom: calc(var(--base) * 7);
+    margin-bottom: 7rem;
   }
 
   @include small-break {
-    margin-bottom: calc(var(--base) * 2);
+    margin-bottom: 2rem;
   }
 }
 
@@ -138,7 +138,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   @include h4;
   position: relative;
   transition: all 350ms $curve;
-  margin-bottom: calc(var(--base) * 1);
+  margin-bottom: 1rem;
   text-decoration: none;
 }
 

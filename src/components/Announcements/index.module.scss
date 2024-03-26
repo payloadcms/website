@@ -3,7 +3,7 @@
 .announcementWrap {
   --announcement-bg-color: var(--theme-success-100);
   --announcement-text-color: var(--theme-success-600);
-  --spacer: calc(var(--base) * 2);
+  --spacer: 2rem;
 
   position: fixed;
   bottom: 0;
@@ -18,18 +18,17 @@
 
 .onDocsPage {
   @include mid-break {
-    margin-bottom: calc(var(--base) * 3);
+    margin-bottom: 3rem;
   }
 }
 
 .announcement {
   position: relative;
   display: flex;
-  gap: var(--base);
+  gap: 1rem;
   pointer-events: all;
   margin: var(--spacer);
-  padding:
-    var(--base) calc((var(--gutter-h) / 2) - var(--spacer));
+  padding: 1rem calc((var(--gutter-h) / 2) - var(--spacer));
   transition: color 300ms ease;
   border-bottom: 1px solid var(--announcement-text-color);
   color: var(--announcement-text-color);
@@ -43,7 +42,7 @@
     width: 100%;
     height: 100%;
     z-index: -1;
-    opacity: .99;
+    opacity:0.99;
     transition: opacity 500ms ease-out;
     background-color: var(--announcement-bg-color);
   }
@@ -66,9 +65,9 @@
   }
 
   .arrow {
-    margin-left: calc(var(--base) / 2);
-    width: calc(var(--base) * 0.55);
-    height: calc(var(--base) * 0.55);
+    margin-left: 0.5rem;
+    width: 0.55rem;
+    height: 0.55rem;
   }
 
   .close {
@@ -79,8 +78,8 @@
     align-items: center;
 
     svg {
-      width: calc(var(--base) * 0.9);
-      height: calc(var(--base) * 0.9);
+      width:0.9rem;
+      height:0.9rem;
       border-radius: 100%;
       background-color: var(--announcement-text-color);
       color: var(--announcement-bg-color);

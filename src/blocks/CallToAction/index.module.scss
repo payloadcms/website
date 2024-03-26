@@ -8,7 +8,7 @@
   position: relative;
 
   @include mid-break {
-    row-gap: calc(var(--base) * 3);
+    row-gap: 3rem;
   }
 }
 
@@ -38,7 +38,7 @@
 
 
 .buttonIcon {
-    margin-left: var(--base);
+    margin-left: 1rem;
     flex-shrink: 0;
     top: 4px;
     position: relative;
@@ -47,7 +47,7 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: var(--base);
+  gap: 1rem;
 
   * {
     margin: 0;
@@ -57,7 +57,7 @@
 .scanline {
   top: 50%;
   transform: translateY(-50%);
-  height: calc(100% + var(--base) * 10);
+  height: calc(100% + 10rem);
   margin-right: calc(var(--gutter-h) * -1);
   width: calc(100% + var(--gutter-h));
   z-index: 0;
@@ -76,13 +76,13 @@
 
 .crosshairTopLeft {
   position: absolute;
-  width: calc(var(--base) * 1);
+  width: 1rem;
   height: auto;
   z-index: 5;
   color: var(--theme-elevation-1000);
   opacity: 0.5;
-  top: calc(var(--base) * -0.5);
-  left: calc(var(--base) * -0.5);
+  top: -.5rem;
+  left: -.5rem;
   display: none;
 
   @include mid-break {
@@ -92,13 +92,13 @@
 
 .crosshairBottomRight {
   position: absolute;
-  width: calc(var(--base) * 1);
+  width: 1rem;
   height: auto;
   z-index: 5;
   color: var(--theme-elevation-1000);
   opacity: 0.5;
-  bottom: calc(var(--base) * -0.5);
-  right: calc(var(--base) * -0.5);
+  bottom: -.5rem;
+  right: -.5rem;
   display: none;
 
   @include mid-break {

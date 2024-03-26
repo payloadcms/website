@@ -15,7 +15,7 @@
   outline: none;
   border: none;
   background-color: var(--theme-elevation-50);
-  padding: calc(var(--base) * .5) calc(var(--base) * 1);
+  padding: 0.5rem 1rem;
   color: inherit;
   font-size: inherit;
   font-weight: inherit;
@@ -52,7 +52,7 @@
   font-size: 18px;
   margin: 0;
   display: flex;
-  gap: var(--base);
+  gap: 1rem;
   align-items: center;
 
   * {
@@ -73,7 +73,7 @@
   &:focus-visible {
     background-color: var(--theme-elevation-200);
   }
-  
+
   &:focus-visible {
     @include outline;
   }
@@ -96,6 +96,6 @@
 }
 
 .collapsibleContent {
-  padding: calc(var(--base) * 1);
+  padding: 1rem;
   border-top: 1px solid var(--theme-border-color);
 }

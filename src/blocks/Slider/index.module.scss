@@ -1,7 +1,7 @@
 @use '@scss/common' as *;
 
 .leadingHeader {
-  margin-bottom: calc(var(--base) * 2);
+  margin-bottom: 2rem;
   max-width: 1200px;
 
   @include extra-large-break {
@@ -11,13 +11,13 @@
 
 .slider {
   position: relative;
-  --pixel-extension-top: calc(var(--base) * 2.5);
-  --pixel-extension-bottom: calc(var(--base) * 5);
+  --pixel-extension-top: 2.5rem;
+  --pixel-extension-bottom: 5rem;
   --pixel-extension-total: calc(var(--pixel-extension-top) + var(--pixel-extension-bottom));
 
   @include mid-break {
-    --pixel-extension-top: calc(var(--base)* 2);
-    --pixel-extension-bottom: calc(var(--base) * 2.25);
+    --pixel-extension-top: 2rem;
+    --pixel-extension-bottom: 2.25rem;
   }
 }
 
@@ -27,21 +27,21 @@
 }
 
 .sliderNav {
-  margin-left: calc(var(--base) * 4.5);
-  margin-top: calc(var(--base) * 2);
+  margin-left: 4.5rem;
+  margin-top: 2rem;
 
   @include mid-break {
-    margin-left: calc(var(--base) * 1);
+    margin-left: 1rem;
   }
 }
 
 .navButton {
   all: unset;
   cursor: pointer;
-  width: calc(var(--base) * 0.6);
+  width: 6rem;
 
   @include mid-break {
-    width: calc(var(--base) * 1);
+    width: 1rem;
   }
 
   svg {
@@ -56,7 +56,7 @@
 }
 
 .prevButton {
-  margin-right: calc(var(--base) * 1.5);
+  margin-right: 1.5rem;
 }
 
 .sliderTrack {

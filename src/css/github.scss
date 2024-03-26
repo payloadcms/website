@@ -2,7 +2,7 @@ html {
   .Box-header {
     line-height: 1.2;
     background-color: var(--color-base-950);
-    padding: var(--base);
+    padding: 1rem;
     font-size: calc(var(--font-body-size) * 0.825);
     border: 1px solid var(--theme-elevation-50);
   }
@@ -11,11 +11,11 @@ html {
     line-height: 1.25;
     max-height: 250px;
     overflow: auto;
-    padding: var(--base);
+    padding: 1rem;
     background-color: var(--color-base-950);
     border: 1px solid var(--theme-elevation-50);
     font-family: var(--font-mono);
-    font-size: calc(var(--font-body-size) * .825);
+    font-size: calc(var(--font-body-size) * 0.825);
   }
 
   .blob-num::before {
