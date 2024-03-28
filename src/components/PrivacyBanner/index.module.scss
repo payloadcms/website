@@ -5,21 +5,14 @@
   bottom: 1rem;
   right: var(--gutter-h);
   width: max-content;
+  max-width: calc(var(--column) * 8);
   z-index: var(--z-nav);
   transition: transform 0.3s ease-out;
-  margin-left: calc(var(--gutter-h) / -2);
-  margin-right: calc(var(--gutter-h) / -2);
+  border: solid 1px var(--theme-border-color);
 
   @include large-break {
     margin-left: 0;
     margin-right: 0;
-  }
-
-  @include small-break {
-    right: unset;
-    width: 100%;
-    padding-left: var(--gutter-h);
-    padding-right: var(--gutter-h);
   }
 }
 

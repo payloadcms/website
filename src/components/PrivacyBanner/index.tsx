@@ -40,11 +40,11 @@ export const PrivacyBanner: React.FC = () => {
         <p className={classes.content}>
           We use cookies, subject to your consent, to analyze the use of our website and to ensure
           you get the best experience. Third parties with whom we collaborate can also install
-          cookies in order to show you personalized advertisements on other websites. Read our
+          cookies in order to show you personalized advertisements on other websites. Read our{' '}
           <Link href="/cookie" className={classes.privacyLink} prefetch={false}>
             cookie policy
           </Link>{' '}
-          for more information
+          for more information.
         </p>
         <div className={classes.buttonWrap}>
           <Button
