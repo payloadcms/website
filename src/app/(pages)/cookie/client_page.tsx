@@ -32,8 +32,8 @@ export const CookieClientPage: React.FC = () => {
   return (
     <React.Fragment>
       <Gutter className={classes.cookieWrap}>
-        <Grid>
-          <Cell cols={10} colsM={8}>
+        <div className="grid">
+          <div className="cols-12 cols-m-8">
             <h2>Cookie Policy</h2>
             <p>Effective as of March 27, 2023.</p>
             <p>
@@ -371,8 +371,8 @@ export const CookieClientPage: React.FC = () => {
               If you have any questions about this cookie policy, please contact us by email at
               <a href="mailto:info@payloadcms.com">info@payloadcms.com</a>.
             </p>
-          </Cell>
-          <Cell cols={8}>
+          </div>
+          <div className="cols-16 cols-m-8">
             <h5>Cookie Preferences</h5>
             <p>
               The use of cookies is essential to provide you with the full functionality of our
@@ -399,8 +399,8 @@ export const CookieClientPage: React.FC = () => {
                 className={classes.radioGroup}
               />
             </FormComponent>
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       </Gutter>
     </React.Fragment>
   )

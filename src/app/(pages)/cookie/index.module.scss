@@ -1,6 +1,7 @@
 @use '@scss/common' as *;
 
 .cookieWrap {
+  padding-block: var(--header-height);
   & a {
     text-decoration: none;
     color: var(--color-purple-600);

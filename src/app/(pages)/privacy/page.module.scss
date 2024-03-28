@@ -1,7 +1,7 @@
 @use '@scss/common' as *;
 
 .privacyWrap {
-  padding-top: var(--header-height);
+  padding-block: var(--header-height);
   & a {
     text-decoration: none;
     color: var(--color-purple-600);

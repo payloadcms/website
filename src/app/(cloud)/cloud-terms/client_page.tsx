@@ -12,8 +12,8 @@ export const TermsClientPage: React.FC = () => {
     <Gutter className={classes.termsOfServiceWrap}>
       <Heading element="h2">Payload Cloud - Terms of Service</Heading>
       <Heading element="h5">Last Revised: February 26, 2024</Heading>
-      <div className={['grid'].filter(Boolean).join(' ')}>
-        <div className={['cols-8 cols-m-8'].filter(Boolean).join(' ')}>
+      <div className="grid">
+        <div className="cols-12 cols-m-8">
           <p>
             The following terms of service (the “<b>Terms</b>”) govern the access to, and use of,
             the proprietary Software-as-a-Service platform for content management and back-end
