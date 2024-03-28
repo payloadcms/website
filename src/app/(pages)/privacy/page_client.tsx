@@ -12,8 +12,8 @@ export const PrivacyClientPage: React.FC = () => {
   return (
     <React.Fragment>
       <Gutter className={classes.privacyWrap}>
-        <Grid>
-          <Cell cols={10} colsM={8}>
+        <div className="grid">
+          <div className="cols-12 cols-m-8">
             <h2>Privacy Policy</h2>
             <p>Effective as of November 3, 2023.</p>
             <p>
@@ -955,8 +955,8 @@ export const PrivacyClientPage: React.FC = () => {
               You may contact us if you want further information on the specific mechanism used by
               us when transferring your personal information out of Europe.
             </p>
-          </Cell>
-        </Grid>
+          </div>
+        </div>
       </Gutter>
     </React.Fragment>
   )
