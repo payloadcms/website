@@ -38,7 +38,7 @@
 .navButton {
   all: unset;
   cursor: pointer;
-  width: 6rem;
+  width: 0.6rem;
 
   @include mid-break {
     width: 1rem;
@@ -110,7 +110,7 @@
 
 .quoteSlide {
   box-sizing: border-box;
-  max-width: calc(100% - 4/16 * 100%);
+  max-width: calc(var(--column) * 12);
 
   @include mid-break {
     max-width: 100%;
