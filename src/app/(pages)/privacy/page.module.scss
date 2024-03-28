@@ -1,12 +1,12 @@
 @use '@scss/common' as *;
 
 .privacyWrap {
+  padding-top: var(--header-height);
   & a {
     text-decoration: none;
     color: var(--color-purple-600);
     border-bottom: 1px dotted currentColor;
     transition: all 0.2s ease;
-    padding-top: var(--header-height);
 
     &:visited {
       color: var(--color-purple-600);
