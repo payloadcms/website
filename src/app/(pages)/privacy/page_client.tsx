@@ -572,7 +572,7 @@ export const PrivacyClientPage: React.FC = () => {
             <h5>General Data Protection Regulation (GDPR)</h5>
             <p>
               <b>European Representative</b>. Pursuant to Article 27 of the General Data Protection
-              Regulation (GDPR), Payload CMS, INC has appointed European Data Protection Office
+              Regulation (GDPR), Payload CMS, Inc. has appointed European Data Protection Office
               (EDPO) as its GDPR Representative in the EU. You can contact EDPO regarding matters
               pertaining to the GDPR:
               <ul>
@@ -587,7 +587,7 @@ export const PrivacyClientPage: React.FC = () => {
             </p>
             <h5>UK General Data Protection Regulation (GDPR)</h5>
             <p>
-              <b>UK Representative</b>. Pursuant to Article 27 of the UK GDPR, Payload CMS, INC has
+              <b>UK Representative</b>. Pursuant to Article 27 of the UK GDPR, Payload CMS, Inc. has
               appointed EDPO UK Ltd as its UK GDPR representative in the UK. You can contact EDPO UK
               regarding matters pertaining to the UK GDPR:
               <ul>
