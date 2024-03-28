@@ -11,7 +11,7 @@ export const TermsClientPage: React.FC = () => {
   return (
     <Gutter className={classes.termsOfServiceWrap}>
       <Heading element="h2">Payload Cloud - Terms of Service</Heading>
-      <Heading element="h5">Last Revised: February 26, 2024</Heading>
+      <Heading element="h5">Last Revised: March 28, 2024</Heading>
       <div className="grid">
         <div className="cols-12 cols-m-8">
           <p>

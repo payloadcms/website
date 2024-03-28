@@ -15,7 +15,7 @@ export const PrivacyClientPage: React.FC = () => {
         <div className="grid">
           <div className="cols-12 cols-m-8">
             <h2>Privacy Policy</h2>
-            <p>Effective as of November 3, 2023.</p>
+            <p>Effective as of March 28, 2024.</p>
             <p>
               This Privacy Policy describes how Payload CMS, Inc. ("<b>Payload</b>," "<b>we</b>", “
               <b>us</b>” or "<b>our</b>") processes personal information that we collect through our
