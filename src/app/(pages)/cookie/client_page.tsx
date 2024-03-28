@@ -35,9 +35,9 @@ export const CookieClientPage: React.FC = () => {
         <div className="grid">
           <div className="cols-12 cols-m-8">
             <h2>Cookie Policy</h2>
-            <p>Effective as of March 27, 2023.</p>
+            <p>Effective as of March 28, 2024.</p>
             <p>
-              This cookie policy explains how Payload CMS, LLC and our subsidiaries and affiliates
+              This cookie policy explains how Payload CMS, Inc. and our subsidiaries and affiliates
               ("<b>Payload</b>," "<b>we</b>", “<b>us</b>” or "<b>our</b>") use cookies to help
               improve your experience of our website at{' '}
               <a href="https://payloadcms.com/">https://payloadcms.com</a> and any other website
