@@ -16,12 +16,12 @@ const Table: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <div
       className={classes.wrap}
       ref={blockRef}
-      style={{
-        marginLeft: blockPadding / -1,
-        marginRight: blockPadding / -1,
-        paddingLeft: blockPadding,
-        paddingRight: blockPadding,
-      }}
+      // style={{
+      //   marginLeft: blockPadding / -1,
+      //   marginRight: blockPadding / -1,
+      //   paddingLeft: blockPadding,
+      //   paddingRight: blockPadding,
+      // }}
     >
       <table>{children}</table>
     </div>

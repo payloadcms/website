@@ -2,7 +2,11 @@
 
 .wrap {
   overflow: hidden;
-  margin: 0 auto;
+  margin: 0 calc(var(--column) * -1 + 1px);
+
+  @include mid-break {
+    margin: 0 1px;
+  }
 
   :global {
     table {
@@ -30,11 +34,21 @@
         margin: auto;
 
         &:first-child {
-          padding-left: 0;
+          padding-left: var(--column);
         }
 
         &:last-child {
-          padding-right: 0;
+          padding-right: var(--column);
+        }
+
+        @include mid-break {
+          &:first-child {
+            padding-left: 1rem;
+          }
+
+          &:last-child {
+            padding-right: 1rem;
+          }
         }
       }
 
@@ -43,37 +57,15 @@
           &:nth-child(odd) {
             background: var(--theme-elevation-50);
             position: relative;
-
-            &:after {
-              content: '';
-              position: absolute;
-              z-index: -1;
-              top: 0;
-              left: calc(var(--gutter-h) * -1);
-              right: calc(var(--gutter-h) * -1);
-              height: 100%;
-              background: var(--theme-elevation-50);
-            }
           }
         }
       }
 
       @include mid-break {
         th, td {
-          padding: 0.5rem;
+          padding: 1rem 0.5rem;
         }
       }
     }
   }
-
-  @include mid-break {
-    margin: 0 -2rem !important;
-    padding: 0!important;
-  }
-
-
-@include small-break {
-  margin: 0 -1rem !important;
-  padding: 0 1rem!important;
-}
 }
