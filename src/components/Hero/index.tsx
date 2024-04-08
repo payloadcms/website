@@ -10,6 +10,7 @@ import { FormHero } from './FormHero'
 import { GradientHero } from './Gradient'
 import { HomeHero } from './Home'
 import { LivestreamHero } from './Livestream'
+import { ThreeHero } from './Three'
 
 const heroes = {
   default: DefaultHero,
@@ -19,6 +20,7 @@ const heroes = {
   livestream: LivestreamHero,
   centeredContent: CenteredContent,
   gradient: GradientHero,
+  three: ThreeHero,
 }
 
 export const Hero: React.FC<{
