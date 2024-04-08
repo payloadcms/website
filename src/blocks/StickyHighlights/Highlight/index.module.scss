@@ -206,37 +206,6 @@
   margin: 0 !important;
 }
 
-.innerCode {
-  height: 32rem;
-
-  @include large-break {
-    height: 40rem;
-  }
-
-  @include mid-break {
-    height: 25rem;
-  }
-
-  @include small-break {
-    height: 22rem;
-  }
-
-  @include large-break-ht {
-    height: 28rem;
-
-    @include large-break {
-      height: 32rem;
-    }
-
-    @include mid-break {
-      height: 25rem;
-    }
-
-    @include small-break {
-      height: 22rem;
-    }
-  }
-}
 
 .centerCodeMedia {
   display: flex;
