@@ -106,4 +106,8 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
   background: url('/images/noise.png') repeat;
   background-attachment: fixed;
   z-index: 3;
+
+  @include data-theme-selector('light') {
+    opacity: 0;
+  }
 }

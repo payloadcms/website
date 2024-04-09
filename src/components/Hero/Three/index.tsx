@@ -28,7 +28,7 @@ export const ThreeHero: React.FC<
     target: scrollRef,
     offset: ['start 90px', 'end start'],
   })
-  const y = useTransform(scrollYProgress, [0, 1], ['translateY(-55%)', 'translateY(-120%)'])
+  const y = useTransform(scrollYProgress, [0, 1], ['translateY(-55%)', 'translateY(-200%)'])
 
   return (
     <BlockWrapper settings={{ theme }} padding={padding} className={classes.blockWrapper}>
@@ -73,9 +73,9 @@ export const ThreeHero: React.FC<
           <motion.div
             className={classes.graphicWrapper}
             style={{ transform: y, zIndex: 2 }}
-            initial={{ opacity: 0, marginTop: '100px' }}
+            initial={{ opacity: 0, marginTop: '150vh' }}
             animate={{ opacity: 1, marginTop: '0px' }}
-            transition={{ duration: 2, ease: cubicBezier(0.5, 0, 0, 1) }}
+            transition={{ duration: 2, ease: cubicBezier(0.25, 0, 0, 1) }}
           >
             <BigThree />
           </motion.div>

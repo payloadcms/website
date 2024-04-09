@@ -2,16 +2,18 @@
 
 .blockWrapper {
   overflow: hidden;
+
+  @include mid-break {
+    padding-top: 4rem !important;
+  }
 }
 
 .wrapper {
-  min-height: calc(100vh - (var(--wrapper-padding-top) + var(--page-padding-top) * 4));
+  min-height: calc(100vh - (var(--wrapper-padding-top) + var(--page-padding-top)) * 4);
+  align-items: center;
+
   @include mid-break {
     row-gap: 2rem;
-  }
-
-  align-items: center;
-  @include mid-break {
     align-items: flex-start;
   }
 }
@@ -84,7 +86,9 @@
   z-index: -1;
 
   @include mid-break {
-    top: 70%;
+    padding-top: 2rem;
+    width: calc(var(--column) * 8);
+    position: relative;
     left: var(--gutter-h);
   }
 }
