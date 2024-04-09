@@ -13,7 +13,7 @@ import { RelatedHelpList } from '@components/RelatedHelpList'
 import TableOfContents from '@components/TableOfContents'
 import { CommunityHelp } from '@root/payload-types'
 import slugify from '@root/utilities/slugify'
-import { Doc, NextDoc } from '../../types'
+import { Doc, NextDoc } from '../../../../types'
 
 import classes from './index.module.scss'
 
@@ -54,7 +54,7 @@ export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads }) => {
             className={[classes.next, hasRelatedThreads && classes.hasRelatedThreads]
               .filter(Boolean)
               .join(' ')}
-            href={`/docs/${next.topic.toLowerCase()}/${next.slug}`}
+            href={`/docs/v2/${next.topic.toLowerCase()}/${next.slug}`}
             data-algolia-no-crawl
             prefetch={false}
             style={{

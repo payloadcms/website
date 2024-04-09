@@ -5,14 +5,14 @@ import AnimateHeight from 'react-animate-height'
 import Link from 'next/link'
 import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
 
-import { BackgroundGrid } from '@components/BackgroundGrid'
+import { MDXProvider } from '@components/MDX'
+import { BackgroundGrid } from '@root/components/BackgroundGrid'
 import { MenuIcon } from '@root/graphics/MenuIcon'
 import { ChevronIcon } from '@root/icons/ChevronIcon'
 import { CloseIcon } from '@root/icons/CloseIcon'
-import { MDXProvider } from '../../../components/MDX'
-import { DocMeta, Topic } from './types'
+import { DocMeta, Topic } from '../types'
 
-import classes from './index.module.scss'
+import classes from '../index.module.scss'
 
 const openTopicsLocalStorageKey = 'docs-open-topics'
 
