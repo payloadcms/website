@@ -22,10 +22,15 @@
 .title {
   @include h1;
   margin: 0;
+  width: calc(var(--column) * 11);
 
   @include large-break {
     @include h2;
     margin: 0 !important;
+  }
+
+  @include mid-break {
+    width: 100%;
   }
 }
 

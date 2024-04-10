@@ -24,8 +24,8 @@ const CreatePayloadApp: React.FC<Props> = ({
         .filter(Boolean)
         .join(' ')}
     >
-      <p>npx create-payload-app</p>
-      <CopyToClipboard className={classes.copyButton} value="npx create-payload-app" />
+      <p>{label}</p>
+      <CopyToClipboard className={classes.copyButton} value={label ?? 'create-payload-app'} />
     </div>
   )
 }

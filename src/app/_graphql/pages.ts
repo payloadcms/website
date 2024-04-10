@@ -70,6 +70,16 @@ export const PAGE = `
           links {
             link ${LINK_FIELDS()}
           }
+          buttons {
+            ... on Link {
+              blockType
+              link ${LINK_FIELDS({ disableAppearance: true })}
+            }
+            ... on Command {
+              blockType
+              command
+            }
+          }
           images {
             image ${MEDIA_FIELDS}
           }
