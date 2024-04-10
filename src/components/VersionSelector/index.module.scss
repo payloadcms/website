@@ -1,6 +1,9 @@
+@use '@scss/common.scss' as *;
+
 .wrapper {
   position: relative;
 }
+
 .select {
   appearance: none;
   width: 100%;
@@ -13,8 +16,13 @@
   background-color: transparent;
   position: relative;
 
+  &:focus {
+    outline: none;
+  }
+
   &:hover {
     color: var(--theme-elevation-1000);
+    cursor: pointer;
   }
 
 }

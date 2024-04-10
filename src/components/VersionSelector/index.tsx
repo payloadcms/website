@@ -29,15 +29,16 @@ export const VersionSelector: React.FC<{
           }
         }}
         defaultValue={initialVersion}
+        aria-label="Select Version"
       >
-        <option className={classes.option} value={'current'}>
+        <option className={[classes.option, classes.current].join(' ')} value={'current'}>
           Version 3.x
         </option>
         <option className={classes.option} value={'v2'}>
-          Version 2.x
+          Version 2.x (Legacy)
         </option>
       </select>
-      <ChevronUpDownIcon className={classes.icon} />
+      <ChevronUpDownIcon className={classes.icon} aria-hidden="true" />
     </div>
   )
 }

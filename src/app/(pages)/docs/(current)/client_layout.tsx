@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
 
 import { MDXProvider } from '@components/MDX'
+import { Tooltip } from '@components/Tooltip'
 import { VersionSelector } from '@components/VersionSelector'
 import { BackgroundGrid } from '@root/components/BackgroundGrid'
 import { MenuIcon } from '@root/graphics/MenuIcon'
@@ -114,7 +115,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children, version = 'curre
         <nav
           className={[
             'cols-3',
-            classes.nav,
+            classes.navWrap,
             !openTopicPreferences && classes.navHidden,
             navOpen && classes.navOpen,
           ]
@@ -122,68 +123,72 @@ export const RenderDocs: React.FC<Props> = ({ topics, children, version = 'curre
             .join(' ')}
           onMouseLeave={() => setResetIndicator(true)}
         >
-          <VersionSelector initialVersion={version} />
-          {topics.map((topic, index) => {
-            const topicSlug = topic.slug.toLowerCase()
-            const isActive =
-              openTopicPreferences?.includes(topicSlug) ||
-              (topicParam === topicSlug && currentTopicIsOpen)
-            const childIsCurrent = topicParam === topicSlug && currentTopicIsOpen
+          <div className={classes.selector}>
+            <VersionSelector initialVersion={version} />
+          </div>
+          <div className={classes.nav}>
+            {topics.map((topic, index) => {
+              const topicSlug = topic.slug.toLowerCase()
+              const isActive =
+                openTopicPreferences?.includes(topicSlug) ||
+                (topicParam === topicSlug && currentTopicIsOpen)
+              const childIsCurrent = topicParam === topicSlug && currentTopicIsOpen
 
-            return (
-              <React.Fragment key={topic.slug}>
-                <button
-                  type="button"
-                  className={[classes.topic, childIsCurrent && classes['topic--active']]
-                    .filter(Boolean)
-                    .join(' ')}
-                  ref={ref => (topicRefs.current[index] = ref)}
-                  onClick={() => handleMenuItemClick(topicSlug)}
-                  onMouseEnter={() => handleIndicator(`${index}`)}
-                >
-                  {topic.slug.replace('-', ' ')}
-                  <div className={classes.chevron}>
-                    <ChevronIcon size="small" rotation={isActive ? 270 : 90} />
-                  </div>
-                </button>
-                <AnimateHeight height={isActive ? 'auto' : 0} duration={init ? 200 : 0}>
-                  <ul className={classes.docs}>
-                    {topic.docs.map((doc: DocMeta, docIndex) => {
-                      const isDocActive = docParam === doc.slug && topicParam === topicSlug
-                      const nestedIndex = `${index}-${docIndex}`
+              return (
+                <React.Fragment key={topic.slug}>
+                  <button
+                    type="button"
+                    className={[classes.topic, childIsCurrent && classes['topic--active']]
+                      .filter(Boolean)
+                      .join(' ')}
+                    ref={ref => (topicRefs.current[index] = ref)}
+                    onClick={() => handleMenuItemClick(topicSlug)}
+                    onMouseEnter={() => handleIndicator(`${index}`)}
+                  >
+                    {topic.slug.replace('-', ' ')}
+                    <div className={classes.chevron}>
+                      <ChevronIcon size="small" rotation={isActive ? 270 : 90} />
+                    </div>
+                  </button>
+                  <AnimateHeight height={isActive ? 'auto' : 0} duration={init ? 200 : 0}>
+                    <ul className={classes.docs}>
+                      {topic.docs.map((doc: DocMeta, docIndex) => {
+                        const isDocActive = docParam === doc.slug && topicParam === topicSlug
+                        const nestedIndex = `${index}-${docIndex}`
 
-                      return (
-                        <li
-                          key={doc.slug}
-                          onMouseEnter={() => handleIndicator(nestedIndex)}
-                          ref={ref => (topicRefs.current[nestedIndex] = ref)}
-                        >
-                          <Link
-                            href={`/docs${
-                              version !== 'current' ? '/' + version : ''
-                            }/${topicSlug}/${doc.slug}`}
-                            className={[classes.doc, isDocActive && classes['doc--active']]
-                              .filter(Boolean)
-                              .join(' ')}
-                            prefetch={false}
+                        return (
+                          <li
+                            key={doc.slug}
+                            onMouseEnter={() => handleIndicator(nestedIndex)}
+                            ref={ref => (topicRefs.current[nestedIndex] = ref)}
                           >
-                            {doc.label}
-                          </Link>
-                        </li>
-                      )
-                    })}
-                  </ul>
-                </AnimateHeight>
-              </React.Fragment>
-            )
-          })}
-          {(indicatorTop || defaultIndicatorPosition) && (
-            <div
-              className={classes.indicator}
-              style={{ top: indicatorTop || defaultIndicatorPosition }}
-            />
-          )}
-          <div className={classes.navOverlay} />
+                            <Link
+                              href={`/docs${
+                                version !== 'current' ? '/' + version : ''
+                              }/${topicSlug}/${doc.slug}`}
+                              className={[classes.doc, isDocActive && classes['doc--active']]
+                                .filter(Boolean)
+                                .join(' ')}
+                              prefetch={false}
+                            >
+                              {doc.label}
+                            </Link>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </AnimateHeight>
+                </React.Fragment>
+              )
+            })}
+            {(indicatorTop || defaultIndicatorPosition) && (
+              <div
+                className={classes.indicator}
+                style={{ top: indicatorTop || defaultIndicatorPosition }}
+              />
+            )}
+            <div className={classes.navOverlay} />
+          </div>
         </nav>
         {children}
         <button
