@@ -1,21 +1,35 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
+import { getDoc, getTopics } from '@root/app/(pages)/docs/api'
 import { ChevronUpDownIcon } from '@root/icons/ChevronUpDownIcon'
-import { setVersionCookie } from './actions'
 
 import classes from './index.module.scss'
 
-export const VersionSelector: React.FC = () => {
-  const [version, setVersion] = useState('current')
-
-  useEffect(() => {
-    setVersionCookie(version)
-  }, [version])
+export const VersionSelector: React.FC<{
+  initialVersion: 'current' | 'v2'
+}> = ({ initialVersion }) => {
+  const router = useRouter()
 
   return (
     <div className={classes.wrapper}>
-      <select className={classes.select} onChange={e => setVersion(e.target.value)}>
+      <select
+        className={classes.select}
+        onChange={async e => {
+          if (!e.target.value || e.target.value === initialVersion) return
+          if (e.target.value === 'current') {
+            router.push('/docs')
+          } else {
+            if (e.target.value !== 'v2') return
+            const topics = await getTopics(e.target.value)
+            const defaultRoute = `/docs/${e.target.value}/${topics[0].slug.toLowerCase()}/${
+              topics[0].docs[0].slug
+            }`
+            router.push(defaultRoute)
+          }
+        }}
+        defaultValue={initialVersion}
+      >
         <option className={classes.option} value={'current'}>
           Version 3.x
         </option>

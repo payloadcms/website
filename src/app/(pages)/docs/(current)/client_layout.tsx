@@ -3,9 +3,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import AnimateHeight from 'react-animate-height'
 import Link from 'next/link'
-import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
+import { usePathname, useSelectedLayoutSegment, useSelectedLayoutSegments } from 'next/navigation'
 
 import { MDXProvider } from '@components/MDX'
+import { VersionSelector } from '@components/VersionSelector'
 import { BackgroundGrid } from '@root/components/BackgroundGrid'
 import { MenuIcon } from '@root/graphics/MenuIcon'
 import { ChevronIcon } from '@root/icons/ChevronIcon'
@@ -19,9 +20,10 @@ const openTopicsLocalStorageKey = 'docs-open-topics'
 type Props = {
   topics: Topic[]
   children: React.ReactNode
+  version?: 'current' | 'v2'
 }
 
-export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
+export const RenderDocs: React.FC<Props> = ({ topics, children, version = 'current' }) => {
   const [topicParam, docParam] = useSelectedLayoutSegments()
   const [currentTopicIsOpen, setCurrentTopicIsOpen] = useState(true)
   const [openTopicPreferences, setOpenTopicPreferences] = useState<string[]>()
@@ -120,6 +122,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children }) => {
             .join(' ')}
           onMouseLeave={() => setResetIndicator(true)}
         >
+          <VersionSelector initialVersion={version} />
           {topics.map((topic, index) => {
             const topicSlug = topic.slug.toLowerCase()
             const isActive =
