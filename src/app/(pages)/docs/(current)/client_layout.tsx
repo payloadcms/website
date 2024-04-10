@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import AnimateHeight from 'react-animate-height'
 import Link from 'next/link'
-import { usePathname, useSelectedLayoutSegment, useSelectedLayoutSegments } from 'next/navigation'
+import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
 
 import { MDXProvider } from '@components/MDX'
 import { VersionSelector } from '@components/VersionSelector'
@@ -159,7 +159,9 @@ export const RenderDocs: React.FC<Props> = ({ topics, children, version = 'curre
                           ref={ref => (topicRefs.current[nestedIndex] = ref)}
                         >
                           <Link
-                            href={`/docs/${topicSlug}/${doc.slug}`}
+                            href={`/docs${
+                              version !== 'current' ? '/' + version : ''
+                            }/${topicSlug}/${doc.slug}`}
                             className={[classes.doc, isDocActive && classes['doc--active']]
                               .filter(Boolean)
                               .join(' ')}
