@@ -14,7 +14,7 @@ export default async function DocTopic({ params: { topic: topicSlug } }) {
 
 export async function generateStaticParams() {
   if (process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS) return []
-  if (process.env.NEXT_PUBLIC_HIDE_ARCHIVE_DOCS) return []
+  if (process.env.NEXT_PUBLIC_HIDE_ARCHIVE_DOCS === 'true') return []
 
   const topics = await getTopics('v2')
 

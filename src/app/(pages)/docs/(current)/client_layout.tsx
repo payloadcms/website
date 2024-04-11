@@ -38,7 +38,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children, version = 'curre
 
   const topicRefs = useRef<Record<string, HTMLButtonElement | HTMLLIElement | null>>({})
 
-  const hideVersionSelector = process.env.NEXT_PUBLIC_HIDE_ARCHIVE_DOCS
+  const hideVersionSelector = process.env.NEXT_PUBLIC_HIDE_ARCHIVE_DOCS === 'true'
 
   useEffect(() => {
     setNavOpen(false)
