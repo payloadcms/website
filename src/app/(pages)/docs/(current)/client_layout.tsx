@@ -124,7 +124,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children, version = 'curre
             .join(' ')}
           onMouseLeave={() => setResetIndicator(true)}
         >
-          {hideVersionSelector && (
+          {!hideVersionSelector && (
             <div className={classes.selector}>
               <VersionSelector initialVersion={version} />
             </div>
