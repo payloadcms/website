@@ -15,7 +15,7 @@ const CreatePayloadApp: React.FC<Props> = ({
   className,
   background = true,
   style = 'default',
-  label,
+  label = 'npx create-payload-app',
 }) => {
   return (
     <div
@@ -25,7 +25,7 @@ const CreatePayloadApp: React.FC<Props> = ({
         .join(' ')}
     >
       <p>{label}</p>
-      <CopyToClipboard className={classes.copyButton} value={label ?? 'create-payload-app'} />
+      <CopyToClipboard className={classes.copyButton} value={label} />
     </div>
   )
 }
