@@ -1,7 +1,8 @@
 'use client'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { getDoc, getTopics } from '@root/app/(pages)/docs/api'
+import { getTopics } from '@root/app/(pages)/docs/api'
 import { ChevronUpDownIcon } from '@root/icons/ChevronUpDownIcon'
 
 import classes from './index.module.scss'
@@ -13,6 +14,14 @@ export const VersionSelector: React.FC<{
 
   return (
     <div className={classes.wrapper}>
+      <div className={classes.pill}>
+        {initialVersion === 'current' ? (
+          <span className={classes.current}>Current</span>
+        ) : (
+          <span className={classes.legacy}>Legacy</span>
+        )}
+      </div>
+
       <select
         className={classes.select}
         onChange={async e => {
@@ -34,8 +43,8 @@ export const VersionSelector: React.FC<{
         <option className={[classes.option, classes.current].join(' ')} value={'current'}>
           Version 3.x
         </option>
-        <option className={classes.option} value={'v2'}>
-          Version 2.x (Legacy)
+        <option className={[classes.option, classes.legacy].join(' ')} value={'v2'}>
+          Version 2.x
         </option>
       </select>
       <ChevronUpDownIcon className={classes.icon} aria-hidden="true" />
