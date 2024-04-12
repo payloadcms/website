@@ -11,6 +11,7 @@ import { JumplistProvider } from '@components/Jumplist'
 import components from '@components/MDX/components'
 import { RelatedHelpList } from '@components/RelatedHelpList'
 import TableOfContents from '@components/TableOfContents'
+import { VersionSelector } from '@components/VersionSelector'
 import { CommunityHelp } from '@root/payload-types'
 import slugify from '@root/utilities/slugify'
 import { Doc, NextDoc } from '../../../types'
@@ -21,12 +22,15 @@ type Props = {
   doc: Doc
   next?: NextDoc | null
   relatedThreads?: CommunityHelp[]
+  version?: 'current' | 'v2'
 }
 
-export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads }) => {
+export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads, version = 'current' }) => {
   const { content, headings, title } = doc
   const [docPadding, setDocPadding] = React.useState(0)
   const docRef = React.useRef<HTMLDivElement>(null)
+
+  const hideVersionSelector = process.env.NEXT_PUBLIC_HIDE_ARCHIVE_DOCS === 'true'
 
   const hasRelatedThreads =
     relatedThreads && Array.isArray(relatedThreads) && relatedThreads.length > 0
@@ -79,6 +83,11 @@ export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads }) => {
           <div className={classes.discordGitWrap}>
             <DiscordGitCTA style="minimal" />
           </div>
+          {!hideVersionSelector && (
+            <div className={classes.selector}>
+              <VersionSelector initialVersion={version} />
+            </div>
+          )}
         </div>
       </div>
     </JumplistProvider>

@@ -52,7 +52,7 @@ const Doc = async ({ params }) => {
 
   if (!doc) notFound()
 
-  return <RenderDoc doc={doc} next={next} relatedThreads={filteredRelatedThreads} />
+  return <RenderDoc doc={doc} next={next} relatedThreads={filteredRelatedThreads} version="v2" />
 }
 
 export default Doc

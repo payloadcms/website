@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
 
 import { MDXProvider } from '@components/MDX'
-import { VersionSelector } from '@components/VersionSelector'
 import { BackgroundGrid } from '@root/components/BackgroundGrid'
 import { MenuIcon } from '@root/graphics/MenuIcon'
 import { ChevronIcon } from '@root/icons/ChevronIcon'
@@ -37,8 +36,6 @@ export const RenderDocs: React.FC<Props> = ({ topics, children, version = 'curre
   const [indicatorTop, setIndicatorTop] = useState<number | undefined>(undefined)
 
   const topicRefs = useRef<Record<string, HTMLButtonElement | HTMLLIElement | null>>({})
-
-  const hideVersionSelector = process.env.NEXT_PUBLIC_HIDE_ARCHIVE_DOCS === 'true'
 
   useEffect(() => {
     setNavOpen(false)
@@ -124,11 +121,6 @@ export const RenderDocs: React.FC<Props> = ({ topics, children, version = 'curre
             .join(' ')}
           onMouseLeave={() => setResetIndicator(true)}
         >
-          {!hideVersionSelector && (
-            <div className={classes.selector}>
-              <VersionSelector initialVersion={version} />
-            </div>
-          )}
           <div className={classes.nav}>
             {topics.map((topic, index) => {
               const topicSlug = topic.slug.toLowerCase()
