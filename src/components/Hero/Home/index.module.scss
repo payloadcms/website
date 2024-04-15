@@ -159,7 +159,7 @@
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  padding-top: 9rem;
+  padding-top: 7rem;
 
   @include extra-large-break {
     padding-top: 8rem;
@@ -256,8 +256,45 @@
   }
 }
 
+  .announcementLink {
+    @include h6;
+    font-size: 16px;
+    text-transform: uppercase;
+    border-bottom: none;
+    margin-block: 1rem;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s, text-shadow 0.3s;
+    position: relative;
+    color: var(--theme-elevation-750);
+    text-shadow: -1px -1px 8px #000000, 0 0 8px #000000, 0 0 8px #000000;
+
+    &:hover {
+      color: var(--theme-elevation-1000);
+      text-shadow: 1px 2px 8px #F4AC4F, 0 0 1rem #4D90B2, 0 0 2rem #4D90B280;
+    }
+
+    &::after {
+      content: url('/images/link-arrow.svg');
+      margin-left: 0.5rem;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: transform 0.3s;
+    }
+
+    &:hover::after {
+     transform: translate(.125rem, calc(-50% - .125rem));
+    }
+  }
+
 .richTextHeading {
   margin-bottom: 2rem;
+
+  * + h1 {
+    margin-top: 0;
+  }
 
   @include extra-large-break {
     h1 {
@@ -272,6 +309,7 @@
   }
 
   @include mid-break {
+    margin-top: 1.5rem;
     margin-bottom: 1.5rem;
 
     h1 {

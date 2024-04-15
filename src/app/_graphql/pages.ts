@@ -56,6 +56,8 @@ export const PAGE = `
           }
           theme
           type
+          enableAnnouncement
+          announcementLink ${LINK_FIELDS({ disableAppearance: true })}
           richText
           description
           primaryButtons {
