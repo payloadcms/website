@@ -24,9 +24,6 @@ const nextConfig = withBundleAnalyzer({
       'img.youtube.com',
     ],
   },
-  experimental: {
-    serverActions: true,
-  },
   webpack: config => {
     const configCopy = { ...config }
     configCopy.resolve.alias = {
