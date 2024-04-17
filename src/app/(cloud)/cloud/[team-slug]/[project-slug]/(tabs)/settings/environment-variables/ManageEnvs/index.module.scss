@@ -3,7 +3,7 @@
 .accordionFormContent {
   display: flex;
   flex-direction: column;
-  gap: var(--base);
+  gap: 1rem;
 
   textarea {
     max-height: 150px;
@@ -14,23 +14,23 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  gap: var(--base);
-  margin-top: var(--base);
-  padding-top: var(--base);
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
   border-top: 1px solid var(--theme-border-color);
 }
 
 .modalActions {
   display: flex;
-  gap: var(--base);
+  gap: 1rem;
   justify-content: flex-end;
   width: 100%;
-  padding-top: var(--base);
+  padding-top: 1rem;
   border-top: 1px solid var(--theme-border-color);
 }
 
 .envs {
   display: flex;
   flex-direction: column;
-  gap: var(--base);
+  gap: 1rem;
 }

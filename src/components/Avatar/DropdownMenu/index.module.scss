@@ -16,15 +16,15 @@
   top: 100%;
   background-color: var(--theme-elevation-50);
   color: var(--theme-elevation-900);
-  padding: var(--base);
+  padding: 1rem;
   width: 250px;
-  margin-top: calc(var(--base) / 2);
+  margin-top: 0.5rem;
 
   & > * {
     margin: 0;
 
     &:not(:last-child) {
-      margin-bottom: calc(var(--base) / 2);
+      margin-bottom: 0.5rem;
     }
   }
 }
@@ -32,7 +32,7 @@
 .dropdownLabel {
   @include small;
   color: var(--theme-elevation-300);
-  margin-bottom: calc(var(--base) / 2);
+  margin-bottom: 0.5rem;
 }
 
 .profileLink {
@@ -45,8 +45,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(var(--base) * 1.5);
-  height: calc(var(--base) * 1.5);
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 100%;
   background-color: var(--theme-elevation-900);
   color: var(--theme-elevation-50);
@@ -54,7 +54,7 @@
   text-transform: uppercase;
   overflow: hidden;
   flex-shrink: 0;
-  margin-right: calc(var(--base) / 2);
+  margin-right: 0.5rem;
   text-overflow: ellipsis;
 }
 

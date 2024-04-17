@@ -162,6 +162,7 @@ export const StickyHighlightComponent: React.FC<Props> = ({
                         parentClassName={classes.code}
                         codeBlips={codeBlips}
                         className={classes.innerCode}
+                        disableMinHeight
                       >{`${code}
                           `}</Code>
                     </div>

@@ -11,7 +11,7 @@ $transTime: 300ms;
 }
 
 .highlight {
-    padding: calc(var(--base) * 3) 0;
+    padding: 3rem 0;
     opacity: 0.5;
     transition: opacity 0.3s ease-in-out;
     width: 100%;
@@ -21,7 +21,7 @@ $transTime: 300ms;
     }
 
     @include mid-break {
-        padding: calc(var(--base) * 2) 0;
+        padding: 2rem 0;
         opacity: 1;
     }
 }
@@ -32,7 +32,7 @@ $transTime: 300ms;
 
 .hr {
     margin: 0;
-    background-size: calc(300% + var(--base)) 1px;
+    background-size: calc(300% + 1rem) 1px;
 }
 
 .description {
@@ -40,7 +40,7 @@ $transTime: 300ms;
 }
 
 .richTextGrid {
-    // margin-bottom: calc(var(--base) * 4);
+    // margin-bottom: 4rem;
 }
 
 .rowNumber {
@@ -58,11 +58,11 @@ $transTime: 300ms;
 
 .content  {
     position: relative;
-    padding: calc(var(--base) * 4) 0;
+    padding: 4rem 0;
     width: calc(100% + var(--gutter-h));
 
     @include mid-break {
-        padding: calc(var(--base) * 2) 0;
+        padding: 2rem 0;
     }
 }
 

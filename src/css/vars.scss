@@ -41,10 +41,10 @@ $breakpoint-l-height: 1000px;
 }
 
 @mixin shadow {
-  box-shadow: 0 12px 45px rgba(0, 0, 0, .03);
+  box-shadow: 0 12px 45px rgba(0, 0, 0, 0.03);
 
   &:hover {
-    box-shadow: 0 12px 45px rgba(0, 0, 0, .07);
+    box-shadow: 0 12px 45px rgba(0, 0, 0, 0.07);
   }
 }
 
@@ -88,7 +88,7 @@ $breakpoint-l-height: 1000px;
 
   &:before {
     background: $color;
-    opacity: .85;
+    opacity: 0.85;
   }
 
   &:after {
@@ -105,9 +105,9 @@ $breakpoint-l-height: 1000px;
   color: var(--theme-elevation-800);
   border-radius: 0;
   font-size: 1rem;
-  height: calc(var(--base) * 2);
-  line-height: var(--base);
-  padding: calc(var(--base) * 0.5) calc(var(--base) * 0.75);
+  height: 2rem;
+  line-height: 1rem;
+  padding: 0.5rem 0.75rem;
   -webkit-appearance: none;
 
   &::-webkit-input-placeholder {

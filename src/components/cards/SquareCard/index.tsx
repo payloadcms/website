@@ -25,10 +25,12 @@ export const SquareCard: React.FC<SquareCardProps> = props => {
       {...props.link}
     >
       <div className={classes.leader}>
-        <p className={classes.leaderText}>{leader}</p>
+        <h6 className={classes.leaderText}>{leader}</h6>
         <ArrowIcon className={classes.icon} />
       </div>
-      <h3 className={classes.title}>{title}</h3>
+      <div className={classes.titleWrapper}>
+        <h4 className={classes.title}>{title}</h4>
+      </div>
       <div
         className={
           revealDescription ? classes.revealDescriptionWrapper : classes.descriptionWrapper
@@ -47,13 +49,15 @@ export const SquareCard: React.FC<SquareCardProps> = props => {
       <div className={classes.leader}>
         <h6 className={classes.leaderText}>{leader}</h6>
       </div>
-      <h4
-        className={[classes.title, description ? '' : classes.noDescription]
-          .filter(Boolean)
-          .join(' ')}
-      >
-        {title}
-      </h4>
+      <div className={classes.titleWrapper}>
+        <h4
+          className={[classes.title, description ? '' : classes.noDescription]
+            .filter(Boolean)
+            .join(' ')}
+        >
+          {title}
+        </h4>
+      </div>
       {description && (
         <div
           className={

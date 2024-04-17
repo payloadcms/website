@@ -35,6 +35,7 @@ export type FormProps = {
     field: string
     message: string
   }[]
+  formId?: string
 }
 
 const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
@@ -46,6 +47,7 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
     action,
     className,
     errors: errorsFromProps,
+    formId,
   } = props
 
   const [fields, dispatchFields] = useReducer(reducer, initialState)
@@ -146,6 +148,7 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
       onSubmit={contextRef.current.handleSubmit}
       className={className}
       ref={ref}
+      id={formId}
     >
       <FormContext.Provider
         value={{

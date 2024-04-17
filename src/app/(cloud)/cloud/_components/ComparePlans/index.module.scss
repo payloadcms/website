@@ -2,7 +2,7 @@
 
 .drawerToggle {
   display: flex;
-  gap: calc(var(--base) / 2);
+  gap: 0.5rem;
   align-items: center;
   text-decoration: underline;
   cursor: pointer;
@@ -14,7 +14,7 @@
 
 .compareTable {
   display: flex;
-  gap: calc(var(--base) * 2);
+  gap: 2rem;
   width: 100%;
 
   @include mid-break {
@@ -30,13 +30,13 @@
 
 .pricingCard {
   aspect-ratio: unset;
-  min-height: calc(var(--base) * 15);
+  min-height: 15rem;
   cursor: pointer;
 
   @include small-break {
     aspect-ratio: unset;
     & > span {
-      padding: var(--base);
+      padding: 1rem;
     }
   }
 }
@@ -49,11 +49,11 @@
 
 .features {
   list-style: none;
-  margin: calc(var(--base) * 2.5) 0;
+  margin: 2.5rem 0;
   color: var(--color-base-100);
 
   .feature {
-    margin: var(--base) 0;
+    margin: 1rem 0;
     display: flex;
   }
 
@@ -64,9 +64,9 @@
     justify-content: center;
     border-radius: 100%;
     flex-shrink: 0;
-    width: calc(var(--base) * 1.5);
-    height: calc(var(--base) * 1.5);
-    margin-right: calc(var(--base) * 1.5);
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 1.5rem;
     justify-items: center;
   }
 

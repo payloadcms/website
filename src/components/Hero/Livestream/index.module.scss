@@ -2,30 +2,30 @@
 
 .livestreamHero {
   position: relative;
-  margin-top: calc(var(--base) * -2);
+  margin-top: -2rem;
   color: var(--color-base-100);
 
   @include mid-break {
-    margin-top: calc(var(--base) * -1);
+    margin-top: -1rem;
   }
 }
 
 .gutter {
   position: relative;
-  padding-top: calc(var(--base) * 4);
-  padding-bottom: calc(var(--base) * 4);
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
 .linkCell,
 .videoCell {
-  padding: calc(var(--base) * 2) 0;
+  padding: 2rem 0;
 
   &>*:not(:last-child) {
-    margin-bottom: var(--base);
+    margin-bottom: 1rem;
   }
 
   @include mid-break {
-    margin-top: var(--base);
+    margin-top: 1rem;
     padding: 0;
   }
 }
@@ -52,7 +52,7 @@
 
 .link {
   &:not(:last-child) {
-    margin-bottom: var(--base);
+    margin-bottom: 1rem;
   }
 
   &--secondary {
@@ -69,7 +69,7 @@
     }
 
     & svg {
-      margin-left: var(--base);
+      margin-left: 1rem;
     }
 
     @include mid-break {
@@ -84,8 +84,8 @@
   flex-direction: row;
   align-items: center;
   text-decoration: none;
-  margin-top: calc(var(--base) * 2.5);
-  margin-bottom: calc(var(--base) * 1.25);
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
   width: fit-content;
 
   & img {
@@ -93,13 +93,13 @@
     height: 45px;
     border-radius: 100%;
     overflow: hidden;
-    margin-right: calc(var(--base) * 1.5);
+    margin-right: 1.5rem;
     border: none;
     flex-shrink: 0;
   }
 
   &:last-child {
-    margin-top: var(--base);
+    margin-top: 1rem;
     margin-bottom: 0;
   }
 }
@@ -143,9 +143,9 @@
 
 .bg2Wrapper {
   width: 100%;
-  height: calc(100% - (var(--base) * 4));
-  top: calc(var(--base) * 2);
-  
+  height: calc(100% - 4rem);
+  top: 2rem;
+
   position: absolute;
   left: 0;
 }

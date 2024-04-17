@@ -28,7 +28,7 @@
 }
 
 .domainInput {
-  margin-bottom: var(--base);
+  margin-bottom: 1rem;
 }
 
 .domainTitleName {
@@ -38,11 +38,11 @@
 .record {
   width: 100%;
   background: var(--theme-elevation-100);
-  padding: var(--base);
+  padding: 1rem;
 
   th,
   td {
-    padding-right: calc(var(--base) * .5);
+    padding-right: 0.5rem;
     vertical-align: top;
   }
 
@@ -51,12 +51,12 @@
     font-weight: normal;
     font-family: var(--font-mono);
     text-align: left;
-    padding: calc(var(--base) * .25 ) calc(var(--base) * .5 );
+    padding: 0.25rem 0.5rem;
   }
 
   td {
     font-size: 18px;
-    padding: 0 calc(var(--base) * .5 );
+    padding: 0 0.5rem;
     white-space: nowrap;
     color: var(--theme-text);
   }
@@ -64,11 +64,11 @@
 
 .domainActions {
   display: flex;
-  gap: var(--base);
+  gap: 1rem;
   justify-content: flex-end;
   width: 100%;
-  margin-top: var(--base);
-  padding-top: var(--base);
+  margin-top: 1rem;
+  padding-top: 1rem;
   border-top: 1px solid var(--theme-border-color);
 
   .leftActions {
@@ -83,9 +83,9 @@
 
 .modalActions {
   display: flex;
-  gap: var(--base);
+  gap: 1rem;
   justify-content: flex-end;
   width: 100%;
-  padding-top: var(--base);
+  padding-top: 1rem;
   border-top: 1px solid var(--theme-border-color);
 }

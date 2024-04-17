@@ -7,7 +7,7 @@
   border-bottom: 1px solid var(--theme-border-color);
 
   @include mid-break {
-    margin-bottom: calc(var(--base) * 1.5);
+    margin-bottom: 1.5rem;
   }
 }
 
@@ -19,13 +19,13 @@
   text-decoration: none;
   white-space: nowrap;
   margin: 0;
-  margin-right: calc(var(--base) * 1.5);
-  padding-bottom: calc(var(--base) * 1.5);
+  margin-right: 1.5rem;
+  padding-bottom: 1.5rem;
   position: relative;
   color: var(--theme-elevation-300);
   display: flex;
   align-items: center;
-  gap: calc(var(--base) / 2);
+  gap: 0.5rem;
   cursor: pointer;
 
   &.lastTab {
@@ -84,8 +84,8 @@
   top: 2px;
   border: 1px solid currentColor;
   border-radius: 50%;
-  width: calc(var(--base) * 1.25);
-  height: calc(var(--base) * 1.25);
+  width: 1.25rem;
+  height: 1.25rem;
   flex-shrink: 0;
 }
 
@@ -99,7 +99,7 @@
 .tabsContainer {
   @include mid-break {
     .tab {
-      padding-bottom: calc(var(--base));
+      padding-bottom: 1rem;
     }
   }
 }

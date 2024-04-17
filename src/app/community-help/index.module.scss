@@ -4,7 +4,7 @@
   height: 100%;
   position: relative;
   margin-top: var(--page-padding-top);
-  padding-bottom: calc(var(--base) * 3);
+  padding-bottom: 3rem;
   border-top: 1px solid var(--theme-border-color);
   border-bottom: 1px solid var(--theme-border-color);
 
@@ -18,7 +18,7 @@
 }
 
 .grid {
-  padding-top: calc(var(--base) * 2);
+  padding-top: 2rem;
 }
 
 .postsWrap {
@@ -45,25 +45,25 @@
   justify-content: space-between;
 
   @include mid-break {
-    padding: 0 calc(var(--base) * 2);
+    padding: 0 2rem;
   }
 }
 
 .postContent, .searchBarWrap, .heading {
-  padding: calc(var(--base) * 1.75) calc(var(--base) * 5);
+  padding: 1.75rem 5rem;
   margin: 0;
 
   @include mid-break {
-    padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
+    padding: 1.5rem 2rem;
   }
 }
 
 .pagination {
-  margin-top: calc(var(--base) * 3);
-  padding: 0 calc(var(--base) * 5);
+  margin-top: 3rem;
+  padding: 0 5rem;
 
   @include mid-break {
-    padding: 0 calc(var(--base) * 2);
+    padding: 0 2rem;
   }
 }
 
@@ -73,38 +73,38 @@
   hyphens: auto;
 
   @include small-break {
-    margin-bottom: calc(var(--base)*0.25);
+    margin-bottom: 0.25rem;
   }
 }
 
 .titleMeta {
   display: flex;
   align-items: center;
-  margin-top: calc(var(--base) * .25);
+  margin-top: 0.25rem;
   color: var(--theme-elevation-500);
-  gap: calc(var(--base) * .5);
+  gap: 0.5rem;
 }
 
 .platform {
   display: inline-flex;
-  margin-right: calc(var(--base) * .25);
+  margin-right: 0.25rem;
 }
 
 .upvotes {
   display: flex;
   justify-content: flex-end;
   color: var(--theme-elevation-500);
-  margin-left: var(--base);
+  margin-left: 1rem;
   flex-shrink: 0;
   line-height: 42px;
 
   & svg {
-    width: calc(var(--base) * .75);
-    margin-right: calc(var(--base) * .35);
+    width: 0.75rem;
+    margin-right: 0.35rem;
   }
 
   & span:not(:last-child) {
-    padding-right: var(--base);
+    padding-right: 1rem;
   }
 
   @include mid-break {
@@ -123,7 +123,7 @@
 
 .ctaWrap {
   position: relative;
-  padding-top: calc(var(--base) * 4);
+  padding-top: 4rem;
 
   & > * {
     position: sticky;

@@ -1,17 +1,17 @@
 @use '@scss/common' as *;
 
 .noTeams {
-    margin-bottom: calc(var(--base) * 2);
+    margin-bottom: 2rem;
     color: var(--theme-error-500);
 }
 
 .formState {
     & > * {
         margin: 0;
-        margin-bottom: var(--base);
+        margin-bottom: 1rem;
 
         &:last-child {
-            margin-bottom: calc(var(--base) * 2);
+            margin-bottom: 2rem;
         }
     }
 

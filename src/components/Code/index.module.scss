@@ -1,15 +1,15 @@
 @use '@scss/common.scss' as *;
 
-$curve: cubic-bezier(.165, .84, .44, 1);
+$curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .codeWrap {
-  min-height: calc(var(--base) * 24);
+  min-height: 24rem;
   margin: auto 0;
   display: flex;
   align-items: center;
 
   @include mid-break {
-    margin: 0 var(--base);
+    margin: 0 1rem;
 
     :global(.blog-wrap) & {
       margin: 0;
@@ -23,7 +23,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .code {
   -webkit-text-size-adjust: 100%;
-  padding: calc(var(--base) * 2);
+  padding: 2rem;
   padding-right: 0;
   font-size: 14px;
   line-height: 1.5;
@@ -149,7 +149,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   }
 
   @include mid-break {
-    padding: var(--base);
+    padding: 1rem;
     font-size: 13px;
 
     :global {
@@ -165,7 +165,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .lineCodeWrapper {
   position: relative;
-  display: table-cell;
+  display: inline-block;
 
   span {
     text-wrap: nowrap;
@@ -177,8 +177,8 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   display: inline-block;
   text-align: right;
   color: var(--color-base-750);
-  padding-right: calc(var(--base) * 2);
-  width: calc(var(--base) * 3);
+  padding-right: 2rem;
+  width: 3rem;
 
   @include mid-break {
     display: none;

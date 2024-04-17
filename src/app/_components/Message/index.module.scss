@@ -1,11 +1,11 @@
 @use '@scss/common.scss' as *;
 
-$curve: cubic-bezier(.165, .84, .44, 1);
+$curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .message {
   background-color: var(--highlight-info-bg-color);
   color: var(--highlight-info-text-color);
-  padding: calc(var(--base) / 2) var(--base);
+  padding: 0.5rem 1rem;
   display: flex;
   position: relative;
 
@@ -17,7 +17,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     left: 0;
     top: 0;
     background-color: currentColor;
-    opacity: .5;
+    opacity: 0.5;
   }
 }
 
@@ -37,10 +37,10 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 }
 
 .icon {
-  margin-right: calc(var(--base) / 2);
+  margin-right: 0.5rem;
   padding: 6px;
-  width: calc(var(--base) * 1.75);
-  height: calc(var(--base) * 1.75);
+  width: 1.75rem;
+  height: 1.75rem;
   border-radius: 100%;
   display: flex;
   align-items: center;

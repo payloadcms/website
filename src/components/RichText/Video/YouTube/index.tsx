@@ -9,7 +9,7 @@ export const YouTubePlayer: React.FC<{
     <iframe
       title="YouTube player"
       className={classes.iframe}
-      src={`https://www.youtube.com/embed/${videoID}`}
+      src={`https://www.youtube-nocookie.com/embed/${videoID}`}
       frameBorder="0"
       allow="autoplay; fullscreen; accelerometer; encrypted-media; gyroscope; picture-in-picture"
       allowFullScreen

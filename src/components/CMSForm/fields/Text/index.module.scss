@@ -5,7 +5,7 @@
   position: relative;
   display: inline-flex;
   flex-direction: column-reverse;
-  gap: calc(var(--base) / 2);
+  gap: 0.5rem;
   width: 100%;
 
   &::before {
@@ -23,14 +23,14 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: calc(var(--base) * 2);
+    left: 2rem;
     display: flex;
     align-items: center;
     pointer-events: none;
     transition: all 0.3s ease;
 
     @include mid-break {
-      left: calc(var(--base) * 1);
+      left: 1rem;
     }
   }
 
@@ -43,7 +43,7 @@
     display: block;
     width: unset;
     pointer-events: none;
-    margin-right: calc(var(--base) * 0.75);
+    margin-right: 0.75rem;
   }
 
   .textLabel {
@@ -56,55 +56,55 @@
   .fullWidth {
     width: 100%;
   }
-  
+
   .input {
     @include shared.formInput;
     color: var(--color-base-0);
-    padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
+    padding: 1.5rem 2rem;
 
     @include mid-break {
-      padding: calc(var(--base) * 1.5) calc(var(--base) * 1);
+      padding: 1.5rem 1rem;
     }
   }
-  
+
   .showError {
     .input {
       border-left: 2px solid var(--theme-error-500);
     }
   }
-  
+
   .description {
     margin: 0;
   }
-  
+
   .tooltipButton {
     width: 100%;
     height: 100%;
   }
-  
+
   .type--hidden {
     display: none;
   }
-  
+
   .iconWrapper {
     position: absolute;
     top: 50%;
-    right: calc(var(--base) / 1);
+    right: 1rem;
     transform: translate3d(0, -50%, 0);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: calc(var(--base) / 2);
+    gap: 0.5rem;
   }
-  
+
   .icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: calc(var(--base) / 2);
-    width: calc(var(--base) / 2);
+    height: 0.5rem;
+    width: 0.5rem;
   }
-  
+
   .suffix {
     @include small;
     display: flex;
@@ -123,14 +123,14 @@
   }
 
   .actionsLabel {
-    margin-right: calc(var(--base) * 0.5);
+    margin-right: 0.5rem;
   }
 
   .input {
-    padding: calc(var(--base) * 2) calc(var(--base) * 2) calc(var(--base) * 1) calc(var(--base) * 2);
+    padding: 2rem 2rem 1rem 2rem;
 
     @include mid-break {
-      padding: calc(var(--base) * 2) calc(var(--base) * 1) calc(var(--base) * 1) calc(var(--base) * 1);
+      padding: 2rem 1rem 1rem 1rem;
     }
   }
 }

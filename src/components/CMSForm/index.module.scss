@@ -78,7 +78,7 @@
 
   .crosshair {
     position: absolute;
-    width: calc(var(--base) * 1);
+    width: 1rem;
     height: auto;
     z-index: 5;
     color: var(--theme-elevation-1000);
@@ -86,8 +86,8 @@
   }
 
   .crosshairLeft {
-    top: calc(0% + var(--base) * -0.5);
-    left: calc(0% + var(--base) * -0.5);
+    top: calc(0% - 0.5rem);
+    left: calc(0% - 0.5rem);
   }
 }
 

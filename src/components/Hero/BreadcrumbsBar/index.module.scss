@@ -45,7 +45,7 @@
     border-color: var(--grid-line-dark);
   }
 
-  padding: calc(var(--base) * 1.5) 0;
+  padding: 1.5rem 0;
 
   display: flex;
   justify-content: space-between;
@@ -57,7 +57,7 @@
 
 .links {
   display: flex;
-   gap: calc(var(--base) * 1.85);
+   gap: 1.85rem;
 }
 
 .link {
@@ -72,7 +72,7 @@
 .containerMobile {
   border-top: 1px solid var(--grid-line-light);
   border-bottom: 1px solid var(--grid-line-light);
-  padding: calc(var(--base) * 0.75) 0;
+  padding: 0.75rem 0;
   display: none;
 
   @include data-theme-selector('dark') {
@@ -96,7 +96,7 @@
     list-style: none;
     display: flex;
     justify-content: space-between;
-    padding: calc(var(--base) * 0.5) 0 calc(var(--base) * .5);
+    padding: 0.5rem 0 0.5rem;
 
     &::marker, &::-webkit-details-marker {
       display: none;
@@ -111,8 +111,8 @@
       transition: transform 0.1s ease-in-out;
       transform: rotate(90deg);
       height: auto;
-      width: calc(var(--base) * 0.4);
-      margin-right: calc(var(--base) * 0.4);
+      width: 0.4rem;
+      margin-right: 0.4rem;
     }
   }
 
@@ -127,10 +127,10 @@
   left: calc(var(--gutter-h) * -1);
   width: calc(100% + var(--gutter-h) * 2);
   z-index: 1;
-  padding: calc(var(--base) * 1.5) var(--gutter-h) calc(var(--base) * 1.5);
+  padding: 1.5rem var(--gutter-h) 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: calc(var(--base) * 1);
+  gap: 1rem;
   border-bottom: 1px solid var(--grid-line-light);
 
   @include data-theme-selector('dark') {

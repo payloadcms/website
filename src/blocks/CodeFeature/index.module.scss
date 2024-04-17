@@ -13,13 +13,13 @@
 .container {
   position: relative;
   align-items: center;
-  row-gap: calc(var(--base) * 3);
+  row-gap: 3rem;
 
   @include mid-break {
-    row-gap: calc(var(--base) * 0);
+    row-gap: 0;
 
     &.hasLinks {
-      row-gap: calc(var(--base) * 2);
+      row-gap: 2rem;
     }
   }
 }
@@ -30,11 +30,11 @@
 }
 
 .labelWrap {
-  padding: var(--base) var(--base) 0;
+  padding: 1rem 1rem 0;
 }
 
 .label {
-  padding-bottom: var(--base);
+  padding-bottom: 1rem;
   border-bottom: 1px solid var(--color-base-700);
   color: var(--color-base-100);
   margin: 0;
@@ -45,7 +45,7 @@
 }
 
 .richText {
-  margin-bottom: calc(var(--base) * 1.5);
+  margin-bottom: 1.5rem;
 }
 
 .links {
@@ -85,8 +85,8 @@
 .tabs {
   position: relative;
   display: flex;
-  gap: calc(var(--base) * 2);
-  padding: 0 calc(var(--base) * 2);
+  gap: 2rem;
+  padding: 0 2rem;
   background: var(--color-base-900);
   overflow-x: auto;
   scroll-behavior: smooth;
@@ -97,7 +97,7 @@
   }
 
   @include mid-break {
-    padding: 0 calc(var(--base) * 1);
+    padding: 0 1rem;
   }
 }
 
@@ -118,7 +118,7 @@
 .tab {
   @include btnReset;
   cursor: pointer;
-  padding: calc(var(--base) * 1) 0;
+  padding: 1rem 0;
   @include body;
   color: var(--color-base-300);
   white-space: nowrap;
@@ -139,30 +139,30 @@
 
 .crosshairTopRight, .crosshairBottomRight, .crosshairTopLeft, .crosshairBottomLeft  {
   position: absolute;
-  width: calc(var(--base) * 1);
+  width: 1rem;
   height: auto;
   color: var(--theme-elevation-1000);
   opacity: 0.5;
 }
 
 .crosshairTopLeft {
-  top: calc(var(--base) * -0.5);
-  left: calc(var(--base) * -0.5);
+  top: -.5rem;
+  left: -.5rem;
 }
 
 .crosshairBottomLeft {
-  bottom: calc(var(--base) * -0.5);
-  left: calc(var(--base) * -0.5);
+  bottom: -.5rem;
+  left: -.5rem;
 }
 
 .crosshairTopRight {
-  top: calc(var(--base) * -0.5);
-  right: calc(var(--base) * -0.5);
+  top: -.5rem;
+  right: -.5rem;
 }
 
 .crosshairBottomRight {
-  bottom: calc(var(--base) * -0.5);
-  right: calc(var(--base) * -0.5);
+  bottom: -.5rem;
+  right: -.5rem;
 }
 
 .scanlineDesktopRight,  .scanlineDesktopLeft {

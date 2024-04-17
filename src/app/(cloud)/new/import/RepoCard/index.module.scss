@@ -59,7 +59,7 @@
 
 .repoContent {
     flex-grow: 1;
-    margin-right: var(--base);
+    margin-right: 1rem;
     // set a `height` so that cards with no description so not shift the layout
     // this is because description may or may not render depending on the data
     height: 4rem;
@@ -68,12 +68,12 @@
     text-align: left;
     justify-content: center;
     overflow: hidden;
-    gap: calc(var(--base) / 4);
+    gap: 0.25rem;
 
     @include small-break {
         height: auto;
         margin-right: 0;
-        margin-bottom: calc(var(--base) / 2);
+        margin-bottom: 0.5rem;
     }
 }
 

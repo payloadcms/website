@@ -21,6 +21,8 @@ export const HomeHero: React.FC<
     firstContentBlock?: BlocksProp
   }
 > = ({
+  enableAnnouncement,
+  announcementLink,
   richText,
   description,
   primaryButtons,
@@ -227,6 +229,9 @@ export const HomeHero: React.FC<
                 <BackgroundGrid zIndex={0} gridLineStyles={gridLineStyles} />
                 <div className={[classes.primaryContent, 'grid'].filter(Boolean).join(' ')}>
                   <div className={['cols-8 start-1'].filter(Boolean).join(' ')}>
+                    {enableAnnouncement && (
+                      <CMSLink {...announcementLink} className={classes.announcementLink} />
+                    )}
                     <RichText className={classes.richTextHeading} content={richText} />
                     <RichText className={classes.richTextDescription} content={description} />
                     {Array.isArray(primaryButtons) && (

@@ -3,21 +3,21 @@
 .radioCards {
   display: flex;
   flex-direction: column;
-  gap: var(--base);
-  margin-bottom: var(--base);
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .radioCard {
   position: relative;
-  padding: calc(var(--base) * .75);
+  padding: 0.75rem;
   border: 1px solid var(--theme-border-color);
   display: flex;
   align-items: center;
-  gap: var(--base);
+  gap: 1rem;
   color: var(--theme-elevation-550);
   background-color: var(--theme-elevation-150);
   cursor: pointer;
-  
+
   .styledRadioInput {
     &:after {
       opacity: 0;
@@ -36,7 +36,7 @@
     color: var(--theme-success-500);
     border-color: var(--theme-success-500);
     background-color: var(--theme-success-50);
-  
+
     .styledRadioInput {
       background: var(--theme-success-100);
       &:after {
@@ -98,7 +98,7 @@
       border-color: var(--theme-success-550);
       color: var(--color-success-850);
       background-color: var(--theme-success-450);
-    
+
       .styledRadioInput {
         background: var(--theme-success-600);
         &:after {
@@ -106,11 +106,11 @@
         }
       }
     }
-  
+
     &:checked:focus-visible + .radioCard {
       border-color: var(--theme-success-650);
     }
-  
+
     &:not(:active):not(:checked):focus-visible + .radioCard,
     &:not(:active):not(:checked) + .radioCard:hover {
       color: var(--theme-elevation-550);

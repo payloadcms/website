@@ -2,7 +2,7 @@
 
 .wrapper {
   @include mid-break {
-    row-gap: calc(var(--base) * 2);
+    row-gap: 2rem;
   }
 
   align-items: center;
@@ -15,14 +15,14 @@
 }
 
 .richText {
-  margin-bottom: calc(var(--base) * 9);
+  margin-bottom: 9rem;
 
   @include large-break {
-    margin-bottom: calc(var(--base) * 6);
+    margin-bottom: 6rem;
   }
 
   @include mid-break {
-    margin-bottom: calc(var(--base) * 3);
+    margin-bottom: 3rem;
   }
 }
 
@@ -52,7 +52,7 @@
 }
 
 .description {
-  margin-bottom: calc(var(--base) * 2);
+  margin-bottom: 2rem;
 }
 
 .link {

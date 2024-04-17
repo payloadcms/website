@@ -1,7 +1,7 @@
 @use '@scss/common' as *;
 
 .leadingHeader {
-  margin-bottom: calc(var(--base) * 2);
+  margin-bottom: 2rem;
   max-width: 1400px;
 
   @include extra-large-break {

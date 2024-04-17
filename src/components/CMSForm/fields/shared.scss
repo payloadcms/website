@@ -9,15 +9,15 @@
   border: 1px solid var(--theme-border-color);
   background: var(--theme-input-bg);
   color: var(--theme-elevation-1000);
-  font-size: var(--base);
-  height: calc(var(--base) * 4.5);
-  line-height: var(--base);
+  font-size: 1rem;
+  height: 4.5rem;
+  line-height: 1rem;
 
   &::-moz-placeholder,
   &::-webkit-input-placeholder {
     color: var(--theme-elevation-400);
     font-weight: normal;
-    font-size: var(--base);
+    font-size: 1rem;
   }
 
   &:hover {
@@ -42,6 +42,6 @@
 
 .description {
   @include small;
-  margin-top: calc(var(--base) / 2);
+  margin-top: 0.5rem;
   color: var(--theme-elevation-400);
 }

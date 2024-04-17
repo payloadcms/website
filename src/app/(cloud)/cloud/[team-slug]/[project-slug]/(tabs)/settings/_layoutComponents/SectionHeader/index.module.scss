@@ -1,5 +1,5 @@
 .sectionHeader {
-  margin-bottom: calc(var(--base) * 1.75);
+  margin-bottom: 1.75rem;
 }
 
 .titleAndLink {
@@ -10,7 +10,7 @@
 }
 
 .intro {
-  margin-top: calc(var(--base) * .25);
+  margin-top: 0.25rem;
   display: block;
   color: var(--theme-elevation-450)
 }

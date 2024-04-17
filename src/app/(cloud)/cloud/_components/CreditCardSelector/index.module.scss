@@ -4,9 +4,9 @@
     position: relative;
 }
 
-.scrollRef { 
+.scrollRef {
     position: absolute;
-    top: calc(var(--base) * -6);
+    top: -6rem;
 }
 
 .error {
@@ -20,36 +20,36 @@
 .cards {
     display: flex;
     flex-direction: column;
-    gap: var(--base);
+    gap: 1rem;
 
     @include mid-break {
-        gap: calc(var(--base) / 2);
+        gap: 0.5rem;
     }
 }
 
 .cardBrand {
     flex-grow: 1;
-    line-height: var(--base);
+    line-height: 1rem;
     display: flex;
     align-items: center;
 }
 
 .default {
-    margin-left: var(--base);
+    margin-left: 1rem;
 }
 
 .notice {
     @include small;
     color: var(--theme-elevation-500);
     margin: 0;
-    margin-top: calc(var(--base) / 2);
+    margin-top: 0.5rem;
 }
 
 .controls {
     display: flex;
     align-items: center;
-    margin-top: var(--base);
-    gap: var(--base);
+    margin-top: 1rem;
+    gap: 1rem;
 }
 
 .deleteCard,

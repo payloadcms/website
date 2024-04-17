@@ -1,0 +1,47 @@
+@use '@scss/common' as *;
+
+.termsOfServiceWrap {
+  & a {
+    text-decoration: none;
+    color: var(--color-purple-600);
+    border-bottom: 1px dotted currentColor;
+    transition: all 0.2s ease;
+
+    &:visited {
+      color: var(--color-purple-600);
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  & ol {
+    list-style-type: none;
+    counter-reset: item;
+    margin: 0;
+    padding: 0;
+  }
+
+  & ol > li {
+    display: table;
+    counter-increment: item;
+    margin-bottom: 0.6em;
+  }
+
+  & ol > li:before {
+    @include h4;
+    content: counters(item, ".") ". ";
+    display: table-cell;
+    padding-right: 0.6em;
+  }
+
+  & li ol > li {
+    margin: 0;
+  }
+
+  & li ol > li:before {
+    @include body;
+    content: counters(item, ".") " ";
+  }
+}

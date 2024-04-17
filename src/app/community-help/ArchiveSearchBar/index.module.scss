@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  height: calc(var(--base) * 3);
+  height: 3rem;
 
   @include mid-break {
     left: 0;
@@ -19,8 +19,8 @@
   font-family: var(--font-body);
   font-size: var(--font-body-size);
   flex-grow: 1;
-  height: calc(var(--base) * 2);
-  margin-right: calc(var(--base) * 0.5);
+  height: 2rem;
+  margin-right: 0.5rem;
   text-transform: none;
 
   &::placeholder {
@@ -35,8 +35,8 @@
 .searchIcon {
   display: flex;
   align-items: center;
-  width: var(--base);
-  height: var(--base);
+  width: 1rem;
+  height: 1rem;
 }
 
 :global([data-theme="light"]) {

@@ -5,8 +5,8 @@
   position: relative;
   display: flex;
   align-items: center;
-  padding: calc(var(--base) * 1.75) calc(var(--base) * 2);
-  
+  padding: 1.75rem 2rem;
+
   &::before {
     content: '';
     width: calc(100% - 2px);
@@ -25,22 +25,22 @@
     cursor: pointer;
     font-size: 1rem;
     color: var(--color-text);
-  
+
     &:disabled {
       color: var(--theme-elevation-500);
     }
-  
+
     &:focus,
     &:active {
       outline: none;
     }
-  
+
     &:focus-visible {
       .input {
         @include outline;
       }
     }
-  
+
     &:hover {
       :local() {
         .icon {
@@ -53,46 +53,46 @@
   .errorLabel {
     margin: 0;
   }
-  
+
   .htmlInput {
     position: absolute;
     top: 0;
     left: 0;
     opacity: 0;
   }
-  
+
   .input {
     @include shared.formInput;
     padding: 0;
     line-height: 0;
     position: relative;
-    width: calc(var(--base) * 1);
-    height: calc(var(--base) * 1);
-    min-width: calc(var(--base) * 1);
-    min-height: calc(var(--base) * 1);
-    margin-right: calc(var(--base) / 2);
+    width: 1rem;
+    height: 1rem;
+    min-width: 1rem;
+    min-height: 1rem;
+    margin-right: 0.5rem;
     margin-bottom: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
   }
-  
+
   .icon {
     opacity: 0;
     transition: all 0.3s ease;
   }
-  
+
   .label {
     cursor: pointer;
     margin: 0;
     color: var(--text-dark);
-    margin-right: calc(var(--base) * 0.75);
+    margin-right: 0.75rem;
     transition: all 0.3s ease;
   }
 
   @include mid-break {
-    padding: calc(var(--base) * 1.75) calc(var(--base) * 1);
+    padding: 1.75rem 1rem;
   }
 }
 

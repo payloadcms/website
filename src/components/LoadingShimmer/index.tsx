@@ -14,7 +14,7 @@ export const LoadingShimmer: React.FC<{
 
   const arrayFromNumber = Array.from(Array(number || 1).keys())
 
-  let height = heightBase ? `calc(${heightBase} * var(--base))` : undefined
+  let height = heightBase ? `calc(${heightBase} * 1rem)` : undefined
   if (typeof heightPercent === 'number') {
     height = `${heightPercent}%`
   }
@@ -27,7 +27,7 @@ export const LoadingShimmer: React.FC<{
           className={[shimmerClassName, classes.shimmer].filter(Boolean).join(' ')}
           style={{
             height,
-            width: props.width ? `calc(${props.width} * var(--base))` : undefined,
+            width: props.width ? `calc(${props.width} * 1rem)` : undefined,
           }}
         />
       ))}

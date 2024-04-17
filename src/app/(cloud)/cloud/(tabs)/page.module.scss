@@ -5,7 +5,7 @@
 }
 
 .tabs {
-    margin-bottom: calc(var(--base) * 2);
+    margin-bottom: 2rem;
 }
 
 .controls {
@@ -25,8 +25,8 @@
      }
 
     @include mid-break {
-        margin-bottom: var(--base);
-        padding: calc(var(--base) * 1.5) 0;
+        margin-bottom: 1rem;
+        padding: 1.5rem 0;
         flex-wrap: wrap;
     }
 }
@@ -63,7 +63,7 @@
 }
 
 .pagination {
-    margin-top: calc(var(--base) * 2);
+    margin-top: 2rem;
 }
 
 :global([data-theme="light"]) {

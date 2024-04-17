@@ -1,6 +1,6 @@
 @use '@scss/common.scss' as *;
 
-$curve: cubic-bezier(.165, .84, .44, 1);
+$curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 :global(.group-active) {
   .button {
@@ -14,14 +14,14 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   aspect-ratio: 1 / 1;
   width: auto;
   height: auto;
-  padding: calc(var(--base) * 0.75);
+  padding: 0.75rem;
   border-radius: 100%;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: calc(var(--base) * -0.8);
-  right: calc(var(--base) * -3.5);
+  top: -0.8rem;
+  right: -3.5rem;
   z-index: 2;
   transform: scale(0);
   opacity: 0;
@@ -123,7 +123,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   }
 
   svg {
-    width: calc(var(--base) * 1.35);
+    width: 1.35rem;
     height: auto;
 
     border: 1px solid var(--color-base-0);
@@ -157,7 +157,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
 .codeFeature {
   position: absolute;
-  right: calc(var(--base) * -2);
+  right: -2rem;
   bottom: 0;
   z-index: 1;
 
@@ -168,14 +168,14 @@ $curve: cubic-bezier(.165, .84, .44, 1);
     visibility: hidden;
     width: max-content;
     min-width: fit-content;
-    padding: calc(var(--base) * 1);
+    padding: 1rem;
     background: var(--theme-elevation-0);
-    max-width: max(400%, calc(var(--base) * 20));
+    max-width: max(400%, 20rem);
     left: 0;
     z-index: 3;
 
     @include small-break {
-      max-width: max(90vw, calc(var(--base) * 4));
+      max-width: max(90vw, 4rem);
     }
 
     &.active {

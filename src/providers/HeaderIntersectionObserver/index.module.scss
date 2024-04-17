@@ -1,9 +1,9 @@
 .intersectionObserverDebugger {
-  --center-of-header: calc(calc(var(--header-height) * .5));
+  --center-of-header: calc(calc(var(--header-height) * 0.5));
   position: fixed;
   height: var(--center-of-header);
   width: 100%;
   z-index: 2000;
-  opacity: .5;
+  opacity: 0.5;
   background-color: var(--theme-success-500);
 }

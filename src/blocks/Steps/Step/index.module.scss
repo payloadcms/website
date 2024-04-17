@@ -1,7 +1,7 @@
 @use '@scss/common' as *;
 
 .step {
-  --step-indicator-pos: calc(var(--base) * 2);
+  --step-indicator-pos: 2rem;
   position: relative;
   padding-bottom: var(--block-spacing);
 
@@ -9,9 +9,9 @@
     content: ' ';
     display: block;
     position: absolute;
-    top: calc(var(--base) * 2);
+    top: 2rem;
     left: calc(var(--gutter-h) - var(--step-indicator-pos) - 5px);
-    bottom: var(--base);
+    bottom: 1rem;
     transition: transform 1500ms ease-out;
     transform-origin: center top;
     transform: scaleY(0);
@@ -20,11 +20,11 @@
   }
 
   @include large-break {
-    --step-indicator-pos: var(--base);
+    --step-indicator-pos: 1rem;
   }
 
   @include mid-break {
-    --step-indicator-pos: calc(var(--base) / 2);
+    --step-indicator-pos: 0.5rem;
   }
 
   &:last-child {
@@ -35,7 +35,7 @@
         background: var(--color-success-500);
       }
     }
-    
+
     &:before {
       content: none;
     }
@@ -57,16 +57,16 @@
     top: 50%;
     transform: translateY(-50%);
     right: calc(100% + var(--step-indicator-pos));
-    width: calc(var(--base) / 2);
-    height: calc(var(--base) / 2);
+    width: 0.5rem;
+    height: 0.5rem;
     background: currentColor;
     border-radius: 100%;
   }
-  
+
   @include mid-break {
     &:before {
-      width: calc(var(--base) / 4);
-      height: calc(var(--base) / 4);
+      width: 0.25rem;
+      height: 0.25rem;
     }
   }
 }

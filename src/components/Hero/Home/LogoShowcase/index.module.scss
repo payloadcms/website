@@ -68,19 +68,19 @@
 
   .contentWrapper {
     position: absolute;
-    top: calc(var(--base) * 1.5);
-    bottom: calc(var(--base) * 1.5);
-    left: calc(var(--base) * 1.5);
-    right: calc(var(--base) * 1.5);
+    top: 1.5rem;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
 
     @include small-break {
-      top: calc(var(--base) * 1);
-      bottom: calc(var(--base) * 1);
-      left: calc(var(--base) * 1);
-      right: calc(var(--base) * 1);
+      top: 1rem;
+      bottom: 1rem;
+      left: 1rem;
+      right: 1rem;
     }
 
     > div {
@@ -91,7 +91,7 @@
       opacity: 0;
       filter: blur(0px);
     }
-  }  
+  }
 }
 
 .logoPresent {
@@ -116,7 +116,7 @@
 
 .crosshair {
   position: absolute;
-  width: calc(var(--base) * 1);
+  width: 1rem;
   height: auto;
   z-index: 5;
   color: var(--theme-elevation-1000);
@@ -124,23 +124,23 @@
 }
 
 .crosshairBottomLeft {
-  left: calc(var(--base) * -0.5);
-  bottom: calc(var(--base) * -0.5);
+  left: -.5rem;
+  bottom: -.5rem;
 }
 
 .crosshairTopRight {
-  right: calc(var(--base) * -0.5);
-  top: calc(var(--base) * -0.5);
+  right: -.5rem;
+  top: -.5rem;
 }
 
 .crosshairFirstCell {
-  left: calc(25% + var(--base) * -0.45);
-  bottom: calc(66.666% + var(--base) * -0.55)
+  left: calc(25% - .45rem);
+  bottom: calc(66.666% - .55rem)
 }
 
 .crosshairSecondRowThirdCell {
-  left: calc(75% + var(--base) * -0.45);
-  bottom: calc(33.333% + var(--base) * -0.55);
+  left: calc(75% - .45rem);
+  bottom: calc(33.333% - .55rem);
 }
 
 :global([data-theme="dark"]) {

@@ -1118,7 +1118,7 @@ export interface Page {
   title: string;
   fullTitle?: string | null;
   hero: {
-    type: 'default' | 'contentMedia' | 'centeredContent' | 'form' | 'home' | 'livestream' | 'gradient';
+    type: 'default' | 'contentMedia' | 'centeredContent' | 'form' | 'home' | 'livestream' | 'gradient' | 'three';
     fullBackground?: boolean | null;
     theme?: ('light' | 'dark') | null;
     enableBreadcrumbsBar?: boolean | null;
@@ -1163,6 +1163,26 @@ export interface Page {
             id?: string | null;
           }[]
         | null;
+    };
+    enableAnnouncement?: boolean | null;
+    announcementLink?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null)
+        | ({
+            relationTo: 'case-studies';
+            value: string | CaseStudy;
+          } | null);
+      url?: string | null;
+      label: string;
     };
     richText?:
       | {
@@ -1232,6 +1252,41 @@ export interface Page {
           };
           id?: string | null;
         }[]
+      | null;
+    buttons?:
+      | (
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: string | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: string | Post;
+                    } | null)
+                  | ({
+                      relationTo: 'case-studies';
+                      value: string | CaseStudy;
+                    } | null);
+                url?: string | null;
+                label: string;
+                appearance?: ('default' | 'primary' | 'secondary') | null;
+              };
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'link';
+            }
+          | {
+              command: string;
+              id?: string | null;
+              blockName?: string | null;
+              blockType: 'command';
+            }
+        )[]
       | null;
     secondaryButtons?:
       | {

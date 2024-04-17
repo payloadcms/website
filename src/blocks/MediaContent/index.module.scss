@@ -29,13 +29,13 @@
   justify-content: center;
 
   @include mid-break {
-    margin-top: var(--base);
+    margin-top: 1rem;
   }
 }
 
 .button {
   display: block;
-  margin-top: calc(var(--base) * 2);
+  margin-top: 2rem;
   width: calc(4/6 * 100%);
 
   a {
@@ -44,6 +44,6 @@
 
   @include mid-break {
     width: 100%;
-    margin-top: var(--base);
+    margin-top: 1rem;
   }
 }

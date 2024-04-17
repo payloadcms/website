@@ -7,7 +7,7 @@
   flex-direction: column;
   text-align: left;
   justify-content: space-between;
-  padding: calc(var(--base)*1.5) var(--base);
+  padding: 1.5rem 1rem;
   margin: 0;
   background-color: transparent;
   border-bottom: 1px solid var(--grid-line-dark);
@@ -73,13 +73,13 @@
 .discordButton {
   display: flex;
   justify-content: space-between;
-  margin: var(--base) 0 0 0;
+  margin: 1rem 0 0 0;
   width: 100%;
   align-items: center;
   height: 26px;
 
   & img {
-    border-radius: .25em; // matches github button
+    border-radius: 0.25em; // matches github button
     height: 26px;
   }
 }
@@ -88,7 +88,7 @@
   display: flex;
   flex-direction: column;
   line-height: 1.2;
-  padding: calc(var(--base)*1.5) var(--base);
+  padding: 1.5rem 1rem;
 
   .license {
     margin: 0;

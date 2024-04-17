@@ -1,11 +1,11 @@
 @use '@scss/common' as *;
 
-$curve: cubic-bezier(.165, .84, .44, 1);
+$curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .quoteCard {
   @include large-body;
   box-sizing: border-box;
-  padding: calc(var(--base) * 5);
+  padding: 5rem;
   display: flex;
   position: relative;
   flex-direction: column;
@@ -79,20 +79,20 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 
   @include extra-large-break {
     @include body;
-    padding: calc(var(--base) * 4);
+    padding: 4rem;
   }
 
   @include mid-break {
-    padding: calc(var(--base) * 1.5);
+    padding: 1.5rem;
   }
 }
 
 .icon {
-  margin-bottom: var(--base);
+  margin-bottom: 1rem;
 
   @include mid-break {
     max-width: 25px;
-    margin-bottom: calc(var(--base) / 2);
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -105,7 +105,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   @include h6;
   margin-top: 0;
   text-transform: uppercase;
-  margin-bottom: calc(var(--base) * 1.5);
+  margin-bottom: 1.5rem;
 }
 
 .closingQuote {
@@ -116,15 +116,15 @@ $curve: cubic-bezier(.165, .84, .44, 1);
   @include h3;
   margin-top: 0;
   position: relative;
-  margin-bottom: calc(var(--base) * 4.5);
+  margin-bottom: 4.5rem;
 
   &::before {
     content: '“';
     position: absolute;
-    left: calc(var(--base) * -1.2);
+    left: -1.2rem;
 
     @include mid-break {
-      left: calc(var(--base) * -0.8);
+      left: -.8rem;
     }
   }
 }
@@ -132,7 +132,7 @@ $curve: cubic-bezier(.165, .84, .44, 1);
 .author {
   @include h5;
   margin-top: 0;
-  margin-bottom: calc(var(--base) * 0.8);
+  margin-bottom: 0.8rem;
 }
 
 .role {

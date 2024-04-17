@@ -1,6 +1,6 @@
 @use '@scss/common' as *;
 
-.topBar {  
+.topBar {
   position: fixed;
   top: 0;
   height: var(--top-bar-height);
@@ -15,7 +15,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--base);
+    gap: 1rem;
     width: 100%;
     height: 100%;
     pointer-events: all;
@@ -33,7 +33,7 @@
   .starWrap {
     display: flex;
     flex-direction: row;
-    gap: calc(var(--base) * 0.25);
+    gap: 0.25rem;
   }
 
   .starCount {
@@ -65,18 +65,18 @@
       font-size: 14px;
     }
   }
-  
+
   @include mid-break {
     .richText {
       display: none;
     }
-  
+
     .mobileText {
       display: unset;
 
       & a {
         color: var(--text-color);
-  
+
         &:visited {
           color: var(--text-color);
         }

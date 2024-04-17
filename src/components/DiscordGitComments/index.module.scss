@@ -2,29 +2,29 @@
 
 .comments {
   padding: 0;
-  margin-bottom: calc(var(--base) * 2);
+  margin-bottom: 2rem;
   list-style: none;
 
   @include mid-break {
-    margin-bottom: calc(var(--base)*2);
+    margin-bottom: 2rem;
   }
 }
 
 .comment {
-  margin: calc(var(--base) * 2) 0;
+  margin: 2rem 0;
 }
 
 .comment,
 .reply {
   border: 1px solid var(--theme-border-color);
-  padding: calc(var(--base) * 2) calc(var(--base) * 4);
+  padding: 2rem 4rem;
   line-height: 1.5;
 
   @include mid-break {
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: var(--base);
+    padding: 1rem;
   }
 }
 
@@ -52,7 +52,7 @@
 .replyCount {
   @include uppercaseLabel;
   color: var(--color-base-500);
-  padding-top: calc(var(--base) * 1.5);
+  padding-top: 1.5rem;
 }
 
 .answer {
@@ -66,7 +66,7 @@
 
 .answerHeader {
   position: relative;
-  padding: calc(var(--base) * 1.5) calc(var(--base) * 4);
+  padding: 1.5rem 4rem;
   background-color: var(--theme-blue-100);
 
   & h6 {
@@ -75,21 +75,21 @@
   }
 
   .selectedBy {
-    font-size: calc(var(--base) * 0.65);
+    font-size: 0.65rem;
   }
 
   @include mid-break {
-    padding: calc(var(--base) * 1.5) var(--base);
+    padding: 1.5rem 1rem;
   }
 }
 
 .answerBody {
-  padding: calc(var(--base) * 1.5) calc(var(--base) * 4);
+  padding: 1.5rem 4rem;
   color: var(--theme-text);
   background-color: var(--theme-blue-50);
 
   @include mid-break {
-    padding: calc(var(--base) * 1.5) var(--base);
+    padding: 1.5rem 1rem;
   }
 }
 
@@ -97,7 +97,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
-  margin-top: var(--base);
+  margin-top: 1rem;
 
   @include large-break {
     grid-template-columns: 1fr;
@@ -138,11 +138,11 @@
   }
 
   .comment {
-    margin: var(--base) 0;
+    margin: 1rem 0;
   }
 
   .reply {
-    padding: var(--base);
-    padding-left: calc(var(--base)*1.5);
+    padding: 1rem;
+    padding-left: 1.5rem;
   }
 }

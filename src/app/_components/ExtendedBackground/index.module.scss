@@ -1,20 +1,20 @@
 @use '@scss/common.scss' as *;
 
 .container {
-  --bg-extension: calc(var(--gutter-h) * .5);
+  --bg-extension: calc(var(--gutter-h) * 0.5);
   --pixel-bg-extension: calc(var(--bg-extension) * 2);
   --pixel-padding: calc(var(--bg-extension) / 2);
   position: relative;
 
   @include large-break {
-    --bg-extension: calc(var(--gutter-h) * .75);
+    --bg-extension: calc(var(--gutter-h) * 0.75);
   }
 
   @include mid-break {
     --bg-extension: var(--gutter-h);
     --pixel-padding: var(--bg-extension);
   }
-  
+
   &.withPixels {
    padding-bottom: var(--pixel-padding);
   }
@@ -67,12 +67,12 @@
   left: 1px;
   inset: 1px;
   background-color: var(--theme-bg);
-  padding: calc(var(--base) * 1.5) calc(var(--bg-extension) / 2);
+  padding: 1.5rem calc(var(--bg-extension) / 2);
   margin-right: 2px;
   margin-bottom: 2px;
 
   @include small-break {
-    padding: calc(var(--base) * 1) calc(var(--bg-extension) / 2);
+    padding: 1rem calc(var(--bg-extension) / 2);
   }
 }
 

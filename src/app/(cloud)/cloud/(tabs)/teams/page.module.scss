@@ -4,7 +4,7 @@
   padding-bottom: calc(var(--base) * 2);
 
   @include small-break {
-    padding-bottom: calc(var(--base) * 1.5);
+    padding-bottom: 1.5rem;
   }
 
   > * {
@@ -17,7 +17,7 @@
   margin-bottom: calc(var(--base) * 2.5);
 
   @include small-break {
-    margin-bottom: calc(var(--base) * 1.5);
+    margin-bottom: 1.5rem;
   }
 }
 

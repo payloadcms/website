@@ -1,7 +1,7 @@
 @use '@scss/common' as *;
 
 .featuredMediaWrap {
-  margin-top: calc(var(--base) * 4);
+  margin-top: 4rem;
   width: calc(100% + var(--gutter-h));
 
   img {
@@ -9,7 +9,7 @@
   }
 
   @include large-break {
-    margin-top: calc(var(--base) * 2);
+    margin-top: 2rem;
     margin-left: 0;
     width: calc(100% + var(--gutter-h));
   }
@@ -18,13 +18,13 @@
 .metaWrapper {
   @include mid-break {
     display: flex;
-    margin-top: calc(var(--base) * 2);
+    margin-top: 2rem;
   }
 }
 
 .metaItem {
   border-top: 1px solid var(--grid-line-dark);
-  padding: calc(var(--base) * 1.5);
+  padding: 1.5rem;
 
   @include data-theme-selector('dark') {
     border-color: var(--grid-line-dark);

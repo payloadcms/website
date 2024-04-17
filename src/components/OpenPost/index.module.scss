@@ -5,13 +5,13 @@
   color: var(--theme-text-color);
   display: block;
   text-decoration: none;
-  padding: calc(var(--base) * 4) calc(var(--base) * 4);
+  padding: 4rem 4rem;
   border-top: 1px solid var(--theme-border-color);
   border-bottom: 1px solid var(--theme-border-color);
   background-color: var(--theme-elevation-0);
   margin-left: 1px;
   width: calc(100% - 2px);
-  transition: background-color .3s cubic-bezier(.165, .84, .44, 1);
+  transition: background-color 0.3s cubic-bezier(.165, 0.84, 0.44, 1);
 
   &::before {
     content: '';
@@ -24,7 +24,7 @@
   }
 
   h3 {
-    margin: calc(var(--base)*0.25) 0 0 0;
+    margin: 0.25rem 0 0 0;
   }
 
   .crosshairs {
@@ -32,7 +32,7 @@
   }
 
   @include mid-break {
-    padding: calc(var(--base) * 2);
+    padding: 2rem;
   }
 
   &:hover {
@@ -58,10 +58,10 @@
 
   svg {
     opacity: 0;
-    margin-left: calc(var(--base) * .5);
+    margin-left: 0.5rem;
     transform: translate(-5px, 5px);
     transition-property: opacity, transform;
     transition-duration: 0.3s;
-    transition-timing-function: cubic-bezier(.165, .84, .44, 1);
+    transition-timing-function: cubic-bezier(.165, 0.84, 0.44, 1);
   }
 }

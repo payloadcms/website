@@ -58,6 +58,7 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
                     if (type === 'npmCta') {
                       return (
                         <CreatePayloadApp
+                          key={index}
                           style="cta"
                           label={npmCta?.label}
                           className={classes.npmCta}

@@ -11,11 +11,11 @@
 
 .label {
   margin-left: 0;
-  margin-bottom: calc(var(--base) * 2);
+  margin-bottom: 2rem;
   display: block;
 
   @include mid-break {
-    margin-bottom: calc(var(--base) * 1);
+    margin-bottom: 1rem;
   }
 
    & label {
@@ -25,7 +25,7 @@
 }
 
 .richText {
-  margin-bottom: calc(var(--base) * 2);
+  margin-bottom: 2rem;
 }
 
 .links {

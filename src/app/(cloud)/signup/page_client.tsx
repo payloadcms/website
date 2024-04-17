@@ -126,8 +126,8 @@ export const Signup: React.FC = () => {
   if (user) {
     return (
       <Gutter>
-        <div className={['grid'].filter(Boolean).join(' ')}>
-          <div className={['cols-5 cols-m-8'].filter(Boolean).join(' ')}>
+        <div className="grid">
+          <div className="cols-5 cols-m-8">
             <Heading marginTop={false} element="h2" as="h2">
               <Highlight text="Already logged in" appearance="success" />
             </Heading>
@@ -147,11 +147,9 @@ export const Signup: React.FC = () => {
   if (successfullySubmitted) {
     return (
       <Gutter>
-        <Heading marginTop={false} element="h2" as="h2">
-          <Highlight text="Verify your account" />
-        </Heading>
-        <div className={['grid'].filter(Boolean).join(' ')}>
-          <div className={['cols-5 cols-m-8'].filter(Boolean).join(' ')}>
+        <h2 id="cloud-registered-successfully">Verify your account</h2>
+        <div className="grid">
+          <div className="cols-5 cols-m-8">
             <Heading marginTop={false} element="p" as="h4">
               Your account has been created. Please check your email to verify your account and
               login.
@@ -174,8 +172,8 @@ export const Signup: React.FC = () => {
       <Heading marginTop={false} element="h1">
         Create an account
       </Heading>
-      <div className={['grid'].filter(Boolean).join(' ')}>
-        <div className={['cols-5 cols-m-8'].filter(Boolean).join(' ')}>
+      <div className="grid">
+        <div className="cols-5 cols-m-8">
           <div className={classes.links}>
             {`Already have an account? `}
             <Link href={`/login${redirectParam ? `?redirect=${redirectParam}` : ''}`}>
@@ -183,7 +181,12 @@ export const Signup: React.FC = () => {
             </Link>
             {'.'}
           </div>
-          <Form onSubmit={createAccount} className={classes.form} initialState={initialFormState}>
+          <Form
+            onSubmit={createAccount}
+            className={classes.form}
+            initialState={initialFormState}
+            formId={'payload_cloud_sign_up'}
+          >
             <FormSubmissionError />
             <FormProcessing message="Signing up, one moment..." />
             <Text

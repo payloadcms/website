@@ -2,12 +2,12 @@
 
 .headingScrollTo {
   position: absolute;
-  bottom: calc(100% + calc(var(--base) * 2));
+  bottom: calc(100% + 2rem);
   left: 0;
   width: 100%;
 
   @include mid-break {
-    bottom: calc(100% + var(--base));
+    bottom: calc(100% + 1rem);
   }
 }
 

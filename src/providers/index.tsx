@@ -49,10 +49,10 @@ export const Providers: React.FC<{
                     xl: '4rem',
                   }}
                   colGap={{
-                    s: 'var(--base)',
-                    m: 'calc(var(--base) * 2)',
-                    l: 'calc(var(--base) * 2)',
-                    xl: 'calc(var(--base) * 3)',
+                    s: '1rem',
+                    m: '2rem',
+                    l: '2rem',
+                    xl: '3rem',
                   }}
                   cols={{
                     s: 8,
