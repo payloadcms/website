@@ -52,9 +52,7 @@ export const ResetPassword: React.FC = () => {
 
   return (
     <Gutter>
-      <Heading marginTop={false} element="h1">
-        Reset password
-      </Heading>
+      <h2>Reset password</h2>
       <div className={['grid'].filter(Boolean).join(' ')}>
         <div className={['cols-5 cols-m-8'].filter(Boolean).join(' ')}>
           <Form

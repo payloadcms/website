@@ -5,10 +5,12 @@
 }
 
 .container {
-  min-height: calc(100vh - var(--page-padding-top) * 2);
-  padding:var(--page-padding-top) 0;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--header-height));
+  padding: var(--header-height) 0;
 
   @include mid-break {
-    padding-top: calc(var(--page-padding-top) + 3rem);
+    padding-top: calc(var(--header-height) + 3rem);
   }
 }

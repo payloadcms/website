@@ -1,6 +1,10 @@
 @use '@scss/common' as *;
 @use "../../../forms/fields/shared.scss";
 
+.heading {
+  padding-block: 2rem;
+}
+
 .submit {
   margin-top: 1rem;
 
