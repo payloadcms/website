@@ -1,5 +1,8 @@
 'use client'
+import Link from 'next/link'
+
 import { Avatar } from '@root/components/Avatar'
+import { FullLogo } from '@root/graphics/FullLogo'
 import { useAuth } from '@root/providers/Auth'
 import { DashboardBreadcrumbs } from '../DashboardBreadcrumbs'
 
@@ -10,30 +13,32 @@ export const CloudHeader = () => {
 
   return (
     <header className={classes.cloudHeader}>
+      <FullLogo className={classes.logo} />
       <DashboardBreadcrumbs />
       <nav>
-        <ul>
-          <li key={'new'}>
-            <a href="/new">New Project</a>
-          </li>
-          <li key={'docs'}>
-            <a href="/docs">Docs</a>
-          </li>
-          {user ? (
-            <>
-              <li key={'logout'}>
-                <a href="/logout">Logout</a>
+        {user ? (
+          <div className={classes.loggedIn}>
+            <ul>
+              <li key={'new'}>
+                <Link href="/new">New Project</Link>
               </li>
               <li key={'avatar'}>
                 <Avatar />
               </li>
-            </>
-          ) : (
-            <li key={'login'}>
-              <a href="/login">Login</a>
-            </li>
-          )}
-        </ul>
+            </ul>
+          </div>
+        ) : (
+          <div className={classes.loggedOut}>
+            <ul>
+              <li key={'login'}>
+                <Link href="/login">Login</Link>
+              </li>
+              <li key={'signup'}>
+                <Link href="/signup">Sign Up</Link>
+              </li>
+            </ul>
+          </div>
+        )}
       </nav>
     </header>
   )

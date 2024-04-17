@@ -1,11 +1,12 @@
 @use '@scss/common' as *;
 
-.breadcrumbs {
+.wrapper {
   display: flex;
   align-items: center;
   height: 100%;
   padding: 0;
   margin: 0;
+  width: 100%;
 
   a {
     display: flex;
@@ -26,12 +27,39 @@
         content: '/';
         margin: 0 10px;
         color: var(--theme-elevation-250);
+        pointer-events: none;
       }
     }
   }
+
+  @include small-break {
+    a {
+      display: inline;
+      height: 1rem;
+    }
+
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    height: auto;
+    padding: 1rem var(--gutter-h);
+    background: var(--theme-bg);
+    border-bottom: 1px solid var(--theme-border-color);
+    overflow-x: auto;
+  }
 }
 
-.logo {
+a.logo {
   display: flex;
   padding: 1rem 0;
+
+  @include small-break {
+    display: none;
+  }
+}
+
+.breadcrumbs {
+  width: 100%;
+  display: flex;
+  line-height: 1rem;
 }

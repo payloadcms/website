@@ -6,10 +6,8 @@ import { TeamSelector } from '@cloud/_components/TeamSelector'
 import { Text } from '@forms/fields/Text'
 import Link from 'next/link'
 
-import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Pagination } from '@components/Pagination'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { Team, Template, User } from '@root/payload-cloud-types'
 import { useAuth } from '@root/providers/Auth'
 import useDebounce from '@root/utilities/use-debounce'
@@ -143,20 +141,20 @@ export const CloudPage: React.FC<{
             setSearch(value)
             setEnableSearch(true)
           }}
-          className={['cols-8', classes.search].join(' ')}
+          className={['cols-8 cols-l-8 cols-m-8', classes.search].join(' ')}
         />
         <TeamSelector
           onChange={incomingTeam => {
             setSelectedTeam(incomingTeam?.id)
             setEnableSearch(true)
           }}
-          className={['cols-6', classes.teamSelector].join(' ')}
+          className={['cols-6 cols-l-4 cols-m-6 cols-s-4', classes.teamSelector].join(' ')}
           initialValue="none"
           allowEmpty
           label={false}
           user={user}
         />
-        <div className="cols-2">
+        <div className="cols-2 cols-l-4 cols-m-2 cols-s-4">
           <Link
             className={classes.createButton}
             href={`/new${matchedTeam?.slug ? `?team=${matchedTeam?.slug}` : ''}`}

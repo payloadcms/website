@@ -67,7 +67,7 @@ export const ProjectCard: React.FC<{
     if (isPro) {
       pill = {
         text: 'Pro',
-        color: 'blue',
+        color: 'success',
       }
     } else if (isStandard) {
       pill = {
@@ -122,7 +122,7 @@ export const ProjectCard: React.FC<{
     <Link
       href={href}
       className={[
-        'cols-4 cols-m-4 cols-xs-8',
+        'cols-4 cols-m-4 cols-s-8',
         className,
         classes.project,
         status === 'draft' && classes.draft,

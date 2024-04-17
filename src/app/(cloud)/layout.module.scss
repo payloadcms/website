@@ -7,4 +7,8 @@
 .container {
   min-height: calc(100vh - var(--page-padding-top) * 2);
   padding:var(--page-padding-top) 0;
+
+  @include mid-break {
+    padding-top: calc(var(--page-padding-top) + 3rem);
+  }
 }

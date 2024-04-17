@@ -27,7 +27,7 @@ export const fetchProjects = async (teamIDs: string[]): Promise<ProjectsRes> => 
       query: PROJECTS_QUERY,
       variables: {
         teamIDs: teamIDs.filter(Boolean),
-        limit: 9,
+        limit: 8,
         page: 1,
       },
     }),
@@ -44,7 +44,7 @@ export const fetchProjects = async (teamIDs: string[]): Promise<ProjectsRes> => 
 export const fetchProjectsClient = async ({
   teamIDs,
   page = 1,
-  limit = 9,
+  limit = 8,
   search,
 }: {
   teamIDs: Array<string | undefined>

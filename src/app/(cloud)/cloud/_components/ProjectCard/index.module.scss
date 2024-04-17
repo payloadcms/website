@@ -37,6 +37,11 @@
             width: 100%;
         }
     }
+
+    @include small-break {
+        aspect-ratio: unset;
+        gap: 2rem;
+    }
 }
 
 .scanlines  {

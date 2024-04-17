@@ -1,3 +1,5 @@
+@use '@scss/common' as *;
+
 .cloudHeader {
   display: flex;
   align-items: center;
@@ -11,9 +13,18 @@
   height: var(--header-height);
   padding: var(--base )  var(--gutter-h);
 
+  .logo {
+    display: none;
+    @include small-break {
+      display: block;
+    }
+  }
+
   nav {
     display: flex;
     align-items: center;
+    width: 100%;
+    justify-content: flex-end;
 
     ul {
       display: flex;

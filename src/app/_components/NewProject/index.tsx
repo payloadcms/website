@@ -14,6 +14,8 @@ export const NewProjectBlock: React.FC<{
   description?: React.ReactNode
   teamSlug?: Team['slug']
   templates?: Template[]
+  heading?: string
+  headingElement?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }> = props => {
   const { cardLeader, description, teamSlug, templates } = props
 

@@ -58,16 +58,19 @@ export const DashboardBreadcrumbs = () => {
   })
 
   return (
-    <div className={classes.breadcrumbs}>
+    <div className={classes.wrapper}>
       <Link href={`/`} className={classes.logo}>
         <FullLogo />
       </Link>
-      {segments[0] !== 'Cloud' ? <Link href={`/${cloudSlug}`}>Cloud</Link> : null}
-      {segments.map((segment, index) => (
-        <Link key={segment} href={`/${urls[index]}`}>
-          {segment}
-        </Link>
-      ))}
+      <div className={classes.breadcrumbs}>
+        {segments[0] !== 'Cloud' ? <Link href={`/${cloudSlug}`}>Cloud</Link> : null}
+        {segments.length === 0 && <span>Dashboard</span>}
+        {segments.map((segment, index) => (
+          <Link key={segment} href={`/${urls[index]}`}>
+            {segment}
+          </Link>
+        ))}
+      </div>
     </div>
   )
 }
