@@ -1,32 +1,5 @@
 @use '@scss/common' as *;
 
-.sidebarCell {
-    position: relative;
-    height: 100%;
-}
-
-.appPermissions {
-    a {
-        color: var(--theme-blue-500);
-        text-decoration: underline;
-    }
-}
-
-.sidebar {
-    position: sticky;
-    top: var(--page-padding-top);
-    gap: calc(var(--base) * 2);
-    display: flex;
-    flex-direction: column;
-    gap: var(--base);
-
-    @include mid-break {
-        position: static;
-        top: unset;
-        gap: var(--base);
-    }
-}
-
 .noTeams {
     margin-bottom: calc(var(--base) * 2);
     color: var(--theme-error-500);
@@ -41,9 +14,9 @@
             margin-bottom: calc(var(--base) * 2);
         }
     }
-    
+
     @include mid-break {
-        & > * {    
+        & > * {
             margin-bottom: calc(var(--base) / 2);
         }
     }
@@ -53,10 +26,10 @@
     color: var(--theme-error-500);
 }
 
-.repos {
-    border-top: 0.5px solid var(--theme-elevation-350);
-    
-    > ul { gap: 0; }
+.repos ul {
+    gap: 0;
+    border: 1px solid var(--theme-border-color);
+    border-bottom: none;
 }
 
 .submit {
@@ -65,4 +38,52 @@
 
 .pagination {
     margin-top: calc(var(--base) * 3);
+}
+
+.orgLabel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & > * {
+        margin: 0;
+    }
+
+    .appPermissions {
+        @include small;
+        a {
+            color: var(--theme-blue-500);
+            text-decoration: underline;
+        }
+    }
+
+    @include small-break {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: .5rem;
+    }
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 2rem;
+    margin-bottom: 3rem;
+    border-top: 1px solid var(--theme-border-color);
+
+    & > h4 {
+        margin-top: 0;
+    }
+}
+
+.noRepos {
+    p {
+        margin: 0;
+    }
+
+    a {
+        color: var(--theme-blue-500);
+        text-decoration: underline;
+    }
 }

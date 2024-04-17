@@ -1,22 +1,51 @@
 @use '@scss/common' as *;
 
 .repoCard {
+    @include btnReset;
     width: 100%;
     position: relative;
     display: flex;
-    flex-direction: column;
-}
-
-.repo {
-    display: flex;
     align-items: center;
-    padding: calc(var(--base) * 2) 0;
+    border-bottom: 1px solid var(--theme-border-color);
+    padding: 1rem 2rem 1rem 1.5rem;
     position: relative;
+    cursor: pointer;
 
     @include small-break {
-        padding: var(--base) 0;
+        padding: 1rem;
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: var(--theme-text);
+        transition: width 0.3s;
+    }
+
+    .scanlines {
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    &:hover {
+        .arrow {
+            opacity: 1;
+            transform: translate(0,0);
+        }
+
+        .scanlines {
+            opacity: .75;
+        }
+
+        &::after {
+            width: 100%;
+        }
     }
 }
 
@@ -33,9 +62,10 @@
     margin-right: var(--base);
     // set a `height` so that cards with no description so not shift the layout
     // this is because description may or may not render depending on the data
-    height: 75px;
+    height: 4rem;
     display: flex;
     flex-direction: column;
+    text-align: left;
     justify-content: center;
     overflow: hidden;
     gap: calc(var(--base) / 4);
@@ -54,6 +84,7 @@
 }
 
 .repoDescription {
+    @include small;
     margin-top: calc(var(--base) / 2);
     color: var(--theme-elevation-500);
     overflow: hidden;
@@ -61,4 +92,10 @@
     margin: 0;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.arrow {
+    opacity: 0;
+    transform: translate(-.5rem, .5rem);
+    transition: transform 0.3s, opacity 0.3s;
 }

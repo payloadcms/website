@@ -47,22 +47,7 @@ export default async () => {
   return (
     <Fragment>
       <Gutter>
-        <div>
-          <Breadcrumbs
-            items={[
-              {
-                label: 'New',
-                url: '/new',
-              },
-              {
-                label: 'Import',
-              },
-            ]}
-          />
-          <Heading marginTop={false} element="h1">
-            {title}
-          </Heading>
-        </div>
+        <h2>{title}</h2>
       </Gutter>
       <ImportProject installs={installs} repos={repos} uuid={uuid} user={user} />
     </Fragment>

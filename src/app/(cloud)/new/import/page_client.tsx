@@ -7,7 +7,6 @@ import { InstallationButton } from '@cloud/_components/InstallationButton'
 import { InstallationSelector } from '@cloud/_components/InstallationSelector'
 import { useTeamDrawer } from '@cloud/_components/TeamDrawer'
 import { cloudSlug } from '@cloud/slug'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import RadioGroup from '@forms/fields/RadioGroup'
 import Form from '@forms/Form'
 import FormProcessing from '@forms/FormProcessing'
@@ -15,7 +14,6 @@ import FormSubmissionError from '@forms/FormSubmissionError'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
-import { Heading } from '@components/Heading'
 import { Pagination } from '@components/Pagination'
 import { Team } from '@root/payload-cloud-types'
 import { createDraftProject } from '../createDraftProject'
@@ -120,7 +118,7 @@ export const ImportProject: React.FC<{
   return (
     <Form ref={formRef} onSubmit={handleSubmit}>
       <Gutter>
-        <div className={classes.formState}>
+        <div className={[classes.formState, 'cols-16'].join(' ')}>
           {noTeams && (
             <p className={classes.error}>
               {`You must be a member of a team to create a project. `}
@@ -133,117 +131,110 @@ export const ImportProject: React.FC<{
           <FormProcessing message="Creating project, one moment..." />
           <FormSubmissionError />
         </div>
-        <Grid>
-          <Cell cols={4} colsM={8} className={classes.sidebarCell}>
-            <div className={classes.sidebar}>
-              <InstallationSelector
-                description="Select the org or user to import from."
-                hideLabel
-                installs={installs}
-                onChange={setSelectedInstall}
-                onInstall={onInstall}
-                uuid={uuid}
-              />
-              <p className={classes.appPermissions}>
-                {`Don't see your repository? `}
-                <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
-                  Adjust your GitHub app permissions
-                </a>
+
+        <div className={[classes.section, 'cols-16'].join(' ')}>
+          <div className={classes.orgLabel}>
+            <p>Select the org or user to import from.</p>
+            <p className={classes.appPermissions}>
+              {`Don't see your repository? `}
+              <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
+                Adjust your GitHub app permissions
+              </a>
+              {'.'}
+            </p>
+          </div>
+          <InstallationSelector
+            hideLabel
+            installs={installs}
+            onChange={setSelectedInstall}
+            onInstall={onInstall}
+            uuid={uuid}
+          />
+        </div>
+        <h4>Repositories</h4>
+        <div className={[classes.section, 'cols-16'].join(' ')}>
+          {installs?.length === 0 && (
+            <div className={classes.noRepos}>
+              <p>
+                {`No installations were found under this profile. To see your repositories, you must first `}
+                <InstallationButton
+                  label="install the GitHub Payload app"
+                  onInstall={onInstall}
+                  uuid={uuid}
+                />
                 {'.'}
               </p>
             </div>
-          </Cell>
-          <Cell cols={8} colsM={8}>
-            {installs?.length === 0 && (
-              <div className={classes.noRepos}>
-                <Heading marginTop={false} element="h6">
-                  No installations found
-                </Heading>
-                <p>
-                  {`No installations were found under this profile. To see your repositories, you must first `}
-                  <InstallationButton
-                    label="install the GitHub Payload app"
-                    onInstall={onInstall}
-                    uuid={uuid}
-                  />
-                  {'.'}
-                </p>
-              </div>
-            )}
-            {installs?.length > 0 && (
-              <Fragment>
-                {cardArray?.length > 0 ? (
-                  <RadioGroup
-                    className={[classes.repos, loadingRepos && classes.loading]
-                      .filter(Boolean)
-                      .join(' ')}
-                    initialValue=""
-                    path="repositoryName"
-                    layout="vertical"
-                    hidden
-                    required
-                    onChange={onRepoChange}
-                    options={cardArray?.map((repo, index) => {
-                      const isHovered = hoverIndex === index
+          )}
+          {installs?.length > 0 && (
+            <Fragment>
+              {cardArray?.length > 0 ? (
+                <RadioGroup
+                  className={[classes.repos, loadingRepos && classes.loading]
+                    .filter(Boolean)
+                    .join(' ')}
+                  initialValue=""
+                  path="repositoryName"
+                  layout="vertical"
+                  hidden
+                  required
+                  onChange={onRepoChange}
+                  options={cardArray?.map((repo, index) => {
+                    const isHovered = hoverIndex === index
 
-                      return {
-                        value: repo?.name,
-                        label: (
-                          <RepoCard
-                            key={index}
-                            repo={repo}
-                            isHovered={isHovered}
-                            isLoading={loadingRepos}
-                            onMouseEnter={() => setHoverIndex(index)}
-                            onMouseLeave={() => setHoverIndex(undefined)}
-                            onClick={async repo => {
-                              try {
-                                await createDraftProject({
-                                  repo,
-                                  teamID: matchedTeam?.id,
-                                  installID: selectedInstall?.id,
-                                  onSubmit: onDraftProjectCreate,
-                                  user,
-                                })
-                              } catch (error) {
-                                window.scrollTo(0, 0)
-                                console.error(error) // eslint-disable-line no-console
-                              }
-                            }}
-                          />
-                        ),
-                      }
-                    })}
-                  />
-                ) : (
-                  <div className={classes.noRepos}>
-                    <Heading marginTop={false} element="h6">
-                      No repositories found
-                    </Heading>
-                    <p className={classes.appPermissions}>
-                      {`No repositories were found in the account "${
-                        (selectedInstall?.account as { login: string })?.login
-                      }". Create a new repository or `}
-                      <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
-                        adjust your GitHub app permissions
-                      </a>
-                      {'.'}
-                    </p>
-                  </div>
-                )}
-              </Fragment>
-            )}
-
-            {installs?.length > 0 && results?.total_count / perPage > 1 && (
-              <Pagination
-                page={page}
-                setPage={setPage}
-                totalPages={Math.ceil(results?.total_count / perPage)}
-                className={classes.pagination}
-              />
-            )}
-          </Cell>
-        </Grid>
+                    return {
+                      value: repo?.name,
+                      label: (
+                        <RepoCard
+                          key={index}
+                          repo={repo}
+                          isHovered={isHovered}
+                          isLoading={loadingRepos}
+                          onMouseEnter={() => setHoverIndex(index)}
+                          onMouseLeave={() => setHoverIndex(undefined)}
+                          onClick={async repo => {
+                            try {
+                              await createDraftProject({
+                                repo,
+                                teamID: matchedTeam?.id,
+                                installID: selectedInstall?.id,
+                                onSubmit: onDraftProjectCreate,
+                                user,
+                              })
+                            } catch (error) {
+                              window.scrollTo(0, 0)
+                              console.error(error) // eslint-disable-line no-console
+                            }
+                          }}
+                        />
+                      ),
+                    }
+                  })}
+                />
+              ) : (
+                <div className={classes.noRepos}>
+                  <p className={classes.appPermissions}>
+                    {`No repositories were found in the account "${
+                      (selectedInstall?.account as { login: string })?.login
+                    }". Create a new repository or `}
+                    <a href={selectedInstall?.html_url} rel="noopener noreferrer" target="_blank">
+                      adjust your GitHub app permissions
+                    </a>
+                    {'.'}
+                  </p>
+                </div>
+              )}
+            </Fragment>
+          )}
+        </div>
+        {installs?.length > 0 && results?.total_count / perPage > 1 && (
+          <Pagination
+            page={page}
+            setPage={setPage}
+            totalPages={Math.ceil(results?.total_count / perPage)}
+            className={classes.pagination}
+          />
+        )}
       </Gutter>
       <TeamDrawer />
       <button

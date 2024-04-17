@@ -4,7 +4,7 @@ import { cloudSlug } from '@cloud/slug'
 import Link from 'next/link'
 import { useParams, useSelectedLayoutSegments } from 'next/navigation'
 
-import { CloudLogo } from '../CloudLogo'
+import { FullLogo } from '@root/graphics/FullLogo'
 
 import classes from './index.module.scss'
 
@@ -28,8 +28,6 @@ export const DashboardBreadcrumbs = () => {
   if (segments[0] === 'cloud') {
     if (segments.length === 2) {
       segments = []
-    } else {
-      segments.shift()
     }
   }
 
@@ -61,9 +59,10 @@ export const DashboardBreadcrumbs = () => {
 
   return (
     <div className={classes.breadcrumbs}>
-      <Link href={`/${cloudSlug}`}>
-        <CloudLogo />
+      <Link href={`/`} className={classes.logo}>
+        <FullLogo />
       </Link>
+      {segments[0] !== 'Cloud' ? <Link href={`/${cloudSlug}`}>Cloud</Link> : null}
       {segments.map((segment, index) => (
         <Link key={segment} href={`/${urls[index]}`}>
           {segment}
