@@ -243,8 +243,6 @@ export const InfraOnline: React.FC<{
                   ? 'Online'
                   : 'Offline'}
               </p>
-            </div>
-            <div className={[classes.reTrigger, 'cols-4 cols-l-8 cols-m-4 cols-s-8'].join(' ')}>
               <button
                 onClick={triggerDeployment}
                 className={classes.reTriggerButton}
