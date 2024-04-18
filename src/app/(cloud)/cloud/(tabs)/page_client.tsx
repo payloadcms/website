@@ -123,7 +123,6 @@ export const CloudPage: React.FC<{
           selectedTeam ? `Team '${matchedTeam?.name}' has no projects` : `You have no projects`
         }
         cardLeader="New"
-        headingElement="h4"
         teamSlug={matchedTeam?.slug}
         templates={templates}
       />
@@ -169,7 +168,7 @@ export const CloudPage: React.FC<{
             selectedTeam ? `Team '${matchedTeam?.name}' has no projects` : `You have no projects`
           }
           cardLeader="New"
-          headingElement="h4"
+          largeHeading={false}
           teamSlug={matchedTeam?.slug}
           templates={templates}
         />

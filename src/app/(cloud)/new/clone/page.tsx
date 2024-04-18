@@ -27,7 +27,7 @@ export default async () => {
       <Gutter>
         <RenderParams />
       </Gutter>
-      <NewProjectBlock headingElement="h1" templates={templates} />
+      <NewProjectBlock templates={templates} />
     </Fragment>
   )
 }
