@@ -102,7 +102,7 @@ export const ManageDomain: React.FC<Props> = ({ domain, project, team }) => {
           </table>
           <div className={classes.domainActions}>
             <div className={classes.rightActions}>
-              <Button label="delete" appearance="danger" onClick={() => openModal(modalSlug)} />
+              <Button label="Delete" appearance="danger" onClick={() => openModal(modalSlug)} />
             </div>
           </div>
         </div>
@@ -113,8 +113,8 @@ export const ManageDomain: React.FC<Props> = ({ domain, project, team }) => {
             Are you sure you want to delete this domain?
           </Heading>
           <div className={classes.modalActions}>
-            <Button label="cancel" appearance="secondary" onClick={() => closeModal(modalSlug)} />
-            <Button label="delete" appearance="danger" onClick={deleteDomain} />
+            <Button label="Cancel" appearance="secondary" onClick={() => closeModal(modalSlug)} />
+            <Button label="Delete" appearance="danger" onClick={deleteDomain} />
           </div>
         </div>
       </ModalWindow>

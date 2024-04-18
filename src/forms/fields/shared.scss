@@ -6,12 +6,15 @@
   box-sizing: border-box;
   font-family: var(--font-body);
   width: 100%;
-  border: 1px solid var(--theme-border-color);
-  background: var(--theme-elevation-150);
+  border: 1px solid var(--theme-elevation-250);
+  background: var(--theme-elevation-50);
   color: var(--theme-elevation-800);
-  height: 2.65rem;
-  line-height: 1rem;
-  padding: 1rem;
+  line-height: var(--base);
+  padding: var(--base);
+
+  @include data-theme-selector('light') {
+    background: var(--theme-elevation-0);
+  }
 
   &::-moz-placeholder,
   &::-webkit-input-placeholder {
@@ -43,10 +46,4 @@
   @include small;
   margin-top: 0.5rem;
   color: var(--theme-elevation-400);
-}
-
-:global([data-theme="light"]) {
-  @mixin formInput() {
-    background: var(--theme-elevation-50);
-  }
 }

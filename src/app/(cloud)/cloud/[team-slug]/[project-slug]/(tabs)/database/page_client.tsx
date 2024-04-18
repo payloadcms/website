@@ -1,12 +1,10 @@
 'use client'
 
 import * as React from 'react'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Secret } from '@forms/fields/Secret'
 
 import { Banner } from '@components/Banner'
 import { Gutter } from '@components/Gutter'
-import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 import { Project, Team } from '@root/payload-cloud-types'
 
 export const ProjectDatabasePage: React.FC<{
@@ -29,23 +27,14 @@ export const ProjectDatabasePage: React.FC<{
 
   return (
     <Gutter>
-      <Grid>
-        <Cell start={1} colsXL={12} colsL={12}>
-          <ExtendedBackground
-            pixels
-            upperChildren={
-              <Secret label="Mongo Connection String" loadSecret={loadConnectionString} readOnly />
-            }
-          />
-          <Banner>
-            <p>
-              Backups, migration, and more is on its way. For now, if you need to take a backup, you
-              can use commands like <code>mongodump</code> and <code>mongorestore</code> using your
-              connection string above.
-            </p>
-          </Banner>
-        </Cell>
-      </Grid>
+      <Secret label="Mongo Connection String" loadSecret={loadConnectionString} readOnly />
+      <Banner>
+        <p>
+          Backups, migration, and more is on its way. For now, if you need to take a backup, you can
+          use commands like <code>mongodump</code> and <code>mongorestore</code> using your
+          connection string above.
+        </p>
+      </Banner>
     </Gutter>
   )
 }

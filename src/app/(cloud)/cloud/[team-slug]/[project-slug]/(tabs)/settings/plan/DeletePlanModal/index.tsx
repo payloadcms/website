@@ -74,11 +74,11 @@ export const DeletePlanModal: React.FC<DeletePlanModalProps> = props => {
           />
           <div className={classes.modalActions}>
             <Button
-              label="cancel"
+              label="Cancel"
               appearance="secondary"
               onClick={() => closeModal(deletePlanModalSlug)}
             />
-            <Submit label="confirm" appearance="danger" disabled={isDisabled} />
+            <Submit label="Confirm" appearance="danger" disabled={isDisabled} />
           </div>
         </div>
       </Form>

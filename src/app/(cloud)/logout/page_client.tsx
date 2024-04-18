@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
-import { Heading } from '@components/Heading'
 import { useAuth } from '@root/providers/Auth'
 
 import classes from './page.module.scss'
@@ -52,9 +51,7 @@ export const Logout: React.FC = () => {
   if (user === null && hasLoggedOut) {
     return (
       <Gutter>
-        <Heading as="h3" marginTop={false}>
-          You have been logged out.
-        </Heading>
+        <h3>You have been logged out.</h3>
         <p>What would you like to do next?</p>
         <div className={classes.controls}>
           <Button label="Log back in" href="/login" appearance="primary" el="link" />
@@ -67,9 +64,7 @@ export const Logout: React.FC = () => {
   if (user === null && !isLoggingOut && !hasLoggedOut) {
     return (
       <Gutter>
-        <Heading as="h3" marginTop={false}>
-          You are already logged out.
-        </Heading>
+        <h3>You are already logged out.</h3>
         <div className={classes.controls}>
           <Button label="Log back in" href="/login" appearance="primary" el="link" />
           <Button label="Go home" href="/" appearance="secondary" el="link" />
@@ -80,9 +75,7 @@ export const Logout: React.FC = () => {
 
   return (
     <Gutter>
-      <Heading as="h3" marginTop={false}>
-        Logging out...
-      </Heading>
+      <h3>Logging out...</h3>
       <p>Please wait while we log you out, this should only take a moment.</p>
     </Gutter>
   )

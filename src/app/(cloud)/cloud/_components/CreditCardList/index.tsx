@@ -173,7 +173,7 @@ const CardList: React.FC<CreditCardListType> = props => {
           <p>Are you sure you want to do this? This action cannot be undone.</p>
           <div className={classes.modalActions}>
             <Button
-              label="cancel"
+              label="Cancel"
               appearance="secondary"
               onClick={() => {
                 paymentMethodToDelete.current = null
@@ -181,7 +181,7 @@ const CardList: React.FC<CreditCardListType> = props => {
               }}
             />
             <Button
-              label="delete"
+              label="Delete"
               appearance="danger"
               onClick={() => {
                 if (paymentMethodToDelete.current) {

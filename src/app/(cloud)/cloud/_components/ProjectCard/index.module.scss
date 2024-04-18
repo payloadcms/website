@@ -1,200 +1,104 @@
 @use '@scss/common' as *;
 
 .project {
-    --background-color: var(--theme-elevation-50);
-    --border-color: var(--theme-elevation-50);
-    --border-color-hover: var(--theme-elevation-250);
-    --icon-color: currentColor;
-    --secondary-text-color: var(--theme-elevation-1000);
-
-    width: 100%;
-    height: 100%;
-    // match the loading card height
     aspect-ratio: 1/1;
     display: flex;
     flex-direction: column;
-    padding: 2rem;
-    border: 0.5px solid;
-    // no border for the default card until hover, match background color
-    border-color: var(--border-color);
-    background-color: var(--background-color);
+    justify-content: space-between;
+    padding: calc(var(--base) * 1.5);
     position: relative;
     text-decoration: none;
+    border-bottom: 1px solid var(--theme-border-color);
+    border-right: 1px solid var(--theme-border-color);
 
-    &:focus {
-        text-decoration: none;
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--theme-text);
+        transition: width .3s cubic-bezier(.165, .84, .44, 1);
     }
 
-    &:hover {
-        border-color: var(--border-color-hover);
+    &:hover, &:focus {
 
-        &:local() {
-            .arrowIcon {
-                opacity: 1;
-            }
+        .scanlines {
+            opacity: 1;
         }
 
-        // turn off hover effects on mobile
-        @include mid-break {
-            border-color: var(--border-color);
+        .arrow {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
 
-            &:local() {
-                .arrowIcon {
-                    opacity: 0;
-                }
-            }
+        &::before {
+            width: 100%;
         }
     }
 
-    @include mid-break {
-        padding: 1rem;
+    @include small-break {
+        aspect-ratio: unset;
+        gap: 2rem;
     }
 }
 
-.draft {
-    --background-color: var(--theme-elevation-0);
-    --border-color: var(--theme-elevation-200);
-    --border-color-hover: var(--theme-elevation-500);
-    --secondary-text-color: var(--theme-elevation-500);
-}
-
-:global([data-theme="dark"]) {
-    .project {
-        --background-color: var(--theme-elevation-100);
-        --border-color: var(--theme-elevation-100);
-        --border-color-hover: var(--theme-elevation-250);
-    }
-
-    .draft {
-        --background-color: var(--theme-elevation-0);
-        --border-color: var(--theme-elevation-150);
-        --border-color-hover: var(--theme-elevation-150);
-    }
-
-    .error {
-        --background-color: var(--theme-error-50);
-        --border-color: var(--theme-error-200);
-        --border-color-hover: var(--theme-error-250);
-        --icon-color: var(--theme-error-800);
-    }
-}
-
-.error {
-    --background-color: var(--theme-error-50);
-    --border-color: var(--theme-error-200);
-    --border-color-hover: var(--theme-error-500);
-    --icon-color: var(--theme-error-600);
-}
-
-.shimmer {
-    // match the card height
-    aspect-ratio: 1/1;
-    height: 100%;
-}
-
-.pills {
-    display: flex;
-    gap: 0.25rem;
-    margin-bottom: 0.5rem;
-}
-
-.leader {
-    @include label;
-    margin-bottom: 0.5rem;
+.scanlines  {
+    opacity: 0;
+    transition: opacity .3s cubic-bezier(.165, .84, .44, 1);
+    z-index: -1;
 }
 
 .titleWrapper {
-    margin-bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--base) / 2);
+
 }
 
 .title {
-    margin: 0;
-    padding-right: 2rem;
-
-    @include mid-break {
-        padding-right: 0;
-    }
-
-    @include small-break {
-        margin-bottom: 0.5rem;
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.pill {
-    display: inline-flex;
-    position: relative;
-    top: -4px;
-
-    @include small-break {
-        display: none;
-    }
-}
-
-.mobilePill {
-    display: none;
-
-    @include small-break {
-        display: block;
-        width: fit-content;
-        margin-bottom: 0.25rem;
-    }
+.arrow {
+    opacity: 0;
+    transform: translate(-50%, 50%);
+    transition: opacity .3s cubic-bezier(.165, .84, .44, 1), transform .3s cubic-bezier(.165, .84, .44, 1);
 }
 
 .projectName {
     @include h5;
-    margin-right: 0.5rem;
+    margin: 0 calc(var(--base) / 2) 0 0;
 }
 
 .teamName {
-    color: var(--secondary-text-color);
-
-    & > p {
-        margin: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+    margin: 0;
+    @include small;
+    color: var(--theme-elevation-750);
 }
 
 .details {
-    color: var(--secondary-text-color);
-    margin-top: 0.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    flex-grow: 1;
+    gap: calc(var(--base) / 2);
 }
 
-.projectBranch,
-.projectRepo {
+.githubIcon {
+    width: var(--base);
+    height: var(--base);
+}
+
+.iconText {
     display: flex;
     gap: 0.5rem;
     align-items: center;
 
-    p {
+    span {
+        @include small;
         margin: 0;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+        color: var(--theme-elevation-500);
     }
-}
-
-.githubIcon,
-.branchIcon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 15px;
-    height: 15px;
-    flex-shrink: 0;
-}
-
-.arrowIcon {
-    color: var(--icon-color);
-    opacity: 0;
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    width: 1rem;
-    height: 1rem;
 }

@@ -1,51 +1,95 @@
 @use '@scss/common.scss' as *;
 
-.reTriggerBackground {
-  display: flex;
-  gap: 1.5rem;
-
-  @include small-break {
-    gap: 1rem;
-    flex-direction: column-reverse;
-  }
-}
-
-.reTriggerGrid {
-  width: 100%;
-}
-
-.deployDetails {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  justify-content: center;
+.deploymentWrapper {
+  border: 1px solid var(--theme-border-color);
 
   p {
     margin: 0;
   }
+}
 
-  .iconAndLabel {
-    @include small;
-    line-height: 16px;
-    display: flex;
-    align-items: center;
-    color: var(--theme-elevation-500);
-    gap: 0.5rem;
+.domains {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  padding: calc(var(--base) * 2) calc(var(--base) * 1.5);
+  border-right: 1px solid var(--theme-border-color);
+  height: 100%;
 
-    svg {
-      color: var(--theme-elevation-400);
-      width: 15px;
-      height: 15px;
-      flex-shrink: 0;
-    }
-
-    .commitSha {
-      font-family: var(--font-mono);
-    }
+  @include mid-break {
+    padding: calc(var(--base) * 1.5) var(--base);
+    border-right: 0px;
+    border-bottom: 1px solid var(--theme-border-color);
   }
 
-  .deploymentIndicator {
-    gap: calc(.5rem + 5px);
+  h6 {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: .25em;
+    opacity: .5;
+  }
+
+  .domainLink {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    @include body;
+    margin: 0;
+    width: max-content;
+    gap: calc(var(--base) / 2);
+    transition: opacity .3s cubic-bezier(.165, .84, .44, 1);
+
+    &:first-of-type {
+      @include h3;
+      margin: 0;
+      gap: var(--base);
+    }
+
+    svg {
+      transition: transform .3s cubic-bezier(.165, .84, .44, 1);
+    }
+
+    &:hover {
+      opacity: .8;
+
+      svg {
+        transform: translate(25%, -25%);
+      }
+    }
+  }
+}
+
+.domainAndDetails {
+  border-bottom: 1px solid var(--theme-border-color);
+}
+
+.deploymentDetails {
+  padding: calc(var(--base) * 2) calc(var(--base) * 1.5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--base);
+  height: 100%;
+
+  @include mid-break {
+    padding: calc(var(--base) * 1.5) var(--base);
+  }
+
+  h6 {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: .25em;
+    opacity: .5;
+  }
+}
+
+.iconAndLabel {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) / 2);
+
+  svg {
+    width: var(--base);
+    height: var(--base);
   }
 }
 
@@ -55,56 +99,41 @@
   white-space: nowrap;
 }
 
-.detail {
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin: 0;
+.statusWrapper {
+  position: relative;
 }
 
-.domainLink {
-  text-decoration: none;
+.status, .reTrigger {
   display: flex;
+  gap: .75rem;
   align-items: center;
+  padding: calc(var(--base) * 1.5);
+
+  @include mid-break {
+    padding: calc(var(--base) * 1.5) var(--base);
+  }
+}
+
+.status {
+  @include h5;
+  margin: 0;
+  @include small-break {
+    padding-bottom: 0;
+  }
+}
+
+.reTriggerButton {
+  appearance: none;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  @include small;
+  text-decoration: underline;
+  opacity: .75;
 
   &:hover {
-    text-decoration: underline;
-  }
-}
-
-.externalLinkIcon {
-  flex-shrink: 0;
-  margin-left: 0.5rem;
-}
-
-.statusDetail {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-
-  .statusIndicator {
-    border-radius: 100%;
-    width: 10px;
-    height: 10px;
-    position: relative;
-
-    &.status--offline {
-      background-color: var(--theme-error-500);
-    }
-
-    &.status--online {
-      background-color: var(--theme-success-500);
-    }
-  }
-}
-
-.consoleHeading {
-  padding-top: 2rem;
-}
-
-.console {
-  code {
-    background-color: unset;
-    display: block;
+    opacity: .5;
   }
 }

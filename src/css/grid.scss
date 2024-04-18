@@ -18,6 +18,10 @@
   @include q.small-break {
     grid-template-columns: repeat(8, 1fr);
   }
+
+  @include q.extra-small-break {
+    grid-template-columns: repeat(8, 1fr);
+  }
 }
 
 ////////////////////////////
@@ -64,6 +68,14 @@
   }
 }
 
+@include q.extra-small-break {
+  @for $i from 1 through 8 {
+    .cols-xs-#{$i} {
+      grid-column-end: span #{$i};
+    }
+  }
+}
+
 ///////////////////////////////////
 // GRID COLUMN START CLASSES
 ///////////////////////////////////
@@ -103,6 +115,14 @@
 @include q.small-break {
   @for $i from 1 through 8 {
     .start-s-#{$i} {
+      grid-column-start: #{$i};
+    }
+  }
+}
+
+@include q.extra-small-break {
+  @for $i from 1 through 8 {
+    .start-xs-#{$i} {
       grid-column-start: #{$i};
     }
   }

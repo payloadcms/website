@@ -1,16 +1,15 @@
-import { ErrorMessage } from '@components/ErrorMessage'
 import { Footer } from '@components/Footer'
 import { Header } from '@components/Header'
 import { fetchGlobals } from '@root/app/_graphql'
 
-export default async function NotFound() {
+export default async function Layout({ children }: { children: React.ReactNode }) {
   const { mainMenu, footer } = await fetchGlobals()
 
   return (
     <>
       <Header {...mainMenu} />
       <div>
-        <ErrorMessage />
+        {children}
         <div id="docsearch" />
         <Footer {...footer} />
       </div>

@@ -19,7 +19,7 @@ export const SectionHeader: React.FC<Props> = ({ title, link, intro, className }
           {title}
         </Heading>
 
-        {link && <Button label="learn more" icon="arrow" el="link" href={link} />}
+        {link && <Button label="Learn more" icon="arrow" el="link" href={link} />}
       </div>
 
       {intro && <div className={classes.intro}>{intro}</div>}

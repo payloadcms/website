@@ -8,24 +8,51 @@
 
 .meta {
   list-style: none;
-  padding: 0;
+  padding: calc(var(--base) * 1.5);
   overflow-wrap: anywhere;
+  border: 1px solid var(--theme-border-color);
+  background-color: var(--theme-elevation-50);
 
   li {
     display: flex;
+    line-height: 2;
+    gap: calc(var(--base) * 1.5);
+
+    @include small-break {
+      flex-direction: column;
+      gap: calc(var(--base) * 0.5);
+
+      span {
+        margin-bottom: var(--base);
+        @include small;
+        color: var(--theme-elevation-750);
+      }
+    }
   }
 
   strong {
-    width: 300px;
+    width: calc(var(--column) * 4 - var(--base) * 3);
     flex-shrink: 0;
+    font-weight: 500;
 
     @include small-break {
-      width: 50%;
-      padding-right: 1rem;
+      width: 100%;
+      padding-right: var(--base);
     }
   }
 }
 
 .secretInput {
-  margin-bottom: 1.5rem;
+  label {
+    @include h4;
+    color: var(--theme-text);
+  }
+  margin-bottom: calc(var(--base) * 1.5);
+}
+
+.label {
+  h4 {
+    margin: 0;
+    color: var(--theme-text);
+  }
 }

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Repo } from '@cloud/_api/fetchRepos'
 
-import { Button } from '@components/Button'
-import { LineDraw } from '@components/LineDraw'
+import { BackgroundScanline } from '@components/BackgroundScanline'
 import { LoadingShimmer } from '@components/LoadingShimmer'
+import { ArrowIcon } from '@root/icons/ArrowIcon'
 
 import classes from './index.module.scss'
 
@@ -15,33 +15,31 @@ export const RepoCard: React.FC<{
   isHovered?: boolean
   onClick?: (repo: Repo) => void
 }> = props => {
-  const { repo, onMouseEnter, onMouseLeave, isLoading, isHovered, onClick } = props
+  const { repo, onMouseEnter, onMouseLeave, isLoading, onClick } = props
   const { name, description } = repo || {}
 
   return (
-    <div className={classes.repoCard} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-      <div className={classes.repo}>
-        <div className={classes.repoContent}>
-          <h6 className={classes.repoName}>{name}</h6>
-          {description && <p className={classes.repoDescription}>{description}</p>}
-        </div>
-        {!isLoading && (
-          <Button
-            label="Import"
-            appearance="primary"
-            className={classes.importButton}
-            onClick={() => {
-              if (typeof onClick === 'function') {
-                onClick(repo)
-              }
-            }}
-          />
-        )}
-        {isLoading && <LoadingShimmer heightPercent={100} className={classes.shimmer} />}
-      </div>
-      <div className={classes.line}>
-        <LineDraw align="bottom" active={isHovered} disabled={isLoading} />
-      </div>
-    </div>
+    <button
+      className={classes.repoCard}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onClick={() => {
+        if (typeof onClick === 'function') {
+          onClick(repo)
+        }
+      }}
+    >
+      {!isLoading && (
+        <>
+          <div className={classes.repoContent}>
+            <h5 className={classes.repoName}>{name}</h5>
+            {description && <p className={classes.repoDescription}>{description}</p>}
+          </div>
+          <BackgroundScanline className={classes.scanlines} />
+          <ArrowIcon className={classes.arrow} />
+        </>
+      )}
+      {isLoading && <LoadingShimmer heightPercent={100} className={classes.shimmer} />}
+    </button>
   )
 }

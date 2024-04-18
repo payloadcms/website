@@ -17,7 +17,7 @@ export default async function NewProjectPage({ searchParams: { team: teamSlug } 
       <Gutter>
         <RenderParams />
       </Gutter>
-      <NewProjectBlock headingElement="h1" templates={templates} teamSlug={teamSlug} />
+      <NewProjectBlock templates={templates} teamSlug={teamSlug} />
     </Fragment>
   )
 }

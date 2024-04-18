@@ -102,6 +102,7 @@
     .rs__menu-list {
       padding: 0.25rem 0;
       border: 1px solid var(--theme-border-color);
+
     }
 
     .rs__group-heading {
@@ -171,7 +172,7 @@
     .reactSelect {
       :global {
         div.rs__control {
-          background: var(--theme-elevation-50);
+          background: var(--theme-elevation-0);
         }
       }
     }

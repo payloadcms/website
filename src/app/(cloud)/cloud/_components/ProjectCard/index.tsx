@@ -3,6 +3,7 @@ import { hasBadSubscription } from '@cloud/_utilities/hasBadSubscription'
 import { cloudSlug } from '@cloud/slug'
 import Link from 'next/link'
 
+import { BackgroundScanline } from '@components/BackgroundScanline'
 import { LoadingShimmer } from '@components/LoadingShimmer'
 import { Pill } from '@components/Pill'
 import { GitHubIcon } from '@root/graphics/GitHub'
@@ -66,7 +67,7 @@ export const ProjectCard: React.FC<{
     if (isPro) {
       pill = {
         text: 'Pro',
-        color: 'blue',
+        color: 'success',
       }
     } else if (isStandard) {
       pill = {
@@ -121,6 +122,7 @@ export const ProjectCard: React.FC<{
     <Link
       href={href}
       className={[
+        'cols-4 cols-m-4 cols-s-8',
         className,
         classes.project,
         status === 'draft' && classes.draft,
@@ -130,35 +132,31 @@ export const ProjectCard: React.FC<{
         .join(' ')}
       prefetch={false}
     >
+      <BackgroundScanline className={classes.scanlines} />
       <div className={classes.titleWrapper}>
-        <h6 className={classes.title}>
-          <span className={classes.projectName}>{project.name || 'Project Name'}</span>
-          <span className={classes.pill}>{pill?.text && <Pill {...pill} />}</span>
-        </h6>
-        <span className={classes.mobilePill}>{pill?.text && <Pill {...pill} />}</span>
-        <div className={classes.teamName}>
-          <p>{`${(showTeamName && team && typeof team === 'object' && `${team?.slug}/`) || ''}${
-            project?.slug
-          }`}</p>
+        <div className={classes.title}>
+          <h5 className={classes.projectName}>{project.name || 'Project Name'}</h5>
+          <ArrowIcon size="medium" className={classes.arrow} />
         </div>
+        <p className={classes.teamName}>{`${
+          (showTeamName && team && typeof team === 'object' && `${team?.slug}/`) || ''
+        }${project?.slug}`}</p>
       </div>
       <div className={classes.details}>
+        {pill?.text && <Pill {...pill} />}
         {repositoryFullName && (
-          <div className={classes.projectRepo}>
+          <div className={classes.iconText}>
             <GitHubIcon className={classes.githubIcon} />
-            <p>{repositoryFullName}</p>
+            <span>{repositoryFullName}</span>
           </div>
         )}
         {deploymentBranch && (
-          <div className={classes.projectBranch}>
-            <div className={classes.branchIcon}>
-              <BranchIcon size="full" />
-            </div>
-            <p>{deploymentBranch}</p>
+          <div className={classes.iconText}>
+            <BranchIcon size="medium" />
+            <span>{deploymentBranch}</span>
           </div>
         )}
       </div>
-      <ArrowIcon className={classes.arrowIcon} />
     </Link>
   )
 }

@@ -57,9 +57,11 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-right: calc(var(--base) * 2);
 
     @include mid-break {
-        gap: 0.5rem;
+        margin-right: 0;
+        gap: calc(var(--base) / 2);
         position: static;
         top: unset;
     }

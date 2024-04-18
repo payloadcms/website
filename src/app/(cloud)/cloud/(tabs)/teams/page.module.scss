@@ -1,8 +1,7 @@
 @use '@scss/common.scss' as *;
 
 .introContent {
-  border-bottom: 1px solid var(--theme-border-color);
-  padding-bottom: 2rem;
+  padding-bottom: calc(var(--base) * 2);
 
   @include small-break {
     padding-bottom: 1.5rem;
@@ -14,7 +13,8 @@
 }
 
 .linkGrid {
-  margin-bottom: 2.5rem;
+
+  margin-bottom: calc(var(--base) * 2.5);
 
   @include small-break {
     margin-bottom: 1.5rem;

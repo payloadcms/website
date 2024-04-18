@@ -88,7 +88,7 @@ export const AddEmailDomain: React.FC<{
       />
 
       <div className={classes.actionFooter}>
-        <Submit icon={false} label="Save" appearance="secondary" />
+        <Submit icon={false} label="Save" />
       </div>
     </Form>
   )

@@ -3,18 +3,8 @@
 .tabsContainer {
   position: relative;
   width: 100%;
-  margin-bottom: 2rem;
-
-  &:after {
-    // thin full width line
-    content: '';
-    position: absolute;
-    width: calc(100% + var(--gutter-h));
-    left: calc(-1 * var(--gutter-h));
-    height: 1px;
-    bottom: 0px;
-    background-color: var(--theme-border-color);
-  }
+  margin-bottom: calc(var(--base) * 2);
+  border-bottom: 1px solid var(--theme-border-color);
 
   @include mid-break {
     margin-bottom: 1.5rem;
@@ -32,7 +22,7 @@
   margin-right: 1.5rem;
   padding-bottom: 1.5rem;
   position: relative;
-  color: var(--theme-elevation-300);
+  color: var(--theme-elevation-600);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -50,7 +40,7 @@
     width: 100%;
     left: 0;
     bottom: 0;
-    height: 4px;
+    height: 2px;
     background-color: currentColor;
     opacity: 0;
     z-index: 1;
@@ -71,7 +61,7 @@
     }
 
     &.error {
-      color: var(--theme-error-500);
+      color: var(--theme-error-650);
     }
   }
 
@@ -80,11 +70,11 @@
   }
 
   &.error {
-    color: var(--theme-error-300);
+    color: var(--theme-error-600);
   }
 
   &:disabled {
-    color: var(--theme-elevation-200);
+    color: var(--theme-elevation-20);
     cursor: not-allowed;
   }
 }

@@ -4,10 +4,9 @@ import React, { useEffect } from 'react'
 import { fetchProjectsClient, ProjectsRes } from '@cloud/_api/fetchProjects'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
 import { ProjectCard } from '@cloud/_components/ProjectCard'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Text } from '@forms/fields/Text'
+import Link from 'next/link'
 
-import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { Pagination } from '@components/Pagination'
 import { NewProjectBlock } from '@root/app/_components/NewProject'
@@ -93,7 +92,7 @@ export const TeamPage: React.FC<{
       <NewProjectBlock
         heading={`Team '${team?.name}' has no projects yet`}
         cardLeader="New"
-        headingElement="h4"
+        largeHeading={false}
         teamSlug={team?.slug}
         templates={templates}
       />
@@ -103,8 +102,7 @@ export const TeamPage: React.FC<{
   return (
     <Gutter>
       {error && <p className={classes.error}>{error}</p>}
-      <div className={classes.controls}>
-        <div className={classes.controlsBG} />
+      <div className={['grid', classes.controls].join(' ')}>
         <Text
           placeholder="Search projects"
           initialValue={search}
@@ -112,16 +110,17 @@ export const TeamPage: React.FC<{
             setSearch(value)
             setEnableSearch(true)
           }}
-          className={classes.search}
+          className={['cols-14', classes.search].join(' ')}
           fullWidth={false}
         />
-        <Button
-          appearance="primary"
-          href={`/new${team?.slug ? `?team=${team.slug}` : ''}`}
-          el="link"
-          className={classes.createButton}
-          label="Create new project"
-        />
+        <div className="cols-2">
+          <Link
+            className={classes.createButton}
+            href={`/new${team?.slug ? `?team=${team?.slug}` : ''}`}
+          >
+            New Project
+          </Link>
+        </div>
       </div>
       <div className={classes.content}>
         {!isLoading && debouncedSearch && result?.totalDocs === 0 ? (
@@ -129,18 +128,17 @@ export const TeamPage: React.FC<{
             {"Your search didn't return any results, please try again."}
           </p>
         ) : (
-          <Grid className={classes.projects}>
+          <div className={['grid', classes.projects].join(' ')}>
             {cardArray?.map((project, index) => (
-              <Cell key={index} cols={4}>
-                <ProjectCard
-                  project={project}
-                  className={classes.projectCard}
-                  isLoading={isLoading}
-                  showTeamName={false}
-                />
-              </Cell>
+              <ProjectCard
+                project={project}
+                className={['cols-4'].join(' ')}
+                isLoading={isLoading}
+                showTeamName={false}
+                key={project.name + index}
+              />
             ))}
-          </Grid>
+          </div>
         )}
       </div>
       {result?.totalPages > 1 && (

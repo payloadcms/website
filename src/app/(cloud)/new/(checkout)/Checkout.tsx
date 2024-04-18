@@ -177,9 +177,7 @@ const Checkout: React.FC<{
     <Fragment>
       <Gutter>
         <div className={classes.header}>
-          <Heading element="h1" marginTop={false}>
-            {deleting ? 'Canceling draft project...' : title}
-          </Heading>
+          <Heading element="h2">{deleting ? 'Canceling draft project...' : title}</Heading>
         </div>
       </Gutter>
       <Form onSubmit={handleSubmit}>
@@ -188,260 +186,249 @@ const Checkout: React.FC<{
             <FormSubmissionError />
             {errorDeleting && <Message error={errorDeleting} />}
           </div>
-          <Grid>
-            <Cell cols={3} colsM={8} className={classes.sidebarCell}>
-              <div className={classes.sidebar}>
-                <Fragment>
-                  <div className={classes.installationSelector}>
-                    <TeamSelector
-                      onChange={handleTeamChange}
-                      className={classes.teamSelector}
-                      initialValue={
-                        typeof project?.team === 'object' &&
-                        project?.team !== null &&
-                        'id' in project?.team
-                          ? project?.team?.id
-                          : ''
-                      }
-                      required
-                      user={user}
-                    />
-                  </div>
-                  <div className={classes.totalPriceSection}>
-                    <Label label="Total cost" htmlFor="" />
-                    <p className={classes.totalPrice}>
-                      {priceFromJSON(
-                        typeof checkoutState?.plan === 'object' &&
-                          checkoutState?.plan !== null &&
-                          'priceJSON' in checkoutState?.plan
-                          ? checkoutState?.plan?.priceJSON?.toString()
-                          : '',
-                      )}
-                      {checkoutState?.freeTrial && (
-                        <Fragment>
-                          <br />
-                          <span className={classes.trialDescription}>Free for 7 days</span>
-                        </Fragment>
-                      )}
-                    </p>
-                  </div>
-                  <Button
-                    onClick={deleteProject}
-                    label="Cancel"
-                    appearance="text"
-                    className={classes.cancel}
-                  />
-                </Fragment>
-              </div>
-            </Cell>
-            <Cell cols={9} colsM={8}>
-              <div>
-                <div className={classes.plansSection}>
-                  <div className={classes.plansSectionHeader}>
-                    <Heading element="h4" marginTop={false}>
-                      Select your plan
-                    </Heading>
-                    <ComparePlans plans={plans} handlePlanChange={handlePlanChange} />
-                  </div>
-                  <div className={classes.plans}>
-                    <PlanSelector
-                      plans={plans}
-                      onChange={handlePlanChange}
-                      selectedPlan={checkoutState?.plan}
-                    />
-                  </div>
-                  <Checkbox
-                    label="Free trial, no credit card required"
-                    initialValue={checkoutState?.freeTrial}
-                    className={classes.freeTrial}
-                    onChange={(value: boolean) => {
-                      dispatchCheckoutState({
-                        type: 'SET_FREE_TRIAL',
-                        payload: value,
-                      })
-                    }}
+          <div className="grid">
+            <div className={['cols-4 cols-m-8', classes.sidebar].join(' ')}>
+              <Fragment>
+                <div className={classes.installationSelector}>
+                  <TeamSelector
+                    onChange={handleTeamChange}
+                    className={classes.teamSelector}
+                    initialValue={
+                      typeof project?.team === 'object' &&
+                      project?.team !== null &&
+                      'id' in project?.team
+                        ? project?.team?.id
+                        : ''
+                    }
+                    required
+                    user={user}
                   />
                 </div>
-                <Heading element="h4" marginTop={false}>
-                  Configure your project
-                </Heading>
-                <div className={classes.fields}>
-                  <Accordion label={<p>Project Details</p>} openOnInit>
-                    <div className={classes.projectDetails}>
+                <div className={classes.totalPriceSection}>
+                  <Label label="Total cost" htmlFor="" />
+                  <p className={classes.totalPrice}>
+                    {priceFromJSON(
+                      typeof checkoutState?.plan === 'object' &&
+                        checkoutState?.plan !== null &&
+                        'priceJSON' in checkoutState?.plan
+                        ? checkoutState?.plan?.priceJSON?.toString()
+                        : '',
+                    )}
+                    {checkoutState?.freeTrial && (
+                      <Fragment>
+                        <br />
+                        <span className={classes.trialDescription}>Free for 7 days</span>
+                      </Fragment>
+                    )}
+                  </p>
+                </div>
+                <Button
+                  onClick={deleteProject}
+                  label="Cancel"
+                  appearance="text"
+                  className={classes.cancel}
+                />
+              </Fragment>
+            </div>
+            <div className={['cols-12 cols-m-8'].join(' ')}>
+              <div className={classes.plansSection}>
+                <div className={classes.plansSectionHeader}>
+                  <Heading element="h4" marginTop={false}>
+                    Select your plan
+                  </Heading>
+                  <ComparePlans plans={plans} handlePlanChange={handlePlanChange} />
+                </div>
+                <div className={classes.plans}>
+                  <PlanSelector
+                    plans={plans}
+                    onChange={handlePlanChange}
+                    selectedPlan={checkoutState?.plan}
+                  />
+                </div>
+                <Checkbox
+                  label="Free trial, no credit card required"
+                  initialValue={checkoutState?.freeTrial}
+                  className={classes.freeTrial}
+                  onChange={(value: boolean) => {
+                    dispatchCheckoutState({
+                      type: 'SET_FREE_TRIAL',
+                      payload: value,
+                    })
+                  }}
+                />
+              </div>
+              <Heading element="h4" marginTop={false}>
+                Configure your project
+              </Heading>
+              <div className={classes.fields}>
+                <Accordion label={<p>Project Details</p>} openOnInit>
+                  <div className={classes.projectDetails}>
+                    <Select
+                      label="Region"
+                      path="region"
+                      initialValue="us-east"
+                      options={[
+                        {
+                          label: 'US East',
+                          value: 'us-east',
+                        },
+                        {
+                          label: 'US West',
+                          value: 'us-west',
+                        },
+                        {
+                          label: 'EU West',
+                          value: 'eu-west',
+                        },
+                      ]}
+                      required
+                    />
+                    <Text label="Project name" path="name" initialValue={project?.name} required />
+                    <UniqueProjectSlug
+                      initialValue={project?.slug}
+                      teamID={typeof project?.team === 'string' ? project?.team : project?.team?.id}
+                      projectID={project?.id}
+                      validateOnInit={true}
+                    />
+                    {isClone && (
                       <Select
-                        label="Region"
-                        path="region"
-                        initialValue="us-east"
+                        label="Template"
+                        path="template"
+                        disabled
+                        initialValue={
+                          typeof project?.template === 'object' &&
+                          project?.template !== null &&
+                          'id' in project?.template
+                            ? project?.template?.id
+                            : project?.template
+                        }
                         options={[
-                          {
-                            label: 'US East',
-                            value: 'us-east',
-                          },
-                          {
-                            label: 'US West',
-                            value: 'us-west',
-                          },
-                          {
-                            label: 'EU West',
-                            value: 'eu-west',
-                          },
+                          { label: 'None', value: '' },
+                          ...(templates || [])?.map(template => ({
+                            label: template.name || '',
+                            value: template.id,
+                          })),
                         ]}
                         required
                       />
-                      <Text
-                        label="Project name"
-                        path="name"
-                        initialValue={project?.name}
-                        required
-                      />
-                      <UniqueProjectSlug
-                        initialValue={project?.slug}
-                        teamID={
-                          typeof project?.team === 'string' ? project?.team : project?.team?.id
-                        }
-                        projectID={project?.id}
-                        validateOnInit={true}
-                      />
-                      {isClone && (
-                        <Select
-                          label="Template"
-                          path="template"
-                          disabled
-                          initialValue={
-                            typeof project?.template === 'object' &&
-                            project?.template !== null &&
-                            'id' in project?.template
-                              ? project?.template?.id
-                              : project?.template
-                          }
-                          options={[
-                            { label: 'None', value: '' },
-                            ...(templates || [])?.map(template => ({
-                              label: template.name || '',
-                              value: template.id,
-                            })),
-                          ]}
+                    )}
+                    <RepoExists initialValue={project?.repositoryFullName} disabled />
+                    <UniqueDomain
+                      initialValue={project?.defaultDomain}
+                      team={checkoutState?.team}
+                      id={project?.id}
+                    />
+                  </div>
+                </Accordion>
+                {!isClone && (
+                  <Fragment>
+                    <Accordion label={<p>Build Settings</p>}>
+                      <div className={classes.buildSettings}>
+                        <Text
+                          label="Root Directory"
+                          placeholder="/"
+                          path="rootDirectory"
+                          initialValue={project?.rootDirectory}
                           required
                         />
-                      )}
-                      <RepoExists initialValue={project?.repositoryFullName} disabled />
-                      <UniqueDomain
-                        initialValue={project?.defaultDomain}
-                        team={checkoutState?.team}
-                        id={project?.id}
-                      />
-                    </div>
-                  </Accordion>
-                  {!isClone && (
-                    <Fragment>
-                      <Accordion label={<p>Build Settings</p>}>
-                        <div className={classes.buildSettings}>
-                          <Text
-                            label="Root Directory"
-                            placeholder="/"
-                            path="rootDirectory"
-                            initialValue={project?.rootDirectory}
-                            required
-                          />
-                          <Text
-                            label="Install Command"
-                            path="installScript"
-                            placeholder="yarn install"
-                            initialValue={project?.installScript}
-                            required
-                            description="Example: `yarn install` or `npm install`"
-                          />
-                          <Text
-                            label="Build Command"
-                            path="buildScript"
-                            placeholder="yarn build"
-                            initialValue={project?.buildScript}
-                            required
-                            description="Example: `yarn build` or `npm run build`"
-                          />
-                          <Text
-                            label="Serve Command"
-                            path="runScript"
-                            placeholder="yarn serve"
-                            initialValue={project?.runScript}
-                            required
-                            description="Example: `yarn serve` or `npm run serve`"
-                          />
-                          <BranchSelector
-                            repositoryFullName={project?.repositoryFullName}
-                            initialValue={project?.deploymentBranch}
-                          />
-                          <Text
-                            label="Dockerfile Path"
-                            path="dockerfilePath"
-                            initialValue={project?.dockerfilePath}
-                            description="Example: A Dockerfile in a src directory would require `src/Dockerfile`"
-                          />
-                        </div>
-                      </Accordion>
-                      <Accordion label="Environment Variables">
-                        <EnvVars className={classes.envVars} />
-                      </Accordion>
-                    </Fragment>
-                  )}
-                  {!checkoutState?.freeTrial && (
-                    <Accordion label="Payment Information" openOnInit>
-                      <div className={classes.paymentInformation}>
-                        {checkoutState?.freeTrial && (
-                          <Message
-                            margin={false}
-                            success="You will not be charged until your 30 day free trial is over. We’ll remind you 7 days before your trial ends. Cancel anytime."
-                          />
-                        )}
-                        <p className={classes.paymentInformationDescription}>
-                          All projects without a payment method will be automatically deleted after
-                          4 consecutive failed payment attempts within 30 days. If a payment method
-                          is not specified for this project, we will attempt to charge your team's
-                          default payment method (if any).
-                        </p>
-                        {checkoutState?.team && (
-                          <CreditCardSelector
-                            team={checkoutState?.team}
-                            onChange={handleCardChange}
-                            enableInlineSave={false}
-                            initialPaymentMethods={initialPaymentMethods}
-                          />
-                        )}
+                        <Text
+                          label="Install Command"
+                          path="installScript"
+                          placeholder="yarn install"
+                          initialValue={project?.installScript}
+                          required
+                          description="Example: `yarn install` or `npm install`"
+                        />
+                        <Text
+                          label="Build Command"
+                          path="buildScript"
+                          placeholder="yarn build"
+                          initialValue={project?.buildScript}
+                          required
+                          description="Example: `yarn build` or `npm run build`"
+                        />
+                        <Text
+                          label="Serve Command"
+                          path="runScript"
+                          placeholder="yarn serve"
+                          initialValue={project?.runScript}
+                          required
+                          description="Example: `yarn serve` or `npm run serve`"
+                        />
+                        <BranchSelector
+                          repositoryFullName={project?.repositoryFullName}
+                          initialValue={project?.deploymentBranch}
+                        />
+                        <Text
+                          label="Dockerfile Path"
+                          path="dockerfilePath"
+                          initialValue={project?.dockerfilePath}
+                          description="Example: A Dockerfile in a src directory would require `src/Dockerfile`"
+                        />
                       </div>
                     </Accordion>
-                  )}
-                  <Checkbox
-                    path="agreeToTerms"
-                    label={
-                      <div>
-                        {'I agree to the '}
-                        <Link href="/cloud-terms" target="_blank" prefetch={false}>
-                          Terms of Service
-                        </Link>
-                      </div>
-                    }
-                    required
-                    className={classes.agreeToTerms}
-                    initialValue={false}
-                    validate={(value: boolean) => {
-                      return !value
-                        ? 'You must agree to the terms of service to deploy your project.'
-                        : true
-                    }}
-                  />
-                  <div className={classes.submit}>
-                    <Submit label={checkoutState?.freeTrial ? 'Start free trial' : 'Deploy now'} />
-                  </div>
-                </div>
-                <HR />
-                <CloneOrDeployProgress
-                  type="deploy"
-                  repositoryFullName={project?.repositoryFullName}
-                  destination={project?.slug}
+                    <Accordion label="Environment Variables">
+                      <EnvVars className={classes.envVars} />
+                    </Accordion>
+                  </Fragment>
+                )}
+                {!checkoutState?.freeTrial && (
+                  <Accordion label="Payment Information" openOnInit>
+                    <div className={classes.paymentInformation}>
+                      {checkoutState?.freeTrial && (
+                        <Message
+                          margin={false}
+                          success="You will not be charged until your 30 day free trial is over. We’ll remind you 7 days before your trial ends. Cancel anytime."
+                        />
+                      )}
+                      <p className={classes.paymentInformationDescription}>
+                        All projects without a payment method will be automatically deleted after 4
+                        consecutive failed payment attempts within 30 days. If a payment method is
+                        not specified for this project, we will attempt to charge your team's
+                        default payment method (if any).
+                      </p>
+                      {checkoutState?.team && (
+                        <CreditCardSelector
+                          team={checkoutState?.team}
+                          onChange={handleCardChange}
+                          enableInlineSave={false}
+                          initialPaymentMethods={initialPaymentMethods}
+                        />
+                      )}
+                    </div>
+                  </Accordion>
+                )}
+                <Checkbox
+                  path="agreeToTerms"
+                  label={
+                    <div>
+                      {'I agree to the '}
+                      <Link href="/cloud-terms" target="_blank" prefetch={false}>
+                        Terms of Service
+                      </Link>
+                    </div>
+                  }
+                  required
+                  className={classes.agreeToTerms}
+                  initialValue={false}
+                  validate={(value: boolean) => {
+                    return !value
+                      ? 'You must agree to the terms of service to deploy your project.'
+                      : true
+                  }}
                 />
+                <div className={classes.submit}>
+                  <Submit label={checkoutState?.freeTrial ? 'Start free trial' : 'Deploy now'} />
+                </div>
               </div>
-            </Cell>
-          </Grid>
+              <HR />
+              <CloneOrDeployProgress
+                type="deploy"
+                repositoryFullName={project?.repositoryFullName}
+                destination={project?.slug}
+              />
+            </div>
+          </div>
         </Gutter>
       </Form>
     </Fragment>

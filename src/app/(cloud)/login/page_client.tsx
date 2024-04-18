@@ -12,7 +12,6 @@ import Link from 'next/link'
 import { redirect, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter'
-import { Heading } from '@components/Heading'
 import { RenderParams } from '@root/app/_components/RenderParams'
 import { useAuth } from '@root/providers/Auth'
 
@@ -88,10 +87,8 @@ export const Login: React.FC = () => {
   return (
     <Gutter>
       <RenderParams />
-      <Heading marginTop={false} element="h1">
-        Log in
-      </Heading>
-      <div className={['grid'].filter(Boolean).join(' ')}>
+      <h1 className={classes.heading}>Log in to Payload Cloud</h1>
+      <div className="grid">
         <div className={['cols-6 cols-m-8'].filter(Boolean).join(' ')}>
           <Form onSubmit={handleSubmit} className={classes.form} initialState={initialFormState}>
             <FormSubmissionError />

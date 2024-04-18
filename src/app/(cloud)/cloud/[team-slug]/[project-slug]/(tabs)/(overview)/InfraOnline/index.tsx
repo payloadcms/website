@@ -2,16 +2,14 @@
 
 import * as React from 'react'
 import { toast } from 'react-toastify'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 
-import { Button } from '@components/Button'
+import { BackgroundScanline } from '@components/BackgroundScanline'
 import { Gutter } from '@components/Gutter'
-import { Label } from '@components/Label'
-import { ExtendedBackground } from '@root/app/_components/ExtendedBackground'
 import { Indicator } from '@root/app/_components/Indicator'
 import { ClockIcon } from '@root/graphics/ClockIcon'
 import { CommitIcon } from '@root/graphics/CommitIcon'
 import { GitHubIcon } from '@root/graphics/GitHub'
+import { ArrowIcon } from '@root/icons/ArrowIcon'
 import { BranchIcon } from '@root/icons/BranchIcon'
 import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon'
 import { Deployment, Project } from '@root/payload-cloud-types'
@@ -41,12 +39,16 @@ export const InfraOnline: React.FC<{
   const latestDeployment = deployments?.[0]
 
   const [liveDeployment, setLiveDeployment] = React.useState<Deployment | null | undefined>()
+  const [redeployTriggered, setRedeployTriggered] = React.useState(false)
 
   const triggerDeployment = React.useCallback(() => {
+    setRedeployTriggered(true)
     fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/deploy`, {
       method: 'POST',
       credentials: 'include',
     }).then(res => {
+      setRedeployTriggered(false)
+
       if (res.status === 200) {
         reloadDeployments()
         return toast.success('New deployment triggered successfully.')
@@ -137,191 +139,120 @@ export const InfraOnline: React.FC<{
   return (
     <React.Fragment>
       <Gutter>
-        <ExtendedBackground
-          pixels
-          upperChildren={
-            <Grid>
-              <Cell start={1} cols={4} colsM={8}>
-                <Label>URL</Label>
-                {projectDomains.map((domain, index) => (
-                  <a
-                    key={`${domain}-${index}`}
-                    title={domain}
-                    className={[classes.detail, classes.domainLink].filter(Boolean).join(' ')}
-                    href={`https://${domain}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span className={classes.ellipseText}>{domain}</span>
-
-                    <ExternalLinkIcon className={classes.externalLinkIcon} />
-                  </a>
-                ))}
-              </Cell>
-              <Cell start={5} cols={3} startM={1} colsM={8}>
-                <Label>Deployment Details</Label>
-                <div className={classes.deployDetails}>
-                  {liveDeployment && (
-                    <div className={classes.iconAndLabel}>
-                      <ClockIcon />
-                      <p>
-                        {formatDate({
-                          date: liveDeployment.createdAt,
-                          format: 'dateAndTimeWithMinutes',
-                        })}
-                      </p>
-                    </div>
-                  )}
-                  {!project?.repositoryFullName && (
-                    <div className={classes.iconAndLabel}>
-                      <GitHubIcon />
-                      <p>No repository connected</p>
-                    </div>
-                  )}
-                  {project?.repositoryFullName && !project?.deploymentBranch && (
-                    <a
-                      className={classes.iconAndLabel}
-                      href={`https://github.com/${project?.repositoryFullName}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title={project?.repositoryFullName}
-                    >
-                      <GitHubIcon />
-                      <p>{project?.repositoryFullName}</p>
-                    </a>
-                  )}
-                  {project?.repositoryFullName && project?.deploymentBranch && (
-                    <a
-                      className={classes.iconAndLabel}
-                      href={`https://github.com/${project?.repositoryFullName}/tree/${project?.deploymentBranch}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title={project?.deploymentBranch}
-                    >
-                      <BranchIcon />
-                      <p className={classes.ellipseText}>{project?.deploymentBranch}</p>
-                    </a>
-                  )}
-                  {project?.repositoryFullName && liveDeployment?.commitSha ? (
-                    <a
-                      className={classes.iconAndLabel}
-                      href={`https://github.com/${project?.repositoryFullName}/commit/${liveDeployment?.commitSha}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title={liveDeployment?.commitMessage || 'No commit message'}
-                    >
-                      <CommitIcon />
-                      <p className={classes.ellipseText}>
-                        {liveDeployment?.commitMessage || 'No commit message'}
-                      </p>
-                    </a>
-                  ) : (
-                    <div className={classes.iconAndLabel}>
-                      <CommitIcon />
-                      <p className={classes.ellipseText}>
-                        {liveDeployment?.commitMessage || 'No commit message'}
-                      </p>
-                    </div>
-                  )}
+        <div className={classes.deploymentWrapper}>
+          <div className={[classes.domainAndDetails, 'grid'].join(' ')}>
+            <div className={[classes.domains, 'cols-12 cols-l-8'].join(' ')}>
+              <h6>Live Deployment</h6>
+              {projectDomains.map((domain, index) => (
+                <a
+                  key={`${domain}-${index}`}
+                  title={domain}
+                  className={[classes.domainLink].filter(Boolean).join(' ')}
+                  href={`https://${domain}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className={classes.ellipseText}>{domain}</span>
+                  <ArrowIcon size={index === 0 ? 'medium' : 'small'} />
+                </a>
+              ))}
+            </div>
+            <div className={[classes.deploymentDetails, 'cols-4 cols-l-8'].join(' ')}>
+              <h6>Deployment Details</h6>
+              {liveDeployment && (
+                <p>
+                  {formatDate({
+                    date: liveDeployment.createdAt,
+                    format: 'dateAndTimeWithMinutes',
+                  })}
+                </p>
+              )}
+              {!project?.repositoryFullName && (
+                <div className={classes.iconAndLabel}>
+                  <GitHubIcon />
+                  <p>No repository connected</p>
                 </div>
-              </Cell>
-              <Cell start={9} cols={4} startM={1} colsM={8}>
-                <Label>Status</Label>
-                <div className={classes.statusDetail}>
-                  <Indicator
-                    status={
-                      liveDeployment === undefined
-                        ? undefined
-                        : finalDeploymentStages.includes(
-                            liveDeployment?.deploymentStatus as FinalDeploymentStages,
-                          )
-                        ? 'SUCCESS'
-                        : 'ERROR'
-                    }
-                  />
-                  <p className={classes.detail}>
-                    {liveDeployment === undefined
-                      ? 'No status'
-                      : finalDeploymentStages.includes(
-                          liveDeployment?.deploymentStatus as FinalDeploymentStages,
-                        )
-                      ? 'Online'
-                      : 'Offline'}
+              )}
+              {project?.repositoryFullName && !project?.deploymentBranch && (
+                <a
+                  className={classes.iconAndLabel}
+                  href={`https://github.com/${project?.repositoryFullName}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={project?.repositoryFullName}
+                >
+                  <GitHubIcon />
+                  <p>{project?.repositoryFullName}</p>
+                </a>
+              )}
+              {project?.repositoryFullName && project?.deploymentBranch && (
+                <a
+                  className={classes.iconAndLabel}
+                  href={`https://github.com/${project?.repositoryFullName}/tree/${project?.deploymentBranch}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={project?.deploymentBranch}
+                >
+                  <BranchIcon />
+                  <p className={classes.ellipseText}>{project?.deploymentBranch}</p>
+                </a>
+              )}
+              {project?.repositoryFullName && liveDeployment?.commitSha ? (
+                <a
+                  className={classes.iconAndLabel}
+                  href={`https://github.com/${project?.repositoryFullName}/commit/${liveDeployment?.commitSha}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={liveDeployment?.commitMessage || 'No commit message'}
+                >
+                  <CommitIcon />
+                  <p className={classes.ellipseText}>
+                    {liveDeployment?.commitMessage || 'No commit message'}
+                  </p>
+                </a>
+              ) : (
+                <div className={classes.iconAndLabel}>
+                  <CommitIcon />
+                  <p className={classes.ellipseText}>
+                    {liveDeployment?.commitMessage || 'No commit message'}
                   </p>
                 </div>
-              </Cell>
-            </Grid>
-          }
-          lowerChildren={
-            <div className={classes.reTriggerBackground}>
-              <Grid className={classes.reTriggerGrid}>
-                <Cell start={1} cols={4} colsM={8}>
-                  <div>
-                    <Button
-                      appearance="secondary"
-                      onClick={triggerDeployment}
-                      label="Trigger Redeploy"
-                    />
-                  </div>
-                </Cell>
-                <Cell start={5} cols={3} startM={1} colsM={8}>
-                  {!finalDeploymentStages.includes(
-                    latestDeployment?.deploymentStatus as FinalDeploymentStages,
-                  ) &&
-                    project?.repositoryFullName && (
-                      <div className={classes.deployDetails}>
-                        {project?.deploymentBranch && (
-                          <a
-                            className={[classes.iconAndLabel, classes.deploymentIndicator].join(
-                              ' ',
-                            )}
-                            href={`https://github.com/${project?.repositoryFullName}/tree/${project?.deploymentBranch}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <DeploymentIndicator deployment={latestDeployment} />
-                          </a>
-                        )}
-                        {project?.deploymentBranch && (
-                          <a
-                            className={classes.iconAndLabel}
-                            href={`https://github.com/${project?.repositoryFullName}/tree/${project?.deploymentBranch}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title={project?.deploymentBranch}
-                          >
-                            <BranchIcon />
-                            <p className={classes.ellipseText}>{project?.deploymentBranch}</p>
-                          </a>
-                        )}
-                        {latestDeployment?.commitSha ? (
-                          <a
-                            className={classes.iconAndLabel}
-                            href={`https://github.com/${project?.repositoryFullName}/commit/${latestDeployment?.commitSha}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title={latestDeployment?.commitMessage || 'No commit message'}
-                          >
-                            <CommitIcon />
-                            <p className={classes.ellipseText}>
-                              {latestDeployment?.commitMessage || 'No commit message'}
-                            </p>
-                          </a>
-                        ) : (
-                          <div className={classes.iconAndLabel}>
-                            <CommitIcon />
-                            <p className={classes.ellipseText}>
-                              {latestDeployment?.commitMessage || 'No commit message'}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                </Cell>
-              </Grid>
+              )}
             </div>
-          }
-        />
+          </div>
+          <div className={[classes.statusWrapper, 'grid'].join(' ')}>
+            <BackgroundScanline />
+            <div className={[classes.status, 'cols-12 cols-l-8 cols-m-4 cols-s-8'].join(' ')}>
+              <Indicator
+                status={
+                  liveDeployment === undefined
+                    ? undefined
+                    : finalDeploymentStages.includes(
+                        liveDeployment?.deploymentStatus as FinalDeploymentStages,
+                      )
+                    ? 'SUCCESS'
+                    : 'ERROR'
+                }
+              />
+              <p className={classes.detail}>
+                {liveDeployment === undefined
+                  ? 'No status'
+                  : finalDeploymentStages.includes(
+                      liveDeployment?.deploymentStatus as FinalDeploymentStages,
+                    )
+                  ? 'Online'
+                  : 'Offline'}
+              </p>
+              <button
+                onClick={triggerDeployment}
+                className={classes.reTriggerButton}
+                disabled={redeployTriggered}
+              >
+                {redeployTriggered ? 'Redploying...' : 'Trigger Redeploy'}
+              </button>
+            </div>
+          </div>
+        </div>
       </Gutter>
 
       {deployments?.length > 0 && (

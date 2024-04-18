@@ -28,7 +28,7 @@
   width: 100%;
   transition: all 300ms ease-out;
   overflow: hidden;
-  background-color: var(--theme-elevation-50);
+  background-color: var(--theme-bg);
 }
 
 .contentChildren {
@@ -36,10 +36,10 @@
   z-index: 1;
   overflow: auto;
   height: 100%;
-  padding: 4rem;
+  padding: calc(var(--header-height) + 4rem) var(--gutter-h) 4rem 4rem;
 
   @include mid-break {
-    padding:  2rem 1rem 0;
+    padding:  calc(var(--header-height) + 5rem) 1.5rem 1.5rem 1.5rem;
   }
 }
 

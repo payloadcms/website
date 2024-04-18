@@ -10,8 +10,6 @@ import { PrivacyBanner } from '@components/PrivacyBanner'
 import { fetchGlobals } from '@root/app/_graphql'
 import { PrivacyProvider } from '@root/providers/Privacy'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { Footer } from '../components/Footer'
-import { Header } from '../components/Header'
 import { robotoMono, untitledSans } from './fonts'
 
 import '../css/app.scss'
@@ -74,13 +72,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <body className={[robotoMono.variable, untitledSans.variable].join(' ')}>
           <GoogleTagManager />
           <Providers>
-            <Header {...mainMenu} />
-            <div>
-              {children}
-              <Footer {...footer} />
-              <div id="docsearch" />
-              <PrivacyBanner />
-            </div>
+            {children}
+            <PrivacyBanner />
           </Providers>
         </body>
       </PrivacyProvider>

@@ -1,0 +1,51 @@
+@use '@scss/common' as *;
+
+.cloudHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--theme-border-color);
+  background: var(--theme-bg);
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  width: 100%;
+  height: var(--header-height);
+  padding: var(--base )  var(--gutter-h);
+
+  .logo {
+    display: none;
+    @include small-break {
+      display: block;
+    }
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: flex-end;
+
+    ul {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        margin-left: 20px;
+
+        a {
+          text-decoration: none;
+          font-size: 16px;
+          opacity: 1;
+
+          &:hover {
+            opacity: .75;
+          }
+        }
+      }
+    }
+  }
+}

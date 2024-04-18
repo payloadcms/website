@@ -2,13 +2,18 @@
 
 import React from 'react'
 import { CookiesProvider } from 'react-cookie'
-import { Slide, ToastContainer } from 'react-toastify'
+import { IconProps, Slide, ToastContainer } from 'react-toastify'
 import { GridProvider } from '@faceless-ui/css-grid'
 import { ModalContainer, ModalProvider } from '@faceless-ui/modal'
 import { MouseInfoProvider } from '@faceless-ui/mouse-info'
 import { ScrollInfoProvider } from '@faceless-ui/scroll-info'
 import { WindowInfoProvider } from '@faceless-ui/window-info'
 
+// import { ClockIcon } from '@root/graphics/ClockIcon'
+// import { InfoIcon } from '@root/graphics/InfoIcon'
+// import { CheckIcon } from '@root/icons/CheckIcon'
+// import { CloseIcon } from '@root/icons/CloseIcon'
+// import { ErrorIcon } from '@root/icons/ErrorIcon'
 import { HeaderIntersectionObserver } from '@root/providers/HeaderIntersectionObserver'
 import { AuthProvider } from './Auth'
 import { ComputedCSSValuesProvider } from './ComputedCSSValues'
@@ -66,6 +71,21 @@ export const Providers: React.FC<{
                             position="bottom-center"
                             transition={Slide}
                             icon={false}
+                            // TODO: Redesign icons
+                            // icon={({ type }: IconProps) => {
+                            //   switch (type) {
+                            //     case 'info':
+                            //       return <InfoIcon />
+                            //     case 'success':
+                            //       return <CheckIcon />
+                            //     case 'warning':
+                            //       return <ErrorIcon />
+                            //     case 'error':
+                            //       return <CloseIcon />
+                            //     default:
+                            //       return null
+                            //   }
+                            // }}
                           />
                         </HeaderIntersectionObserver>
                       </PageTransition>

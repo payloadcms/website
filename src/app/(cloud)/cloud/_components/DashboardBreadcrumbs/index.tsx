@@ -1,121 +1,76 @@
 'use client'
 
 import { cloudSlug } from '@cloud/slug'
-import { usePathname } from 'next/navigation'
+import Link from 'next/link'
+import { useParams, useSelectedLayoutSegments } from 'next/navigation'
 
-import { Breadcrumb, Breadcrumbs } from '@components/Breadcrumbs'
-import { usePathnameSegments } from '@root/utilities/use-pathname-segments'
+import { FullLogo } from '@root/graphics/FullLogo'
 
 import classes from './index.module.scss'
 
-export type Routes = {
-  [key: string]: Breadcrumb
-}
-
-const baseRoutes: Routes = {
-  cloud: {
-    label: 'Cloud',
-    url: `/${cloudSlug}`,
-  },
-  teams: {
-    label: 'Teams',
-    url: `/${cloudSlug}/teams`,
-  },
-  settings: {
-    label: 'Settings',
-    url: `/${cloudSlug}/settings`,
-  },
-}
-
 export const DashboardBreadcrumbs = () => {
-  const pathname = usePathname()
-  let segments = usePathnameSegments()
+  let segments = useSelectedLayoutSegments()
+  let params = useParams()
 
-  let isSettingsRoute = false
-  let maxCrumbs = 3
+  const teamSlug = params['team-slug']
+  const projectSlug = params['project-slug']
 
-  let routes: Routes = baseRoutes
+  const rootSegments = [
+    ['cloud-terms', 'Terms'],
+    ['login', 'Login'],
+    ['logout', 'Logout'],
+    ['new', 'New Project'],
+    ['reset-password', 'Reset Password'],
+    ['signup', 'Signup'],
+    ['verify', 'Verify Email'],
+  ]
 
-  const isTeamRoute = segments?.[1] && !routes.hasOwnProperty(segments[1])
-
-  if (isTeamRoute) {
-    const teamSlug = segments?.[1]
-
-    routes = {
-      [cloudSlug]: {
-        label: 'Cloud',
-        url: `/${cloudSlug}`,
-      },
-      [teamSlug]: {
-        label: teamSlug,
-        url: `/${cloudSlug}/${teamSlug}`,
-      },
-      settings: {
-        label: 'Settings',
-        url: `/${cloudSlug}/${teamSlug}/settings`,
-      },
-    }
-
-    isSettingsRoute = segments[2] === 'settings'
-  }
-
-  const isProjectRoute = segments?.[2] && !routes.hasOwnProperty(segments[2])
-
-  if (isProjectRoute) {
-    const teamSlug = segments?.[1]
-    const projectSlug = segments?.[2]
-
-    routes = {
-      [cloudSlug]: {
-        label: 'Cloud',
-        url: `/${cloudSlug}`,
-      },
-      [teamSlug]: {
-        label: teamSlug,
-        url: `/${cloudSlug}/${teamSlug}`,
-      },
-      [projectSlug]: {
-        label: projectSlug,
-        url: `/${cloudSlug}/${teamSlug}/${projectSlug}`,
-      },
-      database: {
-        label: 'Database',
-        url: `/${cloudSlug}/${teamSlug}/${projectSlug}/database`,
-      },
-      'file-storage': {
-        label: 'Storage',
-        url: `/${cloudSlug}/${teamSlug}/${projectSlug}/file-storage`,
-      },
-      logs: {
-        label: 'Logs',
-        url: `/${cloudSlug}/${teamSlug}/${projectSlug}/logs`,
-      },
-      settings: {
-        label: 'Settings',
-        url: `/${cloudSlug}/${teamSlug}/${projectSlug}/settings`,
-      },
-    }
-
-    isSettingsRoute = segments[3] === 'settings'
-    maxCrumbs = 4
-
-    if (pathname === `/${cloudSlug}/${teamSlug}/${projectSlug}/configure`) {
-      maxCrumbs = 3
+  if (segments[0] === 'cloud') {
+    if (segments.length === 2) {
+      segments = []
     }
   }
+
+  // remove segments with parantheses
+  segments = segments.filter(segment => !segment.includes('('))
+
+  // create relative urls for each segment
+  const urls = segments.map((segment, index) => {
+    return segments.slice(0, index + 1).join('/')
+  })
+
+  for (const rootSegment of rootSegments) {
+    if (segments[0] === rootSegment[0]) {
+      segments[0] = rootSegment[1]
+    }
+  }
+
+  // capitalize segments unless they are project or team slugs
+  segments = segments.map(segment => {
+    if (segment === teamSlug || segment === projectSlug) {
+      return segment
+    }
+
+    return segment
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+  })
 
   return (
-    <Breadcrumbs
-      className={classes.dashboardBreadcrumbs}
-      items={segments.reduce((acc: Breadcrumb[], segment, index) => {
-        const lowercaseSegment = segment.toLowerCase()
-
-        if (index + 1 <= maxCrumbs) {
-          acc.push(routes[lowercaseSegment])
-        }
-
-        return acc
-      }, [])}
-    />
+    <div className={classes.wrapper}>
+      <Link href={`/`} className={classes.logo}>
+        <FullLogo />
+      </Link>
+      <div className={classes.breadcrumbs}>
+        {segments[0] !== 'Cloud' ? <Link href={`/${cloudSlug}`}>Cloud</Link> : null}
+        {segments.length === 0 && <span>Dashboard</span>}
+        {segments.map((segment, index) => (
+          <Link key={segment} href={`/${urls[index]}`}>
+            {segment}
+          </Link>
+        ))}
+      </div>
+    </div>
   )
 }

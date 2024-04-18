@@ -128,12 +128,8 @@ export const Signup: React.FC = () => {
       <Gutter>
         <div className="grid">
           <div className="cols-5 cols-m-8">
-            <Heading marginTop={false} element="h2" as="h2">
-              <Highlight text="Already logged in" appearance="success" />
-            </Heading>
-            <Heading marginTop={false} element="p" as="h4">
-              You must first logout to create another account.
-            </Heading>
+            <h2>Already logged in</h2>
+            <p>You must first logout to create another account.</p>
             <div className={classes.buttonWrap}>
               <Button label="Log out" href="/logout" appearance="primary" el="link" />
               <Button label="Dashboard" href="/cloud" appearance="secondary" el="link" />
@@ -150,10 +146,10 @@ export const Signup: React.FC = () => {
         <h2 id="cloud-registered-successfully">Verify your account</h2>
         <div className="grid">
           <div className="cols-5 cols-m-8">
-            <Heading marginTop={false} element="p" as="h4">
+            <p>
               Your account has been created. Please check your email to verify your account and
               login.
-            </Heading>
+            </p>
             <div className={classes.links}>
               <p>
                 {`Already verified your account? `}
@@ -169,9 +165,7 @@ export const Signup: React.FC = () => {
 
   return (
     <Gutter>
-      <Heading marginTop={false} element="h1">
-        Create an account
-      </Heading>
+      <h1 className={classes.heading}>Create an account</h1>
       <div className="grid">
         <div className="cols-5 cols-m-8">
           <div className={classes.links}>

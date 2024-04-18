@@ -81,9 +81,7 @@ export const AuthorizePage: React.FC = () => {
     <Gutter>
       <div className={classes.header}>
         <RenderParams />
-        <Heading element="h1" as="h2" marginTop={false}>
-          {isRedirecting ? 'Redirecting, one moment...' : 'Authorize your Git provider'}
-        </Heading>
+        <h2>{isRedirecting ? 'Redirecting, one moment...' : 'Authorize your Git provider'}</h2>
         {exchangeError && <div className={classes.error}>{exchangeError}</div>}
       </div>
       <a className={classes.ghLink} href={href} type="button" onClick={openPopupWindow}>

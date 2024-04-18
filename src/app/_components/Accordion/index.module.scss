@@ -2,7 +2,7 @@
 
 .accordion {
   border: 1px solid var(--theme-border-color);
-  color: var(--theme-elevation-650);
+  color: var(--theme-text);
 }
 
 .toggler {
@@ -15,7 +15,7 @@
   outline: none;
   border: none;
   background-color: var(--theme-elevation-50);
-  padding: 0.5rem 1rem;
+  padding: var(--base);
   color: inherit;
   font-size: inherit;
   font-weight: inherit;
@@ -44,7 +44,11 @@
 
 :global([data-theme="dark"]) {
   .toggler {
-    background-color: var(--theme-elevation-150);
+    background-color: var(--theme-elevation-100);
+
+    &:hover {
+      background-color: var(--theme-elevation-150);
+    }
   }
 }
 
