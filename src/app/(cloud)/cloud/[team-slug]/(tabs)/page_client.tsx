@@ -92,7 +92,7 @@ export const TeamPage: React.FC<{
       <NewProjectBlock
         heading={`Team '${team?.name}' has no projects yet`}
         cardLeader="New"
-        headingElement="h4"
+        largeHeading={false}
         teamSlug={team?.slug}
         templates={templates}
       />

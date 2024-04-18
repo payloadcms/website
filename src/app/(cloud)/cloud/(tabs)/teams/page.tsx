@@ -6,7 +6,6 @@ import { TeamDrawer, TeamDrawerToggler } from '@cloud/_components/TeamDrawer'
 import { cloudSlug } from '@cloud/slug'
 import { Metadata } from 'next'
 
-import { Button } from '@components/Button'
 import { Gutter } from '@components/Gutter'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 

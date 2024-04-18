@@ -14,10 +14,17 @@ export const NewProjectBlock: React.FC<{
   description?: React.ReactNode
   teamSlug?: Team['slug']
   templates?: Template[]
+  largeHeading?: boolean
   heading?: string
-  headingElement?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }> = props => {
-  const { cardLeader, description, teamSlug, templates } = props
+  const {
+    cardLeader,
+    description,
+    teamSlug,
+    templates,
+    largeHeading,
+    heading = 'New Project',
+  } = props
 
   const disableProjectCreation = false
 
@@ -26,7 +33,7 @@ export const NewProjectBlock: React.FC<{
       <Gutter>
         <div className={classes.header}>
           <div className={classes.headerContent}>
-            <h2>New Project</h2>
+            {largeHeading ? <h2>{heading}</h2> : <h4>{heading}</h4>}
             {disableProjectCreation ? (
               <Banner type={'warning'}>
                 Project creation temporarily disabled.{' '}
@@ -73,8 +80,10 @@ export const NewProjectBlock: React.FC<{
                     />
                   )}
                   <div className={classes.templateCardDetails}>
-                    <h6>{cardLeader || (index + 1).toString().padStart(2, '0')}</h6>
-                    {name && <h4>{name}</h4>}
+                    <h6 className={classes.leader}>
+                      {cardLeader || (index + 1).toString().padStart(2, '0')}
+                    </h6>
+                    {name && <h5>{name}</h5>}
                     {description && <p>{description}</p>}
                     {adminOnly && <Pill color="warning" text="Admin Only" />}
                   </div>

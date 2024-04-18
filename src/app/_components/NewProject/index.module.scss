@@ -95,14 +95,19 @@
 
 .templateImage {
   flex: calc(var(--column) * 4) 0 0;
+  border: 1px solid var(--theme-border-color);
 }
 
 .templateCardDetails {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1rem;
+  gap: .5rem;
   flex: 1 0 0;
+
+  .leader {
+    text-transform: uppercase;
+  }
 
   & > * {
     margin: 0;
