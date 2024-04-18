@@ -191,8 +191,8 @@ export const ManageEnv: React.FC<Props> = ({ envs, projectID, env: { key, id } }
           </p>
 
           <div className={classes.modalActions}>
-            <Button label="cancel" appearance="secondary" onClick={() => closeModal(modalSlug)} />
-            <Button label="delete" appearance="danger" onClick={deleteEnv} />
+            <Button label="Cancel" appearance="secondary" onClick={() => closeModal(modalSlug)} />
+            <Button label="Delete" appearance="danger" onClick={deleteEnv} />
           </div>
         </div>
       </ModalWindow>

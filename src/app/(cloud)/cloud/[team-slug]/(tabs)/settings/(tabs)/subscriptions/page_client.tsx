@@ -153,7 +153,7 @@ export const TeamSubscriptionsPage = (props: {
           </p>
           <div className={classes.modalActions}>
             <Button
-              label="cancel"
+              label="Cancel"
               appearance="secondary"
               onClick={() => {
                 subscriptionToDelete.current = null
@@ -161,7 +161,7 @@ export const TeamSubscriptionsPage = (props: {
               }}
             />
             <Button
-              label="delete"
+              label="Delete"
               appearance="danger"
               onClick={() => {
                 if (subscriptionToDelete.current) {
