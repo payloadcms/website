@@ -1,3 +1,5 @@
+@use '@scss/common.scss' as *;
+
 .deploymentLogs {
   margin-top: 4rem;
   isolation: isolate;
@@ -36,6 +38,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  @include body;
 }
 
 .inactiveIndicator {

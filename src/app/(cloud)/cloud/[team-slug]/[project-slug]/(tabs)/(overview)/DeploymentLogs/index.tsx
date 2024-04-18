@@ -119,53 +119,55 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment }) => {
 
   return (
     <div className={classes.deploymentLogs}>
-      <Tabs
-        className={classes.logTabs}
-        tabs={
-          [
-            {
-              label: (
-                <div className={classes.tabLabel}>
-                  <Indicator
-                    className={[activeTab !== 'build' ? classes.inactiveIndicator : '']
-                      .filter(Boolean)
-                      .join(' ')}
-                    status={deployment?.buildStepStatus}
-                    spinner={deployment?.buildStepStatus === 'RUNNING'}
-                  />
-                  Build Logs
-                </div>
-              ),
-              disabled: !deployment?.id,
-              isActive: activeTab === 'build',
-              onClick: () => {
-                setActiveTab('build')
+      <Gutter>
+        <Tabs
+          className={classes.logTabs}
+          tabs={
+            [
+              {
+                label: (
+                  <div className={classes.tabLabel}>
+                    <Indicator
+                      className={[activeTab !== 'build' ? classes.inactiveIndicator : '']
+                        .filter(Boolean)
+                        .join(' ')}
+                      status={deployment?.buildStepStatus}
+                      spinner={deployment?.buildStepStatus === 'RUNNING'}
+                    />
+                    Build Logs
+                  </div>
+                ),
+                disabled: !deployment?.id,
+                isActive: activeTab === 'build',
+                onClick: () => {
+                  setActiveTab('build')
+                },
               },
-            },
-            {
-              label: (
-                <div className={classes.tabLabel}>
-                  <Indicator
-                    className={[activeTab !== 'deploy' ? classes.inactiveIndicator : '']
-                      .filter(Boolean)
-                      .join(' ')}
-                    status={deployment?.deployStepStatus}
-                    spinner={deployment?.deployStepStatus === 'RUNNING'}
-                  />
-                  Deploy Logs
-                </div>
-              ),
-              disabled: !deployment?.id,
-              isActive: activeTab === 'deploy',
-              onClick: () => {
-                if (enableDeployTab) {
-                  setActiveTab('deploy')
-                }
+              {
+                label: (
+                  <div className={classes.tabLabel}>
+                    <Indicator
+                      className={[activeTab !== 'deploy' ? classes.inactiveIndicator : '']
+                        .filter(Boolean)
+                        .join(' ')}
+                      status={deployment?.deployStepStatus}
+                      spinner={deployment?.deployStepStatus === 'RUNNING'}
+                    />
+                    Deploy Logs
+                  </div>
+                ),
+                disabled: !deployment?.id,
+                isActive: activeTab === 'deploy',
+                onClick: () => {
+                  if (enableDeployTab) {
+                    setActiveTab('deploy')
+                  }
+                },
               },
-            },
-          ].filter(Boolean) as Tab[]
-        }
-      />
+            ].filter(Boolean) as Tab[]
+          }
+        />
+      </Gutter>
 
       {deployment?.id && (
         <Gutter key={deployment.id}>
