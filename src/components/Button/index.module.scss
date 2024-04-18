@@ -346,7 +346,7 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 }
 
 .size--default .label-mono {
-  @include label;
+  @include body;
 }
 
 .size--large {
