@@ -7,11 +7,17 @@
   padding: 0;
   margin: 0;
   width: 100%;
+  overflow-x: hidden;
 
   a {
-    display: flex;
+    display: inline-block;
     align-items: center;
     text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 0 1 content;
+    overflow: hidden;
+    line-height: 1.2em;
 
     &:hover {
       color: var(--theme-elevation-750);
@@ -21,28 +27,24 @@
       opacity: unset;
     }
 
-    &:not(:last-child) {
-
-      &:after {
-        content: '/';
-        margin: 0 10px;
-        color: var(--theme-elevation-250);
-        pointer-events: none;
-      }
+    &:last-of-type {
+      flex-shrink: 0;
     }
   }
 
   @include small-break {
     a {
       display: inline;
-      height: 1rem;
+      height: 1.5rem;
+      flex: 0 0 auto;
+      overflow: visible;
     }
 
     position: fixed;
     top: var(--header-height);
     left: 0;
     height: auto;
-    padding: 1rem var(--gutter-h);
+    padding: .75rem var(--gutter-h);
     background: var(--theme-bg);
     border-bottom: 1px solid var(--theme-border-color);
     overflow-x: auto;
@@ -52,6 +54,7 @@
 a.logo {
   display: flex;
   padding: 1rem 0;
+  flex-shrink: 0;
 
   @include small-break {
     display: none;
@@ -62,4 +65,20 @@ a.logo {
   width: 100%;
   display: flex;
   line-height: 1rem;
+  flex-shrink: 1;
+  overflow: hidden;
+}
+
+.slash {
+  margin: 0 .5rem;
+  display: block;
+  color: var(--theme-elevation-250);
+  pointer-events: none;
+  flex-shrink: 0;
+
+  @include small-break {
+    &:first-of-type {
+      display: none;
+    }
+  }
 }

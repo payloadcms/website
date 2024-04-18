@@ -20,11 +20,11 @@
     }
   }
 
-  nav {
+  .headerLinks {
     display: flex;
     align-items: center;
-    width: 100%;
     justify-content: flex-end;
+    flex: 0 0 auto;
 
     ul {
       display: flex;
@@ -35,11 +35,13 @@
 
       li {
         margin-left: 20px;
+        width: 100%;
 
         a {
           text-decoration: none;
           font-size: 16px;
           opacity: 1;
+          white-space: nowrap;
 
           &:hover {
             opacity: .75;

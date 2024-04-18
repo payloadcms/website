@@ -66,9 +66,12 @@ export const DashboardBreadcrumbs = () => {
         {segments[0] !== 'Cloud' ? <Link href={`/${cloudSlug}`}>Cloud</Link> : null}
         {segments.length === 0 && <span>Dashboard</span>}
         {segments.map((segment, index) => (
-          <Link key={segment} href={`/${urls[index]}`}>
-            {segment}
-          </Link>
+          <>
+            <span className={classes.slash}>{' / '}</span>
+            <Link key={segment} href={`/${urls[index]}`}>
+              {segment}
+            </Link>
+          </>
         ))}
       </div>
     </div>

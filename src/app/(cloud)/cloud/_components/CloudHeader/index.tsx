@@ -15,31 +15,27 @@ export const CloudHeader = () => {
     <header className={classes.cloudHeader}>
       <FullLogo className={classes.logo} />
       <DashboardBreadcrumbs />
-      <nav>
+      <div className={classes.headerLinks}>
         {user ? (
-          <div className={classes.loggedIn}>
-            <ul>
-              <li key={'new'}>
-                <Link href="/new">New Project</Link>
-              </li>
-              <li key={'avatar'}>
-                <Avatar />
-              </li>
-            </ul>
-          </div>
+          <ul>
+            <li key={'new'}>
+              <Link href="/new">New Project</Link>
+            </li>
+            <li key={'avatar'}>
+              <Avatar />
+            </li>
+          </ul>
         ) : (
-          <div className={classes.loggedOut}>
-            <ul>
-              <li key={'login'}>
-                <Link href="/login">Login</Link>
-              </li>
-              <li key={'signup'}>
-                <Link href="/signup">Sign Up</Link>
-              </li>
-            </ul>
-          </div>
+          <ul>
+            <li key={'login'}>
+              <Link href="/login">Login</Link>
+            </li>
+            <li key={'signup'}>
+              <Link href="/signup">Sign Up</Link>
+            </li>
+          </ul>
         )}
-      </nav>
+      </div>
     </header>
   )
 }
