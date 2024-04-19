@@ -183,6 +183,7 @@ export const CloudPage: React.FC<{
             <div className={['grid', classes.projects].join(' ')}>
               {cardArray?.map((project, index) => (
                 <ProjectCard
+                  key={project.id}
                   project={project}
                   className={classes.projectCard}
                   isLoading={isLoading}
