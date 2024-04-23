@@ -53,7 +53,6 @@
 
 a.logo {
   display: flex;
-  padding: 1rem 0;
   flex-shrink: 0;
 
   @include small-break {
