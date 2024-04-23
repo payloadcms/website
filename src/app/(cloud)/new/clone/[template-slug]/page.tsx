@@ -6,14 +6,10 @@ import { fetchTemplate } from '@cloud/_api/fetchTemplate'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
-import { Breadcrumbs } from '@components/Breadcrumbs'
 import { Gutter } from '@components/Gutter'
-import { Heading } from '@components/Heading'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { uuid as generateUUID } from '@root/utilities/uuid'
 import { CloneTemplate } from './page_client'
-
-import classes from './page.module.scss'
 
 const title = `Create new from template`
 
@@ -47,25 +43,7 @@ export default async ({ params: { 'template-slug': templateSlug } }) => {
   return (
     <Fragment>
       <Gutter>
-        <Breadcrumbs
-          className={classes.breadcrumbsWrap}
-          items={[
-            {
-              label: 'New',
-              url: '/new',
-            },
-            {
-              label: 'Clone',
-              url: '/new/clone',
-            },
-            {
-              label: template?.name,
-            },
-          ]}
-        />
-        <Heading marginTop={false} element="h1">
-          {title}
-        </Heading>
+        <h2>{title}</h2>
       </Gutter>
       {<CloneTemplate template={template} installs={installs} user={user} uuid={uuid} />}
     </Fragment>
