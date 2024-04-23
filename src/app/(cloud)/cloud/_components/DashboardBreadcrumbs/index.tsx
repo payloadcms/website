@@ -68,10 +68,14 @@ export const DashboardBreadcrumbs = () => {
           <>
             <span className={classes.slash}>{' / '}</span>
             <Link href={`/${cloudSlug}`}>Cloud</Link>
-            <span className={classes.slash}>{' / '}</span>
           </>
         ) : null}
-        {segments.length === 0 && <span>Dashboard</span>}
+        {segments.length === 0 && (
+          <>
+            <span className={classes.slash}>{' / '}</span>
+            <span>Dashboard</span>
+          </>
+        )}
         {segments.map((segment, index) => (
           <React.Fragment key={segment}>
             <span className={classes.slash}>{' / '}</span>
