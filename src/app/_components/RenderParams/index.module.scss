@@ -1,9 +1,9 @@
 @use '@scss/common.scss' as *;
 
 .renderParams {
-  margin-bottom: 2rem;
+  margin-top: 2rem;
 
   @include mid-break {
-    margin-bottom: 1rem;
+    margin-top: 1rem;
   }
 }
