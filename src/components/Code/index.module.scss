@@ -24,7 +24,6 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 .code {
   -webkit-text-size-adjust: 100%;
   padding: 2rem;
-  padding-right: 0;
   font-size: 14px;
   line-height: 1.5;
   background-color: var(--color-base-900);
@@ -115,7 +114,8 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
     }
 
     .token-line {
-      display: table-row;
+      display: block;
+      text-wrap: nowrap;
     }
 
     .token-line:not(:last-child) {
@@ -186,7 +186,7 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 }
 
 .line {
-  display: inline-block;
+  display: block;
   position: relative;
 }
 

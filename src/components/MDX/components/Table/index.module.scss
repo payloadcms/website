@@ -1,7 +1,7 @@
 @use "@scss/common" as *;
 
 .wrap {
-  overflow: hidden;
+  overflow: auto;
   margin: 0 calc(var(--column) * -1 + 1px);
 
   @include mid-break {
