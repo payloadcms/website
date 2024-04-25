@@ -230,7 +230,9 @@ export const HomeHero: React.FC<
                 <div className={[classes.primaryContent, 'grid'].filter(Boolean).join(' ')}>
                   <div className={['cols-8 start-1'].filter(Boolean).join(' ')}>
                     {enableAnnouncement && (
-                      <CMSLink {...announcementLink} className={classes.announcementLink} />
+                      <div className={classes.announcementLink}>
+                        <CMSLink {...announcementLink} />
+                      </div>
                     )}
                     <RichText className={classes.richTextHeading} content={richText} />
                     <RichText className={classes.richTextDescription} content={description} />
