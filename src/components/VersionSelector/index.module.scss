@@ -1,0 +1,74 @@
+@use '@scss/common.scss' as *;
+
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--theme-border-color);
+  gap: .5rem;
+}
+
+.pill {
+  margin: 0;
+  height: 2rem;
+  @include small;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+
+  span {
+    padding: .25rem .375rem;
+    border-radius: 2px;
+    font-weight: 500;
+
+    &.current {
+      background-color: var(--theme-blue-50);
+      border: 1px solid var(--theme-blue-100);
+      color: var(--theme-blue-750);
+    }
+
+    &.legacy {
+      background-color: var(--theme-warning-50);
+      border: 1px solid var(--theme-warning-100);
+      color: var(--theme-warning-750);
+    }
+  }
+
+}
+
+.select {
+  appearance: none;
+  width: 100%;
+  border: none;
+  font-size: 1rem;
+  @include small;
+  color: var(--theme-elevation-800);
+  background-color: transparent;
+  position: relative;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    color: var(--theme-elevation-1000);
+    cursor: pointer;
+  }
+
+  option {
+    line-height: 2rem;
+  }
+
+}
+
+.icon {
+  position: absolute;
+  height: 1rem;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+  pointer-events: none;
+}
