@@ -13,6 +13,7 @@ export const CodeBlock: React.FC<
 > = ({ codeFields, disableGutter, disableMinHeight }) => {
   const {
     code,
+    codeBlips,
     // language
   } = codeFields
 
@@ -28,7 +29,7 @@ export const CodeBlock: React.FC<
                 .filter(Boolean)
                 .join(' ')}
             >
-              <Code>{`${code}
+              <Code codeBlips={codeBlips}>{`${code}
           `}</Code>
             </div>
           </div>
