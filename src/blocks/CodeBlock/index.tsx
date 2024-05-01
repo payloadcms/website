@@ -20,7 +20,7 @@ export const CodeBlock: React.FC<
   return (
     <>
       {disableGutter ? (
-        <Code disableMinHeight>{`${code}`}</Code>
+        <Code codeBlips={codeBlips} disableMinHeight>{`${code}`}</Code>
       ) : (
         <Gutter>
           <div className={'grid'}>
