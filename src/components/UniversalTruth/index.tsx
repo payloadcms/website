@@ -1,10 +1,12 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 import classes from './index.module.scss'
 
 export const UniversalTruth = () => {
+  const universalTruth = useSearchParams().get('universaltruth') === 'pls'
   const cursorRef = useRef<HTMLDivElement>(null)
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -23,5 +25,5 @@ export const UniversalTruth = () => {
     }
   }, [])
 
-  return <div className={classes.cursor} ref={cursorRef} />
+  return universalTruth ? <div className={classes.cursor} ref={cursorRef} /> : null
 }
