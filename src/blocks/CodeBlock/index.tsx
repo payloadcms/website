@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Code from '@components/Code'
+import CodeBlip from '@components/CodeBlip'
 import { Gutter } from '@components/Gutter'
 import { ReusableContent } from '@root/payload-types'
 
@@ -18,23 +19,29 @@ export const CodeBlock: React.FC<
   } = codeFields
 
   return (
-    <>
-      {disableGutter ? (
-        <Code codeBlips={codeBlips} disableMinHeight>{`${code}`}</Code>
-      ) : (
-        <Gutter>
-          <div className={'grid'}>
-            <div
-              className={[classes.codeBlock, 'cols-8 start-5 cols-m-6 start-m-2 cols-s-8 start-s-1']
-                .filter(Boolean)
-                .join(' ')}
-            >
-              <Code codeBlips={codeBlips}>{`${code}
+    <CodeBlip.Provider>
+      <div className={classes.container}>
+        <CodeBlip.Modal />
+        {disableGutter ? (
+          <Code codeBlips={codeBlips} disableMinHeight>{`${code}`}</Code>
+        ) : (
+          <Gutter>
+            <div className={'grid'}>
+              <div
+                className={[
+                  classes.codeBlock,
+                  'cols-8 start-5 cols-m-6 start-m-2 cols-s-8 start-s-1',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+              >
+                <Code codeBlips={codeBlips}>{`${code}
           `}</Code>
+              </div>
             </div>
-          </div>
-        </Gutter>
-      )}
-    </>
+          </Gutter>
+        )}
+      </div>
+    </CodeBlip.Provider>
   )
 }
