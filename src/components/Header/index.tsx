@@ -3,7 +3,9 @@
 import * as React from 'react'
 import { useModal } from '@faceless-ui/modal'
 import { useScrollInfo } from '@faceless-ui/scroll-info'
+import { useSearchParams } from 'next/navigation'
 
+import { UniversalTruth } from '@components/UniversalTruth'
 import { MainMenu } from '@root/payload-types'
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver'
 import { DesktopNav } from './DesktopNav'
@@ -17,6 +19,8 @@ export const Header: React.FC<MainMenu> = ({ tabs }) => {
   const { headerTheme } = useHeaderObserver()
   const { y } = useScrollInfo()
   const [hideBackground, setHideBackground] = React.useState(true)
+
+  const universalTruth = useSearchParams().get('universaltruth') === 'pls'
 
   React.useEffect(() => {
     if (isMobileNavOpen) {
@@ -40,6 +44,7 @@ export const Header: React.FC<MainMenu> = ({ tabs }) => {
       >
         <DesktopNav tabs={tabs} hideBackground={hideBackground} />
         <MobileNav tabs={tabs} />
+        {universalTruth && <UniversalTruth />}
       </header>
     </div>
   )

@@ -1,0 +1,11 @@
+.cursor {
+  position: fixed;
+  display: block;
+  top: -32px;
+  left: -32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: url('/images/universal-truth.jpg');
+  background-size: cover;
+}
