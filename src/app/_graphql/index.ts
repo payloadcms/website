@@ -7,6 +7,8 @@ import type {
   Footer,
   MainMenu,
   Page,
+  Partner,
+  PartnerProgram,
   Post,
   TopBar,
 } from '../../payload-types.js'
@@ -15,6 +17,7 @@ import { CASE_STUDIES, CASE_STUDY } from './case-studies.js'
 import { COMMUNITY_HELP, COMMUNITY_HELPS, RELATED_THREADS } from './community-helps.js'
 import { GLOBALS } from './globals.js'
 import { PAGE, PAGES } from './pages.js'
+import { PARTNER_PROGRAM, PARTNERS } from './partners.js'
 import { POST, POST_SLUGS, POSTS } from './posts.js'
 import { payloadToken } from './token.js'
 
@@ -288,4 +291,39 @@ export const fetchRelatedThreads = async (): Promise<CommunityHelp[]> => {
   }).then(res => res.json())
 
   return data?.CommunityHelps?.docs
+}
+
+export const fetchPartners = async (): Promise<Partner[]> => {
+  const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?partners`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    next,
+    body: JSON.stringify({
+      query: PARTNERS,
+    }),
+  }).then(res => res.json())
+
+  if (errors) {
+    console.error(JSON.stringify(errors)) // eslint-disable-line no-console
+    throw new Error()
+  }
+
+  return data.Partners.docs
+}
+
+export const fetchPartnerProgram = async (): Promise<PartnerProgram> => {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?globals`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    next,
+    body: JSON.stringify({
+      query: PARTNER_PROGRAM,
+    }),
+  }).then(res => res.json())
+
+  return data.PartnerProgram
 }

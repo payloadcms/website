@@ -1,0 +1,95 @@
+@use '@scss/common.scss' as *;
+
+.partnerCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 calc(var(--column) * 4);
+  border-block: 1px solid var(--theme-border-color);
+  text-decoration: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    display: block;
+    width: 0px;
+    height: 2px;
+    background-color: var(--theme-text);
+    transition: width .3s ease;
+  }
+
+  &:hover {
+    img {
+      transform: scale(1.02);
+    }
+
+    &::after {
+      width: 100%;
+    }
+
+    & .scanlines {
+      opacity: 1;
+    }
+
+    & .arrow {
+      opacity: 1;
+      top: 1.5rem;
+      right: 1.5rem;
+    }
+  }
+}
+
+.partnerCardImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+
+
+  & > div {
+    height: 100%;
+    overflow: hidden;
+
+    & > img {
+      height: 100%;
+      width: auto;
+      object-fit: cover;
+      transition: transform .3s ease;
+    }
+  }
+}
+
+.partnerCardInfo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: .25rem;
+  border-top: 1px solid var(--theme-border-color);
+  & > * {
+    margin: 0;
+  }
+}
+
+.partnerCardName {}
+
+.partnerCardCity {
+  @include small;
+  color: var(--theme-elevation-750);
+}
+
+.scanlines {
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.arrow {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  opacity: 0;
+  transition-property: top, right, opacity;
+  transition-duration: .3s;
+  transition-timing-function: ease;
+}
