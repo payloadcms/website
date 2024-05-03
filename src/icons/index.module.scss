@@ -4,8 +4,6 @@
   width: 0.6rem;
   height: 0.6rem;
   overflow: visible;
-  transition: transform var(--default-trans-time) linear;
-  will-change: transform;
 
   :global() {
     path {

@@ -17,7 +17,7 @@ import { CASE_STUDIES, CASE_STUDY } from './case-studies.js'
 import { COMMUNITY_HELP, COMMUNITY_HELPS, RELATED_THREADS } from './community-helps.js'
 import { GLOBALS } from './globals.js'
 import { PAGE, PAGES } from './pages.js'
-import { PARTNER_PROGRAM, PARTNERS } from './partners.js'
+import { PARTNER, PARTNER_PROGRAM, PARTNERS } from './partners.js'
 import { POST, POST_SLUGS, POSTS } from './posts.js'
 import { payloadToken } from './token.js'
 
@@ -311,6 +311,50 @@ export const fetchPartners = async (): Promise<Partner[]> => {
   }
 
   return data.Partners.docs
+}
+
+export const fetchPartner = async (slug: string, draft?: boolean): Promise<Partner | null> => {
+  let token: RequestCookie | undefined
+
+  if (draft) {
+    const { cookies } = await import('next/headers')
+    token = cookies().get(payloadToken)
+  }
+
+  const { data, errors } = await fetch(
+    `${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?partner=${slug}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token?.value && draft ? { Authorization: `JWT ${token.value}` } : {}),
+      },
+      next: {
+        ...next,
+        tags: [`partners_${slug}`],
+      },
+      body: JSON.stringify({
+        query: PARTNER,
+        variables: {
+          slug,
+          draft,
+        },
+      }),
+    },
+  ).then(res => res.json())
+
+  if (errors) {
+    console.error(JSON.stringify(errors)) // eslint-disable-line no-console
+    throw new Error()
+  }
+
+  const partner = data.Partners.docs[0]
+
+  if (partner) {
+    return partner
+  }
+
+  return null
 }
 
 export const fetchPartnerProgram = async (): Promise<PartnerProgram> => {

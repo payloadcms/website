@@ -51,8 +51,8 @@ export const PARTNERS = `
             number
           }
           projects {
-            title
-            description
+            year
+            name
             link
           }
         }
@@ -69,6 +69,58 @@ export const PARTNERS = `
     }
   }
 `
+
+export const PARTNER = `
+  query Partner($slug: String, $draft: Boolean) {
+    Partners(where: { slug: { equals: $slug } }, limit: 1, draft: $draft) {
+      docs {
+        id
+        name
+        website
+        email
+        slug
+        agency_status
+        hubspotID
+        featured
+        badges
+        logo ${MEDIA_FIELDS}
+        content {
+          bannerImage ${MEDIA_FIELDS}
+          overview
+          services
+          idealProject
+          contributions {
+            type
+            number
+          }
+          caseStudy {
+            featuredImage ${MEDIA_FIELDS}
+            slug
+            meta {
+              title
+              description
+            }
+          }
+          projects {
+            year
+            name
+            link
+          }
+        }
+        city
+        regions
+        budgets
+        industries
+        technologies
+        social {
+          platform
+          url
+        }
+      }
+    }
+  }
+`
+
 export const PARTNER_PROGRAM = `
   query {
     PartnerProgram {
@@ -104,8 +156,8 @@ export const PARTNER_PROGRAM = `
               number
             }
             projects {
-              title
-              description
+              year
+              name
               link
             }
           }

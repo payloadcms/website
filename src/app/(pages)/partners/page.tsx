@@ -1,3 +1,5 @@
+import { notFound } from 'next/navigation'
+
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
@@ -14,7 +16,7 @@ export default async function Partners() {
   const partnerProgram = await fetchPartnerProgram()
 
   if (!partnerProgram) {
-    console.log('No partner program found') // eslint-disable-line no-console
+    return notFound()
   }
   const partners = await fetchPartners()
   const { hero, featuredPartners, contentBlocks } = partnerProgram

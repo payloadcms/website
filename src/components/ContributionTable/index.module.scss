@@ -1,0 +1,41 @@
+.contributionList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.contribution {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid var(--theme-border-color);
+  text-decoration: none;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.number {
+  opacity: .75;
+  width: 3rem;
+}
+
+.title {
+  width: 100%;
+  font-weight: 500;
+}
+
+.arrow {
+  display: block;
+  transition: transform .3s;
+}
+
+.contribution:hover .arrow {
+  transform: translate(.25rem, -.25rem);
+}
