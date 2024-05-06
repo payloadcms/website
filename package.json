@@ -3,8 +3,10 @@
   "version": "1.0.4",
   "private": true,
   "scripts": {
-    "fetchDocs": "node scripts/fetch-docs.mjs",
+    "fetchDocs": "node scripts/fetch-docs.mjs && node scripts/fetch-docs-beta.mjs && node scripts/fetch-docs-legacy.mjs",
+    "fetchDocs:stable": "node scripts/fetch-docs.mjs",
     "fetchDocs:beta": "node scripts/fetch-docs-beta.mjs",
+    "fetchDocs:legacy": "node scripts/fetch-docs-legacy.mjs",
     "fetchDocs:local": "node scripts/fetch-docs-local.mjs",
     "dev": "next dev",
     "nodocs:build": "next build",

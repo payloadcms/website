@@ -83,11 +83,17 @@ const fetchDocs = async () => {
     process.exit(0)
   }
 
+  const latest = await fetch(`${githubAPI}/releases/latest`, {
+    headers,
+  }).then(res => res.json())
+
+  const ref = latest.tag_name
+
   const topics = await Promise.all(
     topicOrder.map(async unsanitizedTopicSlug => {
       const topicSlug = unsanitizedTopicSlug.toLowerCase()
 
-      const docs = await fetch(`${githubAPI}/contents/docs/${topicSlug}`, {
+      const docs = await fetch(`${githubAPI}/contents/docs/${topicSlug}?ref=${ref}`, {
         headers,
       }).then(res => res.json())
 
@@ -96,9 +102,12 @@ const fetchDocs = async () => {
       const parsedDocs = await Promise.all(
         docFilenames.map(async docFilename => {
           try {
-            const json = await fetch(`${githubAPI}/contents/docs/${topicSlug}/${docFilename}`, {
-              headers,
-            }).then(res => res.json())
+            const json = await fetch(
+              `${githubAPI}/contents/docs/${topicSlug}/${docFilename}?ref=${ref}`,
+              {
+                headers,
+              },
+            ).then(res => res.json())
 
             const parsedDoc = matter(decodeBase64(json.content))
 

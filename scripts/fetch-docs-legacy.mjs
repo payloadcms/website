@@ -34,7 +34,7 @@ function slugify(string) {
 }
 
 const githubAPI = 'https://api.github.com/repos/payloadcms/payload'
-const ref = process.env.NEXT_PUBLIC_BETA_DOCS_REF || null
+const ref = process.env.NEXT_PUBLIC_LEGACY_DOCS_REF || null
 
 const topicOrder = [
   'Getting-Started',
@@ -78,14 +78,14 @@ async function getHeadings(source) {
   })
 }
 
-const fetchBetaDocs = async () => {
-  if (process.env.NEXT_PUBLIC_ENABLE_BETA_DOCS !== 'true') {
-    console.log('Beta docs disabled - skipping docs retrieval') // eslint-disable-line no-console
+const fetchLegacyDocs = async () => {
+  if (process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS !== 'true') {
+    console.log('Legacy docs disabled - skipping docs retrieval') // eslint-disable-line no-console
     process.exit(0)
   }
 
   if (!ref) {
-    console.log('No beta docs ref found - skipping docs retrieval') // eslint-disable-line no-console
+    console.log('No legacy docs ref found - skipping docs retrieval') // eslint-disable-line no-console
     process.exit(0)
   }
 
@@ -155,7 +155,7 @@ const fetchBetaDocs = async () => {
 
   const data = JSON.stringify(topics, null, 2)
 
-  const docsFilename = path.resolve(__dirname, './src/app/_docs/beta-docs.json')
+  const docsFilename = path.resolve(__dirname, './src/app/_docs/legacy-docs.json')
 
   fs.writeFile(docsFilename, data, err => {
     if (err) {
@@ -167,4 +167,4 @@ const fetchBetaDocs = async () => {
   })
 }
 
-fetchBetaDocs()
+fetchLegacyDocs()
