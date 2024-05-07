@@ -11,6 +11,7 @@ import { JumplistProvider } from '@components/Jumplist'
 import components from '@components/MDX/components'
 import { RelatedHelpList } from '@components/RelatedHelpList'
 import TableOfContents from '@components/TableOfContents'
+import { VersionBanner } from '@components/VersionBanner'
 import { VersionSelector } from '@components/VersionSelector'
 import { CommunityHelp } from '@root/payload-types'
 import slugify from '@root/utilities/slugify'
@@ -22,7 +23,7 @@ type Props = {
   doc: Doc
   next?: NextDoc | null
   relatedThreads?: CommunityHelp[]
-  version?: 'current' | 'v2'
+  version: 'current' | 'legacy' | 'beta'
 }
 
 export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads, version = 'current' }) => {
@@ -30,7 +31,9 @@ export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads, version 
   const [docPadding, setDocPadding] = React.useState(0)
   const docRef = React.useRef<HTMLDivElement>(null)
 
-  const hideVersionSelector = process.env.NEXT_PUBLIC_HIDE_ARCHIVE_DOCS === 'true'
+  const hideVersionSelector =
+    process.env.NEXT_PUBLIC_ENABLE_BETA_DOCS !== 'true' &&
+    process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS !== 'true'
 
   const hasRelatedThreads =
     relatedThreads && Array.isArray(relatedThreads) && relatedThreads.length > 0
@@ -47,6 +50,7 @@ export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads, version 
         id="doc"
         ref={docRef}
       >
+        <VersionBanner />
         <h1 id={slugify(title)} className={classes.title}>
           {title}
         </h1>

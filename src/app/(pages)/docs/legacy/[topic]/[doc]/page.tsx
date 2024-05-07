@@ -2,15 +2,15 @@ import React from 'react'
 import { notFound } from 'next/navigation'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { fetchRelatedThreads } from '../../../../../../_graphql'
-import { RenderDoc } from '../../../../(current)/[topic]/[doc]/client_page'
-import { getDoc, getTopics } from '../../../../api'
-import { NextDoc } from '../../../../types'
+import { fetchRelatedThreads } from '../../../../../_graphql'
+import { RenderDoc } from '../../../(current)/[topic]/[doc]/client_page'
+import { getDoc, getTopics } from '../../../api'
+import { NextDoc } from '../../../types'
 
 const Doc = async ({ params }) => {
   const { topic, doc: docSlug } = params
-  const doc = await getDoc({ topic, doc: docSlug }, 'v2')
-  const topics = await getTopics('v2')
+  const doc = await getDoc({ topic, doc: docSlug }, 'legacy')
+  const topics = await getTopics('legacy')
 
   const relatedThreads = await fetchRelatedThreads()
 
@@ -52,7 +52,9 @@ const Doc = async ({ params }) => {
 
   if (!doc) notFound()
 
-  return <RenderDoc doc={doc} next={next} relatedThreads={filteredRelatedThreads} version="v2" />
+  return (
+    <RenderDoc doc={doc} next={next} relatedThreads={filteredRelatedThreads} version="legacy" />
+  )
 }
 
 export default Doc
@@ -66,7 +68,7 @@ export async function generateStaticParams() {
   if (process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS) return []
   if (process.env.NEXT_PUBLIC_HIDE_ARCHIVE_DOCS === 'true') return []
 
-  const topics = await getTopics('v2')
+  const topics = await getTopics('legacy')
 
   const result = topics.reduce((params: Param[], topic) => {
     return params.concat(
@@ -87,14 +89,14 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { topic: topicSlug, doc: docSlug } }) {
-  const doc = await getDoc({ topic: topicSlug, doc: docSlug }, 'v2')
+  const doc = await getDoc({ topic: topicSlug, doc: docSlug }, 'legacy')
 
   return {
     title: `${doc?.title ? `${doc.title} | ` : ''}Documentation | Payload CMS`,
     description: doc?.desc || `Payload CMS ${topicSlug} Documentation`,
     openGraph: mergeOpenGraph({
       title: `${doc?.title ? `${doc.title} | ` : ''}Documentation | Payload CMS`,
-      url: `/docs/v2/${topicSlug}/${docSlug}`,
+      url: `/docs/legacy/${topicSlug}/${docSlug}`,
       images: [
         {
           url: `/api/og?topic=${topicSlug}&title=${doc?.title}`,

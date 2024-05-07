@@ -1,0 +1,8 @@
+.bannerWrapper {
+  width: calc(var(--column) * 10);
+  margin: -2rem calc(var(--column) * -1) 0;
+
+  & > * {
+    padding: 2rem var(--column);
+  }
+}
