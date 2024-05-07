@@ -23,7 +23,7 @@ type Props = {
   doc: Doc
   next?: NextDoc | null
   relatedThreads?: CommunityHelp[]
-  version: 'current' | 'legacy' | 'beta'
+  version?: 'current' | 'legacy' | 'beta'
 }
 
 export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads, version = 'current' }) => {
