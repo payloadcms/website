@@ -151,7 +151,7 @@ const fetchLegacyDocs = async () => {
 
   const data = JSON.stringify(topics, null, 2)
 
-  const docsFilename = path.resolve(__dirname, './src/app/_docs/legacy-docs.json')
+  const docsFilename = path.resolve(__dirname, './src/app/docs-legacy.json')
 
   fs.writeFile(docsFilename, data, err => {
     if (err) {

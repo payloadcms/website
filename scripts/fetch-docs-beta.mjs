@@ -145,7 +145,7 @@ const fetchBetaDocs = async () => {
 
   const data = JSON.stringify(topics, null, 2)
 
-  const docsFilename = path.resolve(__dirname, './src/app/_docs/beta-docs.json')
+  const docsFilename = path.resolve(__dirname, './src/app/docs-beta.json')
 
   fs.writeFile(docsFilename, data, err => {
     if (err) {

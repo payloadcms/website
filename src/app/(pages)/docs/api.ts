@@ -1,6 +1,6 @@
-import beta from '../../_docs/beta-docs.json'
-import legacy from '../../_docs/legacy-docs.json'
 import current from '../../docs.json'
+import beta from '../../docs-beta.json'
+import legacy from '../../docs-legacy.json'
 import type { Doc, DocPath, Topic } from './types'
 
 const docs = {
