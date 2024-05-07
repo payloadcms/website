@@ -34,7 +34,7 @@ function slugify(string) {
 }
 
 const githubAPI = 'https://api.github.com/repos/payloadcms/payload'
-const ref = process.env.NEXT_PUBLIC_BETA_DOCS_REF || null
+const ref = process.env.NEXT_PUBLIC_BETA_DOCS_REF || 'beta'
 
 const topicOrder = [
   'Getting-Started',
@@ -79,11 +79,6 @@ async function getHeadings(source) {
 }
 
 const fetchBetaDocs = async () => {
-  if (!ref) {
-    console.log('No beta docs ref found - skipping docs retrieval') // eslint-disable-line no-console
-    process.exit(0)
-  }
-
   if (!process.env.GITHUB_ACCESS_TOKEN) {
     console.log('No GitHub access token found - skipping docs retrieval') // eslint-disable-line no-console
     process.exit(0)

@@ -34,7 +34,7 @@ function slugify(string) {
 }
 
 const githubAPI = 'https://api.github.com/repos/payloadcms/payload'
-const ref = process.env.NEXT_PUBLIC_LEGACY_DOCS_REF || null
+const version = process.env.NEXT_PUBLIC_LEGACY_DOCS_REF || null
 
 const topicOrder = [
   'Getting-Started',
@@ -79,10 +79,11 @@ async function getHeadings(source) {
 }
 
 const fetchLegacyDocs = async () => {
-  if (!ref) {
-    console.log('No legacy docs ref found - skipping docs retrieval') // eslint-disable-line no-console
-    process.exit(0)
-  }
+  const latest = await fetch(`${githubAPI}/releases/latest`, {
+    headers,
+  }).then(res => res.json())
+
+  const ref = version ?? latest.tag_name
 
   if (!process.env.GITHUB_ACCESS_TOKEN) {
     console.log('No GitHub access token found - skipping docs retrieval') // eslint-disable-line no-console
