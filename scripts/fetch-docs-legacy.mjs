@@ -79,11 +79,6 @@ async function getHeadings(source) {
 }
 
 const fetchLegacyDocs = async () => {
-  if (process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS !== 'true') {
-    console.log('Legacy docs disabled - skipping docs retrieval') // eslint-disable-line no-console
-    process.exit(0)
-  }
-
   if (!ref) {
     console.log('No legacy docs ref found - skipping docs retrieval') // eslint-disable-line no-console
     process.exit(0)

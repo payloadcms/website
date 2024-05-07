@@ -14,7 +14,7 @@ export async function getTopics(
 ): Promise<Topic[]> {
   const content = docs[version]
 
-  if (!content) {
+  if (!content || !Array.isArray(content)) {
     return []
   }
 
@@ -34,6 +34,11 @@ export async function getDoc(
   version: 'current' | 'legacy' | 'beta' = 'current',
 ): Promise<Doc | null> {
   const content = version === 'current' ? current : version === 'legacy' ? legacy : beta
+
+  if (!content || !Array.isArray(content)) {
+    return null
+  }
+
   const matchedTopic = content.find(topic => topic.slug.toLowerCase() === topicSlug)
   const matchedDoc = matchedTopic?.docs?.find(doc => doc?.slug === docSlug) || null
   return matchedDoc

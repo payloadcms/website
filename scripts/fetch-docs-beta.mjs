@@ -79,11 +79,6 @@ async function getHeadings(source) {
 }
 
 const fetchBetaDocs = async () => {
-  if (process.env.NEXT_PUBLIC_ENABLE_BETA_DOCS !== 'true') {
-    console.log('Beta docs disabled - skipping docs retrieval') // eslint-disable-line no-console
-    process.exit(0)
-  }
-
   if (!ref) {
     console.log('No beta docs ref found - skipping docs retrieval') // eslint-disable-line no-console
     process.exit(0)
