@@ -64,7 +64,7 @@ type Param = {
 
 export async function generateStaticParams() {
   if (process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS) return []
-  if (process.env.NEXT_PUBLIC_HIDE_ARCHIVE_DOCS === 'true') return []
+  if (process.env.NEXT_PUBLIC_ENABLE_BETA_DOCS !== 'true') return []
 
   const topics = await getTopics('beta')
 
