@@ -57,11 +57,7 @@
         tr {
           &:nth-child(odd) {
             position: relative;
-            background: var(--theme-elevation-100);
-
-            @include data-theme-selector('light') {
-              background: var(--theme-elevation-50);
-            }
+            background: var(--theme-elevation-50);
           }
         }
       }
