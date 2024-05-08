@@ -15,6 +15,8 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 }
 
 .code {
+  width: 100%;
+  min-width: fit-content;
   -webkit-text-size-adjust: 100%;
   padding: 1.5rem 2rem 1.5rem 1.5rem;
   font-size: 14px;
