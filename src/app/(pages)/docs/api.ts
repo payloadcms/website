@@ -1,17 +1,15 @@
 import current from '../../docs.json'
 import beta from '../../docs-beta.json'
-import legacy from '../../docs-legacy.json'
+import v2 from '../../docs-legacy.json'
 import type { Doc, DocPath, Topic } from './types'
 
 const docs = {
   current,
-  legacy,
+  v2,
   beta,
 }
 
-export async function getTopics(
-  version: 'current' | 'legacy' | 'beta' = 'current',
-): Promise<Topic[]> {
+export async function getTopics(version: 'current' | 'v2' | 'beta' = 'current'): Promise<Topic[]> {
   const content = docs[version]
 
   if (!content || !Array.isArray(content)) {
@@ -31,9 +29,9 @@ export async function getTopics(
 
 export async function getDoc(
   { topic: topicSlug, doc: docSlug }: DocPath,
-  version: 'current' | 'legacy' | 'beta' = 'current',
+  version: 'current' | 'v2' | 'beta' = 'current',
 ): Promise<Doc | null> {
-  const content = version === 'current' ? current : version === 'legacy' ? legacy : beta
+  const content = version === 'current' ? current : version === 'v2' ? v2 : beta
 
   if (!content || !Array.isArray(content)) {
     return null

@@ -9,7 +9,7 @@ import classes from './index.module.scss'
 export const VersionBanner: React.FC = () => {
   const pathname = usePathname()
   const isBeta = pathname.includes('/beta/')
-  const isLegacy = pathname.includes('/legacy/')
+  const isLegacy = pathname.includes('/v2/')
 
   return isBeta ? (
     <Banner type={'warning'}>
@@ -19,9 +19,9 @@ export const VersionBanner: React.FC = () => {
     </Banner>
   ) : isLegacy ? (
     <Banner type={'warning'}>
-      <strong>Note: </strong>You are currently viewing the <strong>legacy version</strong> of the
-      docs. Some features may not be supported in later versions of Payload.{' '}
-      <a href="/docs">Switch to the latest version</a>
+      <strong>Note: </strong>You are currently viewing documentation for{' '}
+      <strong>version 2.x.x</strong>. Some features may not be supported in later versions of
+      Payload. <a href="/docs">Switch to the latest version</a>
     </Banner>
   ) : null
 }

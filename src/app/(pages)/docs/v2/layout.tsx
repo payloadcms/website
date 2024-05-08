@@ -8,10 +8,10 @@ const Layout = async ({ children }) => {
   if (process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS !== 'true') {
     redirect('/docs')
   }
-  const topics = await getTopics('legacy')
+  const topics = await getTopics('v2')
 
   return (
-    <RenderDocs topics={topics} version="legacy">
+    <RenderDocs topics={topics} version="v2">
       {children}
     </RenderDocs>
   )

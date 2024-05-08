@@ -4,7 +4,6 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
   border-bottom: 1px solid var(--theme-border-color);
   gap: .5rem;
 
@@ -24,6 +23,7 @@
   color: var(--theme-elevation-1000);
   background-color: transparent;
   position: relative;
+  padding: 1rem;
 
   &:focus {
     outline: none;

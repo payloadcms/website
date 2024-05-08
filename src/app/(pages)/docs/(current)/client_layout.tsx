@@ -19,7 +19,7 @@ const openTopicsLocalStorageKey = 'docs-open-topics'
 type Props = {
   topics: Topic[]
   children: React.ReactNode
-  version?: 'current' | 'legacy' | 'beta'
+  version?: 'current' | 'v2' | 'beta'
 }
 
 export const RenderDocs: React.FC<Props> = ({ topics, children, version = 'current' }) => {

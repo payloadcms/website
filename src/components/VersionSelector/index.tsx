@@ -1,5 +1,4 @@
 'use client'
-import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { getTopics } from '@root/app/(pages)/docs/api'
@@ -8,7 +7,7 @@ import { ChevronUpDownIcon } from '@root/icons/ChevronUpDownIcon'
 import classes from './index.module.scss'
 
 export const VersionSelector: React.FC<{
-  initialVersion: 'current' | 'legacy' | 'beta'
+  initialVersion: 'current' | 'v2' | 'beta'
 }> = ({ initialVersion }) => {
   const router = useRouter()
 
@@ -20,7 +19,7 @@ export const VersionSelector: React.FC<{
           if (!e.target.value || e.target.value === initialVersion) return
           if (e.target.value === 'current') {
             router.push('/docs')
-          } else if (e.target.value === 'legacy' || e.target.value === 'beta') {
+          } else if (e.target.value === 'v2' || e.target.value === 'beta') {
             const topics = await getTopics(e.target.value)
             const defaultRoute = `/docs/${e.target.value}/${topics[0].slug.toLowerCase()}/${
               topics[0].docs[0].slug
@@ -42,8 +41,8 @@ export const VersionSelector: React.FC<{
         {process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS === 'true' && (
           <option
             className={[classes.option, classes.legacy].join(' ')}
-            value={'legacy'}
-            label={`${process.env.NEXT_PUBLIC_LEGACY_DOCS_REF} (Legacy)`}
+            value={'v2'}
+            label={`v2.x`}
           />
         )}
       </select>
