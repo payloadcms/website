@@ -103,14 +103,14 @@
 .next {
   position: relative;
   display: block;
-  padding: 3rem 0;
+  padding: 3rem var(--column);
   text-decoration: none;
   border-top: 1px solid var(--theme-border-color);
-  transition: all var(--trans-default) linear;
+  transition: all .3s ease-in;
+  margin: 0 calc(var(--column) * -1);
 
   .nextLabel svg {
-    transform: translate3D(-5px, 5px, 0);
-    opacity: 0;
+    transform: translate3D(0, 0, 0);
   }
 
   &::after {
@@ -139,8 +139,7 @@
 
     .nextLabel svg {
       transition: all var(--trans-default) linear;
-      transform: translate3D(0,0,0);
-      opacity: 1;
+      transform: translate3D(2px,-2px,0);
     }
   }
 

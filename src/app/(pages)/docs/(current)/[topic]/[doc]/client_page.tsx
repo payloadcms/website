@@ -28,7 +28,6 @@ type Props = {
 
 export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads, version = 'current' }) => {
   const { content, headings, title } = doc
-  const [docPadding, setDocPadding] = React.useState(0)
   const docRef = React.useRef<HTMLDivElement>(null)
 
   const hideVersionSelector =
@@ -37,11 +36,6 @@ export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads, version 
 
   const hasRelatedThreads =
     relatedThreads && Array.isArray(relatedThreads) && relatedThreads.length > 0
-
-  React.useEffect(() => {
-    if (docRef.current?.offsetWidth === undefined) return
-    setDocPadding(Math.round(docRef.current?.offsetWidth / 8) - 2)
-  }, [docRef.current?.offsetWidth])
 
   return (
     <JumplistProvider>
@@ -65,11 +59,6 @@ export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads, version 
             href={`/docs/${next.topic.toLowerCase()}/${next.slug}`}
             data-algolia-no-crawl
             prefetch={false}
-            style={{
-              margin: `0px ${docPadding / -1 - 1}px`,
-              paddingLeft: docPadding,
-              paddingRight: docPadding,
-            }}
           >
             <div className={classes.nextLabel}>
               Next <ArrowIcon />

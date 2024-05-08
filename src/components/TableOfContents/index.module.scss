@@ -3,7 +3,6 @@
 .wrap {
   position: relative;
   padding: 0 1rem;
-  font-size: 0.85rem;
 }
 
 .toc {
@@ -18,19 +17,16 @@
 }
 
 .tocTitle {
-  font-weight: 400;
-  font-size: 0.55rem;
-  letter-spacing: 2.75px;
-  text-transform: uppercase;
-  margin: 0 0 1rem 0;
+  margin: 0 0 1rem;
 }
 
 .heading {
   transition: all 400ms;
   position: relative;
   line-height: 1.375;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   margin-right: 1rem;
+  @include small;
 
   &:hover {
     transform: translate3d(.25rem, 0, 0);

@@ -6,7 +6,6 @@ import classes from './index.module.scss'
 
 const CodeMarkdown: React.FC<{ children: React.ReactNode; className: string }> = ({ children }) => {
   let childrenToRender: string | null = null
-  const blockRef = React.useRef<HTMLDivElement>(null)
 
   if (typeof children === 'string') {
     childrenToRender = children
@@ -19,11 +18,9 @@ const CodeMarkdown: React.FC<{ children: React.ReactNode; className: string }> =
   if (childrenToRender === null) return null
 
   return (
-    <div ref={blockRef} className={classes.codeWrap}>
-      <Code className={`${classes.code} mdx-code`} disableMinHeight>
-        {childrenToRender.trim()}
-      </Code>
-    </div>
+    <Code parentClassName={classes.code} disableMinHeight>
+      {childrenToRender.trim()}
+    </Code>
   )
 }
 

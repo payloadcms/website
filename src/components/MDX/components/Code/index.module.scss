@@ -1,24 +1,6 @@
 @use "@scss/common" as *;
 
-.codeWrap {
-  background: var(--color-base-900);
-  margin: 0 calc(var(--column) * -1);
-  margin-bottom: 2rem;
-  padding: 0;
-
-  @include mid-break {
-    margin: 0;
-    margin-bottom: 2rem;
-  }
-}
-
 .code {
-  background: none;
-
-    & > * {
-      &::before {
-      content: none!important;
-    }
-    white-space: pre-wrap;
-  }
+  margin-bottom: 2rem;
+  border-radius: 2px;
 }

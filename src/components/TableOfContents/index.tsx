@@ -31,7 +31,7 @@ const TableOfContents: React.FC<Props> = ({ className, headings }) => {
       className={[classes.wrap, className].filter(Boolean).join(' ')}
       onMouseLeave={() => setResetIndicator(true)}
     >
-      <h5 className={classes.tocTitle}>On this page</h5>
+      <h6 className={classes.tocTitle}>On this page</h6>
       <Jumplist
         className={classes.toc}
         list={headings.map(({ id, level, text }) => ({

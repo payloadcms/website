@@ -2,7 +2,7 @@
 
 .wrap {
   overflow: auto;
-  margin: 0 calc(var(--column) * -1 + 1px);
+  margin-bottom: 2rem;
 
   @include mid-break {
     margin: 0 1px;
@@ -21,6 +21,7 @@
         color: var(--theme-elevation-500);
 
         th {
+          @include small;
           font-weight: normal;
           text-align: left;
         }
@@ -34,11 +35,11 @@
         margin: auto;
 
         &:first-child {
-          padding-left: var(--column);
+          padding-left: 1.5rem;
         }
 
         &:last-child {
-          padding-right: var(--column);
+          padding-right: 1.5rem;
         }
 
         @include mid-break {
@@ -55,8 +56,12 @@
       tbody {
         tr {
           &:nth-child(odd) {
-            background: var(--theme-elevation-50);
             position: relative;
+            background: var(--theme-elevation-100);
+
+            @include data-theme-selector('light') {
+              background: var(--theme-elevation-50);
+            }
           }
         }
       }

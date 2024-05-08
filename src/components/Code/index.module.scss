@@ -4,17 +4,10 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .codeWrap {
   min-height: 24rem;
-  margin: auto 0;
   display: flex;
   align-items: center;
-
-  @include mid-break {
-    margin: 0 1rem;
-
-    :global(.blog-wrap) & {
-      margin: 0;
-    }
-  }
+  overflow-x: auto;
+  background-color: var(--theme-elevation-100);
 }
 
 .disableMinHeight {
@@ -23,10 +16,9 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .code {
   -webkit-text-size-adjust: 100%;
-  padding: 2rem;
+  padding: 1.5rem 2rem 1.5rem 1.5rem;
   font-size: 14px;
   line-height: 1.5;
-  background-color: var(--color-base-900);
   color: var(--color-base-100);
   font-family: var(--font-mono), Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   white-space: pre;
@@ -39,9 +31,7 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  overflow: auto;
   position: relative;
-  width: 100%;
 
   @include dark-custom-scrollbar;
 
@@ -58,7 +48,7 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
     .token.atrule,
     .token.attr-value,
     .token.keyword {
-      color: #3B80B9;
+      color: var(--color-success-250);
     }
 
     .token.tag,
@@ -67,7 +57,7 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
     .token.constant,
     .token.symbol,
     .token.deleted {
-      color: #D0974D;
+      color: var(--color-error-500);
     }
 
     .token.attr-name,
@@ -89,7 +79,7 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
     .token.selector,
     .token-property,
     .token.function {
-      color: #96C3EA;
+      color: var(--color-success-500);
     }
 
     .token.regex,
@@ -97,7 +87,7 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
     .token.variable,
     .token.string,
     .token.class-name {
-      color: #FCCE97;
+      color: var(--color-warning-500);
     }
 
     .token.important,
@@ -176,9 +166,9 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
   user-select: none;
   display: inline-block;
   text-align: right;
-  color: var(--color-base-750);
-  padding-right: 2rem;
-  width: 3rem;
+  color: var(--theme-elevation-400);
+  padding-right: 1.5rem;
+  width: 2.5rem;
 
   @include mid-break {
     display: none;

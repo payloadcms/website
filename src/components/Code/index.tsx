@@ -1,4 +1,3 @@
-'use client'
 /* eslint-disable no-param-reassign */
 import React, { useCallback } from 'react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
