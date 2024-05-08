@@ -34,6 +34,7 @@ function slugify(string) {
 }
 
 const githubAPI = 'https://api.github.com/repos/payloadcms/payload'
+const version = process.env.NEXT_PUBLIC_LEGACY_DOCS_REF || null
 
 const topicOrder = [
   'Getting-Started',
@@ -77,17 +78,17 @@ async function getHeadings(source) {
   })
 }
 
-const fetchDocs = async () => {
-  if (!process.env.GITHUB_ACCESS_TOKEN) {
-    console.log('No GitHub access token found - skipping docs retrieval') // eslint-disable-line no-console
-    process.exit(0)
-  }
-
+const fetchLegacyDocs = async () => {
   const latest = await fetch(`${githubAPI}/releases/latest`, {
     headers,
   }).then(res => res.json())
 
-  const ref = latest.tag_name
+  const ref = version ?? latest.tag_name
+
+  if (!process.env.GITHUB_ACCESS_TOKEN) {
+    console.log('No GitHub access token found - skipping docs retrieval') // eslint-disable-line no-console
+    process.exit(0)
+  }
 
   const topics = await Promise.all(
     topicOrder.map(async unsanitizedTopicSlug => {
@@ -110,6 +111,11 @@ const fetchDocs = async () => {
             ).then(res => res.json())
 
             const parsedDoc = matter(decodeBase64(json.content))
+
+            parsedDoc.content = parsedDoc.content
+              .replace(/\(\/docs\//g, '(../')
+              .replace(/"\/docs\//g, '"../')
+              .replace(/https:\/\/payloadcms.com\/docs\//g, '../')
 
             const doc = {
               content: await serialize(parsedDoc.content, {
@@ -145,7 +151,7 @@ const fetchDocs = async () => {
 
   const data = JSON.stringify(topics, null, 2)
 
-  const docsFilename = path.resolve(__dirname, './src/app/docs.json')
+  const docsFilename = path.resolve(__dirname, './src/app/docs-legacy.json')
 
   fs.writeFile(docsFilename, data, err => {
     if (err) {
@@ -157,4 +163,4 @@ const fetchDocs = async () => {
   })
 }
 
-fetchDocs()
+fetchLegacyDocs()

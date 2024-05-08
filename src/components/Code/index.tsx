@@ -1,4 +1,3 @@
-'use client'
 /* eslint-disable no-param-reassign */
 import React, { useCallback } from 'react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
@@ -80,27 +79,36 @@ const Code: React.FC<Props> = props => {
       <Highlight {...defaultProps} theme={undefined} code={children} language="jsx">
         {({ style, tokens, getLineProps, getTokenProps }) => (
           <div className={classNames} style={style}>
-            {tokens.map((line, i) => {
-              const lineProps = getLineProps({ line, key: i, className: classes.line })
-              const shouldExclude = highlightLine(line, lineProps)
-              const rowNumber = i + 1
-              const codeBlip = getCodeBlip(rowNumber)
-              if (codeBlip) blipCounter = blipCounter + 1
-              return !shouldExclude ? (
-                <div {...lineProps} key={i}>
-                  <>
-                    {showLineNumbers && <span className={classes.lineNumber}>{rowNumber}</span>}
-                    <div className={classes.lineCodeWrapper}>
-                      {line.map((token, index) => {
-                        const { key, ...rest } = getTokenProps({ token, key: index })
-                        return <span key={key} {...rest} />
-                      })}
-                      {codeBlip ? <CodeBlip.Button index={blipCounter} blip={codeBlip} /> : null}
-                    </div>
-                  </>
-                </div>
-              ) : null
-            })}
+            {tokens
+              .map((line, i) => {
+                const lineProps = getLineProps({ line, key: i, className: classes.line })
+                const shouldExclude = highlightLine(line, lineProps)
+                return {
+                  line,
+                  lineProps,
+                  shouldExclude,
+                }
+              })
+              .filter(({ shouldExclude }) => !shouldExclude)
+              .map(({ line, lineProps }, i) => {
+                const rowNumber = i + 1
+                const codeBlip = getCodeBlip(rowNumber)
+                if (codeBlip) blipCounter = blipCounter + 1
+                return (
+                  <div {...lineProps} key={i}>
+                    <>
+                      {showLineNumbers && <span className={classes.lineNumber}>{rowNumber}</span>}
+                      <div className={classes.lineCodeWrapper}>
+                        {line.map((token, index) => {
+                          const { key, ...rest } = getTokenProps({ token, key: index })
+                          return <span key={key} {...rest} />
+                        })}
+                        {codeBlip ? <CodeBlip.Button index={blipCounter} blip={codeBlip} /> : null}
+                      </div>
+                    </>
+                  </div>
+                )
+              })}
           </div>
         )}
       </Highlight>

@@ -22,17 +22,16 @@
   }
 }
 
-.nav {
+.navWrap {
   position: sticky;
   top: var(--page-padding-top);
   max-height: calc(100vh - var(--page-padding-top));
   overflow: auto;
   flex-shrink: 0;
-  padding: 2rem 1rem;
 
   &::-webkit-scrollbar,  &::-webkit-scrollbar-thumb {
     background-color: transparent;
-
+    width: 0;
   }
 
   @include mid-break {
@@ -52,6 +51,19 @@
   }
 }
 
+.selector {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: var(--theme-bg);
+  margin-right: 1px;
+  border-left: 1px solid var(--theme-border-color);
+}
+
+.nav {
+  padding: 1.5rem 1rem;
+}
+
 .indicator {
   position: absolute;
   left: 0;
@@ -66,9 +78,9 @@
   display: block;
   position: sticky;
   width: 100%;
-  height: 4rem;
-  bottom: -2rem;
-  left: 0;
+  height: 2rem;
+  bottom: 0rem;
+  left: 1px;
   background: linear-gradient(180deg, transparent 0%, var(--theme-bg) 100%);
   pointer-events: none;
 }

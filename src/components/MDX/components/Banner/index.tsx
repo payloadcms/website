@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 import { CheckIcon } from '@root/icons/CheckIcon'
 import { ReusableContent } from '@root/payload-types'
 import { RichText } from '../../../RichText'
@@ -18,40 +16,15 @@ export type Props = {
   margin?: boolean
 }
 
-const Icons = {
-  checkmark: CheckIcon,
-}
-
-export const Banner: React.FC<Props> = ({
-  content,
-  children,
-  icon,
-  type = 'default',
-  checkmark,
-  margin = true,
-}) => {
-  let Icon = icon && Icons[icon]
-  if (!Icon && checkmark) Icon = Icons.checkmark
-  const [bannerPadding, setBannerPadding] = React.useState(0)
-  const bannerRef = React.useRef<HTMLDivElement>(null)
-
-  React.useEffect(() => {
-    if (bannerRef.current?.offsetWidth === undefined) return
-    setBannerPadding(Math.round(bannerRef.current?.offsetWidth / 8) - 1)
-  }, [bannerRef.current?.offsetWidth])
-
+export const Banner: React.FC<Props> = ({ content, children, type = 'default', margin = true }) => {
   return (
-    <div ref={bannerRef}>
-      <div
-        className={[classes.banner, 'banner', type && classes[type], !margin && classes.noMargin]
-          .filter(Boolean)
-          .join(' ')}
-      >
-        {Icon && <Icon className={classes.icon} />}
-
-        {content && <RichText content={content} />}
-        {children && <div className={classes.children}>{children}</div>}
-      </div>
+    <div
+      className={[classes.banner, 'banner', type && classes[type], !margin && classes.noMargin]
+        .filter(Boolean)
+        .join(' ')}
+    >
+      {content && <RichText content={content} />}
+      {children && <div className={classes.children}>{children}</div>}
     </div>
   )
 }

@@ -11,9 +11,11 @@ import { JumplistProvider } from '@components/Jumplist'
 import components from '@components/MDX/components'
 import { RelatedHelpList } from '@components/RelatedHelpList'
 import TableOfContents from '@components/TableOfContents'
+import { VersionBanner } from '@components/VersionBanner'
+import { VersionSelector } from '@components/VersionSelector'
 import { CommunityHelp } from '@root/payload-types'
 import slugify from '@root/utilities/slugify'
-import { Doc, NextDoc } from '../../types'
+import { Doc, NextDoc } from '../../../types'
 
 import classes from './index.module.scss'
 
@@ -21,20 +23,19 @@ type Props = {
   doc: Doc
   next?: NextDoc | null
   relatedThreads?: CommunityHelp[]
+  version?: 'current' | 'v2' | 'beta'
 }
 
-export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads }) => {
+export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads, version = 'current' }) => {
   const { content, headings, title } = doc
-  const [docPadding, setDocPadding] = React.useState(0)
   const docRef = React.useRef<HTMLDivElement>(null)
+
+  const hideVersionSelector =
+    process.env.NEXT_PUBLIC_ENABLE_BETA_DOCS !== 'true' &&
+    process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS !== 'true'
 
   const hasRelatedThreads =
     relatedThreads && Array.isArray(relatedThreads) && relatedThreads.length > 0
-
-  React.useEffect(() => {
-    if (docRef.current?.offsetWidth === undefined) return
-    setDocPadding(Math.round(docRef.current?.offsetWidth / 8) - 2)
-  }, [docRef.current?.offsetWidth])
 
   return (
     <JumplistProvider>
@@ -43,6 +44,7 @@ export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads }) => {
         id="doc"
         ref={docRef}
       >
+        <VersionBanner />
         <h1 id={slugify(title)} className={classes.title}>
           {title}
         </h1>
@@ -57,11 +59,6 @@ export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads }) => {
             href={`/docs/${next.topic.toLowerCase()}/${next.slug}`}
             data-algolia-no-crawl
             prefetch={false}
-            style={{
-              margin: `0px ${docPadding / -1 - 1}px`,
-              paddingLeft: docPadding,
-              paddingRight: docPadding,
-            }}
           >
             <div className={classes.nextLabel}>
               Next <ArrowIcon />
@@ -79,6 +76,11 @@ export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads }) => {
           <div className={classes.discordGitWrap}>
             <DiscordGitCTA style="minimal" />
           </div>
+          {!hideVersionSelector && (
+            <div className={classes.selector}>
+              <VersionSelector initialVersion={version} />
+            </div>
+          )}
         </div>
       </div>
     </JumplistProvider>

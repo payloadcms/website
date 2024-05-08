@@ -1,7 +1,21 @@
-import content from '../../docs.json'
+import current from '../../docs.json'
+import beta from '../../docs-beta.json'
+import v2 from '../../docs-legacy.json'
 import type { Doc, DocPath, Topic } from './types'
 
-export async function getTopics(): Promise<Topic[]> {
+const docs = {
+  current,
+  v2,
+  beta,
+}
+
+export async function getTopics(version: 'current' | 'v2' | 'beta' = 'current'): Promise<Topic[]> {
+  const content = docs[version]
+
+  if (!content || !Array.isArray(content)) {
+    return []
+  }
+
   return content.map(topic => ({
     slug: topic.slug,
     docs: topic.docs.map(doc => ({
@@ -13,7 +27,16 @@ export async function getTopics(): Promise<Topic[]> {
   }))
 }
 
-export async function getDoc({ topic: topicSlug, doc: docSlug }: DocPath): Promise<Doc | null> {
+export async function getDoc(
+  { topic: topicSlug, doc: docSlug }: DocPath,
+  version: 'current' | 'v2' | 'beta' = 'current',
+): Promise<Doc | null> {
+  const content = version === 'current' ? current : version === 'v2' ? v2 : beta
+
+  if (!content || !Array.isArray(content)) {
+    return null
+  }
+
   const matchedTopic = content.find(topic => topic.slug.toLowerCase() === topicSlug)
   const matchedDoc = matchedTopic?.docs?.find(doc => doc?.slug === docSlug) || null
   return matchedDoc
