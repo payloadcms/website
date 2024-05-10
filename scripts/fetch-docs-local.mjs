@@ -8,6 +8,8 @@ import { serialize } from 'next-mdx-remote/serialize'
 import path from 'path'
 import remarkGfm from 'remark-gfm'
 
+import { topicOrder } from './shared.mjs'
+
 dotenv.config()
 
 const __dirname = path.resolve()
@@ -34,31 +36,6 @@ function slugify(string) {
     .replace(/^-+/, '') // Trim - from start of text
     .replace(/-+$/, '') // Trim - from end of text
 }
-
-const topicOrder = [
-  'Getting-Started',
-  'Configuration',
-  'Database',
-  'Fields',
-  'Admin',
-  'Rich-Text',
-  'Live-Preview',
-  'Access-Control',
-  'Hooks',
-  'Authentication',
-  'Versions',
-  'Upload',
-  'GraphQL',
-  'REST-API',
-  'Local-API',
-  'Queries',
-  'Production',
-  'Email',
-  'TypeScript',
-  'Plugins',
-  'Integrations',
-  'Cloud',
-]
 
 async function getHeadings(source) {
   const headingLines = source.split('\n').filter(line => {
