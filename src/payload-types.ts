@@ -771,6 +771,9 @@ export interface CaseStudy {
                     id?: string | null;
                   }[]
                 | null;
+              media?: string | Media | null;
+              mediaWidth?: ('small' | 'medium' | 'large') | null;
+              backgroundGlow?: ('none' | 'colorful' | 'white') | null;
             };
             id?: string | null;
             blockName?: string | null;
@@ -2052,6 +2055,9 @@ export interface Page {
                 id?: string | null;
               }[]
             | null;
+          media?: string | Media | null;
+          mediaWidth?: ('small' | 'medium' | 'large') | null;
+          backgroundGlow?: ('none' | 'colorful' | 'white') | null;
         };
         id?: string | null;
         blockName?: string | null;
@@ -3316,6 +3322,9 @@ export interface ReusableContent {
                 id?: string | null;
               }[]
             | null;
+          media?: string | Media | null;
+          mediaWidth?: ('small' | 'medium' | 'large') | null;
+          backgroundGlow?: ('none' | 'colorful' | 'white') | null;
         };
         id?: string | null;
         blockName?: string | null;

@@ -417,6 +417,9 @@ export const STATEMENT = `
     links {
       link ${LINK_FIELDS({ disableAppearance: true })}
     }
+    media ${MEDIA_FIELDS}
+    mediaWidth
+    backgroundGlow
   }
 }
 `

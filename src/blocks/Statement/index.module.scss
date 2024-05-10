@@ -2,6 +2,7 @@
 
 .statementWrap {
   position: relative;
+  z-index: 1;
 }
 
 .links {
@@ -46,5 +47,65 @@
 
   p {
     margin: 0;
+  }
+}
+
+.mediaWrap {
+  margin-top: 4rem;
+  position: relative;
+
+  @include mid-break {
+    margin-top: 2rem;
+  }
+}
+
+.white {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: auto;
+    aspect-ratio: 2 / 1;
+    border-radius: 100%;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    z-index: -1;
+    animation: opacityPulse 10s infinite linear;
+    filter: blur(8rem);
+  }
+}
+
+.colorful {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: auto;
+    aspect-ratio: 2 / 1;
+    border-radius: 100%;
+    background: conic-gradient(var(--theme-success-750), var(--theme-success-750), var(--theme-elevation-0), var(--theme-warning-500), var(--theme-warning-750), var(--theme-elevation-0), var(--theme-success-750));
+    z-index: -1;
+    animation: opacityPulse 10s infinite linear;
+    filter: blur(8rem);
+  }
+}
+
+@keyframes opacityPulse {
+  0% {
+    opacity: .125;
+    rotate: 0;
+  }
+
+  50% {
+    opacity: .25;
+    rotate: 180deg;
+  }
+
+  100% {
+    opacity: .125;
+    rotate: 360deg;
   }
 }

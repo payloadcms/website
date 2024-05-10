@@ -5,6 +5,7 @@ import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
+import { Media } from '@components/Media'
 import { RichText } from '@components/RichText'
 import SplitAnimate from '@components/SplitAnimate'
 import { Page } from '@root/payload-types'
@@ -17,11 +18,18 @@ export type StatementProps = Extract<Page['layout'][0], { blockType: 'statement'
 
 export const Statement: React.FC<StatementProps> = props => {
   const {
-    statementFields: { richText, links, settings },
+    statementFields: { richText, links, media, mediaWidth, backgroundGlow, settings },
     padding,
   } = props
 
   const hasLinks = links && links.length > 0
+
+  const mediaWidthClass =
+    mediaWidth === 'small'
+      ? 'cols-8 start-5 cols-m-8 start-m-1'
+      : mediaWidth === 'large'
+      ? 'cols-16 cols-m-8'
+      : 'cols-12 start-3 cols-m-8 start-m-1'
 
   return (
     <BlockWrapper settings={settings} padding={padding}>
@@ -55,6 +63,18 @@ export const Statement: React.FC<StatementProps> = props => {
             )}
           </div>
         </div>
+        {media && typeof media !== 'string' && (
+          <div className={[classes.mediaWrap, 'grid'].join(' ')}>
+            <div className={mediaWidthClass}>
+              <Media
+                resource={media}
+                className={[mediaWidthClass, backgroundGlow && classes[backgroundGlow]]
+                  .filter(Boolean)
+                  .join(' ')}
+              />
+            </div>
+          </div>
+        )}
       </Gutter>
     </BlockWrapper>
   )
