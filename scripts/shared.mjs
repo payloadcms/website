@@ -19,7 +19,7 @@ export const topicOrder = [
   'Email',
   'TypeScript',
   'Plugins',
-  'Integrations',
   'Examples',
+  'Integrations',
   'Cloud',
 ]
