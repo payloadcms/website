@@ -3,9 +3,11 @@
   overflow: hidden;
   min-height: 1.1em;
   margin-bottom: -1.1em;
+  margin-right: -2px;
 }
 
 .innerWord {
+  margin-right: 2px;
   display: inline-block;
   white-space: pre;
 }
