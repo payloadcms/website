@@ -12,7 +12,12 @@
 
   @include mid-break {
     padding-top: 4rem !important;
+    min-height: 800px;
   }
+}
+
+.hasBreadcrumbs {
+  padding-bottom: calc(var(--header-height) * 3);
 }
 
 .wrapper {

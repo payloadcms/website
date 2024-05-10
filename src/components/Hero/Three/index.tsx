@@ -16,10 +16,14 @@ export const ThreeHero: React.FC<
     breadcrumbs?: Page['breadcrumbs']
     firstContentBlock?: BlocksProp
   }
-> = ({ richText, buttons, theme, firstContentBlock }) => {
+> = ({ richText, buttons, theme, breadcrumbs }) => {
+  const hasBreadcrumbs = Array.isArray(breadcrumbs) && breadcrumbs.length > 0
   return (
     <>
-      <BlockWrapper settings={{ theme }} className={classes.blockWrapper}>
+      <BlockWrapper
+        settings={{ theme }}
+        className={[classes.blockWrapper, hasBreadcrumbs ? classes.hasBreadcrumbs : ''].join(' ')}
+      >
         <BackgroundGrid zIndex={1} />
         <Gutter>
           <div className={[classes.wrapper, 'grid'].filter(Boolean).join(' ')}>
