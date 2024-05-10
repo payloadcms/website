@@ -1,8 +1,10 @@
 @use '@scss/common.scss' as *;
 
 .statementWrap {
+  height: auto;
   position: relative;
   z-index: 1;
+  overflow-x: clip;
 }
 
 .links {
