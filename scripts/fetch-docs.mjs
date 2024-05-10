@@ -147,7 +147,7 @@ const fetchDocs = async () => {
     }),
   )
 
-  const data = JSON.stringify(topics, null, 2)
+  const data = JSON.stringify(topics.filter(Boolean), null, 2)
 
   const docsFilename = path.resolve(__dirname, outputDirectory)
 
