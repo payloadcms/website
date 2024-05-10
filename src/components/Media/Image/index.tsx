@@ -79,6 +79,7 @@ export const Image: React.FC<Props> = props => {
         height={!fill ? height ?? undefined : undefined}
         sizes={sizes}
         priority={priority}
+        quality={90}
       />
       {hasDarkModeFallback &&
         typeof resource.darkModeFallback === 'object' &&
@@ -99,6 +100,7 @@ export const Image: React.FC<Props> = props => {
             height={!fill ? height ?? undefined : undefined}
             sizes={sizes}
             priority={priority}
+            quality={90}
           />
         )}
     </React.Fragment>
