@@ -3,8 +3,9 @@
   "version": "1.0.4",
   "private": true,
   "scripts": {
-    "fetchDocs": "yarn fetchDocs:stable && yarn fetchDocs:beta && yarn fetchDocs:legacy",
+    "fetchDocs": "yarn fetchDocs:latest && yarn fetchDocs:beta && yarn fetchDocs:legacy",
     "fetchDocs:stable": "node scripts/fetch-docs.mjs",
+    "fetchDocs:latest": "node scripts/fetch-docs.mjs --ref main",
     "fetchDocs:beta": "node scripts/fetch-docs.mjs --ref beta --output ./src/app/docs-beta.json",
     "fetchDocs:legacy": "node scripts/fetch-docs.mjs --ref v2.16.1 --output ./src/app/docs-legacy.json",
     "fetchDocs:local": "node scripts/fetch-docs-local.mjs",
