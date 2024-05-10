@@ -60,69 +60,96 @@ const fetchDocs = async () => {
     process.exit(0)
   }
 
-  const latest = await fetch(`${githubAPI}/releases/latest`, {
-    headers,
-  }).then(res => res.json())
+  let ref
+  let outputDirectory = './src/app/docs.json'
 
-  const ref = latest.tag_name
+  process.argv.forEach((val, index) => {
+    if (val === '--ref') {
+      ref = process.argv[index + 1]
+    }
+
+    if (val === '--output') {
+      outputDirectory = process.argv[index + 1]
+    }
+  })
+
+  if (!ref) {
+    const latest = await fetch(`${githubAPI}/releases/latest`, {
+      headers,
+    }).then(res => res.json())
+
+    ref = latest.tag_name
+  }
 
   const topics = await Promise.all(
     topicOrder.map(async unsanitizedTopicSlug => {
       const topicSlug = unsanitizedTopicSlug.toLowerCase()
 
-      const docs = await fetch(`${githubAPI}/contents/docs/${topicSlug}?ref=${ref}`, {
-        headers,
-      }).then(res => res.json())
+      try {
+        const docs = await fetch(`${githubAPI}/contents/docs/${topicSlug}?ref=${ref}`, {
+          headers,
+        }).then(res => res.json())
 
-      const docFilenames = docs.map(({ name }) => name)
+        if (docs && Array.isArray(docs)) {
+          const docFilenames = docs.map(({ name }) => name)
 
-      const parsedDocs = await Promise.all(
-        docFilenames.map(async docFilename => {
-          try {
-            const json = await fetch(
-              `${githubAPI}/contents/docs/${topicSlug}/${docFilename}?ref=${ref}`,
-              {
-                headers,
-              },
-            ).then(res => res.json())
+          const parsedDocs = await Promise.all(
+            docFilenames.map(async docFilename => {
+              try {
+                const json = await fetch(
+                  `${githubAPI}/contents/docs/${topicSlug}/${docFilename}?ref=${ref}`,
+                  {
+                    headers,
+                  },
+                ).then(res => res.json())
 
-            const parsedDoc = matter(decodeBase64(json.content))
+                const parsedDoc = matter(decodeBase64(json.content))
 
-            const doc = {
-              content: await serialize(parsedDoc.content, {
-                mdxOptions: {
-                  remarkPlugins: [remarkGfm],
-                },
-              }),
-              title: parsedDoc.data.title,
-              slug: docFilename.replace('.mdx', ''),
-              label: parsedDoc.data.label,
-              order: parsedDoc.data.order,
-              desc: parsedDoc.data.desc || '',
-              keywords: parsedDoc.data.keywords || '',
-              headings: await getHeadings(parsedDoc.content),
-            }
+                const doc = {
+                  content: await serialize(parsedDoc.content, {
+                    mdxOptions: {
+                      remarkPlugins: [remarkGfm],
+                    },
+                  }),
+                  title: parsedDoc.data.title,
+                  slug: docFilename.replace('.mdx', ''),
+                  label: parsedDoc.data.label,
+                  order: parsedDoc.data.order,
+                  desc: parsedDoc.data.desc || '',
+                  keywords: parsedDoc.data.keywords || '',
+                  headings: await getHeadings(parsedDoc.content),
+                }
 
-            return doc
-          } catch (err) {
-            const msg = err instanceof Error ? err.message : err || 'Unknown error'
-            console.error(`Error fetching ${docFilename}: ${msg}`) // eslint-disable-line no-console
+                return doc
+              } catch (err) {
+                const msg = err instanceof Error ? err.message : err || 'Unknown error'
+                console.error(`Error fetching ${docFilename}: ${msg}`) // eslint-disable-line no-console
+              }
+            }),
+          )
+
+          const topic = {
+            slug: unsanitizedTopicSlug,
+            docs: parsedDocs.filter(Boolean).sort((a, b) => a.order - b.order),
           }
-        }),
-      )
 
-      const topic = {
-        slug: unsanitizedTopicSlug,
-        docs: parsedDocs.filter(Boolean).sort((a, b) => a.order - b.order),
+          return topic
+        } else {
+          if (docs && typeof docs === 'object' && 'message' in docs) {
+            console.error(`Error fetching ${topicSlug} doc: ${docs.message}`) // eslint-disable-line no-console
+          }
+        }
+      } catch (err) {
+        console.error(err) // eslint-disable-line no-console
       }
 
-      return topic
+      return null
     }),
   )
 
   const data = JSON.stringify(topics, null, 2)
 
-  const docsFilename = path.resolve(__dirname, './src/app/docs.json')
+  const docsFilename = path.resolve(__dirname, outputDirectory)
 
   fs.writeFile(docsFilename, data, err => {
     if (err) {
