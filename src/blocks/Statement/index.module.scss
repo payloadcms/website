@@ -1,7 +1,10 @@
 @use '@scss/common.scss' as *;
 
 .statementWrap {
+  height: auto;
   position: relative;
+  z-index: 1;
+  overflow-x: clip;
 }
 
 .links {
@@ -46,5 +49,83 @@
 
   p {
     margin: 0;
+  }
+}
+
+.assetWrap {
+  margin-block: 4rem;
+  position: relative;
+
+  @include mid-break {
+    margin-block: 2rem;
+  }
+}
+
+.codeBlock {
+  padding: 2rem calc(var(--column) - 2.5rem);
+  border: 1px solid var(--theme-elevation-100);
+
+  @include mid-break {
+    padding: 2rem;
+  }
+}
+
+.white {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: auto;
+    aspect-ratio: 2 / 1;
+    border-radius: 100%;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    z-index: -1;
+    animation: opacityPulse 10s infinite linear;
+    filter: blur(8rem);
+  }
+}
+
+.colorful {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: auto;
+    aspect-ratio: 2 / 1;
+    border-radius: 100%;
+    background: conic-gradient(var(--theme-elevation-0), var(--theme-elevation-0), var(--theme-warning-500), var(--theme-elevation-0), var(--theme-elevation-0), var(--theme-success-250), var(--theme-elevation-0),var(--theme-success-250), var(--theme-elevation-0), var(--theme-success-250), var(--theme-elevation-0), var(--theme-success-250), var(--theme-warning-250), var(--theme-elevation-0), var(--theme-success-250), var(--theme-elevation-0));
+    z-index: -1;
+    animation: opacityPulse 15s infinite linear;
+    filter: blur(2rem);
+  }
+
+  &:nth-of-type(odd) {
+    &::before {
+      animation: opacityPulse 20s infinite linear reverse;
+    }
+  }
+}
+
+@keyframes opacityPulse {
+  0% {
+    opacity: .125;
+    rotate: 0;
+    transform: scaleX(.8);
+  }
+
+  50% {
+    opacity: .25;
+    rotate: 180deg;
+    transform: scaleX(1);
+  }
+
+  100% {
+    opacity: .125;
+    rotate: 360deg;
+    transform: scaleX(.8);
   }
 }

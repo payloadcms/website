@@ -45,6 +45,8 @@ const BreadcrumbsBar: React.FC<Props> = ({
       switch (hero.type) {
         case 'home':
           return true
+        case 'three':
+          return true
         case 'gradient':
           return Boolean(hero.fullBackground)
         default:

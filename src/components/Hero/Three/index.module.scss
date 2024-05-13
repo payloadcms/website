@@ -1,16 +1,30 @@
 @use '@scss/common' as *;
 
 .blockWrapper {
+  background-color: var(--theme-bg);
+  position: relative;
   overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: calc(var(--header-height) * 2);
+  pointer-events: none;
 
   @include mid-break {
     padding-top: 4rem !important;
+    min-height: 800px;
   }
+}
+
+.hasBreadcrumbs {
+  padding-bottom: calc(var(--header-height) * 3);
 }
 
 .wrapper {
   min-height: calc(100vh - (var(--wrapper-padding-top) + var(--page-padding-top)) * 4);
   align-items: center;
+  pointer-events: none;
 
   @include mid-break {
     row-gap: 2rem;
@@ -51,6 +65,7 @@
 .linksWrapper {
   width: 100%;
   position: relative;
+  pointer-events: all;
 
   & > * {
     border-top: 1px solid var(--theme-border-color);
@@ -75,15 +90,12 @@
 }
 
 .graphicWrapper {
-  position: absolute;
-  top: 50%;
-  left: calc(var(--gutter-h) + var(--column) * 6);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   height: 100%;
-  z-index: -1;
+  z-index: 2;
 
   @include mid-break {
     padding-top: 2rem;
@@ -103,4 +115,15 @@
   @include mid-break {
     padding: 1rem;
   }
+}
+
+.backgroundGradient::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 1) 100%);
+  z-index: 1;
 }

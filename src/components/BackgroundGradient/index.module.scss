@@ -1,0 +1,20 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.backgroundGradientWrapper {
+  opacity: 0;
+  animation: fadeIn 2s ease-in-out forwards;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-base-1000);
+}
