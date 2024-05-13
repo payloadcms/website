@@ -12,7 +12,7 @@ export default function BackgroundGradient(props: BackgroundGradientProps) {
   const { className } = props
   return (
     <div className={[className, classes.backgroundGradientWrapper].filter(Boolean).join(' ')}>
-      <Spline scene="https://prod.spline.design/Po2A8UHmGc44A2vQ/scene.splinecode" />
+      <Spline scene="https://prod.spline.design/GFla7wz3vMamaA6L/scene.splinecode" />
     </div>
   )
 }

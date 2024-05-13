@@ -416,7 +416,9 @@ export const STATEMENT = `
     richText
     links {
       link ${LINK_FIELDS({ disableAppearance: true })}
-    }
+    },
+    assetType,
+    code
     media ${MEDIA_FIELDS}
     mediaWidth
     backgroundGlow

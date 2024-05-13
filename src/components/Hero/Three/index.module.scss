@@ -9,6 +9,7 @@
   flex-direction: column;
   justify-content: center;
   padding-bottom: calc(var(--header-height) * 2);
+  pointer-events: none;
 
   @include mid-break {
     padding-top: 4rem !important;
