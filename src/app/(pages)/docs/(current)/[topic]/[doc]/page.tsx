@@ -100,6 +100,5 @@ export async function generateMetadata({ params: { topic: topicSlug, doc: docSlu
         },
       ],
     }),
-    robots: 'none',
   }
 }
