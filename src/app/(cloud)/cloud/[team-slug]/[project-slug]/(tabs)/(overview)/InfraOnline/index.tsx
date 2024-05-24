@@ -141,7 +141,7 @@ export const InfraOnline: React.FC<{
       <Gutter>
         <div className={classes.deploymentWrapper}>
           <div className={[classes.domainAndDetails, 'grid'].join(' ')}>
-            <div className={[classes.domains, 'cols-12 cols-l-8'].join(' ')}>
+            <div className={[classes.domains, 'cols-12 cols-l-10 cols-m-8'].join(' ')}>
               <h6>Live Deployment</h6>
               {projectDomains.map((domain, index) => (
                 <a
@@ -157,7 +157,7 @@ export const InfraOnline: React.FC<{
                 </a>
               ))}
             </div>
-            <div className={[classes.deploymentDetails, 'cols-4 cols-l-8'].join(' ')}>
+            <div className={[classes.deploymentDetails, 'cols-4 cols-l-6 cols-m-8'].join(' ')}>
               <h6>Deployment Details</h6>
               {liveDeployment && (
                 <p>
