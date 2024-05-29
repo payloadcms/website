@@ -2,14 +2,18 @@ import type { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 
 import type {
   Announcement,
+  Budget,
   CaseStudy,
   CommunityHelp,
   Footer,
+  Industry,
   MainMenu,
   Page,
   Partner,
   PartnerProgram,
   Post,
+  Region,
+  Specialty,
   TopBar,
 } from '../../payload-types.js'
 import { ANNOUNCEMENT_FIELDS } from './announcement.js'
@@ -17,7 +21,7 @@ import { CASE_STUDIES, CASE_STUDY } from './case-studies.js'
 import { COMMUNITY_HELP, COMMUNITY_HELPS, RELATED_THREADS } from './community-helps.js'
 import { GLOBALS } from './globals.js'
 import { PAGE, PAGES } from './pages.js'
-import { PARTNER, PARTNER_PROGRAM, PARTNERS } from './partners.js'
+import { FILTERS, PARTNER, PARTNER_PROGRAM, PARTNERS } from './partners.js'
 import { POST, POST_SLUGS, POSTS } from './posts.js'
 import { payloadToken } from './token.js'
 
@@ -370,4 +374,29 @@ export const fetchPartnerProgram = async (): Promise<PartnerProgram> => {
   }).then(res => res.json())
 
   return data.PartnerProgram
+}
+
+export const fetchFilters = async (): Promise<{
+  industries: Industry[]
+  specialties: Specialty[]
+  regions: Region[]
+  budgets: Budget[]
+}> => {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?filters`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    next,
+    body: JSON.stringify({
+      query: FILTERS,
+    }),
+  }).then(res => res.json())
+
+  return {
+    industries: data.Industries.docs,
+    specialties: data.Specialties.docs,
+    regions: data.Regions.docs,
+    budgets: data.Budgets.docs,
+  }
 }

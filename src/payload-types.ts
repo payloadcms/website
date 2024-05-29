@@ -19,6 +19,10 @@ export interface Config {
     regions: Region;
     budgets: Budget;
     partners: Partner;
+    industries: Industry;
+    specialties: Specialty;
+    regions: Region;
+    budgets: Budget;
     posts: Post;
     'reusable-content': ReusableContent;
     users: User;
@@ -4031,36 +4035,10 @@ export interface Partner {
       | null;
   };
   city: string;
-  regions: ('asia' | 'africa' | 'aus-nz' | 'europe' | 'latin-america' | 'middle-east' | 'north-america')[];
-  budgets: ('_0_10k' | '_10k_50k' | '_50k_100k' | '_100k_250k' | '_250k-500k' | 'over_500k')[];
-  industries: (
-    | 'ecommerce'
-    | 'healthcare'
-    | 'finance'
-    | 'education'
-    | 'technology'
-    | 'hospitality'
-    | 'entertainment'
-    | 'manufacturing'
-    | 'retail'
-    | 'travel-tourism'
-    | 'fashion'
-    | 'food-beverage'
-  )[];
-  technologies: (
-    | 'react'
-    | 'nextjs'
-    | 'angular'
-    | 'vue'
-    | 'aspnet'
-    | 'ruby'
-    | 'svelte'
-    | 'gatsby'
-    | 'remix'
-    | 'solid'
-    | 'astro'
-    | 'qwik'
-  )[];
+  regions: (string | Region)[];
+  specialties: (string | Specialty)[];
+  budgets: (string | Budget)[];
+  industries: (string | Industry)[];
   social?:
     | {
         platform?:
@@ -4073,7 +4051,7 @@ export interface Partner {
   updatedAt: string;
   createdAt: string;
 }
-export interface Industry {
+export interface Region {
   id: string;
   name: string;
   value: string;
@@ -4087,13 +4065,6 @@ export interface Specialty {
   updatedAt: string;
   createdAt: string;
 }
-export interface Region {
-  id: string;
-  name: string;
-  value: string;
-  updatedAt: string;
-  createdAt: string;
-}
 export interface Budget {
   id: string;
   name: string;
@@ -4101,58 +4072,10 @@ export interface Budget {
   updatedAt: string;
   createdAt: string;
 }
-export interface Partner {
+export interface Industry {
   id: string;
   name: string;
-  website: string;
-  email: string;
-  slug: string;
-  agency_status?: ('active' | 'inactive') | null;
-  hubspotID?: string | null;
-  logo: string | Media;
-  featured?: boolean | null;
-  topContributor?: boolean | null;
-  content: {
-    bannerImage: string | Media;
-    overview: {
-      [k: string]: unknown;
-    }[];
-    services: {
-      [k: string]: unknown;
-    }[];
-    idealProject: {
-      [k: string]: unknown;
-    }[];
-    caseStudy?: (string | null) | CaseStudy;
-    contributions?:
-      | {
-          type: 'discussion' | 'pr' | 'issue';
-          repo: string;
-          number: number;
-          id?: string | null;
-        }[]
-      | null;
-    projects?:
-      | {
-          year: number;
-          name: string;
-          link: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  city: string;
-  regions: (string | Region)[];
-  specialties: (string | Specialty)[];
-  budgets: (string | Budget)[];
-  industries: (string | Industry)[];
-  social?:
-    | {
-        platform: 'linkedin' | 'twitter' | 'facebook' | 'instagram' | 'youtube' | 'github';
-        url: string;
-        id?: string | null;
-      }[]
-    | null;
+  value: string;
   updatedAt: string;
   createdAt: string;
 }

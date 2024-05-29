@@ -27,6 +27,12 @@ import {
 import { LINK_FIELDS } from './link'
 import { MEDIA_FIELDS } from './media'
 
+const FILTER_OPTION = `{
+  name
+  id
+  value
+}`
+
 export const PARTNERS = `
   query Partners {
     Partners(limit: 300, where: { agency_status: { equals: active } }) {
@@ -57,10 +63,10 @@ export const PARTNERS = `
           }
         }
         city
-        regions
-        budgets
-        industries
-        technologies
+        regions ${FILTER_OPTION}
+        budgets ${FILTER_OPTION}
+        industries ${FILTER_OPTION}
+        specialties ${FILTER_OPTION}
         social {
           platform
           url
@@ -108,14 +114,10 @@ export const PARTNER = `
           }
         }
         city
-        regions
-        budgets
-        industries
-        technologies
-        social {
-          platform
-          url
-        }
+        regions ${FILTER_OPTION}
+        budgets ${FILTER_OPTION}
+        industries ${FILTER_OPTION}
+        specialties ${FILTER_OPTION}
       }
     }
   }
@@ -162,14 +164,10 @@ export const PARTNER_PROGRAM = `
             }
           }
           city
-          regions
-          budgets
-          industries
-          technologies
-          social {
-            platform
-            url
-          }
+          regions ${FILTER_OPTION}
+          budgets ${FILTER_OPTION}
+          industries ${FILTER_OPTION}
+          specialties ${FILTER_OPTION}
         }
       }
       contentBlocks {
@@ -225,6 +223,38 @@ export const PARTNER_PROGRAM = `
           ${STEPS}
           ${STICKY_HIGHLIGHTS}
         }
+      }
+    }
+  }
+`
+export const FILTERS = `
+  query {
+    Industries {
+      docs {
+        id
+        name
+        value
+      }
+    }
+    Specialties {
+      docs {
+        id
+        name
+        value
+      }
+    }
+    Regions {
+      docs {
+        id
+        name
+        value
+      }
+    }
+    Budgets {
+      docs {
+        id
+        name
+        value
       }
     }
   }

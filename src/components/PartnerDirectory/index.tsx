@@ -6,127 +6,81 @@ import { BackgroundGrid } from '@components/BackgroundGrid'
 import { Gutter } from '@components/Gutter'
 import { PartnerGrid } from '@components/PartnerGrid'
 import { ChevronDownIcon } from '@root/icons/ChevronDownIcon'
-import type { Partner } from '@root/payload-types'
-import { filterOptions } from './filterOptions'
+import type { Budget, Industry, Partner, Region, Specialty } from '@root/payload-types'
 
 import classes from './index.module.scss'
 
-type PartnerDirectoryProps = {
-  partners: Partner[]
+type FilterablePartner = Omit<Partner, 'industries' | 'specialties' | 'regions' | 'budgets'> & {
+  industries: string[]
+  specialties: string[]
+  regions: string[]
+  budgets: string[]
 }
 
-export const PartnerDirectory = (props: PartnerDirectoryProps) => {
-  const { partners } = props
+export const PartnerDirectory: React.FC<{
+  partnerList: FilterablePartner[]
+  filterOptions: {
+    industries: Industry[]
+    specialties: Specialty[]
+    regions: Region[]
+    budgets: Budget[]
+  }
+}> = props => {
+  const { partnerList, filterOptions } = props
 
-  const [filteredPartners, setFilteredPartners] = useState<Partner[]>([])
+  const [filters, setFilters] = useState<{
+    industries: string[]
+    specialties: string[]
+    regions: string[]
+    budgets: string[]
+  }>({
+    industries: [],
+    specialties: [],
+    regions: [],
+    budgets: [],
+  })
 
-  const [industryFilter, setIndustryFilter] = useState<Partner['industries']>([])
-  const [technologyFilter, setTechnologyFilter] = useState<Partner['technologies']>([])
-  const [regionFilter, setRegionFilter] = useState<Partner['regions']>([])
-  const [budgetFilter, setBudgetFilter] = useState<Partner['budgets']>([])
+  const [filteredPartners, setFilteredPartners] = useState<FilterablePartner[]>(partnerList)
 
-  const [industryFiltersList, setIndustryFiltersList] = useState<Partner['industries']>([])
-  const [technologyFiltersList, setTechnologyFiltersList] = useState<Partner['technologies']>([])
-  const [regionFiltersList, setRegionFiltersList] = useState<Partner['regions']>([])
-  const [budgetFiltersList, setBudgetFiltersList] = useState<Partner['budgets']>([])
-  const [openFilters, setOpenFilters] = useState<
-    ('industries' | 'technologies' | 'regions' | 'budgets')[]
-  >(['industries'])
-
-  // Add filters to the filter list
-  useEffect(() => {
-    setIndustryFiltersList(
-      [...Array.from(new Set(partners.flatMap(partner => partner.industries)))].sort(),
-    )
-    setTechnologyFiltersList(
-      [...Array.from(new Set(partners.flatMap(partner => partner.technologies)))].sort(),
-    )
-    setRegionFiltersList(
-      [...Array.from(new Set(partners.flatMap(partner => partner.regions)))].sort(),
-    )
-    setBudgetFiltersList(
-      [...Array.from(new Set(partners.flatMap(partner => partner.budgets)))].sort(),
-    )
-  }, [partners])
-
-  // Filter partners based on selected filters when filters change
   useEffect(() => {
     setFilteredPartners(
-      partners.filter(partner => {
-        if (
-          industryFilter.length &&
-          !industryFilter.every(industry => partner.industries.includes(industry))
-        ) {
-          return false
-        }
-        if (
-          technologyFilter.length &&
-          !technologyFilter.every(technology => partner.technologies.includes(technology))
-        ) {
-          return false
-        }
-        if (
-          regionFilter.length &&
-          !regionFilter.every(region => partner.regions.includes(region))
-        ) {
-          return false
-        }
-        if (
-          budgetFilter.length &&
-          !budgetFilter.every(budget => partner.budgets.includes(budget))
-        ) {
-          return false
-        }
-        return true
+      partnerList.filter(partner => {
+        return (
+          (filters.industries.length === 0 ||
+            filters.industries.every(industry => partner.industries.includes(industry))) &&
+          (filters.specialties.length === 0 ||
+            filters.specialties.every(specialty => partner.specialties.includes(specialty))) &&
+          (filters.regions.length === 0 ||
+            filters.regions.every(region => partner.regions.includes(region))) &&
+          (filters.budgets.length === 0 ||
+            filters.budgets.every(budget => partner.budgets.includes(budget)))
+        )
       }),
     )
-  }, [industryFilter, technologyFilter, regionFilter, budgetFilter, partners])
+  }, [filters, partnerList])
 
-  // Toggle open filter group
-  const toggleOpenGroup = (filter: 'industries' | 'technologies' | 'regions' | 'budgets') => {
-    if (openFilters.includes(filter)) {
-      setOpenFilters(openFilters.filter(openFilter => openFilter !== filter))
-    } else {
-      setOpenFilters([...openFilters, filter])
-    }
+  const hasFilters = Object.values(filters).some(filter => filter.length > 0)
+
+  const handleFilters = (
+    group: 'industries' | 'specialties' | 'regions' | 'budgets',
+    filter: string,
+    checked: boolean,
+  ) => {
+    setFilters(prev => {
+      return {
+        ...prev,
+        [group]: checked ? [...prev[group], filter] : prev[group].filter(f => f !== filter),
+      }
+    })
   }
 
-  // Handle filter change
-  const handleFilterChange = (group, filter, checked) => {
-    switch (group) {
-      case 'industries':
-        setIndustryFilter(
-          checked
-            ? [...industryFilter, filter]
-            : industryFilter.filter(industry => industry !== filter),
-        )
-        break
-      case 'technologies':
-        setTechnologyFilter(
-          checked
-            ? [...technologyFilter, filter]
-            : technologyFilter.filter(technology => technology !== filter),
-        )
-        break
-      case 'regions':
-        setRegionFilter(
-          checked ? [...regionFilter, filter] : regionFilter.filter(region => region !== filter),
-        )
-        break
-      case 'budgets':
-        setBudgetFilter(
-          checked ? [...budgetFilter, filter] : budgetFilter.filter(budget => budget !== filter),
-        )
-        break
-    }
-  }
-
-  // Handle reset filters
   const handleReset = () => {
-    setIndustryFilter([])
-    setTechnologyFilter([])
-    setRegionFilter([])
-    setBudgetFilter([])
+    setFilters({
+      industries: [],
+      specialties: [],
+      regions: [],
+      budgets: [],
+    })
   }
 
   return (
@@ -134,139 +88,41 @@ export const PartnerDirectory = (props: PartnerDirectoryProps) => {
       <div className={['cols-16', classes.directoryHeader].join(' ')}>
         <h2>All Partners</h2>
         <div className={classes.results}>
-          <button
-            onClick={() => handleReset()}
-            disabled={
-              !industryFilter.length &&
-              !technologyFilter.length &&
-              !regionFilter.length &&
-              !budgetFilter.length
-            }
-          >
-            Clear Filters
-          </button>
+          {hasFilters && <button onClick={() => handleReset()}>Clear Filters</button>}
           <h5>
-            {filteredPartners.length} result{filteredPartners.length === 1 ? '' : 's'}
+            {/* {filteredPartners.length} result{filteredPartners.length === 1 ? '' : 's'} */}
           </h5>
         </div>
       </div>
       <div className={['cols-4', classes.sidebar].join(' ')}>
         <div className={classes.filterWrapper}>
-          <div
-            className={[classes.filterGroup, openFilters.includes('industries') ? classes.open : '']
-              .filter(Boolean)
-              .join(' ')}
-          >
-            <button
-              className={classes.filterGroupHeader}
-              onClick={() => toggleOpenGroup('industries')}
-            >
-              Industries{' '}
-              {industryFilter.length > 0 && (
-                <div className={classes.pill}>{industryFilter.length}</div>
-              )}
-              <ChevronDownIcon size="small" className={classes.chevron} />
-            </button>
-            <div className={classes.checkboxes}>
-              {industryFiltersList.map(industry => (
-                <label key={industry}>
-                  <input
-                    type="checkbox"
-                    name={industry}
-                    onChange={e => handleFilterChange('industries', industry, e.target.checked)}
-                    checked={industryFilter.includes(industry)}
-                  />
-                  {filterOptions.industries[industry]}
-                </label>
-              ))}
-            </div>
-          </div>
-          <div
-            className={[
-              classes.filterGroup,
-              openFilters.includes('technologies') ? classes.open : '',
-            ]
-              .filter(Boolean)
-              .join(' ')}
-          >
-            <button
-              className={classes.filterGroupHeader}
-              onClick={() => toggleOpenGroup('technologies')}
-            >
-              Technologies{' '}
-              {technologyFilter.length > 0 && (
-                <div className={classes.pill}>{technologyFilter.length}</div>
-              )}
-              <ChevronDownIcon size="small" className={classes.chevron} />
-            </button>
-            <div className={classes.checkboxes}>
-              {technologyFiltersList.map(technology => (
-                <label key={technology}>
-                  <input
-                    type="checkbox"
-                    name={technology}
-                    onChange={e => handleFilterChange('technologies', technology, e.target.checked)}
-                    checked={technologyFilter.includes(technology)}
-                  />
-                  {filterOptions.technologies[technology]}
-                </label>
-              ))}
-            </div>
-          </div>
-          <div
-            className={[classes.filterGroup, openFilters.includes('regions') ? classes.open : '']
-              .filter(Boolean)
-              .join(' ')}
-          >
-            <button
-              className={classes.filterGroupHeader}
-              onClick={() => toggleOpenGroup('regions')}
-            >
-              Regions{' '}
-              {regionFilter.length > 0 && <div className={classes.pill}>{regionFilter.length}</div>}
-              <ChevronDownIcon size="small" className={classes.chevron} />
-            </button>
-            <div className={classes.checkboxes}>
-              {regionFiltersList.map(region => (
-                <label key={region}>
-                  <input
-                    type="checkbox"
-                    name={region}
-                    onChange={e => handleFilterChange('regions', region, e.target.checked)}
-                    checked={regionFilter.includes(region)}
-                  />
-                  {filterOptions.regions[region]}
-                </label>
-              ))}
-            </div>
-          </div>
-          <div
-            className={[classes.filterGroup, openFilters.includes('budgets') ? classes.open : '']
-              .filter(Boolean)
-              .join(' ')}
-          >
-            <button
-              className={classes.filterGroupHeader}
-              onClick={() => toggleOpenGroup('budgets')}
-            >
-              Budgets{' '}
-              {budgetFilter.length > 0 && <div className={classes.pill}>{budgetFilter.length}</div>}
-              <ChevronDownIcon size="small" className={classes.chevron} />
-            </button>
-            <div className={classes.checkboxes}>
-              {budgetFiltersList.map(budget => (
-                <label key={budget}>
-                  <input
-                    type="checkbox"
-                    name={budget}
-                    onChange={e => handleFilterChange('budgets', budget, e.target.checked)}
-                    checked={budgetFilter.includes(budget)}
-                  />
-                  {filterOptions.budgets[budget]}
-                </label>
-              ))}
-            </div>
-          </div>
+          <FilterGroup
+            group={'industries'}
+            filters={filters['industries']}
+            handleFilters={handleFilters}
+            options={filterOptions['industries']}
+          />
+          <FilterGroup
+            group={'specialties'}
+            filters={filters['specialties']}
+            handleFilters={handleFilters}
+            options={filterOptions['specialties']}
+          />
+          <FilterGroup
+            group={'regions'}
+            filters={filters['regions']}
+            handleFilters={handleFilters}
+            options={filterOptions['regions']}
+          />
+          <FilterGroup
+            group={'budgets'}
+            filters={filters['budgets']}
+            handleFilters={handleFilters}
+            options={filterOptions['budgets']}
+          />
+          {filters.industries.map(industry => (
+            <div key={industry}>{industry}</div>
+          ))}
         </div>
       </div>
       <div className="cols-12">
@@ -274,5 +130,50 @@ export const PartnerDirectory = (props: PartnerDirectoryProps) => {
       </div>
       <BackgroundGrid />
     </Gutter>
+  )
+}
+
+const FilterGroup: React.FC<{
+  group: 'industries' | 'specialties' | 'regions' | 'budgets'
+  filters: string[]
+  options: (Industry | Specialty | Region | Budget)[]
+  handleFilters: (
+    group: 'industries' | 'specialties' | 'regions' | 'budgets',
+    filter: string,
+    checked: boolean,
+  ) => void
+}> = props => {
+  const { group, filters, options, handleFilters } = props
+
+  const [open, setOpen] = useState(true)
+
+  return (
+    <div className={[classes.filterGroup, open ? classes.open : ''].filter(Boolean).join(' ')}>
+      <button
+        className={classes.filterGroupHeader}
+        onClick={() => {
+          setOpen(!open)
+        }}
+      >
+        {group.charAt(0).toUpperCase() + group.slice(1) + ' '}
+        {filters.length > 0 && <div className={classes.pill}>{filters.length}</div>}
+        <ChevronDownIcon size="small" className={classes.chevron} />
+      </button>
+      <div className={classes.checkboxes}>
+        {options
+          .sort((a, b) => a.value.localeCompare(b.value))
+          .map(option => (
+            <label key={option.id}>
+              <input
+                type="checkbox"
+                name={option.value}
+                onChange={e => handleFilters(group, option.value, e.target.checked)}
+                checked={filters.includes(option.value)}
+              />
+              {option.name}
+            </label>
+          ))}
+      </div>
+    </div>
   )
 }
