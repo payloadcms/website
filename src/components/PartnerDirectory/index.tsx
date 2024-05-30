@@ -6,6 +6,7 @@ import { BackgroundGrid } from '@components/BackgroundGrid'
 import { Gutter } from '@components/Gutter'
 import { PartnerGrid } from '@components/PartnerGrid'
 import { ChevronDownIcon } from '@root/icons/ChevronDownIcon'
+import { CloseIcon } from '@root/icons/CloseIcon'
 import type { Budget, Industry, Partner, Region, Specialty } from '@root/payload-types'
 
 import classes from './index.module.scss'
@@ -39,6 +40,8 @@ export const PartnerDirectory: React.FC<{
     regions: [],
     budgets: [],
   })
+
+  const [openFilters, setOpenFilters] = useState<boolean>(false)
 
   const [filteredPartners, setFilteredPartners] = useState<FilterablePartner[]>(partnerList)
 
@@ -83,19 +86,37 @@ export const PartnerDirectory: React.FC<{
     })
   }
 
+  const toggleFilterGroup = () => {
+    setOpenFilters(!openFilters)
+  }
+
   return (
     <Gutter className={['grid', classes.partnerDirectory].join(' ')}>
       <div className={['cols-16', classes.directoryHeader].join(' ')}>
         <h2>All Partners</h2>
-        <div className={classes.results}>
-          {hasFilters && <button onClick={() => handleReset()}>Clear Filters</button>}
-          <h5>
-            {/* {filteredPartners.length} result{filteredPartners.length === 1 ? '' : 's'} */}
-          </h5>
-        </div>
+        <h4>
+          {filteredPartners.length} result{filteredPartners.length === 1 ? '' : 's'}
+        </h4>
       </div>
-      <div className={['cols-4', classes.sidebar].join(' ')}>
-        <div className={classes.filterWrapper}>
+      <div className={['cols-4 cols-m-8', classes.sidebar].join(' ')}>
+        <div className={classes.filterHeader}>
+          <button
+            onClick={() => toggleFilterGroup()}
+            className={classes.filterToggle}
+            aria-label="Show Filters"
+          >
+            <CloseIcon className={openFilters ? classes.openToggle : ''} />
+          </button>
+          <span>Filters</span>
+          <button onClick={() => handleReset()} disabled={!hasFilters}>
+            Clear
+          </button>
+        </div>
+        <div
+          className={[classes.filterWrapper, openFilters ? classes.openFilters : '']
+            .filter(Boolean)
+            .join(' ')}
+        >
           <FilterGroup
             group={'industries'}
             filters={filters['industries']}
@@ -120,9 +141,6 @@ export const PartnerDirectory: React.FC<{
             handleFilters={handleFilters}
             options={filterOptions['budgets']}
           />
-          {filters.industries.map(industry => (
-            <div key={industry}>{industry}</div>
-          ))}
         </div>
       </div>
       <div className="cols-12">
@@ -145,7 +163,7 @@ const FilterGroup: React.FC<{
 }> = props => {
   const { group, filters, options, handleFilters } = props
 
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
 
   return (
     <div className={[classes.filterGroup, open ? classes.open : ''].filter(Boolean).join(' ')}>

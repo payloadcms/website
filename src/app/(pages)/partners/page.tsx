@@ -73,7 +73,7 @@ export default async function Partners() {
         links={breadcrumbBarLinks}
       />
       <Gutter className={[classes.hero, 'grid'].join(' ')}>
-        <div className={[classes.heroContent, 'cols-8 start-5'].join(' ')}>
+        <div className={[classes.heroContent, 'cols-8 start-5 start-m-1'].join(' ')}>
           <RichText content={hero?.richText} className={classes.heroRichText} />
           {hasHeroLinks && (
             <div className={[classes.links].filter(Boolean).join(' ')}>
@@ -99,8 +99,8 @@ export default async function Partners() {
         </div>
         <div className={[classes.featuredPartnersWrapper, 'cols-16'].join(' ')}>
           <div className={[classes.featuredPartnersHeader, 'cols-16 grid'].join(' ')}>
-            <h2 className="cols-12">Featured Partners</h2>
-            <p className="cols-4 start-13">{featuredPartners.description}</p>
+            <h2 className="cols-12 cols-m-8">Featured Partners</h2>
+            <p className="cols-4 start-13 cols-m-8 start-m-1">{featuredPartners.description}</p>
           </div>
           <PartnerGrid partners={featuredPartners.partners} featured />
         </div>

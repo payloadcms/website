@@ -9,7 +9,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 
   & * {
     margin: 0;
@@ -19,37 +19,49 @@
     display: flex;
     gap: 1rem;
     align-items: center;
-
-    & > button {
-      @include small;
-      padding: 0;
-      background: none;
-      border: none;
-      text-decoration: underline;
-      cursor: pointer;
-
-      &:hover {
-        opacity: .75;
-      }
-      &:disabled {
-        display: none;
-      }
-    }
   }
 }
 
 .sidebar {
   position: relative;
+  border-top: 1px solid var(--theme-border-color);
+  margin-bottom: 2rem;
 }
 
 .filterWrapper {
-  position: sticky;
   top: var(--header-height);
   height: auto;
-  border-top: 1px solid var(--theme-border-color);
+  overflow: hidden;
 
   & > * {
     border-bottom: 1px solid var(--theme-border-color);
+  }
+  @include mid-break {
+    height: 0;
+  }
+}
+
+.filterToggle {
+  display: none;
+  @include mid-break {
+    display: block;
+  }
+
+  & > svg {
+    margin-right: .75rem;
+    rotate: -45deg;
+    transition: rotate .3s ease;
+    stroke-width: 2px;
+  }
+
+  & > svg.openToggle {
+    rotate: 0deg;
+  }
+}
+
+.openFilters {
+  @include mid-break {
+    height: auto;
   }
 }
 
@@ -57,10 +69,39 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
+  font-weight: 500;
+  border-bottom: 1px solid var(--theme-border-color);
+
+  @include mid-break {
+    padding-left: 1rem;
+  }
 
   & > * {
     margin: 0;
+  }
+
+  & > button {
+      @include small;
+      padding: 0;
+      background: none;
+      border: none;
+      text-decoration: underline;
+      cursor: pointer;
+      color: inherit;
+
+      &:hover {
+        opacity: .75;
+      }
+
+      &:disabled {
+        opacity: .5;
+        pointer-events: none;
+        text-decoration: none;
+      }
+    }
+  & > span {
+    width: 100%;
   }
 }
 
@@ -74,8 +115,8 @@
     justify-content: space-between;
     align-items: center;
     height: min-content;
-    @include h5;
-    font-weight: 700;
+    @include body;
+    letter-spacing: 0;
     padding: 1rem 1.5rem;
     margin: 0;
     text-align: left;
@@ -83,6 +124,7 @@
     border: none;
     position: relative;
     cursor: pointer;
+    color: inherit;
 
     &:hover {
       .chevron {
@@ -124,11 +166,12 @@
       align-items: center;
       width: fit-content;
       margin: 0;
-      padding: .25rem 0;
+      padding: .375rem 0;
       gap: .5rem;
       cursor: pointer;
       color: var(--theme-elevation-750);
       transition: color .3s ease;
+      @include small;
 
       &:hover {
         color: var(--theme-text);

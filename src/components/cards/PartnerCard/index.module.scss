@@ -4,7 +4,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  flex: 0 0 calc(var(--column) * 4);
+  width: calc(var(--column) * 4);
   border-block: 1px solid var(--theme-border-color);
   text-decoration: none;
 
@@ -38,13 +38,18 @@
       right: 1.5rem;
     }
   }
+
+  @include small-break {
+    width: calc(var(--column) * 8);
+  }
 }
 
 .partnerCardImage {
   display: block;
   width: 100%;
+  margin-inline: auto;
   height: auto;
-  aspect-ratio: 1;
+  aspect-ratio: 3 / 2;
 
 
   & > div {
@@ -86,8 +91,8 @@
 
 .arrow {
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  top: 1.75rem;
+  right: 1.75rem;
   opacity: 0;
   transition-property: top, right, opacity;
   transition-duration: .3s;

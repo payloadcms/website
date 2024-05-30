@@ -18,7 +18,7 @@ export const PartnerCard = (partner: PartnerCardProps) => {
         )}
       </div>
       <div className={classes.partnerCardInfo}>
-        <h4 className={classes.partnerCardName}>{partner.name}</h4>
+        <h5 className={classes.partnerCardName}>{partner.name}</h5>
         <p className={classes.partnerCardCity}>{partner.city}</p>
         <BackgroundScanline className={classes.scanlines} />
         <ArrowIcon className={classes.arrow} />
