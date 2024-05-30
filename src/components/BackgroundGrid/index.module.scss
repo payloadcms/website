@@ -28,6 +28,10 @@
   &:nth-of-type(2) {
     grid-area: 1/5/1/9;
 
+    @include mid-break {
+      display: none;
+    }
+
   }
 
   &:nth-of-type(3) {

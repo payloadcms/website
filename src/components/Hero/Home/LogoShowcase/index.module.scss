@@ -7,7 +7,7 @@
   position: relative;
   width: 100%;
 
-  .horizontalLine, .verticalLine {
+  .horizontalLine, .verticalLine, .verticalLineNoDesktop {
     position: absolute;
     z-index: 1;
   }
@@ -22,6 +22,16 @@
     top: 0;
     bottom: 0;
     width: 1px;
+  }
+
+  .verticalLineNoDesktop {
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    opacity: 0;
+    @include mid-break {
+      opacity: 1;
+    }
   }
 
   .topHorizontalLine {
@@ -145,7 +155,7 @@
 
 :global([data-theme="dark"]) {
   .logoShowcase {
-    .horizontalLine, .verticalLine {
+    .horizontalLine, .verticalLine, .verticalLineNoDesktop {
       background: var(--grid-line-dark);
     }
   }
@@ -153,7 +163,7 @@
 
 :global([data-theme="light"]) {
   .logoShowcase {
-    .horizontalLine, .verticalLine {
+    .horizontalLine, .verticalLine, .verticalLineNoDesktop {
       background: var(--grid-line-dark);
     }
   }
