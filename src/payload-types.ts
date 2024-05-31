@@ -4003,9 +4003,9 @@ export interface Partner {
   slug: string;
   agency_status?: ('active' | 'inactive') | null;
   hubspotID?: string | null;
-  featured?: boolean | null;
-  badges?: 'top-contributor'[] | null;
   logo: string | Media;
+  featured?: boolean | null;
+  topContributor?: boolean | null;
   content: {
     bannerImage: string | Media;
     overview: {
@@ -4020,7 +4020,7 @@ export interface Partner {
     caseStudy?: (string | null) | CaseStudy;
     contributions?:
       | {
-          type: 'discussion' | 'pr';
+          type: 'discussion' | 'pr' | 'issue';
           number: number;
           id?: string | null;
         }[]
@@ -4041,10 +4041,8 @@ export interface Partner {
   industries: (string | Industry)[];
   social?:
     | {
-        platform?:
-          | ('linkedin' | 'twitter' | 'facebook' | 'instagram' | 'youtube' | 'github' | 'dribbble' | 'behance')
-          | null;
-        url?: string | null;
+        platform: 'linkedin' | 'twitter' | 'facebook' | 'instagram' | 'youtube' | 'github';
+        url: string;
         id?: string | null;
       }[]
     | null;
@@ -4143,6 +4141,7 @@ export interface PayloadMigration {
 }
 export interface PartnerProgram {
   id: string;
+  contactForm: string | Form;
   hero?: {
     richText?:
       | {

@@ -2,6 +2,7 @@
 
 .wrapper {
   position: relative;
+  border-bottom: 1px solid var(--theme-border-color);
 }
 
 .sidebar {
@@ -9,12 +10,70 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 3rem;
+  gap: 1.5rem;
   padding: 2.5rem 1.5rem;
+
+ }
+
+.sidebarGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-block: .75rem;
+
+  & > h6 {
+    margin: 0;
+    opacity: .75;
+  }
+
+  & > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    @include small;
+    & > li {
+      line-height: 1.75em;
+    }
+  }
 }
 
+.socialIcons {
+  max-width: 100%;
+  flex-wrap: wrap;
+  display: flex;
+  gap: .5rem;
+}
+
+.badges {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.badge {
+  @include small;
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  padding: .25rem .5rem .25rem;
+  width: max-content;
+}
+
+.featured {
+  background-color: var(--theme-warning-50);
+  border: 1px solid var(--theme-warning-100);
+  color: var(--theme-warning-700);
+}
+
+.contributor {
+  background-color: var(--theme-success-50);
+  border: 1px solid var(--theme-success-100);
+  color: var(--theme-success-700);
+}
+
+
 .main {
-  padding: 2.5rem 0;
+  padding: 2.5rem 0 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -36,6 +95,8 @@
   height: auto;
   aspect-ratio: 2 / 1;
   overflow: hidden;
+  padding-inline: 1px;
+  border-block: 1px solid var(--theme-border-color);
 
   img {
     width: 100%;
@@ -110,11 +171,11 @@
     transition: width .3s;
   }
 
-  &:hover {
+  .scanlines {
+    opacity: 1;
+  }
 
-    .scanlines {
-      opacity: 1;
-    }
+  &:hover {
 
     &::after {
       width: 100%;
@@ -150,6 +211,7 @@
   position: relative;
   border-bottom: 1px solid var(--theme-border-color);
   text-decoration: none;
+  transition: gap .3s ease;
 
   &:last-child {
     border-bottom: none;
@@ -157,6 +219,7 @@
 }
 
 .projectYear {
+  @include small;
   opacity: .75;
   width: 3rem;
 }
@@ -168,11 +231,17 @@
 
 .arrow {
   display: block;
-  transition: transform .3s;
+  transition: transform .3s ease;
 }
 
-.project:hover .arrow {
-  transform: translate(.25rem, -.25rem);
+.project:hover {
+  & > .arrow {
+    transform: translate(.25rem, -.25rem);
+  }
+
+  & > .projectName {
+    opacity: .75;
+  }
 }
 
 .contactForm {
@@ -180,9 +249,17 @@
   flex-direction: column;
   gap: 2rem;
   width: 100%;
-  padding: 4rem var(--column);
+  padding: 4rem var(--column) 5rem;
   position: relative;
+  border-top: 1px solid var(--theme-border-color);
 }
+
+.form {
+  background-color: var(--theme-bg);
+  z-index: 1;
+  border-inline: 1px solid var(--theme-border-color);
+}
+
 .formScanlines {
   z-index: -1;
 }

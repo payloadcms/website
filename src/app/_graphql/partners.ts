@@ -24,6 +24,7 @@ import {
   STEPS,
   STICKY_HIGHLIGHTS,
 } from './blocks'
+import { FORM_FIELDS } from './form'
 import { LINK_FIELDS } from './link'
 import { MEDIA_FIELDS } from './media'
 
@@ -35,42 +36,21 @@ const FILTER_OPTION = `{
 
 export const PARTNERS = `
   query Partners {
-    Partners(limit: 300, where: { agency_status: { equals: active } }) {
+    Partners(limit: 300, where: { agency_status: { equals: active } }, sort: "name") {
       docs {
         id
         name
-        website
-        email
         slug
-        agency_status
-        hubspotID
         featured
-        badges
-        logo ${MEDIA_FIELDS}
+        city
         content {
           bannerImage ${MEDIA_FIELDS}
-          overview
-          services
-          idealProject
-          contributions {
-            type
-            number
-          }
-          projects {
-            year
-            name
-            link
-          }
         }
-        city
+        logo ${MEDIA_FIELDS}
         regions ${FILTER_OPTION}
         budgets ${FILTER_OPTION}
         industries ${FILTER_OPTION}
         specialties ${FILTER_OPTION}
-        social {
-          platform
-          url
-        }
       }
     }
   }
@@ -88,7 +68,7 @@ export const PARTNER = `
         agency_status
         hubspotID
         featured
-        badges
+        topContributor
         logo ${MEDIA_FIELDS}
         content {
           bannerImage ${MEDIA_FIELDS}
@@ -113,6 +93,11 @@ export const PARTNER = `
             link
           }
         }
+        social {
+          id
+          platform
+          url
+        }
         city
         regions ${FILTER_OPTION}
         budgets ${FILTER_OPTION}
@@ -126,6 +111,7 @@ export const PARTNER = `
 export const PARTNER_PROGRAM = `
   query {
     PartnerProgram {
+      contactForm ${FORM_FIELDS}
       hero {
         breadcrumbBarLinks {
           link ${LINK_FIELDS({ disableAppearance: true })}
@@ -146,7 +132,6 @@ export const PARTNER_PROGRAM = `
           agency_status
           hubspotID
           featured
-          badges
           logo ${MEDIA_FIELDS}
           content {
             bannerImage ${MEDIA_FIELDS}

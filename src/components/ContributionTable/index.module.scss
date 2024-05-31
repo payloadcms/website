@@ -1,3 +1,5 @@
+@use '@scss/common' as *;
+
 .contributionList {
   list-style: none;
   margin: 0;
@@ -8,7 +10,7 @@
 .contribution {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 1rem;
   padding: 1rem 0;
   width: 100%;
@@ -24,18 +26,30 @@
 .number {
   opacity: .75;
   width: 3rem;
+  @include small;
 }
 
 .title {
-  width: 100%;
+  width: auto;
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: auto;
 }
 
 .arrow {
   display: block;
   transition: transform .3s;
+  margin-left: auto;
 }
 
-.contribution:hover .arrow {
-  transform: translate(.25rem, -.25rem);
+.contribution:hover {
+  & > .title, & > .pill {
+    opacity: .75;
+  }
+
+  & > .arrow {
+    transform: translate(.25rem, -.25rem);
+  }
 }

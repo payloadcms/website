@@ -20,7 +20,7 @@ const buildInitialState = fields => {
     state[field.name] = {
       value: '',
       valid: !field.required,
-      initialValue: undefined,
+      initialValue: field.defaultValue ?? undefined,
       errorMessage: 'This field is required.',
     }
   })
@@ -157,7 +157,11 @@ const RenderForm = ({ form }: { form: FormType }) => {
                   return (
                     <div
                       key={index}
-                      className={[classes.fieldWrap, !isLastField ? classes.hideBottomBorder : '']
+                      className={[
+                        classes.fieldWrap,
+                        field.hidden ? classes.hidden : '',
+                        !isLastField ? classes.hideBottomBorder : '',
+                      ]
                         .filter(Boolean)
                         .join(' ')}
                     >

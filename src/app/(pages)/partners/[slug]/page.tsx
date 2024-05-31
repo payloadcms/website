@@ -1,28 +1,38 @@
 import Link from 'next/link'
+import { notFound } from 'next/navigation'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
+import { CMSForm } from '@components/CMSForm'
 import { Text } from '@components/CMSForm/fields/Text'
 import { Textarea } from '@components/CMSForm/fields/Textarea'
 import { ContributionTable } from '@components/ContributionTable'
 import { Gutter } from '@components/Gutter'
 import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar'
 import { Media } from '@components/Media'
+import { Pill } from '@components/Pill'
 import { RichText } from '@components/RichText'
-import { fetchPartner } from '@root/app/_graphql'
+import { SocialIcon } from '@components/SocialIcon'
+import { fetchPartner, fetchPartnerProgram } from '@root/app/_graphql'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 
 import classes from './index.module.scss'
 
 export default async function PartnerPage({ params }: { params: { slug: string } }) {
   const partner = await fetchPartner(params.slug)
+  const partnerProgram = await fetchPartnerProgram()
 
   if (!partner) {
-    return null
+    return notFound()
+  }
+  if (!partnerProgram) {
+    return notFound()
   }
 
   const { bannerImage, overview, idealProject, caseStudy, contributions, projects } =
     partner.content
+
+  const { contactForm } = partnerProgram
 
   return (
     <div className={classes.wrapper}>
@@ -44,61 +54,58 @@ export default async function PartnerPage({ params }: { params: { slug: string }
       <Gutter className={[classes.hero, 'grid'].join(' ')}>
         <aside className={[classes.sidebar, 'cols-3'].join(' ')}>
           <div className={classes.badges}>
-            {partner.featured && <div className={classes.featured}>Featured</div>}
-            {partner.badges?.map((badge, index) => (
-              <div className={classes.badge} key={index + badge}>
-                {badge}
-              </div>
-            ))}
+            {partner.featured && <Pill color="warning" text="Featured Partner" />}
+            {partner.topContributor && <Pill color="success" text="Top Contributor" />}
           </div>
           <div className={classes.sidebarGroup}>
             <h6>Location</h6>
             <small>{partner.city}</small>
           </div>
           <div className={classes.sidebarGroup}>
-            <h6>Regions</h6>
+            <h6>Region{partner.regions.length === 1 ? '' : 's'}</h6>
             <ul>
-              {partner.regions?.map((region, index) => (
-                <li key={index + region}>{region}</li>
-              ))}
+              {partner.regions?.map(
+                region => typeof region !== 'string' && <li key={region.id}>{region.name}</li>,
+              )}
             </ul>
           </div>
           <div className={classes.sidebarGroup}>
-            <h6>Industries</h6>
+            <h6>Industr{partner.industries.length === 1 ? 'y' : 'ies'}</h6>
             <ul>
-              {partner.industries?.map((industry, index) => (
-                <li key={index + industry}>{industry}</li>
-              ))}
+              {partner.industries?.map(
+                industry =>
+                  typeof industry !== 'string' && <li key={industry.id}>{industry.name}</li>,
+              )}
             </ul>
           </div>
           <div className={classes.sidebarGroup}>
-            <h6>Budgets</h6>
+            <h6>Budget{partner.budgets.length === 1 ? '' : 's'}</h6>
             <ul>
-              {partner.budgets?.map((budget, index) => (
-                <li key={index + budget}>{budget}</li>
-              ))}
+              {partner.budgets?.map(
+                budget => typeof budget !== 'string' && <li key={budget.id}>{budget.name}</li>,
+              )}
             </ul>
           </div>
           <div className={classes.sidebarGroup}>
-            <h6>Technologies</h6>
+            <h6>Specialt{partner.specialties.length === 1 ? 'y' : 'ies'}</h6>
             <ul>
-              {partner.technologies?.map((technology, index) => (
-                <li key={index + technology}>{technology}</li>
-              ))}
+              {partner.specialties?.map(
+                specialty =>
+                  typeof specialty !== 'string' && <li key={specialty.id}>{specialty.name}</li>,
+              )}
             </ul>
           </div>
-          {/* <div className={classes.sidebarGroup}>
+          <div className={classes.sidebarGroup}>
             <h6>Social</h6>
-            <ul>
-              {partner.social?.map((social, index) => (
-                <li key={index + social.platform}>
-                  <a href={social.url} target="_blank" rel="noreferrer">
-                    {social.platform}
-                  </a>
-                </li>
-              ))}
+            <ul className={classes.socialIcons}>
+              {partner.social?.map(
+                social =>
+                  typeof social !== 'string' && (
+                    <SocialIcon key={social.id} platform={social.platform} href={social.url} />
+                  ),
+              )}
             </ul>
-          </div> */}
+          </div>
         </aside>
         <main className={[classes.main, 'cols-10 start-4'].join(' ')}>
           <h1 className={classes.name}>{partner.name}</h1>
@@ -131,13 +138,13 @@ export default async function PartnerPage({ params }: { params: { slug: string }
               />
             </Link>
           )}
-          {contributions && (
+          {contributions && contributions.length > 0 && (
             <div className={classes.contributions}>
               <h3>Contributions</h3>
               <ContributionTable contributions={contributions} />
             </div>
           )}
-          {projects && (
+          {projects && projects.length > 0 && (
             <div className={classes.projects}>
               <h3>Built with Payload</h3>
               <div className={classes.projectTable}>
@@ -157,18 +164,39 @@ export default async function PartnerPage({ params }: { params: { slug: string }
               </div>
             </div>
           )}
-          <div className={classes.contactForm}>
-            <h3>Contact {partner.name}</h3>
-            <form>
-              <Text name="name" label="Name" />
-              <Textarea name="message" label="Message" />
+          {typeof contactForm !== 'string' && (
+            <div className={classes.contactForm}>
+              <h3>Contact {partner.name}</h3>
+              <div className={classes.form}>
+                <CMSForm
+                  form={{
+                    ...contactForm,
+                    fields: contactForm.fields?.map(field => {
+                      if (field.blockType === 'text' && field.name === 'toName') {
+                        return {
+                          ...field,
+                          defaultValue: partner.name,
+                          hidden: true,
+                        }
+                      }
+                      if (field.blockType === 'email' && field.name === 'toEmail') {
+                        return {
+                          ...field,
+                          defaultValue: partner.email,
+                          hidden: true,
+                        }
+                      }
+                      return field
+                    }),
+                  }}
+                />
+              </div>
               <BackgroundScanline
-                className={classes.formScanlines}
-                enableBorders
                 crosshairs={['top-left', 'bottom-right']}
+                className={classes.scanlines}
               />
-            </form>
-          </div>
+            </div>
+          )}
         </main>
       </Gutter>
       <BackgroundGrid wideGrid />
