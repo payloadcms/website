@@ -53,65 +53,16 @@ export default async function PartnerPage({ params }: { params: { slug: string }
       />
       <Gutter className={[classes.hero, 'grid'].join(' ')}>
         <aside className={[classes.sidebar, 'cols-3'].join(' ')}>
-          <div className={classes.badges}>
-            {partner.featured && <Pill color="warning" text="Featured Partner" />}
-            {partner.topContributor && <Pill color="success" text="Top Contributor" />}
-          </div>
-          <div className={classes.sidebarGroup}>
-            <h6>Location</h6>
-            <small>{partner.city}</small>
-          </div>
-          <div className={classes.sidebarGroup}>
-            <h6>Region{partner.regions.length === 1 ? '' : 's'}</h6>
-            <ul>
-              {partner.regions?.map(
-                region => typeof region !== 'string' && <li key={region.id}>{region.name}</li>,
-              )}
-            </ul>
-          </div>
-          <div className={classes.sidebarGroup}>
-            <h6>Industr{partner.industries.length === 1 ? 'y' : 'ies'}</h6>
-            <ul>
-              {partner.industries?.map(
-                industry =>
-                  typeof industry !== 'string' && <li key={industry.id}>{industry.name}</li>,
-              )}
-            </ul>
-          </div>
-          <div className={classes.sidebarGroup}>
-            <h6>Budget{partner.budgets.length === 1 ? '' : 's'}</h6>
-            <ul>
-              {partner.budgets?.map(
-                budget => typeof budget !== 'string' && <li key={budget.id}>{budget.name}</li>,
-              )}
-            </ul>
-          </div>
-          <div className={classes.sidebarGroup}>
-            <h6>Specialt{partner.specialties.length === 1 ? 'y' : 'ies'}</h6>
-            <ul>
-              {partner.specialties?.map(
-                specialty =>
-                  typeof specialty !== 'string' && <li key={specialty.id}>{specialty.name}</li>,
-              )}
-            </ul>
-          </div>
-          <div className={classes.sidebarGroup}>
-            <h6>Social</h6>
-            <ul className={classes.socialIcons}>
-              {partner.social?.map(
-                social =>
-                  typeof social !== 'string' && (
-                    <SocialIcon key={social.id} platform={social.platform} href={social.url} />
-                  ),
-              )}
-            </ul>
-          </div>
+          <PartnerDetails {...partner} />
         </aside>
-        <main className={[classes.main, 'cols-10 start-4'].join(' ')}>
+        <main className={[classes.main, 'cols-10 start-4 cols-m-8 start-m-1'].join(' ')}>
           <h1 className={classes.name}>{partner.name}</h1>
           {bannerImage && typeof bannerImage !== 'string' && (
             <Media resource={bannerImage} className={classes.banner} />
           )}
+          <div className={classes.detailsMobile}>
+            <PartnerDetails {...partner} />
+          </div>
           <div className={classes.textBlock}>
             <h3>Overview</h3>
             <RichText content={overview} />
@@ -176,30 +127,88 @@ export default async function PartnerPage({ params }: { params: { slug: string }
                         return {
                           ...field,
                           defaultValue: partner.name,
-                          hidden: true,
                         }
                       }
                       if (field.blockType === 'email' && field.name === 'toEmail') {
                         return {
                           ...field,
                           defaultValue: partner.email,
-                          hidden: true,
                         }
                       }
                       return field
                     }),
                   }}
+                  hiddenFields={['toName', 'toEmail']}
                 />
               </div>
-              <BackgroundScanline
-                crosshairs={['top-left', 'bottom-right']}
-                className={classes.scanlines}
-              />
+              <BackgroundScanline className={classes.scanlines} />
             </div>
           )}
         </main>
       </Gutter>
       <BackgroundGrid wideGrid />
     </div>
+  )
+}
+
+const PartnerDetails = partner => {
+  const { featured, topContributor, city, regions, industries, budgets, specialties, social } =
+    partner
+
+  return (
+    <>
+      <div className={classes.badges}>
+        {featured && <Pill color="warning" text="Featured Partner" />}
+        {topContributor && <Pill color="success" text="Top Contributor" />}
+      </div>
+      <div className={classes.sidebarGroup}>
+        <h6>Location</h6>
+        <small>{city}</small>
+      </div>
+      <div className={classes.sidebarGroup}>
+        <h6>Region{regions.length === 1 ? '' : 's'}</h6>
+        <ul>
+          {partner.regions?.map(
+            region => typeof region !== 'string' && <li key={region.id}>{region.name}</li>,
+          )}
+        </ul>
+      </div>
+      <div className={classes.sidebarGroup}>
+        <h6>Industr{industries.length === 1 ? 'y' : 'ies'}</h6>
+        <ul>
+          {industries?.map(
+            industry => typeof industry !== 'string' && <li key={industry.id}>{industry.name}</li>,
+          )}
+        </ul>
+      </div>
+      <div className={classes.sidebarGroup}>
+        <h6>Specialt{specialties.length === 1 ? 'y' : 'ies'}</h6>
+        <ul>
+          {specialties?.map(
+            specialty =>
+              typeof specialty !== 'string' && <li key={specialty.id}>{specialty.name}</li>,
+          )}
+        </ul>
+      </div>
+      <div className={classes.sidebarGroup}>
+        <h6>Budget</h6>
+        {budgets[0].name.split('–')[0] +
+          '–' +
+          (budgets.at(-1).name.split('–')[1] ?? budgets.at(-1).name)}
+      </div>
+      {social.length > 0 && (
+        <div className={classes.sidebarGroup}>
+          <h6>Social</h6>
+          <ul className={classes.socialIcons}>
+            {social?.map(
+              social =>
+                typeof social !== 'string' && (
+                  <SocialIcon key={social.id} platform={social.platform} href={social.url} />
+                ),
+            )}
+          </ul>
+        </div>
+      )}
+    </>
   )
 }

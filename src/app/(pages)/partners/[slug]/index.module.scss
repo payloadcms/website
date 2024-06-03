@@ -12,7 +12,9 @@
   justify-content: flex-start;
   gap: 1.5rem;
   padding: 2.5rem 1.5rem;
-
+  @include mid-break {
+    display: none;
+  }
  }
 
 .sidebarGroup {
@@ -83,11 +85,20 @@
   h1, h2, h3 {
     margin: 0;
   }
+
+  @include mid-break {
+    padding: 1.5rem 0 0;
+    gap: 2rem;
+  }
 }
 
-.name, .textBlock, .contributions, .projects {
+.name, .textBlock, .contributions, .projects, .detailsMobile {
   padding: 0 var(--column);
   width: 100%;
+
+  @include mid-break {
+    padding: 0 1.5rem;
+  }
 }
 
 .banner {
@@ -97,6 +108,10 @@
   overflow: hidden;
   padding-inline: 1px;
   border-block: 1px solid var(--theme-border-color);
+
+  @include mid-break {
+    width: 100%;
+  }
 
   img {
     width: 100%;
@@ -119,6 +134,10 @@
   border-block: 1px solid var(--theme-border-color);
   text-decoration: none;
 
+  @include mid-break {
+    flex-direction: column;
+  }
+
   h2 {
     margin: 0;
   }
@@ -131,6 +150,11 @@
     width: calc(var(--column) * 6);
     gap: .75rem;
     padding: 3rem var(--column);
+
+    @include mid-break {
+      padding: 2rem 1.5rem;
+      width: 100%;
+    }
 
     & > * {
       margin: 0;
@@ -252,6 +276,10 @@
   padding: 4rem var(--column) 5rem;
   position: relative;
   border-top: 1px solid var(--theme-border-color);
+
+  @include mid-break {
+    padding: 2.5rem 1.5rem;
+  }
 }
 
 .form {
@@ -262,4 +290,42 @@
 
 .formScanlines {
   z-index: -1;
+}
+
+.detailsMobile {
+  display: none;
+
+  @include mid-break {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+
+  & > div {
+    display: flex;
+    gap: 1rem;
+
+    &:first-child {
+      flex-direction: row;
+      gap: .5rem;
+      margin: .75rem 0;
+    }
+
+    & > ul {
+      display: flex;
+      gap: .25rem;
+      flex-wrap: wrap;
+
+      & > li {
+        list-style: none;
+        @include small;
+        display: flex;
+        align-items: center;
+        padding: .25rem .5rem;
+        border-radius: 3px;
+        background-color: var(--theme-elevation-50);
+        border: 1px solid var(--theme-elevation-150);
+      }
+    }
+  }
 }
