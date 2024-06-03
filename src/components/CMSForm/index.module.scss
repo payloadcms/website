@@ -2,11 +2,14 @@
 
 .cmsForm {
   position: relative;
+  background-color: var(--theme-bg);
+  border-inline: 1px solid var(--theme-border-color);
 
   .fieldWrap {
     position: relative;
-    border-top: 1px solid var(--grid-line-dark);
-    border-bottom: 1px solid var(--grid-line-dark);
+    border-top: 1px solid var(--theme-border-color);
+    border-bottom: 1px solid var(--theme-border-color);
+    width: 100%;
 
     &:before {
       content: '';
@@ -52,7 +55,11 @@
       left: 1px;
       top:0;
       z-index: 0;
-      background-color: var(--theme-input-bg);
+      background-color: var(--theme-bg);
+    }
+
+    &:disabled::before {
+      background-color: var(--theme-elevation-50);
     }
   }
 
@@ -62,6 +69,12 @@
 
   .hideBottomBorder {
     border-bottom: 0;
+  }
+
+  .confirmationMessage {
+    width: 100%;
+    padding: 1.5rem 2rem;
+    border-block: 1px solid var(--theme-border-color);
   }
 }
 
@@ -88,25 +101,6 @@
   .crosshairLeft {
     top: calc(0% - 0.5rem);
     left: calc(0% - 0.5rem);
-  }
-}
-
-:global([data-theme="light"]) {
-  .leader {
-    color: var(--text-light);
-  }
-
-  .fieldWrap {
-    border-top: 1px solid var(--grid-line-dark);
-    border-bottom: 1px solid var(--grid-line-dark);
-  }
-
-  .hideTopBorder {
-    border-top: 0;
-  }
-
-  .hideBottomBorder {
-    border-bottom: 0;
   }
 }
 

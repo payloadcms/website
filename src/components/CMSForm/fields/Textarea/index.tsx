@@ -34,6 +34,7 @@ export const Textarea: React.FC<
       autoCapitalize: 'none',
     },
     showError: showErrorFromProps,
+    disabled,
   } = props
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const [isFocused, setIsFocused] = React.useState(false)
@@ -118,6 +119,7 @@ export const Textarea: React.FC<
         name={path}
         onFocus={handleFocus}
         onBlur={handleBlur}
+        disabled={disabled}
       />
     </div>
   )
