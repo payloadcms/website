@@ -116,7 +116,7 @@ export default async function PartnerPage({ params }: { params: { slug: string }
             </div>
           )}
           {typeof contactForm !== 'string' && (
-            <div className={classes.contactForm}>
+            <div className={classes.contactForm} id="contact">
               <h3>Contact {partner.name}</h3>
               <div className={classes.form}>
                 <CMSForm
