@@ -1,4 +1,4 @@
-# Payload CMS Website
+# Payload Website
 
 This is the repository for [Payload's official website](https://payloadcms.com/). It was built completely in public using Payload itself, [more on that here](#⭐-the-cms).
 

@@ -57,7 +57,7 @@ const data: MediaContentProps = {
         id: '6364286ddfa8dcdc3a66ff75',
         image: {
           id: '6364286ddfa8dcdc3a66ff75',
-          alt: 'Screenshot of hope websites teal homepage overlaying a screenshot of the Payload CMS admin panel, used as an example to show what editing a page on the backend can produce content-wise for the frontend website.',
+          alt: 'Screenshot of hope websites teal homepage overlaying a screenshot of the Payload admin panel, used as an example to show what editing a page on the backend can produce content-wise for the frontend website.',
           filename: 'hope-media-content-1.png',
           mimeType: 'image/png',
           filesize: 337060,

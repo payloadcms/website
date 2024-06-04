@@ -9,10 +9,10 @@ export default props => {
 }
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Payload CMS',
-  description: 'Payload CMS Privacy Policy',
+  title: 'Privacy Policy | Payload',
+  description: 'Payload Privacy Policy',
   openGraph: mergeOpenGraph({
-    title: 'Privacy Policy | Payload CMS',
+    title: 'Privacy Policy | Payload',
     url: '/privacy',
   }),
 }

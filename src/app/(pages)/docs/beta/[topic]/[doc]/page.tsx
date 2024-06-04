@@ -90,10 +90,10 @@ export async function generateMetadata({ params: { topic: topicSlug, doc: docSlu
   const doc = await getDoc({ topic: topicSlug, doc: docSlug }, 'beta')
 
   return {
-    title: `${doc?.title ? `${doc.title} | ` : ''}Documentation | Payload CMS`,
-    description: doc?.desc || `Payload CMS ${topicSlug} Documentation`,
+    title: `${doc?.title ? `${doc.title} | ` : ''}Documentation | Payload`,
+    description: doc?.desc || `Payload ${topicSlug} Documentation`,
     openGraph: mergeOpenGraph({
-      title: `${doc?.title ? `${doc.title} | ` : ''}Documentation | Payload CMS`,
+      title: `${doc?.title ? `${doc.title} | ` : ''}Documentation | Payload`,
       url: `/docs/beta/${topicSlug}/${docSlug}`,
       images: [
         {
