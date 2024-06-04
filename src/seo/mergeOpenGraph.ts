@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  siteName: 'Payload CMS',
-  title: 'Payload CMS',
+  siteName: 'Payload',
+  title: 'Payload',
   description:
     'Payload is a headless CMS and application framework built with TypeScript, Node.js, React and MongoDB',
   images: [

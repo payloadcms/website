@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Payload CMS',
+    title: 'Payload',
     description: 'The Node & React TypeScript Headless CMS',
     creator: '@payloadcms',
   },

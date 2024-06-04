@@ -13,7 +13,7 @@ export default async ({ children }) => {
 }
 
 export const metadata: Metadata = {
-  title: 'Blog | Payload CMS',
+  title: 'Blog | Payload',
   description:
-    'The official Payload CMS blog. Read about the product and keep up to date with new features.',
+    'The official Payload blog. Read about the product and keep up to date with new features.',
 }
