@@ -43,10 +43,10 @@ export async function generateMetadata({ params: { slug } }): Promise<Metadata> 
     `${process.env.NEXT_PUBLIC_CMS_URL}${page.meta.image.url}`
 
   return {
-    title: page?.meta?.title || 'Payload CMS',
+    title: page?.meta?.title || 'Payload',
     description: page?.meta?.description,
     openGraph: mergeOpenGraph({
-      title: page?.meta?.title || 'Payload CMS',
+      title: page?.meta?.title || 'Payload',
       description: page?.meta?.description ?? undefined,
       url: Array.isArray(slug) ? slug.join('/') : '/',
       images: ogImage
