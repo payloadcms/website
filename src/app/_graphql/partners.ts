@@ -77,6 +77,7 @@ export const PARTNER = `
           idealProject
           contributions {
             type
+            repo
             number
           }
           caseStudy {
@@ -140,6 +141,7 @@ export const PARTNER_PROGRAM = `
             idealProject
             contributions {
               type
+              repo
               number
             }
             projects {
