@@ -1,72 +1,92 @@
 @use '@scss/common' as *;
 
-.hoverHighlights {
-    position: relative;
+.gutter {
+    overflow-y: hidden;
 }
 
-.highlightWrapper {
+.wrapper {
+    min-height: 80vh;
     position: relative;
-}
-
-.highlight {
-    padding: 4rem 0;
-    opacity: 0.5;
-    transition: opacity 0.3s ease-in-out;
-    width: 100%;
-
-    &:hover {
-        opacity: 1;
-    }
+    padding-block: 12rem;
 
     @include mid-break {
-        padding: 2rem 0;
+        padding-block: 16rem;
     }
 }
 
-.title {
+.highlightText {
+    @include h2;
     margin: 0;
-}
+    text-decoration: none;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
 
-.hr {
-    margin: 0;
-}
+    & .arrow {
+        opacity: 0;
+        transition: opacity 0.6s ease 0.1s;
+    }
 
-.description {
-    margin: 0;
-}
-
-.richTextGrid {
-    // margin-bottom: 4rem;
-}
-
-.rowNumber {
-    @include label;
-}
-
-.content  {
-    position: relative;
-    padding: 4rem 0;
-    width: calc(100% + var(--gutter-h));
-
-    @include mid-break {
-        padding: 2rem 0;
+    &:hover .arrow {
+        opacity: .5;
     }
 }
 
-.pixelBG {
+.highlightMediaLeft {
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
     top: 0;
+    left: calc(var(--column) * -4);
+    width: calc(var(--column) * 8);
     height: 100%;
-    width: 50%;
-    left: auto;
-    right: 0;
+    pointer-events: none;
+    z-index: 2;
+
+    @include mid-break {
+        display: none;
+    }
+}
+
+.highlightMediaRight {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    right: calc(var(--column) * -4);
+    width: calc(var(--column) * 8);
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+
+    @include mid-break {
+        display: none;
+    }
 }
 
 .media {
-    position: fixed;
-    left: 0;
-    top: 0;
-    max-width: 400px;
     width: 100%;
     height: auto;
+}
+
+.leftMargin {
+    position: absolute;
+    width: var(--gutter-h);
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+.rightMargin {
+    position: absolute;
+    width: var(--gutter-h);
+    height: 100%;
+    left: calc(100% - var(--gutter-h));
+    top: 0;
 }

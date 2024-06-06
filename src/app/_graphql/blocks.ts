@@ -281,15 +281,20 @@ export const HOVER_HIGHLIGHTS = `
 ...on HoverHighlights {
   blockType
   hoverHighlightsFields {
-    richText
-    addRowNumbers
+    settings ${SETTINGS}
+    beforeHighlights
     highlights {
-      title
-      description
-      media ${MEDIA_FIELDS}
-      enableLink
+      text
+      media {
+        topLeft ${MEDIA_FIELDS}
+        topRight ${MEDIA_FIELDS}
+        bottomLeft ${MEDIA_FIELDS}
+        bottomRight ${MEDIA_FIELDS}
+    }
       link ${LINK_FIELDS({ disableAppearance: true, disableLabel: true })}
     }
+    afterHighlights
+    link ${LINK_FIELDS({ disableAppearance: true })}
   }
 }
 `
