@@ -303,7 +303,6 @@ export const fetchPartners = async (): Promise<Partner[]> => {
     headers: {
       'Content-Type': 'application/json',
     },
-    next,
     body: JSON.stringify({
       query: PARTNERS,
     }),
@@ -334,7 +333,6 @@ export const fetchPartner = async (slug: string, draft?: boolean): Promise<Partn
         ...(token?.value && draft ? { Authorization: `JWT ${token.value}` } : {}),
       },
       next: {
-        ...next,
         tags: [`partners_${slug}`],
       },
       body: JSON.stringify({
@@ -367,7 +365,6 @@ export const fetchPartnerProgram = async (): Promise<PartnerProgram> => {
     headers: {
       'Content-Type': 'application/json',
     },
-    next,
     body: JSON.stringify({
       query: PARTNER_PROGRAM,
     }),
@@ -387,7 +384,6 @@ export const fetchFilters = async (): Promise<{
     headers: {
       'Content-Type': 'application/json',
     },
-    next,
     body: JSON.stringify({
       query: FILTERS,
     }),
