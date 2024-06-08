@@ -66,10 +66,9 @@ export const PARTNER = `
         email
         slug
         agency_status
-        hubspotID
+        logo ${MEDIA_FIELDS}
         featured
         topContributor
-        logo ${MEDIA_FIELDS}
         content {
           bannerImage ${MEDIA_FIELDS}
           overview
@@ -127,34 +126,13 @@ export const PARTNER_PROGRAM = `
         partners {
           id
           name
-          website
-          email
           slug
           agency_status
-          hubspotID
-          featured
           logo ${MEDIA_FIELDS}
           content {
             bannerImage ${MEDIA_FIELDS}
-            overview
-            services
-            idealProject
-            contributions {
-              type
-              repo
-              number
-            }
-            projects {
-              year
-              name
-              link
-            }
           }
           city
-          regions ${FILTER_OPTION}
-          budgets ${FILTER_OPTION}
-          industries ${FILTER_OPTION}
-          specialties ${FILTER_OPTION}
         }
       }
       contentBlocks {
