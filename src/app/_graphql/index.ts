@@ -18,10 +18,6 @@ import { PAGE, PAGES } from './pages'
 import { POST, POST_SLUGS, POSTS } from './posts'
 import { payloadToken } from './token'
 
-const next = {
-  revalidate: 600,
-}
-
 export const fetchGlobals = async (): Promise<{
   mainMenu: MainMenu
   footer: Footer
@@ -32,7 +28,6 @@ export const fetchGlobals = async (): Promise<{
     headers: {
       'Content-Type': 'application/json',
     },
-    next,
     body: JSON.stringify({
       query: GLOBALS,
     }),
@@ -53,7 +48,6 @@ export const fetchAnnouncements = async (): Promise<{
     headers: {
       'Content-Type': 'application/json',
     },
-    next,
     body: JSON.stringify({
       query: ANNOUNCEMENT_FIELDS,
     }),
@@ -87,7 +81,6 @@ export const fetchPage = async (
         ...(token?.value && draft ? { Authorization: `JWT ${token.value}` } : {}),
       },
       next: {
-        ...next,
         tags: [`pages_${slug}`],
       },
       body: JSON.stringify({
@@ -128,7 +121,6 @@ export const fetchPages = async (): Promise<
     headers: {
       'Content-Type': 'application/json',
     },
-    next,
     body: JSON.stringify({
       query: PAGES,
     }),
@@ -148,7 +140,6 @@ export const fetchPosts = async (): Promise<Array<{ slug: string }>> => {
     headers: {
       'Content-Type': 'application/json',
     },
-    next,
     body: JSON.stringify({
       query: POST_SLUGS,
     }),
@@ -169,7 +160,6 @@ export const fetchBlogPosts = async (): Promise<Post[]> => {
     headers: {
       'Content-Type': 'application/json',
     },
-    next,
     body: JSON.stringify({
       query: POSTS,
       variables: {
@@ -196,7 +186,6 @@ export const fetchBlogPost = async (slug: string, draft?: boolean): Promise<Post
       ...(token?.value && draft ? { Authorization: `JWT ${token.value}` } : {}),
     },
     next: {
-      ...next,
       tags: [`posts_${slug}`],
     },
     body: JSON.stringify({
@@ -217,7 +206,6 @@ export const fetchCaseStudies = async (): Promise<CaseStudy[]> => {
     headers: {
       'Content-Type': 'application/json',
     },
-    next,
     body: JSON.stringify({
       query: CASE_STUDIES,
     }),
@@ -234,7 +222,6 @@ export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
       headers: {
         'Content-Type': 'application/json',
       },
-      next,
       body: JSON.stringify({
         query: CASE_STUDY,
         variables: {
@@ -255,7 +242,6 @@ export const fetchCommunityHelps = async (
     headers: {
       'Content-Type': 'application/json',
     },
-    next,
     body: JSON.stringify({
       query: COMMUNITY_HELPS,
       variables: {
@@ -275,7 +261,6 @@ export const fetchCommunityHelp = async (slug: string): Promise<CommunityHelp> =
       headers: {
         'Content-Type': 'application/json',
       },
-      next,
       body: JSON.stringify({
         query: COMMUNITY_HELP,
         variables: {
@@ -294,7 +279,6 @@ export const fetchRelatedThreads = async (): Promise<CommunityHelp[]> => {
     headers: {
       'Content-Type': 'application/json',
     },
-    next,
     body: JSON.stringify({
       query: RELATED_THREADS,
     }),
