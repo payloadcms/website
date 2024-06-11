@@ -43,10 +43,14 @@
 
 @mixin h2 {
   margin: 2.4rem 0 1.8rem;
-  font-size: 3rem;
+  font-size: 2.5rem;
   line-height: 1;
   font-weight: 500;
   letter-spacing: -0.05em;
+
+  @include large-break {
+    font-size: 3rem;
+  }
 
   @include small-break {
     font-size: 1.75rem;

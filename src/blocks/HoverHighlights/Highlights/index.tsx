@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { Button } from '@components/Button'
 import { CMSLinkType } from '@components/CMSLink'
 
-import classes from './index.module.scss'
+import classes from '../index.module.scss'
 
 export const Highlights: React.FC<{
   beforeHighlights?: string | null
@@ -23,7 +23,7 @@ export const Highlights: React.FC<{
   }
 
   return (
-    <div className={['cols-8 start-5 start-m-1', classes.highlightWrap].join(' ')}>
+    <div className={['cols-8', classes.highlightWrap].join(' ')}>
       <span>{beforeHighlights}</span>
       <div className={classes.highlightList}>
         {Array.isArray(children) ? (

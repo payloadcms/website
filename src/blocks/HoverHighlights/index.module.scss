@@ -1,92 +1,167 @@
 @use '@scss/common' as *;
 
 .gutter {
-    overflow-y: hidden;
+  overflow-y: hidden;
 }
 
 .wrapper {
-    min-height: 80vh;
-    position: relative;
-    padding-block: 12rem;
+  min-height: 80vh;
+  position: relative;
+  padding-block: 12rem;
 
-    @include mid-break {
-        padding-block: 16rem;
-    }
+  @include mid-break {
+    padding-block: 16rem;
+  }
 }
 
 .highlightText {
-    @include h2;
-    margin: 0;
-    text-decoration: none;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
+  @include h2;
+  margin: 0;
+  text-decoration: none;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 
-    & .arrow {
-        opacity: 0;
-        transition: opacity 0.6s ease 0.1s;
-    }
+  & .arrow {
+    opacity: 0;
+    transition: opacity 0.6s ease 0.1s;
+  }
 
-    &:hover .arrow {
-        opacity: .5;
-    }
+  &:hover .arrow {
+    opacity: .5;
+  }
 }
 
-.highlightMediaLeft {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    align-items: center;
-    justify-content: center;
-    top: 0;
-    left: calc(var(--column) * -4);
-    width: calc(var(--column) * 8);
-    height: 100%;
-    pointer-events: none;
-    z-index: 2;
+.highlightMediaTop {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: calc(var(--column) * 8);
+  width: calc(var(--column) * 12);
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
 
-    @include mid-break {
-        display: none;
-    }
+  @include mid-break {
+    display: none;
+  }
 }
 
-.highlightMediaRight {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    align-items: center;
-    justify-content: center;
-    top: 0;
-    right: calc(var(--column) * -4);
-    width: calc(var(--column) * 8);
-    height: 100%;
-    pointer-events: none;
-    z-index: 2;
+.highlightMediaBottom {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: calc(var(--column) * 8);
+  width: calc(var(--column) * 12);
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
 
-    @include mid-break {
-        display: none;
-    }
+  img {
+    transition-duration: .9s;
+  }
+
+  @include mid-break {
+    display: none;
+  }
 }
 
 .media {
-    width: 100%;
-    height: auto;
-}
-
-.leftMargin {
-    position: absolute;
-    width: var(--gutter-h);
-    height: 100%;
-    left: 0;
-    top: 0;
+  width: 100%;
+  height: auto;
+  position: absolute;
 }
 
 .rightMargin {
-    position: absolute;
-    width: var(--gutter-h);
-    height: 100%;
-    left: calc(100% - var(--gutter-h));
-    top: 0;
+  position: absolute;
+  width: calc(var(--gutter-h) + (var(--column) * 4));
+  height: 100%;
+  left: calc(100% - var(--gutter-h) - (var(--column) * 4));
+  top: 0;
+}
+
+.highlightWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  z-index: 10;
+  height: 100%;
+
+  & > span {
+  @include large-body;
+  }
+}
+
+.highlightList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.highlightText {
+  opacity: .5;
+  transition: opacity .9s ease;
+  &:focus {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  img {
+  opacity: 0;
+  transition: opacity .9s, transform .9s ease;
+  will-change: transition;
+  display: block;
+  }
+}
+
+.beforeActive {
+  .mediaTop img {
+    opacity: 0;
+    transform: translateY(-6rem);
+  }
+
+  .mediaBottom img {
+    opacity: 0;
+    transform: translateY(-4rem);
+  }
+}
+
+.activeHighlight {
+  opacity: 1;
+
+  .highlightText {
+    opacity: 1;
+  }
+
+  .mediaTop img, .mediaBottom img {
+  opacity: 1;
+  transform: translateY(0);
+  }
+}
+
+.afterActive {
+
+  .mediaTop img {
+    opacity: 0;
+    transform: translateY(6rem);
+  }
+
+  .mediaBottom img {
+    opacity: 0;
+    transform: translateY(4rem);
+  }
+
+}
+
+.button {
+  margin-top: 2rem;
+  width: calc(var(--column) * 4);
 }

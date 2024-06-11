@@ -31,38 +31,26 @@ export const HoverHighlights: React.FC<HoverHighlightProps> = props => {
             {highlights &&
               Array.isArray(highlights) && [
                 ...highlights.map(highlight => {
-                  const { topLeft, topRight, bottomLeft, bottomRight } = highlight.media || {}
+                  const { topLeft, topRight } = highlight.media || {}
                   return (
                     <>
                       <CMSLink className={classes.highlightText} {...highlight.link}>
                         {highlight.text}
                         <ArrowIcon className={classes.arrow} size="large" bold />
                       </CMSLink>
-                      <div className={classes.highlightMediaLeft}>
+                      <div className={classes.highlightMediaTop}>
                         {topLeft && typeof topLeft !== 'string' && (
                           <Media
                             resource={topLeft}
-                            className={[classes.media, classes.mediaTopLeft].join(' ')}
-                          />
-                        )}
-                        {topRight && typeof topRight !== 'string' && (
-                          <Media
-                            resource={topRight}
-                            className={[classes.media, classes.mediaTopRight].join(' ')}
+                            className={[classes.media, classes.mediaTop].join(' ')}
                           />
                         )}
                       </div>
-                      <div className={classes.highlightMediaRight}>
-                        {bottomLeft && typeof bottomLeft !== 'string' && (
+                      <div className={classes.highlightMediaBottom}>
+                        {topRight && typeof topRight !== 'string' && (
                           <Media
-                            resource={bottomLeft}
-                            className={[classes.media, classes.mediaBottomLeft].join(' ')}
-                          />
-                        )}
-                        {bottomRight && typeof bottomRight !== 'string' && (
-                          <Media
-                            resource={bottomRight}
-                            className={[classes.media, classes.mediaBottomRight].join(' ')}
+                            resource={topRight}
+                            className={[classes.media, classes.mediaBottom].join(' ')}
                           />
                         )}
                       </div>
@@ -73,7 +61,6 @@ export const HoverHighlights: React.FC<HoverHighlightProps> = props => {
           </Highlights>
         </div>
       </Gutter>
-      <BackgroundScanline className={classes.leftMargin} />
       <BackgroundScanline className={classes.rightMargin} />
       <BackgroundGrid zIndex={0} />
     </BlockWrapper>
