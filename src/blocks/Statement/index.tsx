@@ -74,32 +74,34 @@ export const Statement: React.FC<StatementProps> = props => {
             )}
           </div>
         </div>
-        <div className={[classes.assetWrap, 'grid'].join(' ')}>
-          {assetType === 'media'
-            ? media &&
-              typeof media !== 'string' && (
-                <div className={mediaWidthClass}>
-                  <Media
-                    resource={media}
-                    className={[mediaWidthClass, backgroundGlow && classes[backgroundGlow]]
+        {(media || code) && (
+          <div className={[classes.assetWrap, 'grid'].join(' ')}>
+            {assetType === 'media'
+              ? media &&
+                typeof media !== 'string' && (
+                  <div className={mediaWidthClass}>
+                    <Media
+                      resource={media}
+                      className={[mediaWidthClass, backgroundGlow && classes[backgroundGlow]]
+                        .filter(Boolean)
+                        .join(' ')}
+                    />
+                  </div>
+                )
+              : code && (
+                  <div
+                    className={[
+                      backgroundGlow && classes[backgroundGlow],
+                      'cols-10 start-4 cols-m-8 start-m-1',
+                    ]
                       .filter(Boolean)
                       .join(' ')}
-                  />
-                </div>
-              )
-            : code && (
-                <div
-                  className={[
-                    backgroundGlow && classes[backgroundGlow],
-                    'cols-10 start-4 cols-m-8 start-m-1',
-                  ]
-                    .filter(Boolean)
-                    .join(' ')}
-                >
-                  <Code className={classes.codeBlock}>{code}</Code>
-                </div>
-              )}
-        </div>
+                  >
+                    <Code className={classes.codeBlock}>{code}</Code>
+                  </div>
+                )}
+          </div>
+        )}
       </Gutter>
     </BlockWrapper>
   )
