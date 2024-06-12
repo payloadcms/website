@@ -286,10 +286,8 @@ export const HOVER_HIGHLIGHTS = `
     highlights {
       text
       media {
-        topLeft ${MEDIA_FIELDS}
-        topRight ${MEDIA_FIELDS}
-        bottomLeft ${MEDIA_FIELDS}
-        bottomRight ${MEDIA_FIELDS}
+        top ${MEDIA_FIELDS}
+        bottom ${MEDIA_FIELDS}
     }
       link ${LINK_FIELDS({ disableAppearance: true, disableLabel: true })}
     }

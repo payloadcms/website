@@ -461,10 +461,8 @@ export interface CaseStudy {
                 | {
                     text: string;
                     media?: {
-                      topLeft?: string | Media | null;
-                      topRight?: string | Media | null;
-                      bottomLeft?: string | Media | null;
-                      bottomRight?: string | Media | null;
+                      top?: string | Media | null;
+                      bottom?: string | Media | null;
                     };
                     link?: {
                       type?: ('reference' | 'custom') | null;
@@ -935,10 +933,8 @@ export interface CaseStudy {
                               | {
                                   text: string;
                                   media?: {
-                                    topLeft?: string | Media | null;
-                                    topRight?: string | Media | null;
-                                    bottomLeft?: string | Media | null;
-                                    bottomRight?: string | Media | null;
+                                    top?: string | Media | null;
+                                    bottom?: string | Media | null;
                                   };
                                   link?: {
                                     type?: ('reference' | 'custom') | null;
@@ -1787,10 +1783,8 @@ export interface Page {
             | {
                 text: string;
                 media?: {
-                  topLeft?: string | Media | null;
-                  topRight?: string | Media | null;
-                  bottomLeft?: string | Media | null;
-                  bottomRight?: string | Media | null;
+                  top?: string | Media | null;
+                  bottom?: string | Media | null;
                 };
                 link?: {
                   type?: ('reference' | 'custom') | null;
@@ -2261,10 +2255,8 @@ export interface Page {
                           | {
                               text: string;
                               media?: {
-                                topLeft?: string | Media | null;
-                                topRight?: string | Media | null;
-                                bottomLeft?: string | Media | null;
-                                bottomRight?: string | Media | null;
+                                top?: string | Media | null;
+                                bottom?: string | Media | null;
                               };
                               link?: {
                                 type?: ('reference' | 'custom') | null;
@@ -3108,10 +3100,8 @@ export interface ReusableContent {
             | {
                 text: string;
                 media?: {
-                  topLeft?: string | Media | null;
-                  topRight?: string | Media | null;
-                  bottomLeft?: string | Media | null;
-                  bottomRight?: string | Media | null;
+                  top?: string | Media | null;
+                  bottom?: string | Media | null;
                 };
                 link?: {
                   type?: ('reference' | 'custom') | null;
@@ -3570,10 +3560,8 @@ export interface ReusableContent {
                           | {
                               text: string;
                               media?: {
-                                topLeft?: string | Media | null;
-                                topRight?: string | Media | null;
-                                bottomLeft?: string | Media | null;
-                                bottomRight?: string | Media | null;
+                                top?: string | Media | null;
+                                bottom?: string | Media | null;
                               };
                               link?: {
                                 type?: ('reference' | 'custom') | null;
@@ -4814,10 +4802,8 @@ export interface PartnerProgram {
                   | {
                       text: string;
                       media?: {
-                        topLeft?: string | Media | null;
-                        topRight?: string | Media | null;
-                        bottomLeft?: string | Media | null;
-                        bottomRight?: string | Media | null;
+                        top?: string | Media | null;
+                        bottom?: string | Media | null;
                       };
                       link?: {
                         type?: ('reference' | 'custom') | null;
@@ -5288,10 +5274,8 @@ export interface PartnerProgram {
                                 | {
                                     text: string;
                                     media?: {
-                                      topLeft?: string | Media | null;
-                                      topRight?: string | Media | null;
-                                      bottomLeft?: string | Media | null;
-                                      bottomRight?: string | Media | null;
+                                      top?: string | Media | null;
+                                      bottom?: string | Media | null;
                                     };
                                     link?: {
                                       type?: ('reference' | 'custom') | null;
@@ -5901,10 +5885,8 @@ export interface PartnerProgram {
                   | {
                       text: string;
                       media?: {
-                        topLeft?: string | Media | null;
-                        topRight?: string | Media | null;
-                        bottomLeft?: string | Media | null;
-                        bottomRight?: string | Media | null;
+                        top?: string | Media | null;
+                        bottom?: string | Media | null;
                       };
                       link?: {
                         type?: ('reference' | 'custom') | null;
@@ -6375,10 +6357,8 @@ export interface PartnerProgram {
                                 | {
                                     text: string;
                                     media?: {
-                                      topLeft?: string | Media | null;
-                                      topRight?: string | Media | null;
-                                      bottomLeft?: string | Media | null;
-                                      bottomRight?: string | Media | null;
+                                      top?: string | Media | null;
+                                      bottom?: string | Media | null;
                                     };
                                     link?: {
                                       type?: ('reference' | 'custom') | null;

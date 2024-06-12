@@ -31,7 +31,7 @@ export const HoverHighlights: React.FC<HoverHighlightProps> = props => {
             {highlights &&
               Array.isArray(highlights) && [
                 ...highlights.map(highlight => {
-                  const { topLeft, topRight } = highlight.media || {}
+                  const { top, bottom } = highlight.media || {}
                   return (
                     <>
                       <CMSLink className={classes.highlightText} {...highlight.link}>
@@ -39,17 +39,17 @@ export const HoverHighlights: React.FC<HoverHighlightProps> = props => {
                         <ArrowIcon className={classes.arrow} size="large" bold />
                       </CMSLink>
                       <div className={classes.highlightMediaTop}>
-                        {topLeft && typeof topLeft !== 'string' && (
+                        {top && typeof top !== 'string' && (
                           <Media
-                            resource={topLeft}
+                            resource={top}
                             className={[classes.media, classes.mediaTop].join(' ')}
                           />
                         )}
                       </div>
                       <div className={classes.highlightMediaBottom}>
-                        {topRight && typeof topRight !== 'string' && (
+                        {bottom && typeof bottom !== 'string' && (
                           <Media
-                            resource={topRight}
+                            resource={bottom}
                             className={[classes.media, classes.mediaBottom].join(' ')}
                           />
                         )}
