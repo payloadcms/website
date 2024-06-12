@@ -23,7 +23,7 @@ export const Highlights: React.FC<{
   }
 
   return (
-    <div className={['cols-8', classes.highlightWrap].join(' ')}>
+    <div className={['cols-8 cols-m-4 cols-s-8', classes.highlightWrap].join(' ')}>
       <span>{beforeHighlights}</span>
       <div className={classes.highlightList}>
         {Array.isArray(children) ? (

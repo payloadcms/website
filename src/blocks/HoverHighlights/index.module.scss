@@ -1,16 +1,25 @@
 @use '@scss/common' as *;
 
 .gutter {
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 .wrapper {
   min-height: 80vh;
   position: relative;
-  padding-block: 12rem;
+  padding-block: 16rem;
 
   @include mid-break {
-    padding-block: 16rem;
+    padding-block: 4rem;
+  }
+
+  @include small-break {
+    padding-bottom: 4rem;
+    padding-top: 500px;
+  }
+
+  @include extra-small-break {
+    padding-top: 400px;
   }
 }
 
@@ -30,6 +39,16 @@
   &:hover .arrow {
     opacity: .5;
   }
+
+  @include mid-break {
+    @include h3;
+    margin: 0;
+  }
+
+  @include small-break {
+    @include h2;
+    margin: 0;
+  }
 }
 
 .highlightMediaTop {
@@ -47,7 +66,15 @@
   z-index: 2;
 
   @include mid-break {
-    display: none;
+    left: calc(var(--column) * 4);
+    width: calc(var(--column) * 6);
+  }
+
+  @include small-break {
+    left: 0;
+    justify-content: flex-start;
+    width: calc(var(--column) * 10);
+    max-width: 600px;
   }
 }
 
@@ -70,7 +97,15 @@
   }
 
   @include mid-break {
-    display: none;
+    left: calc(var(--column) * 4);
+    width: calc(var(--column) * 6);
+  }
+
+  @include small-break {
+    left: 0;
+    justify-content: flex-start;
+    width: calc(var(--column) * 10);
+    max-width: 600px;
   }
 }
 
@@ -86,17 +121,26 @@
   height: 100%;
   left: calc(100% - var(--gutter-h) - (var(--column) * 4));
   top: 0;
+
+  @include small-break {
+    display: none;
+  }
 }
 
 .highlightWrap {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 2rem;
   z-index: 10;
   height: 100%;
 
   & > span {
   @include large-body;
+  }
+
+  @include small-break {
+    justify-content: flex-start;
   }
 }
 
@@ -109,6 +153,7 @@
 .highlightText {
   opacity: .5;
   transition: opacity .9s ease;
+
   &:focus {
     text-decoration: none;
     color: inherit;
@@ -164,4 +209,8 @@
 .button {
   margin-top: 2rem;
   width: calc(var(--column) * 4);
+
+  @include small-break {
+    width: calc(var(--column) * 8);
+  }
 }
