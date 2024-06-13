@@ -17,12 +17,20 @@
   max-width: calc(var(--column) * 4);
 }
 
+.featuredPartnersWrapper {
+  margin-block: 4rem;
+}
+
 .featuredPartnersHeader {
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
+  & > * {
+    align-self: center;
+    margin: 0;
+  }
 
   @include mid-break {
-    h2 {
-      margin-bottom: 0;
+    & > * {
+      margin: 1rem 0;
     }
   }
 }

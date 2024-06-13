@@ -63,40 +63,18 @@ export default async function Partners() {
 
   return (
     <div className={classes.wrapper}>
-      <BreadcrumbsBar
-        breadcrumbs={[
-          {
-            url: '/partners',
-            label: 'Agency Partners',
-          },
-        ]}
-        links={breadcrumbBarLinks}
-      />
+      {breadcrumbBarLinks.length > 0 && (
+        <BreadcrumbsBar
+          breadcrumbs={[
+            {
+              url: '/partners',
+              label: 'Agency Partners',
+            },
+          ]}
+          links={breadcrumbBarLinks}
+        />
+      )}
       <Gutter className={[classes.hero, 'grid'].join(' ')}>
-        <div className={[classes.heroContent, 'cols-8 start-5 start-m-1'].join(' ')}>
-          <RichText content={hero?.richText} className={classes.heroRichText} />
-          {hasHeroLinks && (
-            <div className={[classes.links].filter(Boolean).join(' ')}>
-              {hero.heroLinks &&
-                hero.heroLinks.map(({ link }, i) => {
-                  return (
-                    <CMSLink
-                      {...link}
-                      key={i}
-                      appearance="default"
-                      fullWidth
-                      buttonProps={{
-                        icon: 'arrow',
-                        hideHorizontalBorders: true,
-                        hideBottomBorderExceptLast: true,
-                      }}
-                      className={classes.heroLink}
-                    />
-                  )
-                })}
-            </div>
-          )}
-        </div>
         <div className={[classes.featuredPartnersWrapper, 'cols-16'].join(' ')}>
           <div className={[classes.featuredPartnersHeader, 'cols-16 grid'].join(' ')}>
             <h2 className="cols-12 cols-m-8">Featured Partners</h2>

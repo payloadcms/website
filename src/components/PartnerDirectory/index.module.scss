@@ -2,14 +2,14 @@
 
 .partnerDirectory {
   position: relative;
-  padding-block: 6rem;
+  padding-block: 4rem;
 }
 
 .directoryHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
 
   & * {
     margin: 0;
@@ -19,6 +19,10 @@
     display: flex;
     gap: 1rem;
     align-items: center;
+  }
+
+  @include mid-break {
+    margin-bottom: 2rem;
   }
 }
 
