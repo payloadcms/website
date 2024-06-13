@@ -3,7 +3,7 @@
 import { useState } from 'react'
 
 import { Button } from '@components/Button'
-import { CMSLinkType } from '@components/CMSLink'
+import { CMSLink, CMSLinkType } from '@components/CMSLink'
 
 import classes from '../index.module.scss'
 
@@ -51,7 +51,12 @@ export const Highlights: React.FC<{
       </div>
       <span>{afterHighlights}</span>
       {props.button && (
-        <Button {...button} className={classes.button} hideHorizontalBorders icon="arrow" />
+        <CMSLink
+          {...button}
+          className={classes.button}
+          appearance={'default'}
+          buttonProps={{ hideHorizontalBorders: true, icon: 'arrow' }}
+        />
       )}
     </div>
   )
