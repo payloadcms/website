@@ -185,6 +185,11 @@
         color: var(--theme-text);
       }
 
+      &:has(input:disabled) {
+        color: var(--theme-elevation-250);
+        cursor: not-allowed;
+      }
+
       & input {
         width: 1rem;
         height: 1rem;
@@ -218,6 +223,11 @@
         &:hover::before {
           border-color: var(--theme-elevation-750);
           background-color: var(--theme-elevation-50);
+        }
+
+        &:disabled::before {
+          border-color: var(--theme-elevation-100);
+          cursor: not-allowed;
         }
       }
     }

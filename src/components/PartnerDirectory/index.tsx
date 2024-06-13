@@ -45,6 +45,18 @@ export const PartnerDirectory: React.FC<{
 
   const [filteredPartners, setFilteredPartners] = useState<FilterablePartner[]>(partnerList)
 
+  const [validFilters, setValidFilters] = useState<{
+    industries: string[]
+    specialties: string[]
+    regions: string[]
+    budgets: string[]
+  }>({
+    industries: [],
+    specialties: [],
+    regions: [],
+    budgets: [],
+  })
+
   useEffect(() => {
     setFilteredPartners(
       partnerList.filter(partner => {
@@ -61,6 +73,34 @@ export const PartnerDirectory: React.FC<{
       }),
     )
   }, [filters, partnerList])
+
+  useEffect(() => {
+    let filterSet: {
+      industries: string[]
+      specialties: string[]
+      regions: string[]
+      budgets: string[]
+    } = {
+      industries: [],
+      specialties: [],
+      regions: [],
+      budgets: [],
+    }
+
+    filteredPartners.forEach(partner => {
+      filterSet.industries.push(...partner.industries)
+      filterSet.specialties.push(...partner.specialties)
+      filterSet.regions.push(...partner.regions)
+      filterSet.budgets.push(...partner.budgets)
+    })
+
+    filterSet.industries = Array.from(new Set(filterSet.industries))
+    filterSet.specialties = Array.from(new Set(filterSet.specialties))
+    filterSet.regions = Array.from(new Set(filterSet.regions))
+    filterSet.budgets = Array.from(new Set(filterSet.budgets))
+
+    setValidFilters(filterSet)
+  }, [filteredPartners])
 
   const hasFilters = Object.values(filters).some(filter => filter.length > 0)
 
@@ -122,24 +162,28 @@ export const PartnerDirectory: React.FC<{
             filters={filters['industries']}
             handleFilters={handleFilters}
             options={filterOptions['industries']}
+            validOptions={validFilters.industries}
           />
           <FilterGroup
             group={'specialties'}
             filters={filters['specialties']}
             handleFilters={handleFilters}
             options={filterOptions['specialties']}
+            validOptions={validFilters.specialties}
           />
           <FilterGroup
             group={'regions'}
             filters={filters['regions']}
             handleFilters={handleFilters}
             options={filterOptions['regions']}
+            validOptions={validFilters.regions}
           />
           <FilterGroup
             group={'budgets'}
             filters={filters['budgets']}
             handleFilters={handleFilters}
             options={filterOptions['budgets']}
+            validOptions={validFilters.budgets}
           />
         </div>
       </div>
@@ -155,15 +199,16 @@ const FilterGroup: React.FC<{
   group: 'industries' | 'specialties' | 'regions' | 'budgets'
   filters: string[]
   options: (Industry | Specialty | Region | Budget)[]
+  validOptions?: string[]
   handleFilters: (
     group: 'industries' | 'specialties' | 'regions' | 'budgets',
     filter: string,
     checked: boolean,
   ) => void
 }> = props => {
-  const { group, filters, options, handleFilters } = props
+  const { group, filters, options, validOptions, handleFilters } = props
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
 
   return (
     <div className={[classes.filterGroup, open ? classes.open : ''].filter(Boolean).join(' ')}>
@@ -187,6 +232,7 @@ const FilterGroup: React.FC<{
                 name={option.value}
                 onChange={e => handleFilters(group, option.value, e.target.checked)}
                 checked={filters.includes(option.value)}
+                disabled={validOptions?.includes(option.value) ? false : true}
               />
               {option.name}
             </label>
