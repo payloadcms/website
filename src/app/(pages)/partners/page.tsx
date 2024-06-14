@@ -1,16 +1,22 @@
 import { notFound } from 'next/navigation'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
-import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
 import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar'
 import { PartnerDirectory } from '@components/PartnerDirectory'
 import { PartnerGrid } from '@components/PartnerGrid'
 import { RenderBlocks } from '@components/RenderBlocks'
-import { RichText } from '@components/RichText'
 import { fetchFilters, fetchPartnerProgram, fetchPartners } from '@root/app/_graphql'
 
 import classes from './index.module.scss'
+
+export async function generateMetaData() {
+  return {
+    title: 'Find a Payload Partner',
+    description:
+      'Connect with a Payload expert to help you build, launch, and scale your digital products.',
+  }
+}
 
 export default async function Partners() {
   const partnerProgram = await fetchPartnerProgram()
