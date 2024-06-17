@@ -223,10 +223,11 @@
         &:hover::before {
           border-color: var(--theme-elevation-750);
           background-color: var(--theme-elevation-50);
-        }
+          }
 
-        &:disabled::before {
-          border-color: var(--theme-elevation-100);
+          &:disabled::before {
+            border-color: var(--theme-elevation-100);
+            background-color: var(--theme-elevation-0);
           cursor: not-allowed;
         }
       }
