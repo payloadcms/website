@@ -10,7 +10,7 @@ import { fetchFilters, fetchPartnerProgram, fetchPartners } from '@root/app/_gra
 
 import classes from './index.module.scss'
 
-export async function generateMetaData() {
+export async function generateMetadata() {
   return {
     title: 'Find a Payload Partner',
     description:
