@@ -228,6 +228,9 @@ export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
           slug,
         },
       }),
+      next: {
+        tags: [`case-studies_${slug}`],
+      },
     },
   ).then(res => res.json())
 
