@@ -8,10 +8,12 @@
   }
 
   thead {
+    color: var(--theme-elevation-500);
+
     th {
+      @include small;
       font-weight: normal;
       text-align: left;
-      color: var(--theme-elevation-500);
     }
   }
 

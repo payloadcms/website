@@ -34,14 +34,14 @@ const columns = [
     accessor: 'operation',
     components: {
       Heading: 'Operation',
-      renderCell: (_, data) => <strong>{data}</strong>,
+      renderCell: (_, data) => <span>{data}</span>,
     },
   },
   {
     accessor: 'method',
     components: {
       Heading: 'Method',
-      renderCell: (_, data) => <label>{data}</label>,
+      renderCell: (_, data) => <code>{data}</code>,
     },
   },
   {
