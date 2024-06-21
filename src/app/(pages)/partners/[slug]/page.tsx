@@ -29,7 +29,7 @@ export default async function PartnerPage({ params }: { params: { slug: string }
     return notFound()
   }
 
-  const { bannerImage, overview, idealProject, caseStudy, contributions, projects } =
+  const { bannerImage, overview, services, idealProject, caseStudy, contributions, projects } =
     partner.content
 
   const { contactForm } = partnerProgram
@@ -66,6 +66,10 @@ export default async function PartnerPage({ params }: { params: { slug: string }
           <div className={classes.textBlock}>
             <h3>Overview</h3>
             <RichText content={overview} />
+          </div>
+          <div className={classes.textBlock}>
+            <h3>Services</h3>
+            <RichText content={services} />
           </div>
           <div className={classes.textBlock}>
             <h3>Ideal Project</h3>
