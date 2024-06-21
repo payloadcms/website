@@ -1,11 +1,11 @@
+export const dynamic = 'force-dynamic'
+
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
 import { CMSForm } from '@components/CMSForm'
-import { Text } from '@components/CMSForm/fields/Text'
-import { Textarea } from '@components/CMSForm/fields/Textarea'
 import { ContributionTable } from '@components/ContributionTable'
 import { Gutter } from '@components/Gutter'
 import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar'
