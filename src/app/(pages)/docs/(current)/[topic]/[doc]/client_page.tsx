@@ -56,7 +56,9 @@ export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads, version 
             className={[classes.next, hasRelatedThreads && classes.hasRelatedThreads]
               .filter(Boolean)
               .join(' ')}
-            href={`/docs/${next.topic.toLowerCase()}/${next.slug}`}
+            href={`/docs${version !== 'current' ? `/${version}` : ''}/${next.topic.toLowerCase()}/${
+              next.slug
+            }`}
             data-algolia-no-crawl
             prefetch={false}
           >
