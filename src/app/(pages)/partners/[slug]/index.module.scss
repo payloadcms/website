@@ -104,7 +104,7 @@
 .banner {
   width: calc(var(--column) * 13);
   height: auto;
-  aspect-ratio: 2 / 1;
+  // aspect-ratio: 2 / 1;
   overflow: hidden;
   padding-inline: 1px;
   border-block: 1px solid var(--theme-border-color);
