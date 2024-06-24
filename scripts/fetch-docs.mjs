@@ -105,6 +105,11 @@ const fetchDocs = async () => {
 
                 const parsedDoc = matter(decodeBase64(json.content))
 
+                parsedDoc.content = parsedDoc.content
+                  .replace(/\(\/docs\//g, '(../')
+                  .replace(/"\/docs\//g, '"../')
+                  .replace(/https:\/\/payloadcms.com\/docs\//g, '../')
+
                 const doc = {
                   content: await serialize(parsedDoc.content, {
                     mdxOptions: {
