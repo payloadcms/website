@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 
 import { Drawer, DrawerToggler } from '@components/Drawer/index.js'
