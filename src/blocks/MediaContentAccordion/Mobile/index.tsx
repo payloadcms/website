@@ -73,145 +73,141 @@ export const MobileMediaContentAccordion: React.FC<MediaContentAccordionProps> =
 
   return (
     <div
-      className={[classes.mobileAccordionWrapper, 'grid', className && className]
-        .filter(Boolean)
-        .join(' ')}
+      className={[classes.mobileAccordionWrapper, className && className].filter(Boolean).join(' ')}
     >
-      <div className={['start-1 cols-8 start-m-1 cols-m-8'].filter(Boolean).join(' ')}>
-        <div className={[classes.introWrapper].filter(Boolean).join(' ')}>
-          {leader && <div className={classes.leader}>{leader}</div>}
-          {heading && (
-            <h3 className={classes.heading}>
-              <SplitAnimate text={heading} />
-            </h3>
-          )}
-        </div>
-        <div
-          className={classes.mediaBackgroundWrapper}
-          style={{ height: `calc(${containerHeight}px + 6rem)` }}
-        >
+      <div className={[classes.introWrapper].filter(Boolean).join(' ')}>
+        {leader && <div className={classes.leader}>{leader}</div>}
+        {heading && (
+          <h3 className={classes.heading}>
+            <SplitAnimate text={heading} />
+          </h3>
+        )}
+      </div>
+      <div
+        className={classes.mediaBackgroundWrapper}
+        style={{ height: `calc(${containerHeight}px + 6rem)` }}
+      >
+        {hasAccordion &&
+          accordion.map((item, index) => (
+            <Fragment key={item.id || index}>
+              {index === activeAccordion && (
+                <>
+                  {item.background === 'gradient' && (
+                    <Fragment>
+                      <Image
+                        alt=""
+                        className={classes.gradientBg}
+                        width={1920}
+                        height={946}
+                        src={`/images/gradients/1.jpg`}
+                      />
+                      <CrosshairIcon
+                        className={[classes.crosshairTopOne].filter(Boolean).join(' ')}
+                      />
+                      <CrosshairIcon
+                        className={[classes.crosshairTopTwo].filter(Boolean).join(' ')}
+                      />
+                      <CrosshairIcon
+                        className={[classes.crosshairBottomOne].filter(Boolean).join(' ')}
+                      />
+                      <CrosshairIcon
+                        className={[classes.crosshairBottomTwo].filter(Boolean).join(' ')}
+                      />
+                    </Fragment>
+                  )}
+                  {item.background === 'scanlines' && (
+                    <Fragment>
+                      <BackgroundScanline
+                        className={[classes.scanlineMobile].filter(Boolean).join(' ')}
+                      />
+                      <CrosshairIcon
+                        className={[classes.crosshairTopOne].filter(Boolean).join(' ')}
+                      />
+                      <CrosshairIcon
+                        className={[classes.crosshairTopTwo].filter(Boolean).join(' ')}
+                      />
+                      <CrosshairIcon
+                        className={[classes.crosshairBottomOne].filter(Boolean).join(' ')}
+                      />
+                      <CrosshairIcon
+                        className={[classes.crosshairBottomTwo].filter(Boolean).join(' ')}
+                      />
+                    </Fragment>
+                  )}
+                  {item.background === 'none' && <div className={classes.transparentBg} />}
+                </>
+              )}
+            </Fragment>
+          ))}
+        <div className={classes.mediaMobileContainer}>
           {hasAccordion &&
             accordion.map((item, index) => (
-              <Fragment key={item.id || index}>
-                {index === activeAccordion && (
-                  <>
-                    {item.background === 'gradient' && (
-                      <Fragment>
-                        <Image
-                          alt=""
-                          className={classes.gradientBg}
-                          width={1920}
-                          height={946}
-                          src={`/images/gradients/1.jpg`}
-                        />
-                        <CrosshairIcon
-                          className={[classes.crosshairTopOne].filter(Boolean).join(' ')}
-                        />
-                        <CrosshairIcon
-                          className={[classes.crosshairTopTwo].filter(Boolean).join(' ')}
-                        />
-                        <CrosshairIcon
-                          className={[classes.crosshairBottomOne].filter(Boolean).join(' ')}
-                        />
-                        <CrosshairIcon
-                          className={[classes.crosshairBottomTwo].filter(Boolean).join(' ')}
-                        />
-                      </Fragment>
-                    )}
-                    {item.background === 'scanlines' && (
-                      <Fragment>
-                        <BackgroundScanline
-                          className={[classes.scanlineMobile].filter(Boolean).join(' ')}
-                        />
-                        <CrosshairIcon
-                          className={[classes.crosshairTopOne].filter(Boolean).join(' ')}
-                        />
-                        <CrosshairIcon
-                          className={[classes.crosshairTopTwo].filter(Boolean).join(' ')}
-                        />
-                        <CrosshairIcon
-                          className={[classes.crosshairBottomOne].filter(Boolean).join(' ')}
-                        />
-                        <CrosshairIcon
-                          className={[classes.crosshairBottomTwo].filter(Boolean).join(' ')}
-                        />
-                      </Fragment>
-                    )}
-                    {item.background === 'none' && <div className={classes.transparentBg} />}
-                  </>
+              <div
+                ref={mediaRefs.current[index]}
+                key={item.id || index}
+                className={classes.media}
+                style={{ opacity: index === activeAccordion ? 1 : 0 }}
+              >
+                {typeof item.media === 'object' && item.media !== null && (
+                  <Media resource={item.media} />
                 )}
-              </Fragment>
+              </div>
             ))}
-          <div className={classes.mediaMobileContainer}>
-            {hasAccordion &&
-              accordion.map((item, index) => (
-                <div
-                  ref={mediaRefs.current[index]}
-                  key={item.id || index}
-                  className={classes.media}
-                  style={{ opacity: index === activeAccordion ? 1 : 0 }}
-                >
-                  {typeof item.media === 'object' && item.media !== null && (
-                    <Media resource={item.media} />
-                  )}
-                </div>
-              ))}
-          </div>
         </div>
-        <div>
-          <CollapsibleGroup allowMultiple={false} transTime={500} transCurve="ease-in-out">
-            {hasAccordion &&
-              accordion.map((item, index) => (
-                <div
-                  key={item.id || index}
-                  className={[
-                    classes.collapsibleWrapper,
-                    activeAccordion === index ? classes.activeLeftBorder : '',
-                  ]
-                    .filter(Boolean)
-                    .join(' ')}
+      </div>
+      <div>
+        <CollapsibleGroup allowMultiple={false} transTime={500} transCurve="ease-in-out">
+          {hasAccordion &&
+            accordion.map((item, index) => (
+              <div
+                key={item.id || index}
+                className={[
+                  classes.collapsibleWrapper,
+                  activeAccordion === index ? classes.activeLeftBorder : '',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+              >
+                <Collapsible
+                  onToggle={() => toggleAccordion(index)}
+                  open={activeAccordion === index}
                 >
-                  <Collapsible
-                    onToggle={() => toggleAccordion(index)}
-                    open={activeAccordion === index}
+                  <CollapsibleToggler
+                    className={[
+                      classes.collapsibleToggler,
+                      activeAccordion === index ? classes.activeItem : '',
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
+                    onClick={() => toggleAccordion(index)}
                   >
-                    <CollapsibleToggler
+                    <div className={classes.togglerTitle}>{item.mediaLabel}</div>
+                    <ChevronDownIcon
                       className={[
-                        classes.collapsibleToggler,
-                        activeAccordion === index ? classes.activeItem : '',
+                        classes.chevronDownIcon,
+                        activeAccordion === index ? classes.rotateChevron : '',
                       ]
                         .filter(Boolean)
                         .join(' ')}
-                      onClick={() => toggleAccordion(index)}
-                    >
-                      <div className={classes.togglerTitle}>{item.mediaLabel}</div>
-                      <ChevronDownIcon
-                        className={[
-                          classes.chevronDownIcon,
-                          activeAccordion === index ? classes.rotateChevron : '',
-                        ]
-                          .filter(Boolean)
-                          .join(' ')}
+                    />
+                  </CollapsibleToggler>
+                  <CollapsibleContent className={classes.collapsibleContent}>
+                    <div className={classes.contentWrapper}>
+                      <RichText
+                        className={classes.mediaDescription}
+                        content={item.mediaDescription}
                       />
-                    </CollapsibleToggler>
-                    <CollapsibleContent className={classes.collapsibleContent}>
-                      <div className={classes.contentWrapper}>
-                        <RichText
-                          className={classes.mediaDescription}
-                          content={item.mediaDescription}
-                        />
-                        {item.enableLink && item.link && (
-                          <CMSLink className={classes.link} {...item.link}>
-                            <ArrowRightIcon className={classes.arrowIcon} />
-                          </CMSLink>
-                        )}
-                      </div>
-                    </CollapsibleContent>
-                  </Collapsible>
-                </div>
-              ))}
-          </CollapsibleGroup>
-        </div>
+                      {item.enableLink && item.link && (
+                        <CMSLink className={classes.link} {...item.link}>
+                          <ArrowRightIcon className={classes.arrowIcon} />
+                        </CMSLink>
+                      )}
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+              </div>
+            ))}
+        </CollapsibleGroup>
       </div>
     </div>
   )
