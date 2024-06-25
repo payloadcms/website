@@ -1,8 +1,8 @@
 import React from 'react'
 import { Metadata } from 'next'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { PrivacyClientPage } from './page_client'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { PrivacyClientPage } from './page_client.js'
 
 export default props => {
   return <PrivacyClientPage {...props} />

@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { cloudSlug } from '@cloud/slug'
+import { cloudSlug } from '@cloud/slug.js'
 import Link from 'next/link'
 
-import { useAuth } from '@root/providers/Auth'
+import { useAuth } from '@root/providers/Auth/index.js'
 
 // import { DropdownMenu } from './DropdownMenu'
 import classes from './index.module.scss'

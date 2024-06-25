@@ -1,10 +1,10 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { fetchRelatedThreads } from '../../../../../_graphql'
 import { getDoc, getTopics } from '../../../api'
-import { NextDoc } from '../../../types'
+import { NextDoc } from '../../../types.js'
 import { RenderDoc } from './client_page'
 
 const Doc = async ({ params }) => {

@@ -4,7 +4,7 @@ import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 
 import { BlockWrapper } from '@components/BlockWrapper'
-import { Gutter } from '@components/Gutter'
+import { Gutter } from '@components/Gutter/index.js'
 
 import classes from './page.module.scss'
 

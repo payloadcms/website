@@ -3,7 +3,7 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 
-import canUseDom from '@root/utilities/can-use-dom'
+import canUseDom from '@root/utilities/can-use-dom.js'
 
 export const PageTransition: React.FC<{
   children: React.ReactNode

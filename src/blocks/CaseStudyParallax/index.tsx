@@ -2,10 +2,10 @@
 import * as React from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
-import { BackgroundScanline } from '@components/BackgroundScanline'
+import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
-import { Button } from '@components/Button'
-import { Gutter } from '@components/Gutter'
+import { Button } from '@components/Button/index.js'
+import { Gutter } from '@components/Gutter/index.js'
 import { Media } from '@components/Media'
 import MediaParallax from '@components/MediaParallax'
 import { QuoteIconAlt } from '@root/icons/QuoteIconAlt'

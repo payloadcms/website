@@ -1,8 +1,8 @@
 import { Fragment } from 'react'
-import { DashboardTabs } from '@cloud/_components/DashboardTabs'
-import { cloudSlug } from '@cloud/slug'
+import { DashboardTabs } from '@cloud/_components/DashboardTabs/index.js'
+import { cloudSlug } from '@cloud/slug.js'
 
-import { Gutter } from '@components/Gutter'
+import { Gutter } from '@components/Gutter/index.js'
 
 export default async props => {
   const { children } = props

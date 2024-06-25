@@ -1,7 +1,7 @@
 import React from 'react'
 import { usePagination } from 'react-instantsearch-hooks-web'
 
-import { ChevronIcon } from '@root/icons/ChevronIcon'
+import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
 
 import classes from './index.module.scss'
 

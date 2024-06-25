@@ -6,8 +6,8 @@ import type {
   StripeElements,
 } from '@stripe/stripe-js'
 
-import type { Team } from '@root/payload-cloud-types'
-import { createSetupIntent } from './createSetupIntent'
+import type { Team } from '@root/payload-cloud-types.js'
+import { createSetupIntent } from './createSetupIntent.js'
 
 export const confirmCardSetup = async (args: {
   team?: Team

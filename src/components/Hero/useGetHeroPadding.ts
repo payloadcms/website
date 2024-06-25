@@ -5,7 +5,7 @@ import type { BlocksProp } from '@components/RenderBlocks'
 import { getFieldsKeyFromBlock } from '@components/RenderBlocks/utilities'
 import type { Page } from '@root/payload-types'
 import { useThemePreference } from '@root/providers/Theme'
-import type { Theme } from '@root/providers/Theme/types'
+import type { Theme } from '@root/providers/Theme/types.js'
 
 export const useGetHeroPadding = (
   theme: Page['hero']['theme'],

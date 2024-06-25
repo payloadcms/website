@@ -2,8 +2,8 @@
 
 import React from 'react'
 
-import { Gutter } from '@components/Gutter'
-import { Heading } from '@components/Heading'
+import { Gutter } from '@components/Gutter/index.js'
+import { Heading } from '@components/Heading/index.js'
 
 export default function TermsClientPage() {
   return (

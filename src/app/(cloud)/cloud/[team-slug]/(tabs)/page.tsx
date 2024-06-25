@@ -1,10 +1,10 @@
-import { fetchProjects } from '@cloud/_api/fetchProjects'
-import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
-import { fetchTemplates } from '@cloud/_api/fetchTemplates'
+import { fetchProjects } from '@cloud/_api/fetchProjects.js'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import { fetchTemplates } from '@cloud/_api/fetchTemplates.js'
 import { Metadata } from 'next'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { TeamPage } from './page_client'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { TeamPage } from './page_client.js'
 
 export default async ({ params: { 'team-slug': teamSlug } }) => {
   const team = await fetchTeamWithCustomer(teamSlug)

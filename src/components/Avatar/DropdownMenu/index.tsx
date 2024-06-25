@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { cloudSlug } from '@cloud/slug'
+import { cloudSlug } from '@cloud/slug.js'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { useAuth } from '@root/providers/Auth'
+import { useAuth } from '@root/providers/Auth/index.js'
 import useClickAway from '@root/utilities/use-click-away'
 
 import classes from './index.module.scss'

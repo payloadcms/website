@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
-import type { InvoicesResult } from '@cloud/_api/fetchInvoices'
-import { fetchInvoicesClient } from '@cloud/_api/fetchInvoices'
+import type { InvoicesResult } from '@cloud/_api/fetchInvoices.js'
+import { fetchInvoicesClient } from '@cloud/_api/fetchInvoices.js'
 
-import type { Team } from '@root/payload-cloud-types'
+import type { Team } from '@root/payload-cloud-types.js'
 
 const reducer = (
   state: InvoicesResult | null,

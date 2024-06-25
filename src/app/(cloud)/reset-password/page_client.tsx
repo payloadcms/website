@@ -1,16 +1,16 @@
 'use client'
 
 import React, { useCallback } from 'react'
-import { Text } from '@forms/fields/Text'
-import Form from '@forms/Form'
-import FormProcessing from '@forms/FormProcessing'
-import FormSubmissionError from '@forms/FormSubmissionError'
-import Submit from '@forms/Submit'
+import { Text } from '@forms/fields/Text/index.js'
+import Form from '@forms/Form/index.js'
+import FormProcessing from '@forms/FormProcessing/index.js'
+import FormSubmissionError from '@forms/FormSubmissionError/index.js'
+import Submit from '@forms/Submit/index.js'
 import { redirect, useSearchParams } from 'next/navigation'
 
-import { Gutter } from '@components/Gutter'
-import { Heading } from '@components/Heading'
-import { useAuth } from '@root/providers/Auth'
+import { Gutter } from '@components/Gutter/index.js'
+import { Heading } from '@components/Heading/index.js'
+import { useAuth } from '@root/providers/Auth/index.js'
 
 import classes from './page.module.scss'
 

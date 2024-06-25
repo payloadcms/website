@@ -2,11 +2,11 @@
 
 import React, { Fragment, useEffect } from 'react'
 import Error from '@forms/Error'
-import { FieldProps } from '@forms/fields/types'
+import { FieldProps } from '@forms/fields/types.js'
 import { useField } from '@forms/fields/useField'
 
-import Label from '@components/CMSForm/Label'
-import { CopyToClipboard } from '@components/CopyToClipboard'
+import Label from '@components/CMSForm/Label/index.js'
+import { CopyToClipboard } from '@components/CopyToClipboard/index.js'
 import { Tooltip } from '@components/Tooltip'
 import { EyeIcon } from '@root/icons/EyeIcon'
 

@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 import { Drawer, DrawerToggler } from '@components/Drawer'
 import YouTube from '@components/YouTube'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
 import { PlayIcon } from '@root/icons/PlayIcon'
 
 import classes from './index.module.scss'

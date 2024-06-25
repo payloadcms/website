@@ -1,4 +1,4 @@
-import Code from '@components/Code'
+import Code from '@components/Code/index.js'
 import { Media } from '@components/Media'
 import { PixelBackground } from '@components/PixelBackground'
 import { CodeExampleBlock, ExampleTabsBlock, MediaExampleBlock } from '@root/payload-types'

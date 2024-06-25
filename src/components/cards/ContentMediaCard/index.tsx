@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { Media } from '@components/Media'
 import { formatDate } from '@root/utilities/format-date-time'
-import { ContentMediaCardProps } from '../types'
+import { ContentMediaCardProps } from '../types.js'
 
 import classes from './index.module.scss'
 

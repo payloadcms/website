@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-import { Gutter } from '@components/Gutter'
-import { Heading } from '@components/Heading'
+import { Gutter } from '@components/Gutter/index.js'
+import { Heading } from '@components/Heading/index.js'
 
 import classes from './page.module.scss'
 

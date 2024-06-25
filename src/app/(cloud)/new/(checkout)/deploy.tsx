@@ -1,14 +1,14 @@
 import { toast } from 'react-toastify'
-import { updateCustomer } from '@cloud/_api/updateCustomer'
-import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod'
+import { updateCustomer } from '@cloud/_api/updateCustomer.js'
+import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod.js'
 import { type Stripe, type StripeElements } from '@stripe/stripe-js'
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime.js'
 
-import { Project, User } from '@root/payload-cloud-types'
-import { confirmCardPayment } from './confirmCardPayment'
-import { confirmCardSetup } from './confirmCardSetup'
-import { createSubscription } from './createSubscription'
-import { CheckoutState } from './reducer'
+import { Project, User } from '@root/payload-cloud-types.js'
+import { confirmCardPayment } from './confirmCardPayment.js'
+import { confirmCardSetup } from './confirmCardSetup.js'
+import { createSubscription } from './createSubscription.js'
+import { CheckoutState } from './reducer.js'
 
 export const deploy = async (args: {
   project: Project | null | undefined

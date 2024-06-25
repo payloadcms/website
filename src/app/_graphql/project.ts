@@ -1,5 +1,5 @@
-import { PLAN } from './plans'
-import { TEAM } from './team'
+import { PLAN } from './plans.js'
+import { TEAM } from './team.js'
 
 const PROJECT = `
   id

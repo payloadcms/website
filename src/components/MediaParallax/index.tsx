@@ -2,7 +2,7 @@ import React from 'react'
 import { motion, transform, useScroll } from 'framer-motion'
 
 import { Media } from '@components/Media'
-import { Props as MediaProps } from '@components/Media/types'
+import { Props as MediaProps } from '@components/Media/types.js'
 import { Media as MediaType } from '@root/payload-types'
 
 import classes from './index.module.scss'

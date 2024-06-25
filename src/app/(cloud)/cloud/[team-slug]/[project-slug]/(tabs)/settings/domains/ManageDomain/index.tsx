@@ -2,12 +2,12 @@ import * as React from 'react'
 import { useModal } from '@faceless-ui/modal'
 import Link from 'next/link'
 
-import { Button } from '@components/Button'
-import { Heading } from '@components/Heading'
-import { ModalWindow } from '@components/ModalWindow'
-import { Accordion } from '@root/app/_components/Accordion'
-import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon'
-import { Project, Team } from '@root/payload-cloud-types'
+import { Button } from '@components/Button/index.js'
+import { Heading } from '@components/Heading/index.js'
+import { ModalWindow } from '@components/ModalWindow/index.js'
+import { Accordion } from '@root/app/_components/Accordion/index.js'
+import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon/index.js'
+import { Project, Team } from '@root/payload-cloud-types.js'
 
 import classes from './index.module.scss'
 

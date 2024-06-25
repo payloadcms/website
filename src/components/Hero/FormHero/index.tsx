@@ -3,10 +3,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
-import { BackgroundScanline } from '@components/BackgroundScanline'
+import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { BlockWrapper } from '@components/BlockWrapper'
 import { CMSForm } from '@components/CMSForm'
-import { Gutter } from '@components/Gutter'
+import { Gutter } from '@components/Gutter/index.js'
 import { BlocksProp } from '@components/RenderBlocks'
 import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'

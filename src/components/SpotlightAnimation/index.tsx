@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 
-import { AllowedElements } from '@components/SpotlightAnimation/types'
+import { AllowedElements } from '@components/SpotlightAnimation/types.js'
 import { useResize } from '@root/utilities/use-resize'
 
 import classes from './index.module.scss'

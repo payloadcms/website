@@ -9,7 +9,7 @@ import { GoogleTagManager } from '@components/Analytics/GoogleTagManager'
 import { PrivacyBanner } from '@components/PrivacyBanner'
 import { fetchGlobals } from '@root/app/_graphql'
 import { PrivacyProvider } from '@root/providers/Privacy'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { robotoMono, untitledSans } from './fonts'
 
 import '../css/app.scss'

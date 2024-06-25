@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 
-import { Banner } from '@components/MDX/components/Banner'
+import { Banner } from '@components/MDX/components/Banner/index.js'
 
 import classes from './index.module.scss'
 

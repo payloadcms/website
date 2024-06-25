@@ -3,11 +3,11 @@
 import React, { CSSProperties, useState } from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
-import { BackgroundScanline } from '@components/BackgroundScanline'
+import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { SquareCard } from '@components/cards/SquareCard'
 import { CMSLink } from '@components/CMSLink'
-import { Gutter } from '@components/Gutter'
+import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
 

@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 import { CommentsIcon } from '@root/graphics/CommentsIcon'
 import { TwitterIconAlt } from '@root/graphics/TwitterIconAlt'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
 import getRelativeDate from '@root/utilities/get-relative-date'
 import { getTeamTwitter } from '@root/utilities/get-team-twitter'
 

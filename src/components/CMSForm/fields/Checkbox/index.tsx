@@ -2,10 +2,10 @@
 
 import React, { useEffect } from 'react'
 import Error from '@forms/Error'
-import { FieldProps } from '@forms/fields/types'
+import { FieldProps } from '@forms/fields/types.js'
 import { useField } from '@forms/fields/useField'
 
-import Label from '@components/CMSForm/Label'
+import Label from '@components/CMSForm/Label/index.js'
 import { CheckIcon } from '@root/icons/CheckIcon'
 
 import classes from './index.module.scss'

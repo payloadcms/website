@@ -1,8 +1,8 @@
 import React from 'react'
-import { ArrowIcon } from '@icons/ArrowIcon'
+import { ArrowIcon } from '@icons/ArrowIcon/index.js'
 
 import { CMSLink } from '@components/CMSLink'
-import { PricingCardProps } from '../types'
+import { PricingCardProps } from '../types.js'
 
 import classes from './index.module.scss'
 

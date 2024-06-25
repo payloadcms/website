@@ -1,6 +1,6 @@
-import { PROJECT_QUERY, PROJECTS_QUERY } from '@root/app/_graphql/project'
-import type { Project } from '@root/payload-cloud-types'
-import { payloadCloudToken } from './token'
+import { PROJECT_QUERY, PROJECTS_QUERY } from '@root/app/_graphql/project.js'
+import type { Project } from '@root/payload-cloud-types.js'
+import { payloadCloudToken } from './token.js'
 
 export interface ProjectsRes {
   docs: Project[]

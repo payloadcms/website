@@ -2,7 +2,7 @@ import React from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
-import { Gutter } from '@components/Gutter'
+import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
 

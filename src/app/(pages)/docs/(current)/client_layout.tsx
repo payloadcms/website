@@ -10,7 +10,7 @@ import { BackgroundGrid } from '@root/components/BackgroundGrid'
 import { MenuIcon } from '@root/graphics/MenuIcon'
 import { ChevronIcon } from '@root/icons/ChevronIcon'
 import { CloseIcon } from '@root/icons/CloseIcon'
-import { DocMeta, Topic } from '../types'
+import { DocMeta, Topic } from '../types.js'
 
 import classes from '../index.module.scss'
 

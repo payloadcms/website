@@ -5,9 +5,9 @@ import {
   CODE_BLOCK,
   MEDIA_BLOCK,
   REUSABLE_CONTENT_BLOCK,
-} from './blocks'
-import { MEDIA_FIELDS } from './media'
-import { META_FIELDS } from './meta'
+} from './blocks.js'
+import { MEDIA_FIELDS } from './media.js'
+import { META_FIELDS } from './meta.js'
 
 export const AUTHOR_FIELDS = `{
   firstName

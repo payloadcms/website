@@ -3,7 +3,7 @@ import React, { useCallback } from 'react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 
 import CodeBlip from '@components/CodeBlip'
-import { Props } from './types'
+import { Props } from './types.js'
 
 import classes from './index.module.scss'
 

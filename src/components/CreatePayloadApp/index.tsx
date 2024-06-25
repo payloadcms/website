@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import { CopyToClipboard } from '@components/CopyToClipboard'
+import { CopyToClipboard } from '@components/CopyToClipboard/index.js'
 
 import classes from './index.module.scss'
 

@@ -3,8 +3,8 @@
 import React, { forwardRef, HTMLAttributes, useEffect, useState } from 'react'
 import Link from 'next/link'
 
-import { GitHubIcon } from '@root/graphics/GitHub'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { GitHubIcon } from '@root/graphics/GitHub/index.js'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
 import { PlusIcon } from '@root/icons/PlusIcon'
 import { SearchIcon } from '@root/icons/SearchIcon'
 import { Page } from '@root/payload-types'

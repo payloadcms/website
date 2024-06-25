@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useMouseInfo } from '@faceless-ui/mouse-info'
-import { PayloadIcon } from '@graphics/PayloadIcon'
+import { PayloadIcon } from '@graphics/PayloadIcon/index.js'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { Gutter } from '@components/Gutter'
+import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText'
 import { CaseStudy, ReusableContent } from '@root/payload-types'
 

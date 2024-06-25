@@ -7,7 +7,7 @@ import { BlockSpacing } from '@components/BlockSpacing'
 import { BlockWrapper } from '@components/BlockWrapper'
 import { ContentMediaCard } from '@components/cards/ContentMediaCard'
 import { FeaturedBlogPost } from '@components/FeaturedBlogPost'
-import { Gutter } from '@components/Gutter'
+import { Gutter } from '@components/Gutter/index.js'
 import { Post } from '@root/payload-types'
 
 import classes from './index.module.scss'

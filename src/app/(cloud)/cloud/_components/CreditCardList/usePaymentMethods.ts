@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
-import { revalidateCache } from '@cloud/_actions/revalidateCache'
-import { fetchPaymentMethod } from '@cloud/_api/fetchPaymentMethod'
-import { fetchPaymentMethodsClient } from '@cloud/_api/fetchPaymentMethods'
-import type { TeamWithCustomer } from '@cloud/_api/fetchTeam'
-import { updateCustomer } from '@cloud/_api/updateCustomer'
+import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
+import { fetchPaymentMethod } from '@cloud/_api/fetchPaymentMethod.js'
+import { fetchPaymentMethodsClient } from '@cloud/_api/fetchPaymentMethods.js'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import { updateCustomer } from '@cloud/_api/updateCustomer.js'
 import { useElements, useStripe } from '@stripe/react-stripe-js'
 import type { PaymentMethod, SetupIntent } from '@stripe/stripe-js'
 
-import { confirmCardSetup } from '../../../new/(checkout)/confirmCardSetup'
-import { cardReducer } from './reducer'
+import { confirmCardSetup } from '../../../new/(checkout)/confirmCardSetup.js'
+import { cardReducer } from './reducer.js'
 
 type SaveNewPaymentMethod = (paymentMethodID: string) => Promise<SetupIntent | null | undefined>
 

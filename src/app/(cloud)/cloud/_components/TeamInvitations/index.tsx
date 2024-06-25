@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react'
 import { toast } from 'react-toastify'
 
-import { Heading } from '@components/Heading'
-import { Team } from '@root/payload-cloud-types'
-import { formatDate } from '@root/utilities/format-date-time'
-import { TeamMemberRow } from '../TeamMembers/TeamMemberRow'
+import { Heading } from '@components/Heading/index.js'
+import { Team } from '@root/payload-cloud-types.js'
+import { formatDate } from '@root/utilities/format-date-time.js'
+import { TeamMemberRow } from '../TeamMembers/TeamMemberRow.js'
 
 import classes from './index.module.scss'
 

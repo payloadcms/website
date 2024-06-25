@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 
-import type { Heading, IContext } from './types'
+import type { Heading, IContext } from './types.js'
 
 const Context = createContext<IContext>({
   toc: [] as Array<[string, Heading]>,

@@ -10,14 +10,14 @@ import React, {
   useState,
 } from 'react'
 
-import { Data, Field, IFormContext, InitialState, OnSubmit } from '../types'
+import { Data, Field, IFormContext, InitialState, OnSubmit } from '../types.js'
 import {
   FieldContext,
   FormContext,
   FormSubmittedContext,
   ModifiedContext,
   ProcessingContext,
-} from './context'
+} from './context.js'
 import initialContext from './initialContext'
 import { reduceFieldsToValues } from './reduceFieldsToValues'
 import reducer from './reducer'

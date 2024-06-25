@@ -1,7 +1,7 @@
 import React from 'react'
-import { useForm, useFormProcessing, useFormSubmitted } from '@forms/Form/context'
+import { useForm, useFormProcessing, useFormSubmitted } from '@forms/Form/context.js'
 
-import { Message } from '@root/app/_components/Message'
+import { Message } from '@root/app/_components/Message/index.js'
 
 const FormSubmissionError: React.FC<{
   className?: string

@@ -1,4 +1,4 @@
-import { Gutter } from '@components/Gutter'
+import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText'
 import { ExampleTabsBlock } from '@root/payload-types'
 import { Tabs } from './Tabs'

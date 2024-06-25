@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from 'react'
 
-import { Props } from '../types'
+import { Props } from '../types.js'
 
 import classes from './index.module.scss'
 

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Metadata } from 'next'
 
-import { Gutter } from '@components/Gutter'
-import { Button } from '../../../../components/Button'
+import { Gutter } from '@components/Gutter/index.js'
+import { Button } from '../../../../components/Button/index.js'
 import { StyleguidePageContent } from '../PageContent'
 
 const Buttons: React.FC = () => {

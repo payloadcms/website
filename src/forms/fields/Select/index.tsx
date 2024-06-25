@@ -4,9 +4,9 @@ import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 
 import ReactSelect from 'react-select'
 
 import Error from '../../Error'
-import Label from '../../Label'
+import Label from '../../Label/index.js'
 import { useFormField } from '../../useFormField'
-import { FieldProps } from '../types'
+import { FieldProps } from '../types.js'
 
 import classes from './index.module.scss'
 

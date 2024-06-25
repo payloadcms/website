@@ -3,7 +3,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 
-import { Button } from '@components/Button'
+import { Button } from '@components/Button/index.js'
 import { usePrivacy } from '@root/providers/Privacy'
 
 import classes from './index.module.scss'

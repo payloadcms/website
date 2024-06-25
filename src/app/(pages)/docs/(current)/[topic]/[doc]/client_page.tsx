@@ -1,11 +1,11 @@
 'use client'
 
 import React from 'react'
-import { ArrowIcon } from '@icons/ArrowIcon'
+import { ArrowIcon } from '@icons/ArrowIcon/index.js'
 import Link from 'next/link'
 import { MDXRemote } from 'next-mdx-remote'
 
-import { BackgroundScanline } from '@components/BackgroundScanline'
+import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import DiscordGitCTA from '@components/DiscordGitCTA'
 import { JumplistProvider } from '@components/Jumplist'
 import components from '@components/MDX/components'
@@ -15,7 +15,7 @@ import { VersionBanner } from '@components/VersionBanner'
 import { VersionSelector } from '@components/VersionSelector'
 import { CommunityHelp } from '@root/payload-types'
 import slugify from '@root/utilities/slugify'
-import { Doc, NextDoc } from '../../../types'
+import { Doc, NextDoc } from '../../../types.js'
 
 import classes from './index.module.scss'
 

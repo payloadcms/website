@@ -2,7 +2,7 @@ import React from 'react'
 import * as cheerio from 'cheerio'
 
 import AuthorTag from '@components/AuthorTag'
-import { BackgroundScanline } from '@components/BackgroundScanline'
+import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { DiscordGitBody } from '@components/DiscordGitBody'
 import { FileAttachments } from '@components/FileAttachment'
 import { Messages } from '@root/app/(pages)/community-help/(posts)/discord/[slug]/client_page'

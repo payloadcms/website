@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { fetchBlogPost, fetchPosts } from '../../../_graphql'
 import { BlogPost } from './BlogPost'
 

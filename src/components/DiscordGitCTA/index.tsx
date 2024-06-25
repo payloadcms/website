@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { DiscordUsersPill } from '@components/DiscordUsersPill'
 import { GithubStarsPill } from '@components/GithubStarsPill'
 import { PixelBackground } from '@components/PixelBackground'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
 
 import classes from './index.module.scss'
 

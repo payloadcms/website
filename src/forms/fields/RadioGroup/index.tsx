@@ -3,8 +3,8 @@
 import React, { useId } from 'react'
 
 import Error from '../../Error'
-import Label from '../../Label'
-import { FieldProps } from '../types'
+import Label from '../../Label/index.js'
+import { FieldProps } from '../types.js'
 import { useField } from '../useField'
 
 import classes from './index.module.scss'

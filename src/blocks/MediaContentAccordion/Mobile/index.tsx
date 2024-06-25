@@ -7,7 +7,7 @@ import {
 } from '@faceless-ui/collapsibles'
 import Image from 'next/image'
 
-import { BackgroundScanline } from '@components/BackgroundScanline'
+import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { CMSLink } from '@components/CMSLink'
 import { Media } from '@components/Media'
 import { RichText } from '@components/RichText'

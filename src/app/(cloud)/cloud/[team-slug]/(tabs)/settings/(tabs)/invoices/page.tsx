@@ -1,12 +1,12 @@
 import React from 'react'
-import { fetchInvoices } from '@cloud/_api/fetchInvoices'
-import { fetchMe } from '@cloud/_api/fetchMe'
-import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
-import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader'
+import { fetchInvoices } from '@cloud/_api/fetchInvoices.js'
+import { fetchMe } from '@cloud/_api/fetchMe.js'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader/index.js'
 import { Metadata } from 'next'
 
-import { Message } from '@root/app/_components/Message'
-import { TeamInvoicesPage } from './page_client'
+import { Message } from '@root/app/_components/Message/index.js'
+import { TeamInvoicesPage } from './page_client.js'
 
 export default async ({ params: { 'team-slug': teamSlug } }) => {
   const { user } = await fetchMe()

@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 
-import { Gutter } from '@components/Gutter'
+import { Gutter } from '@components/Gutter/index.js'
 
 export default function Error({ error, reset }: { error: Error; reset: () => void }) {
   useEffect(() => {

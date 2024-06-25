@@ -1,4 +1,4 @@
-import type { Validate } from '../types'
+import type { Validate } from '../types.js'
 
 export interface FieldProps<T> {
   path?: string

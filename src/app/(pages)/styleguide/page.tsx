@@ -3,9 +3,9 @@
 import React, { useEffect } from 'react'
 import Link from 'next/link'
 
-import { Heading } from '@components/Heading'
+import { Heading } from '@components/Heading/index.js'
 import { getImplicitPreference } from '@root/providers/Theme/shared'
-import { Gutter } from '../../../components/Gutter'
+import { Gutter } from '../../../components/Gutter/index.js'
 
 const Styleguide: React.FC = () => {
   return (

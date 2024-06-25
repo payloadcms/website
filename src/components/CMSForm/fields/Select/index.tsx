@@ -3,10 +3,10 @@
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import ReactSelect from 'react-select'
 import Error from '@forms/Error'
-import { FieldProps } from '@forms/fields/types'
+import { FieldProps } from '@forms/fields/types.js'
 import { useFormField } from '@forms/useFormField'
 
-import Label from '@components/CMSForm/Label'
+import Label from '@components/CMSForm/Label/index.js'
 import { countryOptions } from './countries'
 import { stateOptions } from './states'
 

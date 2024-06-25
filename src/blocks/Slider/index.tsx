@@ -10,9 +10,9 @@ import {
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
-import { Gutter } from '@components/Gutter'
+import { Gutter } from '@components/Gutter/index.js'
 import { Page } from '@root/payload-types'
-import { ArrowIcon } from '../../icons/ArrowIcon'
+import { ArrowIcon } from '../../icons/ArrowIcon/index.js'
 import { useComputedCSSValues } from '../../providers/ComputedCSSValues'
 import { QuoteCard } from './QuoteCard'
 

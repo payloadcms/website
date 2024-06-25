@@ -6,7 +6,7 @@ import { BackgroundGrid } from '@components/BackgroundGrid'
 import { DiscordGitComments } from '@components/DiscordGitComments'
 import DiscordGitCTA from '@components/DiscordGitCTA'
 import { DiscordGitIntro } from '@components/DiscordGitIntro'
-import { Gutter } from '@components/Gutter'
+import { Gutter } from '@components/Gutter/index.js'
 import OpenPost from '@components/OpenPost'
 
 import classes from './index.module.scss'

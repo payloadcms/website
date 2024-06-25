@@ -1,12 +1,12 @@
 import React from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
-import { BackgroundScanline } from '@components/BackgroundScanline'
+import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { BlockWrapper } from '@components/BlockWrapper'
 import { CMSLink } from '@components/CMSLink'
-import { Gutter } from '@components/Gutter'
+import { Gutter } from '@components/Gutter/index.js'
 import { Media } from '@components/Media'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
 import { Page } from '@root/payload-types'
 import { Highlights } from './Highlights'
 

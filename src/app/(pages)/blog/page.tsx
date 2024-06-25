@@ -1,7 +1,7 @@
 import React from 'react'
 import { Metadata } from 'next'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { fetchBlogPosts } from '../../_graphql'
 import { RenderBlogArchive } from './renderBlogArchive'
 

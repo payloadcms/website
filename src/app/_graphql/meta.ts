@@ -1,4 +1,4 @@
-import { MEDIA_FIELDS } from './media'
+import { MEDIA_FIELDS } from './media.js'
 
 export const META_FIELDS = `{
   title

@@ -1,9 +1,9 @@
 import React from 'react'
-import { ArrowIcon } from '@icons/ArrowIcon'
+import { ArrowIcon } from '@icons/ArrowIcon/index.js'
 
-import { BackgroundScanline } from '@components/BackgroundScanline'
+import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { CMSLink } from '@components/CMSLink'
-import { SquareCardProps } from '../types'
+import { SquareCardProps } from '../types.js'
 
 import classes from './index.module.scss'
 

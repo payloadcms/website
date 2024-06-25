@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Gutter } from '@components/Gutter'
+import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText'
 import { ReusableContent } from '@root/payload-types'
 

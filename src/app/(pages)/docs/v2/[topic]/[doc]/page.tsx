@@ -1,11 +1,11 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { fetchRelatedThreads } from '../../../../../_graphql'
 import { RenderDoc } from '../../../(current)/[topic]/[doc]/client_page'
 import { getDoc, getTopics } from '../../../api'
-import { NextDoc } from '../../../types'
+import { NextDoc } from '../../../types.js'
 
 const Doc = async ({ params }) => {
   const { topic, doc: docSlug } = params

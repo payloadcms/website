@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 
 import { Hero } from '@components/Hero'
 import { RenderBlocks } from '@components/RenderBlocks'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { fetchPage, fetchPages } from '../../_graphql'
 
 const Page = async ({ params: { slug } }) => {

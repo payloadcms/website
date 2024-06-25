@@ -2,7 +2,7 @@ import * as React from 'react'
 import { formatDate } from '@utilities/format-date-time'
 import Link from 'next/link'
 
-import { BackgroundScanline } from '@components/BackgroundScanline'
+import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { Media } from '@components/Media'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon'
 import { Post } from '@root/payload-types'

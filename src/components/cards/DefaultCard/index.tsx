@@ -1,11 +1,11 @@
 import * as React from 'react'
 import Link from 'next/link'
 
-import { Heading } from '@components/Heading'
+import { Heading } from '@components/Heading/index.js'
 import { Media } from '@components/Media'
 import { Pill } from '@components/Pill'
 import { PlusIcon } from '@root/icons/PlusIcon'
-import { DefaultCardProps } from '../types'
+import { DefaultCardProps } from '../types.js'
 
 import classes from './index.module.scss'
 

@@ -1,5 +1,5 @@
 import { ContentMediaCard } from '@components/cards/ContentMediaCard'
-import { Gutter } from '@components/Gutter'
+import { Gutter } from '@components/Gutter/index.js'
 import { Post } from '@root/payload-types'
 
 import classes from './index.module.scss'

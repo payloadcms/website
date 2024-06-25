@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import slugify from '../../../../utilities/slugify'
 import { JumplistNode } from '../../../Jumplist'
-import { useMDX } from '../../context'
+import { useMDX } from '../../context.js'
 import { formatAnchor } from './formatAnchor'
 
 const H3: React.FC<{ children: string }> = ({ children }) => {

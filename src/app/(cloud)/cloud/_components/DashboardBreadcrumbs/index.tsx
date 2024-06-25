@@ -1,11 +1,11 @@
 'use client'
 
 import React from 'react'
-import { cloudSlug } from '@cloud/slug'
+import { cloudSlug } from '@cloud/slug.js'
 import Link from 'next/link'
 import { useParams, useSelectedLayoutSegments } from 'next/navigation'
 
-import { FullLogo } from '@root/graphics/FullLogo'
+import { FullLogo } from '@root/graphics/FullLogo/index.js'
 
 import classes from './index.module.scss'
 

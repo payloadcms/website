@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver'
-import { Theme } from '@root/providers/Theme/types'
+import { Theme } from '@root/providers/Theme/types.js'
 
 import classes from './index.module.scss'
 

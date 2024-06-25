@@ -5,7 +5,7 @@ import { CodeIcon } from '@root/icons/CodeIcon'
 import CustomTable from '../CustomTable'
 import { GenerateRequest } from './generateRequest'
 import { GenerateResponse } from './generateResponse'
-import { Data, Example, Props } from './types'
+import { Data, Example, Props } from './types.js'
 
 import classes from './index.module.scss'
 

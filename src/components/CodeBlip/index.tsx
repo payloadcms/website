@@ -1,4 +1,4 @@
-import Button from './Button'
+import Button from './Button/index.js'
 import { Context, Provider, useCodeBlip } from './CodeBlipContext'
 import Modal from './Modal'
 

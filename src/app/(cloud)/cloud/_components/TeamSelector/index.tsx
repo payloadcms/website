@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect } from 'react'
 import { components } from 'react-select'
-import { useTeamDrawer } from '@cloud/_components/TeamDrawer'
-import { Select } from '@forms/fields/Select'
+import { useTeamDrawer } from '@cloud/_components/TeamDrawer/index.js'
+import { Select } from '@forms/fields/Select/index.js'
 
-import { LoadingShimmer } from '@components/LoadingShimmer'
-import { Team, User } from '@root/payload-cloud-types'
+import { LoadingShimmer } from '@components/LoadingShimmer/index.js'
+import { Team, User } from '@root/payload-cloud-types.js'
 
 import classes from './index.module.scss'
 

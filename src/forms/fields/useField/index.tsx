@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Validate, Value } from '@forms/types'
+import { Validate, Value } from '@forms/types.js'
 import { useFormField } from '@forms/useFormField'
 
 // the purpose of this hook is to provide a way to:

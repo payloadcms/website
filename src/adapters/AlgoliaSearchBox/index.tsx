@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react'
 import { useSearchBox } from 'react-instantsearch-hooks-web'
 
-import useDebounce from '@root/utilities/use-debounce'
+import useDebounce from '@root/utilities/use-debounce.js'
 
 import classes from './index.module.scss'
 

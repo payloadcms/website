@@ -5,7 +5,7 @@ import { useWindowInfo } from '@faceless-ui/window-info'
 import { usePathname } from 'next/navigation'
 
 import { useThemePreference } from '@root/providers/Theme'
-import { Theme } from '@root/providers/Theme/types'
+import { Theme } from '@root/providers/Theme/types.js'
 
 import classes from './index.module.scss'
 

@@ -1,6 +1,6 @@
-import type { ProjectWithSubscription } from './fetchProject'
-import type { Subscription } from './fetchSubscriptions'
-import type { TeamWithCustomer } from './fetchTeam'
+import type { ProjectWithSubscription } from './fetchProject.js'
+import type { Subscription } from './fetchSubscriptions.js'
+import type { TeamWithCustomer } from './fetchTeam.js'
 
 export const updateSubscription = async (
   team: TeamWithCustomer,

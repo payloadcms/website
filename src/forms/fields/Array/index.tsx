@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { CircleIconButton } from '@components/CircleIconButton'
 import { TrashIcon } from '@root/icons/TrashIcon'
-import { useArray } from './context'
+import { useArray } from './context.js'
 
 import classes from './index.module.scss'
 

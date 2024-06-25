@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Link from 'next/link'
 
-import { EdgeScroll } from '@components/EdgeScroll'
-import { Gutter } from '@components/Gutter'
-import { Heading } from '@components/Heading'
-import { ErrorIcon } from '@root/icons/ErrorIcon'
+import { EdgeScroll } from '@components/EdgeScroll/index.js'
+import { Gutter } from '@components/Gutter/index.js'
+import { Heading } from '@components/Heading/index.js'
+import { ErrorIcon } from '@root/icons/ErrorIcon/index.js'
 
 import classes from './index.module.scss'
 

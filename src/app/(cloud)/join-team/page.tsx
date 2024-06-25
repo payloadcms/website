@@ -1,9 +1,9 @@
-import { fetchMe } from '@cloud/_api/fetchMe'
+import { fetchMe } from '@cloud/_api/fetchMe.js'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { JoinTeam } from './page_client'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { JoinTeam } from './page_client.js'
 
 // TODO: server render the `JoinTeam` page
 // see the `verify` page for an example

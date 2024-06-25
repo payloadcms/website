@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation.js'
 
-import { Message } from '../Message'
+import { Message } from '../Message/index.js'
 
 import classes from './index.module.scss'
 

@@ -1,6 +1,6 @@
-import { TEMPLATES } from '@root/app/_graphql/templates'
-import type { Template } from '@root/payload-cloud-types'
-import { payloadCloudToken } from './token'
+import { TEMPLATES } from '@root/app/_graphql/templates.js'
+import type { Template } from '@root/payload-cloud-types.js'
+import { payloadCloudToken } from './token.js'
 
 export const fetchTemplates = async (): Promise<Template[]> => {
   const { cookies } = await import('next/headers')

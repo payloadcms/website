@@ -4,7 +4,7 @@ import React from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BlockWrapper } from '@components/BlockWrapper'
-import { Gutter } from '@components/Gutter'
+import { Gutter } from '@components/Gutter/index.js'
 import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar'
 import { Media } from '@components/Media'
 import { RenderBlocks } from '@components/RenderBlocks'

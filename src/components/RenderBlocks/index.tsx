@@ -1,7 +1,7 @@
 'use client'
 
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
-import { BannerBlock } from '@blocks/Banner'
+import { BannerBlock } from '@blocks/Banner/index.js'
 import { BlogContent } from '@blocks/BlogContent'
 import { BlogMarkdown } from '@blocks/BlogMarkdown'
 import { Callout } from '@blocks/Callout'
@@ -36,7 +36,7 @@ import { PaddingProps, Settings } from '@components/BlockWrapper'
 import { getFieldsKeyFromBlock } from '@components/RenderBlocks/utilities'
 import { Page, ReusableContent } from '@root/payload-types'
 import { useThemePreference } from '@root/providers/Theme'
-import { Theme } from '@root/providers/Theme/types'
+import { Theme } from '@root/providers/Theme/types.js'
 
 type ReusableContentBlockType = Extract<Page['layout'][0], { blockType: 'reusableContentBlock' }>
 

@@ -3,7 +3,7 @@ import * as React from 'react'
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
 import { CMSLink } from '@components/CMSLink'
-import { Gutter } from '@components/Gutter'
+import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText'
 import { Page } from '@root/payload-types'
 

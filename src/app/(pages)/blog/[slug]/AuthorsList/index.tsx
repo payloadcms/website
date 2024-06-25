@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import Link from 'next/link'
 
-import { Label } from '@components/Label'
+import { Label } from '@components/Label/index.js'
 import { Media } from '@components/Media'
 import { Post } from '@root/payload-types'
 

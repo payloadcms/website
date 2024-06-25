@@ -1,15 +1,15 @@
 'use client'
 
 import * as React from 'react'
-import Form from '@forms/Form'
+import Form from '@forms/Form/index.js'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { RichText } from '@components/RichText'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon'
 import { Form as FormType } from '@root/payload-types'
-import { getCookie } from '@root/utilities/get-cookie'
+import { getCookie } from '@root/utilities/get-cookie.js'
 import { fields } from './fields'
-import Submit from './Submit'
+import Submit from './Submit/index.js'
 
 import classes from './index.module.scss'
 

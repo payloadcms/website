@@ -2,7 +2,7 @@
 
 import { createContext, useContext } from 'react'
 
-import type { IFormContext } from '../types'
+import type { IFormContext } from '../types.js'
 import initialContext from './initialContext'
 
 const FormContext = createContext(initialContext)

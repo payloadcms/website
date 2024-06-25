@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-import { Button } from '@components/Button'
+import { Button } from '@components/Button/index.js'
 import { CMSLink, CMSLinkType } from '@components/CMSLink'
 
 import classes from '../index.module.scss'

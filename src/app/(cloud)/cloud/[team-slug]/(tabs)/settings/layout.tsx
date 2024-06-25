@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
-import { Sidebar } from '@cloud/_components/Sidebar'
-import { cloudSlug } from '@cloud/slug'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import { Sidebar } from '@cloud/_components/Sidebar/index.js'
+import { cloudSlug } from '@cloud/slug.js'
 
-import { Gutter } from '@components/Gutter'
-import { TeamBillingMessages } from './TeamBillingMessages'
+import { Gutter } from '@components/Gutter/index.js'
+import { TeamBillingMessages } from './TeamBillingMessages/index.js'
 
 import classes from './layout.module.scss'
 

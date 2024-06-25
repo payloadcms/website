@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { BlockSpacing } from '../../../../components/BlockSpacing'
-import { Gutter } from '../../../../components/Gutter'
+import { Gutter } from '../../../../components/Gutter/index.js'
 import { StyleguideBreadcrumbs } from './Breadcrumbs'
 import { RenderDarkMode } from './RenderDarkMode'
 

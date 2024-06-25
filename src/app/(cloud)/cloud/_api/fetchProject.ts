@@ -1,11 +1,11 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-import { PROJECT_QUERY } from '@root/app/_graphql/project'
-import type { Project } from '@root/payload-cloud-types'
-import type { Subscription } from './fetchSubscriptions'
-import type { Customer, TeamWithCustomer } from './fetchTeam'
-import { payloadCloudToken } from './token'
+import { PROJECT_QUERY } from '@root/app/_graphql/project.js'
+import type { Project } from '@root/payload-cloud-types.js'
+import type { Subscription } from './fetchSubscriptions.js'
+import type { Customer, TeamWithCustomer } from './fetchTeam.js'
+import { payloadCloudToken } from './token.js'
 
 export type ProjectWithSubscription = Project & {
   stripeSubscription: Subscription

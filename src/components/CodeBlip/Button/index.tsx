@@ -3,7 +3,7 @@ import React from 'react'
 
 import { GradientBorderIcon } from '@root/icons/GradientBorderIcon'
 import { PlusIcon } from '@root/icons/PlusIcon'
-import { CodeBlip } from '../../Code/types'
+import { CodeBlip } from '../../Code/types.js'
 import { useCodeBlip } from '../CodeBlipContext'
 
 import classes from './index.module.scss'
