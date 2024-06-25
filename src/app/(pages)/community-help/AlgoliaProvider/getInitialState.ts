@@ -1,4 +1,3 @@
-import type { IndexUiState } from 'instantsearch.js'
 import qs from 'qs'
 
 import canUseDOM from '@root/utilities/can-use-dom.js'
@@ -42,7 +41,7 @@ export const convertObjectStringsToArrays = (
   return object
 }
 
-export const getInitialState = (): IndexUiState => {
+export const getInitialState = () => {
   const search = canUseDOM ? window.location.search : ''
   const searchState = qs.parse(search, { ignoreQueryPrefix: true })
   const initialState = convertObjectStringsToArrays(searchState)

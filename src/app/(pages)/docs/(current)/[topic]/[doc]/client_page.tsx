@@ -6,7 +6,6 @@ import LinkImport from 'next/link.js'
 
 const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
 import { MDXRemote } from 'next-mdx-remote'
-
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import DiscordGitCTA from '@components/DiscordGitCTA/index.js'
 import { JumplistProvider } from '@components/Jumplist/index.js'
