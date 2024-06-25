@@ -6,10 +6,11 @@ import { fetchRelatedThreads } from '../../../../../_graphql/index.js'
 import { getDoc, getTopics } from '../../../api.js'
 import { NextDoc } from '../../../types.js'
 import { RenderDoc } from './client_page.js'
-import { MDXRemote } from 'next-mdx-remote'
+import { MDXRemote } from 'next-mdx-remote/rsc'
 import components from '@components/MDX/components/index.js'
 
-const Doc = async ({ params }) => {
+const Doc = async props => {
+  const { params } = props
   const { topic, doc: docSlug } = params
   const doc = await getDoc({ topic, doc: docSlug })
   const topics = await getTopics()
@@ -59,7 +60,13 @@ const Doc = async ({ params }) => {
       doc={doc}
       next={next}
       relatedThreads={filteredRelatedThreads}
-      MDXRemote={<MDXRemote {...doc.content} components={components} />}
+      MDXRemote={
+        <MDXRemote
+          {...props}
+          {...doc.content}
+          components={{ ...components, ...(props?.components || {}) }}
+        />
+      }
     />
   )
 }
