@@ -1,8 +1,10 @@
 import React from 'react'
-import { Providers } from '@providers'
+import { Providers } from '@providers/index.js'
 import { defaultTheme, themeLocalStorageKey } from '@providers/Theme/shared.js'
 import { Metadata } from 'next'
-import Script from 'next/script'
+import ScriptImport from 'next/script.js'
+
+const Script = (ScriptImport.default || ScriptImport) as unknown as typeof ScriptImport.default
 
 import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics/index.js'
 import { GoogleTagManager } from '@components/Analytics/GoogleTagManager/index.js'
