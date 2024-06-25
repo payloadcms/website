@@ -2,7 +2,6 @@ import YouTube from '../../YouTube/index.js'
 import { Banner } from './Banner/index.js'
 import BlogImage from './BlogImage/index.js'
 import Code from './Code/index.js'
-import { TextareaField, TextField } from './fields.js'
 import h1 from './Headings/H1.js'
 import h2 from './Headings/H2.js'
 import h3 from './Headings/H3.js'
@@ -35,6 +34,4 @@ export default {
   LightDarkImage,
   TableWithDrawers,
   VideoDrawer,
-  TextField,
-  TextareaField: TextareaField,
 }
