@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
@@ -30,10 +30,10 @@ export const HoverHighlights: React.FC<HoverHighlightProps> = props => {
           >
             {highlights &&
               Array.isArray(highlights) && [
-                ...highlights.map(highlight => {
+                ...highlights.map((highlight, key) => {
                   const { top, bottom } = highlight.media || {}
                   return (
-                    <>
+                    <Fragment key={key}>
                       <CMSLink className={classes.highlightText} {...highlight.link}>
                         {highlight.text}
                         <ArrowIcon className={classes.arrow} size="large" bold />
@@ -54,7 +54,7 @@ export const HoverHighlights: React.FC<HoverHighlightProps> = props => {
                           />
                         )}
                       </div>
-                    </>
+                    </Fragment>
                   )
                 }),
               ]}

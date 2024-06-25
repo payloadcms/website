@@ -5,11 +5,9 @@ import { ArrowIcon } from '@icons/ArrowIcon/index.js'
 import LinkImport from 'next/link.js'
 
 const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
-import { MDXRemote } from 'next-mdx-remote'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import DiscordGitCTA from '@components/DiscordGitCTA/index.js'
 import { JumplistProvider } from '@components/Jumplist/index.js'
-import components from '@components/MDX/components/index.js'
 import { RelatedHelpList } from '@components/RelatedHelpList/index.js'
 import TableOfContents from '@components/TableOfContents/index.js'
 import { VersionBanner } from '@components/VersionBanner/index.js'
@@ -25,10 +23,17 @@ type Props = {
   next?: NextDoc | null
   relatedThreads?: CommunityHelp[]
   version?: 'current' | 'v2' | 'beta'
+  MDXRemote: React.ReactNode
 }
 
-export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads, version = 'current' }) => {
-  const { content, headings, title } = doc
+export const RenderDoc: React.FC<Props> = ({
+  doc,
+  next,
+  relatedThreads,
+  version = 'current',
+  MDXRemote,
+}) => {
+  const { headings, title } = doc
   const docRef = React.useRef<HTMLDivElement>(null)
 
   const hideVersionSelector =
@@ -49,9 +54,7 @@ export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads, version 
         <h1 id={slugify(title)} className={classes.title}>
           {title}
         </h1>
-        <div className={classes.mdx}>
-          <MDXRemote {...content} components={components} />
-        </div>
+        <div className={classes.mdx}>{MDXRemote}</div>
         {next && (
           <Link
             className={[classes.next, hasRelatedThreads && classes.hasRelatedThreads]

@@ -1,3 +1,4 @@
+'use client'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Modal, useModal } from '@faceless-ui/modal'
 

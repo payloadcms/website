@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect } from 'react'
 
 import slugify from '../../../../utilities/slugify.js'
