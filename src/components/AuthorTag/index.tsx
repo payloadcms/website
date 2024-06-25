@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import NextImageImport from 'next/image.js'
 const Image = (NextImageImport.default ||

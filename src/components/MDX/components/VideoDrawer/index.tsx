@@ -1,6 +1,6 @@
 import React from 'react'
 import NextImageImport from 'next/image.js'
-const Image = (NextImageImport.default ||
+const Image = (('default' in NextImageImport && NextImageImport.default) ||
   NextImageImport) as unknown as typeof NextImageImport.default
 
 import { Drawer, DrawerToggler } from '@components/Drawer/index.js'

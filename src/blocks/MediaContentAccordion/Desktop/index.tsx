@@ -1,3 +1,4 @@
+'use client'
 import React, { createRef, Fragment, useEffect, useRef, useState } from 'react'
 import {
   Collapsible,
