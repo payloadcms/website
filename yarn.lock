@@ -511,10 +511,10 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.48.0.tgz#642633964e217905436033a2bd08bf322849b7fb"
   integrity sha512-ZSjtmelB7IJfWD2Fvb7+Z+ChTIKWq6kjda95fLcQKNS5aheVHn4IkfgRQE3sIIzTcSLwLcLZUD9UBt+V7+h+Pw==
 
-"@faceless-ui/collapsibles@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@faceless-ui/collapsibles/-/collapsibles-1.1.5.tgz#153c4e55e4bd1f1eeaaf80b4232c0cf7d31f196c"
-  integrity sha512-ozym6tdYV/jakldJzph9gPUX3JEBXsyexyVJUrXqrLOYuj5UW5lZpJ8yztvVT83tHFAF2PRug0UVmFybKfo1Wg==
+"@faceless-ui/collapsibles@^2.0.0-beta.0":
+  version "2.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@faceless-ui/collapsibles/-/collapsibles-2.0.0-beta.0.tgz#98d3498f2d6b188989f54df976527c6cac4dd1d0"
+  integrity sha512-ReMm9ITXZMjpAXi+pxS5bL/SD1HElpSobJPJtqpNVOEEJezOr5BMe/EMxM17AySyEsLWuEXn0OJtYqF4ucM4vw==
   dependencies:
     react-animate-height "^3.0.4"
     react-transition-group "^4.4.2"
@@ -524,37 +524,37 @@
   resolved "https://registry.yarnpkg.com/@faceless-ui/css-grid/-/css-grid-1.2.1.tgz#675093c5f3f68ec8381570d14cf33509850cb99e"
   integrity sha512-NE5dnzV2Jj2WzQ4gsQUU/Dzlz33kE/3R2hdW227zFU2Y16vyyrqDAD07AeC+JL8HhZtVmsxjxs1Du/Jc41LsdQ==
 
-"@faceless-ui/modal@^2.0.1":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@faceless-ui/modal/-/modal-2.0.2.tgz#5e8892a7a81cf2f61acb658196999018d1fd6857"
-  integrity sha512-CtwUn+hHEaoYUjREzQKGRbEp55VzUx7sC+hxIxmCPwg7Yd5KXkQzSfoUfRAHqT/1MFfE1B2QCHVVbhtSnFL9BA==
+"@faceless-ui/modal@^3.0.0-beta.0":
+  version "3.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@faceless-ui/modal/-/modal-3.0.0-beta.0.tgz#616a91e7fb8f781ff502157856a1f2e7f399a523"
+  integrity sha512-gZboS0pLMO4THTqAHLmZuxLOE2KyYMN9QOUikd25WSrwPOqdtcgEiRlps/RcOivHA+sowtb1IBitiIWJ0L5Eow==
   dependencies:
     body-scroll-lock "^3.1.5"
     focus-trap "^6.9.2"
     qs "^6.9.1"
     react-transition-group "^4.4.2"
 
-"@faceless-ui/mouse-info@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@faceless-ui/mouse-info/-/mouse-info-1.3.0.tgz#5fc5b0e294f1ec89f4094413102a9f68a14baea4"
-  integrity sha512-EHpERrubKQ6Xmmm9Ri4mIcX9tZ1PSsIm/Aj8q3Eg3CBQUYJ1APFfMefTpke0WLLDzrK8KnnqUGNliIaJNo+gsQ==
+"@faceless-ui/mouse-info@^2.0.0-beta.0":
+  version "2.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@faceless-ui/mouse-info/-/mouse-info-2.0.0-beta.0.tgz#149ecbb93cfcea2f994e11261af116df8fbbda9b"
+  integrity sha512-2mPyaTj2P0ZZvCdS3oawRRjJrMDH0UeDkbsHVyIkhLs8s/fZlxbomPEcmSBFgQi/Ph4GaWBmySRc8wNmNiLStQ==
 
-"@faceless-ui/scroll-info@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@faceless-ui/scroll-info/-/scroll-info-1.3.0.tgz#4d9f76afa4c004018697424f77f8bc362ccaae08"
-  integrity sha512-X+doJMzQqyVGpwV/YgXUAalNWepP2W8ThgZspKZLFG43zTYLVTU17BYCjjY+ggKuA3b0W3JyXZ2M8f247AdmHw==
+"@faceless-ui/scroll-info@^2.0.0-beta.0":
+  version "2.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@faceless-ui/scroll-info/-/scroll-info-2.0.0-beta.0.tgz#ac2d86a8b221f7a8d75452b9f0024da94e1d18bf"
+  integrity sha512-pUBhQP8vduA7rVndNsjhaCcds1BykA/Q4iV23JWijU6ZFL/M3Fm9P3ypDS+0VVxolqemNhw8S3FXPwZGgjH4Rw==
 
-"@faceless-ui/slider@^1.1.17":
-  version "1.1.17"
-  resolved "https://registry.yarnpkg.com/@faceless-ui/slider/-/slider-1.1.17.tgz#8599c4b11515aae25ca712e5bccced2a773f49f9"
-  integrity sha512-urKNiZxwHcPQr3nc/Bg/aRKB9gDmTH0LoO0CQfeDBJM2k9ZISOlWwRhU2K05hVQo7Sh+2xXUfTGqbKRK0I/Yiw==
+"@faceless-ui/slider@^2.0.0-beta.0":
+  version "2.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@faceless-ui/slider/-/slider-2.0.0-beta.0.tgz#68f7ba174eb9151091afc524299acc5599375ea0"
+  integrity sha512-LA6kKLC5OoizywE9mc6/G+10eS1CNAIqeLbtCHBEGa8F1A8lXJjqvGZeAuQPm15xB9hAKSHjKvq3bv1+ebSFwQ==
   dependencies:
     smoothscroll-polyfill "^0.4.4"
 
-"@faceless-ui/window-info@^2.1.1":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@faceless-ui/window-info/-/window-info-2.1.2.tgz#75d72f5e1384490754c7b910649e2e0b6c8e428e"
-  integrity sha512-IvZM6mLWFRin904180115Y6BgsvAN9M5uCMJEHhiQgTgzDMiYVtUww7GlWRsvemubMRF6c9Q+j79qW7uPPuMBg==
+"@faceless-ui/window-info@^3.0.0-beta.0":
+  version "3.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@faceless-ui/window-info/-/window-info-3.0.0-beta.0.tgz#628c2c46b2fdddd17916153ca41c4dbe1340c1cf"
+  integrity sha512-Qs8xRA+fl4sU2aFVe9xawxfi5TVZ9VTPuhdQpx9aSv7U5a2F0AXwT61lJfnaJ9Flm8tOcxzq67p8cVZsXNCVeQ==
 
 "@floating-ui/core@^1.0.0":
   version "1.6.3"
