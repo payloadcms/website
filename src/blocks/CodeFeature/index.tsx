@@ -187,7 +187,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                   .filter(Boolean)
                   .join(' ')}
                 ref={tabWrapperRef}
-                {...(isOpen ? { inert: '' } : {})}
+                {...(isOpen ? { inert: true } : {})}
               >
                 {codeTabs?.length && codeTabs.length > 1 ? (
                   codeTabs?.map((code, index) => {
@@ -215,7 +215,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                 )}
                 <div className={classes.tabIndicator} style={indicatorStyle} aria-hidden={true} />
               </div>
-              <div className={classes.codeBlockWrapper} {...(isOpen ? { inert: '' } : {})}>
+              <div className={classes.codeBlockWrapper} {...(isOpen ? { inert: true } : {})}>
                 {codeTabs?.map((code, index) => {
                   return (
                     <div
@@ -315,7 +315,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                   .filter(Boolean)
                   .join(' ')}
                 ref={tabWrapperRef}
-                {...(isOpen ? { inert: '' } : {})}
+                {...(isOpen ? { inert: true } : {})}
               >
                 {codeTabs?.length && codeTabs.length > 1 ? (
                   codeTabs?.map((code, index) => {
@@ -343,7 +343,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                 )}
                 <div className={classes.tabIndicator} style={indicatorStyle} aria-hidden={true} />
               </div>
-              <div className={classes.codeBlockWrapper} {...(isOpen ? { inert: '' } : {})}>
+              <div className={classes.codeBlockWrapper} {...(isOpen ? { inert: true } : {})}>
                 {codeTabs?.map((code, index) => {
                   return (
                     <div
