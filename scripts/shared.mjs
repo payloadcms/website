@@ -5,6 +5,7 @@ export const topicOrder = [
   'Fields',
   'Admin',
   'Rich-Text',
+  'Lexical',
   'Live-Preview',
   'Access-Control',
   'Hooks',

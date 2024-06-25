@@ -21,7 +21,12 @@ const ExampleCell: React.FC<{ example: Example; row: Data }> = ({ example, row }
         <CodeIcon className={classes.icon} size="medium" />
       </DrawerToggler>
       <Drawer slug={slug} title={row.operation} size="s">
-        <CustomTable className={classes.drawerTable} data={drawerRow} columns={columns.slice(1)} />
+        <CustomTable
+          bleedToEdge={false}
+          className={classes.drawerTable}
+          data={drawerRow}
+          columns={columns.slice(1)}
+        />
         <GenerateRequest req={req} row={row} />
         <GenerateResponse res={res} />
         {drawerContent && <div className={classes.drawerContent}>{drawerContent}</div>}

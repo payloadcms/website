@@ -172,18 +172,18 @@ $breakpoint-l-height: 1000px;
   a {
     text-decoration: none;
     border-bottom: 1px dotted currentColor;
-    color: var(--color-blue-600);
+    color: var(--theme-blue-600);
 
     @include mouseHover {
-      color: var(--color-blue-400);
+      color: var(--theme-blue-400);
     }
 
 
     &:visited {
-      color: var(--color-purple-600);
+      color: var(--theme-purple-600);
 
       @include mouseHover {
-        color: var(--color-purple-500);
+        color: var(--theme-purple-500);
       }
     }
   }
