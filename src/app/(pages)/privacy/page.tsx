@@ -13,6 +13,6 @@ export const metadata: Metadata = {
   description: 'Payload Privacy Policy',
   openGraph: mergeOpenGraph({
     title: 'Privacy Policy | Payload',
-    url: '/privacy',
+    url: '/Privacy/index.js',
   }),
 }

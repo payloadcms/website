@@ -1,9 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
 
-import { DiscordUsersPill } from '@components/DiscordUsersPill'
-import { GithubStarsPill } from '@components/GithubStarsPill'
-import { PixelBackground } from '@components/PixelBackground'
+import { DiscordUsersPill } from '@components/DiscordUsersPill/index.js'
+import { GithubStarsPill } from '@components/GithubStarsPill/index.js'
+import { PixelBackground } from '@components/PixelBackground/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
 
 import classes from './index.module.scss'

@@ -2,7 +2,7 @@ import React from 'react'
 import { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { CommunityHelpPage } from './client_page'
+import { CommunityHelpPage } from './client_page.js'
 
 const Page = async props => {
   return <CommunityHelpPage {...props} />

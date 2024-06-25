@@ -7,7 +7,7 @@ import Form from '@forms/Form/index.js'
 import Submit from '@forms/Submit/index.js'
 
 import { Gutter } from '@components/Gutter/index.js'
-import { StyleguidePageContent } from '../PageContent'
+import { StyleguidePageContent } from '../PageContent/index.js'
 
 export const FormsExample: React.FC = () => {
   return (

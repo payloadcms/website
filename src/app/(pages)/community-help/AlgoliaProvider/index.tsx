@@ -3,7 +3,7 @@ import { Configure, InstantSearch, RefinementList } from 'react-instantsearch-ho
 import algoliasearch, { SearchClient } from 'algoliasearch/lite'
 import { IndexUiState } from 'instantsearch.js'
 
-import { getInitialState } from './getInitialState'
+import { getInitialState } from './getInitialState.js'
 
 let searchClient: SearchClient
 const appID = process.env.NEXT_PUBLIC_ALGOLIA_CH_ID

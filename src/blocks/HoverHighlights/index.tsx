@@ -1,14 +1,14 @@
 import React from 'react'
 
-import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { BlockWrapper } from '@components/BlockWrapper'
-import { CMSLink } from '@components/CMSLink'
+import { BlockWrapper } from '@components/BlockWrapper/index.js'
+import { CMSLink } from '@components/CMSLink/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { Media } from '@components/Media'
+import { Media } from '@components/Media/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
-import { Page } from '@root/payload-types'
-import { Highlights } from './Highlights'
+import { Page } from '@root/payload-types.js'
+import { Highlights } from './Highlights/index.js'
 
 import classes from './index.module.scss'
 

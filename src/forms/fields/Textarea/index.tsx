@@ -3,10 +3,10 @@
 import React from 'react'
 
 import { CopyToClipboard } from '@components/CopyToClipboard/index.js'
-import Error from '../../Error'
+import Error from '../../Error/index.js'
 import Label from '../../Label/index.js'
 import { FieldProps } from '../types.js'
-import { useField } from '../useField'
+import { useField } from '../useField/index.js'
 
 import classes from './index.module.scss'
 

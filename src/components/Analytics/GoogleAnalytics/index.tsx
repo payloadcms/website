@@ -4,8 +4,8 @@ import * as React from 'react'
 import { usePathname } from 'next/navigation'
 import Script from 'next/script'
 
-import { usePrivacy } from '@root/providers/Privacy'
-import { analyticsEvent } from '@root/utilities/analytics'
+import { usePrivacy } from '@root/providers/Privacy/index.js'
+import { analyticsEvent } from '@root/utilities/analytics.js'
 
 const gaMeasurementID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 

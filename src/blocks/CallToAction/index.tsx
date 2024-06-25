@@ -2,15 +2,15 @@
 import React from 'react'
 import { ArrowIcon } from '@icons/ArrowIcon/index.js'
 
-import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
-import { CMSLink } from '@components/CMSLink'
-import CreatePayloadApp from '@components/CreatePayloadApp'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { CMSLink } from '@components/CMSLink/index.js'
+import CreatePayloadApp from '@components/CreatePayloadApp/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { RichText } from '@components/RichText'
-import { CrosshairIcon } from '@root/icons/CrosshairIcon'
-import { Page } from '@root/payload-types'
+import { RichText } from '@components/RichText/index.js'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
+import { Page } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

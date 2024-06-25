@@ -3,10 +3,10 @@ import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 
-import { Hero } from '@components/Hero'
-import { RenderBlocks } from '@components/RenderBlocks'
+import { Hero } from '@components/Hero/index.js'
+import { RenderBlocks } from '@components/RenderBlocks/index.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { fetchPage, fetchPages } from '../../_graphql'
+import { fetchPage, fetchPages } from '../../_graphql/index.js'
 
 const Page = async ({ params: { slug } }) => {
   const { isEnabled: isDraftMode } = draftMode()

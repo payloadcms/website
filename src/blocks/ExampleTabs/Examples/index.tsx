@@ -1,7 +1,7 @@
 import Code from '@components/Code/index.js'
-import { Media } from '@components/Media'
-import { PixelBackground } from '@components/PixelBackground'
-import { CodeExampleBlock, ExampleTabsBlock, MediaExampleBlock } from '@root/payload-types'
+import { Media } from '@components/Media/index.js'
+import { PixelBackground } from '@components/PixelBackground/index.js'
+import { CodeExampleBlock, ExampleTabsBlock, MediaExampleBlock } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

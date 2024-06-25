@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import { Tooltip } from '@components/Tooltip'
-import { CopyIcon } from '@root/icons/CopyIcon'
+import { Tooltip } from '@components/Tooltip/index.js'
+import { CopyIcon } from '@root/icons/CopyIcon/index.js'
 
 import classes from './index.module.scss'
 

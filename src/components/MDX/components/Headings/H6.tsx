@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 
-import slugify from '../../../../utilities/slugify'
-import { JumplistNode } from '../../../Jumplist'
+import slugify from '../../../../utilities/slugify.js'
+import { JumplistNode } from '../../../Jumplist/index.js'
 import { useMDX } from '../../context.js'
-import { formatAnchor } from './formatAnchor'
+import { formatAnchor } from './formatAnchor.js'
 
 const H6: React.FC<{ children: string }> = ({ children }) => {
   const anchor = slugify(formatAnchor(children))

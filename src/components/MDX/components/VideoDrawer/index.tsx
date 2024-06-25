@@ -1,10 +1,10 @@
 import React from 'react'
 import Image from 'next/image'
 
-import { Drawer, DrawerToggler } from '@components/Drawer'
-import YouTube from '@components/YouTube'
+import { Drawer, DrawerToggler } from '@components/Drawer/index.js'
+import YouTube from '@components/YouTube/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
-import { PlayIcon } from '@root/icons/PlayIcon'
+import { PlayIcon } from '@root/icons/PlayIcon/index.js'
 
 import classes from './index.module.scss'
 

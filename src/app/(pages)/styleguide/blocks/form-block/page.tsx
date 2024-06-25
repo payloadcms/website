@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import { FormBlockPage } from './client_page'
+import { FormBlockPage } from './client_page.js'
 
 export default props => {
   return <FormBlockPage {...props} />

@@ -5,8 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { Gutter } from '@components/Gutter/index.js'
-import { RichText } from '@components/RichText'
-import { CaseStudy, ReusableContent } from '@root/payload-types'
+import { RichText } from '@components/RichText/index.js'
+import { CaseStudy, ReusableContent } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

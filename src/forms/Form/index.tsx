@@ -18,9 +18,9 @@ import {
   ModifiedContext,
   ProcessingContext,
 } from './context.js'
-import initialContext from './initialContext'
-import { reduceFieldsToValues } from './reduceFieldsToValues'
-import reducer from './reducer'
+import initialContext from './initialContext.js'
+import { reduceFieldsToValues } from './reduceFieldsToValues.js'
+import reducer from './reducer.js'
 
 const defaultInitialState = {}
 

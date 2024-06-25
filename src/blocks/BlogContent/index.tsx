@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { Gutter } from '@components/Gutter/index.js'
-import { RichText } from '@components/RichText'
-import { ReusableContent } from '@root/payload-types'
+import { RichText } from '@components/RichText/index.js'
+import { ReusableContent } from '@root/payload-types.js'
 
 type Props = Extract<ReusableContent['layout'][0], { blockType: 'blogContent' }>
 

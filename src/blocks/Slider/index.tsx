@@ -8,13 +8,13 @@ import {
   useSlider,
 } from '@faceless-ui/slider'
 
-import { BackgroundGrid } from '@components/BackgroundGrid'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
+import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { Page } from '@root/payload-types'
+import { Page } from '@root/payload-types.js'
 import { ArrowIcon } from '../../icons/ArrowIcon/index.js'
-import { useComputedCSSValues } from '../../providers/ComputedCSSValues'
-import { QuoteCard } from './QuoteCard'
+import { useComputedCSSValues } from '../../providers/ComputedCSSValues/index.js'
+import { QuoteCard } from './QuoteCard/index.js'
 
 import classes from './index.module.scss'
 

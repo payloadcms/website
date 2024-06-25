@@ -2,7 +2,7 @@ import React from 'react'
 import { Metadata } from 'next'
 
 import { Gutter } from '@components/Gutter/index.js'
-import { StyleguidePageContent } from '../PageContent'
+import { StyleguidePageContent } from '../PageContent/index.js'
 
 const Typography: React.FC = () => {
   return (

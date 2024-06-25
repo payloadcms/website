@@ -2,8 +2,8 @@ import { Fragment } from 'react'
 import Link from 'next/link'
 
 import { Label } from '@components/Label/index.js'
-import { Media } from '@components/Media'
-import { Post } from '@root/payload-types'
+import { Media } from '@components/Media/index.js'
+import { Post } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

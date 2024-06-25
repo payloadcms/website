@@ -3,7 +3,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
 import canUseDom from '@root/utilities/can-use-dom.js'
-import { defaultTheme, getImplicitPreference, themeLocalStorageKey } from './shared'
+import { defaultTheme, getImplicitPreference, themeLocalStorageKey } from './shared.js'
 import { Theme, themeIsValid, ThemePreferenceContextType } from './types.js'
 
 const initialContext: ThemePreferenceContextType = {

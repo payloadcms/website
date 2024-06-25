@@ -4,8 +4,8 @@ import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { fetchBlogPost, fetchPosts } from '../../../_graphql'
-import { BlogPost } from './BlogPost'
+import { fetchBlogPost, fetchPosts } from '../../../_graphql/index.js'
+import { BlogPost } from './BlogPost/index.js'
 
 const Post = async ({ params }) => {
   const { slug } = params

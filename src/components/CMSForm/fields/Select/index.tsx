@@ -2,13 +2,13 @@
 
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import ReactSelect from 'react-select'
-import Error from '@forms/Error'
+import Error from '@forms/Error/index.js'
 import { FieldProps } from '@forms/fields/types.js'
-import { useFormField } from '@forms/useFormField'
+import { useFormField } from '@forms/useFormField/index.js'
 
 import Label from '@components/CMSForm/Label/index.js'
-import { countryOptions } from './countries'
-import { stateOptions } from './states'
+import { countryOptions } from './countries.js'
+import { stateOptions } from './states.js'
 
 import classes from './index.module.scss'
 

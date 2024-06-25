@@ -1,14 +1,14 @@
 'use client'
 
 import * as React from 'react'
-import { formatDate } from '@utilities/format-date-time'
+import { formatDate } from '@utilities/format-date-time.js'
 
-import { Breadcrumbs } from '@components/Breadcrumbs'
+import { Breadcrumbs } from '@components/Breadcrumbs/index.js'
 import { Button } from '@components/Button/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { RichText } from '@components/RichText'
-import { Video } from '@components/RichText/Video'
-import { Page } from '@root/payload-types'
+import { RichText } from '@components/RichText/index.js'
+import { Video } from '@components/RichText/Video/index.js'
+import { Page } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

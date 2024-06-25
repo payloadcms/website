@@ -3,7 +3,7 @@
 import React, { Fragment } from 'react'
 import Script from 'next/script'
 
-import { usePrivacy } from '@root/providers/Privacy'
+import { usePrivacy } from '@root/providers/Privacy/index.js'
 
 const gtmMeasurementID = process.env.NEXT_PUBLIC_GTM_MEASUREMENT_ID
 

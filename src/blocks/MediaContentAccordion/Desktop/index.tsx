@@ -8,14 +8,14 @@ import {
 import Image from 'next/image'
 
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { CMSLink } from '@components/CMSLink'
-import { Media } from '@components/Media'
-import { RichText } from '@components/RichText'
-import SplitAnimate from '@components/SplitAnimate'
-import { ArrowRightIcon } from '@root/icons/ArrowRightIcon'
-import { ChevronDownIcon } from '@root/icons/ChevronDownIcon'
-import { CrosshairIcon } from '@root/icons/CrosshairIcon'
-import { Page } from '@root/payload-types'
+import { CMSLink } from '@components/CMSLink/index.js'
+import { Media } from '@components/Media/index.js'
+import { RichText } from '@components/RichText/index.js'
+import SplitAnimate from '@components/SplitAnimate/index.js'
+import { ArrowRightIcon } from '@root/icons/ArrowRightIcon/index.js'
+import { ChevronDownIcon } from '@root/icons/ChevronDownIcon/index.js'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
+import { Page } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

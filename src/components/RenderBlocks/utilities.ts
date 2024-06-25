@@ -1,4 +1,4 @@
-import type { BlocksProp } from '@components/RenderBlocks'
+import type { BlocksProp } from '@components/RenderBlocks/index.js'
 
 /**
  * Get the key of the fields from the block

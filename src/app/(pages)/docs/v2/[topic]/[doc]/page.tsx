@@ -2,9 +2,9 @@ import React from 'react'
 import { notFound } from 'next/navigation'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { fetchRelatedThreads } from '../../../../../_graphql'
-import { RenderDoc } from '../../../(current)/[topic]/[doc]/client_page'
-import { getDoc, getTopics } from '../../../api'
+import { fetchRelatedThreads } from '../../../../../_graphql/index.js'
+import { RenderDoc } from '../../../(current)/[topic]/[doc]/client_page.js'
+import { getDoc, getTopics } from '../../../api.js'
 import { NextDoc } from '../../../types.js'
 
 const Doc = async ({ params }) => {

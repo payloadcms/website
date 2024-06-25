@@ -1,9 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
 
-import { DiscordIcon } from '@root/graphics/DiscordIcon'
-import { GithubIcon } from '@root/graphics/GithubIcon'
-import { CommunityHelp } from '@root/payload-types'
+import { DiscordIcon } from '@root/graphics/DiscordIcon/index.js'
+import { GithubIcon } from '@root/graphics/GithubIcon/index.js'
+import { CommunityHelp } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

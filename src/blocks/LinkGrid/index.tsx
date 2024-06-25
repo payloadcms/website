@@ -2,14 +2,14 @@
 
 import React, { useState } from 'react'
 
-import { BackgroundGrid } from '@components/BackgroundGrid'
-import { BlockSpacing } from '@components/BlockSpacing'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
-import { CMSLink } from '@components/CMSLink'
+import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
+import { BlockSpacing } from '@components/BlockSpacing/index.js'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { CMSLink } from '@components/CMSLink/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { LineDraw } from '@components/LineDraw'
+import { LineDraw } from '@components/LineDraw/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
-import { Page } from '@root/payload-types'
+import { Page } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

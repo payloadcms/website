@@ -2,7 +2,7 @@ import React from 'react'
 import { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { CookieClientPage } from './client_page'
+import { CookieClientPage } from './client_page.js'
 
 export default props => {
   return <CookieClientPage {...props} />

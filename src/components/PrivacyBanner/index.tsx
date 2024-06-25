@@ -4,7 +4,7 @@ import * as React from 'react'
 import Link from 'next/link'
 
 import { Button } from '@components/Button/index.js'
-import { usePrivacy } from '@root/providers/Privacy'
+import { usePrivacy } from '@root/providers/Privacy/index.js'
 
 import classes from './index.module.scss'
 

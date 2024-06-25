@@ -1,8 +1,8 @@
 import * as React from 'react'
 import Link from 'next/link'
 
-import { Media } from '@components/Media'
-import { formatDate } from '@root/utilities/format-date-time'
+import { Media } from '@components/Media/index.js'
+import { formatDate } from '@root/utilities/format-date-time.js'
 import { ContentMediaCardProps } from '../types.js'
 
 import classes from './index.module.scss'

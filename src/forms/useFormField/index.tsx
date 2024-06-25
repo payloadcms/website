@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import useDebounce from '@utilities/use-debounce'
+import useDebounce from '@utilities/use-debounce.js'
 
 import { useForm, useFormModified, useFormProcessing, useFormSubmitted } from '../Form/context.js'
 import { FieldWithPath, Value } from '../types.js'

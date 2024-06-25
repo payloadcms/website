@@ -1,12 +1,12 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import Error from '@forms/Error'
+import Error from '@forms/Error/index.js'
 import { FieldProps } from '@forms/fields/types.js'
-import { useField } from '@forms/fields/useField'
+import { useField } from '@forms/fields/useField/index.js'
 
 import Label from '@components/CMSForm/Label/index.js'
-import { CheckIcon } from '@root/icons/CheckIcon'
+import { CheckIcon } from '@root/icons/CheckIcon/index.js'
 
 import classes from './index.module.scss'
 

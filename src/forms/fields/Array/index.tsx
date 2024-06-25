@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import { CircleIconButton } from '@components/CircleIconButton'
-import { TrashIcon } from '@root/icons/TrashIcon'
+import { CircleIconButton } from '@components/CircleIconButton/index.js'
+import { TrashIcon } from '@root/icons/TrashIcon/index.js'
 import { useArray } from './context.js'
 
 import classes from './index.module.scss'

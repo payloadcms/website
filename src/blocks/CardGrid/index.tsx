@@ -2,14 +2,14 @@
 
 import React, { CSSProperties, useState } from 'react'
 
-import { BackgroundGrid } from '@components/BackgroundGrid'
+import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
-import { SquareCard } from '@components/cards/SquareCard'
-import { CMSLink } from '@components/CMSLink'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { SquareCard } from '@components/cards/SquareCard/index.js'
+import { CMSLink } from '@components/CMSLink/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { RichText } from '@components/RichText'
-import { Page } from '@root/payload-types'
+import { RichText } from '@components/RichText/index.js'
+import { Page } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

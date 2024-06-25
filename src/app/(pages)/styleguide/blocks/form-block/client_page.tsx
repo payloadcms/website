@@ -1,7 +1,7 @@
 import React from 'react'
-import { FormBlock, FormBlockProps } from '@blocks/FormBlock'
+import { FormBlock, FormBlockProps } from '@blocks/FormBlock/index.js'
 
-import { StyleguidePageContent } from '../../PageContent'
+import { StyleguidePageContent } from '../../PageContent/index.js'
 
 const data: FormBlockProps = {
   blockType: 'form',

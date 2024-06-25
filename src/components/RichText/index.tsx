@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import { CustomRenderers, Serialize } from './Serialize'
+import { CustomRenderers, Serialize } from './Serialize/index.js'
 
 import classes from './index.module.scss'
 

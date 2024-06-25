@@ -5,11 +5,11 @@ import Link from 'next/link'
 
 import { GitHubIcon } from '@root/graphics/GitHub/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
-import { PlusIcon } from '@root/icons/PlusIcon'
-import { SearchIcon } from '@root/icons/SearchIcon'
-import { Page } from '@root/payload-types'
+import { PlusIcon } from '@root/icons/PlusIcon/index.js'
+import { SearchIcon } from '@root/icons/SearchIcon/index.js'
+import { Page } from '@root/payload-types.js'
 // eslint-disable-next-line import/no-cycle
-import { LinkType, Reference } from '../CMSLink'
+import { LinkType, Reference } from '../CMSLink/index.js'
 
 import classes from './index.module.scss'
 

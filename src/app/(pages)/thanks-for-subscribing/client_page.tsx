@@ -2,7 +2,7 @@
 
 import { Button } from '@components/Button/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { LargeBody } from '@components/LargeBody'
+import { LargeBody } from '@components/LargeBody/index.js'
 
 export const ThanksForSubscribingPage = () => {
   return (

@@ -1,11 +1,11 @@
 import * as React from 'react'
 
-import { BackgroundGrid } from '@components/BackgroundGrid'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
-import { CMSLink } from '@components/CMSLink'
+import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { CMSLink } from '@components/CMSLink/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { RichText } from '@components/RichText'
-import { Page } from '@root/payload-types'
+import { RichText } from '@components/RichText/index.js'
+import { Page } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

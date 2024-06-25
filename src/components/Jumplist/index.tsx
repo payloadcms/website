@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useReducer, useRef, useSta
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { ChainLinkIcon } from '@root/icons/ChainLinkIcon'
+import { ChainLinkIcon } from '@root/icons/ChainLinkIcon/index.js'
 import { IContext, NodeProps, Props, Reducer } from './types.js'
 
 import classes from './index.module.scss'

@@ -2,7 +2,7 @@
 
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 
-import { ME_QUERY, USER } from '@root/app/_graphql/me'
+import { ME_QUERY, USER } from '@root/app/_graphql/me.js'
 import { User } from '../../payload-cloud-types.js'
 
 // eslint-disable-next-line no-unused-vars

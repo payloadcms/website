@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Modal, useModal } from '@faceless-ui/modal'
 
-import { CloseIcon } from '@root/icons/CloseIcon'
+import { CloseIcon } from '@root/icons/CloseIcon/index.js'
 import { Props, TogglerProps } from './types.js'
 
 import classes from './index.module.scss'

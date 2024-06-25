@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
-import { qs } from '@utilities/qs'
+import { qs } from '@utilities/qs.js'
 
 import type { Deployment, Plan, Project, Team } from '@root/payload-cloud-types.js'
 import { useAuth } from '@root/providers/Auth/index.js'

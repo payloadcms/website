@@ -2,14 +2,14 @@
 
 import React from 'react'
 
-import { BackgroundGrid } from '@components/BackgroundGrid'
-import { BlockWrapper } from '@components/BlockWrapper'
+import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
+import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar'
-import { Media } from '@components/Media'
-import { RenderBlocks } from '@components/RenderBlocks'
-import { RichText } from '@components/RichText'
-import type { CaseStudy as CaseStudyT } from '@root/payload-types'
+import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index.js'
+import { Media } from '@components/Media/index.js'
+import { RenderBlocks } from '@components/RenderBlocks/index.js'
+import { RichText } from '@components/RichText/index.js'
+import type { CaseStudy as CaseStudyT } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

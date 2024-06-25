@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Validate, Value } from '@forms/types.js'
-import { useFormField } from '@forms/useFormField'
+import { useFormField } from '@forms/useFormField/index.js'
 
 // the purpose of this hook is to provide a way to:
 // 1. allow the field to update its own value without debounce

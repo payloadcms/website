@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
 
-import { useThemePreference } from '@root/providers/Theme'
+import { useThemePreference } from '@root/providers/Theme/index.js'
 
 import classes from './index.module.scss'
 

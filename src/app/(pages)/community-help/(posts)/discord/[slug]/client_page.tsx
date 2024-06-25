@@ -3,12 +3,12 @@
 import React from 'react'
 import * as cheerio from 'cheerio'
 
-import { BackgroundGrid } from '@components/BackgroundGrid'
-import { DiscordGitComments } from '@components/DiscordGitComments'
-import DiscordGitCTA from '@components/DiscordGitCTA'
-import { DiscordGitIntro } from '@components/DiscordGitIntro'
+import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
+import { DiscordGitComments } from '@components/DiscordGitComments/index.js'
+import DiscordGitCTA from '@components/DiscordGitCTA/index.js'
+import { DiscordGitIntro } from '@components/DiscordGitIntro/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import OpenPost from '@components/OpenPost'
+import OpenPost from '@components/OpenPost/index.js'
 
 import classes from './index.module.scss'
 

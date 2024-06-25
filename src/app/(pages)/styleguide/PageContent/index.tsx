@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { BlockSpacing } from '../../../../components/BlockSpacing'
+import { BlockSpacing } from '../../../../components/BlockSpacing/index.js'
 import { Gutter } from '../../../../components/Gutter/index.js'
-import { StyleguideBreadcrumbs } from './Breadcrumbs'
-import { RenderDarkMode } from './RenderDarkMode'
+import { StyleguideBreadcrumbs } from './Breadcrumbs/index.js'
+import { RenderDarkMode } from './RenderDarkMode/index.js'
 
 export const StyleguidePageContent: React.FC<{
   title?: string

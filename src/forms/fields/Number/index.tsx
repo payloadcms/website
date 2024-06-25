@@ -2,11 +2,11 @@
 
 import React from 'react'
 
-import { isNumber } from '@root/utilities/isNumber'
-import Error from '../../Error'
+import { isNumber } from '@root/utilities/isNumber.js'
+import Error from '../../Error/index.js'
 import Label from '../../Label/index.js'
 import { FieldProps } from '../types.js'
-import { useField } from '../useField'
+import { useField } from '../useField/index.js'
 
 import classes from './index.module.scss'
 

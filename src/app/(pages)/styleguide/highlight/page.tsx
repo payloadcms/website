@@ -2,8 +2,8 @@ import React from 'react'
 import { Metadata } from 'next'
 
 import { Gutter } from '@components/Gutter/index.js'
-import { RichText } from '../../../../components/RichText'
-import { StyleguidePageContent } from '../PageContent'
+import { RichText } from '../../../../components/RichText/index.js'
+import { StyleguidePageContent } from '../PageContent/index.js'
 
 const Highlight: React.FC = () => {
   return (

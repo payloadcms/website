@@ -3,7 +3,7 @@
 import React from 'react'
 import { BannerBlock, BannerBlockProps } from '@blocks/Banner/index.js'
 
-import { StyleguidePageContent } from '../../PageContent'
+import { StyleguidePageContent } from '../../PageContent/index.js'
 
 const data: BannerBlockProps = {
   blockType: 'banner',

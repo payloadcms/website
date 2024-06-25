@@ -2,14 +2,14 @@
 
 import React from 'react'
 
-import { BackgroundGrid } from '@components/BackgroundGrid'
-import { BlockWrapper } from '@components/BlockWrapper'
-import { Breadcrumbs } from '@components/Breadcrumbs'
+import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
+import { BlockWrapper } from '@components/BlockWrapper/index.js'
+import { Breadcrumbs } from '@components/Breadcrumbs/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { useGetHeroPadding } from '@components/Hero/useGetHeroPadding'
-import { BlocksProp } from '@components/RenderBlocks'
-import { RichText } from '@components/RichText'
-import { Page } from '@root/payload-types'
+import { useGetHeroPadding } from '@components/Hero/useGetHeroPadding.js'
+import { BlocksProp } from '@components/RenderBlocks/index.js'
+import { RichText } from '@components/RichText/index.js'
+import { Page } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

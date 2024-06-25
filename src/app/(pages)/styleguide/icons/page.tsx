@@ -1,10 +1,10 @@
 import React from 'react'
 import { ArrowIcon } from '@icons/ArrowIcon/index.js'
-import { SearchIcon } from '@icons/SearchIcon'
+import { SearchIcon } from '@icons/SearchIcon/index.js'
 import { Metadata } from 'next'
 
 import { Gutter } from '@components/Gutter/index.js'
-import { StyleguidePageContent } from '../PageContent'
+import { StyleguidePageContent } from '../PageContent/index.js'
 
 const Highlight: React.FC = () => {
   return (

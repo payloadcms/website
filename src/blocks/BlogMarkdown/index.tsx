@@ -1,7 +1,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 
-const Block = dynamic(() => import('./Block'), {
+const Block = dynamic(() => import('./Block.js'), {
   suspense: true,
 })
 

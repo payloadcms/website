@@ -1,11 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
 
-import { CommentsIcon } from '@root/graphics/CommentsIcon'
-import { TwitterIconAlt } from '@root/graphics/TwitterIconAlt'
+import { CommentsIcon } from '@root/graphics/CommentsIcon/index.js'
+import { TwitterIconAlt } from '@root/graphics/TwitterIconAlt/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
-import getRelativeDate from '@root/utilities/get-relative-date'
-import { getTeamTwitter } from '@root/utilities/get-team-twitter'
+import getRelativeDate from '@root/utilities/get-relative-date.js'
+import { getTeamTwitter } from '@root/utilities/get-team-twitter.js'
 
 import classes from './index.module.scss'
 

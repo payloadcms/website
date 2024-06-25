@@ -1,7 +1,7 @@
-import { NumberInput } from '@forms/fields/Number'
+import { NumberInput } from '@forms/fields/Number/index.js'
 
-import { RichText } from '@components/RichText'
-import { ChevronDownIcon } from '@root/icons/ChevronDownIcon'
+import { RichText } from '@components/RichText/index.js'
+import { ChevronDownIcon } from '@root/icons/ChevronDownIcon/index.js'
 import { Checkbox } from './fields/Checkbox/index.js'
 import { Select } from './fields/Select/index.js'
 import { Text } from './fields/Text/index.js'

@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { VimeoPlayer } from './Vimeo'
-import { YouTubePlayer } from './YouTube'
+import { VimeoPlayer } from './Vimeo/index.js'
+import { YouTubePlayer } from './YouTube/index.js'
 
 import classes from './index.module.scss'
 

@@ -2,10 +2,10 @@ import React, { useId } from 'react'
 import { useScrollInfo } from '@faceless-ui/scroll-info'
 import { useWindowInfo } from '@faceless-ui/window-info'
 
-import { BackgroundGrid } from '@components/BackgroundGrid'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
+import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { Page } from '@root/payload-types'
+import { Page } from '@root/payload-types.js'
 import { StickyHighlight } from './Highlight/index.js'
 
 import classes from './index.module.scss'

@@ -1,16 +1,16 @@
 import React from 'react'
 import { Providers } from '@providers'
-import { defaultTheme, themeLocalStorageKey } from '@providers/Theme/shared'
+import { defaultTheme, themeLocalStorageKey } from '@providers/Theme/shared.js'
 import { Metadata } from 'next'
 import Script from 'next/script'
 
-import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics'
-import { GoogleTagManager } from '@components/Analytics/GoogleTagManager'
-import { PrivacyBanner } from '@components/PrivacyBanner'
-import { fetchGlobals } from '@root/app/_graphql'
-import { PrivacyProvider } from '@root/providers/Privacy'
+import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics/index.js'
+import { GoogleTagManager } from '@components/Analytics/GoogleTagManager/index.js'
+import { PrivacyBanner } from '@components/PrivacyBanner/index.js'
+import { fetchGlobals } from '@root/app/_graphql/index.js'
+import { PrivacyProvider } from '@root/providers/Privacy/index.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { robotoMono, untitledSans } from './fonts'
+import { robotoMono, untitledSans } from './fonts.js'
 
 import '../css/app.scss'
 

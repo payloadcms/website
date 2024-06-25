@@ -3,10 +3,10 @@
 import React, { useEffect } from 'react'
 import Label from '@forms/Label/index.js'
 
-import { CheckIcon } from '@root/icons/CheckIcon'
-import Error from '../../Error'
+import { CheckIcon } from '@root/icons/CheckIcon/index.js'
+import Error from '../../Error/index.js'
 import { FieldProps } from '../types.js'
-import { useField } from '../useField'
+import { useField } from '../useField/index.js'
 
 import classes from './index.module.scss'
 

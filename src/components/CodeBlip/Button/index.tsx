@@ -1,10 +1,10 @@
 'use client'
 import React from 'react'
 
-import { GradientBorderIcon } from '@root/icons/GradientBorderIcon'
-import { PlusIcon } from '@root/icons/PlusIcon'
+import { GradientBorderIcon } from '@root/icons/GradientBorderIcon/index.js'
+import { PlusIcon } from '@root/icons/PlusIcon/index.js'
 import { CodeBlip } from '../../Code/types.js'
-import { useCodeBlip } from '../CodeBlipContext'
+import { useCodeBlip } from '../CodeBlipContext.js'
 
 import classes from './index.module.scss'
 

@@ -1,4 +1,4 @@
-import type { Page } from '@root/payload-types'
+import type { Page } from '@root/payload-types.js'
 
 type CodeFeatureBlock = Extract<Page['layout'][0], { blockType: 'codeFeature' }>
 

@@ -1,13 +1,13 @@
 'use client'
 import React, { useEffect, useMemo, useState } from 'react'
 
-import { Breadcrumbs } from '@components/Breadcrumbs'
-import { ChangeHeaderTheme } from '@components/ChangeHeaderTheme'
-import { CMSLink } from '@components/CMSLink'
+import { Breadcrumbs } from '@components/Breadcrumbs/index.js'
+import { ChangeHeaderTheme } from '@components/ChangeHeaderTheme/index.js'
+import { CMSLink } from '@components/CMSLink/index.js'
 import { Gutter } from '@components/Gutter/index.js'
-import { ChevronIcon } from '@root/icons/ChevronIcon'
-import { Page } from '@root/payload-types'
-import { useThemePreference } from '@root/providers/Theme'
+import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
+import { Page } from '@root/payload-types.js'
+import { useThemePreference } from '@root/providers/Theme/index.js'
 
 import classes from './index.module.scss'
 

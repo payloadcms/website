@@ -2,7 +2,7 @@ import React from 'react'
 import { ArrowIcon } from '@icons/ArrowIcon/index.js'
 
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { CMSLink } from '@components/CMSLink'
+import { CMSLink } from '@components/CMSLink/index.js'
 import { SquareCardProps } from '../types.js'
 
 import classes from './index.module.scss'

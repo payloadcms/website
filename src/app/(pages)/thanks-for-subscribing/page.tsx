@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { ThanksForSubscribingPage } from './client_page'
+import { ThanksForSubscribingPage } from './client_page.js'
 
 export default props => {
   return <ThanksForSubscribingPage {...props} />
