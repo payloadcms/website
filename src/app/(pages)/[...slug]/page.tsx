@@ -1,6 +1,6 @@
 import React from 'react'
 import { Metadata } from 'next'
-import { draftMode } from 'next/headers'
+import { draftMode } from 'next/headers.js'
 import { notFound } from 'next/navigation.js'
 
 import { Hero } from '@components/Hero/index.js'

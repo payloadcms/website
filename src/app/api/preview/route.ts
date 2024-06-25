@@ -1,4 +1,4 @@
-import { draftMode } from 'next/headers'
+import { draftMode } from 'next/headers.js'
 import { redirect } from 'next/navigation.js'
 
 import { payloadToken } from '@root/app/_graphql/token.js'

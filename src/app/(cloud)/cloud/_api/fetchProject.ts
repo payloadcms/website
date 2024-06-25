@@ -1,4 +1,5 @@
-import { cookies } from 'next/headers'
+import { cookies } from 'next/headers.js'
+
 import { redirect } from 'next/navigation.js'
 
 import { PROJECT_QUERY } from '@root/app/_graphql/project.js'

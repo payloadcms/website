@@ -1,7 +1,10 @@
 'use client'
 
 import React, { useState } from 'react'
-import NextImage, { StaticImageData } from 'next/image'
+import NextImageImport from 'next/image.js'
+import type { StaticImageData } from 'next/image.js'
+const NextImage = (NextImageImport.default ||
+  NextImageImport) as unknown as typeof NextImageImport.default
 
 import cssVariables from '../../../../cssVariables.cjs'
 import { Props } from '../types.js'

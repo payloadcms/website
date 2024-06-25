@@ -1,4 +1,4 @@
-import { draftMode } from 'next/headers'
+import { draftMode } from 'next/headers.js'
 
 export async function GET(): Promise<Response> {
   draftMode().disable()
