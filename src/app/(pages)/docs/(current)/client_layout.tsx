@@ -138,7 +138,9 @@ export const RenderDocs: React.FC<Props> = ({ topics, children, version = 'curre
                     className={[classes.topic, childIsCurrent && classes['topic--active']]
                       .filter(Boolean)
                       .join(' ')}
-                    ref={ref => (topicRefs.current[index] = ref)}
+                    ref={ref => {
+                      topicRefs.current[index] = ref
+                    }}
                     onClick={() => handleMenuItemClick(topicSlug)}
                     onMouseEnter={() => handleIndicator(`${index}`)}
                   >
@@ -157,7 +159,9 @@ export const RenderDocs: React.FC<Props> = ({ topics, children, version = 'curre
                           <li
                             key={doc.slug}
                             onMouseEnter={() => handleIndicator(nestedIndex)}
-                            ref={ref => (topicRefs.current[nestedIndex] = ref)}
+                            ref={ref => {
+                              topicRefs.current[nestedIndex] = ref
+                            }}
                           >
                             <Link
                               href={`/docs${
