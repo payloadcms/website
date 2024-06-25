@@ -1,4 +1,5 @@
-import * as React from 'react'
+'use client'
+import React, { useState, useRef, useCallback } from 'react'
 
 import { Tooltip } from '@components/Tooltip/index.js'
 import { CopyIcon } from '@root/icons/CopyIcon/index.js'
@@ -15,11 +16,11 @@ export const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
   className,
   hoverText,
 }) => {
-  const [copied, setCopied] = React.useState(false)
-  const [showTooltip, setShowTooltip] = React.useState(false)
-  const ref = React.useRef<any>(null)
+  const [copied, setCopied] = useState(false)
+  const [showTooltip, setShowTooltip] = useState(false)
+  const ref = useRef<any>(null)
 
-  const copy = React.useCallback(async () => {
+  const copy = useCallback(async () => {
     if (ref && ref.current && value) {
       const copyValue = typeof value === 'string' ? value : await value()
       if (!copyValue) return

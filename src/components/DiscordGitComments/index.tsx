@@ -10,7 +10,6 @@ import {
   Answer,
   Comment,
 } from '@root/app/(pages)/community-help/(posts)/github/[slug]/client_page.js'
-import { CheckIcon } from '@root/icons/CheckIcon/index.js'
 
 import classes from './index.module.scss'
 
