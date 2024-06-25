@@ -51,7 +51,9 @@ const TableOfContents: React.FC<Props> = ({ className, headings }) => {
                   .filter(Boolean)
                   .join(' ')}
                 onMouseEnter={handleMouseEnter}
-                ref={ref => (listItemRefs.current[id] = ref)}
+                ref={ref => {
+                  listItemRefs.current[id] = ref
+                }}
               >
                 {text}
               </div>
