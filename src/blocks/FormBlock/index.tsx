@@ -1,7 +1,9 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
+import NextImageImport from 'next/image.js'
+const Image = (NextImageImport.default ||
+  NextImageImport) as unknown as typeof NextImageImport.default
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'

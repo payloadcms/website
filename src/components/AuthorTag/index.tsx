@@ -1,5 +1,7 @@
 import React from 'react'
-import Image from 'next/image'
+import NextImageImport from 'next/image.js'
+const Image = (NextImageImport.default ||
+  NextImageImport) as unknown as typeof NextImageImport.default
 
 import { CommentsIcon } from '@root/graphics/CommentsIcon/index.js'
 import { TwitterIconAlt } from '@root/graphics/TwitterIconAlt/index.js'

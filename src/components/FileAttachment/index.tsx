@@ -1,5 +1,7 @@
 import React from 'react'
-import NextImage from 'next/image'
+import NextImageImport from 'next/image.js'
+const NextImage = (NextImageImport.default ||
+  NextImageImport) as unknown as typeof NextImageImport.default
 
 import { Attachments } from '@root/app/(pages)/community-help/(posts)/discord/[slug]/client_page.js'
 import { DownloadIcon } from '@root/graphics/DownloadIcon/index.js'

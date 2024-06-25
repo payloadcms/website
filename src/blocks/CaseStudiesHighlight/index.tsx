@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { useMouseInfo } from '@faceless-ui/mouse-info'
 import { PayloadIcon } from '@graphics/PayloadIcon/index.js'
-import Image from 'next/image'
+import NextImageImport from 'next/image.js'
+const Image = (NextImageImport.default ||
+  NextImageImport) as unknown as typeof NextImageImport.default
 import LinkImport from 'next/link.js'
 
 const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default

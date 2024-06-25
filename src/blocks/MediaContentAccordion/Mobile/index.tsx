@@ -5,7 +5,9 @@ import {
   CollapsibleGroup,
   CollapsibleToggler,
 } from '@faceless-ui/collapsibles'
-import Image from 'next/image'
+import NextImageImport from 'next/image.js'
+const Image = (NextImageImport.default ||
+  NextImageImport) as unknown as typeof NextImageImport.default
 
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
