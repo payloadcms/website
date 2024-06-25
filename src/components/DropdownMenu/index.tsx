@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import useClickAway from '@root/utilities/use-click-away'
-import { MenuContent } from './MenuContent'
+import useClickAway from '@root/utilities/use-click-away.js'
+import { MenuContent } from './MenuContent/index.js'
 
 import classes from './index.module.scss'
 

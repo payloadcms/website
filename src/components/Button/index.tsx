@@ -1,15 +1,17 @@
 'use client'
 
 import React, { forwardRef, HTMLAttributes, useEffect, useState } from 'react'
-import Link from 'next/link'
+import LinkImport from 'next/link.js'
 
-import { GitHubIcon } from '@root/graphics/GitHub'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { PlusIcon } from '@root/icons/PlusIcon'
-import { SearchIcon } from '@root/icons/SearchIcon'
-import { Page } from '@root/payload-types'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+
+import { GitHubIcon } from '@root/graphics/GitHub/index.js'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
+import { PlusIcon } from '@root/icons/PlusIcon/index.js'
+import { SearchIcon } from '@root/icons/SearchIcon/index.js'
+import { Page } from '@root/payload-types.js'
 // eslint-disable-next-line import/no-cycle
-import { LinkType, Reference } from '../CMSLink'
+import { LinkType, Reference } from '../CMSLink/index.js'
 
 import classes from './index.module.scss'
 

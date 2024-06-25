@@ -1,14 +1,14 @@
 import React from 'react'
-import { Checkbox } from '@forms/fields/Checkbox'
-import { NumberInput } from '@forms/fields/Number'
-import RadioGroup from '@forms/fields/RadioGroup'
-import { Select } from '@forms/fields/Select'
-import { Text } from '@forms/fields/Text'
-import { Textarea } from '@forms/fields/Textarea'
+import { Checkbox } from '@forms/fields/Checkbox/index.js'
+import { NumberInput } from '@forms/fields/Number/index.js'
+import RadioGroup from '@forms/fields/RadioGroup/index.js'
+import { Select } from '@forms/fields/Select/index.js'
+import { Text } from '@forms/fields/Text/index.js'
+import { Textarea } from '@forms/fields/Textarea/index.js'
 import { Metadata } from 'next'
 
-import { Gutter } from '@components/Gutter'
-import { StyleguidePageContent } from '../PageContent'
+import { Gutter } from '@components/Gutter/index.js'
+import { StyleguidePageContent } from '../PageContent/index.js'
 
 const Fields: React.FC = () => {
   return (

@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react'
 
-import { LargeRadio } from '@components/LargeRadio'
-import { Plan } from '@root/payload-cloud-types'
+import { LargeRadio } from '@components/LargeRadio/index.js'
+import { Plan } from '@root/payload-cloud-types.js'
 
 import classes from './index.module.scss'
 

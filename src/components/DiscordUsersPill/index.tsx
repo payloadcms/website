@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { isNumber } from '@root/utilities/isNumber'
+import { isNumber } from '@root/utilities/isNumber.js'
 
 import classes from './index.module.scss'
 

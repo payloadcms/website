@@ -2,12 +2,12 @@
 
 import * as React from 'react'
 import { useCookies } from 'react-cookie'
-import { usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation.js'
 
-import { RichText } from '@components/RichText'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { CloseIcon } from '@root/icons/CloseIcon'
-import type { Announcement } from '../../payload-types'
+import { RichText } from '@components/RichText/index.js'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
+import { CloseIcon } from '@root/icons/CloseIcon/index.js'
+import type { Announcement } from '../../payload-types.js'
 
 import classes from './index.module.scss'
 

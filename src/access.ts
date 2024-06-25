@@ -1,4 +1,4 @@
-import type { Project, User } from './payload-cloud-types'
+import type { Project, User } from './payload-cloud-types.js'
 
 export const checkRole = (allRoles: User['roles'], user: User): boolean => {
   if (user) {

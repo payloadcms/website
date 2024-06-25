@@ -1,9 +1,11 @@
 import React from 'react'
-import Link from 'next/link'
+import LinkImport from 'next/link.js'
 
-import { CaseStudy, Page, Post } from '@root/payload-types'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+
+import { CaseStudy, Page, Post } from '@root/payload-types.js'
 // eslint-disable-next-line import/no-cycle
-import { Button, ButtonProps } from '../Button'
+import { Button, ButtonProps } from '../Button/index.js'
 
 const relationSlugs = {
   case_studies: 'case-studies',

@@ -1,14 +1,16 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
+import NextImageImport from 'next/image.js'
+const Image = (NextImageImport.default ||
+  NextImageImport) as unknown as typeof NextImageImport.default
 
-import { BackgroundGrid } from '@components/BackgroundGrid'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
-import { CMSForm } from '@components/CMSForm'
-import { Gutter } from '@components/Gutter'
-import { RichText } from '@components/RichText'
-import { Page } from '@root/payload-types'
+import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { CMSForm } from '@components/CMSForm/index.js'
+import { Gutter } from '@components/Gutter/index.js'
+import { RichText } from '@components/RichText/index.js'
+import { Page } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

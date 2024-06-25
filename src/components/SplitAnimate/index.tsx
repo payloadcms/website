@@ -2,7 +2,7 @@
 import React, { useMemo } from 'react'
 import { cubicBezier, motion, stagger, useAnimate, useInView } from 'framer-motion'
 
-import { AllowedElements } from '@components/SpotlightAnimation/types'
+import { AllowedElements } from '@components/SpotlightAnimation/types.js'
 
 import classes from './index.module.scss'
 

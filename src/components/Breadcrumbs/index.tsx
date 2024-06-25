@@ -1,7 +1,9 @@
 import * as React from 'react'
-import Link from 'next/link'
+import LinkImport from 'next/link.js'
 
-import { EdgeScroll } from '@components/EdgeScroll'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+
+import { EdgeScroll } from '@components/EdgeScroll/index.js'
 
 import classes from './index.module.scss'
 

@@ -1,15 +1,15 @@
 import React from 'react'
 import { toast } from 'react-toastify'
 import { useModal } from '@faceless-ui/modal'
-import { Text } from '@forms/fields/Text'
-import Form from '@forms/Form'
-import Submit from '@forms/Submit'
-import { useRouter } from 'next/navigation'
+import { Text } from '@forms/fields/Text/index.js'
+import Form from '@forms/Form/index.js'
+import Submit from '@forms/Submit/index.js'
+import { useRouter } from 'next/navigation.js'
 
-import { Button } from '@components/Button'
-import { Heading } from '@components/Heading'
-import { Message } from '@root/app/_components/Message'
-import { useAuth } from '@root/providers/Auth'
+import { Button } from '@components/Button/index.js'
+import { Heading } from '@components/Heading/index.js'
+import { Message } from '@root/app/_components/Message/index.js'
+import { useAuth } from '@root/providers/Auth/index.js'
 
 import classes from './page.module.scss'
 

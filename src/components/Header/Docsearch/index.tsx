@@ -1,9 +1,11 @@
 import React from 'react'
-import dynamic from 'next/dynamic'
+import NextDynamicImport from 'next/dynamic.js'
+const dynamic = (NextDynamicImport.default ||
+  NextDynamicImport) as unknown as typeof NextDynamicImport.default
 
 import classes from './index.module.scss'
 
-const Component = dynamic(() => import('./Component'))
+const Component = dynamic(() => import('./Component.js'))
 
 export const DocSearch: React.FC = () => {
   return (

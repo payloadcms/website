@@ -1,7 +1,7 @@
-import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
+import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject.js'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { ProjectEmailPage } from './page_client'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { ProjectEmailPage } from './page_client.js'
 
 export default async ({ params: { 'team-slug': teamSlug, 'project-slug': projectSlug } }) => {
   const { team, project } = await fetchProjectAndRedirect({ teamSlug, projectSlug })

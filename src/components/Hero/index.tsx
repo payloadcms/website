@@ -1,16 +1,16 @@
 import React from 'react'
 
-import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar'
-import { BlocksProp } from '@components/RenderBlocks'
-import { Page } from '@root/payload-types'
-import { CenteredContent } from './CenteredContent'
-import { ContentMediaHero } from './ContentMedia'
-import { DefaultHero } from './Default'
-import { FormHero } from './FormHero'
-import { GradientHero } from './Gradient'
-import { HomeHero } from './Home'
-import { LivestreamHero } from './Livestream'
-import { ThreeHero } from './Three'
+import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index.js'
+import { BlocksProp } from '@components/RenderBlocks/index.js'
+import { Page } from '@root/payload-types.js'
+import { CenteredContent } from './CenteredContent/index.js'
+import { ContentMediaHero } from './ContentMedia/index.js'
+import { DefaultHero } from './Default/index.js'
+import { FormHero } from './FormHero/index.js'
+import { GradientHero } from './Gradient/index.js'
+import { HomeHero } from './Home/index.js'
+import { LivestreamHero } from './Livestream/index.js'
+import { ThreeHero } from './Three/index.js'
 
 const heroes = {
   default: DefaultHero,

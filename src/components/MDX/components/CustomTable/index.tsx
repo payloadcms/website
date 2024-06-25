@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useState, useRef, useEffect } from 'react'
 
 import classes from './index.module.scss'
 
@@ -25,10 +26,10 @@ const CustomTable: React.FC<Props> = ({
   inDrawer,
   bleedToEdge = true,
 }) => {
-  const [padding, setPadding] = React.useState(0)
-  const paddingRef = React.useRef<HTMLDivElement>(null)
+  const [padding, setPadding] = useState(0)
+  const paddingRef = useRef<HTMLDivElement>(null)
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (bleedToEdge) {
       if (paddingRef.current?.offsetWidth === undefined) return
       setPadding(Math.round(paddingRef.current?.offsetWidth / 8) - 1)

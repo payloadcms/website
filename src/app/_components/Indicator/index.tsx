@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Spinner } from '../Spinner'
+import { Spinner } from '../Spinner/index.js'
 
 import classes from './index.module.scss'
 

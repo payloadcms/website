@@ -1,13 +1,16 @@
 import React from 'react'
-import { notFound } from 'next/navigation'
+import { notFound } from 'next/navigation.js'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { fetchRelatedThreads } from '../../../../../_graphql'
-import { RenderDoc } from '../../../(current)/[topic]/[doc]/client_page'
-import { getDoc, getTopics } from '../../../api'
-import { NextDoc } from '../../../types'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { fetchRelatedThreads } from '../../../../../_graphql/index.js'
+import { RenderDoc } from '../../../(current)/[topic]/[doc]/client_page.js'
+import { getDoc, getTopics } from '../../../api.js'
+import { NextDoc } from '../../../types.js'
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import components from '@components/MDX/components/index.js'
 
-const Doc = async ({ params }) => {
+const Doc = async props => {
+  const { params } = props
   const { topic, doc: docSlug } = params
   const doc = await getDoc({ topic, doc: docSlug }, 'beta')
   const topics = await getTopics('beta')
@@ -52,7 +55,11 @@ const Doc = async ({ params }) => {
 
   if (!doc) notFound()
 
-  return <RenderDoc doc={doc} next={next} relatedThreads={filteredRelatedThreads} version="beta" />
+  return (
+    <RenderDoc doc={doc} next={next} relatedThreads={filteredRelatedThreads} version="beta">
+      <MDXRemote source={doc.content} components={components} />
+    </RenderDoc>
+  )
 }
 
 export default Doc

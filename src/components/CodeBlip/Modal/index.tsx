@@ -1,10 +1,11 @@
+'use client'
 import React, { useEffect, useId, useRef, useState } from 'react'
 import { cubicBezier, motion, useAnimate } from 'framer-motion'
 
-import { CMSLink } from '@components/CMSLink'
-import { RichText } from '@components/RichText'
-import { CloseIcon } from '@root/icons/CloseIcon'
-import { useCodeBlip } from '../CodeBlipContext'
+import { CMSLink } from '@components/CMSLink/index.js'
+import { RichText } from '@components/RichText/index.js'
+import { CloseIcon } from '@root/icons/CloseIcon/index.js'
+import { useCodeBlip } from '../CodeBlipContext.js'
 
 import classes from './index.module.scss'
 

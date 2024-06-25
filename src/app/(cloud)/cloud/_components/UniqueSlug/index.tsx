@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Text } from '@forms/fields/Text'
+import { Text } from '@forms/fields/Text/index.js'
 
-import { Spinner } from '@root/app/_components/Spinner'
-import { CheckIcon } from '@root/icons/CheckIcon'
-import { CloseIcon } from '@root/icons/CloseIcon'
-import useDebounce from '@root/utilities/use-debounce'
-import { SlugValidationResult, stateReducer } from './reducer'
+import { Spinner } from '@root/app/_components/Spinner/index.js'
+import { CheckIcon } from '@root/icons/CheckIcon/index.js'
+import { CloseIcon } from '@root/icons/CloseIcon/index.js'
+import useDebounce from '@root/utilities/use-debounce.js'
+import { SlugValidationResult, stateReducer } from './reducer.js'
 
 import classes from './index.module.scss'
 

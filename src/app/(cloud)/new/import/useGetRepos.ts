@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import type { Install } from '@cloud/_api/fetchInstalls'
-import type { Repo, RepoResults } from '@cloud/_api/fetchRepos'
-import { fetchReposClient } from '@cloud/_api/fetchRepos'
+import type { Install } from '@cloud/_api/fetchInstalls.js'
+import type { Repo, RepoResults } from '@cloud/_api/fetchRepos.js'
+import { fetchReposClient } from '@cloud/_api/fetchRepos.js'
 
-import { useAuth } from '@root/providers/Auth'
+import { useAuth } from '@root/providers/Auth/index.js'
 
 export const useGetRepos = (props: {
   selectedInstall: Install | undefined

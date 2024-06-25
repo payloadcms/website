@@ -2,7 +2,7 @@
 // import flatley from 'flatley';
 import flatley from 'flatley'
 
-import type { Fields, Property } from '../types'
+import type { Fields, Property } from '../types.js'
 
 export const reduceFieldsToValues = (fields: Fields, unflatten: boolean): Property => {
   const data: Property = {}

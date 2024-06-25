@@ -2,8 +2,8 @@
 
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
-import canUseDom from '@root/utilities/can-use-dom'
-import { locate, LocateResponse } from '../../../functions-api'
+import canUseDom from '@root/utilities/can-use-dom.js'
+import { locate, LocateResponse } from '../../../functions-api.js'
 
 type Privacy = {
   showConsent?: boolean

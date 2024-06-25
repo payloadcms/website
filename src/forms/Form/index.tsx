@@ -10,17 +10,17 @@ import React, {
   useState,
 } from 'react'
 
-import { Data, Field, IFormContext, InitialState, OnSubmit } from '../types'
+import { Data, Field, IFormContext, InitialState, OnSubmit } from '../types.js'
 import {
   FieldContext,
   FormContext,
   FormSubmittedContext,
   ModifiedContext,
   ProcessingContext,
-} from './context'
-import initialContext from './initialContext'
-import { reduceFieldsToValues } from './reduceFieldsToValues'
-import reducer from './reducer'
+} from './context.js'
+import initialContext from './initialContext.js'
+import { reduceFieldsToValues } from './reduceFieldsToValues.js'
+import reducer from './reducer.js'
 
 const defaultInitialState = {}
 

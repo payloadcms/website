@@ -1,17 +1,19 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import { fetchProjectsClient, ProjectsRes } from '@cloud/_api/fetchProjects'
-import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
-import { ProjectCard } from '@cloud/_components/ProjectCard'
-import { Text } from '@forms/fields/Text'
-import Link from 'next/link'
+import { fetchProjectsClient, ProjectsRes } from '@cloud/_api/fetchProjects.js'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import { ProjectCard } from '@cloud/_components/ProjectCard/index.js'
+import { Text } from '@forms/fields/Text/index.js'
+import LinkImport from 'next/link.js'
 
-import { Gutter } from '@components/Gutter'
-import { Pagination } from '@components/Pagination'
-import { NewProjectBlock } from '@root/app/_components/NewProject'
-import { Template } from '@root/payload-cloud-types'
-import useDebounce from '@root/utilities/use-debounce'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+
+import { Gutter } from '@components/Gutter/index.js'
+import { Pagination } from '@components/Pagination/index.js'
+import { NewProjectBlock } from '@root/app/_components/NewProject/index.js'
+import { Template } from '@root/payload-cloud-types.js'
+import useDebounce from '@root/utilities/use-debounce.js'
 
 import classes from './page.module.scss'
 

@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { BackgroundGrid } from '@components/BackgroundGrid'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
-import { Gutter } from '@components/Gutter'
-import { Page } from '@root/payload-types'
-import { DesktopMediaContentAccordion } from './Desktop'
-import { MobileMediaContentAccordion } from './Mobile'
+import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { Gutter } from '@components/Gutter/index.js'
+import { Page } from '@root/payload-types.js'
+import { DesktopMediaContentAccordion } from './Desktop/index.js'
+import { MobileMediaContentAccordion } from './Mobile/index.js'
 
 import classes from './index.module.scss'
 

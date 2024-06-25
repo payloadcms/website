@@ -1,5 +1,5 @@
-import type { Project, Team } from '@root/payload-cloud-types'
-import { payloadCloudToken } from './token'
+import type { Project, Team } from '@root/payload-cloud-types.js'
+import { payloadCloudToken } from './token.js'
 
 // TODO: type this using the Stripe module
 export interface Subscription {
@@ -46,7 +46,7 @@ export const fetchSubscriptions = async (team?: Team | string): Promise<Subscrip
   const teamID = typeof team === 'string' ? team : team?.id
   if (!teamID) throw new Error('No team ID provided')
 
-  const { cookies } = await import('next/headers')
+  const { cookies } = await import('next/headers.js')
   const token = cookies().get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 

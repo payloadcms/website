@@ -1,21 +1,20 @@
 'use client'
 
 import React from 'react'
-import { ArrowIcon } from '@icons/ArrowIcon'
-import Link from 'next/link'
-import { MDXRemote } from 'next-mdx-remote'
+import { ArrowIcon } from '@icons/ArrowIcon/index.js'
+import LinkImport from 'next/link.js'
 
-import { BackgroundScanline } from '@components/BackgroundScanline'
-import DiscordGitCTA from '@components/DiscordGitCTA'
-import { JumplistProvider } from '@components/Jumplist'
-import components from '@components/MDX/components'
-import { RelatedHelpList } from '@components/RelatedHelpList'
-import TableOfContents from '@components/TableOfContents'
-import { VersionBanner } from '@components/VersionBanner'
-import { VersionSelector } from '@components/VersionSelector'
-import { CommunityHelp } from '@root/payload-types'
-import slugify from '@root/utilities/slugify'
-import { Doc, NextDoc } from '../../../types'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
+import DiscordGitCTA from '@components/DiscordGitCTA/index.js'
+import { JumplistProvider } from '@components/Jumplist/index.js'
+import { RelatedHelpList } from '@components/RelatedHelpList/index.js'
+import TableOfContents from '@components/TableOfContents/index.js'
+import { VersionBanner } from '@components/VersionBanner/index.js'
+import { VersionSelector } from '@components/VersionSelector/index.js'
+import { CommunityHelp } from '@root/payload-types.js'
+import slugify from '@root/utilities/slugify.js'
+import { Doc, NextDoc } from '../../../types.js'
 
 import classes from './index.module.scss'
 
@@ -24,10 +23,17 @@ type Props = {
   next?: NextDoc | null
   relatedThreads?: CommunityHelp[]
   version?: 'current' | 'v2' | 'beta'
+  children: React.ReactNode
 }
 
-export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads, version = 'current' }) => {
-  const { content, headings, title } = doc
+export const RenderDoc: React.FC<Props> = ({
+  doc,
+  next,
+  relatedThreads,
+  version = 'current',
+  children,
+}) => {
+  const { headings, title } = doc
   const docRef = React.useRef<HTMLDivElement>(null)
 
   const hideVersionSelector =
@@ -48,9 +54,7 @@ export const RenderDoc: React.FC<Props> = ({ doc, next, relatedThreads, version 
         <h1 id={slugify(title)} className={classes.title}>
           {title}
         </h1>
-        <div className={classes.mdx}>
-          <MDXRemote {...content} components={components} />
-        </div>
+        <div className={classes.mdx}>{children}</div>
         {next && (
           <Link
             className={[classes.next, hasRelatedThreads && classes.hasRelatedThreads]

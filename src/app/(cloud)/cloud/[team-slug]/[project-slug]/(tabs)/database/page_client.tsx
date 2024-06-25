@@ -1,11 +1,11 @@
 'use client'
 
 import * as React from 'react'
-import { Secret } from '@forms/fields/Secret'
+import { Secret } from '@forms/fields/Secret/index.js'
 
-import { Banner } from '@components/Banner'
-import { Gutter } from '@components/Gutter'
-import { Project, Team } from '@root/payload-cloud-types'
+import { Banner } from '@components/Banner/index.js'
+import { Gutter } from '@components/Gutter/index.js'
+import { Project, Team } from '@root/payload-cloud-types.js'
 
 export const ProjectDatabasePage: React.FC<{
   project: Project

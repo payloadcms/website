@@ -1,6 +1,6 @@
-import { notFound, redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation.js'
 
-import { getTopics } from '../../api'
+import { getTopics } from '../../api.js'
 
 export default async function DocTopic({ params: { topic: topicSlug } }) {
   const topics = await getTopics('beta')

@@ -1,15 +1,17 @@
 'use client'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import Image from 'next/image'
+import NextImageImport from 'next/image.js'
+const Image = (NextImageImport.default ||
+  NextImageImport) as unknown as typeof NextImageImport.default
 
-import { BackgroundGrid } from '@components/BackgroundGrid'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
-import { CMSLink } from '@components/CMSLink'
-import { Gutter } from '@components/Gutter'
-import { RichText } from '@components/RichText'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { CrosshairIcon } from '@root/icons/CrosshairIcon'
-import { Page } from '@root/payload-types'
+import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { CMSLink } from '@components/CMSLink/index.js'
+import { Gutter } from '@components/Gutter/index.js'
+import { RichText } from '@components/RichText/index.js'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
+import { Page } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

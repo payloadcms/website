@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react'
 
-import { Heading } from '@components/Heading'
-import { Team, User } from '@root/payload-cloud-types'
-import { formatDate } from '@root/utilities/format-date-time'
-import { TeamMemberRow } from './TeamMemberRow'
+import { Heading } from '@components/Heading/index.js'
+import { Team, User } from '@root/payload-cloud-types.js'
+import { formatDate } from '@root/utilities/format-date-time.js'
+import { TeamMemberRow } from './TeamMemberRow.js'
 
 import classes from './index.module.scss'
 

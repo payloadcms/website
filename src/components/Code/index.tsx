@@ -1,9 +1,10 @@
+'use client'
 /* eslint-disable no-param-reassign */
 import React, { useCallback } from 'react'
-import Highlight, { defaultProps } from 'prism-react-renderer'
+import { Highlight } from 'prism-react-renderer'
 
-import CodeBlip from '@components/CodeBlip'
-import { Props } from './types'
+import CodeBlip from '@components/CodeBlip/index.js'
+import { Props } from './types.js'
 
 import classes from './index.module.scss'
 
@@ -76,7 +77,7 @@ const Code: React.FC<Props> = props => {
         .join(' ')}
       data-theme={'dark'}
     >
-      <Highlight {...defaultProps} theme={undefined} code={children} language="jsx">
+      <Highlight theme={undefined} code={children} language="jsx">
         {({ style, tokens, getLineProps, getTokenProps }) => (
           <div className={classNames} style={style}>
             {tokens
@@ -101,7 +102,7 @@ const Code: React.FC<Props> = props => {
                       <div className={classes.lineCodeWrapper}>
                         {line.map((token, index) => {
                           const { key, ...rest } = getTokenProps({ token, key: index })
-                          return <span key={key} {...rest} />
+                          return <span key={key as any} {...rest} />
                         })}
                         {codeBlip ? <CodeBlip.Button index={blipCounter} blip={codeBlip} /> : null}
                       </div>

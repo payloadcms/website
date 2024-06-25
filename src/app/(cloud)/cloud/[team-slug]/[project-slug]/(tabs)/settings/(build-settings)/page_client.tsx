@@ -2,16 +2,16 @@
 
 import * as React from 'react'
 import { toast } from 'react-toastify'
-import { BranchSelector } from '@cloud/_components/BranchSelector'
-import { UniqueProjectSlug } from '@cloud/_components/UniqueSlug'
-import { Text } from '@forms/fields/Text'
-import Form from '@forms/Form'
-import Submit from '@forms/Submit'
-import { useRouter } from 'next/navigation'
+import { BranchSelector } from '@cloud/_components/BranchSelector/index.js'
+import { UniqueProjectSlug } from '@cloud/_components/UniqueSlug/index.js'
+import { Text } from '@forms/fields/Text/index.js'
+import Form from '@forms/Form/index.js'
+import Submit from '@forms/Submit/index.js'
+import { useRouter } from 'next/navigation.js'
 
-import { MaxWidth } from '@root/app/_components/MaxWidth'
-import { Project, Team } from '@root/payload-cloud-types'
-import { SectionHeader } from '../_layoutComponents/SectionHeader'
+import { MaxWidth } from '@root/app/_components/MaxWidth/index.js'
+import { Project, Team } from '@root/payload-cloud-types.js'
+import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
 
 import classes from './page.module.scss'
 

@@ -2,13 +2,13 @@
 
 import React, { useCallback } from 'react'
 import { toast } from 'react-toastify'
-import { ProjectWithSubscription } from '@cloud/_api/fetchProject'
-import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
-import { updateSubscription } from '@cloud/_api/updateSubscription'
+import { ProjectWithSubscription } from '@cloud/_api/fetchProject.js'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import { updateSubscription } from '@cloud/_api/updateSubscription.js'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe, type PaymentMethod } from '@stripe/stripe-js'
 
-import { CreditCardSelector } from '.'
+import { CreditCardSelector } from './index.js'
 
 const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
 const Stripe = loadStripe(apiKey)

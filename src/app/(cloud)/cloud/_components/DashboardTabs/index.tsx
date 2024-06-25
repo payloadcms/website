@@ -1,8 +1,8 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation.js'
 
-import { Tab, Tabs } from '../Tabs'
+import { Tab, Tabs } from '../Tabs/index.js'
 
 export const cloudSlug = 'cloud'
 

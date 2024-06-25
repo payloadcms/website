@@ -3,14 +3,14 @@
 import * as React from 'react'
 import { CollapsibleGroup } from '@faceless-ui/collapsibles'
 
-import { Accordion } from '@root/app/_components/Accordion'
-import { HR } from '@root/app/_components/HR'
-import { MaxWidth } from '@root/app/_components/MaxWidth'
-import { Project, Team } from '@root/payload-cloud-types'
-import { NoData } from '../_layoutComponents/NoData'
-import { SectionHeader } from '../_layoutComponents/SectionHeader'
-import { AddDomain } from './AddDomain'
-import { ManageDomain } from './ManageDomain'
+import { Accordion } from '@root/app/_components/Accordion/index.js'
+import { HR } from '@root/app/_components/HR/index.js'
+import { MaxWidth } from '@root/app/_components/MaxWidth/index.js'
+import { Project, Team } from '@root/payload-cloud-types.js'
+import { NoData } from '../_layoutComponents/NoData/index.js'
+import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
+import { AddDomain } from './AddDomain/index.js'
+import { ManageDomain } from './ManageDomain/index.js'
 
 export const ProjectDomainsPage: React.FC<{
   project: Project

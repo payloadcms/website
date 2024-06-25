@@ -3,13 +3,13 @@
 import * as React from 'react'
 import { useModal } from '@faceless-ui/modal'
 import { useScrollInfo } from '@faceless-ui/scroll-info'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation.js'
 
-import { UniversalTruth } from '@components/UniversalTruth'
-import { MainMenu } from '@root/payload-types'
-import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver'
-import { DesktopNav } from './DesktopNav'
-import { MobileNav, modalSlug as mobileNavModalSlug } from './MobileNav'
+import { UniversalTruth } from '@components/UniversalTruth/index.js'
+import { MainMenu } from '@root/payload-types.js'
+import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver/index.js'
+import { DesktopNav } from './DesktopNav/index.js'
+import { MobileNav, modalSlug as mobileNavModalSlug } from './MobileNav/index.js'
 
 import classes from './index.module.scss'
 

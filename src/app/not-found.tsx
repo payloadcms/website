@@ -1,7 +1,7 @@
-import { ErrorMessage } from '@components/ErrorMessage'
-import { Footer } from '@components/Footer'
-import { Header } from '@components/Header'
-import { fetchGlobals } from '@root/app/_graphql'
+import { ErrorMessage } from '@components/ErrorMessage/index.js'
+import { Footer } from '@components/Footer/index.js'
+import { Header } from '@components/Header/index.js'
+import { fetchGlobals } from '@root/app/_graphql/index.js'
 
 export default async function NotFound() {
   const { mainMenu, footer } = await fetchGlobals()

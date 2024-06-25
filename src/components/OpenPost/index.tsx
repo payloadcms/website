@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { BackgroundScanline } from '@components/BackgroundScanline'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
+import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
 
 import classes from './index.module.scss'
 

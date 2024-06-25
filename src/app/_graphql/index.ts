@@ -9,14 +9,14 @@ import type {
   Page,
   Post,
   TopBar,
-} from '../../payload-types'
-import { ANNOUNCEMENT_FIELDS } from './announcement'
-import { CASE_STUDIES, CASE_STUDY } from './case-studies'
-import { COMMUNITY_HELP, COMMUNITY_HELPS, RELATED_THREADS } from './community-helps'
-import { GLOBALS } from './globals'
-import { PAGE, PAGES } from './pages'
-import { POST, POST_SLUGS, POSTS } from './posts'
-import { payloadToken } from './token'
+} from '../../payload-types.js'
+import { ANNOUNCEMENT_FIELDS } from './announcement.js'
+import { CASE_STUDIES, CASE_STUDY } from './case-studies.js'
+import { COMMUNITY_HELP, COMMUNITY_HELPS, RELATED_THREADS } from './community-helps.js'
+import { GLOBALS } from './globals.js'
+import { PAGE, PAGES } from './pages.js'
+import { POST, POST_SLUGS, POSTS } from './posts.js'
+import { payloadToken } from './token.js'
 
 export const fetchGlobals = async (): Promise<{
   mainMenu: MainMenu
@@ -68,7 +68,7 @@ export const fetchPage = async (
   let token: RequestCookie | undefined
 
   if (draft) {
-    const { cookies } = await import('next/headers')
+    const { cookies } = await import('next/headers.js')
     token = cookies().get(payloadToken)
   }
 
@@ -175,7 +175,7 @@ export const fetchBlogPost = async (slug: string, draft?: boolean): Promise<Post
   let token: RequestCookie | undefined
 
   if (draft) {
-    const { cookies } = await import('next/headers')
+    const { cookies } = await import('next/headers.js')
     token = cookies().get(payloadToken)
   }
 

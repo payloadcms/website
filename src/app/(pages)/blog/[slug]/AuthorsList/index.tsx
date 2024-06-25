@@ -1,9 +1,11 @@
 import { Fragment } from 'react'
-import Link from 'next/link'
+import LinkImport from 'next/link.js'
 
-import { Label } from '@components/Label'
-import { Media } from '@components/Media'
-import { Post } from '@root/payload-types'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+
+import { Label } from '@components/Label/index.js'
+import { Media } from '@components/Media/index.js'
+import { Post } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

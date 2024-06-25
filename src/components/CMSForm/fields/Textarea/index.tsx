@@ -1,12 +1,12 @@
 'use client'
 
 import React, { useEffect, useRef } from 'react'
-import Error from '@forms/Error'
-import { FieldProps } from '@forms/fields/types'
-import { useField } from '@forms/fields/useField'
+import Error from '@forms/Error/index.js'
+import { FieldProps } from '@forms/fields/types.js'
+import { useField } from '@forms/fields/useField/index.js'
 
-import Label from '@components/CMSForm/Label'
-import { CopyToClipboard } from '@components/CopyToClipboard'
+import Label from '@components/CMSForm/Label/index.js'
+import { CopyToClipboard } from '@components/CopyToClipboard/index.js'
 
 import classes from './index.module.scss'
 

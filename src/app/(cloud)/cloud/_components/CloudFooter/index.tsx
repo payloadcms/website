@@ -1,18 +1,20 @@
 'use client'
 
 import React, { useId } from 'react'
-import Link from 'next/link'
+import LinkImport from 'next/link.js'
 
-import { Gutter } from '@components/Gutter'
-import { ThemeAutoIcon } from '@root/graphics/ThemeAutoIcon'
-import { ThemeDarkIcon } from '@root/graphics/ThemeDarkIcon'
-import { ThemeLightIcon } from '@root/graphics/ThemeLightIcon'
-import { ChevronUpDownIcon } from '@root/icons/ChevronUpDownIcon'
-import { useAuth } from '@root/providers/Auth'
-import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver'
-import { useThemePreference } from '@root/providers/Theme'
-import { getImplicitPreference, themeLocalStorageKey } from '@root/providers/Theme/shared'
-import { Theme } from '@root/providers/Theme/types'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+
+import { Gutter } from '@components/Gutter/index.js'
+import { ThemeAutoIcon } from '@root/graphics/ThemeAutoIcon/index.js'
+import { ThemeDarkIcon } from '@root/graphics/ThemeDarkIcon/index.js'
+import { ThemeLightIcon } from '@root/graphics/ThemeLightIcon/index.js'
+import { ChevronUpDownIcon } from '@root/icons/ChevronUpDownIcon/index.js'
+import { useAuth } from '@root/providers/Auth/index.js'
+import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver/index.js'
+import { useThemePreference } from '@root/providers/Theme/index.js'
+import { getImplicitPreference, themeLocalStorageKey } from '@root/providers/Theme/shared.js'
+import { Theme } from '@root/providers/Theme/types.js'
 
 import classes from './classes.module.scss'
 
@@ -42,7 +44,7 @@ export const CloudFooter = () => {
         <nav className={['cols-12 cols-m-6', classes.footerLinks].join(' ')}>
           <Link href={'/docs'}>Docs</Link>
           <Link href={'/cloud-terms'}>Terms</Link>
-          <Link href={'/privacy'}>Privacy</Link>
+          <Link href={'/Privacy/index.js'}>Privacy</Link>
           {user ? <Link href={'/logout'}>Logout</Link> : <Link href={'/login'}>Login</Link>}
         </nav>
         <div className={[classes.selectContainer, 'cols-4 cols-m-2'].join(' ')}>

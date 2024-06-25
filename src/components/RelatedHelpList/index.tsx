@@ -1,9 +1,11 @@
 import React from 'react'
-import Link from 'next/link'
+import LinkImport from 'next/link.js'
 
-import { DiscordIcon } from '@root/graphics/DiscordIcon'
-import { GithubIcon } from '@root/graphics/GithubIcon'
-import { CommunityHelp } from '@root/payload-types'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+
+import { DiscordIcon } from '@root/graphics/DiscordIcon/index.js'
+import { GithubIcon } from '@root/graphics/GithubIcon/index.js'
+import { CommunityHelp } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

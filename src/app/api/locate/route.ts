@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import { NextResponse } from 'next/server.js'
 
 const gdprCountryCodes = [
   // -----[ EU 28 ]-----

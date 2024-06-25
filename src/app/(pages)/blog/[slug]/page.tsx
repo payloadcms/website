@@ -1,11 +1,11 @@
 import React from 'react'
 import { Metadata } from 'next'
-import { draftMode } from 'next/headers'
-import { notFound } from 'next/navigation'
+import { draftMode } from 'next/headers.js'
+import { notFound } from 'next/navigation.js'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { fetchBlogPost, fetchPosts } from '../../../_graphql'
-import { BlogPost } from './BlogPost'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { fetchBlogPost, fetchPosts } from '../../../_graphql/index.js'
+import { BlogPost } from './BlogPost/index.js'
 
 const Post = async ({ params }) => {
   const { slug } = params

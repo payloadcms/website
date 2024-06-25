@@ -1,5 +1,7 @@
 import React from 'react'
-import Link from 'next/link'
+import LinkImport from 'next/link.js'
+
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
 
 export const StyleguideBreadcrumbs: React.FC<{
   pageTitle?: string

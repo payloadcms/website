@@ -1,11 +1,11 @@
-import { NumberInput } from '@forms/fields/Number'
+import { NumberInput } from '@forms/fields/Number/index.js'
 
-import { RichText } from '@components/RichText'
-import { ChevronDownIcon } from '@root/icons/ChevronDownIcon'
-import { Checkbox } from './fields/Checkbox'
-import { Select } from './fields/Select'
-import { Text } from './fields/Text'
-import { Textarea } from './fields/Textarea'
+import { RichText } from '@components/RichText/index.js'
+import { ChevronDownIcon } from '@root/icons/ChevronDownIcon/index.js'
+import { Checkbox } from './fields/Checkbox/index.js'
+import { Select } from './fields/Select/index.js'
+import { Text } from './fields/Text/index.js'
+import { Textarea } from './fields/Textarea/index.js'
 
 import classes from './fields.module.scss'
 

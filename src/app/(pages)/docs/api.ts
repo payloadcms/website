@@ -1,7 +1,7 @@
 import current from '../../docs.json'
 import beta from '../../docs-beta.json'
 import v2 from '../../docs-legacy.json'
-import type { Doc, DocPath, Topic } from './types'
+import type { Doc, DocPath, Topic } from './types.js'
 
 const docs = {
   current,

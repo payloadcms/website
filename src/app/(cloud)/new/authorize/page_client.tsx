@@ -1,18 +1,20 @@
 'use client'
 
 import React, { useCallback } from 'react'
-import { revalidateCache } from '@cloud/_actions/revalidateCache'
-import { fetchGithubTokenClient } from '@cloud/_api/fetchGitHubToken'
-import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
+import { fetchGithubTokenClient } from '@cloud/_api/fetchGitHubToken.js'
+import LinkImport from 'next/link.js'
 
-import { Gutter } from '@components/Gutter'
-import { Heading } from '@components/Heading'
-import { RenderParams } from '@root/app/_components/RenderParams'
-import { exchangeCode } from '@root/app/(cloud)/new/authorize/exchangeCode'
-import { GitHubIcon } from '@root/graphics/GitHub'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { usePopupWindow } from '@root/utilities/use-popup-window'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+import { useRouter, useSearchParams } from 'next/navigation.js'
+
+import { Gutter } from '@components/Gutter/index.js'
+import { Heading } from '@components/Heading/index.js'
+import { RenderParams } from '@root/app/_components/RenderParams/index.js'
+import { exchangeCode } from '@root/app/(cloud)/new/authorize/exchangeCode.js'
+import { GitHubIcon } from '@root/graphics/GitHub/index.js'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
+import { usePopupWindow } from '@root/utilities/use-popup-window.js'
 
 import classes from './page.module.scss'
 

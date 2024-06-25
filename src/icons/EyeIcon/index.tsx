@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { IconProps } from '../types'
+import { IconProps } from '../types.js'
 
 import classes from '../index.module.scss'
 

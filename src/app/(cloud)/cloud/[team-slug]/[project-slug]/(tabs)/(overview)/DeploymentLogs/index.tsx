@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { Tab, Tabs } from '@cloud/_components/Tabs'
+import { Tab, Tabs } from '@cloud/_components/Tabs/index.js'
 
-import { Gutter } from '@components/Gutter'
-import { Indicator } from '@root/app/_components/Indicator'
-import { LogLine, SimpleLogs, styleLogs } from '@root/app/_components/SimpleLogs'
-import { Deployment } from '@root/payload-cloud-types'
-import { useWebSocket } from '@root/utilities/use-websocket'
+import { Gutter } from '@components/Gutter/index.js'
+import { Indicator } from '@root/app/_components/Indicator/index.js'
+import { LogLine, SimpleLogs, styleLogs } from '@root/app/_components/SimpleLogs/index.js'
+import { Deployment } from '@root/payload-cloud-types.js'
+import { useWebSocket } from '@root/utilities/use-websocket.js'
 
 import classes from './index.module.scss'
 

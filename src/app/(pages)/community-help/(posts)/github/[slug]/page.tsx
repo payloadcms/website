@@ -1,11 +1,11 @@
 import React from 'react'
 import { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { notFound } from 'next/navigation.js'
 
-import { fetchCommunityHelp, fetchCommunityHelps } from '@root/app/_graphql'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { slugToText } from '@root/utilities/slug-to-text'
-import { Answer, Author, Comment, GithubDiscussionPage } from './client_page'
+import { fetchCommunityHelp, fetchCommunityHelps } from '@root/app/_graphql/index.js'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { slugToText } from '@root/utilities/slug-to-text.js'
+import { Answer, Author, Comment, GithubDiscussionPage } from './client_page.js'
 
 type DateFromSource = string
 

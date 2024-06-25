@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react'
 
-import { RichText } from '@components/RichText'
-import { ExampleTabsBlock } from '@root/payload-types'
-import { Examples } from '../Examples'
+import { RichText } from '@components/RichText/index.js'
+import { ExampleTabsBlock } from '@root/payload-types.js'
+import { Examples } from '../Examples/index.js'
 
 type Props = Pick<ExampleTabsBlock, 'tabs'>
 

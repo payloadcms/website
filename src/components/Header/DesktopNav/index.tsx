@@ -1,18 +1,20 @@
 import * as React from 'react'
-import Link from 'next/link'
+import LinkImport from 'next/link.js'
 
-import { Avatar } from '@components/Avatar'
-import { Gutter } from '@components/Gutter'
-import { RichText } from '@components/RichText'
-import { GitHubIcon } from '@root/graphics/GitHub'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { MainMenu } from '@root/payload-types'
-import { useAuth } from '@root/providers/Auth'
-import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver'
-import { useStarCount } from '@root/utilities/use-star-count'
-import { FullLogo } from '../../../graphics/FullLogo'
-import { CMSLink } from '../../CMSLink'
-import { DocSearch } from '../Docsearch'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+
+import { Avatar } from '@components/Avatar/index.js'
+import { Gutter } from '@components/Gutter/index.js'
+import { RichText } from '@components/RichText/index.js'
+import { GitHubIcon } from '@root/graphics/GitHub/index.js'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
+import { MainMenu } from '@root/payload-types.js'
+import { useAuth } from '@root/providers/Auth/index.js'
+import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver/index.js'
+import { useStarCount } from '@root/utilities/use-star-count.js'
+import { FullLogo } from '../../../graphics/FullLogo/index.js'
+import { CMSLink } from '../../CMSLink/index.js'
+import { DocSearch } from '../Docsearch/index.js'
 
 import classes from './index.module.scss'
 
@@ -105,7 +107,12 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
                 const { enableDirectLink = false, enableDropdown = false } = tab
                 return (
                   <div key={tabIndex} onMouseEnter={() => handleHoverEnter(tabIndex)}>
-                    <button className={classes.tab} ref={ref => (menuItemRefs[tabIndex] = ref)}>
+                    <button
+                      className={classes.tab}
+                      ref={ref => {
+                        menuItemRefs[tabIndex] = ref
+                      }}
+                    >
                       {enableDirectLink ? (
                         <CMSLink className={classes.directLink} {...tab.link} label={tab.label}>
                           {tab.link?.newTab && tab.link.type === 'custom' && (
@@ -125,7 +132,9 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
                         ]
                           .filter(Boolean)
                           .join(' ')}
-                        ref={ref => (dropdownMenuRefs[tabIndex] = ref)}
+                        ref={ref => {
+                          dropdownMenuRefs[tabIndex] = ref
+                        }}
                         onClick={resetHoverStyles}
                       >
                         <div className={[classes.description, 'cols-4'].join(' ')}>

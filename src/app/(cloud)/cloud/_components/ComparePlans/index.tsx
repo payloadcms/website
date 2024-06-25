@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
 import { useModal } from '@faceless-ui/modal'
 
-import { PricingCard } from '@components/cards/PricingCard'
-import { Drawer, DrawerToggler } from '@components/Drawer'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { CheckIcon } from '@root/icons/CheckIcon'
-import { CloseIcon } from '@root/icons/CloseIcon'
-import { Plan } from '@root/payload-cloud-types'
+import { PricingCard } from '@components/cards/PricingCard/index.js'
+import { Drawer, DrawerToggler } from '@components/Drawer/index.js'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
+import { CheckIcon } from '@root/icons/CheckIcon/index.js'
+import { CloseIcon } from '@root/icons/CloseIcon/index.js'
+import { Plan } from '@root/payload-cloud-types.js'
 
 import classes from './index.module.scss'
 

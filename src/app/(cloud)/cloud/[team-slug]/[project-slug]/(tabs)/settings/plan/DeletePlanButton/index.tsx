@@ -3,8 +3,8 @@
 import React from 'react'
 import { useModal } from '@faceless-ui/modal'
 
-import { Button } from '@components/Button'
-import { deletePlanModalSlug } from '../DeletePlanModal'
+import { Button } from '@components/Button/index.js'
+import { deletePlanModalSlug } from '../DeletePlanModal/index.js'
 
 export const DeletePlanButton: React.FC = () => {
   const { openModal } = useModal()

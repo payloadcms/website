@@ -1,15 +1,17 @@
 import React from 'react'
-import { hasBadSubscription } from '@cloud/_utilities/hasBadSubscription'
-import { cloudSlug } from '@cloud/slug'
-import Link from 'next/link'
+import { hasBadSubscription } from '@cloud/_utilities/hasBadSubscription.js'
+import { cloudSlug } from '@cloud/slug.js'
+import LinkImport from 'next/link.js'
 
-import { BackgroundScanline } from '@components/BackgroundScanline'
-import { LoadingShimmer } from '@components/LoadingShimmer'
-import { Pill } from '@components/Pill'
-import { GitHubIcon } from '@root/graphics/GitHub'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { BranchIcon } from '@root/icons/BranchIcon'
-import { Project } from '@root/payload-cloud-types'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+
+import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
+import { LoadingShimmer } from '@components/LoadingShimmer/index.js'
+import { Pill } from '@components/Pill/index.js'
+import { GitHubIcon } from '@root/graphics/GitHub/index.js'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
+import { BranchIcon } from '@root/icons/BranchIcon/index.js'
+import { Project } from '@root/payload-cloud-types.js'
 
 import classes from './index.module.scss'
 

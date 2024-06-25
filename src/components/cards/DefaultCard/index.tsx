@@ -1,11 +1,13 @@
 import * as React from 'react'
-import Link from 'next/link'
+import LinkImport from 'next/link.js'
 
-import { Heading } from '@components/Heading'
-import { Media } from '@components/Media'
-import { Pill } from '@components/Pill'
-import { PlusIcon } from '@root/icons/PlusIcon'
-import { DefaultCardProps } from '../types'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+
+import { Heading } from '@components/Heading/index.js'
+import { Media } from '@components/Media/index.js'
+import { Pill } from '@components/Pill/index.js'
+import { PlusIcon } from '@root/icons/PlusIcon/index.js'
+import { DefaultCardProps } from '../types.js'
 
 import classes from './index.module.scss'
 

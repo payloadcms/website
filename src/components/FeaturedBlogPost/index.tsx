@@ -1,11 +1,13 @@
 import * as React from 'react'
-import { formatDate } from '@utilities/format-date-time'
-import Link from 'next/link'
+import { formatDate } from '@utilities/format-date-time.js'
+import LinkImport from 'next/link.js'
 
-import { BackgroundScanline } from '@components/BackgroundScanline'
-import { Media } from '@components/Media'
-import { CrosshairIcon } from '@root/icons/CrosshairIcon'
-import { Post } from '@root/payload-types'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+
+import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
+import { Media } from '@components/Media/index.js'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
+import { Post } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

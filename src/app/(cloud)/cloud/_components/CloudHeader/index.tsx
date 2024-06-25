@@ -1,10 +1,12 @@
 'use client'
-import Link from 'next/link'
+import LinkImport from 'next/link.js'
 
-import { Avatar } from '@root/components/Avatar'
-import { FullLogo } from '@root/graphics/FullLogo'
-import { useAuth } from '@root/providers/Auth'
-import { DashboardBreadcrumbs } from '../DashboardBreadcrumbs'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+
+import { Avatar } from '@root/components/Avatar/index.js'
+import { FullLogo } from '@root/graphics/FullLogo/index.js'
+import { useAuth } from '@root/providers/Auth/index.js'
+import { DashboardBreadcrumbs } from '../DashboardBreadcrumbs/index.js'
 
 import classes from './classes.module.scss'
 

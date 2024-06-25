@@ -1,13 +1,13 @@
 import type { Endpoints } from '@octokit/types'
 
-import { payloadCloudToken } from './token'
+import { payloadCloudToken } from './token.js'
 
 export type GitHubInstallationsResponse = Endpoints['GET /user/installations']['response']
 
 export type Install = GitHubInstallationsResponse['data']['installations'][0]
 
 export const fetchInstalls = async (): Promise<Install[]> => {
-  const { cookies } = await import('next/headers')
+  const { cookies } = await import('next/headers.js')
   const token = cookies().get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 

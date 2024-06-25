@@ -3,10 +3,10 @@
 import * as React from 'react'
 import { useModal } from '@faceless-ui/modal'
 
-import { modalSlug } from '@components/Header/MobileNav'
-import { RichText } from '@components/RichText'
-import { useStarCount } from '@root/utilities/use-star-count'
-import type { TopBar as TopBarType } from '../../payload-types'
+import { modalSlug } from '@components/Header/MobileNav/index.js'
+import { RichText } from '@components/RichText/index.js'
+import { useStarCount } from '@root/utilities/use-star-count.js'
+import type { TopBar as TopBarType } from '../../payload-types.js'
 
 import classes from './index.module.scss'
 

@@ -1,10 +1,12 @@
 import React from 'react'
-import Link from 'next/link'
+import LinkImport from 'next/link.js'
 
-import { DiscordUsersPill } from '@components/DiscordUsersPill'
-import { GithubStarsPill } from '@components/GithubStarsPill'
-import { PixelBackground } from '@components/PixelBackground'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+
+import { DiscordUsersPill } from '@components/DiscordUsersPill/index.js'
+import { GithubStarsPill } from '@components/GithubStarsPill/index.js'
+import { PixelBackground } from '@components/PixelBackground/index.js'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
 
 import classes from './index.module.scss'
 

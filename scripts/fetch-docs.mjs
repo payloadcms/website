@@ -111,11 +111,7 @@ const fetchDocs = async () => {
                   .replace(/https:\/\/payloadcms.com\/docs\//g, '../')
 
                 const doc = {
-                  content: await serialize(parsedDoc.content, {
-                    mdxOptions: {
-                      remarkPlugins: [remarkGfm],
-                    },
-                  }),
+                  content: parsedDoc.content,
                   title: parsedDoc.data.title,
                   slug: docFilename.replace('.mdx', ''),
                   label: parsedDoc.data.label,

@@ -1,4 +1,4 @@
-import type { ProjectWithSubscription } from '@cloud/_api/fetchProject'
+import type { ProjectWithSubscription } from '@cloud/_api/fetchProject.js'
 
 // display an error to the user if the project has payment method
 // might also want to only do this if the team has no default payment method

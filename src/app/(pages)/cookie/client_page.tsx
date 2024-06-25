@@ -2,11 +2,11 @@
 
 import React from 'react'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import RadioGroup from '@forms/fields/RadioGroup'
-import FormComponent from '@forms/Form'
+import RadioGroup from '@forms/fields/RadioGroup/index.js'
+import FormComponent from '@forms/Form/index.js'
 
-import { Gutter } from '@components/Gutter'
-import { usePrivacy } from '@root/providers/Privacy'
+import { Gutter } from '@components/Gutter/index.js'
+import { usePrivacy } from '@root/providers/Privacy/index.js'
 
 import classes from './index.module.scss'
 

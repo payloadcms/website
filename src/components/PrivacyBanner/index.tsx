@@ -1,10 +1,12 @@
 'use client'
 
 import * as React from 'react'
-import Link from 'next/link'
+import LinkImport from 'next/link.js'
 
-import { Button } from '@components/Button'
-import { usePrivacy } from '@root/providers/Privacy'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+
+import { Button } from '@components/Button/index.js'
+import { usePrivacy } from '@root/providers/Privacy/index.js'
 
 import classes from './index.module.scss'
 

@@ -1,12 +1,12 @@
 import React from 'react'
 import { Metadata } from 'next'
-import { draftMode } from 'next/headers'
-import { notFound } from 'next/navigation'
+import { draftMode } from 'next/headers.js'
+import { notFound } from 'next/navigation.js'
 
-import { Hero } from '@components/Hero'
-import { RenderBlocks } from '@components/RenderBlocks'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { fetchPage, fetchPages } from '../../_graphql'
+import { Hero } from '@components/Hero/index.js'
+import { RenderBlocks } from '@components/RenderBlocks/index.js'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { fetchPage, fetchPages } from '../../_graphql/index.js'
 
 const Page = async ({ params: { slug } }) => {
   const { isEnabled: isDraftMode } = draftMode()

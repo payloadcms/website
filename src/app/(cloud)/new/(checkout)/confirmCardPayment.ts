@@ -6,8 +6,8 @@ import type {
   StripeElements,
 } from '@stripe/stripe-js'
 
-import type { PayloadStripeSubscription } from './createSubscription'
-import type { CheckoutState } from './reducer'
+import type { PayloadStripeSubscription } from './createSubscription.js'
+import type { CheckoutState } from './reducer.js'
 
 export const confirmCardPayment = async (args: {
   subscription: PayloadStripeSubscription

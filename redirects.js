@@ -1,7 +1,6 @@
-const permalink = require('./src/utilities/formatPermalink')
-const { formatPermalink } = permalink
+import { formatPermalink } from './src/utilities/formatPermalink.js'
 
-module.exports = async () => {
+export const redirects = async () => {
   const staticRedirects = [
     {
       source: '/docs',

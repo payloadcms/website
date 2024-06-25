@@ -1,7 +1,9 @@
 import React from 'react'
-import dynamic from 'next/dynamic'
+import NextDynamicImport from 'next/dynamic.js'
+const dynamic = (NextDynamicImport.default ||
+  NextDynamicImport) as unknown as typeof NextDynamicImport.default
 
-const Block = dynamic(() => import('./Block'), {
+const Block = dynamic(() => import('./Block.js'), {
   suspense: true,
 })
 

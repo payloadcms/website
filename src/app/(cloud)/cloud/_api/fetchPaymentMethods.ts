@@ -1,7 +1,7 @@
 import type { PaymentMethod } from '@stripe/stripe-js'
 
-import type { Team } from '@root/payload-cloud-types'
-import { payloadCloudToken } from './token'
+import type { Team } from '@root/payload-cloud-types.js'
+import { payloadCloudToken } from './token.js'
 
 export const fetchPaymentMethods = async (args: {
   team: Team | null | undefined
@@ -9,7 +9,7 @@ export const fetchPaymentMethods = async (args: {
   const { team } = args
   if (!team) return null
 
-  const { cookies } = await import('next/headers')
+  const { cookies } = await import('next/headers.js')
   const token = cookies().get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 

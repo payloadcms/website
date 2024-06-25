@@ -1,4 +1,4 @@
-import { LINK_FIELDS } from './link'
+import { LINK_FIELDS } from './link.js'
 
 export const GLOBALS = `
   query {

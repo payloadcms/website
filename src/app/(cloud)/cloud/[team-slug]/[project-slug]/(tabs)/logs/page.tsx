@@ -1,7 +1,7 @@
-import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
+import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject.js'
 import { Metadata } from 'next'
 
-import { ProjectLogsPage } from './page_client'
+import { ProjectLogsPage } from './page_client.js'
 
 export default async ({ params: { 'team-slug': teamSlug, 'project-slug': projectSlug } }) => {
   const { team, project } = await fetchProjectAndRedirect({ teamSlug, projectSlug })

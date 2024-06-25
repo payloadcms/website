@@ -2,15 +2,17 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import AnimateHeight from 'react-animate-height'
-import Link from 'next/link'
-import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
+import LinkImport from 'next/link.js'
 
-import { MDXProvider } from '@components/MDX'
-import { BackgroundGrid } from '@root/components/BackgroundGrid'
-import { MenuIcon } from '@root/graphics/MenuIcon'
-import { ChevronIcon } from '@root/icons/ChevronIcon'
-import { CloseIcon } from '@root/icons/CloseIcon'
-import { DocMeta, Topic } from '../types'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+import { usePathname, useSelectedLayoutSegments } from 'next/navigation.js'
+
+import { MDXProvider } from '@components/MDX/index.js'
+import { BackgroundGrid } from '@root/components/BackgroundGrid/index.js'
+import { MenuIcon } from '@root/graphics/MenuIcon/index.js'
+import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
+import { CloseIcon } from '@root/icons/CloseIcon/index.js'
+import { DocMeta, Topic } from '../types.js'
 
 import classes from '../index.module.scss'
 
@@ -136,7 +138,9 @@ export const RenderDocs: React.FC<Props> = ({ topics, children, version = 'curre
                     className={[classes.topic, childIsCurrent && classes['topic--active']]
                       .filter(Boolean)
                       .join(' ')}
-                    ref={ref => (topicRefs.current[index] = ref)}
+                    ref={ref => {
+                      topicRefs.current[index] = ref
+                    }}
                     onClick={() => handleMenuItemClick(topicSlug)}
                     onMouseEnter={() => handleIndicator(`${index}`)}
                   >
@@ -155,7 +159,9 @@ export const RenderDocs: React.FC<Props> = ({ topics, children, version = 'curre
                           <li
                             key={doc.slug}
                             onMouseEnter={() => handleIndicator(nestedIndex)}
-                            ref={ref => (topicRefs.current[nestedIndex] = ref)}
+                            ref={ref => {
+                              topicRefs.current[nestedIndex] = ref
+                            }}
                           >
                             <Link
                               href={`/docs${

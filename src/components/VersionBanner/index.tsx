@@ -1,8 +1,8 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation.js'
 
-import { Banner } from '@components/MDX/components/Banner'
+import { Banner } from '@components/MDX/components/Banner/index.js'
 
 import classes from './index.module.scss'
 

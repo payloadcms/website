@@ -1,6 +1,6 @@
-import { PROJECT_QUERY, PROJECTS_QUERY } from '@root/app/_graphql/project'
-import type { Project } from '@root/payload-cloud-types'
-import { payloadCloudToken } from './token'
+import { PROJECT_QUERY, PROJECTS_QUERY } from '@root/app/_graphql/project.js'
+import type { Project } from '@root/payload-cloud-types.js'
+import { payloadCloudToken } from './token.js'
 
 export interface ProjectsRes {
   docs: Project[]
@@ -12,7 +12,7 @@ export interface ProjectsRes {
 }
 
 export const fetchProjects = async (teamIDs: string[]): Promise<ProjectsRes> => {
-  const { cookies } = await import('next/headers')
+  const { cookies } = await import('next/headers.js')
   const token = cookies().get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 

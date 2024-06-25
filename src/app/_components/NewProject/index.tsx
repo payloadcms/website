@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react'
-import Link from 'next/link'
+import LinkImport from 'next/link.js'
 
-import { Banner } from '@components/Banner'
-import { Gutter } from '@components/Gutter'
-import { Media } from '@components/Media'
-import { Pill } from '@components/Pill'
-import { Team, Template } from '@root/payload-cloud-types'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+
+import { Banner } from '@components/Banner/index.js'
+import { Gutter } from '@components/Gutter/index.js'
+import { Media } from '@components/Media/index.js'
+import { Pill } from '@components/Pill/index.js'
+import { Team, Template } from '@root/payload-cloud-types.js'
 
 import classes from './index.module.scss'
 

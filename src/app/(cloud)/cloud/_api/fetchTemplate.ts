@@ -1,5 +1,5 @@
-import { TEMPLATE } from '@root/app/_graphql/templates'
-import type { Template } from '@root/payload-cloud-types'
+import { TEMPLATE } from '@root/app/_graphql/templates.js'
+import type { Template } from '@root/payload-cloud-types.js'
 
 export const fetchTemplate = async (templateSlug?: string): Promise<Template> => {
   const doc: Template = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {

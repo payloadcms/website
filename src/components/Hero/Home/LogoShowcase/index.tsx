@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
-import { Media } from '@components/Media'
-import { CrosshairIcon } from '@root/icons/CrosshairIcon'
-import { Media as MediaType } from '@root/payload-types'
+import { Media } from '@components/Media/index.js'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
+import { Media as MediaType } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

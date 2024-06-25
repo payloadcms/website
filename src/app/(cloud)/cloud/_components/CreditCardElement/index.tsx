@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { CardElement as StripeCardElement } from '@stripe/react-stripe-js'
 import { type StripeCardElementChangeEvent } from '@stripe/stripe-js'
 
-import { useThemePreference } from '@root/providers/Theme'
+import { useThemePreference } from '@root/providers/Theme/index.js'
 
 import classes from './index.module.scss'
 

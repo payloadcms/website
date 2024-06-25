@@ -3,9 +3,9 @@
 import React, { useCallback, useEffect, useId, useMemo, useState } from 'react'
 import { useModal } from '@faceless-ui/modal'
 
-import { Drawer, DrawerToggler } from '../../../../../components/Drawer'
-import { TeamDrawerContent } from './DrawerContent'
-import { TeamDrawerProps, TeamDrawerTogglerProps, UseTeamDrawer } from './types'
+import { Drawer, DrawerToggler } from '../../../../../components/Drawer/index.js'
+import { TeamDrawerContent } from './DrawerContent.js'
+import { TeamDrawerProps, TeamDrawerTogglerProps, UseTeamDrawer } from './types.js'
 
 const formatTeamDrawerSlug = ({
   uuid,

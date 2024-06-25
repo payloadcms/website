@@ -1,10 +1,12 @@
 import * as React from 'react'
-import { cloudSlug } from '@cloud/slug'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { cloudSlug } from '@cloud/slug.js'
+import LinkImport from 'next/link.js'
 
-import { useAuth } from '@root/providers/Auth'
-import useClickAway from '@root/utilities/use-click-away'
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+import { usePathname } from 'next/navigation.js'
+
+import { useAuth } from '@root/providers/Auth/index.js'
+import useClickAway from '@root/utilities/use-click-away.js'
 
 import classes from './index.module.scss'
 

@@ -1,5 +1,5 @@
-import { Drawer, DrawerToggler } from '@components/Drawer'
-import { ChevronIcon } from '@root/icons/ChevronIcon'
+import { Drawer, DrawerToggler } from '@components/Drawer/index.js'
+import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
 
 import classes from './index.module.scss'
 

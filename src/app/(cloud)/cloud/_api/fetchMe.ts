@@ -1,9 +1,9 @@
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers.js'
+import { redirect } from 'next/navigation.js'
 
-import type { User } from '../../../../payload-cloud-types'
-import { ME_QUERY } from '../../../_graphql/me'
-import { payloadCloudToken } from './token'
+import type { User } from '../../../../payload-cloud-types.js'
+import { ME_QUERY } from '../../../_graphql/me.js'
+import { payloadCloudToken } from './token.js'
 
 export const fetchMe = async (args?: {
   nullUserRedirect?: string

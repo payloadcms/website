@@ -68,11 +68,7 @@ const fetchDocs = async () => {
             const parsedDoc = matter(rawDoc)
 
             const doc = {
-              content: await serialize(parsedDoc.content, {
-                mdxOptions: {
-                  remarkPlugins: [remarkGfm],
-                },
-              }),
+              content: parsedDoc.content,
               title: parsedDoc.data.title,
               slug: docFilename.replace('.mdx', ''),
               label: parsedDoc.data.label,

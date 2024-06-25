@@ -2,8 +2,8 @@
 
 import React, { forwardRef } from 'react'
 
-import { Button, ButtonProps } from '@components/Button'
-import { useFormProcessing } from '../Form/context'
+import { Button, ButtonProps } from '@components/Button/index.js'
+import { useFormProcessing } from '../Form/context.js'
 
 type SubmitProps = ButtonProps & {
   label?: string | null

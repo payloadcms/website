@@ -1,10 +1,12 @@
 import React from 'react'
-import Image from 'next/image'
+import NextImageImport from 'next/image.js'
+const Image = (('default' in NextImageImport && NextImageImport.default) ||
+  NextImageImport) as unknown as typeof NextImageImport.default
 
-import { Drawer, DrawerToggler } from '@components/Drawer'
-import YouTube from '@components/YouTube'
-import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { PlayIcon } from '@root/icons/PlayIcon'
+import { Drawer, DrawerToggler } from '@components/Drawer/index.js'
+import YouTube from '@components/YouTube/index.js'
+import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
+import { PlayIcon } from '@root/icons/PlayIcon/index.js'
 
 import classes from './index.module.scss'
 

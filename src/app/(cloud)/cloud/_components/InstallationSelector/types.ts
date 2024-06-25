@@ -1,4 +1,4 @@
-import type { Install } from '@cloud/_api/fetchInstalls'
+import type { Install } from '@cloud/_api/fetchInstalls.js'
 
 export interface InstallationSelectorProps {
   value?: Install['id']

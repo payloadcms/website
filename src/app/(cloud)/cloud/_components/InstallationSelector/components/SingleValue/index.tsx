@@ -1,6 +1,6 @@
 import { components } from 'react-select'
 
-import { GithubIcon } from '@root/graphics/GithubIcon'
+import { GithubIcon } from '@root/graphics/GithubIcon/index.js'
 
 import classes from './index.module.scss'
 

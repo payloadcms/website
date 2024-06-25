@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react'
-import { fetchMe } from '@cloud/_api/fetchMe'
-import { fetchTemplates } from '@cloud/_api/fetchTemplates'
+import { fetchMe } from '@cloud/_api/fetchMe.js'
+import { fetchTemplates } from '@cloud/_api/fetchTemplates.js'
 import { Metadata } from 'next'
-import { redirect } from 'next/navigation'
+import { redirect } from 'next/navigation.js'
 
-import { Gutter } from '@components/Gutter'
-import { NewProjectBlock } from '@root/app/_components/NewProject'
-import { RenderParams } from '@root/app/_components/RenderParams'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
+import { Gutter } from '@components/Gutter/index.js'
+import { NewProjectBlock } from '@root/app/_components/NewProject/index.js'
+import { RenderParams } from '@root/app/_components/RenderParams/index.js'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 
 export default async () => {
   const { user } = await fetchMe()

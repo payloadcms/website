@@ -1,11 +1,11 @@
 import { Fragment } from 'react'
 import { Metadata } from 'next'
 
-import { Gutter } from '@components/Gutter'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { RenderParams } from '../../_components/RenderParams'
-import { fetchMe } from './_api/fetchMe'
-import { DashboardBreadcrumbs } from './_components/DashboardBreadcrumbs'
+import { Gutter } from '@components/Gutter/index.js'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { RenderParams } from '../../_components/RenderParams/index.js'
+import { fetchMe } from './_api/fetchMe.js'
+import { DashboardBreadcrumbs } from './_components/DashboardBreadcrumbs/index.js'
 
 export const metadata: Metadata = {
   title: {

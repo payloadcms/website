@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { usePopupWindow } from '@root/utilities/use-popup-window'
+import { usePopupWindow } from '@root/utilities/use-popup-window.js'
 
 import classes from './index.module.scss'
 

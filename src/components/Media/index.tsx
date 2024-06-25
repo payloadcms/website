@@ -1,8 +1,8 @@
 import React, { ElementType, forwardRef, Fragment } from 'react'
 
-import { Image } from './Image'
-import { Props } from './types'
-import { Video } from './Video'
+import { Image } from './Image/index.js'
+import { Props } from './types.js'
+import { Video } from './Video/index.js'
 
 export const Media = forwardRef<HTMLDivElement | HTMLImageElement | HTMLVideoElement, Props>(
   (props, ref) => {

@@ -1,10 +1,10 @@
 import React from 'react'
 import { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { notFound } from 'next/navigation.js'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { fetchCaseStudies, fetchCaseStudy } from '../../../_graphql'
-import { CaseStudy } from './client_page'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { fetchCaseStudies, fetchCaseStudy } from '../../../_graphql/index.js'
+import { CaseStudy } from './client_page.js'
 
 const CaseStudyBySlug = async ({ params }) => {
   const { slug } = params

@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Page } from '@root/payload-types'
-import { Step } from './Step'
+import { Page } from '@root/payload-types.js'
+import { Step } from './Step/index.js'
 
 import classes from './index.module.scss'
 

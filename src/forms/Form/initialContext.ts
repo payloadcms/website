@@ -1,4 +1,4 @@
-import type { IFormContext } from '../types'
+import type { IFormContext } from '../types.js'
 
 const initialContext: IFormContext = {
   initialState: {},

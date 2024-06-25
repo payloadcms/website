@@ -1,7 +1,7 @@
-import { revalidateCache } from '@cloud/_actions/revalidateCache'
-import { Repo } from '@cloud/_api/fetchRepos'
+import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
+import { Repo } from '@cloud/_api/fetchRepos.js'
 
-import type { Project, User } from '@root/payload-cloud-types'
+import type { Project, User } from '@root/payload-cloud-types.js'
 
 export const createDraftProject = async ({
   projectName,
