@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import AuthorTag from '@components/AuthorTag/index.js'
 import { DiscordGitBody } from '@components/DiscordGitBody/index.js'

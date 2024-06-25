@@ -1,8 +1,8 @@
 'use client'
 
 import * as React from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link.js'
+import { useRouter } from 'next/navigation.js'
 
 import { MaxWidth } from '@root/app/_components/MaxWidth/index.js'
 import { Project, Team } from '@root/payload-cloud-types.js'

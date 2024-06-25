@@ -3,8 +3,8 @@
 import React, { useCallback } from 'react'
 import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
 import { fetchGithubTokenClient } from '@cloud/_api/fetchGitHubToken.js'
-import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
+import Link from 'next/link.js'
+import { useRouter, useSearchParams } from 'next/navigation.js'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { Heading } from '@components/Heading/index.js'

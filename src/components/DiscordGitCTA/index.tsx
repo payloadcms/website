@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { DiscordUsersPill } from '@components/DiscordUsersPill/index.js'
 import { GithubStarsPill } from '@components/GithubStarsPill/index.js'

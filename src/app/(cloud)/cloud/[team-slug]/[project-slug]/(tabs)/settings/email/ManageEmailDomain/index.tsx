@@ -3,7 +3,7 @@ import * as React from 'react'
 import { toast } from 'react-toastify'
 import { useModal } from '@faceless-ui/modal'
 import { Secret } from '@forms/fields/Secret/index.js'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { Button, ButtonProps } from '@components/Button/index.js'
 import { CopyToClipboard } from '@components/CopyToClipboard/index.js'

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { forwardRef, HTMLAttributes, useEffect, useState } from 'react'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { GitHubIcon } from '@root/graphics/GitHub/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'

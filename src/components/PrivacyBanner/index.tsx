@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { Button } from '@components/Button/index.js'
 import { usePrivacy } from '@root/providers/Privacy/index.js'

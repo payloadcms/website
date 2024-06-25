@@ -1,4 +1,4 @@
-import type { Endpoints } from '@octokit/types.js'
+import type { Endpoints } from '@octokit/types'
 
 type GitHubResponse = Endpoints['GET /user']['response']
 

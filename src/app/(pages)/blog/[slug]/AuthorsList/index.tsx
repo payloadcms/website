@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { Label } from '@components/Label/index.js'
 import { Media } from '@components/Media/index.js'

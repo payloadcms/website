@@ -3,7 +3,7 @@
 import React from 'react'
 import { useInstantSearch } from 'react-instantsearch'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { Banner } from '@components/Banner/index.js'

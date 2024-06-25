@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { Banner } from '@components/Banner/index.js'
 import { Gutter } from '@components/Gutter/index.js'

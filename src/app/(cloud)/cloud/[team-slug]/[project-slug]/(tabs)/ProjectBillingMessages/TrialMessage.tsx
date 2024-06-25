@@ -5,8 +5,8 @@ import { ProjectWithSubscription } from '@cloud/_api/fetchProject.js'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 import { projectHasPaymentMethod } from '@cloud/_utilities/projectHasPaymentMethod.js'
 import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod.js'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import Link from 'next/link.js'
+import { usePathname } from 'next/navigation.js'
 
 import { Message } from '@root/app/_components/Message/index.js'
 

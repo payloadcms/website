@@ -6,7 +6,7 @@ import Form from '@forms/Form/index.js'
 import FormProcessing from '@forms/FormProcessing/index.js'
 import FormSubmissionError from '@forms/FormSubmissionError/index.js'
 import Submit from '@forms/Submit/index.js'
-import { redirect, useSearchParams } from 'next/navigation'
+import { redirect, useSearchParams } from 'next/navigation.js'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { Heading } from '@components/Heading/index.js'

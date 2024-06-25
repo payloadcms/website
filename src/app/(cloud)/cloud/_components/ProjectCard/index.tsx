@@ -1,7 +1,7 @@
 import React from 'react'
 import { hasBadSubscription } from '@cloud/_utilities/hasBadSubscription.js'
 import { cloudSlug } from '@cloud/slug.js'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { LoadingShimmer } from '@components/LoadingShimmer/index.js'

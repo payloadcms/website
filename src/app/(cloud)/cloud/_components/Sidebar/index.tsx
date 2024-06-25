@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import Link from 'next/link.js'
+import { usePathname } from 'next/navigation.js'
 
 import { EdgeScroll } from '@components/EdgeScroll/index.js'
 

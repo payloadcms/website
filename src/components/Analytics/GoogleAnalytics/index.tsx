@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation.js'
 import Script from 'next/script'
 
 import { usePrivacy } from '@root/providers/Privacy/index.js'

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { cloudSlug } from '@cloud/slug.js'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { useAuth } from '@root/providers/Auth/index.js'
 

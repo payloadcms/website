@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import classes from './index.module.scss'
 

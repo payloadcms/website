@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useId } from 'react'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { ThemeAutoIcon } from '@root/graphics/ThemeAutoIcon/index.js'

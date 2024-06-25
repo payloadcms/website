@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Text } from '@forms/fields/Text/index.js'
-import type { Endpoints } from '@octokit/types.js'
+import type { Endpoints } from '@octokit/types'
 
 import { Spinner } from '@root/app/_components/Spinner/index.js'
 import { CheckIcon } from '@root/icons/CheckIcon/index.js'

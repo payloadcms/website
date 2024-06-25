@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { redirect } from 'next/navigation'
+import { redirect } from 'next/navigation.js'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Modal, useModal } from '@faceless-ui/modal'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import Link from 'next/link.js'
+import { usePathname } from 'next/navigation.js'
 
 import { Avatar } from '@components/Avatar/index.js'
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'

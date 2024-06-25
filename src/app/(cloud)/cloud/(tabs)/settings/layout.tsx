@@ -2,8 +2,8 @@
 
 import * as React from 'react'
 import { cloudSlug } from '@cloud/slug.js'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import Link from 'next/link.js'
+import { usePathname } from 'next/navigation.js'
 
 import { EdgeScroll } from '@components/EdgeScroll/index.js'
 import { Gutter } from '@components/Gutter/index.js'

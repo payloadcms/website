@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { CaseStudy, Page, Post } from '@root/payload-types.js'
 // eslint-disable-next-line import/no-cycle

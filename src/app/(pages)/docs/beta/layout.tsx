@@ -1,5 +1,5 @@
 import React from 'react'
-import { redirect } from 'next/navigation'
+import { redirect } from 'next/navigation.js'
 
 import { RenderDocs } from '../(current)/client_layout.js'
 import { getTopics } from '../api.js'

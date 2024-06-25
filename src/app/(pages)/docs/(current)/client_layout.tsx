@@ -2,8 +2,8 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import AnimateHeight from 'react-animate-height'
-import Link from 'next/link'
-import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
+import Link from 'next/link.js'
+import { usePathname, useSelectedLayoutSegments } from 'next/navigation.js'
 
 import { MDXProvider } from '@components/MDX/index.js'
 import { BackgroundGrid } from '@root/components/BackgroundGrid/index.js'

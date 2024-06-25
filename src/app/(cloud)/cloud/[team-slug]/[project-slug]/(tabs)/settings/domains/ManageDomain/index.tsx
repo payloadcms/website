@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useModal } from '@faceless-ui/modal'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { Button } from '@components/Button/index.js'
 import { Heading } from '@components/Heading/index.js'

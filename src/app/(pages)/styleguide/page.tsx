@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { Heading } from '@components/Heading/index.js'
 import { getImplicitPreference } from '@root/providers/Theme/shared.js'

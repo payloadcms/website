@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { DiscordIcon } from '@root/graphics/DiscordIcon/index.js'
 import { GithubIcon } from '@root/graphics/GithubIcon/index.js'

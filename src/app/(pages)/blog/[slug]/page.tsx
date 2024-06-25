@@ -1,7 +1,7 @@
 import React from 'react'
 import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
-import { notFound } from 'next/navigation'
+import { notFound } from 'next/navigation.js'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { fetchBlogPost, fetchPosts } from '../../../_graphql/index.js'

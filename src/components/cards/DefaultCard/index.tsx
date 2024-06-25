@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { Heading } from '@components/Heading/index.js'
 import { Media } from '@components/Media/index.js'

@@ -7,7 +7,7 @@ import Form from '@forms/Form/index.js'
 import FormProcessing from '@forms/FormProcessing/index.js'
 import FormSubmissionError from '@forms/FormSubmissionError/index.js'
 import Submit from '@forms/Submit/index.js'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation.js'
 
 import { HR } from '@root/app/_components/HR/index.js'
 import { Team } from '@root/payload-cloud-types.js'

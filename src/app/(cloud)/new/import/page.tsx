@@ -4,7 +4,7 @@ import { fetchInstalls } from '@cloud/_api/fetchInstalls.js'
 import { fetchMe } from '@cloud/_api/fetchMe.js'
 import { fetchRepos, Repo, RepoResults } from '@cloud/_api/fetchRepos.js'
 import { Metadata } from 'next'
-import { redirect } from 'next/navigation'
+import { redirect } from 'next/navigation.js'
 
 import { Breadcrumbs } from '@components/Breadcrumbs/index.js'
 import { Gutter } from '@components/Gutter/index.js'

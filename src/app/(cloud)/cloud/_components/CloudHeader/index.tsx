@@ -1,5 +1,5 @@
 'use client'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { Avatar } from '@root/components/Avatar/index.js'
 import { FullLogo } from '@root/graphics/FullLogo/index.js'

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation.js'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { Heading } from '@components/Heading/index.js'

@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import Form from '@forms/Form/index.js'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation.js'
 
 import { RichText } from '@components/RichText/index.js'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'

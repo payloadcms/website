@@ -1,4 +1,4 @@
-import { notFound, redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation.js'
 
 import { getTopics } from '../../api.js'
 

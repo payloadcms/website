@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { Avatar } from '@components/Avatar/index.js'
 import { Gutter } from '@components/Gutter/index.js'

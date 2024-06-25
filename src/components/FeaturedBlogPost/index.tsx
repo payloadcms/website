@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { formatDate } from '@utilities/format-date-time.js'
-import Link from 'next/link'
+import Link from 'next/link.js'
 
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { Media } from '@components/Media/index.js'

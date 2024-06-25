@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useReducer, useRef, useState } from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import Link from 'next/link.js'
+import { usePathname } from 'next/navigation.js'
 
 import { ChainLinkIcon } from '@root/icons/ChainLinkIcon/index.js'
 import { IContext, NodeProps, Props, Reducer } from './types.js'

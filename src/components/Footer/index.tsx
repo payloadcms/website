@@ -6,7 +6,7 @@ import FormComponent from '@forms/Form/index.js'
 import { validateEmail } from '@forms/validations.js'
 import { ArrowIcon } from '@icons/ArrowIcon/index.js'
 import { Footer as FooterType } from '@types'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
