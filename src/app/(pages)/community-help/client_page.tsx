@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { useInstantSearch } from 'react-instantsearch-hooks-web'
+import { useInstantSearch } from 'react-instantsearch'
 import { Cell, Grid } from '@faceless-ui/css-grid'
 import Link from 'next/link'
 

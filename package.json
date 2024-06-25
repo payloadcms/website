@@ -62,8 +62,8 @@
     "react-dom": "^18.2.0",
     "react-facebook-pixel": "^1.0.4",
     "react-fast-marquee": "^1.5.2",
+    "react-instantsearch": "^7.11.4",
     "react-instantsearch-dom": "^6.39.0",
-    "react-instantsearch-hooks-web": "^6.40.1",
     "react-markdown": "^8.0.3",
     "react-select": "^5.8.0",
     "react-toastify": "^9.1.2",
@@ -96,6 +96,6 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "prettier": "^2.7.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.5"
   }
 }

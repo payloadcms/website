@@ -1,5 +1,5 @@
 import React from 'react'
-import { usePagination } from 'react-instantsearch-hooks-web'
+import { usePagination } from 'react-instantsearch'
 
 import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
 

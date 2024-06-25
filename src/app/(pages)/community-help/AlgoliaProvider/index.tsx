@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Configure, InstantSearch, RefinementList } from 'react-instantsearch-hooks-web'
+import { Configure, InstantSearch, RefinementList } from 'react-instantsearch'
 import algoliasearch, { SearchClient } from 'algoliasearch/lite'
 import { IndexUiState } from 'instantsearch.js'
 
