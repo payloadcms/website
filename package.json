@@ -14,7 +14,7 @@
     "nodocs:build": "next build",
     "build": "yarn fetchDocs && next build",
     "build:skipDocs": "next build",
-    "postbuild": "next-sitemap",
+    "postbuild": "next-sitemap --config ./next-sitemap.config.cjs",
     "analyze": "ANALYZE=true next build",
     "caddy": "caddy run --config Caddyfile",
     "start": "next start",
