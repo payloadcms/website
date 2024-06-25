@@ -4,7 +4,9 @@ import React from 'react'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod.js'
 import { cloudSlug } from '@cloud/slug.js'
-import Link from 'next/link.js'
+import LinkImport from 'next/link.js'
+
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
 import { usePathname } from 'next/navigation.js'
 
 import { Message } from '@root/app/_components/Message/index.js'

@@ -1,7 +1,9 @@
 'use client'
 
 import React, { forwardRef, HTMLAttributes, useEffect, useState } from 'react'
-import Link from 'next/link.js'
+import LinkImport from 'next/link.js'
+
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
 
 import { GitHubIcon } from '@root/graphics/GitHub/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'

@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react'
-import Link from 'next/link.js'
+import LinkImport from 'next/link.js'
+
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
 
 import AuthorTag from '@components/AuthorTag/index.js'
 import { DiscordGitBody } from '@components/DiscordGitBody/index.js'

@@ -2,7 +2,9 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import AnimateHeight from 'react-animate-height'
-import Link from 'next/link.js'
+import LinkImport from 'next/link.js'
+
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
 import { usePathname, useSelectedLayoutSegments } from 'next/navigation.js'
 
 import { MDXProvider } from '@components/MDX/index.js'

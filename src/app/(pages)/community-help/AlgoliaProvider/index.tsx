@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { Configure, InstantSearch, RefinementList } from 'react-instantsearch'
-import algoliasearch, { SearchClient } from 'algoliasearch/lite'
-import { IndexUiState } from 'instantsearch.js'
+import { Configure, InstantSearch } from 'react-instantsearch'
+import algoliasearch, { SearchClient } from 'algoliasearch/lite.js'
 
 import { getInitialState } from './getInitialState.js'
 
@@ -9,6 +8,7 @@ let searchClient: SearchClient
 const appID = process.env.NEXT_PUBLIC_ALGOLIA_CH_ID
 const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_PUBLIC_KEY
 const indexName = process.env.NEXT_PUBLIC_ALGOLIA_CH_INDEX_NAME
+// @ts-ignore
 if (appID && apiKey) searchClient = algoliasearch(appID, apiKey)
 export const algoliaPerPage = 20
 
@@ -17,7 +17,7 @@ export const AlgoliaProvider: React.FC<{
 }> = props => {
   const { children } = props
 
-  const [initialURLState] = useState<IndexUiState>(() => getInitialState())
+  const [initialURLState] = useState(() => getInitialState())
 
   if (indexName) {
     return (

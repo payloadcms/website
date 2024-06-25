@@ -1,7 +1,9 @@
 import React from 'react'
 import { hasBadSubscription } from '@cloud/_utilities/hasBadSubscription.js'
 import { cloudSlug } from '@cloud/slug.js'
-import Link from 'next/link.js'
+import LinkImport from 'next/link.js'
+
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
 
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { LoadingShimmer } from '@components/LoadingShimmer/index.js'

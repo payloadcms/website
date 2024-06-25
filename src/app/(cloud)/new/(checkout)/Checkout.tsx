@@ -24,7 +24,9 @@ import Label from '@forms/Label/index.js'
 import Submit from '@forms/Submit/index.js'
 import { Elements, useElements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe, type PaymentMethod } from '@stripe/stripe-js'
-import Link from 'next/link.js'
+import LinkImport from 'next/link.js'
+
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
 import { redirect, useRouter } from 'next/navigation.js'
 
 import { Button } from '@components/Button/index.js'

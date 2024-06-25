@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { useModal } from '@faceless-ui/modal'
-import Link from 'next/link.js'
+import LinkImport from 'next/link.js'
+
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
 
 import { Button } from '@components/Button/index.js'
 import { Heading } from '@components/Heading/index.js'

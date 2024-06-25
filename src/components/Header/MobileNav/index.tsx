@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { Modal, useModal } from '@faceless-ui/modal'
-import Link from 'next/link.js'
+import LinkImport from 'next/link.js'
+
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
 import { usePathname } from 'next/navigation.js'
 
 import { Avatar } from '@components/Avatar/index.js'

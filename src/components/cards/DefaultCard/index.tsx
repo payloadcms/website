@@ -1,5 +1,7 @@
 import * as React from 'react'
-import Link from 'next/link.js'
+import LinkImport from 'next/link.js'
+
+const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
 
 import { Heading } from '@components/Heading/index.js'
 import { Media } from '@components/Media/index.js'
