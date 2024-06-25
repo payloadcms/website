@@ -17,7 +17,7 @@ export const fetchRepos = async (args: {
 }): Promise<RepoResults> => {
   const { install, per_page, page } = args
   const installID = install && typeof install === 'object' ? install.id : install
-  const { cookies } = await import('next/headers')
+  const { cookies } = await import('next/headers.js')
   const token = cookies().get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 

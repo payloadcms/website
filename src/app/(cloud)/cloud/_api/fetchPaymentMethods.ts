@@ -9,7 +9,7 @@ export const fetchPaymentMethods = async (args: {
   const { team } = args
   if (!team) return null
 
-  const { cookies } = await import('next/headers')
+  const { cookies } = await import('next/headers.js')
   const token = cookies().get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 

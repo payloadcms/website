@@ -68,7 +68,7 @@ export const fetchPage = async (
   let token: RequestCookie | undefined
 
   if (draft) {
-    const { cookies } = await import('next/headers')
+    const { cookies } = await import('next/headers.js')
     token = cookies().get(payloadToken)
   }
 
@@ -175,7 +175,7 @@ export const fetchBlogPost = async (slug: string, draft?: boolean): Promise<Post
   let token: RequestCookie | undefined
 
   if (draft) {
-    const { cookies } = await import('next/headers')
+    const { cookies } = await import('next/headers.js')
     token = cookies().get(payloadToken)
   }
 

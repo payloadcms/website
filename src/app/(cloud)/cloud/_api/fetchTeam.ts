@@ -20,7 +20,7 @@ export interface Customer {
 }
 
 export const fetchTeams = async (teamIDs: string[]): Promise<Team[]> => {
-  const { cookies } = await import('next/headers')
+  const { cookies } = await import('next/headers.js')
   const token = cookies().get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 
@@ -50,7 +50,7 @@ export const fetchTeams = async (teamIDs: string[]): Promise<Team[]> => {
 }
 
 export const fetchTeam = async (teamSlug?: string): Promise<Team> => {
-  const { cookies } = await import('next/headers')
+  const { cookies } = await import('next/headers.js')
   const token = cookies().get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 
@@ -100,7 +100,7 @@ export const fetchTeamClient = async (slug: string): Promise<Team> => {
 }
 
 export const fetchTeamWithCustomer = async (slug?: string): Promise<TeamWithCustomer> => {
-  const { cookies } = await import('next/headers')
+  const { cookies } = await import('next/headers.js')
   const token = cookies().get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 
