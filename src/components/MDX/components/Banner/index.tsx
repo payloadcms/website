@@ -1,4 +1,3 @@
-import { CheckIcon } from '@root/icons/CheckIcon/index.js'
 import { ReusableContent } from '@root/payload-types.js'
 import { RichText } from '../../../RichText/index.js'
 

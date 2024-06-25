@@ -1,3 +1,4 @@
+'use client'
 import React, { useCallback, useState } from 'react'
 
 import Context from './context.js'

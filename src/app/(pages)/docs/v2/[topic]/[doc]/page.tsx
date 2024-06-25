@@ -56,19 +56,9 @@ const Doc = async props => {
   if (!doc) notFound()
 
   return (
-    <RenderDoc
-      doc={doc}
-      next={next}
-      relatedThreads={filteredRelatedThreads}
-      version="v2"
-      MDXRemote={
-        <MDXRemote
-          {...props}
-          {...doc.content}
-          components={{ ...components, ...(props?.components || {}) }}
-        />
-      }
-    />
+    <RenderDoc doc={doc} next={next} relatedThreads={filteredRelatedThreads} version="v2">
+      <MDXRemote source={doc.content} components={components} />
+    </RenderDoc>
   )
 }
 

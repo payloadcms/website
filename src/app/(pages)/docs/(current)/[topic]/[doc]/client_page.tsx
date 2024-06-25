@@ -23,7 +23,7 @@ type Props = {
   next?: NextDoc | null
   relatedThreads?: CommunityHelp[]
   version?: 'current' | 'v2' | 'beta'
-  MDXRemote: React.ReactNode
+  children: React.ReactNode
 }
 
 export const RenderDoc: React.FC<Props> = ({
@@ -31,7 +31,7 @@ export const RenderDoc: React.FC<Props> = ({
   next,
   relatedThreads,
   version = 'current',
-  MDXRemote,
+  children,
 }) => {
   const { headings, title } = doc
   const docRef = React.useRef<HTMLDivElement>(null)
@@ -54,7 +54,7 @@ export const RenderDoc: React.FC<Props> = ({
         <h1 id={slugify(title)} className={classes.title}>
           {title}
         </h1>
-        <div className={classes.mdx}>{MDXRemote}</div>
+        <div className={classes.mdx}>{children}</div>
         {next && (
           <Link
             className={[classes.next, hasRelatedThreads && classes.hasRelatedThreads]
