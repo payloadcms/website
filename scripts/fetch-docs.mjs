@@ -3,9 +3,7 @@
 import dotenv from 'dotenv'
 import fs from 'fs'
 import matter from 'gray-matter'
-import { serialize } from 'next-mdx-remote/serialize'
 import path from 'path'
-import remarkGfm from 'remark-gfm'
 
 import { topicOrder } from './shared.mjs'
 

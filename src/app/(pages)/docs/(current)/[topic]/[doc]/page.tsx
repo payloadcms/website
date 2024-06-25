@@ -8,6 +8,7 @@ import { NextDoc } from '../../../types.js'
 import { RenderDoc } from './client_page.js'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import components from '@components/MDX/components/index.js'
+import remarkGfm from 'remark-gfm'
 
 const Doc = async props => {
   const { params } = props
@@ -57,7 +58,15 @@ const Doc = async props => {
 
   return (
     <RenderDoc doc={doc} next={next} relatedThreads={filteredRelatedThreads}>
-      <MDXRemote source={doc.content} components={components} />
+      <MDXRemote
+        source={doc.content}
+        components={components}
+        options={{
+          mdxOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        }}
+      />
     </RenderDoc>
   )
 }
