@@ -4,10 +4,9 @@ import React from 'react'
 import { ProjectWithSubscription } from '@cloud/_api/fetchProject.js'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 import { cloudSlug } from '@cloud/slug.js'
-import LinkImport from 'next/link.js'
+import Link from 'next/link'
 
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
-import { usePathname } from 'next/navigation.js'
+import { usePathname } from 'next/navigation'
 
 import { Message } from '@root/app/_components/Message/index.js'
 import { Project } from '@root/payload-cloud-types.js'

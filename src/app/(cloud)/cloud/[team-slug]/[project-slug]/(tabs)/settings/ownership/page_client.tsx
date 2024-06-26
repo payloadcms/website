@@ -1,10 +1,9 @@
 'use client'
 
 import * as React from 'react'
-import LinkImport from 'next/link.js'
+import Link from 'next/link'
 
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
-import { useRouter } from 'next/navigation.js'
+import { useRouter } from 'next/navigation'
 
 import { MaxWidth } from '@root/app/_components/MaxWidth/index.js'
 import { Project, Team } from '@root/payload-cloud-types.js'

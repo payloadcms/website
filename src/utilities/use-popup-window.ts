@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react'
-import type { ReadonlyURLSearchParams } from 'next/navigation.js'
+import type { ReadonlyURLSearchParams } from 'next/navigation'
 
 export interface PopupMessage {
   type: string

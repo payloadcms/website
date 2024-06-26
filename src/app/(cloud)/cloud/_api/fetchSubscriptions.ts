@@ -46,7 +46,7 @@ export const fetchSubscriptions = async (team?: Team | string): Promise<Subscrip
   const teamID = typeof team === 'string' ? team : team?.id
   if (!teamID) throw new Error('No team ID provided')
 
-  const { cookies } = await import('next/headers.js')
+  const { cookies } = await import('next/headers')
   const token = cookies().get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 

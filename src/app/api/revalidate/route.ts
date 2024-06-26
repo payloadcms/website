@@ -1,6 +1,6 @@
-import { revalidateTag } from 'next/cache.js'
-import type { NextRequest } from 'next/server.js'
-import { NextResponse } from 'next/server.js'
+import { revalidateTag } from 'next/cache'
+import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
   const collection = request.nextUrl.searchParams.get('collection')

@@ -3,7 +3,7 @@ import type { Endpoints } from '@octokit/types'
 type GitHubResponse = Endpoints['GET /user']['response']
 
 export const fetchGitHubToken = async (): Promise<string | null> => {
-  const { cookies } = await import('next/headers.js')
+  const { cookies } = await import('next/headers')
   const token = cookies().get('payload-cloud-token')?.value ?? null
 
   if (!token) {

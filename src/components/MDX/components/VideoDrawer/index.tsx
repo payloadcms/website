@@ -1,7 +1,5 @@
 import React from 'react'
-import NextImageImport from 'next/image.js'
-const Image = (('default' in NextImageImport && NextImageImport.default) ||
-  NextImageImport) as unknown as typeof NextImageImport.default
+import Image from 'next/image'
 
 import { Drawer, DrawerToggler } from '@components/Drawer/index.js'
 import YouTube from '@components/YouTube/index.js'

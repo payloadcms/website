@@ -1,5 +1,5 @@
 import React from 'react'
-import { notFound } from 'next/navigation.js'
+import { notFound } from 'next/navigation'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { fetchRelatedThreads } from '../../../../../_graphql/index.js'

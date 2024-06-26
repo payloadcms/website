@@ -5,9 +5,7 @@ import { fetchProjectsClient, ProjectsRes } from '@cloud/_api/fetchProjects.js'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 import { ProjectCard } from '@cloud/_components/ProjectCard/index.js'
 import { Text } from '@forms/fields/Text/index.js'
-import LinkImport from 'next/link.js'
-
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+import Link from 'next/link'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { Pagination } from '@components/Pagination/index.js'

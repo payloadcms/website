@@ -4,9 +4,7 @@ import * as React from 'react'
 import { SubscriptionsResult } from '@cloud/_api/fetchSubscriptions.js'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 import { useModal } from '@faceless-ui/modal'
-import LinkImport from 'next/link.js'
-
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+import Link from 'next/link'
 
 import { Button } from '@components/Button/index.js'
 import { CircleIconButton } from '@components/CircleIconButton/index.js'

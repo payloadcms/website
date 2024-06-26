@@ -4,7 +4,7 @@ import { fetchInstalls } from '@cloud/_api/fetchInstalls.js'
 import { fetchMe } from '@cloud/_api/fetchMe.js'
 import { fetchTemplate } from '@cloud/_api/fetchTemplate.js'
 import { Metadata } from 'next'
-import { redirect } from 'next/navigation.js'
+import { redirect } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'

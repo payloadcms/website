@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useEffect, useReducer, useRef, useState } from 'react'
-import LinkImport from 'next/link.js'
+import Link from 'next/link'
 
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
-import { usePathname } from 'next/navigation.js'
+import { usePathname } from 'next/navigation'
 
 import { ChainLinkIcon } from '@root/icons/ChainLinkIcon/index.js'
 import { IContext, NodeProps, Props, Reducer } from './types.js'

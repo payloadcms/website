@@ -1,6 +1,6 @@
 'use client'
 
-import { usePathname } from 'next/navigation.js'
+import { usePathname } from 'next/navigation'
 
 import { Banner } from '@components/MDX/components/Banner/index.js'
 
