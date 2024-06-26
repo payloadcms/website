@@ -7,7 +7,7 @@ const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.
 
 import { GitHubIcon } from '@root/graphics/GitHub/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
-import { LoaderIcon } from '@root/icons/LoaderIcon/index.jsx'
+import { LoaderIcon } from '@root/icons/LoaderIcon/index.js'
 import { PlusIcon } from '@root/icons/PlusIcon/index.js'
 import { SearchIcon } from '@root/icons/SearchIcon/index.js'
 import { Page } from '@root/payload-types.js'
