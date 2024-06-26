@@ -78,15 +78,15 @@ export const RenderDoc: React.FC<Props> = ({
       </div>
       <div className={['cols-3 start-14', classes.aside].join(' ')}>
         <div className={classes.asideStickyContent}>
-          <TableOfContents headings={headings} />
-          <div className={classes.discordGitWrap}>
-            <DiscordGitCTA style="minimal" />
-          </div>
           {!hideVersionSelector && (
             <div className={classes.selector}>
               <VersionSelector initialVersion={version} />
             </div>
           )}
+          <TableOfContents headings={headings} />
+          <div className={classes.discordGitWrap}>
+            <DiscordGitCTA style="minimal" />
+          </div>
         </div>
       </div>
     </JumplistProvider>
