@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "fetchDocs": "yarn fetchDocs:latest && yarn fetchDocs:beta && yarn fetchDocs:legacy",
+    "fetchDocs": "pnpm fetchDocs:latest && pnpm fetchDocs:beta && pnpm fetchDocs:legacy",
     "fetchDocs:stable": "node scripts/fetch-docs.mjs",
     "fetchDocs:latest": "node scripts/fetch-docs.mjs --ref main",
     "fetchDocs:beta": "node scripts/fetch-docs.mjs --ref beta --output ./src/app/docs-beta.json",
@@ -12,7 +12,7 @@
     "fetchDocs:local": "node scripts/fetch-docs-local.mjs",
     "dev": "next dev",
     "nodocs:build": "next build",
-    "build": "yarn fetchDocs && next build",
+    "build": "pnpm fetchDocs && next build",
     "build:skipDocs": "next build",
     "postbuild": "next-sitemap --config ./next-sitemap.config.cjs",
     "analyze": "ANALYZE=true next build",
