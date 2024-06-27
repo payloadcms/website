@@ -39,6 +39,7 @@ export const StickyHighlightComponent: React.FC<Props> = ({
   const ref = useRef(null)
   const codeMediaWrapRef = useRef(null)
   const codeMediaInnerRef = useRef(null)
+  const nodeRef = useRef(null)
   const { data, isOpen } = CodeBlip.useCodeBlip()
 
   const codeMediaClasses = [
@@ -128,8 +129,11 @@ export const StickyHighlightComponent: React.FC<Props> = ({
           )}
         </div>
       </div>
-      <CSSTransition in={visible} timeout={750} classNames="animate">
-        <Gutter className={[classes.codeMediaPosition, 'grid'].filter(Boolean).join(' ')}>
+      <CSSTransition nodeRef={nodeRef} in={visible} timeout={750} classNames="animate">
+        <Gutter
+          className={[classes.codeMediaPosition, 'grid'].filter(Boolean).join(' ')}
+          ref={nodeRef}
+        >
           {type === 'code' && (
             <Fragment>
               <div
