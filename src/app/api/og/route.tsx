@@ -1,5 +1,5 @@
-import { ImageResponse } from 'next/og.js'
-import { NextRequest, NextResponse } from 'next/server.js'
+import { ImageResponse } from 'next/og'
+import { NextRequest, NextResponse } from 'next/server'
 
 export const runtime = 'edge'
 

@@ -3,9 +3,7 @@
 import React from 'react'
 import { useInstantSearch } from 'react-instantsearch'
 import { Cell, Grid } from '@faceless-ui/css-grid'
-import LinkImport from 'next/link.js'
-
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+import Link from 'next/link'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { Banner } from '@components/Banner/index.js'

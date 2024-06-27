@@ -1,8 +1,6 @@
 import * as React from 'react'
 import { formatDate } from '@utilities/format-date-time.js'
-import LinkImport from 'next/link.js'
-
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+import Link from 'next/link'
 
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { Media } from '@components/Media/index.js'

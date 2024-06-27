@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { useModal } from '@faceless-ui/modal'
 import { useScrollInfo } from '@faceless-ui/scroll-info'
-import { useSearchParams } from 'next/navigation.js'
+import { useSearchParams } from 'next/navigation'
 
 import { UniversalTruth } from '@components/UniversalTruth/index.js'
 import { MainMenu } from '@root/payload-types.js'

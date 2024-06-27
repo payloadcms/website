@@ -14,7 +14,7 @@ import Form from '@forms/Form/index.js'
 import FormSubmissionError from '@forms/FormSubmissionError/index.js'
 import Label from '@forms/Label/index.js'
 import Submit from '@forms/Submit/index.js'
-import { useRouter, useSearchParams } from 'next/navigation.js'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { HR } from '@root/app/_components/HR/index.js'

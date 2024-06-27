@@ -1,8 +1,6 @@
 import * as React from 'react'
 import { cloudSlug } from '@cloud/slug.js'
-import LinkImport from 'next/link.js'
-
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+import Link from 'next/link'
 
 import { useAuth } from '@root/providers/Auth/index.js'
 

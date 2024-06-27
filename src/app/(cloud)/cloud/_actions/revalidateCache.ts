@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidatePath, revalidateTag } from 'next/cache.js'
+import { revalidatePath, revalidateTag } from 'next/cache'
 
 // this will invalidate the Next.js `Client-Side Router Cache`
 // this type of cache is store during the user's session for client-side navigation

@@ -1,7 +1,7 @@
 'use client'
 
 import { Suspense, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation.js'
+import { useSearchParams } from 'next/navigation'
 
 import { PopupMessage } from '@root/utilities/use-popup-window.js'
 

@@ -2,12 +2,9 @@
 import React, { useState } from 'react'
 import { useMouseInfo } from '@faceless-ui/mouse-info'
 import { PayloadIcon } from '@graphics/PayloadIcon/index.js'
-import NextImageImport from 'next/image.js'
-const Image = (('default' in NextImageImport && NextImageImport.default) ||
-  NextImageImport) as unknown as typeof NextImageImport.default
-import LinkImport from 'next/link.js'
+import Image from 'next/image'
 
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+import Link from 'next/link'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { RichText } from '@components/RichText/index.js'

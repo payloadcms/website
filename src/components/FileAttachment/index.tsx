@@ -1,7 +1,5 @@
 import React from 'react'
-import NextImageImport from 'next/image.js'
-const NextImage = (NextImageImport.default ||
-  NextImageImport) as unknown as typeof NextImageImport.default
+import Image from 'next/image'
 
 import { Attachments } from '@root/app/(pages)/community-help/(posts)/discord/[slug]/client_page.js'
 import { DownloadIcon } from '@root/graphics/DownloadIcon/index.js'
@@ -32,7 +30,7 @@ export const FileAttachments: React.FC<Props> = ({ attachments }) => {
               {attachment.url && attachment.name && (
                 <a href={attachment.url} target="_blank">
                   {fileIsImage ? (
-                    <NextImage
+                    <Image
                       src={attachment.url}
                       alt={attachment.name}
                       width={attachment.width}

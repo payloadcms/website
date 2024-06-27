@@ -13,6 +13,14 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 import { withSentryConfig } from '@sentry/nextjs'
 
+const localhost = process.env.NEXT_PUBLIC_IS_LIVE
+  ? ''
+  : {
+      protocol: 'http',
+      hostname: 'localhost',
+      port: '3000',
+    }
+
 const nextConfig = withBundleAnalyzer({
   eslint: {
     ignoreDuringBuilds: true,
@@ -20,15 +28,43 @@ const nextConfig = withBundleAnalyzer({
   reactStrictMode: true,
   images: {
     minimumCacheTTL: 6000,
-    domains: [
-      'localhost',
-      'cms.payloadcms.com',
-      'cloud-api.payloadcms.com',
-      'cms.local.payloadcms.com',
-      'stage.cms.payloadcms.com',
-      'cdn.discordapp.com',
-      'avatars.githubusercontent.com',
-      'img.youtube.com',
+    remotePatterns: [
+      localhost,
+      {
+        protocol: 'https',
+        hostname: 'cms.payloadcms.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cloud-api.payloadcms.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cms.local.payloadcms.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'stage.cms.payloadcms.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.discordapp.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+        port: '',
+      },
     ],
   },
   webpack: config => {
@@ -57,7 +93,7 @@ const nextConfig = withBundleAnalyzer({
         // keep them commented out unless actively developing local react modules
         // modify their paths according to your local directory
         // "payload-admin-bar": path.join(dirname, "../payload-admin-bar"),
-      }
+      },
     }
     return configCopy
   },

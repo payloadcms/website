@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react'
-import LinkImport from 'next/link.js'
-
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+import Link from 'next/link'
 
 import { Banner } from '@components/Banner/index.js'
 import { Gutter } from '@components/Gutter/index.js'

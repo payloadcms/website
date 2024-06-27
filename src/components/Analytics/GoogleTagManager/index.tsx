@@ -1,8 +1,7 @@
 'use client'
 
 import React, { Fragment } from 'react'
-import ScriptImport from 'next/script.js'
-const Script = (ScriptImport.default || ScriptImport) as unknown as typeof ScriptImport.default
+import Script from 'next/script'
 
 import { usePrivacy } from '@root/providers/Privacy/index.js'
 

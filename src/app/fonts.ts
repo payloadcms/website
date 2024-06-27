@@ -9,7 +9,6 @@ export const robotoMono = Roboto_Mono({
 })
 
 // TODO: Fix the ESM/TS issue with the `localFont` import
-// @ts-expect-error
 export const untitledSans = localFont({
   src: [
     {

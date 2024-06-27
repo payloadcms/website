@@ -1,7 +1,5 @@
 import * as React from 'react'
-import LinkImport from 'next/link.js'
-
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+import Link from 'next/link'
 
 import { Media } from '@components/Media/index.js'
 import { formatDate } from '@root/utilities/format-date-time.js'

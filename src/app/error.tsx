@@ -1,7 +1,6 @@
 'use client'
 import * as Sentry from '@sentry/nextjs'
-import NextErrorImport from 'next/error.js'
-const NextError = 'default' in NextErrorImport ? NextErrorImport.default : NextErrorImport
+import NextError from 'next/error'
 
 import { useEffect } from 'react'
 

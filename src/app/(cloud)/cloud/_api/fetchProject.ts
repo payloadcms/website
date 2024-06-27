@@ -1,6 +1,6 @@
-import { cookies } from 'next/headers.js'
+import { cookies } from 'next/headers'
 
-import { redirect } from 'next/navigation.js'
+import { redirect } from 'next/navigation'
 
 import { PROJECT_QUERY } from '@root/app/_graphql/project.js'
 import type { Project } from '@root/payload-cloud-types.js'

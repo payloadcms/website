@@ -2,9 +2,8 @@
 
 import React from 'react'
 import { ArrowIcon } from '@icons/ArrowIcon/index.js'
-import LinkImport from 'next/link.js'
+import Link from 'next/link'
 
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import DiscordGitCTA from '@components/DiscordGitCTA/index.js'
 import { JumplistProvider } from '@components/Jumplist/index.js'
