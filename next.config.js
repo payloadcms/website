@@ -14,7 +14,7 @@ const withBundleAnalyzer = bundleAnalyzer({
 import { withSentryConfig } from '@sentry/nextjs'
 
 const localhost = process.env.NEXT_PUBLIC_IS_LIVE
-  ? ''
+  ? null
   : {
       protocol: 'http',
       hostname: 'localhost',
@@ -65,7 +65,7 @@ const nextConfig = withBundleAnalyzer({
         hostname: 'img.youtube.com',
         port: '',
       },
-    ],
+    ].filter(Boolean),
   },
   webpack: config => {
     const configCopy = { ...config }
