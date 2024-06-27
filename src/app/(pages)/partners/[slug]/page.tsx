@@ -159,12 +159,17 @@ const PartnerDetails = partner => {
   const { featured, topContributor, city, regions, industries, budgets, specialties, social } =
     partner
 
+  const sortedBudgets = budgets.sort((a, b) => a.value.localeCompare(b.value))
+
   return (
     <>
-      <div className={classes.badges}>
-        {featured && <Pill color="warning" text="Featured Partner" />}
-        {topContributor && <Pill color="success" text="Top Contributor" />}
-      </div>
+      {featured ||
+        (topContributor && (
+          <div className={classes.badges}>
+            {featured && <Pill color="warning" text="Featured Partner" />}
+            {topContributor && <Pill color="success" text="Top Contributor" />}
+          </div>
+        ))}
       <div className={classes.sidebarGroup}>
         <h6>Location</h6>
         <small>{city}</small>
@@ -196,9 +201,9 @@ const PartnerDetails = partner => {
       </div>
       <div className={classes.sidebarGroup}>
         <h6>Budget</h6>
-        {budgets[0].name.split('–')[0] +
+        {sortedBudgets[0].name.split('–')[0] +
           '–' +
-          (budgets.at(-1).name.split('–')[1] ?? budgets.at(-1).name)}
+          (sortedBudgets.at(-1).name.split('–')[1] ?? sortedBudgets.at(-1).name)}
       </div>
       {social.length > 0 && (
         <div className={classes.sidebarGroup}>

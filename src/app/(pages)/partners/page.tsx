@@ -69,6 +69,8 @@ export default async function Partners() {
   const breadcrumbBarLinks =
     (hero?.breadcrumbBarLinks && hero?.breadcrumbBarLinks.map(({ link }) => link)) ?? []
 
+  console.log('breadcrumbBarLinks', breadcrumbBarLinks)
+
   return (
     <div className={classes.wrapper}>
       {breadcrumbBarLinks.length > 0 && (
