@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Heading } from '@root/app/(pages)/docs/types.js'
+import { Heading } from '@root/app/(frontend)/(pages)/docs/types.js'
 import { Jumplist } from '../Jumplist/index.js'
 
 import classes from './index.module.scss'

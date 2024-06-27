@@ -1,0 +1,20 @@
+@use '@scss/common' as *;
+@use "@forms/fields/shared.scss";
+
+.submit {
+  margin-top: 1rem;
+
+  @include mid-break {
+    margin-top: 0.25rem;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  @include mid-break {
+    gap: 1rem;
+  }
+}

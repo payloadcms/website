@@ -59,7 +59,7 @@ const fetchDocs = async () => {
   }
 
   let ref
-  let outputDirectory = './src/app/docs.json'
+  let outputDirectory = './src/docs/docs.json'
 
   process.argv.forEach((val, index) => {
     if (val === '--ref') {

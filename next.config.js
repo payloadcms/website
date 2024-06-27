@@ -1,3 +1,4 @@
+import { withPayload } from '@payloadcms/next/withPayload'
 import path from 'path'
 import { fileURLToPath } from 'node:url'
 const filename = fileURLToPath(import.meta.url)
@@ -130,7 +131,7 @@ const nextConfig = withBundleAnalyzer({
 
 // Injected content via Sentry wizard below
 
-export default withSentryConfig(
+export default withPayload(withSentryConfig(
   nextConfig,
   {
     // For all available options, see:
@@ -160,4 +161,4 @@ export default withSentryConfig(
     // Automatically tree-shake Sentry logger statements to reduce bundle size
     disableLogger: true,
   },
-)
+))

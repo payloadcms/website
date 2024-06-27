@@ -1,0 +1,161 @@
+@use '@scss/common' as *;
+@use "@forms/fields/shared.scss";
+
+.header {
+    margin-bottom: 2rem;
+}
+
+.formState {
+    & > * {
+        margin: 0;
+        margin-bottom: 1rem;
+
+        &:last-child {
+            margin-bottom: 2rem;
+        }
+    }
+
+    @include mid-break {
+        & > * {
+            margin-bottom: 0.5rem;
+        }
+    }
+}
+
+.error {
+    color: var(--theme-error-500);
+}
+
+.submit {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.submitDescription {
+    margin: 0;
+    color: var(--theme-elevation-500);
+    margin-top: 1rem;
+}
+
+.fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.sidebarCell {
+    position: relative;
+    height: 100%;
+}
+
+.sidebar {
+    position: sticky;
+    top: var(--page-padding-top);
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: calc(var(--base) * 2);
+
+    @include mid-break {
+        margin-right: 0;
+        gap: calc(var(--base) / 2);
+        position: static;
+        top: unset;
+    }
+}
+
+.trialDescription {
+    margin: 0;
+    color: var(--theme-text-success);
+}
+
+.totalPrice {
+    margin: 0;
+}
+
+.installationSelector {
+    width: 100%;
+}
+
+.totalPriceSection {
+    align-items: flex-start;
+
+    > *:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.freeTrial {
+    margin-top: 1rem;
+}
+
+.freeTrialDisabled {
+    color: var(--theme-elevation-500);
+}
+
+.plansSection {
+    margin-bottom: 2rem;
+}
+
+.plansSectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+}
+
+.projectDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.buildSettings {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.paymentInformation {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.paymentInformationDescription {
+    margin-bottom: 0;
+}
+
+.envAdd {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.agreeToTerms {
+    margin-top: 2rem;
+
+    a {
+        color: var(--theme-blue-500);
+        text-decoration: underline;
+    }
+}
+
+.cancel {
+  align-self: flex-start;
+
+  & div {
+    width: unset;
+  }
+
+  @include mid-break {
+    margin: 1rem 0;
+  }
+}

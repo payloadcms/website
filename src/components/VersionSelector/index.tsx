@@ -1,7 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation'
 
-import { getTopics } from '@root/app/(pages)/docs/api.js'
+import { getTopics } from '@root/app/(frontend)/(pages)/docs/api.js'
 import { ChevronUpDownIcon } from '@root/icons/ChevronUpDownIcon/index.js'
 
 import classes from './index.module.scss'

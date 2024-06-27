@@ -25,41 +25,20 @@
       }
     ],
     "paths": {
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@cloud/*": [
-        "./src/app/(cloud)/cloud/*"
-      ],
-      "@forms/*": [
-        "./src/forms/*"
-      ],
       "@blocks/*": [
         "./src/blocks/*"
       ],
-      "@scss/*": [
-        "./src/css/*"
+      "@cloud/*": [
+        "./src/app/(frontend)/(cloud)/cloud/*"
       ],
-      "@root/*": [
-        "./src/*"
+      "@components/*": [
+        "./src/components/*"
       ],
-      "@providers": [
-        "./src/providers"
+      "@docs/*": [
+        "./src/docs/*"
       ],
-      "@providers/*": [
-        "./src/providers/*"
-      ],
-      "@icons/*": [
-        "./src/icons/*"
-      ],
-      "@utilities": [
-        "./src/utilities"
-      ],
-      "@utilities/*": [
-        "./src/utilities/*"
-      ],
-      "@types": [
-        "./src/payload-types.ts"
+      "@forms/*": [
+        "./src/forms/*"
       ],
       "@graphics/*": [
         "./src/graphics/*"
@@ -70,6 +49,33 @@
       "@graphql/*": [
         "./src/app/_graphql/*"
       ],
+      "@icons/*": [
+        "./src/icons/*"
+      ],
+      "@providers": [
+        "./src/providers"
+      ],
+      "@providers/*": [
+        "./src/providers/*"
+      ],
+      "@root/*": [
+        "./src/*"
+      ],
+      "@scss/*": [
+        "./src/css/*"
+      ],
+      "@types": [
+        "./src/payload-types.ts"
+      ],
+      "@utilities": [
+        "./src/utilities"
+      ],
+      "@utilities/*": [
+        "./src/utilities/*"
+      ],
+      "@payload-config": [
+        "./src/payload.config.ts"
+      ],
     },
     "strictNullChecks": true
   },
@@ -77,7 +83,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
