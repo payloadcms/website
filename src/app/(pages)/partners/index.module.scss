@@ -1,0 +1,36 @@
+@use '@scss/common.scss' as *;
+
+.hero {
+  position: relative;
+}
+
+.heroContent {
+  margin-block: 8rem;
+}
+
+.heroRichText {
+  margin-bottom: 2rem;
+}
+
+.heroLink {
+  width: 100%;
+  max-width: calc(var(--column) * 4);
+}
+
+.featuredPartnersWrapper {
+  margin-block: 4rem;
+}
+
+.featuredPartnersHeader {
+  margin-bottom: 4rem;
+  & > * {
+    align-self: center;
+    margin: 0;
+  }
+
+  @include mid-break {
+    & > * {
+      margin: 1rem 0;
+    }
+  }
+}

@@ -1,5 +1,5 @@
-import { cookies } from 'next/headers.js'
-import { redirect } from 'next/navigation.js'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 import type { User } from '../../../../payload-cloud-types.js'
 import { ME_QUERY } from '../../../_graphql/me.js'

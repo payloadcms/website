@@ -31,13 +31,11 @@ export const CaseStudy: React.FC<CaseStudyT> = props => {
         links={[
           {
             newTab: true,
-            icon: 'arrow',
             url: url ?? '',
             label: 'Visit Site',
           },
           {
             newTab: true,
-            icon: 'arrow',
             url: '/talk-to-us',
             label: 'Book a demo',
           },

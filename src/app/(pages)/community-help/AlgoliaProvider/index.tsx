@@ -30,8 +30,8 @@ export const AlgoliaProvider: React.FC<{
               hitsPerPage: algoliaPerPage,
               facetingAfterDistinct: true,
               facetFilters: [['helpful:true']],
+              ...initialURLState,
             },
-            ...initialURLState,
           },
         }}
       >

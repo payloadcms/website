@@ -2,10 +2,9 @@
 
 import * as React from 'react'
 import { cloudSlug } from '@cloud/slug.js'
-import LinkImport from 'next/link.js'
+import Link from 'next/link'
 
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
-import { usePathname } from 'next/navigation.js'
+import { usePathname } from 'next/navigation'
 
 import { EdgeScroll } from '@components/EdgeScroll/index.js'
 import { Gutter } from '@components/Gutter/index.js'

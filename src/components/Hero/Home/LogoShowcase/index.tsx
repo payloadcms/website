@@ -104,11 +104,10 @@ export const LogoShowcase: React.FC<Props> = ({ logos }) => {
         />
       ))}
       {[...Array(3)].map((_, idx) => {
-        if (idx === 1) return null // Skip the line at left: 50%
         return (
           <div
             key={`v-line-${idx}`}
-            className={classes.verticalLine}
+            className={idx === 1 ? classes.verticalLineNoDesktop : classes.verticalLine}
             style={{ left: `${(idx + 1) * 25}%` }}
           />
         )

@@ -1,12 +1,11 @@
 'use client'
 
 import React, { forwardRef, HTMLAttributes, useEffect, useState } from 'react'
-import LinkImport from 'next/link.js'
-
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+import Link from 'next/link'
 
 import { GitHubIcon } from '@root/graphics/GitHub/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
+import { LoaderIcon } from '@root/icons/LoaderIcon/index.js'
 import { PlusIcon } from '@root/icons/PlusIcon/index.js'
 import { SearchIcon } from '@root/icons/SearchIcon/index.js'
 import { Page } from '@root/payload-types.js'
@@ -31,7 +30,8 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
   label?: string | null
   labelStyle?: 'mono' | 'regular'
   labelClassName?: string
-  icon?: false | 'arrow' | 'search' | 'github' | 'plus'
+  icon?: false | 'arrow' | 'search' | 'github' | 'plus' | 'loading'
+  iconSize?: 'large' | 'default'
   fullWidth?: boolean
   mobileFullWidth?: boolean
   type?: LinkType
@@ -70,6 +70,7 @@ const icons = {
   search: SearchIcon,
   github: GitHubIcon,
   plus: PlusIcon,
+  loading: LoaderIcon,
 }
 
 type GenerateSlugType = {
@@ -116,6 +117,7 @@ const ButtonContent: React.FC<ButtonProps> = props => {
     labelClassName,
     appearance,
     iconRotation,
+    iconSize,
     isCMSFormSubmitButton,
     size,
     arrowClassName,
@@ -124,7 +126,7 @@ const ButtonContent: React.FC<ButtonProps> = props => {
   const Icon = icon ? icons[icon] : null
 
   const iconProps = {
-    size: size === 'large' ? 'large' : 'default',
+    size: iconSize === 'large' ? 'large' : 'default',
     rotation: icon === 'arrow' ? iconRotation : undefined,
   }
 
@@ -166,7 +168,13 @@ const ButtonContent: React.FC<ButtonProps> = props => {
         </div>
         <div
           aria-hidden={true}
-          className={[classes.content, classes.hoverLabel].filter(Boolean).join(' ')}
+          className={[
+            classes.content,
+            classes.hoverLabel,
+            isCMSFormSubmitButton && classes.cmsFormSubmitButtonContent,
+          ]
+            .filter(Boolean)
+            .join(' ')}
         >
           {label && (
             <div

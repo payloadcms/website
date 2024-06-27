@@ -11,7 +11,7 @@ import RadioGroup from '@forms/fields/RadioGroup/index.js'
 import Form from '@forms/Form/index.js'
 import FormProcessing from '@forms/FormProcessing/index.js'
 import FormSubmissionError from '@forms/FormSubmissionError/index.js'
-import { useRouter, useSearchParams } from 'next/navigation.js'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { Pagination } from '@components/Pagination/index.js'

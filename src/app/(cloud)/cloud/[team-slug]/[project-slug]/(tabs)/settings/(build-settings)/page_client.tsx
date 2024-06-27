@@ -7,7 +7,7 @@ import { UniqueProjectSlug } from '@cloud/_components/UniqueSlug/index.js'
 import { Text } from '@forms/fields/Text/index.js'
 import Form from '@forms/Form/index.js'
 import Submit from '@forms/Submit/index.js'
-import { useRouter } from 'next/navigation.js'
+import { useRouter } from 'next/navigation'
 
 import { MaxWidth } from '@root/app/_components/MaxWidth/index.js'
 import { Project, Team } from '@root/payload-cloud-types.js'

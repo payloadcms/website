@@ -2,12 +2,18 @@ import type { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 
 import type {
   Announcement,
+  Budget,
   CaseStudy,
   CommunityHelp,
   Footer,
+  Industry,
   MainMenu,
   Page,
+  Partner,
+  PartnerProgram,
   Post,
+  Region,
+  Specialty,
   TopBar,
 } from '../../payload-types.js'
 import { ANNOUNCEMENT_FIELDS } from './announcement.js'
@@ -15,6 +21,7 @@ import { CASE_STUDIES, CASE_STUDY } from './case-studies.js'
 import { COMMUNITY_HELP, COMMUNITY_HELPS, RELATED_THREADS } from './community-helps.js'
 import { GLOBALS } from './globals.js'
 import { PAGE, PAGES } from './pages.js'
+import { FILTERS, PARTNER, PARTNER_PROGRAM, PARTNERS } from './partners.js'
 import { POST, POST_SLUGS, POSTS } from './posts.js'
 import { payloadToken } from './token.js'
 
@@ -68,7 +75,7 @@ export const fetchPage = async (
   let token: RequestCookie | undefined
 
   if (draft) {
-    const { cookies } = await import('next/headers.js')
+    const { cookies } = await import('next/headers')
     token = cookies().get(payloadToken)
   }
 
@@ -175,7 +182,7 @@ export const fetchBlogPost = async (slug: string, draft?: boolean): Promise<Post
   let token: RequestCookie | undefined
 
   if (draft) {
-    const { cookies } = await import('next/headers.js')
+    const { cookies } = await import('next/headers')
     token = cookies().get(payloadToken)
   }
 
@@ -288,4 +295,104 @@ export const fetchRelatedThreads = async (): Promise<CommunityHelp[]> => {
   }).then(res => res.json())
 
   return data?.CommunityHelps?.docs
+}
+
+export const fetchPartners = async (): Promise<Partner[]> => {
+  const { data, errors } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?partners`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: PARTNERS,
+    }),
+  }).then(res => res.json())
+
+  if (errors) {
+    console.error(JSON.stringify(errors)) // eslint-disable-line no-console
+    throw new Error()
+  }
+
+  return data.Partners.docs
+}
+
+export const fetchPartner = async (slug: string, draft?: boolean): Promise<Partner | null> => {
+  let token: RequestCookie | undefined
+
+  if (draft) {
+    const { cookies } = await import('next/headers')
+    token = cookies().get(payloadToken)
+  }
+
+  const { data, errors } = await fetch(
+    `${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?partner=${slug}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token?.value && draft ? { Authorization: `JWT ${token.value}` } : {}),
+      },
+      next: {
+        tags: [`partners_${slug}`],
+      },
+      body: JSON.stringify({
+        query: PARTNER,
+        variables: {
+          slug,
+          draft,
+        },
+      }),
+    },
+  ).then(res => res.json())
+
+  if (errors) {
+    console.error(JSON.stringify(errors)) // eslint-disable-line no-console
+    throw new Error()
+  }
+
+  const partner = data.Partners.docs[0]
+
+  if (partner) {
+    return partner
+  }
+
+  return null
+}
+
+export const fetchPartnerProgram = async (): Promise<PartnerProgram> => {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?globals`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: PARTNER_PROGRAM,
+    }),
+  }).then(res => res.json())
+
+  return data.PartnerProgram
+}
+
+export const fetchFilters = async (): Promise<{
+  industries: Industry[]
+  specialties: Specialty[]
+  regions: Region[]
+  budgets: Budget[]
+}> => {
+  const { data } = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/graphql?filters`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: FILTERS,
+    }),
+  }).then(res => res.json())
+
+  return {
+    industries: data.Industries.docs,
+    specialties: data.Specialties.docs,
+    regions: data.Regions.docs,
+    budgets: data.Budgets.docs,
+  }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Metadata } from 'next'
-import { draftMode } from 'next/headers.js'
-import { notFound } from 'next/navigation.js'
+import { draftMode } from 'next/headers'
+import { notFound } from 'next/navigation'
 
 import { Hero } from '@components/Hero/index.js'
 import { RenderBlocks } from '@components/RenderBlocks/index.js'

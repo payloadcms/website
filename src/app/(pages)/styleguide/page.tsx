@@ -1,9 +1,7 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import LinkImport from 'next/link.js'
-
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+import Link from 'next/link'
 
 import { Heading } from '@components/Heading/index.js'
 import { getImplicitPreference } from '@root/providers/Theme/shared.js'

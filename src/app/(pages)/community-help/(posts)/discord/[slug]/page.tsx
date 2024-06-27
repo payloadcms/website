@@ -1,6 +1,6 @@
 import React from 'react'
 import { Metadata } from 'next'
-import { notFound } from 'next/navigation.js'
+import { notFound } from 'next/navigation'
 
 import { fetchCommunityHelp, fetchCommunityHelps } from '@root/app/_graphql/index.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'

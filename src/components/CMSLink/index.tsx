@@ -1,7 +1,5 @@
 import React from 'react'
-import LinkImport from 'next/link.js'
-
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+import Link from 'next/link'
 
 import { CaseStudy, Page, Post } from '@root/payload-types.js'
 // eslint-disable-next-line import/no-cycle

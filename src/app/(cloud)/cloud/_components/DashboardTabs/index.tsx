@@ -1,6 +1,6 @@
 'use client'
 
-import { usePathname } from 'next/navigation.js'
+import { usePathname } from 'next/navigation'
 
 import { Tab, Tabs } from '../Tabs/index.js'
 

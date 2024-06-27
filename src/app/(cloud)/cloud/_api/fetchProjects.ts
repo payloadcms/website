@@ -12,7 +12,7 @@ export interface ProjectsRes {
 }
 
 export const fetchProjects = async (teamIDs: string[]): Promise<ProjectsRes> => {
-  const { cookies } = await import('next/headers.js')
+  const { cookies } = await import('next/headers')
   const token = cookies().get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 

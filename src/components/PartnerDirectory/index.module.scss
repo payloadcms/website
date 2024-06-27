@@ -1,0 +1,259 @@
+@use '@scss/common.scss' as *;
+
+.partnerDirectory {
+  position: relative;
+  padding-block: 4rem;
+}
+
+.directoryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4rem;
+
+  & * {
+    margin: 0;
+  }
+
+  .results {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  @include mid-break {
+    margin-bottom: 2rem;
+  }
+}
+
+.sidebar {
+  position: relative;
+  border-top: 1px solid var(--theme-border-color);
+  margin-bottom: 2rem;
+}
+
+.filterWrapper {
+  top: var(--header-height);
+  height: auto;
+  overflow: hidden;
+
+  & > * {
+    border-bottom: 1px solid var(--theme-border-color);
+  }
+  @include mid-break {
+    height: 0;
+  }
+}
+
+.filterToggle {
+  display: none;
+  @include mid-break {
+    display: block;
+  }
+
+  & > svg {
+    margin-right: .75rem;
+    rotate: -45deg;
+    transition: rotate .3s ease;
+    stroke-width: 2px;
+  }
+
+  & > svg.openToggle {
+    rotate: 0deg;
+  }
+}
+
+.openFilters {
+  @include mid-break {
+    height: auto;
+  }
+}
+
+.filterHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  font-weight: 500;
+  border-bottom: 1px solid var(--theme-border-color);
+
+  @include mid-break {
+    padding-left: 1rem;
+  }
+
+  & > * {
+    margin: 0;
+  }
+
+  & > button {
+      @include small;
+      padding: 0;
+      background: none;
+      border: none;
+      text-decoration: underline;
+      cursor: pointer;
+      color: inherit;
+
+      &:hover {
+        opacity: .75;
+      }
+
+      &:disabled {
+        opacity: .5;
+        pointer-events: none;
+        text-decoration: none;
+      }
+    }
+  & > span {
+    width: 100%;
+  }
+}
+
+.filterGroup {
+  display: grid;
+  grid-template-rows: auto 0fr;
+  overflow: hidden;
+
+  .filterGroupHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: min-content;
+    @include body;
+    letter-spacing: 0;
+    padding: 1rem 1.5rem;
+    margin: 0;
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    color: inherit;
+
+    &:hover {
+      .chevron {
+        opacity: 1;
+      }
+    }
+  }
+
+  .pill {
+    width: 1.2rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--theme-elevation-100);
+    margin-left: .5rem;
+    font-size: .75rem;
+    line-height: 1.2rem;
+    border-radius: .25rem;
+  }
+
+  .chevron {
+    transition: transform .3s ease, opacity .3s ease;
+    opacity: .5;
+    width: .75rem;
+    height: .75rem;
+    transform: rotate(-90deg);
+    margin-left: auto;
+  }
+
+  .checkboxes {
+    gap: .75rem;
+    overflow: hidden;
+    padding: 0 1.5rem;
+    height: 100%;
+
+    & label {
+      display: flex;
+      align-items: center;
+      width: fit-content;
+      margin: 0;
+      padding: .375rem 0;
+      gap: .5rem;
+      cursor: pointer;
+      color: var(--theme-elevation-750);
+      transition: color .3s ease;
+      @include small;
+
+      &:hover {
+        color: var(--theme-text);
+      }
+
+      &:has(input:checked) {
+        color: var(--theme-text);
+      }
+
+      &:has(input:disabled) {
+        color: var(--theme-elevation-250);
+        cursor: not-allowed;
+      }
+
+      & input {
+        width: 1rem;
+        height: 1rem;
+        appearance: none;
+
+        &::before {
+          content: '';
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-sizing: border-box;
+          width: 1rem;
+          height: 100%;
+          margin: 0;
+          padding: 0;
+          border: 1px solid var(--theme-elevation-250);
+          transition: background-color .3s ease, border-color .3s ease;
+          cursor: pointer;
+        }
+
+        &:checked::before {
+          content: url('/images/check.svg');
+          border-color: var(--theme-elevation-250);
+          background-color: var(--theme-elevation-0);
+
+          @include data-theme-selector('dark') {
+            content: url('/images/check-dark.svg');
+          }
+        }
+
+        &:hover::before {
+          border-color: var(--theme-elevation-750);
+          background-color: var(--theme-elevation-50);
+          }
+
+          &:disabled::before {
+            border-color: var(--theme-elevation-100);
+            background-color: var(--theme-elevation-0);
+          cursor: not-allowed;
+        }
+      }
+    }
+
+
+    & * {
+      margin: 0;
+      display: flex;
+      gap: .75rem;
+    }
+
+    & > *:last-child {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.filterGroup:has(input:focus), .open {
+  grid-template-rows: auto 1fr;
+
+  .filterGroupHeader {
+    padding-bottom: .5rem;
+  }
+
+  .chevron {
+    transform: rotate(0deg);
+  }
+}

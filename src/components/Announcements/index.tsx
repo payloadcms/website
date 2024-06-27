@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { useCookies } from 'react-cookie'
-import { usePathname } from 'next/navigation.js'
+import { usePathname } from 'next/navigation'
 
 import { RichText } from '@components/RichText/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'

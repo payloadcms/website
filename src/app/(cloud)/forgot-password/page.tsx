@@ -1,6 +1,6 @@
 import { fetchMe } from '@cloud/_api/fetchMe.js'
 import { Metadata } from 'next'
-import { redirect } from 'next/navigation.js'
+import { redirect } from 'next/navigation'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { ForgotPassword } from './page_client.js'

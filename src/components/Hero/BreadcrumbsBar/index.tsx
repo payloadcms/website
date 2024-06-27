@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 
 import { Breadcrumbs } from '@components/Breadcrumbs/index.js'
 import { ChangeHeaderTheme } from '@components/ChangeHeaderTheme/index.js'
-import { CMSLink } from '@components/CMSLink/index.js'
+import { CMSLink, CMSLinkType } from '@components/CMSLink/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
 import { Page } from '@root/payload-types.js'
@@ -18,12 +18,7 @@ interface HeroProps {
 
 interface LinksProps {
   hero?: never
-  links?: {
-    url: string
-    label: string
-    newTab?: boolean
-    icon?: 'arrow'
-  }[]
+  links?: CMSLinkType[]
 }
 
 type Conditional = HeroProps | LinksProps

@@ -1,9 +1,8 @@
 'use client'
 
 import * as React from 'react'
-import { usePathname } from 'next/navigation.js'
-import ScriptImport from 'next/script.js'
-const Script = (ScriptImport.default || ScriptImport) as unknown as typeof ScriptImport.default
+import { usePathname } from 'next/navigation'
+import Script from 'next/script'
 
 import { usePrivacy } from '@root/providers/Privacy/index.js'
 import { analyticsEvent } from '@root/utilities/analytics.js'

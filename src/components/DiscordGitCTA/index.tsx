@@ -1,7 +1,5 @@
 import React from 'react'
-import LinkImport from 'next/link.js'
-
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+import Link from 'next/link'
 
 import { DiscordUsersPill } from '@components/DiscordUsersPill/index.js'
 import { GithubStarsPill } from '@components/GithubStarsPill/index.js'

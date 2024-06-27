@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { fetchMe } from '@cloud/_api/fetchMe.js'
 import { fetchTemplates } from '@cloud/_api/fetchTemplates.js'
 import { Metadata } from 'next'
-import { redirect } from 'next/navigation.js'
+import { redirect } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { NewProjectBlock } from '@root/app/_components/NewProject/index.js'

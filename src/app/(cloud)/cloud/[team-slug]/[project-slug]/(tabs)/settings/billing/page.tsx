@@ -6,9 +6,7 @@ import { ProjectPaymentMethodSelector } from '@cloud/_components/CreditCardSelec
 import { cloudSlug } from '@cloud/slug.js'
 import { Text } from '@forms/fields/Text/index.js'
 import { Metadata } from 'next'
-import LinkImport from 'next/link.js'
-
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
+import Link from 'next/link'
 
 import { Heading } from '@components/Heading/index.js'
 import { MaxWidth } from '@root/app/_components/MaxWidth/index.js'

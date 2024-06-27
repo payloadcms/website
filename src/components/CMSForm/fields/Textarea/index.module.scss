@@ -14,7 +14,6 @@
     left: 1px;
     top:0;
     z-index: -1;
-    background-color: var(--theme-input-bg);
   }
 
   .errorAndLabel {
@@ -25,7 +24,6 @@
     transform: translateY(25%);
     left: 2rem;
     transition: all 0.3s ease;
-    color: var(--text-dark);
     pointer-events: none;
 
     @include mid-break {
@@ -41,7 +39,6 @@
   .textareaLabel {
     transition: all 0.3s ease;
     margin-right: 0.75rem;
-    color: var(--text-dark);
   }
 
   .textarea {

@@ -7,10 +7,9 @@ import FormProcessing from '@forms/FormProcessing/index.js'
 import FormSubmissionError from '@forms/FormSubmissionError/index.js'
 import Submit from '@forms/Submit/index.js'
 import { InitialState, OnSubmit } from '@forms/types.js'
-import LinkImport from 'next/link.js'
+import Link from 'next/link'
 
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
-import { redirect } from 'next/navigation.js'
+import { redirect } from 'next/navigation'
 
 import { Gutter } from '@components/Gutter/index.js'
 import { Heading } from '@components/Heading/index.js'

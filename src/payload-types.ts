@@ -4072,6 +4072,7 @@ export interface Partner {
     | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 export interface FormSubmission {
   id: string;

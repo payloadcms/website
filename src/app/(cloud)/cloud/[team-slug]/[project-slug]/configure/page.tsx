@@ -8,7 +8,7 @@ import { fetchProjectWithSubscription } from '@cloud/_api/fetchProject.js'
 import { fetchTemplates } from '@cloud/_api/fetchTemplates.js'
 import { Metadata } from 'next'
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher.js'
-import { redirect } from 'next/navigation.js'
+import { redirect } from 'next/navigation'
 
 import Checkout from '@root/app/(cloud)/new/(checkout)/Checkout.js'
 

@@ -7,7 +7,7 @@ export type GitHubInstallationsResponse = Endpoints['GET /user/installations']['
 export type Install = GitHubInstallationsResponse['data']['installations'][0]
 
 export const fetchInstalls = async (): Promise<Install[]> => {
-  const { cookies } = await import('next/headers.js')
+  const { cookies } = await import('next/headers')
   const token = cookies().get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 

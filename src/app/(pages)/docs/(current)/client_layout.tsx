@@ -2,10 +2,9 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import AnimateHeight from 'react-animate-height'
-import LinkImport from 'next/link.js'
+import Link from 'next/link'
 
-const Link = (LinkImport.default || LinkImport) as unknown as typeof LinkImport.default
-import { usePathname, useSelectedLayoutSegments } from 'next/navigation.js'
+import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
 
 import { MDXProvider } from '@components/MDX/index.js'
 import { BackgroundGrid } from '@root/components/BackgroundGrid/index.js'
