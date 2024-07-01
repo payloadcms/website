@@ -194,28 +194,28 @@ export const PARTNER_PROGRAM = `
 `
 export const FILTERS = `
   query {
-    Industries {
+    Industries(limit: 100) {
       docs {
         id
         name
         value
       }
     }
-    Specialties {
+    Specialties(limit: 100) {
       docs {
         id
         name
         value
       }
     }
-    Regions {
+    Regions(limit: 100) {
       docs {
         id
         name
         value
       }
     }
-    Budgets {
+    Budgets(limit: 100) {
       docs {
         id
         name
