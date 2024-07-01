@@ -36,7 +36,7 @@ const FILTER_OPTION = `{
 
 export const PARTNERS = `
   query Partners {
-    Partners(limit: 300, where: { agency_status: { equals: active } }, sort: "name") {
+    Partners(limit: 300, where: { agency_status: { equals: active } }, sort: "slug") {
       docs {
         id
         name
