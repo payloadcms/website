@@ -368,6 +368,7 @@ export const fetchPartnerProgram = async (): Promise<PartnerProgram> => {
     body: JSON.stringify({
       query: PARTNER_PROGRAM,
     }),
+    cache: 'no-cache',
   }).then(res => res.json())
 
   return data.PartnerProgram
@@ -387,6 +388,7 @@ export const fetchFilters = async (): Promise<{
     body: JSON.stringify({
       query: FILTERS,
     }),
+    cache: 'no-cache',
   }).then(res => res.json())
 
   return {
