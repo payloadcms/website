@@ -6,7 +6,7 @@ import { JumplistNode } from '../../../Jumplist/index.js'
 import { useMDX } from '../../context.js'
 import { formatAnchor } from './formatAnchor.js'
 
-const H2: React.FC<{ children: string }> = ({ children }) => {
+const H2: (props: { children }) => React.JSX.Element = ({ children }) => {
   const anchor = slugify(formatAnchor(children))
   const { addHeading } = useMDX()
 

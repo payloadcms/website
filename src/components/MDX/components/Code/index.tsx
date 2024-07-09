@@ -4,7 +4,7 @@ import Code from '../../../Code/index.js'
 
 import classes from './index.module.scss'
 
-const CodeMarkdown: React.FC<{ children: React.ReactNode; className: string }> = ({ children }) => {
+const CodeMarkdown: (props) => React.JSX.Element | null = ({ children }) => {
   let childrenToRender: string | null = null
 
   if (typeof children === 'string') {

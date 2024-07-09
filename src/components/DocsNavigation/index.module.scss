@@ -1,27 +1,5 @@
 @use '@scss/common.scss' as *;
 
-.wrap {
-  position: relative;
-  padding: 0 var(--gutter-h);
-  margin-top: var(--page-padding-top);
-  border-bottom: 1px solid var(--theme-border-color);
-
-  @include mid-break {
-    overflow: hidden;
-  }
-
-  &:before {
-    content: '';
-    top: var(--page-padding-top);
-    position: fixed;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: var(--theme-border-color);
-    z-index: 1;
-  }
-}
-
 .navWrap {
   position: sticky;
   top: var(--page-padding-top);
@@ -35,10 +13,9 @@
   }
 
   @include mid-break {
-    display: none;
     position: fixed;
     z-index: calc(var(--z-nav) + 1);
-    top: 0;
+    top: 100%;
     right: 0;
     bottom: 0;
     left: 0;
@@ -51,27 +28,17 @@
   }
 }
 
-.selector {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background-color: var(--theme-bg);
-  margin-right: 1px;
-  border-left: 1px solid var(--theme-border-color);
-}
-
 .nav {
-  padding: 1.5rem 1rem;
+  padding: .5rem 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
-.indicator {
-  position: absolute;
-  left: 0;
+.mobileNavOpen {
+  display: block;
+  position: fixed;
   top: 0;
-  transition: all var(--trans-default) ease-in-out;
-  height: 1.3rem;
-  background-color: var(--theme-elevation-800);
-  width: 2px;
 }
 
 .navOverlay {
@@ -85,12 +52,14 @@
   pointer-events: none;
 }
 
-.navHidden {
-  opacity: 0;
-}
-
-.navOpen {
-  display: block;
+.indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: all var(--trans-default) ease-in-out;
+  height: 1.3rem;
+  background-color: var(--theme-elevation-800);
+  width: 2px;
 }
 
 .mobileNavButton {
@@ -115,11 +84,6 @@
   }
 }
 
-.content {
-  min-width: 0;
-  flex-grow: 1;
-}
-
 .topic {
   @include btnReset;
   @include body;
@@ -128,17 +92,20 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-top: 0.625rem;
+  margin-bottom: 0.125rem;
+  width: 100%;
 
   .chevron {
     transition: all var(--trans-default) ease-in-out;
     opacity: 0;
     margin-left: 0.75rem;
+    // rotate: 0deg;
   }
 
-  &--active {
-    font-weight: 500;
-    color: var(--theme-text);
+  &[data-state='open'] > .chevron {
+    transform: rotate(90deg);
+    opacity: .5;
   }
 
   &:hover {
@@ -152,11 +119,11 @@
 
   @include mid-break {
     font-size: 1rem;
-    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
   }
 }
 
-.doc, .docs, .topic {
+.doc a, .docs, .topic {
   line-height: 24px;
 }
 
@@ -165,7 +132,15 @@
   color: var(--theme-elevation-600);
   text-decoration: none;
   padding-left: 1rem;
-  margin-bottom: 0.75rem;
+  overflow: hidden;
+  margin: 0;
+}
+
+.docs[data-state='open'] {
+  animation: slideDown var(--trans-default) ease-in-out;
+}
+.docs[data-state='closed'] {
+  animation: slideUp var(--trans-default) ease-in-out;
 }
 
 .doc {
@@ -174,7 +149,8 @@
   display: inline-flex;
   position: relative;
   text-decoration: none;
-  margin-bottom: 0.25rem;
+  width: 100%;
+  margin-block: 0.25rem;
 
   &:hover {
     color: var(--theme-text);
@@ -193,5 +169,28 @@
   @include mid-break {
     font-size: 1rem;
     margin-bottom: 0.25rem;
+  }
+}
+
+.active {
+  font-weight: 500;
+  color: var(--theme-text);
+}
+
+@keyframes slideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
   }
 }

@@ -1,3 +1,5 @@
+'use client'
+
 import React, { createContext, useContext, useEffect, useReducer, useRef, useState } from 'react'
 import Link from 'next/link'
 

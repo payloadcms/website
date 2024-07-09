@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useRef, useState } from 'react'
 
 import { Heading } from '@root/app/(frontend)/(pages)/docs/types.js'
@@ -10,7 +12,7 @@ export type Props = {
   headings: Heading[]
 }
 
-const TableOfContents: React.FC<Props> = ({ className, headings }) => {
+export const TableOfContents: React.FC<Props> = ({ className, headings }) => {
   const listItemRefs = useRef<(HTMLDivElement | null)[]>([])
   const [indicatorTop, setIndicatorTop] = useState<number | undefined>(undefined)
   const [activeHeadingId, setActiveHeadingId] = useState<string | null>(null)
@@ -67,5 +69,3 @@ const TableOfContents: React.FC<Props> = ({ className, headings }) => {
     </div>
   ) : null
 }
-
-export default TableOfContents

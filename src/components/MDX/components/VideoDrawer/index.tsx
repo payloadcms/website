@@ -14,7 +14,7 @@ type Props = {
   drawerTitle?: string
 }
 
-export const VideoDrawer: React.FC<Props> = ({ id, label, drawerTitle }) => {
+export const VideoDrawer: (props) => React.JSX.Element = ({ id, label, drawerTitle }) => {
   const drawerSlug = `video-drawer-${id}`
 
   return (

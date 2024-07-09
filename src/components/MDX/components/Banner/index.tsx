@@ -15,7 +15,12 @@ export type Props = {
   margin?: boolean
 }
 
-export const Banner: React.FC<Props> = ({ content, children, type = 'default', margin = true }) => {
+export const Banner: (props) => React.JSX.Element = ({
+  content,
+  children,
+  type = 'default',
+  margin = true,
+}) => {
   return (
     <div
       className={[classes.banner, 'banner', type && classes[type], !margin && classes.noMargin]

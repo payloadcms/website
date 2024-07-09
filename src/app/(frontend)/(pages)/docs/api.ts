@@ -1,43 +1,145 @@
-import current from '@docs/docs.json'
-import beta from '@docs/docs-beta.json'
-import v2 from '@docs/docs-legacy.json'
-import type { Doc, DocPath, Topic } from './types.js'
+import matter from 'gray-matter'
 
-const docs = {
-  current,
-  v2,
-  beta,
+function decodeBase64(string: string) {
+  const buff = Buffer.from(string, 'base64')
+  return buff.toString('utf8')
 }
 
-export async function getTopics(version: 'current' | 'v2' | 'beta' = 'current'): Promise<Topic[]> {
-  const content = docs[version]
+function slugify(string) {
+  const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
+  const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
+  const p = new RegExp(a.split('').join('|'), 'g')
 
-  if (!content || !Array.isArray(content)) {
+  return string
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+    .replace(/&/g, '-and-') // Replace & with 'and'
+    .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .replace(/^-+/, '') // Trim - from start of text
+    .replace(/-+$/, '') // Trim - from end of text
+}
+
+const githubAPI = 'https://api.github.com/repos/payloadcms/payload'
+
+const headers = {
+  Accept: 'application/vnd.github.v3+json.html',
+  Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}`,
+}
+
+async function getHeadings(source) {
+  const headingLines = source.split('\n').filter(line => {
+    return line.match(/^#{1,3}\s.+/gm)
+  })
+
+  return headingLines.map(raw => {
+    const text = raw.replace(/^###*\s/, '')
+    const level = raw.slice(0, 3) === '###' ? 3 : 2
+    return { text, level, id: slugify(text) }
+  })
+}
+
+export type Topics = {
+  slug: string
+  docs: Doc[]
+}
+
+export type Doc = {
+  content: string
+  title: any
+  slug: string
+  label: any
+  order: any
+  desc: any
+  keywords: any
+  headings: any
+}
+
+// Doc
+export async function fetchDoc(topic: string, slug: string, ref?: string) {
+  try {
+    const res = await fetch(
+      `${githubAPI}/contents/docs/${topic}/${slug}` + (ref ? `?ref=${ref}` : ''),
+      {
+        headers,
+      },
+    )
+    const data = await res.json()
+
+    const parsedDoc = matter(decodeBase64(data.content))
+
+    parsedDoc.content = parsedDoc.content
+      .replace(/\(\/docs\//g, '(../')
+      .replace(/"\/docs\//g, '"../')
+      .replace(/https:\/\/payloadcms.com\/docs\//g, '../')
+
+    const doc = {
+      content: parsedDoc.content,
+      title: parsedDoc.data.title,
+      slug: slug,
+      label: parsedDoc.data.label,
+      order: parsedDoc.data.order,
+      desc: parsedDoc.data.desc || '',
+      keywords: parsedDoc.data.keywords || '',
+      headings: await getHeadings(parsedDoc.content),
+    }
+
+    return doc
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const fetchDocs = async (topicOrder: string[], ref?: string) => {
+  if (!process.env.GITHUB_ACCESS_TOKEN) {
     return []
   }
 
-  return content.map(topic => ({
-    slug: topic.slug,
-    docs: topic.docs.map(doc => ({
-      title: doc?.title || '',
-      label: doc?.label || '',
-      slug: doc?.slug || '',
-      order: doc?.order || 0,
-    })),
-  }))
-}
+  const isLive = Boolean(process.env.NEXT_PUBLIC_IS_LIVE)
 
-export async function getDoc(
-  { topic: topicSlug, doc: docSlug }: DocPath,
-  version: 'current' | 'v2' | 'beta' = 'current',
-): Promise<Doc | null> {
-  const content = version === 'current' ? current : version === 'v2' ? v2 : beta
+  const topics: Topics[] = isLive
+    ? await Promise.all(
+        topicOrder.map(async unsanitizedTopicSlug => {
+          const topicSlug = unsanitizedTopicSlug.toLowerCase()
 
-  if (!content || !Array.isArray(content)) {
-    return null
-  }
+          try {
+            const docs = await fetch(
+              `${githubAPI}/contents/docs/${topicSlug}` + (ref ? `?ref=${ref}` : ''),
+              {
+                headers,
+              },
+            ).then(res => res.json())
 
-  const matchedTopic = content.find(topic => topic.slug.toLowerCase() === topicSlug)
-  const matchedDoc = matchedTopic?.docs?.find(doc => doc?.slug === docSlug) || null
-  return matchedDoc
+            if (docs && Array.isArray(docs)) {
+              const docFilenames = docs.map(({ name }) => name)
+
+              const parsedDocs = await Promise.all(
+                docFilenames.map(async docFilename => await fetchDoc(topicSlug, docFilename, ref)),
+              )
+
+              const topic = {
+                slug: unsanitizedTopicSlug,
+                docs: parsedDocs
+                  .filter<Doc>((doc): doc is Doc => doc !== undefined)
+                  .sort((a, b) => a.order - b.order),
+              }
+
+              return topic
+            } else {
+              if (docs && typeof docs === 'object' && 'message' in docs) {
+                console.error(`Error fetching ${topicSlug} doc: ${docs.message}`) // eslint-disable-line no-console
+              }
+            }
+          } catch (err) {
+            console.error(err) // eslint-disable-line no-console
+          }
+        }),
+      )
+    : ref === 'beta'
+    ? require('../../../../docs/docs-beta.json')
+    : require('../../../../docs/docs.json')
+
+  return topics as Topics[]
 }

@@ -18,7 +18,7 @@ type Props = {
   ]
 }
 
-export const TableWithDrawers: React.FC<Props> = ({ columns, rows }) => {
+export const TableWithDrawers: (props) => React.JSX.Element = ({ columns, rows }) => {
   return (
     <div className={classes.tableWithDrawer}>
       <table cellPadding="0" cellSpacing="0">
