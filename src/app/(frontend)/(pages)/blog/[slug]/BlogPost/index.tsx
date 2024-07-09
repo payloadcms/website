@@ -5,7 +5,7 @@ import { formatDate } from '@utilities/format-date-time.js'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { Breadcrumbs } from '@components/Breadcrumbs/index.js'
-import DiscordGitCTA from '@components/DiscordGitCTA/index.js'
+import { DiscordGitCTA } from '@components/DiscordGitCTA/index.js'
 import { Post } from '@root/payload-types.js'
 import { useResize } from '@root/utilities/use-resize.js'
 import { Gutter } from '@components/Gutter/index.js'

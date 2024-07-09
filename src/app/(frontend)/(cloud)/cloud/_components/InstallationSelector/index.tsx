@@ -30,7 +30,7 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
   // this will be validated after the redirect back
   const [href] = useState(`https://github.com/apps/payload-cms/installations/new?state=${uuid}`)
 
-  const selectAfterLoad = useRef<Install['id']>()
+  const selectAfterLoad = useRef<Install['id']>(undefined)
 
   const [selection, setSelection] = useState<Install | undefined>(() => {
     if (installs?.length) {

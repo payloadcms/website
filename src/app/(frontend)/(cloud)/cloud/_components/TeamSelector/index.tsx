@@ -49,7 +49,7 @@ export const TeamSelector: React.FC<{
   )
 
   const prevSelectedTeam = React.useRef<Team['id'] | 'none' | undefined>(selectedTeam)
-  const teamToSelectAfterUserUpdates = React.useRef<string | undefined>()
+  const teamToSelectAfterUserUpdates = React.useRef<string | undefined>(undefined)
 
   const [TeamDrawer, TeamDrawerToggler] = useTeamDrawer({
     team: teams?.find(
