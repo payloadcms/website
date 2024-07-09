@@ -8,7 +8,7 @@ import { Button, ButtonProps } from '@components/Button/index.js'
 type SubmitProps = ButtonProps & {
   label?: string | null
   processing?: boolean
-  iconSize?: 'large' | 'default'
+  iconSize?: 'large' | 'medium' | 'small' | undefined
 }
 
 const Submit = forwardRef<HTMLButtonElement, SubmitProps>((props, ref) => {

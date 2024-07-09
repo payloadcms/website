@@ -179,7 +179,7 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
               label={isLoading ? 'Submitting...' : submitButtonLabel}
               iconRotation={45}
               icon={isLoading ? 'loading' : 'arrow'}
-              iconSize={isLoading ? 'large' : 'default'}
+              iconSize={isLoading ? 'large' : 'medium'}
             />
           </Form>
         </React.Fragment>
