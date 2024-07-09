@@ -5,7 +5,7 @@ import * as cheerio from 'cheerio'
 
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { DiscordGitComments } from '@components/DiscordGitComments/index.js'
-import DiscordGitCTA from '@components/DiscordGitCTA/index.js'
+import { DiscordGitCTA } from '@components/DiscordGitCTA/index.js'
 import { DiscordGitIntro } from '@components/DiscordGitIntro/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import OpenPost from '@components/OpenPost/index.js'

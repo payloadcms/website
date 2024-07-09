@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 
 import { isNumber } from '@root/utilities/isNumber.js'

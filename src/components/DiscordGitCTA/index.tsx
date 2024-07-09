@@ -12,7 +12,7 @@ const gitURL = 'https://github.com/payloadcms/payload'
 
 const discordURL = 'https://discord.gg/FSn5QRdsbC'
 
-const DiscordGitCTA: React.FC<{ style?: 'minimal' | 'default' }> = ({ style }) => {
+export const DiscordGitCTA: React.FC<{ style?: 'minimal' | 'default' }> = ({ style }) => {
   return (
     <div className={classes.ctaWrap}>
       <Link href={gitURL} target="_blank" className={classes.cta}>
@@ -50,5 +50,3 @@ const DiscordGitCTA: React.FC<{ style?: 'minimal' | 'default' }> = ({ style }) =
     </div>
   )
 }
-
-export default DiscordGitCTA
