@@ -10,6 +10,7 @@ import { CloseIcon } from '@root/icons/CloseIcon'
 import type { Budget, Industry, Partner, Region, Specialty } from '@root/payload-types'
 
 import classes from './index.module.scss'
+import { BlockWrapper } from '@components/BlockWrapper'
 
 type FilterablePartner = Omit<Partner, 'industries' | 'specialties' | 'regions' | 'budgets'> & {
   industries: string[]
@@ -131,67 +132,69 @@ export const PartnerDirectory: React.FC<{
   }
 
   return (
-    <Gutter className={['grid', classes.partnerDirectory].join(' ')}>
-      <div className={['cols-16', classes.directoryHeader].join(' ')}>
-        <h2>All Partners</h2>
-        <h4>
-          {filteredPartners.length} result{filteredPartners.length === 1 ? '' : 's'}
-        </h4>
-      </div>
-      <div className={['cols-4 cols-m-8', classes.sidebar].join(' ')}>
-        <div className={classes.filterHeader}>
-          <button
-            onClick={() => toggleFilterGroup()}
-            className={classes.filterToggle}
-            aria-label="Show Filters"
+    <BlockWrapper settings={{ theme: 'dark' }}>
+      <Gutter className={['grid', classes.partnerDirectory].join(' ')}>
+        <div className={['cols-16', classes.directoryHeader].join(' ')}>
+          <h2>All Partners</h2>
+          <h4>
+            {filteredPartners.length} result{filteredPartners.length === 1 ? '' : 's'}
+          </h4>
+        </div>
+        <div className={['cols-4 cols-m-8', classes.sidebar].join(' ')}>
+          <div className={classes.filterHeader}>
+            <button
+              onClick={() => toggleFilterGroup()}
+              className={classes.filterToggle}
+              aria-label="Show Filters"
+            >
+              <CloseIcon className={openFilters ? classes.openToggle : ''} />
+            </button>
+            <span>Filters</span>
+            <button onClick={() => handleReset()} disabled={!hasFilters}>
+              Clear
+            </button>
+          </div>
+          <div
+            className={[classes.filterWrapper, openFilters ? classes.openFilters : '']
+              .filter(Boolean)
+              .join(' ')}
           >
-            <CloseIcon className={openFilters ? classes.openToggle : ''} />
-          </button>
-          <span>Filters</span>
-          <button onClick={() => handleReset()} disabled={!hasFilters}>
-            Clear
-          </button>
+            <FilterGroup
+              group={'industries'}
+              filters={filters['industries']}
+              handleFilters={handleFilters}
+              options={filterOptions['industries']}
+              validOptions={validFilters.industries}
+            />
+            <FilterGroup
+              group={'specialties'}
+              filters={filters['specialties']}
+              handleFilters={handleFilters}
+              options={filterOptions['specialties']}
+              validOptions={validFilters.specialties}
+            />
+            <FilterGroup
+              group={'regions'}
+              filters={filters['regions']}
+              handleFilters={handleFilters}
+              options={filterOptions['regions']}
+              validOptions={validFilters.regions}
+            />
+            <FilterGroup
+              group={'budgets'}
+              filters={filters['budgets']}
+              handleFilters={handleFilters}
+              options={filterOptions['budgets']}
+              validOptions={validFilters.budgets}
+            />
+          </div>
         </div>
-        <div
-          className={[classes.filterWrapper, openFilters ? classes.openFilters : '']
-            .filter(Boolean)
-            .join(' ')}
-        >
-          <FilterGroup
-            group={'industries'}
-            filters={filters['industries']}
-            handleFilters={handleFilters}
-            options={filterOptions['industries']}
-            validOptions={validFilters.industries}
-          />
-          <FilterGroup
-            group={'specialties'}
-            filters={filters['specialties']}
-            handleFilters={handleFilters}
-            options={filterOptions['specialties']}
-            validOptions={validFilters.specialties}
-          />
-          <FilterGroup
-            group={'regions'}
-            filters={filters['regions']}
-            handleFilters={handleFilters}
-            options={filterOptions['regions']}
-            validOptions={validFilters.regions}
-          />
-          <FilterGroup
-            group={'budgets'}
-            filters={filters['budgets']}
-            handleFilters={handleFilters}
-            options={filterOptions['budgets']}
-            validOptions={validFilters.budgets}
-          />
+        <div className="cols-12">
+          <PartnerGrid partners={filteredPartners} />
         </div>
-      </div>
-      <div className="cols-12">
-        <PartnerGrid partners={filteredPartners} />
-      </div>
-      <BackgroundGrid />
-    </Gutter>
+      </Gutter>
+      <BackgroundGrid zIndex={0} />
+    </BlockWrapper>
   )
 }
 

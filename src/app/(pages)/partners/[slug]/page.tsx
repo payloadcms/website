@@ -18,6 +18,19 @@ import { ArrowIcon } from '@root/icons/ArrowIcon'
 
 import classes from './index.module.scss'
 
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const partner = await fetchPartner(params.slug)
+
+  if (!partner) {
+    return notFound()
+  }
+
+  return {
+    title: `${partner.name} | Payload Partners`,
+    description: `${partner.name} is a official Payload Agency partner. Learn more about their services, ideal projects, and contributions to the Payload community.`,
+  }
+}
+
 export default async function PartnerPage({ params }: { params: { slug: string } }) {
   const partner = await fetchPartner(params.slug)
   const partnerProgram = await fetchPartnerProgram()
