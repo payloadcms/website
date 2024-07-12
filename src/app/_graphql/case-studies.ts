@@ -43,6 +43,10 @@ export const CASE_STUDY = `
         introContent
         industry
         useCase
+        agency {
+          name
+          slug
+        }
         featuredImage ${MEDIA_FIELDS}
         slug
         url

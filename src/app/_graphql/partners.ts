@@ -112,15 +112,6 @@ export const PARTNER_PROGRAM = `
   query {
     PartnerProgram {
       contactForm ${FORM_FIELDS}
-      hero {
-        breadcrumbBarLinks {
-          link ${LINK_FIELDS({ disableAppearance: true })}
-        }
-        richText
-        heroLinks {
-          link ${LINK_FIELDS({ disableAppearance: true })}
-        }
-      }
       featuredPartners {
         description
         partners {
