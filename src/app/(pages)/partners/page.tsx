@@ -4,20 +4,20 @@ import { notFound } from 'next/navigation'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { Gutter } from '@components/Gutter'
-import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar'
+import { BlockWrapper } from '@components/BlockWrapper'
 import { PartnerDirectory } from '@components/PartnerDirectory'
 import { PartnerGrid } from '@components/PartnerGrid'
 import { RenderBlocks } from '@components/RenderBlocks'
 import { fetchFilters, fetchPartnerProgram, fetchPartners } from '@root/app/_graphql'
+import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar'
+import { Metadata } from 'next/types'
 
 import classes from './index.module.scss'
 
-export async function generateMetadata() {
-  return {
-    title: 'Find a Payload Partner',
-    description:
-      'Connect with a Payload expert to help you build, launch, and scale your digital products.',
-  }
+export const metadata: Metadata = {
+  title: 'Find a Payload Partner',
+  description:
+    'Connect with a Payload expert to help you build, launch, and scale your digital products.',
 }
 
 export default async function Partners() {
@@ -69,21 +69,21 @@ export default async function Partners() {
   const breadcrumbBarLinks =
     (hero?.breadcrumbBarLinks && hero?.breadcrumbBarLinks.map(({ link }) => link)) ?? []
 
-  console.log('breadcrumbBarLinks', breadcrumbBarLinks)
-
   return (
-    <div className={classes.wrapper}>
-      {breadcrumbBarLinks.length > 0 && (
-        <BreadcrumbsBar
-          breadcrumbs={[
-            {
-              url: '/partners',
-              label: 'Agency Partners',
-            },
-          ]}
-          links={breadcrumbBarLinks}
-        />
-      )}
+    <BlockWrapper settings={{}} padding={{ bottom: 'large' }}>
+      <BreadcrumbsBar
+        breadcrumbs={[
+          {
+            label: 'Agency Partners',
+          },
+        ]}
+        links={[
+          {
+            url: '/partners',
+            label: 'Become a Partner',
+          },
+        ]}
+      />
       <Gutter className={[classes.hero, 'grid'].join(' ')}>
         <div className={[classes.featuredPartnersWrapper, 'cols-16'].join(' ')}>
           <div className={[classes.featuredPartnersHeader, 'cols-16 grid'].join(' ')}>
@@ -92,11 +92,11 @@ export default async function Partners() {
           </div>
           <PartnerGrid partners={featuredPartners.partners} featured />
         </div>
-        <BackgroundGrid />
       </Gutter>
       {contentBlocks?.beforeDirectory && <RenderBlocks blocks={contentBlocks?.beforeDirectory} />}
       <PartnerDirectory partnerList={partnerList} filterOptions={filterOptions} />
       {contentBlocks?.afterDirectory && <RenderBlocks blocks={contentBlocks?.afterDirectory} />}
-    </div>
+      <BackgroundGrid />
+    </BlockWrapper>
   )
 }
