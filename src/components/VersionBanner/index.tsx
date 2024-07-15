@@ -14,7 +14,7 @@ export const VersionBanner: React.FC = () => {
   return isBeta ? (
     <Banner type={'warning'}>
       <strong>Note: </strong>You are currently viewing the <strong>beta version</strong> of the
-      docs. Some docs may be innacurate or incomplete at the moment.{' '}
+      docs. Some docs may be inaccurate or incomplete at the moment.{' '}
       <a href="/docs">Switch to the latest version</a>
     </Banner>
   ) : isLegacy ? (
