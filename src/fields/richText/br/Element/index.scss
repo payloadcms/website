@@ -1,0 +1,23 @@
+@import '~payload/ui/scss';
+
+.br {
+	padding: base(0.5);
+	display: block;
+	align-items: flex-start;
+	background: var(--theme-elevation-50);
+	max-width: base(15);
+	margin-bottom: base(0.5);
+
+	&__label {
+		@extend %body;
+		font-family: var(--font-body);
+		padding-top: base(0.25);
+		line-height: base(0.75);
+		display: flex;
+	}
+
+	&--selected {
+		box-shadow: $focus-box-shadow;
+		outline: none;
+	}
+}

@@ -1,0 +1,40 @@
+@import '~payload/ui/scss';
+
+.rich-text-spotlight-button {
+  padding: 3px 6px;
+  background-color: var(--theme-text);
+  color: var(--theme-bg);
+  font-family: var(--font-mono);
+  border-radius: 2px;
+
+  &__modal {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    &.payload__modal-item--enterDone {
+      @include blur-bg;
+    }
+  }
+
+  &__header {
+    width: 100%;
+    margin-bottom: $baseline;
+    display: flex;
+    justify-content: space-between;
+
+    h3 {
+      margin: 0;
+    }
+
+    svg {
+      width: base(1.5);
+      height: base(1.5);
+    }
+  }
+
+	&__template {
+		position: relative;
+    z-index: 1;
+	}
+}
