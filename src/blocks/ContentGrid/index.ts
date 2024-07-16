@@ -3,7 +3,7 @@ import type { Block } from 'payload'
 import { blockFields } from '../../fields/blockFields'
 import richText from '../../fields/richText'
 import linkGroup from '../../fields/linkGroup'
-import { slateEditor } from '@payloadcms/richtext-slate'
+// import { slateEditor } from '@payloadcms/richtext-slate'
 import label from '../../fields/richText/label'
 
 export const ContentGrid: Block = {
@@ -50,11 +50,11 @@ export const ContentGrid: Block = {
               name: 'content',
               type: 'richText',
               required: true,
-              editor: slateEditor({
-                admin: {
-                  elements: ['link', 'h4', 'h5', label],
-                },
-              }),
+              // editor: slateEditor({
+              //   admin: {
+              //     elements: ['link', 'h4', 'h5', label],
+              //   },
+              // }),
             },
           ],
         },

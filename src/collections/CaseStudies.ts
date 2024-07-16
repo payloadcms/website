@@ -1,4 +1,4 @@
-import { slateEditor } from '@payloadcms/richtext-slate'
+// import { slateEditor } from '@payloadcms/richtext-slate'
 import type { CollectionConfig } from 'payload'
 
 import { isAdmin } from '../access/isAdmin'

@@ -1,4 +1,4 @@
-import { slateEditor } from '@payloadcms/richtext-slate'
+// import { slateEditor } from '@payloadcms/richtext-slate'
 import type { Field } from 'payload'
 
 import linkGroup from './linkGroup'
@@ -111,12 +111,12 @@ export const hero: Field = {
       admin: {
         condition: (_, { type } = {}) => type !== 'livestream',
       },
-      editor: slateEditor({
-        admin: {
-          elements: ['h1', 'h2', 'h3', 'h6', largeBody, 'ul', label],
-          leaves: ['underline'],
-        },
-      }),
+      // editor: slateEditor({
+      //   admin: {
+      //     elements: ['h1', 'h2', 'h3', 'h6', largeBody, 'ul', label],
+      //     leaves: ['underline'],
+      //   },
+      // }),
     },
     {
       name: 'description',
@@ -125,12 +125,12 @@ export const hero: Field = {
         condition: (_, { type } = {}) =>
           type !== 'livestream' && type !== 'centeredContent' && type !== 'three',
       },
-      editor: slateEditor({
-        admin: {
-          elements: [largeBody, 'ul', label, 'link'],
-          leaves: ['underline'],
-        },
-      }),
+      // editor: slateEditor({
+      //   admin: {
+      //     elements: [largeBody, 'ul', label, 'link'],
+      //     leaves: ['underline'],
+      //   },
+      // }),
     },
     linkGroup({
       appearances: false,
@@ -148,12 +148,12 @@ export const hero: Field = {
       admin: {
         condition: (_, { type }) => type === 'home',
       },
-      editor: slateEditor({
-        admin: {
-          elements: ['h2', largeBody, 'ul', label],
-          leaves: ['underline'],
-        },
-      }),
+      // editor: slateEditor({
+      //   admin: {
+      //     elements: ['h2', largeBody, 'ul', label],
+      //     leaves: ['underline'],
+      //   },
+      // }),
     },
     {
       name: 'secondaryDescription',
@@ -161,12 +161,12 @@ export const hero: Field = {
       admin: {
         condition: (_, { type }) => type === 'home',
       },
-      editor: slateEditor({
-        admin: {
-          elements: [largeBody, 'ul', label, 'link'],
-          leaves: ['underline'],
-        },
-      }),
+      // editor: slateEditor({
+      //   admin: {
+      //     elements: [largeBody, 'ul', label, 'link'],
+      //     leaves: ['underline'],
+      //   },
+      // }),
     },
     linkGroup({
       overrides: {

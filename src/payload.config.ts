@@ -24,7 +24,8 @@ import syncDocs from './scripts/syncDocs'
 import { Budgets, Industries, Regions, Specialties } from './collections/PartnerFilters'
 import redeployWebsite from './scripts/redeployWebsite'
 import RedeployButton from './components/RedeployButton'
-import { slateEditor } from '@payloadcms/richtext-slate'
+// import { slateEditor } from '@payloadcms/richtext-slate'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
@@ -68,7 +69,8 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
-  editor: slateEditor({}),
+  // editor: slateEditor({}),
+  editor: lexicalEditor(),
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
