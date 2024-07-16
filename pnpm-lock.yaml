@@ -29,6 +29,12 @@ dependencies:
   '@faceless-ui/window-info':
     specifier: ^3.0.0-beta.0
     version: 3.0.0-beta.0(react-dom@19.0.0-rc-f994737d14-20240522)(react@19.0.0-rc-f994737d14-20240522)
+  '@lexical/react':
+    specifier: 0.16.1
+    version: 0.16.1(react-dom@19.0.0-rc-f994737d14-20240522)(react@19.0.0-rc-f994737d14-20240522)(yjs@13.6.18)
+  '@lexical/utils':
+    specifier: 0.16.1
+    version: 0.16.1
   '@next/bundle-analyzer':
     specifier: ^13.4.2
     version: 13.5.6
@@ -125,6 +131,9 @@ dependencies:
   instantsearch.js:
     specifier: ^4.72.2
     version: 4.72.2(algoliasearch@4.24.0)
+  lexical:
+    specifier: ^0.16.1
+    version: 0.16.1
   next:
     specifier: 15.0.0-rc.0
     version: 15.0.0-rc.0(react-dom@19.0.0-rc-f994737d14-20240522)(react@19.0.0-rc-f994737d14-20240522)(sass@1.77.6)
