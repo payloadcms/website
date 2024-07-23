@@ -6,17 +6,17 @@
 }
 
 .desktop {
-  display: grid;
-  
+  display: grid !important;
+
   @include mid-break {
-    display: none;
+    display: none !important;
   }
 }
 
 .mobile {
-  display: none;
+  display: none !important;
 
   @include mid-break {
-    display: grid;
+    display: grid !important;
   }
 }
