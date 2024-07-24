@@ -1,6 +1,7 @@
+'use client'
 import React, { createContext, useContext, useState } from 'react'
 
-import { CodeBlip } from '@components/Code/types'
+import { CodeBlip } from '@components/Code/types.js'
 
 type CodeBlipContextType = {
   isOpen: boolean

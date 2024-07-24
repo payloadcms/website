@@ -1,9 +1,10 @@
+'use client'
 import React, { useEffect } from 'react'
 
-import slugify from '../../../../utilities/slugify'
-import { JumplistNode } from '../../../Jumplist'
-import { useMDX } from '../../context'
-import { formatAnchor } from './formatAnchor'
+import slugify from '../../../../utilities/slugify.js'
+import { JumplistNode } from '../../../Jumplist/index.js'
+import { useMDX } from '../../context.js'
+import { formatAnchor } from './formatAnchor.js'
 
 const H4: React.FC<{ children: string }> = ({ children }) => {
   const anchor = slugify(formatAnchor(children))

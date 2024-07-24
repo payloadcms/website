@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 
-import { Button } from '@components/Button'
-import { CMSLink, CMSLinkType } from '@components/CMSLink'
+import { Button } from '@components/Button/index.js'
+import { CMSLink, CMSLinkType } from '@components/CMSLink/index.js'
 
 import classes from '../index.module.scss'
 

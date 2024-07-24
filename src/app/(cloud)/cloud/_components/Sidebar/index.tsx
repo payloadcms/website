@@ -2,9 +2,10 @@
 
 import React from 'react'
 import Link from 'next/link'
+
 import { usePathname } from 'next/navigation'
 
-import { EdgeScroll } from '@components/EdgeScroll'
+import { EdgeScroll } from '@components/EdgeScroll/index.js'
 
 import classes from './layout.module.scss'
 

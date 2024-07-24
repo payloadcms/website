@@ -17,9 +17,9 @@ import {
   STATEMENT,
   STEPS,
   STICKY_HIGHLIGHTS,
-} from './blocks'
-import { MEDIA_FIELDS } from './media'
-import { META_FIELDS } from './meta'
+} from './blocks.js'
+import { MEDIA_FIELDS } from './media.js'
+import { META_FIELDS } from './meta.js'
 
 export const CASE_STUDIES = `
   query CaseStudies {
@@ -43,6 +43,10 @@ export const CASE_STUDY = `
         introContent
         industry
         useCase
+        agency {
+          name
+          slug
+        }
         featuredImage ${MEDIA_FIELDS}
         slug
         url

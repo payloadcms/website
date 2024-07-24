@@ -1,14 +1,14 @@
 import React from 'react'
 import { toast } from 'react-toastify'
-import { revalidateCache } from '@cloud/_actions/revalidateCache'
-import { Member } from '@cloud/_components/TeamMembers'
+import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
+import { Member } from '@cloud/_components/TeamMembers/index.js'
 import { useModal } from '@faceless-ui/modal'
-import Form from '@forms/Form'
-import Submit from '@forms/Submit'
+import Form from '@forms/Form/index.js'
+import Submit from '@forms/Submit/index.js'
 
-import { Button } from '@components/Button'
-import { Heading } from '@components/Heading'
-import { Team, User } from '@root/payload-cloud-types'
+import { Button } from '@components/Button/index.js'
+import { Heading } from '@components/Heading/index.js'
+import { Team, User } from '@root/payload-cloud-types.js'
 
 import classes from './page.module.scss'
 

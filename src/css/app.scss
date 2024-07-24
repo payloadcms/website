@@ -118,6 +118,8 @@ body {
   font-size: var(--font-body-size);
   color: var(--theme-text);
   margin: 0;
+  width: 100vw;
+  overflow-x: hidden;
 }
 
 ::selection {

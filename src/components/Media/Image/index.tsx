@@ -1,10 +1,12 @@
 'use client'
 
 import React, { useState } from 'react'
-import NextImage, { StaticImageData } from 'next/image'
+import NextImage from 'next/image'
 
-import cssVariables from '../../../../cssVariables'
-import { Props } from '../types'
+import type { StaticImageData } from 'next/image'
+
+import cssVariables from '../../../../cssVariables.cjs'
+import { Props } from '../types.js'
 
 import classes from './index.module.scss'
 

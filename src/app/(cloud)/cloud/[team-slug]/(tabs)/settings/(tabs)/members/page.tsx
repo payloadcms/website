@@ -1,7 +1,7 @@
-import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 import { Metadata } from 'next'
 
-import { TeamMembersPage } from './page_client'
+import { TeamMembersPage } from './page_client.js'
 
 export default async ({ params: { 'team-slug': teamSlug } }) => {
   const team = await fetchTeamWithCustomer(teamSlug)

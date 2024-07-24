@@ -2,16 +2,16 @@
 
 import * as React from 'react'
 import { toast } from 'react-toastify'
-import { revalidateCache } from '@cloud/_actions/revalidateCache'
-import { AddArrayRow, ArrayRow } from '@forms/fields/Array'
-import { ArrayProvider, useArray } from '@forms/fields/Array/context'
-import { Text } from '@forms/fields/Text'
-import Form from '@forms/Form'
-import Submit from '@forms/Submit'
-import { OnSubmit } from '@forms/types'
+import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
+import { AddArrayRow, ArrayRow } from '@forms/fields/Array/index.js'
+import { ArrayProvider, useArray } from '@forms/fields/Array/context.js'
+import { Text } from '@forms/fields/Text/index.js'
+import Form from '@forms/Form/index.js'
+import Submit from '@forms/Submit/index.js'
+import { OnSubmit } from '@forms/types.js'
 
-import { Project } from '@root/payload-cloud-types'
-import { validateKey, validateValue } from '../validations'
+import { Project } from '@root/payload-cloud-types.js'
+import { validateKey, validateValue } from '../validations.js'
 
 import classes from './index.module.scss'
 

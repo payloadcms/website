@@ -1,13 +1,14 @@
 'use client'
 
 import React, { forwardRef } from 'react'
-import { useFormProcessing } from '@forms/Form/context'
+import { useFormProcessing } from '@forms/Form/context.js'
 
-import { Button, ButtonProps } from '@components/Button'
+import { Button, ButtonProps } from '@components/Button/index.js'
 
 type SubmitProps = ButtonProps & {
   label?: string | null
   processing?: boolean
+  iconSize?: 'large' | 'default'
 }
 
 const Submit = forwardRef<HTMLButtonElement, SubmitProps>((props, ref) => {
@@ -20,6 +21,7 @@ const Submit = forwardRef<HTMLButtonElement, SubmitProps>((props, ref) => {
     icon = 'arrow',
     disabled,
     iconRotation,
+    iconSize,
   } = props
 
   const processing = useFormProcessing()
@@ -39,6 +41,7 @@ const Submit = forwardRef<HTMLButtonElement, SubmitProps>((props, ref) => {
       fullWidth
       hideHorizontalBorders
       isCMSFormSubmitButton
+      iconSize={iconSize}
     />
   )
 })

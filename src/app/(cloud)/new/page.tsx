@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react'
-import { fetchTemplates } from '@cloud/_api/fetchTemplates'
+import { fetchTemplates } from '@cloud/_api/fetchTemplates.js'
 import { Metadata } from 'next'
 
-import { Gutter } from '@components/Gutter'
-import { NewProjectBlock } from '@root/app/_components/NewProject'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { RenderParams } from '../../_components/RenderParams'
+import { Gutter } from '@components/Gutter/index.js'
+import { NewProjectBlock } from '@root/app/_components/NewProject/index.js'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { RenderParams } from '../../_components/RenderParams/index.js'
 
 export const dynamic = 'force-dynamic'
 

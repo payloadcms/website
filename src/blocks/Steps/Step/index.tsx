@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
-import useIntersection from '@utilities/useIntersection'
+import useIntersection from '@utilities/useIntersection.js'
 
-import { Gutter } from '@components/Gutter'
-import { Label } from '@components/Label'
-import { RenderBlocks } from '@components/RenderBlocks'
-import { Page } from '@root/payload-types'
+import { Gutter } from '@components/Gutter/index.js'
+import { Label } from '@components/Label/index.js'
+import { RenderBlocks } from '@components/RenderBlocks/index.js'
+import { Page } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 

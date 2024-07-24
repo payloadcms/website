@@ -8,7 +8,7 @@
   width: 100%;
   border: 1px solid var(--theme-border-color);
   background: var(--theme-input-bg);
-  color: var(--theme-elevation-1000);
+  color: var(--theme-text);
   font-size: 1rem;
   height: 4.5rem;
   line-height: 1rem;
@@ -31,8 +31,8 @@
   }
 
   &:disabled {
-    background: var(--theme-elevation-0);
-    color: var(--theme-elevation-450);
+    background: var(--theme-elevation-50);
+    cursor: wait;
 
     &:hover {
       border-color: var(--theme-elevation-250);

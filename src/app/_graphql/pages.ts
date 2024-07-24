@@ -23,11 +23,11 @@ import {
   STATEMENT,
   STEPS,
   STICKY_HIGHLIGHTS,
-} from './blocks'
-import { FORM_FIELDS } from './form'
-import { LINK_FIELDS } from './link'
-import { MEDIA_FIELDS } from './media'
-import { META_FIELDS } from './meta'
+} from './blocks.js'
+import { FORM_FIELDS } from './form.js'
+import { LINK_FIELDS } from './link.js'
+import { MEDIA_FIELDS } from './media.js'
+import { META_FIELDS } from './meta.js'
 
 export const PAGES = `
   query Pages {

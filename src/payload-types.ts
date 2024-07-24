@@ -52,6 +52,7 @@ export interface CaseStudy {
   }[];
   industry?: string | null;
   useCase?: string | null;
+  agency?: (string | null) | Partner;
   featuredImage: string | Media;
   layout?:
     | (
@@ -1147,6 +1148,62 @@ export interface CaseStudy {
   createdAt: string;
   _status?: ('draft' | 'published') | null;
 }
+export interface Partner {
+  id: string;
+  name: string;
+  website: string;
+  email: string;
+  slug: string;
+  agency_status?: ('active' | 'inactive') | null;
+  hubspotID?: string | null;
+  logo: string | Media;
+  featured?: boolean | null;
+  topContributor?: boolean | null;
+  content: {
+    bannerImage: string | Media;
+    overview: {
+      [k: string]: unknown;
+    }[];
+    services: {
+      [k: string]: unknown;
+    }[];
+    idealProject: {
+      [k: string]: unknown;
+    }[];
+    caseStudy?: (string | null) | CaseStudy;
+    contributions?:
+      | {
+          type: 'discussion' | 'pr' | 'issue';
+          repo: string;
+          number: number;
+          id?: string | null;
+        }[]
+      | null;
+    projects?:
+      | {
+          year: number;
+          name: string;
+          link: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  city: string;
+  regions: (string | Region)[];
+  specialties: (string | Specialty)[];
+  budgets: (string | Budget)[];
+  industries: (string | Industry)[];
+  social?:
+    | {
+        platform: 'linkedin' | 'twitter' | 'facebook' | 'instagram' | 'youtube' | 'github';
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
 export interface Media {
   id: string;
   alt: string;
@@ -1159,6 +1216,34 @@ export interface Media {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
+}
+export interface Region {
+  id: string;
+  name: string;
+  value: string;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Specialty {
+  id: string;
+  name: string;
+  value: string;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Budget {
+  id: string;
+  name: string;
+  value: string;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Industry {
+  id: string;
+  name: string;
+  value: string;
+  updatedAt: string;
+  createdAt: string;
 }
 export interface Page {
   id: string;
@@ -3987,89 +4072,6 @@ export interface Doc {
   slug?: string | null;
   label?: string | null;
   order?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-export interface Industry {
-  id: string;
-  name: string;
-  value: string;
-  updatedAt: string;
-  createdAt: string;
-}
-export interface Specialty {
-  id: string;
-  name: string;
-  value: string;
-  updatedAt: string;
-  createdAt: string;
-}
-export interface Region {
-  id: string;
-  name: string;
-  value: string;
-  updatedAt: string;
-  createdAt: string;
-}
-export interface Budget {
-  id: string;
-  name: string;
-  value: string;
-  updatedAt: string;
-  createdAt: string;
-}
-export interface Partner {
-  id: string;
-  name: string;
-  website: string;
-  email: string;
-  slug: string;
-  agency_status?: ('active' | 'inactive') | null;
-  hubspotID?: string | null;
-  logo: string | Media;
-  featured?: boolean | null;
-  topContributor?: boolean | null;
-  content: {
-    bannerImage: string | Media;
-    overview: {
-      [k: string]: unknown;
-    }[];
-    services: {
-      [k: string]: unknown;
-    }[];
-    idealProject: {
-      [k: string]: unknown;
-    }[];
-    caseStudy?: (string | null) | CaseStudy;
-    contributions?:
-      | {
-          type: 'discussion' | 'pr' | 'issue';
-          repo: string;
-          number: number;
-          id?: string | null;
-        }[]
-      | null;
-    projects?:
-      | {
-          year: number;
-          name: string;
-          link: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  city: string;
-  regions: (string | Region)[];
-  specialties: (string | Specialty)[];
-  budgets: (string | Budget)[];
-  industries: (string | Industry)[];
-  social?:
-    | {
-        platform: 'linkedin' | 'twitter' | 'facebook' | 'instagram' | 'youtube' | 'github';
-        url: string;
-        id?: string | null;
-      }[]
-    | null;
   updatedAt: string;
   createdAt: string;
 }

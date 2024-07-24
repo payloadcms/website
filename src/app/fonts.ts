@@ -8,6 +8,7 @@ export const robotoMono = Roboto_Mono({
   subsets: ['latin'],
 })
 
+// TODO: Fix the ESM/TS issue with the `localFont` import
 export const untitledSans = localFont({
   src: [
     {

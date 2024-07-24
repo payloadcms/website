@@ -1,17 +1,17 @@
 'use client'
 
 import * as React from 'react'
-import { InvoicesResult } from '@cloud/_api/fetchInvoices'
-import { TeamWithCustomer } from '@cloud/_api/fetchTeam'
+import { InvoicesResult } from '@cloud/_api/fetchInvoices.js'
+import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 
-import { CircleIconButton } from '@components/CircleIconButton'
-import { Heading } from '@components/Heading'
-import { Pill } from '@components/Pill'
-import { User } from '@root/payload-cloud-types'
-import { checkTeamRoles } from '@root/utilities/check-team-roles'
-import { formatDate } from '@root/utilities/format-date-time'
-import { priceFromJSON } from '@root/utilities/price-from-json'
-import { useInvoices } from './useInvoices'
+import { CircleIconButton } from '@components/CircleIconButton/index.js'
+import { Heading } from '@components/Heading/index.js'
+import { Pill } from '@components/Pill/index.js'
+import { User } from '@root/payload-cloud-types.js'
+import { checkTeamRoles } from '@root/utilities/check-team-roles.js'
+import { formatDate } from '@root/utilities/format-date-time.js'
+import { priceFromJSON } from '@root/utilities/price-from-json.js'
+import { useInvoices } from './useInvoices.js'
 
 import classes from './page.module.scss'
 

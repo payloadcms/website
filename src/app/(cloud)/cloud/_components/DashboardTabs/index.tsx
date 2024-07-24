@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 
-import { Tab, Tabs } from '../Tabs'
+import { Tab, Tabs } from '../Tabs/index.js'
 
 export const cloudSlug = 'cloud'
 

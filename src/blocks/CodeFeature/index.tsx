@@ -1,16 +1,16 @@
 import React, { useEffect, useId, useRef, useState } from 'react'
 
-import { BackgroundGrid } from '@components/BackgroundGrid'
-import { BackgroundScanline } from '@components/BackgroundScanline'
-import { BlockWrapper, PaddingProps } from '@components/BlockWrapper'
-import { CMSLink } from '@components/CMSLink'
-import Code from '@components/Code'
-import CodeBlip from '@components/CodeBlip'
-import { Gutter } from '@components/Gutter'
-import { RichText } from '@components/RichText'
-import SplitAnimate from '@components/SplitAnimate'
-import { CrosshairIcon } from '@root/icons/CrosshairIcon'
-import { Page } from '@root/payload-types'
+import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
+import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
+import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
+import { CMSLink } from '@components/CMSLink/index.js'
+import Code from '@components/Code/index.js'
+import CodeBlip from '@components/CodeBlip/index.js'
+import { Gutter } from '@components/Gutter/index.js'
+import { RichText } from '@components/RichText/index.js'
+import SplitAnimate from '@components/SplitAnimate/index.js'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
+import { Page } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 
@@ -187,7 +187,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                   .filter(Boolean)
                   .join(' ')}
                 ref={tabWrapperRef}
-                {...(isOpen ? { inert: '' } : {})}
+                {...(isOpen ? { inert: true } : {})}
               >
                 {codeTabs?.length && codeTabs.length > 1 ? (
                   codeTabs?.map((code, index) => {
@@ -215,7 +215,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                 )}
                 <div className={classes.tabIndicator} style={indicatorStyle} aria-hidden={true} />
               </div>
-              <div className={classes.codeBlockWrapper} {...(isOpen ? { inert: '' } : {})}>
+              <div className={classes.codeBlockWrapper} {...(isOpen ? { inert: true } : {})}>
                 {codeTabs?.map((code, index) => {
                   return (
                     <div
@@ -315,7 +315,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                   .filter(Boolean)
                   .join(' ')}
                 ref={tabWrapperRef}
-                {...(isOpen ? { inert: '' } : {})}
+                {...(isOpen ? { inert: true } : {})}
               >
                 {codeTabs?.length && codeTabs.length > 1 ? (
                   codeTabs?.map((code, index) => {
@@ -343,7 +343,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
                 )}
                 <div className={classes.tabIndicator} style={indicatorStyle} aria-hidden={true} />
               </div>
-              <div className={classes.codeBlockWrapper} {...(isOpen ? { inert: '' } : {})}>
+              <div className={classes.codeBlockWrapper} {...(isOpen ? { inert: true } : {})}>
                 {codeTabs?.map((code, index) => {
                   return (
                     <div

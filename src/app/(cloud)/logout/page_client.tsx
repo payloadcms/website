@@ -2,9 +2,9 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Button } from '@components/Button'
-import { Gutter } from '@components/Gutter'
-import { useAuth } from '@root/providers/Auth'
+import { Button } from '@components/Button/index.js'
+import { Gutter } from '@components/Gutter/index.js'
+import { useAuth } from '@root/providers/Auth/index.js'
 
 import classes from './page.module.scss'
 

@@ -2,13 +2,13 @@
 
 import * as React from 'react'
 import { toast } from 'react-toastify'
-import { Text } from '@forms/fields/Text'
-import Form from '@forms/Form'
-import Submit from '@forms/Submit'
-import { OnSubmit } from '@forms/types'
-import { validateDomain } from '@forms/validations'
+import { Text } from '@forms/fields/Text/index.js'
+import Form from '@forms/Form/index.js'
+import Submit from '@forms/Submit/index.js'
+import { OnSubmit } from '@forms/types.js'
+import { validateDomain } from '@forms/validations.js'
 
-import { Project, Team } from '@root/payload-cloud-types'
+import { Project, Team } from '@root/payload-cloud-types.js'
 
 import classes from './index.module.scss'
 

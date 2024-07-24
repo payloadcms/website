@@ -1,6 +1,6 @@
 'use client'
 
-import { useStarCount } from '@root/utilities/use-star-count'
+import { useStarCount } from '@root/utilities/use-star-count.js'
 
 import classes from './index.module.scss'
 

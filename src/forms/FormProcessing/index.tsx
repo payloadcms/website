@@ -1,7 +1,7 @@
 import React from 'react'
-import { useFormProcessing } from '@forms/Form/context'
+import { useFormProcessing } from '@forms/Form/context.js'
 
-import useDebounce from '@root/utilities/use-debounce'
+import useDebounce from '@root/utilities/use-debounce.js'
 
 const FormProcessing: React.FC<{
   className?: string

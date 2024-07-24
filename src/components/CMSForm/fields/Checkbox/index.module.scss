@@ -15,7 +15,6 @@
     left: 1px;
     top:0;
     z-index: -1;
-    background-color: var(--theme-input-bg);
   }
 
   .button {
@@ -24,7 +23,6 @@
     align-items: center;
     cursor: pointer;
     font-size: 1rem;
-    color: var(--color-text);
 
     &:disabled {
       color: var(--theme-elevation-500);
@@ -86,7 +84,7 @@
   .label {
     cursor: pointer;
     margin: 0;
-    color: var(--text-dark);
+    color: var(--theme-text);
     margin-right: 0.75rem;
     transition: all 0.3s ease;
   }

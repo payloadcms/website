@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { Logout } from './page_client'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { Logout } from './page_client.js'
 
 export default props => {
   return <Logout {...props} />

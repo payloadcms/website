@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
-import { Media } from '@components/Media'
-import { CrosshairIcon } from '@root/icons/CrosshairIcon'
-import { Media as MediaType } from '@root/payload-types'
+import { Media } from '@components/Media/index.js'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
+import { Media as MediaType } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 
@@ -104,11 +104,10 @@ export const LogoShowcase: React.FC<Props> = ({ logos }) => {
         />
       ))}
       {[...Array(3)].map((_, idx) => {
-        if (idx === 1) return null // Skip the line at left: 50%
         return (
           <div
             key={`v-line-${idx}`}
-            className={classes.verticalLine}
+            className={idx === 1 ? classes.verticalLineNoDesktop : classes.verticalLine}
             style={{ left: `${(idx + 1) * 25}%` }}
           />
         )

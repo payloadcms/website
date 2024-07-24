@@ -2,14 +2,15 @@
 
 import * as React from 'react'
 import Link from 'next/link'
+
 import { useRouter } from 'next/navigation'
 
-import { MaxWidth } from '@root/app/_components/MaxWidth'
-import { Project, Team } from '@root/payload-cloud-types'
-import { useAuth } from '@root/providers/Auth'
-import { checkTeamRoles } from '@root/utilities/check-team-roles'
-import { isExpandedDoc } from '@root/utilities/is-expanded-doc'
-import { SectionHeader } from '../_layoutComponents/SectionHeader'
+import { MaxWidth } from '@root/app/_components/MaxWidth/index.js'
+import { Project, Team } from '@root/payload-cloud-types.js'
+import { useAuth } from '@root/providers/Auth/index.js'
+import { checkTeamRoles } from '@root/utilities/check-team-roles.js'
+import { isExpandedDoc } from '@root/utilities/is-expanded-doc.js'
+import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
 
 import classes from './page.module.scss'
 

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Metadata } from 'next'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { fetchBlogPosts } from '../../_graphql'
-import { RenderBlogArchive } from './renderBlogArchive'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { fetchBlogPosts } from '../../_graphql/index.js'
+import { RenderBlogArchive } from './renderBlogArchive.js'
 
 const Page = async () => {
   const blogPosts = await fetchBlogPosts()

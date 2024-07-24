@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-import { CheckIcon } from '@root/icons/CheckIcon'
-import { ReusableContent } from '@root/payload-types'
-import { RichText } from '../RichText'
+import { CheckIcon } from '@root/icons/CheckIcon/index.js'
+import { ReusableContent } from '@root/payload-types.js'
+import { RichText } from '../RichText/index.js'
 
 import classes from './index.module.scss'
 

@@ -68,7 +68,6 @@
   top: var(--page-padding-top);
   max-height: calc(100vh - var(--page-padding-top));
   overflow: scroll;
-  padding: 2rem 0;
 
   &::-webkit-scrollbar {
     background-color: transparent;

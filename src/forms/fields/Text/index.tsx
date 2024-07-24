@@ -1,14 +1,14 @@
 'use client'
 
 import React, { Fragment, useEffect } from 'react'
-import Label from '@forms/Label'
+import Label from '@forms/Label/index.js'
 
-import { CopyToClipboard } from '@components/CopyToClipboard'
-import { Tooltip } from '@components/Tooltip'
-import { EyeIcon } from '@root/icons/EyeIcon'
-import Error from '../../Error'
-import { FieldProps } from '../types'
-import { useField } from '../useField'
+import { CopyToClipboard } from '@components/CopyToClipboard/index.js'
+import { Tooltip } from '@components/Tooltip/index.js'
+import { EyeIcon } from '@root/icons/EyeIcon/index.js'
+import Error from '../../Error/index.js'
+import { FieldProps } from '../types.js'
+import { useField } from '../useField/index.js'
 
 import classes from './index.module.scss'
 

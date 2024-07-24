@@ -1,4 +1,4 @@
-import type { Validate, Value } from '../types'
+import type { Validate, Value } from '../types.js'
 
 export interface Options {
   path?: string // make optional so fields outside of a form can be used (no path)

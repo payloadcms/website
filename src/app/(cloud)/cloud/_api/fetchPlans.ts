@@ -1,5 +1,5 @@
-import { PLANS_QUERY } from '@root/app/_graphql/plans'
-import type { Plan } from '@root/payload-cloud-types'
+import { PLANS_QUERY } from '@root/app/_graphql/plans.js'
+import type { Plan } from '@root/payload-cloud-types.js'
 
 export const fetchPlans = async (): Promise<Plan[]> => {
   const doc: Plan[] = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {

@@ -1,15 +1,15 @@
 import React, { Fragment } from 'react'
 import escapeHTML from 'escape-html'
 
-import { CMSLink, Reference } from '@components/CMSLink'
-import SplitAnimate from '@components/SplitAnimate'
-import SpotlightAnimation from '@components/SpotlightAnimation'
-import { AllowedElements } from '@components/SpotlightAnimation/types'
-import { Highlight } from '../../Highlight'
-import { Label } from '../../Label'
-import { LargeBody } from '../../LargeBody'
-import { RichTextUpload } from '../Upload'
-import { Video } from '../Video'
+import { CMSLink, Reference } from '@components/CMSLink/index.js'
+import SplitAnimate from '@components/SplitAnimate/index.js'
+import SpotlightAnimation from '@components/SpotlightAnimation/index.js'
+import { AllowedElements } from '@components/SpotlightAnimation/types.js'
+import { Highlight } from '../../Highlight/index.js'
+import { Label } from '../../Label/index.js'
+import { LargeBody } from '../../LargeBody/index.js'
+import { RichTextUpload } from '../Upload/index.js'
+import { Video } from '../Video/index.js'
 
 type Node = {
   type: string

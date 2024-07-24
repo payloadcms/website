@@ -1,6 +1,6 @@
-import { TEAM_QUERY, TEAMS_QUERY } from '@root/app/_graphql/team'
-import type { Team } from '@root/payload-cloud-types'
-import { payloadCloudToken } from './token'
+import { TEAM_QUERY, TEAMS_QUERY } from '@root/app/_graphql/team.js'
+import type { Team } from '@root/payload-cloud-types.js'
+import { payloadCloudToken } from './token.js'
 
 export type TeamWithCustomer = Team & {
   hasPublishedProjects: boolean

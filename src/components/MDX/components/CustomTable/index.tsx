@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useState, useRef, useEffect } from 'react'
 
 import classes from './index.module.scss'
 
@@ -15,16 +16,25 @@ export type Props = {
   data: any[]
   columns: Column[]
   inDrawer?: boolean
+  bleedToEdge?: boolean
 }
 
-const CustomTable: React.FC<Props> = ({ className, data, columns, inDrawer }) => {
-  const [padding, setPadding] = React.useState(0)
-  const paddingRef = React.useRef<HTMLDivElement>(null)
+const CustomTable: React.FC<Props> = ({
+  className,
+  data,
+  columns,
+  inDrawer,
+  bleedToEdge = true,
+}) => {
+  const [padding, setPadding] = useState(0)
+  const paddingRef = useRef<HTMLDivElement>(null)
 
-  React.useEffect(() => {
-    if (paddingRef.current?.offsetWidth === undefined) return
-    setPadding(Math.round(paddingRef.current?.offsetWidth / 8) - 1)
-  }, [paddingRef.current?.offsetWidth])
+  useEffect(() => {
+    if (bleedToEdge) {
+      if (paddingRef.current?.offsetWidth === undefined) return
+      setPadding(Math.round(paddingRef.current?.offsetWidth / 8) - 1)
+    }
+  }, [paddingRef.current?.offsetWidth, bleedToEdge])
 
   return (
     <div
@@ -56,10 +66,14 @@ const CustomTable: React.FC<Props> = ({ className, data, columns, inDrawer }) =>
                 })}
                 <div
                   className={classes.cellBG}
-                  style={{
-                    marginLeft: padding / -1,
-                    marginRight: padding / -1,
-                  }}
+                  style={
+                    bleedToEdge
+                      ? {
+                          marginLeft: padding / -1,
+                          marginRight: padding / -1,
+                        }
+                      : {}
+                  }
                 />
               </tr>
             ))}

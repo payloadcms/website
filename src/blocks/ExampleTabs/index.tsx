@@ -1,7 +1,7 @@
-import { Gutter } from '@components/Gutter'
-import { RichText } from '@components/RichText'
-import { ExampleTabsBlock } from '@root/payload-types'
-import { Tabs } from './Tabs'
+import { Gutter } from '@components/Gutter/index.js'
+import { RichText } from '@components/RichText/index.js'
+import { ExampleTabsBlock } from '@root/payload-types.js'
+import { Tabs } from './Tabs/index.js'
 
 import classes from './index.module.scss'
 

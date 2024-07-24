@@ -1,9 +1,9 @@
 import React from 'react'
 import { Metadata } from 'next'
 
-import { Gutter } from '@components/Gutter'
-import { ProjectCard } from '@root/app/(cloud)/cloud/_components/ProjectCard'
-import { StyleguidePageContent } from '../PageContent'
+import { Gutter } from '@components/Gutter/index.js'
+import { ProjectCard } from '@root/app/(cloud)/cloud/_components/ProjectCard/index.js'
+import { StyleguidePageContent } from '../PageContent/index.js'
 
 const Cards: React.FC = () => {
   return (

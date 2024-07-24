@@ -1,11 +1,11 @@
 'use client'
 
 import * as React from 'react'
-import { Text } from '@forms/fields/Text'
+import { Text } from '@forms/fields/Text/index.js'
 
-import { Accordion } from '@root/app/_components/Accordion'
-import { Spinner } from '@root/app/_components/Spinner'
-import { Project } from '@root/payload-cloud-types'
+import { Accordion } from '@root/app/_components/Accordion/index.js'
+import { Spinner } from '@root/app/_components/Spinner/index.js'
+import { Project } from '@root/payload-cloud-types.js'
 
 export const Secret: React.FC<{
   project: Project

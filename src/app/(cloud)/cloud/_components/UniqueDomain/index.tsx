@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Text } from '@forms/fields/Text'
+import { Text } from '@forms/fields/Text/index.js'
 
-import { Spinner } from '@root/app/_components/Spinner'
-import { CheckIcon } from '@root/icons/CheckIcon'
-import { CloseIcon } from '@root/icons/CloseIcon'
-import { Project, Team } from '@root/payload-cloud-types'
-import useDebounce from '@root/utilities/use-debounce'
-import { validatedDomainReducer, ValidatedDomainResult } from './reducer'
+import { Spinner } from '@root/app/_components/Spinner/index.js'
+import { CheckIcon } from '@root/icons/CheckIcon/index.js'
+import { CloseIcon } from '@root/icons/CloseIcon/index.js'
+import { Project, Team } from '@root/payload-cloud-types.js'
+import useDebounce from '@root/utilities/use-debounce.js'
+import { validatedDomainReducer, ValidatedDomainResult } from './reducer.js'
 
 import classes from './index.module.scss'
 

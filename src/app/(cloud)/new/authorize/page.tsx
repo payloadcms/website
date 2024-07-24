@@ -1,10 +1,10 @@
-import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken'
-import { fetchMe } from '@cloud/_api/fetchMe'
+import { fetchGitHubToken } from '@cloud/_api/fetchGitHubToken.js'
+import { fetchMe } from '@cloud/_api/fetchMe.js'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { AuthorizePage } from './page_client'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { AuthorizePage } from './page_client.js'
 
 export default async ({ searchParams: { redirect: redirectParam } }) => {
   const { user } = await fetchMe()

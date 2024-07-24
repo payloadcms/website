@@ -2,8 +2,8 @@
 
 import { createContext, useContext } from 'react'
 
-import type { IFormContext } from '../types'
-import initialContext from './initialContext'
+import type { IFormContext } from '../types.js'
+import initialContext from './initialContext.js'
 
 const FormContext = createContext(initialContext)
 const FieldContext = createContext(initialContext)

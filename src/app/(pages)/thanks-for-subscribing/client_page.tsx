@@ -1,8 +1,8 @@
 'use client'
 
-import { Button } from '@components/Button'
-import { Gutter } from '@components/Gutter'
-import { LargeBody } from '@components/LargeBody'
+import { Button } from '@components/Button/index.js'
+import { Gutter } from '@components/Gutter/index.js'
+import { LargeBody } from '@components/LargeBody/index.js'
 
 export const ThanksForSubscribingPage = () => {
   return (

@@ -1,4 +1,4 @@
-import type { SubscriptionsResult } from '@cloud/_api/fetchSubscriptions'
+import type { SubscriptionsResult } from '@cloud/_api/fetchSubscriptions.js'
 
 export const subscriptionsReducer = (
   state: SubscriptionsResult | null,

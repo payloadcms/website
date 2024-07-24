@@ -2,10 +2,10 @@ import React from 'react'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { fetchCommunityHelp, fetchCommunityHelps } from '@root/app/_graphql'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { slugToText } from '@root/utilities/slug-to-text'
-import { DiscordThreadPage, Messages } from './client_page'
+import { fetchCommunityHelp, fetchCommunityHelps } from '@root/app/_graphql/index.js'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { slugToText } from '@root/utilities/slug-to-text.js'
+import { DiscordThreadPage, Messages } from './client_page.js'
 
 const isThreadData = (
   data: any,

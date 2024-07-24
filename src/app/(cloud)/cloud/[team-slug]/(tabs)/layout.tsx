@@ -1,9 +1,9 @@
-import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam'
-import { DashboardTabs } from '@cloud/_components/DashboardTabs'
-import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod'
-import { cloudSlug } from '@cloud/slug'
+import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import { DashboardTabs } from '@cloud/_components/DashboardTabs/index.js'
+import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod.js'
+import { cloudSlug } from '@cloud/slug.js'
 
-import { Gutter } from '@components/Gutter'
+import { Gutter } from '@components/Gutter/index.js'
 
 export default async props => {
   const {

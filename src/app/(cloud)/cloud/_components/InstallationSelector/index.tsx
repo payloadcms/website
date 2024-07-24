@@ -1,14 +1,14 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react'
-import { Install } from '@cloud/_api/fetchInstalls'
-import { Select } from '@forms/fields/Select'
-import Label from '@forms/Label'
+import { Install } from '@cloud/_api/fetchInstalls.js'
+import { Select } from '@forms/fields/Select/index.js'
+import Label from '@forms/Label/index.js'
 
-import { LoadingShimmer } from '@components/LoadingShimmer'
-import { usePopupWindow } from '@root/utilities/use-popup-window'
-import { MenuList } from './components/MenuList'
-import { Option } from './components/Option'
-import { SingleValue } from './components/SingleValue'
-import { InstallationSelectorProps } from './types'
+import { LoadingShimmer } from '@components/LoadingShimmer/index.js'
+import { usePopupWindow } from '@root/utilities/use-popup-window.js'
+import { MenuList } from './components/MenuList/index.js'
+import { Option } from './components/Option/index.js'
+import { SingleValue } from './components/SingleValue/index.js'
+import { InstallationSelectorProps } from './types.js'
 
 import classes from './index.module.scss'
 

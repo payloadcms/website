@@ -1,9 +1,9 @@
 import React from 'react'
 import { Metadata } from 'next'
 
-import { Hero } from '@components/Hero'
-import { Page } from '@root/payload-types'
-import { StyleguidePageContent } from '../../PageContent'
+import { Hero } from '@components/Hero/index.js'
+import { Page } from '@root/payload-types.js'
+import { StyleguidePageContent } from '../../PageContent/index.js'
 
 const hero: Page['hero'] = {
   type: 'form',

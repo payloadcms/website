@@ -30,10 +30,24 @@
 
 .drawerTable {
   & th {
-    display: none;
+    padding-top: 0;
   }
   & td {
     background-color: var(--theme-elevation-100);
+  }
+
+  th:first-child {
+    padding: 0 0.75rem 0.75rem 0.75rem 
+  }
+
+  td:first-child {
+    padding: 0.75rem;
+  }
+
+  :global {
+    #heading-example, .cell-example {
+      display: none;
+    }
   }
 }
 
@@ -80,12 +94,6 @@
 
     & label {
       font-size: 10px;
-    }
-
-    & th {
-      &:first-child {
-        padding-left: 0;
-      }
     }
   }
 

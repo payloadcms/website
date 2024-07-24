@@ -1,19 +1,20 @@
 'use client'
 
 import React, { useCallback, useEffect, useState } from 'react'
-import { cloudSlug } from '@cloud/slug'
-import { Text } from '@forms/fields/Text'
-import Form from '@forms/Form'
-import FormProcessing from '@forms/FormProcessing'
-import FormSubmissionError from '@forms/FormSubmissionError'
-import Submit from '@forms/Submit'
-import { InitialState } from '@forms/types'
+import { cloudSlug } from '@cloud/slug.js'
+import { Text } from '@forms/fields/Text/index.js'
+import Form from '@forms/Form/index.js'
+import FormProcessing from '@forms/FormProcessing/index.js'
+import FormSubmissionError from '@forms/FormSubmissionError/index.js'
+import Submit from '@forms/Submit/index.js'
+import { InitialState } from '@forms/types.js'
 import Link from 'next/link'
+
 import { redirect, useSearchParams } from 'next/navigation'
 
-import { Gutter } from '@components/Gutter'
-import { RenderParams } from '@root/app/_components/RenderParams'
-import { useAuth } from '@root/providers/Auth'
+import { Gutter } from '@components/Gutter/index.js'
+import { RenderParams } from '@root/app/_components/RenderParams/index.js'
+import { useAuth } from '@root/providers/Auth/index.js'
 
 import classes from './page.module.scss'
 

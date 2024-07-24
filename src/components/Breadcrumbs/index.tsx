@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 
-import { EdgeScroll } from '@components/EdgeScroll'
+import { EdgeScroll } from '@components/EdgeScroll/index.js'
 
 import classes from './index.module.scss'
 

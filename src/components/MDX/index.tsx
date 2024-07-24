@@ -1,7 +1,8 @@
+'use client'
 import React, { useCallback, useState } from 'react'
 
-import Context from './context'
-import { AddHeading, Heading, IContext } from './types'
+import Context from './context.js'
+import { AddHeading, Heading, IContext } from './types.js'
 
 export const MDXProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [toc, setTOC] = useState<Map<string, Heading>>(new Map())

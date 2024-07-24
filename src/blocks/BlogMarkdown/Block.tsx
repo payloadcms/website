@@ -2,8 +2,8 @@ import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGFM from 'remark-gfm'
 
-import Table from '@components/MDX/components/Table'
-import { ReusableContent } from '@root/payload-types'
+import Table from '@components/MDX/components/Table/index.js'
+import { ReusableContent } from '@root/payload-types.js'
 
 const components = {
   table: Table as any,

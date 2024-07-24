@@ -8,10 +8,12 @@
   }
 
   thead {
+    color: var(--theme-elevation-500);
+
     th {
+      @include small;
       font-weight: normal;
       text-align: left;
-      color: var(--theme-elevation-500);
     }
   }
 
@@ -33,14 +35,14 @@
       position: relative;
 
       &:nth-child(odd) {
-        background: var(--theme-elevation-50);
+        background: var(--theme-elevation-100);
 
         .cellBG {
           position: absolute;
           height: 100%;
           left: 0;
           right: 0;
-          background: var(--theme-elevation-50);
+          background: var(--theme-elevation-100);
           z-index: -1;
         }
       }
@@ -76,10 +78,10 @@
     tbody {
       tr {
         &:nth-child(odd) {
-          background: var(--theme-elevation-50);
+          background: var(--theme-elevation-100);
 
           .cellBG {
-            background: var(--theme-elevation-50);
+            background: var(--theme-elevation-100);
           }
         }
       }

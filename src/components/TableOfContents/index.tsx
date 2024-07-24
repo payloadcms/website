@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Heading } from '@root/app/(pages)/docs/types'
-import { Jumplist } from '../Jumplist'
+import { Heading } from '@root/app/(pages)/docs/types.js'
+import { Jumplist } from '../Jumplist/index.js'
 
 import classes from './index.module.scss'
 
@@ -51,7 +51,9 @@ const TableOfContents: React.FC<Props> = ({ className, headings }) => {
                   .filter(Boolean)
                   .join(' ')}
                 onMouseEnter={handleMouseEnter}
-                ref={ref => (listItemRefs.current[id] = ref)}
+                ref={ref => {
+                  listItemRefs.current[id] = ref
+                }}
               >
                 {text}
               </div>

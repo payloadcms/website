@@ -1,12 +1,12 @@
-import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject'
-import { DashboardTabs } from '@cloud/_components/DashboardTabs'
-import { hasBadSubscription } from '@cloud/_utilities/hasBadSubscription'
-import { cloudSlug } from '@cloud/slug'
+import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject.js'
+import { DashboardTabs } from '@cloud/_components/DashboardTabs/index.js'
+import { hasBadSubscription } from '@cloud/_utilities/hasBadSubscription.js'
+import { cloudSlug } from '@cloud/slug.js'
 import { Metadata } from 'next'
 
-import { Gutter } from '@components/Gutter'
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
-import { ProjectBillingMessages } from './ProjectBillingMessages'
+import { Gutter } from '@components/Gutter/index.js'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { ProjectBillingMessages } from './ProjectBillingMessages/index.js'
 
 export default async props => {
   const {

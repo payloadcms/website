@@ -1,11 +1,12 @@
+'use client'
 import React from 'react'
 
-import { Drawer, DrawerToggler } from '@components/Drawer'
-import { CodeIcon } from '@root/icons/CodeIcon'
-import CustomTable from '../CustomTable'
-import { GenerateRequest } from './generateRequest'
-import { GenerateResponse } from './generateResponse'
-import { Data, Example, Props } from './types'
+import { Drawer, DrawerToggler } from '@components/Drawer/index.js'
+import { CodeIcon } from '@root/icons/CodeIcon/index.js'
+import CustomTable from '../CustomTable/index.js'
+import { GenerateRequest } from './generateRequest.js'
+import { GenerateResponse } from './generateResponse.js'
+import { Data, Example, Props } from './types.js'
 
 import classes from './index.module.scss'
 
@@ -20,7 +21,12 @@ const ExampleCell: React.FC<{ example: Example; row: Data }> = ({ example, row }
         <CodeIcon className={classes.icon} size="medium" />
       </DrawerToggler>
       <Drawer slug={slug} title={row.operation} size="s">
-        <CustomTable className={classes.drawerTable} data={drawerRow} columns={columns.slice(1)} />
+        <CustomTable
+          bleedToEdge={false}
+          className={classes.drawerTable}
+          data={drawerRow}
+          columns={columns.slice(1)}
+        />
         <GenerateRequest req={req} row={row} />
         <GenerateResponse res={res} />
         {drawerContent && <div className={classes.drawerContent}>{drawerContent}</div>}
@@ -34,14 +40,14 @@ const columns = [
     accessor: 'operation',
     components: {
       Heading: 'Operation',
-      renderCell: (_, data) => <strong>{data}</strong>,
+      renderCell: (_, data) => <span>{data}</span>,
     },
   },
   {
     accessor: 'method',
     components: {
       Heading: 'Method',
-      renderCell: (_, data) => <label>{data}</label>,
+      renderCell: (_, data) => <code>{data}</code>,
     },
   },
   {

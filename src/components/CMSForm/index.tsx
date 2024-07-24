@@ -1,15 +1,16 @@
 'use client'
 
 import * as React from 'react'
-import Form from '@forms/Form'
+import { toast } from 'react-toastify'
+import Form from '@forms/Form/index.js'
 import { usePathname, useRouter } from 'next/navigation'
 
-import { RichText } from '@components/RichText'
-import { CrosshairIcon } from '@root/icons/CrosshairIcon'
-import { Form as FormType } from '@root/payload-types'
-import { getCookie } from '@root/utilities/get-cookie'
-import { fields } from './fields'
-import Submit from './Submit'
+import { RichText } from '@components/RichText/index.js'
+import { CrosshairIcon } from '@root/icons/CrosshairIcon/index.js'
+import { Form as FormType } from '@root/payload-types.js'
+import { getCookie } from '@root/utilities/get-cookie.js'
+import { fields } from './fields.js'
+import Submit from './Submit/index.js'
 
 import classes from './index.module.scss'
 
@@ -20,7 +21,7 @@ const buildInitialState = fields => {
     state[field.name] = {
       value: '',
       valid: !field.required,
-      initialValue: undefined,
+      initialValue: field.defaultValue ?? undefined,
       errorMessage: 'This field is required.',
     }
   })
@@ -28,7 +29,7 @@ const buildInitialState = fields => {
   return state
 }
 
-const RenderForm = ({ form }: { form: FormType }) => {
+const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: string[] }) => {
   const {
     id: formID,
     submitButtonLabel,
@@ -51,20 +52,15 @@ const RenderForm = ({ form }: { form: FormType }) => {
 
   const onSubmit = React.useCallback(
     ({ data }) => {
-      let loadingTimerID: NodeJS.Timer
-
       const submitForm = async () => {
         setError(undefined)
+
+        setIsLoading(true)
 
         const dataToSend = Object.entries(data).map(([name, value]) => ({
           field: name,
           value,
         }))
-
-        // delay loading indicator by 1s
-        loadingTimerID = setTimeout(() => {
-          setIsLoading(true)
-        }, 1000)
 
         try {
           const hubspotCookie = getCookie('hubspotutk')
@@ -88,20 +84,16 @@ const RenderForm = ({ form }: { form: FormType }) => {
 
           const res = await req.json()
 
-          clearTimeout(loadingTimerID)
-
           if (req.status >= 400) {
             setIsLoading(false)
-            setError({
-              status: res.status,
-              message: res.errors?.[0]?.message || 'Internal Server Error',
-            })
+            toast.error(res.message)
 
             return
           }
 
           setIsLoading(false)
           setHasSubmitted(true)
+          toast.success('Form submitted successfully!')
 
           if (confirmationType === 'redirect' && formRedirect) {
             const { url } = formRedirect
@@ -118,17 +110,19 @@ const RenderForm = ({ form }: { form: FormType }) => {
               }
             } catch (err) {
               console.warn(err) // eslint-disable-line no-console
-              setError({
-                message: 'Something went wrong. Did not redirect.',
-              })
+              toast.error('Something went wrong. Did not redirect.')
+              // setError({
+              //   message: 'Something went wrong. Did not redirect.',
+              // })
             }
           }
         } catch (err) {
           console.warn(err) // eslint-disable-line no-console
           setIsLoading(false)
-          setError({
-            message: 'Something went wrong.',
-          })
+          toast.error('Something went wrong.')
+          // setError({
+          //   message: 'Something went wrong.',
+          // })
         }
       }
 
@@ -142,9 +136,8 @@ const RenderForm = ({ form }: { form: FormType }) => {
   return (
     <div className={classes.cmsForm}>
       {!isLoading && hasSubmitted && confirmationType === 'message' && (
-        <RichText content={confirmationMessage} />
+        <RichText content={confirmationMessage} className={classes.confirmationMessage} />
       )}
-      {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
       {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
       {!hasSubmitted && (
         <React.Fragment>
@@ -157,7 +150,13 @@ const RenderForm = ({ form }: { form: FormType }) => {
                   return (
                     <div
                       key={index}
-                      className={[classes.fieldWrap, !isLastField ? classes.hideBottomBorder : '']
+                      className={[
+                        classes.fieldWrap,
+                        field.blockType !== 'message' && hiddenFields.includes(field.name)
+                          ? classes.hidden
+                          : '',
+                        !isLastField ? classes.hideBottomBorder : '',
+                      ]
                         .filter(Boolean)
                         .join(' ')}
                     >
@@ -165,6 +164,7 @@ const RenderForm = ({ form }: { form: FormType }) => {
                         path={'name' in field ? field.name : undefined}
                         form={form}
                         {...field}
+                        disabled={isLoading}
                       />
                     </div>
                   )
@@ -175,9 +175,11 @@ const RenderForm = ({ form }: { form: FormType }) => {
             </div>
             <Submit
               className={[classes.submitButton, classes.hideTopBorder].filter(Boolean).join(' ')}
-              processing={isLoading}
-              label={submitButtonLabel}
+              disabled={isLoading}
+              label={isLoading ? 'Submitting...' : submitButtonLabel}
               iconRotation={45}
+              icon={isLoading ? 'loading' : 'arrow'}
+              iconSize={isLoading ? 'large' : 'default'}
             />
           </Form>
         </React.Fragment>
@@ -188,10 +190,11 @@ const RenderForm = ({ form }: { form: FormType }) => {
 
 export const CMSForm: React.FC<{
   form?: string | FormType | null
+  hiddenFields?: string[]
 }> = props => {
-  const { form } = props
+  const { form, hiddenFields } = props
 
   if (!form || typeof form === 'string') return null
 
-  return <RenderForm form={form} />
+  return <RenderForm form={form} hiddenFields={hiddenFields ?? []} />
 }

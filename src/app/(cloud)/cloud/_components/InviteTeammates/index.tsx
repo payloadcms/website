@@ -1,10 +1,10 @@
 import React from 'react'
-import { AddArrayRow, ArrayRow } from '@forms/fields/Array'
-import { ArrayProvider, useArray } from '@forms/fields/Array/context'
-import { Select } from '@forms/fields/Select'
-import { Text } from '@forms/fields/Text'
+import { AddArrayRow, ArrayRow } from '@forms/fields/Array/index.js'
+import { ArrayProvider, useArray } from '@forms/fields/Array/context.js'
+import { Select } from '@forms/fields/Select/index.js'
+import { Text } from '@forms/fields/Text/index.js'
 
-import { Heading } from '@components/Heading'
+import { Heading } from '@components/Heading/index.js'
 
 import classes from './index.module.scss'
 

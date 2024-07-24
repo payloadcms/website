@@ -1,13 +1,15 @@
 import React from 'react'
 import * as cheerio from 'cheerio'
 
-import AuthorTag from '@components/AuthorTag'
-import { BackgroundScanline } from '@components/BackgroundScanline'
-import { DiscordGitBody } from '@components/DiscordGitBody'
-import { FileAttachments } from '@components/FileAttachment'
-import { Messages } from '@root/app/(pages)/community-help/(posts)/discord/[slug]/client_page'
-import { Answer, Comment } from '@root/app/(pages)/community-help/(posts)/github/[slug]/client_page'
-import { CheckIcon } from '@root/icons/CheckIcon'
+import AuthorTag from '@components/AuthorTag/index.js'
+import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
+import { DiscordGitBody } from '@components/DiscordGitBody/index.js'
+import { FileAttachments } from '@components/FileAttachment/index.js'
+import { Messages } from '@root/app/(pages)/community-help/(posts)/discord/[slug]/client_page.js'
+import {
+  Answer,
+  Comment,
+} from '@root/app/(pages)/community-help/(posts)/github/[slug]/client_page.js'
 
 import classes from './index.module.scss'
 

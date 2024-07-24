@@ -1,7 +1,7 @@
 import React from 'react'
 import { Metadata } from 'next'
 
-import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar'
+import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar/index.js'
 
 export default async ({ children }) => {
   return (

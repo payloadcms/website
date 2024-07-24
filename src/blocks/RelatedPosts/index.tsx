@@ -1,6 +1,6 @@
-import { ContentMediaCard } from '@components/cards/ContentMediaCard'
-import { Gutter } from '@components/Gutter'
-import { Post } from '@root/payload-types'
+import { ContentMediaCard } from '@components/cards/ContentMediaCard/index.js'
+import { Gutter } from '@components/Gutter/index.js'
+import { Post } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 
@@ -29,21 +29,20 @@ export const RelatedPosts: React.FC<RelatedPostsBlock> = props => {
     <Gutter leftGutter={!disableGutter} rightGutter={!disableGutter}>
       <div className={classes.relatedPosts} id={id}>
         <h4 className={classes.title}>Related Posts</h4>
-        <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')}>
+        <div className={classes.grid}>
           {relatedPosts.map(
             (post, key) =>
               typeof post !== 'string' && (
-                <div key={key} className={['cols-16 cols-m-8'].filter(Boolean).join(' ')}>
-                  <ContentMediaCard
-                    title={post.title}
-                    description={post?.meta?.description}
-                    href={`/blog/${post.slug}`}
-                    media={post.image}
-                    publishedOn={post.publishedOn}
-                    authors={post.authors}
-                    orientation={relatedPosts.length < 3 ? 'horizontal' : undefined}
-                  />
-                </div>
+                <ContentMediaCard
+                  title={post.title}
+                  description={post?.meta?.description}
+                  href={`/blog/${post.slug}`}
+                  media={post.image}
+                  publishedOn={post.publishedOn}
+                  authors={post.authors}
+                  orientation={relatedPosts.length < 3 ? 'horizontal' : undefined}
+                  key={key}
+                />
               ),
           )}
         </div>

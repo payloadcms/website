@@ -1,9 +1,9 @@
 'use client'
 
 import React from 'react'
-import { CallToAction, CallToActionProps } from '@blocks/CallToAction'
+import { CallToAction, CallToActionProps } from '@blocks/CallToAction/index.js'
 
-import { StyleguidePageContent } from '../../PageContent'
+import { StyleguidePageContent } from '../../PageContent/index.js'
 
 const data: CallToActionProps = {
   blockType: 'cta',
