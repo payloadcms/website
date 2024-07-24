@@ -305,3 +305,11 @@ dialog {
 .visually-hidden {
   @include visually-hidden;
 }
+
+.top-margin {
+  margin-top: 5rem;
+  
+  @include small-break {
+    margin-top: 3rem;
+  }
+}

@@ -7,8 +7,8 @@ import { LargeBody } from '@components/LargeBody'
 export const ThanksForSubscribingPage = () => {
   return (
     <Gutter>
-      <div className={['grid'].filter(Boolean).join(' ')}>
-        <div className={['cols-12'].filter(Boolean).join(' ')}>
+      <div className={['grid top-margin'].filter(Boolean).join(' ')}>
+        <div className={['cols-8'].filter(Boolean).join(' ')}>
           <h1>Subscribed</h1>
           <LargeBody>
             Thank you for subscribing. You will now receive regular Payload updates to your email.
