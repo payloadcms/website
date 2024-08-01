@@ -13,8 +13,8 @@ export const DiscordUsersPill: React.FC<{ className?: string }> = ({ className }
         'https://img.shields.io/discord/967097582721572934?label=Discord&color=5865F2&style=flat-square',
       )
       const svg = await res.text()
-      const onlineUsers = svg.match(/<title.*?>(.*?)<\/title>/)?.[1]?.match(/\d+/)?.[0]
-      if (isNumber(onlineUsers)) setDiscordOnlineUserCount(onlineUsers)
+      const onlineUsers = svg.match(/<title.*?>(.*?)<\/title>/)?.[1]?.match(/(\d+(\.\d+)?k?)/i)?.[0]
+      setDiscordOnlineUserCount(onlineUsers)
     }
 
     fetchDiscordElement()
