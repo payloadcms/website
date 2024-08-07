@@ -70,7 +70,7 @@ export default async function Partners() {
     (hero?.breadcrumbBarLinks && hero?.breadcrumbBarLinks.map(({ link }) => link)) ?? []
 
   return (
-    <BlockWrapper settings={{}} padding={{ bottom: 'large' }}>
+    <BlockWrapper settings={{}}>
       <BreadcrumbsBar
         breadcrumbs={[
           {
