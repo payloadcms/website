@@ -15,12 +15,8 @@ import Payload3D from '@components/Payload3D/index.js'
 import { DiscordIcon } from '@root/graphics/DiscordIcon/index.js'
 import { FacebookIcon } from '@root/graphics/FacebookIcon/index.js'
 import { InstagramIcon } from '@root/graphics/InstagramIcon/index.js'
-import { ThemeAutoIcon } from '@root/graphics/ThemeAutoIcon/index.js'
-import { ThemeDarkIcon } from '@root/graphics/ThemeDarkIcon/index.js'
-import { ThemeLightIcon } from '@root/graphics/ThemeLightIcon/index.js'
 import { TwitterIconAlt } from '@root/graphics/TwitterIconAlt/index.js'
 import { YoutubeIcon } from '@root/graphics/YoutubeIcon/index.js'
-import { ChevronUpDownIcon } from '@root/icons/ChevronUpDownIcon/index.js'
 import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver/index.js'
 import { useThemePreference } from '@root/providers/Theme/index.js'
 import { getImplicitPreference, themeLocalStorageKey } from '@root/providers/Theme/shared.js'
@@ -28,6 +24,7 @@ import { Theme } from '@root/providers/Theme/types.js'
 import { getCookie } from '@root/utilities/get-cookie.js'
 
 import classes from './index.module.scss'
+import { SelectTheme } from '@components/SelectTheme'
 
 export const Footer: React.FC<FooterType> = props => {
   const { columns } = props
@@ -300,32 +297,8 @@ export const Footer: React.FC<FooterType> = props => {
                 <DiscordIcon />
               </a>
             </div>
-
             <div className={classes.selectContainer}>
-              <label className="visually-hidden" htmlFor={themeId}>
-                Switch themes
-              </label>
-              {selectRef?.current && (
-                <div className={`${classes.switcherIcon} ${classes.themeIcon}`}>
-                  {selectRef.current.value === 'auto' && <ThemeAutoIcon />}
-                  {selectRef.current.value === 'light' && <ThemeLightIcon />}
-                  {selectRef.current.value === 'dark' && <ThemeDarkIcon />}
-                </div>
-              )}
-
-              <select
-                id={themeId}
-                onChange={e => onThemeChange(e.target.value as Theme & 'auto')}
-                ref={selectRef}
-              >
-                <option value="auto">Auto</option>
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
-              </select>
-
-              <ChevronUpDownIcon
-                className={`${classes.switcherIcon} ${classes.upDownChevronIcon}`}
-              />
+              <SelectTheme selectRef={selectRef} themeId={themeId} onThemeChange={onThemeChange} />
             </div>
           </div>
         </div>
