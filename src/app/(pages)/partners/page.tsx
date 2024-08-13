@@ -26,7 +26,7 @@ export default async function Partners() {
   if (!partnerProgram) {
     return notFound()
   }
-  const { hero, featuredPartners, contentBlocks } = partnerProgram
+  const { featuredPartners, contentBlocks } = partnerProgram
 
   const partners = await fetchPartners()
   const partnerList = partners.map(partner => {
@@ -63,11 +63,6 @@ export default async function Partners() {
       return partnerList.some(partner => partner.budgets.includes(budget.value))
     }),
   }
-
-  const hasHeroLinks = hero?.heroLinks && hero.heroLinks.length > 0
-
-  const breadcrumbBarLinks =
-    (hero?.breadcrumbBarLinks && hero?.breadcrumbBarLinks.map(({ link }) => link)) ?? []
 
   return (
     <BlockWrapper settings={{}}>
