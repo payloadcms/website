@@ -40,10 +40,19 @@ export const Statement: React.FC<StatementProps> = props => {
       ? 'cols-8 start-5 cols-m-8 start-m-1'
       : mediaWidth === 'large'
       ? 'cols-16 cols-m-8'
-      : 'cols-12 start-3 cols-m-8 start-m-1'
+      : mediaWidth === 'full'
+      ? 'cols-16 cols-m-8'
+      : 'cols - 12 start - 3 cols - m - 8 start - m - 1'
 
   return (
-    <BlockWrapper settings={settings} padding={padding}>
+    <BlockWrapper
+      settings={settings}
+      padding={{
+        ...padding,
+        top: mediaWidth === 'full' ? 'large' : undefined,
+        bottom: mediaWidth === 'full' ? 'large' : undefined,
+      }}
+    >
       <BackgroundGrid zIndex={0} />
       <Gutter className={classes.statementWrap}>
         <div className={['grid'].filter(Boolean).join(' ')}>
@@ -79,7 +88,11 @@ export const Statement: React.FC<StatementProps> = props => {
             {assetType === 'media'
               ? media &&
                 typeof media !== 'string' && (
-                  <div className={mediaWidthClass}>
+                  <div
+                    className={[mediaWidthClass, mediaWidth === 'full' && classes.fullMedia]
+                      .filter(Boolean)
+                      .join(' ')}
+                  >
                     <Media
                       resource={media}
                       className={[mediaWidthClass, backgroundGlow && classes[backgroundGlow]]
