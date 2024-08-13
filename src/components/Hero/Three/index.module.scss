@@ -19,7 +19,6 @@
 }
 
 .wrapper {
-  min-height: calc(100vh - (var(--wrapper-padding-top) + var(--page-padding-top)) * 3);
   align-items: center;
   pointer-events: none;
   z-index: 2;
