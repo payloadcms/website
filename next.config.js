@@ -14,12 +14,24 @@ const withBundleAnalyzer = bundleAnalyzer({
 import { withSentryConfig } from '@sentry/nextjs'
 
 const localhost = process.env.NEXT_PUBLIC_IS_LIVE
-  ? null
-  : {
-      protocol: 'http',
-      hostname: 'localhost',
-      port: '3000',
-    }
+  ? []
+  : [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3000',
+      },
+      {
+        protocol: 'http',
+        hostname: 'cms.local.payloadcms.com',
+        port: '8000',
+      },
+      {
+        protocol: 'http',
+        hostname: 'cms.local.payloadcms.com',
+        port: '8001',
+      },
+    ]
 
 const nextConfig = withBundleAnalyzer({
   eslint: {
@@ -29,7 +41,7 @@ const nextConfig = withBundleAnalyzer({
   images: {
     minimumCacheTTL: 6000,
     remotePatterns: [
-      localhost,
+      ...localhost,
       {
         protocol: 'https',
         hostname: 'cms.payloadcms.com',
