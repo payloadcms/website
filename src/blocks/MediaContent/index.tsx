@@ -24,14 +24,14 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
           // media-content
           <React.Fragment>
             <div
-              className={[classes.media, classes.left, 'cols-8 cols-m-8 start-1']
+              className={[classes.media, classes.left, 'cols-10 cols-m-8 start-1']
                 .filter(Boolean)
                 .join(' ')}
             >
               {images?.length && images.length > 0 ? <MediaParallax media={images} /> : null}
             </div>
             <div
-              className={[classes.content, classes.right, 'cols-6 start-11 start-m-1 cols-m-8']
+              className={[classes.content, classes.right, 'cols-4 start-13 start-m-1 cols-m-8']
                 .filter(Boolean)
                 .join(' ')}
             >
@@ -54,7 +54,7 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
           // content-media
           <React.Fragment>
             <div
-              className={[classes.content, classes.left, 'cols-6 start-1 cols-m-8']
+              className={[classes.content, classes.left, 'cols-4 start-1 cols-m-8']
                 .filter(Boolean)
                 .join(' ')}
             >
@@ -73,7 +73,7 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
               )}
             </div>
             <div
-              className={[classes.media, classes.right, 'cols-8 start-9 cols-m-8 start-m-1']
+              className={[classes.media, classes.right, 'cols-10 start-7 cols-m-8 start-m-1']
                 .filter(Boolean)
                 .join(' ')}
             >
