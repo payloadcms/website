@@ -53,11 +53,11 @@
 }
 
 .assetWrap {
-  margin-block: 4rem;
+  padding-block: 4rem;
   position: relative;
 
   @include mid-break {
-    margin-block: 2rem;
+    padding-block: 2rem;
   }
 }
 
