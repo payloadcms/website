@@ -1,6 +1,4 @@
-'use client'
-
-import Spline from '@splinetool/react-spline'
+import Spline from '@splinetool/react-spline/next'
 
 import classes from './index.module.scss'
 
@@ -12,7 +10,7 @@ export default function BackgroundGradient(props: BackgroundGradientProps) {
   const { className } = props
   return (
     <div className={[className, classes.backgroundGradientWrapper].filter(Boolean).join(' ')}>
-      <Spline scene="https://prod.spline.design/GFla7wz3vMamaA6L/scene.splinecode" />
+      <Spline scene="https://prod.spline.design/CgEYt8e8SZrHsfcR/scene.splinecode" />
     </div>
   )
 }

@@ -10,24 +10,40 @@ import { RichText } from '@components/RichText/index.js'
 import { Page } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
+import { MediaStack } from '@components/MediaStack'
 
 export const ThreeHero: React.FC<
-  Pick<Page['hero'], 'richText' | 'media' | 'buttons' | 'description' | 'theme'> & {
+  Pick<
+    Page['hero'],
+    | 'richText'
+    | 'images'
+    | 'buttons'
+    | 'description'
+    | 'theme'
+    | 'enableAnnouncement'
+    | 'announcementLink'
+  > & {
     breadcrumbs?: Page['breadcrumbs']
     firstContentBlock?: BlocksProp
   }
-> = ({ richText, buttons, theme, breadcrumbs }) => {
+> = ({ richText, buttons, theme, breadcrumbs, images, enableAnnouncement, announcementLink }) => {
   const hasBreadcrumbs = Array.isArray(breadcrumbs) && breadcrumbs.length > 0
   return (
     <>
       <BlockWrapper
         settings={{ theme }}
         className={[classes.blockWrapper, hasBreadcrumbs ? classes.hasBreadcrumbs : ''].join(' ')}
+        padding={{ top: 'hero', bottom: 'large' }}
       >
         <BackgroundGrid zIndex={1} />
         <Gutter>
           <div className={[classes.wrapper, 'grid'].filter(Boolean).join(' ')}>
             <div className={[classes.sidebar, 'cols-4 cols-m-8 start-1'].filter(Boolean).join(' ')}>
+              {enableAnnouncement && (
+                <div className={classes.announcementLink}>
+                  <CMSLink {...announcementLink} />
+                </div>
+              )}
               <RichText
                 content={richText}
                 className={[classes.richText].filter(Boolean).join(' ')}
@@ -63,7 +79,10 @@ export const ThreeHero: React.FC<
               </div>
             </div>
             <div className={[classes.graphicWrapper, 'cols-8 start-8'].join(' ')}>
-              <BigThree />
+              {/* <BigThree /> */}
+              {images && Array.isArray(images) && images.length > 0 && (
+                <MediaStack media={images} />
+              )}
             </div>
           </div>
         </Gutter>
