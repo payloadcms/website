@@ -799,7 +799,7 @@ export interface CaseStudy {
               assetType?: ('media' | 'code') | null;
               media?: string | Media | null;
               code?: string | null;
-              mediaWidth?: ('small' | 'medium' | 'large') | null;
+              mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
               backgroundGlow?: ('none' | 'colorful' | 'white') | null;
             };
             id?: string | null;
@@ -2205,7 +2205,7 @@ export interface Page {
           assetType?: ('media' | 'code') | null;
           media?: string | Media | null;
           code?: string | null;
-          mediaWidth?: ('small' | 'medium' | 'large') | null;
+          mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
           backgroundGlow?: ('none' | 'colorful' | 'white') | null;
         };
         id?: string | null;
@@ -3510,7 +3510,7 @@ export interface ReusableContent {
           assetType?: ('media' | 'code') | null;
           media?: string | Media | null;
           code?: string | null;
-          mediaWidth?: ('small' | 'medium' | 'large') | null;
+          mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
           backgroundGlow?: ('none' | 'colorful' | 'white') | null;
         };
         id?: string | null;
@@ -4336,61 +4336,6 @@ export interface TopBar {
 export interface PartnerProgram {
   id: string;
   contactForm: string | Form;
-  hero?: {
-    richText?:
-      | {
-          [k: string]: unknown;
-        }[]
-      | null;
-    breadcrumbBarLinks?:
-      | {
-          link: {
-            type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null)
-              | ({
-                  relationTo: 'case-studies';
-                  value: string | CaseStudy;
-                } | null);
-            url?: string | null;
-            label: string;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    heroLinks?:
-      | {
-          link: {
-            type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: string | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: string | Post;
-                } | null)
-              | ({
-                  relationTo: 'case-studies';
-                  value: string | CaseStudy;
-                } | null);
-            url?: string | null;
-            label: string;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
   featuredPartners: {
     description?: string | null;
     partners: (string | Partner)[];
@@ -5141,7 +5086,7 @@ export interface PartnerProgram {
                 assetType?: ('media' | 'code') | null;
                 media?: string | Media | null;
                 code?: string | null;
-                mediaWidth?: ('small' | 'medium' | 'large') | null;
+                mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
                 backgroundGlow?: ('none' | 'colorful' | 'white') | null;
               };
               id?: string | null;
@@ -6224,7 +6169,7 @@ export interface PartnerProgram {
                 assetType?: ('media' | 'code') | null;
                 media?: string | Media | null;
                 code?: string | null;
-                mediaWidth?: ('small' | 'medium' | 'large') | null;
+                mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
                 backgroundGlow?: ('none' | 'colorful' | 'white') | null;
               };
               id?: string | null;
