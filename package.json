@@ -33,7 +33,7 @@
     "@next/bundle-analyzer": "^13.4.2",
     "@sentry/nextjs": "^7.80.1",
     "@splinetool/react-spline": "^4.0.0",
-    "@splinetool/runtime": "^1.9.6",
+    "@splinetool/runtime": "^1.9.10",
     "@stripe/react-stripe-js": "^1.16.5",
     "@stripe/stripe-js": "^1.47.0",
     "@types/react-dom": "^18.2.15",
