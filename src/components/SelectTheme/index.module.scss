@@ -1,0 +1,78 @@
+.themeIcons {
+  display: inline-flex;
+  height: 1rem;
+  justify-content: center;
+}
+
+.themeIcon {
+  width: var(--theme-icon-width);
+}
+
+.upDownChevronIcon {
+  width: var(--theme-switcher-icon-width);
+  right: 0.75rem;
+  pointer-events: none;
+}
+
+.SelectTrigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  color: var(--theme-elevation-500);
+  font-size: 1rem;
+  line-height: 1.5;
+  width: 100%;
+  background-color: black;
+  border:1px solid var(--grid-line-dark);
+  cursor: pointer;
+}
+
+.SelectContent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--theme-elevation-500);
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: black;
+  border:1px solid var(--grid-line-dark);
+  cursor: pointer;
+  z-index: 10;
+ 
+}
+
+.SelectItem {
+  font-size: 1rem;
+  padding: 1rem 1.5rem;
+  line-height: 1;
+  height: 35px;
+  padding: 8px 16px;
+  border:1px solid var(--grid-line-dark);
+  width: 90vw;
+  cursor: pointer;
+
+  @media screen and (min-width: 600px) {
+    width: 95vw; 
+  }
+  @media screen and (min-width: 800px) {
+    width: 46vw; 
+  }
+  @media screen and (min-width: 1000px) {
+    width: 21vw; 
+  }
+  
+}
+
+.SelectItem[data-highlighted] {
+  outline: none;
+  background-color: rgb(178, 217, 231);
+}
+
+.switcherIcon {
+  display: inline-flex;
+  height: 1rem;
+  justify-content: center;
+  position: absolute;
+  margin-left: 1.25rem;
+}

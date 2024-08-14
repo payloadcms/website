@@ -132,6 +132,7 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
   max-width: 100%;
   align-items: center;
   margin-bottom: 3rem;
+  z-index: 0;
 }
 
 .socialIconLink {
@@ -187,14 +188,4 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
   justify-content: center;
   position: absolute;
   margin-left: 1.25rem;
-}
-
-.themeIcon {
-  width: var(--theme-icon-width);
-}
-
-.upDownChevronIcon {
-  width: var(--theme-switcher-icon-width);
-  right: 0.75rem;
-  pointer-events: none;
 }

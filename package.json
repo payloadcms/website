@@ -31,6 +31,7 @@
     "@faceless-ui/slider": "^2.0.0-beta.0",
     "@faceless-ui/window-info": "^3.0.0-beta.0",
     "@next/bundle-analyzer": "^13.4.2",
+    "@radix-ui/react-select": "^2.1.1",
     "@sentry/nextjs": "^7.80.1",
     "@splinetool/react-spline": "^4.0.0",
     "@splinetool/runtime": "^1.9.6",
