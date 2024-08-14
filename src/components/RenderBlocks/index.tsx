@@ -14,7 +14,6 @@ import { CodeBlock } from '@blocks/CodeBlock/index.js'
 import { CodeFeature } from '@blocks/CodeFeature/index.js'
 import { ContentBlock } from '@blocks/Content/index.js'
 import { ContentGrid } from '@blocks/ContentGrid/index.js'
-import { ExampleTabs } from '@blocks/ExampleTabs/index.js'
 import { FormBlock } from '@blocks/FormBlock/index.js'
 import { HoverCards } from '@blocks/HoverCards/index.js'
 import { HoverHighlights } from '@blocks/HoverHighlights/index.js'
@@ -68,7 +67,6 @@ const blockComponents = {
   reusableContentBlock: ReusableContentBlock,
   pricing: Pricing,
   relatedPosts: RelatedPosts,
-  exampleTabs: ExampleTabs,
   statement: Statement,
 }
 
@@ -188,6 +186,8 @@ export const RenderBlocks: React.FC<Props> = props => {
     paddingRight: docPadding,
   }
 
+  const hideBackground = hero?.type === 'three'
+
   if (hasBlocks) {
     return (
       <Fragment>
@@ -204,6 +204,7 @@ export const RenderBlocks: React.FC<Props> = props => {
                     key={index}
                     id={toKebabCase(blockName)}
                     {...block}
+                    hideBackground
                     padding={getPaddingProps(block, index)}
                     marginAdjustment={{
                       ...marginAdjustment,
