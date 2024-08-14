@@ -23,17 +23,15 @@ export const ThreeHero: React.FC<
     | 'enableAnnouncement'
     | 'announcementLink'
   > & {
-    breadcrumbs?: Page['breadcrumbs']
     firstContentBlock?: BlocksProp
   }
-> = ({ richText, buttons, theme, breadcrumbs, images, enableAnnouncement, announcementLink }) => {
-  const hasBreadcrumbs = Array.isArray(breadcrumbs) && breadcrumbs.length > 0
+> = ({ richText, buttons, theme, images, enableAnnouncement, announcementLink }) => {
   return (
     <>
       <BlockWrapper
         settings={{ theme }}
-        className={[classes.blockWrapper, hasBreadcrumbs ? classes.hasBreadcrumbs : ''].join(' ')}
-        padding={{ top: 'hero', bottom: 'large' }}
+        className={classes.blockWrapper}
+        padding={{ top: 'large', bottom: 'large' }}
       >
         <BackgroundGrid zIndex={1} />
         <Gutter>

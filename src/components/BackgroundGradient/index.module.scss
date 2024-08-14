@@ -18,21 +18,6 @@
   left: 0;
   background-color: var(--color-base-1000);
 
-  &::before {
-    content: '';
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: url('/images/crt.gif');
-    background-repeat: repeat;
-    background-size: 256px;
-    background-position: center center;
-    mix-blend-mode: overlay;
-  }
-
   &::after {
     content: "";
     display: block;

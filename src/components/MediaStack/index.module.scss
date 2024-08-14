@@ -1,13 +1,23 @@
 @use '@scss/common' as *;
 
-@keyframes fadeIn {
+@keyframes fadeInTop {
   0% {
     opacity: 0;
     transform: translateY(4rem);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(-3rem);
+  }
+}
+@keyframes fadeInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(8rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(3rem);
   }
 }
 
@@ -45,17 +55,16 @@
   z-index: 1;
   translate: 0, 4rem;
   opacity: 0;
-  animation: fadeIn 2s cubic-bezier(0, .2, .2, 1) 1s forwards;
+  animation: fadeInTop 3s cubic-bezier(0, .2, .2, 1) 0.5s forwards;
 }
 
 .mediaTwo {
-  margin-top: 8rem;
   top: 0;
   left: 0;
   z-index: 0;
   translate: 0, 4rem;
   opacity: 0;
-  animation: fadeIn 2s cubic-bezier(0, .2, .2, 1) 1.25s forwards;
+  animation: fadeInBottom 3s cubic-bezier(0, .2, .2, 1) 0.5s forwards;
 
   @include mid-break {
     margin-top: 4rem;
