@@ -1,6 +1,5 @@
-import Spline from '@splinetool/react-spline/next'
-
 import classes from './index.module.scss'
+import { Suspense } from 'react'
 
 type BackgroundGradientProps = {
   className?: string
@@ -8,9 +7,12 @@ type BackgroundGradientProps = {
 
 export default function BackgroundGradient(props: BackgroundGradientProps) {
   const { className } = props
+
   return (
     <div className={[className, classes.backgroundGradientWrapper].filter(Boolean).join(' ')}>
-      <Spline scene="https://prod.spline.design/CgEYt8e8SZrHsfcR/scene.splinecode" />
+      <Suspense>
+        <video autoPlay muted loop src="/images/glass-animation.mp4" playsInline={true} />
+      </Suspense>
     </div>
   )
 }
