@@ -25,9 +25,9 @@ import { useHeaderObserver } from '@root/providers/HeaderIntersectionObserver/in
 import { useThemePreference } from '@root/providers/Theme/index.js'
 import { getImplicitPreference, themeLocalStorageKey } from '@root/providers/Theme/shared.js'
 import { Theme } from '@root/providers/Theme/types.js'
-import { getCookie } from '@root/utilities/get-cookie.js'
 
 import classes from './index.module.scss'
+import { NewsletterSignUp } from '@components/NewsletterSignUp'
 
 export const Footer: React.FC<FooterType> = props => {
   const { columns } = props
@@ -36,36 +36,6 @@ export const Footer: React.FC<FooterType> = props => {
   const { setHeaderTheme } = useHeaderObserver()
   const wrapperRef = React.useRef<HTMLElement>(null)
   const selectRef = React.useRef<HTMLSelectElement>(null)
-
-  const [buttonClicked, setButtonClicked] = React.useState(false)
-
-  const submitButtonRef = React.useRef<HTMLButtonElement>(null)
-
-  const handleButtonClick = () => {
-    setButtonClicked(true)
-  }
-
-  React.useEffect(() => {
-    const buttonElement = submitButtonRef.current
-
-    if (buttonElement) {
-      buttonElement.addEventListener('click', handleButtonClick)
-    }
-
-    return () => {
-      if (buttonElement) {
-        buttonElement.removeEventListener('click', handleButtonClick)
-      }
-    }
-  }, [])
-
-  const [formData, setFormData] = React.useState({ email: '' })
-
-  const handleChange = e => {
-    setFormData({ ...formData, [e.target?.name]: e.target?.value })
-  }
-
-  const [error, setError] = React.useState<{ status?: string; message: string } | undefined>()
 
   const onThemeChange = (themeToSet: Theme & 'auto') => {
     if (themeToSet === 'auto') {
@@ -85,7 +55,6 @@ export const Footer: React.FC<FooterType> = props => {
       selectRef.current.value = preference ?? 'auto'
     }
   }, [])
-  const router = useRouter()
 
   const pathname = usePathname()
 
@@ -106,69 +75,6 @@ export const Footer: React.FC<FooterType> = props => {
   const isCloudPage = pathnameSegments.some(segment => allowedSegments.includes(segment))
 
   const themeId = useId()
-  const newsletterId = useId()
-
-  const onSubmit = React.useCallback(() => {
-    setButtonClicked(false)
-    const submitForm = async () => {
-      setError(undefined)
-
-      try {
-        const formID = process.env.NEXT_PUBLIC_NEWSLETTER_FORM_ID
-        const hubspotCookie = getCookie('hubspotutk')
-        const pageUri = `${process.env.NEXT_PUBLIC_SITE_URL}${pathname}`
-        const slugParts = pathname?.split('/')
-        const pageName = slugParts?.at(-1) === '' ? 'Home' : slugParts?.at(-1)
-        const req = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/form-submissions`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            form: formID,
-            submissionData: { field: 'email', value: formData.email },
-            hubspotCookie,
-            pageUri,
-            pageName,
-          }),
-        })
-
-        const res = await req.json()
-
-        if (req.status >= 400) {
-          setError({
-            status: res.status,
-            message: res.errors?.[0]?.message || 'Internal Server Error',
-          })
-
-          return
-        }
-
-        const url = '/thanks-for-subscribing'
-        const redirectUrl = new URL(url, process.env.NEXT_PUBLIC_SITE_URL)
-
-        try {
-          if (url.startsWith('/') || redirectUrl.origin === process.env.NEXT_PUBLIC_SITE_URL) {
-            router.push(redirectUrl.href)
-          } else {
-            window.location.assign(url)
-          }
-        } catch (err) {
-          console.warn(err) // eslint-disable-line no-console
-          setError({
-            message: 'Something went wrong. Did not redirect.',
-          })
-        }
-      } catch (err) {
-        console.warn(err) // eslint-disable-line no-console
-        setError({
-          message: 'Newsletter form submission failed.',
-        })
-      }
-    }
-    submitForm()
-  }, [pathname, formData, router])
 
   return (
     <footer ref={wrapperRef} className={classes.footer} data-theme="dark">
@@ -221,37 +127,7 @@ export const Footer: React.FC<FooterType> = props => {
 
           <div className={['cols-4 cols-m-4 cols-s-8'].filter(Boolean).join(' ')}>
             <p className={`${classes.colHeader} ${classes.thirdColumn}`}>Stay connected</p>
-            <div>
-              {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
-              <FormComponent onSubmit={onSubmit}>
-                <div className={classes.inputWrap}>
-                  <label className="visually-hidden" htmlFor={newsletterId}>
-                    Subscribe to our newsletter
-                  </label>
-                  <Text
-                    type="text"
-                    path={newsletterId}
-                    name="email"
-                    value={formData.email}
-                    customOnChange={handleChange}
-                    required
-                    validate={validateEmail}
-                    className={classes.emailInput}
-                    placeholder="Enter your email"
-                  />
-                  <button ref={submitButtonRef} className={classes.submitButton} type="submit">
-                    <ArrowIcon className={[classes.inputArrow].filter(Boolean).join(' ')} />
-                    <span className="visually-hidden">Submit</span>
-                  </button>
-                </div>
-
-                <div className={classes.subscribeAction}>
-                  <p className={classes.subscribeDesc}>
-                    Sign up to receive periodic updates and feature releases to your email.
-                  </p>
-                </div>
-              </FormComponent>
-            </div>
+            <NewsletterSignUp />
 
             <div className={classes.socialLinks}>
               <a
