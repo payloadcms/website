@@ -7,6 +7,7 @@
   flex-direction: column;
   justify-content: center;
   pointer-events: none;
+  overflow-x: hidden;
 
   @include mid-break {
     padding-top: 4rem !important;
@@ -96,7 +97,6 @@
     padding-top: 2rem;
     width: calc(var(--column) * 8);
     position: relative;
-    left: var(--gutter-h);
   }
 }
 

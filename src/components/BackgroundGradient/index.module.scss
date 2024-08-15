@@ -8,8 +8,6 @@
 }
 
 .backgroundGradientWrapper {
-  opacity: 0;
-  animation: fadeIn 2s ease-in-out forwards;
   position: fixed;
   z-index: 0;
   top: 0;
@@ -17,12 +15,36 @@
   bottom: 0;
   left: 0;
   background-color: var(--color-base-1000);
+  max-height: 100vh;
+  pointer-events: none;
+
+  & video {
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out forwards;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url('/images/crt.gif');
+    background-repeat: repeat;
+    background-size: 256px;
+    background-position: center center;
+    mix-blend-mode: multiply;
+  }
 
   &::after {
     content: "";
     display: block;
     position: absolute;
-    z-index: 2;
     top: 0;
     right: 0;
     bottom: 0;
