@@ -45,14 +45,7 @@ export const Statement: React.FC<StatementProps> = props => {
       : 'cols - 12 start - 3 cols - m - 8 start - m - 1'
 
   return (
-    <BlockWrapper
-      settings={settings}
-      padding={{
-        ...padding,
-        top: mediaWidth === 'full' ? 'large' : undefined,
-        bottom: mediaWidth === 'full' ? 'large' : undefined,
-      }}
-    >
+    <BlockWrapper settings={settings} padding={padding}>
       <BackgroundGrid zIndex={0} />
       <Gutter className={classes.statementWrap}>
         <div className={['grid'].filter(Boolean).join(' ')}>
