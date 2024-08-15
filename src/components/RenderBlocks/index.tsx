@@ -204,7 +204,7 @@ export const RenderBlocks: React.FC<Props> = props => {
                     key={index}
                     id={toKebabCase(blockName)}
                     {...block}
-                    hideBackground
+                    hideBackground={hideBackground}
                     padding={getPaddingProps(block, index)}
                     marginAdjustment={{
                       ...marginAdjustment,
