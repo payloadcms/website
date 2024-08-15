@@ -11,6 +11,7 @@ import classes from './index.module.scss'
 
 export type ContentGridProps = Extract<Page['layout'][0], { blockType: 'contentGrid' }> & {
   padding?: PaddingProps
+  hideBackground?: boolean
 }
 
 type CellsProps = ContentGridProps['contentGridFields'] & {
@@ -43,14 +44,22 @@ const Cells: React.FC<CellsProps> = ({ cells, className, showNumbers, style: sty
   )
 }
 
-export const ContentGrid: React.FC<ContentGridProps> = ({ contentGridFields, padding }) => {
+export const ContentGrid: React.FC<ContentGridProps> = ({
+  contentGridFields,
+  padding,
+  hideBackground,
+}) => {
   const { settings, style: styleFromProps, content, links } = contentGridFields || {}
 
   const hasLinks = Array.isArray(links) && links.length > 0
   const style = styleFromProps ?? 'gridBelow'
 
   return (
-    <BlockWrapper settings={settings} padding={{ ...padding, top: 'large' }}>
+    <BlockWrapper
+      settings={settings}
+      padding={{ ...padding, top: 'large' }}
+      hideBackground={hideBackground}
+    >
       <BackgroundGrid zIndex={0} />
       <Gutter className={[classes.wrapper, classes[style], 'grid'].filter(Boolean).join(' ')}>
         <div

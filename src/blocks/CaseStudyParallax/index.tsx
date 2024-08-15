@@ -19,6 +19,7 @@ type ContentProps = Extract<Page['layout'][0], { blockType: 'caseStudyParallax' 
 type Props = ContentProps & {
   className?: string
   padding: PaddingProps
+  hideBackground?: boolean
 }
 
 type StickyBlockProps = ContentProps & {
@@ -102,7 +103,7 @@ export const QuoteStickyBlock: React.FC<StickyBlockProps> = props => {
 }
 
 export const CaseStudyParallax: React.FC<Props> = props => {
-  const { caseStudyParallaxFields, padding } = props
+  const { caseStudyParallaxFields, padding, hideBackground } = props
   const activeIndex = React.useRef(0)
   const [scrollProgress, setScrollProgress] = React.useState<number>(0)
   const [delayNavScroll, setDelayNavScroll] = React.useState<boolean>(false)
@@ -235,6 +236,7 @@ export const CaseStudyParallax: React.FC<Props> = props => {
       <BlockWrapper
         settings={caseStudyParallaxFields.settings}
         padding={padding}
+        hideBackground={hideBackground}
         className={classes.wrapper}
       >
         <BackgroundGrid zIndex={0} />

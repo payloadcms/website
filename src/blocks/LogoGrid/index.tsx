@@ -26,6 +26,7 @@ type PositionedLogo = {
 
 export type LogoGridProps = Extract<Page['layout'][0], { blockType: 'logoGrid' }> & {
   padding?: PaddingProps
+  hideBackground?: boolean
 }
 
 const TOTAL_CELLS = 8
@@ -40,7 +41,7 @@ const getRandomPosition = (excludePositions: number[]) => {
   return newPos
 }
 
-export const LogoGrid: React.FC<LogoGridProps> = ({ logoGridFields, padding }) => {
+export const LogoGrid: React.FC<LogoGridProps> = ({ logoGridFields, padding, hideBackground }) => {
   const { richText, enableLink, link, logos, settings } = logoGridFields
 
   const [logoPositions, setLogoPositions] = useState<PositionedLogo[]>([])
@@ -104,6 +105,7 @@ export const LogoGrid: React.FC<LogoGridProps> = ({ logoGridFields, padding }) =
       className={[classes.logoGrid].filter(Boolean).join(' ')}
       padding={padding}
       settings={settings}
+      hideBackground={hideBackground}
     >
       <Gutter>
         <BackgroundGrid className={classes.backgroundGrid} zIndex={0} />

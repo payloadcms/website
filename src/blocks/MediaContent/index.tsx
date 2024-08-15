@@ -13,6 +13,7 @@ import classes from './index.module.scss'
 
 export type MediaContentProps = Extract<Page['layout'][0], { blockType: 'mediaContent' }> & {
   padding: PaddingProps
+  hideBackground?: boolean
 }
 export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFields, padding }) => {
   const { link, images, richText, alignment, enableLink, settings } = mediaContentFields
@@ -90,7 +91,7 @@ export const MediaContent: React.FC<MediaContentProps> = props => {
   const { settings } = props.mediaContentFields
 
   return (
-    <BlockWrapper padding={props.padding} settings={settings}>
+    <BlockWrapper padding={props.padding} settings={settings} hideBackground={props.hideBackground}>
       <BackgroundGrid zIndex={0} />
       <MediaContentBlock {...props} />
       <div className={classes.background} />

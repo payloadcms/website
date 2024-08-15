@@ -13,12 +13,14 @@ import classes from './index.module.scss'
 type Props = Extract<Page['layout'][0], { blockType: 'stickyHighlights' }> & {
   className?: string
   padding: PaddingProps
+  hideBackground?: boolean
 }
 
 export const StickyHighlights: React.FC<Props> = ({
   stickyHighlightsFields,
   className,
   padding,
+  hideBackground,
 }) => {
   const { highlights, settings } = stickyHighlightsFields || {}
   const { yDirection } = useScrollInfo()
@@ -32,6 +34,7 @@ export const StickyHighlights: React.FC<Props> = ({
     <BlockWrapper
       settings={settings}
       padding={padding}
+      hideBackground={hideBackground}
       className={[classes.stickyHighlights, className].filter(Boolean).join(' ')}
       id={id}
     >

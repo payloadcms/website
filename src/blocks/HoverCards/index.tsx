@@ -15,6 +15,7 @@ import classes from './index.module.scss'
 
 export type HoverCardsProps = Extract<Page['layout'][0], { blockType: 'hoverCards' }> & {
   padding: PaddingProps
+  hideBackground?: boolean
 }
 
 const Card: React.FC<{
@@ -44,6 +45,7 @@ export const HoverCards: React.FC<HoverCardsProps> = props => {
   const {
     hoverCardsFields: { richText, cards, settings },
     padding,
+    hideBackground,
   } = props
   const [activeGradient, setActiveGradient] = useState(1)
 
@@ -55,6 +57,7 @@ export const HoverCards: React.FC<HoverCardsProps> = props => {
     <BlockWrapper
       settings={{ theme: 'dark' }}
       padding={{ bottom: 'large', top: 'large' }}
+      hideBackground={hideBackground}
       className={[classes.wrapper].filter(Boolean).join(' ')}
     >
       <BackgroundGrid zIndex={1} />

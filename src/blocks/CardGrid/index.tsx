@@ -15,12 +15,14 @@ import classes from './index.module.scss'
 
 export type CardGridProps = Extract<Page['layout'][0], { blockType: 'cardGrid' }> & {
   padding: PaddingProps
+  hideBackground?: boolean
 }
 
 export const CardGrid: React.FC<CardGridProps> = props => {
   const {
     cardGridFields: { richText, cards, links, settings, revealDescription },
     padding,
+    hideBackground,
   } = props
 
   const [index, setIndex] = useState(0)
@@ -39,6 +41,7 @@ export const CardGrid: React.FC<CardGridProps> = props => {
     <BlockWrapper
       settings={settings}
       padding={{ ...padding, top: 'large' }}
+      hideBackground={hideBackground}
       className={[classes.cardGrid].filter(Boolean).join(' ')}
     >
       <BackgroundGrid zIndex={1} />

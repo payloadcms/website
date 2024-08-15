@@ -16,18 +16,20 @@ import classes from './index.module.scss'
 
 export type CallToActionProps = Extract<Page['layout'][0], { blockType: 'cta' }> & {
   padding?: PaddingProps
+  hideBackground?: boolean
 }
 
 export const CallToAction: React.FC<CallToActionProps> = props => {
   const {
     ctaFields: { richText, links, settings },
     padding,
+    hideBackground,
   } = props
 
   const hasLinks = links && links.length > 0
 
   return (
-    <BlockWrapper settings={settings} padding={padding}>
+    <BlockWrapper settings={settings} padding={padding} hideBackground={hideBackground}>
       <BackgroundGrid zIndex={0} />
       <Gutter className={classes.callToAction}>
         <div className={[classes.wrapper].filter(Boolean).join(' ')}>

@@ -14,11 +14,13 @@ export type MediaContentAccordionProps = Extract<
   { blockType: 'mediaContentAccordion' }
 > & {
   padding: PaddingProps
+  hideBackground?: boolean
 }
 
 export const MediaContentAccordion: React.FC<MediaContentAccordionProps> = ({
   mediaContentAccordionFields,
   padding,
+  hideBackground,
 }) => {
   const { settings } = mediaContentAccordionFields || {}
 
@@ -26,6 +28,7 @@ export const MediaContentAccordion: React.FC<MediaContentAccordionProps> = ({
     <BlockWrapper
       settings={settings}
       padding={padding}
+      hideBackground={hideBackground}
       className={[classes.mediaContentAccordion].filter(Boolean).join(' ')}
     >
       <Gutter>

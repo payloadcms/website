@@ -18,9 +18,10 @@ import classes from './index.module.scss'
 
 export type Props = Extract<Page['layout'][0], { blockType: 'pricing' }> & {
   padding: PaddingProps
+  hideBackground?: boolean
 }
 
-export const Pricing: React.FC<Props> = ({ pricingFields, padding }) => {
+export const Pricing: React.FC<Props> = ({ pricingFields, padding, hideBackground }) => {
   const { plans, disclaimer, settings } = pricingFields || {}
 
   const [toggledPlan, setToggledPlan] = React.useState('')
@@ -53,7 +54,12 @@ export const Pricing: React.FC<Props> = ({ pricingFields, padding }) => {
   }
 
   return (
-    <BlockWrapper settings={settings} padding={padding} className={classes.pricingBlock}>
+    <BlockWrapper
+      settings={settings}
+      padding={padding}
+      className={classes.pricingBlock}
+      hideBackground={hideBackground}
+    >
       <BackgroundGrid zIndex={1} />
       <Gutter className={classes.gutter}>
         <BackgroundScanline className={classes.scanline} enableBorders />

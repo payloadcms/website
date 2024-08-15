@@ -15,6 +15,7 @@ import classes from './index.module.scss'
 
 export type LinkGridProps = Extract<Page['layout'][0], { blockType: 'linkGrid' }> & {
   padding?: PaddingProps
+  hideBackground?: boolean
 }
 
 type Fields = Exclude<LinkGridProps['linkGridFields'], undefined>
@@ -34,7 +35,7 @@ export const LinkGrid: React.FC<
     className?: string
   }
 > = props => {
-  const { className, linkGridFields, padding } = props
+  const { className, linkGridFields, padding, hideBackground } = props
 
   const links = linkGridFields?.links
   const hasLinks = Array.isArray(links) && links.length > 0
@@ -43,6 +44,7 @@ export const LinkGrid: React.FC<
     <BlockWrapper
       className={[className, classes.linkGrid].filter(Boolean).join(' ')}
       padding={padding}
+      hideBackground={hideBackground}
       settings={linkGridFields?.settings}
     >
       <BackgroundGrid zIndex={0} />

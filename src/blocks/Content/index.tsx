@@ -10,6 +10,7 @@ import classes from './index.module.scss'
 
 type Props = Extract<Page['layout'][0], { blockType: 'content' }> & {
   padding: PaddingProps
+  hideBackground?: boolean
 }
 
 const Columns: React.FC<Props> = ({ contentFields, padding }) => {
@@ -78,10 +79,11 @@ export const ContentBlock: React.FC<Props> = props => {
   const {
     contentFields: { useLeadingHeader, leadingHeader, settings },
     padding,
+    hideBackground,
   } = props
 
   return (
-    <BlockWrapper padding={padding} settings={settings}>
+    <BlockWrapper padding={padding} settings={settings} hideBackground={hideBackground}>
       <BackgroundGrid zIndex={0} />
       <Gutter className={classes.contentBlock}>
         {useLeadingHeader && <RichText className={classes.leadingHeader} content={leadingHeader} />}

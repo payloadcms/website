@@ -17,12 +17,14 @@ import classes from './index.module.scss'
 type Props = Extract<Page['layout'][0], { blockType: 'codeFeature' }> & {
   className?: string
   padding: PaddingProps
+  hideBackground?: boolean
 }
 
 export const CodeFeatureComponent: React.FC<Props> = ({
   codeFeatureFields,
   className,
   padding,
+  hideBackground,
 }) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [indicatorStyle, setIndicatorStyle] = useState({ width: '0', left: '0' })
@@ -109,6 +111,7 @@ export const CodeFeatureComponent: React.FC<Props> = ({
     <BlockWrapper
       settings={settings}
       padding={padding}
+      hideBackground={hideBackground}
       className={[classes.wrapper, className].filter(Boolean).join(' ')}
       id={id}
     >

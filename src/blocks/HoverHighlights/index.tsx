@@ -12,15 +12,21 @@ import { Highlights } from './Highlights/index.js'
 
 import classes from './index.module.scss'
 
-export type HoverHighlightProps = Extract<Page['layout'][0], { blockType: 'hoverHighlights' }>
+export type HoverHighlightProps = Extract<Page['layout'][0], { blockType: 'hoverHighlights' }> & {
+  hideBackground?: boolean
+}
 
 export const HoverHighlights: React.FC<HoverHighlightProps> = props => {
-  const { hoverHighlightsFields } = props
+  const { hoverHighlightsFields, hideBackground } = props
   const { settings, beforeHighlights, highlights, afterHighlights, link } =
     hoverHighlightsFields || {}
 
   return (
-    <BlockWrapper settings={settings} className={classes.BlockWrapper}>
+    <BlockWrapper
+      settings={settings}
+      className={classes.BlockWrapper}
+      hideBackground={hideBackground}
+    >
       <Gutter className={classes.gutter}>
         <div className={[classes.wrapper, 'grid'].join(' ')}>
           <Highlights

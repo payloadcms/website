@@ -17,17 +17,19 @@ import classes from './index.module.scss'
 
 export type CalloutProps = Extract<Page['layout'][0], { blockType: 'callout' }> & {
   padding: PaddingProps
+  hideBackground?: boolean
 }
 
 export const Callout: React.FC<CalloutProps> = props => {
   const {
     calloutFields: { richText, role, author, logo, images, settings },
     padding,
+    hideBackground,
   } = props
   const hasImages = images?.length && images.length > 0
 
   return (
-    <BlockWrapper settings={settings} padding={padding}>
+    <BlockWrapper settings={settings} padding={padding} hideBackground={hideBackground}>
       <BackgroundGrid className={classes.backgroundGrid} zIndex={0} />
       <div className={classes.wrapper}>
         <Gutter>

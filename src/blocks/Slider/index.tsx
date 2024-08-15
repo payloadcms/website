@@ -20,9 +20,10 @@ import classes from './index.module.scss'
 
 type Props = Extract<Page['layout'][0], { blockType: 'slider' }> & {
   padding?: PaddingProps
+  hideBackground?: boolean
 }
 
-export const SliderBlock: React.FC<Props> = ({ sliderFields, padding }) => {
+export const SliderBlock: React.FC<Props> = ({ sliderFields, padding, hideBackground }) => {
   const { settings } = sliderFields
   const { currentSlideIndex } = useSlider()
 
@@ -37,6 +38,7 @@ export const SliderBlock: React.FC<Props> = ({ sliderFields, padding }) => {
     <BlockWrapper
       settings={settings}
       padding={padding}
+      hideBackground={hideBackground}
       className={[classes.slider].filter(Boolean).join(' ')}
     >
       <BackgroundGrid zIndex={0} />

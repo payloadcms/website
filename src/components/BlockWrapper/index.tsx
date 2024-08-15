@@ -22,6 +22,7 @@ type Props = {
   className?: string
   children: React.ReactNode
   padding?: PaddingProps
+  hideBackground?: boolean
   /**
    * Controls whether or not to set the padding or just provide the css variables
    *
@@ -36,6 +37,7 @@ export const BlockWrapper: React.FC<Props> = ({
   children,
   padding,
   setPadding = true,
+  hideBackground,
   ...rest
 }) => {
   const [themeState, setThemeState] = useState<Page['hero']['theme']>(settings?.theme)
@@ -58,6 +60,7 @@ export const BlockWrapper: React.FC<Props> = ({
           padding?.top && classes[`padding-top-${padding?.top}`],
           padding?.bottom && classes[`padding-bottom-${padding?.bottom}`],
           setPadding && classes.setPadding,
+          hideBackground && classes.hideBackground,
           className,
         ]
           .filter(Boolean)

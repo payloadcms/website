@@ -8,6 +8,10 @@
   background-color: var(--color-base-0);
 }
 
+.hideBackground {
+  background-color: transparent;
+}
+
 .blockWrapper {
   --wrapper-padding-top: 0;
   --wrapper-padding-bottom: 0;

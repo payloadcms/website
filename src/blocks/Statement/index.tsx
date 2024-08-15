@@ -16,6 +16,7 @@ import classes from './index.module.scss'
 
 export type StatementProps = Extract<Page['layout'][0], { blockType: 'statement' }> & {
   padding?: PaddingProps
+  hideBackground?: boolean
 }
 
 export const Statement: React.FC<StatementProps> = props => {
@@ -31,6 +32,7 @@ export const Statement: React.FC<StatementProps> = props => {
       settings,
     },
     padding,
+    hideBackground,
   } = props
 
   const hasLinks = links && links.length > 0
@@ -45,7 +47,7 @@ export const Statement: React.FC<StatementProps> = props => {
       : 'cols - 12 start - 3 cols - m - 8 start - m - 1'
 
   return (
-    <BlockWrapper settings={settings} padding={padding}>
+    <BlockWrapper settings={settings} padding={padding} hideBackground={hideBackground}>
       <BackgroundGrid zIndex={0} />
       <Gutter className={classes.statementWrap}>
         <div className={['grid'].filter(Boolean).join(' ')}>

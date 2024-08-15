@@ -15,16 +15,18 @@ import classes from './index.module.scss'
 
 type Props = Extract<Page['layout'][0], { blockType: 'caseStudyCards' }> & {
   padding?: PaddingProps
+  hideBackground?: boolean
 }
 
 export const CaseStudyCards: React.FC<Props> = props => {
-  const { caseStudyCardFields, padding } = props
+  const { caseStudyCardFields, padding, hideBackground } = props
 
   if (caseStudyCardFields?.cards && caseStudyCardFields?.cards?.length > 0) {
     return (
       <BlockWrapper
         className={classes.caseStudyCards}
         settings={caseStudyCardFields.settings}
+        hideBackground={hideBackground}
         padding={padding}
       >
         <BackgroundGrid />

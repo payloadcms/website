@@ -14,10 +14,11 @@ import classes from './index.module.scss'
 
 export type FormBlockProps = Extract<Page['layout'][0], { blockType: 'form' }> & {
   padding: PaddingProps
+  hideBackground?: boolean
 }
 
 export const FormBlock: React.FC<FormBlockProps> = props => {
-  const { formFields: { richText, form, settings } = {}, padding } = props
+  const { formFields: { richText, form, settings } = {}, padding, hideBackground } = props
   const [imageLoaded, setImageLoaded] = useState(false)
 
   const sectionRef = useRef<HTMLDivElement | null>(null)
@@ -53,6 +54,7 @@ export const FormBlock: React.FC<FormBlockProps> = props => {
       data-theme="dark"
       settings={settings}
       padding={{ top: 'large', bottom: 'large' }}
+      hideBackground={hideBackground}
       className={classes.formBlock}
     >
       <BackgroundGrid zIndex={0} />
