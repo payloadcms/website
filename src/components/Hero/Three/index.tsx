@@ -44,7 +44,7 @@ export const ThreeHero: React.FC<
       <BlockWrapper
         settings={{ theme }}
         className={classes.blockWrapper}
-        padding={{ top: 'large', bottom: 'large' }}
+        padding={{ top: 'small', bottom: 'large' }}
       >
         <BackgroundGrid zIndex={1} />
         <Gutter>
