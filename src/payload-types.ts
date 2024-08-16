@@ -1385,6 +1385,11 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
+    threeCTA?: ('newsletter' | 'buttons') | null;
+    newsletter?: {
+      placeholder?: string | null;
+      description?: string | null;
+    };
     buttons?:
       | (
           | {

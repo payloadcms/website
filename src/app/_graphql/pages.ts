@@ -72,6 +72,11 @@ export const PAGE = `
           links {
             link ${LINK_FIELDS()}
           }
+          threeCTA
+          newsletter {
+            placeholder
+            description
+          }
           buttons {
             ... on Link {
               blockType

@@ -12,6 +12,7 @@ import { Page } from '@root/payload-types.js'
 import classes from './index.module.scss'
 import { MediaStack } from '@components/MediaStack'
 import { NewsletterSignUp } from '@components/NewsletterSignUp'
+import CreatePayloadApp from '@components/CreatePayloadApp'
 
 export const ThreeHero: React.FC<
   Pick<
@@ -23,10 +24,21 @@ export const ThreeHero: React.FC<
     | 'theme'
     | 'enableAnnouncement'
     | 'announcementLink'
+    | 'threeCTA'
+    | 'newsletter'
   > & {
     firstContentBlock?: BlocksProp
   }
-> = ({ richText, buttons, theme, images, enableAnnouncement, announcementLink }) => {
+> = ({
+  richText,
+  threeCTA,
+  newsletter,
+  buttons,
+  theme,
+  images,
+  enableAnnouncement,
+  announcementLink,
+}) => {
   return (
     <>
       <BlockWrapper
@@ -47,7 +59,45 @@ export const ThreeHero: React.FC<
                 content={richText}
                 className={[classes.richText].filter(Boolean).join(' ')}
               />
-              <NewsletterSignUp description={false} />
+              {threeCTA === 'buttons' &&
+                buttons &&
+                Array.isArray(buttons) &&
+                buttons.length > 0 && (
+                  <div className={classes.linksWrapper}>
+                    {Array.isArray(buttons) &&
+                      buttons.map((button, i) => {
+                        if (button.blockType === 'command') {
+                          return (
+                            <CreatePayloadApp
+                              key={i + button.command}
+                              label={button.command}
+                              background={false}
+                              className={classes.createPayloadApp}
+                            />
+                          )
+                        }
+                        if (button.blockType === 'link' && button.link) {
+                          return (
+                            <CMSLink
+                              key={i + button.link.label}
+                              {...button.link}
+                              className={classes.link}
+                              appearance="default"
+                              buttonProps={{
+                                hideBorders: true,
+                              }}
+                            />
+                          )
+                        }
+                      })}
+                  </div>
+                )}
+              {threeCTA === 'newsletter' && (
+                <NewsletterSignUp
+                  placeholder={newsletter?.placeholder ?? undefined}
+                  description={newsletter?.description ?? undefined}
+                />
+              )}
             </div>
             <div className={[classes.graphicWrapper, 'cols-8 start-8'].join(' ')}>
               {/* <BigThree /> */}
