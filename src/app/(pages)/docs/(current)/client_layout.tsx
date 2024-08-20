@@ -11,6 +11,7 @@ import { BackgroundGrid } from '@root/components/BackgroundGrid/index.js'
 import { MenuIcon } from '@root/graphics/MenuIcon/index.js'
 import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
 import { CloseIcon } from '@root/icons/CloseIcon/index.js'
+import { VersionSelector } from '@components/VersionSelector'
 import { DocMeta, Topic } from '../types.js'
 
 import classes from '../index.module.scss'
@@ -37,6 +38,10 @@ export const RenderDocs: React.FC<Props> = ({ topics, children, version = 'curre
   const [indicatorTop, setIndicatorTop] = useState<number | undefined>(undefined)
 
   const topicRefs = useRef<Record<string, HTMLButtonElement | HTMLLIElement | null>>({})
+
+  const hideVersionSelector =
+    process.env.NEXT_PUBLIC_ENABLE_BETA_DOCS !== 'true' &&
+    process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS !== 'true'
 
   useEffect(() => {
     setNavOpen(false)
@@ -122,6 +127,7 @@ export const RenderDocs: React.FC<Props> = ({ topics, children, version = 'curre
             .join(' ')}
           onMouseLeave={() => setResetIndicator(true)}
         >
+          {!hideVersionSelector && <VersionSelector initialVersion={version} />}
           <div className={classes.nav}>
             {topics.map((topic, index) => {
               const topicSlug = topic.slug.toLowerCase()
