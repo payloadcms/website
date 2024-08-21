@@ -41,3 +41,8 @@ next-env.d.ts
 .env
 # Sentry Config File
 .sentryclirc
+
+
+/.idea/*
+!/.idea/runConfigurations
+!/.idea/payload.iml
