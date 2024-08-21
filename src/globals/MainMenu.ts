@@ -11,35 +11,33 @@ export const MainMenu: GlobalConfig = {
   },
   fields: [
     {
+      name: 'tabs',
+      type: 'array',
       admin: {
         components: {
-          RowLabel: ({ data }) => data.label || '...',
+          RowLabel: './globals/CustomRowLabelTabs',
         },
       },
-      name: 'tabs',
-      label: 'Main Menu Items',
-      type: 'array',
       fields: [
         {
           name: 'label',
-          required: true,
           type: 'text',
+          required: true,
         },
         {
           type: 'row',
           fields: [
             {
-              type: 'checkbox',
               name: 'enableDirectLink',
+              type: 'checkbox',
             },
             {
-              type: 'checkbox',
               name: 'enableDropdown',
+              type: 'checkbox',
             },
           ],
         },
         {
-          label: 'Direct Link',
           type: 'collapsible',
           admin: {
             condition: (_, siblingData) => siblingData.enableDirectLink,
@@ -50,9 +48,9 @@ export const MainMenu: GlobalConfig = {
               disableLabel: true,
             }),
           ],
+          label: 'Direct Link',
         },
         {
-          label: 'Dropdown Menu',
           type: 'collapsible',
           admin: {
             condition: (_, siblingData) => siblingData.enableDropdown,
@@ -67,10 +65,10 @@ export const MainMenu: GlobalConfig = {
               type: 'array',
               fields: [
                 link({
+                  appearances: false,
                   overrides: {
                     label: false,
                   },
-                  appearances: false,
                 }),
               ],
             },
@@ -79,17 +77,7 @@ export const MainMenu: GlobalConfig = {
               type: 'array',
               admin: {
                 components: {
-                  RowLabel: ({ data }) => {
-                    if (data.style === 'default') {
-                      return data.defaultLink?.link.label
-                    }
-                    if (data.style === 'featured') {
-                      return data.featuredLink?.tag
-                    }
-                    if (data.style === 'list') {
-                      return data.listLinks?.tag
-                    }
-                  },
+                  RowLabel: './globals/CustomRowLabelNavItems',
                 },
               },
               fields: [
@@ -120,10 +108,10 @@ export const MainMenu: GlobalConfig = {
                   },
                   fields: [
                     link({
+                      appearances: false,
                       overrides: {
                         label: false,
                       },
-                      appearances: false,
                     }),
                     {
                       name: 'description',
@@ -151,10 +139,10 @@ export const MainMenu: GlobalConfig = {
                       type: 'array',
                       fields: [
                         link({
+                          appearances: false,
                           overrides: {
                             label: false,
                           },
-                          appearances: false,
                         }),
                       ],
                     },
@@ -176,10 +164,10 @@ export const MainMenu: GlobalConfig = {
                       type: 'array',
                       fields: [
                         link({
+                          appearances: false,
                           overrides: {
                             label: false,
                           },
-                          appearances: false,
                         }),
                       ],
                     },
@@ -188,8 +176,10 @@ export const MainMenu: GlobalConfig = {
               ],
             },
           ],
+          label: 'Dropdown Menu',
         },
       ],
+      label: 'Main Menu Items',
     },
   ],
 }

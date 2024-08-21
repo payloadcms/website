@@ -1,18 +1,20 @@
-import path from 'path'
 import type { CollectionConfig } from 'payload'
+
+import path from 'path'
+import { fileURLToPath } from 'url'
 
 import { isAdmin } from '../access/isAdmin'
 
+const filename = fileURLToPath(import.meta.url)
+const dirname = path.dirname(filename)
+
 export const Media: CollectionConfig = {
   slug: 'media',
-  upload: {
-    staticDir: path.resolve(__dirname, '../../media'),
-  },
   access: {
     create: isAdmin,
+    delete: isAdmin,
     read: () => true,
     update: isAdmin,
-    delete: isAdmin,
   },
   fields: [
     {
@@ -23,10 +25,13 @@ export const Media: CollectionConfig = {
     {
       name: 'darkModeFallback',
       type: 'upload',
-      relationTo: 'media',
       admin: {
         description: 'Choose an upload to render if the visitor is using dark mode.',
       },
+      relationTo: 'media',
     },
   ],
+  upload: {
+    staticDir: path.resolve(dirname, '../../media'),
+  },
 }

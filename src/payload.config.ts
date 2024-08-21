@@ -7,6 +7,7 @@ import { seoPlugin } from '@payloadcms/plugin-seo'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
+import { fileURLToPath } from 'url'
 
 import { CaseStudies } from './collections/CaseStudies'
 import { CommunityHelp } from './collections/CommunityHelp'
@@ -18,13 +19,14 @@ import { Partners } from './collections/Partners'
 import { Posts } from './collections/Posts'
 import { ReusableContent } from './collections/ReusableContent'
 import { Users } from './collections/Users'
-import RedeployButton from './components/RedeployButton'
-import SyncDocsButton from './components/SyncDocsButton'
 import { Footer } from './globals/Footer'
 import { MainMenu } from './globals/MainMenu'
 import { PartnerProgram } from './globals/PartnerProgram'
 import redeployWebsite from './scripts/redeployWebsite'
 import syncDocs from './scripts/syncDocs'
+
+const filename = fileURLToPath(import.meta.url)
+const dirname = path.dirname(filename)
 
 export default buildConfig({
   collections: [
@@ -60,7 +62,7 @@ export default buildConfig({
   },
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
-    outputFile: path.resolve(__dirname, 'payload-types.ts'),
+    outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   // editor: slateEditor({}),
   admin: {
@@ -69,7 +71,10 @@ export default buildConfig({
       password: 'test',
     },
     components: {
-      afterNavLinks: [SyncDocsButton, RedeployButton],
+      afterNavLinks: ['./components/SyncDocsButton', './components/RedeployButton'],
+    },
+    importMap: {
+      baseDir: path.resolve(dirname, 'src'),
     },
   },
   cors: [process.env.PAYLOAD_PUBLIC_APP_URL || '', 'https://payloadcms.com'].filter(Boolean),
@@ -150,7 +155,7 @@ export default buildConfig({
                   })
                 }
               }
-              sendSubmissionToHubSpot()
+              vsendSubmissionToHubSpot()
             },
           ],
         },

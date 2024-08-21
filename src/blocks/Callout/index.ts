@@ -1,7 +1,6 @@
 import type { Block } from 'payload'
 
 import { blockFields } from '../../fields/blockFields'
-import linkGroup from '../../fields/linkGroup'
 import richText from '../../fields/richText'
 
 export const Callout: Block = {
