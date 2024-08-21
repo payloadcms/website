@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import Form from '@forms/Form/index.js'
 import { usePathname, useRouter } from 'next/navigation'
 

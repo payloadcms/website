@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import { toast } from 'react-toastify'
 import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 import { UniqueTeamSlug } from '@cloud/_components/UniqueSlug/index.js'
@@ -19,6 +18,7 @@ import { useAuth } from '@root/providers/Auth/index.js'
 import { SectionHeader } from '../../[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader/index.js'
 
 import classes from './page.module.scss'
+import { toast } from 'sonner'
 
 export const TeamSettingsPage: React.FC<{
   team: TeamWithCustomer

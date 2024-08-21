@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useCallback } from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import { ProjectWithSubscription } from '@cloud/_api/fetchProject.js'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 import { updateSubscription } from '@cloud/_api/updateSubscription.js'

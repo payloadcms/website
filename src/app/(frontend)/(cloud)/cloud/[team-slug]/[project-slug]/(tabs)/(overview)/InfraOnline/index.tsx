@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 
 import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { Gutter } from '@components/Gutter/index.js'

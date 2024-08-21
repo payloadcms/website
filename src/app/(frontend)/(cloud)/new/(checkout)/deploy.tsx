@@ -1,4 +1,4 @@
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import { updateCustomer } from '@cloud/_api/updateCustomer.js'
 import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod.js'
 import { type Stripe, type StripeElements } from '@stripe/stripe-js'

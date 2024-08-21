@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useCallback, useState } from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import { fetchInstalls, Install } from '@cloud/_api/fetchInstalls.js'
 import { CloneOrDeployProgress } from '@cloud/_components/CloneOrDeployProgress/index.js'
 import { InstallationSelector } from '@cloud/_components/InstallationSelector/index.js'

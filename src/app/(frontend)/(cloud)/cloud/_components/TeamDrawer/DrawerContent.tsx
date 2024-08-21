@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text/index.js'

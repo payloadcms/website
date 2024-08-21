@@ -1,5 +1,5 @@
 import React from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
 import { Member } from '@cloud/_components/TeamMembers/index.js'
 import { useModal } from '@faceless-ui/modal'

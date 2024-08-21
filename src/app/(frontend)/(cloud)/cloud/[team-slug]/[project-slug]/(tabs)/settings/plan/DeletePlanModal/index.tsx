@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import { useModal } from '@faceless-ui/modal'
 import { Text } from '@forms/fields/Text/index.js'
 import Form from '@forms/Form/index.js'

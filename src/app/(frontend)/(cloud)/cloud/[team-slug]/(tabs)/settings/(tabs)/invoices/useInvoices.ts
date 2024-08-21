@@ -1,15 +1,15 @@
-import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
-import { toast } from 'react-toastify'
 import type { InvoicesResult } from '@cloud/_api/fetchInvoices.js'
-import { fetchInvoicesClient } from '@cloud/_api/fetchInvoices.js'
-
 import type { Team } from '@root/payload-cloud-types.js'
+
+import { fetchInvoicesClient } from '@cloud/_api/fetchInvoices.js'
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
+import { toast } from 'sonner'
 
 const reducer = (
   state: InvoicesResult | null,
   action: {
-    type: 'reset' | 'add'
     payload?: InvoicesResult
+    type: 'add' | 'reset'
   },
 ): InvoicesResult | null => {
   switch (action.type) {
@@ -28,16 +28,16 @@ const reducer = (
 
 export const useInvoices = (args: {
   delay?: number
-  team?: Team | null
   initialInvoices?: InvoicesResult | null
+  team?: Team | null
 }): {
-  result: InvoicesResult | null
-  isLoading: 'loading' | false | null
   error: string
-  refreshInvoices: () => void
+  isLoading: 'loading' | false | null
   loadMoreInvoices: () => void
+  refreshInvoices: () => void
+  result: InvoicesResult | null
 } => {
-  const { delay, team, initialInvoices } = args
+  const { delay, initialInvoices, team } = args
 
   const isRequesting = useRef(false)
   const [result, dispatchResult] = useReducer(reducer, initialInvoices || null)
@@ -56,8 +56,8 @@ export const useInvoices = (args: {
         setIsLoading('loading')
 
         const invoicesRes = await fetchInvoicesClient({
-          team,
           starting_after,
+          team,
         })
 
         setTimeout(() => {
@@ -105,7 +105,7 @@ export const useInvoices = (args: {
   }, [loadInvoices, result])
 
   const memoizedState = useMemo(
-    () => ({ result, isLoading, error, refreshInvoices, loadMoreInvoices }),
+    () => ({ error, isLoading, loadMoreInvoices, refreshInvoices, result }),
     [result, isLoading, error, refreshInvoices, loadMoreInvoices],
   )
 

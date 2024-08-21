@@ -1,12 +1,13 @@
-import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
-import { toast } from 'react-toastify'
+import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
+import type { PaymentMethod, SetupIntent } from '@stripe/stripe-js'
+
 import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
 import { fetchPaymentMethod } from '@cloud/_api/fetchPaymentMethod.js'
 import { fetchPaymentMethodsClient } from '@cloud/_api/fetchPaymentMethods.js'
-import type { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 import { updateCustomer } from '@cloud/_api/updateCustomer.js'
 import { useElements, useStripe } from '@stripe/react-stripe-js'
-import type { PaymentMethod, SetupIntent } from '@stripe/stripe-js'
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
+import { toast } from 'sonner'
 
 import { confirmCardSetup } from '../../../new/(checkout)/confirmCardSetup.js'
 import { cardReducer } from './reducer.js'
@@ -14,20 +15,20 @@ import { cardReducer } from './reducer.js'
 type SaveNewPaymentMethod = (paymentMethodID: string) => Promise<SetupIntent | null | undefined>
 
 export const usePaymentMethods = (args: {
-  team?: TeamWithCustomer
   delay?: number
   initialValue?: PaymentMethod[] | null | undefined
+  team?: TeamWithCustomer
 }): {
-  result: PaymentMethod[] | null | undefined
-  isLoading: 'loading' | 'saving' | 'deleting' | false | null
-  error?: string
-  deletePaymentMethod: (paymentMethod: string) => void
-  getPaymentMethods: () => void
-  saveNewPaymentMethod: SaveNewPaymentMethod
   defaultPaymentMethod: string | undefined
+  deletePaymentMethod: (paymentMethod: string) => void
+  error?: string
+  getPaymentMethods: () => void
+  isLoading: 'deleting' | 'loading' | 'saving' | false | null
+  result: PaymentMethod[] | null | undefined
+  saveNewPaymentMethod: SaveNewPaymentMethod
   setDefaultPaymentMethod: React.Dispatch<React.SetStateAction<string | undefined>>
 } => {
-  const { team, delay, initialValue } = args
+  const { delay, initialValue, team } = args
   const [defaultPaymentMethod, setDefault] = useState<string | undefined>(() => {
     const teamDefault = team?.stripeCustomer?.invoice_settings?.default_payment_method
     return typeof teamDefault === 'string' ? teamDefault : teamDefault?.id
@@ -37,7 +38,7 @@ export const usePaymentMethods = (args: {
   const isSavingNew = useRef(false)
   const isDeleting = useRef(false)
   const [result, dispatchResult] = useReducer(cardReducer, initialValue || [])
-  const [isLoading, setIsLoading] = useState<'loading' | 'saving' | 'deleting' | false | null>(null)
+  const [isLoading, setIsLoading] = useState<'deleting' | 'loading' | 'saving' | false | null>(null)
   const [error, setError] = useState<string | undefined>('')
   const stripe = useStripe()
   const elements = useElements()
@@ -127,11 +128,11 @@ export const usePaymentMethods = (args: {
         await fetch(
           `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/payment-methods/${paymentMethodID}`,
           {
-            method: 'DELETE',
             credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
             },
+            method: 'DELETE',
           },
         )?.then(res => {
           const json = res.json()
@@ -198,10 +199,10 @@ export const usePaymentMethods = (args: {
 
       try {
         const { setupIntent } = await confirmCardSetup({
-          team,
-          stripe,
           elements,
           paymentMethod: paymentMethodID,
+          stripe,
+          team,
         })
 
         const pmID =
@@ -225,7 +226,7 @@ export const usePaymentMethods = (args: {
           )
         }
 
-        const newPaymentMethod = await fetchPaymentMethod({ team, paymentMethodID: pmID })
+        const newPaymentMethod = await fetchPaymentMethod({ paymentMethodID: pmID, team })
 
         if (!newPaymentMethod) throw new Error('Could not retrieve new payment method')
 
@@ -253,13 +254,13 @@ export const usePaymentMethods = (args: {
 
   const memoizedState = useMemo(
     () => ({
-      result,
-      isLoading,
-      error,
-      deletePaymentMethod,
-      getPaymentMethods,
-      saveNewPaymentMethod,
       defaultPaymentMethod,
+      deletePaymentMethod,
+      error,
+      getPaymentMethods,
+      isLoading,
+      result,
+      saveNewPaymentMethod,
       setDefaultPaymentMethod,
     }),
     [

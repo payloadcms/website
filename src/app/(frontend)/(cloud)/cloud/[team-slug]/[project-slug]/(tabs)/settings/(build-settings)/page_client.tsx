@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import { BranchSelector } from '@cloud/_components/BranchSelector/index.js'
 import { UniqueProjectSlug } from '@cloud/_components/UniqueSlug/index.js'
 import { Text } from '@forms/fields/Text/index.js'

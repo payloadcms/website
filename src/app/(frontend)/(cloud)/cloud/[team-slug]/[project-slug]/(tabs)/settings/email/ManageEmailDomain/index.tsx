@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import * as React from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import { useModal } from '@faceless-ui/modal'
 import { Secret } from '@forms/fields/Secret/index.js'
 import Link from 'next/link'

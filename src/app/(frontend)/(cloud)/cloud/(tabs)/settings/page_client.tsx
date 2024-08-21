@@ -1,7 +1,6 @@
 'use client'
 
 import React, { Fragment, useCallback } from 'react'
-import { toast } from 'react-toastify'
 import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
 import { SectionHeader } from '@cloud/[team-slug]/[project-slug]/(tabs)/settings/_layoutComponents/SectionHeader/index.js'
 import { useModal } from '@faceless-ui/modal'
@@ -21,6 +20,7 @@ import { useAuth } from '@root/providers/Auth/index.js'
 import { DeletionConfirmationForm } from './DeletionConfirmationForm/index.js'
 
 import classes from './page.module.scss'
+import { toast } from 'sonner'
 
 const modalSlug = 'delete-account'
 

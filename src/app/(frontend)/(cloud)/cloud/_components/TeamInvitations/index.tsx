@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 
 import { Heading } from '@components/Heading/index.js'
 import { Team } from '@root/payload-cloud-types.js'

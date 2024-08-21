@@ -1,31 +1,32 @@
-import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
-import { toast } from 'react-toastify'
 import type { Subscription, SubscriptionsResult } from '@cloud/_api/fetchSubscriptions.js'
-import { fetchSubscriptionsClient } from '@cloud/_api/fetchSubscriptions.js'
-
 import type { Team } from '@root/payload-cloud-types.js'
+
+import { fetchSubscriptionsClient } from '@cloud/_api/fetchSubscriptions.js'
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
+import { toast } from 'sonner'
+
 import { subscriptionsReducer } from './reducer.js'
 
 export const useSubscriptions = (args: {
   delay?: number
-  team?: Team | null
   initialSubscriptions?: SubscriptionsResult | null
+  team?: Team | null
 }): {
-  result: SubscriptionsResult | null
-  isLoading: 'loading' | 'updating' | 'deleting' | false | null
-  error: string
-  refreshSubscriptions: () => void
-  updateSubscription: (subscriptionID: string, subscription: Subscription) => void
   cancelSubscription: (subscriptionID: string) => void
+  error: string
+  isLoading: 'deleting' | 'loading' | 'updating' | false | null
   loadMoreSubscriptions: () => void
+  refreshSubscriptions: () => void
+  result: SubscriptionsResult | null
+  updateSubscription: (subscriptionID: string, subscription: Subscription) => void
 } => {
-  const { delay, team, initialSubscriptions } = args
+  const { delay, initialSubscriptions, team } = args
 
   const isRequesting = useRef(false)
   const isDeleting = useRef(false)
   const isUpdating = useRef(false)
   const [result, dispatchResult] = useReducer(subscriptionsReducer, initialSubscriptions || null)
-  const [isLoading, setIsLoading] = useState<'loading' | 'updating' | 'deleting' | false | null>(
+  const [isLoading, setIsLoading] = useState<'deleting' | 'loading' | 'updating' | false | null>(
     null,
   )
   const [error, setError] = useState('')
@@ -42,8 +43,8 @@ export const useSubscriptions = (args: {
         setIsLoading('loading')
 
         const subscriptions = await fetchSubscriptionsClient({
-          team,
           starting_after,
+          team,
         })
 
         setTimeout(() => {
@@ -103,12 +104,12 @@ export const useSubscriptions = (args: {
         const req = await fetch(
           `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/subscriptions/${stripeSubscriptionID}`,
           {
-            method: 'PATCH',
+            body: JSON.stringify(newSubscription),
             credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(newSubscription),
+            method: 'PATCH',
           },
         )
 
@@ -155,8 +156,8 @@ export const useSubscriptions = (args: {
         const req = await fetch(
           `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/subscriptions/${stripeSubscriptionID}`,
           {
-            method: 'DELETE',
             credentials: 'include',
+            method: 'DELETE',
           },
         )
 
@@ -194,13 +195,13 @@ export const useSubscriptions = (args: {
 
   const memoizedState = useMemo(
     () => ({
-      result,
-      isLoading,
-      error,
-      refreshSubscriptions,
-      updateSubscription,
       cancelSubscription,
+      error,
+      isLoading,
       loadMoreSubscriptions,
+      refreshSubscriptions,
+      result,
+      updateSubscription,
     }),
     [
       result,

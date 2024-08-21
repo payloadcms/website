@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
 import { CollapsibleGroup } from '@faceless-ui/collapsibles'
 import { useModal } from '@faceless-ui/modal'

@@ -1,27 +1,27 @@
-import React, { useId } from 'react'
 import FormComponent from '@forms/Form/index.js'
-import { validateEmail } from '@forms/validations.js'
 import { Text } from '@forms/fields/Text/index.js'
+import { validateEmail } from '@forms/validations.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { usePathname, useRouter } from 'next/navigation'
+import { ErrorIcon } from '@root/icons/ErrorIcon'
 import { getCookie } from '@root/utilities/get-cookie.js'
-import { toast } from 'react-toastify'
+import { usePathname, useRouter } from 'next/navigation'
+import React, { useId } from 'react'
+import { toast } from 'sonner'
 
 import classes from './index.module.scss'
-import { ErrorIcon } from '@root/icons/ErrorIcon'
 
 interface NewsletterSignUpProps {
   className?: string
+  description?: false | string
   placeholder?: string
-  description?: string | false
 }
 
 export const NewsletterSignUp: React.FC<NewsletterSignUpProps> = props => {
-  const { className, placeholder = 'Enter your email', description = false } = props
+  const { className, description = false, placeholder = 'Enter your email' } = props
 
   const [buttonClicked, setButtonClicked] = React.useState(false)
   const [formData, setFormData] = React.useState({ email: '' })
-  const [error, setError] = React.useState<{ status?: string; message: string } | undefined>()
+  const [error, setError] = React.useState<{ message: string; status?: string } | undefined>()
 
   const submitButtonRef = React.useRef<HTMLButtonElement>(null)
 
@@ -64,23 +64,23 @@ export const NewsletterSignUp: React.FC<NewsletterSignUpProps> = props => {
         const pageName = slugParts?.at(-1) === '' ? 'Home' : slugParts?.at(-1)
         toast.promise(
           fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/form-submissions`, {
-            method: 'POST',
+            body: JSON.stringify({
+              form: formID,
+              hubspotCookie,
+              pageName,
+              pageUri,
+              submissionData: { field: 'email', value: formData.email },
+            }),
             credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-              form: formID,
-              submissionData: { field: 'email', value: formData.email },
-              hubspotCookie,
-              pageUri,
-              pageName,
-            }),
+            method: 'POST',
           }),
           {
+            error: 'Newsletter form submission failed.',
             pending: 'Submitting...',
             success: 'Thank you for subscribing!',
-            error: 'Newsletter form submission failed.',
           },
         )
       } catch (err) {
@@ -102,21 +102,21 @@ export const NewsletterSignUp: React.FC<NewsletterSignUpProps> = props => {
             Subscribe to our newsletter
           </label>
           <Text
-            type="text"
-            path={newsletterId}
-            name="email"
-            value={formData.email}
-            customOnChange={handleChange}
-            required
-            validate={validateEmail}
             className={classes.emailInput}
+            customOnChange={handleChange}
+            name="email"
+            path={newsletterId}
             placeholder={placeholder}
+            required
+            type="text"
+            validate={validateEmail}
+            value={formData.email}
           />
           <button
-            ref={submitButtonRef}
             className={classes.submitButton}
-            type="submit"
             disabled={!formData.email}
+            ref={submitButtonRef}
+            type="submit"
           >
             <ArrowIcon className={[classes.inputArrow].filter(Boolean).join(' ')} />
             <span className="visually-hidden">Submit</span>

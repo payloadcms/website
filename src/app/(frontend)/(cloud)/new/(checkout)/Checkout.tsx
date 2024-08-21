@@ -1,7 +1,6 @@
 'use client'
 
 import React, { Fragment, useCallback } from 'react'
-import { toast } from 'react-toastify'
 import { revalidateCache } from '@cloud/_actions/revalidateCache.js'
 import { Install } from '@cloud/_api/fetchInstalls.js'
 import { TeamWithCustomer } from '@cloud/_api/fetchTeam.js'
@@ -14,7 +13,6 @@ import { TeamSelector } from '@cloud/_components/TeamSelector/index.js'
 import { UniqueDomain } from '@cloud/_components/UniqueDomain/index.js'
 import { UniqueProjectSlug } from '@cloud/_components/UniqueSlug/index.js'
 import { cloudSlug } from '@cloud/slug.js'
-import { Cell, Grid } from '@faceless-ui/css-grid'
 import { Checkbox } from '@forms/fields/Checkbox/index.js'
 import { Select } from '@forms/fields/Select/index.js'
 import { Text } from '@forms/fields/Text/index.js'
@@ -42,6 +40,7 @@ import { EnvVars } from './EnvVars.js'
 import { checkoutReducer, CheckoutState } from './reducer.js'
 
 import classes from './Checkout.module.scss'
+import { toast } from '@payloadcms/ui'
 
 const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
 const Stripe = loadStripe(apiKey)

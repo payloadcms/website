@@ -1,15 +1,13 @@
-import React from 'react'
-import { toast } from 'react-toastify'
-import { useModal } from '@faceless-ui/modal'
-import { Text } from '@forms/fields/Text/index.js'
-import Form from '@forms/Form/index.js'
-import Submit from '@forms/Submit/index.js'
-import { useRouter } from 'next/navigation'
-
 import { Button } from '@components/Button/index.js'
 import { Heading } from '@components/Heading/index.js'
 import { Message } from '@components/Message/index.js'
+import Form from '@forms/Form/index.js'
+import Submit from '@forms/Submit/index.js'
+import { Text } from '@forms/fields/Text/index.js'
+import { toast, useModal } from '@payloadcms/ui'
 import { useAuth } from '@root/providers/Auth/index.js'
+import { useRouter } from 'next/navigation'
+import React from 'react'
 
 import classes from './page.module.scss'
 
@@ -21,7 +19,7 @@ export const DeletionConfirmationForm: React.FC<{
   const [hasEmail, setHasEmail] = React.useState(false)
   const [hasPW, setHasPW] = React.useState(false)
   const router = useRouter()
-  const { user, login } = useAuth()
+  const { login, user } = useAuth()
 
   const deleteAccount = React.useCallback(
     async ({ data }) => {
@@ -42,8 +40,8 @@ export const DeletionConfirmationForm: React.FC<{
               const req = await fetch(
                 `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/${user.id}`,
                 {
-                  method: 'DELETE',
                   credentials: 'include',
+                  method: 'DELETE',
                 },
               )
 
@@ -65,10 +63,10 @@ export const DeletionConfirmationForm: React.FC<{
 
   return (
     <Form onSubmit={deleteAccount}>
-      <Heading marginTop={false} as="h3">
+      <Heading as="h3" marginTop={false}>
         Are you sure you want to delete your account?
       </Heading>
-      <Message className={classes.warning} error={'Deleting your account cannot be undone.'} />
+      <Message className={classes.warning} error="Deleting your account cannot be undone." />
       <p>
         Team ownership will be transferred to another team member where possible. If no other team
         members exist, the team and associated projects / deployments will be
@@ -78,24 +76,24 @@ export const DeletionConfirmationForm: React.FC<{
       <Text
         className={classes.emailInput}
         label="Email"
-        path="modalEmail"
-        required
         onChange={value => {
           setHasEmail(Boolean(value))
         }}
+        path="modalEmail"
+        required
       />
       <Text
         label="Password"
-        path="modalPassword"
-        type="password"
-        required
         onChange={value => {
           setHasPW(Boolean(value))
         }}
+        path="modalPassword"
+        required
+        type="password"
       />
       <div className={classes.modalActions}>
-        <Button label="Cancel" appearance="secondary" onClick={() => closeModal(modalSlug)} />
-        <Submit label="Delete my account" appearance="danger" disabled={!(hasEmail && hasPW)} />
+        <Button appearance="secondary" label="Cancel" onClick={() => closeModal(modalSlug)} />
+        <Submit appearance="danger" disabled={!(hasEmail && hasPW)} label="Delete my account" />
       </div>
     </Form>
   )

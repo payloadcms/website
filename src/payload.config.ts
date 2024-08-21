@@ -91,7 +91,6 @@ export default buildConfig({
         },
       },
     })
-    console.log('user', user)
     if (!user?.docs?.length) {
       await payload.create({
         collection: 'users',
@@ -155,7 +154,7 @@ export default buildConfig({
                   })
                 }
               }
-              vsendSubmissionToHubSpot()
+              sendSubmissionToHubSpot()
             },
           ],
         },

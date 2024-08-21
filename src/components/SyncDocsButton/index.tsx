@@ -1,8 +1,7 @@
 'use client'
 
-import { useConfig } from '@payloadcms/ui'
+import { toast, useConfig } from '@payloadcms/ui'
 import React, { useState } from 'react'
-import { toast } from 'react-toastify'
 
 import './index.scss'
 
@@ -20,11 +19,11 @@ const SyncDocsButton: React.FC = () => {
     setIsSyncing(true)
     const res = await fetch(`${api}/sync/docs`)
     if (res.ok) {
-      toast.success('Documentation synced successfully', { autoClose: 3000 })
+      toast.success('Documentation synced successfully')
       setIsSyncing(false)
     } else {
       const data = await res.json()
-      toast.error(`Failed to sync documentation: ${data.message}`, { autoClose: 3000 })
+      toast.error(`Failed to sync documentation: ${data.message}`)
       setIsSyncing(false)
     }
   }

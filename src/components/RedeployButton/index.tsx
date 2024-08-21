@@ -2,7 +2,7 @@
 
 import { useConfig } from '@payloadcms/ui'
 import React, { useState } from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 
 import './index.scss'
 
