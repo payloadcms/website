@@ -14,6 +14,7 @@ import {
 import {
   SlateToLexicalFeature,
   convertSlateNodesToLexical,
+  convertSlateToLexical,
   migrateSlateToLexical,
 } from '@payloadcms/richtext-lexical/migrate'
 import link from '@root/fields/link'
@@ -144,6 +145,11 @@ export default buildConfig({
           },
           {
             converter({ converters, slateNode }) {
+              const slateData = {
+                children: slateNode.children,
+                type: 'p',
+              }
+
               return {
                 type: 'block',
                 fields: {
@@ -151,11 +157,9 @@ export default buildConfig({
                   blockName: '',
                   id: new ObjectID().toHexString(),
                   element: slateNode.element,
-                  richText: convertSlateNodesToLexical({
-                    canContainParagraphs: false,
+                  richText: convertSlateToLexical({
                     converters,
-                    parentNodeType: 'largeBody',
-                    slateNodes: slateNode.children as SlateNode[],
+                    slateData: [slateData],
                   }),
                 },
                 format: '',

@@ -6,6 +6,7 @@ import { UploadFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import {
   SlateToLexicalFeature,
   convertSlateNodesToLexical,
+  convertSlateToLexical,
 } from '@payloadcms/richtext-lexical/migrate'
 import { SerializedLabelNode } from '@root/fields/richText/features/label/LabelNode'
 import { LabelFeature } from '@root/fields/richText/features/label/server'
@@ -71,6 +72,11 @@ const richText: RichText = (overrides = {}, additionalFeatures = []): RichTextFi
             },
             {
               converter({ converters, slateNode }) {
+                const slateData = {
+                  children: slateNode.children,
+                  type: 'p',
+                }
+
                 return {
                   type: 'block',
                   fields: {
@@ -78,11 +84,9 @@ const richText: RichText = (overrides = {}, additionalFeatures = []): RichTextFi
                     blockName: '',
                     id: new ObjectID().toHexString(),
                     element: slateNode.element,
-                    richText: convertSlateNodesToLexical({
-                      canContainParagraphs: false,
+                    richText: convertSlateToLexical({
                       converters,
-                      parentNodeType: 'largeBody',
-                      slateNodes: slateNode.children as SlateNode[],
+                      slateData: [slateData],
                     }),
                   },
                   format: '',
