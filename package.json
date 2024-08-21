@@ -55,6 +55,7 @@
     "@types/react-dom": "^18.2.15",
     "@vercel/og": "^0.0.21",
     "algoliasearch": "^4.23.3",
+    "bson-objectid": "^2.0.4",
     "cheerio": "^1.0.0-rc.12",
     "cross-env": "7.0.3",
     "discord-markdown": "^2.5.1",

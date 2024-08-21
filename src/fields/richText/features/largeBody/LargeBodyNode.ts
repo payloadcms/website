@@ -1,4 +1,4 @@
-import type { DOMExportOutput, LexicalEditor, ParagraphNode } from 'lexical'
+import type { DOMExportOutput, LexicalEditor, ParagraphNode, Spread } from 'lexical'
 
 import { addClassNamesToElement } from '@lexical/utils'
 import {
@@ -13,7 +13,12 @@ import {
   isHTMLElement,
 } from 'lexical'
 
-export type SerializedLargeBodyNode = SerializedElementNode
+export type SerializedLargeBodyNode = Spread<
+  {
+    type: 'largeBody'
+  },
+  SerializedElementNode
+>
 
 /** @noInheritDoc */
 export class LargeBodyNode extends ElementNode {

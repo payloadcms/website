@@ -108,6 +108,9 @@ importers:
       algoliasearch:
         specifier: ^4.23.3
         version: 4.24.0
+      bson-objectid:
+        specifier: ^2.0.4
+        version: 2.0.4
       cheerio:
         specifier: ^1.0.0-rc.12
         version: 1.0.0
