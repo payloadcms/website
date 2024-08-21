@@ -96,15 +96,15 @@
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.1.6",
     "@octokit/types": "^9.0.0",
-    "@payloadcms/eslint-config": "^1.1.1",
+    "@payloadcms/eslint-config": "1.1.1",
     "@types/cli-progress": "^3.11.0",
     "@types/node": "18.11.3",
     "@types/react": "npm:types-react@19.0.0-beta.2",
-    "@typescript-eslint/eslint-plugin": "^5.51.0",
-    "@typescript-eslint/parser": "^5.51.0",
+    "@typescript-eslint/eslint-plugin": "7.16.0",
+    "@typescript-eslint/parser": "7.16.0",
     "cli-progress": "^3.11.2",
     "discord.js": "^14.7.1",
-    "eslint": "8.48.0",
+    "eslint": "8.57.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-filenames": "^1.3.2",
     "eslint-plugin-import": "2.25.4",
@@ -112,6 +112,6 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "prettier": "^2.7.1",
-    "typescript": "^5.4.5"
+    "typescript": "5.5.4"
   }
 }
