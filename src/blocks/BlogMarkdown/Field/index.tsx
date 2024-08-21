@@ -1,11 +1,12 @@
-import React from 'react'
 import { TextareaField } from '@payloadcms/ui'
+import React from 'react'
+
 import './index.scss'
 
-export const BlogMarkdownField: React.FC<{ path: string; name: string }> = ({ path, name }) => {
+export const BlogMarkdownField: React.FC<{ name: string; path: string }> = ({ name, path }) => {
   return (
     <div className="markdown">
-      <TextareaField path={path} name={name} required />
+      <TextareaField name={name} path={path} required />
     </div>
   )
 }

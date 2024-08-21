@@ -1,8 +1,8 @@
 'use client'
 
+import { useConfig } from '@payloadcms/ui'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
-import { useConfig } from '@payloadcms/ui'
 
 import './index.scss'
 
@@ -11,7 +11,9 @@ const baseClass = 'redeploy-button'
 const RedeployButton: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const {
-    routes: { api },
+    config: {
+      routes: { api },
+    },
   } = useConfig()
 
   const redeployCMS = async () => {
@@ -30,7 +32,7 @@ const RedeployButton: React.FC = () => {
   }
 
   return (
-    <button className={baseClass} onClick={redeployCMS} disabled={isLoading}>
+    <button className={baseClass} disabled={isLoading} onClick={redeployCMS}>
       {isLoading ? 'Redeploy triggered...' : 'Redeploy Website'}
     </button>
   )

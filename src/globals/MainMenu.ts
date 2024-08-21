@@ -15,7 +15,7 @@ export const MainMenu: GlobalConfig = {
       type: 'array',
       admin: {
         components: {
-          RowLabel: './globals/CustomRowLabelTabs',
+          RowLabel: '@root/globals/CustomRowLabelTabs',
         },
       },
       fields: [
@@ -77,7 +77,7 @@ export const MainMenu: GlobalConfig = {
               type: 'array',
               admin: {
                 components: {
-                  RowLabel: './globals/CustomRowLabelNavItems',
+                  RowLabel: '@root/globals/CustomRowLabelNavItems',
                 },
               },
               fields: [

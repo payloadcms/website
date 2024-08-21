@@ -7,8 +7,10 @@
  */
 
 export interface Config {
+  auth: {
+    users: UserAuthOperations;
+  };
   collections: {
-    announcements: Announcement;
     'case-studies': CaseStudy;
     'community-help': CommunityHelp;
     docs: Doc;
@@ -28,31 +30,61 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
+  db: {
+    defaultIDType: string;
+  };
   globals: {
     footer: Footer;
     'main-menu': MainMenu;
-    'top-bar': TopBar;
     'partner-program': PartnerProgram;
   };
+  locale: null;
+  user: User & {
+    collection: 'users';
+  };
 }
-export interface Announcement {
-  id: string;
-  name?: string | null;
-  content: {
-    [k: string]: unknown;
-  }[];
-  updatedAt: string;
-  createdAt: string;
+export interface UserAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "case-studies".
+ */
 export interface CaseStudy {
   id: string;
   title: string;
   introContent: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
     [k: string]: unknown;
-  }[];
+  };
   industry?: string | null;
   useCase?: string | null;
-  agency?: (string | null) | Partner;
   featuredImage: string | Media;
   layout?:
     | (
@@ -62,8 +94,20 @@ export interface CaseStudy {
                 theme?: ('light' | 'dark') | null;
               };
               richText: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
                 [k: string]: unknown;
-              }[];
+              };
               logo: string | Media;
               author?: string | null;
               role?: string | null;
@@ -84,8 +128,20 @@ export interface CaseStudy {
                 theme?: ('light' | 'dark') | null;
               };
               richText: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
                 [k: string]: unknown;
-              }[];
+              };
               links?:
                 | {
                     type?: ('link' | 'npmCta') | null;
@@ -125,8 +181,20 @@ export interface CaseStudy {
                 theme?: ('light' | 'dark') | null;
               };
               richText: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
                 [k: string]: unknown;
-              }[];
+              };
               links?:
                 | {
                     link: {
@@ -192,8 +260,20 @@ export interface CaseStudy {
               cards?:
                 | {
                     richText: {
+                      root: {
+                        type: string;
+                        children: {
+                          type: string;
+                          version: number;
+                          [k: string]: unknown;
+                        }[];
+                        direction: ('ltr' | 'rtl') | null;
+                        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                        indent: number;
+                        version: number;
+                      };
                       [k: string]: unknown;
-                    }[];
+                    };
                     caseStudy: string | CaseStudy;
                     id?: string | null;
                   }[]
@@ -209,8 +289,20 @@ export interface CaseStudy {
                 theme?: ('light' | 'dark') | null;
               };
               richText: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
                 [k: string]: unknown;
-              }[];
+              };
               caseStudies: (string | CaseStudy)[];
             };
             id?: string | null;
@@ -252,8 +344,20 @@ export interface CaseStudy {
               alignment?: ('contentCode' | 'codeContent') | null;
               heading?: string | null;
               richText: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
                 [k: string]: unknown;
-              }[];
+              };
               links?:
                 | {
                     link: {
@@ -288,8 +392,20 @@ export interface CaseStudy {
                           row: number;
                           label: string;
                           feature: {
+                            root: {
+                              type: string;
+                              children: {
+                                type: string;
+                                version: number;
+                                [k: string]: unknown;
+                              }[];
+                              direction: ('ltr' | 'rtl') | null;
+                              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                              indent: number;
+                              version: number;
+                            };
                             [k: string]: unknown;
-                          }[];
+                          };
                           enableLink?: boolean | null;
                           link?: {
                             type?: ('reference' | 'custom') | null;
@@ -327,25 +443,67 @@ export interface CaseStudy {
                 theme?: ('light' | 'dark') | null;
               };
               useLeadingHeader?: boolean | null;
-              leadingHeader?:
-                | {
+              leadingHeader?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
                     [k: string]: unknown;
-                  }[]
-                | null;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
               layout?: ('oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns') | null;
               columnOne: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
                 [k: string]: unknown;
-              }[];
-              columnTwo?:
-                | {
+              };
+              columnTwo?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
                     [k: string]: unknown;
-                  }[]
-                | null;
-              columnThree?:
-                | {
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              columnThree?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
                     [k: string]: unknown;
-                  }[]
-                | null;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
             };
             id?: string | null;
             blockName?: string | null;
@@ -358,11 +516,21 @@ export interface CaseStudy {
               };
               style?: ('gridBelow' | 'sideBySide') | null;
               showNumbers?: boolean | null;
-              content?:
-                | {
+              content?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
                     [k: string]: unknown;
-                  }[]
-                | null;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
               links?:
                 | {
                     link: {
@@ -390,8 +558,20 @@ export interface CaseStudy {
               cells?:
                 | {
                     content: {
+                      root: {
+                        type: string;
+                        children: {
+                          type: string;
+                          version: number;
+                          [k: string]: unknown;
+                        }[];
+                        direction: ('ltr' | 'rtl') | null;
+                        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                        indent: number;
+                        version: number;
+                      };
                       [k: string]: unknown;
-                    }[];
+                    };
                     id?: string | null;
                   }[]
                 | null;
@@ -406,8 +586,20 @@ export interface CaseStudy {
                 theme?: ('light' | 'dark') | null;
               };
               richText: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
                 [k: string]: unknown;
-              }[];
+              };
               form: string | Form;
             };
             id?: string | null;
@@ -420,8 +612,20 @@ export interface CaseStudy {
                 theme?: ('light' | 'dark') | null;
               };
               richText: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
                 [k: string]: unknown;
-              }[];
+              };
               cards?:
                 | {
                     title: string;
@@ -551,8 +755,20 @@ export interface CaseStudy {
                 theme?: ('light' | 'dark') | null;
               };
               richText: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
                 [k: string]: unknown;
-              }[];
+              };
               enableLink?: boolean | null;
               link?: {
                 type?: ('reference' | 'custom') | null;
@@ -591,11 +807,21 @@ export interface CaseStudy {
               };
               position?: ('default' | 'wide') | null;
               media: string | Media;
-              caption?:
-                | {
+              caption?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
                     [k: string]: unknown;
-                  }[]
-                | null;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
             };
             id?: string | null;
             blockName?: string | null;
@@ -608,8 +834,20 @@ export interface CaseStudy {
               };
               alignment?: ('contentMedia' | 'mediaContent') | null;
               richText: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
                 [k: string]: unknown;
-              }[];
+              };
               enableLink?: boolean | null;
               link?: {
                 type?: ('reference' | 'custom') | null;
@@ -655,8 +893,20 @@ export interface CaseStudy {
                     background?: ('none' | 'gradient' | 'scanlines') | null;
                     mediaLabel: string;
                     mediaDescription: {
+                      root: {
+                        type: string;
+                        children: {
+                          type: string;
+                          version: number;
+                          [k: string]: unknown;
+                        }[];
+                        direction: ('ltr' | 'rtl') | null;
+                        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                        indent: number;
+                        version: number;
+                      };
                       [k: string]: unknown;
-                    }[];
+                    };
                     enableLink?: boolean | null;
                     link?: {
                       type?: ('reference' | 'custom') | null;
@@ -770,8 +1020,20 @@ export interface CaseStudy {
                 theme?: ('light' | 'dark') | null;
               };
               richText: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
                 [k: string]: unknown;
-              }[];
+              };
               links?:
                 | {
                     link: {
@@ -799,7 +1061,7 @@ export interface CaseStudy {
               assetType?: ('media' | 'code') | null;
               media?: string | Media | null;
               code?: string | null;
-              mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
+              mediaWidth?: ('small' | 'medium' | 'large') | null;
               backgroundGlow?: ('none' | 'colorful' | 'white') | null;
             };
             id?: string | null;
@@ -823,8 +1085,20 @@ export interface CaseStudy {
                             alignment?: ('contentCode' | 'codeContent') | null;
                             heading?: string | null;
                             richText: {
+                              root: {
+                                type: string;
+                                children: {
+                                  type: string;
+                                  version: number;
+                                  [k: string]: unknown;
+                                }[];
+                                direction: ('ltr' | 'rtl') | null;
+                                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                indent: number;
+                                version: number;
+                              };
                               [k: string]: unknown;
-                            }[];
+                            };
                             links?:
                               | {
                                   link: {
@@ -859,8 +1133,20 @@ export interface CaseStudy {
                                         row: number;
                                         label: string;
                                         feature: {
+                                          root: {
+                                            type: string;
+                                            children: {
+                                              type: string;
+                                              version: number;
+                                              [k: string]: unknown;
+                                            }[];
+                                            direction: ('ltr' | 'rtl') | null;
+                                            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                            indent: number;
+                                            version: number;
+                                          };
                                           [k: string]: unknown;
-                                        }[];
+                                        };
                                         enableLink?: boolean | null;
                                         link?: {
                                           type?: ('reference' | 'custom') | null;
@@ -898,27 +1184,69 @@ export interface CaseStudy {
                               theme?: ('light' | 'dark') | null;
                             };
                             useLeadingHeader?: boolean | null;
-                            leadingHeader?:
-                              | {
+                            leadingHeader?: {
+                              root: {
+                                type: string;
+                                children: {
+                                  type: string;
+                                  version: number;
                                   [k: string]: unknown;
-                                }[]
-                              | null;
+                                }[];
+                                direction: ('ltr' | 'rtl') | null;
+                                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                indent: number;
+                                version: number;
+                              };
+                              [k: string]: unknown;
+                            } | null;
                             layout?:
                               | ('oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns')
                               | null;
                             columnOne: {
+                              root: {
+                                type: string;
+                                children: {
+                                  type: string;
+                                  version: number;
+                                  [k: string]: unknown;
+                                }[];
+                                direction: ('ltr' | 'rtl') | null;
+                                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                indent: number;
+                                version: number;
+                              };
                               [k: string]: unknown;
-                            }[];
-                            columnTwo?:
-                              | {
+                            };
+                            columnTwo?: {
+                              root: {
+                                type: string;
+                                children: {
+                                  type: string;
+                                  version: number;
                                   [k: string]: unknown;
-                                }[]
-                              | null;
-                            columnThree?:
-                              | {
+                                }[];
+                                direction: ('ltr' | 'rtl') | null;
+                                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                indent: number;
+                                version: number;
+                              };
+                              [k: string]: unknown;
+                            } | null;
+                            columnThree?: {
+                              root: {
+                                type: string;
+                                children: {
+                                  type: string;
+                                  version: number;
                                   [k: string]: unknown;
-                                }[]
-                              | null;
+                                }[];
+                                direction: ('ltr' | 'rtl') | null;
+                                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                indent: number;
+                                version: number;
+                              };
+                              [k: string]: unknown;
+                            } | null;
                           };
                           id?: string | null;
                           blockName?: string | null;
@@ -991,8 +1319,20 @@ export interface CaseStudy {
                             highlights?:
                               | {
                                   richText: {
+                                    root: {
+                                      type: string;
+                                      children: {
+                                        type: string;
+                                        version: number;
+                                        [k: string]: unknown;
+                                      }[];
+                                      direction: ('ltr' | 'rtl') | null;
+                                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                      indent: number;
+                                      version: number;
+                                    };
                                     [k: string]: unknown;
-                                  }[];
+                                  };
                                   enableLink?: boolean | null;
                                   link?: {
                                     type?: ('reference' | 'custom') | null;
@@ -1020,8 +1360,20 @@ export interface CaseStudy {
                                         row: number;
                                         label: string;
                                         feature: {
+                                          root: {
+                                            type: string;
+                                            children: {
+                                              type: string;
+                                              version: number;
+                                              [k: string]: unknown;
+                                            }[];
+                                            direction: ('ltr' | 'rtl') | null;
+                                            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                            indent: number;
+                                            version: number;
+                                          };
                                           [k: string]: unknown;
-                                        }[];
+                                        };
                                         enableLink?: boolean | null;
                                         link?: {
                                           type?: ('reference' | 'custom') | null;
@@ -1071,8 +1423,20 @@ export interface CaseStudy {
               highlights?:
                 | {
                     richText: {
+                      root: {
+                        type: string;
+                        children: {
+                          type: string;
+                          version: number;
+                          [k: string]: unknown;
+                        }[];
+                        direction: ('ltr' | 'rtl') | null;
+                        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                        indent: number;
+                        version: number;
+                      };
                       [k: string]: unknown;
-                    }[];
+                    };
                     enableLink?: boolean | null;
                     link?: {
                       type?: ('reference' | 'custom') | null;
@@ -1100,8 +1464,20 @@ export interface CaseStudy {
                           row: number;
                           label: string;
                           feature: {
+                            root: {
+                              type: string;
+                              children: {
+                                type: string;
+                                version: number;
+                                [k: string]: unknown;
+                              }[];
+                              direction: ('ltr' | 'rtl') | null;
+                              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                              indent: number;
+                              version: number;
+                            };
                             [k: string]: unknown;
-                          }[];
+                          };
                           enableLink?: boolean | null;
                           link?: {
                             type?: ('reference' | 'custom') | null;
@@ -1148,62 +1524,10 @@ export interface CaseStudy {
   createdAt: string;
   _status?: ('draft' | 'published') | null;
 }
-export interface Partner {
-  id: string;
-  name: string;
-  website: string;
-  email: string;
-  slug: string;
-  agency_status?: ('active' | 'inactive') | null;
-  hubspotID?: string | null;
-  logo: string | Media;
-  featured?: boolean | null;
-  topContributor?: boolean | null;
-  content: {
-    bannerImage: string | Media;
-    overview: {
-      [k: string]: unknown;
-    }[];
-    services: {
-      [k: string]: unknown;
-    }[];
-    idealProject: {
-      [k: string]: unknown;
-    }[];
-    caseStudy?: (string | null) | CaseStudy;
-    contributions?:
-      | {
-          type: 'discussion' | 'pr' | 'issue';
-          repo: string;
-          number: number;
-          id?: string | null;
-        }[]
-      | null;
-    projects?:
-      | {
-          year: number;
-          name: string;
-          link: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  city: string;
-  regions: (string | Region)[];
-  specialties: (string | Specialty)[];
-  budgets: (string | Budget)[];
-  industries: (string | Industry)[];
-  social?:
-    | {
-        platform: 'linkedin' | 'twitter' | 'facebook' | 'instagram' | 'youtube' | 'github';
-        url: string;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
 export interface Media {
   id: string;
   alt: string;
@@ -1211,40 +1535,19 @@ export interface Media {
   updatedAt: string;
   createdAt: string;
   url?: string | null;
+  thumbnailURL?: string | null;
   filename?: string | null;
   mimeType?: string | null;
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
-export interface Region {
-  id: string;
-  name: string;
-  value: string;
-  updatedAt: string;
-  createdAt: string;
-}
-export interface Specialty {
-  id: string;
-  name: string;
-  value: string;
-  updatedAt: string;
-  createdAt: string;
-}
-export interface Budget {
-  id: string;
-  name: string;
-  value: string;
-  updatedAt: string;
-  createdAt: string;
-}
-export interface Industry {
-  id: string;
-  name: string;
-  value: string;
-  updatedAt: string;
-  createdAt: string;
-}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
 export interface Page {
   id: string;
   title: string;
@@ -1282,11 +1585,21 @@ export interface Page {
       id?: string | null;
       date: string;
       hideBreadcrumbs?: boolean | null;
-      richText?:
-        | {
+      richText?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
             [k: string]: unknown;
-          }[]
-        | null;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
       guests?:
         | {
             name?: string | null;
@@ -1316,16 +1629,36 @@ export interface Page {
       url?: string | null;
       label: string;
     };
-    richText?:
-      | {
+    richText?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
           [k: string]: unknown;
-        }[]
-      | null;
-    description?:
-      | {
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    description?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
           [k: string]: unknown;
-        }[]
-      | null;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
     primaryButtons?:
       | {
           link: {
@@ -1350,16 +1683,36 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
-    secondaryHeading?:
-      | {
+    secondaryHeading?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
           [k: string]: unknown;
-        }[]
-      | null;
-    secondaryDescription?:
-      | {
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    secondaryDescription?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
           [k: string]: unknown;
-        }[]
-      | null;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
     links?:
       | {
           link: {
@@ -1385,11 +1738,6 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
-    threeCTA?: ('newsletter' | 'buttons') | null;
-    newsletter?: {
-      placeholder?: string | null;
-      description?: string | null;
-    };
     buttons?:
       | (
           | {
@@ -1473,8 +1821,20 @@ export interface Page {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           logo: string | Media;
           author?: string | null;
           role?: string | null;
@@ -1495,8 +1855,20 @@ export interface Page {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           links?:
             | {
                 type?: ('link' | 'npmCta') | null;
@@ -1536,8 +1908,20 @@ export interface Page {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           links?:
             | {
                 link: {
@@ -1603,8 +1987,20 @@ export interface Page {
           cards?:
             | {
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 caseStudy: string | CaseStudy;
                 id?: string | null;
               }[]
@@ -1620,8 +2016,20 @@ export interface Page {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           caseStudies: (string | CaseStudy)[];
         };
         id?: string | null;
@@ -1663,8 +2071,20 @@ export interface Page {
           alignment?: ('contentCode' | 'codeContent') | null;
           heading?: string | null;
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           links?:
             | {
                 link: {
@@ -1699,8 +2119,20 @@ export interface Page {
                       row: number;
                       label: string;
                       feature: {
+                        root: {
+                          type: string;
+                          children: {
+                            type: string;
+                            version: number;
+                            [k: string]: unknown;
+                          }[];
+                          direction: ('ltr' | 'rtl') | null;
+                          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                          indent: number;
+                          version: number;
+                        };
                         [k: string]: unknown;
-                      }[];
+                      };
                       enableLink?: boolean | null;
                       link?: {
                         type?: ('reference' | 'custom') | null;
@@ -1738,25 +2170,67 @@ export interface Page {
             theme?: ('light' | 'dark') | null;
           };
           useLeadingHeader?: boolean | null;
-          leadingHeader?:
-            | {
+          leadingHeader?: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
                 [k: string]: unknown;
-              }[]
-            | null;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
           layout?: ('oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns') | null;
           columnOne: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
-          columnTwo?:
-            | {
+          };
+          columnTwo?: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
                 [k: string]: unknown;
-              }[]
-            | null;
-          columnThree?:
-            | {
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
+          columnThree?: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
                 [k: string]: unknown;
-              }[]
-            | null;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
         };
         id?: string | null;
         blockName?: string | null;
@@ -1769,11 +2243,21 @@ export interface Page {
           };
           style?: ('gridBelow' | 'sideBySide') | null;
           showNumbers?: boolean | null;
-          content?:
-            | {
+          content?: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
                 [k: string]: unknown;
-              }[]
-            | null;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
           links?:
             | {
                 link: {
@@ -1801,8 +2285,20 @@ export interface Page {
           cells?:
             | {
                 content: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 id?: string | null;
               }[]
             | null;
@@ -1817,8 +2313,20 @@ export interface Page {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           form: string | Form;
         };
         id?: string | null;
@@ -1831,8 +2339,20 @@ export interface Page {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           cards?:
             | {
                 title: string;
@@ -1962,8 +2482,20 @@ export interface Page {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           enableLink?: boolean | null;
           link?: {
             type?: ('reference' | 'custom') | null;
@@ -2002,11 +2534,21 @@ export interface Page {
           };
           position?: ('default' | 'wide') | null;
           media: string | Media;
-          caption?:
-            | {
+          caption?: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
                 [k: string]: unknown;
-              }[]
-            | null;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
         };
         id?: string | null;
         blockName?: string | null;
@@ -2019,8 +2561,20 @@ export interface Page {
           };
           alignment?: ('contentMedia' | 'mediaContent') | null;
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           enableLink?: boolean | null;
           link?: {
             type?: ('reference' | 'custom') | null;
@@ -2066,8 +2620,20 @@ export interface Page {
                 background?: ('none' | 'gradient' | 'scanlines') | null;
                 mediaLabel: string;
                 mediaDescription: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 enableLink?: boolean | null;
                 link?: {
                   type?: ('reference' | 'custom') | null;
@@ -2181,8 +2747,20 @@ export interface Page {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           links?:
             | {
                 link: {
@@ -2210,7 +2788,7 @@ export interface Page {
           assetType?: ('media' | 'code') | null;
           media?: string | Media | null;
           code?: string | null;
-          mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
+          mediaWidth?: ('small' | 'medium' | 'large') | null;
           backgroundGlow?: ('none' | 'colorful' | 'white') | null;
         };
         id?: string | null;
@@ -2234,8 +2812,20 @@ export interface Page {
                         alignment?: ('contentCode' | 'codeContent') | null;
                         heading?: string | null;
                         richText: {
+                          root: {
+                            type: string;
+                            children: {
+                              type: string;
+                              version: number;
+                              [k: string]: unknown;
+                            }[];
+                            direction: ('ltr' | 'rtl') | null;
+                            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                            indent: number;
+                            version: number;
+                          };
                           [k: string]: unknown;
-                        }[];
+                        };
                         links?:
                           | {
                               link: {
@@ -2270,8 +2860,20 @@ export interface Page {
                                     row: number;
                                     label: string;
                                     feature: {
+                                      root: {
+                                        type: string;
+                                        children: {
+                                          type: string;
+                                          version: number;
+                                          [k: string]: unknown;
+                                        }[];
+                                        direction: ('ltr' | 'rtl') | null;
+                                        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                        indent: number;
+                                        version: number;
+                                      };
                                       [k: string]: unknown;
-                                    }[];
+                                    };
                                     enableLink?: boolean | null;
                                     link?: {
                                       type?: ('reference' | 'custom') | null;
@@ -2309,27 +2911,69 @@ export interface Page {
                           theme?: ('light' | 'dark') | null;
                         };
                         useLeadingHeader?: boolean | null;
-                        leadingHeader?:
-                          | {
+                        leadingHeader?: {
+                          root: {
+                            type: string;
+                            children: {
+                              type: string;
+                              version: number;
                               [k: string]: unknown;
-                            }[]
-                          | null;
+                            }[];
+                            direction: ('ltr' | 'rtl') | null;
+                            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                            indent: number;
+                            version: number;
+                          };
+                          [k: string]: unknown;
+                        } | null;
                         layout?:
                           | ('oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns')
                           | null;
                         columnOne: {
+                          root: {
+                            type: string;
+                            children: {
+                              type: string;
+                              version: number;
+                              [k: string]: unknown;
+                            }[];
+                            direction: ('ltr' | 'rtl') | null;
+                            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                            indent: number;
+                            version: number;
+                          };
                           [k: string]: unknown;
-                        }[];
-                        columnTwo?:
-                          | {
+                        };
+                        columnTwo?: {
+                          root: {
+                            type: string;
+                            children: {
+                              type: string;
+                              version: number;
                               [k: string]: unknown;
-                            }[]
-                          | null;
-                        columnThree?:
-                          | {
+                            }[];
+                            direction: ('ltr' | 'rtl') | null;
+                            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                            indent: number;
+                            version: number;
+                          };
+                          [k: string]: unknown;
+                        } | null;
+                        columnThree?: {
+                          root: {
+                            type: string;
+                            children: {
+                              type: string;
+                              version: number;
                               [k: string]: unknown;
-                            }[]
-                          | null;
+                            }[];
+                            direction: ('ltr' | 'rtl') | null;
+                            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                            indent: number;
+                            version: number;
+                          };
+                          [k: string]: unknown;
+                        } | null;
                       };
                       id?: string | null;
                       blockName?: string | null;
@@ -2402,8 +3046,20 @@ export interface Page {
                         highlights?:
                           | {
                               richText: {
+                                root: {
+                                  type: string;
+                                  children: {
+                                    type: string;
+                                    version: number;
+                                    [k: string]: unknown;
+                                  }[];
+                                  direction: ('ltr' | 'rtl') | null;
+                                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                  indent: number;
+                                  version: number;
+                                };
                                 [k: string]: unknown;
-                              }[];
+                              };
                               enableLink?: boolean | null;
                               link?: {
                                 type?: ('reference' | 'custom') | null;
@@ -2431,8 +3087,20 @@ export interface Page {
                                     row: number;
                                     label: string;
                                     feature: {
+                                      root: {
+                                        type: string;
+                                        children: {
+                                          type: string;
+                                          version: number;
+                                          [k: string]: unknown;
+                                        }[];
+                                        direction: ('ltr' | 'rtl') | null;
+                                        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                        indent: number;
+                                        version: number;
+                                      };
                                       [k: string]: unknown;
-                                    }[];
+                                    };
                                     enableLink?: boolean | null;
                                     link?: {
                                       type?: ('reference' | 'custom') | null;
@@ -2482,8 +3150,20 @@ export interface Page {
           highlights?:
             | {
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 enableLink?: boolean | null;
                 link?: {
                   type?: ('reference' | 'custom') | null;
@@ -2511,8 +3191,20 @@ export interface Page {
                       row: number;
                       label: string;
                       feature: {
+                        root: {
+                          type: string;
+                          children: {
+                            type: string;
+                            version: number;
+                            [k: string]: unknown;
+                          }[];
+                          direction: ('ltr' | 'rtl') | null;
+                          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                          indent: number;
+                          version: number;
+                        };
                         [k: string]: unknown;
-                      }[];
+                      };
                       enableLink?: boolean | null;
                       link?: {
                         type?: ('reference' | 'custom') | null;
@@ -2566,13 +3258,29 @@ export interface Page {
   createdAt: string;
   _status?: ('draft' | 'published') | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
 export interface Post {
   id: string;
   title: string;
   image: string | Media;
   excerpt: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
     [k: string]: unknown;
-  }[];
+  };
   content: (
     | {
         bannerFields: {
@@ -2582,8 +3290,20 @@ export interface Post {
           type?: ('default' | 'success' | 'warning' | 'error') | null;
           addCheckmark?: boolean | null;
           content: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
         };
         id?: string | null;
         blockName?: string | null;
@@ -2595,8 +3315,20 @@ export interface Post {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
         };
         id?: string | null;
         blockName?: string | null;
@@ -2614,8 +3346,20 @@ export interface Post {
                 row: number;
                 label: string;
                 feature: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 enableLink?: boolean | null;
                 link?: {
                   type?: ('reference' | 'custom') | null;
@@ -2662,11 +3406,21 @@ export interface Post {
           };
           position?: ('default' | 'wide') | null;
           media: string | Media;
-          caption?:
-            | {
+          caption?: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
                 [k: string]: unknown;
-              }[]
-            | null;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
         };
         id?: string | null;
         blockName?: string | null;
@@ -2698,6 +3452,10 @@ export interface Post {
   createdAt: string;
   _status?: ('draft' | 'published') | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reusable-content".
+ */
 export interface ReusableContent {
   id: string;
   title: string;
@@ -2710,8 +3468,20 @@ export interface ReusableContent {
           type?: ('default' | 'success' | 'warning' | 'error') | null;
           addCheckmark?: boolean | null;
           content: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
         };
         id?: string | null;
         blockName?: string | null;
@@ -2723,8 +3493,20 @@ export interface ReusableContent {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
         };
         id?: string | null;
         blockName?: string | null;
@@ -2747,8 +3529,20 @@ export interface ReusableContent {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           logo: string | Media;
           author?: string | null;
           role?: string | null;
@@ -2769,8 +3563,20 @@ export interface ReusableContent {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           links?:
             | {
                 type?: ('link' | 'npmCta') | null;
@@ -2810,8 +3616,20 @@ export interface ReusableContent {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           links?:
             | {
                 link: {
@@ -2877,8 +3695,20 @@ export interface ReusableContent {
           cards?:
             | {
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 caseStudy: string | CaseStudy;
                 id?: string | null;
               }[]
@@ -2894,8 +3724,20 @@ export interface ReusableContent {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           caseStudies: (string | CaseStudy)[];
         };
         id?: string | null;
@@ -2940,8 +3782,20 @@ export interface ReusableContent {
                 row: number;
                 label: string;
                 feature: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 enableLink?: boolean | null;
                 link?: {
                   type?: ('reference' | 'custom') | null;
@@ -2979,8 +3833,20 @@ export interface ReusableContent {
           alignment?: ('contentCode' | 'codeContent') | null;
           heading?: string | null;
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           links?:
             | {
                 link: {
@@ -3015,8 +3881,20 @@ export interface ReusableContent {
                       row: number;
                       label: string;
                       feature: {
+                        root: {
+                          type: string;
+                          children: {
+                            type: string;
+                            version: number;
+                            [k: string]: unknown;
+                          }[];
+                          direction: ('ltr' | 'rtl') | null;
+                          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                          indent: number;
+                          version: number;
+                        };
                         [k: string]: unknown;
-                      }[];
+                      };
                       enableLink?: boolean | null;
                       link?: {
                         type?: ('reference' | 'custom') | null;
@@ -3054,25 +3932,67 @@ export interface ReusableContent {
             theme?: ('light' | 'dark') | null;
           };
           useLeadingHeader?: boolean | null;
-          leadingHeader?:
-            | {
+          leadingHeader?: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
                 [k: string]: unknown;
-              }[]
-            | null;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
           layout?: ('oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns') | null;
           columnOne: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
-          columnTwo?:
-            | {
+          };
+          columnTwo?: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
                 [k: string]: unknown;
-              }[]
-            | null;
-          columnThree?:
-            | {
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
+          columnThree?: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
                 [k: string]: unknown;
-              }[]
-            | null;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
         };
         id?: string | null;
         blockName?: string | null;
@@ -3085,11 +4005,21 @@ export interface ReusableContent {
           };
           style?: ('gridBelow' | 'sideBySide') | null;
           showNumbers?: boolean | null;
-          content?:
-            | {
+          content?: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
                 [k: string]: unknown;
-              }[]
-            | null;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
           links?:
             | {
                 link: {
@@ -3117,8 +4047,20 @@ export interface ReusableContent {
           cells?:
             | {
                 content: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 id?: string | null;
               }[]
             | null;
@@ -3134,8 +4076,20 @@ export interface ReusableContent {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           form: string | Form;
         };
         id?: string | null;
@@ -3148,8 +4102,20 @@ export interface ReusableContent {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           cards?:
             | {
                 title: string;
@@ -3279,8 +4245,20 @@ export interface ReusableContent {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           enableLink?: boolean | null;
           link?: {
             type?: ('reference' | 'custom') | null;
@@ -3319,11 +4297,21 @@ export interface ReusableContent {
           };
           position?: ('default' | 'wide') | null;
           media: string | Media;
-          caption?:
-            | {
+          caption?: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
                 [k: string]: unknown;
-              }[]
-            | null;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
         };
         id?: string | null;
         blockName?: string | null;
@@ -3336,8 +4324,20 @@ export interface ReusableContent {
           };
           alignment?: ('contentMedia' | 'mediaContent') | null;
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           enableLink?: boolean | null;
           link?: {
             type?: ('reference' | 'custom') | null;
@@ -3383,8 +4383,20 @@ export interface ReusableContent {
                 background?: ('none' | 'gradient' | 'scanlines') | null;
                 mediaLabel: string;
                 mediaDescription: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 enableLink?: boolean | null;
                 link?: {
                   type?: ('reference' | 'custom') | null;
@@ -3486,8 +4498,20 @@ export interface ReusableContent {
             theme?: ('light' | 'dark') | null;
           };
           richText: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
             [k: string]: unknown;
-          }[];
+          };
           links?:
             | {
                 link: {
@@ -3515,7 +4539,7 @@ export interface ReusableContent {
           assetType?: ('media' | 'code') | null;
           media?: string | Media | null;
           code?: string | null;
-          mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
+          mediaWidth?: ('small' | 'medium' | 'large') | null;
           backgroundGlow?: ('none' | 'colorful' | 'white') | null;
         };
         id?: string | null;
@@ -3539,8 +4563,20 @@ export interface ReusableContent {
                         alignment?: ('contentCode' | 'codeContent') | null;
                         heading?: string | null;
                         richText: {
+                          root: {
+                            type: string;
+                            children: {
+                              type: string;
+                              version: number;
+                              [k: string]: unknown;
+                            }[];
+                            direction: ('ltr' | 'rtl') | null;
+                            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                            indent: number;
+                            version: number;
+                          };
                           [k: string]: unknown;
-                        }[];
+                        };
                         links?:
                           | {
                               link: {
@@ -3575,8 +4611,20 @@ export interface ReusableContent {
                                     row: number;
                                     label: string;
                                     feature: {
+                                      root: {
+                                        type: string;
+                                        children: {
+                                          type: string;
+                                          version: number;
+                                          [k: string]: unknown;
+                                        }[];
+                                        direction: ('ltr' | 'rtl') | null;
+                                        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                        indent: number;
+                                        version: number;
+                                      };
                                       [k: string]: unknown;
-                                    }[];
+                                    };
                                     enableLink?: boolean | null;
                                     link?: {
                                       type?: ('reference' | 'custom') | null;
@@ -3614,27 +4662,69 @@ export interface ReusableContent {
                           theme?: ('light' | 'dark') | null;
                         };
                         useLeadingHeader?: boolean | null;
-                        leadingHeader?:
-                          | {
+                        leadingHeader?: {
+                          root: {
+                            type: string;
+                            children: {
+                              type: string;
+                              version: number;
                               [k: string]: unknown;
-                            }[]
-                          | null;
+                            }[];
+                            direction: ('ltr' | 'rtl') | null;
+                            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                            indent: number;
+                            version: number;
+                          };
+                          [k: string]: unknown;
+                        } | null;
                         layout?:
                           | ('oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns')
                           | null;
                         columnOne: {
+                          root: {
+                            type: string;
+                            children: {
+                              type: string;
+                              version: number;
+                              [k: string]: unknown;
+                            }[];
+                            direction: ('ltr' | 'rtl') | null;
+                            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                            indent: number;
+                            version: number;
+                          };
                           [k: string]: unknown;
-                        }[];
-                        columnTwo?:
-                          | {
+                        };
+                        columnTwo?: {
+                          root: {
+                            type: string;
+                            children: {
+                              type: string;
+                              version: number;
                               [k: string]: unknown;
-                            }[]
-                          | null;
-                        columnThree?:
-                          | {
+                            }[];
+                            direction: ('ltr' | 'rtl') | null;
+                            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                            indent: number;
+                            version: number;
+                          };
+                          [k: string]: unknown;
+                        } | null;
+                        columnThree?: {
+                          root: {
+                            type: string;
+                            children: {
+                              type: string;
+                              version: number;
                               [k: string]: unknown;
-                            }[]
-                          | null;
+                            }[];
+                            direction: ('ltr' | 'rtl') | null;
+                            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                            indent: number;
+                            version: number;
+                          };
+                          [k: string]: unknown;
+                        } | null;
                       };
                       id?: string | null;
                       blockName?: string | null;
@@ -3707,8 +4797,20 @@ export interface ReusableContent {
                         highlights?:
                           | {
                               richText: {
+                                root: {
+                                  type: string;
+                                  children: {
+                                    type: string;
+                                    version: number;
+                                    [k: string]: unknown;
+                                  }[];
+                                  direction: ('ltr' | 'rtl') | null;
+                                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                  indent: number;
+                                  version: number;
+                                };
                                 [k: string]: unknown;
-                              }[];
+                              };
                               enableLink?: boolean | null;
                               link?: {
                                 type?: ('reference' | 'custom') | null;
@@ -3736,8 +4838,20 @@ export interface ReusableContent {
                                     row: number;
                                     label: string;
                                     feature: {
+                                      root: {
+                                        type: string;
+                                        children: {
+                                          type: string;
+                                          version: number;
+                                          [k: string]: unknown;
+                                        }[];
+                                        direction: ('ltr' | 'rtl') | null;
+                                        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                        indent: number;
+                                        version: number;
+                                      };
                                       [k: string]: unknown;
-                                    }[];
+                                    };
                                     enableLink?: boolean | null;
                                     link?: {
                                       type?: ('reference' | 'custom') | null;
@@ -3787,8 +4901,20 @@ export interface ReusableContent {
           highlights?:
             | {
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 enableLink?: boolean | null;
                 link?: {
                   type?: ('reference' | 'custom') | null;
@@ -3816,8 +4942,20 @@ export interface ReusableContent {
                       row: number;
                       label: string;
                       feature: {
+                        root: {
+                          type: string;
+                          children: {
+                            type: string;
+                            version: number;
+                            [k: string]: unknown;
+                          }[];
+                          direction: ('ltr' | 'rtl') | null;
+                          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                          indent: number;
+                          version: number;
+                        };
                         [k: string]: unknown;
-                      }[];
+                      };
                       enableLink?: boolean | null;
                       link?: {
                         type?: ('reference' | 'custom') | null;
@@ -3854,19 +4992,43 @@ export interface ReusableContent {
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ExampleTabsBlock".
+ */
 export interface ExampleTabsBlock {
-  content?:
-    | {
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
         [k: string]: unknown;
-      }[]
-    | null;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   tabs: {
     label: string;
-    content?:
-      | {
+    content?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
           [k: string]: unknown;
-        }[]
-      | null;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
     examples: (CodeExampleBlock | MediaExampleBlock)[];
     id?: string | null;
   }[];
@@ -3874,18 +5036,30 @@ export interface ExampleTabsBlock {
   blockName?: string | null;
   blockType: 'exampleTabs';
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CodeExampleBlock".
+ */
 export interface CodeExampleBlock {
   code: string;
   id?: string | null;
   blockName?: string | null;
   blockType: 'CodeExampleBlock';
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaExampleBlock".
+ */
 export interface MediaExampleBlock {
   media: string | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'MediaExampleBlock';
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "forms".
+ */
 export interface Form {
   id: string;
   title: string;
@@ -3895,21 +5069,59 @@ export interface Form {
             name: string;
             label?: string | null;
             width?: number | null;
-            defaultValue?: string | null;
             required?: boolean | null;
+            defaultValue?: boolean | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: 'text';
+            blockType: 'checkbox';
           }
         | {
             name: string;
             label?: string | null;
             width?: number | null;
-            defaultValue?: string | null;
             required?: boolean | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: 'textarea';
+            blockType: 'country';
+          }
+        | {
+            name: string;
+            label?: string | null;
+            width?: number | null;
+            required?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'email';
+          }
+        | {
+            message?: {
+              root: {
+                type: string;
+                children: {
+                  type: string;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'message';
+          }
+        | {
+            name: string;
+            label?: string | null;
+            width?: number | null;
+            defaultValue?: number | null;
+            required?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'number';
           }
         | {
             name: string;
@@ -3935,65 +5147,47 @@ export interface Form {
             required?: boolean | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: 'email';
-          }
-        | {
-            name: string;
-            label?: string | null;
-            width?: number | null;
-            required?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
             blockType: 'state';
           }
         | {
             name: string;
             label?: string | null;
             width?: number | null;
+            defaultValue?: string | null;
             required?: boolean | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: 'country';
+            blockType: 'text';
           }
         | {
             name: string;
             label?: string | null;
             width?: number | null;
-            defaultValue?: number | null;
+            defaultValue?: string | null;
             required?: boolean | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: 'number';
-          }
-        | {
-            name: string;
-            label?: string | null;
-            width?: number | null;
-            required?: boolean | null;
-            defaultValue?: boolean | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'checkbox';
-          }
-        | {
-            message?:
-              | {
-                  [k: string]: unknown;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'message';
+            blockType: 'textarea';
           }
       )[]
     | null;
   submitButtonLabel?: string | null;
   confirmationType?: ('message' | 'redirect') | null;
-  confirmationMessage?:
-    | {
+  confirmationMessage?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
         [k: string]: unknown;
-      }[]
-    | null;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   redirect?: {
     url: string;
   };
@@ -4005,11 +5199,21 @@ export interface Form {
         replyTo?: string | null;
         emailFrom?: string | null;
         subject: string;
-        message?:
-          | {
+        message?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
               [k: string]: unknown;
-            }[]
-          | null;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         id?: string | null;
       }[]
     | null;
@@ -4017,6 +5221,10 @@ export interface Form {
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
 export interface User {
   id: string;
   firstName: string;
@@ -4033,8 +5241,12 @@ export interface User {
   hash?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
-  password: string | null;
+  password?: string | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "community-help".
+ */
 export interface CommunityHelp {
   id: string;
   title?: string | null;
@@ -4057,6 +5269,10 @@ export interface CommunityHelp {
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "docs".
+ */
 export interface Doc {
   id: string;
   title: string;
@@ -4080,6 +5296,150 @@ export interface Doc {
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries".
+ */
+export interface Industry {
+  id: string;
+  name: string;
+  value: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "specialties".
+ */
+export interface Specialty {
+  id: string;
+  name: string;
+  value: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "regions".
+ */
+export interface Region {
+  id: string;
+  name: string;
+  value: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "budgets".
+ */
+export interface Budget {
+  id: string;
+  name: string;
+  value: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners".
+ */
+export interface Partner {
+  id: string;
+  name: string;
+  website: string;
+  email: string;
+  slug: string;
+  agency_status?: ('active' | 'inactive') | null;
+  hubspotID?: string | null;
+  logo: string | Media;
+  featured?: boolean | null;
+  topContributor?: boolean | null;
+  content: {
+    bannerImage: string | Media;
+    overview: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    services: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    idealProject: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    caseStudy?: (string | null) | CaseStudy;
+    contributions?:
+      | {
+          type: 'discussion' | 'pr' | 'issue';
+          repo: string;
+          number: number;
+          id?: string | null;
+        }[]
+      | null;
+    projects?:
+      | {
+          year: number;
+          name: string;
+          link: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  city: string;
+  regions: (string | Region)[];
+  specialties: (string | Specialty)[];
+  budgets: (string | Budget)[];
+  industries: (string | Industry)[];
+  social?:
+    | {
+        platform: 'linkedin' | 'twitter' | 'facebook' | 'instagram' | 'youtube' | 'github';
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submissions".
+ */
 export interface FormSubmission {
   id: string;
   form: string | Form;
@@ -4093,6 +5453,10 @@ export interface FormSubmission {
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects".
+ */
 export interface Redirect {
   id: string;
   from: string;
@@ -4116,6 +5480,10 @@ export interface Redirect {
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences".
+ */
 export interface PayloadPreference {
   id: string;
   user: {
@@ -4135,6 +5503,10 @@ export interface PayloadPreference {
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations".
+ */
 export interface PayloadMigration {
   id: string;
   name?: string | null;
@@ -4142,6 +5514,10 @@ export interface PayloadMigration {
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
 export interface Footer {
   id: string;
   columns?:
@@ -4177,6 +5553,10 @@ export interface Footer {
   updatedAt?: string | null;
   createdAt?: string | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "main-menu".
+ */
 export interface MainMenu {
   id: string;
   tabs?:
@@ -4254,11 +5634,21 @@ export interface MainMenu {
               };
               featuredLink?: {
                 tag?: string | null;
-                label?:
-                  | {
+                label?: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
                       [k: string]: unknown;
-                    }[]
-                  | null;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
+                  [k: string]: unknown;
+                } | null;
                 links?:
                   | {
                       link: {
@@ -4320,27 +5710,78 @@ export interface MainMenu {
   updatedAt?: string | null;
   createdAt?: string | null;
 }
-export interface TopBar {
-  id: string;
-  starText?: {
-    desktop?:
-      | {
-          [k: string]: unknown;
-        }[]
-      | null;
-    mobile?:
-      | {
-          [k: string]: unknown;
-        }[]
-      | null;
-  };
-  announcement?: (string | null) | Announcement;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partner-program".
+ */
 export interface PartnerProgram {
   id: string;
   contactForm: string | Form;
+  hero?: {
+    richText?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    breadcrumbBarLinks?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null)
+              | ({
+                  relationTo: 'case-studies';
+                  value: string | CaseStudy;
+                } | null);
+            url?: string | null;
+            label: string;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    heroLinks?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null)
+              | ({
+                  relationTo: 'case-studies';
+                  value: string | CaseStudy;
+                } | null);
+            url?: string | null;
+            label: string;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
   featuredPartners: {
     description?: string | null;
     partners: (string | Partner)[];
@@ -4354,8 +5795,20 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 logo: string | Media;
                 author?: string | null;
                 role?: string | null;
@@ -4376,8 +5829,20 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 links?:
                   | {
                       type?: ('link' | 'npmCta') | null;
@@ -4417,8 +5882,20 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 links?:
                   | {
                       link: {
@@ -4484,8 +5961,20 @@ export interface PartnerProgram {
                 cards?:
                   | {
                       richText: {
+                        root: {
+                          type: string;
+                          children: {
+                            type: string;
+                            version: number;
+                            [k: string]: unknown;
+                          }[];
+                          direction: ('ltr' | 'rtl') | null;
+                          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                          indent: number;
+                          version: number;
+                        };
                         [k: string]: unknown;
-                      }[];
+                      };
                       caseStudy: string | CaseStudy;
                       id?: string | null;
                     }[]
@@ -4501,8 +5990,20 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 caseStudies: (string | CaseStudy)[];
               };
               id?: string | null;
@@ -4544,8 +6045,20 @@ export interface PartnerProgram {
                 alignment?: ('contentCode' | 'codeContent') | null;
                 heading?: string | null;
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 links?:
                   | {
                       link: {
@@ -4580,8 +6093,20 @@ export interface PartnerProgram {
                             row: number;
                             label: string;
                             feature: {
+                              root: {
+                                type: string;
+                                children: {
+                                  type: string;
+                                  version: number;
+                                  [k: string]: unknown;
+                                }[];
+                                direction: ('ltr' | 'rtl') | null;
+                                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                indent: number;
+                                version: number;
+                              };
                               [k: string]: unknown;
-                            }[];
+                            };
                             enableLink?: boolean | null;
                             link?: {
                               type?: ('reference' | 'custom') | null;
@@ -4619,25 +6144,67 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 useLeadingHeader?: boolean | null;
-                leadingHeader?:
-                  | {
+                leadingHeader?: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
                       [k: string]: unknown;
-                    }[]
-                  | null;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
+                  [k: string]: unknown;
+                } | null;
                 layout?: ('oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns') | null;
                 columnOne: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
-                columnTwo?:
-                  | {
+                };
+                columnTwo?: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
                       [k: string]: unknown;
-                    }[]
-                  | null;
-                columnThree?:
-                  | {
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
+                  [k: string]: unknown;
+                } | null;
+                columnThree?: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
                       [k: string]: unknown;
-                    }[]
-                  | null;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
+                  [k: string]: unknown;
+                } | null;
               };
               id?: string | null;
               blockName?: string | null;
@@ -4650,11 +6217,21 @@ export interface PartnerProgram {
                 };
                 style?: ('gridBelow' | 'sideBySide') | null;
                 showNumbers?: boolean | null;
-                content?:
-                  | {
+                content?: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
                       [k: string]: unknown;
-                    }[]
-                  | null;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
+                  [k: string]: unknown;
+                } | null;
                 links?:
                   | {
                       link: {
@@ -4682,8 +6259,20 @@ export interface PartnerProgram {
                 cells?:
                   | {
                       content: {
+                        root: {
+                          type: string;
+                          children: {
+                            type: string;
+                            version: number;
+                            [k: string]: unknown;
+                          }[];
+                          direction: ('ltr' | 'rtl') | null;
+                          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                          indent: number;
+                          version: number;
+                        };
                         [k: string]: unknown;
-                      }[];
+                      };
                       id?: string | null;
                     }[]
                   | null;
@@ -4698,8 +6287,20 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 form: string | Form;
               };
               id?: string | null;
@@ -4712,8 +6313,20 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 cards?:
                   | {
                       title: string;
@@ -4843,8 +6456,20 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 enableLink?: boolean | null;
                 link?: {
                   type?: ('reference' | 'custom') | null;
@@ -4883,11 +6508,21 @@ export interface PartnerProgram {
                 };
                 position?: ('default' | 'wide') | null;
                 media: string | Media;
-                caption?:
-                  | {
+                caption?: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
                       [k: string]: unknown;
-                    }[]
-                  | null;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
+                  [k: string]: unknown;
+                } | null;
               };
               id?: string | null;
               blockName?: string | null;
@@ -4900,8 +6535,20 @@ export interface PartnerProgram {
                 };
                 alignment?: ('contentMedia' | 'mediaContent') | null;
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 enableLink?: boolean | null;
                 link?: {
                   type?: ('reference' | 'custom') | null;
@@ -4947,8 +6594,20 @@ export interface PartnerProgram {
                       background?: ('none' | 'gradient' | 'scanlines') | null;
                       mediaLabel: string;
                       mediaDescription: {
+                        root: {
+                          type: string;
+                          children: {
+                            type: string;
+                            version: number;
+                            [k: string]: unknown;
+                          }[];
+                          direction: ('ltr' | 'rtl') | null;
+                          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                          indent: number;
+                          version: number;
+                        };
                         [k: string]: unknown;
-                      }[];
+                      };
                       enableLink?: boolean | null;
                       link?: {
                         type?: ('reference' | 'custom') | null;
@@ -5062,8 +6721,20 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 links?:
                   | {
                       link: {
@@ -5091,7 +6762,7 @@ export interface PartnerProgram {
                 assetType?: ('media' | 'code') | null;
                 media?: string | Media | null;
                 code?: string | null;
-                mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
+                mediaWidth?: ('small' | 'medium' | 'large') | null;
                 backgroundGlow?: ('none' | 'colorful' | 'white') | null;
               };
               id?: string | null;
@@ -5115,8 +6786,20 @@ export interface PartnerProgram {
                               alignment?: ('contentCode' | 'codeContent') | null;
                               heading?: string | null;
                               richText: {
+                                root: {
+                                  type: string;
+                                  children: {
+                                    type: string;
+                                    version: number;
+                                    [k: string]: unknown;
+                                  }[];
+                                  direction: ('ltr' | 'rtl') | null;
+                                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                  indent: number;
+                                  version: number;
+                                };
                                 [k: string]: unknown;
-                              }[];
+                              };
                               links?:
                                 | {
                                     link: {
@@ -5151,8 +6834,20 @@ export interface PartnerProgram {
                                           row: number;
                                           label: string;
                                           feature: {
+                                            root: {
+                                              type: string;
+                                              children: {
+                                                type: string;
+                                                version: number;
+                                                [k: string]: unknown;
+                                              }[];
+                                              direction: ('ltr' | 'rtl') | null;
+                                              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                              indent: number;
+                                              version: number;
+                                            };
                                             [k: string]: unknown;
-                                          }[];
+                                          };
                                           enableLink?: boolean | null;
                                           link?: {
                                             type?: ('reference' | 'custom') | null;
@@ -5190,27 +6885,69 @@ export interface PartnerProgram {
                                 theme?: ('light' | 'dark') | null;
                               };
                               useLeadingHeader?: boolean | null;
-                              leadingHeader?:
-                                | {
+                              leadingHeader?: {
+                                root: {
+                                  type: string;
+                                  children: {
+                                    type: string;
+                                    version: number;
                                     [k: string]: unknown;
-                                  }[]
-                                | null;
+                                  }[];
+                                  direction: ('ltr' | 'rtl') | null;
+                                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                  indent: number;
+                                  version: number;
+                                };
+                                [k: string]: unknown;
+                              } | null;
                               layout?:
                                 | ('oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns')
                                 | null;
                               columnOne: {
+                                root: {
+                                  type: string;
+                                  children: {
+                                    type: string;
+                                    version: number;
+                                    [k: string]: unknown;
+                                  }[];
+                                  direction: ('ltr' | 'rtl') | null;
+                                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                  indent: number;
+                                  version: number;
+                                };
                                 [k: string]: unknown;
-                              }[];
-                              columnTwo?:
-                                | {
+                              };
+                              columnTwo?: {
+                                root: {
+                                  type: string;
+                                  children: {
+                                    type: string;
+                                    version: number;
                                     [k: string]: unknown;
-                                  }[]
-                                | null;
-                              columnThree?:
-                                | {
+                                  }[];
+                                  direction: ('ltr' | 'rtl') | null;
+                                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                  indent: number;
+                                  version: number;
+                                };
+                                [k: string]: unknown;
+                              } | null;
+                              columnThree?: {
+                                root: {
+                                  type: string;
+                                  children: {
+                                    type: string;
+                                    version: number;
                                     [k: string]: unknown;
-                                  }[]
-                                | null;
+                                  }[];
+                                  direction: ('ltr' | 'rtl') | null;
+                                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                  indent: number;
+                                  version: number;
+                                };
+                                [k: string]: unknown;
+                              } | null;
                             };
                             id?: string | null;
                             blockName?: string | null;
@@ -5283,8 +7020,20 @@ export interface PartnerProgram {
                               highlights?:
                                 | {
                                     richText: {
+                                      root: {
+                                        type: string;
+                                        children: {
+                                          type: string;
+                                          version: number;
+                                          [k: string]: unknown;
+                                        }[];
+                                        direction: ('ltr' | 'rtl') | null;
+                                        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                        indent: number;
+                                        version: number;
+                                      };
                                       [k: string]: unknown;
-                                    }[];
+                                    };
                                     enableLink?: boolean | null;
                                     link?: {
                                       type?: ('reference' | 'custom') | null;
@@ -5312,8 +7061,20 @@ export interface PartnerProgram {
                                           row: number;
                                           label: string;
                                           feature: {
+                                            root: {
+                                              type: string;
+                                              children: {
+                                                type: string;
+                                                version: number;
+                                                [k: string]: unknown;
+                                              }[];
+                                              direction: ('ltr' | 'rtl') | null;
+                                              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                              indent: number;
+                                              version: number;
+                                            };
                                             [k: string]: unknown;
-                                          }[];
+                                          };
                                           enableLink?: boolean | null;
                                           link?: {
                                             type?: ('reference' | 'custom') | null;
@@ -5363,8 +7124,20 @@ export interface PartnerProgram {
                 highlights?:
                   | {
                       richText: {
+                        root: {
+                          type: string;
+                          children: {
+                            type: string;
+                            version: number;
+                            [k: string]: unknown;
+                          }[];
+                          direction: ('ltr' | 'rtl') | null;
+                          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                          indent: number;
+                          version: number;
+                        };
                         [k: string]: unknown;
-                      }[];
+                      };
                       enableLink?: boolean | null;
                       link?: {
                         type?: ('reference' | 'custom') | null;
@@ -5392,8 +7165,20 @@ export interface PartnerProgram {
                             row: number;
                             label: string;
                             feature: {
+                              root: {
+                                type: string;
+                                children: {
+                                  type: string;
+                                  version: number;
+                                  [k: string]: unknown;
+                                }[];
+                                direction: ('ltr' | 'rtl') | null;
+                                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                indent: number;
+                                version: number;
+                              };
                               [k: string]: unknown;
-                            }[];
+                            };
                             enableLink?: boolean | null;
                             link?: {
                               type?: ('reference' | 'custom') | null;
@@ -5437,8 +7222,20 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 logo: string | Media;
                 author?: string | null;
                 role?: string | null;
@@ -5459,8 +7256,20 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 links?:
                   | {
                       type?: ('link' | 'npmCta') | null;
@@ -5500,8 +7309,20 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 links?:
                   | {
                       link: {
@@ -5567,8 +7388,20 @@ export interface PartnerProgram {
                 cards?:
                   | {
                       richText: {
+                        root: {
+                          type: string;
+                          children: {
+                            type: string;
+                            version: number;
+                            [k: string]: unknown;
+                          }[];
+                          direction: ('ltr' | 'rtl') | null;
+                          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                          indent: number;
+                          version: number;
+                        };
                         [k: string]: unknown;
-                      }[];
+                      };
                       caseStudy: string | CaseStudy;
                       id?: string | null;
                     }[]
@@ -5584,8 +7417,20 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 caseStudies: (string | CaseStudy)[];
               };
               id?: string | null;
@@ -5627,8 +7472,20 @@ export interface PartnerProgram {
                 alignment?: ('contentCode' | 'codeContent') | null;
                 heading?: string | null;
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 links?:
                   | {
                       link: {
@@ -5663,8 +7520,20 @@ export interface PartnerProgram {
                             row: number;
                             label: string;
                             feature: {
+                              root: {
+                                type: string;
+                                children: {
+                                  type: string;
+                                  version: number;
+                                  [k: string]: unknown;
+                                }[];
+                                direction: ('ltr' | 'rtl') | null;
+                                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                indent: number;
+                                version: number;
+                              };
                               [k: string]: unknown;
-                            }[];
+                            };
                             enableLink?: boolean | null;
                             link?: {
                               type?: ('reference' | 'custom') | null;
@@ -5702,25 +7571,67 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 useLeadingHeader?: boolean | null;
-                leadingHeader?:
-                  | {
+                leadingHeader?: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
                       [k: string]: unknown;
-                    }[]
-                  | null;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
+                  [k: string]: unknown;
+                } | null;
                 layout?: ('oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns') | null;
                 columnOne: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
-                columnTwo?:
-                  | {
+                };
+                columnTwo?: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
                       [k: string]: unknown;
-                    }[]
-                  | null;
-                columnThree?:
-                  | {
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
+                  [k: string]: unknown;
+                } | null;
+                columnThree?: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
                       [k: string]: unknown;
-                    }[]
-                  | null;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
+                  [k: string]: unknown;
+                } | null;
               };
               id?: string | null;
               blockName?: string | null;
@@ -5733,11 +7644,21 @@ export interface PartnerProgram {
                 };
                 style?: ('gridBelow' | 'sideBySide') | null;
                 showNumbers?: boolean | null;
-                content?:
-                  | {
+                content?: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
                       [k: string]: unknown;
-                    }[]
-                  | null;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
+                  [k: string]: unknown;
+                } | null;
                 links?:
                   | {
                       link: {
@@ -5765,8 +7686,20 @@ export interface PartnerProgram {
                 cells?:
                   | {
                       content: {
+                        root: {
+                          type: string;
+                          children: {
+                            type: string;
+                            version: number;
+                            [k: string]: unknown;
+                          }[];
+                          direction: ('ltr' | 'rtl') | null;
+                          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                          indent: number;
+                          version: number;
+                        };
                         [k: string]: unknown;
-                      }[];
+                      };
                       id?: string | null;
                     }[]
                   | null;
@@ -5781,8 +7714,20 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 form: string | Form;
               };
               id?: string | null;
@@ -5795,8 +7740,20 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 cards?:
                   | {
                       title: string;
@@ -5926,8 +7883,20 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 enableLink?: boolean | null;
                 link?: {
                   type?: ('reference' | 'custom') | null;
@@ -5966,11 +7935,21 @@ export interface PartnerProgram {
                 };
                 position?: ('default' | 'wide') | null;
                 media: string | Media;
-                caption?:
-                  | {
+                caption?: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
                       [k: string]: unknown;
-                    }[]
-                  | null;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
+                  [k: string]: unknown;
+                } | null;
               };
               id?: string | null;
               blockName?: string | null;
@@ -5983,8 +7962,20 @@ export interface PartnerProgram {
                 };
                 alignment?: ('contentMedia' | 'mediaContent') | null;
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 enableLink?: boolean | null;
                 link?: {
                   type?: ('reference' | 'custom') | null;
@@ -6030,8 +8021,20 @@ export interface PartnerProgram {
                       background?: ('none' | 'gradient' | 'scanlines') | null;
                       mediaLabel: string;
                       mediaDescription: {
+                        root: {
+                          type: string;
+                          children: {
+                            type: string;
+                            version: number;
+                            [k: string]: unknown;
+                          }[];
+                          direction: ('ltr' | 'rtl') | null;
+                          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                          indent: number;
+                          version: number;
+                        };
                         [k: string]: unknown;
-                      }[];
+                      };
                       enableLink?: boolean | null;
                       link?: {
                         type?: ('reference' | 'custom') | null;
@@ -6145,8 +8148,20 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 richText: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
                   [k: string]: unknown;
-                }[];
+                };
                 links?:
                   | {
                       link: {
@@ -6174,7 +8189,7 @@ export interface PartnerProgram {
                 assetType?: ('media' | 'code') | null;
                 media?: string | Media | null;
                 code?: string | null;
-                mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
+                mediaWidth?: ('small' | 'medium' | 'large') | null;
                 backgroundGlow?: ('none' | 'colorful' | 'white') | null;
               };
               id?: string | null;
@@ -6198,8 +8213,20 @@ export interface PartnerProgram {
                               alignment?: ('contentCode' | 'codeContent') | null;
                               heading?: string | null;
                               richText: {
+                                root: {
+                                  type: string;
+                                  children: {
+                                    type: string;
+                                    version: number;
+                                    [k: string]: unknown;
+                                  }[];
+                                  direction: ('ltr' | 'rtl') | null;
+                                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                  indent: number;
+                                  version: number;
+                                };
                                 [k: string]: unknown;
-                              }[];
+                              };
                               links?:
                                 | {
                                     link: {
@@ -6234,8 +8261,20 @@ export interface PartnerProgram {
                                           row: number;
                                           label: string;
                                           feature: {
+                                            root: {
+                                              type: string;
+                                              children: {
+                                                type: string;
+                                                version: number;
+                                                [k: string]: unknown;
+                                              }[];
+                                              direction: ('ltr' | 'rtl') | null;
+                                              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                              indent: number;
+                                              version: number;
+                                            };
                                             [k: string]: unknown;
-                                          }[];
+                                          };
                                           enableLink?: boolean | null;
                                           link?: {
                                             type?: ('reference' | 'custom') | null;
@@ -6273,27 +8312,69 @@ export interface PartnerProgram {
                                 theme?: ('light' | 'dark') | null;
                               };
                               useLeadingHeader?: boolean | null;
-                              leadingHeader?:
-                                | {
+                              leadingHeader?: {
+                                root: {
+                                  type: string;
+                                  children: {
+                                    type: string;
+                                    version: number;
                                     [k: string]: unknown;
-                                  }[]
-                                | null;
+                                  }[];
+                                  direction: ('ltr' | 'rtl') | null;
+                                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                  indent: number;
+                                  version: number;
+                                };
+                                [k: string]: unknown;
+                              } | null;
                               layout?:
                                 | ('oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns')
                                 | null;
                               columnOne: {
+                                root: {
+                                  type: string;
+                                  children: {
+                                    type: string;
+                                    version: number;
+                                    [k: string]: unknown;
+                                  }[];
+                                  direction: ('ltr' | 'rtl') | null;
+                                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                  indent: number;
+                                  version: number;
+                                };
                                 [k: string]: unknown;
-                              }[];
-                              columnTwo?:
-                                | {
+                              };
+                              columnTwo?: {
+                                root: {
+                                  type: string;
+                                  children: {
+                                    type: string;
+                                    version: number;
                                     [k: string]: unknown;
-                                  }[]
-                                | null;
-                              columnThree?:
-                                | {
+                                  }[];
+                                  direction: ('ltr' | 'rtl') | null;
+                                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                  indent: number;
+                                  version: number;
+                                };
+                                [k: string]: unknown;
+                              } | null;
+                              columnThree?: {
+                                root: {
+                                  type: string;
+                                  children: {
+                                    type: string;
+                                    version: number;
                                     [k: string]: unknown;
-                                  }[]
-                                | null;
+                                  }[];
+                                  direction: ('ltr' | 'rtl') | null;
+                                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                  indent: number;
+                                  version: number;
+                                };
+                                [k: string]: unknown;
+                              } | null;
                             };
                             id?: string | null;
                             blockName?: string | null;
@@ -6366,8 +8447,20 @@ export interface PartnerProgram {
                               highlights?:
                                 | {
                                     richText: {
+                                      root: {
+                                        type: string;
+                                        children: {
+                                          type: string;
+                                          version: number;
+                                          [k: string]: unknown;
+                                        }[];
+                                        direction: ('ltr' | 'rtl') | null;
+                                        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                        indent: number;
+                                        version: number;
+                                      };
                                       [k: string]: unknown;
-                                    }[];
+                                    };
                                     enableLink?: boolean | null;
                                     link?: {
                                       type?: ('reference' | 'custom') | null;
@@ -6395,8 +8488,20 @@ export interface PartnerProgram {
                                           row: number;
                                           label: string;
                                           feature: {
+                                            root: {
+                                              type: string;
+                                              children: {
+                                                type: string;
+                                                version: number;
+                                                [k: string]: unknown;
+                                              }[];
+                                              direction: ('ltr' | 'rtl') | null;
+                                              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                              indent: number;
+                                              version: number;
+                                            };
                                             [k: string]: unknown;
-                                          }[];
+                                          };
                                           enableLink?: boolean | null;
                                           link?: {
                                             type?: ('reference' | 'custom') | null;
@@ -6446,8 +8551,20 @@ export interface PartnerProgram {
                 highlights?:
                   | {
                       richText: {
+                        root: {
+                          type: string;
+                          children: {
+                            type: string;
+                            version: number;
+                            [k: string]: unknown;
+                          }[];
+                          direction: ('ltr' | 'rtl') | null;
+                          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                          indent: number;
+                          version: number;
+                        };
                         [k: string]: unknown;
-                      }[];
+                      };
                       enableLink?: boolean | null;
                       link?: {
                         type?: ('reference' | 'custom') | null;
@@ -6475,8 +8592,20 @@ export interface PartnerProgram {
                             row: number;
                             label: string;
                             feature: {
+                              root: {
+                                type: string;
+                                children: {
+                                  type: string;
+                                  version: number;
+                                  [k: string]: unknown;
+                                }[];
+                                direction: ('ltr' | 'rtl') | null;
+                                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                                indent: number;
+                                version: number;
+                              };
                               [k: string]: unknown;
-                            }[];
+                            };
                             enableLink?: boolean | null;
                             link?: {
                               type?: ('reference' | 'custom') | null;
@@ -6515,6 +8644,13 @@ export interface PartnerProgram {
   };
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "auth".
+ */
+export interface Auth {
+  [k: string]: unknown;
 }
 
 

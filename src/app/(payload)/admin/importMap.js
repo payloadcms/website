@@ -26,11 +26,11 @@ import { MetaTitleComponent as MetaTitleComponent_24 } from '@payloadcms/plugin-
 import { MetaDescriptionComponent as MetaDescriptionComponent_25 } from '@payloadcms/plugin-seo/client'
 import { MetaImageComponent as MetaImageComponent_26 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_27 } from '@payloadcms/plugin-seo/client'
-import { BlogMarkdownField as BlogMarkdownField_28 } from 'src/src/blocks/BlogMarkdown/Field'
-import { default as default_29 } from 'src/src/globals/CustomRowLabelNavItems'
-import { default as default_30 } from 'src/src/globals/CustomRowLabelTabs'
-import { default as default_31 } from 'src/src/components/SyncDocsButton'
-import { default as default_32 } from 'src/src/components/RedeployButton'
+import { BlogMarkdownField as BlogMarkdownField_28 } from '@root/blocks/BlogMarkdown/Field'
+import { default as default_29 } from '@root/globals/CustomRowLabelNavItems'
+import { default as default_30 } from '@root/globals/CustomRowLabelTabs'
+import { default as default_31 } from '@root/components/SyncDocsButton'
+import { default as default_32 } from '@root/components/RedeployButton'
 
 export const importMap = {
   "@payloadcms/richtext-lexical/client#RichTextCell": RichTextCell_0,
@@ -61,9 +61,9 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_25,
   "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_26,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_27,
-  "./blocks/BlogMarkdown/Field#BlogMarkdownField": BlogMarkdownField_28,
-  "./globals/CustomRowLabelNavItems#default": default_29,
-  "./globals/CustomRowLabelTabs#default": default_30,
-  "./components/SyncDocsButton#default": default_31,
-  "./components/RedeployButton#default": default_32
+  "@root/blocks/BlogMarkdown/Field#BlogMarkdownField": BlogMarkdownField_28,
+  "@root/globals/CustomRowLabelNavItems#default": default_29,
+  "@root/globals/CustomRowLabelTabs#default": default_30,
+  "@root/components/SyncDocsButton#default": default_31,
+  "@root/components/RedeployButton#default": default_32
 }

@@ -71,10 +71,10 @@ export default buildConfig({
       password: 'test',
     },
     components: {
-      afterNavLinks: ['./components/SyncDocsButton', './components/RedeployButton'],
+      afterNavLinks: ['@root/components/SyncDocsButton', '@root/components/RedeployButton'],
     },
     importMap: {
-      baseDir: path.resolve(dirname, 'src'),
+      baseDir: dirname,
     },
   },
   cors: [process.env.PAYLOAD_PUBLIC_APP_URL || '', 'https://payloadcms.com'].filter(Boolean),

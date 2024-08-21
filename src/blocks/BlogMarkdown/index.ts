@@ -13,7 +13,7 @@ export const BlogMarkdown: Block = {
           type: 'text',
           admin: {
             components: {
-              Field: './blocks/BlogMarkdown/Field#BlogMarkdownField',
+              Field: '@root/blocks/BlogMarkdown/Field#BlogMarkdownField',
             },
           },
           required: true,

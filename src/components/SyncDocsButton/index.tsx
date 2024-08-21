@@ -1,8 +1,8 @@
 'use client'
 
+import { useConfig } from '@payloadcms/ui'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
-import { useConfig } from '@payloadcms/ui'
 
 import './index.scss'
 
@@ -11,7 +11,9 @@ const baseClass = 'sync-docs-button'
 const SyncDocsButton: React.FC = () => {
   const [isSyncing, setIsSyncing] = useState(false)
   const {
-    routes: { api },
+    config: {
+      routes: { api },
+    },
   } = useConfig()
 
   const syncDocs = async () => {
@@ -28,7 +30,7 @@ const SyncDocsButton: React.FC = () => {
   }
 
   return (
-    <button className={baseClass} onClick={syncDocs} disabled={isSyncing}>
+    <button className={baseClass} disabled={isSyncing} onClick={syncDocs}>
       {isSyncing ? 'Syncing...' : 'Sync Docs'}
     </button>
   )
