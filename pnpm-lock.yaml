@@ -39,6 +39,9 @@ importers:
       '@lexical/react':
         specifier: 0.17.0
         version: 0.17.0(react-dom@19.0.0-rc-06d0b89e-20240801(react@19.0.0-rc-06d0b89e-20240801))(react@19.0.0-rc-06d0b89e-20240801)(yjs@13.6.18)
+      '@lexical/selection':
+        specifier: 0.17.0
+        version: 0.17.0
       '@lexical/utils':
         specifier: 0.17.0
         version: 0.17.0

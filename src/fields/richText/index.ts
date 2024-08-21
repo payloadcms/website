@@ -1,69 +1,52 @@
-import type { AdapterArguments, RichTextElement, RichTextLeaf } from '@payloadcms/richtext-slate'
-// import { slateEditor } from '@payloadcms/richtext-slate'
+import type { FeatureProviderServer } from '@payloadcms/richtext-lexical'
 import type { RichTextField } from 'payload'
+
+import { UploadFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 
 import deepMerge from '../../utilities/deepMerge'
 import link from '../link'
-import elements from './elements'
-import leaves from './leaves'
 
 type RichText = (
-  overrides?: Partial<
-    RichTextField & {
-      admin: RichTextField['admin'] & AdapterArguments['admin']
-    }
-  >,
-  additions?: {
-    elements?: RichTextElement[]
-    leaves?: RichTextLeaf[]
-  },
+  overrides?: Partial<RichTextField>,
+  additionalFeatures?: FeatureProviderServer[],
 ) => RichTextField
 
-const richText: RichText = (
-  overrides = {},
-  additions = {
-    elements: [],
-    leaves: [],
-  },
-): RichTextField => {
+const richText: RichText = (overrides = {}, additionalFeatures = []): RichTextField => {
   const overridesToMerge = overrides ? { ...overrides } : {}
 
   return deepMerge<RichTextField, Partial<RichTextField>>(
     {
       name: 'richText',
       type: 'richText',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => [
+          ...rootFeatures,
+          UploadFeature({
+            collections: {
+              media: {
+                fields: [
+                  {
+                    name: 'enableLink',
+                    type: 'checkbox',
+                    label: 'Enable Link',
+                  },
+                  link({
+                    appearances: false,
+                    disableLabel: true,
+                    overrides: {
+                      admin: {
+                        condition: (_, data) => Boolean(data?.enableLink),
+                      },
+                    },
+                  }),
+                ],
+              },
+            },
+          }),
+          ...additionalFeatures,
+        ],
+      }),
       required: true,
-      // editor: slateEditor({
-      //   admin: deepMerge<AdapterArguments['admin'], Partial<AdapterArguments['admin']>>(
-      //     {
-      //       upload: {
-      //         collections: {
-      //           media: {
-      //             fields: [
-      //               {
-      //                 name: 'enableLink',
-      //                 type: 'checkbox',
-      //                 label: 'Enable Link',
-      //               },
-      //               link({
-      //                 appearances: false,
-      //                 disableLabel: true,
-      //                 overrides: {
-      //                   admin: {
-      //                     condition: (_, data) => Boolean(data?.enableLink),
-      //                   },
-      //                 },
-      //               }),
-      //             ],
-      //           },
-      //         },
-      //       },
-      //       elements: [...elements, ...(additions.elements || [])],
-      //       leaves: [...leaves, ...(additions.leaves || [])],
-      //     },
-      //     overrides?.admin,
-      //   ),
-      // }),
     },
     overridesToMerge,
   )
