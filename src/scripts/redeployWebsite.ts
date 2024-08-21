@@ -1,7 +1,4 @@
-import dotenv from 'dotenv'
-import { PayloadHandler } from 'payload/config'
-
-dotenv.config()
+import { PayloadHandler } from 'payload'
 
 const redeployWebsite: PayloadHandler = async (req, res) => {
   try {

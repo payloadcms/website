@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import dotenv from 'dotenv'
+import type { PayloadHandler } from 'payload'
+
 import matter from 'gray-matter'
 import fetch from 'node-fetch'
-import type { PayloadHandler } from 'payload/config'
 
 import type { Doc } from '../payload-types'
+
 import sanitizeSlug from '../utilities/sanitizeSlug'
 
-dotenv.config()
-
 const decodeBase64 = (
-  string: WithImplicitCoercion<string> | { [Symbol.toPrimitive](hint: 'string'): string },
+  string: { [Symbol.toPrimitive](hint: 'string'): string } | WithImplicitCoercion<string>,
 ) => {
   const buff = Buffer.from(string, 'base64')
   return buff.toString('utf8')
@@ -29,9 +28,9 @@ function getHeadings(source: string) {
   })
 
   return headingLines.map((raw: string) => {
-    const text = raw.replace(/^###*\s/, '')
+    const text = raw.replace(/^#{2,}\s/, '')
     const level = raw.slice(0, 3) === '###' ? 3 : 2
-    return { text, level, id: sanitizeSlug(text) }
+    return { id: sanitizeSlug(text), level, text }
   })
 }
 
@@ -41,7 +40,7 @@ const syncDocs: PayloadHandler = async (req, res) => {
 
   try {
     if (!process.env.GITHUB_ACCESS_TOKEN) {
-      return res.status(400).json({ success: false, message: 'No GitHub access token found' })
+      return res.status(400).json({ message: 'No GitHub access token found', success: false })
     }
 
     const fetchDoc = async (topicSlug: string, docFilename: string): Promise<Doc> => {
@@ -54,19 +53,19 @@ const syncDocs: PayloadHandler = async (req, res) => {
       const slug = docFilename.replace('.mdx', '')
 
       const doc: Doc = {
+        id: '',
+        slug,
         content: parsedDoc.content,
-        title: parsedDoc.data.title,
-        topic: topicSlug,
-        slug: slug,
+        createdAt: '',
+        description: parsedDoc.data.desc || '',
+        headings: await getHeadings(parsedDoc.content),
+        keywords: parsedDoc.data.keywords || '',
         label: parsedDoc.data.label,
         order: parsedDoc.data.order,
-        description: parsedDoc.data.desc || '',
-        keywords: parsedDoc.data.keywords || '',
-        headings: await getHeadings(parsedDoc.content),
         path: `${topicSlug}/${slug}`,
-        id: '',
+        title: parsedDoc.data.title,
+        topic: topicSlug,
         updatedAt: '',
-        createdAt: '',
       }
 
       return doc
@@ -76,8 +75,8 @@ const syncDocs: PayloadHandler = async (req, res) => {
       const existingDocs = await payload.find({
         collection: 'docs',
         where: {
-          topic: { equals: doc.topic },
           slug: { equals: doc.slug },
+          topic: { equals: doc.topic },
         },
       })
       if (existingDocs.totalDocs === 1) {
@@ -134,7 +133,7 @@ const syncDocs: PayloadHandler = async (req, res) => {
 
     return res.status(200).json({ success: true })
   } catch (err: unknown) {
-    return res.status(400).json({ success: false, message: `${err}` })
+    return res.status(400).json({ message: `${err}`, success: false })
   }
 }
 

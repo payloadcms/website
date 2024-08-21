@@ -3,7 +3,8 @@ import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-import dotenv from 'dotenv'
+// import { slateEditor } from '@payloadcms/richtext-slate'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
 
@@ -12,29 +13,20 @@ import { CommunityHelp } from './collections/CommunityHelp'
 import { Docs } from './collections/Docs'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
+import { Budgets, Industries, Regions, Specialties } from './collections/PartnerFilters'
 import { Partners } from './collections/Partners'
 import { Posts } from './collections/Posts'
 import { ReusableContent } from './collections/ReusableContent'
 import { Users } from './collections/Users'
+import RedeployButton from './components/RedeployButton'
 import SyncDocsButton from './components/SyncDocsButton'
 import { Footer } from './globals/Footer'
 import { MainMenu } from './globals/MainMenu'
 import { PartnerProgram } from './globals/PartnerProgram'
-import syncDocs from './scripts/syncDocs'
-import { Budgets, Industries, Regions, Specialties } from './collections/PartnerFilters'
 import redeployWebsite from './scripts/redeployWebsite'
-import RedeployButton from './components/RedeployButton'
-// import { slateEditor } from '@payloadcms/richtext-slate'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
-
-dotenv.config({
-  path: path.resolve(__dirname, '../.env'),
-})
-
-const mockModulePath = path.resolve(__dirname, './emptyModuleMock.js')
+import syncDocs from './scripts/syncDocs'
 
 export default buildConfig({
-  secret: process.env.PAYLOAD_SECRET || '',
   collections: [
     CaseStudies,
     CommunityHelp,
@@ -52,28 +44,62 @@ export default buildConfig({
   ],
   endpoints: [
     {
-      path: '/sync/docs',
-      method: 'get',
       handler: syncDocs,
+      method: 'get',
+      path: '/sync/docs',
     },
     {
-      path: '/redeploy/website',
-      method: 'post',
       handler: redeployWebsite,
+      method: 'post',
+      path: '/redeploy/website',
     },
   ],
   globals: [Footer, MainMenu, PartnerProgram],
   graphQL: {
     disablePlaygroundInProduction: false,
   },
+  secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
   // editor: slateEditor({}),
-  editor: lexicalEditor(),
+  admin: {
+    autoLogin: {
+      email: 'dev2@payloadcms.com',
+      password: 'test',
+    },
+    components: {
+      afterNavLinks: [SyncDocsButton, RedeployButton],
+    },
+  },
+  cors: [process.env.PAYLOAD_PUBLIC_APP_URL || '', 'https://payloadcms.com'].filter(Boolean),
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
+  editor: lexicalEditor(),
+  async onInit(payload) {
+    const user = await payload.find({
+      collection: 'users',
+      where: {
+        email: {
+          equals: 'dev2@payloadcms.com',
+        },
+      },
+    })
+    console.log('user', user)
+    if (!user?.docs?.length) {
+      await payload.create({
+        collection: 'users',
+        data: {
+          email: 'dev2@payloadcms.com',
+          firstName: 'Dev',
+          lastName: 'User',
+          password: 'test',
+          roles: ['admin'],
+        },
+      })
+    }
+  },
   plugins: [
     formBuilderPlugin({
       formOverrides: {
@@ -96,31 +122,31 @@ export default buildConfig({
                 const { form, submissionData } = doc
                 const portalID = process.env.PRIVATE_HUBSPOT_PORTAL_KEY
                 const data = {
+                  context: {
+                    hutk: req.body && 'hubspotCookie' in req.body ? req.body?.hubspotCookie : '',
+                    pageName: req.body && 'pageName' in req.body ? req.body?.pageName : '',
+                    pageUri: req.body && 'pageUri' in req.body ? req.body?.pageUri : '',
+                  },
                   fields: submissionData.map(key => ({
                     name: key.field,
                     value: key.value,
                   })),
-                  context: {
-                    hutk: req.body && 'hubspotCookie' in req.body ? req.body?.hubspotCookie : '',
-                    pageUri: req.body && 'pageUri' in req.body ? req.body?.pageUri : '',
-                    pageName: req.body && 'pageName' in req.body ? req.body?.pageName : '',
-                  },
                 }
                 try {
                   await fetch(
                     `https://api.hsforms.com/submissions/v3/integration/submit/${portalID}/${form.hubSpotFormID}`,
                     {
-                      method: 'POST',
+                      body: JSON.stringify(data),
                       headers: {
                         'Content-Type': 'application/json',
                       },
-                      body: JSON.stringify(data),
+                      method: 'POST',
                     },
                   )
                 } catch (err: unknown) {
                   req.payload.logger.error({
-                    msg: 'Fetch to HubSpot form submissions failed',
                     err,
+                    msg: 'Fetch to HubSpot form submissions failed',
                   })
                 }
               }
@@ -143,10 +169,4 @@ export default buildConfig({
       collections: ['case-studies', 'pages', 'posts'],
     }),
   ],
-  cors: [process.env.PAYLOAD_PUBLIC_APP_URL || '', 'https://payloadcms.com'].filter(Boolean),
-  admin: {
-    components: {
-      afterNavLinks: [SyncDocsButton, RedeployButton],
-    },
-  },
 })
