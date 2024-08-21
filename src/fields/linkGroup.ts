@@ -1,16 +1,16 @@
-import type { ArrayField } from 'payload/dist/fields/config/types'
-import type { Field } from 'payload'
+import type { ArrayField, Field } from 'payload'
+
+import type { LinkAppearances } from './link'
 
 import deepMerge from '../utilities/deepMerge'
-import type { LinkAppearances } from './link'
 import link from './link'
 
 type LinkGroupType = (options?: {
-  overrides?: Partial<ArrayField>
-  appearances?: LinkAppearances[] | false
   additions?: {
     npmCta?: boolean
   }
+  appearances?: LinkAppearances[] | false
+  overrides?: Partial<ArrayField>
 }) => Field
 
 const additionalFields: Field[] = [
@@ -19,13 +19,16 @@ const additionalFields: Field[] = [
     type: 'select',
     defaultValue: 'link',
     options: [
-      { value: 'link', label: 'Link' },
-      { value: 'npmCta', label: 'NPM CTA' },
+      { label: 'Link', value: 'link' },
+      { label: 'NPM CTA', value: 'npmCta' },
     ],
   },
   {
     name: 'npmCta',
     type: 'group',
+    admin: {
+      condition: (_, { type }) => Boolean(type === 'npmCta'),
+    },
     fields: [
       {
         name: 'label',
@@ -33,13 +36,10 @@ const additionalFields: Field[] = [
         required: true,
       },
     ],
-    admin: {
-      condition: (_, { type }) => Boolean(type === 'npmCta'),
-    },
   },
 ]
 
-const linkGroup: LinkGroupType = ({ overrides = {}, appearances, additions } = {}) => {
+const linkGroup: LinkGroupType = ({ additions, appearances, overrides = {} } = {}) => {
   const generatedLinkGroup: Field = {
     name: 'links',
     type: 'array',
@@ -48,12 +48,12 @@ const linkGroup: LinkGroupType = ({ overrides = {}, appearances, additions } = {
         ? [
             ...additionalFields,
             link({
+              appearances,
               overrides: {
                 admin: {
                   condition: (_, { type }) => Boolean(type === 'link'),
                 },
               },
-              appearances,
             }),
           ]
         : [

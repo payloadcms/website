@@ -3,6 +3,10 @@ import type { Field, GroupField } from 'payload'
 import deepMerge from '@utilities/deepMerge'
 
 export const appearanceOptions = {
+  default: {
+    label: 'Default',
+    value: 'default',
+  },
   primary: {
     label: 'Primary Button',
     value: 'primary',
@@ -11,13 +15,9 @@ export const appearanceOptions = {
     label: 'Secondary Button',
     value: 'secondary',
   },
-  default: {
-    label: 'Default',
-    value: 'default',
-  },
 }
 
-export type LinkAppearances = 'primary' | 'secondary' | 'default'
+export type LinkAppearances = 'default' | 'primary' | 'secondary'
 
 type LinkType = (options?: {
   appearances?: LinkAppearances[] | false
@@ -26,7 +26,7 @@ type LinkType = (options?: {
 }) => Field
 
 const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
-  let linkResult: Field = {
+  const linkResult: Field = {
     name: 'link',
     type: 'group',
     admin: {
@@ -40,6 +40,11 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
           {
             name: 'type',
             type: 'radio',
+            admin: {
+              layout: 'horizontal',
+              width: '50%',
+            },
+            defaultValue: 'reference',
             options: [
               {
                 label: 'Internal link',
@@ -50,48 +55,43 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
                 value: 'custom',
               },
             ],
-            defaultValue: 'reference',
-            admin: {
-              layout: 'horizontal',
-              width: '50%',
-            },
           },
           {
             name: 'newTab',
-            label: 'Open in new tab',
             type: 'checkbox',
             admin: {
-              width: '50%',
               style: {
                 alignSelf: 'flex-end',
               },
+              width: '50%',
             },
+            label: 'Open in new tab',
           },
         ],
       },
     ],
   }
 
-  let linkTypes: Field[] = [
+  const linkTypes: Field[] = [
     {
       name: 'reference',
-      label: 'Document to link to',
       type: 'relationship',
-      relationTo: ['pages', 'posts', 'case-studies'],
-      required: true,
-      maxDepth: 1,
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'reference',
       },
+      label: 'Document to link to',
+      maxDepth: 1,
+      relationTo: ['pages', 'posts', 'case-studies'],
+      required: true,
     },
     {
       name: 'url',
-      label: 'Custom URL',
       type: 'text',
-      required: true,
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'custom',
       },
+      label: 'Custom URL',
+      required: true,
     },
   ]
 
@@ -105,12 +105,12 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
         ...linkTypes,
         {
           name: 'label',
-          label: 'Label',
           type: 'text',
-          required: true,
           admin: {
             width: '50%',
           },
+          label: 'Label',
+          required: true,
         },
       ],
     })
@@ -132,11 +132,11 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
     linkResult.fields.push({
       name: 'appearance',
       type: 'select',
-      defaultValue: 'default',
-      options: appearanceOptionsToUse,
       admin: {
         description: 'Choose how the link should be rendered.',
       },
+      defaultValue: 'default',
+      options: appearanceOptionsToUse,
     })
   }
 

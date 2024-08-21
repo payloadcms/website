@@ -1,14 +1,11 @@
 import type { Field } from 'payload'
-import richText from './richText'
+
 import link from './link'
+import richText from './richText'
 
 const codeBlips: Field = {
   name: 'codeBlips',
   type: 'array',
-  labels: {
-    singular: 'Blip',
-    plural: 'Blips',
-  },
   fields: [
     {
       name: 'row',
@@ -22,8 +19,8 @@ const codeBlips: Field = {
     },
     richText({ name: 'feature', required: true }),
     {
-      type: 'checkbox',
       name: 'enableLink',
+      type: 'checkbox',
     },
     link({
       appearances: false,
@@ -34,6 +31,10 @@ const codeBlips: Field = {
       },
     }),
   ],
+  labels: {
+    plural: 'Blips',
+    singular: 'Blip',
+  },
 }
 
 export default codeBlips

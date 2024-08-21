@@ -3,8 +3,8 @@ import type { Field, GroupField } from 'payload'
 import deepMerge from '../utilities/deepMerge'
 
 interface Args {
-  name: string
   fields: Field[]
+  name: string
   overrides?: Partial<GroupField>
 }
 
@@ -30,7 +30,6 @@ export const blockFields = ({ name, fields, overrides }: Args): Field =>
   deepMerge(
     {
       name,
-      label: false,
       type: 'group',
       admin: {
         hideGutter: true,
@@ -42,21 +41,22 @@ export const blockFields = ({ name, fields, overrides }: Args): Field =>
       fields: [
         {
           type: 'collapsible',
-          label: 'Settings',
           fields: [
             {
+              name: 'settings',
               type: 'group',
-              label: false,
               admin: {
                 hideGutter: true,
               },
-              name: 'settings',
               fields: [themeField],
+              label: false,
             },
           ],
+          label: 'Settings',
         },
         ...fields,
       ],
+      label: false,
     },
     overrides,
   )

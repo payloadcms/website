@@ -1,16 +1,12 @@
 // import { slateEditor } from '@payloadcms/richtext-slate'
 import type { Field } from 'payload'
 
-import label from './richText/label'
-import largeBody from './richText/largeBody'
-
 const livestreamFields: Field = {
   name: 'livestream',
-  label: false,
   type: 'group',
   admin: {
-    hideGutter: true,
     condition: (_, { type }) => type === 'livestream',
+    hideGutter: true,
     style: {
       margin: 0,
       padding: 0,
@@ -22,19 +18,19 @@ const livestreamFields: Field = {
       fields: [
         {
           name: 'id',
-          label: 'YouTube ID',
           type: 'text',
+          label: 'YouTube ID',
         },
         {
-          label: 'Date / Time (GMT)',
           name: 'date',
           type: 'date',
-          required: true,
           admin: {
             date: {
               pickerAppearance: 'dayAndTime',
             },
           },
+          label: 'Date / Time (GMT)',
+          required: true,
         },
       ],
     },
@@ -77,6 +73,7 @@ const livestreamFields: Field = {
       ],
     },
   ],
+  label: false,
 }
 
 export default livestreamFields

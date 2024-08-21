@@ -1,25 +1,20 @@
 // import { slateEditor } from '@payloadcms/richtext-slate'
 import type { Field } from 'payload'
 
-import linkGroup from './linkGroup'
-import link from './link'
-import livestreamFields from './livestreamFields'
-import label from './richText/label'
-import largeBody from './richText/largeBody'
-
 import { themeField } from './blockFields'
+import link from './link'
+import linkGroup from './linkGroup'
+import livestreamFields from './livestreamFields'
 
 export const hero: Field = {
   name: 'hero',
-  label: false,
   type: 'group',
   fields: [
     {
-      type: 'select',
       name: 'type',
-      label: 'Type',
-      required: true,
+      type: 'select',
       defaultValue: 'default',
+      label: 'Type',
       options: [
         {
           label: 'Default',
@@ -54,10 +49,11 @@ export const hero: Field = {
           value: 'three',
         },
       ],
+      required: true,
     },
     {
-      type: 'checkbox',
       name: 'fullBackground',
+      type: 'checkbox',
       admin: {
         condition: (_, { type } = {}) => type === 'gradient',
       },
@@ -65,27 +61,27 @@ export const hero: Field = {
     themeField,
     {
       type: 'collapsible',
-      label: 'Breadcrumbs Bar',
       fields: [
         {
-          type: 'checkbox',
           name: 'enableBreadcrumbsBar',
+          type: 'checkbox',
           label: 'Enable Breadcrumbs Bar',
         },
         linkGroup({
+          appearances: false,
           overrides: {
             name: 'breadcrumbsBarLinks',
-            labels: {
-              singular: 'Link',
-              plural: 'Links',
-            },
             admin: {
               condition: (_, { enableBreadcrumbsBar } = {}) => Boolean(enableBreadcrumbsBar),
             },
+            labels: {
+              plural: 'Links',
+              singular: 'Link',
+            },
           },
-          appearances: false,
         }),
       ],
+      label: 'Breadcrumbs Bar',
     },
     livestreamFields,
     {
@@ -136,10 +132,10 @@ export const hero: Field = {
       appearances: false,
       overrides: {
         name: 'primaryButtons',
-        label: 'Primary Buttons',
         admin: {
           condition: (_, { type }) => type === 'home',
         },
+        label: 'Primary Buttons',
       },
     }),
     {
@@ -172,35 +168,27 @@ export const hero: Field = {
       overrides: {
         admin: {
           condition: (_, { type } = {}) =>
-            ['contentMedia', 'default', 'livestream', 'centeredContent', 'gradient'].includes(type),
+            ['centeredContent', 'contentMedia', 'default', 'gradient', 'livestream'].includes(type),
         },
       },
     }),
     {
       name: 'buttons',
       type: 'blocks',
-      labels: {
-        singular: 'Button',
-        plural: 'Buttons',
-      },
       admin: {
         condition: (_, { type }) => type === 'three',
       },
       blocks: [
         {
           slug: 'link',
-          labels: {
-            singular: 'Link',
-            plural: 'Links',
-          },
           fields: [link()],
+          labels: {
+            plural: 'Links',
+            singular: 'Link',
+          },
         },
         {
           slug: 'command',
-          labels: {
-            singular: 'Command Line',
-            plural: 'Command Lines',
-          },
           fields: [
             {
               name: 'command',
@@ -208,23 +196,30 @@ export const hero: Field = {
               required: true,
             },
           ],
+          labels: {
+            plural: 'Command Lines',
+            singular: 'Command Line',
+          },
         },
       ],
+      labels: {
+        plural: 'Buttons',
+        singular: 'Button',
+      },
     },
     linkGroup({
       appearances: false,
       overrides: {
         name: 'secondaryButtons',
-        label: 'Secondary Buttons',
         admin: {
           condition: (_, { type }) => type === 'home',
         },
+        label: 'Secondary Buttons',
       },
     }),
     {
       name: 'images',
       type: 'array',
-      minRows: 1,
       admin: {
         condition: (_, { type } = {}) => ['gradient'].includes(type),
       },
@@ -236,57 +231,59 @@ export const hero: Field = {
           required: true,
         },
       ],
+      minRows: 1,
     },
     {
       name: 'media',
       type: 'upload',
-      relationTo: 'media',
-      required: true,
       admin: {
         condition: (_, { type } = {}) => ['contentMedia', 'home'].includes(type),
       },
+      relationTo: 'media',
+      required: true,
     },
     {
       name: 'secondaryMedia',
       type: 'upload',
-      relationTo: 'media',
-      required: true,
       admin: {
         condition: (_, { type }) => type === 'home',
       },
+      relationTo: 'media',
+      required: true,
     },
     {
       name: 'featureVideo',
       type: 'upload',
-      relationTo: 'media',
-      required: true,
       admin: {
         condition: (_, { type }) => type === 'home',
       },
+      relationTo: 'media',
+      required: true,
     },
     {
       name: 'form',
       type: 'relationship',
-      relationTo: 'forms',
       admin: {
         condition: (_, { type }) => type === 'form',
       },
+      relationTo: 'forms',
     },
     {
       name: 'logos',
       type: 'array',
+      admin: {
+        condition: (_, { type }) => type === 'home',
+      },
       fields: [
         {
           name: 'logoMedia',
-          label: 'Media',
           type: 'upload',
+          label: 'Media',
           relationTo: 'media',
           required: true,
         },
       ],
-      admin: {
-        condition: (_, { type }) => type === 'home',
-      },
     },
   ],
+  label: false,
 }
