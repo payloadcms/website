@@ -127,7 +127,12 @@ export const RenderDocs: React.FC<Props> = ({ topics, children, version = 'curre
             .join(' ')}
           onMouseLeave={() => setResetIndicator(true)}
         >
-          {!hideVersionSelector && <VersionSelector initialVersion={version} />}
+          {!hideVersionSelector && (
+            <div className={classes.selector}>
+              <VersionSelector initialVersion={version} />
+            </div>
+          )}
+
           <div className={classes.nav}>
             {topics.map((topic, index) => {
               const topicSlug = topic.slug.toLowerCase()

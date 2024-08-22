@@ -52,12 +52,16 @@
 }
 
 .selector {
-  position: sticky;
+  display: none;
   top: 0;
   z-index: 2;
   background-color: var(--theme-bg);
   margin-right: 1px;
   border-left: 1px solid var(--theme-border-color);
+
+  @include mid-break {
+    display: block;
+  }
 }
 
 .nav {
