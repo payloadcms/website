@@ -286,28 +286,6 @@ export default buildConfig({
       }),
     ],
   }),
-  async onInit(payload) {
-    const user = await payload.find({
-      collection: 'users',
-      where: {
-        email: {
-          equals: 'dev2@payloadcms.com',
-        },
-      },
-    })
-    if (!user?.docs?.length) {
-      await payload.create({
-        collection: 'users',
-        data: {
-          email: 'dev2@payloadcms.com',
-          firstName: 'Dev',
-          lastName: 'User',
-          password: 'test',
-          roles: ['admin'],
-        },
-      })
-    }
-  },
   plugins: [
     formBuilderPlugin({
       formOverrides: {
