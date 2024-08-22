@@ -2,14 +2,13 @@ import React from 'react'
 
 import { VimeoPlayer } from './Vimeo/index.js'
 import { YouTubePlayer } from './YouTube/index.js'
-
 import classes from './index.module.scss'
 
 export const Video: React.FC<{
-  platform?: 'vimeo' | 'youtube'
   id?: string
+  platform?: 'vimeo' | 'youtube'
 }> = props => {
-  const { platform = 'vimeo', id } = props
+  const { id, platform = 'vimeo' } = props
 
   return (
     <div

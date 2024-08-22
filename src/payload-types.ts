@@ -666,8 +666,8 @@ export interface CaseStudy {
                 | {
                     text: string;
                     media?: {
-                      top?: string | Media | null;
-                      bottom?: string | Media | null;
+                      top?: (string | null) | Media;
+                      bottom?: (string | null) | Media;
                     };
                     link?: {
                       type?: ('reference' | 'custom') | null;
@@ -1059,7 +1059,7 @@ export interface CaseStudy {
                   }[]
                 | null;
               assetType?: ('media' | 'code') | null;
-              media?: string | Media | null;
+              media?: (string | null) | Media;
               code?: string | null;
               mediaWidth?: ('small' | 'medium' | 'large') | null;
               backgroundGlow?: ('none' | 'colorful' | 'white') | null;
@@ -1262,8 +1262,8 @@ export interface CaseStudy {
                               | {
                                   text: string;
                                   media?: {
-                                    top?: string | Media | null;
-                                    bottom?: string | Media | null;
+                                    top?: (string | null) | Media;
+                                    bottom?: (string | null) | Media;
                                   };
                                   link?: {
                                     type?: ('reference' | 'custom') | null;
@@ -1397,7 +1397,7 @@ export interface CaseStudy {
                                         id?: string | null;
                                       }[]
                                     | null;
-                                  media?: string | Media | null;
+                                  media?: (string | null) | Media;
                                   id?: string | null;
                                 }[]
                               | null;
@@ -1501,7 +1501,7 @@ export interface CaseStudy {
                           id?: string | null;
                         }[]
                       | null;
-                    media?: string | Media | null;
+                    media?: (string | null) | Media;
                     id?: string | null;
                   }[]
                 | null;
@@ -1518,7 +1518,7 @@ export interface CaseStudy {
   meta?: {
     title?: string | null;
     description?: string | null;
-    image?: string | Media | null;
+    image?: (string | null) | Media;
   };
   updatedAt: string;
   createdAt: string;
@@ -1531,7 +1531,7 @@ export interface CaseStudy {
 export interface Media {
   id: string;
   alt: string;
-  darkModeFallback?: string | Media | null;
+  darkModeFallback?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -1604,7 +1604,7 @@ export interface Page {
         | {
             name?: string | null;
             link?: string | null;
-            image?: string | Media | null;
+            image?: (string | null) | Media;
             id?: string | null;
           }[]
         | null;
@@ -1803,9 +1803,9 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
-    media?: string | Media | null;
-    secondaryMedia?: string | Media | null;
-    featureVideo?: string | Media | null;
+    media?: (string | null) | Media;
+    secondaryMedia?: (string | null) | Media;
+    featureVideo?: (string | null) | Media;
     form?: (string | null) | Form;
     logos?:
       | {
@@ -2393,8 +2393,8 @@ export interface Page {
             | {
                 text: string;
                 media?: {
-                  top?: string | Media | null;
-                  bottom?: string | Media | null;
+                  top?: (string | null) | Media;
+                  bottom?: (string | null) | Media;
                 };
                 link?: {
                   type?: ('reference' | 'custom') | null;
@@ -2786,7 +2786,7 @@ export interface Page {
               }[]
             | null;
           assetType?: ('media' | 'code') | null;
-          media?: string | Media | null;
+          media?: (string | null) | Media;
           code?: string | null;
           mediaWidth?: ('small' | 'medium' | 'large') | null;
           backgroundGlow?: ('none' | 'colorful' | 'white') | null;
@@ -2989,8 +2989,8 @@ export interface Page {
                           | {
                               text: string;
                               media?: {
-                                top?: string | Media | null;
-                                bottom?: string | Media | null;
+                                top?: (string | null) | Media;
+                                bottom?: (string | null) | Media;
                               };
                               link?: {
                                 type?: ('reference' | 'custom') | null;
@@ -3124,7 +3124,7 @@ export interface Page {
                                     id?: string | null;
                                   }[]
                                 | null;
-                              media?: string | Media | null;
+                              media?: (string | null) | Media;
                               id?: string | null;
                             }[]
                           | null;
@@ -3228,7 +3228,7 @@ export interface Page {
                       id?: string | null;
                     }[]
                   | null;
-                media?: string | Media | null;
+                media?: (string | null) | Media;
                 id?: string | null;
               }[]
             | null;
@@ -3243,7 +3243,7 @@ export interface Page {
   meta?: {
     title?: string | null;
     description?: string | null;
-    image?: string | Media | null;
+    image?: (string | null) | Media;
   };
   parent?: (string | null) | Page;
   breadcrumbs?:
@@ -3446,7 +3446,7 @@ export interface Post {
   meta?: {
     title?: string | null;
     description?: string | null;
-    image?: string | Media | null;
+    image?: (string | null) | Media;
   };
   updatedAt: string;
   createdAt: string;
@@ -4156,8 +4156,8 @@ export interface ReusableContent {
             | {
                 text: string;
                 media?: {
-                  top?: string | Media | null;
-                  bottom?: string | Media | null;
+                  top?: (string | null) | Media;
+                  bottom?: (string | null) | Media;
                 };
                 link?: {
                   type?: ('reference' | 'custom') | null;
@@ -4537,7 +4537,7 @@ export interface ReusableContent {
               }[]
             | null;
           assetType?: ('media' | 'code') | null;
-          media?: string | Media | null;
+          media?: (string | null) | Media;
           code?: string | null;
           mediaWidth?: ('small' | 'medium' | 'large') | null;
           backgroundGlow?: ('none' | 'colorful' | 'white') | null;
@@ -4740,8 +4740,8 @@ export interface ReusableContent {
                           | {
                               text: string;
                               media?: {
-                                top?: string | Media | null;
-                                bottom?: string | Media | null;
+                                top?: (string | null) | Media;
+                                bottom?: (string | null) | Media;
                               };
                               link?: {
                                 type?: ('reference' | 'custom') | null;
@@ -4875,7 +4875,7 @@ export interface ReusableContent {
                                     id?: string | null;
                                   }[]
                                 | null;
-                              media?: string | Media | null;
+                              media?: (string | null) | Media;
                               id?: string | null;
                             }[]
                           | null;
@@ -4979,7 +4979,7 @@ export interface ReusableContent {
                       id?: string | null;
                     }[]
                   | null;
-                media?: string | Media | null;
+                media?: (string | null) | Media;
                 id?: string | null;
               }[]
             | null;
@@ -5230,7 +5230,7 @@ export interface User {
   firstName: string;
   lastName: string;
   twitter?: string | null;
-  photo?: string | Media | null;
+  photo?: (string | null) | Media;
   roles: ('admin' | 'public')[];
   updatedAt: string;
   createdAt: string;
@@ -6367,8 +6367,8 @@ export interface PartnerProgram {
                   | {
                       text: string;
                       media?: {
-                        top?: string | Media | null;
-                        bottom?: string | Media | null;
+                        top?: (string | null) | Media;
+                        bottom?: (string | null) | Media;
                       };
                       link?: {
                         type?: ('reference' | 'custom') | null;
@@ -6760,7 +6760,7 @@ export interface PartnerProgram {
                     }[]
                   | null;
                 assetType?: ('media' | 'code') | null;
-                media?: string | Media | null;
+                media?: (string | null) | Media;
                 code?: string | null;
                 mediaWidth?: ('small' | 'medium' | 'large') | null;
                 backgroundGlow?: ('none' | 'colorful' | 'white') | null;
@@ -6963,8 +6963,8 @@ export interface PartnerProgram {
                                 | {
                                     text: string;
                                     media?: {
-                                      top?: string | Media | null;
-                                      bottom?: string | Media | null;
+                                      top?: (string | null) | Media;
+                                      bottom?: (string | null) | Media;
                                     };
                                     link?: {
                                       type?: ('reference' | 'custom') | null;
@@ -7098,7 +7098,7 @@ export interface PartnerProgram {
                                           id?: string | null;
                                         }[]
                                       | null;
-                                    media?: string | Media | null;
+                                    media?: (string | null) | Media;
                                     id?: string | null;
                                   }[]
                                 | null;
@@ -7202,7 +7202,7 @@ export interface PartnerProgram {
                             id?: string | null;
                           }[]
                         | null;
-                      media?: string | Media | null;
+                      media?: (string | null) | Media;
                       id?: string | null;
                     }[]
                   | null;
@@ -7794,8 +7794,8 @@ export interface PartnerProgram {
                   | {
                       text: string;
                       media?: {
-                        top?: string | Media | null;
-                        bottom?: string | Media | null;
+                        top?: (string | null) | Media;
+                        bottom?: (string | null) | Media;
                       };
                       link?: {
                         type?: ('reference' | 'custom') | null;
@@ -8187,7 +8187,7 @@ export interface PartnerProgram {
                     }[]
                   | null;
                 assetType?: ('media' | 'code') | null;
-                media?: string | Media | null;
+                media?: (string | null) | Media;
                 code?: string | null;
                 mediaWidth?: ('small' | 'medium' | 'large') | null;
                 backgroundGlow?: ('none' | 'colorful' | 'white') | null;
@@ -8390,8 +8390,8 @@ export interface PartnerProgram {
                                 | {
                                     text: string;
                                     media?: {
-                                      top?: string | Media | null;
-                                      bottom?: string | Media | null;
+                                      top?: (string | null) | Media;
+                                      bottom?: (string | null) | Media;
                                     };
                                     link?: {
                                       type?: ('reference' | 'custom') | null;
@@ -8525,7 +8525,7 @@ export interface PartnerProgram {
                                           id?: string | null;
                                         }[]
                                       | null;
-                                    media?: string | Media | null;
+                                    media?: (string | null) | Media;
                                     id?: string | null;
                                   }[]
                                 | null;
@@ -8629,7 +8629,7 @@ export interface PartnerProgram {
                             id?: string | null;
                           }[]
                         | null;
-                      media?: string | Media | null;
+                      media?: (string | null) | Media;
                       id?: string | null;
                     }[]
                   | null;
@@ -8644,6 +8644,51 @@ export interface PartnerProgram {
   };
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SpotlightBlock".
+ */
+export interface SpotlightBlock {
+  element?: ('h1' | 'h2' | 'h3' | 'p') | null;
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'spotlight';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock".
+ */
+export interface VideoBlock {
+  url?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'video';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BrBlock".
+ */
+export interface BrBlock {
+  ignore?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'br';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

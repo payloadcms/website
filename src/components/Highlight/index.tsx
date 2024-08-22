@@ -1,27 +1,27 @@
 'use client'
 
-import React, { Fragment, useRef } from 'react'
 import useIntersection from '@utilities/useIntersection.js'
+import React, { Fragment, useRef } from 'react'
 
 import classes from './index.module.scss'
 
 export const Highlight: React.FC<{
-  text?: string
+  appearance?: 'danger' | 'success'
   bold?: boolean
   className?: string
-  inlineIcon?: React.ReactElement
-  highlightOnHover?: boolean
   highlight?: boolean
+  highlightOnHover?: boolean
+  inlineIcon?: React.ReactElement
   reverseIcon?: boolean
-  appearance?: 'success' | 'danger'
+  text?: string
 }> = props => {
   const {
+    appearance = 'success',
     bold,
     className,
-    text,
     inlineIcon: InlineIcon,
     reverseIcon,
-    appearance = 'success',
+    text,
   } = props
 
   const ref = useRef(null)
@@ -37,10 +37,10 @@ export const Highlight: React.FC<{
     if (Array.isArray(words) && words.length > 0) {
       return (
         <span
-          ref={ref}
           className={[classes.highlightWrapper, className, classes[appearance]]
             .filter(Boolean)
             .join(' ')}
+          ref={ref}
         >
           {words.map((word, index) => {
             const isFirstWord = index === 0
@@ -48,7 +48,6 @@ export const Highlight: React.FC<{
 
             return (
               <span
-                key={index}
                 className={[
                   classes.highlightNode,
                   hasIntersected && classes.doHighlight,
@@ -56,6 +55,7 @@ export const Highlight: React.FC<{
                 ]
                   .filter(Boolean)
                   .join(' ')}
+                key={index}
               >
                 <span className={classes.label}>
                   {InlineIcon && reverseIcon && isFirstWord && (

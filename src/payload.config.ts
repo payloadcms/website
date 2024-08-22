@@ -3,7 +3,6 @@ import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-// import { slateEditor } from '@payloadcms/richtext-slate'
 import {
   BlocksFeature,
   SerializedBlockNode,
@@ -263,6 +262,7 @@ export default buildConfig({
                 editor: lexicalEditor(),
               },
             ],
+            interfaceName: 'SpotlightBlock',
           },
           {
             slug: 'video',
@@ -272,6 +272,7 @@ export default buildConfig({
                 type: 'text',
               },
             ],
+            interfaceName: 'VideoBlock',
           },
           {
             slug: 'br',
@@ -281,6 +282,8 @@ export default buildConfig({
                 type: 'text',
               },
             ],
+
+            interfaceName: 'BrBlock',
           },
         ],
       }),
