@@ -4,7 +4,7 @@ import { $findMatchingParent } from '@lexical/utils'
 import {
   createClientFeature,
   getSelectedNode,
-  toolbarFormatGroupWithItems,
+  toolbarTextDropdownGroupWithItems,
 } from '@payloadcms/richtext-lexical/client'
 import {
   $createLargeBodyNode,
@@ -42,7 +42,7 @@ export const LargeBodyFeatureClient = createClientFeature({
   },
   toolbarInline: {
     groups: [
-      toolbarFormatGroupWithItems([
+      toolbarTextDropdownGroupWithItems([
         {
           ChildComponent: LargeBodyIcon,
           isActive: ({ selection }) => {
@@ -63,7 +63,7 @@ export const LargeBodyFeatureClient = createClientFeature({
               }
             })
           },
-          order: 20,
+          order: 290,
         },
       ]),
     ],

@@ -65,7 +65,7 @@ export class LargeBodyNode extends ElementNode {
 
   createDOM(config: EditorConfig): HTMLElement {
     const element = document.createElement('span')
-    addClassNamesToElement(element, '.rich-text-large-body')
+    addClassNamesToElement(element, 'rich-text-large-body')
     return element
   }
 
