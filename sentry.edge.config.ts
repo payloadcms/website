@@ -6,7 +6,7 @@
 import * as Sentry from '@sentry/nextjs'
 
 Sentry.init({
-  enabled: !!process.env.NEXT_PUBLIC_SENTRY_DSN,
+  enabled: false,
 
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
 
