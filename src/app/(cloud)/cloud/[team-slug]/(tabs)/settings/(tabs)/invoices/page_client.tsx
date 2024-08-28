@@ -14,6 +14,7 @@ import { priceFromJSON } from '@root/utilities/price-from-json.js'
 import { useInvoices } from './useInvoices.js'
 
 import classes from './page.module.scss'
+import Link from 'next/link.js'
 
 export const TeamInvoicesPage: React.FC<{
   team: TeamWithCustomer
@@ -49,7 +50,7 @@ export const TeamInvoicesPage: React.FC<{
                   <ul className={classes.list}>
                     {invoices &&
                       invoices?.data?.map((invoice, index) => {
-                        const { status, total, created, lines } = invoice
+                        const { status, total, created, lines, hosted_invoice_url } = invoice
 
                         const dateCreated = new Date(created * 1000)
 
@@ -61,6 +62,7 @@ export const TeamInvoicesPage: React.FC<{
                                   {formatDate({ date: dateCreated })}
                                 </Heading>
                                 <Pill text={status} />
+                                <Link href={hosted_invoice_url} children={'View Invoice'} />
                               </div>
                               <Heading
                                 element="h6"
