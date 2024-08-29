@@ -114,7 +114,11 @@ export const TeamInvoicesPage: React.FC<{
                                 )}`}
                               </Heading>
                               {hosted_invoice_url && (
-                                <Link href={hosted_invoice_url} className={classes.invoiceLink}>
+                                <Link
+                                  href={hosted_invoice_url}
+                                  className={classes.invoiceLink}
+                                  target="_blank"
+                                >
                                   View Invoice
                                 </Link>
                               )}
