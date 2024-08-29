@@ -56,16 +56,47 @@ export const TeamInvoicesPage: React.FC<{
 
                         return (
                           <li key={`${invoice.id}-${index}`} className={classes.invoice}>
-                            <div className={classes.invoiceDetails}>
-                              <div className={classes.invoiceTitle}>
-                                <Heading element="h5" marginBottom={false} marginTop={false}>
-                                  {formatDate({ date: dateCreated })}
-                                </Heading>
-                                <Pill text={status} />
-                                <Link href={hosted_invoice_url} children={'View Invoice'} />
-                              </div>
+                            <div className={classes.invoiceBlockLeft}>
                               <Heading
-                                element="h6"
+                                element="h3"
+                                as="h5"
+                                margin={false}
+                                className={classes.invoiceDate}
+                              >
+                                {formatDate({ date: dateCreated })}
+                              </Heading>
+                              <span className={classes.invoiceStatus}>{status}</span>
+                            </div>
+                            <div>
+                              {lines?.data?.map((line, lineIndex) => {
+                                const { description, period } = line
+
+                                return (
+                                  <div
+                                    className={classes.invoiceLine}
+                                    key={`${invoice.id}-${line.id}-${lineIndex}`}
+                                  >
+                                    <span>
+                                      {period?.start && period?.end && (
+                                        <span className={classes.invoiceLinePeriod}>
+                                          {'Period: '}
+                                          {formatDate({ date: new Date(period.start * 1000) })}
+                                          {' - '}
+                                          {formatDate({ date: new Date(period.end * 1000) })}
+                                        </span>
+                                      )}
+                                    </span>
+                                    <span className={classes.invoiceLineDescription}>
+                                      {description}
+                                    </span>
+                                  </div>
+                                )
+                              })}
+                            </div>
+                            <div className={classes.invoiceBlockRight}>
+                              <Heading
+                                element="h4"
+                                as="h5"
                                 marginBottom={false}
                                 marginTop={false}
                                 className={[
@@ -82,29 +113,12 @@ export const TeamInvoicesPage: React.FC<{
                                   }),
                                 )}`}
                               </Heading>
+                              {hosted_invoice_url && (
+                                <Link href={hosted_invoice_url} className={classes.invoiceLink}>
+                                  View Invoice
+                                </Link>
+                              )}
                             </div>
-                            {lines?.data?.map((line, lineIndex) => {
-                              const { description, period } = line
-
-                              return (
-                                <div
-                                  className={classes.invoiceLine}
-                                  key={`${invoice.id}-${line.id}-${lineIndex}`}
-                                >
-                                  <p className={classes.invoiceLineDescription}>{description}</p>
-                                  <p>
-                                    {period?.start && period?.end && (
-                                      <span className={classes.invoiceLinePeriod}>
-                                        {'Period: '}
-                                        {formatDate({ date: new Date(period.start * 1000) })}
-                                        {' - '}
-                                        {formatDate({ date: new Date(period.end * 1000) })}
-                                      </span>
-                                    )}
-                                  </p>
-                                </div>
-                              )
-                            })}
                           </li>
                         )
                       })}
