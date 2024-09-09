@@ -13,7 +13,7 @@ import { Media } from '@components/Media'
 import { Pill } from '@components/Pill'
 import { RichText } from '@components/RichText'
 import { SocialIcon } from '@components/SocialIcon'
-import { fetchPartner, fetchPartnerProgram } from '@root/app/_graphql'
+import { fetchPartner, fetchPartnerProgram } from '@data'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 
 import classes from './index.module.scss'

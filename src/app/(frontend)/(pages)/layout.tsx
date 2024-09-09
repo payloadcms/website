@@ -1,6 +1,6 @@
 import { Footer } from '@components/Footer/index.js'
 import { Header } from '@components/Header/index.js'
-import { fetchGlobals } from '@root/app/_graphql/index.js'
+import { fetchGlobals } from '@data/index.js'
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const { mainMenu, footer } = await fetchGlobals()

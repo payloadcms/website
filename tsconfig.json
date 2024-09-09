@@ -43,11 +43,11 @@
       "@graphics/*": [
         "./src/graphics/*"
       ],
-      "@graphql": [
-        "./src/app/_graphql"
+      "@data": [
+        "./src/app/_data"
       ],
-      "@graphql/*": [
-        "./src/app/_graphql/*"
+      "@data/*": [
+        "./src/app/_data/*"
       ],
       "@icons/*": [
         "./src/icons/*"

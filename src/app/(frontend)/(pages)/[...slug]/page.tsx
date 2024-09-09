@@ -6,12 +6,10 @@ import { notFound } from 'next/navigation'
 import { Hero } from '@components/Hero/index.js'
 import { RenderBlocks } from '@components/RenderBlocks/index.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { fetchPage, fetchPages } from '../../../_graphql/index.js'
+import { fetchPage, fetchPages } from '@data'
 
 const Page = async ({ params: { slug } }) => {
-  const { isEnabled: isDraftMode } = draftMode()
-
-  const page = await fetchPage(slug, isDraftMode)
+  const page = await fetchPage(slug)
 
   if (!page) return notFound()
 

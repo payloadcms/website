@@ -1,4 +1,4 @@
-import { TEMPLATE } from '@root/app/_graphql/templates.js'
+import { TEMPLATE } from '@data/templates.js'
 import type { Template } from '@root/payload-cloud-types.js'
 
 export const fetchTemplate = async (templateSlug?: string): Promise<Template> => {

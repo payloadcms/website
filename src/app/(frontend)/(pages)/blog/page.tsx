@@ -2,7 +2,7 @@ import React from 'react'
 import { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { fetchBlogPosts } from '../../../_graphql/index.js'
+import { fetchBlogPosts } from '@data'
 import { RenderBlogArchive } from './renderBlogArchive.js'
 
 const Page = async () => {

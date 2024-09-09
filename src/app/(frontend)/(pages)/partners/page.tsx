@@ -8,7 +8,7 @@ import { BlockWrapper } from '@components/BlockWrapper'
 import { PartnerDirectory } from '@components/PartnerDirectory'
 import { PartnerGrid } from '@components/PartnerGrid'
 import { RenderBlocks } from '@components/RenderBlocks'
-import { fetchFilters, fetchPartnerProgram, fetchPartners } from '@root/app/_graphql'
+import { fetchFilters, fetchPartnerProgram, fetchPartners } from '@data'
 import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar'
 import { Metadata } from 'next/types'
 

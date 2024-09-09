@@ -1,7 +1,7 @@
 import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-import { payloadToken } from '@root/app/_graphql/token.js'
+import { payloadToken } from '@data/token.js'
 
 export async function GET(
   req: Request & {

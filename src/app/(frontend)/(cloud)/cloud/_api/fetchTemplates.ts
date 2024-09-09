@@ -1,4 +1,4 @@
-import { TEMPLATES } from '@root/app/_graphql/templates.js'
+import { TEMPLATES } from '@data/templates.js'
 import type { Template } from '@root/payload-cloud-types.js'
 import { payloadCloudToken } from './token.js'
 
