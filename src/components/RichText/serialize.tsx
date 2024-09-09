@@ -46,7 +46,7 @@ export function serializeLexical({ nodes, textInSplitAnimate }: Props): JSX.Elem
 
         if (node.type === 'text') {
           const escapedText = escapeHTML(node.text)
-          let text = <React.Fragment key={i}>{escapedText}</React.Fragment>
+          let text = <span key={i} dangerouslySetInnerHTML={{ __html: escapedText }} />
           if (node.format & IS_BOLD) {
             text = <strong key={i}>{text}</strong>
           }
