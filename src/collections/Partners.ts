@@ -3,8 +3,8 @@ import { isAdmin, isAdminFieldLevel } from '../access/isAdmin'
 import { CollectionConfig } from 'payload'
 import { slugField } from '../fields/slug'
 import { formatPreviewURL } from '../utilities/formatPreviewURL'
-import { revalidatePage } from '../utilities/revalidatePage'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { revalidatePath } from 'next/cache'
 
 export const Partners: CollectionConfig = {
   slug: 'partners',
@@ -336,12 +336,10 @@ export const Partners: CollectionConfig = {
   ],
   hooks: {
     afterChange: [
-      ({ req: { payload }, doc }) => {
-        revalidatePage({
-          payload,
-          collection: 'partners',
-          doc,
-        })
+      ({ doc }) => {
+        revalidatePath(`/partners/${doc.slug}`)
+        revalidatePath(`/partners`, 'page')
+        console.log(`Revalidated: /partners/${doc.slug}`)
       },
     ],
   },

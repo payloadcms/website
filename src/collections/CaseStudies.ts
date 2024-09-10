@@ -22,7 +22,6 @@ import { StickyHighlights } from '../blocks/StickyHighlights'
 import richText from '../fields/richText'
 import { slugField } from '../fields/slug'
 import { formatPreviewURL } from '../utilities/formatPreviewURL'
-import { revalidatePage } from '../utilities/revalidatePage'
 import { Callout } from '../blocks/Callout'
 import { CaseStudyCards } from '../blocks/CaseStudyCards'
 import { CaseStudyParallax } from '../blocks/CaseStudyParallax'
@@ -31,6 +30,7 @@ import { HoverCards } from '../blocks/HoverCards'
 import { LogoGrid } from '../blocks/LogoGrid'
 import { Statement } from '../blocks/Statement'
 import { MediaContentAccordion } from '../blocks/MediaContentAccordion'
+import { revalidatePath } from 'next/cache'
 
 export const CaseStudies: CollectionConfig = {
   slug: 'case-studies',
@@ -50,12 +50,10 @@ export const CaseStudies: CollectionConfig = {
   },
   hooks: {
     afterChange: [
-      ({ req: { payload }, doc }) => {
-        revalidatePage({
-          payload,
-          collection: 'case-studies',
-          doc,
-        })
+      ({ doc }) => {
+        revalidatePath(`/case-studies/${doc.slug}`)
+        revalidatePath(`/case-studies`, 'page')
+        console.log(`Revalidated: /case-studies/${doc.slug}`)
       },
     ],
   },

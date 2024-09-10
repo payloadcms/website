@@ -30,7 +30,7 @@ import { fullTitle } from '../fields/fullTitle'
 import { hero } from '../fields/hero'
 import { slugField } from '../fields/slug'
 import { formatPreviewURL } from '../utilities/formatPreviewURL'
-import { revalidatePage } from '../utilities/revalidatePage'
+import { revalidatePath } from 'next/cache'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -102,12 +102,16 @@ export const Pages: CollectionConfig = {
   ],
   hooks: {
     afterChange: [
-      ({ doc, req: { payload } }) => {
-        revalidatePage({
-          collection: 'pages',
-          doc,
-          payload,
-        })
+      ({ doc }) => {
+        if (doc._status === 'published') {
+          if (doc.breadcrumbs && doc.breadcrumbs.length > 0) {
+            revalidatePath(doc.breadcrumbs[doc.breadcrumbs.length - 1].url)
+            console.log(`Revalidated: ${doc.breadcrumbs[doc.breadcrumbs.length - 1].url}`)
+          } else {
+            revalidatePath(`/${doc.slug}`)
+            console.log(`Revalidated: /${doc.slug}`)
+          }
+        }
       },
     ],
   },

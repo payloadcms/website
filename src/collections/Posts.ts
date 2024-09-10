@@ -11,8 +11,8 @@ import { ReusableContent } from '../blocks/ReusableContent'
 import richText from '../fields/richText'
 import { slugField } from '../fields/slug'
 import { formatPreviewURL } from '../utilities/formatPreviewURL'
-import { revalidatePage } from '../utilities/revalidatePage'
 import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import { revalidatePath } from 'next/cache'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -32,12 +32,10 @@ export const Posts: CollectionConfig = {
   },
   hooks: {
     afterChange: [
-      ({ req: { payload }, doc }) => {
-        revalidatePage({
-          payload,
-          collection: 'posts',
-          doc,
-        })
+      ({ doc }) => {
+        revalidatePath(`/blog/${doc.slug}`)
+        revalidatePath(`/blog`, 'page')
+        console.log(`Revalidated: /blog/${doc.slug}`)
       },
     ],
   },
