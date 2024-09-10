@@ -12,6 +12,7 @@ import richText from '../fields/richText'
 import { slugField } from '../fields/slug'
 import { formatPreviewURL } from '../utilities/formatPreviewURL'
 import { revalidatePage } from '../utilities/revalidatePage'
+import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -60,6 +61,81 @@ export const Posts: CollectionConfig = {
       type: 'blocks',
       blocks: [Banner, BlogContent, Code, BlogMarkdown, MediaBlock, ReusableContent],
       required: true,
+    },
+    {
+      name: 'lexicalContent',
+      type: 'richText',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => [
+          ...rootFeatures,
+          BlocksFeature({
+            blocks: [
+              Banner,
+              BlogContent,
+              Code,
+              BlogMarkdown,
+              MediaBlock,
+              ReusableContent,
+              {
+                slug: 'spotlight',
+                fields: [
+                  {
+                    name: 'element',
+                    type: 'select',
+                    options: [
+                      {
+                        label: 'H1',
+                        value: 'h1',
+                      },
+                      {
+                        label: 'H2',
+                        value: 'h2',
+                      },
+                      {
+                        label: 'H3',
+                        value: 'h3',
+                      },
+                      {
+                        label: 'Paragraph',
+                        value: 'p',
+                      },
+                    ],
+                  },
+                  {
+                    name: 'richText',
+                    type: 'richText',
+                    editor: lexicalEditor({
+                      features: ({ rootFeatures }) => rootFeatures,
+                    }),
+                  },
+                ],
+                interfaceName: 'SpotlightBlock',
+              },
+              {
+                slug: 'video',
+                fields: [
+                  {
+                    name: 'url',
+                    type: 'text',
+                  },
+                ],
+                interfaceName: 'VideoBlock',
+              },
+              {
+                slug: 'br',
+                fields: [
+                  {
+                    name: 'ignore',
+                    type: 'text',
+                  },
+                ],
+
+                interfaceName: 'BrBlock',
+              },
+            ],
+          }),
+        ],
+      }),
     },
     {
       name: 'relatedPosts',

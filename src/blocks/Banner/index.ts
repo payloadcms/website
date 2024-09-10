@@ -2,6 +2,7 @@
 import type { Block } from 'payload'
 
 import { blockFields } from '../../fields/blockFields'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const Banner: Block = {
   slug: 'banner',
@@ -54,11 +55,9 @@ export const Banner: Block = {
           name: 'content',
           type: 'richText',
           required: true,
-          // editor: slateEditor({
-          //   admin: {
-          //     elements: ['link'],
-          //   },
-          // }),
+          editor: lexicalEditor({
+            features: ({ rootFeatures }) => rootFeatures,
+          }),
         },
       ],
     }),

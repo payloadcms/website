@@ -1,10 +1,10 @@
-// import { slateEditor } from '@payloadcms/richtext-slate'
 import type { Field } from 'payload'
 
 import { themeField } from './blockFields'
 import link from './link'
 import linkGroup from './linkGroup'
 import livestreamFields from './livestreamFields'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const hero: Field = {
   name: 'hero',
@@ -104,29 +104,23 @@ export const hero: Field = {
     {
       name: 'richText',
       type: 'richText',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => rootFeatures,
+      }),
       admin: {
         condition: (_, { type } = {}) => type !== 'livestream',
       },
-      // editor: slateEditor({
-      //   admin: {
-      //     elements: ['h1', 'h2', 'h3', 'h6', largeBody, 'ul', label],
-      //     leaves: ['underline'],
-      //   },
-      // }),
     },
     {
       name: 'description',
       type: 'richText',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => rootFeatures,
+      }),
       admin: {
         condition: (_, { type } = {}) =>
           type !== 'livestream' && type !== 'centeredContent' && type !== 'three',
       },
-      // editor: slateEditor({
-      //   admin: {
-      //     elements: [largeBody, 'ul', label, 'link'],
-      //     leaves: ['underline'],
-      //   },
-      // }),
     },
     linkGroup({
       appearances: false,
@@ -141,28 +135,22 @@ export const hero: Field = {
     {
       name: 'secondaryHeading',
       type: 'richText',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => rootFeatures,
+      }),
       admin: {
         condition: (_, { type }) => type === 'home',
       },
-      // editor: slateEditor({
-      //   admin: {
-      //     elements: ['h2', largeBody, 'ul', label],
-      //     leaves: ['underline'],
-      //   },
-      // }),
     },
     {
       name: 'secondaryDescription',
       type: 'richText',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => rootFeatures,
+      }),
       admin: {
         condition: (_, { type }) => type === 'home',
       },
-      // editor: slateEditor({
-      //   admin: {
-      //     elements: [largeBody, 'ul', label, 'link'],
-      //     leaves: ['underline'],
-      //   },
-      // }),
     },
     linkGroup({
       overrides: {

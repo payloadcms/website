@@ -3,8 +3,8 @@ import type { Block } from 'payload'
 import { blockFields } from '../../fields/blockFields'
 import richText from '../../fields/richText'
 import linkGroup from '../../fields/linkGroup'
-// import { slateEditor } from '@payloadcms/richtext-slate'
 import label from '../../fields/richText/label'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const ContentGrid: Block = {
   slug: 'contentGrid',
@@ -49,12 +49,10 @@ export const ContentGrid: Block = {
             {
               name: 'content',
               type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => rootFeatures,
+              }),
               required: true,
-              // editor: slateEditor({
-              //   admin: {
-              //     elements: ['link', 'h4', 'h5', label],
-              //   },
-              // }),
             },
           ],
         },

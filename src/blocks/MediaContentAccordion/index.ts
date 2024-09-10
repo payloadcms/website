@@ -3,6 +3,7 @@ import type { Block } from 'payload'
 import { blockFields } from '../../fields/blockFields'
 import linkGroup from '../../fields/linkGroup'
 import link from '../../fields/link'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const MediaContentAccordion: Block = {
   slug: 'mediaContentAccordion',
@@ -112,6 +113,9 @@ export const MediaContentAccordion: Block = {
             {
               name: 'mediaDescription',
               type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => rootFeatures,
+              }),
               required: true,
             },
             {

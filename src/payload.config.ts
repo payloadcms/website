@@ -259,7 +259,9 @@ export default buildConfig({
               {
                 name: 'richText',
                 type: 'richText',
-                editor: lexicalEditor(),
+                editor: lexicalEditor({
+                  features: ({ rootFeatures }) => [...rootFeatures],
+                }),
               },
             ],
             interfaceName: 'SpotlightBlock',

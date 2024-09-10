@@ -1,3 +1,4 @@
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import type { Block } from 'payload'
 
 const CodeExampleBlock: Block = {
@@ -44,6 +45,9 @@ export const ExampleTabs: Block = {
     {
       name: 'content',
       type: 'richText',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => rootFeatures,
+      }),
     },
     {
       name: 'tabs',
@@ -59,6 +63,9 @@ export const ExampleTabs: Block = {
         {
           name: 'content',
           type: 'richText',
+          editor: lexicalEditor({
+            features: ({ rootFeatures }) => rootFeatures,
+          }),
         },
         {
           name: 'examples',

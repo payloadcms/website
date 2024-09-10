@@ -1,7 +1,7 @@
 import type { Block } from 'payload'
 
 import { blockFields } from '../../fields/blockFields'
-// import { slateEditor } from '@payloadcms/richtext-slate'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const MediaBlock: Block = {
   slug: 'mediaBlock',
@@ -33,11 +33,9 @@ export const MediaBlock: Block = {
         {
           name: 'caption',
           type: 'richText',
-          // editor: slateEditor({
-          //   admin: {
-          //     elements: ['link'],
-          //   },
-          // }),
+          editor: lexicalEditor({
+            features: ({ rootFeatures }) => rootFeatures,
+          }),
         },
       ],
     }),

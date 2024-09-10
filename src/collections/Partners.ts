@@ -4,7 +4,7 @@ import { CollectionConfig } from 'payload'
 import { slugField } from '../fields/slug'
 import { formatPreviewURL } from '../utilities/formatPreviewURL'
 import { revalidatePage } from '../utilities/revalidatePage'
-// import { slateEditor } from '@payloadcms/richtext-slate'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const Partners: CollectionConfig = {
   slug: 'partners',
@@ -128,37 +128,28 @@ export const Partners: CollectionConfig = {
               name: 'overview',
               label: 'Overview',
               type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => rootFeatures,
+              }),
               required: true,
-              // editor: slateEditor({
-              //   admin: {
-              //     elements: ['ol', 'ul'],
-              //     leaves: ['bold', 'italic', 'underline'],
-              //   },
-              // }),
             },
             {
               name: 'services',
               label: 'Services',
               type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => rootFeatures,
+              }),
               required: true,
-              // editor: slateEditor({
-              //   admin: {
-              //     elements: ['ol', 'ul'],
-              //     leaves: ['bold', 'italic', 'underline'],
-              //   },
-              // }),
             },
             {
               name: 'idealProject',
               label: 'Ideal Project',
               type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => rootFeatures,
+              }),
               required: true,
-              // editor: slateEditor({
-              //   admin: {
-              //     elements: ['ol', 'ul'],
-              //     leaves: ['bold', 'italic', 'underline'],
-              //   },
-              // }),
             },
             {
               name: 'caseStudy',
@@ -206,7 +197,7 @@ export const Partners: CollectionConfig = {
                       defaultValue: 'payload',
                       admin: {
                         width: '25%',
-                        description: ({ path, value }) => `github.com/payloadcms/${value || ''}`,
+                        // description: ({ path, value }) => `github.com/payloadcms/${value || ''}`,
                       },
                     },
                     {

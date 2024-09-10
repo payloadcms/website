@@ -2,6 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 import { isAdmin } from '../access/isAdmin'
 import link from '../fields/link'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const MainMenu: GlobalConfig = {
   slug: 'main-menu',
@@ -133,6 +134,9 @@ export const MainMenu: GlobalConfig = {
                     {
                       name: 'label',
                       type: 'richText',
+                      editor: lexicalEditor({
+                        features: ({ rootFeatures }) => rootFeatures,
+                      }),
                     },
                     {
                       name: 'links',
