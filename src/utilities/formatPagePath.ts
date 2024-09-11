@@ -17,6 +17,12 @@ export const formatPagePath = (
       case 'posts':
         prefix = '/blog'
         break
+      case 'case-studies':
+        prefix = '/case-studies'
+        break
+      case 'partners':
+        prefix = '/partners'
+        break
       default:
         prefix = `/${collection}`
     }

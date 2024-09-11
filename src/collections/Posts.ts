@@ -1,5 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
+import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import { revalidatePath } from 'next/cache'
+
 import { isAdmin } from '../access/isAdmin'
 import { publishedOnly } from '../access/publishedOnly'
 import { Banner } from '../blocks/Banner'
@@ -11,33 +14,22 @@ import { ReusableContent } from '../blocks/ReusableContent'
 import richText from '../fields/richText'
 import { slugField } from '../fields/slug'
 import { formatPreviewURL } from '../utilities/formatPreviewURL'
-import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
-import { revalidatePath } from 'next/cache'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
-  admin: {
-    useAsTitle: 'title',
-    preview: doc => formatPreviewURL('posts', doc),
-  },
-  versions: {
-    drafts: true,
-  },
   access: {
     create: isAdmin,
+    delete: isAdmin,
     read: publishedOnly,
     readVersions: isAdmin,
     update: isAdmin,
-    delete: isAdmin,
   },
-  hooks: {
-    afterChange: [
-      ({ doc }) => {
-        revalidatePath(`/blog/${doc.slug}`)
-        revalidatePath(`/blog`, 'page')
-        console.log(`Revalidated: /blog/${doc.slug}`)
-      },
-    ],
+  admin: {
+    livePreview: {
+      url: ({ data }) => formatPreviewURL('posts', data),
+    },
+    preview: doc => formatPreviewURL('posts', doc),
+    useAsTitle: 'title',
   },
   fields: [
     {
@@ -138,8 +130,6 @@ export const Posts: CollectionConfig = {
     {
       name: 'relatedPosts',
       type: 'relationship',
-      relationTo: 'posts',
-      hasMany: true,
       filterOptions: ({ id }) => {
         return {
           id: {
@@ -147,28 +137,44 @@ export const Posts: CollectionConfig = {
           },
         }
       },
+      hasMany: true,
+      relationTo: 'posts',
     },
     slugField(),
     {
       name: 'authors',
       type: 'relationship',
-      relationTo: 'users',
-      required: true,
-      hasMany: true,
       admin: {
         position: 'sidebar',
       },
+      hasMany: true,
+      relationTo: 'users',
+      required: true,
     },
     {
       name: 'publishedOn',
       type: 'date',
-      required: true,
       admin: {
         date: {
           pickerAppearance: 'dayAndTime',
         },
         position: 'sidebar',
       },
+      required: true,
     },
   ],
+  hooks: {
+    afterChange: [
+      ({ doc }) => {
+        revalidatePath(`/blog/${doc.slug}`)
+        revalidatePath(`/blog`, 'page')
+        console.log(`Revalidated: /blog/${doc.slug}`)
+      },
+    ],
+  },
+  versions: {
+    drafts: {
+      autosave: true,
+    },
+  },
 }

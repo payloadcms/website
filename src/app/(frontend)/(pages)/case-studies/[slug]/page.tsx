@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { fetchCaseStudies, fetchCaseStudy } from '@data'
 import { CaseStudy } from './client_page.js'
+import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
 
 const CaseStudyBySlug = async ({ params }) => {
   const { slug } = params
@@ -12,7 +13,12 @@ const CaseStudyBySlug = async ({ params }) => {
 
   if (!caseStudy) return notFound()
 
-  return <CaseStudy {...caseStudy} />
+  return (
+    <>
+      <RefreshRouteOnSave />
+      <CaseStudy {...caseStudy} />
+    </>
+  )
 }
 
 export default CaseStudyBySlug

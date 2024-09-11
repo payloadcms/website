@@ -6,17 +6,23 @@ import { notFound } from 'next/navigation'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { fetchBlogPost, fetchPosts } from '@data'
 import { BlogPost } from './BlogPost/index.js'
+import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
 
 const Post = async ({ params }) => {
   const { slug } = params
 
   const { isEnabled: isDraftMode } = draftMode()
 
-  const blogPost = await fetchBlogPost(slug, isDraftMode)
+  const blogPost = await fetchBlogPost(slug)
 
   if (!blogPost) return notFound()
 
-  return <BlogPost {...blogPost} />
+  return (
+    <>
+      <RefreshRouteOnSave />
+      <BlogPost {...blogPost} />
+    </>
+  )
 }
 
 export default Post

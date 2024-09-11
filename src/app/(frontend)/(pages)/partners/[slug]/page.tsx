@@ -17,6 +17,7 @@ import { fetchPartner, fetchPartnerProgram } from '@data'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
 
 import classes from './index.module.scss'
+import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const partner = await fetchPartner(params.slug)
@@ -49,6 +50,7 @@ export default async function PartnerPage({ params }: { params: { slug: string }
 
   return (
     <div className={classes.wrapper}>
+      <RefreshRouteOnSave />
       <BreadcrumbsBar
         breadcrumbs={[
           {

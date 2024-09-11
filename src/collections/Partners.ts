@@ -13,10 +13,15 @@ export const Partners: CollectionConfig = {
     plural: 'Partners',
   },
   versions: {
-    drafts: true,
+    drafts: {
+      autosave: true,
+    },
   },
   admin: {
     useAsTitle: 'name',
+    livePreview: {
+      url: ({ data }) => formatPreviewURL('partners', data),
+    },
     preview: doc => formatPreviewURL('partners', doc),
   },
   access: {
