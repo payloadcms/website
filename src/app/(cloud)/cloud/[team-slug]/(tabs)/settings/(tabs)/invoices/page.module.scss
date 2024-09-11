@@ -29,12 +29,14 @@
 
   @include mid-break {
     flex-direction: column;
+    align-items: flex-start;
     gap: 1rem;
     padding: 1rem;
   }
 }
 
 .invoiceBlockLeft {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   gap: .5rem;
@@ -46,9 +48,13 @@
 }
 
 .invoiceLines {
+  flex-grow: 2;
   display: flex;
   gap: .5rem;
   align-items: flex-start;
+  @include mid-break {
+    flex-grow: 1;
+  }
 }
 
 .invoiceLine {
@@ -60,6 +66,7 @@
 }
 
 .invoiceBlockRight {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;

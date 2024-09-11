@@ -67,7 +67,7 @@ export const TeamInvoicesPage: React.FC<{
                               </Heading>
                               <span className={classes.invoiceStatus}>{status}</span>
                             </div>
-                            <div>
+                            <div className={classes.invoiceLines}>
                               {lines?.data?.map((line, lineIndex) => {
                                 const { description, period } = line
 
