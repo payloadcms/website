@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
+import { revalidatePath } from 'next/cache'
+
 import { isAdmin } from '../access/isAdmin'
 import { publishedOnly } from '../access/publishedOnly'
 import { CallToAction } from '../blocks/CallToAction'
@@ -30,7 +32,6 @@ import { fullTitle } from '../fields/fullTitle'
 import { hero } from '../fields/hero'
 import { slugField } from '../fields/slug'
 import { formatPreviewURL } from '../utilities/formatPreviewURL'
-import { revalidatePath } from 'next/cache'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -43,6 +44,9 @@ export const Pages: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['fullTitle', 'slug', 'createdAt', 'updatedAt'],
+    livePreview: {
+      url: ({ data }) => formatPreviewURL('pages', data),
+    },
     preview: doc => formatPreviewURL('pages', doc),
     useAsTitle: 'fullTitle',
   },
@@ -116,6 +120,8 @@ export const Pages: CollectionConfig = {
     ],
   },
   versions: {
-    drafts: true,
+    drafts: {
+      autosave: true,
+    },
   },
 }

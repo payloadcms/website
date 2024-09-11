@@ -1,7 +1,6 @@
-import { draftMode } from 'next/headers'
-import { redirect } from 'next/navigation'
-
 import { payloadToken } from '@data/token.js'
+import { cookies, draftMode } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 export async function GET(
   req: Request & {
@@ -12,7 +11,8 @@ export async function GET(
     }
   },
 ): Promise<Response> {
-  const token = req.cookies.get(payloadToken)?.value
+  const cookieStore = cookies()
+  const token = cookieStore.get(payloadToken)
   const { searchParams } = new URL(req.url)
   const url = searchParams.get('url')
   const secret = searchParams.get('secret')
@@ -26,9 +26,9 @@ export async function GET(
   }
 
   // validate the Payload token
-  const userReq = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/api/users/me`, {
+  const userReq = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/users/me`, {
     headers: {
-      Authorization: `JWT ${token}`,
+      Authorization: `JWT ${token?.value}`,
     },
   })
 

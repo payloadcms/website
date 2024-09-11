@@ -7,6 +7,7 @@ import { Hero } from '@components/Hero/index.js'
 import { RenderBlocks } from '@components/RenderBlocks/index.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { fetchPage, fetchPages } from '@data'
+import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave'
 
 const Page = async ({ params: { slug } }) => {
   const page = await fetchPage(slug)
@@ -15,6 +16,7 @@ const Page = async ({ params: { slug } }) => {
 
   return (
     <React.Fragment>
+      <RefreshRouteOnSave />
       <Hero page={page} firstContentBlock={page.layout[0]} />
       <RenderBlocks blocks={page.layout} hero={page.hero} />
     </React.Fragment>
