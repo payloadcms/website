@@ -1,10 +1,11 @@
 import type { Field } from 'payload'
 
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+
 import { themeField } from './blockFields'
 import link from './link'
 import linkGroup from './linkGroup'
 import livestreamFields from './livestreamFields'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const hero: Field = {
   name: 'hero',
@@ -104,23 +105,23 @@ export const hero: Field = {
     {
       name: 'richText',
       type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => rootFeatures,
-      }),
       admin: {
         condition: (_, { type } = {}) => type !== 'livestream',
       },
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => rootFeatures,
+      }),
     },
     {
       name: 'description',
       type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => rootFeatures,
-      }),
       admin: {
         condition: (_, { type } = {}) =>
           type !== 'livestream' && type !== 'centeredContent' && type !== 'three',
       },
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => rootFeatures,
+      }),
     },
     linkGroup({
       appearances: false,
@@ -135,22 +136,22 @@ export const hero: Field = {
     {
       name: 'secondaryHeading',
       type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => rootFeatures,
-      }),
       admin: {
         condition: (_, { type }) => type === 'home',
       },
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => rootFeatures,
+      }),
     },
     {
       name: 'secondaryDescription',
       type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => rootFeatures,
-      }),
       admin: {
         condition: (_, { type }) => type === 'home',
       },
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => rootFeatures,
+      }),
     },
     linkGroup({
       overrides: {
