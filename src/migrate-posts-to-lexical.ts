@@ -15,29 +15,16 @@ const migratePostsToLexical = async () => {
     for (const [index, block] of content.entries()) {
       if (block.blockType === 'blogContent') {
         newData.push(...block.blogContentFields.richText.root.children)
-      } else if (block.blockType === 'banner') {
-        newData.push({
-          format: '',
-          type: 'block',
-          version: 2,
-          fields: {
-            blockName: '',
-            ...block,
-          },
-        })
-      } else if (block.blockType === 'code') {
-        newData.push({
-          format: '',
-          type: 'block',
-          version: 2,
-          fields: {
-            blockName: '',
-            ...block,
-          },
-        })
       } else {
-        console.log(`[${index + 1}] - blockType: ${block.blockType}`)
-        console.log(block)
+        newData.push({
+          format: '',
+          type: 'block',
+          version: 2,
+          fields: {
+            blockName: '',
+            ...block,
+          },
+        })
       }
     }
     return {
