@@ -10,7 +10,8 @@ import { PrivacyBanner } from '@components/PrivacyBanner/index.js'
 import { fetchGlobals } from '@data/index.js'
 import { PrivacyProvider } from '@root/providers/Privacy/index.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { robotoMono, untitledSans } from './fonts.js'
+import { untitledSans } from './fonts.js'
+import { GeistMono } from 'geist/font/mono'
 
 import '../../css/app.scss'
 
@@ -69,7 +70,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <link rel="preconnect" href="https://www.google-analytics.com" />
           <GoogleAnalytics />
         </head>
-        <body className={[robotoMono.variable, untitledSans.variable].join(' ')}>
+        <body className={[GeistMono.variable, untitledSans.variable].join(' ')}>
           <GoogleTagManager />
           <Providers>
             {children}

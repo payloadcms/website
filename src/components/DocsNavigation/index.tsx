@@ -1,29 +1,30 @@
 'use client'
-
+import { MenuIcon } from '@graphics/MenuIcon'
 import * as Accordion from '@radix-ui/react-accordion'
 import * as Portal from '@radix-ui/react-portal'
+import { VersionSelector } from '@root/components/VersionSelector/index.js'
 import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
 import { CloseIcon } from '@root/icons/CloseIcon/index.js'
-import { MenuIcon } from '@graphics/MenuIcon'
 import Link from 'next/link'
-import { useEffect, useState, useRef } from 'react'
-
-import classes from './index.module.scss'
+import React from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import type { Topics } from '../../app/(frontend)/(pages)/docs/api'
+
+import classes from './index.module.scss'
 
 const openTopicsLocalStorageKey = 'docs-open-topics'
 
 export const DocsNavigation = ({
   currentTopic,
-  topics,
   params,
+  topics,
   version,
 }: {
   currentTopic: string
+  params: { doc: string; topic: string }
   topics: Topics[]
-  params: { topic: string; doc: string }
-  version?: string
+  version?: 'beta' | 'current' | 'v2'
 }) => {
   const [currentTopicIsOpen, setCurrentTopicIsOpen] = useState(true)
   const [openTopicPreferences, setOpenTopicPreferences] = useState<string[]>()
@@ -36,6 +37,10 @@ export const DocsNavigation = ({
   const [indicatorTop, setIndicatorTop] = useState<number | undefined>(undefined)
 
   const topicRefs = useRef<Record<string, HTMLButtonElement | HTMLLIElement | null>>({})
+
+  const hideVersionSelector =
+    process.env.NEXT_PUBLIC_ENABLE_BETA_DOCS !== 'true' &&
+    process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS !== 'true'
 
   useEffect(() => {
     setNavOpen(false)
@@ -116,19 +121,24 @@ export const DocsNavigation = ({
         .join(' ')}
     >
       <nav className={classes.nav} onMouseLeave={() => setResetIndicator(true)}>
+        {!hideVersionSelector && version && (
+          <div className={classes.selector}>
+            <VersionSelector initialVersion={version} />
+          </div>
+        )}
         <Accordion.Root
-          type="multiple"
           defaultValue={
             openTopicPreferences ? [...openTopicPreferences, currentTopic] : [currentTopic]
           }
           onValueChange={value =>
             window.localStorage.setItem(openTopicsLocalStorageKey, JSON.stringify(value))
           }
+          type="multiple"
         >
           {topics.map(
             (topic, index) =>
               topic && (
-                <Accordion.Item value={topic.slug.toLowerCase()} key={topic.slug}>
+                <Accordion.Item key={topic.slug} value={topic.slug.toLowerCase()}>
                   <Accordion.Trigger
                     className={[
                       classes.topic,
@@ -136,14 +146,14 @@ export const DocsNavigation = ({
                     ]
                       .filter(Boolean)
                       .join(' ')}
+                    onClick={() => handleMenuItemClick(topic.slug.toLowerCase())}
+                    onMouseEnter={() => handleIndicator(`${index}`)}
                     ref={ref => {
                       topicRefs.current[index] = ref
                     }}
-                    onClick={() => handleMenuItemClick(topic.slug.toLowerCase())}
-                    onMouseEnter={() => handleIndicator(`${index}`)}
                   >
                     {topic.slug.replace('-', ' ')}
-                    <ChevronIcon size="small" className={classes.chevron} aria-hidden />
+                    <ChevronIcon aria-hidden className={classes.chevron} size="small" />
                   </Accordion.Trigger>
                   <Accordion.Content asChild>
                     <ul className={classes.docs}>
@@ -190,12 +200,12 @@ export const DocsNavigation = ({
             style={{ top: indicatorTop || defaultIndicatorPosition }}
           />
         )}
-        <div className={classes.navOverlay} aria-hidden={true} />
+        <div aria-hidden className={classes.navOverlay} />
         <Portal.Root className={classes.mobileNav}>
           <button
-            type="button"
-            onClick={() => setNavOpen(open => !open)}
             className={classes.mobileNavButton}
+            onClick={() => setNavOpen(open => !open)}
+            type="button"
           >
             Documentation
             {!navOpen && <MenuIcon />}

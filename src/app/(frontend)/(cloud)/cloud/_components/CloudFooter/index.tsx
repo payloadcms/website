@@ -42,7 +42,7 @@ export const CloudFooter = () => {
         <nav className={['cols-12 cols-m-6', classes.footerLinks].join(' ')}>
           <Link href={'/docs'}>Docs</Link>
           <Link href={'/cloud-terms'}>Terms</Link>
-          <Link href={'/Privacy/index.js'}>Privacy</Link>
+          <Link href={'/privacy'}>Privacy</Link>
           {user ? <Link href={'/logout'}>Logout</Link> : <Link href={'/login'}>Login</Link>}
         </nav>
         <div className={[classes.selectContainer, 'cols-4 cols-m-2'].join(' ')}>

@@ -2,6 +2,7 @@
 /* eslint-disable no-param-reassign */
 import React, { useCallback } from 'react'
 import { Highlight } from 'prism-react-renderer'
+import { theme } from './theme.js'
 
 import CodeBlip from '@components/CodeBlip/index.js'
 import { Props } from './types.js'
@@ -77,7 +78,7 @@ const Code: React.FC<Props> = props => {
         .join(' ')}
       data-theme={'dark'}
     >
-      <Highlight theme={undefined} code={children} language="jsx">
+      <Highlight theme={theme} code={children} language="jsx">
         {({ style, tokens, getLineProps, getTokenProps }) => (
           <div className={classNames} style={style}>
             {tokens

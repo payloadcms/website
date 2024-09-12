@@ -8,6 +8,7 @@ export interface Invoice {
 
   created: number
   total: number
+  hosted_invoice_url: string
   lines: {
     url: string
     data: [

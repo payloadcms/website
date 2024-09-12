@@ -2,7 +2,7 @@
 
 .description {
   a {
-    color: var(--theme-blue-500);
+    color: var(--theme-blue-600);
     cursor: pointer;
     text-decoration: underline;
   }
@@ -18,60 +18,82 @@
 
 .invoice {
   display: flex;
-  gap: 0.5rem;
-  flex-direction: column;
-
-  &:not(:last-child) {
-    margin-bottom: 2rem;
-    border-bottom: 1px solid var(--theme-border-color);
-    padding-bottom: 2rem;
-  }
-
-  @include small-break {
-    &:not(:last-child) {
-      margin-bottom: 1rem;
-      padding-bottom: 1rem;
-    }
-  }
-}
-
-.invoiceTitle {
-  display: flex;
-  gap: 0.5rem;
+  gap: 2rem;
   align-items: center;
+  padding: 1rem 2rem;
+  border: 1px solid var(--theme-border-color);
+
+  & > * {
+    flex: 1;
+  }
+
+  @include mid-break {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+  }
 }
 
-.invoiceTotalNegative {
-  color: var(--theme-success-500);
-}
-
-.invoiceDetails {
+.invoiceBlockLeft {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: .5rem;
+  align-items: flex-start;
 }
 
-.invoiceContent {
-  margin-top: 0.5rem;
+.invoiceStatus {
+  color: var(--theme-elevation-600);
+}
+
+.invoiceLines {
+  flex-grow: 2;
   display: flex;
-  gap: 0.5rem;
-  flex-direction: column;
+  gap: .5rem;
+  align-items: flex-start;
+  @include mid-break {
+    flex-grow: 1;
+  }
 }
 
 .invoiceLine {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 0.5rem;
+  @include body;
+  color: var(--theme-elevation-750);
+}
 
-  & > * {
-    margin: 0;
+.invoiceBlockRight {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: flex-end;
+
+  @include mid-break {
+    align-items: flex-start;
+  }
+}
+
+.invoiceTotalNegative {
+  @include body;
+  color: var(--theme-success-750)
+}
+
+.invoiceLink {
+  @include body;
+  color: var(--theme-elevation-600);
+
+  &:hover {
+    color: var(--theme-elevation-400);
   }
 }
 
 .freeTrialNotice {
   @include small;
-  color: var(--theme-elevation-500);
+  color: var(--theme-elevation-600);
 }
 
 .loadMore {

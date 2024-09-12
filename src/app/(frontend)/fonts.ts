@@ -2,12 +2,6 @@
 import { Roboto_Mono } from 'next/font/google'
 import localFont from 'next/font/local'
 
-export const robotoMono = Roboto_Mono({
-  weight: ['400'],
-  variable: '--font-mono',
-  subsets: ['latin'],
-})
-
 // TODO: Fix the ESM/TS issue with the `localFont` import
 export const untitledSans = localFont({
   src: [
