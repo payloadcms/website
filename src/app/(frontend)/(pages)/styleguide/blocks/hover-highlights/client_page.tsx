@@ -110,7 +110,8 @@ import React from 'react'
 // }
 
 export const HoverHighlightsPage: React.FC = () => {
-  return null // Disabled until frontend work is done
+  // Disabled until frontend work is done
+  return null
   // return (
   //   <StyleguidePageContent title="Card Grid">
   //     <HoverHighlights {...data} />
