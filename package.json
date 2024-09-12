@@ -46,6 +46,7 @@
     "@payloadcms/plugin-redirects": "3.0.0-beta.103",
     "@payloadcms/plugin-seo": "3.0.0-beta.103",
     "@payloadcms/richtext-lexical": "3.0.0-beta.103",
+    "@payloadcms/storage-vercel-blob": "3.0.0-beta.103",
     "@payloadcms/ui": "3.0.0-beta.103",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-portal": "^1.1.1",

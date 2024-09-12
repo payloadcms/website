@@ -16,6 +16,7 @@ import {
   convertSlateToLexical,
   migrateSlateToLexical,
 } from '@payloadcms/richtext-lexical/migrate'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import link from '@root/fields/link'
 import richText from '@root/fields/richText'
 import { SerializedLabelNode } from '@root/fields/richText/features/label/LabelNode'
@@ -341,7 +342,7 @@ export default buildConfig({
                   })
                 }
               }
-              sendSubmissionToHubSpot()
+              void sendSubmissionToHubSpot()
             },
           ],
         },
@@ -354,10 +355,19 @@ export default buildConfig({
     nestedDocsPlugin({
       collections: ['pages'],
       generateLabel: (_, doc) => doc.title as string,
-      generateURL: docs => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
+      generateURL: docs => docs.reduce((url, doc) => `${url}/${doc.slug as string}`, ''),
     }),
     redirectsPlugin({
       collections: ['case-studies', 'pages', 'posts'],
+    }),
+    vercelBlobStorage({
+      collections: {
+        media: {
+          prefix: 'media',
+        },
+      },
+      enabled: Boolean(process.env.BLOB_STORAGE_ENABLED) || false,
+      token: process.env.BLOB_READ_WRITE_TOKEN || '',
     }),
   ],
 })
