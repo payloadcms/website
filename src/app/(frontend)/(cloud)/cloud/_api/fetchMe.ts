@@ -1,31 +1,32 @@
+import type { User } from '@root/payload-cloud-types.js'
+
+import { ME_QUERY } from '@data/me.js'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-import type { User } from '@root/payload-cloud-types.js'
-import { ME_QUERY } from '../../../../_graphql/me.js'
 import { payloadCloudToken } from './token.js'
 
 export const fetchMe = async (args?: {
   nullUserRedirect?: string
   userRedirect?: string
 }): Promise<{
-  user: User
   token?: string
+  user: User
 }> => {
   const { nullUserRedirect, userRedirect } = args || {}
   const cookieStore = cookies()
   const token = cookieStore.get(payloadCloudToken)?.value
 
   const meUserReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
-    method: 'POST',
+    body: JSON.stringify({
+      query: ME_QUERY,
+    }),
     headers: {
       Authorization: `JWT ${token}`,
       'Content-Type': 'application/json',
     },
+    method: 'POST',
     next: { tags: ['user'] },
-    body: JSON.stringify({
-      query: ME_QUERY,
-    }),
   })
 
   const json = await meUserReq.json()
@@ -41,7 +42,7 @@ export const fetchMe = async (args?: {
   }
 
   return {
-    user,
     token,
+    user,
   }
 }

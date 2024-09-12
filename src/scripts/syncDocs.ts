@@ -34,17 +34,17 @@ function getHeadings(source: string) {
   })
 }
 
-const syncDocs: PayloadHandler = async (req, res) => {
+const syncDocs: PayloadHandler = async req => {
   const { payload } = req
   let topics
 
   try {
     if (!process.env.GITHUB_ACCESS_TOKEN) {
-      return res.status(400).json({ message: 'No GitHub access token found', success: false })
+      return new Response('No GitHub access token found', { status: 400 })
     }
 
     const fetchDoc = async (topicSlug: string, docFilename: string): Promise<Doc> => {
-      const json = await fetch(`${githubAPI}/contents/docs/${topicSlug}/${docFilename}`, {
+      const json: any = await fetch(`${githubAPI}/contents/docs/${topicSlug}/${docFilename}`, {
         headers,
       }).then(response => response.json())
 
@@ -58,7 +58,7 @@ const syncDocs: PayloadHandler = async (req, res) => {
         content: parsedDoc.content,
         createdAt: '',
         description: parsedDoc.data.desc || '',
-        headings: await getHeadings(parsedDoc.content),
+        headings: getHeadings(parsedDoc.content),
         keywords: parsedDoc.data.keywords || '',
         label: parsedDoc.data.label,
         order: parsedDoc.data.order,
@@ -82,7 +82,7 @@ const syncDocs: PayloadHandler = async (req, res) => {
       if (existingDocs.totalDocs === 1) {
         await payload.update({
           collection: 'docs',
-          data: doc,
+          data: doc as any,
           where: {
             id: { equals: existingDocs.docs[0].id },
           },
@@ -105,7 +105,7 @@ const syncDocs: PayloadHandler = async (req, res) => {
       }
     }
 
-    const getTopics = await fetch(`${githubAPI}/contents/docs`, {
+    const getTopics: any = await fetch(`${githubAPI}/contents/docs`, {
       headers,
     }).then(response => response.json())
 
@@ -115,7 +115,7 @@ const syncDocs: PayloadHandler = async (req, res) => {
       topics.map(async unsanitizedTopicSlug => {
         const topicSlug = unsanitizedTopicSlug.toLowerCase()
 
-        const docs = await fetch(`${githubAPI}/contents/docs/${topicSlug}`, {
+        const docs: any = await fetch(`${githubAPI}/contents/docs/${topicSlug}`, {
           headers,
         }).then(response => response.json())
 
@@ -131,9 +131,9 @@ const syncDocs: PayloadHandler = async (req, res) => {
 
     await processAllDocs(allDocs)
 
-    return res.status(200).json({ success: true })
+    return new Response(JSON.stringify({ success: true }), { status: 200 })
   } catch (err: unknown) {
-    return res.status(400).json({ message: `${err}`, success: false })
+    return new Response(JSON.stringify({ message: err, success: false }), { status: 400 })
   }
 }
 

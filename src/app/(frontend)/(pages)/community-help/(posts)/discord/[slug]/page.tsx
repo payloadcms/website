@@ -36,7 +36,6 @@ const isThreadData = (
     'title' in data &&
     'slug' in data &&
     'discordID' in data &&
-    'githubID' in data &&
     'communityHelpType' in data &&
     'communityHelpJSON' in data
   )

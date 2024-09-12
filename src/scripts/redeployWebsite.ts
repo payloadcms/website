@@ -1,22 +1,23 @@
 import { PayloadHandler } from 'payload'
 
-const redeployWebsite: PayloadHandler = async (req, res) => {
+const redeployWebsite: PayloadHandler = async req => {
   try {
     if (!process.env.VERCEL_REDEPLOY_URL) {
-      return res.status(400).json({ success: false, message: 'No Vercel redeploy URL found' })
+      // return res.status(400).json({ success: false, message: 'No Vercel redeploy URL found' })
+      return new Response('No Vercel redeploy URL found', { status: 400 })
     }
 
     const triggerRedeploy = async () => {
-      await fetch(process.env.VERCEL_REDEPLOY_URL, {
+      await fetch(process.env.VERCEL_REDEPLOY_URL || '', {
         method: 'POST',
       }).then(response => response.json())
     }
 
     await triggerRedeploy()
 
-    return res.status(201).json({ success: true, message: 'Redeploy triggered' })
+    return new Response('Redeploy triggered', { status: 201 })
   } catch (error: unknown) {
-    return res.status(500).json({ success: false, message: 'Failed to trigger redeploy' })
+    return new Response('Failed to trigger redeploy', { status: 500 })
   }
 }
 

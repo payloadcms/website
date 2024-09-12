@@ -1,17 +1,18 @@
 // @ts-check
+import type { AnyThreadChannel, Message } from 'discord.js'
+import type { Payload } from 'payload'
+
 /* eslint-disable @typescript-eslint/no-unused-vars, no-console, no-underscore-dangle, no-use-before-define */
 import { Bar } from 'cli-progress'
-import type { AnyThreadChannel, Message } from 'discord.js'
 import { ChannelType, Client, Events, GatewayIntentBits } from 'discord.js'
 import { toHTML } from 'discord-markdown'
-import type { Payload } from 'payload'
 
 import sanitizeSlug from '../utilities/sanitizeSlug'
 
 // eslint-disable-next-line
 require('dotenv').config()
 
-const { DISCORD_TOKEN, DISCORD_SCRAPE_CHANNEL_ID, PAYLOAD_SECRET, MONGODB_URI } = process.env
+const { DISCORD_SCRAPE_CHANNEL_ID, DISCORD_TOKEN, MONGODB_URI, PAYLOAD_SECRET } = process.env
 
 if (!DISCORD_TOKEN) {
   throw new Error('DISCORD_TOKEN is required')
@@ -32,20 +33,20 @@ export async function fetchDiscordThreads(payload: Payload): Promise<void> {
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent],
   })
 
-  client.login(process.env.DISCORD_TOKEN)
+  await client.login(process.env.DISCORD_TOKEN)
 
   const tagMap = {
     answered: '1034538089546264577',
-    unanswered: '1043188477002526750',
-    stale: '1052600637898096710',
     payloadTeam: '1100551774043127851',
+    stale: '1052600637898096710',
+    unanswered: '1043188477002526750',
   }
 
   client.once(Events.ClientReady, async c => {
     console.log(`Ready! Logged in as ${c.user.tag}`)
 
     // Get the community help channel
-    const communityHelpChannel = client.channels.cache.get(DISCORD_SCRAPE_CHANNEL_ID)
+    const communityHelpChannel = client.channels.cache.get(DISCORD_SCRAPE_CHANNEL_ID || '')
     if (!communityHelpChannel) {
       console.log(`No channel found with id ${DISCORD_SCRAPE_CHANNEL_ID}`)
       return
@@ -58,8 +59,8 @@ export async function fetchDiscordThreads(payload: Payload): Promise<void> {
 
     // Fetches a max limit of 100 archived threads
     const fetchedArchivedThreads = await communityHelpChannel.threads.fetchArchived({
-      limit: 100,
       fetchAll: true,
+      limit: 100,
     })
 
     const { threads: archiveThreads } = fetchedArchivedThreads
@@ -68,7 +69,7 @@ export async function fetchDiscordThreads(payload: Payload): Promise<void> {
     const { threads: activeThreads } = fetchedActiveThreads
 
     // Combines active threads with archived threads
-    let threads = activeThreads.concat(archiveThreads)
+    const threads = activeThreads.concat(archiveThreads)
 
     const allThreads = threads.map(async info => {
       return info
@@ -100,10 +101,11 @@ export async function fetchDiscordThreads(payload: Payload): Promise<void> {
       if (info.messageCount && info.messageCount > 100) {
         let lastMessage = messages.last()?.id
 
+        // eslint-disable-next-line no-constant-condition
         while (true) {
           const moreMessages = await info.messages.fetch({
-            limit: 100,
             before: lastMessage,
+            limit: 100,
           })
 
           if (!moreMessages.last()) break
@@ -138,34 +140,34 @@ export async function fetchDiscordThreads(payload: Payload): Promise<void> {
           return acc
         }, [])
       return {
+        slug: sanitizeSlug(info.name),
         info: {
-          name: info.name,
           id: info.id,
-          guildId: info.guildId,
-          createdAt: info.createdTimestamp,
+          name: info.name,
           archived: info.archived,
+          createdAt: info.createdTimestamp,
+          guildId: info.guildId,
         },
         intro: {
-          content: toHTML(intro.cleanContent),
-          fileAttachments: intro.attachments,
+          authorAvatar: intro.author.avatar,
           authorID: intro.author.id,
           authorName: intro.author.username,
-          authorAvatar: intro.author.avatar,
+          content: toHTML(intro.cleanContent),
           createdAtDate: intro.createdTimestamp,
+          fileAttachments: intro.attachments,
         },
+        messageCount: combinedResponses ? combinedResponses?.length : info.messageCount,
         messages: combinedResponses.map(m => {
-          const { createdTimestamp, cleanContent, author, attachments } = m
+          const { attachments, author, cleanContent, createdTimestamp } = m
           return {
-            content: toHTML(cleanContent),
-            fileAttachments: JSON.parse(JSON.stringify(attachments, null)),
+            authorAvatar: author.avatar,
             authorID: author.id,
             authorName: author.username,
-            authorAvatar: author.avatar,
+            content: toHTML(cleanContent),
             createdAtDate: createdTimestamp,
+            fileAttachments: JSON.parse(JSON.stringify(attachments, null)),
           }
         }),
-        messageCount: combinedResponses ? combinedResponses?.length : info.messageCount,
-        slug: sanitizeSlug(info.name),
       }
     })
     console.log('\n')
@@ -175,9 +177,9 @@ export async function fetchDiscordThreads(payload: Payload): Promise<void> {
           // Check if thread exists, if it does update existing thread else add thread to collection
           const existingThread = (await payload.find({
             collection: 'community-help',
-            where: { discordID: { equals: thread.info.id } },
-            limit: 1,
             depth: 0,
+            limit: 1,
+            where: { discordID: { equals: thread.info.id } },
           })) as any
 
           const threadExists =
@@ -185,12 +187,12 @@ export async function fetchDiscordThreads(payload: Payload): Promise<void> {
 
           if (threadExists) {
             await payload.update({
-              collection: 'community-help',
               id: existingThread.docs[0]?.id,
+              collection: 'community-help',
               data: {
-                title: thread?.info?.name,
-                communityHelpJSON: thread,
                 slug: thread?.slug,
+                communityHelpJSON: thread,
+                title: thread?.info?.name,
               },
               depth: 0,
             })
@@ -198,11 +200,11 @@ export async function fetchDiscordThreads(payload: Payload): Promise<void> {
             await payload.create({
               collection: 'community-help',
               data: {
-                title: thread?.info?.name,
+                slug: thread?.slug,
+                communityHelpJSON: thread,
                 communityHelpType: 'discord',
                 discordID: thread?.info?.id,
-                communityHelpJSON: thread,
-                slug: thread?.slug,
+                title: thread?.info?.name,
               },
             })
           }

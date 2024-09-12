@@ -18,12 +18,7 @@ export const DefaultHero: React.FC<
     firstContentBlock?: BlocksProp
   }
 > = ({ richText, description, theme, firstContentBlock }) => {
-  const withoutDescription =
-    !description ||
-    (description.length === 1 &&
-      Array.isArray(description[0].children) &&
-      description[0].children?.length === 1 &&
-      !description[0].children[0].text)
+  const withoutDescription = !description || description.root.children.length < 1
 
   return (
     <BlockWrapper settings={{ theme }} padding={{ top: 'small', bottom: 'small' }}>

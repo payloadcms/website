@@ -1,9 +1,9 @@
-import type { Field } from 'payload'
+import type { ArrayField } from 'payload'
 
 import link from './link'
 import richText from './richText'
 
-const codeBlips: Field = {
+const codeBlips: ArrayField = {
   name: 'codeBlips',
   type: 'array',
   fields: [

@@ -1,33 +1,34 @@
-import { fetchRelatedThreads } from '@graphql'
-import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
-import { RelatedHelpList } from '@components/RelatedHelpList/index.js'
-import { VersionSelector } from '@components/VersionSelector/index.js'
-import { TableOfContents } from '@components/TableOfContents/index.js'
 import { BackgroundGrid } from '@components/BackgroundGrid'
-import { DocsNavigation } from '@components/DocsNavigation'
+import { BackgroundScanline } from '@components/BackgroundScanline/index.js'
 import { DiscordGitCTA } from '@components/DiscordGitCTA/index.js'
-import { ArrowIcon } from '@icons/ArrowIcon/index.js'
-import { MDXRemote } from 'next-mdx-remote/rsc'
-import { Suspense } from 'react'
-import { notFound } from 'next/navigation'
+import { DocsNavigation } from '@components/DocsNavigation'
 import { Gutter } from '@components/Gutter'
+import { JumplistProvider } from '@components/Jumplist'
 import components from '@components/MDX/components/index.js'
-import remarkGfm from 'remark-gfm'
+import { RelatedHelpList } from '@components/RelatedHelpList/index.js'
+import { TableOfContents } from '@components/TableOfContents/index.js'
+import { VersionSelector } from '@components/VersionSelector/index.js'
+import { fetchRelatedThreads } from '@data'
+import { ArrowIcon } from '@icons/ArrowIcon/index.js'
 import Link from 'next/link'
+import { notFound } from 'next/navigation'
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import React from 'react'
+import { Suspense } from 'react'
+import remarkGfm from 'remark-gfm'
 
 import classes from './index.module.scss'
-import { JumplistProvider } from '@components/Jumplist'
 
 export const RenderDocs = async ({
+  children,
   params,
   topics,
-  children,
   version,
 }: {
-  params: { topic: string; doc: string }
-  topics: any[]
   children?: React.ReactNode
-  version?: string
+  params: { doc: string; topic: string }
+  topics: any[]
+  version?: 'beta' | 'current' | 'v2'
 }) => {
   const topicIndex = topics.findIndex(topic => topic.slug.toLowerCase() === params.topic)
   const docIndex = topics[topicIndex].docs.findIndex(
@@ -62,14 +63,14 @@ export const RenderDocs = async ({
   const next =
     topics[topicIndex].docs.length <= docIndex + 1
       ? {
-          topic: topics[topicIndex + 1].slug,
           slug: topics[topicIndex + 1].docs[0].slug,
           title: topics[topicIndex + 1].docs[0].title,
+          topic: topics[topicIndex + 1].slug,
         }
       : {
-          topic: params.topic,
           slug: topics[topicIndex].docs[docIndex + 1].slug,
           title: topics[topicIndex].docs[docIndex + 1].title,
+          topic: params.topic,
         }
 
   return (
@@ -78,24 +79,24 @@ export const RenderDocs = async ({
         <div className="grid">
           <DocsNavigation
             currentTopic={params.topic}
-            topics={topics}
             params={params}
+            topics={topics}
             version={version}
           />
-          <div className={classes.navOverlay} aria-hidden={true} />
+          <div aria-hidden className={classes.navOverlay} />
           <main className={['cols-8 start-5 cols-m-8 start-m-1', classes.content].join(' ')}>
             <Suspense fallback={<DocsSkeleton />}>
               {children}
               <h1 className={classes.title}>{currentDoc.title}</h1>
               <div className={classes.mdx}>
                 <MDXRemote
-                  source={currentDoc.content}
                   components={components}
                   options={{
                     mdxOptions: {
                       remarkPlugins: [remarkGfm],
                     },
                   }}
+                  source={currentDoc.content}
                 />
               </div>
             </Suspense>
@@ -104,10 +105,10 @@ export const RenderDocs = async ({
                 className={[classes.next, hasRelatedThreads && classes.hasRelatedThreads]
                   .filter(Boolean)
                   .join(' ')}
+                data-algolia-no-crawl
                 href={`/docs/${version ? `${version}/` : ''}${next.topic.toLowerCase()}/${
                   next.slug
                 }`}
-                data-algolia-no-crawl
                 prefetch={false}
               >
                 <div className={classes.nextLabel}>
@@ -122,10 +123,10 @@ export const RenderDocs = async ({
           </main>
           <aside className={['cols-3 start-14', classes.aside].join(' ')}>
             <div className={classes.asideStickyContent}>
-              {!hideVersionSelector && <VersionSelector initialVersion={'current'} />}
+              {!hideVersionSelector && <VersionSelector initialVersion="current" />}
               <TableOfContents headings={currentDoc.headings} />
               <div className={classes.discordGitWrap}>
-                <DiscordGitCTA style="minimal" />
+                <DiscordGitCTA appearance="minimal" />
               </div>
             </div>
           </aside>

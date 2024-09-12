@@ -1,16 +1,12 @@
 import type { Block } from 'payload'
 
 import { blockFields } from '../../fields/blockFields'
+import codeBlips from '../../fields/codeBlips'
 import link from '../../fields/link'
 import richText from '../../fields/richText'
-import codeBlips from '../../fields/codeBlips'
 
 export const StickyHighlights: Block = {
   slug: 'stickyHighlights',
-  labels: {
-    singular: 'Sticky Highlights Block',
-    plural: 'Sticky Highlights Blocks',
-  },
   fields: [
     blockFields({
       name: 'stickyHighlightsFields',
@@ -49,10 +45,10 @@ export const StickyHighlights: Block = {
             {
               name: 'code',
               type: 'code',
-              required: true,
               admin: {
                 condition: (_, { type }) => type === 'code',
               },
+              required: true,
             },
             {
               ...codeBlips,
@@ -63,15 +59,19 @@ export const StickyHighlights: Block = {
             {
               name: 'media',
               type: 'upload',
-              relationTo: 'media',
-              required: true,
               admin: {
                 condition: (_, { type }) => type === 'media',
               },
+              relationTo: 'media',
+              required: true,
             },
           ],
         },
       ],
     }),
   ],
+  labels: {
+    plural: 'Sticky Highlights Blocks',
+    singular: 'Sticky Highlights Block',
+  },
 }

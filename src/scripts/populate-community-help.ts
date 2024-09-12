@@ -1,4 +1,5 @@
-import payload from 'payload'
+import config from '@payload-config'
+import { getPayload } from 'payload'
 
 import { fetchDiscordThreads } from './fetch-discord'
 import { fetchGithubDiscussions } from './fetch-github'
@@ -6,19 +7,13 @@ import { fetchGithubDiscussions } from './fetch-github'
 // eslint-disable-next-line
 require('dotenv').config()
 
-const { PAYLOAD_SECRET, MONGODB_URI } = process.env
+const { MONGODB_URI, PAYLOAD_SECRET } = process.env
 
 const populateCommunityHelp = async (): Promise<void> => {
-  const payloadInstance = await payload.init({
-    secret: PAYLOAD_SECRET,
-    local: true,
-  })
+  const payload = await getPayload({ config })
 
   try {
-    await Promise.all([
-      fetchDiscordThreads(payloadInstance),
-      fetchGithubDiscussions(payloadInstance),
-    ])
+    await Promise.all([fetchDiscordThreads(payload), fetchGithubDiscussions(payload)])
   } catch (error: unknown) {
     payload.logger.error({ error })
     process.exit(1)
@@ -28,4 +23,4 @@ const populateCommunityHelp = async (): Promise<void> => {
   process.exit(0)
 }
 
-populateCommunityHelp()
+void populateCommunityHelp()

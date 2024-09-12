@@ -1,7 +1,5 @@
-import type { Access } from 'payload/config'
+import type { Access } from 'payload'
 import type { FieldAccess } from 'payload'
-
-import type { User } from '../payload-types'
 
 export const isAdminOrSelf: Access = ({ req: { user } }) => {
   // Need to be logged in
@@ -23,10 +21,7 @@ export const isAdminOrSelf: Access = ({ req: { user } }) => {
   return false
 }
 
-export const isAdminOrSelfFieldLevel: FieldAccess<{ id: string }, unknown, User> = ({
-  req: { user },
-  id,
-}) => {
+export const isAdminOrSelfFieldLevel: FieldAccess = ({ id, req: { user } }) => {
   // Return true or false based on if the user has an admin role
   if (user?.roles?.includes('admin')) return true
   if (user?.id === id) return true

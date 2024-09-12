@@ -1061,7 +1061,7 @@ export interface CaseStudy {
               assetType?: ('media' | 'code') | null;
               media?: (string | null) | Media;
               code?: string | null;
-              mediaWidth?: ('small' | 'medium' | 'large') | null;
+              mediaWidth?: ('small' | 'large' | 'full') | null;
               backgroundGlow?: ('none' | 'colorful' | 'white') | null;
             };
             id?: string | null;
@@ -1532,7 +1532,6 @@ export interface Media {
   id: string;
   alt: string;
   darkModeFallback?: (string | null) | Media;
-  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -1739,6 +1738,11 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
+    threeCTA?: ('newsletter' | 'buttons') | null;
+    newsletter?: {
+      placeholder?: string | null;
+      description?: string | null;
+    };
     buttons?:
       | (
           | {
@@ -2789,7 +2793,7 @@ export interface Page {
           assetType?: ('media' | 'code') | null;
           media?: (string | null) | Media;
           code?: string | null;
-          mediaWidth?: ('small' | 'medium' | 'large') | null;
+          mediaWidth?: ('small' | 'large' | 'full') | null;
           backgroundGlow?: ('none' | 'colorful' | 'white') | null;
         };
         id?: string | null;
@@ -4555,7 +4559,7 @@ export interface ReusableContent {
           assetType?: ('media' | 'code') | null;
           media?: (string | null) | Media;
           code?: string | null;
-          mediaWidth?: ('small' | 'medium' | 'large') | null;
+          mediaWidth?: ('small' | 'large' | 'full') | null;
           backgroundGlow?: ('none' | 'colorful' | 'white') | null;
         };
         id?: string | null;
@@ -6778,7 +6782,7 @@ export interface PartnerProgram {
                 assetType?: ('media' | 'code') | null;
                 media?: (string | null) | Media;
                 code?: string | null;
-                mediaWidth?: ('small' | 'medium' | 'large') | null;
+                mediaWidth?: ('small' | 'large' | 'full') | null;
                 backgroundGlow?: ('none' | 'colorful' | 'white') | null;
               };
               id?: string | null;
@@ -8205,7 +8209,7 @@ export interface PartnerProgram {
                 assetType?: ('media' | 'code') | null;
                 media?: (string | null) | Media;
                 code?: string | null;
-                mediaWidth?: ('small' | 'medium' | 'large') | null;
+                mediaWidth?: ('small' | 'large' | 'full') | null;
                 backgroundGlow?: ('none' | 'colorful' | 'white') | null;
               };
               id?: string | null;

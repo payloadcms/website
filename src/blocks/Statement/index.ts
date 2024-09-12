@@ -6,23 +6,19 @@ import richText from '../../fields/richText'
 
 export const Statement: Block = {
   slug: 'statement',
-  labels: {
-    singular: 'Statement',
-    plural: 'Statements',
-  },
   fields: [
     blockFields({
       name: 'statementFields',
       fields: [
-        richText({}, { elements: ['h1'] }),
+        richText(),
         linkGroup({
           appearances: false,
         }),
         {
           name: 'assetType',
-          label: 'Asset Type',
           type: 'select',
           defaultValue: 'media',
+          label: 'Asset Type',
           options: [
             {
               label: 'Media',
@@ -36,53 +32,53 @@ export const Statement: Block = {
         },
         {
           name: 'media',
-          label: 'Media',
           type: 'upload',
-          relationTo: 'media',
           admin: {
             condition: (_, siblingData) => siblingData.assetType === 'media',
           },
+          label: 'Media',
+          relationTo: 'media',
         },
         {
           name: 'code',
-          label: 'Code',
           type: 'code',
           admin: {
             condition: (_, siblingData) => siblingData.assetType === 'code',
           },
+          label: 'Code',
         },
         {
           type: 'row',
           fields: [
             {
               name: 'mediaWidth',
-              label: 'Media Width',
               type: 'select',
-              defaultValue: 'medium',
               admin: {
                 condition: (_, siblingData) => siblingData.assetType === 'media',
                 width: '50%',
               },
+              defaultValue: 'medium',
+              label: 'Media Width',
               options: [
                 {
                   label: 'Small',
                   value: 'small',
                 },
                 {
-                  label: 'Medium',
-                  value: 'medium',
-                },
-                {
                   label: 'Large',
                   value: 'large',
+                },
+                {
+                  label: 'Full',
+                  value: 'full',
                 },
               ],
             },
             {
               name: 'backgroundGlow',
-              label: 'Background Glow',
               type: 'select',
               defaultValue: 'none',
+              label: 'Background Glow',
               options: [
                 {
                   label: 'None',
@@ -103,4 +99,8 @@ export const Statement: Block = {
       ],
     }),
   ],
+  labels: {
+    plural: 'Statements',
+    singular: 'Statement',
+  },
 }

@@ -1,24 +1,23 @@
 'use client'
 
-import React from 'react'
-import { useInstantSearch } from 'react-instantsearch'
-import { Cell, Grid } from '@faceless-ui/css-grid'
-import Link from 'next/link'
-
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { Banner } from '@components/Banner/index.js'
 import { DiscordGitCTA } from '@components/DiscordGitCTA/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { Heading } from '@components/Heading/index.js'
+import { Cell, Grid } from '@faceless-ui/css-grid'
 import { AlgoliaPagination } from '@root/adapters/AlgoliaPagination/index.js'
 import { CommentsIcon } from '@root/graphics/CommentsIcon/index.js'
 import { DiscordIcon } from '@root/graphics/DiscordIcon/index.js'
 import { GithubIcon } from '@root/graphics/GithubIcon/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
 import getRelativeDate from '@root/utilities/get-relative-date.js'
+import Link from 'next/link'
+import React from 'react'
+import { useInstantSearch } from 'react-instantsearch'
+
 import { AlgoliaProvider } from './AlgoliaProvider/index.js'
 import { ArchiveSearchBar } from './ArchiveSearchBar/index.js'
-
 import classes from './index.module.scss'
 
 export const CommunityHelp: React.FC = () => {
@@ -33,7 +32,7 @@ export const CommunityHelp: React.FC = () => {
       <BackgroundGrid className={classes.bg} />
       <Gutter>
         <div className={['grid', classes.grid].join(' ')}>
-          <div className={'start-1 cols-12'}>
+          <div className="start-1 cols-12">
             <Heading className={classes.heading} element="h1">
               Community Help
             </Heading>
@@ -44,14 +43,14 @@ export const CommunityHelp: React.FC = () => {
               <ul className={classes.postsWrap}>
                 {hasResults &&
                   results.hits.map((hit, i) => {
-                    const { name, author, createdAt, platform, slug } = hit
+                    const { name, slug, author, createdAt, platform } = hit
                     return (
-                      <li key={i} className={classes.post}>
+                      <li className={classes.post} key={i}>
                         <Link
                           className={classes.postContent}
                           href={`/community-help/${platform.toLowerCase()}/${slug}`}
-                          style={{ textDecoration: 'none' }}
                           prefetch={false}
+                          style={{ textDecoration: 'none' }}
                         >
                           <div>
                             <h5 className={classes.title}>{name}</h5>
@@ -86,22 +85,22 @@ export const CommunityHelp: React.FC = () => {
               </ul>
             )}
             {!hasResults && hasQuery && (
-              <>
+              <React.Fragment>
                 <Banner type="warning">
                   <h5>Sorry, no results were found...</h5>
-                  <label>Search tips</label>
+                  <span>Search tips</span>
                   <ul>
                     <li>Make sure all words are spelled correctly</li>
                     <li>Try more general keywords</li>
                     <li>Try different keywords</li>
                   </ul>
                 </Banner>
-              </>
+              </React.Fragment>
             )}
             {hasResults && <AlgoliaPagination className={classes.pagination} />}
           </div>
           <div className={['start-13 cols-4', classes.ctaWrap].join(' ')}>
-            <DiscordGitCTA style="default" />
+            <DiscordGitCTA appearance="default" />
           </div>
         </div>
       </Gutter>

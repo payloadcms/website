@@ -106,10 +106,10 @@ const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 
 
   return (
     <div className={[classes.wrapper].filter(Boolean).join(' ')}>
+      {/* @ts-expect-error */}
       <Element
         style={{ backgroundPosition: getBackgroundOrigin }}
         className={[classes.container].filter(Boolean).join(' ')}
-        // @ts-expect-error
         ref={containerRef}
       >
         {children}

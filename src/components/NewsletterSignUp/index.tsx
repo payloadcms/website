@@ -53,7 +53,7 @@ export const NewsletterSignUp: React.FC<NewsletterSignUpProps> = props => {
 
   const onSubmit = React.useCallback(() => {
     setButtonClicked(false)
-    const submitForm = async () => {
+    const submitForm = () => {
       setError(undefined)
 
       try {
@@ -79,7 +79,7 @@ export const NewsletterSignUp: React.FC<NewsletterSignUpProps> = props => {
           }),
           {
             error: 'Newsletter form submission failed.',
-            pending: 'Submitting...',
+            loading: 'Submitting...',
             success: 'Thank you for subscribing!',
           },
         )
@@ -90,7 +90,7 @@ export const NewsletterSignUp: React.FC<NewsletterSignUpProps> = props => {
         })
       }
     }
-    submitForm()
+    void submitForm()
   }, [pathname, formData, router])
 
   return (

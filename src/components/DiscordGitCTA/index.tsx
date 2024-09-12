@@ -1,10 +1,8 @@
-import React from 'react'
-import Link from 'next/link'
-
 import { DiscordUsersPill } from '@components/DiscordUsersPill/index.js'
 import { GithubStarsPill } from '@components/GithubStarsPill/index.js'
-import { PixelBackground } from '@components/PixelBackground/index.js'
 import { ArrowIcon } from '@root/icons/ArrowIcon/index.js'
+import Link from 'next/link'
+import React from 'react'
 
 import classes from './index.module.scss'
 
@@ -12,10 +10,10 @@ const gitURL = 'https://github.com/payloadcms/payload'
 
 const discordURL = 'https://discord.gg/FSn5QRdsbC'
 
-export const DiscordGitCTA: React.FC<{ style?: 'minimal' | 'default' }> = ({ style }) => {
+export const DiscordGitCTA: React.FC<{ appearance?: 'default' | 'minimal' }> = ({ appearance }) => {
   return (
     <div className={classes.ctaWrap}>
-      <Link href={gitURL} target="_blank" className={classes.cta}>
+      <Link className={classes.cta} href={gitURL} target="_blank">
         <div className={classes.message}>
           Star on GitHub
           <ArrowIcon className={classes.arrow} />
@@ -25,7 +23,7 @@ export const DiscordGitCTA: React.FC<{ style?: 'minimal' | 'default' }> = ({ sty
         </div>
       </Link>
 
-      <Link href={discordURL} target="_blank" aria-label="Chat on Discord" className={classes.cta}>
+      <Link aria-label="Chat on Discord" className={classes.cta} href={discordURL} target="_blank">
         <div className={classes.message}>
           Chat on Discord
           <ArrowIcon className={classes.arrow} />
@@ -34,7 +32,7 @@ export const DiscordGitCTA: React.FC<{ style?: 'minimal' | 'default' }> = ({ sty
           <DiscordUsersPill className={classes.ctaPill} />
         </div>
       </Link>
-      {style === 'default' && (
+      {appearance === 'default' && (
         <div className={classes.enterpriseCTA}>
           <strong>Can&apos;t find what you&apos;re looking for?</strong>
           <br />

@@ -1,21 +1,20 @@
 'use client'
 
-import React from 'react'
-
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
-import { DiscordGitComments } from '@components/DiscordGitComments/index.js'
 import { DiscordGitCTA } from '@components/DiscordGitCTA/index.js'
+import { DiscordGitComments } from '@components/DiscordGitComments/index.js'
 import { DiscordGitIntro } from '@components/DiscordGitIntro/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import OpenPost from '@components/OpenPost/index.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 
 type DateFromSource = string
 export type Author = {
+  avatar?: string
   name?: string
   url?: string
-  avatar?: string
 }
 export type Comment = {
   author: Author
@@ -27,38 +26,38 @@ export type Comment = {
 export type Answer = {
   author: Author
   body: string
-  createdAt: DateFromSource
-  chosenBy?: string
   chosenAt: DateFromSource
+  chosenBy?: string
+  createdAt: DateFromSource
   replies?: Comment[] | null
 }
 
 export type DiscussionProps = {
-  id: string
-  title?: string
-  slug?: string
+  communityHelpJSON: {
+    answer?: Answer
+    author: Author
+    body: string
+    commentTotal: number
+    comments: Comment[]
+    createdAt: DateFromSource
+    id: string
+    slug: string
+    title: string
+    upvotes: number
+    url: string
+  }
+  communityHelpType?: 'discord' | 'github'
   discordID?: string
   githubID?: string
-  communityHelpType?: 'discord' | 'github'
-  communityHelpJSON: {
-    title: string
-    id: string
-    author: Author
-    answer?: Answer
-    body: string
-    createdAt: DateFromSource
-    url: string
-    commentTotal: number
-    upvotes: number
-    comments: Comment[]
-    slug: string
-  }
+  id: string
+  slug?: string
+  title?: string
 }
 
 export const GithubDiscussionPage: React.FC<DiscussionProps> = props => {
   const { communityHelpJSON } = props
 
-  const { title, answer, author, body, createdAt, url, comments, commentTotal, upvotes, id } =
+  const { id, answer, author, body, commentTotal, comments, createdAt, title, upvotes, url } =
     communityHelpJSON
 
   return (
@@ -68,22 +67,22 @@ export const GithubDiscussionPage: React.FC<DiscussionProps> = props => {
         <div className={['grid', classes.grid].join(' ')}>
           <div className={['start-1 cols-12 ', classes.post].join('')}>
             <DiscordGitIntro
-              postName={title}
               author={author?.name}
-              image={author?.avatar ? author?.avatar : '/images/avatars/default.png'}
-              date={createdAt}
-              messageCount={commentTotal}
-              upvotes={upvotes}
               content={body}
+              date={createdAt}
+              image={author?.avatar ? author?.avatar : '/images/avatars/default.png'}
+              messageCount={commentTotal}
               platform="GitHub"
+              postName={title}
+              upvotes={upvotes}
             />
             <DiscordGitComments answer={answer} comments={comments} platform="GitHub" />
             <div className={classes.openPostWrap}>
-              <OpenPost url={url} platform="GitHub" />
+              <OpenPost platform="GitHub" url={url} />
             </div>
           </div>
           <div className={['start-13 cols-4', classes.ctaWrap].join(' ')}>
-            <DiscordGitCTA style="default" />
+            <DiscordGitCTA appearance="default" />
           </div>
         </div>
       </Gutter>

@@ -5,28 +5,28 @@ import { isAdminOrSelf, isAdminOrSelfFieldLevel } from '../access/isAdminOrSelf'
 
 export const Users: CollectionConfig = {
   slug: 'users',
+  access: {
+    create: isAdmin,
+    delete: isAdminOrSelf,
+    read: () => true,
+    update: isAdminOrSelf,
+  },
+  admin: {
+    useAsTitle: 'email',
+  },
   auth: {
-    tokenExpiration: 28800, // 8 hours
     cookies: {
+      domain: process.env.COOKIE_DOMAIN,
       sameSite:
         process.env.NODE_ENV === 'production' && !process.env.DISABLE_SECURE_COOKIE
-          ? 'none'
+          ? 'None'
           : undefined,
       secure:
         process.env.NODE_ENV === 'production' && !process.env.DISABLE_SECURE_COOKIE
           ? true
           : undefined,
-      domain: process.env.COOKIE_DOMAIN,
     },
-  },
-  admin: {
-    useAsTitle: 'email',
-  },
-  access: {
-    create: isAdmin,
-    read: () => true,
-    update: isAdminOrSelf,
-    delete: isAdminOrSelf,
+    tokenExpiration: 28800, // 8 hours
   },
   fields: [
     {
@@ -46,11 +46,11 @@ export const Users: CollectionConfig = {
     },
     {
       name: 'twitter',
-      label: 'Twitter Handle',
       type: 'text',
       admin: {
         description: 'Example: `payloadcms`',
       },
+      label: 'Twitter Handle',
     },
     {
       name: 'photo',
@@ -60,15 +60,15 @@ export const Users: CollectionConfig = {
     {
       name: 'roles',
       type: 'select',
-      hasMany: true,
-      defaultValue: ['public'],
-      required: true,
       access: {
-        read: isAdminOrSelfFieldLevel,
         create: isAdminFieldLevel,
+        read: isAdminOrSelfFieldLevel,
         update: isAdminFieldLevel,
       },
+      defaultValue: ['public'],
+      hasMany: true,
       options: ['admin', 'public'],
+      required: true,
     },
   ],
 }

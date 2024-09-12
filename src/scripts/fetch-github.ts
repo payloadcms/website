@@ -1,5 +1,4 @@
 /* eslint-disable no-underscore-dangle */
-import fetch from 'node-fetch'
 import type { Payload } from 'payload'
 
 import sanitizeSlug from '../utilities/sanitizeSlug'
@@ -18,13 +17,15 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
     process.exit(0)
   }
 
-  const discussionData = []
+  const discussionData: any = []
 
   /* eslint-disable-next-line @typescript-eslint/default-param-last */
   const createQuery = (cursor = null, hasNextPage: boolean): string => {
     const queryLine =
       cursor && hasNextPage
-        ? `(first: 100, categoryId: "MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMzY4NTUw", after: "${cursor}")`
+        ? `(first: 100, categoryId: "MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMzY4NTUw", after: "${
+            cursor as string
+          }")`
         : `(first: 100, categoryId: "MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyMzY4NTUw")`
 
     return `query {
@@ -109,13 +110,13 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
     }`
   }
 
-  const initialReq = await fetch('https://api.github.com/graphql', {
-    method: 'POST',
-    headers,
+  const initialReq: any = await fetch('https://api.github.com/graphql', {
     body: JSON.stringify({
       // @ts-expect-error
       query: createQuery(),
     }),
+    headers,
+    method: 'POST',
   }).then(res => res.json())
 
   discussionData.push(...initialReq.data.repository.discussions.nodes)
@@ -124,11 +125,11 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
 
   while (hasNextPage) {
     const nextReq = await fetch('https://api.github.com/graphql', {
-      method: 'POST',
-      headers,
       body: JSON.stringify({
         query: createQuery(cursor, hasNextPage),
       }),
+      headers,
+      method: 'POST',
     }).then(res => res.json())
 
     discussionData.push(...nextReq.data.repository.discussions.nodes)
@@ -163,9 +164,9 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
           url: answer.author?.url,
         },
         body: answer.bodyHTML,
-        createdAt: answer.createdAt,
         chosenAt: answerChosenAt,
         chosenBy: answerChosenBy?.login,
+        createdAt: answer.createdAt,
         replies: answerReplies?.length > 0 ? answerReplies : null,
       }
       const comments = discussion.comments.edges.map(edge => {
@@ -198,21 +199,21 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
       })
 
       return {
-        title: discussion.title,
-        body: discussion.bodyHTML,
-        url: discussion.url,
         id: String(discussion.number),
         slug: sanitizeSlug(discussion.title),
-        createdAt: discussion.createdAt,
-        upvotes: discussion.upvoteCount,
-        commentTotal: discussion.comments.totalCount,
+        answer: formattedAnswer,
         author: {
           name: discussion.author?.login,
           avatar: discussion.author?.avatarUrl,
           url: discussion.author?.url,
         },
+        body: discussion.bodyHTML,
+        commentTotal: discussion.comments.totalCount,
         comments,
-        answer: formattedAnswer,
+        createdAt: discussion.createdAt,
+        title: discussion.title,
+        upvotes: discussion.upvoteCount,
+        url: discussion.url,
       }
     }
     return null
@@ -226,9 +227,9 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
         // Check if discussion exists, if it does update existing discussion else add discussion to collection
         const existingDiscussion = await payload.find({
           collection: 'community-help',
-          where: { githubID: { equals: discussion.id } },
-          limit: 1,
           depth: 0,
+          limit: 1,
+          where: { githubID: { equals: discussion.id } },
         })
 
         const discussionExists = // @ts-expect-error
@@ -236,8 +237,8 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
 
         if (discussionExists) {
           await payload.update({
-            collection: 'community-help',
             id: existingDiscussion.docs[0]?.id,
+            collection: 'community-help',
             data: {
               communityHelpJSON: discussion,
             },
@@ -247,11 +248,11 @@ export async function fetchGithubDiscussions(payload: Payload): Promise<void> {
           await payload.create({
             collection: 'community-help',
             data: {
-              title: discussion?.title,
+              slug: discussion?.slug,
+              communityHelpJSON: discussion,
               communityHelpType: 'github',
               githubID: discussion?.id,
-              communityHelpJSON: discussion,
-              slug: discussion?.slug,
+              title: discussion?.title,
             },
           })
         }

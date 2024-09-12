@@ -7,7 +7,7 @@ const migratePostsToLexical = async () => {
   const posts = await payload.find({
     collection: 'posts',
     limit: 3,
-    depth: 10,
+    depth: 1,
   })
 
   const formatBlocks: (content: Post['content']) => Post['lexicalContent'] = content => {
@@ -41,12 +41,13 @@ const migratePostsToLexical = async () => {
 
   for (const [index, post] of posts.docs.entries()) {
     console.log(`${index + 1} / ${posts.totalDocs} - Migrating "${post.title}"`)
+
     try {
       await payload.update({
         collection: 'posts',
         id: post.id,
         data: {
-          lexicalContent: formatBlocks(post.content),
+          lexicalContent: formatBlocks(post.content) as any,
         },
       })
     } catch (error) {

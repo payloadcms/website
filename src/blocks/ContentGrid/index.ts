@@ -1,10 +1,10 @@
 import type { Block } from 'payload'
 
-import { blockFields } from '../../fields/blockFields'
-import richText from '../../fields/richText'
-import linkGroup from '../../fields/linkGroup'
-import label from '../../fields/richText/label'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+
+import { blockFields } from '../../fields/blockFields'
+import linkGroup from '../../fields/linkGroup'
+import richText from '../../fields/richText'
 
 export const ContentGrid: Block = {
   slug: 'contentGrid',
@@ -17,12 +17,12 @@ export const ContentGrid: Block = {
           fields: [
             {
               name: 'style',
-              label: 'Style',
               type: 'select',
               defaultValue: 'gridBelow',
+              label: 'Style',
               options: [
-                { value: 'gridBelow', label: 'Grid Below' },
-                { value: 'sideBySide', label: 'Side by Side' },
+                { label: 'Grid Below', value: 'gridBelow' },
+                { label: 'Side by Side', value: 'sideBySide' },
               ],
             },
             {
@@ -43,8 +43,6 @@ export const ContentGrid: Block = {
         {
           name: 'cells',
           type: 'array',
-          minRows: 1,
-          maxRows: 8,
           fields: [
             {
               name: 'content',
@@ -55,6 +53,8 @@ export const ContentGrid: Block = {
               required: true,
             },
           ],
+          maxRows: 8,
+          minRows: 1,
         },
       ],
     }),

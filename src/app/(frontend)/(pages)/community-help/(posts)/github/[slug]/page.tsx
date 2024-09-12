@@ -19,16 +19,16 @@ const isDiscussionData = (
   githubID?: string
   communityHelpType?: 'discord' | 'github'
   communityHelpJSON: {
+    answer?: Answer
+    author: Author
+    body: string
+    commentTotal: number
+    comments: Comment[]
+    createdAt: DateFromSource
     title: string
     id: string
-    author: Author
-    answer?: Answer
-    body: string
-    createdAt: DateFromSource
     url: string
-    commentTotal: number
     upvotes: number
-    comments: Comment[]
     slug: string
   }
 } => {
@@ -38,7 +38,6 @@ const isDiscussionData = (
     'id' in data &&
     'title' in data &&
     'slug' in data &&
-    'discordID' in data &&
     'githubID' in data &&
     'communityHelpType' in data &&
     'communityHelpJSON' in data

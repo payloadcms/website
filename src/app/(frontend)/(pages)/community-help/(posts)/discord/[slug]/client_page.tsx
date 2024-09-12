@@ -106,7 +106,7 @@ export const DiscordThreadPage: React.FC<ThreadProps> = props => {
             </div>
           </div>
           <div className={['start-13 cols-4', classes.ctaWrap].join(' ')}>
-            <DiscordGitCTA style="default" />
+            <DiscordGitCTA appearance="default" />
           </div>
         </div>
       </Gutter>

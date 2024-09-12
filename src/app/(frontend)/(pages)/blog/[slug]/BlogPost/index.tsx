@@ -45,7 +45,7 @@ export const BlogPost: React.FC<Post> = props => {
                 )}
               </div>
               <div className={classes.discordGitWrap}>
-                <DiscordGitCTA style="minimal" />
+                <DiscordGitCTA appearance="minimal" />
               </div>
             </div>
           </div>

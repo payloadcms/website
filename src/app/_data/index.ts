@@ -159,8 +159,10 @@ export const fetchCommunityHelps = async (
 
   const data = await payload.find({
     collection: 'community-help',
-    where: { communityHelpType: { equals: communityHelpType } },
     limit: 0,
+    where: {
+      and: [{ communityHelpType: { equals: communityHelpType } }, { helpful: { equals: true } }],
+    },
   })
 
   return data.docs

@@ -7,7 +7,6 @@ import { fetchPlans } from '@cloud/_api/fetchPlans.js'
 import { fetchProjectWithSubscription } from '@cloud/_api/fetchProject.js'
 import { fetchTemplates } from '@cloud/_api/fetchTemplates.js'
 import { Metadata } from 'next'
-import { Params } from 'next/dist/shared/lib/router/utils/route-matcher.js'
 import { redirect } from 'next/navigation'
 
 import Checkout from '@root/app/(frontend)/(cloud)/new/(checkout)/Checkout.js'
@@ -56,7 +55,10 @@ export default async ({ params: { 'team-slug': teamSlug, 'project-slug': project
 export async function generateMetadata({
   params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
 }: {
-  params: Params
+  params: {
+    'team-slug': string
+    'project-slug': string
+  }
 }): Promise<Metadata> {
   return {
     title: 'Checkout | Payload Cloud',

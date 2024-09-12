@@ -1,7 +1,6 @@
 'use client'
 import React from 'react'
 
-import BackgroundGradient from '@components/BackgroundGradient/index.js'
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 import { BlockWrapper, PaddingProps } from '@components/BlockWrapper/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
@@ -9,7 +8,6 @@ import Code from '@components/Code/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { Media } from '@components/Media/index.js'
 import { RichText } from '@components/RichText/index.js'
-import SplitAnimate from '@components/SplitAnimate/index.js'
 import { Page } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
@@ -44,7 +42,7 @@ export const Statement: React.FC<StatementProps> = props => {
       ? 'cols-16 cols-m-8'
       : mediaWidth === 'full'
       ? 'cols-16 cols-m-8'
-      : 'cols - 12 start - 3 cols - m - 8 start - m - 1'
+      : 'cols-12 start-3 cols-m-8 start-m-1'
 
   return (
     <BlockWrapper settings={settings} padding={padding} hideBackground={hideBackground}>

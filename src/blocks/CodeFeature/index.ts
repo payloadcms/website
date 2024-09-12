@@ -1,9 +1,9 @@
 import type { Block } from 'payload'
 
 import { blockFields } from '../../fields/blockFields'
+import codeBlips from '../../fields/codeBlips'
 import linkGroup from '../../fields/linkGroup'
 import richText from '../../fields/richText'
-import codeBlips from '../../fields/codeBlips'
 
 export const CodeFeature: Block = {
   slug: 'codeFeature',
@@ -24,6 +24,10 @@ export const CodeFeature: Block = {
             {
               name: 'alignment',
               type: 'select',
+              admin: {
+                description: 'Choose how to align the content for this block.',
+                width: '50%',
+              },
               defaultValue: 'contentCode',
               options: [
                 {
@@ -35,10 +39,6 @@ export const CodeFeature: Block = {
                   value: 'codeContent',
                 },
               ],
-              admin: {
-                description: 'Choose how to align the content for this block.',
-                width: '50%',
-              },
             },
             {
               name: 'heading',
@@ -49,16 +49,13 @@ export const CodeFeature: Block = {
             },
           ],
         },
-        richText(undefined, {
-          elements: ['ul', 'ol', 'link'],
-        }),
+        richText(),
         linkGroup({
           appearances: false,
         }),
         {
           name: 'codeTabs',
           type: 'array',
-          minRows: 1,
           fields: [
             {
               type: 'row',
@@ -84,8 +81,8 @@ export const CodeFeature: Block = {
                 },
                 {
                   name: 'label',
-                  label: 'Tab Label',
                   type: 'text',
+                  label: 'Tab Label',
                   required: true,
                 },
               ],
@@ -97,6 +94,7 @@ export const CodeFeature: Block = {
             },
             codeBlips,
           ],
+          minRows: 1,
         },
       ],
     }),

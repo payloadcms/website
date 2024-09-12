@@ -26,6 +26,7 @@ export const Providers: React.FC<{
   children: React.ReactNode
 }> = ({ children }) => {
   return (
+    // @ts-expect-error
     <CookiesProvider>
       <AuthProvider>
         <ScrollInfoProvider>
@@ -69,10 +70,9 @@ export const Providers: React.FC<{
                         <HeaderIntersectionObserver>
                           {children}
                           <ModalContainer />
+                          {/* @ts-expect-error */}
                           <Toaster
-                            icon={false}
-                            position="bottom-center"
-                            transition={Slide}
+                            position="bottom-right"
                             // TODO: Redesign icons
                             // icon={({ type }: IconProps) => {
                             //   switch (type) {
