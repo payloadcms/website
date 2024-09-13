@@ -1,8 +1,10 @@
 import type { GlobalConfig } from 'payload'
 
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { revalidatePath } from 'next/cache'
+
 import { isAdmin } from '../access/isAdmin'
 import link from '../fields/link'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const MainMenu: GlobalConfig = {
   slug: 'main-menu',
@@ -186,4 +188,7 @@ export const MainMenu: GlobalConfig = {
       label: 'Main Menu Items',
     },
   ],
+  hooks: {
+    afterChange: [() => revalidatePath('/', 'layout')],
+  },
 }

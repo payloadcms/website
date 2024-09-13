@@ -1,5 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
+import { revalidatePath } from 'next/cache'
+
 import { isAdmin } from '../access/isAdmin'
 import link from '../fields/link'
 
@@ -13,13 +15,11 @@ export const Footer: GlobalConfig = {
     {
       name: 'columns',
       type: 'array',
-      minRows: 1,
-      maxRows: 3,
       fields: [
         {
+          name: 'label',
           type: 'text',
           required: true,
-          name: 'label',
         },
         {
           name: 'navItems',
@@ -31,6 +31,11 @@ export const Footer: GlobalConfig = {
           ],
         },
       ],
+      maxRows: 3,
+      minRows: 1,
     },
   ],
+  hooks: {
+    afterChange: [() => revalidatePath('/', 'layout')],
+  },
 }

@@ -27,6 +27,7 @@ import { StickyHighlights } from '../blocks/StickyHighlights'
 import { Statement } from '../blocks/Statement'
 import { MediaContentAccordion } from '../blocks/MediaContentAccordion'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { revalidatePath } from 'next/cache'
 
 export const PartnerProgram: GlobalConfig = {
   slug: 'partner-program',
@@ -202,4 +203,7 @@ export const PartnerProgram: GlobalConfig = {
       ],
     },
   ],
+  hooks: {
+    afterChange: [() => revalidatePath('/parters', 'layout')],
+  },
 }
