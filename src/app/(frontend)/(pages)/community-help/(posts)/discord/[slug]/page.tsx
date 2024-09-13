@@ -46,7 +46,13 @@ const Thread = async ({ params }) => {
 
   const thread = await fetchCommunityHelp(slug)
 
-  if (!thread || !thread.helpful) return notFound()
+  // Algolia is return all threads as helpful, regardless of the value of the helpful field
+  // So they are showing up in the archive at /community-help
+
+  // This is a temporary fix to still show the page even if the thread is not marked as helpful
+
+  // if (!thread || !thread.helpful) return notFound()
+  if (!thread) return notFound()
 
   if (!isThreadData(thread)) {
     throw new Error('Unexpected thread data')
