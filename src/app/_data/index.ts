@@ -1,5 +1,5 @@
-import { getPayloadHMR } from '@payloadcms/next/utilities'
 import config from '@payload-config'
+import { getPayloadHMR } from '@payloadcms/next/utilities'
 import { draftMode } from 'next/headers.js'
 
 import type {
@@ -17,7 +17,7 @@ import type {
   Specialty,
 } from '../../payload-types.js'
 
-export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu; footer: Footer }> => {
+export const fetchGlobals = async (): Promise<{ footer: Footer; mainMenu: MainMenu }> => {
   const payload = await getPayloadHMR({ config })
   const mainMenu = await payload.findGlobal({
     slug: 'main-menu',
@@ -27,8 +27,8 @@ export const fetchGlobals = async (): Promise<{ mainMenu: MainMenu; footer: Foot
   })
 
   return {
-    mainMenu,
     footer,
+    mainMenu,
   }
 }
 
@@ -41,13 +41,13 @@ export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page |
 
   const data = await payload.find({
     collection: 'pages',
+    draft,
+    limit: 1,
     where: {
       slug: {
         equals: slug,
       },
     },
-    limit: 1,
-    draft,
   })
 
   const pagePath = `/${slugSegments.join('/')}`
@@ -77,8 +77,8 @@ export const fetchPages = async (): Promise<
 
   const pages = data.docs.map(doc => {
     return {
-      breadcrumbs: doc.breadcrumbs,
       slug: doc.slug,
+      breadcrumbs: doc.breadcrumbs,
     }
   })
 
@@ -108,8 +108,13 @@ export const fetchBlogPosts = async (): Promise<Post[]> => {
   const data = await payload.find({
     collection: 'posts',
     limit: 300,
-    where: { publishedOn: { less_than_equal: currentDate } },
     sort: '-publishedOn',
+    where: {
+      and: [
+        { publishedOn: { less_than_equal: currentDate } },
+        { _status: { equals: 'published' } },
+      ],
+    },
   })
   return data.docs
 }
@@ -120,9 +125,9 @@ export const fetchBlogPost = async (slug: string): Promise<Post> => {
 
   const data = await payload.find({
     collection: 'posts',
-    where: { slug: { equals: slug } },
     draft,
     limit: 1,
+    where: { slug: { equals: slug } },
   })
 
   return data.docs[0]
@@ -144,9 +149,9 @@ export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
 
   const data = await payload.find({
     collection: 'case-studies',
-    where: { slug: { equals: slug } },
     draft,
     limit: 1,
+    where: { slug: { equals: slug } },
   })
 
   return data.docs[0]
@@ -173,8 +178,8 @@ export const fetchCommunityHelp = async (slug: string): Promise<CommunityHelp> =
 
   const data = await payload.find({
     collection: 'community-help',
-    where: { slug: { equals: slug } },
     limit: 1,
+    where: { slug: { equals: slug } },
   })
 
   return data.docs[0]
@@ -185,8 +190,8 @@ export const fetchRelatedThreads = async (): Promise<CommunityHelp[]> => {
 
   const data = await payload.find({
     collection: 'community-help',
-    where: { relatedDocs: { not_equals: null } },
     limit: 0,
+    where: { relatedDocs: { not_equals: null } },
   })
 
   return data.docs
@@ -198,8 +203,8 @@ export const fetchPartners = async (): Promise<Partner[]> => {
   const data = await payload.find({
     collection: 'partners',
     limit: 300,
-    where: { AND: [{ agency_status: { equals: 'active' } }, { _status: { equals: 'published' } }] },
     sort: 'slug',
+    where: { AND: [{ agency_status: { equals: 'active' } }, { _status: { equals: 'published' } }] },
   })
 
   return data.docs
@@ -211,9 +216,9 @@ export const fetchPartner = async (slug: string): Promise<Partner> => {
 
   const data = await payload.find({
     collection: 'partners',
-    where: { slug: { equals: slug } },
     draft,
     limit: 1,
+    where: { slug: { equals: slug } },
   })
 
   return data.docs[0]
@@ -229,10 +234,10 @@ export const fetchPartnerProgram = async (): Promise<PartnerProgram> => {
 }
 
 export const fetchFilters = async (): Promise<{
-  industries: Industry[]
-  specialties: Specialty[]
-  regions: Region[]
   budgets: Budget[]
+  industries: Industry[]
+  regions: Region[]
+  specialties: Specialty[]
 }> => {
   const payload = await getPayloadHMR({ config })
 
@@ -257,9 +262,9 @@ export const fetchFilters = async (): Promise<{
   })
 
   return {
-    industries: industries.docs,
-    specialties: specialties.docs,
-    regions: regions.docs,
     budgets: budgets.docs,
+    industries: industries.docs,
+    regions: regions.docs,
+    specialties: specialties.docs,
   }
 }
