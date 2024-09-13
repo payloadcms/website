@@ -60,18 +60,21 @@ export const RenderDocs = async ({
     Array.isArray(filteredRelatedThreads) &&
     filteredRelatedThreads.length > 0
 
-  const next =
-    topics[topicIndex].docs.length <= docIndex + 1
-      ? {
-          slug: topics[topicIndex + 1].docs[0].slug,
-          title: topics[topicIndex + 1].docs[0].title,
-          topic: topics[topicIndex + 1].slug,
-        }
-      : {
-          slug: topics[topicIndex].docs[docIndex + 1].slug,
-          title: topics[topicIndex].docs[docIndex + 1].title,
-          topic: params.topic,
-        }
+  const hasNext = topics.length > topicIndex + 1
+
+  const next = !hasNext
+    ? null
+    : topics[topicIndex].docs.length <= docIndex + 1
+    ? {
+        slug: topics[topicIndex + 1].docs[0].slug,
+        title: topics[topicIndex + 1].docs[0].title,
+        topic: topics[topicIndex + 1].slug,
+      }
+    : {
+        slug: topics[topicIndex].docs[docIndex + 1].slug,
+        title: topics[topicIndex].docs[docIndex + 1].title,
+        topic: params.topic,
+      }
 
   return (
     <Gutter className={classes.wrap}>

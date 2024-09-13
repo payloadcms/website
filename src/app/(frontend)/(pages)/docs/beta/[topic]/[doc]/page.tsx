@@ -73,30 +73,19 @@ export async function generateMetadata({ params: { doc: docSlug, topic: topicSlu
   }
 }
 
-type Param = {
-  doc: string
-  topic: string
-}
-
 export async function generateStaticParams() {
   if (process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS) return []
 
   const topics = await fetchDocs(topicOrder)
 
-  const result = topics.reduce((params: Param[], topic) => {
-    return params.concat(
-      topic.docs
-        .map(doc => {
-          if (!doc.slug) return null as any
-
-          return {
-            doc: doc.slug,
-            topic: topic.slug.toLowerCase(),
-          }
-        })
-        .filter(Boolean),
-    )
-  }, [])
+  const result: { doc: string; topic: string }[] = topics.flatMap(topic => {
+    return topic.docs.map(doc => {
+      return {
+        doc: doc.slug.replace('.mdx', ''),
+        topic: topic.slug.toLowerCase(),
+      }
+    })
+  })
 
   return result
 }
