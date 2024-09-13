@@ -1061,7 +1061,7 @@ export interface CaseStudy {
               assetType?: ('media' | 'code') | null;
               media?: (string | null) | Media;
               code?: string | null;
-              mediaWidth?: ('small' | 'large' | 'full') | null;
+              mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
               backgroundGlow?: ('none' | 'colorful' | 'white') | null;
             };
             id?: string | null;
@@ -2793,7 +2793,7 @@ export interface Page {
           assetType?: ('media' | 'code') | null;
           media?: (string | null) | Media;
           code?: string | null;
-          mediaWidth?: ('small' | 'large' | 'full') | null;
+          mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
           backgroundGlow?: ('none' | 'colorful' | 'white') | null;
         };
         id?: string | null;
@@ -4559,7 +4559,7 @@ export interface ReusableContent {
           assetType?: ('media' | 'code') | null;
           media?: (string | null) | Media;
           code?: string | null;
-          mediaWidth?: ('small' | 'large' | 'full') | null;
+          mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
           backgroundGlow?: ('none' | 'colorful' | 'white') | null;
         };
         id?: string | null;
@@ -6782,7 +6782,7 @@ export interface PartnerProgram {
                 assetType?: ('media' | 'code') | null;
                 media?: (string | null) | Media;
                 code?: string | null;
-                mediaWidth?: ('small' | 'large' | 'full') | null;
+                mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
                 backgroundGlow?: ('none' | 'colorful' | 'white') | null;
               };
               id?: string | null;
@@ -8209,7 +8209,7 @@ export interface PartnerProgram {
                 assetType?: ('media' | 'code') | null;
                 media?: (string | null) | Media;
                 code?: string | null;
-                mediaWidth?: ('small' | 'large' | 'full') | null;
+                mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
                 backgroundGlow?: ('none' | 'colorful' | 'white') | null;
               };
               id?: string | null;

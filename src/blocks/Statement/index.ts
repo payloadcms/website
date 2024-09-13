@@ -65,6 +65,10 @@ export const Statement: Block = {
                   value: 'small',
                 },
                 {
+                  label: 'Medium',
+                  value: 'medium',
+                },
+                {
                   label: 'Large',
                   value: 'large',
                 },
