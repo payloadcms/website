@@ -113,6 +113,7 @@ export const Pages: CollectionConfig = {
             console.log(`Revalidated: ${doc.breadcrumbs[doc.breadcrumbs.length - 1].url}`)
           } else {
             revalidatePath(`/${doc.slug}`)
+            doc.slug === 'home' && revalidatePath('/')
             console.log(`Revalidated: /${doc.slug}`)
           }
         }
