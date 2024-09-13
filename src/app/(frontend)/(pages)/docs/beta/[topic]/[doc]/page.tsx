@@ -1,8 +1,10 @@
-import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import { RenderDocs } from '@components/RenderDocs'
-import { fetchDocs } from '../../../api'
 import { Banner } from '@components/MDX/components/Banner'
+import { RenderDocs } from '@components/RenderDocs'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import Link from 'next/link'
+import React from 'react'
+
+import { fetchDocs } from '../../../api'
 
 const topicOrder = [
   'Getting-Started',
@@ -31,21 +33,21 @@ const topicOrder = [
   'Cloud',
 ]
 
-export default async function DocsPage({ params }: { params: { topic: string; doc: string } }) {
+export default async function DocsPage({ params }: { params: { doc: string; topic: string } }) {
   const topics = await fetchDocs(topicOrder, 'beta')
 
   return (
-    <RenderDocs params={params} topics={topics} version={'beta'}>
+    <RenderDocs params={params} topics={topics} version="beta">
       <Banner type="warning">
         <strong>Note:</strong> You are currently viewing the <strong>beta</strong> version of the
         docs. Some docs may be innacurate or incomplete at the moment.{' '}
-        <Link href={'/docs'}>Switch to the latest version</Link>
+        <Link href="/docs">Switch to the latest version</Link>
       </Banner>
     </RenderDocs>
   )
 }
 
-export async function generateMetadata({ params: { topic: topicSlug, doc: docSlug } }) {
+export async function generateMetadata({ params: { doc: docSlug, topic: topicSlug } }) {
   const topics = await fetchDocs(topicOrder, 'beta')
 
   const topicIndex = topics.findIndex(topic => topic.slug.toLowerCase() === topicSlug)
@@ -56,17 +58,45 @@ export async function generateMetadata({ params: { topic: topicSlug, doc: docSlu
   const currentDoc = topics[topicIndex].docs[docIndex]
 
   return {
-    title: `${currentDoc?.title ? `${currentDoc.title} | ` : ''}Documentation | Payload`,
     description: currentDoc?.desc || `Payload ${topicSlug} Documentation`,
-    robots: 'noindex, nofollow, noarchive',
     openGraph: mergeOpenGraph({
-      title: `${currentDoc?.title ? `${currentDoc.title} | ` : ''}Documentation | Payload`,
-      url: `/docs/${topicSlug}/${docSlug}`,
       images: [
         {
           url: `/api/og?topic=${topicSlug}&title=${currentDoc?.title}`,
         },
       ],
+      title: `${currentDoc?.title ? `${currentDoc.title} | ` : ''}Documentation | Payload`,
+      url: `/docs/${topicSlug}/${docSlug}`,
     }),
+    robots: 'noindex, nofollow, noarchive',
+    title: `${currentDoc?.title ? `${currentDoc.title} | ` : ''}Documentation | Payload`,
   }
+}
+
+type Param = {
+  doc: string
+  topic: string
+}
+
+export async function generateStaticParams() {
+  if (process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS) return []
+
+  const topics = await fetchDocs(topicOrder)
+
+  const result = topics.reduce((params: Param[], topic) => {
+    return params.concat(
+      topic.docs
+        .map(doc => {
+          if (!doc.slug) return null as any
+
+          return {
+            doc: doc.slug,
+            topic: topic.slug.toLowerCase(),
+          }
+        })
+        .filter(Boolean),
+    )
+  }, [])
+
+  return result
 }
