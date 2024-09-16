@@ -97,49 +97,54 @@ export const fetchDocs = async (topicOrder: string[], ref?: string) => {
     return []
   }
 
-  const isLive = Boolean(process.env.NEXT_PUBLIC_IS_LIVE)
+  // const isLive = Boolean(process.env.NEXT_PUBLIC_IS_LIVE)
 
-  const topics: Topics[] = isLive
-    ? await Promise.all(
-        topicOrder.map(async unsanitizedTopicSlug => {
-          const topicSlug = unsanitizedTopicSlug.toLowerCase()
+  // const topics: Topics[] = isLive
+  //   ? await Promise.all(
+  //       topicOrder.map(async unsanitizedTopicSlug => {
+  //         const topicSlug = unsanitizedTopicSlug.toLowerCase()
 
-          try {
-            const docs = await fetch(
-              `${githubAPI}/contents/docs/${topicSlug}` + (ref ? `?ref=${ref}` : ''),
-              {
-                headers,
-              },
-            ).then(res => res.json())
+  //         try {
+  //           const docs = await fetch(
+  //             `${githubAPI}/contents/docs/${topicSlug}` + (ref ? `?ref=${ref}` : ''),
+  //             {
+  //               headers,
+  //             },
+  //           ).then(res => res.json())
 
-            if (docs && Array.isArray(docs)) {
-              const docFilenames = docs.map(({ name }) => name)
+  //           if (docs && Array.isArray(docs)) {
+  //             const docFilenames = docs.map(({ name }) => name)
 
-              const parsedDocs = await Promise.all(
-                docFilenames.map(async docFilename => await fetchDoc(topicSlug, docFilename, ref)),
-              )
+  //             const parsedDocs = await Promise.all(
+  //               docFilenames.map(async docFilename => await fetchDoc(topicSlug, docFilename, ref)),
+  //             )
 
-              const topic = {
-                slug: unsanitizedTopicSlug,
-                docs: parsedDocs
-                  .filter<Doc>((doc): doc is Doc => doc !== undefined)
-                  .sort((a, b) => a.order - b.order),
-              }
+  //             const topic = {
+  //               slug: unsanitizedTopicSlug,
+  //               docs: parsedDocs
+  //                 .filter<Doc>((doc): doc is Doc => doc !== undefined)
+  //                 .sort((a, b) => a.order - b.order),
+  //             }
 
-              return topic
-            } else {
-              if (docs && typeof docs === 'object' && 'message' in docs) {
-                console.error(`Error fetching ${topicSlug} doc: ${docs.message}`) // eslint-disable-line no-console
-              }
-            }
-          } catch (err) {
-            console.error(err) // eslint-disable-line no-console
-          }
-        }),
-      )
-    : ref === 'beta'
-    ? require('../../../../docs/docs-beta.json')
-    : require('../../../../docs/docs.json')
+  //             return topic
+  //           } else {
+  //             if (docs && typeof docs === 'object' && 'message' in docs) {
+  //               console.error(`Error fetching ${topicSlug} doc: ${docs.message}`) // eslint-disable-line no-console
+  //             }
+  //           }
+  //         } catch (err) {
+  //           console.error(err) // eslint-disable-line no-console
+  //         }
+  //       }),
+  //     )
+  //   : ref === 'beta'
+  //   ? require('../../../../docs/docs-beta.json')
+  //   : require('../../../../docs/docs.json')
+
+  const topics =
+    ref === 'beta'
+      ? require('../../../../docs/docs-beta.json')
+      : require('../../../../docs/docs.json')
 
   return topics as Topics[]
 }
