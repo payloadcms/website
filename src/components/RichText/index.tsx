@@ -1,23 +1,27 @@
-'use client'
-
 import React from 'react'
 
-import { CustomRenderers, Serialize } from './Serialize/index.js'
-
 import classes from './index.module.scss'
+import { serializeLexical } from './serialize'
 
-export const RichText: React.FC<{
+type Props = {
   className?: string
   content: any
-  customRenderers?: CustomRenderers
-}> = ({ className, content, customRenderers }) => {
+}
+
+export const RichText: React.FC<Props> = ({ className, content }) => {
   if (!content) {
     return null
   }
 
   return (
     <div className={[classes.richText, className].filter(Boolean).join(' ')}>
-      <Serialize content={content} customRenderers={customRenderers} />
+      {content &&
+        !Array.isArray(content) &&
+        typeof content === 'object' &&
+        'root' in content &&
+        serializeLexical({ nodes: content?.root?.children })}{' '}
     </div>
   )
 }
+
+export default RichText

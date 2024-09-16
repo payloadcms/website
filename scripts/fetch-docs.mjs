@@ -1,13 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-useless-escape */
-import dotenv from 'dotenv'
 import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
 
 import { topicOrder } from './shared.mjs'
 
-dotenv.config()
 
 const __dirname = path.resolve()
 
@@ -59,7 +57,7 @@ const fetchDocs = async () => {
   }
 
   let ref
-  let outputDirectory = './src/app/docs.json'
+  let outputDirectory = './src/docs/docs.json'
 
   process.argv.forEach((val, index) => {
     if (val === '--ref') {

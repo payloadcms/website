@@ -3,6 +3,7 @@ import { Media as MediaType } from '@types'
 
 import { CMSLink, CMSLinkType } from '@components/CMSLink/index.js'
 import { Media } from '@components/Media/index.js'
+import { SerializedUploadNode } from '@payloadcms/richtext-lexical'
 
 export type RichTextUploadNodeType = {
   fields: {
@@ -14,7 +15,7 @@ export type RichTextUploadNodeType = {
 }
 
 export type Props = {
-  node: any
+  node: SerializedUploadNode
   className?: string
 }
 

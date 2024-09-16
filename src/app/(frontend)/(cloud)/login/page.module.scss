@@ -1,0 +1,54 @@
+@use '@scss/common' as *;
+@use "@forms/fields/shared.scss";
+
+.heading {
+  padding-block: 2rem;
+}
+
+.submit {
+  margin-top: 1rem;
+
+  @include mid-break {
+    margin-top: 0.25rem;
+  }
+}
+
+.sidebarWrap {
+  @include mid-break {
+    margin-top: 2rem;
+  }
+
+  @include small-break {
+    margin-top: 1rem;
+  }
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  gap: 0.5rem;
+
+  & a {
+    color: var(--theme-blue-500);
+    text-decoration: underline;
+  }
+
+  & > * {
+    margin: 0;
+  }
+
+  @include mid-break {
+    margin-top: 0;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  @include mid-break {
+    gap: 1rem;
+  }
+}

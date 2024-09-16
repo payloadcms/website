@@ -8,6 +8,11 @@ export const redirects = async () => {
       permanent: true,
     },
     {
+      source: '/docs/beta',
+      destination: '/docs/beta/getting-started/what-is-payload',
+      permanent: false,
+    },
+    {
       source: '/roadmap',
       destination: 'https://github.com/payloadcms/payload/discussions/categories/roadmap',
       permanent: true,
@@ -73,6 +78,7 @@ export const redirects = async () => {
   }
 
   const redirects = [...staticRedirects, internetExplorerRedirect, ...dynamicRedirects]
+  // const redirects = []
 
   return redirects
 }

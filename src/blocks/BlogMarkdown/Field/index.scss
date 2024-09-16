@@ -1,0 +1,8 @@
+@import '~@payloadcms/ui/scss';
+
+.markdown {
+  .field-type textarea {
+    font-family: var(--font-mono);
+    min-height: base(10);
+  }
+}

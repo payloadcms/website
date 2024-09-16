@@ -69,6 +69,6 @@ const columns = [
   },
 ]
 
-export const RestExamples: React.FC<Props> = ({ data }) => {
+export const RestExamples: (props) => React.JSX.Element = ({ data }) => {
   return <CustomTable className={classes.table} data={data} columns={columns} />
 }

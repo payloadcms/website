@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import Form from '@forms/Form/index.js'
 import { usePathname, useRouter } from 'next/navigation'
 
@@ -179,7 +179,7 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
               label={isLoading ? 'Submitting...' : submitButtonLabel}
               iconRotation={45}
               icon={isLoading ? 'loading' : 'arrow'}
-              iconSize={isLoading ? 'large' : 'default'}
+              iconSize={isLoading ? 'large' : 'medium'}
             />
           </Form>
         </React.Fragment>

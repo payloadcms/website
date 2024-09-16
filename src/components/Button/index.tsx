@@ -31,7 +31,7 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
   labelStyle?: 'mono' | 'regular'
   labelClassName?: string
   icon?: false | 'arrow' | 'search' | 'github' | 'plus' | 'loading'
-  iconSize?: 'large' | 'default'
+  iconSize?: 'large' | 'medium' | 'small' | undefined
   fullWidth?: boolean
   mobileFullWidth?: boolean
   type?: LinkType
@@ -126,7 +126,7 @@ const ButtonContent: React.FC<ButtonProps> = props => {
   const Icon = icon ? icons[icon] : null
 
   const iconProps = {
-    size: iconSize === 'large' ? 'large' : 'default',
+    size: iconSize,
     rotation: icon === 'arrow' ? iconRotation : undefined,
   }
 

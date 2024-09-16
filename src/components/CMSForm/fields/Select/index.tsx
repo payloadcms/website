@@ -250,7 +250,6 @@ export const Select: React.FC<
         className={classes.reactSelect}
         classNamePrefix="rs"
         components={components}
-        // @ts-expect-error
         selectProps={selectProps}
         isDisabled={disabled}
         onMenuScrollToBottom={onMenuScrollToBottom}

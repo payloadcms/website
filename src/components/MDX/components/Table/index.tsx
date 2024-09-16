@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import classes from './index.module.scss'
 
 // TODO: Needed to stub this out to be able to build
-const Table: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const Table: (props: { children }) => React.JSX.Element = ({ children }) => {
   const [blockPadding, setBlockPadding] = useState(0)
   const blockRef = useRef<HTMLDivElement>(null)
 

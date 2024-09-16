@@ -1,7 +1,5 @@
 # docs
-/src/app/docs.json
-/src/app/docs-beta.json
-/src/app/docs-legacy.json
+/src/docs
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
@@ -43,3 +41,8 @@ next-env.d.ts
 .env
 # Sentry Config File
 .sentryclirc
+
+
+/.idea/*
+!/.idea/runConfigurations
+!/.idea/payload.iml

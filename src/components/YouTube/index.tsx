@@ -7,7 +7,7 @@ type Props = {
   title: string
 }
 
-const YouTube: React.FC<Props> = ({ id, title }) => (
+const YouTube: (props) => React.JSX.Element = ({ id, title }) => (
   <div className={classes.wrap}>
     <div className={classes.innerWrap}>
       <iframe

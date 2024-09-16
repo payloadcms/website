@@ -1,0 +1,209 @@
+@use '@scss/common.scss' as *;
+
+.navWrap {
+  position: sticky;
+  top: var(--page-padding-top);
+  max-height: calc(100vh - var(--page-padding-top));
+  overflow: auto;
+  flex-shrink: 0;
+
+  &::-webkit-scrollbar,  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    width: 0;
+  }
+
+  @include mid-break {
+    position: fixed;
+    z-index: calc(var(--z-nav) + 1);
+    top: 100%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: var(--theme-bg);
+    width: auto;
+    padding: var(--gutter-h) var(--gutter-h) 5rem;
+    overflow: auto;
+    max-height: initial;
+    margin-right: 0;
+  }
+}
+
+.selector {
+  display: none;
+  top: 0;
+  z-index: 2;
+  background-color: var(--theme-bg);
+  margin-right: 1px;
+  border-left: 1px solid var(--theme-border-color);
+
+  @include mid-break {
+    display: block;
+  }
+}
+
+.nav {
+  padding: .5rem 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.mobileNavOpen {
+  display: block;
+  position: fixed;
+  top: 0;
+}
+
+.navOverlay {
+  display: block;
+  position: sticky;
+  width: 100%;
+  height: 2rem;
+  bottom: 0rem;
+  left: 1px;
+  background: linear-gradient(180deg, transparent 0%, var(--theme-bg) 100%);
+  pointer-events: none;
+}
+
+.indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: all var(--trans-default) ease-in-out;
+  height: 1.3rem;
+  background-color: var(--theme-elevation-800);
+  width: 2px;
+}
+
+.mobileNavButton {
+  @include btnReset;
+  display: none;
+  position: fixed;
+  height: 3rem;
+  z-index: calc(var(--z-nav) + 2);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--theme-elevation-900);
+  color: var(--theme-elevation-50);
+  padding: 0 var(--gutter-h);
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+
+  @include mid-break {
+    display: flex;
+    width: 100%;
+  }
+}
+
+.topic {
+  @include btnReset;
+  @include body;
+  text-decoration: none;
+  color: var(--theme-elevation-600);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-top: 0.625rem;
+  margin-bottom: 0.125rem;
+  width: 100%;
+
+  .chevron {
+    transition: all var(--trans-default) ease-in-out;
+    opacity: 0;
+    margin-left: 0.75rem;
+    // rotate: 0deg;
+  }
+
+  &[data-state='open'] > .chevron {
+    transform: rotate(90deg);
+    opacity: .5;
+  }
+
+  &:hover {
+    color: var(--theme-text);
+
+    .chevron {
+      transition: all var(--trans-default) ease-in-out;
+      opacity: 0.5;
+    }
+  }
+
+  @include mid-break {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+  }
+}
+
+.doc a, .docs, .topic {
+  line-height: 24px;
+}
+
+.docs {
+  list-style: none;
+  color: var(--theme-elevation-600);
+  text-decoration: none;
+  padding-left: 1rem;
+  overflow: hidden;
+  margin: 0;
+}
+
+.docs[data-state='open'] {
+  animation: slideDown var(--trans-default) ease-in-out;
+}
+.docs[data-state='closed'] {
+  animation: slideUp var(--trans-default) ease-in-out;
+}
+
+.doc {
+  @include small;
+  list-style: none;
+  display: inline-flex;
+  position: relative;
+  text-decoration: none;
+  width: 100%;
+  margin-block: 0.25rem;
+
+  &:hover {
+    color: var(--theme-text);
+  }
+
+  &:focus {
+    text-decoration: none;
+    opacity: 1;
+  }
+
+  &--active {
+    font-weight: 500;
+    color: var(--theme-text);
+  }
+
+  @include mid-break {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+}
+
+.active {
+  font-weight: 500;
+  color: var(--theme-text);
+}
+
+@keyframes slideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}

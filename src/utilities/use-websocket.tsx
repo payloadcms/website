@@ -17,7 +17,7 @@ export const useWebSocket = ({
   onClose,
   retryOnClose,
 }: WebSocketHookArgs): void => {
-  const socketRef = React.useRef<WebSocket | null>()
+  const socketRef = React.useRef<WebSocket | null>(null)
 
   const setupWebSocket = React.useCallback(
     newURL => {

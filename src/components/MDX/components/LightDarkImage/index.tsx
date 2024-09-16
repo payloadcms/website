@@ -6,12 +6,12 @@ import { useThemePreference } from '@root/providers/Theme/index.js'
 
 import classes from './index.module.scss'
 
-const LightDarkImage: React.FC<{
+const LightDarkImage: (props: {
   srcLight: string
   srcDark: string
   alt: string
   caption?: string
-}> = ({ srcLight, srcDark, alt, caption }) => {
+}) => React.JSX.Element = ({ srcLight, srcDark, alt, caption }) => {
   const { theme } = useThemePreference()
   const src = theme === 'dark' ? srcDark : srcLight
 
