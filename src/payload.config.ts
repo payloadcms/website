@@ -362,7 +362,11 @@ export default buildConfig({
     }),
     vercelBlobStorage({
       collections: {
-        media: true,
+        media: {
+          generateFileURL: ({ filename }) => {
+            return `/api/media/file/${filename}`
+          },
+        },
       },
       enabled: Boolean(process.env.BLOB_STORAGE_ENABLED) || false,
       token: process.env.BLOB_READ_WRITE_TOKEN || '',
