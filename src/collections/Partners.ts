@@ -13,9 +13,7 @@ export const Partners: CollectionConfig = {
     plural: 'Partners',
   },
   versions: {
-    drafts: {
-      autosave: true,
-    },
+    drafts: true,
   },
   admin: {
     useAsTitle: 'name',

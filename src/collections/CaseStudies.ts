@@ -127,8 +127,6 @@ export const CaseStudies: CollectionConfig = {
     ],
   },
   versions: {
-    drafts: {
-      autosave: true,
-    },
+    drafts: true,
   },
 }

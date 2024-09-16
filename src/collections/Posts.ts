@@ -173,8 +173,6 @@ export const Posts: CollectionConfig = {
     ],
   },
   versions: {
-    drafts: {
-      autosave: true,
-    },
+    drafts: true,
   },
 }
