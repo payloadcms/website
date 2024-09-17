@@ -1,4 +1,5 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
@@ -24,6 +25,7 @@ import { LabelFeature } from '@root/fields/richText/features/label/server'
 import { SerializedLargeBodyNode } from '@root/fields/richText/features/largeBody/LargeBodyNode'
 import { LargeBodyFeature } from '@root/fields/richText/features/largeBody/server'
 import ObjectID from 'bson-objectid'
+import nodemailerSendgrid from 'nodemailer-sendgrid'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -47,6 +49,14 @@ import syncDocs from './scripts/syncDocs'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+const sendGridAPIKey = process.env.SENDGRID_API_KEY
+
+const sendgridConfig = {
+  transportOptions: nodemailerSendgrid({
+    apiKey: sendGridAPIKey,
+  }),
+}
+
 export default buildConfig({
   collections: [
     CaseStudies,
@@ -63,6 +73,11 @@ export default buildConfig({
     Users,
     Partners,
   ],
+  email: nodemailerAdapter({
+    defaultFromAddress: 'info@payloadcms.com',
+    defaultFromName: 'Payload',
+    ...sendgridConfig,
+  }),
   endpoints: [
     {
       handler: syncDocs,
