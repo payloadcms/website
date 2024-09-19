@@ -376,6 +376,7 @@ export default buildConfig({
       collections: ['case-studies', 'pages', 'posts'],
     }),
     vercelBlobStorage({
+      cacheControlMaxAge: 60 * 60 * 24 * 365,
       collections: {
         media: true,
       },
