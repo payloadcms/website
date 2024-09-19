@@ -4,27 +4,11 @@ import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-import {
-  BlocksFeature,
-  SerializedBlockNode,
-  SlateNode,
-  UploadFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
-import {
-  SlateToLexicalFeature,
-  convertSlateNodesToLexical,
-  convertSlateToLexical,
-  migrateSlateToLexical,
-} from '@payloadcms/richtext-lexical/migrate'
+import { BlocksFeature, UploadFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import link from '@root/fields/link'
-import richText from '@root/fields/richText'
-import { SerializedLabelNode } from '@root/fields/richText/features/label/LabelNode'
 import { LabelFeature } from '@root/fields/richText/features/label/server'
-import { SerializedLargeBodyNode } from '@root/fields/richText/features/largeBody/LargeBodyNode'
 import { LargeBodyFeature } from '@root/fields/richText/features/largeBody/server'
-import ObjectID from 'bson-objectid'
 import nodemailerSendgrid from 'nodemailer-sendgrid'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -58,6 +42,18 @@ const sendgridConfig = {
 }
 
 export default buildConfig({
+  admin: {
+    autoLogin: {
+      email: 'dev2@payloadcms.com',
+      password: 'test',
+    },
+    components: {
+      afterNavLinks: ['@root/components/SyncDocsButton', '@root/components/RedeployButton'],
+    },
+    importMap: {
+      baseDir: dirname,
+    },
+  },
   collections: [
     CaseStudies,
     CommunityHelp,
@@ -73,154 +69,13 @@ export default buildConfig({
     Users,
     Partners,
   ],
-  email: nodemailerAdapter({
-    defaultFromAddress: 'info@payloadcms.com',
-    defaultFromName: 'Payload',
-    ...sendgridConfig,
-  }),
-  endpoints: [
-    {
-      handler: syncDocs,
-      method: 'get',
-      path: '/sync/docs',
-    },
-    {
-      handler: redeployWebsite,
-      method: 'post',
-      path: '/redeploy/website',
-    },
-  ],
-  globals: [Footer, MainMenu, PartnerProgram],
-  graphQL: {
-    disablePlaygroundInProduction: false,
-  },
-  secret: process.env.PAYLOAD_SECRET || '',
-  typescript: {
-    outputFile: path.resolve(dirname, 'payload-types.ts'),
-  },
-  // editor: slateEditor({}),
-  admin: {
-    autoLogin: {
-      email: 'dev2@payloadcms.com',
-      password: 'test',
-    },
-    components: {
-      afterNavLinks: ['@root/components/SyncDocsButton', '@root/components/RedeployButton'],
-    },
-    importMap: {
-      baseDir: dirname,
-    },
-  },
   cors: [process.env.PAYLOAD_PUBLIC_APP_URL || '', 'https://payloadcms.com'].filter(Boolean),
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
   editor: lexicalEditor({
-    features: ({ defaultFeatures, rootFeatures }) => [
+    features: ({ defaultFeatures }) => [
       ...defaultFeatures,
-      /*SlateToLexicalFeature({
-        disableHooks: true,
-        converters: ({ defaultConverters }) => [
-          ...defaultConverters,
-          {
-            converter({ converters, slateNode }) {
-              return {
-                type: 'largeBody',
-                children: convertSlateNodesToLexical({
-                  canContainParagraphs: false,
-                  converters,
-                  parentNodeType: 'largeBody',
-                  slateNodes: slateNode.children as SlateNode[],
-                }),
-                direction: 'ltr',
-                format: '',
-                indent: 0,
-                version: 1,
-              } as const as SerializedLargeBodyNode
-            },
-            nodeTypes: ['large-body'],
-          },
-          {
-            converter({ converters, slateNode }) {
-              return {
-                type: 'label',
-                children: convertSlateNodesToLexical({
-                  canContainParagraphs: false,
-                  converters,
-                  parentNodeType: 'label',
-                  slateNodes: slateNode.children as SlateNode[],
-                }),
-                direction: 'ltr',
-                format: '',
-                indent: 0,
-                version: 1,
-              } as const as SerializedLabelNode
-            },
-            nodeTypes: ['label'],
-          },
-          {
-            converter({ converters, slateNode }) {
-              const slateData = {
-                children: slateNode.children,
-                type: 'p',
-              }
-
-              return {
-                type: 'block',
-                fields: {
-                  blockType: 'spotlight',
-                  blockName: '',
-                  id: new ObjectID().toHexString(),
-                  element: slateNode.element,
-                  richText: convertSlateToLexical({
-                    converters,
-                    slateData: [slateData],
-                  }),
-                },
-                format: '',
-                version: 2,
-              } as const as SerializedBlockNode<{
-                element: string
-                richText: any
-              }>
-            },
-            nodeTypes: ['spotlight'],
-          },
-          {
-            converter({ converters, slateNode }) {
-              return {
-                type: 'block',
-                fields: {
-                  blockType: 'video',
-                  url: `https://www.youtube.com/watch?v=${slateNode.id}`,
-                  id: new ObjectID().toHexString(),
-                  blockName: '',
-                },
-                format: '',
-                version: 2,
-              } as const as SerializedBlockNode<{
-                url: string
-              }>
-            },
-            nodeTypes: ['video'],
-          },
-          {
-            converter({ converters, slateNode }) {
-              return {
-                type: 'block',
-                fields: {
-                  blockType: 'br',
-                  blockName: ``,
-                  id: new ObjectID().toHexString(),
-                },
-                format: '',
-                version: 2,
-              } as const as SerializedBlockNode
-            },
-            nodeTypes: ['br'],
-          },
-        ],
-      }),*/
       UploadFeature({
         collections: {
           media: {
@@ -307,6 +162,27 @@ export default buildConfig({
       }),
     ],
   }),
+  email: nodemailerAdapter({
+    defaultFromAddress: 'info@payloadcms.com',
+    defaultFromName: 'Payload',
+    ...sendgridConfig,
+  }),
+  endpoints: [
+    {
+      handler: syncDocs,
+      method: 'get',
+      path: '/sync/docs',
+    },
+    {
+      handler: redeployWebsite,
+      method: 'post',
+      path: '/redeploy/website',
+    },
+  ],
+  globals: [Footer, MainMenu, PartnerProgram],
+  graphQL: {
+    disablePlaygroundInProduction: false,
+  },
   plugins: [
     formBuilderPlugin({
       formOverrides: {
@@ -384,4 +260,8 @@ export default buildConfig({
       token: process.env.BLOB_READ_WRITE_TOKEN || '',
     }),
   ],
+  secret: process.env.PAYLOAD_SECRET || '',
+  typescript: {
+    outputFile: path.resolve(dirname, 'payload-types.ts'),
+  },
 })
