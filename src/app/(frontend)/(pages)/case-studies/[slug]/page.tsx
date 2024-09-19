@@ -6,15 +6,22 @@ import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { fetchCaseStudies, fetchCaseStudy } from '@data'
 import { CaseStudy } from './client_page.js'
 import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
+import { PayloadRedirects } from '@components/PayloadRedirects/index.jsx'
 
 const CaseStudyBySlug = async ({ params }) => {
   const { slug } = params
+
+  const url = `/case-studies/${slug}`
+
   const caseStudy = await fetchCaseStudy(slug)
 
-  if (!caseStudy) return notFound()
+  if (!caseStudy) {
+    return <PayloadRedirects url={url} />
+  }
 
   return (
     <>
+      <PayloadRedirects disableNotFound url={url} />
       <RefreshRouteOnSave />
       <CaseStudy {...caseStudy} />
     </>

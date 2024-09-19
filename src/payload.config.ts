@@ -1,3 +1,4 @@
+import { revalidateRedirects } from '@hooks/revalidateRedirects'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
@@ -250,6 +251,11 @@ export default buildConfig({
     }),
     redirectsPlugin({
       collections: ['case-studies', 'pages', 'posts'],
+      overrides: {
+        hooks: {
+          afterChange: [revalidateRedirects],
+        },
+      },
     }),
     vercelBlobStorage({
       cacheControlMaxAge: 60 * 60 * 24 * 365,

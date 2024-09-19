@@ -7,18 +7,24 @@ import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { fetchBlogPost, fetchPosts } from '@data'
 import { BlogPost } from './BlogPost/index.js'
 import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
+import { PayloadRedirects } from '@components/PayloadRedirects/index.jsx'
 
 const Post = async ({ params }) => {
   const { slug } = params
+
+  const url = `/blog/${slug}`
 
   const { isEnabled: isDraftMode } = draftMode()
 
   const blogPost = await fetchBlogPost(slug)
 
-  if (!blogPost) return notFound()
+  if (!blogPost) {
+    return <PayloadRedirects url={url} />
+  }
 
   return (
     <>
+      <PayloadRedirects disableNotFound url={url} />
       <RefreshRouteOnSave />
       <BlogPost {...blogPost} />
     </>

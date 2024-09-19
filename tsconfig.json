@@ -52,6 +52,9 @@
       "@icons/*": [
         "./src/icons/*"
       ],
+      "@hooks/*": [
+        "./src/hooks/*"
+      ],
       "@providers": [
         "./src/providers"
       ],
