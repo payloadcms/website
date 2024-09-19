@@ -6,15 +6,19 @@
 
 .pageTitle {
   @include h5;
-  opacity: 0.5;
-  margin: 0;
-  margin-bottom: 2rem;
+  & {
+    opacity: 0.5;
+    margin: 0;
+    margin-bottom: 2rem;
+  }
 }
 
 
 .title {
   @include h1;
-  margin: 0;
+  & {
+    margin: 0;
+  }
 
   @include mid-break {
     margin-bottom: 2rem;

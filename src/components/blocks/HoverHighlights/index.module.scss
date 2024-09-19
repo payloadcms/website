@@ -25,11 +25,13 @@
 
 .highlightText {
   @include h2;
-  margin: 0;
-  text-decoration: none;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
+  & {
+    margin: 0;
+    text-decoration: none;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
 
   & .arrow {
     opacity: 0;

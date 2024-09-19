@@ -23,23 +23,27 @@
 
   p {
     @include small;
-    margin: 0;
-    line-height: 1;
-    color: currentColor;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
+    & {
+      margin: 0;
+      line-height: 1;
+      color: currentColor;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+    }
   }
 }
 
 .starCount {
   @include small;
-  position: relative;
-  margin: 0;
-  padding: 0.25rem 0.5rem;
-  background-color: var(--color-base-950);
-  color: white;
-  height: 28px;
-  display: flex;
-  align-items: center;
+  & {
+    position: relative;
+    margin: 0;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--color-base-950);
+    color: white;
+    height: 28px;
+    display: flex;
+    align-items: center;
+  }
 }

@@ -5,7 +5,7 @@
   visibility: hidden;
   width: 100%;
   -webkit-perspective: 1000;
--webkit-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 
   @include mobile-header-break {
     display: block;
@@ -192,22 +192,25 @@
 }
 
 .mobileMenuItem {
-  @include btnReset;
   font-family: var(--font-body);
+  @include btnReset;
   @include h4;
-  letter-spacing: -0.02em;
-  padding: 1.25rem;
-  font-weight: 500;
-  margin: 0;
-  text-decoration: none;
-  color: var(--theme-text);
-  width: 100%;
-  border-left: 1px solid var(--theme-border-color);
-  border-bottom: 1px solid var(--theme-border-color);
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  background-color: var(--theme-bg);
+
+  & {
+    letter-spacing: -0.02em;
+    padding: 1.25rem;
+    font-weight: 500;
+    margin: 0;
+    text-decoration: none;
+    color: var(--theme-text);
+    width: 100%;
+    border-left: 1px solid var(--theme-border-color);
+    border-bottom: 1px solid var(--theme-border-color);
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--theme-bg);
+  }
 
   &:first-child {
     border-top: 1px solid var(--theme-border-color);
@@ -224,13 +227,15 @@
 
 .backButton {
   @include btnReset;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem ;
-  cursor: pointer;
-  position: relative;
-  border-top: 1px solid var(--theme-border-color);
+  & {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem ;
+    cursor: pointer;
+    position: relative;
+    border-top: 1px solid var(--theme-border-color);
+  }
 }
 
 .directLink {
@@ -296,15 +301,19 @@
 
 .defaultLink, .listLabelWrap {
   @include btnReset;
-  display: flex;
-  text-decoration: none;
+  & {
+    display: flex;
+    text-decoration: none;
+  }
 }
 
 .featuredLinkWrap {
   @include btnReset;
-  display: flex;
-  gap: 2rem;
-  margin-top: 2rem;
+  & {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
 }
 
 .featuredLinks {
@@ -333,10 +342,12 @@
 
 .listLabel {
   @include h5;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 0 0.5rem 0;
+  & {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 0.5rem 0;
+  }
 }
 
 .listWrap {
@@ -354,12 +365,16 @@
 
 .itemDescription {
   @include small;
-  line-height: 1.5;
+  & {
+    line-height: 1.5;
+  }
 }
 
 .tag {
   @include h6;
-  margin: 0 0 1.5rem 0;
-  font-weight: normal;
-  text-transform: uppercase;
+  & {
+    margin: 0 0 1.5rem 0;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
 }

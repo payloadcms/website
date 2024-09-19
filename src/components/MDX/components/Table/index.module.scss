@@ -22,8 +22,10 @@
 
         th {
           @include small;
-          font-weight: normal;
-          text-align: left;
+          & {
+            font-weight: normal;
+            text-align: left;
+          }
         }
       }
 

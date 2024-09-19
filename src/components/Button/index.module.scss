@@ -27,11 +27,13 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .size--pill {
   @include small;
-  line-height: 1.25rem;
-  height: unset;
-  border-radius: 3px;
-  padding: 0 6px;
-  font-weight: bold;
+  & {
+    line-height: 1.25rem;
+    height: unset;
+    border-radius: 3px;
+    padding: 0 6px;
+    font-weight: bold;
+  }
 
   .spacer {
     width: 0.75rem;
@@ -156,6 +158,8 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
     }
 
     &:hover {
+      color: var(--theme-elevation-0);
+
       .defaultLabel {
         transform: translateY(-100%);
         transition-duration: calc(var(--animation-speed) * 2);
@@ -173,7 +177,6 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
         }
       }
 
-      color: var(--theme-elevation-0);
     }
 
     @include mid-break {
@@ -351,7 +354,9 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .size--large {
   @include h4;
-  margin: 0;
+  & {
+    margin: 0;
+  }
 }
 
 .label-centered {

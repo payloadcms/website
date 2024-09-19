@@ -55,9 +55,11 @@
 
   select {
     @include body;
-    all: unset;
-    position: relative;
-    padding-right: 1.25rem;
+    & {
+      all: unset;
+      position: relative;
+      padding-right: 1.25rem;
+    }
 
   }
   &::before {

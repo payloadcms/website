@@ -4,17 +4,19 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .quoteCard {
   @include large-body;
-  box-sizing: border-box;
-  padding: 5rem;
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  height: 100%;
-  background: var(--color-base-0);
-  border-top: 1px solid var(--grid-line-light);
-  border-bottom: 1px solid var(--grid-line-light);
-  opacity: 0.5;
-  transition: opacity 350ms $curve;
+  & {
+    box-sizing: border-box;
+    padding: 5rem;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    height: 100%;
+    background: var(--color-base-0);
+    border-top: 1px solid var(--grid-line-light);
+    border-bottom: 1px solid var(--grid-line-light);
+    opacity: 0.5;
+    transition: opacity 350ms $curve;
+  }
 
   &:hover {
     &:not(.isActive) {
@@ -98,14 +100,18 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .richText {
   @include large-body;
-  margin-bottom: auto;
+  & {
+    margin-bottom: auto;
+  }
 }
 
 .leader {
   @include h6;
-  margin-top: 0;
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
+  & {
+    margin-top: 0;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .closingQuote {
@@ -114,9 +120,11 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .quote {
   @include h3;
-  margin-top: 0;
-  position: relative;
-  margin-bottom: 4.5rem;
+  & {
+    margin-top: 0;
+    position: relative;
+    margin-bottom: 4.5rem;
+  }
 
   &::before {
     content: '“';
@@ -131,8 +139,10 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .author {
   @include h5;
-  margin-top: 0;
-  margin-bottom: 0.8rem;
+  & {
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+  }
 }
 
 .role {

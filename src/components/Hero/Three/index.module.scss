@@ -206,18 +206,20 @@
 
   a {
     @include small;
-    font-size: 16px;
-    border-bottom: none;
-    display: inline-flex;
-    text-decoration: none;
-    cursor: pointer;
-    transition: color .4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    position: relative;
-    color: var(--theme-elevation-750);
-    padding: .375rem .75rem;
-    background-color: var(--theme-success-50);
-    border-radius: calc(.5rem - 1px);
-    z-index: 1;
+    & {
+      font-size: 16px;
+      border-bottom: none;
+      display: inline-flex;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color .4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      position: relative;
+      color: var(--theme-elevation-750);
+      padding: .375rem .75rem;
+      background-color: var(--theme-success-50);
+      border-radius: calc(.5rem - 1px);
+      z-index: 1;
+    }
 
     &:hover {
       color: var(--theme-elevation-1000);

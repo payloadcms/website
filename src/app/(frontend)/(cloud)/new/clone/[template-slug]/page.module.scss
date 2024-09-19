@@ -53,8 +53,10 @@
 
 .template {
     @include shared.formInput;
-    display: flex;
-    align-items: center;
+    & {
+        display: flex;
+        align-items: center;
+    }
 }
 
 .templateIcon {

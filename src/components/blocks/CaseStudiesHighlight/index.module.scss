@@ -35,13 +35,17 @@
 
 .poweredByPayloadInner {
   @include large-body;
-  @include shadow-lg;
-  background: var(--theme-bg);
-  padding: 1.5rem 2.5rem;
-  margin-top: 1rem;
-  display: flex;
-  align-items: center;
-  border-bottom: 4px solid;
+  & {
+    @include shadow-lg;
+    & {
+      background: var(--theme-bg);
+      padding: 1.5rem 2.5rem;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      border-bottom: 4px solid;
+    }
+  }
 
   svg {
     margin-right: 0.75rem;

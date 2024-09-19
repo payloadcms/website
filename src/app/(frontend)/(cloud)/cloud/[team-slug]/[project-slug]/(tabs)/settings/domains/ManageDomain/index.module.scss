@@ -48,10 +48,12 @@
 
   th {
     @include label;
-    font-weight: normal;
-    font-family: var(--font-geist-mono);
-    text-align: left;
-    padding: 0.25rem 0.5rem;
+    & {
+      font-weight: normal;
+      font-family: var(--font-geist-mono);
+      text-align: left;
+      padding: 0.25rem 0.5rem;
+    }
   }
 
   td {

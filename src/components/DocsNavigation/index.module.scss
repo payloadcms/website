@@ -158,12 +158,14 @@
 
 .doc {
   @include small;
-  list-style: none;
-  display: inline-flex;
-  position: relative;
-  text-decoration: none;
-  width: 100%;
-  margin-block: 0.25rem;
+  & {
+    list-style: none;
+    display: inline-flex;
+    position: relative;
+    text-decoration: none;
+    width: 100%;
+    margin-block: 0.25rem;
+  }
 
   &:hover {
     color: var(--theme-text);

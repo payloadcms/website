@@ -2,14 +2,16 @@
 
 .repoCard {
     @include btnReset;
-    width: 100%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid var(--theme-border-color);
-    padding: 1rem 2rem 1rem 1.5rem;
-    position: relative;
-    cursor: pointer;
+    & {
+        width: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid var(--theme-border-color);
+        padding: 1rem 2rem 1rem 1.5rem;
+        position: relative;
+        cursor: pointer;
+    }
 
     @include small-break {
         padding: 1rem;
@@ -85,13 +87,15 @@
 
 .repoDescription {
     @include small;
-    margin-top: calc(var(--base) / 2);
-    color: var(--theme-elevation-500);
-    overflow: hidden;
-    width: 100%;
-    margin: 0;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    & {
+        margin-top: calc(var(--base) / 2);
+        color: var(--theme-elevation-500);
+        overflow: hidden;
+        width: 100%;
+        margin: 0;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 }
 
 .arrow {

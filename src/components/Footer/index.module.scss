@@ -30,10 +30,12 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .colHeader {
   @include h6;
-  margin-bottom: 4.5rem;
-  display: inline-flex;
-  align-items: flex-end;
-  text-transform: uppercase;
+  & {
+    margin-bottom: 4.5rem;
+    display: inline-flex;
+    align-items: flex-end;
+    text-transform: uppercase;
+  }
 
   @include mid-break {
     margin-bottom: 2rem;
@@ -42,15 +44,17 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .footer .link {
   @include body;
-  display: block;
-  margin-bottom: 0.15rem;
-  color: var(--color-base-0);
+  & {
+    display: block;
+    margin-bottom: 0.15rem;
+    color: var(--color-base-0);
+    @include underline-on-focus;
+  }
 
   &:hover {
     color: var(--theme-elevation-800)
   }
 
-  @include underline-on-focus;
 
   @include mid-break {
     width: 100%;
@@ -89,14 +93,16 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .emailInput input {
   @include body;
-  padding: 1rem 1.5rem;
-  background: var(--color-base-1000);
-  border-color: var(--grid-line-dark);
-  border-left: none;
-  border-right: none;
-  margin-left: 1px;
-  width: calc(100% - 2px);
-  height: auto;
+  & {
+    padding: 1rem 1.5rem;
+    background: var(--color-base-1000);
+    border-color: var(--grid-line-dark);
+    border-left: none;
+    border-right: none;
+    margin-left: 1px;
+    width: calc(100% - 2px);
+    height: auto;
+  }
 
   @include data-theme-selector('light') {
     background: var(--color-base-1000);
@@ -118,11 +124,13 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .submitButton {
   @include btnReset;
-  cursor: pointer;
-  display: block;
-  position: absolute;
-  right: 1.5rem;
-  top: calc(50% - 0.6rem);
+  & {
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    right: 1.5rem;
+    top: calc(50% - 0.6rem);
+  }
 }
 
 .socialLinks {
@@ -160,14 +168,15 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
   select {
     @include body;
-    all: unset;
-    position: relative;
-    border-top: 1px solid var(--grid-line-dark);
-    border-bottom: 1px solid var(--grid-line-dark);
-    width: 100%;
-    padding: 1rem 1.5rem;
-    padding-left: calc(1.5rem + var(--theme-switcher-icon-width));
-
+    & {
+      all: unset;
+      position: relative;
+      border-top: 1px solid var(--grid-line-dark);
+      border-bottom: 1px solid var(--grid-line-dark);
+      width: 100%;
+      padding: 1rem 1.5rem;
+      padding-left: calc(1.5rem + var(--theme-switcher-icon-width));
+    }
   }
   &::before {
     content: '';

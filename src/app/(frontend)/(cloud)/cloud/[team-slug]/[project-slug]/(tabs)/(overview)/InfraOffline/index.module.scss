@@ -21,9 +21,11 @@
 
   .iconAndLabel {
     @include small;
-    display: flex;
-    align-items: center;
-    color: var(--theme-elevation-500);
+    & {
+      display: flex;
+      align-items: center;
+    }
+      color: var(--theme-elevation-500);
 
     svg {
       color: var(--theme-elevation-400);

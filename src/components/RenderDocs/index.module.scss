@@ -44,9 +44,9 @@
   width: 100%;
   height: 3.5rem;
   background: var(--theme-elevation-50);
-  @include h2;
   animation: pulse 1s infinite;
   border-radius: 0.25rem;
+  @include h2;
 }
 
 .skeletonContent {
@@ -72,7 +72,9 @@
 
 .title {
   @include h2;
-  margin-top: 0;
+  & {
+    margin-top: 0;
+  }
 }
 
 .content {
@@ -88,8 +90,8 @@
 }
 
 .mdx {
-  @include color-links;
   padding-bottom: 2rem;
+  @include color-links;
 
   h2 {
     @include h3;

@@ -12,8 +12,10 @@
 
     th {
       @include small;
-      font-weight: normal;
-      text-align: left;
+      & {
+        font-weight: normal;
+        text-align: left;
+      }
     }
   }
 
@@ -51,7 +53,9 @@
 
   & label {
     @include label;
-    color: var(--theme-elevation-500);
+    & {
+      color: var(--theme-elevation-500);
+    }
   }
 
   @include mid-break {

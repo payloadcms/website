@@ -17,8 +17,10 @@
   display: block;
   @include h4;
 
-  margin: 0 !important;
-  text-decoration: none;
+  & {
+    margin: 0 !important;
+    text-decoration: none;
+  }
 
   &:hover {
     text-decoration: underline;

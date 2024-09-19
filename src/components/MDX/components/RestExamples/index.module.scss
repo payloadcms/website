@@ -3,14 +3,16 @@
 .toggle {
   @include btnReset;
   @include label;
-  display: flex;
-  margin-right: auto;
-  background-color: var(--color-base-750);
-  border-radius: 3px;
-  padding: 0.35rem;
-  transition: opacity 200ms linear;
-  cursor: pointer;
-  color: var(--color-base-100);
+  & {
+    display: flex;
+    margin-right: auto;
+    background-color: var(--color-base-750);
+    border-radius: 3px;
+    padding: 0.35rem;
+    transition: opacity 200ms linear;
+    cursor: pointer;
+    color: var(--color-base-100);
+  }
 
   &:hover {
     opacity: 0.8;
@@ -18,7 +20,9 @@
 
   .label {
     @include label;
-    color: var(--color-base-100);
+    & {
+      color: var(--color-base-100);
+    }
   }
 }
 
@@ -37,7 +41,7 @@
   }
 
   th:first-child {
-    padding: 0 0.75rem 0.75rem 0.75rem 
+    padding: 0 0.75rem 0.75rem 0.75rem
   }
 
   td:first-child {

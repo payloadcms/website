@@ -54,11 +54,13 @@
 
 .message {
   @include h5;
-  color: var(--theme-text-color);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0;
+  & {
+    color: var(--theme-text-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+  }
 }
 
 .arrow {

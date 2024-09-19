@@ -15,16 +15,20 @@
 
 .leader {
   @include h6;
-  text-transform: uppercase;
-  margin-top: 0;
-  margin-bottom: 1rem;
-  color: #4D90B2;
+  & {
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #4D90B2;
+  }
 }
 
 .heading {
   @include h3;
-  margin-top: 0;
-  margin-bottom: 0;
+  & {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }
 
 .mediaBackgroundWrapper {
@@ -170,13 +174,15 @@
 
 .collapsibleToggler {
   @include btnReset;
-  cursor: pointer;
-  width: 100%;
-  text-align: unset;
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  & {
+    cursor: pointer;
+    width: 100%;
+    text-align: unset;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
   &:hover {
     .title {

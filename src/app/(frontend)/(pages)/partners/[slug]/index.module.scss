@@ -54,11 +54,13 @@
 
 .badge {
   @include small;
-  display: flex;
-  align-items: center;
-  border-radius: 3px;
-  padding: .25rem .5rem .25rem;
-  width: max-content;
+  & {
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    padding: .25rem .5rem .25rem;
+    width: max-content;
+  }
 }
 
 .featured {

@@ -49,7 +49,9 @@
   :global {
     div.rs__control {
       @include shared.formInput;
-      padding: 1.5rem 2rem;
+      & {
+        padding: 1.5rem 2rem;
+      }
 
       @include mid-break {
         padding: 1.5rem 1rem;
@@ -202,7 +204,9 @@
 
 .description {
   @include small;
-  margin-top: 0.5rem;
+  & {
+    margin-top: 0.5rem;
+  }
 }
 
 .focused {

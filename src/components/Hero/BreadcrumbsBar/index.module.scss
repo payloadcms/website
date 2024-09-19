@@ -36,6 +36,9 @@
 .container {
   border-top: 1px solid var(--grid-line-light);
   border-bottom: 1px solid var(--grid-line-light);
+  padding: 1.5rem 0;
+  display: flex;
+  justify-content: space-between;
 
   @include data-theme-selector('light') {
     border-color: var(--grid-line-light);
@@ -45,10 +48,6 @@
     border-color: var(--grid-line-dark);
   }
 
-  padding: 1.5rem 0;
-
-  display: flex;
-  justify-content: space-between;
 
   @include mid-break {
     display: none;

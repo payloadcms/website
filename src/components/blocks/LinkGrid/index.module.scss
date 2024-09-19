@@ -18,16 +18,18 @@
 .link {
   position: relative;
   @include h3;
-  justify-content: space-between;
-  width: 100%;
-  text-decoration: none;
-  display: flex;
-  align-items: flex-start;
-  margin: 0;
-  padding: 3rem 1.5rem;
-  background-color: var(--theme-elevation-0);
-  border-bottom: 1px solid var(--grid-line-dark);
-  transition: padding-left 0.3s cubic-bezier(.165, 0.84, 0.44, 1);
+  & {
+    justify-content: space-between;
+    width: 100%;
+    text-decoration: none;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    padding: 3rem 1.5rem;
+    background-color: var(--theme-elevation-0);
+    border-bottom: 1px solid var(--grid-line-dark);
+    transition: padding-left 0.3s cubic-bezier(.165, 0.84, 0.44, 1);
+  }
 
   @include data-theme-selector('light') {
     border-color: var(--grid-line-light);

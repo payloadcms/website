@@ -62,7 +62,9 @@
   flex-direction: column;
   gap: 0.5rem;
   @include body;
-  color: var(--theme-elevation-750);
+  & {
+    color: var(--theme-elevation-750);
+  }
 }
 
 .invoiceBlockRight {
@@ -79,12 +81,16 @@
 
 .invoiceTotalNegative {
   @include body;
-  color: var(--theme-success-750)
+  & {
+    color: var(--theme-success-750)
+  }
 }
 
 .invoiceLink {
   @include body;
-  color: var(--theme-elevation-600);
+  & {
+    color: var(--theme-elevation-600);
+  }
 
   &:hover {
     color: var(--theme-elevation-400);
@@ -93,7 +99,9 @@
 
 .freeTrialNotice {
   @include small;
-  color: var(--theme-elevation-600);
+  & {
+    color: var(--theme-elevation-600);
+  }
 }
 
 .loadMore {

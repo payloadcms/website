@@ -60,8 +60,11 @@
 
 .suffix {
   @include small;
-  display: flex;
-  color: var(--theme-elevation-500);
+
+  & {
+    display: flex;
+    color: var(--theme-elevation-500);
+  }
 }
 
 :global([data-theme="light"]) {

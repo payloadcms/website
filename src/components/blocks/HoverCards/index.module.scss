@@ -122,8 +122,10 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .leader {
   @include h6;
-  margin-top: 0;
-  margin-bottom: 4rem;
+  & {
+    margin-bottom: 4rem;
+    margin-top: 0;
+  }
 
   @include mid-break {
     margin-bottom: 7rem;
@@ -136,10 +138,12 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .cardTitle {
   @include h4;
-  position: relative;
-  transition: all 350ms $curve;
-  margin-bottom: 1rem;
-  text-decoration: none;
+  & {
+    position: relative;
+    transition: all 350ms $curve;
+    margin-bottom: 1rem;
+    text-decoration: none;
+  }
 }
 
 .description {

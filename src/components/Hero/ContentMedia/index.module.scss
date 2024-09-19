@@ -1,11 +1,11 @@
 @use '../../../css/queries.scss' as *;
 
 .wrapper {
+  align-items: center;
+
   @include mid-break {
     row-gap: 2rem;
   }
-
-  align-items: center;
 }
 
 .sidebar {

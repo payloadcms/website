@@ -61,11 +61,11 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
   height: auto;
   position: absolute;
   fill: none;
+  z-index: 6;
 
   path {
     fill: none;
   }
-  z-index: 6;
 }
 
 .noise {

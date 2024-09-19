@@ -42,6 +42,8 @@
 
 .description {
   @include small;
-  margin-top: 0.5rem;
-  color: var(--theme-elevation-400);
+  & {
+    margin-top: 0.5rem;
+    color: var(--theme-elevation-400);
+  }
 }

@@ -21,8 +21,10 @@
 
 .title {
   @include h1;
-  margin: 0;
-  width: calc(var(--column) * 11);
+  & {
+    margin: 0;
+    width: calc(var(--column) * 11);
+  }
 
   @include large-break {
     @include h2;
@@ -72,9 +74,11 @@
 
 .date {
   @include body;
-  letter-spacing: 0;
-  color: var(--theme-elevation-900);
-  margin: 0;
+  & {
+    letter-spacing: 0;
+    color: var(--theme-elevation-900);
+    margin: 0;
+  }
 }
 
 .publishLabel {

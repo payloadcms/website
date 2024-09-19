@@ -2,10 +2,12 @@
 
 .filterBar {
   @include formInput;
-  display: flex;
-  align-items: center;
-  position: relative;
-  height: 3rem;
+  & {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 3rem;
+  }
 
   @include mid-break {
     left: 0;

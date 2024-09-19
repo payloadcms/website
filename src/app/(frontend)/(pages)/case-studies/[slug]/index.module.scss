@@ -62,8 +62,10 @@
 
 .metaLabel {
   @include h6;
-  text-transform: uppercase;
-  margin-top: 0;
+  & {
+    text-transform: uppercase;
+    margin-top: 0;
+  }
 }
 
 .metaValue {

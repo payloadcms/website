@@ -24,12 +24,15 @@
   border: none;
   font-size: 1rem;
   @include small;
-  font-family: var(--font-body);
-  margin: 0;
-  color: var(--theme-elevation-1000);
-  background-color: transparent;
-  position: relative;
-  padding: 1rem;
+
+  & {
+    font-family: var(--font-body);
+    margin: 0;
+    color: var(--theme-elevation-1000);
+    background-color: transparent;
+    position: relative;
+    padding: 1rem;
+  }
 
   &:focus {
     outline: none;

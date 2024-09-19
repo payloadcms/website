@@ -124,13 +124,15 @@
 }
 
 @mixin small {
-  letter-spacing: 0;
-  font-size: 16px;
-  line-height: 20px;
+  & {
+    letter-spacing: 0;
+    font-size: 16px;
+    line-height: 20px;
 
-  @include extra-large-break {
-    font-size: 15px;
-    line-height: 18px;
+    @include extra-large-break {
+      font-size: 15px;
+      line-height: 18px;
+    }
   }
 }
 

@@ -47,13 +47,13 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
   margin-left: 1px;
   width: calc(100% - 2px);
   height: auto;
+  transition: border-color 350ms ease;
 
   &::placeholder {
     color: var(--theme-text);
     opacity: .3;
     transition: opacity 350ms ease;
   }
-  transition: border-color 350ms ease;
 
   &:hover::placeholder {
     opacity: .5;
@@ -68,8 +68,8 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
     }
 
     &::placeholder {
-    opacity: .5;
-  }
+      opacity: .5;
+    }
   }
 }
 

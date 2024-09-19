@@ -43,12 +43,14 @@
 
   .textarea {
     @include shared.formInput;
-    padding: 1.5rem 2rem;
-    resize: vertical;
-    max-width: 100%;
-    min-height: 160px;
-    height: unset;
-    transition: all 0.3s ease;
+    & {
+      padding: 1.5rem 2rem;
+      resize: vertical;
+      max-width: 100%;
+      min-height: 160px;
+      height: unset;
+      transition: all 0.3s ease;
+    }
 
     &.error {
       background-color: var(--theme-failure-500);

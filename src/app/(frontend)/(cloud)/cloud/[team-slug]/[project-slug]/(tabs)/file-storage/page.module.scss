@@ -25,7 +25,9 @@
       span {
         margin-bottom: var(--base);
         @include small;
-        color: var(--theme-elevation-750);
+        & {
+          color: var(--theme-elevation-750);
+        }
       }
     }
   }
@@ -45,7 +47,9 @@
 .secretInput {
   label {
     @include h4;
-    color: var(--theme-text);
+    & {
+      color: var(--theme-text);
+    }
   }
   margin-bottom: calc(var(--base) * 1.5);
 }

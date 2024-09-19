@@ -32,8 +32,10 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .label {
   @include h6;
-  text-transform: uppercase;
-  margin-bottom: 1.75rem;
+  & {
+    text-transform: uppercase;
+    margin-bottom: 1.75rem;
+  }
 
   @include data-theme-selector('dark') {
     color: var(--color-base-0);
@@ -57,16 +59,18 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 .close {
   @include btnReset;
 
-  color: var(--color-base-400);
-  position: absolute;
-  right: 3rem;
-  top: 3rem;
-  padding: 1.25rem;
-  border: 1px solid var(--color-base-400);
-  border-radius: 100%;
-  aspect-ratio: 1/1;
-  display: flex;
-  transition: 350ms $curve;
+  & {
+    color: var(--color-base-400);
+    position: absolute;
+    right: 3rem;
+    top: 3rem;
+    padding: 1.25rem;
+    border: 1px solid var(--color-base-400);
+    border-radius: 100%;
+    aspect-ratio: 1/1;
+    display: flex;
+    transition: 350ms $curve;
+  }
 
   @include mid-break {
     right: 2rem;

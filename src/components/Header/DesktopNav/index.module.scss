@@ -167,7 +167,9 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .description {
   @include large-body;
-  max-width: 300px;
+  & {
+    max-width: 300px;
+  }
 }
 
 .dropdown {
@@ -264,8 +266,10 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .defaultLinkLabel {
   @include h4;
-  margin: 0;
-  flex-grow: 1;
+  & {
+    margin: 0;
+    flex-grow: 1;
+  }
 }
 
 .defaultLinkDescription {
@@ -285,15 +289,19 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .listLabel {
   @include h6;
-  margin: 0;
-  text-transform: uppercase;
+  & {
+    margin: 0;
+    text-transform: uppercase;
+  }
 }
 
 .link {
   @include body;
-  font-weight: 500;
-  transition: all var(--trans-default) $curve;
-  text-decoration: none;
+  & {
+    font-weight: 500;
+    transition: all var(--trans-default) $curve;
+    text-decoration: none;
+  }
 
   &:focus {
     text-decoration: none;
@@ -307,11 +315,13 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .featuredLinks, .descriptionLink {
   @include body;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  transition: all var(--trans-default) $curve;
-  letter-spacing: 0;
+  & {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    transition: all var(--trans-default) $curve;
+    letter-spacing: 0;
+  }
 
   &:hover {
     transition: all var(--trans-default) $curve;

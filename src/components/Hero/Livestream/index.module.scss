@@ -80,13 +80,15 @@
 
 .guestWrap {
   @include label;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  text-decoration: none;
-  margin-top: 2.5rem;
-  margin-bottom: 1.25rem;
-  width: fit-content;
+  & {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
+    width: fit-content;
+  }
 
   & img {
     width: 45px;

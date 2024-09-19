@@ -11,26 +11,30 @@
 
 .leftPill {
   @include small;
-  padding: 0.25rem 0.5rem;
-  background-color: var(--color-base-850);
-  color: var(--color-base-200);
-  height: 28px;
-  margin: 0;
-  line-height: 1;
-  font-weight: 500;
-  border-right: 1px solid var(--color-base-650);
-  display: flex;
-  align-items: center;
+  & {
+    padding: 0.25rem 0.5rem;
+    background-color: var(--color-base-850);
+    color: var(--color-base-200);
+    height: 28px;
+    margin: 0;
+    line-height: 1;
+    font-weight: 500;
+    border-right: 1px solid var(--color-base-650);
+    display: flex;
+    align-items: center;
+  }
 }
 
 .userCount {
   @include small;
-  position: relative;
-  margin: 0;
-  padding: 0.25rem 0.5rem;
-  background-color: #5865F2; // discord color https://discord.com/branding
-  color: var(--color-base-0);
-  height: 28px;
-  display: flex;
-  align-items: center;
+  & {
+    position: relative;
+    margin: 0;
+    padding: 0.25rem 0.5rem;
+    background-color: #5865F2; // discord color https://discord.com/branding
+    color: var(--color-base-0);
+    height: 28px;
+    display: flex;
+    align-items: center;
+  }
 }

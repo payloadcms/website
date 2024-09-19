@@ -57,7 +57,9 @@
 
   .input {
     @include shared.formInput;
-    padding: 1.5rem 2rem;
+    & {
+      padding: 1.5rem 2rem;
+    }
 
     @include mid-break {
       padding: 1.5rem 1rem;
@@ -104,8 +106,10 @@
 
   .suffix {
     @include small;
-    display: flex;
-    color: var(--theme-elevation-500);
+    & {
+      display: flex;
+      color: var(--theme-elevation-500);
+    }
   }
 }
 
