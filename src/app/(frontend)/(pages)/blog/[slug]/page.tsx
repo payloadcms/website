@@ -7,7 +7,7 @@ import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { fetchBlogPost, fetchPosts } from '@data'
 import { BlogPost } from './BlogPost/index.js'
 import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
-import { PayloadRedirects } from '@components/PayloadRedirects/index.jsx'
+import { PayloadRedirects } from '@components/PayloadRedirects/index.js'
 
 const Post = async ({ params }) => {
   const { slug } = params
