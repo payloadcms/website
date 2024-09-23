@@ -258,7 +258,7 @@ export default buildConfig({
       },
     }),
     vercelBlobStorage({
-      cacheControlMaxAge: 60 * 60 * 24 * 365,
+      cacheControlMaxAge: 60 * 60 * 24 * 365, // 1 year
       collections: {
         media: true,
       },

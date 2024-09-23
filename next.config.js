@@ -45,7 +45,7 @@ const nextConfig = withBundleAnalyzer({
   },
   reactStrictMode: true,
   images: {
-    minimumCacheTTL: 6000,
+    minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year,
     remotePatterns: [
       ...localhost,
       {
