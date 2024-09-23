@@ -111,10 +111,17 @@ export const Pages: CollectionConfig = {
           if (doc.breadcrumbs && doc.breadcrumbs.length > 0) {
             revalidatePath(doc.breadcrumbs[doc.breadcrumbs.length - 1].url)
             console.log(`Revalidated: ${doc.breadcrumbs[doc.breadcrumbs.length - 1].url}`)
+            if (doc.breadcrumbs[0].url === '/home') {
+              revalidatePath('/')
+              console.log(`Revalidated: /`)
+            }
           } else {
             revalidatePath(`/${doc.slug}`)
-            doc.slug === 'home' && revalidatePath('/')
             console.log(`Revalidated: /${doc.slug}`)
+            if (doc.slug === 'home') {
+              revalidatePath('/')
+              console.log(`Revalidated: /`)
+            }
           }
         }
       },
