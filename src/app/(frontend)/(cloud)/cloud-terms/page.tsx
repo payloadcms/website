@@ -10,7 +10,6 @@ export default function TermsClientPage() {
     <Gutter>
       <Heading element="h2">Payload Cloud - Terms of Service</Heading>
       <Heading element="h5">Last Revised: March 28, 2024</Heading>
-      <CreditCardList />
       <div className="grid">
         <div className="cols-12 cols-m-8">
           <p>
