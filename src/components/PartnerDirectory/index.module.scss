@@ -87,12 +87,14 @@
 
   & > button {
       @include small;
-      padding: 0;
-      background: none;
-      border: none;
-      text-decoration: underline;
-      cursor: pointer;
-      color: inherit;
+      & {
+        padding: 0;
+        background: none;
+        border: none;
+        text-decoration: underline;
+        cursor: pointer;
+        color: inherit;
+      }
 
       &:hover {
         opacity: .75;

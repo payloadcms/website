@@ -80,7 +80,9 @@
 
 .partnerCardCity {
   @include small;
-  color: var(--theme-elevation-750);
+  & {
+    color: var(--theme-elevation-750);
+  }
 }
 
 .scanlines {

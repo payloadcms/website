@@ -98,17 +98,19 @@ $breakpoint-l-height: 1000px;
 
 @mixin formInput () {
   @include inputShadow;
-  font-family: var(--font-body);
-  width: 100%;
-  border: 1px solid var(--theme-border-color);
-  background: var(--theme-input-bg);
-  color: var(--theme-elevation-800);
-  border-radius: 0;
-  font-size: 1rem;
-  height: 2rem;
-  line-height: 1rem;
-  padding: 0.5rem 0.75rem;
-  -webkit-appearance: none;
+  & {
+    font-family: var(--font-body);
+    width: 100%;
+    border: 1px solid var(--theme-border-color);
+    background: var(--theme-input-bg);
+    color: var(--theme-elevation-800);
+    border-radius: 0;
+    font-size: 1rem;
+    height: 2rem;
+    line-height: 1rem;
+    padding: 0.5rem 0.75rem;
+    -webkit-appearance: none;
+  }
 
   &::-webkit-input-placeholder {
     color: var(--theme-elevation-400);
@@ -208,7 +210,9 @@ $breakpoint-l-height: 1000px;
 }
 
 @mixin underline-on-focus {
-  text-decoration: none;
+  & {
+    text-decoration: none;
+  }
 
   &:focus {
     text-decoration: underline;

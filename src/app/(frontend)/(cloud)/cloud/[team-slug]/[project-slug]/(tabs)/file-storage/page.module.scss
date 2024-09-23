@@ -51,7 +51,9 @@
       color: var(--theme-text);
     }
   }
-  margin-bottom: calc(var(--base) * 1.5);
+  & {
+    margin-bottom: calc(var(--base) * 1.5);
+  }
 }
 
 .label {

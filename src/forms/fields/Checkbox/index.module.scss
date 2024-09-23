@@ -51,16 +51,18 @@
 
 .input {
   @include shared.formInput;
-  padding: 0;
-  line-height: 0;
-  position: relative;
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-right: 0.5rem;
-  margin-bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  & {
+    padding: 0;
+    line-height: 0;
+    position: relative;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .icon {
@@ -77,8 +79,10 @@
 
 .checkbox .label {
   @include body;
-  cursor: pointer;
-  margin-bottom: 0;
+  & {
+    cursor: pointer;
+    margin-bottom: 0;
+  }
 }
 
 :global([data-theme="light"]) {

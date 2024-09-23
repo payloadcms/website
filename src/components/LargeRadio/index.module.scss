@@ -104,9 +104,11 @@
 
 .price {
     @include label;
-    color: var(--theme-success-500);
-    margin: 0;
-    text-align: right;
+    & {
+        color: var(--theme-success-500);
+        margin: 0;
+        text-align: right;
+    }
 }
 
 :global([data-theme="light"]) {

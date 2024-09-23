@@ -76,10 +76,12 @@
 
 .date {
   @include label;
-  font-size: 13px;
-  color: var(--theme-elevation-500);
-  font-weight: normal;
-  margin: 0;
+  & {
+    font-size: 13px;
+    color: var(--theme-elevation-500);
+    font-weight: normal;
+    margin: 0;
+  }
 
   &::before {
     content: "\2014";

@@ -6,15 +6,19 @@
 
 .breadcrumb {
   @include h6;
-  text-transform: uppercase;
-  text-decoration: none;
+  & {
+    text-transform: uppercase;
+    text-decoration: none;
+  }
 }
 
 .title {
   @include h3;
-  text-decoration: none;
-  word-break: break-word;
-  hyphens: auto;
+  & {
+    text-decoration: none;
+    word-break: break-word;
+    hyphens: auto;
+  }
 }
 
 .divider {

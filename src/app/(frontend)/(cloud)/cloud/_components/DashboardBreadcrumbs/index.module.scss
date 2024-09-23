@@ -33,13 +33,6 @@
   }
 
   @include small-break {
-    a {
-      display: inline;
-      height: 1.5rem;
-      flex: 0 0 auto;
-      overflow: visible;
-    }
-
     position: fixed;
     top: var(--header-height);
     left: 0;
@@ -48,6 +41,13 @@
     background: var(--theme-bg);
     border-bottom: 1px solid var(--theme-border-color);
     overflow-x: auto;
+
+    a {
+      display: inline;
+      height: 1.5rem;
+      flex: 0 0 auto;
+      overflow: visible;
+    }
   }
 }
 

@@ -2,10 +2,12 @@
 
 .algoliaSearchBox {
   @include label;
-  font-size: inherit;
-  padding: 0;
-  border: none;
-  background-color: transparent;
+  & {
+    font-size: inherit;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+  }
 
   &::placeholder {
     color: black;

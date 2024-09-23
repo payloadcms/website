@@ -277,8 +277,10 @@
     .DocSearch-Label {
       margin-right: 0.5rem;
       @include small;
-      opacity: 0.75;
-      text-decoration: none;
+      & {
+        opacity: 0.75;
+        text-decoration: none;
+      }
     }
 
     .DocSearch-Logo a {
@@ -294,30 +296,32 @@
     }
   }
 
-  --docsearch-modal-background: var(--color-base-850);
-  --docsearch-searchbox-focus-background: var(--docsearch-modal-background);
-  --docsearch-searchbox-shadow: transparent;
-  --docsearch-hit-background: var(--color-base-950);
-  --docsearch-highlight-color: var(--color-success-500);
-  --docsearch-hit-color: var(--color-base-100);
-  --docsearch-hit-active-color: var(--color-base-800);
-  --docsearch-text-color: var(--color-base-700);
-  --docsearch-logo-color: var(--color-base-500);
-  --docsearch-muted-color: var(--color-base-100);
-  --docsearch-modal-width: 600px;
-  --docsearch-modal-shadow: none;
-  --docsearch-hit-shadow: none;
-  --docsearch-footer-shadow: inset 0 1px 0 0rgb(28 27 30 / 80%),0 -4px 8px 0 rgba(0,0,0,0.2);
-  --docsearch-spacing: 0px;
-  --search-border-color: var(--grid-line-dark);
-  --algolia-logo-color: var(--color-base-400);
-  --search-icon-color: var(--color-base-400);
+  & {
+    --docsearch-modal-background: var(--color-base-850);
+    --docsearch-searchbox-focus-background: var(--docsearch-modal-background);
+    --docsearch-searchbox-shadow: transparent;
+    --docsearch-hit-background: var(--color-base-950);
+    --docsearch-highlight-color: var(--color-success-500);
+    --docsearch-hit-color: var(--color-base-100);
+    --docsearch-hit-active-color: var(--color-base-800);
+    --docsearch-text-color: var(--color-base-700);
+    --docsearch-logo-color: var(--color-base-500);
+    --docsearch-muted-color: var(--color-base-100);
+    --docsearch-modal-width: 600px;
+    --docsearch-modal-shadow: none;
+    --docsearch-hit-shadow: none;
+    --docsearch-footer-shadow: inset 0 1px 0 0rgb(28 27 30 / 80%),0 -4px 8px 0 rgba(0,0,0,0.2);
+    --docsearch-spacing: 0px;
+    --search-border-color: var(--grid-line-dark);
+    --algolia-logo-color: var(--color-base-400);
+    --search-icon-color: var(--color-base-400);
 
-  --esc-key-bg-color: var(--color-base-700);
-  --esc-key-color: var(--color-base-400);
-  --esc-key-border-color: var(--color-base-500);
-  --esc-key-active-bg: var(--color-base-1000);
-  --esc-key-active-color: var(--color-base-100);
+    --esc-key-bg-color: var(--color-base-700);
+    --esc-key-color: var(--color-base-400);
+    --esc-key-border-color: var(--color-base-500);
+    --esc-key-active-bg: var(--color-base-1000);
+    --esc-key-active-color: var(--color-base-100);
+  }
 }
 
 // html[data-theme="dark"] {

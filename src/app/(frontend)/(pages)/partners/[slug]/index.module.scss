@@ -246,8 +246,10 @@
 
 .projectYear {
   @include small;
-  opacity: .75;
-  width: 3rem;
+  & {
+    opacity: .75;
+    width: 3rem;
+  }
 }
 
 .projectName {
@@ -320,12 +322,14 @@
       & > li {
         list-style: none;
         @include small;
-        display: flex;
-        align-items: center;
-        padding: .25rem .5rem;
-        border-radius: 3px;
-        background-color: var(--theme-elevation-50);
-        border: 1px solid var(--theme-elevation-150);
+        & {
+          display: flex;
+          align-items: center;
+          padding: .25rem .5rem;
+          border-radius: 3px;
+          background-color: var(--theme-elevation-50);
+          border: 1px solid var(--theme-elevation-150);
+        }
       }
     }
   }

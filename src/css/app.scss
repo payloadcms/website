@@ -46,6 +46,8 @@
 
   --trans-default: 150ms;
 
+  --column: calc((100vw - (var(--gutter-h) * 2)) / 16);
+
   @include extra-large-break {
     --font-body-size: 16px;
     --gutter-h: 8rem;
@@ -76,7 +78,6 @@
     --gutter-h: 1rem;
   }
 
-  --column: calc((100vw - (var(--gutter-h) * 2)) / 16);
   @include mid-break {
     --column: calc((100vw - (var(--gutter-h) * 2)) / 8);
   }
@@ -93,11 +94,13 @@
 
 html {
   @include body;
-  font-family: var(--font-body);
-  background: var(--theme-bg);
-  -webkit-font-smoothing: antialiased;
-  opacity: 0;
-  scroll-behavior: smooth;
+  & {
+    font-family: var(--font-body);
+    background: var(--theme-bg);
+    -webkit-font-smoothing: antialiased;
+    opacity: 0;
+    scroll-behavior: smooth;
+  }
 
   &[data-theme=dark],
   &[data-theme=light] {
@@ -211,7 +214,9 @@ a {
 
 time {
   @include label;
-  margin: 0;
+  & {
+    margin: 0;
+  }
 }
 
 svg {
@@ -235,8 +240,10 @@ em {
 
 code {
   @include code;
-  border-radius: 3px;
-  padding: 0 5px 2px;
+  & {
+    border-radius: 3px;
+    padding: 0 5px 2px;
+  }
 
   @include data-theme-selector('light') {
     background: var(--theme-elevation-100);

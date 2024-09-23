@@ -9,10 +9,12 @@
 
 .textarea {
   @include shared.formInput;
-  resize: vertical;
-  max-width: 100%;
-  min-height: 100px;
-  height: unset;
+  & {
+    resize: vertical;
+    max-width: 100%;
+    min-height: 100px;
+    height: unset;
+  }
 
   &.error {
     background-color: var(--theme-failure-500);
