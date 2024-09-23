@@ -27,6 +27,7 @@ export interface Config {
     forms: Form;
     'form-submissions': FormSubmission;
     redirects: Redirect;
+    'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -5496,6 +5497,85 @@ export interface Redirect {
           value: string | Post;
         } | null);
     url?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents".
+ */
+export interface PayloadLockedDocument {
+  id: string;
+  document?:
+    | ({
+        relationTo: 'case-studies';
+        value: string | CaseStudy;
+      } | null)
+    | ({
+        relationTo: 'community-help';
+        value: string | CommunityHelp;
+      } | null)
+    | ({
+        relationTo: 'docs';
+        value: string | Doc;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: string | Page;
+      } | null)
+    | ({
+        relationTo: 'industries';
+        value: string | Industry;
+      } | null)
+    | ({
+        relationTo: 'specialties';
+        value: string | Specialty;
+      } | null)
+    | ({
+        relationTo: 'regions';
+        value: string | Region;
+      } | null)
+    | ({
+        relationTo: 'budgets';
+        value: string | Budget;
+      } | null)
+    | ({
+        relationTo: 'posts';
+        value: string | Post;
+      } | null)
+    | ({
+        relationTo: 'reusable-content';
+        value: string | ReusableContent;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: string | User;
+      } | null)
+    | ({
+        relationTo: 'partners';
+        value: string | Partner;
+      } | null)
+    | ({
+        relationTo: 'forms';
+        value: string | Form;
+      } | null)
+    | ({
+        relationTo: 'form-submissions';
+        value: string | FormSubmission;
+      } | null)
+    | ({
+        relationTo: 'redirects';
+        value: string | Redirect;
+      } | null);
+  globalSlug?: string | null;
+  user: {
+    relationTo: 'users';
+    value: string | User;
   };
   updatedAt: string;
   createdAt: string;
