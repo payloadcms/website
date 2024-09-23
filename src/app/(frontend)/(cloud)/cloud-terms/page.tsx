@@ -1,15 +1,16 @@
 'use client'
 
-import React from 'react'
-
+import { CreditCardList } from '@cloud/_components/CreditCardList'
 import { Gutter } from '@components/Gutter/index.js'
 import { Heading } from '@components/Heading/index.js'
+import React from 'react'
 
 export default function TermsClientPage() {
   return (
     <Gutter>
       <Heading element="h2">Payload Cloud - Terms of Service</Heading>
       <Heading element="h5">Last Revised: March 28, 2024</Heading>
+      <CreditCardList />
       <div className="grid">
         <div className="cols-12 cols-m-8">
           <p>
@@ -115,7 +116,7 @@ export default function TermsClientPage() {
                   <b>Service Levels and Support</b>. During the Subscription Term, unless under a
                   seperate signed agremeent, Payload will make the Service available in accordance
                   with and provide the support set forth in the Service Level Agreement located at
-                  <a href="/sla"></a> (the “
+                  <a href="/sla" /> (the “
                   <i>
                     <b>SLA</b>
                   </i>

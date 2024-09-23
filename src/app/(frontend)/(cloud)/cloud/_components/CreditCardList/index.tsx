@@ -125,15 +125,13 @@ const CardList: React.FC<CreditCardListType> = props => {
       </div>
       <div className={classes.controls}>
         {showNewCard && (
-          <button
-            type="button"
-            className={classes.saveNewCard}
+          <Button
+            appearance="primary"
             onClick={() => {
               saveNewPaymentMethod(newCardID.current)
             }}
-          >
-            {isLoading === 'saving' ? 'Saving...' : 'Save new card'}
-          </button>
+            label={isLoading === 'saving' ? 'Saving...' : 'Save new card'}
+          />
         )}
         {/* Only show the add/remove new card button if there are existing payment methods */}
         {paymentMethods && paymentMethods?.length > 0 && (
@@ -148,15 +146,13 @@ const CardList: React.FC<CreditCardListType> = props => {
               />
             )}
             {showNewCard && (
-              <button
-                type="button"
-                className={classes.cancelNewCard}
+              <Button
+                appearance="secondary"
                 onClick={() => {
                   setShowNewCard(false)
                 }}
-              >
-                Cancel
-              </button>
+                label={'Cancel'}
+              />
             )}
           </Fragment>
         )}
