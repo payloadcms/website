@@ -4,7 +4,7 @@
   },
   "headers": [
     {
-      "source": "/app/(pages)/(.*)",
+      "source": "/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
