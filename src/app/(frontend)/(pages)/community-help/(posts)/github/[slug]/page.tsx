@@ -47,7 +47,7 @@ const isDiscussionData = (
 const Discussion = async ({ params }) => {
   const { slug } = params
 
-  const discussion = await fetchCommunityHelp(slug)()
+  const discussion = await fetchCommunityHelp(slug)
   if (!discussion || !discussion.helpful) return notFound()
 
   if (!isDiscussionData(discussion)) {
@@ -72,7 +72,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
-  const discussion = await fetchCommunityHelp(slug)()
+  const discussion = await fetchCommunityHelp(slug)
   return {
     title: slugToText(slug),
     openGraph: mergeOpenGraph({
