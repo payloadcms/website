@@ -75,7 +75,7 @@ export const fetchPage = (incomingSlugSegments?: string[]) =>
 
       return null
     },
-    [],
+    [`page-${incomingSlugSegments?.join('-')}`],
     {
       revalidate: false,
       tags: [`page-${incomingSlugSegments?.join('-')}`, 'pages'],
@@ -170,7 +170,7 @@ export const fetchBlogPost = (slug: string) =>
 
       return data.docs[0]
     },
-    [],
+    [`post-${slug}`],
     {
       revalidate: false,
       tags: [`post-${slug}`, 'blog'],
@@ -209,7 +209,7 @@ export const fetchCaseStudy = (slug: string) =>
 
       return data.docs[0]
     },
-    [],
+    [`case-study-${slug}`],
     {
       revalidate: false,
       tags: [`case-study-${slug}`, 'case-studies'],
@@ -250,10 +250,10 @@ export const fetchCommunityHelp = (slug: string) =>
 
       return data.docs[0]
     },
-    [],
+    [`community-help-${slug}`],
     {
       revalidate: false,
-      tags: [`community-help-${slug}`],
+      tags: [`community-help-${slug}`, 'community-help'],
     },
   )
 
@@ -313,7 +313,7 @@ export const fetchPartner = (slug: string) =>
 
       return data.docs[0]
     },
-    [],
+    [`partner-${slug}`],
     {
       revalidate: false,
       tags: [`partner-${slug}`, 'partner-program'],
@@ -395,7 +395,7 @@ export const fetchRedirect = (url: string) =>
 
       return redirect.docs[0]
     },
-    [],
+    [`redirect-${url}`],
     {
       revalidate: false,
       tags: ['redirects'],
