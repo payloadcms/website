@@ -1,8 +1,5 @@
 export const dynamic = 'force-dynamic'
 
-import Link from 'next/link'
-import { notFound } from 'next/navigation'
-
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
 import { CMSForm } from '@components/CMSForm'
@@ -11,13 +8,16 @@ import { Gutter } from '@components/Gutter'
 import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar'
 import { Media } from '@components/Media'
 import { Pill } from '@components/Pill'
+import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
 import { RichText } from '@components/RichText'
 import { SocialIcon } from '@components/SocialIcon'
 import { fetchPartner, fetchPartnerProgram } from '@data'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
+import React from 'react'
 
 import classes from './index.module.scss'
-import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const partner = await fetchPartner(params.slug)
@@ -27,8 +27,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 
   return {
-    title: `${partner.name} | Payload Partners`,
     description: `${partner.name} is a official Payload Agency partner. Learn more about their services, ideal projects, and contributions to the Payload community.`,
+    title: `${partner.name} | Payload Partners`,
   }
 }
 
@@ -43,7 +43,7 @@ export default async function PartnerPage({ params }: { params: { slug: string }
     return notFound()
   }
 
-  const { bannerImage, overview, services, idealProject, caseStudy, contributions, projects } =
+  const { bannerImage, caseStudy, contributions, idealProject, overview, projects, services } =
     partner.content
 
   const { contactForm } = partnerProgram
@@ -54,16 +54,16 @@ export default async function PartnerPage({ params }: { params: { slug: string }
       <BreadcrumbsBar
         breadcrumbs={[
           {
-            url: '/partners',
             label: 'Partners',
+            url: '/partners',
           },
           {
             label: partner.name,
           },
         ]}
         links={[
-          { url: '#contact', label: 'Contact' },
-          { url: partner.website, label: 'Visit Website', newTab: true },
+          { label: 'Contact', url: '#contact' },
+          { label: 'Visit Website', newTab: true, url: partner.website },
         ]}
       />
       <Gutter className={[classes.hero, 'grid'].join(' ')}>
@@ -73,7 +73,7 @@ export default async function PartnerPage({ params }: { params: { slug: string }
         <main className={[classes.main, 'cols-10 start-4 cols-m-8 start-m-1'].join(' ')}>
           <h1 className={classes.name}>{partner.name}</h1>
           {bannerImage && typeof bannerImage !== 'string' && (
-            <Media resource={bannerImage} className={classes.banner} />
+            <Media className={classes.banner} resource={bannerImage} />
           )}
           <div className={classes.detailsMobile}>
             <PartnerDetails {...partner} />
@@ -91,7 +91,7 @@ export default async function PartnerPage({ params }: { params: { slug: string }
             <RichText content={idealProject} />
           </div>
           {caseStudy && typeof caseStudy !== 'string' && (
-            <Link href={`/case-studies/${caseStudy.slug}`} className={classes.caseStudy}>
+            <Link className={classes.caseStudy} href={`/case-studies/${caseStudy.slug}`}>
               <div className={classes.caseStudyText}>
                 <h6>Case Study</h6>
                 <h4>{caseStudy.meta?.title}</h4>
@@ -103,8 +103,8 @@ export default async function PartnerPage({ params }: { params: { slug: string }
                 )}
               </div>
               <BackgroundScanline
-                crosshairs={['top-left', 'bottom-right']}
                 className={classes.scanlines}
+                crosshairs={['top-left', 'bottom-right']}
               />
             </Link>
           )}
@@ -120,11 +120,11 @@ export default async function PartnerPage({ params }: { params: { slug: string }
               <div className={classes.projectTable}>
                 {projects.map((project, index) => (
                   <Link
-                    href={project.link}
-                    target="_blank"
-                    rel="noreferrer"
                     className={classes.project}
+                    href={project.link}
                     key={index + project.name}
+                    rel="noreferrer"
+                    target="_blank"
                   >
                     <span className={classes.projectYear}>{project.year}</span>
                     <span className={classes.projectName}>{project.name}</span>
@@ -171,13 +171,13 @@ export default async function PartnerPage({ params }: { params: { slug: string }
 }
 
 const PartnerDetails = partner => {
-  const { featured, topContributor, city, regions, industries, budgets, specialties, social } =
+  const { budgets, city, featured, industries, regions, social, specialties, topContributor } =
     partner
 
   const sortedBudgets = budgets.sort((a, b) => a.value.localeCompare(b.value))
 
   return (
-    <>
+    <React.Fragment>
       {featured ||
         (topContributor && (
           <div className={classes.badges}>
@@ -227,12 +227,12 @@ const PartnerDetails = partner => {
             {social?.map(
               social =>
                 typeof social !== 'string' && (
-                  <SocialIcon key={social.id} platform={social.platform} href={social.url} />
+                  <SocialIcon href={social.url} key={social.id} platform={social.platform} />
                 ),
             )}
           </ul>
         </div>
       )}
-    </>
+    </React.Fragment>
   )
 }

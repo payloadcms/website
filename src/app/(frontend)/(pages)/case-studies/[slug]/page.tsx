@@ -13,7 +13,7 @@ const CaseStudyBySlug = async ({ params }) => {
 
   const url = `/case-studies/${slug}`
 
-  const caseStudy = await fetchCaseStudy(slug)
+  const caseStudy = await fetchCaseStudy(slug)()
 
   if (!caseStudy) {
     return <PayloadRedirects url={url} />
@@ -39,7 +39,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
-  const page = await fetchCaseStudy(slug)
+  const page = await fetchCaseStudy(slug)()
 
   const ogImage =
     typeof page?.meta?.image === 'object' &&

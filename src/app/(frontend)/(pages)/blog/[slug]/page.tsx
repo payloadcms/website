@@ -16,7 +16,7 @@ const Post = async ({ params }) => {
 
   const { isEnabled: isDraftMode } = draftMode()
 
-  const blogPost = await fetchBlogPost(slug)
+  const blogPost = await fetchBlogPost(slug)()
 
   if (!blogPost) {
     return <PayloadRedirects url={url} />
@@ -42,7 +42,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
-  const page = await fetchBlogPost(slug)
+  const page = await fetchBlogPost(slug)()
 
   const ogImage =
     typeof page?.meta?.image === 'object' &&

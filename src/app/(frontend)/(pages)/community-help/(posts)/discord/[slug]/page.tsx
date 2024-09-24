@@ -44,7 +44,7 @@ const isThreadData = (
 const Thread = async ({ params }) => {
   const { slug } = params
 
-  const thread = await fetchCommunityHelp(slug)
+  const thread = await fetchCommunityHelp(slug)()
 
   // Algolia is return all threads as helpful, regardless of the value of the helpful field
   // So they are showing up in the archive at /community-help
@@ -76,7 +76,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
-  const thread = await fetchCommunityHelp(slug)
+  const thread = await fetchCommunityHelp(slug)()
   return {
     title: slugToText(slug),
     openGraph: mergeOpenGraph({

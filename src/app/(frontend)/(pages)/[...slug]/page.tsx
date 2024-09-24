@@ -13,7 +13,7 @@ import { PayloadRedirects } from '@components/PayloadRedirects'
 const Page = async ({ params: { slug } }) => {
   const url = '/' + (Array.isArray(slug) ? slug.join('/') : slug)
 
-  const page = await fetchPage(slug)
+  const page = await fetchPage(slug)()
 
   if (!page) {
     return <PayloadRedirects url={url} />
@@ -40,7 +40,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
-  const page = await fetchPage(slug)
+  const page = await fetchPage(slug)()
 
   const ogImage =
     typeof page?.meta?.image === 'object' &&
