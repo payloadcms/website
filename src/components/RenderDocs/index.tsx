@@ -126,7 +126,7 @@ export const RenderDocs = async ({
           </main>
           <aside className={['cols-3 start-14', classes.aside].join(' ')}>
             <div className={classes.asideStickyContent}>
-              {!hideVersionSelector && <VersionSelector initialVersion="current" />}
+              {!hideVersionSelector && <VersionSelector initialVersion={version ?? 'current'} />}
               <TableOfContents headings={currentDoc.headings} />
               <div className={classes.discordGitWrap}>
                 <DiscordGitCTA appearance="minimal" />
