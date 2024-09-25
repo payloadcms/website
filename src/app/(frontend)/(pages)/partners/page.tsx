@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic'
-
 import { notFound } from 'next/navigation'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'

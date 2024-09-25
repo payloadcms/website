@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic'
-
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { BackgroundScanline } from '@components/BackgroundScanline'
 import { CMSForm } from '@components/CMSForm'
