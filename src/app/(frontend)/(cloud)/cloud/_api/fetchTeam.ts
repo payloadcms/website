@@ -21,7 +21,7 @@ export interface Customer {
 
 export const fetchTeams = async (teamIDs: string[]): Promise<Team[]> => {
   const { cookies } = await import('next/headers')
-  const token = cookies().get(payloadCloudToken)?.value ?? null
+  const token = (await cookies()).get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 
   const res: Team[] = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
@@ -51,7 +51,7 @@ export const fetchTeams = async (teamIDs: string[]): Promise<Team[]> => {
 
 export const fetchTeam = async (teamSlug?: string): Promise<Team> => {
   const { cookies } = await import('next/headers')
-  const token = cookies().get(payloadCloudToken)?.value ?? null
+  const token = (await cookies()).get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 
   const doc: Team = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
@@ -101,7 +101,7 @@ export const fetchTeamClient = async (slug: string): Promise<Team> => {
 
 export const fetchTeamWithCustomer = async (slug?: string): Promise<TeamWithCustomer> => {
   const { cookies } = await import('next/headers')
-  const token = cookies().get(payloadCloudToken)?.value ?? null
+  const token = (await cookies()).get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 
   if (!slug) throw new Error('No slug provided')

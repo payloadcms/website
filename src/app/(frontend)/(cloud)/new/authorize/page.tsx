@@ -6,7 +6,14 @@ import { redirect } from 'next/navigation'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { AuthorizePage } from './page_client.js'
 
-export default async ({ searchParams: { redirect: redirectParam } }) => {
+export default async ({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    redirect: string
+  }>
+}) => {
+  const { redirect: redirectParam } = await searchParams
   const { user } = await fetchMe()
 
   if (!user) {

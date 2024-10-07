@@ -11,7 +11,7 @@ export async function GET(
     }
   },
 ): Promise<Response> {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const token = cookieStore.get(payloadToken)
   const { searchParams } = new URL(req.url)
   const url = searchParams.get('url')
@@ -33,9 +33,10 @@ export async function GET(
   })
 
   const userRes = await userReq.json()
+  const parsedDraftMode = await draftMode()
 
   if (!userReq.ok || !userRes?.user) {
-    draftMode().disable()
+    parsedDraftMode.disable()
     return new Response('Invalid token. You are not allowed to preview this page', { status: 403 })
   }
 
@@ -43,7 +44,7 @@ export async function GET(
     return new Response('Invalid secret.', { status: 401 })
   }
 
-  draftMode().enable()
+  parsedDraftMode.enable()
 
   redirect(url)
 }

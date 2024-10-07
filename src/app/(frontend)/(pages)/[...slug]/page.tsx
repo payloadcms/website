@@ -10,7 +10,14 @@ import { fetchPage, fetchPages } from '@data'
 import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave'
 import { PayloadRedirects } from '@components/PayloadRedirects'
 
-const Page = async ({ params: { slug } }) => {
+const Page = async ({
+  params,
+}: {
+  params: Promise<{
+    slug: any
+  }>
+}) => {
+  const { slug } = await params
   const url = '/' + (Array.isArray(slug) ? slug.join('/') : slug)
 
   const page = await fetchPage(slug)
@@ -39,7 +46,14 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{
+    slug: any
+  }>
+}): Promise<Metadata> {
+  const { slug } = await params
   const page = await fetchPage(slug)
 
   const ogImage =

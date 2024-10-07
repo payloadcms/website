@@ -9,12 +9,18 @@ import { BlogPost } from './BlogPost/index.js'
 import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
 import { PayloadRedirects } from '@components/PayloadRedirects/index.js'
 
-const Post = async ({ params }) => {
-  const { slug } = params
+const Post = async ({
+  params,
+}: {
+  params: Promise<{
+    slug: any
+  }>
+}) => {
+  const { slug } = await params
 
   const url = `/blog/${slug}`
 
-  const { isEnabled: isDraftMode } = draftMode()
+  const { isEnabled: isDraftMode } = await draftMode()
 
   const blogPost = await fetchBlogPost(slug)
 
@@ -41,7 +47,14 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{
+    slug: any
+  }>
+}): Promise<Metadata> {
+  const { slug } = await params
   const page = await fetchBlogPost(slug)
 
   const ogImage =

@@ -2,24 +2,24 @@ import type { Endpoints } from '@octokit/types'
 
 type GitHubResponse = Endpoints['GET /user']['response']
 
-export const fetchGitHubToken = async (): Promise<string | null> => {
+export const fetchGitHubToken = async (): Promise<null | string> => {
   const { cookies } = await import('next/headers')
-  const token = cookies().get('payload-cloud-token')?.value ?? null
+  const token = (await cookies()).get('payload-cloud-token')?.value ?? null
 
   if (!token) {
     return null
   }
 
   const reposReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
-    method: 'POST',
-    cache: 'no-store',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `JWT ${token}`,
-    },
     body: JSON.stringify({
       route: `GET /user`,
     }),
+    cache: 'no-store',
+    headers: {
+      Authorization: `JWT ${token}`,
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
   })
 
   const res: GitHubResponse = await reposReq.json()
@@ -31,16 +31,16 @@ export const fetchGitHubToken = async (): Promise<string | null> => {
   return null
 }
 
-export const fetchGithubTokenClient = async (): Promise<string | null> => {
+export const fetchGithubTokenClient = async (): Promise<null | string> => {
   const reposReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
-    method: 'POST',
+    body: JSON.stringify({
+      route: `GET /user`,
+    }),
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      route: `GET /user`,
-    }),
+    method: 'POST',
   })
 
   const res: GitHubResponse = await reposReq.json()

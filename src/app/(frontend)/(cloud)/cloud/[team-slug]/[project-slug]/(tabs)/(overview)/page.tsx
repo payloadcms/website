@@ -4,7 +4,15 @@ import { Metadata } from 'next'
 import { InfraOffline } from './InfraOffline/index.js'
 import { InfraOnline } from './InfraOnline/index.js'
 
-export default async ({ params: { 'team-slug': teamSlug, 'project-slug': projectSlug } }) => {
+export default async ({
+  params,
+}: {
+  params: Promise<{
+    'team-slug': string
+    'project-slug': string
+  }>
+}) => {
+  const { 'team-slug': teamSlug, 'project-slug': projectSlug } = await params
   const { team, project } = await fetchProjectAndRedirect({ teamSlug, projectSlug })
 
   if (project?.infraStatus === 'done') {

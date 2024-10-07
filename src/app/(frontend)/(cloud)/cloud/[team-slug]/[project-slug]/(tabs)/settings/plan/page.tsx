@@ -13,7 +13,15 @@ import { DeletePlanModal } from './DeletePlanModal/index.js'
 
 import classes from './index.module.scss'
 
-export default async ({ params: { 'team-slug': teamSlug, 'project-slug': projectSlug } }) => {
+export default async ({
+  params,
+}: {
+  params: Promise<{
+    'team-slug': string
+    'project-slug': string
+  }>
+}) => {
+  const { 'team-slug': teamSlug, 'project-slug': projectSlug } = await params
   const { user } = await fetchMe()
   const { team, project } = await fetchProjectAndRedirect({ teamSlug, projectSlug })
   const canManageProject = canUserMangeProject({ project, user })
@@ -59,8 +67,14 @@ export default async ({ params: { 'team-slug': teamSlug, 'project-slug': project
 }
 
 export async function generateMetadata({
-  params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
+  params,
+}: {
+  params: Promise<{
+    'team-slug': string
+    'project-slug': string
+  }>
 }): Promise<Metadata> {
+  const { 'team-slug': teamSlug, 'project-slug': projectSlug } = await params
   return {
     title: 'Plan',
     openGraph: mergeOpenGraph({
