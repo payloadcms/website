@@ -42,7 +42,7 @@ const isThreadData = (
 }
 
 const Thread = async ({ params }) => {
-  const { slug } = params
+  const { slug } = await params
 
   const thread = await fetchCommunityHelp(slug)
 
@@ -75,7 +75,14 @@ export async function generateStaticParams() {
   }
 }
 
-export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{
+    slug: any
+  }>
+}): Promise<Metadata> {
+  const { slug } = await params
   const thread = await fetchCommunityHelp(slug)
   return {
     title: slugToText(slug),

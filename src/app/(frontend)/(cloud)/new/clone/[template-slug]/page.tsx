@@ -13,7 +13,14 @@ import { CloneTemplate } from './page_client.js'
 
 const title = `Create new from template`
 
-export default async ({ params: { 'template-slug': templateSlug } }) => {
+export default async ({
+  params,
+}: {
+  params: Promise<{
+    'template-slug': string
+  }>
+}) => {
+  const { 'template-slug': templateSlug } = await params
   const { user } = await fetchMe()
 
   if (!user) {
@@ -50,7 +57,14 @@ export default async ({ params: { 'template-slug': templateSlug } }) => {
   )
 }
 
-export async function generateMetadata({ params: { template } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{
+    template: string
+  }>
+}): Promise<Metadata> {
+  const { template } = await params
   return {
     title: 'Clone Template | Payload Cloud',
     openGraph: mergeOpenGraph({

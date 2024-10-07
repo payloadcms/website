@@ -33,11 +33,15 @@ const topicOrder = [
   'Cloud',
 ]
 
-export default async function DocsPage({ params }: { params: { doc: string; topic: string } }) {
+export default async function DocsPage({
+  params,
+}: {
+  params: Promise<{ doc: string; topic: string }>
+}) {
   const topics = await fetchDocs(topicOrder, 'beta')
 
   return (
-    <RenderDocs params={params} topics={topics} version="beta">
+    <RenderDocs params={await params} topics={topics} version="beta">
       <Banner type="warning">
         <strong>Note:</strong> You are currently viewing the <strong>beta</strong> version of the
         docs. Some docs may be innacurate or incomplete at the moment.{' '}
@@ -47,7 +51,12 @@ export default async function DocsPage({ params }: { params: { doc: string; topi
   )
 }
 
-export async function generateMetadata({ params: { doc: docSlug, topic: topicSlug } }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ doc: string; topic: string }>
+}) {
+  const { doc: docSlug, topic: topicSlug } = await params
   const topics = await fetchDocs(topicOrder, 'beta')
 
   const topicIndex = topics.findIndex(topic => topic.slug.toLowerCase() === topicSlug)

@@ -78,8 +78,14 @@ export default async props => {
 }
 
 export async function generateMetadata({
-  params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
+  params,
+}: {
+  params: Promise<{
+    'team-slug': string
+    'project-slug': string
+  }>
 }): Promise<Metadata> {
+  const { 'team-slug': teamSlug, 'project-slug': projectSlug } = await params
   return {
     title: {
       template: `${teamSlug} / ${projectSlug} | %s`,

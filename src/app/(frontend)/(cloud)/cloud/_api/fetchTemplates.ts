@@ -4,7 +4,7 @@ import { payloadCloudToken } from './token.js'
 
 export const fetchTemplates = async (): Promise<Template[]> => {
   const { cookies } = await import('next/headers')
-  const token = cookies().get(payloadCloudToken)?.value ?? null
+  const token = (await cookies()).get(payloadCloudToken)?.value ?? null
 
   const doc: Template[] = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
     method: 'POST',

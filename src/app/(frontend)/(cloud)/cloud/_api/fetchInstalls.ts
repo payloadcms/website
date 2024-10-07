@@ -8,21 +8,21 @@ export type Install = GitHubInstallationsResponse['data']['installations'][0]
 
 export const fetchInstalls = async (): Promise<Install[]> => {
   const { cookies } = await import('next/headers')
-  const token = cookies().get(payloadCloudToken)?.value ?? null
+  const token = (await cookies()).get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 
   const docs: Install[] = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
-    method: 'POST',
+    body: JSON.stringify({
+      route: `GET /user/installations`,
+    }),
     headers: {
       'Content-Type': 'application/json',
       ...(token ? { Authorization: `JWT ${token}` } : {}),
     },
+    method: 'POST',
     next: {
       tags: ['installs'],
     },
-    body: JSON.stringify({
-      route: `GET /user/installations`,
-    }),
   })
     ?.then(res => {
       if (!res.ok) throw new Error(`Error getting installations: ${res.status}`)
@@ -38,14 +38,14 @@ export const fetchInstalls = async (): Promise<Install[]> => {
 
 export const fetchInstallsClient: () => Promise<Install[]> = async () => {
   const docs: Install[] = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/users/github`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
     body: JSON.stringify({
       route: `GET /user/installations`,
     }),
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
   })
     ?.then(res => {
       if (!res.ok) throw new Error(`Error getting installations: ${res.status}`)

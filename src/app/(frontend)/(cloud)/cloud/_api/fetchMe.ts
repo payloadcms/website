@@ -14,7 +14,7 @@ export const fetchMe = async (args?: {
   user: User
 }> => {
   const { nullUserRedirect, userRedirect } = args || {}
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const token = cookieStore.get(payloadCloudToken)?.value
 
   const meUserReq = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {

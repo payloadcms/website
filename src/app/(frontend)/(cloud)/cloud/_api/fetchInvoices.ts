@@ -40,7 +40,7 @@ export const fetchInvoices = async (team?: Team | string): Promise<InvoicesResul
   if (!teamID) throw new Error('No team ID provided')
 
   const { cookies } = await import('next/headers')
-  const token = cookies().get(payloadCloudToken)?.value ?? null
+  const token = (await cookies()).get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 
   const res: InvoicesResult = await fetch(

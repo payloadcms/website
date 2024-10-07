@@ -9,7 +9,7 @@ import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
 import { PayloadRedirects } from '@components/PayloadRedirects/index.js'
 
 const CaseStudyBySlug = async ({ params }) => {
-  const { slug } = params
+  const { slug } = await params
 
   const url = `/case-studies/${slug}`
 
@@ -38,7 +38,14 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{
+    slug: any
+  }>
+}): Promise<Metadata> {
+  const { slug } = await params
   const page = await fetchCaseStudy(slug)
 
   const ogImage =

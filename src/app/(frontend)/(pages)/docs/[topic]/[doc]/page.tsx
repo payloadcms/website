@@ -30,13 +30,22 @@ const topicOrder = [
   'Cloud',
 ]
 
-export default async function DocsPage({ params }: { params: { doc: string; topic: string } }) {
+export default async function DocsPage({
+  params,
+}: {
+  params: Promise<{ doc: string; topic: string }>
+}) {
   const topics = await fetchDocs(topicOrder)
 
-  return <RenderDocs params={params} topics={topics} />
+  return <RenderDocs params={await params} topics={topics} />
 }
 
-export async function generateMetadata({ params: { doc: docSlug, topic: topicSlug } }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ doc: string; topic: string }>
+}) {
+  const { doc: docSlug, topic: topicSlug } = await params
   const topics = await fetchDocs(topicOrder)
 
   const topicIndex = topics.findIndex(topic => topic.slug.toLowerCase() === topicSlug)

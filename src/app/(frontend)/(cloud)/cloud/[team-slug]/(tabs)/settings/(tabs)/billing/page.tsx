@@ -12,7 +12,14 @@ import { checkTeamRoles } from '@root/utilities/check-team-roles.js'
 
 import classes from './page.module.scss'
 
-export default async ({ params: { 'team-slug': teamSlug } }) => {
+export default async ({
+  params,
+}: {
+  params: Promise<{
+    'team-slug': string
+  }>
+}) => {
+  const { 'team-slug': teamSlug } = await params
   const { user } = await fetchMe()
   const team = await fetchTeamWithCustomer(teamSlug)
 
@@ -66,7 +73,14 @@ export default async ({ params: { 'team-slug': teamSlug } }) => {
   )
 }
 
-export async function generateMetadata({ params: { 'team-slug': teamSlug } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{
+    'team-slug': string
+  }>
+}): Promise<Metadata> {
+  const { 'team-slug': teamSlug } = await params
   return {
     title: `${teamSlug} - Team Billing`,
     openGraph: {
