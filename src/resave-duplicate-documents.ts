@@ -55,11 +55,11 @@ const resaveDuplicateDocuments = async () => {
             const { id } = result
 
             try {
-              // await payload.update({
-              //   id,
-              //   collection: collectionSlug,
-              //   data: {},
-              // })
+              await payload.update({
+                id,
+                collection: collectionSlug,
+                data: {},
+              })
 
               // eslint-disable-next-line no-console
               console.log(`Document in '${collectionSlug}' with duplicate id '${id}' updated successfully`)
