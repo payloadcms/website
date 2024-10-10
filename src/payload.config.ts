@@ -207,7 +207,8 @@ export default buildConfig({
                 const portalID = process.env.NEXT_PRIVATE_HUBSPOT_PORTAL_KEY
                 const data = {
                   context: {
-                    hutk: req.body && 'hubspotCookie' in req.body ? req.body?.hubspotCookie : '',
+                    ...(req.body &&
+                      'hubspotCookie' in req.body && { hutk: req.body?.hubspotCookie }),
                     pageName: req.body && 'pageName' in req.body ? req.body?.pageName : '',
                     pageUri: req.body && 'pageUri' in req.body ? req.body?.pageUri : '',
                   },
