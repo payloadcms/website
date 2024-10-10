@@ -119,13 +119,13 @@ export const Text: React.FC<
           disabled={disabled}
           className={classes.input}
           value={value || ''}
-          onChange={
-            customOnChange
-              ? customOnChange
-              : e => {
-                  onChange(e.target.value)
-                }
-          }
+          onChange={e => {
+            const onChangeFunction = customOnChange ? customOnChange : onChange
+
+            if (!disabled && !readOnly) {
+              onChangeFunction(e.target.value)
+            }
+          }}
           placeholder={placeholder}
           type={type === 'password' && !isHidden ? 'text' : type}
           id={path}

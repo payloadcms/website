@@ -15,7 +15,8 @@ import { ManageDomain } from './ManageDomain/index.js'
 export const ProjectDomainsPage: React.FC<{
   project: Project
   team: Team
-}> = ({ project, team }) => {
+  environmentSlug: string
+}> = ({ project, team, environmentSlug }) => {
   return (
     <MaxWidth>
       <SectionHeader
@@ -35,7 +36,7 @@ export const ProjectDomainsPage: React.FC<{
       />
       <CollapsibleGroup transTime={250} transCurve="ease">
         <Accordion label="New Domain" openOnInit>
-          <AddDomain project={project} team={team} />
+          <AddDomain project={project} team={team} environmentSlug={environmentSlug} />
         </Accordion>
       </CollapsibleGroup>
       <HR />
@@ -45,7 +46,13 @@ export const ProjectDomainsPage: React.FC<{
           <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
             <div>
               {project.domains.map(domain => (
-                <ManageDomain key={domain.id} domain={domain} project={project} team={team} />
+                <ManageDomain
+                  key={domain.id}
+                  domain={domain}
+                  project={project}
+                  team={team}
+                  environmentSlug={environmentSlug}
+                />
               ))}
             </div>
           </CollapsibleGroup>

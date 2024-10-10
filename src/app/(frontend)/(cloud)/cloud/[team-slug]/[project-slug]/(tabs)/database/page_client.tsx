@@ -10,10 +10,13 @@ import { Project, Team } from '@root/payload-cloud-types.js'
 export const ProjectDatabasePage: React.FC<{
   project: Project
   team: Team
-}> = ({ project, team }) => {
+  environmentSlug: string
+}> = ({ project, team, environmentSlug }) => {
   const loadConnectionString = React.useCallback(async () => {
     const { value } = await fetch(
-      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/atlas-connection`,
+      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/atlas-connection${
+        environmentSlug ? `?env=${environmentSlug}` : ''
+      }`,
       {
         credentials: 'include',
         headers: {

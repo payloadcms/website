@@ -1,26 +1,22 @@
 'use client'
 
-import * as React from 'react'
-import Link from 'next/link'
-
-import { useRouter } from 'next/navigation'
+import type { Team } from '@root/payload-cloud-types.js'
 
 import { MaxWidth } from '@components/MaxWidth/index.js'
-import { Project, Team } from '@root/payload-cloud-types.js'
 import { useAuth } from '@root/providers/Auth/index.js'
 import { checkTeamRoles } from '@root/utilities/check-team-roles.js'
 import { isExpandedDoc } from '@root/utilities/is-expanded-doc.js'
-import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
+import Link from 'next/link'
+import * as React from 'react'
 
+import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
 import classes from './page.module.scss'
 
 export const ProjectOwnershipPage: React.FC<{
-  project: Project
+  environmentSlug?: string
   team: Team
-}> = ({ project: initialProject, team: currentTeam }) => {
+}> = ({ team: currentTeam }) => {
   const { user } = useAuth()
-  const [project, setProject] = React.useState<Project>(initialProject)
-  const router = useRouter()
 
   const isCurrentTeamOwner = checkTeamRoles(user, currentTeam, ['owner'])
 
@@ -32,9 +28,9 @@ export const ProjectOwnershipPage: React.FC<{
       userTeam?.roles?.length
     ) {
       acc.push({
-        value: userTeam.team.id,
-        label: `"${userTeam.team.name}" owns this project`,
         slug: userTeam.team.slug,
+        label: `"${userTeam.team.name}" owns this project`,
+        value: userTeam.team.id,
       })
     }
 
@@ -47,7 +43,7 @@ export const ProjectOwnershipPage: React.FC<{
 
       {isCurrentTeamOwner && teamOptions ? (
         <div className={classes.noAccess}>
-          Contact support at <Link href={`mailto:info@payloadcms.com`}>info@payloadcms.com</Link> to
+          Contact support at <Link href="mailto:info@payloadcms.com">info@payloadcms.com</Link> to
           transfer project ownership. Note: Projects can only be transferred to teams that have a
           valid payment method.
         </div>

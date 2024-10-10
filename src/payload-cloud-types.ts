@@ -20,7 +20,9 @@ export interface Config {
     templates: Template
     users: User
   }
-  globals: {}
+  globals: {
+    'feature-flags': FeatureFlag
+  }
 }
 export interface AtlasOrg {
   id: string
@@ -40,11 +42,24 @@ export interface AtlasProject {
 }
 export interface Project {
   id: string
+  infraStatus?:
+    | 'notStarted'
+    | 'infraCreationError'
+    | 'awaitingDatabase'
+    | 'appCreationError'
+    | 'deploying'
+    | 'deployError'
+    | 'done'
+    | 'error'
+    | 'reinstating'
+    | 'reinstatingError'
+    | 'suspended'
+    | 'suspendingError'
+  deletedOn?: string
+  troubleshoot?: boolean
   slug: string
   status?: 'draft' | 'published' | 'deleted' | 'suspended'
-  deletedOn?: string
   skipSync?: boolean
-  troubleshoot?: boolean
   name: string
   plan?: string | Plan
   team: string | Team
@@ -53,10 +68,6 @@ export interface Project {
   makePrivate?: boolean
   repositoryName?: string
   digitalOceanAppID?: string
-  source?: 'github'
-  repositoryFullName?: string
-  repositoryID?: string
-  installID?: string
   deploymentBranch?: string
   outputDirectory?: string
   buildScript?: string
@@ -65,14 +76,18 @@ export interface Project {
   rootDirectory?: string
   dockerfilePath?: string
   overrides?:
-  | {
-    [k: string]: unknown
-  }
-  | unknown[]
-  | string
-  | number
-  | boolean
-  | null
+    | {
+        [k: string]: unknown
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null
+  source?: 'github'
+  repositoryFullName?: string
+  repositoryID?: string
+  installID?: string
   cloudflareCacheKey?: string
   cloudflareDNSRecordID?: string
   defaultDomain?: string
@@ -105,14 +120,14 @@ export interface Project {
   }[]
   stripeSubscriptionID?: string
   stripeSubscriptionStatus?:
-  | 'active'
-  | 'canceled'
-  | 'incomplete'
-  | 'incomplete_expired'
-  | 'past_due'
-  | 'trialing'
-  | 'unpaid'
-  | 'paused'
+    | 'active'
+    | 'canceled'
+    | 'incomplete'
+    | 'incomplete_expired'
+    | 'past_due'
+    | 'trialing'
+    | 'unpaid'
+    | 'paused'
   resendAPIKey?: string
   resendAPIKeyID?: string
   resendDomainID?: string
@@ -140,20 +155,67 @@ export interface Project {
   warnedAt?: string
   trialEndsAt?: string
   suspendedAt?: string
-  infraStatus?:
-  | 'notStarted'
-  | 'infraCreationError'
-  | 'awaitingDatabase'
-  | 'appCreationError'
-  | 'deploying'
-  | 'deployError'
-  | 'done'
-  | 'error'
-  | 'reinstating'
-  | 'reinstatingError'
-  | 'suspended'
-  | 'suspendingError'
   createdBy?: string | User
+  environments?: {
+    name: string
+    environmentSlug: string
+    infraStatus?:
+      | 'notStarted'
+      | 'infraCreationError'
+      | 'awaitingDatabase'
+      | 'appCreationError'
+      | 'deploying'
+      | 'deployError'
+      | 'done'
+      | 'error'
+      | 'reinstating'
+      | 'reinstatingError'
+      | 'suspended'
+      | 'suspendingError'
+    deletedOn?: string
+    troubleshoot?: boolean
+    digitalOceanAppID?: string
+    deploymentBranch?: string
+    outputDirectory?: string
+    buildScript?: string
+    installScript?: string
+    runScript?: string
+    rootDirectory?: string
+    dockerfilePath?: string
+    overrides?:
+      | {
+          [k: string]: unknown
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null
+    atlasProjectID?: string
+    atlasConnectionString?: string
+    atlasDatabaseName?: string
+    atlasDatabaseType?: 'cluster' | 'serverless'
+    atlasDatabaseUser?: string
+    atlasDatabasePassword?: string
+    cloudflareCacheKey?: string
+    cloudflareDNSRecordID?: string
+    defaultDomain?: string
+    domains?: {
+      domain: string
+      cloudflareID?: string
+      recordType?: 'A' | 'CNAME'
+      recordName?: string
+      recordContent?: string
+      id?: string
+    }[]
+    PAYLOAD_SECRET?: string
+    environmentVariables?: {
+      key?: string
+      value?: string
+      id?: string
+    }[]
+    id?: string
+  }[]
   updatedAt: string
   createdAt: string
 }
@@ -164,14 +226,14 @@ export interface Plan {
   private?: boolean
   stripeProductID?: string
   priceJSON?:
-  | {
-    [k: string]: unknown
-  }
-  | unknown[]
-  | string
-  | number
-  | boolean
-  | null
+    | {
+        [k: string]: unknown
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null
   order?: number
   description?: string
   highlight?: boolean
@@ -287,21 +349,22 @@ export interface Media {
 export interface Deployment {
   id: string
   project: string | Project
-  cause: 'manual' | 'push' | 'initial' | 'configChange' | 'webhook'
+  environmentSlug: string
+  cause: 'manual' | 'push' | 'initial' | 'configChange' | 'environmentConfigChange' | 'webhook'
   deploymentID: string
   commitSha?: string
   commitMessage?: string
   lastSync?: string
   deploymentStatus?:
-  | 'UNKNOWN'
-  | 'PENDING_BUILD'
-  | 'BUILDING'
-  | 'PENDING_DEPLOY'
-  | 'DEPLOYING'
-  | 'ACTIVE'
-  | 'SUPERSEDED'
-  | 'ERROR'
-  | 'CANCELED'
+    | 'UNKNOWN'
+    | 'PENDING_BUILD'
+    | 'BUILDING'
+    | 'PENDING_DEPLOY'
+    | 'DEPLOYING'
+    | 'ACTIVE'
+    | 'SUPERSEDED'
+    | 'ERROR'
+    | 'CANCELED'
   deployStepStatus?: 'UNKNOWN' | 'PENDING' | 'RUNNING' | 'ERROR' | 'SUCCESS'
   buildStepStatus?: 'UNKNOWN' | 'PENDING' | 'RUNNING' | 'ERROR' | 'SUCCESS'
   updatedAt: string
@@ -314,20 +377,22 @@ export interface Job {
   seenByWorker?: boolean
   deployApp?: {
     project: string | Project
+    environmentSlug: string
   }
   provisionDNS?: {
     project: string | Project
+    environmentSlug: string
   }
   hasError?: boolean
   error?:
-  | {
-    [k: string]: unknown
-  }
-  | unknown[]
-  | string
-  | number
-  | boolean
-  | null
+    | {
+        [k: string]: unknown
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null
   updatedAt: string
   createdAt: string
 }
@@ -346,4 +411,10 @@ export interface TeardownError {
   }[]
   updatedAt: string
   createdAt: string
+}
+export interface FeatureFlag {
+  id: string
+  disableProjectCreation?: boolean
+  updatedAt?: string
+  createdAt?: string
 }

@@ -20,7 +20,8 @@ const emailDomainFieldPath = 'newEmailDomain'
 
 export const AddEmailDomain: React.FC<{
   project: Project
-}> = ({ project }) => {
+  environmentSlug: string
+}> = ({ project, environmentSlug }) => {
   const [fieldKey, setFieldKey] = React.useState(generateUUID())
 
   const projectID = project?.id
@@ -43,7 +44,9 @@ export const AddEmailDomain: React.FC<{
       if (!domainExists) {
         try {
           const req = await fetch(
-            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}`,
+            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}${
+              environmentSlug ? `?env=${environmentSlug}` : ''
+            }`,
             {
               method: 'PATCH',
               credentials: 'include',

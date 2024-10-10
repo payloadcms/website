@@ -8,6 +8,10 @@
 .reactSelect {
   display: flex;
 
+  &:not(.isSearchable) {
+    cursor: pointer;
+  }
+
   :global {
     div.rs__control {
       @include shared.formInput;
@@ -112,6 +116,7 @@
     .rs__option {
       font-size: 1rem;
       padding: 0.5rem 1rem;
+      cursor: pointer;
 
       &--is-focused {
         background-color: var(--theme-elevation-100);

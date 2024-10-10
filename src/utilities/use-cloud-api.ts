@@ -1,26 +1,26 @@
-import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
-import { qs } from '@utilities/qs.js'
-
 import type { Deployment, Plan, Project, Team } from '@root/payload-cloud-types.js'
+
 import { useAuth } from '@root/providers/Auth/index.js'
+import { qs } from '@utilities/qs.js'
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 
 export type UseCloudAPI<R, A = null> = (args?: A) => {
-  result: R
-  isLoading: null | boolean
   error: string
+  isLoading: boolean | null
   reload: () => void
   reqStatus?: number
+  result: R
 }
 
 export const useCloudAPI = <R>(args: {
-  url?: string
-  delay?: number
-  method?: 'GET' | 'POST'
   body?: string
-  interval?: number
+  delay?: number
   initialState?: R
+  interval?: number
+  method?: 'GET' | 'POST'
+  url?: string
 }): ReturnType<UseCloudAPI<R>> => {
-  const { url, delay = 250, interval, method = 'GET', body, initialState } = args
+  const { body, delay = 250, initialState, interval, method = 'GET', url } = args
   const isRequesting = useRef(false)
   const [result, setResult] = useState<R>(initialState as unknown as R)
   const [isLoading, setIsLoading] = useState<boolean | null>(null)
@@ -40,12 +40,12 @@ export const useCloudAPI = <R>(args: {
           setIsLoading(true)
 
           const req = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}${url}`, {
-            method,
+            body,
             credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
             },
-            body,
+            method,
           })
 
           setReqStatus(req.status)
@@ -71,7 +71,7 @@ export const useCloudAPI = <R>(args: {
         isRequesting.current = false
       }
 
-      makeRequest()
+      void makeRequest()
     }
 
     // eslint-disable-next-line consistent-return
@@ -100,7 +100,7 @@ export const useCloudAPI = <R>(args: {
   }, [url, requestTicker, reload, interval])
 
   const memoizedState = useMemo(
-    () => ({ result, isLoading, error, reload, reqStatus }),
+    () => ({ error, isLoading, reload, reqStatus, result }),
     [result, isLoading, error, reload, reqStatus],
   )
 
@@ -124,22 +124,22 @@ export const useGetPlans: UseCloudAPI<Plan[]> = () => {
 
 interface ProjectsData {
   docs: Project[]
-  totalPages: number
   totalDocs: number
+  totalPages: number
 }
 
 export const useGetProjects: UseCloudAPI<
   ProjectsData,
   {
-    teams?: string[]
-    search?: string
     delay?: number
-    page?: number
     initialState?: ProjectsData
+    page?: number
+    search?: string
+    teams?: string[]
   }
 > = args => {
   const { user } = useAuth()
-  const { teams: teamsFromArgs, search, delay, page, initialState } = args || {}
+  const { delay, initialState, page, search, teams: teamsFromArgs } = args || {}
 
   const teamsWithoutNone = teamsFromArgs?.filter(team => team !== 'none') || []
 
@@ -151,6 +151,7 @@ export const useGetProjects: UseCloudAPI<
   const teams = teamsWithoutNone && teamsWithoutNone?.length > 0 ? teamsWithoutNone : userTeams
 
   const query = qs.stringify({
+    page,
     where: {
       team: {
         in: teams,
@@ -163,13 +164,12 @@ export const useGetProjects: UseCloudAPI<
           }
         : {}),
     },
-    page,
   })
 
   return useCloudAPI<ProjectsData>({
-    url: `/api/projects${query ? `?${query}` : ''}`,
     delay,
     initialState,
+    url: `/api/projects${query ? `?${query}` : ''}`,
   })
 }
 
@@ -179,14 +179,14 @@ type ProjectWithTeam = Omit<Project, 'team'> & {
 
 // you can get projects with either the `id` or `teamSlug` and `projectSlug`
 export const useGetProject: UseCloudAPI<
-  ProjectWithTeam | undefined | null,
+  ProjectWithTeam | null | undefined,
   {
-    teamSlug?: string
-    projectSlug?: string
     projectID?: string
+    projectSlug?: string
+    teamSlug?: string
   }
 > = args => {
-  const { teamSlug, projectSlug, projectID } = args || {}
+  const { projectID, projectSlug, teamSlug } = args || {}
 
   const query = qs.stringify({
     where: {
@@ -232,12 +232,12 @@ export const useGetProject: UseCloudAPI<
 export const useGetProjectDeployments: UseCloudAPI<
   Deployment[],
   {
-    projectID?: string
-    page?: number
     interval?: number
+    page?: number
+    projectID?: string
   }
 > = args => {
-  const { projectID, page = 0, interval } = args || {}
+  const { interval, page = 0, projectID } = args || {}
 
   const query = qs.stringify({
     where: {
@@ -250,13 +250,14 @@ export const useGetProjectDeployments: UseCloudAPI<
       ],
     },
   })
-  let url = `/api/deployments?${query}&limit=10&page=${page}&sort=-createdAt`
+  // @TODO - need to thread through currently selected environment
+  const url = `/api/deployments?${query}&limit=10&page=${page}&sort=-createdAt`
 
   const response = useCloudAPI<{
     docs: Deployment[]
   }>({
+    interval,
     url,
-    interval: interval,
   })
 
   return useMemo(() => {
@@ -291,7 +292,8 @@ export const useGetActiveProjectDeployment: UseCloudAPI<
       ],
     },
   })
-  let url = `/api/deployments?${query}&limit=1`
+  // @TODO - need to thread through currently selected environment
+  const url = `/api/deployments?${query}&limit=1`
 
   const response = useCloudAPI<{
     docs: Deployment[]

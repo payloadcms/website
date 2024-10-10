@@ -12,16 +12,18 @@ import { OnSubmit } from '@forms/types.js'
 
 import { Project } from '@root/payload-cloud-types.js'
 import { validateKey, validateValue } from '../validations.js'
+import { qs } from '@root/utilities/qs.js'
 
 import classes from './index.module.scss'
 
 type AddEnvsProps = {
   projectID: Project['id']
   envs: Project['environmentVariables']
+  environmentSlug?: string
 }
 
 export const AddEnvsComponent: React.FC<AddEnvsProps> = props => {
-  const { envs, projectID } = props
+  const { envs, projectID, environmentSlug } = props
 
   const { uuids, clearRows } = useArray()
 
@@ -43,8 +45,13 @@ export const AddEnvsComponent: React.FC<AddEnvsProps> = props => {
         }, [])
 
         try {
+          const query = qs.stringify({
+            env: environmentSlug,
+          })
           const req = await fetch(
-            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/env`,
+            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/env${
+              query ? `?${query}` : ''
+            }`,
             {
               method: 'POST',
               credentials: 'include',

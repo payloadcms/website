@@ -41,6 +41,7 @@ export const useFormField = <T extends Value>(options): FormField<T> => {
   const apiError = Array.isArray(apiErrors)
     ? apiErrors?.find(error => error.field === path)
     : undefined
+
   const validFromAPI = apiError === undefined
   const showError = (validFromContext === false || validFromAPI === false) && submitted
 

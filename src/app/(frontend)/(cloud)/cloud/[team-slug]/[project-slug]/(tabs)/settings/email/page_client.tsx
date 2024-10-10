@@ -20,7 +20,8 @@ import { ManageEmailDomain } from './ManageEmailDomain/index.js'
 export const ProjectEmailPage: React.FC<{
   project: Project
   team: Team
-}> = ({ project, team }) => {
+  environmentSlug: string
+}> = ({ project, team, environmentSlug }) => {
   const teamSlug = team?.slug
   const projectPlan = (project?.plan as Plan)?.slug
 
@@ -28,7 +29,9 @@ export const ProjectEmailPage: React.FC<{
 
   const loadEmailAPIKey = React.useCallback(async () => {
     const { value } = await fetch(
-      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/email-api-key`,
+      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/email-api-key${
+        environmentSlug ? `?env=${environmentSlug}` : ''
+      }`,
       {
         credentials: 'include',
         headers: {
@@ -95,7 +98,7 @@ export default buildConfig({
         <React.Fragment>
           <CollapsibleGroup transTime={250} transCurve="ease">
             <Accordion openOnInit label="Add New Email Domain">
-              <AddEmailDomain project={project} />
+              <AddEmailDomain project={project} environmentSlug={environmentSlug} />
             </Accordion>
           </CollapsibleGroup>
 
@@ -111,6 +114,7 @@ export default buildConfig({
                       emailDomain={emailDomain}
                       project={project}
                       team={team}
+                      environmentSlug={environmentSlug}
                     />
                   ))}
                 </div>

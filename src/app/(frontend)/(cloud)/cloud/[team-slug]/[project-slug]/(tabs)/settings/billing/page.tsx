@@ -16,6 +16,7 @@ import { checkTeamRoles } from '@root/utilities/check-team-roles.js'
 import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
 
 import classes from './page.module.scss'
+import { generateRoutePath } from '@root/utilities/generate-route-path.js'
 
 const statusLabels = {
   active: 'Active',
@@ -29,10 +30,20 @@ const statusLabels = {
   unknown: 'Unknown',
 }
 
-export default async ({ params: { 'team-slug': teamSlug, 'project-slug': projectSlug } }) => {
+export default async ({
+  params: {
+    'team-slug': teamSlug,
+    'project-slug': projectSlug,
+    'environment-slug': environmentSlug,
+  },
+}) => {
   const { user } = await fetchMe()
 
-  const { team, project } = await fetchProjectAndRedirect({ teamSlug, projectSlug })
+  const { team, project } = await fetchProjectAndRedirect({
+    teamSlug,
+    projectSlug,
+    environmentSlug,
+  })
 
   const isCurrentTeamOwner = checkTeamRoles(user, team, ['owner'])
   const hasCustomerID = team?.stripeCustomerID
@@ -115,13 +126,22 @@ export default async ({ params: { 'team-slug': teamSlug, 'project-slug': project
 }
 
 export async function generateMetadata({
-  params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
+  params: {
+    'team-slug': teamSlug,
+    'project-slug': projectSlug,
+    'environment-slug': environmentSlug,
+  },
 }): Promise<Metadata> {
   return {
     title: 'Billing',
     openGraph: mergeOpenGraph({
       title: 'Billing',
-      url: `/cloud/${teamSlug}/${projectSlug}/settings/billing`,
+      url: generateRoutePath({
+        teamSlug,
+        projectSlug,
+        environmentSlug,
+        suffix: 'settings/billing',
+      }),
     }),
   }
 }

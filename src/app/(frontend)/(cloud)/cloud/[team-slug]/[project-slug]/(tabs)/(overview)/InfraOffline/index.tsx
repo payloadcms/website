@@ -103,14 +103,16 @@ const initialDeploymentPhases: DeploymentPhases[] = [
 export const InfraOffline: React.FC<{
   project: Project
   team: Team
+  environmentSlug: string
 }> = props => {
-  const { project: initialProject, team } = props
+  const { project: initialProject, team, environmentSlug } = props
   const [project, setProject] = React.useState(initialProject)
 
   const reloadProject = React.useCallback(async () => {
     const newProject = await fetchProjectClient({
       teamID: team.id,
       projectSlug: initialProject.slug,
+      environmentSlug,
     })
 
     setProject(newProject)

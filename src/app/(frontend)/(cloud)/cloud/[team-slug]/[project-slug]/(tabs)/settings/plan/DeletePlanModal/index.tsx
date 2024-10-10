@@ -12,6 +12,7 @@ import { Button } from '@components/Button/index.js'
 import { Heading } from '@components/Heading/index.js'
 import { ModalWindow } from '@components/ModalWindow/index.js'
 import { Project } from '@root/payload-cloud-types.js'
+import { qs } from '@root/utilities/qs.js'
 
 import classes from './index.module.scss'
 
@@ -21,10 +22,11 @@ export type DeletePlanModalProps = {
   confirmSlug: string
   canManageProject: boolean
   project: Project
+  environmentSlug?: string
 }
 
 export const DeletePlanModal: React.FC<DeletePlanModalProps> = props => {
-  const { confirmSlug, canManageProject, project } = props
+  const { confirmSlug, canManageProject, project, environmentSlug } = props
   const { closeModal } = useModal()
   const [isDisabled, setIsDisabled] = React.useState(true)
   const router = useRouter()
@@ -34,8 +36,13 @@ export const DeletePlanModal: React.FC<DeletePlanModalProps> = props => {
       // TODO: toast messages
 
       try {
+        const query = qs.stringify({
+          env: environmentSlug,
+        })
         const req = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}`,
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}${
+            query ? `?${query}` : ''
+          }`,
           {
             method: 'DELETE',
             credentials: 'include',

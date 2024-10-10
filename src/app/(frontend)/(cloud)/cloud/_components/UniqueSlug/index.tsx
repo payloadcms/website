@@ -1,36 +1,39 @@
-import React, { useEffect, useState } from 'react'
-import { Text } from '@forms/fields/Text/index.js'
-
 import { Spinner } from '@components/Spinner/index.js'
+import { Text } from '@forms/fields/Text/index.js'
 import { CheckIcon } from '@root/icons/CheckIcon/index.js'
 import { CloseIcon } from '@root/icons/CloseIcon/index.js'
 import useDebounce from '@root/utilities/use-debounce.js'
-import { SlugValidationResult, stateReducer } from './reducer.js'
+import React, { useEffect, useState } from 'react'
+
+import type { SlugValidationResult } from './reducer.js'
 
 import classes from './index.module.scss'
+import { stateReducer } from './reducer.js'
 
 // checks Payload to ensure that the given slug is unique and ensures only the validated slug is used
 // displays a success message if the slug is available, warns the user if the slug is taken
 export const UniqueSlug: React.FC<{
-  initialValue?: string
-  path?: 'slug' | 'createTeamFromSlug'
   collection: 'projects' | 'teams'
-  teamID?: string
-  label?: string
+  disabled?: boolean
   docID?: string
+  initialValue?: string
+  label?: string
+  path?: 'createTeamFromSlug' | 'slug'
+  teamID?: string
   validateOnInit?: boolean
 }> = ({
-  initialValue,
   collection = 'teams',
-  path = 'slug',
-  label = 'Slug',
-  teamID,
+  disabled = false,
   docID,
+  initialValue,
+  label = 'Slug',
+  path = 'slug',
+  teamID,
   validateOnInit = false,
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const isRequesting = React.useRef(false)
-  const [error, setError] = React.useState<string | null>(null)
+  const [error, setError] = React.useState<null | string>(null)
 
   const [state, dispatchState] = React.useReducer(stateReducer, {
     slug: initialValue || '',
@@ -45,7 +48,7 @@ export const UniqueSlug: React.FC<{
   useEffect(() => {
     let timer: NodeJS.Timeout
 
-    if (!isRequesting.current && (validateOnInit || state.userInteracted)) {
+    if (!disabled && !isRequesting.current && (validateOnInit || state.userInteracted)) {
       isRequesting.current = true
 
       const slug = currentSlug.current
@@ -65,7 +68,7 @@ export const UniqueSlug: React.FC<{
           return // Exit early to prevent the request from being sent
         }
 
-        const slugRegex = /^[a-zA-Z0-9_-]+$/
+        const slugRegex = /^[\w-]+$/
         if (!slugRegex.test(debouncedSlug)) {
           setError('The slug can only contain alphanumeric characters, hyphens, and underscores.')
           dispatchState({ type: 'SET_UNIQUE', payload: false })
@@ -86,16 +89,16 @@ export const UniqueSlug: React.FC<{
             const validityReq = await fetch(
               `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/validate-slug`,
               {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
                 body: JSON.stringify({
+                  id: docID,
                   slug: debouncedSlug,
                   collection,
                   team: teamID,
-                  id: docID,
                 }),
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                method: 'POST',
               },
             )
 
@@ -123,7 +126,7 @@ export const UniqueSlug: React.FC<{
           setIsLoading(false)
         }
 
-        validateSlug()
+        void validateSlug()
       }
 
       isRequesting.current = false
@@ -132,7 +135,16 @@ export const UniqueSlug: React.FC<{
     return () => {
       clearTimeout(timer)
     }
-  }, [validateOnInit, state.userInteracted, debouncedSlug, collection, teamID, initialValue, docID])
+  }, [
+    validateOnInit,
+    state.userInteracted,
+    debouncedSlug,
+    collection,
+    teamID,
+    initialValue,
+    docID,
+    disabled,
+  ])
 
   const validatedSlug = state?.slug
   const slugIsValid = validatedSlug && state?.isUnique
@@ -161,8 +173,8 @@ export const UniqueSlug: React.FC<{
 
   let icon: React.ReactNode = null
   if (isLoading) icon = <Spinner />
-  if (slugIsValid) icon = <CheckIcon className={classes.check} size="medium" bold />
-  if (slugIsFetched && isError) icon = <CloseIcon className={classes.error} size="medium" bold />
+  if (slugIsValid) icon = <CheckIcon bold className={classes.check} size="medium" />
+  if (slugIsFetched && isError) icon = <CloseIcon bold className={classes.error} size="medium" />
 
   // two fields are rendered here, the first is controlled, user-facing and not debounced
   // the other is a hidden field that has been validated
@@ -170,18 +182,26 @@ export const UniqueSlug: React.FC<{
   return (
     <div className={classes.uniqueSlug}>
       <Text
-        label={label}
+        disabled={disabled}
+        icon={icon}
         initialValue={initialValue}
+        label={label}
         onChange={newSlug => {
           currentSlug.current = newSlug
           dispatchState({ type: 'SET_SLUG', payload: newSlug })
           dispatchState({ type: 'SET_USER_INTERACTED' })
         }}
-        showError={slugIsFetched && isError}
-        icon={icon}
         required
+        showError={slugIsFetched && isError}
       />
-      <Text path={path} initialValue={initialValue} value={validatedSlug} required type="hidden" />
+      <Text
+        initialValue={initialValue}
+        path={path}
+        readOnly={disabled}
+        required
+        type="hidden"
+        value={validatedSlug}
+      />
       {description && (
         <div
           className={[
@@ -200,36 +220,40 @@ export const UniqueSlug: React.FC<{
 }
 
 export const UniqueTeamSlug: React.FC<{
-  teamID?: string
-  path?: 'slug' | 'createTeamFromSlug'
   initialValue?: string
+  path?: 'createTeamFromSlug' | 'slug'
+  readOnly?: boolean
+  teamID?: string
 }> = props => {
-  const { path = 'slug', teamID, initialValue } = props
+  const { initialValue, path = 'slug', readOnly, teamID } = props
   return (
     <UniqueSlug
-      label="Team Slug"
-      path={path}
       collection="teams"
+      disabled={readOnly}
       docID={teamID}
       initialValue={initialValue}
+      label="Team Slug"
+      path={path}
     />
   )
 }
 
 export const UniqueProjectSlug: React.FC<{
-  teamID?: string
-  projectID?: string
+  disabled?: boolean
   initialValue?: string
+  projectID?: string
+  teamID?: string
   validateOnInit?: boolean
-}> = ({ teamID, projectID, initialValue, validateOnInit }) => {
+}> = ({ disabled: readOnly, initialValue, projectID, teamID, validateOnInit }) => {
   return (
     <UniqueSlug
-      label="Project Slug"
-      path="slug"
       collection="projects"
-      teamID={teamID}
+      disabled={readOnly}
       docID={projectID}
       initialValue={initialValue}
+      label="Project Slug"
+      path="slug"
+      teamID={teamID}
       validateOnInit={validateOnInit}
     />
   )

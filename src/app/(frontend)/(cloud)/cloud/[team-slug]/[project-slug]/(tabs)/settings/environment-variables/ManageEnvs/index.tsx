@@ -16,6 +16,7 @@ import { ModalWindow } from '@components/ModalWindow/index.js'
 import { Accordion } from '@components/Accordion/index.js'
 import { Project } from '@root/payload-cloud-types.js'
 import { validateKey, validateValue } from '../validations.js'
+import { qs } from '@root/utilities/qs.js'
 
 import classes from './index.module.scss'
 
@@ -31,9 +32,15 @@ type Props = {
     value?: string
     id?: string
   }
+  environmentSlug?: string
 }
 
-export const ManageEnv: React.FC<Props> = ({ envs, projectID, env: { key, id } }) => {
+export const ManageEnv: React.FC<Props> = ({
+  envs,
+  projectID,
+  env: { key, id },
+  environmentSlug,
+}) => {
   const modalSlug = `delete-env-${id}`
   const [fetchedEnvValue, setFetchedEnvValue] = React.useState<string | undefined>(undefined)
   const { closeModal, openModal } = useModal()
@@ -46,8 +53,12 @@ export const ManageEnv: React.FC<Props> = ({ envs, projectID, env: { key, id } }
 
   const fetchEnv = React.useCallback(async (): Promise<string | null> => {
     try {
+      const query = qs.stringify({
+        env: environmentSlug,
+        key,
+      })
       const req = await fetch(
-        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/env?key=${key}`,
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/env${`?${query}`}`,
         {
           credentials: 'include',
           headers: {
@@ -74,8 +85,13 @@ export const ManageEnv: React.FC<Props> = ({ envs, projectID, env: { key, id } }
 
       if (typeof newEnvValue === 'string' && typeof newEnvKey === 'string' && id) {
         try {
+          const query = qs.stringify({
+            env: environmentSlug,
+          })
           const req = await fetch(
-            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/env`,
+            `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/env${
+              query ? `?${query}` : ''
+            }`,
             {
               method: 'PATCH',
               credentials: 'include',
@@ -116,8 +132,12 @@ export const ManageEnv: React.FC<Props> = ({ envs, projectID, env: { key, id } }
 
   const deleteEnv = React.useCallback(async () => {
     try {
+      const query = qs.stringify({
+        env: environmentSlug,
+        key,
+      })
       const req = await fetch(
-        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/env?key=${key}`,
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/env?${query}`,
         {
           method: 'DELETE',
           credentials: 'include',
@@ -203,14 +223,21 @@ export const ManageEnv: React.FC<Props> = ({ envs, projectID, env: { key, id } }
 export const ManageEnvs: React.FC<{
   envs: Project['environmentVariables']
   projectID: Project['id']
+  environmentSlug?: string
 }> = props => {
-  const { envs, projectID } = props
+  const { envs, projectID, environmentSlug } = props
 
   return (
     <CollapsibleGroup transTime={250} transCurve="ease" allowMultiple>
       <div className={classes.envs}>
         {envs?.map(env => (
-          <ManageEnv key={env.id} env={env} envs={envs} projectID={projectID} />
+          <ManageEnv
+            key={env.id}
+            env={env}
+            envs={envs}
+            projectID={projectID}
+            environmentSlug={environmentSlug}
+          />
         ))}
       </div>
     </CollapsibleGroup>

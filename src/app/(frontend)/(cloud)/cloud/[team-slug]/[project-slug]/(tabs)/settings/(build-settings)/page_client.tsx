@@ -14,12 +14,15 @@ import { Project, Team } from '@root/payload-cloud-types.js'
 import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
 
 import classes from './page.module.scss'
+import { useForm } from '@forms/Form/context.js'
 
 export const ProjectBuildSettingsPage: React.FC<{
   team: Team
   project: Project
-}> = ({ team, project }) => {
+  environmentSlug: string
+}> = ({ team, project, environmentSlug }) => {
   const router = useRouter()
+  const form = useForm()
 
   const [error, setError] = React.useState<{
     message: string
@@ -33,9 +36,11 @@ export const ProjectBuildSettingsPage: React.FC<{
 
       try {
         const req = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project.id}`,
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project.id}/build-settings${
+            environmentSlug ? `?env=${environmentSlug}` : ''
+          }`,
           {
-            method: 'PATCH',
+            method: 'POST',
             credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
@@ -74,6 +79,7 @@ export const ProjectBuildSettingsPage: React.FC<{
         }
       } catch (e) {
         toast.error('Failed to update settings.')
+        throw e
       }
     },
     [project, router],
@@ -82,6 +88,7 @@ export const ProjectBuildSettingsPage: React.FC<{
   return (
     <MaxWidth>
       <SectionHeader title="Build Settings" />
+      {error ? JSON.stringify(error) : null}
       <Form className={classes.form} onSubmit={onSubmit} errors={error?.data}>
         <Text
           label="Project name"
@@ -94,6 +101,7 @@ export const ProjectBuildSettingsPage: React.FC<{
           teamID={typeof project?.team === 'string' ? project?.team : project?.team?.id}
           projectID={project?.id}
           initialValue={project?.slug}
+          disabled={environmentSlug !== 'prod'}
         />
         <Text
           label="Root Directory"

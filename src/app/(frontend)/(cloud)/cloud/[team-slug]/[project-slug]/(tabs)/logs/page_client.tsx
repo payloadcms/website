@@ -11,7 +11,8 @@ import { useWebSocket } from '@root/utilities/use-websocket.js'
 export const ProjectLogsPage: React.FC<{
   project: Project
   team: Team
-}> = ({ project }) => {
+  environmentSlug: string
+}> = ({ project, environmentSlug }) => {
   const [runtimeLogs, setRuntimeLogs] = React.useState<LogLine[]>([])
   const previousLogs = React.useRef<LogLine[]>([])
 
@@ -37,10 +38,9 @@ export const ProjectLogsPage: React.FC<{
 
   useWebSocket({
     url: hasSuccessfullyDeployed
-      ? `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/logs`.replace(
-          'http',
-          'ws',
-        )
+      ? `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/logs${
+          environmentSlug ? `?env=${environmentSlug}` : ''
+        }`.replace('http', 'ws')
       : '',
     onOpen: () => setRuntimeLogs([]),
     onMessage,

@@ -5,7 +5,6 @@ import { Gutter } from '@components/Gutter/index.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { RenderParams } from '@components/RenderParams/index.js'
 import { fetchMe } from './_api/fetchMe.js'
-import { DashboardBreadcrumbs } from './_components/DashboardBreadcrumbs/index.js'
 
 export const metadata: Metadata = {
   title: {

@@ -1,14 +1,17 @@
-import { PROJECT_QUERY, PROJECTS_QUERY } from '@data/project.js'
 import type { Project } from '@root/payload-cloud-types.js'
+
+import { PROJECT_QUERY, PROJECTS_QUERY } from '@data/project.js'
+import { mergeProjectEnvironment } from '@root/utilities/merge-project-environment.js'
+
 import { payloadCloudToken } from './token.js'
 
 export interface ProjectsRes {
   docs: Project[]
 
+  limit: number
+  page: number
   totalDocs: number
   totalPages: number
-  page: number
-  limit: number
 }
 
 export const fetchProjects = async (teamIDs: string[]): Promise<ProjectsRes> => {
@@ -17,20 +20,20 @@ export const fetchProjects = async (teamIDs: string[]): Promise<ProjectsRes> => 
   if (!token) throw new Error('No token provided')
 
   const res: ProjectsRes = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
-    method: 'POST',
+    body: JSON.stringify({
+      query: PROJECTS_QUERY,
+      variables: {
+        limit: 8,
+        page: 1,
+        teamIDs: teamIDs.filter(Boolean),
+      },
+    }),
     headers: {
       'Content-Type': 'application/json',
       ...(token ? { Authorization: `JWT ${token}` } : {}),
     },
+    method: 'POST',
     next: { tags: ['projects'] },
-    body: JSON.stringify({
-      query: PROJECTS_QUERY,
-      variables: {
-        teamIDs: teamIDs.filter(Boolean),
-        limit: 8,
-        page: 1,
-      },
-    }),
   })
     ?.then(r => r.json())
     ?.then(data => {
@@ -42,31 +45,31 @@ export const fetchProjects = async (teamIDs: string[]): Promise<ProjectsRes> => 
 }
 
 export const fetchProjectsClient = async ({
-  teamIDs,
-  page = 1,
   limit = 8,
+  page = 1,
   search,
+  teamIDs,
 }: {
-  teamIDs: Array<string | undefined>
-  page: number
   limit?: number
+  page: number
   search?: string
+  teamIDs: Array<string | undefined>
 }): Promise<ProjectsRes> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
     body: JSON.stringify({
       query: PROJECTS_QUERY,
       variables: {
-        teamIDs: teamIDs.filter(Boolean),
-        page,
         limit,
+        page,
         search,
+        teamIDs: teamIDs.filter(Boolean),
       },
     }),
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
   })
     .then(r => r.json())
     ?.then(data => data?.data?.Projects)
@@ -75,26 +78,36 @@ export const fetchProjectsClient = async ({
 }
 
 export const fetchProjectClient = async ({
-  teamID,
+  environmentSlug,
   projectSlug,
+  teamID
 }: {
-  teamID: string
+  environmentSlug?: string
   projectSlug?: string
+  teamID: string
 }): Promise<Project> => {
   const { data } = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
     body: JSON.stringify({
       query: PROJECT_QUERY,
       variables: {
-        teamID,
         projectSlug,
+        teamID,
       },
     }),
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
   }).then(res => res.json())
 
-  return data?.Projects?.docs?.[0]
+  const project = data?.Projects?.docs?.[0]
+
+  if (!project) throw new Error('Project not found')
+
+  if (environmentSlug) {
+    return mergeProjectEnvironment({ environmentSlug, project })
+  }
+
+  return project
 }

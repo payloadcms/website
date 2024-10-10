@@ -88,7 +88,6 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
             unflattenedData: reduceFieldsToValues(fields, true),
             dispatchFields: contextRef.current.dispatchFields,
           })
-
           setHasSubmitted(false)
           setIsModified(false)
           setIsProcessing(false)

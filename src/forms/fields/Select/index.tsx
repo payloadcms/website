@@ -19,6 +19,7 @@ type SelectProps = FieldProps<string | string[]> & {
   options: Option[]
   isMulti?: boolean
   isClearable?: boolean
+  isSearchable?: boolean
   components?: {
     [key: string]: React.FC<any>
   }
@@ -45,6 +46,7 @@ export const Select: React.FC<SelectProps> = props => {
     description,
     disabled,
     onMenuScrollToBottom,
+    isSearchable = true,
   } = props
 
   const id = useId()
@@ -192,7 +194,14 @@ export const Select: React.FC<SelectProps> = props => {
 
   return (
     <div
-      className={[className, classes.select, showError && classes.error].filter(Boolean).join(' ')}
+      className={[
+        className,
+        classes.select,
+        showError && classes.error,
+        isSearchable && classes.isSearchable,
+      ]
+        .filter(Boolean)
+        .join(' ')}
     >
       <Error showError={showError} message={errorMessage} />
       <Label htmlFor={path} label={label} required={required} />
@@ -200,7 +209,7 @@ export const Select: React.FC<SelectProps> = props => {
         ref={ref}
         isMulti={isMulti}
         isClearable={isClearable}
-        instanceId={id}
+        instanceId={'test'}
         onChange={handleChange}
         options={options}
         value={internalState}
@@ -211,6 +220,7 @@ export const Select: React.FC<SelectProps> = props => {
         isDisabled={disabled}
         onMenuScrollToBottom={onMenuScrollToBottom}
         noOptionsMessage={() => 'No options'}
+        isSearchable={isSearchable}
       />
       {description && <div className={classes.description}>{description}</div>}
     </div>

@@ -23,8 +23,9 @@ const finalDeploymentStages: FinalDeploymentStages[] = ['ACTIVE', 'SUPERSEDED']
 
 export const InfraOnline: React.FC<{
   project: Project
+  environmentSlug: string
 }> = props => {
-  const { project } = props
+  const { project, environmentSlug } = props
 
   const {
     result: deployments,
@@ -41,10 +42,19 @@ export const InfraOnline: React.FC<{
 
   const triggerDeployment = React.useCallback(() => {
     setRedeployTriggered(true)
-    fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/deploy`, {
-      method: 'POST',
-      credentials: 'include',
-    }).then(res => {
+    const query = qs.stringify({
+      env: environmentSlug,
+    })
+
+    fetch(
+      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/deploy${
+        query ? `?${query}` : ''
+      }`,
+      {
+        method: 'POST',
+        credentials: 'include',
+      },
+    ).then(res => {
       setRedeployTriggered(false)
 
       if (res.status === 200) {
@@ -80,6 +90,7 @@ export const InfraOnline: React.FC<{
   React.useEffect(() => {
     const fetchLiveDeployment = async () => {
       const query = qs.stringify({
+        env: environmentSlug,
         where: {
           and: [
             {

@@ -1,18 +1,16 @@
 'use client'
 
-import React from 'react'
 import { cloudSlug } from '@cloud/slug.js'
-import Link from 'next/link'
-
-import { useParams, useSelectedLayoutSegments } from 'next/navigation'
-
 import { FullLogo } from '@root/graphics/FullLogo/index.js'
+import Link from 'next/link'
+import { useParams, useSelectedLayoutSegments } from 'next/navigation'
+import React from 'react'
 
 import classes from './index.module.scss'
 
 export const DashboardBreadcrumbs = () => {
   let segments = useSelectedLayoutSegments()
-  let params = useParams()
+  const params = useParams()
 
   const teamSlug = params['team-slug']
   const projectSlug = params['project-slug']
@@ -61,28 +59,32 @@ export const DashboardBreadcrumbs = () => {
 
   return (
     <div className={classes.wrapper}>
-      <Link href={`/`} className={classes.logo}>
+      <Link className={classes.logo} href="/">
         <FullLogo />
       </Link>
       <div className={classes.breadcrumbs}>
         {segments[0] !== 'Cloud' ? (
-          <>
+          <React.Fragment>
             <span className={classes.slash}>{' / '}</span>
             <Link href={`/${cloudSlug}`}>Cloud</Link>
-          </>
+          </React.Fragment>
         ) : null}
         {segments.length === 0 && (
-          <>
+          <React.Fragment>
             <span className={classes.slash}>{' / '}</span>
             <span>Dashboard</span>
-          </>
-        )}
-        {segments.map((segment, index) => (
-          <React.Fragment key={segment}>
-            <span className={classes.slash}>{' / '}</span>
-            <Link href={`/${urls[index]}`}>{segment}</Link>
           </React.Fragment>
-        ))}
+        )}
+        {segments.map((segment, index) => {
+          // removes env segment from breadcrumbs
+          if (segment.toLowerCase() === 'env') return
+          return (
+            <React.Fragment key={segment}>
+              <span className={classes.slash}>{' / '}</span>
+              <Link href={`/${urls[index]}`}>{segment}</Link>
+            </React.Fragment>
+          )
+        })}
       </div>
     </div>
   )

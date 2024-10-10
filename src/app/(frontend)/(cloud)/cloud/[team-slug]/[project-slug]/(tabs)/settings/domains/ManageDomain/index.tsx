@@ -17,9 +17,10 @@ type Props = {
   domain: NonNullable<Project['domains']>[0]
   project: Project
   team: Team
+  environmentSlug: string
 }
 
-export const ManageDomain: React.FC<Props> = ({ domain, project, team }) => {
+export const ManageDomain: React.FC<Props> = ({ domain, project, team, environmentSlug }) => {
   const { id, domain: domainURL, recordType, recordName, recordContent } = domain
   const modalSlug = `delete-domain-${id}`
 
@@ -32,7 +33,9 @@ export const ManageDomain: React.FC<Props> = ({ domain, project, team }) => {
     async (domains: Props['domain'][]) => {
       try {
         const req = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}`,
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}${
+            environmentSlug ? `?env=${environmentSlug}` : ''
+          }`,
           {
             method: 'PATCH',
             credentials: 'include',

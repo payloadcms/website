@@ -6,8 +6,9 @@ import matter from 'gray-matter'
 import path from 'path'
 
 import { topicOrder } from './shared.mjs'
+import dotenv from 'dotenv'
 
-
+dotenv.config()
 
 const __dirname = path.resolve()
 
@@ -94,7 +95,7 @@ const fetchDocs = async () => {
 
   const data = JSON.stringify(topics, null, 2)
 
-  const docsFilename = path.resolve(__dirname, './src/app/docs.json')
+  const docsFilename = path.resolve(__dirname, './src/docs/docs-beta.json')
 
   fs.writeFile(docsFilename, data, err => {
     if (err) {

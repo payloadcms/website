@@ -12,6 +12,7 @@ import { ModalWindow } from '@components/ModalWindow/index.js'
 import { Accordion } from '@components/Accordion/index.js'
 import { ExternalLinkIcon } from '@root/icons/ExternalLinkIcon/index.js'
 import { Project, Team } from '@root/payload-cloud-types.js'
+import { qs } from '@root/utilities/qs.js'
 
 import classes from './index.module.scss'
 
@@ -21,11 +22,17 @@ type Props = {
   emailDomain: NonNullable<Project['customEmailDomains']>[0]
   project: Project
   team: Team
+  environmentSlug: string
 }
 
 type VerificationStatus = 'not_started' | 'pending' | 'verified'
 
-export const ManageEmailDomain: React.FC<Props> = ({ emailDomain, project, team }) => {
+export const ManageEmailDomain: React.FC<Props> = ({
+  emailDomain,
+  project,
+  team,
+  environmentSlug,
+}) => {
   const { id, domain: domainURL, customDomainResendDNSRecords, resendDomainID } = emailDomain
   const modalSlug = `delete-emailDomain-${id}`
 
@@ -37,8 +44,14 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain, project, team 
 
   const getDomainVerificationStatus = useCallback(
     async (domainId: string) => {
+      const query = qs.stringify({
+        domainId,
+        env: environmentSlug,
+      })
       const { status } = await fetch(
-        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/email-verification?domainId=${domainId}`,
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/email-verification${
+          query ? `?${query}` : ''
+        }`,
         {
           credentials: 'include',
           headers: {
@@ -60,8 +73,14 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain, project, team 
 
   const loadCustomDomainEmailAPIKey = useCallback(
     async (domainId: string) => {
+      const query = qs.stringify({
+        domainId,
+        env: environmentSlug,
+      })
       const { value } = await fetch(
-        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/email-api-key?domainId=${domainId}`,
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/email-api-key${
+          query ? `?${query}` : ''
+        }`,
         {
           credentials: 'include',
           headers: {
@@ -78,8 +97,13 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain, project, team 
   const patchEmailDomains = useCallback(
     async (emailDomains: Props['emailDomain'][]) => {
       try {
+        const query = qs.stringify({
+          env: environmentSlug,
+        })
         const req = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}`,
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}${
+            query ? `?${query}` : ''
+          }`,
           {
             method: 'PATCH',
             credentials: 'include',
@@ -107,8 +131,14 @@ export const ManageEmailDomain: React.FC<Props> = ({ emailDomain, project, team 
   const verifyEmailDomain = useCallback(
     async (domainId: string) => {
       try {
+        const query = qs.stringify({
+          domainId,
+          env: environmentSlug,
+        })
         const req = await fetch(
-          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/verify-email-domain?domainId=${domainId}`,
+          `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/verify-email-domain${
+            query ? `?${query}` : ''
+          }`,
           {
             method: 'POST',
             credentials: 'include',

@@ -8,16 +8,27 @@ import { Gutter } from '@components/Gutter/index.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { ProjectBillingMessages } from './ProjectBillingMessages/index.js'
 
+import { ProjectHeader } from '@cloud/_components/ProjectHeader/index.js'
+import { generateRoutePath } from '@root/utilities/generate-route-path.js'
+
 export default async props => {
   const {
     children,
-    params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
+    params: {
+      'team-slug': teamSlug,
+      'project-slug': projectSlug,
+      'environment-slug': environmentSlug,
+    },
   } = props
 
   // Note: this fetch will get deduped by the page
   // each page within this layout calls this same function
   // Next.js will only call it once
-  const { team, project } = await fetchProjectAndRedirect({ teamSlug, projectSlug })
+  const { team, project } = await fetchProjectAndRedirect({
+    teamSlug,
+    projectSlug,
+    environmentSlug,
+  })
 
   // display an error if the project has a bad subscription status
   const hasBadSubscriptionStatus = hasBadSubscription(project?.stripeSubscriptionStatus)
@@ -32,26 +43,56 @@ export default async props => {
   return (
     <>
       <Gutter>
-        <h3>{project.name}</h3>
+        <ProjectHeader
+          title={project.name}
+          environmentOptions={
+            project?.environments?.reduce(
+              (acc, { name, environmentSlug }) => {
+                acc.push({ label: name, value: environmentSlug })
+                return acc
+              },
+              [{ label: 'Production', value: 'production' }],
+            ) || []
+          }
+        />
         <DashboardTabs
           tabs={{
             [`${projectSlug}`]: {
               label: 'Overview',
-              href: `/${cloudSlug}/${teamSlug}/${projectSlug}`,
+              href: generateRoutePath({
+                teamSlug,
+                projectSlug,
+                environmentSlug,
+              }),
             },
             ...(enableAllTabs
               ? {
                   database: {
                     label: 'Database',
-                    href: `/${cloudSlug}/${teamSlug}/${projectSlug}/database`,
+                    href: generateRoutePath({
+                      teamSlug,
+                      projectSlug,
+                      environmentSlug,
+                      suffix: 'database',
+                    }),
                   },
                   'file-storage': {
                     label: 'File Storage',
-                    href: `/${cloudSlug}/${teamSlug}/${projectSlug}/file-storage`,
+                    href: generateRoutePath({
+                      teamSlug,
+                      projectSlug,
+                      environmentSlug,
+                      suffix: 'file-storage',
+                    }),
                   },
                   logs: {
                     label: 'Logs',
-                    href: `/${cloudSlug}/${teamSlug}/${projectSlug}/logs`,
+                    href: generateRoutePath({
+                      teamSlug,
+                      projectSlug,
+                      environmentSlug,
+                      suffix: 'logs',
+                    }),
                   },
                 }
               : {}),
@@ -59,14 +100,6 @@ export default async props => {
               label: 'Settings',
               href: `/${cloudSlug}/${teamSlug}/${projectSlug}/settings`,
               error: hasBadSubscriptionStatus,
-              subpaths: [
-                `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/billing`,
-                `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/domains`,
-                `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/email`,
-                `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/environment-variables`,
-                `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/ownership`,
-                `/${cloudSlug}/${teamSlug}/${projectSlug}/settings/plan`,
-              ],
             },
           }}
         />
@@ -78,7 +111,11 @@ export default async props => {
 }
 
 export async function generateMetadata({
-  params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
+  params: {
+    'team-slug': teamSlug,
+    'project-slug': projectSlug,
+    'environment-slug': environmentSlug,
+  },
 }): Promise<Metadata> {
   return {
     title: {

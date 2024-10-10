@@ -32,10 +32,13 @@ PAYLOAD_CLOUD_COGNITO_PASSWORD=
 export const ProjectFileStoragePage: React.FC<{
   project: Project
   team: Team
-}> = ({ project, team }) => {
+  environmentSlug: string
+}> = ({ project, team, environmentSlug }) => {
   const loadPassword = React.useCallback(async () => {
     const { value } = await fetch(
-      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/cognito-password`,
+      `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${project?.id}/cognito-password${
+        environmentSlug ? `?env=${environmentSlug}` : ''
+      }`,
       {
         credentials: 'include',
         headers: {

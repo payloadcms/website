@@ -1,17 +1,17 @@
-import * as React from 'react'
 import { Sidebar } from '@cloud/_components/Sidebar/index.js'
-import { cloudSlug } from '@cloud/slug.js'
-import { Cell, Grid } from '@faceless-ui/css-grid'
-
 import { Gutter } from '@components/Gutter/index.js'
-
-import classes from './layout.module.scss'
+import { generateRoutePath } from '@root/utilities/generate-route-path'
+import * as React from 'react'
 
 const settingsSlug = 'settings'
 
 export default async ({
-  params: { 'team-slug': teamSlug, 'project-slug': projectSlug },
   children,
+  params: {
+    'environment-slug': environmentSlug,
+    'project-slug': projectSlug,
+    'team-slug': teamSlug,
+  },
 }) => {
   return (
     <Gutter className="grid">
@@ -20,31 +20,66 @@ export default async ({
           routes={[
             {
               label: 'General',
-              url: `/${cloudSlug}/${teamSlug}/${projectSlug}/${settingsSlug}`,
+              url: generateRoutePath({
+                environmentSlug,
+                projectSlug,
+                suffix: settingsSlug,
+                teamSlug,
+              }),
             },
             {
               label: 'Environment Variables',
-              url: `/${cloudSlug}/${teamSlug}/${projectSlug}/${settingsSlug}/environment-variables`,
+              url: generateRoutePath({
+                environmentSlug,
+                projectSlug,
+                suffix: 'settings/environment-variables',
+                teamSlug,
+              }),
             },
             {
               label: 'Domains',
-              url: `/${cloudSlug}/${teamSlug}/${projectSlug}/${settingsSlug}/domains`,
+              url: generateRoutePath({
+                environmentSlug,
+                projectSlug,
+                suffix: 'settings/domains',
+                teamSlug,
+              }),
             },
             {
               label: 'Email',
-              url: `/${cloudSlug}/${teamSlug}/${projectSlug}/${settingsSlug}/email`,
+              url: generateRoutePath({
+                environmentSlug,
+                projectSlug,
+                suffix: 'settings/email',
+                teamSlug,
+              }),
             },
             {
               label: 'Ownership',
-              url: `/${cloudSlug}/${teamSlug}/${projectSlug}/${settingsSlug}/ownership`,
+              url: generateRoutePath({
+                environmentSlug,
+                projectSlug,
+                suffix: 'settings/ownership',
+                teamSlug,
+              }),
             },
             {
               label: 'Plan',
-              url: `/${cloudSlug}/${teamSlug}/${projectSlug}/${settingsSlug}/plan`,
+              url: generateRoutePath({
+                environmentSlug,
+                projectSlug,
+                suffix: 'settings/plan',
+                teamSlug,
+              }),
             },
             {
               label: 'Billing',
-              url: `/${cloudSlug}/${teamSlug}/${projectSlug}/${settingsSlug}/billing`,
+              url: generateRoutePath({
+                environmentSlug,
+                projectSlug,
+                suffix: 'settings/billing',
+                teamSlug,
+              }),
             },
           ]}
         />
