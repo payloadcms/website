@@ -11,6 +11,15 @@
           "value": "max-age=0, s-maxage=31536000, stale-while-revalidate"
         }
       ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
     }
   ]
 }
