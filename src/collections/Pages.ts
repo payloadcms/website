@@ -58,6 +58,14 @@ export const Pages: CollectionConfig = {
     },
     fullTitle,
     {
+      type: 'checkbox',
+      name: 'noindex',
+      label: 'No Index',
+      admin: {
+        position: 'sidebar'
+      }
+    },
+    {
       type: 'tabs',
       tabs: [
         {
