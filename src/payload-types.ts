@@ -1553,6 +1553,7 @@ export interface Page {
   id: string;
   title: string;
   fullTitle?: string | null;
+  noindex?: boolean | null;
   hero: {
     type: 'default' | 'contentMedia' | 'centeredContent' | 'form' | 'home' | 'livestream' | 'gradient' | 'three';
     fullBackground?: boolean | null;

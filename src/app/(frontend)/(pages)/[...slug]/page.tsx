@@ -62,6 +62,9 @@ export async function generateMetadata({
     'url' in page?.meta?.image &&
     `${process.env.NEXT_PUBLIC_CMS_URL}${page.meta.image.url}`
 
+  // check if noIndex is true
+  const noIndexMeta = page?.noindex ? { robots: 'noindex' } : {}
+
   return {
     title: page?.meta?.title || 'Payload',
     description: page?.meta?.description,
@@ -77,5 +80,6 @@ export async function generateMetadata({
           ]
         : undefined,
     }),
+    ...noIndexMeta, // Add noindex meta tag if noindex is true
   }
 }
