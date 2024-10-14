@@ -16,7 +16,7 @@ export type MediaContentProps = Extract<Page['layout'][0], { blockType: 'mediaCo
   hideBackground?: boolean
 }
 export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFields, padding }) => {
-  const { link, images, richText, alignment, enableLink, settings } = mediaContentFields
+  const { link, images, richText, alignment, enableLink, mediaWidth, settings } = mediaContentFields
 
   return (
     <Gutter>
@@ -32,7 +32,12 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
               {images?.length && images.length > 0 ? <MediaParallax media={images} /> : null}
             </div>
             <div
-              className={[classes.content, classes.right, 'cols-4 start-13 start-m-1 cols-m-8']
+              className={[
+                classes.content,
+                classes.right,
+                mediaWidth !== 'fit' && classes.stretch,
+                'cols-4 start-13 start-m-1 cols-m-8',
+              ]
                 .filter(Boolean)
                 .join(' ')}
             >
@@ -74,7 +79,12 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
               )}
             </div>
             <div
-              className={[classes.media, classes.right, 'cols-10 start-7 cols-m-8 start-m-1']
+              className={[
+                classes.media,
+                classes.right,
+                mediaWidth === 'fit' ? classes.stretch : '',
+                'cols-10 start-7 cols-m-8 start-m-1',
+              ]
                 .filter(Boolean)
                 .join(' ')}
             >

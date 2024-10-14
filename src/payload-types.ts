@@ -834,6 +834,7 @@ export interface CaseStudy {
                 theme?: ('light' | 'dark') | null;
               };
               alignment?: ('contentMedia' | 'mediaContent') | null;
+              mediaWidth?: ('stretch' | 'fit') | null;
               richText: {
                 root: {
                   type: string;
@@ -2567,6 +2568,7 @@ export interface Page {
             theme?: ('light' | 'dark') | null;
           };
           alignment?: ('contentMedia' | 'mediaContent') | null;
+          mediaWidth?: ('stretch' | 'fit') | null;
           richText: {
             root: {
               type: string;
@@ -4345,6 +4347,7 @@ export interface ReusableContent {
             theme?: ('light' | 'dark') | null;
           };
           alignment?: ('contentMedia' | 'mediaContent') | null;
+          mediaWidth?: ('stretch' | 'fit') | null;
           richText: {
             root: {
               type: string;
@@ -6635,6 +6638,7 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 alignment?: ('contentMedia' | 'mediaContent') | null;
+                mediaWidth?: ('stretch' | 'fit') | null;
                 richText: {
                   root: {
                     type: string;
@@ -8062,6 +8066,7 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 alignment?: ('contentMedia' | 'mediaContent') | null;
+                mediaWidth?: ('stretch' | 'fit') | null;
                 richText: {
                   root: {
                     type: string;
