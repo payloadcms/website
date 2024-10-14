@@ -80,7 +80,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
         condition: (_, siblingData) => siblingData?.type === 'reference',
       },
       label: 'Document to link to',
-      maxDepth: 1,
+      maxDepth: 2,
       relationTo: ['pages', 'posts', 'case-studies'],
       required: true,
     },
