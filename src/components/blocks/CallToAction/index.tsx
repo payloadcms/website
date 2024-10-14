@@ -30,8 +30,6 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
 
   const hasLinks = links && links.length > 0
 
-  console.log('links: ', links)
-
   return (
     <BlockWrapper settings={settings} padding={padding} hideBackground={hideBackground}>
       <BackgroundGrid zIndex={0} />
