@@ -18,13 +18,7 @@
   }
 
   a:first-child {
-    border-bottom: 1px solid var(--grid-line-dark);
-  }
-
-  @include data-theme-selector('light') {
-    a:first-child {
-      border-color: var(--grid-line-light);
-    }
+    border-bottom: 1px solid var(--theme-border-color);
   }
 
   @include mid-break {
