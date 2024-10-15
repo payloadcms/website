@@ -111,20 +111,29 @@ export default async props => {
 }
 
 export async function generateMetadata({
-  params: {
+  params,
+}: {
+  params: Promise<{
+    'team-slug': string
+    'project-slug': string
+    'environment-slug': string
+  }>
+}): Promise<Metadata> {
+  const {
     'team-slug': teamSlug,
     'project-slug': projectSlug,
     'environment-slug': environmentSlug,
-  },
-}): Promise<Metadata> {
+  } = await params
   return {
     title: {
-      template: `${teamSlug} / ${projectSlug} | %s`,
+      template: `${teamSlug} / ${projectSlug}${
+        environmentSlug ? ` / ${environmentSlug}` : ''
+      } | %s`,
       default: 'Project',
     },
     openGraph: mergeOpenGraph({
       title: `${teamSlug} / ${projectSlug} | %s`,
-      url: `/cloud/${teamSlug}/${projectSlug}`,
+      url: `/cloud/${teamSlug}/${projectSlug}${environmentSlug ? `/env/${environmentSlug}` : ''}`,
     }),
   }
 }

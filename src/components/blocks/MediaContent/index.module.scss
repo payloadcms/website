@@ -13,13 +13,17 @@
     }
   }
 }
+
 .media.right {
-  margin-right: calc(-1 * var(--gutter-h));
   img,video {
     margin-left: auto;
   }
+  &.stretch {
+    margin-right: calc(-1 * var(--gutter-h));
+  }
 }
-.media.left {
+
+.media.left.stretch {
   margin-left: calc(-1 * var(--gutter-h));
 }
 

@@ -17,8 +17,9 @@ import React from 'react'
 
 import classes from './index.module.scss'
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const partner = await fetchPartner(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const partner = await fetchPartner(slug)
 
   if (!partner) {
     return notFound()
@@ -30,8 +31,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function PartnerPage({ params }: { params: { slug: string } }) {
-  const partner = await fetchPartner(params.slug)
+export default async function PartnerPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const partner = await fetchPartner(slug)
   const partnerProgram = await fetchPartnerProgram()
 
   if (!partner) {
@@ -190,7 +192,7 @@ const PartnerDetails = partner => {
       <div className={classes.sidebarGroup}>
         <h6>Region{regions.length === 1 ? '' : 's'}</h6>
         <ul>
-          {partner.regions?.map(
+          {regions?.map(
             region => typeof region !== 'string' && <li key={region.id}>{region.name}</li>,
           )}
         </ul>

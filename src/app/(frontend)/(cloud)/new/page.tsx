@@ -9,7 +9,14 @@ import { RenderParams } from '@components/RenderParams/index.js'
 
 export const dynamic = 'force-dynamic'
 
-export default async function NewProjectPage({ searchParams: { team: teamSlug } }) {
+export default async function NewProjectPage({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    team: string
+  }>
+}) {
+  const { team: teamSlug } = await searchParams
   const templates = await fetchTemplates()
 
   return (

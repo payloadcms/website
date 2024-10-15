@@ -128,6 +128,7 @@ export interface CaseStudy {
               settings?: {
                 theme?: ('light' | 'dark') | null;
               };
+              style?: ('buttons' | 'banner') | null;
               richText: {
                 root: {
                   type: string;
@@ -171,6 +172,26 @@ export interface CaseStudy {
                     id?: string | null;
                   }[]
                 | null;
+              bannerLink?: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: string | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: string | Post;
+                    } | null)
+                  | ({
+                      relationTo: 'case-studies';
+                      value: string | CaseStudy;
+                    } | null);
+                url?: string | null;
+                label: string;
+              };
+              bannerImage?: (string | null) | Media;
             };
             id?: string | null;
             blockName?: string | null;
@@ -834,6 +855,7 @@ export interface CaseStudy {
                 theme?: ('light' | 'dark') | null;
               };
               alignment?: ('contentMedia' | 'mediaContent') | null;
+              mediaWidth?: ('stretch' | 'fit') | null;
               richText: {
                 root: {
                   type: string;
@@ -1553,6 +1575,7 @@ export interface Page {
   id: string;
   title: string;
   fullTitle?: string | null;
+  noindex?: boolean | null;
   hero: {
     type: 'default' | 'contentMedia' | 'centeredContent' | 'form' | 'home' | 'livestream' | 'gradient' | 'three';
     fullBackground?: boolean | null;
@@ -1860,6 +1883,7 @@ export interface Page {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
+          style?: ('buttons' | 'banner') | null;
           richText: {
             root: {
               type: string;
@@ -1903,6 +1927,26 @@ export interface Page {
                 id?: string | null;
               }[]
             | null;
+          bannerLink?: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null)
+              | ({
+                  relationTo: 'case-studies';
+                  value: string | CaseStudy;
+                } | null);
+            url?: string | null;
+            label: string;
+          };
+          bannerImage?: (string | null) | Media;
         };
         id?: string | null;
         blockName?: string | null;
@@ -2566,6 +2610,7 @@ export interface Page {
             theme?: ('light' | 'dark') | null;
           };
           alignment?: ('contentMedia' | 'mediaContent') | null;
+          mediaWidth?: ('stretch' | 'fit') | null;
           richText: {
             root: {
               type: string;
@@ -3583,6 +3628,7 @@ export interface ReusableContent {
           settings?: {
             theme?: ('light' | 'dark') | null;
           };
+          style?: ('buttons' | 'banner') | null;
           richText: {
             root: {
               type: string;
@@ -3626,6 +3672,26 @@ export interface ReusableContent {
                 id?: string | null;
               }[]
             | null;
+          bannerLink?: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null)
+              | ({
+                  relationTo: 'case-studies';
+                  value: string | CaseStudy;
+                } | null);
+            url?: string | null;
+            label: string;
+          };
+          bannerImage?: (string | null) | Media;
         };
         id?: string | null;
         blockName?: string | null;
@@ -4344,6 +4410,7 @@ export interface ReusableContent {
             theme?: ('light' | 'dark') | null;
           };
           alignment?: ('contentMedia' | 'mediaContent') | null;
+          mediaWidth?: ('stretch' | 'fit') | null;
           richText: {
             root: {
               type: string;
@@ -5928,6 +5995,7 @@ export interface PartnerProgram {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
                 };
+                style?: ('buttons' | 'banner') | null;
                 richText: {
                   root: {
                     type: string;
@@ -5971,6 +6039,26 @@ export interface PartnerProgram {
                       id?: string | null;
                     }[]
                   | null;
+                bannerLink?: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'case-studies';
+                        value: string | CaseStudy;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                };
+                bannerImage?: (string | null) | Media;
               };
               id?: string | null;
               blockName?: string | null;
@@ -6634,6 +6722,7 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 alignment?: ('contentMedia' | 'mediaContent') | null;
+                mediaWidth?: ('stretch' | 'fit') | null;
                 richText: {
                   root: {
                     type: string;
@@ -7355,6 +7444,7 @@ export interface PartnerProgram {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
                 };
+                style?: ('buttons' | 'banner') | null;
                 richText: {
                   root: {
                     type: string;
@@ -7398,6 +7488,26 @@ export interface PartnerProgram {
                       id?: string | null;
                     }[]
                   | null;
+                bannerLink?: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'case-studies';
+                        value: string | CaseStudy;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                };
+                bannerImage?: (string | null) | Media;
               };
               id?: string | null;
               blockName?: string | null;
@@ -8061,6 +8171,7 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                 };
                 alignment?: ('contentMedia' | 'mediaContent') | null;
+                mediaWidth?: ('stretch' | 'fit') | null;
                 richText: {
                   root: {
                     type: string;

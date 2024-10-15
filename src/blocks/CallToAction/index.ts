@@ -1,27 +1,66 @@
 import type { Block } from 'payload'
 
-import { blockFields } from '../../fields/blockFields'
-import linkGroup from '../../fields/linkGroup'
-import richText from '../../fields/richText'
+import { blockFields } from '@root/fields/blockFields'
+import link from '@root/fields/link'
+import linkGroup from '@root/fields/linkGroup'
+import richText from '@root/fields/richText'
 
 export const CallToAction: Block = {
   slug: 'cta',
-  labels: {
-    singular: 'Call to Action',
-    plural: 'Calls to Action',
-  },
   fields: [
     blockFields({
       name: 'ctaFields',
       fields: [
+        {
+          name: 'style',
+          type: 'select',
+          defaultValue: 'buttons',
+          options: [
+            {
+              label: 'Buttons',
+              value: 'buttons',
+            },
+            {
+              label: 'Banner',
+              value: 'banner',
+            },
+          ],
+        },
         richText(),
         linkGroup({
-          appearances: false,
           additions: {
             npmCta: true,
           },
+          appearances: false,
+          overrides: {
+            admin: {
+              condition: (_, { style }) => style === 'buttons',
+            },
+          },
         }),
+        link({
+          appearances: false,
+          overrides: {
+            name: 'bannerLink',
+            admin: {
+              condition: (_, { style }) => style === 'banner',
+            },
+          },
+        }),
+        {
+          name: 'bannerImage',
+          type: 'upload',
+          admin: {
+            condition: (_, { style }) => style === 'banner',
+          },
+          relationTo: 'media',
+          required: true,
+        },
       ],
     }),
   ],
+  labels: {
+    plural: 'Calls to Action',
+    singular: 'Call to Action',
+  },
 }

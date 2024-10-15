@@ -7,12 +7,20 @@ const settingsSlug = 'settings'
 
 export default async ({
   children,
-  params: {
+  params,
+}: {
+  children: React.ReactNode
+  params: Promise<{
+    'environment-slug': string
+    'project-slug': string
+    'team-slug': string
+  }>
+}) => {
+  const {
     'environment-slug': environmentSlug,
     'project-slug': projectSlug,
     'team-slug': teamSlug,
-  },
-}) => {
+  } = await params
   return (
     <Gutter className="grid">
       <div className="cols-4 cols-m-8">

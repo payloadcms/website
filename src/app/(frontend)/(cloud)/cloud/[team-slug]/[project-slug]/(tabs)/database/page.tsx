@@ -4,17 +4,20 @@ import { Metadata } from 'next'
 import { ProjectDatabasePage } from './page_client.js'
 
 export default async ({
-  params: {
+  params,
+}: {
+  params: Promise<{
+    'team-slug': string
+    'project-slug': string
+    'environment-slug': string
+  }>
+}) => {
+  const {
     'team-slug': teamSlug,
     'project-slug': projectSlug,
     'environment-slug': environmentSlug,
-  },
-}) => {
-  const { team, project } = await fetchProjectAndRedirect({
-    teamSlug,
-    projectSlug,
-    environmentSlug,
-  })
+  } = await params
+  const { team, project } = await fetchProjectAndRedirect({ teamSlug, projectSlug })
 
   return <ProjectDatabasePage project={project} team={team} environmentSlug={environmentSlug} />
 }

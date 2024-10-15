@@ -1,6 +1,7 @@
 import type { Project } from '@root/payload-cloud-types.js'
 
 import { PROJECT_QUERY } from '@data/project.js'
+import { mergeProjectEnvironment } from '@root/utilities/merge-project-environment.js'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
@@ -8,7 +9,6 @@ import type { Subscription } from './fetchSubscriptions.js'
 import type { Customer, TeamWithCustomer } from './fetchTeam.js'
 
 import { payloadCloudToken } from './token.js'
-import { mergeProjectEnvironment } from '@root/utilities/merge-project-environment.js'
 
 export type ProjectWithSubscription = Project & {
   stripeSubscription: Subscription
@@ -19,7 +19,7 @@ export const fetchProject = async (args: {
   teamID?: string
 }): Promise<Project> => {
   const { projectSlug, teamID } = args || {}
-  const token = cookies().get(payloadCloudToken)?.value ?? null
+  const token = (await cookies()).get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 
   const doc: Project = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
@@ -80,9 +80,14 @@ export const fetchProjectWithSubscription = async (args: {
   environmentSlug?: string
   projectSlug?: string
   teamSlug?: string
-}): Promise<ProjectWithSubscriptionWithTeamAndCustomer> => {
+}): Promise<
+  ProjectWithSubscription & {
+    customer: Customer
+    team: TeamWithCustomer
+  }
+> => {
   const { environmentSlug, projectSlug, teamSlug } = args || {}
-  const token = cookies().get(payloadCloudToken)?.value ?? null
+  const token = (await cookies()).get(payloadCloudToken)?.value ?? null
   if (!token) throw new Error('No token provided')
 
   const projectWithSubscription = await fetch(

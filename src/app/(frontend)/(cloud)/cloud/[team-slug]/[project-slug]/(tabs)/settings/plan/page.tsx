@@ -15,14 +15,21 @@ import classes from './index.module.scss'
 import { generateRoutePath } from '@root/utilities/generate-route-path.js'
 
 export default async ({
-  params: {
+  params,
+}: {
+  params: Promise<{
+    'team-slug': string
+    'project-slug': string
+    'environment-slug': string
+  }>
+}) => {
+  const {
     'team-slug': teamSlug,
     'project-slug': projectSlug,
     'environment-slug': environmentSlug,
-  },
-}) => {
+  } = await params
   const { user } = await fetchMe()
-  const { team, project } = await fetchProjectAndRedirect({
+  const { project } = await fetchProjectAndRedirect({
     teamSlug,
     projectSlug,
     environmentSlug,
@@ -71,12 +78,19 @@ export default async ({
 }
 
 export async function generateMetadata({
-  params: {
+  params,
+}: {
+  params: Promise<{
+    'team-slug': string
+    'project-slug': string
+    'environment-slug': string
+  }>
+}): Promise<Metadata> {
+  const {
     'team-slug': teamSlug,
     'project-slug': projectSlug,
     'environment-slug': environmentSlug,
-  },
-}): Promise<Metadata> {
+  } = await params
   return {
     title: 'Plan',
     openGraph: mergeOpenGraph({

@@ -5,23 +5,32 @@ import React from 'react'
 import { ProjectOwnershipPage } from './page_client.js'
 
 export default async ({
-  params: {
+  params,
+}: {
+  params: Promise<{
+    'environment-slug': string
+    'project-slug': string
+    'team-slug': string
+  }>
+}) => {
+  const {
     'environment-slug': environmentSlug,
     'project-slug': projectSlug,
     'team-slug': teamSlug,
-  },
-}) => {
-  const { team } = await fetchProjectAndRedirect({
-    environmentSlug,
-    projectSlug,
-    teamSlug,
-  })
-  return <ProjectOwnershipPage team={team} />
+  } = await params
+  const { team } = await fetchProjectAndRedirect({ projectSlug, teamSlug })
+  return <ProjectOwnershipPage environmentSlug={environmentSlug} team={team} />
 }
 
 export async function generateMetadata({
-  params: { 'project-slug': projectSlug, 'team-slug': teamSlug },
+  params,
+}: {
+  params: Promise<{
+    'project-slug': string
+    'team-slug': string
+  }>
 }) {
+  const { 'project-slug': projectSlug, 'team-slug': teamSlug } = await params
   return {
     openGraph: mergeOpenGraph({
       title: 'Ownership',

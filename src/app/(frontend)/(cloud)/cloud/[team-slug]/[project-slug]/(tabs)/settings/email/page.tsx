@@ -5,24 +5,32 @@ import React from 'react'
 import { ProjectEmailPage } from './page_client.js'
 
 export default async ({
-  params: {
+  params,
+}: {
+  params: Promise<{
+    'environment-slug': string
+    'project-slug': string
+    'team-slug': string
+  }>
+}) => {
+  const {
     'environment-slug': environmentSlug,
     'project-slug': projectSlug,
     'team-slug': teamSlug,
-  },
-}) => {
-  console.log('here?')
-  const { project, team } = await fetchProjectAndRedirect({
-    environmentSlug,
-    projectSlug,
-    teamSlug,
-  })
+  } = await params
+  const { project, team } = await fetchProjectAndRedirect({ projectSlug, teamSlug })
   return <ProjectEmailPage environmentSlug={environmentSlug} project={project} team={team} />
 }
 
 export async function generateMetadata({
-  params: { 'project-slug': projectSlug, 'team-slug': teamSlug },
+  params,
+}: {
+  params: Promise<{
+    'project-slug': string
+    'team-slug': string
+  }>
 }) {
+  const { 'project-slug': projectSlug, 'team-slug': teamSlug } = await params
   return {
     openGraph: mergeOpenGraph({
       url: `/cloud/${teamSlug}/${projectSlug}/settings/email`,

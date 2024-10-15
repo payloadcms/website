@@ -15,17 +15,20 @@ import { Secret } from './Secret/index.js'
 import classes from './page.module.scss'
 
 export default async ({
-  params: {
+  params,
+}: {
+  params: Promise<{
+    'environment-slug': string
+    'project-slug': string
+    'team-slug': string
+  }>
+}) => {
+  const {
     'environment-slug': environmentSlug,
     'project-slug': projectSlug,
     'team-slug': teamSlug,
-  },
-}) => {
-  const { project, team } = await fetchProjectAndRedirect({
-    environmentSlug,
-    projectSlug,
-    teamSlug,
-  })
+  } = await params
+  const { project, team } = await fetchProjectAndRedirect({ projectSlug, teamSlug })
 
   return (
     <MaxWidth>
@@ -85,12 +88,19 @@ export default async ({
 }
 
 export async function generateMetadata({
-  params: {
+  params,
+}: {
+  params: Promise<{
+    'environment-slug': string
+    'project-slug': string
+    'team-slug': string
+  }>
+}) {
+  const {
     'environment-slug': environmentSlug,
     'project-slug': projectSlug,
     'team-slug': teamSlug,
-  },
-}) {
+  } = await params
   return {
     openGraph: mergeOpenGraph({
       title: 'Environment Variables',

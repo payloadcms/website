@@ -10,7 +10,14 @@ import { fetchPage, fetchPages } from '@data'
 import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave'
 import { PayloadRedirects } from '@components/PayloadRedirects'
 
-const Page = async ({ params: { slug } }) => {
+const Page = async ({
+  params,
+}: {
+  params: Promise<{
+    slug: any
+  }>
+}) => {
+  const { slug } = await params
   const url = '/' + (Array.isArray(slug) ? slug.join('/') : slug)
 
   const page = await fetchPage(slug)
@@ -39,7 +46,14 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{
+    slug: any
+  }>
+}): Promise<Metadata> {
+  const { slug } = await params
   const page = await fetchPage(slug)
 
   const ogImage =
@@ -47,6 +61,9 @@ export async function generateMetadata({ params: { slug } }): Promise<Metadata> 
     page?.meta?.image !== null &&
     'url' in page?.meta?.image &&
     `${process.env.NEXT_PUBLIC_CMS_URL}${page.meta.image.url}`
+
+  // check if noIndex is true
+  const noIndexMeta = page?.noindex ? { robots: 'noindex' } : {}
 
   return {
     title: page?.meta?.title || 'Payload',
@@ -63,5 +80,6 @@ export async function generateMetadata({ params: { slug } }): Promise<Metadata> 
           ]
         : undefined,
     }),
+    ...noIndexMeta, // Add noindex meta tag if noindex is true
   }
 }

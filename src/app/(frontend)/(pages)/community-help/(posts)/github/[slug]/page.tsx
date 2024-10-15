@@ -45,7 +45,7 @@ const isDiscussionData = (
 }
 
 const Discussion = async ({ params }) => {
-  const { slug } = params
+  const { slug } = await params
 
   const discussion = await fetchCommunityHelp(slug)
   if (!discussion || !discussion.helpful) return notFound()
@@ -71,7 +71,14 @@ export async function generateStaticParams() {
   }
 }
 
-export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{
+    slug: any
+  }>
+}): Promise<Metadata> {
+  const { slug } = await params
   const discussion = await fetchCommunityHelp(slug)
   return {
     title: slugToText(slug),

@@ -31,12 +31,19 @@ const statusLabels = {
 }
 
 export default async ({
-  params: {
+  params,
+}: {
+  params: Promise<{
+    'team-slug': string
+    'project-slug': string
+    'environment-slug': string
+  }>
+}) => {
+  const {
     'team-slug': teamSlug,
     'project-slug': projectSlug,
     'environment-slug': environmentSlug,
-  },
-}) => {
+  } = await params
   const { user } = await fetchMe()
 
   const { team, project } = await fetchProjectAndRedirect({
@@ -126,12 +133,19 @@ export default async ({
 }
 
 export async function generateMetadata({
-  params: {
+  params,
+}: {
+  params: Promise<{
+    'team-slug': string
+    'project-slug': string
+    'environment-slug': string
+  }>
+}): Promise<Metadata> {
+  const {
     'team-slug': teamSlug,
     'project-slug': projectSlug,
     'environment-slug': environmentSlug,
-  },
-}): Promise<Metadata> {
+  } = await params
   return {
     title: 'Billing',
     openGraph: mergeOpenGraph({

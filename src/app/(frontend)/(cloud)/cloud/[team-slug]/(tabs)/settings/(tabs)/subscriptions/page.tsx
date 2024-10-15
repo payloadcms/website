@@ -9,7 +9,14 @@ import { Metadata } from 'next'
 import { Message } from '@components/Message/index.js'
 import { TeamSubscriptionsPage } from './page_client.js'
 
-export default async ({ params: { 'team-slug': teamSlug } }) => {
+export default async ({
+  params,
+}: {
+  params: Promise<{
+    'team-slug': string
+  }>
+}) => {
+  const { 'team-slug': teamSlug } = await params
   const { user } = await fetchMe()
   const team = await fetchTeamWithCustomer(teamSlug)
   const plans = await fetchPlans()
@@ -28,7 +35,14 @@ export default async ({ params: { 'team-slug': teamSlug } }) => {
   )
 }
 
-export async function generateMetadata({ params: { 'team-slug': teamSlug } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{
+    'team-slug': string
+  }>
+}): Promise<Metadata> {
+  const { 'team-slug': teamSlug } = await params
   return {
     title: `${teamSlug} - Team Subscriptions`,
     openGraph: {

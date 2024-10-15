@@ -16,6 +16,10 @@ export const MediaContent: Block = {
             {
               name: 'alignment',
               type: 'select',
+              admin: {
+                description: 'Choose how to align the content for this block.',
+                width: '50%',
+              },
               defaultValue: 'contentMedia',
               options: [
                 {
@@ -27,10 +31,25 @@ export const MediaContent: Block = {
                   value: 'mediaContent',
                 },
               ],
+            },
+            {
+              name: 'mediaWidth',
+              type: 'select',
               admin: {
-                description: 'Choose how to align the content for this block.',
+                description: 'Choose how wide the media should be.',
                 width: '50%',
               },
+              defaultValue: 'stretch',
+              options: [
+                {
+                  label: 'Stretch To Edge',
+                  value: 'stretch',
+                },
+                {
+                  label: 'Fit to Margin',
+                  value: 'fit',
+                },
+              ],
             },
           ],
         },

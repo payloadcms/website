@@ -35,7 +35,7 @@ export const fetchGlobals = async (): Promise<{ footer: Footer; mainMenu: MainMe
 }
 
 export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page | null> => {
-  const { isEnabled: draft } = draftMode()
+  const { isEnabled: draft } = await draftMode()
 
   const payload = await getPayloadHMR({ config })
   const slugSegments = incomingSlugSegments || ['home']
@@ -122,7 +122,7 @@ export const fetchBlogPosts = async (): Promise<Post[]> => {
 }
 
 export const fetchBlogPost = async (slug: string): Promise<Post> => {
-  const { isEnabled: draft } = draftMode()
+  const { isEnabled: draft } = await draftMode()
   const payload = await getPayloadHMR({ config })
 
   const data = await payload.find({
@@ -146,7 +146,7 @@ export const fetchCaseStudies = async (): Promise<CaseStudy[]> => {
 }
 
 export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
-  const { isEnabled: draft } = draftMode()
+  const { isEnabled: draft } = await draftMode()
   const payload = await getPayloadHMR({ config })
 
   const data = await payload.find({
@@ -215,7 +215,7 @@ export const fetchPartners = async (): Promise<Partner[]> => {
 }
 
 export const fetchPartner = async (slug: string): Promise<Partner> => {
-  const { isEnabled: draft } = draftMode()
+  const { isEnabled: draft } = await draftMode()
   const payload = await getPayloadHMR({ config })
 
   const data = await payload.find({
