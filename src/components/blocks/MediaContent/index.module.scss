@@ -7,6 +7,7 @@
   }
 
   @include mid-break {
+    margin-inline: calc(-1 * var(--gutter-h));
     grid-row: 1;
     img, video {
       max-width: initial;
@@ -14,16 +15,11 @@
   }
 }
 
-.media.right {
-  img,video {
-    margin-left: auto;
-  }
-  &.stretch {
-    margin-right: calc(-1 * var(--gutter-h));
-  }
+.stretchLeft {
+  margin-right: calc(-1 * var(--gutter-h));
 }
 
-.media.left.stretch {
+.stretchRight {
   margin-left: calc(-1 * var(--gutter-h));
 }
 

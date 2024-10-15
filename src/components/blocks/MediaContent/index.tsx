@@ -25,23 +25,24 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
           // media-content
           <React.Fragment>
             <div
-              className={[classes.media, classes.left, 'cols-10 cols-m-8 start-1']
+              className={[
+                classes.media,
+                mediaWidth !== 'fit' ? classes.stretchRight : '',
+                'cols-10 cols-m-8 start-1',
+              ]
                 .filter(Boolean)
                 .join(' ')}
             >
               {images?.length && images.length > 0 ? <MediaParallax media={images} /> : null}
             </div>
             <div
-              className={[
-                classes.content,
-                classes.right,
-                mediaWidth !== 'fit' && classes.stretch,
-                'cols-4 start-13 start-m-1 cols-m-8',
-              ]
+              className={[classes.content, 'cols-4 start-13 start-m-1 cols-m-8']
                 .filter(Boolean)
                 .join(' ')}
             >
               <RichText content={richText} />
+              {alignment}
+              {mediaWidth}
               {enableLink && link && (
                 <div className={classes.button}>
                   <Button
@@ -59,12 +60,10 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
         ) : (
           // content-media
           <React.Fragment>
-            <div
-              className={[classes.content, classes.left, 'cols-4 start-1 cols-m-8']
-                .filter(Boolean)
-                .join(' ')}
-            >
+            <div className={[classes.content, 'cols-4 start-1 cols-m-8'].filter(Boolean).join(' ')}>
               <RichText content={richText} />
+              {alignment}
+              {mediaWidth}
               {enableLink && link && (
                 <div className={classes.button}>
                   <Button
@@ -81,8 +80,7 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
             <div
               className={[
                 classes.media,
-                classes.right,
-                mediaWidth === 'fit' ? classes.stretch : '',
+                mediaWidth !== 'fit' ? classes.stretchLeft : '',
                 'cols-10 start-7 cols-m-8 start-m-1',
               ]
                 .filter(Boolean)
