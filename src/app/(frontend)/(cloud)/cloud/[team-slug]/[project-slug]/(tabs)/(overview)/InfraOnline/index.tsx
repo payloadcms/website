@@ -257,7 +257,7 @@ export const InfraOnline: React.FC<{
                 className={classes.reTriggerButton}
                 disabled={redeployTriggered}
               >
-                {redeployTriggered ? 'Redploying...' : 'Trigger Redeploy'}
+                {redeployTriggered ? 'Redeploying...' : 'Trigger Redeploy'}
               </button>
             </div>
           </div>
