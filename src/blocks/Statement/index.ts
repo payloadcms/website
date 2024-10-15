@@ -100,6 +100,13 @@ export const Statement: Block = {
             },
           ],
         },
+        {
+          name: 'assetCaption',
+          type: 'text',
+          admin: {
+            condition: (_, siblingData) => siblingData.assetType === 'media',
+          },
+        },
       ],
     }),
   ],

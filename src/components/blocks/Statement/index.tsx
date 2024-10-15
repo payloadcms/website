@@ -28,6 +28,7 @@ export const Statement: React.FC<StatementProps> = props => {
       mediaWidth,
       backgroundGlow,
       settings,
+      assetCaption,
     },
     padding,
     hideBackground,
@@ -106,6 +107,11 @@ export const Statement: React.FC<StatementProps> = props => {
                     <Code className={classes.codeBlock}>{code}</Code>
                   </div>
                 )}
+            {assetCaption && (
+              <div className={classes.assetCaption}>
+                <span>{assetCaption}</span>
+              </div>
+            )}
           </div>
         )}
       </Gutter>

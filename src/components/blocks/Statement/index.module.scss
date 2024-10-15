@@ -49,6 +49,9 @@
 .assetWrap {
   padding-block: 4rem;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   @include mid-break {
     padding-block: 2rem;
@@ -126,4 +129,12 @@
 
 .fullMedia {
   margin-inline: calc(-1 * var(--gutter-h));
+}
+
+
+.assetCaption {
+  display: block;
+  text-align: left;
+  margin-top: 3rem;
+  width: calc(var(--column) * 8);
 }

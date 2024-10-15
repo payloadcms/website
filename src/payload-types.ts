@@ -1086,6 +1086,7 @@ export interface CaseStudy {
               code?: string | null;
               mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
               backgroundGlow?: ('none' | 'colorful' | 'white') | null;
+              assetCaption?: string | null;
             };
             id?: string | null;
             blockName?: string | null;
@@ -2841,6 +2842,7 @@ export interface Page {
           code?: string | null;
           mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
           backgroundGlow?: ('none' | 'colorful' | 'white') | null;
+          assetCaption?: string | null;
         };
         id?: string | null;
         blockName?: string | null;
@@ -4629,6 +4631,7 @@ export interface ReusableContent {
           code?: string | null;
           mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
           backgroundGlow?: ('none' | 'colorful' | 'white') | null;
+          assetCaption?: string | null;
         };
         id?: string | null;
         blockName?: string | null;
@@ -6953,6 +6956,7 @@ export interface PartnerProgram {
                 code?: string | null;
                 mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
                 backgroundGlow?: ('none' | 'colorful' | 'white') | null;
+                assetCaption?: string | null;
               };
               id?: string | null;
               blockName?: string | null;
@@ -8402,6 +8406,7 @@ export interface PartnerProgram {
                 code?: string | null;
                 mediaWidth?: ('small' | 'medium' | 'large' | 'full') | null;
                 backgroundGlow?: ('none' | 'colorful' | 'white') | null;
+                assetCaption?: string | null;
               };
               id?: string | null;
               blockName?: string | null;
