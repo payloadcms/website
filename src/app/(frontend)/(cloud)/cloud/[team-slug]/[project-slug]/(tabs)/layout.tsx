@@ -98,7 +98,12 @@ export default async props => {
               : {}),
             settings: {
               label: 'Settings',
-              href: `/${cloudSlug}/${teamSlug}/${projectSlug}/settings`,
+              href: generateRoutePath({
+                teamSlug,
+                projectSlug,
+                environmentSlug,
+                suffix: 'settings',
+              }),
               error: hasBadSubscriptionStatus,
             },
           }}

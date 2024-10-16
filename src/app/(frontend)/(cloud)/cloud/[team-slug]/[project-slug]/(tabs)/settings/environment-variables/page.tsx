@@ -82,7 +82,7 @@ export default async ({
         </a>
         .
       </div>
-      <Secret environmentSlug={environmentSlug} project={project} />
+      <Secret project={project} />
     </MaxWidth>
   )
 }

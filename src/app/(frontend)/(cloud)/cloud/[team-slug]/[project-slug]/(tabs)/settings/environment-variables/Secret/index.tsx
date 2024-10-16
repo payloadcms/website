@@ -6,12 +6,10 @@ import { Text } from '@forms/fields/Text/index.js'
 import { Accordion } from '@components/Accordion/index.js'
 import { Spinner } from '@components/Spinner/index.js'
 import { Project } from '@root/payload-cloud-types.js'
-import { qs } from '@root/utilities/qs.js'
 
 export const Secret: React.FC<{
   project: Project
-  environmentSlug: string
-}> = ({ project, environmentSlug }) => {
+}> = ({ project }) => {
   const [fetchedSecret, setFetchedSecret] = React.useState<string | undefined>(undefined)
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const projectID = project?.id
@@ -24,13 +22,8 @@ export const Secret: React.FC<{
     }, 200)
 
     try {
-      const query = qs.stringify({
-        env: environmentSlug,
-      })
       const req = await fetch(
-        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/secret${
-          query ? `?${query}` : ''
-        }`,
+        `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/projects/${projectID}/secret`,
         {
           credentials: 'include',
           headers: {
