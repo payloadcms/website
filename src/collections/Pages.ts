@@ -62,8 +62,8 @@ export const Pages: CollectionConfig = {
       name: 'noindex',
       label: 'No Index',
       admin: {
-        position: 'sidebar'
-      }
+        position: 'sidebar',
+      },
     },
     {
       type: 'tabs',
@@ -114,8 +114,8 @@ export const Pages: CollectionConfig = {
   ],
   hooks: {
     afterChange: [
-      ({ doc }) => {
-        if (doc._status === 'published') {
+      ({ doc, previousDoc }) => {
+        if (doc._status === 'published' || doc._status !== previousDoc._status) {
           if (doc.breadcrumbs && doc.breadcrumbs.length > 0) {
             revalidatePath(doc.breadcrumbs[doc.breadcrumbs.length - 1].url)
             console.log(`Revalidated: ${doc.breadcrumbs[doc.breadcrumbs.length - 1].url}`)
