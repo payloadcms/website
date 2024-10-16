@@ -41,8 +41,6 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
                 .join(' ')}
             >
               <RichText content={richText} />
-              {alignment}
-              {mediaWidth}
               {enableLink && link && (
                 <div className={classes.button}>
                   <Button
@@ -62,8 +60,6 @@ export const MediaContentBlock: React.FC<MediaContentProps> = ({ mediaContentFie
           <React.Fragment>
             <div className={[classes.content, 'cols-4 start-1 cols-m-8'].filter(Boolean).join(' ')}>
               <RichText content={richText} />
-              {alignment}
-              {mediaWidth}
               {enableLink && link && (
                 <div className={classes.button}>
                   <Button
