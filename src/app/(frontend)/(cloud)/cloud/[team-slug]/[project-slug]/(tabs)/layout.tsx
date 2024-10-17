@@ -11,15 +11,22 @@ import { ProjectBillingMessages } from './ProjectBillingMessages/index.js'
 import { ProjectHeader } from '@cloud/_components/ProjectHeader/index.js'
 import { generateRoutePath } from '@root/utilities/generate-route-path.js'
 
-export default async props => {
+export default async ({
+  children,
+  params,
+}: {
+  children: React.ReactNode
+  params: Promise<{
+    'team-slug': string
+    'project-slug': string
+    'environment-slug': string
+  }>
+}) => {
   const {
-    children,
-    params: {
-      'team-slug': teamSlug,
-      'project-slug': projectSlug,
-      'environment-slug': environmentSlug,
-    },
-  } = props
+    'environment-slug': environmentSlug,
+    'project-slug': projectSlug,
+    'team-slug': teamSlug,
+  } = await params
 
   // Note: this fetch will get deduped by the page
   // each page within this layout calls this same function

@@ -18,7 +18,11 @@ export default async ({
     'project-slug': projectSlug,
     'team-slug': teamSlug,
   } = await params
-  const { project, team } = await fetchProjectAndRedirect({ projectSlug, teamSlug })
+  const { project, team } = await fetchProjectAndRedirect({
+    environmentSlug,
+    projectSlug,
+    teamSlug,
+  })
   return <ProjectEmailPage environmentSlug={environmentSlug} project={project} team={team} />
 }
 

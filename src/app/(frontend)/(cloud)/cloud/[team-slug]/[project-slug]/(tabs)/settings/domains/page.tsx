@@ -19,7 +19,11 @@ export default async ({
     'project-slug': projectSlug,
     'team-slug': teamSlug,
   } = await params
-  const { project, team } = await fetchProjectAndRedirect({ projectSlug, teamSlug })
+  const { project, team } = await fetchProjectAndRedirect({
+    environmentSlug,
+    projectSlug,
+    teamSlug,
+  })
   return <ProjectDomainsPage environmentSlug={environmentSlug} project={project} team={team} />
 }
 
