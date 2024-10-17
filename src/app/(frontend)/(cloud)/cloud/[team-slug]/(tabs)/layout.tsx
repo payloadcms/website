@@ -2,14 +2,19 @@ import { fetchTeamWithCustomer } from '@cloud/_api/fetchTeam.js'
 import { DashboardTabs } from '@cloud/_components/DashboardTabs/index.js'
 import { teamHasDefaultPaymentMethod } from '@cloud/_utilities/teamHasDefaultPaymentMethod.js'
 import { cloudSlug } from '@cloud/slug.js'
-
 import { Gutter } from '@components/Gutter/index.js'
+import React from 'react'
 
-export default async props => {
-  const {
-    children,
-    params: { 'team-slug': teamSlug },
-  } = props
+export default async ({
+  children,
+  params,
+}: {
+  children: React.ReactNode
+  params: Promise<{
+    'team-slug': string
+  }>
+}) => {
+  const { 'team-slug': teamSlug } = await params
 
   // Note: this fetch will get deduped by the page
   // each page within this layout calls this same function
@@ -17,19 +22,15 @@ export default async props => {
   const team = await fetchTeamWithCustomer(teamSlug)
 
   return (
-    <>
+    <React.Fragment>
       <Gutter>
         <h2>{team.name}</h2>
         <DashboardTabs
           tabs={{
-            [teamSlug]: {
-              label: 'Team Projects',
-              href: `/${cloudSlug}/${teamSlug}`,
-            },
             settings: {
-              label: 'Team Settings',
-              href: `/${cloudSlug}/${teamSlug}/settings`,
               error: !teamHasDefaultPaymentMethod(team) && team?.hasPublishedProjects,
+              href: `/${cloudSlug}/${teamSlug}/settings`,
+              label: 'Team Settings',
               subpaths: [
                 `/${cloudSlug}/${teamSlug}/settings/members`,
                 `/${cloudSlug}/${teamSlug}/settings/subscriptions`,
@@ -37,10 +38,14 @@ export default async props => {
                 `/${cloudSlug}/${teamSlug}/settings/invoices`,
               ],
             },
+            [teamSlug]: {
+              href: `/${cloudSlug}/${teamSlug}`,
+              label: 'Team Projects',
+            },
           }}
         />
       </Gutter>
       {children}
-    </>
+    </React.Fragment>
   )
 }

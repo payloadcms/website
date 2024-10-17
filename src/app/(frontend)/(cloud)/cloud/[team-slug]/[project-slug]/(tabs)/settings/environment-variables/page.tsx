@@ -2,10 +2,10 @@ import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject.js'
 import { Accordion } from '@components/Accordion/index.js'
 import { HR } from '@components/HR/index.js'
 import { MaxWidth } from '@components/MaxWidth/index.js'
+import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { generateRoutePath } from '@root/utilities/generate-route-path.js'
 import React from 'react'
-import { Fragment } from 'react'
 
 import { NoData } from '../_layoutComponents/NoData/index.js'
 import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
@@ -24,11 +24,15 @@ export default async ({
   }>
 }) => {
   const {
-    'environment-slug': environmentSlug,
+    'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
     'project-slug': projectSlug,
     'team-slug': teamSlug,
   } = await params
-  const { project, team } = await fetchProjectAndRedirect({ projectSlug, teamSlug })
+  const { project, team } = await fetchProjectAndRedirect({
+    environmentSlug,
+    projectSlug,
+    teamSlug,
+  })
 
   return (
     <MaxWidth>
@@ -48,7 +52,7 @@ export default async ({
         </a>
         .
       </div>
-      <Fragment>
+      <React.Fragment>
         <Accordion label="New variables" openOnInit>
           <AddEnvs
             environmentSlug={environmentSlug}
@@ -66,7 +70,7 @@ export default async ({
             projectID={project?.id}
           />
         )}
-      </Fragment>
+      </React.Fragment>
       <HR />
       <SectionHeader className={classes.header} title="Payload Secret" />
       <div className={classes.description}>
@@ -97,7 +101,7 @@ export async function generateMetadata({
   }>
 }) {
   const {
-    'environment-slug': environmentSlug,
+    'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
     'project-slug': projectSlug,
     'team-slug': teamSlug,
   } = await params

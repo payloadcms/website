@@ -232,14 +232,18 @@ export const useGetProject: UseCloudAPI<
 export const useGetProjectDeployments: UseCloudAPI<
   Deployment[],
   {
+    environmentSlug?: string
     interval?: number
     page?: number
     projectID?: string
   }
 > = args => {
-  const { interval, page = 0, projectID } = args || {}
+  const { environmentSlug, interval, page = 0, projectID } = args || {}
 
   const query = qs.stringify({
+    limit: 10,
+    page,
+    sort: '-createdAt',
     where: {
       and: [
         {
@@ -247,11 +251,16 @@ export const useGetProjectDeployments: UseCloudAPI<
             equals: projectID,
           },
         },
+        {
+          environmentSlug: {
+            equals: environmentSlug
+          }
+        }
       ],
     },
   })
-  // @TODO - need to thread through currently selected environment
-  const url = `/api/deployments?${query}&limit=10&page=${page}&sort=-createdAt`
+
+  const url = `/api/deployments${query ? `?${query}` : ''}`
 
   const response = useCloudAPI<{
     docs: Deployment[]

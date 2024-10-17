@@ -33,6 +33,7 @@ export const InfraOnline: React.FC<{
     reload: reloadDeployments,
   } = useGetProjectDeployments({
     projectID: project?.id,
+    environmentSlug,
   })
 
   const latestDeployment = deployments?.[0]
@@ -90,12 +91,16 @@ export const InfraOnline: React.FC<{
   React.useEffect(() => {
     const fetchLiveDeployment = async () => {
       const query = qs.stringify({
-        env: environmentSlug,
         where: {
           and: [
             {
               project: {
                 equals: project?.id,
+              },
+            },
+            {
+              environmentSlug: {
+                equals: environmentSlug,
               },
             },
             {
@@ -265,7 +270,11 @@ export const InfraOnline: React.FC<{
       </Gutter>
 
       {deployments?.length > 0 && (
-        <DeploymentLogs key={latestDeployment.id} deployment={latestDeployment} />
+        <DeploymentLogs
+          key={latestDeployment.id}
+          deployment={latestDeployment}
+          environmentSlug={environmentSlug}
+        />
       )}
     </React.Fragment>
   )

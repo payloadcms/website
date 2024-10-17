@@ -139,6 +139,7 @@ export const InfraOffline: React.FC<{
     reload: reloadDeployments,
   } = useGetProjectDeployments({
     projectID: project?.id,
+    environmentSlug,
   })
 
   const latestDeployment = deployments?.[0]
@@ -320,7 +321,11 @@ export const InfraOffline: React.FC<{
       </Gutter>
 
       {latestDeployment && infraStatus !== 'suspended' && (
-        <DeploymentLogs key={latestDeployment?.id} deployment={latestDeployment} />
+        <DeploymentLogs
+          key={latestDeployment?.id}
+          deployment={latestDeployment}
+          environmentSlug={environmentSlug}
+        />
       )}
     </>
   )

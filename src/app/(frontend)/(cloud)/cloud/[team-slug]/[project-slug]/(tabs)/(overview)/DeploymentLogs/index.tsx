@@ -39,10 +39,12 @@ const LiveLogs = ({
   active,
   deploymentID,
   type,
+  environmentSlug,
 }: {
   active: boolean
   deploymentID: string
   type: 'BUILD' | 'DEPLOY'
+  environmentSlug?: string
 }) => {
   const [logs, setLogs] = React.useState<LogLine[] | undefined>(
     type === 'BUILD' ? defaultBuildLogs : defaultDeployLogs,
@@ -75,7 +77,9 @@ const LiveLogs = ({
         ? `${`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}`.replace(
             'http',
             'ws',
-          )}/api/deployments/${deploymentID}/logs?logType=${type}`
+          )}/api/deployments/${deploymentID}/logs?logType=${type}${
+            environmentSlug ? `&env=${environmentSlug}` : ''
+          }`
         : '',
     onMessage: e => onLogMessage(e),
     onClose: () => {
@@ -99,8 +103,9 @@ const LiveLogs = ({
 
 type Props = {
   deployment?: Deployment
+  environmentSlug?: string
 }
-export const DeploymentLogs: React.FC<Props> = ({ deployment }) => {
+export const DeploymentLogs: React.FC<Props> = ({ deployment, environmentSlug }) => {
   const [activeTab, setActiveTab] = React.useState<'build' | 'deploy'>('build')
   const prevBuildStep = React.useRef('')
 
@@ -171,8 +176,18 @@ export const DeploymentLogs: React.FC<Props> = ({ deployment }) => {
 
       {deployment?.id && (
         <Gutter key={deployment.id}>
-          <LiveLogs type="BUILD" active={activeTab === 'build'} deploymentID={deployment.id} />
-          <LiveLogs type="DEPLOY" active={activeTab === 'deploy'} deploymentID={deployment.id} />
+          <LiveLogs
+            type="BUILD"
+            active={activeTab === 'build'}
+            deploymentID={deployment.id}
+            environmentSlug={environmentSlug}
+          />
+          <LiveLogs
+            type="DEPLOY"
+            active={activeTab === 'deploy'}
+            deploymentID={deployment.id}
+            environmentSlug={environmentSlug}
+          />
         </Gutter>
       )}
     </div>

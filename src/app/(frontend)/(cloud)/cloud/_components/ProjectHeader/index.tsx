@@ -2,6 +2,7 @@
 import { cloudSlug } from '@cloud/slug.js'
 import Form from '@forms/Form'
 import { Select } from '@forms/fields/Select'
+import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
 import { generateRoutePath } from '@root/utilities/generate-route-path'
 import { useParams, usePathname, useRouter } from 'next/navigation'
 import React from 'react'
@@ -9,7 +10,7 @@ import React from 'react'
 import classes from './index.module.scss'
 export function ProjectHeader({ environmentOptions, title }) {
   const {
-    'environment-slug': environmentSlug,
+    'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
     'project-slug': projectSlug,
     'team-slug': teamSlug,
   }: { [key: string]: string } = useParams()
@@ -25,7 +26,8 @@ export function ProjectHeader({ environmentOptions, title }) {
           .replace(`/env/${environmentSlug}`, '')
         router.push(
           generateRoutePath({
-            environmentSlug: environmentToSet !== 'production' ? environmentToSet : undefined,
+            environmentSlug:
+              environmentToSet !== PRODUCTION_ENVIRONMENT_SLUG ? environmentToSet : undefined,
             projectSlug,
             suffix: routeSegment,
             teamSlug,
@@ -53,14 +55,14 @@ export function ProjectHeader({ environmentOptions, title }) {
           >
             <Select
               className={classes.projectHeader__environmentSelector__select}
-              initialValue={environmentSlug || 'production'}
+              initialValue={environmentSlug}
               isSearchable={false}
               label="Environment:"
               name="environment"
               onChange={handleEnvironmentChange}
               options={environmentOptions}
               path="environment"
-              value={environmentSlug || 'production'}
+              value={environmentSlug}
             />
           </Form>
         </div>
