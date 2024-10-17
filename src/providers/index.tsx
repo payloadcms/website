@@ -15,12 +15,12 @@ import { CookiesProvider } from 'react-cookie'
 import { Slide } from '@faceless-ui/slider'
 // import { ErrorIcon } from '@root/icons/ErrorIcon'
 import { HeaderIntersectionObserver } from '@root/providers/HeaderIntersectionObserver/index.js'
-import { Toaster } from 'sonner'
 
 import { AuthProvider } from './Auth/index.js'
 import { ComputedCSSValuesProvider } from './ComputedCSSValues/index.js'
 import { PageTransition } from './PageTransition/index.js'
 import { ThemePreferenceProvider } from './Theme/index.js'
+import { ToastContainer } from './ToastContainer/index.js'
 
 export const Providers: React.FC<{
   children: React.ReactNode
@@ -70,25 +70,7 @@ export const Providers: React.FC<{
                         <HeaderIntersectionObserver>
                           {children}
                           <ModalContainer />
-                          {/* @ts-expect-error */}
-                          <Toaster
-                            position="bottom-right"
-                            // TODO: Redesign icons
-                            // icon={({ type }: IconProps) => {
-                            //   switch (type) {
-                            //     case 'info':
-                            //       return <InfoIcon />
-                            //     case 'success':
-                            //       return <CheckIcon />
-                            //     case 'warning':
-                            //       return <ErrorIcon />
-                            //     case 'error':
-                            //       return <CloseIcon />
-                            //     default:
-                            //       return null
-                            //   }
-                            // }}
-                          />
+                          <ToastContainer />
                         </HeaderIntersectionObserver>
                       </PageTransition>
                     </ModalProvider>
