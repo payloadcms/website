@@ -16,7 +16,7 @@ import classes from './index.module.scss'
 import { Media } from '@components/Media'
 
 export const CenteredContent: React.FC<
-  Pick<Page['hero'], 'richText' | 'links' | 'theme'> & {
+  Pick<Page['hero'], 'richText' | 'links' | 'theme' | 'media'> & {
     breadcrumbs?: Page['breadcrumbs']
     firstContentBlock?: BlocksProp
   }
