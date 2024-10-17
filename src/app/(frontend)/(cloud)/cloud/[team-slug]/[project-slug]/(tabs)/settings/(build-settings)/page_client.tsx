@@ -14,7 +14,7 @@ import { Project, Team } from '@root/payload-cloud-types.js'
 import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
 
 import classes from './page.module.scss'
-import { useForm } from '@forms/Form/context.js'
+import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
 
 export const ProjectBuildSettingsPage: React.FC<{
   team: Team
@@ -22,7 +22,6 @@ export const ProjectBuildSettingsPage: React.FC<{
   environmentSlug: string
 }> = ({ team, project, environmentSlug }) => {
   const router = useRouter()
-  const form = useForm()
 
   const [error, setError] = React.useState<{
     message: string
@@ -50,7 +49,7 @@ export const ProjectBuildSettingsPage: React.FC<{
         )
 
         const response: {
-          doc: Team
+          doc: Project
           message: string
           errors: {
             message: string
@@ -68,8 +67,11 @@ export const ProjectBuildSettingsPage: React.FC<{
         setError(undefined)
         toast.success('Settings updated successfully.')
 
-        // if the project slug has changed, redirect to the new URL
-        if (response.doc.slug !== project?.slug) {
+        // if the project slug has changed, redirect to the new URL (only for production environments)
+        if (
+          environmentSlug === PRODUCTION_ENVIRONMENT_SLUG &&
+          response.doc.slug !== project?.slug
+        ) {
           router.push(
             `/cloud/${typeof project.team === 'string' ? project.team : project.team?.slug}/${
               response.doc.slug
