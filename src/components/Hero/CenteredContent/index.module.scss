@@ -2,6 +2,11 @@
 
 .container {
   position: relative;
+  row-gap: 6rem;
+
+  @include mid-break {
+    row-gap: 4rem;
+  }
 }
 
 .content {

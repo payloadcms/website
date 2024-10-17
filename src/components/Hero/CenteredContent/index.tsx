@@ -13,13 +13,14 @@ import { RichText } from '@components/RichText/index.js'
 import { Page } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
+import { Media } from '@components/Media'
 
 export const CenteredContent: React.FC<
   Pick<Page['hero'], 'richText' | 'links' | 'theme'> & {
     breadcrumbs?: Page['breadcrumbs']
     firstContentBlock?: BlocksProp
   }
-> = ({ richText, links, breadcrumbs, theme, firstContentBlock }) => {
+> = ({ richText, links, media, breadcrumbs, theme, firstContentBlock }) => {
   const padding = useGetHeroPadding(theme, firstContentBlock)
 
   return (
@@ -52,6 +53,13 @@ export const CenteredContent: React.FC<
                 })}
             </div>
           </div>
+          {media && typeof media !== 'string' && (
+            <div
+              className={[classes.mediaWrap, 'cols-16 start-1 cols-m-8'].filter(Boolean).join(' ')}
+            >
+              <Media resource={media} />
+            </div>
+          )}
         </div>
       </Gutter>
     </BlockWrapper>
