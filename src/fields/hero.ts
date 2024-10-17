@@ -267,7 +267,7 @@ export const hero: Field = {
       name: 'media',
       type: 'upload',
       admin: {
-        condition: (_, { type } = {}) => ['contentMedia', 'home'].includes(type),
+        condition: (_, { type } = {}) => ['centeredContent', 'contentMedia', 'home'].includes(type),
       },
       relationTo: 'media',
       required: true,
