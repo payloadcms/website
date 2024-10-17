@@ -10,6 +10,7 @@ import { ProjectBillingMessages } from './ProjectBillingMessages/index.js'
 
 import { ProjectHeader } from '@cloud/_components/ProjectHeader/index.js'
 import { generateRoutePath } from '@root/utilities/generate-route-path.js'
+import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
 
 export default async ({
   children,
@@ -23,7 +24,7 @@ export default async ({
   }>
 }) => {
   const {
-    'environment-slug': environmentSlug,
+    'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
     'project-slug': projectSlug,
     'team-slug': teamSlug,
   } = await params
@@ -58,7 +59,7 @@ export default async ({
                 acc.push({ label: name, value: environmentSlug })
                 return acc
               },
-              [{ label: 'Production', value: 'production' }],
+              [{ label: 'Production', value: PRODUCTION_ENVIRONMENT_SLUG }],
             ) || []
           }
         />
@@ -134,7 +135,7 @@ export async function generateMetadata({
   const {
     'team-slug': teamSlug,
     'project-slug': projectSlug,
-    'environment-slug': environmentSlug,
+    'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
   } = await params
   return {
     title: {

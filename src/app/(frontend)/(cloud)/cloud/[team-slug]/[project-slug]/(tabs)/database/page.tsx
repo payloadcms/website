@@ -2,6 +2,7 @@ import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject.js'
 import { Metadata } from 'next'
 
 import { ProjectDatabasePage } from './page_client.js'
+import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
 
 export default async ({
   params,
@@ -15,7 +16,7 @@ export default async ({
   const {
     'team-slug': teamSlug,
     'project-slug': projectSlug,
-    'environment-slug': environmentSlug,
+    'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
   } = await params
   const { team, project } = await fetchProjectAndRedirect({
     teamSlug,

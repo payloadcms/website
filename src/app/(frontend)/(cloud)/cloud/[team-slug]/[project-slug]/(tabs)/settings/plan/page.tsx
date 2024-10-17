@@ -7,6 +7,7 @@ import { MaxWidth } from '@components/MaxWidth/index.js'
 import { Plan } from '@root/payload-cloud-types.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { isExpandedDoc } from '@root/utilities/is-expanded-doc.js'
+import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
 import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
 import { DeletePlanButton } from './DeletePlanButton/index.js'
 import { DeletePlanModal } from './DeletePlanModal/index.js'
@@ -26,7 +27,7 @@ export default async ({
   const {
     'team-slug': teamSlug,
     'project-slug': projectSlug,
-    'environment-slug': environmentSlug,
+    'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
   } = await params
   const { user } = await fetchMe()
   const { project } = await fetchProjectAndRedirect({
@@ -89,7 +90,7 @@ export async function generateMetadata({
   const {
     'team-slug': teamSlug,
     'project-slug': projectSlug,
-    'environment-slug': environmentSlug,
+    'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
   } = await params
   return {
     title: 'Plan',

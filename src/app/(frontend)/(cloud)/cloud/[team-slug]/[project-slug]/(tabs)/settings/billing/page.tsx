@@ -17,6 +17,7 @@ import { SectionHeader } from '../_layoutComponents/SectionHeader/index.js'
 
 import classes from './page.module.scss'
 import { generateRoutePath } from '@root/utilities/generate-route-path.js'
+import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
 
 const statusLabels = {
   active: 'Active',
@@ -42,7 +43,7 @@ export default async ({
   const {
     'team-slug': teamSlug,
     'project-slug': projectSlug,
-    'environment-slug': environmentSlug,
+    'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
   } = await params
   const { user } = await fetchMe()
 
@@ -144,7 +145,7 @@ export async function generateMetadata({
   const {
     'team-slug': teamSlug,
     'project-slug': projectSlug,
-    'environment-slug': environmentSlug,
+    'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
   } = await params
   return {
     title: 'Billing',

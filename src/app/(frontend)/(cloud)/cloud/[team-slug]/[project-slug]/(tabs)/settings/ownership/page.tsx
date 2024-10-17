@@ -1,4 +1,5 @@
 import { fetchProjectAndRedirect } from '@cloud/_api/fetchProject.js'
+import { PRODUCTION_ENVIRONMENT_SLUG } from '@root/constants.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import React from 'react'
 
@@ -14,7 +15,7 @@ export default async ({
   }>
 }) => {
   const {
-    'environment-slug': environmentSlug,
+    'environment-slug': environmentSlug = PRODUCTION_ENVIRONMENT_SLUG,
     'project-slug': projectSlug,
     'team-slug': teamSlug,
   } = await params
