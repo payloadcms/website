@@ -78,7 +78,7 @@ async function getFilenames({ topicSlug }) {
       if (docs && Array.isArray(docs)) {
         return docs.map(doc => doc.name)
       } else if (docs && typeof docs === 'object' && 'message' in docs) {
-        console.error(`Error fetching ${topicSlug} doc: ${docs.message}`) // eslint-disable-line no-console
+        console.error(`Error fetching ${topicSlug} for ref: ${ref}. Reason: ${docs.message}`) // eslint-disable-line no-console
       }
       return []
     } catch(e){
