@@ -145,6 +145,8 @@ async function fetchDocs() {
       const topicSlug = unsanitizedTopicSlug.toLowerCase()
       const filenames = await getFilenames({ topicSlug })
 
+      if (filenames.length === 0) return null
+
       const parsedDocs = await Promise.all(
         filenames.map(async docFilename => {
           const docMatter = await getDocMatter({ docFilename, topicSlug })
