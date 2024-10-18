@@ -1,4 +1,6 @@
+/* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
+import dotenv from 'dotenv'
 /* eslint-disable no-useless-escape */
 import fs from 'fs'
 import matter from 'gray-matter'
@@ -6,8 +8,19 @@ import path from 'path'
 
 import { topicOrder } from './shared.mjs'
 
+dotenv.config()
 
 const __dirname = path.resolve()
+
+const githubAPI = 'https://api.github.com/repos/payloadcms/payload'
+const headers = {
+  Accept: 'application/vnd.github.v3+json.html',
+  Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}`,
+}
+
+let ref
+let outputDirectory = './src/docs/docs.json'
+let source = 'local'
 
 const decodeBase64 = string => {
   const buff = Buffer.from(string, 'base64')
@@ -26,39 +39,87 @@ function slugify(string) {
     .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
     .replace(/&/g, '-and-') // Replace & with 'and'
     .replace(/[^\w\-]+/g, '') // Remove all non-word characters
-    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .replace(/-{2,}/g, '-') // Replace multiple - with single -
     .replace(/^-+/, '') // Trim - from start of text
     .replace(/-+$/, '') // Trim - from end of text
 }
 
-const githubAPI = 'https://api.github.com/repos/payloadcms/payload'
-
-const headers = {
-  Accept: 'application/vnd.github.v3+json.html',
-  Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}`,
-}
-
-async function getHeadings(source) {
+function getHeadings(source) {
+  let insideCodeBlock = false
   const headingLines = source.split('\n').filter(line => {
+    if (line.match(/^```/)) insideCodeBlock = !insideCodeBlock
+    if (insideCodeBlock) return false
     return line.match(/^#{1,3}\s.+/gm)
   })
 
   return headingLines.map(raw => {
-    const text = raw.replace(/^###*\s/, '')
+    const text = raw.replace(/^#{2,}\s/, '')
     const level = raw.slice(0, 3) === '###' ? 3 : 2
-    return { text, level, id: slugify(text) }
+    return { id: slugify(text), level, text }
   })
 }
 
-const fetchDocs = async () => {
-  if (!process.env.GITHUB_ACCESS_TOKEN) {
-    console.log('No GitHub access token found - skipping docs retrieval') // eslint-disable-line no-console
-    process.exit(0)
+function getLocalDocsPath() {
+  const nodeModuleDocsPath = path.join(process.cwd(), './node_modules/payload/docs')
+  const docDirs = {
+    v2: process.env.DOCS_DIR_V2 ? path.resolve(process.env.DOCS_DIR_V2) : nodeModuleDocsPath,
+    v3: process.env.DOCS_DIR_V3 ? path.resolve(process.env.DOCS_DIR_V3) : nodeModuleDocsPath,
   }
+  return docDirs?.[ref] || nodeModuleDocsPath
+}
 
-  let ref
-  let outputDirectory = './src/docs/docs.json'
+async function getFilenames({ topicSlug }) {
+  if (source === 'github') {
+    try {
+      const docs = await fetch(`${githubAPI}/contents/docs/${topicSlug}?ref=${ref}`, {
+        headers,
+      }).then(res => res.json())
 
+      if (docs && Array.isArray(docs)) {
+        return docs.map(doc => doc.name)
+      } else if (docs && typeof docs === 'object' && 'message' in docs) {
+        console.error(`Error fetching ${topicSlug} for ref: ${ref}. Reason: ${docs.message}`) // eslint-disable-line no-console
+      }
+      return []
+    } catch(e){
+      return []
+    }
+  } else {
+    const filePath = path.join(getLocalDocsPath(), `./${topicSlug}`)
+    if (!fs.existsSync(filePath)) {
+      return []
+    }
+    return fs.readdirSync(filePath)
+  }
+}
+
+async function getDocMatter({ docFilename, topicSlug }) {
+  if (source === 'github') {
+    const json = await fetch(
+      `${githubAPI}/contents/docs/${topicSlug}/${docFilename}?ref=${ref}`,
+      {
+        headers,
+      },
+    ).then(res => res.json())
+    const parsedDoc = matter(decodeBase64(json.content))
+    parsedDoc.content = parsedDoc.content
+      .replace(/\(\/docs\//g, '(../')
+      .replace(/"\/docs\//g, '"../')
+      .replace(/https:\/\/payloadcms.com\/docs\//g, '../')
+    return parsedDoc
+  } else {
+    const rawDoc = fs.readFileSync(
+      `${getLocalDocsPath()}/${topicSlug}/${docFilename}`,
+      'utf8',
+    )
+    if (rawDoc) {
+      return matter(rawDoc)
+    }
+    return null
+  }
+}
+
+async function fetchDocs() {
   process.argv.forEach((val, index) => {
     if (val === '--ref') {
       ref = process.argv[index + 1]
@@ -67,95 +128,62 @@ const fetchDocs = async () => {
     if (val === '--output') {
       outputDirectory = process.argv[index + 1]
     }
+
+    if (val === '--source') {
+      const nextArg = process.argv[index + 1]
+      if (nextArg === 'github' || nextArg === 'local') {
+        source = nextArg
+      } else {
+        console.error('Invalid source. Must be "github" or "local"')
+        process.exit(1)
+      }
+    }
   })
-
-  if (!ref) {
-    const latest = await fetch(`${githubAPI}/releases/latest`, {
-      headers,
-    }).then(res => res.json())
-
-    ref = latest.tag_name
-  }
 
   const topics = await Promise.all(
     topicOrder.map(async unsanitizedTopicSlug => {
       const topicSlug = unsanitizedTopicSlug.toLowerCase()
+      const filenames = await getFilenames({ topicSlug })
 
-      try {
-        const docs = await fetch(`${githubAPI}/contents/docs/${topicSlug}?ref=${ref}`, {
-          headers,
-        }).then(res => res.json())
+      if (filenames.length === 0) return null
 
-        if (docs && Array.isArray(docs)) {
-          const docFilenames = docs.map(({ name }) => name)
+      const parsedDocs = await Promise.all(
+        filenames.map(async docFilename => {
+          const docMatter = await getDocMatter({ docFilename, topicSlug })
 
-          const parsedDocs = await Promise.all(
-            docFilenames.map(async docFilename => {
-              try {
-                const json = await fetch(
-                  `${githubAPI}/contents/docs/${topicSlug}/${docFilename}?ref=${ref}`,
-                  {
-                    headers,
-                  },
-                ).then(res => res.json())
+          if (!docMatter) return null
 
-                const parsedDoc = matter(decodeBase64(json.content))
-
-                parsedDoc.content = parsedDoc.content
-                  .replace(/\(\/docs\//g, '(../')
-                  .replace(/"\/docs\//g, '"../')
-                  .replace(/https:\/\/payloadcms.com\/docs\//g, '../')
-
-                const doc = {
-                  content: parsedDoc.content,
-                  title: parsedDoc.data.title,
-                  slug: docFilename.replace('.mdx', ''),
-                  label: parsedDoc.data.label,
-                  order: parsedDoc.data.order,
-                  desc: parsedDoc.data.desc || '',
-                  keywords: parsedDoc.data.keywords || '',
-                  headings: await getHeadings(parsedDoc.content),
-                }
-
-                return doc
-              } catch (err) {
-                const msg = err instanceof Error ? err.message : err || 'Unknown error'
-                console.error(`Error fetching ${topicSlug}/${docFilename} in ${ref}: ${msg}`) // eslint-disable-line no-console
-              }
-            }),
-          )
-
-          const topic = {
-            slug: unsanitizedTopicSlug,
-            docs: parsedDocs.filter(Boolean).sort((a, b) => a.order - b.order),
+          return {
+            slug: docFilename.replace('.mdx', ''),
+            content: docMatter.content,
+            desc: docMatter.data.desc || '',
+            headings: await getHeadings(docMatter.content),
+            keywords: docMatter.data.keywords || '',
+            label: docMatter.data.label,
+            order: docMatter.data.order,
+            title: docMatter.data.title,
           }
+        })
+      )
 
-          return topic
-        } else {
-          if (docs && typeof docs === 'object' && 'message' in docs) {
-            console.error(`Error fetching ${topicSlug} doc: ${docs.message}`) // eslint-disable-line no-console
-          }
-        }
-      } catch (err) {
-        console.error(err) // eslint-disable-line no-console
+      return {
+        slug: unsanitizedTopicSlug,
+        docs: parsedDocs.filter(Boolean).sort((a, b) => a.order - b.order),
       }
-
-      return null
-    }),
+    })
   )
 
   const data = JSON.stringify(topics.filter(Boolean), null, 2)
-
   const docsFilename = path.resolve(__dirname, outputDirectory)
 
   fs.writeFile(docsFilename, data, err => {
     if (err) {
-      console.error(err) // eslint-disable-line no-console
+      console.error(err)
     } else {
-      console.log(`Docs successfully written to ${docsFilename}`) // eslint-disable-line no-console
+      console.log(`Docs successfully written to ${docsFilename}`)
     }
     process.exit(0)
   })
 }
 
-fetchDocs()
+void fetchDocs()

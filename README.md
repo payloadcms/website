@@ -57,6 +57,18 @@ You can also specify a `beta` version and `legacy` version to render different v
 - Set the environment variable `NEXT_PUBLIC_ENABLE_LEGACY_DOCS` to `true` to enable the legacy docs.
 - Specify a branch, commit, or tag with `NEXT_PUBLIC_LEGACY_DOCS_REF`. The default for the legacy docs is `null`, and will fallback to the `main` branch.
 
+Working on docs locally:
+
+To work on the docs locally you will need to have the payload repo cloned down (it is easier if you have 2 versions, one per payload version):
+
+```
+// .env
+DOCS_DIR_V2=path-to-local-payload-v2-repo
+DOCS_DIR_V3=path-to-local-payload-v3-repo
+```
+
+To generate the docs locally you can run `pnpm fetchDocs:local`, then you can boot up the website repo and view them at http://localhost:3000/docs. Any time you make changes to the v2/v3 docs then you will need to re-run the `pnpm fetchDocs:local` command.
+
 ### License
 
 The Payload website is available as open source under the terms of the [MIT license](https://github.com/payloadcms/website/blob/main/LICENSE).
