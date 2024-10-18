@@ -101,7 +101,12 @@ async function getDocMatter({ docFilename, topicSlug }) {
         headers,
       },
     ).then(res => res.json())
-    return matter(decodeBase64(json.content))
+    const parsedDoc = matter(decodeBase64(json.content))
+    parsedDoc.content = parsedDoc.content
+      .replace(/\(\/docs\//g, '(../')
+      .replace(/"\/docs\//g, '"../')
+      .replace(/https:\/\/payloadcms.com\/docs\//g, '../')
+    return parsedDoc
   } else {
     const rawDoc = fs.readFileSync(
       `${getLocalDocsPath()}/${topicSlug}/${docFilename}`,
