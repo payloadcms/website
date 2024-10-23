@@ -10,7 +10,7 @@ This site showcases lots of cool stuff like how to use Payload's GraphQL API to 
 
 - [Payload](https://github.com/payloadcms/payload) (obviously)
 - TypeScript
-- Next.js 13 and its new App Router
+- Next.js 15 and App Router
 - SCSS Modules
 - GraphQL
 - MDX for docs
