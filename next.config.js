@@ -12,8 +12,6 @@ const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 })
 
-import { withSentryConfig } from '@sentry/nextjs'
-
 const localhost = process.env.NEXT_PUBLIC_IS_LIVE
   ? []
   : [
@@ -85,6 +83,9 @@ const nextConfig = withBundleAnalyzer({
       },
     ].filter(Boolean),
   },
+  sassOptions: {
+    silenceDeprecations: ['legacy-js-api'], // https://github.com/vercel/next.js/issues/71638
+  },
   webpack: config => {
     const configCopy = { ...config }
     configCopy.resolve = {
@@ -134,38 +135,4 @@ const nextConfig = withBundleAnalyzer({
   },
 })
 
-// Injected content via Sentry wizard below
-
-export default withPayload(
-  withSentryConfig(
-    nextConfig,
-    {
-      // For all available options, see:
-      // https://github.com/getsentry/sentry-webpack-plugin#options
-
-      // Suppresses source map uploading logs during build
-      silent: true,
-      org: 'payload-cms',
-      project: 'website',
-    },
-    {
-      // For all available options, see:
-      // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
-
-      // Upload a larger set of source maps for prettier stack traces (increases build time)
-      widenClientFileUpload: true,
-
-      // Transpiles SDK to be compatible with IE11 (increases bundle size)
-      transpileClientSDK: true,
-
-      // Routes browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers (increases server load)
-      tunnelRoute: '/monitoring',
-
-      // Hides source maps from generated client bundles
-      hideSourceMaps: true,
-
-      // Automatically tree-shake Sentry logger statements to reduce bundle size
-      disableLogger: true,
-    },
-  ),
-)
+export default withPayload(nextConfig)

@@ -1,17 +1,9 @@
 'use client'
-import * as Sentry from '@sentry/nextjs'
-import NextError from 'next/error'
-
-import { useEffect } from 'react'
-
 import { Gutter } from '@components/Gutter/index.js'
+import NextError from 'next/error'
+import React from 'react'
 
-export default function Error({ error, reset }: { error: Error; reset: () => void }) {
-  useEffect(() => {
-    console.error(error) // eslint-disable-line no-console
-    Sentry.captureException(error)
-  }, [error])
-
+export default function Error() {
   return (
     <Gutter>
       <h2>Something went wrong</h2>
