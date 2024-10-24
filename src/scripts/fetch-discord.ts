@@ -82,7 +82,7 @@ export async function fetchDiscordThreads(payload: Payload): Promise<void> {
     progress.start(allThreads.length, 0)
 
     const formattedThreads = await mapAsync(allThreads, async t => {
-      const info: AnyThreadChannel<boolean> = await t
+      const info: AnyThreadChannel = await t
 
       progress.increment()
 
