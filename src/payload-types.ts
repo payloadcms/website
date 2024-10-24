@@ -1578,7 +1578,16 @@ export interface Page {
   fullTitle?: string | null;
   noindex?: boolean | null;
   hero: {
-    type: 'default' | 'contentMedia' | 'centeredContent' | 'form' | 'home' | 'livestream' | 'gradient' | 'three';
+    type:
+      | 'default'
+      | 'contentMedia'
+      | 'centeredContent'
+      | 'form'
+      | 'home'
+      | 'homeNew'
+      | 'livestream'
+      | 'gradient'
+      | 'three';
     fullBackground?: boolean | null;
     theme?: ('light' | 'dark') | null;
     enableBreadcrumbsBar?: boolean | null;

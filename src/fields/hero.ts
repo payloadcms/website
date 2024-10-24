@@ -38,6 +38,10 @@ export const hero: Field = {
           value: 'home',
         },
         {
+          label: 'Home New',
+          value: 'homeNew',
+        },
+        {
           label: 'Livestream',
           value: 'livestream',
         },
@@ -89,7 +93,7 @@ export const hero: Field = {
       name: 'enableAnnouncement',
       type: 'checkbox',
       admin: {
-        condition: (_, { type }) => type === 'home',
+        condition: (_, { type }) => ['home', 'homeNew'].includes(type),
       },
       label: 'Enable Announcement?',
     },
@@ -128,7 +132,7 @@ export const hero: Field = {
       overrides: {
         name: 'primaryButtons',
         admin: {
-          condition: (_, { type }) => type === 'home',
+          condition: (_, { type }) => ['home', 'homeNew'].includes(type),
         },
         label: 'Primary Buttons',
       },
@@ -137,7 +141,7 @@ export const hero: Field = {
       name: 'secondaryHeading',
       type: 'richText',
       admin: {
-        condition: (_, { type }) => type === 'home',
+        condition: (_, { type }) => ['home', 'homeNew'].includes(type),
       },
       editor: lexicalEditor({
         features: ({ rootFeatures }) => rootFeatures,
@@ -147,7 +151,7 @@ export const hero: Field = {
       name: 'secondaryDescription',
       type: 'richText',
       admin: {
-        condition: (_, { type }) => type === 'home',
+        condition: (_, { type }) => ['home', 'homeNew'].includes(type),
       },
       editor: lexicalEditor({
         features: ({ rootFeatures }) => rootFeatures,
@@ -242,7 +246,7 @@ export const hero: Field = {
       overrides: {
         name: 'secondaryButtons',
         admin: {
-          condition: (_, { type }) => type === 'home',
+          condition: (_, { type }) => ['home', 'homeNew'].includes(type),
         },
         label: 'Secondary Buttons',
       },
@@ -267,7 +271,8 @@ export const hero: Field = {
       name: 'media',
       type: 'upload',
       admin: {
-        condition: (_, { type } = {}) => ['centeredContent', 'contentMedia', 'home'].includes(type),
+        condition: (_, { type } = {}) =>
+          ['centeredContent', 'contentMedia', 'home', 'homeNew'].includes(type),
       },
       relationTo: 'media',
       required: true,
@@ -276,7 +281,7 @@ export const hero: Field = {
       name: 'secondaryMedia',
       type: 'upload',
       admin: {
-        condition: (_, { type }) => type === 'home',
+        condition: (_, { type }) => ['home', 'homeNew'].includes(type),
       },
       relationTo: 'media',
       required: true,
@@ -285,7 +290,7 @@ export const hero: Field = {
       name: 'featureVideo',
       type: 'upload',
       admin: {
-        condition: (_, { type }) => type === 'home',
+        condition: (_, { type }) => ['home', 'homeNew'].includes(type),
       },
       relationTo: 'media',
       required: true,
@@ -302,7 +307,7 @@ export const hero: Field = {
       name: 'logos',
       type: 'array',
       admin: {
-        condition: (_, { type }) => type === 'home',
+        condition: (_, { type }) => ['home', 'homeNew'].includes(type),
       },
       fields: [
         {

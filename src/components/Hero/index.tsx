@@ -9,6 +9,7 @@ import { DefaultHero } from './Default/index.js'
 import { FormHero } from './FormHero/index.js'
 import { GradientHero } from './Gradient/index.js'
 import { HomeHero } from './Home/index.js'
+import { HomeNewHero } from './HomeNew/index.js'
 import { LivestreamHero } from './Livestream/index.js'
 import { ThreeHero } from './Three/index.js'
 
@@ -16,6 +17,7 @@ const heroes = {
   default: DefaultHero,
   contentMedia: ContentMediaHero,
   home: HomeHero,
+  homeNew: HomeNewHero,
   form: FormHero,
   livestream: LivestreamHero,
   centeredContent: CenteredContent,
