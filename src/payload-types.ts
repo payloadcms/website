@@ -644,6 +644,7 @@ export interface CaseStudy {
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
+              hideBackground?: boolean | null;
               richText: {
                 root: {
                   type: string;
@@ -2437,6 +2438,7 @@ export interface Page {
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
+          hideBackground?: boolean | null;
           richText: {
             root: {
               type: string;
@@ -4275,6 +4277,7 @@ export interface ReusableContent {
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
+          hideBackground?: boolean | null;
           richText: {
             root: {
               type: string;
@@ -6614,6 +6617,7 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
+                hideBackground?: boolean | null;
                 richText: {
                   root: {
                     type: string;
@@ -8091,6 +8095,7 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
+                hideBackground?: boolean | null;
                 richText: {
                   root: {
                     type: string;
