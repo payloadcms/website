@@ -93,6 +93,7 @@ export interface CaseStudy {
             calloutFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               richText: {
                 root: {
@@ -127,6 +128,7 @@ export interface CaseStudy {
             ctaFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               style?: ('buttons' | 'banner') | null;
               richText: {
@@ -201,6 +203,7 @@ export interface CaseStudy {
             cardGridFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               richText: {
                 root: {
@@ -277,6 +280,7 @@ export interface CaseStudy {
             caseStudyCardFields?: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               pixels?: boolean | null;
               cards?:
@@ -309,6 +313,7 @@ export interface CaseStudy {
             caseStudiesHighlightFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               richText: {
                 root: {
@@ -335,6 +340,7 @@ export interface CaseStudy {
             caseStudyParallaxFields?: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               items?:
                 | {
@@ -361,6 +367,7 @@ export interface CaseStudy {
             codeFeatureFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               forceDarkBackground?: boolean | null;
               alignment?: ('contentCode' | 'codeContent') | null;
@@ -463,6 +470,7 @@ export interface CaseStudy {
             contentFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               useLeadingHeader?: boolean | null;
               leadingHeader?: {
@@ -535,6 +543,7 @@ export interface CaseStudy {
             contentGridFields?: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               style?: ('gridBelow' | 'sideBySide') | null;
               showNumbers?: boolean | null;
@@ -606,6 +615,7 @@ export interface CaseStudy {
             formFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               richText: {
                 root: {
@@ -632,6 +642,7 @@ export interface CaseStudy {
             hoverCardsFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               richText: {
                 root: {
@@ -682,6 +693,7 @@ export interface CaseStudy {
             hoverHighlightsFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               beforeHighlights?: string | null;
               highlights?:
@@ -741,6 +753,7 @@ export interface CaseStudy {
             linkGridFields?: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               links?:
                 | {
@@ -775,6 +788,7 @@ export interface CaseStudy {
             logoGridFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               richText: {
                 root: {
@@ -826,6 +840,7 @@ export interface CaseStudy {
             mediaBlockFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               position?: ('default' | 'wide') | null;
               media: string | Media;
@@ -853,6 +868,7 @@ export interface CaseStudy {
             mediaContentFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               alignment?: ('contentMedia' | 'mediaContent') | null;
               mediaWidth?: ('stretch' | 'fit') | null;
@@ -906,6 +922,7 @@ export interface CaseStudy {
             mediaContentAccordionFields?: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               alignment?: ('contentMedia' | 'mediaContent') | null;
               leader?: string | null;
@@ -963,6 +980,7 @@ export interface CaseStudy {
             pricingFields?: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               plans?:
                 | {
@@ -1012,6 +1030,7 @@ export interface CaseStudy {
             reusableContentBlockFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               reusableContent: string | ReusableContent;
               customId?: string | null;
@@ -1024,6 +1043,7 @@ export interface CaseStudy {
             sliderFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               quoteSlides: {
                 leader?: string | null;
@@ -1041,6 +1061,7 @@ export interface CaseStudy {
             statementFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               richText: {
                 root: {
@@ -1096,6 +1117,7 @@ export interface CaseStudy {
             stepsFields: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               steps: {
                 layout?:
@@ -1104,6 +1126,7 @@ export interface CaseStudy {
                           codeFeatureFields: {
                             settings?: {
                               theme?: ('light' | 'dark') | null;
+                              background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                             };
                             forceDarkBackground?: boolean | null;
                             alignment?: ('contentCode' | 'codeContent') | null;
@@ -1206,6 +1229,7 @@ export interface CaseStudy {
                           contentFields: {
                             settings?: {
                               theme?: ('light' | 'dark') | null;
+                              background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                             };
                             useLeadingHeader?: boolean | null;
                             leadingHeader?: {
@@ -1280,6 +1304,7 @@ export interface CaseStudy {
                           hoverHighlightsFields: {
                             settings?: {
                               theme?: ('light' | 'dark') | null;
+                              background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                             };
                             beforeHighlights?: string | null;
                             highlights?:
@@ -1339,6 +1364,7 @@ export interface CaseStudy {
                           stickyHighlightsFields?: {
                             settings?: {
                               theme?: ('light' | 'dark') | null;
+                              background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                             };
                             highlights?:
                               | {
@@ -1443,6 +1469,7 @@ export interface CaseStudy {
             stickyHighlightsFields?: {
               settings?: {
                 theme?: ('light' | 'dark') | null;
+                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               highlights?:
                 | {
@@ -1852,12 +1879,14 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
+    logoShowcase?: (string | Media)[] | null;
   };
   layout: (
     | {
         calloutFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           richText: {
             root: {
@@ -1892,6 +1921,7 @@ export interface Page {
         ctaFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           style?: ('buttons' | 'banner') | null;
           richText: {
@@ -1966,6 +1996,7 @@ export interface Page {
         cardGridFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           richText: {
             root: {
@@ -2042,6 +2073,7 @@ export interface Page {
         caseStudyCardFields?: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           pixels?: boolean | null;
           cards?:
@@ -2074,6 +2106,7 @@ export interface Page {
         caseStudiesHighlightFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           richText: {
             root: {
@@ -2100,6 +2133,7 @@ export interface Page {
         caseStudyParallaxFields?: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           items?:
             | {
@@ -2126,6 +2160,7 @@ export interface Page {
         codeFeatureFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           forceDarkBackground?: boolean | null;
           alignment?: ('contentCode' | 'codeContent') | null;
@@ -2228,6 +2263,7 @@ export interface Page {
         contentFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           useLeadingHeader?: boolean | null;
           leadingHeader?: {
@@ -2300,6 +2336,7 @@ export interface Page {
         contentGridFields?: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           style?: ('gridBelow' | 'sideBySide') | null;
           showNumbers?: boolean | null;
@@ -2371,6 +2408,7 @@ export interface Page {
         formFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           richText: {
             root: {
@@ -2397,6 +2435,7 @@ export interface Page {
         hoverCardsFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           richText: {
             root: {
@@ -2447,6 +2486,7 @@ export interface Page {
         hoverHighlightsFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           beforeHighlights?: string | null;
           highlights?:
@@ -2506,6 +2546,7 @@ export interface Page {
         linkGridFields?: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           links?:
             | {
@@ -2540,6 +2581,7 @@ export interface Page {
         logoGridFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           richText: {
             root: {
@@ -2591,6 +2633,7 @@ export interface Page {
         mediaBlockFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           position?: ('default' | 'wide') | null;
           media: string | Media;
@@ -2618,6 +2661,7 @@ export interface Page {
         mediaContentFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           alignment?: ('contentMedia' | 'mediaContent') | null;
           mediaWidth?: ('stretch' | 'fit') | null;
@@ -2671,6 +2715,7 @@ export interface Page {
         mediaContentAccordionFields?: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           alignment?: ('contentMedia' | 'mediaContent') | null;
           leader?: string | null;
@@ -2728,6 +2773,7 @@ export interface Page {
         pricingFields?: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           plans?:
             | {
@@ -2777,6 +2823,7 @@ export interface Page {
         reusableContentBlockFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           reusableContent: string | ReusableContent;
           customId?: string | null;
@@ -2789,6 +2836,7 @@ export interface Page {
         sliderFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           quoteSlides: {
             leader?: string | null;
@@ -2806,6 +2854,7 @@ export interface Page {
         statementFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           richText: {
             root: {
@@ -2861,6 +2910,7 @@ export interface Page {
         stepsFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           steps: {
             layout?:
@@ -2869,6 +2919,7 @@ export interface Page {
                       codeFeatureFields: {
                         settings?: {
                           theme?: ('light' | 'dark') | null;
+                          background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                         };
                         forceDarkBackground?: boolean | null;
                         alignment?: ('contentCode' | 'codeContent') | null;
@@ -2971,6 +3022,7 @@ export interface Page {
                       contentFields: {
                         settings?: {
                           theme?: ('light' | 'dark') | null;
+                          background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                         };
                         useLeadingHeader?: boolean | null;
                         leadingHeader?: {
@@ -3045,6 +3097,7 @@ export interface Page {
                       hoverHighlightsFields: {
                         settings?: {
                           theme?: ('light' | 'dark') | null;
+                          background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                         };
                         beforeHighlights?: string | null;
                         highlights?:
@@ -3104,6 +3157,7 @@ export interface Page {
                       stickyHighlightsFields?: {
                         settings?: {
                           theme?: ('light' | 'dark') | null;
+                          background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                         };
                         highlights?:
                           | {
@@ -3208,6 +3262,7 @@ export interface Page {
         stickyHighlightsFields?: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           highlights?:
             | {
@@ -3348,6 +3403,7 @@ export interface Post {
         bannerFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           type?: ('default' | 'success' | 'warning' | 'error') | null;
           addCheckmark?: boolean | null;
@@ -3375,6 +3431,7 @@ export interface Post {
         blogContentFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           richText: {
             root: {
@@ -3400,6 +3457,7 @@ export interface Post {
         codeFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           language?: ('none' | 'js' | 'ts') | null;
           code: string;
@@ -3454,6 +3512,7 @@ export interface Post {
         blogMarkdownFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           markdown: string;
         };
@@ -3465,6 +3524,7 @@ export interface Post {
         mediaBlockFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           position?: ('default' | 'wide') | null;
           media: string | Media;
@@ -3492,6 +3552,7 @@ export interface Post {
         reusableContentBlockFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           reusableContent: string | ReusableContent;
           customId?: string | null;
@@ -3541,6 +3602,7 @@ export interface ReusableContent {
         bannerFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           type?: ('default' | 'success' | 'warning' | 'error') | null;
           addCheckmark?: boolean | null;
@@ -3568,6 +3630,7 @@ export interface ReusableContent {
         blogContentFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           richText: {
             root: {
@@ -3593,6 +3656,7 @@ export interface ReusableContent {
         blogMarkdownFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           markdown: string;
         };
@@ -3604,6 +3668,7 @@ export interface ReusableContent {
         calloutFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           richText: {
             root: {
@@ -3638,6 +3703,7 @@ export interface ReusableContent {
         ctaFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           style?: ('buttons' | 'banner') | null;
           richText: {
@@ -3712,6 +3778,7 @@ export interface ReusableContent {
         cardGridFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           richText: {
             root: {
@@ -3788,6 +3855,7 @@ export interface ReusableContent {
         caseStudyCardFields?: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           pixels?: boolean | null;
           cards?:
@@ -3820,6 +3888,7 @@ export interface ReusableContent {
         caseStudiesHighlightFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           richText: {
             root: {
@@ -3846,6 +3915,7 @@ export interface ReusableContent {
         caseStudyParallaxFields?: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           items?:
             | {
@@ -3872,6 +3942,7 @@ export interface ReusableContent {
         codeFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           language?: ('none' | 'js' | 'ts') | null;
           code: string;
@@ -3926,6 +3997,7 @@ export interface ReusableContent {
         codeFeatureFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           forceDarkBackground?: boolean | null;
           alignment?: ('contentCode' | 'codeContent') | null;
@@ -4028,6 +4100,7 @@ export interface ReusableContent {
         contentFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           useLeadingHeader?: boolean | null;
           leadingHeader?: {
@@ -4100,6 +4173,7 @@ export interface ReusableContent {
         contentGridFields?: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           style?: ('gridBelow' | 'sideBySide') | null;
           showNumbers?: boolean | null;
@@ -4172,6 +4246,7 @@ export interface ReusableContent {
         formFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           richText: {
             root: {
@@ -4198,6 +4273,7 @@ export interface ReusableContent {
         hoverCardsFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           richText: {
             root: {
@@ -4248,6 +4324,7 @@ export interface ReusableContent {
         hoverHighlightsFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           beforeHighlights?: string | null;
           highlights?:
@@ -4307,6 +4384,7 @@ export interface ReusableContent {
         linkGridFields?: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           links?:
             | {
@@ -4341,6 +4419,7 @@ export interface ReusableContent {
         logoGridFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           richText: {
             root: {
@@ -4392,6 +4471,7 @@ export interface ReusableContent {
         mediaBlockFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           position?: ('default' | 'wide') | null;
           media: string | Media;
@@ -4419,6 +4499,7 @@ export interface ReusableContent {
         mediaContentFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           alignment?: ('contentMedia' | 'mediaContent') | null;
           mediaWidth?: ('stretch' | 'fit') | null;
@@ -4472,6 +4553,7 @@ export interface ReusableContent {
         mediaContentAccordionFields?: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           alignment?: ('contentMedia' | 'mediaContent') | null;
           leader?: string | null;
@@ -4529,6 +4611,7 @@ export interface ReusableContent {
         pricingFields?: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           plans?:
             | {
@@ -4578,6 +4661,7 @@ export interface ReusableContent {
         sliderFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           quoteSlides: {
             leader?: string | null;
@@ -4595,6 +4679,7 @@ export interface ReusableContent {
         statementFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           richText: {
             root: {
@@ -4650,6 +4735,7 @@ export interface ReusableContent {
         stepsFields: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           steps: {
             layout?:
@@ -4658,6 +4744,7 @@ export interface ReusableContent {
                       codeFeatureFields: {
                         settings?: {
                           theme?: ('light' | 'dark') | null;
+                          background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                         };
                         forceDarkBackground?: boolean | null;
                         alignment?: ('contentCode' | 'codeContent') | null;
@@ -4760,6 +4847,7 @@ export interface ReusableContent {
                       contentFields: {
                         settings?: {
                           theme?: ('light' | 'dark') | null;
+                          background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                         };
                         useLeadingHeader?: boolean | null;
                         leadingHeader?: {
@@ -4834,6 +4922,7 @@ export interface ReusableContent {
                       hoverHighlightsFields: {
                         settings?: {
                           theme?: ('light' | 'dark') | null;
+                          background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                         };
                         beforeHighlights?: string | null;
                         highlights?:
@@ -4893,6 +4982,7 @@ export interface ReusableContent {
                       stickyHighlightsFields?: {
                         settings?: {
                           theme?: ('light' | 'dark') | null;
+                          background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                         };
                         highlights?:
                           | {
@@ -4997,6 +5087,7 @@ export interface ReusableContent {
         stickyHighlightsFields?: {
           settings?: {
             theme?: ('light' | 'dark') | null;
+            background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           highlights?:
             | {
@@ -5972,6 +6063,7 @@ export interface PartnerProgram {
               calloutFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 richText: {
                   root: {
@@ -6006,6 +6098,7 @@ export interface PartnerProgram {
               ctaFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 style?: ('buttons' | 'banner') | null;
                 richText: {
@@ -6080,6 +6173,7 @@ export interface PartnerProgram {
               cardGridFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 richText: {
                   root: {
@@ -6156,6 +6250,7 @@ export interface PartnerProgram {
               caseStudyCardFields?: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 pixels?: boolean | null;
                 cards?:
@@ -6188,6 +6283,7 @@ export interface PartnerProgram {
               caseStudiesHighlightFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 richText: {
                   root: {
@@ -6214,6 +6310,7 @@ export interface PartnerProgram {
               caseStudyParallaxFields?: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 items?:
                   | {
@@ -6240,6 +6337,7 @@ export interface PartnerProgram {
               codeFeatureFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 forceDarkBackground?: boolean | null;
                 alignment?: ('contentCode' | 'codeContent') | null;
@@ -6342,6 +6440,7 @@ export interface PartnerProgram {
               contentFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 useLeadingHeader?: boolean | null;
                 leadingHeader?: {
@@ -6414,6 +6513,7 @@ export interface PartnerProgram {
               contentGridFields?: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 style?: ('gridBelow' | 'sideBySide') | null;
                 showNumbers?: boolean | null;
@@ -6485,6 +6585,7 @@ export interface PartnerProgram {
               formFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 richText: {
                   root: {
@@ -6511,6 +6612,7 @@ export interface PartnerProgram {
               hoverCardsFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 richText: {
                   root: {
@@ -6561,6 +6663,7 @@ export interface PartnerProgram {
               hoverHighlightsFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 beforeHighlights?: string | null;
                 highlights?:
@@ -6620,6 +6723,7 @@ export interface PartnerProgram {
               linkGridFields?: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 links?:
                   | {
@@ -6654,6 +6758,7 @@ export interface PartnerProgram {
               logoGridFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 richText: {
                   root: {
@@ -6705,6 +6810,7 @@ export interface PartnerProgram {
               mediaBlockFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 position?: ('default' | 'wide') | null;
                 media: string | Media;
@@ -6732,6 +6838,7 @@ export interface PartnerProgram {
               mediaContentFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 alignment?: ('contentMedia' | 'mediaContent') | null;
                 mediaWidth?: ('stretch' | 'fit') | null;
@@ -6785,6 +6892,7 @@ export interface PartnerProgram {
               mediaContentAccordionFields?: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 alignment?: ('contentMedia' | 'mediaContent') | null;
                 leader?: string | null;
@@ -6842,6 +6950,7 @@ export interface PartnerProgram {
               pricingFields?: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 plans?:
                   | {
@@ -6891,6 +7000,7 @@ export interface PartnerProgram {
               reusableContentBlockFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 reusableContent: string | ReusableContent;
                 customId?: string | null;
@@ -6903,6 +7013,7 @@ export interface PartnerProgram {
               sliderFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 quoteSlides: {
                   leader?: string | null;
@@ -6920,6 +7031,7 @@ export interface PartnerProgram {
               statementFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 richText: {
                   root: {
@@ -6975,6 +7087,7 @@ export interface PartnerProgram {
               stepsFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 steps: {
                   layout?:
@@ -6983,6 +7096,7 @@ export interface PartnerProgram {
                             codeFeatureFields: {
                               settings?: {
                                 theme?: ('light' | 'dark') | null;
+                                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                               };
                               forceDarkBackground?: boolean | null;
                               alignment?: ('contentCode' | 'codeContent') | null;
@@ -7085,6 +7199,7 @@ export interface PartnerProgram {
                             contentFields: {
                               settings?: {
                                 theme?: ('light' | 'dark') | null;
+                                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                               };
                               useLeadingHeader?: boolean | null;
                               leadingHeader?: {
@@ -7159,6 +7274,7 @@ export interface PartnerProgram {
                             hoverHighlightsFields: {
                               settings?: {
                                 theme?: ('light' | 'dark') | null;
+                                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                               };
                               beforeHighlights?: string | null;
                               highlights?:
@@ -7218,6 +7334,7 @@ export interface PartnerProgram {
                             stickyHighlightsFields?: {
                               settings?: {
                                 theme?: ('light' | 'dark') | null;
+                                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                               };
                               highlights?:
                                 | {
@@ -7322,6 +7439,7 @@ export interface PartnerProgram {
               stickyHighlightsFields?: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 highlights?:
                   | {
@@ -7422,6 +7540,7 @@ export interface PartnerProgram {
               calloutFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 richText: {
                   root: {
@@ -7456,6 +7575,7 @@ export interface PartnerProgram {
               ctaFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 style?: ('buttons' | 'banner') | null;
                 richText: {
@@ -7530,6 +7650,7 @@ export interface PartnerProgram {
               cardGridFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 richText: {
                   root: {
@@ -7606,6 +7727,7 @@ export interface PartnerProgram {
               caseStudyCardFields?: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 pixels?: boolean | null;
                 cards?:
@@ -7638,6 +7760,7 @@ export interface PartnerProgram {
               caseStudiesHighlightFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 richText: {
                   root: {
@@ -7664,6 +7787,7 @@ export interface PartnerProgram {
               caseStudyParallaxFields?: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 items?:
                   | {
@@ -7690,6 +7814,7 @@ export interface PartnerProgram {
               codeFeatureFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 forceDarkBackground?: boolean | null;
                 alignment?: ('contentCode' | 'codeContent') | null;
@@ -7792,6 +7917,7 @@ export interface PartnerProgram {
               contentFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 useLeadingHeader?: boolean | null;
                 leadingHeader?: {
@@ -7864,6 +7990,7 @@ export interface PartnerProgram {
               contentGridFields?: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 style?: ('gridBelow' | 'sideBySide') | null;
                 showNumbers?: boolean | null;
@@ -7935,6 +8062,7 @@ export interface PartnerProgram {
               formFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 richText: {
                   root: {
@@ -7961,6 +8089,7 @@ export interface PartnerProgram {
               hoverCardsFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 richText: {
                   root: {
@@ -8011,6 +8140,7 @@ export interface PartnerProgram {
               hoverHighlightsFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 beforeHighlights?: string | null;
                 highlights?:
@@ -8070,6 +8200,7 @@ export interface PartnerProgram {
               linkGridFields?: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 links?:
                   | {
@@ -8104,6 +8235,7 @@ export interface PartnerProgram {
               logoGridFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 richText: {
                   root: {
@@ -8155,6 +8287,7 @@ export interface PartnerProgram {
               mediaBlockFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 position?: ('default' | 'wide') | null;
                 media: string | Media;
@@ -8182,6 +8315,7 @@ export interface PartnerProgram {
               mediaContentFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 alignment?: ('contentMedia' | 'mediaContent') | null;
                 mediaWidth?: ('stretch' | 'fit') | null;
@@ -8235,6 +8369,7 @@ export interface PartnerProgram {
               mediaContentAccordionFields?: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 alignment?: ('contentMedia' | 'mediaContent') | null;
                 leader?: string | null;
@@ -8292,6 +8427,7 @@ export interface PartnerProgram {
               pricingFields?: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 plans?:
                   | {
@@ -8341,6 +8477,7 @@ export interface PartnerProgram {
               reusableContentBlockFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 reusableContent: string | ReusableContent;
                 customId?: string | null;
@@ -8353,6 +8490,7 @@ export interface PartnerProgram {
               sliderFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 quoteSlides: {
                   leader?: string | null;
@@ -8370,6 +8508,7 @@ export interface PartnerProgram {
               statementFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 richText: {
                   root: {
@@ -8425,6 +8564,7 @@ export interface PartnerProgram {
               stepsFields: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 steps: {
                   layout?:
@@ -8433,6 +8573,7 @@ export interface PartnerProgram {
                             codeFeatureFields: {
                               settings?: {
                                 theme?: ('light' | 'dark') | null;
+                                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                               };
                               forceDarkBackground?: boolean | null;
                               alignment?: ('contentCode' | 'codeContent') | null;
@@ -8535,6 +8676,7 @@ export interface PartnerProgram {
                             contentFields: {
                               settings?: {
                                 theme?: ('light' | 'dark') | null;
+                                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                               };
                               useLeadingHeader?: boolean | null;
                               leadingHeader?: {
@@ -8609,6 +8751,7 @@ export interface PartnerProgram {
                             hoverHighlightsFields: {
                               settings?: {
                                 theme?: ('light' | 'dark') | null;
+                                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                               };
                               beforeHighlights?: string | null;
                               highlights?:
@@ -8668,6 +8811,7 @@ export interface PartnerProgram {
                             stickyHighlightsFields?: {
                               settings?: {
                                 theme?: ('light' | 'dark') | null;
+                                background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                               };
                               highlights?:
                                 | {
@@ -8772,6 +8916,7 @@ export interface PartnerProgram {
               stickyHighlightsFields?: {
                 settings?: {
                   theme?: ('light' | 'dark') | null;
+                  background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 highlights?:
                   | {
