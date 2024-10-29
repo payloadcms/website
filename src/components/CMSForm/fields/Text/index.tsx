@@ -18,6 +18,7 @@ export const Text: React.FC<
     copy?: boolean
     elementAttributes?: React.InputHTMLAttributes<HTMLInputElement>
     value?: string
+    defaultValue?: string
     customOnChange?: (e: any) => void
     suffix?: React.ReactNode
     readOnly?: boolean
@@ -44,6 +45,7 @@ export const Text: React.FC<
     },
     description,
     value: valueFromProps,
+    defaultValue,
     showError: showErrorFromProps,
     icon,
     fullWidth = true,
@@ -154,6 +156,7 @@ export const Text: React.FC<
         onBlur={handleBlur}
         disabled={disabled}
         className={[classes.input].filter(Boolean).join(' ')}
+        defaultValue={defaultValue}
         value={value || ''}
         onChange={
           customOnChange
