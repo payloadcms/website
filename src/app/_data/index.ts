@@ -235,6 +235,7 @@ export const fetchPartners = async (): Promise<Partner[]> => {
 
   const data = await payload.find({
     collection: 'partners',
+    depth: 1,
     limit: 300,
     sort: 'slug',
     where: {
@@ -263,6 +264,7 @@ export const fetchPartnerProgram = async (): Promise<PartnerProgram> => {
   const payload = await getPayloadHMR({ config })
   const data = await payload.findGlobal({
     slug: 'partner-program',
+    depth: 2,
   })
 
   return data

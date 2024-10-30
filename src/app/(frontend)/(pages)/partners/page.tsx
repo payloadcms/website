@@ -85,11 +85,11 @@ export default async function Partners() {
           </div>
           <PartnerGrid partners={featuredPartners.partners} featured />
         </div>
+        <BackgroundGrid />
       </Gutter>
       {contentBlocks?.beforeDirectory && <RenderBlocks blocks={contentBlocks?.beforeDirectory} />}
       <PartnerDirectory partnerList={partnerList} filterOptions={filterOptions} />
       {contentBlocks?.afterDirectory && <RenderBlocks blocks={contentBlocks?.afterDirectory} />}
-      <BackgroundGrid />
     </BlockWrapper>
   )
 }
