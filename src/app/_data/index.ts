@@ -23,9 +23,11 @@ export const fetchGlobals = async (): Promise<{ footer: Footer; mainMenu: MainMe
   const payload = await getPayloadHMR({ config })
   const mainMenu = await payload.findGlobal({
     slug: 'main-menu',
+    depth: 1,
   })
   const footer = await payload.findGlobal({
     slug: 'footer',
+    depth: 1,
   })
 
   return {
@@ -43,12 +45,22 @@ export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page |
 
   const data = await payload.find({
     collection: 'pages',
+    depth: 2,
     draft,
     limit: 1,
     where: {
-      slug: {
-        equals: slug,
-      },
+      and: [
+        {
+          slug: {
+            equals: slug,
+          },
+        },
+        {
+          _status: {
+            equals: 'published',
+          },
+        },
+      ],
     },
   })
 
@@ -73,8 +85,22 @@ export const fetchPages = async (): Promise<
   const payload = await getPayloadHMR({ config })
   const data = await payload.find({
     collection: 'pages',
+    depth: 0,
     limit: 300,
-    where: { slug: { not_equals: 'cloud' } },
+    where: {
+      and: [
+        {
+          slug: {
+            not_equals: 'cloud',
+          },
+        },
+        {
+          _status: {
+            equals: 'published',
+          },
+        },
+      ],
+    },
   })
 
   const pages = data.docs.map(doc => {
@@ -91,6 +117,7 @@ export const fetchPosts = async (): Promise<Array<{ slug: Post['slug'] }>> => {
   const payload = await getPayloadHMR({ config })
   const data = await payload.find({
     collection: 'posts',
+    depth: 0,
     limit: 300,
   })
 
@@ -109,6 +136,7 @@ export const fetchBlogPosts = async (): Promise<Post[]> => {
 
   const data = await payload.find({
     collection: 'posts',
+    depth: 1,
     limit: 300,
     sort: '-publishedOn',
     where: {
@@ -127,6 +155,7 @@ export const fetchBlogPost = async (slug: string): Promise<Post> => {
 
   const data = await payload.find({
     collection: 'posts',
+    depth: 1,
     draft,
     limit: 1,
     where: { slug: { equals: slug } },
@@ -139,6 +168,7 @@ export const fetchCaseStudies = async (): Promise<CaseStudy[]> => {
   const payload = await getPayloadHMR({ config })
   const data = await payload.find({
     collection: 'case-studies',
+    depth: 0,
     limit: 300,
   })
 
@@ -151,6 +181,7 @@ export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
 
   const data = await payload.find({
     collection: 'case-studies',
+    depth: 1,
     draft,
     limit: 1,
     where: { slug: { equals: slug } },
