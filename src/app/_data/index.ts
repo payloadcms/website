@@ -155,7 +155,7 @@ export const fetchBlogPost = async (slug: string): Promise<Post> => {
 
   const data = await payload.find({
     collection: 'posts',
-    depth: 1,
+    depth: 2,
     draft,
     limit: 1,
     where: { slug: { equals: slug } },
