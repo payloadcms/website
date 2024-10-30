@@ -16,11 +16,11 @@ import classes from './index.module.scss'
 import { Media } from '@components/Media'
 
 export const CenteredContent: React.FC<
-  Pick<Page['hero'], 'richText' | 'links' | 'theme' | 'media'> & {
+  Pick<Page['hero'], 'richText' | 'links' | 'theme' | 'media' | 'enableMedia'> & {
     breadcrumbs?: Page['breadcrumbs']
     firstContentBlock?: BlocksProp
   }
-> = ({ richText, links, media, breadcrumbs, theme, firstContentBlock }) => {
+> = ({ richText, links, media, enableMedia, breadcrumbs, theme, firstContentBlock }) => {
   const padding = useGetHeroPadding(theme, firstContentBlock)
 
   return (
@@ -53,7 +53,7 @@ export const CenteredContent: React.FC<
                 })}
             </div>
           </div>
-          {media && typeof media !== 'string' && (
+          {enableMedia && media && typeof media !== 'string' && (
             <div
               className={[classes.mediaWrap, 'cols-16 start-1 cols-m-8'].filter(Boolean).join(' ')}
             >

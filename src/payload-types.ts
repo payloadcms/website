@@ -1833,6 +1833,7 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
+    enableMedia?: boolean | null;
     media?: (string | null) | Media;
     secondaryMedia?: (string | null) | Media;
     featureVideo?: (string | null) | Media;
