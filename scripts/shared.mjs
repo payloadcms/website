@@ -16,6 +16,7 @@ export const topicOrder = [
   'REST-API',
   'GraphQL',
   'Queries',
+  'Jobs-Queue',
   'Production',
   'Email',
   'TypeScript',
