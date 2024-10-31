@@ -44,7 +44,7 @@ export default async function DocsPage({
     <RenderDocs params={await params} topics={topics} version="beta">
       <Banner type="warning">
         <strong>Note:</strong> You are currently viewing the <strong>beta</strong> version of the
-        docs. Some docs may be innacurate or incomplete at the moment.{' '}
+        docs. Some docs may be inaccurate or incomplete at the moment.{' '}
         <Link href="/docs">Switch to the latest version</Link>
       </Banner>
     </RenderDocs>

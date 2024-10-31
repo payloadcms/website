@@ -268,11 +268,19 @@ export const hero: Field = {
       minRows: 1,
     },
     {
+      name: 'enableMedia',
+      type: 'checkbox',
+      admin: {
+        condition: (_, { type }) => type === 'centeredContent',
+      },
+      defaultValue: false,
+    },
+    {
       name: 'media',
       type: 'upload',
       admin: {
-        condition: (_, { type } = {}) =>
-          ['centeredContent', 'contentMedia', 'home', 'homeNew'].includes(type),
+        condition: (_, { type, enableMedia } = {}) =>
+          ['contentMedia', 'home'].includes(type) || (enableMedia && type === 'centeredContent'),
       },
       relationTo: 'media',
       required: true,
