@@ -27,7 +27,7 @@
 }
 
 .sliderNav {
-  margin-left: 4.5rem;
+  margin-left: 3.5rem;
   margin-top: 2rem;
 
   @include mid-break {
@@ -110,7 +110,7 @@
 
 .quoteSlide {
   box-sizing: border-box;
-  max-width: calc(var(--column) * 12);
+  max-width: calc(var(--column) * 8);
 
   @include mid-break {
     max-width: 100%;
@@ -118,7 +118,7 @@
 }
 
 .fakeSlide {
-  width: calc(25% - 1px);
+  width: calc(50% - 1px);
   flex-shrink: 0;
 
   @include mid-break {

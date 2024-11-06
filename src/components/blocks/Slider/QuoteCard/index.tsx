@@ -1,12 +1,10 @@
 import * as React from 'react'
-import { QuoteIcon } from '@icons/QuoteIcon/index.js'
-import { formatDate } from '@utilities/format-date-time.js'
-
-import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
-import { RichText } from '@components/RichText/index.js'
 import { Page } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
+import { Media } from '@components/Media'
+import { CMSLink } from '@components/CMSLink'
+import { ArrowRightIcon } from '@icons/ArrowRightIcon'
 
 type Props = NonNullable<
   Extract<Page['layout'][0], { blockType: 'slider' }>['sliderFields']['quoteSlides']
@@ -14,19 +12,43 @@ type Props = NonNullable<
   isActive: boolean
 }
 
-export const QuoteCard: React.FC<Props> = ({ quote, leader, author, role, isActive }) => {
+export const QuoteCard: React.FC<Props> = ({
+  quote,
+  author,
+  role,
+  logo,
+  isActive,
+  link,
+  enableLink,
+}) => {
   if (!quote) return null
+
   return (
-    <div className={[classes.quoteCard, isActive && classes.isActive].filter(Boolean).join(' ')}>
-      <div className={classes.leader}>{leader}</div>
+    <CMSLink
+      className={[classes.quoteCard, isActive && classes.isActive].filter(Boolean).join(' ')}
+      {...link}
+      label={null}
+    >
       <h3 className={classes.quote}>
+        <span className={classes.closingQuote}>“</span>
         {quote}
         <span className={classes.closingQuote}>”</span>
       </h3>
-      <div className={classes.meta}>
-        <p className={classes.author}>{author}</p>
-        <p className={classes.role}>{role}</p>
+      <div className={classes.credit}>
+        {author}
+        {role && <span>, {role}</span>}
       </div>
-    </div>
+      <div className={classes.logoWrap}>
+        {logo && typeof logo !== 'string' && (
+          <Media resource={logo} className={classes.logo} alt={author} />
+        )}
+        {enableLink && (
+          <span className={classes.arrowWrap}>
+            {link?.label}
+            <ArrowRightIcon className={classes.arrow} />
+          </span>
+        )}
+      </div>
+    </CMSLink>
   )
 }
