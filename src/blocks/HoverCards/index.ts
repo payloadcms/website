@@ -34,7 +34,7 @@ export const HoverCards: Block = {
               disableLabel: true,
             }),
           ],
-          maxRows: 3,
+          maxRows: 4,
           minRows: 1,
         },
       ],

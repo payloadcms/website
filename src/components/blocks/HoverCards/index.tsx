@@ -45,7 +45,7 @@ export const HoverCards: React.FC<HoverCardsProps> = props => {
   const { hoverCardsFields, padding, hideBackground } = props
   const [activeGradient, setActiveGradient] = useState(1)
 
-  const gradients = [1, 2, 3, 4]
+  const gradients = [1, 2, 3, 4, 5]
 
   const hasCards = Array.isArray(hoverCardsFields.cards) && hoverCardsFields.cards.length > 0
 
@@ -53,7 +53,7 @@ export const HoverCards: React.FC<HoverCardsProps> = props => {
     <BlockWrapper
       settings={{ theme: 'dark' }}
       padding={{ bottom: 'large', top: 'large' }}
-      hideBackground={Boolean(hideBackground || hoverCardsFields.hideBackground)}
+      hideBackground={hideBackground}
       className={[classes.wrapper].filter(Boolean).join(' ')}
     >
       <BackgroundGrid zIndex={1} />
@@ -69,7 +69,7 @@ export const HoverCards: React.FC<HoverCardsProps> = props => {
                   .join(' ')}
                 width={1920}
                 height={946}
-                src={`/images/gradients/${gradient}.jpg`}
+                src={`/images/gradients/${gradient === 5 ? 2 : gradient}.jpg`}
               />
             )
           })}
@@ -92,7 +92,7 @@ export const HoverCards: React.FC<HoverCardsProps> = props => {
               {hoverCardsFields.cards &&
                 hoverCardsFields.cards.map((card, index) => {
                   return (
-                    <div key={index} className={'cols-4 cols-s-8'}>
+                    <div key={card.id} className={'cols-4 cols-s-8'}>
                       <Card card={card} leader={++index} setHover={setActiveGradient} />
                     </div>
                   )
