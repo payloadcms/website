@@ -29,7 +29,7 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
       richText,
       commandLine,
       links,
-      style,
+      style = 'buttons',
       gradientBackground,
       bannerImage,
       bannerLink,
