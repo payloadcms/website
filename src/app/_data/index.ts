@@ -55,11 +55,15 @@ export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page |
             equals: slug,
           },
         },
-        {
-          _status: {
-            equals: 'published',
-          },
-        },
+        ...(draft
+          ? []
+          : [
+              {
+                _status: {
+                  equals: 'published',
+                },
+              },
+            ]),
       ],
     },
   })
@@ -158,7 +162,20 @@ export const fetchBlogPost = async (slug: string): Promise<Post> => {
     depth: 2,
     draft,
     limit: 1,
-    where: { slug: { equals: slug } },
+    where: {
+      and: [
+        { slug: { equals: slug } },
+        ...(draft
+          ? []
+          : [
+              {
+                _status: {
+                  equals: 'published',
+                },
+              },
+            ]),
+      ],
+    },
   })
 
   return data.docs[0]
@@ -184,7 +201,20 @@ export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
     depth: 1,
     draft,
     limit: 1,
-    where: { slug: { equals: slug } },
+    where: {
+      and: [
+        { slug: { equals: slug } },
+        ...(draft
+          ? []
+          : [
+              {
+                _status: {
+                  equals: 'published',
+                },
+              },
+            ]),
+      ],
+    },
   })
 
   return data.docs[0]
@@ -254,7 +284,20 @@ export const fetchPartner = async (slug: string): Promise<Partner> => {
     collection: 'partners',
     draft,
     limit: 1,
-    where: { slug: { equals: slug } },
+    where: {
+      and: [
+        { slug: { equals: slug } },
+        ...(draft
+          ? []
+          : [
+              {
+                _status: {
+                  equals: 'published',
+                },
+              },
+            ]),
+      ],
+    },
   })
 
   return data.docs[0]
