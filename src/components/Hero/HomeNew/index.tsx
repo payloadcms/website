@@ -1,21 +1,20 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
-
 import BackgroundGradient from '@components/BackgroundGradient'
 import { BlockWrapper } from '@components/BlockWrapper/index.js'
 import { ChangeHeaderTheme } from '@components/ChangeHeaderTheme/index.js'
 import { CMSLink } from '@components/CMSLink/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { LogoShowcase } from '@components/Hero/HomeNew/LogoShowcase/index.js'
-import { useGetHeroPadding } from '@components/Hero/useGetHeroPadding.js'
 import { Media } from '@components/Media/index.js'
 import { BlocksProp } from '@components/RenderBlocks/index.js'
 import { RichText } from '@components/RichText/index.js'
 import { Page } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
-import CreatePayloadApp from '@components/CreatePayloadApp'
+import { BackgroundGrid } from '@components/BackgroundGrid'
+import { CommandLine } from '@components/CommandLine'
+import { Button } from '@components/Button'
 
 export const HomeNewHero: React.FC<
   Page['hero'] & {
@@ -30,75 +29,10 @@ export const HomeNewHero: React.FC<
   secondaryHeading,
   secondaryDescription,
   secondaryButtons,
-  media,
-  secondaryMedia,
   featureVideo,
-  logos,
-  firstContentBlock,
+  logoShowcase,
 }) => {
-  const laptopMediaRef = useRef<HTMLDivElement | null>(null)
-  const mobileLaptopMediaRef = useRef<HTMLDivElement | null>(null)
-  const [laptopMediaHeight, setLaptopMediaHeight] = useState(0)
-  const [mobileMediaWrapperHeight, setMobileMediaWrapperHeight] = useState(0)
-  const padding = useGetHeroPadding('dark', firstContentBlock)
-  const [windowWidth, setWindowWidth] = useState(0)
-
-  useEffect(() => {
-    const updateWindowSize = () => {
-      setWindowWidth(window.innerWidth)
-    }
-    window.addEventListener('resize', updateWindowSize)
-    updateWindowSize()
-
-    return () => window.removeEventListener('resize', updateWindowSize)
-  }, [])
-
-  useEffect(() => {
-    const updateElementHeights = () => {
-      const renderedLaptopMediaHeight = laptopMediaRef.current
-        ? laptopMediaRef.current.offsetHeight
-        : 0
-      setLaptopMediaHeight(renderedLaptopMediaHeight)
-    }
-    updateElementHeights()
-    window.addEventListener('resize', updateElementHeights)
-
-    return () => window.removeEventListener('resize', updateElementHeights)
-  }, [])
-
-  useEffect(() => {
-    const updateMobileMediaWrapperHeight = () => {
-      const newMobileHeight = mobileLaptopMediaRef.current
-        ? mobileLaptopMediaRef.current.offsetHeight
-        : 0
-      setMobileMediaWrapperHeight(newMobileHeight)
-    }
-    updateMobileMediaWrapperHeight()
-    window.addEventListener('resize', updateMobileMediaWrapperHeight)
-
-    return () => window.removeEventListener('resize', updateMobileMediaWrapperHeight)
-  }, [])
-
-  const aspectRatio = 2560 / 1971
-  const dynamicHeight = windowWidth / aspectRatio
-
-  const getContentWrapperHeight = () => {
-    if (windowWidth >= 1024) {
-      return {
-        height: `${dynamicHeight}px`,
-      }
-    } else if (windowWidth < 1024) {
-      return {
-        height: '100%',
-      }
-    } else {
-      return {
-        height: 'unset',
-      }
-    }
-  }
-
-  const contentWrapperHeight = getContentWrapperHeight()
+  const filteredLogos = logoShowcase?.filter(logo => typeof logo !== 'string')
 
   return (
     <ChangeHeaderTheme theme="dark">
@@ -108,17 +42,19 @@ export const HomeNewHero: React.FC<
         className={classes.heroWrapper}
       >
         <Gutter className={[classes.heroContent, 'grid'].join(' ')}>
-          <div className="cols-8">
-            {/* {enableAnnouncement && (
+          {enableAnnouncement && (
+            <div className="cols-16">
               <div className={classes.announcementLink}>
                 <CMSLink {...announcementLink} />
               </div>
-            )} */}
+            </div>
+          )}
+          <div className="cols-10 cols-m-8">
             <RichText content={richText} />
           </div>
           <div className="cols-4 start-13 cols-m-8 start-m-1">
             <RichText content={description} />
-            <CreatePayloadApp />
+            <CommandLine command="create-payload-app@latest" />
           </div>
         </Gutter>
         <Gutter>
@@ -126,22 +62,35 @@ export const HomeNewHero: React.FC<
             <Media resource={featureVideo} className={classes.featureVideo} />
           )}
         </Gutter>
-        <Gutter className={[classes.secondaryContent, 'grid'].join(' ')}>
-          <div className="cols-6 cols-m-8">
+        <Gutter className={[classes.secondaryContentWrapper, 'grid'].join(' ')}>
+          <div className={['cols-6 cols-m-8', classes.secondaryContent].join(' ')}>
             {secondaryHeading && <RichText content={secondaryHeading} />}
             {secondaryDescription && <RichText content={secondaryDescription} />}
-            {secondaryButtons && (
-              <div className={classes.secondaryButtons}>
-                {secondaryButtons.map((button, index) => (
-                  <CMSLink key={index} {...button} />
-                ))}
-              </div>
+            {Array.isArray(secondaryButtons) && (
+              <ul className={classes.secondaryButtons}>
+                {secondaryButtons.map(({ link }, i) => {
+                  return (
+                    <li key={i}>
+                      <CMSLink
+                        {...link}
+                        appearance="default"
+                        fullWidth
+                        buttonProps={{
+                          icon: 'arrow',
+                          hideHorizontalBorders: true,
+                        }}
+                      />
+                    </li>
+                  )
+                })}
+              </ul>
             )}
           </div>
           <div className="cols-8 start-9 start-m-1">
-            <LogoShowcase logos={logos} />
+            {filteredLogos && <LogoShowcase logos={filteredLogos} />}
           </div>
         </Gutter>
+        <BackgroundGrid zIndex={-2} />
       </BlockWrapper>
       <BackgroundGradient className={classes.backgroundGradient} />
     </ChangeHeaderTheme>

@@ -1,170 +1,101 @@
 @use "@scss/common" as *;
 
-.logoShowcase {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+.logoGrid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
   position: relative;
-  width: 100%;
-
-  .horizontalLine, .verticalLine, .verticalLineNoDesktop {
-    position: absolute;
-    z-index: 1;
-  }
-
-  .horizontalLine {
-    left: 0;
-    right: 0;
-    height: 1px;
-  }
-
-  .verticalLine {
-    top: 0;
-    bottom: 0;
-    width: 1px;
-  }
-
-  .verticalLineNoDesktop {
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    opacity: 0;
-    @include mid-break {
-      opacity: 1;
-    }
-  }
-
-  .topHorizontalLine {
-    top: 0;
-    left: 25%;
-    width: 75%;
-  }
-
-  .bottomHorizontalLine {
-    bottom: 0;
-    right: 25%;
-    width: 75%;
-  }
 }
 
-.logoShowcaseItem {
+.logoItem {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
+  .scanline {
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+
+  img {
+    transition: filter 1s ease, opacity 1s ease;
+  }
+
+  width: calc(var(--column) * 2);
+  height: calc(var(--column) * 2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  border-top: 1px solid var(--theme-border-color);
+
+  img {
     width: 100%;
     height: 100%;
-    background-image: url('/images/scanline-dark.png');
-    background-repeat: repeat;
-    opacity: 0.08;
-    z-index: 0;
+    object-fit: contain;
+  }
 
-    [data-theme="dark"]  & {
-      background-image: url('/images/scanline-light.png');
+  &:first-of-type {
+    margin-left: calc(var(--column) * 2);
+  }
+
+  &:nth-child(1), &:nth-child(3), &:nth-child(5) {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -1px;
+      width: 1px;
+      height: 100%;
+      background: var(--theme-border-color);
     }
   }
 
-  &::after {
-    content: '';
-    display: block;
-    padding-top: 100%;
-  }
-
-  .contentWrapper {
-    position: absolute;
-    top: 1.5rem;
-    bottom: 1.5rem;
-    left: 1.5rem;
-    right: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    @include small-break {
-      top: 1rem;
-      bottom: 1rem;
-      left: 1rem;
-      right: 1rem;
-    }
-
-    > div {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 1s ease, filter 1s ease;
-      opacity: 0;
-      filter: blur(0px);
+  &:nth-child(3), &:nth-child(4), &:nth-child(5), &:nth-child(6) {
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--theme-border-color);
     }
   }
-}
 
-.logoPresent {
-  &::before {
-    background-image: none;
+  &:nth-child(6){
+    border-right: 1px solid var(--theme-border-color);
+  }
 
-    [data-theme="dark"]  & {
-      background-image: none;
+  @include small-break {
+    &:nth-child(1), &:nth-child(5) {
+      border-right: 1px solid var(--theme-border-color);
     }
   }
 }
 
-.noScanline {
-  &::before {
-    background-image: none;
+.active {
+  img {
+    filter: blur(16px);
+    opacity: 0;
+  }
 
-    [data-theme="dark"]  & {
-      background-image: none;
-    }
+  .scanline {
+    opacity: 1;
   }
 }
 
-.crosshair {
+.crosshairTop {
   position: absolute;
-  width: 1rem;
-  height: auto;
-  z-index: 5;
-  color: var(--theme-elevation-1000);
-  opacity: 0.5;
+  left: calc((var(--column) * 2) - 0.5rem);
+  top: -0.5rem;
 }
 
-.crosshairBottomLeft {
-  left: -.5rem;
-  bottom: -.5rem;
-}
-
-.crosshairTopRight {
-  right: -.5rem;
-  top: -.5rem;
-}
-
-.crosshairFirstCell {
-  left: calc(25% - .45rem);
-  bottom: calc(66.666% - .55rem)
-}
-
-.crosshairSecondRowThirdCell {
-  left: calc(75% - .45rem);
-  bottom: calc(33.333% - .55rem);
-}
-
-:global([data-theme="dark"]) {
-  .logoShowcase {
-    .horizontalLine, .verticalLine, .verticalLineNoDesktop {
-      background: var(--grid-line-dark);
-    }
-  }
-}
-
-:global([data-theme="light"]) {
-  .logoShowcase {
-    .horizontalLine, .verticalLine, .verticalLineNoDesktop {
-      background: var(--grid-line-dark);
-    }
-  }
+.crosshairBottom {
+  position: absolute;
+  right: calc((var(--column) * 2) - 0.5rem);
+  bottom: -0.5rem;
 }
