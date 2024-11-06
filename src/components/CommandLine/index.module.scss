@@ -15,7 +15,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  margin-block: 2rem;
   width: 100%;
   max-width: calc(var(--column) * 4);
   @include code;
@@ -61,4 +60,12 @@
 
 .icon {
   animation: fadeIn 0.5s forwards;
+}
+
+.copied, .copied:hover {
+  background: rgba(0, 0, 0, 0.1);
+
+  @include data-theme-selector('dark') {
+    background: rgba(255, 255, 255, 0.1);
+  }
 }

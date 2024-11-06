@@ -12,7 +12,7 @@ export const CommandLine = ({ command }: { command: string }) => {
       setCopied(true)
       setTimeout(() => {
         setCopied(false)
-      }, 2000)
+      }, 1000)
     })
   }
 
@@ -20,12 +20,12 @@ export const CommandLine = ({ command }: { command: string }) => {
     <button
       aria-label={`Copy command: ${command}`}
       aria-live="polite"
-      className={classes.commandLine}
+      className={[classes.commandLine, copied && classes.copied].filter(Boolean).join(' ')}
       onClick={() => CopyToClipboard(command)}
       type="button"
     >
       <span aria-hidden="true" className={classes.commandText}>
-        $&nbsp;&nbsp;{command}
+        {copied ? `$  Copied to clipboard` : `$  ${command}`}
       </span>
       <div className={classes.icon}>
         {copied ? <CheckIcon aria-label="Copied" /> : <CopyIcon aria-label="Copy to clipboard" />}
