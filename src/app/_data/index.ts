@@ -263,7 +263,7 @@ export const fetchPartners = async (): Promise<Partner[]> => {
 
   const data = await payload.find({
     collection: 'partners',
-    depth: 1,
+    depth: 2,
     limit: 300,
     sort: 'slug',
     where: {
