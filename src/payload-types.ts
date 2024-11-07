@@ -31,6 +31,28 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
+  collectionsJoins: {};
+  collectionsSelect: {
+    'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
+    'community-help': CommunityHelpSelect<false> | CommunityHelpSelect<true>;
+    docs: DocsSelect<false> | DocsSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
+    industries: IndustriesSelect<false> | IndustriesSelect<true>;
+    specialties: SpecialtiesSelect<false> | SpecialtiesSelect<true>;
+    regions: RegionsSelect<false> | RegionsSelect<true>;
+    budgets: BudgetsSelect<false> | BudgetsSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
+    'reusable-content': ReusableContentSelect<false> | ReusableContentSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
+    partners: PartnersSelect<false> | PartnersSelect<true>;
+    forms: FormsSelect<false> | FormsSelect<true>;
+    'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
+    redirects: RedirectsSelect<false> | RedirectsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+  };
   db: {
     defaultIDType: string;
   };
@@ -39,9 +61,18 @@ export interface Config {
     'main-menu': MainMenu;
     'partner-program': PartnerProgram;
   };
+  globalsSelect: {
+    footer: FooterSelect<false> | FooterSelect<true>;
+    'main-menu': MainMenuSelect<false> | MainMenuSelect<true>;
+    'partner-program': PartnerProgramSelect<false> | PartnerProgramSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
+  };
+  jobs?: {
+    tasks: unknown;
+    workflows?: unknown;
   };
 }
 export interface UserAuthOperations {
@@ -146,6 +177,7 @@ export interface CaseStudy {
                 };
                 [k: string]: unknown;
               };
+              commandLine?: string | null;
               links?:
                 | {
                     type?: ('link' | 'npmCta') | null;
@@ -194,6 +226,7 @@ export interface CaseStudy {
                 label: string;
               };
               bannerImage?: (string | null) | Media;
+              gradientBackground?: boolean | null;
             };
             id?: string | null;
             blockName?: string | null;
@@ -1047,10 +1080,30 @@ export interface CaseStudy {
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
               quoteSlides: {
-                leader?: string | null;
                 quote: string;
                 author: string;
                 role?: string | null;
+                logo?: (string | null) | Media;
+                enableLink?: boolean | null;
+                link?: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'case-studies';
+                        value: string | CaseStudy;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                };
                 id?: string | null;
               }[];
             };
@@ -1941,6 +1994,7 @@ export interface Page {
             };
             [k: string]: unknown;
           };
+          commandLine?: string | null;
           links?:
             | {
                 type?: ('link' | 'npmCta') | null;
@@ -1989,6 +2043,7 @@ export interface Page {
             label: string;
           };
           bannerImage?: (string | null) | Media;
+          gradientBackground?: boolean | null;
         };
         id?: string | null;
         blockName?: string | null;
@@ -2842,10 +2897,30 @@ export interface Page {
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           quoteSlides: {
-            leader?: string | null;
             quote: string;
             author: string;
             role?: string | null;
+            logo?: (string | null) | Media;
+            enableLink?: boolean | null;
+            link?: {
+              type?: ('reference' | 'custom') | null;
+              newTab?: boolean | null;
+              reference?:
+                | ({
+                    relationTo: 'pages';
+                    value: string | Page;
+                  } | null)
+                | ({
+                    relationTo: 'posts';
+                    value: string | Post;
+                  } | null)
+                | ({
+                    relationTo: 'case-studies';
+                    value: string | CaseStudy;
+                  } | null);
+              url?: string | null;
+              label: string;
+            };
             id?: string | null;
           }[];
         };
@@ -3724,6 +3799,7 @@ export interface ReusableContent {
             };
             [k: string]: unknown;
           };
+          commandLine?: string | null;
           links?:
             | {
                 type?: ('link' | 'npmCta') | null;
@@ -3772,6 +3848,7 @@ export interface ReusableContent {
             label: string;
           };
           bannerImage?: (string | null) | Media;
+          gradientBackground?: boolean | null;
         };
         id?: string | null;
         blockName?: string | null;
@@ -4668,10 +4745,30 @@ export interface ReusableContent {
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
           quoteSlides: {
-            leader?: string | null;
             quote: string;
             author: string;
             role?: string | null;
+            logo?: (string | null) | Media;
+            enableLink?: boolean | null;
+            link?: {
+              type?: ('reference' | 'custom') | null;
+              newTab?: boolean | null;
+              reference?:
+                | ({
+                    relationTo: 'pages';
+                    value: string | Page;
+                  } | null)
+                | ({
+                    relationTo: 'posts';
+                    value: string | Post;
+                  } | null)
+                | ({
+                    relationTo: 'case-studies';
+                    value: string | CaseStudy;
+                  } | null);
+              url?: string | null;
+              label: string;
+            };
             id?: string | null;
           }[];
         };
@@ -5790,6 +5887,3823 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "case-studies_select".
+ */
+export interface CaseStudiesSelect<T extends boolean = true> {
+  title?: T;
+  introContent?: T;
+  industry?: T;
+  useCase?: T;
+  featuredImage?: T;
+  layout?:
+    | T
+    | {
+        callout?:
+          | T
+          | {
+              calloutFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    logo?: T;
+                    author?: T;
+                    role?: T;
+                    images?:
+                      | T
+                      | {
+                          image?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              ctaFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    style?: T;
+                    richText?: T;
+                    commandLine?: T;
+                    links?:
+                      | T
+                      | {
+                          type?: T;
+                          npmCta?:
+                            | T
+                            | {
+                                label?: T;
+                              };
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                    bannerLink?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    bannerImage?: T;
+                    gradientBackground?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cardGrid?:
+          | T
+          | {
+              cardGridFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                    revealDescription?: T;
+                    cards?:
+                      | T
+                      | {
+                          title?: T;
+                          description?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        caseStudyCards?:
+          | T
+          | {
+              caseStudyCardFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    pixels?: T;
+                    cards?:
+                      | T
+                      | {
+                          richText?: T;
+                          caseStudy?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        caseStudiesHighlight?:
+          | T
+          | {
+              caseStudiesHighlightFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    caseStudies?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        caseStudyParallax?:
+          | T
+          | {
+              caseStudyParallaxFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    items?:
+                      | T
+                      | {
+                          quote?: T;
+                          author?: T;
+                          logo?: T;
+                          images?:
+                            | T
+                            | {
+                                image?: T;
+                                id?: T;
+                              };
+                          tabLabel?: T;
+                          caseStudy?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        codeFeature?:
+          | T
+          | {
+              codeFeatureFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    forceDarkBackground?: T;
+                    alignment?: T;
+                    heading?: T;
+                    richText?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                    codeTabs?:
+                      | T
+                      | {
+                          language?: T;
+                          label?: T;
+                          code?: T;
+                          codeBlips?:
+                            | T
+                            | {
+                                row?: T;
+                                label?: T;
+                                feature?: T;
+                                enableLink?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        content?:
+          | T
+          | {
+              contentFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    useLeadingHeader?: T;
+                    leadingHeader?: T;
+                    layout?: T;
+                    columnOne?: T;
+                    columnTwo?: T;
+                    columnThree?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        contentGrid?:
+          | T
+          | {
+              contentGridFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    style?: T;
+                    showNumbers?: T;
+                    content?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                    cells?:
+                      | T
+                      | {
+                          content?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        form?:
+          | T
+          | {
+              formFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    form?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        hoverCards?:
+          | T
+          | {
+              hoverCardsFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    hideBackground?: T;
+                    richText?: T;
+                    cards?:
+                      | T
+                      | {
+                          title?: T;
+                          description?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        hoverHighlights?:
+          | T
+          | {
+              hoverHighlightsFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    beforeHighlights?: T;
+                    highlights?:
+                      | T
+                      | {
+                          text?: T;
+                          media?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                              };
+                          id?: T;
+                        };
+                    afterHighlights?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        linkGrid?:
+          | T
+          | {
+              linkGridFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        logoGrid?:
+          | T
+          | {
+              logoGridFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    enableLink?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    logos?:
+                      | T
+                      | {
+                          logoMedia?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaBlock?:
+          | T
+          | {
+              mediaBlockFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    position?: T;
+                    media?: T;
+                    caption?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaContent?:
+          | T
+          | {
+              mediaContentFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    alignment?: T;
+                    mediaWidth?: T;
+                    richText?: T;
+                    enableLink?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    images?:
+                      | T
+                      | {
+                          image?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaContentAccordion?:
+          | T
+          | {
+              mediaContentAccordionFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    alignment?: T;
+                    leader?: T;
+                    heading?: T;
+                    accordion?:
+                      | T
+                      | {
+                          position?: T;
+                          background?: T;
+                          mediaLabel?: T;
+                          mediaDescription?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          media?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        pricing?:
+          | T
+          | {
+              pricingFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    plans?:
+                      | T
+                      | {
+                          name?: T;
+                          hasPrice?: T;
+                          enableCreatePayload?: T;
+                          price?: T;
+                          title?: T;
+                          description?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          features?:
+                            | T
+                            | {
+                                icon?: T;
+                                feature?: T;
+                                id?: T;
+                              };
+                          id?: T;
+                        };
+                    disclaimer?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        reusableContentBlock?:
+          | T
+          | {
+              reusableContentBlockFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    reusableContent?: T;
+                    customId?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        slider?:
+          | T
+          | {
+              sliderFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    quoteSlides?:
+                      | T
+                      | {
+                          quote?: T;
+                          author?: T;
+                          role?: T;
+                          logo?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        statement?:
+          | T
+          | {
+              statementFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                    assetType?: T;
+                    media?: T;
+                    code?: T;
+                    mediaWidth?: T;
+                    backgroundGlow?: T;
+                    assetCaption?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        steps?:
+          | T
+          | {
+              stepsFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    steps?:
+                      | T
+                      | {
+                          layout?:
+                            | T
+                            | {
+                                codeFeature?:
+                                  | T
+                                  | {
+                                      codeFeatureFields?:
+                                        | T
+                                        | {
+                                            settings?:
+                                              | T
+                                              | {
+                                                  theme?: T;
+                                                  background?: T;
+                                                };
+                                            forceDarkBackground?: T;
+                                            alignment?: T;
+                                            heading?: T;
+                                            richText?: T;
+                                            links?:
+                                              | T
+                                              | {
+                                                  link?:
+                                                    | T
+                                                    | {
+                                                        type?: T;
+                                                        newTab?: T;
+                                                        reference?: T;
+                                                        url?: T;
+                                                        label?: T;
+                                                      };
+                                                  id?: T;
+                                                };
+                                            codeTabs?:
+                                              | T
+                                              | {
+                                                  language?: T;
+                                                  label?: T;
+                                                  code?: T;
+                                                  codeBlips?:
+                                                    | T
+                                                    | {
+                                                        row?: T;
+                                                        label?: T;
+                                                        feature?: T;
+                                                        enableLink?: T;
+                                                        link?:
+                                                          | T
+                                                          | {
+                                                              type?: T;
+                                                              newTab?: T;
+                                                              reference?: T;
+                                                              url?: T;
+                                                              label?: T;
+                                                            };
+                                                        id?: T;
+                                                      };
+                                                  id?: T;
+                                                };
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                content?:
+                                  | T
+                                  | {
+                                      contentFields?:
+                                        | T
+                                        | {
+                                            settings?:
+                                              | T
+                                              | {
+                                                  theme?: T;
+                                                  background?: T;
+                                                };
+                                            useLeadingHeader?: T;
+                                            leadingHeader?: T;
+                                            layout?: T;
+                                            columnOne?: T;
+                                            columnTwo?: T;
+                                            columnThree?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                hoverHighlights?:
+                                  | T
+                                  | {
+                                      hoverHighlightsFields?:
+                                        | T
+                                        | {
+                                            settings?:
+                                              | T
+                                              | {
+                                                  theme?: T;
+                                                  background?: T;
+                                                };
+                                            beforeHighlights?: T;
+                                            highlights?:
+                                              | T
+                                              | {
+                                                  text?: T;
+                                                  media?:
+                                                    | T
+                                                    | {
+                                                        top?: T;
+                                                        bottom?: T;
+                                                      };
+                                                  link?:
+                                                    | T
+                                                    | {
+                                                        type?: T;
+                                                        newTab?: T;
+                                                        reference?: T;
+                                                        url?: T;
+                                                      };
+                                                  id?: T;
+                                                };
+                                            afterHighlights?: T;
+                                            link?:
+                                              | T
+                                              | {
+                                                  type?: T;
+                                                  newTab?: T;
+                                                  reference?: T;
+                                                  url?: T;
+                                                  label?: T;
+                                                };
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                stickyHighlights?:
+                                  | T
+                                  | {
+                                      stickyHighlightsFields?:
+                                        | T
+                                        | {
+                                            settings?:
+                                              | T
+                                              | {
+                                                  theme?: T;
+                                                  background?: T;
+                                                };
+                                            highlights?:
+                                              | T
+                                              | {
+                                                  richText?: T;
+                                                  enableLink?: T;
+                                                  link?:
+                                                    | T
+                                                    | {
+                                                        type?: T;
+                                                        newTab?: T;
+                                                        reference?: T;
+                                                        url?: T;
+                                                        label?: T;
+                                                      };
+                                                  type?: T;
+                                                  code?: T;
+                                                  codeBlips?:
+                                                    | T
+                                                    | {
+                                                        row?: T;
+                                                        label?: T;
+                                                        feature?: T;
+                                                        enableLink?: T;
+                                                        link?:
+                                                          | T
+                                                          | {
+                                                              type?: T;
+                                                              newTab?: T;
+                                                              reference?: T;
+                                                              url?: T;
+                                                              label?: T;
+                                                            };
+                                                        id?: T;
+                                                      };
+                                                  media?: T;
+                                                  id?: T;
+                                                };
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        stickyHighlights?:
+          | T
+          | {
+              stickyHighlightsFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    highlights?:
+                      | T
+                      | {
+                          richText?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          type?: T;
+                          code?: T;
+                          codeBlips?:
+                            | T
+                            | {
+                                row?: T;
+                                label?: T;
+                                feature?: T;
+                                enableLink?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                          media?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        exampleTabs?:
+          | T
+          | {
+              content?: T;
+              tabs?:
+                | T
+                | {
+                    label?: T;
+                    content?: T;
+                    examples?:
+                      | T
+                      | {
+                          CodeExampleBlock?:
+                            | T
+                            | {
+                                code?: T;
+                                id?: T;
+                                blockName?: T;
+                              };
+                          MediaExampleBlock?:
+                            | T
+                            | {
+                                media?: T;
+                                id?: T;
+                                blockName?: T;
+                              };
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  slug?: T;
+  url?: T;
+  meta?:
+    | T
+    | {
+        overview?: T;
+        title?: T;
+        description?: T;
+        image?: T;
+        preview?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "community-help_select".
+ */
+export interface CommunityHelpSelect<T extends boolean = true> {
+  title?: T;
+  communityHelpType?: T;
+  githubID?: T;
+  discordID?: T;
+  communityHelpJSON?: T;
+  introDescription?: T;
+  slug?: T;
+  helpful?: T;
+  relatedDocs?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "docs_select".
+ */
+export interface DocsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  keywords?: T;
+  headings?: T;
+  content?: T;
+  path?: T;
+  topic?: T;
+  slug?: T;
+  label?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  darkModeFallback?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  fullTitle?: T;
+  noindex?: T;
+  hero?:
+    | T
+    | {
+        type?: T;
+        fullBackground?: T;
+        theme?: T;
+        enableBreadcrumbsBar?: T;
+        breadcrumbsBarLinks?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+        livestream?:
+          | T
+          | {
+              id?: T;
+              date?: T;
+              hideBreadcrumbs?: T;
+              richText?: T;
+              guests?:
+                | T
+                | {
+                    name?: T;
+                    link?: T;
+                    image?: T;
+                    id?: T;
+                  };
+            };
+        enableAnnouncement?: T;
+        announcementLink?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        richText?: T;
+        description?: T;
+        primaryButtons?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+        secondaryHeading?: T;
+        secondaryDescription?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+        threeCTA?: T;
+        newsletter?:
+          | T
+          | {
+              placeholder?: T;
+              description?: T;
+            };
+        buttons?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                          appearance?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              command?:
+                | T
+                | {
+                    command?: T;
+                    id?: T;
+                    blockName?: T;
+                  };
+            };
+        secondaryButtons?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+        images?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
+        enableMedia?: T;
+        media?: T;
+        secondaryMedia?: T;
+        featureVideo?: T;
+        form?: T;
+        logos?:
+          | T
+          | {
+              logoMedia?: T;
+              id?: T;
+            };
+        logoShowcase?: T;
+      };
+  layout?:
+    | T
+    | {
+        callout?:
+          | T
+          | {
+              calloutFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    logo?: T;
+                    author?: T;
+                    role?: T;
+                    images?:
+                      | T
+                      | {
+                          image?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              ctaFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    style?: T;
+                    richText?: T;
+                    commandLine?: T;
+                    links?:
+                      | T
+                      | {
+                          type?: T;
+                          npmCta?:
+                            | T
+                            | {
+                                label?: T;
+                              };
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                    bannerLink?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    bannerImage?: T;
+                    gradientBackground?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cardGrid?:
+          | T
+          | {
+              cardGridFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                    revealDescription?: T;
+                    cards?:
+                      | T
+                      | {
+                          title?: T;
+                          description?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        caseStudyCards?:
+          | T
+          | {
+              caseStudyCardFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    pixels?: T;
+                    cards?:
+                      | T
+                      | {
+                          richText?: T;
+                          caseStudy?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        caseStudiesHighlight?:
+          | T
+          | {
+              caseStudiesHighlightFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    caseStudies?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        caseStudyParallax?:
+          | T
+          | {
+              caseStudyParallaxFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    items?:
+                      | T
+                      | {
+                          quote?: T;
+                          author?: T;
+                          logo?: T;
+                          images?:
+                            | T
+                            | {
+                                image?: T;
+                                id?: T;
+                              };
+                          tabLabel?: T;
+                          caseStudy?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        codeFeature?:
+          | T
+          | {
+              codeFeatureFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    forceDarkBackground?: T;
+                    alignment?: T;
+                    heading?: T;
+                    richText?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                    codeTabs?:
+                      | T
+                      | {
+                          language?: T;
+                          label?: T;
+                          code?: T;
+                          codeBlips?:
+                            | T
+                            | {
+                                row?: T;
+                                label?: T;
+                                feature?: T;
+                                enableLink?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        content?:
+          | T
+          | {
+              contentFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    useLeadingHeader?: T;
+                    leadingHeader?: T;
+                    layout?: T;
+                    columnOne?: T;
+                    columnTwo?: T;
+                    columnThree?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        contentGrid?:
+          | T
+          | {
+              contentGridFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    style?: T;
+                    showNumbers?: T;
+                    content?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                    cells?:
+                      | T
+                      | {
+                          content?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        form?:
+          | T
+          | {
+              formFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    form?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        hoverCards?:
+          | T
+          | {
+              hoverCardsFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    hideBackground?: T;
+                    richText?: T;
+                    cards?:
+                      | T
+                      | {
+                          title?: T;
+                          description?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        hoverHighlights?:
+          | T
+          | {
+              hoverHighlightsFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    beforeHighlights?: T;
+                    highlights?:
+                      | T
+                      | {
+                          text?: T;
+                          media?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                              };
+                          id?: T;
+                        };
+                    afterHighlights?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        linkGrid?:
+          | T
+          | {
+              linkGridFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        logoGrid?:
+          | T
+          | {
+              logoGridFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    enableLink?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    logos?:
+                      | T
+                      | {
+                          logoMedia?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaBlock?:
+          | T
+          | {
+              mediaBlockFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    position?: T;
+                    media?: T;
+                    caption?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaContent?:
+          | T
+          | {
+              mediaContentFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    alignment?: T;
+                    mediaWidth?: T;
+                    richText?: T;
+                    enableLink?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    images?:
+                      | T
+                      | {
+                          image?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaContentAccordion?:
+          | T
+          | {
+              mediaContentAccordionFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    alignment?: T;
+                    leader?: T;
+                    heading?: T;
+                    accordion?:
+                      | T
+                      | {
+                          position?: T;
+                          background?: T;
+                          mediaLabel?: T;
+                          mediaDescription?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          media?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        pricing?:
+          | T
+          | {
+              pricingFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    plans?:
+                      | T
+                      | {
+                          name?: T;
+                          hasPrice?: T;
+                          enableCreatePayload?: T;
+                          price?: T;
+                          title?: T;
+                          description?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          features?:
+                            | T
+                            | {
+                                icon?: T;
+                                feature?: T;
+                                id?: T;
+                              };
+                          id?: T;
+                        };
+                    disclaimer?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        reusableContentBlock?:
+          | T
+          | {
+              reusableContentBlockFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    reusableContent?: T;
+                    customId?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        slider?:
+          | T
+          | {
+              sliderFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    quoteSlides?:
+                      | T
+                      | {
+                          quote?: T;
+                          author?: T;
+                          role?: T;
+                          logo?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        statement?:
+          | T
+          | {
+              statementFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                    assetType?: T;
+                    media?: T;
+                    code?: T;
+                    mediaWidth?: T;
+                    backgroundGlow?: T;
+                    assetCaption?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        steps?:
+          | T
+          | {
+              stepsFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    steps?:
+                      | T
+                      | {
+                          layout?:
+                            | T
+                            | {
+                                codeFeature?:
+                                  | T
+                                  | {
+                                      codeFeatureFields?:
+                                        | T
+                                        | {
+                                            settings?:
+                                              | T
+                                              | {
+                                                  theme?: T;
+                                                  background?: T;
+                                                };
+                                            forceDarkBackground?: T;
+                                            alignment?: T;
+                                            heading?: T;
+                                            richText?: T;
+                                            links?:
+                                              | T
+                                              | {
+                                                  link?:
+                                                    | T
+                                                    | {
+                                                        type?: T;
+                                                        newTab?: T;
+                                                        reference?: T;
+                                                        url?: T;
+                                                        label?: T;
+                                                      };
+                                                  id?: T;
+                                                };
+                                            codeTabs?:
+                                              | T
+                                              | {
+                                                  language?: T;
+                                                  label?: T;
+                                                  code?: T;
+                                                  codeBlips?:
+                                                    | T
+                                                    | {
+                                                        row?: T;
+                                                        label?: T;
+                                                        feature?: T;
+                                                        enableLink?: T;
+                                                        link?:
+                                                          | T
+                                                          | {
+                                                              type?: T;
+                                                              newTab?: T;
+                                                              reference?: T;
+                                                              url?: T;
+                                                              label?: T;
+                                                            };
+                                                        id?: T;
+                                                      };
+                                                  id?: T;
+                                                };
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                content?:
+                                  | T
+                                  | {
+                                      contentFields?:
+                                        | T
+                                        | {
+                                            settings?:
+                                              | T
+                                              | {
+                                                  theme?: T;
+                                                  background?: T;
+                                                };
+                                            useLeadingHeader?: T;
+                                            leadingHeader?: T;
+                                            layout?: T;
+                                            columnOne?: T;
+                                            columnTwo?: T;
+                                            columnThree?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                hoverHighlights?:
+                                  | T
+                                  | {
+                                      hoverHighlightsFields?:
+                                        | T
+                                        | {
+                                            settings?:
+                                              | T
+                                              | {
+                                                  theme?: T;
+                                                  background?: T;
+                                                };
+                                            beforeHighlights?: T;
+                                            highlights?:
+                                              | T
+                                              | {
+                                                  text?: T;
+                                                  media?:
+                                                    | T
+                                                    | {
+                                                        top?: T;
+                                                        bottom?: T;
+                                                      };
+                                                  link?:
+                                                    | T
+                                                    | {
+                                                        type?: T;
+                                                        newTab?: T;
+                                                        reference?: T;
+                                                        url?: T;
+                                                      };
+                                                  id?: T;
+                                                };
+                                            afterHighlights?: T;
+                                            link?:
+                                              | T
+                                              | {
+                                                  type?: T;
+                                                  newTab?: T;
+                                                  reference?: T;
+                                                  url?: T;
+                                                  label?: T;
+                                                };
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                stickyHighlights?:
+                                  | T
+                                  | {
+                                      stickyHighlightsFields?:
+                                        | T
+                                        | {
+                                            settings?:
+                                              | T
+                                              | {
+                                                  theme?: T;
+                                                  background?: T;
+                                                };
+                                            highlights?:
+                                              | T
+                                              | {
+                                                  richText?: T;
+                                                  enableLink?: T;
+                                                  link?:
+                                                    | T
+                                                    | {
+                                                        type?: T;
+                                                        newTab?: T;
+                                                        reference?: T;
+                                                        url?: T;
+                                                        label?: T;
+                                                      };
+                                                  type?: T;
+                                                  code?: T;
+                                                  codeBlips?:
+                                                    | T
+                                                    | {
+                                                        row?: T;
+                                                        label?: T;
+                                                        feature?: T;
+                                                        enableLink?: T;
+                                                        link?:
+                                                          | T
+                                                          | {
+                                                              type?: T;
+                                                              newTab?: T;
+                                                              reference?: T;
+                                                              url?: T;
+                                                              label?: T;
+                                                            };
+                                                        id?: T;
+                                                      };
+                                                  media?: T;
+                                                  id?: T;
+                                                };
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        stickyHighlights?:
+          | T
+          | {
+              stickyHighlightsFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    highlights?:
+                      | T
+                      | {
+                          richText?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          type?: T;
+                          code?: T;
+                          codeBlips?:
+                            | T
+                            | {
+                                row?: T;
+                                label?: T;
+                                feature?: T;
+                                enableLink?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                          media?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        exampleTabs?:
+          | T
+          | {
+              content?: T;
+              tabs?:
+                | T
+                | {
+                    label?: T;
+                    content?: T;
+                    examples?:
+                      | T
+                      | {
+                          CodeExampleBlock?:
+                            | T
+                            | {
+                                code?: T;
+                                id?: T;
+                                blockName?: T;
+                              };
+                          MediaExampleBlock?:
+                            | T
+                            | {
+                                media?: T;
+                                id?: T;
+                                blockName?: T;
+                              };
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  slug?: T;
+  meta?:
+    | T
+    | {
+        overview?: T;
+        title?: T;
+        description?: T;
+        image?: T;
+        preview?: T;
+      };
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries_select".
+ */
+export interface IndustriesSelect<T extends boolean = true> {
+  name?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "specialties_select".
+ */
+export interface SpecialtiesSelect<T extends boolean = true> {
+  name?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "regions_select".
+ */
+export interface RegionsSelect<T extends boolean = true> {
+  name?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "budgets_select".
+ */
+export interface BudgetsSelect<T extends boolean = true> {
+  name?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  excerpt?: T;
+  content?:
+    | T
+    | {
+        banner?:
+          | T
+          | {
+              bannerFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    type?: T;
+                    addCheckmark?: T;
+                    content?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        blogContent?:
+          | T
+          | {
+              blogContentFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        code?:
+          | T
+          | {
+              codeFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    language?: T;
+                    code?: T;
+                    codeBlips?:
+                      | T
+                      | {
+                          row?: T;
+                          label?: T;
+                          feature?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        blogMarkdown?:
+          | T
+          | {
+              blogMarkdownFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    markdown?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaBlock?:
+          | T
+          | {
+              mediaBlockFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    position?: T;
+                    media?: T;
+                    caption?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        reusableContentBlock?:
+          | T
+          | {
+              reusableContentBlockFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    reusableContent?: T;
+                    customId?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  lexicalContent?: T;
+  relatedPosts?: T;
+  slug?: T;
+  authors?: T;
+  publishedOn?: T;
+  meta?:
+    | T
+    | {
+        overview?: T;
+        title?: T;
+        description?: T;
+        image?: T;
+        preview?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reusable-content_select".
+ */
+export interface ReusableContentSelect<T extends boolean = true> {
+  title?: T;
+  layout?:
+    | T
+    | {
+        banner?:
+          | T
+          | {
+              bannerFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    type?: T;
+                    addCheckmark?: T;
+                    content?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        blogContent?:
+          | T
+          | {
+              blogContentFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        blogMarkdown?:
+          | T
+          | {
+              blogMarkdownFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    markdown?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        callout?:
+          | T
+          | {
+              calloutFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    logo?: T;
+                    author?: T;
+                    role?: T;
+                    images?:
+                      | T
+                      | {
+                          image?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              ctaFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    style?: T;
+                    richText?: T;
+                    commandLine?: T;
+                    links?:
+                      | T
+                      | {
+                          type?: T;
+                          npmCta?:
+                            | T
+                            | {
+                                label?: T;
+                              };
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                    bannerLink?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    bannerImage?: T;
+                    gradientBackground?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cardGrid?:
+          | T
+          | {
+              cardGridFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                    revealDescription?: T;
+                    cards?:
+                      | T
+                      | {
+                          title?: T;
+                          description?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        caseStudyCards?:
+          | T
+          | {
+              caseStudyCardFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    pixels?: T;
+                    cards?:
+                      | T
+                      | {
+                          richText?: T;
+                          caseStudy?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        caseStudiesHighlight?:
+          | T
+          | {
+              caseStudiesHighlightFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    caseStudies?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        caseStudyParallax?:
+          | T
+          | {
+              caseStudyParallaxFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    items?:
+                      | T
+                      | {
+                          quote?: T;
+                          author?: T;
+                          logo?: T;
+                          images?:
+                            | T
+                            | {
+                                image?: T;
+                                id?: T;
+                              };
+                          tabLabel?: T;
+                          caseStudy?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        code?:
+          | T
+          | {
+              codeFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    language?: T;
+                    code?: T;
+                    codeBlips?:
+                      | T
+                      | {
+                          row?: T;
+                          label?: T;
+                          feature?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        codeFeature?:
+          | T
+          | {
+              codeFeatureFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    forceDarkBackground?: T;
+                    alignment?: T;
+                    heading?: T;
+                    richText?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                    codeTabs?:
+                      | T
+                      | {
+                          language?: T;
+                          label?: T;
+                          code?: T;
+                          codeBlips?:
+                            | T
+                            | {
+                                row?: T;
+                                label?: T;
+                                feature?: T;
+                                enableLink?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        content?:
+          | T
+          | {
+              contentFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    useLeadingHeader?: T;
+                    leadingHeader?: T;
+                    layout?: T;
+                    columnOne?: T;
+                    columnTwo?: T;
+                    columnThree?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        contentGrid?:
+          | T
+          | {
+              contentGridFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    style?: T;
+                    showNumbers?: T;
+                    content?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                    cells?:
+                      | T
+                      | {
+                          content?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        exampleTabs?:
+          | T
+          | {
+              content?: T;
+              tabs?:
+                | T
+                | {
+                    label?: T;
+                    content?: T;
+                    examples?:
+                      | T
+                      | {
+                          CodeExampleBlock?:
+                            | T
+                            | {
+                                code?: T;
+                                id?: T;
+                                blockName?: T;
+                              };
+                          MediaExampleBlock?:
+                            | T
+                            | {
+                                media?: T;
+                                id?: T;
+                                blockName?: T;
+                              };
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        form?:
+          | T
+          | {
+              formFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    form?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        hoverCards?:
+          | T
+          | {
+              hoverCardsFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    hideBackground?: T;
+                    richText?: T;
+                    cards?:
+                      | T
+                      | {
+                          title?: T;
+                          description?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        hoverHighlights?:
+          | T
+          | {
+              hoverHighlightsFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    beforeHighlights?: T;
+                    highlights?:
+                      | T
+                      | {
+                          text?: T;
+                          media?:
+                            | T
+                            | {
+                                top?: T;
+                                bottom?: T;
+                              };
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                              };
+                          id?: T;
+                        };
+                    afterHighlights?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        linkGrid?:
+          | T
+          | {
+              linkGridFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        logoGrid?:
+          | T
+          | {
+              logoGridFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    enableLink?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    logos?:
+                      | T
+                      | {
+                          logoMedia?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaBlock?:
+          | T
+          | {
+              mediaBlockFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    position?: T;
+                    media?: T;
+                    caption?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaContent?:
+          | T
+          | {
+              mediaContentFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    alignment?: T;
+                    mediaWidth?: T;
+                    richText?: T;
+                    enableLink?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    images?:
+                      | T
+                      | {
+                          image?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaContentAccordion?:
+          | T
+          | {
+              mediaContentAccordionFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    alignment?: T;
+                    leader?: T;
+                    heading?: T;
+                    accordion?:
+                      | T
+                      | {
+                          position?: T;
+                          background?: T;
+                          mediaLabel?: T;
+                          mediaDescription?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          media?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        pricing?:
+          | T
+          | {
+              pricingFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    plans?:
+                      | T
+                      | {
+                          name?: T;
+                          hasPrice?: T;
+                          enableCreatePayload?: T;
+                          price?: T;
+                          title?: T;
+                          description?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          features?:
+                            | T
+                            | {
+                                icon?: T;
+                                feature?: T;
+                                id?: T;
+                              };
+                          id?: T;
+                        };
+                    disclaimer?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        slider?:
+          | T
+          | {
+              sliderFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    quoteSlides?:
+                      | T
+                      | {
+                          quote?: T;
+                          author?: T;
+                          role?: T;
+                          logo?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        statement?:
+          | T
+          | {
+              statementFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    richText?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                    assetType?: T;
+                    media?: T;
+                    code?: T;
+                    mediaWidth?: T;
+                    backgroundGlow?: T;
+                    assetCaption?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        steps?:
+          | T
+          | {
+              stepsFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    steps?:
+                      | T
+                      | {
+                          layout?:
+                            | T
+                            | {
+                                codeFeature?:
+                                  | T
+                                  | {
+                                      codeFeatureFields?:
+                                        | T
+                                        | {
+                                            settings?:
+                                              | T
+                                              | {
+                                                  theme?: T;
+                                                  background?: T;
+                                                };
+                                            forceDarkBackground?: T;
+                                            alignment?: T;
+                                            heading?: T;
+                                            richText?: T;
+                                            links?:
+                                              | T
+                                              | {
+                                                  link?:
+                                                    | T
+                                                    | {
+                                                        type?: T;
+                                                        newTab?: T;
+                                                        reference?: T;
+                                                        url?: T;
+                                                        label?: T;
+                                                      };
+                                                  id?: T;
+                                                };
+                                            codeTabs?:
+                                              | T
+                                              | {
+                                                  language?: T;
+                                                  label?: T;
+                                                  code?: T;
+                                                  codeBlips?:
+                                                    | T
+                                                    | {
+                                                        row?: T;
+                                                        label?: T;
+                                                        feature?: T;
+                                                        enableLink?: T;
+                                                        link?:
+                                                          | T
+                                                          | {
+                                                              type?: T;
+                                                              newTab?: T;
+                                                              reference?: T;
+                                                              url?: T;
+                                                              label?: T;
+                                                            };
+                                                        id?: T;
+                                                      };
+                                                  id?: T;
+                                                };
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                content?:
+                                  | T
+                                  | {
+                                      contentFields?:
+                                        | T
+                                        | {
+                                            settings?:
+                                              | T
+                                              | {
+                                                  theme?: T;
+                                                  background?: T;
+                                                };
+                                            useLeadingHeader?: T;
+                                            leadingHeader?: T;
+                                            layout?: T;
+                                            columnOne?: T;
+                                            columnTwo?: T;
+                                            columnThree?: T;
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                hoverHighlights?:
+                                  | T
+                                  | {
+                                      hoverHighlightsFields?:
+                                        | T
+                                        | {
+                                            settings?:
+                                              | T
+                                              | {
+                                                  theme?: T;
+                                                  background?: T;
+                                                };
+                                            beforeHighlights?: T;
+                                            highlights?:
+                                              | T
+                                              | {
+                                                  text?: T;
+                                                  media?:
+                                                    | T
+                                                    | {
+                                                        top?: T;
+                                                        bottom?: T;
+                                                      };
+                                                  link?:
+                                                    | T
+                                                    | {
+                                                        type?: T;
+                                                        newTab?: T;
+                                                        reference?: T;
+                                                        url?: T;
+                                                      };
+                                                  id?: T;
+                                                };
+                                            afterHighlights?: T;
+                                            link?:
+                                              | T
+                                              | {
+                                                  type?: T;
+                                                  newTab?: T;
+                                                  reference?: T;
+                                                  url?: T;
+                                                  label?: T;
+                                                };
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                stickyHighlights?:
+                                  | T
+                                  | {
+                                      stickyHighlightsFields?:
+                                        | T
+                                        | {
+                                            settings?:
+                                              | T
+                                              | {
+                                                  theme?: T;
+                                                  background?: T;
+                                                };
+                                            highlights?:
+                                              | T
+                                              | {
+                                                  richText?: T;
+                                                  enableLink?: T;
+                                                  link?:
+                                                    | T
+                                                    | {
+                                                        type?: T;
+                                                        newTab?: T;
+                                                        reference?: T;
+                                                        url?: T;
+                                                        label?: T;
+                                                      };
+                                                  type?: T;
+                                                  code?: T;
+                                                  codeBlips?:
+                                                    | T
+                                                    | {
+                                                        row?: T;
+                                                        label?: T;
+                                                        feature?: T;
+                                                        enableLink?: T;
+                                                        link?:
+                                                          | T
+                                                          | {
+                                                              type?: T;
+                                                              newTab?: T;
+                                                              reference?: T;
+                                                              url?: T;
+                                                              label?: T;
+                                                            };
+                                                        id?: T;
+                                                      };
+                                                  media?: T;
+                                                  id?: T;
+                                                };
+                                          };
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        stickyHighlights?:
+          | T
+          | {
+              stickyHighlightsFields?:
+                | T
+                | {
+                    settings?:
+                      | T
+                      | {
+                          theme?: T;
+                          background?: T;
+                        };
+                    highlights?:
+                      | T
+                      | {
+                          richText?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          type?: T;
+                          code?: T;
+                          codeBlips?:
+                            | T
+                            | {
+                                row?: T;
+                                label?: T;
+                                feature?: T;
+                                enableLink?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                          media?: T;
+                          id?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  firstName?: T;
+  lastName?: T;
+  twitter?: T;
+  photo?: T;
+  roles?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners_select".
+ */
+export interface PartnersSelect<T extends boolean = true> {
+  name?: T;
+  website?: T;
+  email?: T;
+  slug?: T;
+  agency_status?: T;
+  hubspotID?: T;
+  logo?: T;
+  featured?: T;
+  topContributor?: T;
+  content?:
+    | T
+    | {
+        bannerImage?: T;
+        overview?: T;
+        services?: T;
+        idealProject?: T;
+        caseStudy?: T;
+        contributions?:
+          | T
+          | {
+              type?: T;
+              repo?: T;
+              number?: T;
+              id?: T;
+            };
+        projects?:
+          | T
+          | {
+              year?: T;
+              name?: T;
+              link?: T;
+              id?: T;
+            };
+      };
+  city?: T;
+  regions?: T;
+  specialties?: T;
+  budgets?: T;
+  industries?: T;
+  social?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "forms_select".
+ */
+export interface FormsSelect<T extends boolean = true> {
+  title?: T;
+  fields?:
+    | T
+    | {
+        checkbox?:
+          | T
+          | {
+              name?: T;
+              label?: T;
+              width?: T;
+              required?: T;
+              defaultValue?: T;
+              id?: T;
+              blockName?: T;
+            };
+        country?:
+          | T
+          | {
+              name?: T;
+              label?: T;
+              width?: T;
+              required?: T;
+              id?: T;
+              blockName?: T;
+            };
+        email?:
+          | T
+          | {
+              name?: T;
+              label?: T;
+              width?: T;
+              required?: T;
+              id?: T;
+              blockName?: T;
+            };
+        message?:
+          | T
+          | {
+              message?: T;
+              id?: T;
+              blockName?: T;
+            };
+        number?:
+          | T
+          | {
+              name?: T;
+              label?: T;
+              width?: T;
+              defaultValue?: T;
+              required?: T;
+              id?: T;
+              blockName?: T;
+            };
+        select?:
+          | T
+          | {
+              name?: T;
+              label?: T;
+              width?: T;
+              defaultValue?: T;
+              options?:
+                | T
+                | {
+                    label?: T;
+                    value?: T;
+                    id?: T;
+                  };
+              required?: T;
+              id?: T;
+              blockName?: T;
+            };
+        state?:
+          | T
+          | {
+              name?: T;
+              label?: T;
+              width?: T;
+              required?: T;
+              id?: T;
+              blockName?: T;
+            };
+        text?:
+          | T
+          | {
+              name?: T;
+              label?: T;
+              width?: T;
+              defaultValue?: T;
+              required?: T;
+              id?: T;
+              blockName?: T;
+            };
+        textarea?:
+          | T
+          | {
+              name?: T;
+              label?: T;
+              width?: T;
+              defaultValue?: T;
+              required?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  submitButtonLabel?: T;
+  confirmationType?: T;
+  confirmationMessage?: T;
+  redirect?:
+    | T
+    | {
+        url?: T;
+      };
+  emails?:
+    | T
+    | {
+        emailTo?: T;
+        cc?: T;
+        bcc?: T;
+        replyTo?: T;
+        emailFrom?: T;
+        subject?: T;
+        message?: T;
+        id?: T;
+      };
+  hubSpotFormID?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submissions_select".
+ */
+export interface FormSubmissionsSelect<T extends boolean = true> {
+  form?: T;
+  submissionData?:
+    | T
+    | {
+        field?: T;
+        value?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects_select".
+ */
+export interface RedirectsSelect<T extends boolean = true> {
+  from?: T;
+  to?:
+    | T
+    | {
+        type?: T;
+        reference?: T;
+        url?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents_select".
+ */
+export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences_select".
+ */
+export interface PayloadPreferencesSelect<T extends boolean = true> {
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations_select".
+ */
+export interface PayloadMigrationsSelect<T extends boolean = true> {
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer".
  */
 export interface Footer {
@@ -6120,6 +10034,7 @@ export interface PartnerProgram {
                   };
                   [k: string]: unknown;
                 };
+                commandLine?: string | null;
                 links?:
                   | {
                       type?: ('link' | 'npmCta') | null;
@@ -6168,6 +10083,7 @@ export interface PartnerProgram {
                   label: string;
                 };
                 bannerImage?: (string | null) | Media;
+                gradientBackground?: boolean | null;
               };
               id?: string | null;
               blockName?: string | null;
@@ -7021,10 +10937,30 @@ export interface PartnerProgram {
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 quoteSlides: {
-                  leader?: string | null;
                   quote: string;
                   author: string;
                   role?: string | null;
+                  logo?: (string | null) | Media;
+                  enableLink?: boolean | null;
+                  link?: {
+                    type?: ('reference' | 'custom') | null;
+                    newTab?: boolean | null;
+                    reference?:
+                      | ({
+                          relationTo: 'pages';
+                          value: string | Page;
+                        } | null)
+                      | ({
+                          relationTo: 'posts';
+                          value: string | Post;
+                        } | null)
+                      | ({
+                          relationTo: 'case-studies';
+                          value: string | CaseStudy;
+                        } | null);
+                    url?: string | null;
+                    label: string;
+                  };
                   id?: string | null;
                 }[];
               };
@@ -7598,6 +11534,7 @@ export interface PartnerProgram {
                   };
                   [k: string]: unknown;
                 };
+                commandLine?: string | null;
                 links?:
                   | {
                       type?: ('link' | 'npmCta') | null;
@@ -7646,6 +11583,7 @@ export interface PartnerProgram {
                   label: string;
                 };
                 bannerImage?: (string | null) | Media;
+                gradientBackground?: boolean | null;
               };
               id?: string | null;
               blockName?: string | null;
@@ -8499,10 +12437,30 @@ export interface PartnerProgram {
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
                 quoteSlides: {
-                  leader?: string | null;
                   quote: string;
                   author: string;
                   role?: string | null;
+                  logo?: (string | null) | Media;
+                  enableLink?: boolean | null;
+                  link?: {
+                    type?: ('reference' | 'custom') | null;
+                    newTab?: boolean | null;
+                    reference?:
+                      | ({
+                          relationTo: 'pages';
+                          value: string | Page;
+                        } | null)
+                      | ({
+                          relationTo: 'posts';
+                          value: string | Post;
+                        } | null)
+                      | ({
+                          relationTo: 'case-studies';
+                          value: string | CaseStudy;
+                        } | null);
+                    url?: string | null;
+                    label: string;
+                  };
                   id?: string | null;
                 }[];
               };
@@ -9020,6 +12978,2195 @@ export interface PartnerProgram {
   };
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  columns?:
+    | T
+    | {
+        label?: T;
+        navItems?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "main-menu_select".
+ */
+export interface MainMenuSelect<T extends boolean = true> {
+  tabs?:
+    | T
+    | {
+        label?: T;
+        enableDirectLink?: T;
+        enableDropdown?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        description?: T;
+        descriptionLinks?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+        navItems?:
+          | T
+          | {
+              style?: T;
+              defaultLink?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    description?: T;
+                  };
+              featuredLink?:
+                | T
+                | {
+                    tag?: T;
+                    label?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              listLinks?:
+                | T
+                | {
+                    tag?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          id?: T;
+                        };
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partner-program_select".
+ */
+export interface PartnerProgramSelect<T extends boolean = true> {
+  contactForm?: T;
+  hero?:
+    | T
+    | {
+        richText?: T;
+        breadcrumbBarLinks?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+        heroLinks?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+      };
+  featuredPartners?:
+    | T
+    | {
+        description?: T;
+        partners?: T;
+      };
+  contentBlocks?:
+    | T
+    | {
+        beforeDirectory?:
+          | T
+          | {
+              callout?:
+                | T
+                | {
+                    calloutFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          richText?: T;
+                          logo?: T;
+                          author?: T;
+                          role?: T;
+                          images?:
+                            | T
+                            | {
+                                image?: T;
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              cta?:
+                | T
+                | {
+                    ctaFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          style?: T;
+                          richText?: T;
+                          commandLine?: T;
+                          links?:
+                            | T
+                            | {
+                                type?: T;
+                                npmCta?:
+                                  | T
+                                  | {
+                                      label?: T;
+                                    };
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                          bannerLink?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          bannerImage?: T;
+                          gradientBackground?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              cardGrid?:
+                | T
+                | {
+                    cardGridFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          richText?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                          revealDescription?: T;
+                          cards?:
+                            | T
+                            | {
+                                title?: T;
+                                description?: T;
+                                enableLink?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              caseStudyCards?:
+                | T
+                | {
+                    caseStudyCardFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          pixels?: T;
+                          cards?:
+                            | T
+                            | {
+                                richText?: T;
+                                caseStudy?: T;
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              caseStudiesHighlight?:
+                | T
+                | {
+                    caseStudiesHighlightFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          richText?: T;
+                          caseStudies?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              caseStudyParallax?:
+                | T
+                | {
+                    caseStudyParallaxFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          items?:
+                            | T
+                            | {
+                                quote?: T;
+                                author?: T;
+                                logo?: T;
+                                images?:
+                                  | T
+                                  | {
+                                      image?: T;
+                                      id?: T;
+                                    };
+                                tabLabel?: T;
+                                caseStudy?: T;
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              codeFeature?:
+                | T
+                | {
+                    codeFeatureFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          forceDarkBackground?: T;
+                          alignment?: T;
+                          heading?: T;
+                          richText?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                          codeTabs?:
+                            | T
+                            | {
+                                language?: T;
+                                label?: T;
+                                code?: T;
+                                codeBlips?:
+                                  | T
+                                  | {
+                                      row?: T;
+                                      label?: T;
+                                      feature?: T;
+                                      enableLink?: T;
+                                      link?:
+                                        | T
+                                        | {
+                                            type?: T;
+                                            newTab?: T;
+                                            reference?: T;
+                                            url?: T;
+                                            label?: T;
+                                          };
+                                      id?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              content?:
+                | T
+                | {
+                    contentFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          useLeadingHeader?: T;
+                          leadingHeader?: T;
+                          layout?: T;
+                          columnOne?: T;
+                          columnTwo?: T;
+                          columnThree?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              contentGrid?:
+                | T
+                | {
+                    contentGridFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          style?: T;
+                          showNumbers?: T;
+                          content?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                          cells?:
+                            | T
+                            | {
+                                content?: T;
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              form?:
+                | T
+                | {
+                    formFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          richText?: T;
+                          form?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              hoverCards?:
+                | T
+                | {
+                    hoverCardsFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          hideBackground?: T;
+                          richText?: T;
+                          cards?:
+                            | T
+                            | {
+                                title?: T;
+                                description?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              hoverHighlights?:
+                | T
+                | {
+                    hoverHighlightsFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          beforeHighlights?: T;
+                          highlights?:
+                            | T
+                            | {
+                                text?: T;
+                                media?:
+                                  | T
+                                  | {
+                                      top?: T;
+                                      bottom?: T;
+                                    };
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                    };
+                                id?: T;
+                              };
+                          afterHighlights?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              linkGrid?:
+                | T
+                | {
+                    linkGridFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              logoGrid?:
+                | T
+                | {
+                    logoGridFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          richText?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          logos?:
+                            | T
+                            | {
+                                logoMedia?: T;
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              mediaBlock?:
+                | T
+                | {
+                    mediaBlockFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          position?: T;
+                          media?: T;
+                          caption?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              mediaContent?:
+                | T
+                | {
+                    mediaContentFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          alignment?: T;
+                          mediaWidth?: T;
+                          richText?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          images?:
+                            | T
+                            | {
+                                image?: T;
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              mediaContentAccordion?:
+                | T
+                | {
+                    mediaContentAccordionFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          alignment?: T;
+                          leader?: T;
+                          heading?: T;
+                          accordion?:
+                            | T
+                            | {
+                                position?: T;
+                                background?: T;
+                                mediaLabel?: T;
+                                mediaDescription?: T;
+                                enableLink?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                media?: T;
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              pricing?:
+                | T
+                | {
+                    pricingFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          plans?:
+                            | T
+                            | {
+                                name?: T;
+                                hasPrice?: T;
+                                enableCreatePayload?: T;
+                                price?: T;
+                                title?: T;
+                                description?: T;
+                                enableLink?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                features?:
+                                  | T
+                                  | {
+                                      icon?: T;
+                                      feature?: T;
+                                      id?: T;
+                                    };
+                                id?: T;
+                              };
+                          disclaimer?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              reusableContentBlock?:
+                | T
+                | {
+                    reusableContentBlockFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          reusableContent?: T;
+                          customId?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              slider?:
+                | T
+                | {
+                    sliderFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          quoteSlides?:
+                            | T
+                            | {
+                                quote?: T;
+                                author?: T;
+                                role?: T;
+                                logo?: T;
+                                enableLink?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              statement?:
+                | T
+                | {
+                    statementFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          richText?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                          assetType?: T;
+                          media?: T;
+                          code?: T;
+                          mediaWidth?: T;
+                          backgroundGlow?: T;
+                          assetCaption?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              steps?:
+                | T
+                | {
+                    stepsFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          steps?:
+                            | T
+                            | {
+                                layout?:
+                                  | T
+                                  | {
+                                      codeFeature?:
+                                        | T
+                                        | {
+                                            codeFeatureFields?:
+                                              | T
+                                              | {
+                                                  settings?:
+                                                    | T
+                                                    | {
+                                                        theme?: T;
+                                                        background?: T;
+                                                      };
+                                                  forceDarkBackground?: T;
+                                                  alignment?: T;
+                                                  heading?: T;
+                                                  richText?: T;
+                                                  links?:
+                                                    | T
+                                                    | {
+                                                        link?:
+                                                          | T
+                                                          | {
+                                                              type?: T;
+                                                              newTab?: T;
+                                                              reference?: T;
+                                                              url?: T;
+                                                              label?: T;
+                                                            };
+                                                        id?: T;
+                                                      };
+                                                  codeTabs?:
+                                                    | T
+                                                    | {
+                                                        language?: T;
+                                                        label?: T;
+                                                        code?: T;
+                                                        codeBlips?:
+                                                          | T
+                                                          | {
+                                                              row?: T;
+                                                              label?: T;
+                                                              feature?: T;
+                                                              enableLink?: T;
+                                                              link?:
+                                                                | T
+                                                                | {
+                                                                    type?: T;
+                                                                    newTab?: T;
+                                                                    reference?: T;
+                                                                    url?: T;
+                                                                    label?: T;
+                                                                  };
+                                                              id?: T;
+                                                            };
+                                                        id?: T;
+                                                      };
+                                                };
+                                            id?: T;
+                                            blockName?: T;
+                                          };
+                                      content?:
+                                        | T
+                                        | {
+                                            contentFields?:
+                                              | T
+                                              | {
+                                                  settings?:
+                                                    | T
+                                                    | {
+                                                        theme?: T;
+                                                        background?: T;
+                                                      };
+                                                  useLeadingHeader?: T;
+                                                  leadingHeader?: T;
+                                                  layout?: T;
+                                                  columnOne?: T;
+                                                  columnTwo?: T;
+                                                  columnThree?: T;
+                                                };
+                                            id?: T;
+                                            blockName?: T;
+                                          };
+                                      hoverHighlights?:
+                                        | T
+                                        | {
+                                            hoverHighlightsFields?:
+                                              | T
+                                              | {
+                                                  settings?:
+                                                    | T
+                                                    | {
+                                                        theme?: T;
+                                                        background?: T;
+                                                      };
+                                                  beforeHighlights?: T;
+                                                  highlights?:
+                                                    | T
+                                                    | {
+                                                        text?: T;
+                                                        media?:
+                                                          | T
+                                                          | {
+                                                              top?: T;
+                                                              bottom?: T;
+                                                            };
+                                                        link?:
+                                                          | T
+                                                          | {
+                                                              type?: T;
+                                                              newTab?: T;
+                                                              reference?: T;
+                                                              url?: T;
+                                                            };
+                                                        id?: T;
+                                                      };
+                                                  afterHighlights?: T;
+                                                  link?:
+                                                    | T
+                                                    | {
+                                                        type?: T;
+                                                        newTab?: T;
+                                                        reference?: T;
+                                                        url?: T;
+                                                        label?: T;
+                                                      };
+                                                };
+                                            id?: T;
+                                            blockName?: T;
+                                          };
+                                      stickyHighlights?:
+                                        | T
+                                        | {
+                                            stickyHighlightsFields?:
+                                              | T
+                                              | {
+                                                  settings?:
+                                                    | T
+                                                    | {
+                                                        theme?: T;
+                                                        background?: T;
+                                                      };
+                                                  highlights?:
+                                                    | T
+                                                    | {
+                                                        richText?: T;
+                                                        enableLink?: T;
+                                                        link?:
+                                                          | T
+                                                          | {
+                                                              type?: T;
+                                                              newTab?: T;
+                                                              reference?: T;
+                                                              url?: T;
+                                                              label?: T;
+                                                            };
+                                                        type?: T;
+                                                        code?: T;
+                                                        codeBlips?:
+                                                          | T
+                                                          | {
+                                                              row?: T;
+                                                              label?: T;
+                                                              feature?: T;
+                                                              enableLink?: T;
+                                                              link?:
+                                                                | T
+                                                                | {
+                                                                    type?: T;
+                                                                    newTab?: T;
+                                                                    reference?: T;
+                                                                    url?: T;
+                                                                    label?: T;
+                                                                  };
+                                                              id?: T;
+                                                            };
+                                                        media?: T;
+                                                        id?: T;
+                                                      };
+                                                };
+                                            id?: T;
+                                            blockName?: T;
+                                          };
+                                    };
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              stickyHighlights?:
+                | T
+                | {
+                    stickyHighlightsFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          highlights?:
+                            | T
+                            | {
+                                richText?: T;
+                                enableLink?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                type?: T;
+                                code?: T;
+                                codeBlips?:
+                                  | T
+                                  | {
+                                      row?: T;
+                                      label?: T;
+                                      feature?: T;
+                                      enableLink?: T;
+                                      link?:
+                                        | T
+                                        | {
+                                            type?: T;
+                                            newTab?: T;
+                                            reference?: T;
+                                            url?: T;
+                                            label?: T;
+                                          };
+                                      id?: T;
+                                    };
+                                media?: T;
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              exampleTabs?:
+                | T
+                | {
+                    content?: T;
+                    tabs?:
+                      | T
+                      | {
+                          label?: T;
+                          content?: T;
+                          examples?:
+                            | T
+                            | {
+                                CodeExampleBlock?:
+                                  | T
+                                  | {
+                                      code?: T;
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                MediaExampleBlock?:
+                                  | T
+                                  | {
+                                      media?: T;
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                              };
+                          id?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+            };
+        afterDirectory?:
+          | T
+          | {
+              callout?:
+                | T
+                | {
+                    calloutFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          richText?: T;
+                          logo?: T;
+                          author?: T;
+                          role?: T;
+                          images?:
+                            | T
+                            | {
+                                image?: T;
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              cta?:
+                | T
+                | {
+                    ctaFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          style?: T;
+                          richText?: T;
+                          commandLine?: T;
+                          links?:
+                            | T
+                            | {
+                                type?: T;
+                                npmCta?:
+                                  | T
+                                  | {
+                                      label?: T;
+                                    };
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                          bannerLink?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          bannerImage?: T;
+                          gradientBackground?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              cardGrid?:
+                | T
+                | {
+                    cardGridFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          richText?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                          revealDescription?: T;
+                          cards?:
+                            | T
+                            | {
+                                title?: T;
+                                description?: T;
+                                enableLink?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              caseStudyCards?:
+                | T
+                | {
+                    caseStudyCardFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          pixels?: T;
+                          cards?:
+                            | T
+                            | {
+                                richText?: T;
+                                caseStudy?: T;
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              caseStudiesHighlight?:
+                | T
+                | {
+                    caseStudiesHighlightFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          richText?: T;
+                          caseStudies?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              caseStudyParallax?:
+                | T
+                | {
+                    caseStudyParallaxFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          items?:
+                            | T
+                            | {
+                                quote?: T;
+                                author?: T;
+                                logo?: T;
+                                images?:
+                                  | T
+                                  | {
+                                      image?: T;
+                                      id?: T;
+                                    };
+                                tabLabel?: T;
+                                caseStudy?: T;
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              codeFeature?:
+                | T
+                | {
+                    codeFeatureFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          forceDarkBackground?: T;
+                          alignment?: T;
+                          heading?: T;
+                          richText?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                          codeTabs?:
+                            | T
+                            | {
+                                language?: T;
+                                label?: T;
+                                code?: T;
+                                codeBlips?:
+                                  | T
+                                  | {
+                                      row?: T;
+                                      label?: T;
+                                      feature?: T;
+                                      enableLink?: T;
+                                      link?:
+                                        | T
+                                        | {
+                                            type?: T;
+                                            newTab?: T;
+                                            reference?: T;
+                                            url?: T;
+                                            label?: T;
+                                          };
+                                      id?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              content?:
+                | T
+                | {
+                    contentFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          useLeadingHeader?: T;
+                          leadingHeader?: T;
+                          layout?: T;
+                          columnOne?: T;
+                          columnTwo?: T;
+                          columnThree?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              contentGrid?:
+                | T
+                | {
+                    contentGridFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          style?: T;
+                          showNumbers?: T;
+                          content?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                          cells?:
+                            | T
+                            | {
+                                content?: T;
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              form?:
+                | T
+                | {
+                    formFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          richText?: T;
+                          form?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              hoverCards?:
+                | T
+                | {
+                    hoverCardsFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          hideBackground?: T;
+                          richText?: T;
+                          cards?:
+                            | T
+                            | {
+                                title?: T;
+                                description?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              hoverHighlights?:
+                | T
+                | {
+                    hoverHighlightsFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          beforeHighlights?: T;
+                          highlights?:
+                            | T
+                            | {
+                                text?: T;
+                                media?:
+                                  | T
+                                  | {
+                                      top?: T;
+                                      bottom?: T;
+                                    };
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                    };
+                                id?: T;
+                              };
+                          afterHighlights?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              linkGrid?:
+                | T
+                | {
+                    linkGridFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              logoGrid?:
+                | T
+                | {
+                    logoGridFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          richText?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          logos?:
+                            | T
+                            | {
+                                logoMedia?: T;
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              mediaBlock?:
+                | T
+                | {
+                    mediaBlockFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          position?: T;
+                          media?: T;
+                          caption?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              mediaContent?:
+                | T
+                | {
+                    mediaContentFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          alignment?: T;
+                          mediaWidth?: T;
+                          richText?: T;
+                          enableLink?: T;
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                              };
+                          images?:
+                            | T
+                            | {
+                                image?: T;
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              mediaContentAccordion?:
+                | T
+                | {
+                    mediaContentAccordionFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          alignment?: T;
+                          leader?: T;
+                          heading?: T;
+                          accordion?:
+                            | T
+                            | {
+                                position?: T;
+                                background?: T;
+                                mediaLabel?: T;
+                                mediaDescription?: T;
+                                enableLink?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                media?: T;
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              pricing?:
+                | T
+                | {
+                    pricingFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          plans?:
+                            | T
+                            | {
+                                name?: T;
+                                hasPrice?: T;
+                                enableCreatePayload?: T;
+                                price?: T;
+                                title?: T;
+                                description?: T;
+                                enableLink?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                features?:
+                                  | T
+                                  | {
+                                      icon?: T;
+                                      feature?: T;
+                                      id?: T;
+                                    };
+                                id?: T;
+                              };
+                          disclaimer?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              reusableContentBlock?:
+                | T
+                | {
+                    reusableContentBlockFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          reusableContent?: T;
+                          customId?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              slider?:
+                | T
+                | {
+                    sliderFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          quoteSlides?:
+                            | T
+                            | {
+                                quote?: T;
+                                author?: T;
+                                role?: T;
+                                logo?: T;
+                                enableLink?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              statement?:
+                | T
+                | {
+                    statementFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          richText?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                id?: T;
+                              };
+                          assetType?: T;
+                          media?: T;
+                          code?: T;
+                          mediaWidth?: T;
+                          backgroundGlow?: T;
+                          assetCaption?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              steps?:
+                | T
+                | {
+                    stepsFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          steps?:
+                            | T
+                            | {
+                                layout?:
+                                  | T
+                                  | {
+                                      codeFeature?:
+                                        | T
+                                        | {
+                                            codeFeatureFields?:
+                                              | T
+                                              | {
+                                                  settings?:
+                                                    | T
+                                                    | {
+                                                        theme?: T;
+                                                        background?: T;
+                                                      };
+                                                  forceDarkBackground?: T;
+                                                  alignment?: T;
+                                                  heading?: T;
+                                                  richText?: T;
+                                                  links?:
+                                                    | T
+                                                    | {
+                                                        link?:
+                                                          | T
+                                                          | {
+                                                              type?: T;
+                                                              newTab?: T;
+                                                              reference?: T;
+                                                              url?: T;
+                                                              label?: T;
+                                                            };
+                                                        id?: T;
+                                                      };
+                                                  codeTabs?:
+                                                    | T
+                                                    | {
+                                                        language?: T;
+                                                        label?: T;
+                                                        code?: T;
+                                                        codeBlips?:
+                                                          | T
+                                                          | {
+                                                              row?: T;
+                                                              label?: T;
+                                                              feature?: T;
+                                                              enableLink?: T;
+                                                              link?:
+                                                                | T
+                                                                | {
+                                                                    type?: T;
+                                                                    newTab?: T;
+                                                                    reference?: T;
+                                                                    url?: T;
+                                                                    label?: T;
+                                                                  };
+                                                              id?: T;
+                                                            };
+                                                        id?: T;
+                                                      };
+                                                };
+                                            id?: T;
+                                            blockName?: T;
+                                          };
+                                      content?:
+                                        | T
+                                        | {
+                                            contentFields?:
+                                              | T
+                                              | {
+                                                  settings?:
+                                                    | T
+                                                    | {
+                                                        theme?: T;
+                                                        background?: T;
+                                                      };
+                                                  useLeadingHeader?: T;
+                                                  leadingHeader?: T;
+                                                  layout?: T;
+                                                  columnOne?: T;
+                                                  columnTwo?: T;
+                                                  columnThree?: T;
+                                                };
+                                            id?: T;
+                                            blockName?: T;
+                                          };
+                                      hoverHighlights?:
+                                        | T
+                                        | {
+                                            hoverHighlightsFields?:
+                                              | T
+                                              | {
+                                                  settings?:
+                                                    | T
+                                                    | {
+                                                        theme?: T;
+                                                        background?: T;
+                                                      };
+                                                  beforeHighlights?: T;
+                                                  highlights?:
+                                                    | T
+                                                    | {
+                                                        text?: T;
+                                                        media?:
+                                                          | T
+                                                          | {
+                                                              top?: T;
+                                                              bottom?: T;
+                                                            };
+                                                        link?:
+                                                          | T
+                                                          | {
+                                                              type?: T;
+                                                              newTab?: T;
+                                                              reference?: T;
+                                                              url?: T;
+                                                            };
+                                                        id?: T;
+                                                      };
+                                                  afterHighlights?: T;
+                                                  link?:
+                                                    | T
+                                                    | {
+                                                        type?: T;
+                                                        newTab?: T;
+                                                        reference?: T;
+                                                        url?: T;
+                                                        label?: T;
+                                                      };
+                                                };
+                                            id?: T;
+                                            blockName?: T;
+                                          };
+                                      stickyHighlights?:
+                                        | T
+                                        | {
+                                            stickyHighlightsFields?:
+                                              | T
+                                              | {
+                                                  settings?:
+                                                    | T
+                                                    | {
+                                                        theme?: T;
+                                                        background?: T;
+                                                      };
+                                                  highlights?:
+                                                    | T
+                                                    | {
+                                                        richText?: T;
+                                                        enableLink?: T;
+                                                        link?:
+                                                          | T
+                                                          | {
+                                                              type?: T;
+                                                              newTab?: T;
+                                                              reference?: T;
+                                                              url?: T;
+                                                              label?: T;
+                                                            };
+                                                        type?: T;
+                                                        code?: T;
+                                                        codeBlips?:
+                                                          | T
+                                                          | {
+                                                              row?: T;
+                                                              label?: T;
+                                                              feature?: T;
+                                                              enableLink?: T;
+                                                              link?:
+                                                                | T
+                                                                | {
+                                                                    type?: T;
+                                                                    newTab?: T;
+                                                                    reference?: T;
+                                                                    url?: T;
+                                                                    label?: T;
+                                                                  };
+                                                              id?: T;
+                                                            };
+                                                        media?: T;
+                                                        id?: T;
+                                                      };
+                                                };
+                                            id?: T;
+                                            blockName?: T;
+                                          };
+                                    };
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              stickyHighlights?:
+                | T
+                | {
+                    stickyHighlightsFields?:
+                      | T
+                      | {
+                          settings?:
+                            | T
+                            | {
+                                theme?: T;
+                                background?: T;
+                              };
+                          highlights?:
+                            | T
+                            | {
+                                richText?: T;
+                                enableLink?: T;
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                    };
+                                type?: T;
+                                code?: T;
+                                codeBlips?:
+                                  | T
+                                  | {
+                                      row?: T;
+                                      label?: T;
+                                      feature?: T;
+                                      enableLink?: T;
+                                      link?:
+                                        | T
+                                        | {
+                                            type?: T;
+                                            newTab?: T;
+                                            reference?: T;
+                                            url?: T;
+                                            label?: T;
+                                          };
+                                      id?: T;
+                                    };
+                                media?: T;
+                                id?: T;
+                              };
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+              exampleTabs?:
+                | T
+                | {
+                    content?: T;
+                    tabs?:
+                      | T
+                      | {
+                          label?: T;
+                          content?: T;
+                          examples?:
+                            | T
+                            | {
+                                CodeExampleBlock?:
+                                  | T
+                                  | {
+                                      code?: T;
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                                MediaExampleBlock?:
+                                  | T
+                                  | {
+                                      media?: T;
+                                      id?: T;
+                                      blockName?: T;
+                                    };
+                              };
+                          id?: T;
+                        };
+                    id?: T;
+                    blockName?: T;
+                  };
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
