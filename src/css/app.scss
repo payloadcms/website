@@ -215,7 +215,6 @@ a {
 }
 
 time {
-  @include label;
   & {
     margin: 0;
   }

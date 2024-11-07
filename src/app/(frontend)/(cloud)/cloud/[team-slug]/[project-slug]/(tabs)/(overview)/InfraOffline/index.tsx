@@ -7,7 +7,6 @@ import Link from 'next/link'
 import { Banner } from '@components/Banner/index.js'
 import { Gutter } from '@components/Gutter/index.js'
 import { Heading } from '@components/Heading/index.js'
-import { Label } from '@components/Label/index.js'
 import { ExtendedBackground } from '@components/ExtendedBackground/index.js'
 import { Indicator } from '@components/Indicator/index.js'
 import { Message } from '@components/Message/index.js'
@@ -207,7 +206,7 @@ export const InfraOffline: React.FC<{
                     status={deploymentStep?.status}
                     spinner={initialDeploymentPhases.includes(infraStatus)}
                   />
-                  <Label>{label}</Label>
+                  <h6>{label}</h6>
                 </div>
                 <div
                   className={[

@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import useIntersection from '@utilities/useIntersection.js'
 
 import { Gutter } from '@components/Gutter/index.js'
-import { Label } from '@components/Label/index.js'
 import { RenderBlocks } from '@components/RenderBlocks/index.js'
 import { Page } from '@root/payload-types.js'
 
@@ -32,7 +31,7 @@ export const Step: React.FC<Props> = ({ layout, i }) => {
         ref={ref}
       >
         <Gutter>
-          <Label className={classes.label}>Step 0{i + 1}</Label>
+          <h6 className={classes.label}>Step 0{i + 1}</h6>
         </Gutter>
         <RenderBlocks disableOuterSpacing blocks={layout} />
       </li>
