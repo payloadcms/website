@@ -151,7 +151,7 @@ export const hero: Field = {
       name: 'secondaryDescription',
       type: 'richText',
       admin: {
-        condition: (_, { type }) => ['home', 'homeNew'].includes(type),
+        condition: (_, { type }) => type === 'home',
       },
       editor: lexicalEditor({
         features: ({ rootFeatures }) => rootFeatures,
@@ -289,7 +289,7 @@ export const hero: Field = {
       name: 'secondaryMedia',
       type: 'upload',
       admin: {
-        condition: (_, { type }) => ['home', 'homeNew'].includes(type),
+        condition: (_, { type }) => type === 'home',
       },
       relationTo: 'media',
       required: true,
