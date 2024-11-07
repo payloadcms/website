@@ -47,8 +47,8 @@ export const NewsletterSignUp: React.FC<NewsletterSignUpProps> = props => {
     setButtonClicked(true)
   }
 
-  const handleChange = e => {
-    setFormData({ ...formData, [e.target?.name]: e.target?.value })
+  const handleChange = value => {
+    setFormData({ ...formData, email: value })
   }
 
   const onSubmit = React.useCallback(() => {

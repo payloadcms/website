@@ -280,6 +280,7 @@ export const fetchPartner = async (slug: string): Promise<Partner> => {
 
   const data = await payload.find({
     collection: 'partners',
+    depth: 1,
     draft,
     limit: 1,
     where: {

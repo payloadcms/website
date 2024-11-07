@@ -19,8 +19,8 @@ const buildInitialState = fields => {
 
   fields.forEach(field => {
     state[field.name] = {
-      value: '',
-      valid: !field.required,
+      value: field.defaultValue ?? undefined,
+      valid: !field.required || field.defaultValue !== undefined,
       initialValue: field.defaultValue ?? undefined,
       errorMessage: 'This field is required.',
     }
