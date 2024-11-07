@@ -25,9 +25,7 @@ export const HomeNewHero: React.FC<
   announcementLink,
   richText,
   description,
-  primaryButtons,
   secondaryHeading,
-  secondaryDescription,
   secondaryButtons,
   featureVideo,
   logoShowcase,
@@ -65,7 +63,7 @@ export const HomeNewHero: React.FC<
         <Gutter className={[classes.secondaryContentWrapper, 'grid'].join(' ')}>
           <div className={['cols-6 cols-m-8', classes.secondaryContent].join(' ')}>
             {secondaryHeading && <RichText content={secondaryHeading} />}
-            {secondaryDescription && <RichText content={secondaryDescription} />}
+
             {Array.isArray(secondaryButtons) && (
               <ul className={classes.secondaryButtons}>
                 {secondaryButtons.map(({ link }, i) => {
