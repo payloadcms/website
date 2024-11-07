@@ -315,7 +315,7 @@ export const hero: Field = {
       name: 'logos',
       type: 'array',
       admin: {
-        condition: (_, { type }) => ['home', 'homeNew'].includes(type),
+        condition: (_, { type }) => type === 'home',
       },
       fields: [
         {
@@ -326,6 +326,16 @@ export const hero: Field = {
           required: true,
         },
       ],
+    },
+    {
+      name: 'logoShowcase',
+      type: 'upload',
+      admin: {
+        condition: (_, { type }) => type === 'homeNew',
+      },
+      hasMany: true,
+      minRows: 7,
+      relationTo: 'media',
     },
   ],
   label: false,
