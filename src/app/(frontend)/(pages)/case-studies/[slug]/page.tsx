@@ -7,13 +7,19 @@ import { fetchCaseStudies, fetchCaseStudy } from '@data'
 import { CaseStudy } from './client_page.js'
 import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
 import { PayloadRedirects } from '@components/PayloadRedirects/index.js'
+import { unstable_cache } from 'next/cache'
+import { draftMode } from 'next/headers.js'
+
+const getCaseStudy = (slug, draft) =>
+  draft ? fetchCaseStudy(slug) : unstable_cache(fetchCaseStudy, [`case-study-${slug}`])(slug)
 
 const CaseStudyBySlug = async ({ params }) => {
+  const { isEnabled: draft } = await draftMode()
   const { slug } = await params
 
   const url = `/case-studies/${slug}`
 
-  const caseStudy = await fetchCaseStudy(slug)
+  const caseStudy = await getCaseStudy(slug, draft)
 
   if (!caseStudy) {
     return <PayloadRedirects url={url} />
@@ -31,7 +37,8 @@ const CaseStudyBySlug = async ({ params }) => {
 export default CaseStudyBySlug
 
 export async function generateStaticParams() {
-  const caseStudies = await fetchCaseStudies()
+  const getCaseStudies = unstable_cache(fetchCaseStudies, ['caseStudies'])
+  const caseStudies = await getCaseStudies()
 
   return caseStudies.map(({ slug }) => ({
     slug,
@@ -45,8 +52,9 @@ export async function generateMetadata({
     slug: any
   }>
 }): Promise<Metadata> {
+  const { isEnabled: draft } = await draftMode()
   const { slug } = await params
-  const page = await fetchCaseStudy(slug)
+  const page = await getCaseStudy(slug, draft)
 
   const ogImage =
     typeof page?.meta?.image === 'object' &&

@@ -10,6 +10,7 @@ import { TableOfContents } from '@components/TableOfContents/index.js'
 import { VersionSelector } from '@components/VersionSelector/index.js'
 import { fetchRelatedThreads } from '@data'
 import { ArrowIcon } from '@icons/ArrowIcon/index.js'
+import { unstable_cache } from 'next/cache'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
@@ -45,7 +46,8 @@ export const RenderDocs = async ({
     process.env.NEXT_PUBLIC_ENABLE_BETA_DOCS !== 'true' &&
     process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS !== 'true'
 
-  const relatedThreads = await fetchRelatedThreads()
+  const getRelatedThreads = unstable_cache(fetchRelatedThreads, ['relatedThreads'])
+  const relatedThreads = await getRelatedThreads()
 
   const filteredRelatedThreads = relatedThreads.filter(
     thread =>

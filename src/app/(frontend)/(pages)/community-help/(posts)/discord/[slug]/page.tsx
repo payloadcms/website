@@ -6,6 +6,8 @@ import { fetchCommunityHelp, fetchCommunityHelps } from '@data/index.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { slugToText } from '@root/utilities/slug-to-text.js'
 import { DiscordThreadPage, Messages } from './client_page.js'
+import { unstable_cache } from 'next/cache'
+import { draftMode } from 'next/headers.js'
 
 const isThreadData = (
   data: any,
@@ -41,10 +43,16 @@ const isThreadData = (
   )
 }
 
+const getDiscordThread = (slug: string, draft: boolean) =>
+  draft
+    ? fetchCommunityHelp(slug)
+    : unstable_cache(fetchCommunityHelp, [`community-help-${slug}`])(slug)
+
 const Thread = async ({ params }) => {
+  const { isEnabled: draft } = await draftMode()
   const { slug } = await params
 
-  const thread = await fetchCommunityHelp(slug)
+  const thread = await getDiscordThread(slug, draft)
 
   // Algolia is return all threads as helpful, regardless of the value of the helpful field
   // So they are showing up in the archive at /community-help
@@ -67,7 +75,8 @@ export async function generateStaticParams() {
   if (process.env.NEXT_PUBLIC_SKIP_BUILD_HELPS) return []
 
   try {
-    const fetchedThreads = await fetchCommunityHelps('discord')
+    const getDiscordThreads = unstable_cache(fetchCommunityHelps, ['discord-threads'])
+    const fetchedThreads = await getDiscordThreads('discord')
     return fetchedThreads?.map(({ slug }) => ({ slug: slug || '404' })) ?? []
   } catch (error) {
     console.error(error) // eslint-disable-line no-console
@@ -82,8 +91,9 @@ export async function generateMetadata({
     slug: any
   }>
 }): Promise<Metadata> {
+  const { isEnabled: draft } = await draftMode()
   const { slug } = await params
-  const thread = await fetchCommunityHelp(slug)
+  const thread = await getDiscordThread(slug, draft)
   return {
     title: slugToText(slug),
     openGraph: mergeOpenGraph({

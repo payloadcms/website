@@ -1,6 +1,5 @@
 import config from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
-import { unstable_cache } from 'next/cache.js'
 import { draftMode } from 'next/headers.js'
 
 import type {
@@ -14,7 +13,6 @@ import type {
   Partner,
   PartnerProgram,
   Post,
-  Redirect,
   Region,
   Specialty,
 } from '../../payload-types.js'
@@ -36,7 +34,7 @@ export const fetchGlobals = async (): Promise<{ footer: Footer; mainMenu: MainMe
   }
 }
 
-export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page | null> => {
+export const fetchPage = async (incomingSlugSegments: string[]): Promise<Page | null> => {
   const { isEnabled: draft } = await draftMode()
 
   const payload = await getPayloadHMR({ config })
@@ -347,19 +345,4 @@ export const fetchFilters = async (): Promise<{
     regions: regions.docs,
     specialties: specialties.docs,
   }
-}
-
-export const fetchRedirect = async (url: string): Promise<Redirect> => {
-  const payload = await getPayloadHMR({ config })
-  const redirect = await payload.find({
-    collection: 'redirects',
-    limit: 1,
-    where: {
-      from: {
-        equals: url,
-      },
-    },
-  })
-
-  return redirect.docs[0]
 }
