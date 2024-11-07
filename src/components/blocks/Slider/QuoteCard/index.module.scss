@@ -3,14 +3,17 @@
 $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
 .quoteCard {
+  text-decoration: none;
   @include large-body;
+
   & {
     box-sizing: border-box;
-    padding: 5rem;
+    padding: 4rem;
     display: flex;
     position: relative;
     flex-direction: column;
-    height: 100%;
+    justify-content: flex-start;
+    height: 24rem;
     background: var(--color-base-0);
     border-top: 1px solid var(--grid-line-light);
     border-bottom: 1px solid var(--grid-line-light);
@@ -21,6 +24,16 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
   &:hover {
     &:not(.isActive) {
       opacity: 0.65;
+    }
+
+    & .logoWrap {
+
+      & .arrowWrap {
+        opacity: 1;
+      }
+      & .arrow {
+        transform: translateX(0.5rem);
+      }
     }
   }
 
@@ -36,6 +49,7 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
     box-sizing: border-box;
     opacity: 0;
     transition: opacity 350ms $curve;
+    pointer-events: none;
 
     @include data-theme-selector('light') {
       background-image: url('/images/scanline-dark.png');
@@ -81,7 +95,7 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
   @include extra-large-break {
     @include body;
-    padding: 4rem;
+    padding: 3rem;
   }
 
   @include mid-break {
@@ -105,46 +119,53 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
   }
 }
 
-.leader {
-  @include h6;
-  & {
-    margin-top: 0;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-  }
-}
-
 .closingQuote {
   user-select: none;
 }
 
 .quote {
-  @include h3;
+  @include h4;
   & {
     margin-top: 0;
     position: relative;
-    margin-bottom: 4.5rem;
-  }
-
-  &::before {
-    content: '“';
-    position: absolute;
-    left: -1.2rem;
-
-    @include mid-break {
-      left: -.8rem;
-    }
   }
 }
 
-.author {
-  @include h5;
+.credit {
+  @include body;
   & {
     margin-top: 0;
-    margin-bottom: 0.8rem;
   }
 }
 
-.role {
-  opacity: 0.75;
+.logoWrap {
+  display: flex;
+  height: 100%;
+  width: auto;
+  height: 100%;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  img {
+    display: block;
+    height: 2rem;
+    width: auto;
+  }
+
+  .arrowWrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.5;
+    transition: opacity 350ms $curve;
+    letter-spacing: 0;
+  }
+
+  .arrow {
+    width: 1.2rem;
+    height: 1.2rem;
+    stroke-width: 2px;
+    transform: translateX(0);
+    transition: transform 350ms $curve;
+  }
 }

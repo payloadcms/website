@@ -15,6 +15,8 @@ import { Media } from '@components/Media/index.js'
 
 import classes from './index.module.scss'
 import { ArrowRightIcon } from '@icons/ArrowRightIcon'
+import BackgroundGradient from '@components/BackgroundGradient'
+import { CommandLine } from '@components/CommandLine'
 
 export type CallToActionProps = Extract<Page['layout'][0], { blockType: 'cta' }> & {
   padding?: PaddingProps
@@ -23,7 +25,16 @@ export type CallToActionProps = Extract<Page['layout'][0], { blockType: 'cta' }>
 
 export const CallToAction: React.FC<CallToActionProps> = props => {
   const {
-    ctaFields: { richText, links, style, bannerImage, bannerLink, settings },
+    ctaFields: {
+      richText,
+      commandLine,
+      links,
+      style = 'buttons',
+      gradientBackground,
+      bannerImage,
+      bannerLink,
+      settings,
+    },
     padding,
     hideBackground,
   } = props
@@ -31,7 +42,11 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
   const hasLinks = links && links.length > 0
 
   return (
-    <BlockWrapper settings={settings} padding={padding} hideBackground={hideBackground}>
+    <BlockWrapper
+      settings={settings}
+      padding={style === 'banner' ? { top: 'large', bottom: 'large' } : padding}
+      hideBackground={hideBackground}
+    >
       <BackgroundGrid zIndex={0} />
       <Gutter className={classes.callToAction}>
         {style === 'buttons' && (
@@ -41,6 +56,7 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
                 className={[classes.contentWrapper, 'cols-6 cols-m-8'].filter(Boolean).join(' ')}
               >
                 <RichText content={richText} className={classes.content} />
+                {commandLine && <CommandLine command={commandLine} />}
               </div>
               <div
                 className={[classes.linksContainer, 'cols-8 start-9 cols-m-8 start-m-1 grid']
@@ -116,7 +132,11 @@ export const CallToAction: React.FC<CallToActionProps> = props => {
                 <Media resource={bannerImage} />
               </div>
             )}
-            <BackgroundScanline className={classes.bannerScanline} />
+            {gradientBackground ? (
+              <BackgroundGradient className={classes.bannerGradient} />
+            ) : (
+              <BackgroundScanline className={classes.bannerScanline} />
+            )}
           </CMSLink>
         )}
       </Gutter>

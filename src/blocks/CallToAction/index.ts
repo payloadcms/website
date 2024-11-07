@@ -27,6 +27,13 @@ export const CallToAction: Block = {
           ],
         },
         richText(),
+        {
+          name: 'commandLine',
+          type: 'text',
+          admin: {
+            condition: (_, { style }) => style === 'buttons',
+          },
+        },
         linkGroup({
           additions: {
             npmCta: true,
@@ -55,6 +62,14 @@ export const CallToAction: Block = {
           },
           relationTo: 'media',
           required: true,
+        },
+        {
+          name: 'gradientBackground',
+          type: 'checkbox',
+          admin: {
+            condition: (_, { style }) => style === 'banner',
+          },
+          label: 'Enable Gradient Background',
         },
       ],
     }),

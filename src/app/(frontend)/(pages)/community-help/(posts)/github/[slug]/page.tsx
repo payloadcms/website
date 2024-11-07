@@ -6,6 +6,8 @@ import { fetchCommunityHelp, fetchCommunityHelps } from '@data/index.js'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { slugToText } from '@root/utilities/slug-to-text.js'
 import { Answer, Author, Comment, GithubDiscussionPage } from './client_page.js'
+import { unstable_cache } from 'next/cache'
+import { draftMode } from 'next/headers.js'
 
 type DateFromSource = string
 
@@ -44,10 +46,16 @@ const isDiscussionData = (
   )
 }
 
+const getDiscussion = (slug, draft) =>
+  draft
+    ? fetchCommunityHelp(slug)
+    : unstable_cache(fetchCommunityHelp, [`github-discussion-${slug}`])(slug)
+
 const Discussion = async ({ params }) => {
+  const { isEnabled: draft } = await draftMode()
   const { slug } = await params
 
-  const discussion = await fetchCommunityHelp(slug)
+  const discussion = await getDiscussion(slug, draft)
   if (!discussion || !discussion.helpful) return notFound()
 
   if (!isDiscussionData(discussion)) {
@@ -63,7 +71,8 @@ export async function generateStaticParams() {
   if (process.env.NEXT_PUBLIC_SKIP_BUILD_HELPS) return []
 
   try {
-    const discussions = await fetchCommunityHelps('github')
+    const getGithubDiscussions = unstable_cache(fetchCommunityHelps, ['github-discussions'])
+    const discussions = await getGithubDiscussions('github')
     return discussions?.map(({ slug }) => ({ slug: slug || '404' })) ?? []
   } catch (error) {
     console.error(error) // eslint-disable-line no-console
@@ -78,8 +87,9 @@ export async function generateMetadata({
     slug: any
   }>
 }): Promise<Metadata> {
+  const { isEnabled: draft } = await draftMode()
   const { slug } = await params
-  const discussion = await fetchCommunityHelp(slug)
+  const discussion = await getDiscussion(slug, draft)
   return {
     title: slugToText(slug),
     openGraph: mergeOpenGraph({

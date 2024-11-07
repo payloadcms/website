@@ -1,15 +1,39 @@
 @use "@scss/common" as *;
 
 .theme-dark {
-  background-color: var(--color-base-1000);
+  background: var(--color-base-1000);
+
+  &.background-gradientUp {
+    background: linear-gradient(180deg, var(--color-base-1000) 0%, rgba(0, 0, 0, 0) 100%);
+  }
+
+  &.background-gradientDown {
+    background: linear-gradient(0deg, var(--color-base-1000) 0%, rgba(0, 0, 0, 0) 100%);
+  }
+
+  &.background-transparent {
+    background: transparent;
+  }
 }
 
 .theme-light {
-  background-color: var(--color-base-0);
+  background: var(--color-base-0);
+
+  &.background-gradientUp {
+    background: linear-gradient(180deg, var(--color-base-0) 0%, rgba(255, 255, 255, 0) 100%);
+  }
+
+  &.background-gradientDown {
+    background: linear-gradient(0deg, var(--color-base-0) 0%, rgba(255, 255, 255, 0) 100%);
+  }
+
+  &.background-transparent {
+    background: transparent;
+  }
 }
 
 .hideBackground {
-  background-color: transparent;
+  background: transparent;
 }
 
 .blockWrapper {

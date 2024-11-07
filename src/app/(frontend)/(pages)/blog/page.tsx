@@ -4,9 +4,13 @@ import { Metadata } from 'next'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { fetchBlogPosts } from '@data'
 import { RenderBlogArchive } from './renderBlogArchive.js'
+import { unstable_cache } from 'next/cache'
+import { draftMode } from 'next/headers.js'
 
 const Page = async () => {
-  const blogPosts = await fetchBlogPosts()
+  const { isEnabled: draft } = await draftMode()
+  const getBlogPosts = draft ? fetchBlogPosts : unstable_cache(fetchBlogPosts, ['blogPosts'])
+  const blogPosts = await getBlogPosts()
   return <RenderBlogArchive posts={blogPosts} />
 }
 

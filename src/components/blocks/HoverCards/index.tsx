@@ -42,16 +42,12 @@ const Card: React.FC<{
 }
 
 export const HoverCards: React.FC<HoverCardsProps> = props => {
-  const {
-    hoverCardsFields: { richText, cards, settings },
-    padding,
-    hideBackground,
-  } = props
+  const { hoverCardsFields, padding, hideBackground } = props
   const [activeGradient, setActiveGradient] = useState(1)
 
-  const gradients = [1, 2, 3, 4]
+  const gradients = [1, 2, 3, 4, 5]
 
-  const hasCards = Array.isArray(cards) && cards.length > 0
+  const hasCards = Array.isArray(hoverCardsFields.cards) && hoverCardsFields.cards.length > 0
 
   return (
     <BlockWrapper
@@ -61,28 +57,30 @@ export const HoverCards: React.FC<HoverCardsProps> = props => {
       className={[classes.wrapper].filter(Boolean).join(' ')}
     >
       <BackgroundGrid zIndex={1} />
-      <div className={classes.noiseWrapper}>
-        {gradients.map(gradient => {
-          return (
-            <Image
-              key={gradient}
-              alt=""
-              className={[classes.bg, activeGradient === gradient && classes.activeBg]
-                .filter(Boolean)
-                .join(' ')}
-              width={1920}
-              height={946}
-              src={`/images/gradients/${gradient}.jpg`}
-            />
-          )
-        })}
-      </div>
+      {!hideBackground && !hoverCardsFields.hideBackground && (
+        <div className={classes.noiseWrapper}>
+          {gradients.map(gradient => {
+            return (
+              <Image
+                key={gradient}
+                alt=""
+                className={[classes.bg, activeGradient === gradient && classes.activeBg]
+                  .filter(Boolean)
+                  .join(' ')}
+                width={1920}
+                height={946}
+                src={`/images/gradients/${gradient === 5 ? 2 : gradient}.jpg`}
+              />
+            )
+          })}
+        </div>
+      )}
       <Gutter>
         <div className={[classes.introWrapper, 'grid'].filter(Boolean).join(' ')}>
-          {richText && (
+          {hoverCardsFields.richText && (
             <RichText
               className={[classes.richText, 'cols-12 cols-m-8'].filter(Boolean).join(' ')}
-              content={richText}
+              content={hoverCardsFields.richText}
             />
           )}
         </div>
@@ -91,13 +89,14 @@ export const HoverCards: React.FC<HoverCardsProps> = props => {
           <div className={classes.cards}>
             <div className={['grid', classes.cardsWrapper].filter(Boolean).join(' ')}>
               <BackgroundGrid className={classes.backgroundGrid} ignoreGutter />
-              {cards.map((card, index) => {
-                return (
-                  <div key={index} className={'cols-4 cols-s-8'}>
-                    <Card card={card} leader={++index} setHover={setActiveGradient} />
-                  </div>
-                )
-              })}
+              {hoverCardsFields.cards &&
+                hoverCardsFields.cards.map((card, index) => {
+                  return (
+                    <div key={card.id} className={'cols-4 cols-s-8'}>
+                      <Card card={card} leader={++index} setHover={setActiveGradient} />
+                    </div>
+                  )
+                })}
             </div>
           </div>
         )}

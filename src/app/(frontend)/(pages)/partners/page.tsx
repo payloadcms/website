@@ -9,8 +9,10 @@ import { RenderBlocks } from '@components/RenderBlocks'
 import { fetchFilters, fetchPartnerProgram, fetchPartners } from '@data'
 import BreadcrumbsBar from '@components/Hero/BreadcrumbsBar'
 import { Metadata } from 'next/types'
+import { draftMode } from 'next/headers'
 
 import classes from './index.module.scss'
+import { unstable_cache } from 'next/cache'
 
 export const metadata: Metadata = {
   title: 'Find a Payload Partner',
@@ -19,14 +21,20 @@ export const metadata: Metadata = {
 }
 
 export default async function Partners() {
-  const partnerProgram = await fetchPartnerProgram()
+  const { isEnabled: draft } = await draftMode()
+
+  const getPartnerProgram = draft
+    ? fetchPartnerProgram
+    : unstable_cache(fetchPartnerProgram, ['partnerProgram'])
+  const partnerProgram = await getPartnerProgram()
 
   if (!partnerProgram) {
     return notFound()
   }
   const { featuredPartners, contentBlocks } = partnerProgram
 
-  const partners = await fetchPartners()
+  const getPartners = draft ? fetchPartners : unstable_cache(fetchPartners, ['partners'])
+  const partners = await getPartners()
   const partnerList = partners.map(partner => {
     return {
       ...partner,
@@ -45,7 +53,8 @@ export default async function Partners() {
     }
   })
 
-  const filters = await fetchFilters()
+  const getFilters = draft ? fetchFilters : unstable_cache(fetchFilters, ['filters'])
+  const filters = await getFilters()
 
   const filterOptions = {
     industries: filters.industries.filter(industry => {

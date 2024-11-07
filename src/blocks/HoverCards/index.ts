@@ -10,12 +10,15 @@ export const HoverCards: Block = {
     blockFields({
       name: 'hoverCardsFields',
       fields: [
+        {
+          name: 'hideBackground',
+          type: 'checkbox',
+          label: 'Hide Background',
+        },
         richText(),
         {
           name: 'cards',
           type: 'array',
-          minRows: 1,
-          maxRows: 3,
           fields: [
             {
               name: 'title',
@@ -27,10 +30,12 @@ export const HoverCards: Block = {
               type: 'textarea',
             },
             link({
-              disableLabel: true,
               appearances: false,
+              disableLabel: true,
             }),
           ],
+          maxRows: 4,
+          minRows: 1,
         },
       ],
     }),

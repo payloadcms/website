@@ -1,6 +1,5 @@
 import config from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
-import { unstable_cache } from 'next/cache.js'
 import { draftMode } from 'next/headers.js'
 
 import type {
@@ -14,7 +13,6 @@ import type {
   Partner,
   PartnerProgram,
   Post,
-  Redirect,
   Region,
   Specialty,
 } from '../../payload-types.js'
@@ -36,7 +34,7 @@ export const fetchGlobals = async (): Promise<{ footer: Footer; mainMenu: MainMe
   }
 }
 
-export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page | null> => {
+export const fetchPage = async (incomingSlugSegments: string[]): Promise<Page | null> => {
   const { isEnabled: draft } = await draftMode()
 
   const payload = await getPayloadHMR({ config })
@@ -55,11 +53,15 @@ export const fetchPage = async (incomingSlugSegments?: string[]): Promise<Page |
             equals: slug,
           },
         },
-        {
-          _status: {
-            equals: 'published',
-          },
-        },
+        ...(draft
+          ? []
+          : [
+              {
+                _status: {
+                  equals: 'published',
+                },
+              },
+            ]),
       ],
     },
   })
@@ -158,7 +160,20 @@ export const fetchBlogPost = async (slug: string): Promise<Post> => {
     depth: 2,
     draft,
     limit: 1,
-    where: { slug: { equals: slug } },
+    where: {
+      and: [
+        { slug: { equals: slug } },
+        ...(draft
+          ? []
+          : [
+              {
+                _status: {
+                  equals: 'published',
+                },
+              },
+            ]),
+      ],
+    },
   })
 
   return data.docs[0]
@@ -184,7 +199,20 @@ export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
     depth: 1,
     draft,
     limit: 1,
-    where: { slug: { equals: slug } },
+    where: {
+      and: [
+        { slug: { equals: slug } },
+        ...(draft
+          ? []
+          : [
+              {
+                _status: {
+                  equals: 'published',
+                },
+              },
+            ]),
+      ],
+    },
   })
 
   return data.docs[0]
@@ -252,10 +280,23 @@ export const fetchPartner = async (slug: string): Promise<Partner> => {
 
   const data = await payload.find({
     collection: 'partners',
+    depth: 1,
     draft,
     limit: 1,
-    depth: 1,
-    where: { slug: { equals: slug } },
+    where: {
+      and: [
+        { slug: { equals: slug } },
+        ...(draft
+          ? []
+          : [
+              {
+                _status: {
+                  equals: 'published',
+                },
+              },
+            ]),
+      ],
+    },
   })
 
   return data.docs[0]
@@ -305,19 +346,4 @@ export const fetchFilters = async (): Promise<{
     regions: regions.docs,
     specialties: specialties.docs,
   }
-}
-
-export const fetchRedirect = async (url: string): Promise<Redirect> => {
-  const payload = await getPayloadHMR({ config })
-  const redirect = await payload.find({
-    collection: 'redirects',
-    limit: 1,
-    where: {
-      from: {
-        equals: url,
-      },
-    },
-  })
-
-  return redirect.docs[0]
 }

@@ -60,6 +60,7 @@ export const BlockWrapper: React.FC<Props> = ({
           padding?.top && classes[`padding-top-${padding?.top}`],
           padding?.bottom && classes[`padding-bottom-${padding?.bottom}`],
           setPadding && classes.setPadding,
+          settings?.background && classes[`background-${settings.background}`],
           hideBackground && classes.hideBackground,
           className,
         ]
