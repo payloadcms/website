@@ -147,6 +147,10 @@
   p {
     opacity: 0.8;
   }
+
+  @include mid-break {
+    padding: 2rem;
+  }
 }
 
 .bannerLink {
