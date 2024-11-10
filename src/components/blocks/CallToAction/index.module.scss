@@ -29,6 +29,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  row-gap: 1rem;
 }
 
 .links {
@@ -133,15 +134,15 @@
     }
 
     .bannerGradient {
-          video {
-            filter: blur(64px);
-          }
+        video {
+          filter: blur(64px);
+        }
     }
   }
 }
 
 .bannerContent {
-  padding: 3rem;
+  padding: 3rem 6rem 3rem;
 
   p {
     opacity: 0.8;
