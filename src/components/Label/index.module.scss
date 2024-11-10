@@ -2,6 +2,14 @@
 
 .label {
   @include label;
+  transition-property: background-color, border;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+
+  &:has(a):hover {
+    background-color: var(--theme-success-150);
+    border: 1px solid var(--theme-success-350);
+  }
 }
 
 .label + h1,
@@ -11,4 +19,23 @@
 .label + h5,
 .label + h6 {
   margin-top: 1rem;
+}
+
+.label > a {
+  color: inherit;
+  border: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:visited, &:active, &:focus, &:visited:hover, &:visited:focus {
+    color: inherit;
+    border: none;
+  }
+
+  &::after {
+    display: inline-block;
+    content: url('/images/label-link-arrow.svg');
+  }
 }
