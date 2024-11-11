@@ -142,7 +142,8 @@
 }
 
 .bannerContent {
-  padding: 3rem 6rem 3rem;
+  padding: 3rem 6rem 3rem 3rem;
+  z-index: 1;
 
   p {
     opacity: 0.8;
