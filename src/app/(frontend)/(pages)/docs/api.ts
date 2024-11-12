@@ -42,9 +42,14 @@ async function getHeadings(source) {
   })
 }
 
-export type Topics = {
+export type Topic = {
   slug: string
   docs: Doc[]
+}
+
+export type TopicGroup = {
+  groupLabel: string,
+  topics: Topic[]
 }
 
 export type Doc = {
@@ -93,7 +98,7 @@ export async function fetchDoc(topic: string, slug: string, ref?: string) {
   }
 }
 
-export const fetchDocs = async (topicOrder: TopicsOrder, ref?: string): Promise<Topics[]> => {
+export const fetchDocs = async (topicOrder: TopicsOrder, ref?: string): Promise<TopicGroup[]> => {
   if (!process.env.GITHUB_ACCESS_TOKEN) {
     return []
   }
@@ -147,5 +152,5 @@ export const fetchDocs = async (topicOrder: TopicsOrder, ref?: string): Promise<
       ? require('../../../../docs/docs-beta.json')
       : require('../../../../docs/docs.json')
   
-  return topics as Topics[]
+  return topics as TopicGroup[]
 }

@@ -6,10 +6,10 @@ import { VersionSelector } from '@root/components/VersionSelector/index.js'
 import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
 import { CloseIcon } from '@root/icons/CloseIcon/index.js'
 import Link from 'next/link'
-import React from 'react'
+import React, { Fragment } from 'react'
 import { useEffect, useRef, useState } from 'react'
 
-import type { Topics } from '../../app/(frontend)/(pages)/docs/api'
+import type { TopicGroup } from '../../app/(frontend)/(pages)/docs/api'
 
 import classes from './index.module.scss'
 
@@ -20,11 +20,17 @@ export const DocsNavigation = ({
   params,
   topics,
   version,
+  groupIndex,
+  indexInGroup,
+  docIndex,
 }: {
   currentTopic: string
   params: { doc: string; topic: string }
-  topics: Topics[]
+  topics: TopicGroup[]
   version?: 'beta' | 'current' | 'v2'
+  groupIndex: number
+  indexInGroup: number
+  docIndex: number
 }) => {
   const [currentTopicIsOpen, setCurrentTopicIsOpen] = useState(true)
   const [openTopicPreferences, setOpenTopicPreferences] = useState<string[]>()
@@ -67,9 +73,8 @@ export const DocsNavigation = ({
   }, [params.topic, params.doc])
 
   const resetDefaultIndicator = () => {
-    const topicIndex = topics.findIndex(topic => topic.slug.toLowerCase() === params.topic)
-    const docIndex = topics[topicIndex].docs.findIndex(doc => doc.slug === params.doc)
-    const formattedIndex = docIndex || docIndex === 0 ? `${topicIndex}-${docIndex}` : topicIndex
+    const formattedIndex =
+      typeof docIndex === 'number' ? `${groupIndex}-${indexInGroup}-${docIndex}` : groupIndex
     const defaultIndicatorPosition = topicRefs?.current[formattedIndex]?.offsetTop || 0
     setIndicatorTop(defaultIndicatorPosition)
   }
@@ -135,64 +140,69 @@ export const DocsNavigation = ({
           }
           type="multiple"
         >
-          {topics.map(
-            (topic, index) =>
-              topic && (
-                <Accordion.Item key={topic.slug} value={topic.slug.toLowerCase()}>
-                  <Accordion.Trigger
-                    className={[
-                      classes.topic,
-                      isActiveTopic(topic.slug.toLowerCase()) && classes.active,
-                    ]
-                      .filter(Boolean)
-                      .join(' ')}
-                    onClick={() => handleMenuItemClick(topic.slug.toLowerCase())}
-                    onMouseEnter={() => handleIndicator(`${index}`)}
-                    ref={ref => {
-                      topicRefs.current[index] = ref
-                    }}
-                  >
-                    {topic.slug.replace('-', ' ')}
-                    <ChevronIcon aria-hidden className={classes.chevron} size="small" />
-                  </Accordion.Trigger>
-                  <Accordion.Content asChild>
-                    <ul className={classes.docs}>
-                      {topic.docs.map((doc, docIndex) => {
-                        const nestedIndex = `${index}-${docIndex}`
-                        return (
-                          doc && (
-                            <Link
-                              href={`/docs/${
-                                version ? `${version}/` : ''
-                              }${topic.slug.toLowerCase()}/${doc.slug.replace('.mdx', '')}`}
-                              key={topic.slug + '_' + doc.slug}
-                            >
-                              <li
-                                className={[
-                                  classes.doc,
-                                  isActiveDoc(
-                                    topic.slug.toLowerCase(),
-                                    doc.slug.replace('.mdx', ''),
-                                  ) && classes.active,
-                                ]
-                                  .filter(Boolean)
-                                  .join(' ')}
-                                onMouseEnter={() => handleIndicator(nestedIndex)}
-                                ref={ref => {
-                                  topicRefs.current[nestedIndex] = ref
-                                }}
-                              >
-                                {doc.label}
-                              </li>
-                            </Link>
-                          )
-                        )
-                      })}
-                    </ul>
-                  </Accordion.Content>
-                </Accordion.Item>
-              ),
-          )}
+          {topics.map((tGroup, groupIndex) => (
+            <Fragment key={`group-${groupIndex}`}>
+              {tGroup.topics.map(
+                (topic, index) =>
+                  topic && (
+                    <Accordion.Item key={topic.slug} value={topic.slug.toLowerCase()}>
+                      <Accordion.Trigger
+                        className={[
+                          classes.topic,
+                          isActiveTopic(topic.slug.toLowerCase()) && classes.active,
+                        ]
+                          .filter(Boolean)
+                          .join(' ')}
+                        onClick={() => handleMenuItemClick(topic.slug.toLowerCase())}
+                        onMouseEnter={() => handleIndicator(`${groupIndex}-${index}`)}
+                        ref={ref => {
+                          topicRefs.current[`${groupIndex}-${index}`] = ref
+                        }}
+                      >
+                        {topic.slug.replace('-', ' ')}
+                        <ChevronIcon aria-hidden className={classes.chevron} size="small" />
+                      </Accordion.Trigger>
+                      <Accordion.Content asChild>
+                        <ul className={classes.docs}>
+                          {topic.docs.map((doc, docIndex) => {
+                            const nestedIndex = `${groupIndex}-${index}-${docIndex}`
+                            return (
+                              doc && (
+                                <Link
+                                  href={`/docs/${
+                                    version ? `${version}/` : ''
+                                  }${topic.slug.toLowerCase()}/${doc.slug.replace('.mdx', '')}`}
+                                  key={`${topic.slug}_${doc.slug}`}
+                                >
+                                  <li
+                                    className={[
+                                      classes.doc,
+                                      isActiveDoc(
+                                        topic.slug.toLowerCase(),
+                                        doc.slug.replace('.mdx', ''),
+                                      ) && classes.active,
+                                    ]
+                                      .filter(Boolean)
+                                      .join(' ')}
+                                    onMouseEnter={() => handleIndicator(nestedIndex)}
+                                    ref={ref => {
+                                      topicRefs.current[nestedIndex] = ref
+                                    }}
+                                  >
+                                    {doc.label}
+                                  </li>
+                                </Link>
+                              )
+                            )
+                          })}
+                        </ul>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  ),
+              )}
+              {groupIndex < topics.length - 1 && <hr className={classes.divider} />}
+            </Fragment>
+          ))}
         </Accordion.Root>
         {(indicatorTop || defaultIndicatorPosition) && (
           <div

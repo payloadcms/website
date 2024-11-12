@@ -19,8 +19,7 @@ import { Suspense } from 'react'
 import remarkGfm from 'remark-gfm'
 
 import classes from './index.module.scss'
-import { TopicsOrder } from '@root/app/(frontend)/(pages)/docs/beta/[topic]/[doc]/page'
-import { Topics } from '@root/app/(frontend)/(pages)/docs/api'
+import { TopicGroup } from '@root/app/(frontend)/(pages)/docs/api'
 
 export const RenderDocs = async ({
   children,
@@ -30,23 +29,24 @@ export const RenderDocs = async ({
 }: {
   children?: React.ReactNode
   params: { doc: string; topic: string }
-  topics: Topics[]
+  topics: TopicGroup[]
   version?: 'beta' | 'current' | 'v2'
 }) => {
-  const topicIndex = topics.findIndex(topic => topic.slug?.toLowerCase() === params.topic)
-  console.log(
-    'topics',
-    topicIndex,
-    topics,
-    topics.map(topic => topic.slug?.toLowerCase()),
-    params.topic,
+  const groupIndex = topics.findIndex(({ topics: tGroup }) =>
+    tGroup.some(topic => topic.slug.toLowerCase() === params.topic),
   )
 
-  const docIndex = topics[topicIndex]?.docs.findIndex(
-    doc => doc.slug.replace('.mdx', '') === params.doc,
+  const indexInGroup = topics[groupIndex].topics.findIndex(
+    topic => topic.slug.toLowerCase() === params.topic,
   )
 
-  const currentDoc = topics[topicIndex]?.docs[docIndex]
+  const topicGroup = topics?.[groupIndex]
+
+  const topic = topicGroup?.topics?.[indexInGroup]
+
+  const docIndex = topic?.docs.findIndex(doc => doc.slug.replace('.mdx', '') === params.doc)
+
+  const currentDoc = topic?.docs?.[docIndex]
 
   if (!currentDoc) {
     return notFound()
@@ -72,19 +72,19 @@ export const RenderDocs = async ({
     Array.isArray(filteredRelatedThreads) &&
     filteredRelatedThreads.length > 0
 
-  const hasNext = topics.length > topicIndex + 1
+  const hasNext = topicGroup.topics.length > indexInGroup + 1
 
   const next = !hasNext
     ? null
-    : topics[topicIndex]?.docs.length <= docIndex + 1
+    : topic?.docs.length <= docIndex + 1
     ? {
-        slug: topics[topicIndex + 1].docs[0].slug,
-        title: topics[topicIndex + 1].docs[0].title,
-        topic: topics[topicIndex + 1].slug,
+        slug: topicGroup.topics?.[indexInGroup + 1]?.docs[0].slug,
+        title: topicGroup.topics?.[indexInGroup + 1]?.docs[0].title,
+        topic: topicGroup.topics?.[indexInGroup + 1].slug,
       }
     : {
-        slug: topics[topicIndex].docs[docIndex + 1].slug,
-        title: topics[topicIndex].docs[docIndex + 1].title,
+        slug: topicGroup.topics?.[indexInGroup]?.docs[docIndex + 1].slug,
+        title: topicGroup.topics?.[indexInGroup]?.docs[docIndex + 1].title,
         topic: params.topic,
       }
 
@@ -97,6 +97,9 @@ export const RenderDocs = async ({
             params={params}
             topics={topics}
             version={version}
+            groupIndex={groupIndex}
+            indexInGroup={indexInGroup}
+            docIndex={docIndex}
           />
           <div aria-hidden className={classes.navOverlay} />
           <main className={['cols-8 start-5 cols-m-8 start-m-1', classes.content].join(' ')}>
@@ -151,3 +154,10 @@ export const RenderDocs = async ({
     </Gutter>
   )
 }
+
+const DocsSkeleton = () => (
+  <div className={classes.skeleton}>
+    <div className={classes.skeletonTitle} />
+    <div className={classes.skeletonContent} />
+  </div>
+)

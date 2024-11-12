@@ -34,49 +34,62 @@ export default async function DocsPage({
   return <RenderDocs params={await params} topics={topics} />
 }
 
-// export async function generateMetadata({
-//   params,
-// }: {
-//   params: Promise<{ doc: string; topic: string }>
-// }) {
-//   const { doc: docSlug, topic: topicSlug } = await params
-//   const topics = await fetchDocs(topicOrder)
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ doc: string; topic: string }>
+}) {
+  const { doc: docSlug, topic: topicSlug } = await params
+  const topics = await fetchDocs(topicOrder)
 
-//   const topicIndex = topics.findIndex(topic => topic.slug.toLowerCase() === topicSlug)
-//   const docIndex = topics[topicIndex]?.docs.findIndex(
-//     doc => doc.slug.replace('.mdx', '') === docSlug,
-//   )
+  const groupIndex = topics.findIndex(({ topics: tGroup }) =>
+    tGroup.some(topic => topic.slug.toLowerCase() === topicSlug),
+  )
 
-//   const currentDoc = topics[topicIndex]?.docs[docIndex]
+  const indexInGroup = topics[groupIndex].topics.findIndex(
+    topic => topic.slug.toLowerCase() === topicSlug,
+  )
 
-//   return {
-//     description: currentDoc?.desc || `Payload ${topicSlug} Documentation`,
-//     openGraph: mergeOpenGraph({
-//       images: [
-//         {
-//           url: `/api/og?topic=${topicSlug}&title=${currentDoc?.title}`,
-//         },
-//       ],
-//       title: `${currentDoc?.title ? `${currentDoc.title} | ` : ''}Documentation | Payload`,
-//       url: `/docs/${topicSlug}/${docSlug}`,
-//     }),
-//     title: `${currentDoc?.title ? `${currentDoc.title} | ` : ''}Documentation | Payload`,
-//   }
-// }
+  const topicGroup = topics?.[groupIndex]
 
-// export async function generateStaticParams() {
-//   if (process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS) return []
+  const topic = topicGroup?.topics?.[indexInGroup]
 
-//   const topics = await fetchDocs(topicOrder)
+  const docIndex = topic?.docs.findIndex(doc => doc.slug.replace('.mdx', '') === docSlug)
 
-//   const result: { doc: string; topic: string }[] = topics.flatMap(topic => {
-//     return topic.docs?.map(doc => {
-//       return {
-//         doc: doc.slug.replace('.mdx', ''),
-//         topic: topic.slug.toLowerCase(),
-//       }
-//     })
-//   })
+  const currentDoc = topic?.docs?.[docIndex]
 
-//   return result
-// }
+  return {
+    description: currentDoc?.desc || `Payload ${topicSlug} Documentation`,
+    openGraph: mergeOpenGraph({
+      images: [
+        {
+          url: `/api/og?topic=${topicSlug}&title=${currentDoc?.title}`,
+        },
+      ],
+      title: `${currentDoc?.title ? `${currentDoc.title} | ` : ''}Documentation | Payload`,
+      url: `/docs/${topicSlug}/${docSlug}`,
+    }),
+    title: `${currentDoc?.title ? `${currentDoc.title} | ` : ''}Documentation | Payload`,
+  }
+}
+
+export async function generateStaticParams() {
+  if (process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS) return []
+
+  const topics = await fetchDocs(topicOrder)
+
+  const result: { doc: string; topic: string }[] = []
+
+  topics.forEach(({ topics: tGroup }) => {
+    tGroup.forEach(topic => {
+      topic?.docs.forEach(doc => {
+        result.push({
+          doc: doc.slug.replace('.mdx', ''),
+          topic: topic.slug.toLowerCase(),
+        })
+      })
+    })
+  })
+
+  return result
+}

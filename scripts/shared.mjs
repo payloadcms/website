@@ -1,5 +1,6 @@
 export const topicOrder = [
   {
+    groupLabel: '',
     topics: [
       'Getting-Started',
       'Configuration',
@@ -11,8 +12,41 @@ export const topicOrder = [
       'Admin',
     ],
   },
-  { topics: ['Local-API', 'REST-API', 'GraphQL', 'Queries'] },
-  { topics: ['Rich-Text', 'Lexical', 'Live-Preview', 'Versions', 'Upload', 'Email', 'Jobs Queue', 'TypeScript'] },
-  { topics: ['Plugins', 'Examples', 'Integrations'] },
-  { topics: ['Cloud', 'Production'] },
+  {
+    groupLabel: '',
+    topics: [
+      'Local-API',
+      'REST-API',
+      'GraphQL',
+      'Queries'
+    ]
+  },
+  {
+    groupLabel: '',
+    topics: [
+      'Rich-Text',
+      'Lexical',
+      'Live-Preview',
+      'Versions',
+      'Upload',
+      'Email',
+      'Jobs Queue',
+      'TypeScript'
+    ]
+  },
+  {
+    groupLabel: '',
+    topics: [
+      'Plugins',
+      'Examples',
+      'Integrations'
+    ]
+  },
+  {
+    groupLabel: '',
+    topics: [
+      'Cloud',
+      'Production'
+    ]
+  },
 ]

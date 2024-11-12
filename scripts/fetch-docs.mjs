@@ -140,7 +140,8 @@ async function fetchDocs() {
     }
   })
 
-  const topics = await Promise.all(topicOrder.map(async ({ topics: topicsGroup }) => ({
+  const topics = await Promise.all(topicOrder.map(async ({ topics: topicsGroup, groupLabel }) => ({
+    groupLabel,
     topics: await Promise.all(topicsGroup.map(async key => {
       const topicSlug = key.toLowerCase()
       const filenames = await getFilenames({ topicSlug })

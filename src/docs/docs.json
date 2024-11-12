@@ -1,5 +1,6 @@
 [
   {
+    "groupLabel": "",
     "topics": [
       {
         "slug": "Getting-Started",
@@ -2670,6 +2671,7 @@
     ]
   },
   {
+    "groupLabel": "",
     "topics": [
       {
         "slug": "Local-API",
@@ -3135,6 +3137,7 @@
     ]
   },
   {
+    "groupLabel": "",
     "topics": [
       {
         "slug": "Rich-Text",
@@ -4131,6 +4134,7 @@
     ]
   },
   {
+    "groupLabel": "",
     "topics": [
       {
         "slug": "Plugins",
@@ -4780,6 +4784,7 @@
     ]
   },
   {
+    "groupLabel": "",
     "topics": [
       {
         "slug": "Cloud",
