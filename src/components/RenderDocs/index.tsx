@@ -32,11 +32,11 @@ export const RenderDocs = async ({
   version?: 'beta' | 'current' | 'v2'
 }) => {
   const topicIndex = topics.findIndex(topic => topic.slug.toLowerCase() === params.topic)
-  const docIndex = topics[topicIndex].docs.findIndex(
+  const docIndex = topics[topicIndex]?.docs.findIndex(
     doc => doc.slug.replace('.mdx', '') === params.doc,
   )
 
-  const currentDoc = topics[topicIndex].docs[docIndex]
+  const currentDoc = topics[topicIndex]?.docs[docIndex]
 
   if (!currentDoc) {
     return notFound()
@@ -66,7 +66,7 @@ export const RenderDocs = async ({
 
   const next = !hasNext
     ? null
-    : topics[topicIndex].docs.length <= docIndex + 1
+    : topics[topicIndex]?.docs.length <= docIndex + 1
     ? {
         slug: topics[topicIndex + 1].docs[0].slug,
         title: topics[topicIndex + 1].docs[0].title,

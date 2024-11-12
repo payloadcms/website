@@ -87,7 +87,7 @@ export const Footer: React.FC<FooterType> = props => {
       <Gutter className={classes.container}>
         <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')}>
           <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
-            <p className={classes.colHeader}>{products.label}</p>
+            <p className={classes.colHeader}>{products?.label}</p>
             <div className={classes.colItems}>
               {products?.navItems?.map(({ link }, index) => {
                 return (
@@ -100,7 +100,7 @@ export const Footer: React.FC<FooterType> = props => {
           </div>
 
           <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
-            <p className={classes.colHeader}>{developers.label}</p>
+            <p className={classes.colHeader}>{developers?.label}</p>
             <div className={classes.colItems}>
               {developers?.navItems?.map(({ link }, index) => {
                 return (
@@ -113,7 +113,7 @@ export const Footer: React.FC<FooterType> = props => {
           </div>
 
           <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
-            <p className={classes.colHeader}>{company.label}</p>
+            <p className={classes.colHeader}>{company?.label}</p>
             <div className={classes.colItems}>
               {company?.navItems?.map(({ link }, index) => {
                 return (

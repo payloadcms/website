@@ -49,11 +49,11 @@ export async function generateMetadata({
   const topics = await fetchDocs(topicOrder)
 
   const topicIndex = topics.findIndex(topic => topic.slug.toLowerCase() === topicSlug)
-  const docIndex = topics[topicIndex].docs.findIndex(
+  const docIndex = topics[topicIndex]?.docs.findIndex(
     doc => doc.slug.replace('.mdx', '') === docSlug,
   )
 
-  const currentDoc = topics[topicIndex].docs[docIndex]
+  const currentDoc = topics[topicIndex]?.docs[docIndex]
 
   return {
     description: currentDoc?.desc || `Payload ${topicSlug} Documentation`,

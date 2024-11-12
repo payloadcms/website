@@ -145,6 +145,6 @@ export const fetchDocs = async (topicOrder: string[], ref?: string) => {
     ref === 'beta'
       ? require('../../../../docs/docs-beta.json')
       : require('../../../../docs/docs.json')
-
+  
   return topics as Topics[]
 }
