@@ -348,7 +348,7 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
   align-items: center;
 }
 
-.size--default .label-mono {
+.size--default {
   @include body;
 }
 

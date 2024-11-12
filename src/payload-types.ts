@@ -1776,7 +1776,11 @@ export interface Page {
     } | null;
     primaryButtons?:
       | {
-          link: {
+          type?: ('link' | 'npmCta') | null;
+          npmCta?: {
+            label: string;
+          };
+          link?: {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
             reference?:
@@ -1934,6 +1938,7 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
+    logoShowcaseLabel?: string | null;
     logoShowcase?: (string | Media)[] | null;
   };
   layout: (
@@ -7028,6 +7033,12 @@ export interface PagesSelect<T extends boolean = true> {
         primaryButtons?:
           | T
           | {
+              type?: T;
+              npmCta?:
+                | T
+                | {
+                    label?: T;
+                  };
               link?:
                 | T
                 | {
@@ -7121,6 +7132,7 @@ export interface PagesSelect<T extends boolean = true> {
               logoMedia?: T;
               id?: T;
             };
+        logoShowcaseLabel?: T;
         logoShowcase?: T;
       };
   layout?:

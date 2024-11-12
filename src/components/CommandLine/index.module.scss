@@ -1,71 +1,18 @@
 @use "@scss/common" as *;
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.commandLine {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
+.commandLineButton {
   width: 100%;
   max-width: calc(var(--column) * 4);
+  @include small-break {
+    max-width: calc(var(--column) * 8);
+  }
   @include code;
-  line-height: 1.2rem;
-  cursor: pointer;
-  appearance: none;
-  border-inline: none;
-  border-block: 1px solid var(--theme-border-color);
-  background: transparent;
-  transition-property: background, color;
-  transition-duration: 0.2s;
-  transition-timing-function: ease;
-
-  svg {
-    width: 1.2rem;
-    height: 1.2rem;
-    stroke: var(--theme-text);
-    stroke-width: 1px;
-    fill: none;
-    opacity: 0.5;
-    transition: opacity 0.2s ease;
-  }
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.05);
-    svg {
-      opacity: 1;
-    }
-
-    @include data-theme-selector('dark') {
-      background: rgba(255, 255, 255, 0.05);
-    }
-  }
-
-  @include mid-break {
-      max-width: unset;
-  }
 }
 
 .commandText {
-  pointer-events: all;
+  width: 100%;
 }
 
 .icon {
-  animation: fadeIn 0.5s forwards;
-}
-
-.copied, .copied:hover {
-  background: rgba(0, 0, 0, 0.1);
-
-  @include data-theme-selector('dark') {
-    background: rgba(255, 255, 255, 0.1);
-  }
+  margin-right: -.25rem;
 }

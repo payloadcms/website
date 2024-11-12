@@ -9,6 +9,7 @@ import { LoaderIcon } from '@root/icons/LoaderIcon/index.js'
 import { PlusIcon } from '@root/icons/PlusIcon/index.js'
 import { SearchIcon } from '@root/icons/SearchIcon/index.js'
 import { Page } from '@root/payload-types.js'
+import { CopyIcon } from '@icons/CopyIcon/index.js'
 // eslint-disable-next-line import/no-cycle
 import { LinkType, Reference } from '../CMSLink/index.js'
 
@@ -30,7 +31,7 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
   label?: string | null
   labelStyle?: 'mono' | 'regular'
   labelClassName?: string
-  icon?: false | 'arrow' | 'search' | 'github' | 'plus' | 'loading'
+  icon?: false | 'arrow' | 'search' | 'github' | 'plus' | 'loading' | 'copy'
   iconSize?: 'large' | 'medium' | 'small' | undefined
   fullWidth?: boolean
   mobileFullWidth?: boolean
@@ -71,6 +72,7 @@ const icons = {
   github: GitHubIcon,
   plus: PlusIcon,
   loading: LoaderIcon,
+  copy: CopyIcon,
 }
 
 type GenerateSlugType = {

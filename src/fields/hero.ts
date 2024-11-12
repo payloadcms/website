@@ -63,7 +63,7 @@ export const hero: Field = {
         condition: (_, { type } = {}) => type === 'gradient',
       },
     },
-    themeField,
+    themeField(100),
     {
       type: 'collapsible',
       fields: [
@@ -121,13 +121,19 @@ export const hero: Field = {
       type: 'richText',
       admin: {
         condition: (_, { type } = {}) =>
-          type !== 'livestream' && type !== 'centeredContent' && type !== 'three',
+          type !== 'livestream' &&
+          type !== 'centeredContent' &&
+          type !== 'three' &&
+          type !== 'homeNew',
       },
       editor: lexicalEditor({
         features: ({ rootFeatures }) => rootFeatures,
       }),
     },
     linkGroup({
+      additions: {
+        npmCta: true,
+      },
       appearances: false,
       overrides: {
         name: 'primaryButtons',
@@ -141,7 +147,7 @@ export const hero: Field = {
       name: 'secondaryHeading',
       type: 'richText',
       admin: {
-        condition: (_, { type }) => ['home', 'homeNew'].includes(type),
+        condition: (_, { type }) => ['home'].includes(type),
       },
       editor: lexicalEditor({
         features: ({ rootFeatures }) => rootFeatures,
@@ -246,7 +252,7 @@ export const hero: Field = {
       overrides: {
         name: 'secondaryButtons',
         admin: {
-          condition: (_, { type }) => ['home', 'homeNew'].includes(type),
+          condition: (_, { type }) => ['home'].includes(type),
         },
         label: 'Secondary Buttons',
       },
@@ -255,7 +261,7 @@ export const hero: Field = {
       name: 'images',
       type: 'array',
       admin: {
-        condition: (_, { type } = {}) => ['gradient'].includes(type),
+        condition: (_, { type } = {}) => ['gradient', 'homeNew', 'three'].includes(type),
       },
       fields: [
         {
@@ -298,7 +304,7 @@ export const hero: Field = {
       name: 'featureVideo',
       type: 'upload',
       admin: {
-        condition: (_, { type }) => ['home', 'homeNew'].includes(type),
+        condition: (_, { type }) => ['home'].includes(type),
       },
       relationTo: 'media',
       required: true,
@@ -326,6 +332,13 @@ export const hero: Field = {
           required: true,
         },
       ],
+    },
+    {
+      name: 'logoShowcaseLabel',
+      type: 'text',
+      admin: {
+        condition: (_, { type }) => type === 'homeNew',
+      },
     },
     {
       name: 'logoShowcase',

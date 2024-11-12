@@ -45,13 +45,36 @@
   gap: 2rem;
 }
 
-.heroContent {
+.heroContentWrapper {
+  min-height: 75vh;
   align-items: center;
-  row-gap: 1rem;
 
-  & > div {
-    row-gap: 1rem;
-    display: grid;
+  @include mid-break {
+    min-height: 50vh;
+  }
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  & > h1, & > h2 {
+    width: 150%;
+    text-wrap: balance;
+
+    @include mid-break {
+      width: 100%;
+    }
+  }
+
+  & > * {
+    margin: 0;
   }
 }
 
@@ -131,29 +154,39 @@
   }
 }
 
-.featureVideo {
-  position: relative;
-  margin: 3rem -1rem 6rem;
+.primaryButtons {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 
-  & video {
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 0.5rem;
+  @include mid-break {
+    max-width: 100%;
+    margin-bottom: 2rem;
+    flex-direction: row;
+    & > * {
+      flex: 1;
+      width: 100%;
+      align-self: stretch;
 
+      & > button {
+        height: 100%;
+      }
+    }
   }
 
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    left: -0.5rem;
-    top: -0.5rem;
-    right: -0.5rem;
-    bottom: -0.5rem;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 1rem;
-    background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5));
-    backdrop-filter: blur(32px);
-    z-index: -1;
+  @include small-break {
+    flex-direction: column;
+    & > * {
+      flex: 1;
+      width: 100%;
+      align-self: stretch;
+
+      & > button {
+        height: 100%;
+      }
+    }
   }
 }
 
@@ -168,17 +201,6 @@
   row-gap: 2rem;
 }
 
-.secondaryButtons {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  max-width: calc(var(--column) * 4);
-
-  @include mid-break {
-    max-width: 100%;
-  }
-}
-
 .backgroundGradient {
   position: fixed;
 
@@ -191,4 +213,37 @@
     height: 100%;
     z-index: 1;
   }
+}
+
+.logoShowcaseWrapper {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  align-items: center;
+
+  & h6 {
+    width: calc(var(--column) * 8);
+    line-height: 2;
+    text-align: center;
+    text-wrap: balance;
+  }
+}
+
+.command {
+  border-top: 1px solid var(--theme-border-color);
+  border-bottom: 1px solid var(--theme-border-color);
+
+  &:first-child {
+    border-bottom: none;
+
+    @include mid-break {
+      border-bottom: 1px solid var(--theme-border-color);
+    }
+
+    @include small-break {
+      border-bottom: none;
+    }
+  }
+
 }

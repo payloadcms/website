@@ -8,12 +8,12 @@ interface Args {
   overrides?: Partial<GroupField>
 }
 
-export const themeField: Field = {
+export const themeField: (width?: number) => Field = width => ({
   name: 'theme',
   type: 'select',
   admin: {
     description: 'Leave blank for system default',
-    width: '50%',
+    width: width ? `${width}%` : '50%',
   },
   options: [
     {
@@ -25,7 +25,7 @@ export const themeField: Field = {
       value: 'dark',
     },
   ],
-}
+})
 
 export const backgroundField: Field = {
   name: 'background',
@@ -79,7 +79,7 @@ export const blockFields = ({ name, fields, overrides }: Args): Field =>
               fields: [
                 {
                   type: 'row',
-                  fields: [themeField, backgroundField],
+                  fields: [themeField(), backgroundField],
                 },
               ],
               label: false,
