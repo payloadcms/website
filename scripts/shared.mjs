@@ -30,7 +30,7 @@ export const topicOrder = [
       'Versions',
       'Upload',
       'Email',
-      'Jobs Queue',
+      'Jobs-Queue',
       'TypeScript'
     ]
   },

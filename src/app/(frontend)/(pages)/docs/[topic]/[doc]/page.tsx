@@ -43,11 +43,11 @@ export async function generateMetadata({
   const topics = await fetchDocs(topicOrder)
 
   const groupIndex = topics.findIndex(({ topics: tGroup }) =>
-    tGroup.some(topic => topic.slug.toLowerCase() === topicSlug),
+    tGroup.some(topic => topic?.slug?.toLowerCase() === topicSlug),
   )
 
   const indexInGroup = topics[groupIndex].topics.findIndex(
-    topic => topic.slug.toLowerCase() === topicSlug,
+    topic => topic?.slug?.toLowerCase() === topicSlug,
   )
 
   const topicGroup = topics?.[groupIndex]

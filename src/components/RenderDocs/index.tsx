@@ -33,11 +33,11 @@ export const RenderDocs = async ({
   version?: 'beta' | 'current' | 'v2'
 }) => {
   const groupIndex = topicGroups.findIndex(({ topics: tGroup }) =>
-    tGroup.some(topic => topic.slug.toLowerCase() === params.topic),
+    tGroup.some(topic => topic?.slug?.toLowerCase() === params.topic),
   )
 
   const topicIndex = topicGroups[groupIndex].topics.findIndex(
-    topic => topic.slug.toLowerCase() === params.topic,
+    topic => topic?.slug?.toLowerCase() === params.topic,
   )
 
   const topicGroup = topicGroups?.[groupIndex]
@@ -100,7 +100,7 @@ export const RenderDocs = async ({
     ? {
         slug: nextDoc?.slug,
         title: nextDoc?.title,
-        topic: topicGroups[nextGroupIndex].topics[nextTopicIndex].slug,
+        topic: topicGroups?.[nextGroupIndex]?.topics?.[nextTopicIndex]?.slug,
       }
     : null
 
@@ -140,7 +140,7 @@ export const RenderDocs = async ({
                   .filter(Boolean)
                   .join(' ')}
                 data-algolia-no-crawl
-                href={`/docs/${version ? `${version}/` : ''}${next.topic.toLowerCase()}/${
+                href={`/docs/${version ? `${version}/` : ''}${next?.topic?.toLowerCase()}/${
                   next.slug
                 }`}
                 prefetch={false}

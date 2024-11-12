@@ -22,7 +22,18 @@ const topicOrder: TopicsOrder = [
     ],
   },
   { topics: ['Local-API', 'REST-API', 'GraphQL', 'Queries'] },
-  { topics: ['Rich-Text', 'Lexical', 'Live-Preview', 'Versions', 'Upload', 'Email', 'TypeScript'] },
+  {
+    topics: [
+      'Rich-Text',
+      'Lexical',
+      'Live-Preview',
+      'Versions',
+      'Upload',
+      'Email',
+      'Jobs-Queue',
+      'TypeScript',
+    ],
+  },
   { topics: ['Plugins', 'Examples', 'Integrations'] },
   { topics: ['Cloud', 'Production'] },
 ]
@@ -54,11 +65,11 @@ export async function generateMetadata({
   const topics = await fetchDocs(topicOrder, 'beta')
 
   const groupIndex = topics.findIndex(({ topics: tGroup }) =>
-    tGroup.some(topic => topic.slug.toLowerCase() === topicSlug),
+    tGroup.some(topic => topic?.slug?.toLowerCase() === topicSlug),
   )
 
   const indexInGroup = topics[groupIndex].topics.findIndex(
-    topic => topic.slug.toLowerCase() === topicSlug,
+    topic => topic?.slug?.toLowerCase() === topicSlug,
   )
 
   const topicGroup = topics?.[groupIndex]
