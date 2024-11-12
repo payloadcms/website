@@ -24,7 +24,7 @@ import { TopicGroup } from '@root/app/(frontend)/(pages)/docs/api'
 export const RenderDocs = async ({
   children,
   params,
-  topics,
+  topics: topicGroups,
   version,
 }: {
   children?: React.ReactNode
@@ -32,17 +32,17 @@ export const RenderDocs = async ({
   topics: TopicGroup[]
   version?: 'beta' | 'current' | 'v2'
 }) => {
-  const groupIndex = topics.findIndex(({ topics: tGroup }) =>
+  const groupIndex = topicGroups.findIndex(({ topics: tGroup }) =>
     tGroup.some(topic => topic.slug.toLowerCase() === params.topic),
   )
 
-  const indexInGroup = topics[groupIndex].topics.findIndex(
+  const topicIndex = topicGroups[groupIndex].topics.findIndex(
     topic => topic.slug.toLowerCase() === params.topic,
   )
 
-  const topicGroup = topics?.[groupIndex]
+  const topicGroup = topicGroups?.[groupIndex]
 
-  const topic = topicGroup?.topics?.[indexInGroup]
+  const topic = topicGroup?.topics?.[topicIndex]
 
   const docIndex = topic?.docs.findIndex(doc => doc.slug.replace('.mdx', '') === params.doc)
 
@@ -72,21 +72,37 @@ export const RenderDocs = async ({
     Array.isArray(filteredRelatedThreads) &&
     filteredRelatedThreads.length > 0
 
-  const hasNext = topicGroup.topics.length > indexInGroup + 1
+  const isLastGroup = topicGroups.length === groupIndex + 1
+  const isLastTopic = topicGroup.topics.length === topicIndex + 1
+  const isLastDoc = docIndex === topic.docs.length - 1
 
-  const next = !hasNext
-    ? null
-    : topic?.docs.length <= docIndex + 1
+  const hasNext = !(isLastGroup && isLastTopic && isLastDoc)
+
+  const nextGroupIndex = !isLastGroup && isLastTopic && isLastDoc ? groupIndex + 1 : groupIndex
+
+  let nextTopicIndex
+
+  if (!isLastDoc) {
+    nextTopicIndex = topicIndex
+  } else if (isLastDoc && !isLastTopic) {
+    nextTopicIndex = topicIndex + 1
+  } else {
+    nextTopicIndex = 0
+  }
+
+  const nextDocIndex = !isLastDoc ? docIndex + 1 : 0
+
+  const nextDoc = hasNext
+    ? topicGroups[nextGroupIndex]?.topics?.[nextTopicIndex]?.docs[nextDocIndex]
+    : null
+
+  const next = hasNext
     ? {
-        slug: topicGroup.topics?.[indexInGroup + 1]?.docs[0].slug,
-        title: topicGroup.topics?.[indexInGroup + 1]?.docs[0].title,
-        topic: topicGroup.topics?.[indexInGroup + 1].slug,
+        slug: nextDoc?.slug,
+        title: nextDoc?.title,
+        topic: topicGroups[nextGroupIndex].topics[nextTopicIndex].slug,
       }
-    : {
-        slug: topicGroup.topics?.[indexInGroup]?.docs[docIndex + 1].slug,
-        title: topicGroup.topics?.[indexInGroup]?.docs[docIndex + 1].title,
-        topic: params.topic,
-      }
+    : null
 
   return (
     <Gutter className={classes.wrap}>
@@ -95,10 +111,10 @@ export const RenderDocs = async ({
           <DocsNavigation
             currentTopic={params.topic}
             params={params}
-            topics={topics}
+            topics={topicGroups}
             version={version}
             groupIndex={groupIndex}
-            indexInGroup={indexInGroup}
+            indexInGroup={topicIndex}
             docIndex={docIndex}
           />
           <div aria-hidden className={classes.navOverlay} />
