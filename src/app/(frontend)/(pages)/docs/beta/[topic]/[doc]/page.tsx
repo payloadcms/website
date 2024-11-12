@@ -6,31 +6,25 @@ import React from 'react'
 
 import { fetchDocs } from '../../../api'
 
-const topicOrder = [
-  'Getting-Started',
-  'Configuration',
-  'Database',
-  'Fields',
-  'Admin',
-  'Rich-Text',
-  'Lexical',
-  'Live-Preview',
-  'Access-Control',
-  'Hooks',
-  'Authentication',
-  'Versions',
-  'Upload',
-  'GraphQL',
-  'REST-API',
-  'Local-API',
-  'Queries',
-  'Production',
-  'Email',
-  'TypeScript',
-  'Plugins',
-  'Examples',
-  'Integrations',
-  'Cloud',
+export type TopicsOrder = { topics: string[] }[]
+
+const topicOrder: TopicsOrder = [
+  {
+    topics: [
+      'Getting-Started',
+      'Configuration',
+      'Database',
+      'Fields',
+      'Access-Control',
+      'Authentication',
+      'Hooks',
+      'Admin',
+    ],
+  },
+  { topics: ['Local-API', 'REST-API', 'GraphQL', 'Queries'] },
+  { topics: ['Rich-Text', 'Lexical', 'Live-Preview', 'Versions', 'Upload', 'Email', 'TypeScript'] },
+  { topics: ['Plugins', 'Examples', 'Integrations'] },
+  { topics: ['Cloud', 'Production'] },
 ]
 
 export default async function DocsPage({
@@ -88,7 +82,7 @@ export async function generateStaticParams() {
   const topics = await fetchDocs(topicOrder)
 
   const result: { doc: string; topic: string }[] = topics.flatMap(topic => {
-    return topic.docs.map(doc => {
+    return topic.docs?.map(doc => {
       return {
         doc: doc.slug.replace('.mdx', ''),
         topic: topic.slug.toLowerCase(),

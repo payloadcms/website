@@ -140,9 +140,9 @@ async function fetchDocs() {
     }
   })
 
-  const topics = await Promise.all(
-    topicOrder.map(async unsanitizedTopicSlug => {
-      const topicSlug = unsanitizedTopicSlug.toLowerCase()
+  const topics = await Promise.all(topicOrder.map(async ({ topics: topicsGroup }) => ({
+    topics: await Promise.all(topicsGroup.map(async key => {
+      const topicSlug = key.toLowerCase()
       const filenames = await getFilenames({ topicSlug })
 
       if (filenames.length === 0) return null
@@ -163,15 +163,15 @@ async function fetchDocs() {
             order: docMatter.data.order,
             title: docMatter.data.title,
           }
-        })
+        }),
       )
 
       return {
-        slug: unsanitizedTopicSlug,
+        slug: key,
         docs: parsedDocs.filter(Boolean).sort((a, b) => a.order - b.order),
       }
-    })
-  )
+    })),
+  }), [])  )   
 
   const data = JSON.stringify(topics.filter(Boolean), null, 2)
   const docsFilename = path.resolve(__dirname, outputDirectory)

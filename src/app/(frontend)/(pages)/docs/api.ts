@@ -1,4 +1,5 @@
 import matter from 'gray-matter'
+import { TopicsOrder } from './beta/[topic]/[doc]/page'
 
 function decodeBase64(string: string) {
   const buff = Buffer.from(string, 'base64')
@@ -92,7 +93,7 @@ export async function fetchDoc(topic: string, slug: string, ref?: string) {
   }
 }
 
-export const fetchDocs = async (topicOrder: string[], ref?: string) => {
+export const fetchDocs = async (topicOrder: TopicsOrder, ref?: string): Promise<Topics[]> => {
   if (!process.env.GITHUB_ACCESS_TOKEN) {
     return []
   }

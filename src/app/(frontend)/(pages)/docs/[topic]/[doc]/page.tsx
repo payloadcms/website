@@ -3,31 +3,25 @@ import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import React from 'react'
 
 import { fetchDocs } from '../../api'
+import { TopicsOrder } from '../../beta/[topic]/[doc]/page'
 
-const topicOrder = [
-  'Getting-Started',
-  'Configuration',
-  'Database',
-  'Fields',
-  'Admin',
-  'Rich-Text',
-  'Live-Preview',
-  'Access-Control',
-  'Hooks',
-  'Authentication',
-  'Versions',
-  'Upload',
-  'Local-API',
-  'REST-API',
-  'GraphQL',
-  'Queries',
-  'Production',
-  'Email',
-  'TypeScript',
-  'Plugins',
-  'Examples',
-  'Integrations',
-  'Cloud',
+const topicOrder: TopicsOrder = [
+  {
+    topics: [
+      'Getting-Started',
+      'Configuration',
+      'Database',
+      'Fields',
+      'Access-Control',
+      'Authentication',
+      'Hooks',
+      'Admin',
+    ],
+  },
+  { topics: ['Local-API', 'REST-API', 'GraphQL', 'Queries'] },
+  { topics: ['Rich-Text', 'Live-Preview', 'Versions', 'Upload', 'Email', 'TypeScript'] },
+  { topics: ['Plugins', 'Examples', 'Integrations'] },
+  { topics: ['Cloud', 'Production'] },
 ]
 
 export default async function DocsPage({
@@ -40,49 +34,49 @@ export default async function DocsPage({
   return <RenderDocs params={await params} topics={topics} />
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ doc: string; topic: string }>
-}) {
-  const { doc: docSlug, topic: topicSlug } = await params
-  const topics = await fetchDocs(topicOrder)
+// export async function generateMetadata({
+//   params,
+// }: {
+//   params: Promise<{ doc: string; topic: string }>
+// }) {
+//   const { doc: docSlug, topic: topicSlug } = await params
+//   const topics = await fetchDocs(topicOrder)
 
-  const topicIndex = topics.findIndex(topic => topic.slug.toLowerCase() === topicSlug)
-  const docIndex = topics[topicIndex]?.docs.findIndex(
-    doc => doc.slug.replace('.mdx', '') === docSlug,
-  )
+//   const topicIndex = topics.findIndex(topic => topic.slug.toLowerCase() === topicSlug)
+//   const docIndex = topics[topicIndex]?.docs.findIndex(
+//     doc => doc.slug.replace('.mdx', '') === docSlug,
+//   )
 
-  const currentDoc = topics[topicIndex]?.docs[docIndex]
+//   const currentDoc = topics[topicIndex]?.docs[docIndex]
 
-  return {
-    description: currentDoc?.desc || `Payload ${topicSlug} Documentation`,
-    openGraph: mergeOpenGraph({
-      images: [
-        {
-          url: `/api/og?topic=${topicSlug}&title=${currentDoc?.title}`,
-        },
-      ],
-      title: `${currentDoc?.title ? `${currentDoc.title} | ` : ''}Documentation | Payload`,
-      url: `/docs/${topicSlug}/${docSlug}`,
-    }),
-    title: `${currentDoc?.title ? `${currentDoc.title} | ` : ''}Documentation | Payload`,
-  }
-}
+//   return {
+//     description: currentDoc?.desc || `Payload ${topicSlug} Documentation`,
+//     openGraph: mergeOpenGraph({
+//       images: [
+//         {
+//           url: `/api/og?topic=${topicSlug}&title=${currentDoc?.title}`,
+//         },
+//       ],
+//       title: `${currentDoc?.title ? `${currentDoc.title} | ` : ''}Documentation | Payload`,
+//       url: `/docs/${topicSlug}/${docSlug}`,
+//     }),
+//     title: `${currentDoc?.title ? `${currentDoc.title} | ` : ''}Documentation | Payload`,
+//   }
+// }
 
-export async function generateStaticParams() {
-  if (process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS) return []
+// export async function generateStaticParams() {
+//   if (process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS) return []
 
-  const topics = await fetchDocs(topicOrder)
+//   const topics = await fetchDocs(topicOrder)
 
-  const result: { doc: string; topic: string }[] = topics.flatMap(topic => {
-    return topic.docs.map(doc => {
-      return {
-        doc: doc.slug.replace('.mdx', ''),
-        topic: topic.slug.toLowerCase(),
-      }
-    })
-  })
+//   const result: { doc: string; topic: string }[] = topics.flatMap(topic => {
+//     return topic.docs?.map(doc => {
+//       return {
+//         doc: doc.slug.replace('.mdx', ''),
+//         topic: topic.slug.toLowerCase(),
+//       }
+//     })
+//   })
 
-  return result
-}
+//   return result
+// }

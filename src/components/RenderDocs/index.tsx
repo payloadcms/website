@@ -19,6 +19,8 @@ import { Suspense } from 'react'
 import remarkGfm from 'remark-gfm'
 
 import classes from './index.module.scss'
+import { TopicsOrder } from '@root/app/(frontend)/(pages)/docs/beta/[topic]/[doc]/page'
+import { Topics } from '@root/app/(frontend)/(pages)/docs/api'
 
 export const RenderDocs = async ({
   children,
@@ -28,10 +30,18 @@ export const RenderDocs = async ({
 }: {
   children?: React.ReactNode
   params: { doc: string; topic: string }
-  topics: any[]
+  topics: Topics[]
   version?: 'beta' | 'current' | 'v2'
 }) => {
-  const topicIndex = topics.findIndex(topic => topic.slug.toLowerCase() === params.topic)
+  const topicIndex = topics.findIndex(topic => topic.slug?.toLowerCase() === params.topic)
+  console.log(
+    'topics',
+    topicIndex,
+    topics,
+    topics.map(topic => topic.slug?.toLowerCase()),
+    params.topic,
+  )
+
   const docIndex = topics[topicIndex]?.docs.findIndex(
     doc => doc.slug.replace('.mdx', '') === params.doc,
   )
@@ -141,10 +151,3 @@ export const RenderDocs = async ({
     </Gutter>
   )
 }
-
-const DocsSkeleton = () => (
-  <div className={classes.skeleton}>
-    <div className={classes.skeletonTitle} />
-    <div className={classes.skeletonContent} />
-  </div>
-)
