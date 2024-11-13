@@ -32,8 +32,8 @@
   gap: 0.5rem;
 
   &:visited, &:active, &:focus, &:visited:hover, &:visited:focus {
-    color: inherit;
-    border: none;
+    color: inherit !important;
+    border: none !important;
   }
 
   &::after {
