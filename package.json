@@ -72,7 +72,7 @@
     "graphql": "16.8.1",
     "gray-matter": "^4.0.3",
     "instantsearch.js": "^4.72.2",
-    "lexical": "0.18.0",
+    "lexical": "0.20.0",
     "next": "^15.0.2",
     "next-mdx-remote": "^5.0.0",
     "next-sitemap": "^4.0.6",
