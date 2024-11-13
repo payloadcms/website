@@ -16,8 +16,8 @@ import { DocSearch } from '../Docsearch/index.js'
 
 import classes from './index.module.scss'
 
-type DesktopNavType = Pick<MainMenu, 'tabs'> & { hideBackground?: boolean }
-export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) => {
+type DesktopNavType = Pick<MainMenu, 'tabs' | 'menuCta'> & { hideBackground?: boolean }
+export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground, menuCta }) => {
   const { user } = useAuth()
   const [activeTab, setActiveTab] = React.useState<number | undefined>()
   const [activeDropdown, setActiveDropdown] = React.useState<boolean | undefined>(false)
@@ -266,9 +266,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
                   <Link prefetch={false} href="/login">
                     Login
                   </Link>
-                  <Link href="/get-started" prefetch={false} className={classes.button}>
-                    Get Started
-                  </Link>
+                  {menuCta && menuCta.label && <CMSLink {...menuCta} className={classes.button} />}
                 </>
               )}
               <DocSearch />

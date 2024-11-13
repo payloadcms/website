@@ -10079,6 +10079,26 @@ export interface MainMenu {
         id?: string | null;
       }[]
     | null;
+  menuCta: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'case-studies';
+          value: string | CaseStudy;
+        } | null);
+    url?: string | null;
+    label: string;
+    customId?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -13344,6 +13364,16 @@ export interface MainMenuSelect<T extends boolean = true> {
               id?: T;
             };
         id?: T;
+      };
+  menuCta?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        customId?: T;
       };
   updatedAt?: T;
   createdAt?: T;

@@ -27,7 +27,7 @@ import { useStarCount } from '@root/utilities/use-star-count.js'
 export const modalSlug = 'mobile-nav'
 export const subMenuSlug = 'mobile-sub-menu'
 
-type NavItems = Pick<MainMenu, 'tabs'>
+type NavItems = Pick<MainMenu, 'tabs' | 'menuCta'>
 
 const MobileNavItems = ({ tabs, setActiveTab }) => {
   const { user } = useAuth()
@@ -295,9 +295,9 @@ export const MobileNav: React.FC<NavItems> = props => {
                     <Link prefetch={false} href="/login">
                       Login
                     </Link>
-                    <Link href="/get-started" prefetch={false} className={classes.button}>
-                      Get Started
-                    </Link>
+                    {props.menuCta && props.menuCta.label && (
+                      <CMSLink {...props.menuCta} className={classes.button} />
+                    )}
                   </>
                 )}
                 <DocSearch />
