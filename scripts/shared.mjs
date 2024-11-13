@@ -9,7 +9,6 @@ export const topicOrder = [
       'Access-Control',
       'Authentication',
       'Hooks',
-      'Admin',
     ],
   },
   {
@@ -24,6 +23,7 @@ export const topicOrder = [
   {
     groupLabel: '',
     topics: [
+      'Admin',
       'Rich-Text',
       'Lexical',
       'Live-Preview',

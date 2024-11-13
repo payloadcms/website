@@ -15,11 +15,10 @@ const topicOrder: TopicsOrder = [
       'Access-Control',
       'Authentication',
       'Hooks',
-      'Admin',
     ],
   },
   { topics: ['Local-API', 'REST-API', 'GraphQL', 'Queries'] },
-  { topics: ['Rich-Text', 'Live-Preview', 'Versions', 'Upload', 'Email', 'TypeScript'] },
+  { topics: ['Admin', 'Rich-Text', 'Live-Preview', 'Versions', 'Upload', 'Email', 'TypeScript'] },
   { topics: ['Plugins', 'Examples', 'Integrations'] },
   { topics: ['Cloud', 'Production'] },
 ]

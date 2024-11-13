@@ -18,12 +18,12 @@ const topicOrder: TopicsOrder = [
       'Access-Control',
       'Authentication',
       'Hooks',
-      'Admin',
     ],
   },
   { topics: ['Local-API', 'REST-API', 'GraphQL', 'Queries'] },
   {
     topics: [
+      'Admin',
       'Rich-Text',
       'Lexical',
       'Live-Preview',
