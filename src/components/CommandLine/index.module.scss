@@ -3,10 +3,10 @@
 .commandLineButton {
   width: 100%;
   max-width: calc(var(--column) * 4);
+  @include code;
   @include small-break {
     max-width: calc(var(--column) * 8);
   }
-  @include code;
 }
 
 .commandText {

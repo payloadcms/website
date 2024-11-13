@@ -3,10 +3,10 @@
 @use './vars.scss' as *;
 @use './queries.scss' as *;
 @use './type.scss' as *;
-@import "./colors.scss";
-@import './docsearch.scss';
-@import "./theme.scss";
-@import './toasts.scss';
+@use "./colors.scss";
+@use './docsearch.scss';
+@use "./theme.scss";
+@use './toasts.scss';
 
 :root {
   font-size: 20px;
