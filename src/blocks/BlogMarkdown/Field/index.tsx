@@ -6,7 +6,7 @@ import './index.scss'
 export const BlogMarkdownField: React.FC<{ name: string; path: string }> = ({ name, path }) => {
   return (
     <div className="markdown">
-      <TextareaField field={{ name, _path: path, required: true }} />
+      <TextareaField field={{ name, required: true }} path={path} />
     </div>
   )
 }

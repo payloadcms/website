@@ -250,7 +250,7 @@ export const Select: React.FC<
         className={classes.reactSelect}
         classNamePrefix="rs"
         components={components}
-        selectProps={selectProps}
+        {...selectProps}
         isDisabled={disabled}
         onMenuScrollToBottom={onMenuScrollToBottom}
         noOptionsMessage={() => 'No options'}
