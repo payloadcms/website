@@ -63,7 +63,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
               style: {
                 alignSelf: 'flex-end',
               },
-              width: '50%',
+              width: '25%',
             },
             label: 'Open in new tab',
           },
@@ -104,15 +104,32 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
           name: 'label',
           type: 'text',
           admin: {
-            width: '50%',
+            width: '25%',
           },
           label: 'Label',
           required: true,
         },
+        {
+          name: 'customId',
+          type: 'text',
+          admin: {
+            width: '25%',
+          },
+        },
       ],
     })
   } else {
-    linkResult.fields = [...linkResult.fields, ...linkTypes]
+    linkResult.fields = [
+      ...linkResult.fields,
+      ...linkTypes,
+      {
+        name: 'customId',
+        type: 'text',
+        admin: {
+          width: '25%',
+        },
+      },
+    ]
   }
 
   if (appearances !== false) {

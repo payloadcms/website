@@ -202,6 +202,7 @@ export interface CaseStudy {
                           } | null);
                       url?: string | null;
                       label: string;
+                      customId?: string | null;
                     };
                     id?: string | null;
                   }[]
@@ -224,6 +225,7 @@ export interface CaseStudy {
                     } | null);
                 url?: string | null;
                 label: string;
+                customId?: string | null;
               };
               bannerImage?: (string | null) | Media;
               gradientBackground?: boolean | null;
@@ -273,6 +275,7 @@ export interface CaseStudy {
                           } | null);
                       url?: string | null;
                       label: string;
+                      customId?: string | null;
                     };
                     id?: string | null;
                   }[]
@@ -300,6 +303,7 @@ export interface CaseStudy {
                             value: string | CaseStudy;
                           } | null);
                       url?: string | null;
+                      customId?: string | null;
                     };
                     id?: string | null;
                   }[]
@@ -440,6 +444,7 @@ export interface CaseStudy {
                           } | null);
                       url?: string | null;
                       label: string;
+                      customId?: string | null;
                     };
                     id?: string | null;
                   }[]
@@ -487,6 +492,7 @@ export interface CaseStudy {
                                 } | null);
                             url?: string | null;
                             label: string;
+                            customId?: string | null;
                           };
                           id?: string | null;
                         }[]
@@ -615,6 +621,7 @@ export interface CaseStudy {
                           } | null);
                       url?: string | null;
                       label: string;
+                      customId?: string | null;
                     };
                     id?: string | null;
                   }[]
@@ -714,6 +721,7 @@ export interface CaseStudy {
                             value: string | CaseStudy;
                           } | null);
                       url?: string | null;
+                      customId?: string | null;
                     };
                     id?: string | null;
                   }[]
@@ -754,6 +762,7 @@ export interface CaseStudy {
                             value: string | CaseStudy;
                           } | null);
                       url?: string | null;
+                      customId?: string | null;
                     };
                     id?: string | null;
                   }[]
@@ -777,6 +786,7 @@ export interface CaseStudy {
                     } | null);
                 url?: string | null;
                 label: string;
+                customId?: string | null;
               };
             };
             id?: string | null;
@@ -809,6 +819,7 @@ export interface CaseStudy {
                           } | null);
                       url?: string | null;
                       label: string;
+                      customId?: string | null;
                     };
                     id?: string | null;
                   }[]
@@ -858,6 +869,7 @@ export interface CaseStudy {
                     } | null);
                 url?: string | null;
                 label: string;
+                customId?: string | null;
               };
               logos?:
                 | {
@@ -940,6 +952,7 @@ export interface CaseStudy {
                     } | null);
                 url?: string | null;
                 label: string;
+                customId?: string | null;
               };
               images?:
                 | {
@@ -1000,6 +1013,7 @@ export interface CaseStudy {
                           } | null);
                       url?: string | null;
                       label: string;
+                      customId?: string | null;
                     };
                     media: string | Media;
                     id?: string | null;
@@ -1043,6 +1057,7 @@ export interface CaseStudy {
                           } | null);
                       url?: string | null;
                       label: string;
+                      customId?: string | null;
                     };
                     features?:
                       | {
@@ -1103,6 +1118,7 @@ export interface CaseStudy {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[];
@@ -1152,6 +1168,7 @@ export interface CaseStudy {
                           } | null);
                       url?: string | null;
                       label: string;
+                      customId?: string | null;
                     };
                     id?: string | null;
                   }[]
@@ -1220,6 +1237,7 @@ export interface CaseStudy {
                                         } | null);
                                     url?: string | null;
                                     label: string;
+                                    customId?: string | null;
                                   };
                                   id?: string | null;
                                 }[]
@@ -1267,6 +1285,7 @@ export interface CaseStudy {
                                               } | null);
                                           url?: string | null;
                                           label: string;
+                                          customId?: string | null;
                                         };
                                         id?: string | null;
                                       }[]
@@ -1385,6 +1404,7 @@ export interface CaseStudy {
                                           value: string | CaseStudy;
                                         } | null);
                                     url?: string | null;
+                                    customId?: string | null;
                                   };
                                   id?: string | null;
                                 }[]
@@ -1408,6 +1428,7 @@ export interface CaseStudy {
                                   } | null);
                               url?: string | null;
                               label: string;
+                              customId?: string | null;
                             };
                           };
                           id?: string | null;
@@ -1456,6 +1477,7 @@ export interface CaseStudy {
                                         } | null);
                                     url?: string | null;
                                     label: string;
+                                    customId?: string | null;
                                   };
                                   type?: ('code' | 'media') | null;
                                   code?: string | null;
@@ -1497,6 +1519,7 @@ export interface CaseStudy {
                                               } | null);
                                           url?: string | null;
                                           label: string;
+                                          customId?: string | null;
                                         };
                                         id?: string | null;
                                       }[]
@@ -1561,6 +1584,7 @@ export interface CaseStudy {
                           } | null);
                       url?: string | null;
                       label: string;
+                      customId?: string | null;
                     };
                     type?: ('code' | 'media') | null;
                     code?: string | null;
@@ -1602,6 +1626,7 @@ export interface CaseStudy {
                                 } | null);
                             url?: string | null;
                             label: string;
+                            customId?: string | null;
                           };
                           id?: string | null;
                         }[]
@@ -1692,6 +1717,7 @@ export interface Page {
                 } | null);
             url?: string | null;
             label: string;
+            customId?: string | null;
           };
           id?: string | null;
         }[]
@@ -1743,6 +1769,7 @@ export interface Page {
           } | null);
       url?: string | null;
       label: string;
+      customId?: string | null;
     };
     richText?: {
       root: {
@@ -1798,6 +1825,7 @@ export interface Page {
                 } | null);
             url?: string | null;
             label: string;
+            customId?: string | null;
           };
           id?: string | null;
         }[]
@@ -1852,6 +1880,7 @@ export interface Page {
                 } | null);
             url?: string | null;
             label: string;
+            customId?: string | null;
             appearance?: ('default' | 'primary' | 'secondary') | null;
           };
           id?: string | null;
@@ -1883,6 +1912,7 @@ export interface Page {
                     } | null);
                 url?: string | null;
                 label: string;
+                customId?: string | null;
                 appearance?: ('default' | 'primary' | 'secondary') | null;
               };
               id?: string | null;
@@ -1917,6 +1947,7 @@ export interface Page {
                 } | null);
             url?: string | null;
             label: string;
+            customId?: string | null;
           };
           id?: string | null;
         }[]
@@ -2024,6 +2055,7 @@ export interface Page {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -2046,6 +2078,7 @@ export interface Page {
                 } | null);
             url?: string | null;
             label: string;
+            customId?: string | null;
           };
           bannerImage?: (string | null) | Media;
           gradientBackground?: boolean | null;
@@ -2095,6 +2128,7 @@ export interface Page {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -2122,6 +2156,7 @@ export interface Page {
                         value: string | CaseStudy;
                       } | null);
                   url?: string | null;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -2262,6 +2297,7 @@ export interface Page {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -2309,6 +2345,7 @@ export interface Page {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -2437,6 +2474,7 @@ export interface Page {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -2536,6 +2574,7 @@ export interface Page {
                         value: string | CaseStudy;
                       } | null);
                   url?: string | null;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -2576,6 +2615,7 @@ export interface Page {
                         value: string | CaseStudy;
                       } | null);
                   url?: string | null;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -2599,6 +2639,7 @@ export interface Page {
                 } | null);
             url?: string | null;
             label: string;
+            customId?: string | null;
           };
         };
         id?: string | null;
@@ -2631,6 +2672,7 @@ export interface Page {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -2680,6 +2722,7 @@ export interface Page {
                 } | null);
             url?: string | null;
             label: string;
+            customId?: string | null;
           };
           logos?:
             | {
@@ -2762,6 +2805,7 @@ export interface Page {
                 } | null);
             url?: string | null;
             label: string;
+            customId?: string | null;
           };
           images?:
             | {
@@ -2822,6 +2866,7 @@ export interface Page {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 media: string | Media;
                 id?: string | null;
@@ -2865,6 +2910,7 @@ export interface Page {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 features?:
                   | {
@@ -2925,6 +2971,7 @@ export interface Page {
                   } | null);
               url?: string | null;
               label: string;
+              customId?: string | null;
             };
             id?: string | null;
           }[];
@@ -2974,6 +3021,7 @@ export interface Page {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -3042,6 +3090,7 @@ export interface Page {
                                     } | null);
                                 url?: string | null;
                                 label: string;
+                                customId?: string | null;
                               };
                               id?: string | null;
                             }[]
@@ -3089,6 +3138,7 @@ export interface Page {
                                           } | null);
                                       url?: string | null;
                                       label: string;
+                                      customId?: string | null;
                                     };
                                     id?: string | null;
                                   }[]
@@ -3207,6 +3257,7 @@ export interface Page {
                                       value: string | CaseStudy;
                                     } | null);
                                 url?: string | null;
+                                customId?: string | null;
                               };
                               id?: string | null;
                             }[]
@@ -3230,6 +3281,7 @@ export interface Page {
                               } | null);
                           url?: string | null;
                           label: string;
+                          customId?: string | null;
                         };
                       };
                       id?: string | null;
@@ -3278,6 +3330,7 @@ export interface Page {
                                     } | null);
                                 url?: string | null;
                                 label: string;
+                                customId?: string | null;
                               };
                               type?: ('code' | 'media') | null;
                               code?: string | null;
@@ -3319,6 +3372,7 @@ export interface Page {
                                           } | null);
                                       url?: string | null;
                                       label: string;
+                                      customId?: string | null;
                                     };
                                     id?: string | null;
                                   }[]
@@ -3383,6 +3437,7 @@ export interface Page {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 type?: ('code' | 'media') | null;
                 code?: string | null;
@@ -3424,6 +3479,7 @@ export interface Page {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -3582,6 +3638,7 @@ export interface Post {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -3829,6 +3886,7 @@ export interface ReusableContent {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -3851,6 +3909,7 @@ export interface ReusableContent {
                 } | null);
             url?: string | null;
             label: string;
+            customId?: string | null;
           };
           bannerImage?: (string | null) | Media;
           gradientBackground?: boolean | null;
@@ -3900,6 +3959,7 @@ export interface ReusableContent {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -3927,6 +3987,7 @@ export interface ReusableContent {
                         value: string | CaseStudy;
                       } | null);
                   url?: string | null;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -4069,6 +4130,7 @@ export interface ReusableContent {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -4122,6 +4184,7 @@ export interface ReusableContent {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -4169,6 +4232,7 @@ export interface ReusableContent {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -4297,6 +4361,7 @@ export interface ReusableContent {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -4397,6 +4462,7 @@ export interface ReusableContent {
                         value: string | CaseStudy;
                       } | null);
                   url?: string | null;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -4437,6 +4503,7 @@ export interface ReusableContent {
                         value: string | CaseStudy;
                       } | null);
                   url?: string | null;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -4460,6 +4527,7 @@ export interface ReusableContent {
                 } | null);
             url?: string | null;
             label: string;
+            customId?: string | null;
           };
         };
         id?: string | null;
@@ -4492,6 +4560,7 @@ export interface ReusableContent {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -4541,6 +4610,7 @@ export interface ReusableContent {
                 } | null);
             url?: string | null;
             label: string;
+            customId?: string | null;
           };
           logos?:
             | {
@@ -4623,6 +4693,7 @@ export interface ReusableContent {
                 } | null);
             url?: string | null;
             label: string;
+            customId?: string | null;
           };
           images?:
             | {
@@ -4683,6 +4754,7 @@ export interface ReusableContent {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 media: string | Media;
                 id?: string | null;
@@ -4726,6 +4798,7 @@ export interface ReusableContent {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 features?:
                   | {
@@ -4773,6 +4846,7 @@ export interface ReusableContent {
                   } | null);
               url?: string | null;
               label: string;
+              customId?: string | null;
             };
             id?: string | null;
           }[];
@@ -4822,6 +4896,7 @@ export interface ReusableContent {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 id?: string | null;
               }[]
@@ -4890,6 +4965,7 @@ export interface ReusableContent {
                                     } | null);
                                 url?: string | null;
                                 label: string;
+                                customId?: string | null;
                               };
                               id?: string | null;
                             }[]
@@ -4937,6 +5013,7 @@ export interface ReusableContent {
                                           } | null);
                                       url?: string | null;
                                       label: string;
+                                      customId?: string | null;
                                     };
                                     id?: string | null;
                                   }[]
@@ -5055,6 +5132,7 @@ export interface ReusableContent {
                                       value: string | CaseStudy;
                                     } | null);
                                 url?: string | null;
+                                customId?: string | null;
                               };
                               id?: string | null;
                             }[]
@@ -5078,6 +5156,7 @@ export interface ReusableContent {
                               } | null);
                           url?: string | null;
                           label: string;
+                          customId?: string | null;
                         };
                       };
                       id?: string | null;
@@ -5126,6 +5205,7 @@ export interface ReusableContent {
                                     } | null);
                                 url?: string | null;
                                 label: string;
+                                customId?: string | null;
                               };
                               type?: ('code' | 'media') | null;
                               code?: string | null;
@@ -5167,6 +5247,7 @@ export interface ReusableContent {
                                           } | null);
                                       url?: string | null;
                                       label: string;
+                                      customId?: string | null;
                                     };
                                     id?: string | null;
                                   }[]
@@ -5231,6 +5312,7 @@ export interface ReusableContent {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 type?: ('code' | 'media') | null;
                 code?: string | null;
@@ -5272,6 +5354,7 @@ export interface ReusableContent {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -5961,6 +6044,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -5972,6 +6056,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                           reference?: T;
                           url?: T;
                           label?: T;
+                          customId?: T;
                         };
                     bannerImage?: T;
                     gradientBackground?: T;
@@ -6003,6 +6088,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -6020,6 +6106,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                 newTab?: T;
                                 reference?: T;
                                 url?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -6128,6 +6215,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -6152,6 +6240,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -6209,6 +6298,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -6266,6 +6356,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                 newTab?: T;
                                 reference?: T;
                                 url?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -6303,6 +6394,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                 newTab?: T;
                                 reference?: T;
                                 url?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -6315,6 +6407,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                           reference?: T;
                           url?: T;
                           label?: T;
+                          customId?: T;
                         };
                   };
               id?: T;
@@ -6343,6 +6436,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -6372,6 +6466,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                           reference?: T;
                           url?: T;
                           label?: T;
+                          customId?: T;
                         };
                     logos?:
                       | T
@@ -6426,6 +6521,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                           reference?: T;
                           url?: T;
                           label?: T;
+                          customId?: T;
                         };
                     images?:
                       | T
@@ -6468,6 +6564,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           media?: T;
                           id?: T;
@@ -6506,6 +6603,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           features?:
                             | T
@@ -6567,6 +6665,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -6598,6 +6697,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -6656,6 +6756,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                                         reference?: T;
                                                         url?: T;
                                                         label?: T;
+                                                        customId?: T;
                                                       };
                                                   id?: T;
                                                 };
@@ -6680,6 +6781,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                                               reference?: T;
                                                               url?: T;
                                                               label?: T;
+                                                              customId?: T;
                                                             };
                                                         id?: T;
                                                       };
@@ -6741,6 +6843,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                                         newTab?: T;
                                                         reference?: T;
                                                         url?: T;
+                                                        customId?: T;
                                                       };
                                                   id?: T;
                                                 };
@@ -6753,6 +6856,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                                   reference?: T;
                                                   url?: T;
                                                   label?: T;
+                                                  customId?: T;
                                                 };
                                           };
                                       id?: T;
@@ -6783,6 +6887,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                                         reference?: T;
                                                         url?: T;
                                                         label?: T;
+                                                        customId?: T;
                                                       };
                                                   type?: T;
                                                   code?: T;
@@ -6801,6 +6906,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                                               reference?: T;
                                                               url?: T;
                                                               label?: T;
+                                                              customId?: T;
                                                             };
                                                         id?: T;
                                                       };
@@ -6843,6 +6949,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           type?: T;
                           code?: T;
@@ -6861,6 +6968,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -6999,6 +7107,7 @@ export interface PagesSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     label?: T;
+                    customId?: T;
                   };
               id?: T;
             };
@@ -7027,6 +7136,7 @@ export interface PagesSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              customId?: T;
             };
         richText?: T;
         description?: T;
@@ -7047,6 +7157,7 @@ export interface PagesSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     label?: T;
+                    customId?: T;
                   };
               id?: T;
             };
@@ -7063,6 +7174,7 @@ export interface PagesSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     label?: T;
+                    customId?: T;
                     appearance?: T;
                   };
               id?: T;
@@ -7088,6 +7200,7 @@ export interface PagesSelect<T extends boolean = true> {
                           reference?: T;
                           url?: T;
                           label?: T;
+                          customId?: T;
                           appearance?: T;
                         };
                     id?: T;
@@ -7112,6 +7225,7 @@ export interface PagesSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     label?: T;
+                    customId?: T;
                   };
               id?: T;
             };
@@ -7196,6 +7310,7 @@ export interface PagesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -7207,6 +7322,7 @@ export interface PagesSelect<T extends boolean = true> {
                           reference?: T;
                           url?: T;
                           label?: T;
+                          customId?: T;
                         };
                     bannerImage?: T;
                     gradientBackground?: T;
@@ -7238,6 +7354,7 @@ export interface PagesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -7255,6 +7372,7 @@ export interface PagesSelect<T extends boolean = true> {
                                 newTab?: T;
                                 reference?: T;
                                 url?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -7363,6 +7481,7 @@ export interface PagesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -7387,6 +7506,7 @@ export interface PagesSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -7444,6 +7564,7 @@ export interface PagesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -7501,6 +7622,7 @@ export interface PagesSelect<T extends boolean = true> {
                                 newTab?: T;
                                 reference?: T;
                                 url?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -7538,6 +7660,7 @@ export interface PagesSelect<T extends boolean = true> {
                                 newTab?: T;
                                 reference?: T;
                                 url?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -7550,6 +7673,7 @@ export interface PagesSelect<T extends boolean = true> {
                           reference?: T;
                           url?: T;
                           label?: T;
+                          customId?: T;
                         };
                   };
               id?: T;
@@ -7578,6 +7702,7 @@ export interface PagesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -7607,6 +7732,7 @@ export interface PagesSelect<T extends boolean = true> {
                           reference?: T;
                           url?: T;
                           label?: T;
+                          customId?: T;
                         };
                     logos?:
                       | T
@@ -7661,6 +7787,7 @@ export interface PagesSelect<T extends boolean = true> {
                           reference?: T;
                           url?: T;
                           label?: T;
+                          customId?: T;
                         };
                     images?:
                       | T
@@ -7703,6 +7830,7 @@ export interface PagesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           media?: T;
                           id?: T;
@@ -7741,6 +7869,7 @@ export interface PagesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           features?:
                             | T
@@ -7802,6 +7931,7 @@ export interface PagesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -7833,6 +7963,7 @@ export interface PagesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -7891,6 +8022,7 @@ export interface PagesSelect<T extends boolean = true> {
                                                         reference?: T;
                                                         url?: T;
                                                         label?: T;
+                                                        customId?: T;
                                                       };
                                                   id?: T;
                                                 };
@@ -7915,6 +8047,7 @@ export interface PagesSelect<T extends boolean = true> {
                                                               reference?: T;
                                                               url?: T;
                                                               label?: T;
+                                                              customId?: T;
                                                             };
                                                         id?: T;
                                                       };
@@ -7976,6 +8109,7 @@ export interface PagesSelect<T extends boolean = true> {
                                                         newTab?: T;
                                                         reference?: T;
                                                         url?: T;
+                                                        customId?: T;
                                                       };
                                                   id?: T;
                                                 };
@@ -7988,6 +8122,7 @@ export interface PagesSelect<T extends boolean = true> {
                                                   reference?: T;
                                                   url?: T;
                                                   label?: T;
+                                                  customId?: T;
                                                 };
                                           };
                                       id?: T;
@@ -8018,6 +8153,7 @@ export interface PagesSelect<T extends boolean = true> {
                                                         reference?: T;
                                                         url?: T;
                                                         label?: T;
+                                                        customId?: T;
                                                       };
                                                   type?: T;
                                                   code?: T;
@@ -8036,6 +8172,7 @@ export interface PagesSelect<T extends boolean = true> {
                                                               reference?: T;
                                                               url?: T;
                                                               label?: T;
+                                                              customId?: T;
                                                             };
                                                         id?: T;
                                                       };
@@ -8078,6 +8215,7 @@ export interface PagesSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           type?: T;
                           code?: T;
@@ -8096,6 +8234,7 @@ export interface PagesSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -8278,6 +8417,7 @@ export interface PostsSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -8478,6 +8618,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -8489,6 +8630,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                           reference?: T;
                           url?: T;
                           label?: T;
+                          customId?: T;
                         };
                     bannerImage?: T;
                     gradientBackground?: T;
@@ -8520,6 +8662,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -8537,6 +8680,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                 newTab?: T;
                                 reference?: T;
                                 url?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -8647,6 +8791,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -8681,6 +8826,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -8705,6 +8851,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -8762,6 +8909,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -8851,6 +8999,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                 newTab?: T;
                                 reference?: T;
                                 url?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -8888,6 +9037,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                 newTab?: T;
                                 reference?: T;
                                 url?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -8900,6 +9050,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                           reference?: T;
                           url?: T;
                           label?: T;
+                          customId?: T;
                         };
                   };
               id?: T;
@@ -8928,6 +9079,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -8957,6 +9109,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                           reference?: T;
                           url?: T;
                           label?: T;
+                          customId?: T;
                         };
                     logos?:
                       | T
@@ -9011,6 +9164,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                           reference?: T;
                           url?: T;
                           label?: T;
+                          customId?: T;
                         };
                     images?:
                       | T
@@ -9053,6 +9207,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           media?: T;
                           id?: T;
@@ -9091,6 +9246,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           features?:
                             | T
@@ -9134,6 +9290,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -9165,6 +9322,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -9223,6 +9381,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                                         reference?: T;
                                                         url?: T;
                                                         label?: T;
+                                                        customId?: T;
                                                       };
                                                   id?: T;
                                                 };
@@ -9247,6 +9406,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                                               reference?: T;
                                                               url?: T;
                                                               label?: T;
+                                                              customId?: T;
                                                             };
                                                         id?: T;
                                                       };
@@ -9308,6 +9468,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                                         newTab?: T;
                                                         reference?: T;
                                                         url?: T;
+                                                        customId?: T;
                                                       };
                                                   id?: T;
                                                 };
@@ -9320,6 +9481,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                                   reference?: T;
                                                   url?: T;
                                                   label?: T;
+                                                  customId?: T;
                                                 };
                                           };
                                       id?: T;
@@ -9350,6 +9512,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                                         reference?: T;
                                                         url?: T;
                                                         label?: T;
+                                                        customId?: T;
                                                       };
                                                   type?: T;
                                                   code?: T;
@@ -9368,6 +9531,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                                               reference?: T;
                                                               url?: T;
                                                               label?: T;
+                                                              customId?: T;
                                                             };
                                                         id?: T;
                                                       };
@@ -9410,6 +9574,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           type?: T;
                           code?: T;
@@ -9428,6 +9593,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -9743,6 +9909,7 @@ export interface Footer {
                     } | null);
                 url?: string | null;
                 label: string;
+                customId?: string | null;
               };
               id?: string | null;
             }[]
@@ -9781,6 +9948,7 @@ export interface MainMenu {
                 value: string | CaseStudy;
               } | null);
           url?: string | null;
+          customId?: string | null;
         };
         description?: string | null;
         descriptionLinks?:
@@ -9803,6 +9971,7 @@ export interface MainMenu {
                     } | null);
                 url?: string | null;
                 label: string;
+                customId?: string | null;
               };
               id?: string | null;
             }[]
@@ -9829,6 +9998,7 @@ export interface MainMenu {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 description?: string | null;
               };
@@ -9869,6 +10039,7 @@ export interface MainMenu {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -9896,6 +10067,7 @@ export interface MainMenu {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -9953,6 +10125,7 @@ export interface PartnerProgram {
                 } | null);
             url?: string | null;
             label: string;
+            customId?: string | null;
           };
           id?: string | null;
         }[]
@@ -9977,6 +10150,7 @@ export interface PartnerProgram {
                 } | null);
             url?: string | null;
             label: string;
+            customId?: string | null;
           };
           id?: string | null;
         }[]
@@ -10071,6 +10245,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -10093,6 +10268,7 @@ export interface PartnerProgram {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 bannerImage?: (string | null) | Media;
                 gradientBackground?: boolean | null;
@@ -10142,6 +10318,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -10169,6 +10346,7 @@ export interface PartnerProgram {
                               value: string | CaseStudy;
                             } | null);
                         url?: string | null;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -10309,6 +10487,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -10356,6 +10535,7 @@ export interface PartnerProgram {
                                   } | null);
                               url?: string | null;
                               label: string;
+                              customId?: string | null;
                             };
                             id?: string | null;
                           }[]
@@ -10484,6 +10664,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -10583,6 +10764,7 @@ export interface PartnerProgram {
                               value: string | CaseStudy;
                             } | null);
                         url?: string | null;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -10623,6 +10805,7 @@ export interface PartnerProgram {
                               value: string | CaseStudy;
                             } | null);
                         url?: string | null;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -10646,6 +10829,7 @@ export interface PartnerProgram {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
               };
               id?: string | null;
@@ -10678,6 +10862,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -10727,6 +10912,7 @@ export interface PartnerProgram {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 logos?:
                   | {
@@ -10809,6 +10995,7 @@ export interface PartnerProgram {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 images?:
                   | {
@@ -10869,6 +11056,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       media: string | Media;
                       id?: string | null;
@@ -10912,6 +11100,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       features?:
                         | {
@@ -10972,6 +11161,7 @@ export interface PartnerProgram {
                         } | null);
                     url?: string | null;
                     label: string;
+                    customId?: string | null;
                   };
                   id?: string | null;
                 }[];
@@ -11021,6 +11211,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -11089,6 +11280,7 @@ export interface PartnerProgram {
                                           } | null);
                                       url?: string | null;
                                       label: string;
+                                      customId?: string | null;
                                     };
                                     id?: string | null;
                                   }[]
@@ -11136,6 +11328,7 @@ export interface PartnerProgram {
                                                 } | null);
                                             url?: string | null;
                                             label: string;
+                                            customId?: string | null;
                                           };
                                           id?: string | null;
                                         }[]
@@ -11254,6 +11447,7 @@ export interface PartnerProgram {
                                             value: string | CaseStudy;
                                           } | null);
                                       url?: string | null;
+                                      customId?: string | null;
                                     };
                                     id?: string | null;
                                   }[]
@@ -11277,6 +11471,7 @@ export interface PartnerProgram {
                                     } | null);
                                 url?: string | null;
                                 label: string;
+                                customId?: string | null;
                               };
                             };
                             id?: string | null;
@@ -11325,6 +11520,7 @@ export interface PartnerProgram {
                                           } | null);
                                       url?: string | null;
                                       label: string;
+                                      customId?: string | null;
                                     };
                                     type?: ('code' | 'media') | null;
                                     code?: string | null;
@@ -11366,6 +11562,7 @@ export interface PartnerProgram {
                                                 } | null);
                                             url?: string | null;
                                             label: string;
+                                            customId?: string | null;
                                           };
                                           id?: string | null;
                                         }[]
@@ -11430,6 +11627,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       type?: ('code' | 'media') | null;
                       code?: string | null;
@@ -11471,6 +11669,7 @@ export interface PartnerProgram {
                                   } | null);
                               url?: string | null;
                               label: string;
+                              customId?: string | null;
                             };
                             id?: string | null;
                           }[]
@@ -11571,6 +11770,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -11593,6 +11793,7 @@ export interface PartnerProgram {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 bannerImage?: (string | null) | Media;
                 gradientBackground?: boolean | null;
@@ -11642,6 +11843,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -11669,6 +11871,7 @@ export interface PartnerProgram {
                               value: string | CaseStudy;
                             } | null);
                         url?: string | null;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -11809,6 +12012,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -11856,6 +12060,7 @@ export interface PartnerProgram {
                                   } | null);
                               url?: string | null;
                               label: string;
+                              customId?: string | null;
                             };
                             id?: string | null;
                           }[]
@@ -11984,6 +12189,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -12083,6 +12289,7 @@ export interface PartnerProgram {
                               value: string | CaseStudy;
                             } | null);
                         url?: string | null;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -12123,6 +12330,7 @@ export interface PartnerProgram {
                               value: string | CaseStudy;
                             } | null);
                         url?: string | null;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -12146,6 +12354,7 @@ export interface PartnerProgram {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
               };
               id?: string | null;
@@ -12178,6 +12387,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -12227,6 +12437,7 @@ export interface PartnerProgram {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 logos?:
                   | {
@@ -12309,6 +12520,7 @@ export interface PartnerProgram {
                       } | null);
                   url?: string | null;
                   label: string;
+                  customId?: string | null;
                 };
                 images?:
                   | {
@@ -12369,6 +12581,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       media: string | Media;
                       id?: string | null;
@@ -12412,6 +12625,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       features?:
                         | {
@@ -12472,6 +12686,7 @@ export interface PartnerProgram {
                         } | null);
                     url?: string | null;
                     label: string;
+                    customId?: string | null;
                   };
                   id?: string | null;
                 }[];
@@ -12521,6 +12736,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       id?: string | null;
                     }[]
@@ -12589,6 +12805,7 @@ export interface PartnerProgram {
                                           } | null);
                                       url?: string | null;
                                       label: string;
+                                      customId?: string | null;
                                     };
                                     id?: string | null;
                                   }[]
@@ -12636,6 +12853,7 @@ export interface PartnerProgram {
                                                 } | null);
                                             url?: string | null;
                                             label: string;
+                                            customId?: string | null;
                                           };
                                           id?: string | null;
                                         }[]
@@ -12754,6 +12972,7 @@ export interface PartnerProgram {
                                             value: string | CaseStudy;
                                           } | null);
                                       url?: string | null;
+                                      customId?: string | null;
                                     };
                                     id?: string | null;
                                   }[]
@@ -12777,6 +12996,7 @@ export interface PartnerProgram {
                                     } | null);
                                 url?: string | null;
                                 label: string;
+                                customId?: string | null;
                               };
                             };
                             id?: string | null;
@@ -12825,6 +13045,7 @@ export interface PartnerProgram {
                                           } | null);
                                       url?: string | null;
                                       label: string;
+                                      customId?: string | null;
                                     };
                                     type?: ('code' | 'media') | null;
                                     code?: string | null;
@@ -12866,6 +13087,7 @@ export interface PartnerProgram {
                                                 } | null);
                                             url?: string | null;
                                             label: string;
+                                            customId?: string | null;
                                           };
                                           id?: string | null;
                                         }[]
@@ -12930,6 +13152,7 @@ export interface PartnerProgram {
                             } | null);
                         url?: string | null;
                         label: string;
+                        customId?: string | null;
                       };
                       type?: ('code' | 'media') | null;
                       code?: string | null;
@@ -12971,6 +13194,7 @@ export interface PartnerProgram {
                                   } | null);
                               url?: string | null;
                               label: string;
+                              customId?: string | null;
                             };
                             id?: string | null;
                           }[]
@@ -13011,6 +13235,7 @@ export interface FooterSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     label?: T;
+                    customId?: T;
                   };
               id?: T;
             };
@@ -13038,6 +13263,7 @@ export interface MainMenuSelect<T extends boolean = true> {
               newTab?: T;
               reference?: T;
               url?: T;
+              customId?: T;
             };
         description?: T;
         descriptionLinks?:
@@ -13051,6 +13277,7 @@ export interface MainMenuSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     label?: T;
+                    customId?: T;
                   };
               id?: T;
             };
@@ -13069,6 +13296,7 @@ export interface MainMenuSelect<T extends boolean = true> {
                           reference?: T;
                           url?: T;
                           label?: T;
+                          customId?: T;
                         };
                     description?: T;
                   };
@@ -13088,6 +13316,7 @@ export interface MainMenuSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -13107,6 +13336,7 @@ export interface MainMenuSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           id?: T;
                         };
@@ -13140,6 +13370,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     label?: T;
+                    customId?: T;
                   };
               id?: T;
             };
@@ -13154,6 +13385,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     label?: T;
+                    customId?: T;
                   };
               id?: T;
             };
@@ -13228,6 +13460,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -13239,6 +13472,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           bannerImage?: T;
                           gradientBackground?: T;
@@ -13270,6 +13504,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -13287,6 +13522,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       newTab?: T;
                                       reference?: T;
                                       url?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -13395,6 +13631,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -13419,6 +13656,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                             reference?: T;
                                             url?: T;
                                             label?: T;
+                                            customId?: T;
                                           };
                                       id?: T;
                                     };
@@ -13476,6 +13714,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -13533,6 +13772,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       newTab?: T;
                                       reference?: T;
                                       url?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -13570,6 +13810,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       newTab?: T;
                                       reference?: T;
                                       url?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -13582,6 +13823,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                         };
                     id?: T;
@@ -13610,6 +13852,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -13639,6 +13882,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           logos?:
                             | T
@@ -13693,6 +13937,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           images?:
                             | T
@@ -13735,6 +13980,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 media?: T;
                                 id?: T;
@@ -13773,6 +14019,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 features?:
                                   | T
@@ -13834,6 +14081,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -13865,6 +14113,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -13923,6 +14172,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                                               reference?: T;
                                                               url?: T;
                                                               label?: T;
+                                                              customId?: T;
                                                             };
                                                         id?: T;
                                                       };
@@ -13947,6 +14197,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                                                     reference?: T;
                                                                     url?: T;
                                                                     label?: T;
+                                                                    customId?: T;
                                                                   };
                                                               id?: T;
                                                             };
@@ -14008,6 +14259,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                                               newTab?: T;
                                                               reference?: T;
                                                               url?: T;
+                                                              customId?: T;
                                                             };
                                                         id?: T;
                                                       };
@@ -14020,6 +14272,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                                         reference?: T;
                                                         url?: T;
                                                         label?: T;
+                                                        customId?: T;
                                                       };
                                                 };
                                             id?: T;
@@ -14050,6 +14303,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                                               reference?: T;
                                                               url?: T;
                                                               label?: T;
+                                                              customId?: T;
                                                             };
                                                         type?: T;
                                                         code?: T;
@@ -14068,6 +14322,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                                                     reference?: T;
                                                                     url?: T;
                                                                     label?: T;
+                                                                    customId?: T;
                                                                   };
                                                               id?: T;
                                                             };
@@ -14110,6 +14365,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 type?: T;
                                 code?: T;
@@ -14128,6 +14384,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                             reference?: T;
                                             url?: T;
                                             label?: T;
+                                            customId?: T;
                                           };
                                       id?: T;
                                     };
@@ -14232,6 +14489,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -14243,6 +14501,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           bannerImage?: T;
                           gradientBackground?: T;
@@ -14274,6 +14533,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -14291,6 +14551,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       newTab?: T;
                                       reference?: T;
                                       url?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -14399,6 +14660,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -14423,6 +14685,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                             reference?: T;
                                             url?: T;
                                             label?: T;
+                                            customId?: T;
                                           };
                                       id?: T;
                                     };
@@ -14480,6 +14743,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -14537,6 +14801,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       newTab?: T;
                                       reference?: T;
                                       url?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -14574,6 +14839,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       newTab?: T;
                                       reference?: T;
                                       url?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -14586,6 +14852,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                         };
                     id?: T;
@@ -14614,6 +14881,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -14643,6 +14911,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           logos?:
                             | T
@@ -14697,6 +14966,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                 reference?: T;
                                 url?: T;
                                 label?: T;
+                                customId?: T;
                               };
                           images?:
                             | T
@@ -14739,6 +15009,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 media?: T;
                                 id?: T;
@@ -14777,6 +15048,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 features?:
                                   | T
@@ -14838,6 +15110,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -14869,6 +15142,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 id?: T;
                               };
@@ -14927,6 +15201,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                                               reference?: T;
                                                               url?: T;
                                                               label?: T;
+                                                              customId?: T;
                                                             };
                                                         id?: T;
                                                       };
@@ -14951,6 +15226,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                                                     reference?: T;
                                                                     url?: T;
                                                                     label?: T;
+                                                                    customId?: T;
                                                                   };
                                                               id?: T;
                                                             };
@@ -15012,6 +15288,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                                               newTab?: T;
                                                               reference?: T;
                                                               url?: T;
+                                                              customId?: T;
                                                             };
                                                         id?: T;
                                                       };
@@ -15024,6 +15301,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                                         reference?: T;
                                                         url?: T;
                                                         label?: T;
+                                                        customId?: T;
                                                       };
                                                 };
                                             id?: T;
@@ -15054,6 +15332,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                                               reference?: T;
                                                               url?: T;
                                                               label?: T;
+                                                              customId?: T;
                                                             };
                                                         type?: T;
                                                         code?: T;
@@ -15072,6 +15351,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                                                     reference?: T;
                                                                     url?: T;
                                                                     label?: T;
+                                                                    customId?: T;
                                                                   };
                                                               id?: T;
                                                             };
@@ -15114,6 +15394,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                       reference?: T;
                                       url?: T;
                                       label?: T;
+                                      customId?: T;
                                     };
                                 type?: T;
                                 code?: T;
@@ -15132,6 +15413,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                             reference?: T;
                                             url?: T;
                                             label?: T;
+                                            customId?: T;
                                           };
                                       id?: T;
                                     };
