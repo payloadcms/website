@@ -249,29 +249,29 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
             <div
               className={[classes.secondaryNavItems, user !== undefined && classes.show].join(' ')}
             >
-              <Link href="/new" prefetch={false}>
-                New project
-              </Link>
+              <a
+                className={classes.github}
+                href="https://github.com/payloadcms/payload"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Payload's GitHub"
+              >
+                <GitHubIcon />
+                {starCount}
+              </a>
               {user ? (
                 <Avatar className={classes.avatar} />
               ) : (
-                <Link prefetch={false} href="/login">
-                  Login
-                </Link>
+                <>
+                  <Link prefetch={false} href="/login">
+                    Login
+                  </Link>
+                  <Link href="/get-started" prefetch={false} className={classes.button}>
+                    Get Started
+                  </Link>
+                </>
               )}
-              <div className={classes.icons}>
-                <a
-                  className={classes.github}
-                  href="https://github.com/payloadcms/payload"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Payload's GitHub"
-                >
-                  <GitHubIcon />
-                  {starCount}
-                </a>
-                <DocSearch />
-              </div>
+              <DocSearch />
             </div>
           </div>
         </div>
