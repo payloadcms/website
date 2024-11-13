@@ -59,11 +59,13 @@ export interface Config {
   globals: {
     footer: Footer;
     'main-menu': MainMenu;
+    'get-started': GetStarted;
     'partner-program': PartnerProgram;
   };
   globalsSelect: {
     footer: FooterSelect<false> | FooterSelect<true>;
     'main-menu': MainMenuSelect<false> | MainMenuSelect<true>;
+    'get-started': GetStartedSelect<false> | GetStartedSelect<true>;
     'partner-program': PartnerProgramSelect<false> | PartnerProgramSelect<true>;
   };
   locale: null;
@@ -10104,6 +10106,54 @@ export interface MainMenu {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "get-started".
+ */
+export interface GetStarted {
+  id: string;
+  heading?: string | null;
+  tabs?:
+    | {
+        label: string;
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'richTextBlock';
+      }[]
+    | null;
+  sidebar?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "partner-program".
  */
 export interface PartnerProgram {
@@ -13375,6 +13425,29 @@ export interface MainMenuSelect<T extends boolean = true> {
         label?: T;
         customId?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "get-started_select".
+ */
+export interface GetStartedSelect<T extends boolean = true> {
+  heading?: T;
+  tabs?:
+    | T
+    | {
+        richTextBlock?:
+          | T
+          | {
+              label?: T;
+              content?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  sidebar?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

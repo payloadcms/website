@@ -7,6 +7,7 @@ import type {
   CaseStudy,
   CommunityHelp,
   Footer,
+  GetStarted,
   Industry,
   MainMenu,
   Page,
@@ -349,4 +350,14 @@ export const fetchFilters = async (): Promise<{
     regions: regions.docs,
     specialties: specialties.docs,
   }
+}
+
+export const fetchGetStarted = async (): Promise<GetStarted> => {
+  const payload = await getPayloadHMR({ config })
+  const data = await payload.findGlobal({
+    slug: 'get-started',
+    depth: 1,
+  })
+
+  return data
 }

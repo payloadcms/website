@@ -26,6 +26,7 @@ import { Posts } from './collections/Posts'
 import { ReusableContent } from './collections/ReusableContent'
 import { Users } from './collections/Users'
 import { Footer } from './globals/Footer'
+import { GetStarted } from './globals/GetStarted'
 import { MainMenu } from './globals/MainMenu'
 import { PartnerProgram } from './globals/PartnerProgram'
 import redeployWebsite from './scripts/redeployWebsite'
@@ -181,7 +182,7 @@ export default buildConfig({
       path: '/redeploy/website',
     },
   ],
-  globals: [Footer, MainMenu, PartnerProgram],
+  globals: [Footer, MainMenu, GetStarted, PartnerProgram],
   graphQL: {
     disablePlaygroundInProduction: false,
   },
