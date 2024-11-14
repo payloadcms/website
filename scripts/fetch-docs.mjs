@@ -21,6 +21,7 @@ const headers = {
 let ref
 let outputDirectory = './src/docs/docs.json'
 let source = 'local'
+let version = 'v3'
 
 const decodeBase64 = string => {
   const buff = Buffer.from(string, 'base64')
@@ -81,7 +82,7 @@ async function getFilenames({ topicSlug }) {
         console.error(`Error fetching ${topicSlug} for ref: ${ref}. Reason: ${docs.message}`) // eslint-disable-line no-console
       }
       return []
-    } catch(e){
+    } catch (e) {
       return []
     }
   } else {
@@ -95,12 +96,9 @@ async function getFilenames({ topicSlug }) {
 
 async function getDocMatter({ docFilename, topicSlug }) {
   if (source === 'github') {
-    const json = await fetch(
-      `${githubAPI}/contents/docs/${topicSlug}/${docFilename}?ref=${ref}`,
-      {
-        headers,
-      },
-    ).then(res => res.json())
+    const json = await fetch(`${githubAPI}/contents/docs/${topicSlug}/${docFilename}?ref=${ref}`, {
+      headers,
+    }).then(res => res.json())
     const parsedDoc = matter(decodeBase64(json.content))
     parsedDoc.content = parsedDoc.content
       .replace(/\(\/docs\//g, '(../')
@@ -108,10 +106,7 @@ async function getDocMatter({ docFilename, topicSlug }) {
       .replace(/https:\/\/payloadcms.com\/docs\//g, '../')
     return parsedDoc
   } else {
-    const rawDoc = fs.readFileSync(
-      `${getLocalDocsPath()}/${topicSlug}/${docFilename}`,
-      'utf8',
-    )
+    const rawDoc = fs.readFileSync(`${getLocalDocsPath()}/${topicSlug}/${docFilename}`, 'utf8')
     if (rawDoc) {
       return matter(rawDoc)
     }
@@ -138,41 +133,52 @@ async function fetchDocs() {
         process.exit(1)
       }
     }
+
+    if (val === '--v') {
+      version = process.argv[index + 1]
+    }
   })
 
-  const topics = await Promise.all(topicOrder.map(async ({ topics: topicsGroup, groupLabel }) => ({
-    groupLabel,
-    topics: await Promise.all(topicsGroup.map(async key => {
-      const topicSlug = key.toLowerCase()
-      const filenames = await getFilenames({ topicSlug })
+  const topics = await Promise.all(
+    topicOrder[version].map(
+      async ({ topics: topicsGroup, groupLabel }) => ({
+        groupLabel,
+        topics: await Promise.all(
+          topicsGroup.map(async key => {
+            const topicSlug = key.toLowerCase()
+            const filenames = await getFilenames({ topicSlug })
 
-      if (filenames.length === 0) return null
+            if (filenames.length === 0) return null
 
-      const parsedDocs = await Promise.all(
-        filenames.map(async docFilename => {
-          const docMatter = await getDocMatter({ docFilename, topicSlug })
+            const parsedDocs = await Promise.all(
+              filenames.map(async docFilename => {
+                const docMatter = await getDocMatter({ docFilename, topicSlug })
 
-          if (!docMatter) return null
+                if (!docMatter) return null
 
-          return {
-            slug: docFilename.replace('.mdx', ''),
-            content: docMatter.content,
-            desc: docMatter.data.desc || '',
-            headings: await getHeadings(docMatter.content),
-            keywords: docMatter.data.keywords || '',
-            label: docMatter.data.label,
-            order: docMatter.data.order,
-            title: docMatter.data.title,
-          }
-        }),
-      )
+                return {
+                  slug: docFilename.replace('.mdx', ''),
+                  content: docMatter.content,
+                  desc: docMatter.data.desc || '',
+                  headings: await getHeadings(docMatter.content),
+                  keywords: docMatter.data.keywords || '',
+                  label: docMatter.data.label,
+                  order: docMatter.data.order,
+                  title: docMatter.data.title,
+                }
+              }),
+            )
 
-      return {
-        slug: key,
-        docs: parsedDocs.filter(Boolean).sort((a, b) => a.order - b.order),
-      }
-    })),
-  }), [])  )   
+            return {
+              slug: key,
+              docs: parsedDocs.filter(Boolean).sort((a, b) => a.order - b.order),
+            }
+          }),
+        ),
+      }),
+      [],
+    ),
+  )
 
   const data = JSON.stringify(topics.filter(Boolean), null, 2)
   const docsFilename = path.resolve(__dirname, outputDirectory)

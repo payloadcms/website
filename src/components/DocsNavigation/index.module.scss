@@ -42,14 +42,14 @@
 }
 
 .nav {
-  padding: .5rem 1rem 1.5rem;
+  padding: .5rem 1.25rem 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0;
 }
 
 .divider {
-  margin: 1rem 0;
+  margin: 1.5rem 0;
   padding: 0;
 }
 
@@ -75,7 +75,7 @@
   left: 0;
   top: 0;
   transition: all var(--trans-default) ease-in-out;
-  height: 1.3rem;
+  height: 20px;
   background-color: var(--theme-elevation-800);
   width: 2px;
 }
@@ -104,21 +104,20 @@
 
 .topic {
   @include btnReset;
-  @include body;
+  font-size: 16px;
   text-decoration: none;
   color: var(--theme-elevation-600);
   cursor: pointer;
   display: flex;
   align-items: center;
-  margin-top: 0.625rem;
-  margin-bottom: 0.125rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
   width: 100%;
 
   .chevron {
     transition: all var(--trans-default) ease-in-out;
     opacity: 0;
     margin-left: 0.75rem;
-    // rotate: 0deg;
   }
 
   &[data-state='open'] > .chevron {
@@ -142,14 +141,14 @@
 }
 
 .doc a, .docs, .topic {
-  line-height: 24px;
+  line-height: 20px;
 }
 
 .docs {
   list-style: none;
   color: var(--theme-elevation-600);
   text-decoration: none;
-  padding-left: 1rem;
+  padding-left: 0.75rem;
   overflow: hidden;
   margin: 0;
 }
@@ -162,7 +161,7 @@
 }
 
 .doc {
-  @include small;
+  font-size: 16px;
   & {
     list-style: none;
     display: inline-flex;
@@ -182,7 +181,6 @@
   }
 
   &--active {
-    font-weight: 500;
     color: var(--theme-text);
   }
 
@@ -193,7 +191,6 @@
 }
 
 .active {
-  font-weight: 500;
   color: var(--theme-text);
 }
 
@@ -213,4 +210,12 @@
   to {
     height: 0;
   }
+}
+
+.groupLabel {
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  margin-top: 1rem;
+  display: block;
+  font-weight: 500;
 }
