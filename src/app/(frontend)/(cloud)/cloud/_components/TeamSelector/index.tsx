@@ -9,15 +9,10 @@ import { Team, User } from '@root/payload-cloud-types.js'
 import classes from './index.module.scss'
 
 const SelectMenuButton = props => {
-  const {
-    selectProps: {
-      selectProps: { TeamDrawerToggler },
-    },
-  } = props
-
+  const { children, TeamDrawerToggler } = props
   return (
     <components.MenuList {...props}>
-      {props.children}
+      {children}
       {TeamDrawerToggler}
     </components.MenuList>
   )
@@ -128,15 +123,17 @@ export const TeamSelector: React.FC<{
             setSelectedTeam(option)
           }}
           options={[...(allowEmpty ? [{ label: 'All teams', value: 'none' }] : []), ...options]}
-          selectProps={{
-            TeamDrawerToggler: (
-              <TeamDrawerToggler className={classes.teamDrawerToggler}>
-                Create new team
-              </TeamDrawerToggler>
-            ),
-          }}
           components={{
-            MenuList: SelectMenuButton,
+            MenuList: menuListProps => (
+              <SelectMenuButton
+                {...menuListProps}
+                TeamDrawerToggler={
+                  <TeamDrawerToggler className={classes.teamDrawerToggler}>
+                    Create new team
+                  </TeamDrawerToggler>
+                }
+              />
+            ),
           }}
           required={required}
         />

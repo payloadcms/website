@@ -24,7 +24,6 @@ type SelectProps = FieldProps<string | string[]> & {
   components?: {
     [key: string]: React.FC<any>
   }
-  selectProps?: any
   value?: string | string[]
   onMenuScrollToBottom?: () => void
 }
@@ -44,7 +43,6 @@ export const Select: React.FC<
     isMulti,
     isClearable,
     components,
-    selectProps,
     value: valueFromProps, // allow external control
     description,
     disabled,
@@ -250,7 +248,6 @@ export const Select: React.FC<
         className={classes.reactSelect}
         classNamePrefix="rs"
         components={components}
-        {...selectProps}
         isDisabled={disabled}
         onMenuScrollToBottom={onMenuScrollToBottom}
         noOptionsMessage={() => 'No options'}
