@@ -15612,6 +15612,16 @@ export interface BrBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CommandLineBlock".
+ */
+export interface CommandLineBlock {
+  command?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'commandLine';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {

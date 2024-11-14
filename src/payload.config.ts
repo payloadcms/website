@@ -161,6 +161,56 @@ export default buildConfig({
 
             interfaceName: 'BrBlock',
           },
+          {
+            slug: 'commandLine',
+            fields: [
+              {
+                name: 'command',
+                type: 'text',
+              },
+            ],
+            interfaceName: 'CommandLineBlock',
+          },
+          {
+            slug: 'templates',
+            fields: [
+              {
+                name: 'templates',
+                type: 'array',
+                admin: {
+                  components: {
+                    Field: '@components/TemplateSelection#FieldComponent',
+                  },
+                },
+                fields: [
+                  {
+                    name: 'name',
+                    type: 'text',
+                  },
+                  {
+                    name: 'description',
+                    type: 'textarea',
+                  },
+                  {
+                    name: 'image',
+                    type: 'text',
+                  },
+                  {
+                    name: 'slug',
+                    type: 'text',
+                  },
+                  {
+                    name: 'order',
+                    type: 'number',
+                  },
+                ],
+                labels: {
+                  plural: 'Templates',
+                  singular: 'Template',
+                },
+              },
+            ],
+          },
         ],
       }),
     ],
