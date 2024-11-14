@@ -3,32 +3,13 @@ import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import React from 'react'
 
 import { fetchDocs } from '../../api'
-import { TopicsOrder } from '../../beta/[topic]/[doc]/page'
-
-const topicOrder: TopicsOrder = [
-  {
-    topics: [
-      'Getting-Started',
-      'Configuration',
-      'Database',
-      'Fields',
-      'Access-Control',
-      'Authentication',
-      'Hooks',
-    ],
-  },
-  { topics: ['Local-API', 'REST-API', 'GraphQL', 'Queries'] },
-  { topics: ['Admin', 'Rich-Text', 'Live-Preview', 'Versions', 'Upload', 'Email', 'TypeScript'] },
-  { topics: ['Plugins', 'Examples', 'Integrations'] },
-  { topics: ['Cloud', 'Production'] },
-]
 
 export default async function DocsPage({
   params,
 }: {
   params: Promise<{ doc: string; topic: string }>
 }) {
-  const topics = await fetchDocs(topicOrder)
+  const topics = fetchDocs()
 
   return <RenderDocs params={await params} topics={topics} />
 }
@@ -39,7 +20,7 @@ export async function generateMetadata({
   params: Promise<{ doc: string; topic: string }>
 }) {
   const { doc: docSlug, topic: topicSlug } = await params
-  const topics = await fetchDocs(topicOrder)
+  const topics = fetchDocs()
 
   const groupIndex = topics.findIndex(({ topics: tGroup }) =>
     tGroup.some(topic => topic?.slug?.toLowerCase() === topicSlug),
@@ -72,10 +53,10 @@ export async function generateMetadata({
   }
 }
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   if (process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS) return []
 
-  const topics = await fetchDocs(topicOrder)
+  const topics = fetchDocs()
 
   const result: { doc: string; topic: string }[] = []
 

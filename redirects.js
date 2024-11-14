@@ -13,6 +13,11 @@ export const redirects = async () => {
       permanent: false,
     },
     {
+      source: '/docs/v2',
+      destination: '/docs/v2/getting-started/what-is-payload',
+      permanent: true,
+    },
+    {
       source: '/roadmap',
       destination: 'https://github.com/payloadcms/payload/discussions/categories/roadmap',
       permanent: true,
