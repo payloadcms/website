@@ -19,24 +19,36 @@ import { Suspense } from 'react'
 import remarkGfm from 'remark-gfm'
 
 import classes from './index.module.scss'
+import { TopicGroup } from '@root/app/(frontend)/(pages)/docs/api'
 
 export const RenderDocs = async ({
   children,
   params,
-  topics,
+  topics: topicGroups,
   version,
 }: {
   children?: React.ReactNode
   params: { doc: string; topic: string }
-  topics: any[]
+  topics: TopicGroup[]
   version?: 'beta' | 'current' | 'v2'
 }) => {
-  const topicIndex = topics.findIndex(topic => topic.slug.toLowerCase() === params.topic)
-  const docIndex = topics[topicIndex].docs.findIndex(
-    doc => doc.slug.replace('.mdx', '') === params.doc,
+  const groupIndex = topicGroups.findIndex(({ topics: tGroup }) =>
+    tGroup.some(topic => topic?.slug?.toLowerCase() === params.topic),
   )
 
-  const currentDoc = topics[topicIndex].docs[docIndex]
+  const topicIndex = topicGroups[groupIndex].topics.findIndex(
+    topic => topic?.slug?.toLowerCase() === params.topic,
+  )
+
+  const topicGroup = topicGroups?.[groupIndex]
+
+  const topic = topicGroup?.topics?.[topicIndex]
+
+  const docIndex = topic?.docs.findIndex(doc => doc.slug.replace('.mdx', '') === params.doc)
+
+  const currentDoc = topic?.docs?.[docIndex]
+
+  const path = `${topic.slug.toLowerCase()}/${currentDoc.slug}`
 
   if (!currentDoc) {
     return notFound()
@@ -46,37 +58,43 @@ export const RenderDocs = async ({
     process.env.NEXT_PUBLIC_ENABLE_BETA_DOCS !== 'true' &&
     process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS !== 'true'
 
-  const getRelatedThreads = unstable_cache(fetchRelatedThreads, ['relatedThreads'])
-  const relatedThreads = await getRelatedThreads()
-
-  const filteredRelatedThreads = relatedThreads.filter(
-    thread =>
-      Array.isArray(thread.relatedDocs) &&
-      thread.relatedDocs.some(
-        relatedDoc => typeof relatedDoc !== 'string' && relatedDoc.title === currentDoc?.title,
-      ),
-  )
+  const getRelatedThreads = path => unstable_cache(fetchRelatedThreads, ['relatedThreads'])(path)
+  const relatedThreads = await getRelatedThreads(path)
 
   const hasRelatedThreads =
-    filteredRelatedThreads &&
-    Array.isArray(filteredRelatedThreads) &&
-    filteredRelatedThreads.length > 0
+    relatedThreads && Array.isArray(relatedThreads) && relatedThreads.length > 0
 
-  const hasNext = topics.length > topicIndex + 1
+  const isLastGroup = topicGroups.length === groupIndex + 1
+  const isLastTopic = topicGroup.topics.length === topicIndex + 1
+  const isLastDoc = docIndex === topic.docs.length - 1
 
-  const next = !hasNext
-    ? null
-    : topics[topicIndex].docs.length <= docIndex + 1
+  const hasNext = !(isLastGroup && isLastTopic && isLastDoc)
+
+  const nextGroupIndex = !isLastGroup && isLastTopic && isLastDoc ? groupIndex + 1 : groupIndex
+
+  let nextTopicIndex
+
+  if (!isLastDoc) {
+    nextTopicIndex = topicIndex
+  } else if (isLastDoc && !isLastTopic) {
+    nextTopicIndex = topicIndex + 1
+  } else {
+    nextTopicIndex = 0
+  }
+
+  const nextDocIndex = !isLastDoc ? docIndex + 1 : 0
+
+  const nextDoc = hasNext
+    ? topicGroups[nextGroupIndex]?.topics?.[nextTopicIndex]?.docs[nextDocIndex]
+    : null
+
+  const next = hasNext
     ? {
-        slug: topics[topicIndex + 1].docs[0].slug,
-        title: topics[topicIndex + 1].docs[0].title,
-        topic: topics[topicIndex + 1].slug,
+        slug: nextDoc?.slug,
+        title: nextDoc?.title,
+        topic: topicGroups?.[nextGroupIndex]?.topics?.[nextTopicIndex]?.slug,
       }
-    : {
-        slug: topics[topicIndex].docs[docIndex + 1].slug,
-        title: topics[topicIndex].docs[docIndex + 1].title,
-        topic: params.topic,
-      }
+    : null
 
   return (
     <Gutter className={classes.wrap}>
@@ -85,8 +103,11 @@ export const RenderDocs = async ({
           <DocsNavigation
             currentTopic={params.topic}
             params={params}
-            topics={topics}
+            topics={topicGroups}
             version={version}
+            groupIndex={groupIndex}
+            indexInGroup={topicIndex}
+            docIndex={docIndex}
           />
           <div aria-hidden className={classes.navOverlay} />
           <main className={['cols-8 start-5 cols-m-8 start-m-1', classes.content].join(' ')}>
@@ -111,7 +132,7 @@ export const RenderDocs = async ({
                   .filter(Boolean)
                   .join(' ')}
                 data-algolia-no-crawl
-                href={`/docs/${version ? `${version}/` : ''}${next.topic.toLowerCase()}/${
+                href={`/docs/${version ? `${version}/` : ''}${next?.topic?.toLowerCase()}/${
                   next.slug
                 }`}
                 prefetch={false}
@@ -124,7 +145,7 @@ export const RenderDocs = async ({
                 <BackgroundScanline crosshairs="all" />
               </Link>
             )}
-            {hasRelatedThreads && <RelatedHelpList relatedThreads={filteredRelatedThreads} />}
+            {hasRelatedThreads && <RelatedHelpList relatedThreads={relatedThreads} />}
           </main>
           <aside className={['cols-3 start-14', classes.aside].join(' ')}>
             <div className={classes.asideStickyContent}>

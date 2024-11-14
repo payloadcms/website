@@ -4,38 +4,12 @@ import React from 'react'
 
 import { fetchDocs } from '../../api'
 
-const topicOrder = [
-  'Getting-Started',
-  'Configuration',
-  'Database',
-  'Fields',
-  'Admin',
-  'Rich-Text',
-  'Live-Preview',
-  'Access-Control',
-  'Hooks',
-  'Authentication',
-  'Versions',
-  'Upload',
-  'Local-API',
-  'REST-API',
-  'GraphQL',
-  'Queries',
-  'Production',
-  'Email',
-  'TypeScript',
-  'Plugins',
-  'Examples',
-  'Integrations',
-  'Cloud',
-]
-
 export default async function DocsPage({
   params,
 }: {
   params: Promise<{ doc: string; topic: string }>
 }) {
-  const topics = await fetchDocs(topicOrder)
+  const topics = fetchDocs()
 
   return <RenderDocs params={await params} topics={topics} />
 }
@@ -46,14 +20,23 @@ export async function generateMetadata({
   params: Promise<{ doc: string; topic: string }>
 }) {
   const { doc: docSlug, topic: topicSlug } = await params
-  const topics = await fetchDocs(topicOrder)
+  const topics = fetchDocs()
 
-  const topicIndex = topics.findIndex(topic => topic.slug.toLowerCase() === topicSlug)
-  const docIndex = topics[topicIndex].docs.findIndex(
-    doc => doc.slug.replace('.mdx', '') === docSlug,
+  const groupIndex = topics.findIndex(({ topics: tGroup }) =>
+    tGroup.some(topic => topic?.slug?.toLowerCase() === topicSlug),
   )
 
-  const currentDoc = topics[topicIndex].docs[docIndex]
+  const indexInGroup = topics[groupIndex].topics.findIndex(
+    topic => topic?.slug?.toLowerCase() === topicSlug,
+  )
+
+  const topicGroup = topics?.[groupIndex]
+
+  const topic = topicGroup?.topics?.[indexInGroup]
+
+  const docIndex = topic?.docs.findIndex(doc => doc.slug.replace('.mdx', '') === docSlug)
+
+  const currentDoc = topic?.docs?.[docIndex]
 
   return {
     description: currentDoc?.desc || `Payload ${topicSlug} Documentation`,
@@ -70,17 +53,21 @@ export async function generateMetadata({
   }
 }
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   if (process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS) return []
 
-  const topics = await fetchDocs(topicOrder)
+  const topics = fetchDocs()
 
-  const result: { doc: string; topic: string }[] = topics.flatMap(topic => {
-    return topic.docs.map(doc => {
-      return {
-        doc: doc.slug.replace('.mdx', ''),
-        topic: topic.slug.toLowerCase(),
-      }
+  const result: { doc: string; topic: string }[] = []
+
+  topics.forEach(({ topics: tGroup }) => {
+    tGroup.forEach(topic => {
+      topic?.docs.forEach(doc => {
+        result.push({
+          doc: doc.slug.replace('.mdx', ''),
+          topic: topic.slug.toLowerCase(),
+        })
+      })
     })
   })
 

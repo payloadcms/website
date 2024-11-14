@@ -1,7 +1,6 @@
 import { Banner } from '@components/MDX/components/Banner'
 import { RenderDocs } from '@components/RenderDocs'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
-import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import React from 'react'
 
@@ -16,18 +15,16 @@ export default async function DocsPage({
 }) {
   const { doc, topic } = await params
 
-  if (process.env.NEXT_PUBLIC_ENABLE_BETA_DOCS !== 'true') {
+  if (process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS !== 'true') {
     redirect(`/docs/${topic}/${doc}`)
   }
 
-  const topics = fetchDocs('v3')
+  const topics = fetchDocs('v2')
 
   return (
-    <RenderDocs params={await params} topics={topics} version="beta">
+    <RenderDocs params={await params} topics={topics} version="v2">
       <Banner type="warning">
-        <strong>Note:</strong> You are currently viewing the <strong>beta</strong> version of the
-        docs. Some docs may be inaccurate or incomplete at the moment.{' '}
-        <Link href="/docs">Switch to the latest version</Link>
+        You are currently viewing documentation for version 2 of Payload.
       </Banner>
     </RenderDocs>
   )
@@ -39,7 +36,7 @@ export async function generateMetadata({
   params: Promise<{ doc: string; topic: string }>
 }) {
   const { doc: docSlug, topic: topicSlug } = await params
-  const topics = fetchDocs('v3')
+  const topics = fetchDocs('v2')
 
   const groupIndex = topics.findIndex(({ topics: tGroup }) =>
     tGroup.some(topic => topic?.slug?.toLowerCase() === topicSlug),
@@ -76,11 +73,11 @@ export async function generateMetadata({
 export function generateStaticParams() {
   if (
     process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS ||
-    process.env.NEXT_PUBLIC_ENABLE_BETA_DOCS !== 'true'
+    process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS !== 'true'
   )
     return []
 
-  const topics = fetchDocs('v3')
+  const topics = fetchDocs('v2')
 
   const result: { doc: string; topic: string }[] = []
 
