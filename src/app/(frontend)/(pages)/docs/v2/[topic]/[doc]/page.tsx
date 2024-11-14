@@ -1,6 +1,7 @@
 import { Banner } from '@components/MDX/components/Banner'
 import { RenderDocs } from '@components/RenderDocs'
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
+import { redirect } from 'next/navigation'
 import React from 'react'
 
 import { fetchDocs } from '../../../api'
@@ -12,6 +13,10 @@ export default async function DocsPage({
 }: {
   params: Promise<{ doc: string; topic: string }>
 }) {
+  if (process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS !== 'true') {
+    redirect('/docs')
+  }
+
   const topics = fetchDocs('v2')
 
   return (
@@ -64,7 +69,11 @@ export async function generateMetadata({
 }
 
 export function generateStaticParams() {
-  if (process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS) return []
+  if (
+    process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS ||
+    process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS !== 'true'
+  )
+    return []
 
   const topics = fetchDocs('v2')
 
