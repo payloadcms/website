@@ -24,7 +24,7 @@ export const topicOrder = {
       ],
     },
     {
-      groupLabel: 'Extensions',
+      groupLabel: 'Ecosystem',
       topics: ['Plugins', 'Examples', 'Integrations'],
     },
     {
@@ -55,7 +55,7 @@ export const topicOrder = {
       ],
     },
     {
-      groupLabel: 'Extensions',
+      groupLabel: 'Ecosystem',
       topics: ['Plugins', 'Examples', 'Integrations'],
     },
     {
