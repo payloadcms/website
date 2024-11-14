@@ -102,12 +102,10 @@ export const InstallationSelector: React.FC<InstallationSelectorProps> = props =
                   },
                 ]),
           ]}
-          selectProps={{
-            openPopupWindow,
-            href,
-          }}
           components={{
-            MenuList,
+            MenuList: menuListProps => (
+              <MenuList {...menuListProps} href={href} openPopupWindow={openPopupWindow} />
+            ),
             Option,
             SingleValue,
           }}
