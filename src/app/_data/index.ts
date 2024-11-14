@@ -220,12 +220,14 @@ export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
 
 export const fetchCommunityHelps = async (
   communityHelpType: CommunityHelp['communityHelpType'],
-): Promise<CommunityHelp[]> => {
+): Promise<Pick<CommunityHelp, 'slug'>[]> => {
   const payload = await getPayloadHMR({ config })
 
   const data = await payload.find({
     collection: 'community-help',
+    depth: 0,
     limit: 0,
+    select: { slug: true },
     where: {
       and: [{ communityHelpType: { equals: communityHelpType } }, { helpful: { equals: true } }],
     },
@@ -246,13 +248,14 @@ export const fetchCommunityHelp = async (slug: string): Promise<CommunityHelp> =
   return data.docs[0]
 }
 
-export const fetchRelatedThreads = async (): Promise<CommunityHelp[]> => {
+export const fetchRelatedThreads = async (path: string): Promise<CommunityHelp[]> => {
   const payload = await getPayloadHMR({ config })
 
   const data = await payload.find({
     collection: 'community-help',
+    depth: 0,
     limit: 0,
-    where: { relatedDocs: { not_equals: null } },
+    where: { 'relatedDocs.path': { equals: path } },
   })
 
   return data.docs
