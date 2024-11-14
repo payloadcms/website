@@ -13,8 +13,10 @@ export default async function DocsPage({
 }: {
   params: Promise<{ doc: string; topic: string }>
 }) {
+  const { doc, topic } = await params
+
   if (process.env.NEXT_PUBLIC_ENABLE_LEGACY_DOCS !== 'true') {
-    redirect('/docs')
+    redirect(`/docs/${topic}/${doc}`)
   }
 
   const topics = fetchDocs('v2')
