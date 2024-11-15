@@ -288,18 +288,7 @@ export const MobileNav: React.FC<NavItems> = props => {
                   <GitHubIcon />
                   {starCount}
                 </a>
-                {user ? (
-                  <Avatar className={classes.avatar} />
-                ) : (
-                  <>
-                    <Link prefetch={false} href="/login">
-                      Login
-                    </Link>
-                    {props.menuCta && props.menuCta.label && (
-                      <CMSLink {...props.menuCta} className={classes.button} />
-                    )}
-                  </>
-                )}
+                {user && <Avatar className={classes.avatar} />}
                 <DocSearch />
                 <div
                   className={[classes.modalToggler, isMenuOpen ? classes.hamburgerOpen : '']
