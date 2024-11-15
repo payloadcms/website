@@ -1,4 +1,4 @@
-@import '~@payloadcms/ui/scss';
+@use '~@payloadcms/ui/scss';
 
 .redeploy-button {
 	@extend %btn-reset;

@@ -26,6 +26,7 @@ import { Posts } from './collections/Posts'
 import { ReusableContent } from './collections/ReusableContent'
 import { Users } from './collections/Users'
 import { Footer } from './globals/Footer'
+import { GetStarted } from './globals/GetStarted'
 import { MainMenu } from './globals/MainMenu'
 import { PartnerProgram } from './globals/PartnerProgram'
 import redeployWebsite from './scripts/redeployWebsite'
@@ -160,6 +161,57 @@ export default buildConfig({
 
             interfaceName: 'BrBlock',
           },
+          {
+            slug: 'commandLine',
+            fields: [
+              {
+                name: 'command',
+                type: 'text',
+              },
+            ],
+            interfaceName: 'CommandLineBlock',
+          },
+          {
+            slug: 'templateCards',
+            fields: [
+              {
+                name: 'templates',
+                type: 'array',
+                fields: [
+                  {
+                    name: 'name',
+                    type: 'text',
+                    required: true,
+                  },
+                  {
+                    name: 'description',
+                    type: 'textarea',
+                    required: true,
+                  },
+                  {
+                    name: 'image',
+                    type: 'text',
+                    required: true,
+                  },
+                  {
+                    name: 'slug',
+                    type: 'text',
+                    required: true,
+                  },
+                  {
+                    name: 'order',
+                    type: 'number',
+                    required: true,
+                  },
+                ],
+                labels: {
+                  plural: 'Templates',
+                  singular: 'Template',
+                },
+              },
+            ],
+            interfaceName: 'TemplateCardsBlock',
+          },
         ],
       }),
     ],
@@ -181,7 +233,7 @@ export default buildConfig({
       path: '/redeploy/website',
     },
   ],
-  globals: [Footer, MainMenu, PartnerProgram],
+  globals: [Footer, MainMenu, GetStarted, PartnerProgram],
   graphQL: {
     disablePlaygroundInProduction: false,
   },
@@ -244,6 +296,7 @@ export default buildConfig({
     }),
     seoPlugin({
       collections: ['case-studies', 'pages', 'posts'],
+      globals: ['get-started'],
       uploadsCollection: 'media',
     }),
     nestedDocsPlugin({

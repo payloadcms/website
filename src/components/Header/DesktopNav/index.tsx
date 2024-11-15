@@ -16,8 +16,8 @@ import { DocSearch } from '../Docsearch/index.js'
 
 import classes from './index.module.scss'
 
-type DesktopNavType = Pick<MainMenu, 'tabs'> & { hideBackground?: boolean }
-export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) => {
+type DesktopNavType = Pick<MainMenu, 'tabs' | 'menuCta'> & { hideBackground?: boolean }
+export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground, menuCta }) => {
   const { user } = useAuth()
   const [activeTab, setActiveTab] = React.useState<number | undefined>()
   const [activeDropdown, setActiveDropdown] = React.useState<boolean | undefined>(false)
@@ -249,29 +249,27 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground }) =
             <div
               className={[classes.secondaryNavItems, user !== undefined && classes.show].join(' ')}
             >
-              <Link href="/new" prefetch={false}>
-                New project
-              </Link>
+              <a
+                className={classes.github}
+                href="https://github.com/payloadcms/payload"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Payload's GitHub"
+              >
+                <GitHubIcon />
+                {starCount}
+              </a>
               {user ? (
                 <Avatar className={classes.avatar} />
               ) : (
-                <Link prefetch={false} href="/login">
-                  Login
-                </Link>
+                <>
+                  <Link prefetch={false} href="/login">
+                    Login
+                  </Link>
+                  {menuCta && menuCta.label && <CMSLink {...menuCta} className={classes.button} />}
+                </>
               )}
-              <div className={classes.icons}>
-                <a
-                  className={classes.github}
-                  href="https://github.com/payloadcms/payload"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Payload's GitHub"
-                >
-                  <GitHubIcon />
-                  {starCount}
-                </a>
-                <DocSearch />
-              </div>
+              <DocSearch />
             </div>
           </div>
         </div>

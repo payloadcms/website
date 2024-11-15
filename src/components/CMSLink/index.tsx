@@ -31,6 +31,7 @@ export type CMSLinkType = {
   type?: LinkType | null
   newTab?: boolean | null
   reference?: Reference | null
+  customId?: string | null
   url?: string | null
   label?: string | null
   appearance?: 'default' | 'primary' | 'secondary' | 'text' | null
@@ -85,6 +86,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   url,
   newTab,
   reference,
+  customId,
   label,
   appearance,
   children,
@@ -105,6 +107,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
         onClick={onClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        id={customId ?? ''}
       >
         {label}
         {children}
@@ -140,6 +143,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
           prefetch={false}
+          id={customId ?? ''}
         >
           {label && label}
           {children && children}
@@ -155,6 +159,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         onClick={onClick}
+        id={customId ?? ''}
       >
         {label && label}
         {children && children}
@@ -179,5 +184,5 @@ export const CMSLink: React.FC<CMSLinkType> = ({
     buttonProps.icon = 'arrow'
   }
 
-  return <Button {...buttonProps} className={className} el="link" />
+  return <Button {...buttonProps} className={className} el="link" id={customId ?? ''} />
 }

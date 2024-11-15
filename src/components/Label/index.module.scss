@@ -1,10 +1,12 @@
-@import '../../css/type.scss';
+@use '@scss/common' as *;
 
 .label {
   @include label;
-  transition-property: background-color, border;
-  transition-duration: 0.3s;
-  transition-timing-function: ease;
+  & {
+    transition-property: background-color, border;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+  }
 
   &:has(a):hover {
     background-color: var(--theme-success-150);
@@ -30,8 +32,8 @@
   gap: 0.5rem;
 
   &:visited, &:active, &:focus, &:visited:hover, &:visited:focus {
-    color: inherit;
-    border: none;
+    color: inherit !important;
+    border: none !important;
   }
 
   &::after {

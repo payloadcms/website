@@ -14,7 +14,7 @@ import {
 } from './nodeFormat'
 import { Highlight } from '@components/Highlight'
 import SplitAnimate from '@components/SplitAnimate'
-import { BrBlock, SpotlightBlock, VideoBlock } from '@types'
+import { BrBlock, SpotlightBlock, VideoBlock, CommandLineBlock, TemplateCardsBlock } from '@types'
 import { Video } from '@components/RichText/Video'
 import { AllowedElements } from '@components/SpotlightAnimation/types'
 import SpotlightAnimation from '@components/SpotlightAnimation'
@@ -23,11 +23,15 @@ import { Label } from '@components/Label'
 import { LargeBody } from '@components/LargeBody'
 import { SerializedLabelNode } from '@root/fields/richText/features/label/LabelNode'
 import { SerializedLargeBodyNode } from '@root/fields/richText/features/largeBody/LargeBodyNode'
+import { TemplateCards } from '@components/TemplateCardsBlock'
 import RichTextUpload from '@components/RichText/Upload'
+import { CommandLine } from '@components/CommandLine'
 
 export type NodeTypes =
   | DefaultNodeTypes
-  | SerializedBlockNode<SpotlightBlock | VideoBlock | BrBlock>
+  | SerializedBlockNode<
+      SpotlightBlock | VideoBlock | BrBlock | CommandLineBlock | TemplateCardsBlock
+    >
   | SerializedLabelNode
   | SerializedLargeBodyNode
 
@@ -137,6 +141,15 @@ export function serializeLexical({ nodes, textInSplitAnimate }: Props): JSX.Elem
                   {Children}
                 </SpotlightAnimation>
               )
+
+            case 'commandLine':
+              const { command } = block
+              if (command) return <CommandLine command={command} key={i} lexical />
+              return null
+            case 'templateCards':
+              const { templates } = block
+              if (!templates) return null
+              return <TemplateCards key={i} templates={templates} />
             default:
               return null
           }

@@ -187,6 +187,13 @@ export const MainMenu: GlobalConfig = {
       ],
       label: 'Main Menu Items',
     },
+    link({
+      appearances: false,
+      overrides: {
+        name: 'menuCta',
+        label: 'Menu CTA Button',
+      },
+    }),
   ],
   hooks: {
     afterChange: [() => revalidatePath('/', 'layout')],
