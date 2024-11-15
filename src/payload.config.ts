@@ -172,36 +172,36 @@ export default buildConfig({
             interfaceName: 'CommandLineBlock',
           },
           {
-            slug: 'templates',
+            slug: 'templateCards',
             fields: [
               {
                 name: 'templates',
                 type: 'array',
-                admin: {
-                  components: {
-                    Field: '@components/TemplateSelection#FieldComponent',
-                  },
-                },
                 fields: [
                   {
                     name: 'name',
                     type: 'text',
+                    required: true,
                   },
                   {
                     name: 'description',
                     type: 'textarea',
+                    required: true,
                   },
                   {
                     name: 'image',
                     type: 'text',
+                    required: true,
                   },
                   {
                     name: 'slug',
                     type: 'text',
+                    required: true,
                   },
                   {
                     name: 'order',
                     type: 'number',
+                    required: true,
                   },
                 ],
                 labels: {
@@ -210,6 +210,7 @@ export default buildConfig({
                 },
               },
             ],
+            interfaceName: 'TemplateCardsBlock',
           },
         ],
       }),

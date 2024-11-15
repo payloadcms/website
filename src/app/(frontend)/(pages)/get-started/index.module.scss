@@ -33,11 +33,11 @@
   margin: 0;
 }
 
-.tabs {
-  @include mid-break {
-    max-height: 80vh;
-  }
-}
+// .tabs {
+//   @include mid-break {
+//     max-height: 80vh;
+//   }
+// }
 
 .tabsList {
   display: flex;

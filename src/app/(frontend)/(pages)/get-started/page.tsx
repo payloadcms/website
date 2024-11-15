@@ -21,7 +21,7 @@ export default async function GetStartedPage() {
     <Gutter className={['grid', classes.wrap].filter(Boolean).join(' ')}>
       <main className={['cols-12 cols-m-8', classes.mainContent].filter(Boolean).join(' ')}>
         {heading && <h1 className={classes.heading}>{heading}</h1>}
-        {tabs && (
+        {tabs && tabs.length > 0 && (
           <Tabs.Root className={classes.tabs} defaultValue={tabs[0].id ?? ''}>
             <Tabs.List className={classes.tabsList}>
               {tabs.map(tab => {
