@@ -296,6 +296,7 @@ export default buildConfig({
     }),
     seoPlugin({
       collections: ['case-studies', 'pages', 'posts'],
+      globals: ['get-started'],
       uploadsCollection: 'media',
     }),
     nestedDocsPlugin({

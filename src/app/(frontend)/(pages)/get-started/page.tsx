@@ -1,8 +1,11 @@
+import type { Metadata } from 'next'
+
 import { BackgroundGrid } from '@components/BackgroundGrid'
 import { Gutter } from '@components/Gutter'
 import RichText from '@components/RichText'
 import { fetchGetStarted } from '@data'
 import * as Tabs from '@radix-ui/react-tabs'
+import { mergeOpenGraph } from '@root/seo/mergeOpenGraph'
 import { unstable_cache } from 'next/cache'
 import { notFound } from 'next/navigation'
 import React from 'react'
@@ -54,4 +57,39 @@ export default async function GetStartedPage() {
       <BackgroundGrid />
     </Gutter>
   )
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{
+    slug: any
+  }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const getGetStartedPage = unstable_cache(fetchGetStarted, ['get-started'])
+  const { meta } = await getGetStartedPage()
+
+  const ogImage =
+    typeof meta?.image === 'object' &&
+    meta?.image !== null &&
+    'url' in meta.image &&
+    `${process.env.NEXT_PUBLIC_CMS_URL}${meta.image.url}`
+
+  return {
+    description: meta?.description,
+    openGraph: mergeOpenGraph({
+      description: meta?.description ?? undefined,
+      images: ogImage
+        ? [
+            {
+              url: ogImage,
+            },
+          ]
+        : undefined,
+      title: meta?.title || 'Payload',
+      url: Array.isArray(slug) ? slug.join('/') : '/',
+    }),
+    title: meta?.title || 'Payload',
+  }
 }

@@ -8542,6 +8542,11 @@ export interface GetStarted {
     };
     [k: string]: unknown;
   } | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: (string | null) | Media;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -11127,6 +11132,15 @@ export interface GetStartedSelect<T extends boolean = true> {
             };
       };
   sidebar?: T;
+  meta?:
+    | T
+    | {
+        overview?: T;
+        title?: T;
+        description?: T;
+        image?: T;
+        preview?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
