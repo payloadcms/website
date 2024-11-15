@@ -40,7 +40,7 @@ export const HomeNewHero: React.FC<
     <ChangeHeaderTheme theme="dark">
       <BlockWrapper
         settings={{ theme: 'dark' }}
-        padding={{ top: 'small', bottom: 'large' }}
+        padding={{ top: 'small', bottom: 'small' }}
         className={classes.heroWrapper}
       >
         <Gutter className={[classes.heroContentWrapper, 'grid'].join(' ')}>
