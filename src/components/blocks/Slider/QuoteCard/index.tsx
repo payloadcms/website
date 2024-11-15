@@ -44,7 +44,6 @@ export const QuoteCard: React.FC<Props> = ({
         )}
         {enableLink && (
           <span className={classes.arrowWrap}>
-            {link?.label}
             <ArrowRightIcon className={classes.arrow} />
           </span>
         )}

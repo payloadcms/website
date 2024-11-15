@@ -8,7 +8,7 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 
   & {
     box-sizing: border-box;
-    padding: 4rem;
+    padding: 3rem 4rem;
     display: flex;
     position: relative;
     flex-direction: column;
@@ -134,22 +134,24 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 .credit {
   @include body;
   & {
+    letter-spacing: 0;
     margin-top: 0;
   }
 }
 
 .logoWrap {
   display: flex;
-  height: 100%;
   width: auto;
-  height: 100%;
+  // height: 100%;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
+  margin-top: auto;
 
   img {
     display: block;
-    height: 2rem;
-    width: auto;
+    height: 4rem;
+    width: 8rem;
+    object-fit: contain;
   }
 
   .arrowWrap {
