@@ -87,7 +87,31 @@ export const HomeNewHero: React.FC<
           {logoShowcaseLabel && <h6>{logoShowcaseLabel}</h6>}
           {filteredLogos && <LogoShowcase logos={filteredLogos} />}
         </Gutter>
-        <BackgroundGrid zIndex={-2} />
+        <BackgroundGrid
+          zIndex={-2}
+          gridLineStyles={[
+            {
+              background:
+                'linear-gradient(to bottom, transparent 80px, var(--theme-border-color) 240px)',
+            },
+            {
+              background:
+                'linear-gradient(to bottom, transparent 160px, var(--theme-border-color) 240px)',
+            },
+            {
+              background:
+                'linear-gradient(to bottom, transparent 200px, var(--theme-border-color) 240px)',
+            },
+            {
+              background:
+                'linear-gradient(to bottom, transparent 160px, var(--theme-border-color) 240px)',
+            },
+            {
+              background:
+                'linear-gradient(to bottom, transparent 80px, var(--theme-border-color) 240px)',
+            },
+          ]}
+        />
       </BlockWrapper>
       <BackgroundGradient className={classes.backgroundGradient} />
     </ChangeHeaderTheme>
