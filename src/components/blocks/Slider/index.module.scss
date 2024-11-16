@@ -1,16 +1,9 @@
 @use '@scss/common' as *;
 
-.leadingHeader {
-  margin-bottom: 2rem;
-  max-width: 1200px;
-
-  @include extra-large-break {
-    max-width: 900px;
-  }
-}
-
 .slider {
   position: relative;
+  display: flex;
+  flex-direction: column;
   --pixel-extension-top: 2.5rem;
   --pixel-extension-bottom: 5rem;
   --pixel-extension-total: calc(var(--pixel-extension-top) + var(--pixel-extension-bottom));
@@ -19,6 +12,11 @@
     --pixel-extension-top: 2rem;
     --pixel-extension-bottom: 2.25rem;
   }
+}
+
+.introContent {
+  margin-bottom: 4rem;
+  row-gap: 2rem;
 }
 
 .withPixelBackground {

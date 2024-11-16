@@ -1096,6 +1096,47 @@ export interface CaseStudy {
                 theme?: ('light' | 'dark') | null;
                 background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
               };
+              introContent?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              links?:
+                | {
+                    link: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null)
+                        | ({
+                            relationTo: 'case-studies';
+                            value: string | CaseStudy;
+                          } | null);
+                      url?: string | null;
+                      label: string;
+                      customId?: string | null;
+                      appearance?: ('default' | 'primary' | 'secondary') | null;
+                    };
+                    id?: string | null;
+                  }[]
+                | null;
               quoteSlides: {
                 quote: string;
                 author: string;
@@ -2606,6 +2647,47 @@ export interface Page {
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
+          introContent?: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
+          links?:
+            | {
+                link: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'case-studies';
+                        value: string | CaseStudy;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                  customId?: string | null;
+                  appearance?: ('default' | 'primary' | 'secondary') | null;
+                };
+                id?: string | null;
+              }[]
+            | null;
           quoteSlides: {
             quote: string;
             author: string;
@@ -4124,6 +4206,47 @@ export interface ReusableContent {
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
+          introContent?: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
+          links?:
+            | {
+                link: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: string | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'case-studies';
+                        value: string | CaseStudy;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                  customId?: string | null;
+                  appearance?: ('default' | 'primary' | 'secondary') | null;
+                };
+                id?: string | null;
+              }[]
+            | null;
           quoteSlides: {
             quote: string;
             author: string;
@@ -5628,6 +5751,23 @@ export interface CaseStudiesSelect<T extends boolean = true> {
                           theme?: T;
                           background?: T;
                         };
+                    introContent?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                                customId?: T;
+                                appearance?: T;
+                              };
+                          id?: T;
+                        };
                     quoteSlides?:
                       | T
                       | {
@@ -6703,6 +6843,23 @@ export interface PagesSelect<T extends boolean = true> {
                       | {
                           theme?: T;
                           background?: T;
+                        };
+                    introContent?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                                customId?: T;
+                                appearance?: T;
+                              };
+                          id?: T;
                         };
                     quoteSlides?:
                       | T
@@ -7872,6 +8029,23 @@ export interface ReusableContentSelect<T extends boolean = true> {
                       | {
                           theme?: T;
                           background?: T;
+                        };
+                    introContent?: T;
+                    links?:
+                      | T
+                      | {
+                          link?:
+                            | T
+                            | {
+                                type?: T;
+                                newTab?: T;
+                                reference?: T;
+                                url?: T;
+                                label?: T;
+                                customId?: T;
+                                appearance?: T;
+                              };
+                          id?: T;
                         };
                     quoteSlides?:
                       | T
@@ -9619,6 +9793,47 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
+                introContent?: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
+                  [k: string]: unknown;
+                } | null;
+                links?:
+                  | {
+                      link: {
+                        type?: ('reference' | 'custom') | null;
+                        newTab?: boolean | null;
+                        reference?:
+                          | ({
+                              relationTo: 'pages';
+                              value: string | Page;
+                            } | null)
+                          | ({
+                              relationTo: 'posts';
+                              value: string | Post;
+                            } | null)
+                          | ({
+                              relationTo: 'case-studies';
+                              value: string | CaseStudy;
+                            } | null);
+                        url?: string | null;
+                        label: string;
+                        customId?: string | null;
+                        appearance?: ('default' | 'primary' | 'secondary') | null;
+                      };
+                      id?: string | null;
+                    }[]
+                  | null;
                 quoteSlides: {
                   quote: string;
                   author: string;
@@ -10787,6 +11002,47 @@ export interface PartnerProgram {
                   theme?: ('light' | 'dark') | null;
                   background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
                 };
+                introContent?: {
+                  root: {
+                    type: string;
+                    children: {
+                      type: string;
+                      version: number;
+                      [k: string]: unknown;
+                    }[];
+                    direction: ('ltr' | 'rtl') | null;
+                    format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                    indent: number;
+                    version: number;
+                  };
+                  [k: string]: unknown;
+                } | null;
+                links?:
+                  | {
+                      link: {
+                        type?: ('reference' | 'custom') | null;
+                        newTab?: boolean | null;
+                        reference?:
+                          | ({
+                              relationTo: 'pages';
+                              value: string | Page;
+                            } | null)
+                          | ({
+                              relationTo: 'posts';
+                              value: string | Post;
+                            } | null)
+                          | ({
+                              relationTo: 'case-studies';
+                              value: string | CaseStudy;
+                            } | null);
+                        url?: string | null;
+                        label: string;
+                        customId?: string | null;
+                        appearance?: ('default' | 'primary' | 'secondary') | null;
+                      };
+                      id?: string | null;
+                    }[]
+                  | null;
                 quoteSlides: {
                   quote: string;
                   author: string;
@@ -11875,6 +12131,23 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                                 theme?: T;
                                 background?: T;
                               };
+                          introContent?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                      customId?: T;
+                                      appearance?: T;
+                                    };
+                                id?: T;
+                              };
                           quoteSlides?:
                             | T
                             | {
@@ -12713,6 +12986,23 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                             | {
                                 theme?: T;
                                 background?: T;
+                              };
+                          introContent?: T;
+                          links?:
+                            | T
+                            | {
+                                link?:
+                                  | T
+                                  | {
+                                      type?: T;
+                                      newTab?: T;
+                                      reference?: T;
+                                      url?: T;
+                                      label?: T;
+                                      customId?: T;
+                                      appearance?: T;
+                                    };
+                                id?: T;
                               };
                           quoteSlides?:
                             | T
