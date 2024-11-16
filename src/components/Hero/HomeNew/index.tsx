@@ -84,7 +84,7 @@ export const HomeNewHero: React.FC<
           </div>
         </Gutter>
         <Gutter className={[classes.logoShowcaseWrapper, 'grid'].join(' ')}>
-          {logoShowcaseLabel && <h6>{logoShowcaseLabel}</h6>}
+          {logoShowcaseLabel && <RichText content={logoShowcaseLabel} />}
           {filteredLogos && <LogoShowcase logos={filteredLogos} />}
         </Gutter>
         <BackgroundGrid

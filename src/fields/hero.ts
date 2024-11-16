@@ -335,7 +335,7 @@ export const hero: Field = {
     },
     {
       name: 'logoShowcaseLabel',
-      type: 'text',
+      type: 'richText',
       admin: {
         condition: (_, { type }) => type === 'homeNew',
       },
