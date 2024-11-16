@@ -88,7 +88,7 @@ const nextConfig = withBundleAnalyzer({
     ].filter(Boolean),
   },
   sassOptions: {
-    silenceDeprecations: ['legacy-js-api'], // https://github.com/vercel/next.js/issues/71638
+    silenceDeprecations: ['legacy-js-api', 'import'], // https://github.com/vercel/next.js/issues/71638
   },
   webpack: config => {
     const configCopy = { ...config }
