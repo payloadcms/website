@@ -15,6 +15,7 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 
+import { Banner } from './blocks/Banner'
 import { CaseStudies } from './collections/CaseStudies'
 import { CommunityHelp } from './collections/CommunityHelp'
 import { Docs } from './collections/Docs'
@@ -211,6 +212,40 @@ export default buildConfig({
               },
             ],
             interfaceName: 'TemplateCardsBlock',
+          },
+          {
+            slug: 'banner',
+            fields: [
+              {
+                name: 'type',
+                type: 'select',
+                defaultValue: 'default',
+                options: [
+                  {
+                    label: 'Default',
+                    value: 'default',
+                  },
+                  {
+                    label: 'Success',
+                    value: 'success',
+                  },
+                  {
+                    label: 'Warning',
+                    value: 'warning',
+                  },
+                  {
+                    label: 'Error',
+                    value: 'error',
+                  },
+                ],
+              },
+              {
+                name: 'content',
+                type: 'richText',
+                editor: lexicalEditor(),
+              },
+            ],
+            interfaceName: 'BannerBlock',
           },
         ],
       }),

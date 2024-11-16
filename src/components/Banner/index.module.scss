@@ -1,93 +1,74 @@
 @use '@scss/common.scss' as *;
 
 .banner {
-  padding: 2rem;
-  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
   display: flex;
+  margin-bottom: 2rem;
+  border-radius: 2px;
 
   a,
   a:hover,
   a:active {
-    color: currentColor !important
-  }
-
-  &.noMargin {
-    margin: 0;
+    color: currentColor !important;
   }
 }
 
-
 .success {
   color: var(--theme-blue-text);
-  background-color: var(--theme-blue-bg);
-  border-bottom: 1px solid var(--theme-blue-border);
+  background-color: var(--theme-success-100);
+  border: 1px solid var(--theme-success-200);
 
-  :local(.icon path) {
-    stroke: var(--theme-blue-bg);
+  & p code {
+    background-color: var(--theme-success-200) !important;
   }
 }
 
 .warning {
   color: var(--theme-orange-text);
-  background-color: var(--theme-orange-bg);
-  border-bottom: 1px solid var(--theme-orange-border);
+  background-color: var(--theme-warning-100);
+  border: 1px solid var(--theme-warning-200);
 
-  :local(.icon path) {
-    stroke: var(--theme-orange-bg);
+  & p code {
+    background-color: var(--theme-warning-200) !important;
   }
 }
 
 .error {
   color: var(--theme-red-text);
-  background-color: var(--theme-red-bg);
-  border-bottom: 1px solid var(--theme-red-border);
+  background-color: var(--theme-error-100);
+  border: 1px solid var(--theme-error-200);
 
-  :local(.icon path) {
-    stroke: var(--theme-red-bg);
+  & p code {
+    background-color: var(--theme-error-200) !important;
+  }
+}
+
+.default, .info {
+  color: var(--theme-text);
+  background: var(--theme-elevation-50);
+  border: 1px solid var(--theme-elevation-200);
+
+  & p code {
+    background-color: var(--theme-elevation-150) !important;
   }
 }
 
 .children {
+  & > * {
+    margin: 0;
+    line-height: 1.4rem;
+  }
+
+
+  & > p {
+    line-height: 1.6;
+  }
+
   *:first-child {
     margin-top: 0;
   }
 
   *:last-child {
     margin-bottom: 0;
-  }
-}
-
-:global([data-theme="light"]) {
-  .default, .info {
-    color: var(--theme-text);
-    background: var(--theme-elevation-100);
-    border-bottom: 1px solid var(--theme-elevation-500);
-  }
-}
-
-:global([data-theme="dark"]) {
-  .default, .info {
-    background: var(--theme-elevation-150);
-    color: var(--theme-text);
-    border-bottom: 1px solid var(--theme-elevation-600);
-  }
-}
-
-.icon {
-  background-color: currentColor;
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin: 5px 1rem 0 0;
-  width: 1rem;
-  height: 1rem;
-  padding: 4px;
-
-  path {
-    stroke: var(--color-base-800);
-    stroke-width: 2px;
-  }
-
-  @include small-break {
-    margin-top: 0;
   }
 }

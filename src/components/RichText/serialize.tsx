@@ -14,7 +14,14 @@ import {
 } from './nodeFormat'
 import { Highlight } from '@components/Highlight'
 import SplitAnimate from '@components/SplitAnimate'
-import { BrBlock, SpotlightBlock, VideoBlock, CommandLineBlock, TemplateCardsBlock } from '@types'
+import {
+  BrBlock,
+  SpotlightBlock,
+  VideoBlock,
+  CommandLineBlock,
+  TemplateCardsBlock,
+  BannerBlock,
+} from '@types'
 import { Video } from '@components/RichText/Video'
 import { AllowedElements } from '@components/SpotlightAnimation/types'
 import SpotlightAnimation from '@components/SpotlightAnimation'
@@ -26,11 +33,12 @@ import { SerializedLargeBodyNode } from '@root/fields/richText/features/largeBod
 import { TemplateCards } from '@components/TemplateCardsBlock'
 import RichTextUpload from '@components/RichText/Upload'
 import { CommandLine } from '@components/CommandLine'
+import { Banner } from '@components/Banner'
 
 export type NodeTypes =
   | DefaultNodeTypes
   | SerializedBlockNode<
-      SpotlightBlock | VideoBlock | BrBlock | CommandLineBlock | TemplateCardsBlock
+      SpotlightBlock | VideoBlock | BrBlock | CommandLineBlock | TemplateCardsBlock | BannerBlock
     >
   | SerializedLabelNode
   | SerializedLargeBodyNode
@@ -150,6 +158,8 @@ export function serializeLexical({ nodes, textInSplitAnimate }: Props): JSX.Elem
               const { templates } = block
               if (!templates) return null
               return <TemplateCards key={i} templates={templates} />
+            case 'banner':
+              return <Banner key={i} {...block} />
             default:
               return null
           }
