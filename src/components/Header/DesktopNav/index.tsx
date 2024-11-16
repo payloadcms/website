@@ -96,7 +96,7 @@ export const DesktopNav: React.FC<DesktopNavType> = ({ tabs, hideBackground, men
         <div className={[classes.grid, 'grid'].join(' ')}>
           <div className={[classes.logo, 'cols-4'].join(' ')}>
             <Link href="/" className={classes.logo} prefetch={false} aria-label="Full Payload Logo">
-              <FullLogo />
+              <FullLogo className="w-auto h-[30px]" />
             </Link>
           </div>
           <div className={[classes.content, 'cols-8'].join(' ')}>
