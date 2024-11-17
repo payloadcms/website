@@ -97,40 +97,40 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [])
 
-  useEffect(() => {
-    if (fetchedMe.current) return
-    fetchedMe.current = true
+  // useEffect(() => {
+  //   if (fetchedMe.current) return
+  //   fetchedMe.current = true
 
-    const fetchMe = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            query: ME_QUERY,
-          }),
-        })
+  //   const fetchMe = async () => {
+  //     try {
+  //       const res = await fetch(`${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/graphql`, {
+  //         method: 'POST',
+  //         credentials: 'include',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({
+  //           query: ME_QUERY,
+  //         }),
+  //       })
 
-        const { data, errors } = await res.json()
+  //       const { data, errors } = await res.json()
 
-        if (res.ok) {
-          setUser(data?.meUser?.user || null)
-        } else {
-          throw new Error(
-            errors?.[0]?.message || 'An error occurred while attempting to fetch user.',
-          )
-        }
-      } catch (e) {
-        setUser(null)
-        throw new Error(`${CLOUD_CONNECTION_ERROR}: ${e.message}`)
-      }
-    }
+  //       if (res.ok) {
+  //         setUser(data?.meUser?.user || null)
+  //       } else {
+  //         throw new Error(
+  //           errors?.[0]?.message || 'An error occurred while attempting to fetch user.',
+  //         )
+  //       }
+  //     } catch (e) {
+  //       setUser(null)
+  //       throw new Error(`${CLOUD_CONNECTION_ERROR}: ${e.message}`)
+  //     }
+  //   }
 
-    fetchMe()
-  }, [])
+  //   fetchMe()
+  // }, [])
 
   const forgotPassword = useCallback<ForgotPassword>(async args => {
     try {

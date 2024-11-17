@@ -11,6 +11,11 @@ const Page = async () => {
   const { isEnabled: draft } = await draftMode()
   const getBlogPosts = draft ? fetchBlogPosts : unstable_cache(fetchBlogPosts, ['blogPosts'])
   const blogPosts = await getBlogPosts()
+
+  console.log(blogPosts)
+
+  if (!blogPosts.length) return <h3>No blog posts are published yet!</h3>
+
   return <RenderBlogArchive posts={blogPosts} />
 }
 

@@ -31,6 +31,7 @@ import { MainMenu } from './globals/MainMenu'
 import { PartnerProgram } from './globals/PartnerProgram'
 import redeployWebsite from './scripts/redeployWebsite'
 import syncDocs from './scripts/syncDocs'
+import { s3Storage } from '@payloadcms/storage-s3';
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -312,16 +313,34 @@ export default buildConfig({
         },
       },
     }),
-    vercelBlobStorage({
-      cacheControlMaxAge: 60 * 60 * 24 * 365, // 1 year
+    // vercelBlobStorage({
+    //   cacheControlMaxAge: 60 * 60 * 24 * 365, // 1 year
+    //   collections: {
+    //     media: {
+    //       generateFileURL: ({ filename }) => `https://${process.env.BLOB_STORE_ID}/${filename}`,
+    //     },
+    //   },
+    //   enabled: Boolean(process.env.BLOB_STORAGE_ENABLED) || false,
+    //   token: process.env.BLOB_READ_WRITE_TOKEN || '',
+    // }),
+    s3Storage({
       collections: {
         media: {
-          generateFileURL: ({ filename }) => `https://${process.env.BLOB_STORE_ID}/${filename}`,
+          prefix: 'media',
         },
       },
-      enabled: Boolean(process.env.BLOB_STORAGE_ENABLED) || false,
-      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+      bucket: process.env.S3_BUCKET!,
+      config: {
+        forcePathStyle: true,
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID!,
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
+        },
+        region: process.env.S3_REGION!,
+        endpoint: process.env.S3_ENDPOINT!,
+      },
     }),
+  
   ],
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

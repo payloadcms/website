@@ -1307,6 +1307,7 @@ export interface Media {
   id: string;
   alt: string;
   darkModeFallback?: (string | null) | Media;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -5844,6 +5845,7 @@ export interface DocsSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   darkModeFallback?: T;
+  prefix?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
