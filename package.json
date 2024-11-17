@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "fetchDocs:github": "pnpm fetchDocs:github:v2 && pnpm fetchDocs:github:v3",
-    "fetchDocs:github:v2": "node scripts/fetch-docs.mjs --v v2 --source github --ref main --output ./src/docs/docs-v2.json",
-    "fetchDocs:github:v3": "node scripts/fetch-docs.mjs --v v3 --source github --ref beta --output ./src/docs/docs-v3.json",
+    "fetchDocs:github:v2": "node scripts/fetch-docs.mjs --v v2 --source github --ref 2.x --output ./src/docs/docs-v2.json",
+    "fetchDocs:github:v3": "node scripts/fetch-docs.mjs --v v3 --source github --ref main --output ./src/docs/docs-v3.json",
     "fetchDocs:local": "pnpm fetchDocs:local:v2 && pnpm fetchDocs:local:v3",
     "fetchDocs:local:v2": "node scripts/fetch-docs.mjs --v v2 --source local --ref v2 --output ./src/docs/docs-v2.json",
     "fetchDocs:local:v3": "node scripts/fetch-docs.mjs --v v3 --source local --ref v3 --output ./src/docs/docs-v3.json",
