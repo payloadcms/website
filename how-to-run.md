@@ -1,6 +1,10 @@
-- create .env
-- next.config comment
-      //   protocol: 'https',
-      //   hostname: process.env.BLOB_STORE_ID,
-      // },
-- added supabase storage updates (env and plugins/paylaod.config)
+# create .env and added database connection credentials 
+
+# supabase storage:
+  - installed s3 package
+ - updated .env with supabase credentials
+ - added plugin in payload.config
+ - added images/remotePatterns in next.config
+ - commented vercel blob storage at all these places
+
+ 

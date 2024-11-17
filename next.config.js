@@ -85,6 +85,12 @@ const nextConfig = withBundleAnalyzer({
       //   protocol: 'https',
       //   hostname: process.env.BLOB_STORE_ID,
       // },
+      {
+        protocol: 'https',
+        hostname: 'ejrpaqynmhhidykbqaci.supabase.co',
+        pathname: '/storage/v1/object/**',
+        port: '',
+      },
     ].filter(Boolean),
   },
   sassOptions: {
