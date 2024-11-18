@@ -66,7 +66,7 @@ export async function generateMetadata({
     typeof page?.meta?.image === 'object' &&
     page?.meta?.image !== null &&
     'url' in page?.meta?.image &&
-    `${process.env.NEXT_PUBLIC_CMS_URL}${page.meta.image.url}`
+    `${page.meta.image.url}`
 
   // check if noIndex is true
   const noIndexMeta = page?.noindex ? { robots: 'noindex' } : {}
