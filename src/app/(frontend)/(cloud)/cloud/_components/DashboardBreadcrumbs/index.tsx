@@ -60,7 +60,7 @@ export const DashboardBreadcrumbs = () => {
   return (
     <div className={classes.wrapper}>
       <Link className={classes.logo} href="/">
-        <FullLogo className="w-auto h-[30px]" />
+        <FullLogo />
       </Link>
       <div className={classes.breadcrumbs}>
         {segments[0] !== 'Cloud' ? (
