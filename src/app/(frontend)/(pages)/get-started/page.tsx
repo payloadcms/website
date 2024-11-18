@@ -61,6 +61,7 @@ export default async function GetStartedPage() {
                 <CMSLink
                   key={id}
                   {...link}
+                  appearance="default"
                   buttonProps={{ hideBottomBorderExceptLast: true, hideHorizontalBorders: true }}
                   className={classes.sidebarLink}
                   fullWidth
