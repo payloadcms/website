@@ -20,15 +20,6 @@
   }
 }
 
-.sidebarContent {
-  padding: 3rem 1.5rem;
-  position: relative;
-  & > * {
-    position: sticky;
-    top: calc(var(--page-padding-top) + 3rem);
-  }
-}
-
 .heading {
   margin: 0;
 }
@@ -96,4 +87,21 @@
       opacity: 1;
     }
   }
+}
+
+.sidebar {
+  position: relative;
+  & > * {
+    position: sticky;
+    top: calc(var(--page-padding-top) + 3rem);
+  }
+}
+
+.sidebarContent {
+  padding: 3rem 1.5rem;
+}
+
+.sidebarLinks {
+  list-style: none;
+  padding-left: 0;
 }

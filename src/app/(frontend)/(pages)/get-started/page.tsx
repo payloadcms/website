@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { BackgroundGrid } from '@components/BackgroundGrid'
+import { CMSLink } from '@components/CMSLink'
 import { Gutter } from '@components/Gutter'
 import RichText from '@components/RichText'
 import { fetchGetStarted } from '@data'
@@ -19,7 +20,7 @@ export default async function GetStartedPage() {
     return notFound()
   }
 
-  const { heading, sidebar, tabs } = data
+  const { heading, sidebar, sidebarLinks, tabs } = data
   return (
     <Gutter className={['grid', classes.wrap].filter(Boolean).join(' ')}>
       <main className={['cols-12 cols-m-8', classes.mainContent].filter(Boolean).join(' ')}>
@@ -51,8 +52,23 @@ export default async function GetStartedPage() {
           </Tabs.Root>
         )}
       </main>
-      <aside className={['cols-4 cols-m-8', classes.sidebarContent].filter(Boolean).join(' ')}>
-        <RichText content={sidebar} />
+      <aside className={['cols-4 cols-m-8', classes.sidebar].filter(Boolean).join(' ')}>
+        <div>
+          <RichText className={classes.sidebarContent} content={sidebar} />
+          {sidebarLinks && sidebarLinks.length > 0 && (
+            <ul className={classes.sidebarLinks}>
+              {sidebarLinks.map(({ id, link }) => (
+                <CMSLink
+                  key={id}
+                  {...link}
+                  buttonProps={{ hideBottomBorderExceptLast: true, hideHorizontalBorders: true }}
+                  className={classes.sidebarLink}
+                  fullWidth
+                />
+              ))}
+            </ul>
+          )}
+        </div>
       </aside>
       <BackgroundGrid />
     </Gutter>
