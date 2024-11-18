@@ -272,33 +272,6 @@ export default buildConfig({
   graphQL: {
     disablePlaygroundInProduction: false,
   },
-  onInit: async (payload) => {
-    Object.values(payload.collections).forEach(({ config, customIDType }) => {
-      console.log(config.slug, customIDType)
-    })
-
-    const existingDevUser = await payload.find({
-      collection: 'users',
-      where: {
-        email: {
-          equals: 'dev@payloadcms.com'
-        }
-      }
-    })
-
-    if (!existingDevUser.totalDocs) {
-      await payload.create({
-        collection: 'users',
-        data: {
-          email: 'dev@payloadcms.com',
-          firstName: 'sean',
-          lastName: 'spider',
-          password: 'test',
-          roles: ['admin']
-        }
-      })
-    }
-  },
   plugins: [
     formBuilderPlugin({
       formOverrides: {
