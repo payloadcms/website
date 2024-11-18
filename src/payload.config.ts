@@ -104,151 +104,151 @@ export default buildConfig({
       }),
       LabelFeature(),
       LargeBodyFeature(),
-      BlocksFeature({
-        blocks: [
-          {
-            slug: 'spotlight',
-            fields: [
-              {
-                name: 'element',
-                type: 'select',
-                options: [
-                  {
-                    label: 'H1',
-                    value: 'h1',
-                  },
-                  {
-                    label: 'H2',
-                    value: 'h2',
-                  },
-                  {
-                    label: 'H3',
-                    value: 'h3',
-                  },
-                  {
-                    label: 'Paragraph',
-                    value: 'p',
-                  },
-                ],
-              },
-              {
-                name: 'richText',
-                type: 'richText',
-                editor: lexicalEditor({
-                  features: ({ rootFeatures }) => [...rootFeatures],
-                }),
-              },
-            ],
-            interfaceName: 'SpotlightBlock',
-          },
-          {
-            slug: 'video',
-            fields: [
-              {
-                name: 'url',
-                type: 'text',
-              },
-            ],
-            interfaceName: 'VideoBlock',
-          },
-          {
-            slug: 'br',
-            fields: [
-              {
-                name: 'ignore',
-                type: 'text',
-              },
-            ],
+      // BlocksFeature({
+      //   blocks: [
+      //     {
+      //       slug: 'spotlight',
+      //       fields: [
+      //         {
+      //           name: 'element',
+      //           type: 'select',
+      //           options: [
+      //             {
+      //               label: 'H1',
+      //               value: 'h1',
+      //             },
+      //             {
+      //               label: 'H2',
+      //               value: 'h2',
+      //             },
+      //             {
+      //               label: 'H3',
+      //               value: 'h3',
+      //             },
+      //             {
+      //               label: 'Paragraph',
+      //               value: 'p',
+      //             },
+      //           ],
+      //         },
+      //         {
+      //           name: 'richText',
+      //           type: 'richText',
+      //           editor: lexicalEditor({
+      //             features: ({ rootFeatures }) => [...rootFeatures],
+      //           }),
+      //         },
+      //       ],
+      //       interfaceName: 'SpotlightBlock',
+      //     },
+      //     {
+      //       slug: 'video',
+      //       fields: [
+      //         {
+      //           name: 'url',
+      //           type: 'text',
+      //         },
+      //       ],
+      //       interfaceName: 'VideoBlock',
+      //     },
+      //     {
+      //       slug: 'br',
+      //       fields: [
+      //         {
+      //           name: 'ignore',
+      //           type: 'text',
+      //         },
+      //       ],
 
-            interfaceName: 'BrBlock',
-          },
-          {
-            slug: 'commandLine',
-            fields: [
-              {
-                name: 'command',
-                type: 'text',
-              },
-            ],
-            interfaceName: 'CommandLineBlock',
-          },
-          {
-            slug: 'templateCards',
-            fields: [
-              {
-                name: 'templates',
-                type: 'array',
-                fields: [
-                  {
-                    name: 'name',
-                    type: 'text',
-                    required: true,
-                  },
-                  {
-                    name: 'description',
-                    type: 'textarea',
-                    required: true,
-                  },
-                  {
-                    name: 'image',
-                    type: 'text',
-                    required: true,
-                  },
-                  {
-                    name: 'slug',
-                    type: 'text',
-                    required: true,
-                  },
-                  {
-                    name: 'order',
-                    type: 'number',
-                    required: true,
-                  },
-                ],
-                labels: {
-                  plural: 'Templates',
-                  singular: 'Template',
-                },
-              },
-            ],
-            interfaceName: 'TemplateCardsBlock',
-          },
-          {
-            slug: 'banner',
-            fields: [
-              {
-                name: 'type',
-                type: 'select',
-                defaultValue: 'default',
-                options: [
-                  {
-                    label: 'Default',
-                    value: 'default',
-                  },
-                  {
-                    label: 'Success',
-                    value: 'success',
-                  },
-                  {
-                    label: 'Warning',
-                    value: 'warning',
-                  },
-                  {
-                    label: 'Error',
-                    value: 'error',
-                  },
-                ],
-              },
-              {
-                name: 'content',
-                type: 'richText',
-                editor: lexicalEditor(),
-              },
-            ],
-            interfaceName: 'BannerBlock',
-          },
-        ],
-      }),
+      //       interfaceName: 'BrBlock',
+      //     },
+      //     {
+      //       slug: 'commandLine',
+      //       fields: [
+      //         {
+      //           name: 'command',
+      //           type: 'text',
+      //         },
+      //       ],
+      //       interfaceName: 'CommandLineBlock',
+      //     },
+      //     {
+      //       slug: 'templateCards',
+      //       fields: [
+      //         {
+      //           name: 'templates',
+      //           type: 'array',
+      //           fields: [
+      //             {
+      //               name: 'name',
+      //               type: 'text',
+      //               required: true,
+      //             },
+      //             {
+      //               name: 'description',
+      //               type: 'textarea',
+      //               required: true,
+      //             },
+      //             {
+      //               name: 'image',
+      //               type: 'text',
+      //               required: true,
+      //             },
+      //             {
+      //               name: 'slug',
+      //               type: 'text',
+      //               required: true,
+      //             },
+      //             {
+      //               name: 'order',
+      //               type: 'number',
+      //               required: true,
+      //             },
+      //           ],
+      //           labels: {
+      //             plural: 'Templates',
+      //             singular: 'Template',
+      //           },
+      //         },
+      //       ],
+      //       interfaceName: 'TemplateCardsBlock',
+      //     },
+      //     {
+      //       slug: 'banner',
+      //       fields: [
+      //         {
+      //           name: 'type',
+      //           type: 'select',
+      //           defaultValue: 'default',
+      //           options: [
+      //             {
+      //               label: 'Default',
+      //               value: 'default',
+      //             },
+      //             {
+      //               label: 'Success',
+      //               value: 'success',
+      //             },
+      //             {
+      //               label: 'Warning',
+      //               value: 'warning',
+      //             },
+      //             {
+      //               label: 'Error',
+      //               value: 'error',
+      //             },
+      //           ],
+      //         },
+      //         {
+      //           name: 'content',
+      //           type: 'richText',
+      //           editor: lexicalEditor(),
+      //         },
+      //       ],
+      //       interfaceName: 'BannerBlock',
+      //     },
+      //   ],
+      // }),
     ],
   }),
   email: nodemailerAdapter({

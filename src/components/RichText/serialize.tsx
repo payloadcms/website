@@ -14,14 +14,14 @@ import {
 } from './nodeFormat'
 import { Highlight } from '@components/Highlight'
 import SplitAnimate from '@components/SplitAnimate'
-import {
-  BrBlock,
-  SpotlightBlock,
-  VideoBlock,
-  CommandLineBlock,
-  TemplateCardsBlock,
-  BannerBlock,
-} from '@types'
+// import {
+//   BrBlock,
+//   SpotlightBlock,
+//   VideoBlock,
+//   CommandLineBlock,
+//   TemplateCardsBlock,
+//   BannerBlock,
+// } from '@types'
 import { Video } from '@components/RichText/Video'
 import { AllowedElements } from '@components/SpotlightAnimation/types'
 import SpotlightAnimation from '@components/SpotlightAnimation'
@@ -30,16 +30,16 @@ import { Label } from '@components/Label'
 import { LargeBody } from '@components/LargeBody'
 import { SerializedLabelNode } from '@root/fields/richText/features/label/LabelNode'
 import { SerializedLargeBodyNode } from '@root/fields/richText/features/largeBody/LargeBodyNode'
-import { TemplateCards } from '@components/TemplateCardsBlock'
+// import { TemplateCards } from '@components/TemplateCardsBlock'
 import RichTextUpload from '@components/RichText/Upload'
-import { CommandLine } from '@components/CommandLine'
-import { Banner } from '@components/Banner'
+// import { CommandLine } from '@components/CommandLine'
+// import { Banner } from '@components/Banner'
 
 export type NodeTypes =
   | DefaultNodeTypes
-  | SerializedBlockNode<
-      SpotlightBlock | VideoBlock | BrBlock | CommandLineBlock | TemplateCardsBlock | BannerBlock
-    >
+  // | SerializedBlockNode<
+  //     SpotlightBlock | VideoBlock | BrBlock | CommandLineBlock | TemplateCardsBlock | BannerBlock
+  //   >
   | SerializedLabelNode
   | SerializedLargeBodyNode
 
@@ -114,140 +114,140 @@ export function serializeLexical({ nodes, textInSplitAnimate }: Props): JSX.Elem
 
         const serializedChildren = 'children' in node ? serializedChildrenFn(node) : ''
 
-        if (node.type === 'block') {
-          const block = node.fields
+        // if (node.type === 'block') {
+        //   const block = node.fields
 
-          const blockType = block?.blockType
+        //   const blockType = block?.blockType
 
-          if (!block || !blockType) {
-            return null
+        //   if (!block || !blockType) {
+        //     return null
+        //   }
+
+        //   switch (blockType) {
+        //     case 'br':
+        //       return <br key={i} />
+        //     case 'video':
+        //       const { url } = block
+
+        //       if (url && (url.includes('vimeo') || url.includes('youtube'))) {
+        //         const source = url.includes('vimeo') ? 'vimeo' : 'youtube'
+        //         const id = source === 'vimeo' ? url.split('/').pop() : url.split('v=').pop()
+
+        //         return <Video key={i} platform={source} id={id as string} />
+        //       }
+
+        //       return null
+        //     case 'spotlight':
+        //       const { element, richText } = block
+
+        //       const as: AllowedElements = (element as AllowedElements) ?? 'h2'
+
+        //       const Children = serializeLexical({ nodes: richText?.root?.children as NodeTypes[] })
+
+        //       return (
+        //         <SpotlightAnimation key={i} as={as} richTextChildren={node.children}>
+        //           {Children}
+        //         </SpotlightAnimation>
+        //       )
+
+        //     case 'commandLine':
+        //       const { command } = block
+        //       if (command) return <CommandLine command={command} key={i} lexical />
+        //       return null
+        //     case 'templateCards':
+        //       const { templates } = block
+        //       if (!templates) return null
+        //       return <TemplateCards key={i} templates={templates} />
+        //     case 'banner':
+        //       return <Banner key={i} {...block} />
+        //     default:
+        //       return null
+        //   }
+        // } else {
+        switch (node.type) {
+          case 'linebreak': {
+            return <br className="col-start-2" key={i} />
           }
-
-          switch (blockType) {
-            case 'br':
-              return <br key={i} />
-            case 'video':
-              const { url } = block
-
-              if (url && (url.includes('vimeo') || url.includes('youtube'))) {
-                const source = url.includes('vimeo') ? 'vimeo' : 'youtube'
-                const id = source === 'vimeo' ? url.split('/').pop() : url.split('v=').pop()
-
-                return <Video key={i} platform={source} id={id as string} />
-              }
-
-              return null
-            case 'spotlight':
-              const { element, richText } = block
-
-              const as: AllowedElements = (element as AllowedElements) ?? 'h2'
-
-              const Children = serializeLexical({ nodes: richText?.root?.children as NodeTypes[] })
-
-              return (
-                <SpotlightAnimation key={i} as={as} richTextChildren={node.children}>
-                  {Children}
-                </SpotlightAnimation>
-              )
-
-            case 'commandLine':
-              const { command } = block
-              if (command) return <CommandLine command={command} key={i} lexical />
-              return null
-            case 'templateCards':
-              const { templates } = block
-              if (!templates) return null
-              return <TemplateCards key={i} templates={templates} />
-            case 'banner':
-              return <Banner key={i} {...block} />
-            default:
-              return null
+          case 'paragraph': {
+            return (
+              <p className="col-start-2" key={i}>
+                {serializedChildren}
+              </p>
+            )
           }
-        } else {
-          switch (node.type) {
-            case 'linebreak': {
-              return <br className="col-start-2" key={i} />
-            }
-            case 'paragraph': {
+          case 'heading': {
+            const Tag = node?.tag
+            return (
+              <Tag className="col-start-2" key={i}>
+                {serializedChildren}
+              </Tag>
+            )
+          }
+          case 'list': {
+            const Tag = node?.tag
+            return (
+              <Tag className="list col-start-2" key={i}>
+                {serializedChildren}
+              </Tag>
+            )
+          }
+          case 'listitem': {
+            if (node?.checked != null) {
               return (
-                <p className="col-start-2" key={i}>
-                  {serializedChildren}
-                </p>
-              )
-            }
-            case 'heading': {
-              const Tag = node?.tag
-              return (
-                <Tag className="col-start-2" key={i}>
-                  {serializedChildren}
-                </Tag>
-              )
-            }
-            case 'list': {
-              const Tag = node?.tag
-              return (
-                <Tag className="list col-start-2" key={i}>
-                  {serializedChildren}
-                </Tag>
-              )
-            }
-            case 'listitem': {
-              if (node?.checked != null) {
-                return (
-                  <li
-                    aria-checked={node.checked ? 'true' : 'false'}
-                    className={` ${node.checked ? '' : ''}`}
-                    key={i}
-                    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
-                    role="checkbox"
-                    tabIndex={-1}
-                    value={node?.value}
-                  >
-                    {serializedChildren}
-                  </li>
-                )
-              } else {
-                return (
-                  <li key={i} value={node?.value}>
-                    {serializedChildren}
-                  </li>
-                )
-              }
-            }
-            case 'quote': {
-              return <blockquote key={i}>{serializedChildren}</blockquote>
-            }
-            case 'link': {
-              const fields = node.fields
-
-              return (
-                <CMSLink
+                <li
+                  aria-checked={node.checked ? 'true' : 'false'}
+                  className={` ${node.checked ? '' : ''}`}
                   key={i}
-                  newTab={Boolean(fields?.newTab)}
-                  reference={fields.doc as Reference}
-                  type={fields.linkType === 'internal' ? 'reference' : 'custom'}
-                  url={fields.url}
+                  // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+                  role="checkbox"
+                  tabIndex={-1}
+                  value={node?.value}
                 >
                   {serializedChildren}
-                </CMSLink>
+                </li>
+              )
+            } else {
+              return (
+                <li key={i} value={node?.value}>
+                  {serializedChildren}
+                </li>
               )
             }
-
-            case 'upload': {
-              return <RichTextUpload key={i} node={node} />
-            }
-
-            case 'label':
-              return <Label key={i}>{serializedChildren}</Label>
-
-            case 'largeBody': {
-              return <LargeBody key={i}>{serializedChildren}</LargeBody>
-            }
-
-            default:
-              return null
           }
+          case 'quote': {
+            return <blockquote key={i}>{serializedChildren}</blockquote>
+          }
+          case 'link': {
+            const fields = node.fields
+
+            return (
+              <CMSLink
+                key={i}
+                newTab={Boolean(fields?.newTab)}
+                reference={fields.doc as Reference}
+                type={fields.linkType === 'internal' ? 'reference' : 'custom'}
+                url={fields.url}
+              >
+                {serializedChildren}
+              </CMSLink>
+            )
+          }
+
+          case 'upload': {
+            return <RichTextUpload key={i} node={node} />
+          }
+
+          case 'label':
+            return <Label key={i}>{serializedChildren}</Label>
+
+          case 'largeBody': {
+            return <LargeBody key={i}>{serializedChildren}</LargeBody>
+          }
+
+          default:
+            return null
         }
+        // }
       })}
     </Fragment>
   )
