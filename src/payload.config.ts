@@ -282,7 +282,8 @@ export default buildConfig({
         hooks: {
           afterChange: [
             ({ doc, req }) => {
-              req.payload.logger.info('IP of submission', {
+              req.payload.logger.info('IP of form submission')
+              req.payload.logger.info({
                 allHeaders: req?.headers,
                 forwardedFor: req?.headers?.['x-forwarded-for'],
                 realIP: req?.headers?.['x-real-ip'],
