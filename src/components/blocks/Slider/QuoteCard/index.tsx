@@ -4,7 +4,7 @@ import { Page } from '@root/payload-types.js'
 import classes from './index.module.scss'
 import { Media } from '@components/Media'
 import { CMSLink } from '@components/CMSLink'
-import { ArrowRightIcon } from '@icons/ArrowRightIcon'
+import { ArrowIcon } from '@icons/ArrowIcon'
 
 type Props = NonNullable<
   Extract<Page['layout'][0], { blockType: 'slider' }>['sliderFields']['quoteSlides']
@@ -24,11 +24,7 @@ export const QuoteCard: React.FC<Props> = ({
   if (!quote) return null
 
   return (
-    <CMSLink
-      className={[classes.quoteCard, isActive && classes.isActive].filter(Boolean).join(' ')}
-      {...link}
-      label={null}
-    >
+    <div className={[classes.quoteCard, isActive && classes.isActive].filter(Boolean).join(' ')}>
       <h3 className={classes.quote}>
         <span className={classes.closingQuote}>“</span>
         {quote}
@@ -43,11 +39,14 @@ export const QuoteCard: React.FC<Props> = ({
           <Media resource={logo} className={classes.logo} alt={author} />
         )}
         {enableLink && (
-          <span className={classes.arrowWrap}>
-            <ArrowRightIcon className={classes.arrow} />
-          </span>
+          <CMSLink className={classes.arrowWrap} {...link} label={null}>
+            {link?.label && <span className={classes.linkLabel}>{link.label}</span>}
+            <div className={classes.arrow}>
+              <ArrowIcon />
+            </div>
+          </CMSLink>
         )}
       </div>
-    </CMSLink>
+    </div>
   )
 }

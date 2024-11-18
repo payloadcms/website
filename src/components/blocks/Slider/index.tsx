@@ -34,7 +34,7 @@ export const SliderBlock: React.FC<Props> = ({ sliderFields, padding, hideBackgr
   if (!slides || slides.length === 0) return null
 
   const isFirst = currentSlideIndex === 0
-  const isLast = currentSlideIndex + 1 === slides.length
+  const isLast = currentSlideIndex + 2 === slides.length
 
   return (
     <BlockWrapper
@@ -45,71 +45,46 @@ export const SliderBlock: React.FC<Props> = ({ sliderFields, padding, hideBackgr
     >
       <BackgroundGrid zIndex={0} />
 
-      <Gutter className={['grid', classes.introContent].filter(Boolean).join(' ')}>
-        {introContent && (
+      {introContent && introContent.root.children.length > 0 && (
+        <Gutter className={['grid', classes.introContent].filter(Boolean).join(' ')}>
           <div className="cols-8">
             <RichText content={introContent} />
           </div>
-        )}
-        {links && (
-          <div className="cols-4 start-13 cols-m-8 start-m-1">
-            {links.map(({ link, id }) => {
-              return (
-                <CMSLink
-                  {...link}
-                  key={id}
-                  fullWidth
-                  buttonProps={{
-                    hideHorizontalBorders: true,
-                    hideBottomBorderExceptLast: true,
-                  }}
-                />
-              )
-            })}
-          </div>
-        )}
-      </Gutter>
+          {links && (
+            <div className="cols-4 start-13 cols-m-8 start-m-1">
+              {links.map(({ link, id }) => {
+                return (
+                  <CMSLink
+                    {...link}
+                    key={id}
+                    fullWidth
+                    buttonProps={{
+                      hideHorizontalBorders: true,
+                      hideBottomBorderExceptLast: true,
+                    }}
+                  />
+                )
+              })}
+            </div>
+          )}
+        </Gutter>
+      )}
 
       <div className={classes.trackWrap}>
-        <BackgroundGrid
-          zIndex={5}
-          ignoreGutter
-          gridLineStyles={{
-            1: {
-              display: 'none',
-            },
-            2: {
-              display: 'none',
-            },
-            3: {
-              display: 'none',
-            },
-          }}
-        />
         <SliderTrack className={classes.sliderTrack}>
           {slides.map((slide, index) => {
-            const isActive = currentSlideIndex === index
+            const isActive =
+              currentSlideIndex === index ? true : currentSlideIndex === index - 1 ? true : false
             return (
               <Slide
                 key={index}
                 index={index}
                 className={[classes.slide, classes.quoteSlide].filter(Boolean).join(' ')}
               >
-                <BackgroundGrid
-                  zIndex={1}
-                  ignoreGutter
-                  gridLineStyles={{
-                    0: { display: 'none' },
-                    1: { display: 'none' },
-                    2: { display: 'none' },
-                    3: { display: 'none' },
-                  }}
-                />
                 <QuoteCard isActive={isActive} {...slide} />
               </Slide>
             )
           })}
-          <div className={classes.fakeSlide} />
         </SliderTrack>
         <div className={classes.progressBarBackground} />
       </div>
