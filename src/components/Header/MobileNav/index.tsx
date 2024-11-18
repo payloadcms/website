@@ -275,7 +275,7 @@ export const MobileNav: React.FC<NavItems> = props => {
                 prefetch={false}
                 aria-label="Full Payload Logo"
               >
-                <FullLogo />
+                <FullLogo className="w-auto h-[30px]" />
               </Link>
               <div className={classes.icons}>
                 <a
