@@ -110,9 +110,11 @@ $curve: cubic-bezier(.165, 0.84, 0.44, 1);
 .logo {
   display: flex;
   height: 100%;
+  align-items: center;
 
   svg {
-    height: auto;
+    height: 1.5rem;
+    width: auto;
   }
 }
 
