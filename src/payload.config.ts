@@ -237,6 +237,33 @@ export default buildConfig({
   graphQL: {
     disablePlaygroundInProduction: false,
   },
+  onInit: async (payload) => {
+    Object.values(payload.collections).forEach(({ config, customIDType }) => {
+      console.log(config.slug, customIDType)
+    })
+
+    const existingDevUser = await payload.find({
+      collection: 'users',
+      where: {
+        email: {
+          equals: 'dev@payloadcms.com'
+        }
+      }
+    })
+
+    if (!existingDevUser.totalDocs) {
+      await payload.create({
+        collection: 'users',
+        data: {
+          email: 'dev@payloadcms.com',
+          firstName: 'sean',
+          lastName: 'spider',
+          password: 'test',
+          roles: ['admin']
+        }
+      })
+    }
+  },
   plugins: [
     formBuilderPlugin({
       formOverrides: {
@@ -255,6 +282,12 @@ export default buildConfig({
         hooks: {
           afterChange: [
             ({ doc, req }) => {
+              req.payload.logger.info('IP of submission', {
+                allHeaders: req?.headers,
+                forwardedFor: req?.headers?.['x-forwarded-for'],
+                realIP: req?.headers?.['x-real-ip'],
+              })
+
               const sendSubmissionToHubSpot = async (): Promise<void> => {
                 const { form, submissionData } = doc
                 const portalID = process.env.NEXT_PRIVATE_HUBSPOT_PORTAL_KEY
