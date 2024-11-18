@@ -92,14 +92,15 @@
 
 .sidebar {
   position: relative;
+  padding-bottom: 3rem;
   & > * {
     position: sticky;
-    top: calc(var(--page-padding-top) + 3rem);
+    top: var(--page-padding-top);
   }
 }
 
 .sidebarContent {
-  padding: 3rem 1.5rem;
+  padding: 3rem 1.5rem 2rem;
 }
 
 .sidebarLinks {
