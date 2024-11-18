@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { CheckIcon } from '@root/icons/CheckIcon/index.js'
-import { BannerBlock, ReusableContent } from '@root/payload-types.js'
+import { ReusableContent } from '@root/payload-types.js'
 import { RichText } from '../RichText/index.js'
 
 import classes from './index.module.scss'
@@ -10,7 +10,7 @@ export type Props = {
   type?: Extract<ReusableContent['layout'][0], { blockType: 'banner' }>['bannerFields']['type']
   content?:
     | Extract<ReusableContent['layout'][0], { blockType: 'banner' }>['bannerFields']['content']
-    | BannerBlock['content']
+  // | BannerBlock['content']
   children?: React.ReactNode
   checkmark?: boolean
   icon?: 'checkmark'
