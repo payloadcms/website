@@ -166,6 +166,10 @@ export const RenderBlocks: React.FC<Props> = props => {
 
       if (paddingExceptions.includes(block.blockType)) bottomPadding = 'large'
 
+      if (previousBlock?.blockType === 'hoverHighlights') topPadding = 'large'
+
+      if (nextBlock?.blockType === 'hoverHighlights') bottomPadding = 'large'
+
       return {
         top: topPadding ?? undefined,
         bottom: bottomPadding ?? undefined,
