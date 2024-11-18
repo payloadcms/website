@@ -21,6 +21,7 @@
 }
 
 .heading {
+  @include h2;
   margin: 0;
 }
 
