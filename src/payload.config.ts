@@ -134,7 +134,33 @@ export default buildConfig({
                 name: 'richText',
                 type: 'richText',
                 editor: lexicalEditor({
-                  features: ({ rootFeatures }) => [...rootFeatures],
+                  features: () => [
+                    ...defaultFeatures,
+                    UploadFeature({
+                      collections: {
+                        media: {
+                          fields: [
+                            {
+                              name: 'enableLink',
+                              type: 'checkbox',
+                              label: 'Enable Link',
+                            },
+                            link({
+                              appearances: false,
+                              disableLabel: true,
+                              overrides: {
+                                admin: {
+                                  condition: (_, data) => Boolean(data?.enableLink),
+                                },
+                              },
+                            }),
+                          ],
+                        },
+                      },
+                    }),
+                    LabelFeature(),
+                    LargeBodyFeature(),
+                  ],
                 }),
               },
             ],
