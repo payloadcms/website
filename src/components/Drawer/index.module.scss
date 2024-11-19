@@ -139,21 +139,21 @@
 
 .size-m {
   .contentChildren {
-    padding: 3rem;
+    padding: 4rem;
   }
 
   .close {
-    width: calc(var(--gutter-h)*2);
+    width: calc(var(--gutter-h)*4);
   }
 }
 
 .size-s {
   .contentChildren {
-    padding: 2rem;
+    padding: 4rem;
   }
 
   .close {
-    width: calc(var(--gutter-h)*3);
+    width: calc(var(--gutter-h)*6);
   }
 
   @include mid-break {

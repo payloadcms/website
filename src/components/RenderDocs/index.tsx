@@ -20,6 +20,7 @@ import remarkGfm from 'remark-gfm'
 
 import classes from './index.module.scss'
 import { TopicGroup } from '@root/app/(frontend)/(pages)/docs/api'
+import { Feedback } from '@components/Feedback'
 
 export const RenderDocs = async ({
   children,
@@ -154,6 +155,7 @@ export const RenderDocs = async ({
               <div className={classes.discordGitWrap}>
                 <DiscordGitCTA appearance="minimal" />
               </div>
+              <Feedback path={path} />
             </div>
           </aside>
         </div>
