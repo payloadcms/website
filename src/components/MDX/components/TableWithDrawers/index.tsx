@@ -1,5 +1,6 @@
 import { Drawer, DrawerToggler } from '@components/Drawer/index.js'
 import { ChevronIcon } from '@root/icons/ChevronIcon/index.js'
+import React from 'react'
 
 import classes from './index.module.scss'
 
@@ -8,10 +9,10 @@ type Props = {
   rows: [
     [
       {
-        drawerSlug?: string
         drawerContent?: React.ReactNode
-        drawerTitle?: string
         drawerDescription?: string
+        drawerSlug?: string
+        drawerTitle?: string
         value?: string
       },
     ],
@@ -25,7 +26,7 @@ export const TableWithDrawers: (props) => React.JSX.Element = ({ columns, rows }
         <thead>
           <tr>
             {columns?.map((label, i) => (
-              <th key={i} id={`heading-${label}`}>
+              <th id={`heading-${label}`} key={i}>
                 {label}
               </th>
             ))}
@@ -34,9 +35,9 @@ export const TableWithDrawers: (props) => React.JSX.Element = ({ columns, rows }
 
         <tbody>
           {rows.map((row, rowIndex) => (
-            <tr key={rowIndex} className={`row-${rowIndex + 1}`}>
+            <tr className={`row-${rowIndex + 1}`} key={rowIndex}>
               {row.map((cell, cellIndex) => {
-                const { drawerSlug, drawerContent, drawerTitle, drawerDescription, value } = cell
+                const { drawerContent, drawerDescription, drawerSlug, drawerTitle, value } = cell
 
                 if (drawerSlug && drawerContent) {
                   return (
@@ -45,11 +46,11 @@ export const TableWithDrawers: (props) => React.JSX.Element = ({ columns, rows }
                         {value || <ChevronIcon />}
                       </DrawerToggler>
                       <Drawer
-                        slug={drawerSlug}
-                        size="s"
-                        title={drawerTitle}
-                        description={drawerDescription}
                         className={classes.mdxDrawer}
+                        description={drawerDescription}
+                        size="s"
+                        slug={drawerSlug}
+                        title={drawerTitle}
                       >
                         {drawerContent}
                       </Drawer>
