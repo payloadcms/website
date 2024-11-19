@@ -297,7 +297,7 @@ export default buildConfig({
       formSubmissionOverrides: {
         hooks: {
           afterChange: [
-            ({ doc, req }) => {
+            async ({ doc, req }) => {
               req.payload.logger.info('IP of form submission')
               req.payload.logger.info({
                 allHeaders: req?.headers,
@@ -338,7 +338,7 @@ export default buildConfig({
                   })
                 }
               }
-              void sendSubmissionToHubSpot()
+              await sendSubmissionToHubSpot()
             },
           ],
         },
