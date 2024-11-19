@@ -42,6 +42,19 @@ export const Posts: CollectionConfig = {
       relationTo: 'media',
       required: true,
     },
+    {
+      name: 'useVideo',
+      type: 'checkbox',
+      label: 'Use Youtube video as header image',
+    },
+    {
+      name: 'videoUrl',
+      type: 'text',
+      admin: {
+        condition: (_, siblingData) => siblingData?.useVideo,
+      },
+      label: 'Video URL',
+    },
     richText({
       name: 'excerpt',
     }),

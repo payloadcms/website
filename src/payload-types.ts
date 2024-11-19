@@ -72,9 +72,9 @@ export interface Config {
   user: User & {
     collection: 'users';
   };
-  jobs?: {
+  jobs: {
     tasks: unknown;
-    workflows?: unknown;
+    workflows: unknown;
   };
 }
 export interface UserAuthOperations {
@@ -2906,6 +2906,8 @@ export interface Post {
   id: string;
   title: string;
   image: string | Media;
+  useVideo?: boolean | null;
+  videoUrl?: string | null;
   excerpt: {
     root: {
       type: string;
@@ -7104,6 +7106,8 @@ export interface BudgetsSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   image?: T;
+  useVideo?: T;
+  videoUrl?: T;
   excerpt?: T;
   content?:
     | T
