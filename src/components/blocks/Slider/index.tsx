@@ -47,7 +47,7 @@ export const SliderBlock: React.FC<Props> = ({ sliderFields, padding, hideBackgr
 
       {introContent && introContent.root.children.length > 0 && (
         <Gutter className={['grid', classes.introContent].filter(Boolean).join(' ')}>
-          <div className="cols-8">
+          <div className="cols-12 cols-m-8">
             <RichText content={introContent} />
           </div>
           {links && (
