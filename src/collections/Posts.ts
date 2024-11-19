@@ -55,77 +55,77 @@ export const Posts: CollectionConfig = {
     {
       name: 'lexicalContent',
       type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => [
-          ...rootFeatures,
-          BlocksFeature({
-            blocks: [
-              Banner,
-              BlogContent,
-              Code,
-              BlogMarkdown,
-              MediaBlock,
-              ReusableContent,
-              {
-                slug: 'spotlight',
-                fields: [
-                  {
-                    name: 'element',
-                    type: 'select',
-                    options: [
-                      {
-                        label: 'H1',
-                        value: 'h1',
-                      },
-                      {
-                        label: 'H2',
-                        value: 'h2',
-                      },
-                      {
-                        label: 'H3',
-                        value: 'h3',
-                      },
-                      {
-                        label: 'Paragraph',
-                        value: 'p',
-                      },
-                    ],
-                  },
-                  {
-                    name: 'richText',
-                    type: 'richText',
-                    editor: lexicalEditor({
-                      features: ({ rootFeatures }) => rootFeatures,
-                    }),
-                  },
-                ],
-                interfaceName: 'SpotlightBlock',
-              },
-              {
-                slug: 'video',
-                fields: [
-                  {
-                    name: 'url',
-                    type: 'text',
-                  },
-                ],
-                interfaceName: 'VideoBlock',
-              },
-              {
-                slug: 'br',
-                fields: [
-                  {
-                    name: 'ignore',
-                    type: 'text',
-                  },
-                ],
+      // editor: lexicalEditor({
+      //   features: ({ rootFeatures }) => [
+      //     ...rootFeatures,
+      //     BlocksFeature({
+      //       blocks: [
+      //         Banner,
+      //         BlogContent,
+      //         Code,
+      //         BlogMarkdown,
+      //         MediaBlock,
+      //         ReusableContent,
+      //         {
+      //           slug: 'spotlight',
+      //           fields: [
+      //             {
+      //               name: 'element',
+      //               type: 'select',
+      //               options: [
+      //                 {
+      //                   label: 'H1',
+      //                   value: 'h1',
+      //                 },
+      //                 {
+      //                   label: 'H2',
+      //                   value: 'h2',
+      //                 },
+      //                 {
+      //                   label: 'H3',
+      //                   value: 'h3',
+      //                 },
+      //                 {
+      //                   label: 'Paragraph',
+      //                   value: 'p',
+      //                 },
+      //               ],
+      //             },
+      //             {
+      //               name: 'richText',
+      //               type: 'richText',
+      //               // editor: lexicalEditor({
+      //               //   features: ({ rootFeatures }) => rootFeatures,
+      //               // }),
+      //             },
+      //           ],
+      //           interfaceName: 'SpotlightBlock',
+      //         },
+      //         {
+      //           slug: 'video',
+      //           fields: [
+      //             {
+      //               name: 'url',
+      //               type: 'text',
+      //             },
+      //           ],
+      //           interfaceName: 'VideoBlock',
+      //         },
+      //         {
+      //           slug: 'br',
+      //           fields: [
+      //             {
+      //               name: 'ignore',
+      //               type: 'text',
+      //             },
+      //           ],
 
-                interfaceName: 'BrBlock',
-              },
-            ],
-          }),
-        ],
-      }),
+      //           interfaceName: 'BrBlock',
+      //         },
+      //       ],
+      //     }),
+      //   ],
+      // }),
     },
     {
       name: 'relatedPosts',

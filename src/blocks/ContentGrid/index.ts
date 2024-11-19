@@ -47,9 +47,9 @@ export const ContentGrid: Block = {
             {
               name: 'content',
               type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => rootFeatures,
-              }),
+              // editor: lexicalEditor({
+              //   features: ({ rootFeatures }) => rootFeatures,
+              // }),
               required: true,
             },
           ],

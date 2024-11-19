@@ -33,9 +33,9 @@ export const MediaBlock: Block = {
         {
           name: 'caption',
           type: 'richText',
-          editor: lexicalEditor({
-            features: ({ rootFeatures }) => rootFeatures,
-          }),
+          // editor: lexicalEditor({
+          //   features: ({ rootFeatures }) => rootFeatures,
+          // }),
         },
       ],
     }),

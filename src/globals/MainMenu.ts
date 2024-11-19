@@ -136,9 +136,9 @@ export const MainMenu: GlobalConfig = {
                     {
                       name: 'label',
                       type: 'richText',
-                      editor: lexicalEditor({
-                        features: ({ rootFeatures }) => rootFeatures,
-                      }),
+                      // editor: lexicalEditor({
+                      //   features: ({ rootFeatures }) => rootFeatures,
+                      // }),
                     },
                     {
                       name: 'links',

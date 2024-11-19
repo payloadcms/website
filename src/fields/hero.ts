@@ -112,9 +112,9 @@ export const hero: Field = {
       admin: {
         condition: (_, { type } = {}) => type !== 'livestream',
       },
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => rootFeatures,
-      }),
+      // editor: lexicalEditor({
+      //   features: ({ rootFeatures }) => rootFeatures,
+      // }),
     },
     {
       name: 'description',
@@ -126,9 +126,9 @@ export const hero: Field = {
           type !== 'three' &&
           type !== 'homeNew',
       },
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => rootFeatures,
-      }),
+      // editor: lexicalEditor({
+      //   features: ({ rootFeatures }) => rootFeatures,
+      // }),
     },
     linkGroup({
       additions: {
@@ -149,9 +149,9 @@ export const hero: Field = {
       admin: {
         condition: (_, { type }) => ['home'].includes(type),
       },
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => rootFeatures,
-      }),
+      // editor: lexicalEditor({
+      //   features: ({ rootFeatures }) => rootFeatures,
+      // }),
     },
     {
       name: 'secondaryDescription',
@@ -159,9 +159,9 @@ export const hero: Field = {
       admin: {
         condition: (_, { type }) => type === 'home',
       },
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => rootFeatures,
-      }),
+      // editor: lexicalEditor({
+      //   features: ({ rootFeatures }) => rootFeatures,
+      // }),
     },
     linkGroup({
       overrides: {

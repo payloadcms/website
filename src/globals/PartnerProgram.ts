@@ -54,9 +54,9 @@ export const PartnerProgram: GlobalConfig = {
           name: 'richText',
           type: 'richText',
           label: 'Hero Text',
-          editor: lexicalEditor({
-            features: ({ rootFeatures }) => rootFeatures,
-          }),
+          // editor: lexicalEditor({
+          //   features: ({ rootFeatures }) => rootFeatures,
+          // }),
         },
         linkGroup({
           overrides: {

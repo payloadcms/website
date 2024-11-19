@@ -65,9 +65,9 @@ export const GetStarted: GlobalConfig = {
               admin: {
                 position: 'sidebar',
               },
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => [...rootFeatures, FixedToolbarFeature()],
-              }),
+              // editor: lexicalEditor({
+              //   features: ({ rootFeatures }) => [...rootFeatures, FixedToolbarFeature()],
+              // }),
             },
             linkGroup({
               overrides: {

@@ -55,9 +55,9 @@ export const Banner: Block = {
           name: 'content',
           type: 'richText',
           required: true,
-          editor: lexicalEditor({
-            features: ({ rootFeatures }) => rootFeatures,
-          }),
+          // editor: lexicalEditor({
+          //   features: ({ rootFeatures }) => rootFeatures,
+          // }),
         },
       ],
     }),

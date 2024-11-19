@@ -41,9 +41,9 @@ const livestreamFields: Field = {
     {
       name: 'richText',
       type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => rootFeatures,
-      }),
+      // editor: lexicalEditor({
+      //   features: ({ rootFeatures }) => rootFeatures,
+      // }),
     },
     {
       name: 'guests',

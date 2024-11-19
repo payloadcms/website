@@ -131,27 +131,27 @@ export const Partners: CollectionConfig = {
               name: 'overview',
               label: 'Overview',
               type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => rootFeatures,
-              }),
+              // editor: lexicalEditor({
+              //   features: ({ rootFeatures }) => rootFeatures,
+              // }),
               required: true,
             },
             {
               name: 'services',
               label: 'Services',
               type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => rootFeatures,
-              }),
+              // editor: lexicalEditor({
+              //   features: ({ rootFeatures }) => rootFeatures,
+              // }),
               required: true,
             },
             {
               name: 'idealProject',
               label: 'Ideal Project',
               type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => rootFeatures,
-              }),
+              // editor: lexicalEditor({
+              //   features: ({ rootFeatures }) => rootFeatures,
+              // }),
               required: true,
             },
             {
