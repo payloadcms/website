@@ -1,4 +1,3 @@
-import { FixedToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import { isAdmin } from '@root/access/isAdmin'
 import linkGroup from '@root/fields/linkGroup'
 import { revalidatePath } from 'next/cache'
@@ -65,9 +64,6 @@ export const GetStarted: GlobalConfig = {
               admin: {
                 position: 'sidebar',
               },
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => [...rootFeatures, FixedToolbarFeature()],
-              }),
             },
             linkGroup({
               overrides: {

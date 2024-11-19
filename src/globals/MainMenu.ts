@@ -1,6 +1,5 @@
 import type { GlobalConfig } from 'payload'
 
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { revalidatePath } from 'next/cache'
 
 import { isAdmin } from '../access/isAdmin'
@@ -136,9 +135,6 @@ export const MainMenu: GlobalConfig = {
                     {
                       name: 'label',
                       type: 'richText',
-                      editor: lexicalEditor({
-                        features: ({ rootFeatures }) => rootFeatures,
-                      }),
                     },
                     {
                       name: 'links',

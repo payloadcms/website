@@ -3,7 +3,6 @@ import { isAdmin, isAdminFieldLevel } from '../access/isAdmin'
 import { CollectionConfig } from 'payload'
 import { slugField } from '../fields/slug'
 import { formatPreviewURL } from '../utilities/formatPreviewURL'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { revalidatePath } from 'next/cache'
 
 export const Partners: CollectionConfig = {
@@ -131,27 +130,18 @@ export const Partners: CollectionConfig = {
               name: 'overview',
               label: 'Overview',
               type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => rootFeatures,
-              }),
               required: true,
             },
             {
               name: 'services',
               label: 'Services',
               type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => rootFeatures,
-              }),
               required: true,
             },
             {
               name: 'idealProject',
               label: 'Ideal Project',
               type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => rootFeatures,
-              }),
               required: true,
             },
             {
