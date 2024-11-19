@@ -143,7 +143,7 @@
   }
 
   .close {
-    width: calc(var(--gutter-h)*4);
+    width: 20vw;
   }
 }
 
@@ -153,16 +153,20 @@
   }
 
   .close {
-    width: calc(var(--gutter-h)*6);
+    width: 40vw;
   }
 
   @include mid-break {
     .contentChildren {
-      padding: 1rem;
+      padding: 3rem;
     }
 
     .header {
       margin-bottom: 1rem;
+    }
+
+    .close {
+      width: 20vw;
     }
   }
 }
