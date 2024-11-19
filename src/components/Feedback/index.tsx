@@ -18,7 +18,9 @@ export const Feedback: React.FC<{ path: string; ref?: string }> = async ({
 
   const getFeedbackForm = draft
     ? fetchForm(formName)
-    : unstable_cache(fetchForm, [`form-${formName}`])(formName)
+    : unstable_cache(fetchForm, [`form-${formName}`], {
+        tags: [`form-${formName}`],
+      })(formName)
 
   const form = await getFeedbackForm
 

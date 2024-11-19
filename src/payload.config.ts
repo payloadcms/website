@@ -32,6 +32,7 @@ import { MainMenu } from './globals/MainMenu'
 import { PartnerProgram } from './globals/PartnerProgram'
 import redeployWebsite from './scripts/redeployWebsite'
 import syncDocs from './scripts/syncDocs'
+import { revalidateTag } from 'next/cache'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -285,6 +286,14 @@ export default buildConfig({
             },
           },
         ],
+        hooks: {
+          afterChange: [
+            ({ doc }) => {
+              revalidateTag(`form-${doc.title}`)
+              console.log(`Revalidated form: ${doc.title}`)
+            },
+          ],
+        },
       },
       formSubmissionOverrides: {
         hooks: {
