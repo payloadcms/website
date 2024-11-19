@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import classes from './index.module.scss'
 
@@ -12,42 +12,25 @@ export type Column = {
 }
 
 export type Props = {
-  className?: string
-  data: any[]
-  columns: Column[]
-  inDrawer?: boolean
   bleedToEdge?: boolean
+  className?: string
+  columns: Column[]
+  data: any[]
+  inDrawer?: boolean
 }
 
-const CustomTable: React.FC<Props> = ({
-  className,
-  data,
-  columns,
-  inDrawer,
-  bleedToEdge = true,
-}) => {
-  const [padding, setPadding] = useState(0)
-  const paddingRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (bleedToEdge) {
-      if (paddingRef.current?.offsetWidth === undefined) return
-      setPadding(Math.round(paddingRef.current?.offsetWidth / 8) - 1)
-    }
-  }, [paddingRef.current?.offsetWidth, bleedToEdge])
-
+const CustomTable: React.FC<Props> = ({ className, columns, data, inDrawer }) => {
   return (
     <div
       className={[classes.table, inDrawer && classes.inDrawer, className && className]
         .filter(Boolean)
         .join(' ')}
-      ref={paddingRef}
     >
       <table cellPadding="0" cellSpacing="0">
         <thead>
           <tr>
             {columns?.map((col, i) => (
-              <th key={i} id={`heading-${col.accessor}`}>
+              <th className={`heading-${col.accessor}`} key={i}>
                 {col.components.Heading}
               </th>
             ))}
@@ -56,25 +39,15 @@ const CustomTable: React.FC<Props> = ({
         <tbody>
           {data &&
             data.map((row: any, rowIndex) => (
-              <tr key={rowIndex} className={`row-${rowIndex + 1}`}>
+              <tr className={`row-${rowIndex + 1}`} key={rowIndex}>
                 {columns.map((col, colIndex) => {
                   return (
-                    <td key={colIndex} className={`cell-${col.accessor}`}>
+                    <td className={`cell-${col.accessor}`} key={colIndex}>
                       {col.components.renderCell(row, row[col.accessor])}
                     </td>
                   )
                 })}
-                <div
-                  className={classes.cellBG}
-                  style={
-                    bleedToEdge
-                      ? {
-                          marginLeft: padding / -1,
-                          marginRight: padding / -1,
-                        }
-                      : {}
-                  }
-                />
+                <div className={classes.cellBG} />
               </tr>
             ))}
         </tbody>

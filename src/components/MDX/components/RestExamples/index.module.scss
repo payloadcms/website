@@ -2,24 +2,23 @@
 
 .toggle {
   @include btnReset;
-  @include label;
   & {
     display: flex;
-    margin-right: auto;
-    background-color: var(--color-base-750);
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: var(--theme-elevation-150);
+    border: 1px solid var(--theme-elevation-250);
     border-radius: 3px;
     padding: 0.35rem;
-    transition: opacity 200ms linear;
+    transition: background-color 200ms linear;
     cursor: pointer;
-    color: var(--color-base-100);
   }
 
   &:hover {
-    opacity: 0.8;
+    background-color: var(--theme-elevation-100);
   }
 
   .label {
-    @include label;
     & {
       color: var(--color-base-100);
     }
@@ -29,7 +28,18 @@
 .table {
   & td {
     white-space: nowrap;
+    padding-block: .75rem;
+
+    &:first-child {
+      padding-left: 1.5rem;
+    }
+
+    &:last-child {
+      padding-right: 1.5rem;
+
+    }
   }
+  overflow-x: scroll;
 }
 
 .drawerTable {
@@ -46,6 +56,7 @@
 
   td:first-child {
     padding: 0.75rem;
+
   }
 
   :global {
@@ -107,3 +118,6 @@
   }
 }
 
+.cellPath {
+  @include code;
+}

@@ -139,30 +139,34 @@
 
 .size-m {
   .contentChildren {
-    padding: 3rem;
+    padding: 4rem;
   }
 
   .close {
-    width: calc(var(--gutter-h)*2);
+    width: 20vw;
   }
 }
 
 .size-s {
   .contentChildren {
-    padding: 2rem;
+    padding: 4rem;
   }
 
   .close {
-    width: calc(var(--gutter-h)*3);
+    width: 40vw;
   }
 
   @include mid-break {
     .contentChildren {
-      padding: 1rem;
+      padding: 3rem;
     }
 
     .header {
       margin-bottom: 1rem;
+    }
+
+    .close {
+      width: 20vw;
     }
   }
 }

@@ -7,6 +7,7 @@ import type {
   CaseStudy,
   CommunityHelp,
   Footer,
+  Form,
   GetStarted,
   Industry,
   MainMenu,
@@ -360,4 +361,21 @@ export const fetchGetStarted = async (): Promise<GetStarted> => {
   })
 
   return data
+}
+
+export const fetchForm = async (name: string): Promise<Form> => {
+  const payload = await getPayload({ config })
+
+  const data = await payload.find({
+    collection: 'forms',
+    depth: 1,
+    limit: 1,
+    where: {
+      title: {
+        equals: name,
+      },
+    },
+  })
+
+  return data.docs[0]
 }
