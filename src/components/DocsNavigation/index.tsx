@@ -136,9 +136,9 @@ export const DocsNavigation = ({
           .join(' ')}
       >
         <nav className={classes.nav} onMouseLeave={() => setResetIndicator(true)}>
-          {!hideVersionSelector && version && (
+          {!hideVersionSelector && (
             <div className={classes.selector}>
-              <VersionSelector initialVersion={version} />
+              <VersionSelector initialVersion={version ?? 'current'} />
             </div>
           )}
           <Accordion.Root
