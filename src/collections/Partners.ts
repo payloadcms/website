@@ -15,6 +15,7 @@ export const Partners: CollectionConfig = {
     drafts: true,
   },
   admin: {
+    group: 'Partner Program',
     useAsTitle: 'name',
     livePreview: {
       url: ({ data }) => formatPreviewURL('partners', data),

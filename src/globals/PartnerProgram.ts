@@ -35,6 +35,9 @@ export const PartnerProgram: GlobalConfig = {
     read: () => true,
     update: isAdmin,
   },
+  admin: {
+    group: 'Partner Program',
+  },
   fields: [
     {
       name: 'contactForm',
