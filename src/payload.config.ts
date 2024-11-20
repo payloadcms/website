@@ -305,15 +305,16 @@ export default buildConfig({
                 realIP: req?.headers?.['x-real-ip'],
               })
 
+              const body = req.json ? await req.json() : {}
+
               const sendSubmissionToHubSpot = async (): Promise<void> => {
                 const { form, submissionData } = doc
                 const portalID = process.env.NEXT_PRIVATE_HUBSPOT_PORTAL_KEY
                 const data = {
                   context: {
-                    ...(req.body &&
-                      'hubspotCookie' in req.body && { hutk: req.body?.hubspotCookie }),
-                    pageName: req.body && 'pageName' in req.body ? req.body?.pageName : '',
-                    pageUri: req.body && 'pageUri' in req.body ? req.body?.pageUri : '',
+                    ...('hubspotCookie' in body && { hutk: body?.hubspotCookie }),
+                    pageName: 'pageName' in body ? body?.pageName : '',
+                    pageUri: 'pageUri' in body ? body?.pageUri : '',
                   },
                   fields: submissionData.map(key => ({
                     name: key.field,
