@@ -11,6 +11,7 @@ export const Media: CollectionConfig = {
     update: isAdmin,
   },
   defaultPopulate: {
+    alt: true,
     filename: true,
     height: true,
     url: true,
