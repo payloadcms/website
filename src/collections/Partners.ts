@@ -34,6 +34,7 @@ export const Partners: CollectionConfig = {
     specialties: true,
     budgets: true,
     industries: true,
+    'content.bannerImage': true,
   },
   fields: [
     {
