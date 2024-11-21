@@ -29,6 +29,7 @@ export const Partners: CollectionConfig = {
     delete: isAdmin,
   },
   defaultPopulate: {
+    name: true,
     slug: true,
     regions: true,
     specialties: true,
