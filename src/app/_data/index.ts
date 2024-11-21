@@ -318,16 +318,6 @@ export const fetchPartnerProgram = async (): Promise<Partial<PartnerProgram>> =>
   const data = await payload.findGlobal({
     slug: 'partner-program',
     depth: 2,
-    populate: {
-      partners: {
-        name: true,
-        slug: true,
-        city: true,
-        content: {
-          bannerImage: true,
-        },
-      },
-    },
   })
 
   return data
