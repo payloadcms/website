@@ -9,13 +9,16 @@ import { Post } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 
-export const FeaturedBlogPost: React.FC<Post> = props => {
+export const FeaturedBlogPost: React.FC<Partial<Post>> = props => {
   const { slug, title, authors, publishedOn, image: media, meta, ...rest } = props
 
   const href = `/blog/${slug}`
 
   const author =
-    typeof authors?.[0] === 'string' ? authors[0] : authors[0].firstName + ' ' + authors[0].lastName
+    authors && authors[0] && typeof authors[0] !== 'string'
+      ? authors[0].firstName + ' ' + authors[0].lastName
+      : ''
+  const date = publishedOn && formatDate({ date: publishedOn })
 
   return (
     <Link href={href} prefetch={false} className={classes.wrapper}>
@@ -38,10 +41,12 @@ export const FeaturedBlogPost: React.FC<Post> = props => {
           <h2 className={classes.title}>{title}</h2>
 
           <div className={classes.meta}>
-            <time dateTime={publishedOn} className={classes.date}>
-              {formatDate({ date: publishedOn })}
-            </time>
-            <p className={classes.author}>{author}</p>
+            {date && (
+              <time dateTime={publishedOn} className={classes.date}>
+                {date}
+              </time>
+            )}
+            {author && <p className={classes.author}>{author}</p>}
           </div>
 
           <p className={classes.description}>{meta?.description}</p>

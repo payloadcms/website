@@ -4,8 +4,8 @@ import { isAdmin } from '../access/isAdmin'
 import { Banner } from '../blocks/Banner'
 import { BlogContent } from '../blocks/BlogContent'
 import { BlogMarkdown } from '../blocks/BlogMarkdown'
-import { Callout } from '../blocks/Callout'
 import { CallToAction } from '../blocks/CallToAction'
+import { Callout } from '../blocks/Callout'
 import { CardGrid } from '../blocks/CardGrid'
 import { CaseStudiesHighlight } from '../blocks/CaseStudiesHighlight'
 import { CaseStudyCards } from '../blocks/CaseStudyCards'
@@ -22,28 +22,24 @@ import { LinkGrid } from '../blocks/LinkGrid'
 import { LogoGrid } from '../blocks/LogoGrid'
 import { MediaBlock } from '../blocks/Media'
 import { MediaContent } from '../blocks/MediaContent'
+import { MediaContentAccordion } from '../blocks/MediaContentAccordion'
 import { Pricing } from '../blocks/Pricing'
 import { Slider } from '../blocks/Slider'
+import { Statement } from '../blocks/Statement'
 import { Steps } from '../blocks/Steps'
 import { StickyHighlights } from '../blocks/StickyHighlights'
-import { Statement } from '../blocks/Statement'
-import { MediaContentAccordion } from '../blocks/MediaContentAccordion'
 
 export const ReusableContent: CollectionConfig = {
   slug: 'reusable-content',
-  admin: {
-    useAsTitle: 'title',
-  },
   access: {
     create: isAdmin,
+    delete: isAdmin,
     read: () => true,
     readVersions: isAdmin,
     update: isAdmin,
-    delete: isAdmin,
   },
-  labels: {
-    singular: 'Reusable Content',
-    plural: 'Reusable Contents',
+  admin: {
+    useAsTitle: 'title',
   },
   fields: [
     {
@@ -54,7 +50,6 @@ export const ReusableContent: CollectionConfig = {
     {
       name: 'layout',
       type: 'blocks',
-      required: true,
       blocks: [
         Banner,
         BlogContent,
@@ -84,6 +79,11 @@ export const ReusableContent: CollectionConfig = {
         Steps,
         StickyHighlights,
       ],
+      required: true,
     },
   ],
+  labels: {
+    plural: 'Reusable Contents',
+    singular: 'Reusable Content',
+  },
 }

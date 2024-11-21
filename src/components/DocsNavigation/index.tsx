@@ -182,6 +182,7 @@ export const DocsNavigation = ({
                                       version ? `${version}/` : ''
                                     }${topic.slug.toLowerCase()}/${doc.slug.replace('.mdx', '')}`}
                                     key={`${topic.slug}_${doc.slug}`}
+                                    prefetch={false}
                                   >
                                     <li
                                       className={[

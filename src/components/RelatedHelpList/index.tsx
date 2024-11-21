@@ -9,7 +9,7 @@ import classes from './index.module.scss'
 
 export type Props = {
   className?: string
-  relatedThreads: CommunityHelp[]
+  relatedThreads: Partial<CommunityHelp>[]
 }
 
 export const RelatedHelpList: React.FC<Props> = ({ relatedThreads }) => {

@@ -30,6 +30,13 @@ export const Posts: CollectionConfig = {
     preview: doc => formatPreviewURL('posts', doc),
     useAsTitle: 'title',
   },
+  defaultPopulate: {
+    slug: true,
+    authors: true,
+    image: true,
+    publishedOn: true,
+    title: true,
+  },
   fields: [
     {
       name: 'title',

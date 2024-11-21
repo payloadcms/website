@@ -6,18 +6,14 @@ import { updateAlgolia } from './updateAlgolia'
 
 export const CommunityHelp: CollectionConfig = {
   slug: 'community-help',
-  admin: {
-    useAsTitle: 'title',
-  },
-  labels: {
-    singular: 'Community Help',
-    plural: 'Community Helps',
-  },
   access: {
     create: () => false,
+    delete: isAdmin,
     read: () => true,
     update: isAdmin,
-    delete: isAdmin,
+  },
+  admin: {
+    useAsTitle: 'title',
   },
   fields: [
     {
@@ -26,11 +22,11 @@ export const CommunityHelp: CollectionConfig = {
     },
     {
       name: 'communityHelpType',
-      label: 'Community Help Type',
       type: 'radio',
       access: {
         update: () => false,
       },
+      label: 'Community Help Type',
       options: [
         {
           label: 'Discord Thread',
@@ -44,21 +40,21 @@ export const CommunityHelp: CollectionConfig = {
     },
     {
       name: 'githubID',
-      label: 'GitHub ID',
       type: 'text',
-      index: true,
       admin: {
         condition: (_, siblingData) => siblingData?.communityHelpType === 'github',
       },
+      index: true,
+      label: 'GitHub ID',
     },
     {
       name: 'discordID',
-      label: 'Discord ID',
       type: 'text',
-      index: true,
       admin: {
         condition: (_, siblingData) => siblingData?.communityHelpType === 'discord',
       },
+      index: true,
+      label: 'Discord ID',
     },
     {
       name: 'communityHelpJSON',
@@ -70,11 +66,6 @@ export const CommunityHelp: CollectionConfig = {
       type: 'text',
       hidden: true,
       hooks: {
-        beforeChange: [
-          ({ siblingData }) => {
-            delete siblingData.introDescription
-          },
-        ],
         afterRead: [
           ({ data }) => {
             if (data?.communityHelpType === 'discord') {
@@ -83,16 +74,21 @@ export const CommunityHelp: CollectionConfig = {
             return extractDescription(data?.communityHelpJSON.body)
           },
         ],
+        beforeChange: [
+          ({ siblingData }) => {
+            delete siblingData.introDescription
+          },
+        ],
       },
     },
     {
       name: 'slug',
-      label: 'Slug',
       type: 'text',
-      index: true,
       admin: {
         position: 'sidebar',
       },
+      index: true,
+      label: 'Slug',
     },
     {
       name: 'helpful',
@@ -102,7 +98,7 @@ export const CommunityHelp: CollectionConfig = {
       },
       hooks: {
         afterChange: [
-          ({ previousValue, value, siblingData }) => {
+          ({ previousValue, siblingData, value }) => {
             if (previousValue !== value) {
               const docID =
                 siblingData.communityHelpType === 'discord'
@@ -117,11 +113,16 @@ export const CommunityHelp: CollectionConfig = {
     {
       name: 'relatedDocs',
       type: 'relationship',
-      relationTo: 'docs',
-      hasMany: true,
       admin: {
         position: 'sidebar',
       },
+      hasMany: true,
+      index: true,
+      relationTo: 'docs',
     },
   ],
+  labels: {
+    plural: 'Community Helps',
+    singular: 'Community Help',
+  },
 }

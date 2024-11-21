@@ -28,6 +28,13 @@ export const Partners: CollectionConfig = {
     update: isAdmin,
     delete: isAdmin,
   },
+  defaultPopulate: {
+    slug: true,
+    regions: true,
+    specialties: true,
+    budgets: true,
+    industries: true,
+  },
   fields: [
     {
       name: 'name',
