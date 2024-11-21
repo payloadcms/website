@@ -23,11 +23,11 @@ export const fetchGlobals = async (): Promise<{ footer: Footer; mainMenu: MainMe
   const payload = await getPayload({ config })
   const mainMenu = await payload.findGlobal({
     slug: 'main-menu',
-    depth: 0,
+    depth: 1,
   })
   const footer = await payload.findGlobal({
     slug: 'footer',
-    depth: 0,
+    depth: 1,
   })
 
   return {
