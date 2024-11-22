@@ -36,7 +36,6 @@
     "@lexical/react": "0.20.0",
     "@lexical/selection": "0.20.0",
     "@lexical/utils": "0.20.0",
-    "@next/bundle-analyzer": "^13.4.2",
     "@payloadcms/db-mongodb": "3.0.3-canary.27acdae",
     "@payloadcms/email-nodemailer": "3.0.3-canary.27acdae",
     "@payloadcms/live-preview-react": "3.0.3-canary.27acdae",
@@ -103,6 +102,7 @@
     "uuid": "10.0.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.0.2",
     "@next/eslint-plugin-next": "^13.1.6",
     "@octokit/types": "^9.0.0",
     "@payloadcms/eslint-config": "1.1.1",
