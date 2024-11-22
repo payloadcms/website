@@ -1,7 +1,8 @@
 'use client'
 
 import { Button } from '@components/Button'
-import { CheckIcon, CopyIcon } from '@payloadcms/ui'
+import { CheckIcon } from '@icons/CheckIcon'
+import { CopyIcon } from '@icons/CopyIcon'
 import React from 'react'
 
 import classes from './index.module.scss'

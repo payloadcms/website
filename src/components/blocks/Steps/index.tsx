@@ -5,7 +5,7 @@ import { Step } from './Step/index.js'
 
 import classes from './index.module.scss'
 import { BlockWrapper } from '@components/BlockWrapper/index.js'
-import { Gutter } from '@payloadcms/ui'
+import { Gutter } from '@components/Gutter'
 import { BackgroundGrid } from '@components/BackgroundGrid/index.js'
 
 type Props = Extract<Page['layout'][0], { blockType: 'steps' }>
