@@ -15,6 +15,7 @@ export const Media: CollectionConfig<'media'> = {
     darkModeFallback: true,
     filename: true,
     height: true,
+    mimeType: true,
     url: true,
     width: true,
   },
