@@ -1,8 +1,11 @@
 // @ts-nocheck
 //This copy-and-pasted from lexical here: https://github.com/facebook/lexical/blob/c2ceee223f46543d12c574e62155e619f9a18a5d/packages/lexical/src/LexicalConstants.ts
 
-import type { ElementFormatType, TextFormatType } from 'lexical'
-import type { TextDetailType, TextModeType } from 'lexical/nodes/LexicalTextNode'
+import type {
+  ElementFormatType,
+  TextFormatType,
+  TextModeType,
+} from '@payloadcms/richtext-lexical/lexical'
 
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
@@ -74,11 +77,7 @@ const LTR =
   '\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF\u200E\u2C00-\uFB1C' +
   '\uFE00-\uFE6F\uFEFD-\uFFFF'
 
-export const RTL_REGEX = new RegExp('^[^' + LTR + ']*[' + RTL + ']')
-
-export const LTR_REGEX = new RegExp('^[^' + RTL + ']*[' + LTR + ']')
-
-export const TEXT_TYPE_TO_FORMAT: Record<TextFormatType | string, number> = {
+export const TEXT_TYPE_TO_FORMAT: Record<string, number> = {
   bold: IS_BOLD,
   code: IS_CODE,
   highlight: IS_HIGHLIGHT,
@@ -89,7 +88,7 @@ export const TEXT_TYPE_TO_FORMAT: Record<TextFormatType | string, number> = {
   underline: IS_UNDERLINE,
 }
 
-export const DETAIL_TYPE_TO_DETAIL: Record<TextDetailType | string, number> = {
+export const DETAIL_TYPE_TO_DETAIL: Record<string, number> = {
   directionless: IS_DIRECTIONLESS,
   unmergeable: IS_UNMERGEABLE,
 }

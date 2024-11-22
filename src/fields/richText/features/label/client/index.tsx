@@ -1,18 +1,18 @@
 'use client'
-import { $setBlocksType } from '@lexical/selection'
-import { $findMatchingParent } from '@lexical/utils'
 import {
   createClientFeature,
   getSelectedNode,
   toolbarTextDropdownGroupWithItems,
 } from '@payloadcms/richtext-lexical/client'
+import { $getSelection, $isRangeSelection } from '@payloadcms/richtext-lexical/lexical'
+import { $setBlocksType } from '@payloadcms/richtext-lexical/lexical/selection'
+import { $findMatchingParent } from '@payloadcms/richtext-lexical/lexical/utils'
 import {
   $createLabelNode,
   $isLabelNode,
   LabelNode,
 } from '@root/fields/richText/features/label/LabelNode'
 import { LabelIcon } from '@root/fields/richText/features/label/client/icon'
-import { $getSelection, $isRangeSelection } from 'lexical'
 
 import './styles.scss'
 
