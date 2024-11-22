@@ -169,16 +169,20 @@ export function serializeLexical({ nodes, textInSplitAnimate }: Props): JSX.Elem
               return <br className="col-start-2" key={i} />
             }
             case 'paragraph': {
+              const align =
+                node?.format === 'center' ? 'center' : node?.format === 'right' ? 'right' : 'left'
               return (
-                <p className="col-start-2" key={i}>
+                <p className="col-start-2" key={i} style={{ textAlign: align }}>
                   {serializedChildren}
                 </p>
               )
             }
             case 'heading': {
               const Tag = node?.tag
+              const align =
+                node?.format === 'center' ? 'center' : node?.format === 'right' ? 'right' : 'left'
               return (
-                <Tag className="col-start-2" key={i}>
+                <Tag className="col-start-2" key={i} style={{ textAlign: align }}>
                   {serializedChildren}
                 </Tag>
               )
