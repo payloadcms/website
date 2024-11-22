@@ -142,7 +142,7 @@ export default async function PartnerPage({ params }: { params: Promise<{ slug: 
               </div>
             </div>
           )}
-          {typeof contactForm !== 'string' && (
+          {contactForm && typeof contactForm !== 'string' && (
             <div className={classes.contactForm} id="contact">
               <h3>Contact {partner.name}</h3>
               <div className={classes.form}>

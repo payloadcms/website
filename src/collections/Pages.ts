@@ -50,6 +50,11 @@ export const Pages: CollectionConfig = {
     preview: doc => formatPreviewURL('pages', doc),
     useAsTitle: 'fullTitle',
   },
+  defaultPopulate: {
+    slug: true,
+    breadcrumbs: true,
+    title: true,
+  },
   fields: [
     {
       name: 'title',
@@ -58,12 +63,12 @@ export const Pages: CollectionConfig = {
     },
     fullTitle,
     {
-      type: 'checkbox',
       name: 'noindex',
-      label: 'No Index',
+      type: 'checkbox',
       admin: {
         position: 'sidebar',
       },
+      label: 'No Index',
     },
     {
       type: 'tabs',

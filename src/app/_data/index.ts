@@ -1,6 +1,6 @@
 import config from '@payload-config'
-import { getPayload } from 'payload'
 import { draftMode } from 'next/headers.js'
+import { getPayload } from 'payload'
 
 import type {
   Budget,
@@ -83,14 +83,15 @@ export const fetchPage = async (incomingSlugSegments: string[]): Promise<Page | 
   return null
 }
 
-export const fetchPages = async (): Promise<
-  Array<{ breadcrumbs: Page['breadcrumbs']; slug: Page['slug'] }>
-> => {
+export const fetchPages = async (): Promise<Partial<Page>[]> => {
   const payload = await getPayload({ config })
   const data = await payload.find({
     collection: 'pages',
     depth: 0,
     limit: 300,
+    select: {
+      breadcrumbs: true,
+    },
     where: {
       and: [
         {
@@ -107,34 +108,24 @@ export const fetchPages = async (): Promise<
     },
   })
 
-  const pages = data.docs.map(doc => {
-    return {
-      slug: doc.slug,
-      breadcrumbs: doc.breadcrumbs,
-    }
-  })
-
-  return pages
+  return data.docs
 }
 
-export const fetchPosts = async (): Promise<Array<{ slug: Post['slug'] }>> => {
+export const fetchPosts = async (): Promise<Partial<Post>[]> => {
   const payload = await getPayload({ config })
   const data = await payload.find({
     collection: 'posts',
     depth: 0,
     limit: 300,
+    select: {
+      slug: true,
+    },
   })
 
-  const posts = data.docs.map(doc => {
-    return {
-      slug: doc.slug,
-    }
-  })
-
-  return posts
+  return data.docs
 }
 
-export const fetchBlogPosts = async (): Promise<Post[]> => {
+export const fetchBlogPosts = async (): Promise<Partial<Post>[]> => {
   const currentDate = new Date()
   const payload = await getPayload({ config })
 
@@ -142,6 +133,13 @@ export const fetchBlogPosts = async (): Promise<Post[]> => {
     collection: 'posts',
     depth: 1,
     limit: 300,
+    select: {
+      slug: true,
+      authors: true,
+      image: true,
+      publishedOn: true,
+      title: true,
+    },
     sort: '-publishedOn',
     where: {
       and: [
@@ -181,12 +179,15 @@ export const fetchBlogPost = async (slug: string): Promise<Post> => {
   return data.docs[0]
 }
 
-export const fetchCaseStudies = async (): Promise<CaseStudy[]> => {
+export const fetchCaseStudies = async (): Promise<Partial<CaseStudy>[]> => {
   const payload = await getPayload({ config })
   const data = await payload.find({
     collection: 'case-studies',
     depth: 0,
     limit: 300,
+    select: {
+      slug: true,
+    },
   })
 
   return data.docs
@@ -250,13 +251,18 @@ export const fetchCommunityHelp = async (slug: string): Promise<CommunityHelp> =
   return data.docs[0]
 }
 
-export const fetchRelatedThreads = async (path: string): Promise<CommunityHelp[]> => {
+export const fetchRelatedThreads = async (path: string): Promise<Partial<CommunityHelp>[]> => {
   const payload = await getPayload({ config })
 
   const data = await payload.find({
     collection: 'community-help',
     depth: 0,
-    limit: 0,
+    limit: 3,
+    select: {
+      slug: true,
+      communityHelpType: true,
+      title: true,
+    },
     where: { 'relatedDocs.path': { equals: path } },
   })
 
@@ -307,7 +313,7 @@ export const fetchPartner = async (slug: string): Promise<Partner> => {
   return data.docs[0]
 }
 
-export const fetchPartnerProgram = async (): Promise<PartnerProgram> => {
+export const fetchPartnerProgram = async (): Promise<Partial<PartnerProgram>> => {
   const payload = await getPayload({ config })
   const data = await payload.findGlobal({
     slug: 'partner-program',

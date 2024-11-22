@@ -49,6 +49,12 @@ export const CaseStudies: CollectionConfig = {
     preview: doc => formatPreviewURL('case-studies', doc),
     useAsTitle: 'title',
   },
+  defaultPopulate: {
+    slug: true,
+    featuredImage: true,
+    title: true,
+    url: true,
+  },
   fields: [
     {
       name: 'title',

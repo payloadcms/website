@@ -10,6 +10,13 @@ export const Media: CollectionConfig = {
     read: () => true,
     update: isAdmin,
   },
+  defaultPopulate: {
+    alt: true,
+    filename: true,
+    height: true,
+    url: true,
+    width: true,
+  },
   fields: [
     {
       name: 'alt',
