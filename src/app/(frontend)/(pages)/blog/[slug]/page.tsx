@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { cache } from 'react'
 import { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
@@ -6,11 +6,11 @@ import { fetchBlogPost, fetchPosts } from '@data'
 import { BlogPost } from './BlogPost/index.js'
 import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave/index.js'
 import { PayloadRedirects } from '@components/PayloadRedirects/index.js'
-import { unstable_cache } from 'next/cache'
 import { draftMode } from 'next/headers.js'
 
-const getPost = (slug, draft?) =>
-  draft ? fetchBlogPost(slug) : unstable_cache(fetchBlogPost, ['blogPost', `post-${slug}`])(slug)
+const getPost = async (slug: string, draft = false) => {
+  return draft ? await fetchBlogPost(slug, draft) : await cache(fetchBlogPost)(slug, draft)
+}
 
 const Post = async ({
   params,
@@ -42,8 +42,7 @@ const Post = async ({
 export default Post
 
 export async function generateStaticParams() {
-  const getPosts = unstable_cache(fetchPosts, ['blogPosts'])
-  const posts = await getPosts()
+  const posts = await cache(fetchPosts)()
 
   return posts.map(({ slug }) => ({
     slug,

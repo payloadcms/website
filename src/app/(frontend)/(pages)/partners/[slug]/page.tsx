@@ -11,16 +11,15 @@ import { RichText } from '@components/RichText'
 import { SocialIcon } from '@components/SocialIcon'
 import { fetchPartner, fetchPartnerProgram } from '@data'
 import { ArrowIcon } from '@root/icons/ArrowIcon'
-import { unstable_cache } from 'next/cache'
 import { draftMode } from 'next/headers.js'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import React from 'react'
+import React, { cache } from 'react'
 
 import classes from './index.module.scss'
 
-const getPartner = (slug, draft) =>
-  draft ? fetchPartner(slug) : unstable_cache(fetchPartner, [`partner-${slug}`])(slug)
+const getPartner = (slug: string, draft = false) =>
+  draft ? fetchPartner(slug, draft) : cache(fetchPartner)(slug, draft)
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { isEnabled: draft } = await draftMode()
@@ -41,8 +40,7 @@ export default async function PartnerPage({ params }: { params: Promise<{ slug: 
   const { isEnabled: draft } = await draftMode()
   const { slug } = await params
   const partner = await getPartner(slug, draft)
-  const getPartnerProgram = unstable_cache(fetchPartnerProgram, ['partnerProgram'])
-  const partnerProgram = await getPartnerProgram()
+  const partnerProgram = await cache(fetchPartnerProgram)()
 
   if (!partner) {
     return notFound()

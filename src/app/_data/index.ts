@@ -1,5 +1,4 @@
 import config from '@payload-config'
-import { draftMode } from 'next/headers.js'
 import { getPayload } from 'payload'
 
 import type {
@@ -36,9 +35,7 @@ export const fetchGlobals = async (): Promise<{ footer: Footer; mainMenu: MainMe
   }
 }
 
-export const fetchPage = async (incomingSlugSegments: string[]): Promise<Page | null> => {
-  const { isEnabled: draft } = await draftMode()
-
+export const fetchPage = async (incomingSlugSegments: string[], draft = false): Promise<Page | null> => {
   const payload = await getPayload({ config })
   const slugSegments = incomingSlugSegments || ['home']
   const slug = slugSegments.at(-1)
@@ -151,8 +148,7 @@ export const fetchBlogPosts = async (): Promise<Partial<Post>[]> => {
   return data.docs
 }
 
-export const fetchBlogPost = async (slug: string): Promise<Post> => {
-  const { isEnabled: draft } = await draftMode()
+export const fetchBlogPost = async (slug: string, draft = false): Promise<Post> => {
   const payload = await getPayload({ config })
 
   const data = await payload.find({
@@ -193,8 +189,7 @@ export const fetchCaseStudies = async (): Promise<Partial<CaseStudy>[]> => {
   return data.docs
 }
 
-export const fetchCaseStudy = async (slug: string): Promise<CaseStudy> => {
-  const { isEnabled: draft } = await draftMode()
+export const fetchCaseStudy = async (slug: string, draft = false): Promise<CaseStudy> => {
   const payload = await getPayload({ config })
 
   const data = await payload.find({
@@ -285,8 +280,7 @@ export const fetchPartners = async (): Promise<Partner[]> => {
   return data.docs
 }
 
-export const fetchPartner = async (slug: string): Promise<Partner> => {
-  const { isEnabled: draft } = await draftMode()
+export const fetchPartner = async (slug: string, draft = false): Promise<Partner> => {
   const payload = await getPayload({ config })
 
   const data = await payload.find({

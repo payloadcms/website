@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { cache } from 'react'
 import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 
@@ -8,10 +8,10 @@ import { mergeOpenGraph } from '@root/seo/mergeOpenGraph.js'
 import { fetchPage, fetchPages } from '@data'
 import { RefreshRouteOnSave } from '@components/RefreshRouterOnSave'
 import { PayloadRedirects } from '@components/PayloadRedirects'
-import { unstable_cache } from 'next/cache'
 
-const getPage = async (slug, draft?) =>
-  draft ? fetchPage(slug) : unstable_cache(fetchPage, [`page-${slug}`])(slug)
+const getPage = async (slug: string[], draft = false) => {
+  return draft ? await fetchPage(slug, draft) : await cache(fetchPage)(slug, draft)
+}
 
 const Page = async ({
   params,
@@ -43,8 +43,7 @@ const Page = async ({
 export default Page
 
 export async function generateStaticParams() {
-  const getPages = unstable_cache(fetchPages, ['pages'])
-  const pages = await getPages()
+  const pages = await cache(fetchPages)()
 
   return pages.map(({ breadcrumbs }) => ({
     slug: breadcrumbs?.[breadcrumbs.length - 1]?.url?.replace(/^\/|\/$/g, '').split('/'),
