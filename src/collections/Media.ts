@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { isAdmin } from '../access/isAdmin'
 
-export const Media: CollectionConfig = {
+export const Media: CollectionConfig<'media'> = {
   slug: 'media',
   access: {
     create: isAdmin,
@@ -12,6 +12,7 @@ export const Media: CollectionConfig = {
   },
   defaultPopulate: {
     alt: true,
+    darkModeFallback: true,
     filename: true,
     height: true,
     url: true,
