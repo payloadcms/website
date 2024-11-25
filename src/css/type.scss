@@ -167,7 +167,12 @@
 
 @mixin code {
   font-family: var(--font-geist-mono);
-  font-size: calc(var(--font-body-size) * 0.825);
+  font-size: calc(var(--font-body-size) - 4px);
+  letter-spacing: 0;
+
+  @include extra-large-break {
+    font-size: calc(var(--font-body-size) - 2px);
+  }
 }
 
 @mixin label {

@@ -242,8 +242,8 @@ em {
 code {
   @include code;
   & {
-    border-radius: 3px;
-    padding: 0 5px 2px;
+    border-radius: 4px;
+    padding: 2px 4px;
   }
 
   @include data-theme-selector('light') {
@@ -251,7 +251,8 @@ code {
   }
 
   @include data-theme-selector('dark') {
-    background: var(--theme-elevation-200);
+    background: var(--theme-elevation-150);
+    border: 1px solid var(--theme-elevation-200);
   }
 }
 
