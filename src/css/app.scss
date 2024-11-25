@@ -247,7 +247,9 @@ code {
   }
 
   @include data-theme-selector('light') {
-    background: var(--theme-elevation-100);
+    background: var(--theme-elevation-50);
+    border: 1px solid var(--theme-elevation-200);
+    box-shadow: 0px 1px 2px -1px var(--theme-elevation-250);
   }
 
   @include data-theme-selector('dark') {
