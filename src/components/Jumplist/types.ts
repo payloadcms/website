@@ -6,6 +6,7 @@ export interface ListItemComponentProps {
 
 export interface ListItem {
   id: string
+  anchor: string
   Component: React.ComponentType<ListItemComponentProps>
 }
 

@@ -16,7 +16,7 @@ const H2: (props: { children }) => React.JSX.Element = ({ children }) => {
 
   return (
     <JumplistNode id={anchor} type="h2">
-      {children}
+      {typeof children === 'string' ? children.split('#')[0] : children}
     </JumplistNode>
   )
 }

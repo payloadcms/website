@@ -41,9 +41,9 @@ export const Jumplist: React.FC<Props> = ({ list, className, injectProps }) => {
 
   return (
     <ul className={className}>
-      {list.map(({ id, Component }) => (
+      {list.map(({ id, anchor, Component }) => (
         <li key={id}>
-          <Link href={`${pathname}/#${id}`} replace>
+          <Link href={`${pathname}/#${anchor}`} replace>
             <Component active={items[id] || lastActive === id} {...(injectProps || {})} />
           </Link>
         </li>
