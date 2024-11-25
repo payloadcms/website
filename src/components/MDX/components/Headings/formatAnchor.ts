@@ -9,7 +9,7 @@ function extractChildren(node: any): string {
   return ''
 }
 
-const flattenChildren: (value: string | { props: { children: any } }) => string = value => {
+const flattenChildren: (value: { props: { children: any } } | string) => string = value => {
   if (typeof value === 'string') {
     return value
   }
@@ -27,6 +27,10 @@ const flattenChildren: (value: string | { props: { children: any } }) => string 
 export const formatAnchor: (children: string | string[]) => string = children => {
   if (Array.isArray(children)) {
     return children.map(flattenChildren).join('')
+  }
+
+  if (children.includes('#')) {
+    return children.split('#')[1]
   }
   return flattenChildren(children)
 }

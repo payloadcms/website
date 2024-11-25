@@ -1,36 +1,37 @@
 export interface Heading {
-  text: string
-  level: number
+  anchor: string
   id: string
+  level: number
+  text: string
 }
 
 export interface Doc {
   content: any // eslint-disable-line
+  desc: string
+  headings: Heading[]
+  keywords: string
+  label: string
   order: number
   title: string
-  label: string
-  desc: string
-  keywords: string
-  headings: Heading[]
 }
 
 export interface NextDoc {
+  label: string
   slug: string
   title: string
-  label: string
   topic: string
 }
 
 export interface DocPath {
-  topic: string
   doc: string
+  topic: string
 }
 
 export interface DocMeta {
-  title: string
   label: string
-  slug: string
   order: number
+  slug: string
+  title: string
 }
 
 export interface Topic {

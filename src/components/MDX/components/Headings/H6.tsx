@@ -16,7 +16,7 @@ const H6: (props: { children }) => React.JSX.Element = ({ children }) => {
 
   return (
     <JumplistNode id={anchor} type="h6">
-      {children}
+      {children.split('#')[0]}
     </JumplistNode>
   )
 }

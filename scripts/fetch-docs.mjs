@@ -54,9 +54,11 @@ function getHeadings(source) {
   })
 
   return headingLines.map(raw => {
-    const text = raw.replace(/^#{2,}\s/, '')
-    const level = raw.slice(0, 3) === '###' ? 3 : 2
-    return { id: slugify(text), level, text }
+    const textWithAnchor = raw.replace(/^#{2,}\s/, '') // Remove heading hashes
+    const [text, customAnchor] = textWithAnchor.split('#') // Split by '#'
+    const level = raw.startsWith('###') ? 3 : 2
+    const anchor = slugify(customAnchor ? customAnchor.trim() : text.trim())
+    return { id: anchor, level, text: text.trim(), anchor }
   })
 }
 

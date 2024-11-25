@@ -36,8 +36,9 @@ export const TableOfContents: React.FC<Props> = ({ className, headings }) => {
       <h6 className={classes.tocTitle}>On this page</h6>
       <Jumplist
         className={classes.toc}
-        list={headings.map(({ id, level, text }) => ({
+        list={headings.map(({ id, level, text, anchor }) => ({
           id,
+          anchor,
           Component: ({ active }) => {
             if (active) {
               setActiveHeadingId(id)
