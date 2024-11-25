@@ -2,7 +2,6 @@
 import type { PayloadHandler } from 'payload'
 
 import matter from 'gray-matter'
-import fetch from 'node-fetch'
 
 import type { Doc } from '../payload-types'
 
