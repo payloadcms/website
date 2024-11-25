@@ -29,7 +29,7 @@ export const formatAnchor: (children: string | string[]) => string = children =>
     return children.map(flattenChildren).join('')
   }
 
-  if (children.includes('#')) {
+  if (typeof children === 'string' && children.includes('#')) {
     return children.split('#')[1]
   }
   return flattenChildren(children)
