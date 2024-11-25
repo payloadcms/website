@@ -16,8 +16,10 @@
   padding: 1.5rem;
   position: relative;
   @include code;
-  font-size: 1.125em;
-  font-weight: 500;
+  & {
+    font-size: 1.125em;
+    font-weight: 500;
+  }
 
   > * {
     position: relative;

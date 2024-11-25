@@ -22,14 +22,10 @@
 
 .heading {
   @include h2;
-  margin: 0;
+  & {
+    margin: 0;
+  }
 }
-
-// .tabs {
-//   @include mid-break {
-//     max-height: 80vh;
-//   }
-// }
 
 .tabsList {
   display: flex;
