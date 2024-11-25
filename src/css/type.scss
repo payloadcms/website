@@ -39,6 +39,10 @@
   @include small-break {
     font-size: 2.5rem;
   }
+
+  & code {
+    font-size: inherit;
+  }
 }
 
 @mixin h2 {
@@ -55,6 +59,9 @@
   @include small-break {
     font-size: 1.75rem;
   }
+  & code {
+    font-size: inherit;
+  }
 }
 
 @mixin h3 {
@@ -66,6 +73,9 @@
 
   @include small-break {
     font-size: 1.5rem;
+  }
+  & code {
+    font-size: inherit;
   }
 }
 
@@ -83,6 +93,9 @@
   @include small-break {
     font-size: 1.125rem;
   }
+  & code {
+    font-size: inherit;
+  }
 }
 
 @mixin h5 {
@@ -99,6 +112,9 @@
   @include small-break {
     font-size: 1rem;
   }
+  & code {
+    font-size: inherit;
+  }
 }
 
 @mixin h6 {
@@ -111,6 +127,9 @@
 
   @include large-break {
     font-size: 12px;
+  }
+  & code {
+    font-size: inherit;
   }
 }
 
