@@ -281,6 +281,16 @@ export default buildConfig({
             admin: {
               position: 'sidebar',
             },
+            label: 'HubSpot Form ID',
+          },
+          {
+            name: 'customID',
+            type: 'text',
+            admin: {
+              description: 'Attached to submission button to track clicks',
+              position: 'sidebar',
+            },
+            label: 'Custom ID',
           },
         ],
         hooks: {

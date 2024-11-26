@@ -4668,6 +4668,7 @@ export interface Form {
       }[]
     | null;
   hubSpotFormID?: string | null;
+  customID?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -5948,11 +5949,9 @@ export interface CaseStudiesSelect<T extends boolean = true> {
   meta?:
     | T
     | {
-        overview?: T;
         title?: T;
         description?: T;
         image?: T;
-        preview?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -7040,11 +7039,9 @@ export interface PagesSelect<T extends boolean = true> {
   meta?:
     | T
     | {
-        overview?: T;
         title?: T;
         description?: T;
         image?: T;
-        preview?: T;
       };
   parent?: T;
   breadcrumbs?:
@@ -7208,11 +7205,9 @@ export interface PostsSelect<T extends boolean = true> {
   meta?:
     | T
     | {
-        overview?: T;
         title?: T;
         description?: T;
         image?: T;
-        preview?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -8400,6 +8395,7 @@ export interface FormsSelect<T extends boolean = true> {
         id?: T;
       };
   hubSpotFormID?: T;
+  customID?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -11449,11 +11445,9 @@ export interface GetStartedSelect<T extends boolean = true> {
   meta?:
     | T
     | {
-        overview?: T;
         title?: T;
         description?: T;
         image?: T;
-        preview?: T;
       };
   updatedAt?: T;
   createdAt?: T;
