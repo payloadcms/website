@@ -37,7 +37,7 @@
     "@payloadcms/email-nodemailer": "3.2.2-canary.451666e",
     "@payloadcms/live-preview-react": "3.2.2-canary.451666e",
     "@payloadcms/next": "3.2.2-canary.451666e",
-    "@payloadcms/plugin-form-builder": "3.2.2-canary.61b5ea5",
+    "@payloadcms/plugin-form-builder": "3.2.2-canary.451666e",
     "@payloadcms/plugin-nested-docs": "3.2.2-canary.451666e",
     "@payloadcms/plugin-redirects": "3.2.2-canary.451666e",
     "@payloadcms/plugin-seo": "3.2.2-canary.451666e",
