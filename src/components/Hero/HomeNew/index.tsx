@@ -40,7 +40,7 @@ export const HomeNewHero: React.FC<
     <ChangeHeaderTheme theme="dark">
       <BlockWrapper
         settings={{ theme: 'dark' }}
-        padding={{ top: 'small', bottom: 'large' }}
+        padding={{ top: 'small', bottom: 'small' }}
         className={classes.heroWrapper}
       >
         <Gutter className={[classes.heroContentWrapper, 'grid'].join(' ')}>
@@ -84,10 +84,34 @@ export const HomeNewHero: React.FC<
           </div>
         </Gutter>
         <Gutter className={[classes.logoShowcaseWrapper, 'grid'].join(' ')}>
-          {logoShowcaseLabel && <h6>{logoShowcaseLabel}</h6>}
+          {logoShowcaseLabel && <RichText content={logoShowcaseLabel} />}
           {filteredLogos && <LogoShowcase logos={filteredLogos} />}
         </Gutter>
-        <BackgroundGrid zIndex={-2} />
+        <BackgroundGrid
+          zIndex={-2}
+          gridLineStyles={[
+            {
+              background:
+                'linear-gradient(to bottom, transparent 80px, var(--theme-border-color) 240px)',
+            },
+            {
+              background:
+                'linear-gradient(to bottom, transparent 160px, var(--theme-border-color) 240px)',
+            },
+            {
+              background:
+                'linear-gradient(to bottom, transparent 200px, var(--theme-border-color) 240px)',
+            },
+            {
+              background:
+                'linear-gradient(to bottom, transparent 160px, var(--theme-border-color) 240px)',
+            },
+            {
+              background:
+                'linear-gradient(to bottom, transparent 80px, var(--theme-border-color) 240px)',
+            },
+          ]}
+        />
       </BlockWrapper>
       <BackgroundGradient className={classes.backgroundGradient} />
     </ChangeHeaderTheme>

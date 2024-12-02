@@ -55,6 +55,11 @@ a.logo {
   display: flex;
   flex-shrink: 0;
 
+  svg {
+    height: 1.25rem;
+    width: auto;
+  }
+
   @include small-break {
     display: none;
   }

@@ -1,42 +1,32 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
-import useIntersection from '@utilities/useIntersection.js'
+import type { StepsBlock } from '@root/payload-types.js'
 
-import { Gutter } from '@components/Gutter/index.js'
-import { RenderBlocks } from '@components/RenderBlocks/index.js'
-import { Page } from '@root/payload-types.js'
+import { Media } from '@components/Media'
+import RichText from '@components/RichText'
+import { useInView } from 'framer-motion'
+import React, { useRef } from 'react'
 
 import classes from './index.module.scss'
 
-type Props = Extract<Page['layout'][0], { blockType: 'steps' }>['stepsFields']['steps'][0] & {
+type Props = {
   i: number
+  step: StepsBlock['stepsFields']['steps'][0]
 }
 
-export const Step: React.FC<Props> = ({ layout, i }) => {
+export const Step: React.FC<Props> = ({ i, step }) => {
+  const { content, media } = step
   const ref = useRef(null)
-  const { isIntersecting } = useIntersection({ ref, rootMargin: '0% 0% -25% 0%' })
+  const isInView = useInView(ref, { margin: '-160px 0px -160px 0px', once: true })
 
-  const [hasAnimated, setHasAnimated] = useState(false)
-
-  useEffect(() => {
-    if (isIntersecting && !hasAnimated) setHasAnimated(true)
-  }, [isIntersecting, hasAnimated])
-
-  if (layout) {
-    return (
-      <li
-        className={[classes.step, hasAnimated && classes.animate].filter(Boolean).join(' ')}
-        key={i}
-        ref={ref}
-      >
-        <Gutter>
-          <h6 className={classes.label}>Step 0{i + 1}</h6>
-        </Gutter>
-        <RenderBlocks disableOuterSpacing blocks={layout} />
-      </li>
-    )
-  }
-
-  return null
+  return (
+    <div
+      className={[classes.stepContainer, isInView && classes.inView].filter(Boolean).join(' ')}
+      ref={ref}
+    >
+      <span className={classes.pill}>Step {i + 1}</span>
+      {content && <RichText className={classes.content} content={content} />}
+      {media && typeof media !== 'string' && <Media className={classes.media} resource={media} />}
+    </div>
+  )
 }

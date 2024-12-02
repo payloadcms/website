@@ -15,7 +15,7 @@ export const PartnerGrid = (props: PartnerGridProps) => {
       {partners.map(partner => {
         return (
           typeof partner !== 'string' && (
-            <PartnerCard {...partner} key={`${partner.id}_${featured ? '_featured' : ''}`} />
+            <PartnerCard {...partner} key={partner.id + featured ? '_featured' : ''} />
           )
         )
       })}

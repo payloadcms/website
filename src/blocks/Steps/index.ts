@@ -1,17 +1,9 @@
 import type { Block } from 'payload'
 
 import { blockFields } from '../../fields/blockFields'
-import { CodeFeature } from '../CodeFeature'
-import { Content } from '../Content'
-import { HoverHighlights } from '../HoverHighlights'
-import { StickyHighlights } from '../StickyHighlights'
 
 export const Steps: Block = {
   slug: 'steps',
-  labels: {
-    singular: 'Steps Block',
-    plural: 'Steps Blocks',
-  },
   fields: [
     blockFields({
       name: 'stepsFields',
@@ -19,16 +11,26 @@ export const Steps: Block = {
         {
           name: 'steps',
           type: 'array',
-          required: true,
           fields: [
             {
-              name: 'layout',
-              type: 'blocks',
-              blocks: [CodeFeature, Content, HoverHighlights, StickyHighlights],
+              name: 'content',
+              type: 'richText',
+              required: true,
+            },
+            {
+              name: 'media',
+              type: 'upload',
+              relationTo: 'media',
             },
           ],
+          required: true,
         },
       ],
     }),
   ],
+  interfaceName: 'StepsBlock',
+  labels: {
+    plural: 'Steps Blocks',
+    singular: 'Steps Block',
+  },
 }

@@ -1,7 +1,8 @@
 'use client'
 
 import { Button } from '@components/Button'
-import { CheckIcon, CopyIcon } from '@payloadcms/ui'
+import { CheckIcon } from '@icons/CheckIcon'
+import { CopyIcon } from '@icons/CopyIcon'
 import React from 'react'
 
 import classes from './index.module.scss'
@@ -9,9 +10,11 @@ import classes from './index.module.scss'
 export const CommandLine = ({
   command,
   inLinkGroup,
+  lexical,
 }: {
   command: string
   inLinkGroup?: boolean
+  lexical?: boolean
 }) => {
   const [copied, setCopied] = React.useState(false)
   const CopyToClipboard = async (command: string) => {
@@ -23,7 +26,20 @@ export const CommandLine = ({
     })
   }
 
-  return (
+  return lexical ? (
+    <div className={classes.lexicalCommandLineWrap}>
+      <span className={classes.lexicalCommandLine}>
+        <span className={classes.commandText}>{command}</span>
+        <button
+          className={classes.copyButton}
+          onClick={() => CopyToClipboard(command)}
+          type="button"
+        >
+          {copied ? <CheckIcon aria-label="Copied" /> : <CopyIcon aria-label="Copy to clipboard" />}
+        </button>
+      </span>
+    </div>
+  ) : (
     <Button
       aria-label={`Copy command: ${command}`}
       aria-live="polite"

@@ -40,7 +40,7 @@ import { EnvVars } from './EnvVars.js'
 import { checkoutReducer, CheckoutState } from './reducer.js'
 
 import classes from './Checkout.module.scss'
-import { toast } from '@payloadcms/ui'
+import { toast } from 'sonner'
 
 const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
 const Stripe = loadStripe(apiKey)

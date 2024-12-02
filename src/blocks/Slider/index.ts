@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import link from '@root/fields/link'
+import linkGroup from '@root/fields/linkGroup'
 
 import { blockFields } from '../../fields/blockFields'
 
@@ -10,6 +11,11 @@ export const Slider: Block = {
     blockFields({
       name: 'sliderFields',
       fields: [
+        {
+          name: 'introContent',
+          type: 'richText',
+        },
+        linkGroup(),
         {
           name: 'quoteSlides',
           type: 'array',

@@ -1,9 +1,7 @@
 import type { Block } from 'payload'
 
 import { blockFields } from '../../fields/blockFields'
-import linkGroup from '../../fields/linkGroup'
 import link from '../../fields/link'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const MediaContentAccordion: Block = {
   slug: 'mediaContentAccordion',
@@ -14,6 +12,9 @@ export const MediaContentAccordion: Block = {
         {
           name: 'alignment',
           type: 'select',
+          admin: {
+            description: 'Choose how to align the content for this block.',
+          },
           defaultValue: 'contentMedia',
           options: [
             {
@@ -25,9 +26,6 @@ export const MediaContentAccordion: Block = {
               value: 'mediaContent',
             },
           ],
-          admin: {
-            description: 'Choose how to align the content for this block.',
-          },
         },
         {
           type: 'row',
@@ -51,8 +49,6 @@ export const MediaContentAccordion: Block = {
         {
           name: 'accordion',
           type: 'array',
-          minRows: 1,
-          maxRows: 4,
           fields: [
             {
               type: 'row',
@@ -60,6 +56,10 @@ export const MediaContentAccordion: Block = {
                 {
                   name: 'position',
                   type: 'select',
+                  admin: {
+                    description: 'Choose how to position the media itself.',
+                    width: '50%',
+                  },
                   defaultValue: 'normal',
                   options: [
                     {
@@ -75,14 +75,14 @@ export const MediaContentAccordion: Block = {
                       value: 'wide',
                     },
                   ],
-                  admin: {
-                    description: 'Choose how to position the media itself.',
-                    width: '50%',
-                  },
                 },
                 {
                   name: 'background',
                   type: 'select',
+                  admin: {
+                    description: 'Select the background you want to sit behind the media.',
+                    width: '50%',
+                  },
                   defaultValue: 'none',
                   options: [
                     {
@@ -98,10 +98,6 @@ export const MediaContentAccordion: Block = {
                       value: 'scanlines',
                     },
                   ],
-                  admin: {
-                    description: 'Select the background you want to sit behind the media.',
-                    width: '50%',
-                  },
                 },
               ],
             },
@@ -113,9 +109,6 @@ export const MediaContentAccordion: Block = {
             {
               name: 'mediaDescription',
               type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => rootFeatures,
-              }),
               required: true,
             },
             {
@@ -137,6 +130,8 @@ export const MediaContentAccordion: Block = {
               required: true,
             },
           ],
+          maxRows: 4,
+          minRows: 1,
         },
       ],
     }),

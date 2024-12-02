@@ -15,8 +15,9 @@ import { RichText } from '@components/RichText/index.js'
 import { AuthorsList } from '../AuthorsList/index.js'
 
 import classes from './index.module.scss'
+import { Video } from '@components/RichText/Video/index.js'
 export const BlogPost: React.FC<Post> = props => {
-  const { title, publishedOn, image, excerpt, content, relatedPosts } = props
+  const { title, publishedOn, image, excerpt, content, relatedPosts, useVideo, videoUrl } = props
   const [docPadding, setDocPadding] = React.useState(0)
   const docRef = React.useRef<HTMLDivElement>(null)
   const docSize = useResize(docRef)
@@ -25,6 +26,21 @@ export const BlogPost: React.FC<Post> = props => {
     if (docRef.current?.offsetWidth === undefined) return
     setDocPadding(Math.round(docRef.current?.offsetWidth / 16) - 2)
   }, [docRef.current?.offsetWidth, docSize])
+
+  let videoToUse: {
+    platform: 'vimeo' | 'youtube'
+    id: string
+  } | null = null
+
+  if (videoUrl && (videoUrl.includes('vimeo') || videoUrl.includes('youtube'))) {
+    const platform = videoUrl.includes('vimeo') ? 'vimeo' : 'youtube'
+    const id = platform === 'vimeo' ? videoUrl.split('/').pop() : videoUrl.split('v=').pop()
+
+    videoToUse = {
+      platform,
+      id: id || '',
+    }
+  }
 
   return (
     <div id="blog" className={classes.blog}>
@@ -85,7 +101,11 @@ export const BlogPost: React.FC<Post> = props => {
                 className={classes.heroImageWrap}
                 style={{ marginLeft: -(docPadding + 1), marginRight: docPadding * -4 - 6 }}
               >
-                <Media className={classes.heroImage} resource={image} priority />
+                {useVideo ? (
+                  <Video {...videoToUse} />
+                ) : (
+                  <Media className={classes.heroImage} resource={image} priority />
+                )}
               </div>
             )}
             {typeof image !== 'string' && (

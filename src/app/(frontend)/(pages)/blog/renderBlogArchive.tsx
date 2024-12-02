@@ -12,7 +12,7 @@ import { Post } from '@root/payload-types.js'
 
 import classes from './index.module.scss'
 
-export const RenderBlogArchive: React.FC<{ posts: Post[] }> = ({ posts }) => {
+export const RenderBlogArchive: React.FC<{ posts: Partial<Post>[] }> = ({ posts }) => {
   const latestPost = posts[0]
   return (
     <React.Fragment>
@@ -38,14 +38,20 @@ export const RenderBlogArchive: React.FC<{ posts: Post[] }> = ({ posts }) => {
           <FeaturedBlogPost {...latestPost} />
           <div className={[classes.cardGrid, 'grid'].filter(Boolean).join(' ')}>
             {(posts || []).slice(1).map(blogPost => {
+              const { id, title, publishedOn, slug, image, authors } = blogPost
+
+              if (!id || !title || !publishedOn || !slug || !image || !authors) {
+                return null
+              }
+
               return (
-                <div key={blogPost.id} className={['cols-8 cols-m-8'].filter(Boolean).join(' ')}>
+                <div key={id} className={['cols-8 cols-m-8'].filter(Boolean).join(' ')}>
                   <ContentMediaCard
-                    title={blogPost.title}
-                    publishedOn={blogPost.publishedOn}
-                    href={`/blog/${blogPost.slug}`}
-                    media={blogPost.image}
-                    authors={blogPost.authors}
+                    title={title}
+                    publishedOn={publishedOn}
+                    href={`/blog/${slug}`}
+                    media={image}
+                    authors={authors}
                   />
                 </div>
               )

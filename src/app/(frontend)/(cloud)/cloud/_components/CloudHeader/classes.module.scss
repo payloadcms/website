@@ -18,6 +18,10 @@
     @include small-break {
       display: block;
     }
+    & {
+      width: auto;
+      height: 30px;
+    }
   }
 
   .headerLinks {

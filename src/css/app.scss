@@ -3,10 +3,10 @@
 @use './vars.scss' as *;
 @use './queries.scss' as *;
 @use './type.scss' as *;
-@import "./colors.scss";
-@import './docsearch.scss';
-@import "./theme.scss";
-@import './toasts.scss';
+@use "./colors.scss";
+@use './docsearch.scss';
+@use "./theme.scss";
+@use './toasts.scss';
 
 :root {
   font-size: 20px;
@@ -242,16 +242,19 @@ em {
 code {
   @include code;
   & {
-    border-radius: 3px;
-    padding: 0 5px 2px;
+    border-radius: 4px;
+    padding: 2px 4px;
   }
 
   @include data-theme-selector('light') {
-    background: var(--theme-elevation-100);
+    background: var(--theme-elevation-50);
+    border: 1px solid var(--theme-elevation-200);
+    box-shadow: 0px 1px 2px -1px var(--theme-elevation-250);
   }
 
   @include data-theme-selector('dark') {
-    background: var(--theme-elevation-200);
+    background: var(--theme-elevation-150);
+    border: 1px solid var(--theme-elevation-200);
   }
 }
 

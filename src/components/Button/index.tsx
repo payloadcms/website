@@ -25,6 +25,7 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
     | 'success'
     | 'warning'
     | null
+  customId?: string | null
   el?: 'button' | 'link' | 'a' | 'div'
   href?: string | null
   newTab?: boolean | null
@@ -256,6 +257,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
     size = 'default',
     disabled,
     href: hrefFromProps,
+    id,
     url,
     hideBorders,
     hideHorizontalBorders,
@@ -340,6 +342,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
           onMouseLeave={() => {
             setIsHovered(false)
           }}
+          id={id}
         >
           <ButtonContent {...props} />
         </a>
@@ -365,6 +368,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
           setIsHovered(false)
         }}
         disabled={disabled}
+        id={id}
       >
         <ButtonContent appearance={appearance} {...props} />
       </Element>

@@ -19,13 +19,15 @@ import { FullLogo } from '../../../graphics/FullLogo/index.js'
 import { MenuIcon } from '../../../graphics/MenuIcon/index.js'
 import { CMSLink } from '../../CMSLink/index.js'
 import { DocSearch } from '../Docsearch/index.js'
+import { GitHubIcon } from '@root/graphics/GitHub/index.js'
 
 import classes from './index.module.scss'
+import { useStarCount } from '@root/utilities/use-star-count.js'
 
 export const modalSlug = 'mobile-nav'
 export const subMenuSlug = 'mobile-sub-menu'
 
-type NavItems = Pick<MainMenu, 'tabs'>
+type NavItems = Pick<MainMenu, 'tabs' | 'menuCta'>
 
 const MobileNavItems = ({ tabs, setActiveTab }) => {
   const { user } = useAuth()
@@ -257,6 +259,8 @@ export const MobileNav: React.FC<NavItems> = props => {
     }
   }, [isMenuOpen, closeAllModals, openModal])
 
+  const starCount = useStarCount()
+
   return (
     <div className={classes.mobileNav}>
       <div className={classes.menuBar}>
@@ -271,20 +275,20 @@ export const MobileNav: React.FC<NavItems> = props => {
                 prefetch={false}
                 aria-label="Full Payload Logo"
               >
-                <FullLogo />
+                <FullLogo className="w-auto h-[30px]" />
               </Link>
               <div className={classes.icons}>
-                <div className={classes.cloudNewProject}>
-                  <Link href="/new" prefetch={false}>
-                    New project
-                  </Link>
-                  {!user && (
-                    <Link href="/login" prefetch={false}>
-                      Login
-                    </Link>
-                  )}
-                </div>
-                {user && <Avatar className={classes.mobileAvatar} />}
+                <a
+                  className={classes.github}
+                  href="https://github.com/payloadcms/payload"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Payload's GitHub"
+                >
+                  <GitHubIcon />
+                  {starCount}
+                </a>
+                {user && <Avatar className={classes.avatar} />}
                 <DocSearch />
                 <div
                   className={[classes.modalToggler, isMenuOpen ? classes.hamburgerOpen : '']

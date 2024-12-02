@@ -26,7 +26,6 @@ import { Steps } from '../blocks/Steps'
 import { StickyHighlights } from '../blocks/StickyHighlights'
 import { Statement } from '../blocks/Statement'
 import { MediaContentAccordion } from '../blocks/MediaContentAccordion'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { revalidatePath } from 'next/cache'
 
 export const PartnerProgram: GlobalConfig = {
@@ -35,6 +34,9 @@ export const PartnerProgram: GlobalConfig = {
   access: {
     read: () => true,
     update: isAdmin,
+  },
+  admin: {
+    group: 'Partner Program',
   },
   fields: [
     {
@@ -54,9 +56,6 @@ export const PartnerProgram: GlobalConfig = {
           name: 'richText',
           type: 'richText',
           label: 'Hero Text',
-          editor: lexicalEditor({
-            features: ({ rootFeatures }) => rootFeatures,
-          }),
         },
         linkGroup({
           overrides: {

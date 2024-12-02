@@ -1,5 +1,7 @@
 @use '@scss/common.scss' as *;
 
+$curve: cubic-bezier(.165, 0.84, 0.44, 1);
+
 .mobileNav {
   display: none;
   visibility: hidden;
@@ -16,6 +18,11 @@
 .logo {
   position: relative;
   top: -2px;
+
+  & svg {
+    height: 1.25rem;
+    width: auto;
+  }
 }
 
 .menuBarContainer {
@@ -46,6 +53,12 @@
 
 .icons {
   display: flex;
+  align-items: center;
+  gap: 1.25rem;
+
+  a {
+    text-decoration: none;
+  }
 
   & path, & rect {
     color: var(--theme-elevation-900);
@@ -87,7 +100,6 @@
 .modalToggler {
   all: unset;
   cursor: pointer;
-  margin-left: 1rem;
   height: 100%;
   display: flex;
   align-self: center;
@@ -377,4 +389,32 @@
     font-weight: normal;
     text-transform: uppercase;
   }
+}
+
+.github {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  svg {
+    width: 1.25rem;
+  }
+
+  @include small-break {
+    display: none;
+    visibility: hidden;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+a.button {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  color: var(--theme-elevation-0);
+  background: var(--theme-elevation-1000);
+  border: 1px solid var(--theme-elevation-1000);
+  border-radius: 4px;
 }

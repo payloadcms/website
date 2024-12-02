@@ -11,7 +11,6 @@ const Filter: (slug: string, label: string) => CollectionConfig = (slug, label) 
       delete: isAdmin,
     },
     admin: {
-      hidden: true,
       group: 'Partner Program',
       useAsTitle: 'name',
     },

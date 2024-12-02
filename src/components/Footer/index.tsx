@@ -87,7 +87,7 @@ export const Footer: React.FC<FooterType> = props => {
       <Gutter className={classes.container}>
         <div className={[classes.grid, 'grid'].filter(Boolean).join(' ')}>
           <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
-            <p className={classes.colHeader}>{products.label}</p>
+            <p className={classes.colHeader}>{products?.label}</p>
             <div className={classes.colItems}>
               {products?.navItems?.map(({ link }, index) => {
                 return (
@@ -100,7 +100,7 @@ export const Footer: React.FC<FooterType> = props => {
           </div>
 
           <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
-            <p className={classes.colHeader}>{developers.label}</p>
+            <p className={classes.colHeader}>{developers?.label}</p>
             <div className={classes.colItems}>
               {developers?.navItems?.map(({ link }, index) => {
                 return (
@@ -113,7 +113,7 @@ export const Footer: React.FC<FooterType> = props => {
           </div>
 
           <div className={['cols-4 cols-m-8 cols-s-8'].filter(Boolean).join(' ')}>
-            <p className={classes.colHeader}>{company.label}</p>
+            <p className={classes.colHeader}>{company?.label}</p>
             <div className={classes.colItems}>
               {company?.navItems?.map(({ link }, index) => {
                 return (
@@ -131,13 +131,22 @@ export const Footer: React.FC<FooterType> = props => {
 
             <div className={classes.socialLinks}>
               <a
-                href="https://www.instagram.com/payloadcms/"
+                href="https://twitter.com/payloadcms"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${classes.socialIconLink} ${classes.twitterIcon}`}
+                aria-label="Payload's Twitter page"
+              >
+                <TwitterIconAlt />
+              </a>
+              <a
+                href="https://discord.com/invite/r6sCXqVk3v"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={classes.socialIconLink}
-                aria-label="Payload's Instagram page"
+                aria-label="Payload's Discord"
               >
-                <InstagramIcon />
+                <DiscordIcon />
               </a>
               <a
                 href="https://www.youtube.com/channel/UCyrx4Wpd4SBIpqUKlkb6N1Q"
@@ -149,31 +158,13 @@ export const Footer: React.FC<FooterType> = props => {
                 <YoutubeIcon />
               </a>
               <a
-                href="https://twitter.com/payloadcms"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${classes.socialIconLink} ${classes.twitterIcon}`}
-                aria-label="Payload's Twitter page"
-              >
-                <TwitterIconAlt />
-              </a>
-              <a
-                href="https://www.facebook.com/payloadcms/"
+                href="https://www.instagram.com/payloadcms/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={classes.socialIconLink}
-                aria-label="Payload's Facebook page"
+                aria-label="Payload's Instagram page"
               >
-                <FacebookIcon />
-              </a>
-              <a
-                href="https://discord.com/invite/r6sCXqVk3v"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes.socialIconLink}
-                aria-label="Payload's Discord"
-              >
-                <DiscordIcon />
+                <InstagramIcon />
               </a>
             </div>
 

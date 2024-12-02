@@ -7,7 +7,7 @@
 .wrapper {
   min-height: 80vh;
   position: relative;
-  padding-block: 16rem;
+  padding-block: 8rem;
 
   @include mid-break {
     padding-block: 4rem;
@@ -117,7 +117,7 @@
   position: absolute;
 }
 
-.rightMargin {
+.rightMargin div {
   position: absolute;
   width: calc(var(--gutter-h) + (var(--column) * 4));
   height: 100%;

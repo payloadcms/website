@@ -36,6 +36,7 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
     confirmationType,
     redirect: formRedirect,
     confirmationMessage,
+    customID,
   } = form
 
   const [isLoading, setIsLoading] = React.useState(false)
@@ -180,6 +181,7 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
               iconRotation={45}
               icon={isLoading ? 'loading' : 'arrow'}
               iconSize={isLoading ? 'large' : 'medium'}
+              id={customID ?? formID}
             />
           </Form>
         </React.Fragment>
