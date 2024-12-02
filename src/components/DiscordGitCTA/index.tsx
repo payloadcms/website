@@ -37,9 +37,9 @@ export const DiscordGitCTA: React.FC<{ appearance?: 'default' | 'minimal' }> = (
           <strong>Can&apos;t find what you&apos;re looking for?</strong>
           <br />
           <p className={classes.license}>
-            Get help straight from the Payload team with an{' '}
-            <Link className={classes.button} href="/for-enterprise" prefetch={false}>
-              Enterprise License
+            Get dedicated engineering support{' '}
+            <Link className={classes.button} href="/talk-to-us" prefetch={false}>
+              directly from the Payload team.
             </Link>
             .
           </p>
