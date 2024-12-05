@@ -37,7 +37,7 @@ export const RenderDocs = async ({
     tGroup.some(topic => topic?.slug?.toLowerCase() === params.topic),
   )
 
-  const topicIndex = topicGroups[groupIndex].topics.findIndex(
+  const topicIndex = topicGroups[groupIndex]?.topics.findIndex(
     topic => topic?.slug?.toLowerCase() === params.topic,
   )
 
