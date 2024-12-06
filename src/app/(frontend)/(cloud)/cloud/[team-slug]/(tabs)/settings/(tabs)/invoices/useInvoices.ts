@@ -46,8 +46,6 @@ export const useInvoices = (args: {
 
   const loadInvoices = useCallback(
     async (successMessage?: string, starting_after?: string) => {
-      let timer: NodeJS.Timeout
-
       if (isRequesting.current) return
 
       isRequesting.current = true
@@ -79,11 +77,6 @@ export const useInvoices = (args: {
       }
 
       isRequesting.current = false
-
-      // eslint-disable-next-line consistent-return
-      return () => {
-        clearTimeout(timer)
-      }
     },
     [delay, team],
   )

@@ -47,7 +47,7 @@ export const useSubscriptions = (args: {
           team,
         })
 
-        setTimeout(() => {
+        timer = setTimeout(() => {
           dispatchResult({
             type: starting_after ? 'add' : 'reset',
             payload: subscriptions,
@@ -87,8 +87,6 @@ export const useSubscriptions = (args: {
 
   const updateSubscription = useCallback(
     async (stripeSubscriptionID: string, newSubscription: Subscription) => {
-      let timer: NodeJS.Timeout
-
       if (!stripeSubscriptionID) {
         setError('No subscription ID')
         return
@@ -128,19 +126,12 @@ export const useSubscriptions = (args: {
       }
 
       isUpdating.current = false
-
-      // eslint-disable-next-line consistent-return
-      return () => {
-        clearTimeout(timer)
-      }
     },
     [refreshSubscriptions, team],
   )
 
   const cancelSubscription = useCallback(
     async (stripeSubscriptionID: string) => {
-      let timer: NodeJS.Timeout
-
       if (!stripeSubscriptionID) {
         setError('No subscription ID')
         return
@@ -176,11 +167,6 @@ export const useSubscriptions = (args: {
       }
 
       isDeleting.current = false
-
-      // eslint-disable-next-line consistent-return
-      return () => {
-        clearTimeout(timer)
-      }
     },
     [refreshSubscriptions, team],
   )

@@ -53,7 +53,7 @@ export const useCloudAPI = <R>(args: {
           const json: R = await req.json()
 
           if (req.ok) {
-            setTimeout(() => {
+            timer = setTimeout(() => {
               setResult(json)
               setError('')
               setIsLoading(false)
@@ -253,9 +253,9 @@ export const useGetProjectDeployments: UseCloudAPI<
         },
         {
           environmentSlug: {
-            equals: environmentSlug
-          }
-        }
+            equals: environmentSlug,
+          },
+        },
       ],
     },
   })

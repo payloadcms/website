@@ -80,7 +80,7 @@ export const usePaymentMethods = (args: {
 
         const paymentMethods = await fetchPaymentMethodsClient({ team })
 
-        setTimeout(() => {
+        timer = setTimeout(() => {
           dispatchResult({ type: 'RESET_CARDS', payload: paymentMethods || [] })
           setError('')
           setIsLoading(false)
@@ -111,8 +111,6 @@ export const usePaymentMethods = (args: {
 
   const deletePaymentMethod = useCallback(
     async (paymentMethodID: string) => {
-      let timer: NodeJS.Timeout
-
       if (!paymentMethodID) {
         setError('No payment method')
         return
@@ -178,11 +176,6 @@ export const usePaymentMethods = (args: {
       }
 
       isDeleting.current = false
-
-      // eslint-disable-next-line consistent-return
-      return () => {
-        clearTimeout(timer)
-      }
     },
     [team, result, defaultPaymentMethod],
   )

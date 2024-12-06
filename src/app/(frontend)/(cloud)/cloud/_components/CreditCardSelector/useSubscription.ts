@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-
 import type { Team } from '@root/payload-cloud-types.js'
+
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 // TODO: type this using the Stripe module
 export interface Subscription {
@@ -8,18 +8,18 @@ export interface Subscription {
 }
 
 export const useSubscription = (args: {
-  stripeSubscriptionID?: string
-  team: Team
   delay?: number
   initialValue?: Subscription | null
+  stripeSubscriptionID?: string
+  team: Team
 }): {
-  result: Subscription | null | undefined
-  isLoading: boolean | null
   error: string
+  isLoading: boolean | null
   refreshSubscription: () => void
+  result: Subscription | null | undefined
   updateSubscription: (subscription: Subscription) => void
 } => {
-  const { stripeSubscriptionID, team, delay, initialValue } = args
+  const { delay, initialValue, stripeSubscriptionID, team } = args
   const isRequesting = useRef(false)
   const [result, setResult] = useState<Subscription | null | undefined>(initialValue)
   const [isLoading, setIsLoading] = useState<boolean | null>(null)
@@ -44,15 +44,15 @@ export const useSubscription = (args: {
         const req = await fetch(
           `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/subscriptions/${stripeSubscriptionID}`,
           {
-            method: 'GET',
             credentials: 'include',
+            method: 'GET',
           },
         )
 
         const subscription: Subscription = await req.json()
 
         if (req.ok) {
-          setTimeout(() => {
+          timer = setTimeout(() => {
             setResult(subscription)
             setError('')
             setIsLoading(false)
@@ -107,19 +107,19 @@ export const useSubscription = (args: {
           const req = await fetch(
             `${process.env.NEXT_PUBLIC_CLOUD_CMS_URL}/api/teams/${team?.id}/subscriptions/${stripeSubscriptionID}`,
             {
-              method: 'PATCH',
+              body: JSON.stringify(newSubscription),
               credentials: 'include',
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify(newSubscription),
+              method: 'PATCH',
             },
           )
 
           const subscription: Subscription = await req.json()
 
           if (req.ok) {
-            setTimeout(() => {
+            timer = setTimeout(() => {
               setResult(subscription)
               setError('')
               setIsLoading(false)
@@ -148,7 +148,7 @@ export const useSubscription = (args: {
   )
 
   const memoizedState = useMemo(
-    () => ({ result, isLoading, error, refreshSubscription, updateSubscription }),
+    () => ({ error, isLoading, refreshSubscription, result, updateSubscription }),
     [result, isLoading, error, refreshSubscription, updateSubscription],
   )
 
