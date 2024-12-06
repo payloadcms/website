@@ -17,7 +17,7 @@ interface Props {
 }
 
 const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 'h2' }) => {
-  const containerRef = useRef<HTMLElement>(null)
+  const containerRef = useRef<HTMLHeadingElement>(null)
   const containerSize = useResize(containerRef)
 
   const [mousePosition, setMousePosition] = useState({
@@ -106,7 +106,6 @@ const SpotlightAnimation: React.FC<Props> = ({ children, richTextChildren, as = 
 
   return (
     <div className={[classes.wrapper].filter(Boolean).join(' ')}>
-      {/* @ts-expect-error */}
       <Element
         style={{ backgroundPosition: getBackgroundOrigin }}
         className={[classes.container].filter(Boolean).join(' ')}

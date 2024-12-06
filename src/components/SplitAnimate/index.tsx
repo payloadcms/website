@@ -48,7 +48,6 @@ const SplitAnimate: React.FC<Props> = ({
   }, [isInView, callback])
 
   return (
-    // @ts-expect-error
     <Element ref={scope} className={(classes.element, className)} {...props}>
       {textArray.map((text, index) => {
         const isLast = index + 1 === textArray.length
