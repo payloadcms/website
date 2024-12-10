@@ -59,15 +59,14 @@ You can also specify a `beta` version and `legacy` version to render different v
 
 Working on docs locally:
 
-To work on the docs locally you will need to have the payload repo cloned down (it is easier if you have 2 versions, one per payload version):
+To work on the docs locally you will need to have the payload repo cloned down:
 
 ```
 // .env
-DOCS_DIR_V2=path-to-local-payload-v2-repo
-DOCS_DIR_V3=path-to-local-payload-v3-repo
+DOCS_DIR=path-to-local-payload-repo # Example: DOCS_DIR=/Users/yourname/Documents/GitHub/payload/docs`
 ```
 
-To generate the docs locally you can run `pnpm fetchDocs:local`, then you can boot up the website repo and view them at http://localhost:3000/docs. Any time you make changes to the v2/v3 docs then you will need to re-run the `pnpm fetchDocs:local` command.
+To generate the docs locally you can run `pnpm fetchDocs:local`, then you can boot up the website repo and view them at http://localhost:3000/docs. Any time you make changes to the docs you will need to re-run the `pnpm fetchDocs:local` command.
 
 ### License
 

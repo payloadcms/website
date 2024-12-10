@@ -63,12 +63,15 @@ function getHeadings(source) {
 }
 
 function getLocalDocsPath() {
-  const nodeModuleDocsPath = path.join(process.cwd(), './node_modules/payload/docs')
+  const docsPath = process.env.DOCS_DIR
+    ? path.resolve(process.env.DOCS_DIR)
+    : path.join(process.cwd(), './node_modules/payload/docs')
+
   const docDirs = {
-    v2: process.env.DOCS_DIR_V2 ? path.resolve(process.env.DOCS_DIR_V2) : nodeModuleDocsPath,
-    v3: process.env.DOCS_DIR_V3 ? path.resolve(process.env.DOCS_DIR_V3) : nodeModuleDocsPath,
+    v2: `${docsPath}/V2_(excluded_from_search)`,
+    v3: `${docsPath}/Latest`,
   }
-  return docDirs?.[ref] || nodeModuleDocsPath
+  return docDirs?.[ref] || docsPath
 }
 
 async function getFilenames({ topicSlug }) {
