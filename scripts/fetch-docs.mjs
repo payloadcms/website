@@ -68,8 +68,8 @@ function getLocalDocsPath() {
     : path.join(process.cwd(), './node_modules/payload/docs')
 
   const docDirs = {
-    v2: `${docsPath}/V2_(excluded_from_search)`,
-    v3: `${docsPath}/Latest`,
+    v2: `${docsPath}/v2-excluded-from-search`,
+    v3: `${docsPath}/latest`,
   }
   return docDirs?.[ref] || docsPath
 }
