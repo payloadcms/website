@@ -49,11 +49,11 @@ export const RenderDocs = async ({
 
   const currentDoc = topic?.docs?.[docIndex]
 
-  const path = `${topic.slug.toLowerCase()}/${currentDoc.slug}`
-
   if (!currentDoc) {
     return notFound()
   }
+
+  const path = `${topic.slug.toLowerCase()}/${currentDoc.slug}`
 
   const hideVersionSelector =
     process.env.NEXT_PUBLIC_ENABLE_BETA_DOCS !== 'true' &&
