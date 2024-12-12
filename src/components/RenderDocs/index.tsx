@@ -21,6 +21,7 @@ import remarkGfm from 'remark-gfm'
 import classes from './index.module.scss'
 import { TopicGroup } from '@root/app/(frontend)/(pages)/docs/api'
 import { Feedback } from '@components/Feedback'
+import { PayloadRedirects } from '@components/PayloadRedirects'
 
 export const RenderDocs = async ({
   children,
@@ -50,7 +51,13 @@ export const RenderDocs = async ({
   const currentDoc = topic?.docs?.[docIndex]
 
   if (!currentDoc) {
-    return notFound()
+    return (
+      <PayloadRedirects
+        url={`/docs${version && version !== 'current' ? '/' + version : ''}/${params.topic}/${
+          params.doc
+        }`}
+      />
+    )
   }
 
   const path = `${topic.slug.toLowerCase()}/${currentDoc.slug}`
