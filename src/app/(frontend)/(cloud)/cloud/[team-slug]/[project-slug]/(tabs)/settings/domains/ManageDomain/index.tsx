@@ -26,8 +26,7 @@ export const ManageDomain: React.FC<Props> = ({ domain, project, team, environme
 
   const { openModal, closeModal } = useModal()
   const projectID = project?.id
-  const projectDomains = project?.domains
-  const cnameRecord = project?.defaultDomain
+  const [projectDomains, setProjectDomains] = React.useState(project?.domains || [])
 
   const patchDomains = React.useCallback(
     async (domains: Props['domain'][]) => {
@@ -46,26 +45,22 @@ export const ManageDomain: React.FC<Props> = ({ domain, project, team, environme
           },
         )
 
-        // TODO: alert user based on status code & message
-
         if (req.status === 200) {
           const res = await req.json()
-          // reloadProject()
+          setProjectDomains(domains)
           return res
         }
       } catch (e) {
-        console.error(e) // eslint-disable-line no-console
+        console.error(e)
       }
 
       return null
     },
-    [projectID],
+    [projectID, environmentSlug],
   )
 
   const deleteDomain = React.useCallback(async () => {
-    const remainingDomains = (projectDomains || []).filter(
-      existingDomain => existingDomain.id !== id,
-    )
+    const remainingDomains = projectDomains.filter(existingDomain => existingDomain.id !== id)
 
     await patchDomains(remainingDomains)
     closeModal(modalSlug)
