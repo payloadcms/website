@@ -71,11 +71,11 @@
 .commentMeta {
   display: flex;
   gap: 1rem;
-  @include label;
+  @include h6;
 }
 
 .date {
-  @include label;
+  @include h6;
   & {
     font-size: 13px;
     color: var(--theme-elevation-500);
