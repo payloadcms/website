@@ -42,7 +42,7 @@ export async function generateMetadata({
     tGroup.some(topic => topic?.slug?.toLowerCase() === topicSlug),
   )
 
-  const indexInGroup = topics[groupIndex].topics.findIndex(
+  const indexInGroup = topics[groupIndex]?.topics?.findIndex(
     topic => topic?.slug?.toLowerCase() === topicSlug,
   )
 
