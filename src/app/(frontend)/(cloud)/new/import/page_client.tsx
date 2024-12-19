@@ -227,11 +227,11 @@ export const ImportProject: React.FC<{
             </Fragment>
           )}
         </div>
-        {installs?.length > 0 && results?.total_count / perPage > 1 && (
+        {installs?.length > 0 && initialRepos && initialRepos?.total_count > perPage && (
           <Pagination
             page={page}
             setPage={setPage}
-            totalPages={Math.ceil(results?.total_count / perPage)}
+            totalPages={Math.ceil(initialRepos?.total_count / perPage)}
             className={classes.pagination}
           />
         )}

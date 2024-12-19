@@ -68,7 +68,7 @@ export const ProjectEmailPage: React.FC<{
         To use Resend’s email delivery in your Payload Cloud project, add the Payload Cloud plugin
         to your project:
       </p>
-      <Code disableMinHeight showLineNumbers={false}>{`yarn add @payloadcms/plugin-cloud`}</Code>
+      <Code disableMinHeight showLineNumbers={false}>{`pnpm add @payloadcms/payload-cloud`}</Code>
       <p></p>
       <p>
         <code>payload.config.js</code>:
@@ -76,7 +76,7 @@ export const ProjectEmailPage: React.FC<{
       <Code
         disableMinHeight
         showLineNumbers={false}
-      >{`import { payloadCloud } from '@payloadcms/plugin-cloud'
+      >{`import { payloadCloud } from '@payloadcms/payload-cloud'
 import { buildConfig } from 'payload/config'
 
 export default buildConfig({

@@ -334,26 +334,26 @@ const Checkout: React.FC<{
                         <Text
                           label="Install Command"
                           path="installScript"
-                          placeholder="yarn install"
+                          placeholder="pnpm install"
                           initialValue={project?.installScript}
                           required
-                          description="Example: `yarn install` or `npm install`"
+                          description="Example: `pnpm install` or `npm install`"
                         />
                         <Text
                           label="Build Command"
                           path="buildScript"
-                          placeholder="yarn build"
+                          placeholder="pnpm build"
                           initialValue={project?.buildScript}
                           required
-                          description="Example: `yarn build` or `npm run build`"
+                          description="Example: `pnpm build` or `npm run build`"
                         />
                         <Text
                           label="Serve Command"
                           path="runScript"
-                          placeholder="yarn serve"
+                          placeholder="pnpm serve"
                           initialValue={project?.runScript}
                           required
-                          description="Example: `yarn serve` or `npm run serve`"
+                          description="Example: `pnpm serve` or `npm run serve`"
                         />
                         <BranchSelector
                           repositoryFullName={project?.repositoryFullName}

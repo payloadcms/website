@@ -114,24 +114,24 @@ export const ProjectBuildSettingsPage: React.FC<{
         />
         <Text
           label="Install Command"
-          placeholder="yarn install"
-          description="Example: `yarn install` or `npm install`"
+          placeholder="pnpm install"
+          description="Example: `pnpm install` or `npm install`"
           path="installScript"
           initialValue={project?.installScript}
           required
         />
         <Text
           label="Build Command"
-          placeholder="yarn build"
-          description="Example: `yarn build` or `npm run build`"
+          placeholder="pnpm build"
+          description="Example: `pnpm build` or `npm run build`"
           path="buildScript"
           initialValue={project?.buildScript}
           required
         />
         <Text
           label="Serve Command"
-          placeholder="yarn serve"
-          description="Example: `yarn serve` or `npm run serve`"
+          placeholder="pnpm serve"
+          description="Example: `pnpm serve` or `npm run serve`"
           path="runScript"
           initialValue={project?.runScript}
           required
