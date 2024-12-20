@@ -4,10 +4,12 @@ import React from 'react'
 
 import { fetchDocs } from '../../api'
 
+type Params = { doc: string; topic: string }
+
 export default async function DocsPage({
   params,
 }: {
-  params: Promise<{ doc: string; topic: string }>
+  params: Promise<Params>
 }) {
   const topics = fetchDocs()
 
@@ -17,7 +19,7 @@ export default async function DocsPage({
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ doc: string; topic: string }>
+  params: Promise<Params>
 }) {
   const { doc: docSlug, topic: topicSlug } = await params
   const topics = fetchDocs()
@@ -53,12 +55,12 @@ export async function generateMetadata({
   }
 }
 
-export function generateStaticParams() {
+export function generateStaticParams(): Params[] {
   if (process.env.NEXT_PUBLIC_SKIP_BUILD_DOCS) {return []}
 
   const topics = fetchDocs()
 
-  const result: { doc: string; topic: string }[] = []
+  const result: Params[] = []
 
   topics.forEach(({ topics: tGroup }) => {
     tGroup.forEach(topic => {
