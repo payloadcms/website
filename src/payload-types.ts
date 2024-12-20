@@ -5833,29 +5833,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        steps?:
-          | T
-          | {
-              stepsFields?:
-                | T
-                | {
-                    settings?:
-                      | T
-                      | {
-                          theme?: T;
-                          background?: T;
-                        };
-                    steps?:
-                      | T
-                      | {
-                          content?: T;
-                          media?: T;
-                          id?: T;
-                        };
-                  };
-              id?: T;
-              blockName?: T;
-            };
+        steps?: T | StepsBlockSelect<T>;
         stickyHighlights?:
           | T
           | {
@@ -5911,38 +5889,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        exampleTabs?:
-          | T
-          | {
-              content?: T;
-              tabs?:
-                | T
-                | {
-                    label?: T;
-                    content?: T;
-                    examples?:
-                      | T
-                      | {
-                          CodeExampleBlock?:
-                            | T
-                            | {
-                                code?: T;
-                                id?: T;
-                                blockName?: T;
-                              };
-                          MediaExampleBlock?:
-                            | T
-                            | {
-                                media?: T;
-                                id?: T;
-                                blockName?: T;
-                              };
-                        };
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
+        exampleTabs?: T | ExampleTabsBlockSelect<T>;
       };
   slug?: T;
   url?: T;
@@ -5956,6 +5903,71 @@ export interface CaseStudiesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StepsBlock_select".
+ */
+export interface StepsBlockSelect<T extends boolean = true> {
+  stepsFields?:
+    | T
+    | {
+        settings?:
+          | T
+          | {
+              theme?: T;
+              background?: T;
+            };
+        steps?:
+          | T
+          | {
+              content?: T;
+              media?: T;
+              id?: T;
+            };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ExampleTabsBlock_select".
+ */
+export interface ExampleTabsBlockSelect<T extends boolean = true> {
+  content?: T;
+  tabs?:
+    | T
+    | {
+        label?: T;
+        content?: T;
+        examples?:
+          | T
+          | {
+              CodeExampleBlock?: T | CodeExampleBlockSelect<T>;
+              MediaExampleBlock?: T | MediaExampleBlockSelect<T>;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CodeExampleBlock_select".
+ */
+export interface CodeExampleBlockSelect<T extends boolean = true> {
+  code?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaExampleBlock_select".
+ */
+export interface MediaExampleBlockSelect<T extends boolean = true> {
+  media?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6924,29 +6936,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        steps?:
-          | T
-          | {
-              stepsFields?:
-                | T
-                | {
-                    settings?:
-                      | T
-                      | {
-                          theme?: T;
-                          background?: T;
-                        };
-                    steps?:
-                      | T
-                      | {
-                          content?: T;
-                          media?: T;
-                          id?: T;
-                        };
-                  };
-              id?: T;
-              blockName?: T;
-            };
+        steps?: T | StepsBlockSelect<T>;
         stickyHighlights?:
           | T
           | {
@@ -7002,38 +6992,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        exampleTabs?:
-          | T
-          | {
-              content?: T;
-              tabs?:
-                | T
-                | {
-                    label?: T;
-                    content?: T;
-                    examples?:
-                      | T
-                      | {
-                          CodeExampleBlock?:
-                            | T
-                            | {
-                                code?: T;
-                                id?: T;
-                                blockName?: T;
-                              };
-                          MediaExampleBlock?:
-                            | T
-                            | {
-                                media?: T;
-                                id?: T;
-                                blockName?: T;
-                              };
-                        };
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
+        exampleTabs?: T | ExampleTabsBlockSelect<T>;
       };
   slug?: T;
   meta?:
@@ -7638,38 +7597,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        exampleTabs?:
-          | T
-          | {
-              content?: T;
-              tabs?:
-                | T
-                | {
-                    label?: T;
-                    content?: T;
-                    examples?:
-                      | T
-                      | {
-                          CodeExampleBlock?:
-                            | T
-                            | {
-                                code?: T;
-                                id?: T;
-                                blockName?: T;
-                              };
-                          MediaExampleBlock?:
-                            | T
-                            | {
-                                media?: T;
-                                id?: T;
-                                blockName?: T;
-                              };
-                        };
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
+        exampleTabs?: T | ExampleTabsBlockSelect<T>;
         form?:
           | T
           | {
@@ -8068,29 +7996,7 @@ export interface ReusableContentSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        steps?:
-          | T
-          | {
-              stepsFields?:
-                | T
-                | {
-                    settings?:
-                      | T
-                      | {
-                          theme?: T;
-                          background?: T;
-                        };
-                    steps?:
-                      | T
-                      | {
-                          content?: T;
-                          media?: T;
-                          id?: T;
-                        };
-                  };
-              id?: T;
-              blockName?: T;
-            };
+        steps?: T | StepsBlockSelect<T>;
         stickyHighlights?:
           | T
           | {
@@ -12248,29 +12154,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                     id?: T;
                     blockName?: T;
                   };
-              steps?:
-                | T
-                | {
-                    stepsFields?:
-                      | T
-                      | {
-                          settings?:
-                            | T
-                            | {
-                                theme?: T;
-                                background?: T;
-                              };
-                          steps?:
-                            | T
-                            | {
-                                content?: T;
-                                media?: T;
-                                id?: T;
-                              };
-                        };
-                    id?: T;
-                    blockName?: T;
-                  };
+              steps?: T | StepsBlockSelect<T>;
               stickyHighlights?:
                 | T
                 | {
@@ -12326,38 +12210,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                     id?: T;
                     blockName?: T;
                   };
-              exampleTabs?:
-                | T
-                | {
-                    content?: T;
-                    tabs?:
-                      | T
-                      | {
-                          label?: T;
-                          content?: T;
-                          examples?:
-                            | T
-                            | {
-                                CodeExampleBlock?:
-                                  | T
-                                  | {
-                                      code?: T;
-                                      id?: T;
-                                      blockName?: T;
-                                    };
-                                MediaExampleBlock?:
-                                  | T
-                                  | {
-                                      media?: T;
-                                      id?: T;
-                                      blockName?: T;
-                                    };
-                              };
-                          id?: T;
-                        };
-                    id?: T;
-                    blockName?: T;
-                  };
+              exampleTabs?: T | ExampleTabsBlockSelect<T>;
             };
         afterDirectory?:
           | T
@@ -13104,29 +12957,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                     id?: T;
                     blockName?: T;
                   };
-              steps?:
-                | T
-                | {
-                    stepsFields?:
-                      | T
-                      | {
-                          settings?:
-                            | T
-                            | {
-                                theme?: T;
-                                background?: T;
-                              };
-                          steps?:
-                            | T
-                            | {
-                                content?: T;
-                                media?: T;
-                                id?: T;
-                              };
-                        };
-                    id?: T;
-                    blockName?: T;
-                  };
+              steps?: T | StepsBlockSelect<T>;
               stickyHighlights?:
                 | T
                 | {
@@ -13182,38 +13013,7 @@ export interface PartnerProgramSelect<T extends boolean = true> {
                     id?: T;
                     blockName?: T;
                   };
-              exampleTabs?:
-                | T
-                | {
-                    content?: T;
-                    tabs?:
-                      | T
-                      | {
-                          label?: T;
-                          content?: T;
-                          examples?:
-                            | T
-                            | {
-                                CodeExampleBlock?:
-                                  | T
-                                  | {
-                                      code?: T;
-                                      id?: T;
-                                      blockName?: T;
-                                    };
-                                MediaExampleBlock?:
-                                  | T
-                                  | {
-                                      media?: T;
-                                      id?: T;
-                                      blockName?: T;
-                                    };
-                              };
-                          id?: T;
-                        };
-                    id?: T;
-                    blockName?: T;
-                  };
+              exampleTabs?: T | ExampleTabsBlockSelect<T>;
             };
       };
   updatedAt?: T;

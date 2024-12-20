@@ -26,6 +26,7 @@ export const Providers: React.FC<{
   children: React.ReactNode
 }> = ({ children }) => {
   return (
+    // @ts-expect-error
     <CookiesProvider>
       <AuthProvider>
         <ScrollInfoProvider>
